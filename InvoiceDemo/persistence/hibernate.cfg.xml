@@ -1,0 +1,30 @@
+<!DOCTYPE hibernate-configuration PUBLIC 	"-//Hibernate/Hibernate Configuration DTD//EN"	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+	
+<!-- 
+This hibernate configuration is used only for IMAGES_GALLERY stereotype,
+because this stereotype is implemented using hibernate native APIs.
+If you do not use IMAGE_GALLERY you do not need this file.
+
+The datasource configured here is the datasource in where the images will be
+store, and usually match wiht the main datasource of application defined in
+persistence.xml.
+ -->	
+<hibernate-configuration>
+	<session-factory>
+
+		<!-- Tomcat + Hypersonic -->		<property name="hibernate.connection.datasource">java://comp/env/jdbc/InvoiceDemoDS</property>		<property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+		<property name="hibernate.jdbc.use_get_generated_keys">false</property>		
+		<property name="hibernate.show_sql">false</property>		<property name="hibernate.connection.release_mode">after_transaction</property>
+				
+		<!-- WebSphere + AS/400 
+		<property name="hibernate.connection.datasource">jdbc/DemoDS</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.DB2400Dialect</property>
+		<property name="hibernate.jdbc.use_get_generated_keys">false</property>		
+		<property name="hibernate.show_sql">false</property>				<property name="hibernate.connection.release_mode">after_transaction</property>
+		-->
+		
+		<!-- GalleryImage is needed only if you uses IMAGES_GALLERY/GALERIA_IMAGENES stereotype -->
+		<mapping resource="GalleryImage.hbm.xml"/>
+		
+	</session-factory>
+	</hibernate-configuration>
