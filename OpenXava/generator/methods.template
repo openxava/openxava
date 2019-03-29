@@ -1,0 +1,182 @@
+#declare import="org.openxava.model.meta.*"#
+#declare import="org.openxava.util.*"#
+#declare import="org.openxava.util.meta.MetaSet"#
+#declare import="org.openxava.calculators.*"#
+#declare import="org.openxava.generators.Generators"#
+
+#declarations
+
+private String getException() {
+	return ejb?"EJBException":"RuntimeException";
+}
+
+private MetaModel metaModel=null;
+public void setMetaModel(MetaModel metaModel) {
+	this.metaModel = metaModel;
+}
+
+private boolean ejb=false;
+public void setEjb(boolean ejb) {
+	this.ejb = ejb;
+}
+
+public static void generate(XPathContext context, ProgramWriter out, MetaModel metaModel) throws XavaException {
+	generate(context, out, metaModel, false);
+}
+
+public static void generateEJB(XPathContext context, ProgramWriter out, MetaModel metaModel) throws XavaException {
+	generate(context, out, metaModel, true);
+}
+
+private static void generate(XPathContext context, ProgramWriter out, MetaModel metaModel, boolean isEjb) throws XavaException {
+	MethodsPG pg = new MethodsPG();
+	pg.setMetaModel(metaModel);
+	pg.setEjb(isEjb);
+	pg.generate(context, out);
+}
+
+# 
+
+	// Methods/Metodos
+# 
+Iterator itMethods = metaModel.getMetaMethods().iterator();	
+while (itMethods.hasNext()) {	
+	MetaMethod method = (MetaMethod) itMethods.next();
+	String throwSentence = method.hasExceptions()?"throws " + method.getExceptions():"";
+# 
+	/**
+	 * @ejb:interface-method
+	 */
+	public #(method.getTypeName())# #(method.getName())#(#(method.getArguments())#) #(throwSentence)# {
+# 
+	if (ejb) {
+# 
+		boolean cmtActivated = false;
+		if (!org.openxava.hibernate.XHibernate.isCmt()) {
+			org.openxava.hibernate.XHibernate.setCmt(true);
+			cmtActivated = true;
+		}
+# 	
+	} 
+	MetaCalculator calculator = method.getMetaCalculator();
+	String calculatorClass = calculator.getClassName();
+			# 		
+		try {			
+			#(calculatorClass)# #(method.getName())#Calculator = (#(calculatorClass)#)
+				getMetaModel().getMetaMethod("#(method.getName())#").getMetaCalculator().createCalculator();
+			# 	
+	Iterator itSets = calculator.getMetaSetsWithoutValue().iterator();
+	while (itSets.hasNext()) {
+		MetaSet set = (MetaSet) itSets.next();
+		String propertyNameInCalculator = Strings.firstUpper(set.getPropertyName());
+		String propertyNameFrom = set.getPropertyNameFrom();
+		if (propertyNameFrom .indexOf('.') >= 0) {
+			MetaProperty p = metaModel.getMetaProperty(propertyNameFrom);
+			StringTokenizer st = new StringTokenizer(propertyNameFrom, ".");
+			boolean moreThan2Levels = st.countTokens() > 2;
+			StringBuffer propertyNameFromInJava = new StringBuffer();
+			boolean isEmbededKey = ejb && ((p.isKey() && !moreThan2Levels) || (p.getMetaModel() instanceof MetaAggregate));
+			while (st.hasMoreTokens()) {
+				String token = st.nextToken();
+				if (propertyNameFromInJava.length() > 0) {
+					if (isEmbededKey && !st.hasMoreTokens()) {
+						propertyNameFromInJava.append("_");
+					}
+					else {
+						if (isEmbededKey) {
+							propertyNameFromInJava.append("Remote");
+						}	
+						propertyNameFromInJava.append("().get");						
+					}						
+				}
+				if (isEmbededKey && !st.hasMoreTokens()) {
+					propertyNameFromInJava.append(token);
+				}
+				else {
+					propertyNameFromInJava.append(Strings.firstUpper(token));	
+				}
+			}			
+			propertyNameFrom = propertyNameFromInJava.toString();
+		}
+		else {
+			propertyNameFrom  = Strings.firstUpper(propertyNameFrom );
+		}
+		String value = set.getValue();
+		if (set.hasValue()) {
+			# 
+			#(method.getName())#Calculator.set#(propertyNameInCalculator)#("#(value)#");
+			# 
+		} else {	
+			#  	
+			#(method.getName())#Calculator.set#(propertyNameInCalculator)#(get#(propertyNameFrom)#());
+			# 	}} // else/poners 	 
+		if (IModelCalculator.class.isAssignableFrom(Class.forName(calculatorClass))) { 
+			# 
+				#(method.getName())#Calculator.setModel(this);
+			# } 
+		if (IEntityCalculator.class.isAssignableFrom(Class.forName(calculatorClass))) { 
+			# 
+				#(method.getName())#Calculator.setEntity(this);
+			# } 
+		if (IJDBCCalculator.class.isAssignableFrom(Class.forName(calculatorClass))) { 
+			String connectionProvider = ejb?"getPortableContext()":"DataSourceConnectionProvider.getByComponent(\"" + metaModel.getMetaComponent().getName() + "\")";
+			# 
+				#(method.getName())#Calculator.setConnectionProvider(#(connectionProvider)#);
+			# 			
+		}  
+		if (method.hasArguments()) {
+			StringTokenizer st = new StringTokenizer(method.getArguments(), ",");
+			while (st.hasMoreTokens()) {
+				StringTokenizer stArgument = new StringTokenizer(st.nextToken());
+				stArgument.nextToken();
+				String argumentName = stArgument.nextToken().trim();
+				String argumentProperty = Strings.firstUpper(argumentName);
+			# 		
+			#(method.getName())#Calculator.set#(argumentProperty)#(#(argumentName)#);
+			# 
+			}
+		}
+		String calculateValueSentence = method.getName() + "Calculator.calculate()";
+		if ("void".equals(method.getTypeName())) {
+			# 
+			#(calculateValueSentence)#;
+			# 
+		} else {
+			# 
+			return #(Generators.generateCast(method.getTypeName(), calculateValueSentence))#;			
+			# 
+		}
+		if (method.hasExceptions()) {
+			StringTokenizer st = new StringTokenizer(method.getExceptions(), ",");
+			while (st.hasMoreTokens()) {
+				String exception = st.nextToken().trim();
+			# 
+		}
+		catch (#(exception)# ex) {
+			throw ex;					
+			# 		
+				} // while exceptions						
+			} // if has exceptions
+			# 
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			throw new #(getException())#(XavaResources.getString("method_execution_error", "#(method.getName())#", "#(metaModel.getName())#"));
+		}
+# 
+	if (ejb) {
+# 
+		finally {
+			if (cmtActivated) {
+				org.openxava.hibernate.XHibernate.setCmt(false);
+			}
+		}
+# 	
+	} 
+# 
+		
+	}
+
+# 		
+}
+# 

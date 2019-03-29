@@ -1,0 +1,127 @@
+#declare import="org.openxava.model.meta.*"#
+#declare import="org.openxava.mapping.*"#
+#declare import="org.openxava.util.*"#
+#declare import="org.openxava.generators.*"#
+
+#declarations
+
+private MetaReference reference=null;
+public void setReference(MetaReference ref) {
+	this.reference = ref;
+}
+
+public static void generate(XPathContext context, ProgramWriter out, MetaReference ref) throws XavaException {
+	EntityReferencePG pg = new EntityReferencePG();
+	pg.setReference(ref);
+	pg.generate(context, out);
+}
+# 
+
+
+# 
+String refName = Strings.firstUpper(reference.getName());
+# 
+
+	private #(reference.getMetaModelReferenced().getInterfaceName())# #(reference.getName())#;
+# 	
+ModelMapping mapping = null;
+if (reference.getMetaModel() instanceof MetaAggregateForReference) {
+	mapping = reference.getMetaModel().getMetaModelContainer().getMapping();
+}
+else {
+	mapping = reference.getMetaModel().getMapping();
+}
+ReferenceMapping referenceMapping = mapping.getReferenceMapping(reference.getName());
+boolean overlapped = mapping.isReferenceOverlappingWithSomeProperty(reference.getName());
+String setException = overlapped?"throws RemoteException":"";
+MetaModel referencedModel = (MetaModel) reference.getMetaModelReferenced();
+if (overlapped) {
+	for (Iterator itDetails = referenceMapping.getDetails().iterator(); itDetails.hasNext(); ) {
+		ReferenceMappingDetail detail = (ReferenceMappingDetail) itDetails.next();
+		if (!mapping.isReferenceOverlappingWithSomeProperty(reference.getName(), detail.getReferencedModelProperty())) {
+			String cmpTypeName = detail.getCmpTypeName();
+			Class type = null;
+			if (Is.emptyString(cmpTypeName)) {
+				type = referencedModel.getMetaProperty(detail.getReferencedModelProperty()).getType();
+			}
+			else {
+				type = Class.forName(cmpTypeName);
+			}
+			String typeName = Primitives.toWrapperClass(type).getName();
+			String referencedModelProperty = Strings.change(detail.getReferencedModelProperty(), ".", "_");
+# 
+	private #(typeName)# #(reference.getName())#_#(referencedModelProperty)#; 
+# 
+			if (detail.hasConverter()) {
+				String converterAttribute = reference.getName() + "_" + detail.getReferencedModelProperty() + "Converter";
+# 
+	private static org.openxava.converters.IConverter #(converterAttribute)#;
+	private org.openxava.converters.IConverter get#(Strings.firstUpper(converterAttribute))#() {
+		if (#(converterAttribute)# == null) {
+			try {
+				#(converterAttribute)# = (org.openxava.converters.IConverter) 
+					getMetaModel().getMapping().getReferenceMapping("#(reference.getName())#").getConverterForReferencedModelProperty("#(detail.getReferencedModelProperty())#");
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				throw new RuntimeException(XavaResources.getString("generator.create_converter_error", "#(reference.getName())#.#(detail.getReferencedModelProperty())#"));
+			}
+			
+		}	
+		return #(converterAttribute)#;
+	} 
+# 
+			}
+		}
+	}
+}
+# 	
+	public #(reference.getMetaModelReferenced().getInterfaceName())# get#(refName)#() {
+		if (#(reference.getName())# != null) {
+			// Because not-found='ignore' annul lazy initialization, we simulate it
+			try {
+				#(reference.getName())#.toString();
+			}
+			catch (Exception ex) {
+				return null;
+			}
+		}	
+		return #(reference.getName())#;
+	}
+	public void set#(refName)#(#(reference.getMetaModelReferenced().getInterfaceName())# new#(reference.getReferencedModelName())#) #(setException)#{
+		if (new#(reference.getReferencedModelName())# != null && !(new#(reference.getReferencedModelName())# instanceof #(reference.getMetaModelReferenced().getPOJOClassName())#)) {
+			throw new IllegalArgumentException(XavaResources.getString("ejb_to_pojo_illegal")); 
+		}
+		this.#(reference.getName())# = new#(reference.getReferencedModelName())#;
+# 
+if (overlapped) {
+	for (Iterator itDetails = referenceMapping.getDetails().iterator(); itDetails.hasNext(); ) {
+		ReferenceMappingDetail detail = (ReferenceMappingDetail) itDetails.next();
+		if (!mapping.isReferenceOverlappingWithSomeProperty(reference.getName(), detail.getReferencedModelProperty())) {
+			String sentence = "new" + reference.getReferencedModelName() + detail.getReferenceModelPropertyAsJavaMethodCall();						
+			String type = referencedModel.getMetaProperty(detail.getReferencedModelProperty()).getType().getName();
+			String cmpType = detail.getCmpTypeName() == null?type:detail.getCmpTypeName();
+			String referencedModelProperty = Strings.change(detail.getReferencedModelProperty(), ".", "_");
+			if (detail.hasConverter()) {
+				String converterGet = "get" + Strings.firstUpper(reference.getName()) + "_" + detail.getReferencedModelProperty() + "Converter()";
+# 
+		try {
+			#(reference.getName())#_#(referencedModelProperty)# = (#(cmpType)#) #(converterGet)#.toDB(new#(reference.getReferencedModelName())#==null?null:#(Generators.generatePrimitiveWrapper(type, sentence))#);
+		}
+		catch (org.openxava.converters.ConversionException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException(XavaResources.getString("generator.conversion_error", "#(reference.getName())#.#(detail.getReferencedModelProperty())#", "#(reference.getMetaModel().getName())#", "#(type)#"));
+		}		
+# 			
+			}
+			else {
+# 
+		this.#(reference.getName())#_#(referencedModelProperty)# = new#(reference.getReferencedModelName())# == null?null:#(Generators.generatePrimitiveWrapper(type, sentence))#;
+# 
+			}
+		}
+	}
+}
+# 
+	}	
+	

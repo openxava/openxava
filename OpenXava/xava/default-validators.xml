@@ -1,0 +1,99 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE validators SYSTEM "dtds/validators.dtd">
+
+<!--
+	In your project use the name 'validators.xml' or 'validadores.xml'
+	
+	Instead of modifying this file it's better to create your own validators.xml 
+	(or validadores.xml) in your project to override this default value
+	for your application.	
+-->
+
+<validators>
+
+	<validator name="CADENA_NO_VACIA"
+		class="org.openxava.validators.NotEmptyStringValidator"/>
+	<validator name="NOT_EMPTY_STRING"
+		class="org.openxava.validators.NotEmptyStringValidator"/>
+		
+	<validator name="POSITIVO"
+		class="org.openxava.validators.PositiveValidator"/>
+	<validator name="POSITIVE"
+		class="org.openxava.validators.PositiveValidator"/>
+		
+	<validator name="NO_NEGATIVO"
+		class="org.openxava.validators.NotNegativeValidator"/>
+	<validator name="NOT_NEGATIVE"
+		class="org.openxava.validators.NotNegativeValidator"/>		
+				
+	<validator name="NO_NULO"
+		class="org.openxava.validators.NotNullValidator"/>  
+	<validator name="NOT_NULL"
+		class="org.openxava.validators.NotNullValidator"/>  
+				
+	<validator name="NO_CERO"
+		class="org.openxava.validators.NotZeroValidator"/>
+	<validator name="NOT_ZERO" 
+		class="org.openxava.validators.NotZeroValidator"/>
+		
+	<required-validator>  
+		<validator-name name="NOT_ZERO"/>
+		<for-type type="java.lang.Number"/>
+		<for-type type="byte"/>
+		<for-type type="short"/>
+		<for-type type="int"/>
+		<for-type type="long"/>
+		<for-type type="float"/>
+		<for-type type="double"/>  	  	  			  	  	
+	</required-validator>
+  
+	<required-validator>
+		<validator-name name="NOT_EMPTY_STRING"/>
+		<for-type type="java.lang.String"/>     
+	</required-validator> 
+
+	<required-validator>
+		<validator-name name="NOT_NULL"/>
+		<for-type type="java.lang.Object"/>     
+	</required-validator> 
+
+	<required-validator> 
+		<validator-class class="org.openxava.validators.NotBlankCharacterValidator"/>
+		<for-type type= "char"/>		
+	</required-validator>
+	
+	<default-validator>
+		<validator-class class="org.openxava.validators.MoneyScaleValidator"/>
+		<for-stereotype stereotype="MONEY"/>
+		<for-stereotype stereotype="DINERO"/>
+	</default-validator>
+	
+	<default-validator>
+		<validator-class class="org.openxava.validators.EmailValidator"/>
+		<for-stereotype stereotype="EMAIL"/>		
+	</default-validator>
+	
+	<default-validator>
+		<validator-class class="org.openxava.validators.EmailListValidator"/>
+		<for-stereotype stereotype="EMAIL_LIST"/>		
+	</default-validator>
+	
+	<default-validator>
+		<validator-class class="org.openxava.validators.PhoneNumberValidator"/>
+		<for-stereotype stereotype="TELEPHONE"/>
+		<for-stereotype stereotype="TELEFONO"/>
+	</default-validator>
+	
+	<default-validator>
+		<validator-class class="org.openxava.validators.URLValidator"/>
+		<for-stereotype stereotype="WEBURL"/>
+	</default-validator>
+	
+	<default-validator>
+		<validator-class class="org.openxava.validators.MACValidator"/>
+		<for-stereotype stereotype="MAC"/>
+	</default-validator>	
+					
+</validators>
+  

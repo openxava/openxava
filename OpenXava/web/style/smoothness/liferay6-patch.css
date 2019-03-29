@@ -1,0 +1,17 @@
+/* In order to have a handle for resizing columns */
+
+.xava_resizable .ui-resizable-handle {
+	background: transparent url() no-repeat 50% 50%;
+	display: none;
+	font-size: 0.1px;
+	position: absolute;
+	z-index: 999; 
+}
+
+.xava_resizable .ui-resizable-e {
+	background-image: url(../liferay51/images/application/handle_vertical.png);
+	background-position: center center;
+	bottom: 0;
+	top: 0;
+	width: 14px;
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://directwebremoting.org/schema/dwr20.dtd">
+
+<dwr>
+
+  <allow>
+
+    <create creator="new" javascript="Module">
+      <param name="class" value="org.openxava.web.dwr.Module"/>
+    </create>
+    
+    <create creator="new" javascript="Tab">
+      <param name="class" value="org.openxava.web.dwr.Tab"/>
+    </create>
+    
+    <create creator="new" javascript="View">
+      <param name="class" value="org.openxava.web.dwr.View"/>
+    </create>
+    
+    <create creator="new" javascript="Modules">
+      <param name="class" value="com.openxava.naviox.web.dwr.Modules"/>
+    </create>
+    
+    <create creator="new" javascript="Folders">
+      <param name="class" value="com.openxava.naviox.web.dwr.Folders"/>
+    </create>    
+    
+    <create creator="new" javascript="PhoneList">
+      <param name="class" value="com.openxava.phone.web.dwr.PhoneList"/>
+    </create>
+    
+    <create creator="new" javascript="Discussion">
+      <param name="class" value="org.openxava.web.dwr.Discussion"/>
+    </create>
+        
+    <convert converter="bean" match="org.openxava.web.dwr.Result"/>    
+    <convert converter="bean" match="org.openxava.web.dwr.StrokeAction"/>
+        
+  </allow>
+  
+</dwr>

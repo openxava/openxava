@@ -1,0 +1,8 @@
+create table OXEMAILSUBSCRIPTIONS (
+	module varchar(80) not null, 
+	email varchar(50) not null, 
+	primary key (module, email)
+);
+
+create index UK_mo4jh7y2lwcbl9twwxjn2733e 
+	on OXEMAILSUBSCRIPTIONS (module);    

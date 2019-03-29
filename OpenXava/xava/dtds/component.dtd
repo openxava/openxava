@@ -1,0 +1,408 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!ELEMENT component (entity, aggregate*, view*, tab*, ((entity-mapping, aggregate-mapping*)|transient)?)>
+<!ATTLIST component
+ name ID #REQUIRED
+>
+
+<!ELEMENT entity (bean?, implements*, (property|reference|collection)*, (method|finder|postcreate-calculator|postload-calculator|postmodify-calculator|preremove-calculator|validator|remove-validator)*)>
+<!ATTLIST entity
+ label CDATA #IMPLIED
+>
+
+<!ELEMENT finder (condition?, order?)>
+<!ATTLIST finder
+	name CDATA #REQUIRED
+	arguments CDATA #REQUIRED
+	collection (true|false) "false" 
+>
+
+<!ELEMENT aggregate   (bean?, implements*, (property|reference|collection)*, (method|finder|postcreate-calculator|postload-calculator|postmodify-calculator|preremove-calculator|validator|remove-validator)*)>
+<!ATTLIST aggregate
+ name ID #REQUIRED
+ label CDATA #IMPLIED
+>
+
+<!ELEMENT implements EMPTY>
+<!ATTLIST implements
+ interface CDATA #REQUIRED
+>
+
+
+<!ELEMENT view (property*, (reference-view|property-view|collection-view)*, members?)>
+<!ATTLIST view
+  name CDATA #IMPLIED
+  label CDATA #IMPLIED
+  model CDATA #IMPLIED
+  members CDATA "*"  
+  extends CDATA #IMPLIED  
+>
+
+<!ELEMENT members (#PCDATA|group|section|action)*>
+<!ATTLIST members
+	aligned-by-columns (true|false) "false"
+>
+
+<!ELEMENT section (#PCDATA|section|group|action)*>
+<!ATTLIST section
+  name CDATA #IMPLIED
+  label CDATA #IMPLIED
+  aligned-by-columns (true|false) "false"
+>
+
+<!ELEMENT group (#PCDATA|group|action)*>
+<!ATTLIST group
+  name CDATA #IMPLIED
+  label CDATA #IMPLIED
+  aligned-by-columns (true|false) "false"
+>
+
+<!ELEMENT reference-view (((search-list-condition?,on-change-search?,search-action?)|descriptions-list?), action*)>
+<!ATTLIST reference-view
+  reference CDATA #REQUIRED
+  view CDATA #IMPLIED
+  read-only (true|false) "false"
+  frame (true|false) "true"
+  collapsed (true|false) "false"
+  create (true|false) "true"
+  modify (true|false) "true"
+  search (true|false) "true"
+  as-aggregate (true|false) "false"
+  editor CDATA #IMPLIED
+>
+
+<!ELEMENT descriptions-list EMPTY>
+<!ATTLIST descriptions-list
+  description-property CDATA #IMPLIED
+  description-properties CDATA #IMPLIED
+  depends CDATA #IMPLIED
+  condition CDATA #IMPLIED  
+  order-by-key (true|false) "false"    
+  order CDATA #IMPLIED
+  label-format (NORMAL|SMALL|NO_LABEL) "NORMAL"
+  show-reference-view (true|false) "false"
+  for-tabs CDATA #IMPLIED
+  not-for-tabs CDATA #IMPLIED
+  label-style CDATA #IMPLIED
+>
+
+<!ELEMENT property-view (on-change?, action*)>
+<!ATTLIST property-view
+  property CDATA #REQUIRED
+  label CDATA #IMPLIED
+  read-only (true|false) "false"
+  label-format (NORMAL|SMALL|NO_LABEL) "NORMAL"
+  editor CDATA #IMPLIED
+  display-size CDATA #IMPLIED
+  label-style CDATA #IMPLIED
+>
+
+<!ELEMENT on-change EMPTY>
+<!ATTLIST on-change
+  class CDATA #REQUIRED
+>
+
+<!ELEMENT on-change-search EMPTY>
+<!ATTLIST on-change-search
+  class CDATA #REQUIRED
+>
+
+<!ELEMENT collection-view  (list-properties?, search-list-condition?, row-style*, edit-action?, view-action?, new-action?, add-action?, save-action?, hide-detail-action?, remove-action?, remove-selected-action?, list-action*, row-action*, detail-action*, on-select-element-action?)>
+<!ATTLIST collection-view
+  collection CDATA #REQUIRED
+  view CDATA #IMPLIED
+  read-only (true|false) "false"
+  edit-only (true|false) "false"
+  collapsed (true|false) "false"
+  create-reference (true|false) "true"
+  modify-reference (true|false) "true"
+  as-aggregate (true|false) "false"
+  editor CDATA #IMPLIED
+>
+
+<!ELEMENT list-properties (#PCDATA)>
+
+<!ELEMENT search-action (set*)>
+<!ATTLIST search-action
+  action CDATA #IMPLIED
+>
+
+<!ELEMENT edit-action EMPTY>
+<!ATTLIST edit-action
+  action CDATA #IMPLIED
+>
+
+<!ELEMENT view-action EMPTY>
+<!ATTLIST view-action
+  action CDATA #IMPLIED
+>
+
+<!ELEMENT new-action EMPTY>
+<!ATTLIST new-action
+  action CDATA #IMPLIED
+>
+
+<!ELEMENT add-action EMPTY>
+<!ATTLIST add-action
+  action CDATA #IMPLIED
+>
+
+<!ELEMENT save-action EMPTY>
+<!ATTLIST save-action
+  action CDATA #IMPLIED
+>
+
+<!ELEMENT hide-detail-action EMPTY>
+<!ATTLIST hide-detail-action
+  action CDATA #IMPLIED
+>
+
+<!ELEMENT remove-action EMPTY>
+<!ATTLIST remove-action
+  action CDATA #IMPLIED
+>
+
+<!ELEMENT remove-selected-action EMPTY>
+<!ATTLIST remove-selected-action
+  action CDATA #IMPLIED
+>
+
+<!ELEMENT detail-action EMPTY>
+<!ATTLIST detail-action
+  action CDATA #IMPLIED
+>
+
+<!ELEMENT on-select-element-action EMPTY>
+<!ATTLIST on-select-element-action
+  action CDATA #IMPLIED
+>
+
+<!ELEMENT list-action EMPTY>
+<!ATTLIST list-action
+  action CDATA #IMPLIED
+>
+
+<!ELEMENT row-action EMPTY>
+<!ATTLIST row-action
+  action CDATA #IMPLIED
+>
+
+
+
+<!ELEMENT action EMPTY>
+<!ATTLIST action
+  action CDATA #IMPLIED
+  always-enabled (true|false) "false"
+>
+
+
+<!ELEMENT bean EMPTY>
+<!ATTLIST bean
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT property (valid-values?,(calculator|default-value-calculator|calculation)?,validator*)>
+<!ATTLIST property
+ name CDATA #REQUIRED
+ label CDATA #IMPLIED
+ stereotype CDATA #IMPLIED
+ type CDATA #IMPLIED
+ size CDATA #IMPLIED
+ scale CDATA #IMPLIED
+ required (true|false) "false" 
+ key (true|false) "false"
+ hidden (true|false) "false"
+ version (true|false) "false"
+ search-key (true|false) "false"
+>
+
+<!ELEMENT reference (default-value-calculator?)>
+<!ATTLIST reference
+ name CDATA #IMPLIED
+ label CDATA #IMPLIED
+ model CDATA #IMPLIED
+ required (true|false) "false"  
+ key (true|false) "false"
+ role CDATA #IMPLIED
+ search-key (true|false) "false"
+>
+
+<!ELEMENT collection (reference, ((condition?, order?) | calculator), postremove-calculator*)>
+<!ATTLIST collection
+ name CDATA #REQUIRED
+ label CDATA #IMPLIED
+ minimum CDATA #IMPLIED 
+ maximum CDATA #IMPLIED
+>
+
+<!ELEMENT method (calculator)>
+<!ATTLIST method
+ name CDATA #REQUIRED
+ type CDATA "void"
+ arguments CDATA #IMPLIED
+ exceptions CDATA #IMPLIED 
+>
+
+<!ELEMENT validator (set*)>
+<!ATTLIST validator
+ class CDATA #IMPLIED
+ name CDATA #IMPLIED
+ only-on-create (true|false) "false"
+>
+
+<!ELEMENT remove-validator (set*)>
+<!ATTLIST remove-validator
+ class CDATA #IMPLIED
+ name CDATA #IMPLIED
+>
+
+
+<!ELEMENT calculator (set*)>
+<!ATTLIST calculator
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT default-value-calculator (set*)>
+<!ATTLIST default-value-calculator
+ class CDATA #REQUIRED
+ on-create (true|false) "false"
+>
+
+<!ELEMENT calculation
+   (#PCDATA)
+>
+
+<!ELEMENT postcreate-calculator (set*)>
+<!ATTLIST postcreate-calculator
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT postload-calculator (set*)>
+<!ATTLIST postload-calculator
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT postmodify-calculator (set*)>
+<!ATTLIST postmodify-calculator
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT preremove-calculator (set*)>
+<!ATTLIST preremove-calculator
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT postremove-calculator (set*)>
+<!ATTLIST postremove-calculator
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT set EMPTY>
+<!ATTLIST set
+ property CDATA #REQUIRED
+ from CDATA #IMPLIED
+ value CDATA #IMPLIED 
+>
+
+<!ELEMENT valid-values (valid-value*)>
+<!ELEMENT valid-value EMPTY>
+<!ATTLIST valid-value
+ value CDATA #REQUIRED
+>
+
+<!ELEMENT tab
+   (filter?, row-style*, property*, properties?, base-condition?, default-order?)
+>
+<!ATTLIST tab
+ name CDATA #IMPLIED
+ editor CDATA #IMPLIED
+ editors CDATA #IMPLIED
+>
+
+<!ELEMENT row-style EMPTY>
+<!ATTLIST row-style
+ style CDATA #REQUIRED
+ property CDATA #REQUIRED
+ value CDATA #REQUIRED
+>
+
+<!ELEMENT search-list-condition
+   (#PCDATA)
+>
+
+<!ELEMENT condition
+   (#PCDATA)
+>
+<!ELEMENT order
+   (#PCDATA)
+>
+
+<!ELEMENT filter (set*)>
+<!ATTLIST filter
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT properties
+   (#PCDATA)
+>
+
+<!ELEMENT base-condition
+   (#PCDATA)
+>
+  
+<!ELEMENT default-order
+   (#PCDATA)
+>
+
+<!ELEMENT entity-mapping (property-mapping|reference-mapping|multiple-property-mapping)+>
+<!ATTLIST entity-mapping
+ table CDATA #REQUIRED
+>
+
+<!ELEMENT aggregate-mapping (property-mapping|reference-mapping|multiple-property-mapping)+>
+<!ATTLIST aggregate-mapping
+ aggregate CDATA #REQUIRED
+ table CDATA #REQUIRED
+>
+
+<!ELEMENT property-mapping (converter?)>
+<!ATTLIST property-mapping
+ property CDATA #REQUIRED
+ column CDATA #IMPLIED
+ formula CDATA #IMPLIED
+ cmp-type CDATA #IMPLIED 
+>
+
+<!ELEMENT multiple-property-mapping (converter, cmp-field+)>
+<!ATTLIST multiple-property-mapping
+ property CDATA #REQUIRED
+>
+
+<!ELEMENT converter (set*)>
+<!ATTLIST converter
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT cmp-field EMPTY>
+<!ATTLIST cmp-field
+ converter-property CDATA #REQUIRED
+ column CDATA #REQUIRED
+ cmp-type CDATA #REQUIRED
+>
+
+<!ELEMENT reference-mapping
+	(reference-mapping-detail+)
+>
+<!ATTLIST reference-mapping
+ reference CDATA #REQUIRED
+>
+
+
+<!ELEMENT reference-mapping-detail (converter?)>
+<!ATTLIST reference-mapping-detail
+ column CDATA #REQUIRED
+ referenced-model-property CDATA #REQUIRED 
+ cmp-type CDATA #IMPLIED 
+>
+
+<!ELEMENT transient EMPTY>

@@ -1,0 +1,140 @@
+/* Synchronizing this with contents.css when upgrading CKEditor. Also adjust body margin of contents.css */
+
+.ox-discussion-comment
+{
+	font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
+	font-size: 13px;
+	color: #6F6F6F;
+	line-height: 1.6;
+	word-wrap: break-word;
+	margin-bottom: 5px; 
+	box-shadow:0 0 3px lightgrey;
+	border: 1px solid #dcdcdc;
+	padding: 10px;
+	background-color: #fafafa !important;
+	border-radius: 1px;
+	white-space: normal; 	
+}
+
+.ox-discussion-comment-header {
+	font-style: italic;	
+	margin-bottom: 10px;
+	font-size: 120%;
+	color: #6F6F6F;
+}
+
+.ox-discussion-comment-author {
+	font-weight: bold;
+}
+
+.ox-discussion-post-button {
+	position: relative;
+	top: -42px;
+	right: 25px;
+	float: right;
+	height: 7px;
+}
+
+.ox-discussion .ox-frame { 
+	float: none;
+}
+
+.ox-discussion-comment blockquote
+{
+	font-style: italic;
+	font-family: Georgia, Times, "Times New Roman", serif;
+	padding: 2px 0;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 0;
+}
+
+.ox-discussion-comment blockquote
+{
+	padding-left: 20px;
+	padding-right: 8px;
+	border-left-width: 5px;
+}
+
+.ox-discussion-comment a
+{
+	color: #0782C1;
+}
+
+.ox-discussion-comment ol, .ox-discussion-comment ul, .ox-discussion-comment dl
+{
+	/* IE7: reset rtl list margin. (#7334) */
+	*margin-right: 0px;
+	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
+	padding: 0 40px;
+}
+
+.ox-discussion-comment h1, .ox-discussion-comment h2, .ox-discussion-comment h3, .ox-discussion-comment h4, .ox-discussion-comment h5, .ox-discussion-comment h6
+{
+	font-weight: normal;
+	line-height: 1.2;
+}
+
+.ox-discussion-comment hr
+{
+	border: 0px;
+	border-top: 1px solid #ccc;
+}
+
+.ox-discussion-comment img.right
+{
+	border: 1px solid #ccc;
+	float: right;
+	margin-left: 15px;
+	padding: 5px;
+}
+
+.ox-discussion-comment img.left
+{
+	border: 1px solid #ccc;
+	float: left;
+	margin-right: 15px;
+	padding: 5px;
+}
+
+.ox-discussion-comment pre
+{
+	white-space: pre-wrap; /* CSS 2.1 */
+	word-wrap: break-word; /* IE7 */
+	-moz-tab-size: 4;
+	tab-size: 4;
+}
+
+.ox-discussion-comment .marker
+{
+	background-color: Yellow;
+}
+
+.ox-discussion-comment span[lang]
+{
+	font-style: italic;
+}
+
+.ox-discussion-comment figure
+{
+	text-align: center;
+	border: solid 1px #ccc;
+	border-radius: 2px;
+	background: rgba(0,0,0,0.05);
+	padding: 10px;
+	margin: 10px 20px;
+	display: inline-block;
+}
+
+.ox-discussion-comment figure > figcaption
+{
+	text-align: center;
+	display: block; /* For IE8 */
+}
+
+.ox-discussion-comment a > img {
+	padding: 1px;
+	margin: 1px;
+	border: none;
+	outline: 1px solid #0782C1;
+}

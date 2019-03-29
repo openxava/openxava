@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="xava"/>
+	<classpathentry kind="src" path="properties"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="i18n"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/commons-fileupload.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/itext.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/portlet-api-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/dom4j.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/commons-collections.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/jasperreports.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/antlr.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/javassist.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/commons-validator.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/mailapi.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/htmlunit.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/commons-io.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/ox-jdbc-adapters.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-core-js.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/dwr.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/junit.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/javax.inject.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="lib/portal-kernel.jar"/>
+	<classpathentry kind="lib" path="lib/portal-service.jar"/>
+	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="lib/xalan.jar"/>
+	<classpathentry kind="lib" path="lib/serializer.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/validation-api.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-codec.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore.jar"/>
+	<classpathentry kind="lib" path="lib/httpmime.jar"/>
+	<classpathentry kind="lib" path="lib/pdfbox.jar"/>
+	<classpathentry kind="lib" path="lib/fontbox.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/ejb.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/jta.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/mime-util.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/commons-lang3.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/jpa.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/hibernate-core.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/hibernate-commons-annotations.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/jboss-logging.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/jandex.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/hibernate-validator.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/hibernate-validator-annotation-processor.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/classmate.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/hibernate-validator-cdi.jar"/>
+	<classpathentry kind="lib" path="lib/javax.el.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/hibernate-envers.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/poi.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/jsoup.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/poi-ooxml.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/activation.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/jaxb-api.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/byte-buddy.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-cssparser.jar"/>
+	<classpathentry kind="lib" path="lib/neko-htmlunit.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-client.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-http.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-io.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-util.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-xml.jar"/>
+	<classpathentry kind="lib" path="lib/websocket-api.jar"/>
+	<classpathentry kind="lib" path="lib/websocket-client.jar"/>
+	<classpathentry kind="lib" path="lib/websocket-common.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/commons-text.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/commons-collections4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/servlet-api.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/jaxb-impl.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/jaxb-core.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

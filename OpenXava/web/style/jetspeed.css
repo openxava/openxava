@@ -1,0 +1,121 @@
+/* 
+Jetspeed style: For use jsp as portlets in jetspeed 1.x
+	Is a minimal style, thinked for left the portal style
+*/
+
+.buttonBar {
+	background: #dddddd;
+	padding: 0 0 0 0;
+}
+
+#errors, .errors {
+	color: #ff0000; 
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+#messages, .messages {
+	color: #3366ff;
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+TABLE.list {	
+	background: white;
+}
+
+TH.list {
+	background: #FFCC00;
+	font-weight: normal; 
+}
+
+
+TR.search {
+	font-weight: normal;
+	background: #dddddd;	 
+}
+
+
+TR.odd {
+	font-weight: normal; 
+	background: #eeeeee;
+}
+
+TR.pair {
+	font-weight: normal;
+	background: #cccccc; 
+}
+
+TR.odd-selected {
+	font-weight: bold;
+	color: #3366ff;
+	background: #eeeeee;
+}
+
+TR.pair-selected {
+	font-weight: bold;
+	color: #3366ff;
+	background: #cccccc;
+}
+
+
+.odd-highlight {
+	font-weight: bold;
+	background: #eeeeee;
+	color: #3366ff;	
+}
+
+
+.pair-highlight {
+	font-weight: bold;
+	background: #cccccc; 
+	color: #3366ff;	
+}
+
+.prompt {
+	font-weight: bold;
+}
+
+.list-info {
+	font-weight: bold;
+}
+
+#list-title {
+	font-weight: bold;
+}
+
+TABLE.frame {
+	border-collapse: collapse;
+	border-color: #dddddd;
+	border-style: solid;
+	border-width: 1px;
+}
+
+TR.frame {
+	background: #dddddd;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+}
+
+TD.frame {
+	padding: 5 5 5 5;
+}
+
+.smallLabel {
+	font-size: 8pt;
+}
+
+
+.activeSection {
+	border-top-color: #FFCC00;
+	border-left-color: #dddddd;
+	border-right-color: #dddddd;
+	border-bottom-color: #dddddd;
+
+	border-style: solid;
+
+	border-top-width: 2px;
+	border-left-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+}

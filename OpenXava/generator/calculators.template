@@ -1,0 +1,110 @@
+#declare import="org.openxava.util.Strings"#
+#declare import="org.openxava.model.meta.*"#
+#declare import="org.openxava.calculators.*"#
+#declare import="org.openxava.util.meta.MetaSet"#
+
+#declarations
+
+private MetaModel metaModel=null;
+public void setMetaModel(MetaModel metaModel) {
+	this.metaModel = metaModel;
+}
+
+private List calculators=null;
+public void setCalculators(List calculators) {
+	this.calculators = calculators;
+}
+
+private String type=null;
+public void setType(String type) {
+	this.type = type;
+}
+
+private String error=null;
+public void setError(String error) {
+	this.error = error;
+}
+
+# 
+
+	# 
+	String name = metaModel.getName();	
+	int count = calculators.size();
+	if (count > 0) {
+	# 
+		boolean cmtActivated = false;
+		if (!org.openxava.hibernate.XHibernate.isCmt()) {
+			org.openxava.hibernate.XHibernate.setCmt(true);
+			cmtActivated = true;
+		}
+		try {
+	# 
+	} 
+	for (int i=0; i<count; i++) {	 
+		MetaCalculator calculator = (MetaCalculator) calculators.get(i);
+		String calculatorClass = calculator.getClassName();				
+		# 		
+			#(calculatorClass)# calculator#(i)#= (#(calculatorClass)#)
+				getMetaModel().getMetaCalculator#(type)#(#(i)#).createCalculator();
+		# 	
+		Iterator itSets = calculator.getMetaSetsWithoutValue().iterator();
+		while (itSets.hasNext()) {
+			MetaSet set = (MetaSet) itSets.next();
+			String propertyNameInCalculator = Strings.firstUpper(set.getPropertyName());
+			String propertyNameFrom = set.getPropertyNameFrom();
+			if (propertyNameFrom.indexOf('.') >= 0) {
+				MetaProperty p = metaModel.getMetaProperty(propertyNameFrom);
+				if (p.isKey() || p.getMetaModel() instanceof MetaAggregate) {
+					propertyNameFrom = Strings.firstUpper(Strings.change(propertyNameFrom, ".", "_"));
+				}
+				else {
+					StringTokenizer st = new StringTokenizer(propertyNameFrom, ".");
+					String ref = st.nextToken();
+					String pro = st.nextToken();
+					propertyNameFrom = Strings.firstUpper(ref) + "().get" + Strings.firstUpper(pro);
+				}
+			}
+			else {
+				propertyNameFrom = Strings.firstUpper(propertyNameFrom);
+			}
+			String value = set.getValue();
+			if (set.hasValue()) {
+		# 
+			calculator#(i)#.set#(propertyNameInCalculator)#("#(value)#");
+		# 
+		} else {
+		# 
+			calculator#(i)#.set#(propertyNameInCalculator)#(get#(propertyNameFrom)#());
+		# 	}} // else/poners
+		if (IModelCalculator.class.isAssignableFrom(Class.forName(calculatorClass))) {
+		# 
+			calculator#(i)#.setModel(this);
+		# }		
+		if (IEntityCalculator.class.isAssignableFrom(Class.forName(calculatorClass))) {
+		# 
+			calculator#(i)#.setEntity(this);
+		# }
+		if (IJDBCCalculator.class.isAssignableFrom(Class.forName(calculatorClass))) {
+		# 
+			calculator#(i)#.setConnectionProvider(getPortableContext());
+		# 
+		}
+		# 
+			calculator#(i)#.calculate();
+	# 		
+	} // for
+	if (count > 0) {	
+	# 
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			throw new EJBException(XavaResources.getString("#(error)#", "#(name)#", ex.getLocalizedMessage()));
+		}
+		finally {
+			if (cmtActivated) {
+				org.openxava.hibernate.XHibernate.setCmt(false);
+			}
+		}
+	# 
+	}
+	# 

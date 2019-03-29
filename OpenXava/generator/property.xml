@@ -1,0 +1,437 @@
+<?xml version="1.0"?>
+<tl><declare import="org.openxava.util.Strings"/>
+<declare import="org.openxava.util.XavaException"/>
+<declare import="org.openxava.model.meta.*"/>
+<declare import="org.openxava.generators.*"/>
+<declare import="org.openxava.calculators.*"/>
+<declare import="org.openxava.util.meta.MetaSet"/>
+<declare import="org.openxava.mapping.*"/>
+
+<declarations>
+
+private String getException() {
+	return ejb?"EJBException":"RuntimeException";
+}
+
+private MetaProperty property=null;
+public void setProperty(MetaProperty property) {
+	this.property = property;
+}
+
+private boolean ejb=false;
+public void setEjb(boolean ejb) {
+	this.ejb = ejb;
+}
+
+private MetaModel metaModel=null;
+private ModelMapping modelMapping=null;
+public void setMetaModel(MetaModel metaModel) throws XavaException {
+	this.metaModel = metaModel;
+	if (metaModel instanceof MetaAggregateForReference) {
+		this.modelMapping = metaModel.getMetaComponent().getEntityMapping();
+	}
+	else {
+		this.modelMapping = metaModel.getMapping();
+	}	
+}
+
+private boolean attributeIsPublic = false;
+private String attributeAccessLevel = "private";
+public void setAttributePublic(boolean attributeIsPublic) {
+	this.attributeIsPublic = attributeIsPublic;
+	this.attributeAccessLevel = attributeIsPublic?"public":"private";
+}
+
+private boolean isPublic = true;
+private String propertyAccessLevel = "public";
+public void setPublic(boolean isPublic) {
+	this.isPublic = isPublic;
+	this.propertyAccessLevel = isPublic?"public":"private";
+}
+public static void generate(XPathContext context, ProgramWriter out, MetaProperty property) throws XavaException {
+	generate(context, out, property, true, false);
+}
+
+public static void generateEJB(XPathContext context, ProgramWriter out, MetaProperty property) throws XavaException {
+	generate(context, out, property, true, true);
+}
+
+public static void generatePrivate(XPathContext context, ProgramWriter out, MetaProperty property, boolean ejb) throws XavaException {
+	generate(context, out, property, false, ejb);
+}
+
+private static void generate(XPathContext context, ProgramWriter out, MetaProperty property, boolean isPublic, boolean isEjb) throws XavaException {
+	PropertyPG pg = new PropertyPG();
+	pg.setProperty(property);
+	pg.setMetaModel(property.getMetaModel());
+	pg.setPublic(isPublic);
+	pg.setEjb(isEjb);
+	pg.generate(context, out);
+}
+
+
+</declarations> 
+
+<java>
+	if (GeneratorFactory.has(property, ejb)) {
+		IPropertyCodeGenerator generator = GeneratorFactory.create(property, ejb);
+		String propertyCode = generator.generate();
+</java> 
+	<expr>propertyCode</expr>	
+<java>		
+		return true;
+	}
+	String propertyName = Strings.firstUpper(property.getName());	
+	String type = property.getTypeName();	
+	String get = type.equals("boolean")?"is":"get";	
+	String tagValueObject = ejb &amp;&amp; isPublic?"@ejb.value-object match=\"persistentCalculatedAndAggregate\"":"";
+	String tagInterfaceMethod = ejb &amp;&amp; isPublic?"@ejb:interface-method":"";
+	if (property.isCalculated()) {
+		// Calculated ones
+	</java> 	
+	/**
+	 * <expr>tagValueObject</expr>
+	 * <expr>tagInterfaceMethod</expr>
+	 */
+	public <expr>type</expr> <expr>get</expr><expr>propertyName</expr>() {	
+
+<java>
+		if (ejb) {
+</java> 
+		boolean cmtActivated = false;
+		if (!org.openxava.hibernate.XHibernate.isCmt()) {
+			org.openxava.hibernate.XHibernate.setCmt(true);
+			cmtActivated = true;
+		}
+<java>	
+		} 
+			MetaCalculator calculator = property.getMetaCalculator();
+			String calculatorClass = calculator.getClassName();
+			String qualifiedPropertyName = Strings.change(property.getName(), "_", "."); // for aggregate member case
+			</java> 		
+		try {			
+			<expr>calculatorClass</expr> <expr>property.getName()</expr>Calculator= (<expr>calculatorClass</expr>)
+				getMetaModel().getMetaProperty("<expr>qualifiedPropertyName</expr>").getMetaCalculator().createCalculator();
+			<java>	
+			Iterator itSets = calculator.getMetaSetsWithoutValue().iterator();
+			while (itSets.hasNext()) {
+				MetaSet set = (MetaSet) itSets.next();
+				String propertyNameInCalculator = Strings.firstUpper(set.getPropertyName());
+				String propertyNameFrom = set.getPropertyNameFrom();
+				MetaProperty p = null;
+				try {
+					p = metaModel.getMetaProperty(propertyNameFrom);
+				}
+				catch (org.openxava.util.ElementNotFoundException ex) {
+					// Trying if it's referencing to its parent
+					String parentPrefix = Strings.firstLower(metaModel.getContainerModelName()) + ".";
+					if (propertyNameFrom.startsWith(parentPrefix)) {
+						String propertyInParent = propertyNameFrom.substring(parentPrefix.length());
+						p = metaModel.getMetaModelContainer().getMetaProperty(propertyInParent);
+					}
+					else throw ex;
+				}
+				if (propertyNameFrom.indexOf('.') &gt;= 0) {
+					StringTokenizer st = new StringTokenizer(propertyNameFrom, ".");
+					boolean moreThan2Levels = st.countTokens() &gt; 2;
+					StringBuffer propertyNameFromInJava = new StringBuffer();
+					boolean isEmbededKey = ejb &amp;&amp; ((p.isKey() &amp;&amp; !moreThan2Levels) || (p.getMetaModel() instanceof MetaAggregate));
+					while (st.hasMoreTokens()) {
+						String token = st.nextToken();
+						if (propertyNameFromInJava.length() &gt; 0) {
+							if (isEmbededKey &amp;&amp; !st.hasMoreTokens()) {
+								propertyNameFromInJava.append("_");
+							}
+							else {
+								if (isEmbededKey) {
+									propertyNameFromInJava.append("Remote");
+								}	
+								propertyNameFromInJava.append("().get");						
+							}						
+						}
+						if (isEmbededKey &amp;&amp; !st.hasMoreTokens()) {
+							propertyNameFromInJava.append(token);
+						}
+						else {
+							propertyNameFromInJava.append(Strings.firstUpper(token));	
+						}
+					}			
+					propertyNameFrom = propertyNameFromInJava.toString();
+				}
+				else {
+					propertyNameFrom = Strings.firstUpper(propertyNameFrom);
+				}
+				int idx = propertyName.indexOf('_');
+				if (idx &gt;= 0) {
+					String aggregateName = propertyName.substring(0, idx + 1);
+					propertyNameFrom = aggregateName + Strings.firstLower(propertyNameFrom);
+				}
+				String getPropertyFrom = "boolean".equals(p.getTypeName())?"is":"get";
+				String value = set.getValue();
+				if (set.hasValue()) {
+			</java> 
+			<expr>property.getName()</expr>Calculator.set<expr>propertyNameInCalculator</expr>("<expr>value</expr>");
+			<java>
+				} else {	
+			</java>  	
+			
+			<expr>property.getName()</expr>Calculator.set<expr>propertyNameInCalculator</expr>(<expr>getPropertyFrom</expr><expr>propertyNameFrom</expr>());
+			
+			<java>	}} // else/sets 	 
+			if (IModelCalculator.class.isAssignableFrom(Class.forName(calculatorClass))) { 
+			</java> 
+				<expr>property.getName()</expr>Calculator.setModel(this);
+			<java>} 
+			if (IEntityCalculator.class.isAssignableFrom(Class.forName(calculatorClass))) { 
+			</java> 
+				<expr>property.getName()</expr>Calculator.setEntity(this);
+			<java>} 
+			if (IJDBCCalculator.class.isAssignableFrom(Class.forName(calculatorClass))) {
+				if (ejb) { 
+			</java> 
+				<expr>property.getName()</expr>Calculator.setConnectionProvider(getPortableContext());			
+			<java>			
+				}
+				else { // not ejb
+			</java> 
+				<expr>property.getName()</expr>Calculator.setConnectionProvider(DataSourceConnectionProvider.getByComponent("<expr>metaModel.getMetaComponent().getName()</expr>"));		
+			<java>			
+				}
+			}  
+			String calculateValueSentence = property.getName() + "Calculator.calculate()";		
+			</java> 
+			return <expr>Generators.generateCast(property.getTypeName(), calculateValueSentence)</expr>;
+		}
+		catch (NullPointerException ex) {
+			// Usually for multilevel property access with null references
+			<java>if (boolean.class.equals(property.getType())) { </java>
+			return false;
+			<java>} else if (property.getType().isPrimitive()) { </java> 
+			return 0;
+			<java>} else { </java> 
+			return null;
+			<java>} </java> 			
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			throw new <expr>getException()</expr>(XavaResources.getString("generator.calculate_value_error", "<expr>propertyName</expr>", "<expr>metaModel.getName()</expr>", ex.getLocalizedMessage()));
+		}
+<java>
+		if (ejb) {
+</java> 
+		finally {
+			if (cmtActivated) {
+				org.openxava.hibernate.XHibernate.setCmt(false);
+			}
+		}
+<java>	
+		} 
+</java> 		
+	}
+	public void set<expr>propertyName</expr>(<expr>type</expr> new<expr>propertyName</expr>) {
+		// for it is in value object
+		// para que aparezca en los value objects
+	}
+	<java>
+	}
+	else {
+		// Not calculateds
+		String column = modelMapping.getColumn(property.getName());			
+		PropertyMapping propertyMapping = modelMapping.getPropertyMapping(property.getName());
+		
+		String ejbPkField = "";
+		String ejbSetInterfaceMethod = ejb &amp;&amp; isPublic?"@ejb:interface-method":"";
+		if (property.isKey()) {
+			ejbPkField = "@ejb:pk-field";
+			ejbSetInterfaceMethod = "";			
+		}
+		if (propertyMapping.hasConverter() || propertyMapping.hasMultipleConverter()) { // Common for multiple and normal converter
+			String converterClass = propertyMapping.hasConverter()?"org.openxava.converters.IConverter":propertyMapping.getMultipleConverterClassName();		
+			String multiple = propertyMapping.hasMultipleConverter()?"Multiple":"";
+			</java> 
+	private static <expr>converterClass</expr> <expr>property.getName()</expr>Converter;
+	private <expr>converterClass</expr> get<expr>propertyName</expr>Converter() {
+		if (<expr>property.getName()</expr>Converter == null) {
+			try {
+				<expr>property.getName()</expr>Converter = (<expr>converterClass</expr>) 
+					getMetaModel().getMapping().get<expr>multiple</expr>Converter("<expr>property.getName()</expr>");
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				throw new <expr>getException()</expr>(XavaResources.getString("generator.create_converter_error", "<expr>property.getName()</expr>"));
+			}
+			
+		}	
+		return <expr>property.getName()</expr>Converter;
+	}
+			<java>			
+		}
+		if (propertyMapping.hasMultipleConverter()) { // With converter for multiple fields
+			Iterator itCmpFields = propertyMapping.getCmpFields().iterator();
+			while (itCmpFields.hasNext()) {
+				CmpField cmpField = (CmpField) itCmpFields.next();
+				if (ejb) {
+		</java> 
+	/**	 
+	 * @ejb:persistent-field
+	 * @jboss:column-name "<expr>cmpField.getColumn()</expr>"
+	 */		
+	public abstract <expr>cmpField.getCmpTypeName()</expr> get<expr>propertyName</expr>_<expr>cmpField.getConverterPropertyName()</expr>();
+	public abstract void set<expr>propertyName</expr>_<expr>cmpField.getConverterPropertyName()</expr>(<expr>cmpField.getCmpTypeName()</expr> newValue);
+	
+		<java>
+				}
+				else { // not ejb
+		</java> 
+	private <expr>cmpField.getCmpTypeName()</expr> <expr>property.getName()</expr>_<expr>cmpField.getConverterPropertyName()</expr>;
+	private <expr>cmpField.getCmpTypeName()</expr> get<expr>propertyName</expr>_<expr>cmpField.getConverterPropertyName()</expr>() {
+		return <expr>property.getName()</expr>_<expr>cmpField.getConverterPropertyName()</expr>;
+	}
+	private void set<expr>propertyName</expr>_<expr>cmpField.getConverterPropertyName()</expr>(<expr>cmpField.getCmpTypeName()</expr> newValue) {
+		this.<expr>property.getName()</expr>_<expr>cmpField.getConverterPropertyName()</expr> = newValue;
+	}
+		<java>	
+				}
+			}
+		</java> 
+	/**
+	 * <expr>tagValueObject</expr>
+	 * <expr>tagInterfaceMethod</expr>
+	 */
+	public <expr>type</expr> <expr>get</expr><expr>propertyName</expr>() {
+		try {
+		<java>
+			itCmpFields = propertyMapping.getCmpFields().iterator();
+			while (itCmpFields.hasNext()) {
+				CmpField cmpField = (CmpField) itCmpFields.next();				
+		</java> 
+			get<expr>propertyName</expr>Converter().set<expr>Strings.firstUpper(cmpField.getConverterPropertyName())</expr>(get<expr>propertyName</expr>_<expr>cmpField.getConverterPropertyName()</expr>());
+		<java>		
+			}
+			String toJavaSentence = "get" + propertyName + "Converter().toJava()";
+		</java> 
+			return <expr>Generators.generateCast(type, toJavaSentence)</expr>;
+		}
+		catch (org.openxava.converters.ConversionException ex) {
+			ex.printStackTrace();
+			throw new <expr>getException()</expr>(XavaResources.getString("generator.conversion_error", "<expr>propertyName</expr>", "<expr>metaModel.getName()</expr>", "<expr>type</expr>"));
+		}
+	}
+
+	/**
+	 * <expr>ejbSetInterfaceMethod</expr>
+	 */
+	public void set<expr>propertyName</expr>(<expr>type</expr> new<expr>propertyName</expr>) {
+		try {
+			<java>if (ejb) { </java>
+			this.modified = true;
+			<java>} </java>
+			<java>
+			String argv = Generators.generatePrimitiveWrapper(type, "new" + propertyName);
+			</java> 
+			get<expr>propertyName</expr>Converter().toDB(<expr>argv</expr>);
+		<java>
+			itCmpFields = propertyMapping.getCmpFields().iterator();
+			while (itCmpFields.hasNext()) {
+				CmpField cmpField = (CmpField) itCmpFields.next();				
+		</java> 
+			set<expr>propertyName</expr>_<expr>cmpField.getConverterPropertyName()</expr>(get<expr>propertyName</expr>Converter().get<expr>Strings.firstUpper(cmpField.getConverterPropertyName())</expr>());
+		<java>		
+			}
+		</java> 			
+		}
+		catch (org.openxava.converters.ConversionException ex) {
+			ex.printStackTrace();
+			throw new <expr>getException()</expr>(XavaResources.getString("generator.conversion_db_error", "<expr>propertyName</expr>", "<expr>metaModel.getName()</expr>"));
+		}		
+	}	
+		<java>
+		}
+		else if (propertyMapping.hasConverter()) { // Wint single field converter
+			String cmpType = propertyMapping.getCmpTypeName();
+			String getSentence = "get" + propertyName + "Converter().toJava(get_"+propertyName+"())";			
+			String setSentence = "get" + propertyName + "Converter().toDB(" + Generators.generatePrimitiveWrapper(type, "new" + propertyName) + ")";
+			if (!ejb) {
+</java> 
+	<expr>attributeAccessLevel</expr> <expr>cmpType</expr> <expr>property.getName()</expr>;
+	private <expr>cmpType</expr> get_<expr>propertyName</expr>() {
+		return <expr>property.getName()</expr>;
+	}
+	private void set_<expr>propertyName</expr>(<expr>cmpType</expr> new<expr>propertyName</expr>) {
+		this.<expr>property.getName()</expr> = new<expr>propertyName</expr>;
+	}
+<java>			
+			}
+			else {
+</java> 
+	/**	 
+	 * @ejb:persistent-field
+	 * <expr>ejbPkField</expr>
+	 * @jboss:column-name "<expr>column</expr>"
+	 */
+	public abstract <expr>cmpType</expr> get_<expr>propertyName</expr>();
+	public abstract void set_<expr>propertyName</expr>(<expr>cmpType</expr> new<expr>propertyName</expr>);
+<java>
+			}
+</java> 	
+	
+	/**
+	 * <expr>tagValueObject</expr>
+	 * <expr>tagInterfaceMethod</expr>
+	 */
+	<expr>propertyAccessLevel</expr> <expr>type</expr> <expr>get</expr><expr>propertyName</expr>() {
+		try {
+			return <expr>Generators.generateCast(type, getSentence)</expr>;
+		}
+		catch (org.openxava.converters.ConversionException ex) {
+			ex.printStackTrace();
+			throw new <expr>getException()</expr>(XavaResources.getString("generator.conversion_error", "<expr>propertyName</expr>", "<expr>metaModel.getName()</expr>", "<expr>type</expr>"));
+		}
+	}
+	
+	/**
+	 * <expr>ejbSetInterfaceMethod</expr>
+	 */
+	<expr>propertyAccessLevel</expr> void set<expr>propertyName</expr>(<expr>type</expr> new<expr>propertyName</expr>) {
+		try {
+			<java>if (ejb) { </java> 
+			this.modified = true;
+			<java>} </java> 
+			set_<expr>propertyName</expr>(<expr>Generators.generateCast(cmpType, setSentence)</expr>);
+		}
+		catch (org.openxava.converters.ConversionException ex) {
+			ex.printStackTrace();
+			throw new <expr>getException()</expr>(XavaResources.getString("generator.conversion_error", "<expr>propertyName</expr>", "<expr>metaModel.getName()</expr>", "<expr>type</expr>"));
+		}		
+	}	
+<java>		
+		} else { // normal
+			if (!ejb) {
+			</java> 
+	<expr>attributeAccessLevel</expr> <expr>type</expr> <expr>property.getName()</expr>;
+	<expr>propertyAccessLevel</expr> <expr>type</expr> <expr>get</expr><expr>propertyName</expr>() {
+		return <expr>property.getName()</expr>;
+	}
+	<expr>propertyAccessLevel</expr> void set<expr>propertyName</expr>(<expr>type</expr> new<expr>propertyName</expr>) {
+		this.<expr>property.getName()</expr> = new<expr>propertyName</expr>;
+	}
+			<java>			
+			}
+			else {
+</java> 
+	/**
+	 * <expr>tagInterfaceMethod</expr>
+	 * @ejb:persistent-field
+	 * <expr>ejbPkField</expr>
+	 * <expr>tagValueObject</expr>
+	 *
+	 * @jboss:column-name "<expr>column</expr>"
+	 */
+	public abstract <expr>type</expr> <expr>get</expr><expr>propertyName</expr>();
+	/**
+	  * <expr>ejbSetInterfaceMethod</expr>
+	  */
+	public abstract void set<expr>propertyName</expr>(<expr>type</expr> new<expr>propertyName</expr>);
+
+<java>}}} //else/else/else </java>
+</tl>

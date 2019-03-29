@@ -1,0 +1,47 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE stereotype-type-default SYSTEM "dtds/stereotype-type-default.dtd">
+
+<stereotype-type-default>	<for stereotype="DINERO" type="java.math.BigDecimal"/>
+	<for stereotype="MONEY" type="java.math.BigDecimal"/>
+	<for stereotype="TEXTO_GRANDE" type="java.lang.String"/>
+	<for stereotype="TEXT_AREA" type="java.lang.String"/>
+	<for stereotype="MEMO" type="java.lang.String"/>
+	<for stereotype="FOTO" type="byte[]"/>		
+	<for stereotype="IMAGEN" type="byte[]"/>
+	<for stereotype="PHOTO" type="byte[]"/>		
+	<for stereotype="IMAGE" type="byte[]"/>	
+	<for stereotype="HORA" type="String"/>	
+	<for stereotype="TIME" type="String"/>		
+	<for stereotype="ETIQUETA" type="String"/>	
+	<for stereotype="LABEL" type="String"/>		
+	<for stereotype="ETIQUETA_NEGRITA" type="String"/>	
+	<for stereotype="BOLD_LABEL" type="String"/>	
+	<for stereotype="DATETIME" type="java.sql.Timestamp"/>
+	<for stereotype="FECHAHORA" type="java.sql.Timestamp"/>
+	<for stereotype="IMAGES_GALLERY" type="String"/>
+	<for stereotype="GALERIA_IMAGENES" type="String"/>
+	<for stereotype="HTML_TEXT" type="java.lang.String"/>
+	<for stereotype="TEXTO_HTML" type="java.lang.String"/>
+	<for stereotype="IMAGE_LABEL" type="java.lang.String"/>
+	<for stereotype="ETIQUETA_IMAGEN" type="java.lang.String"/>
+	<for stereotype="EMAIL" type="String"/>
+	<for stereotype="TELEPHONE" type="String"/>
+	<for stereotype="TELEFONO" type="String"/>
+	<for stereotype="WEBURL" type="String"/>
+	<for stereotype="IP" type="String"/>
+	<for stereotype="ISBN" type="String"/>
+	<for stereotype="CREDIT_CARD" type="String"/>
+	<for stereotype="TARJETA_CREDITO" type="String"/>
+	<for stereotype="EMAIL_LIST" type="String"/>
+	<for stereotype="LISTA_EMAIL" type="String"/>
+	<for stereotype="MAC" type="String"/>
+	<for stereotype="FILE" type="String"/>
+	<for stereotype="ARCHIVO" type="String"/>
+	<for stereotype="FILES" type="String"/>
+	<for stereotype="ARCHIVOS" type="String"/>
+	<for stereotype="ICON" type="String"/> 
+	<for stereotype="ICONO" type="String"/>
+	<for stereotype="DISCUSSION" type="String"/>
+	<for stereotype="DISCUSION" type="String"/>	
+</stereotype-type-default>

@@ -1,0 +1,53 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE default-size SYSTEM "dtds/default-size.dtd">
+
+<default-size>
+
+	<for-stereotype name="DINERO" size="15" scale="2"/>
+	<for-stereotype name="MONEY" size="15" scale="2"/>
+	<for-stereotype name="TEXTO_GRANDE" size="500"/>
+	<for-stereotype name="MEMO" size="500"/>
+	<for-stereotype name="TEXT_AREA" size="500"/>
+	<for-stereotype name="HTML_TEXT" size="3000"/>
+	<for-stereotype name="TEXTO_HTML" size="3000"/>
+	<for-stereotype name="HORA" size="5"/>	
+	<for-stereotype name="TIME" size="5"/>  
+	<for-stereotype name="EMAIL" size="50"/>
+	<for-stereotype name="TELEPHONE" size="15"/>
+	<for-stereotype name="TELEFONO" size="15"/>
+	<for-stereotype name="WEBURL" size="50"/>
+	<for-stereotype name="IP" size="15"/>
+	<for-stereotype name="ISBN" size="13"/>
+	<for-stereotype name="CREDIT_CARD" size="19"/>
+	<for-stereotype name="TARJETA_CREDITO" size="19"/>
+	<for-stereotype name="EMAIL_LIST" size="200"/>
+	<for-stereotype name="LISTA_EMAIL" size="200"/>
+	<for-stereotype name="MAC" size="17"/>
+	<for-stereotype name="ICON" size="40"/> 
+	<for-stereotype name="ICONO" size="40"/>
+	<for-stereotype name="DISCUSSION" size="32"/> 
+	<for-stereotype name="DISCUSION" size="32"/> 
+	<for-stereotype name="IMAGES_GALLERY" size="32"/>
+	<for-stereotype name="GALERIA_IMAGENES" size="32"/>
+	<for-stereotype name="FILES" size="32"/>
+	<for-stereotype name="ARCHIVOS" size="32"/>	
+	<for-type class="java.sql.Time" size="5"/>
+	<for-type class="java.util.Date" size="10"/>
+	<for-type class="java.sql.Timestamp" size="19"/>
+	<for-type class="java.lang.String"  size="50"/>
+	<for-type class="boolean"  size="3"/>
+	<for-type class="java.lang.Boolean" size="3"/>
+	<for-type class="int"  size="9"/>
+	<for-type class="java.lang.Integer" size="9"/>
+	<for-type class="long"  size="15"/>
+	<for-type class="java.lang.Long"  size="15"/>
+	<for-type class="short"  size="4"/>
+	<for-type class="java.lang.Short"  size="4"/>	
+	<for-type class="java.math.BigDecimal" size="15" scale="2"/>
+	<for-type class="float" size="6" scale="2"/>
+	<for-type class="java.lang.Float" size="6" scale="2"/>	
+	<for-type class="double" size="10" scale="2"/>
+	<for-type class="java.lang.Double" size="10" scale="2"/>
+			
+</default-size>

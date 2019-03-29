@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<tl><declare import="org.openxava.model.meta.*"/>
+<declare import="org.openxava.util.*"/>
+
+<declarations>
+
+
+private MetaModel metaModel=null;
+public void setMetaModel(MetaModel metaModel) {
+	this.metaModel = metaModel;
+}
+
+private boolean ejb=false;
+public void setEjb(boolean ejb) {
+	this.ejb = ejb;
+}
+
+public static void generate(XPathContext context, ProgramWriter out, MetaModel metaModel, boolean ejb) throws XavaException {
+	InitMembersPG pg = new InitMembersPG();
+	pg.setMetaModel(metaModel);
+	pg.setEjb(ejb);
+	pg.generate(context, out);
+}
+
+</declarations> 
+
+	private void initMembers() {
+		<java>
+		Iterator itPropertiesToInit = metaModel.getMetaPropertiesPersistents().iterator();
+		while (itPropertiesToInit.hasNext()) {
+			MetaProperty p = (MetaProperty) itPropertiesToInit.next();
+			String propertyName = Strings.firstUpper(p.getName());
+			if (!p.getType().isPrimitive()) {				
+		</java> 
+		set<expr>propertyName</expr>(null);
+		<java>
+			}
+			else if (p.isNumber()) {
+		</java> 
+		set<expr>propertyName</expr>(0);
+		<java>	
+			}
+			else if (p.getType().getName().equals("boolean")) {
+		</java> 
+		set<expr>propertyName</expr>(false);
+		<java>
+			}
+		}
+		</java> 
+		
+		<java>
+		if (ejb) {
+			for (Iterator it = metaModel.getMetaReferencesWithMapping().iterator(); it.hasNext(); ) {
+				MetaReference ref = (MetaReference) it.next();
+				String refName = Strings.firstUpper(ref.getName());
+		</java> 
+		set<expr>refName</expr>Key(null);
+		<java>
+			}
+		}
+		</java> 	
+	}
+</tl>

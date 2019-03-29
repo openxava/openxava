@@ -1,0 +1,93 @@
+#declare import="org.openxava.util.Strings"#
+#declare import="org.openxava.util.XavaException"#
+#declare import="org.openxava.model.meta.*"#
+#declare import="org.openxava.generators.*"#
+#declare import="org.openxava.calculators.*"#
+#declare import="org.openxava.util.meta.MetaSet"#
+#declare import="org.openxava.mapping.*"#
+
+#declarations
+
+private MetaReference reference=null;
+public void setReference(MetaReference ref) {
+	this.reference = ref;
+}
+
+
+public static void generate(XPathContext context, ProgramWriter out, MetaReference ref) throws XavaException {
+	AggregateReferencePG pg = new AggregateReferencePG();
+	pg.setReference(ref); 
+	pg.generate(context, out);
+}
+
+# 
+
+#  
+String referenceName = Strings.firstUpper(reference.getName());
+MetaAggregateForReference referencedModel = (MetaAggregateForReference) reference.getMetaModelReferenced();
+String referencedModelClass = referencedModel.getBeanClass();
+#  	
+	// #(referenceName)# : Aggregate/Agregado 
+	public #(referencedModelClass)# get#(referenceName)#() {
+		#(referencedModelClass)# r = new #(referencedModelClass)#();
+		# 
+for (Iterator itAggregateProperties = referencedModel.getMetaProperties().iterator(); itAggregateProperties.hasNext();) {	
+	MetaProperty property = (MetaProperty) itAggregateProperties.next();
+	String propertyName = Strings.firstUpper(property.getName());
+	String get = "boolean".equals(property.getTypeName())?"is":"get";
+		#		
+		r.set#(propertyName)#(#(get)##(referenceName)#_#(property.getName())#());			
+		# 
+}		
+for (Iterator itReferences = referencedModel.getMetaReferences().iterator(); itReferences.hasNext();) {	
+	MetaReference ref = (MetaReference) itReferences.next();
+	String propertyName = Strings.firstUpper(ref.getName());
+	# 
+		r.set#(propertyName)#(get#(referenceName)#_#(ref.getName())#());			
+# } #		
+		return r;
+	}	
+	public void set#(referenceName)#(#(referencedModelClass)# new#(referenceName)#) throws java.rmi.RemoteException { 
+		if (new#(referenceName)# == null) new#(referenceName)# = new #(referencedModelClass)#();
+# 	
+for (Iterator itAggregateProperties = referencedModel.getMetaProperties().iterator(); itAggregateProperties.hasNext();) {	
+	MetaProperty property = (MetaProperty) itAggregateProperties.next();
+	String propertyName = Strings.firstUpper(property.getName());
+#		
+		set#(referenceName)#_#(property.getName())#(new#(referenceName)#.get#(propertyName)#());
+# 
+} 			
+for (Iterator itReferences = referencedModel.getMetaReferences().iterator(); itReferences.hasNext();) {	
+	MetaReference ref = (MetaReference) itReferences.next();
+	String refName = Strings.firstUpper(ref.getName());
+#		
+		set#(referenceName)#_#(ref.getName())#(new#(referenceName)#.get#(refName)#());
+# } #			
+	}
+	
+	// For acceding to properties of this from calculators inside aggregates
+	private #(reference.getMetaModel().getName())# get#(referenceName)#_#(Strings.firstLower(reference.getMetaModel().getName()))#() {
+		return this;
+	} 
+# 	
+for (Iterator itAggregateProperties = referencedModel.getMetaProperties().iterator(); itAggregateProperties.hasNext();) {	
+	MetaProperty originalProperty = (MetaProperty) itAggregateProperties.next();
+	originalProperty.setReadOnly(false);
+	MetaProperty property = originalProperty.cloneMetaProperty();
+	property.setName(reference.getName() + "_" + property.getName()); 
+	PropertyPG.generatePrivate(context, out, property, false); 
+} 
+
+for (Iterator itReferences = referencedModel.getMetaReferences().iterator(); itReferences.hasNext();) {	
+	MetaReference originalReference = (MetaReference) itReferences.next();
+	MetaReference ref = originalReference.cloneMetaReference();	
+	boolean isAggregate = ref.getMetaModelReferenced() instanceof MetaAggregateForReference;
+	ref.setName(reference.getName() + "_" + ref.getName());	
+	if (isAggregate) {	
+		AggregateReferencePG.generate(context, out, ref);
+	} 
+	else { // reference to entity or aggregate implemented as EJB
+		EntityReferencePG.generate(context, out, ref);
+	}		
+} 
+# 

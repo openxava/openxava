@@ -1,0 +1,869 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE controllers SYSTEM "dtds/controllers.dtd">
+
+<!-- 
+default-controllers.xml: OpenXava core controllers 
+
+In your project use the name 'controllers.xml' or 'controladores.xml'
+
+If you have to override some of this controller for you application, you only
+need to create a controller in your application with the same name of the controller
+here that you want to override.
+-->
+
+<controllers>
+
+	<env-var name="XAVA_SEARCH_ACTION" value="CRUD.searchByViewKey"/>
+	<env-var name="XAVA_LIST_ACTION" value="List.viewDetail"/>
+	
+	<object name="xava_view" class="org.openxava.view.View"/>	
+	<object name="xava_referenceSubview" class="org.openxava.view.View"/>	
+	<object name="xava_tab" class="org.openxava.tab.Tab"/>		
+	<object name="xava_mainTab" class="org.openxava.tab.Tab"/>		
+	<object name="xava_customizingTab" class="org.openxava.tab.Tab"/>
+	<object name="xava_myReport" class="org.openxava.session.MyReport"/>
+	<object name="xava_chart" class="org.openxava.session.Chart"/>	
+	<object name="xava_row" class="java.lang.Integer" value="-1"/>	
+	<object name="xava_newImageProperty" class="java.lang.String"/>
+	<object name="xava_currentCollectionLabel" class="java.lang.String"/>
+	<object name="xava_collectionViewObject" class="java.lang.String"/>	
+	<object name="xava_previousControllers" class="java.util.Stack"/>
+	<object name="xava_previousViews" class="java.util.Stack"/>
+	<object name="xava_previousCustomViews" class="java.util.Stack"/>
+	<object name="xava_gallery" class="org.openxava.session.Gallery"/>
+	<object name="xava_defaultSchema" class="java.lang.String" scope="global"/>
+	<object name="xava_persistenceUnit" class="java.lang.String" scope="global"/>
+	<object name="xava_currentModule" class="java.lang.String" />
+	<object name="xava_treeViewParser" class="org.openxava.util.TreeViewParser" />
+	<object name="xava_treeViewNodeFullPath" class="java.lang.String" />
+	<object name="xava_liferayLibrary" class="org.openxava.session.LiferayLibrary"/>					
+	<object name="xava_metaActionsInList" class="java.util.Collection"/>
+	<object name="xava_newFileProperty" class="java.lang.String" />
+	<object name="xava_newFilesetProperty" class="java.lang.String" />
+	<object name="xava_newIconProperty" class="java.lang.String"/> 
+	<object name="xava_cutCollectionElements" class="org.openxava.session.CutCollectionElements" scope="global"/> 
+		
+	<controller name="Typical">
+		<!-- If you modify this controller revise the other Typical controllers below -->
+		<extends controller="Navigation"/>
+		<extends controller="CRUD"/>
+		<extends controller="Print"/>
+		<extends controller="ImportData"/>
+	</controller>
+	
+	<controller name="Void"/>
+	
+	<controller name="CRUD">
+	
+		<action  name="new" 
+			class="org.openxava.actions.NewAction"
+			image="new.gif"
+			icon="library-plus"
+			keystroke="Control N">
+			<set property="restoreModel" value="true"/>			
+		</action>
+
+		<action name="save" mode="detail"
+			by-default="if-possible"
+			class="org.openxava.actions.SaveAction"
+			image="save.gif"
+			icon="content-save"
+			keystroke="Control S"/>	
+		
+		<action name="refresh" mode="detail"			
+			class="org.openxava.actions.SearchAction"
+			image="refresh.gif"
+			icon="refresh"
+			keystroke="control B"/>
+		
+		<action name="delete" mode="detail" confirm="true"
+			class="org.openxava.actions.DeleteAction"
+			image="delete.gif"
+			icon="delete"
+			available-on-new="false"
+			keystroke="Control D"/>		
+		
+		<action name="searchByViewKey" hidden="true"			
+			class="org.openxava.actions.SearchByViewKeyAction"/>
+		
+		<action name="searchExecutingOnChange" hidden="true"
+			class="org.openxava.actions.SearchExecutingOnChangeAction"/>
+		
+		<action name="searchReadOnly" hidden="true"					
+			class="org.openxava.actions.SearchReadOnlyAction"/>
+						
+		<action name="deleteSelected" mode="list" confirm="true"
+			process-selected-items="true"
+			image="delete.gif"
+			icon="delete"			 
+			class="org.openxava.actions.DeleteSelectedAction"
+			keystroke="Control D"/>				
+		
+		<action name="deleteRow" mode="NONE" confirm="true"
+			class="org.openxava.actions.DeleteSelectedAction"
+			image="delete.gif"
+			icon="delete"
+			in-each-row="true"/>	
+			
+	</controller>
+	
+	<controller name="Print">
+								
+		<action name="generatePdf" mode="list"
+			class="org.openxava.actions.GenerateReportAction"
+			image="pdf.gif"
+			icon="file-pdf"
+			keystroke="Control Alt P">
+			<set property="type" value="pdf"/>
+		</action>
+
+		<action name="generateExcel" mode="list"
+			class="org.openxava.actions.GenerateReportAction"
+			image="excel.gif"
+			icon="file-excel"
+			keystroke="Control Alt X">
+			<set property="type" value="csv"/>	
+		</action>
+				
+	</controller>	
+	
+	<controller name="ExtendedPrint">
+		<extends controller="Print"/>
+		
+		<action name="myReports" mode="list"
+			class="org.openxava.actions.MyReportsAction"
+			image="reports.png"
+			icon="library-books">	
+		</action>
+		
+	</controller>
+	
+	<controller name="ImportData">
+		<action name="importData" icon="import" image="import.png" mode="list"
+			class="org.openxava.actions.ImportDataAction"/>
+	</controller>
+	
+	<controller name="ConfigureImport">
+		<action name="configureImport"
+			class="org.openxava.actions.ConfigureImportAction"/>										
+		<action name="cancel"
+			class="org.openxava.actions.CancelAction"/>			
+	</controller>
+	
+	<controller name="Import">
+		<action name="import" takes-long="true"
+			class="org.openxava.actions.ImportAction"/>										
+		<action name="cancel"
+			class="org.openxava.actions.CancelToDefaultControllersAction"/>			
+	</controller>
+	
+	<controller name="MyReport">
+		<action name="generatePdf" 
+			class="org.openxava.actions.GenerateMyReportAction"
+			keystroke="Control Alt P">
+			<set property="type" value="pdf"/>
+		</action>
+		<action name="generateExcel" 
+			class="org.openxava.actions.GenerateMyReportAction"
+			image="excel.gif"
+			keystroke="Control Alt X">
+			<set property="type" value="csv"/>	
+		</action>		
+		<action name="cancel" 
+			class="org.openxava.actions.CancelDialogAction"/>
+		<action name="columnUp" hidden="true" 
+			class="org.openxava.actions.MoveMyReportColumnAction"
+			icon="menu-up"
+			image="descending.gif">
+			<set property="increment" value="-1"/>
+		</action>
+		<action name="columnDown" hidden="true"
+			class="org.openxava.actions.MoveMyReportColumnAction"
+			icon="menu-down"
+			image="ascending.gif">
+			<set property="increment" value="1"/>
+		</action>
+		<action name="removeColumn" hidden="true" in-each-row="true"
+			class="org.openxava.actions.RemoveMyReportColumnAction"
+			icon="delete"
+			image="delete.gif"/>			
+		<action name="saveColumn" hidden="true" 
+			class="org.openxava.actions.SaveMyReportColumnAction"/>
+		<action name="newColumn" hidden="true"
+			class="org.openxava.actions.CreateNewMyReportColumnAction"
+			icon="table-column-plus-after"
+			image="create_new.gif" />						
+		<action name="editColumn" hidden="true" 
+			class="org.openxava.actions.EditMyReportColumnAction"
+			icon="pencil"
+			image="edit.gif"/>					
+		<action name="createNew" hidden="true"
+			class="org.openxava.actions.CreateNewMyReportAction"
+			icon="library-plus"
+			image="create_new.gif"/>			
+		<action name="remove" hidden="true" confirm="true"
+			class="org.openxava.actions.RemoveMyReportAction"
+			icon="delete"
+			image="delete.gif"/>
+		<action name="share" hidden="true" image="shared-reports.png"
+			icon="share-variant"
+			class="org.openxava.actions.ShareMyReportAction"/>																																										
+	</controller>
+	
+	<controller name="Chart"> 
+		<action name="init" hidden="true"
+			class="org.openxava.actions.InitChartAction"/>
+		<action name="release" hidden="true"
+			class="org.openxava.actions.ReleaseChartAction"/>			
+		<action name="selectType" hidden="true"
+			class="org.openxava.actions.SelectChartTypeAction"/>
+		<action name="removeColumn" hidden="true" in-each-row="true"
+			class="org.openxava.actions.RemoveChartColumnAction"
+			icon="delete"
+			image="delete.gif"/>
+	</controller>
+	
+	<controller name="TypicalNotResetOnSave">
+		<extends controller="Typical"/>
+		<action name="save" mode="detail"
+			class="org.openxava.actions.SaveAction"
+			image="save.gif"
+			icon="content-save"
+			by-default="if-possible"
+			keystroke="F3">			
+			<set property="resetAfter" value="false"/>
+		</action>				
+	</controller>
+	
+	<controller name="TypicalNewOnInit">
+		<extends controller="Typical"/>
+		<action name="new" on-init="true"
+			class="org.openxava.actions.NewAction"
+			image="new.gif"
+			icon="library-plus"
+			keystroke="Control N">
+			<set property="restoreModel" value="true"/>			
+		</action>		
+	</controller>
+	
+	<controller name="TypicalRealExcel">
+		<extends controller="Typical"/>
+		<action name="generateExcel" mode="list"
+            class="org.openxava.actions.GenerateReportAction"
+            image="excel.gif"
+            icon="file-excel"
+            keystroke="Control Alt X">
+            <set property="type" value="xls"/>  
+        </action>
+	</controller>
+	
+	<controller name="TypicalExtendedPrint">
+		<extends controller="Navigation"/>
+		<extends controller="CRUD"/>
+		<extends controller="ExtendedPrint"/>
+		<extends controller="ImportData"/>  
+	</controller>
+	
+	<controller name="TypicalWithSearch"> 
+		<extends controller="Typical"/>
+		<extends controller="SearchForCRUD"/>
+	</controller>
+	
+	<controller name="SearchForCRUD"> 
+		<action name="search" mode="detail" 			 
+			class="org.openxava.actions.OpenSearchDialogAction" 
+			image="find.gif"
+			icon="magnify" 
+			keystroke="control B"/>
+	</controller>
+							
+	<controller name="DetailOnly">
+	</controller>	
+	
+	<controller name="Mode">
+		<action name="list"
+			icon="chevron-left"
+			class="org.openxava.actions.GoListAction"
+			keystroke="F9"/>
+		<action name="detail"
+			hidden="true"
+			class="org.openxava.actions.GoDetailAction"/>
+				
+		<action name="initView"
+			class="org.openxava.actions.InitViewAction"
+			hidden="true" on-init="true"/>
+		<action name="initList" on-init="true"
+			class="org.openxava.actions.InitListAction"
+			hidden="true"/>			
+	</controller>
+	
+		
+	<controller name="List">
+	
+		<action name="setPageRowCount"
+			class="org.openxava.actions.SetPageRowCountAction"
+			hidden="true"/>				
+
+		<action name="viewDetail"
+			class="org.openxava.actions.ViewDetailAction"
+			hidden="true"
+			mode="list"
+			image="edit.gif"
+			icon="border-color">
+			<set property="nextAction" value="Mode.detail"/>
+		</action>	
+		 
+		<action name="goPreviousPage"
+			class="org.openxava.actions.GoPreviousPageAction"
+			keystroke="Control A"
+			hidden="true"
+			mode="list"
+			icon="menu-left"/>
+		
+		<action name="goPage"
+			class="org.openxava.actions.GoPageAction"
+			keystroke="Control I"
+			hidden="true"
+			mode="list"/>	
+				
+		<action name="goNextPage"
+			class="org.openxava.actions.GoNextPageAction"
+			keystroke="Control S"
+			hidden="true"
+			mode="list"
+			icon="menu-right"/>			
+				
+		<action name="orderBy"
+			class="org.openxava.actions.OrderByAction"
+			hidden="true"
+			mode="list">
+		</action>
+		
+		<action name="groupBy"
+			class="org.openxava.actions.GroupByAction"
+			hidden="true"
+			mode="list">
+		</action>
+					
+		<action name="filter" by-default="almost-always"
+			class="org.openxava.actions.FilterAction"
+			hidden="true"
+			mode="list"
+			icon="play"
+			image="filter.gif">
+		</action>															
+		
+		<action name="deselectRows"
+			class="org.openxava.actions.DeselectRowsAction"
+			hidden="true"
+			mode="list">			
+		</action>	
+						
+		<action name="addColumns"
+			class="org.openxava.actions.GoAddColumnsAction"
+			hidden="true"
+			mode="list"
+			icon="table-column-plus-after"/>		
+
+		<action name="hideRows"
+			class="org.openxava.actions.HideRowsAction"
+			hidden="true"
+			mode="list"/>		
+		
+		<action name="showRows"
+			class="org.openxava.actions.ShowRowsAction"
+			hidden="true"
+			mode="list"/>
+				
+		<action name="sumColumn"
+			class="org.openxava.actions.SumColumnAction"
+			hidden="true"
+			mode="list"
+			icon="sigma"
+			image="summation.gif"/>
+			
+		<action name="removeColumnSum"
+			class="org.openxava.actions.RemoveColumnSumAction"
+			hidden="true"
+			mode="list"
+			icon="close-circle"
+			image="remove.gif"/>
+
+		<action name="changeConfiguration"
+			class="org.openxava.actions.GoChangeListConfigurationAction"
+			hidden="true"
+			mode="list"
+			icon="rename-box"/>		 
+			
+		<action name="changeColumnName"
+			class="org.openxava.actions.GoChangeColumnNameAction"
+			hidden="true"
+			mode="list"
+			icon="rename-box"/>
+		
+	</controller>
+	
+	<controller name="ChangeListConfiguration">
+		<action name="change"
+			class="org.openxava.actions.ChangeListConfigurationNameAction"/>
+		<action name="remove"
+			class="org.openxava.actions.RemoveListConfigurationAction"/>
+		<action name="cancel" 
+			class="org.openxava.actions.CancelAction"/>		
+	</controller>
+	
+	<controller name="ChangeColumnName">
+		<action name="change"
+			class="org.openxava.actions.ChangeColumnNameAction"/>
+		<action name="cancel" 
+			class="org.openxava.actions.CancelDialogAction"/>			
+	</controller>	
+	
+	<controller name="Cards"> 
+		<action name="loadMoreCards" class="org.openxava.actions.LoadMoreCardsAction"/>
+	</controller>
+	
+	<controller name="ListFormat">
+		<action name="select" 
+			class="org.openxava.actions.SelectListFormatAction"/>
+	</controller>		
+	
+	<controller name="NoCustomizeList">
+        <action name="disableCustomizeList" mode="list"
+                hidden="true" on-init="true"
+                class="org.openxava.actions.DisableCustomizeListAction">
+        </action>
+	</controller>
+	
+	<controller name="Search">  
+		<action name="search" class="org.openxava.actions.SearchDialogAction"/> 
+		<action name="cancel" class="org.openxava.actions.CancelDialogAction"/> 
+	</controller>
+		
+	<controller name="AddColumns"> 					
+		<action name="addColumns" class="org.openxava.actions.AddColumnsAction"/>		
+		<action name="restoreDefault" class="org.openxava.actions.RestoreDefaultColumnsAction">
+			<!--  We left the use-object in order to test action-property attribute -->
+			<use-object name="xava_customizingTab" action-property="tab"/>			
+		</action>			
+		<action name="cancel" 
+			class="org.openxava.actions.CancelAction"/>
+		<action name="showMoreColumns" class="org.openxava.actions.ShowMoreColumnsAction" hidden="true"/>
+		<action name="addColumn" mode="NONE"
+			class="org.openxava.actions.AddColumnsAction"/>							
+	</controller>				
+		
+	<controller name="Navigation">
+		<action name="first" mode="detail"
+			image="home.gif"
+			icon="skip-backward"
+			class="org.openxava.actions.ViewDetailAction"
+			by-default="never"			
+			keystroke="control alt HOME">
+			<set property="goFirst" value="true"/>
+		</action>
+												
+		<action name="previous" mode="detail"
+			image="previous.gif"
+			icon="skip-previous"
+			class="org.openxava.actions.ViewDetailAction"
+			by-default="never"
+			keystroke="control alt LEFT">
+			<set property="increment" value="-1"/>
+		</action>							
+		<action name="next" mode="detail"
+			image="next.gif"
+			icon="skip-next"
+			class="org.openxava.actions.ViewDetailAction"
+			by-default="never"
+			keystroke="control alt RIGHT">
+			<set property="increment" value="1"/>			
+		</action>									
+	</controller>
+									
+	<controller name="ImageEditor">
+		<action name="changeImage"			
+			class="org.openxava.actions.ChangeImageAction"/>								
+		<action name="deleteImage" confirm="true"
+			class="org.openxava.actions.DeleteImageAction"/>					
+	</controller>
+	
+	<controller name="Gallery">
+		<action name="edit" image="photo.gif" hidden="true"
+			icon="camera"
+			class="org.openxava.actions.EditGalleryAction"/>	
+		<action name="addImage"		
+			class="org.openxava.actions.AddImageToGalleryAction"/>
+		<action name="maximizeImage" hidden="true" image="maximize.gif"
+			icon="arrow-expand"
+			class="org.openxava.actions.MaximizeImageAction"/>
+		<action name="minimizeImage" hidden="true" image="minimize.gif"
+			icon="arrow-collapse"
+			class="org.openxava.actions.MinimizeImageAction"/>		
+		<action name="removeImage" hidden="true" image="remove.gif" confirm="true"
+			icon="delete"
+			class="org.openxava.actions.RemoveImageFromGalleryAction"/>
+		<action name="close" 
+			class="org.openxava.actions.CancelAction"/>						
+	</controller>
+	
+	<controller name="LoadImageIntoGallery">
+		<action name="loadImage"
+			class="org.openxava.actions.LoadImageIntoGalleryAction"/>					 
+		<action name="cancel"
+			class="org.openxava.actions.CancelAction"/>		
+	</controller>	
+		
+	<controller name="LoadImage">
+		<action name="loadImage"
+			class="org.openxava.actions.LoadImageAction"/>										
+		<action name="cancel"
+			class="org.openxava.actions.CancelAction"/>			
+	</controller>
+	
+	<controller name="Dialog">
+		<action name="cancel" 
+			class="org.openxava.actions.CancelDialogAction"/>			
+	</controller>
+	
+	<controller name="Return">
+		<action name="return" 
+			class="org.openxava.actions.ReturnAction"/>			
+	</controller>	
+	
+	<controller name="Close">
+		<action name="close" 
+			class="org.openxava.actions.CancelAction"/>			
+	</controller>	
+	
+	<controller name="CloseFromCustomList"> 
+		<action name="close"
+			class="org.openxava.actions.CancelFromCustomListAction"/>
+	</controller>
+	
+	<controller name="Reference">
+		<action name="search"
+			class="org.openxava.actions.ReferenceSearchAction"
+			icon="magnify"
+			image="search.gif"/>
+		<action name="createNew" 
+			class="org.openxava.actions.CreateNewFromReferenceAction"
+			icon="library-plus"
+			image="create_new.gif"/>
+		<action name="modify" 
+			class="org.openxava.actions.ModifyFromReferenceAction"
+			icon="border-color"
+			image="edit.gif"/>
+	</controller>
+	
+	<!--
+		This controller is using when create a new entity from a reference.
+		If you need to overwrite, you can create your own controller
+		with the name {MyEntity}Creation. For example PersonCreation for create Person.
+		-->
+	<controller name="NewCreation">
+		<!-- The action 'new' is execute automatically -->
+		<action name="new" hidden="true"
+			class="org.openxava.actions.NewAction"
+			keystroke="F2"/>			
+		<action name="saveNew" by-default="almost-always"
+			class="org.openxava.actions.SaveNewAction"/>			
+		<action name="cancel"
+			class="org.openxava.actions.CancelAction"/>			
+			
+	</controller>
+	
+	<!--
+		This controller is using when modifying an entity from a reference.
+		If you need to overwrite, you can create your own controller
+		with the name {MyEntity}Modification. For example PersonModification for create Person.
+		-->
+	<controller name="Modification">
+		<!-- The action 'search' is execute automatically -->
+		<action name="search" hidden="true"
+			class="org.openxava.actions.SearchByViewKeyAction"
+			keystroke="F2"/>
+		<action name="update" by-default="almost-always"
+			class="org.openxava.actions.UpdateAction"/> 			
+		<action name="cancel"
+			class="org.openxava.actions.CancelAction"/>
+	</controller>
+				
+	<controller name="ReferenceSearch">
+		<action name="choose" by-default="almost-always"
+			class="org.openxava.actions.ChooseReferenceAction"/> 
+		<action name="cancel"
+			class="org.openxava.actions.CancelFromCustomListAction"/>
+	</controller>
+	
+	<controller name="AddToCollection">
+		<action name="add" 
+			class="org.openxava.actions.AddElementsToCollectionAction"/>		
+		<action name="cancel" 
+			class="org.openxava.actions.CancelFromCustomListAction"/>
+	</controller>
+	
+	<controller name="Collection">
+		
+		<action name="new" image="create_new.gif"
+			icon="library-plus"
+			class="org.openxava.actions.CreateNewElementInCollectionAction"/>							
+			
+		<action name="add" image="create_new.gif"
+			icon="table-row-plus-after"
+			class="org.openxava.actions.GoAddElementsToCollectionAction"/>
+			
+		<action name="hideDetail"
+			class="org.openxava.actions.HideDetailElementInCollectionAction"/>			
+
+		<action name="save"
+			class="org.openxava.actions.SaveElementInCollectionAction"/>			
+
+		<action name="saveAndStay"
+			class="org.openxava.actions.SaveAndStayElementInCollectionAction"/>			
+					
+		<action name="remove" confirm="true"
+			class="org.openxava.actions.RemoveElementFromCollectionAction"/>
+						
+		<action name="edit" image="edit.gif"
+			icon="pencil"
+			class="org.openxava.actions.EditElementInCollectionAction"/>					
+									
+		<action name="view" image="view.gif"
+			icon="eye"
+			class="org.openxava.actions.ViewElementInCollectionAction"/>
+			
+		<action name="removeSelected" confirm="true"
+			icon="delete" 
+			image="delete.gif" in-each-row="true"
+			class="org.openxava.actions.RemoveSelectedInCollectionAction"/>
+													
+	</controller>
+	
+	<controller name="CollectionTotals">
+			
+		<action name="sumColumn"
+			class="org.openxava.actions.SumCollectionColumnAction"
+			hidden="true"
+			icon="sigma"
+			image="summation.gif"/>
+			
+		<action name="removeColumnSum"
+			class="org.openxava.actions.RemoveCollectionColumnSumAction"
+			hidden="true"
+			icon="close-circle"
+			image="remove.gif"/>
+			
+		<action name="save"
+			class="org.openxava.actions.SaveCollectionTotalsAction"
+			hidden="true"/>
+						
+	</controller>
+	
+	<controller name="CollectionCopyPaste">
+			
+		<action name="cut" 
+			icon="content-cut" 
+			image="cut.gif" in-each-row="true"
+			class="org.openxava.actions.CutElementsFromCollectionAction"/>		
+			
+		<action name="paste" 
+			icon="content-paste" 
+			image="paste.gif" 
+			class="org.openxava.actions.PasteElementsIntoCollectionAction"/>
+						
+	</controller>
+	
+	<controller name="ElementCollection">	
+		<action name="refreshTotals" hidden="true"
+			class="org.openxava.actions.EmptyAction"/>	
+	</controller>						
+	
+	<!-- 
+	These actions are optional to use with ManyToMany collection, they are
+	not added by default. That is, you have to use @ListAction("ManyToMany.new")
+	in your @ManyToMany collection
+	 -->
+	<controller name="ManyToMany">		
+		<action name="new" image="new.gif" hidden="true" icon="library-plus"
+			class="org.openxava.actions.CreateNewElementInManyToManyCollectionAction"/>
+	
+		<action name="edit" image="edit.gif" hidden="true" icon="eye" 
+			class="org.openxava.actions.EditElementInManyToManyCollectionAction"> 
+			<set property="editable" value="true"/> 
+			<set property="keyEditable" value="false"/> 
+		</action> 		
+	
+	</controller>			
+		
+	<controller name="ManyToManyNewElement">		
+		<action name="save" 
+			class="org.openxava.actions.SaveElementInManyToManyCollectionAction"/>			
+	</controller>		
+	
+	<controller name="ManyToManyUpdateElement"> 
+		<action name="save" 
+			class="org.openxava.actions.UpdateElementInManyToManyCollectionAction"/> 
+	</controller>
+	
+	<controller name="DefaultListActionsForCollections">
+		<extends controller="CollectionCopyPaste"/>  
+		<extends controller="Print"/>
+	</controller>
+	
+	<controller name="DefaultRowActionsForCollections">
+	</controller>	
+	
+	<controller name="Sections">
+		<action name="change" 
+			class="org.openxava.actions.ChangeSectionAction"
+			keystroke="Control 1..9"/>
+	</controller>
+			
+	<!-- 
+	If you want that your module use the default schema in the object
+	'xava_defaultSchema' your module has to use this controller,
+	or you controller has to extend from this one.
+	-->
+	<controller name="DefaultSchema">
+		<action name="setSchemaDefaultSchema" before-each-request="true" hidden="true"
+			class="org.openxava.actions.SetDefaultSchemaAction"/>
+	</controller>
+	
+	<!--  
+	If you want that your module use the persistence unit in the object
+	'xava_persistenceUnit' your module has to use this controller,
+	or you controller has to extend from this one.
+	-->
+	<controller name="PersistenceUnit">
+		<action name="setPersistenceUnit" before-each-request="true" hidden="true"
+			class="org.openxava.actions.SetPersistenceUnitAction"/>
+	</controller>
+		
+	<!-- You can add this controller to your application and you will be able to
+		switch between schemas by appending parameter `schema`.
+		Also you can switch your locale by appending the `locale` parameter.
+		If you append the `user` parameter to the url it will save its value
+		in a session attribute 'xava.user'.
+		All these actions rely on request.getParameter which depends on the presentation
+		layer. 
+		Keep in mind that it is not recommended to based your application behavior
+		on the presentation layer such as this approach. (Openxava is intended to be 
+		independent of the presentation layer).
+	 -->
+	<controller name="UrlParameters">
+		<action name="setSchema" before-each-request="true" hidden="true"
+			class="org.openxava.actions.SetSchemaAction">
+		</action>
+		<action name="setLocale" on-each-request="true" hidden="true"
+			class="org.openxava.actions.SetLocaleAction">
+		</action>
+		<action name="setUser" on-each-request="true" hidden="true"
+			class="org.openxava.actions.SetUserAction">
+		</action>
+	</controller>
+
+	<!-- This controller integrates Treeview behavior to OpenXava -->	
+	<controller name="TreeView">
+		<action name="new" mode="list" image="create_new.gif"
+			icon="library-plus"
+			class="org.openxava.actions.NewTreeViewItemAction">
+		</action>
+		<action name="remove" class="org.openxava.actions.RemoveTreeViewNodeAction">
+		</action>
+		<action name="save" class="org.openxava.actions.SaveElementInTreeViewAction" 
+			mode="detail">
+		</action>
+		<action name="removeSelected" confirm="true" 
+			image="delete.gif" icon="delete"
+			class="org.openxava.actions.RemoveSelectedTreeViewNodeAction">
+		</action>
+		<action name="up" mode="list" 
+			image="level-up.gif" icon="menu-up"
+			class="org.openxava.actions.TreeViewMoveNodeAction">
+			<set property="actionType" value="UP" />
+		</action>
+		<action name="down" mode="list" 
+			image="level-down.gif" icon="menu-down"
+			class="org.openxava.actions.TreeViewMoveNodeAction">
+			<set property="actionType" value="DOWN" />
+		</action>
+		<action name="left" mode="list" 
+			image="level-left.gif" icon="menu-left"
+			class="org.openxava.actions.TreeViewMoveNodeAction">
+			<set property="actionType" value="LEFT" />
+		</action>
+		<action name="right" mode="list" 
+			image="level-right.gif" icon="menu-right"
+			class="org.openxava.actions.TreeViewMoveNodeAction">
+			<set property="actionType" value="RIGHT" />
+		</action>
+		<action name="expand"
+			class="org.openxava.actions.TreeViewExpandCollapseAction" mode="ALL">
+			<set value="true" property="expanded" />
+		</action>
+		<action name="collapse"
+			class="org.openxava.actions.TreeViewExpandCollapseAction" mode="ALL">
+			<set value="false" property="expanded" />
+		</action>
+	</controller>
+	
+	<controller name="LiferayDocumentLibrary">
+		<action name="addDocument" image="create_new.gif" icon="library-plus" 
+			class="org.openxava.actions.AddLiferayDocumentAction">		
+		</action>		
+		<action name="deleteDocument" image="delete.gif" icon="delete"
+			class="org.openxava.actions.DeleteLiferayDocumentAction">		
+		</action>		
+	</controller>
+	
+	<controller name="LoadLiferayDocument">
+		<action name="loadDocument" 
+			class="org.openxava.actions.LoadLiferayDocumentAction">			
+		</action>	
+	</controller>	
+	
+	<controller name="AttachedFile">
+		<action name="choose" class="org.openxava.actions.ChooseFileAction"
+			icon="attachment" image="attach.gif" />
+		<action name="delete" class="org.openxava.actions.DeleteFileAction" 
+			icon="delete" image="delete.gif" confirm="true" />
+	</controller>
+	
+	<controller name="Icon">
+		<action name="add" class="org.openxava.actions.GoChooseIconAction"/>
+		<action name="change" class="org.openxava.actions.GoChooseIconAction"/>
+		<action name="remove" class="org.openxava.actions.RemoveIconAction"	icon="close-circle"/>
+		<action name="choose" class="org.openxava.actions.ChooseIconAction"/>
+	</controller>
+	
+	<controller name="UploadFile">
+		<action name="uploadFile" class="org.openxava.actions.UploadFileAction" />
+		<action name="cancel" class="org.openxava.actions.CancelAction" />
+	</controller>
+	
+	<controller name="AttachedFiles"> 
+		<action name="add" class="org.openxava.actions.AddFileToFilesetAction" 
+			icon="attachment" image="attach.gif" />
+		<action name="remove" class="org.openxava.actions.RemoveFileFromFilesetAction" 
+			icon="delete" image="delete.gif" confirm="true" />	
+	</controller>
+	
+	<controller name="UploadFileIntoFileset">
+		<action name="uploadFile" class="org.openxava.actions.UploadFileIntoFilesetAction" />
+		<action name="cancel" class="org.openxava.actions.CancelAction" />
+	</controller>
+	
+	<controller name="EmailNotifications">
+		<action name="subscribe" icon="rss" 
+			class="org.openxava.actions.SubscribeToEmailNotificationsAction">
+			<set property="subscribe" value="true" />
+		</action>
+		<action name="unsubscribe" icon="rss" 
+			class="org.openxava.actions.SubscribeToEmailNotificationsAction">
+			<set property="subscribe" value="false" />	
+		</action>	
+	</controller>
+	
+</controllers>

@@ -1,0 +1,315 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE editors SYSTEM "dtds/editors.dtd">
+
+<!--
+	In your project use the name 'editors.xml' or 'editores.xml'
+	
+	Instead of modifying this file it's better to create your own editors.xml 
+	(or editores.xml) in your project to override this default value
+	for your application.	
+-->
+
+<editors>
+  
+	<editor name="List" url="listEditor.jsp" icon="table-large">
+		<for-tabs/>
+	</editor>
+	
+	<editor name="Charts" url="chartsEditor.jsp"
+		selectable-items="false" 
+		icon="chart-line" 
+		init-action="Chart.init" 
+		release-action="Chart.release">
+		<for-tabs/>
+	</editor>	
+	
+	<editor name="Cards" url="cardsEditor.jsp" icon="view-module" selectable-items="false">
+		<for-tabs/>
+	</editor>	
+		
+	<editor name="Reference" url="referenceEditor.jsp" frame="true" composite="true">
+		<for-references/>
+	</editor>
+		
+	<editor name="Collection" url="collectionEditor.jsp">
+		<for-collections/>
+	</editor>
+	
+	<editor name="ElementCollection" url="elementCollectionEditor.jsp">
+		<for-element-collections/>
+	</editor>	
+	
+	<editor name="TextField" url="textEditor.jsp">
+		<for-type type="java.lang.String" />
+		<list-formatter class="org.openxava.formatters.HTMLFilterListFormatter" />		
+	</editor>	
+
+
+	<editor name="NumericField" url="textEditor.jsp">
+		<for-type type="java.math.BigDecimal" />
+		<for-type type="java.math.BigInteger" />
+		<for-type type="int" />
+		<for-type type="java.lang.Integer" />
+		<for-type type="long" />
+		<for-type type="java.lang.Long" />
+		<for-type type="short" /> 
+		<for-type type="java.lang.Short" />
+		<for-type type="double" /> 
+		<for-type type="java.lang.Double" />
+		<for-type type="float" /> 
+		<for-type type="java.lang.Float" />						
+	</editor>		
+ 
+	<editor name="BooleanCheckBox" url="booleanEditor.jsp">
+		<formatter class="org.openxava.formatters.BooleanFormatter" >
+			<set property="nullAsFalse" value="true"/>
+		</formatter>
+		<list-formatter class="org.openxava.formatters.BooleanListFormatter" />
+		<for-type type="boolean" />		<for-type type="java.lang.Boolean" />	</editor>
+	
+	<editor name="BooleanYesNoCombo" url="booleanYesNoEditor.jsp">
+		<formatter class="org.openxava.formatters.BooleanFormatter" />
+		<list-formatter class="org.openxava.formatters.BooleanListFormatter" />
+		<for-model-property model="MyReportColumn" property="booleanValue" />
+	</editor>	
+	<editor name="DateCalendar" url="dateCalendarEditor.jsp">
+		<formatter class="org.openxava.formatters.DateFormatter" />		<for-type type="java.util.Date" />
+	</editor>
+	
+	<editor name="LocalDateCalendar" url="dateCalendarEditor.jsp">
+		<formatter class="org.openxava.formatters.LocalDateFormatter" />
+		<for-type type="java.time.LocalDate" />
+	</editor>	
+
+	<editor name="ValidValuesCombo" url="validValuesEditor.jsp">
+		<for-valid-values />
+	</editor>
+
+	<editor name="ValidValuesRadioButton" url="radioButtonEditor.jsp">
+		<property name="horizontal" value="true" />
+	</editor>
+	<editor name="ValidValuesVerticalRadioButton"
+		url="radioButtonEditor.jsp">
+		<property name="horizontal" value="false" />
+	</editor>
+	<editor name="ValidValuesHorizontalRadioButton"
+		url="radioButtonEditor.jsp">
+		<property name="horizontal" value="true" />
+	</editor>
+
+	<editor name="Enum" url="validValuesEditor.jsp">
+		<for-type type="java.lang.Enum" />
+	</editor>
+
+	<editor name="StringTime" url="textEditor.jsp">
+		<formatter class="org.openxava.formatters.StringTimeFormatter" />
+		<for-stereotype stereotype="HORA" />
+		<for-stereotype stereotype="TIME" />
+	</editor>
+
+	<editor name="Timestamp" url="textEditor.jsp">
+		<formatter class="org.openxava.formatters.SQLTimeFormatter" />
+		<for-type type="java.sql.Time" />
+	</editor>
+	
+	<editor name="Password" url="passwordEditor.jsp"> 
+		<for-stereotype stereotype="PASSWORD" /> 
+		<for-stereotype stereotype="CONTRASENA" />
+	</editor>
+
+	<editor name="Money" url="moneyEditor.jsp"> 
+		<formatter class="org.openxava.formatters.MoneyFormatter" />
+		<for-stereotype stereotype="DINERO" />
+		<for-stereotype stereotype="MONEY" />
+	</editor>
+	
+	<editor name="Email" url="textEditor.jsp">
+        <for-stereotype stereotype="EMAIL"/>
+        <for-stereotype stereotype="EMAIL_LIST"/>
+    </editor>
+    
+    <editor name="WebURL" url="webURLEditor.jsp">
+    	<list-formatter class="org.openxava.formatters.WebURLFormatter"/>
+        <for-stereotype stereotype="WEBURL"/>
+    </editor>    
+    
+	<editor name="Image" url="imageEditor.jsp" format="false">
+		<formatter class="org.openxava.formatters.ImageFormatter" />
+		<for-stereotype stereotype="FOTO" />
+		<for-stereotype stereotype="PHOTO" />
+		<for-stereotype stereotype="IMAGEN" />
+		<for-stereotype stereotype="IMAGE" />
+	</editor>
+
+	<editor name="TextArea" url="textAreaEditor.jsp" frame="true">
+		<for-stereotype stereotype="TEXTO_GRANDE" />
+		<for-stereotype stereotype="MEMO" />
+		<for-stereotype stereotype="TEXT_AREA" />
+	</editor>
+
+	<editor name="Label" url="labelEditor.jsp">
+		<formatter from-type="true" />
+		<for-stereotype stereotype="ETIQUETA" />
+		<for-stereotype stereotype="LABEL" />
+	</editor>
+
+	<editor name="DateTimeCalendar" url="dateTimeCombinedCalendarEditor.jsp">
+		<formatter class="org.openxava.formatters.DateTimeCombinedFormatter" />
+		<for-type type="java.sql.Timestamp" />
+		<for-stereotype stereotype="DATETIME" />
+		<for-stereotype stereotype="FECHAHORA" />
+	</editor>
+	
+	<editor name="DateTimeSeparatedCalendar" url="dateTimeSeparatedCalendarEditor.jsp">
+		<formatter class="org.openxava.formatters.DateTimeSeparatedFormatter" />
+	</editor>	
+	
+	<editor name="DateTimeCombinedCalendar" url="dateTimeCombinedCalendarEditor.jsp">
+		<formatter class="org.openxava.formatters.DateTimeCombinedFormatter" />
+	</editor>
+	
+	<editor name="BoldLabel" url="boldLabelEditor.jsp">
+		<for-stereotype stereotype="ETIQUETA_NEGRITA" />
+		<for-stereotype stereotype="BOLD_LABEL" />
+	</editor>
+
+	<editor name="Gallery" url="galleryEditor.jsp">
+		<for-stereotype stereotype="IMAGES_GALLERY" />
+		<for-stereotype stereotype="GALERIA_IMAGENES" />
+	</editor>
+
+	<editor name="ZeroFilled" url="textEditor.jsp">
+		<property name="fillWithZeros" value="true" />
+		<for-stereotype stereotype="ZEROS_FILLED" />
+		<for-stereotype stereotype="RELLENADO_CON_CEROS" />
+	</editor>
+
+	<!-- 
+		This stereotype is not for be assigned directly to a property, 
+		but it's used internally by OpenXava to render actions inside views.
+	-->
+	<editor url="actionEditor.jsp">
+		<for-stereotype stereotype="__ACTION__" />
+	</editor>
+
+	<editor name="HtmlText" url="htmlEditor.jsp" frame="true">		 
+		<list-formatter class="org.openxava.formatters.HtmlTextListFormatter"/> 
+		<for-stereotype stereotype="HTML_TEXT" />
+		<for-stereotype stereotype="TEXTO_HTML" />
+	</editor>
+	
+	<editor name="SimpleHtmlText" url="htmlEditor.jsp" frame="true">
+		<property name="config" value="simple" />
+		<list-formatter class="org.openxava.formatters.HtmlTextListFormatter"/> 
+		<for-stereotype stereotype="SIMPLE_HTML_TEXT" />
+		<for-stereotype stereotype="TEXTO_HTML_SIMPLE" />
+	</editor>	
+
+	<!-- 
+	It shows an image localized in /xava/images of your web applications,
+	with the patter [prefix][propertyContent].[extension].
+	That is, if the property value is 'RED', it will show the image:
+	/xava/images/imageLabel_RED.gif.
+	You can see an example in the 'sample' property of Color component 
+	in OpenXavaTest.
+	-->
+	<editor name="ImageLabel" url="imageLabelEditor.jsp">
+		<property name="prefix" value="imageLabel_" />
+		<property name="extension" value="gif" />
+		<formatter from-type="true" />
+		<for-stereotype stereotype="IMAGE_LABEL" />
+		<for-stereotype stereotype="ETIQUETA_IMAGEN" />
+	</editor>
+
+	<editor name="TreeView" url="treeViewEditor.jsp">
+		<property name="reader" value="org.openxava.web.editors.TreeViewReaderImpl" />
+	</editor>
+	
+	<!-- Tested with Liferay 5.2 -->
+	<editor name="DocumentLibrary" url="liferayDocumentLibraryEditor.jsp" always-reload="true">
+		<property name="rootFolderNameOrId" value="OpenXava"/>
+		<property name="alsoDeleteFile" value="true"/>
+		<for-stereotype stereotype="DOCUMENT_LIBRARY" />
+		<for-stereotype stereotype="LIBRERIA_DOCUMENTOS" />
+	</editor>
+
+	<editor url="myReportNameEditor.jsp">
+		<for-model-property model="MyReport" property="name"/>
+	</editor>		
+	
+	<editor url="textEditor.jsp">
+		<for-model-property model="MyReportColumn" property="label" /> 
+		<for-model-property model="MyReportColumn" property="value" />
+		<for-model-property model="DiscussionComment" property="userName" />
+		<for-model-property model="WithRequiredLongName" property="name" />
+		<for-model-property model="ImportColumn" property="nameInApp" />
+	</editor>
+	
+	<editor url="labelEditor.jsp">
+		<for-model-property model="ImportColumn" property="headerInFile" />
+		<for-model-property model="ImportColumn" property="sampleContent1" />
+		<for-model-property model="ImportColumn" property="sampleContent2" />
+	</editor>
+		
+	<editor url="myReportColumnNameEditor.jsp" always-reload="true">
+		<for-model-property model="MyReportColumn" property="name" />
+	</editor>
+		
+	<editor url="myReportColumnComparatorEditor.jsp">
+		<list-formatter class="org.openxava.formatters.MyReportComparatorListFormatter"/>
+		<for-model-property model="MyReportColumn" property="comparator" />
+	</editor>
+			
+	<editor url="myReportColumnValidValuesValueEditor.jsp">
+		<for-model-property model="MyReportColumn" property="validValuesValue" />
+	</editor>
+	
+	<editor url="myReportColumnDescriptionsListValueEditor.jsp">
+		<for-model-property model="MyReportColumn" property="descriptionsListValue" />
+	</editor>	
+												
+	<editor name="AttachedFile" url="attachedFileEditor.jsp">		
+		<list-formatter class="org.openxava.formatters.FileListFormatter" />
+		<for-stereotype stereotype="FILE" />
+		<for-stereotype stereotype="ARCHIVO" />
+	</editor>								
+	
+	<editor name="AttachedFiles" url="attachedFilesEditor.jsp" always-reload="true">
+		<for-stereotype stereotype="FILES" />
+		<for-stereotype stereotype="ARCHIVOS" />
+	</editor>
+	
+	<editor name="Discussion" url="discussionEditor.jsp" frame="true">
+		<for-stereotype stereotype="DISCUSSION" />
+		<for-stereotype stereotype="DISCUSION" />
+	</editor>
+	
+	<editor name="Icon" url="iconEditor.jsp">
+		<list-formatter class="org.openxava.formatters.IconListFormatter"/>
+		<for-stereotype stereotype="ICON" />
+		<for-stereotype stereotype="ICONO" />
+	</editor>
+	
+	<editor url="chartDataEditor.jsp">
+		<for-model-property model="Chart" property="chartData" />
+	</editor>
+	
+	<editor url="chartColumnNameEditor.jsp" always-reload="true">
+		<for-model-property model="Chart" property="yColumn" />
+	</editor>
+	
+	<editor url="chartColumnNameEditor.jsp" always-reload="true">
+		<for-model-property model="ChartColumn" property="name" />
+		<property name="showOnlyNumericColumns" value="true" />
+	</editor>
+	
+	<editor url="chartTypeEditor.jsp">
+		<for-model-property model="Chart" property="chartType" />
+	</editor>
+	
+	<editor url="chartXColumnEditor.jsp" always-reload="true">
+		<for-model-property model="Chart" property="xColumn" />
+	</editor>	
+		
+</editors>

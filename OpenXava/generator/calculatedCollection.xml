@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<tl><declare import="org.openxava.util.Strings"/>
+<declare import="org.openxava.util.XavaException"/>
+<declare import="org.openxava.model.meta.*"/>
+<declare import="org.openxava.generators.*"/>
+<declare import="org.openxava.calculators.*"/>
+<declare import="org.openxava.util.meta.MetaSet"/>
+<declare import="org.openxava.mapping.*"/>
+
+<declarations>
+
+private String getException() {
+	return ejb?"EJBException":"RuntimeException";
+}
+
+private MetaModel metaModel=null;
+public void setMetaModel(MetaModel metaModel) throws XavaException {
+	this.metaModel = metaModel;
+}
+
+private MetaCollection collection=null;
+public void setCollection(MetaCollection col) {
+	this.collection = col;
+}
+
+private boolean ejb;
+public void setEjb(boolean ejb) {
+	this.ejb = ejb;
+}
+
+public static void generateEJB(XPathContext context, ProgramWriter out, MetaCollection col) throws XavaException {
+	CalculatedCollectionPG pg = new CalculatedCollectionPG();
+	pg.setCollection(col);
+	pg.setEjb(true);
+	pg.setMetaModel(col.getMetaModel());
+	pg.generate(context, out);
+}
+
+public static void generate(XPathContext context, ProgramWriter out, MetaCollection col) throws XavaException {
+	CalculatedCollectionPG pg = new CalculatedCollectionPG();
+	pg.setCollection(col);
+	pg.setMetaModel(col.getMetaModel());
+	pg.generate(context, out);
+}
+
+</declarations> 
+
+<java>
+String collectionName = Strings.firstUpper(collection.getName());
+</java> 
+
+	<java>if (ejb) { </java> 
+	/**
+	 * @ejb:interface-method
+	 */
+	<java>} </java> 
+	public java.util.Collection get<expr>collectionName</expr>() {				
+		<java>if (ejb) { </java> 
+		boolean cmtActivated = false;
+		if (!org.openxava.hibernate.XHibernate.isCmt()) {
+			org.openxava.hibernate.XHibernate.setCmt(true);
+			cmtActivated = true;
+		} 			
+		<java>} </java> 
+		try {
+			<java>
+			MetaCalculator calculator = collection.getMetaCalculator();
+			String calculatorClass = calculator.getClassName();
+			</java> 		
+			<expr>calculatorClass</expr> <expr>collection.getName()</expr>Calculator= (<expr>calculatorClass</expr>)
+				getMetaModel().getMetaCollection("<expr>collection.getName()</expr>").getMetaCalculator().createCalculator();
+			<java>	
+			Iterator itSets = calculator.getMetaSetsWithoutValue().iterator();
+			while (itSets.hasNext()) {
+				MetaSet set = (MetaSet) itSets.next();
+				String propertyNameInCalculator = Strings.firstUpper(set.getPropertyName());
+				String propertyNameFrom = set.getPropertyNameFrom();
+				MetaProperty p = metaModel.getMetaProperty(propertyNameFrom);				
+				if (propertyNameFrom.indexOf('.') &gt;= 0) {
+					if (p.isKey() || p.getMetaModel() instanceof MetaAggregate) {
+						propertyNameFrom = Strings.firstUpper(Strings.change(propertyNameFrom, ".", "_"));
+					}
+					else {
+						StringTokenizer st = new StringTokenizer(propertyNameFrom, ".");
+						String ref = st.nextToken();
+						String pro = st.nextToken();
+						propertyNameFrom = Strings.firstUpper(ref) + "().get" + Strings.firstUpper(pro);
+					}
+				}
+				else {
+					propertyNameFrom = Strings.firstUpper(propertyNameFrom);
+				}
+				String getPropertyFrom = "boolean".equals(p.getTypeName())?"is":"get";
+				String value = set.getValue();
+				if (set.hasValue()) {
+			</java> 
+			<expr>collection.getName()</expr>Calculator.set<expr>propertyNameInCalculator</expr>("<expr>value</expr>");
+			<java>
+				} else {	
+			</java>  	
+			<expr>collection.getName()</expr>Calculator.set<expr>propertyNameInCalculator</expr>(<expr>getPropertyFrom</expr><expr>propertyNameFrom</expr>());
+			<java>	}} // else/sets 	 
+			if (IModelCalculator.class.isAssignableFrom(Class.forName(calculatorClass))) { 
+			</java> 
+				<expr>collection.getName()</expr>Calculator.setModel(this);
+			<java>} 
+			if (IEntityCalculator.class.isAssignableFrom(Class.forName(calculatorClass))) { 
+			</java> 
+				<expr>collection.getName()</expr>Calculator.setEntity(this);
+			<java>} 
+			if (IJDBCCalculator.class.isAssignableFrom(Class.forName(calculatorClass))) { 
+			</java> 
+				<expr>collection.getName()</expr>Calculator.setConnectionProvider(getPortableContext());			
+			<java>			
+			}  
+			String calculateValueSentence = collection.getName() + "Calculator.calculate()";		
+			</java> 
+			return <expr>Generators.generateCast("java.util.Collection", calculateValueSentence)</expr>;
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			throw new <expr>getException()</expr>(XavaResources.getString("generator.calculate_value_error", "<expr>collection.getName()</expr>", "<expr>metaModel.getName()</expr>", ex.getLocalizedMessage()));
+		}
+		<java>if (ejb) { </java> 
+		finally {
+			if (cmtActivated) {
+				org.openxava.hibernate.XHibernate.setCmt(false);
+			}
+		}
+		<java>} </java> 				
+	}
+</tl>
