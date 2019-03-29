@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.6.0">
+	<wb-module deploy-name="@proyecto@">
+	<wb-resource deploy-path="/" source-path="/web"/>
+	<wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+	<wb-resource deploy-path="/WEB-INF/classes" source-path="/xava"/>
+	<wb-resource deploy-path="/WEB-INF/classes" source-path="/persistence"/>
+	<wb-resource deploy-path="/WEB-INF/classes" source-path="/properties"/>
+	<wb-resource deploy-path="/WEB-INF/classes" source-path="/i18n"/>
+	<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/OpenXava/OpenXava">
+		<dependency-type>uses</dependency-type>
+	</dependent-module>	
+    <dependent-module archiveName="Addons.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Addons/Addons">
+        <dependency-type>uses</dependency-type>
+    </dependent-module>			
+	<property name="context-root" value="@proyecto@"/>
+	<property name="java-output-path" value="/build/classes/"/>
+</wb-module>
+</project-modules>

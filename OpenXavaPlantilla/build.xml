@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+
+<project name="@proyecto@" basedir="." default="desplegarWar">
+
+	<property name="project" value="@proyecto@" />
+	<property name="ox3" value="true" />
+	<property file="../openxava.properties"/>
+	
+	<!-- 
+	Compila todos los .java y .groovy 
+	No necesitas llamarla si trabajas dentro de Eclipse
+	-->
+	<target name="compilar"> 
+		<ant antfile="../OpenXava/build.xml" target="compile"/>
+	</target>	    		
+	
+	<!-- 
+	Construye y despliega la aplicación en formato .war 
+	Lo despliega en el Tomcat incluido en OpenXava, para desplegar 
+	en otro lugar modifica la propiedad tomcat.dir de workspace/openxava.properties.	
+	-->	
+	<target name="desplegarWar">
+		<!-- En un directorio -->
+		<ant antfile="../OpenXava/build.xml" target="deploy"/>
+		<!-- En un archivo (no funciona muy bien en windows + tomcat)
+		<ant antfile="../OpenXava/build.xml" target="deployWar"/>
+		-->
+	</target>				
+	
+	<!-- 
+	Construye y despliega la aplicación en formato .war.
+	Deja el war en la carpeta workspace.dist/TuAplicacion.dist.
+	 -->	
+	<target name="crearWar">
+		<ant antfile="../OpenXava/build.xml" target="createWar"/>
+	</target>					
+	
+	<!--
+	Construye la aplicación en formato portlets. 
+	-->		
+	<target name="generarPortlets"> 
+		<ant antfile="../OpenXava/build.xml" target="generatePortlets"/>
+	</target>
+	
+	<!--
+	Actualiza este proyecto con la versión de OpenXava presente en el workspace.
+	Ha de llamarse después de actualizar la versión de OpenXava.
+	-->
+	<target name="actualizarOX">
+		<ant antfile="../OpenXava/build.xml" target="updateOX"/>
+	</target>
+	
+	<!--
+	Se conecta a tu base de datos y actualiza el esquema para que coincida con 
+	el actual de tu aplicación.	
+	Recuerda dar valor a la propiedad schema.path con la ruta del controlador JDBC de tu base de datos.
+	-->
+	<target name="actualizarEsquema">
+		<ant antfile="../OpenXava/build.xml" target="updateSchemaJPA">			
+			<property name="persistence.unit" value="junit"/>
+			<property name="schema.path" value="../OpenXava/lib/hsqldb.jar"/>
+		</ant>
+	</target>	
+						
+</project>

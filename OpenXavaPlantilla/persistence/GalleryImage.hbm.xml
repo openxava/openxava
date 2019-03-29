@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.openxava.session">
+
+	<class 
+  		name="GalleryImage"
+  		table="IMAGES">
+  
+		<id name="oid" column="ID" access="field">
+			<generator class="uuid"/>
+		</id>
+		
+		<property name="galleryOid" column="GALLERY"/>
+		<property name="image" column="IMAGE" length="16777216"/>
+				
+	</class>
+
+</hibernate-mapping>
+

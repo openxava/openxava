@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<!--
+	Este ant permite crear un nuevo proyecto OpenXava de forma sencilla.
+	Simplemente pon valor a las propiedades y ejecuta la tarea crearNuevoProyecto.
+-->
+
+<project name="CrearNuevoProyecto" default="crearNuevoProyecto" basedir=".">
+
+	<input addproperty="proyecto" message="¿Cuál es el nombre de tu proyecto?"/>
+	<property name="fuentedatos" value="${proyecto}DS"/>	
+	<property name="esquema" value="${proyecto}"/>
+		
+	<target name="crearNuevoProyecto">		
+		<mkdir dir="../${proyecto}"/>
+		<copy todir="../${proyecto}" overwrite="true">
+			<fileset dir="." excludes="CrearNuevoProyecto.xml" />
+	    	<filterset>	    	
+				<filter token="proyecto" value="${proyecto}"/>
+	    		<filter token="fuentedatos" value="${fuentedatos}"/>
+	    		<filter token="esquema" value="${esquema}"/>
+			</filterset> 			         
+		</copy>						
+		<move file="../${proyecto}/.project.template" 
+			tofile="../${proyecto}/.project" />			
+		<move file="../${proyecto}/xava/aplicacion.xml.plantilla" 
+			tofile="../${proyecto}/xava/aplicacion.xml" />
+		<move file="../${proyecto}/xava/controladores.xml.plantilla" 
+			tofile="../${proyecto}/xava/controladores.xml" />
+		<move file="../${proyecto}/i18n/Etiquetas_es.properties.plantilla" 
+			tofile="../${proyecto}/i18n/Etiquetas${proyecto}_es.properties" />				
+		<move file="../${proyecto}/i18n/Mensajes_es.properties.plantilla" 
+			tofile="../${proyecto}/i18n/Mensajes${proyecto}_es.properties" />
+		<delete file="../${proyecto}/src/src.txt"/>
+		<delete dir="../${proyecto}/bin" failonerror="false"/>
+		<ant antfile="../OpenXava/build.xml" target="updateOX">
+			<property name="project" value="${proyecto}"/>
+		</ant>	
+	</target>
+					
+</project>
