@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<!--
+	This ant allows you to create a new OpenXava project in a simple way.
+	Just put value the properties below, and then execute createNewProject target.	
+-->
+
+<project name="CreateNewProject" default="createNewProject" basedir=".">
+
+	<input addproperty="project" message="What is your project name?"/>
+	<property name="datasource" value="${project}DS"/>
+	<property name="schema" value="${project}"/>
+	
+	<target name="createNewProject">		
+		<mkdir dir="../${project}"/>
+		<copy todir="../${project}" overwrite="true">
+			<fileset dir="." excludes="CreateNewProject.xml" />
+	    	<filterset>	    	
+				<filter token="project" value="${project}"/>
+	    		<filter token="datasource" value="${datasource}"/>
+	    		<filter token="schema" value="${schema}"/>
+			</filterset> 			         
+		</copy>						
+		<move file="../${project}/.project.template" 
+			tofile="../${project}/.project" />		
+		<move file="../${project}/xava/application.xml.template" 
+			tofile="../${project}/xava/application.xml" />
+		<move file="../${project}/xava/controllers.xml.template" 
+			tofile="../${project}/xava/controllers.xml" />		
+		<move file="../${project}/i18n/labels_en.properties.template" 
+			tofile="../${project}/i18n/${project}-labels_en.properties" />				
+		<move file="../${project}/i18n/messages_en.properties.template" 
+			tofile="../${project}/i18n/${project}-messages_en.properties" />
+		<delete file="../${project}/src/src.txt"/>
+		<delete dir="../${project}/bin" failonerror="false"/>
+		<ant antfile="../OpenXava/build.xml" target="updateOX"/>
+	</target>
+					
+</project>
