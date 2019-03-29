@@ -1,0 +1,9 @@
+<!ELEMENT code-generators (for-stereotype)+>
+
+<!ELEMENT for-stereotype EMPTY>
+<!ATTLIST for-stereotype
+ name CDATA #REQUIRED
+ model-type (ejb|pojo|ALL) "ALL"
+ class CDATA #REQUIRED
+>
+
