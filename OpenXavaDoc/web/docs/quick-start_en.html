@@ -1,0 +1,1067 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>openxava - quick-start_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <div id="toc">
+        <h1 class="nopad">Table of Contents</h1>
+        <div style="margin-left: 1em;"><a href="#Quick%20start">Quick start</a></div>
+        <div style="margin-left: 2em;"><a href="#Quick%20start-Install%20the%20needed%20tools">Install
+            the needed tools</a></div>
+        <div style="margin-left: 2em;"><a href="#Quick%20start-Configure%20Tomcat">Configure
+            Tomcat</a></div>
+        <div style="margin-left: 2em;"><a href="#Quick%20start-Start%20Tomcat">Start
+            Tomcat</a></div>
+        <div style="margin-left: 2em;"><a href="#Quick%20start-Start%20Eclipse">Start
+            Eclipse</a></div>
+        <div style="margin-left: 2em;"><a href="#Quick%20start-Execute%20the%20example%20application">Execute
+            the example application</a></div>
+        <div style="margin-left: 2em;"><a href="#Quick%20start-Add%20another%20class">Add
+            another class</a></div>
+        <div style="margin-left: 2em;"><a href="#Quick%20start-Add%20a%20teacher%20reference%20to%20pupil">Add
+            a teacher reference to pupil</a></div>
+        <div style="margin-left: 2em;"><a href="#Quick%20start-Show%20teacher%20reference%20as%20a%20combo">Show
+            teacher reference as a combo</a></div>
+        <div style="margin-left: 2em;"><a href="#Quick%20start-Add%20a%20collection%20of%20pupils%20to%20teacher">Add
+            a collection of pupils to teacher</a></div>
+        <div style="margin-left: 2em;"><a href="#Quick%20start-Create%20your%20own%20project">Create
+            your own project</a></div>
+      </div>
+      <h1 id="toc0"><a name="Quick start"></a>Quick start</h1>
+      <em>Also available in <a class="wiki_link" href="quick-start_es.html">Spanish</a>.</em><br>
+      <h2 id="toc1"><a name="Quick start-Install the needed tools"></a>Install
+        the needed tools</h2>
+      Download and <strong>install OpenXava</strong> (if not yet installed):<br>
+      <ul>
+        <li>Go to <a class="wiki_link_ext" href="http://www.openxava.org/downloads"
+            rel="nofollow">http://www.openxava.org/downloads</a></li>
+        <li>Download the latest distribution. It's a zip file.</li>
+        <li>Uncompress the file in your computer.</li>
+      </ul>
+      Download and <strong>install the JDK</strong> (if not yet installed):<br>
+      <ul>
+        <li>Go to <a class="wiki_link_ext" href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
+            rel="nofollow">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></li>
+        <li>Download the JDK 11 or 8. </li>
+        <li>Install it. Remember the path where you install the JDK, you'll need
+          it to configure Tomcat in the next section.</li>
+      </ul>
+      Download and <strong>install Eclipse</strong> (if not yet installed):<br>
+      <ul>
+        <li>Go to <span style="line-height: 1.5;"><a class="wiki_link_ext" href="http://www.eclipse.org/downloads/eclipse-packages/"
+              rel="nofollow">http://www.eclipse.org/downloads/eclipse-packages</a></span></li>
+        <li>Download 'Eclipse IDE for Java EE Developers'.</li>
+        <li>Install it.</li>
+      </ul>
+      <h2 id="toc2"><a name="Quick start-Configure Tomcat"></a>Configure Tomcat</h2>
+      You have to indicate Tomcat where you have installed the JDK.<br>
+      With Windows, add the next line at the beginning of <em>catalina.bat</em>
+      in <em>tomcat\bin</em> folder:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.dos  {font-family:monospace;}
+.dos .imp {font-weight: bold; color: red;}
+.dos .kw1 {color: #00b100; font-weight: bold;}
+.dos .kw2 {color: #000000; font-weight: bold;}
+.dos .kw3 {color: #b1b100; font-weight: bold;}
+.dos .kw4 {color: #0000ff; font-weight: bold;}
+.dos .co1 {color: #808080; font-style: italic;}
+.dos .co2 {color: #b100b1; font-style: italic;}
+.dos .co3 {color: #33cc33;}
+.dos .es0 {color: #ff0000; font-weight: bold;}
+.dos .sy0 {color: #33cc33;}
+.dos .sy1 {color: #33cc33;}
+.dos .st0 {color: #ff0000;}
+.dos .re0 {color: #b100b1; font-weight: bold;}
+.dos .re1 {color: #448844;}
+.dos .re2 {color: #448888;}
+.dos .re3 {color: #448888;}
+.dos span.xtra { display:block; }
+
+-->
+</style><pre class="dos"><span class="kw3">set</span> JAVA_HOME=C:\Program Files\Java\jdk-11.0.1</pre>
+      Don't put <em>C:\Program Files\Java\jdk-11.0.1</em> <strong>put the real
+        path where the JDK is installed in your system</strong>.<br>
+      With Linux or Mac, add the next line at the beginning of <em>catalina.sh</em>
+      in <em>tomcat/bin</em> folder:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash"><span class="kw3">export</span> <span class="re2">JAVA_HOME</span>=<span
+class="sy0">/</span>usr<span class="sy0">/</span>lib<span class="sy0">/</span>jvm<span
+class="sy0">/</span>java-<span class="nu0">11</span>-openjdk</pre>
+      Don't put <em>/usr/lib/jvm/java-11-openjdk</em> <strong>put the real
+        path where the JDK is installed in your system</strong>.<br>
+      <h2 id="toc3"><a name="Quick start-Start Tomcat"></a>Start Tomcat</h2>
+      Start Tomcat, with Windows just double click on <em>startup.bat</em> of <em>tomcat\bin</em>:<br>
+      <img src="files/quick-start_en020.png" alt="quick-start_en020.png" title="quick-start_en020.png"><br>
+      If you use Linux or Mac run <em>startup.sh</em> located in the <em>tomcat/bin</em>
+      folder of OpenXava:<br>
+      <img src="files/quick-start_en030.png" alt="quick-start_en030.png" title="quick-start_en030.png"><br>
+      <h2 id="toc4"><a name="Quick start-Start Eclipse"></a>Start Eclipse</h2>
+      Start Eclipse, it will ask you to choose the workspace, choose the one
+      included in OpenXava:<br>
+      <img src="files/quick-start_en010.png" alt="quick-start_en010.png" title="quick-start_en010.png"><br>
+      If you already have Eclipse started use the option <em>File &gt;Switch
+        Workspace</em>. If you're using an old version of Eclipse it will ask
+      you "Workspace ... was written with a newer version of the product and can
+      be incompatible with this version. If you continue, this can cause
+      unexpected behavior or data loss", don't worry, just click on OK.<br>
+      <h2 id="toc5"><a name="Quick start-Execute the example application"></a>Execute
+        the example application</h2>
+      The OpenXava distribution comes with an example application called <em>MySchool</em>,
+      in order to execute it follow the next steps.<br>
+      Build and deploy the project:<br>
+      <img src="files/quick-start_en040.png" alt="quick-start_en040.png" title="quick-start_en040.png"><br>
+      Go to <a class="wiki_link_ext" href="http://localhost:8080/MySchool/modules/Teacher"
+        rel="nofollow" target="_blank">http://localhost:8080/MySchool/modules/Teacher</a>
+      using your browser to see the application in action:<br>
+      <img src="files/quick-start_en050.png" alt="quick-start_en050.png" title="quick-start_en050.png"><br>
+      <h2 id="toc6"><a name="Quick start-Add another class"></a>Add another
+        class</h2>
+      Add a new class to <em>MySchool</em> project:<br>
+      <img src="files/quick-start_en060.png" alt="quick-start_en060.png" title="quick-start_en060.png"><br>
+      Then type <em>Pupil</em> for the class name:<br>
+      <img src="files/quick-start_en070.png" alt="quick-start_en070.png" title="quick-start_en070.png"><br>
+      Copy the code below into your <em>Pupil</em> class:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.school.model</span><span
+class="sy0">;</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
+class="sy0">;</span>
+&nbsp;
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+class="kw166">Entity</span></a>
+<span class="kw2">public</span> <span class="kw2">class</span> Pupil <span class="br0">{</span>
+&nbsp;
+    @Id @Column<span class="br0">(</span>length=<span class="nu0">2</span><span
+class="br0">)</span> @Required
+    <span class="kw2">private</span> <span class="kw3">int</span> number<span class="sy0">;</span>
+&nbsp;
+    @Column<span class="br0">(</span>length=<span class="nu0">40</span><span class="br0">)</span> @Required
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> name<span class="sy0">;</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw3">int</span> getNumber<span
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">return</span> number<span class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw3">void</span> setNumber<span
+class="br0">(</span><span class="kw3">int</span> number<span class="br0">)</span> <span
+class="br0">{</span>
+        <span class="kw2">this</span>.<span class="me1">number</span> = number<span
+class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getName<span class="br0">(</span><span class="br0">)</span> <span
+class="br0">{</span>
+        <span class="kw2">return</span> name<span class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span
+class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">this</span>.<span class="me1">name</span> = name<span
+class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+<span class="br0">}</span></pre>
+      Now we can deploy it:<br>
+      <img src="files/quick-start_en040.png" alt="quick-start_en040.png" title="quick-start_en040.png"><br>
+      Go to <a class="wiki_link_ext" href="http://localhost:8080/MySchool/modules/Pupil"
+        rel="nofollow" target="_blank">http://localhost:8080/MySchool/modules/Pupil</a>
+      to see <em>Pupil</em> in action (if it asks for sign in, use user: <strong>admin</strong>,
+      password: <strong>admin</strong>):<br>
+      <img src="files/quick-start_en080.png" alt="quick-start_en080.png" title="quick-start_en080.png"><br>
+      <h2 id="toc7"><a name="Quick start-Add a teacher reference to pupil"></a>Add
+        a teacher reference to pupil</h2>
+      It is easy to make a pupil to have a reference to a teacher. Add the next
+      code to <em>Pupil</em> class :<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Pupil <span
+class="br0">{</span>
+&nbsp;
+    ...
+&nbsp;
+    <span class="co1">// BEGIN CODE TO ADD</span>
+    @ManyToOne
+    <span class="kw2">private</span> Teacher teacher<span class="sy0">;</span>
+&nbsp;
+    <span class="kw2">public</span> Teacher getTeacher<span class="br0">(</span><span
+class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">return</span> teacher<span class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw3">void</span> setTeacher<span
+class="br0">(</span>Teacher teacher<span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">this</span>.<span class="me1">teacher</span> = teacher<span
+class="sy0">;</span>
+    <span class="br0">}</span>
+    <span class="co1">// END CODE TO ADD</span>
+&nbsp;
+<span class="br0">}</span></pre>
+      Deploy it:<br>
+      <img src="files/quick-start_en040.png" alt="quick-start_en040.png" title="quick-start_en040.png"><br>
+      Go to <a class="wiki_link_ext" href="http://localhost:8080/MySchool/modules/Pupil"
+        rel="nofollow" target="_blank">http://localhost:8080/MySchool/modules/Pupil</a>
+      and select detail mode:<br>
+      <img src="files/quick-start_en090.png" alt="quick-start_en090.png" title="quick-start_en090.png"><br>
+      <h2 id="toc8"><a name="Quick start-Show teacher reference as a combo"></a>Show
+        teacher reference as a combo</h2>
+      If you want the reference to be displayed in combo format, you should add
+      <em>@DescriptionsList</em> to <em>teacher</em> reference in <em>Pupil</em>,
+      as following:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Pupil <span
+class="br0">{</span>
+&nbsp;
+    ...
+&nbsp;
+    @DescriptionsList <span class="co1">// ADD THIS</span>
+    @ManyToOne
+    <span class="kw2">private</span> Teacher teacher<span class="sy0">;</span>
+&nbsp;
+    ...
+&nbsp;
+<span class="br0">}</span></pre>
+      Now deploy again:<br>
+      <img src="files/quick-start_en040.png" alt="quick-start_en040.png" title="quick-start_en040.png"><br>
+      Go to <a class="wiki_link_ext" href="http://localhost:8080/MySchool/modules/Pupil"
+        rel="nofollow" target="_blank">http://localhost:8080/MySchool/modules/Pupil</a>:<br>
+      <img src="files/quick-start_en100.png" alt="quick-start_en100.png" title="quick-start_en100.png"><br>
+      <h2 id="toc9"><a name="Quick start-Add a collection of pupils to teacher"></a>Add
+        a collection of pupils to teacher</h2>
+      Let's put a pupils collection in teacher. Put the collection declaration
+      inside the <em>Teacher</em> class:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Teacher <span
+class="br0">{</span>
+&nbsp;
+    ...
+&nbsp;
+    <span class="co1">// BEGIN CODE TO ADD</span>
+    @OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"teacher"</span><span
+class="br0">)</span>
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Pupil<span class="sy0">&gt;</span> pupils<span
+class="sy0">;</span>
+&nbsp;
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a> <span class="sy0">&lt;</span>Pupil<span class="sy0">&gt;</span> getPupils<span
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">return</span> pupils<span class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw3">void</span> setPupils<span
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a> <span class="sy0">&lt;</span>Pupil<span class="sy0">&gt;</span> pupils<span
+class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">this</span>.<span class="me1">pupils</span> = pupils<span
+class="sy0">;</span>
+    <span class="br0">}</span>
+    <span class="co1">// END CODE TO ADD</span>
+&nbsp;
+<span class="br0">}</span></pre>
+      And deploy again:<br>
+      <img src="files/quick-start_en040.png" alt="quick-start_en040.png" title="quick-start_en040.png"><br>
+      Go to <a class="wiki_link_ext" href="http://localhost:8080/MySchool/modules/Teacher"
+        rel="nofollow" target="_blank">http://localhost:8080/MySchool/modules/Teacher</a>:<br>
+      <img src="files/quick-start_en110.png" alt="quick-start_en110.png" title="quick-start_en110.png"><br>
+      <h2 id="toc10"><a name="Quick start-Create your own project"></a>Create
+        your own project</h2>
+      Well done! You have executed and modified and already existing project.
+      Now you should create your own OpenXava project from scratch:<br>
+      <br>
+      <strong><a class="wiki_link" href="getting-started_en.html">Follow the
+          lesson: Getting started</a></strong><br>
+      <br>
+      <em>Any problem with this guide? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the help forum</a>.</em> </div>
+  </body>
+</html>

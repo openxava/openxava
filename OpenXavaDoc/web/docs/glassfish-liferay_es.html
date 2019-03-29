@@ -1,0 +1,482 @@
+<html>
+  <head>
+    <title>openxava - glassfish-liferay_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4."></a><strong>OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.</strong></h1>
+ Es posible hacer correr sin problemas una aplicación OX V 3.1.4 instalando <em>Liferay</em> 5.2.3 sobre un servidor <em>Glassfish</em> V 2.1 ya existente y con el motor de base de datos <em>Postgresql</em> V 8.4.<br />
+Estos pasos pueden aplicar a cualquier versión de <em>Liferay</em> 5.x sobre <em>Glassfish</em> 2.x.<br />
+La guía de administración de <em>Liferay</em> se usó como base para los pasos aquí descritos.<br />
+También se usó el excelente artículo escrito por <a class="wiki_link_ext" href="http://blogs.sun.com/sfehrman" rel="nofollow">Scott Fehrman</a>, <a class="wiki_link_ext" href="http://blogs.sun.com/sfehrman/entry/liferay_5_0_on_existing" rel="nofollow">Liferay 5.0 on existing Glassfish v2</a>.<br />
+<a class="wiki_link_ext" href="http://sourceforge.net/users/pigbar/" rel="nofollow">Mis</a> agradecimientos y reconocimientos a <a class="wiki_link_ext" href="http://sourceforge.net/users/ocarop/" rel="nofollow">Oscar Caro</a> por su valioso aporte y ayuda para armar esta solución.<br />
+Acá se introduce la variante de crear un dominio propio denominado <em>lportal</em> para desplegar <em>Liferay</em>, aunque se puede trabajar perfectamente sobre el dominio por omisión de Glassfish (domain1).<br />
+<br />
+<h2 id="toc1"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Pre-requisitos"></a>Pre-requisitos</h2>
+ <ul><li>JDK 5 o superior instalada.</li><li>Glassfish 2.1 instalado.</li><li>Postgresql 8.4 instalado.</li><li>Driver jdbc postgresql-8.4-701.jdbc4.jar.</li></ul><br />
+<h2 id="toc2"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Descargas de software"></a><strong>Descargas de software</strong></h2>
+ <ul><li>liferay-portal-5.2.3.war</li><li>liferay-portal-dependencies-5.2.3.zip</li><li>liferay-portal-sql-5.2.3.zip</li></ul><br />
+Estos archivos están disponibles en la página oficial de descargas de <em>Liferay</em> (www.liferay.com)<br />
+<br />
+Descomprima el archivo <em>liferay-portal-dependencies-5.2.3.zip</em> en un directorio seleccionado.<br />
+Descomprima el archivo <em>liferay-portal-sql-5.2.3.zip</em> en un directorio seleccionado.<br />
+<br />
+<h2 id="toc3"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Configuración de base de datos Postgresql"></a>Configuración de base de datos Postgresql</h2>
+ Ir al PGAdmin III e iniciar sesión en su servidor <em>porgresql</em> de preferencia.<br />
+Crear una nueva base de datos denominada <em>lportal</em> con soporte UTF8<br />
+<img src="files/glassfish-liferay_es010.png" alt="glassfish-liferay_es010.png" title="glassfish-liferay_es010.png" /><br />
+Seleccione la base de datos <em>lportal</em> y haga click en el icono de comandos sql<br />
+<img src="files/glassfish-liferay_es020.png" alt="glassfish-liferay_es020.png" title="glassfish-liferay_es020.png" /><br />
+Esto nos lleva a la consola de comandos:<br />
+<img src="files/glassfish-liferay_es030.png" alt="glassfish-liferay_es030.png" title="glassfish-liferay_es030.png" /><br />
+Seleccione la opción de abrir archivos, bien por el menú Archivo opción Abrir... o por el botón <img src="files/glassfish-liferay_es040.png" alt="glassfish-liferay_es040.png" title="glassfish-liferay_es040.png" /> de la barra de tareas:<br />
+Esto nos lleva a la caja de dialogo para abrir archivos de script de sql:<br />
+<img src="files/glassfish-liferay_es050.png" alt="glassfish-liferay_es050.png" title="glassfish-liferay_es050.png" /><br />
+Ubique el directorio donde descomprimió el archivo <em>liferay-portal-sql-5.2.3.zip</em>, y seleccione el archivo <em>create-minimal-postgresql.sql</em> de la ruta:<br />
+<br />
+<em>&lt;TU-DirectorioSQL&gt;\liferay-portal-sql-5.2.3\create-minimal\create-minimal-postgresql.sql</em><br />
+<br />
+Pulse abrir.<br />
+Se cargara el archivo en la consola de sql:<br />
+<img src="files/glassfish-liferay_es060.png" alt="glassfish-liferay_es060.png" title="glassfish-liferay_es060.png" /><br />
+Borre las tres primeras líneas del archivo cargado ya que estas corresponden a borrar y crear la base de datos <em>lportal</em>, la cual esta en blanco en nuestro caso:<br />
+Borrar:<br />
+<em>drop database lportal;</em><br />
+<em>create database lportal encoding = 'UNICODE';</em><br />
+<em>\c lportal;</em><br />
+<br />
+<br />
+Pulse el botón <img src="files/glassfish-liferay_es070.png" alt="glassfish-liferay_es070.png" title="glassfish-liferay_es070.png" /> para ejecutar el script.<br />
+Al terminar la ejecución cierre la ventana del asistente de comandos sql.<br />
+Pulse refrescar sobre su base de datos lportal y en la sección <em>tablas</em> deben aparecer 139 tablas recién creadas.<br />
+Cierre el PGAdmin III.<br />
+<h2 id="toc4"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Crear un nuevo dominio en Glassfish"></a>Crear un nuevo dominio en Glassfish</h2>
+ Vamos a crear un dominio denominado <em>lportal</em>, con la clave de administrador <em>lportallportal</em> (Ud puede usar el nombre de portal y clave de administrador que mejor se ajuste a sus preferencias).<br />
+Abrir una consola de comandos del sistema.<br />
+Ir al directorio de instalación de <em>GlassFish</em> y al subdirectorio bin.<br />
+en el directorio bin de la instalación de Glassfish escribir y ejecutar el siguiente comando:<br />
+<br />
+<em>asadmin create-domain --adminport 14848 -instanceport 18080 lportal</em><br />
+<br />
+Donde:<br />
+<ul><li><em>--adminport</em> es el puerto por donde Glassfish escuchara las peticiones de la consola de administración</li><li><em>--instanceport</em> es el puerto por donde se atenderán las solicitudes de clientes http.</li><li>lportal es el nombre del dominio que queremos crear.</li></ul><br />
+Seguidamente el comando nos solicita el nombre del usuario administrador:<br />
+<em>Please enter de admin user name&gt; <strong>lportal</strong></em><br />
+Indicamos el nombre <em>lportal</em> y pulsamos enter.<br />
+Luego nos solicitan el password o clave del usuario administrador:<br />
+<em>Please enter de admin password&gt; <strong>lportallportal</strong></em><br />
+Indicamos la clave <em>lportallportal</em> y pulsamos enter.<br />
+Luego nos solicitan confirmar el password o clave del usuario administrador:<br />
+<em>Please enter de admin password again&gt; <strong>lportallportal</strong></em><br />
+Indicamos nuevamente la clave <em>lportallportal</em> y pulsamos enter.<br />
+Paso siguiente nos solicita el master password del servicio y su confirmación, pulsamos enter en ambos casos para aceptar el valor por omisión.<br />
+<em>&gt;Please enter the master password [Enter to accept the default]:</em><br />
+<em>&gt; Please enter the master password again [Enter to accept the default]:</em><br />
+Acá se muestra un ejemplo de la salida de la consola:<br />
+<em>&gt; Using port 14848 for Admin.</em><br />
+<em>&gt;Using port 18080 for HTTP Instance.</em><br />
+<em>&gt;Default port 7676 for JMS is in use. Using 50684</em><br />
+<em>&gt; Default port 3700 for IIOP is in use. Using 50685</em><br />
+<em>&gt; Default port 8181 for HTTP_SSL is in use. Using 50686</em><br />
+<em>&gt; Default port 3820 for IIOP_SSL is in use. Using 50687</em><br />
+<em>&gt; Default port 3920 for IIOP_MUTUALAUTH is in use. Using 50688</em><br />
+<em>&gt; Default port 8686 for JMX_ADMIN is in use. Using 50689</em><br />
+<em>&gt; Domain being created with profile:developer, as specified by variable AS_ADMIN_PROFILE in configuration file.</em><br />
+<em>&gt;Security Store uses: JKS</em><br />
+<em>&gt;Domain lportal created.</em><br />
+<br />
+Esto nos crea el dominio solicitado con algunas librerías y archivos .war pre cargados por defecto. Estos últimos deben ser eliminados puesto que no los necesitamos e incluso pueden hacer que nuestra aplicación OX no funcione adecuadamente a la larga. En especial el archivo <em>amserver.war</em> puede ser fuente de conflictos. Por lo que procedemos a eliminar estos archivos.<br />
+<br />
+<h2 id="toc5"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Detener Glassfish si se encuentra ejecutandose"></a>Detener Glassfish si se encuentra ejecutandose</h2>
+ <br />
+<em>&gt; {GLASSFISH-DIR}\bin\asadmin stop-domain lportal</em><br />
+<br />
+<h2 id="toc6"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Borrar Archivos"></a>Borrar Archivos</h2>
+ Ir a directorio de dominios en <em>Glassfish</em> (<em>domains</em>) y buscar el dominio creado por nosotros (<em>lportal</em>), una vez alli vamos al directorio denominado <em>autodeploy.</em> Una vez alli procedemos a borrar todos los .war existentes en el directorio. Acá se muestra un ejemplo de los posibles archivos a borrar:<br />
+<br />
+<ul><li><em>amserver.war</em></li><li><em>portletdriver.war</em></li><li><em>producer.war</em></li><li><em>WelcomePortlet.war</em></li><li><em>wsrp-consumer-portlet.war</em></li><li><em>wsrp-producer-portlet.war</em></li></ul><br />
+<h2 id="toc7"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Copiar Librerías requeridas"></a>Copiar Librerías requeridas</h2>
+ Ahora vamos a copiar algunos archivos requeridos por <em>Liferay</em>:<br />
+<br />
+Seleccionar los archivos descomprimidos de <em>liferay-portal-dependencies-5.2.3.zip</em> y copiarlos al directorio <em>lib</em> dentro del dominio <em>lportal</em>.<br />
+<br />
+<em>&gt; {GLASSFISH-DIR}\domains\lportal\lib</em><br />
+<br />
+Esta es una muestra de los archivos a copiar:<br />
+<br />
+<ul><li><em>annotations.jar</em></li><li><em>container.jar</em></li><li><em>hsql.jar</em></li><li><em>portal-kernel.jar</em></li><li><em>portal-service.jar</em></li><li><em>portlet.jar</em></li><li><em>portlet-container.jar</em></li><li><em>saw-api.jar</em></li></ul><br />
+<br />
+Adicionalmente se requiere copiar a ese directorio los archivos siguientes:<br />
+<br />
+<ul><li><em>jtds.jar</em></li><li><em>xercesImpl.jar</em></li><li><em>postgresql-8.4-701.jdbc4.jar</em></li><li><em>log4j.jar</em></li></ul><br />
+Note que ya incluimos el driver <em>jdbc</em> de <em>postgresql</em>. Usamos la versión <em>jdbc4</em> porque con la versión <em>jdbc3</em> se presenta un error al momento de efectuar la conexión.<br />
+En versiones de <em>Liferay</em> anteriores a la 5.2 se puede requerir copiar además los siguientes archivos:<br />
+<br />
+<ul><li><em>xalan.jar</em></li><li><em>serializer.jar</em></li></ul><br />
+<br />
+<h2 id="toc8"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Iniciar GlassFish"></a>Iniciar GlassFish</h2>
+ <br />
+<em>&gt; {GLASSFISH-DIR}\bin\asadmin start-domain lportal</em><br />
+<br />
+<h2 id="toc9"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Iniciar sesión de Administrador"></a>Iniciar sesión de Administrador</h2>
+ <br />
+Ir a la pagina:<br />
+<a class="wiki_link_ext" href="http://localhost" rel="nofollow">http://localhost</a>:<strong>14848</strong><br />
+para abrir una sesión en la consola de administrador para el dominio <em>lportal</em>.<br />
+Note el uso del puerto <em>14848</em> según nuestra configuración.<br />
+Esto nos lleva a la ventana de login de la consola donde debemos indicar nuestras credenciales de administrador para el dominio en cuestión, con nombre de usuario: <em>lportal</em> y contraseña: <em>lportallportal</em>.<br />
+<img src="files/glassfish-liferay_es080.png" alt="glassfish-liferay_es080.png" title="glassfish-liferay_es080.png" /><br />
+<h2 id="toc10"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Recursos JDBC y Pool de Conexiones"></a>Recursos JDBC y Pool de Conexiones</h2>
+ Ahora procedemos a crear los recursos y pool de conexiones de Liferay.<br />
+<h3 id="toc11"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Recursos JDBC y Pool de Conexiones-Pool de Conexión"></a>Pool de Conexión</h3>
+ En la ventana de consola de administración de Glassfish, en la sección de <em>Tareas Comunes</em> seleccionamos: <em>Crear nuevo conjunto de conexión JDBC</em>.<br />
+En la ventana de configuración que se abre colocar los valores siguientes:<br />
+<em>Nombre : <strong>LiferayPool</strong> (Nombre del conjunto de conexión)</em><br />
+<em>Tipo de Recurso: <strong>javax.sql.ConnectionPoolDataSource</strong> (Tipo del recurso de conexión, también se puede usar : javax.sql.DataSource)</em><br />
+<em>Proveedor de la base de datos: <strong>PostgreSQL</strong> (Nuestro proveedor de servicios de base de datos)</em><br />
+Pulsamos el botón <em>siguiente</em>.<br />
+En la ventana de dialogo, en la sección de <em>Propiedades adicionales</em> colocamos:<br />
+<em>Nombre Valor</em><br />
+<em>DatabaseName lportal</em><br />
+<em>Password &lt;Nuestro Password de Postgresql&gt;</em><br />
+<em>PortNumber 5432 ( o nuestro valor de Puerto del Server de Postgresql)</em><br />
+<em>ServerName localhost (o nuestra Ruta de Servidor de Postgresql)</em><br />
+<em>User &lt;Nuestro Usuario de Postgresql&gt;</em><br />
+Hacemos click en <em>finalizar</em>. Podemos probar nuestra conexión seleccionando la que acabamos de crear de la lista de conexiones disponibles y pulsando la opción <em>sondeo</em>. Al hacer esto nos debería indicar que se realizo la conexión satisfactoriamente.<br />
+<br />
+Por la consola de comandos podemos efectuar esta tarea mediante la orden:<br />
+<em>{GLASSFISH-DIR}/bin/asadmin create-jdbc-connection-pool \</em><br />
+<em>--datasourceclassname org.postgresql.ds.PGConnectionPoolDataSource \</em><br />
+<em>--host localhost \</em><br />
+<em>--port 14848 \</em><br />
+<em>--user lportal \</em><br />
+<em>--restype javax.sql.ConnectionPoolDataSource \</em><br />
+<em>--description &quot;Lferay pool&quot; \</em><br />
+<em>--property ServerName=localhost:Password=postgres:DatabaseName=lportal:User=postgres:PortNumber=5432 \</em><br />
+<em>LiferayPool</em><br />
+Pulsamos enter:<br />
+<em>&gt;Please enter the admin password&gt; lportallportal</em><br />
+<em>&gt;Command create-jdbc-connection-pool executed successfully.</em><br />
+<h2 id="toc12"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Recursos JNDI JDBC"></a>Recursos JNDI JDBC</h2>
+ Seguidamente en la sección de <em>Recursos</em>, seleccionamos <em>Recursos JDBC</em>.<br />
+En la tabla de recursos disponibles pulsamos la opción <em>nuevo</em>, e indicamos lo siguiente:<br />
+<br />
+<em>Nombre JNDI jdbc/LiferayPool (Nombre de jndi usado por liferay como recurso de datos)</em><br />
+<em>Nombre de Conjunto LiferayPool (Seleccionamos el conjunto de conexión creado en el paso anterior)</em><br />
+<em>Descripción Indicamos una descripción (opcional)</em><br />
+<em>Estado Activado.</em><br />
+<br />
+Pulsamos en <em>Aceptar</em>. Ya tenemos nuestros recursos de conexión configurados.<br />
+<br />
+Por la consola podemos hacerlo con el comando:<br />
+<br />
+<em>{GLASSFISH-DIR}/bin/asadmin create-jdbc-resource \</em><br />
+<em>--connectionpoolid PostgreSQL_Liferay \</em><br />
+<em>--host localhost \ --port 14848 \</em><br />
+<em>--user lportal \</em><br />
+<em>--enabled=true \</em><br />
+<em>--description &quot;Liferay Portal 5.2.3 Pool&quot; \</em><br />
+<em>jdbc/LiferayPool</em><br />
+Pulsamos enter:<br />
+<em>&gt;Please enter the admin password lportallportal</em><br />
+<em>&gt;Command create-jdbc-resource executed successfully.</em><br />
+<h3 id="toc13"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Recursos JNDI JDBC-Recursos JavaMail"></a>Recursos JavaMail</h3>
+ Ahora configuramos una sesión para nuestro servicio de correo.<br />
+En la consola grafica del Administrador, en la sección <em>Recursos</em> seleccionamos: <em>Sesiones JavaMail</em>.<br />
+En la tabla de lista de sesiones disponibles pulsamos el botón <em>nuevo</em>.<br />
+En la ventana de configuración que se abre ingresamos los siguientes valores:<br />
+<br />
+<em>Nombre JNDI mail/MailSession</em><br />
+<em>Host de Correo localhost</em><br />
+<em>Usuario Predeterminado root@localhost</em><br />
+<em>Dirección de remite predeterminada root@localhost</em><br />
+<em>Descripción Liferay mail</em><br />
+<em>Estado Activa</em><br />
+Pulsamos <em>Aceptar</em>. Ya tenemos la sesión de correo configurada.<br />
+Estos valores debes adecuarlos a tu propia configuración en tu entorno real de correo. Estos valores son solo de muestra.<br />
+Acá se presenta como hacer esto por la consola de comandos:<br />
+<em>{GLASSFISH-DIR}/bin/asadmin create-javamail-resource \</em><br />
+<em>--mailhost localhost \</em><br />
+<em>--mailuser root@localhost \</em><br />
+<em>--fromaddress root@localhost \</em><br />
+<em>--host localhost \</em><br />
+<em>--port 14848 \</em><br />
+<em>--user lportal \</em><br />
+<em>--enabled=true \</em><br />
+<em>--description &quot;Liferay Portal Mail&quot; \</em><br />
+<em>mail/MailSession</em><br />
+Pulsamos enter:<br />
+<em>&gt;Please enter the admin password lportallportal</em><br />
+<em>&gt;Command create-javamail-resource executed successfully.</em><br />
+<br />
+<h2 id="toc14"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Desplegar Liferay"></a>Desplegar Liferay</h2>
+ <br />
+<h3 id="toc15"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Desplegar Liferay-Detener Glassfish si se encuentra ejecutandose"></a>Detener Glassfish si se encuentra ejecutandose</h3>
+ <br />
+<em>&gt; {GLASSFISH-DIR}\bin\asadmin stop-domain lportal</em><br />
+<br />
+Copiar el archivo <em>liferay-portal-5.2.3.war</em> al directorio <em>autodeploy</em> del dominio lportal de <em>Glassfish</em>.<br />
+<br />
+Esto hará que se despliegue la aplicación al iniciar <em>Glassfish</em> nuevamente. Lo importante es que la ruta de contexto del archivo de despliegue quede igual a /, para que de esta forma el portal sea nuestra aplicación de inicio al navegar a la ruta : <a class="wiki_link_ext" href="http://localhost:18080" rel="nofollow">http://localhost:18080</a>.<br />
+<br />
+<h3 id="toc16"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Desplegar Liferay-Iniciar y detener GlassFish"></a>Iniciar y detener GlassFish</h3>
+ <br />
+<em>&gt; {GLASSFISH-DIR}\bin\asadmin start-domain lportal</em><br />
+<em>&gt; {GLASSFISH-DIR}\bin\asadmin stop-domain lportal</em><br />
+<br />
+Al finalizar esta tarea debemos tener el archivo <em>liferay-portal-5.2.3</em> desplegado en el modulo <em>{GLASSFISH-DIR}\domains\lportal\applications\j2ee-modules\liferay-portal-5.2.3.</em><br />
+<br />
+Se puede desplegar el archivo por la consola mediante el comando:<br />
+<br />
+<em>{GLASSFISH-DIR}/bin/asadmin deploy \</em><br />
+<em>--host localhost \</em><br />
+<em>--port 14848 \</em><br />
+<em>--user lportal \</em><br />
+<em>--contextroot / \</em><br />
+<em>--precompilejsp=false \</em><br />
+<em>--verify=false \</em><br />
+<em>--name &quot;Liferay-Portal-5.2.3&quot; \</em><br />
+<em>--enabled=true \</em><br />
+<em>${LIFERAY}/liferay-portal-5.2.3.war</em><br />
+<br />
+<h2 id="toc17"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Configurar Liferay para trabajar con Postgresql"></a>Configurar Liferay para trabajar con Postgresql</h2>
+ <h3 id="toc18"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Configurar Liferay para trabajar con Postgresql-Detener Glassfish si se encuentra ejecutándose"></a>Detener Glassfish si se encuentra ejecutándose</h3>
+ <em>&gt; {GLASSFISH-DIR}\bin\asadmin stop-domain lportal</em><br />
+<br />
+Ir a la ruta de clases del archivo desplegado, en el path:<br />
+<br />
+<em>{GLASSFISH-DIR}\domains\lportal\applications\j2ee-modules\liferay-portal-5.2.3\WEB-INF\classes</em><br />
+<br />
+Dentro de este directorio creamos el archivo:<br />
+<br />
+<em>portal-ext.properties</em><br />
+<br />
+Con el siguiente contenido (portal-ext.properties):<br />
+<br />
+<em><strong>jdbc.default.jndi.name=jdbc/LiferayPool</strong></em><br />
+<em>#jdbc.default.driverClassName=org.postgresql.Driver</em><br />
+<em>#jdbc.default.url=jdbc:postgresql:</em>localhost:5432/lportal<br />
+#jdbc.default.username=postgres<br />
+#jdbc.default.password=postgres<br />
+<br />
+<em>Nota: Los valores precedidos por el símbolo # constituyen comentarios. No son necesarios en esta configuración, pero se presentan como muestra de los valores que es posible configurar en este archivo.<br />
+<br />
+Ya nuestro servidor se encuentra listo para usar Liferay.</em><br />
+<br />
+<h3 id="toc19"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Configurar Liferay para trabajar con Postgresql-Iniciar GlassFish"></a>Iniciar GlassFish</h3>
+ <br />
+<ul class="quotelist"><li>{GLASSFISH-DIR}\bin\asadmin start-domain lportal</li></ul><br />
+<em>Ir a la página de inicio del portal:</em><br />
+<a class="wiki_link_ext" href="http://localhost:18080" rel="nofollow">http://localhost:18080</a><br />
+<br />
+<em>Nos debe re direccionar a la URL:</em><br />
+<br />
+<a class="wiki_link_ext" href="http://localhost:18080/web/guest" rel="nofollow">http://localhost:18080/web/guest</a><br />
+<br />
+<em>Y presentar la pantalla de inicio de sesión del portal.<br />
+Donde ingresamos los valores por omisión para administrador de</em> Liferay<em>:</em><br />
+<br />
+Email Address <a class="wiki_link_ext" href="mailto:test@liferay.com" rel="nofollow">test@liferay.com</a><br />
+Password test<br />
+<img src="files/glassfish-liferay_es090.png" alt="glassfish-liferay_es090.png" title="glassfish-liferay_es090.png" /><br />
+<br />
+Y listo. Tenemos Liferay corriendo en Glassfish con la base de datos en postgresql.<br />
+<br />
+<h2 id="toc20"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Desplegar una aplicación OX"></a>Desplegar una aplicación OX</h2>
+ Para desplegar nuestros portlets de OX en Liferay sobre Glassfish los pasos son los siguientes:<br />
+<br />
+<h3 id="toc21"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Desplegar una aplicación OX-Configurar persistence.xml"></a>Configurar persistence.xml</h3>
+ Primero debemos configurar nuestro archivo <em>persistence.xml</em> para indicarle que trabaje con <em>hibernate</em> como provider. Esto es necesario puesto que <em>Glassfish</em> usa <em>Toplink</em> como implementación de persistencia <em>JPA</em> por omisión.<br />
+<br />
+Este archivo se encuentra en la carpeta <em>persistence</em> de nuestro proyecto OX en el directorio <em>META-INF</em>.<br />
+Aca se muestra como debe lucir el archivo <em>persistence.xml</em>:<br />
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=//<span class="st0">&quot;1.0&quot;</span>// <span class="re0">encoding</span>=//<span class="st0">&quot;UTF-8&quot;</span>//<span class="re2">?&gt;</span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;persistence</span> <span class="re0">xmlns</span>=//<span class="st0">&quot;http://java.sun.com/xml/ns/persistence&quot;</span>//</span>
+<span class="sc3">  <span class="re0">xmlns:xsi</span>=//<span class="st0">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>//</span>
+<span class="sc3">  <span class="re0">xsi:schemaLocation</span>=//<span class="st0">&quot;http://java.sun.com/xml/ns/persistence       http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd&quot;</span>//</span>
+<span class="sc3">  <span class="re0">version</span>=//<span class="st0">&quot;1.0&quot;</span>/<span class="re2">/&gt;</span></span>
+&nbsp;
+  <span class="sc-1">&lt;!-- GlassFish + Postgresql --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;persistence-unit</span> <span class="re0">name</span>=<span class="st0">&quot;default&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span>org.hibernate.ejb.HibernatePersistence<span class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span>jdbc/miOXApplicationDS<span class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.session.GalleryImage<span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.dialect&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.dialect.PostgreSQLDialect&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span>
+&nbsp;
+  <span class="sc-1">&lt;!-- JUnit --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;persistence-unit</span> <span class="re0">name</span>=<span class="st0">&quot;junit&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.driver_class&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;org.postgresql.Driver&quot;</span><span class="re2">/&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.dialect&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.dialect.PostgreSQLDialect&quot;</span><span class="re2">/&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.url&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;jdbc:postgresql://localhost:5432/controlestudiodb&quot;</span><span class="re2">/&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.username&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;postgres&quot;</span><span class="re2">/&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.password&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;postgres&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/persistence<span class="re2">&gt;</span></span></span></pre>
+
+<br />
+Donde los aspectos relevantes son:<br />
+<br />
+<strong>Unidad de persistencia:</strong><br />
+<strong>&lt;persistence-unit name=</strong><em><strong>&quot;default&quot;</strong></em><strong>&gt;</strong><br />
+<br />
+Indicando el nombre de la unidad de persistencia por omisión. En este caso <em>default</em>.<br />
+<br />
+<strong>Provider:</strong><br />
+<strong>&lt;provider&gt;org.hibernate.ejb.HibernatePersistence&lt;/provider&gt;</strong><br />
+<br />
+Indicando que se usa <em>hibernate</em> como provider.<br />
+<br />
+<strong>JNDI:</strong><br />
+<strong>&lt;non-jta-data-source&gt;jdbc/miOXApplicationDS&lt;/non-jta-data-source&gt;</strong><br />
+<br />
+Indicando que el recurso <em>JNDI</em> del servidor <em>Glassfish</em> para obtener acceso a nuestra base de datos tiene el nombre: <strong>jdbc/miOXApplicationDS.</strong><br />
+Siendo <strong>miOXApplicationDS</strong> el nombre de nuestra aplicacion OX seguido del sufijo DS.<br />
+<br />
+<strong>Dialecto de Hibernate:</strong><br />
+<strong>&lt;property name=</strong><em><strong>&quot;hibernate.dialect&quot;</strong></em> <strong>value=<em>&quot;org.hibernate.dialect.PostgreSQLDialect&quot;</em>/&gt;</strong><br />
+<br />
+Indicando el dialecto que debe usar <em>hibernate</em>. Es necesario en caso de que se use el estereotipo de galería de imágenes.<br />
+<br />
+<h3 id="toc22"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Desplegar una aplicación OX-Generar Portlets"></a>Generar Portlets</h3>
+ <br />
+Para generar los porlets se siguen los pasos acostumbrados.<br />
+Se corre el archivo <em>build.xml</em> de nuestra aplicación OX como una tarea <em>ant...</em>, Seleccionamos la opción generarPorlets y pulsamos run. Para mas detalles sobre las tareas disponibles y como realizarlas ver la documentación de OX al respecto.<br />
+Una vez culminada esta tarea debemos tener en el directorio workspace.dist de nuestra distribución de OX un archivo .war con el nombre de nuestra aplicación.<br />
+<br />
+<em>miOXApplication.war</em><br />
+<br />
+Este es el archivo que a la larga desplegaremos en nuestro servidor <em>Glassfish</em>.<br />
+<br />
+<strong>Recursos JNDI y Conexión de aplicación:</strong><br />
+<br />
+<strong>Iniciar GlassFish:</strong><br />
+<br />
+<ul class="quotelist"><li>{GLASSFISH-DIR}\bin\asadmin start-domain lportal</li></ul><br />
+<h3 id="toc23"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Desplegar una aplicación OX-Iniciar sesión de Administrador"></a>Iniciar sesión de Administrador</h3>
+ <br />
+Ir a la pagina:<br />
+<a class="wiki_link_ext" href="http://localhost" rel="nofollow">http://localhost</a>:<strong>14848</strong><br />
+<br />
+Indicar nuestras credenciales de administrador para el dominio en cuestión, con nombre de usuario: <em>lportal</em> y contraseña: <em>lportallportal</em>.<br />
+<br />
+<h2 id="toc24"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Recursos JDBC y Pool de Conexiones"></a>Recursos JDBC y Pool de Conexiones</h2>
+ <br />
+Ahora procedemos a crear los recursos y pool de conexiones de Nuestra aplicación OX.<br />
+<br />
+<h3 id="toc25"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Recursos JDBC y Pool de Conexiones-Pool de Conexión"></a>Pool de Conexión</h3>
+ <br />
+En la sección de <em>Tareas Comunes</em> seleccionamos: <em>Crear nuevo conjunto de conexión JDBC</em>.<br />
+En la ventana de configuración que se abre colocar los valores siguientes:<br />
+<br />
+<em>Nombre : <strong>MyOXPool</strong> (Nombre del conjunto de conexión)<br />
+Tipo de Recurso: <strong>javax.sql.ConnectionPoolDataSource</strong> (Tipo del recurso de conexión, también se puede usar : javax.sql.DataSource)<br />
+Proveedor de la base de datos: <strong>PostgreSQL</strong> (Nuestro proveedor de servicios de base de datos)</em><br />
+Pulsamos el botón <em>siguiente</em>.<br />
+En la ventana de dialogo, en la sección de <em>Propiedades adicionales</em> colocamos:<br />
+Nombre Valor<br />
+DatabaseName miOXDB<br />
+Password &lt;Nuestro Password de Postgresql&gt;<br />
+PortNumber 5432 ( o nuestro valor de Puerto del Server de Postgresql)<br />
+ServerName localhost (o nuestra Ruta de Servidor de Postgresql)<br />
+User &lt;Nuestro Usuario de Postgresql&gt;<br />
+<em>Hacemos click en</em> finalizar<em>. Podemos probar nuestra conexión seleccionando la que acabamos de crear de la lista de conexiones disponibles y pulsando la opción</em> sondeo<em>. Al hacer esto nos debería indicar que se realizo la conexión satisfactoriamente.</em><br />
+<br />
+<br />
+<h3 id="toc26"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Recursos JDBC y Pool de Conexiones-Recursos JNDI JDBC"></a>Recursos JNDI JDBC</h3>
+ <br />
+Seguidamente en la sección de Recursos<em>, seleccionamos</em> Recursos JDBC<em>.<br />
+En la tabla de recursos disponibles pulsamos la opción</em> nuevo<em>, e indicamos lo siguiente:</em><br />
+<br />
+Nombre JNDI <em><strong>jdbc/miOXApplicationDS</strong></em> (Nombre de jndi que colocamos en el persistence-unit de ox)<br />
+Nombre de Conjunto <strong>MyOXPool</strong> (Seleccionamos el conjunto de conexión creado en el paso anterior)<br />
+Descripción Indicamos una descripción (opcional)<br />
+Estado Activado.<br />
+<br />
+<em>Pulsamos en</em> Aceptar<em>. Ya tenemos nuestros recursos de conexión configurados.<br />
+Cerramos sesión de administrador.</em><br />
+<br />
+<h3 id="toc27"><a name="OX 3.1.4 sobre Liferay 5.2.X en Glassfish 2.1 con Postgresql 8.4.-Recursos JDBC y Pool de Conexiones-Instalar Portlets OX en Liferay"></a>Instalar Portlets OX en Liferay</h3>
+ <br />
+<br />
+Ir a la página de inicio del portal:<br />
+<a class="wiki_link_ext" href="http://localhost:18080" rel="nofollow">http://localhost:18080</a><br />
+<br />
+<em>Ingresamos los valores por omisión para administrador de Liferay en el inicio de sesión:</em><br />
+<br />
+Email Address <a class="wiki_link_ext" href="mailto:test@liferay.com" rel="nofollow">test@liferay.com</a><br />
+Password test<br />
+<br />
+<em>En el menú de usuario (usualmente arriba a la derecha) seleccionar</em> Panel de Control<em>.<br />
+Esto abre el portlet de configuración de</em> Liferay<em>. En la sección</em> Servidor <em>seleccionar la opción</em> Instalación de Plugins<em>.<br />
+<img src="files/glassfish-liferay_es100.png" alt="glassfish-liferay_es100.png" title="glassfish-liferay_es100.png" /><br />
+En el</em> tab Plugins de portlets <em>seleccionar el botón :</em> Instalar mas portlets<em>.<br />
+<img src="files/glassfish-liferay_es110.png" alt="glassfish-liferay_es110.png" title="glassfish-liferay_es110.png" /><br />
+En la ventana de dialogo seleccionar el</em> tab Subir archivo<em>.<br />
+Pulsar</em> examinar...<br />
+<br />
+<em>Esto abre la ventana de dialogo para seleccionar el archivo</em> .war <em>que se desea instalar.<br />
+<img src="files/glassfish-liferay_es130.png" alt="glassfish-liferay_es130.png" title="glassfish-liferay_es130.png" /><br />
+Buscamos en el directorio workspace.dist de nuestra distribución de OX el archivo:</em><br />
+<br />
+<br />
+miOXApplication.war<br />
+<br />
+<br />
+<em>Pulsamos</em> Abrir<em>.<br />
+Y hacemos click en el botón</em> Instalar<em>.<br />
+<br />
+<br />
+Seguidamente Liferay nos muestra un mensaje de que se logro subir el archivo con éxito y que está siendo instalado.<br />
+Pulsamos la opción</em> <u>volver a mi comunidad</u> <em>que se presenta cerca de la parte superior derecha de la ventana.<br />
+<br />
+<br />
+Una vez en nuestra pagina de inicio pulsamos</em> Añadir Pagina<em>.<br />
+Indicamos un nombre adecuado para nuestra página y pulsamos</em> Guardar<em>.<br />
+<img src="files/glassfish-liferay_es140.png" alt="glassfish-liferay_es140.png" title="glassfish-liferay_es140.png" /><br />
+Hacemos click en nuestra nueva página para navegar hacia ella.<br />
+Paso seguido seleccionamos en el menú de usuario la opción</em> Añadir potlet//. Esto nos presenta una lista con todos los portlets disponibles en el portal organizados por aplicación.<br />
+<img src="files/glassfish-liferay_es150.png" alt="glassfish-liferay_es150.png" title="glassfish-liferay_es150.png" /><br />
+Buscamos en la lista de portlets presentados el nombre de nuestra aplicación OX. Una vez allí seleccionamos un porlet de la lista que se presenta y lo arrastramos hasta el área de trabajo de la página destino en la ubicación que deseemos para nuestro portlet.<br />
+Cerramos la ventana con la lista de portlets. Esperamos mientras Liferay presenta el portlet recién instalado en nuestra página destino.<br />
+<img src="files/glassfish-liferay_es160.png" alt="glassfish-liferay_es160.png" title="glassfish-liferay_es160.png" /><br />
+En caso de que no aparezca el portlet en la pagina antes referida es recomendable navegar a otra página del portal, puede ser la de inicio, y volver a la página destino.<br />
+<br />
+Al final de este proceso deberíamos tener nuestro portlet de OX corriendo adecuadamente dentro del Liferay.<br />
+<br />
+Se repiten los pasos de seleccionar el portlet de OX y soltar en la pagina deseada tantas veces como sea necesario para construir nuestra aplicación.
+    </div>
+  </body>
+</html>

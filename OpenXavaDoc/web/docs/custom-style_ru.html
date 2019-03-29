@@ -1,0 +1,1092 @@
+<html>
+  <head>
+    <title>openxava - custom-style_ru</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#xПользовательский стиль отображения">Пользовательский стиль отображения</a></div>
+<div style="margin-left: 2em;"><a href="#xПользовательский стиль отображения-Изменение стиля по умолчанию (начиная с версии 4.5)">Изменение стиля по умолчанию (начиная с версии 4.5)</a></div>
+<div style="margin-left: 2em;"><a href="#xПользовательский стиль отображения-Определение собственного стиля">Определение собственного стиля</a></div>
+<div style="margin-left: 2em;"><a href="#xПользовательский стиль отображения-Предопределенные стили">Предопределенные стили</a></div>
+<div style="margin-left: 2em;"><a href="#xПользовательский стиль отображения-В порталах">В порталах</a></div>
+<div style="margin-left: 2em;"><a href="#xПользовательский стиль отображения-Пример: стиль для iPad">Пример: стиль для iPad</a></div>
+<div style="margin-left: 3em;"><a href="#xПользовательский стиль отображения-Пример: стиль для iPad-Определение обозревателя/устройства">Определение обозревателя/устройства</a></div>
+<div style="margin-left: 3em;"><a href="#xПользовательский стиль отображения-Пример: стиль для iPad-JavaScript код">JavaScript код</a></div>
+<div style="margin-left: 3em;"><a href="#xПользовательский стиль отображения-Пример: стиль для iPad-CSS файл">CSS файл</a></div>
+<div style="margin-left: 3em;"><a href="#xПользовательский стиль отображения-Пример: стиль для iPad-Класс стиля">Класс стиля</a></div>
+</div>
+<h1 id="toc0"><a name="xПользовательский стиль отображения"></a>Пользовательский стиль отображения</h1>
+ Вы можете создать свой собственный стиль отображения в OpenXava, просто добавив CSS файл.<br />
+<h2 id="toc1"><a name="xПользовательский стиль отображения-Изменение стиля по умолчанию (начиная с версии 4.5)"></a><span style="background-color: #ffffff;">Изменение стиля по умолчанию (начиная с версии 4.5)</span></h2>
+ <span style="background-color: #ffffff;">Начиная с версии 4.5 вы можете добавлять и изменять стили в файле </span><em><span style="background-color: #ffffff;">custom.css</span></em><span style="background-color: #ffffff;"> находящемся в </span><em><span style="background-color: #ffffff;">web/xava/style.</span></em><br />
+<span style="background-color: #ffffff;">Для того, чтобы перекрыть существующий стиль просто определите его вашем <em>custom.css</em> файле. Так, если вы добавите:</span><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">body{
+font-size: 9px;
+}</pre>
+
+<span style="background-color: #ffffff;">то вы измените <em>font-size</em> во всем вашем приложении (включая отображение в порталах).</span><br />
+<h2 id="toc2"><a name="xПользовательский стиль отображения-Определение собственного стиля"></a>Определение собственного стиля</h2>
+ <em>Эти инструкции актуальны для версии 4.2 и выше, для более ранних версий смотрите примеры в OpenXavaTest/xava.properties</em><br />
+Для того, чтобы определить свой собственный стиль, добавьте следующие записи в <em>xava.properties</em> файл вашего проекта:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">styleClass=org.openxava.web.style.Style
+styleCSS=mystyle/mystyle.css</pre>
+
+Затем создайте папку с названием <em>mystyle</em> внутри <em>web/xava/style</em> и добавьте файл <em>mystyle.css</em> в эту папку. В этом файле вы можете использовать следующие CSS классы: <em>ox-module, ox-view, ox-detail, ox-action-link, ox-image-link, ox-button-bar, ox-button-bar-button, ox-active, ox-first, ox-last, ox-label, ox-module-description, ox-frame-content, ox-list, ox-list-header, ox-list-subheader, ox-list-pair, ox-list-odd, list-pair-selected, list-odd-selected, ox-list-info, ox-list-info-detail, ox-list-title, ox-header-list-count, ox-frame (new in v4.8, before it was frame), ox-frame-actions, ox-frame-title, ox-frame-title-label, ox-errors, ox-messages, ox-section, ox-section-tab, ox-active-section, ox-section-link, ox-collection-list-actions, ox-bottom-buttons, ox-page-navigation-selected, ox-page-navigation, ox-page-navigation-pages, ox-page-navigation-arrow, ox-page-navigation-arrow-disable, ox-images-gallery (new in v4.8), ox-help, ox-total-row, ox-total-cell, ox-total-capable-cell, ox-filter-cell, ox-frame-totals, ox-frame-totals-label, ox-frame-totals-value</em>.<br />
+По желанию, вы можете создать свой собственный <em>Style</em> класс, расширяющий <em><a class="wiki_link_ext" href="http://openxava.org/OpenXavaDoc/apidocs/org/openxava/web/style/Style.html" rel="nofollow">org.openxava.web.style.Style</a>.</em> Это позволяет вам еще лучше контролировать то, как выглядит и ведет себя ваше приложение.<br />
+<h2 id="toc3"><a name="xПользовательский стиль отображения-Предопределенные стили"></a>Предопределенные стили</h2>
+ OpenXava предоставляется с несколькими заранее предопределенными стилями. Вы можете настраивать их в фале <em>properties/xava.properties</em> вашего проекта:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text"># styleClass and styleCSS have only effect outside a portal,
+# inside a portal OX portlets acquire automatically the portal skin.
+&nbsp;
+# Liferay 5.1: This is the DEFAULT, so you do not need to uncomment the next lines
+#styleClass=org.openxava.web.style.Liferay51Style
+#styleCSS=liferay51/css/everything_unpacked.css
+&nbsp;
+# Liferay 4.3/4.4/5.0: uncomment the next line for use this nice and slow style
+#styleClass=org.openxava.web.style.Liferay43Style
+#styleCSS=liferay43/css/everything_unpacked.css
+&nbsp;
+# Classic style: uncomment the next line for use the old OX style
+#styleClass=org.openxava.web.style.PortalStyle
+#styleCSS=default.css</pre>
+
+<h2 id="toc4"><a name="xПользовательский стиль отображения-В порталах"></a>В порталах</h2>
+ В порталах портлеты OpenXava автоматически подстраиваются под стиль портала, потому, если вы работаете с порталом, вам необходимо только создавать и менять стиль самого портала, а приложение OpenXava подстроится под него.<br />
+Дополнительно, если вы хотите использовать определенный стиль для портала, это можно сделать при помощи следующих свойств, доступных в <em>xava.properties</em>: <em>liferay6StyleClass, liferay51StyleClass, liferay41StyleClass, liferay43StyleClass, webSpherePortal61StyleClass, webSpherePortal6StyleClass, webSpherePortalStyleClass, JetSpeed2Style</em>.<br />
+Таким образом, если вы хотите создать ваш собственный стиль для приложения OpenXava, запускаемого в портале Liferay 6, просто добавьте следующую строку в <em>xava.properties</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">liferay6StyleClass=org.openxava.test.style.MyLiferay6Style</pre>
+
+Понятно, что вам также необходимо описать <em>MyLiferayStyle</em> class.<br />
+<h2 id="toc5"><a name="xПользовательский стиль отображения-Пример: стиль для iPad"></a>Пример: стиль для iPad</h2>
+ Стиль для iPad по умолчанию включен в OpenXava и применяется автоматически, если пользователь обращается к приложению при помощи iPad.<br />
+<h3 id="toc6"><a name="xПользовательский стиль отображения-Пример: стиль для iPad-Определение обозревателя/устройства"></a>Определение обозревателя/устройства</h3>
+ Для того, чтобы включить определение устройства, мы добавляем следующий метод в класс стиля:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">public boolean isForBrowse(String browser) {
+return browser != null &amp;&amp; browser.contains(&quot;iPad&quot;);
+}</pre>
+
+Это способ сопоставления выбранного стиля определенному обозревателю или устройству. Вы можете использовать эту технику в вашем стиле, хотя при этом вам необходимо создать <em>styles.properties</em> файл в <em>properties</em> папке вашего проекта и добавить туда строку с классом вашего стиля, как в следующем примере:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">com.mycompany.myapp.style.MyDeviceStyle</pre>
+
+Кроме того, вам необходимо описать класс <em>MyDeviceStyle</em> with the c соответствующий <em>isForBrowse()</em> методом.<br />
+<h3 id="toc7"><a name="xПользовательский стиль отображения-Пример: стиль для iPad-JavaScript код"></a>JavaScript код</h3>
+ Стиль для iPad также использует встроенные эффекты iPad такие как <em>flip</em> и <em>slide</em>. Чтобы этого достичь, необходимо использовать JavaScript код. В нашем случае мы определяем метод для определения способа, при помощи которого HTML token полученный при помощи AJAX с сервера, связывается с элементом HTML документа:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">public String getSetHtmlFunction() {
+return &quot;ipad.setHtml&quot;;
+}</pre>
+
+Таким образом, мы указываем, что, вместо стандартной, необходимо использовать функцию <em>ipad.setHtml</em>. Эта функция поределена в <em>ipad.js</em> файле. Мы должны также указать это классу стиля, который загружает этот JavaScript файл:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">private static String [] jsFiles = {
+&quot;ipad/ipad.js&quot;,
+};
+&nbsp;
+public String [] getNoPortalModuleJsFiles() {
+return jsFiles;
+}</pre>
+
+Это сам <em>ipad.js</em> файл в папке <em>web/style/ipad</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.javascript  {font-family:monospace;}
+.javascript .imp {font-weight: bold; color: red;}
+.javascript .kw1 {color: #000066; font-weight: bold;}
+.javascript .kw2 {color: #003366; font-weight: bold;}
+.javascript .kw3 {color: #000066;}
+.javascript .co1 {color: #006600; font-style: italic;}
+.javascript .co2 {color: #009966; font-style: italic;}
+.javascript .coMULTI {color: #006600; font-style: italic;}
+.javascript .es0 {color: #000099; font-weight: bold;}
+.javascript .br0 {color: #009900;}
+.javascript .sy0 {color: #339933;}
+.javascript .st0 {color: #3366CC;}
+.javascript .nu0 {color: #CC0000;}
+.javascript .me1 {color: #660066;}
+.javascript span.xtra { display:block; }
+
+-->
+</style><pre class="javascript"><span class="kw1">if</span> <span class="br0">&#40;</span>ipad <span class="sy0">==</span> <span class="kw2">null</span><span class="br0">&#41;</span> <span class="kw2">var</span> ipad <span class="sy0">=</span> <span class="br0">&#123;</span><span class="br0">&#125;</span><span class="sy0">;</span>
+&nbsp;
+ipad.<span class="kw3">onLoad</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">var</span> id <span class="sy0">=</span> $<span class="br0">&#40;</span><span class="st0">'body'</span><span class="br0">&#41;</span>.<span class="me1">data</span><span class="br0">&#40;</span><span class="st0">'ipad-slide-element'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw2">var</span> clazz <span class="sy0">=</span> $<span class="br0">&#40;</span><span class="st0">'body'</span><span class="br0">&#41;</span>.<span class="me1">data</span><span class="br0">&#40;</span><span class="st0">'ipad-slide-class'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">'#'</span> <span class="sy0">+</span> id<span class="br0">&#41;</span>.<span class="me1">addClass</span><span class="br0">&#40;</span>clazz<span class="br0">&#41;</span><span class="sy0">;</span>
+setTimeout<span class="br0">&#40;</span><span class="st0">&quot;$('#&quot;</span> <span class="sy0">+</span> id <span class="sy0">+</span> <span class="st0">&quot;').removeClass('&quot;</span> <span class="sy0">+</span> clazz <span class="sy0">+</span> <span class="st0">&quot;')&quot;</span><span class="sy0">,</span> <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">'body'</span><span class="br0">&#41;</span>.<span class="me1">removeData</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+ipad.<span class="me1">onClickNextPage</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>listId<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+$<span class="br0">&#40;</span><span class="st0">'#'</span> <span class="sy0">+</span> listId<span class="br0">&#41;</span>.<span class="me1">addClass</span><span class="br0">&#40;</span><span class="st0">'slided-left'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">'body'</span><span class="br0">&#41;</span>.<span class="me1">data</span><span class="br0">&#40;</span><span class="st0">'ipad-slide-element'</span><span class="sy0">,</span> listId<span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">'body'</span><span class="br0">&#41;</span>.<span class="me1">data</span><span class="br0">&#40;</span><span class="st0">'ipad-slide-class'</span><span class="sy0">,</span> <span class="st0">'slided-right'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+ipad.<span class="me1">onClickPreviousPage</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>listId<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+$<span class="br0">&#40;</span><span class="st0">'#'</span> <span class="sy0">+</span> listId<span class="br0">&#41;</span>.<span class="me1">addClass</span><span class="br0">&#40;</span><span class="st0">'slided-right'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">'body'</span><span class="br0">&#41;</span>.<span class="me1">data</span><span class="br0">&#40;</span><span class="st0">'ipad-slide-element'</span><span class="sy0">,</span> listId<span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">'body'</span><span class="br0">&#41;</span>.<span class="me1">data</span><span class="br0">&#40;</span><span class="st0">'ipad-slide-class'</span><span class="sy0">,</span> <span class="st0">'slided-left'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+ipad.<span class="me1">setHtml</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>id<span class="sy0">,</span> content<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>id.<span class="me1">match</span><span class="br0">&#40;</span><span class="co2">/__core$/</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#&quot;</span> <span class="sy0">+</span> id<span class="br0">&#41;</span>.<span class="me1">html</span><span class="br0">&#40;</span>content<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw1">return</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">// Core</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#container&quot;</span><span class="br0">&#41;</span>.<span class="me1">addClass</span><span class="br0">&#40;</span><span class="st0">&quot;container&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#sheet&quot;</span><span class="br0">&#41;</span>.<span class="me1">addClass</span><span class="br0">&#40;</span><span class="st0">&quot;sheet&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#front&quot;</span><span class="br0">&#41;</span>.<span class="me1">addClass</span><span class="br0">&#40;</span><span class="st0">&quot;face&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#back&quot;</span><span class="br0">&#41;</span>.<span class="me1">addClass</span><span class="br0">&#40;</span><span class="st0">&quot;face&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">if</span> <span class="br0">&#40;</span>$<span class="br0">&#40;</span><span class="st0">&quot;#sheet&quot;</span><span class="br0">&#41;</span>.<span class="me1">hasClass</span><span class="br0">&#40;</span><span class="st0">&quot;flipped&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#&quot;</span> <span class="sy0">+</span> id<span class="br0">&#41;</span>.<span class="me1">html</span><span class="br0">&#40;</span>content<span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#sheet&quot;</span><span class="br0">&#41;</span>.<span class="me1">removeClass</span><span class="br0">&#40;</span><span class="st0">&quot;flipped&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="kw1">else</span> <span class="br0">&#123;</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#core_BACK&quot;</span><span class="br0">&#41;</span>.<span class="me1">html</span><span class="br0">&#40;</span>content<span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#sheet&quot;</span><span class="br0">&#41;</span>.<span class="me1">addClass</span><span class="br0">&#40;</span><span class="st0">&quot;flipped&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+$<span class="br0">&#40;</span><span class="st0">'#sheet'</span><span class="br0">&#41;</span>.<span class="me1">bind</span><span class="br0">&#40;</span><span class="st0">'webkitTransitionEnd'</span><span class="sy0">,</span>
+<span class="kw2">function</span><span class="br0">&#40;</span> event <span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw1">if</span> <span class="br0">&#40;</span>$<span class="br0">&#40;</span><span class="st0">&quot;#sheet&quot;</span><span class="br0">&#41;</span>.<span class="me1">hasClass</span><span class="br0">&#40;</span><span class="st0">&quot;flipped&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> $<span class="br0">&#40;</span><span class="st0">&quot;#&quot;</span> <span class="sy0">+</span> id<span class="br0">&#41;</span>.<span class="me1">empty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw1">else</span> <span class="br0">&#123;</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#core_BACK&quot;</span><span class="br0">&#41;</span>.<span class="me1">empty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#container&quot;</span><span class="br0">&#41;</span>.<span class="me1">removeClass</span><span class="br0">&#40;</span><span class="st0">&quot;container&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#sheet&quot;</span><span class="br0">&#41;</span>.<span class="me1">removeClass</span><span class="br0">&#40;</span><span class="st0">&quot;sheet&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#front&quot;</span><span class="br0">&#41;</span>.<span class="me1">removeClass</span><span class="br0">&#40;</span><span class="st0">&quot;face&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+$<span class="br0">&#40;</span><span class="st0">&quot;#back&quot;</span><span class="br0">&#41;</span>.<span class="me1">removeClass</span><span class="br0">&#40;</span><span class="st0">&quot;face&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+$<span class="br0">&#40;</span><span class="st0">'#sheet'</span><span class="br0">&#41;</span>.<span class="me1">unbind</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">,</span>
+<span class="kw2">false</span>
+<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="br0">&#125;</span></pre>
+
+<h3 id="toc8"><a name="xПользовательский стиль отображения-Пример: стиль для iPad-CSS файл"></a>CSS файл</h3>
+ Ниже приведен полный <em>ipad.css</em> файл. Этот файл вы можете найти в дистрибутиве OpenXava, в папке <em>OpenXava/web/style/ipad</em>.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.css  {font-family:monospace;}
+.css .imp {font-weight: bold; color: red;}
+.css .kw1 {color: #000000; font-weight: bold;}
+.css .kw2 {color: #993333;}
+.css .co1 {color: #a1a100;}
+.css .co2 {color: #ff0000; font-style: italic;}
+.css .coMULTI {color: #808080; font-style: italic;}
+.css .es0 {color: #000099; font-weight: bold;}
+.css .es2 {color: #000099; font-weight: bold;}
+.css .br0 {color: #00AA00;}
+.css .sy0 {color: #00AA00;}
+.css .st0 {color: #ff0000;}
+.css .nu0 {color: #cc66cc;}
+.css .re0 {color: #cc00cc;}
+.css .re1 {color: #6666ff;}
+.css .re2 {color: #3333ff;}
+.css .re3 {color: #933;}
+.css span.xtra { display:block; }
+
+-->
+</style><pre class="css">body <span class="br0">&#123;</span>
+<span class="kw1">margin</span><span class="sy0">:</span> <span class="re3">0px</span><span class="sy0">;</span> <span class="kw1">background</span><span class="sy0">:</span> <span class="kw1">black</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re0">#xava_loading</span><span class="sy0">,</span> <span class="re0">#xava_loading2</span> <span class="br0">&#123;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">20px</span><span class="sy0">;</span>
+<span class="kw1">border</span><span class="sy0">:</span> <span class="kw2">none</span><span class="sy0">;</span>
+<span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span class="br0">&#40;</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">top</span><span class="sy0">,</span>
+from<span class="br0">&#40;</span><span class="re0">#10182C</span><span class="br0">&#41;</span><span class="sy0">,</span> color-stop<span class="br0">&#40;</span><span class="nu0">0.5</span><span class="sy0">,</span> <span class="re0">#121A2E</span><span class="br0">&#41;</span><span class="sy0">,</span>
+color-stop<span class="br0">&#40;</span><span class="nu0">0.51</span><span class="sy0">,</span> <span class="re0">#282F41</span><span class="br0">&#41;</span><span class="sy0">,</span> to<span class="br0">&#40;</span><span class="re0">#7E838D</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+opacity<span class="sy0">:</span>.60<span class="sy0">;</span>
+-webkit-border-radius<span class="sy0">:</span> <span class="re3">7px</span><span class="sy0">;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">&#40;</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span class="sy0">;</span>
+-webkit-box-shadow<span class="sy0">:</span> <span class="re3">10px</span> <span class="re3">10px</span> <span class="re3">10px</span> rgba<span class="br0">&#40;</span><span class="nu0">140</span><span class="sy0">,</span><span class="nu0">140</span><span class="sy0">,</span><span class="nu0">140</span><span class="sy0">,</span><span class="nu0">0.75</span><span class="br0">&#41;</span><span class="sy0">;;</span>
+<span class="kw1">display</span><span class="sy0">:</span><span class="kw2">none</span><span class="sy0">;</span>
+<span class="kw1">z-index</span><span class="sy0">:</span> <span class="nu0">9999</span><span class="sy0">;</span>
+<span class="kw1">position</span><span class="sy0">:</span> <span class="kw2">fixed</span><span class="sy0">;</span>
+<span class="kw1">left</span><span class="sy0">:</span> <span class="re3">45%</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re0">#xava_loading</span> <span class="br0">&#123;</span>
+<span class="kw1">top</span><span class="sy0">:</span> <span class="re3">25%</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re0">#xava_loading2</span> <span class="br0">&#123;</span>
+<span class="kw1">top</span><span class="sy0">:</span> <span class="re3">120%</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-module</span> <span class="br0">&#123;</span>
+<span class="kw1">font-family</span><span class="sy0">:</span> Helvetica<span class="sy0">,</span> Arial<span class="sy0">,</span> <span class="kw2">sans-serif</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="coMULTI">/* Portrait */</span>
+<span class="co1">@media screen and (orientation:portrait) {</span>
+<span class="re1">.ox-module</span><span class="sy0">,</span> .ui-widget-<span class="kw1">content</span><span class="sy0">,</span> <span class="re0">#xava_loading</span><span class="sy0">,</span> <span class="re0">#xava_loading2</span> <span class="br0">&#123;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">1.2em</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+.ui-widget-<span class="kw1">content</span> <span class="br0">&#123;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">1.1em</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ui-widget-header</span> <span class="br0">&#123;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">180%</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ox-button-bar</span><span class="sy0">,</span> <span class="re1">.ox-section</span> <span class="br0">&#123;</span>
+<span class="kw1">height</span><span class="sy0">:</span> <span class="re3">32px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ox-page-navigation-pages</span> <span class="br0">&#123;</span>
+<span class="kw1">top</span><span class="sy0">:</span> <span class="re3">8px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ox-bottom-buttons</span> input<span class="br0">&#91;</span>type<span class="sy0">=</span><span class="st0">&quot;button&quot;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span>
+-webkit-box-shadow<span class="sy0">:</span> <span class="re3">0px</span> <span class="re3">2px</span> <span class="re3">0px</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ox-detail</span><span class="sy0">,</span> .ox-frame-<span class="kw1">content</span><span class="sy0">,</span> <span class="re1">.ox-active-section</span> <span class="br0">&#123;</span>
+<span class="kw1">border</span><span class="sy0">:</span> <span class="re3">2px</span> <span class="kw2">solid</span> <span class="re0">#B2B4B8</span><span class="sy0">;</span>
+-webkit-box-shadow<span class="sy0">:</span> <span class="re3">0px</span> <span class="re3">2px</span> <span class="re3">0px</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ox-frame-actions</span> img <span class="br0">&#123;</span>
+<span class="kw1">height</span><span class="sy0">:</span> <span class="re3">38px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+&nbsp;
+<span class="coMULTI">/* Landscape */</span>
+<span class="co1">@media screen and (orientation:landscape) {</span>
+<span class="re1">.ox-module</span> <span class="br0">&#123;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.9em</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+.ui-widget-<span class="kw1">content</span><span class="sy0">,</span> <span class="re0">#xava_loading</span><span class="sy0">,</span> <span class="re0">#xava_loading2</span> <span class="br0">&#123;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.95em</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ui-widget-header</span> <span class="br0">&#123;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">150%</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ox-button-bar</span><span class="sy0">,</span> <span class="re1">.ox-section</span> <span class="br0">&#123;</span>
+<span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="kw2">none</span><span class="sy0">;</span>
+<span class="kw1">height</span><span class="sy0">:</span> <span class="re3">25px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ox-page-navigation-pages</span> <span class="br0">&#123;</span>
+<span class="kw1">top</span><span class="sy0">:</span> <span class="re3">11px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ox-bottom-buttons</span> input<span class="br0">&#91;</span>type<span class="sy0">=</span><span class="st0">&quot;button&quot;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span>
+-webkit-box-shadow<span class="sy0">:</span> <span class="re3">0px</span> <span class="re3">1px</span> <span class="re3">0px</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ox-button-bar-image</span> img <span class="br0">&#123;</span>
+<span class="kw1">height</span><span class="sy0">:</span> <span class="re3">19px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ox-detail</span><span class="sy0">,</span> .ox-frame-<span class="kw1">content</span><span class="sy0">,</span> <span class="re1">.ox-active-section</span> <span class="br0">&#123;</span>
+<span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#B2B4B8</span><span class="sy0">;</span>
+<span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#8F8F8F</span><span class="sy0">;</span>
+-webkit-box-shadow<span class="sy0">:</span> <span class="re3">0px</span> <span class="re3">1px</span> <span class="re3">0px</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-view</span> <span class="br0">&#123;</span>
+<span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#D8D8D9</span><span class="sy0">;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">20px</span><span class="sy0">;</span>
+<span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#959596</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-detail</span> <span class="br0">&#123;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">130%</span><span class="sy0">;</span>
+&nbsp;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-detail</span><span class="sy0">,</span> .ox-frame-<span class="kw1">content</span><span class="sy0">,</span> <span class="re1">.ox-active-section</span> <span class="br0">&#123;</span>
+<span class="kw1">background</span><span class="sy0">:</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span><span class="sy0">;</span>
+-webkit-border-radius<span class="sy0">:</span><span class="re3">15px</span><span class="sy0">;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#385587</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span> <span class="re3">0px</span> <span class="re3">1px</span> <span class="re3">1px</span> <span class="kw1">black</span> <span class="re0">#A0ADC4</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-active-section</span> <span class="br0">&#123;</span>
+-webkit-border-top-left-radius<span class="sy0">:</span> <span class="re3">0px</span><span class="sy0">;</span>
+-webkit-border-top-right-radius<span class="sy0">:</span> <span class="re3">0px</span><span class="sy0">;</span>
+<span class="kw1">border-left</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#B2B4B8</span><span class="sy0">;</span>
+<span class="kw1">border-right</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#B2B4B8</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-frame-title-label</span> <span class="br0">&#123;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span> <span class="re3">0px</span> <span class="re3">0px</span> <span class="re3">10px</span><span class="sy0">;</span>
+<span class="kw1">vertical-align</span><span class="sy0">:</span> <span class="kw1">bottom</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+input <span class="br0">&#123;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#385587</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-label</span> <span class="br0">&#123;</span>
+<span class="kw1">text-align</span><span class="sy0">:</span> <span class="kw1">left</span><span class="sy0">;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="kw1">black</span><span class="sy0">;</span>
+<span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span> <span class="re3">0px</span> <span class="re3">2px</span> <span class="re3">1px</span> <span class="re0">#E8E8E9</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-button-bar</span><span class="sy0">,</span> <span class="re1">.ox-collection-list-actions</span><span class="sy0">,</span> <span class="re1">.ox-section</span> <span class="br0">&#123;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.9em</span><span class="sy0">;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span> <span class="re3">4px</span> <span class="re3">0px</span> <span class="re3">6px</span><span class="sy0">;</span>
+<span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="kw2">white</span><span class="sy0">;</span>
+-webkit-border-top-left-radius<span class="sy0">:</span> <span class="re3">7px</span><span class="sy0">;</span>
+-webkit-border-top-right-radius<span class="sy0">:</span> <span class="re3">7px</span><span class="sy0">;</span>
+<span class="kw1">background</span><span class="sy0">:</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span class="br0">&#40;</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">top</span><span class="sy0">,</span>
+from<span class="br0">&#40;</span><span class="re0">#A8ADB9</span><span class="br0">&#41;</span><span class="sy0">,</span> to<span class="br0">&#40;</span><span class="re0">#F5F6F7</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ox-collection-list-actions</span> <span class="br0">&#123;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">0px</span> <span class="re3">4px</span> <span class="re3">0px</span> <span class="re3">6px</span><span class="sy0">;</span>
+<span class="kw1">height</span><span class="sy0">:</span> <span class="re3">40px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-detail</span> <span class="re1">.ox-action-link</span> <span class="br0">&#123;</span>
+<span class="kw1">background</span><span class="sy0">:</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">5px</span><span class="sy0">;</span>
+<span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#C4C4C4</span><span class="sy0">;</span>
+-webkit-border-radius<span class="sy0">:</span><span class="re3">5px</span><span class="sy0">;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#7C7A77</span><span class="sy0">;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.9em</span><span class="sy0">;</span>
+<span class="kw1">text-decoration</span><span class="sy0">:</span> <span class="kw2">none</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">1px</span> <span class="re3">0px</span> <span class="re3">0px</span> <span class="re0">#EDEDED</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-button-bar-button</span> a<span class="sy0">,</span> <span class="re1">.ox-list</span> <span class="re1">.ox-action-link</span> <span class="br0">&#123;</span>
+<span class="kw1">margin-right</span><span class="sy0">:</span> <span class="re3">5px</span><span class="sy0">;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">4px</span> <span class="re3">9px</span> <span class="re3">5px</span><span class="sy0">;</span>
+<span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#51555B</span><span class="sy0">;</span>
+<span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#4C4E50</span><span class="sy0">;</span>
+-webkit-border-radius<span class="sy0">:</span><span class="re3">5px</span><span class="sy0">;</span>
+<span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span class="br0">&#40;</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">top</span><span class="sy0">,</span>
+from<span class="br0">&#40;</span><span class="re0">#6B737E</span><span class="br0">&#41;</span><span class="sy0">,</span> to<span class="br0">&#40;</span><span class="re0">#B2B5BB</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span class="sy0">;</span>
+<span class="kw1">text-decoration</span><span class="sy0">:</span><span class="kw2">none</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">&#40;</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-button-bar-image</span> <span class="br0">&#123;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">0px</span> <span class="re3">15px</span> <span class="re3">5px</span><span class="sy0">;</span>
+<span class="kw1">vertical-align</span><span class="sy0">:</span> <span class="kw1">top</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-button-bar-mode-button</span><span class="sy0">,</span> <span class="re1">.ox-section-tab</span><span class="sy0">,</span> <span class="re1">.ox-section-link</span> <span class="br0">&#123;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">4px</span> <span class="re3">9px</span> <span class="re3">5px</span><span class="sy0">;</span>
+<span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#51555B</span><span class="sy0">;</span>
+<span class="kw1">border-right</span><span class="sy0">:</span> <span class="kw2">none</span><span class="sy0">;</span>
+<span class="kw1">border-left</span><span class="sy0">:</span> <span class="kw2">none</span><span class="sy0">;</span>
+<span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#4C4E50</span><span class="sy0">;</span>
+<span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span class="br0">&#40;</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">top</span><span class="sy0">,</span>
+from<span class="br0">&#40;</span><span class="re0">#A8ADB9</span><span class="br0">&#41;</span><span class="sy0">,</span> to<span class="br0">&#40;</span><span class="re0">#F5F6F7</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span class="sy0">;</span>
+<span class="kw1">text-decoration</span><span class="sy0">:</span><span class="kw2">none</span><span class="sy0">;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#5D6065</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span class="re3">1px</span> <span class="re3">1px</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-active</span> <span class="re1">.ox-button-bar-mode-button</span><span class="sy0">,</span> <span class="re1">.ox-active</span> <span class="re1">.ox-section-tab</span> <span class="br0">&#123;</span>
+<span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span class="br0">&#40;</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">top</span><span class="sy0">,</span>
+from<span class="br0">&#40;</span><span class="re0">#6B737E</span><span class="br0">&#41;</span><span class="sy0">,</span> to<span class="br0">&#40;</span><span class="re0">#B2B5BB</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">&#40;</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-first</span> <span class="re1">.ox-button-bar-mode-button</span><span class="sy0">,</span> <span class="re1">.ox-first</span> <span class="re1">.ox-section-tab</span> <span class="br0">&#123;</span>
+<span class="kw1">border-left</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#51555B</span><span class="sy0">;</span>
+-webkit-border-top-left-radius<span class="sy0">:</span> <span class="re3">5px</span><span class="sy0">;</span>
+-webkit-border-bottom-left-radius<span class="sy0">:</span> <span class="re3">5px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-last</span> <span class="re1">.ox-button-bar-mode-button</span><span class="sy0">,</span> <span class="re1">.ox-last</span> <span class="re1">.ox-section-tab</span> <span class="br0">&#123;</span>
+<span class="kw1">border-right</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#51555B</span><span class="sy0">;</span>
+-webkit-border-top-right-radius<span class="sy0">:</span> <span class="re3">5px</span><span class="sy0">;</span>
+-webkit-border-bottom-right-radius<span class="sy0">:</span> <span class="re3">5px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-list</span> <span class="br0">&#123;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.9em</span><span class="sy0">;</span>
+<span class="kw1">border</span><span class="sy0">:</span> <span class="kw2">none</span><span class="sy0">;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">2px</span><span class="sy0">;</span>
+-webkit-border-radius<span class="sy0">:</span><span class="re3">7px</span><span class="sy0">;</span>
+-webkit-box-shadow<span class="sy0">:</span> <span class="kw2">inset</span> <span class="re3">1px</span> <span class="re3">1px</span> <span class="re3">4px</span> <span class="re0">#4E4E4E</span><span class="sy0">;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#5D6065</span><span class="sy0">;</span>
+<span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span class="re3">1px</span> <span class="re3">1px</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#D8D8D9</span><span class="sy0">;</span>
+-webkit-transition-property<span class="sy0">:</span> -webkit-transform<span class="sy0">;</span>
+-webkit-transition-duration<span class="sy0">:</span> 1.5s<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+.slided-<span class="kw1">left</span> <span class="br0">&#123;</span>
+-webkit-transform<span class="sy0">:</span> translateX<span class="br0">&#40;</span><span class="re3">-130%</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+.slided-<span class="kw1">right</span> <span class="br0">&#123;</span>
+-webkit-transform<span class="sy0">:</span> translateX<span class="br0">&#40;</span><span class="re3">200%</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="re1">.ox-list-odd</span> <span class="br0">&#123;</span>
+<span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#BBBBBB</span><span class="sy0">;</span>
+<span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#CFCFCF</span><span class="sy0">;</span>
+<span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#959596</span><span class="sy0">;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span> <span class="re3">8px</span> <span class="re3">10px</span> <span class="re3">8px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-list-pair</span> <span class="br0">&#123;</span>
+<span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#AFAFAF</span><span class="sy0">;</span>
+<span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#C6C6C6</span><span class="sy0">;</span>
+<span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#959596</span><span class="sy0">;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span> <span class="re3">8px</span> <span class="re3">10px</span> <span class="re3">8px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-total-row</span> <span class="br0">&#123;</span>
+<span class="kw1">height</span><span class="sy0">:</span> <span class="re3">40px</span><span class="sy0">;</span>
+<span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#AFAFAF</span><span class="sy0">;</span>
+<span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#C6C6C6</span><span class="sy0">;</span>
+<span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#959596</span><span class="sy0">;</span>
+<span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span class="br0">&#40;</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">top</span><span class="sy0">,</span>
+from<span class="br0">&#40;</span><span class="re0">#565A63</span><span class="br0">&#41;</span><span class="sy0">,</span> color-stop<span class="br0">&#40;</span><span class="nu0">0.5</span><span class="sy0">,</span> <span class="re0">#6A6E76</span><span class="br0">&#41;</span><span class="sy0">,</span>
+color-stop<span class="br0">&#40;</span><span class="nu0">0.51</span><span class="sy0">,</span> <span class="re0">#797D84</span><span class="br0">&#41;</span><span class="sy0">,</span> to<span class="br0">&#40;</span><span class="re0">#91969E</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-total-cell</span><span class="sy0">,</span> <span class="re1">.ox-total-capable-cell</span> <span class="br0">&#123;</span>
+<span class="kw1">text-align</span><span class="sy0">:</span> <span class="kw1">right</span><span class="sy0">;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">&#40;</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-list-header</span> a <span class="br0">&#123;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">&#40;</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-list-header</span> <span class="br0">&#123;</span>
+<span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span class="br0">&#40;</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">top</span><span class="sy0">,</span>
+from<span class="br0">&#40;</span><span class="re0">#797D84</span><span class="br0">&#41;</span><span class="sy0">,</span> to<span class="br0">&#40;</span><span class="re0">#91969E</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-list-subheader</span> <span class="br0">&#123;</span>
+<span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span class="br0">&#40;</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">top</span><span class="sy0">,</span>
+from<span class="br0">&#40;</span><span class="re0">#565A63</span><span class="br0">&#41;</span><span class="sy0">,</span> to<span class="br0">&#40;</span><span class="re0">#6A6E76</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">2px</span> <span class="re3">8px</span> <span class="re3">2px</span> <span class="re3">10px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-list-title</span><span class="sy0">,</span> <span class="re1">.ox-module-description</span> <span class="br0">&#123;</span>
+<span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span class="sy0">;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">140%</span><span class="sy0">;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#2C2F33</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span class="re3">2px</span> <span class="re3">1px</span> <span class="re0">#E8E8E9</span><span class="sy0">;</span>
+<span class="kw1">padding-left</span><span class="sy0">:</span> <span class="re3">12px</span><span class="sy0">;</span>
+<span class="kw1">padding-bottom</span><span class="sy0">:</span> <span class="re3">12px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-module-description</span> <span class="br0">&#123;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#385587</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span> <span class="re3">0px</span> <span class="re3">1px</span> <span class="re3">1px</span> <span class="kw2">white</span><span class="sy0">;</span>
+&nbsp;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-header-list-count</span> <span class="br0">&#123;</span>
+<span class="kw1">margin-left</span><span class="sy0">:</span> <span class="re3">10px</span><span class="sy0">;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">75%</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-list-info</span> <span class="br0">&#123;</span>
+<span class="kw1">margin-top</span><span class="sy0">:</span> <span class="re3">10px</span><span class="sy0">;</span>
+-webkit-border-radius<span class="sy0">:</span><span class="re3">7px</span><span class="sy0">;</span>
+<span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#505153</span><span class="sy0">;</span>
+<span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span class="br0">&#40;</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">top</span><span class="sy0">,</span>
+from<span class="br0">&#40;</span><span class="re0">#565A63</span><span class="br0">&#41;</span><span class="sy0">,</span> color-stop<span class="br0">&#40;</span><span class="nu0">0.5</span><span class="sy0">,</span> <span class="re0">#6A6E76</span><span class="br0">&#41;</span><span class="sy0">,</span>
+color-stop<span class="br0">&#40;</span><span class="nu0">0.51</span><span class="sy0">,</span> <span class="re0">#797D84</span><span class="br0">&#41;</span><span class="sy0">,</span> to<span class="br0">&#40;</span><span class="re0">#91969E</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-page-navigation-arrow-disable</span><span class="sy0">,</span> <span class="re1">.ox-page-navigation-arrow</span> img <span class="br0">&#123;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">5px</span> <span class="re3">10px</span> <span class="re3">7px</span> <span class="re3">10px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-first</span> <span class="re1">.ox-page-navigation-arrow</span><span class="sy0">,</span> <span class="re1">.ox-first</span> <span class="re1">.ox-page-navigation-arrow-disable</span> <span class="br0">&#123;</span>
+<span class="kw1">border-right</span><span class="sy0">:</span> <span class="re3">2px</span> <span class="kw2">ridge</span> <span class="re0">#878B91</span><span class="sy0">;</span>
+<span class="kw1">float</span><span class="sy0">:</span> <span class="kw1">left</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-last</span> <span class="re1">.ox-page-navigation-arrow</span><span class="sy0">,</span> <span class="re1">.ox-last</span> <span class="re1">.ox-page-navigation-arrow-disable</span> <span class="br0">&#123;</span>
+<span class="kw1">border-left</span><span class="sy0">:</span> <span class="re3">2px</span> <span class="kw2">groove</span> <span class="re0">#878B91</span><span class="sy0">;</span>
+<span class="kw1">float</span><span class="sy0">:</span> <span class="kw1">right</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-page-navigation-pages</span> <span class="br0">&#123;</span>
+<span class="kw1">float</span><span class="sy0">:</span><span class="kw1">left</span><span class="sy0">;</span>
+<span class="kw1">position</span><span class="sy0">:</span><span class="kw2">relative</span><span class="sy0">;</span>
+<span class="kw1">left</span><span class="sy0">:</span><span class="re3">40%</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-page-navigation</span><span class="sy0">,</span> <span class="re1">.ox-page-navigation-selected</span> <span class="br0">&#123;</span>
+<span class="kw1">margin-right</span><span class="sy0">:</span> <span class="re3">10px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-bottom-buttons</span> <span class="br0">&#123;</span>
+<span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#D8D8D9</span><span class="sy0">;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span><span class="sy0">;</span>
+<span class="kw1">text-align</span><span class="sy0">:</span> <span class="kw2">center</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-bottom-buttons</span> input<span class="br0">&#91;</span>type<span class="sy0">=</span><span class="st0">&quot;button&quot;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">20px</span><span class="sy0">;</span>
+<span class="kw1">margin</span><span class="sy0">:</span> <span class="re3">10px</span><span class="sy0">;</span>
+<span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span class="kw2">solid</span> <span class="re0">#979797</span><span class="sy0">;</span>
+-webkit-border-radius<span class="sy0">:</span><span class="re3">10px</span><span class="sy0">;</span>
+<span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span class="br0">&#40;</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">top</span><span class="sy0">,</span>
+from<span class="br0">&#40;</span><span class="re0">#D9D9D9</span><span class="br0">&#41;</span><span class="sy0">,</span> to<span class="br0">&#40;</span><span class="kw2">white</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="kw1">black</span><span class="sy0">;</span>
+<span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span class="sy0">;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">110%</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-errors</span> <span class="br0">&#123;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#CF0000</span><span class="sy0">;</span>
+<span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span class="sy0">;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">140%</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span class="re3">2px</span> <span class="re3">1px</span> <span class="re0">#E8E8E9</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-messages</span> <span class="br0">&#123;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#2160DD</span><span class="sy0">;</span>
+<span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span class="sy0">;</span>
+<span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">140%</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span class="re3">2px</span> <span class="re3">1px</span> <span class="re0">#E8E8E9</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-filter-cell</span> <span class="br0">&#123;</span>
+<span class="kw1">text-align</span><span class="sy0">:</span> <span class="kw1">left</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-frame-totals</span> <span class="br0">&#123;</span>
+<span class="kw1">float</span><span class="sy0">:</span> <span class="kw1">right</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="re1">.ox-frame-totals-label</span> <span class="br0">&#123;</span>
+<span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">normal</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ox-frame-totals-value</span> <span class="br0">&#123;</span>
+<span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ui-widget-header</span> <span class="br0">&#123;</span>
+<span class="kw1">border</span><span class="sy0">:</span> <span class="kw2">none</span><span class="sy0">;</span>
+<span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span class="br0">&#40;</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span class="kw1">top</span><span class="sy0">,</span>
+from<span class="br0">&#40;</span><span class="re0">#10182C</span><span class="br0">&#41;</span><span class="sy0">,</span> color-stop<span class="br0">&#40;</span><span class="nu0">0.5</span><span class="sy0">,</span> <span class="re0">#121A2E</span><span class="br0">&#41;</span><span class="sy0">,</span>
+color-stop<span class="br0">&#40;</span><span class="nu0">0.51</span><span class="sy0">,</span> <span class="re0">#282F41</span><span class="br0">&#41;</span><span class="sy0">,</span> to<span class="br0">&#40;</span><span class="re0">#7E838D</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span class="sy0">;</span>
+<span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">&#40;</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ui-corner-all</span> <span class="br0">&#123;</span>
+-webkit-border-radius<span class="sy0">:</span> <span class="re3">10px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+.ui-widget-<span class="kw1">content</span> <span class="br0">&#123;</span>
+<span class="kw1">border</span><span class="sy0">:</span> <span class="kw2">none</span><span class="sy0">;</span>
+<span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#151D31</span><span class="sy0">;</span>
+-webkit-box-shadow<span class="sy0">:</span> <span class="re3">15px</span> <span class="re3">15px</span> <span class="re3">30px</span> rgba<span class="br0">&#40;</span><span class="nu0">140</span><span class="sy0">,</span><span class="nu0">140</span><span class="sy0">,</span><span class="nu0">140</span><span class="sy0">,</span><span class="nu0">0.75</span><span class="br0">&#41;</span><span class="sy0">;;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+.ui-widget-<span class="kw1">content</span> <span class="re1">.ox-view</span> <span class="br0">&#123;</span>
+-webkit-border-top-left-radius<span class="sy0">:</span> <span class="re3">7px</span><span class="sy0">;</span>
+-webkit-border-top-right-radius<span class="sy0">:</span> <span class="re3">7px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+.ui-widget-<span class="kw1">content</span> <span class="re1">.ox-bottom-buttons</span> <span class="br0">&#123;</span>
+-webkit-border-bottom-left-radius<span class="sy0">:</span> <span class="re3">7px</span><span class="sy0">;</span>
+-webkit-border-bottom-right-radius<span class="sy0">:</span> <span class="re3">7px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re1">.ui-dialog</span> .ui-dialog-<span class="kw1">content</span> <span class="br0">&#123;</span>
+<span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">5px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="coMULTI">/* For flip effect */</span>
+<span class="re1">.container</span> <span class="br0">&#123;</span>
+-webkit-perspective<span class="sy0">:</span> <span class="nu0">600</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="re1">.sheet</span> <span class="br0">&#123;</span>
+<span class="kw1">position</span><span class="sy0">:</span> <span class="kw2">absolute</span><span class="sy0">;</span>
+<span class="kw1">width</span><span class="sy0">:</span> <span class="re3">100%</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="re1">.face</span> <span class="br0">&#123;</span>
+<span class="kw1">position</span><span class="sy0">:</span> <span class="kw2">absolute</span><span class="sy0">;</span>
+<span class="kw1">width</span><span class="sy0">:</span> <span class="re3">100%</span><span class="sy0">;</span>
+<span class="kw1">overflow</span><span class="sy0">:</span> <span class="kw2">hidden</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="re1">.sheet</span> <span class="br0">&#123;</span>
+-webkit-transform-style<span class="sy0">:</span> preserve-3d<span class="sy0">;</span>
+-webkit-transition-property<span class="sy0">:</span> -webkit-transform<span class="sy0">;</span>
+-webkit-transition-duration<span class="sy0">:</span> 1.5s<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="re1">.flipped</span>
+<span class="br0">&#123;</span>
+-webkit-transform<span class="sy0">:</span> rotateY<span class="br0">&#40;</span>180deg<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re0">#front</span><span class="sy0">,</span> <span class="re0">#back</span> <span class="br0">&#123;</span>
+-webkit-backface-<span class="kw1">visibility</span><span class="sy0">:</span> <span class="kw2">hidden</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re0">#back</span> <span class="br0">&#123;</span>
+-webkit-transform<span class="sy0">:</span> rotateY<span class="br0">&#40;</span>180deg<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<h3 id="toc9"><a name="xПользовательский стиль отображения-Пример: стиль для iPad-Класс стиля"></a>Класс стиля</h3>
+ Ниже приведен код класса <em>IPadStyle</em>. Вы можете найти этот класс в дистрибутиве OpenXava, в <em>OpenXava/src/org.openxava.web.style</em>.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.web.style</span><span class="sy0">;</span>
+&nbsp;
+<span class="co3">/**
+* For iPads. &lt;p&gt;
+*
+* @author Javier Paniza
+*/</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw2">class</span> IPadStyle <span class="kw2">extends</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/Style.html"><span class="kw116">Style</span></a> <span class="br0">&#123;</span>
+&nbsp;
+<span class="kw2">private</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> <span class="br0">&#91;</span><span class="br0">&#93;</span> jsFiles = <span class="br0">&#123;</span>
+<span class="st0">&quot;ipad/ipad.js&quot;</span>,
+<span class="br0">&#125;</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw2">private</span> <span class="kw2">static</span> IPadStyle instance = <span class="kw4">null</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw2">protected</span> IPadStyle<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/Style.html"><span class="kw116">Style</span></a> getInstance<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw1">if</span> <span class="br0">&#40;</span>instance == <span class="kw4">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+instance = <span class="kw2">new</span> IPadStyle<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="kw2">return</span> instance<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isForBrowse<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> browser<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> browser <span class="sy0">!</span>= <span class="kw4">null</span> <span class="sy0">&amp;&amp;</span> browser.<span class="me1">contains</span><span class="br0">&#40;</span><span class="st0">&quot;iPad&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isOnlyOneButtonForModeIfTwoModes<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isSeparatorBeforeBottomButtons<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getSetHtmlFunction<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="st0">&quot;ipad.setHtml&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getCssFile<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="st0">&quot;ipad/ipad.css&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> <span class="br0">&#91;</span><span class="br0">&#93;</span> getNoPortalModuleJsFiles<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> jsFiles<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getInitThemeScript<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="st0">&quot;ipad.onLoad()&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getNextPageNavigationEvents<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> listId<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="st0">&quot;onclick=ipad.onClickNextPage('&quot;</span> + listId + <span class="st0">&quot;')&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getPreviousPageNavigationEvents<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> listId<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="st0">&quot;onclick=ipad.onClickPreviousPage('&quot;</span> + listId + <span class="st0">&quot;')&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getCoreStartDecoration<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="st0">&quot;&lt;div id='container'&gt;&lt;div id='sheet'&gt;&lt;div id='front'&gt;&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getCoreEndDecoration<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span>
+<span class="st0">&quot;&lt;/div&gt;&lt;div id='back'&gt;&lt;div id='core_BACK' style='display: inline;' class='&quot;</span>
++ getModule<span class="br0">&#40;</span><span class="br0">&#41;</span> + <span class="st0">&quot;'&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getDefaultModeController<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="st0">&quot;DetailList&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> allowsResizeColumns<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isRowLinkable<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isShowPageNumber<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isShowModuleDescription<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isSeveralActionsPerRow<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isChangingPageRowCountAllowed<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isHideRowsAllowed<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isShowRowCountOnTop<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isUseLinkForNoButtonBarAction<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isHelpAvailable<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isShowImageInButtonBarButton<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isUseStandardImageActionForOnlyImageActionOnButtonBar<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw3">boolean</span> isFixedPositionSupported<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getMetaTags<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="st0">&quot;&lt;meta name='apple-mobile-web-app-capable' content='yes'/&gt;&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getModuleSpacing<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="st0">&quot;style='padding: 0px;'&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getListCellSpacing<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="st0">&quot;cellspacing=0 cellpadding=0&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getImagesFolder<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw2">return</span> <span class="st0">&quot;xava/style/ipad/images&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="br0">&#125;</span></pre>
+
+
+    </div>
+  </body>
+</html>

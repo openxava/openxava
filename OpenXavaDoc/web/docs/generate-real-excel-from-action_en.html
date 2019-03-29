@@ -1,0 +1,937 @@
+<html>
+  <head>
+    <title>openxava - generate-real-excel-from-action_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<span style="font-size: 20pt;"><strong>Create real Excel files from actions</strong></span><br />
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Setup">Setup</a></div>
+<div style="margin-left: 1em;"><a href="#Basic template for the action">Basic template for the action</a></div>
+<div style="margin-left: 3em;"><a href="#Basic template for the action--Resulting xls file">Resulting xls file</a></div>
+<div style="margin-left: 1em;"><a href="#Formating the file">Formating the file</a></div>
+<div style="margin-left: 2em;"><a href="#Formating the file-Workbook formats">Workbook formats</a></div>
+<div style="margin-left: 3em;"><a href="#Formating the file-Workbook formats-Resulting xls file">Resulting xls file</a></div>
+<div style="margin-left: 2em;"><a href="#Formating the file-Cell formats">Cell formats</a></div>
+<div style="margin-left: 3em;"><a href="#Formating the file-Cell formats-Resulting xls file">Resulting xls file</a></div>
+<div style="margin-left: 2em;"><a href="#Formating the file-Column formats">Column formats</a></div>
+<div style="margin-left: 3em;"><a href="#Formating the file-Column formats-Resulting xls file">Resulting xls file</a></div>
+<div style="margin-left: 1em;"><a href="#Creating Styles">Creating Styles</a></div>
+<div style="margin-left: 2em;"><a href="#Creating Styles-Type of styles">Type of styles</a></div>
+<div style="margin-left: 2em;"><a href="#Creating Styles-Setting properties for styles">Setting properties for styles</a></div>
+<div style="margin-left: 2em;"><a href="#Creating Styles-Available properties for styles">Available properties for styles</a></div>
+<div style="margin-left: 1em;"><a href="#Working with formulas">Working with formulas</a></div>
+<div style="margin-left: 3em;"><a href="#Working with formulas--Reference systems">Reference systems</a></div>
+<div style="margin-left: 3em;"><a href="#Working with formulas--Example of formula">Example of formula</a></div>
+<div style="margin-left: 1em;"><a href="#Behind the scene">Behind the scene</a></div>
+</div>
+You sometimes have to generate a nicely presented report in excel format. For such reports, the csv format is quite limited. From version 5.5, OpenXava offers the possibility to generate real xls files.<br />
+<h1 id="toc0"><a name="Setup"></a>Setup</h1>
+ 1- If you are using an OpenXava version previous to v5.6 modify the servlets.xml in /web/WEB-INF/ folder of your application:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml">    <span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>generateCustomXLSReport<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.openxava.web.servlets.ReportXLSServlet<span class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;servlet-mapping<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>generateCustomXLSReport<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/xava/report.xls<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span></pre>
+
+This will forward any URI ending by /xava/reports.xls to the ReportXLSServlet.<br />
+<br />
+2- Add the action in your controllers.xml file<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;MyController&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span class="st0">&quot;TypicalRealExcel&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span class="st0">&quot;scenario&quot;</span> <span class="re0">mode</span>=<span class="st0">&quot;detail&quot;</span> <span class="re0">by-default</span>=<span class="st0">&quot;if-possible&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.actions.CreateXlsFileAction&quot;</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
+
+<h1 id="toc1"><a name="Basic template for the action"></a>Basic template for the action</h1>
+ 
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java span.xtra { display:block; }
+
+-->
+</style><pre class="java"><span class="kw1">package</span> <span class="co2">org.openxava.actions</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">import</span> <span class="co2">org.openxava.actions.*</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.openxava.util.*</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.openxava.util.jxls.*</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.openxava.web.servlets.*</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">public</span> <span class="kw1">class</span> CreateXlsFileAction <span class="kw1">extends</span> ViewBaseAction
+<span class="kw1">implements</span> IForwardAction, JxlsConstants <span class="br0">&#123;</span>                                                             <span class="co1">// 1</span>
+&nbsp;
+    <span class="kw1">private</span> <span class="kw3">String</span> forwardURI <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">public</span> <span class="kw4">void</span> execute<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">&#123;</span>
+        <span class="kw1">try</span> <span class="br0">&#123;</span>
+            JxlsWorkbook scenario <span class="sy0">=</span> createScenario<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            getRequest<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getSession</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">setAttribute</span><span class="br0">&#40;</span>ReportXLSServlet.<span class="me1">SESSION_XLS_REPORT</span>, scenario<span class="br0">&#41;</span><span class="sy0">;</span>   <span class="co1">// 2</span>
+            setForwardURI<span class="br0">&#40;</span><span class="st0">&quot;/xava/report.xls?time=&quot;</span> <span class="sy0">+</span> <span class="kw3">System</span>.<span class="me1">currentTimeMillis</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>                      <span class="co1">// 3</span>
+        <span class="br0">&#125;</span> <span class="kw1">catch</span> <span class="br0">&#40;</span><span class="kw3">Exception</span> e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            addError<span class="br0">&#40;</span>e.<span class="me1">getMessage</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">private</span> JxlsWorkbook createScenario<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">&#123;</span>
+        JxlsWorkbook scenarioWB <span class="sy0">=</span> <span class="kw1">new</span> JxlsWorkbook<span class="br0">&#40;</span><span class="st0">&quot;Scenario&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>                                        <span class="co1">// 4</span>
+        JxlsSheet scenario <span class="sy0">=</span> scenarioWB.<span class="me1">addSheet</span><span class="br0">&#40;</span><span class="st0">&quot;Scenario&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>                                          <span class="co1">// 5</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">1</span>, <span class="st0">&quot;Date:&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>                                                              <span class="co1">// 6</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">2</span>, <span class="nu0">1</span>, <span class="kw1">new</span> <span class="kw3">Date</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>                                                           <span class="co1">// 7</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">2</span>, <span class="st0">&quot;Value:&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">2</span>, <span class="nu0">2</span>, <span class="nu0">3.1415</span><span class="br0">&#41;</span><span class="sy0">;</span>                                                               <span class="co1">// 8</span>
+        <span class="kw1">return</span> scenarioWB<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">public</span> <span class="kw3">String</span> getForwardURI<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> forwardURI<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">public</span> <span class="kw4">boolean</span> inNewWindow<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span>forwardURI <span class="sy0">==</span> <span class="kw2">null</span><span class="br0">&#41;</span> <span class="kw1">return</span> <span class="kw2">false</span><span class="sy0">;</span>
+        <span class="kw1">return</span> <span class="kw2">true</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">public</span> <span class="kw4">void</span> setForwardURI<span class="br0">&#40;</span><span class="kw3">String</span> forwardURI<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">this</span>.<span class="me1">forwardURI</span> <span class="sy0">=</span> forwardURI<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+1- IForwardAction will open a new window with the xls file, JxlsConstants will allow easy use of styles for cell later<br />
+2- You have to store your JxlsWorkbook in the Servlet session object for the forward to work<br />
+3- Forward to /xava/report.xls with a time to ensure the file is recreated every time you click the action<br />
+4- Create a JxlsWorkbook: the name parameter will be the file name when the xls window will pop-up<br />
+5- Add a sheet in the workbook<br />
+6- Set the cell at column 1, row 1 (in Excel A1) to the text value Date. Beware, columns and rows start at 1 to mimic the numbering of Excel.<br />
+7- Set the cell at column 2, row 1 (in Excel B1) to the current date.<br />
+8- Set the cell at column 2, row 2 (in Excel B2) to a float value of 3.1415.<br />
+<h3 id="toc2"><a name="Basic template for the action--Resulting xls file"></a>Resulting xls file</h3>
+ 
+
+<table class="wiki_table">
+    <tr>
+        <td style="text-align: left;">Date:<br />
+</td>
+        <td style="text-align: right;">2016-04-27<br />
+</td>
+    </tr>
+    <tr>
+        <td style="text-align: left;">Value:<br />
+</td>
+        <td style="text-align: right;">3.14<br />
+</td>
+    </tr>
+</table>
+
+The date has the default non ambiguous date format and the value appears with only 2 digits.<br />
+These formats can easily be changed for the whole workbook or an individual cell.<br />
+<h1 id="toc3"><a name="Formating the file"></a>Formating the file</h1>
+ You can define the way number and dates will appear for the whole workbook, for a given column of for an individual cell.<br />
+<h2 id="toc4"><a name="Formating the file-Workbook formats"></a>Workbook formats</h2>
+ You can define the format at the JxlsWorkbook level:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5">    <span class="kw2">private</span> JxlsWorkbook createScenario<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> <span class="br0">&#123;</span>
+        JxlsWorkbook scenarioWB = <span class="kw2">new</span> JxlsWorkbook<span class="br0">&#40;</span><span class="st0">&quot;Scenario&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenarioWB.<span class="me1">setFloatFormat</span><span class="br0">&#40;</span><span class="st0">&quot;### ### ##0.0000&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>            <span class="co1">// 1</span>
+        scenarioWB.<span class="me1">setDateFormat</span><span class="br0">&#40;</span><span class="st0">&quot;dd/MM/yyyy&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>                   <span class="co1">// 2</span>
+        JxlsSheet scenario = scenarioWB.<span class="me1">addSheet</span><span class="br0">&#40;</span><span class="st0">&quot;Scenario&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">1</span>, <span class="st0">&quot;Date&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">2</span>, <span class="nu0">1</span>, <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span class="kw166">Date</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">2</span>, <span class="st0">&quot;Value&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">2</span>, <span class="nu0">2</span>, <span class="nu0">3.1415</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="kw2">return</span> scenarioWB<span class="sy0">;</span>
+    <span class="br0">&#125;</span></pre>
+
+<h3 id="toc5"><a name="Formating the file-Workbook formats-Resulting xls file"></a>Resulting xls file</h3>
+ 
+
+<table class="wiki_table">
+    <tr>
+        <td style="text-align: right;"><strong>Date:</strong><br />
+</td>
+        <td style="text-align: right;">27/04/2016<br />
+</td>
+    </tr>
+    <tr>
+        <td style="text-align: right;"><strong>Value:</strong><br />
+</td>
+        <td style="text-align: right;">3.1415<br />
+</td>
+    </tr>
+</table>
+
+<h2 id="toc6"><a name="Formating the file-Cell formats"></a>Cell formats</h2>
+ Each cell can be formated using reusable styles.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java span.xtra { display:block; }
+
+-->
+</style><pre class="java">    <span class="kw1">private</span> JxlsWorkbook createScenario<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">&#123;</span>
+        JxlsWorkbook scenarioWB <span class="sy0">=</span> <span class="kw1">new</span> JxlsWorkbook<span class="br0">&#40;</span><span class="st0">&quot;Scenario&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        JxlsStyle boldRStyle <span class="sy0">=</span> scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span>TEXT<span class="br0">&#41;</span>.<span class="me1">setBold</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">setAlign</span><span class="br0">&#40;</span>RIGHT<span class="br0">&#41;</span><span class="sy0">;</span>
+        JxlsStyle pctStyle <span class="sy0">=</span> scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span><span class="st0">&quot;0.0%&quot;</span><span class="br0">&#41;</span>.<span class="me1">setAlign</span><span class="br0">&#40;</span>RIGHT<span class="br0">&#41;</span><span class="sy0">;</span>
+        JxlsStyle f1Style <span class="sy0">=</span> scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span><span class="st0">&quot;0.0&quot;</span><span class="br0">&#41;</span>.<span class="me1">setAlign</span><span class="br0">&#40;</span>RIGHT<span class="br0">&#41;</span><span class="sy0">;</span>
+        JxlsSheet scenario <span class="sy0">=</span> scenarioWB.<span class="me1">addSheet</span><span class="br0">&#40;</span><span class="st0">&quot;Scenario&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">1</span>, <span class="st0">&quot;Date:&quot;</span>, boldRStyle<span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">2</span>, <span class="nu0">1</span>, <span class="kw1">new</span> <span class="kw3">Date</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">2</span>, <span class="st0">&quot;Value:&quot;</span>, boldRStyle<span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">2</span>, <span class="nu0">2</span>, <span class="nu0">3.14</span>, f1Style<span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">3</span>, <span class="nu0">2</span>, <span class="nu0">0.123</span>, pctStyle<span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="kw1">return</span> scenarioWB<span class="sy0">;</span>
+    <span class="br0">&#125;</span></pre>
+
+<h3 id="toc7"><a name="Formating the file-Cell formats-Resulting xls file"></a>Resulting xls file</h3>
+ 
+
+<table class="wiki_table">
+    <tr>
+        <td style="text-align: right;"><strong>Date:</strong><br />
+</td>
+        <td style="text-align: right;">2016-04-27<br />
+</td>
+        <td style="text-align: right;"><br />
+</td>
+    </tr>
+    <tr>
+        <td style="text-align: right;"><strong>Value:</strong><br />
+</td>
+        <td style="text-align: right;">3.1<br />
+</td>
+        <td style="text-align: right;">12.3%<br />
+</td>
+    </tr>
+</table>
+
+<h2 id="toc8"><a name="Formating the file-Column formats"></a>Column formats</h2>
+ You can set up column with and style for every sheet.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java span.xtra { display:block; }
+
+-->
+</style><pre class="java">    <span class="kw1">private</span> JxlsWorkbook createScenario<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">&#123;</span>
+        JxlsWorkbook scenarioWB <span class="sy0">=</span> <span class="kw1">new</span> JxlsWorkbook<span class="br0">&#40;</span><span class="st0">&quot;Scenario&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        JxlsStyle boldRStyle <span class="sy0">=</span> scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span>TEXT<span class="br0">&#41;</span>.<span class="me1">setBold</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">setAlign</span><span class="br0">&#40;</span>RIGHT<span class="br0">&#41;</span><span class="sy0">;</span>
+        JxlsStyle f1Style <span class="sy0">=</span> scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span><span class="st0">&quot;0.0&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        JxlsStyle f2Style <span class="sy0">=</span> scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span><span class="st0">&quot;0.00&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        JxlsSheet scenario <span class="sy0">=</span> scenarioWB.<span class="me1">addSheet</span><span class="br0">&#40;</span><span class="st0">&quot;Scenario&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setColumnStyles</span><span class="br0">&#40;</span><span class="nu0">1</span>, boldRStyle, f1Style<span class="br0">&#41;</span><span class="sy0">;</span>    <span class="co1">// 1</span>
+        scenario.<span class="me1">setColumnWidth</span><span class="br0">&#40;</span><span class="nu0">1</span>, AUTO_SIZE, <span class="nu0">12</span><span class="br0">&#41;</span><span class="sy0">;</span>           <span class="co1">// 2</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">1</span>, <span class="st0">&quot;Value:&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">2</span>, <span class="nu0">1</span>, <span class="nu0">2.54</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">2</span>, <span class="st0">&quot;Value:&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">2</span>, <span class="nu0">2</span>, <span class="nu0">3.14</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">3</span>, <span class="st0">&quot;Value:&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">2</span>, <span class="nu0">3</span>, <span class="nu0">3.1415</span>, f2Style<span class="br0">&#41;</span><span class="sy0">;</span>            <span class="co1">// 3</span>
+        <span class="kw1">return</span> scenarioWB<span class="sy0">;</span>
+    <span class="br0">&#125;</span></pre>
+
+1- Set up the stylefor each column, starting with column 1. Column 1 cells will have boldRStyle and column 2 will have f1Style.<br />
+2- Set up the width for each column, starting with column 1. Column 1 cells will auto size and column 2 will be 12 character wide.<br />
+3- You can overide the column setup at the cell level.<br />
+<h3 id="toc9"><a name="Formating the file-Column formats-Resulting xls file"></a>Resulting xls file</h3>
+ 
+
+<table class="wiki_table">
+    <tr>
+        <td style="text-align: right;"><strong>Value:</strong><br />
+</td>
+        <td style="text-align: right;">2.5<br />
+</td>
+    </tr>
+    <tr>
+        <td style="text-align: right;"><strong>Value:</strong><br />
+</td>
+        <td style="text-align: right;">3.1<br />
+</td>
+    </tr>
+    <tr>
+        <td><strong>Value:</strong><br />
+</td>
+        <td>3.14<br />
+</td>
+    </tr>
+</table>
+
+<h1 id="toc10"><a name="Creating Styles"></a>Creating Styles</h1>
+ <h2 id="toc11"><a name="Creating Styles-Type of styles"></a>Type of styles</h2>
+ Styles are created through the use of workbook.addStyle(type) or workbook.addStyle(format).<br />
+Styles can also be named workbook.addStyle(name, type)for easy retrieval later in a sheet: sheet.getWorkbook().getStyle(name).<br />
+Style type can be TEXT, INT, FLOAT and DATE. INT and FLOAT will store number values in Excel. When using addStyle(format), format represents a formating in Excel and will result in Excel trying to store a number.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java span.xtra { display:block; }
+
+-->
+</style><pre class="java">    JxlsStyle pctStyle <span class="sy0">=</span> scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span><span class="st0">&quot;0.0%&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>  <span class="co1">// 1</span>
+    JxlsStyle textStyle <span class="sy0">=</span> scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span>TEXT<span class="br0">&#41;</span><span class="sy0">;</span>   <span class="co1">// 2</span>
+    JxlsStyle intStyle <span class="sy0">=</span> scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span>INT<span class="br0">&#41;</span><span class="sy0">;</span>     <span class="co1">// 3</span>
+    JxlsStyle floatStyle <span class="sy0">=</span> scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span>FLOAT<span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// 4</span></pre>
+
+1- Excel will store a number format as a one digit percentage.<br />
+2- Excel will store a text. Even if a number is put in the cell having this format, the number will be stored as text.<br />
+3- Excel will store a number, using the format returned by workbook.getDefaultIntegerFormat(). You can set the format through workbook.setDefaultIntegerFormat(format).<br />
+3- Excel will store a number, using the format returned by <span style="font-family: 'Courier New',Courier,monospace;">workbook.getDefaultFloatFormat()</span>. You can set the format through <span style="font-family: 'Courier New',Courier,monospace;">workbook.setDefaultFloatFormat(format)</span>.<br />
+<h2 id="toc12"><a name="Creating Styles-Setting properties for styles"></a>Setting properties for styles</h2>
+ Each property setting returns the style, making the settings chainable.<br />
+Styles can be cloned and new settings added to the clone.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5">    JxlsStyle labelCenterStyle = scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span>TEXT<span class="br0">&#41;</span>.<span class="me1">setAlign</span><span class="br0">&#40;</span>CENTER<span class="br0">&#41;</span>.<span class="me1">setBold</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>                     <span class="co1">// 1</span>
+    JxlsStyle uLabelStyle = scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span>TEXT<span class="br0">&#41;</span>.<span class="me1">setBorder</span><span class="br0">&#40;</span>BOTTOM, BORDER_THIN<span class="br0">&#41;</span><span class="sy0">;</span>                      <span class="co1">// 2</span>
+    JxlsStyle labelRightStyle = scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span>TEXT<span class="br0">&#41;</span>.<span class="me1">setAlign</span><span class="br0">&#40;</span>RIGHT<span class="br0">&#41;</span>.<span class="me1">setBorder</span><span class="br0">&#40;</span>BOTTOM, BORDER_THIN<span class="br0">&#41;</span><span class="sy0">;</span>  <span class="co1">// 3</span>
+    JxlsStyle blueLabelStyle = scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span>TEXT<span class="br0">&#41;</span>.<span class="me1">setTextColor</span><span class="br0">&#40;</span>BLUE<span class="br0">&#41;</span><span class="sy0">;</span>                               <span class="co1">// 4</span>
+    JxlsStyle floatStyle = scenarioWB.<span class="me1">addStyle</span><span class="br0">&#40;</span>FLOAT<span class="br0">&#41;</span>.<span class="me1">setAlign</span><span class="br0">&#40;</span>RIGHT<span class="br0">&#41;</span><span class="sy0">;</span>                                     <span class="co1">// 5</span>
+    JxlsStyle floatGreenStyle = scenarioWB.<span class="me1">addClonedStyle</span><span class="br0">&#40;</span>floatStyle<span class="br0">&#41;</span>.<span class="me1">setCellColor</span><span class="br0">&#40;</span>LIGHT_GREEN<span class="br0">&#41;</span><span class="sy0">;</span>           <span class="co1">// 6</span>
+&nbsp;</pre>
+
+1- Value will be stored as text and the value will show bold aligned in the center of the cell.<br />
+2- Value will be stored as text and the cell will have a thin border at the bottom and the value will be left aligned.<br />
+3- Value will be stored as text and the cell will have a thin border at the bottom and the value will be right aligned.<br />
+4- Value will be stored as text and the value will be left aligned and appear in blue.<br />
+5- Value will be stored as a number and the value will be right aligned.<br />
+<br />
+6- Since we are starting from the previous style, value will be stored as a number, will be right aligned and the cell background will appear light green.<br />
+<h2 id="toc13"><a name="Creating Styles-Available properties for styles"></a>Available properties for styles</h2>
+ 
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java span.xtra { display:block; }
+
+-->
+</style><pre class="java">setFontName<span class="br0">&#40;</span><span class="kw3">String</span> fontName<span class="br0">&#41;</span>
+setFontSize<span class="br0">&#40;</span><span class="kw4">int</span> fontSize<span class="br0">&#41;</span>
+setFormat<span class="br0">&#40;</span><span class="kw3">String</span> format<span class="br0">&#41;</span>
+setBold<span class="br0">&#40;</span><span class="br0">&#41;</span>
+setBold<span class="br0">&#40;</span><span class="kw4">boolean</span> isBold<span class="br0">&#41;</span>
+setWrap<span class="br0">&#40;</span><span class="kw4">boolean</span> wraps<span class="br0">&#41;</span>
+setAlign<span class="br0">&#40;</span><span class="kw4">short</span> align<span class="br0">&#41;</span>
+setBorders<span class="br0">&#40;</span><span class="kw4">short</span> topBorderStyle, <span class="kw4">short</span> bottomBorderStyle, <span class="kw4">short</span> leftBorderStyle, <span class="kw4">short</span> rightBorderStyle<span class="br0">&#41;</span>
+setBorder<span class="br0">&#40;</span><span class="kw4">short</span> place, <span class="kw4">short</span> borderStyle<span class="br0">&#41;</span>
+setTextColor<span class="br0">&#40;</span><span class="kw4">short</span> textColor<span class="br0">&#41;</span>
+setCellColor<span class="br0">&#40;</span><span class="kw4">short</span> bgColor<span class="br0">&#41;</span>
+setBorderColor<span class="br0">&#40;</span><span class="kw4">short</span> borderColor<span class="br0">&#41;</span>Where
+&nbsp;</pre>
+
+Some of the possible values for function parameters are defined in JxlsConstants interface<br />
+<ul><li>align is one of LEFT, RIGHT, CENTER</li><li>place is one of TOP, BOTTOM, LEFT, RIGHT, TOP_BOTTOM, RIGHT_LEFT or ALL</li><li>*BorderStyle is one of BORDER_NONE, BORDER_THIN, BORDER_THICK</li></ul><h1 id="toc14"><a name="Working with formulas"></a>Working with formulas</h1>
+ <h3 id="toc15"><a name="Working with formulas--Reference systems"></a>Reference systems</h3>
+ JxlsWorkbook support formulas and as multiple way of writing them.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java span.xtra { display:block; }
+
+-->
+</style><pre class="java">    <span class="kw1">private</span> JxlsWorkbook createScenario<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">&#123;</span>
+        JxlsWorkbook scenarioWB <span class="sy0">=</span> <span class="kw1">new</span> JxlsWorkbook<span class="br0">&#40;</span><span class="st0">&quot;Scenario&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        JxlsSheet scenario <span class="sy0">=</span> scenarioWB.<span class="me1">addSheet</span><span class="br0">&#40;</span><span class="st0">&quot;Scenario&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">1</span>, <span class="st0">&quot;Pi:&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setFormula</span><span class="br0">&#40;</span><span class="nu0">2</span>, <span class="nu0">1</span>, <span class="st0">&quot;=PI()&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>      <span class="co1">// 1</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">2</span>, <span class="st0">&quot;Pi*2:&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">2</span>, <span class="nu0">2</span>, <span class="st0">&quot;=A2*2&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>        <span class="co1">// 2</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">3</span>, <span class="nu0">2</span>, <span class="st0">&quot;=R1C2*2&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>      <span class="co1">// 3</span>
+        scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">4</span>, <span class="nu0">2</span>, <span class="st0">&quot;=$R1$C2*2&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>    <span class="co1">// 4</span>
+        <span class="kw1">return</span> scenarioWB<span class="sy0">;</span>
+    <span class="br0">&#125;</span></pre>
+
+1- You can use most of the function of Excel<br />
+2- You can use the basic A1 system, such as A1, $A1, A$1 or $A$1<br />
+3- Or the Row Column system<br />
+4- JxlsWorkbook introduces absolute values for R1C1 type annotation, you can use<br />
+For 3 and 4, OpenXava will transform the R1C1 into A1 and $R1$C1 into $A$1 before writing the Excel file.<br />
+<h3 id="toc16"><a name="Working with formulas--Example of formula"></a>Example of formula</h3>
+ 
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java span.xtra { display:block; }
+
+-->
+</style><pre class="java">    <span class="kw1">private</span> JxlsWorkbook createScenario<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">&#123;</span>
+        JxlsWorkbook scenarioWB <span class="sy0">=</span> <span class="kw1">new</span> JxlsWorkbook<span class="br0">&#40;</span><span class="st0">&quot;Scenario&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        JxlsSheet scenario <span class="sy0">=</span> scenarioWB.<span class="me1">addSheet</span><span class="br0">&#40;</span><span class="st0">&quot;Scenario&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="kw4">int</span> firstRow <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span>
+        <span class="kw4">int</span> sumRow <span class="sy0">=</span> <span class="nu0">10</span><span class="sy0">;</span>
+        <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i<span class="sy0">=</span>firstRow<span class="sy0">;</span> i<span class="sy0">&lt;</span>sumRow<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            scenario.<span class="me1">setValue</span><span class="br0">&#40;</span><span class="nu0">1</span>, i, i<span class="br0">&#41;</span><span class="sy0">;</span>
+            scenario.<span class="me1">setFormula</span><span class="br0">&#40;</span><span class="nu0">2</span>, i, <span class="st0">&quot;=R&quot;</span> <span class="sy0">+</span> i <span class="sy0">+</span> <span class="st0">&quot;C1*2&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+        scenario.<span class="me1">setFormula</span><span class="br0">&#40;</span><span class="nu0">1</span>, sumRow, <span class="st0">&quot;=SUM(R&quot;</span> <span class="sy0">+</span> firstRow <span class="sy0">+</span> <span class="st0">&quot;C1:R&quot;</span> <span class="sy0">+</span> <span class="br0">&#40;</span>sumRow<span class="sy0">-</span><span class="nu0">1</span><span class="br0">&#41;</span> <span class="sy0">+</span> <span class="st0">&quot;C1)&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        scenario.<span class="me1">setFormula</span><span class="br0">&#40;</span><span class="nu0">2</span>, sumRow, <span class="st0">&quot;=SUM(R&quot;</span> <span class="sy0">+</span> firstRow <span class="sy0">+</span> <span class="st0">&quot;C2:R&quot;</span> <span class="sy0">+</span> <span class="br0">&#40;</span>sumRow<span class="sy0">-</span><span class="nu0">1</span><span class="br0">&#41;</span> <span class="sy0">+</span> <span class="st0">&quot;C2)&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="kw1">return</span> scenarioWB<span class="sy0">;</span>
+    <span class="br0">&#125;</span></pre>
+
+Using the R1C1 system, it is very easy to create formula.<br />
+<h1 id="toc17"><a name="Behind the scene"></a>Behind the scene</h1>
+ OpenXava uses a small set of files (in <a class="wiki_link_ext" href="https://sourceforge.net/p/openxava/code/HEAD/tree/trunk/OpenXava/src/org/openxava/util/jxls/" rel="nofollow" target="_blank">org.openxava.util.jxls</a> package) to create a JxlsWorkbook (a place holder of data behaving like an Excel workbook). This JxlsWorkbook is then transformed into an <a class="wiki_link_ext" href="https://poi.apache.org/spreadsheet/index.html" rel="nofollow" target="_blank">Apache POI</a> HSSFWorkbook when the user requests the writing of the workbook to a File or to an HttpServletResponse.
+    </div>
+  </body>
+</html>

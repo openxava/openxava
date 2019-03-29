@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>openxava - hypersonic_ru</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h2 id="toc0"><a name="x-Сервер БД HSQL"></a>Сервер БД HSQL</h2>
+ Для работы с данным руководством вам потребуются базовые знания по работе с базами данных. Также вам необходимо предварительно установить OpenXava и HSQL.<br />
+<br />
+<h2 id="toc1"><a name="x-Запуск сервера HSQL"></a>Запуск сервера HSQL</h2>
+ Мы будем использовать базу данных management-db (если она не существует, HSQL создает её автоматически ). Для этого перейдем в папку <em>openxavaX/portal/bin</em> (openxavaX - место, куда мы установили Openxava) и из командной строки выполним команду:<br />
+<ul><li>В Linux/Unix: ./starthsqldb.sh management-db 1666</li><li>В Windows: starthsqldb management-db 1666</li></ul>Мы запустили сервер баз данных HSQL, используя порт 1666.<br />
+<br />
+<h2 id="toc2"><a name="x-Администрирование HSQL"></a>Администрирование HSQL</h2>
+ HSQL предоставляет утилиту HSQL Database Manager для администрирования базы данных. Скачайте её с web-сайта HSQL и установите. Далее запустите <strong>runManagerSwing.bat</strong> из папки <strong>demo</strong>. Теперь мы можем администрировать нашу базу данных <em>management-db,</em> используя удобный графический пользовательский интерфейс<em>.</em> На первой иллюстрации ниже представлено окно подключения к базе данных.<br />
+<br />
+<img src="files/my-first-ox-project12.png" alt="my-first-ox-project12.png" title="my-first-ox-project12.png" /><br />
+<br />
+На следующей иллюстрации представлен основной экран программы. Слева мы видим список таблиц в нашей базе данных (в нашем случае каталог называется &quot;GESTIO&quot;). В окне справа мы можем выполнять запросы SQL для манипуляции со структурой или данными таблиц, а также выполнять выборки данных из БД. Одна из таблиц называется ININ03. Нам нужно использовать подчеркивание (&quot;_&quot;), чтобы указать каталог и имя таблицы в запросе SELECT так, как показано ниже.<br />
+<br />
+<img src="files/my-first-ox-project13.png" alt="my-first-ox-project13.png" title="my-first-ox-project13.png" />
+    </div>
+  </body>
+</html>

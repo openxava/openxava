@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>openxava - history_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0">Histórico - Módulo de auditoría de cambios <em>(nuevo en
+          v6.1)</em></h1>
+      <em></em><em>Todas las funcionalidades en este artículo están disponible
+        solo en <a class="wiki_link_ext" href="http://openxava.org/xavapro" rel="nofollow">XavaPro</a></em><br>
+      <br>
+      XavaPro cuenta con un mecanismo que registra todos los cambios hechos por
+      los usuarios a los datos, así como los acceso de lectura.<br>
+      <h2 id="toc1">Histórico</h2>
+      La historia de cambios se puede ver usando el módulo <i>Histórico </i>de
+      la carpeta <i>Admin</i>:</div>
+    <img src="files/history-menu-list_es.png" alt="">
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Los datos que se registran son
+      fecha, hora, usuario, ip, acción, entidad, clave y cambios:</div>
+    <div class="wiki" style="display: block;"><img src="files/history-detail_es.png"
+        alt=""><br>
+      <h2 id="toc2">Activar Histórico </h2>
+      El módulo <i>Histórico</i> está desactivado por defecto, para activarlo
+      has de añadir la siguiente entrada en el <em>xava.properties</em> de tu
+      proyecto:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="re0">accessTrackerProvidersClasses</span><span
+class="sy0">=</span><span class="re1">com.openxava.naviox.util.HistoryAccessTrackerProvider</span></pre>
+      <br>
+    </div>
+  </body>
+</html>

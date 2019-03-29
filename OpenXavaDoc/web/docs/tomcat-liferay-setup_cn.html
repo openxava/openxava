@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>openxava - tomcat-liferay-setup_cn</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="x为你自己的OX应用程序配置tomcat/liferay"></a><span style="background-color: #ffffff;">为你自己的OX应用程序配置tomcat/liferay </span></h1>
+ <h2 id="toc1"><a name="x为你自己的OX应用程序配置tomcat/liferay-从v3.0.2开始"></a><span style="background-color: #ffffff;"><a name="Configure you own tomcat/liferay for OX applications-Since v3.0.2"></a>从v3.0.2开始</span></h2>
+ <span style="background-color: #ffffff;">如何配置liferay/tomcat用以运行OX应用程序。</span><br />
+在运行OX应用程序之前，有如下几步。<br />
+<ul><li><span style="background-color: #ffffff;">首先你要安装Tomcat或者Liferay。</span></li><li><span style="background-color: #ffffff;">安装完成后，复制文件 {OX}/tomcat/common/lib/ejb.jar, {OX}/tomcat/common/lib/jta.jar 到 {LR}/common/lib 文件夹。</span></li></ul><span style="background-color: #ffffff;">完成。</span><br />
+<h2 id="toc2"><a name="x为你自己的OX应用程序配置tomcat/liferay-到v3.0.1为止"></a><span style="background-color: #ffffff;"><a name="Configure you own tomcat/liferay for OX applications-Until v3.0.1"></a>到v3.0.1为止</span></h2>
+ <span style="background-color: #ffffff;">如何配置liferay/tomcat用以运行OX应用程序。</span><br />
+在运行OX应用程序之前，有如下几步。<br />
+<ul><li><span style="background-color: #ffffff;">首先你要安装Tomcat或者Liferay。</span></li><li><span style="background-color: #ffffff;"><span style="background-color: #ffffff;">安装完成后，复制文件</span> {OX}/tomcat/common/lib/ejb.jar, {OX}/tomcat/common/lib/hsqldb.jar,{OX}/tomcat/common/lib/jta.jar</span></li></ul><span style="background-color: #ffffff;">到 {LR}/common/lib 文件夹。</span><br />
+<ul><li><span style="background-color: #ffffff;">然后复制文件 {OX}/tomcat/data/openxava-db.script {OX}/tomcat/data/openxava-db.properties 到 {LR}/data 文件夹。</span></li><li><span style="background-color: #ffffff;">编辑 {LR}/conf/context.xml 增加如下内容</span></li></ul><br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td>&lt;Resourcename=&quot;<span style="color: #ff0000;">jdbc/OpenXavaDS</span>&quot;auth=&quot;<span style="color: #ff0000;">Container</span>&quot;type=&quot;<span style="color: #ff0000;">javax.sql.DataSource</span>&quot; maxActive=&quot;<span style="color: #ff0000;">20</span>&quot;maxIdle=&quot;<span style="color: #ff0000;">5</span>&quot;maxWait=&quot;<span style="color: #ff0000;">10000</span>&quot; username=&quot;<span style="color: #ff0000;">sa</span>&quot;password=&quot;&quot;driverClassName=&quot;<span style="color: #ff0000;">org.hsqldb.jdbcDriver</span>&quot; url=&quot;<span style="color: #ff0000;">jdbc:hsqldb:file:../data/openxava-db</span>&quot;/&gt;<br />
+</td>
+    </tr>
+</table>
+
+<br />
+<br />
+<span style="background-color: #ffffff;">在这个文件中，你要为你自己的应用程序建立实体。</span><br />
+<br />
+<span style="background-color: #ffffff;">当所有步骤完成，你的程序就可以运行了。</span><br />
+<br />
+<span style="background-color: #ffffff;">祝你使用得开心。 :)</span>
+    </div>
+  </body>
+</html>

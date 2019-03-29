@@ -1,0 +1,164 @@
+<html>
+  <head>
+    <title>openxava - liferay_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h2 id="toc0"><a name="x-Desplegar Aplicación OpenXava en Liferay"></a><strong>Desplegar Aplicación OpenXava en Liferay</strong></h2>
+ <br />
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: left;"> Si ha finalizado la <a class="wiki_link_ext" href="http://www.openxava.org/es/quick-start/1c" rel="nofollow">guía de inicio rápido</a>, ya sabe como desplegar el proyecto MiEscuela en el Tomcat que trae OpenXava por defecto. Ahora desplegaremos este mismo proyecto en Liferay.</span><br />
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: left;"><a class="wiki_link_ext" href="http://www.liferay.com/es/downloads/liferay-portal/available-releases" rel="nofollow">Descarga</a> “Liferay Portal 6.1 Community Edition GA3 bundled with Tomcat” y descomprime el zip respectivo, obtendrás la carpeta liferay-portal-6.1.2-ce-ga3. Liferay 6.1 es soportado por Openxava 4.7 o superior.</span><br />
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: left;">Si usas una versión anterior a 5.0 de OpenXava copia el <strong><em>ejb.ja</em></strong>r de <em><strong>{OX}/tomcat/lib</strong></em> a la carpeta <em><strong>{LP}/tomcat-7.0.40/lib/</strong></em></span><br />
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: left;">Crea una carpeta <strong>miescuela</strong> en <em><strong>{LP}/data</strong></em> y copia los archivos de <em><strong>{OX}/workspace/MiEscuela/data/</strong></em> a ésta; es decir a <em><strong>{LP}/data/miescuela</strong></em>.</span><br />
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: left;">Edita el archivo <em><strong>{LP}/tomcat-7.0.40/conf/context.xml</strong></em> añadiendo lo siguiente:</span><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3">&lt;<span class="re0">Resourcetype</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/MiEscuelaDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span></span>
+<span class="sc3">   <span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span> <span class="re0">driverClassName</span>=<span class="st0">&quot;org.hsqldb.jdbcDriver&quot;</span></span>
+<span class="sc3">   <span class="re0">username</span>=<span class="st0">&quot;sa&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;&quot;</span> <span class="re0">url</span>=<span class="st0">&quot;jdbc:hsqldb:file:./data/miescuela/mi-escuela-db&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: left;"><strong>Presta atención a la URL:</strong> la ruta de nuestra base de datos es la misma que donde copiamos los archivos del paso anterior, pero expresado con ruta relativa. Donde el <strong>“.”</strong> indica el home de Liferay.</span><br />
+<span style="display: block; text-align: justify;"><span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: left;"> Arranca Liferay: para esto ve a <em><strong>{LP}/tomcat-7.0.40/bin/</strong></em> y ejecuta <em><strong>startup.sh</strong></em> o <em><strong>startup.bat</strong></em> dependiendo de tu sistema operativo. Abre tu navegador y ve a <a class="wiki_link_ext" href="http://localhost:8080/" rel="nofollow">http://localhost:8080</a>.</span><span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: left;">Si es la primera vez que arrancas Liferay, tendrás que hacer una configuración inicial y aceptar los términos de uso:</span></span><br />
+<span style="display: block; text-align: left;"> <img src="files/configuracion_liferay.jpg" alt="configuracion_liferay.jpg" title="configuracion_liferay.jpg" style="height: 336px; width: 500px;" align="left" /></span><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<span style="display: block; text-align: left;"> <img src="files/terminos_uso_liferay.jpg" alt="terminos_uso_liferay.jpg" title="terminos_uso_liferay.jpg" style="height: 355px; width: 503px;" align="left" /></span><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: left;">Después de esta configuración inicial se mostrará la página de Bienvenida de Liferay.</span><br />
+<br />
+<span style="display: block; text-align: justify;"> <img src="files/bienvenida_liferay.jpg" alt="bienvenida_liferay.jpg" title="bienvenida_liferay.jpg" align="left" /></span><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: justify;">En la parte superior izquierda (y dependiendo del idioma elegido en la configuración) encontramos el menú desplegable <strong>Add</strong> (Añadir) y el ítem <strong>More...</strong>(Más..) que al escogerlo despliega una lista de aplicaciones que contienen porlets disponibles para añadirlos a nuestras páginas.</span><br />
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: justify;"> Como puedes observar en la lista no aparece la aplicación MiEscuela. Vamos a desplegarla a continuación.</span><br />
+<span style="display: block; font-family: Arial,sans-serif; font-size: x-small; text-align: left;"> <img src="files/menu_liferay.jpg" alt="menu_liferay.jpg" title="menu_liferay.jpg" style="height: 342px; width: 295px;" align="left" /></span><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: left;"> Genera los portlets del proyecto desde Eclipse.</span><br />
+<span style="display: block; text-align: justify;"> <img src="files/eclipse_portlets.jpg" alt="eclipse_portlets.jpg" title="eclipse_portlets.jpg" style="height: 222px; width: 430px;" align="left" /></span><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: left;"> La tarea ant genararPorlets ha creado en <strong>{OX}/workspace.dist/MiEscuela.dist</strong> un archivo <strong>MiEscuela.war.</strong></span><br />
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: left;"> Copia MiEscuela.war a <strong>{LP}/deploy</strong> (esta carpeta no aparecerá hasta que hayas arrancado Liferay por primera vez) y espera uno segundos a que el war desaparezca de la carpeta, lo que significa que tu aplicación ya está desplegada en Liferay. Ve al menú <strong>Add/More</strong> y la aplicación MiEscuela aparecerá, si no lo hace aún refresca la página.</span><br />
+<span style="display: block; font-family: Arial,sans-serif; text-align: right;"> <img src="files/modulo_cargado.jpg" alt="modulo_cargado.jpg" title="modulo_cargado.jpg" style="height: 334px; width: 303px;" align="left" /></span><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: justify;"> Ahora ya puedes agregar tus portlets a cualquier página de Liferay. Solo dale <strong>Add</strong> (Añadir) al portlet y en la página de Bienvenida observarás:</span><br />
+<span style="display: block; font-family: Arial,Helvetica,sans-serif; text-align: justify;"> <img src="files/portlet_desplegado.jpg" alt="portlet_desplegado.jpg" title="portlet_desplegado.jpg" style="height: 261px; width: 468px;" align="left" /></span>
+    </div>
+  </body>
+</html>

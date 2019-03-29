@@ -1,0 +1,319 @@
+<html>
+  <head>
+    <title>openxava - aspects-xml_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Capítulo 6: Aspectos XML (clásico)">Capítulo 6: Aspectos XML (clásico)</a></div>
+<div style="margin-left: 2em;"><a href="#Capítulo 6: Aspectos XML (clásico)-Introducción a AOP">Introducción a AOP</a></div>
+<div style="margin-left: 2em;"><a href="#Capítulo 6: Aspectos XML (clásico)-Definición de aspectos">Definición de aspectos</a></div>
+<div style="margin-left: 2em;"><a href="#Capítulo 6: Aspectos XML (clásico)-AccessTracking: Una aplicación práctica de los aspectos">AccessTracking: Una aplicación práctica de los aspectos</a></div>
+<div style="margin-left: 3em;"><a href="#Capítulo 6: Aspectos XML (clásico)-AccessTracking: Una aplicación práctica de los aspectos-La definición del aspecto">La definición del aspecto</a></div>
+<div style="margin-left: 3em;"><a href="#Capítulo 6: Aspectos XML (clásico)-AccessTracking: Una aplicación práctica de los aspectos-Configurar AccessTracking">Configurar AccessTracking</a></div>
+</div>
+<span class="wiki_link"><a class="wiki_link" href="introduction-xml_es.html">1.Introducción XML</a> | <a class="wiki_link" href="model-xml_es.html">2.Modelo XML</a> | <a class="wiki_link" href="view-xml_es.html">3.Vista XML</a> | <a class="wiki_link" href="tab-xml_es.html">4.Tab XML</a> | <a class="wiki_link" href="mapping-xml_es.html">5.Mapeo XML</a> | <strong><span class="wiki_link">6.Aspectos XML</span></strong></span><br />
+<h1 id="toc0"><a name="Capítulo 6: Aspectos XML (clásico)"></a>Capítulo 6: Aspectos XML (clásico)</h1>
+ <h2 id="toc1"><a name="Capítulo 6: Aspectos XML (clásico)-Introducción a AOP"></a>Introducción a AOP</h2>
+ AOP (Programación Orientada a Aspectos) introduce una nueva forma de reutilizar código. Realmente complementa algunas deficiencias de la programación orientada a objetos tradicional.<br />
+¿Qué problema resuelve AOP? A veces tenemos funcionalidad que es común a un grupo de clases pero usar herencia no es práctico (en Java solo contamos con herencia simple) ni ético (porque se rompe la relación es-un). Además el sistema puede esta ya escrito, o quizá necesitamos poder incluir o no la funcionalidad bajo demanda. AOP es una manera fácil de resolver estos problemas.<br />
+¿Qué es un aspecto? Un aspecto es un puñado de código que puede ser esparcido a nuestro gusto por la aplicación.<br />
+El lenguaje Java ofrece un soporte completo de AOP mediante el proyecto AspectJ.<br />
+OpenXava añade algún soporte para el concepto de aspectos desde la versión 1.2.1. El soporte de aspectos para los componentes XML es pequeño, pero si usamos POJOs + anotaciones (desde la versión 3.0) podemos usar <a class="wiki_link_ext" href="http://www.eclipse.org/aspectj/" rel="nofollow">AspectJ</a> y disfrutar de toda la fuerza de los aspectos.<br />
+<h2 id="toc2"><a name="Capítulo 6: Aspectos XML (clásico)-Definición de aspectos"></a>Definición de aspectos</h2>
+ El archivo <em>aspectos.xml</em> dentro de la carpeta <em>xava</em> de nuestro proyecto se usa para definir los aspectos.<br />
+Su sintaxis es:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aspectos<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;aspecto</span> ... <span class="re2">/&gt;</span></span> ...  <span class="sc-1">&lt;!-- 1 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;aplicar</span> ... <span class="re2">/&gt;</span></span> ...  <span class="sc-1">&lt;!-- 2 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/aspectos<span class="re2">&gt;</span></span></span></pre>
+
+<ol><li><strong>aspecto</strong> (varios, opcional): Para definir aspectos.</li><li><strong>aplicar</strong> (varios, opcional): Para aplicar los aspectos definidos a los modelos seleccionados.</li></ol>Con aspecto (1) podemos definir un aspecto (es decir un grupo de características) con un nombre, y usando aplicar (2) conseguimos que ese conjunto de modelos (entidades o agregados) obtengan esas características automáticamente.<br />
+Veamos la sintaxis para un aspecto:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aspecto</span></span>
+<span class="sc3">    <span class="re0">nombre</span>=<span class="st0">&quot;nombre&quot;</span>                     &lt;!-- 1 --<span class="re2">&gt;</span></span>
+&gt;
+    <span class="sc3"><span class="re1">&lt;calculador-poscrear</span> ...<span class="re2">/&gt;</span></span> ...      <span class="sc-1">&lt;!-- 2 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;calculador-poscargar</span> ...<span class="re2">/&gt;</span></span> ...     <span class="sc-1">&lt;!-- 3 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;calculador-posmodificar</span> ...<span class="re2">/&gt;</span></span> ...  <span class="sc-1">&lt;!-- 4 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;calculador-preborrar</span> ...<span class="re2">/&gt;</span></span> ...     <span class="sc-1">&lt;!-- 5 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/aspecto<span class="re2">&gt;</span></span></span></pre>
+
+<ol><li><strong>nombre</strong> (obligado): Nombre para este aspecto. Tiene que ser único.</li><li><strong>calculador-poscrear</strong> (varios, opcional): Todos los modelos con este aspecto tendrán este <em>calculador-poscrear</em> implícitamente.</li><li><strong>calculador-poscargar</strong> (varios, opcional): Todos los modelos con este aspecto tendrán este <em>calculador-poscargar</em> implícitamente.</li><li><strong>calculador-posmodificar</strong> (varios, opcional): Todos los modelos con este aspecto tendrán este <em>calculador-posmodificar</em> implícitamente.</li><li><strong>calculador-preborrar</strong> (varios, opcional): Todos los modelos con este aspecto tendrán este <em>calculador-preborrar</em> implícitamente.</li></ol>Además, tenemos que asignar el aspecto que hemos definido a nuestros modelos. La sintaxis para eso es:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aplicar</span></span>
+<span class="sc3">    <span class="re0">aspecto</span>=<span class="st0">&quot;aspecto&quot;</span>               &lt;!-- 1 --<span class="re2">&gt;</span></span>
+    para-modelos=&quot;modelos&quot;          <span class="sc-1">&lt;!-- 2 --&gt;</span>
+    excepto-para-modelos=&quot;modelos&quot;  <span class="sc-1">&lt;!-- 3 --&gt;</span>
+/&gt;</pre>
+
+<ol><li><strong>aspecto</strong> (obligado): El nombre del aspecto que queremos aplicar.</li><li><strong>para-modelos</strong> (opcional): Una lista de modelos, separados por coma, para aplicarles este aspecto. Es exclusivo con el atributo <em>excepto-para-modelos</em>.</li><li><strong>excepto-para-modelos</strong> (opcional): Una lista de modelos, separados por comas, para excluir cuando se aplique este aspecto. De esta forma el aspecto es aplicado a todos los modelos menos los indicados. Es exclusivo con el atributo <em>para-modelos</em>.</li></ol>Si no usamos ni <em>para-modelos</em> ni <em>excepto-para-modelos</em> entonces el aspecto se aplicará a todos lo modelos de la aplicación. Los modelos son los nombres de componente (para sus entidades) o agregados.<br />
+Un ejemplo simple puede ser:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aspecto</span> <span class="re0">nombre</span>=<span class="st0">&quot;MiAspecto&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;calculador-poscrear</span></span>
+<span class="sc3">        <span class="re0">clase</span>=<span class="st0">&quot;com.miempresa.miaplicacion.calculadores.MiCalculador&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/aspecto<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;aplicar</span> <span class="re0">aspecto</span>=<span class="st0">&quot;MiAspecto&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+De esta forma tan sencilla podemos hacer que cuando un nuevo objeto se cree (se grabe en la base de datos por primera vez) la lógica en <em>MiCalculador</em> sea ejecutada. Y esto para todos los modelos.<br />
+Como se ve, solo unos pocos calculadores son soportados de momento. Esperamos extender las posibilidades de los aspectos en OpenXava en el futuro. De todas formas, estos calculadores ahora ofrecen posibilidades interesantes. Veamos un ejemplo en la siguientes sección.<br />
+<h2 id="toc3"><a name="Capítulo 6: Aspectos XML (clásico)-AccessTracking: Una aplicación práctica de los aspectos"></a>AccessTracking: Una aplicación práctica de los aspectos</h2>
+ La distribución actual de OpenXava incluye el proyecto <em>AccessTracking</em>. Este proyecto define un aspecto que nos permite llevar la pista de todos los acceso a la información en nuestra aplicación. Actualmente, este proyecto permite que nuestras aplicaciones cumplan con la Ley de Protección de Datos española, incluyendo los datos con un nivel de seguridad alto. Aunque es lo suficientemente genérico para ser útil en una amplia variedad de circunstancia.<br />
+<h3 id="toc4"><a name="Capítulo 6: Aspectos XML (clásico)-AccessTracking: Una aplicación práctica de los aspectos-La definición del aspecto"></a>La definición del aspecto</h3>
+ Podemos encontrar la definición del aspecto en <em>AccessTracking/xava/aspects.xml</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span class="st0">&quot;1.0&quot;</span> encoding = <span class="st0">&quot;ISO-8859-1&quot;</span><span class="re2">?&gt;</span></span>
+&nbsp;
+<span class="sc0">&lt;!DOCTYPE aspects SYSTEM &quot;dtds/aspects.dtd&quot;&gt;</span>
+&nbsp;
+<span class="sc-1">&lt;!-- AccessTracking --&gt;</span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;aspects<span class="re2">&gt;</span></span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;aspect</span> <span class="re0">name</span>=<span class="st0">&quot;AccessTracking&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;postcreate-calculator</span></span>
+<span class="sc3">            <span class="re0">class</span>=<span class="st0">&quot;org.openxava.tracking.AccessTrackingCalculator&quot;</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span class="st0">&quot;accessType&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;Create&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/postcreate-calculator<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;postload-calculator</span></span>
+<span class="sc3">            <span class="re0">class</span>=<span class="st0">&quot;org.openxava.tracking.AccessTrackingCalculator&quot;</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span class="st0">&quot;accessType&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;Read&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/postload-calculator<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;postmodify-calculator</span></span>
+<span class="sc3">            <span class="re0">class</span>=<span class="st0">&quot;org.openxava.tracking.AccessTrackingCalculator&quot;</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span class="st0">&quot;accessType&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;Update&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/postmodify-calculator<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;preremove-calculator</span></span>
+<span class="sc3">            <span class="re0">class</span>=<span class="st0">&quot;org.openxava.tracking.AccessTrackingCalculator&quot;</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span class="st0">&quot;accessType&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;Delete&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/preremove-calculator<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/aspect<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/aspects<span class="re2">&gt;</span></span></span></pre>
+
+Cuando aplicamos este aspecto a nuestro componentes el código de <em>AccessTrackingCalculator</em> es ejecutado cada vez que un objeto es creado, cargado, modificado o borrado. <em>AccessTrackingCalculator</em> escribe un registro en una tabla de la base de datos con información acerca del acceso.<br />
+Para poder aplicar este aspecto necesitamos escribir en nuestro <em>aspectos.xml</em> algo como esto:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span class="st0">&quot;1.0&quot;</span> encoding = <span class="st0">&quot;ISO-8859-1&quot;</span><span class="re2">?&gt;</span></span>
+&nbsp;
+<span class="sc0">&lt;!DOCTYPE aspectos SYSTEM &quot;dtds/aspectos.dtd&quot;&gt;</span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;aspectos<span class="re2">&gt;</span></span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;aplicar</span> <span class="re0">aspecto</span>=<span class="st0">&quot;AccessTracking&quot;</span> <span class="re0">para-modelos</span>=<span class="st0">&quot;Almacen, Factura&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/aspectos<span class="re2">&gt;</span></span></span></pre>
+
+De esta forma este aspecto es aplicado a <em>Almacen</em> y <em>Factura</em>. Todos los accesos a estas entidades serán registrados en una tabla de base de datos.<br />
+<h3 id="toc5"><a name="Capítulo 6: Aspectos XML (clásico)-AccessTracking: Una aplicación práctica de los aspectos-Configurar AccessTracking"></a>Configurar AccessTracking</h3>
+ Si queremos usar el aspecto <em>AccessTracking</em> en nuestro proyecto hemos de seguir los siguientes pasos de configuración:<br />
+<ul><li>Añadir <em>AccessTracking</em> como proyecto referenciado: Dentro de Eclipse ponerse encima del proyecto, pulsar el botón derecho e ir a <em>Properties &gt; Java Build Path &gt; Projects</em>.</li><li>Crear la tabla en nuestra base de datos para almacenar el registro de los accesos. Podemos encontrar los CREATE TABLEs en el archivo <em>AccessTracking/data/access-tracking-db.script</em>.</li><li>Hemos de incluir la propiedad <em>hibernate.dialect</em> en nuestros archivos de configuración. Puedes ver ejemplos de esto en <em>OpenXavaTest/jboss-hypersonic.properties</em> y otros archivos <em>OpenXavaTest/xxx.properties</em>.</li><li>Dentro del proyecto <em>AccessTracking</em> necesitamos seleccionar una configuración (editando <em>build.xml</em>) y regenerar código hibernate (usando la tarea ant <em>generateHibernate</em>) para <em>AccessTracking</em>.</li><li>Editamos el archivo de nuestro proyecto <em>build/ejb/META-INF/MANIFEST.MF</em> para añadir los siguientes jars al classpath: <em>./lib/tracking.jar</em> <em>./lib/ehcache.jar</em> <em>./lib/antlr.jar</em> <em>./lib/asm.jar</em> <em>./lib/cglib.jar</em> <em>./lib/hibernate3.jar</em> <em>./lib/dom4j.jar</em> <em>./lib/slf4j-api.jar ./lib/slf4j-jdk14.jar ./lib/javassist.jar</em>. Este paso no es necesario si solo usamos POJOs, y no usamos EJB CMP2, <em>nuevo en v2.0</em>. Los jars <em>slf4j-api.jar</em>, <em>slf4j-jdk14.jar</em> y <em>javassist.jar</em> jars son solo necesarios desde v3.1.</li></ul>También necesitamos modificar la tarea ant <em>crearJarEJB</em> (solo si usamos EJB2 CMP) y <em>desplegarWar</em> de nuestro <em>build.xml</em> de esta forma:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;target</span> <span class="re0">name</span>=<span class="st0">&quot;crearJarEJB&quot;</span><span class="re2">&gt;</span></span>    <span class="sc-1">&lt;!-- 'crearJarEJB' solo si usamos EJB2 CMP --&gt;</span>
+    ...
+    <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span class="st0">&quot;../AccessTracking/build.xml&quot;</span> <span class="re0">target</span>=<span class="st0">&quot;createEJBTracker&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;target</span> <span class="re0">name</span>=<span class="st0">&quot;desplegarWar&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span class="st0">&quot;../AccessTracking/build.xml&quot;</span> <span class="re0">target</span>=<span class="st0">&quot;createTracker&quot;</span><span class="re2">/&gt;</span></span>
+    ...
+<span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span></pre>
+
+Después de todo esto, hemos de aplicar el aspecto en nuestra aplicación. Creamos un archivo <em>xava/aspectos.xml</em> en nuestro proyecto:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span class="st0">&quot;1.0&quot;</span> encoding = <span class="st0">&quot;ISO-8859-1&quot;</span><span class="re2">?&gt;</span></span>
+&nbsp;
+<span class="sc0">&lt;!DOCTYPE aspectos SYSTEM &quot;dtds/aspectos.dtd&quot;&gt;</span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;aspectos<span class="re2">&gt;</span></span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;aplicar</span> <span class="re0">aspecto</span>=<span class="st0">&quot;AccessTracking&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/aspectos<span class="re2">&gt;</span></span></span></pre>
+
+Ahora solo nos queda desplegar el war para nuestro proyecto <em>(nuevo en v2.0)</em>.<br />
+En el caso de que usemos EJB2 CMP tenemos que regenerar código, desplegar EJB y desplegar el war para nuestro proyecto.<br />
+Los accesos son registrados en una tabla con el nombre TRACKING.ACCESS. Si lo deseamos podemos desplegar el módulo web o el portlet del proyecto <em>AccessTracking</em> para tener una aplicación web para examinar los accesos.<br />
+Para más detalle podemos echar un vistazo al proyecto <em>OpenXavaTest</em>.
+    </div>
+  </body>
+</html>

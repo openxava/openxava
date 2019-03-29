@@ -1,0 +1,369 @@
+<html>
+  <head>
+    <title>openxava - application_fr</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Chapitre 8. Application">Chapitre 8. Application</a></div>
+<div style="margin-left: 2em;"><a href="#toc1"> </a></div>
+<div style="margin-left: 2em;"><a href="#Chapitre 8. Application-Un exemple de module typique">Un exemple de module typique</a></div>
+<div style="margin-left: 2em;"><a href="#toc3"> </a></div>
+<div style="margin-left: 2em;"><a href="#Chapitre 8. Application-Modules par défaut (depuis v2.2.2)">Modules par défaut (depuis v2.2.2)</a></div>
+<div style="margin-left: 2em;"><a href="#Chapitre 8. Application-Module de détail">Module de détail</a></div>
+<div style="margin-left: 2em;"><a href="#Chapitre 8. Application-Module de liste">Module de liste</a></div>
+<div style="margin-left: 2em;"><a href="#Chapitre 8. Application-Module de documentation">Module de documentation</a></div>
+<div style="margin-left: 2em;"><a href="#Chapitre 8. Application-Module de lecture seule">Module de lecture seule</a></div>
+</div>
+<strong><a class="wiki_link" href="overview_fr.html">1. Introduction</a></strong> <strong>&gt;</strong> <a class="wiki_link" href="my-first-ox-project_fr.html">2. Mon premier projet</a> &gt; <a class="wiki_link" href="model_fr.html">3. Modèle</a> &gt; <a class="wiki_link" href="view_fr.html">4. Vue</a> &gt; <a class="wiki_link" href="tab_fr.html">5. Liste de données</a> &gt; <a class="wiki_link" href="mapping_fr.html">6. Mapping objet/relationnel</a> &gt; <a class="wiki_link" href="controllers_fr.html">7. Contrôleurs</a> &gt; <strong><span class="wiki_link">8. Application</span></strong> &gt; <a class="wiki_link" href="customizing_fr.html">9. Personnalisation</a><br />
+<br />
+<h1 id="toc0"><a name="Chapitre 8. Application"></a>Chapitre 8. Application</h1>
+ Une application est le logiciel avec lequel que l'utilisateur final interagit. Jusqu'ici, le guide de référence a défini les pièces qui composent une application (principalement les composants et les actions). A présent, voyons comment assembler ces pièces pour créer une application. La définition d'une application OpenXava est contenue dans le fichier <em>application.xml</em> qui se trouve dans le dossier <em>xava</em> de votre projet.<br />
+La syntaxe du fichier est comme suit :<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span></span>
+<span class="sc3">    <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span>                   &lt;!-- 1 --<span class="re2">&gt;</span></span>
+    label=&quot;label&quot;                 <span class="sc-1">&lt;!-- 2 --&gt;</span>
+&gt;
+    <span class="sc3"><span class="re1">&lt;default-module</span> ... <span class="re2">/&gt;</span></span> ...    <span class="sc-1">&lt;!-- 3  New in v2.2.2 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;module</span> ... <span class="re2">/&gt;</span></span> ...            <span class="sc-1">&lt;!-- 4 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span></pre>
+
+<ol><li><strong>name</strong> (obligatoire) : Le nom de l'application</li><li><strong>label</strong> (optionnel) : Utilisez plutôt les fichiers i18n</li><li><strong>default-module</strong> (un, optionnel) : Nouveau depuis v2.2.2. Les contrôleur pour les modules par défaut (généré automatiquement pour chaque composant)</li><li><strong>module</strong> (plusieurs, optionnel) : Chaque module exécutable par l'utilisateur final</li></ol>Bref, une application est un ensemble de modules. Voici comment déclarer un module :<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span></span>
+<span class="sc3">    <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span>                    &lt;!--  1 --<span class="re2">&gt;</span></span>
+    folder=&quot;folder&quot;                <span class="sc-1">&lt;!--  2 --&gt;</span>
+    label=&quot;label&quot;                  <span class="sc-1">&lt;!--  3 --&gt;</span>
+    description=&quot;description&quot;      <span class="sc-1">&lt;!--  4 --&gt;</span>
+&gt;
+    <span class="sc3"><span class="re1">&lt;env-var</span> ... <span class="re2">/&gt;</span></span> ...            <span class="sc-1">&lt;!--  5 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;model</span> ... <span class="re2">/&gt;</span></span>                  <span class="sc-1">&lt;!--  6 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;view</span> ... <span class="re2">/&gt;</span></span>                   <span class="sc-1">&lt;!--  7 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;web-view</span> ... <span class="re2">/&gt;</span></span>               <span class="sc-1">&lt;!--  8 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;tab</span> ... <span class="re2">/&gt;</span></span>                    <span class="sc-1">&lt;!--  9 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;controller</span> ... <span class="re2">/&gt;</span></span> ...         <span class="sc-1">&lt;!-- 10 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> ... <span class="re2">/&gt;</span></span>        <span class="sc-1">&lt;!-- 11 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;doc</span> ... <span class="re2">/&gt;</span></span>                    <span class="sc-1">&lt;!-- 12 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+<ol><li><strong>name</strong> (obligatoire) : Le nom du module unique au sein de cette application</li><li><strong>folder</strong> (optionnel) : Dossier dans lequel réside le module. Une astuce est de classer les modules. Pour l'instant, cet attribut est utilisé pour générer une structure de dossiers pour le portail JetSpeed2 mais son utilisation pourra être étendue dans le futur. Il est possible d'utiliser des &quot;/&quot; ou des &quot;.&quot; pour identifier les sous-dossiers (par exemple <em>facturation/rapports</em> ou <em>facturation.rapports</em>)</li><li><strong>label</strong> (optionnel) : Nom court affiché à l'utilisateur. Utilisez plutôt les fichiers i18n</li><li><strong>description</strong> (optionnel) : Description longue affichée à l'utilisateur. Utilisez plutôt les fichiers i18n</li><li><strong>env-var</strong> (plusieurs, optionnel) : Définition d'une variable et de sa valeur, accessible par les actions. Ainsi, vous pouvez avoir des actions configurées par module</li><li><strong>model</strong> (un, optionnel) : Nom du composant utilisé dans ce module. S'il n'est pas défini, il est obligatoire de déclarer <em>web-view</em></li><li><strong>view</strong> (un, optionnel) : Nom de la vue qui doit être utilisée dans l'édition de détail. S'il est absent, la vue par défaut est utilisée</li><li><strong>web-view</strong> (un, optionnel) : Page JSP utilisée comme vue</li><li><strong>tab</strong> (un, optionnel) : L'affichage utilisé en mode liste. S'il n'est pas spécifié, celui par défaut est utilisé</li><li><strong>controller</strong> (plusieurs, optionnel) : Les contrôleurs avec les actions utilisées initialement</li><li><strong>mode-controller</strong> (un, optionnel) : Comportement lors du passage de l'affichage des liste à l'affichage de détail et vice-versa. De même, il est possible de définir un module avec uniquement un affichage de liste ou de détail. <em>Please, translate the next sentence to French: New in v4m5</em>: There is a new mode, split. Since v4m5 the available mode controllers are <em>Mode</em> (detail - list - split), <em>DetailList</em>, <em>DetailOnly</em>, <em>ListOnly</em> and <em>SplitOnly</em>.</li><li><strong>doc</strong> (un, optionnel) : Mutuellement exclusif avec tous les autres éléments. Déclaration d'un module qui ne contient que de la documentation et aucune logique. Utile pour générer des portlets informationnels pour votre application</li></ol><h2 id="toc1"> </h2>
+ <h2 id="toc2"><a name="Chapitre 8. Application-Un exemple de module typique"></a>Un exemple de module typique</h2>
+ Un module typique peut ressembler à ceci :<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span class="re0">name</span>=<span class="st0">&quot;Management&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;Warehouse&quot;</span> <span class="re0">folder</span>=<span class="st0">&quot;warehousing&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Warehouse&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Warehouse&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span>
+    ...
+<span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span></pre>
+
+Dans ce cas, vous avez défini un module qui permet à l'utilisateur de créer, rechercher, modifier et supprimer des objets, de générer des rapports PDF ou d'exporter des données des entrepôts (<em>Warehouse</em>) vers Excel grâce au contrôleur <em>Typical</em>. En outre, il définit des actions propres à la gestion des entrepôts grâce au contrôleur <em>Warehouse</em>. Notez aussi que, si le système génère une structure de module, comme dans JetSspeed2, ce module sera placé dans le dossier <em>warehousing</em>.<br />
+Afin d'accéder à ce module, il faudra que votre navigateur point sur l'adresse suivante :<br />
+<a class="wiki_link_ext" href="http://localhost:8080/Management/xava/module.jsp?application=Management&amp;module=Warehouse" rel="nofollow">http://localhost:8080/Management/xava/module.jsp?application=Management&amp;module=Warehouse</a><br />
+Une portlet est également générée afin de pouvoir la déployer dans un portail compatible JSR-168.<br />
+<h2 id="toc3"> </h2>
+ <h2 id="toc4"><a name="Chapitre 8. Application-Modules par défaut (depuis v2.2.2)"></a>Modules par défaut (depuis v2.2.2)</h2>
+ OpenXava assume un module par défaut pour chaque composant de l'application, même si le module n'est pas explicitement déclaré dans le fichier <em>application.xml</em>. Cela signifie que, si vous déclarez un composant <em>Facture</em>, vous pouvez aller directement à l'adresse suivante :<br />
+<a class="wiki_link_ext" href="http://localhost:8080/Management/xava/module.jsp?application=Management&amp;module=Facture" rel="nofollow">http://localhost:8080/Management/xava/module.jsp?application=Management&amp;module=Facture</a><br />
+Et également le déployer comme portlet JSR-168 dans un portail. Et tout ceci sans le définir dans le fichier <em>application.xml</em>.<br />
+Le contrôleur pour les modules par défaut est <em>Typical</em>, mais vous pouvez modifier cette valeur par défaut en utilisant l'élément <em>default-module</em> dans le fichier <em>application.xml</em>, ainsi :<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span class="re0">name</span>=<span class="st0">&quot;Management&quot;</span><span class="re2">&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;default-module<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;ManagementCRUD&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/default-module<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span></pre>
+
+Dans ce cas, tous les modules par défaut de l'application <em>Management</em> se verront assigné le contrôleur <em>ManagementCRUD</em>.<br />
+Si vous ne souhaitez pas que certains modules utilisent ces contrôleurs par défaut, vous avez deux options :<br />
+<ol><li>Définir un contrôleur dans <em>controllers.xml</em> avec le même nom que le composant</li><li>Définir explicitement le module dans application.xml comme expliqué <a class="wiki_link" href="application_fr.html#toc2">ci-dessus</a></li></ol>Pour résumer, si vous définissez un composant, par exemple <em>Client</em>, vous avez un module <em>Client</em> et également une portlet. Ce module sera défini selon l'une de ces méthodes :<br />
+<ol><li>Si vous définissez un module <em>Client</em> dans <em>application.xml</em>, c'est ce module qui sera celui utilisé, sinon,</li><li>Si vous définissez un contrôleur <em>Client</em> dans <em>controllers.xml</em>, un module sera généré avec le contrôleur <em>Client</em> comme contrôleur et le composant <em>Client</em> comme modèle, sinon,</li><li>Si vous définissez un élément <em>default-module</em> dans <em>application.xml</em>, un module sera généré en utilisant les contrôleurs du <em>default-module</em> et le composant <em>Client</em> comme modèle, sinon,</li><li>Finalement, un module avec le contrôleur <em>Typical</em> comme seul contrôleur et le composant <em>Client</em> comme modèle.</li></ol><h2 id="toc5"><a name="Chapitre 8. Application-Module de détail"></a>Module de détail</h2>
+ Un module avec uniquement une vue de détail, sans affichage de liste est défini ainsi <em>(new in v4m5)</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;InvoiceNoList&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Invoice&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span class="st0">&quot;DetailOnly&quot;</span><span class="re2">/&gt;</span></span>        <span class="sc-1">&lt;!-- 1 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+Le mode de contrôle <em>DetailOnly</em> (1) est utilisé pour supprimer l'affichage du lien &quot;Détail - Liste&quot;. Dans ce cas, par défaut, le module utilise la vue de détail uniquement.<br />
+Un module avec uniquement une vue de détail, sans affichage de liste est défini ainsi <em>(prior to v4m5)</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;InvoiceNoList&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Invoice&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span class="st0">&quot;Void&quot;</span><span class="re2">/&gt;</span></span>        <span class="sc-1">&lt;!-- 1 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+Le mode de contrôle <em>Void</em> (1) est utilisé pour supprimer l'affichage du lien &quot;Détail - Liste&quot;. Dans ce cas, par défaut, le module utilise la vue de détail uniquement.<br />
+<h2 id="toc6"><a name="Chapitre 8. Application-Module de liste"></a>Module de liste</h2>
+ Un module avec uniquement un vue de liste, sans affichage de détail est défini ainsi <em>(new in v4m5)</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;FamilyListOnly&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span class="st0">&quot;XAVA_LIST_ACTION&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;&quot;</span><span class="re2">/&gt;</span></span>     <span class="sc-1">&lt;!-- 1  New in v2.0.4 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Family&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span class="st0">&quot;ListOnly&quot;</span><span class="re2">/&gt;</span></span>              <span class="sc-1">&lt;!-- 2 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+Tout d'abord, le mode de contrôle <em>ListOnly</em> (2) est utilisé pour supprimer l'affichage du lien &quot;Détail - Liste&quot;, puis, Liste lors de l'initialisation. Finalement, en attribuant une valeur vide à la variable <em>XAVA_LIST_ACTION</em> (1) enlèvera le lien Détail de chaque ligne de la liste (nouveau depuis v2.0.4).<br />
+Un module avec uniquement un vue de liste, sans affichage de détail est défini ainsi <em>(prior to v4m5)</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;FamilyListOnly&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span class="st0">&quot;XAVA_LIST_ACTION&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;&quot;</span><span class="re2">/&gt;</span></span>     <span class="sc-1">&lt;!-- 1  New in v2.0.4 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Family&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;ListOnly&quot;</span><span class="re2">/&gt;</span></span>                   <span class="sc-1">&lt;!-- 2 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span class="st0">&quot;Void&quot;</span><span class="re2">/&gt;</span></span>                  <span class="sc-1">&lt;!-- 3 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+Tout d'abord, le mode de contrôle <em>Void</em> (3) est utilisé pour supprimer l'affichage du lien &quot;Détail - Liste&quot;, puis, le contrôleur <em>ListOnly</em> est chargé pour spécifier le mode Liste lors de l'initialisation. Finalement, en attribuant une valeur vide à la variable <em>XAVA_LIST_ACTION</em> (1) enlèvera le lien Détail de chaque ligne de la liste (nouveau depuis v2.0.4).<br />
+<h2 id="toc7"><a name="Chapitre 8. Application-Module de documentation"></a>Module de documentation</h2>
+ Un module de documentation ne peut afficher que des pages HTML. Sa définition est toute simple :<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;Description&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;doc</span> <span class="re0">url</span>=<span class="st0">&quot;doc/description&quot;</span> <span class="re0">languages</span>=<span class="st0">&quot;en,es&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+Ce module affiche le document <em>web/doc/description_en.html</em> ou <em>web/doc/description_es.html</em> suivant le langage du navigateur. Si le langage du navigateur n'est ni anglais ni espagnol, la valeur par défaut est l'anglais (la première langue spécifiée). Si vous ne spécifiez pas de langue, ce sera le document <em>web/doc/description.html</em> qui sera affiché.<br />
+Ce type de module est utile pour les portlets d'information. D'autre part, il n'a aucun effet en dehors d'un environnement de portail.<br />
+<h2 id="toc8"><a name="Chapitre 8. Application-Module de lecture seule"></a>Module de lecture seule</h2>
+ Un module de lecture seule, c'est-à-dire de consultation de données uniquement, sans modifications possibles, est déclaré ainsi :<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;CustomerReadOnly&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span class="st0">&quot;XAVA_SEARCH_ACTION&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;CRUD.searchReadOnly&quot;</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- 1 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Customer&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Print&quot;</span><span class="re2">/&gt;</span></span>                                        <span class="sc-1">&lt;!-- 2 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+En utilisant le contrôleur <em>CRUD.searchReadOnly</em> (1), l'utilisateur ne peut modifier aucune donnée. Avec le contrôleur <em>Print</em> (<em>please, translate this to French:</em> or <em>ExtendedPrint</em> since v4.6), sans <em>CRUD</em> ou <em>Typical</em>, l'utilisateur peut générer des rapports PDF sans pour autant pouvoir sauvegarder, supprimer, etc... car les actions ne sont pas disponibles. C'est un module de consultation uniquement.<br />
+La syntaxe du fichier <em>application.xml</em> n'est pas difficile. Vous pouvez voir plus d'exemples dans le fichier <em>OpenXavaTest/xava/application.xml</em>.
+    </div>
+  </body>
+</html>

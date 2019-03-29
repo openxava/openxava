@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>openxava - hypersonic_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h2 id="toc0"><a name="x-Details about HSQL database server"></a>Details about HSQL database server</h2>
+Some knowledge of database is required for this guide. You should have installed OpenXava too.<br />
+<br />
+<h2 id="toc1"><a name="x-Starting up HSQL server"></a>Starting up HSQL server</h2>
+We have created a database called management-db (or perhaps we want to create it), so from the command-line we place in the folder <em>openxava2.X/portal/bin</em> (where openxava2.x is the folder we have installed Openxava) we run<br />
+<ul><li>In Linux/Unix: ./starthsqldb.sh management-db 1666</li><li>In Windows: starthsqldb management-db 1666</li></ul>And we have started up the HSQL database server and a service at the port 1666.<br />
+<br />
+<h2 id="toc2"><a name="x-HSQL Administrator."></a>HSQL Administrator.</h2>
+We can get this program from the HSQL web and install it. Then we execute <strong>runManagerSwing.bat</strong> from the subfolder <strong>demo</strong>. Now we can administrate better our database <em>management-db.</em> In the next display we can see the options to connect to the database.<br />
+<br />
+<img src="files/my-first-ox-project12.png" alt="my-first-ox-project12.png" title="my-first-ox-project12.png" /><br />
+<br />
+In the next example, we have a catalogue named &quot;GESTIO&quot; and several tables created. One of these tables is ININ03. Now we can try to use SQL commands to create tables or to retrieve information. We should use a &quot;_&quot; to separate the catalog form the table to use the SELECT commands as we can see as follows.<br />
+<br />
+<img src="files/my-first-ox-project13.png" alt="my-first-ox-project13.png" title="my-first-ox-project13.png" />
+    </div>
+  </body>
+</html>

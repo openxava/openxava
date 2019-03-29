@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>openxava - overview_fr</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Chapitre 1. Introduction">Chapitre 1. Introduction</a></div>
+<div style="margin-left: 2em;"><a href="#Chapitre 1. Introduction-Présentation">Présentation</a></div>
+<div style="margin-left: 2em;"><a href="#Chapitre 1. Introduction-Composant métier">Composant métier</a></div>
+<div style="margin-left: 2em;"><a href="#Chapitre 1. Introduction-Contrôleurs">Contrôleurs</a></div>
+<div style="margin-left: 2em;"><a href="#Chapitre 1. Introduction-Application">Application</a></div>
+<div style="margin-left: 2em;"><a href="#Chapitre 1. Introduction-Structure d'un projet">Structure d'un projet</a></div>
+</div>
+<strong>1. Introduction</strong> &gt; <a class="wiki_link" href="my-first-ox-project_fr.html">2. Mon premier projet</a> &gt; <a class="wiki_link" href="model_fr.html">3. Modèle</a> &gt; <a class="wiki_link" href="view_fr.html">4. Vue</a> &gt; <a class="wiki_link" href="tab_fr.html">5. Liste de données</a> &gt; <a class="wiki_link" href="mapping_fr.html">6. Mapping objet/relationnel</a> &gt; <a class="wiki_link" href="controllers_fr.html">7. Contrôleurs</a> &gt; <a class="wiki_link" href="application_fr.html">8. Application</a> &gt; <a class="wiki_link" href="customizing_fr.html">9. Personnalisation</a><br />
+<br />
+<h1 id="toc0"><a name="Chapitre 1. Introduction"></a>Chapitre 1. Introduction</h1>
+ <h2 id="toc1"><a name="Chapitre 1. Introduction-Présentation"></a>Présentation</h2>
+ OpenXava est un ensemble d'outils et de composants pour développer des applications JavaEE/J2EE rapidement et facilement.<br />
+La philosophie sous-jacente est de réaliser les spécifications à l'aide d'annotations Java ou des spécifications XML et de programmer avec Java. L'objectif est de se concentrer principalement sur la définition et le moins possible sur la programmation.<br />
+Le but d'OpenXava est de réaliser facilement les fonctionnalités les plus courantes dans les applications métier tout en gardant une certaine flexibilité afin de permettre de développer sans restrictions des fonctionnalités avancées.<br />
+<h2 id="toc2"><a name="Chapitre 1. Introduction-Composant métier"></a>Composant métier</h2>
+ Les pièces fondamentales pour créer des applications avec OpenXava sont les composants métier. Dans ce contexte, un composant métier est une classe Java (même s'il existe aussi une version XML) qui contient toute l'information nécessaire sur un concept métier pour permettre la construction de l'application. Par exemple, toute l'information nécessaire qu'un système a besoin de savoir sur le concept de <em>facture</em> est défini dans le fichier <em>Facture.java</em>. Les éléments qui peuvent être définis dans un composant métier sont les suivants :<br />
+<ul><li>La structure des données</li><li>Les validateurs , les calculs et en général la logique associée avec le composant métier</li><li>Les vues possibles, c'est-à-dire, la configuration de toutes les interfaces utilisateur possibles pour ce composant précis</li><li>Les présentations des listes de données utilisées pour la navigation des instances de composants, la recherche et les rapports</li><li>La mapping objet-relationnel, c'est-à-dire la cartographie qui lie les objets Java au tables des bases de données. Ceci inclut des informations sur les tables des bases de données et les conversions entre les données de la base de données et les objets Java.</li></ul>Ce découpage est utile pour les groupes de travail et permet de développer des composants métiers génériques utilisables dans plusieurs projets.<br />
+<h2 id="toc3"><a name="Chapitre 1. Introduction-Contrôleurs"></a>Contrôleurs</h2>
+ Le composant métier ne définit pas les actions qu'un utilisateur peut effectuer dans l'application, c'est-à-dire les fonctionnalités. Ceci est défini par les contrôleurs spécifiés dans le fichier <em>xava/controllers.xml</em> du projet. En outre, OpenXava fournit un ensemble de contrôleurs dans le fichier <em>OpenXava/xava/default-controllers.xml</em>.<br />
+Un contrôleur est un ensemble d'actions. Une action est un bouton ou un lien qu'un utilisateur peut cliquer.<br />
+Les contrôleurs sont distincts des composants métier car un contrôleur peut être assigné à plusieurs composants métier. Par exemple, un contrôleur pour les opérations CRUD (Create-Request-Update-Delete-créer-consulter-modifier-supprimer), pour la production d'impressions PDF ou l'export d'un fichier texte peuvent être utilisés et ré-utilisés pour des composants divers comme des factures, des personnes, des citernes, des adresses, etc.<br />
+<h2 id="toc4"><a name="Chapitre 1. Introduction-Application"></a>Application</h2>
+ Une application OpenXava est un ensemble de modules. Un module lie un composant métier avec un ou plusieurs contrôleurs. Chaque module de l'application est ce que l'utilisateur final utilise et est généralement configuré comme un portlet d'un portail.<br />
+<h2 id="toc5"><a name="Chapitre 1. Introduction-Structure d'un projet"></a>Structure d'un projet</h2>
+ Un projet OpenXava standard contient usuellement l'ensemble des dossiers suivants :<br />
+<ul><li><strong>[racine]</strong> A la racine de la structure se trouve le fichier <em>build.xml</em> contenant les tâches Ant.</li><li><strong>src [dossier source]</strong> Le dossier source contenant le code Java</li><li><strong>xava</strong> : Les fichiers de configuration XML de l'application. Les principaux fichiers sont <em>application.xml</em> et <em>controllers.xml</em>.</li><li><strong>i18n</strong> : Les fichiers ressources avec les libellés et les messages dans plusieurs langues</li><li><strong>properties</strong> <strong>[dossier source]</strong> : Fichiers de propriétés pour la configuration de l'application</li><li><strong>data</strong> : Dossier utile pour conserver les scripts de création des tables sur la base de donnée, si nécessaire</li><li><strong>web</strong> : Contenu de l'application web. En général des JSP, les librairies nécessaires et les classes Java. La majorité du contenu est générée automatiquement, mais il est possible d'y placer des pages JSP spécifiques ou d'autres ressource web particulières.</li></ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,178 @@
+<html>
+  <head>
+    <title>openxava - spring-scheduling_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Spring scheluding features in your OpenXava application"></a>Spring scheluding features in your OpenXava application</h1>
+ Sometimes we need to schedule some tasks to be executed regularly, like importing records from remote database or regularly creating reports and sending them by e-mail. OpenXava doesn't have built in features for scheduling so we need to use something else.<br />
+<br />
+Spring is one of the most popular frameworks on the market, so why not use it for this task?<br />
+I will use the latest version of Spring to date which is version 5.<br />
+<br />
+To do this we need to modify our project. I'll use my own project as an example.<br />
+From the eagle's view we'll create the following files (the root will be your projects's folder in openxava workspace and my project's name is 'Callcenter'):<br />
+<br />
+/Callcenter/src/bilesuvar/callcenter/scheduled/BusRoutesPump.java<br />
+/Callcenter/web/WEB-INF/applicationContext.xml<br />
+/Callcenter/web/WEB-INF/listeners.xml<br />
+<br />
+also we need to download the latest version of Spring library and extract the following files into directories:<br />
+/Callcenter/lib/spring-aop-5.0.0.RELEASE.jar<br />
+/Callcenter/lib/spring-aspects-5.0.0.RELEASE.jar<br />
+/Callcenter/lib/spring-beans-5.0.0.RELEASE.jar<br />
+/Callcenter/lib/spring-context-5.0.0.RELEASE.jar<br />
+/Callcenter/lib/spring-core-5.0.0.RELEASE.jar<br />
+/Callcenter/lib/spring-expression-5.0.0.RELEASE.jar<br />
+/Callcenter/lib/spring-web-5.0.0.RELEASE.jar<br />
+<br />
+I've found in a hard way that I also have to _manually_ copy all contents from /Callcenter/lib to /Callcenter/web/WEB-INF/lib<br />
+because OpenXava workspace built in a way which prevents Eclipse from using 'Deployment Assembly' settings. So when you'll try to 'create War' all your libs wouldn't be automatically copied. Still, I think that it is better to keep all your jars in a separate folder because you can always manually copy<br />
+them later. But if you keep them in /web/WEB-INF/lib from the start you can forget which ones are yours and which ones are part of OpenXava.<br />
+<br />
+Now we have to tell Eclipse that we want to include those jars in our project. To do this you have to:<br />
+1) Open your project in Eclipse and right click on the project (not workspace!) root, then select 'Properties'<br />
+2) Open 'Java Build Path' and click on 'Libraries' tab. Now, using 'Add Jars' button, add all Spring libraries from /lib folder<br />
+3) Click on 'Order and Export' tab in the same window and put check mark against every jar you just added.<br />
+4) Click on 'Deployment Assembly' on the left side of the window. Click 'Add...' button and from 'Java build path entries' add all Spring jars we just added.<br />
+5) Click 'Apply and Close'<br />
+<br />
+Now lets create the first 3 files I mentioned.<br />
+<br />
+Those are the contents of 'BusRoutesPump.java'<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java span.xtra { display:block; }
+
+-->
+</style><pre class="java"><span class="kw1">package</span> <span class="co2">com.bilesuvar.callcenter.scheduled</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">import</span> <span class="co2">org.springframework.scheduling.annotation.Scheduled</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">import</span> <span class="co2">org.springframework.stereotype.Component</span><span class="sy0">;</span>
+&nbsp;
+@<span class="kw3">Component</span><span class="br0">&#40;</span><span class="st0">&quot;busRoutesPumpService&quot;</span><span class="br0">&#41;</span>
+<span class="kw1">public</span> <span class="kw1">class</span> BusRoutesPump <span class="br0">&#123;</span>
+&nbsp;
+    <span class="kw1">public</span> <span class="kw4">void</span> pump<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+     <span class="co1">// Some useful stuff you want to do regularly</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+<span class="br0">&#125;</span></pre>
+
+<br />
+And 'applicationContext.xml'<br />
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;beans</span> <span class="re0">xmlns</span>=<span class="st0">&quot;http://www.springframework.org/schema/beans&quot;</span></span>
+<span class="sc3">    <span class="re0">xmlns:mvc</span>=<span class="st0">&quot;http://www.springframework.org/schema/mvc&quot;</span> <span class="re0">xmlns:context</span>=<span class="st0">&quot;http://www.springframework.org/schema/context&quot;</span></span>
+<span class="sc3">    <span class="re0">xmlns:xsi</span>=<span class="st0">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span>
+<span class="sc3">    <span class="re0">xmlns:task</span>=<span class="st0">&quot;http://www.springframework.org/schema/task&quot;</span></span>
+<span class="sc3">    <span class="re0">xsi:schemaLocation</span>=<span class="st0">&quot;</span>
+<span class="sc3">        http://www.springframework.org/schema/beans</span>
+<span class="sc3">        http://www.springframework.org/schema/beans/spring-beans.xsd</span>
+<span class="sc3">        http://www.springframework.org/schema/mvc</span>
+<span class="sc3">        http://www.springframework.org/schema/mvc/spring-mvc.xsd</span>
+<span class="sc3">        http://www.springframework.org/schema/context</span>
+<span class="sc3">        http://www.springframework.org/schema/context/spring-context.xsd</span>
+<span class="sc3">        http://www.springframework.org/schema/task</span>
+<span class="sc3">        http://www.springframework.org/schema/task/spring-task.xsd&quot;</span><span class="re2">&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;context:component-scan</span> <span class="re0">base-package</span>=<span class="st0">&quot;com.bilesuvar.callcenter.scheduled&quot;</span> <span class="re2">/&gt;</span></span>
+&nbsp;
+    <span class="sc-1">&lt;!-- Configure the scheduler --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;task:scheduler</span> <span class="re0">id</span>=<span class="st0">&quot;myScheduler&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+    <span class="sc-1">&lt;!-- Configure parameters --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;task:scheduled-tasks</span> <span class="re0">scheduler</span>=<span class="st0">&quot;myScheduler&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;task:scheduled</span> <span class="re0">ref</span>=<span class="st0">&quot;busRoutesPumpService&quot;</span> <span class="re0">method</span>=<span class="st0">&quot;pump&quot;</span> <span class="re0">fixed-delay</span>=<span class="st0">&quot;900000&quot;</span> <span class="re0">initial-delay</span>=<span class="st0">&quot;10000&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/task:scheduled-tasks<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/beans<span class="re2">&gt;</span></span></span></pre>
+
+And 'listeners.xml'<br />
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml">    <span class="sc3"><span class="re1">&lt;context-param<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>contextConfigLocation<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>/WEB-INF/applicationContext.xml<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/context-param<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;listener<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;listener-class<span class="re2">&gt;</span></span></span>org.springframework.web.context.ContextLoaderListener<span class="sc3"><span class="re1">&lt;/listener-class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/listener<span class="re2">&gt;</span></span></span></pre>
+
+Well, that's all.<br />
+Better to rebuild your project just to be sure. Press 'Control-B'.<br />
+Right click on 'build.xml' file in your project's root and select 'Run as -&gt; Ant build'<br />
+And sometimes you need to right click on your Tomcat 7.0 server and select 'Clean Tomcat Work Directory' and 'Clean...'<br />
+You know all this shaman's stuff :)
+    </div>
+  </body>
+</html>

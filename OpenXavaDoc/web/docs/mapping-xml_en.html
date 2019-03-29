@@ -1,0 +1,1318 @@
+<html>
+  <head>
+    <title>openxava - mapping-xml_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Chapter 5: Object/relational mapping XML (classic)">Chapter 5: Object/relational mapping XML (classic)</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 5: Object/relational mapping XML (classic)-Entity mapping">Entity mapping</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 5: Object/relational mapping XML (classic)-Property mapping">Property mapping</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 5: Object/relational mapping XML (classic)-Reference mapping">Reference mapping</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 5: Object/relational mapping XML (classic)-Multiple property mapping">Multiple property mapping</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 5: Object/relational mapping XML (classic)-Reference to aggregate mapping">Reference to aggregate mapping</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 5: Object/relational mapping XML (classic)-Aggregate used in collection mapping">Aggregate used in collection mapping</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 5: Object/relational mapping XML (classic)-Converters by default">Converters by default</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 5: Object/relational mapping XML (classic)-Default mapping (new in v2.1.3)">Default mapping (new in v2.1.3)</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 5: Object/relational mapping XML (classic)-Object/relational philosophy">Object/relational philosophy</a></div>
+</div>
+<a class="wiki_link" href="introduction-xml_en.html">1.Introduction XML</a> | <a class="wiki_link" href="model-xml_en.html">2.Model XML</a> | <a class="wiki_link" href="view-xml_en.html">3.View XML</a> | <a class="wiki_link" href="tab-xml_en.html">4.Tab XML</a> | <strong><span class="wiki_link">5.Mapping XML</span></strong> | <a class="wiki_link" href="aspects-xml_en.html">6.Aspects XML</a><br />
+<h1 id="toc0"><a name="Chapter 5: Object/relational mapping XML (classic)"></a>Chapter 5: Object/relational mapping XML (classic)</h1>
+ Object relational mapping allows you to declare in which tables and columns of your database the component data will be stored.<br />
+If ORM is familiar to you: The OpenXava mapping is used to generate the code and XML files needed to object/relational mapping. Actually the code is generated for:<br />
+<ul><li>Hibernate 3.x.</li><li>EntityBeans CMP 2 of JBoss 3.2.x y 4.0.x.</li><li>EntityBeans CMP 2 of Websphere 5, 5.1y 6.</li></ul>If Object/relational tools are not familiar to you: Object/relational tools allow you to work with objects instead of tables and columns, and to generate automatically the SQL code to read and update the database.<br />
+OpenXava generates a set of Java classes that represent the model layer of your application (the business concepts with its data and its behavior). You can work directly with these objects, and you do not need direct access to the SQL database. Of course you have to define precisely how to map your classes to your tables, and this work is done in the mapping part.<br />
+<h2 id="toc1"><a name="Chapter 5: Object/relational mapping XML (classic)-Entity mapping"></a>Entity mapping</h2>
+ The syntax to map the main entity is:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity-mapping</span> <span class="re0">table</span>=<span class="st0">&quot;table&quot;</span><span class="re2">&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> ... <span class="re2">/&gt;</span></span> ... <span class="sc-1">&lt;!-- 2 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping</span> ... <span class="re2">/&gt;</span></span> ... <span class="sc-1">&lt;!-- 3 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;multiple-property-mapping</span> ... <span class="re2">/&gt;</span></span> ... <span class="sc-1">&lt;!-- 4 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/entity-mapping<span class="re2">&gt;</span></span></span></pre>
+
+<ol><li><strong>table</strong> (required): Maps this table to the main entity of component.</li><li><strong>property-mapping</strong> (several, optional): Maps a property to a column in the database table.</li><li><strong>reference-mapping</strong> (several, optional): Maps a reference to one or more columns in the database table.</li><li><strong>multiple-property-mapping</strong> (several, optional): Maps a property to several columns in database table.</li></ol>A plain example can be:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity-mapping</span> <span class="re0">table</span>=<span class="st0">&quot;XAVATEST@separator@DELIVERYTYPE&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;number&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;NUMBER&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;description&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;DESCRIPTION&quot;</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/entity-mapping<span class="re2">&gt;</span></span></span></pre>
+
+Easier impossible.<br />
+You see how the table name is qualified (with collection/schema name included). Also you see that the separator is @separator@ instead of a dot (.), this is useful because you can define the separator value in your build.xml and thus the same application can run against databases with or without support for collections or schemes.<br />
+<h2 id="toc2"><a name="Chapter 5: Object/relational mapping XML (classic)-Property mapping"></a>Property mapping</h2>
+ The syntax to map a property is:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property-mapping</span></span>
+<span class="sc3"> <span class="re0">property</span>=<span class="st0">&quot;property&quot;</span> &lt;!-- 1 --<span class="re2">&gt;</span></span>
+ column=&quot;column&quot; <span class="sc-1">&lt;!-- 2 --&gt;</span>
+ cmp-type=&quot;type&quot; <span class="sc-1">&lt;!-- 3 --&gt;</span>
+ formula=&quot;formula&quot;&gt; <span class="sc-1">&lt;!-- 4 New in v3.1.4 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;converter</span> ... <span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 5 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/property-mapping<span class="re2">&gt;</span></span></span></pre>
+
+<ol><li><strong>property</strong> (required): Name of a property defined in the model part.</li><li><strong>column</strong> (optional <em>since v3.1.4</em>): Name of a table column. If omitted the property name is assumed as column name.</li><li><strong>cmp-type</strong> (optional): Java type of the attribute used internally in your object to store the property value. This allows you to use Java types more closer to the database, without contaminating your Java model. It is used with a converter.</li><li><strong>formula</strong> (optional): <em>(New in v3.1.4)</em> To calculate the value of the property using the database. It must be a valid SQL fragment. If you use formula you can omit the column attribute. It does not work with EntityBeans CMP2.</li><li><strong>converter</strong> (one, optional): Implements your custom logic to convert from Java to DB format and vice versa.</li></ol>For now, you have seen simple examples for mapping a property to a column. A more advanced case is using a converter. A converter is used when the Java type and the DB type don't match, in this case a converter is a good idea. For example, imagine that in database the zip code is VARCHAR while in Java you want to use an int. A Java int is not directly assignable to a VARCHAR column in database, but you can use a converter to transform that int to String. Let's see it:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;address_zipCode&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;ZIPCODE&quot;</span> <span class="re0">cmp-type</span>=<span class="st0">&quot;String&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.converters.IntegerStringConverter&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/property-mapping<span class="re2">&gt;</span></span></span></pre>
+
+cmp-type indicates to which type the converter has to convert to and it is the type of the internal attribute in the generated class code. It must be a type close (assignable directly from JDBC) to the column type in database.<br />
+The converter code is:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.converters</span><span class="sy0">;</span>
+&nbsp;
+<span class="co3">/**
+ * In java an int and in database a String.
+ *
+ * @author Javier Paniza
+ */</span>
+<span class="kw2">public</span> <span class="kw2">class</span> IntegerStringConverter <span class="kw2">implements</span> IConverter <span class="br0">&#123;</span> <span class="co1">// 1</span>
+&nbsp;
+ <span class="kw2">private</span> <span class="kw2">final</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span class="kw21">Integer</span></a> ZERO = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span class="kw21">Integer</span></a><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+ <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> toDB<span class="br0">&#40;</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> o<span class="br0">&#41;</span> <span class="kw2">throws</span> ConversionException <span class="br0">&#123;</span> <span class="co1">// 2</span>
+ <span class="kw2">return</span> o==<span class="kw4">null</span><span class="sy0">?</span><span class="st0">&quot;0&quot;</span>:o.<span class="me1">toString</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+&nbsp;
+ <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> toJava<span class="br0">&#40;</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> o<span class="br0">&#41;</span> <span class="kw2">throws</span> ConversionException <span class="br0">&#123;</span> <span class="co1">// 3</span>
+ <span class="kw1">if</span> <span class="br0">&#40;</span>o == <span class="kw4">null</span><span class="br0">&#41;</span> <span class="kw2">return</span> ZERO<span class="sy0">;</span>
+ <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span><span class="br0">&#40;</span>o <span class="kw2">instanceof</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ <span class="kw2">throw</span> <span class="kw2">new</span> ConversionException<span class="br0">&#40;</span><span class="st0">&quot;conversion_java_string_expected&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+ <span class="kw2">try</span> <span class="br0">&#123;</span>
+ <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span class="kw21">Integer</span></a><span class="br0">&#40;</span><span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a><span class="br0">&#41;</span> o<span class="br0">&#41;</span><span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+ <span class="kw2">catch</span> <span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> ex<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ ex.<span class="me1">printStackTrace</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ <span class="kw2">throw</span> <span class="kw2">new</span> ConversionException<span class="br0">&#40;</span><span class="st0">&quot;conversion_error&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+ <span class="br0">&#125;</span>
+&nbsp;
+<span class="br0">&#125;</span></pre>
+
+A converter must implement <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/converters/IConverter.html" rel="nofollow">IConverter</a></em> (1), this forces it to have a <em>toDB()</em> (2) method, that receives the object of the type used in Java (in this case an Integer) and returns its representation using a type closer to the database (in this case String hence assignable to a VARCHAR column). The <em>toJava()</em> method has the opposite goal; it gets the object in database format and it must return an object of the type used in Java.<br />
+If there are any problem you can throw a <em>ConversionException</em>.<br />
+You see that this converter is in org.openxava.converters, i. e., it is a generic converter that comes with the OpenXava distribution. Another quite useful generic converter is <em>ValidValuesLetterConverter</em>. That one allows to map properties of type <em>valid-values</em>. For example, if you have a property like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
+...
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;distance&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;valid-values<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span class="st0">&quot;local&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span class="st0">&quot;national&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span class="st0">&quot;international&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/valid-values<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+...
+<span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span></pre>
+
+<em>valid-values</em> generates a Java property of type int in which 0 is used to indicate the empty value, 1 is 'local', 2 is 'national' and 3 is 'international'. But what happens, if in the database a single letter ('L', 'N' or 'I') is stored? In this case you can use a mapping like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;distance&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;DISTANCE&quot;</span> <span class="re0">cmp-type</span>=<span class="st0">&quot;String&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.converters.ValidValuesLetterConverter&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span class="st0">&quot;letters&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;LNI&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/converter<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/property-mapping<span class="re2">&gt;</span></span></span></pre>
+
+As you put 'LNI' as a value to letters, the converter matches the 'L' to 1, the 'N' to 2 and the 'I' to 3. You also see how converters are configurable using its properties and this makes the converters more reusable (as calculators, validators, etc).<br />
+<br />
+Using <em><span class="wiki_link_ext">formula (new in v3.1.4)</span></em> attribute you can define a calculation for your property. This calculation is expressed using SQL, and it is executed by the database, not by Java. You only need to write a valid SQL fragment:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;unitPriceWithTax&quot;</span> <span class="re0">formula</span>=<span class="st0">&quot;UNITPRICE * 1.16&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+The use is simple. Put your calculation exactly in the same way that you would put it in a SQL statement.<br />
+The properties with <em>formula</em> are read only properties. When the object is read from database the calculation is done by the database and the property is populate with it.<br />
+This is an alternative to calculated properties. It has the advantage that the user can filter by this property in list mode, and the disadvantage that you have to use SQL instead of Java, and you have no live recalculation of the value.<br />
+<h2 id="toc3"><a name="Chapter 5: Object/relational mapping XML (classic)-Reference mapping"></a>Reference mapping</h2>
+ The syntax to map a reference is:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;reference-mapping</span></span>
+<span class="sc3"> <span class="re0">reference</span>=<span class="st0">&quot;reference&quot;</span> &lt;!-- 1 --<span class="re2">&gt;</span></span>
+&gt;
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span> ... <span class="re2">/&gt;</span></span> ... <span class="sc-1">&lt;!-- 2 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span></pre>
+
+<ol><li><strong>reference</strong> (required): The reference to map.</li><li><strong>reference-mapping-detail</strong> (several, required): Maps a table column to a property of the reference key. If the key of the referenced object is multiple, then you will have several <em>reference-mapping-detail</em>.</li></ol>Making a reference mapping is easy. For example, if you have a reference like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
+ ...
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span class="st0">&quot;invoice&quot;</span> <span class="re0">model</span>=<span class="st0">&quot;Invoice&quot;</span><span class="re2">/&gt;</span></span>
+ ...
+<span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span></pre>
+
+You can map it this way:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity-mapping</span> <span class="re0">table</span>=<span class="st0">&quot;XAVATEST@separator@DELIVERY&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span class="st0">&quot;invoice&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
+<span class="sc3"> <span class="re0">column</span>=<span class="st0">&quot;INVOICE_YEAR&quot;</span></span>
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">&quot;year&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
+<span class="sc3"> <span class="re0">column</span>=<span class="st0">&quot;INVOICE_NUMBER&quot;</span></span>
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">&quot;number&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span>
+ ...
+<span class="sc3"><span class="re1">&lt;/entity-mapping<span class="re2">&gt;</span></span></span></pre>
+
+INVOICE_YEAR and INVOICE_NUMBER are columns of the DELIVERY table that allows accessing to its invoice, that is it's the foreign key although declaring it as a foreign key in database is not required. You must map this columns to the key properties in Invoice, like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;year&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;int&quot;</span> <span class="re0">key</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">size</span>=<span class="st0">&quot;4&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;default-value-calculator</span></span>
+<span class="sc3"> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.calculators.CurrentYearCalculator&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;number&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;int&quot;</span> <span class="re0">key</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">size</span>=<span class="st0">&quot;6&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+ ...</pre>
+
+If you have a reference to a model which key itself includes references, you can define it in this way:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span class="st0">&quot;delivery&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
+<span class="sc3"> <span class="re0">column</span>=<span class="st0">&quot;DELIVERY_INVOICE_YEAR&quot;</span></span>
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">&quot;invoice.year&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
+<span class="sc3"> <span class="re0">column</span>=<span class="st0">&quot;DELIVERY_INVOICE_NUMBER&quot;</span></span>
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">&quot;invoice.number&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
+<span class="sc3"> <span class="re0">column</span>=<span class="st0">&quot;DELIVERY_TYPE&quot;</span></span>
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">&quot;type.number&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
+<span class="sc3"> <span class="re0">column</span>=<span class="st0">&quot;DELIVERY_NUMBER&quot;</span></span>
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">&quot;number&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span></pre>
+
+As you see, to indicate the properties of referenced models you can qualify them.<br />
+Also it's possible to use converters in a reference mapping:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span class="st0">&quot;drivingLicence&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
+<span class="sc3"> <span class="re0">column</span>=<span class="st0">&quot;DRIVINGLICENCE_TYPE&quot;</span></span>
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">&quot;type&quot;</span></span>
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">&quot;String&quot;</span><span class="re2">&gt;</span></span> <span class="sc-1">&lt;!-- 1 In this case this line can be omitted --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.converters.NotNullStringConverter&quot;</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 2 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;/reference-mapping-detail<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
+<span class="sc3"> <span class="re0">column</span>=<span class="st0">&quot;DRIVINGLICENCE_LEVEL&quot;</span></span>
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">&quot;level&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span></pre>
+
+You can use the converter just like in a simple property (2). The difference in the reference case is that if you do not define a converter, then a default converter is not used. This is because applying in an indiscriminate way converters on keys can produce problems in some circumstances. You can use <em>cmp-type</em> (1) <em>(new in v2.0)</em> to indicate the Java type of the attribute used internally in your object to store the value. This allows you to use Java types closer to the database; <em>cmp-type</em> is not needed if the database type is compatible with Java type.<br />
+<h2 id="toc4"><a name="Chapter 5: Object/relational mapping XML (classic)-Multiple property mapping"></a>Multiple property mapping</h2>
+ With <em>&lt;multiple-property-mapping/&gt;</em> you can map several table columns to a single Java property. This is useful if you have properties of custom class that have itself several attributes to store. Also it is used when you have to deal with legate database schemes.<br />
+The syntax for this type of mapping is:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;multiple-property-mapping</span></span>
+<span class="sc3"> <span class="re0">property</span>=<span class="st0">&quot;property&quot;</span> &lt;!-- 1 --<span class="re2">&gt;</span></span>
+&gt;
+ <span class="sc3"><span class="re1">&lt;converter</span> ... <span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 2 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;cmp-field</span> ... <span class="re2">/&gt;</span></span> ... <span class="sc-1">&lt;!-- 3 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/multiple-property-mapping<span class="re2">&gt;</span></span></span></pre>
+
+<ol><li><strong>property</strong> (required): Name of the property to map.</li><li><strong>converter</strong> (one, required): Implements the logic to convert from Java to the database and vice versa. Must implement <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/converters/IMultipleConverter.html" rel="nofollow">IMultipleConverter</a></em>.</li><li><strong>cmp-field</strong> (several, required): Maps each column in the database with a property of a converter.</li></ol>A typical example is the generic converter <em>Date3Converter</em>, that allows to store in the database 3 columns and in Java a single property of type <em>java.util.Date</em>.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;multiple-property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;deliveryDate&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.converters.Date3Converter&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;cmp-field</span> <span class="re0">converter-property</span>=<span class="st0">&quot;day&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;DAYDELIVERY&quot;</span> <span class="re0">cmp-type</span>=<span class="st0">&quot;int&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;cmp-field</span> <span class="re0">converter-property</span>=<span class="st0">&quot;month&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;MONTHDELIVERY&quot;</span> <span class="re0">cmp-type</span>=<span class="st0">&quot;int&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;cmp-field</span> <span class="re0">converter-property</span>=<span class="st0">&quot;year&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;YEARDELIVERY&quot;</span> <span class="re0">cmp-type</span>=<span class="st0">&quot;int&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/multiple-property-mapping<span class="re2">&gt;</span></span></span></pre>
+
+DAYDELIVERY, MONTHDELIVERY and YEARDELIVERY are 3 columns in database that store the delivery date, and day, month and year are properties of <em>Date3Converter</em>. And here <em>Date3Converter</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.converters</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span class="sy0">;</span>
+&nbsp;
+<span class="co3">/**
+ * In java a &lt;tt&gt;java.util.Date&lt;/tt&gt; and in database 3 columns of
+ * integer type. &lt;p&gt;
+ *
+ * @author Javier Paniza
+ */</span>
+<span class="kw2">public</span> <span class="kw2">class</span> Date3Converter <span class="kw2">implements</span> IMultipleConverter <span class="br0">&#123;</span> <span class="sy0">&lt;!</span>-- <span class="nu0">1</span> --<span class="sy0">&gt;</span>
+&nbsp;
+ <span class="kw2">private</span> <span class="kw3">int</span> day<span class="sy0">;</span>
+ <span class="kw2">private</span> <span class="kw3">int</span> month<span class="sy0">;</span>
+ <span class="kw2">private</span> <span class="kw3">int</span> year<span class="sy0">;</span>
+&nbsp;
+ <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> toJava<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">throws</span> ConversionException <span class="br0">&#123;</span> <span class="sy0">&lt;!</span>-- <span class="nu0">2</span> --<span class="sy0">&gt;</span>
+ <span class="kw2">return</span> Dates.<span class="me1">create</span><span class="br0">&#40;</span>day, month, year<span class="br0">&#41;</span><span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+&nbsp;
+ <span class="kw2">public</span> <span class="kw3">void</span> toDB<span class="br0">&#40;</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> javaObject<span class="br0">&#41;</span> <span class="kw2">throws</span> ConversionException <span class="br0">&#123;</span> <span class="sy0">&lt;!</span>-- <span class="nu0">3</span> --<span class="sy0">&gt;</span>
+ <span class="kw1">if</span> <span class="br0">&#40;</span>javaObject == <span class="kw4">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ setDay<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ setMonth<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ setYear<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ <span class="kw2">return</span><span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+ <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span><span class="br0">&#40;</span> javaObject <span class="kw2">instanceof</span> java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span class="kw166">Date</span></a><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ <span class="kw2">throw</span> <span class="kw2">new</span> ConversionException<span class="br0">&#40;</span><span class="st0">&quot;conversion_db_utildate_expected&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+ java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span class="kw166">Date</span></a> date = <span class="br0">&#40;</span>java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span class="kw166">Date</span></a><span class="br0">&#41;</span> javaObject<span class="sy0">;</span>
+ <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span class="kw46">Calendar</span></a> cal = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span class="kw46">Calendar</span></a>.<span class="me1">getInstance</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ cal.<span class="me1">setTime</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="sy0">;</span>
+ setDay<span class="br0">&#40;</span>cal.<span class="me1">get</span><span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span class="kw46">Calendar</span></a>.<span class="me1">DAY_OF_MONTH</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ setMonth<span class="br0">&#40;</span>cal.<span class="me1">get</span><span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span class="kw46">Calendar</span></a>.<span class="me1">MONTH</span><span class="br0">&#41;</span> + <span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ setYear<span class="br0">&#40;</span>cal.<span class="me1">get</span><span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span class="kw46">Calendar</span></a>.<span class="me1">YEAR</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+&nbsp;
+ <span class="kw2">public</span> <span class="kw3">int</span> getYear<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ <span class="kw2">return</span> year<span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+&nbsp;
+ <span class="kw2">public</span> <span class="kw3">int</span> getDay<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ <span class="kw2">return</span> day<span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+&nbsp;
+ <span class="kw2">public</span> <span class="kw3">int</span> getMonth<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ <span class="kw2">return</span> month<span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+&nbsp;
+ <span class="kw2">public</span> <span class="kw3">void</span> setYear<span class="br0">&#40;</span><span class="kw3">int</span> i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ year = i<span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+&nbsp;
+ <span class="kw2">public</span> <span class="kw3">void</span> setDay<span class="br0">&#40;</span><span class="kw3">int</span> i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ day = i<span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+&nbsp;
+ <span class="kw2">public</span> <span class="kw3">void</span> setMonth<span class="br0">&#40;</span><span class="kw3">int</span> i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ month = i<span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+&nbsp;
+<span class="br0">&#125;</span></pre>
+
+This converter must implement <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/converters/IMultipleConverter.html" rel="nofollow">IMultipleConverter</a></em> (1). This forces it to have a <em>toJava()</em> (2) method that must return a Java object from its property values (in this case <em>year</em>, <em>month</em> and <em>day</em>). The returned object is the mapped property (in this case <em>deliveryDate</em>). The calculator must have the method <em>toDB()</em> (3) too; this method receives the value of the property (a delivery date) and has to split it and to put the result in the converter properties (<em>year</em>, <em>month</em> and <em>day</em>).<br />
+<h2 id="toc5"><a name="Chapter 5: Object/relational mapping XML (classic)-Reference to aggregate mapping"></a>Reference to aggregate mapping</h2>
+ A reference to an aggregate contains data that in the relational model are stored in the same table as the main entity. For example, if you have an aggregate <em>Address</em> associated to a <em>Customer</em>, the address data is stored in the same data table as the customer data. How can you map this case with OpenXava?<br />
+Let's see. In the model you can have:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
+ ...
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span class="st0">&quot;address&quot;</span> <span class="re0">model</span>=<span class="st0">&quot;Address&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+ ...
+<span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;aggregate</span> <span class="re0">name</span>=<span class="st0">&quot;Address&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;implements</span> <span class="re0">interface</span>=<span class="st0">&quot;org.openxava.test.ejb.IWithCity&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;street&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;String&quot;</span> <span class="re0">size</span>=<span class="st0">&quot;30&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;zipCode&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;int&quot;</span> <span class="re0">size</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;city&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;String&quot;</span> <span class="re0">size</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span class="st0">&quot;state&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/aggregate<span class="re2">&gt;</span></span></span></pre>
+
+Simply a reference to an aggregate. And for mapping it you can do:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity-mapping</span> <span class="re0">table</span>=<span class="st0">&quot;XAVATEST@separator@CUSTOMER&quot;</span><span class="re2">&gt;</span></span>
+ ...
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;address_street&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;STREET&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;address_zipCode&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;ZIPCODE&quot;</span> <span class="re0">cmp-type</span>=<span class="st0">&quot;String&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.converters.IntegerStringConverter&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/property-mapping<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;address_city&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;CITY&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span class="st0">&quot;address_state&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span> <span class="re0">column</span>=<span class="st0">&quot;STATE&quot;</span> <span class="re0">referenced-model-property</span>=<span class="st0">&quot;id&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/entity-mapping<span class="re2">&gt;</span></span></span></pre>
+
+You see how the aggregate members are mapped within the entity mapping that contains it. The only thing that you have to do is using the name of the reference as a prefix with an underline (in this case address_). You can observe that in the case of aggregates you can map references, properties and that you can use converters in the usual way.<br />
+<h2 id="toc6"><a name="Chapter 5: Object/relational mapping XML (classic)-Aggregate used in collection mapping"></a>Aggregate used in collection mapping</h2>
+ In case that you have a collection of aggregates, for example the invoice details, obviously the detail data is stored in a different table as the heading data. In this case the aggregate must have its own mapping. Let's see the example:<br />
+Here the model part of <em>Invoice</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
+ ...
+ <span class="sc3"><span class="re1">&lt;collection</span> <span class="re0">name</span>=<span class="st0">&quot;details&quot;</span> <span class="re0">minimum</span>=<span class="st0">&quot;1&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">model</span>=<span class="st0">&quot;InvoiceDetail&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/collection<span class="re2">&gt;</span></span></span>
+ ...
+<span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;aggregate</span> <span class="re0">name</span>=<span class="st0">&quot;InvoiceDetail&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;oid&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;String&quot;</span> <span class="re0">key</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">hidden</span>=<span class="st0">&quot;true&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;default-value-calculator</span></span>
+<span class="sc3"> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.test.calculators.InvoiceDetailOidCalculator&quot;</span></span>
+<span class="sc3"> <span class="re0">on-create</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;serviceType&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;valid-values<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span class="st0">&quot;special&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span class="st0">&quot;urgent&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/valid-values<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;quantity&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;int&quot;</span> <span class="re0">size</span>=<span class="st0">&quot;4&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;unitPrice&quot;</span> <span class="re0">stereotype</span>=<span class="st0">&quot;MONEY&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;amount&quot;</span> <span class="re0">stereotype</span>=<span class="st0">&quot;MONEY&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;calculator</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.test.calculators.DetailAmountCalculator&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span class="st0">&quot;unitPrice&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span class="st0">&quot;quantity&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/calculator<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">model</span>=<span class="st0">&quot;Product&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;deliveryDate&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;java.util.Date&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;default-value-calculator</span></span>
+<span class="sc3"> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.calculators.CurrentDateCalculator&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span class="st0">&quot;soldBy&quot;</span> <span class="re0">model</span>=<span class="st0">&quot;Seller&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;remarks&quot;</span> <span class="re0">stereotype</span>=<span class="st0">&quot;MEMO&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/aggregate<span class="re2">&gt;</span></span></span></pre>
+
+You can see a collection of <em>InvoiceDetail</em> which is an aggregate. <em>InvoiceDetail</em> has to be mapped this way:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aggregate-mapping</span> <span class="re0">aggregate</span>=<span class="st0">&quot;InvoiceDetail&quot;</span> <span class="re0">table</span>=<span class="st0">&quot;XAVATEST@separator@INVOICEDETAIL&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span class="st0">&quot;invoice&quot;</span><span class="re2">&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
+<span class="sc3"> <span class="re0">column</span>=<span class="st0">&quot;INVOICE_YEAR&quot;</span></span>
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">&quot;year&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
+<span class="sc3"> <span class="re0">column</span>=<span class="st0">&quot;INVOICE_NUMBER&quot;</span></span>
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">&quot;number&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;oid&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;OID&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;serviceType&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;SERVICETYPE&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;unitPrice&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;UNITPRICE&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;quantity&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;QUANTITY&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span class="st0">&quot;product&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
+<span class="sc3"> <span class="re0">column</span>=<span class="st0">&quot;PRODUCT_NUMBER&quot;</span></span>
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">&quot;number&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;multiple-property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;deliveryDate&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.converters.Date3Converter&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;cmp-field</span></span>
+<span class="sc3"> <span class="re0">converter-property</span>=<span class="st0">&quot;day&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;DAYDELIVERY&quot;</span> <span class="re0">cmp-type</span>=<span class="st0">&quot;int&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;cmp-field</span></span>
+<span class="sc3"> <span class="re0">converter-property</span>=<span class="st0">&quot;month&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;MONTHDELIVERY&quot;</span> <span class="re0">cmp-type</span>=<span class="st0">&quot;int&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;cmp-field</span></span>
+<span class="sc3"> <span class="re0">converter-property</span>=<span class="st0">&quot;year&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;YEARDELIVERY&quot;</span> <span class="re0">cmp-type</span>=<span class="st0">&quot;int&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/multiple-property-mapping<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span class="st0">&quot;soldBy&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
+<span class="sc3"> <span class="re0">column</span>=<span class="st0">&quot;SOLDBY_NUMBER&quot;</span></span>
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">&quot;number&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;remarks&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;REMARKS&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/aggregate-mapping<span class="re2">&gt;</span></span></span></pre>
+
+The aggregate mapping must be below of the main entity mapping. A component must have as many aggregate mappings as aggregates used in collections. The aggregate mapping has the same possibilities than entity mapping, with the exception that it's required to map a reference to the container object although maybe this reference is not defined in model. That is, although you do not define a reference to Invoice in <em>InvoiceDetail</em> OpenXava adds it automatically and you must map it (1).<br />
+<h2 id="toc7"><a name="Chapter 5: Object/relational mapping XML (classic)-Converters by default"></a>Converters by default</h2>
+ You have seen how to declare a converter in a property mapping. But what happens, if you do not declare a converter? In reality in OpenXava all properties (except the key properties) have a converter by default. The default converters are defined in <em>OpenXava/xava/default-converters.xml</em>, that has a content like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span class="st0">&quot;1.0&quot;</span> encoding = <span class="st0">&quot;ISO-8859-1&quot;</span><span class="re2">?&gt;</span></span>
+&nbsp;
+<span class="sc0">&lt;!DOCTYPE converters SYSTEM &quot;dtds/converters.dtd&quot;&gt;</span>
+&nbsp;
+<span class="sc-1">&lt;!--</span>
+<span class="sc-1">In your project use the name 'converters.xml' or 'conversores.xml'</span>
+<span class="sc-1">--&gt;</span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;converters<span class="re2">&gt;</span></span></span>
+&nbsp;
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span class="st0">&quot;java.lang.String&quot;</span></span>
+<span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">&quot;org.openxava.converters.TrimStringConverter&quot;</span></span>
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">&quot;java.lang.String&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span class="st0">&quot;int&quot;</span></span>
+<span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">&quot;org.openxava.converters.IntegerNumberConverter&quot;</span></span>
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">&quot;java.lang.Integer&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span class="st0">&quot;java.lang.Integer&quot;</span></span>
+<span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">&quot;org.openxava.converters.IntegerNumberConverter&quot;</span></span>
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">&quot;java.lang.Integer&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span class="st0">&quot;boolean&quot;</span></span>
+<span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">&quot;org.openxava.converters.Boolean01Converter&quot;</span></span>
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">&quot;java.lang.Integer&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span class="st0">&quot;java.lang.Boolean&quot;</span></span>
+<span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">&quot;org.openxava.converters.Boolean01Converter&quot;</span></span>
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">&quot;java.lang.Integer&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span class="st0">&quot;long&quot;</span></span>
+<span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">&quot;org.openxava.converters.LongNumberConverter&quot;</span></span>
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">&quot;java.lang.Long&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span class="st0">&quot;java.lang.Long&quot;</span></span>
+<span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">&quot;org.openxava.converters.LongNumberConverter&quot;</span></span>
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">&quot;java.lang.Long&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span class="st0">&quot;java.math.BigDecimal&quot;</span></span>
+<span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">&quot;org.openxava.converters.BigDecimalNumberConverter&quot;</span></span>
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">&quot;java.math.BigDecimal&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span class="st0">&quot;java.util.Date&quot;</span></span>
+<span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">&quot;org.openxava.converters.DateUtilSQLConverter&quot;</span></span>
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">&quot;java.sql.Date&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/converters<span class="re2">&gt;</span></span></span></pre>
+
+If you use a property of a type that is not defined here, by default OpenXava will assign the converter <em>NoConversionConverter</em>, a silly converter that don't perform anything.<br />
+In the case of key properties and references no converter are assigned; applying a converter to key properties can be problematic in certain circumstances, but even if you want to perform a conversion you can declare a converter explicitly in your mapping.<br />
+If you wish to modify the behavior of default converters in your application, you do not modify the OpenXava file, but you create your own <em>converters.xml</em> file in the folder xava of your project. You can assign a converter by default to a stereotype (using <em>&lt;for-stereotype/&gt;</em>).<br />
+<h2 id="toc8"><a name="Chapter 5: Object/relational mapping XML (classic)-Default mapping (new in v2.1.3)"></a>Default mapping <em>(new in v2.1.3)</em></h2>
+ Since version 2.1.3 OpenXava allows to define components without mapping, and it assumed a default mapping for it. For example, you can write:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;ISO-8859-1&quot;</span><span class="re2">?&gt;</span></span>
+&nbsp;
+<span class="sc0">&lt;!DOCTYPE component SYSTEM &quot;dtds/component.dtd&quot;&gt;</span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;component</span> <span class="re0">name</span>=<span class="st0">&quot;Pupil&quot;</span><span class="re2">&gt;</span></span>
+&nbsp;
+ <span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;number&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;int&quot;</span> <span class="re0">key</span>=<span class="st0">&quot;true&quot;</span></span>
+<span class="sc3"> <span class="re0">size</span>=<span class="st0">&quot;2&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;String&quot;</span></span>
+<span class="sc3"> <span class="re0">size</span>=<span class="st0">&quot;40&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span class="st0">&quot;teacher&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/component<span class="re2">&gt;</span></span></span></pre>
+
+This component is mapped to the table <em>Pupil</em>, and the properties number and name are mapped to the columns number and name. The reference teacher is mapped to a column named <em>teacher_number</em> (if the key property of Teacher is named number).<br />
+<h2 id="toc9"><a name="Chapter 5: Object/relational mapping XML (classic)-Object/relational philosophy"></a>Object/relational philosophy</h2>
+ OpenXava has been born and has been developed in an environment when it was necessary to work with legacy database without changing its structure. The result is that OpenXava:<br />
+<ul><li>Provides great flexibility when mapping with legacy database.</li><li>Does not provide some features natural for OOT and that requires to change database scheme, as inheritance support or polymorphic queries.</li></ul>Another cool feature of OpenXava mapping is that applications are 100% portables from JBoss CMP2 to Websphere CMP2 without writing a single line of code. Furthermore, the portability between Hibernate, JPA and EJB2 version of an application is very high, the mapping and all automatic controllers are 100% portable, obviously the custom EJB2, JPA or Hibernate code is not so portable.
+    </div>
+  </body>
+</html>

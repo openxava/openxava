@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <title>openxava - wtp_ru</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Eclipse Web Tools Platform">Eclipse Web Tools Platform</a></div>
+<div style="margin-left: 2em;"><a href="#Eclipse Web Tools Platform-Настройка среды выполнения Tomcat для запуска в Eclipse">Настройка среды выполнения Tomcat для запуска в Eclipse</a></div>
+<div style="margin-left: 2em;"><a href="#Eclipse Web Tools Platform-Настройка сервера Tomcat в Eclipse">Настройка сервера Tomcat в Eclipse</a></div>
+<div style="margin-left: 2em;"><a href="#Eclipse Web Tools Platform-Определение источников данных (data sources)">Определение источников данных (data sources)</a></div>
+<div style="margin-left: 2em;"><a href="#Eclipse Web Tools Platform-Запуск сервера и тестирование приложения">Запуск сервера и тестирование приложения</a></div>
+<div style="margin-left: 2em;"><a href="#Eclipse Web Tools Platform-Разработка с использованием WTP">Разработка с использованием WTP</a></div>
+</div>
+<h1 id="toc0"><a name="Eclipse Web Tools Platform"></a>Eclipse Web Tools Platform</h1>
+ В данном руководстве мы расскажем, как настроить WTP для запуска и отладки приложений OpenXava внутри среды Eclipse.<br />
+Eclipse Web Tools Platform (<a class="wiki_link_ext" href="http://www.eclipse.org/webtools/" rel="nofollow">WTP</a>) - это проект Eclipse, предназначенный для разработки web и J2EE приложений.<br />
+Вы можете использовать WTP для запуска Tomcat (или другого сервера приложений) из Eclipse. При этом WTP позволяет сразу увидеть результаты ваши изменений без необходимости повторного развертывания вашего приложения на сервере приложений. Также вы сможете отлаживать ваш код с помощью отладчика.<br />
+Приложения OpenXava, создаваемые с помощью OpenXavaTemplate, изначально совместимы с WTP.<br />
+В данном руководстве мы будем использовать учебное приложение <em>MySchool</em>, которое поставляется вместе с OpenXava.<br />
+<h2 id="toc1"><a name="Eclipse Web Tools Platform-Настройка среды выполнения Tomcat для запуска в Eclipse"></a>Настройка среды выполнения Tomcat для запуска в Eclipse</h2>
+ <ul><li>Перейдите <em>Windows &gt; Preferences &gt; Server &gt; Installed Runtimes</em>.</li><li>Нажмите <em>Add</em>.</li><li>Выберите <em>Apache &gt; Apache Tomcat 5.5</em>.</li><li>Далее нажмите <em>Next</em>.</li><li>Заполните поля формы:<ul><li><em>Name</em>: Apache Tomcat v5.5</li><li><em>Tomcat installation directory</em>: Каталог, где установлен Tomcat (вы можете использовать Tomcat, поставляемый вместе с OpenXava, он расположен в дочерней папке <em>tomcat</em> папки, где развернута OpenXava)</li><li><em>JRE</em>: Выберите Java 5.</li></ul></li><li>Нажмите <em>Finish</em>.</li><li>Нажмите <em>OK</em> в диалоге <em>Preferences Dialog</em>, форма закроется.</li></ul><em><strong>Предупреждение</strong><strong>!</strong></em> Если вы не используете Tomcat, который поставляется с дистрибутивом OpenXava, вам необходимо скопировать <em><strong>jta.jar</strong></em> и <em><strong>ejb.jar</strong></em> из <em>openxava-3.0.x/tomcat/common/lib</em> в папку <em><strong>common/lib</strong></em> вашего сервера Tomcat.<br />
+<h2 id="toc2"><a name="Eclipse Web Tools Platform-Настройка сервера Tomcat в Eclipse"></a>Настройка сервера Tomcat в Eclipse</h2>
+ <ul><li>Перейдите на закладку <em>Server</em>. Если такой не существует, добавьте её (<em>Windows &gt; Show view &gt; Other &gt; Server &gt; Servers</em>).</li><li>На закладке <em>Server</em> нажмите <em>Right Button &gt; New &gt; Server.</em></li><li>Выберите в качестве среды выполнения <em>Server runtime</em>: Apache Tomcat v5.5.</li><li>Нажмите <em>Next</em>.</li><li>Добавьте <em>MySchool</em> в <em>Configured projects</em> (сконфигурированные проекты).</li><li>Нажмите <em>Finish</em>.</li></ul><h2 id="toc3"><a name="Eclipse Web Tools Platform-Определение источников данных (data sources)"></a>Определение источников данных (data sources)</h2>
+ После выполнения вышеуказанных действий в вашем workspace появился проект <em>Servers</em>. Внутри данного проекта вы увидите папку <em>Tomcat v5.5 Server @ localhost-config</em>. Создайте там файл context.xml со следующим содержимым:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc-1">&lt;!-- The contents of this file will be loaded for each web application --&gt;</span>
+<span class="sc3"><span class="re1">&lt;Context<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc-1">&lt;!-- Default set of monitored resources --&gt;</span>
+<span class="sc3"><span class="re1">&lt;WatchedResource<span class="re2">&gt;</span></span></span>WEB-INF/web.xml<span class="sc3"><span class="re1">&lt;/WatchedResource<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc-1">&lt;!-- Uncomment this to disable session persistence across Tomcat restarts --&gt;</span>
+<span class="sc3"><span class="re1">&lt;Manager</span> <span class="re0">pathname</span>=<span class="st0">&quot;&quot;</span> <span class="re2">/&gt;</span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/OpenXavaDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3"><span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3"><span class="re0">username</span>=<span class="st0">&quot;sa&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;&quot;</span> <span class="re0">driverClassName</span>=<span class="st0">&quot;org.hsqldb.jdbcDriver&quot;</span></span>
+<span class="sc3"><span class="re0">url</span>=<span class="st0">&quot;jdbc:hsqldb:file:/java/openxava-3.0/tomcat/data/openxava-db&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/MySchoolDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3"><span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3"><span class="re0">username</span>=<span class="st0">&quot;sa&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;&quot;</span> <span class="re0">driverClassName</span>=<span class="st0">&quot;org.hsqldb.jdbcDriver&quot;</span></span>
+<span class="sc3"><span class="re0">url</span>=<span class="st0">&quot;jdbc:hsqldb:file:/java/openxava-3.0/tomcat/data/my-school-db&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/Context<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+
+<br />
+Не забудьте вместо <em>/java/openxava-3.0</em> указать путь на папку, где у вас установлена OpenXava.<br />
+<h2 id="toc4"><a name="Eclipse Web Tools Platform-Запуск сервера и тестирование приложения"></a>Запуск сервера и тестирование приложения</h2>
+ <ul><li>Остановить OpenXava Portal (stop-portal.sh/.bat), если у вас был запущен OpenXava.</li><li>Перейдите на закладку <em>Server</em>.</li><li>Нажмите <em>Right Button on Tomcat v5.5 Server &gt; Start</em></li><li>Подождите, пока запустится Tomcat.</li><li>Запустите интернет-браузер и перейдите по адресу <a class="wiki_link_ext" href="http://localhost:8080/MySchool/xava/module.jsp?application=MySchool&amp;module=Teacher" rel="nofollow">http://localhost:8080/MySchool/xava/module.jsp?application=MySchool&amp;module=Teacher</a></li></ul><h2 id="toc5"><a name="Eclipse Web Tools Platform-Разработка с использованием WTP"></a>Разработка с использованием WTP</h2>
+ После выполнения вышеперечисленных шагов, если вы вносили изменения в код Java, то необходимо выполнить полную сборку <em>Build All</em> (или <em>Ctrl-B</em>). Сразу за этим вы можете увидите в интернет-браузером измененное приложение. Если вы меняли файлы XML, вам необходимо выполнить ant-цель <em>rebuild</em> , синхронизировать ваш проект Eclipse с файловой системой (F5 Refresh), теперь можно смотреть результаты в браузером.<br />
+<br />
+Теперь, кроме всего вышеперечисленного, вы можете запустить Tomcat в режиме отладки, используя встроенный отладчик Eclipse.
+    </div>
+  </body>
+</html>

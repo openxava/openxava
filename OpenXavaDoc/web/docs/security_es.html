@@ -1,0 +1,155 @@
+<html>
+  <head>
+    <title>openxava - security_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Seguridad y gestión de usuarios">Seguridad y gestión de usuarios</a></div>
+<div style="margin-left: 2em;"><a href="#Seguridad y gestión de usuarios-Gestión de usuarios">Gestión de usuarios</a></div>
+<div style="margin-left: 2em;"><a href="#Seguridad y gestión de usuarios-Restringir el acceso a ciertas acciones">Restringir el acceso a ciertas acciones</a></div>
+<div style="margin-left: 2em;"><a href="#Seguridad y gestión de usuarios-Restringir el acceso a ciertas propiedades, referencias o colecciones (nuevo en v5.5)">Restringir el acceso a ciertas propiedades, referencias o colecciones (nuevo en v5.5)</a></div>
+<div style="margin-left: 2em;"><a href="#Seguridad y gestión de usuarios-Políticas para usuarios y contraseñas">Políticas para usuarios y contraseñas</a></div>
+<div style="margin-left: 2em;"><a href="#Seguridad y gestión de usuarios-LDAP">LDAP</a></div>
+<div style="margin-left: 2em;"><a href="#Seguridad y gestión de usuarios-Invitado puede crearse una cuenta de usuario él mismo">Invitado puede crearse una cuenta de usuario él mismo</a></div>
+<div style="margin-left: 2em;"><a href="#Seguridad y gestión de usuarios-Fecha de creación de usuario y registro de inicios de sesión">Fecha de creación de usuario y registro de inicios de sesión</a></div>
+<div style="margin-left: 2em;"><a href="#Seguridad y gestión de usuarios-Recuperación de contraseña (nuevo en v5.7)">Recuperación de contraseña (nuevo en v5.7)</a></div>
+<div style="margin-left: 2em;"><a href="#Seguridad y gestión de usuarios-Se le pide al usuario su correo electrónico">Se le pide al usuario su correo electrónico</a></div>
+<div style="margin-left: 2em;"><a href="#Seguridad y gestión de usuarios-Correo electrónico como nombre de usuario (nuevo en in v6.0)">Correo electrónico como nombre de usuario (nuevo en in v6.0)</a></div>
+</div>
+<h1 id="toc0"><a name="Seguridad y gestión de usuarios"></a>Seguridad y gestión de usuarios</h1>
+ <em>Todas las funcionalidades en este artículo están disponible solo en <a class="wiki_link_ext" href="http://openxava.org/xavapro" rel="nofollow">XavaPro</a></em><br />
+<h2 id="toc1"><a name="Seguridad y gestión de usuarios-Gestión de usuarios"></a>Gestión de usuarios</h2>
+ <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a> añade los módulos <em>Roles</em>, <em>Módulos</em> y <em>Usuarios</em> a tu aplicación, en una carpeta llamada <em>Admin</em>. Estos módulos te permiten configurar los niveles de acceso para los diferentes tipos de usuarios.<br />
+<img src="files/naviox-roles_es.png" alt="naviox-roles_es.png" title="naviox-roles_es.png" /><br />
+Lo normal es crear un nuevo rol y asignarle algunos módulos. Entonces, en el módulo <em>Usuarios</em>, puedes escoger un usuario y asignarle el nuevo rol. Por defecto hay dos roles ya creados: <em>admin</em> con acceso a <em>Usuarios</em>, <em>Roles</em>, <em>Módulos</em> y <em>Carpetas</em>, y <em>user</em> con acceso a todos los módulos de tu aplicación.<br />
+Si quitas el acceso al módulo por defecto de una entidad, modificar y crear desde las referencias a esa entidad no estará disponible. Por ejemplo, si los usuarios de cierto rol no pueden acceder al módulo <em>Cliente</em>, tampoco podrán crear y modificar clientes desde el módulo <em>Factura</em> (<em>nuevo en v5.3</em>).<br />
+Esta gestión de usuarios está disponible sólo en <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>, con el OpenXava normal tienes que añadir los usuarios en el fichero <em>naviox-users.properties</em>. de la carpeta <em>properties</em> de tu proyecto.<br />
+<h2 id="toc2"><a name="Seguridad y gestión de usuarios-Restringir el acceso a ciertas acciones"></a>Restringir el acceso a ciertas acciones</h2>
+ Si quieres que los usuarios de un determinado rol no pueda ejecutar algunas acciones, ve al módulo <em>Roles</em> y escoge ese rol para editarlo en modo detalle. Ahora haz click en el módulo donde quieras restringir las acciones. Te aparecerá un diálogo como este:<br />
+<img src="files/xavapro-restrict-actions_es.png" alt="xavapro-restrict-actions_es.png" title="xavapro-restrict-actions_es.png" /><br />
+Selecciona las acciones que quieras excluir y pulsar <em>Grabar</em>. A partir de ahora, todos los usuario de ese rol no podrán ejecutar esas acciones en ese módulo.<br />
+Restringir el acceso a <em>Nuevo</em> y <em>Grabar</em> también restringe la posibilidad de crear y modificar desde las referencias, si se hace en el módulo por defecto para esa entidad. Por ejemplo, si restringes el acceso a la acción <em>Grabar</em> en el módulo <em>Cliente</em>, el usuario no podrá modificar los datos de <em>Cliente</em> desde el módulo <em>Factura</em> <em>(nuevo en v5.3)</em>.<br />
+Restringir el acceso a acciones sólo está disponible en <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>.<br />
+<h2 id="toc3"><a name="Seguridad y gestión de usuarios-Restringir el acceso a ciertas propiedades, referencias o colecciones (nuevo en v5.5)"></a>Restringir el acceso a ciertas propiedades, referencias o colecciones <em>(nuevo en v5.5)</em></h2>
+ Si quieres que los usuarios de un determinado rol no pueda acceder a ciertas propiedades, referencias o colecciones, ve al módulo <em>Roles</em> y escoge ese rol para editarlo en modo detalle. Ahora haz click en el módulo donde quieras restringir el acceso a los miembros. Te aparecerá un diálogo como este:<br />
+<img src="files/restrict-data-read-only-data-xavapro_es.png" alt="restrict-data-read-only-data-xavapro_es.png" title="restrict-data-read-only-data-xavapro_es.png" /><br />
+Selecciona los miembros en <em>Datos excluidos</em> que quieras excluir y pulsar <em>Grabar</em>. A partir de ahora, todos los usuario de ese rol no podrán acceder a esos miembros. Fíjate que también tenemos <em>Datos de solo lectura</em> para marcar miembros que los usuarios del rol podrán leer pero no modificar.<br />
+Restringir el acceso a miembros sólo está disponible en <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>.<br />
+<h2 id="toc4"><a name="Seguridad y gestión de usuarios-Políticas para usuarios y contraseñas"></a>Políticas para usuarios y contraseñas</h2>
+ Hay un montón de opciones para configurar las políticas de gestión de usuarios y contraseñas. En la carpeta <em>Admin</em> encontrarás un módulo <em>Configuración</em>:<br />
+<img src="files/xavapro-configuration_es.png" alt="xavapro-configuration_es.png" title="xavapro-configuration_es.png" /><br />
+Puedes configurar estas políticas para que tu sistema sea compatible con PCI-DSS, algo muy útil en aplicaciones bancarias.<br />
+Estas políticas para usuarios y contraseñas sólo están disponible en <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>.<br />
+<h2 id="toc5"><a name="Seguridad y gestión de usuarios-LDAP"></a>LDAP</h2>
+ <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a> permite a los usuarios ser autentificados vía LDAP. Para configurar LDAP edita el archivo <em>naviox.properties</em> y añade las siguientes entradas:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="co1"># Configuración LDAP</span>
+<span class="re0">ldapHost</span><span class="sy0">=</span><span class="re1">192.168.0.0</span>
+<span class="re0">ldapDomain</span><span class="sy0">=</span><span class="re1">XX</span>
+<span class="re0">ldapDN</span><span class="sy0">=</span><span class="re1">DC=XX,DC=XX,DC=XX</span>
+<span class="re0">ldapPort</span><span class="sy0">=</span><span class="re1">389</span></pre>
+
+Si usas OpenLDAP omite la entrada <em>ldapDomain</em> <em>(a partir de v5.9.1)</em>, como en este ejemplo:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="co1"># Ejemplo de configuración OpenLDAP</span>
+<span class="re0">ldapHost</span><span class="sy0">=</span><span class="re1">192.168.2.xxx</span>
+<span class="re0">ldapDomain</span><span class="sy0">=</span>
+<span class="re0">ldapDN</span><span class="sy0">=</span><span class="re1">ou=people,dc=dgrtdf,dc=gov,dc=ar</span>
+<span class="re0">ldapPort</span><span class="sy0">=</span><span class="re1">389</span></pre>
+
+Fíjate como <em>ldapDomain</em> no tiene valor.<br />
+Por defecto todos los usuarios son autentificados usando las contraseñas almacenadas por XavaPro. Para activar LDAP has de seleccionar los usuarios y marcar la opción <em>Autentificar con LDAP</em>:<br />
+<img src="files/naviox_ldap_es.png" alt="naviox_ldap_es.png" title="naviox_ldap_es.png" /><br />
+El soporte de LDAP sólo están disponible en <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>.<br />
+<h2 id="toc6"><a name="Seguridad y gestión de usuarios-Invitado puede crearse una cuenta de usuario él mismo"></a>Invitado puede crearse una cuenta de usuario él mismo</h2>
+ En la caja de identificación hay un vínculo etiquetado como CREAR CUENTA:<br />
+<img src="files/login-with-signup_es.png" alt="login-with-signup_es.png" title="login-with-signup_es.png" /><br />
+El usuario puede pulsar en él para ir a un formulario de registro:<br />
+<img src="files/signup-form_es.png" alt="signup-form_es.png" title="signup-form_es.png" /><br />
+Después de rellenar el formulario y pulsar el botón la cuenta de usuario se crea y además se inicia la sesión. Hay un rol <em>self sign up</em> para determinar los permisos de los usuarios autocreados.<br />
+Esta característica se puede desactivar en el módulo de configuración.<br>A partir de la v6.0 se puede mostrar una política de privacidad en la página de registro, el texto de la política de privacidad se obtiene de la entrada privacy_policy en los archivos de mensajes i18n. Es obligatorio que el usuario marque la casilla aceptando la política para poder hacer el registro. La fecha de la aceptación de la política se almacena junto con los datos del usuario. Puedes ocultar la política de privacidad usando el módulo de configuración.  <br /><br />
+<h2 id="toc7"><a name="Seguridad y gestión de usuarios-Fecha de creación de usuario y registro de inicios de sesión"></a>Fecha de creación de usuario y registro de inicios de sesión</h2>
+ Ve al módulo de usuarios para ver esta información:<br />
+<img src="files/user-creation-date-sessions_es.png" alt="user-creation-date-sessions_es.png" title="user-creation-date-sessions_es.png" /><br />
+<h2 id="toc8"><a name="Seguridad y gestión de usuarios-Recuperación de contraseña (nuevo en v5.7)"></a>Recuperación de contraseña <em>(nuevo en v5.7)</em></h2>
+ El usuario puede recuperar su contraseña por sí mismo. Cuando falla al introducir la contraseña correcta se muestra un mensaje &quot;¿Has olvidado tu contraseña?&quot; con un vínculo:<br />
+<img src="files/recover-password-login_es.png" alt="recover-password-login_es.png" title="recover-password-login_es.png" /><br />
+Cuando el usuario pulsa en el vínculo va a una página para introducir su correo electrónico:<br />
+<img src="files/enter-email-recover-password_es.png" alt="enter-email-recover-password_es.png" title="enter-email-recover-password_es.png" /><br />
+Después de pulsar en el botón &quot;Recuperar contraseña&quot; un correo electrónico con instrucciones para recuperar la contraseña es enviado. Por supuesto, un usuario con ese correo electrónico ha de estar registrado en el sistema.<br />
+Para usar la funcionalidad de recuperación de contraseña has de configurar las propiedades de correo electrónico en <em>xava.properties</em>, algo como esto:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="co1">#SMTP related information</span>
+<span class="re0">smtpHost</span><span class="sy0">=</span><span class="re1">smtp.gmail.com</span>
+<span class="re0">smtpPort</span><span class="sy0">=</span><span class="re1">587</span>
+<span class="re0">smtpUserId</span><span class="sy0">=</span><span class="re1">micorreo@gmail.com</span>
+<span class="re0">smtpUserPassword</span><span class="sy0">=</span><span class="re1">micontrasena</span>
+<span class="re0">smtpHostTrusted</span><span class="sy0">=</span><span class="re1">true</span>
+<span class="re0">smtpStartTLSEnable</span><span class="sy0">=</span><span class="re1">true</span></pre>
+
+<h2 id="toc9"><a name="Seguridad y gestión de usuarios-Se le pide al usuario su correo electrónico"></a>Se le pide al usuario su correo electrónico</h2>
+ Para que este mecanismo de recuperación de contraseña funcione es necesario que cada usuario tenga su correo electrónico registrado en el sistema. Por tanto ahora si el usuario no tiene correo electrónico XavaPro se lo pregunta después de entrar:<br />
+<img src="files/enter-email-personal-data_es.png" alt="enter-email-personal-data_es.png" title="enter-email-personal-data_es.png" /><br />
+Introducir el correo no es obligatorio, el usuario puede irse a cualquier otro módulo dejando el correo electrónico en blanco.<br />
+Este nuevo módulo &quot;Mis datos personales&quot; esta siempre disponible para que todos los usuarios puedan modificar sus propios datos personales.
+
+<h2 id="toc9"><a name="Seguridad y gestión de usuarios-Correo electrónico como nombre de usuario (nuevo en in v6.0)"></a>Correo electrónico como nombre de usuario <em>(nuevo en v6.0)</em></h2>
+En el módulo de configuración hay una opción llamada <i>Usar correo electrónico como nombre de usuario</i>.     
+    
+    
+    Si la marcas será obligatorio que el usuario se registre usando un correo electrónico como nombre de usuario. Además, los usuarios ya creados pueden identificarse usando su cuenta de correo en lugar de su nombre.<br>La validación del correo electrónico al registrarse se puede personalizar con  <i>emailValidatorForSignUpClass</i> en <i>naviox.properties</i>, por ejemplo:
+    <pre>emailValidatorForSignUpClass=com.miempresa.miaplicacion.MiValidadorCorreo</pre>
+    En este caso la lógica de <i>MiValidadorCorreo</i> (ha de implementar <i>IPropertyValidator</i>) se aplica al correo electrónico al registrarse. La validación por defecto para el correo electrónico verifica que la sintaxis es correcta, pero a veces queremos una validación diferente, como que sea un correo de empresa, por ejemplo. Puede hacer eso con tu propio validador de correo electrónico.
+    </div>
+  </body>
+</html>

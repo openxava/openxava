@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <title>openxava - my-first-ox2-project-setup_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Configuración del entorno">Configuración del entorno</a></div>
+<div style="margin-left: 2em;"><a href="#Configuración del entorno-Arrancar Eclipse">Arrancar Eclipse</a></div>
+<div style="margin-left: 2em;"><a href="#Configuración del entorno-Tareas definidas en el fichero build.xml">Tareas definidas en el fichero build.xml</a></div>
+<div style="margin-left: 2em;"><a href="#Configuración del entorno-Ejecución de la tarea por omisión de build.xml">Ejecución de la tarea por omisión de build.xml</a></div>
+<div style="margin-left: 2em;"><a href="#Configuración del entorno-Ejecución de una tarea concreta de build.xml">Ejecución de una tarea concreta de build.xml</a></div>
+<div style="margin-left: 2em;"><a href="#Configuración del entorno-Definición de herramientas externas (External Tools)">Definición de herramientas externas (External Tools)</a></div>
+<div style="margin-left: 2em;"><a href="#Configuración del entorno-Ejecutar herramientas externas ya definidas">Ejecutar herramientas externas ya definidas</a></div>
+<div style="margin-left: 2em;"><a href="#Configuración del entorno-Detalles sobre el servidor de base de datos HSQL">Detalles sobre el servidor de base de datos HSQL</a></div>
+<div style="margin-left: 2em;"><a href="#Configuración del entorno-Arrancar el servidor HSQL">Arrancar el servidor HSQL</a></div>
+<div style="margin-left: 2em;"><a href="#Configuración del entorno-Administrador de la base de datos HSQL">Administrador de la base de datos HSQL</a></div>
+</div>
+<h1 id="toc0"><a name="Configuración del entorno"></a>Configuración del entorno</h1>
+ Se supone que se ha trabajado un mínimo sobre eclipse, con lo que aquí se indicaran las pinceladas de las opciones que más errores suelen ocasionar a los principiantes de OpenXava.<br />
+<h2 id="toc1"><a name="Configuración del entorno-Arrancar Eclipse"></a>Arrancar Eclipse</h2>
+ Se supone que se ha instalado el JDK de Java.<br />
+Cuando se instala eclipse, una de las cosas buenas que tiene es que se instala en una carpeta. Es conveniente si estas en Windows, realizar un acceso directo.<br />
+Hay que comprobar que la variable de entorno JAVA_HOME a la ubicación del JDK. Para ello en Windows hay que ejecutar <strong>MiPC - Ver Información del sistema – Opciones avanzadas – Variables de entorno</strong> e indicar dicha ruta.<br />
+<img src="files/my-first-ox-project01.png" alt="my-first-ox-project01.png" title="my-first-ox-project01.png" /><br />
+<img src="files/my-first-ox-project02.png" alt="my-first-ox-project02.png" title="my-first-ox-project02.png" /><br />
+<img src="files/my-first-ox-project03.png" alt="my-first-ox-project03.png" title="my-first-ox-project03.png" /><br />
+<img src="files/my-first-ox-project04.png" alt="my-first-ox-project04.png" title="my-first-ox-project04.png" /><br />
+<br />
+<h2 id="toc2"><a name="Configuración del entorno-Tareas definidas en el fichero build.xml"></a>Tareas definidas en el fichero build.xml</h2>
+ En un proyecto OpenXava, tenemos un fichero build.xml, que tiene definidas muchas tareas por lotes denominadas tareas ant. En OpenXava, las tareas más comunes son:<br />
+<ul><li><em>generarCodigo</em>: Permite la generación del código de las clases por <u>primera vez</u></li><li><em>regenerarCodigo</em>: Si se han modificado algunas especificaciones de un módulo es conveniente volver a generar el código sustituyendo las clases generadas.</li><li><em>actualizarEsquema</em>: Si se ha añadido alguna propiedad a los componentes, seguramente se tendrá que modificar la estructura de la tabla asociada. Para elle hay que ejecutar esta tarea.</li><li><em>desplegarWar</em>: Para que el servidor de aplicaciones tenga todos los ficheros en los directorios correspondientes y poder servir las aplicaciones a los clientes, se ejecutará esta acción.</li><li><em>reconstruir</em>: Ejecuta una compilación del còdigo.</li><li><em>generarPortlets</em>: Para que se las aplicaciones puedan formar parte de un portal como <em>Liferay</em>.</li><li><em>todo</em>: Realiza alguna de las tareas existentes en el fichero build. Es la tarea por omisión (<em>default</em>)</li></ul><br />
+Dentro del fichero build.xml tendremos entre otra la siguiente información:<br />
+[[code format=&quot;xml&quot;]]<br />
+<br />
+<a class="wiki_link" href="code.html">code</a><br />
+Donde se aprecia en las etiquetas “target”, algunas de las tareas definidas anteriormente (recontruir i generarPortlets)<br />
+<h2 id="toc3"><a name="Configuración del entorno-Ejecución de la tarea por omisión de build.xml"></a>Ejecución de la tarea por omisión de build.xml</h2>
+ Situado sobre el fichero build.xml de nuestro proyecto y apretando el botón derecho del ratón, y escogemos <strong>Run As – 2 AntBuild</strong>, entonces ejecutará la tarea definida por omisión que haya en build.xml.<br />
+<img src="files/my-first-ox-project05.png" alt="my-first-ox-project05.png" title="my-first-ox-project05.png" /><br />
+<br />
+<h2 id="toc4"><a name="Configuración del entorno-Ejecución de una tarea concreta de build.xml"></a>Ejecución de una tarea concreta de build.xml</h2>
+ Operamos igual que el apartado anterior pero esta vez seleccionamos <strong>Run As – 3 AntBuild …</strong>, donde aparecen tres puntitos (…) , y ya seleccionamos una tarea de las definidas en el fichero Build<br />
+<h2 id="toc5"><a name="Configuración del entorno-Definición de herramientas externas (External Tools)"></a>Definición de herramientas externas (External Tools)</h2>
+ Una vez definidas las tareas se pueden ejecutar de forma muy comoda. Para ello hay que seleccionar el símbolo: <img src="files/my-first-ox-project06.png" alt="my-first-ox-project06.png" title="my-first-ox-project06.png" /> que se encuentra tanto en la imagen anterior al ejecutar el <strong>Run As</strong>, como en la <strong>cabecera del eclipse</strong>. Habrá que crear una tarea nueva mediante el símbolo arriba a la izquierda marcado con <strong>1</strong> <img src="files/my-first-ox-project07.png" alt="my-first-ox-project07.png" title="my-first-ox-project07.png" />. Se verifica que estamos en la carpeta Main como se marca con <strong>2.</strong> Se comprueba el el fichero build.xml que queremos ejecutar es el de nuetro proyecto, y que el nombre que hemos dado a la tarea es el correcto. Una vez verificados estos datos, vamos a la carpeta <strong>Targets</strong>.<br />
+<img src="files/my-first-ox-project08.png" alt="my-first-ox-project08.png" title="my-first-ox-project08.png" /><br />
+<br />
+Ahora marcamos la tarea ant que queremos, siempre que sea acorde con el nombre que le hemos dado, y deseleccionamos aquellas tareas que no nos interesan. Como se ve en la imagen, la tarea todo esta marcada como <strong>default</strong> (por defecto u omisión).<br />
+<img src="files/my-first-ox-project09.png" alt="my-first-ox-project09.png" title="my-first-ox-project09.png" /><br />
+<br />
+Por último vamos a la carpeta Refresh i comprobamos que está marcada la opción <strong>the entire workspace.</strong><br />
+<h2 id="toc6"><a name="Configuración del entorno-Ejecutar herramientas externas ya definidas"></a>Ejecutar herramientas externas ya definidas</h2>
+ Una vez definidas las tareas se pueden ejecutar de forma muy cómoda. Para ello hay que seleccionar el símbolo: <img src="files/my-first-ox-project06.png" alt="my-first-ox-project06.png" title="my-first-ox-project06.png" /> (podemos seleccionar el que se encuentra en la cabecera). Si aparece nuestra tarea (supongamos que es la <em>4 Gestio.regenerarCodigo</em>) entonces la seleccionamos. Si no apareciera, tendríamos que ir a <strong>external tools</strong> y buscarla para ejecutarla.<br />
+<img src="files/my-first-ox-project10.png" alt="my-first-ox-project10.png" title="my-first-ox-project10.png" /><br />
+<img src="files/my-first-ox-project11.png" alt="my-first-ox-project11.png" title="my-first-ox-project11.png" /><br />
+<br />
+<h2 id="toc7"><a name="Configuración del entorno-Detalles sobre el servidor de base de datos HSQL"></a>Detalles sobre el servidor de base de datos HSQL</h2>
+ Se supone que se tiene un mínimo conocimiento de Bases de Datos, SQL etc. con lo que aquí se indicaran las pinceladas de las opciones que más errores suelen ocasionar a los principiantes de OpenXava. Suponemos que se tiene ya instalado el OpenXava<br />
+<h2 id="toc8"><a name="Configuración del entorno-Arrancar el servidor HSQL"></a>Arrancar el servidor HSQL</h2>
+ Supongamos que tenemos (o queremos crear) una base de datos llamada <strong>gestion-db</strong>, para desde la línea de órdenes vamos a la carpeta <em>openxava2.2/portal/bin</em> y ejecutamos:<br />
+<ul><li>En Linux/Unix: ./starthsqldb.sh gestion-db 1666</li><li>En Windows: starthsqldb gestion-db 1666</li></ul>Con lo que hemos arrancado el servidor de Base de Datos HSQL con el servició número 1666 para la base datos gestion-db.<br />
+<h2 id="toc9"><a name="Configuración del entorno-Administrador de la base de datos HSQL"></a>Administrador de la base de datos HSQL</h2>
+ Si vamos a la página WEB de HSQL y nos descargamos el aplicativo en otra carpeta distinta de OpenXava y la instalamos, y ejecutamos posteriormente el programa runManagerSwing.bat de la subcarpeta demo de la citada instalación, podremos administrar nuestra base de datos gestion-db, previamente arrancada en el servicio 1666. Si seleccionamos las opciones indicadas en la siguiente figura, podemos ver a nuestra base de datos en funcionamiento.<br />
+<img src="files/my-first-ox-project12.png" alt="my-first-ox-project12.png" title="my-first-ox-project12.png" /><br />
+<br />
+En efecto, ejecutamos la sentencia <em>select</em> con una tabla nuestra que sabemos que existe y a funcionar. Hay que advertir que se tiene que referenciar el catálogo previo al nombre de la tabla y separado por un “_”. En este caso el catálogo es “GESTIO”, y la tabla ININ03. Si no tienes una tabla ya creada como en nuestro caso puedes ejecutar el comando CREATE TABLE ……<br />
+<img src="files/my-first-ox-project13.png" alt="my-first-ox-project13.png" title="my-first-ox-project13.png" /><br />
+<br />
+<br />
+<br />
+<br />
+Ahora tu entorno ya está listo para continuar con el tutorial '<a class="wiki_link" href="my-first-ox2-project_es.html">Mi primer proyecto OpenXava</a>'.
+    </div>
+  </body>
+</html>

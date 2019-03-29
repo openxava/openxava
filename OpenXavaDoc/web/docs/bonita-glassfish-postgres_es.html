@@ -1,0 +1,304 @@
+<html>
+  <head>
+    <title>openxava - bonita-glassfish-postgres_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<span style="display: block; margin-bottom: 12pt; margin-left: 0cm; margin-right: 0cm; margin-top: 12pt;"><strong><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 15.5pt;">Como Instalar Bonita Open Solution 5.2.2 sobre Glassfish 2.1.1 usando Postgresql como RDBMS. </span></strong></span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">Este artículo muestra paso a paso la instalación de Bonita Open Solution 5.2.2 (BOS) sobre Glassfish 2.1.1. También se detalla el uso de Postgresql como RDBMS para BOS.</span><br />
+<br />
+<span style="line-height: 17px;"><strong><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 13.5pt;">Pre requisitos:</span></strong></span><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 24pt; margin-right: 12pt; margin-top: 0cm; text-indent: -18pt;"><span style="color: black; font-family: Symbol; font-size: 10pt;">· </span><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Tener Java JDK instalado y configurado. Asegurar que variable JAVA_HOME apunte al directorio adecuado donde se instalo la JDK y que la ruta JAVA_HOME/bin este en el PATH. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 24pt; margin-right: 12pt; margin-top: 0cm; text-indent: -18pt;"><span style="color: black; font-family: Symbol; font-size: 10pt;">· </span><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Tener ANT instalado y configurado. Asegurar que variable ANT_HOME apunte al directorio adecuado donde se instalo ANT y que la ruta ANT_HOME/bin este en el PATH. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 24pt; margin-right: 12pt; margin-top: 0cm; text-indent: -18pt;"><span style="color: black; font-family: Symbol; font-size: 10pt;">· </span><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Tener Glassfish instalado. Lo puede descargar e instalar desde el siguiente enlace: <span style="color: #336699;"><a class="wiki_link_ext" href="https://glassfish.dev.java.net/downloads/v2.1.1-final.html" rel="nofollow">https://glassfish.dev.java.net/downloads/v2.1.1-final.html</a></span> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 24pt; margin-right: 12pt; margin-top: 0cm; text-indent: -18pt;"><span style="color: black; font-family: Symbol; font-size: 10pt;">· </span><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Tener BOS 5.2.2 instalado. Lo puede descargar e instalar desde el siguiente enlace: <span style="color: #336699;"><a class="wiki_link_ext" href="http://www.bonitasoft.com/products/downloading.php?f=http://download.forge.objectweb.org/bonita/BOS-5.2.2-lin-setup.zip" rel="nofollow">http://www.bonitasoft.com/products/downloading.php?f=http://download.forge.objectweb.org/bonita/BOS-5.2.2-lin-setup.zip</a></span> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 24pt; margin-right: 12pt; margin-top: 0cm; text-indent: -18pt;"><span style="color: black; font-family: Symbol; font-size: 10pt;">· </span><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Tener Postgresql 8.x instalado. Lo puede descargar e instalar desde el siguiente enlace: <span style="color: #336699;"><a class="wiki_link_ext" href="http://wwwmaster.postgresql.org/download/mirrors-ftp/source/v8.4.4/postgresql-8.4.4.tar.gz" rel="nofollow">http://wwwmaster.postgresql.org/download/mirrors-ftp/source/v8.4.4/postgresql-8.4.4.tar.gz</a></span> </span></span><br />
+<span style="line-height: 17px;"><strong><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 12pt;">Pasos:</span></strong></span><br />
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 18pt; margin-right: 12pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">1.- Crear las Bases de Datos en Postgresql requeridas por BOS. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">1.1.- Crear Base de Dato <strong>bonita_core</strong>. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Por línea de comandos puede ingresar la siguiente secuencia de comandos: </span></span><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">&gt;psql
+CREATE DATABASE bonita_core WITH OWNER = postgres ENCODING = 'UTF8';
+\q</pre>
+
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">O puede usar la interfaz gráfica de su preferencia tal como pgAdmin. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Ver el tutorial : <span style="color: #336699;"><a class="wiki_link_ext" href="http://www.pgadmin.org/docs/1.4/pg/tutorial.html" rel="nofollow">http://www.pgadmin.org/docs/1.4/pg/tutorial.html</a></span> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">1.2.- Crear Base de Dato <strong>bonita_history</strong>. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Por línea de comandos puede ingresar la siguiente secuencia de comandos: </span></span><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">&gt;psql
+&nbsp;
+CREATE DATABASE bonita_history WITH OWNER = postgres ENCODING = 'UTF8';
+&nbsp;
+\q</pre>
+
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">O puede usar la interfaz gráfica de su preferencia tal como pgAdmin. </span></span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">2.- Iniciar BOS.</span><br />
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 12pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">3.- Exportar Aplicación. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 12.6pt; margin-right: 12pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">31.1.- Ir al menú <em>Proceso.</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">3.2.- Seleccione la opción <em>Exportar Aplicación...</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">3.3.- En la pantalla que se presenta, ver <span style="color: #336699;"><a class="wiki_link_ext" href="http://192.168.1.10:8080/web/guest/wiki#seqrefFigura0" rel="nofollow">Figura 1</a></span>, seleccionar las opciones: </span></span><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><em><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Export Runtime </span></em></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><em><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Export User XP / Light </span></em></span><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">3.4.- Seleccione un directorio de destino para el archivo <em>bonita_application.zip</em> a exportar. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">3.5.- Pulse el botón <em>Exportar.</em> </span></span><br />
+<img src="files/BOSOverGlasfish-img1.png" alt="BOSOverGlasfish-img1.png" title="BOSOverGlasfish-img1.png" /><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Figura 1: Pantalla Exportar Aplicación </span></span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">4.- Ir al directorio seleccionado en el paso 3.4.</span><br />
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 12pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">5.- En el directorio seleccionado descomprimir el archivo <em>bonita_application.zip</em>. Esto debe crear un directorio denominado <em>bonita_application</em> con el siguiente contenido: </span></span><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 59.45pt; margin-right: 12pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Directorio <em>runtime</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 59.45pt; margin-right: 12pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Directorio <em>web</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 59.45pt; margin-right: 12pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Archivo <em>README.txt</em> </span></span><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 59.45pt; margin-right: 12pt; margin-top: 0cm;"><em><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Desde ahora nos referiremos a este directorio con el nombre BONITA_APPLICATION </span></em></span><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 12pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">6.- Ir al directorio <em>BONITA_APPLICATION/runtime/conf</em>. </span></span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">7.- Editar el Archivo <em>hibernate-core.properties,</em> este archivo contiene las propiedades para la configuración de acceso a la base de datos <strong>central</strong> de BOS usando hibernate.</span><br />
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 12pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">7.1.- Establecer los siguientes valores para la conexión con Postgresql: </span></span><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">hibernate.dialect org.hibernate.dialect.PostgreSQLDialect hibernate.connection.driver_class org.postgresql.Driver
+hibernate.connection.url jdbc:postgresql:localhost:5432/bonita_core
+hibernate.connection.shutdown true
+hibernate.connection.username postgres
+hibernate.connection.password suPostgresPassword</pre>
+
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">7.2.- </span><em><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Grabar el archivo y cerrar editor. </span></em></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">7.3.- </span><em><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Editar el Archivo </span></em>hibernate-history.properties, <em>este archivo contiene las propiedades para la configuración de acceso a la base de datos <strong>histórica</strong> de BOS usando hibernate.</em></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">7.4.- </span><em><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Establecer los siguientes valores para la conexión con Postgresql: </span></em></span><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">hibernate.dialect org.hibernate.dialect.PostgreSQLDialect hibernate.connection.driver_class org.postgresql.Driver
+hibernate.connection.url jdbc:postgresql:localhost:5432/bonita_history
+hibernate.connection.shutdown true
+hibernate.connection.username postgres
+hibernate.connection.password suPostgresPassword</pre>
+
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><em><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">7.5.- </span></em><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Grabar el archivo y cerrar editor. </span></span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">8.- <em>Ir al directorio BONITA_APPLICATION/runtime/lib</em>.</span><br />
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">9.- Copiar allí el .jar del driver de <em>Postgresql</em>. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 24pt; margin-right: 12pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Copiar el archivo: <em>postgresql-8.xxx.jdbc4.jar</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 24pt; margin-right: 12pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Asegúrese de usar el archivo con la versión adecuada para su instalación de <em>Postgresql</em> y que sea la especificación <em>jdbc4</em>. </span></span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">10.- Ir al directorio <em>BONITA_APPLICATION/runtime</em>.</span><br />
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 12pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">11.- Ejecutar el comando de <em>ANT</em> para Iniciar el Shema de base de datos usando la configuración antes suministrada: </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">&gt;<em>ant init-db</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Al terminar de ejecutarse el comando debemos contar con nuestras base de datos de postgresql <em>bonita_core</em> y <em>bonita_history</em> ya configuradas con la estructura de tablas adecuada. </span></span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">12.- Crear el Archivo de Aplicación Empresarial de Java .ear.</span><br />
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">12.1.- En el directorio <em>BONITA_APPLICATION/runtime</em> ejecutar el mando de <em>ANT</em> para iniciar la construcción del archivo .ear de la aplicación. </span></span><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Comando: </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">&gt;<em>ant ear.ejb3</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Se emitirán una serie de mensajes y esperamos por el mensaje de que todo se realizó con exito: BUILD SUCCESSFUL </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Esto genera el archivo <em>bonita.ear</em> en el directorio <em>BONITA_APPLICATION/runtime/ear/ejb3</em> y este es el archivo que podemos desplegar en nuestro servidor de aplicaciones. </span></span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">13.- Desplegar archivo <em>bonita.ear</em> en <em>Glassfish</em>.</span><br />
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">13.1.- Ir a la página de administración de Glassfish. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Abrir un explorador web e ingresar la ruta: </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: #336699; font-family: 'Arial','sans-serif'; font-size: 8.5pt;"><a class="wiki_link_ext" href="http://yourserverhost:4848/" rel="nofollow">http://yourserverhost:4848</a> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">13.2.- En la ventana que se abre, ver <span style="color: #336699;"><a class="wiki_link_ext" href="http://192.168.1.10:8080/web/guest/wiki#seqrefFigura1" rel="nofollow">Figura 2</a></span>, ingresar las credenciales de administrador. Normalmente los valores por defecto son para el usuario: <em>admin</em> y para la clave: <em>adminadmin</em>. </span></span><br />
+<img src="files/BOSOverGlasfish-img2.png" alt="BOSOverGlasfish-img2.png" title="BOSOverGlasfish-img2.png" /><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Figura 2: Inicio de sesión en Glassfish 2.1.1. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">13.3.- Una vez que hemos ingresado ir a la opción <em>Aplicaciones</em>. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">13.4.- Ir a la opción <em>Aplicaciones de empresa</em>. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">13.5.- En la tabla de <em>Aplicaciones de empresa implementadas</em> hacer <em>click</em> en el botón <em>implementar...</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">13.6.- En la sección denominada Implementar aplicaciones / módulos de empresa, ver <span style="color: #336699;"><a class="wiki_link_ext" href="http://192.168.1.10:8080/web/guest/wiki#seqrefFigura2" rel="nofollow">Figura 3</a></span>, hacer <em>click</em> en el botón seleccionar archivo. Allí seleccionamos el archivo <em>bonita.ear</em> que generamos en el paso 12 y pulsamos el botón<em>Aceptar</em>. </span></span><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 48pt; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Esperamos por el mensaje de que la operación se realizo con éxito y debemos poder ver en la tabla de <em>Aplicaciones de empresa implementadas</em> nuestra aplicación bonita recién desplegada. </span></span><br />
+<img src="files/BOSOverGlasfish-img3.png" alt="BOSOverGlasfish-img3.png" title="BOSOverGlasfish-img3.png" /><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Figura 3: Desplegar bonita.ear </span></span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">14.- Configurar bonita.</span><br />
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.1.- Configurar Realm </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 0cm; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.1.1.- En la consola de administración de <em>Glassfish</em> ir al menú <em>configuración</em> (parte inferior izquierda). </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 0cm; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.1.2.- Allí seleccionar <em>Seguridad</em>. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 0cm; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.1.3.- Seleccionar <em>Dominios</em>. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 0cm; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.1.4.- En la tabla de <em>Dominios</em> pulsar el botón <em>Nuevo...</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 0cm; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.1.5.- En la ventana que abre, ver <span style="color: #336699;"><a class="wiki_link_ext" href="http://192.168.1.10:8080/web/guest/wiki#seqrefFigura3" rel="nofollow">Figura 4</a></span>, ingresar los siguientes valores: </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 72pt; margin-right: 36pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Nombre : processBaseRealm </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 72pt; margin-right: 36pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Nombre de clase del dominio que desea crear: org.processbase.realm.ProcessBaseRealm </span></span><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 72pt; margin-right: 36pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.1.6.- Pulsamos el botón <em>Aceptar</em>. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 72pt; margin-right: 36pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Ya deberíamos poder ver en la tabla de <em>Dominios el nuevo dominio que acabamos de crear.</em> </span></span><br />
+<img src="files/BOSOverGlasfish-img4.png" alt="BOSOverGlasfish-img4.png" title="BOSOverGlasfish-img4.png" /><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Figura 4: Configurar processBaseRealm </span></span><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.2.- Configurar <em>Libs</em>. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.2.1.- Cerrar sesión de administración de <em>Glassfish</em> (logout / salir). </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.2.2.- Detener servidor <em>Glassfish</em>. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.2.3.- Ir al directorio de instalación de <em>Glassfish</em>, al que desde ahora denominaremos <em>GLASSFISH_HOME</em>. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.2.4.- Ir a <em>GLASSFISH_HOME/lib</em>. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.2.5.- Copiar archivo <em>ProcessBaseRealm.jar</em>, este archivo lo pueden descargar de <span style="color: #336699;"><a class="wiki_link_ext" href="http://processbase.googlecode.com/files/processbase2.zip" rel="nofollow">http://processbase.googlecode.com/files/processbase2.zip</a></span> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.2.6.- Ir al directorio <em>GLASSFISH_HOME/domains/domain1/config</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.2.7.- Editar archivo <em>login.conf</em>. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 72pt; margin-right: 36pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Agregar las siguientes entradas al archivo: </span></span><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">processBaseRealm{
+org.processbase.realm.ProcessBaseLoginModule required;
+};
+ProcessBaseRealm{
+org.processbase.realm.ProcessBaseLoginModule required;
+};</pre>
+
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 36pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.2.8.- Guardar Archivo y cerrar editor. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 36pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.2.9.- Ir al directorio <em>GLASSFISH_HOME/domains/domain1/applications/j2ee-apps/bonita/lib.</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 36pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.2.10.- Copiar los archivos siguientes: </span></span><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">activation-1.1.1.jar, app-1.2.0.jar, bonita-5.2.2.jar, bonita-server-5.2.2.jar,
+chartengineapi-2.5.1.jar, com.ibm.icu_4.0.1.v20090822.jar, common-2.5.0.jar, common-3.5.0.jar,
+commons-fileupload-1.2.1.jar, commons-io-1.3.2.jar, contenttype-3.4.0.jar, coreapi-2.5.1.jar,
+dataadapterapi-2.5.1.jar, dteapi-2.5.1.jar, ecore-2.5.0.jar, engineapi-2.5.1.jar, jaxen-1.1.1.jar,
+jdom-1.0.jar, jericho-html-3.1.jar, jobs-3.4.100.jar, js.jar, LiferayRoleResolver.jar, modelapi-2.5.1.jar,
+osgi-3.5.0.jar, ow2-ejb-3.0-spec-1.0.2.jar, preferences-3.2.300.jar, registry-3.4.100.jar, runtime-3.5.0.jar,
+scriptapi.jar, scriptapi-2.5.1.jar, xalan-2.6.0.jar, xercesImpl-2.6.2.jar, xml-apis-1.0.b2.jar, xmlParserAPIs-2.6.2.jar, xom-1.0.jar
+&nbsp;</pre>
+
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 72pt; margin-right: 36pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Estos archivos los encuentra en el directorio <em>BONITA_APPLICATION/web/lib.</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 72pt; margin-right: 36pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Si alguno de los archivos ya existe lo puede omitir. </span></span><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 36pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.3.- Configurar properties y xml. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 36pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.3.1.- <em>Ir al directorio GLASSFISH_HOME/domains/domain1/applications/j2ee-apps/bonita</em>/bonita-ejbjar_jar. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 36pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.3.2.- Editar los siguientes archivos: </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 72pt; margin-right: 36pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;"><em>hibernate-core.properties</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 72pt; margin-right: 36pt; margin-top: 0cm;"><em><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">hibernate-core-default.properties </span></em></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 48pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.3.3.- Establecer los siguientes valores: </span></span><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">hibernate.dialect org.hibernate.dialect.PostgreSQLDialect hibernate.connection.driver_class org.postgresql.Driver
+hibernate.connection.url jdbc:postgresql:localhost:5432/bonita_core
+hibernate.connection.shutdown true
+hibernate.connection.username postgres
+hibernate.connection.password suPostgresPassword</pre>
+
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 36pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.3.4.- Guardar y cerrar archivos. </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 36pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.3.5.- Editar los siguientes archivos: </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 60pt; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">hibernate-history.properties </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 60pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">hibernate-history-default.properties</span></span><br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 48pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.3.6.- Establecer los siguientes valores: </span></span><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">hibernate.dialect org.hibernate.dialect.PostgreSQLDialect
+hibernate.connection.driver_class org.postgresql.Driver
+hibernate.connection.url jdbc:postgresql:localhost:5432/bonita_history
+hibernate.connection.shutdown true
+hibernate.connection.username postgres
+hibernate.connection.password suPostgresPassword</pre>
+
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 36pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.3.7.- <em>Guardar y cerrar archivos.</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 36pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.3.8.- Editar los siguientes archivos: </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 120pt; margin-right: 60pt; margin-top: 0cm;"><em><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">bonita-default-environment.xml </span></em></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 120pt; margin-right: 60pt; margin-top: 0cm;"><em><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">bonita-environment.xml </span></em></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 60pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.3.9.- En sección <em>&lt;environment-factory&gt;</em> Establecer el siguiente valor: </span></span><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">&lt;object name='security' class='org.ow2.bonita.facade.EJB3SecurityContext' /&gt;
+&nbsp;</pre>
+
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 60pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.3.10.- <em>Guardar y cerrar archivos.</em> </span></span><span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 35.4pt; margin-right: 24pt; margin-top: 0cm; text-indent: 35.4pt;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">14.3.11.- <em>Reiniciar Glassfish.</em> </span></span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">15.- Fin<em>.</em></span><br />
+<br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">Con estos pasos ya tenemos instalado el motor de BOS como un EJB3 sobre <em>Glassfish</em>.</span><br />
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Con una configuración JNDI en el archivo <em>jndi.properties</em> de nuestra aplicación como la siguiente: </span></span><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">java.naming.factory.initial= com.sun.enterprise.naming.SerialInitContextFactory
+java.naming.factory.url.pkgs= com.sun.enterprise.naming
+java.naming.factory.state= com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl
+java.naming.provider.url= iiop:Your.Server.Host:3700
+java.naming.provider.bonitaurl= iiop:Your.Server.Host:3700
+java.naming.provider.bamurl= iiop:Your.Server.Host:3700
+java.security.auth.login.config= appclientlogin.conf</pre>
+
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Ya se puede acceder a la API de BOS 5.2.2 de la siguiente forma: </span></span><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java span.xtra { display:block; }
+
+-->
+</style><pre class="java"><span class="kw1">Final</span> RuntimeAPI runtimeAPI <span class="sy0">=</span> AccessorUtil. <span class="me1">getAPIAccessor</span> <span class="br0">&#40;</span>OXConstants. <span class="me1">BONITA_EJB_ENV</span> <span class="br0">&#41;</span>.<span class="me1">getRuntimeAPI</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">public</span> ProcessInstanceUUID startNewProcess<span class="br0">&#40;</span>ProcessDefinitionUUID uuid, Map<span class="sy0">&lt;</span><span class="kw3">String</span>, Object<span class="sy0">&gt;</span> vars<span class="br0">&#41;</span> ProcessNotFoundException, VariableNotFoundException, <span class="kw3">Exception</span> <span class="br0">&#123;</span> <span class="kw1">throws</span>
+&nbsp;
+programmaticLogin .<span class="me1">login</span><span class="br0">&#40;</span> , , , <span class="br0">&#41;</span><span class="sy0">;</span> <span class="kw2">false</span><span class="st0">&quot;processBaseRealm&quot;</span><span class="st0">&quot;&quot;</span>currentUserUID
+&nbsp;
+returnruntimeAPI .<span class="me1">instantiateProcess</span><span class="br0">&#40;</span>uuid, vars<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="br0">&#125;</span></pre>
+
+<br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">Note el uso de programaticLogin <em>antes de cada llamada a la API.</em></span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">Sus aplicaciones Java sólo van necesitar los siguientes .jar del lado del cliente:</span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">asm-3.1.jar</span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">bonita-client-5.2.2.jar</span><br />
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Estos archivos los encuentra en el directorio: </span></span><br />
+<span style="font-family: Arial,sans-serif; font-size: 11px; line-height: 17px;">BONITA_APPLICATION/runtime<em>lib/client</em></span><br />
+<br />
+<br />
+<span style="display: block; line-height: 12.75pt; margin-bottom: 12pt; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm;"><span style="color: black; font-family: 'Arial','sans-serif'; font-size: 8.5pt;">Suerte y hasta una próxima entrega. </span></span>
+    </div>
+  </body>
+</html>

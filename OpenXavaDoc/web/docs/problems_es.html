@@ -1,0 +1,203 @@
+<html>
+  <head>
+    <title>openxava - problems_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Problemas">Problemas</a></div>
+<div style="margin-left: 2em;"><a href="#Problemas-Liferay cierra la sesión después de 30 minutos de trabajo">Liferay cierra la sesión después de 30 minutos de trabajo</a></div>
+<div style="margin-left: 2em;"><a href="#Problemas-UTF-8 characters are not processed correctly">UTF-8 characters are not processed correctly</a></div>
+<div style="margin-left: 2em;"><a href="#Problemas-La salida de bitácora (log) no se muestra con Liferay 5.1">La salida de bitácora (log) no se muestra con Liferay 5.1</a></div>
+<div style="margin-left: 2em;"><a href="#Problemas-Degradación del rendimiento cuando se trabaja mucho tiempo en la misma página con Liferay">Degradación del rendimiento cuando se trabaja mucho tiempo en la misma página con Liferay</a></div>
+<div style="margin-left: 2em;"><a href="#Problemas-Pérdida de JNDI en Liferay">Pérdida de JNDI en Liferay</a></div>
+<div style="margin-left: 2em;"><a href="#Problemas-Generar PDF no funciona">Generar PDF no funciona</a></div>
+</div>
+<h1 id="toc0"><a name="Problemas"></a>Problemas</h1>
+ <h2 id="toc1"><a name="Problemas-Liferay cierra la sesión después de 30 minutos de trabajo"></a>Liferay cierra la sesión después de 30 minutos de trabajo</h2>
+ Usando OX3.1 o superior no se produce recarga de página (gracias a AJAX), por eso si el usuario está trabajando 30 minutos en el mismo módulo Liferay piensa que no ha tocado la aplicación en todo ese tiempo, y muestra un mensaje de fin de sesión.<br />
+Es fácil configurar Liferay para evitar este comportamiento tan inconveniente.<br />
+Primero, pon la caducidad de la sesión a 5 minutos. Edita el archivo <em>web.xml</em> (en <em>webapps/ROOT/WEB-INF</em> para Tomcat):<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;session-config<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;session-timeout<span class="re2">&gt;</span></span></span>5<span class="sc3"><span class="re1">&lt;/session-timeout<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/session-config<span class="re2">&gt;</span></span></span></pre>
+
+Edita (o crea si todavía no existe) el archivo <em>webapps/ROOT/WEB-INF/classes/portal-ext.properties</em>, añadiendo las siguientes propiedades:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">session.timeout=5
+session.timeout.warning=1
+session.timeout.auto.extend=true</pre>
+
+De esta manera la caducidad de la sesión es de solo 5 minutos, pero es extendida automáticamente (sin preguntar nada al usuario) mientras que el navegador tenga el Liferay abierto.<br />
+<em><span style="color: #ff0000;">Advertencia</span>: Por causa de un <a class="wiki_link_ext" href="http://support.liferay.com/browse/LEP-4808" rel="nofollow">bug de Liferay</a> esta configuración necesita un Liferay 4.4.1 o superior.</em><br />
+<h2 id="toc2"><a name="Problemas-UTF-8 characters are not processed correctly"></a>UTF-8 characters are not processed correctly</h2>
+ OpenXava tiene soporte completo para UTF-8 o cualquier otro conjunto de caracteres que quieras desde la versión 3.1. Coge el valor de la propiedad Java <em>file.encoding</em> y la usa como codificación para las peticiones y respuestas web.<br />
+Si tu aplicación OX no muestra o introduce correctamente caracteres UTF-8, prueba poner <em>-Djava.encoding=UTF-8</em> como opción Java al arrancar tu servidor de aplicaciones.<br />
+<h2 id="toc3"><a name="Problemas-La salida de bitácora (log) no se muestra con Liferay 5.1"></a>La salida de bitácora (log) no se muestra con Liferay 5.1</h2>
+ Simplemente añade un archivo llamado <em>logging.properties</em> a la carpeta <em>properties</em> de tu proyecto. El registro puede estar vacío.<br />
+La causa es que si el Liferay 5.1 no encuentra este archivo lo crea por ti, y está configurado por defecto para no producir salida en el log.<br />
+<h2 id="toc4"><a name="Problemas-Degradación del rendimiento cuando se trabaja mucho tiempo en la misma página con Liferay"></a>Degradación del rendimiento cuando se trabaja mucho tiempo en la misma página con Liferay</h2>
+ Este no es un problema de OpenXava. Es un problema del JavaScript incluido en Liferay. Realmente afecta a cualquier aplicación AJAX que cambie el HTML sin recargar la página durante algún tiempo.<br />
+Afortunadamente es fácil de arreglar. Edita el archivo <em>livequery.js</em> de la carpeta <em>webapps/ROOT/html/js/jquery</em> en tu Liferay. Busca la función <em>registerPlugin</em> y comenta su contenido. Tal y como sigue:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.javascript  {font-family:monospace;}
+.javascript .imp {font-weight: bold; color: red;}
+.javascript .kw1 {color: #000066; font-weight: bold;}
+.javascript .kw2 {color: #003366; font-weight: bold;}
+.javascript .kw3 {color: #000066;}
+.javascript .co1 {color: #006600; font-style: italic;}
+.javascript .co2 {color: #009966; font-style: italic;}
+.javascript .coMULTI {color: #006600; font-style: italic;}
+.javascript .es0 {color: #000099; font-weight: bold;}
+.javascript .br0 {color: #009900;}
+.javascript .sy0 {color: #339933;}
+.javascript .st0 {color: #3366CC;}
+.javascript .nu0 {color: #CC0000;}
+.javascript .me1 {color: #660066;}
+.javascript span.xtra { display:block; }
+
+-->
+</style><pre class="javascript">registerPlugin<span class="sy0">:</span> <span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="coMULTI">/* Anulado, porque produce una degracación
+     * del rendimiento con OpenXava,
+     * realmente con cualquier aplicación AJAX que use
+     * una página HTML única
+    $.each( arguments, function(i,n) {
+        // Short-circuit if the method doesn't exist
+        if (!$.fn[n]) return;
+&nbsp;
+        // Save a reference to the original method
+        var old = $.fn[n];
+&nbsp;
+        // Create a new method
+        $.fn[n] = function() {
+            // Call the original method
+            var r = old.apply(this, arguments);
+&nbsp;
+            // Request a run of the Live Queries
+            $.livequery.run();
+&nbsp;
+            // Return the original methods result
+            return r;
+        }
+    });
+    */</span>
+<span class="br0">&#125;</span><span class="sy0">,</span></pre>
+
+Si está usando Liferay 5.2.x ya has terminado el trabajo, simplemente refresca el navegador y todo tiene que funcionar de perlas.<br />
+Si está usando Liferay 5.1.x edita el archivo <em>portal-ext.properties</em> de la carpeta <em>webapps/ROOT/WEB-INF/classes</em> en tu Liferay, y añade la siguiente entrada:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">javascript.fast.load=false</pre>
+
+Después, reinicia tu Liferay. Ahora todo funcionará rápido todo el tiempo.<br />
+<br />
+<h2 id="toc5"><a name="Problemas-Pérdida de JNDI en Liferay"></a>Pérdida de JNDI en Liferay</h2>
+ Con la aplicación funcionando en el portal, si al cambiar el esquema por código nos ocurre este error:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">Caused by: org.hibernate.engine.jndi.JndiException: Unable to lookup JNDI name [java:comp/env/jdbc/DataSource]
+    at org.hibernate.engine.jndi.internal.JndiServiceImpl.locate(JndiServiceImpl.java:117)
+    at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.configure(DatasourceConnectionProviderImpl.java:115)
+    at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:111)
+    at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:234)
+    at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:206)
+    at org.hibernate.engine.jdbc.internal.JdbcServicesImpl.buildJdbcConnectionAccess(JdbcServicesImpl.java:260)
+    at org.hibernate.engine.jdbc.internal.JdbcServicesImpl.configure(JdbcServicesImpl.java:94)
+    at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:111)
+    at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:234)
+    at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:206)
+    at org.hibernate.cfg.Configuration.buildTypeRegistrations(Configuration.java:1887)
+    at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1846)
+    at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl$4.perform(EntityManagerFactoryBuilderImpl.java:857)
+    at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl$4.perform(EntityManagerFactoryBuilderImpl.java:850)
+    at org.hibernate.boot.registry.classloading.internal.ClassLoaderServiceImpl.withTccl(ClassLoaderServiceImpl.java:425)
+    at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:849)
+    at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:75)
+    at org.hibernate.ejb.HibernatePersistence.createEntityManagerFactory(HibernatePersistence.java:54)
+    at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:56)
+    ... 286 more
+Caused by: javax.naming.NameNotFoundException: El nombre java:comp/env/jdbc/DataSource no este asociado a este contexto
+    at org.apache.naming.NamingContext.lookup(NamingContext.java:820)
+    at org.apache.naming.NamingContext.lookup(NamingContext.java:154)
+    at org.apache.naming.SelectorContext.lookup(SelectorContext.java:135)
+    at com.liferay.portal.security.pacl.jndi.SchemeAwareContextWrapper.lookup(SchemeAwareContextWrapper.java:193)
+    at javax.naming.InitialContext.lookup(InitialContext.java:396)
+    at org.hibernate.engine.jndi.internal.JndiServiceImpl.locate(JndiServiceImpl.java:114)</pre>
+
+Se soluciona añadiendo en el fichero <em>portal-ext.properties</em> de la carpeta <em><span style="background-color: #ffffff;">webapps/ROOT/WEB-INF/classes </span></em>de tu liferay la siguiente línea<em><span style="background-color: #ffffff;">:</span></em><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">portal.security.manager.strategy=none</pre>
+
+<h2 id="toc6"><a name="Problemas-Generar PDF no funciona"></a>Generar PDF no funciona</h2>
+ Suele ser porque el bloqueador de ventanas emergentes está activo en tu navegador. Desactívalo o añade tu URL como excepción. A partir de v5.8 la generación PDF funciona incluso con el bloqueador de ventanas emergentes activado.
+    </div>
+  </body>
+</html>

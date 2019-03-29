@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>openxava - history_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0">History - Audit trail module <em>(new in v6.1)</em></h1>
+      <em>All the features in this article are available only in <a class="wiki_link_ext"
+          href="http://openxava.org/xavapro" rel="nofollow">XavaPro</a></em><br>
+      <br>
+      XavaPro has a mechanism to track any change done by users to the data and
+      also read access. <br>
+      <h2 id="toc1">History module </h2>
+      The history of changes can be viewed using the module<i> History </i>from
+      the <i>Admin</i> folder:</div>
+    <img src="files/history-menu-list_en.png" alt="">
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">The data registered is date, time,
+      user, ip, action, entity, key and changes:</div>
+    <div class="wiki" style="display: block;"><img src="files/history-detail_en.png"
+        alt=""><br>
+      <h2 id="toc2">Enabling History </h2>
+      <i>History</i> module is disabled by default, to enable it you have to add
+      the next entry in the <em>xava.properties</em> of your project:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="re0">accessTrackerProvidersClasses</span><span
+class="sy0">=</span><span class="re1">com.openxava.naviox.util.HistoryAccessTrackerProvider</span></pre>
+      <br>
+    </div>
+  </body>
+</html>

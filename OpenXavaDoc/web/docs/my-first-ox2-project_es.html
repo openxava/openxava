@@ -1,0 +1,353 @@
+<html>
+  <head>
+    <title>openxava - my-first-ox2-project_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Mi primer proyecto OpenXava 2.x">Mi primer proyecto OpenXava 2.x</a></div>
+<div style="margin-left: 2em;"><a href="#Mi primer proyecto OpenXava 2.x-Crear un proyecto nuevo">Crear un proyecto nuevo</a></div>
+<div style="margin-left: 2em;"><a href="#Mi primer proyecto OpenXava 2.x-Configurar base de datos">Configurar base de datos</a></div>
+<div style="margin-left: 2em;"><a href="#Mi primer proyecto OpenXava 2.x-Nuestro primer componente">Nuestro primer componente</a></div>
+<div style="margin-left: 2em;"><a href="#Mi primer proyecto OpenXava 2.x-La aplicación">La aplicación</a></div>
+<div style="margin-left: 2em;"><a href="#Mi primer proyecto OpenXava 2.x-La tabla">La tabla</a></div>
+<div style="margin-left: 2em;"><a href="#Mi primer proyecto OpenXava 2.x-Ejecutar nuestra aplicación">Ejecutar nuestra aplicación</a></div>
+<div style="margin-left: 2em;"><a href="#Mi primer proyecto OpenXava 2.x-Errores mas frecuentes que pueden suceder al principiante">Errores mas frecuentes que pueden suceder al principiante</a></div>
+</div>
+<h1 id="toc0"><a name="Mi primer proyecto OpenXava 2.x"></a>Mi primer proyecto OpenXava 2.x</h1>
+ Primero tienes que <a class="wiki_link" href="my-first-ox2-project-setup_es.html">configurar tu entorno</a>.<br />
+<br />
+<h2 id="toc1"><a name="Mi primer proyecto OpenXava 2.x-Crear un proyecto nuevo"></a>Crear un proyecto nuevo</h2>
+ PASO 1.-Abrir el Eclipse y apuntando al <em>workspace</em> que viene en la distribución de OpenXava (<em>openxava.zip</em>).<br />
+PASO 2.-Para crear un nuevo proyecto hemos de editar el archivo <em>CrearNuevoProyecto.xml</em> en el proyecto <em>OpenXavaPlantilla</em> de esta forma:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;proyecto&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;Gestion&quot;</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;paquete&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;gestion&quot;</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;componente&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;Almacen&quot;</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;modulo&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;Almacenes&quot;</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;fuentedatos&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;MiGestionDS&quot;</span> <span class="re2">/&gt;</span></span></pre>
+
+PASO 3.-Ejecutar <em>CrearNuevoProyecto.xml</em> usando Ant. Podemos hacerlo con <em>Botón Derecho en CrearNuevoProyecto.xml &gt; Run as &gt; 2 Ant Build</em> (la segunda opción sin los 3 puntitos (…))<br />
+<img src="files/my-first-ox-project14.png" alt="my-first-ox-project14.png" title="my-first-ox-project14.png" /><br />
+<br />
+PASO 4.-Con File-New-Project-Java Project en Eclipse creamos el proyecto Gestion.<br />
+<img src="files/my-first-ox-project15.png" alt="my-first-ox-project15.png" title="my-first-ox-project15.png" /><br />
+<br />
+PASO 5.-Comprobar que se han creado los siguientes directorios en el Package Explorer de Eclipse<br />
+<img src="files/my-first-ox-project16.png" alt="my-first-ox-project16.png" title="my-first-ox-project16.png" /><br />
+<br />
+Ya tenemos listo nuestro proyecto, vamos al siguiente paso que es configurar la base de datos.<br />
+<h2 id="toc2"><a name="Mi primer proyecto OpenXava 2.x-Configurar base de datos"></a>Configurar base de datos</h2>
+ OpenXava genera una aplicación J2EE pensada para ser desplegada en un servidor de aplicaciones J2EE (desde la v2.0 las aplicaciones OpenXava también funcionan en un simple servidor de servlets, como Tomcat).<br />
+Dentro de OpenXava solo se indica el nombre JNDI (<em>Interfaz de Nombrado y Directorio Java, que permite a los clientes descubrir y buscar objetos a través de un nombre</em>) de la fuente de datos, y en nuestro servidor de aplicaciones tenemos que configurar nosotros esa base datos. El configurar una fuente de datos en un servidor de aplicaciones es algo que va más allá de esta guía, sin embargo a continuación se da las instrucciones concretas para poder realizar este primer proyecto usando el Tomcat (con Liferay) incluido en la distribución de OpenXava e Hypersonic como base de datos. Este Tomcat esta en la carpeta <em>openxava2.1/portal</em>.<br />
+<br />
+PASO 6.- Con el Tomcat parado editar el archivo <em>context.xml</em> en el directorio de Tomcat <em>openxava2.1/portal /conf</em>, y añadir la siguiente entrada:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/MiGestionDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3">    <span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3">    <span class="re0">username</span>=<span class="st0">&quot;sa&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;&quot;</span> <span class="re0">driverClassName</span>=<span class="st0">&quot;org.hsqldb.jdbcDriver&quot;</span></span>
+<span class="sc3">    <span class="re0">url</span>=<span class="st0">&quot;jdbc:hsqldb:hsql:localhost:1666&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+Comentario:<br />
+Se muestra el fichero context.xml <em>para el caso que tengamos también definidas las configuraciones de las BBDD de las aplicaciones de ejemplo, se indica en rojo el código introducido:</em><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc-1">&lt;!-- The contents of this file will be loaded for each web application --&gt;</span>
+<span class="sc3"><span class="re1">&lt;Context<span class="re2">&gt;</span></span></span>
+&nbsp;
+    <span class="sc-1">&lt;!-- Default set of monitored resources --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;WatchedResource<span class="re2">&gt;</span></span></span>WEB-INF/web.xml<span class="sc3"><span class="re1">&lt;/WatchedResource<span class="re2">&gt;</span></span></span>
+&nbsp;
+    <span class="sc-1">&lt;!-- Uncomment this to disable session persistence across Tomcat restarts --&gt;</span>
+    <span class="sc-1">&lt;!--</span>
+<span class="sc-1">    &lt;Manager pathname=&quot;&quot; /&gt;</span>
+<span class="sc-1">    --&gt;</span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/OpenXavaDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3">        <span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3">        <span class="re0">username</span>=<span class="st0">&quot;sa&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;&quot;</span> <span class="re0">driverClassName</span>=<span class="st0">&quot;org.hsqldb.jdbcDriver&quot;</span></span>
+<span class="sc3">        <span class="re0">url</span>=<span class="st0">&quot;jdbc:hsqldb:file:../data/openxava-db&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/OpenXavaTestDS&quot;</span><span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3">        <span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3">        <span class="re0">username</span>=<span class="st0">&quot;sa&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;&quot;</span> <span class="re0">driverClassName</span>=<span class="st0">&quot;org.hsqldb.jdbcDriver&quot;</span></span>
+<span class="sc3">        <span class="re0">url</span>=<span class="st0">&quot;jdbc:hsqldb:file:../data/openxava-test-db&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/ProductSaleDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3">        <span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3">        <span class="re0">username</span>=<span class="st0">&quot;sa&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;&quot;</span> <span class="re0">driverClassName</span>=<span class="st0">&quot;org.hsqldb.jdbcDriver&quot;</span></span>
+<span class="sc3">        <span class="re0">url</span>=<span class="st0">&quot;jdbc:hsqldb:file:../data/product-sale-db&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/MySchoolDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3">        <span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3">        <span class="re0">username</span>=<span class="st0">&quot;sa&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;&quot;</span> <span class="re0">driverClassName</span>=<span class="st0">&quot;org.hsqldb.jdbcDriver&quot;</span></span>
+<span class="sc3">        <span class="re0">url</span>=<span class="st0">&quot;jdbc:hsqldb:file:../data/my-school-db&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/MiEscuelaDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3">        <span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3">        <span class="re0">username</span>=<span class="st0">&quot;sa&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;&quot;</span> <span class="re0">driverClassName</span>=<span class="st0">&quot;org.hsqldb.jdbcDriver&quot;</span></span>
+<span class="sc3">        <span class="re0">url</span>=<span class="st0">&quot;jdbc:hsqldb:file:../data/my-school-db&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/BookingDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3">        <span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3">        <span class="re0">username</span>=<span class="st0">&quot;sa&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;&quot;</span> <span class="re0">driverClassName</span>=<span class="st0">&quot;org.hsqldb.jdbcDriver&quot;</span></span>
+<span class="sc3">        <span class="re0">url</span>=<span class="st0">&quot;jdbc:hsqldb:file:../data/booking-db&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+     <span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/MiGestionDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3">        <span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3">        <span class="re0">username</span>=<span class="st0">&quot;sa&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;&quot;</span> <span class="re0">driverClassName</span>=<span class="st0">&quot;org.hsqldb.jdbcDriver&quot;</span></span>
+<span class="sc3">        <span class="re0">url</span>=<span class="st0">&quot;jdbc:hsqldb:hsql:localhost:1666&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/Context<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+
+Lo importante aquí es el nombre JNDI, que es a lo único que se hace referencia desde OpenXava, en este caso <strong>MiGestionDS</strong>. Los atributos driverClassName y url dependen de nuestra base de datos, en este caso estamos usando <strong>Hypersonic</strong>.<br />
+<h2 id="toc3"><a name="Mi primer proyecto OpenXava 2.x-Nuestro primer componente"></a>Nuestro primer componente</h2>
+ Crear un componente OpenXava es sencillo, la definición de cada componente está en un archivo XML de sintaxis sencilla.<br />
+PASO 7: Para empezar podemos editar el archivo <em>Almacen.xml</em>, del directorio <em>Gestion/components</em> que ya tenemos, y lo dejamos como sigue:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;ISO-8859-1&quot;</span><span class="re2">?&gt;</span></span>
+&nbsp;
+<span class="sc0">&lt;!DOCTYPE componente SYSTEM &quot;dtds/componente.dtd&quot;&gt;</span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;componente</span> <span class="re0">nombre</span>=<span class="st0">&quot;Almacen&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;entidad<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span class="st0">&quot;codigoZona&quot;</span> <span class="re0">clave</span>=<span class="st0">&quot;true&quot;</span></span>
+<span class="sc3">            <span class="re0">longitud</span>=<span class="st0">&quot;3&quot;</span> <span class="re0">requerido</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">tipo</span>=<span class="st0">&quot;int&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span class="st0">&quot;codigo&quot;</span> <span class="re0">clave</span>=<span class="st0">&quot;true&quot;</span></span>
+<span class="sc3">            <span class="re0">longitud</span>=<span class="st0">&quot;3&quot;</span> <span class="re0">requerido</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">tipo</span>=<span class="st0">&quot;int&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span class="st0">&quot;nombre&quot;</span> <span class="re0">tipo</span>=<span class="st0">&quot;String&quot;</span></span>
+<span class="sc3">            <span class="re0">longitud</span>=<span class="st0">&quot;40&quot;</span> <span class="re0">requerido</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/entidad<span class="re2">&gt;</span></span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;mapeo-entidad</span> <span class="re0">tabla</span>=<span class="st0">&quot;GESTION@separator@ALMACENES&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;mapeo-propiedad</span></span>
+<span class="sc3">            <span class="re0">propiedad-modelo</span>=<span class="st0">&quot;codigoZona&quot;</span> <span class="re0">columna-tabla</span>=<span class="st0">&quot;ZONA&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;mapeo-propiedad</span></span>
+<span class="sc3">            <span class="re0">propiedad-modelo</span>=<span class="st0">&quot;codigo&quot;</span> <span class="re0">columna-tabla</span>=<span class="st0">&quot;CODIGO&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;mapeo-propiedad</span></span>
+<span class="sc3">            <span class="re0">propiedad-modelo</span>=<span class="st0">&quot;nombre&quot;</span> <span class="re0">columna-tabla</span>=<span class="st0">&quot;NOMBRE&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/mapeo-entidad<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/componente<span class="re2">&gt;</span></span></span></pre>
+
+Comentario:<br />
+En esta definición observamos 2 partes diferenciadas, la primera es <strong>entidad</strong>. Entidad sirve para definir el modelo principal para este componente, la información que ponemos aquí se usa <u>para crear las clases Java y demás recursos para trabajar con el concepto de Almacén</u>. El código generado usa <strong><em>POJO</em></strong> (clases de java convencionales) con EJB3 JPA <em>(nuevo en v2.1)</em> o Hibernate <em>(nuevo en v2.0)</em> para la persistencia. La tecnología EJB2 (con EntityBeans CMP2) también está soportada. En esta parte no solo se define <u>la estructura de los datos</u> sino también <u>la lógica de negocio</u> asociada.<br />
+Dentro de entidad vemos definidas un conjunto de propiedades, vamos a examinarlo:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;propiedad</span></span>
+<span class="sc3">    <span class="re0">nombre</span>=<span class="st0">&quot;codigoZona&quot;</span>     <span class="br0">&#40;</span>1<span class="br0">&#41;</span></span>
+<span class="sc3">    <span class="re0">clave</span>=<span class="st0">&quot;true&quot;</span>         <span class="br0">&#40;</span>2<span class="br0">&#41;</span></span>
+<span class="sc3">    <span class="re0">longitud</span>=<span class="st0">&quot;3&quot;</span>         <span class="br0">&#40;</span>3<span class="br0">&#41;</span></span>
+<span class="sc3">    <span class="re0">requerido</span>=<span class="st0">&quot;true&quot;</span>     <span class="br0">&#40;</span>4<span class="br0">&#41;</span></span>
+<span class="sc3">    <span class="re0">tipo</span>=<span class="st0">&quot;int&quot;</span>         <span class="br0">&#40;</span>5<span class="br0">&#41;</span></span>
+<span class="sc3"><span class="re2">/&gt;</span></span></pre>
+
+Este es su significado:<br />
+(1) <strong>nombre</strong>: Es el nombre de la propiedad en el código Java generado y también sirve como identificador de esta propiedad dentro de los archivos OpenXava.<br />
+(2) <strong>clave</strong>: Indica si esta propiedad forma parte de la clave. La clave identifica a cada objeto de forma única y normalmente coincide con la clave en la tabla de base de datos.<br />
+(3) <strong>longitud</strong>: Longitud de los datos visualizados. Es opcional, pero suele ser útil para hacer mejores interfaces gráficos.<br />
+(4) <strong>requerido</strong>: Indica si hay que validar la existencia de información en esta propiedad antes de crear o modificar.<br />
+(5) <strong>tipo</strong>: Es el tipo de la propiedad. Todo tipo válido para una propiedad Java se puede poner, lo que incluye tipos integrados, clases del JDK, clases propias, etc.<br />
+<br />
+Las posibilidades de propiedad van mucho más allá de lo que aquí se muestra, se puede ver una explicación más completa en el capitulo 3.<br />
+Por otra parte tenemos el mapeo, en donde relacionamos nuestro componente con una tabla de la base de datos, la sintaxis es obvia. El uso de @separator@ en el nombre de tabla nos permite que la misma aplicación funcione con bases de datos que soporten colecciones o esquemas (<em>en este caso GESTION es el nombre del esquema</em>) y las que no, simplemente tenemos que dar en nuestro <em>build.xml</em> el valor '.' o '_' a separator. (Para aquellas BBDD que no utilicen esquemas deberà escribirse <em>mapeo-entidad tabla=&quot; ALMACENES&quot;&gt;</em> o sea mapeamos directamente a la tabla, sin mencionar el esquema)<br />
+Ahora estamos listos para generar código, para eso hemos de ejecutar la tarea ant <em>generarCodigo</em>.<br />
+La forma más práctica de ejecutar una tarea ant en Eclipse es dándola de alta en <em>Externals Tools</em>, de esta forma cuando queremos volver a ejecutarla lo podemos hacer simplemente escogiéndola del menú. Es muy importante configurar la tarea para que refresque el proyecto <em>Gestion</em> después de ejecutarse. El <em>build.xml</em> que tenemos en nuestro proyecto tiene ya configuradas las tareas ant más usadas.<br />
+Después de generar el código podemos ejecutar un <em>Build</em>, y comprobar que no hay errores.<br />
+Con un componente hecho ya podemos definir una aplicación OpenXava.<br />
+<br />
+PASO 8: Vamos a dar de alta en Eclipse en External Tools la tarea ant <em>generarCodigo</em>, (es conveniente haberse leído la lección anterior (puntos 2.1 al 2.5) de concimientos previos de Eclipse, donde se explica los detalles mínimos para entender que hace un fichero Build), para ello:<br />
+<ul><li>Pulsar en la flechita negra que tiene el botón con una flecha verde y una caja de herramientas.</li><li>Escoger <em>'External tools'</em>, aparece un diálogo.</li></ul><img src="files/my-first-ox-project17.png" alt="my-first-ox-project17.png" title="my-first-ox-project17.png" /><br />
+<ul><li>Pulsar '<em>New</em>' (botón que está arriba a la izquierda que es una hojita en blanco con una cruz amarilla)</li><li>Pon nombre a tu tarea, por, ejemplo: <em>'Gestion.generarCodigo'</em>, u otro nombre que te guste.</li><li>En build file indicamos <em>${workspace_loc:/Gestion/build.xml}</em> que es la dirección del fichero build</li></ul><img src="files/my-first-ox-project18.png" alt="my-first-ox-project18.png" title="my-first-ox-project18.png" /><br />
+<br />
+<ul><li>Ve a la carpeta (pestaña) '<em>refresh</em>' y escoge <em>'The entire workspace'</em></li></ul><img src="files/my-first-ox-project19.png" alt="my-first-ox-project19.png" title="my-first-ox-project19.png" /><br />
+<br />
+<ul><li>Ve a la carpeta (pestaña) '<em>targets</em>' y marca la tarea ant <em>generarCodigo</em>, fíjate para desmarcar cualquier otro que pudiera estar marcado.</li></ul><img src="files/my-first-ox-project20.png" alt="my-first-ox-project20.png" title="my-first-ox-project20.png" /><br />
+<br />
+<ul><li>Pulsa el botón <em>'Apply'</em> para grabar la tarea predefinida.</li><li>Pulsa el boton <em>'Run'</em>, esto la ejecuta.</li><li>Comprueba que se ha generado dentro de la carpeta gen-src-java los siguientes ficheros:</li></ul><img src="files/my-first-ox-project21.png" alt="my-first-ox-project21.png" title="my-first-ox-project21.png" /><br />
+<br />
+Comentario:<br />
+Ahora ya está disponible para volverla a ejecutar siempre que haga falta, (pulsando en la flechita negra que tiene el botón con una flecha verde y una caja de herramientas otra vez)<br />
+Si no estuvieran generados estos ficheros, debes volver a ejecutar la tarea ant <em>generarCodigo</em> tal como se describe en el párrafo anterior.<br />
+<h2 id="toc4"><a name="Mi primer proyecto OpenXava 2.x-La aplicación"></a>La aplicación</h2>
+ En OpenXava se entiende que una aplicación es el producto final que el usuario va a utilizar. Una aplicación está compuesta por un conjunto de módulos. Un módulo es la unión entre un componente (sobre qué se quiere trabajar) y un conjunto de controladores (qué es lo que se quiere usar). Como era de esperar una aplicación se define con un archivo XML, el archivo <em>xava/aplicacion.xml</em>. Si hemos hecho bien el paso de crear el proyecto, ya deberíamos tener a punto el archivo, vamos a revisarlo de todas formas:<br />
+PASO 9: Comprobamos que el fichero <em>xava/aplicacion.xml</em> está generado y es éste:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version <span class="st0">&quot;1.0&quot;</span> encoding <span class="st0">&quot;ISO-8859-1&quot;</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE aplicacion SYSTEM &quot;dtds/aplicacion.dtd&quot;&gt;</span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;aplicacion</span> <span class="re0">nombre</span>=<span class="st0">&quot;Gestion&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;modulo</span> <span class="re0">nombre</span>=<span class="st0">&quot;Almacenes&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span class="st0">&quot;Almacen&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/aplicacion<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+
+Comentarios:<br />
+En este caso tenemos definido un solo módulo Almacenes, este nombre de módulo es el que se usará en la URL de nuestro navegador para ejecutarlo, o el nombre del <em>portlet</em> si desplegamos la aplicación en un portal. Definimos como modelo Almacen, el componente que hemos definido antes, y como controlador <em>Typical,</em> este controlador predefinido nos permite hacer un mantenimiento (altas, bajas, modificaciones y consultas), además de generar un informe en PDF y exportar a Excel. Desde un punto de vista visual se puede decir que con controlador definimos los botones que van a aparecer y con modelo los datos; aunque esta visión es excesivamente simple.<br />
+<h2 id="toc5"><a name="Mi primer proyecto OpenXava 2.x-La tabla"></a>La tabla</h2>
+ Antes de poder probar la aplicación hemos de crear la tabla en la base de datos:<br />
+PASO 10: Arrancamos la base de datos en el puerto 1666: Desde la línea de órdenes vamos a la carpeta <em>openxava2.1/portal/bin</em> y ejecutamos:<br />
+<ul><li>En Linux/Unix: ./starthsqldb.sh gestion-db 1666</li><li>En Windows: starthsqldb gestion-db 1666</li></ul>Comentario:<br />
+Con esto lo que hacemos es crear un fichero llamado gestion-db en la carpeta <em>openxava2.1/portal/data</em> que corresponde con nuestra base de datos. Dentro de dicha base de datos podemos tener varios esquemas. En nuestro caso cuando definimos el componente, ya hicimos referencia a un esquema llamado GESTION (que no tiene por qué coincidir con el nombre de la base de datos) dentro de la base de datos, pero en dicho componente no hicimos referencia a la base de datos. Para seguir la pista a localizar la base de datos que usamos, hemos de tener en cuenta que en el fichero <em>context.xml</em> indica en que URL tenemos nuestra base de datos (o sea le puerto 1666 de nuestro localhost); en el <em>build.xml</em> tenemos la siguiente línea &lt;property name=&quot;datasource&quot; value=&quot;MiGestionDS&quot;/&gt;) que apunta a MiGestionDS que se define en <em>context.xml</em>; pero al arrancar el servicio de HSQL con la base de datos gestion-db en el puerto 1666 estamos usando la URL de MiGestionDS. Por tanto hay que tener un poco de cuidado y saber como referenciar a nuestras bases de datos.<br />
+<br />
+PASO 11: Creamos la tabla:<br />
+<ul><li>Editamos <em>Gestion/build.xml</em>. Buscamos dentro del fichero la tarea ant <em>actualizarEsquema</em>.</li><li>Asignamamos a schema.path, “../OpenXavaTest/lib/hsqldb.jar”.</li></ul><br />
+PASO 12: Creamos la tarea ant <em>actualizarEsquema</em>. Podemos operar igual que en el PASO 8<br />
+<ul><li>Pulsar en la flechita negra que tiene el botón con una flecha verde y una caja de herramientas.</li><li>Escoger <em>'External tools</em>', aparece un diálogo.</li><li>Pulsar '<em>New</em>' (botón que está arriba a la izquierda que es una hojita en blanco con una cruz amarilla)</li><li>Pon nombre a tu tarea, por, ejemplo: <em>'Gestion.generarCodigo'</em>, u otro nombre que te guste.</li><li>En build file indicamos <em>${workspace_loc:/Gestion/build.xml}</em> que es la dirección del fichero build</li><li>Ve a la carpeta (pestaña) <em>'refresh'</em> y escoge 'The entire <em>workspace'</em></li><li>Ve a la carpeta <em>'targets'</em> y marca la tarea ant <em>actualizarEsquema</em>, fíjate para desmarcar cualquier otro que pudiera estar marcado.</li><li>Pulsa el botón <em>'Apply'</em> para grabar la tarea predefinida.</li><li>Pulsa el botón <em>'Run'</em>, esto la ejecuta.</li></ul>Comentario:<br />
+Ahora ya está disponible para volverla a ejecutar siempre que haga falta, (pulsando en la flechita negra que tiene el botón con una flecha verde y una caja de herramientas otra vez)<br />
+<br />
+PASO 13: Arrancamos el Tomcat y ya está todo listo. Para ello deberá ejecutar los siguientes ficheros que se encuentran en el directorio openxava2.1:<br />
+<ul><li>start-portal.bat (en Windows)</li><li>start-portal.sh (en Linux)</li></ul>Hay que esperar casi 2 minutos a que se ejecute el Tomcat (dependiendo de la potencia de cada máquina)<br />
+<h2 id="toc6"><a name="Mi primer proyecto OpenXava 2.x-Ejecutar nuestra aplicación"></a>Ejecutar nuestra aplicación</h2>
+ Después de nuestro duro trabajo tenemos derecho a ver el fruto de nuestro sudor, así que allá vamos:<br />
+<br />
+PASO 14: Ejecutamos la tarea ant <em>desplegarWar</em>. Para ello se procede igual como se hizo en el paso 8 o el paso 12, pero con la tarea <em>desplegarWar</em>.<br />
+<br />
+PASO 15: Abrimos un navegador de internet y vamos a la dirección:<br />
+<br />
+<a class="wiki_link_ext" href="http://localhost:8080/Gestion/xava/module.jsp?application=Gestion&amp;module=Almacenes" rel="nofollow">http://localhost:8080/Gestion/xava/module.jsp?application=Gestion&amp;module=Almacenes</a><br />
+<br />
+Y ahora podemos jugar con nuestro módulo y ver como funciona.<br />
+<br />
+Comentarios:<br />
+Opcionalmente, también puedes desplegar el módulo como portlet JSR168, de esta forma (si es tu caso):<br />
+<ul><li>Ejecutamos la tarea ant <em>generarPortlets</em>.</li><li>Coge el archivo <em>Gestion.war</em> en la carpeta <em>openxava2.2/workspace.dist/Gestion.dist</em> y despliégalo en tu portal. El tutorial tiene una pequeña guía para desplegar en <em>Liferay</em>.</li></ul><h2 id="toc7"><a name="Mi primer proyecto OpenXava 2.x-Errores mas frecuentes que pueden suceder al principiante"></a>Errores mas frecuentes que pueden suceder al principiante</h2>
+ Mala utilización de las tareas del Fichero build.xml<br />
+<ul><li>Puede que se ejecute la opción 2 del <strong>Run As – 2 Ant Build</strong> en vez de la opción 3 con los <strong>3 puntitos</strong></li><li>Puede que la secuencia de ejecución de las tareas ant no sea la correcta. Normalmente se debe primero <em>generarCódigo</em> (la primera vez y después <em>regenerarCodigo</em> a partir de la segunda vez), luego hacer un <em>reconstruir</em> para compilar, seguido de un <em>actualizarEsquema</em> si los cambios producidos pueden alterar la base de datos y finalmente <em>desplegarWar</em> para que el servidor de aplicaciones tenga sus ficheros en sus directorios correspondientes.</li><li>Se tiene que comprobar que los ficheros con extensión .class se han creado en la carpeta web/WEB-INF/classes. En caso contrario nunca se podrá ejecutar el proyecto.</li><li>Cuando se produzcan errores que no se tenga idea, una buena medida preventiva es borrar todo lo que cuelga de la carpeta filtered-files de nuestro proyecto, y volver a ejecutar las tareas <em>regenerarCodigo- reconstruir- actualizarEsquema- desplegarWar.</em></li></ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,306 @@
+<html>
+  <head>
+    <title>openxava - application_zh_cn</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#x第8章: 应用系统">第8章: 应用系统</a></div>
+<div style="margin-left: 2em;"><a href="#x第8章: 应用系统-典型模块示例">典型模块示例</a></div>
+<div style="margin-left: 2em;"><a href="#x第8章: 应用系统-缺省模块(new in v2.2.2)">缺省模块(new in v2.2.2)</a></div>
+<div style="margin-left: 2em;"><a href="#x第8章: 应用系统-仅细节模块">仅细节模块</a></div>
+<div style="margin-left: 2em;"><a href="#x第8章: 应用系统-仅列表模块">仅列表模块</a></div>
+<div style="margin-left: 2em;"><a href="#x第8章: 应用系统-文档模块">文档模块</a></div>
+<div style="margin-left: 2em;"><a href="#x第8章: 应用系统-只读模块">只读模块</a></div>
+</div>
+<a class="wiki_link" href="overview_zh_cn.html">1.概述</a> | <a class="wiki_link" href="my-first-ox-project_zh_cn.html">2.我的第一个项目</a> | <a class="wiki_link" href="model_zh_cn.html">3.模型</a> | <a class="wiki_link" href="view_zh_cn.html">4.视图</a> | <a class="wiki_link" href="tab_zh_cn.html">5.列表数据</a> | <a class="wiki_link" href="mapping_zh_cn.html">6.对象/关系映射</a> | <a class="wiki_link" href="controllers_zh_cn.html">7.控制器</a> | <strong>8.应用系统</strong> | <a class="wiki_link" href="customizing_zh_cn.html">9.定制</a><br />
+<h1 id="toc0"><a name="x第8章: 应用系统"></a>第8章: 应用系统</h1>
+ 应用系统（application）是用户最终使用的软件. 到现在为止你已经学到了如何定义应用的组成部件(主要是业务组件和操作), 下面你将学到如何将这些部件组装成应用系统.<br />
+OpenXava应用系统的定义可以在你项目中<em>xava</em>目录下的 <em>application.xml</em> 找到。<br />
+该文件的语法是:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span></span>
+<span class="sc3">    <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span>                   &lt;!-- 1 --<span class="re2">&gt;</span></span>
+    label=&quot;label&quot;                 <span class="sc-1">&lt;!-- 2 --&gt;</span>
+&gt;
+    <span class="sc3"><span class="re1">&lt;default-module</span> ... <span class="re2">/&gt;</span></span> ...    <span class="sc-1">&lt;!-- 3  New in v2.2.2 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;module</span> ... <span class="re2">/&gt;</span></span> ...            <span class="sc-1">&lt;!-- 4 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span></pre>
+
+<ol><li><strong>name</strong> (required):应用系统名称.</li><li><strong>label</strong> (optional): 最好使用i18n 文件.</li><li><strong>default-module</strong> (one, optional): <em>New in v2.2.2</em>. 定义默认(针对每个业务组件自动生成) 模块的控制器.</li><li><strong>module</strong> (several, optional): 最终用户可以运行的每个模块.</li></ol>简而言之, 应用系统由一些列模块构成. 下面我们来看如何定义模块:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span></span>
+<span class="sc3">    <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span>                    &lt;!--  1 --<span class="re2">&gt;</span></span>
+    folder=&quot;folder&quot;                <span class="sc-1">&lt;!--  2 --&gt;</span>
+    label=&quot;label&quot;                  <span class="sc-1">&lt;!--  3 --&gt;</span>
+    description=&quot;description&quot;      <span class="sc-1">&lt;!--  4 --&gt;</span>
+&gt;
+    <span class="sc3"><span class="re1">&lt;env-var</span> ... <span class="re2">/&gt;</span></span> ...            <span class="sc-1">&lt;!--  5 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;model</span> ... <span class="re2">/&gt;</span></span>                  <span class="sc-1">&lt;!--  6 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;view</span> ... <span class="re2">/&gt;</span></span>                   <span class="sc-1">&lt;!--  7 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;web-view</span> ... <span class="re2">/&gt;</span></span>               <span class="sc-1">&lt;!--  8 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;tab</span> ... <span class="re2">/&gt;</span></span>                    <span class="sc-1">&lt;!--  9 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;controller</span> ... <span class="re2">/&gt;</span></span> ...         <span class="sc-1">&lt;!-- 10 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> ... <span class="re2">/&gt;</span></span>        <span class="sc-1">&lt;!-- 11 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;doc</span> ... <span class="re2">/&gt;</span></span>                    <span class="sc-1">&lt;!-- 12 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+<ol><li><strong>name</strong> (required): 应用系统中模块的唯一标识.</li><li><strong>folder</strong> (optional): 模块所在的文件夹。这是模块分类的提示信息. 目前只用来生成文件结构用在JetSpeed2上，但将来可能有更多用处。 你可以使用/ 或. 来标识子文件夹(例如, &quot;invoicing/reports&quot; 或&quot;invoicing.reports&quot;).</li><li><strong>label</strong> (optional): 用来显示给用户看的简短名称. 最好使用 i18n 文件.</li><li><strong>description</strong> (optional): 显示给用户的较长的描述. 最好也使用 i18n 文件.</li><li><strong>env-var</strong> (several, optional): 允许你定义变量，其值可由动作访问.这样你就可以针对模块来配置动作.</li><li><strong>model</strong> (one, optional): 模块中所用的业务组件. 如果你不赋值,就需要设置 <em>web-view的值</em>.</li><li><strong>view</strong> (one, optional): 用来显示细节的视图. 如果你不赋值，就使用默认视图。</li><li><strong>web-view</strong> (one, optional): 允许你定义 JSP 页面用作视图。</li><li><strong>tab</strong> (one, optional): 列表视图中用到的tab. 如果你不制定，就采用默认tab.</li><li><strong>controller</strong> (several, optional): 控制器，提供最初可用的操作。</li><li><strong>mode-controller</strong> (one, optional): 定义行为将细节模式切换到列表模式或者反之, 还可以定义没有细节和列表的(无模式的)模块.</li><li><strong>doc</strong> (one, optional): 与其他元素互斥. 允许你定义只包含文档无业务逻辑的模块. 对生成应用系统中说明性的portlets十分有用。</li></ol><br />
+<h2 id="toc1"><a name="x第8章: 应用系统-典型模块示例"></a>典型模块示例</h2>
+ 像这样可以定义一个简单模块:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span class="re0">name</span>=<span class="st0">&quot;Management&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;Warehouse&quot;</span> <span class="re0">folder</span>=<span class="st0">&quot;warehousing&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Warehouse&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Warehouse&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span>
+    ...
+<span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span></pre>
+
+这样你就有了一个模块，用户可以执行增改删查操作,生成PDF报告，导出数据到Excel(这得感谢 <em>Typical</em> 控制器) ，还可以执行只适用warehouses的动作(这得归功于 <em>Warehouse</em> 控制器). 在系统生成模块结构的情况下(如JetSpeed2)模块将在文件夹&quot;warehousing&quot;下.<br />
+要执行本模块，你需要打开浏览器指向:<br />
+<a class="wiki_link_ext" href="http://localhost:8080/Management/xava/module.jsp?application=Management&amp;module=Warehouse" rel="nofollow">http://localhost:8080/Management/xava/module.jsp?application=Management&amp;module=Warehouse</a><br />
+同时也生成了 JSR-168 portlet你可以发布到 Java portal中.<br />
+<h2 id="toc2"><a name="x第8章: 应用系统-缺省模块(new in v2.2.2)"></a>缺省模块<em>(new in v2.2.2)</em></h2>
+ 即使模块没有在applicaction.xml明确定义，OpenXava 也为应用中的没一个业务组件指定一个业务模块。<br />
+这就是说，如果你定义业务组件 Invoice.xml, 你就可以打开浏览器指向:<br />
+<a class="wiki_link_ext" href="http://localhost:8080/Management/xava/module.jsp?application=Management&amp;module=Invoice" rel="nofollow">http://localhost:8080/Management/xava/module.jsp?application=Management&amp;module=Invoice</a><br />
+同时生成一个portlet，你可以将这以模块作为JSR-168 portlet部署到 Java portal.<br />
+所有这一些不用在 application.xml定义就可以实现.<br />
+默认模块的控制器一般是 Typical, 使用in application.xml中的default-module 元素，你可以对默认值进行定义, 例如:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span class="re0">name</span>=<span class="st0">&quot;Management&quot;</span><span class="re2">&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;default-module<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;ManagementCRUD&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/default-module<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span></pre>
+
+这种情况下，<em>Management</em> 应用中的所有默认模块都使用指定的 <em>ManagementCRUD</em> 控制器.<br />
+如果你想让某个模块不使用默认控制器, 你有两个选择:<br />
+<ol><li>在自己的<em>controllers.xml</em> 中定义与模块同名的控制器.</li><li>在<em>application.xml</em>中明确定义模块, <a class="wiki_link" href="application_zh_cn.html#toc1">上面已进行说明</a>.</li></ol>总之, 如果你定义一个名为<em>Customer</em>的组件,你就会有一个名为<em>Customer</em>的模块和一个portlet. 模块可以用下面的任何一种方式定义:<br />
+<ol><li>如果你在<em>application.xml</em>中定义了一个名为 <em>Customer</em> 的组件，那么，这个模块是有效的, 或者...</li><li>如果你在<em>controllers.xml</em> 中定义了一个名为<em>Customer</em>的控制器，那么，将生成一个模块：控制器<em>Customer</em>是其控制器， 组件<em>Customer</em>是其模型， 或者...</li><li>如果你在<em>application.xml</em>中定义了<em>default-module</em> 元素，那么将生成一个模块：<em>default-module</em>中的控制器作为器控制器，组件<em>Customer</em> 作为模型， 或者...</li><li>最后，将使用<em>Typical</em>控制器和<em>Customer</em>模型生成模块。</li></ol><h2 id="toc3"><a name="x第8章: 应用系统-仅细节模块"></a>仅细节模块</h2>
+ 只有细节模式，而没有列表模式的模块, 这样定义:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;InvoiceNoList&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Invoice&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span class="st0">&quot;Void&quot;</span><span class="re2">/&gt;</span></span>        <span class="sc-1">&lt;!-- 1 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+<em>Void</em> (1) 模式控制器可以去掉 &quot;detail – list&quot; 链接; 这样默认情况下模块就只使用细节模式。<br />
+<h2 id="toc4"><a name="x第8章: 应用系统-仅列表模块"></a>仅列表模块</h2>
+ 只有列表模式，而没有细节模式的模块, 这样定义:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;FamilyListOnly&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span class="st0">&quot;XAVA_LIST_ACTION&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;&quot;</span><span class="re2">/&gt;</span></span>     <span class="sc-1">&lt;!-- 1  New in v2.0.4 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Family&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;ListOnly&quot;</span><span class="re2">/&gt;</span></span>                   <span class="sc-1">&lt;!-- 2 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span class="st0">&quot;Void&quot;</span><span class="re2">/&gt;</span></span>                  <span class="sc-1">&lt;!-- 3 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+<em>Void</em> (3)模式 控制器可以去掉 &quot;detail – list&quot; 链接. 然后定义<em>ListOnly</em> (2) 让模块在初始化时处在列表模式, 这就成了一个仅列表模块. 最后, 将 XAVA_LIST_ACTION 设成空字符床(1) 对应每一行的细节链接就去掉了<em>(new in v2.0.4)</em>.<br />
+<h2 id="toc5"><a name="x第8章: 应用系统-文档模块"></a>文档模块</h2>
+ 文档模块只能显示HTML文档. 这很容易定义:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;Description&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;doc</span> <span class="re0">url</span>=<span class="st0">&quot;doc/description&quot;</span> <span class="re0">languages</span>=<span class="st0">&quot;en,es&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+根据浏览器的语言设定，这个模块将显示<em>web/doc/description_en.html</em> 或<em>web/doc/description_es.html</em>. 如果浏览器中设定的语言不是英文或西班牙文，一般显示英文。如果不指定任何语言，将显示<em>web/doc/description.html</em> 。<br />
+文档模块作为消息 portlet相当有用，但在 portal 环境以外无效.<br />
+<h2 id="toc6"><a name="x第8章: 应用系统-只读模块"></a>只读模块</h2>
+ 只读模块，只用来查询数据而不能修改数据, 可以这样定义:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;CustomerReadOnly&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span class="st0">&quot;XAVA_SEARCH_ACTION&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;CRUD.searchReadOnly&quot;</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- 1 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Customer&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Print&quot;</span><span class="re2">/&gt;</span></span>                                        <span class="sc-1">&lt;!-- 2 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+使用<em>CRUD.searchReadOnly</em> (1) 用户不能修改数据, 只使用<em>Print</em> 控制器(2) (没有<em>CRUD</em> 或<em>Typical</em>) 保存、删除等操作就不可用. 这样就是一个只读模块.<br />
+<br />
+<em>application.xml</em> 的语法并不难. 在<em>OpenXavaTest/xava/application.xml</em>中你可以找到更多的例子.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>openxava - overview_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Visión general">Visión general</a></div>
+<div style="margin-left: 2em;"><a href="#Visión general-Presentación">Presentación</a></div>
+<div style="margin-left: 2em;"><a href="#Visión general-Componente de negocio">Componente de negocio</a></div>
+<div style="margin-left: 2em;"><a href="#Visión general-Controladores">Controladores</a></div>
+<div style="margin-left: 2em;"><a href="#Visión general-Aplicación">Aplicación</a></div>
+<div style="margin-left: 2em;"><a href="#Visión general-Estructura de un proyecto">Estructura de un proyecto</a></div>
+</div>
+<strong>Guía de referencia</strong>: <strong>Visión general</strong> | <a class="wiki_link" href="model_es.html">Modelo</a> | <a class="wiki_link" href="view_es.html">Vista</a> | <a class="wiki_link" href="tab_es.html">Datos tabulares</a> | <a class="wiki_link" href="mapping_es.html">Mapeo objeto/relacional</a> | <a class="wiki_link" href="controllers_es.html">Controladores</a> | <a class="wiki_link" href="application_es.html">Aplicación</a> | <a class="wiki_link" href="customizing_es.html">Personalización</a><br />
+<h1 id="toc0"><a name="Visión general"></a>Visión general</h1>
+ <h2 id="toc1"><a name="Visión general-Presentación"></a>Presentación</h2>
+ OpenXava es un marco de trabajo para desarrollar aplicaciones JavaEE/J2EE rápida y fácilmente.<br />
+La filosofía subyacente es definir con anotaciones de Java o con XML y programar con Java, pero cuanto más definimos y menos programamos mejor.<br />
+El objetivo principal es hacer que las cosas más típicas en una aplicación de gestión sean fáciles de hacer, mientras que ofrecemos la flexibilidad suficiente para desarrollar las funciones más avanzadas y especificas.<br />
+<br />
+A continuación se echa un vistazo a algunos conceptos básico de OpenXava.<br />
+<h2 id="toc2"><a name="Visión general-Componente de negocio"></a>Componente de negocio</h2>
+ Las piezas fundamentales para crear una aplicación OpenXava son los componentes, en el contexto de OpenXava un componente de negocio es una clase Java (aunque existe también una versión XML) que contiene toda la información necesaria sobre un concepto de negocio para poder crear aplicaciones sobre eso. Es decir toda la información que el sistema ha de saber sobre el concepto de factura se define en un archivo <em>Factura.java</em>. En un componente de negocio se define:<br />
+<ul><li>La estructura de datos.</li><li>Las validaciones, cálculos y en general toda la lógica de negocio asociada a ese concepto.</li><li>Las posibles vista, esto es, la configuración de todos las posibles interfaces gráficas para este componente.</li><li>Se define las posibilidades para la presentación tabular de los datos. Esto se usa para el modo lista (consultar y navegar por los datos), los listados, exportación a excel, etc.</li><li>Mapeo objeto-relacional, lo que incluye información sobre las tablas de la base de datos y la forma de convertir a objetos la información que en ellas hay.</li></ul>Esta forma de dividir es ideal para el trabajo en grupo, y permite desarrollar un conjunto de componentes interproyecto.<br />
+<h2 id="toc3"><a name="Visión general-Controladores"></a>Controladores</h2>
+ Los componentes de negocio no definen lo que un usuario puede hacer con la aplicación; esto se define con los controladores. Los controladores están en el archivo <em>xava/controladores.xml</em> de cada proyecto; además OpenXava tiene un conjunto de controladores predefinidos en <em>OpenXava/xava/default-controllers.xml</em>.<br />
+Un controlador es un conjunto de acciones. Una acción es un botón o vínculo que el usuario puede pulsar.<br />
+Los controladores están separados de los componentes de negocio porque un mismo controlador puede ser asignado a diferentes componentes de negocio. Por ejemplo, un controlador para hacer un mantenimiento, imprimir en PDF, o exportar a archivos planos, etc. puede ser usado y reusado para facturas, clientes, proveedores, etc.<br />
+<h2 id="toc4"><a name="Visión general-Aplicación"></a>Aplicación</h2>
+ Una aplicación OpenXava es un conjunto de módulos. Un módulo une un componente de negocio con uno o más controladores. Cada módulo de la aplicación es lo que al final utiliza el usuario, y generalmente se configura como un portlet dentro de un portal.<br />
+<h2 id="toc5"><a name="Visión general-Estructura de un proyecto"></a>Estructura de un proyecto</h2>
+ Un proyecto OpenXava típico suele contener las siguientes carpetas:<br />
+<ul><li><strong>[raiz]:</strong> En la raíz del proyecto nos encontraremos el <em>build.xml</em> (con las tareas Ant).</li><li><strong>src[carpeta fuente]:</strong> contiene el código fuente Java escrito por nosotros.</li><li><strong>xava:</strong> Los archivos XML para configurar nuestras aplicaciones OpenXava. Los principales son <em>aplicacion.xml</em> y <em>controladores.xml</em>.</li><li><strong>i18n:</strong> Archivos de recursos con las etiquetas y mensajes en varios idiomas.</li><li><strong>properties[carpeta fuente]:</strong> Archivos de propiedades para configurar nuestra aplicación.</li><li><strong>data:</strong> Útil para guardar los scripts para crear las tablas de nuestra aplicación, si aplicara.</li><li><strong>web:</strong> Contenido de la parte web. Normalmente archivos JSP, lib y classes. La mayoría del contenido es puesto automáticamente, pero es posible poner aquí nuestros propios archivos JSP.</li></ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>openxava - tomcat-liferay-setup</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Configure you own tomcat/liferay for OX applications"></a>Configure you own tomcat/liferay for OX applications</h1>
+ <h2 id="toc1"><a name="Configure you own tomcat/liferay for OX applications-Since v5.3"></a>Since v5.3</h2>
+ If you're using Tomcat 6 copy el-api.jar and jasper-el.jar from the Tomcat lib folder included in OpenXava (or any Tomcat 7) to the lib folder of your Tomcat 6.<br />
+<h2 id="toc2"><a name="Configure you own tomcat/liferay for OX applications-Since v5.0"></a>Since v5.0</h2>
+ It is not needed any special configuration for your own Tomcat or Liferay, because OpenXava applications contain all the needed libraries.<br />
+<h2 id="toc3"><a name="Configure you own tomcat/liferay for OX applications-Since v3.0.2"></a>Since v3.0.2</h2>
+ How to configure a liferay/tomcat in order to run OX application in it.<br />
+There are a few steps to do before you can run OX applications<br />
+<ul><li>First of all you have to install your Tomcat or Liferay.</li><li>After this is done copy the files {OX}/tomcat/common/lib/ejb.jar, {OX}/tomcat/common/lib/jta.jar to the {LR}/common/lib folder.</li></ul>That's all.<br />
+<h2 id="toc4"><a name="Configure you own tomcat/liferay for OX applications-Until v3.0.1"></a>Until v3.0.1</h2>
+ How to configure a liferay/tomcat in order to run OX application in it.<br />
+There are a few steps to do before you can run OX applications<br />
+<ul><li>First of all you have to install Tomcat or Liferay.</li><li>After this is done copy the files {OX}/tomcat/common/lib/ejb.jar, {OX}/tomcat/common/lib/hsqldb.jar,{OX}/tomcat/common/lib/jta.jar</li></ul>to the {LR}/common/lib folder.<br />
+<ul><li>Then copy the files</li></ul>{OX}/tomcat/data/openxava-db.script<br />
+{OX}/tomcat/data/openxava-db.properties<br />
+to the {LR}/data folder<br />
+<br />
+<ul><li>Edit the {LR}/conf/context.xml and add</li></ul>
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/OpenXavaDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3">    <span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3">    <span class="re0">username</span>=<span class="st0">&quot;sa&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;&quot;</span> <span class="re0">driverClassName</span>=<span class="st0">&quot;org.hsqldb.jdbcDriver&quot;</span></span>
+<span class="sc3">    <span class="re0">url</span>=<span class="st0">&quot;jdbc:hsqldb:file:../data/openxava-db&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;</pre>
+
+<br />
+In this file you have to make the entries for your own application.<br />
+<br />
+When all steps are done your own applications should run.<br />
+<br />
+Have fun. :)
+    </div>
+  </body>
+</html>

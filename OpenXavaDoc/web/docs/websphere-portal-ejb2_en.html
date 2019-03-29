@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>openxava - websphere-portal-ejb2_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="WebSphere Portal EJB2"></a>WebSphere Portal EJB2</h1>
+<em><strong>NOTE:</strong></em> <em>These instructions only apply if you want to use EJB2 (with CMP); if you use Hibernate or EJB3 JPA you can deploy the war from OpenXava directly in the WebSphere Portal. It's not advisable to use EJB2 for new developments.</em><br />
+<br />
+OpenXava generates portlets applications compatibles with any JSR-168 compliant portal. Hence the OpenXava applications are deployables in WebSphere Portal 5.1 and 6.0.<br />
+In order to install your application in a WebSphere Portal you have to:<br />
+<ul><li>Secure that your application works well in WebSphere Application Server, for this you may follow the instructions in <a class="wiki_link" href="websphere-ejb2_en.html"> WebSphere with OpenXava</a>.</li><li>Remove the reference to the WAR module from your META-INF/application.xml of your EAR file.</li><li>Install your EAR in the Websphere Application Server that runs your portal (tipically WebSphere_Portal), you can do it using wsadmin for example.</li><li>Generate an OpenXava portlets application, you can do it using the ant target deployPortlets. The application will generate in your dist directory.</li><li>Take the EJB jar generated on deploying in WAS (with all stub and skels) and copy it to WEB-INF/lib of your portlets WAR.</li><li>Deploy your portlet application (the WAR) in your WebSphere Portal as a normal portlet application.</li><li>Now the portlets of your application are allowed to assign them to your page users as you wish.</li></ul>OpenXava applications are full tested in production with WebSphere Portal 5.1 and 6.0. But working with WebSphere Application Server and WebSphere Portal requires some experience.
+    </div>
+  </body>
+</html>

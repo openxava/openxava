@@ -1,0 +1,466 @@
+<html>
+  <head>
+    <title>openxava - validation_backup_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a class="wiki_link" href="modeling_en.html">2. Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3. Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5. Basic business logic</a> | <strong>6. Advanced validation</strong> | <a class="wiki_link" href="refining-standard-behavior_en.html">7. Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8. Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9. References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C. Annotations</a><br />
+<h1 id="toc0"><a name="Lesson 6: Advanced validation"></a>Lesson 6: Advanced validation</h1>
+ This lesson is available in PDF:<br />
+<a href="files/openxava-course6-validation_en.pdf">openxava-course6-validation_en.pdf</a><br />
+<br />
+<h2 id="toc1"><a name="Lesson 6: Advanced validation-Note for OpenXava 5.3 and better"></a>Note for OpenXava 5.3 and better</h2>
+ Since OpenXava 5.3 the new Hibernate Validator included in OpenXava uses the standard Bean Validation API instead of its own API, therefore the code in the section 6.2 of this lesson does not work as is with OpenXava 5.3. Use the next code instead:<br />
+<br />
+ISBNValidator.java<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.validators</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">javax.validation.*</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">org.apache.commons.logging.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.facturacion.annotations.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">com.gargoylesoftware.htmlunit.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">com.gargoylesoftware.htmlunit.html.*</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw2">class</span> ISBNValidator <span class="kw2">implements</span> ConstraintValidator<span class="sy0">&lt;</span>ISBN, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a><span class="sy0">&gt;</span> <span class="br0">&#123;</span>
+&nbsp;
+    <span class="kw2">private</span> <span class="kw2">static</span> Log log = LogFactory.<span class="me1">getLog</span><span class="br0">&#40;</span>ISBNValidator.<span class="kw2">class</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw2">private</span> <span class="kw2">static</span> org.<span class="me1">apache</span>.<span class="me1">commons</span>.<span class="me1">validator</span>.<span class="me1">routines</span>.<span class="me1">ISBNValidator</span>
+        validator = <span class="kw2">new</span> org.<span class="me1">apache</span>.<span class="me1">commons</span>.<span class="me1">validator</span>.<span class="me1">routines</span>.<span class="me1">ISBNValidator</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw2">private</span> <span class="kw3">boolean</span> search<span class="sy0">;</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw3">void</span> initialize<span class="br0">&#40;</span>ISBN isbn<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw2">this</span>.<span class="me1">search</span> = isbn.<span class="me1">search</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span class="kw21">Override</span></a>
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isValid<span class="br0">&#40;</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> value, ConstraintValidatorContext context<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span>Is.<span class="me1">empty</span><span class="br0">&#40;</span>value<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
+        <span class="kw1">if</span><span class="br0">&#40;</span><span class="sy0">!</span>validator.<span class="me1">isValid</span><span class="br0">&#40;</span>value.<span class="me1">toString</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
+        <span class="kw2">return</span> search<span class="sy0">?</span>isbnExists<span class="br0">&#40;</span>value<span class="br0">&#41;</span>:<span class="kw4">true</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw2">private</span> <span class="kw3">boolean</span> isbnExists<span class="br0">&#40;</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> isbn<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw2">try</span> <span class="br0">&#123;</span>
+            WebClient client = <span class="kw2">new</span> WebClient<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            HtmlPage page = <span class="br0">&#40;</span>HtmlPage<span class="br0">&#41;</span> client.<span class="me1">getPage</span><span class="br0">&#40;</span><span class="st0">&quot;http://www.bookfinder4u.com/&quot;</span> +
+            <span class="st0">&quot;IsbnSearch.aspx?isbn=&quot;</span> + isbn + <span class="st0">&quot;&amp;mode=direct&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+            <span class="kw2">return</span> page.<span class="me1">asText</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">indexOf</span><span class="br0">&#40;</span><span class="st0">&quot;ISBN: &quot;</span> + isbn<span class="br0">&#41;</span> <span class="sy0">&gt;</span>= <span class="nu0">0</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span> <span class="kw2">catch</span> <span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> ex<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            log.<span class="me1">warn</span><span class="br0">&#40;</span><span class="st0">&quot;Impossible to connect to bookfinder4u&quot;</span> +
+            <span class="st0">&quot;to validate the ISBN. Validation fails&quot;</span>, ex<span class="br0">&#41;</span><span class="sy0">;</span>
+            <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+<br />
+ISBN.java:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.annotations</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">java.lang.annotation.*</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">javax.validation.*</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">org.openxava.facturacion.validators.*</span><span class="sy0">;</span>
+&nbsp;
+@Constraint<span class="br0">&#40;</span>validatedBy = ISBNValidator.<span class="kw2">class</span><span class="br0">&#41;</span>
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/Target.html"><span class="kw22">Target</span></a><span class="br0">&#40;</span><span class="br0">&#123;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/ElementType.html"><span class="kw22">ElementType</span></a>.<span class="me1">FIELD</span>, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/ElementType.html"><span class="kw22">ElementType</span></a>.<span class="me1">METHOD</span><span class="br0">&#125;</span><span class="br0">&#41;</span>
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/Retention.html"><span class="kw22">Retention</span></a><span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/RetentionPolicy.html"><span class="kw22">RetentionPolicy</span></a>.<span class="me1">RUNTIME</span><span class="br0">&#41;</span>
+<span class="kw2">public</span> @<span class="kw2">interface</span> ISBN <span class="br0">&#123;</span>
+&nbsp;
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Class.html"><span class="kw21">Class</span></a><span class="sy0">&lt;?&gt;</span><span class="br0">&#91;</span><span class="br0">&#93;</span> groups<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">default</span><span class="br0">&#123;</span><span class="br0">&#125;</span><span class="sy0">;</span>
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Class.html"><span class="kw21">Class</span></a><span class="sy0">&lt;?</span> <span class="kw2">extends</span> Payload<span class="sy0">&gt;</span><span class="br0">&#91;</span><span class="br0">&#93;</span> payload<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">default</span><span class="br0">&#123;</span><span class="br0">&#125;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw3">boolean</span> search<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">default</span> <span class="kw4">true</span><span class="sy0">;</span>
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> message<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">default</span> <span class="st0">&quot;ISBN does not exist&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<br />
+You need to copy the following libraries from <em>OpenXava/lib</em> to <em>Invoicing/web/WEB-INF/lib</em>: <em>cssparser.jar</em>, <em>htmlunit.jar</em>, <em>htmlunit-core-js.jar</em>, <em>httpclient.jar</em>, <em>httpcore.jar</em>, <em>httpmime.jar</em>, <em>nekothml.jar</em>, <em>sac.jar</em>, <em>xalan.jar</em>, <em>xercesImpl.jar</em>. Also you need to download the following library and add it into the same folder: <em><a class="wiki_link_ext" href="http://maven.tamingtext.com/repos/xml-apis/xml-apis/2.10.0/xml-apis-2.10.0.jar" rel="nofollow">xml-apis-2.10.0.jar</a></em><br />
+<br />
+<strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/" rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a class="wiki_link" href="refining-standard-behavior_en.html">Go to Lesson 7</a></strong>
+    </div>
+  </body>
+</html>

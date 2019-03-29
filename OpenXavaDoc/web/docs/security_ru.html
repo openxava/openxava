@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>openxava - security_ru</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="xБезопасность, управление пользователями и навигация по модулю"></a>Безопасность, управление пользователями и навигация по модулю</h1>
+ Фреймворк OpenXava не включает в себя безопасность, управление пользователями и ограничения навигации по модулю. Тем не менее, если вы хотите добавить эти возможности в ваше приложение, у вас есть несколько способов сделать это:<br />
+<ol><li><strong>Включение вашего приложения в Java порталы, такие как Liferay, WebSphere Portal или JetSpeed</strong>: OpenXava может генерировать приложение в виде портлета, который может быть встроен в любой стандартный Java портал (JSR-168/JSR-286), и при развертывании вашего приложения на Java портале вы сможете использовать безопасность, управление пользователями и навигацию, предоставляемую порталом. В главе 13 <a class="wiki_link_ext" href="http://www.openxava.org/book" rel="nofollow">OpenXava book</a> подробно объясняется как развернуть приложение OpenXava на Liferay и как настроить безопасность и навигацию.</li><li><strong>Использование NaviOX</strong>: <a class="wiki_link_ext" href="http://www.openxava.org/naviox" rel="nofollow">NaviOX</a> дополнение для OpenXava которое добавляет безопасность, управление пользователями и навигацию по модулю.</li><li><strong>Написание своего собственной функциональности для безопасности и навигации</strong>: Приложение OpenXava является обычным Java web приложением, следовательно вы можете управлять безопасностью так же, как в любом другом Java web приложением. В разделе <em>Практические советы (How to)</em> описана <a class="wiki_link" href="how-to_en.html#How%20to%20...-Example%20of%20basic%20authentication%20security%20for%20OX%20application%20in%20Tomcat">настройка basic authentication</a> для приложения OpenXava.</li><li><strong>Добавление spring security</strong>: <a class="wiki_link_ext" href="http://static.springsource.org/spring-security/site/" rel="nofollow">spring-security</a> - фреймворк для аутентификации и авторизации. <a class="wiki_link_ext" href="http://minuteproject.blogspot.com/2012/02/adding-spring-security-to-openxava.html" rel="nofollow">Этот учебник</a> содержит пошаговые инструкции, как интегрировать spring security в OpenXava приложения безо всякого вмешательства в код вашего OpenXava приложения.</li></ol>
+    </div>
+  </body>
+</html>

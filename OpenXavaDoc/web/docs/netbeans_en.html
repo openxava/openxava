@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <title>openxava - netbeans_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Netbeans and OpenXava"></a>Netbeans and OpenXava</h1>
+ <br />
+This is draft to write about &quot;integration&quot; of OpenXava and Netbeans IDE.<br />
+<br />
+Test Enviroment.<br />
+Ox 4.9<br />
+Netbeans 8 Beta.<br />
+<br />
+First, import OX folder.<br />
+<br />
+- File / Import Project / Eclipse Project<br />
+- Choose OX Workspace folder.<br />
+- Check Openxava and OpenxavaTest folders<br />
+<br />
+This gives this output no Netbeans:<br />
+Project 'OpenXava' import results:<br />
+• Cannot create J2SE platform for 'C:\Program Files\Java\jre7'. Default platform will be used instead.<br />
+Project 'AccessTracking' import results:<br />
+• Cannot create J2SE platform for 'C:\Program Files\Java\jre7'. Default platform will be used instead.<br />
+Project 'OpenXavaTest' import results:<br />
+• Cannot create J2SE platform for 'C:\Program Files\Java\jre7'. Default platform will be used instead.<br />
+• Required project 'D:\DevAux\openxava-4.9NB\workspace\AccessTracking@ab9aff82:56d6d6c6' does not provide any JAR artifacts.<br />
+<br />
+<hr />
+<br />
+We skip to import OpenXavaTemplate project, because createNewProject task, don't works as Eclipse. On Eclpse it asks for the name of the new project, but on Netbeans this doesn't works.<br />
+<br />
+New Project - New Web Application<br />
+<br />
+<br />
+From shell, from OpenxavaTemplate folder, Run ant task, and specify your projects name when asked (you can specify with <strong>-Dproject=&lt;projectFolderName&gt;</strong> )<br />
+<br />
+D:\DevAux\openxava-4.9NB\workspace\OpenXavaTemplate&gt;<strong>ant -buildfile CreateNewProject.xml</strong><br />
+<br />
+Buildfile: D:\DevAux\openxava-4.9NB\workspace\OpenXavaTemplate\CreateNewProject.xml<br />
+<br />
+[input] What is your project name?<br />
+<br />
+WebApplication1<br />
+createNewProject:<br />
+<br />
+[copy] Copying 22 files to D:\DevAux\openxava-4.9NB\workspace\WebApplication1<br />
+<br />
+[move] Moving 1 file to D:\DevAux\openxava-4.9NB\workspace\WebApplication1<br />
+<br />
+[move] Moving 1 file to D:\DevAux\openxava-4.9NB\workspace\WebApplication1\xava<br />
+<br />
+[move] Moving 1 file to D:\DevAux\openxava-4.9NB\workspace\WebApplication1\i18n<br />
+<br />
+[move] Moving 1 file to D:\DevAux\openxava-4.9NB\workspace\WebApplication1\i18n<br />
+<br />
+[delete] Deleting: D:\DevAux\openxava-4.9NB\workspace\WebApplication1\src\src.txt<br />
+updateOX:<br />
+copyDTDs:<br />
+copyXavaDTDs:<br />
+<br />
+[copy] Copying 20 files to D:\DevAux\openxava-4.9NB\workspace\WebApplication1\xava\dtds<br />
+copyComponentDTDs:<br />
+<br />
+[copy] Copying 698 files to D:\DevAux\openxava-4.9NB\workspace\WebApplication1\web\xava<br />
+<br />
+[copy] Copying 48 files to D:\DevAux\openxava-4.9NB\workspace\WebApplication1\web\WEB-INF<br />
+createWebXml:<br />
+<br />
+[loadfile] D:\DevAux\openxava-4.9NB\workspace\WebApplication1\web\WEB-INF\servlets.xml doesn't exist<br />
+<br />
+[loadfile] D:\DevAux\openxava-4.9NB\workspace\WebApplication1\web\WEB-INF\filters.xml doesn't exist<br />
+<br />
+[loadfile] D:\DevAux\openxava-4.9NB\workspace\WebApplication1\web\WEB-INF\listeners.xml doesn't exist<br />
+<br />
+[copy] Copying 1 file to D:\DevAux\openxava-4.9NB\workspace\WebApplication1\web\WEB-INF<br />
+BUILD SUCCESSFUL<br />
+<br />
+Total time: 49 seconds
+    </div>
+  </body>
+</html>

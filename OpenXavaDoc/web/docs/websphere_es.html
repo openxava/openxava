@@ -1,0 +1,157 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>openxava - websphere_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="WebSphere"></a>WebSphere</h1>
+      Las aplicaciones de OpenXava se usan en producción con WebSphere
+      Application Server 8 y WebSphere Portal 8.<br>
+    </div>
+    <div class="wiki" style="display: block;">
+      En OpenXava 6.1 se quitó el soporte para WebSphere 8.0. Para usar
+      WebSphere 8.0 o WebSphere Portal 8.0 deberás utilizar OpenXava 6.0.2 como
+      máximo.<br>
+    </div>
+    <div class="wiki" style="display: block;">En OpenXava 5.0 se quitó el
+      soporte para WebSphere 6.1. Para usar WebSphere 6.1 o WebSphere Portal 6.1
+      deberás utilizar OpenXava 4.x.<br>
+      Aquí tenemos algunos pantallazos de OpenXava en WebSphere Portal:<br>
+      <ul>
+        <li><a class="wiki_link" href="websphere-detail-screenshot_es.html">Ejemplo
+            de modo detalle</a></li>
+        <li><a class="wiki_link" href="websphere-list-screenshot_es.html">Ejemplo
+            de modo lista</a></li>
+      </ul>
+      <h2 id="toc1"><a name="WebSphere-Tareas ant para WebSphere 8 y WebSphere Portal 8 (no hace falta con OpenXava 5.3.1)"></a>Tareas
+        ant para WebSphere 8 y WebSphere Portal 8 (no hace falta con OpenXava
+        5.3.1)</h2>
+      <em>A partir de OpenXava 5.3.1 las tareas ant convencionales para crear
+        wars o aplicaciones de portlets funcionan con WebSphere 8</em><br>
+      Has de definir las siguientes tareas ant en tu <em>build.xml</em>:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;target</span> <span
+class="re0">name</span>=<span class="st0">"crearWebSphere8War"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
+class="st0">"../OpenXava/build.xml"</span> <span class="re0">target</span>=<span
+class="st0">"createWebSphere8War"</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;target</span> <span class="re0">name</span>=<span
+class="st0">"generarWebSpherePortal8Portlets"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
+class="st0">"../OpenXava/build.xml"</span> <span class="re0">target</span>=<span
+class="st0">"generateWebSpherePortal8Portlets"</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span></pre>
+      Utiliza estas tareas ant para desplegar en WebSphere 8 y WebSphere Portal
+      8.<br>
+      <h2 id="toc2"><a name="WebSphere-Carga de clases (no hace falta en WebSphere Portal 8)"></a>Carga
+        de clases (no hace falta en WebSphere Portal 8)</h2>
+      OpenXava usa las librerías <em>commons-codec</em> y <em>jakarta-poi</em>
+      que también están incluidas en WebSphere (8 y 6.1). El problema es que las
+      incluidas en WebSphere (incluso en la versión 8) son más viejas que las
+      incluidas en OpenXava. Esto puede producir algún problema si usas algunas
+      características de OpenXava que utilicen estas librerías.<br>
+      Tienes dos soluciones:<br>
+      <ul>
+        <li>Configura la carga declases para dar preferencia a los jars
+          incluidos en el WAR.
+          <ul>
+            <li>En <em>Enterprise Applications &gt; TuAplicacion_war &gt;
+                Manage Modules &gt; TuAplicacion.war</em> escoge "parent last".</li>
+          </ul>
+        </li>
+        <li>O bien, borra o actualiza esas librerías de la distribución de
+          WebSphere<em>.</em></li>
+      </ul>
+      <h2 id="toc3"><a name="WebSphere-La sintaxis servlet 2.4 se fuerza para el web.xml en WebSphere Portal 8"></a>La
+        sintaxis servlet 2.4 se fuerza para el web.xml en WebSphere Portal 8</h2>
+      Eso implica que no puedes usar <em>display-name</em> y <em>description</em>
+      a nivel de servlet. Por lo tanto, en tus servlets has de cambiar esto:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>testServlet<span
+class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;display-name<span class="re2">&gt;</span></span></span>Test servlet<span
+class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;description<span class="re2">&gt;</span></span><span
+class="re1">&lt;/description<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.openxava.test.servlets.TestServlet<span
+class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span></pre>
+      Por esto:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>testServlet<span
+class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.openxava.test.servlets.TestServlet<span
+class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span></pre>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,163 @@
+<html>
+  <head>
+    <title>openxava - stringbeans_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Integración de portlets de OpenXava en Stringbeans Portal"></a>Integración de portlets de OpenXava en Stringbeans Portal</h1>
+ Aquí tenemos algunos pantallazos de una aplicación OpenXava en el<br />
+<ul><li><a class="wiki_link" href="stringbeans-list-screenshot.html">Ejemplo de modo lista</a></li><li><a class="wiki_link" href="stringbeans-detail1-screenshot.html">Ejemplo de modo detalle</a></li><li><a class="wiki_link" href="stringbeans-detail2-screenshot.html">Otro ejemplo de modo detalle</a></li></ul><a class="wiki_link_ext" href="http://www.nabh.com/projects/sbportal" rel="nofollow">Stringbeans</a> es un sistema portal compatible con el estandar JSR-168 que permite añadir portlets que se encuentran en otros contextos del servidor de aplicaciones. Para ello es requisito imprescindible que tanto el propio contexto de Stringbeans, como el que contiene los portlets, sean accesibles declarándolos en <strong>./conf/server.xml</strong> como <strong>crossContext=&quot;true&quot;</strong> . Por ejemplo:<br />
+<strong><u>server.xml</u></strong><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;Host</span> <span class="re0">appBase</span>=<span class="st0">&quot;webapps&quot;</span> <span class="re0">autoDeploy</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;localhost&quot;</span></span>
+<span class="sc3">    <span class="re0">unpackWARs</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">xmlNamespaceAware</span>=<span class="st0">&quot;false&quot;</span> <span class="re0">xmlValidation</span>=<span class="st0">&quot;false&quot;</span><span class="re2">&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;Context</span> <span class="re0">path</span>=<span class="st0">&quot;/stringbeans&quot;</span></span>
+<span class="sc3">        <span class="re0">docBase</span>=<span class="st0">&quot;stringbeans&quot;</span> <span class="re0">crossContext</span>=<span class="st0">&quot;true&quot;</span> <span class="re2">/&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;Context</span> <span class="re0">path</span>=<span class="st0">&quot;/misportlets&quot;</span></span>
+<span class="sc3">        <span class="re0">docBase</span>=<span class="st0">&quot;misportlets&quot;</span> <span class="re0">crossContext</span>=<span class="st0">&quot;true&quot;</span> <span class="re2">/&gt;</span></span></pre>
+
+Vamos a aprovechar que estamos editando el fichero <strong>server.xml</strong> para incluir <strong>emptySessionPath=&quot;true&quot;</strong> en la sección del conector. Ejemplo:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;Connector</span></span>
+<span class="sc3">    <span class="re0">acceptCount</span>=<span class="st0">&quot;100&quot;</span> <span class="re0">connectionTimeout</span>=<span class="st0">&quot;20000&quot;</span></span>
+<span class="sc3">    <span class="re0">disableUploadTimeout</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">enableLookups</span>=<span class="st0">&quot;false&quot;</span> <span class="re0">maxSpareThreads</span>=<span class="st0">&quot;75&quot;</span></span>
+<span class="sc3">    <span class="re0">maxThreads</span>=<span class="st0">&quot;150&quot;</span> <span class="re0">minSpareThreads</span>=<span class="st0">&quot;25&quot;</span> <span class="re0">port</span>=<span class="st0">&quot;8080&quot;</span> <span class="re0">redirectPort</span>=<span class="st0">&quot;8443&quot;</span></span>
+<span class="sc3">    <span class="re0">emptySessionPath</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+Esto es necesario para que la sesión sea compartida entre los contextos de Stringbeans y de nuestros portlets. Concretamente es requisito imprescindible para la integración con portlets desarrollados con <a class="wiki_link_ext" href="http://www.openxava.org/" rel="nofollow">OpenXava</a> y que funcionen correctamente los servlets de generación de reports PDF y CSV, ya que de otra forma no serían capaces de obtener los valores del <strong>tab</strong> y se produciría una excepción.<br />
+<br />
+Se deben <strong>mover</strong> los siguientes .jar de ./stringbeans/WEB-INF/lib a un repositorio común de librerías compartidas del servidor J2EE, en el caso de Tomcat a ./common/lib<br />
+<ul><li>portlet.jar</li><li>sb-containet.jar</li><li>sb-share-common.jar</li></ul>Se deben añadir las siguiente librerías (de Stringbeans) al contexto de nuestra aplicación:<br />
+<ul><li>sb-portal.jar</li><li>sb-common.jar</li><li>sb-portlet-common.jar (desde la versión 3.2)</li><li>jaxb-api.jar</li><li>jaxb-impl.jar</li><li>jaxb-libs.jar</li><li>namespace.jar</li><li>relaxngDatatype.jar</li><li>jax-qname.jar</li><li>xsdlib.jar</li></ul>Igualmente se debe añadir el fichero <strong>portlet.tld</strong> a un lugar que posteriormente referenciaremos en web.xml, por ejemplo en ./WEB-INF<br />
+<br />
+En el fichero <strong>web.xml</strong> del contexto de nuestra aplicación, se deben añadir las siguientes entradas:<br />
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>PortletServlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>com.nabhinc.portal.core.PortletServlet<span class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;load-on-startup<span class="re2">&gt;</span></span></span>1<span class="sc3"><span class="re1">&lt;/load-on-startup<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span>
+:
+:
+<span class="sc3"><span class="re1">&lt;servlet-mapping<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>PortletServlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/portlet_servlet<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;taglib<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;taglib-uri<span class="re2">&gt;</span></span></span>http://java.sun.com/portlet<span class="sc3"><span class="re1">&lt;/taglib-uri<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;taglib-location<span class="re2">&gt;</span></span></span>/WEB-INF/portlet.tld<span class="sc3"><span class="re1">&lt;/taglib-location<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/taglib<span class="re2">&gt;</span></span></span></pre>
+
+Es importante indicar que éste servlet se cargue en el arranque (1)<br />
+ya que si no se carga antes que Stringbeans se producirá un error.<br />
+<br />
+Finalmante en Stringbeans, entramos como administrador a la sección de configuración del portal y de ahí a Portlet App Context. Como &quot;Context Path&quot; ponemos nuestro contexto (ej: /misportlets) y como &quot;Servlet URI&quot; indicamos &quot;/portlet_servlet&quot;<br />
+Si hemos seguido correctamente todos los pasos, Stringbeans indicará que el contexto ha sido añadido correctamente y habrá añadido nuestra lista de portlets a su fichero interno de portlets, de tal manera que desde &quot;Portlet Admin&quot; los veremos listados y se podrá hacer uso de ellos.<br />
+<br />
+<u>*Nota</u>: Si queremos clasificar los nuestros portlets, manualmente debemos editar el fichero portlet.xml y en cada portlet añadir:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;portlet-info<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;title<span class="re2">&gt;</span></span></span>Titulo del portlet<span class="sc3"><span class="re1">&lt;/title<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;keywords<span class="re2">&gt;</span></span></span>Categoria<span class="sc3"><span class="re1">&lt;/keywords<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/portlet-info<span class="re2">&gt;</span></span></span></pre>
+
+De esta forma, posteriormente en la selección de portlets que queremos agregar a un layout, se mostrarán ordenados por categorías.<br />
+<u><strong>Referencias</strong></u><br />
+<ul><li><a class="wiki_link_ext" href="http://www.nabh.com/projects/sbportal" rel="nofollow">Stringbeans Portal</a></li><li><a class="wiki_link_ext" href="http://www.nabh.com/doc/sb_config_ref_manual.html#portletAppContext" rel="nofollow">Despliegue de portlets externos</a></li><li><a class="wiki_link_ext" href="http://www.nabh.com/doc/sb_config_ref_manual.html" rel="nofollow">Manual de configuración</a></li><li><a class="wiki_link_ext" href="http://www.nabh.com/doc/sb_portal_dev_guide.html" rel="nofollow">Guía para el desarrollador</a></li><li><a class="wiki_link_ext" href="http://www.nabh.com/doc/sb_install_guide.html" rel="nofollow">Guía de instalación</a></li><li><a class="wiki_link_ext" href="http://www.nabh.com/doc/sb_install_guide.html#user_setup" rel="nofollow">Usuarios especiales del sistema</a></li></ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <title>openxava - problems_ru</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="xПроблемы"></a>Проблемы</h1>
+ <h2 id="toc1"><a name="xПроблемы-Закрытие сессии Liferay по истечение 30 минут работы"></a>Закрытие сессии Liferay по истечение 30 минут работы</h2>
+ Использование AJAX в OX3.1 (или выше) привело к тому, что обращения к серверу для перезагрузки страниц стали не нужны. При этом, с точки зрения Liferay это выглядит так, как будто пользователь в течении 30 минут перестал работать с приложением. Что приводит к выводу сообщения о истечении session-timeout.<br />
+Чтобы избежать такого поведения Liferay, нужно изменить его настройки.<br />
+Во-первых, установить значение 5 минут для атрибута session-timeout. Сделать это можно, отредактировав файл <em>web.xml</em> (в Tomcat файл находится <em>webapps/ROOT/WEB-INF</em> ):<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;session-config<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;session-timeout<span class="re2">&gt;</span></span></span>5<span class="sc3"><span class="re1">&lt;/session-timeout<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/session-config<span class="re2">&gt;</span></span></span></pre>
+
+Во-вторых, отредактируйте (или создайте, если файл еще не существует) файл <em>webapps/ROOT/WEB-INF/classes/portal-ext.properties</em>, добавив следующие строки:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text"> session.timeout=5
+ session.timeout.warning=1
+ session.timeout.auto.extend=true</pre>
+
+После этого session-timeout установлен в значение 5 минут, но при этом сессия будет продлеваться автоматически (без участия пользователя) до тех пор, пока Liferay остается открытым в окне броузера на клиентской машине.<br />
+<em><span style="color: rgb(255, 0, 0);">Предупреждение</span>: Данное решение работает только, начиная с</em> <em>Liferay 4.4.1 и выше. Причиной является</em> <em><a class="wiki_link_ext" href="http://support.liferay.com/browse/LEP-4808" rel="nofollow">Ошибка в старых версиях Liferay</a>.</em><br />
+<h2 id="toc2"><a name="xПроблемы-Некорректная работа с символами UTF-8"></a>Некорректная работа с символами UTF-8</h2>
+ В OpenXava реализованна полная поддержка UTF-8 или любой другой кодовой страницы, поддерживаемой Java, начиная с версии 3.1. Кодовая страница определяется свойством <em>file.encoding</em> в конфигурации системы. Это кодировка используется для веб запросов and ответов на них.<br />
+Если все же ваше OX приложение некорректно отображает или вводит символы UTF-8, попробуйте <em>установить опцию Java -Djava.encoding=UTF-8</em> при запуску вашего сервера приложений (переводчик - правильно, наверное, jsp-контейнера).<br />
+<h2 id="toc3"><a name="xПроблемы-Протоколирование не работает с Liferay 5.1"></a>Протоколирование не работает с Liferay 5.1</h2>
+ Необходимо разместить файл <em>logging.properties</em> <em>в папке properties</em> вашего проекта. Файл может быть пустым.<br />
+Проблема в том, что в случае, если Liferay 5.1 не может найти этот файл, он создает файл с настройками по-умолчанию - с отключенным протоколированием.
+    </div>
+  </body>
+</html>

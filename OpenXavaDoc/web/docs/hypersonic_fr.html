@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>openxava - hypersonic_fr</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<hr />
+<h1 id="toc0"><a name="Détails sur le serveur de base de données HSQL"></a>Détails sur le serveur de base de données HSQL</h1>
+ Quelques notions de base de données sont nécessaires pour ce guide. Il faut aussi préalablement avoir installé OpenXava<br />
+<h1 id="toc1"> </h1>
+ <h1 id="toc2"><a name="Lancer le serveur HSQL"></a>Lancer le serveur HSQL</h1>
+ Nous avons créé une base de données management-db (ou peut-être nous voulons en créer une). A partir de la ligne de commande, nous devons nous placer dans le dossier <em>openxava-2.x/portal/bin</em> (openxava-2.x étant le dossier dans lequel vous avez installé OpenXava) puis exécuter la commande suivante :<br />
+<ul><li>Sous Linux/Unix : ./starthsqldb.sh management-db 1666</li><li>Sous Windows : starthsqldb management-db 1666</li></ul>Ainsi, nous avons démarré le serveur HSQL ainsi qu'un service en écoute sur le port 1666<br />
+<br />
+<h1 id="toc3"><a name="HSQL Administrator"></a>HSQL Administrator</h1>
+ Cette application est disponible sur le site web de HSQL et il faut simplement l'installer. Une fois ceci fait, il suffit de lancer <em>runManagerSwing.bat</em> dans le sous-dossier <em>demo</em>. A présent, il est plus facile d'administrer notre base de données <em>management-db</em>. Dans la figure suivante sont affichées les options de connexion à la base de données.<br />
+<br />
+<img src="files/my-first-ox-project12.png" alt="my-first-ox-project12.png" title="my-first-ox-project12.png" /><br />
+<br />
+Dans la figure suivante, nous avons un catalogue nommé &quot;GESTIO&quot; et plusieurs tables créées. L'une de ces tables s'appelle ININ03. A présent, nous pouvons essayer quelques commandes SQL pour faire des recherches, ajouter des données ou créer des nouvelles tables. Nous devons utiliser un caractère '_' pour séparer le nom du catalogue du nom de la table dans les commandes SQL. Un exemple ci-dessous est données avec un SELECT :<br />
+<br />
+<img src="files/my-first-ox-project13.png" alt="my-first-ox-project13.png" title="my-first-ox-project13.png" />
+    </div>
+  </body>
+</html>

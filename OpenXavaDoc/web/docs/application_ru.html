@@ -1,0 +1,308 @@
+<html>
+  <head>
+    <title>openxava - application_ru</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#xГлава 8: Приложение (Application)">Глава 8: Приложение (Application)</a></div>
+<div style="margin-left: 2em;"><a href="#xГлава 8: Приложение (Application)-Пример типового модуля">Пример типового модуля</a></div>
+<div style="margin-left: 2em;"><a href="#xГлава 8: Приложение (Application)-Предопределенные по-умолчанию модули (начиная с версии v2.2.2)">Предопределенные по-умолчанию модули (начиная с версии v2.2.2)</a></div>
+<div style="margin-left: 2em;"><a href="#xГлава 8: Приложение (Application)-Модуль только с видом @View">Модуль только с видом @View</a></div>
+<div style="margin-left: 2em;"><a href="#xГлава 8: Приложение (Application)-Модуль только с видом @Tab">Модуль только с видом @Tab</a></div>
+<div style="margin-left: 2em;"><a href="#xГлава 8: Приложение (Application)-Модуль для документации">Модуль для документации</a></div>
+<div style="margin-left: 2em;"><a href="#xГлава 8: Приложение (Application)-Модуль &quot;только для просмотра&quot;">Модуль &quot;только для просмотра&quot;</a></div>
+</div>
+<a class="wiki_link" href="overview_ru.html">1.Обзор системы</a> | <a class="wiki_link" href="my-first-ox-project_ru.html">2. Мой первый проект</a> | <a class="wiki_link" href="model_ru.html">3. Модель</a> | <a class="wiki_link" href="view_ru.html">4. Формы @View</a> | <a class="wiki_link" href="tab_ru.html">5. Списки @Tab</a> | <a class="wiki_link" href="mapping_ru.html">6. Объектно-реляционное связывание</a> | <a class="wiki_link" href="controllers_ru.html">7. Контроллеры</a> | <strong>8. Приложение</strong> | <a class="wiki_link" href="customizing_ru.html">9. Расширенные возможности</a><br />
+<h1 id="toc0"><a name="xГлава 8: Приложение (Application)"></a>Глава 8: Приложение (Application)</h1>
+ Приложение - это комплект программного обеспечения, готовый к использованию конечным пользователем. В предыдущих главах вы получили информацию о том, как создавать кирпичики (компоненты, действия и т.д.), из которых состоит приложения OX. Теперь у вас будет возможность изучить, как из этих кирпичков построить готовое приложение OX.<br />
+Определение приложения OpenXava дается в файле <em>application.xml</em>, который находится в папке <em>xava</em> вашего проекта OX.<br />
+Синтаксис файла таков:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;application</span></span>
+<span class="sc3"> <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span> &lt;!-- 1 --<span class="re2">&gt;</span></span>
+ label=&quot;label&quot; <span class="sc-1">&lt;!-- 2 --&gt;</span>
+ &gt;
+ <span class="sc3"><span class="re1">&lt;default-module</span> ... <span class="re2">/&gt;</span></span> ... <span class="sc-1">&lt;!-- 3 New in v2.2.2 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;module</span> ... <span class="re2">/&gt;</span></span> ... <span class="sc-1">&lt;!-- 4 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span></pre>
+
+<ol><li><strong>name</strong> (обязательно): Имя приложения.</li><li><strong>label</strong> (опционально): Вместо данного поля рекомендуется использовать файлы i18n (см. Интернационализация приложения).</li><li><strong>default-module</strong> (одно вхождение, опционально): (<em>Начиная с версии v2.2.2</em>) Определение контроллеров для предопределенных по-умолчанию модулей (автоматически генерируются для каждого компонента).</li><li><strong>module</strong> (несколько вхождений, опционально): Определяется каждый модуль, доступный к использованию конечным пользователем.</li></ol>Вкратце, приложение OX - это есть набор модулей. Давайте посмотрим на определение модуля:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;module</span></span>
+<span class="sc3"> <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span> &lt;!-- 1 --<span class="re2">&gt;</span></span>
+ folder=&quot;folder&quot; <span class="sc-1">&lt;!-- 2 --&gt;</span>
+ label=&quot;label&quot; <span class="sc-1">&lt;!-- 3 --&gt;</span>
+ description=&quot;description&quot; <span class="sc-1">&lt;!-- 4 --&gt;</span>
+ &gt;
+ <span class="sc3"><span class="re1">&lt;env-var</span> ... <span class="re2">/&gt;</span></span> ... <span class="sc-1">&lt;!-- 5 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;model</span> ... <span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 6 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;view</span> ... <span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 7 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;web-view</span> ... <span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 8 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;tab</span> ... <span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 9 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;controller</span> ... <span class="re2">/&gt;</span></span> ... <span class="sc-1">&lt;!-- 10 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;mode-controller</span> ... <span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 11 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;doc</span> ... <span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 12 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+<ol><li><strong>name</strong> (обязательный элемент): Уникальный идентификатор модуля приложения.</li><li><strong>folder</strong> (необязательный элемент): Папка, в которой будет находиться модуль. В настоящее время параметр <em>folder</em> используется только для создания струкуры папок в JetSpeed2, но в будущем возможно более широкое использование. Пока же, данный параметр может помочь классифицировать модули. Например, можно использовать вложение папок (&quot;invoicing/reports&quot; или &quot;invoicing.reports&quot;).</li><li><strong>label</strong> (необязательный элемент): Краткое название, которое будет отображено пользователю. Вместо данного параметра мы рекомендуем использовать файлы i18n.</li><li><strong>description</strong> (необязательный элемент): Подробное описание, которое будет отображено пользователю. Вместо данного параметра мы рекомендуем использовать i18n.</li><li><strong>env-var</strong> (несколько вхождений, необязательный элемент): Позволяет вам определить переменные, значения которых будут доступны действия (actions) OX. Таким образом, вы можете определить <em>действия</em> для модуля.</li><li><strong>model</strong> (необязательный элемент): Имя компонента для использования в моделе. Если значение данного элемента путое, то необходимо указать значение для элемента <em>web-view</em>.</li><li><strong>view</strong> (необязательный элемент): Представление-Форма, которое будет использовано для данного модуля. Если элемент не заполнен, используется стандартное представление..</li><li><strong>web-view</strong> (необязательный элемент): Элемент предназначен для указания страницы JSP, используемой вместо представления.</li><li><strong>tab</strong> (необязательный элементl): Имя табличного представления, которое будет задействовано для данного модуля. Если элемент не определение, используется стандартное табличное представление.</li><li><strong>controller</strong> (несколько вхождений, необязательный элемент): Контроллеры для доступных <em>действий</em>, используемые изначально.</li><li><strong>mode-controller</strong> (необязательный элемент): Позволяет определить поведение для переключения между представлением-формой и представлением-списком (табличное представление). Также позволяет определить модуль без представления или представлений.</li><li><strong>doc</strong> (необязательный элемент): Позволяет определить модуль, который содержит только статические страницы (документацию). Данный элемент является взаимоисключающим по отношению к другим элементам. Данный элемент удобно использовать для генерации информационных портлетов вашего приложения.</li></ol><h2 id="toc1"><a name="xГлава 8: Приложение (Application)-Пример типового модуля"></a>Пример типового модуля</h2>
+ Определение простейшего модуля выглядит так:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;application</span> <span class="re0">name</span>=<span class="st0">&quot;Management&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;Warehouse&quot;</span> <span class="re0">folder</span>=<span class="st0">&quot;warehousing&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Warehouse&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Warehouse&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span>
+ ...
+ <span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span></pre>
+
+В этом примере мы создали модуль, который предоставляет пользователю следующие функциональные возможности: создание, удаление, изменение и поиск записей для модели <em>Warehouse</em>, создание отчетов в формате PDF и экспортирование данных в таблицы Excel из модели(благодаря контроллеру <em>Typical</em>), а также наш модуль позволяет выполнять <em>действия</em>, реализованные только для <em>warehouses</em> (благодаря контроллеру <em>Warehouse</em>). В случае использования JetSpeed2э наш модуль будет размещен в папке &quot;warehousing&quot;.<br />
+Чтобы запустить данный модуль, вам неободимо открыть веб броузер и перейти на страницу::<br />
+<a class="wiki_link_ext" href="http://localhost:8080/Management/xava/module.jsp?application=Management&amp;module=Warehouse" rel="nofollow">http://localhost:8080/Management/xava/module.jsp?application=Management&amp;module=Warehouse</a><br />
+Портлет, формируемый OX, позволяет использовать ваш модуль в порталах Java, поддерживающих портлеты, совместимые со спецификацией JSR-168.<br />
+<h2 id="toc2"><a name="xГлава 8: Приложение (Application)-Предопределенные по-умолчанию модули (начиная с версии v2.2.2)"></a>Предопределенные по-умолчанию модули <em>(начиная с версии v2.2.2)</em></h2>
+ Не обязательно указывать все модули в <em>applicaction.xml</em>, т.к. OpenXava предполагает, что для каждого компонента приложения существует соответствующий модуль, предопределённый по-умолчанию.<br />
+То есть, если вы определи компонент <em>Invoice.xml</em>, то вы сразу можете зайти по адресу:<br />
+<a class="wiki_link_ext" href="http://localhost:8080/Management/xava/module.jsp?application=Management&amp;module=Invoice" rel="nofollow">http://localhost:8080/Management/xava/module.jsp?application=Management&amp;module=Invoice</a><br />
+Также сгенерированный портлет позволяет вам устанавливать модуль как портлет JSR-168.<br />
+И все это без внесения изменений в application.xml.<br />
+Контроллер для неявных модулей по-умолчанию будет <em>Typical</em>. Но такое поведение системы можно переопределить, задав элемент <em>default-module</em> в файле <em>application.xml</em>, следующим образом:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;application</span> <span class="re0">name</span>=<span class="st0">&quot;Management&quot;</span><span class="re2">&gt;</span></span>
+&nbsp;
+ <span class="sc3"><span class="re1">&lt;default-module<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;ManagementCRUD&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/default-module<span class="re2">&gt;</span></span></span>
+&nbsp;
+ <span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span></pre>
+
+В этом примере все модули приложения <em>Management</em> будут иметь контроллер <em>ManagementCRUD</em>.<br />
+Если вы хотите, чтобы конкрентный модуль не использовал дефолтные контроллеры, то у вас две возможности:<br />
+<ol><li>Определить контроллер в файле <em>controllers.xml</em> с таким же именем, как имеет ваш компонент.</li><li>Определить модуль в <em>application.xml</em>, как было <a class="wiki_link" href="application_en.html#toc1">описано выше</a>.</li></ol>Суммируя, если вы определили компонент, назовём его <em>Customer</em>, затем вам необходимо определить модуль <em>Customer</em>, а также портлет. Модуль может быть определен одим из следующих способов:<br />
+<ol><li>Если определить модуль <em>Customer</em> в файле <em>application.xml</em>, то будет использоваться данный модуль. Иначе...</li><li>Если определить контроллер <em>Customer</em> в файле <em>controllers.xml</em>, то модуль будет автоматически сгенерирован с использованием <em>Customer</em> как контроллера и <em>Customer</em> как модели. Иначе..</li><li>Если определить элмент <em>default-module</em> в файлу <em>application.xml</em>, то автоматически генерируемый модуль будет использовать контроллеры, определенные в элементе <em>default-module,</em> а компонент <em>Customer</em> будет использован как модель. Иначе...</li><li>Если ничего другого не определено, то как последнаяя соломенка применяется контроллер <em>Typical</em> и модель <em>Customer,</em> как модель которая подразумевается</li></ol><h2 id="toc3"><a name="xГлава 8: Приложение (Application)-Модуль только с видом @View"></a>Модуль только с видом @View</h2>
+ Модуль, поддерживающий только представление в виде формы с полями, отображающее только одну запись одновременно, определяется так:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;InvoiceNoList&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Invoice&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span class="st0">&quot;Void&quot;</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+Контроллер изменения режима представления <em>Void</em> (1) удаляет ссылку на переключение &quot;detail – list&quot;. В таком случае используется режим просмотра по-умолчания, коим является режим Detail (Определяется с помощью аннотации @View).<br />
+<h2 id="toc4"><a name="xГлава 8: Приложение (Application)-Модуль только с видом @Tab"></a>Модуль только с видом @Tab</h2>
+ Модуль, поддерживающий только табличное представление, определяется так:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;FamilyListOnly&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span class="st0">&quot;XAVA_LIST_ACTION&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;&quot;</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 New in v2.0.4 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Family&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;ListOnly&quot;</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 2 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span class="st0">&quot;Void&quot;</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 3 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+Котроллер изменения режима представления <em>Void</em> (3) удаляет ссылку на переключение &quot;detail – list&quot;. Определение контроллера <em>ListOnly</em> (2) заставляет OX использовать табличное представление. Завершающим штрихом является присвоение пустой строки переменной XAVA_LIST_ACTION (1), что приводит к тому, что ссылка на представление-форму в каждой строке списка записей, будет пустой <em>(начиная с версии v2.0.4)</em>.<br />
+<h2 id="toc5"><a name="xГлава 8: Приложение (Application)-Модуль для документации"></a>Модуль для документации</h2>
+ Модуль документации предназначен для предостваление документации HTML. Ниже дано определение модуля:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;Description&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;doc</span> <span class="re0">url</span>=<span class="st0">&quot;doc/description&quot;</span> <span class="re0">languages</span>=<span class="st0">&quot;en,ru&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+Данный модуль показывает один из документов <em>web/doc/description_en.html</em> или <em>web/doc/description_ru.html</em>, выбор осуществляется автоматически в зависимости от языка, установленого в броузере пользователя.<br />
+Если языку броузера не сопоставлен документ, то выбирается первый специфицированный в описании модуля язык (в примере это Английский(English)).<br />
+Если вы не зададите языки (аттрибут languages) в определении модуля, то будет отображен документ <em>web/doc/description.html</em>.<br />
+Данный модуль весьма полезен для создания информационных портлетов.<br />
+Данный тип модуля игнорируется, если целевое приложение не предназначено для работы в портальной среде.<br />
+<h2 id="toc6"><a name="xГлава 8: Приложение (Application)-Модуль &quot;только для просмотра&quot;"></a>Модуль &quot;только для просмотра&quot;</h2>
+ Модуль, в котором данные можно только простматривать без возможности редактирования, определяется так:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;CustomerReadOnly&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span class="st0">&quot;XAVA_SEARCH_ACTION&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;CRUD.searchReadOnly&quot;</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Customer&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Print&quot;</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 2 --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+
+Использование <em>CRUD.searchReadOnly</em> (1) в качестве поискового действия запрещает редактирование данных конечным пользователем. Мы оставляем пользователя возможность печати, добавив контроллер <em>Print</em> controller (2) (без указания <em>CRUD</em> или <em>Typical</em>). Соответственно, действия: сохранение (saving), удаление (deleting), и т.д. будут не доступны. Это был пример простейшего модуля, поддерживающего только просмотр данных.<br />
+<br />
+Синтаксис файла <em>application.xml</em> достаточно прост. Дополнительные примеры вы можете почерпнуть <em>OpenXavaTest/xava/application.xml</em>.
+    </div>
+  </body>
+</html>

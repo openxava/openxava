@@ -1,0 +1,231 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>openxava - navigation_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <div id="toc">
+        <h1 class="nopad">Table of Contents</h1>
+        <div style="margin-left: 1em;"><a href="#Module%20navigation">Module
+            navigation</a></div>
+        <div style="margin-left: 2em;"><a href="#Module%20navigation-Menus">Menus</a></div>
+        <div style="margin-left: 2em;"><a href="#Module%20navigation-Folders">Folders</a></div>
+        <div style="margin-left: 2em;"><a href="#Module%20navigation-Titles%20and%20descriptions%20for%20modules%20and%20the%20application">Titles
+            and descriptions for modules and the application</a></div>
+        <div style="margin-left: 2em;"><a href="#Module%20navigation-Behavior%20customization">Behavior
+            customization</a></div>
+      </div>
+      <h1 id="toc0"><a name="Module navigation"></a>Module navigation</h1>
+      <h2 id="toc1"><a name="Module navigation-Menus"></a>Menus</h2>
+      On left side you have a list with all your modules, click (or tap) one to
+      open it:<br>
+      <img src="files/naviox-modules_en.png" alt="naviox-modules_en.png" title="naviox-modules_en.png"><br>
+      <h2 id="toc2"><a name="Module navigation-Folders"></a>Folders</h2>
+      <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>
+      adds the module Folders to your application, in the <em>Admin</em>
+      folder. This module allows you to organize the modules in the menu in a
+      hierarchical way.<br>
+      <img src="files/naviox-folders_en.png" alt="naviox-folders_en.png" title="naviox-folders_en.png"><br>
+      It's just to create a new folder and assigning some modules to it. If you
+      want to translate the folder name, use it as key in the i18n labels files.<br>
+      The hierarchical menu is only available in <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
+        rel="nofollow">XavaPro</a>. Plain OpenXava uses a list of modules with a
+      search box.<br>
+      <h2 id="toc3"><a name="Module navigation-Titles and descriptions for modules and the application"></a>Titles
+        and descriptions for modules and the application</h2>
+      Titles and descriptions are obtained from the i18n files of your
+      application.<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text"># MyApplication-labels_en.properties
+&nbsp;
+# Application title and description
+Invoicing=Invoicing
+Invoicing[description]=Manage invoices and orders
+&nbsp;
+# Modules titles and descriptions
+Invoice.module=Invoices
+Invoice.module[description]=Create and manage invoices
+Order.module=Orders
+Order.module[description]=Create and manage orders, also generate invoices from orders</pre>
+      With the above entries OpenXava knows how to display the name and
+      description of <em>Invoice</em> and <em>Order</em> module in English.<br>
+      <img src="files/naviox-module-labels_en.png" alt="naviox-module-labels_en.png"
+        title="naviox-module-labels_en.png"></div>
+    <div class="wiki" style="display: block;">Since v6.0 the description of the
+      modules is no longer used, so in the menu only the module name is used, as
+      you can see in the above first screenshot.</div>
+    <div class="wiki" style="display: block;"> The application name is shown in
+      the top left corner of the page:<br>
+      <img src="files/naviox-application-name_en.png" alt="naviox-application-name_en.png"
+        title="naviox-application-name_en.png"><br>
+      If you do not want to show the application name add the <em>showApplicationName</em>
+      <em>(new in v5.5)</em> entry to your <em>naviox.properties</em> (placed
+      in <em>properties</em> folder):<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="re0">showApplicationName</span><span
+class="sy0">=</span><span class="re1">false</span></pre>
+      <h2 id="toc4"><a name="Module navigation-Behavior customization"></a>Behavior
+        customization</h2>
+      By default when the user sign in he starts working in the last module he
+      was working on. To change this behavior and to start always in <em>First
+        steps</em> page add the next entry to <em>naviox.properties</em>
+      (placed in <em>properties</em> folder):<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="re0">startInLastVisitedModule</span><span
+class="sy0">=</span><span class="re1">false</span></pre>
+      If you want that the first page on entering will not be <em>First steps</em>
+      but your own page or module, edit <em>firstSteps.jsp</em>, located in <em>web/naviox</em>,
+      remove all the content and place a redirection on it, thus:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.php  {font-family:monospace;}
+.php .imp {font-weight: bold; color: red;}
+.php .kw1 {color: #b1b100;}
+.php .kw2 {color: #000000; font-weight: bold;}
+.php .kw3 {color: #990000;}
+.php .kw4 {color: #009900; font-weight: bold;}
+.php .co1 {color: #666666; font-style: italic;}
+.php .co2 {color: #666666; font-style: italic;}
+.php .co3 {color: #0000cc; font-style: italic;}
+.php .co4 {color: #009933; font-style: italic;}
+.php .coMULTI {color: #666666; font-style: italic;}
+.php .es0 {color: #000099; font-weight: bold;}
+.php .es1 {color: #000099; font-weight: bold;}
+.php .es2 {color: #660099; font-weight: bold;}
+.php .es3 {color: #660099; font-weight: bold;}
+.php .es4 {color: #006699; font-weight: bold;}
+.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
+.php .es6 {color: #009933; font-weight: bold;}
+.php .es_h {color: #000099; font-weight: bold;}
+.php .br0 {color: #009900;}
+.php .sy0 {color: #339933;}
+.php .sy1 {color: #000000; font-weight: bold;}
+.php .st0 {color: #0000ff;}
+.php .st_h {color: #0000ff;}
+.php .nu0 {color: #cc66cc;}
+.php .nu8 {color: #208080;}
+.php .nu12 {color: #208080;}
+.php .nu19 {color:#800080;}
+.php .me1 {color: #004000;}
+.php .me2 {color: #004000;}
+.php .re0 {color: #000088;}
+.php span.xtra { display:block; }
+
+-->
+</style><pre class="php"><span class="sy0">&lt;</span>jsp<span class="sy0">:</span>forward page<span
+class="sy0">=</span><span class="st0">"/m/MyInitialModule"</span><span class="sy0">/&gt;</span></pre>
+      In order that the top list of recently visited modules will be clear after
+      sign in, add the next entry to <em>naviox.properties</em>:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="re0"># Until v5.9.1<br>rememberVisitedModules</span><span
+class="sy0">=</span><span class="re1">false</span></pre>
+      The <i>rememberVisitedModules</i> is not available since v6.0.<br>
+      <br>
+      If you want not to show the list of modules when the user is not logged,
+      add the next entry to <em>naviox.properties</em>:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="re0">showModulesMenuWhenNotLogged</span><span
+class="sy0">=</span><span class="re1">false</span></pre>
+      The modules menu will not be shown even if there are modules available for
+      not logged users.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> To have certain modules always
+      present on top menu use <em>fixModulesOnTopMenu</em> <em>(new in v5.9)</em>
+      in <em>naviox.properties</em>:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="re0">fixModulesOnTopMenu</span><span
+class="sy0">=</span><span class="re1">Invoice, Order</span></pre>
+      Just the list of modules separated by commas. The modules will be always
+      on the top bar, unless the user has no rights to access them. </div>
+  </body>
+</html>

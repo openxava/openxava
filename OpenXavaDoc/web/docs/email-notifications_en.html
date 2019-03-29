@@ -1,0 +1,151 @@
+<html>
+  <head>
+    <title>openxava - email-notifications_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Email data changes notifications (new in v5.9)"></a>Email data changes notifications <em>(new in v5.9)</em></h1>
+ Since v5.9 the user can follow any module just by clicking on an icon on the right top corner:<br />
+<img src="files/email-subscription-link_en.png" alt="email-subscription-link_en.png" title="email-subscription-link_en.png" /><br />
+After clicking on it any change done by other users on the data of that module will be notified via email to him. He can click on any moment on the same button to unsubscribe. In order to work the user need to have a valid email defined in his account (XavaPro or Liferay) or well to use a valid email as user name (also available with plain OpenXava in <em>naviox-users.properties</em>). Subscribing to a module is not available for modules with <em>@Tab</em> with <em>baseCondition</em> for security reasons.<br />
+Moreover, when a user creates a new record, all the changes in that invididual record by other users are emailed to him.<br />
+In each message the user has links to remove his subscription.<br />
+The changes notified are: creation of new records, modification, deletion of records, adding comment to discusion, adding/removing images from gallery, adding/removing attached files and modification of collections.<br />
+In the case of modification the email message informs about the properties modified with the old and new values.<br />
+<span style="font-size: 1.3em;"><strong>Configure</strong></span><br />
+This feature is disable by default. In order to active it you have to follow the next steps.<br />
+<h3 id="toc1"><a name="Email data changes notifications (new in v5.9)--Adding the subscription entity to persistence.xml"></a>Adding the subscription entity to persistence.xml</h3>
+ In the <em>persistence.xml</em> of your project add the <em>org.openxava.util.impl.EmailSubscription</em> entity:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;persistence-unit</span> <span class="re0">name</span>=<span class="st0">&quot;default&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span> ... <span class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span> ... <span class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span> ... <span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.util.impl.EmailSubscription<span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+        ...
+    <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;persistence-unit</span> <span class="re0">name</span>=<span class="st0">&quot;junit&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span> ... <span class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span> ... <span class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span> ... <span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.util.impl.EmailSubscription<span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+        ...
+    <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+
+We include it in <em>junit</em> persistence unit too, to be recognized by <em>updateSchema</em> Ant target.<br />
+<h3 id="toc2"><a name="Email data changes notifications (new in v5.9)--Creating subscription table"></a>Creating subscription table</h3>
+ You have to create the next table in your database:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.sql  {font-family:monospace;}
+.sql .imp {font-weight: bold; color: red;}
+.sql .kw1 {color: #993333; font-weight: bold;}
+.sql .co1 {color: #808080; font-style: italic;}
+.sql .coMULTI {color: #808080; font-style: italic;}
+.sql .es0 {color: #000099; font-weight: bold;}
+.sql .br0 {color: #66cc66;}
+.sql .sy0 {color: #66cc66;}
+.sql .st0 {color: #ff0000;}
+.sql .nu0 {color: #cc66cc;}
+.sql span.xtra { display:block; }
+
+-->
+</style><pre class="sql"><span class="kw1">CREATE</span> <span class="kw1">TABLE</span> OXEMAILSUBSCRIPTIONS <span class="br0">&#40;</span>
+ module <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">80</span><span class="br0">&#41;</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span><span class="sy0">,</span>
+ email <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">50</span><span class="br0">&#41;</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span><span class="sy0">,</span>
+ <span class="kw1">PRIMARY</span> <span class="kw1">KEY</span> <span class="br0">&#40;</span>module<span class="sy0">,</span> email<span class="br0">&#41;</span>
+<span class="br0">&#41;</span>;
+<span class="kw1">CREATE</span> <span class="kw1">INDEX</span> UK_mo4jh7y2lwcbl9twwxjn2733e
+ <span class="kw1">ON</span> OXEMAILSUBSCRIPTIONS <span class="br0">&#40;</span>module<span class="br0">&#41;</span>;</pre>
+
+Maybe you'll need to adapt the above sentence to your own database dialect.<br />
+If you create the tables from JPA entities (using <em>updateSchema</em> Ant target or with <em>hibernate.hbm2ddl.auto</em> to <em>update</em> in <em>persistence.xml</em>) this step is not needed.<br />
+<h3 id="toc3"><a name="Email data changes notifications (new in v5.9)--Email settings in xava.properties"></a>Email settings in xava.properties</h3>
+ If you don't have the email setting in <em>xava.properties</em> already configured you have to do it. For example:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="re0">smtpHost</span><span class="sy0">=</span><span class="re1">smtp.gmail.com</span>
+<span class="re0">smtpPort</span><span class="sy0">=</span><span class="re1">587</span>
+<span class="re0">smtpUserId</span><span class="sy0">=</span><span class="re1">myoxapps@gmail.com</span>
+<span class="re0">smtpUserPassword</span><span class="sy0">=</span><span class="re1">openxava</span>
+<span class="re0">smtpHostTrusted</span><span class="sy0">=</span><span class="re1">true</span>
+<span class="re0">smtpStartTLSEnable</span><span class="sy0">=</span><span class="re1">true</span></pre>
+
+Don't use the above data as is, you have to put your own email account settings.<br />
+<h3 id="toc4"><a name="Email data changes notifications (new in v5.9)--Defining the access tracker provider in xava.properties"></a>Defining the access tracker provider in xava.properties</h3>
+ Finally add the next entry to the <em>xava.properties</em> of your project:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="re0">accessTrackerProvidersClasses</span><span class="sy0">=</span><span class="re1">org.openxava.util.EmailNotificationsAccessTrackerProvider</span></pre>
+
+If in any moment you want to disable the email notifications feature just remove or comment the above line.<br />
+<h2 id="toc5"><a name="Email data changes notifications (new in v5.9)-Programmatic use"></a>Programmatic use</h2>
+ You can subscribe and unsubscribe users for modules or entities using the utility class <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/util/EmailNotifications.html" rel="nofollow">EmailNotifications</a></em> from <em>org.openxava.util</em> package.<br />
+By default, all the changes made via <em>MapFacade</em> are notified, however if your create your own code to modify data via JPA, JDBC, etc. and want that your user would be notified by email use the class <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/util/AccessTracker.html" rel="nofollow">AccessTracker</a></em> from <em>org.openxava.util</em> package.
+    </div>
+  </body>
+</html>

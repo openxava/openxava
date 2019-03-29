@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+
+<project name="OpenXavaDoc" default="deploy" basedir=".">
+
+	<property name="xava.version" value="6.1"/>
+	<property name="xava.workspace" value=".."/>	
+	<property name="openxava.dist.dir" value="/home/javi/openxava"/>
+	<property file="../openxava.properties"/>
+	<property name="doc.dir" value="${openxava.dist.dir}/openxava-${xava.version}/doc"/>
+
+	<target name="apidoc">
+		<delete dir="web/apidocs"/>
+		<javadoc
+			destdir="web/apidocs"
+			author="true"
+			version="true"
+			use="true"
+			useexternalfile="yes"
+			windowtitle="OpenXava ${xava.version} API">
+			
+			<classpath> 
+				<pathelement path="../OpenXava/bin"/>
+				<fileset dir="../OpenXava/web/WEB-INF/lib"> 
+					<include name="**/*.jar"/> 
+				</fileset>
+			</classpath> 
+
+
+		    <fileset dir="${xava.workspace}/OpenXava/src" defaultexcludes="yes"/>			
+
+		    <doctitle><![CDATA[<h1>OpenXava ${xava.version} API</h1>]]></doctitle>
+		  </javadoc>
+	</target>
+	
+	<target name="deploy">
+		<delete file="${deploy.dir}/OpenXavaDoc.war"/>
+		<jar jarfile="${deploy.dir}/OpenXavaDoc.war" basedir="web"/>		
+	</target>
+	
+	<target name="generatePdfGuides">		
+		<property name="pdf.dir" value="${doc.dir}/pdf"/>
+		<property name="pdf.style.dir" value="pdf-style"/>
+		<property name="template.pdf.style.dir" value="template-pdf-style"/>		
+		<antcall target="adjustCSS"/>
+		<mkdir dir="${pdf.dir}"/>
+		
+		<antcall target="filterPdfTemplates"/>
+		
+		<antcall target="removeMenuFromReference">
+			<param name="lang" value="en"/>
+			<param name="chapter.1.title" value="Overview"/>			
+		</antcall>
+		
+		<antcall target="removeMenuFromReference">
+			<param name="lang" value="es"/>
+			<param name="chapter.1.title" value="Visi"/>			
+		</antcall>
+		
+		<antcall target="removeMenuFromXmlComponents">
+			<param name="lang" value="en"/>
+			<param name="chapter.1.title" value="Introduction"/>			
+		</antcall>
+			
+		<antcall target="removeMenuFromXmlComponents">
+			<param name="lang" value="es"/>
+			<param name="chapter.1.title" value="Introducci"/>			
+		</antcall>
+				
+		<antcall target="generatePdfReferenceForLang">
+			<param name="name" value="reference-guide_en"/>
+			<param name="lang" value="en"/>
+		</antcall>		
+		
+		<antcall target="generatePdfReferenceForLang">
+			<param name="name" value="reference-guide_es"/>
+			<param name="lang" value="es"/>
+		</antcall>
+		
+		<antcall target="generatePdfXmlComponentsForLang">
+			<param name="name" value="xml-classic-components_en"/>
+			<param name="lang" value="en"/>
+		</antcall>		
+		
+		<antcall target="generatePdfXmlComponentsForLang">
+			<param name="name" value="xml-classic-components_es"/>
+			<param name="lang" value="es"/>
+		</antcall>				
+		
+	</target>
+	
+
+	<!-- You must call before to 'generatePdfGuides' -->
+	<target name="generatePdfFrenchGuide">		
+		<property name="pdf.dir" value="${doc.dir}/pdf"/>
+		<property name="pdf.style.dir" value="pdf-style"/>
+		<property name="template.pdf.style.dir" value="template-pdf-style"/>
+
+		<antcall target="filterPdfTemplates"/>
+		
+		<antcall target="removeMenuFromReference">
+			<param name="lang" value="fr"/>
+			<param name="chapter.1.title" value=" Introduction"/>			
+		</antcall>
+						
+		<antcall target="generatePdfReferenceForLang">
+			<param name="name" value="reference-guide_fr"/>
+			<param name="lang" value="fr"/>
+		</antcall>		
+						
+	</target>
+	
+	<!-- You must call before to 'generatePdfGuides' 
+	Chinese does not work, maybe a font issue
+	-->
+	<target name="generatePdfChineseGuide">		
+		<property name="pdf.dir" value="${doc.dir}/pdf"/>
+		<property name="pdf.style.dir" value="pdf-style"/>
+		<property name="template.pdf.style.dir" value="template-pdf-style"/>
+
+		<antcall target="filterPdfTemplates"/>
+		
+		<antcall target="removeMenuFromReference">
+			<param name="lang" value="zh_cn"/>
+			<param name="chapter.1.title" value="概述"/>			
+		</antcall>
+						
+		<antcall target="generatePdfReferenceForLang">
+			<param name="name" value="reference-guide_cn"/>
+			<param name="lang" value="zh_cn"/>
+		</antcall>		
+						
+	</target>
+		
+	<target name="filterPdfTemplates">
+		<copy todir="${pdf.style.dir}" overwrite="true">
+			<fileset dir="${template.pdf.style.dir}" excludes="openxava.jpg"/>
+	    	<filterset>	    		
+				<filter token="xava.version" value="${xava.version}"/>
+	    		<filter token="doc.dir" value="${doc.dir}"/>
+			</filterset> 			         
+		</copy>
+		<copy file="${template.pdf.style.dir}/openxava.jpg" todir="${pdf.style.dir}" overwrite="true"/>		
+	</target>
+	
+	<target name="removeMenuFromReference">
+		<replace dir="${doc.dir}">
+			<include name="overview_${lang}.html"/>	
+			<include name="my-first-ox-project_${lang}.html"/>
+			<include name="model_${lang}.html"/>			
+			<include name="view_${lang}.html"/>
+			<include name="tab_${lang}.html"/>			
+			<include name="mapping_${lang}.html"/>
+			<include name="controllers_${lang}.html"/>
+			<include name="application_${lang}.html"/>
+			<include name="customizing_${lang}.html"/>
+		  	<replacefilter 
+		    	token='&lt;a class="wiki_link" href="overview_${lang}.html"&gt;1.' 
+		    	value='&lt;div class="reference_menu"&gt;&lt;a class="wiki_link" href="overview_${lang}.html"&gt;1.'>				
+			</replacefilter>
+			<replacefilter 
+			   	token='&lt;strong&gt;1.${chapter.1.title}' 
+			   	value='&lt;div class="reference_menu"&gt;&lt;strong&gt;1.${chapter.1.title}'>				
+			</replacefilter>
+			<replacefilter 
+			   	token='&lt;h1 id="toc' 
+			   	value='&lt;/div&gt;&lt;h1 id="toc'>				
+			</replacefilter>						
+		</replace>
+	</target>
+	
+	<target name="removeMenuFromXmlComponents">
+		<replace dir="${doc.dir}">
+			<include name="introduction-xml_${lang}.html"/>	
+			<include name="model-xml_${lang}.html"/>			
+			<include name="view-xml_${lang}.html"/>
+			<include name="tab-xml_${lang}.html"/>			
+			<include name="mapping-xml_${lang}.html"/>
+			<include name="aspects-xml_${lang}.html"/>
+		  	<replacefilter 
+		    	token='&lt;a class="wiki_link" href="introduction-xml_${lang}.html"&gt;1.' 
+		    	value='&lt;div class="reference_menu"&gt;&lt;a class="wiki_link" href="introduction-xml_${lang}.html"&gt;1.'>				
+			</replacefilter>
+			<replacefilter 
+			   	token='&lt;strong&gt;1.${chapter.1.title}' 
+			   	value='&lt;div class="reference_menu"&gt;&lt;strong&gt;1.${chapter.1.title}'>				
+			</replacefilter>
+			<replacefilter 
+			   	token='&lt;h1 id="toc' 
+			   	value='&lt;/div&gt;&lt;h1 id="toc'>				
+			</replacefilter>						
+		</replace>
+	</target>
+	
+	<target name="generatePdfReferenceForLang">
+		<exec executable="/opt/princes/bin/prince" >			
+			<arg value="--style=${pdf.style.dir}/oxboom.css"/>
+			<arg value="--no-author-style"/>
+			<arg value="${pdf.style.dir}/cover_${lang}.html"/>
+			<arg value="${pdf.style.dir}/table-of-contents_${lang}.html"/> 
+			<arg value="${pdf.style.dir}/blank.html"/>
+			<arg value="${doc.dir}/overview_${lang}.html"/>
+			<arg value="${pdf.style.dir}/blank.html"/>
+			<arg value="${doc.dir}/my-first-ox-project_${lang}.html"/> 
+			<arg value="${pdf.style.dir}/blank.html" />
+			<arg value="${doc.dir}/model_${lang}.html"/> 
+			<arg value="${pdf.style.dir}/blank.html" />
+			<arg value="${doc.dir}/view_${lang}.html"/>
+			<arg value="${pdf.style.dir}/blank.html" />
+			<arg value="${doc.dir}/tab_${lang}.html"/>
+			<arg value="${pdf.style.dir}/blank.html" />
+			<arg value="${doc.dir}/mapping_${lang}.html"/>
+			<arg value="${pdf.style.dir}/blank.html" />
+			<arg value="${doc.dir}/controllers_${lang}.html"/>
+			<arg value="${pdf.style.dir}/blank.html" />
+			<arg value="${doc.dir}/application_${lang}.html"/>
+			<arg value="${pdf.style.dir}/blank.html" />
+			<arg value="${doc.dir}/customizing_${lang}.html"/>			
+			<arg value="-o ${pdf.dir}/openxava-${xava.version}-${name}.pdf"/>
+		</exec>
+	</target>
+	
+	<target name="generatePdfXmlComponentsForLang">
+		<exec executable="/opt/princes/bin/prince" >			
+			<arg value="--style=${pdf.style.dir}/oxboom.css"/>
+			<arg value="--no-author-style"/>
+			<arg value="${pdf.style.dir}/cover-xml_${lang}.html"/>
+			<arg value="${pdf.style.dir}/table-of-contents-xml_${lang}.html"/> 
+			<arg value="${pdf.style.dir}/blank.html"/>
+			<arg value="${doc.dir}/introduction-xml_${lang}.html"/>
+			<arg value="${pdf.style.dir}/blank.html"/>
+			<arg value="${doc.dir}/model-xml_${lang}.html"/> 
+			<arg value="${pdf.style.dir}/blank.html" />
+			<arg value="${doc.dir}/view-xml_${lang}.html"/>
+			<arg value="${pdf.style.dir}/blank.html" />
+			<arg value="${doc.dir}/tab-xml_${lang}.html"/>
+			<arg value="${pdf.style.dir}/blank.html" />
+			<arg value="${doc.dir}/mapping-xml_${lang}.html"/>
+			<arg value="${pdf.style.dir}/blank.html" />
+			<arg value="${doc.dir}/aspects-xml_${lang}.html"/>
+			<arg value="-o ${pdf.dir}/openxava-${xava.version}-${name}.pdf"/>
+		</exec>
+	</target>
+	
+	
+	<target name="adjustCSS">
+		<echo file="${doc.dir}/static/style.css" append="true">
+.wiki #toc div { border-bottom: 1px solid #AAA; } .wiki #toc a { text-decoration: none;  }
+		</echo>
+	</target>
+				
+</project>

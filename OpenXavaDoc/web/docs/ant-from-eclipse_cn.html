@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title>openxava - ant-from-eclipse_cn</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="x用Eclipse执行Ant任务"></a><span style="background-color: #ffffff;">用Eclipse执行Ant任务</span></h1>
+ <br />
+<span style="background-color: #ffffff;">你需要安装Java JDK，并且创建环境变量 </span><span style="background-color: #ffffff;"><a class="wiki_link" href="my-first-ox2-project-setup_en">JAVA_HOME</a></span>。<br />
+<span style="background-color: #ffffff;">到目前为止，Eclipse做的最好的一件事件就是它在一个文件夹中完全安装的。</span><br />
+<span style="background-color: #ffffff;">另外一个重要方面是：</span><br />
+<br />
+<h2 id="toc1"><a name="x用Eclipse执行Ant任务-文件 build.xml"></a><span style="background-color: #ffffff;"><a name="Executing Ant tasks from Eclipse-File build.xml"></a>文件 build.xml</span></h2>
+ <br />
+<span style="background-color: #ffffff;">这个文件有许多需要Apache Ant执行的任务。这些任务一般是：</span><br />
+<ul><li><span style="background-color: #ffffff;"><em>generateCode 生成代码</em>: 首次代码生成。</span></li><li><span style="background-color: #ffffff;"><em>regenerateCode 重新生成代码</em>: 修改后重新生成代码。这将会替换之前生成的代码。</span></li><li><span style="background-color: #ffffff;"><em>updateSchema 更新结构</em>: 创建或者更新数据库的表。</span></li><li><span style="background-color: #ffffff;"><em>deployWar 部署war:</em> 将所有必须的文件放到应用服务器，并运行我们的应用程序。</span></li><li><span style="background-color: #ffffff;"><em>rebuild 重新编译</em>: 重新编译我们的代码。</span></li><li><span style="background-color: #ffffff;"><em>generatePortlets 生成portlets</em>: 应用程序可以在portal中运行(like <em>Liferay</em>, <em>Stringbeans</em>..)</span></li><li><span style="background-color: #ffffff;"><em>all 执行所有</em>: 执行build.xml文件中定义的所有任务。它是默认任务。</span></li></ul><br />
+<h2 id="toc2"><a name="x用Eclipse执行Ant任务-运行build.xml文件的默认任务"></a><span style="background-color: #ffffff;"><a name="Executing Ant tasks from Eclipse-Running the default task from the file build.xml"></a>运行build.xml文件的默认任务</span></h2>
+ <span style="background-color: #ffffff;">鼠标右键点击工程中的build.xml，选择</span><strong><span style="background-color: #ffffff;">Run As – 2 AntBuild</span></strong><span style="background-color: #ffffff;">，然后默认任务就会执行。 </span><br />
+<br />
+<table class="captionBox"><tr><td class="captionedImage"><img src="files/my-first-ox-project05.png" alt="my-first-ox-project05.png" title="my-first-ox-project05.png" /></td></tr><tr><td class="imageCaption">my-first-ox-project05.png</td></tr></table><br />
+<br />
+<h2 id="toc3"><a name="x用Eclipse执行Ant任务-选择并运行build.xml文件中的一个任务"></a><span style="background-color: #ffffff;"><a name="Executing Ant tasks from Eclipse-Selecting and Running a task from the file build.xml"></a>选择并运行build.xml文件中的一个任务</span></h2>
+ <br />
+<span style="background-color: #ffffff;">鼠标右键点击工程中的build.xml，选择</span><strong><span style="background-color: #ffffff;">Run As – 3 AntBuild …</span></strong><span style="background-color: #ffffff;">,，请注意是3个点(…)! ，然后选择build.xml文件中的一个任务执行。</span><br />
+<br />
+<br />
+<h2 id="toc4"><a name="x用Eclipse执行Ant任务-定义“外部工具"></a><span style="background-color: #ffffff;"><a name="Executing Ant tasks from Eclipse-Defining &quot;External Tools&quot;."></a>定义“外部工具</span></h2>
+ <span style="background-color: #ffffff;">一旦任务被定义，他们就可以很方便的执行。因此我们在Eclipse界面上部选择图标 </span><table class="captionBox"><tr><td class="captionedImage"><img src="files/my-first-ox-project06.png" alt="my-first-ox-project06.png" title="my-first-ox-project06.png" /></td></tr><tr><td class="imageCaption">my-first-ox-project06.png</td></tr></table><span style="background-color: #ffffff;"> 点击</span><strong><span style="background-color: #ffffff;">Run As</span></strong><span style="background-color: #ffffff;">。</span><br />
+<span style="background-color: #ffffff;">点击</span><strong><span style="background-color: #ffffff;">1</span></strong><table class="captionBox"><tr><td class="captionedImage"><img src="files/my-first-ox-project07.png" alt="my-first-ox-project07.png" title="my-first-ox-project07.png" /></td></tr><tr><td class="imageCaption">my-first-ox-project07.png</td></tr></table><span style="background-color: #ffffff;">建立一个新的任务。我们需要注意焦点处于标记为</span><strong><span style="background-color: #ffffff;">2 </span></strong><span style="background-color: #ffffff;">的 </span><strong><span style="background-color: #ffffff;">Main 选项栏</span></strong><span style="background-color: #ffffff;">。我们还需要注意build.xml是否是在我们工程的，还有我们给任务起的名字是否正确。</span><br />
+<span style="background-color: #ffffff;">现在我们点击</span><strong><span style="background-color: #ffffff;">Targets 选项</span></strong><strong><span style="background-color: #ffffff;">栏</span></strong><span style="background-color: #ffffff;">。</span><br />
+<br />
+<table class="captionBox"><tr><td class="captionedImage"><img src="files/my-first-ox-project08.png" alt="my-first-ox-project08.png" title="my-first-ox-project08.png" /></td></tr><tr><td class="imageCaption">my-first-ox-project08.png</td></tr></table><br />
+<br />
+<span style="background-color: #ffffff;">现在我们选择我们所希望执行的Ant任务。我们可以看到有些任务名是西班牙语的，不过它们与英文比较接近。默认的任务是“todo”（英语是“all”）。</span><br />
+<br />
+<table class="captionBox"><tr><td class="captionedImage"><img src="files/my-first-ox-project09.png" alt="my-first-ox-project09.png" title="my-first-ox-project09.png" /></td></tr><tr><td class="imageCaption">my-first-ox-project09.png</td></tr></table><br />
+<br />
+<span style="background-color: #ffffff;">最后我们点击 </span><strong><span style="background-color: #ffffff;">Refresh 选项栏 </span></strong><span style="background-color: #ffffff;">保证选项 </span><strong><span style="background-color: #ffffff;">the entire workspace</span></strong><span style="background-color: #ffffff;"> 已经被选择。</span><br />
+<br />
+<h2 id="toc5"><a name="x用Eclipse执行Ant任务-运行之前定义的任务"></a><span style="background-color: #ffffff;"><a name="Executing Ant tasks from Eclipse-Running previously defined tasks."></a>运行之前定义的任务</span></h2>
+ <span style="background-color: #ffffff;">一旦我们定义了任务，它们就可以很方便的被执行。我们点击界面上部的图标： </span><table class="captionBox"><tr><td class="captionedImage"><img src="files/my-first-ox-project06.png" alt="my-first-ox-project06.png" title="my-first-ox-project06.png" /></td></tr><tr><td class="imageCaption">my-first-ox-project06.png</td></tr></table><span style="background-color: #ffffff;">。如果看到了我们定义的任务(在这个例子中就是第4个</span><em><span style="background-color: #ffffff;">Gestio.regenerarCodigo</span></em><span style="background-color: #ffffff;">) 就可以选择它。如果它不可见，我们就需要在</span><strong><span style="background-color: #ffffff;">external 选项栏</span></strong><span style="background-color: #ffffff;"> 找到它并运行它。</span><br />
+<br />
+<table class="captionBox"><tr><td class="captionedImage"><img src="files/my-first-ox-project10.png" alt="my-first-ox-project10.png" title="my-first-ox-project10.png" /></td></tr><tr><td class="imageCaption">my-first-ox-project10.png</td></tr></table>
+    </div>
+  </body>
+</html>

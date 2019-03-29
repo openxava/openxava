@@ -1,0 +1,150 @@
+<html>
+  <head>
+    <title>openxava - email-notifications_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Notificación de cambios por correo electrónico (nuevo en v5.9)"></a>Notificación de cambios por correo electrónico <em>(nuevo en v5.9)</em></h1>
+ A partir de v5.9 el usuario puede seguir cualquier módulo simplemente pulsando en un icono en la esquina superior derecha:<br />
+<img src="files/email-subscription-link_es.png" alt="email-subscription-link_es.png" title="email-subscription-link_es.png" /><br />
+Después de pulsarlo cualquier cambio que otros usuarios hagan en los datos de este módulo se le notificará vía correo electrónico. El usuario puede pulsar en cualquier momento en el mismo icono para anular la suscripción. Para que esto funcione el usuario necesita tener una cuenta de correo electrónico válida definida en su cuenta de usuario (XavaPro o Liferay) o bien usar un correo electrónico válido como nombre de usuario (algo disponible incluso en el OpenXava simple y llano mediante <em>naviox-users.properties</em>). Suscribirse a un módulo no está disponible para los módulos con <em>@Tab</em> en <em>baseCondition</em> por razones de seguridad.<br />
+Además, cuando un usuario crea un nuevo registro, todos los cambios a ese registro concreto por otros usuario le serán notificados por correo electrónico.<br />
+En cada mensaje el usuario tiene vínculos para quitar la suscripción.<br />
+Los cambios notificados son: creación de nuevos registros, modificación, borrado, añadir comentarios a una discusión, añadir/quitar imágenes de la galería, añadir/quitar archivos adjuntos y modificar colecciones.<br />
+En el caso de la modificación el mensaje de correo informa sobre las propiedades que se han cambiado con su valor antiguo y nuevo.<br />
+<span style="font-size: 1.3em;"><strong>Configuración</strong></span><br />
+Esta característica está desactivada por defecto. Para activarla has de seguir los siguientes pasos.<br />
+<h3 id="toc1"><a name="Notificación de cambios por correo electrónico (nuevo en v5.9)--Añadir la entidad de suscripción al persistence.xml"></a>Añadir la entidad de suscripción al persistence.xml</h3>
+ En el <em>persistence.xml</em> de tu proyecto añade la entidad <em>org.openxava.util.impl.EmailSubscription</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;persistence-unit</span> <span class="re0">name</span>=<span class="st0">&quot;default&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span> ... <span class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span> ... <span class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span> ... <span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.util.impl.EmailSubscription<span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+        ...
+    <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;persistence-unit</span> <span class="re0">name</span>=<span class="st0">&quot;junit&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span> ... <span class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span> ... <span class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span> ... <span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.util.impl.EmailSubscription<span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+        ...
+    <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span></pre>
+
+Lo incluimos también en la unidad de persistencia <em>junit</em> para que la tarea ant <em>updateSchema</em> la reconozca.<br />
+<h3 id="toc2"><a name="Notificación de cambios por correo electrónico (nuevo en v5.9)--Crear la tabla de suscripciones"></a>Crear la tabla de suscripciones</h3>
+ Has de crear la siguiente tabla en tu base de datos:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.sql  {font-family:monospace;}
+.sql .imp {font-weight: bold; color: red;}
+.sql .kw1 {color: #993333; font-weight: bold;}
+.sql .co1 {color: #808080; font-style: italic;}
+.sql .coMULTI {color: #808080; font-style: italic;}
+.sql .es0 {color: #000099; font-weight: bold;}
+.sql .br0 {color: #66cc66;}
+.sql .sy0 {color: #66cc66;}
+.sql .st0 {color: #ff0000;}
+.sql .nu0 {color: #cc66cc;}
+.sql span.xtra { display:block; }
+
+-->
+</style><pre class="sql"><span class="kw1">CREATE</span> <span class="kw1">TABLE</span> OXEMAILSUBSCRIPTIONS <span class="br0">&#40;</span>
+ module <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">80</span><span class="br0">&#41;</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span><span class="sy0">,</span>
+ email <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">50</span><span class="br0">&#41;</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span><span class="sy0">,</span>
+ <span class="kw1">PRIMARY</span> <span class="kw1">KEY</span> <span class="br0">&#40;</span>module<span class="sy0">,</span> email<span class="br0">&#41;</span>
+<span class="br0">&#41;</span>;
+<span class="kw1">CREATE</span> <span class="kw1">INDEX</span> UK_mo4jh7y2lwcbl9twwxjn2733e
+ <span class="kw1">ON</span> OXEMAILSUBSCRIPTIONS <span class="br0">&#40;</span>module<span class="br0">&#41;</span>;</pre>
+
+Puede que tengas que adaptar la sentencia de arriba al dialecto de tu base de datos.<br />
+Si creas las tablas a partir de las entidades JPA (usando la tarea Ant <em>updateSchema</em> o con <em>hibernate.hbm2ddl.auto</em> a <em>update</em> en <em>persistence.xml</em>) este paso no es necesario.<br />
+<h3 id="toc3"><a name="Notificación de cambios por correo electrónico (nuevo en v5.9)--Configuración del correo electrónico en xava.properties"></a>Configuración del correo electrónico en xava.properties</h3>
+ Si todavía no tienes configurado el correo en <em>xava.properties</em> tienes que hacerlo. Por ejemplo:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="re0">smtpHost</span><span class="sy0">=</span><span class="re1">smtp.gmail.com</span>
+<span class="re0">smtpPort</span><span class="sy0">=</span><span class="re1">587</span>
+<span class="re0">smtpUserId</span><span class="sy0">=</span><span class="re1">myoxapps@gmail.com</span>
+<span class="re0">smtpUserPassword</span><span class="sy0">=</span><span class="re1">openxava</span>
+<span class="re0">smtpHostTrusted</span><span class="sy0">=</span><span class="re1">true</span>
+<span class="re0">smtpStartTLSEnable</span><span class="sy0">=</span><span class="re1">true</span></pre>
+
+No uses los datos de arriba tal cual, has de poner los datos de tu propio correo.<br />
+<h3 id="toc4"><a name="Notificación de cambios por correo electrónico (nuevo en v5.9)--Definir el proveedor del rastreador de accesos en xava.properties"></a>Definir el proveedor del rastreador de accesos en xava.properties</h3>
+ Para terminar añade la siguiente entrada en el <em>xava.properties</em> de tu proyecto:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="re0">accessTrackerProvidersClasses</span><span class="sy0">=</span><span class="re1">org.openxava.util.EmailNotificationsAccessTrackerProvider</span></pre>
+
+Si en cualquier momento quieres desactivar las notificaciones por correo electrónico simplemente quita o comenta la línea de arriba.<br />
+<h2 id="toc5"><a name="Notificación de cambios por correo electrónico (nuevo en v5.9)-Uso por código"></a>Uso por código</h2>
+ Puedes suscribir y anular suscripciones de usuarios para módulos o entidades usando la clase de utilidad <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/util/EmailNotifications.html" rel="nofollow">EmailNotifications</a></em> del paquete <em>org.openxava.util</em>.<br />
+Por defecto, todos los cambios hechos vía <em>MapFacade</em> son notificados, sin embargo si creas tu propio código para modificar datos por JPA, JDBC, etc. y quieres que tu usuarios sean notificados por correo usa la clase <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/util/AccessTracker.html" rel="nofollow">AccessTracker</a></em> del paquete <em>org.openxava.util</em>.
+    </div>
+  </body>
+</html>

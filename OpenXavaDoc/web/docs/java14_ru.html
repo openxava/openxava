@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>openxava - java14_ru</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Java 1.4"></a>Java 1.4</h1>
+ Несмотря на то, что OpenXava поставляется компилированной для Java 5, она может быть без особых проблем пересобрана с использованием Java 1.4.<br />
+Далее рассказано, как это сделать в Eclipse:<br />
+<ul><li>Windows &gt; Preferences &gt; Java &gt; Installed JREs : Выберите Java 1.4 среди установленных JRE.</li><li>OpenXava &gt; Properties &gt; Java Compiler &gt; Compiler compliance level: Проверьте, что уровень совместимости компилятора установлен в 1.4</li><li>OpenXava &gt; Properties &gt; Java Builde Path &gt; Source &gt; Удалить папку java5-src</li><li>Запустите полную сборку (Ctrl -B)</li></ul>К сожалению, вы не сможете использовать аннотации с Java 1.4. Java 1.4 работает только с классическими XML компонентами.
+    </div>
+  </body>
+</html>

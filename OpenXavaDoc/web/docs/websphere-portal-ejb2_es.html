@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>openxava - websphere-portal-ejb2_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="WebSphere Portal EJB2"></a>WebSphere Portal EJB2</h1>
+<em><strong>NOTA:</strong></em> <em>Estas instrucciones solo aplican si queremos usar EJB2 (con CMP); si usamos Hibernate o EJB3 JPA podemos desplegar directamente el war que produce OpenXava en el WebSphere Portal. No es aconsejable usar EJB2 para nuevos desarrollos.</em><br />
+<br />
+OpenXava genera aplicaciones de portlets compatibles con cualquier portal compatible con JSR-168. Por ende las aplicaciones OpenXava son desplegables en WebSphere Portal 5.1 y 6.0.<br />
+Para instalar tu aplicación en un WebSphere Portal tienes que:<br />
+<ul><li>Asegurarte que tu aplicacion funciona bien en WebSphere Application Server, para esto puede seguir las instructions en <a class="wiki_link" href="websphere-ejb2_es.html"> WebSphere con OpenXava</a>.</li><li>Quitar la referencia al módulo WAR de tu META-INF/application.xml en tu archivo EAR.</li><li>Instalar tu EAR en el WebSphere Application Server que ejecuta tu portal (típicamente WebSphere_Portal), puedes hacerlo usando wsadmin por ejemplo.</li><li>Generar una aplicación de portlets, puede hacerlo usando la tarea ant deployPortlets, la aplicación se generará en tu directorio dist.</li><li>Coger el jar EJB generado al desplegar en WAS (con todos los stub y skels) y copialo a WEB-INF/lib del WAR con los portlets.</li><li>Despliegar tu aplicación de portlets (el WAR) en tu WebSphere Portal como una aplicaciones de portlets convencional.</li><li>Ahora los portlets de tu aplicación están disponible para asignarlos a las páginas se tus usuarios como gustes.</li></ul>Las aplicaciones OpenXava están testeadas completamente en producción con WebSphere Portal 5.1 y 6.0. Pero trabajar con WebSphere Application Server y WebSphere Portal requiere algo de experiencia.
+    </div>
+  </body>
+</html>

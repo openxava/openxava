@@ -1,0 +1,1260 @@
+<html>
+  <head>
+    <title>openxava - tab-xml_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Chapter 4: Tabular data XML (classic)">Chapter 4: Tabular data XML (classic)</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 4: Tabular data XML (classic)-Initial properties and emphasize rows">Initial properties and emphasize rows</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 4: Tabular data XML (classic)-Filters and base condition">Filters and base condition</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 4: Tabular data XML (classic)-Partial select (new in v5.6)">Partial select (new in v5.6)</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 4: Tabular data XML (classic)-Pure SQL select">Pure SQL select</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 4: Tabular data XML (classic)-Default order">Default order</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 4: Tabular data XML (classic)-Default values for tabs at application level (new in v4m4)">Default values for tabs at application level (new in v4m4)</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 4: Tabular data XML (classic)-Column summation (new in v4.1)">Column summation (new in v4.1)</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 4: Tabular data XML (classic)-Choosing an editor (new in v4.6)">Choosing an editor (new in v4.6)</a></div>
+<div style="margin-left: 2em;"><a href="#Chapter 4: Tabular data XML (classic)-Several presentation formats using editors (new in v5.7)">Several presentation formats using editors (new in v5.7)</a></div>
+<div style="margin-left: 3em;"><a href="#Chapter 4: Tabular data XML (classic)-Several presentation formats using editors (new in v5.7)-Removing the Charts from list mode (new in v5.7)">Removing the Charts from list mode (new in v5.7)</a></div>
+</div>
+<a class="wiki_link" href="introduction-xml_en.html">1.Introduction XML</a> | <a class="wiki_link" href="model-xml_en.html">2.Model XML</a> | <a class="wiki_link" href="view-xml_en.html">3.View XML</a> | <strong><span class="wiki_link">4.Tab XML</span></strong> | <a class="wiki_link" href="mapping-xml_en.html">5.Mapping XML</a> | <a class="wiki_link" href="aspects-xml_en.html">6.Aspects XML</a><br />
+<h1 id="toc0"><a name="Chapter 4: Tabular data XML (classic)"></a>Chapter 4: Tabular data XML (classic)</h1>
+ Tabular data is data that is displayed in table format. If you create a conventional OpenXava module, then the user can manage the component data with a list like this:<br />
+<img src="files/tab_en010.jpg" alt="tab_en010.jpg" title="tab_en010.jpg" /><br />
+This list allows user to:<br />
+<ul><li>Filter by any columns or a combination of them.</li><li>Order by any column with a single click.</li><li>Display data by pages, and therefore the user can work efficiently with millions of records.</li><li>Customize the list: add, remove and change the column order (with the little pencil in the left top corner). This customizations are remembered by user.</li><li>Generic actions to process the objects in the list: generate PDF reports, export to Excel or remove the selected objects.</li></ul>The default list is enough for many cases, moreover the user can customize it. Nevertheless, sometimes it is convenient to modify the list behavior. For this you have the element <em>&lt;tab/&gt;</em> within the component definition.<br />
+The syntax of tab is:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span></span>
+<span class="sc3">    <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span>           &lt;!-- 1 --<span class="re2">&gt;</span></span>
+    editor=&quot;editor&quot;       <span class="sc-1">&lt;!-- 2  New in v4.6 --&gt;</span>
+    editores=&quot;editores&quot;   <span class="sc-1">&lt;!-- 3  New in v5.7 --&gt;</span>
+&gt;
+   <span class="sc3"><span class="re1">&lt;filter</span> ... <span class="re2">/&gt;</span></span>         <span class="sc-1">&lt;!-- 4 --&gt;</span>
+   <span class="sc3"><span class="re1">&lt;row-style</span> ... <span class="re2">/&gt;</span></span> ...  <span class="sc-1">&lt;!-- 5 --&gt;</span>
+   <span class="sc3"><span class="re1">&lt;properties</span> ... <span class="re2">/&gt;</span></span>     <span class="sc-1">&lt;!-- 6 --&gt;</span>
+   <span class="sc3"><span class="re1">&lt;base-condition</span> ... <span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 7 --&gt;</span>
+   <span class="sc3"><span class="re1">&lt;default-order</span> ... <span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- 8 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
+
+<ol><li><strong>name</strong> (optional): You can define several tabs in a component, and set a name for each one. This name is used to indicate the tab that you want to use (usually in <em>application.xml</em>).</li><li><strong><a class="wiki_link" href="tab-xml_en.html#Chapter%204:%20Tabular%20data%20XML%20(classic)-Choosing%20an%20editor%20(new%20in%20v4.6)">editor</a></strong> (optional): <em>(New in v4.6)</em> Editor from <em>default-editors.xml</em> or <em>editors.xml</em> used to display the list. It's used for the default format, if the list has several formats the other formats are not affected.</li><li><strong><a class="wiki_link" href="tab-xml_en.html#Chapter%204:%20Tabular%20data%20XML%20(classic)-Several%20presentation%20formats%20using%20editors%20(new%20in%20v5.7)">editores</a></strong> (optional): <em>(New in v5.7)</em> Comma separated list of editors used to display the list. Each editor corresponds to an available format for the users. The editors are declared in <em>default-editors.xml</em> or <em>editors.xml</em>.</li><li><strong>filter</strong> (one, optional): Allows to define programmatically some logic to apply to the values entered by user when he filters the list data.</li><li><strong>row-style</strong> (several, optional): A simple way to specify a different visual style for some rows. Normally to emphasize rows that fulfill certain condition.</li><li><strong>properties</strong> (one, optional): The list of properties to show initially. Can be qualified (that is you can specify <em>referenceName.propertyName</em> at any depth level). The suffix + <em>(new in v4.1)</em> can be added to a property to show the <a class="wiki_link" href="tab_en#Chapter%205:%20Tabular%20data-Column%20summation%20(new%20in%20v4.1)">sum of the column</a> at bottom.</li><li><strong>base-condition</strong> (one, optional): Condition to be fulfilled by the displayed data. It's added to the user condition if needed.</li><li><strong>default-order</strong> (one, optional): To specify the initial order for data.</li></ol><h2 id="toc1"><a name="Chapter 4: Tabular data XML (classic)-Initial properties and emphasize rows"></a>Initial properties and emphasize rows</h2>
+ The most simple customization is to indicate the properties to show initially:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;row-style</span> <span class="re0">style</span>=<span class="st0">&quot;row-highlight&quot;</span> <span class="re0">property</span>=<span class="st0">&quot;type&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;steady&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+ name, type, seller.name, address.city, seller.level.description
+ <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
+
+These properties are shown the first time the module is executed, after that the user will have the option to change the properties to display. Also you see how you can use qualified properties (properties of references) in any level.<br />
+In this case you can see also how to indicate a <em>&lt;row-style/&gt;</em>; you are saying that the object which property type has the value steady will use the style <em>row-highlight</em>. The style has to be defined in the CSS style-sheet. The <em>row-highlight</em> (in versions previous to v4m3 it was <em>highlight</em>) style are already defined in OpenXava, but you can define more.<br />
+The visual effect of above is:<br />
+<img src="files/tab_en020.jpg" alt="tab_en020.jpg" title="tab_en020.jpg" /><br />
+<h2 id="toc2"><a name="Chapter 4: Tabular data XML (classic)-Filters and base condition"></a>Filters and base condition</h2>
+ A common technique is to combine a filter with a base condition:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">name</span>=<span class="st0">&quot;Current&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;filter</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.test.filters.CurrentYearFilter&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+ year, number, amountsSum, vat, detailsCount, paid, customer.name
+ <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;base-condition<span class="re2">&gt;</span></span></span>${year} = ?<span class="sc3"><span class="re1">&lt;/base-condition<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
+
+The condition has to have SQL syntax, you can use ? for arguments and the property names inside ${}. In this case a filter is used to set the value of the argument. The filter code is:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.filters</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.filters.*</span><span class="sy0">;</span>
+<span class="co3">/**
+ * @author Javier Paniza
+ */</span>
+<span class="kw2">public</span> <span class="kw2">class</span> CurrentYearFilter <span class="kw2">implements</span> IFilter <span class="br0">&#123;</span> <span class="co1">// 1</span>
+ <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> filter<span class="br0">&#40;</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> o<span class="br0">&#41;</span> <span class="kw2">throws</span> FilterException <span class="br0">&#123;</span> <span class="co1">// 2</span>
+ <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span class="kw46">Calendar</span></a> cal = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span class="kw46">Calendar</span></a>.<span class="me1">getInstance</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ cal.<span class="me1">setTime</span><span class="br0">&#40;</span><span class="kw2">new</span> java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span class="kw166">Date</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span class="kw21">Integer</span></a> year = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span class="kw21">Integer</span></a><span class="br0">&#40;</span>cal.<span class="me1">get</span><span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span class="kw46">Calendar</span></a>.<span class="me1">YEAR</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> <span class="br0">&#91;</span><span class="br0">&#93;</span> r = <span class="kw4">null</span><span class="sy0">;</span>
+ <span class="kw1">if</span> <span class="br0">&#40;</span>o == <span class="kw4">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="co1">// 3</span>
+ r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a><span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="sy0">;</span>
+ r<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span> = year<span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+ <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>o <span class="kw2">instanceof</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> <span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="co1">// 4</span>
+ <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> <span class="br0">&#91;</span><span class="br0">&#93;</span> a = <span class="br0">&#40;</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> <span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span> o<span class="sy0">;</span>
+ r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a><span class="br0">&#91;</span>a.<span class="me1">length</span> + <span class="nu0">1</span><span class="br0">&#93;</span><span class="sy0">;</span>
+ r<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span> = year<span class="sy0">;</span>
+ <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw3">int</span> i = <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> a.<span class="me1">length</span><span class="sy0">;</span> i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ r<span class="br0">&#91;</span>i+<span class="nu0">1</span><span class="br0">&#93;</span>=a<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+ <span class="br0">&#125;</span>
+ <span class="kw1">else</span> <span class="br0">&#123;</span> <span class="co1">// 5</span>
+ r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a><span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span><span class="sy0">;</span>
+ r<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span> = year<span class="sy0">;</span>
+ r<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span> = o<span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+ <span class="kw2">return</span> r<span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+A filter gets the arguments of user type for filtering in lists and for processing, it returns the value that is sent to OpenXava to execute the query. As you see it must implement <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/filters/IFilter.html" rel="nofollow">IFilter</a></em> (1), this force it to have a method named <em>filter</em> (2) that receives a object with the value of arguments and returns the filtered value that will be used as query argument. These arguments can be null (3), if the user does not type values, a simple object (5), if the user types a single value or an object array (4), if the user types several values. The filter must consider all cases. The filter of this example adds the current year as first argument, and this value is used for filling the arguments in the <em>base-condition</em> of tab.<br />
+To sum up, the tab that you see above only shows the invoices of the current year.<br />
+Another case:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">name</span>=<span class="st0">&quot;DefaultYear&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;filter</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.test.filters.DefaultYearFilter&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+ year, number, customer.number,
+ customer.name, amountsSum, vat, detailsCount, paid, importance
+ <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;base-condition<span class="re2">&gt;</span></span></span>${year} = ?<span class="sc3"><span class="re1">&lt;/base-condition<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
+
+In this case the filter is:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.filters</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.filters.*</span><span class="sy0">;</span>
+<span class="co3">/**
+ * @author Javier Paniza
+ */</span>
+<span class="kw2">public</span> <span class="kw2">class</span> DefaultYearFilter <span class="kw2">extends</span> BaseContextFilter <span class="br0">&#123;</span> <span class="co1">// 1</span>
+ <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> filter<span class="br0">&#40;</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> o<span class="br0">&#41;</span> <span class="kw2">throws</span> FilterException <span class="br0">&#123;</span>
+ <span class="kw1">if</span> <span class="br0">&#40;</span>o == <span class="kw4">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> <span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> getDefaultYear<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#125;</span><span class="sy0">;</span> <span class="co1">// 2</span>
+ <span class="br0">&#125;</span>
+ <span class="kw1">if</span> <span class="br0">&#40;</span>o <span class="kw2">instanceof</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> <span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+List"><span class="kw166">List</span></a> c = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/ArrayList.html"><span class="kw46">ArrayList</span></a><span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Arrays.html"><span class="kw46">Arrays</span></a>.<span class="me1">asList</span><span class="br0">&#40;</span><span class="br0">&#40;</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> <span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span> o<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ c.<span class="me1">add</span><span class="br0">&#40;</span><span class="nu0">0</span>, getDefaultYear<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// 2</span>
+ <span class="kw2">return</span> c.<span class="me1">toArray</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+ <span class="kw1">else</span> <span class="br0">&#123;</span>
+ <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> <span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> getDefaultYear<span class="br0">&#40;</span><span class="br0">&#41;</span>, o <span class="br0">&#125;</span><span class="sy0">;</span> <span class="co1">// 2</span>
+ <span class="br0">&#125;</span>
+ <span class="br0">&#125;</span>
+ <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span class="kw21">Integer</span></a> getDefaultYear<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">throws</span> FilterException <span class="br0">&#123;</span>
+ <span class="kw2">try</span> <span class="br0">&#123;</span>
+ <span class="kw2">return</span> getInteger<span class="br0">&#40;</span><span class="st0">&quot;xavatest_defaultYear&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// 3</span>
+ <span class="br0">&#125;</span>
+ <span class="kw2">catch</span> <span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> ex<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+ ex.<span class="me1">printStackTrace</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ <span class="kw2">throw</span> <span class="kw2">new</span> FilterException<span class="br0">&#40;</span>
+ <span class="st0">&quot;Impossible to obtain default year associated with the session&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ <span class="br0">&#125;</span>
+ <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+This filter extends <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/filters/BaseContextFilter.html" rel="nofollow">BaseContextFilter</a></em>, this allow you to access to the session objects of OpenXava. You can see how it uses a method <em>getDefaultYear()</em> (2) that call to <em>getInteger()</em> (3) which (as <em>getString()</em>, <em>getLong()</em> or the more generic <em>get()</em>) that allows you to access to value of the session object <em>xavatest_defaultYear</em>. This object is defined in <em>controllers.xml</em> this way:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;object</span> <span class="re0">name</span>=<span class="st0">&quot;xavatest_defaultYear&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;java.lang.Integer&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;1999&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+The actions can modify it and its life is the user session life but it's private for each module. This issue is treated in more detail in <a class="wiki_link" href="controllers_en">controllers chapter</a>.<br />
+This is a good technique for data shown in list mode to depend on the user or the configuration that he has chosen.<br />
+Also it's possible to access environment variables inside a filter <em>(new in v2.0)</em> of type <em>BaseContextFilter</em>, using <em>getEnvironment()</em> method, just in this way:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span class="kw21">Integer</span></a><span class="br0">&#40;</span>getEnvironment<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="st0">&quot;XAVATEST_DEFAULT_YEAR&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+For learning more about environment variables see the <a class="wiki_link" href="controllers_en">controllers chapter</a>.<br />
+<h2 id="toc3"><a name="Chapter 4: Tabular data XML (classic)-Partial select (new in v5.6)"></a>Partial select <em>(new in v5.6)</em></h2>
+ In <em>baseCondition</em> you can write the select statement from the FROM clause, to do that just start the condition with <em>from</em> using SQL syntax:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="sy0">&lt;</span>tab name=<span class="st0">&quot;FromAlaska&quot;</span><span class="sy0">&gt;</span>
+    <span class="sy0">&lt;</span>base-condition<span class="sy0">&gt;</span>
+        from XAVATEST.<span class="me1">CUSTOMER</span>
+        inner join XAVATEST.<span class="me1">CUSTOMER_STATE</span> states1_
+            on XAVATEST.<span class="me1">CUSTOMER</span>.<span class="me1">NUMBER</span>=states1_.<span class="me1">CUSTOMER</span>
+        inner join XAVATEST.<span class="me1">STATE</span> state2_
+            on states1_.<span class="me1">STATE</span>=state2_.<span class="me1">ID</span>
+        inner join XAVATEST.<span class="me1">STATE</span> T_address_state
+            on XAVATEST.<span class="me1">CUSTOMER</span>.<span class="me1">STATE</span>=T_address_state.<span class="me1">ID</span>
+        where state2_.<span class="me1">ID</span>=<span class="st0">'AK'</span>
+    <span class="sy0">&lt;</span>/base-condition<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>/tab<span class="sy0">&gt;</span></pre>
+
+This is better option than using the complete select because the list of properties is generated by OpenXava, so the user can customize the list while the developer still has the option of creating sophisticated queries.<br />
+<h2 id="toc4"><a name="Chapter 4: Tabular data XML (classic)-Pure SQL select"></a>Pure SQL select</h2>
+ You can write the complete select statement to obtain the tab data:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">name</span>=<span class="st0">&quot;CompleteSelect&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>number, description, family<span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;base-condition<span class="re2">&gt;</span></span></span>
+ select ${number}, ${description}, XAVATEST@separator@FAMILY.DESCRIPTION
+ from XAVATEST@separator@SUBFAMILY, XAVATEST@separator@FAMILY
+ where XAVATEST@separator@SUBFAMILY.FAMILY =
+ XAVATEST@separator@FAMILY.NUMBER
+ <span class="sc3"><span class="re1">&lt;/base-condition<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
+
+Use it only in extreme cases. Normally it is not necessary, and if you use this technique the user cannot customize his list.<br />
+<h2 id="toc5"><a name="Chapter 4: Tabular data XML (classic)-Default order"></a>Default order</h2>
+ Finally, setting a default order is very easy:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">name</span>=<span class="st0">&quot;Simple&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>year, number, date<span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;default-order<span class="re2">&gt;</span></span></span>${year} desc, ${number} desc<span class="sc3"><span class="re1">&lt;/default-order<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
+
+This specified the initial order and the user can choose any other order by clicking in the heading of a column.<br />
+<h2 id="toc6"><a name="Chapter 4: Tabular data XML (classic)-Default values for tabs at application level (new in v4m4)"></a>Default values for tabs at application level <em>(new in v4m4)</em></h2>
+ This feature works for XML Component just in the same way <a class="wiki_link" href="tab_en#default-values-for-tabs">that for JPA entities</a>.<br />
+<h2 id="toc7"><a name="Chapter 4: Tabular data XML (classic)-Column summation (new in v4.1)"></a>Column summation <em>(new in v4.1)</em></h2>
+ To show the sum of all the value of a column at the bottom of the list you only have to add the + symbol to the property name, as following:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>year, number, description, amount+<span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
+
+In this case the sum of the <em>amount</em> column will be shown just as in the next figure:<br />
+<img src="files/tab_en030.jpg" alt="tab_en030.jpg" title="tab_en030.jpg" /><br />
+The summation is only allowed for not calculated numeric properties.<br />
+<h2 id="toc8"><a name="Chapter 4: Tabular data XML (classic)-Choosing an editor (new in v4.6)"></a>Choosing an editor (<em>new in v4.6</em>)</h2>
+ An editor is the actual code (usually a JSP) that displays the list to the user. By default, the editor OpenXava uses for displaying tabular data is a list with pagination, filtering, ordering and search, but you can specify your own editor to display a concrete tab using the atribute <em>editor</em> in <em>&lt;tab/&gt;</em>.<br />
+For example, if you have a list of a <em>Customer</em> entities and you want to display it using a custom user interface, such as a row of cards, you can do it in this way:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">name</span>=<span class="st0">&quot;Cards&quot;</span> <span class="re0">editor</span>=<span class="st0">&quot;CustomerCardList&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>number, name, type, address.city, address.state.name<span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
+
+In this case the <em>CustomerCardList</em> editor will be used for displaying/editing the tab data, instead of the default one. You must define your <em>CustomerCardList</em> editor in the <em>xava/editors.xml</em> file of your project:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span class="re0">name</span>=<span class="st0">&quot;CustomerCardList&quot;</span> <span class="re0">url</span>=<span class="st0">&quot;customerCardListEditor.jsp&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+Also you have to write the JSP code for your editor in <em>customerCardListEditor.jsp</em>.<br />
+This feature is for changing the editor for a concrete tab in a concrete entity. If you want to change the editor for all tabs of a certain entity type at application level then it's better to configure it using <em>xava/editors.xml</em> file.<br />
+Learn more on <a class="wiki_link" href="customizing_en.html#Chapter%209:%20Customizing-Editors-Editors%20for%20tabs%20(list%20mode)%20(new%20in%20v4.6)">Editors for tabs</a> section of <a class="wiki_link" href="customizing_en">chapter 9</a>.<br />
+<h2 id="toc9"><a name="Chapter 4: Tabular data XML (classic)-Several presentation formats using editors (new in v5.7)"></a>Several presentation formats using editors <em>(new in v5.7)</em></h2>
+ The same data can be displayed with different presentation formats, for example, using a list, charts, cards, etc. The user can choose the format using the buttons on the right of top button bar:<br />
+<img src="files/tab050.png" alt="tab050.png" title="tab050.png" /><br />
+The available formats are all the editors assigned to tab (using <em>&lt;for-tabs/&gt;</em>) in <em>default-editors.xml</em> or <em>editors.xml</em>. However, you can change the editors available for a specific tab with the <em>editors</em> attribute <em>(new in v5.7)</em> of &lt;<em>@&lt;tab/&gt;</em> in your XML component. For example, if you write a <em>&lt;tab/&gt;</em> like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">name</span>=<span class="st0">&quot;WithCards&quot;</span> <span class="re0">editors</span>=<span class="st0">&quot;List, Charts, CustomerCardList&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>number, name, type, address.city, address.state.name<span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
+
+This tab will have <em>List</em> and <em>Charts</em> formats, that are standard, and a custom format, <em>CustomerCardList</em>. <em>CustomerCardList</em> is a custom editor defined in <em>editors.xml</em>.<br />
+To know how to define the editors for tabs, read the customization documentation.<br />
+<h3 id="toc10"><a name="Chapter 4: Tabular data XML (classic)-Several presentation formats using editors (new in v5.7)-Removing the Charts from list mode (new in v5.7)"></a>Removing the Charts from list mode <em>(new in v5.7)</em></h3>
+ <em>&lt;tab editors=/&gt;</em> also allows you to remove the <em>Charts</em> (and any other list format) from list mode, in this way:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">name</span>=<span class="st0">&quot;OnlyList&quot;</span> <span class="re0">editors</span>=<span class="st0">&quot;List&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>number, name, type, address.city, address.state.name<span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
+
+Thus you can get a module without charts, just the plain original OpenXava list. Given that there are only one editor, no button for selecting format is shown.<br />
+The difference between <em>editor</em> and <em>editors</em>, is that with <em>editor</em> we indicate the editor for the default format, while with <em>editors</em> we specify all the available formats.
+    </div>
+  </body>
+</html>

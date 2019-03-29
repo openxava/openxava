@@ -1,0 +1,1681 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>openxava - three-level-composite-key_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Three-Level Composite Key Demo"></a>Three-Level
+        Composite Key Demo</h1>
+      <div id="toc">
+        <h1 class="nopad">Table of Contents</h1>
+        <div style="margin-left: 1em;"><a href="#Three-Level%20Composite%20Key%20Demo">Three-Level
+            Composite Key Demo</a></div>
+        <div style="margin-left: 2em;"><a href="#Three-Level%20Composite%20Key%20Demo-Scenario">Scenario</a></div>
+        <div style="margin-left: 3em;"><a href="#Three-Level%20Composite%20Key%20Demo-Scenario-Approach">Approach</a></div>
+        <div style="margin-left: 3em;"><a href="#Three-Level%20Composite%20Key%20Demo-Scenario-Steps">Steps</a></div>
+        <div style="margin-left: 4em;"><a href="#Three-Level%20Composite%20Key%20Demo-Scenario-Steps-Define%20your%20@Entity%20classes">Define
+            your @Entity classes</a></div>
+        <div style="margin-left: 5em;"><a href="#Three-Level%20Composite%20Key%20Demo-Scenario-Steps-Define%20your%20@Entity%20classes-Level1">Level1</a></div>
+        <div style="margin-left: 5em;"><a href="#Three-Level%20Composite%20Key%20Demo-Scenario-Steps-Define%20your%20@Entity%20classes-Level2">Level2</a></div>
+        <div style="margin-left: 5em;"><a href="#Three-Level%20Composite%20Key%20Demo-Scenario-Steps-Define%20your%20@Entity%20classes-Level3">Level3</a></div>
+        <div style="margin-left: 4em;"><a href="#Three-Level%20Composite%20Key%20Demo-Scenario-Steps-Define%20@IdClass%20classes.">Define
+            @IdClass classes.</a></div>
+        <div style="margin-left: 5em;"><a href="#Three-Level%20Composite%20Key%20Demo-Scenario-Steps-Define%20@IdClass%20classes.-Level2Id">Level2Id</a></div>
+        <div style="margin-left: 5em;"><a href="#Three-Level%20Composite%20Key%20Demo-Scenario-Steps-Define%20@IdClass%20classes.-Level3Id">Level3Id</a></div>
+        <div style="margin-left: 4em;"><a href="#Three-Level%20Composite%20Key%20Demo-Scenario-Steps-Code%20for%20System-Assigned%20Keys">Code
+            for System-Assigned Keys</a></div>
+        <div style="margin-left: 2em;"><a href="#Three-Level%20Composite%20Key%20Demo-Source%20Files">Source
+            Files</a></div>
+        <div style="margin-left: 2em;"><a href="#Three-Level%20Composite%20Key%20Demo-Contributions%20Wanted">Contributions
+            Wanted</a></div>
+      </div>
+      After starting a project with a composite key database structure and a
+      business need to load tables from external sources on an ongoing basis,
+      considerable effort was spent trying to get composite keys working for an
+      OpenXava project. This specific example was the most problematic: how to
+      get multi-level parent/child structures working, since there are some
+      problems in Hibernate support for this structure.<br>
+      <br>
+      <h2 id="toc1"><a name="Three-Level Composite Key Demo-Scenario"></a>Scenario</h2>
+      The specific scenario demonstrated here seems to be the most difficult in
+      Hibernate. Key requirements are as follows:<br>
+      <ol>
+        <li>Three tables Level1, Level2, and Level3. Level2 is a child of
+          Level1, Level3 is a child of Level2.</li>
+        <li>Keys are implemented in standard ERD fashion. For example, the
+          primary key of Level3 is the combination of the Level1.id + Level2.id
+          + Level3.id</li>
+        <li>While key values should be assigned in a next-available scenario,
+          from a data perspective it would be nice if keys could be sequentially
+          assigned within associated parent keys starting at 1, just like
+          someone would do if they assigned them in a spreadsheet, but remaining
+          unique within the specified parent keys. For example, many families
+          can have a child with the same name, but within a family, no two
+          children should have the same name.</li>
+      </ol>
+      <br>
+      <h3 id="toc2"><a name="Three-Level Composite Key Demo-Scenario-Approach"></a>Approach</h3>
+      <ul>
+        <li>This is an OpenXava solution, and as such is based upon JPA but also
+          dependent on Hibernate. <strong><em>Warning:</em></strong> Some
+          Hibernate-specific components have been used, but only where necessary
+          to get the solution working correctly.</li>
+        <li>All database column names have been overridden in this example so
+          that it is evident when we are referring to database field names
+          versus Java field names.</li>
+        <li>Likewise, this example uses Java field names which clearly describe
+          the context where they are used. Some developers prefer standardized
+          names for identifiers or keys (e.g. id, pk, etc). You are free to
+          follow your own standard, the chosen standard was used so that all
+          field references are distinct within the example for ease of learning.</li>
+        <li>While @IdClass might not be your preference to use, this is what
+          works with Hibernate at this time. If @EmbeddedId support for
+          composite keys is improved in future releases, it may become viable to
+          use here. Generally, @EmbeddedId is easier to read, and certainly a
+          lot cleaner than some of the non-standard @IdClass structures we have
+          in this example which have been coded to avoid some existing
+          bugs/deficiencies in Hibernate.</li>
+      </ul>
+      <br>
+      <h3 id="toc3"><a name="Three-Level Composite Key Demo-Scenario-Steps"></a>Steps</h3>
+      <h4 id="toc4"><a name="Three-Level Composite Key Demo-Scenario-Steps-Define your @Entity classes"></a>Define
+        your @Entity classes</h4>
+      <h5 id="toc5"><a name="Three-Level Composite Key Demo-Scenario-Steps-Define your @Entity classes-Level1"></a>Level1</h5>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+class="kw166">Entity</span></a>
+<span class="kw2">public</span> <span class="kw2">class</span> Level1 <span class="br0">{</span>
+&nbsp;
+  @Id @Hidden
+  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+class="st0">"LEVEL1_ID"</span><span class="br0">)</span>
+  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"my_seq_gen"</span>,                                       <span
+class="co1">// 1</span>
+    strategy=<span class="st0">"org.openxava.school.persist.SqlSequenceGenerator"</span>,
+    parameters=<span class="br0">{</span>
+        @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/Dynamic/Parameter.html"><span
+class="kw142">Parameter</span></a><span class="br0">(</span>name=<span class="st0">"id_query"</span>,value=<span
+class="st0">"select max(LEVEL1_ID) + 1 from LEVEL1"</span><span class="br0">)</span>
+    <span class="br0">}</span><span class="br0">)</span>
+  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"my_seq_gen"</span><span
+class="br0">)</span>
+  <span class="kw2">private</span> <span class="kw3">int</span> level1Id<span class="sy0">;</span>
+&nbsp;
+  @Column<span class="br0">(</span>length=<span class="nu0">20</span>,name=<span
+class="st0">"LEVEL1_NAME"</span>,unique=<span class="kw4">true</span>,nullable=<span
+class="kw4">false</span><span class="br0">)</span>           <span class="co1">// 2</span>
+  @Required
+  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> level1Name<span class="sy0">;</span>
+&nbsp;
+  @OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"level2Parent"</span><span
+class="br0">)</span>                                        <span class="co1">// 3</span>
+  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Level2<span class="sy0">&gt;</span> level1Children<span
+class="sy0">;</span>
+&nbsp;
+... <span class="me1">getters</span> and setters ...</pre>
+      <ol>
+        <li>This is a custom sequence generator that uses an SQL query to find
+          the highest key in use now and return the next available key. At
+          Level1, this is a static query, so it is included as a parameter here.</li>
+        <li>No duplicate names allowed.</li>
+        <li>This declares a convenient way to display the associated children.
+          This is optional, you can include it or not based on your display
+          preferences.</li>
+      </ol>
+      <br>
+      <br>
+      <h5 id="toc6"><a name="Three-Level Composite Key Demo-Scenario-Steps-Define your @Entity classes-Level2"></a>Level2</h5>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5">@Tab<span class="br0">(</span>properties=<span class="st0">"level2Parent.level1Name,level2Name"</span>,
+    defaultOrder=<span class="st0">"${level2Parent.level1Name},${level2Name}"</span><span
+class="br0">)</span>
+&nbsp;
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+class="kw166">Entity</span></a>
+@IdClass<span class="br0">(</span>Level2Id.<span class="kw2">class</span><span class="br0">)</span>                                                             <span
+class="co1">// 1</span>
+@Table<span class="br0">(</span>uniqueConstraints=@UniqueConstraint<span class="br0">(</span>columnNames=<span
+class="br0">{</span><span class="st0">"LEVEL1_ID"</span>,<span class="st0">"LEVEL2_NAME"</span><span
+class="br0">}</span><span class="br0">)</span><span class="br0">)</span> <span class="co1">// 2</span>
+<span class="kw2">public</span> <span class="kw2">class</span> Level2 <span class="kw2">implements</span> IDynamicSqlSequence <span
+class="br0">{</span>                                 <span class="co1">// 3</span>
+&nbsp;
+  <span class="co1">// Annotations for this field are duplicated in the ID class due to a Hibernate bug -- please keep in sync!!!</span>
+  @Id
+  @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">EAGER</span><span
+class="br0">)</span>                                                  <span class="co1">// 4</span>
+  @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL1_ID"</span>,referencedColumnName=<span
+class="st0">"LEVEL1_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
+class="kw4">false</span>,insertable=<span class="kw4">true</span>,updatable=<span
+class="kw4">true</span><span class="br0">)</span>
+  @DescriptionsList<span class="br0">(</span>descriptionProperties=<span class="st0">"level1Name"</span><span
+class="br0">)</span>
+  <span class="kw2">private</span> Level1 level2Parent<span class="sy0">;</span>
+&nbsp;
+  <span class="co1">// Annotations for this field are duplicated in the ID class due to a Hibernate bug -- please keep in sync!!!</span>
+  @Id @Hidden
+  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"sql_seq_gen"</span>,                                              <span
+class="co1">// 5</span>
+    strategy=<span class="st0">"org.openxava.school.persist.SqlSequenceGenerator"</span><span
+class="br0">)</span>
+  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"sql_seq_gen"</span><span
+class="br0">)</span>
+  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+class="st0">"LEVEL2_ID"</span><span class="br0">)</span>
+  <span class="kw2">private</span> <span class="kw3">int</span> level2Id<span class="sy0">;</span>
+&nbsp;
+  @Column<span class="br0">(</span>length=<span class="nu0">20</span>,name=<span
+class="st0">"LEVEL2_NAME"</span>,nullable=<span class="kw4">false</span><span class="br0">)</span>
+  @Required
+  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> level2Name<span class="sy0">;</span>
+&nbsp;
+  @OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"level3Parent"</span><span
+class="br0">)</span>                                                <span class="co1">// 6</span>
+  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Level3<span class="sy0">&gt;</span> level2Children<span
+class="sy0">;</span>
+&nbsp;
+... <span class="me1">getters</span> and setters ...
+&nbsp;
+  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+class="kw21">Override</span></a>
+  <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> nextKeyQuery<span class="br0">(</span><span class="br0">)</span> <span
+class="br0">{</span>
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> myResult = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a><span class="br0">(</span><span class="st0">"select max(LEVEL2_ID) + 1 from LEVEL2 where LEVEL1_ID = "</span><span
+class="br0">)</span><span class="sy0">;</span>
+    myResult += level2Parent.<span class="me1">getLevel1Id</span><span class="br0">(</span><span
+class="br0">)</span><span class="sy0">;</span>                                          <span
+class="co1">// 7</span>
+    <span class="kw2">return</span> myResult<span class="sy0">;</span>
+  <span class="br0">}</span>
+&nbsp;</pre>
+      <ol>
+        <li>The ID class will be demonstrated below</li>
+        <li>Value of the name field must be unique within the specified Level1
+          parent</li>
+        <li>The generated key in this case depends on the parent, so a callback
+          has been implemented. IDynamicSqlSequence interface defines the
+          contract for this callback</li>
+        <li>This defines the relationship to the parent</li>
+        <li>SqlSequenceGenerator implements the logic for the sequence generator</li>
+        <li>A convenient way to display the associated children</li>
+        <li>Returns the SQL query used by the sequence generator, including the
+          substitution of the current parentage ID values</li>
+      </ol>
+      <br>
+      <h5 id="toc7"><a name="Three-Level Composite Key Demo-Scenario-Steps-Define your @Entity classes-Level3"></a>Level3</h5>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5">@Tab<span class="br0">(</span>properties=<span class="st0">"level3Parent.level2Parent.level1Name,level3Parent.level2Name,level3Name"</span><span
+class="br0">)</span>
+&nbsp;
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+class="kw166">Entity</span></a>
+@IdClass<span class="br0">(</span>Level3Id.<span class="kw2">class</span><span class="br0">)</span>
+@Table<span class="br0">(</span>uniqueConstraints=@UniqueConstraint<span class="br0">(</span>columnNames=<span
+class="br0">{</span><span class="st0">"LEVEL1_ID"</span>,<span class="st0">"LEVEL2_ID"</span>,<span
+class="st0">"LEVEL3_NAME"</span><span class="br0">}</span><span class="br0">)</span><span
+class="br0">)</span> <span class="co1">// 1</span>
+<span class="kw2">public</span> <span class="kw2">class</span> Level3 <span class="kw2">implements</span> IDynamicSqlSequence <span
+class="br0">{</span>
+&nbsp;
+  <span class="co1">// Annotations for this field are duplicated in the ID class due to a Hibernate bug -- please keep in sync!!!</span>
+  @Id
+  @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">EAGER</span><span
+class="br0">)</span>
+  @JoinColumns<span class="br0">(</span><span class="br0">{</span>                                                                                 <span
+class="co1">// 2</span>
+    @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL2_ID"</span>,referencedColumnName=<span
+class="st0">"LEVEL2_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
+class="kw4">false</span>,insertable=<span class="kw4">false</span>,updatable=<span
+class="kw4">false</span><span class="br0">)</span>,
+    @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL1_ID"</span>,referencedColumnName=<span
+class="st0">"LEVEL1_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
+class="kw4">false</span>,insertable=<span class="kw4">false</span>,updatable=<span
+class="kw4">false</span><span class="br0">)</span>
+  <span class="br0">}</span><span class="br0">)</span>
+  @DescriptionsList<span class="br0">(</span>descriptionProperties=<span class="st0">"level2Parent.level1Name,level2Name"</span><span
+class="br0">)</span>
+  <span class="kw2">private</span> Level2 level3Parent<span class="sy0">;</span>                                                                   <span
+class="co1">// 3</span>
+&nbsp;
+  <span class="co1">// Annotations for this field are duplicated in the ID class due to a Hibernate bug -- please keep in sync!!!</span>
+  @Id @Hidden
+  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"sql_seq_gen"</span>,strategy=<span
+class="st0">"org.openxava.school.persist.SqlSequenceGenerator"</span><span class="br0">)</span>
+  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"sql_seq_gen"</span><span
+class="br0">)</span>
+  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+class="st0">"LEVEL3_ID"</span><span class="br0">)</span>
+  <span class="kw2">private</span> <span class="kw3">int</span> level3Id<span class="sy0">;</span>
+&nbsp;
+  @Column<span class="br0">(</span>length=<span class="nu0">20</span>,name=<span
+class="st0">"LEVEL3_NAME"</span>,nullable=<span class="kw4">false</span><span class="br0">)</span>
+  @Required
+  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> level3Name<span class="sy0">;</span>
+&nbsp;
+... <span class="me1">getters</span> and setters ...
+&nbsp;
+  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+class="kw21">Override</span></a>
+  <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> nextKeyQuery<span class="br0">(</span><span class="br0">)</span> <span
+class="br0">{</span>
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> myResult = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a>.<span class="me1">format</span><span class="br0">(</span><span
+class="st0">"select max(LEVEL3_ID) + 1 from LEVEL3 where LEVEL1_ID = %1$s and LEVEL2_ID = %2$s"</span>,
+        level3Parent.<span class="me1">getLevel2Parent</span><span class="br0">(</span><span
+class="br0">)</span>.<span class="me1">getLevel1Id</span><span class="br0">(</span><span
+class="br0">)</span>,                                            <span class="co1">// 4</span>
+        level3Parent.<span class="me1">getLevel2Id</span><span class="br0">(</span><span
+class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="kw2">return</span> myResult<span class="sy0">;</span>
+  <span class="br0">}</span></pre>
+      <ol>
+        <li>Names must be unique within the specified Level2 parent</li>
+        <li>Lists the parent fields included in the composite key</li>
+        <li>Level3's parent is a Level2 item</li>
+        <li>Returns the SQL query with the values of the parent identifiers
+          parsed into the where condition</li>
+      </ol>
+      <br>
+      <br>
+      <h4 id="toc8"><a name="Three-Level Composite Key Demo-Scenario-Steps-Define @IdClass classes."></a>Define
+        @IdClass classes.</h4>
+      Typically, the key classes do not normally have many annotations. However,
+      in order to work around the Hibernate shortcomings, it has been found that
+      if the annotations are duplicated here, it works.<br>
+      <h5 id="toc9"><a name="Three-Level Composite Key Demo-Scenario-Steps-Define @IdClass classes.-Level2Id"></a>Level2Id</h5>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Level2Id <span
+class="kw2">implements</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+class="kw20">Serializable</span></a>, IDynamicSqlSequence <span class="br0">{</span> <span
+class="co1">// 1</span>
+  <span class="kw2">private</span> <span class="kw2">static</span> <span class="kw2">final</span> <span
+class="kw3">long</span> serialVersionUID = 1L<span class="sy0">;</span>
+&nbsp;
+  <span class="co1">// These field annotations are duplicated from the entity class due to a Hibernate bug. Please keep in sync!!!</span>
+  <span class="co1">// If the Hibernate bug gets fixed, these should all be removed.</span>
+  @Id
+  @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">EAGER</span><span
+class="br0">)</span>
+  @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL1_ID"</span>,referencedColumnName=<span
+class="st0">"LEVEL1_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
+class="kw4">false</span>,insertable=<span class="kw4">true</span>,updatable=<span
+class="kw4">true</span><span class="br0">)</span>
+  @DescriptionsList<span class="br0">(</span>descriptionProperties=<span class="st0">"level1Name"</span><span
+class="br0">)</span>
+  <span class="kw2">private</span> Level1 level2Parent<span class="sy0">;</span>
+&nbsp;
+  <span class="co1">// These field annotations are duplicated from the entity class due to a Hibernate bug. Please keep in sync!!!</span>
+  <span class="co1">// If the Hibernate bug gets fixed, these should all be removed.</span>
+  @Id
+  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"sql_seq_gen"</span>,strategy=<span
+class="st0">"org.openxava.school.persist.SqlSequenceGenerator"</span><span class="br0">)</span>
+  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"sql_seq_gen"</span><span
+class="br0">)</span>
+  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+class="st0">"LEVEL2_ID"</span><span class="br0">)</span>
+  <span class="kw2">private</span> <span class="kw3">int</span> level2Id<span class="sy0">;</span>
+&nbsp;
+... <span class="me1">getters</span> and setters ...
+... <span class="me1">implement</span> required methods <span class="kw1">for</span> IDynamicSqlSequence <span
+class="kw2">interface</span> <span class="br0">(</span>copy from Level2<span class="br0">)</span> ...
+... <span class="me1">hashCode</span><span class="br0">(</span><span class="br0">)</span> and equals<span
+class="br0">(</span><span class="br0">)</span> ...</pre>
+      <ol>
+        <li>In support of the custom ID generator in the annotations,
+          IDynamicSqlSequence interface is also implemented here.</li>
+      </ol>
+      <br>
+      <h5 id="toc10"><a name="Three-Level Composite Key Demo-Scenario-Steps-Define @IdClass classes.-Level3Id"></a>Level3Id</h5>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Level3Id <span
+class="kw2">implements</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+class="kw20">Serializable</span></a>,IDynamicSqlSequence <span class="br0">{</span>
+  <span class="kw2">private</span> <span class="kw2">static</span> <span class="kw2">final</span> <span
+class="kw3">long</span> serialVersionUID = 4L<span class="sy0">;</span>
+&nbsp;
+  <span class="co1">// These field annotations are duplicated from the entity class due to a Hibernate bug. Please keep in sync!!!</span>
+  <span class="co1">// If the Hibernate bug gets fixed, these should all be removed.</span>
+  @Id
+  @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">EAGER</span><span
+class="br0">)</span>
+  @JoinColumns<span class="br0">(</span><span class="br0">{</span>
+    @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL2_ID"</span>,referencedColumnName=<span
+class="st0">"LEVEL2_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
+class="kw4">false</span>,insertable=<span class="kw4">false</span>,updatable=<span
+class="kw4">false</span><span class="br0">)</span>,
+    @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL1_ID"</span>,referencedColumnName=<span
+class="st0">"LEVEL1_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
+class="kw4">false</span>,insertable=<span class="kw4">false</span>,updatable=<span
+class="kw4">false</span><span class="br0">)</span>
+  <span class="br0">}</span><span class="br0">)</span>
+  @DescriptionsList<span class="br0">(</span>descriptionProperties=<span class="st0">"level2Parent.level1Name,level2Name"</span><span
+class="br0">)</span>
+  <span class="kw2">private</span> Level2 level3Parent<span class="sy0">;</span>
+&nbsp;
+  <span class="co1">// These field annotations are duplicated from the entity class due to a Hibernate bug. Please keep in sync!!!</span>
+  <span class="co1">// If the Hibernate bug gets fixed, these should all be removed.</span>
+  @Id @Hidden
+  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"sql_seq_gen"</span>,strategy=<span
+class="st0">"org.openxava.school.persist.SqlSequenceGenerator"</span><span class="br0">)</span>
+  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"sql_seq_gen"</span><span
+class="br0">)</span>
+  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+class="st0">"LEVEL3_ID"</span><span class="br0">)</span>
+  <span class="kw2">private</span> <span class="kw3">int</span> level3Id<span class="sy0">;</span>
+&nbsp;
+... <span class="me1">getters</span> and setters ...
+... <span class="me1">implement</span> required methods <span class="kw1">for</span> IDynamicSqlSequence <span
+class="kw2">interface</span> ...
+... <span class="me1">hashCode</span><span class="br0">(</span><span class="br0">)</span> and equals<span
+class="br0">(</span><span class="br0">)</span> ...</pre>
+      <br>
+      <br>
+      <h4 id="toc11"><a name="Three-Level Composite Key Demo-Scenario-Steps-Code for System-Assigned Keys"></a>Code
+        for System-Assigned Keys</h4>
+      This section includes a system-assigned key solution (required so that any
+      numeric PK fields can be hidden making the user interface clean). While it
+      is not critical to the solution that you use this specific approach, if
+      your legacy database uses numeric PK values (as many do) it is likely that
+      some method will be necessary for a clean user interface (since the user
+      is not likely to know the next available key value).<br>
+      <span style="color: #ff0000;">Note:</span> This solution has not been
+      tested for thread-safety (in the case of concurrent user requests to
+      insert rows to the same table). User beware!!!<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="co3">/**
+ * Custom class to generate the next available sequence number appropriate for the context using SQL.
+ *
+ * Classes which use this generator must implement IDynamicSqlSequence interface which requires the following method(s);
+ * a method which returns an SQL query to calculate the next sequence.
+ *
+ * @author Roy Hellinga
+ *
+ */</span>
+<span class="kw2">public</span> <span class="kw2">class</span> SqlSequenceGenerator <span
+class="kw2">implements</span> IdentifierGenerator, Configurable <span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">static</span> <span class="kw2">final</span> <a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> PROPERTY_KEY_QUERY = <span
+class="st0">"id_query"</span><span class="sy0">;</span>
+  <span class="kw2">private</span> <span class="kw2">static</span> Log log = LogFactory.<span
+class="me1">getLog</span><span class="br0">(</span>SqlSequenceGenerator.<span class="kw2">class</span><span
+class="br0">)</span><span class="sy0">;</span>
+  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Properties.html"><span
+class="kw46">Properties</span></a> props = <span class="kw4">null</span><span class="sy0">;</span>
+&nbsp;
+  <span class="coMULTI">/* (non-Javadoc)
+   * @see org.hibernate.id.IdentifierGenerator#generate(org.hibernate.engine.spi.SessionImplementor, java.lang.Object)
+   */</span>
+  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+class="kw21">Override</span></a>
+  // Until OpenXava 6.0.2 <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+class="kw20">Serializable</span></a> generate<span class="br0">(</span>SessionImplementor session, <a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> object<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
+class="br0">{</span><br>  <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+class="kw20">Serializable</span></a> generate<span class="br0">(</span>SharedSessionContractImplementor session, <a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> object<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
+class="br0">{ // Since OpenXava 6.0.2 that uses Hibernate 5.3</span><br>&nbsp;<a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a> nextValue = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a><span class="br0">(</span><span class="nu0">1</span><span
+class="br0">)</span><span class="sy0">;</span>
+    IDynamicSqlSequence myClass = <span class="kw4">null</span><span class="sy0">;</span>
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/ResultSet.html"><span
+class="kw44">ResultSet</span></a> rs = <span class="kw4">null</span><span class="sy0">;</span>
+&nbsp;
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> qs = <span class="kw4">null</span><span class="sy0">;</span>
+    <span class="kw1">if</span><span class="br0">(</span>props.<span class="me1">containsKey</span><span
+class="br0">(</span>PROPERTY_KEY_QUERY<span class="br0">)</span><span class="br0">)</span> <span
+class="br0">{</span>
+      qs = props.<span class="me1">getProperty</span><span class="br0">(</span>PROPERTY_KEY_QUERY<span
+class="br0">)</span><span class="sy0">;</span>
+      log.<span class="me1">info</span><span class="br0">(</span><span class="st0">"RH:Property-based query for next key="</span> + qs<span
+class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+    <span class="kw1">else</span>
+    <span class="br0">{</span>
+      <span class="kw2">try</span> <span class="br0">{</span>
+        myClass = <span class="br0">(</span>IDynamicSqlSequence<span class="br0">)</span>object<span
+class="sy0">;</span>
+      <span class="br0">}</span>
+      <span class="kw2">catch</span><span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+class="kw21">Exception</span></a> e<span class="br0">)</span> <span class="br0">{</span>
+        log.<span class="me1">error</span><span class="br0">(</span><span class="st0">"Problem casting the Entity to the interface. Ensure interface IDynamicSqlSequence is implemented."</span>,e<span
+class="br0">)</span><span class="sy0">;</span>
+        <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
+class="br0">(</span><span class="st0">"Problem casting the Entity to the required interface"</span>,e<span
+class="br0">)</span><span class="sy0">;</span>
+      <span class="br0">}</span>
+      qs = myClass.<span class="me1">nextKeyQuery</span><span class="br0">(</span><span
+class="br0">)</span><span class="sy0">;</span>
+      <span class="kw1">if</span><span class="br0">(</span>qs == <span class="kw4">null</span><span
+class="br0">)</span> <span class="br0">{</span>
+        log.<span class="me1">error</span><span class="br0">(</span><span class="st0">"RH:nextKeyQuery() returned null."</span><span
+class="br0">)</span><span class="sy0">;</span>
+        <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
+class="br0">(</span><span class="st0">"nextKeyQuery() callback returned null"</span><span
+class="br0">)</span><span class="sy0">;</span>
+      <span class="br0">}</span>
+      <span class="kw1">else</span> <span class="br0">{</span>
+        log.<span class="me1">info</span><span class="br0">(</span><span class="st0">"RH:Callback query for next key="</span> + qs<span
+class="br0">)</span><span class="sy0">;</span>
+      <span class="br0">}</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw2">try</span><span class="br0">{</span>
+      rs = session.<span class="me1">connection</span><span class="br0">(</span><span
+class="br0">)</span>.<span class="me1">createStatement</span><span class="br0">(</span><span
+class="br0">)</span>.<span class="me1">executeQuery</span><span class="br0">(</span>qs<span
+class="br0">)</span><span class="sy0">;</span>
+      <span class="kw1">if</span><span class="br0">(</span>rs.<span class="me1">next</span><span
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="br0">{</span>
+        <span class="kw3">int</span> newId = rs.<span class="me1">getInt</span><span
+class="br0">(</span><span class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span>
+        log.<span class="me1">info</span><span class="br0">(</span><span class="st0">"RH:Generated next key="</span>+newId<span
+class="br0">)</span><span class="sy0">;</span>
+        nextValue = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a><span class="br0">(</span>newId<span class="br0">)</span><span
+class="sy0">;</span>
+      <span class="br0">}</span>
+    <span class="br0">}</span>
+    <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
+class="kw44">SQLException</span></a> e<span class="br0">)</span><span class="br0">{</span>
+      log.<span class="me1">error</span><span class="br0">(</span><span class="st0">"Unexpected SQL Exception while calculating key value"</span>, e<span
+class="br0">)</span><span class="sy0">;</span>
+      <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
+class="br0">(</span>e<span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+    <span class="kw2">finally</span> <span class="br0">{</span>
+      <span class="kw1">if</span> <span class="br0">(</span>rs <span class="sy0">!</span>= <span
+class="kw4">null</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">try</span> <span class="br0">{</span>
+          rs.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
+class="sy0">;</span>
+        <span class="br0">}</span>
+        <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Throwable.html"><span
+class="kw21">Throwable</span></a> t<span class="br0">)</span> <span class="br0">{</span>
+          log.<span class="me1">error</span><span class="br0">(</span><span class="st0">"Unexpected exception closing result set"</span>, t<span
+class="br0">)</span><span class="sy0">;</span>
+          <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
+class="br0">(</span>t<span class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+      <span class="br0">}</span>
+    <span class="br0">}</span>
+    <span class="kw1">if</span><span class="br0">(</span>nextValue.<span class="me1">intValue</span><span
+class="br0">(</span><span class="br0">)</span> <span class="sy0">&lt;</span> <span
+class="nu0">1</span><span class="br0">)</span> <span class="br0">{</span>
+      log.<span class="me1">warn</span><span class="br0">(</span><span class="st0">"RH:This must be the first row in this table -- setting initial value to 1"</span><span
+class="br0">)</span><span class="sy0">;</span>
+      nextValue = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a><span class="br0">(</span><span class="nu0">1</span><span
+class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+    <span class="kw2">return</span> nextValue<span class="sy0">;</span>
+&nbsp;
+  <span class="br0">}</span>
+&nbsp;
+  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+class="kw21">Override</span></a>
+  <span class="kw2">public</span> <span class="kw3">void</span> configure<span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
+class="kw26">Type</span></a> arg0, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Properties.html"><span
+class="kw46">Properties</span></a> arg1, Dialect arg2<span class="br0">)</span> <span
+class="kw2">throws</span> MappingException <span class="br0">{</span>
+    props = arg1<span class="sy0">;</span>
+  <span class="br0">}</span>
+&nbsp;
+<span class="br0">}</span>
+&nbsp;</pre>
+      <h2 id="toc12"><a name="Three-Level Composite Key Demo-Source Files"></a>Source
+        Files</h2>
+      Complete source for the above solution is here: <a href="files/src.zip">src.zip</a><br>
+      If you have a functioning MySchool project, you should be able to unzip
+      the above file into your src folder of that project, build your project,
+      update your schema, and deploy to your web app server.<br>
+      <br>
+      <h2 id="toc13"><a name="Three-Level Composite Key Demo-Contributions Wanted"></a>Contributions
+        Wanted</h2>
+      This example could be improved with the following contributions:<br>
+      <ul>
+        <li>Any advancements in subsequent Hibernate releases (current example
+          was developed using Hibernate 4.3.9.Final)</li>
+        <li>Possibly eliminate some of the duplication between the entity and
+          the ID classes. It is likely that the duplicated annotations and code
+          would only be executed in one place, but which annotations and code
+          could be suppressed is to be determined.</li>
+        <li>Thread-safety for the provided sequence generator (probably using a
+          table lock of some sort).</li>
+      </ul>
+    </div>
+  </body>
+</html>

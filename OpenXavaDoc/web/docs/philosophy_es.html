@@ -1,0 +1,386 @@
+<html>
+  <head>
+    <title>openxava - philosophy_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Apéndice A: Arquitectura y filosofía">Apéndice A: Arquitectura y filosofía</a></div>
+<div style="margin-left: 2em;"><a href="#Apéndice A: Arquitectura y filosofía-Los conceptos">Los conceptos</a></div>
+<div style="margin-left: 3em;"><a href="#Apéndice A: Arquitectura y filosofía-Los conceptos-Desarrollo Dirigido por el Modelo Ligero">Desarrollo Dirigido por el Modelo Ligero</a></div>
+<div style="margin-left: 3em;"><a href="#Apéndice A: Arquitectura y filosofía-Los conceptos-Componente de Negocio">Componente de Negocio</a></div>
+<div style="margin-left: 2em;"><a href="#Apéndice A: Arquitectura y filosofía-Arquitectura de la aplicación">Arquitectura de la aplicación</a></div>
+<div style="margin-left: 3em;"><a href="#Apéndice A: Arquitectura y filosofía-Arquitectura de la aplicación-Perspectiva del desarrollador de aplicaciones">Perspectiva del desarrollador de aplicaciones</a></div>
+<div style="margin-left: 3em;"><a href="#Apéndice A: Arquitectura y filosofía-Arquitectura de la aplicación-Perspectiva del usuario">Perspectiva del usuario</a></div>
+<div style="margin-left: 3em;"><a href="#Apéndice A: Arquitectura y filosofía-Arquitectura de la aplicación-Estructura del proyecto">Estructura del proyecto</a></div>
+<div style="margin-left: 2em;"><a href="#Apéndice A: Arquitectura y filosofía-Flexibilidad">Flexibilidad</a></div>
+<div style="margin-left: 3em;"><a href="#Apéndice A: Arquitectura y filosofía-Flexibilidad-Editores">Editores</a></div>
+<div style="margin-left: 3em;"><a href="#Apéndice A: Arquitectura y filosofía-Flexibilidad-Vista personalizada">Vista personalizada</a></div>
+<div style="margin-left: 2em;"><a href="#Apéndice A: Arquitectura y filosofía-Resumen">Resumen</a></div>
+</div>
+<strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2. Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">4. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5. Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6. Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7. Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8. Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">9. Referencias y colecciones</a> | <strong>A. Arquitectura y filosofía</strong> | <a class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C. Anotaciones</a><br />
+<h1 id="toc0"><a name="Apéndice A: Arquitectura y filosofía"></a>Apéndice A: Arquitectura y filosofía</h1>
+ OpenXava es un marco de trabajo para desarrollo rápido de aplicaciones de gestión con Java. Es fácil de aprender y rápido para desarrollar. Al mismo tiempo es extensible y personalizable, además el código de la aplicación se estructura desde un punto de vista orientado a objetos puro. Por lo tanto, puedes enfrentarte a aplicaciones complejas con él.<br />
+La aproximación de OpenXava al desarrollo rápido no es por medio de usar entornos visuales (como Visual Basic o Delphi), o <em>scripting</em>, como PHP. Más bien, el enfoque de OpenXava es dirigido por el modelo (model-driven), donde el corazón de tu aplicación son clases Java que describen tu problema. De esta forma conseguimos productividad sin utilizar código espagueti.<br />
+Este capítulo mostrará los conceptos en los que se fundamenta OpenXava y también una visión general de su arquitectura.<br />
+<h2 id="toc1"><a name="Apéndice A: Arquitectura y filosofía-Los conceptos"></a>Los conceptos</h2>
+ Aunque OpenXava tiene una visión muy pragmática del desarrollo, está basado en un refinamiento de conceptos preexistentes, algunos populares y otros no tanto. El más popular es el Desarrollo Dirigido por el Modelo (<em>Model-Driven Development</em>, MDD), que OpenXava usa de una manera ligera. El otro concepto, el Componente de Negocio, es raíz y principio básico de OpenXava, además de ser la alternativa opuesta a MVC.<br />
+Veamos estos conceptos con más detalles.<br />
+<h3 id="toc2"><a name="Apéndice A: Arquitectura y filosofía-Los conceptos-Desarrollo Dirigido por el Modelo Ligero"></a>Desarrollo Dirigido por el Modelo Ligero</h3>
+ Básicamente, MDD establece que únicamente se ha de desarrollar la parte del modelo de una aplicación y el resto se generará a partir de este modelo:<br />
+<img src="files/philosophy_es010.png" alt="philosophy_es010.png" title="philosophy_es010.png" /><br />
+En el contexto de MDD el modelo es el medio para representar los datos y la lógica de la aplicación. Puede ser, bien mediante una notación gráfica, como UML, o bien mediante una notación textual como un Lenguaje Específico del Dominio (<em>Domain-Specific Language</em>, DSL).<br />
+Por desgracia, el uso de MDD es muy complejo. Requiere de una gran cantidad de tiempo, pericia y herramientas. Aun así la idea tras MDD sigue siendo muy buena, por lo tanto OpenXava toma esa idea de una manera simplificada. Usa simples clases de Java con anotaciones para definir el modelo y no usa generación de código, en vez de eso toda la funcionalidad de la aplicación es generada dinámicamente en tiempo de ejecución:<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <th><br />
+</th>
+        <th>Definición del modelo<br />
+</th>
+        <th>Generación de la aplicación<br />
+</th>
+    </tr>
+    <tr>
+        <td><span style="display: block; text-align: justify;">MDD clásico</span><br />
+</td>
+        <td><span style="display: block; text-align: justify;">UML/DSL</span><br />
+</td>
+        <td><span style="display: block; text-align: justify;">Generación de código</span><br />
+</td>
+    </tr>
+    <tr>
+        <td><span style="display: block; text-align: justify;">OpenXava</span><br />
+</td>
+        <td><span style="display: block; text-align: justify;">Simple clases Java</span><br />
+</td>
+        <td><span style="display: block; text-align: justify;">Dinámicamente en tiempo de ejecución</span><br />
+</td>
+    </tr>
+</table>
+
+<span style="line-height: 1.5;">Podemos decir pues, que OpenXava es un Marco de trabajo Ligero Dirigido por el Modelo:</span><br />
+<span style="line-height: 0px; overflow: hidden;"><img src="files/philosophy_es020.png" alt="philosophy_es020.png" title="philosophy_es020.png" /></span><br />
+A partir de clases Java simples obtienes una aplicación lista para usar. La siguiente sección sobre el concepto de Componente de Negocio revelará algunos detalles importantes sobre la naturaleza de estas clases.<br />
+<h3 id="toc3"><a name="Apéndice A: Arquitectura y filosofía-Los conceptos-Componente de Negocio"></a>Componente de Negocio</h3>
+ Un Componente de Negocio consiste en todos los artefactos de software relacionados con un concepto de negocio. Los componentes de negocio son tan solo una forma de organizar el software. La otra forma de organizar software es MVC (Model-View Controller), donde clasificas el código por datos (modelo), interfaz de usuario (vista) y lógica (controlador).<br />
+Así se organizan los artefactos de software en una aplicación MVC:<br />
+<img src="files/philosophy_es030.png" alt="philosophy_es030.png" title="philosophy_es030.png" /><br />
+Todos los artefactos para la interfaz de usuario de la aplicación, tales como páginas JSP, JSF, Swing, código JavaFX, etc. están en el mismo lugar, la capa de la vista. Lo mismo ocurre para el modelo y el controlador. Esto contrasta con una arquitectura basada en componentes de negocio donde los artefactos de software se organizan alrededor de los conceptos de negocio, de esta manera:<br />
+<img src="files/philosophy_es040.png" alt="philosophy_es040.png" title="philosophy_es040.png" /><br />
+Aquí, todos los artefactos de software acerca del concepto de factura, como la interfaz de usuario, acceso a base de datos, lógica de negocio, etc. están en un mismo lugar.<br />
+¿Qué enfoque es mejor? Eso depende de tus necesidades. Si tienes que cambiar frecuentemente la estructura de los datos y la lógica de negocio entonces la opción de los componentes de negocio es muy práctica, porque todas las cosas que necesitas tocar cuando haces un cambio están en el mismo sitio y no esparcidas por multitud de archivos.<br />
+La pieza básica para desarrollar aplicaciones OpenXava es el componente de negocio y la forma de definir un componente de negocio en OpenXava es usando una simple clase Java con anotaciones. Tal como se ilustra en este código:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="co3">/**
+ * Una clase Java para definir un componente de negocio.
+ */</span>
+&nbsp;
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span class="kw166">Entity</span></a>  <span class="co1">// Base de datos</span>
+@Table<span class="br0">&#40;</span>name=<span class="st0">&quot;GSTFCT&quot;</span><span class="br0">&#41;</span>  <span class="co1">// Base de datos</span>
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span class="kw116">View</span></a><span class="br0">&#40;</span>members=  <span class="co1">// Interfaz de usuario</span>
+    <span class="st0">&quot;anyo, numero, fecha, pagada;&quot;</span> +
+    <span class="st0">&quot;cliente, comercial;&quot;</span> +
+    <span class="st0">&quot;detalles;&quot;</span> +
+    <span class="st0">&quot;totales [ sumaImportes, porcentajeIva, iva ]&quot;</span>
+<span class="br0">&#41;</span>
+<span class="kw2">public</span> <span class="kw2">class</span> Factura <span class="br0">&#123;</span>
+&nbsp;
+    @Id  <span class="co1">// Base de datos</span>
+    @Column<span class="br0">&#40;</span>length=<span class="nu0">4</span><span class="br0">&#41;</span>  <span class="co1">// Base de datos</span>
+    @Max<span class="br0">&#40;</span><span class="nu0">9999</span><span class="br0">&#41;</span>  <span class="co1">// Validación</span>
+    @Required  <span class="co1">// Validación</span>
+    @DefaultValueCalculator<span class="br0">&#40;</span>  <span class="co1">// Lógica de negocio declarativa</span>
+        CurrentYearCalculator.<span class="kw2">class</span>
+    <span class="br0">&#41;</span>
+    <span class="kw2">private</span> <span class="kw3">int</span> anyo<span class="sy0">;</span>  <span class="co1">// Estructura de datos (1)</span>
+&nbsp;
+    @ManyToOne<span class="br0">&#40;</span>fetch=FetchType.<span class="me1">LAZY</span><span class="br0">&#41;</span>  <span class="co1">// Base de datos</span>
+    @DescriptionsList  <span class="co1">// Interfaz de usuario</span>
+    <span class="kw2">private</span> Comercial comercial<span class="sy0">;</span>  <span class="co1">//  Estructura de datos</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw3">void</span> aplicarDescuentos<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>  <span class="co1">// Lógica de negocio programática (2)</span>
+        ...
+    <span class="br0">&#125;</span>
+&nbsp;
+    ...
+<span class="br0">&#125;</span></pre>
+
+Como puedes ver, todo acerca del concepto de negocio de factura se define en un único lugar, la clase <em>Factura</em>. En esta clase defines cosas de base de datos, estructura de los datos, lógica de negocio, interfaz de usuario, validación, etc.<br />
+Esto se hace usando la facilidad de metadatos de Java, las famosas anotaciones. Estas son las anotaciones usadas en este ejemplo:<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <th>Faceta<br />
+</th>
+        <th>Metadatos<br />
+</th>
+        <th>Implementado por<br />
+</th>
+    </tr>
+    <tr>
+        <td><span style="display: block; text-align: justify;">Base de datos</span><br />
+</td>
+        <td><span style="display: block; text-align: justify;">@Entity, @Table, @Id, @Column, @ManyToOne</span><br />
+</td>
+        <td><span style="display: block; text-align: justify;">JPA</span><br />
+</td>
+    </tr>
+    <tr>
+        <td><span style="display: block; text-align: justify;">Interfaz de usuario</span><br />
+</td>
+        <td><span style="display: block; text-align: justify;">@View, @DescriptionsList</span><br />
+</td>
+        <td><span style="display: block; text-align: justify;">OpenXava</span><br />
+</td>
+    </tr>
+    <tr>
+        <td><span style="display: block; text-align: justify;">Validación</span><br />
+</td>
+        <td><span style="display: block; text-align: justify;">@Max, @Required</span><br />
+</td>
+        <td><span style="display: block; text-align: justify;">Bean Validation, OpenXava</span><br />
+</td>
+    </tr>
+    <tr>
+        <td><span style="display: block; text-align: justify;">Lógica de negocio</span><br />
+</td>
+        <td><span style="display: block; text-align: justify;">@DefaultValueCalculator</span><br />
+</td>
+        <td><span style="display: block; text-align: justify;">OpenXava</span><br />
+</td>
+    </tr>
+</table>
+
+<span style="display: block; text-align: left;"><span style="line-height: 1.5;">Gracias a los metadatos puedes hacer la mayor parte del trabajo de una forma declarativa y el motor de JPA (el estándar Java para persistencia), Bean Validation (el estándar Java para validación) y OpenXava harán el trabajo sucio por ti.</span></span><br />
+Además, usamos Java básico, como propiedades (<em>anyo</em> y <em>comercial</em>, 1) para definir la estructura de los datos, y los métodos (<em>aplicarDescuentos()</em>, 2) para la lógica de negocio programada.<br />
+Todo lo que se necesita escribir sobre factura está en Factura<em>.java</em>. Es un componente de negocio. La magia de OpenXava es que puede producir una aplicación funcional a partir de componentes de negocio.<br />
+<h2 id="toc4"><a name="Apéndice A: Arquitectura y filosofía-Arquitectura de la aplicación"></a>Arquitectura de la aplicación</h2>
+ Has visto como los componentes de negocio son las células básicas para construir una aplicación OpenXava, es más, puedes crear una aplicación OpenXava completa usando únicamente componentes de negocio. No obstante, hay otros ingredientes que puedes usar en una aplicación OpenXava.<br />
+<h3 id="toc5"><a name="Apéndice A: Arquitectura y filosofía-Arquitectura de la aplicación-Perspectiva del desarrollador de aplicaciones"></a>Perspectiva del desarrollador de aplicaciones</h3>
+ Aunque puedes crear una aplicación completamente funcional usando solo componentes de negocio, a veces es necesario añadir algún que otro elemento adicional para poder ajustar el comportamiento de tu aplicación a tus necesidades. Una aplicación completa de OpenXava tiene la siguiente forma:<br />
+<img src="files/philosophy_es050.png" alt="philosophy_es050.png" title="philosophy_es050.png" /><br />
+<span style="line-height: 1.5;">Aparte de componentes de negocio puedes encontrar módulos, controladores, editores, validadores y calculadores. Veamos que son estas cosas:</span><br />
+<ul><li><strong>Componentes de negocio</strong>: Clases de Java que describen los conceptos de negocio en todos sus aspectos. Estas son las únicas piezas requeridas en una aplicación OpenXava.</li><li><strong>Módulos</strong>: Un módulo es lo que el usuario final ve. Es la unión de un componente de negocio y varios controladores. Puedes omitir la definición de los módulos, en ese caso se asume un módulo por cada componente de negocio.</li><li><strong>Controladores</strong>: Un controlador es una colección de acciones. Para el usuario, las acciones son botones o vínculos que él puede pulsar; para el desarrollador son clases con lógica a hacer cuando el usuario pulsa en esos botones. Los controladores definen el comportamiento de la aplicación y normalmente son reutilizables. OpenXava incluye un conjunto de controladores predefinidos y por supuesto puedes definir los tuyos propios.</li><li><strong>Editores</strong>: Componentes de la interfaz de usuario para definir la forma en que los miembros de un componente de negocio son visualizados y editados. Es una manera de personalizar la generación de la interfaz de usuario.</li><li><strong>Validadores</strong>: Lógica de validación reutilizable que puedes usar en cualquier componente de negocio.</li><li><strong>Calculadores</strong>: Lógica de negocio reutilizable que puedes usar en algunos puntos de los componentes de negocio.</li></ul><h3 id="toc6"><a name="Apéndice A: Arquitectura y filosofía-Arquitectura de la aplicación-Perspectiva del usuario"></a>Perspectiva del usuario</h3>
+ El usuario ejecuta los módulos, usualmente tecleando la URL del módulo en su navegador o accediendo desde el menú de la aplicación. Un módulo de OpenXava normalmente consta de un modo lista para navegar por los objetos:<br />
+<img src="files/philosophy_es060.png" alt="philosophy_es060.png" title="philosophy_es060.png" /><br />
+Y un modo detalle para editarlos:<br />
+<img src="files/philosophy_es070.png" alt="philosophy_es070.png" title="philosophy_es070.png" /><br />
+<span style="line-height: 1.5;">Esto muestra visualmente lo que es un módulo: una pieza funcional de software generada a partir de un componente de negocio (datos y lógica de negocio) y varios controladores (comportamiento).</span><br />
+<h3 id="toc7"><a name="Apéndice A: Arquitectura y filosofía-Arquitectura de la aplicación-Estructura del proyecto"></a>Estructura del proyecto</h3>
+ Has visto el punto de vista conceptual y del usuario de una aplicación, pero ¿qué aspecto tiene una aplicación OpenXava para ti como desarrollador?:<br />
+<img src="files/philosophy_es080.png" alt="philosophy_es080.png" title="philosophy_es080.png" /><br />
+Sólo las clases en el paquete <em>modelo</em>, los componentes de negocio, son obligatorias. Esto es a vista de pájaro. Aprenderás muchos más detalles en el resto del libro.<br />
+<h2 id="toc8"><a name="Apéndice A: Arquitectura y filosofía-Flexibilidad"></a>Flexibilidad</h2>
+ OpenXava genera automáticamente una aplicación desde clases con metadatos. Esto incluye la generación automática de la interfaz de usuario. Puedes pensar que esto es demasiado “automático”, y es fácil que la interfaz de usuario resultante no cumpla con tus requerimientos, especialmente si estos son muy específicos. Esto no es así, las anotaciones de OpenXava te ofrecen flexibilidad suficiente para interfaces de usuario muy potentes que cubren la mayoría de los casos.<br />
+A pesar de eso, OpenXava te proporciona puntos de extensión para darte la oportunidad de personalizar la generación de la interfaz de usuario. Estos puntos de extensión incluyen editores y vistas personalizadas.<br />
+<h3 id="toc9"><a name="Apéndice A: Arquitectura y filosofía-Flexibilidad-Editores"></a>Editores</h3>
+ Los editores son los elementos de la interfaz de usuario para ver y editar los miembros de tu componente de negocio. OpenXava usa editores predefinidos para los tipos básicos, pero puedes crearte tus propios editores. En el siguiente ejemplo se usan editores predefinidos para números y cadenas, pero para la propiedad color se usa un editor personalizado:<br />
+<img src="files/philosophy_es090.png" alt="philosophy_es090.png" title="philosophy_es090.png" /><br />
+Puedes usar JSP, JavaScript, HTML, AJAX, o la tecnología de presentación web que quieras, para crear tu editor personalizado, y entonces asignarlo a los miembros o tipos que desees.<br />
+Esta es una manera bastante reutilizable de personalizar la generación de la interfaz de usuario en tu aplicación OpenXava.<br />
+<h3 id="toc10"><a name="Apéndice A: Arquitectura y filosofía-Flexibilidad-Vista personalizada"></a>Vista personalizada</h3>
+ A veces necesitas visualizar tu componente de negocio usando una interfaz de usuario especial, por ejemplo, usando una galería de fotos, un mapa, un gráfico, un calendario, etc. Para esto puedes usar una vista personalizada, que te permite generar la interfaz de usuario usando JavaScript, HTML, JSP, etc. a mano, y entonces usarla dentro de tu aplicación OpenXava. El siguiente pantallazo muestra un módulo OpenXava que usa una vista personalizada:<br />
+<img src="files/philosophy_es100.png" alt="philosophy_es100.png" title="philosophy_es100.png" /><br />
+<span style="line-height: 1.5;">Resumiendo, OpenXava genera la interfaz de usuario automáticamente para ti, pero siempre tienes la opción de hacerlo tú mismo.</span><br />
+<h2 id="toc11"><a name="Apéndice A: Arquitectura y filosofía-Resumen"></a>Resumen</h2>
+ OpenXava usa un enfoque dirigido por el modelo para hacer desarrollo rápido, donde tú escribes el modelo y obtienes una aplicación completa a partir de él. Lo especial de OpenXava es que el modelo está formado por componentes de negocio.<br />
+Un componente de negocio te permite estructurar la aplicación alrededor de los conceptos de negocio. En OpenXava una simple y llana clase Java con anotaciones es suficiente para definir un componente de negocio, haciendo el desarrollo de la aplicación bastante declarativo.<br />
+Aparte de los componentes de negocio una aplicación OpenXava tiene módulos, controladores, validadores, calculadores, etc. que puedes usar para personalizar tu aplicación. Es posible, incluso, personalizar la forma en que OpenXava genera la interfaz de usuario con los editores y las vistas personalizadas.<br />
+OpenXava es una solución pragmática para el desarrollo Java Empresarial. Genera muchísimas cosas automáticamente, pero a la vez es suficientemente flexible como para ser útil en el desarrollo de aplicaciones de gestión de la vida real.<br />
+Como conclusión, podrás desarrollar aplicaciones con simples clases Java con anotaciones. En los otro apéndices puedes aprender más detalles sobre las anotaciones que podemos usar con OpenXava.<br />
+<br />
+<strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/" rel="nofollow">Pregunta en el foro</a></strong>
+    </div>
+  </body>
+</html>

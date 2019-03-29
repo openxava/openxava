@@ -1,0 +1,322 @@
+<html>
+  <head>
+    <title>openxava - postgres-ox2_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Configurar OpenXava 2.X para Postgres">Configurar OpenXava 2.X para Postgres</a></div>
+<div style="margin-left: 2em;"><a href="#Configurar OpenXava 2.X para Postgres-Comprobar el funcionamiento de la BD Postgres">Comprobar el funcionamiento de la BD Postgres</a></div>
+<div style="margin-left: 2em;"><a href="#Configurar OpenXava 2.X para Postgres-Configurar la Base de datos (substitución del punto 2.2 de la guía de referencia)">Configurar la Base de datos (substitución del punto 2.2 de la guía de referencia)</a></div>
+<div style="margin-left: 2em;"><a href="#Configurar OpenXava 2.X para Postgres-Modificar el fichero “build.xml”">Modificar el fichero “build.xml”</a></div>
+<div style="margin-left: 2em;"><a href="#Configurar OpenXava 2.X para Postgres-Dejar el driver JDBC de Postgres accesible al Tomcat">Dejar el driver JDBC de Postgres accesible al Tomcat</a></div>
+<div style="margin-left: 2em;"><a href="#Configurar OpenXava 2.X para Postgres-Crear el fichero “tomcat-postgres.properties”">Crear el fichero “tomcat-postgres.properties”</a></div>
+<div style="margin-left: 2em;"><a href="#Configurar OpenXava 2.X para Postgres-Modificar el fichero “hibernate/hibernate-junit.cfg.xml”">Modificar el fichero “hibernate/hibernate-junit.cfg.xml”</a></div>
+<div style="margin-left: 2em;"><a href="#Configurar OpenXava 2.X para Postgres-Reanudamos nuestro “primer proyecto” a partir del punto 2.3 de la guía de referencia">Reanudamos nuestro “primer proyecto” a partir del punto 2.3 de la guía de referencia</a></div>
+</div>
+<h1 id="toc0"><a name="Configurar OpenXava 2.X para Postgres"></a>Configurar OpenXava 2.X para Postgres</h1>
+ <em>(Estas instrucciones son para OX2, también hay instrucciones para <a class="wiki_link" href="postgres_es.html">Postgres con OpenXava 3.x</a> o superior)</em><br />
+En esta versión solo modificaremos los ficheros del proyecto generado en el punto 2.1 de la guía de referencia de OX.<br />
+Supondremos que la carpeta donde está instalado OpenXava es <strong>openxava2.X.</strong><br />
+<em>Por tanto tendreis que cambiar cualquier referencia a la carpeta openxava2.X a vuestra carpeta real de ubicacion del OpenXava</em>.!!!<br />
+<h2 id="toc1"><a name="Configurar OpenXava 2.X para Postgres-Comprobar el funcionamiento de la BD Postgres"></a>Comprobar el funcionamiento de la BD Postgres</h2>
+ Hemos de comprobar que el gestor de bases de datos <em>Postgres</em> esté en marcha y que sea accesible desde nuestra máquina. La mejor forma es entrar en el <em>pgAdmin</em>. Si no se tiene, es muy conveniente tenerlo instalado (se obtiene de la Web de <em>Postgres</em>).<br />
+<div style="text-align: center"><img src="files/postgres01.gif" alt="postgres01.gif" title="postgres01.gif" /></div><br />
+<br />
+<br />
+Una vez abierto, se debe intentar conectar (si no nos deja entrar, ya no podemos seguir adelante).Con el botón derecho del ratón sobre el servidor seleccionamos conectar.<br />
+<div style="text-align: center"><img src="files/postgres02.gif" alt="postgres02.gif" title="postgres02.gif" /></div><br />
+<br />
+<br />
+A continuación le damos la contraseña que hayamos dado para el usuario “<em>postgres</em>”.<br />
+<div style="text-align: center"><img src="files/postgres03.png" alt="postgres03.png" title="postgres03.png" /></div><br />
+<br />
+<br />
+Una vez dentro, creamos una base de datos, por ejemplo <strong>MIBD</strong> (en mayúsculas) y creamos un esquema por ejemplo <strong>gestion</strong> (en minúsculas)<br />
+<div style="text-align: center"><img src="files/postgres04.gif" alt="postgres04.gif" title="postgres04.gif" /></div><br />
+<br />
+<br />
+Por tanto vamos a trabajar en la base de datos “<strong>MIBD</strong>” y el esquema “<strong>gestion</strong>”<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><strong>Observaciones:</strong><br />
+<em>NUNCA debéis poner en la base de datos Postgres los nombres de esquemas o tablas en MAYÚSCULAS. Siempre en MINÚSCULAS.! ya que postgres sobre hibernate mapea los nombres de tablas y esquemas en minúsculas.</em><br />
+</td>
+    </tr>
+</table>
+
+<h2 id="toc2"><a name="Configurar OpenXava 2.X para Postgres-Configurar la Base de datos (substitución del punto 2.2 de la guía de referencia)"></a>Configurar la Base de datos <em>(substitución del punto 2.2 de la guía de referencia)</em></h2>
+ <br />
+Suponemos que ya hemos creado nuestro primer proyecto según las indicaciones de la guía de referencia en su punto 2.1.<br />
+En la carpeta <em>openxava2.x/portal/conf</em> editamos el fichero <em>context.xml</em> y añadimos la siguiente entrada<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/MiGestionDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3">    <span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3">    <span class="re0">username</span>=<span class="st0">&quot;postgres&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;mi_password_de_postgres&quot;</span></span>
+<span class="sc3">    <span class="re0">driverClassName</span>=<span class="st0">&quot;org.postgresql.Driver&quot;</span></span>
+<span class="sc3">    <span class="re0">url</span>=<span class="st0">&quot;jdbc:postgresql:localhost:5432/MIBD&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;</pre>
+
+<strong>Donde:</strong><br />
+<em>“</em>mi_password_de_postgres<em>” es la contraseña que tengamos de acceso a Postgres.</em><br />
+url=&quot;jdbc:postgresql:localhost:5432/MIBD&quot; <em>es donde definimos el acceso a la base de datos, siendo “localhost” la dirección IP o nombre del servidor donde resida e gestor de base de datos y MIBD es el nombre de nuestra base de datos que hayamos creado en Postgres.</em><br />
+||<br />
+<strong>Observaciones:</strong><br />
+Hay que distinguir entre aquellos que trabajen arrancando el Tomcat desde fuera del Eclipse (ejecutando <em>start-portal</em> desde el directorio de instalación del OpenXava) y los que arranquen el Tomcat desde el Eclipse tal como se explica en <a class="wiki_link" href="wtp_es.html">WTP</a>.<br />
+Para los primeros el fichero context.xml está en “<strong>portal/conf</strong>”.<br />
+Para los segundos en “openxaca2.X/<strong>workspace/Servers/Tomcat v5.5 Server @ localhost-config</strong>”<br />
+Si el nivel os lo permite, se aconseja trabajar dentro de Eclipse, ya que se consigue una mayor velocidad y menor cambio de pantallas. Cuanto más nos centremos en lo que hacemos, y menos cambios de pantallas tengamos, reduciremos las probabilidades de tener cometer errores!<br />
+<h2 id="toc3"><a name="Configurar OpenXava 2.X para Postgres-Modificar el fichero “build.xml”"></a>Modificar el fichero “build.xml”</h2>
+ Buscamos una línea que tenga tomcat-hypersonic y la cambiamos por otra que hace referencia a un nuevo fichero de configuración <em>tomcat-postgres</em> que crearemos en el siguiente apartado. En este caso se ha puesto comentarios.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc-1">&lt;!-- Comentario</span>
+<span class="sc-1">&lt;property name=&quot;configuration&quot; value=&quot;tomcat-hypersonic&quot;/&gt;</span>
+<span class="sc-1">--&gt;</span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;configuration&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;tomcat-postgres&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+Además indicamos cual es nuestro origen de datos<br />
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;datasource&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;MiGestionDS&quot;</span><span class="re2">/&gt;</span></span>
+Buscamos la tarea ant //actualizarEsquema//.
+• Ponemos el valor correcto para //schema.path//, en este caso **LA RUTA ABSOLUTA DONDE DEL JAR DEL JDBC DE POSTGRES** ( en mi caso particular y en Windows XP en C:/POSTGRES/postgresql-8.3dev-601.jdbc3.jar )
+<span class="sc-1">&lt;!-- Comentario</span>
+<span class="sc-1">&lt;property name=&quot;schema.path&quot; value=&quot;[PUT HERE THE PATH OF YOUR JDBC DRIVER]&quot;/&gt;</span>
+<span class="sc-1">--&gt;</span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;schema.path&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;C:/POSTGRES/postgresql-8.3dev-601.jdbc3.jar&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+Guardamos los cambios.<br />
+<h2 id="toc4"><a name="Configurar OpenXava 2.X para Postgres-Dejar el driver JDBC de Postgres accesible al Tomcat"></a>Dejar el driver JDBC de Postgres accesible al Tomcat</h2>
+ Para ello guardamos el fichero de los drivers JDBC de Postgres postgresql-8.3dev-601.jdbc3.jar <em>u otro mas recietne al directrorio</em> openxava-2.X/portal/common/lib<br />
+<h2 id="toc5"><a name="Configurar OpenXava 2.X para Postgres-Crear el fichero “tomcat-postgres.properties”"></a>Crear el fichero “tomcat-postgres.properties”</h2>
+ Copiamos el contenido del fichero tomcat-hypersonic.pr<em>operties en un nuevo fichero</em> tomcat-postgres.properties<em>. A continuación cambiamos todo aquello que nos interesa. En este ejemplo modificaremos el <strong>separador</strong> que lo cambiaremos de <strong>“_”</strong> a <strong>“.”.</strong></em><br />
+<em>También se modificará el dialecto a <strong>PostgreSQLDialect.</strong></em><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml">separator=.
+organization_es=Gestión cuatrocientos, s.l.
+organization_ca=Gestió quatre-cents, s.l.
+organization_en=Management four hundred, limited
+hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+datasource.prefix=java:comp/env/jdbc</pre>
+
+<h2 id="toc6"><a name="Configurar OpenXava 2.X para Postgres-Modificar el fichero “hibernate/hibernate-junit.cfg.xml”"></a>Modificar el fichero “hibernate/hibernate-junit.cfg.xml”</h2>
+ <em>Tenemos que comentar todo lo relativo a HSQLDB (que estaba etiquetado como Hypersonic) y crear nuevas definiciones para Postgres (que se ha etiquetado como Postgres), quedando:</em><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;session-factory<span class="re2">&gt;</span></span></span>
+<span class="sc-1">&lt;!-- Hypersonic comentado</span>
+<span class="sc-1">&lt;property name=&quot;hibernate.connection.driver_class&quot;&gt;org.hsqldb.jdbcDriver&lt;/property&gt;</span>
+<span class="sc-1">&lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.HSQLDialect&lt;/property&gt;</span>
+<span class="sc-1">&lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:hsqldb:hsql:localhost:1666&lt;/property&gt;</span>
+<span class="sc-1">--&gt;</span>
+&nbsp;
+<span class="sc-1">&lt;!-- Postgres--&gt;</span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.driver_class&quot;</span><span class="re2">&gt;</span></span>org.postgresql.Driver<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.dialect&quot;</span><span class="re2">&gt;</span></span>org.hibernate.dialect.PostgreSQLDialect<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.url&quot;</span><span class="re2">&gt;</span></span>jdbc:postgresql:localhost:5432/MIBD<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+
+Donde el servidor nuestro es <strong>/</strong><strong>/localhost</strong> (pero vosotros teneis que indicar el nombre de la máquina donde reside el servidor Postgres o la dirección), <em><strong>5432</strong></em> es el puerto que normalmente está asociado el servicio de BD Postgres i <em><strong>MIBD</strong></em> es el nombre de nuestra base de datos (pero vosotros tenéis que indicar la vuestra).<br />
+<br />
+Además hay que cambiar todo lo relativo a usuarios y contraseñas. Tenemos que poner comentarios al famoso usuario “SA” sin contraseña, y meter el usuario “<em><strong>postgres</strong></em>” (o el que sea) con su contraseña “<em><strong>mi_password_de_postgres</strong></em>” (OJO: la que tu hayas definido o conozcas!)<br />
+<br />
+Además debemos meter entre comentarios el acceso a Hypersonic que es lo que había antes e introducir el nuevo Acceso Postgres lo que hemos añadido después.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc-1">&lt;!-- Acceso Hypersonic comentado</span>
+<span class="sc-1">&lt;property name=&quot;hibernate.connection.username&quot;&gt;sa&lt;/property&gt;</span>
+<span class="sc-1">&lt;property name=&quot;hibernate.connection.password&quot;&gt;&lt;/property&gt;</span>
+<span class="sc-1">&lt;property name=&quot;hibernate.show_sql&quot;&gt;false&lt;/property&gt;</span>
+<span class="sc-1">--&gt;</span>
+&nbsp;
+<span class="sc-1">&lt;!-- Acceso Postgres --&gt;</span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.username&quot;</span><span class="re2">&gt;</span></span>postgres<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.password&quot;</span><span class="re2">&gt;</span></span>mi_password_de_postgres<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.show_sql&quot;</span><span class="re2">&gt;</span></span>false<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+
+Y guardamos los cambios.<br />
+Ahora ya solo nos queda<br />
+<h2 id="toc7"><a name="Configurar OpenXava 2.X para Postgres-Reanudamos nuestro “primer proyecto” a partir del punto 2.3 de la guía de referencia"></a>Reanudamos nuestro “primer proyecto” a partir del punto 2.3 de la guía de referencia</h2>
+ <em>Ahora realizamos <strong>la parte 2.3 de la guía</strong> y del componente Almacen.xml el cual repetimos su contenido, podemos decir que:</em><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc0">&lt;!DOCTYPE componente SYSTEM &quot;dtds/componente.dtd&quot;&gt;</span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;componente</span> <span class="re0">nombre</span>=<span class="st0">&quot;Almacen&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;entidad<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span class="st0">&quot;codigo&quot;</span> <span class="re0">tipo</span>=<span class="st0">&quot;String&quot;</span> <span class="re0">clave</span>=<span class="st0">&quot;true&quot;</span></span>
+<span class="sc3">            <span class="re0">longitud</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">requerido</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span class="st0">&quot;nombre&quot;</span> <span class="re0">tipo</span>=<span class="st0">&quot;String&quot;</span></span>
+<span class="sc3">            <span class="re0">longitud</span>=<span class="st0">&quot;40&quot;</span> <span class="re0">requerido</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/entidad<span class="re2">&gt;</span></span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;mapeo-entidad</span> <span class="re0">tabla</span>=<span class="st0">&quot;GESTION@separator@ALMACENES&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;mapeo-propiedad</span> <span class="re0">propiedad-modelo</span>=<span class="st0">&quot;codigo&quot;</span> <span class="re0">columna-tabla</span>=<span class="st0">&quot;CODIGO&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;mapeo-propiedad</span> <span class="re0">propiedad-modelo</span>=<span class="st0">&quot;nombre&quot;</span> <span class="re0">columna-tabla</span>=<span class="st0">&quot;NOMBRE&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/mapeo-entidad<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/componente<span class="re2">&gt;</span></span></span></pre>
+
+“<em><strong>GESTION</strong></em>” <em>es el esquema que hemos creado en la base de datos Postgres (MIBD, que no aparece por ningún lado del componente), y “<strong>ALMACENES</strong>” la tabla a crear. <strong>OJO: Cuando hibernate haga el mapeo a Postgres pasará a MINUSCULAS el esquema!</strong></em><br />
+<em>Le damos a las tareas Ant “</em>generarCodigo<em>” (Nos situamos en eclipse sobre el fichero build.xml de nuestro proyecto, con el botón derecho del ratón seleccionamos “<strong>Run As</strong>” - “<strong>3 Ant build ..</strong>” y deseleccionamos “<strong>todo</strong>” y seleccionamos “</em>generarCodigo<em>”.</em><br />
+<em>Mas tarde nos colocamos sobre la carpeta del proyecto creado en Eclipse y le damos a la <strong>tecla F5</strong> para que refresque los ficheros generados.</em><br />
+<em>No estaría mal darle al icono para que compile nuestro proyecto cuando generamos o regeneramos código. (Y también es aconsejable ejecutar la tarea Ant “</em>reconstruir//”)<br />
+Ejecutamos la tarea ant actualizarEsquema tal como hemos hecho en el apartado anterior<br />
+Observamos que está creando nuestra tabla ALMACENES.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>openxava - architecture_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Architectural design"></a>Architectural design</h1>
+ <em>This is still an incubation paper. By now we have only some comments about how inner OpenXava works.</em> <br />
+<br />
+<h2 id="toc1"><a name="Architectural design-Initial flow"></a>Initial flow</h2>
+ module.jsp &gt; core.jsp &gt; *.jsp<br />
+The info about the modes available, the current mode, the actions available, etc are obtained from ModuleManager.<br />
+ModuleManager gets its info from the metamodel that are the classes from org.openxava.application.meta and org.openxava.controller.meta. The info of this model is readed from application.xml and controllers.xml<br />
+<h2 id="toc2"><a name="Architectural design-Action flow"></a>Action flow</h2>
+ openxava.js &gt;--DWR--&gt; org.openxava.web.dwr.Module --&gt; execute.jsp --&gt; ModuleManager<br />
+After ModuleManager executes the action, dwr.Module ask to the current View by the part of the view that has been changed. Then execute only the correspoinding JSPs for these parts, and return the HTML chunks to the browser view DWR. In the browser a function of openxava.js change the corresponding parts of the view.<br />
+<h2 id="toc3"><a name="Architectural design-View rendering"></a>View rendering</h2>
+ detail.jsp draws the detail view. It uses many other JSP files in web/xava folder. The data to draw the view is obtained from View, who get its data from metadata of the model clases (org.openxava.model.meta). This metadata is readed from the JPA entites in AnnotatedClassParser.
+    </div>
+  </body>
+</html>

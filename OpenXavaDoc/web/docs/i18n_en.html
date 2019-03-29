@@ -1,0 +1,248 @@
+<html>
+  <head>
+    <title>openxava - i18n_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Internationalization (i18n)"></a>Internationalization (i18n)</h1>
+ <div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Internationalization (i18n)">Internationalization (i18n)</a></div>
+<div style="margin-left: 2em;"><a href="#Internationalization (i18n)-Labels">Labels</a></div>
+<div style="margin-left: 3em;"><a href="#Internationalization (i18n)-Labels-Application Name">Application Name</a></div>
+<div style="margin-left: 3em;"><a href="#Internationalization (i18n)-Labels-Module Name">Module Name</a></div>
+<div style="margin-left: 3em;"><a href="#Internationalization (i18n)-Labels-Field Name">Field Name</a></div>
+<div style="margin-left: 3em;"><a href="#Internationalization (i18n)-Labels-@View Section and Group Names">@View Section and Group Names</a></div>
+<div style="margin-left: 3em;"><a href="#Internationalization (i18n)-Labels-Actions">Actions</a></div>
+<div style="margin-left: 2em;"><a href="#Internationalization (i18n)-Messages">Messages</a></div>
+<div style="margin-left: 2em;"><a href="#Internationalization (i18n)-Tooltips">Tooltips</a></div>
+<div style="margin-left: 2em;"><a href="#Internationalization (i18n)-Placeholder (new in v5.8)">Placeholder (new in v5.8)</a></div>
+</div>
+Providing customized labels and messages for your application is done using the i18n files (whether you have multilingual requirements or not -- if not, you only have one version of the file in the primary language of your application).<br />
+To show or hide warnings in the logs regarding missing labels or messages, set the property &quot;i18nWarnings&quot; in properties/xava.properties to true or false respectively.<br />
+<h2 id="toc1"><a name="Internationalization (i18n)-Labels"></a>Labels</h2>
+ The label source file(s) are found in the i18n folder of your project, named <em>&lt;app&gt;-labels_&lt;lang&gt;.properties</em> (e.g. <em>MySchool-labels_en.properties</em>), and are copied by the build script into <em>web/WEB-INF/classes</em> folder.<br />
+Your labels are applied in addition to the label source files provided by OpenXava project (which are found in the <em>../OpenXava/i18n</em> folder, are named <em>Labels_&lt;lang&gt;.properties</em>, and are also copied by the build script into your <em>web/WEB-INF/classes</em> folder). If the same entry appears in your file(s) and the OpenXava file(s), the one in your file will be used, which allows you the ability to customize the labels provided by OpenXava.<br />
+Comments can be included using # as the first character.<br />
+Blank lines are allowed, and can be useful to visually separate things for easier reading.<br />
+<h3 id="toc2"><a name="Internationalization (i18n)-Labels-Application Name"></a>Application Name</h3>
+ App name and description can be overridden like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">MySchool=School ABC
+MySchool[description]=Welcome to the School ABC application</pre>
+
+In general, many OpenXava items in this file can have <em>[description]</em> entries -- in the above example, the standard OX welcome page displays the app description. In most other cases, the <em>[description]</em> text is used for tool-tips that pop up when the mouse is hovered over the field.<br />
+Note that if you wish to have a very verbose tooltip, you can embed special characters to help with formatting. Specifically, as of this writing, the newline (\n) and tab (\t) work fine. As an example, this entry<br />
+<strong>studyId[description]=Unique Identifier per study \n See if this wraps... \n and this...\n\t try a tab....</strong><br />
+will produce the expected behavior.<br />
+<br />
+<h3 id="toc3"><a name="Internationalization (i18n)-Labels-Module Name"></a>Module Name</h3>
+ Module name labels can be overridden like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">Classroom.module=Class Room</pre>
+
+<h3 id="toc4"><a name="Internationalization (i18n)-Labels-Field Name"></a>Field Name</h3>
+ Fields which are used in many places in the application can be overridden globally like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">addressGroup=Street Address</pre>
+
+Specific module field names can be overridden like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">Classroom.location=Door Badge</pre>
+
+For associations, there is often a qualified field, which can be overridden like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">Project.currentManager.managerName=PM Name</pre>
+
+In List mode, qualified names are automatically qualified by OpenXava like this: Manager name of Current manager. If this is not desired, it can be overridden like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">Project.tab.properties.currentManager.managerName=PM Name</pre>
+
+or for a specific named Tab like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">Project.tabs.my_tab_name.properties.currentManager.managerName=PM Name</pre>
+
+or globally for all modules like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">*.tab.properties.currentManager.managerName=PM Name</pre>
+
+<h3 id="toc5"><a name="Internationalization (i18n)-Labels-@View Section and Group Names"></a>@View Section and Group Names</h3>
+ Section and Group names in an <em>@View</em> can be overridden as well. For example, if I have a section name &quot;s_overview&quot; and a group &quot;g_pgm_dates&quot; defined in a <em>@View</em> in Entity Program, the labels can be overridden like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">Program.s_overview=Overview
+g_pgm_dates=Program Milestone Dates
+&nbsp;</pre>
+
+Note that as of OpenXava 5.4, Group names do not seem to support any dot-notation.<br />
+<h3 id="toc6"><a name="Internationalization (i18n)-Labels-Actions"></a>Actions</h3>
+ Action button names can be overridden using the format &lt;Controller-name&gt;.&lt;action-name&gt; like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">ListProjectsForProgram.listProjects=List Projects</pre>
+
+<h2 id="toc7"><a name="Internationalization (i18n)-Messages"></a>Messages</h2>
+ The message source file(s) are also found in the <em>i18n</em> folder of your project, named <em>&lt;app&gt;-messages_en.properties</em> (e.g. <em>MySchool-messages_en.properties</em>), and are copied by the build script to the <em>web/WEB-INF/classes</em> folder.<br />
+Your messages are applied in addition to the message source files provided by OpenXava project (which are found in the <em>../OpenXava/i18n</em> folder, are named <em>Messages_&lt;lang&gt;.properties</em>, and are also copied by the build script into your <em>web/WEB-INF/classes</em> folder). If the same entry appears in your file(s) and the OpenXava file(s), the one in your file will be used, which allows you the ability to customize the messages provided by OpenXava.<br />
+<h2 id="toc8"><a name="Internationalization (i18n)-Tooltips"></a>Tooltips</h2>
+ To define a tooltip add the suffix <em>[description]</em> in the labels i18n file of your project, for the element (action, property, etc) where you want the tooltip. For example, with next entry in your labels file:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml">Warehouse.number[description]=Id number of the warehouse</pre>
+
+You get:<br />
+<img src="files/tooltip_en.png" alt="tooltip_en.png" title="tooltip_en.png" /><br />
+<br />
+Since v5.8 if the label and the tooltip matches the tooltip is not shown.<br />
+<br />
+<h2 id="toc9"><a name="Internationalization (i18n)-Placeholder (new in v5.8)"></a>Placeholder <em>(new in v5.8)</em></h2>
+ To define a placeholder for a field add the suffix <em>[placeholder]</em> in the labels i18n file of your project. For example, with the next entry in your labels file:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml">Color.number[placeholder]=Your num.</pre>
+
+You get:<br />
+<img src="files/placeholder-en.GIF" alt="placeholder-en.GIF" title="placeholder-en.GIF" />
+    </div>
+  </body>
+</html>

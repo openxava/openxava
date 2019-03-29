@@ -1,0 +1,531 @@
+<html>
+  <head>
+    <title>openxava - multischema_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Aplicaciones multiesquema">Aplicaciones multiesquema</a></div>
+<div style="margin-left: 2em;"><a href="#Aplicaciones multiesquema-Aplicaciones multiesquema">Aplicaciones multiesquema</a></div>
+<div style="margin-left: 2em;"><a href="#Aplicaciones multiesquema-Aplicacion contra múltiples bases de datos (new in v4.2.2)">Aplicacion contra múltiples bases de datos (new in v4.2.2)</a></div>
+<div style="margin-left: 2em;"><a href="#Aplicaciones multiesquema-Un ejemplo">Un ejemplo</a></div>
+<div style="margin-left: 2em;"><a href="#Aplicaciones multiesquema-Cómo funciona">Cómo funciona</a></div>
+<div style="margin-left: 2em;"><a href="#Aplicaciones multiesquema-Cambiando de esquema con parámetros en la URL (nuevo en v4m4)">Cambiando de esquema con parámetros en la URL (nuevo en v4m4)</a></div>
+</div>
+<h1 id="toc0"><a name="Aplicaciones multiesquema"></a>Aplicaciones multiesquema</h1>
+ Este documento explica como crear aplicaciones multiesquema con OpenXava.<br />
+Las aplicaciones multiesquema funcionan con Hibernate y EJB3 JPA como mecanismos de persistencia. EJB2 CMP no soporta multiesquema.<br />
+Si quieres una aplicación multiempresa sin programar visita la sección sobre <a class="wiki_link" href="multitenancy_es.html">multitenencia</a>.<br />
+<h2 id="toc1"><a name="Aplicaciones multiesquema-Aplicaciones multiesquema"></a>Aplicaciones multiesquema</h2>
+ Una aplicación multiesquema permite replicar toda la estructura de tabla de nuestra base de datos en varios esquemas de base de datos. Entonces cada usuario (o en cada sesión) puede trabajar con un esquema diferente, o sea contra diferentes datos.<br />
+Por ejemplo, podemos tener los datos de 3 empresas diferentes en el mismo servidor de base de datos. Nuestra aplicación OpenXava, que está desplegadas solo una vez en un servidor de aplicaciones, puede ser usada por los usuarios de estas tres empresas, pero cada empleado solo puede acceder a los datos de su compañia. Una aplicación multiesquema permite implementar esto.<br />
+Usar varios esquemas en la base de datos no es solo por seguridad, sino también para evitar tener tablas de base de datos inmensas; porque podemos separar la información por empresas, años, departamentos, municipios, etc.<br />
+<h2 id="toc2"><a name="Aplicaciones multiesquema-Aplicacion contra múltiples bases de datos (new in v4.2.2)"></a>Aplicacion contra múltiples bases de datos <em>(new in v4.2.2)</em></h2>
+ En lugar de varios esquemas en la misma aplicación puedes optar por usar varias bases de datos completamente diferentes. Para hacer esto sigue las instrucciones de abajo cambiando el controlador <em>DefaultSchema</em> por <em>PersistenceUnit</em> y <em>SetDefaultSchemaAction</em> por <em>SetPersistenceUnitAction</em>. Además, has de definir varias unidades de persistencia en <em>persistence.xml</em>, una por cada base de datos.<br />
+<h2 id="toc3"><a name="Aplicaciones multiesquema-Un ejemplo"></a>Un ejemplo</h2>
+ Veamos un ejemplo de un módulo OpenXava que usa multiesquema.<br />
+Primero, necesitamos una clase entidad, como esta:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span class="kw166">Entity</span></a>
+<span class="kw2">public</span> <span class="kw2">class</span> Incidencia <span class="br0">&#123;</span>
+&nbsp;
+    @Id @Column<span class="br0">&#40;</span>length=<span class="nu0">5</span><span class="br0">&#41;</span> @Required
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> id<span class="sy0">;</span>
+&nbsp;
+    @Column<span class="br0">&#40;</span>length=<span class="nu0">40</span><span class="br0">&#41;</span> @Required
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> descripcion<span class="sy0">;</span>
+&nbsp;
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getId<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw2">return</span> id<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> setId<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> id<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw2">this</span>.<span class="me1">id</span> = id<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getDescripcion<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw2">return</span> descripcion<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> setDescripcion<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> descripcion<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw2">this</span>.<span class="me1">descripcion</span> = descripcion<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+<span class="br0">&#125;</span></pre>
+
+O, si estamos usando los components XML clásicos de OpenXava:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;componente</span> <span class="re0">nombre</span>=<span class="st0">&quot;Incidencia&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;entidad<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span class="st0">&quot;id&quot;</span> <span class="re0">tipo</span>=<span class="st0">&quot;String&quot;</span> <span class="re0">clave</span>=<span class="st0">&quot;true&quot;</span></span>
+<span class="sc3">            <span class="re0">longitud</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">requerido</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span class="st0">&quot;descripcion&quot;</span> <span class="re0">tipo</span>=<span class="st0">&quot;String&quot;</span></span>
+<span class="sc3">            <span class="re0">longitud</span>=<span class="st0">&quot;40&quot;</span> <span class="re0">requerido</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/entidad<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;mapeo-entidad</span> <span class="re0">tabla</span>=<span class="st0">&quot;**INCIDENCIA**&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;mapeo-propiedad</span></span>
+<span class="sc3">            <span class="re0">propiedad-modelo</span>=<span class="st0">&quot;id&quot;</span> <span class="re0">columna-tabla</span>=<span class="st0">&quot;ID&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;mapeo-propiedad</span></span>
+<span class="sc3">            <span class="re0">propiedad-modelo</span>=<span class="st0">&quot;descripcion&quot;</span> <span class="re0">columna-tabla</span>=<span class="st0">&quot;DESCRIPCION&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/mapeo-propiedad<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/componente<span class="re2">&gt;</span></span></span></pre>
+
+Se puede ver como mapeamos el componente contra la tabla INCIDENCIA, pero no indicamos el esquema.<br />
+<br />
+Ahora, podemos definir el módulo en <em>aplicacion.xml</em>, como sigue:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;modulo</span> <span class="re0">nombre</span>=<span class="st0">&quot;Incidencias&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span class="st0">&quot;Incidencia&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span class="st0">&quot;Incidencias&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
+
+Entonces, definimos nuestro propio controlador Incidencias, en <em>controladores.xml</em>, de esta forma:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span class="st0">&quot;Incidencias&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;hereda-de</span> <span class="re0">controlador</span>=<span class="st0">&quot;DefaultSchema&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span class="st0">&quot;cambiarAEmpresa1&quot;</span> <span class="re0">al-iniciar</span>=<span class="st0">&quot;true&quot;</span></span>
+<span class="sc3">        <span class="re0">clase</span>=<span class="st0">&quot;org.openxava.actions.SetDefaultSchemaAction&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;poner</span> <span class="re0">propiedad</span>=<span class="st0">&quot;newDefaultSchema&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;EMPRESA1&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;usa-objeto</span> <span class="re0">nombre</span>=<span class="st0">&quot;xava_defaultSchema&quot;</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- No necesario desde v4m2 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;/accion<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span class="st0">&quot;cambiarAEmpresa2&quot;</span></span>
+<span class="sc3">        <span class="re0">clase</span>=<span class="st0">&quot;org.openxava.actions.SetDefaultSchemaAction&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;poner</span> <span class="re0">propiedad</span>=<span class="st0">&quot;newDefaultSchema&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;EMPRESA2&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;usa-objeto</span> <span class="re0">nombre</span>=<span class="st0">&quot;xava_defaultSchema&quot;</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- No necesario desde v4m2 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;/accion<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/controlador<span class="re2">&gt;</span></span></span></pre>
+
+Y ahora tenemos un modulo que puede trabajar contra el esquema 'EMPRESA1' o contra el esquema 'EMPRESA2'. El usuario solo ha de pulsa en el botón correspondiente para cambiar <em>en caliente</em> el origen de los datos.<br />
+<br />
+Eso es todo.<br />
+<h2 id="toc4"><a name="Aplicaciones multiesquema-Cómo funciona"></a>Cómo funciona</h2>
+ Podemos usar estos controladores y acciones que están listos para usar, pero si además sabemos como funcionan, podemos hacerlo nosotros mismos y así podemos adaptarnos más a nuestras necesidades específicas. La clave está en la clase <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/jpa/XPersistence.html" rel="nofollow">XPersistence</a></em>, usando esta clase es posible cambiar el esquema por defecto en tiempo de ejecución:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java span.xtra { display:block; }
+
+-->
+</style><pre class="java">XPersistence.<span class="me1">setDefaultSchema</span><span class="br0">&#40;</span><span class="st0">&quot;EMPRESA1&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+Esto cambia el esquema por defecto a 'EMPRESA1', pero solo para el hilo de ejecución actual.<br />
+Ahora, si usamos un objeto de sesión (ver la sección 7.2 de la guía de referencia) y usamos una acción con <em>en-cada-peticion=&quot;true&quot;</em> para establecer el esquema asociado al usuario actual como el esquema por defecto para el hilo de la petición, tendremos el problema resuelto.<br />
+<br />
+Intentemos hacerlo.<br />
+Define un objeto de sesión para almacenar el esquema actual por usuario:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;object</span> <span class="re0">name</span>=<span class="st0">&quot;xava_defaultSchema&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;java.lang.String&quot;</span> <span class="re0">scope</span>=<span class="st0">&quot;global&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+Esto está en <em>OpenXava/xava/default-controllers.xml</em>, por lo tanto está disponible para tí; aunque puedes crearte tu propio objeto de sesión en tu propio <em>controladores.xml</em> si así lo prefieres.<br />
+<br />
+Define una acción (en tu propio controlador) que se ejecute antes de cada petición, en <em>controladores.xml</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controlador</span> ... <span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span class="st0">&quot;ponerEsquemaPorDefecto&quot;</span> <span class="re0">antes-de-cada-peticion</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">oculta</span>=<span class="st0">&quot;true&quot;</span></span>
+<span class="sc3">        <span class="re0">clase</span>=<span class="st0">&quot;org.openxava.actions.SetDefaultSchemaAction&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;usa-objeto</span> <span class="re0">nombre</span>=<span class="st0">&quot;xava_defaultSchema&quot;</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- No necesario desde v4m2 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;/accion<span class="re2">&gt;</span></span></span>
+    ...
+<span class="sc3"><span class="re1">&lt;/controlador<span class="re2">&gt;</span></span></span></pre>
+
+(El controlador <em>DefaultSchema</em> de OpenXava tiene esta acción incluida)<br />
+En esta acción solo necesitas tener el objeto de sesión (en este caso <em>xava_defaultSchema</em>) y ponerlo como esquema por defecto usando <em>XPersistence</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java span.xtra { display:block; }
+
+-->
+</style><pre class="java"><span class="kw1">public</span> <span class="kw1">class</span> SetDefaultSchemaAction <span class="kw1">extends</span> BaseAction <span class="br0">&#123;</span>
+&nbsp;
+    @Inject  <span class="co1">// A partir de v4m2</span>
+    <span class="kw1">private</span> <span class="kw3">String</span> defaultSchema<span class="sy0">;</span>
+    <span class="kw1">private</span> <span class="kw3">String</span> newDefaultSchema<span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">public</span> <span class="kw4">void</span> execute<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">&#123;</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span>newDefaultSchema <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">&#41;</span>    defaultSchema <span class="sy0">=</span> newDefaultSchema<span class="sy0">;</span>
+        XPersistence.<span class="me1">setDefaultSchema</span><span class="br0">&#40;</span>defaultSchema<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co3">/**
+     * The current default schema used by OpenXava and JPA.
+     */</span>
+    <span class="kw1">public</span> <span class="kw3">String</span> getDefaultSchema<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> defaultSchema<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co3">/**
+     * The current default schema used by OpenXava and JPA.
+     */</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> setDefaultSchema<span class="br0">&#40;</span><span class="kw3">String</span> company<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">this</span>.<span class="me1">defaultSchema</span> <span class="sy0">=</span> company<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co3">/**
+     * The new default schema for OpenXava and JPA. &lt;P&gt;
+     *
+     * This value update the property 'defaultSchema'.
+     */</span>
+    <span class="kw1">public</span> <span class="kw3">String</span> getNewDefaultSchema<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> newDefaultSchema<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co3">/**
+     * The new default schema for OpenXava and JPA. &lt;P&gt;
+     *
+     * This value update the property 'defaultSchema'.
+     */</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> setNewDefaultSchema<span class="br0">&#40;</span><span class="kw3">String</span> newCompany<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">this</span>.<span class="me1">newDefaultSchema</span> <span class="sy0">=</span> newCompany<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+Ya que <em>defaultSchema</em> es inyectado usando <em>&lt;usa-objeto /&gt;</em> (en todas las versiones) o <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/6/docs/api/javax/inject/Inject.html" rel="nofollow">@Inject</a></em> (desde v4m2) cuando cambiamos la propiedad <em>defaultSchema</em> también estamos cambiando el objeto de sesión <em>xava_defaultSchema</em>.<br />
+Esta acción forma parte del nucleo de OpenXava (en <em>org.openxava.actions</em>), puedes usarla tal cual, o crearte la tuya propia usando una técnica similar.<br />
+<br />
+Este técnica se puede usar también con <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/hibernate/XHibernate.html" rel="nofollow">XHibernate</a></em>.<br />
+<br />
+Ahora puedes llamar a esta acción (u otra parecida) cuando quieras cambiar el esquema actual para el usuario.<br />
+<br />
+<h2 id="toc5"><a name="Aplicaciones multiesquema-Cambiando de esquema con parámetros en la URL (nuevo en v4m4)"></a>Cambiando de esquema con parámetros en la URL <em>(nuevo en v4m4)</em></h2>
+ Puede cambiar de esquema a través de parámetros en la URL, observe los detalles en la sección de <a class="wiki_link" href="how-to_es.html">How to</a>.
+    </div>
+  </body>
+</html>

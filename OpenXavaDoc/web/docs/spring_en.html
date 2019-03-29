@@ -1,0 +1,184 @@
+<html>
+  <head>
+    <title>openxava - spring_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Spring">Spring</a></div>
+<div style="margin-left: 2em;"><a href="#Spring-Dependencies">Dependencies</a></div>
+<div style="margin-left: 2em;"><a href="#Spring-Application context">Application context</a></div>
+<div style="margin-left: 2em;"><a href="#Spring-Load-time weaving with AspectJ">Load-time weaving with AspectJ</a></div>
+<div style="margin-left: 2em;"><a href="#Spring-Java annotation driven injection">Java annotation driven injection</a></div>
+</div>
+<h1 id="toc0"><a name="Spring"></a>Spring</h1>
+ OpenXava doesn't include internal mechanism for supporting Spring beans injection into <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/IAction.html" rel="nofollow">IAction</a></em>, <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/ICalculator.html" rel="nofollow">ICalculator</a></em> and other OX front-end implementors, but still by using Spring AOP in combination with AspectJ, it is possible to inject beans (e.g. beans from service layer - services) into OX dependent classes.<br />
+<h2 id="toc1"><a name="Spring-Dependencies"></a>Dependencies</h2>
+ The next several jar dependencies must be included within <em>OpenXava/web/WEB-INF/lib</em> directory in order to use Spring features:<br />
+<ul><li><tt>spring-core.jar</tt>,</li><li><tt>spring-beans.jar</tt>,</li><li><tt>spring-context.jar</tt> and</li><li><tt>spring-aspects.jar</tt>.</li></ul>For load-time weaving purposes, these AspectJ libraries are required:<br />
+<ul><li><tt>aspectjrt.jar</tt> and</li><li><tt>aspectjweaver.jar</tt></li></ul>They should be also located within <em>OpenXava/web/WEB-INF/lib</em> directory.<br />
+Additional dependency is <tt>spring-agent.jar</tt> which will be passed externally to the JVM.<br />
+<em>Note: In the time when this tutorial has been written, the actual version of Spring jars was 2.5.6 and for AspectJ jars it was 1.6.1.</em><br />
+<h2 id="toc2"><a name="Spring-Application context"></a>Application context</h2>
+ In order to initialize Spring application context, few lines must be added into the <em>OpenXava/web/WEB-INF/web.xml</em> file, like in the example bellow:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;context-param<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>contextConfigLocation<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>/WEB-INF/applicationContext.xml<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/context-param<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;listener<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;listener-class<span class="re2">&gt;</span></span></span>org.springframework.web.context.ContextLoaderListener<span class="sc3"><span class="re1">&lt;/listener-class<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/listener<span class="re2">&gt;</span></span></span></pre>
+
+<em>Note: For more information on this, please check <a class="wiki_link_ext" href="http://static.springsource.org/spring/docs/2.5.x/reference/beans.html#context-create" rel="nofollow">Spring Reference</a></em>.<br />
+<h2 id="toc3"><a name="Spring-Load-time weaving with AspectJ"></a>Load-time weaving with AspectJ</h2>
+ Load-time weaving (LTW) is simply binary weaving defered until the point that a class loader loads a class file and defines the class to the JVM. To support this, one or more &quot;weaving class loaders&quot;, either provided explicitly by the run-time environment or enabled through a &quot;weaving agent&quot; are required. For this purpose Spring agent must be used and specified on the JVM startup, like in the example bellow:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash">java -javaagent:path<span class="sy0">/</span>to<span class="sy0">/</span>spring-agent.jar</pre>
+
+<em>Note: If you're using Tomcat application server, javaagent option can be specified through JAVA_OPTS parameter and the logical place for spring-agent.jar could be ${catalina.home}/server/lib.</em><br />
+<h2 id="toc4"><a name="Spring-Java annotation driven injection"></a>Java annotation driven injection</h2>
+ Spring context module provides additional configuration through Java annotations so an application context XML might look like the example bellow:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;UTF-8&quot;</span><span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;beans</span> <span class="re0">xmlns</span>=<span class="st0">&quot;http://www.springframework.org/schema/beans&quot;</span> <span class="re0">xmlns:xsi</span>=<span class="st0">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span>
+<span class="sc3">    <span class="re0">xmlns:context</span>=<span class="st0">&quot;http://www.springframework.org/schema/context&quot;</span></span>
+<span class="sc3">    <span class="re0">xsi:schemaLocation</span>=<span class="st0">&quot;</span>
+<span class="sc3">    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span>
+<span class="sc3">    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd&quot;</span></span>
+<span class="sc3">    <span class="re0">default-autowire</span>=<span class="st0">&quot;byName&quot;</span><span class="re2">&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;context:annotation-config</span> <span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;context:spring-configured</span> <span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;context:load-time-weaver</span> <span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;context:component-scan</span> <span class="re0">base-package</span>=<span class="st0">&quot;org.openxava.springapp.frontend&quot;</span> <span class="re2">/&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">&quot;exampleService&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.springapp.service.ExampleServiceImpl&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/beans<span class="re2">&gt;</span></span></span></pre>
+
+When application context is configured like that, an action implementation that uses <tt>exampleService</tt> bean, might look like in the following example:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java span.xtra { display:block; }
+
+-->
+</style><pre class="java">@Configurable
+<span class="kw1">public</span> <span class="kw1">class</span> ExampleAction <span class="kw1">extends</span> ViewBaseAction <span class="br0">&#123;</span>
+&nbsp;
+    <span class="kw1">private</span> ExampleService exampleService<span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">public</span> <span class="kw4">void</span> execute<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">&#123;</span>
+        exampleService.<span class="me1">doSomething</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    @Autowired
+    <span class="kw1">public</span> <span class="kw4">void</span> setExampleService<span class="br0">&#40;</span>ExampleService exampleService<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">this</span>.<span class="me1">exampleService</span> <span class="sy0">=</span> exampleService<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+Each time when OpenXava instances <tt>ExampleAction</tt> class, LTW mechanism will listen for such event and set additional bean dependencies from the application context.<br />
+<em>Note: Please refer to <a class="wiki_link_ext" href="http://static.springsource.org/spring/docs/2.5.x/reference/aop.html#aop-aj-ltw" rel="nofollow">Spring Reference</a> and <a class="wiki_link_ext" href="http://www.eclipse.org/aspectj/doc/released/devguide/ltw.html" rel="nofollow">AspectJ Guide</a> for more information about LTW and annotation based configuration.</em>
+    </div>
+  </body>
+</html>

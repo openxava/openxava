@@ -1,0 +1,116 @@
+<html>
+  <head>
+    <title>openxava - multitenancy_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Multitenancy">Multitenancy</a></div>
+<div style="margin-left: 2em;"><a href="#Multitenancy-Creating a new organization">Creating a new organization</a></div>
+<div style="margin-left: 2em;"><a href="#Multitenancy-Customization">Customization</a></div>
+<div style="margin-left: 2em;"><a href="#Multitenancy-JDBC inside organizations (new in v5.6)">JDBC inside organizations (new in v5.6)</a></div>
+<div style="margin-left: 2em;"><a href="#Multitenancy-Shared users between organizations (new in v5.6)">Shared users between organizations (new in v5.6)</a></div>
+</div>
+<h1 id="toc0"><a name="Multitenancy"></a>Multitenancy</h1>
+ Multitenancy allows you to deploy an application once and this single application can serve several companies at the same time, where each company has access only to its own data. This is perfect for SaaS (Software as a Service), so you can deploy your application in the cloud and rent it to many customers. Also it's very useful for creating multimunicipality applications for public administration. Even if you're not interested in multicompany applications having several isolated datasets allows you do interesting things, such as having a production and testing databases without effort.<br />
+<a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a> supports multitenancy out-of-the-box.<br />
+<h2 id="toc1"><a name="Multitenancy-Creating a new organization"></a>Creating a new organization</h2>
+ To support multitenancy XavaPro uses organizations. You will find the Organizations module in the Admin folder. This module allows you to create a new organization just specifying its name and clicking a button:<br />
+<img src="files/multitenancy_en010.png" alt="multitenancy_en010.png" title="multitenancy_en010.png" /><br />
+After clicking on the button &quot;Create new organization&quot;, the new organization is ready to be used in the specified URL. The creation process creates a new schema in the database, creates all the application tables and populates the admin tables.<br />
+You can go to the company URL (/YourAplication/o/YourCompany) directly or to the application URL (/YourApplication). In the later case the sign in form will ask you for the company with a combo:<br />
+<img src="files/multitenancy_en030.png" alt="multitenancy_en030.png" title="multitenancy_en030.png" /><br />
+Each organization has its own users, passwords, roles and rights, of course.<br />
+<h2 id="toc2"><a name="Multitenancy-Customization"></a>Customization</h2>
+ The syntax for creating and removing schemas depends on your database. Your can specify the syntax for your database with the <em>createSchema</em> and <em>dropSchema</em> <em>(new in v5.7.1)</em> properties en <em>naviox.properties</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text"># Multitenancy: Only available in XavaPro (http://www.openxava.org/xavapro)
+&nbsp;
+# The create schema sentence used for creating a new organization
+# This is the default one
+createSchema=CREATE SCHEMA ${schema}
+# These are by database vendor, you can add yours using the database name
+# as suffix (actually the first token of connection.getMetaData().getDatabaseProductName())
+createSchema.PostgreSQL=CREATE SCHEMA ${schema}
+createSchema.HSQL=CREATE SCHEMA ${schema} AUTHORIZATION DBA
+&nbsp;
+# The drop schema sentence used for removing an existing organization
+# This is the default one
+dropSchema=DROP SCHEMA ${schema} CASCADE
+# These are by database vendor, you can add yours using the database name
+# as suffix (actually the first token of connection.getMetaData().getDatabaseProductName())
+dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
+
+If you want to make additional customization, like populating the application tables, creating some initial roles and users, giving a specific modules and folders structure, etc. you can define your own action to create the organization. The original action is defined in <em>Addons/xava/controllers.xml</em> in this way:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">&lt;controller name=&quot;Organization&quot;&gt;
+    ...
+    &lt;action name=&quot;createNewOrganization&quot; mode=&quot;detail&quot; takes-long=&quot;true&quot;
+        class=&quot;com.openxava.naviox.actions.CreateNewOrganizationAction&quot;/&gt;
+    ...
+&lt;/controller&gt;</pre>
+
+Just define your own class for <em>Organization.createNewOrganization</em>.<br />
+You can hide the combo with the list of organizations on sign in adding the next entry to <em>naviox.properties (new v5.6)</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">showOrganizationOnSignIn=false</pre>
+
+<h2 id="toc3"><a name="Multitenancy-JDBC inside organizations (new in v5.6)"></a>JDBC inside organizations <em>(new in v5.6)</em></h2>
+ Any JPA or Hibernate code (Hibernate since v5.6) from your actions, calculators, entities, etc. goes against the correct schema for the current organization, however that is not the case for JDBC. If you want that your JDBC code goes against the schema of the current organization you have to add the next entry in <em>xava.properties</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">connectionRefinerClass=com.openxava.naviox.util.SetCatalogFromPersistenceSchemaConnectionRefiner</pre>
+
+This works for databases where catalog and schema are synonymous, such as MySQL.<br />
+<h2 id="toc4"><a name="Multitenancy-Shared users between organizations (new in v5.6)"></a>Shared users between organizations <em>(new in v5.6)</em></h2>
+ When you use multitenancy with XavaPro each organization has its own group of users totally independent from other organizations. This is OK for many cases, however some applications need to have the same group of users for all the organizations. You can configure your application to work in this way, just check the corresponding option in the configuration module:<br />
+<img src="files/multitenancy_en040.png" alt="multitenancy_en040.png" title="multitenancy_en040.png" /><br />
+With &quot;Shared users&quot; activated the users and passwords for all the organizations are those of the root application. You have to create the users in the root application only and when one of these users try to access to an organization he has the option to join:<br />
+<img src="files/multitenancy_en050.png" alt="multitenancy_en050.png" title="multitenancy_en050.png" /><br />
+There is a <em>joined</em> role in each organization to define the rights for these users.<br />
+When the user sign in with &quot;Shared user&quot; activated, the list of his organizations are shown in order to choose:<br />
+<img src="files/multitenancy_en060.png" alt="multitenancy_en060.png" title="multitenancy_en060.png" /><br />
+The user can go to any of his organizations without login again.
+    </div>
+  </body>
+</html>

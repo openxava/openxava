@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>openxava - overview_zh_cn</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#x第1章: 概述">第1章: 概述</a></div>
+<div style="margin-left: 2em;"><a href="#x第1章: 概述-介绍">介绍</a></div>
+<div style="margin-left: 2em;"><a href="#x第1章: 概述-业务组件（Business component）">业务组件（Business component）</a></div>
+<div style="margin-left: 2em;"><a href="#x第1章: 概述-控制器（Controllers）">控制器（Controllers）</a></div>
+<div style="margin-left: 2em;"><a href="#x第1章: 概述-应用（Application）">应用（Application）</a></div>
+<div style="margin-left: 2em;"><a href="#x第1章: 概述-项目结构">项目结构</a></div>
+</div>
+<strong>1.概述</strong> | <a class="wiki_link" href="my-first-ox-project_zh_cn.html">2.我的第一个项目</a> | <a class="wiki_link" href="model_zh_cn.html">3.模型</a> | <a class="wiki_link" href="view_zh_cn.html">4.视图</a> | <a class="wiki_link" href="tab_zh_cn.html">5.列表数据</a> | <a class="wiki_link" href="mapping_zh_cn.html">6.对象/关系映射</a> | <a class="wiki_link" href="controllers_zh_cn.html">7.控制器</a> | <a class="wiki_link" href="application_zh_cn.html">8.应用</a> | <a class="wiki_link" href="customizing_zh_cn.html">9. 定制</a><br />
+<h1 id="toc0"><a name="x第1章: 概述"></a>第1章: 概述</h1>
+ <h2 id="toc1"><a name="x第1章: 概述-介绍"></a>介绍</h2>
+ OpenXava 是一个用来快速简洁开发JavaEE/J2EE应用的框架。<br />
+OpenXava的根本哲理是用Java annotations或XML来定义，用Java来编码；定义越多编码越少就越好。<br />
+OpenXava的主要目的是简化业务应用系统开发中的典型工作，同时仍然保持必要的灵活性让开发人员根据需要开发高级特性。<br />
+下面是OpenXava中的基本概念。<br />
+<h2 id="toc2"><a name="x第1章: 概述-业务组件（Business component）"></a>业务组件（Business component）</h2>
+ 业务组件（Business component）是创建OpenXava应用系统的基础部件。在OpenXava中，业务组件是一个java类（当然也有一个XML 版本），包含了创建业务系统涉及的业务概念的所有信息。例如，订单（invoice ）的所有信息就包含在文件<em>Invoice.java</em>中. 在业务组件中，你可以定义:<br />
+<ul><li>数据结构。</li><li>校验, 计算 以及业务概念的所有相关逻辑。</li><li>可能的视图, 也就是，本组件的所有可能的用户界面的配置。</li><li>数据列表展示的可能性. 列表数据用在列表模式（list mode）(数据浏览), 报表,导出到excel等。</li><li>对象-关系映射, 包含数据表以及如何将数据表转化到Java应用程序中的对象。</li></ul>这种划分方式有利于团队协作，也有利于开发出可以用在不同项目上的通用业务组件。<br />
+<h2 id="toc3"><a name="x第1章: 概述-控制器（Controllers）"></a>控制器（Controllers）</h2>
+ 业务系统中并不定义用户在应用系统中能完成的工作，这些消息定义在控制器（controllers）中。控制器定义在项目的<em>xava/controllers.xml</em> 中; OpenXava中有一套事先定义好的controllers 放在<em>OpenXava/xava/default-controllers.xml中</em>.<br />
+控制器包含一系列动作. 动作是用户能够点击的按钮或者链接。<br />
+控制器与业务组件分开，这是应为一个控制器可以指定到多个业务组件上。例如, 具有执行CRUD 操作, 生成PDF报表或导出到纯文本等躬耕的控制器， 可以反复用在订单（ invoices,）客户（ customers）,供应商（ suppliers）等业务组件上.<br />
+<h2 id="toc4"><a name="x第1章: 概述-应用（Application）"></a>应用（Application）</h2>
+ 一个 OpenXava应用由许多模块（ module）组成. 模块将业务组件同多个控制器组合到一起。<br />
+应用程序中的模块是最终用户所使用的东西，一般在portal中配置为一个portlet。<br />
+<h2 id="toc5"><a name="x第1章: 概述-项目结构"></a>项目结构</h2>
+ 典型的OpenXava项目通常包含下列文件夹:<br />
+<ul><li><strong>[root]:</strong> 包含<em>build.xml</em> (定义了Ant task).</li><li><strong>src[source folder]:</strong> 包含了java源代码.</li><li><strong>xava:</strong> 配置OpenXava 应用的XML 文件. 主要有<em>application.xml</em> 和<em>controllers.xml</em>.</li><li><strong>i18n:</strong> 包含多种语言标签和消息的资源文件.</li><li><strong>properties[source folder]:</strong> 配置应用的属性文件.</li><li><strong>data:</strong> 包含创建应用系统所用数据表的脚本（ 如果确实需要的话）.</li><li><strong>web:</strong> Web 内容. 通常是JSP 文件, lib and classes. 绝大多数内容都能自动生成, 但你可以将自己的JSP和其他定制的web内容放在其中.</li></ul>
+    </div>
+  </body>
+</html>

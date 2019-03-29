@@ -1,0 +1,220 @@
+<html>
+  <head>
+    <title>openxava - database-dialect_ru</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="xНастройка доступа к базам данных в OX"></a>Настройка доступа к базам данных в OX</h1>
+ OpenXava использует каркас Hibernate для доступа к базам данных. Для того, чтобы Hibernate формировал корректные конструкции SQL для вашей базы данных, необходимо указать используемый диалект базы данных. Список поддерживаемых Hibernate диалектов  <a class="wiki_link_ext" href="http://www.hibernate.org/hib_docs/v3/reference/en/html/session-configuration.html#configuration-optional-dialects" rel="nofollow">можно посмотреть здесь</a>. Вы можете использовать любой из них.<br />
+<h2 id="toc1"><a name="xНастройка доступа к базам данных в OX-JPA entities (стиль OX3)"></a>JPA entities (стиль OX3)</h2>
+ Если вы использует Java аннотации (стиль OX3) и вы хотите сменить Hypersonic (который используется по-умолчанию в проектах OpenXava), например, на Oracle, вам необходимо отредактировать файл <em>persitence/META-INF/persistence.xml</em> вашего проекта, заменив:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.dialect&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.dialect.HSQLDialect&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+на<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.dialect&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.dialect.Oracle9Dialect&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+<br />
+Если вы используете тесты junit (для тестирования CRUD) или используете задачу Ant &quot;updateSchema&quot;, вам необходимо также заменить содержимое persistence-unit name=&quot;junit&quot; на следующее (Не забудьте выставить корректные параметры подключения к вашей базе данных):<br />
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;persistence-unit</span> <span class="re0">name</span>=<span class="st0">&quot;junit&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.driver_class&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;oracle.jdbc.driver.OracleDriver&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.dialect&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.dialect.Oracle9Dialect&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.url&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;jdbc:oracle:thin:@localhost:1521:XE&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.username&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;user&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.password&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;password&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span></pre>
+
+<br />
+Аналогично, если вы хотите хранить данные user preferences tab в базе данных вашего приложения  (в нашем случае, Oracle), вам необходимо отредактировать <em>persistence/openxava-hibernate.cfg,</em> указав корректные datasource и dialect:<br />
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;session-factory<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.datasource&quot;</span><span class="re2">&gt;</span></span>java:comp/env/jdbc/MyApplicationDS<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.dialect&quot;</span><span class="re2">&gt;</span></span>org.hibernate.dialect.OracleDialect<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.jdbc.use_get_generated_keys&quot;</span><span class="re2">&gt;</span></span>false<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;mapping</span> <span class="re0">resource</span>=<span class="st0">&quot;TabUserPreferences.hbm.xml&quot;</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/session-factory<span class="re2">&gt;</span></span></span></pre>
+
+<br />
+Это все.<br />
+<br />
+<h2 id="toc2"><a name="xНастройка доступа к базам данных в OX-XML компоненты (классический стиль OX2)"></a>XML компоненты (классический стиль OX2)</h2>
+ Если вы используете XML описания бизнес-компонентов в стиле OX2, вам необходимо создать копию файла <em>tomcat-hypersonic.properties</em> в корневом каталоге вашего проекта с именем <em>tomcat-oracle.properties</em>, а также изменить в нем строку:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text"> hibernate.dialect=org.hibernate.dialect.HSQLDialect</pre>
+
+на:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text"> hibernate.dialect=org.hibernate.dialect.OracleDialect</pre>
+
+Затем отредактируйте файл <em>build.xml</em> вашего проекта, заменив:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;configuration&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;tomcat-hypersonic&quot;</span> <span class="re2">/&gt;</span></span></pre>
+
+на<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"> <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;configuration&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;oracle-hypersonic&quot;</span> <span class="re2">/&gt;</span></span></pre>
+
+
+    </div>
+  </body>
+</html>

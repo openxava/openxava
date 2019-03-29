@@ -1,0 +1,1066 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>openxava - getting-started_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <div id="toc">
+        <h1 class="nopad">Table of Contents</h1>
+        <div style="margin-left: 1em;"><a href="#Lecci%C3%B3n+1:+Primeros+pasos">Lección
+            1: Primeros pasos</a></div>
+        <div style="margin-left: 2em;"><a href="#Lecci%C3%B3n+1:%20Primeros%20pasos-Nuestro%20objetivo:+Una+peque%C3%B1a+aplicaci%C3%B3n+de+facturaci%C3%B3n">Nuestro
+            objetivo: Una pequeña aplicación de facturación</a></div>
+        <div style="margin-left: 2em;"><a href="#Lecci%C3%B3n+1:+Primeros+pasos-Crear+el+proyecto+en+Eclipse">Crear
+            el proyecto en Eclipse</a></div>
+        <div style="margin-left: 3em;"><a href="#Lecci%C3%B3n+1:+Primeros+pasos-Crear+el+proyecto+en+Eclipse-Instalar+OpenXava">Instalar
+            OpenXava</a></div>
+        <div style="margin-left: 3em;"><a href="#Lecci%C3%B3n+1:+Primeros+pasos-Crear+el+proyecto+en+Eclipse-Crear+el+proyecto">Crear
+            el proyecto</a></div>
+        <div style="margin-left: 2em;"><a href="#Lecci%C3%B3n+1:+Primeros+pasos-Configurar+Tomcat+dentro+de+Eclipse">Configurar
+            Tomcat dentro de Eclipse</a></div>
+        <div style="margin-left: 2em;"><a href="#Lecci%C3%B3n+1:+Primeros+pasos-Preparar+la+base+de+datos">Preparar
+            la base de datos</a></div>
+        <div style="margin-left: 3em;"><a href="#Lecci%C3%B3n+1:+Primeros+pasos-Preparar+la+base+de+datos-Crear+la+fuente+de+datos">Crear
+            la fuente de datos</a></div>
+        <div style="margin-left: 3em;"><a href="#Lecci%C3%B3n+1:+Primeros+pasos-Preparar+la+base+de+datos-Iniciar+la+base+de+datos">Iniciar
+            la base de datos</a></div>
+        <div style="margin-left: 2em;"><a href="#Lecci%C3%B3n+1:+Primeros+pasos-Crear+tu+primera+entidad">Crear
+            tu primera entidad</a></div>
+        <div style="margin-left: 2em;"><a href="#Lecci%C3%B3n+1:+Primeros+pasos-Ejecutar+la+aplicaci%C3%B3n">Ejecutar
+            la aplicación</a></div>
+        <div style="margin-left: 2em;"><a href="#Lecci%C3%B3n+1:+Primeros+pasos-Modificar+la+aplicaci%C3%B3n">Modificar
+            la aplicación</a></div>
+        <div style="margin-left: 2em;"><a href="#Lecci%C3%B3n+1:+Primeros+pasos-Resumen">Resumen</a></div>
+      </div>
+      <strong>Curso</strong>: <strong>1. Primeros pasos</strong> | <a class="wiki_link"
+        href="modeling_es.html">2. Modelar con Java</a> | <a class="wiki_link"
+        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
+        href="inheritance_es.html">4. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
+        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
+        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">9.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a><br>
+      <h1 id="toc0"><a name="Lección 1: Primeros pasos"></a>Lección 1: Primeros
+        pasos</h1>
+      Esta lección es la génesis de tu primera aplicación. Después de una breve
+      revisión de la aplicación que queremos desarrollar, configuraremos todas
+      las herramientas que necesitas para desarrollar con OpenXava.<br>
+      Vas a instalar Eclipse; configurar el Tomcat dentro del Eclipse y crear el
+      proyecto para tu aplicación.<br>
+      Esta lección es una introducción a OpenXava y Eclipse, por tanto está un
+      poco sobre explicada, especialmente en lo que a Eclipse se refiere. Por
+      eso, si ya eres un usuario de Eclipse experimentado, simplemente echa un
+      vistazo rápido a la lección y pasa directamente a la siguiente.<br>
+      <h2 id="toc1"><a name="Lección 1: Primeros pasos-Nuestro objetivo: Una pequeña aplicación de facturación"></a>Nuestro
+        objetivo: Una pequeña aplicación de facturación</h2>
+      La aplicación para esta parte del libro es una pequeña aplicación de
+      facturación con facturas, clientes, productos y así por el estilo. Esta
+      aplicación es una mera excusa para aprender algunos casos típicos en
+      aplicaciones de gestión. Puedes aplicar todo lo que aprendas con esta
+      aplicación a cualquier otra aplicación de gestión en cualquier otro
+      dominio.<br>
+      Ten en cuenta que esta aplicación de facturación es una herramienta
+      didáctica. No la uses “tal cual” para un sistema de facturación real.<br>
+      <h2 id="toc2"><a name="Lección 1: Primeros pasos-Crear el proyecto en Eclipse"></a>Crear
+        el proyecto en Eclipse</h2>
+      Eclipse es, sin duda, el IDE ubicuo dentro del mundo Java (junto con
+      NetBeans). OpenXava viene “de casa” listo para usar con Eclipse. Vas a
+      desarrollar tu aplicación de facturación usando Eclipse. Al final de este
+      capítulo tendrás una primera versión funcional de tu aplicación
+      desarrollada como un proyecto de Eclipse.<br>
+      Este curso asume que estás usando la edición “Eclipse IDE for Java EE
+      Developers” de Eclipse con Java 11 o Java 8. La última versión de Eclipse
+      es perfecta, aunque también puedes usar Eclipses más antiguos, hasta Neon
+      (4.6). Si es necesario, obtén tu Eclipse de <a href="http://www.eclipse.org/downloads"
+        rel="nofollow">www.eclipse.org</a> y Java de <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
+        rel="nofollow">www.oracle.com</a>.<br>
+      <h3 id="toc3"><a name="Lección 1: Primeros pasos-Crear el proyecto en Eclipse-Instalar OpenXava"></a>Instalar
+        OpenXava</h3>
+      Ve a <a href="http://www.openxava.org" rel="nofollow">www.openxava.org</a>
+      y descarga la última distribución de OpenXava. Es un archivo zip, algo así
+      como <em>openxava-6.x.zip</em>. Simplemente descomprímelo y tendrás un
+      entorno listo para empezar a desarrollar. Algo como esto:<br>
+      <img src="files/getting-started_es010.png" alt="getting-started_es010.png"
+        title="getting-started_es010.png"><br>
+      Como ves, las distribución de OpenXava incluye un Tomcat y un workspace de
+      Eclipse, todo configurado y listo para usar. Empecemos a trabajar.<br>
+      <h3 id="toc4"><a name="Lección 1: Primeros pasos-Crear el proyecto en Eclipse-Crear el proyecto"></a>Crear
+        el proyecto</h3>
+      <span style="line-height: 1.5;">Arranca tu Eclipse y abre el workspace de
+        OpenXava con él (</span><em><span style="line-height: 1.5;">File &gt;
+          Switch Workspace</span></em><span style="line-height: 1.5;">):</span><br>
+      <img src="files/quick-start_es010.png" alt="quick-start_es010.png" title="quick-start_es010.png"><br>
+      En primer lugar has de crear un proyecto Java nuevo:<br>
+      <img src="files/getting-started_es020.png" alt="getting-started_es020.png"
+        title="getting-started_es020.png"><br>
+      Entonces aparecerá un asistente. Teclea el nombre del proyecto, <em>Facturacion</em>
+      y presiona en Finish:<br>
+      <img src="files/getting-started_es030.png" alt="getting-started_es030.png"
+        title="getting-started_es030.png"><br>
+      Ten cuidado de poner la <em>F</em> de <em>Facturacion</em> en mayúscula
+      y no usar acento, para que los vínculos de abajo funcionen correctamente.</div>
+    <div class="wiki" style="display: block;">Si estás usando Java 9 o superior
+      con una versión reciente de Eclipse, te preguntará:</div>
+    <img src="files/getting-started_es035.png"
+      alt="Nombre de módulo">
+    <div class="wiki" style="display: block;">Pulsa <i>Don't Create</i>.</div>
+    <div class="wiki" style="display: block;">Después de esto tendrás un
+      proyecto Java vacío llamado <em>Facturacion</em>:<br>
+      <img src="files/getting-started_es040.png" alt="getting-started_es040.png"
+        title="getting-started_es040.png"><br>
+      Ahora tienes que convertirlo en un proyecto OpenXava:<br>
+      <img src="files/getting-started_es050.png" alt="getting-started_es050.png"
+        title="getting-started_es050.png"><br>
+      Después de esto has de introducir el nombre de proyecto, teclea <em>Facturacion</em>
+      y presiona OK:<br>
+      <img src="files/getting-started_es060.png" alt="getting-started_es060.png"
+        title="getting-started_es060.png"><br>
+      Espera unos pocos segundos hasta que termine y tendrás un proyecto
+      OpenXava completo:<br>
+      <img src="files/getting-started_es065.png" alt="getting-started_es065.png"
+        title="getting-started_es065.png"><br>
+      Tu proyecto ya está listo para empezar a escribir código, sin embargo
+      antes de eso vamos a configurar el Tomcat dentro de Eclipse para usarlo
+      como plataforma para ejecutar tu aplicación.<br>
+      <h2 id="toc5"><a name="Lección 1: Primeros pasos-Configurar Tomcat dentro de Eclipse"></a>Configurar
+        Tomcat dentro de Eclipse</h2>
+      Arrancar el Tomcat dentro del Eclipse tiene varias ventajas, como que
+      puedes depurar, ver la bitácora con los mensajes y las trazas de error
+      dentro de Eclipse, ir desde una traza al código pulsando con el ratón,
+      etc.<br>
+      En la parte inferior del Eclipse selecciona la pestaña <em>Servers</em> y<span
+        style="line-height: 1.5;"> pulsa el vínculo que hay dentro para crear un
+        nuevo servidor:</span><br>
+      <img src="files/getting-started070.png" alt="getting-started070.png" title="getting-started070.png"><br>
+      Se mostrará un diálogo, selecciona <em>Apache Tomcat v9.0</em> (dentro de
+      la carpeta <em>Apache</em>) y presiona <em>Next</em>:<br>
+      <img src="files/getting-started075.png" alt="getting-started075.png" title="getting-started075.png"><br>
+      Escoge el Tomcat incluido con OpenXava como directorio de instalación y
+      pulsa <em>Next</em>.<br>
+      <img src="files/getting-started_es080.png" alt="getting-started_es080.png"
+        title="getting-started_es080.png"><br>
+      Para finalizar, añade tu aplicación al Tomcat y pulsa <em>Finish</em>:<br>
+      <img src="files/getting-started_es110.png" alt="getting-started_es110.png"
+        title="getting-started_es110.png"><br>
+      Ahora el Tomcat está listo para usar.<br>
+      <h2 id="toc6"><a name="Lección 1: Primeros pasos-Preparar la base de datos"></a>Preparar
+        la base de datos</h2>
+      Tu aplicación OpenXava puede ir contra cualquier base de datos relacional,
+      como MySQL, PostgreSQL, Oracle, DB2, MS SQL Server y muchísimas más.
+      Además, puedes cambiar de una base datos a otra sin tocar una sola línea
+      de código. Para este curso vamos a utilizar HSQLDB, porque ya está
+      incluida en OpenXava y es extremadamente fácil de configurar. Puedes
+      cambiar a tu base de datos de producción en cualquier momento.<br>
+      <h3 id="toc7"><a name="Lección 1: Primeros pasos-Preparar la base de datos-Crear la fuente de datos"></a>Crear
+        la fuente de datos</h3>
+      Una fuente de datos es el medio que usa un servidor de aplicaciones para
+      saber como conectarse a una base de datos. Desde nuestras aplicaciones
+      solo referenciamos a fuentes de datos (y no directamente a las bases de
+      datos), por tanto hemos de configurar las fuentes de datos en el Tomcat
+      para apuntar a las bases de datos correctas. Definamos la fuente de datos
+      para nuestra aplicación <em>Facturacion</em>.<br>
+      Ve al proyecto <em>Servers</em> de Eclipse, edita el archivo <em>context.xml</em>
+      dentro de la carpeta de tu servidor:<br>
+      <img src="files/getting-started100.png" alt="getting-started100.png" title="getting-started100.png"><br>
+      Si no ves el código XML de <em>context.xml</em> pulsa en la pestaña <em>Source</em>.
+      Ahora has de añadir una nueva fuente de datos llamada <em>FacturacionDS</em>,
+      contra tu base de datos. Añade el siguiente código al final de <em>context.xml</em>
+      justo antes del último <em>&lt;/Context&gt;</em>:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;Resource</span> <span
+class="re0">name</span>=<span class="st0">"jdbc/FacturacionDS"</span> <span class="re0">auth</span>=<span
+class="st0">"Container"</span></span>
+<span class="sc3">    <span class="re0">type</span>=<span class="st0">"javax.sql.DataSource"</span></span>
+<span class="sc3">    <span class="re0">maxActive</span>=<span class="st0">"20"</span> <span
+class="re0">maxIdle</span>=<span class="st0">"5"</span> <span class="re0">maxWait</span>=<span
+class="st0">"10000"</span></span>
+<span class="sc3">    <span class="re0">username</span>=<span class="st0">"sa"</span> <span
+class="re0">password</span>=<span class="st0">""</span></span>
+<span class="sc3">    <span class="re0">driverClassName</span>=<span class="st0">"org.hsqldb.jdbcDriver"</span></span>
+<span class="sc3">    <span class="re0">url</span>=<span class="st0">"jdbc:hsqldb:hsql://localhost:1666"</span><span
+class="re2">/&gt;</span></span></pre>
+      <h3 id="toc8"><a name="Lección 1: Primeros pasos-Preparar la base de datos-Iniciar la base de datos"></a>Iniciar
+        la base de datos</h3>
+      Para arrancar tu base de datos HSQLDB con Windows pulsa el botón <em>Inicio</em>,
+      teclea <em>cmd</em> y presiona ENTER, después:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.dos  {font-family:monospace;}
+.dos .imp {font-weight: bold; color: red;}
+.dos .kw1 {color: #00b100; font-weight: bold;}
+.dos .kw2 {color: #000000; font-weight: bold;}
+.dos .kw3 {color: #b1b100; font-weight: bold;}
+.dos .kw4 {color: #0000ff; font-weight: bold;}
+.dos .co1 {color: #808080; font-style: italic;}
+.dos .co2 {color: #b100b1; font-style: italic;}
+.dos .co3 {color: #33cc33;}
+.dos .es0 {color: #ff0000; font-weight: bold;}
+.dos .sy0 {color: #33cc33;}
+.dos .sy1 {color: #33cc33;}
+.dos .st0 {color: #ff0000;}
+.dos .re0 {color: #b100b1; font-weight: bold;}
+.dos .re1 {color: #448844;}
+.dos .re2 {color: #448888;}
+.dos .re3 {color: #448888;}
+.dos span.xtra { display:block; }
+
+-->
+</style><pre class="dos"><span class="kw3">cd</span> openxava-6.x\tomcat\bin
+start-hsqldb facturacion-db 1666</pre>
+      Con Linux/Mac:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash"><span class="kw3">cd</span> openxava-<span class="nu0"><span
+style="color: #505050;">6</span></span>.x<span class="sy0">/</span>tomcat<span class="sy0">/</span>bin
+.<span class="sy0">/</span>start-hsqldb.sh facturacion-db <span class="nu0">1666</span></pre>
+      Obtendrás la siguiente salida:<br>
+      <img src="files/getting-started_es140.png" alt="getting-started_es140.png"
+        title="getting-started_es140.png"><br>
+      Tu base de datos ya está arrancada y si es la primera ejecución se habrá
+      creado automáticamente.<br>
+      <h2 id="toc9"><a name="Lección 1: Primeros pasos-Crear tu primera entidad"></a>Crear
+        tu primera entidad</h2>
+      Al fin tienes tu entorno de desarrollo configurado. Ahora, desarrollar es
+      muy fácil: solo has de añadir entidades para ir haciendo crecer tu
+      aplicación. Creemos tu primera entidad y ejecutemos la aplicación.<br>
+      Lo primero es crear un paquete para que contenga las clases del modelo
+      (las entidades). Con el botón derecho en <em>src</em> de tu proyecto
+      escoge <em>New &gt; Package</em>:<br>
+      <img src="files/getting-started_es115.png" alt="getting-started_es115.png"
+        title="getting-started_es115.png"><br>
+      En el diálogo introduce el nombre del paquete, <em>org.openxava.facturacion.modelo</em>,
+      y pulsa <em>Finish</em>:<br>
+      <img src="files/getting-started_es120.png" alt="getting-started_es120.png"
+        title="getting-started_es120.png"><br>
+      En vez de <em>org.openxava</em> puedes usar el dominio de tu
+      organización, es decir, si trabajas para la NASA el paquete podría ser <em>gov.nasa.facturacion.modelo</em>.
+      Ya sabes crear un paquete con Eclipse, a partir de ahora no usaremos una
+      figura para esto.<br>
+      Ahora, puedes crear tu primera entidad. Empezaremos con una versión
+      simplificada de <em>Cliente</em> con solo <em>numero</em> y <em>descripcion</em>.
+      Selecciona el paquete <em>org.openxava.facturacion.modelo</em> y pulsa el
+      botón <em>New Java Class</em>:<br>
+      <img src="files/getting-started_es125.png" alt="getting-started_es125.png"
+        title="getting-started_es125.png"><br>
+      Después teclea <em>Cliente</em> como nombre de clase y pulsa <em>Finish</em>.<br>
+      <img src="files/getting-started_es130.png" alt="getting-started_es130.png"
+        title="getting-started_es130.png"><br>
+      Fíjate que la <em>C</em> de <em>Cliente</em> está en mayúscula, esto es
+      muy importante, en Java todas las clases empiezan con mayúscula. Has
+      aprendido como crear una clase Java en Eclipse. A partir de ahora no
+      usaremos una figura para eso.<br>
+      El código inicial que Eclipse proporciona para <em>Cliente</em> es muy
+      simple:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.modelo</span><span
+class="sy0">;</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw2">class</span> Cliente <span class="br0">{</span>
+&nbsp;
+<span class="br0">}</span></pre>
+      Ahora, te toca a ti rellenar esta clase para convertirla en una entidad
+      adecuada para OpenXava. Solo necesitas añadir la anotación <em>@Entity</em>
+      y las propiedades <em>numero</em> y <em>descripcion</em>:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.modelo</span><span
+class="sy0">;</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
+class="sy0">;</span>
+&nbsp;
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+class="kw166">Entity</span></a>  <span class="co1">// Esto marca la clase Customer como una entidad</span>
+<span class="kw2">public</span> <span class="kw2">class</span> Cliente <span class="br0">{</span>
+&nbsp;
+    @Id  <span class="co1">// La propiedad numero es la clave.  Las claves son obligatorias (required) por defecto</span>
+    @Column<span class="br0">(</span>length=<span class="nu0">6</span><span class="br0">)</span>  <span
+class="co1">// La longitud de columna se usa a nivel UI y a nivel DB</span>
+    <span class="kw2">private</span> <span class="kw3">int</span> numero<span class="sy0">;</span>
+&nbsp;
+    @Column<span class="br0">(</span>length=<span class="nu0">50</span><span class="br0">)</span> <span
+class="co1">// La longitud de columna se usa a nivel UI y a nivel DB</span>
+    @Required  <span class="co1">// Se mostrará un error de validación si la propiedad nombre se deja en blanco</span>
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> nombre<span class="sy0">;</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw3">int</span> getNumero<span
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">return</span> numero<span class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw3">void</span> setNumero<span
+class="br0">(</span><span class="kw3">int</span> numero<span class="br0">)</span> <span
+class="br0">{</span>
+        <span class="kw2">this</span>.<span class="me1">numero</span> = numero<span
+class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getNombre<span class="br0">(</span><span class="br0">)</span> <span
+class="br0">{</span>
+        <span class="kw2">return</span> nombre<span class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw3">void</span> setNombre<span
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> nombre<span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">this</span>.<span class="me1">nombre</span> = nombre<span
+class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+<span class="br0">}</span></pre>
+      Con esto tienes el código suficiente (justo una clase) para ejecutar tu
+      aplicación. Hagámoslo.<br>
+      <h2 id="toc10"><a name="Lección 1: Primeros pasos-Ejecutar la aplicación"></a>Ejecutar
+        la aplicación</h2>
+      Lo primero es contruir el proyecto pulsando el botón <em>Build All</em> o
+      presionando Ctrl-B:<br>
+      <img src="files/getting-started_es145.png" alt="getting-started_es145.png"
+        title="getting-started_es145.png"><br>
+      Para iniciar el servidor ve a la pestaña <em>Servers.</em> Si no la ves,
+      posiblemente has maximizado el editor actual, simplemente haz doble click
+      en la pestaña del editor para minimizarla y verás la distribución original
+      del Eclipse de nuevo.<br>
+      Una vez allí sigue las siguientes instrucciones:<br>
+      <img src="files/getting-started_es150.png" alt="getting-started_es150.png"
+        title="getting-started_es150.png"><br>
+      Ya tienes tu aplicación ejecutándose. Para verla, abre tu navegador y ve a
+      la URL:<br>
+      <a class="wiki_link_ext" href="http://localhost:8080/Facturacion" rel="nofollow"
+        target="_blank">http//:localhost:8080/Facturacion</a><br>
+      Estás viendo tu aplicación por primera vez. Para empezar pulsa en el botón
+      INICIAR SESIÓN:<br>
+      <img src="files/getting-started_es160.png" alt="getting-started_es160.png"
+        title="getting-started_es160.png"></div>
+    <div class="wiki" style="display: block;">Ahora, introduce admin/admin y
+      pulsa en ENTRAR<em></em>:</div>
+    <img src="files/getting-started_es165.png" alt="Página de identificación">
+    <div class="wiki" style="display: block;"> Después, pulsa en la parte de la
+      izquierda se mostrará una lista de módulos, escoge <em>Clientes</em>:<br>
+      <img src="files/getting-started_es170.png" alt="getting-started_es170.png"
+        title="getting-started_es170.png"><br>
+      Usa el módulo <em>Clientes</em> para crear nuevos clientes, simplemente
+      introduce el número y el nombre y pulsa <em>Grabar</em>.<br>
+      <img src="files/getting-started_es190.png" alt="getting-started_es190.png"
+        title="getting-started_es190.png"><br>
+      Pulsa en <em>Lista</em> para ver los clientes que has creado.
+      Enhorabuena, tienes tu entorno configurado y tu aplicación funcionando.<br>
+      <h2 id="toc11"><a name="Lección 1: Primeros pasos-Modificar la aplicación"></a>Modificar
+        la aplicación</h2>
+      A partir de ahora, desarrollar con OpenXava es muy fácil. Simplemente,
+      escribes una clase y ya puedes ver el resultado en el navegador.
+      Probémoslo.<br>
+      Crea una nueva entidad para <em>Producto</em> con el siguiente código:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.modelo</span><span
+class="sy0">;</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
+class="sy0">;</span>
+&nbsp;
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+class="kw166">Entity</span></a>
+<span class="kw2">public</span> <span class="kw2">class</span> Producto <span class="br0">{</span>
+&nbsp;
+    @Id @Column<span class="br0">(</span>length=<span class="nu0">9</span><span
+class="br0">)</span>
+    <span class="kw2">private</span> <span class="kw3">int</span> numero<span class="sy0">;</span>
+&nbsp;
+    @Column<span class="br0">(</span>length=<span class="nu0">50</span><span class="br0">)</span> @Required
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> descripcion<span class="sy0">;</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw3">int</span> getNumero<span
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">return</span> numero<span class="sy0">;</span>
+    <span class="br0">}</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> setNumero<span
+class="br0">(</span><span class="kw3">int</span> numero<span class="br0">)</span> <span
+class="br0">{</span>
+        <span class="kw2">this</span>.<span class="me1">numero</span> = numero<span
+class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getDescripcion<span class="br0">(</span><span class="br0">)</span> <span
+class="br0">{</span>
+        <span class="kw2">return</span> descripcion<span class="sy0">;</span>
+    <span class="br0">}</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> setDescripcion<span
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> descripcion<span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">this</span>.<span class="me1">descripcion</span> = descripcion<span
+class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+<span class="br0">}</span></pre>
+      Ahora, presiona Ctrl-B. La mayoría de las veces es suficiente pulsar
+      Ctrl-B para desplegar automáticamente tu código, pero de vez en cuando el
+      Eclipse falla al desplegar y tienes que reiniciar el Tomcat, por suerte
+      esto solo cuesta unos pocos segundos. Por tanto, si unos segundos después
+      del Ctrl-B tu aplicación no se redespliega, reinicia el Tomcat con <em>Botón
+        derecho en Tomcat &gt; Restart</em>.<br>
+      Para ver tu nueva entidad en acción abre tu navegador y ve a la URL:<br>
+      <a class="wiki_link_ext" href="http://localhost:8080/Facturacion/modules/Producto"
+        rel="nofollow" target="_blank">http://localhost:8080/Facturacion/modules/Producto</a><br>
+      Después de indentificarte con admin/admin obtendrás:<br>
+      <img src="files/getting-started_es200.png" alt="getting-started_es200.png"
+        title="getting-started_es200.png"><br>
+      Sí, ya tienes un nuevo módulo en marcha, y solo has tenido que escribir
+      una simple clase. Ahora puedes concentrarte en hacer crecer tu aplicación.<br>
+      <h2 id="toc12"><a name="Lección 1: Primeros pasos-Resumen"></a>Resumen</h2>
+      Después de esta lección tienes instalado Eclipse y OpenXava. Además, lo
+      tienes configurado todo para poder trabajar. Ahora, tienes tu entorno
+      listo para desarrollar tu aplicación.<br>
+      También, tienes una primera versión de tu aplicación <em>Facturacion</em>
+      funcionando.<br>
+      Pero lo más importante es que has aprendido cómo crear un nuevo proyecto,
+      un nuevo paquete, una nueva clase, cómo actualizar el esquema de la base
+      de datos, cómo ejecutar un módulo OpenXava y algunas otra cosas útiles que
+      usarás en el resto del curso.<br>
+      Ya estás listo para pasar a la siguiente lección, sin embargo deberías
+      considerar adquirir un poco de conocimiento base, tal como:<br>
+      <ul>
+        <li>Si eres nuevo en Java deberías leer un libro de introducción a Java
+          o leerte el <a class="wiki_link_ext" href="https://docs.oracle.com/javase/tutorial/"
+            rel="nofollow">Tutorial de Java</a>.</li>
+        <li>Si estás interesado en la filosofía y arquitectura de OpenXava <a class="wiki_link"
+            href="philosophy_es.html">lee el apéndice A</a> de este curso.</li>
+        <li>Los apéndices B y C sobre <a class="wiki_link" href="jpa_es.html">Java
+            Persistence API</a> y <a class="wiki_link" href="annotations_es.html">annotations</a>
+          te serán de mucha utilidad.</li>
+      </ul>
+      <br>
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-1-getting-started_es.zip/download"
+          rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
+      <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+        <a class="wiki_link" href="modeling_es.html">Ve a la lección 2</a></strong>
+    </div>
+  </body>
+</html>

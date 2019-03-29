@@ -1,0 +1,497 @@
+<html>
+  <head>
+    <title>openxava - maven-setup_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Maven configuration"></a>Maven configuration</h1>
+ External projects for OpenXava/Maven integration:<br />
+<ul><li><a class="wiki_link_ext" href="http://code.google.com/p/openxava-maven/wiki/SampleOXMavenProject" rel="nofollow">Maven based sample application for OpenXava</a> <span class="wiki_link_ext">in Google Code.</span></li><li><a class="wiki_link_ext" href="http://code.google.com/p/openxava-mavenized/" rel="nofollow">Unofficial OpenXava Mavenized</a> in Google Code.</li><li><a class="wiki_link_ext" href="https://github.com/jecuendet/maven4openxava" rel="nofollow">Maven4OpenXava</a> in GitHub: A project that automagically creates the Maven Artifacts. It also contains:<ul><li>An OX application template ready to run</li><li>An archetype to create a blank application</li></ul></li></ul><br />
+<br />
+Although OpenXava is built and configured to run with Ant build scripts it's possible to use maven to build web application portlets with Maven. The following configuration and sample Maven script was tested under OpenXava 4m2 release.<br />
+<br />
+You will first need to download the recent<a class="wiki_link_ext" href="http://maven.apache.org/download.html" rel="nofollow"> maven 2 distribution</a>. Then in your OpenXava workspace/MySchool project create a pom.xml file in the top level directory where build.xml is for the MySchool project and copy the following:<br />
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;UTF-8&quot;</span><span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;project</span> <span class="re0">xmlns</span>=<span class="st0">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="re0">xmlns:xsi</span>=<span class="st0">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span>
+<span class="sc3">    <span class="re0">xsi:schemaLocation</span>=<span class="st0">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;modelVersion<span class="re2">&gt;</span></span></span>4.0.0<span class="sc3"><span class="re1">&lt;/modelVersion<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.openxava.school<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>MySchool<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>MySchool<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;packaging<span class="re2">&gt;</span></span></span>war<span class="sc3"><span class="re1">&lt;/packaging<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.0-SNAPSHOT<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;url<span class="re2">&gt;</span></span></span>http://openxava.org<span class="sc3"><span class="re1">&lt;/url<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;repositories<span class="re2">&gt;</span></span></span>
+&nbsp;
+        <span class="sc3"><span class="re1">&lt;repository<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>ibiblio<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>Ibilbio<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;url<span class="re2">&gt;</span></span></span>http://mirrors.ibiblio.org/pub/mirrors/maven2/<span class="sc3"><span class="re1">&lt;/url<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/repository<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;repository<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>com.springsource.repository.bundles.release<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;url<span class="re2">&gt;</span></span></span>http://repository.springsource.com/maven/bundles/release<span class="sc3"><span class="re1">&lt;/url<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/repository<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;repository<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>com.springsource.repository.bundles.external<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>SpringSource Enterprise Bundle Repository - External Bundle Releases<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;url<span class="re2">&gt;</span></span></span>http://repository.springsource.com/maven/bundles/external<span class="sc3"><span class="re1">&lt;/url<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/repository<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;repository<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>com.springsource.repository.bundles.milestone<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>SpringSource Enterprise Bundle Repository - External Bundle Milestones<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;url<span class="re2">&gt;</span></span></span>http://repository.springsource.com/maven/bundles/milestone<span class="sc3"><span class="re1">&lt;/url<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/repository<span class="re2">&gt;</span></span></span>
+&nbsp;
+        <span class="sc-1">&lt;!--  required for some plugins that depend on snapshots :( --&gt;</span>
+        <span class="sc3"><span class="re1">&lt;repository<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>com.springsource.repository.bundles.snapshot<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>SpringSource Enterprise Bundle Repository - External Bundle Snapshots<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;url<span class="re2">&gt;</span></span></span>http://repository.springsource.com/maven/bundles/snapshot<span class="sc3"><span class="re1">&lt;/url<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/repository<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;repository<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>com.springsource.repository.bundles.external.snapshots<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>SpringSource Enterprise Bundle Repository - Third Party External Bundle Snapshots<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;url<span class="re2">&gt;</span></span></span>http://private.repository.springsource.com.s3.amazonaws.com/maven/bundles/external<span class="sc3"><span class="re1">&lt;/url<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/repository<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;repository<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>jboss-maven2<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;url<span class="re2">&gt;</span></span></span>http://repository.jboss.com/maven2<span class="sc3"><span class="re1">&lt;/url<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/repository<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/repositories<span class="re2">&gt;</span></span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;pluginRepositories<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;pluginRepository<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>com.springsource.repository.bundles.release<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;url<span class="re2">&gt;</span></span></span>http://repository.springsource.com/maven/bundles/release<span class="sc3"><span class="re1">&lt;/url<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/pluginRepository<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;pluginRepository<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>com.springsource.repository.bundles.external<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>SpringSource Enterprise Bundle Repository - External Bundle Releases<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;url<span class="re2">&gt;</span></span></span>http://repository.springsource.com/maven/bundles/external<span class="sc3"><span class="re1">&lt;/url<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/pluginRepository<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;pluginRepository<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>com.springsource.repository.bundles.milestone<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>SpringSource Enterprise Bundle Repository - External Bundle Milestones<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;url<span class="re2">&gt;</span></span></span>http://repository.springsource.com/maven/bundles/milestone<span class="sc3"><span class="re1">&lt;/url<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/pluginRepository<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/pluginRepositories<span class="re2">&gt;</span></span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;dependencies<span class="re2">&gt;</span></span></span>
+        <span class="sc-1">&lt;!-- General dependencies for standard applications --&gt;</span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.testng<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>testng<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>5.1<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;classifier<span class="re2">&gt;</span></span></span>jdk15<span class="sc3"><span class="re1">&lt;/classifier<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;scope<span class="re2">&gt;</span></span></span>test<span class="sc3"><span class="re1">&lt;/scope<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>commons-codec<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>commons-codec<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.3<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;scope<span class="re2">&gt;</span></span></span>provided<span class="sc3"><span class="re1">&lt;/scope<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>commons-httpclient<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>commons-httpclient<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>3.1<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;scope<span class="re2">&gt;</span></span></span>provided<span class="sc3"><span class="re1">&lt;/scope<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>commons-lang<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>commons-lang<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.4<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>net.sourceforge.cssparser<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>cssparser<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>0.9.5<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.freemarker<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>freemarker<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.3.9<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+&nbsp;
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>javax.servlet<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jsp-api<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.0<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;scope<span class="re2">&gt;</span></span></span>provided<span class="sc3"><span class="re1">&lt;/scope<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>jta<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jta<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.0.1b<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>nekohtml<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>nekohtml<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.9.6.2<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>portlet-api<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>portlet-api<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.0<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>javax.servlet<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>servlet-api<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.4<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;scope<span class="re2">&gt;</span></span></span>provided<span class="sc3"><span class="re1">&lt;/scope<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>xalan<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>xalan<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.7.0<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>xerces<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>xercesImpl<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.8.1<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc-1">&lt;!-- hibernate integration with JPA --&gt;</span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.hibernate<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>hibernate-tools<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>3.2.0.ga<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.hibernate<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>hibernate-entitymanager<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>3.2.1.ga<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.hibernate<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>hibernate-annotations<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>3.2.1.ga<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.hibernate<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>hibernate-commons-annotations<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>3.0.0.ga<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.hibernate<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>ejb3-persistence<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>3.3.2.Beta1<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.hibernate<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>hibernate-validator<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>3.0.0.ga<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.hibernate<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>hibernate<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>3.2.2.ga<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>asm<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>asm<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.5.3<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>poi<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>poi<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.5.1-final-20040804<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>commons-collections<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>commons-collections<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>3.2<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>javax.servlet<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jstl<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.1.2<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>commons-validator<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>commons-validator<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.3.1<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>commons-io<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>commons-io<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.4<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>commons-fileupload<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>commons-fileupload<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.2<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>javax.mail<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>mail<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.4<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.directwebremoting<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>dwr<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.0.3<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>jasperreports<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jasperreports<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>3.5.3<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>taglibs<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>standard<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.0.3<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>oro<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>oro<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.0.8<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>dnsjava<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>dnsjava<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.0.1<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>jboss<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jboss-ejb-api<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>4.2.0.GA<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>javax.ejb<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>ejb-api<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>3.0<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>javax.inject<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>javax.inject<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>junit<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>junit<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>4.7<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>net.sourceforge.htmlunit<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>htmlunit<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.7<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>javax.validation<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>validation-api<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.0.0.GA<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/dependencies<span class="re2">&gt;</span></span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;build<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;finalName<span class="re2">&gt;</span></span></span>MySchool<span class="sc3"><span class="re1">&lt;/finalName<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;sourceDirectory<span class="re2">&gt;</span></span></span>${basedir}/src/<span class="sc3"><span class="re1">&lt;/sourceDirectory<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;resources<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;resource<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;directory<span class="re2">&gt;</span></span></span>persistence/<span class="sc3"><span class="re1">&lt;/directory<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;filtering<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/filtering<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/resource<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;resource<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;directory<span class="re2">&gt;</span></span></span>xava/<span class="sc3"><span class="re1">&lt;/directory<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;filtering<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/filtering<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/resource<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;resource<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;directory<span class="re2">&gt;</span></span></span>i18n/<span class="sc3"><span class="re1">&lt;/directory<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;filtering<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/filtering<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/resource<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/resources<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;testResources<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;testResource<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;directory<span class="re2">&gt;</span></span></span>src/<span class="sc3"><span class="re1">&lt;/directory<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;filtering<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/filtering<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/testResource<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/testResources<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;plugins<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.apache.maven.plugins<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-compiler-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.0.2<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;source<span class="re2">&gt;</span></span></span>1.6<span class="sc3"><span class="re1">&lt;/source<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;target<span class="re2">&gt;</span></span></span>1.6<span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;encoding<span class="re2">&gt;</span></span></span>ISO-8859-1<span class="sc3"><span class="re1">&lt;/encoding<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.codehaus.mojo<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>build-helper-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;executions<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;execution<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;phase<span class="re2">&gt;</span></span></span>generate-resources<span class="sc3"><span class="re1">&lt;/phase<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;goals<span class="re2">&gt;</span></span></span>
+                            <span class="sc3"><span class="re1">&lt;goal<span class="re2">&gt;</span></span></span>add-resource<span class="sc3"><span class="re1">&lt;/goal<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;/goals<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+                            <span class="sc3"><span class="re1">&lt;resources<span class="re2">&gt;</span></span></span>
+                                <span class="sc3"><span class="re1">&lt;resource<span class="re2">&gt;</span></span></span>
+                                    <span class="sc3"><span class="re1">&lt;directory<span class="re2">&gt;</span></span></span>${basedir}/../OpenXava/bin<span class="sc3"><span class="re1">&lt;/directory<span class="re2">&gt;</span></span></span>
+                                <span class="sc3"><span class="re1">&lt;/resource<span class="re2">&gt;</span></span></span>
+                            <span class="sc3"><span class="re1">&lt;/resources<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;/execution<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;/executions<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.apache.maven.plugins<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-help-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.1<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.apache.maven.plugins<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-clean-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.2<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.apache.maven.plugins<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-resources-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.2<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.apache.maven.plugins<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-surefire-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.4.3<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.apache.maven.plugins<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-war-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.0<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;webResources<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;resource<span class="re2">&gt;</span></span></span>
+                            <span class="sc-1">&lt;!-- this is relative to the pom.xml directory --&gt;</span>
+                            <span class="sc3"><span class="re1">&lt;directory<span class="re2">&gt;</span></span></span>web/<span class="sc3"><span class="re1">&lt;/directory<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;/resource<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;/webResources<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+&nbsp;
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.apache.maven.plugins<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-source-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.0.4<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;attach<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/attach<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;executions<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;execution<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;goals<span class="re2">&gt;</span></span></span>
+                            <span class="sc3"><span class="re1">&lt;goal<span class="re2">&gt;</span></span></span>jar<span class="sc3"><span class="re1">&lt;/goal<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;/goals<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;/execution<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;/executions<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc-1">&lt;!-- Other --&gt;</span>
+&nbsp;
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.apache.maven.plugins<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-install-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.2<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.apache.maven.plugins<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-deploy-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.4<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.apache.maven.plugins<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-release-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.0-beta-7<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc-1">&lt;!-- IDE --&gt;</span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.apache.maven.plugins<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-eclipse-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc-1">&lt;!--</span>
+<span class="sc-1">                    WARNING: Do not use 2.6 or above due to</span>
+<span class="sc-1">                    http://jira.codehaus.org/browse/MECLIPSE-538</span>
+<span class="sc-1">                --&gt;</span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.5.1<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;downloadSources<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/downloadSources<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;downloadJavadocs<span class="re2">&gt;</span></span></span>false<span class="sc3"><span class="re1">&lt;/downloadJavadocs<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;wtpversion<span class="re2">&gt;</span></span></span>2.0<span class="sc3"><span class="re1">&lt;/wtpversion<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;additionalBuildcommands<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;buildCommand<span class="re2">&gt;</span></span></span>
+                            <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>org.eclipse.ajdt.core.ajbuilder<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+                            <span class="sc3"><span class="re1">&lt;arguments<span class="re2">&gt;</span></span></span>
+                                <span class="sc3"><span class="re1">&lt;aspectPath<span class="re2">&gt;</span></span></span>org.springframework.aspects<span class="sc3"><span class="re1">&lt;/aspectPath<span class="re2">&gt;</span></span></span>
+                            <span class="sc3"><span class="re1">&lt;/arguments<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;/buildCommand<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;buildCommand<span class="re2">&gt;</span></span></span>
+                            <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>org.springframework.ide.eclipse.core.springbuilder<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;/buildCommand<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;/additionalBuildcommands<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;additionalProjectnatures<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;projectnature<span class="re2">&gt;</span></span></span>org.eclipse.ajdt.ui.ajnature<span class="sc3"><span class="re1">&lt;/projectnature<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;projectnature<span class="re2">&gt;</span></span></span>org.springframework.ide.eclipse.core.springnature<span class="sc3"><span class="re1">&lt;/projectnature<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;/additionalProjectnatures<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.apache.maven.plugins<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-idea-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.2<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;downloadSources<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/downloadSources<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;dependenciesAsLibraries<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/dependenciesAsLibraries<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc-1">&lt;!-- Site --&gt;</span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.apache.maven.plugins<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-site-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.0-beta-7<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.codehaus.mojo<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>tomcat-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-jetty-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>6.1.10<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/plugins<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/build<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+
+Then from your command prompt in this location type 'mvn clean install'. This wil create a &quot;target&quot; folder. Within this folder should be a MySchool.war file. Copy this into your tomcat/webapps/ folder, and start up tomcat. You should now see the MySchool web application running, successfully. This also assumes that for the the MySchool application you had followed the <a class="wiki_link" href="tutorial_en.html">tutorial</a> on setting up your jndi data source and database already.
+    </div>
+  </body>
+</html>

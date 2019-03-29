@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title>openxava - security-jsr250-discarded</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Roles based security (JSR-250) NOT IMPLEMENTED"></a>Roles based security (JSR-250) <span style="color: #de4a4a;">NOT IMPLEMENTED</span></h1>
+ <em>We considered to implement this feature in OX some years ago, but it was never implemented</em><br />
+OpenXava supports <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/RBAC" rel="nofollow">roles based access control</a> by means of <a class="wiki_link_ext" href="http://www.jcp.org/en/jsr/detail?id=250" rel="nofollow">JSR-250</a> annotations.<br />
+<br />
+The access control is managed through JSR-250 annotations which are applied to entities, properties and methods. Access to actions is identically controlled with JSR-250 annotations directly declared in the action class. Access control annotations are not inherited, which could lead to unwanted security holes.<br />
+<br />
+<em>@DeclareRoles</em> is applied to entities, calculators and actions. It is used to register roles.<br />
+<br />
+<em>@RolesAllowed</em> is used to apply effectively the access control. It must be used in entities (class and methods) and actions (only class).<br />
+<br />
+We must here be careful with references. A referenced entity that does not allow some role should not be displayed in a subview called from this role.<br />
+<br />
+<em>@RunAs</em>, <em>@PermitAll</em> and <em>@DenyAll</em> annotations should be processed as well.<br />
+<br />
+<h2 id="toc1"><a name="Roles based security (JSR-250) NOT IMPLEMENTED-Impacts"></a>Impacts</h2>
+ <br />
+Following impacts should be evaluated :<br />
+<br />
+<ol><li>The process of execution of properties actions should control the annotations and check the user roles</li><li>The display of controllers should hide (or at least deactivate) the actions that are not accessible.</li><li>Rendering of views should process the same check, and eventually hide parts of views and subviews.</li></ol><br />
+<h2 id="toc2"><a name="Roles based security (JSR-250) NOT IMPLEMENTED-Role management"></a>Role management</h2>
+ <br />
+<img src="files/RBAC_Objects.jpg" alt="RBAC_Objects.jpg" title="RBAC_Objects.jpg" /><br />
+<br />
+<strong>User</strong>. A traditional JPA Entity (annotated POJO) with common attributes. A user is a single identified person allowed to access to the system or part of it. The user inherits the roles of the groups it belongs to.<br />
+<br />
+<strong>Group</strong>. A traditional JPA Entity (annotated POJO) with common attributes. A group may be understood as user profile or a way to group users with common activities in the system.<br />
+<br />
+<strong>Role</strong>. A role is the description of a set of permissions to access whole or part of the system.<br />
+<br />
+<strong>RoleRegistry</strong>. The role registry exposes all the roles declared in the business components and controllers defined in OpenXava. The registry is filled with the parsed annotations declared in the business components for data access control.<br />
+<br />
+The user should have the possibility to manage users and groups from a standard OpenXava UI.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,279 @@
+<html>
+  <head>
+    <title>openxava - jboss_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="JBoss"></a>JBoss</h1>
+ Puedes desplegar tu aplicación OpenXava en JBoss, de hecho puedes desplegar tu aplicación OpenXava en cualquier servidor Java EE. Pero, cada servidor de aplicaciones tiene sus propios trucos, por eso te damos aquí una guía paso a paso para desplegar en JBoss.<br />
+Esta guía usa JBoss 6.1.0.Final y OpenXava 5.3.1. Asumimos que eres nuevo en JBoss. Desplegaremos la aplicación de ejemplo <em>MySchool</em> incluida en la distribución de OpenXava, contra PostgreSQL.<br />
+<h2 id="toc1"><a name="JBoss-Fuente de datos"></a>Fuente de datos</h2>
+ Para definir la fuente de datos crea un archivo llamado <em>my-school-ds.xml</em> en <em>jboss-6.1.0.Final/server/default/deploy</em> con el siguiente contenido:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;UTF-8&quot;</span><span class="re2">?&gt;</span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;datasources<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;local-tx-datasource<span class="re2">&gt;</span></span></span>
+&nbsp;
+        <span class="sc3"><span class="re1">&lt;jndi-name<span class="re2">&gt;</span></span></span>MySchoolDS<span class="sc3"><span class="re1">&lt;/jndi-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;connection-url<span class="re2">&gt;</span></span></span>jdbc:postgresql://localhost/my-school<span class="sc3"><span class="re1">&lt;/connection-url<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;driver-class<span class="re2">&gt;</span></span></span>org.postgresql.Driver<span class="sc3"><span class="re1">&lt;/driver-class<span class="re2">&gt;</span></span></span>
+&nbsp;
+        <span class="sc3"><span class="re1">&lt;user-name<span class="re2">&gt;</span></span></span>postgres<span class="sc3"><span class="re1">&lt;/user-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;password<span class="re2">&gt;</span></span></span>openxava<span class="sc3"><span class="re1">&lt;/password<span class="re2">&gt;</span></span></span>
+&nbsp;
+        <span class="sc3"><span class="re1">&lt;min-pool-size<span class="re2">&gt;</span></span></span>5<span class="sc3"><span class="re1">&lt;/min-pool-size<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;max-pool-size<span class="re2">&gt;</span></span></span>20<span class="sc3"><span class="re1">&lt;/max-pool-size<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;idle-timeout-minutes<span class="re2">&gt;</span></span></span>0<span class="sc3"><span class="re1">&lt;/idle-timeout-minutes<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;track-statements</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;prepared-statement-cache-size<span class="re2">&gt;</span></span></span>32<span class="sc3"><span class="re1">&lt;/prepared-statement-cache-size<span class="re2">&gt;</span></span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;/local-tx-datasource<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/datasources<span class="re2">&gt;</span></span></span></pre>
+
+Por supuesto, deberías adaptar la URL de conexión, la clase del controlador, el usuario y la contraseña a tu propia base de datos.<br />
+<h2 id="toc2"><a name="JBoss-Controlador JDBC"></a>Controlador JDBC</h2>
+ Copia el jar JDBC para tu base de datos en <em>jboss-6.1.0.Final/server/default/lib</em>. En nuestro ejemplo copiamos ahí <em>postgresql-8.3-604.jdbc3.jar</em> para trabajar con nuestro PostgreSQL 8.3.<br />
+<h2 id="toc3"><a name="JBoss-Tu persistence.xml"></a>Tu persistence.xml</h2>
+ En el <em>persistence.xml</em> de tu proyecto (en <em>persistence/META-INF</em>) has de hacer dos cambios. El primero es cambiar el formato de la URL, cambia:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span>java://comp/env/jdbc/MySchoolDS<span class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span></pre>
+
+Por:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span>java:/MySchoolDS<span class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span></pre>
+
+El segundo cambio es enumerar explícitamente todas las entidades de tu proyecto. Añade las siguientes entradas:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.school.model.Teacher<span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.school.model.Pupil<span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span></pre>
+
+El <em>persistence.xml</em> completo para <em>MySchool</em> podría ser:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;UTF-8&quot;</span><span class="re2">?&gt;</span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;persistence</span> <span class="re0">xmlns</span>=<span class="st0">&quot;http://java.sun.com/xml/ns/persistence&quot;</span></span>
+<span class="sc3">    <span class="re0">xmlns:xsi</span>=<span class="st0">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span>
+<span class="sc3">    <span class="re0">xsi:schemaLocation</span>=<span class="st0">&quot;http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd&quot;</span></span>
+<span class="sc3">    <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span><span class="re2">&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;persistence-unit</span> <span class="re0">name</span>=<span class="st0">&quot;default&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span>org.hibernate.jpa.HibernatePersistenceProvider<span class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span>java:/MySchoolDS<span class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.session.GalleryImage<span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.school.model.Teacher<span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.school.model.Pupil<span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.dialect&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.dialect.PostgreSQLDialect&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/persistence<span class="re2">&gt;</span></span></span></pre>
+
+Recuerda poner el dialecto correspondiente a tu base de datos.<br />
+<h2 id="toc4"><a name="JBoss-El archivo web.xml de OpenXava (sólo para OpenXava 5.2, 5.2.1, 5.3, 5.3.1)"></a>El archivo web.xml de OpenXava (sólo para OpenXava 5.2, 5.2.1, 5.3, 5.3.1)</h2>
+ <em>Este paso no aplica a XavaPro</em><br />
+Quita la definición del servlet <em>organization</em> del proyecto OpenXava. Edita <em>OpenXava/web/WEB-INF/web.xml</em> y elimina o comenta las siguiente declaraciones:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc-1">&lt;!-- Elimina o comenta la siguiente declaración --&gt;</span>
+<span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>organization<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>com.openxava.naviox.web.OrganizationServlet<span class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span>
+&nbsp;
+...
+&nbsp;
+<span class="sc-1">&lt;!-- Elimina o comenta la siguiente declaración --&gt;</span>
+<span class="sc3"><span class="re1">&lt;servlet-mapping<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>organization<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/o/*<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span></pre>
+
+<h2 id="toc5"><a name="JBoss-Desactiva los desplegadores JPA (opcional)"></a>Desactiva los desplegadores JPA (opcional)</h2>
+ La configuración de arriba es suficiente para ejecutar tu aplicación en JBoss. Sin embargo, de esta forma JBoss mostrará. el siguiente error:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">Deployment &quot;persistence.unit:unitName=MySchool.war#default&quot; is in error due to the following reason(s):
+java.lang.RuntimeException: Specification violation [EJB3 JPA 6.2.1.2]
+- You have not defined a jta-data-source for a JTA enabled persistence context named: default</pre>
+
+Puedes ignorar este error y todo funcionará a la perfección. Pero, si quieres quitarlo, puedes. Edita el archivo <em>jpa-deployers-jboss-beans.xml</em> de la carpeta <em>jboss-6.1.0.Final/server/default/deployers/ejb3.deployer/META-INF</em> y elimina o comenta el bean <em>PersistenceParsingDeployer</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc-1">&lt;!-- Elimina o comenta la siguiente declaración --&gt;</span>
+<span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">name</span>=<span class="st0">&quot;PersistenceParsingDeployer&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.jboss.jpa.deployers.PersistenceParsingDeployer&quot;</span><span class="re2">&gt;</span></span>
+&nbsp;
+...
+&nbsp;
+<span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span></pre>
+
+Ten cuidado, porque esta modificación puede afectar otras aplicaciones desplegadas en tu JBoss, especialmente si usan el motor de JPA provisto por JBoss.<br />
+<h2 id="toc6"><a name="JBoss-Despliega y ejecuta tu aplicación"></a>Despliega y ejecuta tu aplicación</h2>
+ Ejecuta la tarea Ant <em>createWar</em> de tu <em>build.xml</em>. Creará un <em>MySchool.war</em> en la carpeta <em>workspace.dist/MySchool.dist</em>. Coge ese war y copialo en la carpeta <em>jboss-6.1.0.Final/server/default/deploy</em>. Arranca JBoss ejecutando <em>run.bat/.sh</em> en <em>jboss-6.1.0.Final/bin</em>. Abre tu navegador, ve a <em><a class="wiki_link_ext" href="http://localhost:8080/MySchool" rel="nofollow">http://localhost:8080/MySchool</a></em> y verás tu aplicación funcionando en JBoss.
+    </div>
+  </body>
+</html>

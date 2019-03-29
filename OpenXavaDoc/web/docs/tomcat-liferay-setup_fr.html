@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>openxava - tomcat-liferay-setup_fr</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Configuration de votre propre Tomcat/Liferay pour des applications OpenXava"></a>Configuration de votre propre Tomcat/Liferay pour des applications OpenXava</h1>
+<br />
+Il y a quelques étapes à réaliser avant de pouvoir faire tourner une application OpenXava sur un serveur Tomcat/Liferay.<br />
+<ul><li>Tout d'abord, il faut installer <a class="wiki_link_ext" href="http://www.liferay.com" rel="nofollow">Liferay</a>.</li><li>Ensuite, copiez les fichiers suivants dans le dossier <em>{Liferay}/common/lib</em><ul><li>{OpenXava}/tomcat/common/lib/ejb.jar</li><li>{OpenXava}/tomcat/common/lib/hsqldb.jar</li><li>{OpenXava}/tomcat/common/lib/jta.jar</li></ul></li><li>Copiez les fichiers suivants dans le dossier <em>{Liferay}/data</em><ul><li>{OX}/tomcat/data/openxava-db.script</li><li>{OX}/tomcat/data/openxava-db.properties</li></ul></li><li>Editez le fichier <em>{Liferay}/conf/context.xml</em> en ajoutant l'entrée suivante :<ul><li>
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/OpenXavaDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3">    <span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3">    <span class="re0">username</span>=<span class="st0">&quot;sa&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;&quot;</span> <span class="re0">driverClassName</span>=<span class="st0">&quot;org.hsqldb.jdbcDriver&quot;</span></span>
+<span class="sc3">    <span class="re0">url</span>=<span class="st0">&quot;jdbc:hsqldb:file:../data/openxava-db&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+</li><li>Dans ce fichier, vous devez aussi y placer les entrées particulières de votre application</li></ul></li></ul>Une fois ces étapes réalisées, vous applications devraient s'exécuter sans problème.<br />
+<br />
+Bien du plaisir... :-)
+    </div>
+  </body>
+</html>

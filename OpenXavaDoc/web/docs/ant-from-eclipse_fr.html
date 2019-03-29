@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>openxava - ant-from-eclipse_fr</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Exécuter des tâches Ant depuis Eclipse"></a>Exécuter des tâches Ant depuis Eclipse</h1>
+ Vous devez avoir auparavant installé le JDK Java et avoir défini la variable d'environnement JAVA_HOME. Jusqu'à présent, l'un des meilleurs aspects d'Eclipse réside dans le fait que tout est installé dans un seul dossier. Un autre aspect important est le fichier <em>build.xml</em>.<br />
+<h2 id="toc1"><a name="Exécuter des tâches Ant depuis Eclipse-Le fichier build.xml"></a>Le fichier build.xml</h2>
+ Ce fichier comprend certaines tâches exécutées à l'aide d'<em>Apache Ant</em>. Communèment, ces tâches sont :<br />
+<ul><li><em>generateCode</em> : Génère le code source <u>pour la première fois</u>.</li><li><em>regenerateCode</em> : Génère le code source après n'importe quel changement. Cette tâche remplace tous le code source produit précédemment.</li><li><em>updateSchema</em> : Utilisé pour créer ou modifier les tables de la base de données.</li><li><em>deployWar</em> : Utilisé pour rendre tous les fichiers nécessaires disponibles pour le serveur d'application et exécuter votre application.</li><li><em>rebuild</em> : Pour recompiler le code source</li><li><em>generatePortlets</em> : Pour que l'application soit exécutable dans un portail (comme <em>Liferay</em>, <em>Stringbeans</em>, ...)</li><li><em>all</em> : Exécute certaines tâches définies dans le fichier <em>build.xml</em>. C'est la tâche par défaut.</li></ul><h2 id="toc2"><a name="Exécuter des tâches Ant depuis Eclipse-Lancer la tâche par défaut depuis le fichier build.xml"></a>Lancer la tâche par défaut depuis le fichier <em>build.xml</em></h2>
+ Après avoir placé la souris sur notre fichier <em>build.xml</em> de notre projet et avoir pressé le bouton droit, vous sélectionnez <strong>Run As &gt; Ant Build</strong> (2) et la tàche par défaut (du fichier <em>build.xml</em>) est exécutée.<br />
+<img src="files/my-first-ox-project05.png" alt="my-first-ox-project05.png" title="my-first-ox-project05.png" /><br />
+<h2 id="toc3"><a name="Exécuter des tâches Ant depuis Eclipse-Choisir et lancer une tâche du fichier build.xml"></a>Choisir et lancer une tâche du fichier <em>build.xml</em></h2>
+ En placant la souris sur le fichier <em>build.xml</em> du projet et en cliquant avec le bouton droit, vous pouvez choisir <strong>Run As &gt; Ant Build...</strong> (3) (remarquez les points de suspension) et choisissez la tâche à exécuter.<br />
+<h2 id="toc4"><a name="Exécuter des tâches Ant depuis Eclipse-Définir des outils externes (External Tools)"></a>Définir des outils externes (External Tools)</h2>
+ Une fois les tâches définies, elle peuvent ètre facilement lancées. Pour cela, vous choisissez le symbole <img src="files/my-first-ox-project06.png" alt="my-first-ox-project06.png" title="my-first-ox-project06.png" />qui est placé soit en haut de la fenêtre d'Eclipse ou en sélectionnant le menu contextuel <strong>Run As</strong>.<br />
+Nous devons créer une nouvelle tâche avec le symbole en haut à gauche <img src="files/my-first-ox-project07.png" alt="my-first-ox-project07.png" title="my-first-ox-project07.png" />(1). Il faut également vérifier que nous nous trouvons dans l'onglet <strong>Main</strong> (2). Nous contrôlons que le fichier <em>build.xml</em> (3) est bien celui de notre projet et que le nom que nous donnons à la tâche est correct (4).<br />
+<img src="files/my-first-ox-project08.png" alt="my-first-ox-project08.png" title="my-first-ox-project08.png" />A présent, sélectionnons l'onglet <strong>Targets</strong>. Ici, vous pouvez choisir la tâche Ant et déselectionner les autres. Comme vous pouvez le constater, certains noms de tâche sont en espagnol, mais très semblables en anglais. La tâche &quot;<strong>todo</strong>&quot; (en anglais &quot;<strong>all</strong>&quot;) est celle par défaut et marquée en bleu.<br />
+<img src="files/my-first-ox-project09.png" alt="my-first-ox-project09.png" title="my-first-ox-project09.png" /><br />
+Finalement, il faut sélectionner l'onglet <strong>Refresh</strong> et vérifier que l'option &quot;<strong>the entire workspace</strong>&quot; est bien cochée.<br />
+<h2 id="toc5"><a name="Exécuter des tâches Ant depuis Eclipse-Exécuter une tâche précédemment définie"></a>Exécuter une tâche précédemment définie</h2>
+ Une fois des tâches définies, elles peuvent être aisément exécutées. Il suffit de cliquer sur le symbole <img src="files/my-first-ox-project06.png" alt="my-first-ox-project06.png" title="my-first-ox-project06.png" />(comme celle sur la barre d'outil en haut de la fenêtre d'Eclipse). Sinos tâches sont visibles (par exemple celle qui est en quatrième place : <em>4 Gestio.regenerarCodigo</em>), nous la sélectionnons simplement. Si elles ne sont pas visibles, vous devez choisir l'option <strong>External Tools...</strong> et la chercher pour la lancer.<br />
+<img src="files/my-first-ox-project10.png" alt="my-first-ox-project10.png" title="my-first-ox-project10.png" />
+    </div>
+  </body>
+</html>

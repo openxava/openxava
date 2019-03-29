@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>openxava - weblogic_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+Para poder instalar un proyecto OX 4.x en Weblogic 10.3.x se debe realizar lo siguiente:<br />
+<br />
+<ul><li>Habilitar soporte JPA 2 en weblogic: es necesario agregar el jar de soporte jpa 2 en el classpath del servidor<ul><li>Editar el archivo commEnv.cmd (En caso de windows)</li></ul></li></ul><br />
+<br />
+<br />
+<div style="text-align: center"><img src="http://imageshack.us/a/img22/5836/habilitarsoportejpa2.png" alt="external image habilitarsoportejpa2.png" title="external image habilitarsoportejpa2.png" /></div><br />
+<br />
+<br />
+<div style="text-align: center"><img src="http://imageshack.us/a/img543/3716/habilitarsoportejpa22.png" alt="external image habilitarsoportejpa22.png" title="external image habilitarsoportejpa22.png" /></div><br />
+<br />
+<br />
+<br />
+<ul><li>Habilitar Archived Real Path Enabled en weblogic: es necesario habilitar esta opcion ya que de lo contrario nos enviara un nullpointer exception al intentar correr nuestra aplicacion OX 4.x<br />
+<br />
+</li></ul><div style="text-align: center"><img src="http://imageshack.us/a/img849/8595/enablerealpath1.png" alt="external image enablerealpath1.png" title="external image enablerealpath1.png" /></div><ul class="quotelist"><li><br />
+</li><li><br />
+</li></ul><div style="text-align: center"><img src="http://imageshack.us/a/img854/1530/enablerealpath2.png" alt="external image enablerealpath2.png" title="external image enablerealpath2.png" /></div><ul class="quotelist"><li><br />
+</li></ul><ul><li>Agregar el archivo weblogic.xml a nuestro proyecto<ul><li>Agregar el Archivo weblogic.xml en la carpeta WEB-INF</li><li>Indicarle al servidor que carge con prioridad las librerias que estan incluidas en nuestro proyecto<br />
+<br />
+</li></ul></li></ul><div style="text-align: center"><img src="http://img703.imageshack.us/img703/5489/weblogicxml.png" alt="external image weblogicxml.png" title="external image weblogicxml.png" /></div><ul class="quotelist"><ul class="quotelist"><li><br />
+</li><li><br />
+</li></ul></ul><ul><li>Editar el archivo jndi.propeties de nuestro poryecto OX<br />
+<br />
+java.naming.factory.initial=weblogic.jndi.WLInitialContextFactory<br />
+java.naming.provider.url=t3://localhost:7101<br />
+java.naming.factory.url.pkgs=weblogic.jndi.factories:weblogic.corba.j2ee.naming.url:weblogic.corba.client.naming</li></ul><br />
+<br />
+<ul><li>Editar el archivo persistence.xml: es necesario solo dejar la unidad de persistencia que default del proyecto y comentar o quitar de que utiliza para atender las tareas ant (Solo para realizar el WAR que se va a instalar).<br />
+<br />
+<br />
+</li></ul><div style="text-align: center"><img src="http://img33.imageshack.us/img33/5208/persistencexml.png" alt="external image persistencexml.png" title="external image persistencexml.png" /></div><ul class="quotelist"><li><br />
+</li></ul><ul><li>Generar nuestro archivo WAR y eliminar jpa2.jar, esto es necesario para que no entren en conflicto las clases de nuestra aplicacion con las clases del servidor</li></ul><br />
+<br />
+<br />
+<br />
+<ul><li>Listo!! la aplicacion se instala con exito.</li></ul><br />
+<br />
+<br />
+Espero que esta pequeña guia le sirva y si tienen algun comentario y puedo ayudarles con gusto lo hare, mi correo <a class="wiki_link_ext" href="mailto:jorge.canoc@gmail.com" rel="nofollow">jorge.canoc@gmail.com</a>
+    </div>
+  </body>
+</html>

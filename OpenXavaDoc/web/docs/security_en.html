@@ -1,0 +1,154 @@
+<html>
+  <head>
+    <title>openxava - security_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Security and user management">Security and user management</a></div>
+<div style="margin-left: 2em;"><a href="#Security and user management-User management">User management</a></div>
+<div style="margin-left: 2em;"><a href="#Security and user management-Restricting user access to actions">Restricting user access to actions</a></div>
+<div style="margin-left: 2em;"><a href="#Security and user management-Restricting user access to properties, references and collections (new in v5.5)">Restricting user access to properties, references and collections (new in v5.5)</a></div>
+<div style="margin-left: 2em;"><a href="#Security and user management-User and password policies">User and password policies</a></div>
+<div style="margin-left: 2em;"><a href="#Security and user management-LDAP">LDAP</a></div>
+<div style="margin-left: 2em;"><a href="#Security and user management-Guest can create a user account himself">Guest can create a user account himself</a></div>
+<div style="margin-left: 2em;"><a href="#Security and user management-Creation date and record of logins for each user">Creation date and record of logins for each user</a></div>
+<div style="margin-left: 2em;"><a href="#Security and user management-Password recovery (new in v5.7)">Password recovery (new in v5.7)</a></div>
+<div style="margin-left: 2em;"><a href="#Security and user management-User is asked to enter his email (new in v5.7)">User is asked to enter his email (new in v5.7)</a></div>
+<div style="margin-left: 2em;"><a href="#Security and user management-Email as user name (new in v6.0)">Email as user name (new in v6.0)</a></div>
+</div>
+<h1 id="toc0"><a name="Security and user management"></a>Security and user management</h1>
+ <em>All the features in this article are available only in <a class="wiki_link_ext" href="http://openxava.org/xavapro" rel="nofollow">XavaPro</a></em><br />
+<h2 id="toc1"><a name="Security and user management-User management"></a>User management</h2>
+ <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a> adds the modules <em>Roles, Modules</em> and <em>Users</em> to your application, in a folder called <em>Admin</em>. These modules allows you to configure the access levels for different user types.<br />
+<img src="files/naviox-roles_en.png" alt="naviox-roles_en.png" title="naviox-roles_en.png" /><br />
+Usually, you create a new role and assign some modules to it. Then, go to the <em>Users</em> module, choose a user and assign the new role to him. By default, there are two roles already created: <em>admin</em> with access to <em>Users, Roles, Modules</em> and <em>Folders</em> , and <em>user</em> with access to all the modules of your application.<br />
+If you remove access to the default module of an entity, modifying and creating references to that entity is not allowed. For example, if the users of a particular role cannot access the <em>Customer</em> module, they cannot create or modify customers from the <em>Invoice</em> module either (<em>new in v5.3</em>).<br />
+The above user management system is only available in <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>, with plain OpenXava you have to add users in the <em>naviox-users.properties</em> file inside <em>properties</em> folder of your project.<br />
+<h2 id="toc2"><a name="Security and user management-Restricting user access to actions"></a>Restricting user access to actions</h2>
+ If you want to restrict <strong>users</strong> of certain <strong>roles</strong> from executing certain actions, go to the <em>Roles</em> module and choose that role to edit in detail mode. Then click in the module where you want to restrict those actions, and a dialog like the next one will appear:<br />
+<img src="files/xavapro-restrict-actions_en.png" alt="xavapro-restrict-actions_en.png" title="xavapro-restrict-actions_en.png" /><br />
+Select the actions you want to exclude and click on <em>Save</em>. From now on, all the users of that role will not be able to execute those actions in that module.<br />
+Restricting access to <em>New</em> and <em>Save</em> restricts access for creating and modifying from references also, if you do it for the default module of that entity. For example, if you restrict access to <em>Save</em> action in <em>Customer</em> module, the user will not be able to modify <em>Customer</em> data from <em>Invoice</em> module <em>(new in v5.3)</em>.<br />
+Restricting user access to actions is only available in <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>.<br />
+<h2 id="toc3"><a name="Security and user management-Restricting user access to properties, references and collections (new in v5.5)"></a>Restricting user access to properties, references and collections <em>(new in v5.5)</em></h2>
+ If you want to restrict <strong>users</strong> of certain <strong>roles</strong> from accessing certain properties, references or collections, go to the <em>Roles</em> module and choose that <strong>role</strong> to edit in detail mode. Then click in the module where you want to restrict those members, and a dialog like the next one will appear:<br />
+<img src="files/restrict-data-read-only-data-xavapro_en.png" alt="restrict-data-read-only-data-xavapro_en.png" title="restrict-data-read-only-data-xavapro_en.png" /><br />
+Select the members you want to exclude in <em>Excluded data</em> and click on <em>Save</em>. From now on, all the users of that role will not be able to access those members in that module. Note you also have <em>Read only data</em> to allow the users to see the data but not to change it.<br />
+Restricting user access to properties, references or collections is only available in <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>.<br />
+<h2 id="toc4"><a name="Security and user management-User and password policies"></a>User and password policies</h2>
+ There are a lot of options available for user management and password policies. In the <em>Admin</em> folder you'll find a <em>Configuration</em> module:<br />
+<img src="files/xavapro-configuration_en.png" alt="xavapro-configuration_en.png" title="xavapro-configuration_en.png" /><br />
+You can configure these policies in order for your system to be PCI-DSS compliant, which is required for any applications which handles credit card data!<br />
+These policies for users and passwords are only available in <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>.<br />
+<h2 id="toc5"><a name="Security and user management-LDAP"></a>LDAP</h2>
+ <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a> allows the users to be authenticated via LDAP. To configure LDAP edit the <em>naviox.properties</em> file and add the next entries:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="co1"># LDAP Config</span>
+<span class="re0">ldapHost</span><span class="sy0">=</span><span class="re1">192.168.0.0</span>
+<span class="re0">ldapDomain</span><span class="sy0">=</span><span class="re1">XX</span>
+<span class="re0">ldapDN</span><span class="sy0">=</span><span class="re1">DC=XX,DC=XX,DC=XX</span>
+<span class="re0">ldapPort</span><span class="sy0">=</span><span class="re1">389</span></pre>
+
+If you use OpenLDAP omit the <em>ldapDomain</em> entry <em>(since v5.9.1)</em>, like in this example:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="co1"># Example of OpenLDAP Config</span>
+<span class="re0">ldapHost</span><span class="sy0">=</span><span class="re1">192.168.2.xxx</span>
+<span class="re0">ldapDomain</span><span class="sy0">=</span>
+<span class="re0">ldapDN</span><span class="sy0">=</span><span class="re1">ou=people,dc=dgrtdf,dc=gov,dc=ar</span>
+<span class="re0">ldapPort</span><span class="sy0">=</span><span class="re1">389</span></pre>
+
+Note as <em>ldapDomain</em> has no value.<br />
+By default all the users are authenticated using XavaPro stored passwords. To enable LDAP you have to select the users and check <em>Authenticate with LDAP</em> option:<br />
+<img src="files/naviox_ldap_en.png" alt="naviox_ldap_en.png" title="naviox_ldap_en.png" /><br />
+LDAP support is only available in <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>.<br />
+<h2 id="toc6"><a name="Security and user management-Guest can create a user account himself"></a>Guest can create a user account himself</h2>
+ In the sign in box you have a link labeled as SIGN UP:<br />
+<img src="files/login-with-signup_en.png" alt="login-with-signup_en.png" title="login-with-signup_en.png" /><br />
+The user can click on it to go to a form to registering:<br />
+<img src="files/signup-form_en.png" alt="signup-form_en.png" title="signup-form_en.png" /><br />
+After submitting this form the user is created and signed in. There is a <em>self sign up</em> role to determine the rights for the autocreated users.<br />
+You can disable this feature with the configuration module.<br>Since v6.0 you can show a privacy policy in the sign up page, the privacy policy text is get from  privacy_policy  entry in the messages i18n files. It's required that the user check the checkbox  to accept the policy to do the sign up. The date of the policy acceptance is stored with the user data. You can hide the privacy policy on sign up using the configuration module.  <br />
+<h2 id="toc7"><a name="Security and user management-Creation date and record of logins for each user"></a>Creation date and record of logins for each user</h2>
+ Just go to the users module to see that data:<br />
+<img src="files/user-creation-date-sessions_en.png" alt="user-creation-date-sessions_en.png" title="user-creation-date-sessions_en.png" /><br />
+<h2 id="toc8"><a name="Security and user management-Password recovery (new in v5.7)"></a>Password recovery <em>(new in v5.7)</em></h2>
+ The user can recover his password by himself. When he fails to put the correct password a &quot;Forgot your password?&quot; message with a link is shown:<br />
+<img src="files/recover-password-login_en.png" alt="recover-password-login_en.png" title="recover-password-login_en.png" /><br />
+When the user clicks on the link goes to a page to enter his email:<br />
+<img src="files/enter-email-recover-password_en.png" alt="enter-email-recover-password_en.png" title="enter-email-recover-password_en.png" /><br />
+After clicking on the &quot;Recover password&quot; button an email with instructions to recover the password is sent. Of course, a user with that email has to be registered in the system.<br />
+To use the recover password feature you have to configure the email properties in <em>xava.properties</em>, something like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="co1">#SMTP related information</span>
+<span class="re0">smtpHost</span><span class="sy0">=</span><span class="re1">smtp.gmail.com</span>
+<span class="re0">smtpPort</span><span class="sy0">=</span><span class="re1">587</span>
+<span class="re0">smtpUserId</span><span class="sy0">=</span><span class="re1">myemail@gmail.com</span>
+<span class="re0">smtpUserPassword</span><span class="sy0">=</span><span class="re1">mypassword</span>
+<span class="re0">smtpHostTrusted</span><span class="sy0">=</span><span class="re1">true</span>
+<span class="re0">smtpStartTLSEnable</span><span class="sy0">=</span><span class="re1">true</span></pre>
+
+<h2 id="toc9"><a name="Security and user management-User is asked to enter his email (new in v5.7)"></a>User is asked to enter his email <em>(new in v5.7)</em></h2>
+ In order the recovering password mechanism works it's needed that each user has his email registered in the system. So now if the user has no email XavaPro asks for it after sign in:<br />
+<img src="files/enter-email-personal-data_en.png" alt="enter-email-personal-data_en.png" title="enter-email-personal-data_en.png" /><br />
+Entering the email is not required, the user can go to any other module and leaves the email blank if he wishes.<br />
+This new &quot;My personal data&quot; module is always available for all users to edit their own personal data.
+    <br>
+<h2 id="toc9"><a name="Security and user management-Email as user name (new in v6.0)"></a>Email as user name <em>(new in v6.0)</em></h2>
+In the Configuration module there is an option called  <i>Use email as user name</i>.     
+    
+    
+    If you check it it's required that when a new user sign up uses an email as user name. Moreover, the already created users can sign in using their emails instead of user names.<br>The validation of the email on sign up can be customizing with the <i>emailValidatorForSignUpClass</i> in <i>naviox.properties</i>, for example:
+    <pre>emailValidatorForSignUpClass=com.mycompany.myapp.MyEmailValidator</pre>
+    In this case the validation logic of <i>MyEmailValidator</i> (must implement <i>IPropertyValidator</i>) is applied on sign up for the email. The default validation for email just verifies that email has the correct syntax, but sometimes you want to have different validation, such as the email would be a company email, for example. You can do that validation in your custom email validator.</div>
+  </body>
+</html>

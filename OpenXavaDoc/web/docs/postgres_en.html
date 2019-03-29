@@ -1,0 +1,436 @@
+<html>
+  <head>
+    <title>openxava - postgres_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Configuring OpenXava 5.4.x for PostgreSQL">Configuring OpenXava 5.4.x for PostgreSQL</a></div>
+<div style="margin-left: 3em;"><a href="#Configuring OpenXava 5.4.x for PostgreSQL--Get the latest JDBC driver">Get the latest JDBC driver</a></div>
+<div style="margin-left: 3em;"><a href="#Configuring OpenXava 5.4.x for PostgreSQL--Configure PostgreSQL">Configure PostgreSQL</a></div>
+<div style="margin-left: 3em;"><a href="#Configuring OpenXava 5.4.x for PostgreSQL--Configure your OpenXava Project">Configure your OpenXava Project</a></div>
+<div style="margin-left: 3em;"><a href="#Configuring OpenXava 5.4.x for PostgreSQL--Testing">Testing</a></div>
+<div style="margin-left: 1em;"><a href="#Configurating OpenXava 2.X for Postgres">Configurating OpenXava 2.X for Postgres</a></div>
+<div style="margin-left: 2em;"><a href="#Configurating OpenXava 2.X for Postgres-Verify Postgres is running">Verify Postgres is running</a></div>
+<div style="margin-left: 2em;"><a href="#Configurating OpenXava 2.X for Postgres-Configure the DB (changes from chapter 2.2 OX Reference)">Configure the DB (changes from chapter 2.2 OX Reference)</a></div>
+<div style="margin-left: 2em;"><a href="#Configurating OpenXava 2.X for Postgres-Editing the file “build.xml”">Editing the file “build.xml”</a></div>
+<div style="margin-left: 2em;"><a href="#Configurating OpenXava 2.X for Postgres-Making Postgres JDBC Jars available for Tomcat">Making Postgres JDBC Jars available for Tomcat</a></div>
+<div style="margin-left: 2em;"><a href="#Configurating OpenXava 2.X for Postgres-Create the file “tomcat-postgres.properties”">Create the file “tomcat-postgres.properties”</a></div>
+<div style="margin-left: 2em;"><a href="#Configurating OpenXava 2.X for Postgres-Edit the file “hibernate/hibernate-junit.cfg.xml”">Edit the file “hibernate/hibernate-junit.cfg.xml”</a></div>
+<div style="margin-left: 2em;"><a href="#Configurating OpenXava 2.X for Postgres-Moving to the section 2.3 of the OX Reference guide">Moving to the section 2.3 of the OX Reference guide</a></div>
+</div>
+<h1 id="toc0"><a name="Configuring OpenXava 5.4.x for PostgreSQL"></a>Configuring OpenXava 5.4.x for PostgreSQL</h1>
+ This guide is for later (5.4...) versions of OpenXava. This setup uses version 9.3 of PostgreSQL, but should work with any version. Also, these steps are for a Linux environment. If you're using Windows, well.....<br />
+<br />
+<h3 id="toc1"><a name="Configuring OpenXava 5.4.x for PostgreSQL--Get the latest JDBC driver"></a><strong>Get the latest JDBC driver</strong></h3>
+ Go here (<a class="wiki_link_ext" href="https://jdbc.postgresql.org/download.html" rel="nofollow">https://jdbc.postgresql.org/download.html)</a>and download the latest .jar file. In my case recently, it was<br />
+postgresql-9.4.1207.jre6.jar Make note of the location where you save it, of course, as you'll need to copy/move it to a couple of new locations later.<br />
+<br />
+<h3 id="toc2"><a name="Configuring OpenXava 5.4.x for PostgreSQL--Configure PostgreSQL"></a>Configure PostgreSQL</h3>
+ I will presume that you have a working PostgreSQL installation, and have CREATE DATABASE permissions, either via the postgres user or a previously configured user with appropriate permissions. If not, stop right now and make sure that you are ready. Everything following will fail otherwise!<br />
+<br />
+Create the database to be used by your OpenXava application. We will assume for the purposes of this example that your application is named &quot;<strong>Invoice</strong>&quot;, and you want to use the database named &quot;<strong>oxtest</strong>&quot;. (NOTE: I have found no difference - if correctly configured - between using upper or lower case names for the database. I have not tried mixed-case, but if you're feeling adventurous give it a try, once you have a successful test!) Make note, obviously of the DB user and password of the DB owner as you'll need that info. You can use either pgAminIII or the psql command line approach to create the database. In my case, I called &quot;su&quot; to become root, called &quot;su - postgres&quot; to become the postgres user, then ran &quot;psql&quot;. At the psql prompt, just run &quot;CREATE DATABASE <strong>oxtest</strong> OWNER <strong>gerry</strong>; &quot; (Again, for this example, I'm using &quot;<strong>gerry</strong>&quot; as the DB user and &quot;<strong>abcdef</strong>&quot; as the DB password.) Presuming you are rewarded with a DATABASE CREATED message, we're ready for the next steps. If not, go back and start over or it will <u><strong>never</strong></u> work.<br />
+<br />
+Also, before proceeding, stop the existing tomcat/OpenXava server either via the Server tab or the command line (<strong>./shutdown.sh</strong>). We'll want to monitor the server startup logs after reconfiguring, as well as making sure there's no conflict with any running processes.<br />
+<br />
+<h3 id="toc3"><a name="Configuring OpenXava 5.4.x for PostgreSQL--Configure your OpenXava Project"></a>Configure your OpenXava Project</h3>
+ Each OpenXava project stores its database configuration information spread amongst several files. (There are good architectural reasons for this, so no whining about wanting one config file! :-) These files are:<br />
+<br />
+<strong>../openxava-5.4.1/tomcat/conf/context.xml</strong><br />
+<strong>{ProjectFolder} -&gt; persistence -&gt; META-INF -&gt; persistence.xml</strong><br />
+<strong>{ProjectFolder} -&gt; build.xml</strong><br />
+<br />
+Let's make the changes to each one....<br />
+<br />
+<strong>../openxava-5.4.1/tomcat/conf/context.xml</strong><br />
+For this file, note that each project has its own stanza. Ours would need to look like this:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/InvoiceDS&quot;</span> <span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3">    <span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span> <span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3">    <span class="re0">username</span>=<span class="st0">&quot;gerry&quot;</span> <span class="re0">password</span>=<span class="st0">&quot;abcdef&quot;</span></span>
+<span class="sc3">    <span class="re0">driverClassName</span>=<span class="st0">&quot;org.postgresql.Driver&quot;</span></span>
+<span class="sc3">    <span class="re0">url</span>=<span class="st0">&quot;jdbc:postgresql://localhost:5432/oxtest&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+Next,<br />
+<em><strong>{ProjectFolder} -&gt; persistence -&gt; META-INF -&gt; persistence.xml</strong></em><br />
+Near the top of the file, in the &quot;<strong>Tomcat + Hypersonic</strong>&quot; section, find the &quot;<strong>hibernate.dialect</strong>&quot; property name and replace it with this line:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.dialect&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.dialect.PostgreSQLDialect&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+Towards the bottom of the same file, you'll find the <strong>&lt;persistence-unit name=&quot;junit&quot;&gt;</strong> section. This handles schema creation and update so is very important! Here's my example of this section:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;persistence-unit</span> <span class="re0">name</span>=<span class="st0">&quot;junit&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span>org.hibernate.jpa.HibernatePersistenceProvider<span class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.driver_class&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;org.postgresql.Driver&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.dialect&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.dialect.PostgreSQLDialect&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.release_mode&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;after_transaction&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.username&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;gerry&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.password&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;abcdef&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.url&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;jdbc:postgresql://localhost:5432/oxtest&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>**
+<span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span>**</pre>
+
+The last file to modify is <strong>{ProjectFolder} -&gt; build.xml</strong><br />
+At the bottom of the file, you'll find the &quot;<strong>updateSchema</strong>&quot; target. Replace the &quot;<strong>schema.path</strong>&quot; property with the entry below:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;schema.path&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;../OpenXava/lib/postgresql-9.4.1207.jre6.jar&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+Now, we need to copy the previously downloaded .jar to the required location. Referencing the above line, the actual full path to which to copy the .jar file is: <strong>~/openxava-5.4.1/workspace/OpenXava/lib</strong><br />
+After copying the file here, verify that its permissions are correct. All the jar files here have the permissions of <strong>770</strong> so make sure to chmod the newly installed jar file, and verify owner and group.<br />
+<strong>NOTE:</strong> This location is used for OpenXava to build the tables, etc. If you are using the default Tomcat server that comes with OpenXava, you <u><strong>MUST</strong></u> also<br />
+copy the .jar file to: <strong>../openxava-5.4.1./tomcat/lib</strong> and again confirm the 770 permissions in order for your application to run.<br />
+<br />
+<h3 id="toc4"><a name="Configuring OpenXava 5.4.x for PostgreSQL--Testing"></a>Testing</h3>
+ Alright! At this point, we are ready to test. Before running your application (I presume you have some app in some degree of development), we'll need to do a couple more steps. First, restart Tomcat/OpenXava server, again either via the Server start mechanism within OpenXava or command line via &quot;<strong>./startup.sh</strong>&quot;. Next, we need to update the schema as part of rebuilding the application. As this is the first run, the schema update should create the necessary tables and columns. Monitor the startup messages closely, and correct any errors flagged. If you've followed these directions diligently, you should be up and ready to go using OpenXava with PostgreSQL!<br />
+<br />
+<h1 id="toc5"><a name="Configurating OpenXava 2.X for Postgres"></a>Configurating OpenXava 2.X for Postgres</h1>
+ In this little guide we will only modify the files we have got after generating a new project as references in section 2.1 from OX Reference guide. We also assume that OpenXava is installed in the folder <em>openxava2.X</em><br />
+<h2 id="toc6"><a name="Configurating OpenXava 2.X for Postgres-Verify Postgres is running"></a>Verify Postgres is running</h2>
+ You should verify that Postgres is running. Use the utility pgadminIII (available from the Postgres Web) to create a database called “MYDB” (in upper case letters) and a schema called “management” (in lower case).<br />
+<h2 id="toc7"><a name="Configurating OpenXava 2.X for Postgres-Configure the DB (changes from chapter 2.2 OX Reference)"></a>Configure the DB <em>(changes from chapter 2.2 OX Reference)</em></h2>
+ The file <em>context.xml</em> from the folder <em>openxava2.x/portal/conf</em> should be edited as follows:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;Resource</span> <span class="re0">name</span>=<span class="st0">&quot;jdbc/ManagementDS&quot;</span></span>
+<span class="sc3"><span class="re0">auth</span>=<span class="st0">&quot;Container&quot;</span></span>
+<span class="sc3"><span class="re0">type</span>=<span class="st0">&quot;javax.sql.DataSource&quot;</span></span>
+<span class="sc3"><span class="re0">maxActive</span>=<span class="st0">&quot;20&quot;</span></span>
+<span class="sc3"><span class="re0">maxIdle</span>=<span class="st0">&quot;5&quot;</span></span>
+<span class="sc3"><span class="re0">maxWait</span>=<span class="st0">&quot;10000&quot;</span></span>
+<span class="sc3"><span class="re0">username</span>=<span class="st0">&quot;postgres&quot;</span></span>
+<span class="sc3"><span class="re0">password</span>=<span class="st0">&quot;my_postgres_password&quot;</span></span>
+<span class="sc3"><span class="re0">driverClassName</span>=<span class="st0">&quot;org.postgresql.Driver&quot;</span></span>
+<span class="sc3"><span class="re0">url</span>=<span class="st0">&quot;jdbc:postgresql:localhost:5432/MYBD&quot;</span><span class="re2">/&gt;</span></span></pre>
+
+<strong><em>my_postgres_password</em></strong> is the password for user postgres in the Postgres database.<br />
+<em><strong>url=&quot;jdbc:postgresql:</strong></em><strong>localhost:5432/MYDB&quot;</strong> <em>defines how to access the Database. (</em>MYDB <em>is the database we have created</em>; <em>localhost:5432</em> is the address and port of the server executing the Postgres database service.<br />
+<br />
+<strong>Remarks:</strong><br />
+We should distinguish the Tomcat from inside Eclipse and the one outside Eclipse. In the first case the file <em>context.xml is</em> in the folder “<strong>openxava2.X/workspace/</strong> <strong>Servers/Tomcat v5.5 Server @ localhost-config</strong> “ and in the second case in the fólder “openxava2.X/portal/conf”. See <a class="wiki_link" href="wtp_en.html">OpenXava with Eclipse WTP</a>.<br />
+<h2 id="toc8"><a name="Configurating OpenXava 2.X for Postgres-Editing the file “build.xml”"></a><strong>Editing the file “build.xml”</strong></h2>
+ We look for a line containing <em>tomcat-hypersonic</em> and comment it and add a new line as shows:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc-1">&lt;!-- Comment</span>
+<span class="sc-1">&lt;property name=&quot;configuration&quot; value=&quot;tomcat-hypersonic&quot;/&gt;</span>
+<span class="sc-1">--&gt;</span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;configuration&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;tomcat-postgres&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;</pre>
+
+In addition, we look for the task <em>updateSchema</em> and give the variable <em>schema.path</em> <strong>the absolute path for the JDBC JAR driver</strong> (in my particular case in Windows XP &quot;<u>C:\POSTGRES\postgresql-8.3dev-601.jdbc3.jar&quot;</u>. You can verify if there is a newer JDBC driver in the WEB, and you should use it!<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc-1">&lt;!-- Comment</span>
+<span class="sc-1">&lt;property name=&quot;schema.path&quot; value=&quot;[PUT HERE THE PATH OF YOUR JDBC DRIVER]&quot;/&gt;</span>
+<span class="sc-1">--&gt;</span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;schema.path&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;C:/POSTGRES/postgresql-8.3dev-601.jdbc3.jar&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;</pre>
+
+And save changes.<br />
+<h2 id="toc9"><a name="Configurating OpenXava 2.X for Postgres-Making Postgres JDBC Jars available for Tomcat"></a>Making Postgres JDBC Jars available for Tomcat</h2>
+ I have copied my particular file <em>C:\POSTGRES\postgresql-8.3dev-601.jdbc3.jar</em> (or a newer one) into the folder <em>openxava-2.X/portal/common/lib</em><br />
+<h2 id="toc10"><a name="Configurating OpenXava 2.X for Postgres-Create the file “tomcat-postgres.properties”"></a>Create the file “tomcat-postgres.properties”</h2>
+ <br />
+<em>Let’s copy the file</em> tomcat-hypersonic.properties <em>to a new one called</em> tomcat-postgres.properties. <em>Let’s change <strong>separator</strong> to “<strong>.</strong>” And <strong>hibernate.dialect</strong> to “<strong>org.hibernate.dialect.PostgreSQLDialect</strong>”</em><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">separator=.
+organization_es=Gestión cuatrocientos, s.l.
+organization_ca=Gestió quatre-cents, s.l.
+organization_en=Management four hundred, limited
+hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+datasource.prefix=java:comp/env/jdbc
+&nbsp;</pre>
+
+<h2 id="toc11"><a name="Configurating OpenXava 2.X for Postgres-Edit the file “hibernate/hibernate-junit.cfg.xml”"></a>Edit the file “hibernate/hibernate-junit.cfg.xml”</h2>
+ We should comment all about HSQLDB and create new entries for Postgres:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;session-factory<span class="re2">&gt;</span></span></span>
+<span class="sc-1">&lt;!-- Hypersonic commented</span>
+<span class="sc-1">&lt;property name=&quot;hibernate.connection.driver_class&quot;&gt;org.hsqldb.jdbcDriver&lt;/property&gt;</span>
+<span class="sc-1">&lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.HSQLDialect&lt;/property&gt;</span>
+<span class="sc-1">&lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:hsqldb:hsql:localhost:1666&lt;/property&gt;</span>
+<span class="sc-1">--&gt;</span>
+<span class="sc-1">&lt;!-- Postgres--&gt;</span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.driver_class&quot;</span><span class="re2">&gt;</span></span>org.postgresql.Driver<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.dialect&quot;</span><span class="re2">&gt;</span></span>org.hibernate.dialect.PostgreSQLDialect<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.url&quot;</span><span class="re2">&gt;</span></span>jdbc:postgresql:localhost:5432/MYBD<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+
+Where <em><strong>localhost:5432</strong></em> references the address and port of our server running the Postgres service and <em><strong>MYDB</strong></em> is the database we are using for this example.<br />
+In addition to these, we have to change all about users and passwords in the DB. We should change the user to postgres and introduce the correct password. We shall comment the lines referencing HSQLDB<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc-1">&lt;!-- Hypersonic Access commented</span>
+<span class="sc-1">&lt;property name=&quot;hibernate.connection.username&quot;&gt;sa&lt;/property&gt;</span>
+<span class="sc-1">&lt;property name=&quot;hibernate.connection.password&quot;&gt;&lt;/property&gt;</span>
+<span class="sc-1">&lt;property name=&quot;hibernate.show_sql&quot;&gt;false&lt;/property&gt;</span>
+<span class="sc-1">--&gt;</span>
+<span class="sc-1">&lt;!-- Postgres Access--&gt;</span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.username&quot;</span><span class="re2">&gt;</span></span>postgres<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.connection.password&quot;</span><span class="re2">&gt;</span></span>my_postgres_password<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.show_sql&quot;</span><span class="re2">&gt;</span></span>false<span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span></pre>
+
+And save changes.<br />
+<h2 id="toc12"><a name="Configurating OpenXava 2.X for Postgres-Moving to the section 2.3 of the OX Reference guide"></a>Moving to the section 2.3 of the OX Reference guide</h2>
+ Our component “<em>Warehouse.xml</em>” that has been mapped to the table WAREHOUSES from the schema “MANAGENENT” (which was previously created as “management” in lower case letters) remains unchanged as in section 2.3 as follows:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;ISO-8859-1&quot;</span><span class="re2">?&gt;</span></span>
+&nbsp;
+<span class="sc0">&lt;!DOCTYPE component SYSTEM &quot;dtds/component.dtd&quot;&gt;</span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;component</span> <span class="re0">name</span>=<span class="st0">&quot;Warehouse&quot;</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;zoneNumber&quot;</span> <span class="re0">key</span>=<span class="st0">&quot;true&quot;</span></span>
+<span class="sc3"><span class="re0">size</span>=<span class="st0">&quot;3&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;int&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;number&quot;</span> <span class="re0">key</span>=<span class="st0">&quot;true&quot;</span></span>
+<span class="sc3"><span class="re0">size</span>=<span class="st0">&quot;3&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;int&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;String&quot;</span></span>
+<span class="sc3"><span class="re0">size</span>=<span class="st0">&quot;40&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;entity-mapping</span> <span class="re0">table</span>=MANAGEMENT@separator@WAREHOUSES<span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;property-mapping</span></span>
+<span class="sc3"><span class="re0">property</span>=<span class="st0">&quot;zoneNumber&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;ZONE&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;property-mapping</span></span>
+<span class="sc3"><span class="re0">property</span>=<span class="st0">&quot;number&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;NUMBER&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;property-mapping</span></span>
+<span class="sc3"><span class="re0">property</span>=<span class="st0">&quot;name&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;NAME&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/entity-mapping<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/component<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+
+Let’s execute the <em>Ant tasks generateCode</em> and <em>rebuild</em> and finally <em>updateSchema</em> and the tables should be created in our database.<br />
+After that, follow the instructions from the guide.<br />
+<br />
+(improvements to this page and error reporting are wellcome. <em>Eduard</em>.)
+    </div>
+  </body>
+</html>

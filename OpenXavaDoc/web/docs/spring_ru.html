@@ -1,0 +1,184 @@
+<html>
+  <head>
+    <title>openxava - spring_ru</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Spring">Spring</a></div>
+<div style="margin-left: 2em;"><a href="#Spring-Зависимости (необходимые библиотеки)">Зависимости (необходимые библиотеки)</a></div>
+<div style="margin-left: 2em;"><a href="#Spring-Контекст приложения">Контекст приложения</a></div>
+<div style="margin-left: 2em;"><a href="#Spring-Модификация классов в момент загрузки с помощью AspectJ">Модификация классов в момент загрузки с помощью AspectJ</a></div>
+<div style="margin-left: 2em;"><a href="#Spring-Внедрение зависимостей через аннотации Java">Внедрение зависимостей через аннотации Java</a></div>
+</div>
+<h1 id="toc0"><a name="Spring"></a>Spring</h1>
+ В OpenXava нет внутреннего механизма для поддержки внедрения Spring beans в <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/IAction.html" rel="nofollow">IAction</a></em>, <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/ICalculator.html" rel="nofollow">ICalculator</a></em> или другие части реализации front-end OX. Тем не менее, использование Spring AOP in в комбинации с AspectJ дает возможность внедрять beans (например, beans из сервисного уровня (service layer) - сервисы) в классы OX.<br />
+<h2 id="toc1"><a name="Spring-Зависимости (необходимые библиотеки)"></a>Зависимости (необходимые библиотеки)</h2>
+ Чтобы использовать возможности Spring, необходимо добавить следующие библиотеки в <em>OpenXava/web/WEB-INF/lib</em>:<br />
+<ul><li><tt>spring-core.jar</tt>,</li><li><tt>spring-beans.jar</tt>,</li><li><tt>spring-context.jar</tt> and</li><li><tt>spring-aspects.jar</tt>.</li></ul>Для модификации классов во время загрузки (load-time weaving) требуются следующие библиотеки AspectJ:<br />
+<ul><li><tt>aspectjrt.jar</tt> and</li><li><tt>aspectjweaver.jar</tt></li></ul>Они также должны быть расположены в <em>OpenXava/web/WEB-INF/lib</em>.<br />
+Дополнительно нужен <tt>spring-agent.jar</tt>,который будет передаваться напрямую в JVM (см. ниже).<br />
+<em>Замечание: Во время написания данного пособия актуальная версия библиотек Spring была 2.5.6, AspectJ - 1.6.1.</em><br />
+<h2 id="toc2"><a name="Spring-Контекст приложения"></a>Контекст приложения</h2>
+ Чтобы инициализировать контекст приложения Spring application context, нужно добавить несколько строчек в файл <em>OpenXava/web/WEB-INF/web.xml</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;context-param<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>contextConfigLocation<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>/WEB-INF/applicationContext.xml<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/context-param<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;listener<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;listener-class<span class="re2">&gt;</span></span></span>org.springframework.web.context.ContextLoaderListener<span class="sc3"><span class="re1">&lt;/listener-class<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/listener<span class="re2">&gt;</span></span></span></pre>
+
+<em>Замечание: Более подробную информацию по данной теме вы найдете <a class="wiki_link_ext" href="http://static.springsource.org/spring/docs/2.5.x/reference/beans.html#context-create" rel="nofollow">Spring Reference</a></em>.<br />
+<h2 id="toc3"><a name="Spring-Модификация классов в момент загрузки с помощью AspectJ"></a>Модификация классов в момент загрузки с помощью AspectJ</h2>
+ Модификация классов в момент загрузки (Load-time weaving (LTW)) - это простая бинарная модификация классов, выполняемая о того, как загрузчик классов загружает файл класса и определяет класс в JVM. Чтобы это реализовать, требуются один или несколько специальных загрузчиков классов (&quot;weaving class loaders&quot;), которые явно предоставляются средой выполнения или подключаются как &quot;weaving agent&quot;. Для Spring используется agent, который должен быть специфицирован при запуске JVM, как в этом примере:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash">java -javaagent:path<span class="sy0">/</span>to<span class="sy0">/</span>spring-agent.jar</pre>
+
+<em>Замечание: Если вы используете Tomcat application server, то опции для javaagent могут быть заданы через параметр JAVA_OPTS, а библиотеку spring-agent.jar будет естественно разместить в ${catalina.home}/server/lib.</em><br />
+<h2 id="toc4"><a name="Spring-Внедрение зависимостей через аннотации Java"></a>Внедрение зависимостей через аннотации Java</h2>
+ Spring context module предоставляет дополнительные возможности настройки через аннотации Java annotations. Так что контекст приложения (application context) XML может выглядеть как в примере ниже:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;UTF-8&quot;</span><span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;beans</span> <span class="re0">xmlns</span>=<span class="st0">&quot;http://www.springframework.org/schema/beans&quot;</span> <span class="re0">xmlns:xsi</span>=<span class="st0">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span>
+<span class="sc3"><span class="re0">xmlns:context</span>=<span class="st0">&quot;http://www.springframework.org/schema/context&quot;</span></span>
+<span class="sc3"><span class="re0">xsi:schemaLocation</span>=<span class="st0">&quot;</span>
+<span class="sc3">http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span>
+<span class="sc3">http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd&quot;</span></span>
+<span class="sc3"><span class="re0">default-autowire</span>=<span class="st0">&quot;byName&quot;</span><span class="re2">&gt;</span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;context:annotation-config</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;context:spring-configured</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;context:load-time-weaver</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;context:component-scan</span> <span class="re0">base-package</span>=<span class="st0">&quot;org.openxava.springapp.frontend&quot;</span> <span class="re2">/&gt;</span></span>
+&nbsp;
+<span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">&quot;exampleService&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.springapp.service.ExampleServiceImpl&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/beans<span class="re2">&gt;</span></span></span></pre>
+
+Если контекст приложения сконфигурирован как указано выше, то реализация Действия (action), использующая bean <tt>exampleService</tt>, может выглядеть следующим образом:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java span.xtra { display:block; }
+
+-->
+</style><pre class="java">@Configurable
+<span class="kw1">public</span> <span class="kw1">class</span> ExampleAction <span class="kw1">extends</span> ViewBaseAction <span class="br0">&#123;</span>
+&nbsp;
+<span class="kw1">private</span> ExampleService exampleService<span class="sy0">;</span>
+&nbsp;
+<span class="kw1">public</span> <span class="kw4">void</span> execute<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">&#123;</span>
+exampleService.<span class="me1">doSomething</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+@Autowired
+<span class="kw1">public</span> <span class="kw4">void</span> setExampleService<span class="br0">&#40;</span>ExampleService exampleService<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="kw1">this</span>.<span class="me1">exampleService</span> <span class="sy0">=</span> exampleService<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+Каждый раз, когда OpenXava инициализирует класс <tt>ExampleAction</tt>, механизм LTW будет прослушивать события и устанавливать дополнительные зависимости bean из контекста приложения.<br />
+<em>Замечание: Пожалуйста обратитесь к <a class="wiki_link_ext" href="http://static.springsource.org/spring/docs/2.5.x/reference/aop.html#aop-aj-ltw" rel="nofollow">Spring Reference</a> и <a class="wiki_link_ext" href="http://www.eclipse.org/aspectj/doc/released/devguide/ltw.html" rel="nofollow">AspectJ Guide</a>, чтобы получить более подробную информацию по LTW и конфигурации, управляемой аннотациями.</em>
+    </div>
+  </body>
+</html>

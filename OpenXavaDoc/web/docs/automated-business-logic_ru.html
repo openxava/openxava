@@ -1,0 +1,150 @@
+<html>
+  <head>
+    <title>openxava - automated-business-logic_ru</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="xАвтоматизированная бизнес-логика (АБЛ) в OpenXava"></a>Автоматизированная бизнес-логика (АБЛ) в OpenXava</h1>
+ <a class="wiki_link_ext" href="http://www.automatedbusinesslogic.com/" rel="nofollow">ABL</a> - это библиотека, позволяющая вам описать вашу бизнес-логику декларативным способом (используя аннотации). Эта логика будет выполнена автоматически при обновлении сущности в базе данных.<br />
+АБЛ включена в OpenXava начиная с версии 4.5. Для того, чтобы включить ее, вам следует добавить следующее свойство в persistence unit в файле <em>persistence.xml</em>:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;persistence-unit</span> <span class="re0">name</span>=<span class="st0">&quot;default&quot;</span><span class="re2">&gt;</span></span>
+...
+<span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+...
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.current_session_context_class&quot;</span></span>
+<span class="sc3"><span class="re0">value</span>=<span class="st0">&quot;com.autobizlogic.abl.session.LogicThreadLocalSessionContext&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span></pre>
+
+После этого вы можете добавлять декларативную логику, например, если у вас есть сущность подобная следующей:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.groovy  {font-family:monospace;}
+.groovy .imp {font-weight: bold; color: red;}
+.groovy .kw1 {color: #b1b100;}
+.groovy .kw2 {color: #000000; font-weight: bold;}
+.groovy .kw3 {color: #aaaadd; font-weight: bold;}
+.groovy .kw4 {color: #993333;}
+.groovy .kw5 {color: #663399;}
+.groovy .kw6 {color: #CC0099;}
+.groovy .kw7 {color: #FFCC33;}
+.groovy .kw8 {color: #993399;}
+.groovy .kw9 {color: #993399; font-weight: bold;}
+.groovy .co1 {color: #808080; font-style: italic;}
+.groovy .co2 {color: #a1a100;}
+.groovy .co3 {color: #808080; font-style: italic;}
+.groovy .coMULTI {color: #808080; font-style: italic;}
+.groovy .es0 {color: #000099; font-weight: bold;}
+.groovy .br0 {color: #66cc66;}
+.groovy .sy0 {color: #66cc66;}
+.groovy .st0 {color: #ff0000;}
+.groovy .nu0 {color: #cc66cc;}
+.groovy .me1 {color: #006600;}
+.groovy .me2 {color: #006600;}
+.groovy .re0 {color: #0000ff;}
+.groovy span.xtra { display:block; }
+
+-->
+</style><pre class="groovy"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">javax.persistence.*</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span>
+&nbsp;
+@<span class="kw3">Entity</span>
+<span class="kw2">class</span> MiniOrder <span class="br0">&#123;</span>
+&nbsp;
+@Id
+<span class="kw4">int</span> number
+&nbsp;
+@Column<span class="br0">&#40;</span>length<span class="sy0">=</span><span class="nu0">40</span><span class="br0">&#41;</span> @Required
+<span class="kw3">String</span> description
+&nbsp;
+@Required
+<span class="kw3">BigDecimal</span> productPrice
+&nbsp;
+@Required
+<span class="kw4">int</span> qtyOrdered
+&nbsp;
+<span class="kw3">BigDecimal</span> amount
+&nbsp;
+<span class="br0">&#125;</span></pre>
+
+То вы можете описать расчет значения свойства <em>amount</em>, описанного в классе с суффиксом <em>Logic</em> и АБЛ аннотациями:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.groovy  {font-family:monospace;}
+.groovy .imp {font-weight: bold; color: red;}
+.groovy .kw1 {color: #b1b100;}
+.groovy .kw2 {color: #000000; font-weight: bold;}
+.groovy .kw3 {color: #aaaadd; font-weight: bold;}
+.groovy .kw4 {color: #993333;}
+.groovy .kw5 {color: #663399;}
+.groovy .kw6 {color: #CC0099;}
+.groovy .kw7 {color: #FFCC33;}
+.groovy .kw8 {color: #993399;}
+.groovy .kw9 {color: #993399; font-weight: bold;}
+.groovy .co1 {color: #808080; font-style: italic;}
+.groovy .co2 {color: #a1a100;}
+.groovy .co3 {color: #808080; font-style: italic;}
+.groovy .coMULTI {color: #808080; font-style: italic;}
+.groovy .es0 {color: #000099; font-weight: bold;}
+.groovy .br0 {color: #66cc66;}
+.groovy .sy0 {color: #66cc66;}
+.groovy .st0 {color: #ff0000;}
+.groovy .nu0 {color: #cc66cc;}
+.groovy .me1 {color: #006600;}
+.groovy .me2 {color: #006600;}
+.groovy .re0 {color: #0000ff;}
+.groovy span.xtra { display:block; }
+
+-->
+</style><pre class="groovy"><span class="kw2">package</span> <span class="co2">org.openxava.test.businesslogic</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">com.autobizlogic.abl.annotations.*</span>
+&nbsp;
+<span class="kw2">class</span> MiniOrderLogic <span class="br0">&#123;</span>
+&nbsp;
+@Formula<span class="br0">&#40;</span><span class="st0">&quot;productPrice * qtyOrdered&quot;</span><span class="br0">&#41;</span> <span class="co1">// This is an ABL annotations</span>
+<span class="kw2">public</span> <span class="kw4">void</span> deriveAmount<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="br0">&#125;</span>
+&nbsp;
+<span class="br0">&#125;</span></pre>
+
+Этот код приводит к тому, что каждый раз, когда запись в базе данных будет обновляться, АБЛ будет пересчитывать значение свойства <em>amount</em> автоматически.<br />
+<br />
+<span style="display: block; text-align: center;"><strong><span style="font-size: 120%;"><a class="wiki_link_ext" href="http://www.automatedbusinesslogic.com/tutorial/building-logic-tutorial---openxava/building-logic-tutorial---openxava-user-interface" rel="nofollow">Узнайте больше о том, как использовать АБЛ в OpenXava</a></span></strong></span>
+    </div>
+  </body>
+</html>

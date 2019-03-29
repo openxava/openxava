@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <title>openxava - websphere-ejb2_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#WebSphere EJB 2">WebSphere EJB 2</a></div>
+<div style="margin-left: 2em;"><a href="#WebSphere EJB 2-Create a J2EE Websphere compatible application">Create a J2EE Websphere compatible application</a></div>
+<div style="margin-left: 2em;"><a href="#WebSphere EJB 2-Install Websphere">Install Websphere</a></div>
+<div style="margin-left: 2em;"><a href="#WebSphere EJB 2-Setup Data Sources">Setup Data Sources</a></div>
+<div style="margin-left: 2em;"><a href="#WebSphere EJB 2-Create tables in database">Create tables in database</a></div>
+<div style="margin-left: 2em;"><a href="#WebSphere EJB 2-Install application">Install application</a></div>
+<div style="margin-left: 2em;"><a href="#WebSphere EJB 2-Execute the application">Execute the application</a></div>
+</div>
+<h1 id="toc0"><a name="WebSphere EJB 2"></a>WebSphere EJB 2</h1>
+<em><strong>NOTE:</strong> These instructions only apply if you want to use EJB2 (with CMP); if you use Hibernate or EJB3 JPA you can deploy the war from OpenXava directly in the WebSphere. It's not advisable to use EJB2 for new developments.</em><br />
+OpenXava generates J2EE aplications deployables in <em>IBM Websphere Application Server 5.0, 5.1, 6.0 y 6.1</em>.<br />
+Doing this simply requires executing a ant target that generates an EAR compatible with Websphere. Touching your code or XML files is not necessary.<br />
+This allows you developing your application using JBoss (hence in an agile way) and when it is ready for production deploy it in Websphere and of course test it.<br />
+This document is a guide for deploying an OpenXava application in Websphere. If you does not have one yet it's better that before this guide follow the tutorial of OpenXava, and you will obtain a MySchool.ear.<br />
+<br />
+The next instructions work with Websphere 5.0, 5.1 and 6.0. In the examples you will connect to an AS/400, but is very easy using another database instead.<br />
+<h2 id="toc1"><a name="WebSphere EJB 2-Create a J2EE Websphere compatible application"></a>Create a J2EE Websphere compatible application</h2>
+Open your Eclipse and make that it point to the <em>workspace</em> that comes with OpenXava distribution.<br />
+<ul><li>Edit MySchool/build.xml and set the variable configuration to websphere-as400.</li><li>Regenerate code, with the ant target <em>MySchool.regenerateEJB</em>.</li><li>Compile, click on <em>Build</em>.</li><li>Execute the target ant <em>MySchool.createWebsphereEar</em>.</li></ul>And now you have in MySchool.dist a file named MySchool.ear ready to deploy in Websphere.<br />
+<h2 id="toc2"><a name="WebSphere EJB 2-Install Websphere"></a>Install Websphere</h2>
+This step is your own business. Use the IBM instructions about this topic and have luck. Install the last patch level too.<br />
+<h2 id="toc3"><a name="WebSphere EJB 2-Setup Data Sources"></a>Setup Data Sources</h2>
+Open the admin console, going to <a class="wiki_link_ext" href="http://localhost:9090/admin" rel="nofollow">http://localhost:9090/admin</a> (or <a class="wiki_link_ext" href="http://localhost:9060/admin" rel="nofollow">http://localhost:9060/admin</a> in version 6)<br />
+First you have to create a J2C entry, that contains an alias for an user/password that you will use in order to authenticate against your database.<br />
+<ul><li>In version 5/5.1: Go to <em>Security &gt;JAAS Configuration &gt; J2C Authentication Data</em>.</li><li>In version 6: Go to <em>Security &gt; Global Security &gt; JAAS Configuration (on right) &gt; J2C Authentication Data</em></li><li>Click <em>New</em>.</li><li>In <em>Alias</em> fielD type openxava (or another one of your choice).</li><li>In <em>User ID</em> field type the name of a database user.</li><li>In <em>Password</em> field type the password of that user.</li><li>Click <em>OK</em>.</li><li>Click <em>Save</em> that goes to another page and click in <em>Save</em> button.</li></ul>Register your JDBC driver:<br />
+<ul><li>Go to <em>Resources &gt; JDBC Providers</em>.</li><li>Click <em>New</em>.</li><li>In version 5/5.1:<ul><li>In <em>JDBC Providers</em> field choose <em>DB2 UDB for iSeries (Toolbox XA)</em>, or the driver for your database, always the XA version.</li><li>Click <em>Apply</em>.</li><li>In <em>Classpath</em> field type the path for your JDBC Driver (including jar name).</li><li>Click <em>Apply</em>.</li></ul></li><li>In version 6:<ul><li>Step 1: Choose DB2 (or your database type).</li><li>Step 2: DB2 UDB for iSeries (Toolbox) (or your provider type).</li><li>Step 3: XA data source (always this).</li><li>Click <em>Next</em>.</li><li>In <em>Classpath</em> field type the path for your JDBC Driver (including jar name).</li><li>Click <em>Apply</em>.</li></ul></li></ul>Register the Data Source for OpenXava:<br />
+<ul><li>Click in <em>Data Sources</em> (it's on bottom in 5/5.1, it's on right in 6).</li><li>Click <em>New</em>.</li><li>In <em>Name</em> field type OpenXavaDS</li><li>In <em>JNDI Name</em> field type jdbc/OpenXavaDS</li><li>In <em>Component-managed Authentication Alias</em> field choose <em>xxxx/openxava</em>.</li><li>In <em>Container-managed Authentication Alias</em> choose <em>xxxx/openxava</em>.</li><li>In version 5/5.1:<ul><li>Click <em>Apply</em>.</li><li>Click <em>Custom Properties</em>, this goes to another page.</li><li>Click <em>serverName</em> and in <em>Value</em> field type the IP of your AS/400 (this only for AS/400).</li><li>Click <em>OK</em>.</li></ul></li><li>In version 6:<ul><li>In <em>serverName</em> field type the IP of your AS/400 (this only for AS/400).</li><li>Click <em>OK</em>.</li></ul></li></ul>Registre the Data Source for your application:<br />
+<ul><li>Go to <em>Data Sources</em>.</li><li>Click <em>New</em>.</li><li>In <em>Name</em> field type MySchoolDS</li><li>In <em>JNDI Name</em> field type jdbc/MySchoolDS</li><li>Check the checkbox <em>Container managed persistence</em>.</li><li>In <em>Component-managed Authentication Alias</em> field choose <em>xxxx/openxava</em>.</li><li>In <em>Container-managed Authentication Alias</em> choose <em>xxxx/openxava</em>.</li><li>In version 5/5.1:<ul><li>Click <em>Apply</em>.</li><li>Click <em>Custom Properties</em>, this goes to another page.</li><li>Click <em>serverName</em> and in <em>Value</em> fiel type the IP of your AS/400 (this only for AS/400).</li><li>Click <em>OK</em>.</li></ul></li><li>In version 6:<ul><li>In <em>serverName</em> field type the IP of your AS/400 (this only for AS/400).</li><li>Click <em>OK</em>.</li></ul></li><li>Click <em>Save</em> that goes to another page and click in <em>Save</em> button.</li></ul>Verify the Data Sources just defined:<br />
+<ul><li>Go to <em>Resources &gt; JDBC Providers</em>.</li><li>Click <em>DB2 UDB for iSeries</em>.</li><li>Click <em>Data Sources</em> (It's on bottom).</li><li>Choose the two data sources just created by you.</li><li>Click on <em>Test Connection</em> button.</li></ul>If message is satisfactory you have concluded well this step.<br />
+<h2 id="toc4"><a name="WebSphere EJB 2-Create tables in database"></a>Create tables in database</h2>
+Execute the next script against your DB:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.sql  {font-family:monospace;}
+.sql .imp {font-weight: bold; color: red;}
+.sql .kw1 {color: #993333; font-weight: bold;}
+.sql .co1 {color: #808080; font-style: italic;}
+.sql .coMULTI {color: #808080; font-style: italic;}
+.sql .es0 {color: #000099; font-weight: bold;}
+.sql .br0 {color: #66cc66;}
+.sql .sy0 {color: #66cc66;}
+.sql .st0 {color: #ff0000;}
+.sql .nu0 {color: #cc66cc;}
+.sql span.xtra { display:block; }
+
+-->
+</style><pre class="sql"><span class="kw1">CREATE</span> COLLECTION OPENXAVA;
+<span class="kw1">CREATE</span> <span class="kw1">TABLE</span> OPENXAVA<span class="sy0">.</span>TABUSERPREFERENCES
+    <span class="br0">&#40;</span>OID <span class="kw1">INTEGER</span> GENERATED <span class="kw1">BY</span> <span class="kw1">DEFAULT</span> <span class="kw1">AS</span> <span class="kw1">IDENTITY</span><span class="br0">&#40;</span><span class="kw1">START</span> <span class="kw1">WITH</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span> <span class="kw1">PRIMARY</span> <span class="kw1">KEY</span><span class="sy0">,</span>
+    <span class="kw1">USER</span> <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">20</span><span class="br0">&#41;</span><span class="sy0">,</span>
+    TAB <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">100</span><span class="br0">&#41;</span><span class="sy0">,</span>
+    PROPERTIESNAMES <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">512</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+<span class="kw1">CREATE</span> <span class="kw1">INDEX</span> OPENXAVA<span class="sy0">.</span>TABUSERPREFERENCES01
+    <span class="kw1">ON</span> OPENXAVA<span class="sy0">.</span>TABUSERPREFERENCES<span class="br0">&#40;</span><span class="kw1">USER</span><span class="sy0">,</span>TAB<span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">CREATE</span> COLLECTION MYSCHOOL;
+<span class="kw1">CREATE</span> <span class="kw1">TABLE</span> MYSCHOOL<span class="sy0">.</span>TEACHER<span class="br0">&#40;</span>ID <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">5</span><span class="br0">&#41;</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span> <span class="kw1">PRIMARY</span> <span class="kw1">KEY</span><span class="sy0">,</span>NAME <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">40</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+<span class="kw1">CREATE</span> <span class="kw1">TABLE</span> MYSCHOOL<span class="sy0">.</span>PUPIL<span class="br0">&#40;</span><span class="kw1">NUMBER</span> <span class="kw1">INTEGER</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span> <span class="kw1">PRIMARY</span> <span class="kw1">KEY</span><span class="sy0">,</span>NAME <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">40</span><span class="br0">&#41;</span><span class="sy0">,</span>TEACHER <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">5</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+<span class="kw1">INSERT</span> <span class="kw1">INTO</span> MYSCHOOL<span class="sy0">.</span>TEACHER <span class="kw1">VALUES</span><span class="br0">&#40;</span><span class="st0">'JP'</span><span class="sy0">,</span><span class="st0">'FRANCISCO JAVIER PANIZA LUCAS'</span><span class="br0">&#41;</span>;
+<span class="kw1">INSERT</span> <span class="kw1">INTO</span> MYSCHOOL<span class="sy0">.</span>TEACHER <span class="kw1">VALUES</span><span class="br0">&#40;</span><span class="st0">'MC'</span><span class="sy0">,</span><span class="st0">'M. CARMEN GIMENO ALABAU'</span><span class="br0">&#41;</span>;
+<span class="kw1">INSERT</span> <span class="kw1">INTO</span> MYSCHOOL<span class="sy0">.</span>PUPIL <span class="kw1">VALUES</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">,</span><span class="st0">'LARS'</span><span class="sy0">,</span><span class="kw1">NULL</span><span class="br0">&#41;</span>;
+<span class="kw1">INSERT</span> <span class="kw1">INTO</span> MYSCHOOL<span class="sy0">.</span>PUPIL <span class="kw1">VALUES</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="sy0">,</span><span class="st0">'ANA'</span><span class="sy0">,</span><span class="st0">'JP'</span><span class="br0">&#41;</span>;
+<span class="kw1">INSERT</span> <span class="kw1">INTO</span> MYSCHOOL<span class="sy0">.</span>PUPIL <span class="kw1">VALUES</span><span class="br0">&#40;</span><span class="nu0">3</span><span class="sy0">,</span><span class="st0">'LUIS MIGUEL'</span><span class="sy0">,</span><span class="st0">'JP'</span><span class="br0">&#41;</span>;
+<span class="kw1">INSERT</span> <span class="kw1">INTO</span> MYSCHOOL<span class="sy0">.</span>PUPIL <span class="kw1">VALUES</span><span class="br0">&#40;</span><span class="nu0">4</span><span class="sy0">,</span><span class="st0">'MIGUEL'</span><span class="sy0">,</span><span class="kw1">NULL</span><span class="br0">&#41;</span>;</pre>
+
+<h2 id="toc5"><a name="WebSphere EJB 2-Install application"></a>Install application</h2>
+In order to install your application you have to do:<br />
+<ul><li>Go to <em>Applications &gt; Enterprise Applications</em>.</li><li>Click <em>Install</em>.</li><li>Click <em>Examine</em> in <em>Local path</em> field, and choose your application ear.</li><li>Click <em>Next</em>.</li><li>Click <em>Next</em>.</li><li>Click <em>Continue</em>.</li><li>Step 1: Click <em>Next</em>.</li><li>In version 5/5.1:<ul><li>Step 2: Choose <em>DB2UDBISERIES</em> or the appropriate for you database and click <em>Next</em>.</li></ul></li><li>In version 6:<ul><li>Step 2: Click <em>Next</em>.</li><li>Step 3: Choose <em>DB2UDBISERIES</em> or the appropriate for you database and click <em>Next</em>.</li><li>Step 6: A warning is shown. Press <em>Continue</em>.</li><li>Step 8: A warning is shown. Press <em>Continue</em>.</li></ul></li><li>In the others steps click <em>Next</em>, until <em>Finish</em> appears, click it too.</li><li>Be patient, your application is now deploying...</li><li>Click <em>Manage applications</em>.</li><li>Click on <em>MySchool</em>.</li><li>In <em>WAR Classloader Policy</em> choose <em>Application</em>.</li><li>Click <em>Apply</em>.</li><li>Click <em>Web Modules</em> (it's on bottom).</li><li>Click <em>MySchool.war</em>.</li><li>In <em>Classloader Mode</em> field choose <em>PARENT_LAST</em>.</li><li>Click <em>OK</em>.</li><li>Click <em>Save</em> that goes to another page and click in <em>Save</em> button.</li></ul><h2 id="toc6"><a name="WebSphere EJB 2-Execute the application"></a>Execute the application</h2>
+Now everything is ready to execute you application in Websphere:<br />
+<ul><li>Go to <em>Applications &gt; Enterprise Applications</em>.</li><li>Choose <em>MySchool</em> application.</li><li>Click <em>Start</em>.</li><li>With your Internet Browser go to <a class="wiki_link_ext" href="http://localhost:9080/MySchool/xava/module.jsp?application=MySchool&amp;module=Teachers" rel="nofollow">http://localhost:9080/MySchool/xava/module.jsp?application=MySchool&amp;module=Teachers</a>.</li><li>Test your application.</li></ul>Also you can execute your JUnit Test, in your Eclipse:<br />
+<ul><li>Editt MySchool/properties/xava-junit.properties.</li><li>Change port=8080 by port=9080.</li><li>Execute TeachersTest as a JUnit Test.</li></ul>
+    </div>
+  </body>
+</html>
