@@ -1,0 +1,417 @@
+/*
+Copyright 2004 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+/**
+    Metal Skin that uses the cascading capability of CSS
+**/
+
+.Metal .PTitleLeft
+{
+    /**
+    Needs to specify the width of image used
+    otherwise it won't show !
+    **/
+    width:10px;
+    
+    /** Always use relative path ! **/
+    background:  url(../images/html/skins/Metal/titleleft.gif);
+}
+
+.Metal .PTitle
+{
+    /**
+    Specify the height of the image used
+    else it will use the text height    
+    **/
+    height:16px;
+    color:#FFFFFF;
+    background:  url(../images/html/skins/Metal/title.gif);
+}
+ 
+.Metal .PTitleRight
+{
+    /**
+    Needs to specify the width of image used
+    otherwise it won't show !
+    **/
+    width:10px;
+    background:  url(../images/html/skins/Metal/titleright.gif);
+}
+
+.Metal .PContentLeft
+{
+    width:10px;
+    background:  url(../images/html/skins/Metal/contentleft.gif);
+}
+
+.Metal .PContent
+{
+
+}
+
+.Metal .PContentRight
+{
+    width:10px;
+    background:  url(../images/html/skins/Metal/contentright.gif);
+}
+
+.Metal .PBottomLeft
+{
+    width:10px;
+    background:  url(../images/html/skins/Metal/bottomleft.gif);
+}
+
+.Metal .PBottom
+{
+    /**
+    Specify the height of the image used
+    else it won't appear
+    **/
+    height:13px;
+    background:  url(../images/html/skins/Metal/bottom.gif);
+}
+
+.Metal .PBottomRight
+{
+    width:10px;
+    background:  url(../images/html/skins/Metal/bottomright.gif);
+}
+
+/**
+    Jetspeed Skin that uses the cascading capability of CSS
+**/
+.Jetspeed .PTitleLeft
+{
+    /**
+    Needs to specify the width of image used
+    otherwise it won't show !
+    **/
+    width:10px;
+    
+    /** Always use relative path ! **/
+    background:  url(../images/html/skins/Jetspeed/titleleft.gif);
+}
+
+.Jetspeed .PTitle
+{
+    /**
+    Specify the height of the image used
+    else it will use the text height    
+    **/
+    height:21px;
+    color:#FFFFFF;
+    font-weight:bold;
+    background:  url(../images/html/skins/Jetspeed/title.gif);
+}
+ 
+.Jetspeed .PTitleRight
+{
+    /**
+    Needs to specify the width of image used
+    otherwise it won't show !
+    **/
+    width:10px;
+    background:  url(../images/html/skins/Jetspeed/titleright.gif);
+}
+
+.Jetspeed .PContentLeft
+{
+    width:10px;
+    background:  url(../images/html/skins/Jetspeed/contentleft.gif);
+}
+
+.Jetspeed .PContent
+{
+
+}
+
+.Jetspeed .PContentRight
+{
+    width:10px;
+    background:  url(../images/html/skins/Jetspeed/contentright.gif);
+}
+
+.Jetspeed .PBottomLeft
+{
+    width:10px;
+    background:  url(../images/html/skins/Jetspeed/bottomleft.gif);
+}
+
+.Jetspeed .PBottom
+{
+    /**
+    Specify the height of the image used
+    else it won't appear
+    **/
+    height:13px;
+    background:  url(../images/html/skins/Jetspeed/bottom.gif);
+}
+
+.Jetspeed .PBottomRight
+{
+    width:10px;
+    background:  url(../images/html/skins/Jetspeed/bottomright.gif);
+}
+
+.Jetspeed .TabLeft
+{
+    width:12px;
+    height:25px;
+    background:  url(../images/html/skins/Jetspeed/tableft.gif);
+}
+
+.Jetspeed .TabMiddle
+{
+    font-weight:bold;
+    font-size: 9pt;
+    background:  url(../images/html/skins/Jetspeed/tabmiddle.gif);    
+}
+
+.Jetspeed .TabRight
+{
+    width:12px;
+    background:  url(../images/html/skins/Jetspeed/tabright.gif);
+}
+
+
+.Jetspeed .TabLeftLow
+{
+    width:12px;
+    background:  url(../images/html/skins/Jetspeed/tableft_low.gif);
+}
+
+.Jetspeed .TabMiddleLow
+{
+    font-weight:bold;
+    background:  url(../images/html/skins/Jetspeed/tabmiddle_low.gif);    
+}
+
+.Jetspeed .TabRightLow
+{
+    width:12px;
+    background:  url(../images/html/skins/Jetspeed/tabright_low.gif);
+}
+ 
+.Jetspeed .TabLink
+{
+    text-decoration:none;
+    font-size:6pt;
+}
+
+a:link.TabLink { color:black;font-size:9pt;font-weight:normal; }
+a:visited.TabLink { color:black;font-size:9pt;font-weight:normal; }
+a:hover.TabLink { color:#6F6F6F;font-size:9pt;font-weight:normal; }
+
+
+.Jetspeed .MenuLeft
+{
+    width:12px;
+    background:  url(../images/html/skins/Jetspeed/tabmiddle.gif);
+}
+
+
+.Jetspeed .MenuMiddle
+{
+    font-size:9pt;
+    font-weight:bold;
+    background:  url(../images/html/skins/Jetspeed/tabmiddle.gif);
+}
+
+.Jetspeed .MenuRight
+{
+    background:  url(../images/html/skins/Jetspeed/tabmiddle.gif);
+}
+
+.Jetspeed .MenuLeftLow
+{
+    width:12px;
+    background:  url(../images/html/skins/Jetspeed/tabmiddle_low.gif);
+}
+
+
+.Jetspeed .MenuMiddleLow
+{
+    font-size:8pt;
+    background:  url(../images/html/skins/Jetspeed/tabmiddle_low.gif);
+}
+
+.Jetspeed .MenuRightLow
+{
+    background:  url(../images/html/skins/Jetspeed/tabmiddle_low.gif);
+}
+
+/**
+    Minty Blue Skin that uses the cascading capability of CSS
+**/
+.MintyBlue .PTitleLeft
+{
+    /**
+    Needs to specify the width of image used
+    otherwise it won't show !
+    **/
+    width:10px;
+    
+    /** Always use relative path ! **/
+    background:  url(../images/html/skins/MintyBlue/titleleft.gif);
+}
+
+.MintyBlue .PTitle
+{
+    /**
+    Specify the height of the image used
+    else it will use the text height    
+    **/
+    height:21px;
+    color:#000000;
+    font-weight:bold;
+    background:  url(../images/html/skins/MintyBlue/title.gif);
+}
+ 
+.MintyBlue .PTitleRight
+{
+    /**
+    Needs to specify the width of image used
+    otherwise it won't show !
+    **/
+    width:10px;
+    background:  url(../images/html/skins/MintyBlue/titleright.gif);
+}
+
+.MintyBlue .PContentLeft
+{
+    width:10px;
+    background:  url(../images/html/skins/MintyBlue/contentleft.gif);
+}
+
+.MintyBlue .PContent
+{
+
+}
+
+.MintyBlue .PContentRight
+{
+    width:10px;
+    background:  url(../images/html/skins/MintyBlue/contentright.gif);
+}
+
+.MintyBlue .PBottomLeft
+{
+    width:10px;
+    background:  url(../images/html/skins/MintyBlue/bottomleft.gif);
+}
+
+.MintyBlue .PBottom
+{
+    /**
+    Specify the height of the image used
+    else it won't appear
+    **/
+    height:13px;
+    background:  url(../images/html/skins/MintyBlue/bottom.gif);
+}
+
+.MintyBlue .PBottomRight
+{
+    width:10px;
+    background:  url(../images/html/skins/MintyBlue/bottomright.gif);
+}
+
+.MintyBlue .TabLeft
+{
+    width:12px;
+    height:25px;
+    background:  url(../images/html/skins/MintyBlue/tableft.gif);
+}
+
+.MintyBlue .TabMiddle
+{
+    font-weight:bold;
+    font-size: 9pt;
+    background:  url(../images/html/skins/MintyBlue/tabmiddle.gif);    
+}
+
+.MintyBlue .TabRight
+{
+    width:12px;
+    background:  url(../images/html/skins/MintyBlue/tabright.gif);
+}
+
+
+.MintyBlue .TabLeftLow
+{
+    width:12px;
+    background:  url(../images/html/skins/MintyBlue/tableft_low.gif);
+}
+
+.MintyBlue .TabMiddleLow
+{
+    font-weight:bold;
+    background:  url(../images/html/skins/MintyBlue/tabmiddle_low.gif);    
+}
+
+.MintyBlue .TabRightLow
+{
+    width:12px;
+    background:  url(../images/html/skins/MintyBlue/tabright_low.gif);
+}
+ 
+.MintyBlue .TabLink
+{
+    text-decoration:none;
+    font-size:6pt;
+}
+
+a:link.TabLink { color:black;font-size:9pt;font-weight:normal; }
+a:visited.TabLink { color:black;font-size:9pt;font-weight:normal; }
+a:hover.TabLink { color:#6F6F6F;font-size:9pt;font-weight:normal; }
+
+
+.MintyBlue .MenuLeft
+{
+    width:12px;
+    background:  url(../images/html/skins/MintyBlue/tabmiddle.gif);
+}
+
+
+.MintyBlue .MenuMiddle
+{
+    font-size:9pt;
+    font-weight:bold;
+    background:  url(../images/html/skins/MintyBlue/tabmiddle.gif);
+}
+
+.MintyBlue .MenuRight
+{
+    background:  url(../images/html/skins/MintyBlue/tabmiddle.gif);
+}
+
+.MintyBlue .MenuLeftLow
+{
+    width:12px;
+    background:  url(../images/html/skins/MintyBlue/tabmiddle_low.gif);
+}
+
+
+.MintyBlue .MenuMiddleLow
+{
+    font-size:8pt;
+    background:  url(../images/html/skins/MintyBlue/tabmiddle_low.gif);
+}
+
+.MintyBlue .MenuRightLow
+{
+    background:  url(../images/html/skins/MintyBlue/tabmiddle_low.gif);
+}

@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?><!DOCTYPE application SYSTEM "dtds/application.dtd"><application name="MySchool"> 
+
+	<!-- 
+	A default module for each entity is assumed with the
+	controllers on <default-module/>
+	-->
+	<default-module>		  
+		<controller name="Typical"/>		
+	</default-module>
+	
+	<!-- 
+	You can define additional modules, for example:	  
+	<module name="OnlyReadTeacher">
+		<model name="Teacher"/>
+		<controller name="Print"/>
+	</module>		
+	-->
+	
+</application>

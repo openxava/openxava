@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<project name="MySchool" basedir="." default="deployWar">
+
+	<property name="project" value="MySchool" />
+	<property file="../openxava.properties"/>
+
+	<!-- 
+	Compile all .java and .groovy 
+	Not needed to call it if you work inside Eclipse
+	-->
+	<target name="compile"> 
+		<ant antfile="../OpenXava/build.xml" target="compile"/>
+	</target>	    
+	
+	<!-- 
+	Build and deploy the application in war format 
+	It deploys it on the Tomcat included in OpenXava distribution, 
+	to deploy to other location modify the tomcat.dir property of workspace/openxava.properties.	
+	-->	
+	<target name="deployWar">
+		<!-- In a directory -->
+		<ant antfile="../OpenXava/build.xml" target="deploy"/>
+		<!-- In a file (it does not work well on windows + tomcat)
+		<ant antfile="../OpenXava/build.xml" target="deployWar"/>
+		-->
+	</target>		
+	
+	<!-- 
+	Build the application in war format.
+	Leaves the war in the workspace.dist/YourApplication.dist folder.
+	 -->	
+	<target name="createWar">
+		<ant antfile="../OpenXava/build.xml" target="createWar"/>
+	</target>					
+	
+	<!--
+	Build the application in portlets format 
+	-->		
+	<target name="generatePortlets"> 
+		<ant antfile="../OpenXava/build.xml" target="generatePortlets"/>
+	</target>
+	
+	<!--
+	Update this project with the latest OpenXava version present in the workspace.
+	It must be called just after update the OpenXava version.
+	-->
+	<target name="updateOX">
+		<ant antfile="../OpenXava/build.xml" target="updateOX"/>
+	</target>
+	
+	<!--
+	Connects to your database and updates your schema in order to match to your current application.
+	(Also you can use directly 'hibernatetool' ant task)
+	-->
+	<target name="updateSchema">
+		<ant antfile="../OpenXava/build.xml" target="updateSchemaJPA">			
+			<property name="persistence.unit" value="junit"/>
+			<property name="schema.path" value="../OpenXava/lib/hsqldb.jar"/>
+		</ant>
+	</target>	
+							
+</project>
