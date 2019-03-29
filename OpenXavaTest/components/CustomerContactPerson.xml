@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!-- 
+This is only for testing a single reference as key, 
+but remember this is not an example of good OO modeling.
+ -->
+
+<component name="CustomerContactPerson">
+
+	<entity>
+		<reference name="customer" key="true"/>
+		<property name="name" stereotype="PERSON_NAME" required="true"/>	
+		<finder name="findByCustomer" arguments="int customerNumber">
+			<condition>${customer.number} = {0}</condition>
+		</finder>
+	</entity>
+
+	<view>
+		<reference-view reference="customer" view="Simple"/>
+	</view>
+	
+	<view name="Simple">
+		<reference-view reference="customer" view="Simplest"/>
+		<members>
+			name;
+			customer
+		</members>
+	</view>
+	
+	<view name="CustomerAsAggregate3Levels">
+		<reference-view reference="customer" 
+			view="SellerAsAggregate2Levels" 
+			as-aggregate="true"/>
+	</view>
+					
+	<entity-mapping table="XAVATEST@separator@CUSTOMERCONTACTPERSON">
+		<reference-mapping reference="customer">
+			<reference-mapping-detail 
+				column="CUSTOMER_NUMBER" 				
+				referenced-model-property="number"/> 
+		</reference-mapping>			
+		<property-mapping
+			property="name" column="NAME"/>
+	</entity-mapping> 	
+							
+</component>

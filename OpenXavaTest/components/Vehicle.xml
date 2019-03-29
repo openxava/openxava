@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Vehicle">
+
+	<entity>
+	
+		<property name="oid" key="true" hidden="true" type="String">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator"/>
+		</property>
+		
+		<property name="code" type="String" size="5"/>		
+		<property name="model" type="String" size="40"/>		
+		<property name="make" type="String" size="20"/>
+		<property name="stateId" type="String" size="2"/>
+		<reference name="state"/>
+		<reference name="city"/>
+	</entity>
+	
+	<view>
+		<reference-view reference="state">
+			<descriptions-list/>
+		</reference-view>
+		<!-- This does not work -->
+		<reference-view reference="city">
+			<descriptions-list depends="this.state" condition="${state.id} = ?"/>
+		</reference-view>		
+		<members>code; model; make; state, city</members>
+	</view>
+	
+	<view name="Simple">
+		<members>code, model, make</members>
+	</view>
+	
+	<entity-mapping table="XAVATEST@separator@VEHICLE">
+		<property-mapping property="oid" column="OID"/>
+		<property-mapping property="code" column="CODE"/>
+		<property-mapping property="model" column="MODEL"/>
+		<property-mapping property="make" column="MAKE"/>
+		<property-mapping property="stateId" column="STATE"/>
+		<reference-mapping reference="state">
+			<reference-mapping-detail column="STATE" referenced-model-property="id"/>
+		</reference-mapping>
+		<reference-mapping reference="city">
+			<reference-mapping-detail column="CITY" referenced-model-property="code"/>
+			<reference-mapping-detail column="STATE" referenced-model-property="state.id"/>
+		</reference-mapping>
+	</entity-mapping>
+										
+</component>

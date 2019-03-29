@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!--
+Subfamily2 has not oid,
+like the typical number/description table.
+Subfamily2 use reference against family, instead stereotype
+It go against the same table that Subfamily, because we does
+not save hence the oid don't disturb.
+-->
+
+<component name="Subfamily2">
+
+	<entity>
+		<property name="number" type="int" key="true"
+			size="3" 
+			required="true"/> 
+		<reference name="family" model="Family2" required="true"/>	  
+		<property name="description" type="String"
+			size="40" required="true"/>
+		<property name="remarks" stereotype="MEMO"
+			size="400"/>
+		<!-- 
+		In a EJB version this method can be useful for return a collection of ProductValue (not remote objects) 
+		Nonetheless, in the current version (that uses POJO as default) returns a collection of POJOs.
+		-->	
+		<method name="getProductsValues" type="java.util.Collection">
+			<calculator class="org.openxava.test.calculators.ProductsValuesOfSubfamilyCalculator">
+				<set property="subfamilyNumber" from="number"/>
+			</calculator>
+		</method>							
+	</entity>
+	
+	<view>
+		<reference-view reference="family">
+			<descriptions-list description-properties="number, description"/>
+		</reference-view>
+	</view>
+	
+	<tab>
+		<properties>number, description, remarks, family.number, family.description</properties>
+	</tab>
+					
+	<entity-mapping table="XAVATEST@separator@SUBFAMILY2">
+		<property-mapping 
+			property="number" column="NUMBER"/>
+		<reference-mapping reference="family">
+			<reference-mapping-detail column="FAMILY" referenced-model-property="number"/>			
+		</reference-mapping>	
+		<property-mapping
+			property="description" column="DESCRIPTION"/>
+		<property-mapping
+			property="remarks" column="REMARKS" cmp-type="String">
+			<converter class="org.openxava.converters.NoConversionConverter"/>
+		</property-mapping>						
+		
+	</entity-mapping> 
+	
+</component>

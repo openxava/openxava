@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="ConversionFactor">
+
+	<entity>
+	
+		<property name="id" key="true" type="Long"/>		
+		<property name="fromUnit" type="String" size="30"/>
+		<property name="toUnit" type="String" size="30"/>
+		<property name="factor" type="java.math.BigDecimal" scale="6"/>
+		<property name="reverseFactor" type="java.math.BigDecimal" size="10" scale="6"/>		
+	
+	</entity>
+		 				
+</component>

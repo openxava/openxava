@@ -1,0 +1,11 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE converters SYSTEM "dtds/converters.dtd">
+
+<!-- OpenXavaTest converters -->
+
+<converters>	<for-stereotype stereotype="REGIONS" 
+		converter-class="org.openxava.test.converters.RegionsConverter"
+		cmp-type="java.lang.String"/>
+				
+</converters>

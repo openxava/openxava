@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!-- 
+The POJO version is transient and this persistent because a bug in XML
+that fails with collections to entities with no explicit mapping.
+ -->
+
+<component name="Teacher">
+
+	<entity>
+		<property name="oid" key="true" hidden="true" type="String">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator" on-create="true"/>
+		</property>
+
+		<property name="name" type="String" required="true"/>
+		
+		<reference name="school" model="School"/>
+
+	</entity>
+	
+	<view>
+		<reference-view reference="school" collapsed="true"/>
+	</view>
+	
+	<entity-mapping table="XAVATEST@separator@TEACHER">
+		<property-mapping
+			property="oid" column="OID"/>
+		<property-mapping
+			property="name" column="NAME"/>															
+		<reference-mapping reference="school">
+			<reference-mapping-detail
+				column="SCHOOL_OID" 
+				referenced-model-property="oid"/>
+		</reference-mapping>	
+	</entity-mapping>
+				
+</component>
+

@@ -1,0 +1,15 @@
+	<!--
+	The testServlet is to test using custom servlets in an OX application
+	Custom servlet must be declared in servlets.xml file. They are copied
+	automatically to web.xml
+	-->
+	<servlet>
+		<servlet-name>testServlet</servlet-name>
+		<servlet-class>org.openxava.test.servlets.TestServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>testServlet</servlet-name>
+		<url-pattern>/test</url-pattern>
+	</servlet-mapping>	
+	

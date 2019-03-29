@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!--
+	Example of reference with descriptions-list.
+	This is the preferred way to do it, 
+	but also it is possible to be done using stereotypes, 
+	as it shows Product
+-->
+
+<component name="Product2">
+
+	<entity>		
+		<property name="number" key="true" type="long"
+			size="10" required="true"/>    
+		<property name="description" type="String"
+			size="40" required="true"> 
+			<validator class="org.openxava.test.validators.ExcludeStringValidator">
+				<set property="string" value="MOTO"/>
+			</validator>								
+			<validator class="org.openxava.test.validators.ExcludeStringValidator">
+				<set property="string" value="COCHE"/>
+			</validator>								
+		</property>
+		<property name="photos" stereotype="IMAGES_GALLERY"/>
+		<reference name="color"/>  
+		<reference name="family" model="Family2" required="true">
+			<default-value-calculator class="org.openxava.calculators.IntegerCalculator">
+				<set property="value" value="2"/>
+			</default-value-calculator>
+		</reference>
+		<reference name="subfamily" model="Subfamily2" required="true"/>
+		 			
+		<reference name="warehouse" model="Warehouse">
+			<default-value-calculator class="org.openxava.test.calculators.DefaultWarehouseCalculator"/>
+		</reference>
+		
+		<reference name="formula"/>
+		
+		<property name="unitPrice"
+			stereotype="MONEY" required="true">
+			<default-value-calculator class="org.openxava.test.calculators.DefaultProductPriceCalculator">
+				<set property="familyNumber"/>
+			</default-value-calculator>
+			<validator class="org.openxava.test.validators.UnitPriceValidator"/>    
+		</property>
+		<property name="unitPriceWithTax" stereotype="MONEY"/>
+		<property name="unitPriceInPesetas" type="java.math.BigDecimal" size="18">
+			<calculator class="org.openxava.test.calculators.EurosToPesetasCalculator">
+				<set property="euros" from="unitPrice"/>
+			</calculator>		
+		</property>		
+		<finder name="all" arguments="" collection="true">
+			<condition>1 = 1</condition>		
+		</finder>
+		<validator class="org.openxava.test.validators.CheapProductValidator">
+			<set property="limit" value="100"/>
+			<set property="description"/>
+			<set property="unitPrice"/>
+		</validator>						
+		<validator class="org.openxava.test.validators.ExpensiveProductValidator">
+			<set property="limit" value="1000"/>
+			<set property="description"/>
+			<set property="unitPrice"/>
+		</validator>						
+				
+	</entity> 
+
+	<view>
+
+		<property name="zoneOne" stereotype="LABEL">
+			<calculator class="org.openxava.calculators.StringCalculator">
+				<set property="string" value="In ZONE 1"/>
+			</calculator>
+		</property>
+		
+		<reference-view reference="family">
+
+			<!-- By default:
+					 description-property = 'description','descripcion','name' or 'nombre' 
+					 create = true 
+				-->
+			<descriptions-list order-by-key="true"/>									
+			
+		</reference-view>		
+		
+		<reference-view reference="subfamily" create="false">
+
+			<!-- In this case description-property can be omited -->
+			<descriptions-list  
+				description-property="description" 
+				depends="family"
+				condition="${family.number} = ?"/>			  													
+				
+		</reference-view>
+		
+		<reference-view reference="warehouse">
+			<descriptions-list/>												
+		</reference-view>
+		
+		<property-view property="warehouse.zoneNumber">
+			<on-change class="org.openxava.test.actions.OnChangeWarehouseAction"/>
+		</property-view>		
+		
+		<members aligned-by-columns="true">
+			number, description;
+			color, photos;
+			family, subfamily;
+			warehouse, zoneOne;
+			unitPrice, unitPriceInPesetas;
+			unitPriceWithTax			
+		</members>
+			
+				
+	</view>
+	
+	<view name="ColorWithFrame">
+
+		<property name="zoneOne" stereotype="LABEL">
+			<calculator class="org.openxava.calculators.StringCalculator">
+				<set property="string" value="In ZONE 1"/>
+			</calculator>
+		</property>
+		
+		<reference-view reference="color" editor="ColorFrame"/>
+		
+		<reference-view reference="family">
+
+			<!-- By default:
+					 description-property = 'description','descripcion','name' or 'nombre' 
+					 create = true 
+				-->
+			<descriptions-list order-by-key="true"/>									
+			
+		</reference-view>		
+		
+		<reference-view reference="subfamily" create="false">
+
+			<!-- In this case description-property can be omited -->
+			<descriptions-list  
+				description-property="description" 
+				depends="family"
+				condition="${family.number} = ?"/>			  													
+				
+		</reference-view>
+		
+		<reference-view reference="warehouse">
+			<descriptions-list/>												
+		</reference-view>
+		
+		<property-view property="warehouse.zoneNumber">
+			<on-change class="org.openxava.test.actions.OnChangeWarehouseAction"/>
+		</property-view>		
+		
+		<members>
+			number;
+			description;
+			photos;
+			color;
+			family;
+			subfamily;
+			warehouse, zoneOne;
+			unitPrice, unitPriceInPesetas;
+		</members>		
+				
+	</view>
+	
+	
+	<view name="ReferenceAndStereotype">
+		
+		<property name="subfamilyNumber" stereotype="SUBFAMILY_DEPENDS_REFERENCE"/>
+		
+		<reference-view reference="family">
+			<descriptions-list order-by-key="true"/>
+		</reference-view>
+		
+		<members>
+			number;
+			family;
+			subfamilyNumber;
+		</members>
+
+	</view>
+	
+	<view name="WithFormula">
+	
+		<reference-view reference="family">
+			<descriptions-list order-by-key="true"/>												
+		</reference-view>
+		
+		<reference-view reference="subfamily" create="false">
+			<descriptions-list  
+				description-property="description" 
+				depends="family"
+				condition="${family.number} = ?"/>			  																	
+		</reference-view>
+		
+		<reference-view reference="formula" view="Simple"/>
+	
+		<members>
+			number;
+			description;
+			family;
+			subfamily;
+			formula;
+			unitPrice, unitPriceInPesetas;
+		</members>		
+				
+	</view>
+	
+	<view name="WithFormulaAsAggregate">
+	
+		<reference-view reference="family">
+			<descriptions-list order-by-key="true"/>												
+		</reference-view>
+		
+		<reference-view reference="subfamily" create="false">
+			<descriptions-list  
+				description-property="description" 
+				depends="family"
+				condition="${family.number} = ?"/>			  																	
+		</reference-view>
+		
+		<reference-view reference="formula" view="Simple" as-aggregate="true"/>
+	
+		<members>
+			number;
+			description;
+			family;
+			subfamily;
+			formula;
+			unitPrice, unitPriceInPesetas;
+		</members>		
+				
+	</view>
+	
+	<view name="SimpleWithFamily">
+			
+		<members>
+			number, description, unitPrice; 
+			family	
+		</members>
+		
+	</view>
+	
+	<view name="OnlySoftware">
+	
+		<reference-view reference="subfamily">
+			<descriptions-list condition="${family.description} like 'SOFTWARE%'"/>
+		</reference-view>
+		
+	</view>
+				
+	<tab>			
+
+		<properties>number, description, family.description, subfamily.description, unitPrice, unitPriceWithTax</properties>	
+
+	</tab>
+
+		
+	<entity-mapping table="XAVATEST@separator@PRODUCT">
+		<property-mapping 
+			property="number" column="NUMBER"/>
+		<property-mapping 
+			property="description" column="DESCRIPTION"/>
+		<property-mapping 
+			property="photos" column="PHOTOS"/>
+		<reference-mapping reference="color">
+			<reference-mapping-detail column="COLOR_NUMBER" referenced-model-property="number"/>
+		</reference-mapping>							
+		<reference-mapping reference="family">
+			<reference-mapping-detail column="FAMILY" referenced-model-property="number"/>
+		</reference-mapping>	
+		<reference-mapping reference="subfamily">
+			<reference-mapping-detail column="SUBFAMILY" referenced-model-property="number"/>
+		</reference-mapping>			
+		<reference-mapping reference="warehouse">
+			<reference-mapping-detail 
+				referenced-model-property="zoneNumber"
+				column="ZONE" 
+			/>
+			<reference-mapping-detail 
+				referenced-model-property="number"
+				column="WAREHOUSE" 
+			/>			
+		</reference-mapping>							
+		<property-mapping
+			property="unitPrice" column="UNITPRICE"/>
+		<property-mapping
+			property="unitPriceWithTax" formula="UNITPRICE * 1.16"/>		
+		<reference-mapping reference="formula">
+			<reference-mapping-detail 
+				referenced-model-property="oid"
+				column="FORMULA_OID" 
+			/>
+		</reference-mapping>			
+	</entity-mapping> 
+
+			
+</component>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!--
+	Example of an transient OpenXava component (not persistent).
+
+	This can be used, for example, to display a dialog,
+	or any other graphical interface.
+-->
+
+<component name="FilterBySubfamily">
+
+	<entity>  
+		<reference name="subfamily" model="Subfamily2" required="true"/>
+		<reference name="subfamilyTo" model="Subfamily2"/>
+		<property name="rangeDescription" type="String">
+			<calculator class="org.openxava.test.calculators.RangeDescriptionCalculator">
+				<set property="subfamilyNumberFrom" from="subfamily.number"/>			
+				<set property="subfamilyNumberTo" from="subfamilyTo.number"/>
+			</calculator>
+		</property> 		
+	</entity>		
+	
+	<view name="Family1">
+		<reference-view reference="subfamily" create="false">
+			<descriptions-list condition="${family.number} = 1" order="${number} desc"/>
+		</reference-view>
+		<members>subfamily</members>
+	</view>
+	
+	<view name="Family2">
+		<reference-view reference="subfamily" create="false" modify="false">
+			<descriptions-list condition="${family.number} = 2"/>
+		</reference-view>
+		<members>subfamily</members>
+	</view>
+
+	<view name="WithSubfamilyForm">	
+		<reference-view reference="subfamily" search="false" modify="false"/>
+		<members>subfamily</members>
+	</view>
+	
+	<view name="Range">
+		<reference-view reference="subfamily">
+			<on-change-search class="org.openxava.test.actions.OnChangeSubfamilySearchAction"/>
+		</reference-view> 
+		<members>subfamily; subfamilyTo; rangeDescription</members>
+	</view>
+
+	<transient/>
+	
+</component>

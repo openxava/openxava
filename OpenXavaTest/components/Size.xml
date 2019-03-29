@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Size">
+
+	<entity>  
+		<property name="id" key="true" type="int" hidden="true">
+            <default-value-calculator class="org.openxava.calculators.SequenceCalculator" on-create="true">
+            	<set property="sequence" value="XAVATEST@separator@SIZE_ID_SEQ"/>
+            </default-value-calculator>            
+		</property>
+		<property name="name" type="String" size="20" required="true"/>
+	</entity>		
+	
+	<tab>
+		<properties>id, name</properties>
+	</tab>
+	
+	<entity-mapping table="XAVATEST@separator@SIZE">
+		<property-mapping
+			property="id" column="ID"/>		
+		<property-mapping
+			property="name" column="NAME"/>
+	</entity-mapping>
+	
+</component>

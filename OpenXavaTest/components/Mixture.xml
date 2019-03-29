@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Mixture">
+
+	<entity>
+		<property name="colorName1" key="true" type="String"/>
+		<property name="colorName2" key="true" type="String"/>
+		<property name="description" type="String"/>
+		<property name="fullDescription" type="String">
+			<calculator class="org.openxava.test.calculators.MixtureDescriptionCalculator">
+				<set property="colorName1"/>
+				<set property="colorName2"/>
+				<set property="description"/>
+			</calculator>
+		</property>
+	
+	</entity>
+		 				
+</component>

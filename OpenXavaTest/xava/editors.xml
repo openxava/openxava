@@ -1,0 +1,211 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE editors SYSTEM "dtds/editors.dtd">
+
+<!-- OpenXavaTest -->
+
+<editors>
+
+	<editor name="GalleryNoDialog" url="galleryEditor.jsp">
+		<property name="editAction" value="GalleryNoDialog.edit"/>
+	</editor>
+
+	<editor url="regionsEditor.jsp">
+		<property name="regionsCount" value="3" />
+		<formatter
+			class="org.openxava.formatters.MultipleValuesByPassFormatter" />
+		<for-stereotype stereotype="REGIONS" />
+	</editor>
+
+	<editor name="RegionsWithCheckBoxes" url="regionsWithCheckBoxesEditor.jsp">
+		<property name="regionsCount" value="3" />
+		<formatter
+			class="org.openxava.formatters.MultipleValuesByPassFormatter" />
+	</editor>
+	
+	<!-- For work only in uppercase -->
+	<editor url="textEditor.jsp">
+		<formatter class="org.openxava.formatters.UpperCaseFormatter" />
+		<for-type type="java.lang.String" />
+	</editor>
+
+	<editor url="textEditor.jsp">
+		<for-stereotype stereotype="NO_FORMATING_STRING" />
+	</editor>
+	
+	<editor url="textEditor.jsp">
+		<list-formatter class="org.openxava.formatters.HTMLFilterListFormatter" />
+		<for-stereotype stereotype="NO_HTML_IN_LIST" />
+	</editor>	
+		
+	<editor url="currentTimeMillisEditor.jsp" always-reload="true">
+		<for-stereotype stereotype="CURRENT_TIME_MILLIS"/>
+	</editor>
+
+	<editor name="PersonName" url="textEditor.jsp">
+		<formatter
+			class="org.openxava.test.formatters.NameFormatter">
+			<set property="firstLetterInUpperCase" value="true" />
+		</formatter>
+		<for-stereotype stereotype="PERSON_NAME" />
+	</editor>
+	
+	<editor name="PlaceName" url="textEditor.jsp">
+		<formatter
+			class="org.openxava.test.formatters.NameFormatter">
+			<set property="firstLetterInUpperCase" value="true" />
+		</formatter>
+	</editor>	
+	
+	<editor name="CityName" url="textEditor.jsp">
+		<formatter
+			class="org.openxava.test.formatters.NameFormatter">
+			<set property="firstLetterInUpperCase" value="true" />
+		</formatter>
+		<list-formatter
+			class="org.openxava.test.formatters.CityNameFormatter"/>		
+		<for-stereotype stereotype="CITY_NAME" />
+	</editor>	
+	
+	<editor url="corporationEmployeeListEditor.jsp">
+		<for-tab model="CorporationEmployee"/>
+	</editor>
+		
+	<editor name="CustomerCardList" url="customerCardListEditor.jsp"/>
+		
+	<editor url="colorEditor.jsp">
+		<for-reference model="Color"/>
+	</editor>
+	
+	<editor name="CarriersNames" url="carriersNamesEditor.jsp"/>
+	
+	<editor url="blogCommentsEditor.jsp">
+		<for-collection model="BlogComment"/>
+	</editor>
+	
+	<editor name="ColorFrame" url="colorFrameEditor.jsp" frame="true"/>
+	
+	<editor name="JbyXName" url="textEditor.jsp">
+		<formatter
+			class="org.openxava.test.formatters.JbyXNameFormatter">
+			<set property="firstLetterInUpperCase" value="true" />
+		</formatter>		
+	</editor>
+	 
+	<editor url="textEditor.jsp">
+		<for-model-property model="Product" property="unitPrice" />
+	</editor>
+
+	<editor url="descriptionsEditor.jsp">
+		<property name="model" value="Family" />
+		<property name="keyProperty" value="number" />
+		<property name="descriptionProperty" value="description" />
+		<property name="orderByKey" value="true" />
+		<property name="readOnlyAsLabel" value="true" />
+		<for-stereotype stereotype="FAMILY" />
+	</editor>
+
+	<!-- It is possible to specify dependencies from stereotypes or properties -->
+	<editor url="descriptionsEditor.jsp" depends-stereotypes="FAMILY">
+		<!--  
+			<editor url="descriptionsEditor.jsp" depends-properties="familyNumber">
+		-->
+		<property name="model" value="Subfamily" />
+		<property name="keyProperty" value="number" />
+		<property name="descriptionProperties"
+			value="number, description" />
+		<property name="condition" value="${familyNumber} = ?" />
+		<property name="parameterValuesStereotypes" value="FAMILY" />
+		<!--
+			<property name="parameterValuesProperties" value="familyNumber"/>
+		-->
+		<property name="descriptionsFormatter"
+			value="org.openxava.test.formatters.FamilyDescriptionsFormatter" />
+		<for-stereotype stereotype="SUBFAMILY" />
+	</editor>
+
+	<editor url="descriptionsEditor.jsp"
+		depends-properties="family.number">
+		<property name="model" value="Subfamily" />
+		<property name="keyProperty" value="number" />
+		<property name="descriptionProperties" value="description" />
+		<property name="condition" value="${familyNumber} = ?" />
+		<property name="parameterValuesProperties"
+			value="family.number" />
+		<for-stereotype stereotype="SUBFAMILY_DEPENDS_REFERENCE" />
+	</editor>
+
+	<editor url="descriptionsEditor.jsp" frame="true">
+		<property name="model" value="Warehouse" />
+		<property name="keyProperties" value="zoneNumber, number" />
+		<property name="descriptionProperty" value="name" />
+		<property name="filter"
+			value="org.openxava.test.filters.LimitZoneFilter" />
+		<property name="condition" value="${zoneNumber} &lt;= ?" />
+		<formatter
+			class="org.openxava.test.formatters.WarehouseFormatter" />
+		<for-stereotype stereotype="WAREHOUSE" />
+	</editor>
+
+	<editor url="descriptionsEditor.jsp">
+		<property name="model" value="Delivery" />
+		<property name="keyProperties"
+			value="invoice.year, invoice.number, type.number, number" />
+		<property name="descriptionProperty" value="description" />
+		<for-stereotype stereotype="DELIVERIES" />
+	</editor>
+
+	<editor url="descriptionsEditor.jsp"
+		depends-properties="family, detail.subfamily">
+		<property name="model" value="ServiceType" />
+		<property name="keyProperty" value="number" />
+		<property name="descriptionProperty" value="description" />
+		<property name="condition"
+			value="${family} = ? and ${subfamily} = ?" />
+		<property name="parameterValuesProperties"
+			value="family, detail.subfamily" />
+		<for-stereotype stereotype="SERVICE_TYPE" />
+	</editor>
+
+	<editor url="descriptionsEditor.jsp" depends-properties="oid" >
+		<property name="model" value="Product3" />
+		<property name="keyProperty" value="number" />
+		<property name="descriptionProperty" value="description" />
+		<property name="condition" value="${family.oid} = ?" />
+		<property name="parameterValuesProperties" value="oid" />
+		<for-stereotype stereotype="PRODUCT3" />
+	</editor>
+	
+	<editor url="descriptionsEditor.jsp" depends-properties="familyList">
+		<property name="model" value="Product2" />
+		<property name="keyProperty" value="number" />
+		<property name="descriptionProperty" value="description" />
+		<property name="condition" value="${family.number} = ?" />
+		<property name="parameterValuesProperties" value="this.familyList" />
+		<for-stereotype stereotype="PRODUCT2" />
+	</editor>	
+
+	<editor url="descriptionsEditor.jsp">
+		<property name="model" value="Customer.Receptionist" />
+		<property name="keyProperty" value="oid" />
+		<property name="descriptionProperty" value="name" />
+		<for-stereotype stereotype="RECEPTIONIST" />
+	</editor>
+
+	<editor name="UserAttribute" url="userAttributeEditor.jsp"/>
+
+	<editor name="TreeViewAlternate" url="treeViewEditor.jsp">
+		<property name="reader" value="org.openxava.test.web.editors.impl.TreeViewReaderTestImpl" />
+	</editor>
+	
+	<editor name="Important" url="importantEditor.jsp"/>
+	
+	<editor name="CustomWebURL" url="customWebURLEditor.jsp">
+    	<list-formatter class="org.openxava.formatters.WebURLFormatter"/>
+    </editor>
+    
+    <editor name="CarColor" url="validValuesEditor.jsp">
+    	<list-formatter class="org.openxava.test.formatters.CarColorFormatter"/>
+	</editor>
+	
+</editors>

@@ -1,0 +1,2268 @@
+/* This is the main CSS that includes other CSS files. */
+
+/* This CSS sets the default styles for the base components. */
+
+/* ---------- Browser normalization ---------- */
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+	margin: 0;
+	padding: 0;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+fieldset, img {
+	border: 0;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+	font-style: normal;
+	font-weight: normal;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+caption, th {
+	text-align: left;
+}
+
+q:before, q:after {
+	content: '';
+}
+
+abbr, acronym {
+	border: 0;
+}
+
+body {
+	background-color: #fff;
+	/* Original Liferay font: 62.5%/1.6em 'Tahoma','Lucida Sans Unicode','Lucida Grande','Lucida',Arial,Verdana,sans-serif; */
+	font: 12px 'Tahoma','Lucida Sans Unicode','Lucida Grande','Lucida',Arial,Verdana,sans-serif;
+}
+
+html, body {
+	height: 100%;
+}
+
+body.portal-popup {
+	padding: 10px;
+}
+
+body.portal-iframe {
+	padding: 0;
+}
+
+table {
+	clear: both;
+}
+
+abbr, acronym {
+	border-bottom: 1px dotted #000;
+	cursor: help;
+}
+
+blockquote, ul, ol, dl {
+	margin: 1em;
+}
+
+ol, ul, dl {
+	margin-left: 2em;
+}
+
+ol li, ul ol li {
+	list-style: decimal outside;
+}
+
+ul li, ol ul li {
+	list-style: disc outside;
+}
+
+ul ul li {
+	list-style-type: circle;
+}
+
+ol ol li {
+	list-style-type: upper-roman;
+}
+
+dl dd {
+	margin-left: 1em;
+}
+
+th {
+	font-weight: bold;
+}
+
+caption {
+	margin-bottom: 0.5em;
+	text-align: center;
+}
+
+p {
+	margin-bottom: 1em;
+}
+
+/* ---------- Links ---------- */
+
+a {
+	color: #036;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: #06c;
+	text-decoration: none;
+}
+
+a:visited {
+}
+
+/* ---------- Headers ---------- */
+
+h1 {
+	font-size: 1.8em;
+}
+
+h2 {
+	font-size: 1.6em;
+}
+
+h3 {
+	font-size: 1.4em;
+}
+
+h1, h2, h3 {
+	margin: 1em 0;
+}
+
+h4, h5, h6 {
+	font-size: 1.1em;
+}
+
+h1, h2, h3, h4, h5, h6, strong {
+	font-weight: bold;
+}
+
+/* ---------- Text formatting ---------- */
+
+b, strong {
+	font-weight: bold;
+}
+
+i, em {
+	font-style: italic;
+}
+
+code, pre {
+	font-family: "Courier New",Courier,monospace;
+	white-space: pre;
+}
+
+.important {
+	font-weight: bold;
+}
+
+/* ---------- Staging area ---------- */
+
+body.staging #wrapper {
+	border: 10px solid #c00;
+	padding: 0px 5px 5px;
+}
+
+/* ---------- Main content body ---------- */
+
+#wrapper {
+	margin: 0 auto;
+	width: 95%;
+}
+
+/* ---------- Banner ---------- */
+
+#banner {
+	background: transparent url(../images/common/banner_bg.png) no-repeat scroll 100% 100%;
+	position: relative;
+}
+
+#banner .logo {
+	background: transparent url(../images/common/banner_bg.png) no-repeat scroll 0 100%;
+	display: block;
+	float: left;
+	font-size: 2em;
+	margin: 0;
+	padding: 1.25em 0.6em 1.45em;
+}
+
+#banner .logo a {
+	text-decoration: none;
+}
+
+#banner:after {
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+
+.ie #banner {
+	height: 1%;
+}
+
+.ie6 #banner .logo {
+	zoom: 1;
+}
+
+/* ---------- Drag Indicators ---------- */
+
+#content-wrapper #layout-grid.dragging {
+	border-collapse: separate;
+}
+
+#content-wrapper #layout-grid.dragging .lfr-column {
+	border: 3px double #ACBED5;
+}
+
+.drag-indicator {
+	border: 2px dashed #036;
+	cursor: move;
+	font-size: 0;
+	position: relative;
+}
+
+.drop-area {
+	background-color: #000;
+	font-size: 0;
+	opacity: .10;
+}
+
+.ie .drop-area {
+	filter: alpha(opacity=10);
+}
+
+.drop-position-top {
+	background: url(../images/arrows/03_up.png) scroll repeat-x top left;
+}
+
+.drop-position-bottom {
+	background: url(../images/arrows/03_down.png) scroll repeat-x bottom left;
+}
+
+/* ---------- Alerts and popups ---------- */
+
+.alert-background {
+	background: #000;
+}
+
+.popup {
+	background: #fff;
+	border: 1px solid #777;
+	padding: 0.4em;
+	position: absolute;
+}
+
+.popup-header {
+	background: #EEF0F1 none repeat scroll 0%;
+	border-bottom: 1px solid #aaa;
+	color: #333;
+	cursor: move;
+	padding: 5px;
+	position: relative;
+}
+
+.popup-title {
+	font-size: 1.5em;
+	font-weight: bold;
+	min-height: 1em;
+	white-space: nowrap;
+	width: 90%;
+}
+
+.ie6 .popup-title {
+	height: 1em;
+}
+
+.popup-close {
+	cursor: pointer;
+	position: absolute;
+	right: 0.5em;
+}
+
+.popup-message {
+	padding: 5px;
+}
+
+.popup-alert-notice {
+	background-color: #ffc;
+	border-bottom-color: #fc0;
+}
+
+.popup-alert-warning {
+	background-color: #fcc;
+	border-bottom-color: #f00;
+}
+
+/* ---------- Portal add content ---------- */
+
+.portal-add-content {
+	background: #fff;
+	padding: 8px 4px 0;
+	text-align: left;
+	z-index: 20;
+}
+
+.portal-add-content a {
+	text-decoration: none;
+}
+
+/* ---------- Portal tool tips ---------- */
+
+.portal-tool-tip {
+	background: #DCDCDC;
+	border: 1px solid #BFBFBF;
+	color: #333;
+	font-weight: bold;
+	max-width: 200px;
+	padding: 0.5em 0.3em;
+}
+
+/* ---------- Autocomplete styles ---------- */
+
+.autocomplete-box {
+	background: #E2ECF2;
+	border: 1px solid #ABC6D7;
+	color: #333;
+	min-width: 200px;
+	padding: 0;
+}
+
+.ie6 .autocomplete-box {
+	width: 200px;
+}
+
+.autocomplete-selected {
+	background: #C0D5E3;
+	border-bottom: 1px solid #ABC6D7;
+	border-top: 1px solid #ABC6D7;
+	color: #333;
+	font-weight: bold;
+	padding: 0.5em 0.3em;
+}
+
+/* ---------- Loading animation ---------- */
+
+.loading-animation {
+	background: url(../images/progress_bar/loading_animation.gif) no-repeat top center;
+	margin-top: 10px;
+	padding-top: 40px;
+	text-align: left;
+}
+
+/* ---------- Separator ---------- */
+
+hr, .separator {
+	border: 1px dotted #CCC;
+}
+
+/* ---------- Update Manager ---------- */
+
+.update-available {
+	margin-top: 10px;
+	padding: 2px;
+	text-align: left;
+}
+
+/* ---------- Text highlighting ---------- */
+
+.highlight {
+	background: #ffc;
+	font-weight: bold;
+	padding: 0 1px;
+}
+
+/* This CSS controls the column layout. It is not recommended that you change this file. */
+
+/* ---------- Wrapper ---------- */
+
+#content-wrapper #layout-grid {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#layout-grid .lfr-column {
+	padding: 5px;
+}
+
+.lfr-grid {
+	width: 100%;
+}
+
+/* ---------- Column widths ---------- */
+
+#layout-grid.dragging .lfr-column {
+	height: 100px;
+	min-height: 100px;
+}
+
+.lfr-column.ten {
+	width: 10%;
+}
+
+.lfr-column.twenty {
+	width: 20%;
+}
+
+.lfr-column.thirty {
+	width: 30%;
+}
+
+.lfr-column.forty {
+	width: 40%;
+}
+
+.lfr-column.fifty {
+	width: 50%;
+}
+
+.lfr-column.sixty {
+	width: 60%;
+}
+
+.lfr-column.seventy {
+	width: 70%;
+}
+
+.lfr-column.eighty {
+	width: 80%;
+}
+
+.lfr-column.ninety {
+	width: 90%;
+}
+
+/* ---------- 1 column ---------- */
+
+.columns-1 #column-1, .columns-max #column-1 {
+	display: table;
+	padding-left: 0;
+	padding-right: 0;
+	width: 100%;
+}
+
+/* ---------- 2 columns ---------- */
+
+.columns-2 #column-1 {
+	padding-left: 0;
+}
+
+.columns-2 #column-2 {
+	padding-right: 0;
+}
+
+/* ---------- 3 columns ---------- */
+
+.columns-3 #column-1 {
+	padding-left: 0;
+}
+
+.columns-3 #column-2 {
+}
+
+.columns-3 #column-3 {
+	padding-right: 0;
+}
+
+/* ---------- 1/2/1 ---------- */
+
+.columns-1-2-1 #column-1, .columns-1-2-1 #column-4 {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.columns-1-2-1 #column-2 {
+	padding-left: 0;
+}
+
+.columns-1-2-1 #column-3 {
+	padding-right: 0;
+}
+
+/* ---------- 2/2 ---------- */
+
+.columns-2-2 #column-1, .columns-2-2 #column-2 {
+	padding-left: 0;
+}
+
+.columns-2-2 #column-4 {
+	padding-right: 0;
+}
+
+/* ---------- Freeform ---------- */
+
+.freeform .lfr-column {
+	position: relative;
+}
+
+.columns-2-2 #column-4 {
+	padding-right: 0;
+}
+
+/* This CSS sets the default styles for the main navigation. */
+
+/* ---------- Main navigation ---------- */
+
+#navigation {
+	margin: 0 auto 0.5em;
+	min-height: 2.2em;
+	overflow: hidden;
+	padding-right: 1em;
+	width: 93%;
+}
+
+#navigation ul {
+	float: left;
+	margin: 0;
+	min-height: 2em;
+	width: auto;
+}
+
+.ie6 #navigation, .ie6 #navigation ul {
+	height: 2em;
+	overflow: visible;
+}
+
+#navigation li {
+	background: transparent url(../images/navigation/bg.png) no-repeat 100% 100%;
+	display: inline;
+	float: left;
+	margin-right: 0.5em;
+	padding: 0 0.5em 0 0;
+	position: relative;
+}
+
+#navigation li a {
+	background: transparent url(../images/navigation/bg.png) no-repeat 0 100%;
+	display: block;
+	padding: 0 2em 0.5em 1.5em;
+	text-decoration: none;
+}
+
+#navigation li a:hover {
+	padding-bottom: 1em;
+}
+
+#navigation li a span {
+	background: url(../images/navigation/bullet.png) no-repeat 0 50%;
+	padding-left: 17px;
+	text-decoration: none;
+}
+
+#navigation li.selected a {
+	padding-top: 0.5em;
+}
+
+#navigation li.selected a span {
+	background: url(../images/navigation/bullet_selected.png) no-repeat 0 50%;
+	font-size: 1.3em;
+	font-weight: bold;
+}
+
+#navigation li.selected a:hover {
+	padding-bottom: 0.5em;
+}
+
+#navigation li a:hover span {
+	background: url(../images/navigation/bullet_over.png) no-repeat 0 50%;
+}
+
+#navigation .child-menu {
+	display: none;
+}
+
+/* ---------- Dock without JavaScript ---------- */
+
+.lfr-dock {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+
+.lfr-dock h2 {
+	background: url(../images/navigation/welcome_message.png) no-repeat 0 50%;
+	font-size: 1.2em;
+	margin-bottom: 0.5em;
+	padding-left: 2em;
+	text-align: right;
+}
+
+.lfr-dock ul {
+	display: inline;
+	float: left;
+}
+
+.lfr-dock li {
+	display: inline;
+	float: left;
+	margin-left: 15px;
+}
+
+.lfr-dock li a {
+	background: url() no-repeat 0 50%;
+	padding: 2px 0 2px 20px;
+}
+
+.lfr-dock li.home a {
+	background-image: url(../images/dock/home.png);
+}
+
+.lfr-dock li.my-account a {
+	background-image: url(../images/dock/my_account.png);
+}
+
+.lfr-dock li.sign-in a {
+	background-image: url(../images/dock/sign_in.png);
+}
+
+.lfr-dock li.sign-out a {
+	background-image: url(../images/dock/sign_out.png);
+}
+
+.lfr-dock li.add-content a {
+	background-image: url(../images/dock/add_content.png);
+}
+
+.lfr-dock li.layout a {
+	background-image: url(../images/dock/layout.png);
+}
+
+.lfr-dock li.page-settings a {
+	background-image: url(../images/dock/page_settings.png);
+}
+
+.lfr-dock li.staging a {
+	background-image: url(../images/dock/staging.png);
+}
+
+.lfr-dock li.my-places a {
+	background-image: url(../images/dock/my_places.png);
+}
+
+.lfr-dock li.my-places {
+	display: none;
+}
+
+/* ---------- Dock with JavaScript ---------- */
+
+.js .interactive-mode {
+	float: right;
+	min-width: 150px;
+	position: relative;
+	right: 10px;
+	top: 10px;
+}
+
+.js .interactive-mode h2 {
+	background: url(../images/dock/menu_bar.png) no-repeat 100% -30px;
+	font-size: 1.2em;
+	margin-bottom: 0;
+	padding: 0 29px 0 0;
+	position: relative;
+	z-index: 82;
+}
+
+.js .interactive-mode h2 span {
+	background: url(../images/dock/menu_bar.png) no-repeat 0 0;
+	color: #fff;
+	display: block;
+	font-size: 1.2em;
+	margin-bottom: 0;
+	padding: 0.5em 0.5em 0.5em 2em;
+}
+
+.js .lfr-dock.expanded .lfr-dock-list-container {
+	background: #60738C;
+	border: 1px solid #B5B9BB;
+	border-top: none;
+	top: -2px;
+}
+
+.js .interactive-mode ul {
+	background: url(../images/dock/menu_bg.png) no-repeat 0 0;
+	border-left: 20px solid #DAE3EF;
+	display: none;
+	float: none;
+}
+
+.js .interactive-mode li {
+	border-top: 1px solid #ccc;
+	clear: both;
+	display: block;
+	float: none;
+	margin-bottom: 0;
+	margin-left: 0;
+}
+
+.js .interactive-mode li a {
+	background-position: 0.5em 50%;
+	background-repeat: no-repeat;
+	display: block;
+	margin-left: 0.3em;
+	padding: 0.5em 0pt 0.5em 2.5em;
+	text-decoration: none;
+}
+
+.js .interactive-mode li a:hover {
+	background-color: #FFF5BA;
+	background-position: 1.5em 50%;
+	padding-left: 3.5em;
+}
+
+.js .interactive-mode .lfr-dock-list li.first {
+	border-top: none;
+}
+
+.js .lfr-dock.interactive-mode .my-places li a {
+	background-image: none;
+}
+
+.js .interactive-mode .my-places li {
+	background-position: 5px 50%;
+	background-repeat: no-repeat;
+}
+
+.js .lfr-dock.interactive-mode .my-places.lfr-flyout.has-children > ul {
+	margin-right: -1px;
+}
+
+.js .interactive-mode .my-places li.current-community {
+	background-color: #E5FDEC;
+}
+
+.js .interactive-mode .my-places li h3 {
+	font-size: 1em;
+	font-weight: normal;
+	margin: 0;
+}
+
+.js .lfr-dock.interactive-mode .my-places li h3 a {
+	background-image: url(../images/dock/my_place.png);
+}
+
+.js .interactive-mode .lfr-flyout.has-children ul {
+	background: #fff none no-repeat 3px 50%;
+	border: 1px solid #999;
+	display: none;
+	margin-left: 0;
+	top: -1px;
+}
+
+.js .interactive-mode .my-places li.public a {
+	background-image: url(../images/dock/my_places_public.png);
+}
+
+.js .interactive-mode .my-places li.private a {
+	background-image: url(../images/dock/my_places_private.png);
+}
+
+.js .interactive-mode .my-places li.current a {
+	background: #E5F7FD url(../images/dock/my_place_current.png) no-repeat 1em 50%;
+	margin: 0;
+	padding-left: 3.5em;
+}
+
+.js .interactive-mode .group-end {
+	border-bottom: 2px solid #ccc;
+}
+
+.ie.js .interactive-mode .lfr-flyout.has-children {
+	min-width: 175px;
+}
+
+.ie.js .interactive-mode .taglib-my-places > li {
+	height: 24px;
+}
+
+.ie6.js .lfr-dock.interactive-mode {
+	white-space: nowrap;
+	width: 150px;
+}
+
+.ie6.js .lfr-dock.interactive-mode li {
+	height: 1%;
+	width: 100%;
+}
+
+.ie6.js .interactive-mode .lfr-flyout.has-children {
+	width: 150px;
+}
+
+/* ---------- Add/sort/remove page ---------- */
+
+.js #navigation .enter-page {
+	background: transparent url(../images/navigation/bg.png) no-repeat 0 100%;
+	padding: 0.5em 2em 0.7em 1.5em;
+}
+
+.js #navigation .enter-page.editing {
+	background: none;
+	padding: 0.5em 2em 0.7em 1.5em;
+}
+
+.js #navigation .enter-page a {
+	background: none;
+	display: inline;
+	font-weight: bold;
+	margin-left: 1em;
+	padding: 0;
+}
+
+.js #add-page {
+	float: left;
+	font-weight: bold;
+	padding-top: 0.3em;
+}
+
+.js #add-page a {
+	text-decoration: none;
+}
+
+.js #add-page a span {
+	background: url(../images/navigation/add_page.png) no-repeat 0 50%;
+	padding: 5px 20px;
+}
+
+.js #add-page a:hover span {
+	background-image: url(../images/navigation/add_page.png);
+}
+
+.js .delete-tab {
+	background: url(../images/common/remove.png) no-repeat 42%;
+	cursor: pointer;
+	display: block;
+	height: 7px;
+	position: absolute;
+	right: 5px;
+	text-indent: -9999em;
+	top: 2px;
+	width: 8px;
+}
+
+/*------ Drag/drop menu items ------*/
+
+#navigation ul .sort-helper {
+	background: url(../images/portlet/placeholder_bg.png);
+	border: 1px dashed #508FB4;
+	float: left;
+	padding: 0.5em;
+}
+
+/*------ Navigation portlet ------*/
+
+.nav-menu li a.ancestor {
+	font-weight: bold;
+}
+
+.nav-menu li a.selected {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.nav-menu ul {
+	padding-left: 10px;
+}
+
+.nav-menu-style-1 {
+}
+
+.nav-menu-style-2 {
+}
+
+/* This CSS sets the default styles for portlets. */
+
+/* ---------- Portlet wrapper and icons ---------- */
+
+.portlet, .portlet-topper, .portlet-content, .portlet-title {
+	background: transparent url(../images/portlet/portlet_bg.png) no-repeat bottom right;
+}
+
+.portlet {
+	margin: 0 0 10px;
+	padding-right: 10px;
+	text-align: left;
+}
+
+.portlet.html-editor {
+	background: #fff;
+	padding: 5px;
+}
+
+.portlet-topper {
+	background-position: right top;
+	margin-right: -10px;
+	padding-right: 40px;
+	position: relative;
+}
+
+.portlet-title {
+	background-position: top left;
+	display: block;
+	font-weight: bold;
+	min-width: 50%;
+	padding: 8px 0 4px 10px;
+}
+
+.ie .portlet-title {
+	padding-bottom: 5px;
+}
+
+.portlet-title img {
+	vertical-align: middle;
+}
+
+.portlet-icons {
+	margin: 3px;
+	position: absolute;
+	right: 7px;
+	text-align: right;
+	top: 4px;
+}
+
+.portlet-content {
+	background-position: left bottom;
+	padding: 10px 5px 25px 15px;
+}
+
+.portlet-icon-back {
+	background: url(../images/portlet/back.png) no-repeat 0 50%;
+	font-weight: bold;
+	padding: 0.2em 0 0.5em 1.8em;
+}
+
+/* ---------- Drag and drop ---------- */
+
+.portlet-dragging {
+	background: #FFFFE3 !important;
+	border: 3px solid #666;
+	padding: 10px;
+}
+
+.portlet-hover {
+	background: #ddd;
+	padding: 10px;
+}
+
+.portlet-placeholder {
+	background: url(../images/portlet/placeholder_bg.png);
+	border: 1px dashed #508FB4;
+	width: 100% !important;
+}
+
+.portlet-resize-handle {
+	background: url(../images/arrows/resize.png) scroll no-repeat;
+	bottom: 12px;
+	cursor: se-resize;
+	height: 10px;
+	position: absolute;
+	right: 2px;
+	width: 10px;
+}
+
+.popup .portlet-resize-handle {
+	bottom: 2px;
+}
+
+/* ---------- Standard styles defined in the JSR 168 ---------- */
+
+/* ---------- Fonts ---------- */
+
+/* ---------- Font attributes for the 'normal' fragment font ---------- */
+
+.portlet-font {
+}
+
+/* ---------- Font attributes similar to the .portlet-font but the color is lighter ---------- */
+
+.portlet-font-dim {
+}
+
+/* ---------- Messages ---------- */
+
+/* ---------- Status of the current operation ---------- */
+
+.portlet-msg-status {
+}
+
+/* ---------- Help messages, general additional information, etc. ---------- */
+
+.portlet-msg-info {
+	background: #FAFAFA url(../images/messages/info.png) no-repeat 0.5em 50%;
+	border: 1px solid #53B2F8;
+	color: #777;
+	display: block;
+	margin: 0.15em auto 1.2em;
+	padding: 0.5em 0.5em 0.5em 2.8em;
+	text-align: left;
+}
+
+/* ---------- Error messages ---------- */
+
+.portlet-msg-error {
+	background: #FFF1ED url(../images/messages/error.png) no-repeat 0.5em 50%;
+	border: 1px solid #900;
+	display: block;
+	margin: 0.15em auto 1.2em;
+	padding: 0.5em 0.5em 0.5em 2.8em;
+	text-align: left;
+}
+
+/* ---------- Warning messages ---------- */
+
+.portlet-msg-alert {
+	background: #FEFFDF url(../images/messages/alert.png) no-repeat 0.5em 10%;
+	border: 1px solid #EFEFEF;
+	display: block;
+	margin: 0.15em auto 1.2em;
+	padding: 0.5em 0.5em 0.5em 2.8em;
+	text-align: left;
+}
+
+/* ---------- Success messages ---------- */
+
+.portlet-msg-success {
+	background: #F4FDEF url(../images/messages/success.png) no-repeat 0.5em 50%;
+	border: 1px solid #3F9305;
+	display: block;
+	margin: 0.15em auto 1.2em;
+	padding: 0.5em 0.5em 0.5em 2.8em;
+	text-align: left;
+}
+
+/* ---------- Sections ---------- */
+
+/* ---------- Table or section header ---------- */
+
+.portlet-section-header {
+	background: #D9E1EC;
+	padding: 1px 0 0;
+}
+
+.portlet-section-header th {
+	border-bottom: 1px solid #ccc;
+	color: #333;
+	font-weight: bold;
+	padding: 0.3em 1em;
+}
+
+/* ---------- Normal text in a table cell ---------- */
+
+.portlet-section-body {
+	background: #E7EDF4;
+	color: #000;
+}
+
+.portlet-section-body td {
+	background: #DCDCDC;
+	border-bottom: 1px solid #BFBFBF;
+	border-top: 1px solid #BFBFBF;
+	padding: 0.3em 1em;
+}
+
+/* ---------- Text in every other row in the cell ---------- */
+
+.portlet-section-alternate {
+	background: #D3DEEB;
+	color: #000;
+}
+
+.portlet-section-alternate td {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+	border-top: 1px solid #BFBFBF;
+	padding: 0.3em 1em;
+}
+
+.portlet-section-alternate-hover td, .portlet-section-body-hover td {
+	background: #FFF5BA;
+	border-bottom: 1px solid #E0D79F;
+	border-top: 1px solid #E0D79F;
+	padding: 0.3em 1em;
+}
+
+.portlet-section-body td td, .portlet-section-body-hover td td {
+	border: none;
+}
+
+.portlet-section-alternate td td, .portlet-section-alternate-hover td td {
+	border: none;
+}
+
+/* ---------- Text in a selected cell range ---------- */
+
+.portlet-section-selected, .portlet-section-selected a {
+	background: #5881B5;
+	color: #fff;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.portlet-section-selected a:hover, .portlet-section-selected a:focus {
+	background-color: #5881B5;
+}
+
+/* ---------- Text of a subheading ---------- */
+
+.portlet-section-subheader {
+}
+
+/* ---------- Table or section footnote ---------- */
+
+.portlet-section-footer {
+}
+
+/* ---------- Text that belongs to the table but does not fall in one of the other categories (e.g. explanatory or help text that is associated with the section) ---------- */
+
+.portlet-section-text {
+}
+
+/* ---------- Forms ---------- */
+
+/* ---------- Text used for the descriptive label of the whole form (not the labels for fields) ---------- */
+
+.portlet-form-label {
+}
+
+/* ---------- Text of the user-input in an input field ---------- */
+
+.portlet-form-input-field {
+}
+
+/* ---------- Text on a button ---------- */
+
+.portlet-form-button {
+}
+
+/* ---------- Text that appears beside a context dependent action icon ---------- */
+
+.portlet-icon-label {
+}
+
+/* ---------- Text that appears beside a 'standard' icon (e.g. Ok, or Cancel) ---------- */
+
+.portlet-dlg-icon-label {
+}
+
+/* ---------- Text for a separator of fields (e.g. checkboxes, etc.) ---------- */
+
+.portlet-form-field-label {
+}
+
+/* ---------- Text for a field (not input field, e.g. checkboxes, etc.) ---------- */
+
+.portlet-form-field {
+}
+
+/* ---------- Menus ---------- */
+
+/* ---------- General menu settings such as background color, margins, etc. ---------- */
+
+.portlet-menu {
+}
+
+/* ---------- Normal, unselected menu item ---------- */
+
+.portlet-menu-item {
+}
+
+/* ---------- Selected menu item ---------- */
+
+.portlet-menu-item-selected {
+}
+
+/* ---------- Normal, unselected menu item when the mouse hovers over it ---------- */
+
+.portlet-menu-item-hover {
+}
+
+/* ---------- Selected menu item when the mouse hovers over it ---------- */
+
+.portlet-menu-item-hover-selected {
+}
+
+/* ---------- Normal, unselected menu item that has sub-menus ---------- */
+
+.portlet-menu-cascade-item {
+}
+
+/* ---------- Selected sub-menu item that has sub-menus ---------- */
+
+.portlet-menu-cascade-item-selected {
+}
+
+/* ---------- Descriptive text for the menu (e.g. in a help context below the menu) ---------- */
+
+.portlet-menu-description {
+}
+
+/* ---------- Menu caption ---------- */
+
+.portlet-menu-caption {
+}
+
+/* ---------- Miscellaneous portlet styles ---------- */
+
+.message-board-code {
+	background: #fff;
+	font-family: "Courier New",Courier,Monaco,monospace;
+	white-space: pre;
+}
+
+.message-board-code-lines {
+	margin-right: 1em;
+}
+
+.restricted, .restricted td {
+	background: #FEE1E0;
+	border: none;
+}
+
+.restricted * {
+	color: #777;
+}
+
+.restricted .col-1 {
+	background-image: url(../images/messages/error.png);
+	background-position: 0.5em 50%;
+	background-repeat: no-repeat;
+	padding-left: 2.8em;
+}
+
+/* ---------- Miscellaneous component styles ---------- */
+
+/* ---------- Actions button ---------- */
+
+.lfr-actions {
+}
+
+.lfr-actions ul {
+	background: #C9DDF6;
+	border: 3px double #99B6DB;
+	border-left-color: #9EBAE1;
+	border-top-color: #9EBAE1;
+}
+
+.lfr-actions .lfr-trigger, .lfr-actions .lfr-trigger strong {
+	background: url(../images/common/button_bg.png) no-repeat;
+}
+
+.lfr-actions .lfr-trigger {
+	background-position: 100% -42px;
+}
+
+.lfr-actions.visible .lfr-trigger {
+	background-position: 100% 100%;
+}
+
+.lfr-actions.visible .lfr-trigger strong {
+	background-position: 0 -21px;
+}
+
+.lfr-actions .lfr-trigger strong span {
+	background: url(../images/common/action.png) no-repeat 5px 0;
+}
+
+.lfr-actions.left .lfr-trigger strong span {
+	background: url(../images/common/action.png) no-repeat 98% 100%;
+}
+
+.lfr-actions .lfr-trigger li {
+	background: #fff;
+	border-bottom: 1px solid #99B6DB;
+}
+
+.lfr-actions .lfr-trigger li.last {
+	border-bottom: none;
+}
+
+/* This CSS sets the default styles for tabs. */
+
+.tabs {
+	border-bottom: 1px solid #8DB2E3;
+	margin: 0 0 1.5em 0;
+	padding: 0 0 2.6em 1em;
+}
+
+.tabs li {
+	background: url(../images/common/tabs_bg.png) 100% -50px;
+	display: inline;
+	float: left;
+	line-height: 2.25;
+	margin-right: 0.8em;
+	padding: 0;
+	position: relative;
+	text-decoration: none;
+}
+
+.tabs li a, .tabs li span {
+	background: url(../images/common/tabs_bg.png) 0 -150px;
+	display: block;
+	float: left;
+	padding: 0.35em 1em 0;
+	text-decoration: none;
+}
+
+.tabs li.current {
+	background: url(../images/common/tabs_bg.png) 100% 0;
+	font-weight: bold;
+	top: 0.15em;
+}
+
+.tabs li.current a, .tabs li.current span {
+	background: url(../images/common/tabs_bg.png) 0 -100px;
+	color: #333;
+	padding: 0.15em 1em;
+}
+
+.ie .tabs li {
+	line-height: 2.35;
+}
+
+.ie .tabs li.current {
+	top: 0.2em;
+}
+
+/* This CSS sets the default styles for forms. */
+
+fieldset {
+	border: 1px solid #ccc;
+	padding: 0.7em;
+}
+
+.ie fieldset {
+	padding-top: 0;
+}
+
+legend {
+	font-weight: bold;
+	padding: 0 0.5em;
+}
+
+input[type="text"], input[type="password"], input[type="file"],input[type="submit"], input[type="button"], input[type="reset"], select, textarea, .textarea {
+	background: #fff url(../images/forms/input_shadow.png) no-repeat;
+	border: 1px solid #aaa;
+	border-left-color: #777;
+	border-top-color: #777;
+	font: 1em 'Tahoma','Lucida Sans Unicode','Lucida Grande','Lucida',Arial,Verdana,sans-serif;
+	padding: 0.3em;
+}
+
+select {
+	padding: 0.3em;
+}
+
+input[type="image"] {
+	background: transparent none;
+	border: none;
+	padding: 0;
+}
+
+input[type="submit"], input[type="button"], input[type="reset"] {
+	background: #FAFAFA url(../images/forms/button.png) repeat-x;
+	border: 3px double #999;
+	border-left-color: #ccc;
+	border-top-color: #ccc;
+	color: #333;
+	font-weight: bold;
+	padding: 0.25em;
+}
+
+/* ---------- IE6 chokes on attribute selectors in a chain, so we separate them into their own rule ---------- */
+
+.ie6 input.text, input.password, .ie6 input.submit, .ie6 input.file, .ie6 input.button {
+	background: #fff url(../images/forms/input_shadow.png) no-repeat;
+	border: 1px solid #aaa;
+	border-left-color: #777;
+	border-top-color: #777;
+	font: 1em 'Tahoma','Lucida Sans Unicode','Lucida Grande','Lucida',Arial,Verdana,sans-serif;
+	padding: 0.3em;
+}
+
+.ie6 input.submit, .ie6 input.button {
+	background: #FAFAFA url(../images/forms/button.png) repeat-x;
+	border: 3px double #999;
+	border-left-color: #ccc;
+	border-top-color: #ccc;
+	color: #333;
+	font-weight: bold;
+	padding: 0.25em;
+}
+
+input.focus, textarea.focus, .ie6 input.focus, .ie6 textarea.focus {
+	background: #ffc none;
+	border: 1px solid #fc0;
+}
+
+/* This file allows you to override default styles in one central location for easier upgrade and maintenance. */
+
+/* This CSS sets the default styles for the base components. */
+
+/* ---------- Links ---------- */
+
+.green a {
+	color: #060;
+}
+
+.green a:hover {
+	color: #0c0;
+}
+
+.green a:visited {
+}
+
+/* ---------- Banner ---------- */
+
+.green #banner {
+	background-image: url(../../images/color_schemes/green/common/banner_bg.png);
+}
+
+.green #banner .logo {
+	background-image: url(../../images/color_schemes/green/common/banner_bg.png);
+}
+
+/* ---------- Alerts and popups ---------- */
+
+.green .popup {
+	border-color: #8df78c;
+}
+
+.green .popup-header {
+	background: #eff1ee;
+	border-bottom-color: #777;
+}
+
+/* ---------- Portal tool tips ---------- */
+
+.green .portal-tool-tip {
+	background: #DCDCDC;
+	border-color: #BFBFBF;
+}
+
+/* ---------- Autocomplete styles ---------- */
+
+.green .autocomplete-box {
+	background: #e6f2e2;
+	border-color: #b5d7ab;
+}
+
+.green .autocomplete-selected {
+	background: #c8e3c0;
+	border-bottom-color: #b5d7ab;
+	border-top-color: #b5d7ab;
+}
+
+/* ---------- Separator ---------- */
+
+.green .separator {
+	border-color: #CCC;
+}
+
+/* This CSS sets the default styles for the main navigation. */
+
+/* ---------- Main navigation ---------- */
+
+.green #navigation li {
+	background-image: url(../../images/color_schemes/green/navigation/bg.gif);
+}
+
+.green #navigation li a {
+	background-image: url(../../images/color_schemes/green/navigation/bg.gif);
+}
+
+.green #navigation li a span {
+	background-image: url(../../images/color_schemes/green/navigation/bullet.gif);
+}
+
+.green #navigation li.selected a span {
+	background-image: url(../../images/color_schemes/green/navigation/bullet_selected.gif);
+	font-weight: bold;
+}
+
+.green #navigation li a:hover span {
+	background-image: url(../../images/color_schemes/green/navigation/bullet_over.gif);
+}
+
+/* ---------- Dock with Javascript ---------- */
+
+.js .green .lfr-dock h2 {
+	background-image: url(../../images/color_schemes/green/dock/menu_bar.png);
+}
+
+.js .green .lfr-dock h2 span {
+	background-image: url(../../images/color_schemes/green/dock/menu_bar.png);
+	color: #333;
+}
+
+.js .green .lfr-dock.expanded .lfr-dock-list-container {
+	background-color: #628c60;
+	border-color: #a0c695;
+}
+
+.js .green .lfr-dock ul {
+	border-left-color: #dbefda;
+}
+
+.js .green .lfr-dock li a {
+	border-top-color: #ccc;
+}
+
+.js .green .lfr-dock li a:hover {
+	background-color: #FFF5BA;
+	border-top-color: #E0D79F;
+}
+
+.js .green .lfr-dock li.my-places li ul li.current a, .js .green .lfr-dock li.my-places li ul li.current a:hover {
+	background-color: #eefde5;
+}
+
+.js .green .my-places .show-my-places {
+	background: #fff;
+	border-color: #ccc;
+}
+
+.js .green .my-places .show-my-places li .my-places-toggle {
+	border-bottom-color: #999;
+	color: #333;
+}
+
+.js .green .my-places .show-my-places li ul {
+	background: none no-repeat 3px 50%;
+	border: none;
+}
+
+/*------ Drag/drop menu items ------*/
+
+.green #navigation ul .sort-helper {
+	background-image: url(../../images/color_schemes/green/portlet/placeholder_bg.gif);
+	border-color: #69b450;
+}
+
+/* This CSS sets the default styles for portlets. */
+
+/* ---------- Portlet wrapper and icons ---------- */
+
+.green .portlet, .green .portlet-topper, .green .portlet-content, .green .portlet-title {
+	background-image: url(../../images/color_schemes/green/portlet/portlet_bg.png);
+}
+
+/* ---------- Drag and drop ---------- */
+
+.green .portlet-dragging {
+	background-color: #FFFFE3 !important;
+	border-color: #666;
+}
+
+.green .portlet-hover {
+	background-color: #ddd;
+}
+
+.green .portlet-placeholder {
+	background-image: url(../../images/color_schemes/green/portlet/placeholder_bg.gif);
+	border-color: #69b450;
+}
+
+/* ---------- Standard styles defined in the JSR 168 ---------- */
+
+/* ---------- Fonts ---------- */
+
+/* ---------- Font attributes for the 'normal' fragment font ---------- */
+
+.green .portlet-font {
+}
+
+/* ---------- Font attributes similar to the .portlet-font but the color is lighter ---------- */
+
+.green .portlet-font-dim {
+}
+
+/* ---------- Messages ---------- */
+
+/* ---------- Status of the current operation ---------- */
+
+.green .portlet-msg-status {
+}
+
+/* ---------- Help messages, general additional information, etc. ---------- */
+
+.green .portlet-msg-info {
+	background-color: #FAFAFA;
+	border-color: #53B2F8;
+	color: #777;
+}
+
+/* ---------- Error messages ---------- */
+
+.green .portlet-msg-error {
+	border-color: #900;
+}
+
+/* ---------- Warning messages ---------- */
+
+.green .portlet-msg-alert {
+	border-color: #EFEFEF;
+}
+
+/* ---------- Success messages ---------- */
+
+.green .portlet-msg-success {
+	border-color: #3F9305;
+}
+
+/* ---------- Sections ---------- */
+
+/* ---------- Table or section header ---------- */
+
+.green .portlet-section-header {
+	background: #dcecd9;
+}
+
+.green .portlet-section-header th {
+	border-bottom-color: #ccc;
+	color: #333;
+}
+
+/* ---------- Normal text in a table cell ---------- */
+
+.green .portlet-section-body {
+}
+
+.green .portlet-section-body td {
+	background-color: #DCDCDC;
+	border-top-color: #BFBFBF;
+}
+
+/* ---------- Text in every other row in the cell ---------- */
+
+.green .portlet-section-alternate {
+}
+
+.green .portlet-section-alternate td {
+	background-color: #fff;
+	border-top-color: #BFBFBF;
+}
+
+.green .portlet-section-alternate.hover td, .green .portlet-section-body.hover td {
+	background-color: #FFF5BA;
+	border-bottom-color: #E0D79F;
+	border-top-color: #E0D79F;
+}
+
+/* ---------- Text in a selected cell range ---------- */
+
+.green .portlet-section-selected {
+}
+
+/* ---------- Text of a subheading ---------- */
+
+.green .portlet-section-subheader {
+}
+
+/* ---------- Table or section footnote ---------- */
+
+.green .portlet-section-footer {
+}
+
+/* ---------- Text that belongs to the table but does not fall in one of the other categories (e.g. explanatory or help text that is associated with the section) ---------- */
+
+.green .portlet-section-text {
+}
+
+/* ---------- Forms ---------- */
+
+/* ---------- Text used for the descriptive label of the whole form (not the labels for fields) ---------- */
+
+.green .portlet-form-label {
+}
+
+/* ---------- Text of the user-input in an input field ---------- */
+
+.green .portlet-form-input-field {
+}
+
+/* ---------- Text on a button ---------- */
+
+.green .portlet-form-button {
+}
+
+/* ---------- Text that appears beside a context dependent action icon ---------- */
+
+.green .portlet-icon-label {
+}
+
+/* ---------- Text that appears beside a 'standard' icon (e.g. Ok, or Cancel) ---------- */
+
+.green .portlet-dlg-icon-label {
+}
+
+/* ---------- Text for a separator of fields (e.g. checkboxes, etc.) ---------- */
+
+.green .portlet-form-field-label {
+}
+
+/* ---------- Text for a field (not input field, e.g. checkboxes, etc.) ---------- */
+
+.green .portlet-form-field {
+}
+
+/* ---------- Menus ---------- */
+
+/* ---------- General menu settings such as background color, margins, etc. ---------- */
+
+.green .portlet-menu {
+}
+
+/* ---------- Normal, unselected menu item ---------- */
+
+.green .portlet-menu-item {
+}
+
+/* ---------- Selected menu item ---------- */
+
+.green .portlet-menu-item-selected {
+}
+
+/* ---------- Normal, unselected menu item when the mouse hovers over it ---------- */
+
+.green .portlet-menu-item-hover {
+}
+
+/* ---------- Selected menu item when the mouse hovers over it ---------- */
+
+.green .portlet-menu-item-hover-selected {
+}
+
+/* ---------- Normal, unselected menu item that has sub-menus ---------- */
+
+.green .portlet-menu-cascade-item {
+}
+
+/* ---------- Selected sub-menu item that has sub-menus ---------- */
+
+.green .portlet-menu-cascade-item-selected {
+}
+
+/* ---------- Descriptive text for the menu (e.g. in a help context below the menu) ---------- */
+
+.green .portlet-menu-description {
+}
+
+/* ---------- Menu caption ---------- */
+
+.green .portlet-menu-caption {
+}
+
+/* This CSS sets the default styles for tabs. */
+
+.green .tabs {
+	border-bottom-color: #91e38d;
+}
+
+.green .tabs li {
+	background-image: url(../../images/color_schemes/green/common/tabs_bg.gif);
+}
+
+.green .tabs li a, .green .tabs li span {
+	background-image: url(../../images/color_schemes/green/common/tabs_bg.gif);
+}
+
+.green .tabs li.current {
+	background-image: url(../../images/color_schemes/green/common/tabs_bg.gif);
+}
+
+.green .tabs li.current a, .green .tabs li.current span {
+	background-image: url(../../images/color_schemes/green/common/tabs_bg.gif);
+	color: #333;
+}
+
+/* This CSS sets the default styles for forms. */
+
+.green fieldset {
+	border-color: #ccc;
+}
+
+.green input[type="text"], .green input[type="password"], .green input[type="file"], .green input[type="submit"], .green input[type="button"], .green input[type="reset"], .green select, .green textarea {
+	background-image: url(../../images/color_schemes/green/forms/input_shadow.gif);
+	border-color: #aaa;
+	border-left-color: #777;
+	border-top-color: #777;
+}
+
+.green input[type="image"] {
+	background: transparent none;
+	border: none;
+}
+
+.green input[type="submit"], .green input[type="button"], .green input[type="reset"] {
+	background: #FAFAFA url(../../images/color_schemes/green/forms/button.gif) repeat-x;
+	border-color: #999;
+	border-left-color: #ccc;
+	border-top-color: #ccc;
+	color: #333;
+}
+
+/* ---------- IE6 chokes on attribute selectors in a chain, so we separate them into their own rule ---------- */
+
+.ie6 .green input.text, .ie6 .green input.password, .ie6 .green input.submit, .ie6 .green input.file, .ie6 .green input.button {
+	background-image: url(../../images/color_schemes/green/forms/input_shadow.gif);
+	border-color: #aaa;
+	border-left-color: #777;
+	border-top-color: #777;
+}
+
+.ie6 .green input.submit, .ie6 .green input.button {
+	background: #FAFAFA url(../../images/color_schemes/green/forms/button.gif) repeat-x;
+	border-color: #999;
+	border-left-color: #ccc;
+	border-top-color: #ccc;
+	color: #333;
+}
+
+/* This CSS sets the default styles for the base components. */
+
+/* ---------- Links ---------- */
+
+.orange a {
+	color: #630;
+}
+
+.orange a:hover {
+	color: #c60;
+}
+
+.orange a:visited {
+}
+
+/* ---------- Banner ---------- */
+
+.orange #banner {
+	background-image: url(../../images/color_schemes/orange/common/banner_bg.png);
+}
+
+.orange #banner .logo {
+	background-image: url(../../images/color_schemes/orange/common/banner_bg.png);
+}
+
+/* ---------- Alerts and popups ---------- */
+
+.orange .popup {
+	border-color: #ffc684;
+}
+
+.orange .popup-header {
+	background: #ffe7e0;
+	border-bottom-color: #777;
+}
+
+/* ---------- Portal tool tips ---------- */
+
+.orange .portal-tool-tip {
+	background-color: #DCDCDC;
+	border-color: #BFBFBF;
+}
+
+/* ---------- Autocomplete styles ---------- */
+
+.orange .autocomplete-box {
+	background-color: #ffe1d5;
+	border-color: #ffab83;
+}
+
+.orange .autocomplete-selected {
+	background-color: #ffc1a4;
+	border-bottom-color: #ffab83;
+	border-top-color: #ffab83;
+}
+
+/* ---------- Separator ---------- */
+
+.orange .separator {
+	border-color: #CCC;
+}
+
+/* This CSS sets the default styles for the main navigation. */
+
+/* ---------- Main navigation ---------- */
+
+.orange #navigation li {
+	background-image: url(../../images/color_schemes/orange/navigation/bg.gif);
+}
+
+.orange #navigation li a {
+	background-image: url(../../images/color_schemes/orange/navigation/bg.gif);
+}
+
+.orange #navigation li a span {
+	background-image: url(../../images/color_schemes/orange/navigation/bullet.gif);
+}
+
+.orange #navigation li.selected a span {
+	background-image: url(../../images/color_schemes/orange/navigation/bullet_selected.gif);
+	font-weight: bold;
+}
+
+.orange #navigation li a:hover span {
+	background-image: url(../../images/color_schemes/orange/navigation/bullet_over.gif);
+}
+
+/* ---------- Dock with Javascript ---------- */
+
+.js .orange .lfr-dock h2 {
+	background-image: url(../../images/color_schemes/orange/dock/menu_bar.png);
+}
+
+.js .orange .lfr-dock h2 span {
+	background-image: url(../../images/color_schemes/orange/dock/menu_bar.png);
+	color: #333;
+}
+
+.js .orange .lfr-dock.expanded .lfr-dock-list-container {
+	background-color: #ec7600;
+	border-color: #ff9071;
+}
+
+.js .orange .lfr-dock ul {
+	border-left-color: #ffe4ca;
+}
+
+.js .orange .lfr-dock li a {
+	border-top-color: #ccc;
+}
+
+.js .orange .lfr-dock li a:hover {
+	background-color: #FFF5BA;
+	border-top-color: #E0D79F;
+}
+
+.js .orange .lfr-dock li.my-places li ul li.current a, .js .orange .lfr-dock li.my-places li ul li.current a:hover {
+	background-color: #ffe8e3;
+}
+
+.js .orange .my-places .show-my-places {
+	background: #fff;
+	border-color: #ccc;
+}
+
+.js .orange .my-places .show-my-places li .my-places-toggle {
+	border-bottom-color: #999;
+	color: #333;
+}
+
+.js .orange .my-places .show-my-places li ul {
+	background: none no-repeat 3px 50%;
+	border: none;
+}
+
+/* ---------- Add page ---------- */
+
+.js .orange	#navigation .enter-page {
+	background-image: url(../../images/color_schemes/orange/navigation/bg.gif);
+}
+
+.js .orange #add-page a span {
+	background-image: url(../../images/color_schemes/orange/navigation/add_page.png);
+}
+
+.js .orange #add-page a:hover span {
+	background-image: url(../../images/color_schemes/orange/navigation/add_page.png);
+}
+
+/*------ Drag/drop menu items ------*/
+
+.orange #navigation ul .sort-helper {
+	background-image: url(../../images/color_schemes/orange/portlet/placeholder_bg.gif);
+	border-color: #ff4f05;
+}
+
+/* This CSS sets the default styles for portlets. */
+
+/* ---------- Portlet wrapper and icons ---------- */
+
+.orange .portlet, .orange .portlet-topper, .orange .portlet-content, .orange .portlet-title {
+	background-image: url(../../images/color_schemes/orange/portlet/portlet_bg.png);
+}
+
+/* ---------- Drag and drop ---------- */
+
+.orange .portlet-dragging {
+	background-color: #FFFFE3 !important;
+	border-color: #666;
+}
+
+.orange .portlet-hover {
+	background-color: #ddd;
+}
+
+.orange .portlet-placeholder {
+	background-image: url(../../images/color_schemes/orange/portlet/placeholder_bg.gif);
+	border-color: #ff4f05;
+}
+
+/* ---------- Standard styles defined in the JSR 168 ---------- */
+
+/* ---------- Fonts ---------- */
+
+/* ---------- Font attributes for the 'normal' fragment font ---------- */
+
+.orange .portlet-font {
+}
+
+/* ---------- Font attributes similar to the .portlet-font but the color is lighter ---------- */
+
+.orange .portlet-font-dim {
+}
+
+/* ---------- Messages ---------- */
+
+/* ---------- Status of the current operation ---------- */
+
+.orange .portlet-msg-status {
+}
+
+/* ---------- Help messages, general additional information, etc. ---------- */
+
+.orange .portlet-msg-info {
+	background-color: #FAFAFA;
+	border-color: #53B2F8;
+	color: #777;
+}
+
+/* ---------- Error messages ---------- */
+
+.orange .portlet-msg-error {
+	border-color: #900;
+}
+
+/* ---------- Warning messages ---------- */
+
+.orange .portlet-msg-alert {
+	border-color: #EFEFEF;
+}
+
+/* ---------- Success messages ---------- */
+
+.orange .portlet-msg-success {
+	border-color: #3F9305;
+}
+
+/* ---------- Sections ---------- */
+
+/* ---------- Table or section header ---------- */
+
+.orange .portlet-section-header {
+	background: #f4e6d1;
+}
+
+.orange .portlet-section-header th {
+	border-bottom-color: #ccc;
+	color: #333;
+}
+
+/* ---------- Normal text in a table cell ---------- */
+
+.orange .portlet-section-body {
+}
+
+.orange .portlet-section-body td {
+	background-color: #DCDCDC;
+	border-top-color: #BFBFBF;
+}
+
+/* ---------- Text in every other row in the cell ---------- */
+
+.orange .portlet-section-alternate {
+}
+
+.orange .portlet-section-alternate td {
+	background-color: #fff;
+	border-top-color: #BFBFBF;
+}
+
+.orange .portlet-section-alternate.hover td, .orange .portlet-section-body.hover td {
+	background-color: #FFF5BA;
+	border-bottom-color: #E0D79F;
+	border-top-color: #E0D79F;
+}
+
+/* ---------- Text in a selected cell range ---------- */
+
+.orange .portlet-section-selected {
+}
+
+/* ---------- Text of a subheading ---------- */
+
+.orange .portlet-section-subheader {
+}
+
+/* ---------- Table or section footnote ---------- */
+
+.orange .portlet-section-footer {
+}
+
+/* ---------- Text that belongs to the table but does not fall in one of the other categories (e.g. explanatory or help text that is associated with the section) ---------- */
+
+.orange .portlet-section-text {
+}
+
+/* ---------- Forms ---------- */
+
+/* ---------- Text used for the descriptive label of the whole form (not the labels for fields) ---------- */
+
+.orange .portlet-form-label {
+}
+
+/* ---------- Text of the user-input in an input field ---------- */
+
+.orange .portlet-form-input-field {
+}
+
+/* ---------- Text on a button ---------- */
+
+.orange .portlet-form-button {
+}
+
+/* ---------- Text that appears beside a context dependent action icon ---------- */
+
+.orange .portlet-icon-label {
+}
+
+/* ---------- Text that appears beside a 'standard' icon (e.g. Ok, or Cancel) ---------- */
+
+.orange .portlet-dlg-icon-label {
+}
+
+/* ---------- Text for a separator of fields (e.g. checkboxes, etc.) ---------- */
+
+.orange .portlet-form-field-label {
+}
+
+/* ---------- Text for a field (not input field, e.g. checkboxes, etc.) ---------- */
+
+.orange .portlet-form-field {
+}
+
+/* ---------- Menus ---------- */
+
+/* ---------- General menu settings such as background color, margins, etc. ---------- */
+
+.orange .portlet-menu {
+}
+
+/* ---------- Normal, unselected menu item ---------- */
+
+.orange .portlet-menu-item {
+}
+
+/* ---------- Selected menu item ---------- */
+
+.orange .portlet-menu-item-selected {
+}
+
+/* ---------- Normal, unselected menu item when the mouse hovers over it ---------- */
+
+.orange .portlet-menu-item-hover {
+}
+
+/* ---------- Selected menu item when the mouse hovers over it ---------- */
+
+.orange .portlet-menu-item-hover-selected {
+}
+
+/* ---------- Normal, unselected menu item that has sub-menus ---------- */
+
+.orange .portlet-menu-cascade-item {
+}
+
+/* ---------- Selected sub-menu item that has sub-menus ---------- */
+
+.orange .portlet-menu-cascade-item-selected {
+}
+
+/* ---------- Descriptive text for the menu (e.g. in a help context below the menu) ---------- */
+
+.orange .portlet-menu-description {
+}
+
+/* ---------- Menu caption ---------- */
+
+.orange .portlet-menu-caption {
+}
+
+/* This CSS sets the default styles for tabs. */
+
+.orange .tabs {
+	border-bottom-color: #ffb871;
+}
+
+.orange .tabs li {
+	background-image: url(../../images/color_schemes/orange/common/tabs_bg.gif);
+}
+
+.orange .tabs li a, .orange .tabs li span {
+	background-image: url(../../images/color_schemes/orange/common/tabs_bg.gif);
+}
+
+.orange .tabs li.current {
+	background-image: url(../../images/color_schemes/orange/common/tabs_bg.gif);
+}
+
+.orange .tabs li.current a, .orange .tabs li.current span {
+	background-image: url(../../images/color_schemes/orange/common/tabs_bg.gif);
+	color: #333;
+}
+
+/* This CSS sets the default styles for forms. */
+
+.orange fieldset {
+	border-color: #ccc;
+}
+
+.orange input[type="text"], .orange input[type="password"], .orange input[type="file"], .orange input[type="submit"], .orange input[type="button"], .orange input[type="reset"], .orange select, .orange textarea {
+	background-image: url(../../images/color_schemes/orange/forms/input_shadow.gif);
+	border-color: #aaa;
+	border-left-color: #777;
+	border-top-color: #777;
+}
+
+.orange input[type="image"] {
+	background: transparent none;
+	border: none;
+}
+
+.orange input[type="submit"], .orange input[type="button"], .orange input[type="reset"] {
+	background: #FAFAFA url(../../images/color_schemes/orange/forms/button.gif) repeat-x;
+	border-color: #999;
+	border-left-color: #ccc;
+	border-top-color: #ccc;
+	color: #333;
+}
+
+/* ---------- IE6 chokes on attribute selectors in a chain, so we separate them into their own rule ---------- */
+
+.ie6 .orange input.text, .ie6 .orange input.password, .ie6 .orange input.submit, .ie6 .orange input.file, .ie6 .orange input.button {
+	background-image: url(../../images/color_schemes/orange/forms/input_shadow.gif);
+	border-color: #aaa;
+	border-left-color: #777;
+	border-top-color: #777;
+}
+
+.ie6 .orange input.submit, .ie6 .orange input.button {
+	background: #FAFAFA url(../../images/color_schemes/orange/forms/button.gif) repeat-x;
+	border-color: #999;
+	border-left-color: #ccc;
+	border-top-color: #ccc;
+	color: #333;
+}
+

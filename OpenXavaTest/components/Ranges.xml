@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Ranges">
+
+	<entity>
+		<property name="oid" type="String" key="true" hidden="true">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator" on-create="true"/>
+		</property>
+		<property name="type">
+			<valid-values>				
+				<valid-value value="numbers"/>
+				<valid-value value="dates"/>
+				<valid-value value="all"/>
+			</valid-values>
+		</property>
+		 <property name="numberFrom" type="int"/>
+		 <property name="numberTo" type="int"/>
+		 <property name="dateFrom" type="java.util.Date"/>
+		 <property name="dateTo" type="java.util.Date"/>
+	</entity>
+
+	<view>
+		<property-view property="type">
+			<on-change class="org.openxava.test.actions.OnChangeRangesTypeAction"/>
+		</property-view>
+		<members>type; numberFrom, numberTo; dateFrom, dateTo</members>		
+	</view>
+	
+	<view name="Numbers">
+		<property-view property="type">
+			<on-change class="org.openxava.test.actions.OnChangeRangesTypeAction"/>
+		</property-view>
+		<members>type; numberFrom, numberTo</members>
+	</view>
+	
+	<view name="Dates">
+		<property-view property="type">
+			<on-change class="org.openxava.test.actions.OnChangeRangesTypeAction"/>
+		</property-view>	
+		<members>type; dateFrom, dateTo</members>
+	</view>	
+									
+	<entity-mapping table="XAVATEST@separator@RANGES">
+		<property-mapping
+			property="oid" column="OID"/>
+		<property-mapping
+			property="type" column="TYPE"/>
+		<property-mapping
+			property="numberFrom" column="NUMBERFROM"/>
+		<property-mapping
+			property="numberTo" column="NUMBERTO"/>
+		<property-mapping
+			property="dateFrom" column="DATEFROM"/>
+		<property-mapping
+			property="dateTo" column="DATETO"/>
+	</entity-mapping>	 
+					
+</component>

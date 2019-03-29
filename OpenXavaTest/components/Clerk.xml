@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Clerk">
+
+	<entity>
+		<property name="zoneNumber" key="true"
+			size="3" required="true" type="int"/>   						
+		<property name="officeNumber" key="true"
+			size="3" required="true" type="int"/>   									
+		<property name="number" key="true"
+			size="3" required="true" type="int"/>   												
+		<property name="name" type="String"
+			size="40" required="true"/>			
+		<!-- We test the two: java.sql.Time and TIME stereotype --> 	
+		<property name="arrivalTime" type="java.sql.Time" label="The arrival time"/> 
+		<property name="endingTime" stereotype="TIME"/> 
+		
+		<!-- For testing a String stored in a binary field in database --> 
+		<property name="comments" stereotype="MEMO"/>
+		
+		<property name="onVacation" type="Boolean"/>
+	</entity>
+	
+	<entity-mapping table="XAVATEST@separator@CLERK">
+		<property-mapping
+			property="zoneNumber" column="ZONE"/>
+		<property-mapping
+			property="officeNumber" column="OFFICE"/>
+		<property-mapping
+			property="number" column="NUMBER"/>
+		<property-mapping
+			property="name" column="NAME"/>		
+		<property-mapping
+			property="arrivalTime" column="ARRIVALTIME"/>
+		<property-mapping
+			property="endingTime" column="ENDINGTIME"/>			
+		<property-mapping
+			property="comments" column="COMMENTS" cmp-type="byte []">			
+			<converter class="org.openxava.converters.StringArrayBytesConverter"/>
+		</property-mapping>
+		<property-mapping
+			property="onVacation" column="ONVACATION"/>
+	</entity-mapping>
+	
+</component>

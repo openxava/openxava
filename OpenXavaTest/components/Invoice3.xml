@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Invoice3">
+		
+	<entity>  
+		
+		<property name="year" type="int" key="true"
+			size="4" required="true"> 			   
+			<default-value-calculator class="org.openxava.calculators.CurrentYearCalculator"/>
+		</property>	
+		<property name="number" type="int" key="true"
+			size="6" required="true"/>
+		<property name="date" type="java.util.Date" required="true">
+			<default-value-calculator class="org.openxava.calculators.CurrentDateCalculator"/>
+		</property>	
+		<property name="vatPercentage" type="java.math.BigDecimal"
+			size="2" scale="1" required="true"/>								
+		
+		<property name="comment" type="String" size="50"/>
+		
+		<property name="paid" type="boolean"/>
+						
+		<reference model="Customer" required="true"/>		
+		
+	</entity>	
+		
+	<tab name="Ascending">
+		<default-order>${number} asc</default-order>
+	</tab>		
+		
+	<entity-mapping table="XAVATEST@separator@INVOICE">
+		<property-mapping
+			property="year" column="YEAR"/>
+		<property-mapping
+			property="number" column="NUMBER"/>
+		<property-mapping			
+			property="date" column="DATE"/>			
+		<property-mapping
+			property="vatPercentage" column="VATPERCENTAGE"/>
+		<property-mapping
+			property="comment" column="COMMENT"/>						
+		<property-mapping
+			property="paid" column="PAID" cmp-type="String">
+			<converter class="org.openxava.converters.BooleanSNConverter"/>
+		</property-mapping>
+		<reference-mapping reference="customer">
+			<reference-mapping-detail 
+				column="CUSTOMER_NUMBER" 				
+				referenced-model-property="number"/> 
+		</reference-mapping>			
+	</entity-mapping>
+	
+</component>

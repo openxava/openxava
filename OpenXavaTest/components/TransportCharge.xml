@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!--
+	Example of reference used as key that
+	as well have a reference used as key
+-->
+
+<component name="TransportCharge">
+
+	<entity>  
+		<reference name="delivery" key="true"/>
+		<property name="amount" stereotype="MONEY" required="true"/>
+		<finder name="all" arguments="" collection="true"/>
+	</entity>
+	
+	<view>
+		<reference-view reference="delivery" view="MoreSections"/>
+	</view>
+	
+	<view name="WithDescriptionsListShowingReferenceView" >
+		<reference-view reference="delivery" view="Simple">
+			<descriptions-list description-properties="description, date" 
+				condition="${invoice.year} = 2004" 
+				show-reference-view="true"/>
+		</reference-view>	
+		<members>
+			delivery;
+			<section name="one">amount</section>
+			<section name="two"></section> 
+		</members>
+	</view>
+
+	<tab>
+		<properties>delivery.invoice.year, delivery.invoice.number, delivery.number, amount</properties>
+	</tab>
+	
+	<tab name="WithDistance">
+		<properties>delivery.invoice.year, delivery.invoice.number, delivery.number, delivery.distance, amount</properties>	
+	</tab>
+	
+	<entity-mapping table="XAVATEST@separator@TRANSPORTCHARGE">
+		<reference-mapping reference="delivery">
+			<reference-mapping-detail 
+				column="DELIVERY_INVOICE_YEAR" 
+				referenced-model-property="invoice.year"/> 
+			<reference-mapping-detail 
+				column="DELIVERY_INVOICE_NUMBER" 
+				referenced-model-property="invoice.number"/> 				
+			<reference-mapping-detail 
+				column="DELIVERY_TYPE" 
+				referenced-model-property="type.number"/> 				
+			<reference-mapping-detail 
+				column="DELIVERY_NUMBER" 
+				referenced-model-property="number"/> 				
+		</reference-mapping>
+		<property-mapping
+			property="amount" column="AMOUNT"/>
+	</entity-mapping>
+	
+</component>

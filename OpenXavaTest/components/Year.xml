@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!-- Not persistent, only used for create a dialog for entry active year -->
+
+<component name="Year">
+
+	<entity>
+		<property name="year" type="int" size="4" required="true"/>
+		
+		<collection name="months"> 			
+			<reference model="Month"/>			
+			<calculator class="org.openxava.test.calculators.MonthsCalculator"/>
+		</collection>		
+					  
+	</entity>	
+	
+	<transient/>	
+				
+</component>

@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+
+<project name="OpenXavaTest" default="all" basedir=".">
+
+	<property name="project" value="OpenXavaTest" />
+	<property name="package" value="test"/>
+	<property name="configuration" value="tomcat-hypersonic" />
+	<!-- property name="configuration" value="jboss-hypersonic" /-->
+	<!-- property name="configuration" value="websphere-as400" /-->
+	<!-- property name="configuration" value="websphere-as400" /-->
+	<!-- property name="configuration" value="jboss-as400" /-->	
+	<!-- property name="configuration" value="tomcat-as400" /-->
+	<property file="../openxava.properties"/>
+	<property file="${configuration}.properties"/>
+	<property name="datasource" value="OpenXavaTestDS"/>
+	
+	<!-- portlet.encoding is by default it's UTF-8, but UTF-8 fails 
+		generating portlet.xml with Á(A with acute) and Í(I with acute) 
+		in some windows system
+	-->	  	
+	<!--
+	<property name="portlet.encoding" value="ISO-8859-1"/>
+	-->
+	 
+	<property name="portlet.encoding" value="UTF-8"/>
+	
+		
+		
+	<target name="regenerateGenerator">
+		<ant antfile="../OpenXava/build.xml" target="regenerateGenerator"/>
+	</target >
+		
+	<target name="rebuild">
+		<ant antfile="../OpenXava/build.xml" target="prepareWar"/>
+	</target>		
+
+
+	<target name="generateEJB">
+		<!-- In this way for not generating POJO/Hibernate code -->
+    	<delete file="gen-src-xava/dnas-ejb.properties"/>
+		<antcall target="generateEJB"/>
+		<ant antfile="../OpenXava/build.xml" target="filterXavaFiles"/>		
+		<ant antfile="../OpenXava/build.xml" target="generateXDoclet"/>
+		<ant antfile="../OpenXava/build.xml" target="runXDoclet"/>
+	</target>
+	
+	<target name="generateHibernate">	
+		<ant antfile="../OpenXava/build.xml" target="generateHibernate"/>		
+	</target>
+	
+	<!-- If you have not the Groovy Plugin installed you must call this target -->
+	<target name="compileGroovy">
+		<ant antfile="../OpenXava/build.xml" target="compileGroovy">
+			<property name="compile.src.path" value="../${project}/src; ../${project}/pojo-src;"/>
+		</ant>
+	</target>
+	
+	<target name="regenerateHibernate">	
+		<ant antfile="../OpenXava/build.xml" target="regenerateHibernate"/>		
+	</target>
+		
+	<target name="regenerateEJB">
+		<ant antfile="../OpenXava/build.xml" target="regenerateEJB"/>		
+	</target>		
+		       
+	<target name="createEJBJars">
+        <ant antfile="../OpenXava/build.xml" target="createEJBJar"/>     
+	</target>
+	
+	<target name="deployEJB" depends ="createEJBJars">		
+		<ant antfile="../OpenXava/build.xml" target="deployEJB"/>
+	</target>
+					
+	<target name="deployWar">
+		<ant antfile="../OpenXava/build.xml" target="deployWar"/>
+	</target>
+			
+	<target name="deploy">
+		<ant antfile="../OpenXava/build.xml" target="deploy"/>
+	</target>
+		
+	<target name="regenerateWebsphereMapping">
+		<ant antfile="../OpenXava/build.xml" target="regenerateWebsphereMapping"/>
+	</target>
+	
+	<target name="createWebSphere8War">
+		<ant antfile="../OpenXava/build.xml" target="createWebSphere8War"/>     		
+	</target>
+	
+	<target name="generateWebSpherePortal8Portlets">
+		<ant antfile="../OpenXava/build.xml" target="generateWebSpherePortal8Portlets"/>     		
+	</target>	
+	
+	<target name="createWebsphereEar">
+		<ant antfile="../OpenXava/build.xml" target="generateWebsphereMapping"/>     		
+		<antcall target="createEJBJars"/>
+		<ant antfile="../OpenXava/build.xml" target="createWebsphereEar"/>
+	</target>
+
+	<target name="regeneratePortletGenerator"> 
+		<ant antfile="../OpenXava/build.xml" target="regeneratePortletGenerator"/>
+	</target>
+		
+	<target name="deployPortlets">
+		<ant antfile="../OpenXava/build.xml" target="deployPortlets"/>
+	</target>
+	
+	<target name="generatePortlets">
+		<ant antfile="../OpenXava/build.xml" target="generatePortlets"/>
+	</target>			
+
+	<target name="redeployPortlets">
+		<ant antfile="../OpenXava/build.xml" target="redeployPortlets"/>
+	</target>
+
+	<target name="all">
+		<ant antfile="../OpenXava/build.xml" target="generateHibernate"/>
+		<ant antfile="../OpenXava/build.xml" target="compile"/>
+		<ant antfile="../OpenXava/build.xml" target="deployWar"/>
+	</target>
+	
+	<!-- Updates schema against current database -->
+	<target name="updateSchema">
+		
+
+		<echo>updateSchema disabled for OpenXavaTest</echo>
+		
+		<!--
+		Disabled for OpenXavaTest because of testing cases when 0 is use 
+		for "no-value" without FK, or so on. As in many legate databases 
+		designed by COBOL/RPG programmers. We don't want updateSchema
+		creates these FKs.
+
+		<ant antfile="../OpenXava/build.xml" target="updateSchemaJPA">			
+			<property name="persistence.unit" value="junit"/>
+			<property name="schema.path" value="../OpenXava/lib/hsqldb.jar"/>
+		</ant>
+		-->
+				
+	</target>
+	
+	<!-- Generates the schema from scratch. Shows it in console, but does not execute it -->
+	<target name="generateSchema">
+		
+		<ant antfile="../OpenXava/build.xml" target="generateSchemaJPA">
+			<property name="persistence.unit" value="junit"/>
+			<property name="schema.path" value="../OpenXava/lib/hsqldb.jar"/> 
+		</ant>
+				
+	</target>	
+	
+	<target name="updateOX">
+		<ant antfile="../OpenXava/build.xml" target="updateOX"/>
+	</target>		
+	
+	<target name="runTests">
+		<junit fork="true"  printsummary="true">
+			<jvmarg value="-Xmx1024m -Duser.country=es -Duser.language=ES"/>
+			<formatter type="plain" usefile="false" />
+			<classpath>
+				<pathelement location="../OpenXava/lib/junit.jar"/>
+				<pathelement path="../OpenXava/bin"/>
+				<pathelement path="web/WEB-INF/classes"/>				
+				<fileset dir="../OpenXava/lib"> 
+					<include name="**/*.jar"/> 
+				</fileset>				
+				<fileset dir="web/WEB-INF/lib"> 
+					<include name="**/*.jar"/> 
+				</fileset>
+				<fileset dir="lib"> 
+					<include name="**/*.jar"/> 
+				</fileset> 				
+				<pathelement path="${j2ee.lib}"/> 				
+			</classpath>
+			 
+			<!--
+			<test name="org.openxava.test.tests.CarrierTest"/>
+			-->
+			
+			<batchtest>
+			    <fileset dir="web/WEB-INF/classes">
+			      <include name="**/*Test.class"/>
+			    </fileset>
+			</batchtest>			
+		</junit>
+	</target>			
+	
+</project>

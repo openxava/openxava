@@ -1,0 +1,431 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!ELEMENT componente (entidad, agregado*, vista*, tab*, ((mapeo-entidad, mapeo-agregado*)|transitorio)?)>
+<!ATTLIST componente
+ nombre ID #REQUIRED
+>
+
+<!ELEMENT entidad (bean?, implementa*, (propiedad|referencia|coleccion)*, (metodo|buscador|calculador-poscrear|calculador-poscargar|calculador-posmodificar|calculador-preborrar|validador|validador-borrar)*)>
+<!ATTLIST entidad
+ etiqueta CDATA #IMPLIED
+>
+
+<!ELEMENT buscador (condicion?, orden?)>
+<!ATTLIST buscador
+	nombre CDATA #REQUIRED
+	argumentos CDATA #REQUIRED
+	coleccion (true|false) "false" 
+>
+
+<!ELEMENT agregado   (bean?, implementa*, (propiedad|referencia|coleccion)*, (metodo|buscador|calculador-poscrear|calculador-poscargar|calculador-posmodificar|calculador-preborrar|validador|validador-borrar)*)>
+<!ATTLIST agregado
+ nombre ID #REQUIRED
+ etiqueta CDATA #IMPLIED
+>
+
+<!ELEMENT implementa EMPTY>
+<!ATTLIST implementa
+ interfaz CDATA #REQUIRED
+>
+
+
+<!ELEMENT vista (mediador?, propiedad*, (vista-referencia|vista-propiedad|vista-coleccion)*, miembros?)>
+<!ATTLIST vista
+  nombre CDATA #IMPLIED
+  etiqueta CDATA #IMPLIED
+  modelo CDATA #IMPLIED
+  miembros CDATA "*"
+  hereda-de CDATA #IMPLIED  
+>
+
+<!ELEMENT mediador EMPTY>
+<!ATTLIST mediador
+ clase ID #REQUIRED
+>
+
+<!ELEMENT miembros (#PCDATA|grupo|seccion|accion)*>
+<!ATTLIST miembros 
+	alineado-por-columnas (true|false) "false"
+>	
+
+<!ELEMENT seccion (#PCDATA|seccion|grupo|accion)*>
+<!ATTLIST seccion
+  nombre CDATA #IMPLIED
+  etiqueta CDATA #IMPLIED
+  alineado-por-columnas (true|false) "false"
+>
+
+<!ELEMENT grupo (#PCDATA|grupo|accion)*>
+<!ATTLIST grupo
+  nombre CDATA #IMPLIED
+  etiqueta CDATA #IMPLIED
+  alineado-por-columnas (true|false) "false"
+>
+
+<!ELEMENT vista-referencia (((condicion-lista-busqueda?,busqueda-al-cambiar?,accion-buscar?)|lista-descripciones?), accion*)>
+<!ATTLIST vista-referencia
+  referencia CDATA #REQUIRED
+  vista CDATA #IMPLIED
+  solo-lectura (true|false) "false"
+  marco (true|false) "true"
+  plegada (true|false) "false"
+  crear (true|false) "true"
+  modificar (true|false) "true"  
+  buscar (true|false) "true"
+  como-agregado (true|false) "false"
+  editor CDATA #IMPLIED    
+>
+
+<!ELEMENT lista-descripciones EMPTY>
+<!ATTLIST lista-descripciones
+  propiedad-descripcion CDATA #IMPLIED
+  propiedades-descripcion CDATA #IMPLIED
+  depende-de CDATA #IMPLIED
+  condicion CDATA #IMPLIED
+  ordenado-por-clave (true|false) "false"    
+  orden CDATA #IMPLIED
+  formato-etiqueta (NORMAL|PEQUENA|SIN_ETIQUETA) "NORMAL"
+  mostrar-vista-referencia (true|false) "false"
+  para-tabs CDATA #IMPLIED
+  no-para-tabs CDATA #IMPLIED
+  estilo-etiqueta CDATA #IMPLIED
+>
+
+<!ELEMENT vista-propiedad (al-cambiar?, accion*)>
+<!ATTLIST vista-propiedad
+  propiedad CDATA #REQUIRED
+  etiqueta CDATA #IMPLIED
+  solo-lectura (true|false) "false"
+  formato-etiqueta (NORMAL|PEQUENA|SIN_ETIQUETA) "NORMAL"
+  editor CDATA #IMPLIED
+  longitud-visual CDATA #IMPLIED
+  estilo-etiqueta CDATA #IMPLIED
+>
+
+<!ELEMENT al-cambiar EMPTY>
+<!ATTLIST al-cambiar
+  clase CDATA #REQUIRED
+>
+
+<!ELEMENT busqueda-al-cambiar EMPTY>
+<!ATTLIST busqueda-al-cambiar
+  clase CDATA #REQUIRED
+>
+
+<!ELEMENT vista-coleccion (mediador?, propiedades-lista?, condicion-lista-busqueda?, estilo-fila*, accion-editar?, accion-ver?, accion-nuevo?, accion-anadir?, accion-grabar?, accion-ocultar-detalle?, accion-quitar?, accion-quitar-seleccionados?, accion-lista*, accion-fila*, accion-detalle*, accion-al-seleccionar-elemento?)>
+<!ATTLIST vista-coleccion
+  coleccion CDATA #REQUIRED
+  vista CDATA #IMPLIED
+  solo-lectura (true|false) "false"
+  solo-edicion (true|false) "false"
+  plegada (true|false) "false"
+  crear-referencia (true|false) "true"  
+  modificar-referencia (true|false) "true"  
+  como-agregado (true|false) "true"
+  editor CDATA #IMPLIED    
+>
+
+<!ELEMENT accion-buscar (poner*)>
+<!ATTLIST accion-buscar
+  clase CDATA #IMPLIED
+  accion CDATA #IMPLIED
+>
+
+<!ELEMENT propiedades-lista (#PCDATA)>
+
+<!ELEMENT accion-editar EMPTY>
+<!ATTLIST accion-editar
+  accion CDATA #IMPLIED
+>
+
+<!ELEMENT accion-ver EMPTY>
+<!ATTLIST accion-ver
+  accion CDATA #IMPLIED
+>
+
+<!ELEMENT accion-nuevo EMPTY>
+<!ATTLIST accion-nuevo
+  accion CDATA #IMPLIED
+>
+
+<!ELEMENT accion-anadir EMPTY>
+<!ATTLIST accion-anadir
+  accion CDATA #IMPLIED
+>
+
+<!ELEMENT accion-grabar EMPTY>
+<!ATTLIST accion-grabar
+  accion CDATA #IMPLIED
+>
+
+<!ELEMENT accion-ocultar-detalle EMPTY>
+<!ATTLIST accion-ocultar-detalle
+  accion CDATA #IMPLIED
+>
+
+<!ELEMENT accion-quitar EMPTY>
+<!ATTLIST accion-quitar
+  accion CDATA #IMPLIED
+>
+
+<!ELEMENT accion-quitar-seleccionados EMPTY>
+<!ATTLIST accion-quitar-seleccionados
+  accion CDATA #IMPLIED
+>
+
+<!ELEMENT accion-detalle EMPTY>
+<!ATTLIST accion-detalle
+  accion CDATA #IMPLIED
+>
+
+<!ELEMENT accion-al-seleccionar-elemento EMPTY>
+<!ATTLIST accion-al-seleccionar-elemento
+  accion CDATA #IMPLIED
+>
+
+<!ELEMENT accion-lista EMPTY>
+<!ATTLIST accion-lista
+  accion CDATA #IMPLIED
+>
+
+<!ELEMENT accion-fila EMPTY>
+<!ATTLIST accion-fila
+  accion CDATA #IMPLIED
+>
+
+<!ELEMENT accion EMPTY>
+<!ATTLIST accion
+  accion CDATA #IMPLIED
+  siempre-activa (true|false) "false"
+>
+
+
+<!ELEMENT bean EMPTY>
+<!ATTLIST bean
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT propiedad (valores-posibles?,(calculador|calculador-valor-defecto|calculo)?,validador*)>
+<!ATTLIST propiedad
+ nombre CDATA #REQUIRED
+ etiqueta CDATA #IMPLIED
+ estereotipo CDATA #IMPLIED
+ tipo CDATA #IMPLIED
+ longitud CDATA #IMPLIED
+ escala CDATA #IMPLIED
+ requerido (true|false) "false" 
+ clave (true|false) "false"
+ oculta (true|false) "false"
+ version (true|false) "false"
+ clave-busqueda (true|false) "false"
+>
+
+<!ELEMENT referencia (calculador-valor-defecto?)>
+<!ATTLIST referencia
+ nombre CDATA #IMPLIED
+ etiqueta CDATA #IMPLIED
+ modelo CDATA #IMPLIED
+ requerido (true|false) "false"  
+ clave (true|false) "false"
+ cometido-destino CDATA #IMPLIED
+ clave-busqueda (true|false) "false" 
+>
+
+<!ELEMENT coleccion (referencia, ((condicion?, orden?) | calculador), calculador-posborrar*)>
+<!ATTLIST coleccion
+ nombre CDATA #REQUIRED
+ etiqueta CDATA #IMPLIED
+ minimo CDATA #IMPLIED 
+ maximo CDATA #IMPLIED 
+>
+
+<!ELEMENT metodo (calculador)>
+<!ATTLIST metodo
+ nombre CDATA #REQUIRED
+ tipo CDATA "void"
+ argumentos CDATA #IMPLIED
+ excepciones CDATA #IMPLIED 
+>
+
+<!ELEMENT validador (poner*)>
+<!ATTLIST validador
+ clase CDATA #IMPLIED
+ nombre CDATA #IMPLIED
+ solo-al-crear (true|false) "false" 
+>
+
+<!ELEMENT validador-borrar (poner*)>
+<!ATTLIST validador-borrar
+ clase CDATA #IMPLIED
+ nombre CDATA #IMPLIED
+>
+
+<!ELEMENT calculador (poner*)>
+<!ATTLIST calculador
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT calculador-valor-defecto (poner*)>
+<!ATTLIST calculador-valor-defecto
+ clase CDATA #REQUIRED
+ al-crear (true|false) "false"
+>
+
+<!ELEMENT calculo
+   (#PCDATA)
+>
+
+<!ELEMENT calculador-poscrear (poner*)>
+<!ATTLIST calculador-poscrear
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT calculador-poscargar (poner*)>
+<!ATTLIST calculador-poscargar
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT calculador-posmodificar (poner*)>
+<!ATTLIST calculador-posmodificar
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT calculador-preborrar (poner*)>
+<!ATTLIST calculador-preborrar
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT calculador-posborrar (poner*)>
+<!ATTLIST calculador-posborrar
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT poner EMPTY>
+<!ATTLIST poner
+ propiedad CDATA #REQUIRED
+ desde CDATA #IMPLIED
+ valor CDATA #IMPLIED 
+>
+
+<!ELEMENT valores-posibles (valor-posible*)>
+<!ELEMENT valor-posible EMPTY>
+<!ATTLIST valor-posible
+ valor CDATA #REQUIRED
+>
+
+<!ELEMENT tab
+   (filtro?, estilo-fila*, propiedad*, propiedades?, condicion-base?, orden-defecto?, consulta*)
+>
+<!ATTLIST tab
+ nombre CDATA #IMPLIED
+ editor CDATA #IMPLIED
+ editores CDATA #IMPLIED
+ excluir-por-clave CDATA #IMPLIED
+ excluir-todos CDATA #IMPLIED
+>
+
+<!ELEMENT estilo-fila EMPTY>
+<!ATTLIST estilo-fila
+ estilo CDATA #REQUIRED
+ propiedad CDATA #REQUIRED
+ valor CDATA #REQUIRED
+>
+
+<!ELEMENT condicion-lista-busqueda
+   (#PCDATA)
+>
+
+<!ELEMENT condicion
+   (#PCDATA)
+>
+<!ELEMENT orden
+   (#PCDATA)
+>
+
+<!ELEMENT consulta
+   (filtro?, parametro*,condicion?)
+>
+<!ATTLIST consulta
+ nombre CDATA #IMPLIED
+ etiqueta CDATA #IMPLIED
+>
+
+<!ELEMENT parametro (filtro?)>
+<!ATTLIST parametro
+ propiedad CDATA #REQUIRED
+ etiqueta CDATA #IMPLIED
+ id-etiqueta CDATA #IMPLIED
+ like (true|false) "false"  
+ rango (true|false) "false"  
+>
+
+<!ELEMENT filtro (poner*)>
+<!ATTLIST filtro
+ clase CDATA #REQUIRED
+>
+
+
+<!ELEMENT propiedades
+   (#PCDATA)
+>
+
+<!ELEMENT condicion-base
+   (#PCDATA)
+>
+  
+<!ELEMENT orden-defecto
+   (#PCDATA)
+>
+
+<!ELEMENT mapeo-entidad (mapeo-propiedad|mapeo-referencia|mapeo-propiedad-multiple)+>
+<!ATTLIST mapeo-entidad
+ tabla CDATA #REQUIRED
+>
+
+<!ELEMENT mapeo-agregado (mapeo-propiedad|mapeo-referencia|mapeo-propiedad-multiple)+>
+<!ATTLIST mapeo-agregado
+ agregado CDATA #REQUIRED
+ tabla CDATA #REQUIRED
+>
+
+<!ELEMENT mapeo-propiedad (conversor?)>
+<!ATTLIST mapeo-propiedad
+ propiedad-modelo CDATA #REQUIRED
+ columna-tabla CDATA #IMPLIED
+ formula CDATA #IMPLIED
+ tipo-cmp CDATA #IMPLIED 
+>
+
+<!ELEMENT mapeo-propiedad-multiple (conversor, campo-cmp+)>
+<!ATTLIST mapeo-propiedad-multiple
+ propiedad-modelo CDATA #REQUIRED
+>
+
+<!ELEMENT conversor (poner*)>
+<!ATTLIST conversor
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT campo-cmp EMPTY>
+<!ATTLIST campo-cmp
+ propiedad-conversor CDATA #REQUIRED
+ columna-tabla CDATA #REQUIRED
+ tipo-cmp CDATA #REQUIRED
+>
+
+<!ELEMENT mapeo-referencia
+	(detalle-mapeo-referencia+)
+>
+<!ATTLIST mapeo-referencia
+ referencia-modelo CDATA #REQUIRED
+>
+
+
+<!ELEMENT detalle-mapeo-referencia (conversor?)>
+<!ATTLIST detalle-mapeo-referencia
+ columna-tabla CDATA #REQUIRED
+ propiedad-modelo-referenciado CDATA #REQUIRED 
+ tipo-cmp CDATA #IMPLIED  
+>
+
+<!ELEMENT transitorio EMPTY>

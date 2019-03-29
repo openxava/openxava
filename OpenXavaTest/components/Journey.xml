@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Journey">
+
+	<entity>
+	
+		<property name="oid" key="true" hidden="true" type="String">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator" on-create="true"/> 
+		</property>
+		
+		<property name="name" type="String" size="20"/>
+		<reference name="averageSpeed"/>				
+		<property name="description" type="String" size="40"/>
+			
+	</entity>
+	
+	<entity-mapping table="XAVATEST@separator@JOURNEY">
+		<property-mapping property="oid" column="OID"/>
+		<property-mapping property="name" column="NAME"/>
+		<reference-mapping reference="averageSpeed">
+			<reference-mapping-detail 
+				column="AVERAGESPEED_OID" 
+				referenced-model-property="oid"/>
+		</reference-mapping>
+		<property-mapping property="description" column="DESCRIPTION"/>
+	</entity-mapping>
+	 				
+</component>

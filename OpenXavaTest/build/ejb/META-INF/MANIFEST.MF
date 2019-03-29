@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Created-By: Javier Paniza
+Class-Path: ./lib/server-properties.jar ./lib/openxava.jar ./lib/tracking.jar ./lib/ehcache.jar ./lib/antlr.jar ./lib/asm.jar ./lib/cglib.jar ./lib/hibernate3.jar ./lib/dom4j.jar ./lib/commons-validator.jar ./lib/jakarta-oro.jar ./lib/antlr.jar asm.jar ./lib/hibernate-annotations.jar ./lib/cglib.jar ./lib/hibernate-commons-annotations.jar ./lib/commons-beanutils.jar ./lib/hibernate-entitymanager.jar ./lib/commons-collections.jar ./lib/hibernate-validator.jar ./lib/commons-digester.jar ./lib/commons-io.jar ./lib/commons-io.jar ./lib/jboss-archive-browsing.jar ./lib/ehcache.jar poi.jar ./lib/ejb3-persistence.jar ./lib/slf4j-api.jar ./lib/slf4j-jdk14.jar ./lib/javassist.jar

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!-- 
+Just to have a reference 'group' from Customer, so match the POJO version,
+but we don't test CustomerGruop module in XML.
+ -->
+
+<component name="CustomerGroup">
+
+	<entity>
+		<property name="id" type="String" key="true" hidden="true">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator" on-create="true"/>
+		</property>
+		<property name="name" type="String"
+			size="50" required="true"/>
+		<!-- No collections, it's just to have the reference from Customer -->				  			
+	</entity>
+						
+</component>

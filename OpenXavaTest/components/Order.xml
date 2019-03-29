@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Order">
+
+	<entity>
+		<property name="id" type="String" key="true" hidden="true">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator" on-create="true"/>
+		</property>
+		
+		<property name="year" type="int" size="4" search-key="true">
+			<default-value-calculator class="org.openxava.calculators.CurrentYearCalculator"/>
+		</property>
+		
+		<property name="number" type="int" size="6" search-key="true"/>
+		
+		<property name="date" type="java.util.Date" required="true">
+			<default-value-calculator class="org.openxava.calculators.CurrentDateCalculator"/>
+		</property>
+		
+		<reference name="customer" required="true"/>
+		
+		<collection name="details">
+			<reference model="OrderDetail"/>
+		</collection>
+		
+		<property name="remarks" stereotype="MEMO"/>
+		
+		<property name="amount" stereotype="MONEY">
+			<calculator class="org.openxava.test.calculators.OrderAmountCalculator"/>
+		</property>
+		
+		<postcreate-calculator class="org.openxava.test.calculators.OrderNumberCalculator"/>		
+
+	</entity>
+	
+	<aggregate name="OrderDetail">
+		<property name="id" type="String" key="true" hidden="true">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator" on-create="true"/>
+		</property>
+		
+		<property name="quantity" type="int"/>
+		
+		<reference name="product" model="Product2" required="true"/>
+		
+		<property name="amount" stereotype="MONEY">
+			<calculator class="org.openxava.test.calculators.OrderDetailAmountCalculator">
+				<set property="productNumber" from="product.number"/>
+				<set property="quantity"/>
+			</calculator>
+		</property>	
+	</aggregate>
+	
+	<view>
+		<property-view property="number" read-only="true"/>
+		<reference-view reference="customer" view="Simplest"/>
+		<collection-view collection="details">
+			<list-properties>product.number, product.description, quantity, product.unitPrice, amount</list-properties>
+			<row-action action="OrderDetail.reduceQuantity"/>
+		</collection-view>
+		<members>
+			year, number, date;
+			customer;
+			details;
+			amount;
+			remarks
+		</members>
+	</view>
+	
+	<view model="OrderDetail">
+		<members>product; quantity, amount</members>
+		<reference-view reference="product" view="SimpleWithFamily"/>
+	</view>
+	
+	<entity-mapping table="XAVATEST@separator@TOrder">
+		<property-mapping property="id"/>
+		<property-mapping property="year"/>
+		<property-mapping property="number"/>
+		<property-mapping property="date"/>
+		<reference-mapping reference="customer">
+			<reference-mapping-detail
+				referenced-model-property="number" 
+				column="CUSTOMER_NUMBER"/>
+		</reference-mapping>		
+		<property-mapping property="remarks"/>		
+	</entity-mapping>
+	
+	 <aggregate-mapping aggregate="OrderDetail" table="XAVATEST@separator@OrderDetail">
+		<reference-mapping reference="order">
+			<reference-mapping-detail
+				referenced-model-property="id" 
+				column="PARENT_ID"/>
+		</reference-mapping>			 
+		<property-mapping property="id"/>
+		<property-mapping property="quantity"/>
+		<reference-mapping reference="product">
+			<reference-mapping-detail
+				referenced-model-property="number" 
+				column="PRODUCT_NUMBER"/>
+		</reference-mapping>		
+	</aggregate-mapping> 
+	
+</component>

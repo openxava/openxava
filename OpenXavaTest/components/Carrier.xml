@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Carrier">
+
+	<entity>
+		<property name="number" type="int" key="true" 
+			size="5" required="true"/>
+		<property name="name" stereotype="NO_FORMATING_STRING"
+			size="40" required="true"/>			  
+		<reference name="drivingLicence"/>
+		<reference name="warehouse"
+			model="Warehouse" required="true"/>
+		<property name="remarks" stereotype="MEMO">
+			<default-value-calculator class="org.openxava.test.calculators.CarrierRemarksCalculator">
+				<set property="drivingLicenceType" from="drivingLicence.type"/>
+			</default-value-calculator>
+		</property>
+		<property name="calculated" type="String"
+			size="10">			  			
+			<calculator class="org.openxava.calculators.StringCalculator">
+				<set property="string" value="TR"/>
+			</calculator>
+		</property>
+														
+		<!-- Others carriers of same warehouse -->	
+		<collection name="fellowCarriers"> 			
+			<reference model="Carrier" />			
+			<condition>
+				${warehouse.zoneNumber} = ${this.warehouse.zoneNumber} AND 
+				${warehouse.number} = ${this.warehouse.number} AND 
+				NOT (${number} = ${this.number})
+			</condition>
+			<order>${number}</order>
+		</collection>
+		
+		<!-- The same that 'fellowCarriers' but implemented with a calculator -->
+		<collection name="fellowCarriersCalculated"> 			
+			<reference model="Carrier"/>			
+			<calculator class="org.openxava.test.calculators.FellowCarriersCalculator"/>
+		</collection>		
+											
+		<method name="translate">		
+			<calculator class="org.openxava.test.calculators.TranslateCarrierNameCalculator"/>
+		</method>						
+		
+		<method name="translateToEnglish">		
+			<calculator class="org.openxava.test.calculators.TranslateCarrierNameCalculator">
+				<set property="targetLanguage" value="EN"/>
+			</calculator>
+		</method>						
+		
+		<method name="translateToSpanish">		
+			<calculator class="org.openxava.test.calculators.TranslateCarrierNameCalculator">
+				<set property="targetLanguage" value="ES"/>
+			</calculator>
+		</method>						
+								
+		<finder name="all" arguments="" collection="true"/>
+						
+	</entity>
+	
+	<view>		
+		<property-view property="calculated">
+			<action action="Carrier.translateName"/>		
+		</property-view>		
+		<reference-view reference="drivingLicence">
+			<descriptions-list/>
+		</reference-view>
+		
+		<reference-view reference="warehouse" view="KeyInGroup">
+			<action action="WarehouseReference.createNewNoDialog"/>
+		</reference-view>
+		
+		<collection-view collection="fellowCarriers" view="Simple" edit-only="true">
+			<list-properties>number, name, remarks, calculated</list-properties>
+			<list-action action="Carrier.translateName"/>
+			<list-action action="Carrier.allToEnglish"/> 
+		</collection-view>		
+		
+		<collection-view collection="fellowCarriersCalculated" view="Simple">		
+			<list-action action="Carrier.translateName"/>
+		</collection-view>
+		
+	</view>
+	
+	<view name="Simple">
+		<members>number, name</members>
+	</view>
+	
+	<view name="CalculatedFellows" extends="Simple">
+ 	 	<property name="fellowCarriersCalculatedSize" type="Integer" />
+ 	 	
+		<collection-view collection="fellowCarriersCalculated">
+			<remove-selected-action action=""/>
+			<on-select-element-action action="Carrier.onSelectFellowCarriersCalculated"/>
+		</collection-view>
+		
+		<members>			
+			; fellowCarriersCalculatedSize; fellowCarriersCalculated			
+		</members>		
+		
+	</view>
+	
+	<view name="ReadOnlyCalculatedFellows">
+ 	 	 	  
+		<collection-view collection="fellowCarriersCalculated" 
+			read-only="true" view="Simple"/>
+					 
+		<members>
+			number, name;
+			fellowCarriersCalculated			
+		</members>
+		
+	</view>	
+	
+	<view name="WithSections">
+		 <property name="fellowCarriersSelected" type="String" />
+		 
+		 <members>
+		 	number, name;
+		 	fellowCarriersSelected;
+		 	<section name="data">
+		 		drivingLicence;
+		 		warehouse
+		 	</section>
+		 	<section name="fellowCarriers">
+		 		fellowCarriersCalculated
+		 	</section>
+		 </members>
+		
+	</view>
+	
+	<view name="FellowsNames" members="number, name; fellowCarriers">
+		 <collection-view collection="fellowCarriers" editor="CarriersNames"/>		 
+	</view>
+	
+	<view name="Fellows">
+		
+		<reference-view reference="warehouse" view="KeyInGroup">
+			<action action="WarehouseReference.createNewNoDialog"/>
+		</reference-view>
+	
+		<collection-view collection="fellowCarriers" view="Simple" edit-only="true">
+			<list-action action="Carrier.translateName"/>
+			<list-action action="Carrier.allToEnglish"/> 
+		</collection-view>		
+			
+		 <members>number, name; warehouse; fellowCarriers</members>		 
+	</view>	
+	
+	<view name="CollectionsTogether">
+	
+		<property name="oldSync" type="boolean"/>
+	
+		<reference-view reference="warehouse">
+			<descriptions-list description-property="name"/>
+		</reference-view>
+		
+		<collection-view collection="fellowCarriersCalculated">
+			<on-select-element-action action="Carrier.syncCarriersSelection"/>
+		</collection-view>
+		
+		<members>
+			warehouse, oldSync; 
+			fellowCarriers, fellowCarriersCalculated;
+		</members>
+	</view>
+	
+	<tab>
+		<properties>calculated, number, name</properties>
+	</tab>
+				
+	<entity-mapping table="XAVATEST@separator@CARRIER">
+		<property-mapping
+			property="number" column="NUMBER"  cmp-type="Integer">
+			<converter class="org.openxava.converters.IntegerNumberConverter"/>			
+		</property-mapping>
+		<property-mapping
+			property="name" column="NAME"/>
+		<reference-mapping reference="drivingLicence">
+			<!-- Not in the same order that in DrivingLicence, to test that OpenXava order them -->
+			<reference-mapping-detail 
+				column="DRIVINGLICENCE_LEVEL" 
+				referenced-model-property="level"/> 																
+			<reference-mapping-detail 
+				column="DRIVINGLICENCE_TYPE" 
+				referenced-model-property="type">
+				<converter class="org.openxava.converters.NotNullStringConverter"/>
+			</reference-mapping-detail>	
+		</reference-mapping>				
+		<reference-mapping reference="warehouse">
+			<reference-mapping-detail 
+				column="WAREHOUSE_ZONE" 
+				referenced-model-property="zoneNumber"/> 
+			<reference-mapping-detail 
+				column="WAREHOUSE_NUMBER" 
+				referenced-model-property="number"/> 				
+		</reference-mapping>	
+		<property-mapping property="remarks" column="REMARKS"/>
+	</entity-mapping> 
+				
+</component>

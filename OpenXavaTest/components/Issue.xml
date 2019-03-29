@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!-- 
+This component is mapping to an unqualified table,
+ISSUE, without schema, this is for testing the
+default schema behaviour
+ -->
+
+<component name="Issue">
+
+	<entity>
+		<property name="id" type="String" key="true" 
+			size="5" required="true"/>
+		<property name="description" type="String" 
+			size="40" required="true"/>		
+		<reference name="worker"/>	
+		<collection name="comments">
+			<reference model="Comment"/>
+		</collection>		  	
+		<collection name="commentsWithCondition">
+			<reference model="Comment"/>
+			<condition>${issue.id} = ${this.id}</condition>
+		</collection>
+	</entity>
+	
+	<aggregate name="Comment">
+		<property name="id" type="Integer" key="true" hidden="true"/>
+		<property name="date" type="java.util.Date" required="true">
+			<default-value-calculator class="org.openxava.calculators.CurrentDateCalculator"/>
+		</property>
+		<property name="comment" stereotype="MEMO"/>
+	</aggregate>
+	
+	<view name="IssueWeb">
+		<property-view property="description" editor="UserAttribute"/>
+		<members>id, description</members>
+	</view>
+	
+	<tab>
+		<properties>id, description</properties>
+		<default-order>${description}</default-order>
+	</tab>
+	
+	<entity-mapping table="ISSUE">
+		<property-mapping
+			property="id" column="ID"/>
+		<property-mapping
+			property="description" column="DESCRIPTION"/>
+		<reference-mapping reference="worker">
+			<reference-mapping-detail referenced-model-property="id" column="WORKER_ID"/>
+		</reference-mapping>
+	</entity-mapping>
+	
+	<aggregate-mapping aggregate="Comment" table="COMMENT">
+		<reference-mapping reference="issue">
+			<reference-mapping-detail column="ISSUE_ID" referenced-model-property="id"/>
+		</reference-mapping>
+		<property-mapping property="id" column="ID"/>
+		<property-mapping property="date" column="DATE"/>
+		<property-mapping property="comment" column="COMMENT"/>
+	</aggregate-mapping> 
+				
+</component>

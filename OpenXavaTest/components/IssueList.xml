@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="IssueList">
+
+	<entity>
+		<reference name="issue"/>
+	</entity>
+	
+	<view>
+		<reference-view reference="issue" >
+			<descriptions-list/>
+		</reference-view>
+	</view>
+	
+	<transient/> 
+				
+</component>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Course">
+
+	<entity>
+		<property name="year" type="int" size="4" key="true"/>
+		<property name="number" type="int" key="true" size="5" hidden="true">
+			<default-value-calculator on-create="true"
+				class="org.openxava.test.calculators.CourseNumberCalculator"/>
+		</property>
+		<property name="description" type="String" required="true"/>
+		<!-- dtype is to be compatible at db level with de JPA version -->
+		<property name="dtype" type="String" hidden="true">
+			<default-value-calculator on-create="true"
+				class="org.openxava.calculators.StringCalculator">
+				<set property="string" value="Course"/>
+		</default-value-calculator>
+		</property>
+	</entity>
+	
+	<entity-mapping table="XAVATEST@separator@COURSE">
+		<property-mapping property="year" column="YEAR"/>
+		<property-mapping property="number" column="NUMBER"/>
+		<property-mapping property="description" column="DESCRIPTION"/>
+		<property-mapping property="dtype" column="DTYPE"/>
+	</entity-mapping>	
+	
+</component>

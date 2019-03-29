@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!-- 
+	Implemented using a simple handmade bean (POJO) (for use with hibernate for example).
+	It's not typical use both styles in the same application,
+	but it's here for ilustrative purpose.
+	
+	Version without oid exists (Family2)
+-->
+
+<component name="Family">
+
+	<entity>
+		<bean class="org.openxava.test.model.Family"/>	
+		<property name="oid" type="String" hidden="true" key="true" required="false"/>
+		
+		<property name="number" size="3" required="true"/>   
+		<property name="description" size="40" required="true"/>
+
+	</entity>
+	
+	<view>
+		<property name="products" stereotype="PRODUCT3"/>
+		<members>number; description; products</members>
+	</view>	
+	
+	<tab>		
+		<default-order>${number} asc</default-order>
+	</tab>	
+	
+	<entity-mapping table="XAVATEST@separator@FAMILY">
+		<property-mapping 
+			property="oid" column="OID"/>	
+		<property-mapping 
+			property="number" column="NUMBER"/>
+		<property-mapping
+			property="description" column="DESCRIPTION"/>
+	</entity-mapping> 
+	
+</component>

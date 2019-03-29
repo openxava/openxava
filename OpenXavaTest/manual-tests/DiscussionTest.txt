@@ -1,0 +1,30 @@
+The automated tests in this project do not include some aspects of Discussion editor.
+Incident module:
+- On start:
+	- No buttons on editor.
+	- Top bar buttons on module. 
+	- Bottom buttons on module.
+- Click on discussion editor to have focus.
+	- Buttons on editor.
+		- Add comment button is blue, and Cancel button white. 
+	- No top bar buttons on module.
+	- No bottom buttons on module.
+- Write a comment.
+- Lose focus from editor:	
+	- Editor text is not lost.
+	- Buttons on editor. 
+	- No top bar buttons on module.
+	- No bottom buttons on module.
+- Click on discussion editor to have focus.
+- Click on Add comment.
+	- Comment added.	
+	- No buttons on editor. 
+	- Top bar buttons on module.
+	- Bottom buttons on module.
+- Click on discussion editor to have focus.
+- Write a comment. Click on Cancel.	
+	- Comment not added.
+	- Editor cleared.	
+	- No buttons on editor. 
+	- Top bar buttons on module.
+	- Bottom buttons on module.

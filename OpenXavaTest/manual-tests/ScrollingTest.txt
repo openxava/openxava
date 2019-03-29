@@ -1,0 +1,3 @@
+The automated tests in this project do not include scrolling test. 
+Therefore, when you touch scroll related code you have to test with all browser:
+- Journey: 241 elements, by 120 chunks on scroll. 

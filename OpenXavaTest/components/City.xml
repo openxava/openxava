@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="City">
+
+	<entity>
+		<reference name="state" key="true" required="true"/>
+		<property name="code" type="int" key="true"/>
+		<property name="name" type="String"/>
+	</entity>
+	
+	<entity-mapping table="XAVATEST@separator@CITY">
+		<reference-mapping reference="state">
+			<reference-mapping-detail column="STATE" referenced-model-property="id"/>
+		</reference-mapping>
+		<property-mapping property="code" column="CODE"/>
+		<property-mapping property="name" column="NAME"/>
+	</entity-mapping> 
+				
+</component>

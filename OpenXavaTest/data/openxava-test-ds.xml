@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Datasource for OpenXavaTest application
+-->
+
+<datasources>
+   <local-tx-datasource>
+
+      <jndi-name>OpenXavaTestDS</jndi-name>
+
+      <connection-url>jdbc:hsqldb:hsql://localhost:1666</connection-url>
+
+      <driver-class>org.hsqldb.jdbcDriver</driver-class>
+
+      <user-name>sa</user-name>
+      <password></password>
+
+      <min-pool-size>5</min-pool-size>
+      <max-pool-size>20</max-pool-size>
+      <idle-timeout-minutes>0</idle-timeout-minutes>
+      <track-statements/>
+   </local-tx-datasource>
+
+   <mbean code="org.jboss.jdbc.HypersonicDatabase"
+     name="jboss:service=HypersonicOpenXavaTest">
+     <attribute name="Port">1666</attribute>
+     <attribute name="Silent">true</attribute>
+     <attribute name="Database">openxava-test-db</attribute>
+     <attribute name="Trace">false</attribute>
+     <attribute name="No_system_exit">true</attribute>
+   </mbean>
+
+</datasources>

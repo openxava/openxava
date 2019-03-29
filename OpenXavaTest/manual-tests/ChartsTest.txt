@@ -1,0 +1,33 @@
+The automated tests in this project do not include some aspects of Charts list format.
+
+Invoice module:
+- Choose Charts: All years must be shown in the chart.
+- Return to list and filter by year < 2005.
+- Choose Charts: Only years lower than 2005 are shown in the chart. 
+
+Invoice2 module:
+- Group by year.
+- Choose Charts: A bar by year with the values of the list.
+
+Invoice2 module:
+- Filter by year = 2002 to create a new list configuration.
+- Select "All" configuration.
+- Choose Charts: All the invoices are shown in charts.
+- Select "Year = 2002" configuration: Only 2002 invoice is shown in chart.
+- Select "All" configuration: All the invoices are shown in charts.
+- Group by year: Charts are shown grouping by year with the correct summation totals.
+
+Invoice2 module:
+- Choose Charts: A bar by invoice.
+- Change to Pie.
+- Select Amount sums for y: Each piece of pie is a year. Years are not duplicate. Verify that summation is correct.
+- Change to Bar: A bar by invoice.
+- Group by year: A bar by year.
+- Change to Pie: Each piece of pie is a year. Years are not duplicate. Verify that summation is correct.
+- Select Record count for y: Each piece of pie is a year. Years are not duplicate. Verify that count is correct.
+
+Color module:
+- Verify that there are more than 1000 records in the list.
+- Choose Charts.
+- Choose Number in the left combo.
+- A charts with 120 bars must be displayed, instead of more than 1000 bars.

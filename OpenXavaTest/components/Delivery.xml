@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!--
+	One example of reference used as key
+-->
+
+<component name="Delivery">
+
+	<entity>  
+		<!-- It assume 'Invoice' as model (the name of reference with first letter in uppercase) -->
+		<reference name="invoice" model="Invoice" key="true"/>
+		<reference name="type" model="DeliveryType" key="true"/>
+		<property name="number" type="int" key="true"  
+			size="6" required="true"/>
+		<property name="date" type="java.util.Date" required="true">
+			<default-value-calculator class="org.openxava.calculators.CurrentDateCalculator"/>
+		</property>	
+		<property name="dateAsLabel" type="java.util.Date" stereotype="LABEL">
+			<calculator class="org.openxava.calculators.ByPassCalculator">
+				<set property="source" from="date"/>
+			</calculator>
+		</property>
+		<property name="description" type="String"/>
+		<property name="distance">
+			<valid-values>
+				<valid-value value="local"/>
+				<valid-value value="national"/>				
+				<valid-value value="international"/>								
+			</valid-values>
+		</property>
+		<property name="vehicle" type="String" size="15"/>
+		<property name="transportMode" type="String" size="20" stereotype="ETIQUETA">
+			<calculator class="org.openxava.test.calculators.DeliveryTransportModeCalculator">
+				<set property="vehicle"/>
+			</calculator>	
+		</property>
+		<property name="driverType" type="String" size="20"/>
+		<reference name="carrier"/>
+		<property name="employee" type="String"/>
+		<reference name="shipment"/> 
+		<property name="remarks" stereotype="MEMO" size="500"/>
+		<property name="incidents" stereotype="MEMO" size="500"/>
+		
+		<collection name="details" maximum="3">
+			<reference model="DeliveryDetail"/>
+		</collection>
+		
+		<finder name="all" arguments="" collection="true"/>
+				
+		<validator class="org.openxava.test.validators.DeliveryValidator">
+			<set property="invoice"/>
+		</validator>
+							
+	</entity>		
+	
+	<aggregate name="DeliveryDetail">				
+		<property name="number" key="true" type="int"/>		
+		<property name="description" type="String"/>
+	</aggregate>
+		
+	<view>
+		<property name="deliveredBy">
+			<valid-values>      
+				<valid-value value="Employee"/>      
+				<valid-value value="Carrier"/>      
+			</valid-values>  	
+			<!-- 
+				A calculator that return 0 is like not have it,
+				but we set for verifying that we can have a calculator and not fail
+				-->
+			<default-value-calculator class="org.openxava.calculators.IntegerCalculator">				
+				<set property="value" value="0"/>
+			</default-value-calculator>
+
+		</property>
+	
+		<property name="advice" type="String" size="40" required="true">
+			<default-value-calculator class="org.openxava.test.calculators.AdviceCalculator"/>
+		</property>	
+		
+		<property name="shortcut" type="String" size="2"/>
+				
+		<property-view property="shortcut">
+			<on-change class="org.openxava.test.actions.OnChangeShortcutAction"/>
+		</property-view>
+		
+		<property-view property="number">
+			<action action="Delivery.generateNumber"/>		
+			<action action="Delivery.generateNumber88"/>
+		</property-view>
+		
+		<property-view property="deliveredBy">
+			<on-change class="org.openxava.test.actions.OnChangeDeliveryByAction"/>
+		</property-view>
+		
+		<property-view property="distance">
+			<on-change class="org.openxava.test.actions.OnChangeDistanceAction"/>
+		</property-view>
+		
+		<property-view property="vehicle">
+			<on-change class="org.openxava.test.actions.OnChangeVehicleAction"/>
+		</property-view>
+				
+		<property-view property="invoice.number">
+			<on-change class="org.openxava.test.actions.OnChangeInvoiceNumberInDeliveryAction"/>
+		</property-view>
+		
+		<property-view property="carrier.number">
+			<on-change class="org.openxava.test.actions.OnChangeCarrierInDeliveryAction"/>
+		</property-view>
+		
+		<property-view property="type.number">
+			<on-change class="org.openxava.test.actions.OnChangeDeliveryTypeAction"/>
+		</property-view>				
+		
+		<reference-view reference="invoice" view="Simple">		
+			<action action="Delivery.setDefaultInvoice"/>
+		</reference-view>
+				
+		
+		<reference-view reference="type">
+				
+			<descriptions-list order="${number} desc"/>
+			
+			<action action="Delivery.setDefaultType"/>
+			
+		</reference-view>
+		
+		<reference-view reference="carrier">
+			<descriptions-list/>
+		</reference-view>
+		
+		<reference-view reference="shipment">	
+			<descriptions-list/>
+		</reference-view>
+		
+		<collection-view collection="details">
+			<new-action action="DeliveryDetail.new"/>
+			<save-action action="DeliveryDetail.save"/>
+			<hide-detail-action action="DeliveryDetail.hideDetail"/>
+			<remove-action action="DeliveryDetail.remove"/>
+			<remove-selected-action action="DeliveryDetail.removeSelected"/>
+			<detail-action  action="DeliveryDetail.saveFailing"/> 
+		</collection-view>
+   
+		<members>
+			invoice;			
+			<group name="deliveryData">
+				type, number;			
+				date;
+				description;
+				shipment;
+				<group name="transportData">
+					distance; vehicle; transportMode; driverType;
+				</group>
+				<group name="deliveryByData">
+					deliveredBy;
+					carrier;
+					employee;			
+				</group>
+			</group>
+			<section name="comments">advice, shortcut; remarks</section>
+			<section name="incidents">incidents</section>
+			<section name="details">
+				<group name="details">
+					details
+				</group>
+			</section>
+		</members>
+		
+	</view>
+	
+	<view name="MoreSections">
+		<property name="deliveredBy">
+			<valid-values>      
+				<valid-value value="Employee"/>      
+				<valid-value value="Carrier"/>      
+			</valid-values>  	
+			<!-- 
+				A calculator that return 0 is like not have it,
+				but we set for verifying that we can have a calculator and not fail
+				-->
+			<default-value-calculator class="org.openxava.calculators.IntegerCalculator">				
+				<set property="value" value="0"/>
+			</default-value-calculator>
+
+		</property>
+	
+		<property name="advice" type="String" size="40" required="true">
+			<default-value-calculator class="org.openxava.test.calculators.AdviceCalculator"/>
+		</property>	
+		
+		<property name="shortcut" type="String" size="2"/>
+				
+		<property-view property="shortcut">
+			<on-change class="org.openxava.test.actions.OnChangeShortcutAction"/>
+		</property-view>
+		
+		<property-view property="number">
+			<action action="Delivery.generateNumber"/>		
+		</property-view>
+		
+		<property-view property="deliveredBy">
+			<on-change class="org.openxava.test.actions.OnChangeDeliveryByAction"/>
+		</property-view>
+		
+		<property-view property="distance">
+			<on-change class="org.openxava.test.actions.OnChangeDistanceAction"/>
+		</property-view>
+		
+		<property-view property="vehicle">
+			<on-change class="org.openxava.test.actions.OnChangeVehicleAction"/>
+		</property-view>
+				
+		<property-view property="invoice.number">
+			<on-change class="org.openxava.test.actions.OnChangeInvoiceNumberInDeliveryAction"/>
+		</property-view>
+		
+		<property-view property="carrier.number">
+			<on-change class="org.openxava.test.actions.OnChangeCarrierInDeliveryAction"/>
+		</property-view>
+				
+		<reference-view reference="invoice" view="Simple">		
+			<action action="Delivery.setDefaultInvoice"/>
+		</reference-view>
+		
+		<reference-view reference="type">	
+			<descriptions-list order="${number} desc"/>
+			<action action="Delivery.setDefaultType"/>			
+		</reference-view>
+		
+		<reference-view reference="carrier">
+			<descriptions-list/>
+		</reference-view>
+		
+		<reference-view reference="shipment">	
+			<descriptions-list/>
+		</reference-view>
+		
+		<collection-view collection="details">
+			<new-action action="DeliveryDetail.new"/>
+			<save-action action="DeliveryDetail.save"/>
+			<hide-detail-action action="DeliveryDetail.hideDetail"/>
+			<remove-action action="DeliveryDetail.remove"/>
+			<remove-selected-action action="DeliveryDetail.removeSelected"/>
+			<detail-action  action="DeliveryDetail.saveFailing"/> 
+		</collection-view>
+
+		<members>
+			invoice;			
+			<group name="deliveryData">
+				type, number;			
+				date;
+				description;				
+			</group>
+			<section name="transportData">
+				distance; vehicle; transportMode; driverType;
+			</section>
+			<section name="deliveryByData">
+				deliveredBy;
+				carrier;
+				employee;			
+			</section>
+			<section name="incidents">incidents</section>			
+			<section name="remarks">advice, shortcut; remarks</section>			
+			<section name="details">
+				details
+			</section>			
+		</members>
+	</view>
+			
+	<view name="InInvoice">
+				
+		<members>
+			number;
+			date;
+			type;
+			description;			
+		</members>
+		
+	</view>		
+	
+	<view name="GroupsInSections">
+	
+		<reference-view reference="invoice" view="Simple"/>
+		
+		<reference-view reference="type">	
+			<descriptions-list/>
+		</reference-view>
+							
+		<property-view property="vehicle">
+			<on-change class="org.openxava.test.actions.OnChangeAddMessageAction"/>
+		</property-view>
+		
+		<members>
+			invoice;			
+			type, number;
+			<section name="deliveryData">							
+				date;
+				description;
+				shipment;
+				<group name="transportData">
+					distance; vehicle; transportMode; driverType;
+				</group>
+				<group name="deliveryByData">
+					carrier;
+					employee;			
+				</group>			
+			</section>
+			<section name="remarks">remarks</section>
+			<section name="incidents">incidents</section>
+			<section name="details">details</section>
+		</members>
+	</view>
+	
+	<view name="Simple">
+	
+		<reference-view reference="invoice" view="Simple"/>
+		
+		<reference-view reference="type">	
+			<descriptions-list order="${number} desc"/>
+		</reference-view>
+							
+		<members>
+			invoice;			
+			<group name="deliveryData">
+				type, number;			
+				date;
+				description;														
+			</group>
+		</members>
+	</view>	
+	
+	<view name="FullInvoice">
+		
+		<reference-view reference="invoice" frame="false"/>
+		<members>
+			invoice;			
+			number;
+			description
+		</members>			
+				
+	</view>
+	
+	<view name="Search">
+		<reference-view reference="type">	
+			<descriptions-list order="${number} desc"/>			
+		</reference-view>
+		<members>invoice; type; number; date; description;</members>
+	</view>
+				
+	<tab>
+		<properties>
+			invoice.year, invoice.number, type.number, type.description, number, date, description, distance, dateAsLabel, 
+			invoice.sellerDiscount, invoice.date
+		</properties>
+	</tab>
+	
+	<tab name="Remarks2002">
+		<properties>invoice.year, invoice.number, remarks</properties>
+		<base-condition>${invoice.year} = 2002</base-condition>		
+	</tab>	
+	
+	<entity-mapping table="XAVATEST@separator@DELIVERY">
+		<reference-mapping reference="invoice">
+			<reference-mapping-detail 
+				column="INVOICE_YEAR" 
+				referenced-model-property="year"/> 
+			<reference-mapping-detail 
+				column="INVOICE_NUMBER" 
+				referenced-model-property="number"/> 				
+		</reference-mapping>
+		<reference-mapping reference="type">
+			<reference-mapping-detail 
+				column="TYPE" 
+				referenced-model-property="number"/> 
+		</reference-mapping>					
+		<property-mapping
+			property="number" column="NUMBER"/>
+		
+		<multiple-property-mapping property="date">	
+			<converter class="org.openxava.converters.Date3Converter"/>	
+			<cmp-field converter-property="day" column="DAY" cmp-type="int"/>
+			<cmp-field converter-property="month" column="MONTH" cmp-type="int"/>
+			<cmp-field converter-property="year" column="YEAR" cmp-type="int"/>			
+		</multiple-property-mapping>
+		<property-mapping property="distance" column="DISTANCE" cmp-type="String">
+			<converter class="org.openxava.converters.ValidValuesLetterConverter">
+				<set property="letters" value="LNI"/>
+			</converter>
+		</property-mapping>
+		<property-mapping property="vehicle" column="VEHICLE"/>
+		<property-mapping property="driverType" column="DRIVERTYPE"/>
+		<property-mapping
+			property="description" column="DESCRIPTION"/>						
+		<reference-mapping reference="carrier">
+			<reference-mapping-detail 
+				column="CARRIER" 
+				referenced-model-property="number"/> 
+		</reference-mapping>							
+		<property-mapping
+			property="employee" column="EMPLOYEE"/>									
+		<property-mapping
+			property="remarks" column="REMARKS"/>									
+		<property-mapping			
+			property="incidents" column="INCIDENTS"/>																	
+		<reference-mapping reference="shipment">
+			<reference-mapping-detail 
+				column="SHIPMENT_TYPE" 
+				referenced-model-property="type"/> 
+			<reference-mapping-detail 
+				column="SHIPMENT_MODE" 
+				referenced-model-property="mode" cmp-type="Integer"> 				
+				<converter class="org.openxava.converters.IntegerNumberConverter"/>
+			</reference-mapping-detail>
+			<reference-mapping-detail 
+				column="SHIPMENT_NUMBER" 
+				referenced-model-property="number" cmp-type="Integer"> 				
+				<converter class="org.openxava.converters.IntegerNumberConverter"/>
+			</reference-mapping-detail>
+		</reference-mapping>							
+			
+	</entity-mapping>
+	
+	<aggregate-mapping aggregate="DeliveryDetail" table="XAVATEST@separator@DELIVERYDETAIL">
+		<reference-mapping reference="delivery">
+			<reference-mapping-detail referenced-model-property="invoice.year" column="DELIVERY_INVOICE_YEAR"/>
+			<reference-mapping-detail referenced-model-property="invoice.number" column="DELIVERY_INVOICE_NUMBER"/>			
+			<reference-mapping-detail referenced-model-property="type.number" column="DELIVERY_TYPE_NUMBER"/>
+			<reference-mapping-detail referenced-model-property="number" column="DELIVERY_NUMBER"/>						
+		</reference-mapping>
+		<property-mapping property="number" column="NUMBER"/>
+		<property-mapping property="description" column="DESCRIPTION"/>		
+	</aggregate-mapping>
+	
+</component>

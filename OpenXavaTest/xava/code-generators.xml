@@ -1,0 +1,15 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE code-generators SYSTEM "dtds/code-generators.dtd">
+
+<!-- OpenXavaTest -->
+
+<code-generators>
+	
+	<for-stereotype name="WAREHOUSE" model-type="ejb"
+		class="org.openxava.test.generators.WarehouseEJBGenerator"/>
+		
+	<for-stereotype name="WAREHOUSE" model-type="pojo"
+		class="org.openxava.test.generators.WarehousePOJOGenerator"/> 
+			
+</code-generators>

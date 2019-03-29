@@ -1,0 +1,4 @@
+The automated tests in this project do not include some aspects of Permalink functionality.
+
+CustomerNewOnInit:
+- Click on New: The browser URL should be: http://localhost:8080/OpenXavaTest/m/CustomerNewOnInit?action=CustomerNewOnInit.new

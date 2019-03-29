@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="ShipmentCharge">
+
+	<entity>  
+		<property name="oid" type="String" key="true" hidden="true">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator" on-create="true"/>
+		</property>
+		<property name="mode" required="true">
+			<valid-values>
+				<valid-value value="slow"/>
+				<valid-value value="medium"/>
+				<valid-value value="fast"/>
+			</valid-values>
+		</property>
+		<reference name="shipment"/>
+		<property name="amount" stereotype="MONEY" required="true"/>
+		
+		<property name="slow" type="boolean">
+			<calculator class="org.openxava.test.calculators.IsSlowCalculator" >
+				<set property="mode"/>
+			</calculator>
+		</property>
+	</entity>
+	
+	<view>
+		<reference-view reference="shipment">
+			<descriptions-list/>
+		</reference-view>
+	</view>
+	
+	<tab>
+		<properties>mode, amount+, shipment.number, slow, shipment.description</properties>
+	</tab>
+
+	<entity-mapping table="XAVATEST@separator@SHIPMENTCHARGE">
+		<property-mapping property="oid" column="ID"/>
+		<!-- We don't use converter for 'mode', in this way:
+			0 -> NO VALUE
+			1 -> slow
+			2 -> medium
+			3 -> fast
+		 -->				
+		<property-mapping property="mode" column="MODE"/>
+		<reference-mapping reference="shipment">
+			<reference-mapping-detail 
+				column="SHIPMENT_TYPE" 
+				referenced-model-property="type"
+				cmp-type="String">
+				<converter class="org.openxava.converters.ValidValuesLetterConverter">
+					<set property="letters" value="IE"/>
+				</converter>			
+			</reference-mapping-detail>
+			<reference-mapping-detail 
+				column="MODE" 
+				referenced-model-property="mode"/>
+			<reference-mapping-detail 
+				column="SHIPMENT_NUMBER" 
+				referenced-model-property="number"/>	
+		</reference-mapping>							
+		<property-mapping
+			property="amount" column="TOTALAMOUNT"/>
+	</entity-mapping>
+	
+</component>

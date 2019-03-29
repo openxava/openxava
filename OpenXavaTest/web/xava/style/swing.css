@@ -1,0 +1,115 @@
+/* Estilo swing */
+
+.module {
+	background: rgb(204, 204, 204);
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+BUTTON {
+	margin-right: 5;
+	background: rgb(204, 204, 204);
+	border-width: 2;
+	border-style: groove;
+	font-size: 10pt;
+	font-weight: bold;	
+}
+
+A {
+	color: rgb(102, 102, 153);	
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+A:hover {
+	color: red;	
+}
+
+B {
+	color: yellow;
+	font-size: 10pt;
+}
+
+.buttonBar {
+	border-width: 2 0 2 0;
+	border-style: groove;	
+}
+
+
+
+#errors {
+	color: #ff0000; 
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+#messages {
+	color: #3366ff;
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+
+.body {
+}
+
+
+
+.label {
+	margin-right: 10px;
+	color: rgb(102, 102, 153);	
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+.editor {
+	font-weight: normal;
+	border-style: groove;	
+	margin-bottom: 2px;
+}
+
+
+TABLE.list {
+	background: white;
+	font-size: 10 pt;	
+	border-style: groove;
+	border-collapse: collapse;
+	border-width: 2px;
+}
+
+
+TH.list {
+	font-weight: normal;
+	font-size: 10pt;
+	background: rgb(204, 204, 204);
+	border-width: 2px;
+	border-style: groove;
+}
+
+TH.search {
+	font-weight: normal;
+	background: rgb(204, 204, 204);
+	border-width: 2px;
+	border-style: groove;
+}
+
+
+TD.pair {
+	font-weight: normal;
+	font-size: 10pt;
+	border-width: 2px;
+	border-style: groove;
+}
+
+TD.odd {
+	font-weight: normal;
+	font-size: 10pt;
+	border-width: 2px;
+	border-style: groove;
+}
+
+.list-info {
+	color: rgb(102, 102, 153);	
+	font-weight: bold;
+	font-size: 10pt;
+}
+

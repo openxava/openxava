@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="DrivingLicence">
+
+	<entity>
+		<property name="type" stereotype="NO_FORMATING_STRING" key="true"
+			size="2" required="true"/>
+		<property name="level" type="int" key="true"
+			required="true"/>			  
+		<property name="description" type="String"
+			size="40" required="true"/>			  
+			
+	</entity>
+	
+	<entity-mapping table="XAVATEST@separator@DRIVINGLICENCE">
+		<property-mapping property="type" column="TYPE"/>
+		<property-mapping property="level" column="LEVEL"/>
+		<property-mapping property="description" column="DESCRIPTION"/>
+	</entity-mapping> 
+				
+</component>

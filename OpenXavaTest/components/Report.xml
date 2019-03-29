@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Report">
+
+	<entity>
+		<property name="oid" type="String" key="true" hidden="true">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator" on-create="true"/>
+		</property>
+		<property name="name" type="String"	size="50" required="true"/>			  					
+		<reference model="Ranges"/>
+	</entity>
+		
+	<view>
+		<reference-view reference="ranges" as-aggregate="true"/>		
+	</view>	
+							
+	<entity-mapping table="XAVATEST@separator@REPORT">
+		<property-mapping
+			property="oid" column="OID"/>
+		<property-mapping
+			property="name" column="NAME"/>
+		<reference-mapping reference="ranges">
+			<reference-mapping-detail 
+				referenced-model-property="oid"
+				column="RANGES_OID" />
+		</reference-mapping>
+	</entity-mapping>	 
+					
+</component>

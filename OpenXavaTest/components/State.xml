@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="State">
+
+	<entity>
+		<property name="id" type="String" key="true"
+			size="2" required="true"/>
+		<property name="name" type="String" 
+			size="20" required="true"/>
+		<property name="fullNameWithFormula" type="String"/>			
+		<property name="fullName" type="String">
+			<calculator class="org.openxava.calculators.ConcatCalculator">
+				<set property="string1" from="id"/>
+				<set property="separator" value=" "/>
+				<set property="string2" from="name"/>
+			</calculator>
+		</property>				  
+		
+	</entity>
+	
+	<entity-mapping table="XAVATEST@separator@STATE">
+		<property-mapping property="id" column="ID"/>
+		<property-mapping property="name" column="NAME"/>
+		<property-mapping property="fullNameWithFormula" formula="CONCAT(id,name)"/>
+	</entity-mapping> 
+				
+</component>

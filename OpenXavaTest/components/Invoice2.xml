@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Invoice2">
+		
+	<entity>  
+		
+		<property name="year" type="int" key="true"
+			size="4" required="true"> 			   
+			<default-value-calculator class="org.openxava.calculators.CurrentYearCalculator"/>
+		</property>	
+		<property name="number" type="int" key="true"
+			size="6" required="true"/>
+		<property name="date" type="java.util.Date" required="true">
+			<default-value-calculator class="org.openxava.calculators.CurrentDateCalculator"/>
+		</property>	
+		<property name="vatPercentage" type="java.math.BigDecimal"
+			size="2" scale="1" required="true"/>
+		<property name="amountsSum" type="java.math.BigDecimal" stereotype="MONEY"/>			
+											
+		<reference model="Customer" required="true"/>
+		
+		<collection name="details" minimum="1">
+			<reference model="InvoiceDetail2"/>
+			<order>${product.description} desc</order>
+		</collection>
+												
+	</entity>	
+		
+	<aggregate name="InvoiceDetail2">
+		<property name="oid" type="String" key="true" hidden="true">
+			<default-value-calculator 
+				class="org.openxava.test.calculators.InvoiceDetail2OidCalculator"
+				on-create="true">
+				<set property="invoiceYear" from="invoice2.year"/>
+				<set property="invoiceNumber" from="invoice2.number"/>
+			</default-value-calculator>
+		</property>
+		<property name="quantity" type="int"
+			size="4" required="true"/>		
+		<property name="unitPrice"
+			stereotype="MONEY" required="true"/>
+		<property name="amount"
+			stereotype="MONEY">
+			<calculator class="org.openxava.test.calculators.DetailAmountCalculator">
+				<set property="unitPrice"/>
+				<set property="quantity"/>
+			</calculator>			
+		</property>
+		<reference name="product" model="Product2" required="true"/>
+	</aggregate>	
+	
+	<view>
+		<property-view property="amountsSum" read-only="true"/>			
+		<reference-view reference="customer" view="Simplest"/>
+		<collection-view collection="details">
+			<new-action action="InvoiceDetail2.new"/>
+			<list-properties>product.description, quantity, unitPrice, amount</list-properties>
+		</collection-view>
+		
+		<members>
+			year, number, date;
+			vatPercentage, amountsSum;
+			customer;
+			details;
+		</members>			
+		
+	</view>
+	
+	<view name="NoModifyDetails">
+		<property-view property="amountsSum" read-only="true"/>			
+		<reference-view reference="customer" view="Simplest"/>
+		<collection-view collection="details" modify-reference="false">			
+			<new-action action="InvoiceDetail2.new"/>
+			<list-properties>product.description, quantity, unitPrice, amount</list-properties>
+		</collection-view>
+		
+		<members>
+			year, number, date; 
+			details;
+		</members>			
+		
+	</view>
+	
+	<view model="InvoiceDetail2">
+		<reference-view reference="product" view="SimpleWithFamily"/>
+		<property name="familyList" stereotype="FAMILY"/>
+		<property name="productList" stereotype="PRODUCT2"/>
+		<members>
+			quantity;
+			unitPrice;
+			familyList;
+			productList;
+			amount;
+			product		
+		</members>		
+	</view>
+	
+	<tab>
+		<!-- Don't remove, for verify that grouping work with defaultOrder with columns not in the resultset. Tested in Invoice2Test.testGroupBy -->
+		<default-order>year, number</default-order>
+	</tab>
+	
+	<entity-mapping table="XAVATEST@separator@INVOICE">
+		<property-mapping
+			property="year" column="YEAR"/>
+		<property-mapping
+			property="number" column="NUMBER"/>
+		<property-mapping			
+			property="date" column="DATE"/>			
+		<property-mapping
+			property="vatPercentage" column="VATPERCENTAGE"/>
+		<property-mapping	
+			property="amountsSum" column="AMOUNTSSUM"/>			
+		<reference-mapping reference="customer">
+			<reference-mapping-detail 
+				column="CUSTOMER_NUMBER" 				
+				referenced-model-property="number"/> 
+		</reference-mapping>			
+	</entity-mapping>
+	
+	<aggregate-mapping aggregate="InvoiceDetail2" table="XAVATEST@separator@INVOICEDETAIL">
+		<reference-mapping reference="invoice2">
+			<reference-mapping-detail 
+				column="INVOICE_YEAR" 
+				referenced-model-property="year"/> 
+			<reference-mapping-detail 
+				column="INVOICE_NUMBER" 
+				referenced-model-property="number"/> 				
+		</reference-mapping>				
+		<property-mapping property="oid" column="OID"/>
+		<property-mapping
+			property="unitPrice" column="UNITPRICE"/>
+		<property-mapping
+			property="quantity" column="QTY"/>
+		<reference-mapping reference="product">
+			<reference-mapping-detail 
+				column="PRODUCT_NUMBER" 
+				referenced-model-property="number"/> 
+		</reference-mapping>								
+	</aggregate-mapping>
+
+</component>

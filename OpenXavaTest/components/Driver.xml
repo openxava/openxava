@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Driver">
+
+	<entity>
+		<property name="number" type="int" key="true" 
+			size="5" required="true"/>
+		<property name="name" stereotype="NO_FORMATING_STRING"
+			size="40" required="true"/>
+		<property name="type" stereotype="NO_FORMATING_STRING" 
+			size="2" required="true"/>				  
+		<reference name="drivingLicence"/>
+	</entity>
+	
+	<view name="Simple">
+		<members>number, name</members>
+	</view>
+	
+	<tab name="OrderByName">
+		<properties>name</properties>
+		<default-order>${name}</default-order>
+	</tab>
+						
+	<entity-mapping table="XAVATEST@separator@DRIVER">
+		<property-mapping
+			property="number" column="NUMBER"  cmp-type="Integer">
+			<converter class="org.openxava.converters.IntegerNumberConverter"/>			
+		</property-mapping>
+		<property-mapping
+			property="name" column="NAME"/>
+		<property-mapping
+			property="type" column="TYPE"/>			
+		<reference-mapping reference="drivingLicence">
+			<!-- To test overlapping with string values -->
+			<reference-mapping-detail 
+				column="TYPE" 
+				referenced-model-property="type">
+			</reference-mapping-detail>						
+			<reference-mapping-detail 
+				column="DRIVINGLICENCE_LEVEL" 
+				referenced-model-property="level"/> 																
+		</reference-mapping>				
+	</entity-mapping> 
+				
+</component>

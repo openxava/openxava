@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="SelectSchema">
+
+	<entity>
+		<property name="schema">
+			<valid-values>
+				<valid-value value="COMPANYA"/>
+				<valid-value value="COMPANYB"/>
+			</valid-values>
+		</property>
+	</entity>
+	
+	<view>
+		<members>
+			schema, <action action="SelectSchema.set"/>
+		</members>
+	</view>
+	
+	<transient/> 
+				
+</component>

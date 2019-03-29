@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Customer">
+
+	<entity>
+		<implements interface="org.openxava.test.model.IWithName"/>		
+		<property name="number" type="int" key="true"
+			size="5" required="true"/>
+		<property name="name" stereotype="PERSON_NAME" required="true"/>	
+		<property name="type"
+			required="true">   
+			<valid-values>      
+				<valid-value value="normal"/>      
+				<valid-value value="steady"/>      
+				<valid-value value="special"/>     
+			</valid-values>  			
+			<default-value-calculator class="org.openxava.calculators.IntegerCalculator">
+				<set property="value" value="3"/>
+			</default-value-calculator>     
+		</property>
+		
+		<property name="photo" required="false" stereotype="PHOTO"/>
+		<property name="telephone" stereotype="TELEPHONE"/>        		
+		<property name="email" stereotype="EMAIL"/>
+		<property name="additionalEmails" stereotype="EMAIL_LIST" /> 
+		<property name="website" stereotype="WEBURL"/>
+		<property name="remarks"
+				stereotype="MEMO"
+				size="400"/>
+		  
+		<reference name="address" model="Address" required="true"/>
+		
+		<reference name="seller" model="Seller"/>   
+		
+		<property name="relationWithSeller"
+			type="String" size="40">
+			<default-value-calculator class="org.openxava.calculators.StringCalculator">
+				<set property="string" value="GOOD"/>
+			</default-value-calculator>
+		</property>		
+
+		<reference name="alternateSeller" model="Seller"/>   
+		
+		<reference name="group" model="CustomerGroup"/>
+										 		
+		<property name="city" type="String" size="40">
+			<calculator class="org.openxava.calculators.ConcatCalculator">
+				<set property="separator" value=" "/>
+				<set property="int1" from="address.zipCode"/>				
+				<set property="string2" from="address.city"/>
+			</calculator>
+		</property>				
+		
+		<collection name="deliveryPlaces">
+			<reference model="DeliveryPlace"/>
+		</collection>	
+		
+		<property name="local" type="boolean">
+			<calculator class="org.openxava.test.calculators.IsLocalCustomerCalculator">
+				<set property="stateId" from="address.state.id"/>
+				<set property="stateName" from="address.state.name"/>
+			</calculator>
+		</property>
+		
+		<collection name="states">
+			<reference model="CustomerState"/>
+		</collection>
+		
+		<method name="calculateShippingAndHandling">
+			<calculator class="org.openxava.test.calculators.ShippingAndHandlingCalculator">
+				<set property="stateId" from="address.state.id"/>
+				<set property="stateName" from="address.state.name"/>
+			</calculator>
+		</method>		
+
+		<finder name="byNumber" arguments="int number">
+			<condition>${number} = {0}</condition>
+		</finder>
+		
+				
+		<finder name="byNameLike" arguments="String name" collection="true">
+			<condition>${name} like {0}</condition>
+			<order>${name} desc</order>
+		</finder>
+		
+		<finder name="byNameLikeAndrelationWithSeller" arguments="String name, String relationWithSeller" collection="true">
+			<condition>${name} like {0} and ${relationWithSeller} = {1}</condition>
+			<order>${name} desc</order>
+		</finder>
+		
+		<!-- Because we use a converter normal has 0 value in DB (instead of 1) -->
+		<finder name="normalOnes" arguments="" collection="true">
+			<condition>${type} = 0</condition>
+		</finder>
+						
+		<!-- Because we use a converter normal has 1 value in DB (instead of 2) -->				
+		<finder name="steadyOnes" arguments="" collection="true">
+			<condition>${type} = 1</condition>
+		</finder>
+		
+		<finder name="byStreet" arguments="String street" collection="true">
+			<condition>${address.street} = {0}</condition>
+		</finder>
+		
+		<finder name="orderedByState" arguments="" collection="true">
+			<order>${address.state.name}</order> 
+		</finder>
+		
+		<finder name="all" arguments="" collection="true"/>
+		
+	</entity>
+
+	<aggregate name="Address">		
+		<implements interface="org.openxava.test.model.IWithCity"/>						
+		<property name="street" type="String" size="30" required="true"/> 
+		<property name="zipCode" type="int" size="5" required="true"/>  
+		<property name="city" type="String" size="20"	required="true"/>  
+		<reference name="state" required="true"/>
+		<property name="asString" type="String">
+			<calculator class="org.openxava.calculators.ConcatCalculator">
+				<set property="string1" from="street"/>
+				<set property="int2" from="zipCode"/>
+				<set property="string3" from="city"/>
+				<set property="string4" from="state.name"/>
+				<set property="int5" from="customer.number"/>
+			</calculator>
+		</property>
+	</aggregate>	
+	
+	<aggregate name="DeliveryPlace">		
+		<property name="oid" type="int" key="true" hidden="true">
+			<default-value-calculator 
+				class="org.openxava.calculators.NextIntegerCalculator"
+				on-create="true">
+				<set property="model" value="Customer.DeliveryPlace"/>
+				<set property="property" value="oid"/>
+			</default-value-calculator>
+		</property>		
+		<property name="name" type="String" 
+			size="30" required="true"/> 
+		<property name="address" type="String"			
+			size="50" required="true"/>  			
+		<reference name="preferredWarehouse" model="Warehouse"/>
+		<property name="remarks" type="String" size="40"/>
+			
+		<collection name="receptionists">
+			<reference model="Receptionist"/>			
+		</collection>	
+		
+		<validator class="org.openxava.test.validators.DeliveryPlaceValidator">
+			<set property="customer"/>
+		</validator>
+	</aggregate>	
+
+	<aggregate name="Receptionist">
+		<property name="oid" type="int" key="true" hidden="true">
+			<default-value-calculator 
+				class="org.openxava.calculators.NextIntegerCalculator"
+				on-create="true">
+				<set property="model" value="Customer.Receptionist"/>
+				<set property="property" value="oid"/>
+			</default-value-calculator>
+		</property>				
+		<property name="name" type="String" size="30" required="true"/>
+		<finder name="all" arguments="" collection="true"/>
+	</aggregate>	
+		
+	<aggregate name="CustomerState">
+		<reference name="customer" key="true"/>
+		<reference name="state" key="true"/>
+	</aggregate>
+	
+	
+	<view>
+		<!-- 
+		For overwrite the label better resource files.
+		See OpenXavaTest-labels.properties for examples.
+		-->
+		<property-view property="type" label="Tipet"/>
+		
+		<property-view property="name">
+			<on-change class="org.openxava.test.actions.OnChangeCustomerNameAction"/>
+		</property-view>		
+		
+		<property-view property="email" display-size="30"/>
+		
+		<property-view property="alternateSeller.number">
+			<on-change class="org.openxava.test.actions.OnChangeVoidAction"/>
+		</property-view>
+
+		<reference-view reference="seller" frame="false">
+			<search-action action="MyReference.search"/>
+		</reference-view>			
+		
+		<reference-view reference="alternateSeller" view="DecorateName" create="false"/>
+		
+		<collection-view collection="deliveryPlaces">
+			<list-properties>name, address, remarks, preferredWarehouse.name</list-properties>
+		</collection-view>
+				  
+		<members>
+			number;
+			type; 
+			name, <action action="Customer.changeNameLabel"/>;
+			photo; 
+			telephone, email;
+			website;
+			address; 
+			city;
+			<group name="seller">
+				seller;
+				relationWithSeller; 
+			</group>
+			alternateSeller; 
+			deliveryPlaces; 
+			remarks
+		</members>
+				
+	</view>
+		
+	<view name="WithSection">		
+		<property-view property="name">
+			<on-change class="org.openxava.test.actions.OnChangeCustomerNameAction"/>
+		</property-view>	
+		
+		<property-view property="email" display-size="30"/>
+		<property-view property="additionalEmails" display-size="50"/> 
+		
+		<property-view property="alternateSeller.number">
+			<on-change class="org.openxava.test.actions.OnChangeVoidAction"/>
+		</property-view>
+
+		<property-view property="website" editor="CustomWebURL"/>
+		
+		<reference-view reference="seller" frame="false">
+			<search-action action="MyReference.search"/>
+		</reference-view>			
+		
+		<reference-view reference="alternateSeller" view="DecorateName"/>
+		
+		<collection-view collection="states">
+			<list-properties>state.id, state.name</list-properties>
+		</collection-view>
+		
+		<collection-view collection="deliveryPlaces">
+			<list-properties>name, address, remarks, preferredWarehouse.name</list-properties>
+		</collection-view>		
+		
+		<members>
+			number; 
+			<section name="customer">				
+				type; 
+				name, <action action="Customer.changeNameLabel"/>;
+				photo;
+				telephone, email, additionalEmails;
+				website; 
+				address; 
+				city;
+				<group name="seller">
+					seller;
+					relationWithSeller; 
+				</group>
+				alternateSeller; 
+				deliveryPlaces; 
+				remarks;				
+			</section>
+			<section name="states"> 
+				states
+			</section>
+		</members>
+						
+	</view>		
+	
+	<view name="Simplest" members="number; name"/>
+  	 	  	
+	<view name="Simple">
+		<members>
+			number; 
+			type; 
+			name, <action action="Customer.changeNameLabel" always-enabled="true"/>;
+			address;
+		</members>
+	</view>
+	
+	<view name="SimpleWithCity" extends="Simple" members="; city"/>
+	
+	<view name="SimpleWithDeliveryPlaces" members="number; type; name; address; deliveryPlaces"/>
+	
+	<view name="SimpleStateAsForm" members="number; type; name; address">
+		<property-view property="name" editor="JbyXName"/>
+		<reference-view reference="address" view="StateAsForm"/>		
+	</view>	
+	
+	<view name="SomeMembersReadOnly" members="number; type; name; seller; alternateSeller">
+		<property-view property="name" read-only="true"/>
+		<reference-view reference="seller" read-only="true"/>
+		<reference-view reference="alternateSeller" read-only="true">
+			<descriptions-list description-properties="level.description, name"/>
+		</reference-view>
+	</view>
+
+	<view name="SectionGroup">	
+		<members>
+			number;
+			<section name="data">
+				<group name="customer">
+					type;
+					name; 
+				</group>;
+				<group name="seller">
+					seller;
+					relationWithSeller; 
+				</group>
+			</section>
+		</members>					
+	</view>
+	
+	<view name="SellerAsAggregate">
+	
+		<reference-view reference="seller" as-aggregate="true"/>
+	
+		<members>
+			number; 
+			type; 
+			name;
+			address;
+			seller;
+		</members>
+		
+	</view>
+	
+	<view name="SellerAsAggregate2Levels">
+	
+		<reference-view reference="seller" 
+			view="LevelNoDescriptionsList" 
+			as-aggregate="true"/>
+	
+		<members>
+			number; 
+			type; 
+			name;
+			address;
+			seller;
+		</members>
+		
+	</view>
+	 
+	<view name="TypeWithRadioButton">
+		<property-view property="type" editor="ValidValuesRadioButton"/>
+		<members>
+			number;
+			<group name="data"> 
+				type; 
+				name;
+				address;
+			</group>
+		</members>
+	</view>
+	
+	<view name="SellerAsDescriptionsListShowingReferenceView">
+		<reference-view reference="seller" view="Simple">
+			<descriptions-list show-reference-view="true"/>
+			<action action="Customer.hideSeller"/>
+		</reference-view>	
+		<members>
+			number; 
+			name; 
+			type; 
+			seller
+		</members>
+	</view>
+	
+	<view name="SellerAsDescriptionsListShowingReferenceViewNoKey">
+		<reference-view reference="seller" view="SimpleNoNumber">
+			<descriptions-list show-reference-view="true"/>
+		</reference-view>	
+		<members>
+			number; 
+			name; 
+			type; 
+			seller
+		</members>
+	</view>				
+					 				
+	<view model="Address">
+				
+		<property name="viewProperty" type="String"/>
+		<property-view property="viewProperty">
+			<action action="Address.fillViewProperty"/>
+		</property-view>
+		
+		 <!-- By default is NORMAL, hence 'label-format' in the next line is optional -->
+		<property-view property="street" label-format="NORMAL">
+			<action action="Customer.prefixStreet" always-enabled="true"/> 
+		</property-view> 		 		
+		<property-view property="zipCode" label-format="SMALL"/>
+		<property-view property="city" label-format="NO_LABEL"/>
+		
+		<reference-view reference="state">
+			<descriptions-list label-format="SMALL"/>
+		</reference-view>
+
+		<members>
+			viewProperty;
+			street, zipCode, <action action="Address.addFullAddress"/>;
+			<group name="city">
+				city, state;
+			</group>
+			asString
+		</members>
+
+	</view>
+	
+	<view model="Address" name="StateAsForm"/>		
+	
+	<view model="DeliveryPlace">	
+		<reference-view reference="preferredWarehouse">
+			<descriptions-list/>
+		</reference-view>
+		<property-view property="preferredWarehouse.number">
+			<on-change class="org.openxava.test.actions.OnChangePreferredWarehouseAction"/>
+		</property-view>
+	</view>
+	
+	<view model="CustomerState">
+		<reference-view reference="state" frame="false"/>
+	</view>
+	
+	<view name="Intermediate">
+		<members>
+			number
+		</members>
+	</view>
+	
+	<tab>
+		<row-style style="row-highlight" property="type" value="steady"/>
+		<row-style style="row-red" property="type" value="special"/>
+		<properties>name, type, seller.name, address.city, seller.level.description, address.state.name, website</properties>	
+	</tab>
+	
+	<tab name="Complete"/>
+	
+	<tab name="TwoSellers">
+		<properties>name, type, address.city, seller.name, seller.level.description, alternateSeller.name</properties>	
+	</tab>
+		
+	<tab name="TwoSellersNumber">
+		<properties>name, type, seller.number, alternateSeller.number</properties>	
+	</tab>
+	
+	<tab name="Cards" editor="CustomerCardList">
+		<properties>number, name, type, address.city, address.state.name</properties>	
+	</tab>	
+	
+	<tab name="WithCards" editors="List, Charts, CustomerCardList, NotExist">
+		<properties>number, name, type, address.city, address.state.name</properties>	
+	</tab>
+	
+	<tab name="OnlyCards" editors="CustomerCardList">
+		<properties>number, name, type, address.city, address.state.name</properties>	
+	</tab>		
+	
+	<tab name="FromAlaska">
+		<properties>number, name</properties>
+		<base-condition>
+			from XAVATEST.CUSTOMER 
+			inner join XAVATEST.CUSTOMER_STATE states1_ 
+				on XAVATEST.CUSTOMER.NUMBER=states1_.CUSTOMER 
+			inner join XAVATEST.STATE state2_ 
+				on states1_.STATE=state2_.ID 
+			inner join XAVATEST.STATE T_address_state
+				on XAVATEST.CUSTOMER.STATE=T_address_state.ID
+			where state2_.ID='AK'		
+		</base-condition>			
+	</tab>	
+			
+	<entity-mapping table="XAVATEST@separator@CUSTOMER">
+		<property-mapping
+			property="number" column="NUMBER"/>
+		<property-mapping
+			property="name" column="NAME"/>
+		<property-mapping
+			property="type" column="TYPE" cmp-type="java.lang.Integer">
+			<converter class="org.openxava.converters.ValidValuesBase0Converter"/>
+		</property-mapping>		
+		<property-mapping
+			property="telephone" column="TELEPHONE"/>
+		<property-mapping
+			property="email" column="EMAIL"/>
+		<property-mapping
+			property="additionalEmails" column="ADDITIONALEMAILS"/>
+		<property-mapping
+			property="website" column="WEBSITE"/>							
+		<property-mapping
+			property="remarks" column="REMARKS"/>			
+		<property-mapping
+			property="photo" column="PHOTO"/>						
+		<reference-mapping reference="seller">
+			<reference-mapping-detail
+				column="SELLER_NUMBER" 
+				referenced-model-property="number" cmp-type="java.lang.Integer">
+				<converter class="org.openxava.converters.IntegerNumberConverter">
+					<set property="nullToZero" value="false"/>
+				</converter>
+		</reference-mapping-detail> 
+		</reference-mapping>	
+		<reference-mapping reference="alternateSeller">
+			<reference-mapping-detail
+				column="ALTERNATESELLER_NUMBER" 
+				referenced-model-property="number" cmp-type="java.lang.Integer">
+				<converter class="org.openxava.converters.IntegerNumberConverter">
+					<set property="nullToZero" value="false"/>
+				</converter>
+			</reference-mapping-detail> 
+		</reference-mapping>
+		<reference-mapping reference="group">
+			<reference-mapping-detail
+				column="GROUP_ID" 
+				referenced-model-property="id"/> 
+		</reference-mapping>			
+		<property-mapping
+			property="relationWithSeller" column="RELATIONSELLER"/>								
+		<property-mapping
+			property="address_street" column="STREET"/>						
+		<property-mapping
+			property="address_zipCode" column="ZIPCODE" cmp-type="String">			
+			<converter class="org.openxava.converters.IntegerStringConverter"/>
+		</property-mapping>
+		<property-mapping
+			property="address_city" column="CITY"/>						
+		<reference-mapping reference="address_state">						
+			<reference-mapping-detail column="STATE" referenced-model-property="id"/>
+		</reference-mapping>
+	</entity-mapping> 	
+	
+	<aggregate-mapping aggregate="DeliveryPlace" table="XAVATEST@separator@DELIVERYPLACE">
+		<reference-mapping reference="customer">
+			<reference-mapping-detail 
+				column="CUSTOMER" 
+				referenced-model-property="number"/> 
+		</reference-mapping>				
+		<property-mapping property="oid" column="OID"/>
+		<property-mapping property="name" column="NAME"/>
+		<property-mapping property="address" column="ADDRESS"/>		
+		<property-mapping property="remarks" column="REMARKS"/>
+		<reference-mapping reference="preferredWarehouse">
+			<reference-mapping-detail 
+				column="WAREHOUSE_ZONE" 
+				referenced-model-property="zoneNumber"/> 
+			<reference-mapping-detail 
+				column="WAREHOUSE_NUMBER" 
+				referenced-model-property="number"/> 				
+		</reference-mapping>						
+	</aggregate-mapping>
+	
+	<aggregate-mapping aggregate="Receptionist" table="XAVATEST@separator@RECEPTIONIST">
+		<reference-mapping reference="deliveryPlace">
+			<reference-mapping-detail 
+				column="DELIVERYPLACE" 
+				referenced-model-property="oid"/> 
+		</reference-mapping>				
+		<property-mapping property="oid" column="OID"/>
+		<property-mapping property="name" column="NAME"/>
+	</aggregate-mapping>	
+	
+	<aggregate-mapping aggregate="CustomerState" table="XAVATEST@separator@CUSTOMER_STATE">
+		<reference-mapping reference="customer">
+			<reference-mapping-detail 
+				column="CUSTOMER" 
+				referenced-model-property="number"/> 
+		</reference-mapping>				
+		<reference-mapping reference="state">
+			<reference-mapping-detail 
+				column="STATE" 
+				referenced-model-property="id"/> 
+		</reference-mapping>						
+	</aggregate-mapping>	
+							
+</component>

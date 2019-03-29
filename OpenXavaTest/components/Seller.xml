@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Seller">
+
+	<entity>
+		<property name="number" type="int" key="true"
+			size="3" required="true"/>   
+		<property name="name" type="String"
+			size="40" required="true"/>
+		<reference name="level" model="SellerLevel"/>			
+		<collection name="customers">	
+			<reference model="Customer" role="seller"/>			
+		</collection>		
+		<reference name="boss" model="Seller"/>
+		<property name="regions" stereotype="REGIONS"/>
+		<finder name="all" arguments="" collection="true">
+			<condition>1 = 1</condition>
+		</finder>
+	</entity>
+		
+	<view members="number; name"/>
+		
+	<view name="ForCustomJSP" members="number; name; level"/>
+	 
+	<view name="DecorateName">
+		<property-view property="number">
+			<on-change class="org.openxava.test.actions.DecorateNameAction"/>
+		</property-view>
+		<members>number; name</members>
+	</view>
+	
+	<view name="Complete">
+		<reference-view reference="level">
+			<descriptions-list/>
+		</reference-view>
+		<property-view property="level.id">
+			<on-change class="org.openxava.test.actions.OnChangeVoidAction"/>
+		</property-view>
+		<collection-view collection="customers" view="SimpleWithDeliveryPlaces">
+			<list-properties>number, name, remarks, relationWithSeller, seller.level.description, type, address.state.name</list-properties>
+			<row-style style="row-highlight" property="type" value="steady"/>
+		</collection-view>
+			
+		<members>number; name; level; regions; customers</members>
+	</view>
+	
+	<view name="CannotCreateCustomer">
+		<collection-view collection="customers" view="Simple" 
+			create-reference="false" modify-reference="false">
+			<list-properties>number, name, remarks, relationWithSeller, seller.level.description</list-properties>
+		</collection-view>		
+		<members>
+			number; name; 
+			<section name="customers">customers</section>
+		</members>	
+	</view>
+
+	<view name="Simple">
+		<reference-view reference="level">
+			<descriptions-list/>
+		</reference-view>
+		 <members>number; name; level</members>
+	</view>
+	
+	<view name="SimpleLevelFirst">
+		<reference-view reference="level">
+			<descriptions-list/>
+		</reference-view>
+		 <members>level; number; name</members>
+	</view>
+	
+	<view name="SimpleNoNumber">
+		<reference-view reference="level">
+			<descriptions-list/>
+		</reference-view>
+		 <members>name; level</members>
+	</view>		
+	
+	<view name="CustomersAsAggregate">
+		<reference-view reference="level">
+			<descriptions-list/>
+		</reference-view>
+		<collection-view collection="customers" view="Simple" as-aggregate="true">
+			<list-properties>number, name, remarks, relationWithSeller, seller.level.description</list-properties>
+		</collection-view>
+	
+		 <members>number; name; level; customers</members>
+	</view>
+	
+	<view name="LevelNoDescriptionsList">
+		<members>number; name; level</members>
+	</view>
+
+	<view name="SearchListCondition">
+		<reference-view reference="level">
+			<search-list-condition>${id} &lt; 'C'</search-list-condition>
+		</reference-view>
+		<collection-view collection="customers">
+			<search-list-condition>${number} &lt; 5</search-list-condition>
+		</collection-view>
+		<members>number; name;level;customers</members>
+	</view>
+	
+	<view name="SearchListConditionOff">
+		<members>number; name;level;customers</members>
+	</view>
+	
+	<view name="SearchListConditionBlank">
+		<reference-view reference="level">
+			<search-list-condition></search-list-condition>
+		</reference-view>
+		<collection-view collection="customers">
+			<search-list-condition>${number} &lt; 5</search-list-condition>
+		</collection-view>				
+		<members>number; name;level;customers</members>
+	</view>
+
+	<tab>
+		<filter class="org.openxava.test.filters.NumbersToLettersFilter"/>
+		<properties>number, name, regions</properties>		
+	</tab>
+	
+	<tab name="Other">
+		<filter class="org.openxava.test.filters.NumbersToLettersFilter"/>
+	</tab>	
+	
+	<entity-mapping table="XAVATEST@separator@SELLER">
+		<property-mapping 
+			property="number" column="NUMBER"/>
+		<property-mapping
+			property="name" column="NAME"/>		
+		<reference-mapping reference="level">
+			<reference-mapping-detail column="LEVEL" referenced-model-property="id"/>
+		</reference-mapping>
+		<property-mapping property="regions" column="REGIONS"/>			
+		<reference-mapping reference="boss">
+			<reference-mapping-detail column="BOSS" referenced-model-property="number"/>
+		</reference-mapping>		
+	</entity-mapping> 
+	
+</component>

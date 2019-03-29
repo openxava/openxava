@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!-- 
+The POJO version is transient and this persistent because a bug in XML
+that fails with collections to entities with no explicit mapping.
+ -->
+
+<component name="School">
+
+	<entity>
+		<property name="oid" key="true" hidden="true" type="String">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator" on-create="true"/>
+		</property>
+	
+		<property name="name" type="String" required="true"/>
+		 
+		<collection name="teachers">
+			<reference model="Teacher" role="school"/>
+		</collection>
+					  
+	</entity>
+	
+	<view>
+		<collection-view collection="teachers" collapsed="true"/>
+	</view>
+					
+</component>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="SellerLevel">
+
+	<entity>
+		<property name="id" type="String" key="true"
+			size="1" required="true"/>   
+		<property name="description" type="String"
+			size="50" required="true"/>
+	</entity>
+	 
+	<view>		
+		<property-view property="description" display-size="25"/>
+	</view>
+	
+	<entity-mapping table="XAVATEST@separator@SELLERLEVEL">
+		<property-mapping 
+			property="id" column="ID"/>
+		<property-mapping
+			property="description" column="DESCRIPTION"/>
+	</entity-mapping> 
+	
+</component>

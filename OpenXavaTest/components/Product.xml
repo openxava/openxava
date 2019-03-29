@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!--
+This example use stereotypes for family an subfamily.
+It is better to use reference (like in Product2), but
+therefore it's show some features more advances of stereotypes.
+-->
+
+<component name="Product">
+
+	<entity>		
+		<property name="number" key="true" type="long"
+			size="10" required="true"/>    
+		<property name="description" type="String"
+			size="40" required="true"> 
+			<validator class="org.openxava.test.validators.ExcludeStringValidator">
+				<set property="string" value="MOTO"/>
+			</validator>								
+			<validator class="org.openxava.test.validators.ExcludeStringValidator">
+				<set property="string" value="COCHE"/>
+			</validator>								
+			<validator class="org.openxava.test.validators.ExcludeStringValidator" only-on-create="true">
+				<set property="string" value="CUATRE"/>
+			</validator>											
+		</property>
+		<property name="photos" stereotype="IMAGES_GALLERY"/>
+		<property name="familyNumber"
+			stereotype="FAMILY" required="true"/>
+		<property name="subfamilyNumber"
+			stereotype="SUBFAMILY" required="true"/>    			
+		<property name="remarks" stereotype="MEMO"/>			
+		<property name="warehouseKey"
+			stereotype="WAREHOUSE" required="true">    							
+		</property>
+		<property name="unitPrice"
+			stereotype="MONEY" required="true">
+			<default-value-calculator class="org.openxava.test.calculators.DefaultProductPriceCalculator">
+				<set property="familyNumber"/>
+			</default-value-calculator>
+			<validator class="org.openxava.test.validators.UnitPriceValidator"/>    
+		</property>	
+		<property name="unitPriceInPesetas" type="java.math.BigDecimal" size="10" scale="0">
+			<calculator class="org.openxava.test.calculators.EurosToPesetasCalculator">
+				<set property="euros" from="unitPrice"/>
+				<set property="rate" value="166.386"/>  <!-- to test mixing 'value' and 'from' at same time -->
+			</calculator>		
+		</property>		
+		
+		
+		
+		<method name="increasePrice">
+			<calculator class="org.openxava.test.calculators.IncreasePriceCalculator"/>
+		</method>
+				
+		<method name="getPrice" type="BigDecimal"
+			arguments="String country, BigDecimal tariff"
+			exceptions="ProductException, PriceException">
+			<calculator class="org.openxava.test.calculators.ExportPriceCalculator">
+				<set property="euros" from="unitPrice"/>
+			</calculator>		
+		</method>
+									
+		<finder name="all" arguments="" collection="true">
+			<condition>1 = 1</condition>		
+		</finder>
+		<validator class="org.openxava.test.validators.CheapProductValidator">
+			<set property="limit" value="100"/>
+			<set property="description"/>
+			<set property="unitPrice"/>
+		</validator>						
+		<validator class="org.openxava.test.validators.ExpensiveProductValidator">
+			<set property="limit" value="1000"/>
+			<set property="description"/>
+			<set property="unitPrice"/>
+		</validator>
+		
+		<validator class="org.openxava.test.validators.ExpensiveProductValidator">
+			<set property="limit" value="166000"/>
+			<set property="description"/>
+			<set property="unitPrice" from="unitPriceInPesetas"/> <!-- To test validator with from combined with a view property -->
+		</validator>		
+								
+		<validator class="org.openxava.test.validators.ForbiddenPriceValidator" only-on-create="true">
+			<set property="forbiddenPrice" value="555"/>
+			<set property="unitPrice"/>
+		</validator>										
+	</entity> 
+	
+	<view>
+	
+		<property-view property="unitPrice">
+			<on-change class="org.openxava.test.actions.OnChangeProductUnitPriceAction"/>
+		</property-view>
+
+	</view>
+	
+	<view name="WithSection">
+	
+		<property-view property="unitPrice">
+			<on-change class="org.openxava.test.actions.OnChangeProductUnitPriceAction"/>
+		</property-view>
+		
+		<property-view property="warehouseKey"> 
+			<on-change class="org.openxava.test.actions.OnChangeVoidAction"/>
+		</property-view>
+		
+		<members>
+			number;
+			<section name="data">
+				description;
+				photos;
+				familyNumber;
+				subfamilyNumber;
+				warehouseKey;
+				<group name="price">
+					unitPrice;
+					unitPriceInPesetas;
+				</group>
+				remarks
+			</section>
+		</members>		
+				
+	</view>
+	
+	<view name="WithViewProperty">	
+		<property name="ephemeralRemarks" type="String"/>
+		<members>
+			number;
+			description;
+			familyNumber;
+			subfamilyNumber;
+			warehouseKey;
+			unitPrice;
+			ephemeralRemarks;
+		</members>		
+	</view>		
+	
+	<view name="Simple">
+		<property-view property="unitPrice" editor="Money"/>
+		<members>
+			number, description, unitPrice
+		</members>
+	</view>
+	
+	<view name="EditPrice">
+		<property-view property="description" read-only="true"/>
+		<members>number, description, unitPrice</members>
+	</view>	
+			
+	<tab>			
+		<properties>number, description, unitPrice, unitPriceInPesetas</properties>	
+	</tab>
+		
+	<entity-mapping table="XAVATEST@separator@PRODUCT">
+		<property-mapping 
+			property="number" column="NUMBER"/>
+		<property-mapping 
+			property="description" column="DESCRIPTION"/>
+		<property-mapping 
+			property="photos" column="PHOTOS"/>						
+		<property-mapping
+			property="familyNumber" column="FAMILY"/>			
+		<property-mapping
+			property="subfamilyNumber" column="SUBFAMILY"/>						
+		<property-mapping
+			property="warehouseZoneNumber" column="ZONE" cmp-type="Integer"/>												
+		<property-mapping
+			property="warehouseNumber" column="WAREHOUSE" cmp-type="Integer"/>									
+		<property-mapping
+			property="unitPrice" column="UNITPRICE"/>
+		<property-mapping
+			property="remarks" column="REMARKS"/>			
+	</entity-mapping> 
+			
+</component>

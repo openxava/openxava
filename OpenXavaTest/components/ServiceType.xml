@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+
+<component name="ServiceType">
+
+	<entity>  
+		<property name="number" type="int" size="3" key="true"/>
+		<property name="description" type="String" size="30" required="true"/>		
+		<property name="family" stereotype="FAMILY" required="true"/>
+		<property name="subfamily" stereotype="SUBFAMILY" required="true"/>
+	</entity>
+	
+	<entity-mapping table="XAVATEST@separator@SERVICETYPE">
+		<property-mapping property="number" column="NUMBER"/>
+		<property-mapping property="description" column="DESCRIPTION"/>
+		<property-mapping property="family" column="FAMILY"/>
+		<property-mapping property="subfamily" column="SUBFAMILY"/>
+	</entity-mapping>
+
+</component>

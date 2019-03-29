@@ -1,0 +1,10 @@
+<!DOCTYPE hibernate-configuration PUBLIC 	"-//Hibernate/Hibernate Configuration DTD//EN"	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">	
+<hibernate-configuration>
+	<session-factory>
+		<!-- Hypersonic -->       		<property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>		<property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>		<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:1555</property>						<!-- AS/400         
+		<property name="hibernate.connection.driver_class">com.ibm.as400.access.AS400JDBCDriver</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.DB2400Dialect</property>
+		<property name="hibernate.connection.url">jdbc:as400:192.168.1.8</property>		-->				<property name="hibernate.connection.username">sa</property>
+		<property name="hibernate.connection.password"></property>		<property name="hibernate.default_schema">XAVATEST</property>		
+		<property name="hibernate.show_sql">false</property>					</session-factory>
+	</hibernate-configuration>

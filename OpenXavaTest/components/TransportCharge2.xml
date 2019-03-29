@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!--
+	Example of a reference used as key that
+	as well have a reference used as key.
+	Also the reference is overlapped with a key property.
+-->
+
+<component name="TransportCharge2">
+
+	<entity>  
+		<property name="year" size="4" type="int" key="true"/>
+		<reference name="delivery" key="true"/>
+		<property name="amount" stereotype="MONEY" required="true"/>
+		<finder name="all" arguments="" collection="true"/>
+	</entity>
+
+	<entity-mapping table="XAVATEST@separator@TRANSPORTCHARGE2">
+		<property-mapping property="year" column="YEAR"/>
+		<reference-mapping reference="delivery">
+			<reference-mapping-detail 
+				column="YEAR" 
+				referenced-model-property="invoice.year"/> 
+			<reference-mapping-detail 
+				column="DELIVERY_INVOICE_NUMBER" 
+				referenced-model-property="invoice.number"/> 				
+			<reference-mapping-detail 
+				column="DELIVERY_TYPE" 
+				referenced-model-property="type.number"/> 				
+			<reference-mapping-detail 
+				column="DELIVERY_NUMBER" 
+				referenced-model-property="number"/> 				
+		</reference-mapping>
+		<property-mapping
+			property="amount" column="AMOUNT"/>
+	</entity-mapping>
+	
+</component>

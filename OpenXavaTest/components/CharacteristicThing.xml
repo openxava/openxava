@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="CharacteristicThing">
+
+	<entity>  
+		<property name="number" key="true" type="int" hidden="true">
+            <default-value-calculator class="org.openxava.calculators.SequenceCalculator" on-create="true">
+            	<set property="sequence" value="XAVATEST@separator@THING_NUMBER_SEQ"/>
+            </default-value-calculator>            
+		</property>
+		<reference name="thing" />
+		<property name="description" type="String" />
+	</entity>		
+	
+	<view>
+		<reference-view reference="thing">
+			<descriptions-list/>
+		</reference-view>
+	</view>
+	
+	<entity-mapping table="XAVATEST@separator@CHARACTERISTICTHING">
+		<property-mapping
+			property="number" column="NUMBER"/>
+		<reference-mapping reference="thing">
+			<reference-mapping-detail 
+				column="THING_IDTHING" 
+				referenced-model-property="number"/>
+		</reference-mapping>		
+		<property-mapping
+			property="description" column="DESCRIPTION"/>
+	</entity-mapping>
+	
+</component>

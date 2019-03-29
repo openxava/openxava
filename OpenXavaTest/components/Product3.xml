@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!--
+Stores oid of family and not the code
+-->
+
+<component name="Product3">
+
+	<entity>		
+		<property name="number" key="true" type="long"
+			size="10" required="true">    
+			<default-value-calculator class="org.openxava.calculators.NextIntegerCalculator">
+				<set property="model" value="Product3"/>				
+				<set property="property" value="number"/>				
+			</default-value-calculator>
+		</property>
+		<property name="description" type="String"
+			size="40" required="true"/>
+		<reference name="family" model="Family"/>
+		<property name="comments" stereotype="MEMO"/>
+		<reference name="subfamily1" model="SubfamilyInfo" required="true"/>
+		<reference name="subfamily2" model="SubfamilyInfo" required="true"/>
+	</entity> 
+	
+	<aggregate name="SubfamilyInfo">
+		<reference name="family" model="Family2"/>
+		<reference name="subfamily" model="Subfamily2"/>
+	</aggregate>
+	
+	<view>
+		<property-view property="family.oid">
+			<on-change class="org.openxava.test.actions.OnChangeFamilyAction"/>
+		</property-view>		
+	
+		<members>
+			number; 
+			family;
+			description;			
+			subfamily1;
+			subfamily2;
+			comments;
+		</members>
+	</view>
+	
+	<view name="WithDescriptionsList">
+		<reference-view reference="family">
+			<descriptions-list/>
+		</reference-view>
+		<members>
+			number; 
+			family;
+			description;			
+			subfamily1;
+			subfamily2;
+			comments;
+		</members>
+	</view>	
+			
+	<view name="WithGroup">
+		
+		<reference-view reference="family">
+			<descriptions-list/>
+		</reference-view>
+
+		<property-view property="family.oid">
+			<on-change class="org.openxava.test.actions.OnChangeFamilyAction"/>
+		</property-view>		
+
+		<property-view property="description">
+			<on-change class="org.openxava.test.actions.OnChangeProduct3DescriptionAction"/>
+		</property-view>						
+		
+		<members>
+			number, family;
+			<group name="description">				
+				description;
+				comments
+			</group>
+		</members>
+
+	</view>
+	
+	<view model="SubfamilyInfo">
+	
+		<reference-view reference="family">
+			<descriptions-list/>
+		</reference-view>
+		
+		<reference-view reference="subfamily">
+			<descriptions-list 
+				depends="this.family"
+				condition="${family.number} = ?"/>			  													
+		</reference-view>		
+		
+	</view>
+					
+	<entity-mapping table="XAVATEST@separator@PRODUCT3">
+		<property-mapping 
+			property="number" column="NUMBER"/>
+		<property-mapping 
+			property="description" column="DESCRIPTION"/>
+		<reference-mapping reference="family">
+			<reference-mapping-detail 
+				column="FAMILY" 
+				referenced-model-property="oid"/>
+		</reference-mapping>	
+		<property-mapping 
+			property="comments" column="COMMENTS"/>								
+		<reference-mapping reference="subfamily1_family">
+			<reference-mapping-detail 
+				column="FAMILY1" 
+				referenced-model-property="number"/>
+		</reference-mapping>	
+		<reference-mapping reference="subfamily1_subfamily">
+			<reference-mapping-detail 
+				column="SUBFAMILY1" 
+				referenced-model-property="number"/>
+		</reference-mapping>	
+		<reference-mapping reference="subfamily2_family">
+			<reference-mapping-detail 
+				column="FAMILY2" 
+				referenced-model-property="number"/>
+		</reference-mapping>	
+		<reference-mapping reference="subfamily2_subfamily">
+			<reference-mapping-detail 
+				column="SUBFAMILY2" 
+				referenced-model-property="number"/>
+		</reference-mapping>	
+	</entity-mapping> 
+
+</component>

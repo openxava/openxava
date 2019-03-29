@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="AverageSpeed">
+
+	<entity>
+	
+		<property name="oid" key="true" hidden="true" type="String">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator"/>
+		</property>
+		
+		<reference name="driver" required="true" search-key="true"/>				
+		<reference name="vehicle" required="true" search-key="true"/>
+		<property name="speed" type="int" size="3" required="true"/>
+	
+	</entity>
+	
+	<view>
+		<reference-view reference="driver" view="Simple"/>
+		<reference-view reference="vehicle" view="Simple"/>
+	</view>
+	
+	<entity-mapping table="XAVATEST@separator@AVERAGESPEED">
+		<property-mapping property="oid" column="OID"/>
+		<reference-mapping reference="driver">
+			<reference-mapping-detail 
+				column="DRIVER_NUMBER" 
+				referenced-model-property="number"/>
+		</reference-mapping>
+		<reference-mapping reference="vehicle">
+			<reference-mapping-detail 
+				column="VEHICLE_OID" 
+				referenced-model-property="oid"/>
+		</reference-mapping>		
+		<property-mapping property="speed" column="SPEED"/>
+	</entity-mapping>
+	 				
+</component>

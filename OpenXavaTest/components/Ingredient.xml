@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Ingredient">
+
+	<entity>
+		<property name="oid" type="String" key="true" hidden="true">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator"/>
+		</property>
+		<property name="name" type="String"
+			size="40" required="true"/>			  			
+		<reference name="partOf" model="Ingredient"/>
+		<reference name="favouriteFormula" model="Formula"/>
+		<finder name="byName" arguments="String name">
+			<condition>${name} = {0}</condition>
+		</finder>				
+	</entity>
+	
+	<view>
+		<reference-view reference="partOf">
+			<descriptions-list/>
+		</reference-view>
+	</view>
+	
+	<view name="Sections">
+		<reference-view reference="partOf">
+			<descriptions-list/>
+		</reference-view>
+		<members>
+			<section name="section1">
+				name;
+				<section name="section2">
+					partOf, favouriteFormula
+				</section>
+			</section>
+		</members>
+	</view>
+	
+	<entity-mapping table="XAVATEST@separator@INGREDIENT">
+		<property-mapping
+			property="oid" column="ID"/>
+		<property-mapping
+			property="name" column="NAME"/>
+		<reference-mapping reference="partOf">
+			<reference-mapping-detail column="PARTOF" referenced-model-property="oid"/>
+		</reference-mapping>
+		<reference-mapping reference="favouriteFormula">
+			<reference-mapping-detail column="FAVOURITEFORMULA_ID" referenced-model-property="oid"/>
+		</reference-mapping>				
+	</entity-mapping> 
+						
+</component>

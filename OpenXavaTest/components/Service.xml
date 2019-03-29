@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!--
+	Example of complex dependencies within properties with stereotypes,
+	based on editors.
+	-->
+	
+<component name="Service">
+
+	<entity>  
+		<property name="number" type="int" size="3" key="true"/>
+		<property name="description" type="String" size="30"/>		
+		<property name="family" stereotype="FAMILY"/>
+		<reference name="detail"/>
+		<reference name="invoice" model="ServiceInvoice"/>
+		<collection name="additionalDetails">
+			<reference model="AdditionalDetail"/>
+		</collection>
+	</entity>
+	
+	<aggregate name="Detail">
+		<property name="subfamily" stereotype="SUBFAMILY"/>
+		<property name="type" stereotype="SERVICE_TYPE"/>
+		<reference name="typeRef" model="ServiceType"/> <!-- to test overlapping with property-->
+		<property name="free" type="boolean"/>					
+	</aggregate>
+	
+	<aggregate name="AdditionalDetail">
+		<reference name="service" key="true"/>
+		<property name="counter" key="true" type="int" hidden="true">
+			<default-value-calculator class="org.openxava.calculators.CounterByPassOidCalculator" on-create="true"/>
+		</property>
+		<property name="subfamily" stereotype="SUBFAMILY" required="true"/>
+		<reference name="type" model="ServiceType"/>					
+	</aggregate>
+	
+	<view>
+		<members>
+			number;
+			description;
+			<section name="detail">
+				family;
+				detail;
+				additionalDetails			
+			</section>
+			<section name="invoice">
+				invoice, <action action="Service.seeMessage"/>
+			</section>
+		</members>
+	</view>	
+	
+	<view model="Detail" members="subfamily; type; free"/>	
+	
+	<view model="AdditionalDetail">
+		<reference-view reference="type">
+			<descriptions-list
+				depends="family, additionalDetails.subfamily"
+				condition="${family} = ? and ${subfamily} = ?"/>
+		</reference-view>			
+	</view>
+		
+	<entity-mapping table="XAVATEST@separator@SERVICE">
+		<property-mapping property="number" column="NUMBER"/>
+		<property-mapping property="description" column="DESCRIPTION"/>
+		<property-mapping property="family" column="FAMILY"/>
+		<property-mapping property="detail_subfamily" column="SUBFAMILY"/>
+		<property-mapping property="detail_type" column="TYPE"/>		
+		<reference-mapping reference="detail_typeRef">
+			<reference-mapping-detail referenced-model-property="number" column="TYPE"/>
+		</reference-mapping>		
+		<property-mapping property="detail_free" column="FREE"/>
+		<reference-mapping reference="invoice">
+			<reference-mapping-detail 
+				referenced-model-property="oid" column="INVOICE_OID"/>
+		</reference-mapping>		
+	</entity-mapping>
+	
+	<aggregate-mapping aggregate="AdditionalDetail" table="XAVATEST@separator@SERVICEDETAIL">
+		<reference-mapping reference="service">
+			<reference-mapping-detail column="SERVICE" referenced-model-property="number"/>
+		</reference-mapping>
+		<property-mapping property="counter" column="COUNTER"/>
+		<property-mapping property="subfamily" column="SUBFAMILY"/>
+		<reference-mapping reference="type">
+			<reference-mapping-detail column="TYPE" referenced-model-property="number"/>
+		</reference-mapping>		
+	</aggregate-mapping>
+	
+</component>

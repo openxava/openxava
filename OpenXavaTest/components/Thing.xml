@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Thing">
+
+	<entity>  
+		<property name="number" key="true" type="int" hidden="true">
+            <default-value-calculator class="org.openxava.calculators.SequenceCalculator" on-create="true">
+            	<set property="sequence" value="XAVATEST@separator@THING_NUMBER_SEQ"/>
+            </default-value-calculator>            
+		</property>
+		<property name="name" type="String" size="20" required="true"/>
+	</entity>		
+	
+	<entity-mapping table="XAVATEST@separator@THING">
+		<property-mapping
+			property="number" column="IDTHING"/>		
+		<property-mapping
+			property="name" column="NAME"/>
+	</entity-mapping>
+	
+</component>

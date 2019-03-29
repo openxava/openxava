@@ -1,0 +1,68 @@
+/* Estilo yahoo */
+
+BODY {
+}
+
+BUTTON {
+	margin-right: 2;
+}
+
+#errors {
+	color: #ff0000;
+	font-weight: bold;
+}
+
+#messages {
+	color: #3366ff;
+	font-weight: bold;
+}
+
+
+.buttonBar {
+	background: #B6C7E5;	
+}
+
+.body {
+	background: #eeeeee;
+}
+
+.label {
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+.editor {
+}
+
+
+TABLE.list {	
+	background: white;
+}
+
+
+
+TH.list {
+	background: #ffffcc;
+	font-weight: normal; 
+}
+
+
+TR.search {
+	font-weight: normal;
+	background: #cccccc;	 
+}
+
+
+TR.odd {
+	font-weight: normal;
+	background: #eeeeee;
+}
+
+TR.pair {
+	font-weight: normal;
+	background: #eeeeee;
+}
+
+.list-info {
+	font-weight: bold;
+}

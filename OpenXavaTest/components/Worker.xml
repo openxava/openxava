@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!-- 
+This component is mapping to an unqualified table,
+WORKER, without schema, this is for testing the
+default schema behaviour
+ -->
+
+<component name="Worker">
+
+	<entity>
+		<property name="id" type="Integer" key="true" hidden="true"/>
+		<property name="nickName" type="String" 
+			size="40" required="true"/>		
+		<property name="fullName" type="String" 
+			size="40" required="true"/>
+		<property name="hourPrice" type="java.math.BigDecimal"/>
+	</entity>
+	
+	<entity-mapping table="WORKER">
+		<property-mapping
+			property="id" column="ID"/>
+		<property-mapping
+			property="nickName" column="NICKNAME"/>
+		<property-mapping
+			property="fullName" column="FULLNAME"/>
+		<property-mapping
+			property="hourPrice" column="HOURPRICE"/>
+	</entity-mapping>
+					
+</component>

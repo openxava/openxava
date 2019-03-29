@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!-- 
+Number (the key) can be 0
+ -->
+
+<component name="Color">
+
+	<entity>
+		<property name="number" type="Integer" key="true" size="5" required="false">
+			<default-value-calculator class="org.openxava.calculators.IdentityCalculator" on-create="true"/>
+		</property>
+		<property name="name" type="String"	size="20" required="true"/>
+		<property name="version" type="int" version="true"/>	
+		<property name="sample" stereotype="IMAGE_LABEL">	
+			<calculator class="org.openxava.test.calculators.ColorSampleCalculator">
+				<set property="colorName" from="name"/>
+			</calculator>
+		</property>
+		<property name="hexValue" type="String" size="6"/>
+		<reference name="usedTo" model="Thing" />
+		<reference name="characteristicThing"/>
+		<reference name="anotherCT" model="CharacteristicThing"/>
+		<reference name="mixture"/>
+		<finder name="all" arguments="" collection="true"/>	
+	</entity>
+		
+	<view name="View1">
+		<property name="property1" type="String"/>
+		<members>property1</members>
+	</view>
+	
+	<view name="View2">
+		<property name="property2" type="String"/>
+		<members>property2</members>
+	</view>
+	
+	<view name="View2Sub1">
+		<property name="property2Sub1" type="String"/>
+		<members>property2Sub1</members>
+	</view>
+	
+	<view name="View2Sub2">
+		<property name="property2Sub2" type="String"/>
+		<members>property2Sub2</members>
+	</view>
+	
+	<view name="Groups">
+		<property name="property1" type="String"/>
+		<property name="property2" type="String"/>
+		<property name="group">
+			<valid-values>
+				<valid-value value="GROUP1"/>
+				<valid-value value="GROUP2"/>
+			</valid-values>
+		</property>
+		<property-view property="group">
+			<on-change class="org.openxava.test.actions.OnChangeGroupInColorAction"/>
+		</property-view>
+		
+		<members>
+			group; 
+			<group name="group1">property1</group>,
+			<group name="group2">property2</group> 
+		</members>
+	</view>
+
+	<view name="Ordinary">		
+		<reference-view reference="characteristicThing">
+			<descriptions-list			    
+				condition="${thing.number} = ?"
+				depends="this.usedTo"
+				label-format="NO_LABEL"/>
+		</reference-view>
+		<reference-view reference="usedTo">
+			<descriptions-list not-for-tabs="DEFAULT" order="${name} desc" label-style="red-label"/>
+		</reference-view>
+		<reference-view reference="anotherCT">
+			<descriptions-list condition="${thing.number} = (SELECT idthing FROM ${Thing} WHERE name = 'CAR')"/>
+		</reference-view>
+		<reference-view reference="mixture">
+			<descriptions-list description-property="fullDescription"/>
+		</reference-view>
+		<property-view property="number" label-style="italic-label red-label"/>
+		<property-view property="name" label-style="bold-label"/>
+		<members>number; name; sample; hexValue; usedTo, characteristicThing, anotherCT; mixture</members>
+	</view>
+	
+	<view name="Ordinary2">
+		<reference-view reference="characteristicThing">
+			<descriptions-list 
+				for-tabs="Color2"
+				condition="${number} &lt; 2"
+				label-format="NO_LABEL"/>
+		</reference-view>
+	</view>
+	
+	<tab>		
+		<properties>number, name, hexValue, sample, usedTo.name, characteristicThing.description</properties>
+	</tab>
+	
+	<tab name="Color2">
+		<properties>number, name, hexValue, sample, usedTo.name, characteristicThing.description</properties>
+	</tab>
+	
+	<entity-mapping table="XAVATEST@separator@COLOR">
+		<property-mapping
+			property="number" column="NUMBER"/>
+		<property-mapping
+			property="name" column="NAME"/>
+		<property-mapping
+			property="version" column="VERSION"/>
+		<property-mapping
+			property="hexValue" column="HEXVALUE"/>
+		<reference-mapping reference="usedTo">
+			<reference-mapping-detail column="IDTHING" referenced-model-property="number"/>
+		</reference-mapping>
+		<reference-mapping reference="characteristicThing">
+			<reference-mapping-detail column="CHARACTERISTICTHING_NUMBER" referenced-model-property="number"/>
+		</reference-mapping>
+		<reference-mapping reference="anotherCT">
+			<reference-mapping-detail column="ANOTHERCT_NUMBER" referenced-model-property="number"/>
+		</reference-mapping>
+		<reference-mapping reference="mixture">
+			<reference-mapping-detail column="MIXTURE_COLORNAME1" referenced-model-property="colorName1"/>
+			<reference-mapping-detail column="MIXTURE_COLORNAME2" referenced-model-property="colorName2"/>
+		</reference-mapping>
+		
+		
+	</entity-mapping> 
+				
+</component>

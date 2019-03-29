@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Warehouse">
+
+	<entity>
+		<property name="zoneNumber" key="true"
+			size="3" required="true" type="int"/>   			
+		<property name="number" key="true"
+			size="3" required="true" type="int"/>   
+		<property name="name" type="String"
+			size="40" required="true"/>
+	</entity>
+	
+	<view>
+		<property name="time" stereotype="CURRENT_TIME_MILLIS"/>
+		<members>zoneNumber; number; name; time</members>
+	</view>
+	
+	<view name="KeyInGroup">
+		<members>
+			<group name="key">
+			 	zoneNumber, number
+			</group>;
+			name
+		</members>
+	</view>
+	
+	<view name="WithOnChangeZone">
+		<property-view property="zoneNumber">
+			<on-change class="org.openxava.test.actions.OnChangeVoidAction"/>
+		</property-view>
+	</view>
+	
+	<view name="WithoutZone" members="number, name"/>
+	
+	<tab>
+		<filter class="org.openxava.test.filters.LimitZoneFilter"/>
+		<base-condition>${zoneNumber} &lt;= ?</base-condition>
+	</tab>		
+								
+	<entity-mapping table="XAVATEST@separator@WAREHOUSE">
+		<property-mapping 
+			property="zoneNumber" column="ZONE"/>	
+		<property-mapping 
+			property="number" column="NUMBER"  cmp-type="Integer">
+			<converter class="org.openxava.converters.IntegerNumberConverter"/>						
+		</property-mapping>
+		<property-mapping
+			property="name" column="NAME"/>
+	</entity-mapping> 
+	
+</component>

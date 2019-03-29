@@ -1,0 +1,22 @@
+	<portlet id="Version">
+		<description>OpenXavaTest - Version</description>
+		<description xml:lang="ca">OpenXavaTest - Versió</description>
+		<description xml:lang="es">OpenXavaTest - Versión</description>
+		<description xml:lang="fr">OpenXavaTest - Version</description>       
+		<portlet-name>Version</portlet-name>
+		<display-name>OpenXava - Version</display-name> 
+		<display-name xml:lang="ca">OpenXavaTest - Versió</display-name> 
+		<display-name xml:lang="es">OpenXavaTest - Versión</display-name> 
+		<display-name xml:lang="fr">OpenXavaTest - Version</display-name> 
+		<portlet-class>org.openxava.test.portlets.VersionPortlet</portlet-class>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>VIEW</portlet-mode>
+		</supports>
+		<supported-locale>ca</supported-locale>
+		<supported-locale>es</supported-locale>
+		<supported-locale>en</supported-locale>
+		<supported-locale>fr</supported-locale> 
+		<resource-bundle>portlets/Version</resource-bundle>
+	</portlet> 

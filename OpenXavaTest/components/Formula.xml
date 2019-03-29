@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Formula">
+
+	<entity>
+		<property name="oid" type="String" key="true" hidden="true">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator" on-create="true"/>
+		</property>
+		<property name="name" type="String"
+			size="40" required="true"/>			  			
+		<collection name="ingredients">
+			<reference model="FormulaIngredient"/>
+		</collection>	
+		<property name="recipe" stereotype="HTML_TEXT"/>
+		<finder name="byName" arguments="String name">
+			<condition>${name} = {0}</condition>
+		</finder>
+	</entity>
+	
+	<aggregate name="FormulaIngredient">
+		<property name="oid" type="String" key="true" hidden="true">
+			<default-value-calculator class="org.openxava.calculators.UUIDCalculator" on-create="true"/>
+		</property>
+		
+		<reference name="ingredient" model="Ingredient"/>
+		<reference name="accentuate" model="Ingredient"/>
+		<reference name="anotherFormula" model="Formula"/>
+		<property name="image" stereotype="IMAGE"/>		
+	</aggregate>
+	
+	<view>
+		<property name="selectedIngredientSize" type="int" />
+		<property name="selectedIngredientNames" type="String" />
+		
+		<property-view property="selectedIngredientSize" label-format="SMALL" read-only="true" />
+		<property-view property="selectedIngredientNames" label-format="SMALL" read-only="true" />
+		
+		<collection-view collection="ingredients">
+			<on-select-element-action action="Formula.onSelectIngredient"/>
+			<list-properties>image, ingredient.name</list-properties>
+		</collection-view>
+		
+		<members>
+			name;
+			selectedIngredientSize, selectedIngredientNames;
+			<section name="ingredients">
+				ingredients
+			</section>
+			<section name="recipe">
+				recipe
+			</section>
+		</members>		
+	</view>
+	
+
+	<view model="FormulaIngredient">
+
+		<reference-view reference="ingredient">
+			<descriptions-list/>
+		</reference-view>
+
+		<reference-view reference="accentuate" >
+			<descriptions-list condition="${partOf.oid} = ?" depends="this.ingredient"/>
+		</reference-view>		
+		
+		<reference-view reference="anotherFormula">
+			<descriptions-list/>
+		</reference-view>		
+		
+	</view>
+
+	<view name="Simple" members="name"/> 
+							
+	<entity-mapping table="XAVATEST@separator@FORMULA">
+		<property-mapping
+			property="oid" column="ID"/>
+		<property-mapping
+			property="name" column="NAME"/>
+		<property-mapping
+			property="recipe" column="RECIPE"/>
+	</entity-mapping> 
+	
+	<aggregate-mapping aggregate="FormulaIngredient" table="XAVATEST@separator@FORMULAINGREDIENT">
+		<property-mapping
+			property="oid" column="ID"/>
+		<reference-mapping reference="formula">
+			<reference-mapping-detail column="FORMULA" referenced-model-property="oid"/>
+		</reference-mapping>	
+		<reference-mapping reference="ingredient">
+			<reference-mapping-detail column="INGREDIENT" referenced-model-property="oid"/>
+		</reference-mapping>	
+		<reference-mapping reference="accentuate">
+			<reference-mapping-detail column="ACCENTUATE" referenced-model-property="oid"/>
+		</reference-mapping>			
+		<reference-mapping reference="anotherFormula">
+			<reference-mapping-detail column="ANOTHERFORMULA" referenced-model-property="oid"/>
+		</reference-mapping>			
+		<property-mapping
+			property="image" column="IMAGE"/>
+	</aggregate-mapping> 
+					
+</component>

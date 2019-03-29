@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Allows to use Hibernate mapped object using JPA -->
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+             version="1.0">
+    <persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>org.openxava.util.impl.EmailSubscription</class>
+        <properties>
+            <property name="hibernate.ejb.cfgfile" value="/hibernate-jpa.cfg.xml"/>
+        </properties>
+    </persistence-unit>
+    
+    <persistence-unit name="junit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>org.openxava.util.impl.EmailSubscription</class>
+        <properties>
+            <property name="hibernate.ejb.cfgfile" value="/hibernate-jpa-junit.cfg.xml"/>
+        </properties>
+    </persistence-unit>
+    
+</persistence>

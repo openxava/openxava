@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!-- 
+	Example of reference with a member shared with a property.
+	For this only have to do that reference-mapping-detail column
+	match property-mappingn column.
+	In this case the property and the reference are not keys.
+	-->
+
+<component name="Office">
+
+	<entity>
+		<property name="number" key="true"
+			size="3" required="true" type="int"/>   									
+		<property name="zoneNumber"
+			size="3" required="true" type="int"/>   												
+		<property name="name" type="String"
+			size="40" required="true"/>
+		<reference name="mainWarehouse" model="Warehouse" required="true"/>	
+		<reference name="officeManager" model="Clerk"/>	
+		<reference name="defaultCarrier" model="Carrier"/>
+		<property name="receptionist" stereotype="RECEPTIONIST"/>
+	</entity>
+	
+	<view>
+		<members>			
+			number;
+			<section name="data">
+				zoneNumber;
+				name;
+				mainWarehouse;
+				officeManager;
+				defaultCarrier;
+				receptionist;
+			</section>
+		</members>
+	</view>
+	
+	<view name="OnlyWarehouse">
+		<reference-view reference="mainWarehouse" view="WithoutZone"/>
+		<members>
+			number; zoneNumber; mainWarehouse
+		</members>
+	</view>
+	
+	<tab>
+		<properties>zoneNumber, number, name, mainWarehouse.name, officeManager.name, defaultCarrier.name</properties>
+	</tab>
+						
+	<entity-mapping table="XAVATEST@separator@OFFICE">
+		<property-mapping 
+			property="zoneNumber" column="ZONE"/>	
+		<property-mapping 
+			property="number" column="NUMBER"/>				
+		<property-mapping
+			property="name" column="NAME"/>
+		<reference-mapping reference="mainWarehouse">
+			<reference-mapping-detail 
+					referenced-model-property="zoneNumber" 
+					column="ZONE"/>
+			<reference-mapping-detail 
+					referenced-model-property="number" 
+					column="WAREHOUSE_NUMBER"/>			
+		</reference-mapping>	
+		<reference-mapping reference="officeManager">
+			<reference-mapping-detail 
+					referenced-model-property="zoneNumber" 
+					column="ZONE"/>
+			<reference-mapping-detail 
+					referenced-model-property="officeNumber" 
+					column="NUMBER"/>					
+			<reference-mapping-detail 
+					referenced-model-property="number" 
+					column="MANAGER_NUMBER"/>			
+		</reference-mapping>			
+		<reference-mapping reference="defaultCarrier">
+			<reference-mapping-detail 
+					referenced-model-property="number" 
+					column="CARRIER_NUMBER"/>			
+		</reference-mapping>					
+		<property-mapping
+			property="receptionist" column="RECEPTIONIST_OID"/>
+	</entity-mapping> 
+	
+</component>

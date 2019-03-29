@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!--
+	Exists version without oid (Subfamily2)
+-->
+
+<component name="Subfamily">
+
+	<entity>
+		<property name="oid" type="String" key="true" hidden="true">
+			<default-value-calculator 
+				class="org.openxava.calculators.UUIDCalculator"
+				on-create="true"/>
+		</property>
+		<property name="number" type="int" size="3" required="true"  stereotype="ZEROS_FILLED"/>
+		<property name="familyNumber" stereotype="FAMILY" required="true"/>   			
+		<property name="family" type="String" size="40" hidden="true"/> <!-- Only for column description in tab -->
+		<property name="description" type="String" size="40" required="true"/>
+		<property name="remarks" stereotype="MEMO" size="400"/>
+	</entity>
+	
+	<view>		
+		<members>
+			number
+			<section name="data">
+				familyNumber;
+				family;
+				description;
+				remarks	
+			</section>
+		</members>
+	</view>
+	
+	<tab name="CompleteSelect">
+		<properties>number, description, family</properties>
+		<base-condition>
+				select ${number}, ${description}, FAMILY.DESCRIPTION
+				from   XAVATEST@separator@SUBFAMILY, XAVATEST@separator@FAMILY as FAMILY
+				where  FAMILY = FAMILY.NUMBER
+		</base-condition>
+	</tab>	
+						
+	<entity-mapping table="XAVATEST@separator@SUBFAMILY">
+		<property-mapping property="oid" column="OID"/>	
+		<property-mapping 
+			property="number" column="NUMBER"/>
+		<property-mapping 
+			property="familyNumber" column="FAMILY"/>			
+		<property-mapping
+			property="description" column="DESCRIPTION"/>
+		<property-mapping
+			property="remarks" column="REMARKS"/>
+		<property-mapping
+			property="family" formula="0"/>									
+	</entity-mapping> 
+	
+</component>

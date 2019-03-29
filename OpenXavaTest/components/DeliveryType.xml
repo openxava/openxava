@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="DeliveryType">
+
+	<entity>
+		<property name="number" type="int" key="true" size="4"/>
+		<property name="description" type="String" required="true"/>
+		<collection name="deliveries">
+			<reference model="Delivery" role="type"/>
+		</collection>
+		<postcreate-calculator class="org.openxava.test.calculators.DeliveryTypePostcreateCalculator">						
+			<set property="number"/>
+			<set property="suffix" value="CREATED"/>
+		</postcreate-calculator>
+		<postmodify-calculator class="org.openxava.test.calculators.DeliveryTypePostmodifyCalculator"/>						
+		<remove-validator class="org.openxava.test.validators.DeliveryTypeRemoveValidator">
+			<set property="number"/>
+		</remove-validator>
+		
+	</entity>
+	
+	<view>
+		<!-- 
+		comboDeliveries: For testing description lists which keys
+			are references to other entities.
+		-->
+		<property name="comboDeliveries" stereotype="DELIVERIES"/> 
+	
+		<members>number; description; comboDeliveries</members>
+	</view>
+	
+	<entity-mapping table="XAVATEST@separator@DeliveryType">
+		<property-mapping property="number" column="number"/>		
+		<property-mapping property="description" column="DESCRIPTION" />		
+	</entity-mapping>
+
+</component>

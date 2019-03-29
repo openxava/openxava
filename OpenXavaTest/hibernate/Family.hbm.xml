@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.openxava.test.model">
+
+  <class 
+  	name="Family"
+  	schema="XAVATEST"
+  	table="FAMILY">
+  
+    <id name="oid" column="OID" access="field">
+		<generator class="uuid"/>
+	</id>
+		
+	<property name="number" column="NUMBER"/>
+	<property name="description" column="DESCRIPTION"/>
+		
+  </class>
+
+</hibernate-mapping>
+

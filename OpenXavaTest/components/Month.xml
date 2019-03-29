@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<component name="Month">
+
+	<entity>
+		<property name="name" type="String"/>
+		<property name="days" type="int"/>			  
+	</entity>
+	
+	<transient/>	
+				
+</component>

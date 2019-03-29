@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE component SYSTEM "dtds/component.dtd">
+
+<!--
+	Example of valid-values with converter used as key
+-->
+
+<component name="Shipment">
+
+	<entity>  
+		<property name="type" key="true" required="true">
+			<valid-values>
+				<valid-value value="internal"/>
+				<valid-value value="external"/>
+			</valid-values>
+		</property>
+		<property name="mode" key="true" required="true">
+			<valid-values>
+				<valid-value value="slow"/>
+				<valid-value value="medium"/>
+				<valid-value value="fast"/>
+			</valid-values>
+		</property>		
+		<property name="number" type="int" key="true" size="5" required="true"/>
+		<property name="description" type="String" size="50" required="true"/>
+		<property name="time" type="java.sql.Timestamp"/>
+		<reference name="customerContactPerson"/>
+		<finder name="byMode" arguments="int mode" collection="true">
+			<condition>${mode} = {0}</condition>
+		</finder>
+		<finder name="all" arguments="" collection="true"/>
+	</entity>		
+	
+	<view>
+		<reference-view reference="customerContactPerson" view="Simple"/>
+	</view>
+	
+	<view name="SeparatedTime">
+		<property-view property="time" editor="DateTimeSeparatedCalendar"/>
+		<reference-view reference="customerContactPerson" view="Simple"/>
+	</view>	
+		
+	
+	<tab>
+		<properties>number, description, time</properties>
+	</tab>
+	
+	<entity-mapping table="XAVATEST@separator@SHIPMENT">
+		<property-mapping
+			property="type" column="TYPE" cmp-type="String">
+			<converter class="org.openxava.converters.ValidValuesLetterConverter">
+				<set property="letters" value="IE"/>
+			</converter>
+		</property-mapping>
+		<!-- We don't use converter for 'mode', in this way:
+			0 -> NO VALUE
+			1 -> slow
+			2 -> medium
+			3 -> fast
+		 -->		
+		<property-mapping
+			property="mode" column="MODE"/>		
+		<property-mapping
+			property="number" column="NUMBER"/>
+		<property-mapping
+			property="description" column="DESCRIPTION"/>			
+		<property-mapping
+			property="time" column="TIME"/>						
+		<reference-mapping reference="customerContactPerson">
+			<reference-mapping-detail 
+				column="CUSTOMERCONTACT" 
+				referenced-model-property="customer.number"/>
+		</reference-mapping>
+	</entity-mapping>
+	
+</component>
