@@ -292,6 +292,7 @@ public class Module extends DWRBase {
 			result.setFocusPropertyId(Lists.FOCUS_PROPERTY_ID);
 		}
 		
+		System.out.println("[Module.fillResult] xava.postjs=" + request.getAttribute("xava.postjs")); // tmp ME QUEDÉ POR AQUÍ: NO FUNCIONA PORQUE ES OTRO REQUEST (LLENADO EN ModuleManager.executeBeforeLoadPage()).
 		result.setPostJS((String) request.getAttribute("xava.postjs"));
 		getView().resetCollectionsCache();
 		if (result.isHideDialog()) result.setFocusPropertyId(null); // To avoid scrolling to the beginning of the page on closing a dialog, something ugly in long pages working on the bottom part.

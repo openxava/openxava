@@ -222,7 +222,7 @@
 	}
 %> 
 <% 
-boolean coreViaAJAX = !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0 || manager.hasInitForwardActions();
+boolean coreViaAJAX = true; // tmp !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0 || manager.hasInitForwardActions();
 if (!coreViaAJAX && restoreLastMessage) {
 	Module.restoreLastMessages(request, app, module);
 }	
