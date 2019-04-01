@@ -1,0 +1,23 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE  stereotype-type-default SYSTEM "dtds/stereotype-type-default.dtd">
+
+<!-- OpenXavaTest -->
+
+<stereotype-type-default>
+
+	<for stereotype="FAMILY" type="int"/>
+	<for stereotype="SUBFAMILY" type="int"/>
+	<for stereotype="SUBFAMILY_DEPENDS_REFERENCE" type="int"/>
+	<for stereotype="SERVICE_TYPE" type="int"/>
+	<for stereotype="NO_FORMATING_STRING" type="String"/>
+	<for stereotype="PRODUCT2" type="long"/>
+	<for stereotype="PRODUCT3" type="long"/>
+	<for stereotype="WAREHOUSE" type="org.openxava.test.model.Warehouse"/>
+	<for stereotype="PERSON_NAME" type="String"/>
+	<for stereotype="RECEPTIONIST" type="int"/>
+	<for stereotype="REGIONS" type="String []"/>
+	<for stereotype="DELIVERIES" type="org.openxava.test.model.Delivery"/>
+	<for stereotype="CURRENT_TIME_MILLIS" type="long"/>
+		
+</stereotype-type-default>
