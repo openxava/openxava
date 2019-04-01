@@ -85,7 +85,18 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertListRowCount(2);
 	}
 	
-	public void testPlaceholder() throws Exception {  
+	public void testMoveColumn_placeholder() throws Exception { 
+		// To test a specific bug moving columns
+		assertLabelInList(0, "Author");
+		assertLabelInList(1, "Biography");
+		moveColumn(0, 1);
+		assertLabelInList(0, "Biography");
+		assertLabelInList(1, "Author");
+		resetModule();
+		assertLabelInList(0, "Biography");
+		assertLabelInList(1, "Author");
+
+		// Placeholder
 		execute("CRUD.new");
 		String inputPlaceholder = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__author").getAttribute("placeholder");
 		assertTrue("Author full name".equals(inputPlaceholder));
@@ -108,6 +119,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertListColumnCount(2);
 		assertListRowCount(1); 
 	}
+	
 	
 	public void testAddRemoveActionsForProperty() throws Exception { 
 		execute("List.viewDetail", "row=0");

@@ -2197,7 +2197,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	private void move(Object [] array, int from, int to) { 
-		if (array == null) return; 
+		if (from < 0 || to < 0) return; 
+		if (array == null || array.length == 0) return; 
 		XArrays.move(array, from, to); 
 	}
 	

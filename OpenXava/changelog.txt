@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Moving a column when customizing a list produces an error dialog and it is not persisted.
+
 OpenXava 6.1 (2019-3-26)
 ------------------------
 - Dropped support for Java 6 and 7, now Java 8 is the minimum requirement.

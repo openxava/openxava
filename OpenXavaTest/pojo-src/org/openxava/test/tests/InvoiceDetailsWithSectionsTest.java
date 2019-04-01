@@ -54,6 +54,23 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertLabelInList(4, "Amounts sum");
 		assertLabelInList(5, "V.A.T.");
 		assertLabelInList(6, "Details count");
+		
+		moveColumn(4, 5);
+		assertLabelInList(0, "Year");
+		assertLabelInList(1, "Paid");
+		assertLabelInList(2, "Number");
+		assertLabelInList(3, "Date");
+		assertLabelInList(4, "V.A.T.");
+		assertLabelInList(5, "Amounts sum");
+		assertLabelInList(6, "Details count");
+		resetModule();
+		assertLabelInList(0, "Year");
+		assertLabelInList(1, "Paid");
+		assertLabelInList(2, "Number");
+		assertLabelInList(3, "Date");
+		assertLabelInList(4, "V.A.T.");
+		assertLabelInList(5, "Amounts sum");
+		assertLabelInList(6, "Details count");		
 	}
 	
 	private void assertFocusInDialogWithAllMembersInSections() throws Exception {   
