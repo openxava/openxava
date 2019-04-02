@@ -222,7 +222,9 @@
 	}
 %> 
 <% 
-boolean coreViaAJAX = true; // tmp !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0 || manager.hasInitForwardActions();
+// tmp boolean coreViaAJAX = !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0 || manager.hasInitForwardActions();
+boolean coreViaAJAX = !style.isInsidePortal() || !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0 || manager.hasInitForwardActions(); // tmp
+System.out.println("[module.jsp] coreViaAJAX=" + coreViaAJAX); // tmp
 if (!coreViaAJAX && restoreLastMessage) {
 	Module.restoreLastMessages(request, app, module);
 }	

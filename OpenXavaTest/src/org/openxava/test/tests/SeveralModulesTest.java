@@ -22,7 +22,7 @@ public class SeveralModulesTest extends ModuleTestBase {
 	}
 		
 	public void testSeveralModulesInSamePage() throws Exception {
-		assertActions(); 
+		assertActions(); // TMP FALLA
 		assertOnChangeEvent();
 		assertFocusOn("relationWithSeller");
 		assertSections();		

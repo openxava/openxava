@@ -333,7 +333,7 @@ public class AJAXTest extends ModuleTestBase {
 	
 	public void testOnlyLoadModifiedParts() throws Exception { 
 		changeModule("Customer"); 
-		assertLoadedParts(""); 
+		assertLoadedParts(""); // TMP FALLA
 		execute("List.filter");
 		assertLoadedParts("errors, view, messages"); 
 		execute("List.viewDetail", "row=0");
@@ -601,7 +601,7 @@ public class AJAXTest extends ModuleTestBase {
 	public void testDependentDescriptionsList_resetDescriptionsCache_setEditable() throws Exception {  
 		changeModule("Product2"); 
 		// Dependent descriptions list 
-		assertLoadedParts(""); 
+		assertLoadedParts(""); // TMP FALLA
 		execute("CRUD.new");
 		assertLoadedParts("core, ");
 		setValue("family.number", "1");
@@ -847,7 +847,7 @@ public class AJAXTest extends ModuleTestBase {
 		execute("LoadImageIntoGallery.loadImage");
 		assertNoErrors();
 		assertMessage("Image added to the gallery"); 
-		assertLoadedParts(""); 
+		assertLoadedParts(""); // TMP FALLA
 		
 		String imageOid = getForm().getInputByName("xava.GALLERY.images").getValueAttribute();
 		execute("Gallery.removeImage", "oid="+imageOid);

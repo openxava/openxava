@@ -29,7 +29,7 @@ public class CityTest extends ModuleTestBase{
 		getHtmlPage().executeJavaScript("window.open(window.location, '_blank')");
 		HtmlPage newTabPage = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();
 		String tabText = newTabPage.asText();
-		assertTrue(tabText.contains("New Delete Generate PDF Generate Excel")); // In list mode 
+		assertTrue(tabText.contains("New Delete Generate PDF Generate Excel")); // In list mode // TMP FALLA
 		assertFalse(tabText.contains("New Save Delete Search Refresh")); // Not in detail mode		
 	}
 	

@@ -223,7 +223,7 @@ public class ColorTest extends ModuleTestBase {
 	}		
 		
 	public void testActionOnInitOnEachBeforeRequestInSubcontrollers_messageScapedWithQuotes() throws Exception{ 
-		assertMessagesCount(4); 
+		assertMessagesCount(4); // TMP FALLA
 		assertMessage("Color initiated");
 
 		assertListNotEmpty();
