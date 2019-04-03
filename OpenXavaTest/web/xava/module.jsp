@@ -92,7 +92,9 @@
 	manager.log(request, "MODULE:" + module);
 	manager.setModuleURL(request); 
 %>
+<%-- tmp 
 <jsp:include page="execute.jsp"/>
+--%>
 <%
 	if (htmlHead) {	
 %>
@@ -302,7 +304,8 @@ if (manager.isResetFormPostNeeded()) {
 					+ "_" + Strings.change(manager.getModuleName(), "-", "_");
 			String onLoadFunction = prefix + "_openxavaOnLoad";
 			String initiated = prefix + "_initiated";%>
-<%=onLoadFunction%> = function() { 
+<%=onLoadFunction%> = function() {
+	document.additionalParameters="<%=getAdditionalParameters(request)%>"; // tmp
 	if (openxava != null && openxava.<%=initiated%> == null) {
 		openxava.showFiltersMessage = '<xava:message key="show_filters"/>';
 		openxava.hideFiltersMessage = '<xava:message key="hide_filters"/>';
@@ -338,7 +341,7 @@ if (manager.isResetFormPostNeeded()) {
 	}	
 }
 <%=onLoadFunction%>();
-document.additionalParameters="<%=getAdditionalParameters(request)%>";
+<%-- tmp document.additionalParameters="<%=getAdditionalParameters(request)%>"; --%>
 </script>
 <% }
 manager.commit();

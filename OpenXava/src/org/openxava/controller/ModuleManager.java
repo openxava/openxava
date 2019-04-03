@@ -670,7 +670,7 @@ public class ModuleManager implements java.io.Serializable {
 			}
 			if (action instanceof IJavaScriptPostAction) {
 				// tmp request.setAttribute("xava.postjs", ((IJavaScriptPostAction) action).getPostJavaScript());
-				request.getSession().setAttribute("xava.postjs", ((IJavaScriptPostAction) action).getPostJavaScript()); // tmp
+				request.getSession().setAttribute("xava.postjs", ((IJavaScriptPostAction) action).getPostJavaScript()); // tmp Probar directamente en request, otra vez
 			}
 			if (!reloadViewNeeded) {
 				Object currentView = getContext().get(applicationName,

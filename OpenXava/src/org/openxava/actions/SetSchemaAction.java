@@ -18,6 +18,7 @@ public class SetSchemaAction extends ViewBaseAction {
 
 	public void execute() throws Exception {
 		newDefaultSchema = getRequest().getParameter("schema");
+		System.out.println("[SetSchemaAction.execute] newDefaultSchema=" + newDefaultSchema); // tmp
 		if (newDefaultSchema != null) {
 			if (defaultSchema != null && !newDefaultSchema.equals(defaultSchema)
 					&& getView() != null) {

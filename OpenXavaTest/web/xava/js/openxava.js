@@ -500,7 +500,7 @@ openxava.getDialog = function(application, module) {
 	return dialog;
 }
 
-openxava.setUrlParam = function(result) { 
+openxava.setUrlParam = function(result) {
 	if (result.urlParam !== null) {
 		var url = window.location.href;
 		var indexParams = url.indexOf('?');
