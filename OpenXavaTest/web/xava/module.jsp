@@ -92,7 +92,7 @@
 	manager.log(request, "MODULE:" + module);
 	manager.setModuleURL(request); 
 %>
-<%-- tmp 
+<%-- tmp Dependiente de coreOnAjax
 <jsp:include page="execute.jsp"/>
 --%>
 <%
@@ -240,7 +240,7 @@ if (manager.isResetFormPostNeeded()) {
 		<% } %>
 	</form>
 <% } else  { %>
-	<% manager.executeBeforeLoadPage(request, errors, messages);  %>
+	<%-- tmp Dependiente de coreViaAJAX manager.executeBeforeLoadPage(request, errors, messages);  --%>
 	<input id="xava_last_module_change" type="hidden" value=""/>
 	<input id="xava_window_id" type="hidden" value="<%=windowId%>"/>	
 	<input id="<xava:id name='loading'/>" type="hidden" value="<%=coreViaAJAX%>"/>

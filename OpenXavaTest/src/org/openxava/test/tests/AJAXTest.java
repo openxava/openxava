@@ -847,7 +847,7 @@ public class AJAXTest extends ModuleTestBase {
 		execute("LoadImageIntoGallery.loadImage");
 		assertNoErrors();
 		assertMessage("Image added to the gallery"); 
-		assertLoadedParts(""); // TMP FALLA
+		assertLoadedParts(""); // TMP FALLA ME QUEDÉ POR AQUÍ
 		
 		String imageOid = getForm().getInputByName("xava.GALLERY.images").getValueAttribute();
 		execute("Gallery.removeImage", "oid="+imageOid);

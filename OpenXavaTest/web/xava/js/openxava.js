@@ -501,6 +501,7 @@ openxava.getDialog = function(application, module) {
 }
 
 openxava.setUrlParam = function(result) {
+	/* tmp
 	if (result.urlParam !== null) {
 		var url = window.location.href;
 		var indexParams = url.indexOf('?');
@@ -510,6 +511,19 @@ openxava.setUrlParam = function(result) {
 	else {
 		history.replaceState(null, null, window.location.pathname);
 	}	
+	*/
+	// tmp ini
+	if (result.urlParam == null) return;
+	if (result.urlParam !== "") {
+		var url = window.location.href;
+		var indexParams = url.indexOf('?');
+		if (indexParams >= 0) url = url.substring(0, indexParams);
+		history.replaceState(null, null, url + "?" + result.urlParam);
+	}
+	else {
+		history.replaceState(null, null, window.location.pathname);
+	}		
+	// tmp fin
 }
 
 openxava.setRequesting = function(application, module) {

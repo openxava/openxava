@@ -94,4 +94,10 @@ if (hasProcessRequest) {
 }
 //after-each-request
 manager.executeAfterEachRequestActions(request, errors, messages);
+
+// tmp ini Dependiente loadViaAJAX
+if ("true".equals(request.getParameter("firstRequest"))) { 
+	manager.executeBeforeLoadPage(request, errors, messages);
+}
+// tmp fin
 %>
