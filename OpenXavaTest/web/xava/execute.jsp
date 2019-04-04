@@ -96,7 +96,7 @@ if (hasProcessRequest) {
 manager.executeAfterEachRequestActions(request, errors, messages);
 
 // tmp ini Dependiente loadViaAJAX
-if ("true".equals(request.getParameter("firstRequest"))) { 
+if ("true".equals(request.getParameter("firstRequest")) && manager.isCoreViaAJAX(request)) { 
 	manager.executeBeforeLoadPage(request, errors, messages);
 }
 // tmp fin

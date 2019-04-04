@@ -333,7 +333,8 @@ public class AJAXTest extends ModuleTestBase {
 	
 	public void testOnlyLoadModifiedParts() throws Exception { 
 		changeModule("Customer"); 
-		assertLoadedParts(""); // TMP FALLA
+		// assertLoadedParts(""); // When coreViaAJAX=false, currently only for portals
+		assertLoadedParts("core"); // When coreViaAJAX=true, the default behavior // tmp
 		execute("List.filter");
 		assertLoadedParts("errors, view, messages"); 
 		execute("List.viewDetail", "row=0");
@@ -601,7 +602,8 @@ public class AJAXTest extends ModuleTestBase {
 	public void testDependentDescriptionsList_resetDescriptionsCache_setEditable() throws Exception {  
 		changeModule("Product2"); 
 		// Dependent descriptions list 
-		assertLoadedParts(""); // TMP FALLA
+		// assertLoadedParts(""); // When coreViaAJAX=false, currently only for portals
+		assertLoadedParts("core"); // When coreViaAJAX=false, the default behavior // tmp 
 		execute("CRUD.new");
 		assertLoadedParts("core, ");
 		setValue("family.number", "1");
@@ -847,7 +849,8 @@ public class AJAXTest extends ModuleTestBase {
 		execute("LoadImageIntoGallery.loadImage");
 		assertNoErrors();
 		assertMessage("Image added to the gallery"); 
-		assertLoadedParts(""); // TMP FALLA ME QUEDÉ POR AQUÍ
+		// tmp assertLoadedParts(""); 
+		assertLoadedParts("core"); // tmp
 		
 		String imageOid = getForm().getInputByName("xava.GALLERY.images").getValueAttribute();
 		execute("Gallery.removeImage", "oid="+imageOid);

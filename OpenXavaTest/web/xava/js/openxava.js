@@ -1,10 +1,12 @@
 if (openxava == null) var openxava = {};
 openxava.deselected = [];
 
-openxava.init = function(application, module) {
+// tmp openxava.init = function(application, module) {
+openxava.init = function(application, module, initUI) { // tmp
 	openxava.initWindowId(); 
 	document.onkeydown = openxava.processKey;
-	openxava.initUI(application, module);	
+	// tmp openxava.initUI(application, module);	
+	if (initUI) openxava.initUI(application, module); // tmp
 	openxava.editorsInitFunctionsClosed = true; 
 	if (openxava.staticInit == null) {
 		openxava.staticInit = function() {			  
@@ -12,7 +14,7 @@ openxava.init = function(application, module) {
 		}
 		$(openxava.staticInit);
 	}
-	openxava.initStrokeActions(application, module);
+	openxava.initStrokeActions(application, module); // tmp Debería probar las strokeactions
 }
 
 openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) {
@@ -1029,7 +1031,8 @@ openxava.showFrame = function(id) {
 	View.setFrameClosed(id, false);
 }
 
-openxava.hideFrame = function(id) { 
+openxava.hideFrame = function(id) {
+	console.log("[openxava.hideFrame] id=" + id); // tmp
 	$("#"+id+"content").slideUp(); 
 	$("#"+id+"header").children().fadeIn(2000); 
 	$("#"+id+"hide").hide();

@@ -6188,7 +6188,7 @@ public class View implements java.io.Serializable {
 		setFrameClosed(frameId, collapsed);
 	}
 	
-	public boolean isCollapsed(String name) {
+	public boolean isCollapsed(String name) { 
 		String frameId= getFrameId(name);
 		return isFrameClosed(frameId);
 	}
@@ -6222,8 +6222,7 @@ public class View implements java.io.Serializable {
 	public void setFrameClosed(String frameId, boolean frameClosed) {
 		try {
 			Preferences pref = getRoot().getPreferences();
-			pref.putBoolean(getFrameKey(frameId), 
-												  frameClosed);
+			pref.putBoolean(getFrameKey(frameId), frameClosed);
 			pref.flush();
 		}
 		catch (Exception ex) {
@@ -6233,8 +6232,7 @@ public class View implements java.io.Serializable {
 	
 	public boolean isFrameClosed(String frameId) { 
 		try {			
-			return getRoot().getPreferences().getBoolean(getFrameKey(frameId), 
-														 false);
+			return getRoot().getPreferences().getBoolean(getFrameKey(frameId), false);
 		}
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("impossible_load_frame_status"),ex);

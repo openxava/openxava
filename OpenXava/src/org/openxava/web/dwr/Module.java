@@ -624,7 +624,12 @@ public class Module extends DWRBase {
 	}			
 		
 	private View getView() {
-		return (View) getContext(request).get(application, module, "xava_view");
+		// tmp return (View) getContext(request).get(application, module, "xava_view");
+		// tmp ini
+		View view = (View) getContext(request).get(application, module, "xava_view");
+		view.setPropertyPrefix("");
+		return view;
+		// tmp fin
 	}
 	
 	private void memorizeLastMessages() { 

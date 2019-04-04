@@ -90,11 +90,12 @@
 			.getRealPath("/");			
 	Requests.init(request, app, module); 
 	manager.log(request, "MODULE:" + module);
-	manager.setModuleURL(request); 
+	manager.setModuleURL(request);
+	boolean coreViaAJAX = manager.isCoreViaAJAX(request); // tmp
 %>
-<%-- tmp Dependiente de coreOnAjax
-<jsp:include page="execute.jsp"/>
---%>
+<% if (!coreViaAJAX) { // tmp %>
+	<jsp:include page="execute.jsp"/>
+<% } // tmp %>
 <%
 	if (htmlHead) {	
 %>
@@ -225,7 +226,6 @@
 %> 
 <% 
 // tmp boolean coreViaAJAX = !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0 || manager.hasInitForwardActions();
-boolean coreViaAJAX = !style.isInsidePortal() || !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0 || manager.hasInitForwardActions(); // tmp
 System.out.println("[module.jsp] coreViaAJAX=" + coreViaAJAX); // tmp
 if (!coreViaAJAX && restoreLastMessage) {
 	Module.restoreLastMessages(request, app, module);
@@ -331,10 +331,12 @@ if (manager.isResetFormPostNeeded()) {
 			if (initThemeScript != null) {%>
 		openxava.initTheme = function () { <%=style.getInitThemeScript()%> }; 
 		<%}%>
-		openxava.init("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>");
+		<%-- tmp openxava.init("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>"); --%>
 		<%if (coreViaAJAX) {%>
+		openxava.init("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>", false);
 		openxava.ajaxRequest("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>", true);	
 		<%} else {%>
+		openxava.init("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>", true);
 		openxava.setFocus("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>"); 
 		<%}%>
 		openxava.<%=initiated%> = true;
