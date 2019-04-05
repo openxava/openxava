@@ -1,11 +1,14 @@
 <%-- tmp ini --%>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
+<%@page import="org.openxava.web.style.PortalStyle"%>
+<%@page import="org.openxava.web.style.XavaStyle"%>
+<%@page import="org.openxava.web.style.Style"%>
 
 <% 
-// TMP ME QUEDÉ POR AQUÍ
-style.setInsidePortal(true); 
+Style style = new Style(); 
+style.setInsidePortal(true);
+Style.setPotalInstance(style);
+System.out.println("[severalModules.jsp] 1"); // tmp
 %>
-
 <%-- tmp fin --%>
 
 <jsp:include page="module.jsp">

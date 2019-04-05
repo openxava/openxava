@@ -1713,10 +1713,14 @@ public class ModuleManager implements java.io.Serializable {
 	}
 	
 	public boolean isCoreViaAJAX(HttpServletRequest request) { // tmp
+		System.out.println("[ModuleManager.isCoreViaAJAX] 5"); // tmp
 		Style style = (Style) request.getAttribute("style");
+		System.out.println("[ModuleManager.isCoreViaAJAX] style=" + style); // tmp
 		System.out.println("[ModuleManager.isCoreViaAJAX] style.isInsidePortal()=" + style.isInsidePortal()); // tmp
 		System.out.println("[ModuleManager.isCoreViaAJAX] style.getClass()=" + style.getClass()); // tmp
-		return !style.isInsidePortal() || !getPreviousModules().isEmpty() || getDialogLevel() > 0 || hasInitForwardActions(); 
+		boolean result = !style.isInsidePortal() || !getPreviousModules().isEmpty() || getDialogLevel() > 0 || hasInitForwardActions();
+		System.out.println("[ModuleManager.isCoreViaAJAX] result=" + result); // tmp
+		return false;
 	}
 	
 	/** 

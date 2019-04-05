@@ -11,6 +11,7 @@ import org.openxava.test.calculators.*;
 public class ResetUnitPriceCalculatorAction extends BaseAction {
 
 	public void execute() throws Exception {
+		System.out.println("[ResetUnitPriceCalculatorAction.execute] EXECUTED"); // tmp
 		UnitPriceCalculator.reset();	
 	}
 	

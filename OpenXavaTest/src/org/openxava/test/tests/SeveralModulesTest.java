@@ -22,7 +22,9 @@ public class SeveralModulesTest extends ModuleTestBase {
 	}
 		
 	public void testSeveralModulesInSamePage() throws Exception {
-		assertActions(); // TMP FALLA
+		assertActions(); // TMP FALLA ME QUEDÉ POR AQUÍ: FALLA POR EL hasInitForwardActions() de ModuleManager.isCoreViaAJAX() SI SE PREGUNTA
+						// TMP PARA EXCLUIR EL execute.jsp QUE SE LLAMA EN module.jsp. SI SE QUITA EL IF DEL execute.jsp LAS ACCIONES SE
+						// TMP ON-INIT SE EJECUTAN DOS VECES (VERIFICABLE EN Quote)
 		assertOnChangeEvent();
 		assertFocusOn("relationWithSeller");
 		assertSections();		

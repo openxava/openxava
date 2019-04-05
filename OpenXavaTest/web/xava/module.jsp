@@ -91,11 +91,8 @@
 	Requests.init(request, app, module); 
 	manager.log(request, "MODULE:" + module);
 	manager.setModuleURL(request);
-	boolean coreViaAJAX = manager.isCoreViaAJAX(request); // tmp
 %>
-<% if (!coreViaAJAX) { // tmp %>
-	<jsp:include page="execute.jsp"/>
-<% } // tmp %>
+<jsp:include page="execute.jsp"/>
 <%
 	if (htmlHead) {	
 %>
@@ -226,6 +223,7 @@
 %> 
 <% 
 // tmp boolean coreViaAJAX = !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0 || manager.hasInitForwardActions();
+boolean coreViaAJAX = manager.isCoreViaAJAX(request); // tmp
 System.out.println("[module.jsp] coreViaAJAX=" + coreViaAJAX); // tmp
 if (!coreViaAJAX && restoreLastMessage) {
 	Module.restoreLastMessages(request, app, module);
