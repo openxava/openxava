@@ -14,7 +14,7 @@ openxava.init = function(application, module, initUI) { // tmp
 		}
 		$(openxava.staticInit);
 	}
-	openxava.initStrokeActions(application, module); // tmp Debería probar las strokeactions
+	openxava.initStrokeActions(application, module); 
 }
 
 openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) {
@@ -1032,7 +1032,6 @@ openxava.showFrame = function(id) {
 }
 
 openxava.hideFrame = function(id) {
-	console.log("[openxava.hideFrame] id=" + id); // tmp
 	$("#"+id+"content").slideUp(); 
 	$("#"+id+"header").children().fadeIn(2000); 
 	$("#"+id+"hide").hide();

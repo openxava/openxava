@@ -669,8 +669,7 @@ public class ModuleManager implements java.io.Serializable {
 				}
 			}
 			if (action instanceof IJavaScriptPostAction) {
-				// tmp request.setAttribute("xava.postjs", ((IJavaScriptPostAction) action).getPostJavaScript());
-				request.getSession().setAttribute("xava.postjs", ((IJavaScriptPostAction) action).getPostJavaScript()); // tmp Probar directamente en request, otra vez
+				request.setAttribute("xava.postjs", ((IJavaScriptPostAction) action).getPostJavaScript());
 			}
 			if (!reloadViewNeeded) {
 				Object currentView = getContext().get(applicationName,
@@ -1474,6 +1473,16 @@ public class ModuleManager implements java.io.Serializable {
 							// in browser we'll re-open the dialog
 		hideDialog = false;
 		reloadViewNeeded = false;
+		// tmp ini
+		if (modeControllerName == null) {
+			if (!Is.emptyString(XavaPreferences.getInstance().getDefaultModeController())) {
+				setModeControllerName(XavaPreferences.getInstance().getDefaultModeController());
+			}
+			else {
+				setModeControllerName(Style.getInstance(request).getDefaultModeController());
+			}
+		}		
+		// tmp fin
 	}
 
 	public void initModule(HttpServletRequest request, Messages errors,	Messages messages) {
@@ -1482,6 +1491,7 @@ public class ModuleManager implements java.io.Serializable {
 			moduleInitiated = false;
 		}
 		if (!moduleInitiated) {
+			/* tmp
 			if (modeControllerName == null) {
 				if (!Is.emptyString(XavaPreferences.getInstance().getDefaultModeController())) {
 					setModeControllerName(XavaPreferences.getInstance().getDefaultModeController());
@@ -1490,6 +1500,7 @@ public class ModuleManager implements java.io.Serializable {
 					setModeControllerName(Style.getInstance(request).getDefaultModeController());
 				}
 			}
+			*/
 			modeName = getMetaActionsMode().isEmpty() ? IChangeModeAction.DETAIL
 					: null;
 			moduleInitiated = true;
@@ -1501,7 +1512,7 @@ public class ModuleManager implements java.io.Serializable {
 		}		
 		viewKeyEditable = getView().isKeyEditable(); 
 	}
-	
+		
 	private Set<String> toQualifiedNames(Collection<MetaAction> ... metaActions) { 
 		Set<String> result = new HashSet<String>();
 		for (Collection<MetaAction> metaActionsGroup: metaActions) {
@@ -1563,7 +1574,7 @@ public class ModuleManager implements java.io.Serializable {
 	private Tab getTab() {  
 		return (Tab) getContext().get(getApplicationName(), getModuleName(), "xava_tab");
 	}
-
+	
 	public boolean hasInitForwardActions() {
 		Iterator it = IteratorUtils.chainedIterator(new Iterator[] {
 				getMetaActionsOnEachRequest().iterator(),
@@ -1713,14 +1724,8 @@ public class ModuleManager implements java.io.Serializable {
 	}
 	
 	public boolean isCoreViaAJAX(HttpServletRequest request) { // tmp
-		System.out.println("[ModuleManager.isCoreViaAJAX] 5"); // tmp
 		Style style = (Style) request.getAttribute("style");
-		System.out.println("[ModuleManager.isCoreViaAJAX] style=" + style); // tmp
-		System.out.println("[ModuleManager.isCoreViaAJAX] style.isInsidePortal()=" + style.isInsidePortal()); // tmp
-		System.out.println("[ModuleManager.isCoreViaAJAX] style.getClass()=" + style.getClass()); // tmp
-		boolean result = !style.isInsidePortal() || !getPreviousModules().isEmpty() || getDialogLevel() > 0 || hasInitForwardActions();
-		System.out.println("[ModuleManager.isCoreViaAJAX] result=" + result); // tmp
-		return false;
+		return !style.isInsidePortal() || !getPreviousModules().isEmpty() || getDialogLevel() > 0 || hasInitForwardActions();
 	}
 	
 	/** 

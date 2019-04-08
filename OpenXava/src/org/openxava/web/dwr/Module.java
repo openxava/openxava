@@ -59,8 +59,9 @@ public class Module extends DWRBase {
 			setPageReloadedLastTime(false);
 			this.manager = (ModuleManager) getContext(request).get(application, module, "manager");
 			restoreLastMessages();
-			System.out.println("[Module.request] additionalParameters=" + additionalParameters); // tmp
+			System.out.println("[Module.request] Calling execute.jsp"); // tmp
 			getURIAsStream("execute.jsp", values, multipleValues, selected, deselected, additionalParameters);
+			System.out.println("[Module.request] execute.jsp called"); // tmp
 			setDialogLevel(result); 
 			Map changedParts = new HashMap();
 			result.setChangedParts(changedParts);
@@ -296,10 +297,7 @@ public class Module extends DWRBase {
 			result.setFocusPropertyId(Lists.FOCUS_PROPERTY_ID);
 		}
 		
-		System.out.println("[Module.fillResult] xava.postjs=" + request.getSession().getAttribute("xava.postjs"));
-		// tmp result.setPostJS((String) request.getAttribute("xava.postjs"));
-		result.setPostJS((String) request.getSession().getAttribute("xava.postjs")); // tmp
-		request.getSession().removeAttribute("xava.postjs"); // tmp
+		result.setPostJS((String) request.getAttribute("xava.postjs"));
 		getView().resetCollectionsCache();
 		if (result.isHideDialog()) result.setFocusPropertyId(null); // To avoid scrolling to the beginning of the page on closing a dialog, something ugly in long pages working on the bottom part.
 	}

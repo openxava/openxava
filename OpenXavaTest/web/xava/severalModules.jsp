@@ -1,13 +1,10 @@
 <%-- tmp ini --%>
-<%@page import="org.openxava.web.style.PortalStyle"%>
-<%@page import="org.openxava.web.style.XavaStyle"%>
 <%@page import="org.openxava.web.style.Style"%>
 
 <% 
 Style style = new Style(); 
 style.setInsidePortal(true);
 Style.setPotalInstance(style);
-System.out.println("[severalModules.jsp] 1"); // tmp
 %>
 <%-- tmp fin --%>
 

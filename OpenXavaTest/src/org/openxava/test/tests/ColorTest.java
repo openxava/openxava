@@ -223,7 +223,9 @@ public class ColorTest extends ModuleTestBase {
 	}		
 		
 	public void testActionOnInitOnEachBeforeRequestInSubcontrollers_messageScapedWithQuotes() throws Exception{ 
-		assertMessagesCount(4); 
+		assertMessagesCount(4); // TMP FALLA ME QUEDÉ POR AQUÍ: YA LO ARREGLÉ, PERO TENGO QUE ADAPTAR EL TEST PARA QUE COMPRUEBA QUE HAY 4, PORQUE ALGUNAS SE EJECUTANBAN EN
+					// TMP OTRO HILO POR LO QUE NO SE AÑADÍAN COMO MENSAJE. HE PUESTO UN CONTANDOR, HE DE VERIFICAR QUE EL CONTADOR DETECTA EL ERROR (VOLVIENDOLO A PRODUCIR)
+					// TMP Y ENTONCES MODIFICAR ESTE TEST. TAMBIÉN DEBERÍA VERIFICAR QUE SEVERALMODULES Y QUOTE SIGUEN FUNCIONANDO
 		assertMessage("Color initiated");
 
 		assertListNotEmpty();
