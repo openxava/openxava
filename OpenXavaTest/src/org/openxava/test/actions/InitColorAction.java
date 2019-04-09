@@ -11,12 +11,10 @@ import org.openxava.actions.*;
 public class InitColorAction extends BaseAction {
 	
 	@Inject
-	private int initColorTimes; // tmp
+	private int initColorTimes; 
 
 	public void execute() throws Exception {
-		System.out.println("[InitColorAction.execute] "); // tmp
-		// tmp addMessage("color_initiated");
-		addMessage("color_initiated", (++initColorTimes)); // tmp
+		addMessage("color_initiated", (++initColorTimes)); 
 	}
 	
 }

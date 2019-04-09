@@ -90,9 +90,11 @@
 			.getRealPath("/");			
 	Requests.init(request, app, module); 
 	manager.log(request, "MODULE:" + module);
-	manager.setModuleURL(request); 
+	manager.setModuleURL(request);
 %>
-<jsp:include page="execute.jsp"/>
+<jsp:include page="execute.jsp">
+	<jsp:param name="loadingModulePage" value="true"/> 
+</jsp:include>
 <%
 	if (htmlHead) {	
 %>
@@ -222,8 +224,7 @@
 	}
 %> 
 <% 
-// tmp boolean coreViaAJAX = !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0 || manager.hasInitForwardActions();
-boolean coreViaAJAX = !style.isInsidePortal() || !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0 || manager.hasInitForwardActions(); // tmp
+boolean coreViaAJAX = manager.isCoreViaAJAX(request);
 if (!coreViaAJAX && restoreLastMessage) {
 	Module.restoreLastMessages(request, app, module);
 }	
@@ -237,7 +238,7 @@ if (manager.isResetFormPostNeeded()) {
 		<% } %>
 	</form>
 <% } else  { %>
-	<% manager.executeBeforeLoadPage(request, errors, messages);  %>
+	<% if (!coreViaAJAX) manager.executeBeforeLoadPage(request, errors, messages); %>
 	<input id="xava_last_module_change" type="hidden" value=""/>
 	<input id="xava_window_id" type="hidden" value="<%=windowId%>"/>	
 	<input id="<xava:id name='loading'/>" type="hidden" value="<%=coreViaAJAX%>"/>
@@ -301,7 +302,8 @@ if (manager.isResetFormPostNeeded()) {
 					+ "_" + Strings.change(manager.getModuleName(), "-", "_");
 			String onLoadFunction = prefix + "_openxavaOnLoad";
 			String initiated = prefix + "_initiated";%>
-<%=onLoadFunction%> = function() { 
+<%=onLoadFunction%> = function() {
+	document.additionalParameters="<%=getAdditionalParameters(request)%>"; 
 	if (openxava != null && openxava.<%=initiated%> == null) {
 		openxava.showFiltersMessage = '<xava:message key="show_filters"/>';
 		openxava.hideFiltersMessage = '<xava:message key="hide_filters"/>';
@@ -327,17 +329,17 @@ if (manager.isResetFormPostNeeded()) {
 			if (initThemeScript != null) {%>
 		openxava.initTheme = function () { <%=style.getInitThemeScript()%> }; 
 		<%}%>
-		openxava.init("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>");
 		<%if (coreViaAJAX) {%>
+		openxava.init("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>", false);
 		openxava.ajaxRequest("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>", true);	
 		<%} else {%>
+		openxava.init("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>", true);
 		openxava.setFocus("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>"); 
 		<%}%>
 		openxava.<%=initiated%> = true;
 	}	
 }
 <%=onLoadFunction%>();
-document.additionalParameters="<%=getAdditionalParameters(request)%>";
 </script>
 <% }
 manager.commit();

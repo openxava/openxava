@@ -59,9 +59,7 @@ public class Module extends DWRBase {
 			setPageReloadedLastTime(false);
 			this.manager = (ModuleManager) getContext(request).get(application, module, "manager");
 			restoreLastMessages();
-			System.out.println("[Module.request] Calling execute.jsp"); // tmp
 			getURIAsStream("execute.jsp", values, multipleValues, selected, deselected, additionalParameters);
-			System.out.println("[Module.request] execute.jsp called"); // tmp
 			setDialogLevel(result); 
 			Map changedParts = new HashMap();
 			result.setChangedParts(changedParts);

@@ -149,7 +149,7 @@ public class Product5Test extends CustomizeListTestBase {
 		execute("List.viewDetail", "row=0");
 		assertNoErrors();
 		execute("GalleryNoDialog.edit", "galleryProperty=photos"); 
-		assertActions(galleryActions); // TMP FALLA
+		assertActions(galleryActions); 
 		
 		execute("Mode.list");
 		assertAction("Product5.goA");

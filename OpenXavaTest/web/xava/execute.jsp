@@ -51,11 +51,11 @@ if (deselected != null){
 <% } %>
 
 <%
-boolean loadingModulePage = "true".equals(request.getParameter("loadingModulePage")) && manager.isCoreViaAJAX(request); // tmp 
+  
 manager.setApplicationName(request.getParameter("application"));
 manager.setModuleName(request.getParameter("module"));
-// tmp manager.executeBeforeEachRequestActions(request, errors, messages);
-if (!loadingModulePage) manager.executeBeforeEachRequestActions(request, errors, messages); // tmp
+boolean loadingModulePage = "true".equals(request.getParameter("loadingModulePage"));
+if (!loadingModulePage) manager.executeBeforeEachRequestActions(request, errors, messages); 
 view.setRequest(request);
 view.setErrors(errors);
 view.setMessages(messages);
@@ -83,7 +83,7 @@ if (manager.isXavaView(request)) {
 		view.assignValuesToWebView();
 	}
 }
-if (!loadingModulePage) { // tmp
+if (!(loadingModulePage && manager.isCoreViaAJAX(request))) { 
 	manager.initModule(request, errors, messages);
 	manager.executeOnEachRequestActions(request, errors, messages); 
 	if (hasProcessRequest) {
@@ -97,11 +97,9 @@ if (!loadingModulePage) { // tmp
 	}
 	//after-each-request
 	manager.executeAfterEachRequestActions(request, errors, messages);	
-} // tmp 
+}  
 
-// tmp ini 
 if ("true".equals(request.getParameter("firstRequest")) && manager.isCoreViaAJAX(request)) { 
 	manager.executeBeforeLoadPage(request, errors, messages);
 }
-// tmp fin
 %>

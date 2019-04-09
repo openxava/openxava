@@ -1,10 +1,10 @@
 if (openxava == null) var openxava = {};
 openxava.deselected = [];
 
-openxava.init = function(application, module) {
+openxava.init = function(application, module, initUI) { 
 	openxava.initWindowId(); 
 	document.onkeydown = openxava.processKey;
-	openxava.initUI(application, module);	
+	if (initUI) openxava.initUI(application, module); 
 	openxava.editorsInitFunctionsClosed = true; 
 	if (openxava.staticInit == null) {
 		openxava.staticInit = function() {			  
@@ -12,7 +12,7 @@ openxava.init = function(application, module) {
 		}
 		$(openxava.staticInit);
 	}
-	openxava.initStrokeActions(application, module);
+	openxava.initStrokeActions(application, module); 
 }
 
 openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) {
@@ -500,8 +500,9 @@ openxava.getDialog = function(application, module) {
 	return dialog;
 }
 
-openxava.setUrlParam = function(result) { 
-	if (result.urlParam !== null) {
+openxava.setUrlParam = function(result) {
+	if (result.urlParam == null) return;
+	if (result.urlParam !== "") {
 		var url = window.location.href;
 		var indexParams = url.indexOf('?');
 		if (indexParams >= 0) url = url.substring(0, indexParams);
@@ -509,7 +510,7 @@ openxava.setUrlParam = function(result) {
 	}
 	else {
 		history.replaceState(null, null, window.location.pathname);
-	}	
+	}		
 }
 
 openxava.setRequesting = function(application, module) {
@@ -1015,7 +1016,7 @@ openxava.showFrame = function(id) {
 	View.setFrameClosed(id, false);
 }
 
-openxava.hideFrame = function(id) { 
+openxava.hideFrame = function(id) {
 	$("#"+id+"content").slideUp(); 
 	$("#"+id+"header").children().fadeIn(2000); 
 	$("#"+id+"hide").hide();

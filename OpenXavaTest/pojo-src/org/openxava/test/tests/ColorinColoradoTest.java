@@ -13,7 +13,7 @@ public class ColorinColoradoTest extends ModuleTestBase {
 	}
 	
 	public void testAfterEachRequestAction() throws Exception { 
-		assertValue("name", "NULLCOLORADO"); // TMP FALLA
+		assertValue("name", "NULLCOLORADO"); 
 		setValue("name", "");
 		execute("ColorinColorado.fillName");		
 		assertValue("name", "COLORIN COLORADO");

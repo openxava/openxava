@@ -1,12 +1,10 @@
 if (openxava == null) var openxava = {};
 openxava.deselected = [];
 
-// tmp openxava.init = function(application, module) {
-openxava.init = function(application, module, initUI) { // tmp
+openxava.init = function(application, module, initUI) { 
 	openxava.initWindowId(); 
 	document.onkeydown = openxava.processKey;
-	// tmp openxava.initUI(application, module);	
-	if (initUI) openxava.initUI(application, module); // tmp
+	if (initUI) openxava.initUI(application, module); 
 	openxava.editorsInitFunctionsClosed = true; 
 	if (openxava.staticInit == null) {
 		openxava.staticInit = function() {			  
@@ -503,18 +501,6 @@ openxava.getDialog = function(application, module) {
 }
 
 openxava.setUrlParam = function(result) {
-	/* tmp
-	if (result.urlParam !== null) {
-		var url = window.location.href;
-		var indexParams = url.indexOf('?');
-		if (indexParams >= 0) url = url.substring(0, indexParams);
-		history.replaceState(null, null, url + "?" + result.urlParam);
-	}
-	else {
-		history.replaceState(null, null, window.location.pathname);
-	}	
-	*/
-	// tmp ini
 	if (result.urlParam == null) return;
 	if (result.urlParam !== "") {
 		var url = window.location.href;
@@ -525,7 +511,6 @@ openxava.setUrlParam = function(result) {
 	else {
 		history.replaceState(null, null, window.location.pathname);
 	}		
-	// tmp fin
 }
 
 openxava.setRequesting = function(application, module) {

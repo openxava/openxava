@@ -10,9 +10,7 @@
 	<object name="xavatest_defaultYear" class="java.lang.Integer" value="1999"/>		
 	<object name="xavatest_limitZone" class="java.lang.Integer" value="999"/>
 	<object name="xavatest_invoiceValues" class="java.util.Map"/>
-	<!--  tmp ini -->
 	<object name="xavatest_initColorTimes" class="java.lang.Integer" value="0"/>
-	<!--  tmp fin -->
 	
 	<!-- 
 		You can define attribute 'label' and 'description' for action, but

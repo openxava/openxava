@@ -15,7 +15,6 @@ public class SearchAuthorAction extends SearchByViewKeyAction implements IJavaSc
 		super.execute();
 		// tmp addMessage("showing_author", getView().getValue("author"));
 		// tmp ini
-		System.out.println("[SearchAuthorAction.execute] "); // tmp
 		author = getView().getValueString("author");
 		addMessage("showing_author", author);
 		// tmp fin
