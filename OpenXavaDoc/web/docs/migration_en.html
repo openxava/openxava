@@ -39,12 +39,11 @@
     </div>
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 6.1 to OpenXava 6.1.1</h2>
-      <h3>First module page loaded via AJAX (only if you user HtmlUnit API)</h3>
-      <p>TMP ME QUEDÉ POR AQUÍ: FALTA PONERLO EN ESPAÑOL. ESTABA LIMPIANDO EL
-        CÓDIGO</p>
-      <p>Now the first page loading is done via AJAX, so if you use directly the
-        HtmlUnit in your tests you have to wait until the AJAX request be
-        complete. This can be accomplished calling waitAJAX(), in this way:</p>
+      <h3>First module page loaded via AJAX (only if you use HtmlUnit API)</h3>
+      Now the first page loading is done via AJAX, so if you use directly the
+      HtmlUnit in your tests you have to wait until the AJAX request be complete
+      when load a page. This can be accomplished calling <i>waitAJAX()</i>, in
+      this way:
       <pre>HtmlPage page = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();
 waitAJAX(); // ADD THIS LINE BEFORE USING page</pre>
       <p>If you tests uses exclusively the methods on <i>ModuleTestBase</i> you

@@ -130,10 +130,9 @@ public class Module extends DWRBase {
 	/** @return null means no change in the URL, empty string means reset the URL parameters */
 	private String getUrlParam() { 
 		// If we change this we should execute the Permanlink Selenium test
-		if (firstRequest) return null; // tmp
+		if (firstRequest) return null; 
 		Stack previousViews = (Stack) getContext(request).get(application, module, "xava_previousViews"); // The previousStack to work for both showDialog() and showNewView()
-		// if (!previousViews.isEmpty()) return null;
-		if (!previousViews.isEmpty()) return ""; // tmp
+		if (!previousViews.isEmpty()) return ""; 
 		Map key = getView().getKeyValuesWithValue();
 		if (key.size() == 1) {
 			String id = key.values().iterator().next().toString();
@@ -145,7 +144,6 @@ public class Module extends DWRBase {
 				return "action=" + action; 
 			}
 		}
-		// tmp return null;
 		return "";
 	}
 
@@ -620,12 +618,9 @@ public class Module extends DWRBase {
 	}			
 		
 	private View getView() {
-		// tmp return (View) getContext(request).get(application, module, "xava_view");
-		// tmp ini
 		View view = (View) getContext(request).get(application, module, "xava_view");
 		view.setPropertyPrefix("");
 		return view;
-		// tmp fin
 	}
 	
 	private void memorizeLastMessages() { 
@@ -675,9 +670,7 @@ public class Module extends DWRBase {
 		result.append(module);
 		addValuesQueryString(result, values, multipleValues, selected, deselected);
 		if (!Is.emptyString(additionalParameters)) result.append(additionalParameters);
-		// tmp ini
 		if (firstRequest) result.append("&firstRequest=true");
-		// tmp fin
 		return result.toString();
 	}
 

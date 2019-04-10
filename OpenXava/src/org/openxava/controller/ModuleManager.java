@@ -1473,7 +1473,6 @@ public class ModuleManager implements java.io.Serializable {
 							// in browser we'll re-open the dialog
 		hideDialog = false;
 		reloadViewNeeded = false;
-		// tmp ini
 		if (modeControllerName == null) {
 			if (!Is.emptyString(XavaPreferences.getInstance().getDefaultModeController())) {
 				setModeControllerName(XavaPreferences.getInstance().getDefaultModeController());
@@ -1482,7 +1481,6 @@ public class ModuleManager implements java.io.Serializable {
 				setModeControllerName(Style.getInstance(request).getDefaultModeController());
 			}
 		}		
-		// tmp fin
 	}
 
 	public void initModule(HttpServletRequest request, Messages errors,	Messages messages) {
@@ -1491,16 +1489,6 @@ public class ModuleManager implements java.io.Serializable {
 			moduleInitiated = false;
 		}
 		if (!moduleInitiated) {
-			/* tmp
-			if (modeControllerName == null) {
-				if (!Is.emptyString(XavaPreferences.getInstance().getDefaultModeController())) {
-					setModeControllerName(XavaPreferences.getInstance().getDefaultModeController());
-				}
-				else {
-					setModeControllerName(Style.getInstance(request).getDefaultModeController());
-				}
-			}
-			*/
 			modeName = getMetaActionsMode().isEmpty() ? IChangeModeAction.DETAIL
 					: null;
 			moduleInitiated = true;
@@ -1723,7 +1711,7 @@ public class ModuleManager implements java.io.Serializable {
 		return false;
 	}
 	
-	public boolean isCoreViaAJAX(HttpServletRequest request) { // tmp
+	public boolean isCoreViaAJAX(HttpServletRequest request) { 
 		Style style = (Style) request.getAttribute("style");
 		return !style.isInsidePortal() || !getPreviousModules().isEmpty() || getDialogLevel() > 0 || hasInitForwardActions();
 	}

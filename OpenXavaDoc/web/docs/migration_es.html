@@ -37,6 +37,17 @@
       </ul>
       <p><br>
       </p>
+      <h2>Para migrar de OpenXava 6.1 a OpenXava 6.1.1</h2>
+      <h3>Primera carga de página del módulo vía AJAX (sólo si usas el API de
+        HtmlUnit)</h3>
+      Ahora la primera carga de página se hace vía AJAX, por lo que si usas
+      directamente HtmlUnit en tus pruebas has de esperar a que la petición AJAX
+      se complete cuando cargues una página. Esto se hace llamando a <i>waitAJAX()</i>,
+      de esta manera:
+      <pre>HtmlPage page = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();
+waitAJAX(); // AÑADE ESTA LÍNEA ANTES DE USAR page</pre>
+      <p>Si tus pruebas usan métodos de <i>ModuleTestBase</i> exclusivamente no
+        has de hacer ningún cambio.</p>
       <h2>Para migrar de OpenXava 6.0.2 a OpenXava 6.1</h2>
       <h3>Bean Validation actualizado de 1.1 a 2.0</h3>
       <p>Bean Validation 2.0 es compatible con 1.1, por lo que la mayoría de tu

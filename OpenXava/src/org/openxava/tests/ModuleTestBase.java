@@ -561,7 +561,7 @@ public class ModuleTestBase extends TestCase {
 				}
 			}			
 		}			
-		if (isCoreViaAJAX()) {
+		if (page != null) { // Null when no module is specified to start the test, maybe afterwards changeModule will be used 
 			restorePage();
 		}
 	}
@@ -598,16 +598,6 @@ public class ModuleTestBase extends TestCase {
 			.setUserAgent(BrowserVersion.BEST_SUPPORTED.getUserAgent() + " HtmlUnit")
 			.setBrowserLanguage(locale) 
 			.build();
-	}
-
-	private boolean isCoreViaAJAX() { 
-		if (page == null) return false; // If no module is specified to start the test, maybe afterwards changeModule will be used
-		try {
-			return getElementById("core").asText().trim().equals("");
-		}
-		catch (ElementNotFoundException ex) {
-			return false;
-		}
 	}
 
 	/**

@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- First module page load is done via AJAX.
+- Fix: When page loaded slowly the user can click actions before page initialization that fails. 
+- Fix: JavaScript of IJavaScriptPostAction is not executed on browser page refresh. 
 - Fix: Moving a column when customizing a list produces an error dialog and it is not persisted.
 
 OpenXava 6.1 (2019-3-26)

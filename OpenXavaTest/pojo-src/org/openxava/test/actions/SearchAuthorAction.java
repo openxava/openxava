@@ -7,20 +7,17 @@ import org.openxava.actions.*;
  * @author Javier Paniza
  */
 
-public class SearchAuthorAction extends SearchByViewKeyAction implements IJavaScriptPostAction { /* tmp implements IJavaScriptPostAction */
+public class SearchAuthorAction extends SearchByViewKeyAction implements IJavaScriptPostAction { 
 	
-	private String author; // tmp
+	private String author; 
 	
 	public void execute() throws Exception {
 		super.execute();
-		// tmp addMessage("showing_author", getView().getValue("author"));
-		// tmp ini
 		author = getView().getValueString("author");
 		addMessage("showing_author", author);
-		// tmp fin
 	}
 
-	public String getPostJavaScript() { // tmp
+	public String getPostJavaScript() { 
 		return "$('#module_title').html('Author - " + author + "')";
 	}
 

@@ -150,11 +150,9 @@ public class AuthorTest extends CustomizeListTestBase {
 		execute("List.viewDetail", "row=1");
 		assertMessage("Showing author MIGUEL DE CERVANTES");
 		assertValue("author", "MIGUEL DE CERVANTES");
-		// tmp ini
 		assertEquals("Author - MIGUEL DE CERVANTES", getHtmlPage().getHtmlElementById("module_title").asText());
 		reload();
 		assertEquals("Author - MIGUEL DE CERVANTES", getHtmlPage().getHtmlElementById("module_title").asText());
-		// tmp fin 
 	}
 	
 

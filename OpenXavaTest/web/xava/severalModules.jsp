@@ -1,12 +1,10 @@
-<%-- tmp ini --%>
 <%@page import="org.openxava.web.style.Style"%>
 
 <% 
 Style style = new Style(); 
-style.setInsidePortal(true);
+style.setInsidePortal(true); // In order coreViaAJAX would be false
 Style.setPotalInstance(style);
 %>
-<%-- tmp fin --%>
 
 <jsp:include page="module.jsp">
 	<jsp:param name="application" value="OpenXavaTest"/>
