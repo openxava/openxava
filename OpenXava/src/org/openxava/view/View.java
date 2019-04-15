@@ -4,6 +4,7 @@ import java.math.*;
 import java.util.*;
 import java.util.Collections;
 import java.util.prefs.*;
+import java.util.stream.*;
 
 import javax.ejb.*;
 import javax.servlet.http.*;
@@ -234,7 +235,10 @@ public class View implements java.io.Serializable {
 	private Collection createMetaMembers(boolean hiddenIncluded, boolean collectionTotalsIncluded) throws XavaException {   
 		if (getModelName() == null) return Collections.EMPTY_LIST; 		
 		Collection<MetaMember> metaMembers = new ArrayList<MetaMember>(getMetaView().getMetaMembers());
-		if (isRepresentsCollection()) {     
+		if (isRepresentsElementCollection()) {
+			removeNotInListProperties(metaMembers);
+		}
+		else if (isRepresentsCollection()) {     
 			metaMembers = extractAggregateRecursiveReference(metaMembers);					
 		}				
 		extractRecursiveReference(metaMembers); 
@@ -247,6 +251,16 @@ public class View implements java.io.Serializable {
 		return metaMembers;	
 	}
 	
+	private void removeNotInListProperties(Collection<MetaMember> metaMembers) { 
+		Set<String> listMembers = getMetaPropertiesList().stream()
+			.map(MetaProperty::getName)
+			.map(p -> p.split("\\.", 2)[0])
+			.collect(Collectors.toSet()); 
+		for (Iterator<MetaMember> it = metaMembers.iterator(); it.hasNext(); ) {
+			if (!listMembers.contains(it.next().getName())) it.remove(); 
+		}
+	}
+
 	private void addTotalEditablePropertiesInCollections(Collection<MetaMember> metaMembers) {
 		refineTotalEditablePropertiesInCollections(metaMembers, true); 
 	}
@@ -2498,7 +2512,7 @@ public class View implements java.io.Serializable {
 			// References			
 			Collection references = getMetaModel().getMetaReferencesWithDefaultValueCalculator();				
 			if (!references.isEmpty()) {		
-				Map membersNames = getMembersNamesImpl();		
+				Map membersNames = getMembersNamesImpl();
 				Iterator it = references.iterator();
 				Collection alreadyPut = new ArrayList();						
 				while (it.hasNext()) {
@@ -2933,7 +2947,15 @@ public class View implements java.io.Serializable {
 		List<Map<String, Object>> oldCollectionValues = collectionValues;
 		collectionValues = new ArrayList();		
 		mustRefreshCollection = false;
+		String lastLineScannedProperty = getMetaPropertiesList().get(0).getName();
+		if (getMetaPropertiesList().get(0).isKey() && getMetaPropertiesList().get(0).getMetaModel().getAllKeyPropertiesNames().size() > 1) {
+			lastLineScannedProperty = lastLineScannedProperty.split("\\.", 2)[0];
+		}
+		String lastLineKeySuffix = "." + lastLineScannedProperty + "_EDITABLE_";
+		int lastLineKeyIncrement = isCollectionEditable()?1:0;
 		for (int i=0; ;i++) {
+			String lastLineKey = qualifier + (i + lastLineKeyIncrement) + lastLineKeySuffix;
+			if (getRequest().getParameterValues(lastLineKey) == null) break;			
 			boolean containsReferences = false;
 			Set<String> falseBooleans = null; 
 			Map element = new HashMap();
@@ -2978,7 +3000,6 @@ public class View implements java.io.Serializable {
 				if (p.getName().contains(".")) containsReferences = true;
 			}
 			
-			if (element.isEmpty()) break;
 			if (originalValues != null) element.putAll(originalValues);
 			if (Maps.isEmpty(element)) continue;
 			if (falseBooleans != null) {

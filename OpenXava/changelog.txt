@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @ElementCollection with only booleans does not get the value correctly. 
+- Fix: @ElementCollection with a @DefaultValueCalcultor property fails if property is not present.
 - First module page load is done via AJAX.
 - Fix: When page loaded slowly the user can click actions before page initialization that fails. 
 - Fix: JavaScript of IJavaScriptPostAction is not executed on browser page refresh. 

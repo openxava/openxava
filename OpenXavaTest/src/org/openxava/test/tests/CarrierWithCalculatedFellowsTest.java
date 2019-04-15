@@ -21,7 +21,7 @@ public class CarrierWithCalculatedFellowsTest extends ModuleTestBase {
 		assertCollectionRowCount("fellowCarriersCalculated", 0);
 	}
 	
-	public void testDefaultListActionsForCollectionsThatExtendsTabBaseActionDoNotApplyToCalculatedCollections_emptyCollectionActionIsNotShown() throws Exception {
+	public void testDefaultListActionsForCollectionsThatExtendsTabBaseActionDoNotApplyToCalculatedCollections_emptyCollectionActionIsNotShown() throws Exception { 
 		execute("CRUD.new");
 		assertNoErrors();
 		assertExists("number");
@@ -43,7 +43,7 @@ public class CarrierWithCalculatedFellowsTest extends ModuleTestBase {
 		assertValue("fellowCarriersCalculatedSize", "0");
 	}
 	
-	public void testAutomaticNaturalLabel() throws Exception {
+	public void testAutomaticNaturalLabel() throws Exception { 
 		setLocale("es");
 		execute("CRUD.new");
 		assertLabel("fellowCarriersCalculatedSize", "Fellow carriers calculated size");

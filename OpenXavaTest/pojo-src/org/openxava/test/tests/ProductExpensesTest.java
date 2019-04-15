@@ -78,7 +78,7 @@ public class ProductExpensesTest extends ModuleTestBase {
 			{ "2", "GESTION" },
 			{ "3", "SISTEMA" }
 		};		
-		assertValidValuesInCollection("expenses", 0, "subfamily.number", subfamily1ValidValues);
+		assertValidValuesInCollection("expenses", 0, "subfamily.number", subfamily1ValidValues); 
 		setValueInCollection("expenses", 0, "subfamily.number", "3");
 						
 		execute("CRUD.save");

@@ -19,7 +19,7 @@ public class ReallocationDetail {
 	@DefaultValueCalculator( 
 		value=org.openxava.calculators.IntegerCalculator.class,
 		properties={ @PropertyValue(name="value", value="1") }		
-	)		
+	)
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	private Product product;
 	
