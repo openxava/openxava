@@ -23,6 +23,7 @@ public class ListCustomerInvoicesAction extends BaseAction implements IChangeMod
 		Map customerKey = (Map) tab.getTableModel().getObjectAt(row);
 		int customerNumber = ((Integer) customerKey.get("number")).intValue();
 		Tab invoiceTab = (Tab) context.get("OpenXavaTest", getNextModule(), "xava_tab");
+		System.out.println("[ListCustomerInvoicesAction.execute] customerNumber=" + customerNumber); // tmp
 		invoiceTab.setBaseCondition("${customer.number} = " + customerNumber);
 	}
 

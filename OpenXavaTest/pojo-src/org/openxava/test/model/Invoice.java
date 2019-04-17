@@ -177,9 +177,16 @@ import org.openxava.util.*;
 @Tabs({
 	@Tab(properties="year, number, date, amountsSum, vat, detailsCount, paid, importance"), 		
 	@Tab(name="Level4Reference", properties="year, number, customer.seller.level.description"),
+	/* tmp
 	@Tab(name="Simple", properties="year, number, date", 
-		defaultOrder="${year} desc, ${number} desc"
+		defaultOrder="${year} desc, ${number} desc" 
 	),
+	*/
+	// tmp ini
+	@Tab(name="Simple", properties="year, number, date, customer.number", 
+		defaultOrder="${year} desc, ${number} desc" 
+	),	
+	// tmp fin
 	@Tab(name="Current", 
 		filter=CurrentYearFilter.class, 
 		properties="year, number, amountsSum, vat, detailsCount, paid, customer.name",			
