@@ -766,8 +766,7 @@ public class ModuleManager implements java.io.Serializable {
 		}
 	}
 
-	private void manageException(MetaAction metaAction, Messages errors,
-			Messages messages, Exception ex) {
+	private void manageException(MetaAction metaAction, Messages errors, Messages messages, Exception ex) {
 		if (ex instanceof ValidationException) {
 			errors.add(((ValidationException) ex).getErrors());
 			messages.removeAll();
@@ -775,19 +774,22 @@ public class ModuleManager implements java.io.Serializable {
 		} else if (ex instanceof javax.validation.ConstraintViolationException) {
 			manageConstraintViolationException(metaAction, errors, messages,
 					(javax.validation.ConstraintViolationException) ex);
-		} else if (ex instanceof RollbackException) {
-			if (ex.getCause() instanceof javax.validation.ConstraintViolationException) {
-				manageConstraintViolationException(metaAction, errors, messages,
-						(javax.validation.ConstraintViolationException) ex.getCause());
-			} else if (ex.getCause() != null
-					&& ex.getCause().getCause() instanceof javax.validation.ConstraintViolationException) {
-				manageConstraintViolationException(metaAction, errors,
-						messages, (ConstraintViolationException) ex.getCause()
-								.getCause());
-			} else {
-				manageRegularException(metaAction, errors, messages, ex);
-			}
+		} else if (ex instanceof RollbackException) {			
+			if (!errors.contains()) { 
+				if (ex.getCause() instanceof javax.validation.ConstraintViolationException) {
+					manageConstraintViolationException(metaAction, errors, messages,
+							(javax.validation.ConstraintViolationException) ex.getCause());
+				} else if (ex.getCause() != null
+						&& ex.getCause().getCause() instanceof javax.validation.ConstraintViolationException) {
+					manageConstraintViolationException(metaAction, errors,
+							messages, (ConstraintViolationException) ex.getCause()
+									.getCause());
+				} else {
+					manageRegularException(metaAction, errors, messages, ex);
+				}
+			} 
 			doRollback();
+			
 		} else if (ex instanceof javax.persistence.PersistenceException) {
 			if (ex.getCause() instanceof org.hibernate.exception.ConstraintViolationException
 					&& ((org.hibernate.exception.ConstraintViolationException) ex

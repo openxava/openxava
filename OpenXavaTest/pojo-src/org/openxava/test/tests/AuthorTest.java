@@ -185,11 +185,18 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertDialog();
 	}
 	 
-	public void testCustomMessageWithBeanValidationJSR303() throws Exception {
+	public void testCustomMessageWithBeanValidationJSR303_validationExceptionFromPreUpdate() throws Exception { 
 		execute("CRUD.new");
 		setValue("author", "PEPE");
 		execute("CRUD.save");
-		assertError("Sorry, but PEPE is not a good name for an author");  
+		assertError("Sorry, but PEPE is not a good name for an author");
+		
+		execute("Navigation.first");
+		assertValue("author", "JAVIER PANIZA");
+		setValue("biography", "BORN IN VALENCIA");
+		execute("CRUD.save");
+		assertErrorsCount(1);
+		assertError("Uppercase text is not allowed for Biography");
 	}
 	
 	protected String getModuleURL() {  

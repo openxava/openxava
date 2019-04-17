@@ -1,0 +1,11 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE default-size SYSTEM "dtds/default-size.dtd">
+
+<!-- OpenXavaTest -->
+
+<default-size>	<for-stereotype name="FAMILY" size="40"/>
+	<for-stereotype name="SUBFAMILY" size="40"/>
+	<for-stereotype name="PERSON_NAME" size="40"/>	
+	
+</default-size>

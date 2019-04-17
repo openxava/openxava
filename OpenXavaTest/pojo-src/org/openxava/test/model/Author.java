@@ -4,6 +4,7 @@ import java.util.*;
 import javax.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.test.annotations.*;
+import org.openxava.util.*;
 
 @Entity
 @GoodName
@@ -22,6 +23,16 @@ public class Author {
 	@ListAction("Author.showAllAuthors")
 	@ListAction("Author.showSelectedAuthors")
 	private Collection<Human> humans;
+	
+	@PrePersist @PreUpdate
+	private void validateBiography() { 
+		if (Is.emptyString(biography)) return;
+		if (biography.toUpperCase().equals(biography)) {
+			Messages errors = new Messages();
+			errors.add("uppercase_not_allowed", "biography"); 
+			throw new org.openxava.validators.ValidationException(errors);
+		}
+	}
 	
 	public String getAuthor() {
 		return author;

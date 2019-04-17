@@ -4,7 +4,9 @@ import java.io.*;
 import java.util.*;
 
 import org.openxava.application.meta.*;
+import org.openxava.util.Is;
 import org.openxava.util.Files;
+
 import junit.framework.*;
 
 /**
