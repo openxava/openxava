@@ -4,7 +4,6 @@ import java.util.*;
 
 import junit.framework.*;
 
-import org.apache.commons.beanutils.*;
 import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.*;
@@ -12,6 +11,7 @@ import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.*;
 
 /**
+ * tmp Última versión, debería acabar en OpenXava
  * Utility class for easier use of HtmlUnit.
  * 
  * @since 6.0
@@ -67,18 +67,9 @@ public class HtmlUnitUtils {
 	}
 	
 	public static BrowserVersion getBrowser(String userAgent) throws Exception {
-		/* tmp
-		BrowserVersion bv = new BrowserVersion("", "", "", 0); 
-		BeanUtils.copyProperties(bv, (BrowserVersion.FIREFOX_24));		
-		bv.setUserAgent(userAgent);
-		return bv;
-		*/
-		// tmp ini
-		// tmp Poner en changelog, aunque no todos los casos
 		return new BrowserVersion.BrowserVersionBuilder(BrowserVersion.BEST_SUPPORTED)
 			.setUserAgent(userAgent)
 			.build();
-		// tmp fin	
 	}
 		
 }

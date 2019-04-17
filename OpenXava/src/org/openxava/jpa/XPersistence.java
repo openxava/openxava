@@ -16,6 +16,7 @@ import org.openxava.util.*;
 import org.w3c.dom.*;
 
 /**
+ * tmp Último, debería dejarlo en OpenXava. Resuelve bug de OpenXava: setSchema con MySQL, y de XavaPro: Multiempresa con MySQL
  * Allows to work easily with EJB3 JPA inside OpenXava applications. <p>
  * 
  * You can use this class in any part of your OpenXava application:
@@ -77,7 +78,6 @@ public class XPersistence {
 	
 	private static Log log = LogFactory.getLog(XPersistence.class);
 
-	private final static String HIBERNATE_DEFAULT_SCHEMA = "hibernate.default_schema";
 	private final static String XAVA_PERSISTENCE_UNIT_KEY = "xava.persistenceUnit";
 	final private static ThreadLocal currentManager = new ThreadLocal();
 	private static Map entityManagerFactories = new HashMap();
@@ -248,8 +248,14 @@ public class XPersistence {
 		currentPersistenceUnitProperties.set(properties);
 		String defaultSchema = obtainDefaultSchemaFromPersistenceXML();
 		if (defaultSchema != null) {
-			properties.put(HIBERNATE_DEFAULT_SCHEMA, defaultSchema);
+			properties.put(getHibernateDefaultSchemaPropertyName(), defaultSchema); 
 		}		
+	}
+	
+	private static String getHibernateDefaultSchemaPropertyName() { 
+		String dialect = (String) getEntityManagerFactory().getProperties().get("hibernate.dialect");
+		if (dialect != null && dialect.toLowerCase().contains("mysql")) return "hibernate.default_catalog";
+		return "hibernate.default_schema";
 	}
 	
 	/**
@@ -272,7 +278,7 @@ public class XPersistence {
 			defaultPersistenceUnitProperties.put(XAVA_PERSISTENCE_UNIT_KEY, XavaPreferences.getInstance().getDefaultPersistenceUnit());
 			String defaultSchema = obtainDefaultSchemaFromPersistenceXML();
 			if (defaultSchema != null) {
-				defaultPersistenceUnitProperties.put(HIBERNATE_DEFAULT_SCHEMA, defaultSchema);
+				defaultPersistenceUnitProperties.put(getHibernateDefaultSchemaPropertyName(), defaultSchema); 
 			}
 			defaultPersistenceUnitProperties = Collections.unmodifiableMap(defaultPersistenceUnitProperties);
 		}
@@ -301,7 +307,7 @@ public class XPersistence {
 	 * try to execute SQL they will use 'COMPANYA.ISSUE' as table name.<br>
 	 */
 	public static String getDefaultSchema() {
-		return (String) getPersistenceUnitProperties().get(HIBERNATE_DEFAULT_SCHEMA);
+		return (String) getPersistenceUnitProperties().get(getHibernateDefaultSchemaPropertyName()); 
 	}
 	
 	/**
@@ -313,8 +319,8 @@ public class XPersistence {
 	 */
 	public static void setDefaultSchema(String defaultSchema) {
 		Map properties = new HashMap(getPersistenceUnitProperties());
-		if (Is.emptyString(defaultSchema)) properties.remove(HIBERNATE_DEFAULT_SCHEMA);
-		else properties.put(HIBERNATE_DEFAULT_SCHEMA, defaultSchema);
+		if (Is.emptyString(defaultSchema)) properties.remove(getHibernateDefaultSchemaPropertyName());
+		else properties.put(getHibernateDefaultSchemaPropertyName(), defaultSchema);		
 		setPersistenceUnitProperties(properties);
 	}
 	
@@ -363,6 +369,5 @@ public class XPersistence {
 			return null; 
 		}
 	}
-
-		
+			
 }

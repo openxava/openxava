@@ -48,6 +48,7 @@ public class Module extends DWRBase {
 		Result result = new Result(); 
 		result.setApplication(application); 
 		result.setModule(module);
+		System.out.println("[Module.request] request=" + request); // tmp
 		try {
 			this.request = request;
 			this.response = response;
