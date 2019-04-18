@@ -105,13 +105,13 @@ public class InvoiceFromCustomersTest extends ModuleTestBase {
 		assertValueInList(0, 0, "Javi");		
 	}
 	
-	public void testSetBaseConditionOnChangeModule() throws Exception { // tmp
+	public void testSetBaseConditionOnChangeModule() throws Exception { 
 		execute("Invoice.listOfCustomer", "row=0");
 		assertInvoices("1", 5);
 		execute("CustomerInvoices.returnWithChainedAction");
 		
 		execute("Invoice.listOfCustomer", "row=1");
-		assertInvoices("2", 2); // tmp Fallaba aquí, ¿añadir como bug resuelto separado?
+		assertInvoices("2", 2); 
 		
 		setConditionValues("", "", "", "2");
 		execute("List.filter");
@@ -121,10 +121,10 @@ public class InvoiceFromCustomersTest extends ModuleTestBase {
 		execute("Invoice.listOfCustomer", "row=0");
 		assertInvoices("1", 5);		
 		
-		assertListSelectedConfiguration("All"); // ¿Otro bug en changelog?
+		assertListSelectedConfiguration("All"); 
 	}
 	
-	private void assertInvoices(String customerNumber, int invoicesCount) throws Exception { // tmp
+	private void assertInvoices(String customerNumber, int invoicesCount) throws Exception { 
 		assertListRowCount(invoicesCount);
 		for (int i = 0; i < invoicesCount; i++) {
 			assertValueInList(i, 3, customerNumber);

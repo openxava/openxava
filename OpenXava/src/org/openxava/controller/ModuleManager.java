@@ -1713,7 +1713,7 @@ public class ModuleManager implements java.io.Serializable {
 		return false;
 	}
 	
-	public boolean isCoreViaAJAX(HttpServletRequest request) { 
+	public boolean isCoreViaAJAX(HttpServletRequest request) {
 		Style style = (Style) request.getAttribute("style");
 		return !style.isInsidePortal() || !getPreviousModules().isEmpty() || getDialogLevel() > 0 || hasInitForwardActions();
 	}

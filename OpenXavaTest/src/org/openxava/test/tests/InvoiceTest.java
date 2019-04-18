@@ -1256,7 +1256,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertListColumnCount(8); 
 		execute("Invoice.changeTab");
 		assertNoErrors();
-		assertListColumnCount(3);  
+		assertListColumnCount(4);  
 	}	
 	
 	public void testDateFormatter() throws Exception { 

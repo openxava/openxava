@@ -28,7 +28,6 @@ public abstract class TreeTestBase extends ModuleTestBase {
 
 	protected String getValueInTreeView(String collection, int row) {
 		DomElement element = getTreeViewElementInRow(collection, row);
-		System.out.println("[TreeTestBase.getValueInTreeView] element=\n" + element.asXml()); // tmp
 		String value = element.getElementsByTagName("span").item(0)
 				.getTextContent().toString();
 		return value.replace((char) 160, (char) 32); 

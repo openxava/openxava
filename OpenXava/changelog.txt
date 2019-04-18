@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Tab.setBaseCondition() on change module module keeps the last user condition in that module.
+- Fix: Tab.setBaseCondition() does not take effect on change module until clicking on filter button.
+- Fix: Tab.setBaseCondition() does not change the current filtering configuration in combo.
 - Fix: Throwing org.openxava.validators.ValidationException from @PreUpdate shows a transaction error.
 - Fix: @ElementCollection with only booleans does not get the value correctly. 
 - Fix: @ElementCollection with a @DefaultValueCalcultor property fails if property is not present.
