@@ -105,13 +105,23 @@ public class InvoiceFromCustomersTest extends ModuleTestBase {
 		assertValueInList(0, 0, "Javi");		
 	}
 	
-	public void testSetBaseConditionOnChangeModule() throws Exception { // tmp ¿Fusionar con testModuleChange()? ¿Fusionar?
+	public void testSetBaseConditionOnChangeModule() throws Exception { // tmp
 		execute("Invoice.listOfCustomer", "row=0");
 		assertInvoices("1", 5);
 		execute("CustomerInvoices.returnWithChainedAction");
 		
 		execute("Invoice.listOfCustomer", "row=1");
-		assertInvoices("2", 2); // TMP ME QUEDÉ POR AQUÍ. ESTO FALLA. TODAVÍA FALTARÍA EL TEST PARA EL BUG INFORMADO
+		assertInvoices("2", 2); // tmp Fallaba aquí, ¿añadir como bug resuelto separado?
+		
+		setConditionValues("", "", "", "2");
+		execute("List.filter");
+		assertInvoices("2", 2);
+		
+		execute("CustomerInvoices.returnWithChainedAction");
+		execute("Invoice.listOfCustomer", "row=0");
+		assertInvoices("1", 5);		
+		
+		assertListSelectedConfiguration("All"); // ¿Otro bug en changelog?
 	}
 	
 	private void assertInvoices(String customerNumber, int invoicesCount) throws Exception { // tmp
