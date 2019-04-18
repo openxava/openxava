@@ -123,7 +123,8 @@ public class XPersistence {
 		}
 		hibernateEventsRegistered = true;
 	}
-
+	
+	
 	private static EntityManager openManager() {
 		EntityManager m = createManager();
 		m.getTransaction().begin();

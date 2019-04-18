@@ -48,7 +48,6 @@ public class Module extends DWRBase {
 		Result result = new Result(); 
 		result.setApplication(application); 
 		result.setModule(module);
-		System.out.println("[Module.request] request=" + request); // tmp
 		try {
 			this.request = request;
 			this.response = response;
@@ -121,7 +120,8 @@ public class Module extends DWRBase {
 			return result;
 		}		
 		finally {			
-			if (manager != null) manager.commit(); // If hibernate, jpa, etc is used to render some value here is commit
+			// tmp if (manager != null) manager.commit(); // If hibernate, jpa, etc is used to render some value here is commit
+			ModuleManager.commit(); // If hibernate, jpa, etc is used to render some value here is commit
 			cleanRequest();   
 			long time = System.currentTimeMillis() - ini; 
 			log.debug(XavaResources.getString("request_time") + "=" + time + " ms"); 
@@ -177,6 +177,7 @@ public class Module extends DWRBase {
 			return null; // Maybe the session has been invalidated and it's needed to reload the page
 		}
 		finally {
+			ModuleManager.commit(); // tmp En changelog de XavaPro, connection leak
 			cleanRequest(); 
 		}
 	}
