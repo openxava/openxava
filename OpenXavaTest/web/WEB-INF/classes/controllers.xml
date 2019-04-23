@@ -98,7 +98,14 @@
 		<action name="hideButtons"  
 			class="org.openxava.test.actions.HideButtonsAction"/>
 		<action name="showButtons" hidden="true" 
-			class="org.openxava.test.actions.ShowButtonsAction"/>			
+			class="org.openxava.test.actions.ShowButtonsAction"/>	
+		<!-- tmp ini -->
+		<action name="addNewLabel"  
+			class="org.openxava.test.actions.AddNewLabelAction">
+			<set property="key" value="platform"/>
+			<set property="label" value="Target ecosystem"/>
+		</action>	
+		<!-- tmp fin -->			
 	</controller>			
 	
 	<controller name="JPACRUD">	

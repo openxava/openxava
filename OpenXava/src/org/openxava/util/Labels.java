@@ -30,11 +30,15 @@ public class Labels {
 	 * On any error returns the sent <code>id</code> with the first letter in uppercase.
 	 */
 	public static String getQualified(String id, Locale locale) {
-		return get(id, locale, true);
+		String result = get(id, locale, true);
+		System.out.println("[Labels.getQualified] " + id + " -> " + result); // tmp
+		return result;
 	}
 	
 	public static String get(String id) {
-		return get(id, Locales.getCurrent());
+		String result = get(id, Locales.getCurrent());
+		System.out.println("[Labels.get] " + id + " -> " + result); // tmp
+		return result;
 	}
 
 	
@@ -46,7 +50,7 @@ public class Labels {
 	}
 	
 	/**
-	 * Add or change a label bye locale. <p>
+	 * Add or change a label by locale. <p>
 	 * 
 	 * The result is not persistent, after reinit the application the changes are gone.
 	 * 
@@ -105,7 +109,9 @@ public class Labels {
 	 * If <code>id</code> is not found, or other error returns <code>defaultValue</code>
 	 */
 	public static String get(String id, Locale locale, String defaultValue) {
-		return get(id, locale, defaultValue, false);
+		String result = get(id, locale, defaultValue, false);
+		System.out.println("[Labels.get] " + id + "=" + result); // tmp
+		return result;
 	}
 	
 	/**
@@ -223,6 +229,7 @@ public class Labels {
 	
 	public static boolean existsExact(String id, Locale locale) throws XavaException {
 		if (id == null) return false;
+		if (labels.containsKey(id)) return true; // tmp
 		try {
 			getResource(id, locale);
 			return true;
