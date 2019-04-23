@@ -5271,9 +5271,9 @@ class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span>
 class="sy0">;</span>
     <span class="co1">// execute("AddToCollection.add", "row=0"); // Now we don't select randomly</span>
 &nbsp;
-    checkFirstOrderWithDeliveredEquals<span class="br0">(</span><span class="st0">"Yes"</span><span
+    checkFirstOrderWithDeliveredEquals<span class="br0">(</span><span class="st0">"Delivered"</span><span
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Selects one delivered order</span>
-    checkFirstOrderWithDeliveredEquals<span class="br0">(</span><span class="st0">"No"</span><span
+    checkFirstOrderWithDeliveredEquals<span class="br0">(</span><span class="st0">""</span><span
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Selects one not delivered order</span>
     execute<span class="br0">(</span><span class="st0">"AddToCollection.add"</span><span
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// We try to add both</span>
@@ -5500,8 +5500,8 @@ class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>c<s
 class="sy0">;</span> i++<span class="br0">)</span> <span class="br0">{</span>
         <span class="kw1">if</span> <span class="br0">(</span>value.<span class="me1">equals</span><span
 class="br0">(</span>
-            getValueInList<span class="br0">(</span>i, <span class="nu0">12</span><span
-class="br0">)</span><span class="br0">)</span><span class="br0">)</span> <span class="co1">// 12 is the 'delivered' column</span>
+            getValueInList<span class="br0">(</span>i, <span class="nu0">13</span><span
+class="br0">)</span><span class="br0">)</span><span class="br0">)</span> <span class="co1">// 13 is the 'delivered' column</span>
         <span class="br0">{</span>
             checkRow<span class="br0">(</span>i<span class="br0">)</span><span class="sy0">;</span>
             <span class="kw2">return</span><span class="sy0">;</span>
