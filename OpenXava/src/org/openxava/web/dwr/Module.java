@@ -302,6 +302,8 @@ public class Module extends DWRBase {
 
 
 	private void fillPropertiesUsedInCalculationsFromSumCollectionProperties(Collection<String> propertiesUsedInCalculations) { 
+		if (manager.isFormUpload()) return;  // tmp changelog de XavaPro, excepcion al sacar formulario subir
+		
 		View view = getView();
 
 		for (String collection: view.getChangedCollections().keySet()) {
