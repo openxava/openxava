@@ -17,7 +17,6 @@ import org.openxava.jpa.*;
 import org.openxava.util.*;
 
 /**
- * tmp Esta es la últimoa versión, debería de acabar en OpenXava. Probarla también en XavaPro, arregla de lo crear organizaciones con MySQL
  * @since 5.3
  * @author Javier Paniza 
  */
@@ -108,10 +107,6 @@ public class SchemaTool {
 	
 			String fileName = Files.getOpenXavaBaseDir() + "ddl-" + UUID.randomUUID() + ".sql";
 			File file = new File(fileName);
-			/* tmp
-			String schema = (String) factoryProperties.get("hibernate.defatult_schema");
-			String catalog = (String) factoryProperties.get("hibernate.default_catalog");
-			*/
 	    	XPersistence.commit();			
 	    	if (update) {
 				SchemaUpdate schemaUpdate = new SchemaUpdate();

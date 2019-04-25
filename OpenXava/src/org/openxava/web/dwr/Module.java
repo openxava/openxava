@@ -120,7 +120,6 @@ public class Module extends DWRBase {
 			return result;
 		}		
 		finally {			
-			// tmp if (manager != null) manager.commit(); // If hibernate, jpa, etc is used to render some value here is commit
 			ModuleManager.commit(); // If hibernate, jpa, etc is used to render some value here is commit
 			cleanRequest();   
 			long time = System.currentTimeMillis() - ini; 
@@ -177,7 +176,7 @@ public class Module extends DWRBase {
 			return null; // Maybe the session has been invalidated and it's needed to reload the page
 		}
 		finally {
-			ModuleManager.commit(); // tmp En changelog de XavaPro, connection leak
+			ModuleManager.commit(); 
 			cleanRequest(); 
 		}
 	}
@@ -302,7 +301,7 @@ public class Module extends DWRBase {
 
 
 	private void fillPropertiesUsedInCalculationsFromSumCollectionProperties(Collection<String> propertiesUsedInCalculations) { 
-		if (manager.isFormUpload()) return;  // tmp changelog de XavaPro, excepcion al sacar formulario subir
+		if (manager.isFormUpload()) return;  
 		
 		View view = getView();
 

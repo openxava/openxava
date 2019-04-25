@@ -36,9 +36,7 @@
 	<property name="portlets.default.locale" value="en"/>
 	<property name="hibernate.properties" value=""/>
 	<property name="compile.src.path" value="../${project}/src"/>
-	<!-- tmp ini En changelog -->
 	<property name="openxava.base.dir" value=".."/>
-	<!-- tmp fin -->
 
 	<!-- Set up java.class.path -->
 	<path id="project.class.path">

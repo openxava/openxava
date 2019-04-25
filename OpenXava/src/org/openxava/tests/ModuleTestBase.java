@@ -633,7 +633,7 @@ public class ModuleTestBase extends TestCase {
 		metaTab = null;				
 		if (reloadPage) page = (HtmlPage) client.getPage(getModuleURL()); 
 		resetForm();		
-		restorePage(); // tmp
+		restorePage(); 
 	}
 	
 		

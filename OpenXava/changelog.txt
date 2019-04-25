@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: XPersistence.setDefaultSchema() does not work with MySQL.
 - Fix: Throwing org.openxava.validators.ValidationException from @PreUpdate shows a transaction error.
 - Fix: @ElementCollection with only booleans does not get the value correctly. 
 - Fix: @ElementCollection with a @DefaultValueCalcultor property fails if property is not present.

@@ -16,7 +16,6 @@ import org.openxava.util.*;
 import org.w3c.dom.*;
 
 /**
- * tmp Último, debería dejarlo en OpenXava. Resuelve bug de OpenXava: setSchema con MySQL, y de XavaPro: Multiempresa con MySQL
  * Allows to work easily with EJB3 JPA inside OpenXava applications. <p>
  * 
  * You can use this class in any part of your OpenXava application:

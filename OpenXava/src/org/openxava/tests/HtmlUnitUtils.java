@@ -11,7 +11,6 @@ import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.*;
 
 /**
- * tmp Última versión, debería acabar en OpenXava
  * Utility class for easier use of HtmlUnit.
  * 
  * @since 6.0
