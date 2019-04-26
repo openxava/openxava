@@ -1,31 +1,60 @@
 <html>
   <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>openxava - multitenancy_es</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Multiempresa/multimunicipio">Multiempresa/multimunicipio</a></div>
-<div style="margin-left: 2em;"><a href="#Multiempresa/multimunicipio-Crear una nueva organización">Crear una nueva organización</a></div>
-<div style="margin-left: 2em;"><a href="#Multiempresa/multimunicipio-Personalización">Personalización</a></div>
-<div style="margin-left: 2em;"><a href="#Multiempresa/multimunicipio-JDBC dentro de las organizaciones (nuevo en v5.6)">JDBC dentro de las organizaciones (nuevo en v5.6)</a></div>
-<div style="margin-left: 2em;"><a href="#Multiempresa/multimunicipio-Usuarios compartidos entre organizaciones (nuevo en v5.6)">Usuarios compartidos entre organizaciones (nuevo en v5.6)</a></div>
-</div>
-<h1 id="toc0"><a name="Multiempresa/multimunicipio"></a>Multiempresa/multimunicipio</h1>
- La multitenencia (multitenancy en inglés) te permite desplegar una aplicación una vez y esta única aplicación puede servir a varias empresas al mismo tiempo, cada una con sus propios datos. Esto es perfecto para SaaS (Software como Servicio), así puedes desplegar tu aplicación en la nube y alquilarla a muchos clientes. También es muy útil para hacer aplicaciones multimunicipio para las administraciones públicas (como las diputaciones en España). Incluso si no estás interesado en hacer aplicaciones multiempresa tener conjuntos de datos aislados puede ser interesante para muchas cosas, como tener una base de datos de producción y otra de pruebas sin esfuerzo.<br />
-<a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a> incluye soporte de multiempresa y multimunicipio.<br />
-<h2 id="toc1"><a name="Multiempresa/multimunicipio-Crear una nueva organización"></a>Crear una nueva organización</h2>
- Para soportar multiempresa XavaPro usa organizaciones. Encontrarás el módulo Organizaciones en la carpeta Admin. Este módulo te permite crear una nueva organización simplemente especificando su nombre y pulsando un botón:<br />
-<img src="files/multitenancy_es010.png" alt="multitenancy_es010.png" title="multitenancy_es010.png" /><br />
-Después de pulsar el botón &quot;Crear nueva organización&quot; la nueva organización está lista para ser usada en la URL especificada. El proceso de creación crea un esquema nuevo en la base de datos, todas las tablas de la aplicación y llena las tablas de administración con los datos iniciales.<br />
-Puedes ir a la URL de la nueva empresa (/TuAplicacion/o/TuEmpresa) directamente o bien a la URL de la aplicación (/TuAplicacion). En este último caso el formulario de identificación pregunta por la empresa usando un combo:<br />
-<img src="files/multitenancy_es030.png" alt="multitenancy_es030.png" title="multitenancy_es030.png" /><br />
-Cada organización tiene sus propios usuarios, contraseñas, roles y permisos, por supuesto.<br />
-<h2 id="toc2"><a name="Multiempresa/multimunicipio-Personalización"></a>Personalización</h2>
- La sintaxis para crear y eliminar esquemas depende de tu base de datos. Puedes especificar la sintaxis para tu base de datos con las propiedades <em>createSchema</em> y <em>dropSchema</em> <em>(nueva en v5.7.1)</em> en <em>naviox.properties</em>:<br />
-
-<style type="text/css"><!--
+      <div id="toc">
+        <h1 class="nopad">Table of Contents</h1>
+        <div style="margin-left: 1em;"><a href="#Multiempresa/multimunicipio">Multiempresa/multimunicipio</a></div>
+        <div style="margin-left: 2em;"><a href="#Multiempresa/multimunicipio-Crear+una+nueva+organizaci%C3%B3n">Crear
+            una nueva organización</a></div>
+        <div style="margin-left: 2em;"><a href="#Multiempresa/multimunicipio-Personalizaci%C3%B3n">Personalización</a></div>
+        <div style="margin-left: 2em;"><a href="#Multiempresa/multimunicipio-JDBC%20dentro%20de%20las%20organizaciones%20%28nuevo%20en%20v5.6%29">JDBC
+            dentro de las organizaciones (nuevo en v5.6)</a></div>
+        <div style="margin-left: 2em;"><a href="#Multiempresa/multimunicipio-Usuarios%20compartidos%20entre%20organizaciones%20%28nuevo%20en%20v5.6%29">Usuarios
+            compartidos entre organizaciones (nuevo en v5.6)</a></div>
+      </div>
+      <h1 id="toc0"><a name="Multiempresa/multimunicipio"></a>Multiempresa/multimunicipio</h1>
+      La multitenencia (multitenancy en inglés) te permite desplegar una
+      aplicación una vez y esta única aplicación puede servir a varias empresas
+      al mismo tiempo, cada una con sus propios datos. Esto es perfecto para
+      SaaS (Software como Servicio), así puedes desplegar tu aplicación en la
+      nube y alquilarla a muchos clientes. También es muy útil para hacer
+      aplicaciones multimunicipio para las administraciones públicas (como las
+      diputaciones en España). Incluso si no estás interesado en hacer
+      aplicaciones multiempresa tener conjuntos de datos aislados puede ser
+      interesante para muchas cosas, como tener una base de datos de producción
+      y otra de pruebas sin esfuerzo.<br>
+      <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>
+      incluye soporte de multiempresa y multimunicipio.<br>
+      <h2 id="toc1"><a name="Multiempresa/multimunicipio-Crear una nueva organización"></a>Crear
+        una nueva organización</h2>
+      Para soportar multiempresa XavaPro usa organizaciones. Encontrarás el
+      módulo Organizaciones en la carpeta Admin. Este módulo te permite crear
+      una nueva organización simplemente especificando su nombre y pulsando un
+      botón:<br>
+      <img src="files/multitenancy_es010.png" alt="multitenancy_es010.png" title="multitenancy_es010.png"><br>
+      Después de pulsar el botón "Crear nueva organización" la nueva
+      organización está lista para ser usada en la URL especificada. El proceso
+      de creación crea un esquema nuevo en la base de datos, todas las tablas de
+      la aplicación y llena las tablas de administración con los datos
+      iniciales. Desde v6.1 las carpetas, roles y permisos para la nueva
+      organización se copian desde la organización raíz.<br>
+      Puedes ir a la URL de la nueva empresa (/TuAplicacion/o/TuEmpresa)
+      directamente o bien a la URL de la aplicación (/TuAplicacion). En este
+      último caso el formulario de identificación pregunta por la empresa usando
+      un combo:<br>
+      <img src="files/multitenancy_es030.png" alt="multitenancy_es030.png" title="multitenancy_es030.png"><br>
+      Cada organización tiene sus propios usuarios, contraseñas, roles y
+      permisos, por supuesto.<br>
+      <h2 id="toc2"><a name="Multiempresa/multimunicipio-Personalización"></a>Personalización</h2>
+      La sintaxis para crear y eliminar esquemas depende de tu base de datos.
+      Puedes especificar la sintaxis para tu base de datos con las propiedades <em>createSchema</em>
+      y <em>dropSchema</em> <em>(nueva en v5.7.1)</em> en <em>naviox.properties</em>:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -51,10 +80,12 @@ dropSchema=DROP SCHEMA ${schema} CASCADE
 # Estas son por base de datos, puedes añadir la tuya usando el nombre de la base de datos
 # como sufijo (realmente la primera palabra de connection.getMetaData().getDatabaseProductName())
 dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
-
-Si quieres hacer personalizaciones adicionales, como llenar las tablas de la aplicación, crear algunos roles y usuarios iniciales, dar una estructura específica a los módulos y carpetas, etc. puedes definir tu propia accion para crear la organización. La acción original se define en <em>Addons/xava/controllers.xml</em> de este manera:<br />
-
-<style type="text/css"><!--
+      Si quieres hacer personalizaciones adicionales, como llenar las tablas de
+      la aplicación, crear algunos roles y usuarios iniciales, dar una
+      estructura específica a los módulos y carpetas, etc. puedes definir tu
+      propia accion para crear la organización. La acción original se define en
+      <em>Addons/xava/controllers.xml</em> de este manera:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -64,17 +95,17 @@ Si quieres hacer personalizaciones adicionales, como llenar las tablas de la apl
 .text span.xtra { display:block; }
 
 -->
-</style><pre class="text">&lt;controller name=&quot;Organization&quot;&gt;
+</style><pre class="text">&lt;controller name="Organization"&gt;
     ...
-    &lt;action name=&quot;createNewOrganization&quot; mode=&quot;detail&quot; takes-long=&quot;true&quot;
-        class=&quot;com.openxava.naviox.actions.CreateNewOrganizationAction&quot;/&gt;
+    &lt;action name="createNewOrganization" mode="detail" takes-long="true"
+        class="com.openxava.naviox.actions.CreateNewOrganizationAction"/&gt;
     ...
 &lt;/controller&gt;</pre>
-
-Simplemente define tu propia clase para <em>Organization.createNewOrganization</em>.<br />
-Puedes ocultar el combo con la lista de organizaciones en el momento de la identificación con la siguiente entrada en <em>naviox.properties (nuevo v5.6)</em>:<br />
-
-<style type="text/css"><!--
+      Simplemente define tu propia clase para <em>Organization.createNewOrganization</em>.<br>
+      Puedes ocultar el combo con la lista de organizaciones en el momento de la
+      identificación con la siguiente entrada en <em>naviox.properties (nuevo
+        v5.6)</em>:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -85,11 +116,14 @@ Puedes ocultar el combo con la lista de organizaciones en el momento de la ident
 
 -->
 </style><pre class="text">showOrganizationOnSignIn=false</pre>
-
-<h2 id="toc3"><a name="Multiempresa/multimunicipio-JDBC dentro de las organizaciones (nuevo en v5.6)"></a>JDBC dentro de las organizaciones <em>(nuevo en v5.6)</em></h2>
- El código JPA o Hibernate (Hibernate a partir de v5.6) en tus acciones, calculadores, entidades, etc. va contra el esquema correcto para la organización actual, sin embargo es no es el caso para JDBC. Si quieres que tu código JDBC vaya contra el esquema de la organización actual has de añadir la siguiente entrada en <em>xava.properties</em>:<br />
-
-<style type="text/css"><!--
+      <h2 id="toc3"><a name="Multiempresa/multimunicipio-JDBC dentro de las organizaciones (nuevo en v5.6)"></a>JDBC
+        dentro de las organizaciones <em>(nuevo en v5.6)</em></h2>
+      El código JPA o Hibernate (Hibernate a partir de v5.6) en tus acciones,
+      calculadores, entidades, etc. va contra el esquema correcto para la
+      organización actual, sin embargo es no es el caso para JDBC. Si quieres
+      que tu código JDBC vaya contra el esquema de la organización actual has de
+      añadir la siguiente entrada en <em>xava.properties</em>:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -100,17 +134,28 @@ Puedes ocultar el combo con la lista de organizaciones en el momento de la ident
 
 -->
 </style><pre class="text">connectionRefinerClass=com.openxava.naviox.util.SetCatalogFromPersistenceSchemaConnectionRefiner</pre>
-
-Esto funciona para bases de datos donde catálogo y esquema son sinónimos, como MySQL.<br />
-<h2 id="toc4"><a name="Multiempresa/multimunicipio-Usuarios compartidos entre organizaciones (nuevo en v5.6)"></a>Usuarios compartidos entre organizaciones <em>(nuevo en v5.6)</em></h2>
- Cuando usas multiempresa con XavaPro cada empresa tiene su propio grupo de usuarios totalmente independiente de las otras organizaciones. Esto está bien para muchos casos, sin embargo en algunas aplicaciones se necesita tener el mismo grupo de usuarios para todas las organizaciones. Puedes configurar tu aplicación para funcionar de esta manera, simplemente marca la opción correspondiente en el módulo de configuración:<br />
-<img src="files/multitenancy_es040.png" alt="multitenancy_es040.png" title="multitenancy_es040.png" /><br />
-Con &quot;Usuarios compartidos&quot; activados los usuarios y contraseñas para todas las organizaciones son los de la aplicación raíz. Has de crear los usuarios en la aplicación raíz solamente y cuando estos usuarios traten de acceder a una organización tendrán la posibilidad de unirse:<br />
-<img src="files/multitenancy_es050.png" alt="multitenancy_es050.png" title="multitenancy_es050.png" /><br />
-Hay un rol <em>joined</em> en cada organización para definir los permisos de estos usuarios.<br />
-Cuando el usuario se identifica con &quot;Usuarios compartidos&quot; activado, la lista de sus organizaciones se muestra para que pueda escoger:<br />
-<img src="files/multitenancy_es060.png" alt="multitenancy_es060.png" title="multitenancy_es060.png" /><br />
-El usuario puede ir a cualquiera de sus organizaciones sin necesidad de identificarse de nuevo.
-    </div>
+      Esto funciona para bases de datos donde catálogo y esquema son sinónimos,
+      como MySQL.<br>
+      <h2 id="toc4"><a name="Multiempresa/multimunicipio-Usuarios compartidos entre organizaciones (nuevo en v5.6)"></a>Usuarios
+        compartidos entre organizaciones <em>(nuevo en v5.6)</em></h2>
+      Cuando usas multiempresa con XavaPro cada empresa tiene su propio grupo de
+      usuarios totalmente independiente de las otras organizaciones. Esto está
+      bien para muchos casos, sin embargo en algunas aplicaciones se necesita
+      tener el mismo grupo de usuarios para todas las organizaciones. Puedes
+      configurar tu aplicación para funcionar de esta manera, simplemente marca
+      la opción correspondiente en el módulo de configuración:<br>
+      <img src="files/multitenancy_es040.png" alt="multitenancy_es040.png" title="multitenancy_es040.png"><br>
+      Con "Usuarios compartidos" activados los usuarios y contraseñas para todas
+      las organizaciones son los de la aplicación raíz. Has de crear los
+      usuarios en la aplicación raíz solamente y cuando estos usuarios traten de
+      acceder a una organización tendrán la posibilidad de unirse:<br>
+      <img src="files/multitenancy_es050.png" alt="multitenancy_es050.png" title="multitenancy_es050.png"><br>
+      Hay un rol <em>joined</em> en cada organización para definir los permisos
+      de estos usuarios.<br>
+      Cuando el usuario se identifica con "Usuarios compartidos" activado, la
+      lista de sus organizaciones se muestra para que pueda escoger:<br>
+      <img src="files/multitenancy_es060.png" alt="multitenancy_es060.png" title="multitenancy_es060.png"><br>
+      El usuario puede ir a cualquiera de sus organizaciones sin necesidad de
+      identificarse de nuevo. </div>
   </body>
 </html>
