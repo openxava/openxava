@@ -4578,15 +4578,13 @@ class="st0">""</span><span class="br0">)</span><span class="sy0">;</span>
 class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
 href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
 class="kw21">Exception</span></a> <span class="br0">{</span>
-    execute<span class="br0">(</span><span class="st0">"CRUD.search"</span><span
-class="br0">)</span><span class="sy0">;</span> <span class="co1">// Saca el diálogo para buscar</span>
     setValue<span class="br0">(</span><span class="st0">"anyo"</span>, getAnyoActual<span
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span
 class="co1">// El año actual en el campo año</span>
     setValue<span class="br0">(</span><span class="st0">"numero"</span>, getNumero<span
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span
 class="co1">// El número de la factura usada en la prueba</span>
-    execute<span class="br0">(</span><span class="st0">"Search.search"</span><span
+    execute<span class="br0">(</span><span class="st0">"CRUD.refresh"</span><span
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Carga la factura desde la base de datos</span>
 &nbsp;
     <span class="co1">// En el resto de la prueba confirmamos que los valores son los correctos</span>

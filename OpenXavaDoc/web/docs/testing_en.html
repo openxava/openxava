@@ -4571,15 +4571,13 @@ class="st0">""</span><span class="br0">)</span><span class="sy0">;</span>
 class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
 href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
 class="kw21">Exception</span></a> <span class="br0">{</span>
-    execute<span class="br0">(</span><span class="st0">"CRUD.search"</span><span
-class="br0">)</span><span class="sy0">;</span> <span class="co1">// Show the dialog to search</span>
     setValue<span class="br0">(</span><span class="st0">"year"</span>, getCurrentYear<span
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span
 class="co1">// The current year to year field</span>
     setValue<span class="br0">(</span><span class="st0">"number"</span>, getNumber<span
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span
 class="co1">// The invoice number of the test</span>
-    execute<span class="br0">(</span><span class="st0">"Search.search"</span><span
+    execute<span class="br0">(</span><span class="st0">"CRUD.refresh"</span><span
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Load the invoice back from the database</span>
 &nbsp;
     <span class="co1">// In the rest of the test we assert that the values are the correct ones</span>

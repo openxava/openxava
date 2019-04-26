@@ -276,8 +276,9 @@ class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
     <span class="kw2">return</span> entregado<span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw3">void</span> setBoolean<span class="br0">(</span><span
-class="kw3">boolean</span> entregado<span class="br0">)</span> <span class="br0">{</span>
+<span class="kw2">public</span> <span class="kw3">void</span> setEntregado<span
+class="br0">(</span><span class="kw3">boolean</span> entregado<span class="br0">)</span> <span
+class="br0">{</span>
     <span class="kw2">this</span>.<span class="me1">entregado</span> = entregado<span
 class="sy0">;</span>
 <span class="br0">}</span></pre>
@@ -5286,9 +5287,9 @@ class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span>
 class="sy0">;</span>
 <span class="co1">//  execute("AddToCollection.add", "row=0"); // Ahora no seleccionamos al azar</span>
 &nbsp;
-    seleccionarPrimerPedidoConEntregadoIgual<span class="br0">(</span><span class="st0">"Sí"</span><span
+    seleccionarPrimerPedidoConEntregadoIgual<span class="br0">(</span><span class="st0">"Entregado"</span><span
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Selecciona un pedido entregado</span>
-    seleccionarPrimerPedidoConEntregadoIgual<span class="br0">(</span><span class="st0">"No"</span><span
+    seleccionarPrimerPedidoConEntregadoIgual<span class="br0">(</span><span class="st0">""</span><span
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Selecciona uno no entregado</span>
     execute<span class="br0">(</span><span class="st0">"AddToCollection.add"</span><span
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Tratamos de añadir ambos</span>
@@ -5516,7 +5517,7 @@ class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> c
 class="sy0">;</span> i++<span class="br0">)</span> <span class="br0">{</span>
         <span class="kw1">if</span> <span class="br0">(</span>value.<span class="me1">equals</span><span
 class="br0">(</span>
-            getValueInList<span class="br0">(</span>i, <span class="nu0">12</span><span
+            getValueInList<span class="br0">(</span>i, <span class="nu0">13</span><span
 class="br0">)</span><span class="br0">)</span><span class="br0">)</span> <span class="co1">// Obtenermos valor de la columna 'entregado'</span>
             <span class="br0">{</span>
                 checkRow<span class="br0">(</span>i<span class="br0">)</span><span

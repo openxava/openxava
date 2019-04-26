@@ -105,6 +105,33 @@ public class InvoiceFromCustomersTest extends ModuleTestBase {
 		assertValueInList(0, 0, "Javi");		
 	}
 	
+	public void testSetBaseConditionOnChangeModule() throws Exception { 
+		execute("Invoice.listOfCustomer", "row=0");
+		assertInvoices("1", 5);
+		execute("CustomerInvoices.returnWithChainedAction");
+		
+		execute("Invoice.listOfCustomer", "row=1");
+		assertInvoices("2", 2); 
+		
+		setConditionValues("", "", "", "2");
+		execute("List.filter");
+		assertInvoices("2", 2);
+		
+		execute("CustomerInvoices.returnWithChainedAction");
+		execute("Invoice.listOfCustomer", "row=0");
+		assertInvoices("1", 5);		
+		
+		assertListSelectedConfiguration("All"); 
+	}
+	
+	private void assertInvoices(String customerNumber, int invoicesCount) throws Exception { 
+		assertListRowCount(invoicesCount);
+		for (int i = 0; i < invoicesCount; i++) {
+			assertValueInList(i, 3, customerNumber);
+		}	
+		
+	}
+	
 	private void assertInvoices() throws Exception {
 		assertListRowCount(getInvoices().size());		
 		Iterator it = getInvoices().iterator();
