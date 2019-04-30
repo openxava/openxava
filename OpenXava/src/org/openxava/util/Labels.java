@@ -30,15 +30,12 @@ public class Labels {
 	 * On any error returns the sent <code>id</code> with the first letter in uppercase.
 	 */
 	public static String getQualified(String id, Locale locale) {
-		String result = get(id, locale, true);
-		System.out.println("[Labels.getQualified] " + id + " -> " + result); // tmp
-		return result;
+		// tmp return get(id, locale, true);
+		return get(id, locale, null, true); // tmp
 	}
 	
 	public static String get(String id) {
-		String result = get(id, Locales.getCurrent());
-		System.out.println("[Labels.get] " + id + " -> " + result); // tmp
-		return result;
+		return get(id, Locales.getCurrent());
 	}
 
 	
@@ -46,7 +43,8 @@ public class Labels {
 	 * On any error returns the sent <code>id</code> with the first letter in uppercase.
 	 */
 	public static String get(String id, Locale locale) {
-		return get(id, locale, false);
+		// tmp return get(id, locale, false);
+		return get(id, locale, null, false); // tmp
 	}
 	
 	/**
@@ -61,7 +59,8 @@ public class Labels {
 		labels.put(key, label);		
 	}
 	
-	private static String get(String id, Locale locale, boolean qualified) { 
+	/* tmp
+	private static String get(String id, Locale locale, boolean qualified) {		
 		String key = toKey(id, locale, qualified); 
 		String label = labels.get(key);
 		if (label == null) {
@@ -70,11 +69,13 @@ public class Labels {
 		}
 		return label;
 	}
+	*/
 	
 	private static String toKey(String id, Locale locale, boolean qualified) { 
 		return id + "::" + locale + "::" + qualified;
 	}
 	
+	/* tmp
 	private static String getWithoutCache(String id, Locale locale, boolean qualified) { 
 		try {
 			return getImpl(id, locale, qualified);
@@ -92,6 +93,7 @@ public class Labels {
 			return Strings.javaIdentifierToNaturalLabel(id); 
 		}		
 	}
+	*/
 	
 	/** 
 	 * Qualified label. <p>
@@ -109,15 +111,43 @@ public class Labels {
 	 * If <code>id</code> is not found, or other error returns <code>defaultValue</code>
 	 */
 	public static String get(String id, Locale locale, String defaultValue) {
-		String result = get(id, locale, defaultValue, false);
-		System.out.println("[Labels.get] " + id + "=" + result); // tmp
-		return result;
+		return get(id, locale, defaultValue, false);
 	}
 	
 	/**
 	 * If <code>id</code> is not found, or other error returns <code>defaultValue</code>
 	 */
-	private static String get(String id, Locale locale, String defaultValue, boolean qualified) {
+	private static String get(String id, Locale locale, String defaultValue, boolean qualified) { // tmp
+		// TMP ME QUEDÉ POR AQUÍ: YA FUNCIONA, PERO AL NO HACER CACHÉ DE LAS ETIQUETAS POR DEFECTO HAY UN PEQUEÑO PROBLEMA DE RENDIMIENTO (2 MILISEGUNDOS) REVISAR
+		long ini = System.currentTimeMillis(); // tmp
+		String label = get(id, locale, qualified);
+		if (label == null) label = defaultValue==null?Strings.javaIdentifierToNaturalLabel(Strings.lastToken(id, ".")):defaultValue; // tmp
+		long cuesta = System.currentTimeMillis() - ini; // tmp
+		System.out.println("[Labels.get] cuesta=" + cuesta); // tmp
+		return label;
+	}
+	
+	private static String get(String id, Locale locale, boolean qualified) { // tmp
+		String key = toKey(id, locale, qualified); 
+		String label = labels.get(key);
+		if (label == null) {
+			label = getWithoutCache(id, locale, qualified);
+			if (label == null) {
+				label = null; // tmp
+			}
+			else {
+				labels.put(key, label);
+			}
+		}
+		return label;
+	}
+
+	
+	/**
+	 * If <code>id</code> is not found, or other error returns <code>defaultValue</code>
+	 */
+	/* tmp
+	private static String get(String id, Locale locale, String defaultValue, boolean qualified) {		
 		try {
 			return getImpl(id, locale, qualified);
 		}
@@ -133,6 +163,19 @@ public class Labels {
 			} 
 			return defaultValue;
 		}		
+	}
+	*/
+	
+	private static String getWithoutCache(String id, Locale locale, boolean qualified) { // tmp
+		try {
+			return getImpl(id, locale, qualified);
+		}
+		catch (Exception ex) {
+			if (XavaPreferences.getInstance().isI18nWarnings()) {
+				log.warn(XavaResources.getString("element_i18n_warning", id));
+			} 
+			return null;
+		}		
 	}		
 		
 	private static String getImpl(String id, Locale locale, boolean qualified) throws MissingResourceException, XavaException {
@@ -144,10 +187,13 @@ public class Labels {
 			int idxDot = id.indexOf(".");
 			if (idxDot < 0) throw ex;			
 			String idWithoutQualifier = removeViewOrTab(id);
-			if (idWithoutQualifier != null) 	return get(idWithoutQualifier, locale);									
+			if (idWithoutQualifier != null) {
+				// tmp String result = get(idWithoutQualifier, locale);
+				return get(idWithoutQualifier, locale, false); // tmp
+			}
 			String parent = id.substring(0, idxDot);
 			if (!qualified || idxDot > 0 && Character.isUpperCase(id.charAt(0))) {
-				return get(id.substring(idxDot + 1), locale, qualified); 
+				return get(id.substring(idxDot + 1), locale, qualified);
 			}
 			else {
 				return get(id.substring(idxDot + 1), locale, qualified) + " " + 

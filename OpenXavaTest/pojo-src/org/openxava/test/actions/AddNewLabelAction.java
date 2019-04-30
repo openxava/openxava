@@ -14,8 +14,8 @@ public class AddNewLabelAction extends BaseAction {
 	private String label;
 
 	public void execute() throws Exception {
-		// TMP ME QUEDÉ POR AQUÍ. LO DE ABAJO NO FUNCIONA. DEPURANDO EN Labels, MetaElement Y View. PRUEBA UNTARIA TODAVÍA SIN HACER
-		Labels.put(getKey(), Locales.getCurrent(), getLabel());
+		// tmp Labels.put(getKey(), Locales.getCurrent(), getLabel());
+		Labels.put("ProgrammerApplicant.platform", Locales.getCurrent(), getLabel()); // tmp		
 	}
 
 	public String getKey() {
