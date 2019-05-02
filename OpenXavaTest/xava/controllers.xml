@@ -100,11 +100,8 @@
 		<action name="showButtons" hidden="true" 
 			class="org.openxava.test.actions.ShowButtonsAction"/>	
 		<!-- tmp ini -->
-		<action name="addNewLabel"  
-			class="org.openxava.test.actions.AddNewLabelAction">
-			<set property="key" value="platform"/>
-			<set property="label" value="Target ecosystem"/>
-		</action>	
+		<action name="changePlatformLabel"  
+			class="org.openxava.test.actions.ChangePlatformLabelAction"/>
 		<!-- tmp fin -->			
 	</controller>			
 	

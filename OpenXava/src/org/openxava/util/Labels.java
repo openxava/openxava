@@ -16,7 +16,8 @@ import org.openxava.application.meta.*;
 public class Labels {
 
 	private static Log log = LogFactory.getLog(Labels.class);
-	private static Map<String, String> labels = new HashMap<String, String>(); 
+	private static Map<String, String> labels = new HashMap<String, String>();
+	private static Map<String, String> customLabels; // tmp
 	
 	/**
 	 * On any error returns the sent <code>id</code> with the first letter in uppercase.
@@ -31,7 +32,9 @@ public class Labels {
 	 */
 	public static String getQualified(String id, Locale locale) {
 		// tmp return get(id, locale, true);
-		return get(id, locale, null, true); // tmp
+		String result = get(id, locale, null, true); // tmp
+		System.out.println("[Labels.getQualified(" + id + ")] " + result); // tmp
+		return result;
 	}
 	
 	public static String get(String id) {
@@ -56,7 +59,12 @@ public class Labels {
 	 */
 	public static void put(String id, Locale locale, String label) { 
 		String key = toKey(id, locale, false); 
-		labels.put(key, label);		
+		// tmp labels.put(key, label);
+		// tmp ini
+		if (customLabels == null) customLabels = new HashMap<>();
+		customLabels.put(key, label);
+		labels = customLabels;
+		// tmp fin	
 	}
 	
 	/* tmp
@@ -72,7 +80,8 @@ public class Labels {
 	*/
 	
 	private static String toKey(String id, Locale locale, boolean qualified) { 
-		return id + "::" + locale + "::" + qualified;
+		// tmp return id + "::" + locale + "::" + qualified;
+		return id + "::" + locale.getLanguage() + "::" + qualified; // tmp
 	}
 	
 	/* tmp
@@ -117,8 +126,8 @@ public class Labels {
 	/**
 	 * If <code>id</code> is not found, or other error returns <code>defaultValue</code>
 	 */
+	/* tmp Así funciona, pero con 2 ms de retraso
 	private static String get(String id, Locale locale, String defaultValue, boolean qualified) { // tmp
-		// TMP ME QUEDÉ POR AQUÍ: YA FUNCIONA, PERO AL NO HACER CACHÉ DE LAS ETIQUETAS POR DEFECTO HAY UN PEQUEÑO PROBLEMA DE RENDIMIENTO (2 MILISEGUNDOS) REVISAR
 		long ini = System.currentTimeMillis(); // tmp
 		String label = get(id, locale, qualified);
 		if (label == null) label = defaultValue==null?Strings.javaIdentifierToNaturalLabel(Strings.lastToken(id, ".")):defaultValue; // tmp
@@ -126,6 +135,7 @@ public class Labels {
 		System.out.println("[Labels.get] cuesta=" + cuesta); // tmp
 		return label;
 	}
+	
 	
 	private static String get(String id, Locale locale, boolean qualified) { // tmp
 		String key = toKey(id, locale, qualified); 
@@ -141,6 +151,35 @@ public class Labels {
 		}
 		return label;
 	}
+	*/
+	
+	// tmp ini Prueba más rápida
+	private static String get(String id, Locale locale, String defaultValue, boolean qualified) { // tmp
+		String label = get(id, locale, qualified);
+		if (label == null) {
+			label = defaultValue==null?Strings.javaIdentifierToNaturalLabel(Strings.lastToken(id, ".")):defaultValue; // tmp
+			String key = toKey(id, locale, qualified);
+			labels.put(key, label);
+		}
+		return label;
+	}
+	
+	
+	private static String get(String id, Locale locale, boolean qualified) { // tmp
+		String key = toKey(id, locale, qualified); 
+		String label = labels.get(key);
+		if (label == null) {
+			label = getWithoutCache(id, locale, qualified);
+			if (label == null) {
+				label = null; // tmp
+			}
+			else {
+				labels.put(key, label);
+			}
+		}
+		return label;
+	}	
+	// tmp fin Prueba más rápida
 
 	
 	/**
@@ -275,7 +314,7 @@ public class Labels {
 	
 	public static boolean existsExact(String id, Locale locale) throws XavaException {
 		if (id == null) return false;
-		if (labels.containsKey(id)) return true; // tmp
+		if (labels.containsKey(id)) return true; // tmp En changelog
 		try {
 			getResource(id, locale);
 			return true;

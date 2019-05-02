@@ -29,7 +29,7 @@ public class DrinksFoodsByCountryTest extends ModuleTestBase {
 			{"1", "PERU"},
 			{"2", "SPAIN"}
 		};
-		assertValidValues("country", validValues);
+		assertValidValues("country", validValues); // tmp Falla
 	}	
 	
 	public void testSelectedCountry() throws Exception {
