@@ -109,7 +109,6 @@
 		
 		<action name="updateROOTFolder" hidden="true" on-init="true" 
 			class="com.openxava.naviox.actions.UpdateROOTFolderAction"/>		
-		
 		<action name="saveSubfolder" hidden="true" 
 			class="com.openxava.naviox.actions.SaveSubfolderAction"/>
 		<action name="moduleUp" hidden="true" 

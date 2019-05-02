@@ -120,12 +120,12 @@ public class ModuleTestBase extends TestCase {
 	
 	
 	protected void setUp() throws Exception {
-		resetPreferences(); 
 		locale = null;
 		XPersistence.reset(); 
 		XHibernate.reset();
 		XHibernate.setConfigurationFile("/hibernate-junit.cfg.xml");
 		XPersistence.setPersistenceUnit("junit");
+		resetPreferences();
 		resetModule();	
 	}
 	
@@ -633,6 +633,7 @@ public class ModuleTestBase extends TestCase {
 		metaTab = null;				
 		if (reloadPage) page = (HtmlPage) client.getPage(getModuleURL()); 
 		resetForm();		
+		restorePage(); 
 	}
 	
 		
@@ -2075,7 +2076,7 @@ public class ModuleTestBase extends TestCase {
 			table = (HtmlTable) getElementById(tableId); 
 		}
 		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
-			fail(XavaResources.getString(notFoundMessageId, message));			
+			fail(XavaResources.getString(notFoundMessageId, message));
 			return;
 		}
 		int rc = table.getRowCount();
@@ -2090,6 +2091,8 @@ public class ModuleTestBase extends TestCase {
 		fail(XavaResources.getString(notFoundMessageId, message));
 	}
 
+	
+	
 	protected void assertErrorsCount(int expectedCount) throws Exception {
 		HtmlTable table = null;
 		try {

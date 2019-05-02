@@ -36,6 +36,7 @@
 	<property name="portlets.default.locale" value="en"/>
 	<property name="hibernate.properties" value=""/>
 	<property name="compile.src.path" value="../${project}/src"/>
+	<property name="openxava.base.dir" value=".."/>
 
 	<!-- Set up java.class.path -->
 	<path id="project.class.path">
@@ -71,14 +72,14 @@
 
 	<target name="copyComponentDTDs" if="xml.components">
 		<copy todir="../${project}/components/dtds" overwrite="true">
-			<fileset dir="../OpenXava/xava/dtds" includes="componente.dtd,component.dtd"/>
+			<fileset dir="${openxava.base.dir}/OpenXava/xava/dtds" includes="componente.dtd,component.dtd"/>
 		</copy>
 	</target>
 
 	<target name="copyXavaDTDs">
-
+		<echo>basedir=${basedir}</echo>
 		<copy todir="../${project}/xava/dtds" overwrite="true">
-			<fileset dir="../OpenXava/xava/dtds" excludes="componente.dtd,component.dtd"/>
+			<fileset dir="${openxava.base.dir}/OpenXava/xava/dtds" excludes="componente.dtd,component.dtd"/>
 		</copy>
 
 	</target>
@@ -155,7 +156,7 @@
 
 	<target name="filterHibernateFilesWithoutConfiguration" unless="configuration">
 		<copy todir="../${project.name}/filtered-files" failonerror="false" overwrite="${overwrite.hibernate.files}">
-			<fileset dir="../OpenXava/hibernate"/>
+			<fileset dir="${openxava.base.dir}/OpenXava/hibernate"/>
 			<fileset dir="../${project.name}/hibernate"/>
 			<fileset dir="../${project.name}/build/hibernate"/>
 			<filterset>
@@ -171,7 +172,7 @@
 
 	<target name="filterHibernateFilesWithConfiguration" if="configuration">
 		<copy todir="../${project.name}/filtered-files" failonerror="false" overwrite="${overwrite.hibernate.files}">
-			<fileset dir="../OpenXava/hibernate"/>
+			<fileset dir="${openxava.base.dir}/OpenXava/hibernate"/>
 			<fileset dir="../${project.name}/hibernate"/>
 			<fileset dir="../${project.name}/build/hibernate"/>
 			<filterset>
@@ -334,11 +335,11 @@
 			<arg value="${package}"/>
 			<arg value="${model.package}"/>
 			<classpath>
-				<pathelement path="../OpenXava/bin"/>
-				<fileset dir="../OpenXava/web/WEB-INF/lib">
+				<pathelement path="${openxava.base.dir}/OpenXava/bin"/>
+				<fileset dir="${openxava.base.dir}/OpenXava/web/WEB-INF/lib">
 					<include name="**/*.jar"/>
 				</fileset>
-				<fileset dir="../OpenXava/lib">
+				<fileset dir="${openxava.base.dir}/OpenXava/lib">
 					<include name="**/*.jar"/>
 				</fileset>
 				<fileset dir="web/WEB-INF/lib">
@@ -472,11 +473,11 @@
 			<src path="../${project}/gen-src-xava"/>  
 			-->
 			<classpath>
-				<pathelement path="../OpenXava/bin"/>
-				<fileset dir="../OpenXava/web/WEB-INF/lib">
+				<pathelement path="${openxava.base.dir}/OpenXava/bin"/>
+				<fileset dir="${openxava.base.dir}/OpenXava/web/WEB-INF/lib">
 					<include name="**/*.jar"/>
 				</fileset>
-				<fileset dir="../OpenXava/lib">
+				<fileset dir="${openxava.base.dir}/OpenXava/lib">
 					<include name="**/*.jar"/>
 				</fileset>
 				<fileset dir="web/WEB-INF/lib">
@@ -499,16 +500,16 @@
 	<target name="compileGroovy" depends="prepareCompile">
 		<taskdef name="groovyc"
 		  classname="org.codehaus.groovy.ant.Groovyc"
-		  classpath="../OpenXava/web/WEB-INF/lib/groovy-all.jar"/>
+		  classpath="${openxava.base.dir}/OpenXava/web/WEB-INF/lib/groovy-all.jar"/>
 
 		<groovyc destdir="../${project}/web/WEB-INF/classes">
 			<src path="${compile.src.path}"/>
 			<classpath>
-				<pathelement path="../OpenXava/bin"/>
-				<fileset dir="../OpenXava/lib">
+				<pathelement path="${openxava.base.dir}/OpenXava/bin"/>
+				<fileset dir="${openxava.base.dir}/OpenXava/lib">
 					<include name="**/*.jar"/>
 				</fileset>
-				<fileset dir="../OpenXava/web/WEB-INF/lib">
+				<fileset dir="${openxava.base.dir}/OpenXava/web/WEB-INF/lib">
 					<include name="**/*.jar"/>
 				</fileset>
 				<pathelement path="web/WEB-INF/classes"/>
@@ -543,7 +544,7 @@
 
 	<target name="createLibJars">
 		<!-- openxava.jar -->
-		<jar jarfile="${dist.dir}/lib/openxava.jar" basedir="../OpenXava/bin"/>
+		<jar jarfile="${dist.dir}/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
 		<!-- server-properties.jar -->
 		<mkdir dir="${server.properties.dir}"/>
 		<copy toDir="${server.properties.tmp.dir}" overwrite="yes">
@@ -557,7 +558,7 @@
 
 	<target name="copyEarConf">
 		<copy file="../${project}/build/j2ee/META-INF/application.xml" tofile="${dist.dir}/META-INF/application.xml" overwrite="true"/>
-		<copy file="../OpenXava/build/jboss-app.xml" todir="${dist.dir}/META-INF" overwrite="true">
+		<copy file="${openxava.base.dir}/OpenXava/build/jboss-app.xml" todir="${dist.dir}/META-INF" overwrite="true">
 			<filterset>
 				<filter token="file.ear" value="${file.ear}"/>
 			</filterset>
@@ -632,7 +633,7 @@
 		<property name="listeners.xml" value=""/>
 		<loadfile property="resources.xml" srcfile="../${project}/web/WEB-INF/resources.xml" failonerror="false"/>
 		<property name="resources.xml" value=""/>
-		<copy file="../OpenXava/web/WEB-INF/web.xml" 
+		<copy file="${openxava.base.dir}/OpenXava/web/WEB-INF/web.xml" 
   			todir="../${project}/web/WEB-INF" overwrite="true">
 			<filterset>
 				<filter token="servlets.xml" value="${servlets.xml}"/>
@@ -662,14 +663,14 @@
 		<antcall target="filter"/>
 		<antcall target="createEditorsJS"/>
 		<antcall target="createDefaultI18nFiles"/>
-		<jar jarfile="../${project}/web/WEB-INF/lib/openxava.jar" basedir="../OpenXava/bin"/>
+		<jar jarfile="../${project}/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
 	</target>
 	
 	<target name="createDefaultI18nFiles">
-		<copy file="../OpenXava/bin/Messages_${default.language}.properties" 
-			tofile="../OpenXava/bin/Messages.properties"/>
-		<copy file="../OpenXava/bin/Labels_${default.language}.properties" 
-			tofile="../OpenXava/bin/Labels.properties"/>
+		<copy file="${openxava.base.dir}/OpenXava/bin/Messages_${default.language}.properties" 
+			tofile="${openxava.base.dir}/OpenXava/bin/Messages.properties"/>
+		<copy file="${openxava.base.dir}/OpenXava/bin/Labels_${default.language}.properties" 
+			tofile="${openxava.base.dir}/OpenXava/bin/Labels.properties"/>
 		<copy file="../${project}/${classes.dir}/${project}-messages_${default.language}.properties" 
 			tofile="../${project}/${classes.dir}/${project}-messages.properties"
 			failonerror="false"/>
@@ -768,11 +769,11 @@
 			classname="PortletCodeGenerator" 
 			fork="yes">
 			<classpath>
-				<pathelement path="../OpenXava/bin"/>
-				<fileset dir="../OpenXava/lib">
+				<pathelement path="${openxava.base.dir}/OpenXava/bin"/>
+				<fileset dir="${openxava.base.dir}/OpenXava/lib">
 					<include name="**/*.jar"/>
 				</fileset>
-				<fileset dir="../OpenXava/web/WEB-INF/lib">
+				<fileset dir="${openxava.base.dir}/OpenXava/web/WEB-INF/lib">
 					<include name="**/*.jar"/>
 				</fileset>
 				<fileset dir="web/WEB-INF/lib">
@@ -894,7 +895,7 @@
 	<target name="redeployPortlets">
 		<antcall target="touchApplicationXML" />
 		<delete dir="${dist.portlets.dir}" />
-		<ant antfile="../OpenXava/build.xml" target="deployPortlets" />
+		<ant antfile="${openxava.base.dir}/OpenXava/build.xml" target="deployPortlets" />
 	</target>
 
 	<!-- Although generates Jetspeed2 files it maybe used for websphere portal or another standard JSR-168 portal too -->
@@ -917,7 +918,7 @@
 		<antcall target="installAddons"/>
 		<antcall target="createWebXml"/>
 		<antcall target="createDefaultI18nFiles"/>
-		<jar jarfile="../${project}/web/WEB-INF/lib/openxava.jar" basedir="../OpenXava/bin"/>
+		<jar jarfile="../${project}/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
 		<!-- Delete the old Hibernate jars (used until v4m5) -->
 		<delete file="../${project}/web/WEB-INF/lib/ejb3-persistence.jar"/>
 		<delete file="../${project}/web/WEB-INF/lib/hibernate-annotations.jar"/>
@@ -967,36 +968,37 @@
 	
 	<target name="copyWeb">
 		<copy todir="../${project}/web/xava" overwrite="true" >
-			<fileset dir="../OpenXava/web" excludes="WEB-INF/**,style/custom.css,propertyActionsExt.jsp,referenceActionsExt.jsp,referenceFrameHeaderExt.jsp,collectionFrameHeaderExt.jsp,viewExt.jsp,editors/listEditorTotalActionsExt.jsp,editors/listEditorLastRowExt.jsp"/>
+			<fileset dir="${openxava.base.dir}/OpenXava/web" excludes="WEB-INF/**,style/custom.css,propertyActionsExt.jsp,referenceActionsExt.jsp,referenceFrameHeaderExt.jsp,collectionFrameHeaderExt.jsp,viewExt.jsp,editors/listEditorTotalActionsExt.jsp,editors/listEditorLastRowExt.jsp"/>
 		</copy>
 		<copy todir="../${project}/web/xava">
-			<fileset dir="../OpenXava/web" includes="style/custom.css,propertyActionsExt.jsp,referenceActionsExt.jsp,referenceFrameHeaderExt.jsp,collectionFrameHeaderExt.jsp,viewExt.jsp,editors/listEditorTotalActionsExt.jsp,editors/listEditorLastRowExt.jsp">
+			<fileset dir="${openxava.base.dir}/OpenXava/web" includes="style/custom.css,propertyActionsExt.jsp,referenceActionsExt.jsp,referenceFrameHeaderExt.jsp,collectionFrameHeaderExt.jsp,viewExt.jsp,editors/listEditorTotalActionsExt.jsp,editors/listEditorLastRowExt.jsp">
 				<present present="srconly" targetdir="../${project}/web/xava" />
 			</fileset>
 		</copy>
 		<copy todir="../${project}/web/WEB-INF" overwrite="true">
-			<fileset dir="../OpenXava/web/WEB-INF"/>
+			<fileset dir="${openxava.base.dir}/OpenXava/web/WEB-INF"/>
 		</copy>
 	</target>
 
 	<target name="installAddons">
 		<copy todir="../${project}/web" overwrite="true">
-			<fileset dir="../Addons/web" excludes="naviox/firstSteps.jsp,naviox/welcome.jsp,naviox/indexExt.jsp,naviox/organizationNameExt.jsp"/>
+			<fileset dir="${openxava.base.dir}/Addons/web" excludes="naviox/firstSteps.jsp,naviox/welcome.jsp,naviox/indexExt.jsp,naviox/organizationNameExt.jsp"/>
 		</copy>
 		<copy todir="../${project}/web">
-			<fileset dir="../Addons/web" includes="naviox/firstSteps.jsp,naviox/welcome.jsp,naviox/indexExt.jsp,naviox/organizationNameExt.jsp">
+			<fileset dir="${openxava.base.dir}/Addons/web" includes="naviox/firstSteps.jsp,naviox/welcome.jsp,naviox/indexExt.jsp,naviox/organizationNameExt.jsp">
 				<present present="srconly" targetdir="../${project}/web" />
 			</fileset>
 		</copy>			
 		<copy todir="../${project}/properties">
-			<fileset dir="../Addons/properties-templates">
+			<fileset dir="${openxava.base.dir}/Addons/properties-templates">
 				<present present="srconly" targetdir="../${project}/properties" />
 			</fileset>
 		</copy>
 		<copy todir="../${project}/src" overwrite="true" failonerror="false">
-			<fileset dir="../Addons/src-to-copy"/>
+			<fileset dir="${openxava.base.dir}/Addons/src-to-copy"/>
 		</copy>		
-		<jar jarfile="../${project}/web/WEB-INF/lib/addons.jar" basedir="../Addons/bin"/>		
+		<delete file="../${project}/web/WEB-INF/lib/addons.jar" failonerror="false"/>
+		<jar jarfile="../${project}/web/WEB-INF/lib/addons.jar" basedir="${openxava.base.dir}/Addons/bin"/>		
 	</target>
 	
 	<target name="defineSchemaToolPath">
@@ -1004,14 +1006,14 @@
 		<path id="schema.tool.path"> 
 			<!-- Library from OpenXava in order to work the first time
 				before WEB-INF/lib of new project is populated -->
-			<fileset dir="../OpenXava/web/WEB-INF/lib">
+			<fileset dir="${openxava.base.dir}/OpenXava/web/WEB-INF/lib">
 				<include name="**/*.jar"/>
 			</fileset>
 			<!-- Library of project to include custom libraries -->
 			<fileset dir="../${project}/web/WEB-INF/lib">
 				<include name="**/*.jar"/>
 			</fileset>
-			<path location="../OpenXava/bin" />
+			<path location="${openxava.base.dir}/OpenXava/bin" />
 			<path path="${j2ee.lib}"/>
 			<path location="web/WEB-INF/classes"/>
 			<path location="${schema.path}" />			

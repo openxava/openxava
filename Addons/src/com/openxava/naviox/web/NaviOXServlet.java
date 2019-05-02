@@ -9,6 +9,8 @@ import org.openxava.util.*;
 import org.openxava.web.*;
 import org.openxava.web.style.*;
 
+import com.openxava.phone.web.*;
+
 /**
  * 
  * @author Javier Paniza

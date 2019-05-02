@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: updateOX fails to update the Addons jar in windows from time to time.
+- Fix: XPersistence.setDefaultSchema() does not work with MySQL.
 - Fix: Some details in course are not adapted to recent versions. 
 - Fix: Tab.setBaseCondition() on change module module keeps the last user condition in that module.
 - Fix: Tab.setBaseCondition() does not take effect on change module until clicking on filter button.

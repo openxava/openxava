@@ -120,7 +120,7 @@ public class Module extends DWRBase {
 			return result;
 		}		
 		finally {			
-			if (manager != null) manager.commit(); // If hibernate, jpa, etc is used to render some value here is commit
+			ModuleManager.commit(); // If hibernate, jpa, etc is used to render some value here is commit
 			cleanRequest();   
 			long time = System.currentTimeMillis() - ini; 
 			log.debug(XavaResources.getString("request_time") + "=" + time + " ms"); 
@@ -176,6 +176,7 @@ public class Module extends DWRBase {
 			return null; // Maybe the session has been invalidated and it's needed to reload the page
 		}
 		finally {
+			ModuleManager.commit(); 
 			cleanRequest(); 
 		}
 	}
@@ -300,6 +301,8 @@ public class Module extends DWRBase {
 
 
 	private void fillPropertiesUsedInCalculationsFromSumCollectionProperties(Collection<String> propertiesUsedInCalculations) { 
+		if (manager.isFormUpload()) return;  
+		
 		View view = getView();
 
 		for (String collection: view.getChangedCollections().keySet()) {
