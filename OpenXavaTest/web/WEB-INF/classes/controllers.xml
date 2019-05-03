@@ -99,10 +99,8 @@
 			class="org.openxava.test.actions.HideButtonsAction"/>
 		<action name="showButtons" hidden="true" 
 			class="org.openxava.test.actions.ShowButtonsAction"/>	
-		<!-- tmp ini -->
 		<action name="changePlatformLabel"  
 			class="org.openxava.test.actions.ChangePlatformLabelAction"/>
-		<!-- tmp fin -->			
 	</controller>			
 	
 	<controller name="JPACRUD">	

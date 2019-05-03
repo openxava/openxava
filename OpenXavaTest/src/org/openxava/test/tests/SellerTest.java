@@ -124,7 +124,7 @@ public class SellerTest extends CustomizeListTestBase {
 		
 		assertCreateElementInEntityCollection();
 		
-		assertEmailNotifications( // tmp Falla 
+		assertEmailNotifications(  
 			"CREATED: email=openxavatest1@getnada.com, user=openxavatest2@getnada.com, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080/OpenXavaTest/modules/Seller?detail=66",
 			"MODIFIED: email=openxavatest1@getnada.com, user=openxavatest2@getnada.com, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080/OpenXavaTest/modules/Seller?detail=66, changes=<ul><li><b>Name</b>: JUNIT SELLER --> JUNIT SELLER MODIFIED</li></ul>",
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080/OpenXavaTest/modules/Seller?detail=66, changes=<ul><li><b>Regions</b>: {} --> {1,3}</li><li><b>Id of Level</b>:  --> A</li></ul>",
@@ -416,7 +416,7 @@ public class SellerTest extends CustomizeListTestBase {
 	public void testEditCreateAndRemoveElementInEntityCollection() throws Exception { 
 		execute("List.viewDetail", "row=2");
 		assertValue("name", "ELISEO FERNANDEZ");
-		assertCollectionRowCount("customers", 0); // tmp Falla
+		assertCollectionRowCount("customers", 0); 
 		assertCreateElementInEntityCollection();		
 		assertEditElementInEntityCollection();
 		assertRemoveElementInEntityCollection();
@@ -702,7 +702,7 @@ public class SellerTest extends CustomizeListTestBase {
 	}
 
 	public void testEntityReferenceCollections() throws Exception { 		
-		createCustomers(); // tmp Falla
+		createCustomers(); 
 		createSeller66(); 
 		createSeller67();
 		verifySeller66();

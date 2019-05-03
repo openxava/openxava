@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Labels.put() does not work.
 - Fix: Some details in course are not adapted to recent versions. 
 - Fix: Tab.setBaseCondition() on change module module keeps the last user condition in that module.
 - Fix: Tab.setBaseCondition() does not take effect on change module until clicking on filter button.

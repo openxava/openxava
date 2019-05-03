@@ -132,13 +132,11 @@ public class ApplicantTest extends ModuleTestBase {
 		assertValue("skill.language", "JAVA");
 		assertValue("platform", "MULTIPLATFORM");
 		
-		// tmp ini
 		// Labels.put()
 		assertLabel("platform", "Platform"); // If it fails reinit the Tomcat cleaning the working directories
 		execute("Applicant.changePlatformLabel");
 		reload();
 		assertLabel("platform", "Target ecosystem");		
-		// tmp fin
 		
 		// Saving twice with no refresh after and hidden key
 		execute("CRUD.new");

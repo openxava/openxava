@@ -74,7 +74,7 @@ public class HumanTest extends ModuleTestBase {
 		assertListColumnCount(4); 
 		assertLabelInList(0, "Name");
 		assertLabelInList(1, "Sex");
-		assertLabelInList(2, "Author of Favorite author"); // tmp Falla ME QUEDÉ POR AQUÍ, DEPURANDO LOS FALLA. YA PUSE UN PRINT EN Labels.getQualified() PARA ESTO
+		assertLabelInList(2, "Author of Favorite author"); 
 		assertLabelInList(3, "Biography of Favorite author");		
 		
 		assertListRowCount(6); 
