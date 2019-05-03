@@ -8,7 +8,6 @@ import org.openxava.tests.*;
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
-import com.gargoylesoftware.htmlunit.javascript.host.*;
 
 /**
  * 
