@@ -343,26 +343,7 @@ public class XPersistence {
 	 */
 	private static String obtainDefaultSchemaFromPersistenceXML() {
 		try {
-			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			URL url = PersistenceXml.getResource();
-			Document doc = builder.parse(url.toExternalForm());
-			NodeList units = doc.getElementsByTagName("persistence-unit");
-			int unitsCount = units.getLength();
-			for (int i=0; i<unitsCount; i++) {
-				Element unit = (Element) units.item(i);
-				if (XPersistence.getPersistenceUnit().equals(unit.getAttribute("name"))) {																
-					NodeList nodes = unit.getElementsByTagName("property");
-					int length = nodes.getLength(); 
-					for (int j=0; j<length; j++) {
-						Element el = (Element) nodes.item(j);
-						String name = el.getAttribute("name");
-						if ("hibernate.default_schema".equals(name)) {
-							return el.getAttribute("value");
-						}
-					}
-				}				
-			}
-			return null;
+			return PersistenceXml.getPropetyValue(getPersistenceUnit(), "hibernate.default_schema");
 		}
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("default_schema_warning"));

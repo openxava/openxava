@@ -3,7 +3,8 @@
 <!-- OpenXava -->
 
 <project name="OpenXava" default="deployWar">
-
+	
+	<property name="openxava.base.dir" value=".."/>
 	<property name="default.language" value="en"/>
 	<property name="datasource" value="DataSource"/>
 	<property name="datasource.prefix" value="java:"/>
@@ -12,12 +13,11 @@
 	<property name="dist.dir" value = "${dist.base.dir}/${project}.dist"/>
 	<property name="dist.portlets.dir" value = "${dist.base.dir}/${project}-portlets.war.d"/>
 	<property name="file.ear" value = "${project}.ear"/>
-	<property name="xava.lib" value="../OpenXava/bin"/>
-	<property name="j2ee.lib" value="../OpenXava/lib/servlet-api.jar;../OpenXava/web/WEB-INF/lib/jta.jar;../OpenXava/web/WEB-INF/lib/ejb.jar;../OpenXava/lib/jsp-api.jar"/>
-	<property name="tl.lib" location="../OpenXava/lib/tl.jar"/>
-	<property name="logging.lib" location="../OpenXava/web/WEB-INF/lib/commons-logging.jar"/>
+	<property name="xava.lib" value="${openxava.base.dir}/OpenXava/bin"/>
+	<property name="j2ee.lib" value="${openxava.base.dir}/OpenXava/lib/servlet-api.jar;${openxava.base.dir}/OpenXava/web/WEB-INF/lib/jta.jar;${openxava.base.dir}/OpenXava/web/WEB-INF/lib/ejb.jar;${openxava.base.dir}/OpenXava/lib/jsp-api.jar"/>
+	<property name="tl.lib" location="${openxava.base.dir}/OpenXava/lib/tl.jar"/>
+	<property name="logging.lib" location="${openxava.base.dir}/OpenXava/web/WEB-INF/lib/commons-logging.jar"/>
 	<property name="generator.dir" value="..${file.separator}OpenXava${file.separator}generator"/>
-	<property name="tracking.classes" value="../AccessTracking/web/WEB-INF/classes;../OpenXava/web/WEB-INF/lib/hibernate3.jar"/>
 	<property name="subcontext" value="${project}"/>
 	<property name="classes.dir" value="web/WEB-INF/classes"/>
 	<property name="name.war" value="${project}"/>
@@ -25,7 +25,7 @@
 	<property name="meta-inf.dir" value="build/ejb/META-INF"/>
 	<property name="project.name" value = "${project}"/>
 	<property name="name.jar" value = "${project.name}"/>
-	<property name="server.properties.dir" value="../OpenXava/build/server-properties"/>
+	<property name="server.properties.dir" value="${openxava.base.dir}/OpenXava/build/server-properties"/>
 	<property name="server.properties.tmp.dir" value="${user.home}/tmpServerProperties"/>
 	<property name="model.package" value="model"/>
 	<property name="javac.version" value="1.6"/>
@@ -36,7 +36,6 @@
 	<property name="portlets.default.locale" value="en"/>
 	<property name="hibernate.properties" value=""/>
 	<property name="compile.src.path" value="../${project}/src"/>
-	<property name="openxava.base.dir" value=".."/>
 
 	<!-- Set up java.class.path -->
 	<path id="project.class.path">
@@ -1009,11 +1008,11 @@
 			<fileset dir="${openxava.base.dir}/OpenXava/web/WEB-INF/lib">
 				<include name="**/*.jar"/>
 			</fileset>
+			<path location="${openxava.base.dir}/OpenXava/bin" /> 
 			<!-- Library of project to include custom libraries -->
 			<fileset dir="../${project}/web/WEB-INF/lib">
 				<include name="**/*.jar"/>
 			</fileset>
-			<path location="${openxava.base.dir}/OpenXava/bin" />
 			<path path="${j2ee.lib}"/>
 			<path location="web/WEB-INF/classes"/>
 			<path location="${schema.path}" />			

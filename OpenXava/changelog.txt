@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: updateSchema produces an error of user and password not specified.
 - Fix: updateOX fails to update the Addons jar in windows from time to time.
 - Fix: XPersistence.setDefaultSchema() does not work with MySQL.
 - Fix: Some details in course are not adapted to recent versions. 

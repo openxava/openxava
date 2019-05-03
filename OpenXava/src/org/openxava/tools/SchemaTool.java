@@ -10,10 +10,12 @@ import org.apache.commons.io.*;
 import org.apache.commons.logging.*;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
+import org.hibernate.jpa.boot.internal.*;
 import org.hibernate.service.*;
 import org.hibernate.tool.hbm2ddl.*;
 import org.hibernate.tool.schema.*;
 import org.openxava.jpa.*;
+import org.openxava.jpa.impl.*;
 import org.openxava.util.*;
 
 /**
@@ -47,8 +49,8 @@ public class SchemaTool {
     	}
     	else {
    			log.error(XavaResources.getString("schematool_action_required"));     		
-    	}		
-    	System.exit(0); // To avoid Eclipse hangs when executing Ant task
+    	}	
+		System.exit(0); // To avoid Eclipse hangs when executing Ant task
 	}
 	
 	public void updateSchema() {
@@ -66,13 +68,14 @@ public class SchemaTool {
 	private void execute(boolean update, boolean console) { 
 		try {
 			Map<String, Object> factoryProperties = XPersistence.getManager().getEntityManagerFactory().getProperties();
+			
 			StandardServiceRegistryBuilder serviceRegistryBuilder =	new StandardServiceRegistryBuilder();
 			String [] properties = {
 				"hibernate.connection.driver_class", 	
 				"hibernate.dialect", 	
 				"hibernate.connection.url", 
 				"hibernate.default_catalog", 
-				"hibernate.connection.datasource"
+				"hibernate.connection.datasource",
 			};
 			for (String property: properties) {
 				Object value = factoryProperties.get(property);
@@ -87,8 +90,19 @@ public class SchemaTool {
 					serviceRegistryBuilder.applySetting("hibernate.default_schema", schema); 
 				}
 			}
+			
+			if (!Is.empty(factoryProperties.get("hibernate.connection.url"))) {
+				String username = PersistenceXml.getPropetyValue(XPersistence.getPersistenceUnit(), "hibernate.connection.username");
+				if (username != null) {
+					serviceRegistryBuilder.applySetting("hibernate.connection.username", username);
+					String password = PersistenceXml.getPropetyValue(XPersistence.getPersistenceUnit(), "hibernate.connection.password");
+					if (password != null) {
+						serviceRegistryBuilder.applySetting("hibernate.connection.password", password);
+					}
+				}
+			}
 
-			ServiceRegistry serviceRegistry	= serviceRegistryBuilder.build();
+			ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
 			MetadataSources metadata = new MetadataSources(serviceRegistry);
 			
 			if (annotatedClasses != null) {
@@ -104,6 +118,7 @@ public class SchemaTool {
 					metadata.addAnnotatedClass(clazz);
 				}		
 			}
+			
 	
 			String fileName = Files.getOpenXavaBaseDir() + "ddl-" + UUID.randomUUID() + ".sql";
 			File file = new File(fileName);
@@ -147,7 +162,7 @@ public class SchemaTool {
 	    	FileUtils.deleteQuietly(file);
 		}
 		catch (Exception ex) {
-			log.error(ex);
+			log.error(ex.getMessage(), ex);
 			throw new RuntimeException(ex);
 		}
 		finally {
