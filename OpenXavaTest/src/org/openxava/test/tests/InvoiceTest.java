@@ -820,7 +820,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("AddColumns.showMoreColumns");		
 		assertCollectionRowCount("xavaPropertiesList", 41); 
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of Customer");
-		assertValueInCollection("xavaPropertiesList",  1, 0, "As string of Address of Customer");
+		assertValueInCollection("xavaPropertiesList",  1, 0, "As string of Address of Customer"); 
 		assertValueInCollection("xavaPropertiesList",  2, 0, "City of Address of Customer");
 		assertValueInCollection("xavaPropertiesList",  3, 0, "City of Customer");
 		assertValueInCollection("xavaPropertiesList",  4, 0, "Comment");

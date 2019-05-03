@@ -16,7 +16,8 @@ import org.openxava.application.meta.*;
 public class Labels {
 
 	private static Log log = LogFactory.getLog(Labels.class);
-	private static Map<String, String> labels = new HashMap<String, String>(); 
+	private static Map<String, String> labels = new HashMap<String, String>();
+	private static Map<String, String> customLabels; 
 	
 	/**
 	 * On any error returns the sent <code>id</code> with the first letter in uppercase.
@@ -30,7 +31,7 @@ public class Labels {
 	 * On any error returns the sent <code>id</code> with the first letter in uppercase.
 	 */
 	public static String getQualified(String id, Locale locale) {
-		return get(id, locale, true);
+		return get(id, locale, null, true); 
 	}
 	
 	public static String get(String id) {
@@ -42,11 +43,11 @@ public class Labels {
 	 * On any error returns the sent <code>id</code> with the first letter in uppercase.
 	 */
 	public static String get(String id, Locale locale) {
-		return get(id, locale, false);
+		return get(id, locale, null, false); 
 	}
 	
 	/**
-	 * Add or change a label bye locale. <p>
+	 * Add or change a label by locale. <p>
 	 * 
 	 * The result is not persistent, after reinit the application the changes are gone.
 	 * 
@@ -54,39 +55,13 @@ public class Labels {
 	 */
 	public static void put(String id, Locale locale, String label) { 
 		String key = toKey(id, locale, false); 
-		labels.put(key, label);		
-	}
-	
-	private static String get(String id, Locale locale, boolean qualified) { 
-		String key = toKey(id, locale, qualified); 
-		String label = labels.get(key);
-		if (label == null) {
-			label = getWithoutCache(id, locale, qualified);
-			labels.put(key, label);
-		}
-		return label;
+		if (customLabels == null) customLabels = new HashMap<>();
+		customLabels.put(key, label);
+		labels = customLabels;
 	}
 	
 	private static String toKey(String id, Locale locale, boolean qualified) { 
-		return id + "::" + locale + "::" + qualified;
-	}
-	
-	private static String getWithoutCache(String id, Locale locale, boolean qualified) { 
-		try {
-			return getImpl(id, locale, qualified);
-		}
-		catch (MissingResourceException ex) {
-			if (XavaPreferences.getInstance().isI18nWarnings()) {
-				log.warn(XavaResources.getString("element_i18n_warning", id));
-			}			
-			return Strings.javaIdentifierToNaturalLabel(id); 
-		}
-		catch (Exception ex) {			
-			if (XavaPreferences.getInstance().isI18nWarnings()) {
-				log.warn(XavaResources.getString("element_i18n_warning", id));
-			} 
-			return Strings.javaIdentifierToNaturalLabel(id); 
-		}		
+		return id + "::" + locale.getLanguage() + "::" + qualified; 
 	}
 	
 	/** 
@@ -107,25 +82,48 @@ public class Labels {
 	public static String get(String id, Locale locale, String defaultValue) {
 		return get(id, locale, defaultValue, false);
 	}
-	
+		
 	/**
-	 * If <code>id</code> is not found, or other error returns <code>defaultValue</code>
+	 * If there is not label registered for the id returns the defaultValue, if defaultValue is null then generates a label
+	 * from the id. 
 	 */
-	private static String get(String id, Locale locale, String defaultValue, boolean qualified) {
+	private static String get(String id, Locale locale, String defaultValue, boolean qualified) { 
+		String label = get(id, locale, qualified);
+		if (label == null) {
+			label = defaultValue==null?Strings.javaIdentifierToNaturalLabel(Strings.lastToken(id, ".")):defaultValue; 
+			String key = toKey(id, locale, qualified);
+			labels.put(key, label);
+		}
+		return label;
+	}
+		
+	/**
+	 * If there is not label return null.
+	 */
+	private static String get(String id, Locale locale, boolean qualified) { 
+		String key = toKey(id, locale, qualified); 
+		String label = labels.get(key);
+		if (label == null) {
+			label = getWithoutCache(id, locale, qualified);
+			if (label == null) {
+				label = null; 
+			}
+			else {
+				labels.put(key, label);
+			}
+		}
+		return label;
+	}	
+
+	private static String getWithoutCache(String id, Locale locale, boolean qualified) { 
 		try {
 			return getImpl(id, locale, qualified);
-		}
-		catch (MissingResourceException ex) {
-			if (XavaPreferences.getInstance().isI18nWarnings()) {
-				log.warn(XavaResources.getString("element_i18n_warning", id));
-			}			
-			return defaultValue;
 		}
 		catch (Exception ex) {
 			if (XavaPreferences.getInstance().isI18nWarnings()) {
 				log.warn(XavaResources.getString("element_i18n_warning", id));
 			} 
-			return defaultValue;
+			return null;
 		}		
 	}		
 		
@@ -138,15 +136,17 @@ public class Labels {
 			int idxDot = id.indexOf(".");
 			if (idxDot < 0) throw ex;			
 			String idWithoutQualifier = removeViewOrTab(id);
-			if (idWithoutQualifier != null) 	return get(idWithoutQualifier, locale);									
+			if (idWithoutQualifier != null) {
+				return get(idWithoutQualifier, locale, false); 
+			}
 			String parent = id.substring(0, idxDot);
 			if (!qualified || idxDot > 0 && Character.isUpperCase(id.charAt(0))) {
-				return get(id.substring(idxDot + 1), locale, qualified); 
+				return get(id.substring(idxDot + 1), locale, qualified);
 			}
 			else {
-				return get(id.substring(idxDot + 1), locale, qualified) + " " + 
+				return get(id.substring(idxDot + 1), locale, null, qualified) + " " + 
 					XavaResources.getString("of", locale) + " " +
-					get(parent, locale, false);
+					get(parent, locale, null, false);				
 			}			
 		}
 	} 
@@ -223,6 +223,7 @@ public class Labels {
 	
 	public static boolean existsExact(String id, Locale locale) throws XavaException {
 		if (id == null) return false;
+		if (labels.containsKey(id)) return true; 
 		try {
 			getResource(id, locale);
 			return true;
