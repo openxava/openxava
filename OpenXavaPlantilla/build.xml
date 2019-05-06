@@ -4,6 +4,7 @@
 
 	<property name="project" value="@proyecto@" />
 	<property name="ox3" value="true" />
+	<property name="openxava.base.dir" value=".."/> <!-- Cámbialo si quieres OpenXava y Addons en otra carpeta -->
 	<property file="../openxava.properties"/>
 	
 	<!-- 
@@ -11,7 +12,7 @@
 	No necesitas llamarla si trabajas dentro de Eclipse
 	-->
 	<target name="compilar"> 
-		<ant antfile="../OpenXava/build.xml" target="compile"/>
+		<ant antfile="${openxava.base.dir}/OpenXava/build.xml" target="compile"/>
 	</target>	    		
 	
 	<!-- 
@@ -21,9 +22,9 @@
 	-->	
 	<target name="desplegarWar">
 		<!-- En un directorio -->
-		<ant antfile="../OpenXava/build.xml" target="deploy"/>
+		<ant antfile="${openxava.base.dir}/OpenXava/build.xml" target="deploy"/>
 		<!-- En un archivo (no funciona muy bien en windows + tomcat)
-		<ant antfile="../OpenXava/build.xml" target="deployWar"/>
+		<ant antfile="${openxava.base.dir}/OpenXava/build.xml" target="deployWar"/>
 		-->
 	</target>				
 	
@@ -32,14 +33,14 @@
 	Deja el war en la carpeta workspace.dist/TuAplicacion.dist.
 	 -->	
 	<target name="crearWar">
-		<ant antfile="../OpenXava/build.xml" target="createWar"/>
+		<ant antfile="${openxava.base.dir}/OpenXava/build.xml" target="createWar"/>
 	</target>					
 	
 	<!--
 	Construye la aplicación en formato portlets. 
 	-->		
 	<target name="generarPortlets"> 
-		<ant antfile="../OpenXava/build.xml" target="generatePortlets"/>
+		<ant antfile="${openxava.base.dir}/OpenXava/build.xml" target="generatePortlets"/>
 	</target>
 	
 	<!--
@@ -47,7 +48,7 @@
 	Ha de llamarse después de actualizar la versión de OpenXava.
 	-->
 	<target name="actualizarOX">
-		<ant antfile="../OpenXava/build.xml" target="updateOX"/>
+		<ant antfile="${openxava.base.dir}/OpenXava/build.xml" target="updateOX"/>
 	</target>
 	
 	<!--
@@ -56,7 +57,7 @@
 	Recuerda dar valor a la propiedad schema.path con la ruta del controlador JDBC de tu base de datos.
 	-->
 	<target name="actualizarEsquema">
-		<ant antfile="../OpenXava/build.xml" target="updateSchemaJPA">			
+		<ant antfile="${openxava.base.dir}/OpenXava/build.xml" target="updateSchemaJPA">			
 			<property name="persistence.unit" value="junit"/>
 			<property name="schema.path" value="../OpenXava/lib/hsqldb.jar"/>
 		</ant>

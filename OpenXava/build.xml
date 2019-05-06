@@ -76,7 +76,7 @@
 	</target>
 
 	<target name="copyXavaDTDs">
-		<echo>basedir=${basedir}</echo>
+
 		<copy todir="../${project}/xava/dtds" overwrite="true">
 			<fileset dir="${openxava.base.dir}/OpenXava/xava/dtds" excludes="componente.dtd,component.dtd"/>
 		</copy>

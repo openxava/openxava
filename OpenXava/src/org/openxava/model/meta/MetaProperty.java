@@ -210,7 +210,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	private String obtainValidValueLabel(Locale locale, Object value) {
 		if (value == null) return ""; 
 		String id = getId() + "." + value;											
-		return Labels.get(id, locale, Strings.firstUpper(value.toString()));
+		return Labels.get(id, locale); 
 	}
 		
 	private IPropertyValidator createRequiredValidator() throws XavaException {

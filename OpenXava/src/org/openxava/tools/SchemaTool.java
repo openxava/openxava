@@ -10,7 +10,6 @@ import org.apache.commons.io.*;
 import org.apache.commons.logging.*;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
-import org.hibernate.jpa.boot.internal.*;
 import org.hibernate.service.*;
 import org.hibernate.tool.hbm2ddl.*;
 import org.hibernate.tool.schema.*;

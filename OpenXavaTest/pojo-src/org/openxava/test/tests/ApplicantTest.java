@@ -8,7 +8,6 @@ import org.openxava.tests.*;
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
-import com.gargoylesoftware.htmlunit.javascript.host.*;
 
 /**
  * 
@@ -123,14 +122,20 @@ public class ApplicantTest extends ModuleTestBase {
 		assertEquals(expectedName, moduleName.asText());
 	}
 
-	public void testPolymorphicReferenceFromBaseClass_savingTwiceWithNoRefreshAfterAndHiddenKey_showHideButtons() throws Exception {  
+	public void testPolymorphicReferenceFromBaseClass_savingTwiceWithNoRefreshAfterAndHiddenKey_showHideButtons_labelsPut() throws Exception {  
 		// Polymorphic reference from base class
 		execute("List.viewDetail", "row=0");
 		assertNoErrors();
 		assertValue("name", "JUANILLO"); 
 		assertValue("skill.description", "PROGRAMMING");
 		assertValue("skill.language", "JAVA");
-		assertValue("platform", "MULTIPLATFORM");		 
+		assertValue("platform", "MULTIPLATFORM");
+		
+		// Labels.put()
+		assertLabel("platform", "Platform"); // If it fails reinit the Tomcat cleaning the working directories
+		execute("Applicant.changePlatformLabel");
+		reload();
+		assertLabel("platform", "Target ecosystem");		
 		
 		// Saving twice with no refresh after and hidden key
 		execute("CRUD.new");

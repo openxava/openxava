@@ -1,41 +1,75 @@
 <html>
   <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>openxava - how-to_en</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#How to ...">How to ...</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to prevent from modifying certain fields in a view?">How to prevent from modifying certain fields in a view?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to use a different view for creating and for updating?">How to use a different view for creating and for updating?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to deactive a property for updating but not for creating?">How to deactive a property for updating but not for creating?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to access to a property of the model that isn't shown in the view?">How to access to a property of the model that isn't shown in the view?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to modify the appearance of @ReadOnly fields">How to modify the appearance of @ReadOnly fields</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to store user preferences (new in v3.0.2)?">How to store user preferences (new in v3.0.2)?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-Example of basic authentication security for OX application in Tomcat">Example of basic authentication security for OX application in Tomcat</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to add your own servlets, filters, listeners or resources to your OpenXava application?">How to add your own servlets, filters, listeners or resources to your OpenXava application?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to create a new element directly from a @ManyToMany collection? (new in v4m4)">How to create a new element directly from a @ManyToMany collection? (new in v4m4)</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to change schema, locale and user using url parameters (new in v4m4)">How to change schema, locale and user using url parameters (new in v4m4)</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to add a second collection in a report">How to add a second collection in a report</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to define a JavaScript-based action?">How to define a JavaScript-based action?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to remove PDF + Excel export actions in GUI ?">How to remove PDF + Excel export actions in GUI ?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to modify the parameters of the default reports?">How to modify the parameters of the default reports?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to generate HTML reports?">How to generate HTML reports?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to generate several reports from a single action?">How to generate several reports from a single action?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to merge multiple reports in one PDF?">How to merge multiple reports in one PDF?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to add your own portlets to your OpenXava application (new in v4.6)?">How to add your own portlets to your OpenXava application (new in v4.6)?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to define your own content for the Welcome page and the First Steps page (new in v5.0)?">How to define your own content for the Welcome page and the First Steps page (new in v5.0)?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to access to the View object from a custom JSP?">How to access to the View object from a custom JSP?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to generate real Excel instead of CSV in all my modules (new in v5.5)?">How to generate real Excel instead of CSV in all my modules (new in v5.5)?</a></div>
-<div style="margin-left: 2em;"><a href="#How to ...-How to forward to a page in a new window without reloading the current page?">How to forward to a page in a new window without reloading the current page?</a></div>
-</div>
-<h1 id="toc0"><a name="How to ..."></a>How to ...</h1>
- <h2 id="toc1"><a name="How to ...-How to prevent from modifying certain fields in a view?"></a>How to prevent from modifying certain fields in a view?</h2>
- In Update view, by default, all the fields (except the key) are modifiables.<br />
-But you can declare any property of the view read only, in this way:<br />
-
-<style type="text/css"><!--
+      <div id="toc">
+        <h1 class="nopad">Table of Contents</h1>
+        <div style="margin-left: 1em;"><a href="#How%20to%20...">How to ...</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20prevent%20from%20modifying%20certain%20fields%20in%20a%20view?">How
+            to prevent from modifying certain fields in a view?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20use%20a%20different%20view%20for%20creating%20and%20for%20updating?">How
+            to use a different view for creating and for updating?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20deactive%20a%20property%20for%20updating%20but%20not%20for%20creating?">How
+            to deactive a property for updating but not for creating?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20access%20to%20a%20property%20of%20the%20model%20that%20isn%27t%20shown%20in%20the%20view?">How
+            to access to a property of the model that isn't shown in the view?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20modify%20the%20appearance%20of%20@ReadOnly%20fields">How
+            to modify the appearance of @ReadOnly fields</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20store%20user%20preferences%20%28new%20in%20v3.0.2%29?">How
+            to store user preferences (new in v3.0.2)?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-Example%20of%20basic%20authentication%20security%20for%20OX%20application%20in%20Tomcat">Example
+            of basic authentication security for OX application in Tomcat</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20add%20your%20own%20servlets,%20filters,%20listeners%20or%20resources%20to%20your%20OpenXava%20application?">How
+            to add your own servlets, filters, listeners or resources to your
+            OpenXava application?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20create%20a%20new%20element%20directly%20from%20a%20@ManyToMany%20collection?%20%28new%20in%20v4m4%29">How
+            to create a new element directly from a @ManyToMany collection? (new
+            in v4m4)</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20change%20schema,%20locale%20and%20user%20using%20url%20parameters%20%28new%20in%20v4m4%29">How
+            to change schema, locale and user using url parameters (new in v4m4)</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20add%20a%20second%20collection%20in%20a%20report">How
+            to add a second collection in a report</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20define%20a%20JavaScript-based%20action?">How
+            to define a JavaScript-based action?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20remove%20PDF%20+%20Excel%20export%20actions%20in%20GUI%20?">How
+            to remove PDF + Excel export actions in GUI ?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20modify%20the%20parameters%20of%20the%20default%20reports?">How
+            to modify the parameters of the default reports?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20generate%20HTML%20reports?">How
+            to generate HTML reports?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20generate%20several%20reports%20from%20a%20single%20action?">How
+            to generate several reports from a single action?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20merge%20multiple%20reports%20in%20one%20PDF?">How
+            to merge multiple reports in one PDF?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20add%20your%20own%20portlets%20to%20your%20OpenXava%20application%20%28new%20in%20v4.6%29?">How
+            to add your own portlets to your OpenXava application (new in v4.6)?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20define%20your%20own%20content%20for%20the%20Welcome%20page%20and%20the%20First%20Steps%20page%20%28new%20in%20v5.0%29?">How
+            to define your own content for the Welcome page and the First Steps
+            page (new in v5.0)?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20access%20to%20the%20View%20object%20from%20a%20custom%20JSP?">How
+            to access to the View object from a custom JSP?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20generate%20real%20Excel%20instead%20of%20CSV%20in%20all%20my%20modules%20%28new%20in%20v5.5%29?">How
+            to generate real Excel instead of CSV in all my modules (new in
+            v5.5)?</a></div>
+        <div style="margin-left: 2em;"><a href="#How%20to%20...-How%20to%20forward%20to%20a%20page%20in%20a%20new%20window%20without%20reloading%20the%20current%20page?">How
+            to forward to a page in a new window without reloading the current
+            page?</a></div>
+        <div style="margin-left: 2em;"><a href="#openxava-and-addons-projects-in-different-folder">How
+            to have OpenXava and Addons projects in a different folder than your
+            own project (new in v6.1.1)?<br>
+          </a></div>
+      </div>
+      <h1 id="toc0"><a name="How to ..."></a>How to ...</h1>
+      <h2 id="toc1"><a name="How to ...-How to prevent from modifying certain fields in a view?"></a>How
+        to prevent from modifying certain fields in a view?</h2>
+      In Update view, by default, all the fields (except the key) are
+      modifiables.<br>
+      But you can declare any property of the view read only, in this way:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -57,14 +91,15 @@ But you can declare any property of the view read only, in this way:<br />
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;view</span> <span class="re0">name</span>=<span class="st0">&quot;SomeMemberReadOnly&quot;</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;property-view</span> <span class="re0">property</span>=<span class="st0">&quot;name&quot;</span> <span class="re0">read-only</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;view</span> <span
+class="re0">name</span>=<span class="st0">"SomeMemberReadOnly"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;property-view</span> <span class="re0">property</span>=<span
+class="st0">"name"</span> <span class="re0">read-only</span>=<span class="st0">"true"</span><span
+class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/view<span class="re2">&gt;</span></span></span>
 &nbsp;</pre>
-
-Or, if you are using OX3:<br />
-
-<style type="text/css"><!--
+      Or, if you are using OX3:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -251,14 +286,16 @@ Or, if you are using OX3:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@ReadOnly<span class="br0">&#40;</span>forViews=<span class="st0">&quot;SomeMembersReadOnly&quot;</span><span class="br0">&#41;</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span class="sy0">;</span>
+</style><pre class="java5">@ReadOnly<span class="br0">(</span>forViews=<span class="st0">"SomeMembersReadOnly"</span><span
+class="br0">)</span>
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> name<span class="sy0">;</span>
 &nbsp;</pre>
-
-<h2 id="toc2"><a name="How to ...-How to use a different view for creating and for updating?"></a>How to use a different view for creating and for updating?</h2>
- Obiously you must define a view for creating and another for updating, thus:<br />
-
-<style type="text/css"><!--
+      <h2 id="toc2"><a name="How to ...-How to use a different view for creating and for updating?"></a>How
+        to use a different view for creating and for updating?</h2>
+      Obiously you must define a view for creating and another for updating,
+      thus:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -280,22 +317,23 @@ Or, if you are using OX3:<br />
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;component</span> ... <span class="re2">&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;component</span> ... <span
+class="re2">&gt;</span></span>
 ...
-    <span class="sc3"><span class="re1">&lt;view</span> <span class="re0">name</span>=<span class="st0">&quot;Create&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;view</span> <span class="re0">name</span>=<span
+class="st0">"Create"</span><span class="re2">&gt;</span></span>
     ...
     <span class="sc3"><span class="re1">&lt;/view<span class="re2">&gt;</span></span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;view</span> <span class="re0">name</span>=<span class="st0">&quot;Update&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;view</span> <span class="re0">name</span>=<span
+class="st0">"Update"</span><span class="re2">&gt;</span></span>
     ...
     <span class="sc3"><span class="re1">&lt;/view<span class="re2">&gt;</span></span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;/component<span class="re2">&gt;</span></span></span>
 &nbsp;</pre>
-
-Or, if you are using OX3:<br />
-
-<style type="text/css"><!--
+      Or, if you are using OX3:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -482,16 +520,20 @@ Or, if you are using OX3:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Views<span class="br0">&#40;</span><span class="br0">&#123;</span>
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span class="kw116">View</span></a><span class="br0">&#40;</span>name=<span class="st0">&quot;Create&quot;</span>, members=<span class="st0">&quot;  .... &quot;</span><span class="br0">&#41;</span>,
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span class="kw116">View</span></a><span class="br0">&#40;</span>name=<span class="st0">&quot;Update&quot;</span>, members=<span class="st0">&quot; ... &quot;</span><span class="br0">&#41;</span>
-<span class="br0">&#125;</span><span class="br0">&#41;</span>
-<span class="kw2">public</span> <span class="kw2">class</span> MyEntity <span class="br0">&#123;</span> ...
+</style><pre class="java5">@Views<span class="br0">(</span><span class="br0">{</span>
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"Create"</span>, members=<span
+class="st0">"  .... "</span><span class="br0">)</span>,
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"Update"</span>, members=<span
+class="st0">" ... "</span><span class="br0">)</span>
+<span class="br0">}</span><span class="br0">)</span>
+<span class="kw2">public</span> <span class="kw2">class</span> MyEntity <span class="br0">{</span> ...
 &nbsp;</pre>
-
-Now you have to refine the <em>new</em> action for chosing the <em>Create</em> view and the searching action for chosing the Update view. First, define your own controller, in your <em>controllers.xml</em>, thus:<br />
-
-<style type="text/css"><!--
+      Now you have to refine the <em>new</em> action for chosing the <em>Create</em>
+      view and the searching action for chosing the Update view. First, define
+      your own controller, in your <em>controllers.xml</em>, thus:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -513,24 +555,33 @@ Now you have to refine the <em>new</em> action for chosing the <em>Create</em> v
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;MyTypical&quot;</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span class="st0">&quot;new&quot;</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">&quot;com.mycompany.myapplication.actions.MyNewAction&quot;</span></span>
-<span class="sc3">        <span class="re0">image</span>=<span class="st0">&quot;images/new.gif&quot;</span> <span class="re0">on-init</span>=<span class="st0">&quot;true&quot;</span></span>
-<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">&quot;F2&quot;</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span class="st0">&quot;xava_view&quot;</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+class="re0">name</span>=<span class="st0">"MyTypical"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+class="st0">"new"</span></span>
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.mycompany.myapplication.actions.MyNewAction"</span></span>
+<span class="sc3">        <span class="re0">image</span>=<span class="st0">"images/new.gif"</span> <span
+class="re0">on-init</span>=<span class="st0">"true"</span></span>
+<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"F2"</span><span
+class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
+class="st0">"xava_view"</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
     <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span class="st0">&quot;search&quot;</span></span>
-<span class="sc3">        <span class="re0">by-default</span>=<span class="st0">&quot;if-possible&quot;</span> <span class="re0">hidden</span>=<span class="st0">&quot;true&quot;</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">&quot;com.mycompany.myapplication.actions.MySearchAction&quot;</span></span>
-<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">&quot;F8&quot;</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span class="st0">&quot;xava_view&quot;</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+class="st0">"search"</span></span>
+<span class="sc3">        <span class="re0">by-default</span>=<span class="st0">"if-possible"</span> <span
+class="re0">hidden</span>=<span class="st0">"true"</span></span>
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.mycompany.myapplication.actions.MySearchAction"</span></span>
+<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"F8"</span><span
+class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
+class="st0">"xava_view"</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
     <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
  <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
-
-And now assign this controller to your module, and define the searching action for the module. Write your module in the <em>application.xml</em> in this way:<br />
-
-<style type="text/css"><!--
+      And now assign this controller to your module, and define the searching
+      action for the module. Write your module in the <em>application.xml</em>
+      in this way:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -552,16 +603,22 @@ And now assign this controller to your module, and define the searching action f
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;MyModule&quot;</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span class="st0">&quot;XAVA_SEARCH_ACTION&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;MyTypical.search&quot;</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;MyComponent&quot;</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;MyTypical&quot;</span><span class="re2">/&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+class="re0">name</span>=<span class="st0">"MyModule"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
+class="st0">"XAVA_SEARCH_ACTION"</span> <span class="re0">value</span>=<span class="st0">"MyTypical.search"</span><span
+class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+class="st0">"MyComponent"</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+class="st0">"MyTypical"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span>
 &nbsp;</pre>
-
-And now only remains to refine the logic of your actions. For <em>MySearchAction</em> you write (NOTE: selected entity index values have to be captured (1) so that it might be restored (3) after the reset performed by <em>setViewName(...)</em> method (2)):<br />
-
-<style type="text/css"><!--
+      And now only remains to refine the logic of your actions. For <em>MySearchAction</em>
+      you write (NOTE: selected entity index values have to be captured (1) so
+      that it might be restored (3) after the reset performed by <em>setViewName(...)</em>
+      method (2)):<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -748,18 +805,27 @@ And now only remains to refine the logic of your actions. For <em>MySearchAction
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MySearchAction <span class="kw2">extends</span> SearchByViewKeyAction <span class="br0">&#123;</span>
-    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> <span class="br0">&#123;</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span class="kw46">Map</span></a> mapIndexValues = getView<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getKeyValuesWithValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>   <span class="co1">//1</span>
-        getView<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">setViewName</span><span class="br0">&#40;</span><span class="st0">&quot;Update&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>                          <span class="co1">//2</span>
-        getView<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">setValues</span><span class="br0">&#40;</span>mapIndexValues<span class="br0">&#41;</span><span class="sy0">;</span>                      <span class="co1">//3</span>
-        <span class="kw2">super</span>.<span class="me1">execute</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
-<span class="br0">&#125;</span></pre>
-
-And for <em>MyNewAction</em>:<br />
-
-<style type="text/css"><!--
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MySearchAction <span
+class="kw2">extends</span> SearchByViewKeyAction <span class="br0">{</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+class="kw21">Exception</span></a> <span class="br0">{</span>
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+class="kw46">Map</span></a> mapIndexValues = getView<span class="br0">(</span><span
+class="br0">)</span>.<span class="me1">getKeyValuesWithValue</span><span class="br0">(</span><span
+class="br0">)</span><span class="sy0">;</span>   <span class="co1">//1</span>
+        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setViewName</span><span
+class="br0">(</span><span class="st0">"Update"</span><span class="br0">)</span><span
+class="sy0">;</span>                          <span class="co1">//2</span>
+        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setValues</span><span
+class="br0">(</span>mapIndexValues<span class="br0">)</span><span class="sy0">;</span>                      <span
+class="co1">//3</span>
+        <span class="kw2">super</span>.<span class="me1">execute</span><span class="br0">(</span><span
+class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
+      And for <em>MyNewAction</em>:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -946,18 +1012,25 @@ And for <em>MyNewAction</em>:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MyNewAction <span class="kw2">extends</span> NewAction <span class="br0">&#123;</span>
-    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> <span class="br0">&#123;</span>
-        getView<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">setViewName</span><span class="br0">&#40;</span><span class="st0">&quot;Create&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="kw2">super</span>.<span class="me1">execute</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
-<span class="br0">&#125;</span>
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MyNewAction <span
+class="kw2">extends</span> NewAction <span class="br0">{</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+class="kw21">Exception</span></a> <span class="br0">{</span>
+        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setViewName</span><span
+class="br0">(</span><span class="st0">"Create"</span><span class="br0">)</span><span
+class="sy0">;</span>
+        <span class="kw2">super</span>.<span class="me1">execute</span><span class="br0">(</span><span
+class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span>
 &nbsp;</pre>
-
-<h2 id="toc3"><a name="How to ...-How to deactive a property for updating but not for creating?"></a>How to deactive a property for updating but not for creating?</h2>
- You have to refine the <em>new</em> action and the searching action. First, define your own controller, in your <em>controllers.xml</em>, thus:<br />
-
-<style type="text/css"><!--
+      <h2 id="toc3"><a name="How to ...-How to deactive a property for updating but not for creating?"></a>How
+        to deactive a property for updating but not for creating?</h2>
+      You have to refine the <em>new</em> action and the searching action.
+      First, define your own controller, in your <em>controllers.xml</em>,
+      thus:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -979,24 +1052,33 @@ And for <em>MyNewAction</em>:<br />
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;MyTypical&quot;</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span class="st0">&quot;new&quot;</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">&quot;com.mycompany.myapplication.actions.MyNewAction&quot;</span></span>
-<span class="sc3">        <span class="re0">image</span>=<span class="st0">&quot;images/new.gif&quot;</span> <span class="re0">on-init</span>=<span class="st0">&quot;true&quot;</span></span>
-<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">&quot;F2&quot;</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span class="st0">&quot;xava_view&quot;</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+class="re0">name</span>=<span class="st0">"MyTypical"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+class="st0">"new"</span></span>
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.mycompany.myapplication.actions.MyNewAction"</span></span>
+<span class="sc3">        <span class="re0">image</span>=<span class="st0">"images/new.gif"</span> <span
+class="re0">on-init</span>=<span class="st0">"true"</span></span>
+<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"F2"</span><span
+class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
+class="st0">"xava_view"</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
     <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span class="st0">&quot;search&quot;</span></span>
-<span class="sc3">        <span class="re0">by-default</span>=<span class="st0">&quot;if-possible&quot;</span> <span class="re0">hidden</span>=<span class="st0">&quot;true&quot;</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">&quot;com.mycompany.myapplication.actions.MySearchAction&quot;</span></span>
-<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">&quot;F8&quot;</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span class="st0">&quot;xava_view&quot;</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+class="st0">"search"</span></span>
+<span class="sc3">        <span class="re0">by-default</span>=<span class="st0">"if-possible"</span> <span
+class="re0">hidden</span>=<span class="st0">"true"</span></span>
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.mycompany.myapplication.actions.MySearchAction"</span></span>
+<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"F8"</span><span
+class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
+class="st0">"xava_view"</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
     <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
  <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
-
-And now assign this controller to your module, and define the searching action for the module, write your module in the <em>application.xml</em> in this way:<br />
-
-<style type="text/css"><!--
+      And now assign this controller to your module, and define the searching
+      action for the module, write your module in the <em>application.xml</em>
+      in this way:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1018,15 +1100,19 @@ And now assign this controller to your module, and define the searching action f
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;MyModule&quot;</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span class="st0">&quot;XAVA_SEARCH_ACTION&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;MyTypical.search&quot;</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;MyComponent&quot;</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;MyTypical&quot;</span><span class="re2">/&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+class="re0">name</span>=<span class="st0">"MyModule"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
+class="st0">"XAVA_SEARCH_ACTION"</span> <span class="re0">value</span>=<span class="st0">"MyTypical.search"</span><span
+class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+class="st0">"MyComponent"</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+class="st0">"MyTypical"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
-
-And now only remains to refine the logic of your actions. For <em>MySearchAction</em> you write:<br />
-
-<style type="text/css"><!--
+      And now only remains to refine the logic of your actions. For <em>MySearchAction</em>
+      you write:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1213,16 +1299,20 @@ And now only remains to refine the logic of your actions. For <em>MySearchAction
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MySearchAction <span class="kw2">extends</span> SearchByViewKeyAction <span class="br0">&#123;</span>
-    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> <span class="br0">&#123;</span>
-        <span class="kw2">super</span>.<span class="me1">execute</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        getView<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">setEditable</span><span class="br0">&#40;</span><span class="st0">&quot;myproperty&quot;</span>, <span class="kw4">false</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
-<span class="br0">&#125;</span></pre>
-
-And for <em>MyNewAction</em>:<br />
-
-<style type="text/css"><!--
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MySearchAction <span
+class="kw2">extends</span> SearchByViewKeyAction <span class="br0">{</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+class="kw21">Exception</span></a> <span class="br0">{</span>
+        <span class="kw2">super</span>.<span class="me1">execute</span><span class="br0">(</span><span
+class="br0">)</span><span class="sy0">;</span>
+        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setEditable</span><span
+class="br0">(</span><span class="st0">"myproperty"</span>, <span class="kw4">false</span><span
+class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
+      And for <em>MyNewAction</em>:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1409,19 +1499,26 @@ And for <em>MyNewAction</em>:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MyNewAction <span class="kw2">extends</span> NewAction <span class="br0">&#123;</span>
-    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> <span class="br0">&#123;</span>
-        <span class="kw2">super</span>.<span class="me1">execute</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        getView<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">setEditable</span><span class="br0">&#40;</span><span class="st0">&quot;myproperty&quot;</span>, <span class="kw4">true</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
-<span class="br0">&#125;</span>
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MyNewAction <span
+class="kw2">extends</span> NewAction <span class="br0">{</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+class="kw21">Exception</span></a> <span class="br0">{</span>
+        <span class="kw2">super</span>.<span class="me1">execute</span><span class="br0">(</span><span
+class="br0">)</span><span class="sy0">;</span>
+        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setEditable</span><span
+class="br0">(</span><span class="st0">"myproperty"</span>, <span class="kw4">true</span><span
+class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span>
 &nbsp;</pre>
-
-<h2 id="toc4"><a name="How to ...-How to access to a property of the model that isn't shown in the view?"></a>How to access to a property of the model that isn't shown in the view?</h2>
- From the view you can obtain only the displayed data. But it's possible, using <a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/model/MapFacade.html" rel="nofollow">MapFacade</a> class to acess directly to the model.<br />
-You can write in your action a code like this one:<br />
-
-<style type="text/css"><!--
+      <h2 id="toc4"><a name="How to ...-How to access to a property of the model that isn't shown in the view?"></a>How
+        to access to a property of the model that isn't shown in the view?</h2>
+      From the view you can obtain only the displayed data. But it's possible,
+      using <a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/model/MapFacade.html"
+        rel="nofollow">MapFacade</a> class to acess directly to the model.<br>
+      You can write in your action a code like this one:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1608,24 +1705,38 @@ You can write in your action a code like this one:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MyAction <span class="kw2">extends</span> ViewBaseAction <span class="br0">&#123;</span>
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MyAction <span
+class="kw2">extends</span> ViewBaseAction <span class="br0">{</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> <span class="br0">&#123;</span>
-        Invoice invoice = <span class="br0">&#40;</span>Invoice<span class="br0">&#41;</span> MapFacade.<span class="me1">findEntity</span><span class="br0">&#40;</span>getModelName<span class="br0">&#40;</span><span class="br0">&#41;</span>, getView<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getKeyValues</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+class="kw21">Exception</span></a> <span class="br0">{</span>
+        Invoice invoice = <span class="br0">(</span>Invoice<span class="br0">)</span> MapFacade.<span
+class="me1">findEntity</span><span class="br0">(</span>getModelName<span class="br0">(</span><span
+class="br0">)</span>, getView<span class="br0">(</span><span class="br0">)</span>.<span
+class="me1">getKeyValues</span><span class="br0">(</span><span class="br0">)</span><span
+class="br0">)</span><span class="sy0">;</span>
         <span class="co1">// Special discount is not shown in the view</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span class="kw27">BigDecimal</span></a> specialDiscount = invoice.<span class="me1">getSpecialDiscount</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
+class="kw27">BigDecimal</span></a> specialDiscount = invoice.<span class="me1">getSpecialDiscount</span><span
+class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         ...
-    <span class="br0">&#125;</span>
+    <span class="br0">}</span>
     ...
 &nbsp;</pre>
-
-In this way you can access to <em>specialDiscount</em> property although it is not displayed in the current view.<br />
-<br />
-<h2 id="toc5"><a name="How to ...-How to modify the appearance of @ReadOnly fields"></a>How to modify the appearance of @ReadOnly fields</h2>
- By default, OpenXava will lightly shade fields that are dropdowns and those annotated with @ReadOnly. Marking a field @ReadOnly also removes the icon associated with editing. However, in my application, a requirement was that read-only fields be highlighted differently. This can be done by adding an entry into your custom.css file in the web/xava/style directory in your project as documented in the Customizing Views section.<br />
-The relevant entry is:<br />
-
-<style type="text/css"><!--
+      In this way you can access to <em>specialDiscount</em> property although
+      it is not displayed in the current view.<br>
+      <br>
+      <h2 id="toc5"><a name="How to ...-How to modify the appearance of @ReadOnly fields"></a>How
+        to modify the appearance of @ReadOnly fields</h2>
+      By default, OpenXava will lightly shade fields that are dropdowns and
+      those annotated with @ReadOnly. Marking a field @ReadOnly also removes the
+      icon associated with editing. However, in my application, a requirement
+      was that read-only fields be highlighted differently. This can be done by
+      adding an entry into your custom.css file in the web/xava/style directory
+      in your project as documented in the Customizing Views section.<br>
+      The relevant entry is:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1650,16 +1761,24 @@ The relevant entry is:<br />
 .css span.xtra { display:block; }
 
 -->
-</style><pre class="css">input<span class="br0">&#91;</span>disabled<span class="br0">&#93;</span> <span class="br0">&#123;</span>
-  <span class="kw1">background</span><span class="sy0">:</span><span class="kw2">red</span><span class="sy0">;</span>
-<span class="br0">&#125;</span></pre>
-
-Of course, you can put any valid css that matches your needs.<br />
-<h2 id="toc6"><a name="How to ...-How to store user preferences (new in v3.0.2)?"></a>How to store user preferences <em>(new in v3.0.2)</em>?</h2>
- Storing user preferences of your application is your business, but for your convenience you can use OpenXava to store user preferences.<br />
-OpenXava uses the <a class="wiki_link_ext" href="http://java.sun.com/j2se/1.4.2/docs/guide/lang/preferences.html" rel="nofollow">Java Preferences API</a> for storing and loading user preferences, but adapted for working in a multiuser server environment. You can access to the <em><a class="wiki_link_ext" href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/prefs/Preferences.html" rel="nofollow">Preferences</a></em> object using the <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/util/Users.html" rel="nofollow">Users</a></em> class of OpenXava. Just in this way:<br />
-
-<style type="text/css"><!--
+</style><pre class="css">input<span class="br0">[</span>disabled<span class="br0">]</span> <span
+class="br0">{</span>
+  <span class="kw1">background</span><span class="sy0">:</span><span class="kw2">red</span><span
+class="sy0">;</span>
+<span class="br0">}</span></pre>
+      Of course, you can put any valid css that matches your needs.<br>
+      <h2 id="toc6"><a name="How to ...-How to store user preferences (new in v3.0.2)?"></a>How
+        to store user preferences <em>(new in v3.0.2)</em>?</h2>
+      Storing user preferences of your application is your business, but for
+      your convenience you can use OpenXava to store user preferences.<br>
+      OpenXava uses the <a class="wiki_link_ext" href="http://java.sun.com/j2se/1.4.2/docs/guide/lang/preferences.html"
+        rel="nofollow">Java Preferences API</a> for storing and loading user
+      preferences, but adapted for working in a multiuser server environment.
+      You can access to the <em><a class="wiki_link_ext" href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/prefs/Preferences.html"
+          rel="nofollow">Preferences</a></em> object using the <em><a class="wiki_link_ext"
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/util/Users.html"
+          rel="nofollow">Users</a></em> class of OpenXava. Just in this way:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1848,25 +1967,43 @@ OpenXava uses the <a class="wiki_link_ext" href="http://java.sun.com/j2se/1.4.2/
 -->
 </style><pre class="java5"><span class="co1">// Obtain preferences for the current user</span>
 <span class="co1">// and node (an arbitrary category of your choice)</span>
-<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/prefs/Preferences.html"><span class="kw52">Preferences</span></a> preferences = Users.<span class="me1">getCurrentPreferences</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">node</span><span class="br0">&#40;</span><span class="st0">&quot;mynode&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/prefs/Preferences.html"><span
+class="kw52">Preferences</span></a> preferences = Users.<span class="me1">getCurrentPreferences</span><span
+class="br0">(</span><span class="br0">)</span>.<span class="me1">node</span><span
+class="br0">(</span><span class="st0">"mynode"</span><span class="br0">)</span><span
+class="sy0">;</span>
 &nbsp;
 <span class="co1">// Read a property value</span>
-<span class="kw3">boolean</span> rowsHidden = preferences.<span class="me1">getBoolean</span><span class="br0">&#40;</span>ROWS_HIDDEN, <span class="kw4">false</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw3">boolean</span> rowsHidden = preferences.<span class="me1">getBoolean</span><span
+class="br0">(</span>ROWS_HIDDEN, <span class="kw4">false</span><span class="br0">)</span><span
+class="sy0">;</span>
 &nbsp;
 ...
 &nbsp;
 <span class="co1">// Modify and save a property</span>
-preferences.<span class="me1">putBoolean</span><span class="br0">&#40;</span>ROWS_HIDDEN, rowsHidden<span class="br0">&#41;</span><span class="sy0">;</span>
-preferences.<span class="me1">flush</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
-
-You must call explicitly to <em>flush()</em> in order to store the changed preferences.<br />
-<h2 id="toc7"><a name="How to ...-Example of basic authentication security for OX application in Tomcat"></a>Example of basic authentication security for OX application in Tomcat</h2>
- Look at this <a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/forums/forum/419689/topic/1236457?message=6827192" rel="nofollow">forum message</a>.<br />
-<h2 id="toc8"><a name="How to ...-How to add your own servlets, filters, listeners or resources to your OpenXava application?"></a>How to add your own servlets, filters, listeners or resources to your OpenXava application?</h2>
- For adding your own servlets to your OX application do not modify the <em>web.xml</em> file, instead you can create a <em>servlets.xml</em> (with <em>servlet</em> and <em>servlet-mapping</em> elements), a <em>filters.xml</em> (with <em>filter</em> and <em>filter-mapping</em> elements), a <em>listeners.xml</em> (with <em>listener</em> elements, <em>since v4.0.1</em>) and a <em>resources.xml</em> (with <em>resource-ref</em> elements, <em>since v5.4</em>) in the WEB-INF folder.<br />
-For example, if you want to add a servlet called <em>TestServlet</em>, just create a <em>servlets.xml</em> file in WEB-INF with the next content:<br />
-
-<style type="text/css"><!--
+preferences.<span class="me1">putBoolean</span><span class="br0">(</span>ROWS_HIDDEN, rowsHidden<span
+class="br0">)</span><span class="sy0">;</span>
+preferences.<span class="me1">flush</span><span class="br0">(</span><span class="br0">)</span><span
+class="sy0">;</span></pre>
+      You must call explicitly to <em>flush()</em> in order to store the
+      changed preferences.<br>
+      <h2 id="toc7"><a name="How to ...-Example of basic authentication security for OX application in Tomcat"></a>Example
+        of basic authentication security for OX application in Tomcat</h2>
+      Look at this <a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/forums/forum/419689/topic/1236457?message=6827192"
+        rel="nofollow">forum message</a>.<br>
+      <h2 id="toc8"><a name="How to ...-How to add your own servlets, filters, listeners or resources to your OpenXava application?"></a>How
+        to add your own servlets, filters, listeners or resources to your
+        OpenXava application?</h2>
+      For adding your own servlets to your OX application do not modify the <em>web.xml</em>
+      file, instead you can create a <em>servlets.xml</em> (with <em>servlet</em>
+      and <em>servlet-mapping</em> elements), a <em>filters.xml</em> (with <em>filter</em>
+      and <em>filter-mapping</em> elements), a <em>listeners.xml</em> (with <em>listener</em>
+      elements, <em>since v4.0.1</em>) and a <em>resources.xml</em> (with <em>resource-ref</em>
+      elements, <em>since v5.4</em>) in the WEB-INF folder.<br>
+      For example, if you want to add a servlet called <em>TestServlet</em>,
+      just create a <em>servlets.xml</em> file in WEB-INF with the next
+      content:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1889,21 +2026,30 @@ For example, if you want to add a servlet called <em>TestServlet</em>, just crea
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>testServlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.openxava.test.servlets.TestServlet<span class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>testServlet<span
+class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.openxava.test.servlets.TestServlet<span
+class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;servlet-mapping<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>testServlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/test<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>testServlet<span
+class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/test<span
+class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span>
 &nbsp;</pre>
-
-This fragment will be automatically inserted in <em>web.xml</em> when you call to <em>deployWar</em> or <em>updateOX</em> ant task.<br />
-<h2 id="toc9"><a name="How to ...-How to create a new element directly from a @ManyToMany collection? (new in v4m4)"></a>How to create a new element directly from a @ManyToMany collection? <em>(new in v4m4)</em></h2>
- By default in a <em>@ManyToMany</em> collection the user can add existing elements to the collection, however he cannot create new ones. Fortunately, you can add this functionality using the <em>ManyToMany.new</em> action (included in OpenXava) as list action for your collection. As following:<br />
-
-<style type="text/css"><!--
+      This fragment will be automatically inserted in <em>web.xml</em> when you
+      call to <em>deployWar</em> or <em>updateOX</em> ant task.<br>
+      <h2 id="toc9"><a name="How to ...-How to create a new element directly from a @ManyToMany collection? (new in v4m4)"></a>How
+        to create a new element directly from a @ManyToMany collection? <em>(new
+          in v4m4)</em></h2>
+      By default in a <em>@ManyToMany</em> collection the user can add existing
+      elements to the collection, however he cannot create new ones.
+      Fortunately, you can add this functionality using the <em>ManyToMany.new</em>
+      action (included in OpenXava) as list action for your collection. As
+      following:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -2091,13 +2237,19 @@ This fragment will be automatically inserted in <em>web.xml</em> when you call t
 
 -->
 </style><pre class="java5">@ManyToMany
-@ListAction<span class="br0">&#40;</span><span class="st0">&quot;ManyToMany.new&quot;</span><span class="br0">&#41;</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span class="kw46">Collection</span></a><span class="sy0">&lt;</span>Human<span class="sy0">&gt;</span> members<span class="sy0">;</span></pre>
-
-<h2 id="toc10"><a name="How to ...-How to change schema, locale and user using url parameters (new in v4m4)"></a>How to change schema, locale and user using url parameters <em>(new in v4m4)</em></h2>
- You can change default schema, current locale or current user through web parameters by including the controller <em>UrlParameters<span style="font-style: normal;">(1). For example in </span>application.xml<span style="font-style: normal;"> you add the controller:</span></em><br />
-
-<style type="text/css"><!--
+@ListAction<span class="br0">(</span><span class="st0">"ManyToMany.new"</span><span
+class="br0">)</span>
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Human<span class="sy0">&gt;</span> members<span
+class="sy0">;</span></pre>
+      <h2 id="toc10"><a name="How to ...-How to change schema, locale and user using url parameters (new in v4m4)"></a>How
+        to change schema, locale and user using url parameters <em>(new in
+          v4m4)</em></h2>
+      You can change default schema, current locale or current user through web
+      parameters by including the controller <em>UrlParameters<span style="font-style: normal;">(1).
+          For example in </span>application.xml<span style="font-style: normal;">
+          you add the controller:</span></em><br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -2284,17 +2436,21 @@ This fragment will be automatically inserted in <em>web.xml</em> when you call t
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="sy0">&lt;</span>application name=<span class="st0">&quot;MyApplication&quot;</span><span class="sy0">&gt;</span>
-    <span class="sy0">&lt;</span>module name=<span class="st0">&quot;MyModule&quot;</span><span class="sy0">&gt;</span>
-        <span class="sy0">&lt;</span>model name=<span class="st0">&quot;MyModel&quot;</span>/<span class="sy0">&gt;</span>
-        <span class="sy0">&lt;</span>controller name=<span class="st0">&quot;Typical&quot;</span>/<span class="sy0">&gt;</span>
-        <span class="sy0">&lt;</span>controller name=<span class="st0">&quot;UrlParameters&quot;</span> /<span class="sy0">&gt;</span>          <span class="co1">// 1</span>
+</style><pre class="java5"><span class="sy0">&lt;</span>application name=<span class="st0">"MyApplication"</span><span
+class="sy0">&gt;</span>
+    <span class="sy0">&lt;</span>module name=<span class="st0">"MyModule"</span><span
+class="sy0">&gt;</span>
+        <span class="sy0">&lt;</span>model name=<span class="st0">"MyModel"</span>/<span
+class="sy0">&gt;</span>
+        <span class="sy0">&lt;</span>controller name=<span class="st0">"Typical"</span>/<span
+class="sy0">&gt;</span>
+        <span class="sy0">&lt;</span>controller name=<span class="st0">"UrlParameters"</span> /<span
+class="sy0">&gt;</span>          <span class="co1">// 1</span>
     <span class="sy0">&lt;</span>/module<span class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>/application<span class="sy0">&gt;</span></pre>
-
-The url for invoking the module now can contain the <em>schema</em> parameter.<br />
-
-<style type="text/css"><!--
+      The url for invoking the module now can contain the <em>schema</em>
+      parameter.<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -2482,10 +2638,8 @@ The url for invoking the module now can contain the <em>schema</em> parameter.<b
 
 -->
 </style><pre class="java5">http:<span class="co1">//localhost:8080/MyApplication/xava/module?application=MyApplication&amp;module=MyModule&amp;schema=companyA</span></pre>
-
-or the <em>locale</em> parameter:<br />
-
-<style type="text/css"><!--
+      or the <em>locale</em> parameter:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -2673,10 +2827,9 @@ or the <em>locale</em> parameter:<br />
 
 -->
 </style><pre class="java5">http:<span class="co1">//localhost:8080/MyApplication/xava/module?application=MyApplication&amp;module=MyModule&amp;locale=es</span></pre>
-
-or the <em>user</em> parameter (it will be stored in session's attribute <em>xava.user</em>):<br />
-
-<style type="text/css"><!--
+      or the <em>user</em> parameter (it will be stored in session's attribute
+      <em>xava.user</em>):<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -2864,14 +3017,15 @@ or the <em>user</em> parameter (it will be stored in session's attribute <em>xav
 
 -->
 </style><pre class="java5">http:<span class="co1">//localhost:8080/MyApplication/xava/module?application=MyApplication&amp;module=MyModule&amp;user=theUser</span></pre>
-
-They are not exclusive, you can use any combination of them.<br />
-<br />
-<h2 id="toc11"><a name="How to ...-How to add a second collection in a report"></a>How to add a second collection in a report</h2>
- Modify your .jrxml, to add a subreport in one of the available bands (not the details ones, obviously). You can do that easily from the XML perspective of iReport.<br />
-<br />
-
-<style type="text/css"><!--
+      They are not exclusive, you can use any combination of them.<br>
+      <br>
+      <h2 id="toc11"><a name="How to ...-How to add a second collection in a report"></a>How
+        to add a second collection in a report</h2>
+      Modify your .jrxml, to add a subreport in one of the available bands (not
+      the details ones, obviously). You can do that easily from the XML
+      perspective of iReport.<br>
+      <br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -2894,19 +3048,29 @@ They are not exclusive, you can use any combination of them.<br />
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;summary<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;band</span> <span class="re0">height</span>=<span class="st0">&quot;77&quot;</span> <span class="re0">splitType</span>=<span class="st0">&quot;Stretch&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;band</span> <span class="re0">height</span>=<span
+class="st0">"77"</span> <span class="re0">splitType</span>=<span class="st0">"Stretch"</span><span
+class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;subreport<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;reportElement</span> <span class="re0">stretchType</span>=<span class="st0">&quot;RelativeToBandHeight&quot;</span> <span class="re0">x</span>=<span class="st0">&quot;0&quot;</span> <span class="re0">y</span>=<span class="st0">&quot;0&quot;</span> <span class="re0">width</span>=<span class="st0">&quot;555&quot;</span> <span class="re0">height</span>=<span class="st0">&quot;68&quot;</span><span class="re2">/&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;dataSourceExpression<span class="re2">&gt;</span></span></span><span class="sc2">&lt;![CDATA[$P{subreport_ds}]]&gt;</span><span class="sc3"><span class="re1">&lt;/dataSourceExpression<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;subreportExpression</span> <span class="re0">class</span>=<span class="st0">&quot;net.sf.jasperreports.engine.JasperReport&quot;</span><span class="re2">&gt;</span></span><span class="sc2">&lt;![CDATA[$P{subreport_report}]]&gt;</span><span class="sc3"><span class="re1">&lt;/subreportExpression<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;reportElement</span> <span class="re0">stretchType</span>=<span
+class="st0">"RelativeToBandHeight"</span> <span class="re0">x</span>=<span class="st0">"0"</span> <span
+class="re0">y</span>=<span class="st0">"0"</span> <span class="re0">width</span>=<span
+class="st0">"555"</span> <span class="re0">height</span>=<span class="st0">"68"</span><span
+class="re2">/&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;dataSourceExpression<span class="re2">&gt;</span></span></span><span
+class="sc2">&lt;![CDATA[$P{subreport_ds}]]&gt;</span><span class="sc3"><span class="re1">&lt;/dataSourceExpression<span
+class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;subreportExpression</span> <span
+class="re0">class</span>=<span class="st0">"net.sf.jasperreports.engine.JasperReport"</span><span
+class="re2">&gt;</span></span><span class="sc2">&lt;![CDATA[$P{subreport_report}]]&gt;</span><span
+class="sc3"><span class="re1">&lt;/subreportExpression<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;/subreport<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/band<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/summary<span class="re2">&gt;</span></span></span></pre>
-
-Also add matching parameters at the top of the file, below your parameters.<br />
-<br />
-
-<style type="text/css"><!--
+      Also add matching parameters at the top of the file, below your
+      parameters.<br>
+      <br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -2928,15 +3092,19 @@ Also add matching parameters at the top of the file, below your parameters.<br /
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;parameter</span> <span class="re0">name</span>=<span class="st0">&quot;subreport_report&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;net.sf.jasperreports.engine.JasperReport&quot;</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;parameter</span> <span class="re0">name</span>=<span class="st0">&quot;subreport_ds&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;net.sf.jasperreports.engine.JRDataSource&quot;</span><span class="re2">/&gt;</span></span></pre>
-
-You will have to design a new report in iReport describing the fields of the collection you want to add. Generally a <strong>columnHeader</strong> and a <strong>detail</strong> band are enough<br />
-<br />
-In your report action, fill in the new parameters:<br />
-<br />
-
-<style type="text/css"><!--
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;parameter</span> <span
+class="re0">name</span>=<span class="st0">"subreport_report"</span> <span class="re0">class</span>=<span
+class="st0">"net.sf.jasperreports.engine.JasperReport"</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;parameter</span> <span class="re0">name</span>=<span
+class="st0">"subreport_ds"</span> <span class="re0">class</span>=<span class="st0">"net.sf.jasperreports.engine.JRDataSource"</span><span
+class="re2">/&gt;</span></span></pre>
+      You will have to design a new report in iReport describing the fields of
+      the collection you want to add. Generally a <strong>columnHeader</strong>
+      and a <strong>detail</strong> band are enough<br>
+      <br>
+      In your report action, fill in the new parameters:<br>
+      <br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -3123,28 +3291,59 @@ In your report action, fill in the new parameters:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MyReportAction <span class="kw2">extends</span> JasperReportBaseAction <span class="br0">&#123;</span>
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MyReportAction <span
+class="kw2">extends</span> JasperReportBaseAction <span class="br0">{</span>
     ...
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a><span class="sy0">&gt;</span> getParameters<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a>  <span class="br0">&#123;</span>
-        Messages errors = MapFacade.<span class="me1">validate</span><span class="br0">&#40;</span><span class="st0">&quot;Project&quot;</span>, getView<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getValues</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="kw1">if</span> <span class="br0">&#40;</span>errors.<span class="me1">contains</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="kw2">throw</span> <span class="kw2">new</span> ValidationException<span class="br0">&#40;</span>errors<span class="br0">&#41;</span><span class="sy0">;</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a><span class="sy0">&gt;</span> parameters = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/HashMap.html"><span class="kw46">HashMap</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a><span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a><span class="sy0">&gt;</span> getParameters<span
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+class="kw21">Exception</span></a>  <span class="br0">{</span>
+        Messages errors = MapFacade.<span class="me1">validate</span><span class="br0">(</span><span
+class="st0">"Project"</span>, getView<span class="br0">(</span><span class="br0">)</span>.<span
+class="me1">getValues</span><span class="br0">(</span><span class="br0">)</span><span
+class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">if</span> <span class="br0">(</span>errors.<span class="me1">contains</span><span
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="kw2">throw</span> <span
+class="kw2">new</span> ValidationException<span class="br0">(</span>errors<span
+class="br0">)</span><span class="sy0">;</span>
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a><span class="sy0">&gt;</span> parameters = <span
+class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/HashMap.html"><span
+class="kw46">HashMap</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a><span class="sy0">&gt;</span><span class="br0">(</span><span
+class="br0">)</span><span class="sy0">;</span>
         <span class="co1">// fill up the project subreport</span>
-        parameters.<span class="me1">put</span><span class="br0">&#40;</span><span class="st0">&quot;subreport_report&quot;</span>, JasperCompileManager.<span class="me1">compileReport</span><span class="br0">&#40;</span>JRUtils.<span class="kw2">class</span>.<span class="me1">getResourceAsStream</span><span class="br0">&#40;</span><span class="st0">&quot;/Project_products.jrxml&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// 1</span>
-        parameters.<span class="me1">put</span><span class="br0">&#40;</span><span class="st0">&quot;subreport_ds&quot;</span>, <span class="kw2">new</span> JRBeanCollectionDataSource<span class="br0">&#40;</span>getProject<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getProducts</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>           <span class="co1">// 2</span>
+        parameters.<span class="me1">put</span><span class="br0">(</span><span class="st0">"subreport_report"</span>, JasperCompileManager.<span
+class="me1">compileReport</span><span class="br0">(</span>JRUtils.<span class="kw2">class</span>.<span
+class="me1">getResourceAsStream</span><span class="br0">(</span><span class="st0">"/Project_products.jrxml"</span><span
+class="br0">)</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span
+class="co1">// 1</span>
+        parameters.<span class="me1">put</span><span class="br0">(</span><span class="st0">"subreport_ds"</span>, <span
+class="kw2">new</span> JRBeanCollectionDataSource<span class="br0">(</span>getProject<span
+class="br0">(</span><span class="br0">)</span>.<span class="me1">getProducts</span><span
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span><span
+class="sy0">;</span>           <span class="co1">// 2</span>
         <span class="kw2">return</span> parameters<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="br0">}</span>
     ...</pre>
-
-1- Replace by the path to your subreport.<br />
-2- Any Collection is valid. The fields of the subreport refer to the properties of the collection members.<br />
-<br />
-<h2 id="toc12"><a name="How to ...-How to define a JavaScript-based action?"></a>How to define a JavaScript-based action?</h2>
- One use case could be, for example, to be able to click on a button (in a 'detail' page) to execute some custom JavaScript code.<br />
-<br />
-To do so, you need OpenXava version N&gt;=4, and you have to write a IForwardAction whose uri stars with &quot;javascript:&quot;<br />
-
-<style type="text/css"><!--
+      1- Replace by the path to your subreport.<br>
+      2- Any Collection is valid. The fields of the subreport refer to the
+      properties of the collection members.<br>
+      <br>
+      <h2 id="toc12"><a name="How to ...-How to define a JavaScript-based action?"></a>How
+        to define a JavaScript-based action?</h2>
+      One use case could be, for example, to be able to click on a button (in a
+      'detail' page) to execute some custom JavaScript code.<br>
+      <br>
+      To do so, you need OpenXava version N&gt;=4, and you have to write a
+      IForwardAction whose uri stars with "javascript:"<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -3169,7 +3368,7 @@ To do so, you need OpenXava version N&gt;=4, and you have to write a IForwardAct
 </style><pre class="xml">public class GoToGoogleAction implements IForwardAction {
 &nbsp;
   public String getForwardURI() {
-    return &quot;javascript:top.location=\&quot;http://www.google.fr\&quot;&quot;;
+    return "javascript:top.location=\"http://www.google.fr\"";
   }
 &nbsp;
   public boolean inNewWindow() {
@@ -3178,12 +3377,12 @@ To do so, you need OpenXava version N&gt;=4, and you have to write a IForwardAct
   ...
 }
 &nbsp;</pre>
-
-Other IForwardAction methods could remain empty, or auto-generated if you like.<br />
-<br />
-Since v5.9 you can implements <em>IPostJavaScriptAction</em>, that after the regular action execution executes your JavaScript code:<br />
-
-<style type="text/css"><!--
+      Other IForwardAction methods could remain empty, or auto-generated if you
+      like.<br>
+      <br>
+      Since v5.9 you can implements <em>IPostJavaScriptAction</em>, that after
+      the regular action execution executes your JavaScript code:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -3196,21 +3395,24 @@ Since v5.9 you can implements <em>IPostJavaScriptAction</em>, that after the reg
 </style><pre class="text">public class MyJavaScriptAction extends BaseAction implements IJavaScriptPostAction {
 &nbsp;
     public void execute() throws Exception {
-        addMessage(&quot;Hello, I'm Java&quot;);
+        addMessage("Hello, I'm Java");
     }
 &nbsp;
     public String getPostJavaScript() {
-        return &quot;alert('Hello, I am JavaScript')&quot;;
+        return "alert('Hello, I am JavaScript')";
     }
 &nbsp;
 }</pre>
-
-Unlike <em>IForwardAction</em> to <em>javascript:</em> in <em>IPostJavaScriptAction</em> the JavaScript is executed when the view is completely updated after regular Java execution.<br />
-<br />
-<h2 id="toc13"><a name="How to ...-How to remove PDF + Excel export actions in GUI ?"></a>How to remove PDF + Excel export actions in GUI ?</h2>
- These actions are defined by the 'Print' controller. All controllers inherits these actions from the default controller, named 'Typical', that extends the 'Print' controller:<br />
-
-<style type="text/css"><!--
+      Unlike <em>IForwardAction</em> to <em>javascript:</em> in <em>IPostJavaScriptAction</em>
+      the JavaScript is executed when the view is completely updated after
+      regular Java execution.<br>
+      <br>
+      <h2 id="toc13"><a name="How to ...-How to remove PDF + Excel export actions in GUI ?"></a>How
+        to remove PDF + Excel export actions in GUI ?</h2>
+      These actions are defined by the 'Print' controller. All controllers
+      inherits these actions from the default controller, named 'Typical', that
+      extends the 'Print' controller:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -3232,19 +3434,22 @@ Unlike <em>IForwardAction</em> to <em>javascript:</em> in <em>IPostJavaScriptAct
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span class="st0">&quot;Navigation&quot;</span><span class="re2">/&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span class="st0">&quot;CRUD&quot;</span><span class="re2">/&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span class="st0">&quot;Print&quot;</span><span class="re2">/&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+class="re0">name</span>=<span class="st0">"Typical"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+class="st0">"Navigation"</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+class="st0">"CRUD"</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+class="st0">"Print"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span>
 &nbsp;
 &nbsp;</pre>
-
-So, these actions are available by default to all controllers.<br />
-<br />
-One way to remove them for all GUI is to redefine the 'Typical' controller in controllers.xml:<br />
-
-<style type="text/css"><!--
+      So, these actions are available by default to all controllers.<br>
+      <br>
+      One way to remove them for all GUI is to redefine the 'Typical' controller
+      in controllers.xml:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -3266,16 +3471,19 @@ One way to remove them for all GUI is to redefine the 'Typical' controller in co
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span class="st0">&quot;Navigation&quot;</span><span class="re2">/&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span class="st0">&quot;CRUD&quot;</span><span class="re2">/&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+class="re0">name</span>=<span class="st0">"Typical"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+class="st0">"Navigation"</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+class="st0">"CRUD"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span>
 &nbsp;
 &nbsp;</pre>
-
-But, still, these PDF + Excel export actions remain for collections within a business class. It's due to the 'DefaultListActionsForCollections' controller that extends the 'Print' controller too:<br />
-
-<style type="text/css"><!--
+      But, still, these PDF + Excel export actions remain for collections within
+      a business class. It's due to the 'DefaultListActionsForCollections'
+      controller that extends the 'Print' controller too:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -3297,14 +3505,17 @@ But, still, these PDF + Excel export actions remain for collections within a bus
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;DefaultListActionsForCollections&quot;</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span class="st0">&quot;Print&quot;</span><span class="re2">/&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+class="re0">name</span>=<span class="st0">"DefaultListActionsForCollections"</span><span
+class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+class="st0">"Print"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span>
 &nbsp;</pre>
-
-So, in order to remove these PDF + Excel export actions always for embedded collections is to redefine the 'DefaultListActionsForCollections' controller:<br />
-
-<style type="text/css"><!--
+      So, in order to remove these PDF + Excel export actions always for
+      embedded collections is to redefine the 'DefaultListActionsForCollections'
+      controller:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -3326,18 +3537,24 @@ So, in order to remove these PDF + Excel export actions always for embedded coll
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;DefaultListActionsForCollections&quot;</span><span class="re2">&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+class="re0">name</span>=<span class="st0">"DefaultListActionsForCollections"</span><span
+class="re2">&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span>
 &nbsp;</pre>
-
-And then, no PDF + Excel export action appear.<br />
-<h2 id="toc14"><a name="How to ...-How to modify the parameters of the default reports?"></a>How to modify the parameters of the default reports?</h2>
- We can change the parameters of the default report by code. In this case we change the organization name:<br />
-<img src="files/default_report.GIF" alt="default_report.GIF" title="default_report.GIF" style="height: 107px; width: 800px;" /><br />
-By default this organization name is collected from 'xava.organization' value in the i18n files, but we modify it to that this organization name is collected from a variable value.<br />
-Just create a new class that implements to <em>IReportParametersProvider</em> and add the code that you need to the 'getOrganization()' method:<br />
-
-<style type="text/css"><!--
+      And then, no PDF + Excel export action appear.<br>
+      <h2 id="toc14"><a name="How to ...-How to modify the parameters of the default reports?"></a>How
+        to modify the parameters of the default reports?</h2>
+      We can change the parameters of the default report by code. In this case
+      we change the organization name:<br>
+      <img src="files/default_report.GIF" alt="default_report.GIF" title="default_report.GIF"
+        style="height: 107px; width: 800px;"><br>
+      By default this organization name is collected from 'xava.organization'
+      value in the i18n files, but we modify it to that this organization name
+      is collected from a variable value.<br>
+      Just create a new class that implements to <em>IReportParametersProvider</em>
+      and add the code that you need to the 'getOrganization()' method:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -3526,21 +3743,25 @@ Just create a new class that implements to <em>IReportParametersProvider</em> an
 -->
 </style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.util</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
+class="sy0">;</span>
 &nbsp;
 <span class="co3">/**
  */</span>
-<span class="kw2">class</span> MyReportParametersProvider <span class="kw2">implements</span> IReportParametersProvider <span class="br0">&#123;</span>
+<span class="kw2">class</span> MyReportParametersProvider <span class="kw2">implements</span> IReportParametersProvider <span
+class="br0">{</span>
 &nbsp;
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getOrganization<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        <span class="kw2">return</span> <span class="st0">&quot;report to &quot;</span> + Users.<span class="me1">getCurrent</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
-    <span class="br0">&#125;</span>
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getOrganization<span class="br0">(</span><span class="br0">)</span> <span
+class="br0">{</span>
+        <span class="kw2">return</span> <span class="st0">"report to "</span> + Users.<span
+class="me1">getCurrent</span><span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">}</span>
 &nbsp;
-<span class="br0">&#125;</span></pre>
-
-To finish add in your 'xava.properties' file a new line with the class to use:<br />
-
-<style type="text/css"><!--
+<span class="br0">}</span></pre>
+      To finish add in your 'xava.properties' file a new line with the class to
+      use:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -3727,24 +3948,43 @@ To finish add in your 'xava.properties' file a new line with the class to use:<b
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">reportParametersProviderClass=org.<span class="me1">openxava</span>.<span class="me1">test</span>.<span class="me1">util</span>.<span class="me1">MyReportParametersProvider</span>
+</style><pre class="java5">reportParametersProviderClass=org.<span class="me1">openxava</span>.<span
+class="me1">test</span>.<span class="me1">util</span>.<span class="me1">MyReportParametersProvider</span>
 &nbsp;</pre>
-
-<br />
-<h2 id="toc15"><a name="How to ...-How to generate HTML reports?"></a>How to generate HTML reports?</h2>
- One option is to forward to a JSP that generates the HTML report, you can do it by means of <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/IForwardAction.html" rel="nofollow">IForwardAction</a>.</em> Another option is using the <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/SimpleHTMLReportAction.html" rel="nofollow">SimpleHTMLReportAction</a></em> action (<em>since v4.3</em>) that allows you to work with simple HTML templates.<br />
-<br />
-<h2 id="toc16"><a name="How to ...-How to generate several reports from a single action?"></a>How to generate several reports from a single action?</h2>
- Just extend your action from <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/JasperMultipleReportBaseAction.html" rel="nofollow">JasperMultipleReportBaseAction</a> (new in v4.3)</em>. For an example look at <em>InvoiceTwoReportsAction</em> of <em>OpenXavaTest</em>.<br />
-<br />
-<h2 id="toc17"><a name="How to ...-How to merge multiple reports in one PDF?"></a>How to merge multiple reports in one PDF?</h2>
- Just extend your action from <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/JasperConcatReportBaseAction.html" rel="nofollow">JasperConcatReportBaseAction</a> (new in v5.0)</em>. Useful when you need to concatenate several reports with different page formats (landscape, portrait). There is an example at <em>MovieReportAction</em> of <em>OpenXavaTest</em>.<br />
-<br />
-<h2 id="toc18"><a name="How to ...-How to add your own portlets to your OpenXava application (new in v4.6)?"></a>How to add your own portlets to your OpenXava application <em>(new in v4.6)</em>?</h2>
- For adding your own portlets to your OX application do not modify the <em>portlet.xml</em> file, instead you can create a <em>portlet-ext.xml</em> (with <em>portlet</em> elements) and a <em>liferay-display-ext.xml</em> (with <em>portlet</em> elements) in the WEB-INF folder.<br />
-For example, if you want to add a portlet called <em>VersionPortlet</em>, just create a <em>portlet-ext.xml</em> file in WEB-INF with the next content:<br />
-
-<style type="text/css"><!--
+      <br>
+      <h2 id="toc15"><a name="How to ...-How to generate HTML reports?"></a>How
+        to generate HTML reports?</h2>
+      One option is to forward to a JSP that generates the HTML report, you can
+      do it by means of <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/IForwardAction.html"
+          rel="nofollow">IForwardAction</a>.</em> Another option is using the <em><a
+          class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/SimpleHTMLReportAction.html"
+          rel="nofollow">SimpleHTMLReportAction</a></em> action (<em>since v4.3</em>)
+      that allows you to work with simple HTML templates.<br>
+      <br>
+      <h2 id="toc16"><a name="How to ...-How to generate several reports from a single action?"></a>How
+        to generate several reports from a single action?</h2>
+      Just extend your action from <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/JasperMultipleReportBaseAction.html"
+          rel="nofollow">JasperMultipleReportBaseAction</a> (new in v4.3)</em>.
+      For an example look at <em>InvoiceTwoReportsAction</em> of <em>OpenXavaTest</em>.<br>
+      <br>
+      <h2 id="toc17"><a name="How to ...-How to merge multiple reports in one PDF?"></a>How
+        to merge multiple reports in one PDF?</h2>
+      Just extend your action from <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/JasperConcatReportBaseAction.html"
+          rel="nofollow">JasperConcatReportBaseAction</a> (new in v5.0)</em>.
+      Useful when you need to concatenate several reports with different page
+      formats (landscape, portrait). There is an example at <em>MovieReportAction</em>
+      of <em>OpenXavaTest</em>.<br>
+      <br>
+      <h2 id="toc18"><a name="How to ...-How to add your own portlets to your OpenXava application (new in v4.6)?"></a>How
+        to add your own portlets to your OpenXava application <em>(new in v4.6)</em>?</h2>
+      For adding your own portlets to your OX application do not modify the <em>portlet.xml</em>
+      file, instead you can create a <em>portlet-ext.xml</em> (with <em>portlet</em>
+      elements) and a <em>liferay-display-ext.xml</em> (with <em>portlet</em>
+      elements) in the WEB-INF folder.<br>
+      For example, if you want to add a portlet called <em>VersionPortlet</em>,
+      just create a <em>portlet-ext.xml</em> file in WEB-INF with the next
+      content:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -3766,32 +4006,58 @@ For example, if you want to add a portlet called <em>VersionPortlet</em>, just c
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;portlet</span> <span class="re0">id</span>=<span class="st0">&quot;Version&quot;</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;description<span class="re2">&gt;</span></span></span>OpenXavaTest - Version<span class="sc3"><span class="re1">&lt;/description<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;description</span> <span class="re0">xml:lang</span>=<span class="st0">&quot;ca&quot;</span><span class="re2">&gt;</span></span>OpenXavaTest - Versió<span class="sc3"><span class="re1">&lt;/description<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;description</span> <span class="re0">xml:lang</span>=<span class="st0">&quot;es&quot;</span><span class="re2">&gt;</span></span>OpenXavaTest - Versión<span class="sc3"><span class="re1">&lt;/description<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;description</span> <span class="re0">xml:lang</span>=<span class="st0">&quot;fr&quot;</span><span class="re2">&gt;</span></span>OpenXavaTest - Version<span class="sc3"><span class="re1">&lt;/description<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;portlet-name<span class="re2">&gt;</span></span></span>Version<span class="sc3"><span class="re1">&lt;/portlet-name<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;display-name<span class="re2">&gt;</span></span></span>OpenXava - Version<span class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;display-name</span> <span class="re0">xml:lang</span>=<span class="st0">&quot;ca&quot;</span><span class="re2">&gt;</span></span>OpenXavaTest - Versió<span class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;display-name</span> <span class="re0">xml:lang</span>=<span class="st0">&quot;es&quot;</span><span class="re2">&gt;</span></span>OpenXavaTest - Versión<span class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;display-name</span> <span class="re0">xml:lang</span>=<span class="st0">&quot;fr&quot;</span><span class="re2">&gt;</span></span>OpenXavaTest - Version<span class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;portlet-class<span class="re2">&gt;</span></span></span>org.openxava.test.portlets.VersionPortlet<span class="sc3"><span class="re1">&lt;/portlet-class<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;expiration-cache<span class="re2">&gt;</span></span></span>0<span class="sc3"><span class="re1">&lt;/expiration-cache<span class="re2">&gt;</span></span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;portlet</span> <span
+class="re0">id</span>=<span class="st0">"Version"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;description<span class="re2">&gt;</span></span></span>OpenXavaTest - Version<span
+class="sc3"><span class="re1">&lt;/description<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;description</span> <span class="re0">xml:lang</span>=<span
+class="st0">"ca"</span><span class="re2">&gt;</span></span>OpenXavaTest - Versió<span
+class="sc3"><span class="re1">&lt;/description<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;description</span> <span class="re0">xml:lang</span>=<span
+class="st0">"es"</span><span class="re2">&gt;</span></span>OpenXavaTest - Versión<span
+class="sc3"><span class="re1">&lt;/description<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;description</span> <span class="re0">xml:lang</span>=<span
+class="st0">"fr"</span><span class="re2">&gt;</span></span>OpenXavaTest - Version<span
+class="sc3"><span class="re1">&lt;/description<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;portlet-name<span class="re2">&gt;</span></span></span>Version<span
+class="sc3"><span class="re1">&lt;/portlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;display-name<span class="re2">&gt;</span></span></span>OpenXava - Version<span
+class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;display-name</span> <span class="re0">xml:lang</span>=<span
+class="st0">"ca"</span><span class="re2">&gt;</span></span>OpenXavaTest - Versió<span
+class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;display-name</span> <span class="re0">xml:lang</span>=<span
+class="st0">"es"</span><span class="re2">&gt;</span></span>OpenXavaTest - Versión<span
+class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;display-name</span> <span class="re0">xml:lang</span>=<span
+class="st0">"fr"</span><span class="re2">&gt;</span></span>OpenXavaTest - Version<span
+class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;portlet-class<span class="re2">&gt;</span></span></span>org.openxava.test.portlets.VersionPortlet<span
+class="sc3"><span class="re1">&lt;/portlet-class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;expiration-cache<span class="re2">&gt;</span></span></span>0<span
+class="sc3"><span class="re1">&lt;/expiration-cache<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;supports<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;mime-type<span class="re2">&gt;</span></span></span>text/html<span class="sc3"><span class="re1">&lt;/mime-type<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;portlet-mode<span class="re2">&gt;</span></span></span>VIEW<span class="sc3"><span class="re1">&lt;/portlet-mode<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;mime-type<span class="re2">&gt;</span></span></span>text/html<span
+class="sc3"><span class="re1">&lt;/mime-type<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;portlet-mode<span class="re2">&gt;</span></span></span>VIEW<span
+class="sc3"><span class="re1">&lt;/portlet-mode<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/supports<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;supported-locale<span class="re2">&gt;</span></span></span>ca<span class="sc3"><span class="re1">&lt;/supported-locale<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;supported-locale<span class="re2">&gt;</span></span></span>es<span class="sc3"><span class="re1">&lt;/supported-locale<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;supported-locale<span class="re2">&gt;</span></span></span>en<span class="sc3"><span class="re1">&lt;/supported-locale<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;supported-locale<span class="re2">&gt;</span></span></span>fr<span class="sc3"><span class="re1">&lt;/supported-locale<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;resource-bundle<span class="re2">&gt;</span></span></span>portlets/Version<span class="sc3"><span class="re1">&lt;/resource-bundle<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;supported-locale<span class="re2">&gt;</span></span></span>ca<span
+class="sc3"><span class="re1">&lt;/supported-locale<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;supported-locale<span class="re2">&gt;</span></span></span>es<span
+class="sc3"><span class="re1">&lt;/supported-locale<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;supported-locale<span class="re2">&gt;</span></span></span>en<span
+class="sc3"><span class="re1">&lt;/supported-locale<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;supported-locale<span class="re2">&gt;</span></span></span>fr<span
+class="sc3"><span class="re1">&lt;/supported-locale<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;resource-bundle<span class="re2">&gt;</span></span></span>portlets/Version<span
+class="sc3"><span class="re1">&lt;/resource-bundle<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/portlet<span class="re2">&gt;</span></span></span></pre>
-
-If you are using Liferay you can optionally create the <em>liferay-display-ext.xml</em> file to add entries to <em>liferay-display.xml</em> file. So, for the above portlet you can write a <em>liferay-display-ext.xml</em> with the next content:<br />
-
-<style type="text/css"><!--
+      If you are using Liferay you can optionally create the <em>liferay-display-ext.xml</em>
+      file to add entries to <em>liferay-display.xml</em> file. So, for the
+      above portlet you can write a <em>liferay-display-ext.xml</em> with the
+      next content:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -3813,13 +4079,15 @@ If you are using Liferay you can optionally create the <em>liferay-display-ext.x
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;portlet</span> <span class="re0">id</span>=<span class="st0">&quot;Version&quot;</span> <span class="re2">/&gt;</span></span></pre>
-
-This fragment will be automatically inserted in <em>liferay-display.xml</em> when you call to <em>generatePortlets</em> ant task.<br />
-<br />
-Moreover, you have to write the resorce files, in this case you have to write <em>Version_ca.properties</em>, <em>Version_es.properties</em>, <em>Version_en.properties</em> and <em>Version_fr.properties</em>. Here there is a example for <em>Version_en.properties</em>:<br />
-
-<style type="text/css"><!--
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;portlet</span> <span
+class="re0">id</span>=<span class="st0">"Version"</span> <span class="re2">/&gt;</span></span></pre>
+      This fragment will be automatically inserted in <em>liferay-display.xml</em>
+      when you call to <em>generatePortlets</em> ant task.<br>
+      <br>
+      Moreover, you have to write the resorce files, in this case you have to
+      write <em>Version_ca.properties</em>, <em>Version_es.properties</em>, <em>Version_en.properties</em>
+      and <em>Version_fr.properties</em>. Here there is a example for <em>Version_en.properties</em>:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -3844,11 +4112,9 @@ Moreover, you have to write the resorce files, in this case you have to write <e
 </style><pre class="xml">javax.portlet.short-title=Version
 javax.portlet.title=OpenXavaTest - Version
 category.OpenXavaTest=OpenXavaTest</pre>
-
-<br />
-And, of course, you need to write the code for your portlet, in this case:<br />
-
-<style type="text/css"><!--
+      <br>
+      And, of course, you need to write the code for your portlet, in this case:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -4035,38 +4301,64 @@ And, of course, you need to write the code for your portlet, in this case:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.portlets</span><span class="sy0">;</span>
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.portlets</span><span
+class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.io.*</span><span class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">javax.portlet.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.controller.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.controller.*</span><span
+class="sy0">;</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> VersionPortlet <span class="kw2">extends</span> GenericPortlet <span class="br0">&#123;</span>
+<span class="kw2">public</span> <span class="kw2">class</span> VersionPortlet <span
+class="kw2">extends</span> GenericPortlet <span class="br0">{</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> doView<span class="br0">&#40;</span>RenderRequest request, RenderResponse response<span class="br0">&#41;</span> <span class="kw2">throws</span> PortletException, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/IOException.html"><span class="kw20">IOException</span></a> <span class="br0">&#123;</span>
-        response.<span class="me1">setContentType</span><span class="br0">&#40;</span><span class="st0">&quot;text/html&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        response.<span class="me1">getWriter</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;table border=<span class="es0">\&quot;</span>0<span class="es0">\&quot;</span>&gt;&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        writeVersion<span class="br0">&#40;</span>response.<span class="me1">getWriter</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, <span class="st0">&quot;The version of OpenXava is&quot;</span>, ModuleManager.<span class="me1">getVersion</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        response.<span class="me1">getWriter</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/table&gt;&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> doView<span class="br0">(</span>RenderRequest request, RenderResponse response<span
+class="br0">)</span> <span class="kw2">throws</span> PortletException, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/IOException.html"><span
+class="kw20">IOException</span></a> <span class="br0">{</span>
+        response.<span class="me1">setContentType</span><span class="br0">(</span><span
+class="st0">"text/html"</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">getWriter</span><span class="br0">(</span><span
+class="br0">)</span>.<span class="me1">write</span><span class="br0">(</span><span
+class="st0">"&lt;table border=<span class="es0">\"</span>0<span class="es0">\"</span>&gt;"</span><span
+class="br0">)</span><span class="sy0">;</span>
+        writeVersion<span class="br0">(</span>response.<span class="me1">getWriter</span><span
+class="br0">(</span><span class="br0">)</span>, <span class="st0">"The version of OpenXava is"</span>, ModuleManager.<span
+class="me1">getVersion</span><span class="br0">(</span><span class="br0">)</span><span
+class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">getWriter</span><span class="br0">(</span><span
+class="br0">)</span>.<span class="me1">write</span><span class="br0">(</span><span
+class="st0">"&lt;/table&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw3">void</span> writeVersion<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/PrintWriter.html"><span class="kw20">PrintWriter</span></a> out, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> unit, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> version<span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        out.<span class="me1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;tr&gt;&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        out.<span class="me1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;td style=<span class="es0">\&quot;</span>padding: 2px 5px 2px 5px;<span class="es0">\&quot;</span>&gt;&lt;b&gt;&quot;</span> + unit + <span class="st0">&quot;&lt;/b&gt;&lt;/td&gt;&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        out.<span class="me1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;td style=<span class="es0">\&quot;</span>padding: 2px 5px 2px 5px;<span class="es0">\&quot;</span>&gt;v&quot;</span> + version + <span class="st0">&quot;&lt;/td&gt;&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        out.<span class="me1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/tr&gt;&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">private</span> <span class="kw3">void</span> writeVersion<span
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/PrintWriter.html"><span
+class="kw20">PrintWriter</span></a> out, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> unit, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> version<span class="br0">)</span> <span class="br0">{</span>
+        out.<span class="me1">write</span><span class="br0">(</span><span class="st0">"&lt;tr&gt;"</span><span
+class="br0">)</span><span class="sy0">;</span>
+        out.<span class="me1">write</span><span class="br0">(</span><span class="st0">"&lt;td style=<span
+class="es0">\"</span>padding: 2px 5px 2px 5px;<span class="es0">\"</span>&gt;&lt;b&gt;"</span> + unit + <span
+class="st0">"&lt;/b&gt;&lt;/td&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
+        out.<span class="me1">write</span><span class="br0">(</span><span class="st0">"&lt;td style=<span
+class="es0">\"</span>padding: 2px 5px 2px 5px;<span class="es0">\"</span>&gt;v"</span> + version + <span
+class="st0">"&lt;/td&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
+        out.<span class="me1">write</span><span class="br0">(</span><span class="st0">"&lt;/tr&gt;"</span><span
+class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
-<span class="br0">&#125;</span></pre>
-
-<br />
-<h2 id="toc19"><a name="How to ...-How to define your own content for the Welcome page and the First Steps page (new in v5.0)?"></a>How to define your own content for the Welcome page and the First Steps page <em>(new in v5.0)</em>?</h2>
- Just edit <em>web/naviox/welcome.jsp</em> and <em>web/naviox/firstSteps.jsp</em> in your project.<br />
-<br />
-<h2 id="toc20"><a name="How to ...-How to access to the View object from a custom JSP?"></a>How to access to the View object from a custom JSP?</h2>
- In our JSP we have to add the next lines:<br />
-
-<style type="text/css"><!--
+<span class="br0">}</span></pre>
+      <br>
+      <h2 id="toc19"><a name="How to ...-How to define your own content for the Welcome page and the First Steps page (new in v5.0)?"></a>How
+        to define your own content for the Welcome page and the First Steps page
+        <em>(new in v5.0)</em>?</h2>
+      Just edit <em>web/naviox/welcome.jsp</em> and <em>web/naviox/firstSteps.jsp</em>
+      in your project.<br>
+      <br>
+      <h2 id="toc20"><a name="How to ...-How to access to the View object from a custom JSP?"></a>How
+        to access to the View object from a custom JSP?</h2>
+      In our JSP we have to add the next lines:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -4253,19 +4545,34 @@ And, of course, you need to write the code for your portlet, in this case:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="sy0">&lt;</span>jsp:useBean id=<span class="st0">&quot;context&quot;</span> <span class="kw2">class</span>=<span class="st0">&quot;org.openxava.controller.ModuleContext&quot;</span> scope=<span class="st0">&quot;session&quot;</span>/<span class="sy0">&gt;</span>
+</style><pre class="java5"><span class="sy0">&lt;</span>jsp:useBean id=<span class="st0">"context"</span> <span
+class="kw2">class</span>=<span class="st0">"org.openxava.controller.ModuleContext"</span> scope=<span
+class="st0">"session"</span>/<span class="sy0">&gt;</span>
 <span class="sy0">&lt;%</span>
 &nbsp;
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> viewObject = request.<span class="me1">getParameter</span><span class="br0">&#40;</span><span class="st0">&quot;viewObject&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    viewObject = <span class="br0">&#40;</span>viewObject == <span class="kw4">null</span> || viewObject.<span class="me1">equals</span><span class="br0">&#40;</span><span class="st0">&quot;&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">?</span><span class="st0">&quot;xava_view&quot;</span>:viewObject<span class="sy0">;</span>
-    org.<span class="me1">openxava</span>.<span class="me1">view</span>.<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span class="kw116">View</span></a> view = <span class="br0">&#40;</span>org.<span class="me1">openxava</span>.<span class="me1">view</span>.<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span class="kw116">View</span></a><span class="br0">&#41;</span> context.<span class="me1">get</span><span class="br0">&#40;</span>request, viewObject<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> viewObject = request.<span class="me1">getParameter</span><span
+class="br0">(</span><span class="st0">"viewObject"</span><span class="br0">)</span><span
+class="sy0">;</span>
+    viewObject = <span class="br0">(</span>viewObject == <span class="kw4">null</span> || viewObject.<span
+class="me1">equals</span><span class="br0">(</span><span class="st0">""</span><span
+class="br0">)</span><span class="br0">)</span><span class="sy0">?</span><span class="st0">"xava_view"</span>:viewObject<span
+class="sy0">;</span>
+    org.<span class="me1">openxava</span>.<span class="me1">view</span>.<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+class="kw116">View</span></a> view = <span class="br0">(</span>org.<span class="me1">openxava</span>.<span
+class="me1">view</span>.<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+class="kw116">View</span></a><span class="br0">)</span> context.<span class="me1">get</span><span
+class="br0">(</span>request, viewObject<span class="br0">)</span><span class="sy0">;</span>
 &nbsp;
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/System.html"><span class="kw21">System</span></a>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;modelo: &quot;</span> + view.<span class="me1">getModelName</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Here we use view</span></pre>
-
-<h2 id="toc21"><a name="How to ...-How to generate real Excel instead of CSV in all my modules (new in v5.5)?"></a>How to generate real Excel instead of CSV in all my modules (<em>new in v5.5</em>)?</h2>
- Add this to your <em>application.xml</em>:<br />
-
-<style type="text/css"><!--
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/System.html"><span
+class="kw21">System</span></a>.<span class="me1">out</span>.<span class="me1">println</span><span
+class="br0">(</span><span class="st0">"modelo: "</span> + view.<span class="me1">getModelName</span><span
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span
+class="co1">// Here we use view</span></pre>
+      <h2 id="toc21"><a name="How to ...-How to generate real Excel instead of CSV in all my modules (new in v5.5)?"></a>How
+        to generate real Excel instead of CSV in all my modules (<em>new in v5.5</em>)?</h2>
+      Add this to your <em>application.xml</em>:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -4453,14 +4760,17 @@ And, of course, you need to write the code for your portlet, in this case:<br />
 
 -->
 </style><pre class="java5"><span class="sy0">&lt;</span>default-module<span class="sy0">&gt;</span>
-    <span class="sy0">&lt;</span>controller name=<span class="st0">&quot;TypicalRealExcel&quot;</span>/<span class="sy0">&gt;</span>
+    <span class="sy0">&lt;</span>controller name=<span class="st0">"TypicalRealExcel"</span>/<span
+class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>/default-module<span class="sy0">&gt;</span></pre>
-
-Moreover, in your own controllers you have to extend from <em>TypicalRealExcel</em> instead from <em>Typical</em>.<br />
-<h2 id="toc22"><a name="How to ...-How to forward to a page in a new window without reloading the current page?"></a>How to forward to a page in a new window without reloading the current page?</h2>
- Reloading the current page is the correct behavior because in your action you could modify the view, add messages, etc. Anyways, if you want forwaring without reloading it's possible using JavaScript, in this way:<br />
-
-<style type="text/css"><!--
+      Moreover, in your own controllers you have to extend from <em>TypicalRealExcel</em>
+      instead from <em>Typical</em>.<br>
+      <h2 id="toc22"><a name="How to ...-How to forward to a page in a new window without reloading the current page?"></a>How
+        to forward to a page in a new window without reloading the current page?</h2>
+      Reloading the current page is the correct behavior because in your action
+      you could modify the view, add messages, etc. Anyways, if you want
+      forwaring without reloading it's possible using JavaScript, in this way:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -4647,27 +4957,47 @@ Moreover, in your own controllers you have to extend from <em>TypicalRealExcel</
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.provaox.actions</span><span class="sy0">;</span>
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.provaox.actions</span><span
+class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span
+class="sy0">;</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> ForwardWithoutReloadingAction <span class="kw2">extends</span> BaseAction <span class="kw2">implements</span> IForwardAction <span class="br0">&#123;</span>
+<span class="kw2">public</span> <span class="kw2">class</span> ForwardWithoutReloadingAction <span
+class="kw2">extends</span> BaseAction <span class="kw2">implements</span> IForwardAction <span
+class="br0">{</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> <span class="br0">&#123;</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+class="kw21">Exception</span></a> <span class="br0">{</span>
         <span class="co1">// Do something, if you want</span>
-    <span class="br0">&#125;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> inNewWindow<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span> <span class="co1">// Because we'll open the window ourselves using JavaScript</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw3">boolean</span> inNewWindow<span
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span> <span
+class="co1">// Because we'll open the window ourselves using JavaScript</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getForwardURI<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        <span class="kw2">return</span> <span class="st0">&quot;javascript:void(window.open('/MyApplication/myurl'))&quot;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getForwardURI<span class="br0">(</span><span class="br0">)</span> <span
+class="br0">{</span>
+        <span class="kw2">return</span> <span class="st0">"javascript:void(window.open('/MyApplication/myurl'))"</span><span
+class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
-<span class="br0">&#125;</span></pre>
-
-
+<span class="br0">}<br></span></pre>
     </div>
+    <div class="wiki" style="display: block;"> <a name="openxava-and-addons-projects-in-different-folder"></a>
+      <h2>How to have OpenXava and Addons projects in a different folder than
+        your own project <i>(new in v6.1.1)</i>?</h2>
+      By default <i>Addons</i> and <i>OpenXava</i> projects have to be in the
+      same directory (the workspace base directory) than your own project.
+      However, since v6.1.1 you can specify a different directory for the <i>OpenXava</i>
+      and <i>Addons</i> projects. Just add (or modify) the property <i>openxava.base.dir</i>
+      in the <i>build.xml</i> of your project:
+      <pre>&lt;property name="openxava.base.dir" value="/home/john/my-openxava"/&gt;</pre>
+      In this way your project will use the <i>OpenXava </i>and <i>Addons </i>projects
+      from <i>/home/john/my-openxava</i> directory.</div>
   </body>
 </html>
