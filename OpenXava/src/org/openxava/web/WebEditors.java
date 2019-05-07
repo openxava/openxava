@@ -137,7 +137,9 @@ public class WebEditors {
 	
 	public static Object formatTitle(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException { 
 		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);
+		System.out.println("[WebEditors.formatTitle] result=" + result); // tmp
 		if (result != null && hasMarkup(result)) {
+			System.out.println("[WebEditors.formatTitle] p.getLabel()=" + p.getLabel()); // tmp
 			return p.getLabel(); 
 		}
 		return result; 		
