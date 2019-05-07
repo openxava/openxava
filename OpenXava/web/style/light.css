@@ -28,7 +28,7 @@ a:hover {
 	text-decoration: underline;
 }
 
-input, textarea {
+.ipad input, .ipad textarea, .iphone input, .iphone textarea {
   -webkit-appearance: none;
 }
 
@@ -345,7 +345,7 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 }
 
 .ox-radio-buttons {
-	margin: 10px 0px 10px 0px;
+	margin: 5px 0px 0px 0px; 
 }
 
 input[type="radio"] {

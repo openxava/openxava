@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Radio buttons are not displayed.
 - Fix: updateSchema produces an error of user and password not specified.
 - New openxava.base.dir property available in build.xml to have OpenXava/Addons in a different folder.
 - Fix: updateOX fails to update the Addons jar in windows from time to time.
