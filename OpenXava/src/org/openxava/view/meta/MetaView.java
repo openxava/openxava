@@ -83,6 +83,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 	
 	public void addMetaViewProperty(MetaPropertyView metaPropertyView) throws XavaException {
+		System.out.println("[MetaView(" + getModelName() + ":" + getName() + ").addMetaViewProperty(" + metaPropertyView.getPropertyName() + ")] existsPropety=" + existsPropety(metaPropertyView.getPropertyName())); // tmp
 		if (metaViewsProperties == null) metaViewsProperties = new HashMap();
 		else {
 			if (metaViewsProperties.containsKey(metaPropertyView.getPropertyName())) {
@@ -132,6 +133,16 @@ public class MetaView extends MetaElement implements Cloneable {
 				throw new ElementNotFoundException("property_not_found_in_view", name, getName(), getModelName());
 			}
 			return p;
+		}
+	}
+	
+	private boolean existsPropety(String name) { // tmp
+		try {
+			getMetaProperty(name, true);
+			return true;
+		}
+		catch (ElementNotFoundException ex) {
+			return false;
 		}
 	}
 	
@@ -752,6 +763,8 @@ public class MetaView extends MetaElement implements Cloneable {
 				Iterator it = metaViewsProperties.values().iterator();
 				while (it.hasNext()) {
 					MetaPropertyView propertyView = (MetaPropertyView) it.next();
+					// TMP ME QUEDÉ POR AQUÍ: TEST HECHO, existsPropety() DA SIEMPRE FALSE, VIENDO POR QUE
+					System.out.println("[MetaView(" + getModelName() + ":" + getName() + ").getPropertiesNamesThrowOnChange] existsPropety(" + propertyView + ")=" + existsPropety(propertyView.getPropertyName())); // tmp
 					if (propertyView.hasOnChangeAction()) {
 						propertiesNamesThrowOnChange.add(propertyView.getPropertyName());
 					}
@@ -759,6 +772,8 @@ public class MetaView extends MetaElement implements Cloneable {
 				propertiesNamesThrowOnChange = Collections.unmodifiableCollection(propertiesNamesThrowOnChange);
 			} 			 
 		}
+		System.out.println("[MetaView.getPropertiesNamesThrowOnChange] metaViewsProperties=" + metaViewsProperties); // tmp
+		System.out.println("[MetaView.getPropertiesNamesThrowOnChange] propertiesNamesThrowOnChange=" + propertiesNamesThrowOnChange); // tmp
 		return propertiesNamesThrowOnChange;
 	}
 
