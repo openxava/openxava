@@ -1,0 +1,71 @@
+<!ELEMENT subcontroller EMPTY>
+<!ATTLIST subcontroller
+ controller CDATA #REQUIRED
+ image CDATA #IMPLIED
+ icon CDATA #IMPLIED
+ mode (detail|list|ALL|NONE) "ALL"
+>
+
+<!ELEMENT env-var EMPTY>
+<!ATTLIST env-var
+ name CDATA #REQUIRED
+ value CDATA #IMPLIED
+>
+
+<!ELEMENT object EMPTY>
+<!ATTLIST object
+ name CDATA #REQUIRED
+ class CDATA #REQUIRED
+ value CDATA #IMPLIED
+ scope (module|global) "module"
+>
+
+<!ELEMENT action (set*, use-object*)>
+<!ATTLIST action
+ name CDATA #REQUIRED
+ label CDATA #IMPLIED
+ description CDATA #IMPLIED
+ mode (detail|list|ALL|NONE) "ALL"
+ image CDATA #IMPLIED
+ icon CDATA #IMPLIED
+ keystroke CDATA #IMPLIED
+ class CDATA #REQUIRED
+ hidden (true|false) "false"
+ on-init (true|false) "false"
+ on-each-request (true|false) "false"
+ before-each-request (true|false) "false"
+ after-each-request (true|false) "false"
+ by-default (never|almost-never|if-possible|almost-always|always) "almost-never"
+ takes-long (true|false) "false"
+ confirm (true|false) "false"
+ in-each-row (true|false) "false"
+ process-selected-items (true|false) "false"
+ available-on-new (true|false) "true"
+>
+
+<!ELEMENT use-object EMPTY>
+<!ATTLIST use-object
+ name CDATA #REQUIRED
+ action-property CDATA #IMPLIED
+>
+
+<!ELEMENT set EMPTY>
+<!ATTLIST set
+ property CDATA #REQUIRED
+ value CDATA #REQUIRED
+>
+
+<!ELEMENT extends EMPTY>
+<!ATTLIST extends
+ controller CDATA #REQUIRED
+ excluded-actions CDATA #IMPLIED
+>
+
+<!ELEMENT controller (extends*, (action|subcontroller)*)>
+<!ATTLIST controller
+ name CDATA #REQUIRED
+ label CDATA #IMPLIED
+ image CDATA #IMPLIED
+ icon CDATA #IMPLIED
+>
+<!ELEMENT controllers (env-var*, object*, controller+)>

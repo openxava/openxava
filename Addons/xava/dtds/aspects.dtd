@@ -1,0 +1,40 @@
+<!ELEMENT aspects (aspect*, apply*)>
+
+<!ELEMENT aspect (postcreate-calculator*, postload-calculator*, postmodify-calculator*, preremove-calculator*)>
+<!ATTLIST aspect
+  name CDATA #REQUIRED
+>
+
+<!ELEMENT apply EMPTY>
+<!ATTLIST apply
+  aspect CDATA #REQUIRED
+  for-models CDATA #IMPLIED
+  except-for-models CDATA #IMPLIED
+>
+
+<!ELEMENT postcreate-calculator (set*)>
+<!ATTLIST postcreate-calculator
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT postload-calculator (set*)>
+<!ATTLIST postload-calculator
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT postmodify-calculator (set*)>
+<!ATTLIST postmodify-calculator
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT preremove-calculator (set*)>
+<!ATTLIST preremove-calculator
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT set EMPTY>
+<!ATTLIST set
+ property CDATA #REQUIRED
+ from CDATA #IMPLIED
+ value CDATA #IMPLIED 
+>
