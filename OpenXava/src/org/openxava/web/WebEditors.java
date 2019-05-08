@@ -2,7 +2,6 @@ package org.openxava.web;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +12,6 @@ import org.openxava.model.meta.MetaMember;
 import org.openxava.model.meta.MetaModel;
 import org.openxava.model.meta.MetaProperty;
 import org.openxava.model.meta.MetaReference;
-import org.openxava.tab.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.ElementNotFoundException;
 import org.openxava.util.Is;
@@ -137,9 +135,7 @@ public class WebEditors {
 	
 	public static Object formatTitle(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException { 
 		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);
-		System.out.println("[WebEditors.formatTitle] result=" + result); // tmp
 		if (result != null && hasMarkup(result)) {
-			System.out.println("[WebEditors.formatTitle] p.getLabel()=" + p.getLabel()); // tmp
 			return p.getLabel(); 
 		}
 		return result; 		

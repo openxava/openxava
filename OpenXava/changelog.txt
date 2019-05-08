@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: The tooltip for HTML_TEXT in list does not show the whole content of the property. 
 - Fix: updateSchema produces an error of user and password not specified.
 - New openxava.base.dir property available in build.xml to have OpenXava/Addons in a different folder.
 - Fix: updateOX fails to update the Addons jar in windows from time to time.

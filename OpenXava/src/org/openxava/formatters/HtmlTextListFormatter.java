@@ -17,8 +17,6 @@ public class HtmlTextListFormatter implements IFormatter {
 	public String format(HttpServletRequest request, Object object) throws Exception {
 		if (object == null) return "";
 		String text = Jsoup.parse(object.toString()).text();
-		// return text.length() > MAX_LENGHT?text.substring(0, MAX_LENGHT) + "...":text;
-		// tmp ini
 		if (text.length() > MAX_LENGHT) {
 			String content = text.substring(0, MAX_LENGHT) + "...";
 			String tooltip  = text.length() > TOOLTIP_MAX_LENGHT?text.substring(0, TOOLTIP_MAX_LENGHT) + "...":text;
@@ -27,8 +25,6 @@ public class HtmlTextListFormatter implements IFormatter {
 		else {
 			return text;
 		}
-		
-		// tmp fin
 	}
 
 	public Object parse(HttpServletRequest request, String string) throws Exception {
