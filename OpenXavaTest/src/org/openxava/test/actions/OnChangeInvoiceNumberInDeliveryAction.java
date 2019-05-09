@@ -9,7 +9,7 @@ import org.openxava.util.*;
  */
 public class OnChangeInvoiceNumberInDeliveryAction extends OnChangePropertyBaseAction {
 
-	public void execute() throws Exception {			
+	public void execute() throws Exception {
 		Number n = (Number) getNewValue();
 		int number = n == null?0:n.intValue();
 		

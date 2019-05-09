@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.stream.*;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -83,7 +85,6 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 	
 	public void addMetaViewProperty(MetaPropertyView metaPropertyView) throws XavaException {
-		System.out.println("[MetaView(" + getModelName() + ":" + getName() + ").addMetaViewProperty(" + metaPropertyView.getPropertyName() + ")] existsPropety=" + existsPropety(metaPropertyView.getPropertyName())); // tmp
 		if (metaViewsProperties == null) metaViewsProperties = new HashMap();
 		else {
 			if (metaViewsProperties.containsKey(metaPropertyView.getPropertyName())) {
@@ -135,17 +136,6 @@ public class MetaView extends MetaElement implements Cloneable {
 			return p;
 		}
 	}
-	
-	private boolean existsPropety(String name) { // tmp
-		try {
-			getMetaProperty(name, true);
-			return true;
-		}
-		catch (ElementNotFoundException ex) {
-			return false;
-		}
-	}
-	
 	
 	private MetaProperty getMetaPropertyInGroup(String name) throws XavaException { 
 		if (metaGroups == null) return null;
@@ -759,21 +749,18 @@ public class MetaView extends MetaElement implements Cloneable {
 		if (propertiesNamesThrowOnChange == null) {
 			if (metaViewsProperties == null) propertiesNamesThrowOnChange = Collections.EMPTY_LIST;
 			else {
+				Collection membersNames = getMembersNames();  
 				propertiesNamesThrowOnChange = new ArrayList();
 				Iterator it = metaViewsProperties.values().iterator();
 				while (it.hasNext()) {
 					MetaPropertyView propertyView = (MetaPropertyView) it.next();
-					// TMP ME QUEDÉ POR AQUÍ: TEST HECHO, existsPropety() DA SIEMPRE FALSE, VIENDO POR QUE
-					System.out.println("[MetaView(" + getModelName() + ":" + getName() + ").getPropertiesNamesThrowOnChange] existsPropety(" + propertyView + ")=" + existsPropety(propertyView.getPropertyName())); // tmp
-					if (propertyView.hasOnChangeAction()) {
+					if (propertyView.hasOnChangeAction() && membersNames.contains(StringUtils.substringBefore(propertyView.getPropertyName(), "."))) { 
 						propertiesNamesThrowOnChange.add(propertyView.getPropertyName());
 					}
 				}
 				propertiesNamesThrowOnChange = Collections.unmodifiableCollection(propertiesNamesThrowOnChange);
 			} 			 
 		}
-		System.out.println("[MetaView.getPropertiesNamesThrowOnChange] metaViewsProperties=" + metaViewsProperties); // tmp
-		System.out.println("[MetaView.getPropertiesNamesThrowOnChange] propertiesNamesThrowOnChange=" + propertiesNamesThrowOnChange); // tmp
 		return propertiesNamesThrowOnChange;
 	}
 

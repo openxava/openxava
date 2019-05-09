@@ -39,7 +39,7 @@ public class BuildingTest extends ModuleTestBase {
 		MessageConfirmHandler confirmHandler = new MessageConfirmHandler();
 		getWebClient().setConfirmHandler(confirmHandler);
 		execute("CRUD.new");
-		assertMessage("OnChangeVoidAction executed"); // tmp Documentar un poco
+		assertMessage("OnChangeVoidAction executed"); // To assure that there are a property with @OnChange, needed for tests of BuildingSimpleTest
 		executeDefaultAction();
 		assertEquals("Save the current entity: Are you sure?", confirmHandler.getMessage());
 	}

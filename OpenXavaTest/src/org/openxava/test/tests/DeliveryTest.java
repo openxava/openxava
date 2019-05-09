@@ -1,6 +1,5 @@
 package org.openxava.test.tests;
 
-import java.security.acl.*;
 import java.text.DateFormat;
 import java.util.*;
 

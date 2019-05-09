@@ -303,7 +303,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 	
 	public void testOnChangeDescriptionsListReferenceMultipleKey() throws Exception {		
 		execute("CRUD.new");
-		assertNotExists("zoneOne");
+		assertNotExists("zoneOne"); 
 		
 		Warehouse warehouseKeyZone1 = new Warehouse();
 		warehouseKeyZone1.setNumber(1);

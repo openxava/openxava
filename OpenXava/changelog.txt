@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: New action executes the @OnChange actions from properties not defined in the view.
 - Fix: Radio buttons are not displayed.
 - Fix: The tooltip for HTML_TEXT in list does not show the whole content of the property. 
 - Fix: updateSchema produces an error of user and password not specified.

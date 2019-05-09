@@ -3,14 +3,14 @@ package org.openxava.test.tests;
 import org.openxava.tests.ModuleTestBase;
 
 /**
- * tmp 
+ * 
  * @author Javier Paniza
  */
 public class BuildingSimpleTest extends ModuleTestBase {
 	
 	
 	public BuildingSimpleTest(String testName) {
-		super(testName, "Building");		
+		super(testName, "BuildingSimple");		
 	}
 
 	public void testOnChangeOnlyForPropertiesInTheView() throws Exception {		
