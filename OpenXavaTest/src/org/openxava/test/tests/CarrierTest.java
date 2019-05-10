@@ -2,6 +2,7 @@ package org.openxava.test.tests;
 
 import org.openxava.model.meta.*;
 import org.openxava.test.model.*;
+import org.openxava.tests.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
 
@@ -17,6 +18,23 @@ public class CarrierTest extends CarrierTestBase {
 		super(testName, "Carrier");
 	}
 	
+	public void testPermalink() throws Exception {
+		execute("List.viewDetail", "row=0");
+		assertPageURI("/Carrier?detail=1");
+		execute("Navigation.next");
+		assertPageURI("/Carrier?detail=2");
+		execute("Mode.list");
+		assertPageURI("/Carrier");
+		execute("List.filter");
+		assertPageURI("/Carrier");
+		execute("CRUD.new");
+		assertPageURI("/Carrier?action=CRUD.new");
+	}
+	
+	private void assertPageURI(String expectedURI) { 
+		HtmlUnitUtils.assertPageURI(getHtmlPage(), expectedURI);
+	}
+		
 	public void testCutIOnlyKeysInCollections_cutPasteOnlyWhenEditable() throws Exception {  
 		execute("List.viewDetail", "row=0");
 		execute("CollectionCopyPaste.cut", "row=0,viewObject=xava_view_fellowCarriersCalculated");

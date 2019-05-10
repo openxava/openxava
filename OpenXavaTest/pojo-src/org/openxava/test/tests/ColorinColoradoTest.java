@@ -12,11 +12,12 @@ public class ColorinColoradoTest extends ModuleTestBase {
 		super(testName, "ColorinColorado");		
 	}
 	
-	public void testAfterEachRequestAction() throws Exception { 
+	public void testAfterEachRequestAction_permalinkNotForRegularActions() throws Exception {  
 		assertValue("name", "NULLCOLORADO"); 
 		setValue("name", "");
 		execute("ColorinColorado.fillName");		
 		assertValue("name", "COLORIN COLORADO");
+		HtmlUnitUtils.assertPageURI(getHtmlPage(), "/ColorinColorado"); 
 	}
 	
 }

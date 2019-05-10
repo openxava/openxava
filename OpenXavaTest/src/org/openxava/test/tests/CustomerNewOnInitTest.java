@@ -1,6 +1,8 @@
 package org.openxava.test.tests;
 
+import static org.openxava.tests.HtmlUnitUtils.*; 
 import org.openxava.tests.*;
+
 
 /**
  * @author Javier Paniza
@@ -10,6 +12,11 @@ public class CustomerNewOnInitTest extends ModuleTestBase {
 
 	public CustomerNewOnInitTest(String testName) {
 		super(testName, "CustomerNewOnInit");		
+	}
+	
+	public void testPermalink() throws Exception { 
+		execute("CustomerNewOnInit.new");
+		assertPageURI(getHtmlPage(), "/CustomerNewOnInit?action=CustomerNewOnInit.new");
 	}
 	
 	public void testNewOnInit() throws Exception {
