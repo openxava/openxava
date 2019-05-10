@@ -389,7 +389,7 @@ public class AJAXTest extends ModuleTestBase {
 				"messages,");
 		setValue("number", "4"); 
 		execute("CRUD.refresh");
-		assertLoadedParts("errors," +
+		assertLoadedParts("errors," + 
 				"button_bar, bottom_buttons," + // Because Refresh comes back 
 				"editor_number, " +
 				"editor_type, " + 
@@ -589,7 +589,7 @@ public class AJAXTest extends ModuleTestBase {
 		assertLoadedPart("reference_editor_address___state"); 
 		
 		execute("Navigation.next");
-		assertValue("number", "4");
+		assertValue("number", "4"); 
 		assertDescriptionValue("address.state.id", "New York");
 		assertNotLoadedPart("reference_editor_address___state");
 		

@@ -292,7 +292,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		execute("CRUD.new");
 		setValue("number", "4");
 		execute("CRUD.refresh");		
-		assertValue("name", "Cuatrero");
+		assertValue("name", "Cuatrero"); 
 		
 		assertCollectionRowCount("deliveryPlaces", 1);
 		execute("Collection.edit", "row=0,viewObject=xava_view_section0_deliveryPlaces");

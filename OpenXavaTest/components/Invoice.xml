@@ -420,7 +420,7 @@
 	</tab>
 		
 	<tab name="Simple">
-		<properties>year, number, date</properties>		
+		<properties>year, number, date, customer.number</properties>		
 		<default-order>${year} desc, ${number} desc</default-order>
 	</tab>
 	

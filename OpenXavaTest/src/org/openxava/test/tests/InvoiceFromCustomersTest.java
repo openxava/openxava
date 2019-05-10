@@ -107,7 +107,7 @@ public class InvoiceFromCustomersTest extends ModuleTestBase {
 	
 	public void testSetBaseConditionOnChangeModule() throws Exception { 
 		execute("Invoice.listOfCustomer", "row=0");
-		assertInvoices("1", 5);
+		assertInvoices("1", 5); 
 		execute("CustomerInvoices.returnWithChainedAction");
 		
 		execute("Invoice.listOfCustomer", "row=1");

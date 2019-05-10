@@ -1461,7 +1461,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("details", 1, 4, getProductUnitPrice());
 		assertValueInCollection("details", 1, 5, getProductUnitPriceMultiplyBy("200"));
 
-		assertValueInCollection("details", 2, 0, "");
+		assertValueInCollection("details", 2, 0, ""); 
 		assertValueInCollection("details", 2, 1, getProductDescription());
 		assertValueInCollection("details", 2, 2, getProductUnitPriceInPesetas());
 		assertValueInCollection("details", 2, 3, "20");

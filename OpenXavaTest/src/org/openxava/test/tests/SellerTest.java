@@ -116,7 +116,7 @@ public class SellerTest extends CustomizeListTestBase {
 		execute("Collection.add", "viewObject=xava_view_customers");
 		assertValueInList(3, 0, "Cuatrero");
 		execute("AddToCollection.add", "row=3");
-		assertCollectionRowCount("customers", 1);
+		assertCollectionRowCount("customers", 1); 
 		assertValueInCollection("customers", 0, 0, "4");
 		assertValueInCollection("customers", 0, 1, "Cuatrero");
 		execute("Collection.removeSelected", "row=0,viewObject=xava_view_customers");

@@ -208,7 +208,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	}
 	
 	private String obtainValidValueLabel(Locale locale, Object value) {
-		if (value == null) return ""; 
+		if (Is.empty(value)) return ""; 
 		String id = getId() + "." + value;											
 		return Labels.get(id, locale); 
 	}

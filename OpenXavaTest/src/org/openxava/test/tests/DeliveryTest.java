@@ -1228,7 +1228,7 @@ public class DeliveryTest extends ModuleTestBase {
 				thereIsOne = true;
 				continue;
 			}
-			fail("Only the next values are valid: " + values);
+			fail("Only the next values are valid: " + values); 
 		}
 		assertTrue("For this test is need at least one delivery with value in 'distance' property", thereIsOne);
 		

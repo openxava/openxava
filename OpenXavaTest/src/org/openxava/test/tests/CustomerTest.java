@@ -74,7 +74,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		execute("CRUD.new");
 		setValue("number", "4");
 		execute("CRUD.refresh");
-		assertValue("name", "Cuatrero");
+		assertValue("name", "Cuatrero"); 
 		assertCollectionRowCount("deliveryPlaces", 1); // Cuatrero has 1 delivery place
 		execute("Collection.edit", "row=0,viewObject=xava_view" + getSection() + "_deliveryPlaces");
 		assertCollectionRowCount("receptionists", 2); // The delivery place has 2 receptionist
@@ -86,7 +86,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		execute("CRUD.new");
 		setValue("number", "4");
 		execute("CRUD.refresh");
-		assertValue("name", "Cuatrero");
+		assertValue("name", "Cuatrero"); 
 		assertCollectionRowCount("deliveryPlaces", 1); // Cuatrero has 1 delivery place
 		execute("Collection.edit", "row=0,viewObject=xava_view" + getSection() + "_deliveryPlaces");
 		assertCollectionRowCount("receptionists", 2); // The delivery place has 2 receptionist
@@ -670,7 +670,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		return section;		
 	}
 	
-	public void testFilterToDescriptionsListWithBaseConditionAndFilter() throws Exception {  
+	public void testFilterToDescriptionsListWithBaseConditionAndFilter() throws Exception {   
 		try{
 			// warehouse has a filter zoneNumber <= 999
 			Warehouse.findByZoneNumberNumber(1000, 1);	
