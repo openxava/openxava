@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 
-<project name="OpenXavaDoc" default="deploy" basedir=".">
+<project name="OpenXavaDoc" default="createWar" basedir=".">
 
-	<property name="xava.version" value="6.1"/>
+	<property name="xava.version" value="6.1.1"/>
 	<property name="xava.workspace" value=".."/>	
 	<property name="openxava.dist.dir" value="/home/javi/openxava"/>
+	<property name="dist.dir" value="/cygwin/home/javi"/>
 	<property file="../openxava.properties"/>
 	<property name="doc.dir" value="${openxava.dist.dir}/openxava-${xava.version}/doc"/>
 
@@ -32,9 +33,9 @@
 		  </javadoc>
 	</target>
 	
-	<target name="deploy">
-		<delete file="${deploy.dir}/OpenXavaDoc.war"/>
-		<jar jarfile="${deploy.dir}/OpenXavaDoc.war" basedir="web"/>		
+	<target name="createWar">
+		<delete file="${dist.dir}/OpenXavaDoc.war"/>
+		<jar jarfile="${dist.dir}/OpenXavaDoc.war" basedir="web"/>		
 	</target>
 	
 	<target name="generatePdfGuides">		

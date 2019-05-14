@@ -1,22 +1,25 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.1.1 (2019-5-13)
+--------------------------
+- First module page load is done via AJAX.
+- Source code migrated to GitHub (https://github.com/openxava/openxava).
+- New openxava.base.dir property available in build.xml to have OpenXava/Addons in a different folder.
 - Fix: New action executes the @OnChange actions from properties not defined in the view.
 - Fix: Radio buttons are not displayed.
-- Fix: The tooltip for HTML_TEXT in list does not show the whole content of the property. 
+- Fix: The tooltip for HTML_TEXT in list does not show the whole field content. 
 - Fix: updateSchema produces an error of user and password not specified.
-- New openxava.base.dir property available in build.xml to have OpenXava/Addons in a different folder.
 - Fix: updateOX fails to update the Addons jar in windows from time to time.
 - Fix: XPersistence.setDefaultSchema() does not work with MySQL.
 - Fix: Labels.put() does not work.
-- Fix: Some details in course are not adapted to recent versions. 
-- Fix: Tab.setBaseCondition() on change module module keeps the last user condition in that module.
+- Fix: Some details in the course are not adapted to recent versions. 
+- Fix: Tab.setBaseCondition() on change module keeps the last user condition in that module.
 - Fix: Tab.setBaseCondition() does not take effect on change module until clicking on filter button.
 - Fix: Tab.setBaseCondition() does not change the current filtering configuration in combo.
 - Fix: Throwing org.openxava.validators.ValidationException from @PreUpdate shows a transaction error.
-- Fix: @ElementCollection with only booleans does not get the value correctly. 
-- Fix: @ElementCollection with a @DefaultValueCalcultor property fails if property is not present.
-- First module page load is done via AJAX.
+- Fix: Values are not correctly obtained with an @ElementCollection with only booleans. 
+- Fix: @ElementCollection with a @DefaultValueCalculator property fails if property is not present.
 - Fix: When page loaded slowly the user can click actions before page initialization that fails. 
 - Fix: JavaScript of IJavaScriptPostAction is not executed on browser page refresh. 
 - Fix: Moving a column when customizing a list produces an error dialog and it is not persisted.

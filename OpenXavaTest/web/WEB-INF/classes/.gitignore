@@ -20,6 +20,12 @@
 /org/
 /portlets/
 /BeansContext.properties
+/Corporation.html
+/CorporationEmployee.html
+/Customer.jrxml
+/Film.jrxml
+/Images.jrxml
+/Invoice.jrxml
 /LoginContextFactory.properties
 /jndi-jboss.properties
 /jndi-websphere.properties
@@ -28,12 +34,6 @@
 /naviox-users.properties
 /naviox.properties
 /xava-junit.properties
-/Corporation.html
-/CorporationEmployee.html
-/Customer.jrxml
-/Film.jrxml
-/Images.jrxml
-/Invoice.jrxml
+/xava.properties
 /InvoiceNoVAT.jrxml
 /Products.jrxml
-/xava.properties
