@@ -2082,34 +2082,36 @@ div[id$="_Index__view"] .ox-list-title {
 	color: white;
 }
 
-.ox-required-editor input {
+.ox-required-editor input, .ox-required-editor select {
 	border-color: #CDB380; 
 }
 
-.ox-frame .ox-required-editor input, #sign_in_box .ox-required-editor input, .ox-required-editor textarea {
+.ox-frame .ox-required-editor input, .ox-frame .ox-required-editor select, #sign_in_box .ox-required-editor input, .ox-required-editor textarea {
 	border-color: #a58341; 
 }
 
-.ox-frame .ox-frame .ox-required-editor input, .ox-frame .ox-required-editor textarea {
+.ox-frame .ox-frame .ox-required-editor input, .ox-frame .ox-frame .ox-required-editor select, .ox-frame .ox-required-editor textarea {
 	border-color: #806632; 
 }
 
-.ui-dialog .ox-required-editor input {
+.ui-dialog .ox-required-editor input, .ui-dialog .ox-required-editor select {
 	border-color: #a58341 !important;
 }
 
-.ui-dialog .ox-frame .ox-required-editor input, .ui-dialog .ox-required-editor textarea {
+.ui-dialog .ox-frame .ox-required-editor input, .ui-dialog .ox-frame .ox-required-editor select, .ui-dialog .ox-required-editor textarea {
 	border-color: #806632 !important;
 }
 
-.ui-dialog .ox-frame .ox-frame .ox-required-editor input, .ui-dialog .ox-frame .ox-required-editor textarea {
+.ui-dialog .ox-frame .ox-frame .ox-required-editor input, .ui-dialog .ox-frame .ox-frame .ox-required-editor select, .ui-dialog .ox-frame .ox-required-editor textarea {
 	border-color: #5b4924 !important;
 }
 
 .ox-error-editor input,
 .ox-frame .ox-error-editor input, .ox-frame .ox-frame .ox-error-editor input,
 .ox-error-editor textarea, 
-.ox-frame .ox-error-editor textarea, .ox-frame .ox-frame .ox-error-editor textarea {  
+.ox-frame .ox-error-editor textarea, .ox-frame .ox-frame .ox-error-editor textarea,
+.ox-error-editor select, 
+.ox-frame .ox-error-editor select, .ox-frame .ox-frame .ox-error-editor select {   
 	border-color: #DC4A38 !important; /* To work in dialog */
 }
 

@@ -1797,11 +1797,11 @@ div[id$="_Index__view"] .ox-list-title {
 	font-weight: bold;
 }
 
-.ox-required-editor input, .ox-required-editor textarea { 
+.ox-required-editor input, .ox-required-editor select, .ox-required-editor textarea {  
 	border-color: #56b4ef !important; /* To work in dialog */
 }
 
-.ox-error-editor input, .ox-error-editor textarea { 
+.ox-error-editor input, .ox-error-editor select, .ox-error-editor textarea { 
 	border-color: #DC4A38 !important; /* To work in dialog */
 }
 
