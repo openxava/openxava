@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Mark for required and error not shown for MEMO/TEXT_AREA stereotype.
 - Fix: List title overlapped with filters combo when it is too large with Light theme.
 - Fix: When section tabs overflow screen size alter their positions on changing section.
 
