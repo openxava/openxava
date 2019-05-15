@@ -27,7 +27,6 @@ import org.openxava.util.*;
 @Entity
 @IdClass(InvoiceKey.class)
 @Views({
-	/* tmp
 	@View(members=
 		"year, number, date, paid, detailsCount;" + // detailsCount is useful for testing READ COMMITED (with HSQLDB 2)
 		"discounts [" +
@@ -39,23 +38,6 @@ import org.openxava.util.*;
 		"amounts { amountsSum; vatPercentage; vat }" +
 		"deliveries { deliveries }"
 	),
-	*/
-	/* tmp ini */
-	// TMP ME QUEDÉ POR AQUÍ HACIENDO LAS PRIMERAS PRUEBAS. NO SE OCULTA PARTE DEL CONTENIDO AL CAMBIAR DE PESTAÑA, PERO SÍ QUE ES VERDAD QUE CAMBIAN DE POSICIÓN.
-	@View(members=
-		"year, number" + 
-		"customer { customer }" +
-		"date { date }"	+	
-		"details { details }" +	
-		"amounts { amountsSum; vatPercentage; vat }" +
-		"discounts {" +
-		"	customerDiscount; customerTypeDiscount; yearDiscount;" +
-		"}" +		
-		"deliveries { deliveries }" +
-		"comment { comment }" +
-		"others { paid; detailsCount }"
-	),	
-	/* tmp fin */
 	@View(name="CustomerNoFrame", members= // Don't change the members, they for testing a layout bug			
 		"year, number;" + 
 		"customer;"  +

@@ -1103,11 +1103,12 @@ input[type="button"],
 	font-weight: bold;
 	float: left;
 	text-transform: uppercase;
+	border-bottom: 3px solid transparent;
 }
 
 .ox-active .ox-section-tab {
 	color: #806632;	
-	border-bottom: 3px solid #806632;
+	border-bottom-color: #806632;
 }
 
 .ox-total-cell {

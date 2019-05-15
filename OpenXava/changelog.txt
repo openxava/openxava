@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: When section tabs overflow screen size alter their positions on changing section.
+
 OpenXava 6.1.1 (2019-5-13)
 --------------------------
 - First module page load is done via AJAX.
