@@ -1636,11 +1636,7 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 
 #list-title {
 	font-weight: bold;
-	position: relative;
-	top: -22px;
-	display: flex;
-    justify-content: center;
-    height: 0px;
+	margin-left: 20px;
 }
 
 div[id$="_Index__view"] .ox-list-title {
