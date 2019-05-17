@@ -73,7 +73,6 @@ public class MyClass {
       9) to the <em>lib</em> folder of your Tomcat 7. This is required by the
       latest Hibernate Validator version.<br>
       <h3 id="toc39"><a name="Migration-Migration from OpenXava 5.2.1 to OpenXava 5.3-Automated Business Logic (ABL) library dropped"></a></h3>
-      <p></p>
       <h3>HtmlUnit upgraded from 2.15 to 2.32</h3>
       <p>If you uses directly the HtmlUnit API, via <i>getWebClient()</i> or <i>getHtmlPage()</i>
         from <i>ModuleTestBase</i>, you have to adapt your code to the new
@@ -121,7 +120,6 @@ execute("CRUD.new"); // ADD THIS LINE
       <p>The next code no longer works:</p>
       <pre>customer.setSellers(Collections.emptySet());</pre>
       Now you have to write:
-      <p></p>
       <pre>customer.setSellers(new ArrayList&lt;&gt;());</pre>
       <p>Maybe, you find another little details you have adjust, consult the
         Hibernate doc. Anyways, we explain the more important ones in the points
@@ -149,7 +147,31 @@ execute("CRUD.new"); // ADD THIS LINE
     &lt;property name="hibernate.default_schema" value="PUBLIC"/&gt;
 &lt;/properties&gt;
 </pre>On the other hand, the <i>updateSchema</i> ant task work nicely even
-      without schema.<br>
+      without schema.</div>
+    <div class="wiki" style="display: block;">
+      <h3>MySQL does no longer recognize default schema</h3>
+      <p>With Hibernate 5.3 <i>hibernate.default_schema</i> no longer has
+        effect for MySQL, now you have to use <i>hibernate.default_catalog</i>
+        instead. Since OpenXava 6.1.2 we have modified the OpenXava APIs in
+        order to work as always, recognizing <i>hibernate.default_schema</i>
+        even for MySQL. However, the automatic schema generation on startup
+        (that is <i>hibernate.hbm2dll.auto=update</i> or <i>javax.persistence.schema-generation.database.action=update</i>)
+        is a Hibernate business, so we cannot fix it. If you use it, you should
+        change <i>hibernate.default_schema</i> by <i>hibernate.default_catalog</i>.</p>
+      <p>Summarizing, if you use MySQL change in <i>persistence.xml</i>:</p>
+      <pre>&lt;properties&gt;
+    &lt;property name="hibernate.hbm2ddl.auto" value="update"/&gt;
+    &lt;property name="hibernate.default_schema" value="COMPANYB"/&gt;
+&lt;/properties&gt;
+</pre>
+      <p>By:</p>
+      <pre>&lt;properties&gt;
+    &lt;property name="hibernate.hbm2ddl.auto" value="update"/&gt;
+    &lt;property name="hibernate.default_catalog" value="COMPANYB"/&gt;
+&lt;/properties&gt;
+</pre>
+      <p>Note, <i>hibernate.default_catalog</i> instead of <i>hibernate.default_schema</i>.
+        Only for MySQL.</p>
       <h3>@GeneratedValue(strategy=GenerationType.AUTO) is no longer IDENTITY by
         default</h3>
       <p>In Hibernate 5.3 <i>@GeneratedValue(strategy=GenerationType.AUTO)</i>

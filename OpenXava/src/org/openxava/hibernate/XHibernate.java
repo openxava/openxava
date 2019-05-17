@@ -73,7 +73,6 @@ import org.openxava.util.*;
 
 public class XHibernate {
 
-	private final static String HIBERNATE_DEFAULT_SCHEMA = "hibernate.default_schema";
 	private final static String DEFAULT_CFG_FILE = "/hibernate.cfg.xml";
 	private final static String XAVA_CFG_FILE_KEY = "xava.configurationFile";
 	private static Log log = LogFactory.getLog(XHibernate.class);
@@ -317,14 +316,14 @@ public class XHibernate {
 			
 			String defaultSchema = obtainDefaultSchema();
 			if (!Is.emptyString(defaultSchema)) {
-				defaultSessionFactoryProperties.put(HIBERNATE_DEFAULT_SCHEMA, defaultSchema);
+				defaultSessionFactoryProperties.put(getHibernateDefaultSchemaPropertyName(), defaultSchema); 
 			}
 		}
 		return defaultSessionFactoryProperties;
 	}
 
 	private static String obtainDefaultSchema() {		
-		return createConfiguration(DEFAULT_CFG_FILE).getProperty(HIBERNATE_DEFAULT_SCHEMA);
+		return createConfiguration(DEFAULT_CFG_FILE).getProperty("hibernate.default_schema"); 
 	}
 
 	/**
@@ -348,8 +347,9 @@ public class XHibernate {
 	 * try to execute SQL they will use 'COMPANYA.ISSUE' as table name.<br>
 	 */
 	public static String getDefaultSchema() {
-		return getSessionFactoryProperties().getProperty(HIBERNATE_DEFAULT_SCHEMA);
+		return getSessionFactoryProperties().getProperty(getHibernateDefaultSchemaPropertyName()); 
 	}
+	
 	/**
 	 * Change the default schema used by Hibernate in the current thread. <p>
 	 * 
@@ -359,10 +359,17 @@ public class XHibernate {
 	 */
 	public static void setDefaultSchema(String defaultSchema) {
 		Properties properties = new Properties(getSessionFactoryProperties());
-		if (Is.emptyString(defaultSchema)) properties.remove(HIBERNATE_DEFAULT_SCHEMA);
-		else properties.put(HIBERNATE_DEFAULT_SCHEMA, defaultSchema);
-		setSessionFactoryProperties(properties);
+		if (Is.emptyString(defaultSchema)) properties.remove(getHibernateDefaultSchemaPropertyName());
+		else properties.put(getHibernateDefaultSchemaPropertyName(), defaultSchema);
+		setSessionFactoryProperties(properties);		
 	}
+	
+	private static String getHibernateDefaultSchemaPropertyName() { 
+		String dialect = (String) getSessionFactory().getProperties().get("hibernate.dialect"); 
+		if (dialect != null && dialect.toLowerCase().contains("mysql")) return "hibernate.default_catalog";
+		return "hibernate.default_schema";
+	}
+
 	
 	/**
 	 * Reset the info associated to the current thread. <p>

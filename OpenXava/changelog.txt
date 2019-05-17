@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: IMAGES_GALLERY stores all the images in the default catalog with MySQL.
+- Fix: XHibernate.setDefaultSchema() does not work for MySQL.
 - Fix: Mark for required and error not shown for MEMO/TEXT_AREA stereotype and enums.
 - Fix: List title overlapped with filters combo when it is too large with Light theme.
 - Fix: When section tabs overflow screen size alter their positions on changing section.

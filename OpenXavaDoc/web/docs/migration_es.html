@@ -72,7 +72,6 @@ public class MiClase {
       la carpeta <em>lib</em> del Tomcat incluido en OpenXava (o cualquier
       Tomcat 9) a la carpeta <em>lib</em> de tu Tomcat 7. Esto es requerido por
       última versión de Hibernate Validator.
-      <p></p>
       <h3>HtmlUnit actualizado de 2.15 a 2.32 </h3>
       <p>Si usas directamente el API de HtmlUnit, vía <i>getWebClient()</i> o <i>getHtmlPage()</i>
         de <i>ModuleTestBase</i>, tienes que adaptar tu código al nuevo
@@ -121,12 +120,10 @@ execute("CRUD.new"); // AÑADE ESTA LÍNEA
       <p>El siguiente código ha dejado de funcionar:</p>
       <pre>cliente.setVendedores(Collections.emptySet());</pre>
       Ahora has de escribir:
-      <p></p>
       <pre>cliente.setVendedores(new ArrayList&lt;&gt;());</pre>
       <p>Quizás encuentres alguna que otra cosa que tengas que ajustar, consulta
         la documentación de Hibernate. De todos modos, en los puntos que siguen
         explicamos los cambios más importantes relacionados con Hibernate 5.3.</p>
-      <h3></h3>
       <h3>Claves foráneas duplicadas si se usa generación automática de esquema</h3>
       <p>Hibernate 5.3 tiene un <a href="https://hibernate.atlassian.net/browse/HHH-10574">bug</a>
         que duplica las claves foráneas si usas hibernate.hbm2ddl.auto=update
@@ -152,7 +149,32 @@ execute("CRUD.new"); // AÑADE ESTA LÍNEA
     &lt;property name="hibernate.default_schema" value="PUBLIC"/&gt;
 &lt;/properties&gt;
 </pre>Por otra parte, la tarea ant <i>actualizarEsquema</i> funciona
-      perfectamente incluso sin definir esquema.<br>
+      perfectamente incluso sin definir esquema.</div>
+    <div class="wiki" style="display: block;">
+      <h3>MySQL ya no reconoce el esquema por defecto </h3>
+      <p>Con Hibernate 5.3 <i>hibernate.default_schema</i> ya no tiene efecto
+        en MySQL, ahora has de usar <i>hibernate.default_catalog</i> en su
+        lugar. A partir de OpenXava 6.1.2 hemos modificado la API de OpenXava
+        para que funcione como siempre, reconociendo <i>hibernate.default_schema</i>
+        incluso para MySQL. Sin embargo, la generación automática de esquema al
+        iniciar la aplicación (es decir <i>hibernate.hbm2dll.auto=update</i> o
+        <i>javax.persistence.schema-generation.database.action=update</i>) es
+        asunto de Hibernate, por lo que no podemos arreglarlo. Si usas esta
+        funcionalidad, deberías cambiar <i>hibernate.default_schema</i> por <i>hibernate.default_catalog</i>.</p>
+      <p>Resumiendo, si usas MySQL cambia en <i>persistence.xml</i>:</p>
+      <pre>&lt;properties&gt;
+    &lt;property name="hibernate.hbm2ddl.auto" value="update"/&gt;
+    &lt;property name="hibernate.default_schema" value="EMPRESAB"/&gt;
+&lt;/properties&gt;
+</pre>
+      <p>Por:</p>
+      <pre>&lt;properties&gt;
+    &lt;property name="hibernate.hbm2ddl.auto" value="update"/&gt;
+    &lt;property name="hibernate.default_catalog" value="EMPRESAB"/&gt;
+&lt;/properties&gt;
+</pre>
+      <p>Fíjate, <i>hibernate.default_catalog</i> en vez de <i>hibernate.default_schema</i>.
+        Sólo para MySQL.</p>
       <h3>@GeneratedValue(strategy=GenerationType.AUTO) ya no es IDENTITY por
         defecto</h3>
       <p>En Hibernate 5.3 <i>@GeneratedValue(strategy=GenerationType.AUTO)</i>

@@ -20,6 +20,22 @@
             <property name="hibernate.connection.release_mode" value="after_transaction"/>
         </properties>
     </persistence-unit>    
+    
+    <!-- Tomcat + MySQL 5.7 
+    <persistence-unit name="default">
+    	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    	<non-jta-data-source>java://comp/env/jdbc/@fuentedatos@</non-jta-data-source>
+    	<class>org.openxava.session.GalleryImage</class>
+    	<class>org.openxava.web.editors.DiscussionComment</class>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>
+            <property name="javax.persistence.schema-generation.database.action" value="update"/>
+            <property name="javax.persistence.create-database-schemas" value="true"/> 
+            <property name="hibernate.default_catalog" value="@esquema@"/>
+            <property name="hibernate.connection.release_mode" value="after_transaction"/>
+        </properties>
+    </persistence-unit>    
+    -->
         
     <!-- JBoss + Hypersonic 
     <persistence-unit name="default">
