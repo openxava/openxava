@@ -3868,7 +3868,7 @@ public class View implements java.io.Serializable {
 		return metaProperties;		
 	}
 	
-	public MetaProperty getMetaProperty(String name) throws XavaException {			
+	public MetaProperty getMetaProperty(String name) throws XavaException {		
 		int idx = name.indexOf('.');
 		if (idx >= 0) {
 			String reference = name.substring(0, idx);
@@ -3881,10 +3881,15 @@ public class View implements java.io.Serializable {
 			}
 			catch (ElementNotFoundException ex) {
 				// Maybe a custom JSP view wants access to a property not showed in default view
-				if (!getMetaModel().containsMetaCollection(reference)) throw ex; 
-				// From element collection
-				String collectionMember = Strings.noFirstTokenWithoutFirstDelim(member, ".");
-				return getMetaModel().getMetaCollection(reference).getMetaReference().getMetaModelReferenced().getMetaProperty(collectionMember);
+				if (getMetaModel().containsMetaCollection(reference)) { 
+					// From element collection
+					String collectionMember = Strings.noFirstTokenWithoutFirstDelim(member, ".");
+					return getMetaModel().getMetaCollection(reference).getMetaReference().getMetaModelReferenced().getMetaProperty(collectionMember);
+				}
+				if (getMetaModel().containsMetaReference(reference)) { 
+					return getMetaModel().getMetaReference(reference).getMetaModelReferenced().getMetaProperty(member);
+				}				
+				throw ex;
 			}
 		}
 		try {

@@ -18,7 +18,8 @@ import org.openxava.jpa.*;
 @IdClass(TransportChargeKey.class)
 @Views({
 	@View(name="WithDescriptionsList", members="delivery; amount"),
-	@View(name="WithDescriptionsListShowingReferenceView", members="delivery; one{amount}; two{}") 
+	@View(name="WithDescriptionsListShowingReferenceView", members="delivery; one{amount}; two{}"),
+	@View(name="WithoutDelivery", members="amount") 
 })
 @Tabs({
 	@Tab(properties="delivery.invoice.year, delivery.invoice.number, delivery.number, amount"),
@@ -48,7 +49,7 @@ public class TransportCharge {
 			condition="${invoice.year} = 2004",
 			showReferenceView=true) 
 	})
-	private Delivery delivery;
+	private Delivery delivery; // Only this reference as key, to test a case
 	
 	@Stereotype("MONEY") @Required
 	private BigDecimal amount; 

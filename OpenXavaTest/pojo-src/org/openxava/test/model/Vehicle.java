@@ -47,7 +47,7 @@ public class Vehicle {
 	
 	@LabelFormat(LabelFormatType.NO_LABEL)
 	@Required
-	@ManyToOne(fetch=FetchType.LAZY) 
+	@ManyToOne(fetch=FetchType.LAZY)
 	@DescriptionsList(depends="state.id", condition="${state.id} = ?")
 	@JoinColumns({ 
 		@JoinColumn(name="CITY", referencedColumnName="CODE", insertable=false, updatable=false),  
