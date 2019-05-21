@@ -46,7 +46,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertAction("List.filter");		
 	}
 	
-	public void testGetEntityWithEmptyReferences_duplicateActionsNotAdded() throws Exception {  		
+	public void testGetEntityWithEmptyReferences_duplicateActionsNotAdded_keepAddedActionAfterCloseDialog() throws Exception {   		
 		assertListRowCount(1);
 		execute("CRUD.new");
 		assertNoAction("JPACRUD.create");
@@ -56,6 +56,12 @@ public class ApplicantTest extends ModuleTestBase {
 		setValue("name", "JUNIT APPLICANT");
 		execute("JPACRUD.create");
 		assertNoErrors();
+
+		assertAction("JPACRUD.create");
+		execute("Reference.createNew", "model=Skill,keyProperty=skill.description");
+		execute("NewCreation.cancel");
+		assertAction("JPACRUD.create");
+
 		execute("Mode.list");
 		assertListRowCount(2);
 		assertValueInList(1, 0, "JUNIT APPLICANT CREATED"); // The CREATED is for a @PrePersist needed for the test testPolymorphicReferenceFromBaseClass_savingTwiceWithNoRefreshAfterAndHiddenKey()

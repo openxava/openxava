@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Actions added/removed via addActions()/removeActions() to the module are lost after closing a dialog.
 - Fix: Read only reference to an entity with a single reference as key which is not included in the view fails.
 - Fix: IMAGES_GALLERY stores all the images in the default catalog with MySQL.
 - Fix: XHibernate.setDefaultSchema() does not work for MySQL.

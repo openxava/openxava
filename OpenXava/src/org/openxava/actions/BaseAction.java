@@ -175,8 +175,7 @@ abstract public class BaseAction implements IAction, IRequestAction, IModuleCont
 				action = action.cloneMetaAction();
 				action.setHidden(false);
 			}
-			if (getManager().isShowDialog()) getManager().addMetaAction(action);
-			else getManager().addSimpleMetaAction(action);
+			getManager().addMetaAction(action); 
 		}
 	}
 	
@@ -186,12 +185,7 @@ abstract public class BaseAction implements IAction, IRequestAction, IModuleCont
 	protected void removeActions(String ... qualifiedActions) { 
 		for (String qualifiedAction: qualifiedActions) {
 			if (Is.emptyString(qualifiedAction)) continue;
-			if(getManager().isShowDialog()){
-				getManager().removeMetaAction(MetaControllers.getMetaAction(qualifiedAction));
-			}
-			else{
-				getManager().removeSimpleMetaAction(MetaControllers.getMetaAction(qualifiedAction));	
-			}
+			getManager().removeMetaAction(MetaControllers.getMetaAction(qualifiedAction));
 		}
 	}
 	
