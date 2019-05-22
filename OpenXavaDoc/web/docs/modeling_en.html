@@ -187,8 +187,6 @@ private String remarks;
       mere marking of a simple string property as <em>@Stereotype(“IMAGES_GALLERY”)</em>
       you have a full image gallery available. Click on the camera of the <em>morePhotos</em>
       property and you'll see the gallery:</div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: ESTABA
-      HACIENDO EL SCREENSHOT, ESTÁ EN course6.odg</div>
     <div class="wiki" style="display: block;"> <img src="files/modeling_en050.png"
         alt="modeling_en050.png" title="modeling_en050.png"><br>
       Apart from these, OpenXava has many other useful built in stereotypes such
@@ -654,7 +652,7 @@ private Customer customer;
       After this the <em>customer</em> reference will be shown in a more
       compact way:<br>
       <img src="files/modeling_en130.png" alt="modeling_en130.png" title="modeling_en130.png"><br>
-      You can see below how you have refined your Invoice interface.<br>
+      You can see below how you have refined your <i>Invoice</i> interface.<br>
       <h3 id="toc12"><a name="Lesson 2: Modeling with Java-Refining the user interface-Refined user interface"></a><span
           style="font-size: 1.1em; line-height: 1.5;">Refined user interface</span></h3>
       This is the result of our refinements in the <em>Invoice</em> user
@@ -750,12 +748,15 @@ private Collection&lt;Product&gt; products;
       refresh the browser with <em>Author</em> module. Choose an author and you
       will see his products. You have to see something like this:<br>
       <img src="files/modeling_en160.png" alt="modeling_en160.png" title="modeling_en160.png"><br>
-      Yes, you added a new collection, refreshed your browser and there you get
-      the full user interface to manage it. In this case when the user click on
-      <em>Add</em> button he will be able to choose a book from a list of all
-      existing books, moreover when the author is removed his books are still
-      there in the database. You can define another behavior with cascade as
-      REMOVE or ALL, thus:</div>
+    </div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: HAY QUE
+      AJUSTAR EL TEXTO DE ABAJO A LA NUEVA New</div>
+    <div class="wiki" style="display: block;">Yes, you added a new collection,
+      refreshed your browser and there you get the full user interface to manage
+      it. In this case when the user click on <em>Add</em> button he will be
+      able to choose a book from a list of all existing books, moreover when the
+      author is removed his books are still there in the database. You can
+      define another behavior with cascade as REMOVE or ALL, thus:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@OneToMany(mappedBy="author", cascade=CascadeType.REMOVE)
 </code></pre> </div>

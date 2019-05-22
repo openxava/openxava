@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>    
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -42,10 +42,8 @@
         <div style="margin-left: 2em;"><a href="#Lecci%C3%B3n+2:+Modelar+con+Java-Resumen">Resumen</a></div>
       </div>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
-        Primeros pasos</a> | <strong>2. Modelar con Java</strong> | <a class="wiki_link"
-
-        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
-
+        Primeros pasos</a> | <strong>2. Modelar con Java</strong> | <a class="wiki_link"
+        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
         href="inheritance_es.html">4. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
         Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
         Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
@@ -420,8 +418,7 @@ private Date fecha;
       usuario pulse en el botón 'nuevo' el campo para año será el año actual, y
       el campo para la fecha la fecha actual. Estos dos calculadores (<em>CurrentYearCalculator</em>
       y <em>CurrentDateCalculator</em>) están incluidos en OpenXava. Explora el
-      paquete <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html"
-
+      paquete <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html"
           rel="nofollow">org.openxava.calculators</a></em> para ver otros
       calculadores predefinidos que pueden serte útiles.<br>
       Pero a veces necesitas tu propia lógica para calcular el valor por
@@ -465,8 +462,7 @@ public class CalculadorSiguienteNumeroParaAnyo
     <div class="wiki" style="display: block;">Tu calculador tiene que
       implementar <em>ICalculator</em> (y por lo tanto tener un método <em>calculate()</em>).
       Declaramos una propiedad <em>anyo</em> para poner en ella el año del
-      cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el <a
-
+      cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el <a
         class="wiki_link" href="jpa_es.html">apéndice B</a> sobre JPA. Ahora
       solo queda anotar la propiedad <em>numero</em> en la entidad <em>Factura</em>:</div>
     <div class="wiki" style="display: block;">
@@ -529,8 +525,7 @@ private Collection&lt;Detalle&gt; detalles;
 // RECUERDA GENERAR EL GETTER Y SETTER PARA detalles
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Usando
-        </span><em><span style="line-height: 1.5;">@ElementCollection</span></em><span
-
+        </span><em><span style="line-height: 1.5;">@ElementCollection</span></em><span
         style="line-height: 1.5;"> cuando la factura se borra sus líneas se
         borran también. Los detalles no se guardan en la base de datos hasta que
         la factura se guarde y se guardan todos al mismo tiempo.</span><br>
@@ -578,8 +573,7 @@ private Collection&lt;Detalle&gt; detalles;
         propiedades calificadas, es decir, usar la notación del punto para
         acceder a las propiedades de referencias, tal como <em>producto.numero</em>
         y <em>producto.descripcion</em> en este caso. El resultado visual es:</span><br>
-      <span style="line-height: 0px; overflow: hidden;"><img src="files/modeling_es100.png"
-
+      <span style="line-height: 0px; overflow: hidden;"><img src="files/modeling_es100.png"
           alt="modeling_es100.png" title="modeling_es100.png"></span><br>
       <h2 id="toc9"><a name="Lección 2: Modelar con Java-Refinar la interfaz de usuario"></a>Refinar
         la interfaz de usuario</h2>
@@ -658,8 +652,7 @@ private Cliente cliente;
       más compacta:<br>
       <img src="files/modeling_es130.png" alt="modeling_es130.png" title="modeling_es130.png"><br>
       Hemos refinado un poco la interfaz de <em>Factura</em>.<br>
-      <h3 id="toc13"><a name="Lección 2: Modelar con Java-Refinar la interfaz de usuario-La interfaz de usuario refinada"></a><span
-
+      <h3 id="toc13"><a name="Lección 2: Modelar con Java-Refinar la interfaz de usuario-La interfaz de usuario refinada"></a><span
           style="font-size: 1.1em; line-height: 1.5;">La interfaz de usuario
           refinada</span></h3>
       Este es el resultado de nuestros refinamientos en la interfaz de usuario
@@ -758,21 +751,23 @@ private Collection&lt;Producto&gt; productos;
       refresca tu navegador con el módulo <em>Autor</em>. Escoge un autor y
       verás sus productos. Tienes algo parecido a esto:<br>
       <img src="files/modeling_es160.png" alt="modeling_es160.png" title="modeling_es160.png"><br>
-      Sí, añades una nueva colección, refrescas tu navegador y tienes una
-      interfaz de usuario completa para manejarla. En este caso cuando el
-      usuario pulsa en el botón <em>Añadir</em> podrá escoger un libro de una
-      lista de libros existentes, además cuando el autor se borre sus libros
-      seguirán estando en la base de datos. Puedes definir un comportamiento
-      diferente con <em>cascade</em> como REMOVE o ALL, así:</div>
+    </div>
+    <div class="wiki" style="display: block;">Sí, añades una nueva colección,
+      refrescas tu navegador y tienes una interfaz de usuario completa para
+      manejarla. En este caso cuando el usuario pulsa en el botón <em>Añadir</em>
+      podrá escoger un libro de una lista de libros existentes, además cuando el
+      autor se borre sus libros seguirán estando en la base de datos. Puedes
+      definir un comportamiento diferente con <em>cascade</em> como REMOVE o
+      ALL, así:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@OneToMany(mappedBy="autor", cascade=CascadeType.REMOVE) // NO LO AÑADAS A TU CÓDIGO
 </code></pre> </div>
-    <div class="wiki" style="display: block;">De esta forma cuando tu
-      usuario intente añadir un nuevo libro se abrirá un diálogo para introducir
-      los datos del libro y con un botón de grabar. Además, cuando el autor se
-      borre sus libros se borrarán también. Para el caso autor/libros no
-      queremos este comportamiento, pero puede ser útil en muchos casos donde
-      una <em>@ElementCollection</em> sea insuficiente.<br>
+    <div class="wiki" style="display: block;">De esta forma cuando tu usuario
+      intente añadir un nuevo libro se abrirá un diálogo para introducir los
+      datos del libro y con un botón de grabar. Además, cuando el autor se borre
+      sus libros se borrarán también. Para el caso autor/libros no queremos este
+      comportamiento, pero puede ser útil en muchos casos donde una <em>@ElementCollection</em>
+      sea insuficiente.<br>
       Esta sección ha mostrado el código completo y los pasos para hacer cambios
       y ver el resultado de una manera muy interactiva. Tus ojos han visto como
       OpenXava es una herramienta ágil, ideal para hacer desarrollo ágil.<br>
@@ -792,12 +787,10 @@ private Collection&lt;Producto&gt; productos;
       gestión lista para tus usuarios.<br>
       Aprenderás estos temas avanzados en las siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="testing_es.html">Ve a la lección 3</a></strong>
     </div>
