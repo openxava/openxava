@@ -31,9 +31,16 @@ if (manager.isButtonBarVisible()) {
 	java.util.Stack previousViews = (java.util.Stack) context.get(request, "xava_previousViews");
 	if (manager.isDetailMode() && !manager.isDetailModeOnly() && previousViews.isEmpty()) { 
 	%>
+		<%-- tmp 
 		<jsp:include page="barButton.jsp">
 			<jsp:param name="action" value="Mode.list"/>
 		</jsp:include>
+		--%>
+		<%-- tmp ini --%>
+		<jsp:include page="barButton.jsp">
+			<jsp:param name="action" value="<%=manager.getGoListAction()%>"/>
+		</jsp:include>
+		<%-- tmp fin --%>
 	<% 
 	} 
 

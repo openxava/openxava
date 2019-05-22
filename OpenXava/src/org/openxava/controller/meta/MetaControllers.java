@@ -56,6 +56,16 @@ public class MetaControllers {
 		return metaControllers.containsKey(name);
 	}
 	
+	public static boolean containsMetaAction(String qualifiedName) { // tmp
+		try {
+			getMetaAction(qualifiedName);
+			return true;
+		}
+		catch (ElementNotFoundException ex) {
+			return false;
+		}
+	}
+	
 	public static MetaAction getMetaAction(String qualifiedName) throws ElementNotFoundException, XavaException {
 		if (metaControllers == null) {
 			setup();

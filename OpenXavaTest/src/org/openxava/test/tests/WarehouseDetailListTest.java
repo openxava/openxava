@@ -29,7 +29,7 @@ public class WarehouseDetailListTest extends ModuleTestBase {
 		assertNoAction("DetailList.list"); // No longer exists, since v6
 		assertNoAction("Mode.detailAndFirst"); // No longer exists, since v6
 		assertNoAction("Mode.split"); // No longer exists, since v6
-		assertAction("Mode.list");
+		assertAction("Mode.list"); 
 		
 		assertNoAction("List.filter"); // List is shown
 		assertExists("zoneNumber"); // Detail not is shown		

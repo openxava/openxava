@@ -5956,7 +5956,54 @@ class="sy0">;</span>                                      <span class="co1">// 3
       (3).<br>
       This view navigation logic is not specific for dialogs, indeed you can
       remove the <em>show-dialog="true"</em> and see how it works fine, but
-      without dialog.<br>
+      without dialog.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc19">Overwriting go list action<em></em></h2>
+      The action to go list from detail mode:</div>
+    <img src="files/controllers_en030.png" alt="">
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">It's by default <i>Mode.list</i>.
+      You can overwrite it defining your own <i>mode-controller</i> for your
+      module. For that, define your module in <i>xava/application.xml</i> of
+      your project in this way:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;module name="Author"&gt;
+	&lt;model name="Author"/&gt; 
+	&lt;controller name="Typical"/&gt;
+	&lt;mode-controller name="MyGoListMode"/&gt;
+&lt;/module&gt;        </code></pre>
+    </div>
+    <div class="wiki" style="display: block;">Then you have to define the <i>MyGoListMode</i>
+      controllers in your <i>xava/controllers.xml</i>, thus:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;controller name="MyGoListMode"&gt;
+	&lt;extends controller="Mode"/&gt;
+	&lt;action name="list"
+		icon="chevron-left"
+		class="org.openxava.test.actions.MyGoListAction"
+		keystroke="F9"/&gt;
+&lt;/controller&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Note that we extends the <i>Mode</i>
+      controller and overwrite <i>list</i> action. Now just remains writing the
+      action code, it could be:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package org.openxava.test.actions;
+
+import org.openxava.actions.*;
+
+public class MyGoListAction extends GoListAction {
+	
+	public void execute() throws Exception {
+		super.execute();
+		addMessage("back_to_list"); 
+	}
+
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">The logic can be whatever you
+      want, in this case we just refine the standard behavior extending <i>GoListAction</i>.<br>
       <h2 id="toc21"><a name="Controllers-All action types"></a>All action types</h2>
       You have seen until now that the behavior of your actions depends on which
       interfaces they implement. Next the available interfaces for actions are

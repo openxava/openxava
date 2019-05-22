@@ -26,7 +26,7 @@ public class WarehouseSplitTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		
 		assertNoAction("List.filter"); // List is not shown
-		assertExists("zoneNumber"); // Detail is shown
+		assertExists("zoneNumber"); // Detail is shown 
 		
 		assertNoAction("Mode.detailAndFirst");
 		assertAction("Mode.list");

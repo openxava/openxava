@@ -6027,7 +6027,58 @@ class="sy0">;</span>                                                  <span clas
       previa llamamos a <em>returnToPreviousView()</em> (3).<br>
       Esta lógica de navegación entre vistas no es algo específico de los
       diálogos, de hecho puedes quitar el <em>mostrar-dialogo="true"</em> y ver
-      como funciona perfectamente, aunque sin diálogo.<br>
+      como funciona perfectamente, aunque sin diálogo.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc19">Sobrescribir acción de ir a lista</h2>
+      TMP ME QUEDÉ POR AQUÍ (FALTA PONER ENTRADA EN EL INDICE PARA INGLES Y
+      ESPAÑOL)</div>
+    <div class="wiki" style="display: block;"> The action to go list from detail
+      mode:<br>
+      <img src="files/controllers_es030.png" alt="">
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;">It's by default <i>Mode.list</i>.
+        You can overwrite it defining your own <i>mode-controller</i> for your
+        module. For that, define your module in <i>xava/application.xml</i> of
+        your project in this way:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;module name="Author"&gt;
+	&lt;model name="Author"/&gt; 
+	&lt;controller name="Typical"/&gt;
+	&lt;mode-controller name="MyGoListMode"/&gt;
+&lt;/module&gt;        </code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Then you have to define the <i>MyGoListMode</i>
+        controllers in your <i>xava/controllers.xml</i>, thus:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;controller name="MyGoListMode"&gt;
+	&lt;extends controller="Mode"/&gt;
+	&lt;action name="list"
+		icon="chevron-left"
+		class="org.openxava.test.actions.MyGoListAction"
+		keystroke="F9"/&gt;
+&lt;/controller&gt;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Note that we extends the <i>Mode</i>
+        controller and overwrite <i>list</i> action. Now just remains writing
+        the action code, it could be:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">package org.openxava.test.actions;
+
+import org.openxava.actions.*;
+
+public class MyGoListAction extends GoListAction {
+	
+	public void execute() throws Exception {
+		super.execute();
+		addMessage("back_to_list"); 
+	}
+
+}
+</code></pre> </div>
+      <div class="wiki" style="display: block;">The logic can be whatever you
+        want, in this case we just refine the standard behavior extending <i>GoListAction</i>.<br>
+      </div>
       <h2 id="toc21"><a name="Controladores-Todos los tipos de acciones"></a>Todos
         los tipos de acciones</h2>
       Se puede observar por lo visto hasta ahora que nosotros podemos hacer que
