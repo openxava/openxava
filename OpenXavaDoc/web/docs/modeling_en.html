@@ -749,23 +749,23 @@ private Collection&lt;Product&gt; products;
       will see his products. You have to see something like this:<br>
       <img src="files/modeling_en160.png" alt="modeling_en160.png" title="modeling_en160.png"><br>
     </div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: HAY QUE
-      AJUSTAR EL TEXTO DE ABAJO A LA NUEVA New</div>
     <div class="wiki" style="display: block;">Yes, you added a new collection,
       refreshed your browser and there you get the full user interface to manage
-      it. In this case when the user click on <em>Add</em> button he will be
-      able to choose a book from a list of all existing books, moreover when the
-      author is removed his books are still there in the database. You can
-      define another behavior with cascade as REMOVE or ALL, thus:</div>
+      it. In this case the user can click on <em>Add</em> button to choose a
+      book from a list of all existing books or click on <i>New</i> to enter
+      the data to create a new book that will be added to the collection.
+      Moreover when the author is removed his books are still there in the
+      database. You can define another behavior with cascade as REMOVE or ALL,
+      thus:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@OneToMany(mappedBy="author", cascade=CascadeType.REMOVE)
 </code></pre> </div>
-    <div class="wiki" style="display: block;">In this way when your user try to
-      add a new book a dialog will be open to entry all the data for the book
-      and with a save button. Moreover, when the author would be removed his
-      books will be removed too. For the author/books case we don't want this
-      behavior, but it can be useful in many cases where the <em>@ElementCollection</em>
-      is not enough.<br>
+    <div class="wiki" style="display: block;">In this way only the <i>New</i>
+      button to create new books are available, the <i>Add</i> button is not
+      present. Moreover, when the author would be removed his books will be
+      removed too. For the author/books case we don't want this behavior, but it
+      can be useful in many cases where the <em>@ElementCollection</em> is not
+      enough.<br>
       <span style="line-height: 1.5;">In this section you have the complete code
         and steps required to do changes and see the result in the most
         interactive way. You have seen how OpenXava is an agile tool, ideal for

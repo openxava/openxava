@@ -198,7 +198,7 @@ private String observaciones;
       RELLENADO_CON_CEROS, TEXTO_HTML, ETIQUETA_IMAGEN, EMAIL, TELEFONO, WEBURL,
       IP, ISBN, TARJETA_CREDITO, LISTA_EMAIL, CONTRASENA, MAC, ARCHIVO,
       ARCHIVOS, ICONO, etc.<br>
-      Ya tienes <em>Producto</em> listo. Refinemos ahora <em>Customer</em>.<br>
+      Ya tienes <em>Producto</em> listo. Refinemos ahora <em>Cliente</em>.<br>
       <h3 id="toc4"><a name="Lección 2: Modelar con Java-Modelo básico del dominio-Embeddable"></a>Embeddable</h3>
       Vamos a añadir una dirección a nuestro, hasta ahora algo desnudo, <em>Cliente</em>.
       La dirección del <em>Cliente</em> no está compartida por otros objetos <em>Cliente</em>,
@@ -754,20 +754,21 @@ private Collection&lt;Producto&gt; productos;
     </div>
     <div class="wiki" style="display: block;">Sí, añades una nueva colección,
       refrescas tu navegador y tienes una interfaz de usuario completa para
-      manejarla. En este caso cuando el usuario pulsa en el botón <em>Añadir</em>
-      podrá escoger un libro de una lista de libros existentes, además cuando el
-      autor se borre sus libros seguirán estando en la base de datos. Puedes
-      definir un comportamiento diferente con <em>cascade</em> como REMOVE o
-      ALL, así:</div>
+      manejarla. En este caso el usuario puede pulsar en el botón <em>Añadir</em>
+      para escoger un libro de una lista de libros existentes o pulsar <i>Nuevo</i>
+      para introducir los datos para crear un nuevo libro que se añadirá a la
+      colección. Además cuando el autor se borre sus libros seguirán estando en
+      la base de datos. Puedes definir un comportamiento diferente con <em>cascade</em>
+      como REMOVE o ALL, así:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@OneToMany(mappedBy="autor", cascade=CascadeType.REMOVE) // NO LO AÑADAS A TU CÓDIGO
 </code></pre> </div>
-    <div class="wiki" style="display: block;">De esta forma cuando tu usuario
-      intente añadir un nuevo libro se abrirá un diálogo para introducir los
-      datos del libro y con un botón de grabar. Además, cuando el autor se borre
-      sus libros se borrarán también. Para el caso autor/libros no queremos este
-      comportamiento, pero puede ser útil en muchos casos donde una <em>@ElementCollection</em>
-      sea insuficiente.<br>
+    <div class="wiki" style="display: block;">De esta forma sólo el botón <i>Nuevo</i>
+      para crear nuevos libros está disponible, el botón <i>Añadir</i> no está
+      presente. Además, cuando el autor se borre sus libros se borrarán también.
+      Para el caso autor/libros no queremos este comportamiento, pero puede ser
+      útil en muchos casos donde una <em>@ElementCollection</em> sea
+      insuficiente.<br>
       Esta sección ha mostrado el código completo y los pasos para hacer cambios
       y ver el resultado de una manera muy interactiva. Tus ojos han visto como
       OpenXava es una herramienta ágil, ideal para hacer desarrollo ágil.<br>
