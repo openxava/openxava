@@ -619,8 +619,10 @@ i {
 	vertical-align: -4px;  
 }
 
-.mdi-calendar, .mdi-calendar-clock, .ox-element-collection .mdi-calendar, 
-.ox-element-collection .mdi-calendar-clock, .ox-element-collection .mdi-open-in-new {  
+.ox-detail .mdi-calendar, .ox-detail .mdi-calendar-clock, 
+.ox-list .mdi-calendar, .ox-list .mdi-calendar-clock,
+.ox-element-collection .mdi-calendar, .ox-element-collection .mdi-calendar-clock, 
+.ox-element-collection .mdi-open-in-new {  
 	vertical-align: middle;
 	padding: 4px 4px 4px 0px;
 	margin-right: -20px;
