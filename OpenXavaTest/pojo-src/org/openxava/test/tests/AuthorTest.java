@@ -39,8 +39,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__show_filter_humans").click();
 		assertCollectionFilterDisplayed();
 		
-		// tmp execute("Mode.list");
-		execute("MyGoListMode.list"); // tmp 
+		execute("MyGoListMode.list");  
 		execute("List.viewDetail", "row=1");
 		assertCollectionFilterNotDisplayed();
 		getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__show_filter_humans").click();
@@ -135,7 +134,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertNoAction("Author.addSuffix");
 	}
 	
-	public void testOverwritingDefaultSearch_overwritingGoListAction() throws Exception { // tmp overwritingGoListAction
+	public void testOverwritingDefaultSearch_overwritingGoListAction() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertMessage("Showing author JAVIER PANIZA");
 		assertValue("author", "JAVIER PANIZA");
@@ -147,12 +146,11 @@ public class AuthorTest extends CustomizeListTestBase {
 		execute("Search.search");
 		assertMessage("Showing author JAVIER PANIZA");
 		assertValue("author", "JAVIER PANIZA");
-		// tmp execute("Mode.list");
-		// tmp ini
+
 		assertNoAction("Mode.list");
 		execute("MyGoListMode.list");
 		assertMessage("Back to list");
-		// tmp fin
+
 		execute("List.viewDetail", "row=1");
 		assertMessage("Showing author MIGUEL DE CERVANTES");
 		assertValue("author", "MIGUEL DE CERVANTES");

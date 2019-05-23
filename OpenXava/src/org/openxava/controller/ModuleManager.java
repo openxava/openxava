@@ -128,7 +128,7 @@ public class ModuleManager implements java.io.Serializable {
 	private boolean buttonsVisible = true;
 	private boolean viewKeyEditable;
 	private String moduleURL;
-	private String goListAction = "Mode.list"; // tmp
+	private String goListAction = "Mode.list"; 
 
 	/**
 	 * HTML action bind to the current form.
@@ -371,23 +371,20 @@ public class ModuleManager implements java.io.Serializable {
 		metaControllerMode = null;
 		this.modeControllerName = controllerName;
 		if (!Is.anyEqual(this.modeControllerName, "Mode", "DetailOnly", "Void")) {
-			// tmp log.warn(XavaResources.getString("mode_controller_not_supported", this.modeControllerName)); 
 			this.modeControllerName = "Mode";
-			// tmp ini
 			String candidateGoListAction = controllerName + ".list";
 			if (MetaControllers.containsMetaAction(candidateGoListAction)) {
-				this.goListAction = candidateGoListAction; // tmp
+				this.goListAction = candidateGoListAction; 
 				log.warn(XavaResources.getString("mode_controller_not_recognized_only_go_list_action", controllerName, goListAction));
 			}
 			else {
 				log.warn(XavaResources.getString("mode_controller_not_supported", controllerName));
 			}
-			// tmp fin
 		}
 	}
 	
-
-	public String getGoListAction() { // tmp
+	/** @since 6.1.2 */
+	public String getGoListAction() { 
 		return goListAction;
 	}
 

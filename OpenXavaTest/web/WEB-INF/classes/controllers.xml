@@ -1416,16 +1416,12 @@
 		</action>
 	</controller>
 	
-	<!-- tmp ini -->
-	<!-- tmp Hay que documentar -->
 	<controller name="MyGoListMode">
 		<extends controller="Mode"/>
 		<action name="list"
 			icon="chevron-left"
 			class="org.openxava.test.actions.MyGoListAction"
 			keystroke="F9"/>
-	</controller>
-	<!-- tmp fin -->
-	
+	</controller>	
 	
 </controllers>

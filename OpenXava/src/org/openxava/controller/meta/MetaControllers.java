@@ -56,7 +56,8 @@ public class MetaControllers {
 		return metaControllers.containsKey(name);
 	}
 	
-	public static boolean containsMetaAction(String qualifiedName) { // tmp
+	/** @since 6.1.2 */
+	public static boolean containsMetaAction(String qualifiedName) { 
 		try {
 			getMetaAction(qualifiedName);
 			return true;

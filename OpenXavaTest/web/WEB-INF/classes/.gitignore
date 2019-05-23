@@ -4,8 +4,13 @@
 /converters.xml
 /default-size.xml
 /dtds/
+/org/
 /GalleryImage.hbm.xml
 /META-INF/
+/editors.xml
+/stereotype-type-default.xml
+/tabs-default-values.xml
+/validators.xml
 /OpenXavaTest-labels_ca.properties
 /OpenXavaTest-labels_en.properties
 /OpenXavaTest-labels_es.properties
@@ -14,13 +19,9 @@
 /OpenXavaTest-messages_en.properties
 /OpenXavaTest-messages_es.properties
 /OpenXavaTest-messages_fr.properties
-/editors.xml
 /hibernate-junit.cfg.xml
 /hibernate.cfg.xml
 /portlets/
-/stereotype-type-default.xml
-/tabs-default-values.xml
-/validators.xml
 /BeansContext.properties
 /LoginContextFactory.properties
 /jndi-jboss.properties
@@ -37,6 +38,5 @@
 /Invoice.jrxml
 /InvoiceNoVAT.jrxml
 /Products.jrxml
-/org/
 /xava-junit.properties
 /xava.properties
