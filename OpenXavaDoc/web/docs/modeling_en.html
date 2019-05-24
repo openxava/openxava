@@ -495,9 +495,9 @@ private int number;
       Now that we have all atomic properties ready to use it's time to add
       relationships with other entities. We'll begin adding a reference from <em>Invoice</em>
       to <em>Customer</em>, because an invoice without customer is not very
-      useful. Before adding the customer use the <em>Invoice</em> module to
-      remove all the current invoices because we're going to make the customer
-      required, so the old data could fail.<br>
+      useful. Before adding the customer <b>use the <em>Invoice</em> module to
+        remove all the current invoices</b> because we're going to make the
+      customer required, so the old data could fail.<br>
       Add the next code to the <em>Invoice</em> entity:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // Customer is required

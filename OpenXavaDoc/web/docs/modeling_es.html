@@ -258,7 +258,7 @@ public class Direccion {
 </code></pre> </div>
     <div class="wiki" style="display: block;">Los datos de <em>Direccion</em>
       se almacenan en la misma tabla que los de <em>Cliente</em>. Y desde una
-      perspectiva de la interfaz de usuario hay un marco alrededor de Direccion,
+      perspectiva de la interfaz de usuario hay un marco alrededor de <i>Direccion</i>,
       aunque si no te gusta el marco sólo has de anotar la referencia con <em>@NoFrame</em>,
       como muestra aquí:</div>
     <div class="wiki" style="display: block;">
@@ -387,8 +387,7 @@ public class Factura {
       beneficios prácticos sobre una clave compuesta: No has de escribir la
       aburrida <em>FacturaKey</em>, puedes modificar el número de factura sin
       perder ninguna asociación con otros objetos y puedes almacenar en la misma
-      tabla pedidos (orders) y facturas (invoices) con el par año/numero
-      repetido.<br>
+      tabla pedidos y facturas con el par año/numero repetido.<br>
       El código que tienes es suficiente para hacer funcionar el módulo <em>Factura</em>.
       Hazlo y añade algunas facturas si quieres. Aunque todavía queda mucho
       trabajo por hacer en <em>Factura</em>, como asignar los valores por
@@ -464,7 +463,7 @@ public class CalculadorSiguienteNumeroParaAnyo
       Declaramos una propiedad <em>anyo</em> para poner en ella el año del
       cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el <a
         class="wiki_link" href="jpa_es.html">apéndice B</a> sobre JPA. Ahora
-      solo queda anotar la propiedad <em>numero</em> en la entidad <em>Factura</em>:</div>
+      sólo queda anotar la propiedad <em>numero</em> en la entidad <em>Factura</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Id @Column(length=6)
 @DefaultValueCalculator(value=CalculadorSiguienteNumeroParaAnyo.class,
@@ -482,7 +481,7 @@ private int numero;
       <em>Factura</em> actual se moverá a la propiedad <em>anyo</em> del
       calculador antes de hacer el cálculo. Ahora cuando el usuario pulse en
       'nuevo' el siguiente número de factura disponible para este año estará en
-      el campo. La forma de calcular el número de factura no es el mejor para
+      el campo. La forma de calcular el número de factura no es la mejor para
       muchos usuarios concurrentes añadiendo facturas. No te preocupes, lo
       mejoraremos más adelante.<br>
       El efecto visual del calculador para valor por defecto es este:<br>
@@ -494,11 +493,11 @@ private int numero;
       Ahora que tenemos todas las propiedades atómicas listas para usar, es
       tiempo de añadir relaciones con otras entidades. Empezaremos añadiendo una
       referencia desde <em>Factura</em> a <em>Cliente</em>, porque una factura
-      sin cliente no parece demasiado útil. Antes de añadir el cliente usa el
-      módulo <em>Factura</em> para borrar todas las facturas existentes, porque
-      vamos a hacer el cliente obligatorio y esto podría fallar con los datos
-      existentes.<br>
-      Añade el siguiente código del a la entidad <em>Factura</em>:</div>
+      sin cliente no parece demasiado útil. Antes de añadir el cliente <b>usa
+        el módulo <em>Factura</em> para borrar todas las facturas existentes</b>,
+      porque vamos a hacer el cliente obligatorio y esto podría fallar con los
+      datos existentes.<br>
+      Añade el siguiente código a la entidad <em>Factura</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // El cliente es obligatorio
 private Cliente cliente;
@@ -577,11 +576,14 @@ private Collection&lt;Detalle&gt; detalles;
           alt="modeling_es100.png" title="modeling_es100.png"></span><br>
       <h2 id="toc9"><a name="Lección 2: Modelar con Java-Refinar la interfaz de usuario"></a>Refinar
         la interfaz de usuario</h2>
-      ¡Enhorabuena! Has finalizado tus clases del modelo del dominio y tienes
-      una aplicación funcionando. Tus usuarios pueden trabajar con productos,
-      categorías, clientes e incluso crear facturas. En el caso de los
-      productos, categorías y clientes la interfaz de usuario está bastante
-      bien, aunque para <em>Factura</em> todavía se puede mejorar un poco.<br>
+    </div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ</div>
+    <div class="wiki" style="display: block;">¡Enhorabuena! Has finalizado tus
+      clases del modelo del dominio y tienes una aplicación funcionando. Tus
+      usuarios pueden trabajar con productos, categorías, clientes e incluso
+      crear facturas. En el caso de los productos, categorías y clientes la
+      interfaz de usuario está bastante bien, aunque para <em>Factura</em>
+      todavía se puede mejorar un poco.<br>
       Ya has usado algunas anotaciones OpenXava para refinar la presentación,
       como <em>@DescriptionsList</em>, <em>@NoFrame</em> y <em>@ListProperties</em>.
       En esta sección usaremos más anotaciones de este tipo para dar a la
