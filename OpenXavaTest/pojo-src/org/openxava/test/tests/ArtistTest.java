@@ -1,5 +1,7 @@
 package org.openxava.test.tests;
 
+import org.openxava.jpa.*;
+import org.openxava.test.model.*;
 import org.openxava.tests.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
@@ -14,14 +16,20 @@ public class ArtistTest extends ModuleTestBase {
 		super(testName, "Artist");		
 	}
 	
-	public void testBeanValidationJSR303_focusOnList_dialogFromOnChangeAction() throws Exception {
+	public void testBeanValidationJSR303_focusOnList_dialogFromOnChangeAction_noSpacesInDescriptionsList() throws Exception { 
 		// Focus on list
 		assertFocusOn("conditionValue___0");
 		execute("List.filter"); 
 		assertFocusOn("conditionValue___0");
 		
-		// Bean Validation JSR 303
+		// No spaces in descriptions list
 		execute("List.viewDetail", "row=0");
+		ActingLevel level = XPersistence.getManager().find(ActingLevel.class, "B    ");
+		assertEquals(5, level.getId().length());
+		assertEquals(40, level.getDescription().length());
+		assertDescriptionValue("level.id", "B MAIN CHARACTER"); 
+		
+		// Bean Validation JSR 303
 		setValue("age", "99");		
 		execute("CRUD.save");		
 		assertError("99 is not a valid value for Age of Artist: tiene que ser menor o igual que 90"); 

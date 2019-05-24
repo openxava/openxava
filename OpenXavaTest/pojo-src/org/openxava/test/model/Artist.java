@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
  */
 
 @Entity
-@View(name="ConfirmName", members="artistStudio; name; age") 
+@View(name="ConfirmName", members="artistStudio; name; age; level")
 public class Artist extends Identifiable {
 	
 	@ManyToOne
@@ -25,6 +25,10 @@ public class Artist extends Identifiable {
 	
 	@Max(90l)	
 	private Integer age;
+	
+	@DescriptionsList(descriptionProperties = "id, description")
+	@ManyToOne(fetch = FetchType.LAZY)
+	private ActingLevel level; 
 		
 	public Studio getArtistStudio() {
 		return artistStudio;
@@ -48,6 +52,14 @@ public class Artist extends Identifiable {
 
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	public ActingLevel getLevel() {
+		return level;
+	}
+
+	public void setLevel(ActingLevel level) {
+		this.level = level;
 	}
 
 }

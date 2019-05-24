@@ -127,7 +127,7 @@ public class DescriptionsCalculator implements ICalculator {
 			List<MetaProperty> metaProperties = getMetaTab().getMetaProperties(); 
 			for (int j=iKey; j<columnCount; j++) {
 				if (value.length() > 0) value.append(' ');
-				value.append(metaProperties.get(j).format(table.getValueAt(i, j), Locales.getCurrent()));
+				value.append(metaProperties.get(j).format(table.getValueAt(i, j), Locales.getCurrent()).trim()); 
 			}
 			el.setDescription(value.toString());
 			el.setShowCode(true);
