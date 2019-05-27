@@ -9,7 +9,15 @@
     <!-- Tomcat + Hypersonic -->                                                                 
     <persistence-unit name="default">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    	<!-- tmp 
     	<non-jta-data-source>java://comp/env/jdbc/OpenXavaTestDS</non-jta-data-source>
+    	-->
+    	<!-- tmp ini -->
+    	<!-- 
+    	<non-jta-data-source>java:comp/env/jdbc/OpenXavaTestDS</non-jta-data-source>
+    	<non-jta-data-source>jdbc/OpenXavaTestDS</non-jta-data-source>
+    	 -->
+    	<!-- tmp fin -->
     	<class>org.openxava.session.GalleryImage</class>
     	<class>org.openxava.web.editors.AttachedFile</class>
     	<class>org.openxava.web.editors.DiscussionComment</class>
@@ -18,7 +26,10 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
             <property name="hibernate.show_sql" value="false"/>    
             <property name="hibernate.default_schema" value="XAVATEST"/>
-            <property name="hibernate.connection.release_mode" value="after_transaction"/> 
+            <property name="hibernate.connection.release_mode" value="after_transaction"/>
+            <!-- tmp ini -->
+            <property name="hibernate.connection.datasource" value="java:comp/env/jdbc/OpenXavaTestDS"/>
+            <!-- tmp fin --> 
             <property name="hibernate.jdbc.factory_class" 
             		value="org.hibernate.jdbc.NonBatchingBatcherFactory"/>
             <property name="org.hibernate.envers.audit_strategy" 

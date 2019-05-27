@@ -185,7 +185,7 @@ public class PortletCodeGenerator {
 			System.err.println(XavaResources.getString("jetspeed2_generator_argv_required")); 
 			System.exit(1);			
 		}
-		try {									
+		try {		
 			PortletCodeGenerator g = new PortletCodeGenerator();			
 			g.setProject(argv[0]);			
 			g.setPagesDir(argv[1]);
@@ -195,6 +195,7 @@ public class PortletCodeGenerator {
 				g.setDefaultLocale(argv[4]);
 			}
 			g.run();			
+			System.exit(0); 
 		}	
 		catch (Exception ex) {
 			ex.printStackTrace();

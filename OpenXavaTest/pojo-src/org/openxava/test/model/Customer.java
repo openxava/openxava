@@ -15,6 +15,7 @@ import org.openxava.test.actions.*;
  */
 
 @Entity
+/* tmp
 @View( members= 	
 	"number;" +  
 	"type;" +
@@ -32,6 +33,26 @@ import org.openxava.test.actions.*;
 	"deliveryPlaces;" +
 	"remarks" 
 )
+*/
+// tmp ini
+@View( members= 	
+	"number;" +  
+	"type;" +
+	"name, Customer.changeNameLabel();" +
+	"telephone, photo;" +
+	"email;" +
+	"website;" +
+	"address;" +
+	"city;" +		
+	"seller [" +  
+	"	seller; " +
+	"	relationWithSeller;" +
+	"]" +
+	"alternateSeller;"  +		
+	"deliveryPlaces;" +
+	"remarks" 
+)
+// tmp fin
 
 @View(name = "FramesOnSameRow", members= 	
 	"number;" +
