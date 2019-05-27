@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+
+TMP ME QUEDÉ POR: BUG RESUELTO PARA terra.css Y light.css. FALTA PROBARLO EN Liferay PERO NO PUEDO INSTALARLO. NO ENCUENTRA DataSource
+
 - Fix: Search in @DescriptionsList not work with composite description and fields with several trailing spaces.
 - Fix: @DescriptionsList with a composite description show all the existing spaces between fields. 
 - Fix: Calendar icon covers up the name of the action when user as action icon. 

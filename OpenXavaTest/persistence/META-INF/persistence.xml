@@ -9,9 +9,7 @@
     <!-- Tomcat + Hypersonic -->                                                                 
     <persistence-unit name="default">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    	<!-- tmp 
     	<non-jta-data-source>java://comp/env/jdbc/OpenXavaTestDS</non-jta-data-source>
-    	-->
     	<!-- tmp ini -->
     	<!-- 
     	<non-jta-data-source>java:comp/env/jdbc/OpenXavaTestDS</non-jta-data-source>
@@ -27,9 +25,6 @@
             <property name="hibernate.show_sql" value="false"/>    
             <property name="hibernate.default_schema" value="XAVATEST"/>
             <property name="hibernate.connection.release_mode" value="after_transaction"/>
-            <!-- tmp ini -->
-            <property name="hibernate.connection.datasource" value="java:comp/env/jdbc/OpenXavaTestDS"/>
-            <!-- tmp fin --> 
             <property name="hibernate.jdbc.factory_class" 
             		value="org.hibernate.jdbc.NonBatchingBatcherFactory"/>
             <property name="org.hibernate.envers.audit_strategy" 
