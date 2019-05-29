@@ -362,15 +362,6 @@ select:not([multiple]) {
 	padding: 5px;
 }
 
-
-/* tmp
-.ox-label { 
-	vertical-align: middle;
-	padding-right: 7px;
-}
-*/
-
-/* tmp ini */
 .ox-label { 
 	padding-top: 10px; 
 	padding-right: 7px; 
@@ -379,7 +370,6 @@ select:not([multiple]) {
 .ox-label, .ox-layout-not-aligned-cell  {
 	vertical-align: top;
 }
-/* tmp fin */
 
 .ox-editor-wrapper { 
 	padding: 1px 12px 5px 0px; 

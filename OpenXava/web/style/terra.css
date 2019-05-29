@@ -418,17 +418,14 @@ select:not([multiple]) {
 
 
 .ox-label { 
-	/* tmp vertical-align: middle; */
-	padding-top: 8px; /* tmp */
+	padding-top: 8px; 
 	padding-right: 7px;
 	font-weight: bold; 
 }
 
-/* tmp ini */
 .ox-label, .ox-layout-not-aligned-cell  {
 	vertical-align: top;
 }
-/* tmp fin */
 
 .ox-editor-wrapper { 
 	padding: 1px 12px 5px 0px; 

@@ -16,8 +16,7 @@ import org.openxava.annotations.*;
 @Entity
 @Views ({	
 	@View(members="number; name"),				
-	// tmp @View(name="Complete",	members="number; name; level; regions; customers"),	
-	@View(name="Complete",	members="number; name; level, regions; customers"), // tmp
+	@View(name="Complete",	members="number; name; level; regions; customers"),	
 	@View(name="RegionsWithCheckBoxes", members="number; name; regions"), 
 	@View(name="DecorateName", members="number; name"),	
 	@View(name="ForCustomJSP", members="number; name; level"),

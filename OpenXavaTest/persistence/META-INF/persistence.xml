@@ -10,12 +10,6 @@
     <persistence-unit name="default">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     	<non-jta-data-source>java://comp/env/jdbc/OpenXavaTestDS</non-jta-data-source>
-    	<!-- tmp ini -->
-    	<!-- 
-    	<non-jta-data-source>java:comp/env/jdbc/OpenXavaTestDS</non-jta-data-source>
-    	<non-jta-data-source>jdbc/OpenXavaTestDS</non-jta-data-source>
-    	 -->
-    	<!-- tmp fin -->
     	<class>org.openxava.session.GalleryImage</class>
     	<class>org.openxava.web.editors.AttachedFile</class>
     	<class>org.openxava.web.editors.DiscussionComment</class>
