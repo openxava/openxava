@@ -198,6 +198,11 @@ private int id;</pre>
     throws HibernateException, SQLException {</pre>
       <p>The same for all methods that use <i>SessionImplementer</i> of any <i>UserType</i>
         or <i>CompositeUser</i> implementation.</p>
+      <h3>Liferay configuration</h3>
+      <p>In order the new Hibernate 5.3 works with Liferay you have to create a
+        file <i>portal-ext.properties</i> in the <i>webapps/ROOT/WEB-INF/classes</i>
+        folder of the Tomcat in your Liferay, with the next entry:</p>
+      <pre><code class="properties">portal.security.manager.strategy=none           </code></pre>
       <h2>Migration from OpenXava 6.0.1 to OpenXava 6.0.2</h2>
       No issues.
       <h2>Migration from OpenXava 6.0 to OpenXava 6.0.1</h2>
