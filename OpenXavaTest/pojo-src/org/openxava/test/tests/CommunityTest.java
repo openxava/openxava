@@ -16,9 +16,10 @@ public class CommunityTest extends ModuleTestBase {
 		super(testName, "Community");		
 	}
 	
-	public void testPolimorphingEditionOfCollectionElements() throws Exception { 		
+	public void testPolimorphingEditionOfCollectionElements_quotesInDescriptionsList() throws Exception { 		
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "PROGRAMMERS");
+		assertDescriptionValue("socialNetwork.id", "LA RED \"L'HORTA\""); 
 		assertCollectionRowCount("members", 3);
 		execute("Collection.edit", "row=1,viewObject=xava_view_members"); 
 		assertValue("name", "JAVI");
