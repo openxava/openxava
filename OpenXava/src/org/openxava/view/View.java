@@ -167,7 +167,8 @@ public class View implements java.io.Serializable {
 	private Collection propertiesWithChangedActions;
 	private Object model;
 	private List sections;
-	private boolean polished = true; 
+	private boolean polished = true;
+	private boolean actionsNamesListRefined = false; // tmp
 	
 	// firstLevel is the root view that receives the request 
 	// usually match with getRoot(), but not always. For example,
@@ -396,6 +397,7 @@ public class View implements java.io.Serializable {
 	private void polish() { 
 		if (polisher == null) return;
 		if (polished) return;
+		System.out.println("[View.polish] >> " + getMemberName()); // tmp
 		if (!isFirstLevel() && !(isGroup() || isSection())) return;
 		try {
 			XObjects.execute(polisher, "refine", MetaModule.class, getModuleManager(getRequest()).getMetaModule(),
@@ -421,14 +423,16 @@ public class View implements java.io.Serializable {
 				getSectionView(i).polish();
 			}	
 		}
-
+		System.out.println("[View.polish] << " + getMemberName()); // tmp
 	}
 
 	private void polish(Collection<MetaMember> metaMembers) {
 		if (polisher == null) return;
 		try {
+			System.out.println("[View.polish(Collection)] >> " + getMemberName()); // tmp
 			XObjects.execute(polisher, "refine", MetaModule.class, getModuleManager(getRequest()).getMetaModule(),
 				Collection.class, metaMembers, View.class, this);
+			System.out.println("[View.polish(Collection)] << " + getMemberName()); // tmp
 		}
 		catch (Exception ex) {
 			log.error(XavaResources.getString("refining_members_error"), ex);			 
@@ -1460,7 +1464,8 @@ public class View implements java.io.Serializable {
 	
 	public Map getMembersNamesWithHidden() throws XavaException {
 		// the public version create a new Map always
-		return createMembersNames(true);
+		// tmp return createMembersNames(true);
+		return getMembersNamesWithHiddenImpl(); // tmp
 	}
 	
 	
@@ -1494,7 +1499,8 @@ public class View implements java.io.Serializable {
 
 	public Map getMembersNames() throws XavaException {		
 		// the public version create a new Map always
-		return createMembersNames(false);
+		// tmp return createMembersNames(false);
+		return getMembersNamesImpl(); // tmp
 	}	
 	
 	private Map getMembersNamesWithHiddenImpl() throws XavaException { 
@@ -2395,7 +2401,8 @@ public class View implements java.io.Serializable {
 		while (it.hasNext()) {
 			Map.Entry e = (Map.Entry) it.next();
 			// The next if is for a bug with Java 8
-			if (getMembersNames().containsKey(e.getKey())) values.put(e.getKey(), null);
+			// tmp if (getMembersNames().containsKey(e.getKey())) values.put(e.getKey(), null);
+			if (getMembersNamesImpl().containsKey(e.getKey())) values.put(e.getKey(), null); // tmp
 			else it.remove();
 		}
 		if (hasSubviews()) {
@@ -4751,6 +4758,7 @@ public class View implements java.io.Serializable {
 			actionsNamesList.add(qualifiedActionName);
 			getFullOrderActionsNamesList().add(qualifiedActionName);
 		}		
+		actionsNamesListRefined = false; // tmp
 	}
 	
 	public void addRowAction(String qualifiedActionName) {	
@@ -4791,6 +4799,7 @@ public class View implements java.io.Serializable {
 	public void removeListAction(String qualifiedActionName) {		
 		if (actionsNamesList == null) actionsNamesList = new ArrayList(getDefaultListActionsForCollections()); 
 		actionsNamesList.remove(qualifiedActionName);
+		actionsNamesListRefined = false; // tmp
 		refreshCollection(); 
 	}
 	
@@ -4813,12 +4822,22 @@ public class View implements java.io.Serializable {
 		return MetaControllers.getMetaAction((String) qualifiedAction).isInEachRow();
 	}
 		
-	public Collection getActionsNamesList() {	
+	public Collection getActionsNamesList() {
+		/* tmp
 		Collection<String> result;
 		if (actionsNamesList == null) result = new ArrayList(getDefaultListActionsForCollections());
 		else result = new ArrayList(actionsNamesList);
 		refine(result);
 		return result;
+		*/
+		// tmp ini
+		if (actionsNamesList == null) actionsNamesList = new ArrayList(getDefaultListActionsForCollections());
+		if (!actionsNamesListRefined) {
+			refine(actionsNamesList);
+			actionsNamesListRefined = true;
+		}
+		return actionsNamesList;
+		// tmp fin
 	}
 	
 	public Collection<String> getSubcontrollersNamesList(){ 
@@ -4836,6 +4855,7 @@ public class View implements java.io.Serializable {
 	
 	public void setActionsNamesList(Collection collection) {		
 		actionsNamesList = collection;
+		actionsNamesListRefined = false; // tmp
 		if (fullOrderActionsNamesList == null) {
 			fullOrderActionsNamesList = new ArrayList(collection);
 		}
@@ -4856,11 +4876,22 @@ public class View implements java.io.Serializable {
 	}	
 	
 	public Collection getActionsNamesRow() {
+		/* tmp
 		Collection<String> result;
 		if (actionsNamesRow == null) result = new ArrayList<String>(getDefaultRowActionsForCollections());
 		else result = new ArrayList<String>(actionsNamesRow);
 		refine(result);
 		return result;
+		*/
+		// tmp ini
+		// TMP ME QUEDÉ POR AQUÍ: HE DE HACER ESTE Y LOS DEMÁS COMO EL PRIMERO. LA IDEA ES QUE EL CACHE LO HAGA View
+		if (actionsNamesRow == null) actionsNamesRow = new ArrayList(getDefaultRowActionsForCollections());
+		if (!actionsNamesRowRefined) {
+			refine(actionsNamesRow);
+			actionsNamesRowRefined = true;
+		}
+		return actionsNamesRow;
+		// tmp fin
 	}
 			                                                                                                                                                                                                                                                                                                                                                                                                                   
 	public Collection getActionsNamesForProperty(MetaProperty p, boolean editable) throws XavaException {		
