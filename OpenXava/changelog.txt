@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: View.setEditable(member, editable) does not work for references.
 - Fix: Value with quotation marks in @DescriptionsList is only displayed until the first quotation.
 - Fix: Warning messages are not very legible.
 - Lesson 2 of course upgraded to OpenXava 6.

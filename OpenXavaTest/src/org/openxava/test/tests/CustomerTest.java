@@ -645,6 +645,16 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertNoEditable("seller.name");
 		assertAction("Reference.search");					
 		assertAction("Reference.createNew");
+		
+		assertAction("MyReference.search", "keyProperty=seller.number");
+		assertAction("Reference.createNew", "model=Seller,keyProperty=seller.number");
+		assertAction("Reference.modify", "model=Seller,keyProperty=seller.number");
+		execute("Customer.disableSeller");
+		assertNoAction("MyReference.search", "keyProperty=seller.number");
+		assertNoAction("Reference.createNew", "model=Seller,keyProperty=seller.number");
+		assertNoAction("Reference.modify", "model=Seller,keyProperty=seller.number");
+		assertNoEditable("seller.number");
+		assertNoEditable("seller.name");		
 	}
 	
 	public void testFocus() throws Exception {

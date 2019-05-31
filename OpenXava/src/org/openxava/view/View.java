@@ -2728,6 +2728,11 @@ public class View implements java.io.Serializable {
 		if (editable) getNotEditableMembersNames().remove(name);
 		else getNotEditableMembersNames().add(name);
 		
+		if (hasSubview(name)) {
+			View subview = getSubview(name);
+			if (subview.isRepresentsEntityReference()) subview.setKeyEditable(editable);
+		}
+		
 		if (hasGroups()) {
 			Iterator it = getGroupsViews().values().iterator();
 			while (it.hasNext()) {
