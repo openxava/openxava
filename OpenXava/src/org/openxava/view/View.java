@@ -171,7 +171,8 @@ public class View implements java.io.Serializable {
 	private boolean actionsNamesListRefined = false; 
 	private boolean actionsNamesRowRefined = false; 
 	private boolean subcontrollersNamesListRefined = false; 
-	private Map<String, String> refinedCollectionActions; 
+	private Map<String, String> refinedCollectionActions;
+	private Map<String, Boolean> refinedReferenceActions; // tmp
 	
 	// firstLevel is the root view that receives the request 
 	// usually match with getRoot(), but not always. For example,
@@ -1499,7 +1500,7 @@ public class View implements java.io.Serializable {
 		return getMembersNamesImpl(); 
 	}	
 	
-	private Map getMembersNamesWithHiddenImpl() throws XavaException { 
+	private Map getMembersNamesWithHiddenImpl() throws XavaException { // tmp Fusionar con getMembersNamesWithHidden() 
 		// the private version make cache
 		if (membersNamesWithHidden == null) {
 			membersNamesWithHidden = createMembersNames(true);			
@@ -1507,7 +1508,7 @@ public class View implements java.io.Serializable {
 		return membersNamesWithHidden;		
 	}
 		
-	private Map getMembersNamesImpl() throws XavaException { 
+	private Map getMembersNamesImpl() throws XavaException { // tmp ¿Fusionar con getMembersNames()? 
 		// the private version make cache
 		if (membersNames == null) {
 			membersNames = createMembersNames(false); 
@@ -4302,6 +4303,32 @@ public class View implements java.io.Serializable {
 		if (create && !viewRef.isCreate()) return false; 
 		if (!create && !viewRef.isModify()) return false; 
 		if (refiner == null) return true;
+		// tmp ini
+		/*
+		System.out.println("[View.isActionForReference] getModelName()=" + getModelName()); // tmp
+		System.out.println("[View.isActionForReference] getMemberName()=" + getMemberName()); // tmp
+		System.out.println("[View.isActionForReference] isRepresentsEntityReference()=" + isRepresentsEntityReference()); // tmp
+		System.out.println("[View.isActionForReference] displayAsDescriptionsList()=" + displayAsDescriptionsList()); // tmp
+		*/
+		// tmp ME QUEDÉ POR AQUÍ: LA SEGUNDA VEZ LO VUELVE HACER, INVESTIGANDO
+		String key = ref.getName() + ":" + create;
+		if (refinedReferenceActions == null) refinedReferenceActions = new HashMap<>();
+		Boolean result = refinedReferenceActions.get(key);
+		if (result == null) {
+			try {
+				result = (Boolean) XObjects.execute(refiner, "accept", 
+					String.class, ref.getReferencedModelName(), 
+					String.class, create?"new":"save");
+				refinedReferenceActions.put(key, result);
+			}
+			catch (Exception ex) {
+				log.error(XavaResources.getString("action_for_reference_error", ref.getName(), ref.getMetaModel().getName()), ex); 
+				return false; 
+			}				
+		}
+		return result;
+		// tmp fin
+		/* tmp
 		try {
 			return (Boolean) XObjects.execute(refiner, "accept", 
 				String.class, ref.getReferencedModelName(), 
@@ -4310,7 +4337,8 @@ public class View implements java.io.Serializable {
 		catch (Exception ex) {
 			log.error(XavaResources.getString("action_for_reference_error", ref.getName(), ref.getMetaModel().getName()), ex); 
 			return false; 
-		}				
+		}		
+		*/		
 	}
 	
 	public boolean isSearchForReference(MetaReference ref) throws XavaException {

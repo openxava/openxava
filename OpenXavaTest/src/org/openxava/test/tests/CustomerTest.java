@@ -1,10 +1,13 @@
 package org.openxava.test.tests;
 
+import java.io.*;
+
 import javax.persistence.NoResultException;
 
 import org.openxava.model.meta.MetaModel;
 import org.openxava.test.model.Customer;
 import org.openxava.test.model.Warehouse;
+import org.openxava.test.util.*;
 import org.openxava.util.Is;
 
 import com.gargoylesoftware.htmlunit.html.*;
@@ -719,4 +722,40 @@ public class CustomerTest extends CustomizeListTestBase {
 		setValue("type", usesAnnotatedPOJO()?"2":"3");
 		assertValue("type", usesAnnotatedPOJO()?"2":"3");		
 	}
+	
+	public void testRefisher() throws Exception { // tmp
+		// tmp Thread.sleep(1000); // To wait until preferences directory would be removed completely. This was an intermittent problem with Windows 7
+		execute("Customer.startRefisher");
+		assertEquals(-1, getRefisherEntriesCount());
+		execute("List.viewDetail", "row=0");
+		int count = getRefisherEntriesCount();
+		assertTrue(count > 20);
+		execute("Navigation.next");
+		assertEquals(count, getRefisherEntriesCount());
+		execute("Navigation.next");
+		assertEquals(count, getRefisherEntriesCount());
+		execute("Customer.stopRefisher");
+	}
+	
+	public static int getRefisherEntriesCount() throws Exception{
+		BufferedReader r = null;
+		try {
+			r = new BufferedReader(new FileReader(Refisher.FILE_NAME));
+			String line = r.readLine();
+			int i=0;
+			while (line != null) {
+				line = r.readLine();
+				i++;
+			}
+			return i;
+		}
+		catch (FileNotFoundException ex) {
+			return -1;
+		}
+		finally {
+			if (r != null) r.close();
+		}
+	}
+
+	
 }
