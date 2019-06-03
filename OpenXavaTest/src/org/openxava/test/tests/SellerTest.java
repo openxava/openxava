@@ -334,7 +334,7 @@ public class SellerTest extends CustomizeListTestBase {
 	public void testCutPasteElementsInEntityCollection() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "MANUEL CHAVARRI");
-		assertCollectionRowCount("customers", 2);
+		assertCollectionRowCount("customers", 2); 
 		assertValueInCollection("customers", 0, 0, "1");
 		assertValueInCollection("customers", 1, 0, "2");
 		checkAllCollection("customers");
@@ -519,7 +519,7 @@ public class SellerTest extends CustomizeListTestBase {
 		execute("List.viewDetail", "row=1");
 		assertValue("number", "2"); 
 		assertValue("name", "JUANVI LLAVADOR");
-		assertCollectionRowCount("customers", 1);		
+		assertCollectionRowCount("customers", 1); 		
 		execute("Navigation.previous");
 		assertValue("number", "1");
 		assertValue("name", "MANUEL CHAVARRI");
@@ -643,7 +643,7 @@ public class SellerTest extends CustomizeListTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("number", "1"); 
 		assertValueInCollection("customers", 0, "number", "1");
-		assertValueInCollection("customers", 1, "number", "2");
+		assertValueInCollection("customers", 1, "number", "2"); 
 		execute("List.orderBy", "property=number,collection=customers");
 		execute("List.orderBy", "property=number,collection=customers");
 		assertValueInCollection("customers", 0, "number", "2"); 

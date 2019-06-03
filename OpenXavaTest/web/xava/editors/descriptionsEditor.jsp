@@ -187,11 +187,12 @@ if (editable) {
 		values.append("]");
 		String browser = request.getHeader("user-agent");
 		maxDescriptionLength += 5;
+		selectedDescription = selectedDescription.replaceAll("\"", "&quot;"); 
 	%>
 	<span class="<%=style.getDescriptionsList()%>">
 	<%-- The JavaScript code depends on the order of the next elements --%>
 	<input name="<%=propertyKey%>__CONTROL__" type="text" tabindex="1" class="xava_select <%=style.getEditor()%>" size="<%=maxDescriptionLength%>" <%=script%> title="<%=title%>" 
-		data-values='<%=values%>' value="<%=selectedDescription%>"/> 
+		data-values='<%=values%>' value="<%=selectedDescription%>"/>
 	<input id="<%=propertyKey%>" type="hidden" name="<%=propertyKey%>" value="<%=selectedKey%>"/>
 	<input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=selectedDescription%>"/>
 	<a class="ox-layout-descriptions-editor-handler" href="javascript:descriptionsEditor.open('<%=propertyKey%>')"><i class="mdi mdi-menu-down"></i></a> 		

@@ -532,6 +532,10 @@
 			<set property="prefix" value="C/ "/>
 		</action>
 		
+		<action name="disableSeller" class="org.openxava.test.actions.SetMemberEditableOffAction" mode="detail">
+			<set property="member" value="seller"/>
+		</action>
+		
 	</controller>
 				
 	<controller name="CustomerNewOnInit">
