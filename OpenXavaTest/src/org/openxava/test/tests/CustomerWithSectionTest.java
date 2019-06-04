@@ -29,7 +29,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 		"List.changeColumnName", 
 		"ListFormat.select",
 		"Customer.hideSellerInList",
-		"Customer.showSellerInList"
+		"Customer.showSellerInList",
+		"Customer.startRefisher",
+		"Customer.stopRefisher",		
 	};
 
 	public CustomerWithSectionTest(String testName) { 

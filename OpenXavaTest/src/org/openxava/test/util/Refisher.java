@@ -11,7 +11,6 @@ import org.openxava.util.*;
 import org.openxava.view.*;
 
 /**
- * tmp
  * 
  * @author Javier Paniza
  */
@@ -21,30 +20,27 @@ public class Refisher {
 	final public static String FILE_NAME = Files.getOpenXavaBaseDir() + "refisher.log";
 	
 	public void refine(MetaModule metaModule, Collection metaActions) {
-		log("A.1"); // tmp
+		log("A.1"); 
 	}
 	
 	public void refineForCollections(MetaModule metaModule, Collection<String> actionNames) {
-		log("A.2"); // tmp
+		log("A.2"); 
 	}
 	
 	public boolean accept(String model, String unqualifiedAction) {
-		log("A.3: model=" + model + ", unqualifiedAction=" + unqualifiedAction); // tmp
 		return true;
 	}	
 	
 	public void refine(MetaModule metaModule, Collection<MetaMember> metaMembers, View view) {
-		System.out.println("[Refisher.refine] metaModule=" + metaModule.getName() + ", metaMembers=" + metaMembers + ", view=" + view.getModelName() + "(" + view.getMemberName() + ")"); // tmp
-		log("B.1"); // tmp
+		log("B.1"); 
 	}
 	
 	public void polish(MetaModule metaModule, MetaTab metaTab) {
-		log("B.2"); // tmp
+		log("B.2"); 
 	}
 	
 	private static void log(String line) {
 		try {
-			System.out.println("[Refisher.log] " + line); // tmp
 			createFileIfNotExist();
 			FileOutputStream f = new FileOutputStream(FILE_NAME, true); 
 			PrintStream p = new PrintStream(f);

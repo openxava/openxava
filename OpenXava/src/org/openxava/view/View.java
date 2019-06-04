@@ -172,7 +172,7 @@ public class View implements java.io.Serializable {
 	private boolean actionsNamesRowRefined = false; 
 	private boolean subcontrollersNamesListRefined = false; 
 	private Map<String, String> refinedCollectionActions;
-	private Map<String, Boolean> refinedReferenceActions; // tmp
+	private Map<String, Boolean> refinedReferenceActions; 
 	
 	// firstLevel is the root view that receives the request 
 	// usually match with getRoot(), but not always. For example,
@@ -402,6 +402,7 @@ public class View implements java.io.Serializable {
 		if (polisher == null) return;
 		if (polished) return;
 		if (!isFirstLevel() && !(isGroup() || isSection())) return;
+
 		try {
 			XObjects.execute(polisher, "refine", MetaModule.class, getModuleManager(getRequest()).getMetaModule(),
 				Collection.class, getMetaMembers(), View.class, this);
@@ -430,6 +431,7 @@ public class View implements java.io.Serializable {
 
 	private void polish(Collection<MetaMember> metaMembers) {
 		if (polisher == null) return;
+		if (displayAsDescriptionsList()) return; 
 		try {
 			XObjects.execute(polisher, "refine", MetaModule.class, getModuleManager(getRequest()).getMetaModule(),
 				Collection.class, metaMembers, View.class, this);
@@ -440,7 +442,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public void setMetaMembers(Collection metaMembers) {			
-		if (Is.equal(this.metaMembers, metaMembers)) return;		
+		if (Is.equal(this.metaMembers, metaMembers)) return;
 		this.metaMembers = metaMembers;
 		this.membersNames = null;
 		this.collectionMemberNames = null;
@@ -1351,7 +1353,7 @@ public class View implements java.io.Serializable {
 			Iterator it = getGroupsViews().values().iterator();		
 			while (it.hasNext()) {
 				View subview = (View) it.next();																
-				membersNamesInGroup.addAll(subview.getMembersNamesWithHiddenImpl().keySet());
+				membersNamesInGroup.addAll(subview.getMembersNamesWithHidden().keySet()); 
 			}		
 		}
 		return membersNamesInGroup;
@@ -1463,7 +1465,10 @@ public class View implements java.io.Serializable {
 	}
 	
 	public Map getMembersNamesWithHidden() throws XavaException {
-		return getMembersNamesWithHiddenImpl(); 
+		if (membersNamesWithHidden == null) {
+			membersNamesWithHidden = createMembersNames(true);
+		}
+		return membersNamesWithHidden;		
 	}
 	
 	
@@ -1474,7 +1479,7 @@ public class View implements java.io.Serializable {
 		else if (isInsideElementCollection()) {			
 			return (Map) getParent().getMembersNamesForFindObject().get(getMemberName());
 		}
-		return getMembersNamesWithHiddenImpl();
+		return getMembersNamesWithHidden(); 
 	}
 	
 	private Map getMembersNameForElementCollection() { 
@@ -1496,25 +1501,11 @@ public class View implements java.io.Serializable {
 	}	
 
 	public Map getMembersNames() throws XavaException {		
-		// the public version create a new Map always
-		return getMembersNamesImpl(); 
-	}	
-	
-	private Map getMembersNamesWithHiddenImpl() throws XavaException { // tmp Fusionar con getMembersNamesWithHidden() 
-		// the private version make cache
-		if (membersNamesWithHidden == null) {
-			membersNamesWithHidden = createMembersNames(true);			
-		}
-		return membersNamesWithHidden;		
-	}
-		
-	private Map getMembersNamesImpl() throws XavaException { // tmp ¿Fusionar con getMembersNames()? 
-		// the private version make cache
 		if (membersNames == null) {
-			membersNames = createMembersNames(false); 
+			membersNames = createMembersNames(false);
 		}
-		return membersNames;		
-	}
+		return membersNames;
+	}	
 	
 	public Map getCalculatedPropertiesNames() throws XavaException {		
 		if (calculatedPropertiesNames == null) { 
@@ -2398,7 +2389,7 @@ public class View implements java.io.Serializable {
 		while (it.hasNext()) {
 			Map.Entry e = (Map.Entry) it.next();
 			// The next if is for a bug with Java 8
-			if (getMembersNamesImpl().containsKey(e.getKey())) values.put(e.getKey(), null); 
+			if (getMembersNames().containsKey(e.getKey())) values.put(e.getKey(), null); 
 			else it.remove();
 		}
 		if (hasSubviews()) {
@@ -2435,7 +2426,7 @@ public class View implements java.io.Serializable {
 			Collection properties = new ArrayList(getMetaModel().getMetaPropertiesWithDefaultValueCalculator());			
 			properties.addAll(getMetaModel().getMetaPropertiesViewWithDefaultCalculator());			
 			if (!properties.isEmpty()) {
-				Map membersNames = getMembersNamesImpl();
+				Map membersNames = getMembersNames(); 
 				Iterator it = properties.iterator();
 				Collection alreadyPut = new ArrayList();				
 				while (it.hasNext()) {
@@ -2515,7 +2506,7 @@ public class View implements java.io.Serializable {
 			// References			
 			Collection references = getMetaModel().getMetaReferencesWithDefaultValueCalculator();				
 			if (!references.isEmpty()) {		
-				Map membersNames = getMembersNamesImpl();
+				Map membersNames = getMembersNames();
 				Iterator it = references.iterator();
 				Collection alreadyPut = new ArrayList();						
 				while (it.hasNext()) {
@@ -4140,7 +4131,7 @@ public class View implements java.io.Serializable {
 	}
 
 	public void setRequest(HttpServletRequest request) throws XavaException {			
-		getRoot().request = request; 
+		getRoot().request = request;
 		polish(); 
 	}
 
@@ -4297,29 +4288,20 @@ public class View implements java.io.Serializable {
 		return isActionForReference(ref, false); 
 	}
 		
-	private boolean isActionForReference(MetaReference ref, boolean create) throws XavaException { 
+	private boolean isActionForReference(MetaReference ref, boolean create) throws XavaException {
 		MetaReferenceView viewRef = getMetaView().getMetaReferenceView(ref);		
 		if (viewRef == null) return true;
 		if (create && !viewRef.isCreate()) return false; 
 		if (!create && !viewRef.isModify()) return false; 
 		if (refiner == null) return true;
-		// tmp ini
-		/*
-		System.out.println("[View.isActionForReference] getModelName()=" + getModelName()); // tmp
-		System.out.println("[View.isActionForReference] getMemberName()=" + getMemberName()); // tmp
-		System.out.println("[View.isActionForReference] isRepresentsEntityReference()=" + isRepresentsEntityReference()); // tmp
-		System.out.println("[View.isActionForReference] displayAsDescriptionsList()=" + displayAsDescriptionsList()); // tmp
-		*/
-		// tmp ME QUEDÉ POR AQUÍ: LA SEGUNDA VEZ LO VUELVE HACER, INVESTIGANDO
 		String key = ref.getName() + ":" + create;
-		if (refinedReferenceActions == null) refinedReferenceActions = new HashMap<>();
-		Boolean result = refinedReferenceActions.get(key);
+		Boolean result = getRefinedReferenceActions().get(key);
 		if (result == null) {
 			try {
 				result = (Boolean) XObjects.execute(refiner, "accept", 
 					String.class, ref.getReferencedModelName(), 
 					String.class, create?"new":"save");
-				refinedReferenceActions.put(key, result);
+				getRefinedReferenceActions().put(key, result);
 			}
 			catch (Exception ex) {
 				log.error(XavaResources.getString("action_for_reference_error", ref.getName(), ref.getMetaModel().getName()), ex); 
@@ -4327,18 +4309,14 @@ public class View implements java.io.Serializable {
 			}				
 		}
 		return result;
-		// tmp fin
-		/* tmp
-		try {
-			return (Boolean) XObjects.execute(refiner, "accept", 
-				String.class, ref.getReferencedModelName(), 
-				String.class, create?"new":"save");
+	}
+	
+	private Map<String, Boolean> getRefinedReferenceActions() {
+		if (refinedReferenceActions == null) {
+			if (isGroup()) return getParent().getRefinedReferenceActions();
+			refinedReferenceActions = new HashMap<>();
 		}
-		catch (Exception ex) {
-			log.error(XavaResources.getString("action_for_reference_error", ref.getName(), ref.getMetaModel().getName()), ex); 
-			return false; 
-		}		
-		*/		
+		return refinedReferenceActions;
 	}
 	
 	public boolean isSearchForReference(MetaReference ref) throws XavaException {
@@ -4451,7 +4429,7 @@ public class View implements java.io.Serializable {
 	 * @param name  Name of the member, group or section
 	 * @param hidden  true to hide, false to show
 	 */
-	public void setHidden(String name, boolean hidden) throws XavaException {		
+	public void setHidden(String name, boolean hidden) throws XavaException {
 		if (hiddenMembers == null) {
 			if (!hidden) return;		
 			hiddenMembers = new HashSet();

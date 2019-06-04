@@ -536,10 +536,8 @@
 			<set property="member" value="seller"/>
 		</action>
 		
-		<!-- tmp ini -->
 		<action name="startRefisher" class="org.openxava.test.actions.StartRefisherAction"/>
 		<action name="stopRefisher" class="org.openxava.test.actions.StopRefisherAction"/>
-		<!-- tmp fin -->
 		
 	</controller>
 				

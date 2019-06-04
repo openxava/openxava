@@ -38,7 +38,9 @@ public class CustomerTest extends CustomizeListTestBase {
 		"List.changeColumnName", 
 		"ListFormat.select", 
 		"Customer.hideSellerInList",
-		"Customer.showSellerInList"
+		"Customer.showSellerInList",
+		"Customer.startRefisher",
+		"Customer.stopRefisher"
 	};
 	
 	
@@ -723,16 +725,20 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("type", usesAnnotatedPOJO()?"2":"3");		
 	}
 	
-	public void testRefisher() throws Exception { // tmp
-		// tmp Thread.sleep(1000); // To wait until preferences directory would be removed completely. This was an intermittent problem with Windows 7
+	public void testRefisher() throws Exception { 
 		execute("Customer.startRefisher");
-		assertEquals(-1, getRefisherEntriesCount());
+		assertEquals(-1, getRefisherEntriesCount()); // If it fails try to stop the refisher clicking in the button of the module
 		execute("List.viewDetail", "row=0");
 		int count = getRefisherEntriesCount();
 		assertTrue(count > 20);
 		execute("Navigation.next");
+		count+=2;
 		assertEquals(count, getRefisherEntriesCount());
 		execute("Navigation.next");
+		assertEquals(count, getRefisherEntriesCount());
+		execute("Mode.list");
+		assertEquals(count, getRefisherEntriesCount());
+		execute("List.viewDetail", "row=0");
 		assertEquals(count, getRefisherEntriesCount());
 		execute("Customer.stopRefisher");
 	}
