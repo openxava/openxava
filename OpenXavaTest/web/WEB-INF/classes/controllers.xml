@@ -1198,11 +1198,21 @@
 		<subcontroller controller="ColorSub" image="options.png" icon="run"/>
 	</controller>
 	
-	<controller name="ColorinColorado">  		
+	<controller name="ColorinColorado">
+		<!-- tmp ini   		
 		<action name="fillName" 
 			class="org.openxava.test.actions.AddToNameAction">
 			<set property="stringToAdd" value="Colorin "/>
 		</action>
+		-->
+		
+		<!-- tmp ini -->
+		<!-- With icon and no image to test a case -->
+		<action name="fillName" icon="textbox" 
+			class="org.openxava.test.actions.AddToNameAction">
+			<set property="stringToAdd" value="Colorin "/>
+		</action>		
+		<!-- tmp fin -->
 		 
 		<action name="colorado" after-each-request="true" hidden="true"
 			class="org.openxava.test.actions.AddToNameAction">

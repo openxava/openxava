@@ -1716,8 +1716,9 @@ public class ModuleManager implements java.io.Serializable {
 		Iterator it = getMetaActions().iterator();
 		while (it.hasNext()) {
 			MetaAction action = (MetaAction) it.next();
-			if (!action.isHidden() && action.hasImage())
+			if (!action.isHidden() && (action.hasIcon() || action.hasImage())) {
 				return true;
+			}
 		}
 		if (!getSubcontrollers().isEmpty()) return true;
 		return false;
