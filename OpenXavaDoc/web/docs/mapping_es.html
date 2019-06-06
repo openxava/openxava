@@ -16,21 +16,21 @@
             propiedad</a></div>
         <div style="margin-left: 2em;"><a href="#Mapeo%20objeto/relacional-Mapeo%20de%20referencia">Mapeo
             de referencia</a></div>
-        <div style="margin-left: 2em;"><a href="#Mapeo%20objeto/relacional-Mapeo+de+colecci%C3%B3n">Mapeo
+        <div style="margin-left: 2em;"><a href="#Mapeo%20objeto/relacional-Mapeo+de+coleccion">Mapeo
             de colección</a></div>
         <div style="margin-left: 2em;"><a href="#Mapeo%20objeto/relacional-Mapeo%20de%20referencia%20incrustada">Mapeo
             de referencia incrustada</a></div>
-        <div style="margin-left: 2em;"><a href="#Mapeo%20objeto/relacional-Conversi%C3%B3n+de+tipo">Conversión
+        <div style="margin-left: 2em;"><a href="#Mapeo%20objeto/relacional-Conversion+de+tipo">Conversión
             de tipo</a></div>
-        <div style="margin-left: 3em;"><a href="#Mapeo%20objeto/relacional-Conversi%C3%B3n+de+tipo-Conversi%C3%B3n+de+propiedad">Conversión
+        <div style="margin-left: 3em;"><a href="#Mapeo%20objeto/relacional-Conversion+de+tipo-Conversion+de+propiedad">Conversión
             de propiedad</a></div>
-        <div style="margin-left: 3em;"><a href="#Mapeo%20objeto/relacional-Conversi%C3%B3n+de+tipo-Conversi%C3%B3n+con+multiples+columnas">Conversión
-            con multiples columnas</a></div>
-        <div style="margin-left: 3em;"><a href="#Mapeo%20objeto/relacional-Conversi%C3%B3n+de+tipo-Conversi%C3%B3n+de+referencia">Conversión
+        <div style="margin-left: 3em;"><a href="#Mapeo%20objeto/relacional-Conversion+de+tipo-Conversion+con+multiples+columnas">Conversión
+            con múltiples columnas</a></div>
+        <div style="margin-left: 3em;"><a href="#Mapeo%20objeto/relacional-Conversion+de+tipo-Conversion+de+referencia">Conversión
             de referencia</a></div>
-        <div style="margin-left: 2em;"><a href="#Mapeo%20objeto/relacional-Restricciones+de+valor+%C3%BAnico">Restricciones
+        <div style="margin-left: 2em;"><a href="#Mapeo%20objeto/relacional-Restricciones+de+valor+unico">Restricciones
             de valor único</a></div>
-        <div style="margin-left: 3em;"><a href="#Mapeo%20objeto/relacional-Restricciones+de+valor+%C3%BAnico-Otros+dialectos">Otros
+        <div style="margin-left: 3em;"><a href="#Mapeo%20objeto/relacional-Restricciones+de+valor+unico-Otros+dialectos">Otros
             dialectos</a></div>
       </div>
       <strong>Guía de referencia</strong>: <a class="wiki_link" href="model_es.html">Modelo</a>
@@ -1451,7 +1451,7 @@ class="st0">"AÑO"</span><span class="br0">)</span>,
 class="st0">"NUMERO"</span><span class="br0">)</span>
 <span class="br0">}</span><span class="br0">)</span>
 <span class="kw2">private</span> Factura factura<span class="sy0">;</span></pre>
-      <h2 id="toc4"><a name="Mapeo objeto/relacional-Mapeo de colección"></a>Mapeo
+      <h2 id="toc4"><a name="Mapeo objeto/relacional-Mapeo+de+coleccion"></a>Mapeo
         de colección</h2>
       Cuando usamos <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/OneToMany.html"
           rel="nofollow">@OneToMany</a></em> para una colección el mapeo depende
@@ -2501,7 +2501,7 @@ class="br0">)</span>
 <span class="br0">}</span><span class="br0">)</span>
 <span class="kw2">private</span> Direccion direccion<span class="sy0">;</span></pre>
       Si no usamos <em>@AttributeOverride</em> se asumen valores por defectos.<br>
-      <h2 id="toc6"><a name="Mapeo objeto/relacional-Conversión de tipo"></a>Conversión
+      <h2 id="toc6"><a name="Mapeo objeto/relacional-Conversion+de+tipo"></a>Conversión
         de tipo</h2>
       La conversión de tipos entre Java y la base de datos relacional es un
       trabajo de la implementación de JPA (OpenXava usa Hibernate por defecto).
@@ -2511,7 +2511,7 @@ class="br0">)</span>
       Dado que OpenXava usa la facilidad de conversión de tipos de Hibernate
       podemos aprender más en la documentación de <a class="wiki_link_ext" href="http://www.hibernate.org/"
         rel="nofollow">Hibernate</a>.<br>
-      <h3 id="toc7"><a name="Mapeo objeto/relacional-Conversión de tipo-Conversión de propiedad"></a>Conversión
+      <h3 id="toc7"><a name="Mapeo objeto/relacional-Conversion+de+tipo-Conversion+de+propiedad"></a>Conversión
         de propiedad</h3>
       Cuando el tipo de una propiedad Java y el tipo de su columna
       correspondiente en la base de datos no coincide necesitamos escribir un <em>Hibernate
@@ -3488,8 +3488,8 @@ class="br0">}</span></pre>
       con 1, la 'N' con 2 y la 'I' con 3. Vemos como el que se puedan configurar
       propiedades del conversor de tipos nos permite hacer conversores
       reutilizables.<br>
-      <h3 id="toc8"><a name="Mapeo objeto/relacional-Conversión de tipo-Conversión con multiples columnas"></a>Conversión
-        con multiples columnas</h3>
+      <h3 id="toc8"><a name="Mapeo objeto/relacional-Conversion+de+tipo-Conversion+con+multiples+columnas"></a>Conversión
+        con múltiples columnas</h3>
       Con <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/usertype/CompositeUserType.html"
           rel="nofollow">CompositeUserType</a></em> podemos hacer que varias
       columnas de la tabla de base de datos correspondan a una propiedad en
@@ -4171,7 +4171,7 @@ class="br0">)</span><span class="sy0">;</span>
       (2) y <em>setPropertyValue</em> (3) para coger y poner valores en las
       propiedades del objeto del tipo compuesto, y <em>nullSafeGet</em> (4) y <em>nullSafeSet</em>
       (5) para leer y grabar este objeto en la base de datos.<br>
-      <h3 id="toc9"><a name="Mapeo objeto/relacional-Conversión de tipo-Conversión de referencia"></a>Conversión
+      <h3 id="toc9"><a name="Mapeo objeto/relacional-Conversion+de+tipo-Conversion+de+referencia"></a>Conversión
         de referencia</h3>
       La conversión de referencias no se soporta directamente por Hibernate.
       Pero en alguna circunstancias extremas puede ser que necesitemos hacer
@@ -4457,7 +4457,7 @@ class="sy0">;</span>
       Este ejemplo enseña como es posible envolver bases de datos legadas
       simplemente usando un poco de programación y algunos recursos básicos de
       JPA.<br>
-      <h2 id="toc10"><a name="Mapeo objeto/relacional-Restricciones de valor único"></a>Restricciones
+      <h2 id="toc10"><a name="Mapeo objeto/relacional-Restricciones+de+valor+unico"></a>Restricciones
         de valor único</h2>
       Desde la v4.9 Openxava permite personalizar los mensajes de las
       restricciones declaradas en el elemento <em>uniqueConstraints</em> de <em><a
@@ -5223,7 +5223,7 @@ class="re2">/&gt;</span></span>
           como identificadores de mensajes en el archivo i18n de nuestra
           aplicación.</li>
       </ul>
-      <h3 id="toc11"><a name="Mapeo objeto/relacional-Restricciones de valor único-Otros dialectos"></a>Otros
+      <h3 id="toc11"><a name="Mapeo objeto/relacional-Restricciones+de+valor+unico-Otros+dialectos"></a>Otros
         dialectos</h3>
       <style type="text/css"><!--
 /**

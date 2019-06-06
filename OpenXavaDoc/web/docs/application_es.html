@@ -8,26 +8,27 @@
     <div class="wiki" id="content_view" style="display: block;">
       <div id="toc">
         <h1 class="nopad">Table of Contents</h1>
-        <div style="margin-left: 1em;"><a href="#Aplicaci%C3%B3n">Aplicación</a></div>
-        <div style="margin-left: 2em;"><a href="#Aplicaci%C3%B3n-Un+m%C3%B3dulo+t%C3%ADpico">Un
+        <div style="margin-left: 1em;"><a href="#Aplicacion">Aplicación</a></div>
+        <div style="margin-left: 2em;"><a href="#Aplicacion-Un+modulo+tipico">Un
             módulo típico</a></div>
-        <div style="margin-left: 2em;"><a href="#Aplicaci%C3%B3n-M%C3%B3dulos+por+defecto+%28nuevo+en+v2.2.2%29">Módulos
+        <div style="margin-left: 2em;"><a href="#Aplicacion-Modulos+por+defecto+%28nuevo+en+v2.2.2%29">Módulos
             por defecto (nuevo en v2.2.2)</a></div>
-        <div style="margin-left: 2em;"><a href="#Aplicaci%C3%B3n-M%C3%B3dulo+con+solo+detalle">Módulo
+        <div style="margin-left: 2em;"><a href="#Aplicacion-Modulo+con+solo+detalle">Módulo
             con solo detalle</a></div>
-        <div style="margin-left: 2em;"><a href="#Aplicaci%C3%B3n-M%C3%B3dulo+con+solo+lista">Módulo
+        <div style="margin-left: 2em;"><a href="#Aplicacion-Modulo+con+solo+lista">Módulo
             con solo lista</a></div>
-        <div style="margin-left: 2em;"><a href="#Aplicaci%C3%B3n-M%C3%B3dulo+de+documentaci%C3%B3n">Módulo
+        <div style="margin-left: 2em;"><a href="#Aplicacion-Modulo+de+documentacion">Módulo
             de documentación</a></div>
-        <div style="margin-left: 2em;"><a href="#Aplicaci%C3%B3n-M%C3%B3dulo+de+solo+lectura">Módulo
+        <div style="margin-left: 2em;"><a href="#Aplicacion-Modulo+de+solo+lectura">Módulo
             de solo lectura</a></div>
       </div>
       <strong>Guía de referencia</strong>: <a class="wiki_link" href="model_es.html">Modelo</a>
-      | <a class="wiki_link" href="view_es.html">Vista</a> | <a class="wiki_link"
+      | <a class="wiki_link" href="view_es.html">Vista</a> | <a class="wiki_link"
+
         href="tab_es.html">Datos tabulares</a> | <a class="wiki_link" href="mapping_es.html">Mapeo
         objeto/relacional</a> | <a class="wiki_link" href="controllers_es.html">Controladores</a>
       | <strong>Aplicación</strong> | <a class="wiki_link" href="customizing_es.html">Personalización</a><br>
-      <h1 id="toc0"><a name="Aplicación"></a>Aplicación</h1>
+      <h1 id="toc0"><a name="Aplicacion"></a>Aplicación</h1>
       Una aplicación es el software que el usuario final puede usar. Hasta ahora
       hemos visto como definir las piezas que forman una aplicación (los
       componentes y las acciones principalmente), ahora vamos a ver como
@@ -58,13 +59,16 @@
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;aplicacion</span></span>
-<span class="sc3">    <span class="re0">nombre</span>=<span class="st0">"nombre"</span>                   &lt;!-- 1 --<span
+<span class="sc3">    <span class="re0">nombre</span>=<span class="st0">"nombre"</span>                   &lt;!-- 1 --<span
+
 class="re2">&gt;</span></span>
     etiqueta="etiqueta"               <span class="sc-1">&lt;!-- 2 --&gt;</span>
 &gt;
-    <span class="sc3"><span class="re1">&lt;modulo-defecto</span> ... <span class="re2">/&gt;</span></span> ...        <span
+    <span class="sc3"><span class="re1">&lt;modulo-defecto</span> ... <span class="re2">/&gt;</span></span> ...        <span
+
 class="sc-1">&lt;!-- 3  Nuevo en v2.2.2 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;modulo</span> ... <span class="re2">/&gt;</span></span> ...                <span
+    <span class="sc3"><span class="re1">&lt;modulo</span> ... <span class="re2">/&gt;</span></span> ...                <span
+
 class="sc-1">&lt;!-- 4 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/aplicacion<span class="re2">&gt;</span></span></span></pre>
       <ol>
@@ -102,27 +106,36 @@ class="sc-1">&lt;!-- 4 --&gt;</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span></span>
-<span class="sc3">    <span class="re0">nombre</span>=<span class="st0">"nombre"</span>                  &lt;!--  1 --<span
+<span class="sc3">    <span class="re0">nombre</span>=<span class="st0">"nombre"</span>                  &lt;!--  1 --<span
+
 class="re2">&gt;</span></span>
     carpeta="carpeta"                <span class="sc-1">&lt;!--  2 --&gt;</span>
     etiqueta="etiqueta"              <span class="sc-1">&lt;!--  3 --&gt;</span>
     descripcion="descripcion"        <span class="sc-1">&lt;!--  4 --&gt;</span>
 &gt;
-    <span class="sc3"><span class="re1">&lt;var-entorno</span> ... <span class="re2">/&gt;</span></span> ...          <span
+    <span class="sc3"><span class="re1">&lt;var-entorno</span> ... <span class="re2">/&gt;</span></span> ...          <span
+
 class="sc-1">&lt;!--  5 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;modelo</span> ... <span class="re2">/&gt;</span></span>                   <span
+    <span class="sc3"><span class="re1">&lt;modelo</span> ... <span class="re2">/&gt;</span></span>                   <span
+
 class="sc-1">&lt;!--  6 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;vista</span> ... <span class="re2">/&gt;</span></span>                    <span
+    <span class="sc3"><span class="re1">&lt;vista</span> ... <span class="re2">/&gt;</span></span>                    <span
+
 class="sc-1">&lt;!--  7 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;vista-web</span> ... <span class="re2">/&gt;</span></span>                <span
+    <span class="sc3"><span class="re1">&lt;vista-web</span> ... <span class="re2">/&gt;</span></span>                <span
+
 class="sc-1">&lt;!--  8 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;tab</span> ... <span class="re2">/&gt;</span></span>                      <span
+    <span class="sc3"><span class="re1">&lt;tab</span> ... <span class="re2">/&gt;</span></span>                      <span
+
 class="sc-1">&lt;!--  9 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> ... <span class="re2">/&gt;</span></span> ...          <span
+    <span class="sc3"><span class="re1">&lt;controlador</span> ... <span class="re2">/&gt;</span></span> ...          <span
+
 class="sc-1">&lt;!-- 10 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;controlador-modo</span> ... <span class="re2">/&gt;</span></span>         <span
+    <span class="sc3"><span class="re1">&lt;controlador-modo</span> ... <span class="re2">/&gt;</span></span>         <span
+
 class="sc-1">&lt;!-- 11 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;doc</span> ... <span class="re2">/&gt;</span></span>                      <span
+    <span class="sc3"><span class="re1">&lt;doc</span> ... <span class="re2">/&gt;</span></span>                      <span
+
 class="sc-1">&lt;!-- 12 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
       <ol>
@@ -169,7 +182,7 @@ class="sc-1">&lt;!-- 12 --&gt;</span>
           documentación, no lógica. Útil para generar portlets informativos para
           nuestras aplicaciones.</li>
       </ol>
-      <h2 id="toc1"><a name="Aplicación-Un módulo típico"></a>Un módulo típico</h2>
+      <h2 id="toc1"><a name="Aplicacion-Un+modulo+tipico"></a>Un módulo típico</h2>
       Definir un módulo sencillo puede ser como sigue:<br>
       <style type="text/css"><!--
 /**
@@ -193,16 +206,22 @@ class="sc-1">&lt;!-- 12 --&gt;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aplicacion</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aplicacion</span> <span
+
 class="re0">nombre</span>=<span class="st0">"Gestion"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;modulo</span> <span class="re0">nombre</span>=<span
-class="st0">"Almacen"</span> <span class="re0">carpeta</span>=<span class="st0">"almacen"</span><span
+    <span class="sc3"><span class="re1">&lt;modulo</span> <span class="re0">nombre</span>=<span
+
+class="st0">"Almacen"</span> <span class="re0">carpeta</span>=<span class="st0">"almacen"</span><span
+
 class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+        <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Almacen"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+        <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+        <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Almacen"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span>
     ...
@@ -214,7 +233,8 @@ class="st0">"Almacen"</span><span class="re2">/&gt;</span></span>
       En el caso en que el sistema genere una estructura de módulos (actualmente
       no soportado) este módulo estará en la carpeta "almacen".<br>
       Para ejecutar este módulo podemos desde nuestro navegador escribir:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/Gestion/modules/Almacen"
+      <a class="wiki_link_ext" href="http://localhost:8080/Gestion/modules/Almacen"
+
         rel="nofollow">http://localhost:8080/Gestion/modules/Almacen</a><br>
       También se genera un portlet para poder desplegar el módulo como un
       portlet JSR-168/286 en un portal Java.<br>
@@ -222,13 +242,14 @@ class="st0">"Almacen"</span><span class="re2">/&gt;</span></span>
       donde también puedes encontrar otros controladores útiles tal como <em>TypicalNotResetOnSave,
         TypicalNewOnInit</em> o <em>TypicalRealExcel</em> con un comportamiento
       ligeramente diferente.<br>
-      <h2 id="toc2"><a name="Aplicación-Módulos por defecto (nuevo en v2.2.2)"></a>Módulos
+      <h2 id="toc2"><a name="Aplicacion-Modulos+por+defecto+(nuevo+en+v2.2.2)"></a>Módulos
         por defecto <em>(nuevo en v2.2.2)</em></h2>
       OpenXava asume un módulo por defecto para cada componente en la
       aplicación, aunque el módulo no se defina explícitamente en <em>aplicacion.xml</em>.<br>
       Es decir, si definimos un componente <em>Factura.java</em>, podemos abrir
       nuestro navegador e ir a:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/Gestion/modules/Factura"
+      <a class="wiki_link_ext" href="http://localhost:8080/Gestion/modules/Factura"
+
         rel="nofollow">http://localhost:8080/Gestion/modules/Factura</a><br>
       También un portlet es generado para permitir desplegar el módulo como un
       portlet JSR-168 en un portal Java.<br>
@@ -258,11 +279,13 @@ class="st0">"Almacen"</span><span class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aplicacion</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aplicacion</span> <span
+
 class="re0">nombre</span>=<span class="st0">"Gestion"</span><span class="re2">&gt;</span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;modulo-defecto<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+        <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+
 class="st0">"MantenimientoGestion"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/modulo-defecto<span class="re2">&gt;</span></span></span>
 &nbsp;
@@ -293,7 +316,7 @@ class="st0">"MantenimientoGestion"</span><span class="re2">/&gt;</span></span>
         <li>un módulo con <em>Typical</em> como controlador y <em>Cliente</em>
           como modelo se asumirá en última instancia.</li>
       </ol>
-      <h2 id="toc3"><a name="Aplicación-Módulo con solo detalle"></a>Módulo con
+      <h2 id="toc3"><a name="Aplicacion-Modulo+con+solo+detalle"></a>Módulo con
         solo detalle</h2>
       Un módulo con solo modo detalle, sin lista se define así <em>(nuevo en
         v4m5)</em>:<br>
@@ -319,13 +342,17 @@ class="st0">"MantenimientoGestion"</span><span class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+
 class="re0">nombre</span>=<span class="st0">"FacturaSinLista"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Factura"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador-modo</span> <span class="re0">nombre</span>=<span
+    <span class="sc3"><span class="re1">&lt;controlador-modo</span> <span class="re0">nombre</span>=<span
+
 class="st0">"DetailOnly"</span><span class="re2">/&gt;</span></span>    <span class="sc-1">&lt;!-- 1 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
       Simplemente usa <em>DetailOnly</em> (1) como <em>mode-controller</em>.<br>
@@ -353,19 +380,23 @@ class="st0">"DetailOnly"</span><span class="re2">/&gt;</span></span>    <span cl
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+
 class="re0">nombre</span>=<span class="st0">"FacturaSinLista"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Factura"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador-modo</span> <span class="re0">nombre</span>=<span
+    <span class="sc3"><span class="re1">&lt;controlador-modo</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Void"</span><span class="re2">/&gt;</span></span>    <span class="sc-1">&lt;!-- 1 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
       El controlador de modo <em>Void</em> (1) es para que no aparezcan los
       vínculos "detalle – lista"; en esta caso el módulo usa por defecto el modo
       detalle únicamente. Aunque obsoleta esta forma todavía está soportada.<br>
-      <h2 id="toc4"><a name="Aplicación-Módulo con solo lista"></a>Módulo con
+      <h2 id="toc4"><a name="Aplicacion-Modulo+con+solo+lista"></a>Módulo con
         solo lista</h2>
       Un módulo con solo modo lista, sin detalle se define así <em>(nuevo en
         v6.0)</em>:<br>
@@ -392,14 +423,19 @@ class="st0">"Void"</span><span class="re2">/&gt;</span></span>    <span class="s
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+
 class="re0">nombre</span>=<span class="st0">"FamiliaSoloLista"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;var-entorno</span> <span class="re0">nombre</span>=<span
-class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">valor</span>=<span class="st0">""</span><span
+    <span class="sc3"><span class="re1">&lt;var-entorno</span> <span class="re0">nombre</span>=<span
+
+class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">valor</span>=<span class="st0">""</span><span
+
 class="re2">/&gt;</span></span>    <span class="sc-1">&lt;!-- 1  Nuevo en v2.0.4 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Familia"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
         Poniendo XAVA_LIST_ACTION a cadena vacía (1) el vínculo de detalle en
@@ -430,17 +466,24 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+
 class="re0">nombre</span>=<span class="st0">"FamiliaSoloLista"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;var-entorno</span> <span class="re0">nombre</span>=<span
-class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">valor</span>=<span class="st0">""</span><span
+    <span class="sc3"><span class="re1">&lt;var-entorno</span> <span class="re0">nombre</span>=<span
+
+class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">valor</span>=<span class="st0">""</span><span
+
 class="re2">/&gt;</span></span>    
-    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Familia"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador-modo</span> <span class="re0">nombre</span>=<span
-class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>               <span
+    <span class="sc3"><span class="re1">&lt;controlador-modo</span> <span class="re0">nombre</span>=<span
+
+class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>               <span
+
 class="sc-1">&lt;!-- 1 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
       El controlador de modo <em>ListOnly</em> (1) es para que no aparezcan los
@@ -471,20 +514,29 @@ class="sc-1">&lt;!-- 1 --&gt;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+
 class="re0">nombre</span>=<span class="st0">"FamiliaSoloLista"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;var-entorno</span> <span class="re0">nombre</span>=<span
-class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">valor</span>=<span class="st0">""</span><span
+    <span class="sc3"><span class="re1">&lt;var-entorno</span> <span class="re0">nombre</span>=<span
+
+class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">valor</span>=<span class="st0">""</span><span
+
 class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Familia"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>                     <span
+    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+
+class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>                     <span
+
 class="sc-1">&lt;!-- 1 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;controlador-modo</span> <span class="re0">nombre</span>=<span
-class="st0">"Void"</span><span class="re2">/&gt;</span></span>                   <span
+    <span class="sc3"><span class="re1">&lt;controlador-modo</span> <span class="re0">nombre</span>=<span
+
+class="st0">"Void"</span><span class="re2">/&gt;</span></span>                   <span
+
 class="sc-1">&lt;!-- 2 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
       El controlador de modo <em>Void</em> (2) es para que no aparezcan los
@@ -492,8 +544,8 @@ class="sc-1">&lt;!-- 2 --&gt;</span>
       controlador el módulo cambia a modo lista al iniciar, por lo tanto éste es
       un módulo de solo lista. Aunque obsoleta esta forma todavía está
       soportada.<br>
-      <h2 id="toc5"><a name="Aplicación-Módulo de documentación"></a>Módulo de
-        documentación</h2>
+      <h2 id="toc5"><a name="Aplicacion-Modulo+de+documentacion"></a>Módulo
+        de documentación</h2>
       Un módulo de documentación solo visualiza un documento HTML. Es fácil de
       definir:<br>
       <style type="text/css"><!--
@@ -518,10 +570,13 @@ class="sc-1">&lt;!-- 2 --&gt;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+
 class="re0">nombre</span>=<span class="st0">"Descripcion"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;doc</span> <span class="re0">url</span>=<span
-class="st0">"doc/descripcion"</span> <span class="re0">idiomas</span>=<span class="st0">"es,en"</span><span
+    <span class="sc3"><span class="re1">&lt;doc</span> <span class="re0">url</span>=<span
+
+class="st0">"doc/descripcion"</span> <span class="re0">idiomas</span>=<span class="st0">"es,en"</span><span
+
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
       Este módulo muestra el documento <em>web/doc/descripcion_en.html</em> o <em>web/doc/descripcion_es.html</em>
@@ -530,7 +585,7 @@ class="re2">/&gt;</span></span>
       especificamos idioma entonces el documento a visualizar será <em>web/doc/descripcion.html</em>.<br>
       Esto es útil para portlets informativos. Este tipo de módulos no tiene
       efecto fuera de un portal.<br>
-      <h2 id="toc6"><a name="Aplicación-Módulo de solo lectura"></a>Módulo de
+      <h2 id="toc6"><a name="Aplicacion-Modulo+de+solo+lectura"></a>Módulo de
         solo lectura</h2>
       Un módulo de solo lectura, es decir solo para consultar no para modificar,
       puede ser definido como sigue:<br>
@@ -556,15 +611,21 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+
 class="re0">nombre</span>=<span class="st0">"ConsultaClientes"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;var-entorno</span> <span class="re0">nombre</span>=<span
-class="st0">"XAVA_SEARCH_ACTION"</span> <span class="re0">valor</span>=<span class="st0">"CRUD.searchReadOnly"</span><span
+    <span class="sc3"><span class="re1">&lt;var-entorno</span> <span class="re0">nombre</span>=<span
+
+class="st0">"XAVA_SEARCH_ACTION"</span> <span class="re0">valor</span>=<span class="st0">"CRUD.searchReadOnly"</span><span
+
 class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- 1 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+
 class="st0">"Cliente"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"Print"</span><span class="re2">/&gt;</span></span>                                           <span
+    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+
+class="st0">"Print"</span><span class="re2">/&gt;</span></span>                                           <span
+
 class="sc-1">&lt;!-- 2 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
       Usando <em>CRUD.searchReadOnly</em> (1) el usuario no puede editar los
