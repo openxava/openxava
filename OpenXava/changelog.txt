@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: After generating a PDF the current entity is reloaded losing the changes if it has single key.
 - Fix: Broken links in menus of the Spanish reference guide. 
 - Fix: Single action with icon and no image is not shown in top button bar that is missing.
 - Fix: View.setEditable(member, editable) does not work for references.

@@ -655,7 +655,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertAction("Reference.createNew", "model=Seller,keyProperty=seller.number");
 		assertAction("Reference.modify", "model=Seller,keyProperty=seller.number");
 		execute("Customer.disableSeller");
-		assertNoAction("MyReference.search", "keyProperty=seller.number");
+		assertNoAction("MyReference.search", "keyProperty=seller.number"); 
 		assertNoAction("Reference.createNew", "model=Seller,keyProperty=seller.number");
 		assertNoAction("Reference.modify", "model=Seller,keyProperty=seller.number");
 		assertNoEditable("seller.number");

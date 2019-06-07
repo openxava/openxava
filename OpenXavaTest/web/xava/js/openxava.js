@@ -67,6 +67,7 @@ openxava.refreshPage = function(result) {
 				form[openxava.decorateId(result.application, result.module, "xava_changed_property")].value="";
 				form[openxava.decorateId(result.application, result.module, "xava_action_range")].value="";
 			}
+			openxava.setUrlParam(""); 
 			window.location.reload();	
 			return; 			
 		}
@@ -185,7 +186,7 @@ openxava.refreshPage = function(result) {
 	}
 	document.body.style.cursor='auto';
 	if (openxava.postRefreshPage != null) openxava.postRefreshPage(); 
-	openxava.setUrlParam(result);	
+	openxava.setUrlParam(result.urlParam); 
 }
 
 openxava.initUI = function(application, module, currentRow, viewSimple) { 
@@ -500,18 +501,19 @@ openxava.getDialog = function(application, module) {
 	return dialog;
 }
 
-openxava.setUrlParam = function(result) {
-	if (result.urlParam == null) return;
-	if (result.urlParam !== "") {
+openxava.setUrlParam = function(urlParam) { 
+	if (urlParam == null) return;
+	if (urlParam !== "") {
 		var url = window.location.href;
 		var indexParams = url.indexOf('?');
 		if (indexParams >= 0) url = url.substring(0, indexParams);
-		history.replaceState(null, null, url + "?" + result.urlParam);
+		history.replaceState(null, null, url + "?" + urlParam);
 	}
 	else {
 		history.replaceState(null, null, window.location.pathname);
 	}		
 }
+
 
 openxava.setRequesting = function(application, module) {
 	if (openxava.requesting == null) openxava.requesting = { };
@@ -699,7 +701,7 @@ openxava.executeAction = function(application, module, confirmMessage, takesLong
 	form[openxava.decorateId(application, module, "xava_action_already_processed")].value=alreadyProcessed + "_";
 	if (openxava.isSubmitNeeded(form)) { 
 		if (!openxava.submitting) {  
-			openxava.submitting = true;  
+			openxava.submitting = true;
 			form.submit(); 
 		} 
 	} 

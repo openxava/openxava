@@ -17,7 +17,7 @@ public class OrphanageTest extends ModuleTestBase {
 		super(testName, "Orphanage");
 	}
 	
-	public void testGeneratePDFForACollectionInsideAGroup_dateFormatUsesClientLocale() throws Exception {
+	public void testGeneratePDFForACollectionInsideAGroup_dateFormatUsesClientLocale_generatePdfNotReloadEntity() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertCollectionColumnCount("orphans", 1); 
 		execute("Print.generatePdf", "viewObject=xava_view_orphanage_orphans"); 
@@ -29,18 +29,22 @@ public class OrphanageTest extends ModuleTestBase {
 		assertPopupPDFLine(3, "JUAN");
 		assertPopupPDFLine(4, "ANTONIO");
 		
+		setValue("name", "THE BOARDING SCHOOL"); 
+		
 		// print only the selected
 		checkRowCollection("orphans", 1);
 		execute("Print.generatePdf", "viewObject=xava_view_orphanage_orphans");
 		assertNoErrors();
 		assertContentTypeForPopup("application/pdf");
 		assertPopupPDFLinesCount(5);
-		assertPopupPDFLine(1, "Orphans of Orphanage: EL INTERNADO");
+		assertPopupPDFLine(1, "Orphans of Orphanage: THE BOARDING SCHOOL"); 
 		assertPopupPDFLine(2, "Name");
 		assertPopupPDFLine(3, "ANTONIO");
 		
 		// Date formatted in English. It's only tested when the server use a non-English locale
 		assertPopupPDFLine(4, "Page 1 of 1" + getCurrentDateInEnglish()); 
+		
+		assertValue("name", "THE BOARDING SCHOOL"); 
 	}
 	
 	public void testOrphanRemovalAsEmbedded() throws Exception {
