@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Removing from a @ManyToMany deletes the element if it's also referenced from an aggregate collection.  
+- Fix: LocalDate editor too long for a date.
 - Fix: After generating a PDF the current entity is reloaded losing the changes if it has single key.
 - Fix: Broken links in menus of the Spanish reference guide. 
 - Fix: Single action with icon and no image is not shown in top button bar that is missing.

@@ -34,6 +34,7 @@
 	<for-stereotype name="ARCHIVOS" size="32"/>	
 	<for-type class="java.sql.Time" size="5"/>
 	<for-type class="java.util.Date" size="10"/>
+	<for-type class="java.time.LocalDate" size="10"/>
 	<for-type class="java.sql.Timestamp" size="19"/>
 	<for-type class="java.lang.String"  size="50"/>
 	<for-type class="boolean"  size="3"/>

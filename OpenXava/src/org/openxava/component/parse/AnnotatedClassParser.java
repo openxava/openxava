@@ -1256,6 +1256,7 @@ public class AnnotatedClassParser implements IComponentParser {
 		else if (element.isAnnotationPresent(ManyToMany.class)) {
 			ManyToMany manyToMany = element.getAnnotation(ManyToMany.class);
 			collection.setInverseCollection(manyToMany.mappedBy());
+			collection.getMetaReference().setAggregate(isCascade(manyToMany.cascade()));
 			// For the rest ManyToMany collections are processed as calculated one
 		}
 		else if (element.isAnnotationPresent(ElementCollection.class)) {

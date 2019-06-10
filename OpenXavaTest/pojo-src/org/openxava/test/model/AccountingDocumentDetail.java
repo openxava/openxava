@@ -8,7 +8,6 @@ import org.openxava.annotations.*;
 import org.openxava.model.*;
 
 /**
- * tmp
  * 
  * @author Javier Paniza
  */

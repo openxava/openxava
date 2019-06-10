@@ -9,8 +9,6 @@ import org.openxava.annotations.*;
 import org.openxava.model.*;
 
 /**
- * tmp 
- * TMP ME QUEDÉ POR AQUÍ: MODELO CREADO, TABLAS CREADAS. FALTA REPRODUCIR EL ERROR. 
  * 
  * @author Javier Paniza
  */
@@ -23,7 +21,7 @@ public class AccountingDocument extends Identifiable {
 	private int number;
 	
 	@Required
-	private LocalDate date;
+	private LocalDate date; 
 	
 	@Required
 	@Column(length = 40)

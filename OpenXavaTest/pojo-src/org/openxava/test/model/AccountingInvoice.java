@@ -5,7 +5,6 @@ import java.util.*;
 import javax.persistence.*;
 
 /**
- * tmp
  * 
  * @author Javier Paniza
  */

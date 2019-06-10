@@ -96,12 +96,12 @@ public class ApplicantTest extends ModuleTestBase {
 		assertEquals("INVOICE", searchBox.getAttribute("value"));		
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		assertModulesCount(30);
-		assertFirstModuleInMenu("Current year invoices"); 
+		assertFirstModuleInMenu("Accounting invoices");  
 		
 		HtmlAnchor loadMoreModules = (HtmlAnchor) getHtmlPage().getHtmlElementById("more_modules").getParentNode();
 		loadMoreModules.click();
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertModulesCount(53); // We have to adjust this when we add new modules that content "invoice"
+		assertModulesCount(54); // We have to adjust this when we add new modules that content "invoice" 
 		
 		
 		searchBox.type(" \b");
