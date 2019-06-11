@@ -3116,7 +3116,13 @@ public class View implements java.io.Serializable {
 		}
 	}
 	
-	public boolean throwsPropertyChanged(MetaProperty p) {
+	public boolean throwsPropertyChanged(MetaProperty p) { // tmp
+		boolean result = _throwsPropertyChanged(p);
+		System.out.println("[View.throwsPropertyChanged(" + p.getName() + ")] result=" + result); // tmp
+		return result;
+	}
+	
+	public boolean _throwsPropertyChanged(MetaProperty p) {
 		try {									
 			if (hasDependentsProperties(p) && 
 				!(isSubview() && isRepresentsEntityReference() && !displayAsDescriptionsList())) 
@@ -3303,7 +3309,6 @@ public class View implements java.io.Serializable {
 		if (!isOnlyThrowsOnChange()) {
 			boolean calculationDone = false; 
 			Iterator it = getMetaPropertiesIncludingGroups().iterator();	
-			
 			while (it.hasNext()) {
 				MetaProperty pr = (MetaProperty) it.next();				
 				if (dependsOn(pr, changedProperty, changedPropertyQualifiedName)) {
@@ -3311,12 +3316,26 @@ public class View implements java.io.Serializable {
 						calculateValue(pr, pr.getMetaCalculator(), pr.getCalculator(), errors, messages);
 						calculationDone = true;
 					}
+					System.out.println("[View.tryPropertyChanged] " + pr.getQualifiedName() + ".hasDefaultValueCalculator()=" + pr.hasDefaultValueCalculator()); // tmp
 					if (pr.hasDefaultValueCalculator()) {	
 						calculateValue(pr, pr.getMetaCalculatorDefaultValue(), pr.createDefaultValueCalculator(), errors, messages);
 						calculationDone = true;
 					}				
 				}
 			}
+			
+			// tmp ini
+			for (MetaReference ref: getMetaModel().getMetaReferencesWithDefaultValueCalculator()) {
+				if (hasSubview(ref.getName()) && ref.getMetaCalculatorDefaultValue().containsMetaSetsWithoutValue()) {
+					System.out.println("[View.tryPropertyChanged] Calculando para " + ref.getName()); // tmp
+					MetaProperty pr = ref.getMetaModelReferenced().getAllMetaPropertiesKey().get(0).cloneMetaProperty();
+					pr.setName(ref.getName() + "." + pr.getName());
+					calculateValue(pr, ref.getMetaCalculatorDefaultValue(), ref.createDefaultValueCalculator(), errors, messages);
+					calculationDone = true;					
+				}
+			}
+			// tmp fin
+			
 			if (calculationDone && isRepresentsElementCollection()) {
 				moveViewValuesToCollectionValues();
 			}
@@ -3374,7 +3393,7 @@ public class View implements java.io.Serializable {
 			for (int i = 0; i < count; i++) {
 				getSectionView(i).propertyChanged(changedProperty, changedPropertyQualifiedName); 				
 			}			
-		}
+		}		
 	}
 
 	private void moveViewValuesToCollectionValues() { 
@@ -3516,7 +3535,7 @@ public class View implements java.io.Serializable {
 		if (isSection() || isGroup()) return getParent().getParentIfSectionOrGroup();
 		return this;
 	}
-
+	
 	private void calculateValue(MetaProperty metaProperty, MetaCalculator metaCalculator, ICalculator calculator, Messages errors, Messages messages) {		
 		try {					
 			PropertiesManager mp = new PropertiesManager(calculator);
@@ -3734,7 +3753,22 @@ public class View implements java.io.Serializable {
 						return true;
 					}
 				}
-			}						
+			}
+			
+			// tmp ini
+			/*
+			for (MetaReference ref: getMetaModel().getMetaReferencesWithDefaultValueCalculator()) {
+				if (hasSubview(ref.getName()) && ref.getMetaCalculatorDefaultValue().containsMetaSetsWithoutValue()) {
+					MetaProperty pro = ref.getMetaModelReferenced().getAllMetaPropertiesKey().get(0).cloneMetaProperty();
+					pro.setName(ref.getName() + "." + pro.getName());
+					if (WebEditors.depends(pro, p, getViewName())) {
+						return true;
+					}
+				}
+			}
+			*/
+			// tmp fin
+
 			
 			if (isRepresentsAggregate() || isRepresentsEntityReference()) {
 				p = p.cloneMetaProperty();
@@ -3941,7 +3975,7 @@ public class View implements java.io.Serializable {
 		}
 		return metaPropertiesIncludingGroups;
 	}
-	
+		
 	private Collection getMetaMembersIncludingGroups() throws XavaException { 
 		if (!hasGroups()) return getMetaMembers();
 		if (metaMembersIncludingGroups == null) {
@@ -4181,7 +4215,14 @@ public class View implements java.io.Serializable {
 		return subview.getMetaView(subview.getMetaReference(member));
 	}
 	
-	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException {
+	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException { // tmp
+		// TMP ME QUEDÉ POR AQUÍ: DEPURANDO, AL QUITAR EL unitPrice DEJA DE IR. POR SÍ SOLA NO SE RECONOCE COMO QUE LANZA EVENTO 
+		boolean result = _throwsReferenceChanged(ref);
+		System.out.println("[View.throwsReferenceChanged(" + ref.getName() + ")] result=" + result); // tmp
+		return result;
+	}
+	
+	public boolean _throwsReferenceChanged(MetaReference ref) throws XavaException {
 		String refName = ref.getName(); 
 		int idx = refName.indexOf('.');
 		if (idx >= 0) {

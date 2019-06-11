@@ -189,6 +189,15 @@ public class MetaReference extends MetaMember implements Cloneable {
 	
 	/**
 	 * 
+	 * @return null if this does not have calculator for default value
+	 */
+	public ICalculator createDefaultValueCalculator() throws XavaException { // tmp 
+		if (!hasDefaultValueCalculator()) return null;
+		return metaCalculatorDefaultValue.createCalculator();		
+	}
+	
+	/**
+	 * 
 	 * @since 5.1
 	 */
 	public boolean hasNotDependentDefaultValueCalculator() {

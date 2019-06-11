@@ -905,7 +905,8 @@ abstract public class MetaModel extends MetaElement {
 		return metaPropertiesViewWithDefaultCalculator;
 	}
 	
-	public Collection getMetaReferencesWithDefaultValueCalculator() {
+	// tmp public Collection getMetaReferencesWithDefaultValueCalculator() {
+	public Collection<MetaReference> getMetaReferencesWithDefaultValueCalculator() { // tmp
 		if (metaReferencesWithDefaultValueCalculator == null) {
 			Iterator it = getMetaReferences().iterator();
 			ArrayList result = new ArrayList();
