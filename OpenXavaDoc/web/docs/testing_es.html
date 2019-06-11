@@ -359,11 +359,10 @@ private void borrar(Object ... entidades) { // Usamos argumentos varargs
       borrar una entidad desasociada (<em>detached entity</em>). Al usar <em>commit()</em>
       en <em>crearProductos()</em> todas la entidades grabadas pasaron a ser
       entidades desasociadas, porque continúan siendo objetos Java válidos pero
-      el contexto<br>
-      persistente (<em>persistent context</em>, la unión entre las entidades y
-      la base de datos) se perdió en el <em>commit()</em>, por eso tienes que
-      reasociarlas al nuevo contexto persistente. Este concepto es fácil de
-      entender con el siguiente código:</div>
+      el contexto persistente (<em>persistent context</em>, la unión entre las
+      entidades y la base de datos) se perdió en el <em>commit()</em>, por eso
+      tienes que reasociarlas al nuevo contexto persistente. Este concepto es
+      fácil de entender con el siguiente código:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">getManager().persist(autor); // autor está asociado al contexto persistente actual
 commit(); // El contexto persistente actual se termina, y autor pasa a estar desasociado
