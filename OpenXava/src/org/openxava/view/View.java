@@ -3116,13 +3116,7 @@ public class View implements java.io.Serializable {
 		}
 	}
 	
-	public boolean throwsPropertyChanged(MetaProperty p) { // tmp
-		boolean result = _throwsPropertyChanged(p);
-		System.out.println("[View.throwsPropertyChanged(" + p.getName() + ")] result=" + result); // tmp
-		return result;
-	}
-	
-	public boolean _throwsPropertyChanged(MetaProperty p) {
+	public boolean throwsPropertyChanged(MetaProperty p) {
 		try {									
 			if (hasDependentsProperties(p) && 
 				!(isSubview() && isRepresentsEntityReference() && !displayAsDescriptionsList())) 
@@ -3316,7 +3310,6 @@ public class View implements java.io.Serializable {
 						calculateValue(pr, pr.getMetaCalculator(), pr.getCalculator(), errors, messages);
 						calculationDone = true;
 					}
-					System.out.println("[View.tryPropertyChanged] " + pr.getQualifiedName() + ".hasDefaultValueCalculator()=" + pr.hasDefaultValueCalculator()); // tmp
 					if (pr.hasDefaultValueCalculator()) {	
 						calculateValue(pr, pr.getMetaCalculatorDefaultValue(), pr.createDefaultValueCalculator(), errors, messages);
 						calculationDone = true;
@@ -3324,17 +3317,14 @@ public class View implements java.io.Serializable {
 				}
 			}
 			
-			// tmp ini
 			for (MetaReference ref: getMetaModel().getMetaReferencesWithDefaultValueCalculator()) {
 				if (hasSubview(ref.getName()) && ref.getMetaCalculatorDefaultValue().containsMetaSetsWithoutValue()) {
-					System.out.println("[View.tryPropertyChanged] Calculando para " + ref.getName()); // tmp
 					MetaProperty pr = ref.getMetaModelReferenced().getAllMetaPropertiesKey().get(0).cloneMetaProperty();
 					pr.setName(ref.getName() + "." + pr.getName());
 					calculateValue(pr, ref.getMetaCalculatorDefaultValue(), ref.createDefaultValueCalculator(), errors, messages);
 					calculationDone = true;					
 				}
 			}
-			// tmp fin
 			
 			if (calculationDone && isRepresentsElementCollection()) {
 				moveViewValuesToCollectionValues();
@@ -3754,21 +3744,6 @@ public class View implements java.io.Serializable {
 					}
 				}
 			}
-			
-			// tmp ini
-			/*
-			for (MetaReference ref: getMetaModel().getMetaReferencesWithDefaultValueCalculator()) {
-				if (hasSubview(ref.getName()) && ref.getMetaCalculatorDefaultValue().containsMetaSetsWithoutValue()) {
-					MetaProperty pro = ref.getMetaModelReferenced().getAllMetaPropertiesKey().get(0).cloneMetaProperty();
-					pro.setName(ref.getName() + "." + pro.getName());
-					if (WebEditors.depends(pro, p, getViewName())) {
-						return true;
-					}
-				}
-			}
-			*/
-			// tmp fin
-
 			
 			if (isRepresentsAggregate() || isRepresentsEntityReference()) {
 				p = p.cloneMetaProperty();
@@ -4215,14 +4190,7 @@ public class View implements java.io.Serializable {
 		return subview.getMetaView(subview.getMetaReference(member));
 	}
 	
-	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException { // tmp
-		// TMP ME QUEDÉ POR AQUÍ: DEPURANDO, AL QUITAR EL unitPrice DEJA DE IR. POR SÍ SOLA NO SE RECONOCE COMO QUE LANZA EVENTO 
-		boolean result = _throwsReferenceChanged(ref);
-		System.out.println("[View.throwsReferenceChanged(" + ref.getName() + ")] result=" + result); // tmp
-		return result;
-	}
-	
-	public boolean _throwsReferenceChanged(MetaReference ref) throws XavaException {
+	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException {
 		String refName = ref.getName(); 
 		int idx = refName.indexOf('.');
 		if (idx >= 0) {
@@ -4251,7 +4219,13 @@ public class View implements java.io.Serializable {
 			Iterator itProperties = getRoot().getMetaPropertiesQualified().iterator();
 			while (itProperties.hasNext()) {
 				MetaProperty p = (MetaProperty) itProperties.next();
-				if (p.getPropertyNamesThatIDepend().contains(propertyName)) return true;				
+				if (p.getPropertyNamesThatIDepend().contains(propertyName)) return true;
+			}
+			
+			for (MetaReference r: getRoot().getMetaModel().getMetaReferencesWithDefaultValueCalculator()) {
+				if (hasSubview(r.getName()) && r.getMetaCalculatorDefaultValue().containsMetaSetsWithoutValue()) {
+					if (r.getPropertyNamesThatIDepend().contains(propertyName)) return true;
+				}
 			}
 			
 			MetaProperty p = ref.getMetaModelReferenced().getMetaProperty(propertyKey).cloneMetaProperty();

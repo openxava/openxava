@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @DefaultValueCalculator dependent on other properties does not work for references.
 - Fix: Removing from a @ManyToMany deletes the element if it's also referenced from an aggregate collection.  
 - Fix: LocalDate editor too long for a date.
 - Fix: After generating a PDF the current entity is reloaded losing the changes if it has single key.

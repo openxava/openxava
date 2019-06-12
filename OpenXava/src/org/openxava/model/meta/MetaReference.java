@@ -31,7 +31,7 @@ public class MetaReference extends MetaMember implements Cloneable {
 	private MetaCalculator metaCalculatorDefaultValue;
 	private ICalculator defaultValueCalculator;
 	private boolean explicitAggregate; 
-	private boolean aggregate; 
+	private boolean aggregate;
 	
 	public MetaCollection getMetaCollectionFromReferencedModel() throws XavaException { 				
 		Iterator it = getMetaModelReferenced().getMetaCollections().iterator();
@@ -191,7 +191,7 @@ public class MetaReference extends MetaMember implements Cloneable {
 	 * 
 	 * @return null if this does not have calculator for default value
 	 */
-	public ICalculator createDefaultValueCalculator() throws XavaException { // tmp 
+	public ICalculator createDefaultValueCalculator() throws XavaException {  
 		if (!hasDefaultValueCalculator()) return null;
 		return metaCalculatorDefaultValue.createCalculator();		
 	}

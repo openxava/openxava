@@ -1,14 +1,10 @@
 package org.openxava.test.model;
 
-import java.math.*;
-
 import javax.persistence.*;
 import org.openxava.annotations.*;
-import org.openxava.test.calculators.*;
-import org.openxava.test.validators.*;
 
 /**
- * tmp
+ * WARNING! DON'T ADD ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends. 
  * 
  * @author Javier Paniza
  */
@@ -17,16 +13,20 @@ import org.openxava.test.validators.*;
 @Table(name="PRODUCT")
 public class Product6 {
 	
+	// WARNING! DON'T ADD ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends.
 	@Id @Column(length=10) 
 	private long number;
 	
+	// WARNING! DON'T ADD ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends.
 	@Column(length=40) @Required
 	private String description;
 	
+	// WARNING! DON'T ADD ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends.
 	@ManyToOne(optional=false, fetch=FetchType.LAZY) @JoinColumn(name="FAMILY")
 	@DescriptionsList   
 	private Family2 family;	
 	
+	// WARNING! DON'T ADD ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends.
 	@ManyToOne(optional=false, fetch=FetchType.LAZY) @JoinColumn(name="SUBFAMILY")
 	@DescriptionsList
 	@DefaultValueCalculator(
@@ -35,15 +35,9 @@ public class Product6 {
 	)
 	private Subfamily2 subfamily;
 	
-	@Stereotype("MONEY") @Required
-	@DefaultValueCalculator(value=DefaultProductPriceCalculator.class, properties=
-		@PropertyValue(name="familyNumber", from="family.number")
-	)
-	@PropertyValidator(UnitPriceValidator.class)
-	private BigDecimal unitPrice;
-
 	
-	
+	// WARNING! DON'T ADD ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends.
+		
 	public String getDescription() {
 		return description;
 	}
@@ -74,14 +68,6 @@ public class Product6 {
 
 	public void setSubfamily(Subfamily2 subfamily) {
 		this.subfamily = subfamily;
-	}
-
-	public BigDecimal getUnitPrice() {
-		return unitPrice;
-	}
-
-	public void setUnitPrice(BigDecimal unitPrice) {
-		this.unitPrice = unitPrice;
 	}
 
 }

@@ -23,7 +23,7 @@ public class SellerTest extends CustomizeListTestBase {
 	}
 	
 	public void testEmailNotificationsByModule_accessLog() throws Exception {
-		Thread.sleep(1000); // To wait until preferences directory would be removed completely. This was an intermittent problem with Windows 7
+		Thread.sleep(1500); // To wait until preferences directory would be removed completely. This was an intermittent problem with Windows 7
 		removeAllEmailSubscriptions(); 
 		
 		assertNoAction("EmailNotifications.unsubscribe");

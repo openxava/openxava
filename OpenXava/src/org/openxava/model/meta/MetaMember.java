@@ -16,6 +16,7 @@ abstract public class MetaMember extends MetaElement implements Comparable<MetaM
 	private String qualifiedName;
 	
 	private String label;
+	private Collection<String> propertyNamesThatIDepend; 
 	
 	public String getLabel(Locale locale) {
 		if (Is.emptyString(label)) return super.getLabel(locale);
@@ -39,6 +40,59 @@ abstract public class MetaMember extends MetaElement implements Comparable<MetaM
 	public int compareTo(MetaMember o) { 	
 		return getName().compareTo(o.getName());
 	}
+	
+	/** @since 6.1.2 */
+	public boolean hasCalculator() { 
+		return false;
+	}
+	
+	/** @since 6.1.2 */
+	public boolean hasDefaultValueCalculator() { 
+		return false;
+	}
+	
+	/** @since 6.1.2 */
+	public MetaCalculator getMetaCalculator() { 
+		return  null;
+	}
+	
+	/** @since 6.1.2 */
+	public MetaCalculator getMetaCalculatorDefaultValue() { 
+		return null;
+	}
+	
+	/** @since 6.1.2  Moved from MetaProperty */
+	public Collection<String> getPropertyNamesThatIDepend() {  
+		if (propertyNamesThatIDepend == null) {		
+			MetaSetsContainer metaCalculador = null;
+			if (hasCalculator()) {
+				metaCalculador = getMetaCalculator();
+			}
+			else if (hasDefaultValueCalculator()) {
+				metaCalculador = getMetaCalculatorDefaultValue();
+			}
+			else {
+				propertyNamesThatIDepend = Collections.EMPTY_LIST;
+				return propertyNamesThatIDepend;
+			}
+				
+			if (!metaCalculador.containsMetaSets()) {
+				propertyNamesThatIDepend = Collections.EMPTY_LIST;
+				return propertyNamesThatIDepend;
+			} 
+			
+			propertyNamesThatIDepend = new ArrayList<>();
+			Iterator itMetaSets = metaCalculador.getMetaSets().iterator();
+			while (itMetaSets.hasNext()) {
+				MetaSet metaSet = (MetaSet) itMetaSets.next();
+				if (!metaSet.hasValue()) {
+					propertyNamesThatIDepend.add(metaSet.getPropertyNameFrom());
+				}										
+			}
+		}
+		return propertyNamesThatIDepend;				
+	}
+
 	
 	public MetaModel getMetaModel() {		
 		return metaModel;

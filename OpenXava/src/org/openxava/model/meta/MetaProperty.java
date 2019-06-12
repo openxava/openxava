@@ -37,7 +37,6 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	
 	private static Log log = LogFactory.getLog(MetaProperty.class);
 		
-	private Collection propertyNamesThatIDepend;
 	private Collection metaValidators;	
 	private Collection validators;
 	private Collection onlyOnCreateValidators;
@@ -762,38 +761,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			}
 		}		
 	}
-		
-	public Collection getPropertyNamesThatIDepend() {
-		if (propertyNamesThatIDepend == null) {		
-			MetaSetsContainer metaCalculador = null;
-			if (hasCalculator()) {
-				metaCalculador = getMetaCalculator();
-			}
-			else if (hasDefaultValueCalculator()) {
-				metaCalculador = getMetaCalculatorDefaultValue();
-			}
-			else {
-				propertyNamesThatIDepend = Collections.EMPTY_LIST;
-				return propertyNamesThatIDepend;
-			}
-				
-			if (!metaCalculador.containsMetaSets()) {
-				propertyNamesThatIDepend = Collections.EMPTY_LIST;
-				return propertyNamesThatIDepend;
-			} 
 			
-			propertyNamesThatIDepend = new ArrayList();
-			Iterator itMetaSets = metaCalculador.getMetaSets().iterator();
-			while (itMetaSets.hasNext()) {
-				MetaSet metaSet = (MetaSet) itMetaSets.next();
-				if (!metaSet.hasValue()) {
-					propertyNamesThatIDepend.add(metaSet.getPropertyNameFrom());
-				}										
-			}
-		}
-		return propertyNamesThatIDepend;				
-	}
-	
 	public void setReadOnly(boolean readOnly) {		
 		this.readOnly = readOnly;
 		this.readOnlyCalculated = true;				
