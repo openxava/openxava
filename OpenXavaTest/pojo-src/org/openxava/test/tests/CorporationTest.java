@@ -14,8 +14,12 @@ public class CorporationTest extends ModuleTestBase {
 		super(testName, "Corporation");		
 	}
 	
-	public void testSimpleHTMLReportWithCollections() throws Exception {
+	public void testJDBCCalculatorInCascadeRemoveCollection_simpleHTMLReportWithCollections() throws Exception { 
 		execute("List.viewDetail", "row=0");
+		execute("Collection.new", "viewObject=xava_view_section0_employees");
+		assertNoErrors();
+		assertValue("salary", "2400");
+		closeDialog();
 		execute("Corporation.report");
 		assertNoErrors();
 		assertTrue(getPopupText().contains("<tr><td>Name:</td><td>RANONE</td></tr>")); 

@@ -119,6 +119,7 @@ public class DataSourceConnectionProvider implements IConnectionProvider, Serial
 
 	public static IConnectionProvider getByComponent(String componentName) throws XavaException {
 		if (providers == null) providers = new HashMap();
+		componentName = Strings.firstToken(componentName, "."); 
 		IConnectionProvider provider = (IConnectionProvider) providers.get(componentName);
 		if (provider == null) {
 			provider = createByComponent(componentName);

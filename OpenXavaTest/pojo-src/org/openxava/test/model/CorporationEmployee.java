@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.model.*;
+import org.openxava.test.calculators.*;
 
 /**
  * 
@@ -26,6 +27,7 @@ public class CorporationEmployee extends Identifiable {
 	@Required
 	private String email;
 
+	@DefaultValueCalculator(MinimumCorporationEmployeeSalaryCalculator.class) 
 	private int salary;
 	
 	public void setFirstName(String firstName) {
