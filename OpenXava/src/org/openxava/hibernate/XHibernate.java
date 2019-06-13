@@ -248,7 +248,7 @@ public class XHibernate {
 		Properties properties = getSessionFactoryProperties();
 		SessionFactory sessionFactory = (SessionFactory) 
 			sessionFactories.get(properties); 
-		if (sessionFactory == null) {	
+		if (sessionFactory == null) {
 			sessionFactory = createSessionFactory(getConfigurationFile(), properties);
 			sessionFactories.put(new HashMap(properties), sessionFactory);
 		}
@@ -273,10 +273,11 @@ public class XHibernate {
 	 * If you sent a <code>null</null> then <code>/hibernate.cfg.xml</code> is assumed.  
 	 */	
 	public static void setConfigurationFile(String configurationFile) {
-		if (Is.emptyString(configurationFile)) configurationFile = DEFAULT_CFG_FILE; 
-		Properties properties = new Properties(getSessionFactoryProperties());
+		if (Is.emptyString(configurationFile)) configurationFile = DEFAULT_CFG_FILE;
+		Properties properties = new Properties();
 		properties.put(XAVA_CFG_FILE_KEY, configurationFile);		
 		currentSessionFactoryProperties.set(properties);
+		properties.putAll(getSessionFactoryProperties());
 	}
 	
 	/**
