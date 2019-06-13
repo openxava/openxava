@@ -133,6 +133,9 @@ openxava.refreshPage = function(result) {
 			var maxWidth = $(window).width() * 0.95; 
 			var width = dialog.parent().width();
 			dialog.dialog('option', 'width', Math.min(width, maxWidth));
+			dialog.dialog('widget').css('min-width', 'fit-content'); 
+			dialog.dialog('widget').css('margin-left', '20px'); 
+			dialog.dialog('widget').css('margin-right', '20px'); 
 			dialog.dialog('option', 'height', 'auto');
 			dialog.dialog('option', 'position', { my: "center", at: "center", of: window, collision: "fit" } ); 			
 			dialog.dialog('option', 'zIndex', 99999 );
@@ -145,7 +148,7 @@ openxava.refreshPage = function(result) {
 		}
 		else if (result.resizeDialog) {
 			if (dialog.dialog('isOpen')) dialog.dialog('close'); 
-			if (result.dialogTitle) dialog.dialog('option', 'title', result.dialogTitle); 			
+			if (result.dialogTitle) dialog.dialog('option', 'title', result.dialogTitle);
 			dialog.dialog('option', 'width', 'auto');
 			dialog.dialog('option', 'width', dialog.parent().width());
 			dialog.dialog('open');					
