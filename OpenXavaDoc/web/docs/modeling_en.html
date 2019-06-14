@@ -280,7 +280,7 @@ private Address address;
     <div class="wiki" style="display: block;">
       <pre><code class="java">package org.openxava.invoicing.model;
  
-import java.util.*;
+import java.time.*;<br>import java.util.*;
 import javax.persistence.*;
 import org.openxava.annotations.*;
  
@@ -297,7 +297,7 @@ public class Invoice {
     private int number;
  
     @Required
-    private Date date;
+    private LocalDate date;
  
     @Stereotype("MEMO")
     private String remarks;
@@ -351,7 +351,7 @@ public class InvoiceKey implements java.io.Serializable { // The key class must 
     <div class="wiki" style="display: block;">
       <pre><code class="java">package org.openxava.invoicing.model;
  
-import java.util.*;
+import java.time.*;<br>import java.util.*;
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator; // ADD THIS IMPORT
 import org.openxava.annotations.*;
@@ -405,8 +405,8 @@ public class Invoice {
 private int year;
  
 @Required
-@DefaultValueCalculator(CurrentDateCalculator.class) // Current date
-private Date date;
+@DefaultValueCalculator(CurrentLocalDateCalculator.class) // Current date
+private LocalDate date;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Also you have to add the next
       import at the top of your class:</div>
@@ -417,14 +417,21 @@ private Date date;
         now on when the user clicks on the 'new' button the year field will have
         the current year, and the date field the current date. These two
         calculators (</span><em><span style="line-height: 1.5;">CurrentYearCalculator</span></em><span
-        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">CurrentDateCalculator</span></em><span
+        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">CurrentLocalDateCalculator</span></em><span
         style="line-height: 1.5;">) are included in OpenXava. You can explore
         the </span><em><span style="line-height: 1.5;"><a class="wiki_link_ext"
             href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html"
             rel="nofollow">org.openxava.calculators</a></span></em><span style="line-height: 1.5;">
-        package to see other useful built-in calculators.</span><br>
-      But sometimes you need your own logic for calculating the default value.
-      For example, for <em>number</em> we want to add one to the last invoice
+        package to see other useful built-in calculators.</span></div>
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Note
+        that for the date we use the type <i>LocalDate</i> (from <i>java.time</i>
+        package). Java has a type <i>Date</i> (in <i>java.util</i> package).
+        However <i>Date</i> is not a date, but a moment in time, including
+        hours, seconds and milliseconds, while <i>LocalDate</i> has just day,
+        month and year, that is a date. For the invoice case, and for most cases
+        in business applications, we'll use <i>LocalDate</i> over <i>Date</i>.</span><br>
+      Sometimes you need your own logic for calculating the default value. For
+      example, for <em>number</em> we want to add one to the last invoice
       number in the same year. Creating your own calculator with your logic is
       easy. First, create a package for calculators and call it <em>org.openxava.invoicing.calculators</em>.
       Then create in it a <em>NextNumberForYearCalculator</em> class, with the
