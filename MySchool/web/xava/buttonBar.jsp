@@ -32,7 +32,7 @@ if (manager.isButtonBarVisible()) {
 	if (manager.isDetailMode() && !manager.isDetailModeOnly() && previousViews.isEmpty()) { 
 	%>
 		<jsp:include page="barButton.jsp">
-			<jsp:param name="action" value="Mode.list"/>
+			<jsp:param name="action" value="<%=manager.getGoListAction()%>"/>
 		</jsp:include>
 	<% 
 	} 

@@ -362,10 +362,13 @@ select:not([multiple]) {
 	padding: 5px;
 }
 
-
 .ox-label { 
-	vertical-align: middle;
-	padding-right: 7px;
+	padding-top: 10px; 
+	padding-right: 7px; 
+}
+
+.ox-label, .ox-layout-not-aligned-cell  {
+	vertical-align: top;
 }
 
 .ox-editor-wrapper { 
@@ -495,8 +498,10 @@ i {
 	vertical-align: -4px;  
 }
 
-.mdi-calendar, .mdi-calendar-clock, .ox-element-collection .mdi-calendar, 
-.ox-element-collection .mdi-calendar-clock, .ox-element-collection .mdi-open-in-new {  
+.ox-detail .mdi-calendar, .ox-detail .mdi-calendar-clock, 
+.ox-list .mdi-calendar, .ox-list .mdi-calendar-clock, 
+.ox-element-collection .mdi-calendar, .ox-element-collection .mdi-calendar-clock, 
+.ox-element-collection .mdi-open-in-new {  
 	vertical-align: middle;
 	padding: 4px 4px 4px 0px;
 	margin-right: -20px;
@@ -1123,7 +1128,7 @@ input[type="button"], .ipad input[type="button"]:hover,
 }
 
 .ox-warnings .ox-message-box {	
-	background: #f6dc5c;
+	background: #ffb347;
 }
 
 .ox-action-link {
@@ -1636,11 +1641,7 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 
 #list-title {
 	font-weight: bold;
-	position: relative;
-	top: -22px;
-	display: flex;
-    justify-content: center;
-    height: 0px;
+	margin-left: 20px;
 }
 
 div[id$="_Index__view"] .ox-list-title {
@@ -1801,11 +1802,11 @@ div[id$="_Index__view"] .ox-list-title {
 	font-weight: bold;
 }
 
-.ox-required-editor input {
+.ox-required-editor input, .ox-required-editor select, .ox-required-editor textarea {  
 	border-color: #56b4ef !important; /* To work in dialog */
 }
 
-.ox-error-editor input {
+.ox-error-editor input, .ox-error-editor select, .ox-error-editor textarea { 
 	border-color: #DC4A38 !important; /* To work in dialog */
 }
 

@@ -418,9 +418,13 @@ select:not([multiple]) {
 
 
 .ox-label { 
-	vertical-align: middle;
+	padding-top: 8px; 
 	padding-right: 7px;
 	font-weight: bold; 
+}
+
+.ox-label, .ox-layout-not-aligned-cell  {
+	vertical-align: top;
 }
 
 .ox-editor-wrapper { 
@@ -619,8 +623,10 @@ i {
 	vertical-align: -4px;  
 }
 
-.mdi-calendar, .mdi-calendar-clock, .ox-element-collection .mdi-calendar, 
-.ox-element-collection .mdi-calendar-clock, .ox-element-collection .mdi-open-in-new {  
+.ox-detail .mdi-calendar, .ox-detail .mdi-calendar-clock, 
+.ox-list .mdi-calendar, .ox-list .mdi-calendar-clock,
+.ox-element-collection .mdi-calendar, .ox-element-collection .mdi-calendar-clock, 
+.ox-element-collection .mdi-open-in-new {  
 	vertical-align: middle;
 	padding: 4px 4px 4px 0px;
 	margin-right: -20px;
@@ -1103,11 +1109,12 @@ input[type="button"],
 	font-weight: bold;
 	float: left;
 	text-transform: uppercase;
+	border-bottom: 3px solid transparent;
 }
 
 .ox-active .ox-section-tab {
 	color: #806632;	
-	border-bottom: 3px solid #806632;
+	border-bottom-color: #806632;
 }
 
 .ox-total-cell {
@@ -1254,7 +1261,7 @@ input[type="button"],
 }
 
 .ox-warnings .ox-message-box {	
-	background: #f6dc5c;
+	background: #ffb347;
 }
 
 .ox-action-link {
@@ -2081,32 +2088,36 @@ div[id$="_Index__view"] .ox-list-title {
 	color: white;
 }
 
-.ox-required-editor input {
+.ox-required-editor input, .ox-required-editor select {
 	border-color: #CDB380; 
 }
 
-.ox-frame .ox-required-editor input, #sign_in_box .ox-required-editor input {
+.ox-frame .ox-required-editor input, .ox-frame .ox-required-editor select, #sign_in_box .ox-required-editor input, .ox-required-editor textarea {
 	border-color: #a58341; 
 }
 
-.ox-frame .ox-frame .ox-required-editor input {
+.ox-frame .ox-frame .ox-required-editor input, .ox-frame .ox-frame .ox-required-editor select, .ox-frame .ox-required-editor textarea {
 	border-color: #806632; 
 }
 
-.ui-dialog .ox-required-editor input {
+.ui-dialog .ox-required-editor input, .ui-dialog .ox-required-editor select {
 	border-color: #a58341 !important;
 }
 
-.ui-dialog .ox-frame .ox-required-editor input {
+.ui-dialog .ox-frame .ox-required-editor input, .ui-dialog .ox-frame .ox-required-editor select, .ui-dialog .ox-required-editor textarea {
 	border-color: #806632 !important;
 }
 
-.ui-dialog .ox-frame .ox-frame .ox-required-editor input {
+.ui-dialog .ox-frame .ox-frame .ox-required-editor input, .ui-dialog .ox-frame .ox-frame .ox-required-editor select, .ui-dialog .ox-frame .ox-required-editor textarea {
 	border-color: #5b4924 !important;
 }
 
 .ox-error-editor input,
-.ox-frame .ox-error-editor input, .ox-frame .ox-frame .ox-error-editor input { 
+.ox-frame .ox-error-editor input, .ox-frame .ox-frame .ox-error-editor input,
+.ox-error-editor textarea, 
+.ox-frame .ox-error-editor textarea, .ox-frame .ox-frame .ox-error-editor textarea,
+.ox-error-editor select, 
+.ox-frame .ox-error-editor select, .ox-frame .ox-frame .ox-error-editor select {   
 	border-color: #DC4A38 !important; /* To work in dialog */
 }
 

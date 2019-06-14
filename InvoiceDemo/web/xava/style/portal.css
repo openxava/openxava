@@ -509,6 +509,12 @@ a.ox-selected-list-format, a.ox-selected-list-format:hover {
 
 .ox-label { 
 	text-align: left;
+	padding-top: 6px; 
+	padding-right: 7px; 	
+}
+
+.ox-label, .ox-layout-not-aligned-cell  {
+	vertical-align: top;
 }
 
 .ox-frame-totals {

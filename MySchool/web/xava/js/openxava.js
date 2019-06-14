@@ -67,6 +67,7 @@ openxava.refreshPage = function(result) {
 				form[openxava.decorateId(result.application, result.module, "xava_changed_property")].value="";
 				form[openxava.decorateId(result.application, result.module, "xava_action_range")].value="";
 			}
+			openxava.setUrlParam(""); 
 			window.location.reload();	
 			return; 			
 		}
@@ -132,6 +133,9 @@ openxava.refreshPage = function(result) {
 			var maxWidth = $(window).width() * 0.95; 
 			var width = dialog.parent().width();
 			dialog.dialog('option', 'width', Math.min(width, maxWidth));
+			dialog.dialog('widget').css('min-width', 'fit-content'); 
+			dialog.dialog('widget').css('margin-left', '20px'); 
+			dialog.dialog('widget').css('margin-right', '20px'); 
 			dialog.dialog('option', 'height', 'auto');
 			dialog.dialog('option', 'position', { my: "center", at: "center", of: window, collision: "fit" } ); 			
 			dialog.dialog('option', 'zIndex', 99999 );
@@ -144,7 +148,7 @@ openxava.refreshPage = function(result) {
 		}
 		else if (result.resizeDialog) {
 			if (dialog.dialog('isOpen')) dialog.dialog('close'); 
-			if (result.dialogTitle) dialog.dialog('option', 'title', result.dialogTitle); 			
+			if (result.dialogTitle) dialog.dialog('option', 'title', result.dialogTitle);
 			dialog.dialog('option', 'width', 'auto');
 			dialog.dialog('option', 'width', dialog.parent().width());
 			dialog.dialog('open');					
@@ -185,7 +189,7 @@ openxava.refreshPage = function(result) {
 	}
 	document.body.style.cursor='auto';
 	if (openxava.postRefreshPage != null) openxava.postRefreshPage(); 
-	openxava.setUrlParam(result);	
+	openxava.setUrlParam(result.urlParam); 
 }
 
 openxava.initUI = function(application, module, currentRow, viewSimple) { 
@@ -500,18 +504,19 @@ openxava.getDialog = function(application, module) {
 	return dialog;
 }
 
-openxava.setUrlParam = function(result) {
-	if (result.urlParam == null) return;
-	if (result.urlParam !== "") {
+openxava.setUrlParam = function(urlParam) { 
+	if (urlParam == null) return;
+	if (urlParam !== "") {
 		var url = window.location.href;
 		var indexParams = url.indexOf('?');
 		if (indexParams >= 0) url = url.substring(0, indexParams);
-		history.replaceState(null, null, url + "?" + result.urlParam);
+		history.replaceState(null, null, url + "?" + urlParam);
 	}
 	else {
 		history.replaceState(null, null, window.location.pathname);
 	}		
 }
+
 
 openxava.setRequesting = function(application, module) {
 	if (openxava.requesting == null) openxava.requesting = { };
@@ -699,7 +704,7 @@ openxava.executeAction = function(application, module, confirmMessage, takesLong
 	form[openxava.decorateId(application, module, "xava_action_already_processed")].value=alreadyProcessed + "_";
 	if (openxava.isSubmitNeeded(form)) { 
 		if (!openxava.submitting) {  
-			openxava.submitting = true;  
+			openxava.submitting = true;
 			form.submit(); 
 		} 
 	} 
