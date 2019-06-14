@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.1.2 (2019-6-14)
+--------------------------
+- Label aligned on top when editor height is greater than usual.
+- Lessons 2 and 3 of course upgraded to OpenXava 6.
+- Added documentation about overwriting go list action to reference guide (controllers chapter).
 - Fix: On maximizing image in IMAGES_GALLERY the dialog does not fit the image size. 
 - Fix: IJDBCCalculator for a @DefaultValueCalculator in a cascade remove collection element fails.
 - Fix: @DefaultValueCalculator dependent on other properties does not work for references.
@@ -12,14 +17,11 @@ Change Log for OpenXava project
 - Fix: View.setEditable(member, editable) does not work for references.
 - Fix: Value with quotation marks in @DescriptionsList is only displayed until the first quotation.
 - Fix: Warning messages are not very legible.
-- Lessons 2 and 3 of course upgraded to OpenXava 6.
 - Fix: Ant target for generating portlets hangs.
-- Label aligned on top when editor height is greater than usual.
 - Fix: @DescriptionsList and list with multiple values in the same line is not well displayed.
 - Fix: Search in @DescriptionsList not work with composite description and fields with several trailing spaces.
 - Fix: @DescriptionsList with a composite description show all the existing spaces between fields. 
 - Fix: Calendar icon covers up the name of the action when user as action icon. 
-- Added documentation about overwriting go list action to reference guide (controllers chapter).
 - Fix: Overwriting the go list action, the Mode.list action via mode-controller, does not work.
 - Fix: Actions added/removed via addActions()/removeActions() to the module are lost after closing a dialog.
 - Fix: Read only reference to an entity with a single reference as key which is not included in the view fails.
