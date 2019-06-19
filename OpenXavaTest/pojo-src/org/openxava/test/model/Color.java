@@ -17,7 +17,8 @@ import org.openxava.test.actions.*;
 @Entity
 @Views({
 	@View( name="Ordinary", members="number; name; sample; hexValue; usedTo, characteristicThing, anotherCT; mixture"),
-	@View( name="Ordinary2", members="number; name; sample; hexValue; usedTo, characteristicThing"),	
+	@View( name="Ordinary2", members="number; name; sample; hexValue; usedTo, characteristicThing"),
+	@View( name="OrdinaryWithReadOnlyOnCreate", members="number; name; sample; hexValue; usedTo, characteristicThing"),
 	@View( name="View1", members="property1"), 
 	@View( name="View2", members="property2"), 
 	@View( name="View2Sub1", members="property2Sub1"), 
@@ -38,6 +39,7 @@ public class Color {
 	@Column(length=20) @Required
 	@LabelStyle(value="bold-label", notForViews="Ordinary2")
 	@LabelFormat(LabelFormatType.SMALL)
+	@ReadOnly(onCreate=false, forViews="OrdinaryWithReadOnlyOnCreate")
 	private String name;
 	
 	@Version 
@@ -59,6 +61,7 @@ public class Color {
 	@DescriptionsList(notForTabs="DEFAULT", order="${name} desc") 
 	@JoinColumn(name="IDTHING")
 	@LabelStyle("italic-label")
+	@ReadOnly(onCreate=false, forViews="OrdinaryWithReadOnlyOnCreate")
 	private Thing usedTo;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -70,6 +73,7 @@ public class Color {
 		condition="${number} < 2",
 		forTabs="Color2")
 	@LabelFormat(LabelFormatType.NO_LABEL)
+	@ReadOnly(onCreate=false, forViews="OrdinaryWithReadOnlyOnCreate")
 	private CharacteristicThing characteristicThing;
 
 	@ManyToOne(fetch=FetchType.LAZY)

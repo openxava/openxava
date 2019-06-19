@@ -20,6 +20,7 @@ public class MetaMemberView {
 	private String editor;
 	private String searchListCondition;
 	private boolean collapsed;
+	private boolean readOnlyOnCreate; 
 	
 	
 	
@@ -57,5 +58,11 @@ public class MetaMemberView {
 
 	public void setCollapsed(boolean collapsed) {
 		this.collapsed = collapsed;
+	}
+	public boolean isReadOnlyOnCreate() {
+		return readOnlyOnCreate;
+	}
+	public void setReadOnlyOnCreate(boolean readOnlyOnCreate) {
+		this.readOnlyOnCreate = readOnlyOnCreate;
 	}
 }

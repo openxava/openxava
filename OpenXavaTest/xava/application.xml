@@ -77,7 +77,7 @@
 		<view name="Groups"/>
 		<controller name="StartColor"/>
 		<mode-controller name="Void"/>
-	</module>	<module name="ColorWithModeListOnlyAndSubcontroller">		<model name="Color"/>		<controller name="ColorOnlySubcontroller"/>		<mode-controller name="ListOnly"/>	</module>		<module name="IngredientWithSections">		<model name="Ingredient"/>		<view name="Sections"/>		<controller name="Typical"/>	</module>						 
+	</module>	<module name="ColorWithModeListOnlyAndSubcontroller">		<model name="Color"/>		<controller name="ColorOnlySubcontroller"/>		<mode-controller name="ListOnly"/>	</module>		<module name="ColorWithReadOnlyOnCreate">		<model name="Color"/>		<view name="OrdinaryWithReadOnlyOnCreate"/>		<controller name="TypicalNotResetOnSave"/>		<controller name="Color"/> 	</module>		<module name="IngredientWithSections">		<model name="Ingredient"/>		<view name="Sections"/>		<controller name="Typical"/>	</module>						 
 	<module name="Delivery" folder="invoicing">		<env-var name="XAVA_SEARCH_ACTION" value="Delivery.search"/>				<model name="Delivery"/>		<controller name="TypicalExtendedPrint"/>		<controller name="SearchForCRUD"/>		<controller name="Remarks"/>		<controller name="Delivery"/>	</module>	
 	<module name="DeliveryGroupsInSections" folder="invoicing.variations">
 		<env-var name="XAVA_SEARCH_ACTION" value="CRUD.searchExecutingOnChange"/>		

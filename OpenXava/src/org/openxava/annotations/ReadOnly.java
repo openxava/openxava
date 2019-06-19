@@ -44,4 +44,11 @@ public @interface ReadOnly {
 	 */ 	
 	String notForViews() default "";
 	
+	/**
+	 * By default true. If you put false when you are creating the record this property will be editable.
+	 * 
+	 * @since 6.2
+	 */
+	boolean onCreate() default true;
+	
 }

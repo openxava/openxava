@@ -289,9 +289,7 @@ public class View implements java.io.Serializable {
 							if (add) {
 								MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(propertyName);
 								if (metaPropertyView != null) {
-									if (metaPropertyView.isReadOnly()) {
-										setEditable(propertyName, false);
-									}
+									setEditable(propertyName, !(!(!metaPropertyView.isReadOnlyOnCreate() && isKeyEditable()) && metaPropertyView.isReadOnly()));
 								}
 							}
 							if (totalMetaProperties == null) totalMetaProperties = new ArrayList<MetaProperty>();
@@ -1091,7 +1089,6 @@ public class View implements java.io.Serializable {
 		}
 		else {			
 			MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(ref);
-			
 			if (metaReferenceView != null) {
 				newView.setReadOnly(metaReferenceView.isReadOnly());
 				
@@ -2587,7 +2584,7 @@ public class View implements java.io.Serializable {
 	
 	
 
-	private boolean insideAViewDisplayedAsDescriptionsListAndReferenceView() { 
+	private boolean insideAViewDisplayedAsDescriptionsListAndReferenceView() {
 		if (displayAsDescriptionsListAndReferenceView()) return true;
 		if (getParent() == null) return false;
 		return getParent().insideAViewDisplayedAsDescriptionsListAndReferenceView();
@@ -2598,7 +2595,7 @@ public class View implements java.io.Serializable {
 		Collection metaReferencesKey = isRepresentsEntityReference()?getMetaModel().getMetaReferencesKeyAndSearchKey():getMetaModel().getMetaReferencesKey();
 		Iterator it = metaReferencesKey.iterator();
 		while (it.hasNext()) {
-			MetaReference ref = (MetaReference) it.next();			
+			MetaReference ref = (MetaReference) it.next();
 			if (hasSubview(ref.getName())) {
 				getSubview(ref.getName()).setKeyEditable(b);
 				getSubview(ref.getName()).setEditable(false);
@@ -2637,7 +2634,11 @@ public class View implements java.io.Serializable {
 	 * If at this moment is editable.
 	 */
 	private boolean isEditableImpl(MetaProperty metaProperty) {		
-		try {				
+		try {
+			MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(metaProperty.getName());
+			if (metaPropertyView != null) {
+				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate()) return true;
+			}
 			if (metaProperty.isReadOnly()) return false;			
 			if (metaProperty.isKey() || 
 				(metaProperty.isSearchKey() && isRepresentsEntityReference())) 
@@ -2656,9 +2657,13 @@ public class View implements java.io.Serializable {
 	/**
 	 * If at this moment is editable.
 	 */
-	public boolean isEditable(MetaReference metaReference) {		
+	public boolean isEditable(MetaReference metaReference) {
 		try {
 			MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(metaReference);
+			if (metaReferenceView != null && isKeyEditable() && metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
+				setEditable(metaReference.getName(), true); 
+				return true;
+			}
 			if (metaReferenceView != null && metaReferenceView.isReadOnly()) return false;
 			if (metaReference.isKey() || 
 				(metaReference.isSearchKey() && isRepresentsEntityReference())) 
@@ -2674,7 +2679,7 @@ public class View implements java.io.Serializable {
 		}		
 	}
 	
-	public boolean isEditable(String member) throws XavaException {		
+	public boolean isEditable(String member) throws XavaException {
 		int idx = member.indexOf('.'); 
 		if (idx >= 0) {
 			String compoundMember = member.substring(0, idx); 
@@ -5443,7 +5448,27 @@ public class View implements java.io.Serializable {
 		return changedPropertiesActionsAndReferencesWithNotCompositeEditor;
 	}
 	
+	private void propertiesAndReferencesWithReadOnlywithOnCreateFalse(Map result) {
+		for (MetaMember m : getMetaMembers()) {
+			if (m instanceof MetaProperty) {
+				MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(m.getName());
+				if (metaPropertyView != null && !metaPropertyView.isReadOnlyOnCreate() && metaPropertyView.isReadOnly()) {
+					result.put(m.getName(), this);
+				}
+			}
+			else if (m instanceof MetaReference) {
+				MetaReference t = getMetaReference(m.getName());
+				MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(t);
+				if (metaReferenceView != null && isKeyEditable() && metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
+					result.put(m.getName(), this);
+				}
+			}
+		}
+	}
+	
 	private void fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(Map result) {
+		propertiesAndReferencesWithReadOnlywithOnCreateFalse(result);
+		
 		if (displayAsDescriptionsList() && 
 				(
 					refreshDescriptionsLists ||	
@@ -5461,7 +5486,7 @@ public class View implements java.io.Serializable {
 		
 		if (displayReferenceWithNotCompositeEditor() && 
 			getParent().hasEditableMemberChanged(getMemberName()))
-		{			
+		{	
 			result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
 			return;
 		}		
@@ -5565,8 +5590,8 @@ public class View implements java.io.Serializable {
 		boolean existsCurrent = notEditableMembersNames == null?false:notEditableMembersNames.contains(member);
 		return existsOld != existsCurrent;
 	}
-			
-	private boolean editorMustBeReloaded(String memberName) {		
+	
+	private boolean editorMustBeReloaded(String memberName) {
 		MetaProperty p = null;
 		try {
 			p = getMetaProperty(memberName);

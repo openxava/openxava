@@ -1024,7 +1024,8 @@ public class AnnotatedClassParser implements IComponentParser {
 				ReadOnly readOnly = element.getAnnotation(ReadOnly.class);
 				if (isForView(metaView, readOnly.forViews(), readOnly.notForViews())) {
 					propertyView.setReadOnly(true);
-					mustAddMetaView = true;				
+					mustAddMetaView = true;
+					propertyView.setReadOnlyOnCreate(readOnly.onCreate());
 				}
 			}					
 			
@@ -2152,7 +2153,8 @@ public class AnnotatedClassParser implements IComponentParser {
 				ReadOnly readOnly = element.getAnnotation(ReadOnly.class);
 				if (isForView(metaView, readOnly.forViews(), readOnly.notForViews())) {
 					referenceView.setReadOnly(true);
-					mustAddMetaView = true;				
+					mustAddMetaView = true;		
+					referenceView.setReadOnlyOnCreate(readOnly.onCreate()); 
 				}
 			}	
 			 

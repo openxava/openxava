@@ -1,6 +1,5 @@
 package org.openxava.test.tests;
 
-import java.awt.*;
 import java.util.*;
 
 import javax.persistence.*;
@@ -37,6 +36,23 @@ public class AJAXTest extends ModuleTestBase {
 		selectListConfiguration("All");
 		assertLoadedParts("view, errors, messages");
 		execute("ListFormat.select", "editor=List"); 
+	}
+	
+	public void testReadOnlyOnCreate() throws Exception {
+		if (!usesAnnotatedPOJO()) return;
+		changeModule("ColorWithReadOnlyOnCreate");
+		assertValueInList(5, 2, "");
+		execute("List.viewDetail", "row=5");
+		assertNoEditable("name");
+		assertNoEditable("usedTo");
+		
+		execute("CRUD.new");
+		assertEditable("name");
+		assertEditable("usedTo");
+		assertLoadedParts("bottom_buttons, button_bar, editor_name, editor_number, editor_sample, errors, messages, reference_editor_characteristicThing, reference_editor_usedTo");
+		
+		execute("CRUD.new");
+		assertLoadedParts("editor_name, errors, messages, reference_editor_characteristicThing, reference_editor_usedTo");
 	}
 	
 	public void testElementCollections() throws Exception { 

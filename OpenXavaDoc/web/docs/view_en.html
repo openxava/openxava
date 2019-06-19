@@ -6013,7 +6013,10 @@ class="kw105">Action</span></a> <span class="co1">// 5</span>
           it never will be editable by the final user in this view. An
           alternative to this is to make the property editable or not editable
           programmatically using <a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
-            rel="nofollow">org.openxava.view.View</a>.</li>
+            rel="nofollow">org.openxava.view.View</a>. Since v6.2 you can
+          specify <i>@ReadOnly(onCreate=false)</i> in order the property will
+          be editable on creating a new entity, but read only in all other
+          cases.</li>
         <li><strong><a class="wiki_link" href="view_en#toc8">@LabelFormat</a></strong>
           (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/LabelFormat.html"
             rel="nofollow">OX</a>): Format to display the label of this
@@ -8120,7 +8123,10 @@ class="kw105">Action</span></a>              <span class="co1">// 12</span>
           never will be editable by final user in this view. An alternative is
           to make the property editable/uneditable programmatically using <em><a
               class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
-              rel="nofollow">org.openxava.view.View</a></em>.</li>
+              rel="nofollow">org.openxava.view.View</a></em>. Since v6.2 you can
+          specify <i>@ReadOnly(onCreate=false)</i> in order the reference will
+          be editable on creating a new entity, but read only in all other
+          cases.</li>
         <li><strong><a class="wiki_link" href="view_en.html#no-frame">@NoFrame</a></strong>
           (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoFrame.html"
             rel="nofollow">OX</a>): If the reference is displayed with no frame.
