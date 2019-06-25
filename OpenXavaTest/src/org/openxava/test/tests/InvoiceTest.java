@@ -1171,12 +1171,12 @@ public class InvoiceTest extends CustomizeListTestBase {
 		String [] yearComparators = { "=", "=", "year_comparator", ""};
 		setConditionComparators(yearComparators);
 		
-		String [] condition2002 = { " ", " ", "2002", "true" }; // We supussed that there are invoices in 2002
+		String [] condition2002 = { " ", " ", "2002", "true" }; // We suppose that there are invoices in 2002
 		setConditionValues(condition2002);
 		execute("List.filter");
 		assertYearInList("02");
 
-		String [] condition2004 = { " ", " ", "2004", "true" }; // We supussed that there are invoices in 2004
+		String [] condition2004 = { " ", " ", "2004", "true" }; // We suppose that there are invoices in 2004
 		setConditionValues(condition2004);
 		execute("List.filter");
 		assertYearInList("04");

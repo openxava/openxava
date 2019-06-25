@@ -2,7 +2,6 @@ package org.openxava.test.tests;
 
 import java.time.*;
 import java.time.format.*;
-
 import org.openxava.tests.*;
 
 /**
@@ -65,7 +64,113 @@ public class Invoice6Test extends ModuleTestBase {
 		assertValueInList(0, 2, "04/01/2004");
 		assertValueInList(1, 2, "04/01/2004");		
 	}
+	
+	public void testFilterByLocalDate() throws Exception {   
+		String [] yearComparators = { "=", "=", "year_comparator"};
+		setConditionComparators(yearComparators);
+		
+		String [] condition2004 = { " ", " ", "2004"}; 
+		setConditionValues(condition2004);
+		execute("List.filter");
+		assertListRowCount(3);
+		assertValueInList(0, 0, "2004");
+		assertValueInList(0, 1, "2");
+		assertValueInList(0, 2, "1/4/04");
+		assertValueInList(1, 0, "2004");
+		assertValueInList(1, 1, "9");
+		assertValueInList(1, 2, "1/4/04");
+		assertValueInList(2, 0, "2004");
+		assertValueInList(2, 1, "10");
+		assertValueInList(2, 2, "12/4/04");		
+		
 
+		String [] monthComparators = { "=", "=", "month_comparator"};
+		setConditionComparators(monthComparators);		
+		String [] conditionMonth1 = { " ", " ", "1" }; 
+		setConditionValues(conditionMonth1);
+		execute("List.filter");
+		assertListRowCount(3);
+		assertValueInList(0, 0, "2002");
+		assertValueInList(0, 1, "1");
+		assertValueInList(0, 2, "1/1/02");				
+		assertValueInList(1, 0, "2004");
+		assertValueInList(1, 1, "2");
+		assertValueInList(1, 2, "1/4/04");
+		assertValueInList(2, 0, "2004");
+		assertValueInList(2, 1, "9");
+		assertValueInList(2, 2, "1/4/04");
+		
+		String [] yearMonthComparators = { "=", "=", "year_month_comparator"};
+		setConditionComparators(yearMonthComparators);		
+		String [] conditionYear2004Month1 = { " ", " ", "2004/1" }; 
+		setConditionValues(conditionYear2004Month1);
+		execute("List.filter");
+		assertListRowCount(2); 				
+		assertValueInList(0, 0, "2004");
+		assertValueInList(0, 1, "2");
+		assertValueInList(0, 2, "1/4/04");
+		assertValueInList(1, 0, "2004");
+		assertValueInList(1, 1, "9");
+		assertValueInList(1, 2, "1/4/04");		
+	}
+	
+	public void testGroupByLocalDate() throws Exception {  
+
+		assertAllGroupBys( 
+			"No grouping",
+			"Group by year",
+			"Group by number",
+			"Group by date",
+			"Group by month of date",
+			"Group by year of date",
+			"Group by amounts sum"
+		);
+		
+		assertListRowCount(9);
+		assertValuesInList(0, "2002",  "1",  "1/1/02",  "2,500.00");
+		assertValuesInList(1, "2004",  "2",  "1/4/04",     "11.00");
+		assertValuesInList(2, "2004",  "9",  "1/4/04",  "4,396.00");
+		assertValuesInList(3, "2004", "10", "12/4/04",  "1,189.00");
+		assertValuesInList(4, "2004", "11", "11/4/06",      "0.00");
+		assertValuesInList(5, "2004", "12", "11/5/06",    "110.00");
+		assertValuesInList(6, "2007", "14", "5/28/07",  "6,059.00");
+		assertValuesInList(7, "2009",  "1", "6/23/09",      "0.00");
+		assertValuesInList(8, "2011",  "1", "3/14/11", "18,207.00");
+		
+		selectGroupBy("Group by date");
+		assertListRowCount(8); 
+		assertListColumnCount(3);
+		assertValuesInList(0,  "1/1/02",  "2,500.00", "1");
+		assertValuesInList(1,  "1/4/04",  "4,407.00", "2");
+		assertValuesInList(2, "12/4/04",  "1,189.00", "1");
+		assertValuesInList(3, "11/4/06",      "0.00", "1");
+		assertValuesInList(4, "11/5/06",    "110.00", "1");
+		assertValuesInList(5, "5/28/07",  "6,059.00", "1");
+		assertValuesInList(6, "6/23/09",      "0.00", "1");
+		assertValuesInList(7, "3/14/11", "18,207.00", "1");
+		
+		selectGroupBy("Group by month of date");
+		assertListRowCount(7);
+		assertListColumnCount(3);
+		assertValuesInList(0, "2002/1",  "2,500.00", "1");
+		assertValuesInList(1, "2004/1",  "4,407.00", "2");
+		assertValuesInList(2, "2004/12", "1,189.00", "1");
+		assertValuesInList(3, "2006/11",   "110.00", "2");
+		assertValuesInList(4, "2007/5",  "6,059.00", "1");
+		assertValuesInList(5, "2009/6",      "0.00", "1"); 
+		assertValuesInList(6, "2011/3", "18,207.00", "1");
+		
+		selectGroupBy("Group by year of date");
+		assertListRowCount(6);
+		assertListColumnCount(3);
+		assertValuesInList(0, "2002",  "2,500.00", "1");
+		assertValuesInList(1, "2004",  "5,596.00", "3");
+		assertValuesInList(2, "2006",    "110.00", "2");
+		assertValuesInList(3, "2007",  "6,059.00", "1");
+		assertValuesInList(4, "2009",      "0.00", "1");
+		assertValuesInList(5, "2011", "18,207.00", "1");				
+	}
+	
 	private void assertParseLocalDate(String originalDate, String parsedDate) throws Exception {
 		setValue("date", originalDate);
 		execute("CRUD.save"); 

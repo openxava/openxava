@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Grouping by in list mode has a year and month entry for each LocalDate property.  
+- Filtering by year, month and year/month in list mode for LocalDate columns.
 - @ReadOnly(onCreate=false) in order the member would be editable on create and read only in the other cases.
 - Fix: Some broken links in menu of the Spanish View chapter of reference guide.
 

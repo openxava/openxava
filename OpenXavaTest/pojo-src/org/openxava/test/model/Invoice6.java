@@ -1,6 +1,8 @@
 package org.openxava.test.model;
 
 
+import java.math.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -27,6 +29,9 @@ public class Invoice6 {
 	@Required
 	@DefaultValueCalculator(CurrentLocalDateCalculator.class)
 	private java.time.LocalDate date;
+	
+	@Stereotype("MONEY") 
+	private BigDecimal amountsSum;   
 		
 	public int getYear() {
 		return year;
@@ -50,6 +55,14 @@ public class Invoice6 {
 
 	public void setDate(java.time.LocalDate date) {
 		this.date = date;
+	}
+
+	public BigDecimal getAmountsSum() {
+		return amountsSum;
+	}
+
+	public void setAmountsSum(BigDecimal amountsSum) {
+		this.amountsSum = amountsSum;
 	}
 
 }
