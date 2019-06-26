@@ -6,6 +6,16 @@
 
 <editors>
 
+	<!-- tmp ini -->
+	<editor name="Image2" url="imageEditor2.jsp" format="false">
+		<formatter class="org.openxava.formatters.ImageFormatter" />
+		<for-stereotype stereotype="FOTO" />
+		<for-stereotype stereotype="PHOTO" />
+		<for-stereotype stereotype="IMAGEN" />
+		<for-stereotype stereotype="IMAGE" />
+	</editor>
+	<!-- tmp fin -->
+
 	<editor name="GalleryNoDialog" url="galleryEditor.jsp">
 		<property name="editAction" value="GalleryNoDialog.edit"/>
 	</editor>
