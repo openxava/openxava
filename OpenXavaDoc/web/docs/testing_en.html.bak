@@ -622,8 +622,8 @@ public class InvoiceTest extends ModuleTestBase {
 }
  
 private String getCurrentDate() { // Current date as string in short format
-    return LocalDate.now().format( // The standard way to do it with Java
-        DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
+    return DateFormat.getDateInstance( // The standard way to do it with Java
+            DateFormat.SHORT).format(new Date());
 }
  
 private String getNumber() { // The invoice number for a new invoice

@@ -613,8 +613,8 @@ public class PruebaFactura extends ModuleTestBase {
 }
  
 private String getFechaActual() { // Fecha actual como una cadena
-    return LocalDate.now().format( // La forma típica de hacerlo con Java
-        DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    return new SimpleDateFormat("dd/MM/yyyy").format(new Date()); // La forma
+                                            // típica de hacerlo con Java
 }
  
 private String getNumero() { // El número de factura para una factura nueva
