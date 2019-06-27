@@ -1,6 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+- Subir con AJAX:
+	- Que funcione con foto.
+	- Ajustar estilo.
+	- Añadir tareas para GALLERY_IMAGES, FILE, FILES, SUBIR_ARCHIVO.
+	- Genérico: Documentar, adaptar lo hecho y ¿ejemplo en OpenXavaTest?
+
 - Grouping by in list mode has a year and month entry for each LocalDate property.  
 - Filtering by year, month and year/month in list mode for LocalDate columns.
 - @ReadOnly(onCreate=false) in order the member would be editable on create and read only in the other cases.

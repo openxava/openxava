@@ -2137,3 +2137,13 @@ div[id$="_Index__view"] .ox-list-title {
 .ox-list-header .mdi-arrow-down-bold, .ox-list-header .mdi-arrow-up-bold {
 	color: white; 
 } 
+
+/* tmp ini Si es común a todos los estilos quizás podría poner en otro sitio, como en el editor. */
+.filepond--item {
+	width: 190px;
+}
+
+.filepond--root {
+	width: 220px;
+}
+/* tmp fin */
