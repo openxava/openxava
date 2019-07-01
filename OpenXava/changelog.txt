@@ -1,15 +1,17 @@
 Change Log for OpenXava project
 ===============================
 
+TMP ME QUEDÉ POR: YA FUNCIONA AÑADIR, CAMBIAR Y QUITAR. AUNQUE TODO MUY AD HOC
+
 - Subir con AJAX:
 	- Que funcione con foto.
-		- Cambiar.
 		- Dos propiedades en la misma vista.
 		- Ajustar estilo.
 		- i18n
 		- editable/no editable
 		- Required. Hay un required attribute.
 		- Ampliar foto.
+		- Titulillo: Kb y URL. Para la imagen quizás debería quitar la URL.
 		- Seguridad:
 			- Para la imagen el que se coja los datos de la vista puede ser suficiente, pero en una utilidad de subida genérica a lo mejor los
 				se graban directamente en la base de datos, o algo que no use ningún objeto de sesión. 

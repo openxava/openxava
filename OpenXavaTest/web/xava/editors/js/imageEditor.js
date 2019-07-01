@@ -1,5 +1,7 @@
 /* tmp ¿ Generalizar para todos los files ? */
 
+if (imageEditor == null) var imageEditor = {};
+
 openxava.addEditorInitFunction(function() {
 
     FilePond.registerPlugin(FilePondPluginImagePreview);
@@ -11,49 +13,31 @@ openxava.addEditorInitFunction(function() {
     inputs.forEach(function(input) {
     	if (FilePond.find(input) == null) {
 	    	const pond = FilePond.create(input);
-	    	/* tmp
 	    	if (input.dataset.url !== "") {
-	    		pond.onaddfile = null;
 	    		pond.addFile(input.dataset.url);
 	    	}
 	    	else {
-				pond.onaddfile = function() {
-	    			console.log("File added");
-	    		}	    		    		
+	    		imageEditor.enableUpload(pond, input);
 	    	}
 	    	pond.onremovefile = function() {
-				pond.onaddfile = function() {
-	    			console.log("File added");
-	    		}	    		    		
+	    		imageEditor.enableUpload(pond, input);
+	    		$.ajax({
+	    			url: "../xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module,
+	    			method: "DELETE"
+    			})
     		}
-    		*/
-	    	// tmp ini
-	    	if (input.dataset.url !== "") {
-	    		pond.addFile(input.dataset.url);
-	    	}
-	    	else {
-		    	pond.setOptions({ // tmp Duplicado, refactorizar
-		    	    server: {
-		    	    	process: '../xava/upload?application=' + input.dataset.application + "&module=" + input.dataset.module, 
-		    	        fetch: null,
-		    	        revert: null
-		    	    }
-		    	});
-	    	}
-	    	pond.onremovefile = function() {
-		    	pond.setOptions({
-		    	    server: {
-		    	        process: '../xava/upload?application=' + input.dataset.application + "&module=" + input.dataset.module, 
-		    	        fetch: null,
-		    	        revert: null
-		    	    }
-		    	});
-    		}	    	
-	    	// tmp fin
     	}
  
     });
 	
 });
 
+/* tmp ¿Poner destroy function? */
 
+imageEditor.enableUpload = function(pond, input) {
+	pond.setOptions({ 
+	    server: {
+	    	process: "../xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module
+	    }
+	});
+}

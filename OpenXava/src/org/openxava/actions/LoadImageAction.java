@@ -12,7 +12,7 @@ import org.openxava.util.*;
 public class LoadImageAction extends ViewBaseAction implements INavigationAction, IProcessLoadedFileAction {
 	
 	private List fileItems;
-	@Inject
+	// tmp @Inject
 	private String newImageProperty;
 	
 
@@ -22,7 +22,8 @@ public class LoadImageAction extends ViewBaseAction implements INavigationAction
 			FileItem fi = (FileItem)i.next();
 			String fileName = fi.getName();			
 			if (!Is.emptyString(fileName)) {
-				getPreviousView().setValue(getNewImageProperty(), fi.get()); 
+				// tmp getPreviousView().setValue(getNewImageProperty(), fi.get()); 
+				getView().setValue(getNewImageProperty(), fi.get()); // tmp ¿En migration? ¿Cómo documentar (o afrontar) este cambio?
 			}			
 		}		
 		closeDialog(); 

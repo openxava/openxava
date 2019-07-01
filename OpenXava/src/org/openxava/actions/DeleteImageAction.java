@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 public class DeleteImageAction extends ViewBaseAction{
 	private static Log log = LogFactory.getLog(DeleteImageAction.class);
 	
-	@Inject
+	// tmp @Inject
 	private String newImageProperty;
 	
 	public void execute() throws Exception {
