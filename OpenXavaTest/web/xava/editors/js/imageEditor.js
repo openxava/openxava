@@ -6,23 +6,24 @@ openxava.addEditorInitFunction(function() {
 
     FilePond.registerPlugin(FilePondPluginImagePreview);
     
-    // tmp ¿Funciona con más de una PHOTO en la vista?
-	
-    const inputs = document.querySelectorAll('.xava_image');
+    FilePond.setOptions({
+    	labelIdle: "Sube una imagen" // tmp Me quedé por aquí. ¿Cómo hacerlo?
+    });
     
+    const inputs = document.querySelectorAll('.xava_image');
     inputs.forEach(function(input) {
     	if (FilePond.find(input) == null) {
 	    	const pond = FilePond.create(input);
-	    	if (input.dataset.url !== "") {
-	    		pond.addFile(input.dataset.url);
-	    	}
+	    	if (input.dataset.empty !== "true") {
+	    		pond.addFile(imageEditor.getImageURL(input));
+	    	}	    	
 	    	else {
 	    		imageEditor.enableUpload(pond, input);
 	    	}
 	    	pond.onremovefile = function() {
 	    		imageEditor.enableUpload(pond, input);
 	    		$.ajax({
-	    			url: "../xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module,
+	    			url: imageEditor.getUploadURL(input),
 	    			method: "DELETE"
     			})
     		}
@@ -37,7 +38,15 @@ openxava.addEditorInitFunction(function() {
 imageEditor.enableUpload = function(pond, input) {
 	pond.setOptions({ 
 	    server: {
-	    	process: "../xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module
+	    	process: imageEditor.getUploadURL(input) 
 	    }
 	});
+}
+
+imageEditor.getUploadURL = function(input) {
+	return "../xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&property=" + input.dataset.property;
+}
+
+imageEditor.getImageURL = function(input) {
+	return "../xava/ximage?application=" + input.dataset.application + "&module=" + input.dataset.module + "&property=" + input.dataset.property;
 }

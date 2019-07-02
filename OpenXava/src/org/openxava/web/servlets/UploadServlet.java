@@ -33,7 +33,7 @@ public class UploadServlet extends HttpServlet { // tmp ¿Hacer una clase base pa
 			ModuleManager manager = (ModuleManager) context.get(application, module, "manager");
 			manager.parseMultipartRequest(request); // tmp ¿Cuando se libera xava.upload.fileitems?
 			LoadImageAction action = new LoadImageAction();
-			action.setNewImageProperty("photo"); // TMP OJO, A PIÑON FIJO
+			action.setNewImageProperty(request.getParameter("property")); 
 			Messages errors = (Messages) request.getAttribute("errors");
 			Messages messages = (Messages) request.getAttribute("messages");
 			manager.executeAction(action, errors, messages, request);
@@ -52,7 +52,7 @@ public class UploadServlet extends HttpServlet { // tmp ¿Hacer una clase base pa
 			ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
 			ModuleManager manager = (ModuleManager) context.get(application, module, "manager");
 			DeleteImageAction action = new DeleteImageAction();
-			action.setNewImageProperty("photo"); // TMP OJO, A PIÑON FIJO
+			action.setNewImageProperty(request.getParameter("property"));
 			Messages errors = (Messages) request.getAttribute("errors");
 			Messages messages = (Messages) request.getAttribute("messages");
 			manager.executeAction(action, errors, messages, request);
