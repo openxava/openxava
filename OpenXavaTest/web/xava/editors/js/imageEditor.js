@@ -5,11 +5,7 @@ if (imageEditor == null) var imageEditor = {};
 openxava.addEditorInitFunction(function() {
 
     FilePond.registerPlugin(FilePondPluginImagePreview);
-    
-    FilePond.setOptions({
-    	labelIdle: "Sube una imagen" // tmp Me quedé por aquí. ¿Cómo hacerlo?
-    });
-    
+        
     const inputs = document.querySelectorAll('.xava_image');
     inputs.forEach(function(input) {
     	if (FilePond.find(input) == null) {

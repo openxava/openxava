@@ -1,5 +1,10 @@
-/org/
 /application.xml
+/code-generators.xml
+/controllers.xml
+/converters.xml
+/default-size.xml
+/dtds/
+/org/
 /GalleryImage.hbm.xml
 /META-INF/
 /OpenXavaTest-labels_ca.properties
@@ -10,11 +15,6 @@
 /OpenXavaTest-messages_en.properties
 /OpenXavaTest-messages_es.properties
 /OpenXavaTest-messages_fr.properties
-/code-generators.xml
-/controllers.xml
-/converters.xml
-/default-size.xml
-/dtds/
 /editors.xml
 /hibernate-junit.cfg.xml
 /hibernate.cfg.xml

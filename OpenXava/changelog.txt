@@ -4,9 +4,10 @@ Change Log for OpenXava project
 - Subir con AJAX:
 	- Que funcione con foto.
 		- i18n
+		- IE11
 		- editable/no editable
 		- Required. Hay un required attribute.
-		- Ampliar foto.
+		- Ampliar foto. https://github.com/nielsboogaard/filepond-plugin-get-file
 		- Titulillo: Kb y URL. Para la imagen quizás debería quitar la URL.
 		- Seguridad:
 			- Para la imagen el que se coja los datos de la vista puede ser suficiente, pero en una utilidad de subida genérica a lo mejor los
@@ -17,6 +18,7 @@ Change Log for OpenXava project
 			- Seguridad: ¿Cómo lo testeo?
 		- Con light.css.
 		- Con Liferay	
+		- Comprobar que las etiquetas se traducen con un idioma incluido pero sin las traducciones (Italian) o no incluido. Esto después que pueda hacer un deployWar.
 	- Añadir tareas para GALLERY_IMAGES, FILE, FILES, IMPORTAR EXCEL, SUBIR_ARCHIVO.
 	- Genérico: Documentar, adaptar lo hecho y ¿ejemplo en OpenXavaTest?
 
