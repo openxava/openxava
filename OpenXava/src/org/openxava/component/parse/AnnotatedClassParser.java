@@ -37,6 +37,8 @@ import org.openxava.util.meta.*;
 import org.openxava.validators.meta.*;
 import org.openxava.view.meta.*;
 
+import com.sun.scenario.effect.impl.prism.*;
+
 
 /**
  * Parse EJB3 Entities (POJOs with JPA annotations) into OpenXava components. <p>
@@ -2614,7 +2616,8 @@ public class AnnotatedClassParser implements IComponentParser {
 				fillManagedClassNamesFromFileClassPath(classNames, file, basePackage);
 			}
 			else if (file.getName().endsWith(".class")) {				
-				String modelName = file.getName().substring(0, file.getName().length() - ".class".length());				
+				String modelName = file.getName().substring(0, file.getName().length() - ".class".length());
+				if (modelName.equals("Boot")) continue; // tmp
 				String className = basePackage + modelName;
 				try { 
 					Class entityClass = Class.forName(className);

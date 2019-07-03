@@ -72,7 +72,7 @@ if (tab.isTitleVisible()) {
 	%>
 	<option value="<%=property.getQualifiedName()%>" <%=selected%>><xava:message key="group_by"/> <%=property.getQualifiedLabel(request).toLowerCase()%></option>
 	<%
-		if (property.getType().isAssignableFrom(java.util.Date.class)) {
+		if (property.getType().isAssignableFrom(java.util.Date.class) || property.getType().isAssignableFrom(java.time.LocalDate.class)) { 	
 			if (groupBy.equals(property.getQualifiedName() + "[month]")) {
 				selected = "selected";
 			}

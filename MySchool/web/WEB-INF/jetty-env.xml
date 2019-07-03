@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+ 
+ <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd">
+
+ <Configure class="org.eclipse.jetty.webapp.WebAppContext">
+   
+   <New id="MySchoolDS" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/MySchoolDS</Arg>
+     <Arg>
+         <New class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	         <Set name="driverClass">org.hsqldb.jdbcDriver</Set>
+	         <Set name="jdbcUrl">jdbc:hsqldb:hsql://localhost:1666</Set>
+	         <Set name="user">sa</Set>
+	         <Set name="password"></Set>
+	     </New>
+     </Arg>
+    </New> 
+
+ </Configure>
