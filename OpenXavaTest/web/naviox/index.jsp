@@ -10,6 +10,7 @@
 <%@page import="org.openxava.util.Users"%>
 <%@page import="com.openxava.naviox.util.NaviOXPreferences"%>
 <%@page import="org.openxava.util.Is"%>
+<%@page import="org.openxava.web.Browsers"%> <%-- tmp --%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
@@ -37,6 +38,13 @@ manager.setModuleName(module); // In order to show the correct description in he
 	<link href="<%=request.getContextPath()%>/xava/style/layout.css?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
     <link href="<%=request.getContextPath()%>/xava/style/<%=XavaPreferences.getInstance().getStyleCSS()%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css"> 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/xava/style/materialdesignicons.css?ox=<%=oxVersion%>">
+	<%-- tmp ini --%>
+	<%-- tmp ¿Así o poniendolos en editors/js? --%>
+	<% if (Browsers.isIE(request)) { %>
+	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/babel-polyfill.js?ox=<%=oxVersion%>"></script>
+	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/filepond-polyfill.js?ox=<%=oxVersion%>"></script>
+	<% } %>
+	<%-- tmp fin --%>	
 	<script type='text/javascript' src='<%=request.getContextPath()%>/xava/js/dwr-engine.js?ox=<%=oxVersion%>'></script>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Modules.js?ox=<%=oxVersion%>'></script>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Folders.js?ox=<%=oxVersion%>'></script>

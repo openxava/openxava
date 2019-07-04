@@ -5,9 +5,9 @@ if (imageEditor == null) var imageEditor = {};
 openxava.addEditorInitFunction(function() {
 
     FilePond.registerPlugin(FilePondPluginImagePreview);
-        
-    const inputs = document.querySelectorAll('.xava_image');
-    inputs.forEach(function(input) {
+    
+    $('.xava_image').each(function() {
+    	const input = this;
     	if (FilePond.find(input) == null) {
 	    	const pond = FilePond.create(input);
 	    	if (input.dataset.empty !== "true") {
@@ -24,7 +24,6 @@ openxava.addEditorInitFunction(function() {
     			})
     		}
     	}
- 
     });
 	
 });
@@ -44,5 +43,5 @@ imageEditor.getUploadURL = function(input) {
 }
 
 imageEditor.getImageURL = function(input) {
-	return "../xava/ximage?application=" + input.dataset.application + "&module=" + input.dataset.module + "&property=" + input.dataset.property;
+	return "../xava/ximage?application=" + input.dataset.application + "&module=" + input.dataset.module + "&property=" + input.dataset.property + "&dif=" + new Date().getMilliseconds();
 }

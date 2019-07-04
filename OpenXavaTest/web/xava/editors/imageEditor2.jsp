@@ -35,7 +35,7 @@ if (!Locales.getCurrent().getLanguage().equals("en") && request.getAttribute("xa
 		labelFileSizeNotAvailable: '<xava:message key="filepond_labelFileSizeNotAvailable"/>',
 		labelFileLoading: '<xava:message key="loading"/>', 
 		labelFileLoadError: '<xava:message key="filepond_labelFileLoadError"/>',
-		labelFileProcessing: '<xava:message key="uploading"/>', 
+		labelFileProcessing: '<xava:message key="file_uploading"/>', 
 		labelFileProcessingComplete: '<xava:message key="filepond_labelFileProcessingComplete"/>',
 		labelFileProcessingAborted: '<xava:message key="filepond_labelFileProcessingAborted"/>',
 		labelFileProcessingError: '<xava:message key="filepond_labelFileProcessingError"/>',

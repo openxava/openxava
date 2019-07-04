@@ -30,6 +30,8 @@ public class UploadServlet extends HttpServlet { // tmp ¿Hacer una clase base pa
 			String application = request.getParameter("application");
 			String module = request.getParameter("module");
 			ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
+			System.out.println("[UploadServlet.doPost] application=" + application); // tmp
+			System.out.println("[UploadServlet.doPost] module=" + module); // tmp
 			ModuleManager manager = (ModuleManager) context.get(application, module, "manager");
 			manager.parseMultipartRequest(request); // tmp ¿Cuando se libera xava.upload.fileitems?
 			LoadImageAction action = new LoadImageAction();

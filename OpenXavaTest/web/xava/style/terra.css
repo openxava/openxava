@@ -2149,7 +2149,7 @@ div[id$="_Index__view"] .ox-list-title {
 
 .filepond--drop-label label {
 	width: 190px;
-	white-space: initial;
+	white-space: normal;
 }
 
 .filepond--panel-root {

@@ -24,4 +24,9 @@ public class Browsers {
 		return browser != null && browser.contains("iPhone");
 	}
 	
+	public static boolean isIE(HttpServletRequest request) { // TMP ¿Aquí?
+		String browser = request.getHeader("user-agent");
+		return browser == null?false:browser.contains("Trident") || browser.contains("MSIE");
+	}
+	
 }
