@@ -8,11 +8,12 @@
 <%
 String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
-boolean editable="true".equals(request.getParameter("editable"));
 String applicationName = request.getParameter("application");
 String module = request.getParameter("module");
 Object value = request.getAttribute(propertyKey + ".value");
 String dataEmpty = Is.empty(value)?"data-empty='true'":"";
+boolean editable = "true".equals(request.getParameter("editable"));
+String dataEditable = editable?"":"data-editable='true'";
 %>
 
 <div class="ox-image">
@@ -20,7 +21,8 @@ String dataEmpty = Is.empty(value)?"data-empty='true'":"";
 	data-application="<%=applicationName%>" 
 	data-module="<%=module%>"
 	data-property="<%=Ids.undecorate(propertyKey)%>" 
-	<%=dataEmpty%>/> 
+	<%=dataEmpty%>
+	<%=dataEditable%>/> 
 </div>
 
 

@@ -21,6 +21,7 @@ public class ImagesServlet extends HttpServlet {
 	private static Log log = LogFactory.getLog(ImagesServlet.class);
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("[ImagesServlet.doGet] "); // tmp
 		try {
 			String propertyKey = Ids.undecorate(request.getParameter( "property" ));
 			View view = getCurrentView( request, propertyKey );

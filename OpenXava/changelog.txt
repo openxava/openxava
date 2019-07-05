@@ -3,8 +3,7 @@ Change Log for OpenXava project
 
 - Subir con AJAX:
 	- Que funcione con foto.
-		- editable/no editable
-		- Required. Hay un required attribute.
+		ME QUEDÉ HACIENDO LO DE AMPLIAR FOTO, PERO HICE UNA PAUSA PORQUE ENCONTRÉ QUE EL PREVIEW NO FUNCIONA CON FIREFOX, INVESTIGANDO...
 		- Ampliar foto. https://github.com/nielsboogaard/filepond-plugin-get-file
 		- Titulillo: Kb y URL. Para la imagen quizás debería quitar la URL.
 		- Seguridad:
@@ -13,6 +12,7 @@ Change Log for OpenXava project
 		- Pensar en compatibilidad con lo viejo. Para foto y para lo demás.
 		- test:
 			- Al mover a uno sin foto salga lo de cargar foto.
+			- editable/no editable
 			- Seguridad: ¿Cómo lo testeo?
 		- Con light.css.
 		- Con Liferay	

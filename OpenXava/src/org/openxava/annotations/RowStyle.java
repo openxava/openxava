@@ -8,7 +8,7 @@ import java.lang.annotation.*;
  * Example for Tab:
  * <pre>
  * &nbsp;@Tab(
- * &nbsp;&nbsp;&nbsp;rowStyles=@RowStyle(style="highlight", property="type", value="steady")
+ * &nbsp;&nbsp;&nbsp;rowStyles=@RowStyle(style="row-highlight", property="type", value="steady")
  * &nbsp;)
  * &nbsp;public class Customer {
  * &nbsp;...
@@ -17,12 +17,12 @@ import java.lang.annotation.*;
  * <pre>
  * &nbsp;@OneToMany(mappedBy="seller")
  * &nbsp;@ListProperties("number, name, remarks, relationWithSeller, seller.level.description, type") 
- * &nbsp;@RowStyle(style="highlight", property="type", value="steady") 
+ * &nbsp;@RowStyle(style="row-highlight", property="type", value="steady") 
  * &nbsp;private Collection<Customer> customers;
  * </pre>
  * In this case you are saying that the object which property type has the 
- * value steady will use the style highlight. The style has to be defined in the
- * CSS stylesheet. The <i>highlight</i> style are already defined in OpenXava, but 
+ * value steady will use the style row-highlight. The style has to be defined in the
+ * CSS stylesheet. The <i>row-highlight</i> style are already defined in OpenXava, but 
  * you can define more.<br>
  * You can note as property 'type' is also listed in ListProperties, that is
  * you must use properties displayed in User Interface.<br>
