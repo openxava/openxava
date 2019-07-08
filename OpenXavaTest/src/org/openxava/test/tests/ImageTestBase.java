@@ -56,6 +56,7 @@ abstract public class ImageTestBase extends ModuleTestBase {
 
 
 	protected void changeImage(String property, String imageURL) throws Exception {
+		/* tmp
 		execute("ImageEditor.changeImage", "newImageProperty=" + property); 
 		assertNoErrors();
 		assertAction("LoadImage.loadImage");		
@@ -64,6 +65,18 @@ abstract public class ImageTestBase extends ModuleTestBase {
 		assertAction("LoadImage.cancel");
 		execute("LoadImage.loadImage");
 		assertNoErrors();
+		*/
+		// tmp ini
+		// TMP ME QUEDÉ POR AQUÍ: EXPERIMENTANDO PRIMERO DESDE Chrome CON JAVASCRIPT
+		execute("ImageEditor.changeImage", "newImageProperty=" + property); 
+		assertNoErrors();
+		assertAction("LoadImage.loadImage");		
+		String imageUrl = System.getProperty("user.dir") + imageURL;
+		setFileValue("newImage", imageUrl);
+		assertAction("LoadImage.cancel");
+		execute("LoadImage.loadImage");
+		assertNoErrors();		
+		// tmp fin
 	}
 	
 }

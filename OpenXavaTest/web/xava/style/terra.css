@@ -2168,4 +2168,12 @@ div[id$="_Index__view"] .ox-list-title {
 .filepond--image-preview-overlay-failure {
 	color: #DC4A38 !important;
 }
+
+.filepond--image-preview-wrapper {
+	cursor: pointer;
+}
+
+.filepond--file-info-main {
+	display: none !important;
+}
 /* tmp fin */

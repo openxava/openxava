@@ -27,7 +27,8 @@ public class ImagesServlet extends HttpServlet {
 			View view = getCurrentView( request, propertyKey );
 			byte [] image = (byte []) view.getValue(propertyKey); 
 			if (image != null) {
-				response.setContentType("image");
+				// tmp response.setContentType("image");
+				response.setContentType("image/png"); // "images" without png does not work for FilePonde with Firefox, png works for any type of image // tmp 
 				response.getOutputStream().write(image);
 			}
 		}

@@ -3,21 +3,18 @@ Change Log for OpenXava project
 
 - Subir con AJAX:
 	- Que funcione con foto.
-		ME QUEDÉ HACIENDO LO DE AMPLIAR FOTO, PERO HICE UNA PAUSA PORQUE ENCONTRÉ QUE EL PREVIEW NO FUNCIONA CON FIREFOX, INVESTIGANDO...
-		- Ampliar foto. https://github.com/nielsboogaard/filepond-plugin-get-file
-		- Titulillo: Kb y URL. Para la imagen quizás debería quitar la URL.
-		- Seguridad:
-			- Para la imagen el que se coja los datos de la vista puede ser suficiente, pero en una utilidad de subida genérica a lo mejor los
-				se graban directamente en la base de datos, o algo que no use ningún objeto de sesión. 
-		- Pensar en compatibilidad con lo viejo. Para foto y para lo demás.
 		- test:
 			- Al mover a uno sin foto salga lo de cargar foto.
 			- editable/no editable
 			- Seguridad: ¿Cómo lo testeo?
+			- Ver foto ampliada.
 		- Con light.css.
 		- Con Liferay	
 		- Comprobar que las etiquetas se traducen con un idioma incluido pero sin las traducciones (Italian) o no incluido. Esto después que pueda hacer un deployWar.
-	- Añadir tareas para GALLERY_IMAGES, FILE, FILES, IMPORTAR EXCEL, SUBIR_ARCHIVO.
+	- Seguridad:
+			- Para la imagen el que se coja los datos de la vista puede ser suficiente, pero en una utilidad de subida genérica a lo mejor los
+				se graban directamente en la base de datos, o algo que no use ningún objeto de sesión. 
+	- Añadir tareas para GALLERY_IMAGES, FILE, FILES, IMPORTAR EXCEL, SUBIR_ARCHIVO (¿Mantener sistema antiguo además?).
 	- Genérico: Documentar, adaptar lo hecho y ¿ejemplo en OpenXavaTest?
 	- Probar en Android e iPad.
 
