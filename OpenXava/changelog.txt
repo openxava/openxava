@@ -8,6 +8,7 @@ Change Log for OpenXava project
 			- editable/no editable
 			- Seguridad: ¿Cómo lo testeo?
 			- Ver foto ampliada.
+		- Quitar el "toca para deshacer" al subir un archivo
 		- Con light.css.
 		- Con Liferay	
 		- Comprobar que las etiquetas se traducen con un idioma incluido pero sin las traducciones (Italian) o no incluido. Esto después que pueda hacer un deployWar.

@@ -17,7 +17,8 @@ String dataEditable = editable?"":"data-editable='true'";
 %>
 
 <div class="ox-image">
-<input type="file" class="xava_image" <%-- tmp Comprobar que lo de xava_image está bien, ver otros casos --%> 
+<input id="x12" <%-- tmp The id is temporal, remove it--%> 
+	type="file" class="xava_image" <%-- tmp Comprobar que lo de xava_image está bien, ver otros casos --%> 
 	data-application="<%=applicationName%>" 
 	data-module="<%=module%>"
 	data-property="<%=Ids.undecorate(propertyKey)%>" 

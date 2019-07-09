@@ -1,7 +1,10 @@
 package org.openxava.test.tests;
 
+import java.io.*;
 import java.net.*;
+import java.util.*;
 
+import org.apache.commons.io.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 
@@ -67,15 +70,25 @@ abstract public class ImageTestBase extends ModuleTestBase {
 		assertNoErrors();
 		*/
 		// tmp ini
-		// TMP ME QUEDÉ POR AQUÍ: EXPERIMENTANDO PRIMERO DESDE Chrome CON JAVASCRIPT
-		execute("ImageEditor.changeImage", "newImageProperty=" + property); 
-		assertNoErrors();
-		assertAction("LoadImage.loadImage");		
-		String imageUrl = System.getProperty("user.dir") + imageURL;
-		setFileValue("newImage", imageUrl);
-		assertAction("LoadImage.cancel");
-		execute("LoadImage.loadImage");
-		assertNoErrors();		
+		// tmp ¿Envolver en ModuleTestBase? ¿Poner un nombre genérico (uploadFile)?
+		// tmp En migration
+		String imageAbsoluteURL = System.getProperty("user.dir") + imageURL;
+		FileInputStream inputStream = new FileInputStream(imageAbsoluteURL);
+		byte [] bytes = IOUtils.toByteArray(inputStream);
+		String encodedImage = Base64.getEncoder().encodeToString(bytes);
+		
+		// TMP ME QUEDÉ POR AQUÍ. FUNCIONA EN EL NAVEGADOR PERO NO DESDE HtmlUnit ¿Una única función que se llame desde aqui? ¿ACTUALIZAR HtmlUnit? ¿Probar solución alternativa?
+		String js = 
+			// "var input = document.querySelector('#" + decorateId("editor_" + property) + " .filepond--root');" +
+			// "var input = $('#" + decorateId("editor_" + property) + " .filepond--root').get(0);" +
+			// "var input = $('.filepond--root').get(0);" +
+			"var input = document.getElementById('x12');" + 	
+			"console.log('input=' + input);" +		
+			"var pond = FilePond.find(input);" +
+			"console.log('pond=' + pond);" +	
+			"pond.addFile('data:image/jpeg;base64," + encodedImage + "');";
+		System.out.println("[ImageTestBase.changeImage] js=" + js); // tmp
+		getHtmlPage().executeJavaScript(js);
 		// tmp fin
 	}
 	
