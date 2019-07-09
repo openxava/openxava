@@ -1,7 +1,9 @@
 package org.openxava.school.boot;
 
+/* tmp
 import org.eclipse.jetty.server.*;
 import org.eclipse.jetty.webapp.*;
+*/
 
 /*
  * tmp Falta:
@@ -15,6 +17,7 @@ import org.eclipse.jetty.webapp.*;
 public class Boot {
 
     public static void main(String[] args) throws Exception {
+    	/*
     	 
         // 1. Creating the server on port 8080
         Server server = new Server(8080);
@@ -25,7 +28,9 @@ public class Boot {
         ctx.setContextPath("/MySchool"); // tmp ¡Ojo! A piñon fijo
          
         //3. Including the JSTL jars for the webapp.
-        ctx.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",".*/[^/]*jstl.*\\.jar$");
+         */
+        //ctx.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",".*/[^/]*jstl.*\\.jar$");
+        /*
      
         //4. Enabling the Annotation based configuration
         org.eclipse.jetty.webapp.Configuration.ClassList classlist = org.eclipse.jetty.webapp.Configuration.ClassList.setServerDefault(server);
@@ -36,6 +41,7 @@ public class Boot {
         server.setHandler(ctx);
         server.start();
         server.join();
+        */
  
     }
 
