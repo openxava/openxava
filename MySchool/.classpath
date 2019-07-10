@@ -4,7 +4,6 @@
 	<classpathentry kind="src" path="i18n"/>
 	<classpathentry kind="src" path="xava"/>
 	<classpathentry kind="src" path="properties"/>
-	<classpathentry kind="lib" path="/Tomcat/lib/servlet-api.jar"/>
 	<classpathentry kind="src" path="/OpenXava"/>
 	<classpathentry kind="src" path="persistence"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
@@ -12,21 +11,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Tomcat/lib/ecj-3.16.0.jar"/>
-	<classpathentry kind="lib" path="/Tomcat/lib/tomcat-annotations-api-9.0.21.jar"/>
-	<classpathentry kind="lib" path="/Tomcat/lib/tomcat-embed-core-9.0.21.jar"/>
-	<classpathentry kind="lib" path="/Tomcat/lib/tomcat-embed-el-9.0.21.jar"/>
-	<classpathentry kind="lib" path="/Tomcat/lib/tomcat-embed-jasper-9.0.21.jar"/>
-	<classpathentry kind="lib" path="/Tomcat/lib/tomcat-embed-logging-juli-9.0.0.M6.jar"/>
 	<classpathentry kind="lib" path="/OpenXava/lib/hsqldb.jar"/>
-	<classpathentry kind="lib" path="/Tomcat/lib/tomcat-dbcp.jar"/>
-	<classpathentry kind="lib" path="/OpenXava/lib/jetty-client.jar"/>
-	<classpathentry kind="lib" path="/OpenXava/lib/jetty-http.jar"/>
-	<classpathentry kind="lib" path="/OpenXava/lib/jetty-io.jar"/>
-	<classpathentry kind="lib" path="/OpenXava/lib/jetty-util.jar"/>
-	<classpathentry kind="lib" path="/OpenXava/lib/jetty-xml.jar"/>
-	<classpathentry kind="lib" path="/OpenXava/lib/websocket-api.jar"/>
-	<classpathentry kind="lib" path="/OpenXava/lib/websocket-client.jar"/>
-	<classpathentry kind="lib" path="/OpenXava/lib/websocket-common.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>

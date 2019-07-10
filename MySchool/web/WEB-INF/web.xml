@@ -96,12 +96,6 @@ If you want to add filters add them in filters.xml file in WEB-INF.
 		<servlet-name>files</servlet-name>
 		<servlet-class>org.openxava.web.servlets.FilesServlet</servlet-class>
 	</servlet>
-	<!-- tmp 
-	<servlet>
-		<servlet-name>attachments</servlet-name>
-		<servlet-class>org.openxava.web.servlets.AttachmentsServlet</servlet-class>
-	</servlet>
-	-->
 	<servlet>
 		<servlet-name>naviox</servlet-name>
 		<servlet-class>com.openxava.naviox.web.NaviOXServlet</servlet-class>
@@ -182,12 +176,6 @@ If you want to add filters add them in filters.xml file in WEB-INF.
 		<servlet-name>files</servlet-name>
 		<url-pattern>/xava/xfile</url-pattern>
 	</servlet-mapping>
-	<!-- tmp 
-	<servlet-mapping>
-		<servlet-name>attachments</servlet-name>
-		<url-pattern>/xava/attachment</url-pattern>
-	</servlet-mapping>
-	-->
 	<servlet-mapping>
 		<servlet-name>naviox</servlet-name>
 		<url-pattern>/m/*</url-pattern>
@@ -205,13 +193,6 @@ If you want to add filters add them in filters.xml file in WEB-INF.
 		<url-pattern>/dwr/*</url-pattern>
 	</servlet-mapping>	
 	
-	<resource-ref>
-	  <res-ref-name>jdbc/MySchoolDS</res-ref-name>
-	  <res-type>javax.sql.DataSource</res-type>
-	  <res-auth>Container</res-auth>
-	</resource-ref>
-
-
 	<mime-mapping>
 		<extension>jnlp</extension>
 		<mime-type>application/x-java-jnlp-file</mime-type>

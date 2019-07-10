@@ -3,10 +3,8 @@ Change Log for OpenXava project
 
 Embedded Tomcat:
 - MySchool.
-	- ¿Qué hacer con el nivel the API de servlets?
-	- Quitar Jetty y Tomcat
 	- ¿Cómo configurar la clase main?
-- HSQLDB.	
+- HSQLDB. ¿Qué hacer con el classpath de hsqldb.jar?	
 - Nueva aplicación.
 - OpenXavaTest. Suite.
 - InvoiceDemo
@@ -15,15 +13,18 @@ Embedded Tomcat:
 - Rehacer doc.
 	- Eliminar Quick Start
 	- Getting started.
-	- Añadir configuración WTP en otra parte.
-	- Añadir instalación y despliegue en Tomcat
+	- Añadir configuración WTP en otra parte. ¿O no? Quizás es mejor no tener tantas alternativas.
+	- Añadir instalación y despliegue en Tomcat. ¿Qué pasa con context.xml?
 	- Añadir configuración para MySQL, PostgreSQL, etc. 
 - Modificar distribución.
 	- Directamente a Getting Started.
 	- Poner Getting Started en inicio Eclipse.
 	- Eliminar Tomcat.
 	- Quitar view Servers.
+- ¿Método de trabajo? ¿Con que configuración debería trabajar yo?
 
+
+- Servlet API 4.0 included, though we still are compatible with Servlet 3.0.
 
 - Grouping by in list mode has a year and month entry for each LocalDate property.  
 - Filtering by year, month and year/month in list mode for LocalDate columns.
