@@ -77,7 +77,6 @@ abstract public class ImageTestBase extends ModuleTestBase {
 		byte [] bytes = IOUtils.toByteArray(inputStream);
 		String encodedImage = Base64.getEncoder().encodeToString(bytes);
 		
-		// TMP ME QUEDÉ POR AQUÍ. FUNCIONA EN EL NAVEGADOR PERO NO DESDE HtmlUnit ¿Una única función que se llame desde aqui? ¿ACTUALIZAR HtmlUnit? ¿Probar solución alternativa?
 		String js = 
 			// "var input = document.querySelector('#" + decorateId("editor_" + property) + " .filepond--root');" +
 			// "var input = $('#" + decorateId("editor_" + property) + " .filepond--root').get(0);" +
@@ -88,8 +87,12 @@ abstract public class ImageTestBase extends ModuleTestBase {
 			"console.log('pond=' + pond);" +	
 			"pond.addFile('data:image/jpeg;base64," + encodedImage + "');";
 		System.out.println("[ImageTestBase.changeImage] js=" + js); // tmp
-		getHtmlPage().executeJavaScript(js);
+		// TMP ME QUEDÉ POR AQUÍ: EL CÓDIGO DE ABAJO FUNCIONA, AHORA TENGO QUE REFINARLO
+		String imageUrl = System.getProperty("user.dir") + imageURL;
+		setFileValue("x13", imageUrl);
+		getHtmlPage().executeJavaScript("imageEditor.ajaxUpload();");
+		Thread.sleep(100); 
 		// tmp fin
 	}
-	
+		
 }
