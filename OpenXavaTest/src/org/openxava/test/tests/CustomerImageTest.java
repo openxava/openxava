@@ -13,13 +13,24 @@ public class CustomerImageTest extends ImageTestBase {
 				
 	public void testChangeImage() throws Exception {
 		addImage();
-		// tmp assertImage("photo"); 
+		assertImage("photo"); 
 	}
 	
 	public void testDeleteImage() throws Exception { 
-		addImage();		
+		addImage();
+		/* tmp 
 		execute("ImageEditor.deleteImage", "newImageProperty=photo");
-		assertNoErrors();		
+		assertNoErrors();
+		*/
+		// tmp ini
+		getHtmlPage().executeJavaScript(
+			"var xhr = new XMLHttpRequest();" +
+			"xhr.open('DELETE', imageEditor.getUploadURL(input));" +
+			"xhr.send(null);"				
+		);
+		waitAJAX();
+		// tmp fin
+				
 		assertNoImage("photo"); 
 	}
 	

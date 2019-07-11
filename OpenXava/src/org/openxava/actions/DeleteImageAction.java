@@ -16,7 +16,8 @@ public class DeleteImageAction extends ViewBaseAction{
 	private String newImageProperty;
 	
 	public void execute() throws Exception {
-		getView().setValue(getNewImageProperty(), new byte[0]); 
+		getView().setValue(getNewImageProperty(), new byte[0]);
+		System.out.println("[DeleteImageAction.execute] getNewImageProperty()=" + getNewImageProperty()); // tmp
 	}
 
 	public String getNewImageProperty() {

@@ -1,15 +1,8 @@
 package org.openxava.test.tests;
 
-import java.io.*;
 import java.net.*;
-import java.util.*;
-
-import org.apache.commons.io.*;
 import org.openxava.tests.*;
-import org.openxava.util.*;
-
 import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * 
@@ -34,7 +27,8 @@ abstract public class ImageTestBase extends ModuleTestBase {
 	}
 	
 	private void assertImage(String property, boolean present) throws Exception {
-		HtmlPage page = getHtmlPage();		
+		/* tmp
+		HtmlPage page = getHtmlPage();
 		URL url = page.getWebResponse().getWebRequest().getUrl(); 
 		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort();
 		
@@ -47,14 +41,28 @@ abstract public class ImageTestBase extends ModuleTestBase {
 			String urlBase = Strings.noLastToken(url.getPath(), "/");
 			imageURL = urlPrefix + urlBase + image.getSrcAttribute();
 		}	
+		*/
+		// tmp ini
+		String imageURL = (String) getHtmlPage().executeJavaScript(
+			"var input = document.getElementsByName('" + decorateId(property) + "')[0];" +
+			"imageEditor.getImageURL(input)"
+		).getJavaScriptResult();
+		URL url = getHtmlPage().getWebResponse().getWebRequest().getUrl(); 
+		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort() + "/" + url.getPath().split("/")[1];
+		imageURL = imageURL.replace("..", urlPrefix);
+		// tmp fin
 		WebResponse response = getWebClient().getPage(imageURL).getWebResponse();
 		if (present) {
 			assertTrue("Image not obtained", response.getContentAsString().length() > 0);
-			assertEquals("Result is not an image", "image", response.getContentType());			
+			// tmp assertEquals("Result is not an image", "image", response.getContentType());			
+			assertTrue("Result is not an image", response.getContentType().startsWith("image")); // tmp
 		}
 		else {
+			System.out.println("[ImageTestBase.assertImage] imageURL=" + imageURL); // tmp
+			System.out.println("[ImageTestBase.assertImage] response.getContentType()=" + response.getContentType()); // tmp
+			System.out.println("[ImageTestBase.assertImage] response.getContentAsString().length()=" + response.getContentAsString().length()); // tmp
 			assertTrue("Image obtained", response.getContentAsString().length() == 0);
-		}
+		}		
 	}
 
 
@@ -73,25 +81,17 @@ abstract public class ImageTestBase extends ModuleTestBase {
 		// tmp ¿Envolver en ModuleTestBase? ¿Poner un nombre genérico (uploadFile)?
 		// tmp En migration
 		String imageAbsoluteURL = System.getProperty("user.dir") + imageURL;
-		FileInputStream inputStream = new FileInputStream(imageAbsoluteURL);
-		byte [] bytes = IOUtils.toByteArray(inputStream);
-		String encodedImage = Base64.getEncoder().encodeToString(bytes);
-		
-		String js = 
-			// "var input = document.querySelector('#" + decorateId("editor_" + property) + " .filepond--root');" +
-			// "var input = $('#" + decorateId("editor_" + property) + " .filepond--root').get(0);" +
-			// "var input = $('.filepond--root').get(0);" +
-			"var input = document.getElementById('x12');" + 	
-			"console.log('input=' + input);" +		
-			"var pond = FilePond.find(input);" +
-			"console.log('pond=' + pond);" +	
-			"pond.addFile('data:image/jpeg;base64," + encodedImage + "');";
-		System.out.println("[ImageTestBase.changeImage] js=" + js); // tmp
-		// TMP ME QUEDÉ POR AQUÍ: EL CÓDIGO DE ABAJO FUNCIONA, AHORA TENGO QUE REFINARLO
-		String imageUrl = System.getProperty("user.dir") + imageURL;
-		setFileValue("x13", imageUrl);
-		getHtmlPage().executeJavaScript("imageEditor.ajaxUpload();");
-		Thread.sleep(100); 
+		String decoratedProperty = decorateId(property); 
+		setFileValue(decoratedProperty, imageAbsoluteURL);
+		getHtmlPage().executeJavaScript(
+			"var formData = new FormData();" +
+			"var input = document.getElementsByName('" + decoratedProperty + "')[0];" +
+			"formData.append('file', input.files[0]);" +
+			"var xhr = new XMLHttpRequest();" +
+			"xhr.open('POST', imageEditor.getUploadURL(input));" +
+			"xhr.send(formData);"				
+		);
+		waitAJAX();
 		// tmp fin
 	}
 		

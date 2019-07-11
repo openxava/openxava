@@ -4,6 +4,7 @@ Change Log for OpenXava project
 - Subir con AJAX:
 	- Que funcione con foto.
 		- test:
+			TMP ME QUEDÉ POR: YA ME FUNCIONAN TODOS LOS DE CustomerImageTest. BUSCAR LOS DEMÁS.
 			- Al mover a uno sin foto salga lo de cargar foto.
 			- editable/no editable
 			- Seguridad: ¿Cómo lo testeo?
@@ -12,6 +13,11 @@ Change Log for OpenXava project
 		- Con light.css.
 		- Con Liferay	
 		- Comprobar que las etiquetas se traducen con un idioma incluido pero sin las traducciones (Italian) o no incluido. Esto después que pueda hacer un deployWar.
+		- ¿Hacer un test manual?
+		- ¿Cambiar curso? 
+			- Se usa PHOTO e IMAGES_GALLERY. 
+			- ¿Dejar solo una? Como mínimo cambiar los pantallazos.
+			- Adaptar prueba unitaria. Si no hay ejemplo de subir foto, ponerlo.
 	- Seguridad:
 			- Para la imagen el que se coja los datos de la vista puede ser suficiente, pero en una utilidad de subida genérica a lo mejor los
 				se graban directamente en la base de datos, o algo que no use ningún objeto de sesión. 
