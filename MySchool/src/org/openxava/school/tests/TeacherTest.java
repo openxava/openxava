@@ -1,5 +1,7 @@
 package org.openxava.school.tests;
 
+import org.openxava.jpa.*;
+import org.openxava.school.model.*;
 import org.openxava.tests.*;
 
 
@@ -50,6 +52,21 @@ public class TeacherTest extends ModuleTestBase {
 		// Delete it
 		execute("CRUD.delete");		
 		assertMessage("Teacher deleted successfully");				
+	}
+	
+	public void testCreatingTestData() throws Exception { // tmp
+		assertListRowCount(2);
+		Teacher t = new Teacher();
+		t.setId("X2");
+		t.setName("The X Teacher");
+		XPersistence.getManager().persist(t);
+		XPersistence.commit();
+		execute("List.filter");
+		assertListRowCount(3);
+		assertValueInList(2, 0, "X2");
+		assertValueInList(2, 1, "The X Teacher");
+		t = XPersistence.getManager().find(Teacher.class, "X2");
+		XPersistence.getManager().remove(t);
 	}
 	
 }

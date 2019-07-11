@@ -2,11 +2,14 @@ Change Log for OpenXava project
 ===============================
 
 Embedded Tomcat:
-- MySchool.
-	- ¿Cómo configurar la clase main?
-- HSQLDB. ¿Qué hacer con el classpath de hsqldb.jar?	
+- HSQLDB. 
+	- Resolver problema de los logs.
+	- ¿Qué hacer con el classpath de hsqldb.jar?
+	- ¿c3p0 en lugar de datasource? Quitaría duplicidad, pero ¿que hay al desplegar war en varios clientes?	
 - Nueva aplicación.
-- OpenXavaTest. Suite.
+- OpenXavaTest.
+	- ¿Actualizar automáticamente con updateOX? Si se puede, ¿por qué no? 
+	- Suite.
 - InvoiceDemo
 - Quitar MySchool.
 - Probar con un Eclipse plano.
@@ -15,7 +18,7 @@ Embedded Tomcat:
 	- Getting started.
 	- Añadir configuración WTP en otra parte. ¿O no? Quizás es mejor no tener tantas alternativas.
 	- Añadir instalación y despliegue en Tomcat. ¿Qué pasa con context.xml?
-	- Añadir configuración para MySQL, PostgreSQL, etc. 
+	- Añadir configuración para MySQL, PostgreSQL, etc. ¿Ponerlo en los XML?
 - Modificar distribución.
 	- Directamente a Getting Started.
 	- Poner Getting Started en inicio Eclipse.

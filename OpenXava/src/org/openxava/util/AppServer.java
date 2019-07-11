@@ -1,4 +1,4 @@
-package org.openxava.web; // tmp ¿En este paquete?
+package org.openxava.util; 
 
 import java.io.*;
 
@@ -17,7 +17,7 @@ public class AppServer {
         tomcat.setPort(8080);
         tomcat.getConnector();
         tomcat.enableNaming();          
-        tomcat.addWebapp(app, webappDir);
+        tomcat.addWebapp("/" + app, webappDir);
         tomcat.start();
 
         System.out.println("Application started. Go to http://localhost:8080/" + app); // tmp i18n 

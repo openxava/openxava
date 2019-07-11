@@ -1,11 +1,31 @@
-package _run; // tmp ¿Este paquete? launcher, boot
+package _run; 
 
-import org.openxava.web.*;
+import org.openxava.util.*;
 
-public class MySchool { // tmp ¿Este nombre? MySchoolLauncher, MySchoolBoot, MySchoolApp
+/**
+ * Execute this class to start the application.
+ * 
+ * With Eclipse: Right mouse button > Run As > Java Application
+ * 
+ * @author Javier Paniza
+ */
+
+public class MySchool { 
 
 	public static void main(String[] args) throws Exception {
-		AppServer.run("MySchool");
+		
+		
+		// tmp ini
+		org.hsqldb.Server hsqlServer = new org.hsqldb.Server();
+        hsqlServer.setLogWriter(null);
+        hsqlServer.setSilent(true);
+        hsqlServer.setDatabaseName(0, "");
+        hsqlServer.setDatabasePath(0, "file:data/my-school-db");
+        hsqlServer.setPort(1666);
+        hsqlServer.start();
+        // tmp fin
+        
+        AppServer.run("MySchool");
 	}
 
 }
