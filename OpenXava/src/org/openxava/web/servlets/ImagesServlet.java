@@ -23,7 +23,10 @@ public class ImagesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("[ImagesServlet.doGet] "); // tmp
 		try {
-			String propertyKey = Ids.undecorate(request.getParameter( "property" ));
+			System.out.println("[ImagesServlet.doGet] request.getParameter('property')=" + request.getParameter("propertyKey")); // tmp
+			// tmp String propertyKey = Ids.undecorate(request.getParameter( "property" ));
+			String propertyKey = Ids.undecorate(request.getParameter( "propertyKey")); // tmp
+			System.out.println("[ImagesServlet.doGet] propertyKey=" + propertyKey); // tmp
 			View view = getCurrentView( request, propertyKey );
 			byte [] image = (byte []) view.getValue(propertyKey); 
 			if (image != null) {

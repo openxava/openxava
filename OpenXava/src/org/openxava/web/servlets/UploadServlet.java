@@ -9,6 +9,7 @@ import javax.servlet.http.*;
 import org.openxava.actions.*;
 import org.openxava.controller.*;
 import org.openxava.util.*;
+import org.openxava.web.*;
 
 
 /**
@@ -27,15 +28,12 @@ public class UploadServlet extends HttpServlet { // tmp ¿Hacer una clase base pa
 		System.out.println("[UploadServlet.doPost] "); // tmp
 		// tmp ¿Refectorizar con doDelete?
 		try {
-			String application = request.getParameter("application");
-			String module = request.getParameter("module");
 			ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
-			System.out.println("[UploadServlet.doPost] application=" + application); // tmp
-			System.out.println("[UploadServlet.doPost] module=" + module); // tmp
-			ModuleManager manager = (ModuleManager) context.get(application, module, "manager");
+			ModuleManager manager = (ModuleManager) context.get(request, "manager"); // TMP
 			manager.parseMultipartRequest(request); // tmp ¿Cuando se libera xava.upload.fileitems?
 			LoadImageAction action = new LoadImageAction();
-			action.setNewImageProperty(request.getParameter("property")); 
+			// tmp action.setNewImageProperty(request.getParameter("property")); 
+			action.setNewImageProperty(Ids.undecorate(request.getParameter("propertyKey"))); // tmp
 			Messages errors = (Messages) request.getAttribute("errors");
 			Messages messages = (Messages) request.getAttribute("messages");
 			manager.executeAction(action, errors, messages, request);
@@ -49,12 +47,11 @@ public class UploadServlet extends HttpServlet { // tmp ¿Hacer una clase base pa
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("[UploadServlet.doDelete] "); // tmp
 		try {
-			String application = request.getParameter("application");
-			String module = request.getParameter("module");
 			ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
-			ModuleManager manager = (ModuleManager) context.get(application, module, "manager");
+			ModuleManager manager = (ModuleManager) context.get(request, "manager");
 			DeleteImageAction action = new DeleteImageAction();
-			action.setNewImageProperty(request.getParameter("property"));
+			// tmp action.setNewImageProperty(request.getParameter("property"));
+			action.setNewImageProperty(Ids.undecorate(request.getParameter("propertyKey")));
 			Messages errors = (Messages) request.getAttribute("errors");
 			Messages messages = (Messages) request.getAttribute("messages");
 			manager.executeAction(action, errors, messages, request);

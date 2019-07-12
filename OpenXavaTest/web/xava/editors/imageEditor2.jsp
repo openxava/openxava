@@ -1,3 +1,4 @@
+<%@page import="com.sun.scenario.effect.impl.prism.PrDrawable"%>
 <%@ include file="../imports.jsp"%>
 
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
@@ -14,18 +15,19 @@ Object value = request.getAttribute(propertyKey + ".value");
 String dataEmpty = Is.empty(value)?"data-empty='true'":"";
 boolean editable = "true".equals(request.getParameter("editable"));
 String dataEditable = editable?"":"data-editable='true'";
+System.out.println("[imageEditor.jsp] propertyKey=" + propertyKey); // tmp
+System.out.println("[imageEditor.jsp] Ids.undecorate(propertyKey)=" + Ids.undecorate(propertyKey)); // tmp
 %>
 
-<div class="ox-image">
 <input name='<%=propertyKey%>'   
-	type="file" class="xava_image" <%-- tmp Comprobar que lo de xava_image está bien, ver otros casos --%> 
+	type="file" class="xava_image" <%-- tmp Comprobar que lo de xava_image está bien, ver otros casos --%>
 	data-application="<%=applicationName%>" 
 	data-module="<%=module%>"
-	data-property="<%=Ids.undecorate(propertyKey)%>" 
+	<%-- tmp  
+	data-property="<%=Ids.undecorate(propertyKey)%>"
+	--%> 
 	<%=dataEmpty%>
 	<%=dataEditable%>/> 
-</div>
-
 
 <% 
 // tmp Probar con un lenguaje no traducido

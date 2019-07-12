@@ -9,8 +9,9 @@ openxava.addEditorInitFunction(function() {
     $('.xava_image').each(function() {
     	const input = this;
     	if (FilePond.find(input) == null) {
+    		if ($(input).is(":hidden")) return;
 	    	const pond = FilePond.create(input); // tmp ¿var en vez de const?
-	    	if (typeof pond === 'undefined') return; // tmp
+	    	if (typeof pond === 'undefined') return; 
 	    	const imageURL = imageEditor.getImageURL(input);
 	    	pond.onactivatefile = function() {
 	    		window.open(imageURL); 
@@ -48,9 +49,9 @@ imageEditor.enableUpload = function(pond, input) {
 }
 
 imageEditor.getUploadURL = function(input) {
-	return "../xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&property=" + input.dataset.property;
+	return "../xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.name;
 }
 
 imageEditor.getImageURL = function(input) {
-	return "../xava/ximage?application=" + input.dataset.application + "&module=" + input.dataset.module + "&property=" + input.dataset.property + "&dif=" + new Date().getTime();
+	return "../xava/ximage?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.name + "&dif=" + new Date().getTime();
 }

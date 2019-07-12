@@ -4,7 +4,6 @@ Change Log for OpenXava project
 - Subir con AJAX:
 	- Que funcione con foto.
 		- test:
-			TMP ME QUEDÉ POR: YA ME FUNCIONAN TODOS LOS DE CustomerImageTest. BUSCAR LOS DEMÁS.
 			- Al mover a uno sin foto salga lo de cargar foto.
 			- editable/no editable
 			- Seguridad: ¿Cómo lo testeo?

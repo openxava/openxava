@@ -24,6 +24,8 @@ public class LoadImageAction extends ViewBaseAction implements INavigationAction
 			System.out.println("[LoadImageAction.execute] fileName=" + fileName); // tmp
 			if (!Is.emptyString(fileName)) {
 				// tmp getPreviousView().setValue(getNewImageProperty(), fi.get()); 
+				System.out.println("[LoadImageAction.execute] getNewImageProperty()=" + getNewImageProperty()); // tmp
+				System.out.println("[LoadImageAction.execute] fi.get().length=" + fi.get().length); // tmp
 				getView().setValue(getNewImageProperty(), fi.get()); // tmp ¿En migration? ¿Cómo documentar (o afrontar) este cambio?
 			}			
 		}		

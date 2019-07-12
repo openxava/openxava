@@ -1683,7 +1683,8 @@ public class View implements java.io.Serializable {
 	public List<Map<String, Object>> getCollectionValues() throws XavaException {
 		if (collectionValues == null) { 			
 			assertRepresentsCollection("getCollectionValues()");
-			if (getMetaCollection().isElementCollection()) collectionValues = Collections.EMPTY_LIST; 
+			// tmp if (getMetaCollection().isElementCollection()) collectionValues = Collections.EMPTY_LIST; 
+			if (getMetaCollection().isElementCollection()) collectionValues = new ArrayList<>(); // tmp
 			else if (isCollectionFromModel() ||	!isDefaultListActionsForCollectionsIncluded() || !isDefaultRowActionsForCollectionsIncluded()) {				
 				// If calculated we obtain the data directly from the model object
 				Map mapMembersNames = new HashMap();

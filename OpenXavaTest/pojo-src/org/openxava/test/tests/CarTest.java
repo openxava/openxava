@@ -24,7 +24,7 @@ public class CarTest extends ImageTestBase {
 		changeImage("photos.0.photo", "/test-images/foto_javi.jpg");
 		changeImage("photos.1.photo", "/test-images/cake.gif");		
 		assertImage("photos.0.photo");
-		assertImage("photos.1.photo");
+		assertImage("photos.1.photo"); // TMP ME QUEDÉ POR AQUÍ: FALLA. TENGO UN REGISTRO PROVA EN EL QUE SI LE PONGO UNA FOTO EN LA PRIMERA LÍNEA AL CONSULTAR NO ESTÁ. ME QUEDÉ DEPURANDO ESO. PUEDE QUE ESTÉ RELACIONADO. 
 				
 		reload(); // In order that actions work fine after the above assertImage() usage
 		execute("CRUD.save");

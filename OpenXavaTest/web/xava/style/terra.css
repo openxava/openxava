@@ -2176,4 +2176,8 @@ div[id$="_Index__view"] .ox-list-title {
 .filepond--file-info-main {
 	display: none !important;
 }
+
+.ox-element-collection .filepond--root { 
+	height: 180px;
+}
 /* tmp fin */

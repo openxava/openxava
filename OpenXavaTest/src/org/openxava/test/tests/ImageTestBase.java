@@ -47,6 +47,9 @@ abstract public class ImageTestBase extends ModuleTestBase {
 			"var input = document.getElementsByName('" + decorateId(property) + "')[0];" +
 			"imageEditor.getImageURL(input)"
 		).getJavaScriptResult();
+		System.out.println("[ImageTestBase.assertImage] property=" + property); // tmp
+		System.out.println("[ImageTestBase.assertImage] decorateId(property)=" + decorateId(property)); // tmp
+		System.out.println("[ImageTestBase.assertImage] imageURL=" + imageURL); // tmp
 		URL url = getHtmlPage().getWebResponse().getWebRequest().getUrl(); 
 		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort() + "/" + url.getPath().split("/")[1];
 		imageURL = imageURL.replace("..", urlPrefix);
