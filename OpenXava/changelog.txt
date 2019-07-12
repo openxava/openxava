@@ -3,12 +3,12 @@ Change Log for OpenXava project
 
 Embedded Tomcat:
 - HSQLDB. 
-	- Resolver problema de los logs.
 	- ¿Qué hacer con el classpath de hsqldb.jar?
 	- ¿c3p0 en lugar de datasource? Quitaría duplicidad, pero ¿que hay al desplegar war en varios clientes?	
 - Nueva aplicación.
 - OpenXavaTest.
 	- ¿Actualizar automáticamente con updateOX? Si se puede, ¿por qué no? 
+	- Poder modificar OpenXava y ver efecto enseguida.
 	- Suite.
 - InvoiceDemo
 - Quitar MySchool.
@@ -22,7 +22,7 @@ Embedded Tomcat:
 - Modificar distribución.
 	- Directamente a Getting Started.
 	- Poner Getting Started en inicio Eclipse.
-	- Eliminar Tomcat.
+	- Eliminar Tomcat. ¿Donde pondremos la utilidad para arranca el manager? ¿En _run?
 	- Quitar view Servers.
 - ¿Método de trabajo? ¿Con que configuración debería trabajar yo?
 

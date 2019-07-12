@@ -1,6 +1,7 @@
 package org.openxava.util; 
 
 import java.io.*;
+import java.util.logging.*;
 
 import org.apache.catalina.startup.*;
 
@@ -11,6 +12,7 @@ import org.apache.catalina.startup.*;
 public class AppServer { 
 	
 	public static void run(String app) throws Exception {
+		Logger.getLogger("").setLevel(Level.INFO);
         String webappDir = new File("web").getAbsolutePath();
         Tomcat tomcat = new Tomcat();
         tomcat.setBaseDir("temp"); 

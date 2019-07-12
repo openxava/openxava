@@ -78,7 +78,6 @@
 	<classpathentry kind="lib" path="lib/tomcat-embed-el.jar"/>
 	<classpathentry kind="lib" path="lib/tomcat-embed-jasper.jar"/>
 	<classpathentry kind="lib" path="lib/ecj.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat-embed-websocket.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-client.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-http.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-io.jar"/>
@@ -87,5 +86,6 @@
 	<classpathentry kind="lib" path="lib/websocket-api.jar"/>
 	<classpathentry kind="lib" path="lib/websocket-client.jar"/>
 	<classpathentry kind="lib" path="lib/websocket-common.jar"/>
+	<classpathentry kind="lib" path="lib/tomcat-embed-websocket.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

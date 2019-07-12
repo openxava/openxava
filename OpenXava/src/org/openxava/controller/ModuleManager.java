@@ -3,6 +3,7 @@ package org.openxava.controller;
 import java.lang.reflect.*;
 import java.util.*;
 import java.util.Collections;
+import java.util.logging.*;
 import java.util.stream.*;
 
 import javax.inject.*;
@@ -42,6 +43,7 @@ public class ModuleManager implements java.io.Serializable {
 	static {
 		MetaControllers.setContext(MetaControllers.WEB);
 		XSystem._setLogLevelFromJavaLoggingLevelOfXavaPreferences();
+		Logger.getLogger("org.directwebremoting").setLevel(Level.SEVERE); // tmp
 		setVersionInfo();
 		log.info(getProduct() + " " + getVersion() + " (" + getVersionDate() + ")");
 	}

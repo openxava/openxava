@@ -12,5 +12,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/OpenXava/lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="/OpenXava/lib/tomcat-embed-core.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
