@@ -9,6 +9,7 @@
 
 	<input addproperty="project" message="What is your project name?"/>
 	<property name="datasource" value="${project}DS"/>
+	<property name="database" value="${project}DB"/> <!-- tmp -->
 	<property name="schema" value="${project}"/>
 	
 	<target name="createNewProject">		
@@ -18,6 +19,7 @@
 	    	<filterset>	    	
 				<filter token="project" value="${project}"/>
 	    		<filter token="datasource" value="${datasource}"/>
+	    		<filter token="database" value="${database}"/> <!-- tmp -->
 	    		<filter token="schema" value="${schema}"/>
 			</filterset> 			         
 		</copy>						
@@ -31,7 +33,16 @@
 			tofile="../${project}/i18n/${project}-labels_en.properties" />				
 		<move file="../${project}/i18n/messages_en.properties.template" 
 			tofile="../${project}/i18n/${project}-messages_en.properties" />
+		<!-- tmp ini -->
+		<move file="../${project}/src/_run/AppLauncher.java" 
+			tofile="../${project}/src/_run/${project}.java" />
+		<move file="../${project}/src/com/yourcompany/yourapp/AppLauncher.java" 
+			 todir="../${project}/src/com/yourcompany/${project}" />		
+		<delete file="../${project}/data/data.txt"/>
+		<!-- tmp fin -->		
+		<!-- tmp
 		<delete file="../${project}/src/src.txt"/>
+		-->
 		<delete dir="../${project}/bin" failonerror="false"/>
 		<ant antfile="../OpenXava/build.xml" target="updateOX"/>
 	</target>

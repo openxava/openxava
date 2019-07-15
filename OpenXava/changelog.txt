@@ -2,9 +2,6 @@ Change Log for OpenXava project
 ===============================
 
 Embedded Tomcat:
-- HSQLDB. 
-	- ¿Qué hacer con el classpath de hsqldb.jar?
-	- ¿c3p0 en lugar de datasource? Quitaría duplicidad, pero ¿que hay al desplegar war en varios clientes?	
 - Nueva aplicación.
 - OpenXavaTest.
 	- ¿Actualizar automáticamente con updateOX? Si se puede, ¿por qué no? 

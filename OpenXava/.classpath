@@ -87,5 +87,6 @@
 	<classpathentry kind="lib" path="lib/websocket-client.jar"/>
 	<classpathentry kind="lib" path="lib/websocket-common.jar"/>
 	<classpathentry kind="lib" path="lib/tomcat-embed-websocket.jar"/>
+	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

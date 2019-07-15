@@ -1,0 +1,3226 @@
+/* This is the main CSS that includes other CSS files. */
+
+/* This CSS sets the default styles for the base components. */
+
+/* ---------- Browser normalization ---------- */
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+	margin: 0;
+	padding: 0;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+fieldset, img {
+	border: 0;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+	font-style: normal;
+	font-weight: normal;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+caption, th {
+	text-align: left;
+}
+
+q:before, q:after {
+	content: '';
+}
+
+abbr, acronym {
+	border: 0;
+}
+
+body {
+	background-color: #fff;
+	font: 62.5%/1.6em Arial,Helvetica,Verdana,sans-serif;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	background: #fff;
+	/* font-size: 11px; Original Liferay */
+	font-size: 12px;
+}
+
+body.portal-popup {
+	background: none;
+	padding: 10px;
+}
+
+body.portal-iframe {
+	padding: 0;
+}
+
+table {
+	clear: both;
+}
+
+abbr, acronym {
+	border-bottom: 1px dotted #000;
+	cursor: help;
+}
+
+blockquote, ul, ol, dl {
+	margin: 1em;
+}
+
+ol, ul, dl {
+	margin-left: 2em;
+}
+
+ol li, ul ol li {
+	list-style: decimal outside;
+}
+
+ul li, ol ul li {
+	list-style: disc outside;
+}
+
+ul ul li {
+	list-style-type: circle;
+}
+
+ol ol li {
+	list-style-type: upper-roman;
+}
+
+dl dd {
+	margin-left: 1em;
+}
+
+th {
+	font-weight: bold;
+}
+
+caption {
+	margin-bottom: 0.5em;
+	text-align: center;
+}
+
+p {
+	margin-bottom: 1em;
+}
+
+/* ---------- Links ---------- */
+
+a {
+	color: #369;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: #06c;
+	text-decoration: none;
+}
+
+a:visited {
+}
+
+/* ---------- Headers ---------- */
+
+h1 {
+	font-size: 1.8em;
+}
+
+h2 {
+	font-size: 1.6em;
+}
+
+h3 {
+	font-size: 1.4em;
+}
+
+h1, h2, h3 {
+	margin: 1em 0;
+}
+
+h4, h5, h6 {
+	font-size: 1.1em;
+}
+
+h1, h2, h3, h4, h5, h6, strong {
+	font-weight: bold;
+}
+
+/* ---------- Text formatting ---------- */
+
+b, strong {
+	font-weight: bold;
+}
+
+i, em {
+	font-style: italic;
+}
+
+code, pre {
+	font-family: "Courier New",Courier,monospace;
+	white-space: pre;
+}
+
+.important {
+	font-weight: bold;
+}
+
+/* ---------- Staging area ---------- */
+
+body.staging {
+	border: 10px solid #f00;
+}
+
+.portal-iframe.staging {
+	border: none;
+}
+
+/* ---------- Main content body ---------- */
+
+#wrapper {
+	background: transparent url(../images/common/body_bg.png) repeat-x 0 0;
+}
+
+#content-wrapper {
+	margin: 0 auto;
+	width: 90%;
+}
+
+.portal-iframe #content-wrapper {
+	width: 100%;
+}
+
+/* ---------- Banner ---------- */
+
+#banner {
+	background: transparent url(../images/common/banner_bg.jpg) no-repeat 20% 0;
+	height: 100px;
+	top: -1px;
+}
+
+#banner h1.logo {
+	display: block;
+	font-size: 2em;
+	left: 5%;
+	margin: 25px 0 0;
+	padding: 0;
+	position: absolute;
+}
+
+#banner .logo a {
+	text-decoration: none;
+}
+
+.ie6 #banner .logo {
+	zoom: 1;
+}
+
+/* ---------- Alerts and popups ---------- */
+
+.alert-background {
+	background: #000;
+}
+
+.popup-alert-notice {
+	background-color: #ffc;
+	border-bottom-color: #fc0;
+}
+
+.popup-alert-warning {
+	background-color: #fdd;
+	border-bottom-color: #f00;
+}
+
+/* ---------- Portal add content ---------- */
+
+.portal-add-content {
+	background: #fff;
+	text-align: left;
+	z-index: 20;
+}
+
+.portal-add-content a {
+	text-decoration: none;
+}
+
+/* ---------- Portal tool tips ---------- */
+
+.portal-tool-tip {
+	background: #fff url(../images/forms/button.png) repeat-x 0 100%;
+	border: 1px solid;
+	border-color: #DEDEDE #BFBFBF #BFBFBF #DEDEDE;
+	color: #1E2529;
+	max-width: 200px;
+	padding: 6px 4px;
+}
+
+/* ---------- Loading animation ---------- */
+
+.loading-animation {
+	background: url(../images/progress_bar/loading_animation.gif) no-repeat top center;
+	margin-top: 10px;
+	padding-top: 40px;
+	text-align: left;
+}
+
+/* ---------- Separator ---------- */
+
+hr, .separator {
+	border-top: 1px dotted #BFBFBF;
+}
+
+/* ---------- Update Manager ---------- */
+
+.update-available {
+	margin-top: 10px;
+	padding: 2px;
+	text-align: left;
+}
+
+/* ---------- Text highlighting ---------- */
+
+.highlight {
+	background: #ffc;
+	font-weight: bold;
+	padding: 0 1px;
+}
+
+/* ---------- Main ---------- */
+
+.ui-wrapper {
+	border: 2px solid #828F95;
+}
+
+.ui-wrapper input, .ui-wrapper textarea {
+	border: 0;
+}
+
+.ui-dialog-overlay {
+	background: #000;
+/* tmp	opacity: 0.8; */
+	opacity: 0.2;
+	z-index: 400;
+}
+
+.ie .ui-dialog-overlay {
+	filter: alpha(opacity=80);
+}
+
+.results-grid {
+	border: 1px solid #DEDEDE;
+	border-left: none;
+	border-right: none;
+	padding: 5px 0;
+}
+
+.results-header {
+	background: #727C81;
+}
+
+.results-header th, .results-header td {
+	color: #fff;
+	padding: 5px 10px;
+}
+
+.results-header th a, .results-header td a {
+	color: #fff;
+}
+
+.ui-autocomplete-even, .results-row td {
+	background: #F0F5F7;
+	padding: 5px 10px;
+}
+
+.ui-autocomplete-odd, .results-row.alt td {
+	background: #D3DADD;
+}
+
+.ui-autocomplete-over, .results-row.hover td {
+	background: #A8D6ED;
+}
+
+/* ---------- Dragging/sorting indicators ---------- */
+
+#content-wrapper #layout-grid.dragging {
+	border-collapse: separate;
+}
+
+#content-wrapper #layout-grid.dragging .lfr-column {
+	border: 3px double #828F95;
+}
+
+.drop-area {
+	background-color: #D3DADD;
+}
+
+.active-area {
+	background: #ffc;
+}
+
+.ui-proxy {
+	cursor: move;
+	opacity: 0.65;
+	position: relative;
+}
+
+.ie .ui-proxy {
+	filter: alpha(opacity=65);
+}
+
+.ui-proxy.generic-portlet {
+	height: 200px;
+	width: 300px;
+}
+
+.ui-proxy.generic-portlet .portlet-title {
+	padding: 10px;
+}
+
+.ui-proxy.not-intersecting .forbidden-action {
+	background: url(../images/application/forbidden_action.png) no-repeat;
+	display: block;
+	height: 32px;
+	position: absolute;
+	right: -15px;
+	top: -15px;
+	width: 32px;
+}
+
+.ie .ui-proxy.not-intersecting .forbidden-action {
+	right: 2px;
+	top: 2px;
+}
+
+.ui-resizable-proxy {
+	border: 1px dashed #828F95;
+}
+
+.navigation-sort-helper {
+	background: #727C81;
+	margin-top: 1px;
+}
+
+.portlet-sort-helper {
+}
+
+/* ---------- Resizables ---------- */
+
+.ui-resizable {
+	position: relative;
+}
+
+.ui-resizable-handle {
+	background: transparent url() no-repeat 50% 50%;
+	display: none;
+	font-size: 0.1px;
+	position: absolute;
+}
+
+.ui-resizable .ui-resizable-handle {
+	display: block;
+}
+
+.js .ui-resizable-disabled .ui-resizable-handle {
+	display: none;
+}
+
+.js .ui-resizable-autohide .ui-resizable-handle {
+	display: none;
+}
+
+.ui-resizable-n, .ui-resizable-s {
+	background-image: url(../images/application/handle_horizontal.png);
+	height: 14px;
+	left: 0;
+	right: 0;
+}
+
+.ui-resizable-n {
+	cursor: n-resize;
+	top: 0;
+}
+
+.ui-resizable-s {
+	bottom: 0;
+	cursor: s-resize;
+}
+
+.ui-resizable-e, .ui-resizable-w {
+	background-image: url(../images/application/handle_vertical.png);
+	background-position: center center;
+	bottom: 0;
+	top: 0;
+	width: 14px;
+}
+
+.ui-resizable-e {
+	cursor: e-resize;
+	right: 0;
+}
+
+.ui-resizable-w {
+	cursor: w-resize;
+	left: 0;
+}
+
+.ui-resizable-ne, .ui-resizable-nw {
+	height: 14px;
+	top: 0;
+	width: 14px;
+}
+
+.ui-resizable-ne {
+	background-image: url(../images/application/handle_ne.png);
+	cursor: ne-resize;
+	right: 0;
+}
+
+.ui-resizable-nw {
+	background-image: url(../images/application/handle_nw.png);
+	cursor: nw-resize;
+	left: 0;
+}
+
+.ui-resizable-se, .ui-resizable-sw {
+	bottom: 0;
+	height: 14px;
+	width: 14px;
+}
+
+.ui-resizable-se {
+	background-image: url(../images/application/handle_se.png);
+	cursor: se-resize;
+	right: 0;
+}
+
+.ui-resizable-sw {
+	background-image: url(../images/application/handle_sw.png);
+	cursor: sw-resize;
+	left: 0;
+}
+
+.freeform .portlet-boundary .ui-resizable-handle {
+	margin: 3px;
+}
+
+/* ---------- Slider ---------- */
+
+.ui-slider {
+	position: relative;
+}
+
+.ui-slider-handle {
+	position: absolute;
+}
+
+.ui-slider-disabled .ui-slider-handle {
+	opacity: 0.5;
+}
+
+.ie .ui-slider-disabled .ui-slider-handle {
+	filter: alpha(opacity=50);
+}
+
+.ui-slider-range {
+	background: #1E2529;
+	height: 100%;
+	opacity: 0.3;
+	position: absolute;
+	width: 100%;
+}
+
+.ie .ui-slider-range {
+	filter: alpha(opacity=30);
+}
+
+/* ---------- Tabs ---------- */
+
+.ui-tabs {
+	border-bottom: 1px solid #DEDEDE;
+	margin: 0 0 18px 0;
+	padding: 0 0 0 10px;
+}
+
+.ui-tabs:after {
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+
+.ie .ui-tabs {
+	overflow: hidden;
+}
+
+.ie6 .ui-tabs {
+	height: 1%;
+}
+
+.ui-tabs li {
+	display: inline;
+	float: left;
+	line-height: 1;
+	padding: 0;
+	text-decoration: none;
+}
+
+.ui-tabs li.last {
+	border-right: none;
+}
+
+.ui-tabs li a, .tabs li span {
+	background: #878F93 url(../images/application/tabs_bg.png) repeat-x 0 100%;
+	border-right: 1px solid #304049;
+	color: #fff;
+	display: block;
+	float: left;
+	padding: 10px;
+	position: relative;
+	text-decoration: none;
+	top: 1px;
+}
+
+.ui-tabs li a:hover {
+	text-decoration: underline;
+}
+
+.ui-tabs li a:hover, .ui-tabs li span:hover {
+	background: #1E2529;
+	color: #9EBAC8;
+}
+
+.ui-tabs li.current {
+}
+
+.ui-tabs li.current a, .ui-tabs li.current span {
+	background: #fff;
+	border: 1px solid #DEDEDE;
+	border-bottom: none;
+	color: #369;
+	font-weight: bold;
+}
+
+.ui-tabs li.current:hover, .ui-tabs li.current a:hover {
+	background-color: #fff;
+}
+
+.ui-tabs .ui-tabs-disabled a {
+	cursor: text;
+}
+
+.ui-tabs-disabled {
+	opacity: 0.4;
+}
+
+.ie .ui-tabs-disabled {
+	filter: alpha(opacity=40);
+}
+
+.ui-tabs .ui-tabs-disabled a:link, .ui-tabs .ui-tabs-disabled a:visited {
+	color: #000;
+}
+
+.ui-tabs-hide {
+	display: none;
+}
+
+.ui-tabs .toggle.last {
+	float: right;
+}
+
+/* ---------- Dialog ---------- */
+
+.ui-dialog {
+	background-color: #fff;
+	border: 2px solid #828F95;
+	padding: 4px;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+	background: #1E2529;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+	min-height: 28px;
+	padding: 0;
+	position: relative;
+	z-index: 1;
+}
+
+.ie .ui-dialog .ui-dialog-container {
+	z-index: 1;
+}
+
+.ie6 .ui-dialog .ui-dialog-titlebar {
+	height: 29px;
+}
+
+.ui-dialog.ui-draggable .ui-dialog-titlebar {
+	cursor: move;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+	background: url(../images/application/close.png) no-repeat;
+	height: 16px;
+	position: absolute;
+	right: 5px;
+	top: 6px;
+	width: 16px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close span {
+	display: none;
+}
+
+.ui-dialog.has-title .ui-dialog-title {
+	background: url(../images/arrows/04_right.png) no-repeat 7px 50%;
+	display: block;
+	font-weight: bold;
+	padding: 5px;
+	padding-left: 20px;
+}
+
+.ui-dialog.ui-resizable .ui-dialog-content {
+	padding: 14px;
+}
+
+.ui-dialog.ui-resizable-disabled .ui-dialog-content {
+	padding: 7px;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+	bottom: 8px;
+	position: absolute;
+	right: 12px;
+	text-align: right;
+	width: 100%;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+	margin: 6px;
+}
+
+.ui-dialog.generic-dialog .ui-resizable-handle {
+}
+
+/* ---------- Date picker ---------- */
+
+#ui-datepicker-div, .ui-datepicker-inline {
+	background: #fff;
+	border: 2px solid #828F95;
+	padding: 3px;
+	width: 185px;
+}
+
+#ui-datepicker-div {
+	display: none;
+}
+
+.ui-datepicker-inline {
+	border: 0;
+	display: block;
+	float: left;
+}
+
+.ui-datepicker-dialog {
+	padding: 5px !important;
+}
+
+img.ui-datepicker-trigger {
+	margin: 2px;
+	vertical-align: middle;
+}
+
+.ui-datepicker-prompt {
+	color: #000;
+	float: left;
+	padding: 2px;
+}
+
+.ie6 .ui-datepicker-prompt {
+	width: 185px;
+}
+
+.ui-datepicker-control, .ui-datepicker-links, .ui-datepicker-header, .ui-datepicker {
+	clear: both;
+	float: left;
+	width: 100%;
+}
+
+.ui-datepicker-control {
+	background: #D3DADD;
+	border-bottom: 1px solid #AEB8BC;
+	margin-bottom: 2px;
+}
+
+.ui-datepicker-links {
+	background: #727C81;
+	margin-bottom: 1px;
+	padding: 5px 0;
+}
+
+.ui-datepicker-links a {
+	color: #fff;
+	display: block;
+	margin: 0 5px;
+}
+
+.ui-datepicker-control, .ui-datepicker-links {
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+.ui-datepicker-links label {
+	padding: 2px 5px;
+}
+
+.ui-datepicker-clear, .ui-datepicker-prev {
+	float: left;
+	width: 34%;
+}
+
+.ui-datepicker-prev a, .ui-datepicker-next a {
+	background: url() no-repeat;
+	font-size: 0;
+	height: 16px;
+	line-height: 0;
+	text-indent: -9999em;
+	width: 16px;
+}
+
+.ui-datepicker-prev a {
+	background-image: url(../images/application/datepicker_previous.png);
+}
+
+.ui-datepicker-next a {
+	background-image: url(../images/application/datepicker_next.png);
+}
+
+.ui-datepicker-current {
+	float: left;
+	line-height: 1.3;
+	text-align: center;
+	width: 30%;
+}
+
+.ui-datepicker-close a {
+	background: url(../images/application/close.png) no-repeat;
+	display: block;
+	float: right;
+	height: 16px;
+	margin: 5px 5px 5px 0;
+	text-indent: -9999em;
+	width: 16px;
+}
+
+.ui-datepicker-next {
+	float: right;
+	text-align: right;
+}
+
+.ui-datepicker-header {
+	border-bottom: 1px solid #DEDEDE;
+	font-weight: bold;
+	padding: 5px 0 6px;
+	text-align: center;
+}
+
+.ui-datepicker-header select {
+	background: #727C81;
+	border: 0;
+	color: #fff;
+	font-weight: bold;
+}
+
+.ui-datepicker-header .ui-datepicker-new-month {
+	float: left;
+	margin-left: 5px;
+}
+
+.ui-datepicker-header .ui-datepicker-new-year {
+	float: right;
+	margin-right: 5px;
+}
+
+.ui-datepicker {
+	text-align: center;
+	width: auto;
+}
+
+.ui-datepicker a {
+	display: block;
+	width: 23px;
+}
+
+.ui-datepicker .ui-datepicker-title-row a {
+	color: #1E2529;
+	text-decoration: none;
+}
+
+.ui-datepicker .ui-datepicker-days-row {
+	background: #fff;
+	color: #727C81;
+}
+
+.ui-datepicker-week-col {
+	color: #B5BFC4;
+}
+
+.ui-datepicker-days-cell a {
+	background: #F0F5F7;
+	border: 1px solid #fff;
+}
+
+.ui-datepicker-days-cell a:hover {
+	background-color: #727C81;
+	color: #fff;
+}
+
+.ui-datepicker-current-day a {
+	background-color: #fff;
+	border: 1px solid #727C81;
+	color: #369;
+}
+
+.ui-datepicker-current-day a:hover {
+	background-color: #DFF4FF;
+	border-color: #AEB8BC;
+	color: #06c;
+}
+
+.ui-datepicker .ui-datepicker-unselectable {
+	color: #B5BFC4;
+}
+
+#ui-datepicker-div a, .ui-datepicker-inline a {
+	cursor: pointer;
+}
+
+.ui-datepicker-one-month:after {
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+
+.ie .ui-datepicker-one-month {
+	height: 1%;
+}
+
+.ui-datepicker-new-row {
+	clear: left;
+}
+
+.ie6 .ui-datepicker-cover {
+	display: block;
+	filter: mask();
+	height: 200px;
+	left: -4px;
+	position: absolute;
+	top: -4px;
+	width: 193px;
+	z-index: -1;
+}
+
+/* ---------- Color picker ---------- */
+
+.ui-colorpicker {
+	background-image: url(../images/color_picker/picker_container_bg.png);
+	font: 11px Arial,Helvetica,sans-serif;
+	height: 192px;
+	position: relative;
+	width: 305px;
+}
+
+.ui-colorpicker-color {
+	background-color: #F00;
+	background-image: url(../images/color_picker/picker_bg.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 184px;
+	left: 8px;
+	position: absolute;
+	top: 5px;
+	width: 184px;
+}
+
+.ui-colorpicker-color-handle {
+	background-image: url(../images/color_picker/select.png);
+	height: 11px;
+	position: absolute;
+	width: 11px;
+}
+
+.ui-colorpicker-hue {
+	background-image: url(../images/color_picker/hue.png);
+	height: 186px;
+	left: 200px;
+	position: absolute;
+	top: 3px;
+	width: 18px;
+}
+
+.ui-colorpicker-hue-handle {
+	background-image: url(../images/color_picker/color_indic.png);
+	height: 7px;
+	position: absolute;
+	width: 18px;
+}
+
+.ui-colorpicker-current {
+	background: #fff;
+	border: 2px solid #727C81;
+	height: 60px;
+	position: absolute;
+	right: 10px;
+	top: 31px;
+	width: 60px;
+}
+
+.ui-colorpicker-values {
+	left: 230px;
+	position: absolute;
+	top: 100px;
+	width: 60px;
+}
+
+.ui-colorpicker-values table {
+	width: 100%;
+}
+
+.ui-colorpicker-values table input {
+	margin-bottom: 1px;
+	padding: 3px 1px;
+	width: 100%;
+}
+
+.ui-colorpicker-rgbR, .ui-colorpicker-rgbG, .ui-colorpicker-rgbB {
+	width: 20px;
+}
+
+.ui-colorpicker-hex {
+	width: 40px;
+}
+
+.ui-colorpicker-close {
+	background: url(../images/color_picker/close.png) no-repeat 0 0;
+	cursor: pointer;
+	height: 23px;
+	position: absolute;
+	right: 3px;
+	text-indent: -9999em;
+	top: 3px;
+	width: 23px;
+}
+
+/* ---------- Autocomplete ---------- */
+
+.ui-autocomplete-results {
+	border: 1px solid;
+	border-color: #BFBFBF #DEDEDE #DEDEDE #BFBFBF;
+	overflow: hidden;
+	padding: 0;
+	z-index: 300;
+}
+
+.ui-autocomplete-results ul {
+	list-style: none;
+	list-style-position: outside;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+.ui-autocomplete-results li {
+	cursor: default;
+	display: block;
+	line-height: 16px;
+	margin: 0;
+	overflow: hidden;
+	padding: 2px 5px;
+}
+
+.ui-autocomplete-loading, .ui-autocomplete-loading.focus {
+	background-image: url(../images/application/loading_indicator.gif);
+	background-position: right center;
+	background-repeat: no-repeat;
+}
+
+.ui-autocomplete-results li strong {
+	color: #06c;
+	font-weight: bold;
+}
+
+/* ---------- Tags ---------- */
+
+.ui-tags-container {
+	width: 100%;
+}
+
+.ui-tags-content td {
+	vertical-align: top;
+}
+
+.ui-tags-content li.ui-tags-vocabulary, li.ui-tags-item {
+	border-bottom: 1px #D3D7DB solid;
+	font-size: 13px;
+	font-weight: bold;
+	height: 35px;
+	line-height: 35px;
+	list-style: none;
+}
+
+.ui-tags-content ul {
+	margin: 0;
+	padding: 0;
+}
+
+.ui-tags-vocabulary-list a {
+	color: #369;
+	display: block;
+	padding-left: 20px;
+	text-decoration: none;
+	zoom: 1;
+}
+
+.ui-tags-vocabulary-edit {
+	background: #F0F2F4;
+	display: none;
+}
+
+.ui-tags-vocabulary-entries li.ui-tags-item {
+	background: #fff;
+	cursor: pointer;
+}
+
+.ui-tags-item a {
+	color: #369;
+	font-size: 11px;
+	padding: 0;
+	text-decoration: underline;
+}
+
+.ui-tags-item span {
+	padding-left: 20px;
+}
+
+.ui-tags-vocabulary-list a:hover, .ui-tags-vocabulary-list .selected, .ui-tags-item.selected {
+	background: #6F7D83 !important;
+	color: #fff;
+}
+
+.ui-tags-vocabulary-entries .ui-tags-item.odd {
+	background: #F0F2F4;
+}
+
+.ui-tags-vocabulary-list .selected a, .ui-tags-item.selected a {
+	color: #fff;
+}
+
+.ui-tags-category-item.selected > span {
+	font-weight: bold;
+}
+
+.ui-tags-vocabulary-entries .active-area {
+	background: #FFC !important;
+}
+
+.ui-tags-vocabulary-entries {
+	border-right: 1px #D3D7DB solid;
+	height: 300px;
+	min-width: 200px;
+	overflow: auto;
+}
+
+.ui-tags-vocabulary-list {
+	border-left: 1px #D3D7DB solid;
+	border-right: 1px #D3D7DB solid;
+	height: 300px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.ui-tags-properties {
+	width: 300px;
+}
+
+.ui-tags .nowrap {
+	empty-cells: show;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.ui-tags-search-bar {
+	background: #F0F2F4;
+	border: 1px #D3D7DB solid;
+	border-left: 0;
+	border-right: 0;
+	padding: 10px 20px 10px 20px;
+}
+
+.ui-tags-toolbar {
+	background: #F6F8FB;
+	border-bottom: 1px #848B95 solid;
+}
+
+.ui-tags-buttons {
+	float: left;
+	padding: 5px 0px 5px 20px;
+}
+
+.ui-tags-actions {
+	padding: 5px;
+	text-align: right;
+}
+
+.ui-tags-actions input,   .ui-tags-actions div,   .ui-tags-actions select {
+	margin-left: 5px;
+}
+
+.ui-tags-buttons .button {
+	background: transparent url(../images/common/page.png) no-repeat scroll 0pt 50%;
+	color: #9EA8AD;
+	cursor: pointer;
+	display: block;
+	float: left;
+	margin-right: 5px;
+	min-width: 70px;
+	padding: 3px 3px 3px 20px;
+}
+
+.ui-tags-buttons .selected {
+	background: #CFD5D7 url(../images/common/page.png) no-repeat scroll 0pt 50%;
+	color: #0F0F0F;
+	font-weight: bold;
+}
+
+.ui-tags-vocabulary-edit {
+	padding: 5px 5px 20px 20px;
+}
+
+.ui-tags-vocabulary-edit .ui-tags-close {
+	text-align: right;
+}
+
+.ui-tags-vocabulary-edit .ui-tags-close span {
+	cursor: pointer;
+}
+
+.ui-tags-property-line {
+	display: none;
+}
+
+.ui-tags-footer {
+	border-top: 1px #848B95 solid;
+	margin-top: 5px;
+	padding: 10px 0 0 20px;
+}
+
+.ui-tags-vocabulary-name {
+	display: none;
+}
+
+#ui-tags-entry-messages {
+	margin: 10px;
+}
+
+.ui-tags-treeview-container {
+	padding: 5px;
+}
+
+.ui-tags-treeview-container ul, .ui-tags-treeview-container li {
+	list-style: none;
+}
+
+.ui-tags-edit-vocabulary input {
+}
+
+span.ui-tags-delete {
+	background: url(../images/application/close_small.png) no-repeat 0 0;
+	cursor: pointer;
+	display: block;
+	font-size: 0;
+	height: 7px;
+	text-indent: -9999em;
+	width: 7px;
+}
+
+/* ---------- Treeview ---------- */
+
+.treeview {
+	cursor: pointer;
+	font-size: 13px;
+}
+
+.treeview, .treeview ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.treeview ul {
+	background-color: white;
+	margin-top: 4px;
+}
+
+.treeview .hitarea {
+	cursor: pointer;
+	float: left;
+	height: 1px;
+	margin-left: -16px;
+	width: 16px;
+}
+
+/* fix for IE6 */
+
+* html .hitarea {
+	display: inline;
+	float: none;
+}
+
+.treeview li {
+	margin: 0;
+	padding: 4px 0 5px 16px;
+}
+
+.treeview a.selected {
+	background-color: #eee;
+}
+
+#treecontrol {
+	display: none;
+	margin: 1em 0;
+}
+
+.treeview .hover {
+	cursor: pointer;
+}
+
+.treeview li.collapsable, .treeview li.expandable {
+	background-position: 0 -176px;
+}
+
+.treeview .expandable-hitarea {
+	background-position: -80px -3px;
+}
+
+.treeview li.last {
+	background-position: 0 -1766px;
+}
+
+.treeview li.lastCollapsable, .treeview li.lastExpandable {
+}
+
+.treeview li.lastCollapsable {
+	background-position: 0 -111px;
+}
+
+.treeview li.lastExpandable {
+	background-position: -32px -67px;
+}
+
+.treeview div.lastCollapsable-hitarea, .treeview div.lastExpandable-hitarea {
+	background-position: 0;
+}
+
+.treeview .placeholder {
+	background: url(../images/trees/ajax_loader.gif) 0 0 no-repeat;
+	display: block;
+	height: 16px;
+	width: 16px;
+}
+
+.filetree li {
+	padding: 4px 0 5px 16px;
+}
+
+.filetree span.folder, .filetree span.file {
+	display: block;
+	padding: 1px 0 1px 16px;
+}
+
+.filetree span.folder {
+	background: url(../images/trees/folder.png) 0 0 no-repeat;
+}
+
+.filetree li.expandable span.folder {
+	background: url(../images/trees/folder_closed.png) 0 0 no-repeat;
+}
+
+.filetree span.file {
+	background: url(../images/trees/file.gif) 0 0 no-repeat;
+}
+
+.treeview .hover-up {
+	border-bottom: 2px solid black;
+}
+
+.treeview .hover-down {
+	border-top: 2px solid black;
+}
+
+.treeview .hover-folder {
+	background: #FFC url(../images/trees/folder.png) no-repeat scroll 0 0 !important;
+}
+
+/* This CSS controls the column layout. It is not recommended that you change this file. */
+
+/* ---------- Wrapper ---------- */
+
+#content-wrapper #layout-grid {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#layout-grid .lfr-column {
+	padding: 5px;
+}
+
+.lfr-grid {
+	width: 100%;
+}
+
+/* ---------- Column widths ---------- */
+
+#layout-grid.dragging .lfr-column {
+	height: 100px;
+	min-height: 100px;
+}
+
+.lfr-column.ten {
+	width: 10%;
+}
+
+.lfr-column.twenty {
+	width: 20%;
+}
+
+.lfr-column.thirty {
+	width: 30%;
+}
+
+.lfr-column.forty {
+	width: 40%;
+}
+
+.lfr-column.fifty {
+	width: 50%;
+}
+
+.lfr-column.sixty {
+	width: 60%;
+}
+
+.lfr-column.seventy {
+	width: 70%;
+}
+
+.lfr-column.eighty {
+	width: 80%;
+}
+
+.lfr-column.ninety {
+	width: 90%;
+}
+
+/* ---------- 1 column ---------- */
+
+.columns-1 #column-1, .columns-max #column-1 {
+	clear: both;
+	display: table;
+	padding-left: 0;
+	padding-right: 0;
+	width: 100%;
+}
+
+/* ---------- 2 columns ---------- */
+
+.columns-2 #column-1 {
+	padding-left: 0;
+}
+
+.columns-2 #column-2 {
+	padding-right: 0;
+}
+
+/* ---------- 3 columns ---------- */
+
+.columns-3 #column-1 {
+	padding-left: 0;
+}
+
+.columns-3 #column-2 {
+}
+
+.columns-3 #column-3 {
+	padding-right: 0;
+}
+
+/* ---------- 1/2/1 ---------- */
+
+.columns-1-2-1 #column-1, .columns-1-2-1 #column-4 {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.columns-1-2-1 #column-2 {
+	padding-left: 0;
+}
+
+.columns-1-2-1 #column-3 {
+	padding-right: 0;
+}
+
+/* ---------- 2/2 ---------- */
+
+.columns-2-2 #column-1, .columns-2-2 #column-2 {
+	padding-left: 0;
+}
+
+.columns-2-2 #column-4 {
+	padding-right: 0;
+}
+
+/* ---------- Freeform ---------- */
+
+.freeform .lfr-column {
+	position: relative;
+}
+
+.columns-2-2 #column-4 {
+	padding-right: 0;
+}
+
+/* This CSS sets the default styles for the main navigation. */
+
+/* ---------- Main navigation ---------- */
+
+#navigation {
+	background: #020509;
+	border-top: 1px solid #304049;
+	margin: 0 auto 20px;
+	min-height: 2.2em;
+	width: 100%;
+}
+
+#navigation ul {
+	margin: 0 auto;
+	min-height: 2em;
+	width: 90%;
+}
+
+#navigation ul:after {
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+
+.ie #navigation ul {
+	height: 1%;
+}
+
+.ie6 #navigation, .ie6 #navigation ul {
+	height: 2em;
+	overflow: visible;
+}
+
+#navigation li {
+	border: 1px solid #304049;
+	display: inline;
+	float: left;
+	margin: -1px 0 0 -1px;
+	position: relative;
+}
+
+#navigation a {
+	color: #D3DADD;
+}
+
+#navigation li a {
+	display: block;
+	padding: 5px 20px;
+	text-decoration: none;
+}
+
+#navigation li a span {
+	text-decoration: none;
+}
+
+#navigation li.selected a, #navigation li a:hover {
+	background-color: #1E2529;
+	color: #fff;
+}
+
+#navigation li.selected a span {
+	background: url(../images/navigation/bullet_selected.png) no-repeat 0 50%;
+	padding-left: 10px;
+}
+
+#navigation .child-menu {
+	display: none;
+}
+
+/* ---------- Dock without JavaScript ---------- */
+
+.lfr-dock {
+	position: absolute;
+	right: 5%;
+	top: 10px;
+}
+
+.lfr-dock h2 {
+	background: url(../images/navigation/welcome_message.png) no-repeat 0 50%;
+	font-size: 1.2em;
+	margin-bottom: 0.5em;
+	padding-left: 2em;
+	text-align: right;
+}
+
+.lfr-dock ul {
+	display: inline;
+	float: left;
+}
+
+.lfr-dock li {
+	display: inline;
+	float: left;
+	margin-left: 15px;
+}
+
+.lfr-dock li a {
+	background: url() no-repeat 0 50%;
+	padding: 2px 0 2px 20px;
+}
+
+.lfr-dock li.home a {
+	background-image: url(../images/dock/home.png);
+}
+
+.lfr-dock li.my-account a {
+	background-image: url(../images/dock/my_account.png);
+}
+
+.lfr-dock li.sign-in a {
+	background-image: url(../images/dock/sign_in.png);
+}
+
+.lfr-dock li.sign-out a {
+	background-image: url(../images/dock/sign_out.png);
+}
+
+.lfr-dock li.add-content a {
+	background-image: url(../images/dock/add_content.png);
+}
+
+.lfr-dock li.layout a {
+	background-image: url(../images/dock/layout.png);
+}
+
+.lfr-dock li.page-settings a {
+	background-image: url(../images/dock/page_settings.png);
+}
+
+.lfr-dock li.staging a {
+	background-image: url(../images/dock/staging.png);
+}
+
+.lfr-dock li.my-places a {
+	background-image: url(../images/dock/my_places.png);
+}
+
+.lfr-dock li.my-places {
+	display: none;
+}
+
+.lfr-dock li.toggle-controls {
+	display: none;
+}
+
+/* ---------- Dock with JavaScript ---------- */
+
+.js .interactive-mode {
+	background: #020509 url(../images/dock/center_bg.png) repeat-x;
+	min-width: 150px;
+	position: absolute;
+	right: 5%;
+}
+
+.js .interactive-mode h2 {
+	background: url(../images/dock/right_bg.png) no-repeat 100% 0;
+	font-size: 1em;
+	margin: 0;
+	padding: 0 37px 0 0;
+	position: relative;
+	z-index: 82;
+}
+
+.js .interactive-mode h2 span {
+	background: url(../images/dock/left_bg.png) no-repeat 0 0;
+	border-right: 1px solid #34404F;
+	color: #fff;
+	display: block;
+	font-size: 1em;
+	height: 15px;
+	line-height: 1;
+	margin-bottom: 0;
+	padding: 10px 20px 4px 20px;
+}
+
+.js .lfr-dock.expanded .lfr-dock-list-container {
+	top: -2px;
+}
+
+.js .interactive-mode ul {
+	background: #fff;
+	border: 1px solid;
+	border-color: #DEDEDE #BFBFBF #BFBFBF #DEDEDE;
+	display: none;
+	float: none;
+}
+
+.js .interactive-mode li {
+	border-top: 1px solid #DEDEDE;
+	clear: both;
+	display: block;
+	float: none;
+	margin: 0;
+	padding: 2px;
+}
+
+.js .interactive-mode li a {
+	background-position: 8px 50%;
+	background-repeat: no-repeat;
+	display: block;
+	margin-left: 0;
+	padding: 5px 0px;
+	text-decoration: none;
+}
+
+.js .interactive-mode li a, .js .interactive-mode li a:hover {
+	background-position: 8px 50%;
+	padding-left: 30px;
+}
+
+.js .interactive-mode li a:hover, .js .interactive-mode .my-places li.current a:hover {
+	color: #fff;
+}
+
+.js .interactive-mode .lfr-dock-list li.first {
+	border-top: none;
+}
+
+.js .lfr-dock.interactive-mode .my-places li a {
+	background-image: none;
+}
+
+.js .interactive-mode .my-places li {
+	background-position: 5px 50%;
+	background-repeat: no-repeat;
+}
+
+.js .lfr-dock.interactive-mode .my-places.lfr-flyout.has-children > ul {
+	margin-right: -1px;
+}
+
+.js .interactive-mode .my-places li.current-community {
+	background-color: #D3DADD;
+}
+
+.js .interactive-mode .my-places li h3 {
+	font-size: 1em;
+	font-weight: normal;
+	margin: 0;
+}
+
+.js .interactive-mode .lfr-flyout.has-children h3 {
+	min-width: 175px;
+}
+
+.js .lfr-dock.interactive-mode .my-places li h3 a {
+	background-image: url(../images/dock/my_place.png);
+}
+
+.js .interactive-mode .lfr-flyout.has-children ul {
+	display: none;
+	margin-left: 0;
+	top: -1px;
+}
+
+.js .interactive-mode .my-places li.public a {
+	background-image: url(../images/dock/my_places_public.png);
+}
+
+.js .interactive-mode .my-places li.private a {
+	background-image: url(../images/dock/my_places_private.png);
+}
+
+.js .interactive-mode .my-places li.current {
+	background-color: #DFF4FF;
+}
+
+.js .interactive-mode .my-places li.current a {
+	background: url(../images/dock/my_place_current.png) no-repeat 10px 50%;
+	margin: 0;
+	padding-left: 35px;
+}
+
+.js .interactive-mode li:hover, .js .interactive-mode .my-places li:hover {
+	background-color: #828F95;
+}
+
+.js .interactive-mode li:hover a:hover, .js .interactive-mode li:hover > a, .js .interactive-mode li:hover > h3 > a {
+	background-color: #828F95;
+	color: #fff;
+}
+
+.ie6 .js .interactive-mode li a:hover {
+	background-color: #828F95;
+	color: #fff;
+}
+
+.js .interactive-mode .my-places ul li a.add-page {
+	top: 7px;
+}
+
+.js .interactive-mode .group-end {
+	border-bottom: 2px solid #DEDEDE;
+}
+
+.ie6.js .interactive-mode .taglib-my-places li {
+	height: 24px;
+}
+
+.ie6.js .lfr-dock.interactive-mode {
+	white-space: nowrap;
+	width: 150px;
+}
+
+.ie6.js .lfr-dock.interactive-mode li {
+	height: 1%;
+	width: 100%;
+}
+
+.ie6.js .interactive-mode .lfr-flyout.has-children {
+	width: 150px;
+}
+
+.js .interactive-mode li.toggle-controls {
+	display: block;
+}
+
+.js .interactive-mode li.toggle-controls a {
+	background-image: url(../images/common/checked.png);
+}
+
+.js .controls-hidden .interactive-mode li.toggle-controls a {
+	background-image: url(../images/common/unchecked.png);
+}
+
+/* ---------- Add/remove page ---------- */
+
+.js #navigation .enter-page {
+	background-color: #1E2529;
+	padding: 2px;
+}
+
+.js #navigation .enter-page a {
+	background: none;
+	display: inline;
+	font-weight: bold;
+	padding: 0;
+}
+
+.js #navigation .enter-page .save-page {
+	background: url(../images/dock/my_place_current.png) no-repeat 0 50%;
+	margin: 0 10px;
+	padding-left: 20px;
+}
+
+.ie.js #navigation .enter-page .save-page {
+	display: inline-block;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	vertical-align: top;
+}
+
+.js #navigation .enter-page .cancel-page {
+	display: none;
+}
+
+.ie.js #navigation .enter-page {
+	padding: 0;
+}
+
+.ie.js #navigation .enter-page input.text {
+	margin: 2px;
+	padding: 3px 1px;
+}
+
+.js #navigation {
+	position: relative;
+}
+
+.js #add-page {
+	background: #020509;
+	border: 1px solid #304049;
+	border-bottom: none;
+	bottom: 100%;
+	font-weight: bold;
+	position: absolute;
+	right: 5%;
+}
+
+.js #add-page a {
+	display: block;
+	text-decoration: none;
+}
+
+.js #add-page a span {
+	background: url(../images/common/add.png) no-repeat 0 50%;
+	display: block;
+	margin-left: 15px;
+	padding: 5px 20px 2px;
+}
+
+.js #add-page a:hover span {
+}
+
+.js .delete-tab {
+	background: url(../images/common/remove.png) no-repeat 42%;
+	cursor: pointer;
+	display: block;
+	height: 8px;
+	position: absolute;
+	right: 2px;
+	text-indent: -9999em;
+	top: 2px;
+	width: 8px;
+}
+
+/*------ Navigation portlet ------*/
+
+.nav-menu li a.ancestor {
+	font-weight: bold;
+}
+
+.nav-menu li a.selected {
+	color: #000;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.nav-menu ul {
+	padding-left: 10px;
+}
+
+.nav-menu-style-1 {
+}
+
+.nav-menu-style-2 {
+}
+
+/* This CSS sets the default styles for portlets. */
+
+/* ---------- Portlet wrapper and icons ---------- */
+
+.portlet {
+	background: #fff;
+	border: 2px solid #828F95;
+	margin: 0 0 10px;
+	padding: 3px;
+	text-align: left;
+}
+
+.freeform .portlet {
+	margin-bottom: 0;
+}
+
+body.portlet {
+	border: none;
+}
+
+.portlet-topper {
+	background: #D3DADD;
+	border-bottom: 1px solid #AEB8BC;
+	padding-right: 40px;
+	position: relative;
+}
+
+.portlet-title {
+	display: block;
+	font-weight: bold;
+	min-width: 50%;
+	padding: 5px;
+}
+
+.ie .portlet-title {
+	padding-bottom: 5px;
+}
+
+.portlet-title img {
+	vertical-align: middle;
+}
+
+.portlet-icons {
+	margin: 0;
+	position: absolute;
+	right: 5px;
+	text-align: right;
+	top: 5px;
+}
+
+.portlet-content, .portlet-minimized .portlet-content-container {
+	padding: 12px 10px 10px;
+}
+
+.portlet-minimized .portlet-content {
+	padding: 0;
+}
+
+.portlet-icon-back {
+	background: url(../images/arrows/01_left.png) no-repeat 0 50%;
+	font-weight: bold;
+	padding: 3px 0 3px 18px;
+}
+
+/* ---------- Panel Page ---------- */
+
+.lfr-panel {
+	margin: 0 auto;
+	width: 90%;
+}
+
+.lfr-panel .portlet-title {
+	font-size: 13px;
+}
+
+.lfr-panel #content-wrapper {
+	margin: 0;
+	width: auto;
+}
+
+.lfr-panel .lfr-add-content h2 span {
+	background-color: #D3DADD;
+}
+
+/* ---------- Standard styles defined in the JSR 168 ---------- */
+
+/* ---------- Fonts ---------- */
+
+/* ---------- Font attributes for the 'normal' fragment font ---------- */
+
+.portlet-font {
+}
+
+/* ---------- Font attributes similar to the .portlet-font but the color is lighter ---------- */
+
+.portlet-font-dim {
+}
+
+/* ---------- Messages ---------- */
+
+/* ---------- Status of the current operation ---------- */
+
+.portlet-msg-status {
+}
+
+/* ---------- Help messages, general additional information, etc. ---------- */
+
+.portlet-msg-info {
+	background: #DFF4FF url(../images/messages/info.png) no-repeat 6px 50%;
+	border: 1px solid #A7CEDF;
+	color: #34404F;
+	display: block;
+	font-weight: bold;
+	margin: 2px auto 14px;
+	padding: 6px 6px 6px 30px;
+	text-align: left;
+}
+
+.portlet-msg-info.pending {
+	background-image: url(../images/common/time.png);
+}
+
+/* ---------- Error messages ---------- */
+
+.portlet-msg-error {
+	background: #fdd url(../images/messages/error.png) no-repeat 6px 50%;
+	border: 1px solid #f00;
+	display: block;
+	font-weight: bold;
+	margin: 2px auto 14px;
+	padding: 6px 6px 6px 30px;
+	text-align: left;
+}
+
+/* ---------- Warning messages ---------- */
+
+.portlet-msg-alert {
+	background: #ffc url(../images/messages/alert.png) no-repeat 6px 20%;
+	border: 1px solid #fc0;
+	display: block;
+	font-weight: bold;
+	margin: 2px auto 14px;
+	padding: 6px 6px 6px 30px;
+	text-align: left;
+}
+
+/* ---------- Success messages ---------- */
+
+.portlet-msg-success {
+	background: #F4FDEF url(../images/messages/success.png) no-repeat 6px 50%;
+	border: 1px solid #ACDFA7;
+	color: #384F34;
+	display: block;
+	font-weight: bold;
+	margin: 2px auto 14px;
+	padding: 6px 6px 6px 30px;
+	text-align: left;
+}
+
+/* ---------- Sections ---------- */
+
+/* ---------- Table or section header ---------- */
+
+.portlet-section-header {
+}
+
+.portlet-section-header th {
+}
+
+/* ---------- Normal text in a table cell ---------- */
+
+.portlet-section-body {
+}
+
+.portlet-section-body td {
+}
+
+/* ---------- Text in every other row in the cell ---------- */
+
+.portlet-section-alternate {
+}
+
+.portlet-section-alternate td {
+}
+
+.portlet-section-alternate-hover td, .portlet-section-body-hover td {
+}
+
+.portlet-section-body td td, .portlet-section-body-hover td td {
+}
+
+.portlet-section-alternate td td, .portlet-section-alternate-hover td td {
+}
+
+/* ---------- Text in a selected cell range ---------- */
+
+.portlet-section-selected, .portlet-section-selected a {
+	background: #727C81;
+	color: #fff;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.portlet-section-selected a:hover, .portlet-section-selected a:focus {
+	background-color: #727C81;
+}
+
+/* ---------- Text of a subheading ---------- */
+
+.portlet-section-subheader {
+}
+
+/* ---------- Table or section footnote ---------- */
+
+.portlet-section-footer {
+}
+
+/* ---------- Text that belongs to the table but does not fall in one of the other categories (e.g. explanatory or help text that is associated with the section) ---------- */
+
+.portlet-section-text {
+}
+
+/* ---------- Forms ---------- */
+
+/* ---------- Text used for the descriptive label of the whole form (not the labels for fields) ---------- */
+
+.portlet-form-label {
+}
+
+/* ---------- Text of the user-input in an input field ---------- */
+
+.portlet-form-input-field {
+}
+
+/* ---------- Text on a button ---------- */
+
+.portlet-form-button {
+}
+
+/* ---------- Text that appears beside a context dependent action icon ---------- */
+
+.portlet-icon-label {
+}
+
+/* ---------- Text that appears beside a 'standard' icon (e.g. Ok, or Cancel) ---------- */
+
+.portlet-dlg-icon-label {
+}
+
+/* ---------- Text for a separator of fields (e.g. checkboxes, etc.) ---------- */
+
+.portlet-form-field-label {
+}
+
+/* ---------- Text for a field (not input field, e.g. checkboxes, etc.) ---------- */
+
+.portlet-form-field {
+}
+
+/* ---------- Menus ---------- */
+
+/* ---------- General menu settings such as background color, margins, etc. ---------- */
+
+.portlet-menu {
+}
+
+/* ---------- Normal, unselected menu item ---------- */
+
+.portlet-menu-item {
+}
+
+/* ---------- Selected menu item ---------- */
+
+.portlet-menu-item-selected {
+}
+
+/* ---------- Normal, unselected menu item when the mouse hovers over it ---------- */
+
+.portlet-menu-item-hover {
+}
+
+/* ---------- Selected menu item when the mouse hovers over it ---------- */
+
+.portlet-menu-item-hover-selected {
+}
+
+/* ---------- Normal, unselected menu item that has sub-menus ---------- */
+
+.portlet-menu-cascade-item {
+}
+
+/* ---------- Selected sub-menu item that has sub-menus ---------- */
+
+.portlet-menu-cascade-item-selected {
+}
+
+/* ---------- Descriptive text for the menu (e.g. in a help context below the menu) ---------- */
+
+.portlet-menu-description {
+}
+
+/* ---------- Menu caption ---------- */
+
+.portlet-menu-caption {
+}
+
+/* ---------- Calendar portlet ---------- */
+
+.portlet-calendar .calendar-container {
+	background-position: 0 99%;
+	background-repeat: repeat-x;
+	border: 1px solid #D7D7D7;
+	overflow: hidden;
+}
+
+.ie .portlet-calendar .calendar-container {
+	background-position: 0 98%;
+}
+
+.portlet-calendar .calendar-day {
+	width: 209px;
+}
+
+.portlet-calendar .calendar-day .day-text {
+	background: #727C81;
+	color: #fff;
+	font-size: 1.6em;
+}
+
+.portlet-calendar .calendar-day .day-number {
+	border: 1px solid #fff;
+	border-bottom: none;
+	font-size: 110px;
+	font-weight: normal;
+	padding-bottom: 12px;
+}
+
+.portlet-calendar .calendar-container .taglib-calendar {
+	background: #fff;
+	border-left: 1px solid #D7D7D7;
+	margin-left: -1px;
+	padding-left: 0;
+}
+
+.taglib-calendar tr.portlet-section-header th, .taglib-calendar tr td {
+	border: none;
+}
+
+.taglib-calendar tr td a {
+	background-color: #F0F5F7;
+	border: 1px solid #fff;
+	border-bottom: none;
+	border-left: none;
+	display: block;
+	height: 15px;
+	padding: 5px 0pt;
+}
+
+.taglib-calendar table td {
+	border-width: 0;
+}
+
+.taglib-calendar tr td a:hover {
+	background-color: #727C81;
+	color: #fff;
+}
+
+.taglib-calendar .calendar-current-day, .taglib-calendar .calendar-current-day a {
+	background-color: #fff;
+}
+
+.taglib-calendar .calendar-current-day a {
+	border: 1px solid #727C81;
+	color: #369;
+	text-decoration: underline;
+}
+
+.portlet-calendar .taglib-calendar tr td.calendar-current-day a:hover, .portlet-calendar .taglib-calendar tr td.calendar-current-day a:focus {
+	background-color: #DFF4FF;
+	border-color: #AEB8BC;
+	color: #06c;
+}
+
+.portlet-calendar .taglib-calendar td.calendar-current-day a span {
+	border: none;
+}
+
+.taglib-calendar tr td.calendar-inactive {
+	background-color: #fff;
+	color: #B5BFC4;
+}
+
+.taglib-calendar tr th {
+	border-bottom-color: #D7D7D7;
+}
+
+.taglib-calendar tr.portlet-section-header th, .taglib-calendar tr td {
+	border-left: none;
+	border-right: none;
+}
+
+.ie .taglib-calendar tr td.first a {
+	border-right: none;
+}
+
+/* ---------- Miscellaneous portlet styles ---------- */
+
+.journal-template-error .scroll-pane {
+	border: 1px solid #BFBFBF;
+	max-height: 200px;
+	min-height: 50px;
+	overflow: auto;
+	width: 100%;
+}
+
+.journal-template-error .scroll-pane .inner-scroll-pane {
+	min-width: 104%;
+}
+
+.journal-template-error .scroll-pane .error-line {
+	background: #fdd;
+}
+
+.journal-template-error .scroll-pane pre {
+	margin: 0px;
+	white-space: pre;
+}
+
+.journal-template-error .scroll-pane pre span {
+	background: #B5BFC4;
+	border-right: 1px solid #BFBFBF;
+	display: block;
+	float: left;
+	margin-right: 4px;
+	padding-right: 4px;
+	text-align: right;
+	width: 40px;
+}
+
+.message-board-code {
+	background: #fff;
+	font-family: "Courier New",Courier,Monaco,monospace;
+	white-space: pre;
+}
+
+.message-board-code-lines {
+	margin-right: 12px;
+}
+
+.restricted, .restricted td {
+	background: #fdd;
+	border: none;
+}
+
+.restricted * {
+	color: #727C81;
+}
+
+.restricted .col-1 {
+	background-image: url(../images/messages/error.png);
+	background-position: 5px 50%;
+	background-repeat: no-repeat;
+	padding-left: 28px;
+}
+
+/* ---------- Miscellaneous component styles ---------- */
+
+/* ---------- Add content dialog ---------- */
+
+.lfr-portlet-item, .lfr-portlet-item p a {
+	font-size: 1em;
+}
+
+/* ---------- Actions button ---------- */
+
+.lfr-actions {
+}
+
+.lfr-actions, .lfr-actions ul {
+	background: #fff url(../images/forms/button.png) repeat-x 0 100%;
+	border: 1px solid;
+	border-color: #DEDEDE #BFBFBF #BFBFBF #DEDEDE;
+}
+
+.lfr-actions ul {
+	bottom: -1px;
+}
+
+.lfr-actions .lfr-trigger, .lfr-actions .lfr-trigger, .lfr-actions .lfr-trigger strong {
+	background: none;
+}
+
+.lfr-actions .lfr-trigger strong span {
+	background: url(../images/common/action.png) no-repeat 5px 50%;
+}
+
+.lfr-actions.left .lfr-trigger strong span {
+	background: url(../images/common/action_right.png) no-repeat 98% 50%;
+}
+
+.lfr-actions .lfr-trigger li {
+	background: transparent;
+	border-bottom: 1px solid #DEDEDE;
+	padding: 2px;
+}
+
+.lfr-actions .lfr-trigger li a {
+	padding: 5px 10px 5px 25px;
+}
+
+.lfr-actions .lfr-trigger li a:hover {
+	background-color: #828F95;
+	color: #fff;
+}
+
+.lfr-actions .lfr-trigger li a img {
+	left: 3px;
+	position: absolute;
+}
+
+.lfr-actions .lfr-trigger li.last {
+	border-bottom: none;
+}
+
+/* This CSS sets the default styles for forms. */
+
+fieldset {
+	border: 1px solid #BFBFBF;
+	padding: 8px;
+}
+
+.ie fieldset {
+	padding-top: 0;
+}
+
+legend {
+	font-weight: bold;
+	padding: 0 6px;
+}
+
+input {
+	background: #fff;
+}
+
+input[type="text"], input[type="password"], input[type="file"],input[type="submit"], input[type="button"], input[type="reset"], select, textarea, .textarea {
+	background-image: url(../images/forms/input_shadow.png);
+	background-repeat: no-repeat;
+	border: 1px solid;
+	border-color: #BFBFBF #DEDEDE #DEDEDE #BFBFBF;
+	font: 1em Arial,Helvetica,Verdana,sans-serif;
+	padding: 5px 1px;
+}
+
+select {
+	padding: 1px;
+}
+
+input[type="image"] {
+	background: transparent none;
+	border: none;
+	padding: 0;
+}
+
+input[type="submit"], input[type="button"], input[type="reset"] {
+	background: #F5F5F5 url(../images/forms/button.png) repeat-x 0 0;
+	border-color: #DEDEDE #BFBFBF #BFBFBF #DEDEDE;
+	color: #34404F;
+	cursor: pointer;
+	font-weight: bold;
+	padding: 5px;
+}
+
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:focus, input[type="button"]:focus, input[type="reset"]:focus {
+	background: #DFF4FF;
+	border: 1px solid #A7CEDF;
+	color: #369;
+}
+
+/* ---------- IE6 chokes on attribute selectors in a chain, so we separate them into their own rule ---------- */
+
+.ie6 input.text, input.password, .ie6 input.submit, .ie6 input.file, .ie6 input.button {
+	background-image: url(../images/forms/input_shadow.png);
+	background-repeat: no-repeat;
+	border: 1px solid;
+	border-color: #BFBFBF #DEDEDE #DEDEDE #BFBFBF;
+	font: 1em Arial,Helvetica,Verdana,sans-serif;
+	padding: 5px 1px;
+}
+
+.ie6 input.submit, .ie6 input.button {
+	background: #F5F5F5 url(../images/forms/button.png) repeat-x 0 0;
+	border-color: #DEDEDE #BFBFBF #BFBFBF #DEDEDE;
+	color: #34404F;
+	cursor: pointer;
+	font-weight: bold;
+	padding: 5px;
+}
+
+input.focus, textarea.focus, .ie6 input.focus, .ie6 textarea.focus {
+	background: #ffc none;
+	border: 1px solid #fc0;
+}
+
+/* This file allows you to override default styles in one central location for easier upgrade and maintenance. */
+
+/* This CSS sets the default styles for the base components. */
+
+/* ---------- Wrapper ---------- */
+
+.green #wrapper {
+	background-image: url(../images/color_schemes/green/common/body_bg.png);
+}
+
+/* ---------- Links ---------- */
+
+.green a {
+	color: #5f9930;
+}
+
+.green a:hover {
+	color: #5bcc00;
+}
+
+/* ---------- Banner ---------- */
+
+.green #banner {
+	background-image: url(../images/color_schemes/green/common/banner_bg.jpg);
+}
+
+/* ---------- Portal tool tips ---------- */
+
+.green .portal-tool-tip {
+	color: #24291e;
+}
+
+/* ---------- Application styling ---------- */
+
+.green .ui-wrapper {
+	border-color: #8e9582;
+}
+
+.green .results-header {
+	background-color: #7a8171;
+}
+
+.green .ui-autocomplete-even, .green .results-row td {
+	background-color: #eff3ea;
+}
+
+.green .ui-autocomplete-odd, .green .results-row.alt td {
+	background-color: #d9ddd3;
+}
+
+.green .ui-autocomplete-over, .green .results-row.hover td {
+	background-color: #d2eda8;
+}
+
+.green #content-wrapper #layout-grid.dragging .lfr-column {
+	border-color: #8e9582;
+}
+
+.green .drag-proxy-indicator {
+	border-color: 2px dashed #253710;
+}
+
+.green .drop-area {
+	background-color: #d9ddd3;
+}
+
+.green .ui-drag-helper {
+	border-color: #8e9582;
+	background-color: #d9ddd3;
+}
+
+.green .ui-slider-range {
+	background: #24291e;
+}
+
+.green .ui-tabs li {
+	background-color: #8e9387;
+	border-right-color: #3e4930;
+}
+
+.green .ui-tabs li.current {
+	background-color: #fff;
+	border-color: #dedede;
+}
+
+.green .ui-tabs li:hover, .green .ui-tabs li a:hover {
+	background-color: #24291e;
+	color: #b4c39e;
+}
+
+.green .ui-tabs li.current a, .green .ui-tabs li.current span {
+	color: #5f9930;
+}
+
+.green .ui-tabs li.current:hover, .green .ui-tabs li.current a:hover {
+	background-color: #fff;
+}
+
+.green .ui-dialog {
+	border-color: #8e9582;
+}
+
+.green .ui-dialog .ui-dialog-titlebar {
+	background: #24291e;
+}
+
+.green #ui-datepicker-div, .green .ui-datepicker-inline {
+	border-color: #8e9582;
+}
+
+.green .ui-datepicker-control {
+	background-color: #d9ddd3;
+	border-bottom-color: #b7bcae;
+}
+
+.green .ui-datepicker-links {
+	background-color: #7a8171;
+}
+
+.green .ui-datepicker-header select {
+	background-color: #7a8171;
+}
+
+.green .ui-datepicker .ui-datepicker-title-row a {
+	color: #24291e;
+}
+
+.green .ui-datepicker .ui-datepicker-days-row {
+	color: #7a8171;
+}
+
+.green .ui-datepicker-week-col {
+	color: #bec4b5;
+}
+
+.green .ui-datepicker-days-cell a {
+	background-color: #eff3ea;
+}
+
+.green .ui-datepicker-days-cell a:hover {
+	background-color: #7a8171;
+}
+
+.green .ui-datepicker-current-day a {
+	border-color: #7a8171;
+	color: #5f9930;
+}
+
+.green .ui-datepicker-current-day a:hover {
+	background-color: #f2ffdf;
+	border-color: #b7bcae;
+	color: #5bcc00;
+}
+
+.green .ui-datepicker .ui-datepicker-unselectable {
+	color: #bec4b5;
+}
+
+.green .ui-colorpicker-current {
+	border-color: #7a8171;
+}
+
+.green .ui-autocomplete-results li strong {
+	color: #5bcc00;
+}
+
+.green .ui-tags .ui-tag {
+	background-color: #f2ffdf;
+	border-color: #c8dda3;
+}
+
+.green .ui-tags .ui-tag:hover {
+	border-color: #b7bcae;
+}
+
+.green .navigation-sort-helper {
+	background-color: #7a8171;
+}
+
+/* ---------- Main navigation ---------- */
+
+.green #navigation {
+	background-color: #040902;
+	border-top-color: #3e4930;
+}
+
+.green #navigation li {
+	border-color: #3e4930;
+}
+
+.green #navigation a {
+	color: #b4c39e;
+}
+
+.green #navigation li.selected a, .green #navigation li a:hover {
+	background-color: #24291e;
+}
+
+.green #navigation li.selected a span {
+	background-image: url(../images/color_schemes/green/navigation/bullet_selected.png) ;
+}
+
+/* ---------- Dock with Javascript ---------- */
+
+.js .green .interactive-mode {
+	background-color: #040902;
+	background-image: url(../images/color_schemes/green/dock/center_bg.png);
+}
+
+.js .green .interactive-mode h2 {
+	background-image: url(../images/color_schemes/green/dock/right_bg.png);
+}
+
+.js .green .interactive-mode h2 span {
+	background-image: url(../images/color_schemes/green/dock/left_bg.png);
+	border-right-color: #3d4d33;
+}
+
+.js .green .interactive-mode li a:hover, .js .green .interactive-mode .my-places li.current a:hover {
+	background-color: #8e9582;
+}
+
+.js .green .interactive-mode .my-places li.current-community {
+	background-color: #d9ddd3;
+}
+
+.js .green .interactive-mode .my-places li.current a {
+	background-color: #f2ffdf;
+}
+
+.js .green #navigation .enter-page {
+	background-color: #24291e;
+}
+
+.js .green #add-page {
+	background-color: #040902;
+	border-color: #3e4930;
+}
+
+.js .green .lfr-flyout.has-children {
+	background-image: url(../images/color_schemes/green/arrows/04_left.png);
+}
+
+/* This CSS sets the default styles for portlets. */
+
+/* ---------- Portlet wrapper and icons ---------- */
+
+.green .portlet {
+	border-color: #8e9582;
+}
+
+.green .portlet-topper {
+	background-color: #d9ddd3;
+	border-bottom-color: #b7bcae;
+}
+
+.green .lfr-panel .portlet-topper {
+	border-bottom-color: #8e9582;
+}
+
+.green .portlet-section-selected, .green .portlet-section-selected a {
+	background-color: #7a8171;
+}
+
+.green .portlet-section-selected a:hover, .green .portlet-section-selected a:focus {
+	background-color: #7a8171;
+}
+/* ---------- Calendar portlet ---------- */
+
+.green .portlet-calendar .calendar-day .day-text {
+	background-color: #7a8171;
+}
+
+.green .taglib-calendar tr td a {
+	background-color: #eff3ea;
+}
+
+.green .taglib-calendar tr td a:hover {
+	background-color: #7a8171;
+}
+
+.green .taglib-calendar .calendar-current-day a {
+	border-color: #7a8171;
+	color: #5f9930;
+}
+
+.green .portlet-calendar .taglib-calendar tr td.calendar-current-day a:hover, .green .portlet-calendar .taglib-calendar tr td.calendar-current-day a:focus {
+	background-color: #f2ffdf;
+	border-color: #b7bcae;
+	color: #5bcc00;
+}
+
+.green .taglib-calendar .calendar-current-day, .green .taglib-calendar .calendar-current-day a {
+	background-color: #fff;
+}
+
+.green .taglib-calendar tr td.calendar-inactive {
+	color: #bec4b5;
+}
+
+/* ---------- Miscellaneous portlet styles ---------- */
+
+.green .journal-template-error .scroll-pane pre span {
+	background-color: #bec4b5;
+}
+
+.green .restricted * {
+	color: #7a8171;
+}
+
+.green .lfr-actions .lfr-trigger li a:hover {
+	background-color: #8e9582;
+}
+
+
+/* This CSS sets the default styles for forms. */
+
+.green input[type="text"], .green input[type="password"], .green input[type="file"], .green textarea, .green .textarea {
+	background-image: url(../images/color_schemes/green/forms/input_shadow.png);
+}
+
+.green input[type="submit"], .green input[type="button"], .green input[type="reset"] {
+	color: #3d4d33;
+}
+
+.green input[type="submit"]:hover, .green input[type="button"]:hover, .green input[type="reset"]:hover {
+	background-color: #f2ffdf;
+	border-color: #c8dda3;
+	color: #5bcc00;
+}
+
+/* ---------- IE6 chokes on attribute selectors in a chain, so we separate them into their own rule ---------- */
+
+.ie6 .green input.text, .ie6 .green input.password, .ie6 .green input.file {
+	background-image: url(../images/color_schemes/green/forms/input_shadow.png);
+}
+
+.ie6 .green input.submit, .ie6 .green input.button {
+	color: #3d4d33;
+}
+
+/* This CSS sets the default styles for the base components. */
+
+/* ---------- Wrapper ---------- */
+
+.orange #wrapper {
+	background-image: url(../images/color_schemes/orange/common/body_bg.png);
+}
+
+/* ---------- Links ---------- */
+
+.orange a {
+	color: #995f30;
+}
+
+.orange a:hover {
+	color: #cc5c00;
+}
+
+/* ---------- Banner ---------- */
+
+.orange #banner {
+	background-image: url(../images/color_schemes/orange/common/banner_bg.jpg);
+}
+
+/* ---------- Portal tool tips ---------- */
+
+.orange .portal-tool-tip {
+	color: #29211e;
+}
+
+/* ---------- Application styling ---------- */
+
+.orange .ui-wrapper {
+	border-color: #958782;
+}
+
+.orange .results-header {
+	background-color: #817671;
+}
+
+.orange .ui-autocomplete-even, .orange .results-row td {
+	background-color: #f3edea;
+}
+
+.orange .ui-autocomplete-odd, .orange .results-row.alt td {
+	background-color: #ddd6d3;
+}
+
+.orange .ui-autocomplete-over, .orange .results-row.hover td {
+	background-color: #edbca8;
+}
+
+.orange #content-wrapper #layout-grid.dragging .lfr-column {
+	border-color: #958782;
+}
+
+.orange .drag-proxy-indicator {
+	border-color: 2px dashed #253710;
+}
+
+.orange .drop-area {
+	background-color: #ddd6d3;
+}
+
+.orange .ui-drag-helper {
+	border-color: #958782;
+	background-color: #ddd6d3;
+}
+
+.orange .ui-slider-range {
+	background: #29211e;
+}
+
+.orange .ui-tabs li {
+	background-color: #938a87;
+	border-right-color: #493830;
+}
+
+.orange .ui-tabs li.current {
+	background-color: #fff;
+	border-color: #dedede;
+}
+
+.orange .ui-tabs li:hover, .orange .ui-tabs li a:hover {
+	background-color: #29211e;
+	color: #c3a99e;
+}
+
+.orange .ui-tabs li.current a, .orange .ui-tabs li.current span {
+	color: #995f30;
+}
+
+.orange .ui-tabs li.current:hover, .orange .ui-tabs li.current a:hover {
+	background-color: #fff;
+}
+
+.orange .ui-dialog {
+	border-color: #958782;
+}
+
+.orange .ui-dialog .ui-dialog-titlebar {
+	background: #29211e;
+}
+
+.orange #ui-datepicker-div, .orange .ui-datepicker-inline {
+	border-color: #958782;
+}
+
+.orange .ui-datepicker-control {
+	background-color: #ddd6d3;
+	border-bottom-color: #bcb1ae;
+}
+
+.orange .ui-datepicker-links {
+	background-color: #817671;
+}
+
+.orange .ui-datepicker-header select {
+	background-color: #817671;
+}
+
+.orange .ui-datepicker .ui-datepicker-title-row a {
+	color: #29211e;
+}
+
+.orange .ui-datepicker .ui-datepicker-days-row {
+	color: #817671;
+}
+
+.orange .ui-datepicker-week-col {
+	color: #c4b9b5;
+}
+
+.orange .ui-datepicker-days-cell a {
+	background-color: #f3edea;
+}
+
+.orange .ui-datepicker-days-cell a:hover {
+	background-color: #817671;
+}
+
+.orange .ui-datepicker-current-day a {
+	border-color: #817671;
+	color: #995f30;
+}
+
+.orange .ui-datepicker-current-day a:hover {
+	background-color: #ffe8df;
+	border-color: #bcb1ae;
+	color: #cc5c00;
+}
+
+.orange .ui-datepicker .ui-datepicker-unselectable {
+	color: #c4b9b5;
+}
+
+.orange .ui-colorpicker-current {
+	border-color: #817671;
+}
+
+.orange .ui-autocomplete-results li strong {
+	color: #cc5c00;
+}
+
+.orange .ui-tags .ui-tag {
+	background-color: #ffe8df;
+	border-color: #ddb2a3;
+}
+
+.orange .ui-tags .ui-tag:hover {
+	border-color: #bcb1ae;
+}
+
+.orange .navigation-sort-helper {
+	background-color: #817671;
+}
+
+/* ---------- Main navigation ---------- */
+
+.orange #navigation {
+	background-color: #090602;
+	border-top-color: #493830;
+}
+
+.orange #navigation li {
+	border-color: #493830;
+}
+
+.orange #navigation a {
+	color: #c3a99e;
+}
+
+.orange #navigation li.selected a, .orange #navigation li a:hover {
+	background-color: #29211e;
+}
+
+.orange #navigation li.selected a span {
+	background-image: url(../images/color_schemes/orange/navigation/bullet_selected.png) ;
+}
+
+/* ---------- Dock with Javascript ---------- */
+
+.js .orange .interactive-mode {
+	background-color: #090602;
+	background-image: url(../images/color_schemes/orange/dock/center_bg.png);
+}
+
+.js .orange .interactive-mode h2 {
+	background-image: url(../images/color_schemes/orange/dock/right_bg.png);
+}
+
+.js .orange .interactive-mode h2 span {
+	background-image: url(../images/color_schemes/orange/dock/left_bg.png);
+	border-right-color: #4d4033;
+}
+
+.js .orange .interactive-mode li a:hover, .js .orange .interactive-mode .my-places li.current a:hover {
+	background-color: #958782;
+}
+
+.js .orange .interactive-mode .my-places li.current-community {
+	background-color: #ddd6d3;
+}
+
+.js .orange .interactive-mode .my-places li.current a {
+	background-color: #ffe8df;
+}
+
+.js .orange #navigation .enter-page {
+	background-color: #29211e;
+}
+
+.js .orange #add-page {
+	background-color: #090602;
+	border-color: #493830;
+}
+
+.js .orange .lfr-flyout.has-children {
+	background-image: url(../images/color_schemes/orange/arrows/04_left.png);
+}
+
+/* This CSS sets the default styles for portlets. */
+
+/* ---------- Portlet wrapper and icons ---------- */
+
+.orange .portlet {
+	border-color: #958782;
+}
+
+.orange .portlet-topper {
+	background-color: #ddd6d3;
+	border-bottom-color: #bcb1ae;
+}
+
+.orange .lfr-panel .portlet-topper {
+	border-bottom-color: #958782;
+}
+
+.orange .portlet-section-selected, .orange .portlet-section-selected a {
+	background-color: #817671;
+}
+
+.orange .portlet-section-selected a:hover, .orange .portlet-section-selected a:focus {
+	background-color: #817671;
+}
+/* ---------- Calendar portlet ---------- */
+
+.orange .portlet-calendar .calendar-day .day-text {
+	background-color: #817671;
+}
+
+.orange .taglib-calendar tr td a {
+	background-color: #f3edea;
+}
+
+.orange .taglib-calendar tr td a:hover {
+	background-color: #817671;
+}
+
+.orange .taglib-calendar .calendar-current-day a {
+	border-color: #817671;
+	color: #995f30;
+}
+
+.orange .portlet-calendar .taglib-calendar tr td.calendar-current-day a:hover, .orange .portlet-calendar .taglib-calendar tr td.calendar-current-day a:focus {
+	background-color: #ffe8df;
+	border-color: #bcb1ae;
+	color: #cc5c00;
+}
+
+.orange .taglib-calendar .calendar-current-day, .orange .taglib-calendar .calendar-current-day a {
+	background-color: #fff;
+}
+
+.orange .taglib-calendar tr td.calendar-inactive {
+	color: #c4b9b5;
+}
+
+/* ---------- Miscellaneous portlet styles ---------- */
+
+.orange .journal-template-error .scroll-pane pre span {
+	background-color: #c4b9b5;
+}
+
+.orange .restricted * {
+	color: #817671;
+}
+
+.orange .lfr-actions .lfr-trigger li a:hover {
+	background-color: #958782;
+}
+
+
+/* This CSS sets the default styles for forms. */
+
+.orange input[type="text"], .orange input[type="password"], .orange input[type="file"], .orange textarea, .orange .textarea {
+	background-image: url(../images/color_schemes/orange/forms/input_shadow.png);
+}
+
+.orange input[type="submit"], .orange input[type="button"], .orange input[type="reset"] {
+	color: #4d4033;
+}
+
+.orange input[type="submit"]:hover, .orange input[type="button"]:hover, .orange input[type="reset"]:hover {
+	background-color: #ffe8df;
+	border-color: #ddb2a3;
+	color: #cc5c00;
+}
+
+/* ---------- IE6 chokes on attribute selectors in a chain, so we separate them into their own rule ---------- */
+
+.ie6 .orange input.text, .ie6 .orange input.password, .ie6 .orange input.file {
+	background-image: url(../images/color_schemes/orange/forms/input_shadow.png);
+}
+
+.ie6 .orange input.submit, .ie6 .orange input.button {
+	color: #4d4033;
+}
+
+/* ---------- Special styling for just the Classic theme ---------- */
+
+body.lfr-has-sidebar {
+	padding-left: 0;
+}
+
+.lfr-has-sidebar #content-wrapper {
+	padding-left: 270px;
+	width: auto;
+}

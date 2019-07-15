@@ -91,7 +91,7 @@ public class TeacherTest extends ModuleTestBase {
 	}
 
 	
-	/* tmp
+	
 	public void testCreatingTestData() throws Exception { // tmp
 		assertListRowCount(2);
 		Teacher t = new Teacher();
@@ -106,6 +106,5 @@ public class TeacherTest extends ModuleTestBase {
 		t = XPersistence.getManager().find(Teacher.class, "X2");
 		XPersistence.getManager().remove(t);
 	}
-	*/
 	
 }

@@ -6,13 +6,12 @@ import java.util.logging.*;
 import org.apache.catalina.startup.*;
 
 /**
- * 
+ * tmp
  * @author Javier Paniza
  */
 public class AppServer { 
 	
 	public static void run(String app) throws Exception {
-		Logger.getLogger("").setLevel(Level.INFO);
         String webappDir = new File("web").getAbsolutePath();
         Tomcat tomcat = new Tomcat();
         tomcat.setBaseDir("temp"); 
