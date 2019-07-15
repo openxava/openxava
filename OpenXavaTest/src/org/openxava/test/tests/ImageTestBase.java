@@ -43,18 +43,32 @@ abstract public class ImageTestBase extends ModuleTestBase {
 		}	
 		*/
 		// tmp ini
+		getHtmlPage().executeJavaScript("console.log('Hola')");
 		String imageURL = (String) getHtmlPage().executeJavaScript(
+			"console.log('" + property + ": Starting...');" + // tmp	
+			"var size = document.getElementsByName('" + decorateId(property) + "').length;" +
+			"console.log('" + property + ": size=' + size);" + // tmp
 			"var input = document.getElementsByName('" + decorateId(property) + "')[0];" +
+			"console.log('" + property + ": input=' + input);" + // tmp
 			"imageEditor.getImageURL(input)"
 		).getJavaScriptResult();
+		waitAJAX(); // tmp
+		Thread.sleep(5000); // tmp
 		System.out.println("[ImageTestBase.assertImage] property=" + property); // tmp
 		System.out.println("[ImageTestBase.assertImage] decorateId(property)=" + decorateId(property)); // tmp
 		System.out.println("[ImageTestBase.assertImage] imageURL=" + imageURL); // tmp
+		
 		URL url = getHtmlPage().getWebResponse().getWebRequest().getUrl(); 
 		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort() + "/" + url.getPath().split("/")[1];
 		imageURL = imageURL.replace("..", urlPrefix);
 		// tmp fin
-		WebResponse response = getWebClient().getPage(imageURL).getWebResponse();
+		// tmp WebResponse response = getWebClient().getPage(imageURL).getWebResponse();
+		// tmp ini
+		// TMP ME QUEDÉ POR AQUÍ: INTENTANDO QUE LA IMAGEN NO USURPE LA PÁGINA ACTUAL, QUE ES LO QUE HACE QUE LA SEGUNDA VEZ NO FUNCIONE EL JS.
+		// TMP						LO DE ABAJO FUE LO ÚLTIMO QUE PROBÉ Y NO ME FUNCIONÓ.
+		TopLevelWindow imageWindow = (TopLevelWindow) getWebClient().openWindow(new URL(imageURL), "loadingImage");
+		WebResponse response = imageWindow.getEnclosedPage().getWebResponse();
+		// tmp fin
 		if (present) {
 			assertTrue("Image not obtained", response.getContentAsString().length() > 0);
 			// tmp assertEquals("Result is not an image", "image", response.getContentType());			
@@ -66,6 +80,7 @@ abstract public class ImageTestBase extends ModuleTestBase {
 			System.out.println("[ImageTestBase.assertImage] response.getContentAsString().length()=" + response.getContentAsString().length()); // tmp
 			assertTrue("Image obtained", response.getContentAsString().length() == 0);
 		}		
+		imageWindow.close(); // tmp
 	}
 
 

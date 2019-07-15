@@ -6,7 +6,6 @@
 
 <editors>
 
-	<!-- tmp ini -->
 	<editor name="Image2" url="imageEditor2.jsp" format="false" >
 		<formatter class="org.openxava.formatters.ImageFormatter" />
 		<for-stereotype stereotype="FOTO" />

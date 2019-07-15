@@ -22,9 +22,11 @@ public class CarTest extends ImageTestBase {
 		setValueInCollection("photos", 0, "description", "FRONT");
 		setValueInCollection("photos", 1, "description", "BACK");
 		changeImage("photos.0.photo", "/test-images/foto_javi.jpg");
-		changeImage("photos.1.photo", "/test-images/cake.gif");		
+		Thread.sleep(10000); // tmp
+		changeImage("photos.1.photo", "/test-images/cake.gif");
+		Thread.sleep(10000); // tmp
 		assertImage("photos.0.photo");
-		assertImage("photos.1.photo"); // TMP ME QUEDÉ POR AQUÍ: FALLA. TENGO UN REGISTRO PROVA EN EL QUE SI LE PONGO UNA FOTO EN LA PRIMERA LÍNEA AL CONSULTAR NO ESTÁ. ME QUEDÉ DEPURANDO ESO. PUEDE QUE ESTÉ RELACIONADO. 
+		assertImage("photos.1.photo");  
 				
 		reload(); // In order that actions work fine after the above assertImage() usage
 		execute("CRUD.save");

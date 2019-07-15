@@ -55,7 +55,7 @@ public class SaveAction extends TabBaseAction {
 
 	private Map modify() throws Exception {
 		Map values = null;
-		Map keyValues = getView().getKeyValues();				
+		Map keyValues = getView().getKeyValues();		
 		MapFacade.setValues(getModelName(), keyValues, getValuesToSave());
 		addMessage("entity_modified", getModelName());
 		if (!isResetAfterOnModify() && isRefreshAfter()) {
