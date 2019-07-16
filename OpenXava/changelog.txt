@@ -2,7 +2,8 @@ Change Log for OpenXava project
 ===============================
 
 Embedded Tomcat:
-- Nueva aplicación.
+- Nueva aplicación:
+	¿Quitar templates?
 - OpenXavaTest.
 	- ¿Actualizar automáticamente con updateOX? Si se puede, ¿por qué no? 
 	- Poder modificar OpenXava y ver efecto enseguida.
@@ -10,6 +11,7 @@ Embedded Tomcat:
 - InvoiceDemo
 - Quitar MySchool.
 - Probar con un Eclipse plano.
+- Probar con Java 11.
 - Rehacer doc.
 	- Eliminar Quick Start
 	- Getting started.

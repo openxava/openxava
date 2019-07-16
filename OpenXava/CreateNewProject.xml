@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
 <!--
+	tmp Mejorar esta descripción.
 	This ant allows you to create a new OpenXava project in a simple way.
 	Just put value the properties below, and then execute createNewProject target.	
 -->
@@ -29,7 +30,7 @@
 	<!-- tmp fin -->	
 		<mkdir dir="../${project}"/>
 		<copy todir="../${project}" overwrite="true">
-			<fileset dir="." excludes="CreateNewProject.xml" />
+			<fileset dir="project-templates/en"/>
 	    	<filterset>	    	
 				<filter token="project" value="${project}"/>
 	    		<filter token="package" value="${package}"/> <!-- tmp -->
@@ -60,7 +61,7 @@
 		<delete file="../${project}/src/src.txt"/>
 		-->
 		<delete dir="../${project}/bin" failonerror="false"/>
-		<ant antfile="../OpenXava/build.xml" target="updateOX"/>
+		<ant antfile="build.xml" target="updateOX"/>
 	</target>
 					
 </project>
