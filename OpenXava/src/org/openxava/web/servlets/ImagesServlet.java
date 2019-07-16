@@ -28,6 +28,7 @@ public class ImagesServlet extends HttpServlet {
 			String propertyKey = Ids.undecorate(request.getParameter( "propertyKey")); // tmp
 			System.out.println("[ImagesServlet.doGet] propertyKey=" + propertyKey); // tmp
 			View view = getCurrentView( request, propertyKey );
+			System.out.println("[ImagesServlet.doGet] view.getModelName()=" + view.getModelName()); // tmp
 			byte [] image = (byte []) view.getValue(propertyKey); 
 			if (image != null) {
 				// tmp response.setContentType("image");
@@ -42,7 +43,7 @@ public class ImagesServlet extends HttpServlet {
 	}
 	
 	private View getCurrentView( HttpServletRequest request, String propertyKey) {  		 
-		ModuleContext context = (ModuleContext) request.getSession().getAttribute("context"); 
+		ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
 		return (View) context.get(request, "xava_view");
 	}
 		

@@ -19,7 +19,7 @@ System.out.println("[imageEditor.jsp] propertyKey=" + propertyKey); // tmp
 System.out.println("[imageEditor.jsp] Ids.undecorate(propertyKey)=" + Ids.undecorate(propertyKey)); // tmp
 %>
 
-<input name='<%=propertyKey%>'   
+<input id='<%=propertyKey%>'   
 	type="file" class="xava_image" <%-- tmp Comprobar que lo de xava_image está bien, ver otros casos --%>
 	data-application="<%=applicationName%>" 
 	data-module="<%=module%>"

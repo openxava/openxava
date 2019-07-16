@@ -13,6 +13,7 @@ Change Log for OpenXava project
 		- Con Liferay	
 		- Comprobar que las etiquetas se traducen con un idioma incluido pero sin las traducciones (Italian) o no incluido. Esto después que pueda hacer un deployWar.
 		- ¿Hacer un test manual?
+		- Migration
 		- ¿Cambiar curso? 
 			- Se usa PHOTO e IMAGES_GALLERY. 
 			- ¿Dejar solo una? Como mínimo cambiar los pantallazos.
@@ -21,6 +22,7 @@ Change Log for OpenXava project
 			- Para la imagen el que se coja los datos de la vista puede ser suficiente, pero en una utilidad de subida genérica a lo mejor los
 				se graban directamente en la base de datos, o algo que no use ningún objeto de sesión. 
 	- Añadir tareas para GALLERY_IMAGES, FILE, FILES, IMPORTAR EXCEL, SUBIR_ARCHIVO (¿Mantener sistema antiguo además?).
+			- ¿Generalizar métodos en ModuleTestBase para imágenes?
 	- Genérico: Documentar, adaptar lo hecho y ¿ejemplo en OpenXavaTest?
 	- Probar en Android e iPad.
 

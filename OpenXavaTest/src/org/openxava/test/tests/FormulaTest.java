@@ -199,6 +199,7 @@ public class FormulaTest extends ModuleTestBase {
 		execute("CRUD.new");		
 		setValue("name", "SOMETHING"); 
 		execute("Collection.new", "viewObject=xava_view_section0_ingredients");
+		/* tmp 
 		execute("ImageEditor.changeImage", "newImageProperty=image"); 
 		assertNoErrors();
 		assertAction("LoadImage.loadImage"); 		
@@ -206,7 +207,10 @@ public class FormulaTest extends ModuleTestBase {
 		setFileValue("newImage", imageUrl);
 		execute("LoadImage.loadImage");
 		assertNoErrors();
+		*/
+		changeImage("image", "/test-images/cake.gif"); // tmp Ejemplo para migration
 		
+		/* tmp
 		HtmlPage page = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();		
 		URL url = page.getWebResponse().getWebRequest().getUrl(); 
 		
@@ -223,7 +227,10 @@ public class FormulaTest extends ModuleTestBase {
 		}				
 		WebResponse response = getWebClient().getPage(imageURL).getWebResponse();		
 		assertTrue("Image not obtained", response.getContentAsString().length() > 0);
-		assertEquals("Result is not an image", "image", response.getContentType());		
+		assertEquals("Result is not an image", "image", response.getContentType());
+		*/
+		assertImage("image"); // TMP ME QUEDÉ POR AQUÍ: FALLA. TAMBIÉN FALLA AL HACER CLICK EN LA FOTO DESDE EL DIÁLOGO, CREO QUE ES LO MISMO. LO QUE OCURRE
+								// TMP		ES QUE LA VISTA ES DIFERENTE EN LOS DOS SERVLETS.
 	}
 	
 	public void testDependentReferencesAsDescriptionsListWithHiddenKeyInCollection_aggregateCanHasReferenceToModelOfContainerType() throws Exception {		

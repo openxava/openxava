@@ -2968,7 +2968,6 @@ public class View implements java.io.Serializable {
 			for (MetaProperty p: getMetaPropertiesList()) {
 				String propertyKey= qualifier + i + "." + p.getName();
 				String [] results = getRequest().getParameterValues(propertyKey);
-				if (!WebEditors.mustToFormat(p, getViewName())) results = null; // tmp ¿Se comprueba en alguna prueba JUnit?
 				if (results == null && p.getName().contains(".")) {
 					String refName = Strings.noLastTokenWithoutLastDelim(p.getName(), ".");
 					if (p.getMetaModel().getAllKeyPropertiesNames().size() > 1) {						

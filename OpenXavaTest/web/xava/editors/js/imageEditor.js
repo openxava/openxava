@@ -49,9 +49,9 @@ imageEditor.enableUpload = function(pond, input) {
 }
 
 imageEditor.getUploadURL = function(input) {
-	return "../xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.name;
+	return "../xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id;
 }
 
 imageEditor.getImageURL = function(input) {
-	return "../xava/ximage?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.name + "&dif=" + new Date().getTime();
+	return "../xava/ximage?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id + "&dif=" + new Date().getTime();
 }

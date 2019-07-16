@@ -27,6 +27,7 @@ public class LoadImageAction extends ViewBaseAction implements INavigationAction
 				System.out.println("[LoadImageAction.execute] fi.get().length=" + fi.get().length); // tmp
 				// tmp getPreviousView().setValue(getNewImageProperty(), fi.get()); // tmp ¿En migration? ¿Cómo documentar (o afrontar) este cambio?
 				getView().setValue(getNewImageProperty(), fi.get()); // tmp ¿En migration? ¿Cómo documentar (o afrontar) este cambio?
+				System.out.println("[LoadImageAction.execute] getView().getModelName()=" + getView().getModelName()); // tmp
 				// tmp ini
 				/*
 				String descriptionProperty = getNewImageProperty().replace(".photo", ".description");

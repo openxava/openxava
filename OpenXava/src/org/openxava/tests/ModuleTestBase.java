@@ -3066,5 +3066,62 @@ public class ModuleTestBase extends TestCase {
 		HtmlElement attachmentsEditor = getHtmlPage().getHtmlElementById(decorateId("editor_" + name));
 		return attachmentsEditor.getOneHtmlElementByAttribute("div", "class", "ox-attachments");
 	}
+	
+	protected void assertImage(String property) throws Exception { // tmp
+		assertImage(property, true);
+	}
+	
+	protected void assertNoImage(String property) throws Exception { // tmp
+		assertImage(property, false);
+	}
+	
+	private void assertImage(String property, boolean present) throws Exception { // tmp
+		String imageURL = (String) getHtmlPage().executeJavaScript(
+			"var input = document.getElementById('" + decorateId(property) + "');" +
+			"imageEditor.getImageURL(input)"
+		).getJavaScriptResult();
+		
+		URL url = getHtmlPage().getWebResponse().getWebRequest().getUrl(); 
+		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort() + "/" + url.getPath().split("/")[1];
+		imageURL = imageURL.replace("..", urlPrefix);
+		TopLevelWindow imageWindow = (TopLevelWindow) getWebClient().openWindow(new URL(imageURL), "loadingImage");
+		WebResponse response = imageWindow.getEnclosedPage().getWebResponse();
+		if (present) {
+			assertTrue("Image not obtained", response.getContentAsString().length() > 0); // tmp i18n
+			assertTrue("Result is not an image", response.getContentType().startsWith("image")); // tmp i18n 
+		}
+		else {
+			assertTrue("Image obtained", response.getContentAsString().length() == 0);
+		}		
+		imageWindow.close(); 
+	}
+
+
+	protected void changeImage(String property, String imageURL) throws Exception { // tmp
+		String imageAbsoluteURL = System.getProperty("user.dir") + imageURL;
+		String decoratedProperty = decorateId(property);
+		HtmlFileInput input = (HtmlFileInput) getHtmlPage().getElementById(decoratedProperty);
+		input.setValueAttribute(imageAbsoluteURL);
+		assertEquals("INPUT for file upload should not have name", "", input.getNameAttribute()); // Having name makes that JUnit and real browser behaves different, 																								// and real browser would fail with element collection (try with Car module)
+		getHtmlPage().executeJavaScript(
+			"var formData = new FormData();" +
+			"var input = document.getElementById('" + decoratedProperty + "');" +
+			"formData.append('file', input.files[0]);" +
+			"var xhr = new XMLHttpRequest();" +
+			"xhr.open('POST', imageEditor.getUploadURL(input));" +
+			"xhr.send(formData);"				
+		);
+		waitAJAX();
+	}
+	
+	protected void removeImage(String property) throws Exception { // tmp
+		getHtmlPage().executeJavaScript(
+			"var input = document.getElementById('" + decorateId(property) + "');" +	
+			"var xhr = new XMLHttpRequest();" +
+			"xhr.open('DELETE', imageEditor.getUploadURL(input));" +
+			"xhr.send(null);"				
+		);
+		waitAJAX();		
+	}
 
 }

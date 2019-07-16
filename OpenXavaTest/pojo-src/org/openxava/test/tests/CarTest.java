@@ -1,13 +1,14 @@
 package org.openxava.test.tests;
 
 import org.openxava.test.model.*;
+import org.openxava.tests.*;
 
 /**
  * 
  * @author Javier Paniza
  */
 
-public class CarTest extends ImageTestBase {
+public class CarTest extends ModuleTestBase {
 	
 	public CarTest(String testName) {
 		super(testName, "Car");		
@@ -22,13 +23,11 @@ public class CarTest extends ImageTestBase {
 		setValueInCollection("photos", 0, "description", "FRONT");
 		setValueInCollection("photos", 1, "description", "BACK");
 		changeImage("photos.0.photo", "/test-images/foto_javi.jpg");
-		Thread.sleep(10000); // tmp
 		changeImage("photos.1.photo", "/test-images/cake.gif");
-		Thread.sleep(10000); // tmp
 		assertImage("photos.0.photo");
 		assertImage("photos.1.photo");  
 				
-		reload(); // In order that actions work fine after the above assertImage() usage
+		// TMP reload(); // In order that actions work fine after the above assertImage() usage
 		execute("CRUD.save");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
@@ -39,8 +38,9 @@ public class CarTest extends ImageTestBase {
 		assertImage("photos.0.photo");
 		assertImage("photos.1.photo");
 		
-		reload(); // In order that actions work fine after the above assertImage() usage
-		execute("ImageEditor.deleteImage", "newImageProperty=photos.0.photo");
+		// TMP reload(); // In order that actions work fine after the above assertImage() usage
+		// TMP execute("ImageEditor.deleteImage", "newImageProperty=photos.0.photo");
+		removeImage("photos.0.photo"); // tmp
 		execute("CRUD.save");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
@@ -49,7 +49,7 @@ public class CarTest extends ImageTestBase {
 		assertNoImage("photos.0.photo");
 		assertImage("photos.1.photo");
 		
-		reload(); // In order that actions work fine after the above assertImage() usage
+		// TMP reload(); // In order that actions work fine after the above assertImage() usage
 		setValueInCollection("photos", 1, "description", "");
 		execute("CRUD.save");
 		execute("Mode.list");
@@ -59,7 +59,7 @@ public class CarTest extends ImageTestBase {
 		assertNoImage("photos.0.photo");
 		assertImage("photos.1.photo");
 		
-		reload(); // In order that actions work fine after the above assertImage() usage
+		// TMP reload(); // In order that actions work fine after the above assertImage() usage
 		execute("CRUD.delete");
 		assertNoErrors();
 	}

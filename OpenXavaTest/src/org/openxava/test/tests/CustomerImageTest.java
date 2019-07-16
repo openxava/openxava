@@ -1,11 +1,13 @@
 package org.openxava.test.tests;
 
+import org.openxava.tests.*;
+
 /**
  * 
  * @author Javier Paniza
  */
 
-public class CustomerImageTest extends ImageTestBase { 	
+public class CustomerImageTest extends ModuleTestBase { // tmp ¿Fusionar con customer?	
 	
 	public CustomerImageTest(String testName) {
 		super(testName, "Customer");
@@ -22,15 +24,7 @@ public class CustomerImageTest extends ImageTestBase {
 		execute("ImageEditor.deleteImage", "newImageProperty=photo");
 		assertNoErrors();
 		*/
-		// tmp ini
-		getHtmlPage().executeJavaScript(
-			"var xhr = new XMLHttpRequest();" +
-			"xhr.open('DELETE', imageEditor.getUploadURL(input));" +
-			"xhr.send(null);"				
-		);
-		waitAJAX();
-		// tmp fin
-				
+		removeImage("photo"); // tmp 				
 		assertNoImage("photo"); 
 	}
 	
