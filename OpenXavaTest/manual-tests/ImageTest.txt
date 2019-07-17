@@ -1,0 +1,17 @@
+The automated tests in this project do not include some aspects of Image editor.
+
+Customer module:
+- Go to first customer: Must have a photo. No uploading progress must be done.
+- Navigate to the next one: Must have a link to browse for a new photo.
+- Browser for a new photo.
+- Click on the photo. A new browser tab should open displaying the photo. Close it. 
+- Save. Go to list. Select the second record. You have to see that photo. No uploading progress must be done. 
+- Change for another photo using drag & drop. Save.
+- Go to previous record. You have to see the photo of record 1. No uploading progress must be done.
+- Go to next record. You have to see the photo you have dragged & dropped. No uploading progress must be done.
+- Click to remove the photo. Save.
+- Go to List. Select the second record. You have to see no photo.
+- Go to previous record. You have to see the photo of first customer.
+- Execute "SET OFF" action. Try to click on remove photo. It should not work. 
+- Go to next record. You have to see no photo.
+- Execute "SET OFF" action. Try to click on Browser link. It should not work. 

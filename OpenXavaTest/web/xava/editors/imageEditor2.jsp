@@ -1,10 +1,11 @@
-<%@page import="com.sun.scenario.effect.impl.prism.PrDrawable"%>
 <%@ include file="../imports.jsp"%>
 
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 <%@ page import="org.openxava.web.Ids" %>
 <%@ page import="org.openxava.util.Is"%>
 <%@ page import="org.openxava.util.Locales"%>
+
+<jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/> <%-- tmp --%>
 
 <%
 String propertyKey = request.getParameter("propertyKey");
@@ -15,8 +16,7 @@ Object value = request.getAttribute(propertyKey + ".value");
 String dataEmpty = Is.empty(value)?"data-empty='true'":"";
 boolean editable = "true".equals(request.getParameter("editable"));
 String dataEditable = editable?"":"data-editable='true'";
-System.out.println("[imageEditor.jsp] propertyKey=" + propertyKey); // tmp
-System.out.println("[imageEditor.jsp] Ids.undecorate(propertyKey)=" + Ids.undecorate(propertyKey)); // tmp
+System.out.println("[imageEditor.jsp] propertyKey= " + propertyKey); // tmp
 %>
 
 <input id='<%=propertyKey%>'   

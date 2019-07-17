@@ -229,8 +229,7 @@ public class FormulaTest extends ModuleTestBase {
 		assertTrue("Image not obtained", response.getContentAsString().length() > 0);
 		assertEquals("Result is not an image", "image", response.getContentType());
 		*/
-		assertImage("image"); // TMP ME QUEDÉ POR AQUÍ: FALLA. TAMBIÉN FALLA AL HACER CLICK EN LA FOTO DESDE EL DIÁLOGO, CREO QUE ES LO MISMO. LO QUE OCURRE
-								// TMP		ES QUE LA VISTA ES DIFERENTE EN LOS DOS SERVLETS.
+		assertImage("image"); 
 	}
 	
 	public void testDependentReferencesAsDescriptionsListWithHiddenKeyInCollection_aggregateCanHasReferenceToModelOfContainerType() throws Exception {		

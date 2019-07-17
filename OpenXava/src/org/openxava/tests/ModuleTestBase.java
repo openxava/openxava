@@ -3098,7 +3098,7 @@ public class ModuleTestBase extends TestCase {
 
 
 	protected void changeImage(String property, String imageURL) throws Exception { // tmp
-		String imageAbsoluteURL = System.getProperty("user.dir") + imageURL;
+		String imageAbsoluteURL = System.getProperty("user.dir") + imageURL; // tmp ¿System.getProperty("user.dir")?
 		String decoratedProperty = decorateId(property);
 		HtmlFileInput input = (HtmlFileInput) getHtmlPage().getElementById(decoratedProperty);
 		input.setValueAttribute(imageAbsoluteURL);

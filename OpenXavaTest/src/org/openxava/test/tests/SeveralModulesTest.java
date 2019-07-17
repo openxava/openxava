@@ -32,6 +32,7 @@ public class SeveralModulesTest extends ModuleTestBase {
 
 	private void assertUploadFiles() throws Exception, IOException, MalformedURLException {
 		selectModuleInPage("Customer");		
+		/* tmp
 		execute("ImageEditor.changeImage", "newImageProperty=photo");
 		assertNoErrors();
 		assertAction("LoadImage.loadImage");		
@@ -39,7 +40,10 @@ public class SeveralModulesTest extends ModuleTestBase {
 		setFileValue("newImage", imageUrl);
 		execute("LoadImage.loadImage");		
 		assertNoErrors();
+		*/
+		changeImage("photo", "/test-images/foto_javi.jpg"); // tmp
 		
+		/* tmp
 		HtmlPage page = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();		
 		URL url = page.getWebResponse().getWebRequest().getUrl(); 
 		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort();
@@ -56,6 +60,8 @@ public class SeveralModulesTest extends ModuleTestBase {
 		WebResponse response = getWebClient().getPage(imageURL).getWebResponse();		
 		assertTrue("Image not obtained", response.getContentAsString().length() > 0);
 		assertEquals("Result is not an image", "image", response.getContentType());
+		*/
+		assertImage("photo"); // tmp
 	}
 
 	private void assertCollections() throws Exception {

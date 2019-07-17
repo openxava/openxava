@@ -141,6 +141,7 @@ public class AJAXTest extends ModuleTestBase {
 			"errors, messages");
 	}
 	
+	/* tmp Ya no aplica
 	public void testDeleteImageInElementCollection() throws Exception { 
 		if (!usesAnnotatedPOJO()) return;
 		changeModule("Car");
@@ -150,6 +151,7 @@ public class AJAXTest extends ModuleTestBase {
 		execute("ImageEditor.deleteImage", "newImageProperty=photos.1.photo");
 		assertLoadedParts("editor_photos___1___photo, errors, messages");
 	}
+	*/
 		
 	public void testNotDuplicateDivOnLoadCollection() throws Exception { 
 		changeModule("Seller");
@@ -383,7 +385,7 @@ public class AJAXTest extends ModuleTestBase {
 		execute("Customer.changeNameLabel");		
 		assertLoadedParts("label_name, errors, messages, ");
 		execute("CRUD.new");
-		assertLoadedParts("errors," + 
+		assertLoadedParts("errors," + // TMP FALLA
 				"button_bar, bottom_buttons," + // Because Refresh is removed 
 				"editor_seller.name, " +
 				"editor_number, " +
