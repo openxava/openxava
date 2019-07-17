@@ -17,7 +17,9 @@
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
             <property name="hibernate.show_sql" value="false"/>    
+            <!-- tmp 
             <property name="hibernate.default_schema" value="XAVATEST"/>
+            -->
             <property name="hibernate.connection.release_mode" value="after_transaction"/>
             <property name="hibernate.jdbc.factory_class" 
             		value="org.hibernate.jdbc.NonBatchingBatcherFactory"/>

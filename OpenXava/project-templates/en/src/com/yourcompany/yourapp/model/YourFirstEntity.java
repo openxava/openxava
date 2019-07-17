@@ -11,13 +11,13 @@ import org.openxava.model.*;
 /**
  * This is an example of an entity.
  * 
- * Free feel to rename, modify or remove at your taste.
+ * Feel free feel to rename, modify or remove at your taste.
  */
 
 @Entity
 public class YourFirstEntity extends Identifiable {
 	
-	@Column(length = 40) @Required
+	@Column(length=50) @Required
 	private String description;
 	
 	private LocalDate date;

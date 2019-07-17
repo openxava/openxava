@@ -2,30 +2,35 @@ Change Log for OpenXava project
 ===============================
 
 Embedded Tomcat:
-- Nueva aplicación:
-	¿Quitar templates?
 - OpenXavaTest.
 	- ¿Actualizar automáticamente con updateOX? Si se puede, ¿por qué no? 
+		- TMP ME QUEDÉ HACIENDO ESTO. DA ERROR CON LA BASE DE DATOS.
 	- Poder modificar OpenXava y ver efecto enseguida.
 	- Suite.
+- Lanzador dbmanager. ¿En OpenXava o en proyecto?	
 - InvoiceDemo
 - Quitar MySchool.
 - Probar con un Eclipse plano.
 - Probar con Java 11.
+- Probar con Linux.
 - Rehacer doc.
 	- Eliminar Quick Start
 	- Getting started.
 	- Añadir configuración WTP en otra parte. ¿O no? Quizás es mejor no tener tantas alternativas.
 	- Añadir instalación y despliegue en Tomcat. ¿Qué pasa con context.xml?
 	- Añadir configuración para MySQL, PostgreSQL, etc. ¿Ponerlo en los XML?
+	- Migration:
+		- ¿Poner lo que hemos quitaro los templates? Quizás con la nota en changelog es suficiente.
 - Modificar distribución.
 	- Directamente a Getting Started.
 	- Poner Getting Started en inicio Eclipse.
-	- Eliminar Tomcat. ¿Donde pondremos la utilidad para arranca el manager? ¿En _run?
+	- Eliminar Tomcat. 
 	- Quitar view Servers.
+	- Actualizar las tareas Ant predefinidas.
 - ¿Método de trabajo? ¿Con que configuración debería trabajar yo?
 
-
+- OpenXavaTemplate and OpenXavaPlantilla projects removed from distribution.
+- CreateNewProject.xml and CrearNuevoProyecto.xml available in OpenXava project directly.
 - Servlet API 4.0 included, though we still are compatible with Servlet 3.0.
 
 - Grouping by in list mode has a year and month entry for each LocalDate property.  
