@@ -10,7 +10,7 @@ body {
 	padding: 0;
 }
 
-body, .ui-dialog, input { 
+body, .ui-dialog, input, .filepond--root { /* tmp .filepond--root */ 
 	font-family: Arial,Helvetica,Verdana,sans-serif !important;
 }
 
@@ -1860,3 +1860,50 @@ div[id$="_Index__view"] .ox-list-title {
 .ox-list-header a:hover i.mdi-arrow-down-bold, .ox-list-header a:hover i.mdi-arrow-up-bold {
 	color: blue;
 } 
+
+/* tmp ini  */
+.filepond--item {
+	width: 190px;
+}
+
+.filepond--root {
+	width: 220px;
+}
+
+.filepond--drop-label label {
+	width: 190px;
+	white-space: normal;
+}
+
+.filepond--panel-root {
+	border-radius: 4px !important;
+}
+
+.filepond--file-action-button {
+    background: #6F6F6F !important;
+}
+
+.filepond--image-preview-overlay-success {
+	color: #6fc664 !important;
+}
+
+.filepond--image-preview-overlay-failure {
+	color: #DC4A38 !important;
+}
+
+.filepond--image-preview-wrapper {
+	cursor: pointer;
+}
+
+.filepond--file-info-main {
+	display: none !important;
+}
+
+.ox-element-collection .filepond--root { 
+	height: 180px;
+}
+
+.ox-list img {
+	max-height: 30px;
+}
+/* tmp fin */

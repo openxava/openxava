@@ -626,7 +626,7 @@ public class View implements java.io.Serializable {
 			}
 		}	
 		setValues(values, true);
-		if (modelChanged) refresh(); 		
+		if (modelChanged) refresh();
 	}
 	
 	private void initDefaultValues() {
@@ -2409,7 +2409,7 @@ public class View implements java.io.Serializable {
 			for (int i = 0; i < count; i++) {
 				getSectionView(i).clear();
 			}	
-		}						
+		}				
 	}
 	
 	/**

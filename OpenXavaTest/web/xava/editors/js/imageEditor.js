@@ -32,13 +32,12 @@ openxava.addEditorInitFunction(function() {
 	    	if (input.dataset.editable === "true") {
 	    		pond.disabled = true; 
 	    	}
-	    	// tmp ini
 	    	pond.dropValidation = true;
 	    	pond.beforeDropFile = function() {
 	    		imageEditor.enableUpload(pond, input);
 	    		return true;
 	        }
-	    	// tmp fin
+	    	pond.allowRevert = false; // tmp
     	}
     	
     });

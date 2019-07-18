@@ -3,19 +3,17 @@ Change Log for OpenXava project
 
 - Subir con AJAX:
 	- Que funcione con foto.
-		- Quitar el "toca para deshacer" al subir un archivo
-		- Modo lista.
-		- Con light.css.
 		- Con Liferay	
 		- Comprobar que las etiquetas se traducen con un idioma incluido pero sin las traducciones (Italian) o no incluido. Esto después que pueda hacer un deployWar.
-		
 		- Migration
 		- ¿Cambiar curso? 
 			- Se usa PHOTO e IMAGES_GALLERY. 
 			- ¿Dejar solo una? Como mínimo cambiar los pantallazos.
 			- Adaptar prueba unitaria. Si no hay ejemplo de subir foto, ponerlo.
-		- Buscar todos los tmps
 		- Refinar todo el código.
+		- Buscar todos los tmps
+		- Quitar imágenes de Customer 2 y 3.
+		- Probar test manual.
 		- Suite.	
 	- Seguridad:
 			- Para la imagen el que se coja los datos de la vista puede ser suficiente, pero en una utilidad de subida genérica a lo mejor los
@@ -24,6 +22,11 @@ Change Log for OpenXava project
 			- ¿Generalizar métodos en ModuleTestBase para imágenes?
 	- Genérico: Documentar, adaptar lo hecho y ¿ejemplo en OpenXavaTest?
 	- Probar en Android e iPad.
+	
+	
+	
+- Images of PHOTO stereotype are shown in tiny size in list mode.
+- Fix: Broken image when PHOTO stereotype with no image is shown in list.  	
 
 - Grouping by in list mode has a year and month entry for each LocalDate property.  
 - Filtering by year, month and year/month in list mode for LocalDate columns.

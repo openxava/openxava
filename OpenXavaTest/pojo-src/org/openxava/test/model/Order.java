@@ -12,7 +12,6 @@ import org.openxava.jpa.*;
 
 @Entity
 @Table(name="TOrder")
-/* tmp
 @View(members=
 	"year, number, date;" +
 	"customer;" +
@@ -20,16 +19,6 @@ import org.openxava.jpa.*;
 	"amount;" +
 	"remarks"
 )
-*/
-// tmp ini
-@View(members=
-	"year, number, date;" +
-	"customer { customer } " +
-	"details { details }" +
-	"others { amount ;" +
-	"remarks }"
-)
-// tmp fin
 public class Order extends Identifiable {
 	
 	@Column(length=4) 

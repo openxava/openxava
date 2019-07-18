@@ -2138,7 +2138,7 @@ div[id$="_Index__view"] .ox-list-title {
 	color: white; 
 } 
 
-/* tmp ini Si es común a todos los estilos quizás podría poner en otro sitio, como en el editor. */
+/* tmp ini  */
 .filepond--item {
 	width: 190px;
 }
@@ -2179,5 +2179,9 @@ div[id$="_Index__view"] .ox-list-title {
 
 .ox-element-collection .filepond--root { 
 	height: 180px;
+}
+
+.ox-list img {
+	max-height: 30px;
 }
 /* tmp fin */

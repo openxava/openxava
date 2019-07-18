@@ -19,7 +19,7 @@ String dataEditable = editable?"":"data-editable='true'";
 System.out.println("[imageEditor.jsp] propertyKey= " + propertyKey); // tmp
 %>
 
-<input id='<%=propertyKey%>'   
+<input id='<%=propertyKey%>' 
 	type="file" class="xava_image" <%-- tmp Comprobar que lo de xava_image está bien, ver otros casos --%>
 	data-application="<%=applicationName%>" 
 	data-module="<%=module%>"
