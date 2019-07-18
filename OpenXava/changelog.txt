@@ -3,10 +3,10 @@ Change Log for OpenXava project
 
 Embedded Tomcat:
 - OpenXavaTest.
-	- ¿Actualizar automáticamente con updateOX? Si se puede, ¿por qué no? 
-		- TMP ME QUEDÉ HACIENDO ESTO. DA ERROR CON LA BASE DE DATOS.
 	- Poder modificar OpenXava y ver efecto enseguida.
-	- Suite.
+	- Suite. 
+		- Hacer un test y dejar la suite la mañana.
+		- El test multidatabase sí que debería de hacerlo.
 - Lanzador dbmanager. ¿En OpenXava o en proyecto?	
 - InvoiceDemo
 - Quitar MySchool.

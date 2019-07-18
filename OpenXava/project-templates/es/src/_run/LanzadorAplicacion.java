@@ -11,7 +11,7 @@ import org.openxava.util.*;
 public class @proyecto@ { 
 
 	public static void main(String[] args) throws Exception {
-		DBServer.start("@basedatos@"); // Comment this line if you use your own database
+		DBServer.start("@basedatos@"); // Para user tu propia base de datos comenta esta línea y configura web/META-INF/context.xml
         AppServer.run("@proyecto@");
 	}
 

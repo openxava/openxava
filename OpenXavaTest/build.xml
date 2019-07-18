@@ -151,7 +151,13 @@
 	
 	<target name="updateOX">
 		<ant antfile="../OpenXava/build.xml" target="updateOX"/>
-	</target>		
+	</target>
+	
+	<!-- tmp ini -->
+	<target name="updateOpenXavaJar">
+		<ant antfile="../OpenXava/build.xml" target="updateOpenXavaJar"/>
+	</target>
+	<!-- tmp fin -->
 	
 	<target name="runTests">
 		<junit fork="true"  printsummary="true">

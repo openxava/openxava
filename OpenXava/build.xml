@@ -967,7 +967,6 @@
 	</target>
 	
 	<!-- tmp ini -->
-	<!-- tmp Eliminar esto de los CreateNewProject y CrearNuevoProyecto -->
 	<target name="createAppLauncher">
 		<mkdir dir="../${project}/src/_run"/>
 		<copy file="${openxava.base.dir}/OpenXava/project-templates/en/src/_run/AppLauncher.java" 
@@ -984,6 +983,10 @@
 	    		<filter token="datasource" value="${project}DS"/> 
 			</filterset> 			         
 		</copy>			
+	</target>
+	
+	<target name="updateOpenXavaJar">
+		<jar jarfile="../${project}/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
 	</target>
 	<!-- tmp fin -->
 	
