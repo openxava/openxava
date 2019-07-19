@@ -37,7 +37,7 @@ openxava.addEditorInitFunction(function() {
 	    		imageEditor.enableUpload(pond, input);
 	    		return true;
 	        }
-	    	pond.allowRevert = false; // tmp
+	    	pond.allowRevert = false; 
     	}
     	
     });
@@ -55,9 +55,9 @@ imageEditor.enableUpload = function(pond, input) {
 }
 
 imageEditor.getUploadURL = function(input) {
-	return "../xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id;
+	return "/" + openxava.lastApplication + "/xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id;
 }
 
 imageEditor.getImageURL = function(input) {
-	return "../xava/ximage?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id + "&dif=" + new Date().getTime();
+	return "/" + openxava.lastApplication + "/xava/ximage?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id + "&dif=" + new Date().getTime();
 }

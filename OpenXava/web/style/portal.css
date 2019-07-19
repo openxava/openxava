@@ -1075,7 +1075,6 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 	color: lightgray; 
 }
 
-/* tmp ini  */
 .filepond--root {  
 	font-family: Arial,Helvetica,Verdana,sans-serif !important;
 }
@@ -1086,6 +1085,8 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 
 .filepond--root {
 	width: 220px;
+	background-color: ;
+
 }
 
 .filepond--drop-label label {
@@ -1095,10 +1096,15 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 
 .filepond--panel-root {
 	border-radius: 4px !important;
+	background-color: white !important;
 }
 
 .filepond--file-action-button {
     background: #6F6F6F !important;
+}
+
+.filepond--file-action-button:hover {
+	color: white;
 }
 
 .filepond--image-preview-overlay-success {
@@ -1106,7 +1112,7 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 }
 
 .filepond--image-preview-overlay-failure {
-	color: #DC4A38 !important;
+	color: #ff0000 !important;
 }
 
 .filepond--image-preview-wrapper {
@@ -1121,7 +1127,6 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 	height: 180px;
 }
 
-.ox-list img {
-	max-height: 30px;
+.liferay-xava-cell-wrapper img {
+	max-height: 20px;
 }
-/* tmp fin */

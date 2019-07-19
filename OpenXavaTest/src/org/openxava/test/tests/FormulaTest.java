@@ -199,36 +199,7 @@ public class FormulaTest extends ModuleTestBase {
 		execute("CRUD.new");		
 		setValue("name", "SOMETHING"); 
 		execute("Collection.new", "viewObject=xava_view_section0_ingredients");
-		/* tmp 
-		execute("ImageEditor.changeImage", "newImageProperty=image"); 
-		assertNoErrors();
-		assertAction("LoadImage.loadImage"); 		
-		String imageUrl = System.getProperty("user.dir") + "/test-images/cake.gif";
-		setFileValue("newImage", imageUrl);
-		execute("LoadImage.loadImage");
-		assertNoErrors();
-		*/
-		changeImage("image", "/test-images/cake.gif"); // tmp Ejemplo para migration
-		
-		/* tmp
-		HtmlPage page = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();		
-		URL url = page.getWebResponse().getWebRequest().getUrl(); 
-		
-		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort();
-		
-		HtmlImage image = (HtmlImage) page.getElementsByName(decorateId("image")).get(0);  
-		String imageURL = null;
-		if (image.getSrcAttribute().startsWith("/")) {
-			imageURL = urlPrefix + image.getSrcAttribute();
-		}
-		else {
-			String urlBase = Strings.noLastToken(url.getPath(), "/");
-			imageURL = urlPrefix + urlBase + image.getSrcAttribute();
-		}				
-		WebResponse response = getWebClient().getPage(imageURL).getWebResponse();		
-		assertTrue("Image not obtained", response.getContentAsString().length() > 0);
-		assertEquals("Result is not an image", "image", response.getContentType());
-		*/
+		changeImage("image", "/test-images/cake.gif"); 
 		assertImage("image"); 
 	}
 	

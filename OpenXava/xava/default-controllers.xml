@@ -25,9 +25,6 @@ here that you want to override.
 	<object name="xava_myReport" class="org.openxava.session.MyReport"/>
 	<object name="xava_chart" class="org.openxava.session.Chart"/>	
 	<object name="xava_row" class="java.lang.Integer" value="-1"/>	
-	<!-- tmp 
-	<object name="xava_newImageProperty" class="java.lang.String"/>
-	-->
 	<object name="xava_currentCollectionLabel" class="java.lang.String"/>
 	<object name="xava_collectionViewObject" class="java.lang.String"/>	
 	<object name="xava_previousControllers" class="java.util.Stack"/>
@@ -484,15 +481,6 @@ here that you want to override.
 		</action>									
 	</controller>
 							
-	<!-- tmp 								
-	<controller name="ImageEditor">
-		<action name="changeImage"			
-			class="org.openxava.actions.ChangeImageAction"/>								
-		<action name="deleteImage" confirm="true"
-			class="org.openxava.actions.DeleteImageAction"/>					
-	</controller>
-	-->
-	
 	<controller name="Gallery">
 		<action name="edit" image="photo.gif" hidden="true"
 			icon="camera"
@@ -519,15 +507,6 @@ here that you want to override.
 			class="org.openxava.actions.CancelAction"/>		
 	</controller>	
 		
-	<!-- tmp 	
-	<controller name="LoadImage">
-		<action name="loadImage"
-			class="org.openxava.actions.LoadImageAction"/>										
-		<action name="cancel"
-			class="org.openxava.actions.CancelAction"/>			
-	</controller>
-	-->
-	
 	<controller name="Dialog">
 		<action name="cancel" 
 			class="org.openxava.actions.CancelDialogAction"/>			

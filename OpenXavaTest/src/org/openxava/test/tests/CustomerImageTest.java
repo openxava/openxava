@@ -7,7 +7,7 @@ import org.openxava.tests.*;
  * @author Javier Paniza
  */
 
-public class CustomerImageTest extends ModuleTestBase { // tmp ¿Fusionar con customer?	
+public class CustomerImageTest extends ModuleTestBase { 	
 	
 	public CustomerImageTest(String testName) {
 		super(testName, "Customer");
@@ -20,11 +20,7 @@ public class CustomerImageTest extends ModuleTestBase { // tmp ¿Fusionar con cus
 	
 	public void testDeleteImage() throws Exception { 
 		addImage();
-		/* tmp 
-		execute("ImageEditor.deleteImage", "newImageProperty=photo");
-		assertNoErrors();
-		*/
-		removeImage("photo"); // tmp 				
+		removeImage("photo");  				
 		assertNoImage("photo"); 
 	}
 	

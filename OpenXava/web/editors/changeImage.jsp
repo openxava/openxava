@@ -1,5 +1,7 @@
 <%@ include file="../imports.jsp"%>
 
+<%-- tmp Quitar --%>
+
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <table>

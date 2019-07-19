@@ -1074,3 +1074,61 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 .ox-unsubscribed i {
 	color: lightgray; 
 }
+
+/* tmp ini  */
+.filepond--root {  
+	font-family: Arial,Helvetica,Verdana,sans-serif !important;
+}
+
+.filepond--item {
+	width: 190px;
+}
+
+.filepond--root {
+	width: 220px;
+	background-color: ;
+
+}
+
+.filepond--drop-label label {
+	width: 190px;
+	white-space: normal;
+}
+
+.filepond--panel-root {
+	border-radius: 4px !important;
+	background-color: white !important;
+}
+
+.filepond--file-action-button {
+    background: #6F6F6F !important;
+}
+
+.filepond--file-action-button:hover {
+	color: white;
+}
+
+.filepond--image-preview-overlay-success {
+	color: #6fc664 !important;
+}
+
+.filepond--image-preview-overlay-failure {
+	color: #ff0000 !important;
+}
+
+.filepond--image-preview-wrapper {
+	cursor: pointer;
+}
+
+.filepond--file-info-main {
+	display: none !important;
+}
+
+.ox-element-collection .filepond--root { 
+	height: 180px;
+}
+
+.liferay-xava-cell-wrapper img {
+	max-height: 20px;
+}
+/* tmp fin */

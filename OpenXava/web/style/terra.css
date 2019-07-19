@@ -22,7 +22,7 @@ body {
 	padding: 0;
 }
 
-body, .ui-dialog, input {
+body, .ui-dialog, input, .filepond--root { /* tmp .filepond--root */
 	font-family: Roboto, Arial,Helvetica,Verdana,sans-serif !important;
 }
 
@@ -357,7 +357,7 @@ A:hover .module-row, A:hover .folder-row, A:hover #organizations_index {
 
 input[type="text"], input[type="password"], input[type="file"], select, textarea, 
 .ui-widget input[type="text"], .ui-widget input[type="password"], .ui-widget input[type="file"], 
-.ui-widget sel ect, .ui-widget textarea {   
+.ui-widget select, .ui-widget textarea {   
 	border-color: lightgray;  
 	border-style: solid;	
 	border-width: 2px; 
@@ -2137,3 +2137,51 @@ div[id$="_Index__view"] .ox-list-title {
 .ox-list-header .mdi-arrow-down-bold, .ox-list-header .mdi-arrow-up-bold {
 	color: white; 
 } 
+
+/* tmp ini  */
+.filepond--item {
+	width: 190px;
+}
+
+.filepond--root {
+	width: 220px;
+}
+
+.filepond--drop-label label {
+	width: 190px;
+	white-space: normal;
+}
+
+.filepond--panel-root {
+	border-radius: 4px !important;
+}
+
+.filepond--file-action-button {
+    background: #036564 !important;
+}
+
+/* tmp ¿Estos colores funcionan cuando no hay image preview? */
+.filepond--image-preview-overlay-success {
+	color: #6fc664 !important;
+}
+
+.filepond--image-preview-overlay-failure {
+	color: #DC4A38 !important;
+}
+
+.filepond--image-preview-wrapper {
+	cursor: pointer;
+}
+
+.filepond--file-info-main {
+	display: none !important;
+}
+
+.ox-element-collection .filepond--root { 
+	height: 180px;
+}
+
+.ox-list img {
+	max-height: 30px;
+}
+/* tmp fin */
