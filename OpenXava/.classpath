@@ -29,7 +29,7 @@
 	<classpathentry kind="lib" path="lib/xalan.jar"/>
 	<classpathentry kind="lib" path="lib/serializer.jar"/>
 	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/validation-api.jar"/>
-	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-codec.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/commons-codec.jar"/>
 	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/commons-lang.jar"/>
 	<classpathentry kind="lib" path="lib/httpclient.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore.jar"/>

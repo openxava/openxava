@@ -22,5 +22,10 @@ public class DBServer {
         System.out.println("[DBServer.start] Started: " + cuesta); // tmp
         Logger.getLogger("").setLevel(Level.INFO);
 	}
+	
+	public static void runManager() {
+		String [] url = { "--url", "jdbc:hsqldb:hsql://localhost:1666" };
+		org.hsqldb.util.DatabaseManagerSwing.main(url);
+	}
 
 }

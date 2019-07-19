@@ -10,14 +10,13 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 	private boolean restoreModel = false; 
 	
 	public void execute() throws Exception {
-		System.out.println("[NewAction.execute] "); // tmp
 		if (restoreModel) getView().setModelName(modelName); 
 		getView().setKeyEditable(true);
 		getView().setEditable(true);
 		getView().reset();
 		if (getView().hasSections()) getView().setActiveSection(0);
 	}
-	
+		
 	public String getNextMode() {
 		return IChangeModeAction.DETAIL;
 	}

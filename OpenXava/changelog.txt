@@ -2,12 +2,7 @@ Change Log for OpenXava project
 ===============================
 
 Embedded Tomcat:
-- OpenXavaTest.
-	- Poder modificar OpenXava y ver efecto enseguida.
-	- Suite. 
-		- Hacer un test y dejar la suite la mañana.
-		- El test multidatabase sí que debería de hacerlo.
-- Lanzador dbmanager. ¿En OpenXava o en proyecto?	
+- Lanzador dbmanager. En proyecto.	
 - InvoiceDemo
 - Quitar MySchool.
 - Probar con un Eclipse plano.
@@ -16,7 +11,7 @@ Embedded Tomcat:
 - Rehacer doc.
 	- Eliminar Quick Start
 	- Getting started.
-	- Añadir configuración WTP en otra parte. ¿O no? Quizás es mejor no tener tantas alternativas.
+	- Añadir configuración WTP en otra parte. ¿O no? Quizás es mejor no tener tantas alternativas. 
 	- Añadir instalación y despliegue en Tomcat. ¿Qué pasa con context.xml?
 	- Añadir configuración para MySQL, PostgreSQL, etc. ¿Ponerlo en los XML?
 	- Migration:
@@ -28,7 +23,11 @@ Embedded Tomcat:
 	- Quitar view Servers.
 	- Actualizar las tareas Ant predefinidas.
 - ¿Método de trabajo? ¿Con que configuración debería trabajar yo?
+	- ¿Seguir probando WTP? ¿donde?
+- Diferido al mezclar Pull Request:
+	- Suite completa.
 
+- Commons Codec API available to be used in applications.
 - OpenXavaTemplate and OpenXavaPlantilla projects removed from distribution.
 - CreateNewProject.xml and CrearNuevoProyecto.xml available in OpenXava project directly.
 - Servlet API 4.0 included, though we still are compatible with Servlet 3.0.
