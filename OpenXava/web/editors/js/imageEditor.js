@@ -1,5 +1,3 @@
-/* tmp ¿ Generalizar para todos los files ? */
-
 if (imageEditor == null) var imageEditor = {};
 
 openxava.addEditorInitFunction(function() {
@@ -10,7 +8,7 @@ openxava.addEditorInitFunction(function() {
     	const input = this;
     	if (FilePond.find(input) == null) {
     		if ($(input).is(":hidden")) return;
-	    	const pond = FilePond.create(input); // tmp ¿var en vez de const?
+	    	const pond = FilePond.create(input); 
 	    	if (typeof pond === 'undefined') return; 
 	    	const imageURL = imageEditor.getImageURL(input);
 	    	pond.onactivatefile = function() {
@@ -43,8 +41,6 @@ openxava.addEditorInitFunction(function() {
     });
 	
 });
-
-/* tmp ¿Poner destroy function? */
 
 imageEditor.enableUpload = function(pond, input) {
 	pond.setOptions({ 
