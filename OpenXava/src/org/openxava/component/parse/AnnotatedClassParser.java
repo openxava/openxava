@@ -37,8 +37,6 @@ import org.openxava.util.meta.*;
 import org.openxava.validators.meta.*;
 import org.openxava.view.meta.*;
 
-import com.sun.scenario.effect.impl.prism.*;
-
 
 /**
  * Parse EJB3 Entities (POJOs with JPA annotations) into OpenXava components. <p>

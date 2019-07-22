@@ -3,9 +3,9 @@ package _run;
 import org.openxava.util.*;
 
 /**
- * Execute this class to start a manager for you development database.
+ * Ejecuta esta clase para arrancar un explorador para tu base de datos de desarrollo.
  * 
- * With Eclipse: Right mouse button > Run As > Java Application
+ * Con Eclipse: Botón derecho del ratón > Run As > Java Application
  */
 
 public class DBManager {

@@ -2,31 +2,30 @@ Change Log for OpenXava project
 ===============================
 
 Embedded Tomcat:
-- Lanzador dbmanager. En proyecto.	
-- InvoiceDemo
-- Quitar MySchool.
-- Probar con un Eclipse plano.
-- Probar con Java 11.
-- Probar con Linux.
 - Rehacer doc.
-	- Eliminar Quick Start
-	- Getting started.
+	- Getting started: TMP ME QUEDÉ POR AQUÍ ¿Mencionar lo de Java 8 y 11? No, pero cambiar features en openxava.org
 	- Añadir configuración WTP en otra parte. ¿O no? Quizás es mejor no tener tantas alternativas. 
 	- Añadir instalación y despliegue en Tomcat. ¿Qué pasa con context.xml?
 	- Añadir configuración para MySQL, PostgreSQL, etc. ¿Ponerlo en los XML?
 	- Migration:
-		- ¿Poner lo que hemos quitaro los templates? Quizás con la nota en changelog es suficiente.
+		- ¿Poner que hemos quitado los templates? Quizás con la nota en changelog es suficiente.
 - Modificar distribución.
-	- Directamente a Getting Started.
+	- quick-start.html directamente a Getting Started. Ya lo tengo hecho dentro doc.
 	- Poner Getting Started en inicio Eclipse.
 	- Eliminar Tomcat. 
 	- Quitar view Servers.
 	- Actualizar las tareas Ant predefinidas.
+	- Quitar del workspace MySchool y las templates.
+	- Crear una distribución y probarla.
 - ¿Método de trabajo? ¿Con que configuración debería trabajar yo?
 	- ¿Seguir probando WTP? ¿donde?
 - Diferido al mezclar Pull Request:
 	- Suite completa.
+	- Probar con Linux.
 
+- MySchool demo project no longer included in distribution.
+- Each new project includes a DBManager to launch a HSQLDB manager.
+- DBServer class to start a HSQLDB and its manager.
 - Commons Codec API available to be used in applications.
 - OpenXavaTemplate and OpenXavaPlantilla projects removed from distribution.
 - CreateNewProject.xml and CrearNuevoProyecto.xml available in OpenXava project directly.
