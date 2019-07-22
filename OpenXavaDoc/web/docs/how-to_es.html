@@ -3263,13 +3263,23 @@ class="st0">"MailRecipiente"</span><span class="br0">)</span><span class="sy0">;
       <h2 id="toc10"><a name="x¿Cómo ...-¿Cómo añadir tu propio servlet, filter, listener o resource-ref a tu aplicación OpenXava?"></a>¿Cómo
         añadir tu propio servlet, filter, listener o resource-ref a tu
         aplicación OpenXava?</h2>
-      Para añadir tus propios servlets a tu aplicación OX <strong>no modifiques</strong>
-      el archivo <em><strong>web.xml</strong></em>, en vez de es puedes crear
-      un <em>servlets.xml</em> (con elementos <em>servlet</em> y <em>servlet-mapping</em>),
-      un <em>filters.xml</em> (con elementos <em>filter</em> y <em>filter-mapping</em>),
-      un <em>listeners.xml</em> (con elementos <em>listener</em>, <em>desde
-        v4.0.1</em>) y un <em>resources.xml</em> (con elementos <em>resource-ref</em>,
-      <em>desde v5.4</em>) en la carpeta WEB-INF.<br>
+      A partir de OpenXava 6.0 puedes usar las anotaciones estándar de Servlet <i>@WebServlet,
+        @WebFilter</i> y <i>@WebLister</i> para definir tus propios servlets,
+      filters o listeners.</div>
+    <div class="wiki" style="display: block;">Para añadir tus propios <i>resource-ref</i>
+      a tu aplicación OX <strong>no modifiques</strong> el archivo <em><strong>web.xml</strong></em>,
+      en vez de eso puedes crear un <em>resources.xml</em> con elementos <em>resource-ref</em>
+      (<em>desde v5.4</em>) en la carpeta WEB-INF.</div>
+    <div class="wiki" style="display: block;">Si usas una versión de OpenXava
+      anterior a v6.0 tendrás que usar <i>servlets.xml</i>, <i>filters.xml</i>
+      y <i>listeners.xml</i>. En este caso, para añadir tus propios servlets a
+      tu aplicación OX <strong>no modifiques</strong> el archivo <em><strong>web.xml</strong></em>,
+      en vez de eso puedes crear un <em>servlets.xml</em> (con elementos <em>servlet</em>
+      y <em>servlet-mapping</em>), un <em>filters.xml</em> (con elementos <em>filter</em>
+      y <em>filter-mapping</em>), un <em>listeners.xml</em> (con elementos <em>listener</em>,
+      <em>desde v4.0.1</em>) y un <em>resources.xml</em> (con elementos <em>resource-ref</em>,
+      <em>desde v5.4</em>) en la carpeta WEB-INF. Aunque este método es obsoleto
+      todavía funciona con las últimas versiones de OpenXava.<br>
       Por ejemplo, si quieres añadir un servlet llamado <em>TestServlet</em>,
       crea un archivo <em>servlets.xml</em> en WEB-INF con el siguiente
       contenido:<br>
@@ -3295,7 +3305,8 @@ class="st0">"MailRecipiente"</span><span class="br0">)</span><span class="sy0">;
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;!-- Con v6.0 o superior es mejor usar @WebServlet --&gt;<br>&lt;servlet<span
+class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>testServlet<span
 class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.openxava.test.servlets.TestServlet<span
