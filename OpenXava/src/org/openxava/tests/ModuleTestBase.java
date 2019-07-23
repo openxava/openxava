@@ -3066,39 +3066,80 @@ public class ModuleTestBase extends TestCase {
 		HtmlElement attachmentsEditor = getHtmlPage().getHtmlElementById(decorateId("editor_" + name));
 		return attachmentsEditor.getOneHtmlElementByAttribute("div", "class", "ox-attachments");
 	}
-	
-	protected void assertImage(String property) throws Exception { // tmp
+
+	/**
+	 * Assert if the property of PHOTO/IMAGE stereotype has a image associated.
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertImage("photo");
+	 * </pre>
+	 * 
+	 * It tries to recover the file from the server and verify if it is of image type. 
+	 * 
+	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @since 6.2
+	 */		
+	protected void assertImage(String property) throws Exception { 
 		assertImage(property, true);
 	}
 	
-	protected void assertNoImage(String property) throws Exception { // tmp
+	/**
+	 * Assert if the property of PHOTO/IMAGE stereotype has no image associated.
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertNoImage("photo");
+	 * </pre>
+	 * 
+	 * It tries to recover the file from the server and verify if it is not of image type. 
+	 * 
+	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @since 6.2
+	 */		
+	protected void assertNoImage(String property) throws Exception { 
 		assertImage(property, false);
 	}
-	
-	private void assertImage(String property, boolean present) throws Exception { // tmp
+
+	private void assertImage(String property, boolean present) throws Exception { 
 		String imageURL = (String) getHtmlPage().executeJavaScript(
 			"var input = document.getElementById('" + decorateId(property) + "');" +
 			"imageEditor.getImageURL(input)"
 		).getJavaScriptResult();
 		
 		URL url = getHtmlPage().getWebResponse().getWebRequest().getUrl(); 
-		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort() + "/" + url.getPath().split("/")[1];
-		imageURL = imageURL.replace("..", urlPrefix);
+		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort(); 
+		imageURL = urlPrefix + imageURL; 
 		TopLevelWindow imageWindow = (TopLevelWindow) getWebClient().openWindow(new URL(imageURL), "loadingImage");
 		WebResponse response = imageWindow.getEnclosedPage().getWebResponse();
 		if (present) {
-			assertTrue("Image not obtained", response.getContentAsString().length() > 0); // tmp i18n
-			assertTrue("Result is not an image", response.getContentType().startsWith("image")); // tmp i18n 
+			assertTrue(XavaResources.getString("image_not_obtained"), response.getContentAsString().length() > 0); 
+			assertTrue(XavaResources.getString("result_is_not_image"), response.getContentType().startsWith("image"));  
 		}
 		else {
-			assertTrue("Image obtained", response.getContentAsString().length() == 0);
+			assertTrue(XavaResources.getString("image_obtained"), response.getContentAsString().length() == 0);
 		}		
 		imageWindow.close(); 
 	}
 
 
-	protected void changeImage(String property, String imageURL) throws Exception { // tmp
-		String imageAbsoluteURL = System.getProperty("user.dir") + imageURL; // tmp ¿System.getProperty("user.dir")?
+	/**
+	 * Change the current image or assign a new one to a property of PHOTO/IMAGE stereotype.
+	 * 
+	 * Example:
+	 * <pre>
+	 * changeImage("photo", "test-images/cake.gif");
+	 * </pre>
+	 * 
+	 * The image is not saved in database until a save action is executed, like the real UI.
+	 * 
+	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @param imageURL  If the URL is relative it starts from the current project, if it is absolute (starts with /) it is used 'as is'.  
+	 * @since 6.2
+	 */
+	protected void changeImage(String property, String imageURL) throws Exception { 
+		String imageAbsoluteURL = imageURL.startsWith("/")?
+			imageURL:System.getProperty("user.dir") + "/"+ imageURL; 
 		String decoratedProperty = decorateId(property);
 		HtmlFileInput input = (HtmlFileInput) getHtmlPage().getElementById(decoratedProperty);
 		input.setValueAttribute(imageAbsoluteURL);
@@ -3113,8 +3154,21 @@ public class ModuleTestBase extends TestCase {
 		);
 		waitAJAX();
 	}
-	
-	protected void removeImage(String property) throws Exception { // tmp
+
+	/**
+	 * Remove the current image from a property of PHOTO/IMAGE stereotype.
+	 * 
+	 * Example:
+	 * <pre>
+	 * removeImage("photo");
+	 * </pre>
+	 * 
+	 * The image is not removed from database until a save action is executed, like the real UI.
+	 * 
+	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @since 6.2
+	 */	
+	protected void removeImage(String property) throws Exception { 
 		getHtmlPage().executeJavaScript(
 			"var input = document.getElementById('" + decorateId(property) + "');" +	
 			"var xhr = new XMLHttpRequest();" +

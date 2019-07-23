@@ -19,12 +19,9 @@ import org.apache.commons.codec.binary.*;
 public class ImageFormatter implements IFormatter {
 				
 	public String format(HttpServletRequest request, Object object) {		
-		// tmp String encodedImage = Base64.encodeBase64String((byte[]) object);
-		// tmp ini
 		byte [] bytes = (byte[]) object;
 		if (bytes == null || bytes.length == 0) return "";
 		String encodedImage = Base64.encodeBase64String(bytes);
-		// tmp fin
 		return "<img src='data:image;base64," + encodedImage + "'/>";
 	}
 	

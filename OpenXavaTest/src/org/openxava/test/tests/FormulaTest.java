@@ -199,7 +199,7 @@ public class FormulaTest extends ModuleTestBase {
 		execute("CRUD.new");		
 		setValue("name", "SOMETHING"); 
 		execute("Collection.new", "viewObject=xava_view_section0_ingredients");
-		changeImage("image", "/test-images/cake.gif"); 
+		changeImage("image", "test-images/cake.gif"); 
 		assertImage("image"); 
 	}
 	

@@ -1,6 +1,7 @@
 The automated tests in this project do not include some aspects of Image editor.
 
-Customer module:
+Customer module with all browsers:
+- Add the photo column to the list. Photos are tiny and no broken links for no photo.
 - Go to first customer: Must have a photo. No uploading progress must be done.
 - Navigate to the next one: Must have a link to browse for a new photo.
 - Browser for a new photo.

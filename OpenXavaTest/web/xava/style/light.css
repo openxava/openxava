@@ -10,7 +10,7 @@ body {
 	padding: 0;
 }
 
-body, .ui-dialog, input, .filepond--root { /* tmp .filepond--root */ 
+body, .ui-dialog, input, .filepond--root {  
 	font-family: Arial,Helvetica,Verdana,sans-serif !important;
 }
 
@@ -1861,7 +1861,6 @@ div[id$="_Index__view"] .ox-list-title {
 	color: blue;
 } 
 
-/* tmp ini  */
 .filepond--item {
 	width: 190px;
 }
@@ -1906,4 +1905,4 @@ div[id$="_Index__view"] .ox-list-title {
 .ox-list img {
 	max-height: 30px;
 }
-/* tmp fin */
+

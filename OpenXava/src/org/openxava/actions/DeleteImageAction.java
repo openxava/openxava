@@ -1,24 +1,16 @@
 package org.openxava.actions;
 
-import javax.inject.*;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Created on 04/02/2009 (16:23:01)
  * @autor Ana Andres
  */
 public class DeleteImageAction extends ViewBaseAction{
-	private static Log log = LogFactory.getLog(DeleteImageAction.class);
 	
-	// tmp @Inject
 	private String newImageProperty;
 	
 	public void execute() throws Exception {
-		// TMP getView().setValue(getNewImageProperty(), new byte[0]);
-		getView().setValue(getNewImageProperty(), null); // tmp
-		System.out.println("[DeleteImageAction.execute] getNewImageProperty()=" + getNewImageProperty()); // tmp
+		getView().setValue(getNewImageProperty(), null); 
 	}
 
 	public String getNewImageProperty() {

@@ -46,7 +46,7 @@ public class CustomerImageTest extends ModuleTestBase {
 	
 	protected void addImage() throws Exception{ 
 		execute("CRUD.new");		
-		changeImage("photo", "/test-images/foto_javi.jpg");	
+		changeImage("photo", "test-images/foto_javi.jpg");	
 	}
 
 }

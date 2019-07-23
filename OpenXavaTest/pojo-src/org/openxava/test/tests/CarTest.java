@@ -1,6 +1,5 @@
 package org.openxava.test.tests;
 
-import org.openxava.test.model.*;
 import org.openxava.tests.*;
 
 /**
@@ -22,12 +21,11 @@ public class CarTest extends ModuleTestBase {
 		setValue("model", "MITO");
 		setValueInCollection("photos", 0, "description", "FRONT");
 		setValueInCollection("photos", 1, "description", "BACK");
-		changeImage("photos.0.photo", "/test-images/foto_javi.jpg");
-		changeImage("photos.1.photo", "/test-images/cake.gif");
-		assertImage("photos.0.photo");
+		changeImage("photos.0.photo", "test-images/foto_javi.jpg");
+		changeImage("photos.1.photo", "test-images/cake.gif");
+		assertImage("photos.0.photo"); 
 		assertImage("photos.1.photo");  
 				
-		// TMP reload(); // In order that actions work fine after the above assertImage() usage
 		execute("CRUD.save");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
@@ -38,9 +36,7 @@ public class CarTest extends ModuleTestBase {
 		assertImage("photos.0.photo");
 		assertImage("photos.1.photo");
 		
-		// TMP reload(); // In order that actions work fine after the above assertImage() usage
-		// TMP execute("ImageEditor.deleteImage", "newImageProperty=photos.0.photo");
-		removeImage("photos.0.photo"); // tmp
+		removeImage("photos.0.photo"); 
 		execute("CRUD.save");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
@@ -49,7 +45,6 @@ public class CarTest extends ModuleTestBase {
 		assertNoImage("photos.0.photo");
 		assertImage("photos.1.photo");
 		
-		// TMP reload(); // In order that actions work fine after the above assertImage() usage
 		setValueInCollection("photos", 1, "description", "");
 		execute("CRUD.save");
 		execute("Mode.list");
@@ -59,7 +54,6 @@ public class CarTest extends ModuleTestBase {
 		assertNoImage("photos.0.photo");
 		assertImage("photos.1.photo");
 		
-		// TMP reload(); // In order that actions work fine after the above assertImage() usage
 		execute("CRUD.delete");
 		assertNoErrors();
 	}

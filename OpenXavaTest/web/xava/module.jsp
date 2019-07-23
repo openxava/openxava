@@ -16,7 +16,7 @@
 <%@page import="org.openxava.web.Requests"%> 
 <%@page import="org.apache.commons.logging.LogFactory" %>
 <%@page import="org.apache.commons.logging.Log" %>
-<%@page import="org.openxava.web.Browsers"%> <%-- tmp --%>
+<%@page import="org.openxava.web.Browsers"%> 
 
 
 <%!private static Log log = LogFactory.getLog("module.jsp");
@@ -154,13 +154,10 @@
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Tab.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/View.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/openxava.js?ox=<%=version%>'></script>
-	<%-- tmp ini --%>
-	<%-- tmp ¿Así o poniendolos en editors/js? --%>
 	<% if (Browsers.isIE(request)) { %>
 	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/babel-polyfill.js?ox=<%=version%>"></script>
 	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/filepond-polyfill.js?ox=<%=version%>"></script>
 	<% } %>
-	<%-- tmp fin --%>	 
 	<script type='text/javascript'>
 		openxava.lastApplication='<%=app%>'; 		
 		openxava.lastModule='<%=module%>'; 	

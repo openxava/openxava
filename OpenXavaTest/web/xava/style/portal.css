@@ -1075,7 +1075,6 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 	color: lightgray; 
 }
 
-/* tmp ini  */
 .filepond--root {  
 	font-family: Arial,Helvetica,Verdana,sans-serif !important;
 }
@@ -1131,4 +1130,3 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 .liferay-xava-cell-wrapper img {
 	max-height: 20px;
 }
-/* tmp fin */

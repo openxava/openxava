@@ -1,7 +1,6 @@
 package org.openxava.web.servlets;
 
 import java.io.*;
-import java.util.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -22,18 +21,12 @@ public class ImagesServlet extends HttpServlet {
 	private static Log log = LogFactory.getLog(ImagesServlet.class);
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("[ImagesServlet.doGet] "); // tmp
 		try {
-			System.out.println("[ImagesServlet.doGet] request.getParameter('property')=" + request.getParameter("propertyKey")); // tmp
-			// tmp String propertyKey = Ids.undecorate(request.getParameter( "property" ));
-			String propertyKey = Ids.undecorate(request.getParameter( "propertyKey")); // tmp
-			System.out.println("[ImagesServlet.doGet] propertyKey=" + propertyKey); // tmp
+			String propertyKey = Ids.undecorate(request.getParameter( "propertyKey")); 
 			View view = getCurrentView( request, propertyKey );
-			System.out.println("[ImagesServlet.doGet] view.getModelName()=" + view.getModelName()); // tmp
 			byte [] image = (byte []) view.getValue(propertyKey); 
 			if (image != null) {
-				// tmp response.setContentType("image");
-				response.setContentType("image/png"); // "images" without png does not work for FilePonde with Firefox, png works for any type of image // tmp 
+				response.setContentType("image/png"); // "images" without png does not work for FilePonde with Firefox, png works for any type of image  
 				response.getOutputStream().write(image);
 			}
 		}
