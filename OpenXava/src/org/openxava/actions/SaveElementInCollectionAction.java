@@ -76,7 +76,7 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 		}
 	}
 	
-	private void create(Map values, boolean isEntity, Map containerKey) throws CreateException { 
+	protected void create(Map values, boolean isEntity, Map containerKey) throws CreateException { 
 		validateMaximum(1);
 		if (isEntity) {
 			Map parentKey = new HashMap();

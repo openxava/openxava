@@ -41,7 +41,7 @@ public class SaveAction extends TabBaseAction {
 		}
 	}
 
-	private void updateView(Map values, boolean resetAfter) { 
+	protected void updateView(Map values, boolean resetAfter) { 
 		if (resetAfter) {
 			getView().setKeyEditable(true);
 			commit(); // If we change this, we should run all test suite using READ COMMITED (with hsqldb 2 for example)
@@ -53,7 +53,7 @@ public class SaveAction extends TabBaseAction {
 		}
 	}
 
-	private Map modify() throws Exception {
+	protected Map modify() throws Exception {
 		Map values = null;
 		Map keyValues = getView().getKeyValues();		
 		MapFacade.setValues(getModelName(), keyValues, getValuesToSave());
@@ -65,7 +65,7 @@ public class SaveAction extends TabBaseAction {
 		return values;
 	}
 
-	private Map create() throws Exception {
+	protected Map create() throws Exception {
 		Map values = null;
 		if (isResetAfterOnCreate() || (!isRefreshAfter() && !getView().getMetaModel().hasHiddenKey())) { 
 			MapFacade.create(getModelName(), getValuesToSave());

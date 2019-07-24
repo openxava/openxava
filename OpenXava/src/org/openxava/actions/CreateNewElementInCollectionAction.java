@@ -47,7 +47,7 @@ public class CreateNewElementInCollectionAction extends CollectionElementViewBas
 		addActions(getCollectionElementView().getHideCollectionElementAction());
 	}
 	
-	private boolean isParentSaved() { 
+	protected boolean isParentSaved() { 
 		View view = getCollectionElementView().getParent();
 		if (getView() == view) {
 			if (view.isKeyEditable()) {				
