@@ -78,10 +78,11 @@
       working version of your application developed as an Eclipse project.<br>
     </div>
     <div class="wiki" style="display: block;">If you do not have Eclipse yet, <a
-        href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-06/R/eclipse-java-2019-06-R-win32-x86_64.zip">download
-        Eclipse for Windows</a>, <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-06/R/eclipse-java-2019-06-R-macosx-cocoa-x86_64.dmg">for
-        Mac</a> or <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-06/R/eclipse-java-2019-06-R-linux-gtk-x86_64.tar.gz">for
-        Linux</a>. <br>
+        href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-06/R/eclipse-java-2019-06-R-win32-x86_64.zip"
+        target="_blank">download Eclipse for Windows</a>, <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-06/R/eclipse-java-2019-06-R-macosx-cocoa-x86_64.dmg"
+        target="_blank">for Mac</a> or <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-06/R/eclipse-java-2019-06-R-linux-gtk-x86_64.tar.gz"
+        target="_blank">for Linux</a>. If you don't have Java, <a href="https://www.java.com"
+        target="_blank">download it from java.com</a>. <br>
       <h3 id="toc3"><a name="Lesson 1: Getting started-Creating the project in Eclipse-Installing OpenXava"></a>Installing
         OpenXava</h3>
       Go to <a href="http://www.openxava.org" rel="nofollow">www.openxava.org</a>
@@ -90,8 +91,8 @@
       environment ready to start developing. Something like this:<br>
       <img src="files/getting-started_en010.png" alt="getting-started_en010.png"
         title="getting-started_en010.png"><br>
-      As you see, OpenXava distribution includes Tomcat and an Eclipse
-      workspace, all configured and ready to use. Let's start to work.<br>
+      As you see, OpenXava distribution includes an Eclipse workspace configured
+      and ready to use. Let's start to work.<br>
       <h3 id="toc4"><a name="Lesson 1: Getting started-Creating the project in Eclipse-Create the project"></a>Create
         the project</h3>
       <span style="line-height: 1.5;">Start your Eclipse and open the OpenXava
@@ -123,96 +124,17 @@
       OpenXava project there:<br>
       <img src="files/getting-started_en060.png" alt="getting-started_en060.png"
         title="getting-started_en060.png"><br>
-      We are going to configure the Tomcat inside your Eclipse to use it as a
-      platform for running your application.<br>
-      <h2 id="toc5"><a name="Lesson 1: Getting started-Configuring Tomcat inside Eclipse"></a>Configuring
-        Tomcat inside Eclipse</h2>
-      Starting Tomcat from Eclipse has several advantages such as you can debug,
-      see the log messages and traces inside Eclipse, go from trace to code in a
-      click, etc.<br>
-      In the bottom part of Eclipse select the <em>Servers</em> tab and click
-      on the link inside to create a new server:<br>
-      <img src="files/getting-started070.png" alt="getting-started070.png" title="getting-started070.png"><br>
-      A dialog will be shown, choose <em>Apache Tomcat v9.0</em> (inside <em>Apache</em>
-      folder) and click on <em>Next</em>:<br>
-      <img src="files/getting-started075.png" alt="getting-started075.png" title="getting-started075.png"><br>
-      Choose the Tomcat included with OpenXava as Tomcat installation directory
-      and click on <em>Next</em>.<br>
-      <img src="files/getting-started_en080.png" alt="getting-started_en080.png"
-        title="getting-started_en080.png"><br>
-      Finally, add your application to Tomcat and click on <em>Finish</em>:<br>
-      <img src="files/getting-started_en110.png" alt="getting-started_en110.png"
-        title="getting-started_en110.png"><br>
-      Now the Tomcat is ready to be used.<br>
-      <h2 id="toc6"><a name="Lesson 1: Getting started-Preparing the database"></a>Preparing
-        the database</h2>
-      Your OpenXava application can go against any relational database, such as
-      MySQL, PostgreSQL, Oracle, DB2, MS SQL Server and many many more.
-      Moreover, you can change from a database to another without touching a
-      single line of your code. For this course, we're going to use HSQLDB,
-      because it's already included with OpenXava and very easy to configure.
-      You can switch to your production database in any moment.<br>
-      <h3 id="toc7"><a name="Lesson 1: Getting started-Preparing the database-Creating the data source"></a>Creating
-        the data source</h3>
-      A data source is the way an application server knows how to connect to a
-      database. From our applications we only reference the data sources (and
-      not the databases directly), so we have to configure the data sources in
-      Tomcat to point to the correct databases. Let's define the data source for
-      our <em>Invoicing</em> application.<br>
-      Go to the <em>Servers</em> project of Eclipse, edit the file <em>context.xml</em>
-      inside the folder of your server:<br>
-      <img src="files/getting-started100.png" alt="getting-started100.png" title="getting-started100.png"><br>
-      If you don't see the XML code of <em>context.xml</em> click on the <em>Source</em>
-      tab. Then you have to add a new data source called <em>InvoicingDS</em>
-      against your database. Just add the next code at the end of <em>context.xml</em>
-      just before the last <em>&lt;/Context&gt;</em> mark:<br>
-      <pre><code class="xml">&lt;Resource name="jdbc/InvoicingDS" auth="Container"
-    type="javax.sql.DataSource"
-    maxActive="20" maxIdle="5" maxWait="10000"
-    username="sa" password=""
-    driverClassName="org.hsqldb.jdbcDriver"
-    url="jdbc:hsqldb:hsql://localhost:1666"/&gt;    
-</code></pre>
-      <h3 id="toc8"><a name="Lesson 1: Getting started-Preparing the database-Starting database"></a>Starting
-        database</h3>
-      To start your HSQLDB database with Windows click <em>Start</em> type <em>cmd</em>
-      and press ENTER, then:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="bash">cd openxava-6.x\tomcat\bin
-start-hsqldb invoicing-db 1666
-</code></pre> </div>
-    <div class="wiki" style="display: block;"> With Linux/Mac:
-      <pre><code class="bash">cd openxava-6.x/tomcat/bin
-./start-hsqldb.sh invocing-db 1666
-</code></pre></div>
-    <div class="wiki" style="display: block;">You'll get an output like that:<br>
-      <img src="files/getting-started_en140.png" alt="getting-started_en140.png"
-        title="getting-started_en140.png"><br>
-      You're database is already started and if it is the first time execution
-      it has been created automatically.<br>
+      Your project is ready to start to write code.<br>
       <h2 id="toc9"><a name="Lesson 1: Getting started-Creating your first entity"></a>Creating
         your first entity</h2>
-      At last you have your development environment configured. Now, developing
-      the application is very easy. You only have to add entities in order to
-      make your application grow. Let's create your first entity, and run the
-      application.<br>
-      First, you have to create the package to contain the model classes (the
-      entities). Click right button on <em>src</em> in your project and choose
-      <em>New &gt; Package</em>:<br>
-      <img src="files/getting-started_en115.png" alt="getting-started_en115.png"
-        title="getting-started_en115.png"><br>
-      In the dialog enter the package name, <em>org.openxava.invoicing.model</em>,
-      and press <em>Finish</em>:<br>
-      <img src="files/getting-started_en120.png" alt="getting-started_en120.png"
-        title="getting-started_en120.png"><br>
-      Instead of <em>org.openxava</em> you can use the domain of your
-      organization. For example, if you work for the NASA you can named the
-      package as <em>gov.nasa.invoicing.model</em>. You have learned how to
-      create a Java package in Eclipse. From now on we won't use a figure for
-      that.<br>
-      Now, you can create your first entity. We start with a simple version of <em>Customer</em>
-      with only <em>number</em> and <em>description</em>. Follow the next
-      instructions to create a new <em>Customer</em> class:<br>
+      Developing the application is very easy. You only have to add entities in
+      order to make your application grow. We start with a simple version of <em>Customer</em>
+      with only <em>number</em> and <em>description</em>. </div>
+    <div class="wiki" style="display: block;">Select the <em>com.yourcompany.invoicing.model</em>
+      package and click on <em>New Java Class</em> button:<br>
+      <img src="files/getting-started_en125.png" alt="getting-started_en125.png"
+        title="getting-started_en125.png"><br>
+      Then type <em>Customer</em> as class name and press <em>Finish</em>.<br>
       <img src="files/getting-started_en130.png" alt="getting-started_en130.png"
         title="getting-started_en130.png"><br>
       Note that the <em>C</em> of <em>Customer</em> is uppercase, this is very
@@ -222,7 +144,7 @@ start-hsqldb invoicing-db 1666
       The initial code that Eclipse provides for <em>Customer</em> is pretty
       simple:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.invoicing.model;
+      <pre><code class="java">package com.yourcompany.invoicing.model;
  
 public class Customer {
  
@@ -233,7 +155,7 @@ public class Customer {
       to add the <em>@Entity</em> annotation, the <em>number</em> and the <em>description</em>
       properties:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.invoicing.model;
+      <pre><code class="java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
 import org.openxava.annotations.*;

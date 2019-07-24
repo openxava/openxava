@@ -3,7 +3,8 @@ Change Log for OpenXava project
 
 Embedded Tomcat:
 - Rehacer doc.
-	- Getting started: TMP ME QUEDÉ POR AQUÍ ¿Mencionar lo de Java 8 y 11? No, pero cambiar features en openxava.org
+	- Getting started: 
+	- Cambiar paquete de código a com.yourcompany para todas las lecciones.
 	- Añadir configuración WTP en otra parte. ¿O no? Quizás es mejor no tener tantas alternativas. 
 	- Añadir instalación y despliegue en Tomcat. ¿Qué pasa con context.xml?
 	- Añadir configuración para MySQL, PostgreSQL, etc. ¿Ponerlo en los XML?
