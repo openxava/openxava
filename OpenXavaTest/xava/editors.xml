@@ -6,7 +6,14 @@
 
 <editors>
 
-	<editor name="GalleryNoDialog" url="galleryEditor.jsp">
+	<!-- tmp ini -->
+	<editor name="Gallery" url="galleryEditor2.jsp">
+		<for-stereotype stereotype="IMAGES_GALLERY" />
+		<for-stereotype stereotype="GALERIA_IMAGENES" />
+	</editor>
+	<!-- tmp fin -->
+
+	<editor name="GalleryNoDialog" url="galleryEditor.jsp"> <!-- tmp ¿Qué hacemos con esto? -->
 		<property name="editAction" value="GalleryNoDialog.edit"/>
 	</editor>
 

@@ -54,7 +54,8 @@ public class Gallery {
 		images.remove(oid);
 	}
 
-	public Collection getImages() {
+	// tmp public Collection getImages() {
+	public Collection<GalleryImage> getImages() { // tmp
 		return images == null?Collections.EMPTY_LIST:images.values();
 	}
 	
