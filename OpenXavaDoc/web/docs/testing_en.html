@@ -542,9 +542,8 @@ public class CategoryTest extends ModuleTestBase {
     <div class="wiki" style="display: block;">
       <pre><code class="java">package org.openxava.invoicing.tests;
  
-import java.text.*;
-import java.util.*;
-import javax.persistence.*;
+import java.util.*;<br>import java.time.*;
+import java.time.format.*;<br>import javax.persistence.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 import static org.openxava.jpa.XPersistence.*; // To use JPA
@@ -618,13 +617,13 @@ public class InvoiceTest extends ModuleTestBase {
       expected values:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">private String getCurrentYear() { // Current year in string format
-    return new SimpleDateFormat("yyyy").format(new Date()); // The standard
+    return Integer.toString(LocalDate.now().getYear()); // The standard
                                                     // way to do it with Java
 }
  
 private String getCurrentDate() { // Current date as string in short format
-    return DateFormat.getDateInstance( // The standard way to do it with Java
-            DateFormat.SHORT).format(new Date());
+    return LocalDate.now().format( // The standard way to do it with Java
+        DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
 }
  
 private String getNumber() { // The invoice number for a new invoice
