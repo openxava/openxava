@@ -2143,11 +2143,13 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .filepond--root {
-	width: 220px;
+	/* tmp width: 220px; */
+	/* width: 70vw;  tmp */
+	overflow: hidden;
 }
 
 .filepond--drop-label label {
-	width: 190px;
+	/* tmp width: 190px; */
 	white-space: normal;
 }
 

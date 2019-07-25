@@ -481,6 +481,7 @@ here that you want to override.
 		</action>									
 	</controller>
 							
+	<!-- tmp Este controlador debería ir fuera -->						
 	<controller name="Gallery">
 		<action name="edit" image="photo.gif" hidden="true"
 			icon="camera"
@@ -500,6 +501,7 @@ here that you want to override.
 			class="org.openxava.actions.CancelAction"/>						
 	</controller>
 	
+	<!-- tmp Este controlador debería ir fuera -->
 	<controller name="LoadImageIntoGallery">
 		<action name="loadImage"
 			class="org.openxava.actions.LoadImageIntoGalleryAction"/>					 

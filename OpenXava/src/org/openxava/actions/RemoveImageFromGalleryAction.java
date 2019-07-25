@@ -20,7 +20,7 @@ public class RemoveImageFromGalleryAction extends ViewBaseAction {
 	
 	public void execute() throws Exception {
 		gallery.removeImage(oid);
-		trackModification(); 
+		// tmp trackModification(); 
 	}
 	
 	private void trackModification() {  

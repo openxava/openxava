@@ -23,29 +23,50 @@ public class UploadServlet extends HttpServlet {
 	private static Log log = LogFactory.getLog(UploadServlet.class); 
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		executeAction(request, response, new LoadImageAction(), true);
+		// tmp executeAction(request, response, new LoadImageAction(), true);
+		executeAction(request, response, new LoadImageIntoGalleryAction(), true); // tmp
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		executeAction(request, response, new DeleteImageAction(), false);
+		// tmp executeAction(request, response, new DeleteImageAction(), false);
+		// tmp ini
+		RemoveImageFromGalleryAction action = new RemoveImageFromGalleryAction();
+		String imageOid = request.getParameter("imageOid");
+		System.out.println("[UploadServlet.doDelete] imageOid=" + imageOid); // tmp
+		action.setOid(imageOid);
+		executeAction(request, response, action, false);
+		// tmp fin
 	}
 	
 	private void executeAction(HttpServletRequest request, HttpServletResponse response, IAction action, boolean parseMultipart) throws ServletException {
 		try {
 			ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
 			ModuleManager manager = (ModuleManager) context.get(request, "manager"); 
-			if (parseMultipart) manager.parseMultipartRequest(request); 
+			if (parseMultipart) manager.parseMultipartRequest(request);
+			/* tmp
 			String property = Ids.undecorate(request.getParameter("propertyKey"));
 			PropertiesManager pm = new PropertiesManager(action);
 			pm.executeSet("newImageProperty", property);
 			Messages errors = (Messages) request.getAttribute("errors");
-			Messages messages = (Messages) request.getAttribute("messages");
+			Messages messages = (Messages) request.getAttribute("messages");			
+			*/
+			// tmp ini
+			Messages errors = new Messages(); 
+			request.setAttribute("errors", errors);
+			Messages messages = new Messages(); 			
+			request.setAttribute("messages", messages);
+			// tmp fin
 			manager.executeAction(action, errors, messages, request);
 		}
 		catch (Exception ex) { 
 			log.error(XavaResources.getString("no_execute_action", action.getClass(), ex.getMessage()), ex);
 			throw new ServletException(XavaResources.getString("upload_error"));  
-		}		
+		}
+		// tmp ini
+		finally {
+			ModuleManager.commit();
+		}
+		// tmp fin
 	}
 
 }

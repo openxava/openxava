@@ -12,26 +12,28 @@ openxava.addEditorInitFunction(function() {
     		if ($(input).is(":hidden")) return;
 	    	const pond = FilePond.create(input); 
 	    	if (typeof pond === 'undefined') return; 
-	    	const imageURL = galleryEditor.getImageURL(input);
-	    	pond.onactivatefile = function() {
-	    		window.open(imageURL); 
+	    	pond.allowMultiple = true; // tmp
+	    	// tmp const imageURL = galleryEditor.getImageURL(input);
+	    	const imageURL = "/" + openxava.lastApplication + "/xava/gallery?application=" + input.dataset.application + "&module=" + input.dataset.module + "&dif=" + new Date().getTime(); 
+	    	pond.onactivatefile = function(file) {	    		
+	    		window.open(imageURL + "&oid=" + file.getMetadata("imageOid")); 
 	    	}	    	
 	    	if (input.dataset.empty !== "true") {
 	    		const images = input.dataset.images.split(",");
 	    		for (image of images) {
-	    			console.log("[openxava.addEditorInitFunction] image=" + image);
 	    			const url = "/" + openxava.lastApplication + "/xava/gallery?application=" + input.dataset.application + "&module=" + input.dataset.module + "&oid=" + image + "&dif=" + new Date().getTime();
-	    			console.log("[openxava.addEditorInitFunction] url=" + url);
-	    			pond.addFile(url);
+	    			const file = pond.addFile(url, {metadata: { imageOid: image }}); // tmp ¿imageOid es buen nombre?
 	    		}
 	    	}	    	
 	    	else {
 	    		galleryEditor.enableUpload(pond, input);
 	    	}
-	    	pond.onremovefile = function() {
+	    	// tmp pond.onremovefile = function() {
+	    	pond.onremovefile = function(error, file) { // tmp
 	    		galleryEditor.enableUpload(pond, input);
 	    		$.ajax({
-	    			url: galleryEditor.getUploadURL(input),
+	    			// tmp url: galleryEditor.getUploadURL(input),
+	    			url: galleryEditor.getUploadURL(input) + "&imageOid=" + file.getMetadata("imageOid"), // tmp Esto debería hacerlo mejor
 	    			method: "DELETE"
     			})
     		}

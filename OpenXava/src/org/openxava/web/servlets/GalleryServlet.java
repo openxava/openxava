@@ -29,6 +29,7 @@ public class GalleryServlet extends HttpServlet {
 			}
 			byte [] image = gallery.getImage(oid);			 
 			if (image != null) {					
+				response.setContentType("image/png"); // "images" without png does not work for FilePonde with Firefox, png works for any type of image // tmp
 				response.getOutputStream().write(image);
 			}
 		}

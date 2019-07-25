@@ -1,6 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
+- Gallery:
+	- ¿Encuadrado o no encuadrado?
+	- Optimizar rendimiento, permitir varias galerías y conservar seguridad.
+	- Unificar código para Images y Gallery. 
+	- Pruebas. 
+
+
 - Lessons from 1 to 3 of the course use LocalDate instead of Date.
 - New editor for PHOTO/IMAGE stereotype with AJAX uploading.	
 - New methods changeImage(), removeImage(), assertImage() and assertNoImage() in ModuleTestBase.	

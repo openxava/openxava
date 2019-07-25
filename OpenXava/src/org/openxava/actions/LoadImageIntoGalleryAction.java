@@ -39,17 +39,20 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 		if (c == 1)	addMessage("image_added_to_gallery");
 		else if (c > 1) addMessage("images_added_to_gallery", new Integer(c));
 		trackModification(filesNames.toString());
-		closeDialog(); 
+		// tmp closeDialog(); 
 	}
 	
 	private void trackModification(String fileName) { 
-		View view = getPreviousViews().get(Math.max(getPreviousViews().size() - 2, 0));
+		// tmp View view = getPreviousViews().get(Math.max(getPreviousViews().size() - 2, 0));
+		/* tmp Tenemos que activarlo y ha de funcionar. ¿Hay algún test de prueba?
+		View view = getView(); // tmp
 		String property = (String) Maps.getKeyFromValue(view.getValues(), getGallery().getOid(), "IMAGES_GALLERY"); 
 		Map oldChangedValues = new HashMap();
 		oldChangedValues.put(property, XavaResources.getString("images_gallery_images_added"));  
 		Map newChangedValues = new HashMap();
 		newChangedValues.put(property, fileName); 
 		AccessTracker.modified(view.getModelName(), view.getKeyValues(), oldChangedValues, newChangedValues);
+		*/
 	}
 
 	public String[] getNextControllers() {		

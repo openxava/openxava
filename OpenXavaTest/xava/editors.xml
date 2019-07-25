@@ -7,7 +7,7 @@
 <editors>
 
 	<!-- tmp ini -->
-	<editor name="Gallery" url="galleryEditor2.jsp">
+	<editor name="Gallery" url="galleryEditor2.jsp" frame="true">
 		<for-stereotype stereotype="IMAGES_GALLERY" />
 		<for-stereotype stereotype="GALERIA_IMAGENES" />
 	</editor>

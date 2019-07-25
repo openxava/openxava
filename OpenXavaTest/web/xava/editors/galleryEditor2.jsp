@@ -23,20 +23,25 @@ String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String applicationName = request.getParameter("application");
 String module = request.getParameter("module");
+/* tmp
 Object value = request.getAttribute(propertyKey + ".value");
-String dataEmpty = Is.empty(value)?"data-empty='true'":""; // tmp ¿Aplica?
+String dataEmpty = Is.empty(value)?"data-empty='true'":""; 
+*/
 boolean editable = "true".equals(request.getParameter("editable"));
 String dataEditable = editable?"":"data-editable='true'";
 // tmp ini
-// tmp ME QUEDÉ POR AQUÍ: HE DE COGER EL LA gallery DEL context EN VEZ DE CREAR UNA NUEVA. POR SEGURIDAD Y PARA QUE FUNCIONE EL SERVLET DE LEER LA IMAGEN. ¿ASÍ PODRÍA PONER MÁS DE UNA GALERÍA POR ENTIDAD?
-Gallery gallery = new Gallery();
-gallery.setOid((String) value);
-gallery.loadAllImages();
 StringBuilder imagesOids = new StringBuilder();
-for (GalleryImage image: gallery.getImages()) {
-	if (imagesOids.length() > 0) imagesOids.append(',');
-	imagesOids.append(image.getOid());
+Object value = request.getAttribute(propertyKey + ".value");
+if (!Is.empty(value)) {
+	Gallery gallery = (Gallery) context.get(request, "xava_gallery"); // tmp ¿Funcionaría con más de una galería por vista? ¿Dónde lo libero?
+	gallery.setOid((String) value);
+	gallery.loadAllImages();
+	for (GalleryImage image: gallery.getImages()) {
+		if (imagesOids.length() > 0) imagesOids.append(',');
+		imagesOids.append(image.getOid());
+	}
 }
+String dataEmpty = imagesOids.length() == 0?"data-empty='true'":""; 
 // tmp fin
 %>
 
