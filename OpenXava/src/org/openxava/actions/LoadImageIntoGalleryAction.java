@@ -19,18 +19,24 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 
 	private List fileItems;
 	
+	/* tmp
 	@Inject
 	private Gallery gallery;
+	*/
+	
+	private String galleryProperty; // tmp
 	
 
 	public void execute() throws Exception {		
 		Iterator i = getFileItems().iterator();
 		int c = 0;
-		StringBuffer filesNames = new StringBuffer(); 
+		StringBuffer filesNames = new StringBuffer();
+		Gallery gallery = Gallery.find(getView().getValueString(galleryProperty));
 		while (i.hasNext()) {
 			FileItem fi = (FileItem)i.next();					
 			if (!Is.emptyString(fi.getName())) {
-				getGallery().addImage(fi.get());
+				// tmp getGallery().addImage(fi.get());
+				gallery.addImage(fi.get());
 				c++;
 				if (filesNames.length() > 0) filesNames.append(", ");
 				filesNames.append(fi.getName());
@@ -71,12 +77,22 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 		this.fileItems = fileItems;
 	}
 
+	/* tmp
 	public Gallery getGallery() {
 		return gallery;
 	}
 
 	public void setGallery(Gallery gallery) {
 		this.gallery = gallery;
+	}
+	*/
+
+	public String getGalleryProperty() {
+		return galleryProperty;
+	}
+
+	public void setGalleryProperty(String galleryProperty) {
+		this.galleryProperty = galleryProperty;
 	}
 
 }

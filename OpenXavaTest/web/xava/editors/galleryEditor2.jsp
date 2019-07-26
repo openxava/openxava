@@ -33,12 +33,10 @@ String dataEditable = editable?"":"data-editable='true'";
 StringBuilder imagesOids = new StringBuilder();
 Object value = request.getAttribute(propertyKey + ".value");
 if (!Is.empty(value)) {
-	Gallery gallery = (Gallery) context.get(request, "xava_gallery"); // tmp ¿Funcionaría con más de una galería por vista? ¿Dónde lo libero?
-	gallery.setOid((String) value);
-	gallery.loadAllImages();
-	for (GalleryImage image: gallery.getImages()) {
+	Gallery gallery = Gallery.find((String) value);
+	for (String imageOid: gallery.getImagesOids()) {
 		if (imagesOids.length() > 0) imagesOids.append(',');
-		imagesOids.append(image.getOid());
+		imagesOids.append(imageOid);
 	}
 }
 String dataEmpty = imagesOids.length() == 0?"data-empty='true'":""; 

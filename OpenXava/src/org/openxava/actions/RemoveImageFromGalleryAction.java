@@ -13,17 +13,22 @@ import org.openxava.view.*;
 
 public class RemoveImageFromGalleryAction extends ViewBaseAction {
 	
+	/* tmp
 	@Inject
 	private Gallery gallery;
+	*/
 	private String oid;
+	private String galleryProperty; // tmp
 	
 	
 	public void execute() throws Exception {
+		Gallery gallery = Gallery.find(getView().getValueString(galleryProperty)); // tmp
 		gallery.removeImage(oid);
 		// tmp trackModification(); 
 	}
 	
 	private void trackModification() {  
+		/* tmp
 		View view = getPreviousViews().isEmpty()?getView():getPreviousView();
 		String property = (String) Maps.getKeyFromValue(view.getValues(), gallery.getOid(), "IMAGES GALLERY"); 
 		Map oldChangedValues = new HashMap();
@@ -31,6 +36,7 @@ public class RemoveImageFromGalleryAction extends ViewBaseAction {
 		Map newChangedValues = new HashMap();
 		newChangedValues.put(property, XavaResources.getString("one_image_removed")); 
 		AccessTracker.modified(view.getModelName(), view.getKeyValues(), oldChangedValues, newChangedValues);
+		*/
 	}
 
 	public String getOid() {
@@ -39,6 +45,14 @@ public class RemoveImageFromGalleryAction extends ViewBaseAction {
 
 	public void setOid(String oid) {
 		this.oid = oid;
+	}
+
+	public String getGalleryProperty() {
+		return galleryProperty;
+	}
+
+	public void setGalleryProperty(String galleryProperty) {
+		this.galleryProperty = galleryProperty;
 	}
 
 }

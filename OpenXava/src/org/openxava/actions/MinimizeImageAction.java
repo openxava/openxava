@@ -7,7 +7,7 @@ import javax.inject.*;
 import org.openxava.session.*;
 
 /**
- * 
+ * tmp Quitar
  * @author Javier Paniza
  */
 
@@ -18,7 +18,9 @@ public class MinimizeImageAction extends BaseAction {
 	
 
 	public void execute() throws Exception {
+		/* tmp
 		gallery.setMaximized(false);
+		*/
 	}
 
 }

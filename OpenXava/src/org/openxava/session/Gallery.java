@@ -17,8 +17,40 @@ import org.openxava.hibernate.*;
  */
 public class Gallery {
 	
-	private Map images = null;
 	private String oid;
+	
+	// tmp ini
+	private Gallery() {
+	}
+	
+	public static Gallery find(String oid) {
+		Gallery gallery = new Gallery();
+		gallery.oid = oid;
+		return gallery;
+	}
+	
+	public Collection<String> getImagesOids() {
+		org.hibernate.query.Query<String> query = XHibernate.getSession().createQuery("select oid from GalleryImage where galleryOid=:galleryOid");
+		query.setParameter("galleryOid", oid);
+		return query.list();
+	}
+
+	public void addImage(byte [] image) {
+		GalleryImage galleryImage = new GalleryImage();
+		galleryImage.setGalleryOid(oid);
+		galleryImage.setImage(image);
+		XHibernate.getSession().save(galleryImage);		
+	}
+
+	public void removeImage(String oid) {
+		GalleryImage image = (GalleryImage) XHibernate.getSession().get(GalleryImage.class, oid);
+		XHibernate.getSession().delete(image);
+	}
+	// tmp fin
+	
+	/* tmp
+	private Map images = null;
+	
 	private boolean maximized = false;
 	private String maximizedOid;
 	private String title;
@@ -110,5 +142,6 @@ public class Gallery {
 	public void setReadOnly(boolean readOnly) {
 		this.readOnly = readOnly;
 	}
+	*/
 	
 }

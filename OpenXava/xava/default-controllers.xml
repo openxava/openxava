@@ -30,7 +30,9 @@ here that you want to override.
 	<object name="xava_previousControllers" class="java.util.Stack"/>
 	<object name="xava_previousViews" class="java.util.Stack"/>
 	<object name="xava_previousCustomViews" class="java.util.Stack"/>
+	<!-- tmp 
 	<object name="xava_gallery" class="org.openxava.session.Gallery"/>
+	-->
 	<object name="xava_defaultSchema" class="java.lang.String" scope="global"/>
 	<object name="xava_persistenceUnit" class="java.lang.String" scope="global"/>
 	<object name="xava_currentModule" class="java.lang.String" />

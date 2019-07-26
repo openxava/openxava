@@ -27,7 +27,8 @@ public class GalleryServlet extends HttpServlet {
 			if (oid == null) {
 				throw new Exception(XavaResources.getString("image_oid_required"));
 			}
-			byte [] image = gallery.getImage(oid);			 
+			// tmp byte [] image = gallery.getImage(oid);			 
+			byte [] image = GalleryImage.find(oid).getImage(); // tmp
 			if (image != null) {					
 				response.setContentType("image/png"); // "images" without png does not work for FilePonde with Firefox, png works for any type of image // tmp
 				response.getOutputStream().write(image);

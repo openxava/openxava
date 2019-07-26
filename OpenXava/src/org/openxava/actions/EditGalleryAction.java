@@ -15,7 +15,7 @@ import org.openxava.util.*;
 import org.openxava.view.*;
 
 /**
- * 
+ * tmp Quitar
  * @author Javier Paniza
  */
 
@@ -34,6 +34,7 @@ public class EditGalleryAction extends ViewBaseAction implements INavigationActi
 	
 	
 	public void execute() throws Exception {
+		/* tmp
 		editable = getContainerView().isEditable(galleryProperty); 
 		String oid = getContainerView().getValueString(galleryProperty);
 		if (Is.emptyString(oid)) {
@@ -55,6 +56,7 @@ public class EditGalleryAction extends ViewBaseAction implements INavigationActi
 		}
 		gallery.setReadOnly(!isEditable());
 		showDialog();
+		*/
 	}
 
 	private void updateOidInObject(String oid) throws Exception {

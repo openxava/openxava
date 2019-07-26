@@ -51,6 +51,9 @@ public class UploadServlet extends HttpServlet {
 			Messages messages = (Messages) request.getAttribute("messages");			
 			*/
 			// tmp ini
+			String property = Ids.undecorate(request.getParameter("propertyKey"));
+			PropertiesManager pm = new PropertiesManager(action);
+			pm.executeSet("galleryProperty", property);			
 			Messages errors = new Messages(); 
 			request.setAttribute("errors", errors);
 			Messages messages = new Messages(); 			
