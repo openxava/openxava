@@ -77,10 +77,10 @@
       facturación usando Eclipse. Al final de este capítulo tendrás una primera
       versión funcional de tu aplicación desarrollada como un proyecto de
       Eclipse.<br>
-      Si todavía no tienes Eclipse, <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-06/R/eclipse-java-2019-06-R-win32-x86_64.zip"
+      Si todavía no tienes Eclipse <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-06/R/eclipse-java-2019-06-R-win32-x86_64.zip"
         target="_blank">descarga Eclipse para Windows</a>, <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-06/R/eclipse-java-2019-06-R-macosx-cocoa-x86_64.dmg"
         target="_blank">para Mac</a> o <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-06/R/eclipse-java-2019-06-R-linux-gtk-x86_64.tar.gz"
-        target="_blank">para Linux</a>. Si no tienes Java, <a href="https://www.java.com"
+        target="_blank">para Linux</a>. Si no tienes Java <a href="https://www.java.com"
         target="_blank">descárgalo de java.com</a>.<br>
       <h3 id="toc3"><a name="Lección 1: Primeros pasos-Crear el proyecto en Eclipse-Instalar OpenXava"></a>Instalar
         OpenXava</h3>
@@ -157,7 +157,7 @@ public class Cliente {
       necesitas añadir la anotación <em>@Entity</em> y las propiedades <em>numero</em>
       y <em>descripcion</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.modelo;
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import org.openxava.annotations.*;
@@ -199,13 +199,9 @@ public class Cliente {
       presionando Ctrl-B:<br>
       <img src="files/getting-started_es145.png" alt="getting-started_es145.png"
         title="getting-started_es145.png"><br>
-      Para iniciar el servidor ve a la pestaña <em>Servers.</em> Si no la ves,
-      posiblemente has maximizado el editor actual, simplemente haz doble click
-      en la pestaña del editor para minimizarla y verás la distribución original
-      del Eclipse de nuevo.<br>
-      Una vez allí sigue las siguientes instrucciones:<br>
-      <img src="files/getting-started_es150.png" alt="getting-started_es150.png"
-        title="getting-started_es150.png"><br>
+      Pulsa el botón derecho del ratón en <i>Facturacion.java</i> (en <i>src/_run</i>)
+      y selecciona <i>Run As &gt; Java Application</i>:<img src="files/getting-started_es150.png"
+        alt="getting-started_es150.png" title="getting-started_es150.png"><br>
       Ya tienes tu aplicación ejecutándose. Para verla, abre tu navegador y ve a
       la URL:<br>
       <a class="wiki_link_ext" href="http://localhost:8080/Facturacion" rel="nofollow"
@@ -234,7 +230,7 @@ public class Cliente {
       Probémoslo.<br>
       Crea una nueva entidad para <em>Producto</em> con el siguiente código:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.modelo;
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import org.openxava.annotations.*;
@@ -264,17 +260,14 @@ public class Producto {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Ahora, presiona Ctrl-B. La mayoría
-      de las veces es suficiente pulsar Ctrl-B para desplegar automáticamente tu
-      código, pero de vez en cuando el Eclipse falla al desplegar y tienes que
-      reiniciar el Tomcat, por suerte esto solo cuesta unos pocos segundos. Por
-      tanto, si unos segundos después del Ctrl-B tu aplicación no se
-      redespliega, reinicia el Tomcat con <em>Botón derecho en Tomcat &gt;
-        Restart</em>.<br>
-      Para ver tu nueva entidad en acción abre tu navegador y ve a la URL:<br>
+    <div class="wiki" style="display: block;">Ahora, detén la aplicación,
+      compila (Ctrl-B) y vuelve a iniciar la aplicación:</div>
+    <img src="files/getting-started_es195.png" alt="getting-started_es195.png" title="getting-started_es195.png">
+    <div class="wiki" style="display: block;"> Para ver tu nueva entidad en
+      acción abre tu navegador y ve a la URL:<br>
       <a class="wiki_link_ext" href="http://localhost:8080/Facturacion/modules/Producto"
         rel="nofollow" target="_blank">http://localhost:8080/Facturacion/modules/Producto</a><br>
-      Después de indentificarte con admin/admin obtendrás:<br>
+      Después de identificarte con admin/admin obtendrás:<br>
       <img src="files/getting-started_es200.png" alt="getting-started_es200.png"
         title="getting-started_es200.png"><br>
       Sí, ya tienes un nuevo módulo en marcha, y solo has tenido que escribir
