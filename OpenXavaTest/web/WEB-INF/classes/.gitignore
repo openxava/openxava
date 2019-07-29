@@ -1,6 +1,6 @@
-/org/
 /GalleryImage.hbm.xml
 /META-INF/
+/OpenXavaTest-labels_ca.properties
 /application.xml
 /code-generators.xml
 /controllers.xml
@@ -8,10 +8,9 @@
 /default-size.xml
 /dtds/
 /editors.xml
-/stereotype-type-default.xml
-/tabs-default-values.xml
-/validators.xml
-/OpenXavaTest-labels_ca.properties
+/hibernate-junit.cfg.xml
+/hibernate.cfg.xml
+/org/
 /OpenXavaTest-labels_en.properties
 /OpenXavaTest-labels_es.properties
 /OpenXavaTest-labels_fr.properties
@@ -19,8 +18,6 @@
 /OpenXavaTest-messages_en.properties
 /OpenXavaTest-messages_es.properties
 /OpenXavaTest-messages_fr.properties
-/hibernate-junit.cfg.xml
-/hibernate.cfg.xml
 /portlets/
 /BeansContext.properties
 /Corporation.html

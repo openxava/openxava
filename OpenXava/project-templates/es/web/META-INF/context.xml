@@ -2,13 +2,55 @@
 
 <Context>
 
-	<!-- tmp Faltan comentarios educativos --> 
 	<JarScanner scanClassPath="false" />
+	
+	<!--
+	Para definir el acceso a tu base de datos descomenta una de las
+	configuraciones de abajo. Si no encuentras la tuya, busca en internet
+	la URL JDBC y la clase del controlador para tu base de datos y define
+	tu propia entrada Resource.
+	
+	Has de adaptar la URL a tu propio servidor, quizás también el puerto.
+	Has de define el usuario y contraseña correctos para tu base de datos.
+	
+	Además, has de copiar el controlador JDBC (un archivo jar) correspodiente a
+	tu base de datos, en la carpeta lib de tu Tomcat, o si estás en desarrollo 
+	añade el jar al Java Build Path usando Eclipse:
+		Botón derecho en tu proyecto > Properties > Java Build Path > Libraries
+	-->
 	 
-	<!-- tmp -->   	
-    <Resource name="jdbc/@fuentedatos@" auth="Container" type="javax.sql.DataSource"
+	<!-- HSQLDB -->   	
+    <Resource name="jdbc/@datasource@" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="sa" password="" driverClassName="org.hsqldb.jdbcDriver"
 	      url="jdbc:hsqldb:hsql://localhost:1666"/>
+	      
+	<!-- MySQL       
+    <Resource name="jdbc/@datasource@" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="root" password="" driverClassName="com.mysql.jdbc.Driver"
+	      url="jdbc:mysql://localhost:3306/"/>	      
+	-->      
+	
+	<!-- PostgreSQL 
+	<Resource name="jdbc/@datasource@" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="postgres" password="" driverClassName="org.postgresql.Driver"
+	      url="jdbc:postgresql://localhost/"/>
+	-->
+	
+	<!-- Oracle 
+	<Resource name="jdbc/@datasource@" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password="" driverClassName="oracle.jdbc.driver.OracleDriver"
+	      url="jdbc:oracle:thin:@localhost:1521:XE"/>
+	-->	
+	
+	<!-- AS/400 
+	<Resource name="jdbc/@datasource@" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password="" driverClassName="org.hibernate.dialect.DB2400Dialect"
+	      url="jdbc:as400:localhost"/>
+	-->            
 	      	      
 </Context>

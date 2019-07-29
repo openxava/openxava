@@ -3,11 +3,7 @@ Change Log for OpenXava project
 
 Embedded Tomcat:
 - Rehacer doc.
-	TMP ME QUEDÉ POR AQUÍ PARA EMPEZAR UN PUNTO NUEVO
-	- Cambiar paquete de código a com.yourcompany para todas las lecciones.
-	- Añadir configuración WTP en otra parte. ¿O no? Quizás es mejor no tener tantas alternativas. 
-	- Añadir instalación y despliegue en Tomcat. ¿Qué pasa con context.xml?
-	- Añadir configuración para MySQL, PostgreSQL, etc. ¿Ponerlo en los XML?
+	
 	- ¿Dónde explicar lo de Debug As en lugar de Run As?
 	- Migration:
 		- ¿Poner que hemos quitado los templates? Quizás con la nota en changelog es suficiente.

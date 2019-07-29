@@ -1,8 +1,8 @@
 <!DOCTYPE hibernate-configuration PUBLIC 	"-//Hibernate/Hibernate Configuration DTD//EN"	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">	
 <hibernate-configuration>
 
-	<!-- Hypersonic -->        	<session-factory>		<property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>		<property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>		<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:1666</property>		<property name="hibernate.connection.username">sa</property>			</session-factory>			
-	<!-- AS/400          
+	<!-- Hypersonic -->        	<session-factory>		<property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>		<!-- tmp 		<property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>		-->		<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:1666</property>		<property name="hibernate.connection.username">sa</property>			</session-factory>			
+	<!-- AS/400 tmp Quitar          
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.ibm.as400.access.AS400JDBCDriver</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.DB2400Dialect</property>

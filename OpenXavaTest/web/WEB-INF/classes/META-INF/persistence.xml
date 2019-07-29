@@ -15,10 +15,14 @@
     	<class>org.openxava.web.editors.DiscussionComment</class>
     	<class>org.openxava.util.impl.EmailSubscription</class>
         <properties>
+        	<!-- tmp 
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+            -->
             <property name="hibernate.show_sql" value="false"/>    
             <property name="hibernate.default_schema" value="XAVATEST"/>
+            <!-- tmp 
             <property name="hibernate.connection.release_mode" value="after_transaction"/>
+            -->
             <property name="hibernate.jdbc.factory_class" 
             		value="org.hibernate.jdbc.NonBatchingBatcherFactory"/>
             <property name="org.hibernate.envers.audit_strategy" 
@@ -48,7 +52,8 @@
         </properties>
     </persistence-unit>    
                 
-    <!-- WebSphere + AS/400            
+    <!-- tmp Quitar 
+    WebSphere + AS/400            
     <persistence-unit name="default">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     	<non-jta-data-source>jdbc/OpenXavaTestDS</non-jta-data-source>
@@ -62,7 +67,8 @@
     -->
     
     
-    <!-- Tomcat + AS/400         
+    <!-- Quitar 
+    Tomcat + AS/400         
     <persistence-unit name="default">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     	<non-jta-data-source>java://comp/env/jdbc/DataSource</non-jta-data-source>
@@ -75,7 +81,8 @@
     </persistence-unit>
     -->
     
-    <!-- Tomcat + PostgreSQL          
+    <!-- tmp Quitar 
+    Tomcat + PostgreSQL          
     <persistence-unit name="default">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     	<non-jta-data-source>java://comp/env/jdbc/PostgreSQL</non-jta-data-source>
@@ -88,7 +95,8 @@
     </persistence-unit>
     -->
     
-    <!-- JBoss + Hypersonic      
+    <!-- tmp Quitar 
+    JBoss + Hypersonic      
     <persistence-unit name="default">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>    	
     	<non-jta-data-source>java:/OpenXavaTestDS</non-jta-data-source>    	
@@ -109,13 +117,15 @@
     	<class>org.openxava.util.impl.EmailSubscription</class>
         <properties>
 			<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
+			<!-- tmp 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+			-->
 			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost:1666"/>
 			<property name="hibernate.default_schema" value="XAVATEST"/>
         </properties>
     </persistence-unit>
                       
-	<!-- JUnit AS/400           
+	<!-- JUnit AS/400 tmp Quitar          
     <persistence-unit name="junit">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
@@ -129,7 +139,7 @@
     </persistence-unit>
     -->
     
-    <!-- JUnit PostgreSQL        
+    <!-- JUnit PostgreSQL tmp Quitar       
     <persistence-unit name="junit">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
