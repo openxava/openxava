@@ -2,14 +2,10 @@ Change Log for OpenXava project
 ===============================
 
 Embedded Tomcat:
-- Rehacer doc.
-	
-	- ¿Dónde explicar lo de Debug As en lugar de Run As?
-	- Migration:
-		- ¿Poner que hemos quitado los templates? Quizás con la nota en changelog es suficiente.
 - Modificar distribución.
+	- Debería crear un workspace virgen.
 	- quick-start.html directamente a Getting Started. Ya lo tengo hecho dentro doc.
-	- Poner Getting Started en inicio Eclipse.
+	- Poner OpenXava/doc.html en inicio de Eclipse usando Internal Web Browser.
 	- Eliminar Tomcat. 
 	- Quitar view Servers.
 	- Actualizar las tareas Ant predefinidas.

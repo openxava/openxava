@@ -11,7 +11,7 @@
 	your own Resource entry.
 	
 	You have to adapt the URL to match your server, and maybe the port.
-	You have to define the correct username and password for your database.
+	You have to define the correct user name and password for your database.
 	
 	Moreover, you have to copy the JDBC driver (a jar file) corresponding to
 	your database, to the lib folder of your Tomcat, or if you're in development 
