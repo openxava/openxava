@@ -11,7 +11,7 @@ import org.openxava.model.*;
 /**
  * Esto es un ejemplo de una entidad.
  * 
- * Siéntete libre de renombrarla, modificar o borrarla a tu gusto.
+ * Siéntete libre de renombrarla, modificarla o borrarla a tu gusto.
  */
 
 @Entity

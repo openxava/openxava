@@ -1,32 +1,27 @@
 <?xml version="1.0"?>
 
 <!--
-	Este ant permite crear un nuevo proyecto OpenXava de forma sencilla.
-	Simplemente pon valor a las propiedades y ejecuta la tarea crearNuevoProyecto.
+Para crear un nuevo proyecto OpenXava:
+	1. Crea un nuevo proyecto Java usando Eclipse.
+	2. Con Eclipse: Botón derecho del ratón sobre este archivo > Run As > Ant 
+	3. Eclipse te preguntará el nombre del proyecto: usa el nombre del proyecto Java creado en el paso 1.
 -->
 
 <project name="CrearNuevoProyecto" default="crearNuevoProyecto" basedir=".">
 
 	<input addproperty="proyecto" message="¿Cuál es el nombre de tu proyecto?"/>
-	<property name="fuentedatos" value="${proyecto}DS"/>	
-	<property name="basedatos" value="${proyecto}DB"/> <!-- tmp -->
+	<property name="fuentedatos" value="${proyecto}DS"/> <!-- Si cambias esto revisa createAppLauncher de build.xml -->	
+	<property name="basedatos" value="${proyecto}DB"/> <!-- Si cambias esto revisa createAppLauncher de build.xml -->
 	<property name="esquema" value="${proyecto}"/>
 	
-	<!-- tmp ini -->
 	<target name="definirPaquete">
 		<script language="javascript">
 			var paquete = project.getProperty("proyecto").replace(/ /g,'').toLowerCase();
 			project.setProperty("paquete", paquete); 
 		 </script>
 	</target>
-	<!-- tmp fin -->
 		
-	<!-- tmp
-	<target name="crearNuevoProyecto">
-	-->
-	<!-- tmp ini -->
 	<target name="crearNuevoProyecto" depends="definirPaquete">
-	<!-- tmp fin -->	
 		<mkdir dir="../${proyecto}"/>
 		<copy todir="../${proyecto}" overwrite="true">
 			<fileset dir="project-templates/es"/>
@@ -48,17 +43,12 @@
 			tofile="../${proyecto}/i18n/Etiquetas${proyecto}_es.properties" />				
 		<move file="../${proyecto}/i18n/Mensajes_es.properties.plantilla" 
 			tofile="../${proyecto}/i18n/Mensajes${proyecto}_es.properties" />
-		<!-- tmp ini -->
 		<move file="../${proyecto}/src/_run/LanzadorAplicacion.java" 
 			tofile="../${proyecto}/src/_run/${proyecto}.java" />
 		<move file="../${proyecto}/src/com/tuempresa/tuaplicacion/modelo/TuPrimeraEntidad.java" 
 			tofile="../${proyecto}/src/com/tuempresa/${paquete}/modelo/TuPrimeraEntidad.java" />
 		<delete dir="../${proyecto}/src/com/tuempresa/tuaplicacion" failonerror="false"/>		
 		<delete file="../${proyecto}/data/data.txt"/>
-		<!-- tmp fin -->		
-		<!-- tmp
-		<delete file="../${proyecto}/src/src.txt"/>
-		-->
 		<delete dir="../${proyecto}/bin" failonerror="false"/>
 		<ant antfile="../OpenXava/build.xml" target="updateOX">
 			<property name="project" value="${proyecto}"/>

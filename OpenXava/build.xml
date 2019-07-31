@@ -917,7 +917,7 @@
 		<antcall target="installAddons"/>
 		<antcall target="createWebXml"/>
 		<antcall target="createDefaultI18nFiles"/>
-		<antcall target="createAppLauncher"/> <!-- tmp -->
+		<antcall target="createAppLauncher"/> 
 		<jar jarfile="../${project}/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
 		<!-- Delete the old Hibernate jars (used until v4m5) -->
 		<delete file="../${project}/web/WEB-INF/lib/ejb3-persistence.jar"/>
@@ -966,7 +966,6 @@
 		
 	</target>
 	
-	<!-- tmp ini -->
 	<target name="createAppLauncher">
 		<mkdir dir="../${project}/src/_run"/>
 		<copy file="${openxava.base.dir}/OpenXava/project-templates/en/src/_run/AppLauncher.java" 
@@ -984,11 +983,6 @@
 			</filterset> 			         
 		</copy>			
 	</target>
-	
-	<target name="updateOpenXavaJar">
-		<jar jarfile="../${project}/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
-	</target>
-	<!-- tmp fin -->
 	
 	<target name="copyWeb">
 		<copy todir="../${project}/web/xava" overwrite="true" >

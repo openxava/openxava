@@ -43,7 +43,7 @@ public class ModuleManager implements java.io.Serializable {
 	static {
 		MetaControllers.setContext(MetaControllers.WEB);
 		XSystem._setLogLevelFromJavaLoggingLevelOfXavaPreferences();
-		Logger.getLogger("org.directwebremoting").setLevel(Level.SEVERE); // tmp
+		Logger.getLogger("org.directwebremoting").setLevel(Level.SEVERE); 
 		setVersionInfo();
 		log.info(getProduct() + " " + getVersion() + " (" + getVersionDate() + ")");
 	}

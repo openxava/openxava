@@ -170,11 +170,11 @@ public class Servlets {
 			return new ByteArrayInputStream(result);
 		}
 
-		public boolean isReady() { // tmp
+		public boolean isReady() { 
 			return false;
 		}
 
-		public void setWriteListener(WriteListener listener) { // tmp
+		public void setWriteListener(WriteListener listener) { 
 		}
 
 	}

@@ -1,22 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
-Embedded Tomcat:
-- Modificar distribución.
-	- Debería crear un workspace virgen.
-	- quick-start.html directamente a Getting Started. Ya lo tengo hecho dentro doc.
-	- Poner OpenXava/doc.html en inicio de Eclipse usando Internal Web Browser.
-	- Eliminar Tomcat. 
-	- Quitar view Servers.
-	- Actualizar las tareas Ant predefinidas.
-	- Quitar del workspace MySchool y las templates.
-	- Crear una distribución y probarla. Leer el texto de Getting Started completo.
-- ¿Método de trabajo? ¿Con que configuración debería trabajar yo?
-	- ¿Seguir probando WTP? ¿donde?
-- Diferido al mezclar Pull Request:
-	- Suite completa.
-	- Probar con Linux.
-
+- Getting started guide simplified. 
+- Quick start guide removed.
+- Projects can be launched directly using Run As > Application.
+- No longer is needed to have a Tomcat installed for development.
+- Eclipse for Java Developers is enough, no longer Eclipse for Java Enterprise Developer needed.
+- DWR warning messages no longer shown in log.
 - MySchool demo project no longer included in distribution.
 - Each new project includes a DBManager to launch a HSQLDB manager.
 - DBServer class to start a HSQLDB and its manager.
@@ -24,7 +14,7 @@ Embedded Tomcat:
 - OpenXavaTemplate and OpenXavaPlantilla projects removed from distribution.
 - CreateNewProject.xml and CrearNuevoProyecto.xml available in OpenXava project directly.
 - Servlet API 4.0 included, though we still are compatible with Servlet 3.0.
-
+- Fix: Unused servlets defined in web.xml.
 - Grouping by in list mode has a year and month entry for each LocalDate property.  
 - Filtering by year, month and year/month in list mode for LocalDate columns.
 - @ReadOnly(onCreate=false) in order the member would be editable on create and read only in the other cases.

@@ -12,8 +12,6 @@
     	<class>org.openxava.session.GalleryImage</class>
     </persistence-unit>    
             
-    
-    <!-- JUnit Hypersonic -->
     <persistence-unit name="junit">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     	<class>org.openxava.web.editors.DiscussionComment</class>
@@ -22,6 +20,5 @@
 			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost:1888"/>
         </properties>
     </persistence-unit>    
-    
     
 </persistence>

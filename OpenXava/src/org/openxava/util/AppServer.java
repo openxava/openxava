@@ -14,6 +14,7 @@ import org.apache.catalina.startup.*;
 public class AppServer { 
 	
 	public static void run(String app) throws Exception {
+		System.out.println(XavaResources.getString("starting_application")); 
         String webappDir = new File("web").getAbsolutePath();
         Tomcat tomcat = new Tomcat();
         tomcat.setBaseDir("temp"); 
@@ -22,7 +23,7 @@ public class AppServer {
         tomcat.enableNaming();          
         tomcat.addWebapp("/" + app, webappDir);
         tomcat.start();
-        System.out.println("Application started. Go to http://localhost:8080/" + app); // tmp i18n 
+        System.out.println(XavaResources.getString("application_started_go", "http://localhost:8080/" + app));  
         
         tomcat.getServer().await();
 	}
