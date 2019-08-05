@@ -2,15 +2,11 @@ Change Log for OpenXava project
 ===============================
 
 - Gallery:
-	- Optimizar rendimiento, permitir varias galerías y conservar seguridad. 
-		TMP ME QUEDÉ POR AQUI: REESCRIBÍ EL CODIGO PARA NO USAR xava_gallery. SI QUE USAMOS Gallery
-		TMP		PERO NO COMO OBJETO DE SESIÓN. LO PROBÉ Y NO FUNCIONA. HAY QUE REFINARLO.
 	- Unificar código para Images y Gallery. 
 	- Pruebas. 
 	- Probar en todos navegadores.
 	- Light
 	- Liferay
-
 
 - Lessons from 1 to 3 of the course use LocalDate instead of Date.
 - New editor for PHOTO/IMAGE stereotype with AJAX uploading.	

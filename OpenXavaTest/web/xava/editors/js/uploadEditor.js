@@ -1,38 +1,36 @@
-/* tmp ¿Fusionar con imageEditor? */
+/* tmp */
 
-if (galleryEditor == null) var galleryEditor = {};
+if (uploadEditor == null) var uploadEditor = {};
 
 openxava.addEditorInitFunction(function() {
 
     FilePond.registerPlugin(FilePondPluginImagePreview);
 
-    $('.xava_gallery').each(function() {
+    $('.xava_upload').each(function() {
     	const input = this;
     	if (FilePond.find(input) == null) {
     		if ($(input).is(":hidden")) return;
 	    	const pond = FilePond.create(input); 
-	    	if (typeof pond === 'undefined') return; 
-	    	pond.allowMultiple = true; // tmp
-	    	const imageURL = galleryEditor.getImageURL(input);
+	    	if (typeof pond === 'undefined') return;
+	    	if (input.dataset.mutiple === "true") pond.allowMultiple = true; 
+	    	const fileURL = uploadEditor.getFileURL(input);
 	    	pond.onactivatefile = function(file) {	    		
-	    		window.open(imageURL + "&oid=" + file.getMetadata("imageOid")); 
+	    		window.open(fileURL + "&fileId=" + file.getMetadata("fileId")); 
 	    	}	    	
 	    	if (input.dataset.empty !== "true") {
-	    		const images = input.dataset.images.split(",");
-	    		for (image of images) {
-	    			const url = imageURL + "&oid=" + image;
-	    			const file = pond.addFile(url, {metadata: { imageOid: image }}); // tmp ¿imageOid es buen nombre?
+	    		const filesIds = input.dataset.files.split(",");
+	    		for (fileId of filesIds) {
+	    			const url = fileURL + "&fileId=" + fileId;
+	    			pond.addFile(url, {metadata: { fileId: fileId }}); 
 	    		}
-	    	}	    	
-	    	else {
-	    		galleryEditor.enableUpload(pond, input);
 	    	}
-	    	// tmp pond.onremovefile = function() {
-	    	pond.onremovefile = function(error, file) { // tmp
-	    		galleryEditor.enableUpload(pond, input);
+	    	else {
+	    		uploadEditor.enableUpload(pond, input);
+	    	}
+	    	pond.onremovefile = function(error, file) { 
+	    		uploadEditor.enableUpload(pond, input);
 	    		$.ajax({
-	    			// tmp url: galleryEditor.getUploadURL(input),
-	    			url: galleryEditor.getUploadURL(input) + "&imageOid=" + file.getMetadata("imageOid"), // tmp Esto debería hacerlo mejor
+	    			url: uploadEditor.getUploadURL(input) + "&fileId=" + file.getMetadata("fileId"), 
 	    			method: "DELETE"
     			})
     		}
@@ -41,7 +39,7 @@ openxava.addEditorInitFunction(function() {
 	    	}
 	    	pond.dropValidation = true;
 	    	pond.beforeDropFile = function() {
-	    		galleryEditor.enableUpload(pond, input);
+	    		uploadEditor.enableUpload(pond, input);
 	    		return true;
 	        }
 	    	pond.allowRevert = false; 
@@ -51,7 +49,7 @@ openxava.addEditorInitFunction(function() {
 	
 });
 
-galleryEditor.enableUpload = function(pond, input) {
+uploadEditor.enableUpload = function(pond, input) {
 	pond.setOptions({ 
 	    server: {
 	    	process: galleryEditor.getUploadURL(input) 
@@ -59,10 +57,10 @@ galleryEditor.enableUpload = function(pond, input) {
 	});
 }
 
-galleryEditor.getUploadURL = function(input) {
+uploadEditor.getUploadURL = function(input) {
 	return "/" + openxava.lastApplication + "/xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id;
 }
 
-galleryEditor.getImageURL = function(input) { 
+uploadEditor.getFileURL = function(input) { 
 	return "/" + openxava.lastApplication + "/xava/gallery?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id + "&dif=" + new Date().getTime();
 }

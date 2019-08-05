@@ -47,9 +47,10 @@ String dataEmpty = imagesOids.length() == 0?"data-empty='true'":"";
 <input type="hidden" name="<%=propertyKey%>" value="<%=value%>"> <%-- tmp ¿Necesario? --%>
 
 <input id='<%=propertyKey%>' 
-	type="file" class="xava_gallery" 
+	type="file" class="xava_upload" 
+	data-multiple="true"
 	data-application="<%=applicationName%>" 
 	data-module="<%=module%>"
-	data-images="<%=imagesOids%>" <%-- tmp ¿Este nombre? --%>
+	data-files="<%=imagesOids%>" <%-- tmp ¿Este nombre? --%>
 	<%=dataEmpty%>
 	<%=dataEditable%>/>

@@ -30,10 +30,10 @@ public class UploadServlet extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// tmp executeAction(request, response, new DeleteImageAction(), false);
 		// tmp ini
+		// TMP ME QUEDÉ POR AQUÍ: USAR EL NUEVO executeAction DE ModuleManager PARA LLAMAR A ESTA ACCIÓN
 		RemoveImageFromGalleryAction action = new RemoveImageFromGalleryAction();
-		String imageOid = request.getParameter("imageOid");
-		System.out.println("[UploadServlet.doDelete] imageOid=" + imageOid); // tmp
-		action.setOid(imageOid);
+		String fileId = request.getParameter("fileId");
+		action.setOid(fileId);
 		executeAction(request, response, action, false);
 		// tmp fin
 	}
