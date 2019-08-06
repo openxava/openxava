@@ -522,7 +522,7 @@ public class ModuleManager implements java.io.Serializable {
 		try {
 			if (implementsAvailableAction(metaAction)) {
 				IAvailableAction action = (IAvailableAction) metaAction.createAction(); 
-				prepareAction(action, metaAction, errors, messages, propertyValues, request);
+				prepareAction(action, metaAction, errors, messages, propertyValues, request); 
 				return action.isAvailable();
 			}
 			return true;
@@ -540,10 +540,10 @@ public class ModuleManager implements java.io.Serializable {
 
 	private void executeAction(IAction action, MetaAction metaAction,
 			Messages errors, Messages messages, String propertyValues,
-			HttpServletRequest request) {
+			HttpServletRequest request) { 
 		try {
 			Object previousView = getContext().get(applicationName, moduleName,	"xava_view");
-			prepareAction(action, metaAction, errors, messages, propertyValues, request);
+			prepareAction(action, metaAction, errors, messages, propertyValues, request); 
 			if (action instanceof IRemoteAction) {
 				IRemoteAction remote = (IRemoteAction) action;
 				remote.executeBefore();
@@ -709,7 +709,7 @@ public class ModuleManager implements java.io.Serializable {
 	}
 	
 	private void prepareAction(IAction action, MetaAction metaAction, Messages errors, Messages messages,
-			String propertyValues, HttpServletRequest request) throws Exception {
+			String propertyValues, HttpServletRequest request) throws Exception { 
 		action.setErrors(errors);
 		action.setMessages(messages);
 		action.setEnvironment(getEnvironment());
@@ -763,6 +763,7 @@ public class ModuleManager implements java.io.Serializable {
 					.setFileItems(fileItems == null ? Collections.EMPTY_LIST
 							: fileItems);
 		}
+		
 	}
 	
 	/**

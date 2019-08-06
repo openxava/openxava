@@ -1,4 +1,4 @@
-/* tmp ¿Fusionar con imageEditor? */
+// tmp Borrar, también en OpenXava
 
 if (galleryEditor == null) var galleryEditor = {};
 

@@ -1,3 +1,5 @@
+// tmp Borrar, también en OpenXava
+
 if (imageEditor == null) var imageEditor = {};
 
 openxava.addEditorInitFunction(function() {

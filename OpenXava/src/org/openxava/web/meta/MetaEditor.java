@@ -69,6 +69,10 @@ public class MetaEditor {
 		return properties == null?false:properties.containsKey(name);
 	}
 	
+	public String getProperty(String name) { // tmp
+		return properties == null?null:(String) properties.get(name);
+	}
+	
 	private String getPropertiesURL() {
 		if (propertiesURL == null) {
 			if (properties == null) propertiesURL="";

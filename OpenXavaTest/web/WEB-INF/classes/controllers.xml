@@ -27,6 +27,16 @@
 		</action>	
 	</controller>
 	
+	<!-- tmp ini -->
+	<!-- tmp Mover a OpenXava -->
+	<controller name="ImageEditor"> <!-- ¿Image o ImageEditor? Si me quedo con ImageEditor quizás debería renombrar Gallery como GalleryEditor -->
+		<action name="load"
+			class="org.openxava.actions.LoadImageAction"/>
+		<action name="delete" confirm="true"
+			class="org.openxava.actions.DeleteImageAction"/>					
+	</controller>
+	<!-- tmp fin -->
+	
 	<controller name="ShowSellerDialog">
 		<action name="showSellerDialog"  
 			class="org.openxava.test.actions.ShowSellerDialogAction"/>

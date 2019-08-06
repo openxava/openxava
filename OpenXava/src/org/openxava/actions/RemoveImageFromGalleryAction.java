@@ -16,14 +16,21 @@ public class RemoveImageFromGalleryAction extends ViewBaseAction {
 	/* tmp
 	@Inject
 	private Gallery gallery;
-	*/
 	private String oid;
-	private String galleryProperty; // tmp
-	
+	*/
+	// tmp ini
+	private String fileId;
+	private String property; 
+	// tmp fin
 	
 	public void execute() throws Exception {
-		Gallery gallery = Gallery.find(getView().getValueString(galleryProperty)); // tmp
-		gallery.removeImage(oid);
+		System.out.println("[RemoveImageFromGalleryAction.execute] fileId=" + fileId); // tmp
+		System.out.println("[RemoveImageFromGalleryAction.execute] property=" + property); // tmp
+		// tmp ini
+		Gallery gallery = Gallery.find(getView().getValueString(property));
+		gallery.removeImage(fileId);
+		// tmp fin
+		// tmp gallery.removeImage(oid);
 		// tmp trackModification(); 
 	}
 	
@@ -39,20 +46,22 @@ public class RemoveImageFromGalleryAction extends ViewBaseAction {
 		*/
 	}
 
-	public String getOid() {
-		return oid;
+	public String getFileId() {
+		return fileId;
 	}
 
-	public void setOid(String oid) {
-		this.oid = oid;
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
 	}
 
-	public String getGalleryProperty() {
-		return galleryProperty;
+	public String getProperty() {
+		return property;
 	}
 
-	public void setGalleryProperty(String galleryProperty) {
-		this.galleryProperty = galleryProperty;
+	public void setProperty(String property) {
+		this.property = property;
 	}
+
+
 
 }

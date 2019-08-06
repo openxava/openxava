@@ -4,7 +4,6 @@
 /converters.xml
 /default-size.xml
 /dtds/
-/editors.xml
 /org/
 /GalleryImage.hbm.xml
 /META-INF/
@@ -14,14 +13,15 @@
 /OpenXavaTest-labels_fr.properties
 /OpenXavaTest-messages_ca.properties
 /OpenXavaTest-messages_en.properties
+/OpenXavaTest-messages_es.properties
+/OpenXavaTest-messages_fr.properties
+/editors.xml
 /hibernate-junit.cfg.xml
 /hibernate.cfg.xml
+/portlets/
 /stereotype-type-default.xml
 /tabs-default-values.xml
 /validators.xml
-/OpenXavaTest-messages_es.properties
-/OpenXavaTest-messages_fr.properties
-/portlets/
 /BeansContext.properties
 /Corporation.html
 /CorporationEmployee.html

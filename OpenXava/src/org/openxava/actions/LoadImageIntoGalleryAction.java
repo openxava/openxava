@@ -24,14 +24,13 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 	private Gallery gallery;
 	*/
 	
-	private String galleryProperty; // tmp
+	private String property; // tmp
 	
-
 	public void execute() throws Exception {		
 		Iterator i = getFileItems().iterator();
 		int c = 0;
 		StringBuffer filesNames = new StringBuffer();
-		Gallery gallery = Gallery.find(getView().getValueString(galleryProperty));
+		Gallery gallery = Gallery.find(getView().getValueString(property));
 		while (i.hasNext()) {
 			FileItem fi = (FileItem)i.next();					
 			if (!Is.emptyString(fi.getName())) {
@@ -77,6 +76,14 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 		this.fileItems = fileItems;
 	}
 
+	public String getProperty() {
+		return property;
+	}
+
+	public void setProperty(String property) {
+		this.property = property;
+	}
+
 	/* tmp
 	public Gallery getGallery() {
 		return gallery;
@@ -86,13 +93,5 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 		this.gallery = gallery;
 	}
 	*/
-
-	public String getGalleryProperty() {
-		return galleryProperty;
-	}
-
-	public void setGalleryProperty(String galleryProperty) {
-		this.galleryProperty = galleryProperty;
-	}
 
 }

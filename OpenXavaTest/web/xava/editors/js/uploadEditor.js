@@ -6,6 +6,7 @@ openxava.addEditorInitFunction(function() {
 
     FilePond.registerPlugin(FilePondPluginImagePreview);
 
+    /* TMP ME QUEDÉ POR AQUÍ: INTENTANDO QUE FUNCIONE CON Image */
     $('.xava_upload').each(function() {
     	const input = this;
     	if (FilePond.find(input) == null) {
@@ -17,7 +18,7 @@ openxava.addEditorInitFunction(function() {
 	    	pond.onactivatefile = function(file) {	    		
 	    		window.open(fileURL + "&fileId=" + file.getMetadata("fileId")); 
 	    	}	    	
-	    	if (input.dataset.empty !== "true") {
+	    	if (input.dataset.empty !== "true" && typeof input.dataset.files !== 'undefined') {
 	    		const filesIds = input.dataset.files.split(",");
 	    		for (fileId of filesIds) {
 	    			const url = fileURL + "&fileId=" + fileId;
@@ -52,7 +53,7 @@ openxava.addEditorInitFunction(function() {
 uploadEditor.enableUpload = function(pond, input) {
 	pond.setOptions({ 
 	    server: {
-	    	process: galleryEditor.getUploadURL(input) 
+	    	process: uploadEditor.getUploadURL(input) 
 	    }
 	});
 }
@@ -62,5 +63,5 @@ uploadEditor.getUploadURL = function(input) {
 }
 
 uploadEditor.getFileURL = function(input) { 
-	return "/" + openxava.lastApplication + "/xava/gallery?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id + "&dif=" + new Date().getTime();
+	return "/" + openxava.lastApplication + "/xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id + "&dif=" + new Date().getTime();
 }
