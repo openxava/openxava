@@ -2153,6 +2153,16 @@ div[id$="_Index__view"] .ox-list-title {
 	white-space: normal;
 }
 
+/* tmp ini */
+.ox-image {
+	width: 220px;
+}
+
+.ox-image .filepond--drop-label label {
+	width: 190px;
+}
+/* tmp fin */
+
 .filepond--panel-root {
 	border-radius: 4px !important;
 }

@@ -4,6 +4,8 @@ import java.math.*;
 import javax.persistence.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
+import org.openxava.web.*;
+
 import com.gargoylesoftware.htmlunit.html.*;
 
 /**
@@ -121,7 +123,8 @@ public class Product2Test extends EmailNotificationsTestBase {
 		// Verifying product 1 has no images
 		assertTrue("At least 2 products are required to run this test", getListRowCount() >= 2);
 		execute("List.viewDetail", "row=0");
-		assertValue("number", "1");		
+		assertValue("number", "1");	
+		/* tmp
 		execute("Gallery.edit", "galleryProperty=photos");
 		assertNoErrors(); 
 		assertMessage("No images");
@@ -129,7 +132,15 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertNoAction("Gallery.minimizeImage");
 		assertNoAction("Gallery.removeImage");
 		assertEquals("Images count does not match", 0, getForm().getInputsByName("xava.GALLERY.images").size());
+		*/
+		// tmp ini
+		// tmp ¿Refactorizar? ¿Moverlo a ModuleTestBase?
+		HtmlInput photos = getHtmlPage().getHtmlElementById(decorateId("photos"));
+		assertEquals("", photos.getAttribute("data-files"));
+		assertEquals("true", photos.getAttribute("data-empty"));
+		// tmp fin
 		
+		/* tmp
 		// Canceling the adding of and image
 		execute("Gallery.addImage");
 		assertNoErrors();
@@ -141,8 +152,10 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertNoAction("Gallery.minimizeImage");
 		assertNoAction("Gallery.removeImage");
 		assertEquals("Images count does not match", 0, getForm().getInputsByName("xava.GALLERY.images").size());
+		*/
 		
-		// Adding one image		
+		// Adding one image
+		/* tmp
 		execute("Gallery.addImage");
 		assertNoErrors();
 		imageUrl = System.getProperty("user.dir") + "/test-images/foto_javi.jpg";
@@ -153,16 +166,25 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertAction("Gallery.maximizeImage");
 		assertNoAction("Gallery.minimizeImage");
 		assertAction("Gallery.removeImage");
-		assertEquals("Images count does not match", 1, getForm().getInputsByName("xava.GALLERY.images").size());		
+		assertEquals("Images count does not match", 1, getForm().getInputsByName("xava.GALLERY.images").size());
+		*/
+		changeImage("photos", "test-images/foto_javi.jpg"); // tmp Cambiar este nombre
+		reload();
+		photos = getHtmlPage().getHtmlElementById(decorateId("photos"));
+		assertEquals(1, photos.getAttribute("data-files").split(",").length);
+		assertEquals("", photos.getAttribute("data-empty"));		
 		
+		/* tmp
 		// Returning to the main entity
 		execute("Gallery.close"); 
 		//execute("CRUD.save"); It's not needed explicit saving of the main entity
 		assertNoErrors();
+		*/
 		
 		// Verifying that product 2 has no images
 		execute("Navigation.next");
 		assertValue("number", "2");
+		/* tmp
 		execute("Gallery.edit", "galleryProperty=photos");
 		assertNoErrors();
 		assertMessage("No images"); 
@@ -170,13 +192,20 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertNoAction("Gallery.minimizeImage");
 		assertNoAction("Gallery.removeImage");
 		assertEquals("Images count does not match", 0, getForm().getInputsByName("xava.GALLERY.images").size());		
-		execute("Gallery.close"); 
+		execute("Gallery.close");
+		*/ 
+		// tmp ini
+		photos = getHtmlPage().getHtmlElementById(decorateId("photos"));
+		assertEquals("", photos.getAttribute("data-files"));
+		assertEquals("true", photos.getAttribute("data-empty"));
+		// tmp fin
 		
 		// Verifying that product 1 has the added image
 		execute("CRUD.new");
 		setValue("number", "1");
 		execute("CRUD.refresh");
 		assertNoErrors();
+		/* tmp
 		execute("Gallery.edit", "galleryProperty=photos");
 		assertNoErrors();
 		assertNoMessages();
@@ -185,7 +214,14 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertAction("Gallery.removeImage");
 		assertEquals("Images count does not match", 1, getForm().getInputsByName("xava.GALLERY.images").size());
 		String imageOid = getForm().getInputByName("xava.GALLERY.images").getValueAttribute();
+		*/
+		// tmp ini
+		photos = getHtmlPage().getHtmlElementById(decorateId("photos"));
+		assertEquals(1, photos.getAttribute("data-files").split(",").length);
+		assertEquals("", photos.getAttribute("data-empty"));
+		// tmp fin
 		
+		/* tmp
 		// Maximizing the image
 		execute("Gallery.maximizeImage", "oid="+imageOid);
 		assertNoErrors();
@@ -200,7 +236,9 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertNoAction("Gallery.minimizeImage");
 		assertAction("Gallery.removeImage");
 		assertEquals("Images count does not match", 1, getForm().getInputsByName("xava.GALLERY.images").size());
+		*/
 		
+		/* tmp
 		// Verifying read-only
 		execute("Gallery.close"); 
 		execute("EditableOnOff.setOff");
@@ -214,8 +252,10 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertEquals("Images count does not match", 1, getForm().getInputsByName("xava.GALLERY.images").size());
 		execute("Close.close");
 		execute("EditableOnOff.setOn");
+		*/
 		
 		// Removing the image
+		/* tmp
 		execute("Gallery.edit", "galleryProperty=photos");
 		assertEquals("Images count does not match", 1, getForm().getInputsByName("xava.GALLERY.images").size());
 		execute("Gallery.removeImage", "oid="+imageOid);
@@ -224,18 +264,31 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertNoAction("Gallery.minimizeImage");
 		assertNoAction("Gallery.removeImage");
 		assertEquals("Images count does not match", 0, getForm().getInputsByName("xava.GALLERY.images").size());
+		*/
+		// tmp ini
+		String fileId = photos.getAttribute("data-files");
+		removeImage("photos", fileId);
+		// tmp fin
 		
 		// Verifying that product 1 has no images
-		execute("Gallery.close"); 
+		// tmp execute("Gallery.close"); 
 		execute("CRUD.new");
 		setValue("number", "1");
 		execute("CRUD.refresh");
 		assertNoErrors();
+		/* tmp
 		execute("Gallery.edit", "galleryProperty=photos");
 		assertNoErrors();
 		assertMessage("No images");
 		assertEquals("Images count does not match", 0, getForm().getInputsByName("xava.GALLERY.images").size());
+		*/
+		// tmp ini
+		photos = getHtmlPage().getHtmlElementById(decorateId("photos"));
+		assertEquals("", photos.getAttribute("data-files"));
+		assertEquals("true", photos.getAttribute("data-empty"));				
+		// tmp fin
 
+		// TMP ME QUEDÉ POR AQUÍ: FUNCIONA HASTA AQUÍ, SEGUIR
 		assertEmailNotifications(
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: NEW IMAGES ADDED --> foto_javi.jpg</li></ul>",
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: IMAGE REMOVED --> One image removed</li></ul>"

@@ -37,11 +37,16 @@ import org.openxava.test.validators.*;
 @Views({
 	@View( members=
 		"#number, description;" + // Don't remove #, it's needed to test some bugs	
-		"color, photos;" +
+		// tmp "color, photos;" +
+		"color;" + // tmp Revisar las otras vistas también. En migración, porque ahora la galería es en línea.
 		"family, subfamily;" +
 		"warehouse, zoneOne;" +
 		"unitPrice, unitPriceInPesetas;" +
-		"unitPriceWithTax"
+		// tmp "unitPriceWithTax"
+		// tmp ini
+		"unitPriceWithTax;" +
+		"photos"
+		// tmp fin
 	),	
 	@View( name="ColorWithFrame", members= 
 		"number;" +

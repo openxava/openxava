@@ -33,7 +33,6 @@ public class GalleryServlet extends HttpServlet {
 			*/
 			// tmp byte [] image = gallery.getImage(oid);		
 			// tmp ini
-			System.out.println("[GalleryServlet.doGet] "); // tmp
 			String oid=request.getParameter("fileId");
 			if (oid == null) {
 				throw new Exception(XavaResources.getString("image_oid_required")); // tmp ¿Cambiar el mensaje?

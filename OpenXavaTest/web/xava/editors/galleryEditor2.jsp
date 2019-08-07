@@ -1,5 +1,3 @@
-<%@ include file="../imports.jsp"%>
-
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 <%@ page import="org.openxava.util.Is" %>
 <%@ page import="org.openxava.session.Gallery"%> <%-- tmp --%>
@@ -47,10 +45,12 @@ String dataEmpty = imagesOids.length() == 0?"data-empty='true'":"";
 <input type="hidden" name="<%=propertyKey%>" value="<%=value%>"> <%-- tmp ¿Necesario? --%>
 
 <input id='<%=propertyKey%>' 
-	type="file" class="xava_upload" 
+	type="file" class="xava_upload"  
 	data-multiple="true"
 	data-application="<%=applicationName%>" 
 	data-module="<%=module%>"
 	data-files="<%=imagesOids%>" <%-- tmp ¿Este nombre? --%>
 	<%=dataEmpty%>
 	<%=dataEditable%>/>
+
+<jsp:include page="filePondTranslation.jsp"/>	

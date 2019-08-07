@@ -5,8 +5,8 @@ import java.util.*;
 import javax.inject.*;
 
 import org.apache.commons.fileupload.*;
-
-
+import org.openxava.calculators.*;
+import org.openxava.model.*;
 import org.openxava.session.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
@@ -15,7 +15,7 @@ import org.openxava.view.*;
  * @author Javier Paniza
  */
 
-public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavigationAction, IProcessLoadedFileAction {
+public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavigationAction, IProcessLoadedFileAction { // tmp ¿Quitar INavigationAction?
 
 	private List fileItems;
 	
@@ -26,13 +26,13 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 	
 	private String property; // tmp
 	
-	public void execute() throws Exception {		
+	public void execute() throws Exception {	
 		Iterator i = getFileItems().iterator();
 		int c = 0;
 		StringBuffer filesNames = new StringBuffer();
-		Gallery gallery = Gallery.find(getView().getValueString(property));
+		Gallery gallery = Gallery.find(getGalleryOid());
 		while (i.hasNext()) {
-			FileItem fi = (FileItem)i.next();					
+			FileItem fi = (FileItem)i.next();				
 			if (!Is.emptyString(fi.getName())) {
 				// tmp getGallery().addImage(fi.get());
 				gallery.addImage(fi.get());
@@ -45,6 +45,25 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 		else if (c > 1) addMessage("images_added_to_gallery", new Integer(c));
 		trackModification(filesNames.toString());
 		// tmp closeDialog(); 
+	}
+	
+	public String getGalleryOid() throws Exception {
+		String oid = getView().getValueString(property);
+		if (Is.emptyString(oid)) {
+			UUIDCalculator cal = new UUIDCalculator();  
+			oid = (String) cal.calculate();
+			getView().setValue(property, oid);
+			if (!getView().isKeyEditable()) { // Modifying
+				updateOidInObject(oid);
+			}
+		}
+		return oid;
+	}
+
+	private void updateOidInObject(String oid) throws Exception {
+		Map values = new HashMap();
+		values.put(property, oid);
+		MapFacade.setValuesNotTracking(getView().getModelName(), getView().getKeyValues(), values); 
 	}
 	
 	private void trackModification(String fileName) { 

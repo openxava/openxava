@@ -25,10 +25,8 @@ public class UploadServlet extends HttpServlet {
 	private static Log log = LogFactory.getLog(UploadServlet.class);
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("[UploadServlet.doGet] "); // tmp
 		String property = Ids.undecorate(request.getParameter("propertyKey"));
 		String url = getEditorProperty(request, property, "getURL");
-		System.out.println("[UploadServlet.doGet] url="+url); // tmp
 		getServletContext().getRequestDispatcher(url).forward(request, response);			  		
 	}
 	

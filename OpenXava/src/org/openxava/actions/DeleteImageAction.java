@@ -7,12 +7,23 @@ package org.openxava.actions;
  */
 public class DeleteImageAction extends ViewBaseAction{
 	
-	private String newImageProperty;
+	// tmp private String newImageProperty;
+	private String property; // tmp
 	
 	public void execute() throws Exception {
-		getView().setValue(getNewImageProperty(), null); 
+		// tmp getView().setValue(getNewImageProperty(), null); 
+		getView().setValue(property, null); // tmp
 	}
 
+	public String getProperty() {
+		return property;
+	}
+
+	public void setProperty(String property) {
+		this.property = property;
+	}
+
+	/* tmp
 	public String getNewImageProperty() {
 		return newImageProperty;
 	}
@@ -20,5 +31,6 @@ public class DeleteImageAction extends ViewBaseAction{
 	public void setNewImageProperty(String newImageProperty) {
 		this.newImageProperty = newImageProperty;
 	}
+	*/
 
 }

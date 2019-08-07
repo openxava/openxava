@@ -2,8 +2,10 @@ Change Log for OpenXava project
 ===============================
 
 - Gallery:
-	- Unificar código para Images y Gallery. 
-	- Pruebas. 
+	- Pruebas.
+		- Prueba manual:
+			- Click y que se vea en otra pestaña (equivalente a maximizar).
+			- Solo lectura. 
 	- Probar en todos navegadores.
 	- Light
 	- Liferay

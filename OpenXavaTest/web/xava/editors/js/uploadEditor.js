@@ -3,10 +3,9 @@
 if (uploadEditor == null) var uploadEditor = {};
 
 openxava.addEditorInitFunction(function() {
-
+	
     FilePond.registerPlugin(FilePondPluginImagePreview);
 
-    /* TMP ME QUEDÉ POR AQUÍ: INTENTANDO QUE FUNCIONE CON Image */
     $('.xava_upload').each(function() {
     	const input = this;
     	if (FilePond.find(input) == null) {
@@ -16,13 +15,18 @@ openxava.addEditorInitFunction(function() {
 	    	if (input.dataset.mutiple === "true") pond.allowMultiple = true; 
 	    	const fileURL = uploadEditor.getFileURL(input);
 	    	pond.onactivatefile = function(file) {	    		
-	    		window.open(fileURL + "&fileId=" + file.getMetadata("fileId")); 
+	    		window.open(fileURL + uploadEditor.getFileIdParam(file)); 
 	    	}	    	
-	    	if (input.dataset.empty !== "true" && typeof input.dataset.files !== 'undefined') {
-	    		const filesIds = input.dataset.files.split(",");
-	    		for (fileId of filesIds) {
-	    			const url = fileURL + "&fileId=" + fileId;
-	    			pond.addFile(url, {metadata: { fileId: fileId }}); 
+	    	if (input.dataset.empty !== "true") {
+	    		if (typeof input.dataset.files !== 'undefined') {
+		    		const filesIds = input.dataset.files.split(",");
+		    		for (fileId of filesIds) {
+		    			const url = fileURL + "&fileId=" + fileId;
+		    			pond.addFile(url, {metadata: { fileId: fileId }}); 
+		    		}
+	    		}
+	    		else {
+	    			pond.addFile(fileURL);
 	    		}
 	    	}
 	    	else {
@@ -31,7 +35,7 @@ openxava.addEditorInitFunction(function() {
 	    	pond.onremovefile = function(error, file) { 
 	    		uploadEditor.enableUpload(pond, input);
 	    		$.ajax({
-	    			url: uploadEditor.getUploadURL(input) + "&fileId=" + file.getMetadata("fileId"), 
+	    			url: uploadEditor.getUploadURL(input) + uploadEditor.getFileIdParam(file), 
 	    			method: "DELETE"
     			})
     		}
@@ -64,4 +68,9 @@ uploadEditor.getUploadURL = function(input) {
 
 uploadEditor.getFileURL = function(input) { 
 	return "/" + openxava.lastApplication + "/xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id + "&dif=" + new Date().getTime();
+}
+
+uploadEditor.getFileIdParam = function(file) {
+	const fileId = file.getMetadata("fileId");
+	return typeof fileId === 'undefined'?"":"&fileId=" + fileId; 
 }

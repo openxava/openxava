@@ -3104,7 +3104,8 @@ public class ModuleTestBase extends TestCase {
 	private void assertImage(String property, boolean present) throws Exception { 
 		String imageURL = (String) getHtmlPage().executeJavaScript(
 			"var input = document.getElementById('" + decorateId(property) + "');" +
-			"imageEditor.getImageURL(input)"
+			// tmp "imageEditor.getImageURL(input)"
+			"uploadEditor.getImageURL(input)" // tmp		
 		).getJavaScriptResult();
 		
 		URL url = getHtmlPage().getWebResponse().getWebRequest().getUrl(); 
@@ -3149,7 +3150,8 @@ public class ModuleTestBase extends TestCase {
 			"var input = document.getElementById('" + decoratedProperty + "');" +
 			"formData.append('file', input.files[0]);" +
 			"var xhr = new XMLHttpRequest();" +
-			"xhr.open('POST', imageEditor.getUploadURL(input));" +
+			// tmp "xhr.open('POST', imageEditor.getUploadURL(input));" +
+			"xhr.open('POST', uploadEditor.getUploadURL(input));" +
 			"xhr.send(formData);"				
 		);
 		waitAJAX();
@@ -3167,15 +3169,37 @@ public class ModuleTestBase extends TestCase {
 	 * 
 	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
 	 * @since 6.2
-	 */	
+	 */
+	/* tmp
 	protected void removeImage(String property) throws Exception { 
 		getHtmlPage().executeJavaScript(
 			"var input = document.getElementById('" + decorateId(property) + "');" +	
 			"var xhr = new XMLHttpRequest();" +
-			"xhr.open('DELETE', imageEditor.getUploadURL(input));" +
+			// tmp "xhr.open('DELETE', imageEditor.getUploadURL(input));" +
+			"xhr.open('DELETE', uploadEditor.getUploadURL(input));" +
 			"xhr.send(null);"				
 		);
 		waitAJAX();		
 	}
+	*/
+	
+	// tmp ini
+	protected void removeImage(String property) throws Exception {
+		removeImage(property, null);
+	}
+	
+	protected void removeImage(String property, String fileId) throws Exception {
+		String fileIdParam = fileId == null?"":" + '&fileId=" + fileId + "'";
+		getHtmlPage().executeJavaScript(
+			"var input = document.getElementById('" + decorateId(property) + "');" +	
+			"var xhr = new XMLHttpRequest();" +
+			"xhr.open('DELETE', uploadEditor.getUploadURL(input)" + fileIdParam + ");" +
+			"xhr.send(null);"				
+		);
+		waitAJAX();		
+	}	
+	// tmp fin
+	
+	
 
 }
