@@ -127,9 +127,11 @@ public class Product5Test extends CustomizeListTestBase {
 			"Reference.createNew", "Reference.modify", "Print.generateExcel", 
 			"Product5.seeInitial"
 		};
+		/* tmp
 		String[] galleryActions = {
 			"Gallery.addImage", "Gallery.close", "Mode.list" 
 		};
+		*/
 		
 		// list -> detail -> list
 		assertActions(listActions); 
@@ -144,8 +146,12 @@ public class Product5Test extends CustomizeListTestBase {
 		assertAction("Product5.goA"); 
 		assertNoAction("Product5.goB");
 		assertAction("CRUD.new");
-		
+
+		/* tmp ¿Testear de otra forma?
 		// list -> detail -> gallery editor -> list
+		String[] galleryActions = {
+			"Gallery.addImage", "Gallery.close", "Mode.list" 
+		};		
 		execute("List.viewDetail", "row=0");
 		assertNoErrors();
 		execute("GalleryNoDialog.edit", "galleryProperty=photos"); 
@@ -155,6 +161,7 @@ public class Product5Test extends CustomizeListTestBase {
 		assertAction("Product5.goA");
 		assertNoAction("Product5.goB");
 		assertAction("CRUD.new");
+		*/
 	}
 	
 	

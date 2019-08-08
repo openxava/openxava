@@ -15,7 +15,12 @@ openxava.addEditorInitFunction(function() {
 	    	if (input.dataset.mutiple === "true") pond.allowMultiple = true; 
 	    	const fileURL = uploadEditor.getFileURL(input);
 	    	pond.onactivatefile = function(file) {	    		
-	    		window.open(fileURL + uploadEditor.getFileIdParam(file)); 
+	    		// tmp window.open(fileURL + uploadEditor.getFileIdParam(file));
+	    		// tmp ini
+	    		// TMP ME QUEDÉ POR AQUÍ: ESTO ME ACABO DE FUNCIONAR
+	    		const dataURL = URL.createObjectURL(file.file);
+	    		window.open(dataURL);
+	    		// tmp fin
 	    	}	    	
 	    	if (input.dataset.empty !== "true") {
 	    		if (typeof input.dataset.files !== 'undefined') {

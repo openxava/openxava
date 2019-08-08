@@ -27,23 +27,23 @@ public class RemoveImageFromGalleryAction extends ViewBaseAction {
 		System.out.println("[RemoveImageFromGalleryAction.execute] fileId=" + fileId); // tmp
 		System.out.println("[RemoveImageFromGalleryAction.execute] property=" + property); // tmp
 		// tmp ini
-		Gallery gallery = Gallery.find(getView().getValueString(property));
+		String galleryOid = getView().getValueString(property);
+		Gallery gallery = Gallery.find(galleryOid);
 		gallery.removeImage(fileId);
 		// tmp fin
 		// tmp gallery.removeImage(oid);
-		// tmp trackModification(); 
+		trackModification(galleryOid); 
 	}
 	
-	private void trackModification() {  
-		/* tmp
+	private void trackModification(String galleryOid) { // tmp String galleryOid  
 		View view = getPreviousViews().isEmpty()?getView():getPreviousView();
-		String property = (String) Maps.getKeyFromValue(view.getValues(), gallery.getOid(), "IMAGES GALLERY"); 
+		// tmp String property = (String) Maps.getKeyFromValue(view.getValues(), gallery.getOid(), "IMAGES GALLERY"); 
+		String property = (String) Maps.getKeyFromValue(view.getValues(), galleryOid, "IMAGES GALLERY"); // tmp
 		Map oldChangedValues = new HashMap();
 		oldChangedValues.put(property, XavaResources.getString("images_gallery_image_removed"));  
 		Map newChangedValues = new HashMap();
 		newChangedValues.put(property, XavaResources.getString("one_image_removed")); 
 		AccessTracker.modified(view.getModelName(), view.getKeyValues(), oldChangedValues, newChangedValues);
-		*/
 	}
 
 	public String getFileId() {

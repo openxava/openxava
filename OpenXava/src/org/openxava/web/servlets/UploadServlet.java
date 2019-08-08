@@ -27,6 +27,8 @@ public class UploadServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String property = Ids.undecorate(request.getParameter("propertyKey"));
 		String url = getEditorProperty(request, property, "getURL");
+		System.out.println("[UploadServlet.doGet] url=" + url); // tmp
+		System.out.println("[UploadServlet.doGet] fileId=" + request.getParameter("fileId")); // tmp
 		getServletContext().getRequestDispatcher(url).forward(request, response);			  		
 	}
 	

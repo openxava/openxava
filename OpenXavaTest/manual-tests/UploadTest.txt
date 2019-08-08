@@ -1,6 +1,6 @@
-The automated tests in this project do not include some aspects of Image editor.
+The automated tests in this project do not include some aspects of upload editors.
 
-Customer module with all browsers:
+Image: Customer module with all browsers
 - Add the photo column to the list. Photos are tiny and no broken links for no photo.
 - Go to first customer: Must have a photo. No uploading progress must be done.
 - Navigate to the next one: Must have a link to browse for a new photo.
@@ -16,3 +16,14 @@ Customer module with all browsers:
 - Execute "SET OFF" action. Try to click on remove photo. It should not work. 
 - Go to next record. You have to see no photo.
 - Execute "SET OFF" action. Try to click on Browser link. It should not work. 
+
+GalleryImage: Product2 with all browsers
+- Go to first product: No images.
+- Add two images, one with drag & drop and another browsing.
+- Click on one image. A new browser tab should open displaying the image. Close it.
+- Go to list, choose the first product. It should have the two images.
+- Click on one image. A new browser tab should open displaying the image. Close it.
+- Remove one image. Go to the next record (no images), return to the first one: one image.
+- Execute "SET OFF" action. Try to click on remove photo. It should not work.
+- Execute "SET ON" action. Remove the image.
+- Execute "SET OFF" action. Try to click on Browser link. It should not work.

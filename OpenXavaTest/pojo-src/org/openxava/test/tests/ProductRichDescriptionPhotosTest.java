@@ -16,6 +16,7 @@ public class ProductRichDescriptionPhotosTest extends ModuleTestBase {
 		super(testName, "ProductRichDescriptionPhotos");		
 	}
 		
+	/* tmp
 	public void testHtmlTextForAPropertyNamedDescriptionNotShowsItsContentInPhotosDialog() throws Exception { 
 		execute("CRUD.new");
 		setValue("number", "66");
@@ -25,5 +26,6 @@ public class ProductRichDescriptionPhotosTest extends ModuleTestBase {
 		assertFalse(gallery.asText().contains("THE JUNIT PRODUCT"));
 		
 	}
+	*/
 	
 }

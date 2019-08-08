@@ -6,9 +6,15 @@ Change Log for OpenXava project
 		- Prueba manual:
 			- Click y que se vea en otra pestaña (equivalente a maximizar).
 			- Solo lectura. 
+			- Reprobar con imagen simple.
+	- Quitar GalleryNoDialog
 	- Probar en todos navegadores.
 	- Light
 	- Liferay
+	- Suite.
+	- Refinar código.
+	- Prueba manual.
+	- Suite.
 
 - Lessons from 1 to 3 of the course use LocalDate instead of Date.
 - New editor for PHOTO/IMAGE stereotype with AJAX uploading.	

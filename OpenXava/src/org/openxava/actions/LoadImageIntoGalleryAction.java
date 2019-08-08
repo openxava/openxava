@@ -15,7 +15,7 @@ import org.openxava.view.*;
  * @author Javier Paniza
  */
 
-public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavigationAction, IProcessLoadedFileAction { // tmp ¿Quitar INavigationAction?
+public class LoadImageIntoGalleryAction extends ViewBaseAction implements /* tmp INavigationAction, */ IProcessLoadedFileAction { 
 
 	private List fileItems;
 	
@@ -30,7 +30,8 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 		Iterator i = getFileItems().iterator();
 		int c = 0;
 		StringBuffer filesNames = new StringBuffer();
-		Gallery gallery = Gallery.find(getGalleryOid());
+		String galleryOid = getGalleryOid();
+		Gallery gallery = Gallery.find(galleryOid);
 		while (i.hasNext()) {
 			FileItem fi = (FileItem)i.next();				
 			if (!Is.emptyString(fi.getName())) {
@@ -43,7 +44,7 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 		}		
 		if (c == 1)	addMessage("image_added_to_gallery");
 		else if (c > 1) addMessage("images_added_to_gallery", new Integer(c));
-		trackModification(filesNames.toString());
+		trackModification(galleryOid, filesNames.toString());
 		// tmp closeDialog(); 
 	}
 	
@@ -66,19 +67,19 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 		MapFacade.setValuesNotTracking(getView().getModelName(), getView().getKeyValues(), values); 
 	}
 	
-	private void trackModification(String fileName) { 
+	private void trackModification(String galleryOid, String fileName) { 
 		// tmp View view = getPreviousViews().get(Math.max(getPreviousViews().size() - 2, 0));
-		/* tmp Tenemos que activarlo y ha de funcionar. ¿Hay algún test de prueba?
 		View view = getView(); // tmp
-		String property = (String) Maps.getKeyFromValue(view.getValues(), getGallery().getOid(), "IMAGES_GALLERY"); 
+		// tmp String property = (String) Maps.getKeyFromValue(view.getValues(), getGallery().getOid(), "IMAGES_GALLERY"); 
+		String property = (String) Maps.getKeyFromValue(view.getValues(), galleryOid, "IMAGES_GALLERY"); // tmp
 		Map oldChangedValues = new HashMap();
 		oldChangedValues.put(property, XavaResources.getString("images_gallery_images_added"));  
 		Map newChangedValues = new HashMap();
 		newChangedValues.put(property, fileName); 
 		AccessTracker.modified(view.getModelName(), view.getKeyValues(), oldChangedValues, newChangedValues);
-		*/
 	}
 
+	/* tmp
 	public String[] getNextControllers() {		
 		return PREVIOUS_CONTROLLERS;
 	}
@@ -86,6 +87,7 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 	public String getCustomView() {		
 		return PREVIOUS_VIEW; 
 	}
+	*/
 
 	public List getFileItems() {
 		return fileItems;

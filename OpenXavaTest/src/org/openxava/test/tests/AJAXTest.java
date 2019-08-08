@@ -839,7 +839,7 @@ public class AJAXTest extends ModuleTestBase {
 		assertLoadedParts("errors, messages, editor_time,"); 
 	}
 
-	
+	/* tmp Esto habrá que testearlo de otra forma
 	public void testCustomView_uploadFile() throws Exception { 
 		if (!usesAnnotatedPOJO()) return;
 		changeModule("Product5"); 
@@ -864,6 +864,7 @@ public class AJAXTest extends ModuleTestBase {
 		assertLoadedParts("errors, view, bottom_buttons, " +
 				"button_bar, messages");
 	}
+	*/
 	
 	public void testHandmadeWebView() throws Exception {
 		changeModule("SellerJSP");

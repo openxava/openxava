@@ -3188,7 +3188,7 @@ public class ModuleTestBase extends TestCase {
 		removeImage(property, null);
 	}
 	
-	protected void removeImage(String property, String fileId) throws Exception {
+	private void removeImage(String property, String fileId) throws Exception {
 		String fileIdParam = fileId == null?"":" + '&fileId=" + fileId + "'";
 		getHtmlPage().executeJavaScript(
 			"var input = document.getElementById('" + decorateId(property) + "');" +	
@@ -3198,6 +3198,26 @@ public class ModuleTestBase extends TestCase {
 		);
 		waitAJAX();		
 	}	
+	
+	protected void assertGalleryImagesCount(String property, int expectedCount) throws Exception { // tmp
+		HtmlInput input = getHtmlPage().getHtmlElementById(decorateId(property));
+		if (expectedCount > 0) {
+			assertEquals(expectedCount, input.getAttribute("data-files").split(",").length);
+			assertEquals("", input.getAttribute("data-empty"));
+		}
+		else {
+			assertEquals("", input.getAttribute("data-files"));
+			assertEquals("true", input.getAttribute("data-empty"));
+		}
+	}
+	
+	protected void removeGalleryImage(String property, int index) throws Exception { // tmp
+		HtmlInput input = getHtmlPage().getHtmlElementById(decorateId(property));
+		String fileIds = input.getAttribute("data-files");
+		String fileId = fileIds.split(",")[index];
+		System.out.println("[ModuleTestBase.removeGalleryImage] filedId=" + fileId); // tmp
+		removeImage("photos", fileId);
+	}
 	// tmp fin
 	
 	
