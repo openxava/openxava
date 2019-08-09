@@ -14,21 +14,21 @@ openxava.addEditorInitFunction(function() {
 	    	if (typeof pond === 'undefined') return;
 	    	if (input.dataset.mutiple === "true") pond.allowMultiple = true; 
 	    	const fileURL = uploadEditor.getFileURL(input);
-	    	pond.onactivatefile = function(file) {	    		
-	    		// tmp window.open(fileURL + uploadEditor.getFileIdParam(file));
-	    		// tmp ini
-	    		// TMP ME QUEDÉ POR AQUÍ: ESTO ME ACABO DE FUNCIONAR
-	    		const dataURL = URL.createObjectURL(file.file);
-	    		window.open(dataURL);
-	    		// tmp fin
+	    	pond.onactivatefile = function(file) {
+	    		if (openxava.browser.ie) window.open(fileURL + uploadEditor.getFileIdParam(file)); 
+	    		else if (openxava.browser.ff) {
+	    			openxava.setUrlParam("");
+	    			window.location = URL.createObjectURL(file.file);
+	    		}
+	    		else window.open(URL.createObjectURL(file.file)); 
 	    	}	    	
 	    	if (input.dataset.empty !== "true") {
 	    		if (typeof input.dataset.files !== 'undefined') {
 		    		const filesIds = input.dataset.files.split(",");
-		    		for (fileId of filesIds) {
+		    		filesIds.forEach(function(fileId) {
 		    			const url = fileURL + "&fileId=" + fileId;
-		    			pond.addFile(url, {metadata: { fileId: fileId }}); 
-		    		}
+		    			pond.addFile(url, {metadata: { fileId: fileId }}); 		    			
+		    		});
 	    		}
 	    		else {
 	    			pond.addFile(fileURL);

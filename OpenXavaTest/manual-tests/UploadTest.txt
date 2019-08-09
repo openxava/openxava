@@ -5,7 +5,8 @@ Image: Customer module with all browsers
 - Go to first customer: Must have a photo. No uploading progress must be done.
 - Navigate to the next one: Must have a link to browse for a new photo.
 - Browser for a new photo.
-- Click on the photo. A new browser tab should open displaying the photo. Close it. 
+- Click on the photo. A new browser tab should open displaying the photo. Close it.
+	- With Firefox: The photo is shown in the same tab, click back in browser to return. 
 - Save. Go to list. Select the second record. You have to see that photo. No uploading progress must be done. 
 - Change for another photo using drag & drop. Save.
 - Go to previous record. You have to see the photo of record 1. No uploading progress must be done.
@@ -21,8 +22,11 @@ GalleryImage: Product2 with all browsers
 - Go to first product: No images.
 - Add two images, one with drag & drop and another browsing.
 - Click on one image. A new browser tab should open displaying the image. Close it.
+	- With Firefox: The image is shown in the same tab, click back in browser to return.
+	- With Internet Explorer: Fails.
 - Go to list, choose the first product. It should have the two images.
 - Click on one image. A new browser tab should open displaying the image. Close it.
+	- With Firefox: The image is shown in the same tab, click back in browser to return.
 - Remove one image. Go to the next record (no images), return to the first one: one image.
 - Execute "SET OFF" action. Try to click on remove photo. It should not work.
 - Execute "SET ON" action. Remove the image.

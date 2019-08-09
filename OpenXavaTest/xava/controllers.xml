@@ -47,10 +47,12 @@
 		<action name="disableDiscussion" class="org.openxava.test.actions.DisableDiscussionAction"/> 
 	</controller>
 		
-	<controller name="GalleryNoDialog">		
+	<!-- tmp 	
+	<controller name="GalleryNoDialog"> 		
 		<action name="edit" image="photo.gif" hidden="true"
 			class="org.openxava.test.actions.EditGalleryNoDialogAction"/>			
 	</controller>
+	-->
 	
 	<controller name="Clerk">	
 		<extends controller="TypicalRealExcel"/>

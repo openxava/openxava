@@ -27,7 +27,7 @@ public class SeveralModulesTest extends ModuleTestBase {
 		assertFocusOn("relationWithSeller");
 		assertSections();		
 		assertCollections(); 
-		assertUploadFiles(); 		 				
+		assertUploadFiles(); 	 				
 	}
 
 	private void assertUploadFiles() throws Exception, IOException, MalformedURLException {

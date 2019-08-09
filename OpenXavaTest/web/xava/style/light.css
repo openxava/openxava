@@ -1866,13 +1866,24 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .filepond--root {
-	width: 220px;
+	/* tmp width: 220px; */
+	overflow: hidden; /* tmp */
 }
 
 .filepond--drop-label label {
-	width: 190px;
+	/* tmp width: 190px; */
 	white-space: normal;
 }
+
+/* tmp ini */
+.ox-image {
+	width: 220px;
+}
+
+.ox-image .filepond--drop-label label {
+	width: 190px;
+}
+/* tmp fin */
 
 .filepond--panel-root {
 	border-radius: 4px !important;

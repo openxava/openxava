@@ -59,7 +59,33 @@ execute("LoadImage.loadImage");
 </code></pre> </div>
     <div class="wiki" style="display: block;">The method <i>changeImage()</i>
       is in <i>ModuleTestBase</i> where we also have <i>removeImage()</i>, <i>assertImage()</i>
-      and <i>assertNoImage()</i> to deal with the PHOTO/IMAGE editor.<br>
+      and <i>assertNoImage()</i> to deal with the PHOTO/IMAGE editor.</div>
+    <div class="wiki" style="display: block;">
+      <h3>New editor for IMAGES_GALLERY stereotype (for JUnit tests)</h3>
+      The new editor does not require any change in your application code, but
+      given that the actions of <i>Gallery </i>and <i>LoadImageIntoGallery</i>
+      controllers no longer exist you should adapt the tests where you uses the
+      gallery. For example, if you have this test code to add an image to the
+      gallery:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">execute("Gallery.edit", "galleryProperty=photos");
+execute("Gallery.addImage");
+String imageURL = System.getProperty("user.dir") + "/test-images/foto-javi.png";
+setFileValue("newImage", imageURL);
+execute("LoadImageIntoGallery.loadImage");
+execute("Gallery.close");
+</code></pre></div>
+      <div class="wiki" style="display: block;">You should rewrite it in this
+        way:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">changeImage("photos", "test-images/foto-javi.png");
+</code></pre> </div>
+      <div class="wiki" style="display: block;">The method <i>changeImage()</i>
+        is in <i>ModuleTestBase</i> where we also have <i>removeGalleryImage()</i>
+        and <i>assertGalleryImagesCount()</i> to deal with the IMAGES_GALLERY
+        editor.<br>
+        <h2></h2>
+      </div>
       <h2></h2>
       <h2>Migration from OpenXava 6.1.1 to OpenXava 6.1.2</h2>
       No issues.

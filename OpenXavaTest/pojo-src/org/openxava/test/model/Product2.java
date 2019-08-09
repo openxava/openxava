@@ -79,33 +79,41 @@ import org.openxava.test.validators.*;
 	@View(name="OnlySoftware"),
 	@View( name = "Simple8", members=
 		"number, description;" + 	
-		"color, photos;" +
+		// tmp "color, photos;" +
+		"color;" + // tmp 
 		"family, subfamily;" +
-		"warehouse, unitPrice"
+		// tmp "warehouse, unitPrice"
+		"warehouse, unitPrice, unitPriceWithTax" // tmp
 	),
 	@View( name = "NotSimple9", members=
 		"number, description;" + 	
-		"color, photos;" +
+		// tmp "color, photos;" +
+		"color;" + // tmp
 		"family, subfamily;" +
-		"warehouse, unitPrice, unitPriceInPesetas;"
+		// tmp "warehouse, unitPrice, unitPriceInPesetas;"
+		"warehouse, unitPrice, unitPriceInPesetas, unitPriceWithTax;" // tmp
 	),
 	@View( name = "NotSimpleReference", members=
 		"number, description;" + 	
-		"color, photos;" +
+		// tmp "color, photos;" +
+		"color, unitPrice;" + // tmp
 		"family, subfamily;" 
 	),	
 	@View( name = "NotSimpleGroup", members=
 		"number, description;" + 	
-		"color, photos;" +
+		// tmp "color, photos;" +
+		"color, unitPrice;" + // tmp
 		"families [ family, subfamily; ]" 
 	),	
 	@View( name = "NotSimpleSection", members=
 		"number, description;" + 	
-		"colores { color, photos; }" +
+		// tmp "colores { color, photos; }" +
+		"colores { color, unitPrice; }" + // tmp
 		"families { family, subfamily; }" 
 	),	
 	@View( name = "NotSimpleFramedEditor", members=
-		"number, color, photos;" +
+		// tmp "number, color, photos;" +
+		"number, color, unitPrice;" + // tmp
 		"description" 
 	),
 	@View( name = "DescriptionsListShowsReferenceView", members=

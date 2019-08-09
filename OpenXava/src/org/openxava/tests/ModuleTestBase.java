@@ -3105,7 +3105,7 @@ public class ModuleTestBase extends TestCase {
 		String imageURL = (String) getHtmlPage().executeJavaScript(
 			"var input = document.getElementById('" + decorateId(property) + "');" +
 			// tmp "imageEditor.getImageURL(input)"
-			"uploadEditor.getImageURL(input)" // tmp		
+			"uploadEditor.getFileURL(input)" // tmp		
 		).getJavaScriptResult();
 		
 		URL url = getHtmlPage().getWebResponse().getWebRequest().getUrl(); 

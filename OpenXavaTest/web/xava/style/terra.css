@@ -2145,7 +2145,7 @@ div[id$="_Index__view"] .ox-list-title {
 .filepond--root {
 	/* tmp width: 220px; */
 	/* width: 70vw;  tmp */
-	overflow: hidden;
+	overflow: hidden; /* tmp */
 }
 
 .filepond--drop-label label {
