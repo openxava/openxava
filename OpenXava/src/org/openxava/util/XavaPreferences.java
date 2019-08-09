@@ -103,7 +103,8 @@ public class XavaPreferences {
 		return getProperties().getProperty("smtpUserPassword");
 	}
 	
-	public String getSMTPFromEmail() { // tmp
+	/** @since 6.2 */
+	public String getSMTPFromEmail() { 
 		return getProperties().getProperty("smtpFromEmail", getSMTPUserID());
 	}
 
