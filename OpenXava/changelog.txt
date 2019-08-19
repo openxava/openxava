@@ -2,11 +2,15 @@ Change Log for OpenXava project
 ===============================
 
 - Gallery:
-	TMP ME QUEDÉ PARA EMPEZAR EL SIGUIENTE PUNTO.
-	- Refinar código.
+	- Refinar código: TMP ME QUEDÉ POR AQUÍ, REFINANDO
 	- Liferay
 	- Prueba manual.
 	- Suite.
+	
+	- Notas:	
+		- Hemos quitado <input type="hidden" name="<%=propertyKey%>" value="<%=value%>"> de galleryEditor.jsp
+		- Comprobar que gallery.jsp se borra con el updateOX
+		- Tenemos un terra.css con comentarios en temporal
 
 - Lessons from 1 to 3 of the course use LocalDate instead of Date.
 - New editor for PHOTO/IMAGE stereotype with AJAX uploading.	

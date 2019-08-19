@@ -27,16 +27,6 @@
 		</action>	
 	</controller>
 	
-	<!-- tmp ini -->
-	<!-- tmp Mover a OpenXava -->
-	<controller name="ImageEditor"> <!-- ¿Image o ImageEditor? Si me quedo con ImageEditor quizás debería renombrar Gallery como GalleryEditor -->
-		<action name="load"
-			class="org.openxava.actions.LoadImageAction"/>
-		<action name="delete" confirm="true"
-			class="org.openxava.actions.DeleteImageAction"/>					
-	</controller>
-	<!-- tmp fin -->
-	
 	<controller name="ShowSellerDialog">
 		<action name="showSellerDialog"  
 			class="org.openxava.test.actions.ShowSellerDialogAction"/>
@@ -47,13 +37,6 @@
 		<action name="disableDiscussion" class="org.openxava.test.actions.DisableDiscussionAction"/> 
 	</controller>
 		
-	<!-- tmp 	
-	<controller name="GalleryNoDialog"> 		
-		<action name="edit" image="photo.gif" hidden="true"
-			class="org.openxava.test.actions.EditGalleryNoDialogAction"/>			
-	</controller>
-	-->
-	
 	<controller name="Clerk">	
 		<extends controller="TypicalRealExcel"/>
 		<action name="createMyExcel" class="org.openxava.test.actions.CreateMyExcelAction" />

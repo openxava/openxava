@@ -23,31 +23,20 @@ public class GalleryServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		try {			
-			/* tmp
-			ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
-			Gallery gallery = (Gallery) context.get(request, "xava_gallery");
-			String oid=request.getParameter("oid");
-			if (oid == null) {
-				throw new Exception(XavaResources.getString("image_oid_required"));
-			}
-			*/
-			// tmp byte [] image = gallery.getImage(oid);		
-			// tmp ini
 			String oid=request.getParameter("fileId");
 			if (oid == null) {
-				throw new Exception(XavaResources.getString("image_oid_required")); // tmp ¿Cambiar el mensaje?
+				throw new Exception(XavaResources.getString("parameter_required", "fileId")); 
 			}			
 			String property = Ids.undecorate(request.getParameter("propertyKey"));
 			String galleryOid = getCurrentView(request).getValueString(property);
 			GalleryImage galleryImage = GalleryImage.find(oid);
 			if (Is.equal(galleryOid, galleryImage.getGalleryOid())) {
-				byte [] image = galleryImage.getImage(); // tmp
-				// tmp fin
+				byte [] image = galleryImage.getImage(); 
 				if (image != null) {					
-					response.setContentType("image/png"); // "images" without png does not work for FilePonde with Firefox, png works for any type of image // tmp
+					response.setContentType("image/png"); // "images" without png does not work for FilePonde with Firefox, png works for any type of image 
 					response.getOutputStream().write(image);
 				}
-			} // tmp
+			} 
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
@@ -55,10 +44,9 @@ public class GalleryServlet extends HttpServlet {
 		}		
 	}
 	
-	private View getCurrentView( HttpServletRequest request) { // tmp  		 
+	private View getCurrentView( HttpServletRequest request) {   		 
 		ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
 		return (View) context.get(request, "xava_view");
 	}
-
 
 }

@@ -695,12 +695,6 @@ i {
 	margin: -5px;
 }
 
-.ox-images-gallery .ox-frame-title i { 
-	font-size: 120%;
-	padding: 5px;
-	
-}
-
 .ox-customize-controls i {
 	color: #E8DDCB;
 }
@@ -1051,24 +1045,6 @@ input[type="button"],
 .ox-frame-actions {
 	float: left;
 	margin-right: 3px;
-}
-
-.ox-images-gallery {
-	padding-top: 10px;
-}
-
-.ox-images-gallery .ox-frame-actions i { 
-	margin-top: -5px;
-	margin-right: -6px;
-}
-
-.ox-images-gallery .ox-frame-title {
-	min-width: 20px;
-}
-
-.ox-images-gallery .ox-frame-actions {
-	float: right;
-	margin-left: 3px;
 }
 
 .ox-sections { 
@@ -2143,12 +2119,19 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .filepond--root {
-	width: 220px;
+	overflow: hidden; 
 }
 
 .filepond--drop-label label {
-	width: 190px;
 	white-space: normal;
+}
+
+.ox-image {
+	width: 220px;
+}
+
+.ox-image .filepond--drop-label label {
+	width: 190px;
 }
 
 .filepond--panel-root {

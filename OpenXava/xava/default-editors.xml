@@ -135,13 +135,16 @@
     </editor>    
     
 	<editor name="Image" url="imageEditor.jsp" format="false">
+		<property name="postAction" value="ImageEditor.load"/>
+		<property name="deleteAction" value="ImageEditor.delete"/>
+		<property name="getURL" value="/xava/ximage"/>	
 		<formatter class="org.openxava.formatters.ImageFormatter" />
 		<for-stereotype stereotype="FOTO" />
 		<for-stereotype stereotype="PHOTO" />
 		<for-stereotype stereotype="IMAGEN" />
 		<for-stereotype stereotype="IMAGE" />
 	</editor>
-
+	
 	<editor name="TextArea" url="textAreaEditor.jsp" frame="true">
 		<for-stereotype stereotype="TEXTO_GRANDE" />
 		<for-stereotype stereotype="MEMO" />
@@ -174,11 +177,14 @@
 		<for-stereotype stereotype="BOLD_LABEL" />
 	</editor>
 
-	<editor name="Gallery" url="galleryEditor.jsp">
+	<editor name="Gallery" url="galleryEditor.jsp" frame="true">
+		<property name="postAction" value="GalleryEditor.loadImage"/>
+		<property name="deleteAction" value="GalleryEditor.removeImage"/>
+		<property name="getURL" value="/xava/gallery"/> 
 		<for-stereotype stereotype="IMAGES_GALLERY" />
 		<for-stereotype stereotype="GALERIA_IMAGENES" />
 	</editor>
-
+	
 	<editor name="ZeroFilled" url="textEditor.jsp">
 		<property name="fillWithZeros" value="true" />
 		<for-stereotype stereotype="ZEROS_FILLED" />

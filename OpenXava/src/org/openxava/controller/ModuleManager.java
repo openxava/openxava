@@ -503,7 +503,10 @@ public class ModuleManager implements java.io.Serializable {
 		executeAction(metaAction, errors, messages, null, request);
 	}
 	
-	public void executeAction(String qualifiedActionName, Messages errors, // tmp 
+	/**
+	 * @since 6.2 
+	 */	
+	public void executeAction(String qualifiedActionName, Messages errors,  
 		Messages messages, String propertyValues, HttpServletRequest request) 
 	{ 
 		MetaAction metaAction = MetaControllers.getMetaAction(qualifiedActionName);

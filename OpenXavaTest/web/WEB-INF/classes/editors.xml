@@ -6,33 +6,6 @@
 
 <editors>
 
-	<!-- tmp ini -->
-	<editor name="Gallery" url="galleryEditor2.jsp" frame="true">
-		<property name="postAction" value="LoadImageIntoGallery.loadImage"/>
-		<property name="deleteAction" value="Gallery.removeImage"/>
-		<property name="getURL" value="/xava/gallery"/> <!-- tmp ¿o getServlet? -->
-		<for-stereotype stereotype="IMAGES_GALLERY" />
-		<for-stereotype stereotype="GALERIA_IMAGENES" />
-	</editor>
-	
-	<editor name="Image" url="imageEditor2.jsp" format="false">
-		<property name="postAction" value="ImageEditor.load"/>
-		<property name="deleteAction" value="ImageEditor.delete"/>
-		<property name="getURL" value="/xava/ximage"/>	
-		<formatter class="org.openxava.formatters.ImageFormatter" />
-		<for-stereotype stereotype="FOTO" />
-		<for-stereotype stereotype="PHOTO" />
-		<for-stereotype stereotype="IMAGEN" />
-		<for-stereotype stereotype="IMAGE" />
-	</editor>
-	<!-- tmp fin -->
-
-	<!-- tmp  
-	<editor name="GalleryNoDialog" url="galleryEditor.jsp"> 
-		<property name="editAction" value="GalleryNoDialog.edit"/>
-	</editor>
-	-->
-
 	<editor url="regionsEditor.jsp">
 		<property name="regionsCount" value="3" />
 		<formatter
