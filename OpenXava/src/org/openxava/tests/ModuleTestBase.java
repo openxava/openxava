@@ -3104,8 +3104,7 @@ public class ModuleTestBase extends TestCase {
 	private void assertImage(String property, boolean present) throws Exception { 
 		String imageURL = (String) getHtmlPage().executeJavaScript(
 			"var input = document.getElementById('" + decorateId(property) + "');" +
-			// tmp "imageEditor.getImageURL(input)"
-			"uploadEditor.getFileURL(input)" // tmp		
+			"uploadEditor.getFileURL(input)" 		
 		).getJavaScriptResult();
 		
 		URL url = getHtmlPage().getWebResponse().getWebRequest().getUrl(); 
@@ -3125,7 +3124,7 @@ public class ModuleTestBase extends TestCase {
 
 
 	/**
-	 * Change the current image or assign a new one to a property of PHOTO/IMAGE stereotype.
+	 * Change the current image or assign a new one to a property of PHOTO/IMAGE or IMAGES_GALLERY stereotype.
 	 * 
 	 * Example:
 	 * <pre>
@@ -3134,7 +3133,7 @@ public class ModuleTestBase extends TestCase {
 	 * 
 	 * The image is not saved in database until a save action is executed, like the real UI.
 	 * 
-	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE or IMAGES_GALLERY
 	 * @param imageURL  If the URL is relative it starts from the current project, if it is absolute (starts with /) it is used 'as is'.  
 	 * @since 6.2
 	 */
@@ -3150,7 +3149,6 @@ public class ModuleTestBase extends TestCase {
 			"var input = document.getElementById('" + decoratedProperty + "');" +
 			"formData.append('file', input.files[0]);" +
 			"var xhr = new XMLHttpRequest();" +
-			// tmp "xhr.open('POST', imageEditor.getUploadURL(input));" +
 			"xhr.open('POST', uploadEditor.getUploadURL(input));" +
 			"xhr.send(formData);"				
 		);
@@ -3169,21 +3167,7 @@ public class ModuleTestBase extends TestCase {
 	 * 
 	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
 	 * @since 6.2
-	 */
-	/* tmp
-	protected void removeImage(String property) throws Exception { 
-		getHtmlPage().executeJavaScript(
-			"var input = document.getElementById('" + decorateId(property) + "');" +	
-			"var xhr = new XMLHttpRequest();" +
-			// tmp "xhr.open('DELETE', imageEditor.getUploadURL(input));" +
-			"xhr.open('DELETE', uploadEditor.getUploadURL(input));" +
-			"xhr.send(null);"				
-		);
-		waitAJAX();		
-	}
-	*/
-	
-	// tmp ini
+	 */	
 	protected void removeImage(String property) throws Exception {
 		removeImage(property, null);
 	}
@@ -3198,8 +3182,19 @@ public class ModuleTestBase extends TestCase {
 		);
 		waitAJAX();		
 	}	
-	
-	protected void assertGalleryImagesCount(String property, int expectedCount) throws Exception { // tmp
+
+	/**
+	 * Assert the amount of images in a property of IMAGES_GALLERY stereotype .
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertGalleryImagesCount("screenshots", 5);
+	 * </pre>
+	 * 
+	 * @param property  The property name of the current view with stereotype IMAGES_GALLERY
+	 * @since 6.2
+	 */		
+	protected void assertGalleryImagesCount(String property, int expectedCount) throws Exception { 
 		HtmlInput input = getHtmlPage().getHtmlElementById(decorateId(property));
 		if (expectedCount > 0) {
 			assertEquals(expectedCount, input.getAttribute("data-files").split(",").length);
@@ -3211,15 +3206,25 @@ public class ModuleTestBase extends TestCase {
 		}
 	}
 	
-	protected void removeGalleryImage(String property, int index) throws Exception { // tmp
+	/**
+	 * Remove an image from a property of IMAGES_GALLERY stereotype.
+	 * 
+	 * Example:
+	 * <pre>
+	 * removeGalleryImage("screenshots", 0);
+	 * </pre>
+	 * 
+	 * The image is removed from database, like the real UI.
+	 * 
+	 * @param property  The property name of the current view with stereotype IMAGES_GALLERY
+	 * @param index  The position (0 based) of the image to remove
+	 * @since 6.2
+	 */		
+	protected void removeGalleryImage(String property, int index) throws Exception { 
 		HtmlInput input = getHtmlPage().getHtmlElementById(decorateId(property));
 		String fileIds = input.getAttribute("data-files");
 		String fileId = fileIds.split(",")[index];
-		System.out.println("[ModuleTestBase.removeGalleryImage] filedId=" + fileId); // tmp
 		removeImage("photos", fileId);
 	}
-	// tmp fin
-	
-	
 
 }

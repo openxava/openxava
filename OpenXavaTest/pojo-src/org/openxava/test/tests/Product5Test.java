@@ -31,12 +31,12 @@ public class Product5Test extends CustomizeListTestBase {
 	// This case can be only reproduced in custom dialog with Product5 (in other Product it works)
 	public void testDialogActionsAreNotLost() throws Exception {  
 		execute("ExtendedPrint.myReports"); 
-		assertValueInCollection("columns", 10, 0, "Unit price"); // tmp 11 por 10
-		assertValueInCollection("columns", 10, 4, ""); // tmp 11 por 10
-		execute("MyReport.editColumn", "row=10,viewObject=xava_view_columns"); // tmp 11 por 10
+		assertValueInCollection("columns", 10, 0, "Unit price"); 
+		assertValueInCollection("columns", 10, 4, ""); 
+		execute("MyReport.editColumn", "row=10,viewObject=xava_view_columns"); 
 		setValue("sum", "true");
 		execute("MyReport.saveColumn");
-		assertValueInCollection("columns", 10, 4, "Sum"); // tmp 11 por 10
+		assertValueInCollection("columns", 10, 4, "Sum"); 
 		assertAction("MyReport.generatePdf");
 	}
 	
@@ -122,16 +122,11 @@ public class Product5Test extends CustomizeListTestBase {
 			"Navigation.previous", "Navigation.first", "Navigation.next",
 			"CRUD.delete", "CRUD.new", "CRUD.refresh", "CRUD.save", 
 			"Mode.list", 
-			/* tmp "GalleryNoDialog.edit", */ "List.filter", "List.changeColumnName", "Print.generatePdf",  
+			"List.filter", "List.changeColumnName", "Print.generatePdf",  
 			"Collection.removeSelected", "CollectionCopyPaste.cut", "List.orderBy", "Collection.new",  
 			"Reference.createNew", "Reference.modify", "Print.generateExcel", 
 			"Product5.seeInitial"
 		};
-		/* tmp
-		String[] galleryActions = {
-			"Gallery.addImage", "Gallery.close", "Mode.list" 
-		};
-		*/
 		
 		// list -> detail -> list
 		assertActions(listActions); 
@@ -146,22 +141,6 @@ public class Product5Test extends CustomizeListTestBase {
 		assertAction("Product5.goA"); 
 		assertNoAction("Product5.goB");
 		assertAction("CRUD.new");
-
-		/* tmp ¿Testear de otra forma?
-		// list -> detail -> gallery editor -> list
-		String[] galleryActions = {
-			"Gallery.addImage", "Gallery.close", "Mode.list" 
-		};		
-		execute("List.viewDetail", "row=0");
-		assertNoErrors();
-		execute("GalleryNoDialog.edit", "galleryProperty=photos"); 
-		assertActions(galleryActions); 
-		
-		execute("Mode.list");
-		assertAction("Product5.goA");
-		assertNoAction("Product5.goB");
-		assertAction("CRUD.new");
-		*/
 	}
 	
 	

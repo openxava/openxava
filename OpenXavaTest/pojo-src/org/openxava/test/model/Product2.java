@@ -37,16 +37,12 @@ import org.openxava.test.validators.*;
 @Views({
 	@View( members=
 		"#number, description;" + // Don't remove #, it's needed to test some bugs	
-		// tmp "color, photos;" +
-		"color;" + // tmp Revisar las otras vistas también. En migración, porque ahora la galería es en línea.
+		"color;" + 
 		"family, subfamily;" +
 		"warehouse, zoneOne;" +
 		"unitPrice, unitPriceInPesetas;" +
-		// tmp "unitPriceWithTax"
-		// tmp ini
 		"unitPriceWithTax;" +
 		"photos"
-		// tmp fin
 	),	
 	@View( name="ColorWithFrame", members= 
 		"number;" +
@@ -79,41 +75,33 @@ import org.openxava.test.validators.*;
 	@View(name="OnlySoftware"),
 	@View( name = "Simple8", members=
 		"number, description;" + 	
-		// tmp "color, photos;" +
-		"color;" + // tmp 
+		"color;" +  
 		"family, subfamily;" +
-		// tmp "warehouse, unitPrice"
-		"warehouse, unitPrice, unitPriceWithTax" // tmp
+		"warehouse, unitPrice, unitPriceWithTax" 
 	),
 	@View( name = "NotSimple9", members=
 		"number, description;" + 	
-		// tmp "color, photos;" +
-		"color;" + // tmp
+		"color;" + 
 		"family, subfamily;" +
-		// tmp "warehouse, unitPrice, unitPriceInPesetas;"
-		"warehouse, unitPrice, unitPriceInPesetas, unitPriceWithTax;" // tmp
+		"warehouse, unitPrice, unitPriceInPesetas, unitPriceWithTax;" 
 	),
 	@View( name = "NotSimpleReference", members=
 		"number, description;" + 	
-		// tmp "color, photos;" +
-		"color, unitPrice;" + // tmp
+		"color, unitPrice;" + 
 		"family, subfamily;" 
 	),	
 	@View( name = "NotSimpleGroup", members=
 		"number, description;" + 	
-		// tmp "color, photos;" +
-		"color, unitPrice;" + // tmp
+		"color, unitPrice;" + 
 		"families [ family, subfamily; ]" 
 	),	
 	@View( name = "NotSimpleSection", members=
 		"number, description;" + 	
-		// tmp "colores { color, photos; }" +
-		"colores { color, unitPrice; }" + // tmp
+		"colores { color, unitPrice; }" + 
 		"families { family, subfamily; }" 
 	),	
 	@View( name = "NotSimpleFramedEditor", members=
-		// tmp "number, color, photos;" +
-		"number, color, unitPrice;" + // tmp
+		"number, color, unitPrice;" + 
 		"description" 
 	),
 	@View( name = "DescriptionsListShowsReferenceView", members=

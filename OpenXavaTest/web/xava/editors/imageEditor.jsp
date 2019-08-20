@@ -16,7 +16,7 @@ String dataEditable = editable?"":"data-editable='true'";
 %>
 
 <input id='<%=propertyKey%>' 
-	type="file" class="xava_upload <%=style.getImagesGallery()%>"  
+	type="file" class="xava_upload <%=style.getImage()%>"  
 	data-application="<%=applicationName%>" 
 	data-module="<%=module%>"
 	<%=dataEmpty%>

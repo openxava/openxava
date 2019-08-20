@@ -311,10 +311,8 @@ if (manager.isResetFormPostNeeded()) {
 <%=onLoadFunction%> = function() {
 	document.additionalParameters="<%=getAdditionalParameters(request)%>"; 
 	if (openxava != null && openxava.<%=initiated%> == null) {
-		// tmp ini
 		openxava.browser.ie = <%=Browsers.isIE(request)%>;
 		openxava.browser.ff = <%=Browsers.isFF(request)%>;
-		// tmp fin
 		openxava.showFiltersMessage = '<xava:message key="show_filters"/>';
 		openxava.hideFiltersMessage = '<xava:message key="hide_filters"/>';
 		openxava.selectedRowClass = '<%=style.getSelectedRow()%>';

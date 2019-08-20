@@ -29,5 +29,7 @@ String dataEmpty = imagesOids.length() == 0?"data-empty='true'":"";
 	data-files="<%=imagesOids%>" 
 	<%=dataEmpty%>
 	<%=dataEditable%>/>
+	
+<input type="hidden" name="<%=propertyKey%>" value="<%=value%>">	
 
 <jsp:include page="filePondTranslation.jsp"/>	

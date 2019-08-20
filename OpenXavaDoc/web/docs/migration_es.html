@@ -83,9 +83,24 @@ execute("Gallery.close");
         <div class="wiki" style="display: block;">El método <i>changeImage()</i>
           está en <i>ModuleTestBase</i> donde también se encuentran <i>removeGalleryImage()</i>
           y <i>assertGalleryImagesCount()</i> para manejar el editor
-          GALERIA_IMAGENES.<br>
-          <h2></h2>
-          <h2></h2>
+          GALERIA_IMAGENES.</div>
+        <div class="wiki" style="display: block;">
+          <h3>El nuevo editor para GALERIA_IMAGENES es en línea y con marco</h3>
+          Por tanto ya no se visualiza como una propiedad simple, lo que
+          significa que puede que tengas que adaptar la disposición de alguna de
+          tus vistas. Por ejemplo, si tienes:
+          <div class="wiki" style="display: block;">
+            <pre><code class="java">@View(members="numero, descripcion, pantallazos, fecha")</code></pre>
+          </div>
+          <div class="wiki" style="display: block;">Donde <i>pantallazos</i> es
+            una GALERAY_IMAGENES, ahora deberías reescribirlo de la siguiente
+            manera:</div>
+          <div class="wiki" style="display: block;">
+            <pre><code class="java">@View(members="numero, descripcion; pantallazos; fecha")</code></pre>
+          </div>
+          <div class="wiki" style="display: block;">Dejando una sola línea para
+            la propiedad <i>pantallazos</i>.<br>
+          </div>
         </div>
       </div>
       <h2>Para migrar de OpenXava 6.1.1 a OpenXava 6.1.2</h2>

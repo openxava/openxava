@@ -1,8 +1,5 @@
 if (openxava == null) var openxava = {};
-
-// tmp ini
 if (openxava.browser == null) openxava.browser = {};
-// tmp fin
 
 openxava.deselected = [];
 

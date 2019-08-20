@@ -8,11 +8,10 @@ import org.openxava.util.*;
  * @author Javier Paniza
  */
 
-public class LoadImageAction extends ViewBaseAction implements INavigationAction, IProcessLoadedFileAction {
+public class LoadImageAction extends ViewBaseAction implements IProcessLoadedFileAction {
 	
 	private List fileItems;
-	// tmp private String newImageProperty;
-	private String property; // tmp
+	private String property; 
 	
 	public void execute() throws Exception {
 		Iterator i = getFileItems().iterator();
@@ -20,30 +19,11 @@ public class LoadImageAction extends ViewBaseAction implements INavigationAction
 			FileItem fi = (FileItem)i.next();
 			String fileName = fi.getName();			
 			if (!Is.emptyString(fileName)) { 
-				// tmp getView().setValue(getNewImageProperty(), fi.get()); 
-				getView().setValue(property, fi.get()); // tmp
+				getView().setValue(property, fi.get()); 
 			}			
 		}		
 	}
 	
-	public String[] getNextControllers() {				
-		return PREVIOUS_CONTROLLERS;
-	}
-
-	public String getCustomView() {		
-		return PREVIOUS_VIEW;
-	}
-
-	/* tmp
-	public String getNewImageProperty() {
-		return newImageProperty;
-	}
-
-	public void setNewImageProperty(String string) {
-		newImageProperty = string;	
-	}
-	*/
-
 	public List getFileItems() {
 		return fileItems;
 	}

@@ -28,7 +28,6 @@ public class ProductTest extends ModuleTestBase {
 		"Product.setLimitZoneTo1",
 		"Product.setLimitZoneTo0",
 		"Product.changeProductPrice"
-		// tmp "Gallery.edit"
 	};
 	
 	private String [] editActions = { 
@@ -45,7 +44,6 @@ public class ProductTest extends ModuleTestBase {
 		"Product.setLimitZoneTo1",
 		"Product.setLimitZoneTo0",
 		"Product.changeProductPrice"
-		// tmp "Gallery.edit"
 	};
 	
 	private String [] listActions = {
@@ -441,7 +439,6 @@ public class ProductTest extends ModuleTestBase {
 			"Mode.list",
 			"ChangeProductsPrice.save",
 			"ChangeProductsPrice.editDescription"
-			// tmp "Gallery.edit"
 		};
 		
 		assertActions(listActions);

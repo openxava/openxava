@@ -83,7 +83,23 @@ execute("Gallery.close");
       <div class="wiki" style="display: block;">The method <i>changeImage()</i>
         is in <i>ModuleTestBase</i> where we also have <i>removeGalleryImage()</i>
         and <i>assertGalleryImagesCount()</i> to deal with the IMAGES_GALLERY
-        editor.<br>
+        editor.</div>
+      <div class="wiki" style="display: block;">
+        <h3>The new editor for IMAGES_GALLERY stereotype is inline and with
+          frame</h3>
+        So it is not longer displayed as a simple property, it means that maybe
+        you have to adapt the layout of some of your views. For example, if you
+        have:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@View(members="number, description, screenshots, date")</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Where <i>screenshots</i> is an
+        IMAGES_GALLERY, now you should rewrite it in this way:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@View(members="number, description; screenshots; date")</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Leaving a single line for the
+        <i> screenshots</i> property.<br>
         <h2></h2>
       </div>
       <h2></h2>
