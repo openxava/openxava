@@ -31,12 +31,12 @@ public class Product5Test extends CustomizeListTestBase {
 	// This case can be only reproduced in custom dialog with Product5 (in other Product it works)
 	public void testDialogActionsAreNotLost() throws Exception {  
 		execute("ExtendedPrint.myReports"); 
-		assertValueInCollection("columns", 11, 0, "Unit price");
-		assertValueInCollection("columns", 11, 4, ""); 
-		execute("MyReport.editColumn", "row=11,viewObject=xava_view_columns");
+		assertValueInCollection("columns", 10, 0, "Unit price"); 
+		assertValueInCollection("columns", 10, 4, ""); 
+		execute("MyReport.editColumn", "row=10,viewObject=xava_view_columns"); 
 		setValue("sum", "true");
 		execute("MyReport.saveColumn");
-		assertValueInCollection("columns", 11, 4, "Sum"); 
+		assertValueInCollection("columns", 10, 4, "Sum"); 
 		assertAction("MyReport.generatePdf");
 	}
 	
@@ -122,13 +122,10 @@ public class Product5Test extends CustomizeListTestBase {
 			"Navigation.previous", "Navigation.first", "Navigation.next",
 			"CRUD.delete", "CRUD.new", "CRUD.refresh", "CRUD.save", 
 			"Mode.list", 
-			"GalleryNoDialog.edit", "List.filter", "List.changeColumnName", "Print.generatePdf",  
+			"List.filter", "List.changeColumnName", "Print.generatePdf",  
 			"Collection.removeSelected", "CollectionCopyPaste.cut", "List.orderBy", "Collection.new",  
 			"Reference.createNew", "Reference.modify", "Print.generateExcel", 
 			"Product5.seeInitial"
-		};
-		String[] galleryActions = {
-			"Gallery.addImage", "Gallery.close", "Mode.list" 
 		};
 		
 		// list -> detail -> list
@@ -142,17 +139,6 @@ public class Product5Test extends CustomizeListTestBase {
 		
 		execute("Mode.list");
 		assertAction("Product5.goA"); 
-		assertNoAction("Product5.goB");
-		assertAction("CRUD.new");
-		
-		// list -> detail -> gallery editor -> list
-		execute("List.viewDetail", "row=0");
-		assertNoErrors();
-		execute("GalleryNoDialog.edit", "galleryProperty=photos"); 
-		assertActions(galleryActions); 
-		
-		execute("Mode.list");
-		assertAction("Product5.goA");
 		assertNoAction("Product5.goB");
 		assertAction("CRUD.new");
 	}

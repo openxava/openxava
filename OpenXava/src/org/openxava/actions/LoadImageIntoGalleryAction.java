@@ -1,12 +1,9 @@
 package org.openxava.actions;
 
 import java.util.*;
-
-import javax.inject.*;
-
 import org.apache.commons.fileupload.*;
-
-
+import org.openxava.calculators.*;
+import org.openxava.model.*;
 import org.openxava.session.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
@@ -15,22 +12,21 @@ import org.openxava.view.*;
  * @author Javier Paniza
  */
 
-public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavigationAction, IProcessLoadedFileAction {
+public class LoadImageIntoGalleryAction extends ViewBaseAction implements IProcessLoadedFileAction { 
 
-	private List fileItems;
+	private List fileItems;	
+	private String property; 
 	
-	@Inject
-	private Gallery gallery;
-	
-
-	public void execute() throws Exception {		
+	public void execute() throws Exception {	
 		Iterator i = getFileItems().iterator();
 		int c = 0;
-		StringBuffer filesNames = new StringBuffer(); 
+		StringBuffer filesNames = new StringBuffer();
+		String galleryOid = getGalleryOid();
+		Gallery gallery = Gallery.find(galleryOid);
 		while (i.hasNext()) {
-			FileItem fi = (FileItem)i.next();					
+			FileItem fi = (FileItem)i.next();				
 			if (!Is.emptyString(fi.getName())) {
-				getGallery().addImage(fi.get());
+				gallery.addImage(fi.get());
 				c++;
 				if (filesNames.length() > 0) filesNames.append(", ");
 				filesNames.append(fi.getName());
@@ -38,26 +34,36 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 		}		
 		if (c == 1)	addMessage("image_added_to_gallery");
 		else if (c > 1) addMessage("images_added_to_gallery", new Integer(c));
-		trackModification(filesNames.toString());
-		closeDialog(); 
+		trackModification(galleryOid, filesNames.toString());
 	}
 	
-	private void trackModification(String fileName) { 
-		View view = getPreviousViews().get(Math.max(getPreviousViews().size() - 2, 0));
-		String property = (String) Maps.getKeyFromValue(view.getValues(), getGallery().getOid(), "IMAGES_GALLERY"); 
+	public String getGalleryOid() throws Exception {
+		String oid = getView().getValueString(property);
+		if (Is.emptyString(oid)) {
+			UUIDCalculator cal = new UUIDCalculator();  
+			oid = (String) cal.calculate();
+			getView().setValue(property, oid);
+			if (!getView().isKeyEditable()) { // Modifying
+				updateOidInObject(oid);
+			}
+		}
+		return oid;
+	}
+
+	private void updateOidInObject(String oid) throws Exception {
+		Map values = new HashMap();
+		values.put(property, oid);
+		MapFacade.setValuesNotTracking(getView().getModelName(), getView().getKeyValues(), values); 
+	}
+	
+	private void trackModification(String galleryOid, String fileName) { 
+		View view = getView(); 
+		String property = (String) Maps.getKeyFromValue(view.getValues(), galleryOid, "IMAGES_GALLERY"); 
 		Map oldChangedValues = new HashMap();
 		oldChangedValues.put(property, XavaResources.getString("images_gallery_images_added"));  
 		Map newChangedValues = new HashMap();
 		newChangedValues.put(property, fileName); 
 		AccessTracker.modified(view.getModelName(), view.getKeyValues(), oldChangedValues, newChangedValues);
-	}
-
-	public String[] getNextControllers() {		
-		return PREVIOUS_CONTROLLERS;
-	}
-
-	public String getCustomView() {		
-		return PREVIOUS_VIEW; 
 	}
 
 	public List getFileItems() {
@@ -68,12 +74,12 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements INavig
 		this.fileItems = fileItems;
 	}
 
-	public Gallery getGallery() {
-		return gallery;
+	public String getProperty() {
+		return property;
 	}
 
-	public void setGallery(Gallery gallery) {
-		this.gallery = gallery;
+	public void setProperty(String property) {
+		this.property = property;
 	}
 
 }

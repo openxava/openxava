@@ -23,7 +23,7 @@ public class OrderTest extends ModuleTestBase {
 	
 	public void testActionsNotLostAfterOpenDialogTwiceFromCollectionElement() throws Exception { 
 		execute("List.viewDetail", "row=0"); 
-		execute("Collection.new", "viewObject=xava_view_details"); 		
+		execute("Collection.new", "viewObject=xava_view_details"); 	
 
 		assertAction("Collection.save");
 		assertNoAction("ReferenceSearch.choose");		
@@ -50,7 +50,7 @@ public class OrderTest extends ModuleTestBase {
 		setValue("customer.number", "1");
 		assertValue("customer.name", "Javi");
 		assertNoAction("Collection.add"); 
-		assertCollectionRowCount("details", 0);
+		assertCollectionRowCount("details", 0); 
 		execute("Collection.new", "viewObject=xava_view_details");
 		setValue("product.number", "1"); 
 		assertValue("product.description", "MULTAS DE TRAFICO");
@@ -77,7 +77,7 @@ public class OrderTest extends ModuleTestBase {
 		while (!doubleClick) { 
 			execute("CRUD.new");
 			setValue("customer.number", "1"); 
-			assertCollectionRowCount("details", 0);
+			assertCollectionRowCount("details", 0); 
 			execute("Collection.new", "viewObject=xava_view_details");
 			setValue("product.number", "1");
 			setValue("quantity", "10");

@@ -6,10 +6,6 @@
 
 <editors>
 
-	<editor name="GalleryNoDialog" url="galleryEditor.jsp">
-		<property name="editAction" value="GalleryNoDialog.edit"/>
-	</editor>
-
 	<editor url="regionsEditor.jsp">
 		<property name="regionsCount" value="3" />
 		<formatter

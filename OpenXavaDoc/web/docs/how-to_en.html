@@ -1994,12 +1994,21 @@ class="sy0">;</span></pre>
       <h2 id="toc8"><a name="How to ...-How to add your own servlets, filters, listeners or resources to your OpenXava application?"></a>How
         to add your own servlets, filters, listeners or resources to your
         OpenXava application?</h2>
-      For adding your own servlets to your OX application do not modify the <em>web.xml</em>
-      file, instead you can create a <em>servlets.xml</em> (with <em>servlet</em>
-      and <em>servlet-mapping</em> elements), a <em>filters.xml</em> (with <em>filter</em>
-      and <em>filter-mapping</em> elements), a <em>listeners.xml</em> (with <em>listener</em>
-      elements, <em>since v4.0.1</em>) and a <em>resources.xml</em> (with <em>resource-ref</em>
-      elements, <em>since v5.4</em>) in the WEB-INF folder.<br>
+      Since OpenXava 6.0 you can use the standard Servlet annotations <i>@WebServlet,
+        @WebFilter</i> and <i>@WebListener</i> to define your own servlets,
+      filters and listeners.</div>
+    <div class="wiki" style="display: block;">For adding your own resources to
+      your OX application do not modify the <em>web.xml</em> file, instead you
+      can create a <em>resources.xml</em> with <em>resource-ref</em> (<em>since
+        v5.4</em>) in the WEB-INF folder.</div>
+    <div class="wiki" style="display: block;">If you use a version previous to
+      v6.0 you should user <i>servlets.xml</i>, <i>filters.xml</i> and <i>listeners.xml</i>.
+      In this case, for adding your own servlets to your OX application do not
+      modify the <em>web.xml</em> file, instead you can create a <em>servlets.xml</em>
+      (with <em>servlet</em> and <em>servlet-mapping</em> elements), a <em>filters.xml</em>
+      (with <em>filter</em> and <em>filter-mapping</em> elements) and a <em>listeners.xml</em>
+      (with <em>listener</em> elements, <em>since v4.0.1</em>). Though this
+      method is deprecated still works with latest OpenXava versions.<br>
       For example, if you want to add a servlet called <em>TestServlet</em>,
       just create a <em>servlets.xml</em> file in WEB-INF with the next
       content:<br>
@@ -2025,7 +2034,8 @@ class="sy0">;</span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;!-- With v6.0 or better use @WebServlet instead --&gt;<br>&lt;servlet<span
+class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>testServlet<span
 class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.openxava.test.servlets.TestServlet<span

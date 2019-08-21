@@ -1,10 +1,12 @@
 package org.openxava.test.tests;
 
+import org.openxava.tests.*;
+
 /**
  * 
  * @author Javier Paniza
  */
-public class CustomerFromAlaskaTest extends ImageTestBase { 	
+public class CustomerFromAlaskaTest extends ModuleTestBase { 	
 	
 	public CustomerFromAlaskaTest(String testName) {
 		super(testName, "CustomerFromAlaska");

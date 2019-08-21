@@ -141,16 +141,6 @@ public class AJAXTest extends ModuleTestBase {
 			"errors, messages");
 	}
 	
-	public void testDeleteImageInElementCollection() throws Exception { 
-		if (!usesAnnotatedPOJO()) return;
-		changeModule("Car");
-		execute("List.viewDetail", "row=0");
-		assertValue("make", "MERCEDES");
-		assertValue("model", "CLA 250");
-		execute("ImageEditor.deleteImage", "newImageProperty=photos.1.photo");
-		assertLoadedParts("editor_photos___1___photo, errors, messages");
-	}
-		
 	public void testNotDuplicateDivOnLoadCollection() throws Exception { 
 		changeModule("Seller");
 		execute("List.viewDetail", "row=0");
@@ -849,32 +839,6 @@ public class AJAXTest extends ModuleTestBase {
 		assertLoadedParts("errors, messages, editor_time,"); 
 	}
 
-	
-	public void testCustomView_uploadFile() throws Exception { 
-		if (!usesAnnotatedPOJO()) return;
-		changeModule("Product5"); 
-		execute("List.viewDetail", "row=0");
-		execute("GalleryNoDialog.edit", "galleryProperty=photos"); 
-		assertLoadedParts("errors, view, bottom_buttons, " + 
-				"button_bar, messages");
-		execute("Gallery.addImage");
-		// assertLoadedParts("core, "); When no dialog
-		assertLoadedParts("dialog1, "); // When dialog
-		String imageUrl = System.getProperty("user.dir") + "/test-images/foto_javi.jpg";
-		setFileValue("newImage", imageUrl);
-		execute("LoadImageIntoGallery.loadImage");
-		assertNoErrors();
-		assertMessage("Image added to the gallery"); 
-		assertLoadedParts("core"); 
-		
-		String imageOid = getForm().getInputByName("xava.GALLERY.images").getValueAttribute();
-		execute("Gallery.removeImage", "oid="+imageOid);
-		assertLoadedParts("errors, view, messages");
-		execute("Gallery.close"); 
-		assertLoadedParts("errors, view, bottom_buttons, " +
-				"button_bar, messages");
-	}
-	
 	public void testHandmadeWebView() throws Exception {
 		changeModule("SellerJSP");
 		execute("List.viewDetail", "row=0");

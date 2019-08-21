@@ -49,7 +49,7 @@ public class NaviOXFilter implements Filter {
 			
 			Users.setCurrent(secureRequest);
 			SessionData.setCurrent(secureRequest); 
-		
+			
 			if (modules.isModuleAuthorized(secureRequest)) {
 				chain.doFilter(secureRequest, response);
 			}

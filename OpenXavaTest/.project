@@ -32,7 +32,13 @@
 		<link>
 			<name>xava-src</name>
 			<type>2</type>
-			<location>C:/Users/javie/git/openxava/OpenXava/src</location>
+			<locationURI>OPENXAVA_LOC/OpenXava/src</locationURI>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>OPENXAVA_LOC</name>
+			<value>file:/C:/Users/javi/git/openxava</value>
+		</variable>
+	</variableList>
 </projectDescription>

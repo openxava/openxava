@@ -25,13 +25,11 @@ here that you want to override.
 	<object name="xava_myReport" class="org.openxava.session.MyReport"/>
 	<object name="xava_chart" class="org.openxava.session.Chart"/>	
 	<object name="xava_row" class="java.lang.Integer" value="-1"/>	
-	<object name="xava_newImageProperty" class="java.lang.String"/>
 	<object name="xava_currentCollectionLabel" class="java.lang.String"/>
 	<object name="xava_collectionViewObject" class="java.lang.String"/>	
 	<object name="xava_previousControllers" class="java.util.Stack"/>
 	<object name="xava_previousViews" class="java.util.Stack"/>
 	<object name="xava_previousCustomViews" class="java.util.Stack"/>
-	<object name="xava_gallery" class="org.openxava.session.Gallery"/>
 	<object name="xava_defaultSchema" class="java.lang.String" scope="global"/>
 	<object name="xava_persistenceUnit" class="java.lang.String" scope="global"/>
 	<object name="xava_currentModule" class="java.lang.String" />
@@ -481,47 +479,21 @@ here that you want to override.
 			<set property="increment" value="1"/>			
 		</action>									
 	</controller>
-									
-	<controller name="ImageEditor">
-		<action name="changeImage"			
-			class="org.openxava.actions.ChangeImageAction"/>								
-		<action name="deleteImage" confirm="true"
+	
+	<controller name="ImageEditor"> 
+		<action name="load"
+			class="org.openxava.actions.LoadImageAction"/>
+		<action name="delete" 
 			class="org.openxava.actions.DeleteImageAction"/>					
 	</controller>
 	
-	<controller name="Gallery">
-		<action name="edit" image="photo.gif" hidden="true"
-			icon="camera"
-			class="org.openxava.actions.EditGalleryAction"/>	
-		<action name="addImage"		
-			class="org.openxava.actions.AddImageToGalleryAction"/>
-		<action name="maximizeImage" hidden="true" image="maximize.gif"
-			icon="arrow-expand"
-			class="org.openxava.actions.MaximizeImageAction"/>
-		<action name="minimizeImage" hidden="true" image="minimize.gif"
-			icon="arrow-collapse"
-			class="org.openxava.actions.MinimizeImageAction"/>		
-		<action name="removeImage" hidden="true" image="remove.gif" confirm="true"
-			icon="delete"
+	<controller name="GalleryEditor">
+		<action name="loadImage"
+			class="org.openxava.actions.LoadImageIntoGalleryAction"/>					 	
+		<action name="removeImage"
 			class="org.openxava.actions.RemoveImageFromGalleryAction"/>
-		<action name="close" 
-			class="org.openxava.actions.CancelAction"/>						
-	</controller>
-	
-	<controller name="LoadImageIntoGallery">
-		<action name="loadImage"
-			class="org.openxava.actions.LoadImageIntoGalleryAction"/>					 
-		<action name="cancel"
-			class="org.openxava.actions.CancelAction"/>		
 	</controller>	
-		
-	<controller name="LoadImage">
-		<action name="loadImage"
-			class="org.openxava.actions.LoadImageAction"/>										
-		<action name="cancel"
-			class="org.openxava.actions.CancelAction"/>			
-	</controller>
-	
+			
 	<controller name="Dialog">
 		<action name="cancel" 
 			class="org.openxava.actions.CancelDialogAction"/>			

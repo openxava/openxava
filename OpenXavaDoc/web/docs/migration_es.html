@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>openxava - migration_es</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -37,6 +40,69 @@
       </ul>
       <p><br>
       </p>
+      <h2>Para migrar de OpenXava 6.1.2 a OpenXava 6.2</h2>
+      <h3>Nuevo editor para el estereotipo FOTO/IMAGEN (para pruebas JUnit)</h3>
+      El nuevo editor no requiere ningún cambio en el código de la aplicación,
+      pero dado que la acciones del controlador <i>ImageEditor</i> ya no
+      existen deberías adaptar las pruebas donde subes imágenes. Por ejemplo, si
+      tienes este código de prueba para cargar una imagen:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">execute("ImageEditor.changeImage", "newImageProperty=imagen"); 
+String urlImagen = System.getProperty("user.dir") + "/imagenes-pruebas/pastel.gif";
+setFileValue("newImage", urlImagen);
+execute("LoadImage.loadImage");
+</code></pre></div>
+      <div class="wiki" style="display: block;">Deberías reescribirlo así:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">changeImage("imagen", "imagenes-pruebas/pastel.gif");
+</code></pre> </div>
+      <div class="wiki" style="display: block;">El método <i>changeImage()</i>
+        está en <i>ModuleTestBase</i> donde también puedes encontrar <i>removeImage()</i>,
+        <i>assertImage()</i> y <i>assertNoImage()</i> para lidiar con el editor
+        FOTO/IMAGEN.</div>
+      <div class="wiki" style="display: block;">
+        <h3>Nuevo editor para el estereotipo GALERIA_IMAGENES (para pruebas
+          JUnit)</h3>
+        El nuevo editor no requiere ningún cambio en el código de la aplicación,
+        pero dado que la acciones de los controladores <i>Gallery </i>y <i>LoadImageIntoGallery</i>
+        ya no existen deberías adaptar las pruebas donde usas la galería. Por
+        ejemplo, si tienes este código de prueba para añadir una imagen a la
+        galería:
+        <div class="wiki" style="display: block;">
+          <pre><code class="java">execute("Gallery.edit", "galleryProperty=fotos");
+execute("Gallery.addImage");
+String urlImagen = System.getProperty("user.dir") + "/imagenes-pruebas/foto-javi.png";
+setFileValue("newImage", urlImagen);
+execute("LoadImageIntoGallery.loadImage");
+execute("Gallery.close");
+</code></pre></div>
+        <div class="wiki" style="display: block;">Deberías reescribirlo así:</div>
+        <div class="wiki" style="display: block;">
+          <pre><code class="java">changeImage("fotos", "imagenes-pruebas/foto-javi.png");
+</code></pre> </div>
+        <div class="wiki" style="display: block;">El método <i>changeImage()</i>
+          está en <i>ModuleTestBase</i> donde también se encuentran <i>removeGalleryImage()</i>
+          y <i>assertGalleryImagesCount()</i> para manejar el editor
+          GALERIA_IMAGENES.</div>
+        <div class="wiki" style="display: block;">
+          <h3>El nuevo editor para GALERIA_IMAGENES es en línea y con marco</h3>
+          Por tanto ya no se visualiza como una propiedad simple, lo que
+          significa que puede que tengas que adaptar la disposición de alguna de
+          tus vistas. Por ejemplo, si tienes:
+          <div class="wiki" style="display: block;">
+            <pre><code class="java">@View(members="numero, descripcion, pantallazos, fecha")</code></pre>
+          </div>
+          <div class="wiki" style="display: block;">Donde <i>pantallazos</i> es
+            una GALERAY_IMAGENES, ahora deberías reescribirlo de la siguiente
+            manera:</div>
+          <div class="wiki" style="display: block;">
+            <pre><code class="java">@View(members="numero, descripcion; pantallazos; fecha")</code></pre>
+          </div>
+          <div class="wiki" style="display: block;">Dejando una sola línea para
+            la propiedad <i>pantallazos</i>.<br>
+          </div>
+        </div>
+      </div>
       <h2>Para migrar de OpenXava 6.1.1 a OpenXava 6.1.2</h2>
       No hay consideraciones.
       <h2>Para migrar de OpenXava 6.1 a OpenXava 6.1.1</h2>

@@ -115,128 +115,43 @@ public class Product2Test extends EmailNotificationsTestBase {
 	public void testImagesGallery() throws Exception {
 		subscribeToEmailNotifications(); 
 		
-		// We remove oid from product 1 in order to test that images gallery works well in the first attemp.
+		// We remove oid from product 1 in order to test that images gallery works well in the first attempt
 		Product2.findByNumber(1).setPhotos("");
 		XPersistence.commit();
 		// Verifying product 1 has no images
 		assertTrue("At least 2 products are required to run this test", getListRowCount() >= 2);
 		execute("List.viewDetail", "row=0");
-		assertValue("number", "1");		
-		execute("Gallery.edit", "galleryProperty=photos");
-		assertNoErrors(); 
-		assertMessage("No images");
-		assertNoAction("Gallery.maximizeImage");
-		assertNoAction("Gallery.minimizeImage");
-		assertNoAction("Gallery.removeImage");
-		assertEquals("Images count does not match", 0, getForm().getInputsByName("xava.GALLERY.images").size());
-		
-		// Canceling the adding of and image
-		execute("Gallery.addImage");
-		assertNoErrors();
-		String imageUrl = System.getProperty("user.dir") + "/test-images/foto_javi.jpg";
-		setFileValue("newImage", imageUrl);
-		execute("LoadImageIntoGallery.cancel");
-		assertNoErrors();
-		assertNoAction("Gallery.maximizeImage");
-		assertNoAction("Gallery.minimizeImage");
-		assertNoAction("Gallery.removeImage");
-		assertEquals("Images count does not match", 0, getForm().getInputsByName("xava.GALLERY.images").size());
-		
-		// Adding one image		
-		execute("Gallery.addImage");
-		assertNoErrors();
-		imageUrl = System.getProperty("user.dir") + "/test-images/foto_javi.jpg";
-		setFileValue("newImage", imageUrl);
-		execute("LoadImageIntoGallery.loadImage");
-		assertNoErrors();
-		assertMessage("Image added to the gallery");
-		assertAction("Gallery.maximizeImage");
-		assertNoAction("Gallery.minimizeImage");
-		assertAction("Gallery.removeImage");
-		assertEquals("Images count does not match", 1, getForm().getInputsByName("xava.GALLERY.images").size());		
-		
-		// Returning to the main entity
-		execute("Gallery.close"); 
-		//execute("CRUD.save"); It's not needed explicit saving of the main entity
-		assertNoErrors();
-		
+		assertValue("number", "1");	
+		assertGalleryImagesCount("photos", 0); 
+				
+		// Adding one image
+		changeImage("photos", "test-images/foto_javi.jpg"); 
+		reload();
+		assertGalleryImagesCount("photos", 1);
+				
 		// Verifying that product 2 has no images
 		execute("Navigation.next");
 		assertValue("number", "2");
-		execute("Gallery.edit", "galleryProperty=photos");
-		assertNoErrors();
-		assertMessage("No images"); 
-		assertNoAction("Gallery.maximizeImage");
-		assertNoAction("Gallery.minimizeImage");
-		assertNoAction("Gallery.removeImage");
-		assertEquals("Images count does not match", 0, getForm().getInputsByName("xava.GALLERY.images").size());		
-		execute("Gallery.close"); 
+		assertGalleryImagesCount("photos", 0); 
 		
 		// Verifying that product 1 has the added image
 		execute("CRUD.new");
 		setValue("number", "1");
 		execute("CRUD.refresh");
 		assertNoErrors();
-		execute("Gallery.edit", "galleryProperty=photos");
-		assertNoErrors();
-		assertNoMessages();
-		assertAction("Gallery.maximizeImage");
-		assertNoAction("Gallery.minimizeImage");
-		assertAction("Gallery.removeImage");
-		assertEquals("Images count does not match", 1, getForm().getInputsByName("xava.GALLERY.images").size());
-		String imageOid = getForm().getInputByName("xava.GALLERY.images").getValueAttribute();
-		
-		// Maximizing the image
-		execute("Gallery.maximizeImage", "oid="+imageOid);
-		assertNoErrors();
-		assertNoAction("Gallery.maximizeImage"); 
-		assertAction("Gallery.minimizeImage");
-		assertNoAction("Gallery.removeImage");		
-		
-		// Minimizing the image
-		execute("Gallery.minimizeImage");
-		assertNoErrors();
-		assertAction("Gallery.maximizeImage");
-		assertNoAction("Gallery.minimizeImage");
-		assertAction("Gallery.removeImage");
-		assertEquals("Images count does not match", 1, getForm().getInputsByName("xava.GALLERY.images").size());
-		
-		// Verifying read-only
-		execute("Gallery.close"); 
-		execute("EditableOnOff.setOff");
-		execute("Gallery.edit", "galleryProperty=photos");
-		assertNoErrors();
-		assertNoMessages();
-		assertNoAction("Gallery.addImage");
-		assertAction("Gallery.maximizeImage"); 
-		assertNoAction("Gallery.minimizeImage");
-		assertNoAction("Gallery.removeImage");
-		assertEquals("Images count does not match", 1, getForm().getInputsByName("xava.GALLERY.images").size());
-		execute("Close.close");
-		execute("EditableOnOff.setOn");
+		assertGalleryImagesCount("photos", 1); 
 		
 		// Removing the image
-		execute("Gallery.edit", "galleryProperty=photos");
-		assertEquals("Images count does not match", 1, getForm().getInputsByName("xava.GALLERY.images").size());
-		execute("Gallery.removeImage", "oid="+imageOid);
-		assertNoErrors();
-		assertNoAction("Gallery.maximizeImage");
-		assertNoAction("Gallery.minimizeImage");
-		assertNoAction("Gallery.removeImage");
-		assertEquals("Images count does not match", 0, getForm().getInputsByName("xava.GALLERY.images").size());
+		removeGalleryImage("photos", 0);
 		
 		// Verifying that product 1 has no images
-		execute("Gallery.close"); 
 		execute("CRUD.new");
 		setValue("number", "1");
 		execute("CRUD.refresh");
 		assertNoErrors();
-		execute("Gallery.edit", "galleryProperty=photos");
-		assertNoErrors();
-		assertMessage("No images");
-		assertEquals("Images count does not match", 0, getForm().getInputsByName("xava.GALLERY.images").size());
+		assertGalleryImagesCount("photos", 0); 
 
-		assertEmailNotifications(
+		assertEmailNotifications( 
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: NEW IMAGES ADDED --> foto_javi.jpg</li></ul>",
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: IMAGE REMOVED --> One image removed</li></ul>"
 		);	

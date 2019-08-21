@@ -27,35 +27,13 @@ public class SeveralModulesTest extends ModuleTestBase {
 		assertFocusOn("relationWithSeller");
 		assertSections();		
 		assertCollections(); 
-		assertUploadFiles();		 				
+		assertUploadFiles(); 	 				
 	}
 
 	private void assertUploadFiles() throws Exception, IOException, MalformedURLException {
 		selectModuleInPage("Customer");		
-		execute("ImageEditor.changeImage", "newImageProperty=photo");
-		assertNoErrors();
-		assertAction("LoadImage.loadImage");		
-		String imageUrl = System.getProperty("user.dir") + "/test-images/foto_javi.jpg";
-		setFileValue("newImage", imageUrl);
-		execute("LoadImage.loadImage");		
-		assertNoErrors();
-		
-		HtmlPage page = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();		
-		URL url = page.getWebResponse().getWebRequest().getUrl(); 
-		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort();
-				
-		HtmlImage image = (HtmlImage) page.getElementsByName(Ids.decorate("OpenXavaTest", "Customer", "photo")).get(0);				
-		String imageURL = null;
-		if (image.getSrcAttribute().startsWith("/")) {
-			imageURL = urlPrefix + image.getSrcAttribute();
-		}
-		else {
-			String urlBase = Strings.noLastToken(url.getPath(), "/");
-			imageURL = urlPrefix + urlBase + image.getSrcAttribute();
-		}		
-		WebResponse response = getWebClient().getPage(imageURL).getWebResponse();		
-		assertTrue("Image not obtained", response.getContentAsString().length() > 0);
-		assertEquals("Result is not an image", "image", response.getContentType());
+		changeImage("photo", "test-images/foto_javi.jpg"); 
+		assertImage("photo"); 
 	}
 
 	private void assertCollections() throws Exception {

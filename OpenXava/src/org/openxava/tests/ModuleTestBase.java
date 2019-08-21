@@ -3067,4 +3067,164 @@ public class ModuleTestBase extends TestCase {
 		return attachmentsEditor.getOneHtmlElementByAttribute("div", "class", "ox-attachments");
 	}
 
+	/**
+	 * Assert if the property of PHOTO/IMAGE stereotype has a image associated.
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertImage("photo");
+	 * </pre>
+	 * 
+	 * It tries to recover the file from the server and verify if it is of image type. 
+	 * 
+	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @since 6.2
+	 */		
+	protected void assertImage(String property) throws Exception { 
+		assertImage(property, true);
+	}
+	
+	/**
+	 * Assert if the property of PHOTO/IMAGE stereotype has no image associated.
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertNoImage("photo");
+	 * </pre>
+	 * 
+	 * It tries to recover the file from the server and verify if it is not of image type. 
+	 * 
+	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @since 6.2
+	 */		
+	protected void assertNoImage(String property) throws Exception { 
+		assertImage(property, false);
+	}
+
+	private void assertImage(String property, boolean present) throws Exception { 
+		String imageURL = (String) getHtmlPage().executeJavaScript(
+			"var input = document.getElementById('" + decorateId(property) + "');" +
+			"uploadEditor.getFileURL(input)" 		
+		).getJavaScriptResult();
+		
+		URL url = getHtmlPage().getWebResponse().getWebRequest().getUrl(); 
+		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort(); 
+		imageURL = urlPrefix + imageURL; 
+		TopLevelWindow imageWindow = (TopLevelWindow) getWebClient().openWindow(new URL(imageURL), "loadingImage");
+		WebResponse response = imageWindow.getEnclosedPage().getWebResponse();
+		if (present) {
+			assertTrue(XavaResources.getString("image_not_obtained"), response.getContentAsString().length() > 0); 
+			assertTrue(XavaResources.getString("result_is_not_image"), response.getContentType().startsWith("image"));  
+		}
+		else {
+			assertTrue(XavaResources.getString("image_obtained"), response.getContentAsString().length() == 0);
+		}		
+		imageWindow.close(); 
+	}
+
+
+	/**
+	 * Change the current image or assign a new one to a property of PHOTO/IMAGE or IMAGES_GALLERY stereotype.
+	 * 
+	 * Example:
+	 * <pre>
+	 * changeImage("photo", "test-images/cake.gif");
+	 * </pre>
+	 * 
+	 * The image is not saved in database until a save action is executed, like the real UI.
+	 * 
+	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE or IMAGES_GALLERY
+	 * @param imageURL  If the URL is relative it starts from the current project, if it is absolute (starts with /) it is used 'as is'.  
+	 * @since 6.2
+	 */
+	protected void changeImage(String property, String imageURL) throws Exception { 
+		String imageAbsoluteURL = imageURL.startsWith("/")?
+			imageURL:System.getProperty("user.dir") + "/"+ imageURL; 
+		String decoratedProperty = decorateId(property);
+		HtmlFileInput input = (HtmlFileInput) getHtmlPage().getElementById(decoratedProperty);
+		input.setValueAttribute(imageAbsoluteURL);
+		assertEquals("INPUT for file upload should not have name", "", input.getNameAttribute()); // Having name makes that JUnit and real browser behaves different, 																								// and real browser would fail with element collection (try with Car module)
+		getHtmlPage().executeJavaScript(
+			"var formData = new FormData();" +
+			"var input = document.getElementById('" + decoratedProperty + "');" +
+			"formData.append('file', input.files[0]);" +
+			"var xhr = new XMLHttpRequest();" +
+			"xhr.open('POST', uploadEditor.getUploadURL(input));" +
+			"xhr.send(formData);"				
+		);
+		waitAJAX();
+	}
+
+	/**
+	 * Remove the current image from a property of PHOTO/IMAGE stereotype.
+	 * 
+	 * Example:
+	 * <pre>
+	 * removeImage("photo");
+	 * </pre>
+	 * 
+	 * The image is not removed from database until a save action is executed, like the real UI.
+	 * 
+	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @since 6.2
+	 */	
+	protected void removeImage(String property) throws Exception {
+		removeImage(property, null);
+	}
+	
+	private void removeImage(String property, String fileId) throws Exception {
+		String fileIdParam = fileId == null?"":" + '&fileId=" + fileId + "'";
+		getHtmlPage().executeJavaScript(
+			"var input = document.getElementById('" + decorateId(property) + "');" +	
+			"var xhr = new XMLHttpRequest();" +
+			"xhr.open('DELETE', uploadEditor.getUploadURL(input)" + fileIdParam + ");" +
+			"xhr.send(null);"				
+		);
+		waitAJAX();		
+	}	
+
+	/**
+	 * Assert the amount of images in a property of IMAGES_GALLERY stereotype .
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertGalleryImagesCount("screenshots", 5);
+	 * </pre>
+	 * 
+	 * @param property  The property name of the current view with stereotype IMAGES_GALLERY
+	 * @since 6.2
+	 */		
+	protected void assertGalleryImagesCount(String property, int expectedCount) throws Exception { 
+		HtmlInput input = getHtmlPage().getHtmlElementById(decorateId(property));
+		if (expectedCount > 0) {
+			assertEquals(expectedCount, input.getAttribute("data-files").split(",").length);
+			assertEquals("", input.getAttribute("data-empty"));
+		}
+		else {
+			assertEquals("", input.getAttribute("data-files"));
+			assertEquals("true", input.getAttribute("data-empty"));
+		}
+	}
+	
+	/**
+	 * Remove an image from a property of IMAGES_GALLERY stereotype.
+	 * 
+	 * Example:
+	 * <pre>
+	 * removeGalleryImage("screenshots", 0);
+	 * </pre>
+	 * 
+	 * The image is removed from database, like the real UI.
+	 * 
+	 * @param property  The property name of the current view with stereotype IMAGES_GALLERY
+	 * @param index  The position (0 based) of the image to remove
+	 * @since 6.2
+	 */		
+	protected void removeGalleryImage(String property, int index) throws Exception { 
+		HtmlInput input = getHtmlPage().getHtmlElementById(decorateId(property));
+		String fileIds = input.getAttribute("data-files");
+		String fileId = fileIds.split(",")[index];
+		removeImage("photos", fileId);
+	}
+
 }

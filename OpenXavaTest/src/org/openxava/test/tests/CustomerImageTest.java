@@ -1,11 +1,13 @@
 package org.openxava.test.tests;
 
+import org.openxava.tests.*;
+
 /**
  * 
  * @author Javier Paniza
  */
 
-public class CustomerImageTest extends ImageTestBase { 	
+public class CustomerImageTest extends ModuleTestBase { 	
 	
 	public CustomerImageTest(String testName) {
 		super(testName, "Customer");
@@ -17,9 +19,8 @@ public class CustomerImageTest extends ImageTestBase {
 	}
 	
 	public void testDeleteImage() throws Exception { 
-		addImage();		
-		execute("ImageEditor.deleteImage", "newImageProperty=photo");
-		assertNoErrors();		
+		addImage();
+		removeImage("photo");  				
 		assertNoImage("photo"); 
 	}
 	
@@ -45,7 +46,7 @@ public class CustomerImageTest extends ImageTestBase {
 	
 	protected void addImage() throws Exception{ 
 		execute("CRUD.new");		
-		changeImage("photo", "/test-images/foto_javi.jpg");	
+		changeImage("photo", "test-images/foto_javi.jpg");	
 	}
 
 }

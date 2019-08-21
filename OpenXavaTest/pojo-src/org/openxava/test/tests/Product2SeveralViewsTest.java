@@ -14,7 +14,7 @@ public class Product2SeveralViewsTest extends ModuleTestBase {
 	}
 		
 	public void testSimpleView() throws Exception {  
-		assertSimpleView();
+		assertSimpleView(); 
 		
 		execute("Product2SeveralViews.changeToNotSimple9");
 		assertNotSimpleView();

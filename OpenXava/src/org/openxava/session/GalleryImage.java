@@ -2,6 +2,8 @@ package org.openxava.session;
 
 import java.io.*;
 
+import org.openxava.hibernate.*;
+
 
 
 
@@ -20,7 +22,9 @@ public class GalleryImage implements Serializable {
 	private String galleryOid;
 	private byte [] image;
 	
-	
+	public static GalleryImage find(String oid) { 
+		return XHibernate.getSession().find(GalleryImage.class, oid);
+	}
 	
 	public String getOid() {
 		return oid;

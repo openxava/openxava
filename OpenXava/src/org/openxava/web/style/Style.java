@@ -410,10 +410,10 @@ public class Style {
 	
 	/** 
 	 * 
-	 * @since 4.8
+	 * @since 6.2
 	 */
-	public String getImagesGallery() { 
-		return "ox-images-gallery"; 
+	public String getImage() { 
+		return "ox-image"; 
 	}
 	
 	public String getList() {  

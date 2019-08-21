@@ -37,11 +37,12 @@ import org.openxava.test.validators.*;
 @Views({
 	@View( members=
 		"#number, description;" + // Don't remove #, it's needed to test some bugs	
-		"color, photos;" +
+		"color;" + 
 		"family, subfamily;" +
 		"warehouse, zoneOne;" +
 		"unitPrice, unitPriceInPesetas;" +
-		"unitPriceWithTax"
+		"unitPriceWithTax;" +
+		"photos"
 	),	
 	@View( name="ColorWithFrame", members= 
 		"number;" +
@@ -74,33 +75,33 @@ import org.openxava.test.validators.*;
 	@View(name="OnlySoftware"),
 	@View( name = "Simple8", members=
 		"number, description;" + 	
-		"color, photos;" +
+		"color;" +  
 		"family, subfamily;" +
-		"warehouse, unitPrice"
+		"warehouse, unitPrice, unitPriceWithTax" 
 	),
 	@View( name = "NotSimple9", members=
 		"number, description;" + 	
-		"color, photos;" +
+		"color;" + 
 		"family, subfamily;" +
-		"warehouse, unitPrice, unitPriceInPesetas;"
+		"warehouse, unitPrice, unitPriceInPesetas, unitPriceWithTax;" 
 	),
 	@View( name = "NotSimpleReference", members=
 		"number, description;" + 	
-		"color, photos;" +
+		"color, unitPrice;" + 
 		"family, subfamily;" 
 	),	
 	@View( name = "NotSimpleGroup", members=
 		"number, description;" + 	
-		"color, photos;" +
+		"color, unitPrice;" + 
 		"families [ family, subfamily; ]" 
 	),	
 	@View( name = "NotSimpleSection", members=
 		"number, description;" + 	
-		"colores { color, photos; }" +
+		"colores { color, unitPrice; }" + 
 		"families { family, subfamily; }" 
 	),	
 	@View( name = "NotSimpleFramedEditor", members=
-		"number, color, photos;" +
+		"number, color, unitPrice;" + 
 		"description" 
 	),
 	@View( name = "DescriptionsListShowsReferenceView", members=

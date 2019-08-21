@@ -963,6 +963,8 @@
 		<delete file="../${project}/web/naviox/mainNavigation.jsp"/>
 		<delete file="../${project}/web/xava/editorIcons.jsp"/>
 		<delete file="../${project}/web/xava/referenceEditorIcons.jsp"/>
+		<delete file="../${project}/web/xava/editors/changeImage.jsp"/>
+		<delete file="../${project}/web/xava/editors/gallery.jsp"/>
 		
 	</target>
 	

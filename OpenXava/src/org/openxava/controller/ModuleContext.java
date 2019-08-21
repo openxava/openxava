@@ -194,6 +194,7 @@ public class ModuleContext implements java.io.Serializable {
 		}
 		if (currentWindowId.get() == null) currentWindowId.set(lastUsedWindowId);
 		else lastUsedWindowId = currentWindowId.get();
+		
 		String id = application + "/" + module + "/" + currentWindowId.get();
 		
 		Map context = (Map) getContexts().get(id);

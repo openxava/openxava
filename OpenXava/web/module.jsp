@@ -16,6 +16,8 @@
 <%@page import="org.openxava.web.Requests"%> 
 <%@page import="org.apache.commons.logging.LogFactory" %>
 <%@page import="org.apache.commons.logging.Log" %>
+<%@page import="org.openxava.web.Browsers"%> 
+
 
 <%!private static Log log = LogFactory.getLog("module.jsp");
 
@@ -151,7 +153,11 @@
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Module.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Tab.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/View.js?ox=<%=version%>'></script>
-	<script type='text/javascript' src='<%=contextPath%>/xava/js/openxava.js?ox=<%=version%>'></script> 
+	<script type='text/javascript' src='<%=contextPath%>/xava/js/openxava.js?ox=<%=version%>'></script>
+	<% if (Browsers.isIE(request)) { %>
+	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/babel-polyfill.js?ox=<%=version%>"></script>
+	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/filepond-polyfill.js?ox=<%=version%>"></script>
+	<% } %>
 	<script type='text/javascript'>
 		openxava.lastApplication='<%=app%>'; 		
 		openxava.lastModule='<%=module%>'; 	
@@ -305,6 +311,8 @@ if (manager.isResetFormPostNeeded()) {
 <%=onLoadFunction%> = function() {
 	document.additionalParameters="<%=getAdditionalParameters(request)%>"; 
 	if (openxava != null && openxava.<%=initiated%> == null) {
+		openxava.browser.ie = <%=Browsers.isIE(request)%>;
+		openxava.browser.ff = <%=Browsers.isFF(request)%>;
 		openxava.showFiltersMessage = '<xava:message key="show_filters"/>';
 		openxava.hideFiltersMessage = '<xava:message key="hide_filters"/>';
 		openxava.selectedRowClass = '<%=style.getSelectedRow()%>';

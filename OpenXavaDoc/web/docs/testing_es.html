@@ -533,9 +533,8 @@ public class PruebaCategoria extends ModuleTestBase {
     <div class="wiki" style="display: block;">
       <pre><code class="java">package org.openxava.facturacion.pruebas;
  
-import java.text.*;
-import java.util.*;
-import javax.persistence.*;
+import java.util.*;<br>import java.time.*;
+import java.time.format.*;<br>import javax.persistence.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 import static org.openxava.jpa.XPersistence.*; // Para usar JPA
@@ -609,13 +608,13 @@ public class PruebaFactura extends ModuleTestBase {
       esperados:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">private String getAnyoActual() { // Año actual en formato cadena
-    return new SimpleDateFormat("yyyy").format(new Date()); // La forma
+    return Integer.toString(LocalDate.now().getYear()); // La forma
                                             // típica de hacerlo con Java
 }
  
 private String getFechaActual() { // Fecha actual como una cadena
-    return new SimpleDateFormat("dd/MM/yyyy").format(new Date()); // La forma
-                                            // típica de hacerlo con Java
+    return LocalDate.now().format( // La forma típica de hacerlo con Java
+        DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 }
  
 private String getNumero() { // El número de factura para una factura nueva

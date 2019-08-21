@@ -223,22 +223,9 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertDialogTitle("Edit - Invoice detail"); 
 		execute("Reference.modify", "model=Product,keyProperty=product.number");
 		assertDialogTitle("Modify - Product");
-		execute("Gallery.edit", "galleryProperty=photos");
-		assertDialogTitle("Edit images gallery"); 
-		assertMessage("No images"); 
 		
 		// Adding one image		
-		execute("Gallery.addImage");
-		assertNoErrors();
-		String imageUrl = System.getProperty("user.dir") + "/test-images/foto_javi.jpg";
-		setFileValue("newImage", imageUrl);
-		execute("LoadImageIntoGallery.loadImage");
-		assertDialogTitle("Edit images gallery");
-		assertNoErrors();
-		assertEquals("Images count does not match", 1, getForm().getInputsByName("xava.GALLERY.images").size());
-		
-		execute("Gallery.close");		
-		assertDialogTitle("Modify - Product");
+		changeImage("photos", "test-images/foto_javi.jpg"); 
 		execute("Modification.update");
 		assertDialogTitle("Edit - Invoice detail"); 
 		assertNoErrors();
@@ -248,17 +235,10 @@ public class InvoiceTest extends CustomizeListTestBase {
 		// Verifying the image has been added, and removing it  
 		execute("Invoice.editDetail", "row=0,viewObject=xava_view_section1_details");
 		execute("Reference.modify", "model=Product,keyProperty=product.number");
-		execute("Gallery.edit", "galleryProperty=photos");
-		assertNoMessage("No images");
-		assertEquals("Images count does not match", 1, getForm().getInputsByName("xava.GALLERY.images").size());
-		String imageOid = getForm().getInputByName("xava.GALLERY.images").getValueAttribute();
-		execute("Gallery.removeImage", "oid="+imageOid);
-		assertNoErrors();
-		assertEquals("Images count does not match", 0, getForm().getInputsByName("xava.GALLERY.images").size()); 
+		assertGalleryImagesCount("photos", 1); 
+		removeGalleryImage("photos", 0); 
 		
 		// Closing all the dialogs with X (we need to test this case)
-		assertDialogTitle("Edit images gallery");		
-		closeDialog(); 
 		assertDialogTitle("Modify - Product");
 		assertExists("unitPrice");
 		closeDialog();
@@ -268,6 +248,10 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoDialog();
 		assertAction("CRUD.new");
 		assertExists("paid");
+		
+		execute("Invoice.editDetail", "row=0,viewObject=xava_view_section1_details");
+		execute("Reference.modify", "model=Product,keyProperty=product.number");
+		assertGalleryImagesCount("photos", 0);
 	}
 	
 	public void testMyReportAddColumnsOnlyFromTwoLevelQualifiedProperties() throws Exception { 
@@ -1874,7 +1858,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 			"Reference.createNew",
 			"Reference.search",
 			"Reference.modify",
-			"Gallery.edit",
 			"Collection.save",
 			"Collection.remove",
 			"Collection.hideDetail",

@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>openxava - migration_en</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -38,6 +41,68 @@
       </ul>
     </div>
     <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 6.1.2 to OpenXava 6.2</h2>
+      <h3>New editor for PHOTO/IMAGE stereotype (for JUnit tests)</h3>
+      The new editor does not require any change in your application code, but
+      given that the actions of <i>ImageEditor</i> controller no longer exist
+      you should adapt the tests where you upload images. For example, if you
+      have this test code to load an image:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">execute("ImageEditor.changeImage", "newImageProperty=image"); 
+String imageURL = System.getProperty("user.dir") + "/test-images/cake.gif";
+setFileValue("newImage", imageURL);
+execute("LoadImage.loadImage");
+</code></pre></div>
+    <div class="wiki" style="display: block;">You should rewrite it in this way:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">changeImage("image", "test-images/cake.gif");
+</code></pre> </div>
+    <div class="wiki" style="display: block;">The method <i>changeImage()</i>
+      is in <i>ModuleTestBase</i> where we also have <i>removeImage()</i>, <i>assertImage()</i>
+      and <i>assertNoImage()</i> to deal with the PHOTO/IMAGE editor.</div>
+    <div class="wiki" style="display: block;">
+      <h3>New editor for IMAGES_GALLERY stereotype (for JUnit tests)</h3>
+      The new editor does not require any change in your application code, but
+      given that the actions of <i>Gallery </i>and <i>LoadImageIntoGallery</i>
+      controllers no longer exist you should adapt the tests where you uses the
+      gallery. For example, if you have this test code to add an image to the
+      gallery:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">execute("Gallery.edit", "galleryProperty=photos");
+execute("Gallery.addImage");
+String imageURL = System.getProperty("user.dir") + "/test-images/foto-javi.png";
+setFileValue("newImage", imageURL);
+execute("LoadImageIntoGallery.loadImage");
+execute("Gallery.close");
+</code></pre></div>
+      <div class="wiki" style="display: block;">You should rewrite it in this
+        way:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">changeImage("photos", "test-images/foto-javi.png");
+</code></pre> </div>
+      <div class="wiki" style="display: block;">The method <i>changeImage()</i>
+        is in <i>ModuleTestBase</i> where we also have <i>removeGalleryImage()</i>
+        and <i>assertGalleryImagesCount()</i> to deal with the IMAGES_GALLERY
+        editor.</div>
+      <div class="wiki" style="display: block;">
+        <h3>The new editor for IMAGES_GALLERY stereotype is inline and with
+          frame</h3>
+        So it is not longer displayed as a simple property, it means that maybe
+        you have to adapt the layout of some of your views. For example, if you
+        have:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@View(members="number, description, screenshots, date")</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Where <i>screenshots</i> is an
+        IMAGES_GALLERY, now you should rewrite it in this way:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@View(members="number, description; screenshots; date")</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Leaving a single line for the
+        <i> screenshots</i> property.<br>
+        <h2></h2>
+      </div>
+      <h2></h2>
       <h2>Migration from OpenXava 6.1.1 to OpenXava 6.1.2</h2>
       No issues.
       <h2>Migration from OpenXava 6.1 to OpenXava 6.1.1</h2>

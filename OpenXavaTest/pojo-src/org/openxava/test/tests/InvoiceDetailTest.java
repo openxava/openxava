@@ -29,13 +29,7 @@ public class InvoiceDetailTest extends ModuleTestBase {
 		assertLabelInList(3, "Record count");
 		
 		execute("CRUD.new");
-		execute("Gallery.edit", "galleryProperty=photos,viewObject=xava_view_product");
-		assertNoErrors(); 
-		assertMessage("No images");
-		assertDialog();
-		execute("Close.close"); 
-		assertNoDialog();
-		assertExists("quantity");
+		assertGalleryImagesCount("product.photos", 0); 
 	}
 	
 }

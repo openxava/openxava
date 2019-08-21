@@ -626,7 +626,7 @@ public class View implements java.io.Serializable {
 			}
 		}	
 		setValues(values, true);
-		if (modelChanged) refresh(); 		
+		if (modelChanged) refresh();
 	}
 	
 	private void initDefaultValues() {
@@ -1683,7 +1683,7 @@ public class View implements java.io.Serializable {
 	public List<Map<String, Object>> getCollectionValues() throws XavaException {
 		if (collectionValues == null) { 			
 			assertRepresentsCollection("getCollectionValues()");
-			if (getMetaCollection().isElementCollection()) collectionValues = Collections.EMPTY_LIST; 
+			if (getMetaCollection().isElementCollection()) collectionValues = new ArrayList<>(); 
 			else if (isCollectionFromModel() ||	!isDefaultListActionsForCollectionsIncluded() || !isDefaultRowActionsForCollectionsIncluded()) {				
 				// If calculated we obtain the data directly from the model object
 				Map mapMembersNames = new HashMap();
@@ -2408,7 +2408,7 @@ public class View implements java.io.Serializable {
 			for (int i = 0; i < count; i++) {
 				getSectionView(i).clear();
 			}	
-		}						
+		}				
 	}
 	
 	/**
@@ -2835,7 +2835,7 @@ public class View implements java.io.Serializable {
 		assignValuesToWebView("", true);
 	}
 		
-	private void assignValuesToWebView(String qualifier, boolean firstLevel) {		
+	private void assignValuesToWebView(String qualifier, boolean firstLevel) {
 		try {		
 			this.firstLevel = firstLevel; 
 			formattedProperties = null; 

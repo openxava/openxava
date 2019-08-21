@@ -22,11 +22,11 @@ public class ImagesServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String propertyKey = Ids.undecorate(request.getParameter( "property" ));
+			String propertyKey = Ids.undecorate(request.getParameter( "propertyKey")); 
 			View view = getCurrentView( request, propertyKey );
 			byte [] image = (byte []) view.getValue(propertyKey); 
 			if (image != null) {
-				response.setContentType("image");
+				response.setContentType("image/png"); // "images" without png does not work for FilePonde with Firefox, png works for any type of image  
 				response.getOutputStream().write(image);
 			}
 		}
@@ -37,7 +37,7 @@ public class ImagesServlet extends HttpServlet {
 	}
 	
 	private View getCurrentView( HttpServletRequest request, String propertyKey) {  		 
-		ModuleContext context = (ModuleContext) request.getSession().getAttribute("context"); 
+		ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
 		return (View) context.get(request, "xava_view");
 	}
 		

@@ -14,7 +14,7 @@ public class HideShowAction extends ViewBaseAction {
 	private String name;
 
 	public void execute() throws Exception {
-		getView().setHidden(name, hide);		
+		getView().setHidden(name, hide);
 	}
 
 	public boolean isHide() {

@@ -37,11 +37,6 @@
 		<action name="disableDiscussion" class="org.openxava.test.actions.DisableDiscussionAction"/> 
 	</controller>
 		
-	<controller name="GalleryNoDialog">		
-		<action name="edit" image="photo.gif" hidden="true"
-			class="org.openxava.test.actions.EditGalleryNoDialogAction"/>			
-	</controller>
-	
 	<controller name="Clerk">	
 		<extends controller="TypicalRealExcel"/>
 		<action name="createMyExcel" class="org.openxava.test.actions.CreateMyExcelAction" />
@@ -1430,6 +1425,6 @@
 			icon="chevron-left"
 			class="org.openxava.test.actions.MyGoListAction"
 			keystroke="F9"/>
-	</controller>	
+	</controller>
 	
 </controllers>

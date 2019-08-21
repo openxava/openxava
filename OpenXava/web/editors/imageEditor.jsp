@@ -1,23 +1,25 @@
-<%@ include file="../imports.jsp"%>
-
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 <%@ page import="org.openxava.web.Ids" %>
+<%@ page import="org.openxava.util.Is"%>
+
+<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
-boolean editable="true".equals(request.getParameter("editable"));
 String applicationName = request.getParameter("application");
 String module = request.getParameter("module");
-long dif=System.currentTimeMillis(); // to avoid browser caching
+Object value = request.getAttribute(propertyKey + ".value");
+String dataEmpty = Is.empty(value)?"data-empty='true'":"";
+boolean editable = "true".equals(request.getParameter("editable"));
+String dataEditable = editable?"":"data-editable='true'";
 %>
 
-<img id='<%=propertyKey%>' name='<%=propertyKey%>' src='<%=request.getContextPath()%>/xava/ximage?application=<%=applicationName%>&module=<%=module%>&property=<%=propertyKey%>&dif=<%=dif%>' title="<%=p.getDescription(request)%>" alt=""/>
-	
-<% if (editable) { %>	
-	<span valign='middle'>
-		<xava:link action='ImageEditor.changeImage' argv='<%="newImageProperty="+Ids.undecorate(propertyKey)%>'/>
-		&nbsp;&nbsp;
-	   	<xava:action action='ImageEditor.deleteImage' argv='<%="newImageProperty="+Ids.undecorate(propertyKey)%>'/> 
-	</span>
-<% } %>	
+<input id='<%=propertyKey%>' 
+	type="file" class="xava_upload <%=style.getImage()%>"  
+	data-application="<%=applicationName%>" 
+	data-module="<%=module%>"
+	<%=dataEmpty%>
+	<%=dataEditable%>/> 
+
+<jsp:include page="filePondTranslation.jsp"/>

@@ -1,4 +1,6 @@
 if (openxava == null) var openxava = {};
+if (openxava.browser == null) openxava.browser = {};
+
 openxava.deselected = [];
 
 openxava.init = function(application, module, initUI) { 
