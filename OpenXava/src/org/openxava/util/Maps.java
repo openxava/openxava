@@ -81,8 +81,7 @@ public class Maps {
 			tree.put(qualifiedName.substring(0, idx), subtree);
 		}
 		putValueFromQualifiedName(subtree, qualifiedName.substring(idx + 1), value);		
-	}
-	
+	}	
 	
 	
 		
