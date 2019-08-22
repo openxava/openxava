@@ -28,4 +28,17 @@
 		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
 		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>xava-src</name>
+			<type>2</type>
+			<locationURI>OPENXAVA_LOC/OpenXava/src</locationURI>
+		</link>
+	</linkedResources>
+	<variableList>
+		<variable>
+			<name>OPENXAVA_LOC</name>
+			<value>file:/C:/Users/javi/git/openxava</value>
+		</variable>
+	</variableList>
 </projectDescription>

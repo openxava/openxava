@@ -16,7 +16,7 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		getView().reset();
 		if (getView().hasSections()) getView().setActiveSection(0);
 	}
-	
+		
 	public String getNextMode() {
 		return IChangeModeAction.DETAIL;
 	}

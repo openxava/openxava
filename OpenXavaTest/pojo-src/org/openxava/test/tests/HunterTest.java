@@ -23,7 +23,7 @@ public class HunterTest extends ModuleTestBase {
 		assertListRowCount(1);
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "DE ALFORJA");
-		assertCollectionRowCount("hounds", 1);
+		assertCollectionRowCount("hounds", 1); 
 		execute("Collection.removeSelected", 
 			"row=0,viewObject=xava_view_section0_hounds");
 		assertError("It's required at least 1 element in Hounds of Hunter");
@@ -39,7 +39,7 @@ public class HunterTest extends ModuleTestBase {
 		assertError("More than 2 items in Hounds of Hunter are not allowed");
 		uncheckAll();		
 		execute("AddToCollection.add", "row=1");
-		assertMessage("1 element(s) added to Hounds of Hunter");
+		assertMessage("1 element(s) added to Hounds of Hunter"); 
 		execute("Collection.add", "viewObject=xava_view_section0_hounds");
 		execute("AddToCollection.add", "row=3");
 		assertError("More than 2 items in Hounds of Hunter are not allowed");

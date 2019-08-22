@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+             version="1.0">
+             
+    <persistence-unit name="default">
+    	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    	<non-jta-data-source>java://comp/env/jdbc/@datasource@</non-jta-data-source>
+    	<class>org.openxava.session.GalleryImage</class>
+    	<class>org.openxava.web.editors.DiscussionComment</class>
+        <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="update"/>
+            <property name="javax.persistence.create-database-schemas" value="true"/> 
+            <property name="hibernate.default_schema" value="@schema@"/>
+            <property name="hibernate.jdbc.use_streams_for_binary" value="true"/>
+        </properties>
+    </persistence-unit>
+    
+    <!-- MySQL  
+    <persistence-unit name="default">
+    	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    	<non-jta-data-source>java://comp/env/jdbc/@datasource@</non-jta-data-source>
+    	<class>org.openxava.session.GalleryImage</class>
+    	<class>org.openxava.web.editors.DiscussionComment</class>
+        <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="update"/>
+            <property name="javax.persistence.create-database-schemas" value="true"/> 
+            <property name="hibernate.default_catalog" value="@schema@"/>
+            <property name="hibernate.jdbc.use_streams_for_binary" value="true"/>
+        </properties>
+    </persistence-unit>     
+    -->   
+                
+    <!-- JUnit Hypersonic -->
+    <persistence-unit name="junit">
+    	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    	<class>org.openxava.web.editors.DiscussionComment</class>
+        <properties>
+			<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
+			<property name="hibernate.default_schema" value="@schema@"/>
+			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost:1666"/>
+        </properties>
+    </persistence-unit>    
+    
+</persistence>

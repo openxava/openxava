@@ -54,6 +54,7 @@ public class UploadServlet extends HttpServlet {
 			String fileId = request.getParameter("fileId");
 			String propertyValues = "property=" + property; 
 			if (fileId != null) propertyValues = propertyValues + ",fileId=" + fileId; 
+			Requests.init(request, manager.getApplicationName(), manager.getModuleName()); // tmp
 			manager.executeAction(action, errors, messages, propertyValues, request);
 		}
 		catch (Exception ex) { 

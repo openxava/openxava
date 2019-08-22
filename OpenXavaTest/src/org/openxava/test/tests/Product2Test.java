@@ -142,7 +142,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertGalleryImagesCount("photos", 1); 
 		
 		// Removing the image
-		removeGalleryImage("photos", 0); 
+		removeGalleryImage("photos", 0);
 		
 		// Verifying that product 1 has no images
 		execute("CRUD.new");
@@ -151,7 +151,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertNoErrors();
 		assertGalleryImagesCount("photos", 0); 
 
-		assertEmailNotifications(
+		assertEmailNotifications( 
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: NEW IMAGES ADDED --> foto_javi.jpg</li></ul>",
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: IMAGE REMOVED --> One image removed</li></ul>"
 		);	

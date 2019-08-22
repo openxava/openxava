@@ -107,10 +107,6 @@ For backward compatibility we still support the use of servlets.xml, filters.xml
 		<servlet-class>org.openxava.web.servlets.FilesServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>attachments</servlet-name>
-		<servlet-class>org.openxava.web.servlets.AttachmentsServlet</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>naviox</servlet-name>
 		<servlet-class>com.openxava.naviox.web.NaviOXServlet</servlet-class>
 	</servlet>
@@ -189,10 +185,6 @@ For backward compatibility we still support the use of servlets.xml, filters.xml
 	<servlet-mapping>
 		<servlet-name>files</servlet-name>
 		<url-pattern>/xava/xfile</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>attachments</servlet-name>
-		<url-pattern>/xava/attachment</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>naviox</servlet-name>

@@ -151,8 +151,8 @@
 	
 	<target name="updateOX">
 		<ant antfile="../OpenXava/build.xml" target="updateOX"/>
-	</target>		
-	
+	</target>
+		
 	<target name="runTests">
 		<junit fork="true"  printsummary="true">
 			<jvmarg value="-Xmx1024m -Duser.country=es -Duser.language=ES"/>

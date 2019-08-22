@@ -917,6 +917,7 @@
 		<antcall target="installAddons"/>
 		<antcall target="createWebXml"/>
 		<antcall target="createDefaultI18nFiles"/>
+		<antcall target="createAppLauncher"/> 
 		<jar jarfile="../${project}/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
 		<!-- Delete the old Hibernate jars (used until v4m5) -->
 		<delete file="../${project}/web/WEB-INF/lib/ejb3-persistence.jar"/>
@@ -965,6 +966,24 @@
 		<delete file="../${project}/web/xava/editors/changeImage.jsp"/>
 		<delete file="../${project}/web/xava/editors/gallery.jsp"/>
 		
+	</target>
+	
+	<target name="createAppLauncher">
+		<mkdir dir="../${project}/src/_run"/>
+		<copy file="${openxava.base.dir}/OpenXava/project-templates/en/src/_run/AppLauncher.java" 
+			tofile="../${project}/src/_run/${project}.java" overwrite="false">
+	    	<filterset>	    	
+				<filter token="project" value="${project}"/>
+	    		<filter token="database" value="${project}DB"/> 
+			</filterset> 			         
+		</copy>
+		<mkdir dir="../${project}/web/META-INF"/>
+		<copy file="${openxava.base.dir}/OpenXava/project-templates/en/web/META-INF/context.xml" 
+			tofile="../${project}/web/META-INF/context.xml" overwrite="false">
+	    	<filterset>	    	
+	    		<filter token="datasource" value="${project}DS"/> 
+			</filterset> 			         
+		</copy>			
 	</target>
 	
 	<target name="copyWeb">

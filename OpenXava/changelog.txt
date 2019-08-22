@@ -1,7 +1,21 @@
 Change Log for OpenXava project
 ===============================
 
-- New editor for IMAGES_GALLERY stereotype with AJAX uploading.
+- Getting started guide simplified. 
+- Quick start guide removed.
+- Projects can be launched directly using Run As > Application.
+- No longer is needed to have a Tomcat installed for development.
+- Eclipse for Java Developers is enough, no longer Eclipse for Java Enterprise Developer needed.
+- DWR warning messages no longer shown in log.
+- MySchool demo project no longer included in distribution.
+- Each new project includes a DBManager to launch a HSQLDB manager.
+- DBServer class to start a HSQLDB and its manager.
+- Commons Codec API available to be used in applications.
+- OpenXavaTemplate and OpenXavaPlantilla projects removed from distribution.
+- CreateNewProject.xml and CrearNuevoProyecto.xml available in OpenXava project directly.
+- Servlet API 4.0 included, though we still are compatible with Servlet 3.0.
+- Fix: Unused servlets defined in web.xml.
+- New editor for IMAGES_GALLERY stereotype inline in a frame and with AJAX uploading.
 - New methods removeGalleryImage() and assertGalleryImagesCount() in ModuleTestBase.
 - Lessons from 1 to 3 of the course use LocalDate instead of Date.
 - New editor for PHOTO/IMAGE stereotype with AJAX uploading.	

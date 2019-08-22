@@ -37,9 +37,12 @@
             la aplicación</a></div>
         <div style="margin-left: 2em;"><a href="#Lecci%C3%B3n+1:+Primeros+pasos-Resumen">Resumen</a></div>
       </div>
-      <strong>Curso</strong>: <strong>1. Primeros pasos</strong> | <a class="wiki_link"
-        href="modeling_es.html">2. Modelar con Java</a> | <a class="wiki_link"
-        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
+      <strong>Curso</strong>: <strong>1. Primeros pasos</strong> | <a class="wiki_link"
+
+        href="modeling_es.html">2. Modelar con Java</a> | <a class="wiki_link"
+
+        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
+
         href="inheritance_es.html">4. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
         Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
         Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
@@ -56,18 +59,13 @@
       las herramientas que necesitas para desarrollar con OpenXava.<br>
       Vas a instalar Eclipse; configurar el Tomcat dentro del Eclipse y crear el
       proyecto para tu aplicación.<br>
-      Esta lección es una introducción a OpenXava y Eclipse, por tanto está un
-      poco sobre explicada, especialmente en lo que a Eclipse se refiere. Por
-      eso, si ya eres un usuario de Eclipse experimentado, simplemente echa un
-      vistazo rápido a la lección y pasa directamente a la siguiente.<br>
       <h2 id="toc1"><a name="Lección 1: Primeros pasos-Nuestro objetivo: Una pequeña aplicación de facturación"></a>Nuestro
         objetivo: Una pequeña aplicación de facturación</h2>
-      La aplicación para esta parte del libro es una pequeña aplicación de
-      facturación con facturas, clientes, productos y así por el estilo. Esta
-      aplicación es una mera excusa para aprender algunos casos típicos en
-      aplicaciones de gestión. Puedes aplicar todo lo que aprendas con esta
-      aplicación a cualquier otra aplicación de gestión en cualquier otro
-      dominio.<br>
+      La aplicación es una pequeña aplicación de facturación con facturas,
+      clientes, productos y así por el estilo. Esta aplicación es una mera
+      excusa para aprender algunos casos típicos en aplicaciones de gestión.
+      Puedes aplicar todo lo que aprendas con esta aplicación a cualquier otra
+      aplicación de gestión en cualquier otro dominio.<br>
       Ten en cuenta que esta aplicación de facturación es una herramienta
       didáctica. No la uses “tal cual” para un sistema de facturación real.<br>
       <h2 id="toc2"><a name="Lección 1: Primeros pasos-Crear el proyecto en Eclipse"></a>Crear
@@ -77,22 +75,26 @@
       facturación usando Eclipse. Al final de este capítulo tendrás una primera
       versión funcional de tu aplicación desarrollada como un proyecto de
       Eclipse.<br>
-      Este curso asume que estás usando la edición “Eclipse IDE for Java EE
-      Developers” de Eclipse con Java 11 o Java 8. La última versión de Eclipse
-      es perfecta, aunque también puedes usar Eclipses más antiguos, hasta Neon
-      (4.6). Si es necesario, obtén tu Eclipse de <a href="http://www.eclipse.org/downloads"
-        rel="nofollow">www.eclipse.org</a> y Java de <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
-        rel="nofollow">www.oracle.com</a>.<br>
+      Si todavía no tienes Eclipse <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-06/R/eclipse-java-2019-06-R-win32-x86_64.zip"
+
+        target="_blank">descarga Eclipse para Windows</a>, <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-06/R/eclipse-java-2019-06-R-macosx-cocoa-x86_64.dmg"
+
+        target="_blank">para Mac</a> o <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-06/R/eclipse-java-2019-06-R-linux-gtk-x86_64.tar.gz"
+
+        target="_blank">para Linux</a>. Si no tienes Java <a href="https://www.java.com"
+
+        target="_blank">descárgalo de java.com</a>.<br>
       <h3 id="toc3"><a name="Lección 1: Primeros pasos-Crear el proyecto en Eclipse-Instalar OpenXava"></a>Instalar
         OpenXava</h3>
       Ve a <a href="http://www.openxava.org" rel="nofollow">www.openxava.org</a>
       y descarga la última distribución de OpenXava. Es un archivo zip, algo así
       como <em>openxava-6.x.zip</em>. Simplemente descomprímelo y tendrás un
       entorno listo para empezar a desarrollar. Algo como esto:<br>
-      <img src="files/getting-started_es010.png" alt="getting-started_es010.png"
+      <img src="files/getting-started_es010.png" alt="getting-started_es010.png"
+
         title="getting-started_es010.png"><br>
-      Como ves, las distribución de OpenXava incluye un Tomcat y un workspace de
-      Eclipse, todo configurado y listo para usar. Empecemos a trabajar.<br>
+      Como ves, las distribución de OpenXava incluye un Tomcat de Eclipse
+      configurado y listo para usar. Empecemos a trabajar.<br>
       <h3 id="toc4"><a name="Lección 1: Primeros pasos-Crear el proyecto en Eclipse-Crear el proyecto"></a>Crear
         el proyecto</h3>
       <span style="line-height: 1.5;">Arranca tu Eclipse y abre el workspace de
@@ -100,11 +102,13 @@
           Switch Workspace</span></em><span style="line-height: 1.5;">):</span><br>
       <img src="files/quick-start_es010.png" alt="quick-start_es010.png" title="quick-start_es010.png"><br>
       En primer lugar has de crear un proyecto Java nuevo:<br>
-      <img src="files/getting-started_es020.png" alt="getting-started_es020.png"
+      <img src="files/getting-started_es020.png" alt="getting-started_es020.png"
+
         title="getting-started_es020.png"><br>
       Entonces aparecerá un asistente. Teclea el nombre del proyecto, <em>Facturacion</em>
       y presiona en Finish:<br>
-      <img src="files/getting-started_es030.png" alt="getting-started_es030.png"
+      <img src="files/getting-started_es030.png" alt="getting-started_es030.png"
+
         title="getting-started_es030.png"><br>
       Ten cuidado de poner la <em>F</em> de <em>Facturacion</em> en mayúscula
       y no usar acento, para que los vínculos de abajo funcionen correctamente.</div>
@@ -114,119 +118,37 @@
     <div class="wiki" style="display: block;">Pulsa <i>Don't Create</i>.</div>
     <div class="wiki" style="display: block;">Después de esto tendrás un
       proyecto Java vacío llamado <em>Facturacion</em>:<br>
-      <img src="files/getting-started_es040.png" alt="getting-started_es040.png"
+      <img src="files/getting-started_es040.png" alt="getting-started_es040.png"
+
         title="getting-started_es040.png"><br>
       Ahora tienes que convertirlo en un proyecto OpenXava:<br>
-      <img src="files/getting-started_es050.png" alt="getting-started_es050.png"
+      <img src="files/getting-started_es050.png" alt="getting-started_es050.png"
+
         title="getting-started_es050.png"><br>
       Después de esto has de introducir el nombre de proyecto, teclea <em>Facturacion</em>
       y presiona OK:<br>
-      <img src="files/getting-started_es060.png" alt="getting-started_es060.png"
+      <img src="files/getting-started_es060.png" alt="getting-started_es060.png"
+
         title="getting-started_es060.png"><br>
       Espera unos pocos segundos hasta que termine y tendrás un proyecto
       OpenXava completo:<br>
-      <img src="files/getting-started_es065.png" alt="getting-started_es065.png"
+      <img src="files/getting-started_es065.png" alt="getting-started_es065.png"
+
         title="getting-started_es065.png"><br>
-      Tu proyecto ya está listo para empezar a escribir código, sin embargo
-      antes de eso vamos a configurar el Tomcat dentro de Eclipse para usarlo
-      como plataforma para ejecutar tu aplicación.<br>
-      <h2 id="toc5"><a name="Lección 1: Primeros pasos-Configurar Tomcat dentro de Eclipse"></a>Configurar
-        Tomcat dentro de Eclipse</h2>
-      Arrancar el Tomcat dentro del Eclipse tiene varias ventajas, como que
-      puedes depurar, ver la bitácora con los mensajes y las trazas de error
-      dentro de Eclipse, ir desde una traza al código pulsando con el ratón,
-      etc.<br>
-      En la parte inferior del Eclipse selecciona la pestaña <em>Servers</em> y<span
-        style="line-height: 1.5;"> pulsa el vínculo que hay dentro para crear un
-        nuevo servidor:</span><br>
-      <img src="files/getting-started070.png" alt="getting-started070.png" title="getting-started070.png"><br>
-      Se mostrará un diálogo, selecciona <em>Apache Tomcat v9.0</em> (dentro de
-      la carpeta <em>Apache</em>) y presiona <em>Next</em>:<br>
-      <img src="files/getting-started075.png" alt="getting-started075.png" title="getting-started075.png"><br>
-      Escoge el Tomcat incluido con OpenXava como directorio de instalación y
-      pulsa <em>Next</em>.<br>
-      <img src="files/getting-started_es080.png" alt="getting-started_es080.png"
-        title="getting-started_es080.png"><br>
-      Para finalizar, añade tu aplicación al Tomcat y pulsa <em>Finish</em>:<br>
-      <img src="files/getting-started_es110.png" alt="getting-started_es110.png"
-        title="getting-started_es110.png"><br>
-      Ahora el Tomcat está listo para usar.<br>
-      <h2 id="toc6"><a name="Lección 1: Primeros pasos-Preparar la base de datos"></a>Preparar
-        la base de datos</h2>
-      Tu aplicación OpenXava puede ir contra cualquier base de datos relacional,
-      como MySQL, PostgreSQL, Oracle, DB2, MS SQL Server y muchísimas más.
-      Además, puedes cambiar de una base datos a otra sin tocar una sola línea
-      de código. Para este curso vamos a utilizar HSQLDB, porque ya está
-      incluida en OpenXava y es extremadamente fácil de configurar. Puedes
-      cambiar a tu base de datos de producción en cualquier momento.<br>
-      <h3 id="toc7"><a name="Lección 1: Primeros pasos-Preparar la base de datos-Crear la fuente de datos"></a>Crear
-        la fuente de datos</h3>
-      Una fuente de datos es el medio que usa un servidor de aplicaciones para
-      saber como conectarse a una base de datos. Desde nuestras aplicaciones
-      solo referenciamos a fuentes de datos (y no directamente a las bases de
-      datos), por tanto hemos de configurar las fuentes de datos en el Tomcat
-      para apuntar a las bases de datos correctas. Definamos la fuente de datos
-      para nuestra aplicación <em>Facturacion</em>.<br>
-      Ve al proyecto <em>Servers</em> de Eclipse, edita el archivo <em>context.xml</em>
-      dentro de la carpeta de tu servidor:<br>
-      <img src="files/getting-started100.png" alt="getting-started100.png" title="getting-started100.png"><br>
-      Si no ves el código XML de <em>context.xml</em> pulsa en la pestaña <em>Source</em>.
-      Ahora has de añadir una nueva fuente de datos llamada <em>FacturacionDS</em>,
-      contra tu base de datos. Añade el siguiente código al final de <em>context.xml</em>
-      justo antes del último <em>&lt;/Context&gt;</em>:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;Resource name="jdbc/FacturacionDS" auth="Container"
-    type="javax.sql.DataSource"
-    maxActive="20" maxIdle="5" maxWait="10000"
-    username="sa" password=""
-    driverClassName="org.hsqldb.jdbcDriver"
-    url="jdbc:hsqldb:hsql://localhost:1666"/&gt;    
-</code></pre> </div>
-    <div class="wiki" style="display: block;">
-      <h3 id="toc8"><a name="Lección 1: Primeros pasos-Preparar la base de datos-Iniciar la base de datos"></a>Iniciar
-        la base de datos</h3>
-      Para arrancar tu base de datos HSQLDB con Windows pulsa el botón <em>Inicio</em>,
-      teclea <em>cmd</em> y presiona ENTER, después:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="bash">cd openxava-6.x\tomcat\bin
-start-hsqldb facturacion-db 1666
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Con Linux/Mac:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="bash">cd openxava-6.x/tomcat/bin
-./start-hsqldb.sh facturacion-db 1666
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Obtendrás la siguiente salida:<br>
-      <img src="files/getting-started_es140.png" alt="getting-started_es140.png"
-        title="getting-started_es140.png"><br>
-      Tu base de datos ya está arrancada y si es la primera ejecución se habrá
-      creado automáticamente.<br>
+      Tu proyecto ya está listo para empezar a escribir código.<br>
       <h2 id="toc9"><a name="Lección 1: Primeros pasos-Crear tu primera entidad"></a>Crear
         tu primera entidad</h2>
-      Al fin tienes tu entorno de desarrollo configurado. Ahora, desarrollar es
-      muy fácil: solo has de añadir entidades para ir haciendo crecer tu
-      aplicación. Creemos tu primera entidad y ejecutemos la aplicación.<br>
-      Lo primero es crear un paquete para que contenga las clases del modelo
-      (las entidades). Con el botón derecho en <em>src</em> de tu proyecto
-      escoge <em>New &gt; Package</em>:<br>
-      <img src="files/getting-started_es115.png" alt="getting-started_es115.png"
-        title="getting-started_es115.png"><br>
-      En el diálogo introduce el nombre del paquete, <em>org.openxava.facturacion.modelo</em>,
-      y pulsa <em>Finish</em>:<br>
-      <img src="files/getting-started_es120.png" alt="getting-started_es120.png"
-        title="getting-started_es120.png"><br>
-      En vez de <em>org.openxava</em> puedes usar el dominio de tu
-      organización, es decir, si trabajas para la NASA el paquete podría ser <em>gov.nasa.facturacion.modelo</em>.
-      Ya sabes crear un paquete con Eclipse, a partir de ahora no usaremos una
-      figura para esto.<br>
-      Ahora, puedes crear tu primera entidad. Empezaremos con una versión
-      simplificada de <em>Cliente</em> con solo <em>numero</em> y <em>descripcion</em>.
-      Selecciona el paquete <em>org.openxava.facturacion.modelo</em> y pulsa el
-      botón <em>New Java Class</em>:<br>
-      <img src="files/getting-started_es125.png" alt="getting-started_es125.png"
+      Desarrollar es muy fácil: solo has de añadir entidades para ir haciendo
+      crecer tu aplicación. Empezaremos con una versión simplificada de <em>Cliente</em>
+      con solo <em>numero</em> y <em>descripcion</em>. </div>
+    <div class="wiki" style="display: block;">Selecciona el paquete <em>org.openxava.facturacion.modelo</em>
+      y pulsa el botón <em>New Java Class</em>:<br>
+      <img src="files/getting-started_es125.png" alt="getting-started_es125.png"
+
         title="getting-started_es125.png"><br>
       Después teclea <em>Cliente</em> como nombre de clase y pulsa <em>Finish</em>.<br>
-      <img src="files/getting-started_es130.png" alt="getting-started_es130.png"
+      <img src="files/getting-started_es130.png" alt="getting-started_es130.png"
+
         title="getting-started_es130.png"><br>
       Fíjate que la <em>C</em> de <em>Cliente</em> está en mayúscula, esto es
       muy importante, en Java todas las clases empiezan con mayúscula. Has
@@ -235,7 +157,7 @@ start-hsqldb facturacion-db 1666
       El código inicial que Eclipse proporciona para <em>Cliente</em> es muy
       simple:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.modelo;
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 public class Cliente {
  
@@ -246,7 +168,7 @@ public class Cliente {
       necesitas añadir la anotación <em>@Entity</em> y las propiedades <em>numero</em>
       y <em>descripcion</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.modelo;
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import org.openxava.annotations.*;
@@ -286,33 +208,35 @@ public class Cliente {
         la aplicación</h2>
       Lo primero es contruir el proyecto pulsando el botón <em>Build All</em> o
       presionando Ctrl-B:<br>
-      <img src="files/getting-started_es145.png" alt="getting-started_es145.png"
+      <img src="files/getting-started_es145.png" alt="getting-started_es145.png"
+
         title="getting-started_es145.png"><br>
-      Para iniciar el servidor ve a la pestaña <em>Servers.</em> Si no la ves,
-      posiblemente has maximizado el editor actual, simplemente haz doble click
-      en la pestaña del editor para minimizarla y verás la distribución original
-      del Eclipse de nuevo.<br>
-      Una vez allí sigue las siguientes instrucciones:<br>
-      <img src="files/getting-started_es150.png" alt="getting-started_es150.png"
-        title="getting-started_es150.png"><br>
+      Pulsa el botón derecho del ratón en <i>Facturacion.java</i>
+      (en <i>src/_run</i>) y selecciona <i>Run As &gt; Java Application</i>:<br><img
+
+        src="files/getting-started_es150.png" alt="getting-started_es150.png" title="getting-started_es150.png"><br>
       Ya tienes tu aplicación ejecutándose. Para verla, abre tu navegador y ve a
       la URL:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/Facturacion" rel="nofollow"
+      <a class="wiki_link_ext" href="http://localhost:8080/Facturacion" rel="nofollow"
+
         target="_blank">http//:localhost:8080/Facturacion</a><br>
       Estás viendo tu aplicación por primera vez. Para empezar pulsa en el botón
       INICIAR SESIÓN:<br>
-      <img src="files/getting-started_es160.png" alt="getting-started_es160.png"
+      <img src="files/getting-started_es160.png" alt="getting-started_es160.png"
+
         title="getting-started_es160.png"></div>
     <div class="wiki" style="display: block;">Ahora, introduce admin/admin y
       pulsa en ENTRAR<em></em>:</div>
     <img src="files/getting-started_es165.png" alt="Página de identificación">
     <div class="wiki" style="display: block;"> Después, pulsa en la parte de la
       izquierda se mostrará una lista de módulos, escoge <em>Clientes</em>:<br>
-      <img src="files/getting-started_es170.png" alt="getting-started_es170.png"
+      <img src="files/getting-started_es170.png" alt="getting-started_es170.png"
+
         title="getting-started_es170.png"><br>
       Usa el módulo <em>Clientes</em> para crear nuevos clientes, simplemente
       introduce el número y el nombre y pulsa <em>Grabar</em>.<br>
-      <img src="files/getting-started_es190.png" alt="getting-started_es190.png"
+      <img src="files/getting-started_es190.png" alt="getting-started_es190.png"
+
         title="getting-started_es190.png"><br>
       Pulsa en <em>Lista</em> para ver los clientes que has creado.
       Enhorabuena, tienes tu entorno configurado y tu aplicación funcionando.<br>
@@ -323,7 +247,7 @@ public class Cliente {
       Probémoslo.<br>
       Crea una nueva entidad para <em>Producto</em> con el siguiente código:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.modelo;
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import org.openxava.annotations.*;
@@ -353,18 +277,17 @@ public class Producto {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Ahora, presiona Ctrl-B. La mayoría
-      de las veces es suficiente pulsar Ctrl-B para desplegar automáticamente tu
-      código, pero de vez en cuando el Eclipse falla al desplegar y tienes que
-      reiniciar el Tomcat, por suerte esto solo cuesta unos pocos segundos. Por
-      tanto, si unos segundos después del Ctrl-B tu aplicación no se
-      redespliega, reinicia el Tomcat con <em>Botón derecho en Tomcat &gt;
-        Restart</em>.<br>
-      Para ver tu nueva entidad en acción abre tu navegador y ve a la URL:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/Facturacion/modules/Producto"
+    <div class="wiki" style="display: block;">Ahora, detén la aplicación,
+      compila (Ctrl-B) y vuelve a iniciar la aplicación:</div>
+    <img src="files/getting-started_es195.png" alt="getting-started_es195.png" title="getting-started_es195.png">
+    <div class="wiki" style="display: block;"> Para ver tu nueva entidad en
+      acción abre tu navegador y ve a la URL:<br>
+      <a class="wiki_link_ext" href="http://localhost:8080/Facturacion/modules/Producto"
+
         rel="nofollow" target="_blank">http://localhost:8080/Facturacion/modules/Producto</a><br>
-      Después de indentificarte con admin/admin obtendrás:<br>
-      <img src="files/getting-started_es200.png" alt="getting-started_es200.png"
+      Después de identificarte con admin/admin obtendrás:<br>
+      <img src="files/getting-started_es200.png" alt="getting-started_es200.png"
+
         title="getting-started_es200.png"><br>
       Sí, ya tienes un nuevo módulo en marcha, y solo has tenido que escribir
       una simple clase. Ahora puedes concentrarte en hacer crecer tu aplicación.<br>
@@ -381,19 +304,23 @@ public class Producto {
       considerar adquirir un poco de conocimiento base, tal como:<br>
       <ul>
         <li>Si eres nuevo en Java deberías leer un libro de introducción a Java
-          o leerte el <a class="wiki_link_ext" href="https://docs.oracle.com/javase/tutorial/"
+          o leerte el <a class="wiki_link_ext" href="https://docs.oracle.com/javase/tutorial/"
+
             rel="nofollow">Tutorial de Java</a>.</li>
-        <li>Si estás interesado en la filosofía y arquitectura de OpenXava <a class="wiki_link"
+        <li>Si estás interesado en la filosofía y arquitectura de OpenXava <a class="wiki_link"
+
             href="philosophy_es.html">lee el apéndice A</a> de este curso.</li>
         <li>Los apéndices B y C sobre <a class="wiki_link" href="jpa_es.html">Java
             Persistence API</a> y <a class="wiki_link" href="annotations_es.html">anotaciones</a>
           te serán de mucha utilidad.</li>
       </ul>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-1-getting-started_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-1-getting-started_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="modeling_es.html">Ve a la lección 2</a></strong>
     </div>
