@@ -17,6 +17,27 @@
 /OpenXavaTest-messages_en.properties
 /OpenXavaTest-messages_es.properties
 /OpenXavaTest-messages_fr.properties
+/application.xml
+/code-generators.xml
+/controllers.xml
+/converters.xml
+/default-size.xml
+/dtds/
+/editors.xml
+/hibernate-junit.cfg.xml
+/hibernate.cfg.xml
+/org/
+/portlets/
+/BeansContext.properties
+/Corporation.html
+/CorporationEmployee.html
+/Customer.jrxml
+/Film.jrxml
+/Images.jrxml
+/Invoice.jrxml
+/InvoiceNoVAT.jrxml
+/LoginContextFactory.properties
+>>>>>>> refs/remotes/origin/i18n-for-modules-in-admin
 /Products.jrxml
 /_run/
 /application.xml
