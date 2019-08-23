@@ -165,9 +165,16 @@
 		<extends controller="Navigation"/>
 		<extends controller="NewOnlyInList"/>
 		<extends controller="Print"/>
-		
+				
 		<action name="createNewOrganization" mode="detail" takes-long="true"
 			class="com.openxava.naviox.actions.CreateNewOrganizationAction"/>
+			
+		<action name="modify" mode="detail" available-on-new="false"
+			class="com.openxava.naviox.actions.ModifyOrganizationAction"
+			by-default="if-possible"
+			keystroke="F3">			
+			<set property="resetAfter" value="false"/>
+		</action>			
 			
 		<action name="delete" mode="detail" confirm="true"
 			class="com.openxava.naviox.actions.DeleteOrganizationAction"/>
