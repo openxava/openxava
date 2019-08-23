@@ -31,7 +31,7 @@ public class Refisher {
 		return true;
 	}	
 	
-	public void refine(MetaModule metaModule, Collection<MetaMember> metaMembers, View view) {
+	public void refine(MetaModule metaModule, View view) {
 		log("B.1"); 
 	}
 	
