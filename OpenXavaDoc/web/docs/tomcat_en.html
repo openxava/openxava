@@ -45,21 +45,47 @@
       <h2 id="toc1">Download and install Tomcat</h2>
       <a href="https://tomcat.apache.org/download-90.cgi">Download Tomcat 9</a>
       from Apache. OpenXava also works fine with Tomcat 8 and 7. Uncompress
-      Tomcat in a folder of your choice. Now go to the webapps folder and remove
-      all the folders inside: docs, examples, host-manager, manager and ROOT.
-      These are example and management apps that you don't want to have in a
-      production system.<strong></strong></div>
+      Tomcat in a folder of your choice. Now go to the <i>webapps</i> folder
+      and remove all the folders inside: docs, examples, host-manager, manager
+      and ROOT. These are example and management apps that you don't want to
+      have in a production system.</div>
     <div class="wiki" style="display: block;">
-      <h2 id="toc1">Configure the datasource</h2>
-      Download </div>
+      <h2 id="toc1">The JDBC driver<br>
+      </h2>
+      You have to copy the JDBC driver jar to the lib folder of your Tomcat. If
+      you're still using the HSQLDB database included with OpenXava, this jar is
+      <i>hsqldb.jar</i> from <i>OpenXava/lib</i>. But if you're using MySQL,
+      Oracle, PostgreSQL, etc. you should obtain the correct JDBC driver for
+      your database and copy it to Tomcat <i>lib</i> folder.<br>
+      <strong></strong></div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Create and deploy the WAR<br>
       </h2>
-      Download </div>
+      In order to deploy your application into Tomcat you have to create a WAR
+      file from your application. For that, click on right mouse button on <i>build.xml</i>
+      file of your project and choose <i>Run As &gt; Ant Build...</i>:</div>
+    <img src="files/run-as-ant-build.png" alt="">
+    <div class="wiki" style="display: block;">Then deselect any selected Ant
+      target and select the <i>createWar</i> ant target.</div>
+    <img src="file:///C:/Users/javie/git/openxava/OpenXavaDoc/web/docs/files/run-deploy-war-ant-target_en.png"
+      alt="">
+    <div class="wiki" style="display: block;">Additionally, you can put a better
+      name like <i>Invoicing.createWar</i> in this case. Click on <i>Run</i>.
+      Wait until the the Ant target execution finish, afterwards get the file <i>Invoicing.war</i>
+      (or <i>YourApplicationName.war</i>) and copy it to the <i>webapps</i>
+      folder of your Tomcat. Your application is already deployed.</div>
     <div class="wiki" style="display: block;">
-      <h2 id="toc1">Run your application<br>
+      <h2>Run your application<br>
       </h2>
       DownloaArrancar el Tomcat, mencionar lo de JAVA_HOME</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Configure against production database</h2>
+      Download. Copiar el controlador a tomcat.
+      <div class="wiki" style="display: block;">
+        <h2 id="toc1"><br>
+        </h2>
+      </div>
+    </div>
     <div class="wiki" style="display: block;"><br>
     </div>
   </body>
