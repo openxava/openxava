@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - tomcat_en</title>
+    <title>openxava - tomcat_es</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,37 +9,39 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0">Deploy in production with Tomcat</h1>
-      You can deploy your OpenXava applications in any Java application server
-      with support for Servlet 3.0 or better. For this guide we're going to use
-      Apache Tomcat to deploy your OpenXava application. Tomcat is the most used
-      and robust Java application server, ideal for production environments.<br>
-      <h2 id="toc1">Download and install Tomcat</h2>
-      <a href="https://tomcat.apache.org/download-90.cgi">Download Tomcat 9</a>
-      from Apache. OpenXava also works fine with Tomcat 8 and 7. Uncompress
-      Tomcat in a folder of your choice. Go to the <i>webapps</i> folder and
-      remove all the folders inside: <i>docs, examples, host-manager, manager</i>
-      and <i>ROOT</i>. They are example and management apps that you don't want
-      to have in a production system.</div>
+      <h1 id="toc0">Desplegar en producción con Tomcat</h1>
+      Puedes desplegar tus aplicaciones OpenXava en cualquier servidor de
+      aplicaciones Java con soporte de Servlet 3.0 o superior. Para esta guía
+      vamos a usar Apache Tomcat para desplegar tu aplicación OpenXava. Tomcat
+      es el servidor de aplicaciones Java más usado y robusto, ideal para
+      entornos de producción.<br>
+      <h2 id="toc1">Descargar e instalar Tomcat</h2>
+      <a href="https://tomcat.apache.org/download-90.cgi">Descarga Tomcat 9</a>
+      desde Apache. OpenXava también funciona bien con Tomcat 8 y 7. Descomprime
+      el Tomcat en una carpeta de tu elección. Ve a la carpeta <i>webapps</i> y
+      borra las carpetas que hay dentro: <i>docs, examples, host-manager,
+        manager</i> and <i>ROOT</i>. Son aplicaciones de ejemplo y
+      administración que no deberías tener en un sistema de producción.</div>
     <div class="wiki" style="display: block;">
-      <h2 id="toc1">The JDBC driver<br>
+      <h2 id="toc1">El controlador JDBC<br>
       </h2>
-      You have to copy the JDBC driver jar to the <i>lib</i> folder of your
-      Tomcat. If you're still using the HSQLDB database included with OpenXava,
-      this jar is <i>hsqldb.jar</i> from <i>OpenXava/lib</i>. But if you're
-      using MySQL, Oracle, PostgreSQL, etc. you should obtain the correct JDBC
-      driver for your database and copy it to Tomcat <i>lib</i> folder.<br>
+      Has de copiar el jar del controlador JDBC en la carpeta <i>lib</i> de tu
+      Tomcat. Si todavía estás usando la base de datos HSQLDB incluida con
+      OpenXava, este jar sería <i>hsqldb.jar</i> de <i>OpenXava/lib</i>. Pero
+      si estás usando MySQL, Oracle, PostgreSQL, etc. deberías obtener el
+      controlador JDBC adecuado para tu base de datos y copiarlo en la carpeta <i>lib</i>
+      del Tomcat.<br>
       <strong></strong></div>
     <div class="wiki" style="display: block;">
-      <h2 id="toc1">Create and deploy the WAR<br>
+      <h2 id="toc1">Crear y desplegar el WAR<br>
       </h2>
-      In order to deploy your application into Tomcat you have to create a WAR
-      file from your project. For that, click on right mouse button on <i>build.xml</i>
-      file of your project and choose <i>Run As &gt; Ant Build...</i>:</div>
-    <img src="files/run-as-ant-build_en.png" alt="">
-    <div class="wiki" style="display: block;">Then deselect any selected Ant
-      target and select the <i>createWar</i> ant target:</div>
-    <img src="files/run-deploy-war-ant-target_en.png"
+      Para desplegar tu aplicación en Tomcat has de crear un archivo WAR desde
+      tu proyecto. Para ello, pulsa con el botón derecho del ratón en el archivo
+      <i>build.xml</i> de tu proyecto y escoge <i>Run As &gt; Ant Build...</i>:</div>
+    <img src="files/run-as-ant-build_es.png" alt="">
+    <div class="wiki" style="display: block;">Entonces quita la selección que
+      haya y selecciona la tarea Ant <i>createWar</i>:</div>
+    <img src="files/run-deploy-war-ant-target_es.png"
 
       alt="">
     <div class="wiki" style="display: block;">Additionally, you can put a better
