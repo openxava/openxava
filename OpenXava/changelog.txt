@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Guide for deploying on Tomcat in Spanish and English.
 - Getting started guide simplified. 
 - Quick start guide removed.
 - Projects can be launched directly using Run As > Application.
