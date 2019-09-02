@@ -5,11 +5,9 @@ import java.net.*;
 import java.util.*;
 import java.util.logging.*;
 
-import org.apache.commons.beanutils.*;
 import org.apache.commons.logging.*;
 import org.apache.pdfbox.pdmodel.*;
 import org.apache.pdfbox.text.*;
-import org.apache.pdfbox.util.*;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;
 import org.openxava.controller.meta.*;
@@ -26,7 +24,6 @@ import org.openxava.web.style.*;
 import org.xml.sax.*;
 
 import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.CookieManager;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.*;
 import com.gargoylesoftware.htmlunit.javascript.host.event.*;
@@ -48,7 +45,7 @@ import junit.framework.*;
  * @author Javier Paniza
  */
 
-public class ModuleTestBase extends TestCase {
+abstract public class ModuleTestBase extends TestCase { 
 	
 	private final static String EDITABLE_SUFIX = "_EDITABLE_";
 	private final static String ACTION_PREFIX = "action"; 
@@ -3180,7 +3177,7 @@ public class ModuleTestBase extends TestCase {
 			"xhr.open('DELETE', uploadEditor.getUploadURL(input)" + fileIdParam + ");" +
 			"xhr.send(null);"				
 		);
-		waitAJAX();		
+		waitAJAX();	
 	}	
 
 	/**
