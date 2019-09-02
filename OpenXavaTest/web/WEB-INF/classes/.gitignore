@@ -2,12 +2,15 @@
 /META-INF/
 /OpenXavaTest-labels_ca.properties
 /OpenXavaTest-labels_en.properties
+<<<<<<< HEAD
 /OpenXavaTest-labels_es.properties
 /OpenXavaTest-labels_fr.properties
 /OpenXavaTest-messages_ca.properties
 /OpenXavaTest-messages_en.properties
 /OpenXavaTest-messages_es.properties
 /OpenXavaTest-messages_fr.properties
+=======
+>>>>>>> branch 'master' of https://github.com/openxava/openxava.git
 /application.xml
 /code-generators.xml
 /controllers.xml
@@ -18,6 +21,7 @@
 /hibernate-junit.cfg.xml
 /hibernate.cfg.xml
 /org/
+<<<<<<< HEAD
 /portlets/
 /BeansContext.properties
 /Corporation.html
@@ -30,6 +34,23 @@
 /LoginContextFactory.properties
 /Products.jrxml
 /_run/
+=======
+/OpenXavaTest-labels_es.properties
+/OpenXavaTest-labels_fr.properties
+/OpenXavaTest-messages_ca.properties
+/OpenXavaTest-messages_en.properties
+/OpenXavaTest-messages_es.properties
+/OpenXavaTest-messages_fr.properties
+/portlets/
+/BeansContext.properties
+/Corporation.html
+/CorporationEmployee.html
+/Customer.jrxml
+/Film.jrxml
+/Images.jrxml
+/Invoice.jrxml
+/LoginContextFactory.properties
+>>>>>>> branch 'master' of https://github.com/openxava/openxava.git
 /jndi-jboss.properties
 /jndi-websphere.properties
 /jndi.properties
@@ -38,3 +59,6 @@
 /naviox.properties
 /xava-junit.properties
 /xava.properties
+/InvoiceNoVAT.jrxml
+/Products.jrxml
+/_run/
