@@ -730,9 +730,9 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertEquals(-1, getRefisherEntriesCount()); // If it fails try to stop the refisher clicking in the button of the module
 		execute("List.viewDetail", "row=0");
 		int count = getRefisherEntriesCount();
-		assertTrue(count > 20);
+		assertTrue(count > 7); // It was > 20 but we optimized it in some point
 		execute("Navigation.next");
-		count+=2;
+		// count+=2; // We optimized it in some point
 		assertEquals(count, getRefisherEntriesCount());
 		execute("Navigation.next");
 		assertEquals(count, getRefisherEntriesCount());

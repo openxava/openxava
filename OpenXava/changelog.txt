@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Guide for deploying on Tomcat in Spanish and English.
 - Getting started guide simplified. 
 - Quick start guide removed.
 - Projects can be launched directly using Run As > Application.
@@ -17,6 +18,8 @@ Change Log for OpenXava project
 - Fix: Unused servlets defined in web.xml.
 - New editor for IMAGES_GALLERY stereotype inline in a frame and with AJAX uploading.
 - New methods removeGalleryImage() and assertGalleryImagesCount() in ModuleTestBase.
+- The methods setHidden() and setEditable() of View accept qualified member names. 
+- New smtpFromEmail property in xava.property to define a 'from' email different than smtpUserId.
 - Lessons from 1 to 3 of the course use LocalDate instead of Date.
 - New editor for PHOTO/IMAGE stereotype with AJAX uploading.	
 - New methods changeImage(), removeImage(), assertImage() and assertNoImage() in ModuleTestBase.	

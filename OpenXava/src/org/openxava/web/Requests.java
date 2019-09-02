@@ -11,6 +11,7 @@ import org.openxava.util.*;
 public class Requests {
 	
 	public static void init(HttpServletRequest request, String application, String module) {
+		ModuleContext.setCurrentWindowId(request); 
 		ModuleContext context = getContext(request);
 		Users.setCurrent(request);
 		ModuleManager manager = (ModuleManager) context.get(application, module, "manager");
@@ -19,6 +20,13 @@ public class Requests {
 		SessionData.setCurrent(request);
 		EmailNotifications.setModuleInfo(application, module, manager.getModuleURL()); 
 	}
+	
+	/** @since 6.2 */
+	public static void clean() {  
+		ModuleContext.cleanCurrentWindowId(); 
+		SessionData.clean(); 
+	}
+
 
 	private static ModuleContext getContext(HttpServletRequest request) {
 		return (ModuleContext) request.getSession().getAttribute("context");

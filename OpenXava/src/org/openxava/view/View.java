@@ -402,8 +402,9 @@ public class View implements java.io.Serializable {
 		if (!isFirstLevel() && !(isGroup() || isSection())) return;
 
 		try {
-			XObjects.execute(polisher, "refine", MetaModule.class, getModuleManager(getRequest()).getMetaModule(),
-				Collection.class, getMetaMembers(), View.class, this);
+			XObjects.execute(polisher, "refine", 
+				MetaModule.class, getModuleManager(getRequest()).getMetaModule(),
+				View.class, this);
 			polished = true;
 		}
 		catch (Exception ex) {
@@ -427,18 +428,6 @@ public class View implements java.io.Serializable {
 		}
 	}
 
-	private void polish(Collection<MetaMember> metaMembers) {
-		if (polisher == null) return;
-		if (displayAsDescriptionsList()) return; 
-		try {
-			XObjects.execute(polisher, "refine", MetaModule.class, getModuleManager(getRequest()).getMetaModule(),
-				Collection.class, metaMembers, View.class, this);
-		}
-		catch (Exception ex) {
-			log.error(XavaResources.getString("refining_members_error"), ex);			 
-		}
-	}
-	
 	public void setMetaMembers(Collection metaMembers) {			
 		if (Is.equal(this.metaMembers, metaMembers)) return;
 		this.metaMembers = metaMembers;
@@ -1544,7 +1533,6 @@ public class View implements java.io.Serializable {
 	private Map createMembersNames(boolean hiddenIncluded) throws XavaException {
 		Map membersNames = new HashMap();
 		Collection<MetaMember> metaMembers = createMetaMembers(hiddenIncluded);
-		polish(metaMembers);
 		Iterator<MetaMember> it = metaMembers.iterator();
 		while (it.hasNext()) {
 			MetaMember m = it.next();								
@@ -2718,12 +2706,21 @@ public class View implements java.io.Serializable {
 	 * To make an element of the user interface editable or not editable. 
 	 * <br/>
 	 * You can use it for properties, references (since v5.5) and collections (since v5.5). 
+	 * The name of the member can be qualified (since v6.2).
 	 * <br/>
 	 * 
-	 * @param name  Name of the property, reference or section
+	 * @param name  Name (can be qualified) of the property, reference or section
 	 * @param editable  true to make it editable, false to make it read only
 	 */
 	public void setEditable(String name, boolean editable) throws XavaException {
+		int idx = name.indexOf('.');
+		if (idx >= 0) {
+			String ref = name.substring(0, idx);
+			String member = name.substring(idx + 1);
+			getSubview(ref).setEditable(member, editable);
+			return;
+		}
+
 		if (editable) getNotEditableMembersNames().remove(name);
 		else getNotEditableMembersNames().add(name);
 		
@@ -4445,11 +4442,19 @@ public class View implements java.io.Serializable {
 	 * <br/>
 	 * If the name of a member and its container section or group is the same, the container section or
 	 * group will be hidden. If you want to hide the member inside you should rename the group or section.
+	 * The name of the member can be qualified (since v6.2).
 	 * 
-	 * @param name  Name of the member, group or section
+	 * @param name  Name (can be qualified) of the member, group or section
 	 * @param hidden  true to hide, false to show
 	 */
 	public void setHidden(String name, boolean hidden) throws XavaException {
+		int idx = name.indexOf('.');
+		if (idx >= 0) {
+			String ref = name.substring(0, idx);
+			String member = name.substring(idx + 1);
+			getSubview(ref).setHidden(member, hidden);
+			return;
+		}
 		if (hiddenMembers == null) {
 			if (!hidden) return;		
 			hiddenMembers = new HashSet();

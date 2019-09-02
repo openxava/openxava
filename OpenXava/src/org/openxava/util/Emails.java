@@ -120,7 +120,7 @@ public class Emails {
      * @since 5.9
      */
     public static void sendInBackground(String toEmail, String subject, String content) {  
-    	new Thread(new BackgroundSender(XavaPreferences.getInstance().getSMTPUserID(), toEmail, subject, content)).start();
+    	new Thread(new BackgroundSender(XavaPreferences.getInstance().getSMTPFromEmail(), toEmail, subject, content)).start(); 
     }
     
     /**

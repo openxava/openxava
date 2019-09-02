@@ -25,9 +25,16 @@ public class UploadServlet extends HttpServlet {
 	private static Log log = LogFactory.getLog(UploadServlet.class);
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String property = Ids.undecorate(request.getParameter("propertyKey"));
-		String url = getEditorProperty(request, property, "getURL");
-		getServletContext().getRequestDispatcher(url).forward(request, response);			  		
+		Requests.init(request, request.getParameter("application"), request.getParameter("module"));
+		try {
+			String property = Ids.undecorate(request.getParameter("propertyKey"));
+			String url = getEditorProperty(request, property, "getURL");
+			getServletContext().getRequestDispatcher(url).forward(request, response);
+		}
+		finally {
+			ModuleManager.commit();
+			Requests.clean(); 
+		}
 	}
 	
        
@@ -42,8 +49,9 @@ public class UploadServlet extends HttpServlet {
 	private void executeAction(HttpServletRequest request, HttpServletResponse response, String method, boolean parseMultipart) throws ServletException {
 		String action = "UNKNOWN"; 
 		try {
+			Requests.init(request, request.getParameter("application"), request.getParameter("module"));			
 			ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
-			ModuleManager manager = (ModuleManager) context.get(request, "manager"); 
+			ModuleManager manager = (ModuleManager) context.get(request, "manager");
 			if (parseMultipart) manager.parseMultipartRequest(request);
 			String property = Ids.undecorate(request.getParameter("propertyKey"));
 			action = getEditorProperty(request, property, method + "Action");
@@ -54,7 +62,6 @@ public class UploadServlet extends HttpServlet {
 			String fileId = request.getParameter("fileId");
 			String propertyValues = "property=" + property; 
 			if (fileId != null) propertyValues = propertyValues + ",fileId=" + fileId; 
-			Requests.init(request, manager.getApplicationName(), manager.getModuleName()); // tmp
 			manager.executeAction(action, errors, messages, propertyValues, request);
 		}
 		catch (Exception ex) { 
@@ -63,6 +70,7 @@ public class UploadServlet extends HttpServlet {
 		}
 		finally {
 			ModuleManager.commit();
+			Requests.clean(); 
 		}
 	}
 
@@ -77,6 +85,5 @@ public class UploadServlet extends HttpServlet {
 		ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
 		return (View) context.get(request, "xava_view");
 	}
-
 
 }
