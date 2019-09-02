@@ -45,7 +45,7 @@ public class WarehouseTest extends ModuleTestBase {
 
 		execute("List.orderBy", "property=zoneNumber");
 		assertValueInList(0, 0, "10"); assertValueInList(0, 1, "10"); 
-		assertValueInList(1, 0, "7"); assertValueInList(1, 1, "1"); 
+		assertValueInList(1, 0, "7"); assertValueInList(1, 1, "1"); // TMP FALLA
 		assertValueInList(2, 0, "7"); assertValueInList(2, 1, "2");
 		assertValueInList(3, 0, "7"); assertValueInList(3, 1, "3");
 		assertValueInList(4, 0, "7"); assertValueInList(4, 1, "4");

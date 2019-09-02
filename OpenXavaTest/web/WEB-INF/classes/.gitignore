@@ -3,6 +3,7 @@
 /OpenXavaTest-labels_ca.properties
 /OpenXavaTest-labels_en.properties
 <<<<<<< HEAD
+<<<<<<< HEAD
 /OpenXavaTest-labels_es.properties
 /OpenXavaTest-labels_fr.properties
 /OpenXavaTest-messages_ca.properties
@@ -11,6 +12,14 @@
 /OpenXavaTest-messages_fr.properties
 =======
 >>>>>>> branch 'master' of https://github.com/openxava/openxava.git
+=======
+/OpenXavaTest-labels_es.properties
+/OpenXavaTest-labels_fr.properties
+/OpenXavaTest-messages_ca.properties
+/OpenXavaTest-messages_en.properties
+/OpenXavaTest-messages_es.properties
+/OpenXavaTest-messages_fr.properties
+>>>>>>> refs/remotes/origin/pending-pull-requests
 /application.xml
 /code-generators.xml
 /controllers.xml
@@ -21,6 +30,7 @@
 /hibernate-junit.cfg.xml
 /hibernate.cfg.xml
 /org/
+<<<<<<< HEAD
 <<<<<<< HEAD
 /portlets/
 /BeansContext.properties
@@ -41,6 +51,8 @@
 /OpenXavaTest-messages_en.properties
 /OpenXavaTest-messages_es.properties
 /OpenXavaTest-messages_fr.properties
+=======
+>>>>>>> refs/remotes/origin/pending-pull-requests
 /portlets/
 /BeansContext.properties
 /Corporation.html
@@ -49,8 +61,14 @@
 /Film.jrxml
 /Images.jrxml
 /Invoice.jrxml
+/InvoiceNoVAT.jrxml
 /LoginContextFactory.properties
+<<<<<<< HEAD
 >>>>>>> branch 'master' of https://github.com/openxava/openxava.git
+=======
+/Products.jrxml
+/_run/
+>>>>>>> refs/remotes/origin/pending-pull-requests
 /jndi-jboss.properties
 /jndi-websphere.properties
 /jndi.properties
@@ -59,6 +77,3 @@
 /naviox.properties
 /xava-junit.properties
 /xava.properties
-/InvoiceNoVAT.jrxml
-/Products.jrxml
-/_run/

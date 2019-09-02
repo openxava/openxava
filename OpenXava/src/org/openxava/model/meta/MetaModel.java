@@ -519,6 +519,22 @@ abstract public class MetaModel extends MetaElement {
 		// It is not obtained from map to keep order
 	}
 	
+	public Collection<String> getMembersNamesNestingAggregates() { 
+		Collection<String> result = new ArrayList<>();
+		for (String member: membersNames) {
+			result.add(member);
+			if (isReference(member)) {
+				MetaReference ref = getMetaReference(member); 
+				if (ref.isAggregate()) {
+					for (String submember: ref.getMetaModelReferenced().getMembersNamesNestingAggregates()) {
+						result.add(member + "." + submember);
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
 	/**
 	 * The number of members that are key and hidden. <p>
 	 * @return

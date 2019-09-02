@@ -3,7 +3,7 @@ package org.openxava.test.tests;
 import org.openxava.tests.*;
 
 /**
- * 
+ *
  * @author Javier Paniza
  */
 
@@ -21,7 +21,7 @@ public class CustomerImageTest extends ModuleTestBase {
 	public void testDeleteImage() throws Exception { 
 		addImage();
 		removeImage("photo");  				
-		assertNoImage("photo"); 
+		assertNoImage("photo");  
 	}
 	
 	public void testCancelActionAfterChangeImageAction() throws Exception {   
