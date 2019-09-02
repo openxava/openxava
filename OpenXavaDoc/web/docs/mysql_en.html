@@ -18,19 +18,19 @@
       installed and running MySQL.<br>
       <h2 id="toc1">Download the JDBC driver for MySQL</h2>
       <p>Download the MySQL driver from here: <a href="https://dev.mysql.com/downloads/connector/j/">https://dev.mysql.com/downloads/connector/j/</a></p>
-      You will download a file like this: mysql-connector-java-8.0.17.zip (the
-      version numbers may vary). Uncompress it to find inside a file called
-      mysql-connector-java-8.0.17.jar (or so), this last file, the .jar, is the
-      JDBC controller we're going to use.</div>
+      You will download a file like this: <i>mysql-connector-java-8.0.17.zip</i>
+      (the version numbers may vary). Uncompress it to find inside a file called
+      <i> mysql-connector-java-8.0.17.jar</i> (or so), this last file, the .jar,
+      is the JDBC controller we're going to use.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Create a classpath variable in Eclipse<br>
       </h2>
       In order you can connect to MySQL from Eclipse we're going to declare a
-      classpath variable that points to your JDBC driver, so you can use it in
-      any project you need easily. For that, in Eclipse go to <i>Window &gt;
-        Preferences &gt; Java &gt; Build Path &gt; Classpath Variable</i> where
+      classpath variable that points to the MySQL JDBC driver, so you can use it
+      in any project you need easily. For that, in Eclipse go to <i>Window &gt;
+        Preferences &gt; Java &gt; Build Path &gt; Classpath Variables</i> where
       you can add the new variable:</div>
-    <img src="files/create-db-classpath-variable-eclipse_en.png" alt="" title="add-db-classpath-variable-eclipse_en.png">
+    <img src="files/create-db-classpath-variable-eclipse_en.png" alt="" title="create-db-classpath-variable-eclipse_en.png">
     <div class="wiki" style="display: block;">You can call the variable
       MYSQL_DRIVER instead of DB_DRIVER if your prefer. The path is the path of
       the JDBC driver, in our case the path of <i>mysql-connector-java-8.0.17.jar</i>
@@ -54,7 +54,26 @@
     <div class="wiki" style="display: block;"> </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Adjust your datasource definition</h2>
-      ME QUEDÉ POR AQUÍ</div>
+      For development edit <i>web/META-INF/context.xml</i> of your Eclipse
+      project, and for production edit <i>conf/context.xml</i> of your Tomcat
+      to adjust the datasource to point to MySQL, something like this:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
+	type="javax.sql.DataSource"
+	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
+	username="root" password="ao49fmsk"
+	driverClassName="com.mysql.jdbc.Driver"
+	url="jdbc:mysql://localhost:3306/myappdb"/&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i>
+      and the <i>url</i>. The final part of the <i>url</i>, <i>myappdb</i> in
+      this example, is the name of your MySQL database. Obviously, instead of <i>localhost</i>
+      you should put the address of the server that hosts MySQL, and also put
+      the correct <i>username</i> and <i>password</i>.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Be sure that you don't use the
+      property <i>hibernate.dialect</i> in your <i>persistence.xml</i>.</div>
     <br>
     <div class="wiki" style="display: block;"><br>
     </div>
