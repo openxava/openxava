@@ -971,7 +971,7 @@
 	<target name="createAppLauncher">
 		<mkdir dir="../${project}/src/_run"/>
 		<copy file="${openxava.base.dir}/OpenXava/project-templates/en/src/_run/AppLauncher.java" 
-			tofile="../${project}/src/_run/${project}.java" overwrite="false">
+			tofile="../${project}/src/_run/_Run_${project}.java" overwrite="false">
 	    	<filterset>	    	
 				<filter token="project" value="${project}"/>
 	    		<filter token="database" value="${project}DB"/> 

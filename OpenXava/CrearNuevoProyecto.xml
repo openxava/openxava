@@ -23,7 +23,7 @@ Para crear un nuevo proyecto OpenXava:
 		
 	<target name="crearNuevoProyecto" depends="definirPaquete">
 		<mkdir dir="../${proyecto}"/>
-		<copy todir="../${proyecto}" overwrite="true">
+		<copy todir="../${proyecto}" overwrite="true" encoding="ISO-8859-1">
 			<fileset dir="project-templates/es"/>
 	    	<filterset>	    	
 				<filter token="proyecto" value="${proyecto}"/>
@@ -44,7 +44,7 @@ Para crear un nuevo proyecto OpenXava:
 		<move file="../${proyecto}/i18n/Mensajes_es.properties.plantilla" 
 			tofile="../${proyecto}/i18n/Mensajes${proyecto}_es.properties" />
 		<move file="../${proyecto}/src/_run/LanzadorAplicacion.java" 
-			tofile="../${proyecto}/src/_run/${proyecto}.java" />
+			tofile="../${proyecto}/src/_run/_Run_${proyecto}.java" />		
 		<move file="../${proyecto}/src/com/tuempresa/tuaplicacion/modelo/TuPrimeraEntidad.java" 
 			tofile="../${proyecto}/src/com/tuempresa/${paquete}/modelo/TuPrimeraEntidad.java" />
 		<delete dir="../${proyecto}/src/com/tuempresa/tuaplicacion" failonerror="false"/>		

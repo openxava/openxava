@@ -8,7 +8,7 @@ import org.openxava.util.*;
  * With Eclipse: Right mouse button > Run As > Java Application
  */
 
-public class @project@ { 
+public class _Run_@project@ { 
 
 	public static void main(String[] args) throws Exception {
 		DBServer.start("@database@"); // To use your own database comment this line and configure web/META-INF/context.xml

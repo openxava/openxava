@@ -44,7 +44,7 @@ To create a new OpenXava project:
 		<move file="../${project}/i18n/messages_en.properties.template" 
 			tofile="../${project}/i18n/${project}-messages_en.properties" />
 		<move file="../${project}/src/_run/AppLauncher.java" 
-			tofile="../${project}/src/_run/${project}.java" />
+			tofile="../${project}/src/_run/_Run_${project}.java" />		
 		<move file="../${project}/src/com/yourcompany/yourapp/model/YourFirstEntity.java" 
 			tofile="../${project}/src/com/yourcompany/${package}/model/YourFirstEntity.java" />
 		<delete dir="../${project}/src/com/yourcompany/yourapp" failonerror="false"/>		
