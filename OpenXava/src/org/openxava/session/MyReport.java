@@ -131,7 +131,7 @@ public class MyReport implements java.io.Serializable {
 			columns.add(column);
 			if (!column.isCalculated()) {
 				try {
-					if (!Is.emptyString(values[i]) && !Is.emptyString(comparators[i])) { 
+					if (values != null && !Is.emptyString(values[i]) && comparators != null && !Is.emptyString(comparators[i])) {
 						column.setComparator(comparators[i]);
 						if ("boolean".equals(property.getType().getName()) || "java.lang.Boolean".equals(property.getType().getName())) {
 							column.setBooleanValue(Tab.EQ_COMPARATOR.equals(comparators[i]));							

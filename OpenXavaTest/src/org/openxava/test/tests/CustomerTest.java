@@ -175,7 +175,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("remarks", "PREFERRED WAREHOUSE IS 1");
 	}
 		
-	public void testViewGetValueInGroup() throws Exception {
+	public void testViewGetValueInGroup() throws Exception { 
 		execute("CRUD.new");
 		assertValue("remarks", ""); 
 		setValue("relationWithSeller", "RELATION WITH SELLER JUNIT");

@@ -192,8 +192,11 @@ public class ModuleContext implements java.io.Serializable {
 		if (isGlobal(objectName)) {
 			return getGlobalContext();
 		}
-		if (currentWindowId.get() == null) currentWindowId.set(lastUsedWindowId);
-		else lastUsedWindowId = currentWindowId.get();
+
+		synchronized (this) { // Without this CustomerWithSectionTest fails when executed several time. Not completely sure.
+			if (currentWindowId.get() == null) currentWindowId.set(lastUsedWindowId); 
+			else lastUsedWindowId = currentWindowId.get();			
+		}
 		
 		String id = application + "/" + module + "/" + currentWindowId.get();
 		
@@ -204,7 +207,7 @@ public class ModuleContext implements java.io.Serializable {
 		}
 		return context;
 	}
-
+	
 	private boolean isGlobal(String objectName) throws XavaException {
 		try {
 			return MetaControllers.getMetaObject(objectName).isGlobal();
