@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - mysql_en</title>
+    <title>openxava - oracle_en</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,37 +9,37 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0">Configuration for MySQL</h1>
-      Configuring your OpenXava application to go against MySQL is very simple,
-      basically you have to install the JDBC driver for MySQL and define
+      <h1 id="toc0">Configuration for Oracle</h1>
+      Configuring your OpenXava application to go against Oracle is very simple,
+      basically you have to install the JDBC driver for Oracle and define
       correctly the datasource. You don't need to touch any code of your
       application.</div>
     <div class="wiki" style="display: block;">We assume you have already
-      installed and running MySQL.<br>
-      <h2 id="toc1">Download the JDBC driver for MySQL</h2>
-      <p>Download the MySQL driver from here: <a href="https://dev.mysql.com/downloads/connector/j/">https://dev.mysql.com/downloads/connector/j/</a></p>
-      You will download a file like this: <i>mysql-connector-java-8.0.17.zip</i>
-      (the version numbers may vary). Uncompress it to find inside a file called
-      <i> mysql-connector-java-8.0.17.jar</i> (or so), this last file, the .jar,
-      is the JDBC controller we're going to use.</div>
+      installed and running Oracle.<br>
+      <h2 id="toc1">Download the JDBC driver for Oracle</h2>
+      <p>Download the Oracle driver from here: <a href="https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html">https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html</a><a
+          href="https://dev.mysql.com/downloads/connector/j/"></a></p>
+      Choose the database version you're using to go to the specific download
+      page. Then download the file <i>ojdbc8.jar</i>, if you're using an old
+      Oracle version it could be <i>ojdbc7.jar</i> or <i>ojdbc6.jar</i>.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Create a classpath variable in Eclipse<br>
       </h2>
-      In order you can connect to MySQL from Eclipse we're going to declare a
-      classpath variable that points to the MySQL JDBC driver, so you can use it
-      in any project you need easily. For that, in Eclipse go to <i>Window &gt;
-        Preferences &gt; Java &gt; Build Path &gt; Classpath Variables</i> where
-      you can add the new variable:</div>
+      In order you can connect to Oracle from Eclipse we're going to declare a
+      classpath variable that points to the Oracle JDBC driver, so you can use
+      it in any project you need easily. For that, in Eclipse go to <i>Window
+        &gt; Preferences &gt; Java &gt; Build Path &gt; Classpath Variables</i>
+      where you can add the new variable:</div>
     <img src="files/create-db-classpath-variable-eclipse_en.png" alt="" title="create-db-classpath-variable-eclipse_en.png">
     <div class="wiki" style="display: block;">You can call the variable
-      MYSQL_DRIVER instead of DB_DRIVER if your prefer. The path is the path of
-      the JDBC driver, in our case the path of <i>mysql-connector-java-8.0.17.jar</i>
-      we have just downloaded.<br>
+      ORACLE_DRIVER instead of DB_DRIVER if your prefer. The path is the path of
+      the JDBC driver, in our case the path of <i>ojdbc8.jar</i> we have just
+      downloaded.<br>
       <strong></strong></div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Add the DB_DRIVER variable to your Eclipse project<br>
       </h2>
-      In the project you're going to use MySQL you have to add the variable
+      In the project you're going to use Oracle you have to add the variable
       declared above. Click with right mouse button on your project and then
       choose <i>Properties &gt; Java Build Path &gt; Libraries</i>:</div>
     <img src="files/add-db-classpath-variable-to-your-eclipse-project_en.png" title="add-db-classpath-variable-to-your-eclipse-project_en.png">
@@ -48,7 +48,7 @@
     <div class="wiki" style="display: block;">
       <h2>Add the JDBC driver to the production Tomcat</h2>
       <h2><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Adding
-          the driver in production is much easier. Copy </span><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><i>mysql-connector-java-8.0.17.jar</i>
+          the driver in production is much easier. Copy </span><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><i>ojdbc8.jar</i>
           to the <i>lib</i> folder of your Tomcat. Done.</span></h2>
     </div>
     <div class="wiki" style="display: block;"> </div>
@@ -56,19 +56,19 @@
       <h2 id="toc1">Adjust your datasource definition</h2>
       For development edit <i>web/META-INF/context.xml</i> of your Eclipse
       project, and for production edit <i>conf/context.xml</i> of your Tomcat
-      to adjust the datasource to point to MySQL, something like this:</div>
+      to adjust the datasource to point to Oracle, something like this:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
 	type="javax.sql.DataSource"
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
-	driverClassName="com.mysql.jdbc.Driver"
-	url="jdbc:mysql://localhost:3306/myappdb"/&gt;
+	driverClassName="oracle.jdbc.OracleDriver"
+	url="jdbc:oracle:thin:@localhost:1521:mysid"/&gt;
 </code></pre> </div>
     <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i>
-      and the <i>url</i>. The final part of the <i>url</i>, <i>myappdb</i> in
-      this example, is the name of your MySQL database. Obviously, instead of <i>localhost</i>
-      you should put the address of the server that hosts MySQL, and also put
+      and the <i>url</i>. The final part of the <i>url</i>, <i>mysid</i> in
+      this example, is the sid of your Oracle database. Obviously, instead of <i>localhost</i>
+      you should put the address of the server that hosts Oracle, and also put
       the correct <i>username</i> and <i>password</i>.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Update persistence.xml</h2>
@@ -76,22 +76,22 @@
       (in <i>persistence/META-INF</i>), unless you use <i>hibernate.dialect</i>
       property in which case just remove <i>hibernate.dialect</i> property.
       However, you have to modify the <i>junit</i> persistence unit to point to
-      MySQL. <br>
+      Oracle. <br>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;!-- JUnit MySQL --&gt;
+        <pre><code class="xml">&lt;!-- JUnit Oracle --&gt;
 &lt;persistence-unit name="junit"&gt;
 	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
 	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;
 	&lt;properties&gt;
-		&lt;property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/&gt;
+		&lt;property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/&gt;
 		&lt;property name="hibernate.connection.username" value="root"/&gt;
 		&lt;property name="hibernate.connection.password" value="ao49fmsk"/&gt;		
-		&lt;property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/myappdb"/&gt;
+		&lt;property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:mysid"/&gt;
 	&lt;/properties&gt;
 &lt;/persistence-unit&gt;
 </code></pre> </div>
       <div class="wiki" style="display: block;">Adapt the <i>username</i>, <i>password</i>
-        and <i>url</i> to your MySQL configuration.<br>
+        and <i>url</i> to your Oracle configuration.<br>
       </div>
     </div>
     <br>

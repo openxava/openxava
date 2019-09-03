@@ -71,12 +71,29 @@
       lugar de <i>localhost</i> deberías poner la dirección del servidor donde
       está el MySQL, y también poner los valores correctos para <i>username</i>
       y <i>password</i>.</div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;">Asegurate de que no usas la
-      propiedad <i>hibernate.dialect</i> en tu <i>persistence.xml</i>.</div>
-    <br>
-    <div class="wiki" style="display: block;"><br>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Actualizar persistence.xml</h2>
+      No necesitas tocar la unidad de persistencia <i>default</i> de <i>persistence.xml</i>
+      (en <i>persistence/META-INF</i>), a no ser que uses la propiedad <i>hibernate.dialect</i>
+      en cuyo caso lo más fácil es quitar la propiedad <i>hibernate.dialect</i>.
+      Sin embargo, sí que has de modificar la unidad de persistencia <i>junit</i>
+      para que apunte a MySQL:<br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;!-- JUnit MySQL --&gt;
+&lt;persistence-unit name="junit"&gt;
+	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
+	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;
+	&lt;properties&gt;
+		&lt;property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/&gt;
+		&lt;property name="hibernate.connection.username" value="root"/&gt;
+		&lt;property name="hibernate.connection.password" value="ao49fmsk"/&gt;		
+		&lt;property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/miaplicaciondb"/&gt;
+	&lt;/properties&gt;
+&lt;/persistence-unit&gt;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Adapta <i>username</i>, <i>password</i>
+        y <i>url</i> a la configuración de tu MySQL.<br>
+      </div>
     </div>
   </body>
 </html>
