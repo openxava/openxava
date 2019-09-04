@@ -6,15 +6,14 @@
 
 <editors>
 
-	<!-- tmp ini -->
-	<editor name="AttachedFile2" url="attachedFileEditor2.jsp">		
+	<!-- tmp ini --> 
+	<editor name="AttachedFiles2" url="attachedFilesEditor2.jsp">
 		<property name="postAction" value="ImageEditor.load"/>
 		<property name="deleteAction" value="ImageEditor.delete"/>
-		<property name="getURL" value="/xava/xfile"/>		
-		<list-formatter class="org.openxava.formatters.FileListFormatter" />
-		<for-stereotype stereotype="FILE" />
-		<for-stereotype stereotype="ARCHIVO" />
-	</editor>
+		<property name="getURL" value="/xava/xfile"/>			
+		<for-stereotype stereotype="FILES" />
+		<for-stereotype stereotype="ARCHIVOS" />
+	</editor>	
 	<!-- tmp fin -->
 
 	<editor url="regionsEditor.jsp">

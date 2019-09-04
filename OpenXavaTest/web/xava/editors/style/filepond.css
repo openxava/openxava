@@ -718,7 +718,8 @@
   height: 2px;
   left: 0;
   right: 0;
-  bottom: -1px;
+  /* tmp bottom: -1px; */
+  bottom: -2px; /* tmp ¿Aquí o en terra.css? */
   background-color: inherit;
 }
 

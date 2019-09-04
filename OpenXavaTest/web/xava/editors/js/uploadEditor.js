@@ -13,12 +13,30 @@ openxava.addEditorInitFunction(function() {
 	    	if (input.dataset.mutiple === "true") pond.allowMultiple = true; 
 	    	const fileURL = uploadEditor.getFileURL(input);
 	    	pond.onactivatefile = function(file) {
+	    		/* tmp
 	    		if (openxava.browser.ie) window.open(fileURL + uploadEditor.getFileIdParam(file)); 
 	    		else if (openxava.browser.ff) {
 	    			openxava.setUrlParam("");
 	    			window.location = URL.createObjectURL(file.file);
 	    		}
-	    		else window.open(URL.createObjectURL(file.file)); 
+	    		else window.open(URL.createObjectURL(file.file));
+	    		*/
+	    		// tmp ini
+	    		if (openxava.browser.ie) window.open(fileURL + uploadEditor.getFileIdParam(file)); 
+	    		else if (file.filename === "upload") {
+	    			if (openxava.browser.ff) {
+		    			openxava.setUrlParam("");
+		    			window.location = URL.createObjectURL(file.file);
+		    		}
+		    		else window.open(URL.createObjectURL(file.file));
+	    		}
+	    		else {
+	    			var link = document.createElement('a');
+	    			link.href = URL.createObjectURL(file.file);
+	    			link.download = file.filename;
+	    			link.dispatchEvent(new MouseEvent('click'));
+	    		}
+	    		// tmp fin
 	    	}	    	
 	    	if (input.dataset.empty !== "true") {
 	    		if (typeof input.dataset.files !== 'undefined') {

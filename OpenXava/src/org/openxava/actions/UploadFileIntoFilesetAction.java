@@ -26,7 +26,10 @@ public class UploadFileIntoFilesetAction extends    ViewBaseAction
 	
 	@Override
 	public void execute() throws Exception {
-		String libraryId = getPreviousView().getValueString(newFilesetProperty);
+		// TMP ME QUEDÉ POR AQUÍ: PARA EMPEZAR A PROBAR ESTO, LO DE SUBIR ARCHIVOS
+		System.out.println("[UploadFileIntoFilesetAction.execute] newFilesetProperty=" + newFilesetProperty); // tmp 
+		// tmp String libraryId = getPreviousView().getValueString(newFilesetProperty);
+		String libraryId = getView().getValueString(newFilesetProperty); // tmp
 		Iterator<?> it = fileItems.iterator();		
 		int counter = 0;
 		StringBuffer filesNames = new StringBuffer(); 
@@ -48,7 +51,7 @@ public class UploadFileIntoFilesetAction extends    ViewBaseAction
 										newFilesetProperty, counter);
 		
 		trackModification(filesNames.toString()); 
-		closeDialog();
+		// tmp closeDialog();
 	}
 	
 	private void trackModification(String fileName) {  

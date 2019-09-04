@@ -2134,6 +2134,17 @@ div[id$="_Index__view"] .ox-list-title {
 	width: 190px;
 }
 
+/* tmp ini */
+.ox-files {
+	width: calc(100vw - 400px);
+}
+
+.ox-files .filepond--item {
+	width: 300px;
+	cursor: pointer;
+}
+/* tmp fin */
+
 .filepond--panel-root {
 	border-radius: 4px !important;
 }
@@ -2154,9 +2165,17 @@ div[id$="_Index__view"] .ox-list-title {
 	cursor: pointer;
 }
 
+/* tmp
 .filepond--file-info-main {
 	display: none !important;
 }
+*/
+
+/* tmp ini */
+.ox-image .filepond--file-info-main, .ox-gallery .filepond--file-info-main {
+	display: none !important;
+}
+/* tmp fin */
 
 .ox-element-collection .filepond--root { 
 	height: 180px;
