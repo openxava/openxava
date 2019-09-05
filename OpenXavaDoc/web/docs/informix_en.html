@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>openxava - informix_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0">Configuration for Informix</h1>
+      Configuring your OpenXava application to go against Informix is very
+      simple, basically you have to install the JDBC driver for Informix and
+      define correctly the datasource. You don't need to touch any code of your
+      application.</div>
+    <div class="wiki" style="display: block;">We assume you have already
+      installed and running Informix.<br>
+      <h2 id="toc1">Download the JDBC driver for Informix</h2>
+      <p>Download the Informix driver from here: <a href="https://www.ibm.com/products/informix/developer-tools">https://www.ibm.com/products/informix/developer-tools</a></p>
+      In that page choose the Informix JDBC option. It will ask you to register,
+      afterwards you will be able to download the driver. You will download a
+      file like this: <i>ibm.jdbc.4.50.JC1.ALL.tar</i> (the version numbers may
+      vary). Uncompress it to find inside a file called <i>setup.jar</i>, you
+      have to execute it in this way:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="shell">java -jar setup.jar</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">It will run a classic install
+      wizard. Follow the wizard, it will copy some files in a folder of your
+      choice. Go to that folder, where you will find, inside a <i>lib</i>
+      folder, a file called <i>ifxjdbc.jar</i>. This last file, the .jar, is
+      the JDBC controller we're going to use.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Create a classpath variable in Eclipse<br>
+      </h2>
+      In order you can connect to Informix from Eclipse we're going to declare a
+      classpath variable that points to the Informix JDBC driver, so you can use
+      it in any project you need easily. For that, in Eclipse go to <i>Window
+        &gt; Preferences &gt; Java &gt; Build Path &gt; Classpath Variables</i>
+      where you can add the new variable:</div>
+    <img src="files/create-db-classpath-variable-eclipse_en.png" alt="" title="create-db-classpath-variable-eclipse_en.png">
+    <div class="wiki" style="display: block;">You can call the variable
+      INFORMIX_DRIVER instead of DB_DRIVER if your prefer. The path is the path
+      of the JDBC driver, in our case the path of <i>ifxjdbc.jar</i> we have
+      just downloaded.<br>
+      <strong></strong></div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Add the DB_DRIVER variable to your Eclipse project<br>
+      </h2>
+      In the project you're going to use Informix you have to add the variable
+      declared above. Click with right mouse button on your project and then
+      choose <i>Properties &gt; Java Build Path &gt; Libraries</i>:</div>
+    <img src="files/add-db-classpath-variable-to-your-eclipse-project_en.png" title="add-db-classpath-variable-to-your-eclipse-project_en.png">
+    <div class="wiki" style="display: block;">With this we have the driver
+      available for the development environment.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Add the JDBC driver to the production Tomcat</h2>
+      <h2><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Adding
+          the driver in production is much easier. Copy </span><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><i>ifxjdbc.jar</i>
+          to the <i>lib</i> folder of your Tomcat. Done.</span></h2>
+    </div>
+    <div class="wiki" style="display: block;"> </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Adjust your datasource definition</h2>
+      For development edit <i>web/META-INF/context.xml</i> of your Eclipse
+      project, and for production edit <i>conf/context.xml</i> of your Tomcat
+      to adjust the datasource to point to Informix, something like this:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
+	type="javax.sql.DataSource"
+	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
+	username="root" password="ao49fmsk"
+	driverClassName="com.informix.jdbc.IfxDriver"
+	url="jdbc:informix-sqli://localhost:1533/myappdb:INFORMIXSERVER=myserver"/&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i>
+      and the <i>url</i>. In the final part of the <i>url</i> (before
+      INFORMIXSERVER) you have the name of your database, <i>myappdb</i> in
+      this example. Obviously, instead of <i>localhost</i> you should put the
+      address of the server that hosts Informix, and also put the correct <i>username</i>
+      and <i>password</i>.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Update persistence.xml</h2>
+      You don't need to touch the <i>default</i> persistence unit of <i>persistence.xml</i>
+      (in <i>persistence/META-INF</i>), unless you use <i>hibernate.dialect</i>
+      property in which case just remove <i>hibernate.dialect</i> property.
+      However, you have to modify the <i>junit</i> persistence unit to point to
+      Informix. <br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;!-- JUnit Informix --&gt;
+&lt;persistence-unit name="junit"&gt;
+	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
+	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;
+	&lt;properties&gt;
+		&lt;property name="hibernate.connection.driver_class" value="com.informix.jdbc.IfxDriver"/&gt;
+		&lt;property name="hibernate.connection.username" value="root"/&gt;
+		&lt;property name="hibernate.connection.password" value="ao49fmsk"/&gt;		
+		&lt;property name="hibernate.connection.url" <br>			value="jdbc:informix-sqli://localhost:1533/myappdb:INFORMIXSERVER=myserver"/&gt;
+	&lt;/properties&gt;
+&lt;/persistence-unit&gt;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Adapt the <i>username</i>, <i>password</i>
+        and <i>url</i> to your Informix configuration.<br>
+      </div>
+    </div>
+    <br>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+  </body>
+</html>

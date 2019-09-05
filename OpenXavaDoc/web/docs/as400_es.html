@@ -103,15 +103,24 @@
         la biblioteca para tus tablas desde SQL usando "CREATE COLLECTION
         MILIB". Desafortunadamente, la mayoría de las veces que trabajas con
         AS/400 has de hacerlo con tablas preexistentes. En este caso has de
-        registrar las tablas que uses por diario (journal), de esta forma:
+        crear un diario (journal) para tu biblioteca, de esta manera:
         <div class="wiki" style="display: block;">
-          <pre><code class="shell">STRJRNPF FILE(MILIB/MITABLA)
-JRN(MILIB/MILIBJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+          <pre><code class="shell">CRTJRNRCV JRNRCV(MILIB/MIRCV) THRESHOLD(5000)
+CRTJRN JRN(MILIB/MIJRN) JRNRCV(MILIB/MIRCV) MNGRCV(*SYSTEM)
+CHGJRN JRN(MILIB/MIJRN) JRNRCV(*GEN) DLTRCV(*YES)
 </code></pre></div>
-        <div class="wiki" style="display: block;">Si no estás familiarizado con
-          la interfaz del AS/400 busca ayuda de algún gurú del AS/400 de tu
-          empresa para esta tarea.</div>
-      </div>
+        En vez de MILIB usa el nombre de tu biblioteca. Después, tienes que
+        registrar todas las tabla por diario, así:<br>
+        <div class="wiki" style="display: block;">
+          <pre><code class="shell">STRJRNPF FILE(MILIB/*ALL) JRN(MILIB/MIJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+</code></pre></div>
+        Cuando en el futuro crees una nueva tabla para ser usada desde OpenXava
+        has de registrarla por diario:
+        <div class="wiki" style="display: block;">
+          <pre><code class="shell">STRJRNPF FILE(MILIB/MITABLA) JRN(MILIB/MIJRN)
+</code></pre></div>
+        Si no estás familiarizado con la interfaz del AS/400 busca ayuda de
+        algún gurú del AS/400 de tu empresa para esta tarea. </div>
     </div>
   </body>
 </html>

@@ -100,15 +100,26 @@
         must support transactions. The simple way to achieve it is creating the
         library for your tables from SQL using "CREATE COLLECTION MYLIB".
         Unfortunately most times you work against an AS/400 you have to work
-        with preexisting tables. In this case you have to start the journal for
-        each table you're going to use, in this way:</div>
+        with preexisting tables. In this case you have to create a journal for
+        your library, in this way:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="shell">STRJRNPF FILE(MYLIB/MYTABLE)
-JRN(MYLIB/MYLIBJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+        <pre><code class="shell">CRTJRNRCV JRNRCV(MYLIB/MYRCV) THRESHOLD(5000)
+CRTJRN JRN(MYLIB/MYJRN) JRNRCV(MYLIB/MYRCV) MNGRCV(*SYSTEM)
+CHGJRN JRN(MYLIB/MYJRN) JRNRCV(*GEN) DLTRCV(*YES)
 </code></pre></div>
-      <div class="wiki" style="display: block;">If you're not familiar with the
-        AS/400 interface look for help from some AS/400 guru of your company.for
-        this task.</div>
+      <div class="wiki" style="display: block;">Instead&nbsp; of MYLIB use the
+        name of your library. Afterwards you have to register all the table in
+        the journal, thus:<br>
+        <div class="wiki" style="display: block;">
+          <pre><code class="shell">STRJRNPF FILE(MYLIB/*ALL) JRN(MYLIB/MYJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+</code></pre></div>
+        When in the future you'll create a new table to be used from OpenXava
+        you have to add it to the journal:
+        <div class="wiki" style="display: block;">
+          <pre><code class="shell">STRJRNPF FILE(MYLIB/MYTABLE) JRN(MYLIB/MYJRN)
+</code></pre></div>
+        If you're not familiar with the AS/400 interface look for help from some
+        AS/400 guru of your company.for this task.</div>
     </div>
   </body>
 </html>
