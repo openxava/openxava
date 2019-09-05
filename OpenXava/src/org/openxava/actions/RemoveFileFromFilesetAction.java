@@ -15,6 +15,7 @@ import org.openxava.web.editors.*;
  */
 public class RemoveFileFromFilesetAction extends ViewBaseAction {
 	
+	private String property; // tmp
 	private String fileId;
 	
 	@Override
@@ -40,5 +41,13 @@ public class RemoveFileFromFilesetAction extends ViewBaseAction {
 
 	public void setFileId(String fileId) {
 		this.fileId = fileId;
+	}
+
+	public String getProperty() {
+		return property;
+	}
+
+	public void setProperty(String property) {
+		this.property = property;
 	}
 }

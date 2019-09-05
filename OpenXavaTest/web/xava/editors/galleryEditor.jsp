@@ -3,6 +3,7 @@
 <%@ page import="org.openxava.session.Gallery"%> 
 
 <%
+// tmp Eliminar
 String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String applicationName = request.getParameter("application");

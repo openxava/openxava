@@ -5,6 +5,7 @@
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
+// tmp Eliminar
 String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String applicationName = request.getParameter("application");

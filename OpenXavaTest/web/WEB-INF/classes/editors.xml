@@ -7,12 +7,38 @@
 <editors>
 
 	<!-- tmp ini --> 
-	<editor name="AttachedFiles2" url="attachedFilesEditor2.jsp">
-		<property name="postAction" value="ImageEditor.load"/>
-		<property name="deleteAction" value="ImageEditor.delete"/>
-		<property name="getURL" value="/xava/xfile"/>			
+	<editor name="AttachedFiles2" url="uploadEditor.jsp">
+		<property name="postAction" value="UploadFileIntoFileset.uploadFile"/>
+		<property name="deleteAction" value="AttachedFiles.remove"/>
+		<property name="getURL" value="/xava/xfile"/>
+		<property name="filesIdsProviderClass" value="org.openxava.web.editors.AttachedFilesFilesIdsProvider"/>
+		<property name="cssClass" value="ox-files"/> <!-- tmp Mover a Style¿? ¿Este nombre? -->
+		<property name="multipleFiles" value="true"/>		
 		<for-stereotype stereotype="FILES" />
 		<for-stereotype stereotype="ARCHIVOS" />
+	</editor>	
+	
+	<editor name="Gallery2" url="uploadEditor.jsp" frame="true">
+		<property name="postAction" value="GalleryEditor.loadImage"/>
+		<property name="deleteAction" value="GalleryEditor.removeImage"/>
+		<property name="getURL" value="/xava/gallery"/>
+		<property name="filesIdsProviderClass" value="org.openxava.web.editors.ImagesGalleryFilesIdsProvider"/>
+		<property name="multipleFiles" value="true"/> 
+		<for-stereotype stereotype="IMAGES_GALLERY" />
+		<for-stereotype stereotype="GALERIA_IMAGENES" />
+	</editor>	
+	
+	<editor name="Image2" url="uploadEditor.jsp" format="false">
+		<property name="postAction" value="ImageEditor.load"/>
+		<property name="deleteAction" value="ImageEditor.delete"/>
+		<property name="getURL" value="/xava/ximage"/>
+		<property name="filesIdsProviderClass" value="org.openxava.web.editors.NullFilesIdsProvider"/>
+		<property name="cssClass" value="ox-image"/> <!-- tmp ¿Quitar el Style.getImage()? -->	
+		<formatter class="org.openxava.formatters.ImageFormatter" />
+		<for-stereotype stereotype="FOTO" />
+		<for-stereotype stereotype="PHOTO" />
+		<for-stereotype stereotype="IMAGEN" />
+		<for-stereotype stereotype="IMAGE" />
 	</editor>	
 	<!-- tmp fin -->
 
