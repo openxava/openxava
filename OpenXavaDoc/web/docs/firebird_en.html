@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>openxava - firebird_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0">Configuration for Firebird</h1>
+      Configuring your OpenXava application to go against Firebird is very
+      simple, basically you have to install the JDBC driver for Firebird and
+      define correctly the datasource. You don't need to touch any code of your
+      application.</div>
+    <div class="wiki" style="display: block;">We assume you have already
+      installed and running Firebird.<br>
+      <h2 id="toc1">Download the JDBC driver for Firebird</h2>
+      <p>Download the Firebird driver from here: <a href="https://firebirdsql.org/en/jdbc-driver/">https://firebirdsql.org/en/jdbc-driver/</a></p>
+      You will download a file like this: <i>Jaybird-3.0.6-JDK_1.8.zip</i> (the
+      version numbers may vary). Uncompress it to find inside a file called <i>jaybird-full-3.0.6.jar</i>
+      (or so), this last file, the .jar, is the JDBC controller we're going to
+      use.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Create a classpath variable in Eclipse<br>
+      </h2>
+      In order you can connect to Firebird from Eclipse we're going to declare a
+      classpath variable that points to the Firebird JDBC driver, so you can use
+      it in any project you need easily. For that, in Eclipse go to <i>Window
+        &gt; Preferences &gt; Java &gt; Build Path &gt; Classpath Variables</i>
+      where you can add the new variable:</div>
+    <img src="files/create-db-classpath-variable-eclipse_en.png" alt="" title="create-db-classpath-variable-eclipse_en.png">
+    <div class="wiki" style="display: block;">You can call the variable
+      FIREBIRD_DRIVER instead of DB_DRIVER if your prefer. The path is the path
+      of the JDBC driver, in our case the path of <i>jaybird-full-3.0.6.jar</i>
+      we have just downloaded.<br>
+      <strong></strong></div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Add the DB_DRIVER variable to your Eclipse project<br>
+      </h2>
+      In the project you're going to use Firebird you have to add the variable
+      declared above. Click with right mouse button on your project and then
+      choose <i>Properties &gt; Java Build Path &gt; Libraries</i>:</div>
+    <img src="files/add-db-classpath-variable-to-your-eclipse-project_en.png" title="add-db-classpath-variable-to-your-eclipse-project_en.png">
+    <div class="wiki" style="display: block;">With this we have the driver
+      available for the development environment.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Add the JDBC driver to the production Tomcat</h2>
+      <h2><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Adding
+          the driver in production is much easier. Copy <i>jaybird-full-3.0.6.jar</i></span><span
+          style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+          to the <i>lib</i> folder of your Tomcat. Done.</span></h2>
+    </div>
+    <div class="wiki" style="display: block;"> </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Adjust your datasource definition</h2>
+      For development edit <i>web/META-INF/context.xml</i> of your Eclipse
+      project, and for production edit <i>conf/context.xml</i> of your Tomcat
+      to adjust the datasource to point to Firebird, something like this:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
+	type="javax.sql.DataSource"
+	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
+	username="root" password="ao49fmsk"
+	driverClassName="org.firebirdsql.jdbc.FBDriver"
+	url="jdbc:firebirdsql://localhost:3050/c:/db/myapp.fdb"/&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i>
+      and the <i>url</i>. The final part of the <i>url</i>, <i>c:/db/myapp.fdb</i>
+      in this example, is the path to your Firebird database. Obviously, instead
+      of <i>localhost</i> you should put the address of the server that hosts
+      Firebird, and also put the correct <i>username</i> and <i>password</i>.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Update persistence.xml</h2>
+      You don't need to touch the <i>default</i> persistence unit of <i>persistence.xml</i>
+      (in <i>persistence/META-INF</i>), unless you use <i>hibernate.dialect</i>
+      property in which case just remove <i>hibernate.dialect</i> property.
+      However, you have to modify the <i>junit</i> persistence unit to point to
+      Firebird. <br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;!-- JUnit Firebird --&gt;
+&lt;persistence-unit name="junit"&gt;
+	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
+	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;
+	&lt;properties&gt;
+		&lt;property name="hibernate.connection.driver_class" value="org.firebirdsql.jdbc.FBDriver"/&gt;
+		&lt;property name="hibernate.connection.username" value="root"/&gt;
+		&lt;property name="hibernate.connection.password" value="ao49fmsk"/&gt;		
+		&lt;property name="hibernate.connection.url" <br>			value="jdbc:firebirdsql://localhost:3050/c:/db/myapp.fdb"/&gt;
+	&lt;/properties&gt;
+&lt;/persistence-unit&gt;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Adapt the <i>username</i>, <i>password</i>
+        and <i>url</i> to your Firebird configuration.<br>
+      </div>
+    </div>
+    <br>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+  </body>
+</html>
