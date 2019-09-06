@@ -29,6 +29,7 @@ public class FilesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String fileId = (String) request.getParameter("fileId");
+			System.out.println("[FilesServlet.doGet] fileId=" + fileId); // tmp
 			
 			if (!Is.emptyString(fileId)) {
 				setDefaultSchema(request);

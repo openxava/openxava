@@ -6,12 +6,14 @@ import org.openxava.web.editors.*;
 /**
  * @author Jeromy Altuna
  */
-public class RemoveFileAction extends DeleteFileAction {
+public class RemoveFileAction extends RemoveAttachedFileAction {
 	
 	@Override
 	public void execute() throws Exception {
+		/* tmp
 		String fileId = getView().getValueString(getNewFileProperty());
 		FilePersistorFactory.getInstance().remove(fileId);
+		*/
 		super.execute();		
 	}
 }

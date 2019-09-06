@@ -9,6 +9,7 @@
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
+// tmp Eliminar
 String propertyKey = request.getParameter("propertyKey");
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 boolean editable="true".equals(request.getParameter("editable"));

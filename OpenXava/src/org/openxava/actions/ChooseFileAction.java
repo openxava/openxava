@@ -3,6 +3,7 @@ package org.openxava.actions;
 import javax.inject.*;
 
 /**
+ * tmp Eliminar
  * Logic of AttachedFile.choose action in default-controllers.xml. <p>
  * 
  * @author Jeromy Altuna

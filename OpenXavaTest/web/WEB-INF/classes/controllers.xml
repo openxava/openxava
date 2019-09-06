@@ -27,6 +27,18 @@
 		</action>	
 	</controller>
 	
+	<!-- tmp ini Mover a OpenXava -->
+	<controller name="AttachedFileEditor">
+		<action name="load" class="org.openxava.actions.LoadAttachedFileAction"/>
+		<action name="remove" class="org.openxava.actions.RemoveAttachedFileAction"/>
+	</controller>
+	
+	<controller name="AttachedFilesEditor"> 
+		<action name="load" class="org.openxava.actions.LoadIntoAttachedFilesAction"/>
+		<action name="remove" class="org.openxava.actions.RemoveFromAttachedFilesAction"/>	
+	</controller>	
+	<!-- tmp fin -->
+	
 	<controller name="ShowSellerDialog">
 		<action name="showSellerDialog"  
 			class="org.openxava.test.actions.ShowSellerDialogAction"/>

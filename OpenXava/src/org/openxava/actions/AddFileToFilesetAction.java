@@ -6,6 +6,7 @@ import org.openxava.model.*;
 import org.openxava.util.*;
 
 /**
+ * tmp Quitar
  * Logic of AttachedFiles.add action in default-controllers.xml. <p>
  *  
  * @author Jeromy Altuna

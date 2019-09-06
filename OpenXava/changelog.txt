@@ -1,6 +1,21 @@
 Change Log for OpenXava project
 ===============================
 
+- FILE and FILES:
+	* Refactorizar acciones: Unificar nomenclatura, simplificar controladores, marcar para borrar código viejo.
+	- Interface instead of sending paremeter in UploadServlet.executeAction?
+	- Pruebas JUnit.
+		- Rename changeImage() from ModuleTestBase to fit all upload editors? Adaptar migration
+	- Prueba manuales.
+		- Probar que funciona con registro en blanco.
+	- light.css
+	- Liferay
+	- Suite
+	- Redoc: Al menos migration.
+
+
+
+
 - Guide for deploying on Tomcat in Spanish and English.
 - Getting started guide simplified. 
 - Quick start guide removed.

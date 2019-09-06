@@ -34,10 +34,12 @@ if (!Is.empty(value)) {
 // tmp fin
 // tmp String dataEmpty = imagesOids.length() == 0?"data-empty='true'":""; 
 // tmp ini
-String dataEmpty = Is.empty(value) || !Is.empty(value) && filesIds != null && "".equals(filesIds)?"data-empty='true'":""; 
+System.out.println("[uploadEditor.jsp] 'null'.equals(value)=" + "null".equals(value));
+String dataEmpty = "null".equals(value) || Is.empty(value) || !Is.empty(value) && filesIds != null && "".equals(filesIds)?"data-empty='true'":""; 
 String cssClass = request.getParameter("cssClass");
 cssClass = Is.emptyString(cssClass)?"":" " + cssClass;
-String dataMultiple = "true".equals(request.getParameter("multipleFiles"))?"data-multiple='true'":"";
+boolean multiple = "true".equals(request.getParameter("multipleFiles"));
+String dataMultiple = multiple?"data-multiple='true'":"";
 // tmp fin
 %>
 <input id='<%=propertyKey%>' 
@@ -49,6 +51,10 @@ String dataMultiple = "true".equals(request.getParameter("multipleFiles"))?"data
 	<%=dataEmpty%>
 	<%=dataEditable%>/>
 	
-<input type="hidden" name="<%=propertyKey%>" value="<%=value%>">	
+<% if (true) { 
+	System.out.println("[uploadEditor.jsp] value=" + value);
+// tmp %>	
+<input type="hidden" name="<%=propertyKey%>" value="<%=value%>">
+<% } // tmp %>	
 
 <jsp:include page="filePondTranslation.jsp"/>	

@@ -8,8 +8,8 @@
 
 	<!-- tmp ini --> 
 	<editor name="AttachedFiles2" url="uploadEditor.jsp">
-		<property name="postAction" value="UploadFileIntoFileset.uploadFile"/>
-		<property name="deleteAction" value="AttachedFiles.remove"/>
+		<property name="postAction" value="AttachedFilesEditor.load"/> 
+		<property name="deleteAction" value="AttachedFilesEditor.remove"/> 
 		<property name="getURL" value="/xava/xfile"/>
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.AttachedFilesFilesIdsProvider"/>
 		<property name="cssClass" value="ox-files"/> <!-- tmp Mover a Style¿? ¿Este nombre? -->
@@ -18,9 +18,20 @@
 		<for-stereotype stereotype="ARCHIVOS" />
 	</editor>	
 	
+	<editor name="AttachedFile2" url="uploadEditor.jsp" format="false">
+		<property name="postAction" value="AttachedFileEditor.load"/> 
+		<property name="deleteAction" value="AttachedFileEditor.remove"/> 
+		<property name="getURL" value="/xava/xfile"/>
+		<property name="filesIdsProviderClass" value="org.openxava.web.editors.PropertyValueFilesIdsProvider"/>
+		<property name="cssClass" value="ox-file"/> <!-- tmp Mover a Style¿? ¿Este nombre? -->
+		<list-formatter class="org.openxava.formatters.FileListFormatter" /> <!-- tmp ¿Qué hacer con esto? -->
+		<for-stereotype stereotype="FILE" />
+		<for-stereotype stereotype="ARCHIVO" />
+	</editor>
+	
 	<editor name="Gallery2" url="uploadEditor.jsp" frame="true">
-		<property name="postAction" value="GalleryEditor.loadImage"/>
-		<property name="deleteAction" value="GalleryEditor.removeImage"/>
+		<property name="postAction" value="GalleryEditor.load"/>
+		<property name="deleteAction" value="GalleryEditor.remove"/>
 		<property name="getURL" value="/xava/gallery"/>
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.ImagesGalleryFilesIdsProvider"/>
 		<property name="multipleFiles" value="true"/> 
@@ -30,7 +41,7 @@
 	
 	<editor name="Image2" url="uploadEditor.jsp" format="false">
 		<property name="postAction" value="ImageEditor.load"/>
-		<property name="deleteAction" value="ImageEditor.delete"/>
+		<property name="deleteAction" value="ImageEditor.remove"/>
 		<property name="getURL" value="/xava/ximage"/>
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.NullFilesIdsProvider"/>
 		<property name="cssClass" value="ox-image"/> <!-- tmp ¿Quitar el Style.getImage()? -->	

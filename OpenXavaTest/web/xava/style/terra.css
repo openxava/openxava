@@ -2135,11 +2135,15 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 /* tmp ini */
+.ox-file {
+	width: 330px;;
+}
+
 .ox-files {
 	width: calc(100vw - 400px);
 }
 
-.ox-files .filepond--item {
+.ox-file .filepond--item, .ox-files .filepond--item {
 	width: 300px;
 	cursor: pointer;
 }
