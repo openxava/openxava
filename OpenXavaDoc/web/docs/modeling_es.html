@@ -74,7 +74,7 @@
       y asociarla a <em>Producto</em>, visualizándola con un combo.<br>
       El código para la entidad <em>Categoria</em> es:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.modelo;
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -207,7 +207,7 @@ private String observaciones;
         B</a> sobre JPA.<br>
       Añade la clase <em>Direccion</em> a tu proyecto:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.modelo;
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
  
@@ -282,7 +282,7 @@ private Direccion direccion;
       cambiaremos a una clave simple autogenerada.<br>
       Empecemos con una versión sencilla de la entidad <em>Factura</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.modelo;
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import java.time.*;<br>import java.util.*;
 import javax.persistence.*;
@@ -316,7 +316,7 @@ public class Factura {
       clase id tiene que tener <em>anyo</em> y <em>numero</em> como
       propiedades. Puedes ver <em>FacturaKey</em> aquí:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.modelo;
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 public class FacturaKey implements java.io.Serializable { // La clase key tiene que ser serializable
  
@@ -348,7 +348,7 @@ public class FacturaKey implements java.io.Serializable { // La clase key tiene 
       sobre nuestro esquema, al final vamos a usar un identificador UUID para <em>Factura</em>.
       Reescribe la entidad <em>Factura</em> para dejarla así:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.modelo;
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import java.time.*;<br>import java.util.*;
 import javax.persistence.*;
@@ -431,11 +431,11 @@ private LocalDate fecha;
       para calcular el valor por defecto. Por ejemplo, para <em>numero</em>
       queremos sumar uno al último número de factura dentro de este mismo año.
       Crear tu propio calculador con tu lógica es fácil. Primero, crea un
-      paquete <em>org.openxava.facturacion.calculadores</em> para los
+      paquete <em>com.tuempresa.facturacion.calculadores</em> para los
       calculadores. Y crea en él una clase <em>CalculadorSiguienteNumeroParaAnyo</em>,
       con el siguiente código:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.calculadores;
+      <pre><code class="java">package com.tuempresa.facturacion.calculadores;
  
 import javax.persistence.*;
 import org.openxava.calculators.*;
@@ -482,7 +482,7 @@ private int numero;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Recuerda añadir el <em>import</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">import org.openxava.facturacion.calculadores.*;
+      <pre><code class="java">import com.tuempresa.facturacion.calculadores.*;
 </code></pre> </div>
     <div class="wiki" style="display: block;">En este caso ves algo nuevo, <em>@PropertyValue</em>.
       Usándolo, estás diciendo que el valor de la propiedad <em>anyo</em> en la
@@ -538,7 +538,7 @@ private Collection&lt;Detalle&gt; detalles;
         la factura se guarde y se guardan todos al mismo tiempo.</span><br>
       Para que esta colección funcione necesitas escribir la clase <em>Detalle</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.modelo;
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
  
@@ -700,7 +700,7 @@ private Cliente cliente;
       primero es crear una nueva clase para <em>Autor</em> con el siguiente
       código:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.modelo;
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;

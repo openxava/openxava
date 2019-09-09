@@ -287,7 +287,7 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span> <span class="s
 class="st0">"delete"</span></span>
 <span class="sc3">            <span class="re0">mode</span>=<span class="st0">"detail"</span> <span
 class="re0">confirm</span>=<span class="st0">"true"</span></span>
-<span class="sc3">            <span class="re0">class</span>=<span class="st0">"org.openxava.invoicing.actions.DeleteInvoiceAction"</span></span>
+<span class="sc3">            <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.DeleteInvoiceAction"</span></span>
 <span class="sc3">            <span class="re0">icon</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">            <span class="re0">available-on-new</span>=<span class="st0">"false"</span></span>
 <span class="sc3">            <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
@@ -497,13 +497,13 @@ class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.actions</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
 class="sy0">;</span>  <span class="co1">// In 'actions' package</span>
 <span class="co2">
 import</span> <span class="co2">org.openxava.jpa.*</span><span class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.invoicing.model.*</span><span
+<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.model.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">public</span> <span class="kw2">class</span> DeleteInvoiceAction
@@ -1242,7 +1242,7 @@ class="sy0">;</span> <span class="co1">// A new entity</span>
 class="re0">name</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">    <span class="re0">mode</span>=<span class="st0">"detail"</span> <span
 class="re0">confirm</span>=<span class="st0">"true"</span></span>
-<span class="sc3">    <span class="re0">class</span>=<span class="st0">"org.openxava.invoicing.actions.InvoicingDeleteAction"</span></span>
+<span class="sc3">    <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.InvoicingDeleteAction"</span></span>
 <span class="sc3">    <span class="re0">icon</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">    <span class="re0">available-on-new</span>=<span class="st0">"false"</span></span>
 <span class="sc3">    <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
@@ -1436,7 +1436,7 @@ class="re2">/&gt;</span></span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.actions</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
@@ -1547,7 +1547,7 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 class="st0">"delete"</span></span>
 <span class="sc3">        <span class="re0">mode</span>=<span class="st0">"detail"</span> <span
 class="re0">confirm</span>=<span class="st0">"true"</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">"org.openxava.invoicing.actions.InvoicingDeleteAction"</span></span>
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.InvoicingDeleteAction"</span></span>
 <span class="sc3">        <span class="re0">icon</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">        <span class="re0">available-on-new</span>=<span class="st0">"false"</span></span>
 <span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
@@ -1824,7 +1824,7 @@ class="kw2">extends</span> CommercialDocument <span class="br0">{</span>
 &nbsp;
     <span class="co1">// ...</span>
 <span class="br0">}</span></pre>
-      And now create a new mapped superclass named <em>Deletable</em> in <em>org.openxava.invoicing.model</em>
+      And now create a new mapped superclass named <em>Deletable</em> in <em>com.yourcompany.invoicing.model</em>
       package:<br>
       <style type="text/css"><!--
 /**
@@ -2013,7 +2013,7 @@ class="kw2">extends</span> CommercialDocument <span class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.model</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.model</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
@@ -2903,7 +2903,7 @@ class="br0">)</span><span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.actions</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
@@ -3298,7 +3298,7 @@ class="re0">name</span>=<span class="st0">"Invoicing"</span><span class="re2">&g
     <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
 class="st0">"searchExcludingDeleted"</span></span>
 <span class="sc3">        <span class="re0">hidden</span>=<span class="st0">"true"</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">"org.openxava.invoicing.actions.SearchExcludingDeletedAction"</span><span
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.SearchExcludingDeletedAction"</span><span
 class="re2">/&gt;</span></span>
         <span class="sc-1">&lt;!-- hidden="true": Thus the action will not be shown in button bar --&gt;</span>
 &nbsp;
@@ -3494,7 +3494,7 @@ class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.actions</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
@@ -3912,14 +3912,14 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
 class="st0">"deleteSelected"</span> <span class="re0">mode</span>=<span class="st0">"list"</span> <span
 class="re0">confirm</span>=<span class="st0">"true"</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">"org.openxava.invoicing.actions.InvoicingDeleteSelectedAction"</span></span>
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"</span></span>
 <span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
 class="re2">/&gt;</span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
 class="st0">"deleteRow"</span> <span class="re0">mode</span>=<span class="st0">"NONE"</span> <span
 class="re0">confirm</span>=<span class="st0">"true"</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">"org.openxava.invoicing.actions.InvoicingDeleteSelectedAction"</span></span>
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"</span></span>
 <span class="sc3">        <span class="re0">icon</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">        <span class="re0">in-each-row</span>=<span class="st0">"true"</span><span
 class="re2">/&gt;</span></span>
@@ -4120,7 +4120,7 @@ class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.actions</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
@@ -4762,7 +4762,7 @@ class="br0">)</span><span class="sy0">;</span> <span class="co1">// the restore 
 class="re0">name</span>=<span class="st0">"Trash"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
 class="st0">"restore"</span> <span class="re0">mode</span>=<span class="st0">"list"</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">"org.openxava.invoicing.actions.InvoicingDeleteSelectedAction"</span><span
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"</span><span
 class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
 class="st0">"restore"</span> <span class="re0">value</span>=<span class="st0">"true"</span><span
@@ -5140,7 +5140,7 @@ class="br0">{</span> ... <span class="br0">}</span></pre>
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;action</span> <span
 class="re0">name</span>=<span class="st0">"deleteSelected"</span> <span class="re0">mode</span>=<span
 class="st0">"list"</span> <span class="re0">confirm</span>=<span class="st0">"true"</span></span>
-<span class="sc3">    <span class="re0">class</span>=<span class="st0">"org.openxava.invoicing.actions.UpdatePropertyAction"</span></span>
+<span class="sc3">    <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.UpdatePropertyAction"</span></span>
 <span class="sc3">    <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
 class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
@@ -5153,7 +5153,7 @@ class="re2">/&gt;</span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
 class="st0">"restore"</span> <span class="re0">mode</span>=<span class="st0">"list"</span></span>
-<span class="sc3">    <span class="re0">class</span>=<span class="st0">"org.openxava.invoicing.actions.UpdatePropertyAction"</span><span
+<span class="sc3">    <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.UpdatePropertyAction"</span><span
 class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
 class="st0">"property"</span> <span class="re0">value</span>=<span class="st0">"deleted"</span><span

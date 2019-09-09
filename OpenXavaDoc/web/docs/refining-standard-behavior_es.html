@@ -288,7 +288,7 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span> <span class="s
 class="st0">"delete"</span></span>
 <span class="sc3">            <span class="re0">modo</span>=<span class="st0">"detail"</span> <span
 class="re0">confirmar</span>=<span class="st0">"true"</span></span>
-<span class="sc3">            <span class="re0">clase</span>=<span class="st0">"org.openxava.facturacion.acciones.EliminarFactura"</span></span>
+<span class="sc3">            <span class="re0">clase</span>=<span class="st0">"com.tuempresa.facturacion.acciones.EliminarFactura"</span></span>
 <span class="sc3">            <span class="re0">icono</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">            <span class="re0">disponible-en-nuevo</span>=<span
 class="st0">"false"</span></span>
@@ -500,14 +500,14 @@ class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.acciones</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.acciones</span><span
 class="sy0">;</span>  <span class="co1">// En el paquete 'acciones'</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span
 class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.openxava.jpa.*</span><span
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.facturacion.modelo.*</span><span
+<span class="kw2">import</span> <span class="co2">com.tuempresa.facturacion.modelo.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">public</span> <span class="kw2">class</span> EliminarFactura
@@ -1251,7 +1251,7 @@ class="sy0">;</span> <span class="co1">// Crearemos una nueva entidad</span>
 class="re0">nombre</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">    <span class="re0">modo</span>=<span class="st0">"detail"</span> <span
 class="re0">confirmar</span>=<span class="st0">"true"</span></span>
-<span class="sc3">    <span class="re0">clase</span>=<span class="st0">"org.openxava.facturacion.acciones.EliminarParaFacturacion"</span></span>
+<span class="sc3">    <span class="re0">clase</span>=<span class="st0">"com.tuempresa.facturacion.acciones.EliminarParaFacturacion"</span></span>
 <span class="sc3">    <span class="re0">icono</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">    <span class="re0">disponible-en-nuevo</span>=<span class="st0">"false"</span></span>
 <span class="sc3">    <span class="re0">atajo-de-teclado</span>=<span class="st0">"Control D"</span><span
@@ -1445,7 +1445,7 @@ class="re2">/&gt;</span></span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.acciones</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.acciones</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
@@ -1557,7 +1557,7 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
 class="st0">"delete"</span> <span class="re0">modo</span>=<span class="st0">"detail"</span> <span
 class="re0">confirmar</span>=<span class="st0">"true"</span></span>
-<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"org.openxava.facturacion.acciones.EliminarParaFacturacion"</span></span>
+<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"com.tuempresa.facturacion.acciones.EliminarParaFacturacion"</span></span>
 <span class="sc3">        <span class="re0">icono</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">        <span class="re0">disponible-en-nuevo</span>=<span class="st0">"false"</span></span>
 <span class="sc3">        <span class="re0">atajo-de-teclado</span>=<span class="st0">"Control D"</span><span
@@ -1836,7 +1836,7 @@ class="kw2">extends</span> DocumentoComercial <span class="br0">{</span>
     <span class="co1">// El resto del código...</span>
 <span class="br0">}</span></pre>
       Y ahora crea una nueva superclase mapeada llamada <em>Eliminable</em> en
-      el paquete <em>org.openxava.facturacion.modelo</em>:<br>
+      el paquete <em>com.tuempresa.facturacion.modelo</em>:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2024,7 +2024,7 @@ class="kw2">extends</span> DocumentoComercial <span class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.modelo</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.modelo</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
@@ -2918,7 +2918,7 @@ class="br0">)</span><span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.acciones</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.acciones</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
@@ -3316,7 +3316,7 @@ class="re0">nombre</span>=<span class="st0">"Facturacion"</span><span class="re2
     <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
 class="st0">"buscarExcluyendoEliminados"</span></span>
 <span class="sc3">        <span class="re0">oculta</span>=<span class="st0">"true"</span></span>
-<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"org.openxava.facturacion.acciones.BuscarExcluyendoEliminados"</span> <span
+<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"com.tuempresa.facturacion.acciones.BuscarExcluyendoEliminados"</span> <span
 class="re2">/&gt;</span></span>
         <span class="sc-1">&lt;!-- oculta="true" : Así la acción no se mostrará en la barra de botones --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/controlador<span class="re2">&gt;</span></span></span></pre>
@@ -3512,7 +3512,7 @@ class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.acciones</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.acciones</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
@@ -3940,14 +3940,14 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
 class="st0">"deleteSelected"</span> <span class="re0">modo</span>=<span class="st0">"list"</span> <span
 class="re0">confirmar</span>=<span class="st0">"true"</span></span>
-<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"org.openxava.facturacion.acciones.EliminarSeleccionadoParaFacturacion"</span></span>
+<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"com.tuempresa.facturacion.acciones.EliminarSeleccionadoParaFacturacion"</span></span>
 <span class="sc3">        <span class="re0">atajo-de-teclado</span>=<span class="st0">"Control D"</span><span
 class="re2">/&gt;</span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
 class="st0">"deleteRow"</span> <span class="re0">modo</span>=<span class="st0">"NONE"</span> <span
 class="re0">confirmar</span>=<span class="st0">"true"</span></span>
-<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"org.openxava.facturacion.acciones.EliminarSeleccionadoParaFacturacion"</span></span>
+<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"com.tuempresa.facturacion.acciones.EliminarSeleccionadoParaFacturacion"</span></span>
 <span class="sc3">        <span class="re0">icono</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">        <span class="re0">en-cada-fila</span>=<span class="st0">"true"</span><span
 class="re2">/&gt;</span></span>
@@ -4151,7 +4151,7 @@ class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.acciones</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.acciones</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
@@ -4801,7 +4801,7 @@ class="br0">)</span><span class="sy0">;</span> <span class="co1">// el valor de 
 class="re0">nombre</span>=<span class="st0">"Papelera"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
 class="st0">"restaurar"</span> <span class="re0">modo</span>=<span class="st0">"list"</span></span>
-<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"org.openxava.facturacion.acciones.EliminarSeleccionadoParaFacturacion"</span><span
+<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"com.tuempresa.facturacion.acciones.EliminarSeleccionadoParaFacturacion"</span><span
 class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;poner</span> <span class="re0">propiedad</span>=<span
 class="st0">"restaurar"</span> <span class="re0">valor</span>=<span class="st0">"true"</span><span
@@ -5185,7 +5185,7 @@ class="br0">{</span> ... <span class="br0">}</span></pre>
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;accion</span> <span
 class="re0">nombre</span>=<span class="st0">"deleteSelected"</span> <span class="re0">modo</span>=<span
 class="st0">"list"</span> <span class="re0">confirmar</span>=<span class="st0">"true"</span></span>
-<span class="sc3">    <span class="re0">class</span>=<span class="st0">"org.openxava.facturacion.acciones.ActualizarPropiedad"</span></span>
+<span class="sc3">    <span class="re0">class</span>=<span class="st0">"com.tuempresa.facturacion.acciones.ActualizarPropiedad"</span></span>
 <span class="sc3">    <span class="re0">atajo-de-teclado</span>=<span class="st0">"Control D"</span><span
 class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;poner</span> <span class="re0">propiedad</span>=<span
@@ -5198,7 +5198,7 @@ class="re2">/&gt;</span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
 class="st0">"restaurar"</span> <span class="re0">modo</span>=<span class="st0">"list"</span></span>
-<span class="sc3">    <span class="re0">class</span>=<span class="st0">"org.openxava.facturacion.acciones.ActualizarPropiedad"</span><span
+<span class="sc3">    <span class="re0">class</span>=<span class="st0">"com.tuempresa.facturacion.acciones.ActualizarPropiedad"</span><span
 class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;poner</span> <span class="re0">propiedad</span>=<span
 class="st0">"propiedad"</span> <span class="re0">valor</span>=<span class="st0">"eliminado"</span> <span
