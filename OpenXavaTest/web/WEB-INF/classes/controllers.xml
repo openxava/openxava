@@ -1340,12 +1340,14 @@
 		</action>
 	</controller>
 	
+	<!-- tmp Eliminar 
 	<controller name="AttachedFile">
   		<action name="choose" class="org.openxava.test.actions.ChooseFileAction" 
   			icon="attachment" image="attach.gif" />
 		<action name="delete" class="org.openxava.test.actions.RemoveFileAction" 
 			icon="delete" image="delete.gif" confirm="true" />
-  	</controller>  	
+  	</controller>
+  	-->  	
   	
   	<controller name="ResetViewOnInit">
         <action name="init" class="org.openxava.test.actions.ResetViewAction"

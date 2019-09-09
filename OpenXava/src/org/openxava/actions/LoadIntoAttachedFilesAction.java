@@ -64,13 +64,14 @@ public class LoadIntoAttachedFilesAction extends    ViewBaseAction
 	}
 	
 	private void trackModification(String fileName) {  
-		/* tmp
 		Map oldChangedValues = new HashMap();
-		oldChangedValues.put(newFilesetProperty, XavaResources.getString("files_files_added"));  
+		// tmp oldChangedValues.put(newFilesetProperty, XavaResources.getString("files_files_added"));  
+		oldChangedValues.put(property, XavaResources.getString("files_files_added")); // tmp
 		Map newChangedValues = new HashMap();
-		newChangedValues.put(newFilesetProperty, fileName); 
-		AccessTracker.modified(getPreviousView().getModelName(), getPreviousView().getKeyValues(), oldChangedValues, newChangedValues);
-		*/
+		// tmp newChangedValues.put(newFilesetProperty, fileName); 
+		newChangedValues.put(property, fileName); // tmp
+		// tmp AccessTracker.modified(getPreviousView().getModelName(), getPreviousView().getKeyValues(), oldChangedValues, newChangedValues);
+		AccessTracker.modified(getView().getModelName(), getView().getKeyValues(), oldChangedValues, newChangedValues); // tmp
 	}
 	
 	/* tmp

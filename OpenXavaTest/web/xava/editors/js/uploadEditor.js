@@ -22,6 +22,7 @@ openxava.addEditorInitFunction(function() {
 	    		else window.open(URL.createObjectURL(file.file));
 	    		*/
 	    		// tmp ini
+	    		console.log("[pond.onactivatefile] url=" + fileURL + uploadEditor.getFileIdParam(file)); // tmp
 	    		if (openxava.browser.ie) window.open(fileURL + uploadEditor.getFileIdParam(file)); 
 	    		else if (file.filename === "upload") {
 	    			if (openxava.browser.ff) {

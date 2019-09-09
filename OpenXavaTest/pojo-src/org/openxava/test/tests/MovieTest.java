@@ -1,6 +1,8 @@
 package org.openxava.test.tests;
 
 import java.util.*;
+
+import org.openxava.jpa.*;
 import org.openxava.util.*;
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
@@ -38,6 +40,7 @@ public class MovieTest extends EmailNotificationsTestBase {
 				   response.getContentType().equals(MIME_UNKNOWN));
 	}
 	
+	/* tmp
 	public void testClickOnFileInDetailMode() throws Exception {
 		assertListRowCount(2);
 		execute("List.viewDetail", "row=0");
@@ -47,17 +50,25 @@ public class MovieTest extends EmailNotificationsTestBase {
 		assertTrue(response.getContentType().equals("video/webm") || 
 				   response.getContentType().equals(MIME_UNKNOWN));
 	}
+	*/
 	
 	public void testAddFile() throws Exception {
 		addFile();
+		/* tmp
 		WebResponse response = getWebClient().getPage(
 				             getUrlToFile("Corporation.html")).getWebResponse();
 		assertTrue(response.getContentType().equals("text/html") || 
 				   response.getContentType().equals(MIME_UNKNOWN));
-		changeModule("Movie");
+		*/
+		assertFile("trailer", "text/html"); // tmp
+		/* tmp
+		changeModule("trailer");
 		execute("AttachedFile.delete", "newFileProperty=trailer");
+		*/
+		removeFile(); // tmp
 	}
 	
+	/* tmp
 	public void testChangeFile() throws Exception {
 		addFile();
 		execute("AttachedFile.choose", "newFileProperty=trailer");
@@ -73,14 +84,23 @@ public class MovieTest extends EmailNotificationsTestBase {
 		changeModule("Movie");
 		execute("AttachedFile.delete", "newFileProperty=trailer");
 	}
+	*/
 	
 	public void testDeleteFile() throws Exception {
 		addFile();
-		assertTrue("Trailer has no value", !Is.emptyString(getValue("trailer")));
+		assertTrue("Trailer has no value", !Is.emptyString(getValue("trailer")) && !"null".equals(getValue("trailer")));
+		/* tmp
 		assertAction("AttachedFile.delete");
 		execute("AttachedFile.delete", "newFileProperty=trailer");
 		assertNoErrors();
-		assertTrue("Trailer has value", Is.emptyString(getValue("trailer")));
+		*/
+		// tmp ini
+		removeImage("trailer"); // tmp Nombre del método
+		saveAndReloadJUNITMovie();
+		assertTrue("Trailer has value", Is.emptyString(getValue("trailer")) || "null".equals(getValue("trailer")));
+		// tmp fin
+		// tmp assertTrue("Trailer has value", Is.emptyString(getValue("trailer")));
+		removeFile(); // tmp
 	}
 	
 	public void testFileset() throws Exception {
@@ -88,9 +108,11 @@ public class MovieTest extends EmailNotificationsTestBase {
 		
 		assertListRowCount(2);
 		execute("List.viewDetail", "row=0");
-		assertTrue("At least 4 files", countFiles() == 4);	
+		// tmp assertTrue("At least 4 files", countFiles() == 4);	
+		assertGalleryImagesCount("scripts", 3); // tmp
 		
 		//Adding one file
+		/* tmp
 		execute("AttachedFiles.add", "newFilesetProperty=scripts");
 		assertDialogTitle("Add files"); 
 		String filepath  = System.getProperty("user.dir") + "/reports/Corporation.html";
@@ -98,19 +120,35 @@ public class MovieTest extends EmailNotificationsTestBase {
 		execute("UploadFileIntoFileset.uploadFile");
 		assertMessage("File added to Scripts");
 		assertTrue("At least 5 files", countFiles() == 5);
+		*/
+		// tmp ini
+		changeImage("scripts", "reports/Corporation.html"); // tmp Cambiar nombre método
+		reload();
+		assertGalleryImagesCount("scripts", 4); // tmp
+		// tmp fin
 		
 		//Display file
+		/* tmp
 		String url = getUrlToFile("Corporation.html"); 
 		WebResponse response = getWebClient().getPage(url).getWebResponse();
 		assertTrue(response.getContentType().equals("text/html") || 
 				   response.getContentType().equals(MIME_UNKNOWN));
 		changeModule("Movie");
+		*/
+		assertFile("scripts", 0, "text/html"); // 0 is the last added because of oid generation // tmp 
 		
 		//Removing the file
+		/* tmp
 		assertAction("AttachedFiles.remove");
 		execute("AttachedFiles.remove", url.split("&")[2]);
 		assertNoErrors();
-		assertTrue("At least 4 files", countFiles() == 4);		
+		assertTrue("At least 4 files", countFiles() == 4);
+		*/
+		// tmp ini
+		removeGalleryImage("scripts", 0);
+		reload();
+		assertGalleryImagesCount("scripts", 3); // tmp Cambiar nombre método
+		// tmp fin
 
 		assertEmailNotifications(
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080/OpenXavaTest/modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li><b>Scripts</b>: NEW FILES ADDED --> Corporation.html</li></ul>",
@@ -199,6 +237,7 @@ public class MovieTest extends EmailNotificationsTestBase {
 	
 	private void addFile() throws Exception {
 		execute("CRUD.new");
+		/* tmp
 		assertAction("AttachedFile.choose");
 		execute("AttachedFile.choose", "newFileProperty=trailer");
 		assertNoErrors();
@@ -207,18 +246,41 @@ public class MovieTest extends EmailNotificationsTestBase {
 		setFileValue("newFile", filepath);
 		execute("UploadFile.uploadFile");
 		assertNoErrors();
-	}	
-		
-	private String getUrlToFile(String filename) {
+		*/
+		// tmp ini
+		setValue("title", "JUNIT");
+		changeImage("trailer", "reports/Corporation.html"); // tmp Cambiar el nombre
+		saveAndReloadJUNITMovie();
+		// tmp fin
+	}
+	
+	private void removeFile() throws Exception { // tmp
+		execute("CRUD.delete");
+		XPersistence.getManager()
+			.createQuery("delete from AttachedFile where name = 'Corporation.html'")
+			.executeUpdate();
+	}
+	
+	private void saveAndReloadJUNITMovie() throws Exception { // tmp
+		execute("CRUD.save");
+		execute("Mode.list");
+		assertValueInList(0, 0, "JUNIT");
+		execute("List.viewDetail", "row=0");
+		assertValue("title", "JUNIT");		
+	}
+	
+	private String getUrlToFile(String filename) { // tmp Quitar
 		String href = getFileAnchors().get(filename).getHrefAttribute();
 		return "http://" + getHost() + ":" + getPort() + href;
 	}
 	
+	/* tmp
 	private int countFiles() {
 		return getFileAnchors().size();
 	}
+	*/
 	
-	private Map<String, HtmlAnchor> getFileAnchors() {
+	private Map<String, HtmlAnchor> getFileAnchors() { // tmp Quitar
 		Map<String, HtmlAnchor> anchors = new HashMap<String, HtmlAnchor>(); 
 		
 		for(HtmlAnchor anchor : getHtmlPage().getAnchors()) {

@@ -3035,7 +3035,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * 
 	 * @since 5.8
 	 */
-	protected void assertAttachmentsCount(String name, int expectedCount) { 
+	protected void assertAttachmentsCount(String name, int expectedCount) { // tmp Quitar
 		HtmlElement holder = getAttachmentsHolderElement(name);
 		assertEquals(expectedCount, holder.getByXPath("a[@class='ox-attachment-item' and not(@style='display: none')]").size());		
 	}
@@ -3049,7 +3049,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 5.8
 	 */
 	@SuppressWarnings("unchecked")
-	protected void assertExistsAttachmentName(String name, String expectedName) { 
+	protected void assertExistsAttachmentName(String name, String expectedName) { // tmp Quitar
 		boolean exists = false;
 		HtmlElement holder = getAttachmentsHolderElement(name);
 		List<HtmlAnchor> anchors = holder.getByXPath("a[@class='ox-attachment-item' and not(@style='display: none')]");
@@ -3059,7 +3059,7 @@ abstract public class ModuleTestBase extends TestCase {
 		assertTrue(exists);
 	}
 	
-	private HtmlElement getAttachmentsHolderElement(String name) {
+	private HtmlElement getAttachmentsHolderElement(String name) { // tmp Quitar
 		HtmlElement attachmentsEditor = getHtmlPage().getHtmlElementById(decorateId("editor_" + name));
 		return attachmentsEditor.getOneHtmlElementByAttribute("div", "class", "ox-attachments");
 	}
@@ -3078,7 +3078,8 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 6.2
 	 */		
 	protected void assertImage(String property) throws Exception { 
-		assertImage(property, true);
+		// tmp assertImage(property, true);
+		assertFile(property, 0, "image", true); // tmp
 	}
 	
 	/**
@@ -3094,10 +3095,75 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
 	 * @since 6.2
 	 */		
-	protected void assertNoImage(String property) throws Exception { 
-		assertImage(property, false);
+	protected void assertNoImage(String property) throws Exception { // tmp ¿Mantener? 
+		// tmp assertImage(property, false);
+		assertFile(property, 0, "image", false); // tmp
+	}
+	
+	/**
+	 * tmp redoc
+	 * Assert if the property of PHOTO/IMAGE stereotype has a image associated.
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertImage("photo");
+	 * </pre>
+	 * 
+	 * It tries to recover the file from the server and verify if it is of image type. 
+	 * 
+	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @since 6.2
+	 */		
+	protected void assertFile(String property, String contentType) throws Exception { 
+		// tmp assertImage(property, true);
+		assertFile(property, 0, contentType, true); // tmp
+	}
+	
+	/**
+	 * tmp redoc
+	 * Assert if the property of PHOTO/IMAGE stereotype has a image associated.
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertImage("photo");
+	 * </pre>
+	 * 
+	 * It tries to recover the file from the server and verify if it is of image type. 
+	 * 
+	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @since 6.2
+	 */		
+	protected void assertFile(String property) throws Exception { 
+		// tmp assertImage(property, true);
+		assertFile(property, 0, null, true); // tmp
+	}	
+	
+	protected void assertFile(String property, int index, String expectedType) throws Exception { // tmp 
+		// tmp assertImage(property, true);
+		assertFile(property, index, expectedType, true); // tmp
+	}
+	
+	/**
+	 * tmp redoc
+	 * Assert if the property of PHOTO/IMAGE stereotype has no image associated.
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertNoImage("photo");
+	 * </pre>
+	 * 
+	 * It tries to recover the file from the server and verify if it is not of image type. 
+	 * 
+	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @since 6.2
+	 */		
+	protected void assertNoFile(String property) throws Exception { // tmp  
+		// tmp assertImage(property, false);
+		assertFile(property, 0, null, false); // tmp
 	}
 
+
+	/* tmp
 	private void assertImage(String property, boolean present) throws Exception { 
 		String imageURL = (String) getHtmlPage().executeJavaScript(
 			"var input = document.getElementById('" + decorateId(property) + "');" +
@@ -3106,17 +3172,64 @@ abstract public class ModuleTestBase extends TestCase {
 		
 		URL url = getHtmlPage().getWebResponse().getWebRequest().getUrl(); 
 		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort(); 
-		imageURL = urlPrefix + imageURL; 
+		imageURL = urlPrefix + imageURL;
+		// tmp ini
+		HtmlElement input = getElementById(property);
+		String dataFiles = input.getAttribute("data-files");
+		if (!Is.emptyString(dataFiles) && !dataFiles.contains(",")) {
+			imageURL = imageURL + "&fileId=" + dataFiles;
+		}
+		// tmp fin
 		TopLevelWindow imageWindow = (TopLevelWindow) getWebClient().openWindow(new URL(imageURL), "loadingImage");
 		WebResponse response = imageWindow.getEnclosedPage().getWebResponse();
 		if (present) {
-			assertTrue(XavaResources.getString("image_not_obtained"), response.getContentAsString().length() > 0); 
+			assertTrue(XavaResources.getString("image_not_obtained"), response.getContentAsString().length() > 0);
+			System.out.println("[ModuleTestBase.assertImage] response.getContentType()=" + response.getContentType()); // tmp
 			assertTrue(XavaResources.getString("result_is_not_image"), response.getContentType().startsWith("image"));  
 		}
 		else {
 			assertTrue(XavaResources.getString("image_obtained"), response.getContentAsString().length() == 0);
 		}		
 		imageWindow.close(); 
+	}
+	*/
+	
+	
+	private void assertFile(String property, int index, String contentType, boolean present) throws Exception { // tmp 
+		String fileURL = (String) getHtmlPage().executeJavaScript(
+			"var input = document.getElementById('" + decorateId(property) + "');" +
+			"uploadEditor.getFileURL(input)" 		
+		).getJavaScriptResult();
+		
+		URL url = getHtmlPage().getWebResponse().getWebRequest().getUrl(); 
+		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort(); 
+		fileURL = urlPrefix + fileURL;
+		HtmlElement input = getElementById(property);
+		String dataFiles = input.getAttribute("data-files");
+		System.out.println("[ModuleTestBase.assertFile] dataFiles=" + dataFiles); // tmp
+		if (!Is.emptyString(dataFiles)) {
+			String [] ids = dataFiles.split(",");
+			fileURL = fileURL + "&fileId=" + ids[index];
+		}
+		else {
+			assertEquals("Unknown file id for file " + index, 0, index); // tmp i18n
+		}
+		TopLevelWindow fileWindow = (TopLevelWindow) getWebClient().openWindow(new URL(fileURL), "loadingFile");
+		WebResponse response = fileWindow.getEnclosedPage().getWebResponse();
+		if (present) {
+			assertTrue(XavaResources.getString("image_not_obtained"), response.getContentAsString().length() > 0); // tmp i18n
+			if (contentType != null) {
+				System.out.println("[ModuleTestBase.assertFile] contentType=" + contentType); // tmp
+				System.out.println("[ModuleTestBase.assertFile] response.getContentType()=" + response.getContentType()); // tmp
+				String filename = response.getResponseHeaderValue("filename"); // tmp
+				System.out.println("[ModuleTestBase.assertFile] filename=" + filename); // tmp
+				assertTrue(XavaResources.getString("result_is_not_image"), response.getContentType().startsWith(contentType)); // tmp i18n Incluir contentType esperado y obtenido
+			}
+		}
+		else {
+			assertTrue(XavaResources.getString("image_obtained"), response.getContentAsString().length() == 0);
+		}		
+		fileWindow.close(); 
 	}
 
 
@@ -3221,7 +3334,8 @@ abstract public class ModuleTestBase extends TestCase {
 		HtmlInput input = getHtmlPage().getHtmlElementById(decorateId(property));
 		String fileIds = input.getAttribute("data-files");
 		String fileId = fileIds.split(",")[index];
-		removeImage("photos", fileId);
+		// tmp removeImage("photos", fileId);
+		removeImage(property, fileId); // tmp
 	}
 
 }
