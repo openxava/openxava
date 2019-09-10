@@ -2,16 +2,16 @@ Change Log for OpenXava project
 ===============================
 
 - FILE and FILES:
-	- Pruebas JUnit.
-		- Rename changeImage() from ModuleTestBase to fit all upload editors? Adaptar migration
-	- ¿Qué pasa si se suben imagen?
-	- Prueba manuales.
-		- FILE con New y sin grabar.
-		- FILES Con registro en blanco.
+	* Pruebas JUnit.
+	* Rename changeImage() from ModuleTestBase to fit all upload editors
+	* FILES con registro nuevo
+	* ¿Qué pasa si se suben imagen?
+	* Prueba manuales.
+	- Pasar pruebas manuales para PHOTO y GALLERY
 	- light.css
 	- Liferay
 	- Suite
-	- Redoc: Al menos migration.
+	- Redoc: Al menos migration: FILE/FILES y refactoring de métodos
 
 
 

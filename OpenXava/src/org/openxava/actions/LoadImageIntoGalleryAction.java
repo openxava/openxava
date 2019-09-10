@@ -12,7 +12,7 @@ import org.openxava.view.*;
  * @author Javier Paniza
  */
 
-public class LoadImageIntoGalleryAction extends ViewBaseAction implements IProcessLoadedFileAction { 
+public class LoadImageIntoGalleryAction extends /* tmp ViewBaseAction */ GenerateIdForPropertyBaseAction implements IProcessLoadedFileAction { 
 
 	private List fileItems;	
 	private String property; 
@@ -21,7 +21,8 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements IProce
 		Iterator i = getFileItems().iterator();
 		int c = 0;
 		StringBuffer filesNames = new StringBuffer();
-		String galleryOid = getGalleryOid();
+		// tmp String galleryOid = getGalleryOid();
+		String galleryOid = generateIdForProperty(property); // tmp
 		Gallery gallery = Gallery.find(galleryOid);
 		while (i.hasNext()) {
 			FileItem fi = (FileItem)i.next();				
@@ -37,6 +38,7 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements IProce
 		trackModification(galleryOid, filesNames.toString());
 	}
 	
+	/* tmp
 	public String getGalleryOid() throws Exception {
 		String oid = getView().getValueString(property);
 		if (Is.emptyString(oid)) {
@@ -55,6 +57,7 @@ public class LoadImageIntoGalleryAction extends ViewBaseAction implements IProce
 		values.put(property, oid);
 		MapFacade.setValuesNotTracking(getView().getModelName(), getView().getKeyValues(), values); 
 	}
+	*/
 	
 	private void trackModification(String galleryOid, String fileName) { 
 		View view = getView(); 

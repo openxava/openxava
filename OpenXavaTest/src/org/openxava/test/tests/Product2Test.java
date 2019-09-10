@@ -122,34 +122,41 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertTrue("At least 2 products are required to run this test", getListRowCount() >= 2);
 		execute("List.viewDetail", "row=0");
 		assertValue("number", "1");	
-		assertGalleryImagesCount("photos", 0); 
+		// tmp assertGalleryImagesCount("photos", 0); 
+		assertFilesCount("photos", 0); // tmp
 				
 		// Adding one image
-		changeImage("photos", "test-images/foto_javi.jpg"); 
+		// tmp changeImage("photos", "test-images/foto_javi.jpg"); 
+		uploadFile("photos", "test-images/foto_javi.jpg"); // tmp
 		reload();
-		assertGalleryImagesCount("photos", 1);
+		// tmp assertGalleryImagesCount("photos", 1);
+		assertFilesCount("photos", 1); // tmp
 				
 		// Verifying that product 2 has no images
 		execute("Navigation.next");
 		assertValue("number", "2");
-		assertGalleryImagesCount("photos", 0); 
+		// tmp assertGalleryImagesCount("photos", 0); 
+		assertFilesCount("photos", 0); // tmp
 		
 		// Verifying that product 1 has the added image
 		execute("CRUD.new");
 		setValue("number", "1");
 		execute("CRUD.refresh");
 		assertNoErrors();
-		assertGalleryImagesCount("photos", 1); 
+		// tmp assertGalleryImagesCount("photos", 1); 
+		assertFilesCount("photos", 1); // tmp
 		
 		// Removing the image
-		removeGalleryImage("photos", 0);
+		// tmp removeGalleryImage("photos", 0);
+		removeFile("photos", 0); // tmp
 		
 		// Verifying that product 1 has no images
 		execute("CRUD.new");
 		setValue("number", "1");
 		execute("CRUD.refresh");
 		assertNoErrors();
-		assertGalleryImagesCount("photos", 0); 
+		// tmp assertGalleryImagesCount("photos", 0); 
+		assertFilesCount("photos", 0); // tmp
 
 		assertEmailNotifications( 
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: NEW IMAGES ADDED --> foto_javi.jpg</li></ul>",

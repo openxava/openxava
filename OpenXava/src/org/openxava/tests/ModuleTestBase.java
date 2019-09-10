@@ -3035,10 +3035,12 @@ abstract public class ModuleTestBase extends TestCase {
 	 * 
 	 * @since 5.8
 	 */
+	/* tmp
 	protected void assertAttachmentsCount(String name, int expectedCount) { // tmp Quitar
 		HtmlElement holder = getAttachmentsHolderElement(name);
 		assertEquals(expectedCount, holder.getByXPath("a[@class='ox-attachment-item' and not(@style='display: none')]").size());		
 	}
+	*/
 	
 	/**
 	 * Assert the name of the attachment. <p> 
@@ -3048,6 +3050,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * 
 	 * @since 5.8
 	 */
+	/* tmp
 	@SuppressWarnings("unchecked")
 	protected void assertExistsAttachmentName(String name, String expectedName) { // tmp Quitar
 		boolean exists = false;
@@ -3058,11 +3061,14 @@ abstract public class ModuleTestBase extends TestCase {
 		}		
 		assertTrue(exists);
 	}
+	*/
 	
+	/* tmp
 	private HtmlElement getAttachmentsHolderElement(String name) { // tmp Quitar
 		HtmlElement attachmentsEditor = getHtmlPage().getHtmlElementById(decorateId("editor_" + name));
 		return attachmentsEditor.getOneHtmlElementByAttribute("div", "class", "ox-attachments");
 	}
+	*/
 
 	/**
 	 * Assert if the property of PHOTO/IMAGE stereotype has a image associated.
@@ -3076,11 +3082,13 @@ abstract public class ModuleTestBase extends TestCase {
 	 * 
 	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
 	 * @since 6.2
-	 */		
+	 */
+	/* tmp Cambiar migration
 	protected void assertImage(String property) throws Exception { 
 		// tmp assertImage(property, true);
 		assertFile(property, 0, "image", true); // tmp
 	}
+	*/
 	
 	/**
 	 * Assert if the property of PHOTO/IMAGE stereotype has no image associated.
@@ -3095,10 +3103,12 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
 	 * @since 6.2
 	 */		
+	/* tmp
 	protected void assertNoImage(String property) throws Exception { // tmp ¿Mantener? 
 		// tmp assertImage(property, false);
 		assertFile(property, 0, "image", false); // tmp
 	}
+	*/
 	
 	/**
 	 * tmp redoc
@@ -3234,6 +3244,7 @@ abstract public class ModuleTestBase extends TestCase {
 
 
 	/**
+	 * tmp redoc 
 	 * Change the current image or assign a new one to a property of PHOTO/IMAGE or IMAGES_GALLERY stereotype.
 	 * 
 	 * Example:
@@ -3247,13 +3258,15 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @param imageURL  If the URL is relative it starts from the current project, if it is absolute (starts with /) it is used 'as is'.  
 	 * @since 6.2
 	 */
-	protected void changeImage(String property, String imageURL) throws Exception { 
+	// tmp protected void changeImage(String property, String imageURL) throws Exception { 
+	protected void uploadFile(String property, String imageURL) throws Exception { // tmp En migration
 		String imageAbsoluteURL = imageURL.startsWith("/")?
 			imageURL:System.getProperty("user.dir") + "/"+ imageURL; 
 		String decoratedProperty = decorateId(property);
 		HtmlFileInput input = (HtmlFileInput) getHtmlPage().getElementById(decoratedProperty);
 		input.setValueAttribute(imageAbsoluteURL);
-		assertEquals("INPUT for file upload should not have name", "", input.getNameAttribute()); // Having name makes that JUnit and real browser behaves different, 																								// and real browser would fail with element collection (try with Car module)
+		assertEquals("INPUT for file upload should not have name", "", input.getNameAttribute()); // Having name makes that JUnit and real browser behaves different, 																								
+																						// and real browser would fail with element collection (try with Car module)
 		getHtmlPage().executeJavaScript(
 			"var formData = new FormData();" +
 			"var input = document.getElementById('" + decoratedProperty + "');" +
@@ -3266,6 +3279,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 
 	/**
+	 * tmp redoc
 	 * Remove the current image from a property of PHOTO/IMAGE stereotype.
 	 * 
 	 * Example:
@@ -3278,11 +3292,14 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
 	 * @since 6.2
 	 */	
-	protected void removeImage(String property) throws Exception {
-		removeImage(property, null);
+	// tmp protected void removeImage(String property) throws Exception {
+	protected void removeFile(String property) throws Exception { // tmp Migration
+		// tmp removeImage(property, null);
+		removeFile(property, null); // tmp
 	}
 	
-	private void removeImage(String property, String fileId) throws Exception {
+	// tmp private void removeImage(String property, String fileId) throws Exception {
+	private void removeFile(String property, String fileId) throws Exception { // tmp Migration
 		String fileIdParam = fileId == null?"":" + '&fileId=" + fileId + "'";
 		getHtmlPage().executeJavaScript(
 			"var input = document.getElementById('" + decorateId(property) + "');" +	
@@ -3294,6 +3311,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}	
 
 	/**
+	 * tmp redoc
 	 * Assert the amount of images in a property of IMAGES_GALLERY stereotype .
 	 * 
 	 * Example:
@@ -3304,7 +3322,8 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @param property  The property name of the current view with stereotype IMAGES_GALLERY
 	 * @since 6.2
 	 */		
-	protected void assertGalleryImagesCount(String property, int expectedCount) throws Exception { 
+	// tmp protected void assertGalleryImagesCount(String property, int expectedCount) throws Exception { 
+	protected void assertFilesCount(String property, int expectedCount) throws Exception { // tmp Migration
 		HtmlInput input = getHtmlPage().getHtmlElementById(decorateId(property));
 		if (expectedCount > 0) {
 			assertEquals(expectedCount, input.getAttribute("data-files").split(",").length);
@@ -3317,6 +3336,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	/**
+	 * tmp redoc
 	 * Remove an image from a property of IMAGES_GALLERY stereotype.
 	 * 
 	 * Example:
@@ -3330,12 +3350,13 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @param index  The position (0 based) of the image to remove
 	 * @since 6.2
 	 */		
-	protected void removeGalleryImage(String property, int index) throws Exception { 
+	// tmp protected void removeGalleryImage(String property, int index) throws Exception { 
+	protected void removeFile(String property, int index) throws Exception {
 		HtmlInput input = getHtmlPage().getHtmlElementById(decorateId(property));
 		String fileIds = input.getAttribute("data-files");
 		String fileId = fileIds.split(",")[index];
 		// tmp removeImage("photos", fileId);
-		removeImage(property, fileId); // tmp
+		removeFile(property, fileId); // tmp
 	}
 
 }

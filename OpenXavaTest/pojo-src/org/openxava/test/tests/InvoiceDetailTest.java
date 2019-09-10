@@ -29,7 +29,8 @@ public class InvoiceDetailTest extends ModuleTestBase {
 		assertLabelInList(3, "Record count");
 		
 		execute("CRUD.new");
-		assertGalleryImagesCount("product.photos", 0); 
+		// tmp assertGalleryImagesCount("product.photos", 0); 
+		assertFilesCount("product.photos", 0); // tmp
 	}
 	
 }

@@ -90,14 +90,14 @@ abstract public class ExamBaseTest extends ModuleTestBase {
 	}
 	
 	public void testFileChangingDatasource() throws Exception {
-		// TMP ME QUEDÉ POR AQUÍ: FALLABA
 		// Real data source
 		setDatasource(Datasource.REAL);
 		execute("Mode.list"); 
 		assertListRowCount(0);
 		execute("CRUD.new");
 		setValue("name", "REAL");
-		attachFile("Corporation.html");
+		// tmp attachFile("Corporation.html");
+		uploadFile("file", "reports/Corporation.html"); // tmp  
 		execute("Collection.new", "viewObject=xava_view_questioning");
 		setValue("name", "REAL QUESTION 1");
 		execute("Collection.save");
@@ -108,7 +108,8 @@ abstract public class ExamBaseTest extends ModuleTestBase {
 		assertListRowCount(0);
 		execute("CRUD.new");
 		setValue("name", "SIMULATION");
-		attachFile("Customer.jrxml");
+		// tmp attachFile("Customer.jrxml");
+		uploadFile("file", "reports/Customer.jrxml"); // tmp 
 		execute("Collection.new", "viewObject=xava_view_questioning");
 		setValue("name", "SIMULATION QUESTION 1");
 		execute("Collection.save");
@@ -119,25 +120,42 @@ abstract public class ExamBaseTest extends ModuleTestBase {
 		assertFilename("Corporation.html");
 		assertMimeFile("Corporation.html", "text/html");
 		execute("List.viewDetail", "row=0");
+		/* tmp
 		assertFilename("Corporation.html");
 		assertMimeFile("Corporation.html", "text/html");
-		execute("AttachedFile.delete", "newFileProperty=file");
+		*/
+		assertFile("file", "text/html"); // tmp
+		// tmp execute("AttachedFile.delete", "newFileProperty=file");
 		execute("CRUD.delete");
 		execute("Mode.list");
 		assertListRowCount(0);
 		// Simulation data source
 		setDatasource(Datasource.SIMULATION);
 		assertFilename("Customer.jrxml");
-		assertMimeFile("Customer.jrxml", "application/docbook+xml", "application/x-docbook+xml");		
+		// tmp assertMimeFile("Customer.jrxml", "application/docbook+xml", "application/x-docbook+xml");		
+		assertMimeFile("Customer.jrxml", "application/octet-stream"); // tmp
 		execute("List.viewDetail", "row=0");
+		/* tmp
 		assertFilename("Customer.jrxml");
 		assertMimeFile("Customer.jrxml", "application/docbook+xml", "application/x-docbook+xml");
-		execute("AttachedFile.delete", "newFileProperty=file");
+		*/
+		assertFile("file", "application/octet-stream"); // tmp 
+		// tmp execute("AttachedFile.delete", "newFileProperty=file");
 		execute("CRUD.delete");
 		execute("Mode.list");
 		assertListRowCount(0);
 		
 		setDatasource(Datasource.REAL);
+		
+		// tmp ini
+		XPersistence.getManager()
+			.createQuery("delete from AttachedFile where name='Corporation.html'")
+			.executeUpdate();
+		
+		XPersistence.getManager()
+			.createNativeQuery("delete from SIMULATION.OXFILES")
+			.executeUpdate();		
+		// tmp fin
 	}
 	
 	protected void assertValueInAuditTable(String name, String value, Class<?> clazz, Number revision) 
@@ -174,12 +192,14 @@ abstract public class ExamBaseTest extends ModuleTestBase {
 		return AuditReaderFactory.get(XPersistence.getManager());
 	}
 
+	/* tmp
 	private void attachFile(String filename) throws Exception {
 		execute("AttachedFile.choose", "newFileProperty=file");
 		String filepath = System.getProperty("user.dir") + "/reports/" + filename;
 		setFileValue("newFile", filepath);
 		execute("UploadFile.uploadFile");
 	}
+	*/
 	
 	private void assertFilename(String filename) throws Exception {
 		assertTrue(getFileAnchors().get(filename) != null);

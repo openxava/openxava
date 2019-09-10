@@ -225,7 +225,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertDialogTitle("Modify - Product");
 		
 		// Adding one image		
-		changeImage("photos", "test-images/foto_javi.jpg"); 
+		// tmp changeImage("photos", "test-images/foto_javi.jpg"); 
+		uploadFile("photos", "test-images/foto_javi.jpg"); // tmp
 		execute("Modification.update");
 		assertDialogTitle("Edit - Invoice detail"); 
 		assertNoErrors();
@@ -235,8 +236,14 @@ public class InvoiceTest extends CustomizeListTestBase {
 		// Verifying the image has been added, and removing it  
 		execute("Invoice.editDetail", "row=0,viewObject=xava_view_section1_details");
 		execute("Reference.modify", "model=Product,keyProperty=product.number");
+		/* tmp
 		assertGalleryImagesCount("photos", 1); 
-		removeGalleryImage("photos", 0); 
+		removeGalleryImage("photos", 0);
+		*/
+		// tmp ini
+		assertFilesCount("photos", 1); 
+		removeFile("photos", 0);		
+		// tmp fin
 		
 		// Closing all the dialogs with X (we need to test this case)
 		assertDialogTitle("Modify - Product");
@@ -251,7 +258,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 		
 		execute("Invoice.editDetail", "row=0,viewObject=xava_view_section1_details");
 		execute("Reference.modify", "model=Product,keyProperty=product.number");
-		assertGalleryImagesCount("photos", 0);
+		// tmp assertGalleryImagesCount("photos", 0);
+		assertFilesCount("photos", 0); // tmp
 	}
 	
 	public void testMyReportAddColumnsOnlyFromTwoLevelQualifiedProperties() throws Exception { 

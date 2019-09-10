@@ -5,6 +5,8 @@ import java.util.*;
 import javax.inject.*;
 
 import org.apache.commons.fileupload.*;
+import org.openxava.calculators.*;
+import org.openxava.model.*;
 import org.openxava.util.*;
 import org.openxava.web.editors.*;
 
@@ -13,7 +15,7 @@ import org.openxava.web.editors.*;
  * 
  * @author Jeromy Altuna
  */
-public class LoadIntoAttachedFilesAction extends    ViewBaseAction 
+public class LoadIntoAttachedFilesAction extends    /* tmp ViewBaseAction */ GenerateIdForPropertyBaseAction /* tmp */ 
 										 implements /* tmp INavigationAction, */ 
 										 			IProcessLoadedFileAction 
 {
@@ -32,7 +34,7 @@ public class LoadIntoAttachedFilesAction extends    ViewBaseAction
 	public void execute() throws Exception {
 		System.out.println("[UploadFileIntoFilesetAction.execute] property=" + property); // tmp 
 		// tmp String libraryId = getPreviousView().getValueString(newFilesetProperty);
-		String libraryId = getView().getValueString(property); // tmp
+		String libraryId = generateIdForProperty(property); // tmp 
 		Iterator<?> it = fileItems.iterator();		
 		int counter = 0;
 		StringBuffer filesNames = new StringBuffer(); 

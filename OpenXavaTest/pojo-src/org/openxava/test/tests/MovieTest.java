@@ -68,6 +68,18 @@ public class MovieTest extends EmailNotificationsTestBase {
 		removeFile(); // tmp
 	}
 	
+	public void testAddFilesInNewEntity() throws Exception { // tmp
+		execute("CRUD.new");
+		setValue("title", "MATRIX");
+		uploadFile("scripts", "reports/Corporation.html");
+		saveAndReloadMovie("MATRIX");
+		assertFilesCount("scripts", 1);
+		assertFile("scripts", 0, "text/html");
+		
+		removeFile("scripts", 0);
+		execute("CRUD.delete");
+	}
+	
 	/* tmp
 	public void testChangeFile() throws Exception {
 		addFile();
@@ -95,8 +107,8 @@ public class MovieTest extends EmailNotificationsTestBase {
 		assertNoErrors();
 		*/
 		// tmp ini
-		removeImage("trailer"); // tmp Nombre del método
-		saveAndReloadJUNITMovie();
+		removeFile("trailer"); // tmp Nombre del método
+		saveAndReloadMovie("JUNIT");
 		assertTrue("Trailer has value", Is.emptyString(getValue("trailer")) || "null".equals(getValue("trailer")));
 		// tmp fin
 		// tmp assertTrue("Trailer has value", Is.emptyString(getValue("trailer")));
@@ -109,7 +121,7 @@ public class MovieTest extends EmailNotificationsTestBase {
 		assertListRowCount(2);
 		execute("List.viewDetail", "row=0");
 		// tmp assertTrue("At least 4 files", countFiles() == 4);	
-		assertGalleryImagesCount("scripts", 3); // tmp
+		assertFilesCount("scripts", 3); // tmp
 		
 		//Adding one file
 		/* tmp
@@ -122,9 +134,9 @@ public class MovieTest extends EmailNotificationsTestBase {
 		assertTrue("At least 5 files", countFiles() == 5);
 		*/
 		// tmp ini
-		changeImage("scripts", "reports/Corporation.html"); // tmp Cambiar nombre método
+		uploadFile("scripts", "reports/Corporation.html"); 
 		reload();
-		assertGalleryImagesCount("scripts", 4); // tmp
+		assertFilesCount("scripts", 4); 
 		// tmp fin
 		
 		//Display file
@@ -145,9 +157,9 @@ public class MovieTest extends EmailNotificationsTestBase {
 		assertTrue("At least 4 files", countFiles() == 4);
 		*/
 		// tmp ini
-		removeGalleryImage("scripts", 0);
+		removeFile("scripts", 0);
 		reload();
-		assertGalleryImagesCount("scripts", 3); // tmp Cambiar nombre método
+		assertFilesCount("scripts", 3); // tmp Cambiar nombre método
 		// tmp fin
 
 		assertEmailNotifications(
@@ -249,8 +261,8 @@ public class MovieTest extends EmailNotificationsTestBase {
 		*/
 		// tmp ini
 		setValue("title", "JUNIT");
-		changeImage("trailer", "reports/Corporation.html"); // tmp Cambiar el nombre
-		saveAndReloadJUNITMovie();
+		uploadFile("trailer", "reports/Corporation.html"); 
+		saveAndReloadMovie("JUNIT");
 		// tmp fin
 	}
 	
@@ -261,12 +273,12 @@ public class MovieTest extends EmailNotificationsTestBase {
 			.executeUpdate();
 	}
 	
-	private void saveAndReloadJUNITMovie() throws Exception { // tmp
+	private void saveAndReloadMovie(String title) throws Exception { // tmp
 		execute("CRUD.save");
 		execute("Mode.list");
-		assertValueInList(0, 0, "JUNIT");
+		assertValueInList(0, 0, title);
 		execute("List.viewDetail", "row=0");
-		assertValue("title", "JUNIT");		
+		assertValue("title", title);		
 	}
 	
 	private String getUrlToFile(String filename) { // tmp Quitar

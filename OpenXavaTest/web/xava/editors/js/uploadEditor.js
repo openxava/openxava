@@ -10,7 +10,8 @@ openxava.addEditorInitFunction(function() {
     		if ($(input).is(":hidden")) return;
 	    	const pond = FilePond.create(input); 
 	    	if (typeof pond === 'undefined') return;
-	    	if (input.dataset.mutiple === "true") pond.allowMultiple = true; 
+	    	if (input.dataset.mutiple === "true") pond.allowMultiple = true;
+	    	if (input.dataset.preview === "false") pond.allowImagePreview = false; // tmp
 	    	const fileURL = uploadEditor.getFileURL(input);
 	    	pond.onactivatefile = function(file) {
 	    		/* tmp
@@ -22,7 +23,6 @@ openxava.addEditorInitFunction(function() {
 	    		else window.open(URL.createObjectURL(file.file));
 	    		*/
 	    		// tmp ini
-	    		console.log("[pond.onactivatefile] url=" + fileURL + uploadEditor.getFileIdParam(file)); // tmp
 	    		if (openxava.browser.ie) window.open(fileURL + uploadEditor.getFileIdParam(file)); 
 	    		else if (file.filename === "upload") {
 	    			if (openxava.browser.ff) {
@@ -69,7 +69,7 @@ openxava.addEditorInitFunction(function() {
 	    		uploadEditor.enableUpload(pond, input);
 	    		return true;
 	        }
-	    	pond.allowRevert = false; 
+	    	pond.allowRevert = false;
     	}
     	
     });

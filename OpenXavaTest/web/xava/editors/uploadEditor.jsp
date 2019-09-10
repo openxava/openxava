@@ -40,6 +40,8 @@ String cssClass = request.getParameter("cssClass");
 cssClass = Is.emptyString(cssClass)?"":" " + cssClass;
 boolean multiple = "true".equals(request.getParameter("multipleFiles"));
 String dataMultiple = multiple?"data-multiple='true'":"";
+boolean preview = !"false".equals(request.getParameter("imagePreview"));
+String dataPreview = !preview?"data-preview='false'":"";
 // tmp fin
 %>
 <input id='<%=propertyKey%>' 
@@ -47,14 +49,11 @@ String dataMultiple = multiple?"data-multiple='true'":"";
 	data-application="<%=applicationName%>" 
 	data-module="<%=module%>"
 	<%=dataMultiple%>
+	<%=dataPreview%>
 	<%=dataFiles%> 
 	<%=dataEmpty%>
 	<%=dataEditable%>/>
 	
-<% if (true) { 
-	System.out.println("[uploadEditor.jsp] value=" + value);
-// tmp %>	
 <input type="hidden" name="<%=propertyKey%>" value="<%=value%>">
-<% } // tmp %>	
 
 <jsp:include page="filePondTranslation.jsp"/>	

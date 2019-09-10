@@ -140,12 +140,12 @@ public class UserWithNicknameTest extends ModuleTestBase {
 		assertNoErrors();
 		*/
 		// tmp ini
-		changeImage("attachments.photo", "test-images/foto_javi.jpg");
+		uploadFile("attachments.photo", "test-images/foto_javi.jpg");
 		execute("CRUD.save");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "ANATOLY KARPOV");				
-		assertImage("attachments.photo"); 
+		assertFile("attachments.photo"); 
 		// tmp fin
 		
 		/* tmp
@@ -157,7 +157,7 @@ public class UserWithNicknameTest extends ModuleTestBase {
 		assertMessage("File added to Documents");
 		*/
 		// tmp ini
-		changeImage("attachments.documents", "reports/Corporation.html"); // tmp Cambiar nombre método
+		uploadFile("attachments.documents", "reports/Corporation.html"); 
 		reload();
 		assertFile("attachments.documents", 0, "text/html");
 		// tmp fin

@@ -34,15 +34,18 @@ public class FilesServlet extends HttpServlet {
 			if (!Is.emptyString(fileId)) {
 				setDefaultSchema(request);
 				AttachedFile file = FilePersistorFactory.getInstance().find(fileId);
+				System.out.println("[FilesServlet.doGet] file.getName()=" + file.getName()); // tmp
 				
 				registerMimeDetector();
 				
 				MimeType mimeType = MimeUtil.getMostSpecificMimeType(MimeUtil.getMimeTypes(file.getName()));
 				String mime = mimeType.getMediaType() + "/" + mimeType.getSubType();
+				System.out.println("[FilesServlet.doGet] mime1=" + mime); // tmp
 								
 				if(MIME_UNKNOWN.equals(mime)) {
 					mimeType = MimeUtil.getMostSpecificMimeType(MimeUtil.getMimeTypes(file.getData()));
 					mime = mimeType.getMediaType() + "/" + mimeType.getSubType();
+					System.out.println("[FilesServlet.doGet] mime2=" + mime); // tmp
 				}
 				response.setContentType(mime);
 				response.setHeader("Content-Disposition", "inline; filename=\""	+ file.getName() + "\"");

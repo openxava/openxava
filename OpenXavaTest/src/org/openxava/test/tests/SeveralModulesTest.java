@@ -32,8 +32,14 @@ public class SeveralModulesTest extends ModuleTestBase {
 
 	private void assertUploadFiles() throws Exception, IOException, MalformedURLException {
 		selectModuleInPage("Customer");		
+		/* tmp
 		changeImage("photo", "test-images/foto_javi.jpg"); 
-		assertImage("photo"); 
+		assertImage("photo");
+		*/
+		// tmp ini
+		uploadFile("photo", "test-images/foto_javi.jpg"); 
+		assertFile("photo");		
+		// tmp fin
 	}
 
 	private void assertCollections() throws Exception {

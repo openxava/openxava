@@ -26,6 +26,7 @@ public class UploadServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Requests.init(request, request.getParameter("application"), request.getParameter("module"));
+		getManager(request).executeBeforeEachRequestActions(request, new Messages(), new Messages()); // tmp 
 		try {
 			String property = Ids.undecorate(request.getParameter("propertyKey"));
 			String url = getEditorProperty(request, property, "getURL");
@@ -35,8 +36,7 @@ public class UploadServlet extends HttpServlet {
 			ModuleManager.commit();
 			Requests.clean(); 
 		}
-	}
-	
+	}	
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		executeAction(request, response, "post", true); 
@@ -50,8 +50,8 @@ public class UploadServlet extends HttpServlet {
 		String action = "UNKNOWN"; 
 		try {
 			Requests.init(request, request.getParameter("application"), request.getParameter("module"));			
-			ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
-			ModuleManager manager = (ModuleManager) context.get(request, "manager");
+			ModuleManager manager = getManager(request);
+			manager.executeBeforeEachRequestActions(request, new Messages(), new Messages()); // tmp 
 			if (parseMultipart) manager.parseMultipartRequest(request);
 			String property = Ids.undecorate(request.getParameter("propertyKey"));
 			action = getEditorProperty(request, property, method + "Action");
@@ -72,6 +72,11 @@ public class UploadServlet extends HttpServlet {
 			ModuleManager.commit();
 			Requests.clean(); 
 		}
+	}
+
+	private ModuleManager getManager(HttpServletRequest request) {
+		ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
+		return (ModuleManager) context.get(request, "manager");
 	}
 
 	private String getEditorProperty(HttpServletRequest request, String property, String editorProperty) {

@@ -199,8 +199,14 @@ public class FormulaTest extends ModuleTestBase {
 		execute("CRUD.new");		
 		setValue("name", "SOMETHING"); 
 		execute("Collection.new", "viewObject=xava_view_section0_ingredients");
+		/* tmp
 		changeImage("image", "test-images/cake.gif"); 
-		assertImage("image"); 
+		assertImage("image");
+		*/
+		// tmp ini
+		uploadFile("image", "test-images/cake.gif"); 
+		assertFile("image");		
+		// tmp fin
 	}
 	
 	public void testDependentReferencesAsDescriptionsListWithHiddenKeyInCollection_aggregateCanHasReferenceToModelOfContainerType() throws Exception {		
