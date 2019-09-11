@@ -128,9 +128,10 @@ public class Product2Test extends EmailNotificationsTestBase {
 		// Adding one image
 		// tmp changeImage("photos", "test-images/foto_javi.jpg"); 
 		uploadFile("photos", "test-images/foto_javi.jpg"); // tmp
+		uploadFile("photos", "test-images/cake.gif"); // tmp
 		reload();
 		// tmp assertGalleryImagesCount("photos", 1);
-		assertFilesCount("photos", 1); // tmp
+		assertFilesCount("photos", 2); // tmp
 				
 		// Verifying that product 2 has no images
 		execute("Navigation.next");
@@ -144,11 +145,12 @@ public class Product2Test extends EmailNotificationsTestBase {
 		execute("CRUD.refresh");
 		assertNoErrors();
 		// tmp assertGalleryImagesCount("photos", 1); 
-		assertFilesCount("photos", 1); // tmp
+		assertFilesCount("photos", 2); // tmp
 		
-		// Removing the image
+		// Removing the images
 		// tmp removeGalleryImage("photos", 0);
 		removeFile("photos", 0); // tmp
+		removeFile("photos", 1); // tmp
 		
 		// Verifying that product 1 has no images
 		execute("CRUD.new");
@@ -160,7 +162,9 @@ public class Product2Test extends EmailNotificationsTestBase {
 
 		assertEmailNotifications( 
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: NEW IMAGES ADDED --> foto_javi.jpg</li></ul>",
-			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: IMAGE REMOVED --> One image removed</li></ul>"
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: NEW IMAGES ADDED --> cake.gif</li></ul>", // tmp
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: IMAGE REMOVED --> One image removed</li></ul>",
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: IMAGE REMOVED --> One image removed</li></ul>" // tmp
 		);	
 	}
 	

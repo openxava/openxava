@@ -31,7 +31,7 @@ abstract public class ExamBaseTest extends ModuleTestBase {
 	protected abstract String getPersistenceUnit();
 	protected abstract String getDefaultSchema();
 	
-	public void testChangeDatasource() throws Exception {
+	public void testChangeDatasource() throws Exception { 
 		// Real data source
 		setDatasource(Datasource.REAL);
 		execute("Mode.list"); 
@@ -89,7 +89,7 @@ abstract public class ExamBaseTest extends ModuleTestBase {
 		getLastRevisionNumber();
 	}
 	
-	public void testFileChangingDatasource() throws Exception {
+	public void testFileChangingDatasource() throws Exception { 
 		// Real data source
 		setDatasource(Datasource.REAL);
 		execute("Mode.list"); 

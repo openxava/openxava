@@ -62,7 +62,7 @@ public class UserWithNicknameTest extends ModuleTestBase {
 		assertMessage("User with nickname created successfully");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
-		attachFiles();			
+		attachFiles(); 		
 		execute("CRUD.delete");
 		assertNoErrors();
 		removeNicknames();

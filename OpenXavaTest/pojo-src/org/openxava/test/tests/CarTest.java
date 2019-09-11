@@ -48,7 +48,7 @@ public class CarTest extends ModuleTestBase {
 		removeImage("photos.0.photo");
 		*/
 		// tmp ini
-		assertFile("photos.0.photo");
+		assertFile("photos.0.photo"); 
 		assertFile("photos.1.photo");
 		
 		removeFile("photos.0.photo");		

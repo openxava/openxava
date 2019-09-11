@@ -32,7 +32,6 @@ public class LoadIntoAttachedFilesAction extends    /* tmp ViewBaseAction */ Gen
 	
 	@Override
 	public void execute() throws Exception {
-		System.out.println("[UploadFileIntoFilesetAction.execute] property=" + property); // tmp 
 		// tmp String libraryId = getPreviousView().getValueString(newFilesetProperty);
 		String libraryId = generateIdForProperty(property); // tmp 
 		Iterator<?> it = fileItems.iterator();		

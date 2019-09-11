@@ -19,7 +19,6 @@ public class AddFileToFilesetAction extends ViewBaseAction implements
 	
 	@Override
 	public void execute() throws Exception {
-		// tmp Debería probar añadir en un registro virgen, por si esta logica la tengo que mover a otro sitio
 		String libraryId = getView().getValueString(getNewFilesetProperty());
 		if(Is.emptyString(libraryId)) {
 			libraryId = (String) new org.openxava.calculators.UUIDCalculator().calculate();

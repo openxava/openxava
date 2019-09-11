@@ -43,8 +43,6 @@ public class LoadAttachedFileAction extends ViewBaseAction implements /* tmp INa
 				file.setData(fi.get());
 				FilePersistorFactory.getInstance().save(file);
 				// tmp getPreviousView().setValue(getNewFileProperty(), file.getId());
-				System.out.println("[UploadFileAction.execute] property=" + property); // tmp
-				System.out.println("[UploadFileAction.execute] file.getId()=" + file.getId()); // tmp
 				getView().setValue(property, file.getId()); // tmp
 				break;
 			}			

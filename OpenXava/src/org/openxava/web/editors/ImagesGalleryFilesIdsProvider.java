@@ -1,5 +1,8 @@
 package org.openxava.web.editors;
 
+import java.util.*;
+import java.util.stream.*;
+
 import org.openxava.session.*;
 
 /**
@@ -11,6 +14,7 @@ import org.openxava.session.*;
 public class ImagesGalleryFilesIdsProvider implements IUploadFilesIdsProvider {
 
 	public String getFilesIds(Object propertyValue) {
+		/* tmp
 		Gallery gallery = Gallery.find((String) propertyValue);
 		StringBuilder filesIds = new StringBuilder();
 		for (String imageOid: gallery.getImagesOids()) {
@@ -18,6 +22,8 @@ public class ImagesGalleryFilesIdsProvider implements IUploadFilesIdsProvider {
 			filesIds.append(imageOid);
 		}
 		return filesIds.toString();
+		*/
+		return String.join(",", Gallery.find((String) propertyValue).getImagesOids()); // tmp
 	}
 
 }

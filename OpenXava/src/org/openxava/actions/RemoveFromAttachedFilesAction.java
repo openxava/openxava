@@ -20,7 +20,6 @@ public class RemoveFromAttachedFilesAction extends ViewBaseAction {
 	
 	@Override
 	public void execute() throws Exception {
-		System.out.println("[RemoveFileFromFilesetAction.execute] "); // tmp
 		AttachedFile file = FilePersistorFactory.getInstance().find(getFileId()); 
 		FilePersistorFactory.getInstance().remove(getFileId());
 		trackModification(file); 

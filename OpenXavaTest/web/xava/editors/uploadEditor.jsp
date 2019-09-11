@@ -53,7 +53,7 @@ String dataPreview = !preview?"data-preview='false'":"";
 	<%=dataFiles%> 
 	<%=dataEmpty%>
 	<%=dataEditable%>/>
-	
+
 <input type="hidden" name="<%=propertyKey%>" value="<%=value%>">
 
 <jsp:include page="filePondTranslation.jsp"/>	

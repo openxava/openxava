@@ -281,7 +281,7 @@ public class MovieTest extends EmailNotificationsTestBase {
 		assertValue("title", title);		
 	}
 	
-	private String getUrlToFile(String filename) { // tmp Quitar
+	private String getUrlToFile(String filename) { 
 		String href = getFileAnchors().get(filename).getHrefAttribute();
 		return "http://" + getHost() + ":" + getPort() + href;
 	}
@@ -292,7 +292,7 @@ public class MovieTest extends EmailNotificationsTestBase {
 	}
 	*/
 	
-	private Map<String, HtmlAnchor> getFileAnchors() { // tmp Quitar
+	private Map<String, HtmlAnchor> getFileAnchors() { 
 		Map<String, HtmlAnchor> anchors = new HashMap<String, HtmlAnchor>(); 
 		
 		for(HtmlAnchor anchor : getHtmlPage().getAnchors()) {

@@ -4,7 +4,7 @@ Image: Customer module with all browsers
 - Add the photo column to the list. Photos are tiny and no broken links for no photo.
 - Go to first customer: Must have a photo. No uploading progress must be done.
 - Navigate to the next one: Must have a link to browse for a new photo.
-- Browser for a new photo.
+- Browse for a new photo.
 - Click on the photo. A new browser tab should open displaying the photo. Close it.
 	- With Firefox: The photo is shown in the same tab, click back in browser to return. 
 - Save. Go to list. Select the second record. You have to see that photo. No uploading progress must be done. 
@@ -39,7 +39,7 @@ AttachedFile and AttachedFiles: Movie with all browsers
 - Click on the image. The image is downloaded with the correct file title. (Fails with Internet Explorer)
 - Click on Save.
 - Go list, edit your movie. The image must be there.
-- Click on the image. The image is downloaded with the correct file title.
+- Click on the image. The image is downloaded with the correct file title. (In a new tab with Internet Explorer)
 - Delete the movie.
 - Go to first record "FOREST GUMP".
-- Click in one script. The script is downloaded with the correct file title.   
+- Click in one script. The script is downloaded with the correct file title. (In a new tab with Internet Explorer)  

@@ -1,14 +1,6 @@
 package org.openxava.test.tests;
 
-import static org.openxava.test.tests.EmailNotificationsTestUtil.removeAllEmailSubscriptions;
-
-import java.io.*;
-import java.util.*;
-import javax.persistence.*;
-import org.openxava.jpa.*;
 import org.openxava.tests.*;
-import org.openxava.util.impl.*;
-import junit.framework.*;
 
 /**
  * 

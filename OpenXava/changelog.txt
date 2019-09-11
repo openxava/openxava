@@ -2,19 +2,18 @@ Change Log for OpenXava project
 ===============================
 
 - FILE and FILES:
-	* Pruebas JUnit.
-	* Rename changeImage() from ModuleTestBase to fit all upload editors
-	* FILES con registro nuevo
-	* ¿Qué pasa si se suben imagen?
-	* Prueba manuales.
-	- Pasar pruebas manuales para PHOTO y GALLERY
+	* Arreglar test fallidos de la suite
+	* Revisar código
+	* Lanzar test clave
+	* Pasar pruebas manuales para PHOTO y GALLERY
+	- Limpiar código
 	- light.css
 	- Liferay
+	- Pruebas manuales
+	- Limpiar imágenes de la DB
 	- Suite
 	- Redoc: Al menos migration: FILE/FILES y refactoring de métodos
-
-
-
+	
 
 - Guide for deploying on Tomcat in Spanish and English.
 - Getting started guide simplified. 

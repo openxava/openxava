@@ -412,9 +412,11 @@ public class Style {
 	 * 
 	 * @since 6.2
 	 */
+	/* tmp
 	public String getImage() { 
 		return "ox-image"; 
 	}
+	*/
 	
 	public String getList() {  
 		return "ox-list";

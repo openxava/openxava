@@ -15,21 +15,21 @@ import org.openxava.util.*;
 abstract public class GenerateIdForPropertyBaseAction extends ViewBaseAction {
 	
 	protected String generateIdForProperty(String property) throws Exception { 
-		String oid = getView().getValueString(property);
-		if (Is.emptyString(oid)) {
+		String id = getView().getValueString(property);
+		if (Is.emptyString(id)) {
 			UUIDCalculator cal = new UUIDCalculator();  
-			oid = (String) cal.calculate();
-			getView().setValue(property, oid);
+			id = (String) cal.calculate();
+			getView().setValue(property, id);
 			if (!getView().isKeyEditable()) { // Modifying
-				updateOidInObject(property, oid);
+				updateIdInObject(property, id);
 			}
 		}
-		return oid;
+		return id;
 	}
 
-	private void updateOidInObject(String property, String oid) throws Exception { 
+	private void updateIdInObject(String property, String id) throws Exception { 
 		Map values = new HashMap();
-		values.put(property, oid);
+		Maps.putValueFromQualifiedName(values, property, id);
 		MapFacade.setValuesNotTracking(getView().getModelName(), getView().getKeyValues(), values); 
 	}
 

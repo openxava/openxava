@@ -665,7 +665,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setValue("comment", "JUNIT INVOICE");
 		setValue("customer.number", "1");
 		execute("Sections.change", "activeSection=2");
-		setValue("vatPercentage", "16");
+		setValue("vatPercentage", "16"); 
 		execute("Sections.change", "activeSection=1");
 		execute("Collection.new", "viewObject=xava_view_section1_details");
 		execute("Collection.save");

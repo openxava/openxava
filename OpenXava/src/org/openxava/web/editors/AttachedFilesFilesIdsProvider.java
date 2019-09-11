@@ -1,6 +1,7 @@
 package org.openxava.web.editors;
 
 import java.util.*;
+import java.util.stream.*;
 
 /**
  * tmp
@@ -10,7 +11,7 @@ import java.util.*;
 public class AttachedFilesFilesIdsProvider implements IUploadFilesIdsProvider {
 
 	public String getFilesIds(Object propertyValue) {
-		// tmp ¿Probar con streams?
+		/* tmp
 		StringBuilder filesIds = new StringBuilder(); 
 		Collection<AttachedFile> files = FilePersistorFactory.getInstance().findLibrary((String) propertyValue);
 		for (AttachedFile file : files) {
@@ -18,6 +19,9 @@ public class AttachedFilesFilesIdsProvider implements IUploadFilesIdsProvider {
 			filesIds.append(file.getId());
 		}
 		return filesIds.toString();
+		*/
+		Collection<AttachedFile> files = FilePersistorFactory.getInstance().findLibrary((String) propertyValue);
+		return files.stream().map(AttachedFile::getId).collect(Collectors.joining(","));
 	}
 
 }

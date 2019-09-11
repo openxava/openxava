@@ -4,6 +4,7 @@ import org.openxava.actions.*;
 import org.openxava.web.editors.*;
 
 /**
+ * tmp Eliminar
  * @author Jeromy Altuna
  */
 public class RemoveFileAction extends RemoveAttachedFileAction {

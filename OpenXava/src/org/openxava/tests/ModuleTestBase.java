@@ -3083,7 +3083,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
 	 * @since 6.2
 	 */
-	/* tmp Cambiar migration
+	/* tmp 
 	protected void assertImage(String property) throws Exception { 
 		// tmp assertImage(property, true);
 		assertFile(property, 0, "image", true); // tmp
@@ -3216,7 +3216,6 @@ abstract public class ModuleTestBase extends TestCase {
 		fileURL = urlPrefix + fileURL;
 		HtmlElement input = getElementById(property);
 		String dataFiles = input.getAttribute("data-files");
-		System.out.println("[ModuleTestBase.assertFile] dataFiles=" + dataFiles); // tmp
 		if (!Is.emptyString(dataFiles)) {
 			String [] ids = dataFiles.split(",");
 			fileURL = fileURL + "&fileId=" + ids[index];
@@ -3229,10 +3228,6 @@ abstract public class ModuleTestBase extends TestCase {
 		if (present) {
 			assertTrue(XavaResources.getString("image_not_obtained"), response.getContentAsString().length() > 0); // tmp i18n
 			if (contentType != null) {
-				System.out.println("[ModuleTestBase.assertFile] contentType=" + contentType); // tmp
-				System.out.println("[ModuleTestBase.assertFile] response.getContentType()=" + response.getContentType()); // tmp
-				String filename = response.getResponseHeaderValue("filename"); // tmp
-				System.out.println("[ModuleTestBase.assertFile] filename=" + filename); // tmp
 				assertTrue(XavaResources.getString("result_is_not_image"), response.getContentType().startsWith(contentType)); // tmp i18n Incluir contentType esperado y obtenido
 			}
 		}
