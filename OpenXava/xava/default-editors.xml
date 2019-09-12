@@ -134,17 +134,6 @@
         <for-stereotype stereotype="WEBURL"/>
     </editor>    
     
-	<editor name="Image" url="imageEditor.jsp" format="false">
-		<property name="postAction" value="ImageEditor.load"/>
-		<property name="deleteAction" value="ImageEditor.delete"/>
-		<property name="getURL" value="/xava/ximage"/>	
-		<formatter class="org.openxava.formatters.ImageFormatter" />
-		<for-stereotype stereotype="FOTO" />
-		<for-stereotype stereotype="PHOTO" />
-		<for-stereotype stereotype="IMAGEN" />
-		<for-stereotype stereotype="IMAGE" />
-	</editor>
-	
 	<editor name="TextArea" url="textAreaEditor.jsp" frame="true">
 		<for-stereotype stereotype="TEXTO_GRANDE" />
 		<for-stereotype stereotype="MEMO" />
@@ -176,13 +165,53 @@
 		<for-stereotype stereotype="ETIQUETA_NEGRITA" />
 		<for-stereotype stereotype="BOLD_LABEL" />
 	</editor>
-
-	<editor name="Gallery" url="galleryEditor.jsp" frame="true">
-		<property name="postAction" value="GalleryEditor.loadImage"/>
-		<property name="deleteAction" value="GalleryEditor.removeImage"/>
-		<property name="getURL" value="/xava/gallery"/> 
+	
+	<editor name="Image" url="uploadEditor.jsp" format="false">
+		<property name="postAction" value="ImageEditor.load"/>
+		<property name="deleteAction" value="ImageEditor.remove"/>
+		<property name="getURL" value="/xava/ximage"/>
+		<property name="filesIdsProviderClass" value="org.openxava.web.editors.NullFilesIdsProvider"/>
+		<property name="cssClass" value="ox-image"/> 	
+		<formatter class="org.openxava.formatters.ImageFormatter" />
+		<for-stereotype stereotype="FOTO" />
+		<for-stereotype stereotype="PHOTO" />
+		<for-stereotype stereotype="IMAGEN" />
+		<for-stereotype stereotype="IMAGE" />
+	</editor>
+	
+	<editor name="Gallery" url="uploadEditor.jsp" format="false" frame="true">
+		<property name="postAction" value="GalleryEditor.load"/>
+		<property name="deleteAction" value="GalleryEditor.remove"/>
+		<property name="getURL" value="/xava/gallery"/>
+		<property name="filesIdsProviderClass" value="org.openxava.web.editors.ImagesGalleryFilesIdsProvider"/>
+		<property name="multipleFiles" value="true"/> 
+		<property name="cssClass" value="ox-gallery"/> 
 		<for-stereotype stereotype="IMAGES_GALLERY" />
 		<for-stereotype stereotype="GALERIA_IMAGENES" />
+	</editor>
+	
+	<editor name="AttachedFile" url="uploadEditor.jsp" format="false">
+		<property name="postAction" value="AttachedFileEditor.load"/> 
+		<property name="deleteAction" value="AttachedFileEditor.remove"/> 
+		<property name="getURL" value="/xava/xfile"/>
+		<property name="filesIdsProviderClass" value="org.openxava.web.editors.PropertyValueFilesIdsProvider"/>
+		<property name="cssClass" value="ox-file"/> 
+		<property name="imagePreview" value="false"/>
+		<list-formatter class="org.openxava.formatters.FileListFormatter" /> 
+		<for-stereotype stereotype="FILE" />
+		<for-stereotype stereotype="ARCHIVO" />
+	</editor>			
+	
+	<editor name="AttachedFiles" url="uploadEditor.jsp" format="false">
+		<property name="postAction" value="AttachedFilesEditor.load"/> 
+		<property name="deleteAction" value="AttachedFilesEditor.remove"/> 
+		<property name="getURL" value="/xava/xfile"/>
+		<property name="filesIdsProviderClass" value="org.openxava.web.editors.AttachedFilesFilesIdsProvider"/>
+		<property name="cssClass" value="ox-files"/> 
+		<property name="multipleFiles" value="true"/>
+		<property name="imagePreview" value="false"/>		
+		<for-stereotype stereotype="FILES" />
+		<for-stereotype stereotype="ARCHIVOS" />
 	</editor>
 	
 	<editor name="ZeroFilled" url="textEditor.jsp">
@@ -275,17 +304,6 @@
 		<for-model-property model="MyReportColumn" property="descriptionsListValue" />
 	</editor>	
 												
-	<editor name="AttachedFile" url="attachedFileEditor.jsp">		
-		<list-formatter class="org.openxava.formatters.FileListFormatter" />
-		<for-stereotype stereotype="FILE" />
-		<for-stereotype stereotype="ARCHIVO" />
-	</editor>								
-	
-	<editor name="AttachedFiles" url="attachedFilesEditor.jsp" always-reload="true">
-		<for-stereotype stereotype="FILES" />
-		<for-stereotype stereotype="ARCHIVOS" />
-	</editor>
-	
 	<editor name="Discussion" url="discussionEditor.jsp" frame="true">
 		<for-stereotype stereotype="DISCUSSION" />
 		<for-stereotype stereotype="DISCUSION" />

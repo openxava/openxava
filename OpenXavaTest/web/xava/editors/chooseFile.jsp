@@ -1,5 +1,3 @@
-<%-- tmp Eliminar --%>
-
 <%@ include file="../imports.jsp"%>
 
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>

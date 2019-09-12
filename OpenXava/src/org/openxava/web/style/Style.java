@@ -408,16 +408,6 @@ public class Style {
 		return "ox-frame-content";
 	}
 	
-	/** 
-	 * 
-	 * @since 6.2
-	 */
-	/* tmp
-	public String getImage() { 
-		return "ox-image"; 
-	}
-	*/
-	
 	public String getList() {  
 		return "ox-list";
 	}

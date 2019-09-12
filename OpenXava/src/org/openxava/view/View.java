@@ -2988,8 +2988,7 @@ public class View implements java.io.Serializable {
 					if (falseBooleans == null) falseBooleans = new HashSet();
 					falseBooleans.add(p.getName());
 				}
-				// tmp if (results == null) {
-				if (results == null || !WebEditors.mustToFormat(p, getViewName())) { // tmp
+				if (results == null || !WebEditors.mustToFormat(p, getViewName())) { 
 					if (oldCollectionValues != null && i < oldCollectionValues.size()) {
 						Object originalValue = oldCollectionValues.get(i).get(p.getName());
 						if (originalValues == null) originalValues = new HashMap();

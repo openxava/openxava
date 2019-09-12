@@ -1096,6 +1096,19 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 	width: 190px;
 }
 
+.ox-file {
+	width: 330px;;
+}
+
+.ox-files {
+	width: calc(100vw - 400px);
+}
+
+.ox-file .filepond--item, .ox-files .filepond--item {
+	width: 300px;
+	cursor: pointer;
+}
+
 .filepond--panel-root {
 	border-radius: 4px !important;
 	background-color: white !important;
@@ -1121,7 +1134,7 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 	cursor: pointer;
 }
 
-.filepond--file-info-main {
+.ox-image .filepond--file-info-main, .ox-gallery .filepond--file-info-main {
 	display: none !important;
 }
 

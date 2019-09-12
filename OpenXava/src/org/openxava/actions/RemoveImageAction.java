@@ -5,7 +5,7 @@ package org.openxava.actions;
  * Created on 04/02/2009 (16:23:01)
  * @autor Ana Andres
  */
-public class RemoveImageAction extends ViewBaseAction { // tmp Renombrada de DeleteImageAction
+public class RemoveImageAction extends ViewBaseAction { 
 	
 	private String property; 
 	

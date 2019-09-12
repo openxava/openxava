@@ -3027,185 +3027,85 @@ abstract public class ModuleTestBase extends TestCase {
 		return (HtmlSelect) listTitle.getElementsByTagName("select").get(index); 
 	}
 	
-	/**
-	 * Assert the amount of attachments. <p> 
-	 * 
-	 * @param name of the ATTACHMENTS property
-	 * @param expectedCount the amount of attachments expected
-	 * 
-	 * @since 5.8
-	 */
-	/* tmp
-	protected void assertAttachmentsCount(String name, int expectedCount) { // tmp Quitar
-		HtmlElement holder = getAttachmentsHolderElement(name);
-		assertEquals(expectedCount, holder.getByXPath("a[@class='ox-attachment-item' and not(@style='display: none')]").size());		
-	}
-	*/
-	
-	/**
-	 * Assert the name of the attachment. <p> 
-	 * 
-	 * @param name of the ATTACHMENTS property
-	 * @param expectedName expected name of the attachment
-	 * 
-	 * @since 5.8
-	 */
-	/* tmp
-	@SuppressWarnings("unchecked")
-	protected void assertExistsAttachmentName(String name, String expectedName) { // tmp Quitar
-		boolean exists = false;
-		HtmlElement holder = getAttachmentsHolderElement(name);
-		List<HtmlAnchor> anchors = holder.getByXPath("a[@class='ox-attachment-item' and not(@style='display: none')]");
-		for (HtmlAnchor anchor: anchors) {
-			if (exists = anchor.getTextContent().trim().equals(expectedName)) break;
-		}		
-		assertTrue(exists);
-	}
-	*/
-	
-	/* tmp
-	private HtmlElement getAttachmentsHolderElement(String name) { // tmp Quitar
-		HtmlElement attachmentsEditor = getHtmlPage().getHtmlElementById(decorateId("editor_" + name));
-		return attachmentsEditor.getOneHtmlElementByAttribute("div", "class", "ox-attachments");
-	}
-	*/
 
 	/**
-	 * Assert if the property of PHOTO/IMAGE stereotype has a image associated.
+	 * Assert if the property with an upload editor of has a file associated.
+	 * 
+	 * For properties with stereotypes IMAGE, PHOTO, FILE, etc.
 	 * 
 	 * Example:
 	 * <pre>
-	 * assertImage("photo");
+	 * assertFile("photo", "image");
 	 * </pre>
 	 * 
-	 * It tries to recover the file from the server and verify if it is of image type. 
+	 * It tries to recover the file from the server and verify if it is of contentType. 
 	 * 
-	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
-	 * @since 6.2
-	 */
-	/* tmp 
-	protected void assertImage(String property) throws Exception { 
-		// tmp assertImage(property, true);
-		assertFile(property, 0, "image", true); // tmp
-	}
-	*/
-	
-	/**
-	 * Assert if the property of PHOTO/IMAGE stereotype has no image associated.
-	 * 
-	 * Example:
-	 * <pre>
-	 * assertNoImage("photo");
-	 * </pre>
-	 * 
-	 * It tries to recover the file from the server and verify if it is not of image type. 
-	 * 
-	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
-	 * @since 6.2
-	 */		
-	/* tmp
-	protected void assertNoImage(String property) throws Exception { // tmp ¿Mantener? 
-		// tmp assertImage(property, false);
-		assertFile(property, 0, "image", false); // tmp
-	}
-	*/
-	
-	/**
-	 * tmp redoc
-	 * Assert if the property of PHOTO/IMAGE stereotype has a image associated.
-	 * 
-	 * Example:
-	 * <pre>
-	 * assertImage("photo");
-	 * </pre>
-	 * 
-	 * It tries to recover the file from the server and verify if it is of image type. 
-	 * 
-	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @param property  The property name of the current view with an upload editor
+	 * @param contentType  The content type, such as image, image/png, text/html, etc.
 	 * @since 6.2
 	 */		
 	protected void assertFile(String property, String contentType) throws Exception { 
-		// tmp assertImage(property, true);
-		assertFile(property, 0, contentType, true); // tmp
+		assertFile(property, 0, contentType, true); 
 	}
 	
 	/**
-	 * tmp redoc
-	 * Assert if the property of PHOTO/IMAGE stereotype has a image associated.
+	 * Assert if the property with an upload editor has a file associated.
+	 * 
+	 * For properties with stereotypes IMAGE, PHOTO, FILE, etc.
 	 * 
 	 * Example:
 	 * <pre>
-	 * assertImage("photo");
+	 * assertFile("photo");
 	 * </pre>
 	 * 
-	 * It tries to recover the file from the server and verify if it is of image type. 
+	 * It tries to recover the file from the server. 
 	 * 
-	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @param property  The property name of the current view with an upload editor
 	 * @since 6.2
 	 */		
 	protected void assertFile(String property) throws Exception { 
-		// tmp assertImage(property, true);
-		assertFile(property, 0, null, true); // tmp
+		assertFile(property, 0, null, true); 
 	}	
-	
-	protected void assertFile(String property, int index, String expectedType) throws Exception { // tmp 
-		// tmp assertImage(property, true);
-		assertFile(property, index, expectedType, true); // tmp
-	}
-	
+
 	/**
-	 * tmp redoc
-	 * Assert if the property of PHOTO/IMAGE stereotype has no image associated.
+	 * Assert if the property with an upload editor with multiple files has a file associated in certain position.
+	 * 
+	 * For properties with stereotypes IMAGES_GALLERY, FILES, etc.
 	 * 
 	 * Example:
 	 * <pre>
-	 * assertNoImage("photo");
+	 * assertFile("attachments", 2, "text/html");
 	 * </pre>
 	 * 
-	 * It tries to recover the file from the server and verify if it is not of image type. 
+	 * It tries to recover the file from the server and verify if it is of contentType. 
 	 * 
-	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @param property  The property name of the current view with an upload editor
+	 * @param index  Position of the file
+	 * @param contentType  The content type, such as image, image/png, text/html, etc.
+	 * @since 6.2
+	 */			
+	protected void assertFile(String property, int index, String expectedType) throws Exception {  
+		assertFile(property, index, expectedType, true); 
+	}
+	
+	/**
+	 * Assert if the property with an upload editor has not a file associated.
+	 * 
+	 * For properties with stereotypes IMAGE, PHOTO, FILE, etc.
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertNoFile("photo");
+	 * </pre>
+	 *  
+	 * @param property  The property name of the current view with an upload editor
 	 * @since 6.2
 	 */		
-	protected void assertNoFile(String property) throws Exception { // tmp  
-		// tmp assertImage(property, false);
-		assertFile(property, 0, null, false); // tmp
-	}
-
-
-	/* tmp
-	private void assertImage(String property, boolean present) throws Exception { 
-		String imageURL = (String) getHtmlPage().executeJavaScript(
-			"var input = document.getElementById('" + decorateId(property) + "');" +
-			"uploadEditor.getFileURL(input)" 		
-		).getJavaScriptResult();
-		
-		URL url = getHtmlPage().getWebResponse().getWebRequest().getUrl(); 
-		String urlPrefix = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort(); 
-		imageURL = urlPrefix + imageURL;
-		// tmp ini
-		HtmlElement input = getElementById(property);
-		String dataFiles = input.getAttribute("data-files");
-		if (!Is.emptyString(dataFiles) && !dataFiles.contains(",")) {
-			imageURL = imageURL + "&fileId=" + dataFiles;
-		}
-		// tmp fin
-		TopLevelWindow imageWindow = (TopLevelWindow) getWebClient().openWindow(new URL(imageURL), "loadingImage");
-		WebResponse response = imageWindow.getEnclosedPage().getWebResponse();
-		if (present) {
-			assertTrue(XavaResources.getString("image_not_obtained"), response.getContentAsString().length() > 0);
-			System.out.println("[ModuleTestBase.assertImage] response.getContentType()=" + response.getContentType()); // tmp
-			assertTrue(XavaResources.getString("result_is_not_image"), response.getContentType().startsWith("image"));  
-		}
-		else {
-			assertTrue(XavaResources.getString("image_obtained"), response.getContentAsString().length() == 0);
-		}		
-		imageWindow.close(); 
-	}
-	*/
+	protected void assertNoFile(String property) throws Exception {   
+		assertFile(property, 0, null, false); 
+	}	
 	
-	
-	private void assertFile(String property, int index, String contentType, boolean present) throws Exception { // tmp 
+	private void assertFile(String property, int index, String contentType, boolean present) throws Exception {  
 		String fileURL = (String) getHtmlPage().executeJavaScript(
 			"var input = document.getElementById('" + decorateId(property) + "');" +
 			"uploadEditor.getFileURL(input)" 		
@@ -3221,14 +3121,15 @@ abstract public class ModuleTestBase extends TestCase {
 			fileURL = fileURL + "&fileId=" + ids[index];
 		}
 		else {
-			assertEquals("Unknown file id for file " + index, 0, index); // tmp i18n
+			assertEquals(XavaResources.getString("unknown_id_for_file", index), 0, index); 
 		}
 		TopLevelWindow fileWindow = (TopLevelWindow) getWebClient().openWindow(new URL(fileURL), "loadingFile");
 		WebResponse response = fileWindow.getEnclosedPage().getWebResponse();
 		if (present) {
-			assertTrue(XavaResources.getString("image_not_obtained"), response.getContentAsString().length() > 0); // tmp i18n
+			assertTrue(XavaResources.getString("file_not_obtained"), response.getContentAsString().length() > 0); 
 			if (contentType != null) {
-				assertTrue(XavaResources.getString("result_is_not_image"), response.getContentType().startsWith(contentType)); // tmp i18n Incluir contentType esperado y obtenido
+				assertTrue(XavaResources.getString("file_not_of_expected_type", contentType, response.getContentType()), 
+					response.getContentType().startsWith(contentType)); 
 			}
 		}
 		else {
@@ -3239,28 +3140,26 @@ abstract public class ModuleTestBase extends TestCase {
 
 
 	/**
-	 * tmp redoc 
-	 * Change the current image or assign a new one to a property of PHOTO/IMAGE or IMAGES_GALLERY stereotype.
+	 * Upload a file in a property with an upload editor.
+	 * 
+	 * For properties with stereotypes IMAGE, PHOTO, IMAGES_GALLERY, FILE, FILES, etc.
 	 * 
 	 * Example:
 	 * <pre>
-	 * changeImage("photo", "test-images/cake.gif");
+	 * uploadFile("photo", "test-images/cake.gif");
 	 * </pre>
 	 * 
-	 * The image is not saved in database until a save action is executed, like the real UI.
-	 * 
-	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE or IMAGES_GALLERY
-	 * @param imageURL  If the URL is relative it starts from the current project, if it is absolute (starts with /) it is used 'as is'.  
+	 * @param property  The property name of the current view with an upload editor
+	 * @param fileURL  If the URL is relative it starts from the current project, if it is absolute (starts with /) it is used 'as is'.  
 	 * @since 6.2
 	 */
-	// tmp protected void changeImage(String property, String imageURL) throws Exception { 
-	protected void uploadFile(String property, String imageURL) throws Exception { // tmp En migration
-		String imageAbsoluteURL = imageURL.startsWith("/")?
-			imageURL:System.getProperty("user.dir") + "/"+ imageURL; 
+	protected void uploadFile(String property, String fileURL) throws Exception { 
+		String imageAbsoluteURL = fileURL.startsWith("/")?
+			fileURL:System.getProperty("user.dir") + "/"+ fileURL; 
 		String decoratedProperty = decorateId(property);
 		HtmlFileInput input = (HtmlFileInput) getHtmlPage().getElementById(decoratedProperty);
 		input.setValueAttribute(imageAbsoluteURL);
-		assertEquals("INPUT for file upload should not have name", "", input.getNameAttribute()); // Having name makes that JUnit and real browser behaves different, 																								
+		assertEquals(XavaResources.getString("input_for_upload_not_name"), "", input.getNameAttribute()); // Having name makes that JUnit and real browser behaves different, 																								
 																						// and real browser would fail with element collection (try with Car module)
 		getHtmlPage().executeJavaScript(
 			"var formData = new FormData();" +
@@ -3274,27 +3173,26 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 
 	/**
-	 * tmp redoc
-	 * Remove the current image from a property of PHOTO/IMAGE stereotype.
+	 * Remove the current file from a property with an upload editor.
+	 * 
+	 * For properties with stereotypes IMAGE, PHOTO, FILE, etc.
 	 * 
 	 * Example:
 	 * <pre>
-	 * removeImage("photo");
+	 * removeFile("photo");
 	 * </pre>
 	 * 
-	 * The image is not removed from database until a save action is executed, like the real UI.
+	 * It's like clicking in the X button of the file, if the file is actually deleted
+	 * from database depends on the concrete editor.
 	 * 
-	 * @param property  The property name of the current view with stereotype PHOTO/IMAGE
+	 * @param property  The property name of the current view with an upload editor
 	 * @since 6.2
 	 */	
-	// tmp protected void removeImage(String property) throws Exception {
-	protected void removeFile(String property) throws Exception { // tmp Migration
-		// tmp removeImage(property, null);
-		removeFile(property, null); // tmp
+	protected void removeFile(String property) throws Exception { 
+		removeFile(property, null); 
 	}
 	
-	// tmp private void removeImage(String property, String fileId) throws Exception {
-	private void removeFile(String property, String fileId) throws Exception { // tmp Migration
+	private void removeFile(String property, String fileId) throws Exception { 
 		String fileIdParam = fileId == null?"":" + '&fileId=" + fileId + "'";
 		getHtmlPage().executeJavaScript(
 			"var input = document.getElementById('" + decorateId(property) + "');" +	
@@ -3306,19 +3204,20 @@ abstract public class ModuleTestBase extends TestCase {
 	}	
 
 	/**
-	 * tmp redoc
-	 * Assert the amount of images in a property of IMAGES_GALLERY stereotype .
+	 * Assert the amount of files in a property with an upload multiple editor.
+	 * 
+	 * For properties with stereotypes IMAGES_GALLERY, FILES, etc.
 	 * 
 	 * Example:
 	 * <pre>
-	 * assertGalleryImagesCount("screenshots", 5);
+	 * assertFilesCount("screenshots", 5);
 	 * </pre>
 	 * 
-	 * @param property  The property name of the current view with stereotype IMAGES_GALLERY
+	 * @param property  The property name of the current view with an upload multiple editor
+	 * @param expectedCount The expected number of files
 	 * @since 6.2
 	 */		
-	// tmp protected void assertGalleryImagesCount(String property, int expectedCount) throws Exception { 
-	protected void assertFilesCount(String property, int expectedCount) throws Exception { // tmp Migration
+	protected void assertFilesCount(String property, int expectedCount) throws Exception { 
 		HtmlInput input = getHtmlPage().getHtmlElementById(decorateId(property));
 		if (expectedCount > 0) {
 			assertEquals(expectedCount, input.getAttribute("data-files").split(",").length);
@@ -3331,27 +3230,27 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	/**
-	 * tmp redoc
-	 * Remove an image from a property of IMAGES_GALLERY stereotype.
+	 * Remove a file from a property with an upload multiple editor.
+	 * 
+	 * For properties with stereotypes IMAGES_GALLERY, FILES, etc.
 	 * 
 	 * Example:
 	 * <pre>
-	 * removeGalleryImage("screenshots", 0);
+	 * removeFile("screenshots", 2);
 	 * </pre>
 	 * 
-	 * The image is removed from database, like the real UI.
+	 * It's like clicking in the X button of the file, if the file is actually deleted
+	 * from database depends on the concrete editor.
 	 * 
-	 * @param property  The property name of the current view with stereotype IMAGES_GALLERY
-	 * @param index  The position (0 based) of the image to remove
+	 * @param property  The property name of the current view with an upload multiple editor
+	 * @param index  The position (0 based) of the file to remove
 	 * @since 6.2
 	 */		
-	// tmp protected void removeGalleryImage(String property, int index) throws Exception { 
 	protected void removeFile(String property, int index) throws Exception {
 		HtmlInput input = getHtmlPage().getHtmlElementById(decorateId(property));
 		String fileIds = input.getAttribute("data-files");
 		String fileId = fileIds.split(",")[index];
-		// tmp removeImage("photos", fileId);
-		removeFile(property, fileId); // tmp
+		removeFile(property, fileId); 
 	}
 
 }

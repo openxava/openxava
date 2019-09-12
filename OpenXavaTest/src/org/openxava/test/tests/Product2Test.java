@@ -122,49 +122,42 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertTrue("At least 2 products are required to run this test", getListRowCount() >= 2);
 		execute("List.viewDetail", "row=0");
 		assertValue("number", "1");	
-		// tmp assertGalleryImagesCount("photos", 0); 
-		assertFilesCount("photos", 0); // tmp
+		assertFilesCount("photos", 0); 
 				
 		// Adding one image
-		// tmp changeImage("photos", "test-images/foto_javi.jpg"); 
-		uploadFile("photos", "test-images/foto_javi.jpg"); // tmp
-		uploadFile("photos", "test-images/cake.gif"); // tmp
+		uploadFile("photos", "test-images/foto_javi.jpg"); 
+		uploadFile("photos", "test-images/cake.gif"); 
 		reload();
-		// tmp assertGalleryImagesCount("photos", 1);
-		assertFilesCount("photos", 2); // tmp
+		assertFilesCount("photos", 2); 
 				
 		// Verifying that product 2 has no images
 		execute("Navigation.next");
 		assertValue("number", "2");
-		// tmp assertGalleryImagesCount("photos", 0); 
-		assertFilesCount("photos", 0); // tmp
+		assertFilesCount("photos", 0); 
 		
 		// Verifying that product 1 has the added image
 		execute("CRUD.new");
 		setValue("number", "1");
 		execute("CRUD.refresh");
 		assertNoErrors();
-		// tmp assertGalleryImagesCount("photos", 1); 
-		assertFilesCount("photos", 2); // tmp
+		assertFilesCount("photos", 2); 
 		
 		// Removing the images
-		// tmp removeGalleryImage("photos", 0);
-		removeFile("photos", 0); // tmp
-		removeFile("photos", 1); // tmp
+		removeFile("photos", 0); 
+		removeFile("photos", 1); 
 		
 		// Verifying that product 1 has no images
 		execute("CRUD.new");
 		setValue("number", "1");
 		execute("CRUD.refresh");
 		assertNoErrors();
-		// tmp assertGalleryImagesCount("photos", 0); 
-		assertFilesCount("photos", 0); // tmp
+		assertFilesCount("photos", 0); 
 
 		assertEmailNotifications( 
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: NEW IMAGES ADDED --> foto_javi.jpg</li></ul>",
-			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: NEW IMAGES ADDED --> cake.gif</li></ul>", // tmp
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: NEW IMAGES ADDED --> cake.gif</li></ul>", 
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: IMAGE REMOVED --> One image removed</li></ul>",
-			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: IMAGE REMOVED --> One image removed</li></ul>" // tmp
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080/OpenXavaTest/modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: IMAGE REMOVED --> One image removed</li></ul>" 
 		);	
 	}
 	

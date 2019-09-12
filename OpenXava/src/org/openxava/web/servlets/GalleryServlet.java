@@ -29,14 +29,11 @@ public class GalleryServlet extends HttpServlet {
 			}			
 			String property = Ids.undecorate(request.getParameter("propertyKey"));
 			String galleryOid = getCurrentView(request).getValueString(property);
-			System.out.println("[GalleryServlet.doGet] galleryOid=" + galleryOid); // tmp
-			System.out.println("[GalleryServlet.doGet] oid=" + oid); // tmp
 			GalleryImage galleryImage = GalleryImage.find(oid);
-			System.out.println("[GalleryServlet.doGet] galleryImage=" + galleryImage); // tmp
 			if (Is.equal(galleryOid, galleryImage.getGalleryOid())) {
 				byte [] image = galleryImage.getImage(); 
 				if (image != null) {					
-					response.setContentType("image/png"); // "images" without png does not work for FilePonde with Firefox, png works for any type of image 
+					response.setContentType("image/png"); // "images" without png does not work for FilePond with Firefox, png works for any type of image 
 					response.getOutputStream().write(image);
 				}
 			} 

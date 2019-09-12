@@ -483,31 +483,16 @@ here that you want to override.
 	<controller name="ImageEditor"> 
 		<action name="load"
 			class="org.openxava.actions.LoadImageAction"/>
-		<!-- tmp 	
-		<action name="delete" 
-			class="org.openxava.actions.DeleteImageAction"/>
-		 -->
-		 <!-- tmp ini -->
 		<action name="remove" 
 			class="org.openxava.actions.RemoveImageAction"/>		 
-		 <!-- tmp fin -->						
 	</controller>
 	
 	<controller name="GalleryEditor">
-		<!-- tmp 
-		<action name="loadImage"
-			class="org.openxava.actions.LoadImageIntoGalleryAction"/>						 	
-		<action name="removeImage"
-			class="org.openxava.actions.RemoveImageFromGalleryAction"/>
-		-->	
-		 <!-- tmp ini -->
 		<action name="load"
 			class="org.openxava.actions.LoadImageIntoGalleryAction"/>						 	
 		<action name="remove"
 			class="org.openxava.actions.RemoveImageFromGalleryAction"/>		 
-		 <!-- tmp fin -->		
 	</controller>
-
 			
 	<controller name="Dialog">
 		<action name="cancel" 
@@ -811,14 +796,15 @@ here that you want to override.
 		</action>	
 	</controller>	
 	
-	<!-- tmp Quitar 
-	<controller name="AttachedFile">
-		<action name="choose" class="org.openxava.actions.ChooseFileAction"
-			icon="attachment" image="attach.gif" />
-		<action name="delete" class="org.openxava.actions.DeleteFileAction" 
-			icon="delete" image="delete.gif" confirm="true" />
+	<controller name="AttachedFileEditor">
+		<action name="load" class="org.openxava.actions.LoadAttachedFileAction"/>
+		<action name="remove" class="org.openxava.actions.RemoveAttachedFileAction"/>
 	</controller>
-	-->
+	
+	<controller name="AttachedFilesEditor"> 
+		<action name="load" class="org.openxava.actions.LoadIntoAttachedFilesAction"/>
+		<action name="remove" class="org.openxava.actions.RemoveFromAttachedFilesAction"/>	
+	</controller>	
 	
 	<controller name="Icon">
 		<action name="add" class="org.openxava.actions.GoChooseIconAction"/>
@@ -826,30 +812,7 @@ here that you want to override.
 		<action name="remove" class="org.openxava.actions.RemoveIconAction"	icon="close-circle"/>
 		<action name="choose" class="org.openxava.actions.ChooseIconAction"/>
 	</controller>
-	
-	<!-- tmp Quitar 
-	<controller name="UploadFile">
-		<action name="uploadFile" class="org.openxava.actions.UploadFileAction" />
-		<action name="cancel" class="org.openxava.actions.CancelAction" />
-	</controller>
-	-->
-	
-	<!-- tmp Quitar 
-	<controller name="AttachedFiles"> 
-		<action name="add" class="org.openxava.actions.AddFileToFilesetAction" 
-			icon="attachment" image="attach.gif" />
-		<action name="remove" class="org.openxava.actions.RemoveFileFromFilesetAction" 
-			icon="delete" image="delete.gif" confirm="true" />	
-	</controller>
-	-->
-	
-	<!--  tmp Quitar 
-	<controller name="UploadFileIntoFileset">
-		<action name="uploadFile" class="org.openxava.actions.UploadFileIntoFilesetAction" />
-		<action name="cancel" class="org.openxava.actions.CancelAction" />
-	</controller>
-	-->
-	
+		
 	<controller name="EmailNotifications">
 		<action name="subscribe" icon="rss" 
 			class="org.openxava.actions.SubscribeToEmailNotificationsAction">

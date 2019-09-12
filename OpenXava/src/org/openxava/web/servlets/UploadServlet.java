@@ -26,7 +26,7 @@ public class UploadServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Requests.init(request, request.getParameter("application"), request.getParameter("module"));
-		getManager(request).executeBeforeEachRequestActions(request, new Messages(), new Messages()); // tmp 
+		getManager(request).executeBeforeEachRequestActions(request, new Messages(), new Messages());  
 		try {
 			String property = Ids.undecorate(request.getParameter("propertyKey"));
 			String url = getEditorProperty(request, property, "getURL");
@@ -51,7 +51,7 @@ public class UploadServlet extends HttpServlet {
 		try {
 			Requests.init(request, request.getParameter("application"), request.getParameter("module"));			
 			ModuleManager manager = getManager(request);
-			manager.executeBeforeEachRequestActions(request, new Messages(), new Messages()); // tmp 
+			manager.executeBeforeEachRequestActions(request, new Messages(), new Messages());  
 			if (parseMultipart) manager.parseMultipartRequest(request);
 			String property = Ids.undecorate(request.getParameter("propertyKey"));
 			action = getEditorProperty(request, property, method + "Action");

@@ -1857,6 +1857,19 @@ div[id$="_Index__view"] .ox-list-title {
 	width: 190px;
 }
 
+.ox-file {
+	width: 330px;;
+}
+
+.ox-files {
+	width: calc(100vw - 400px);
+}
+
+.ox-file .filepond--item, .ox-files .filepond--item {
+	width: 300px;
+	cursor: pointer;
+}
+
 .filepond--panel-root {
 	border-radius: 4px !important;
 }
@@ -1877,7 +1890,7 @@ div[id$="_Index__view"] .ox-list-title {
 	cursor: pointer;
 }
 
-.filepond--file-info-main {
+.ox-image .filepond--file-info-main, .ox-gallery .filepond--file-info-main {
 	display: none !important;
 }
 

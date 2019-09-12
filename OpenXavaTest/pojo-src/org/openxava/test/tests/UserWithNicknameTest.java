@@ -131,36 +131,16 @@ public class UserWithNicknameTest extends ModuleTestBase {
 	}
 	
 	private void attachFiles() throws Exception {
-		/* tmp
-		execute("AttachedFile.choose", "newFileProperty=attachments.photo");
-		assertNoErrors();
-		String filepath = System.getProperty("user.dir") + "/test-images/foto_javi.jpg";
-		setFileValue("newFile", filepath);
-		execute("UploadFile.uploadFile");
-		assertNoErrors();
-		*/
-		// tmp ini
 		uploadFile("attachments.photo", "test-images/foto_javi.jpg");
 		execute("CRUD.save");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "ANATOLY KARPOV");				
 		assertFile("attachments.photo"); 
-		// tmp fin
 		
-		/* tmp
-		execute("AttachedFiles.add", "newFilesetProperty=attachments.documents");
-		assertDialogTitle("Add files");
-		filepath  = System.getProperty("user.dir") + "/reports/Corporation.html";
-		setFileValue("newFile", filepath);
-		execute("UploadFileIntoFileset.uploadFile");
-		assertMessage("File added to Documents");
-		*/
-		// tmp ini
 		uploadFile("attachments.documents", "reports/Corporation.html"); 
 		reload();
 		assertFile("attachments.documents", 0, "text/html");
-		// tmp fin
 	}
 	
 	private void removeFiles() throws Exception {

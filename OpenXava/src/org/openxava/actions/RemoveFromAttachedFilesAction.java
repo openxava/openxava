@@ -15,7 +15,7 @@ import org.openxava.web.editors.*;
  */
 public class RemoveFromAttachedFilesAction extends ViewBaseAction {
 	
-	private String property; // tmp
+	private String property; 
 	private String fileId;
 	
 	@Override

@@ -1,8 +1,8 @@
 package org.openxava.web.editors;
 
 /**
- * tmp
- *  
+ * 
+ * @since 6.2 
  * @author Javier Paniza
  */
 

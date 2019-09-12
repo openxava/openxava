@@ -45,7 +45,7 @@ public class AppointmentTest extends ModuleTestBase {
 		assertValueInList(3, 1, "IR A LA PISCINA");
 		
 		execute("ImportData.importData");
-		execute("ConfigureImport.configureImport");
+		execute("ConfigureImport.configureImport"); 
 		assertErrorsCount(1);
 		assertError("You must choose a file");
 		

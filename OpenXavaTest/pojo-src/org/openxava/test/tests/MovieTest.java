@@ -40,35 +40,13 @@ public class MovieTest extends EmailNotificationsTestBase {
 				   response.getContentType().equals(MIME_UNKNOWN));
 	}
 	
-	/* tmp
-	public void testClickOnFileInDetailMode() throws Exception {
-		assertListRowCount(2);
-		execute("List.viewDetail", "row=0");
-		assertValue("title", "FORREST GUMP");
-		WebResponse response = getWebClient().getPage(
-				    getUrlToFile("Forrest Gump Trailer.webm")).getWebResponse();  
-		assertTrue(response.getContentType().equals("video/webm") || 
-				   response.getContentType().equals(MIME_UNKNOWN));
-	}
-	*/
-	
 	public void testAddFile() throws Exception {
 		addFile();
-		/* tmp
-		WebResponse response = getWebClient().getPage(
-				             getUrlToFile("Corporation.html")).getWebResponse();
-		assertTrue(response.getContentType().equals("text/html") || 
-				   response.getContentType().equals(MIME_UNKNOWN));
-		*/
-		assertFile("trailer", "text/html"); // tmp
-		/* tmp
-		changeModule("trailer");
-		execute("AttachedFile.delete", "newFileProperty=trailer");
-		*/
-		removeFile(); // tmp
+		assertFile("trailer", "text/html"); 
+		removeFile(); 
 	}
 	
-	public void testAddFilesInNewEntity() throws Exception { // tmp
+	public void testAddFilesInNewEntity() throws Exception { 
 		execute("CRUD.new");
 		setValue("title", "MATRIX");
 		uploadFile("scripts", "reports/Corporation.html");
@@ -80,39 +58,14 @@ public class MovieTest extends EmailNotificationsTestBase {
 		execute("CRUD.delete");
 	}
 	
-	/* tmp
-	public void testChangeFile() throws Exception {
-		addFile();
-		execute("AttachedFile.choose", "newFileProperty=trailer");
-		String filepath = System.getProperty("user.dir") + "/reports/Film.jrxml";
-		setFileValue("newFile", filepath);
-		execute("UploadFile.uploadFile");
-		assertNoErrors();
-		WebResponse response = getWebClient().getPage(
-				                   getUrlToFile("Film.jrxml")).getWebResponse();
-		assertTrue(response.getContentType().equals("application/docbook+xml") || 
-	            	response.getContentType().equals("application/x-docbook+xml") ||
-	            	response.getContentType().equals(MIME_UNKNOWN));
-		changeModule("Movie");
-		execute("AttachedFile.delete", "newFileProperty=trailer");
-	}
-	*/
 	
 	public void testDeleteFile() throws Exception {
 		addFile();
 		assertTrue("Trailer has no value", !Is.emptyString(getValue("trailer")) && !"null".equals(getValue("trailer")));
-		/* tmp
-		assertAction("AttachedFile.delete");
-		execute("AttachedFile.delete", "newFileProperty=trailer");
-		assertNoErrors();
-		*/
-		// tmp ini
-		removeFile("trailer"); // tmp Nombre del método
+		removeFile("trailer"); 
 		saveAndReloadMovie("JUNIT");
 		assertTrue("Trailer has value", Is.emptyString(getValue("trailer")) || "null".equals(getValue("trailer")));
-		// tmp fin
-		// tmp assertTrue("Trailer has value", Is.emptyString(getValue("trailer")));
-		removeFile(); // tmp
+		removeFile(); 
 	}
 	
 	public void testFileset() throws Exception {
@@ -120,47 +73,20 @@ public class MovieTest extends EmailNotificationsTestBase {
 		
 		assertListRowCount(2);
 		execute("List.viewDetail", "row=0");
-		// tmp assertTrue("At least 4 files", countFiles() == 4);	
-		assertFilesCount("scripts", 3); // tmp
+		assertFilesCount("scripts", 3); 
 		
 		//Adding one file
-		/* tmp
-		execute("AttachedFiles.add", "newFilesetProperty=scripts");
-		assertDialogTitle("Add files"); 
-		String filepath  = System.getProperty("user.dir") + "/reports/Corporation.html";
-		setFileValue("newFile", filepath);
-		execute("UploadFileIntoFileset.uploadFile");
-		assertMessage("File added to Scripts");
-		assertTrue("At least 5 files", countFiles() == 5);
-		*/
-		// tmp ini
 		uploadFile("scripts", "reports/Corporation.html"); 
 		reload();
 		assertFilesCount("scripts", 4); 
-		// tmp fin
 		
 		//Display file
-		/* tmp
-		String url = getUrlToFile("Corporation.html"); 
-		WebResponse response = getWebClient().getPage(url).getWebResponse();
-		assertTrue(response.getContentType().equals("text/html") || 
-				   response.getContentType().equals(MIME_UNKNOWN));
-		changeModule("Movie");
-		*/
-		assertFile("scripts", 0, "text/html"); // 0 is the last added because of oid generation // tmp 
+		assertFile("scripts", 0, "text/html"); // 0 is the last added because of oid generation  
 		
 		//Removing the file
-		/* tmp
-		assertAction("AttachedFiles.remove");
-		execute("AttachedFiles.remove", url.split("&")[2]);
-		assertNoErrors();
-		assertTrue("At least 4 files", countFiles() == 4);
-		*/
-		// tmp ini
 		removeFile("scripts", 0);
 		reload();
-		assertFilesCount("scripts", 3); // tmp Cambiar nombre método
-		// tmp fin
+		assertFilesCount("scripts", 3); 
 
 		assertEmailNotifications(
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080/OpenXavaTest/modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li><b>Scripts</b>: NEW FILES ADDED --> Corporation.html</li></ul>",
@@ -249,31 +175,19 @@ public class MovieTest extends EmailNotificationsTestBase {
 	
 	private void addFile() throws Exception {
 		execute("CRUD.new");
-		/* tmp
-		assertAction("AttachedFile.choose");
-		execute("AttachedFile.choose", "newFileProperty=trailer");
-		assertNoErrors();
-		assertAction("UploadFile.uploadFile");
-		String filepath = System.getProperty("user.dir") + "/reports/Corporation.html";
-		setFileValue("newFile", filepath);
-		execute("UploadFile.uploadFile");
-		assertNoErrors();
-		*/
-		// tmp ini
 		setValue("title", "JUNIT");
 		uploadFile("trailer", "reports/Corporation.html"); 
 		saveAndReloadMovie("JUNIT");
-		// tmp fin
 	}
 	
-	private void removeFile() throws Exception { // tmp
+	private void removeFile() throws Exception { 
 		execute("CRUD.delete");
 		XPersistence.getManager()
 			.createQuery("delete from AttachedFile where name = 'Corporation.html'")
 			.executeUpdate();
 	}
 	
-	private void saveAndReloadMovie(String title) throws Exception { // tmp
+	private void saveAndReloadMovie(String title) throws Exception { 
 		execute("CRUD.save");
 		execute("Mode.list");
 		assertValueInList(0, 0, title);
@@ -285,12 +199,6 @@ public class MovieTest extends EmailNotificationsTestBase {
 		String href = getFileAnchors().get(filename).getHrefAttribute();
 		return "http://" + getHost() + ":" + getPort() + href;
 	}
-	
-	/* tmp
-	private int countFiles() {
-		return getFileAnchors().size();
-	}
-	*/
 	
 	private Map<String, HtmlAnchor> getFileAnchors() { 
 		Map<String, HtmlAnchor> anchors = new HashMap<String, HtmlAnchor>(); 

@@ -965,6 +965,12 @@
 		<delete file="../${project}/web/xava/referenceEditorIcons.jsp"/>
 		<delete file="../${project}/web/xava/editors/changeImage.jsp"/>
 		<delete file="../${project}/web/xava/editors/gallery.jsp"/>
+		<delete file="../${project}/web/xava/editors/galleryEditor.jsp"/>
+		<delete file="../${project}/web/xava/editors/addImages.jsp"/>
+		<delete file="../${project}/web/xava/editors/addFiles.jsp"/>
+		<delete file="../${project}/web/xava/editors/attachedFileEditor.jsp"/>
+		<delete file="../${project}/web/xava/editors/attachedFilesEditor.jsp"/>
+		<delete file="../${project}/web/xava/editors/imageEditor.jsp"/>
 		
 	</target>
 	

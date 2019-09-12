@@ -1,8 +1,9 @@
 package org.openxava.web.editors;
 
 /**
- * tmp ¿Este nombre? ¿en este paquete?
+ * For upload editors provides the list of oids from the property value.
  * 
+ * @since 6.2
  * @author Javier Paniza
  */
 public interface IUploadFilesIdsProvider {

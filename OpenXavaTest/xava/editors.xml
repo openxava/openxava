@@ -6,57 +6,6 @@
 
 <editors>
 
-	<!-- tmp ini -->
-	<!-- tmp Pasar a default-editors.xml --> 
-	<editor name="AttachedFiles2" url="uploadEditor.jsp" format="false">
-		<property name="postAction" value="AttachedFilesEditor.load"/> 
-		<property name="deleteAction" value="AttachedFilesEditor.remove"/> 
-		<property name="getURL" value="/xava/xfile"/>
-		<property name="filesIdsProviderClass" value="org.openxava.web.editors.AttachedFilesFilesIdsProvider"/>
-		<property name="cssClass" value="ox-files"/> 
-		<property name="multipleFiles" value="true"/>
-		<property name="imagePreview" value="false"/>		
-		<for-stereotype stereotype="FILES" />
-		<for-stereotype stereotype="ARCHIVOS" />
-	</editor>	
-	
-	<editor name="AttachedFile2" url="uploadEditor.jsp" format="false">
-		<property name="postAction" value="AttachedFileEditor.load"/> 
-		<property name="deleteAction" value="AttachedFileEditor.remove"/> 
-		<property name="getURL" value="/xava/xfile"/>
-		<property name="filesIdsProviderClass" value="org.openxava.web.editors.PropertyValueFilesIdsProvider"/>
-		<property name="cssClass" value="ox-file"/> 
-		<property name="imagePreview" value="false"/>
-		<list-formatter class="org.openxava.formatters.FileListFormatter" /> 
-		<for-stereotype stereotype="FILE" />
-		<for-stereotype stereotype="ARCHIVO" />
-	</editor>
-	
-	<editor name="Gallery2" url="uploadEditor.jsp" format="false" frame="true">
-		<property name="postAction" value="GalleryEditor.load"/>
-		<property name="deleteAction" value="GalleryEditor.remove"/>
-		<property name="getURL" value="/xava/gallery"/>
-		<property name="filesIdsProviderClass" value="org.openxava.web.editors.ImagesGalleryFilesIdsProvider"/>
-		<property name="multipleFiles" value="true"/> 
-		<property name="cssClass" value="ox-gallery"/> 
-		<for-stereotype stereotype="IMAGES_GALLERY" />
-		<for-stereotype stereotype="GALERIA_IMAGENES" />
-	</editor>	
-	
-	<editor name="Image2" url="uploadEditor.jsp" format="false">
-		<property name="postAction" value="ImageEditor.load"/>
-		<property name="deleteAction" value="ImageEditor.remove"/>
-		<property name="getURL" value="/xava/ximage"/>
-		<property name="filesIdsProviderClass" value="org.openxava.web.editors.NullFilesIdsProvider"/>
-		<property name="cssClass" value="ox-image"/> 	
-		<formatter class="org.openxava.formatters.ImageFormatter" />
-		<for-stereotype stereotype="FOTO" />
-		<for-stereotype stereotype="PHOTO" />
-		<for-stereotype stereotype="IMAGEN" />
-		<for-stereotype stereotype="IMAGE" />
-	</editor>	
-	<!-- tmp fin -->
-
 	<editor url="regionsEditor.jsp">
 		<property name="regionsCount" value="3" />
 		<formatter
