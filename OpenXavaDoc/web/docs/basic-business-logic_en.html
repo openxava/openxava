@@ -1120,11 +1120,11 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.calculators</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.calculators</span><span
 class="sy0">;</span> <span class="co1">// In 'calculators' package</span>
 <span class="co2">
 import</span> <span class="co2">org.openxava.calculators.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.invoicing.model.*</span><span
+<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.model.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="kw2">static</span> <span class="co2">org.openxava.jpa.XPersistence.*</span><span
@@ -3302,7 +3302,7 @@ class="sy0">;</span>
       Though you can use the <em>java.util.Properties</em> class from Java to
       read this file we prefer to create a custom class to read these
       properties. We are going to call this class <em>InvoicingPreferences</em>
-      and we'll put it in a new package named <em>org.openxava.invoicing.util</em>.
+      and we'll put it in a new package named <em>com.yourcompany.invoicing.util</em>.
       You have the code here:<br>
       <style type="text/css"><!--
 /**
@@ -3491,7 +3491,7 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.util</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.util</span><span
 class="sy0">;</span> <span class="co1">// in 'util' package</span>
 <span class="co2">
 import</span> <span class="co2">java.io.*</span><span class="sy0">;</span>
@@ -3746,12 +3746,12 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.calculators</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.calculators</span><span
 class="sy0">;</span> <span class="co1">// In 'calculators' package</span>
 <span class="co2">
 import</span> <span class="co2">org.openxava.calculators.*</span><span class="sy0">;</span> <span
 class="co1">// To use ICalculator</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.invoicing.util.*</span><span
+<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.util.*</span><span
 class="sy0">;</span> <span class="co1">// To use InvoicingPreferences</span>
 &nbsp;
 <span class="kw2">public</span> <span class="kw2">class</span> VatPercentageCalculator <span

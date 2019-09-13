@@ -95,11 +95,11 @@
       útiles para probar tu módulo. Creemos la prueba para tu módulo <em>Cliente</em>.<br>
       <h3 id="toc3"><a name="Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-El+codigo+para+la+prueba"></a>El
         código para la prueba</h3>
-      Crea un paquete nuevo llamado <em>org.openxava.facturacion.pruebas</em> y
+      Crea un paquete nuevo llamado <em>com.tuempresa.facturacion.pruebas</em> y
       dentro de él una nueva clase llamada <em>PruebaCliente</em> con el
       siguiente código:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.pruebas;
+      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
  
 import org.openxava.tests.*;
  
@@ -232,10 +232,10 @@ SEVERE: Error unexpected: Es ogligado que Nombre en Cliente tenga valor
       crear datos de prueba. Crearemos algunos productos antes de ejecutar cada
       prueba y los borraremos después. Veamos el código de <em>PruebaProducto</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.pruebas;
+      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
  
 import java.math.*;
-import org.openxava.facturacion.modelo.*;
+import com.tuempresa.facturacion.modelo.*;
 import org.openxava.tests.*;
 import static org.openxava.jpa.XPersistence.*;
  
@@ -458,7 +458,7 @@ getManager().remove(autor); // Funciona
       Por ejemplo, puedes probar <em>Autor</em> y <em>Categoria</em> con una
       prueba tan simple como esta:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.pruebas;
+      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
  
 import org.openxava.tests.*;
  
@@ -493,7 +493,7 @@ public class PruebaAutor extends ModuleTestBase {
       <em>assertValueInCollection()</em> y <em>assertCollectionRowCount()</em>.<br>
       Podemos usar la misma técnica para probar el módulo <em>Categoria</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.pruebas;
+      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
  
 import org.openxava.tests.*;
  
@@ -531,7 +531,7 @@ public class PruebaCategoria extends ModuleTestBase {
         la prueba en varios métodos</h3>
       La prueba para crear una factura está dividida en varios métodos:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.facturacion.pruebas;
+      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
  
 import java.util.*;<br>import java.time.*;
 import java.time.format.*;<br>import javax.persistence.*;

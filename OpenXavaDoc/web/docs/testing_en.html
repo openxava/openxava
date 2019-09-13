@@ -49,7 +49,8 @@
       </div>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
-        Modeling with Java</a> | <strong>3. Automated testing</strong> | <a class="wiki_link"
+        Modeling with Java</a> | <strong>3. Automated testing</strong> | <a class="wiki_link"
+
         href="inheritance_en.html">4. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
         Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
         Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
@@ -94,11 +95,11 @@
       module.<br>
       <h3 id="toc3"><a name="Lesson 3: Automated testing-ModuleTestBase for testing the modules-The code for the test"></a>The
         code for the test</h3>
-      Create a new package named <em>org.openxava.invoicing.tests</em> and then
+      Create a new package named <em>com.yourcompany.invoicing.tests</em> and then
       create a new class named <em>CustomerTest</em> inside it with the next
       code:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.invoicing.tests;
+      <pre><code class="java">package com.yourcompany.invoicing.tests;
  
 import org.openxava.tests.*;
  
@@ -188,7 +189,8 @@ public class CustomerTest extends ModuleTestBase { // Must extend from ModuleTes
       As mentioned earlier, JUnit is integrated into Eclipse, so running your
       tests from Eclipse is plain vanilla. Just put your mouse over the test
       class, and with the right button choose <em>Run As &gt; JUnit Test</em>:<br>
-      <img src="files/testing_en030.png" alt="testing_en030.png" title="testing_en030.png"
+      <img src="files/testing_en030.png" alt="testing_en030.png" title="testing_en030.png"
+
         style="height: 288px; width: 800px;"><br>
       If the test does not pass, the bar will be red. You can try it. Edit the <em>CustomerTest</em>
       and comment the line that sets the value for the <em>name</em> field:<br>
@@ -241,10 +243,10 @@ SEVERE: Error unexpected: Value for Name in Customer is required
       creating test data. We'll create some products before each test execution
       and remove them afterwards. Let's see the code for <em>ProductTest</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.invoicing.tests;
+      <pre><code class="java">package com.yourcompany.invoicing.tests;
  
 import java.math.*;
-import org.openxava.invoicing.model.*;
+import com.yourcompany.invoicing.model.*;
 import org.openxava.tests.*;
 import static org.openxava.jpa.XPersistence.*;
  
@@ -467,7 +469,7 @@ ends_comparator,
       For example, you can test <em>Author</em> and <em>Category</em> with a
       simple test like this one:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.invoicing.tests;
+      <pre><code class="java">package com.yourcompany.invoicing.tests;
  
 import org.openxava.tests.*;
  
@@ -502,7 +504,7 @@ public class AuthorTest extends ModuleTestBase {
       methods.<br>
       We can use the same technique to test the <em>Category</em> module:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.invoicing.tests;
+      <pre><code class="java">package com.yourcompany.invoicing.tests;
  
 import org.openxava.tests.*;
  
@@ -540,7 +542,7 @@ public class CategoryTest extends ModuleTestBase {
       The test for creating an <em>Invoice</em> is broken down into several
       methods:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.invoicing.tests;
+      <pre><code class="java">package com.yourcompany.invoicing.tests;
  
 import java.util.*;<br>import java.time.*;
 import java.time.format.*;<br>import javax.persistence.*;
@@ -793,10 +795,12 @@ private String getNumber() { // The invoice number for a new invoice
       rest of the book. Thus you will learn more tips about testing in the next
       lessons.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-3-testing_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-3-testing_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="inheritance_en.html">Go to Lesson 4</a></strong>
     </div>

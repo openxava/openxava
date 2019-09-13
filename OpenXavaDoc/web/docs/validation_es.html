@@ -951,10 +951,10 @@ class="br0">{</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.validadores</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.validadores</span><span
 class="sy0">;</span> <span class="co1">// En el paquete 'validadores'</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.facturacion.modelo.*</span><span
+<span class="kw2">import</span> <span class="co2">com.tuempresa.facturacion.modelo.*</span><span
 class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
 class="sy0">;</span>
@@ -2293,10 +2293,10 @@ class="br0">{</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.validadores</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.validadores</span><span
 class="sy0">;</span> <span class="co1">// En el paquete 'validadores'</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.facturacion.modelo.*</span><span
+<span class="kw2">import</span> <span class="co2">com.tuempresa.facturacion.modelo.*</span><span
 class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
 class="sy0">;</span>
@@ -3210,7 +3210,7 @@ class="br0">)</span> <span class="br0">{</span>
       <h3 id="toc12"><a name="Lección 6: Validación avanzada-Crear tu propia anotación de Bean Validation-Definir tu propia anotación ISBN"></a>Definir
         tu propia anotación <em>ISBN</em></h3>
       Creemos la anotación <em>@ISBN</em>. Primero, crea un paquete en tu
-      proyecto llamado <em>org.openxava.facturacion.anotaciones</em>, entonces
+      proyecto llamado <em>com.tuempresa.facturacion.anotaciones</em>, entonces
       sigue las instrucciones de la siguiente figura para crear una nueva
       anotación llamada <em>ISBN</em>.<br>
       <img src="files/validation_es020.png" alt="validation_es020.png" title="validation_es020.png"><br>
@@ -3402,7 +3402,7 @@ class="br0">)</span> <span class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.anotaciones</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.anotaciones</span><span
 class="sy0">;</span> <span class="co1">// En el paquete 'anotaciones'</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.lang.annotation.*</span><span
@@ -3411,7 +3411,7 @@ class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">javax.validation.*</span><span
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.facturacion.validadores.*</span><span
+<span class="kw2">import</span> <span class="co2">com.tuempresa.facturacion.validadores.*</span><span
 class="sy0">;</span>
 &nbsp;
 @Constraint<span class="br0">(</span>validatedBy = ValidadorISBN.<span class="kw2">class</span><span
@@ -3644,13 +3644,13 @@ class="co1">// Definimos un mensaje por defecto</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.validadores</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.validadores</span><span
 class="sy0">;</span> <span class="co1">// En el paquete 'validadores'</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">javax.validation.*</span><span
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.facturacion.anotaciones.*</span><span
+<span class="kw2">import</span> <span class="co2">com.tuempresa.facturacion.anotaciones.*</span><span
 class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
 class="sy0">;</span>
@@ -4322,7 +4322,7 @@ class="br0">)</span><span class="sy0">;</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.validadores</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.validadores</span><span
 class="sy0">;</span> <span class="co1">// En el paquete 'validadores'</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">javax.validation.*</span><span
@@ -4330,7 +4330,7 @@ class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">org.apache.commons.logging.*</span><span
 class="sy0">;</span> <span class="co1">// Para usar 'Log'</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.facturacion.anotaciones.*</span><span
+<span class="kw2">import</span> <span class="co2">com.tuempresa.facturacion.anotaciones.*</span><span
 class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
 class="sy0">;</span>

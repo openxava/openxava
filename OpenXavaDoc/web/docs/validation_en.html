@@ -951,10 +951,10 @@ class="br0">{</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.validators</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.validators</span><span
 class="sy0">;</span> <span class="co1">// In 'validators' package</span>
 <span class="co2">
-import</span> <span class="co2">org.openxava.invoicing.model.*</span><span class="sy0">;</span>
+import</span> <span class="co2">com.yourcompany.invoicing.model.*</span><span class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
 class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.openxava.validators.*</span><span
@@ -2289,10 +2289,10 @@ class="br0">{</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.validators</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.validators</span><span
 class="sy0">;</span> <span class="co1">// In 'validators' package</span>
 <span class="co2">
-import</span> <span class="co2">org.openxava.invoicing.model.*</span><span class="sy0">;</span>
+import</span> <span class="co2">com.yourcompany.invoicing.model.*</span><span class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
 class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.openxava.validators.*</span><span
@@ -3200,7 +3200,7 @@ class="br0">)</span> <span class="br0">{</span>
       <h3 id="toc12"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation-Defining your own ISBN annotation"></a>Defining
         your own ISBN annotation</h3>
       Let's create the <em>@ISBN</em> annotation. First, create a package in
-      your project called <em>org.openxava.invoicing.annotations</em>. Then
+      your project called <em>com.yourcompany.invoicing.annotations</em>. Then
       follow the instructions in the next figure:<br>
       <img src="files/validation_en020.png" alt="validation_en020.png" title="validation_en020.png"><br>
       Edit the code of your recently created ISBN annotation and leave it as in
@@ -3392,7 +3392,7 @@ class="br0">)</span> <span class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.annotations</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.annotations</span><span
 class="sy0">;</span> <span class="co1">// In 'annotations' package</span>
 <span class="co2">
 import</span> <span class="co2">java.lang.annotation.*</span><span class="sy0">;</span>
@@ -3400,7 +3400,7 @@ import</span> <span class="co2">java.lang.annotation.*</span><span class="sy0">;
 <span class="kw2">import</span> <span class="co2">javax.validation.*</span><span
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.invoicing.validators.*</span><span
+<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.validators.*</span><span
 class="sy0">;</span>
 &nbsp;
 @Constraint<span class="br0">(</span>validatedBy = ISBNValidator.<span class="kw2">class</span><span
@@ -3632,12 +3632,12 @@ class="co1">// The message if validation fails</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.validators</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.validators</span><span
 class="sy0">;</span> <span class="co1">// In 'validators' package</span>
 <span class="co2">
 import</span> <span class="co2">javax.validation.*</span><span class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.invoicing.annotations.*</span><span
+<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.annotations.*</span><span
 class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
 class="sy0">;</span>
@@ -4306,7 +4306,7 @@ class="br0">)</span><span class="sy0">;</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.invoicing.validators</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.validators</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">javax.validation.*</span><span
@@ -4314,7 +4314,7 @@ class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">org.apache.commons.logging.*</span><span
 class="sy0">;</span> <span class="co1">// To use 'Log'</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.invoicing.annotations.*</span><span
+<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.annotations.*</span><span
 class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
 class="sy0">;</span>

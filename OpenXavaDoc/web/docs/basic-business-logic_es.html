@@ -20,11 +20,11 @@
             calculadas dependientes de una colección</a></div>
         <div style="margin-left: 3em;"><a href="#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-Propiedades+calculadas-Valor+por+defecto+desde+un+archivo+de+propiedades">Valor
             por defecto desde un archivo de propiedades</a></div>
-        <div style="margin-left: 2em;"><a href="#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retollamadas+JPA">Métodos
-            de retollamadas JPA</a></div>
-        <div style="margin-left: 3em;"><a href="#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retollamadas+JPA-C%C3%A1lculo+de+valor+por+defecto+multiusuario">Cálculo
+        <div style="margin-left: 2em;"><a href="#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retrollamadas+JPA">Métodos
+            de retrollamadas JPA</a></div>
+        <div style="margin-left: 3em;"><a href="#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retrollamadas+JPA-C%C3%A1lculo+de+valor+por+defecto+multiusuario">Cálculo
             de valor por defecto multiusuario</a></div>
-        <div style="margin-left: 3em;"><a href="#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retollamadas+JPA-Sincronizar+propiedades+persistentes+y+calculadas">Sincronizar
+        <div style="margin-left: 3em;"><a href="#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retrollamadas+JPA-Sincronizar+propiedades+persistentes+y+calculadas">Sincronizar
             propiedades persistentes y calculadas</a></div>
         <div style="margin-left: 2em;"><a href="#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-L%C3%B3gica+desde+la+base+de+datos+%28@Formula%29">Lógica
             desde la base de datos (@Formula)</a></div>
@@ -1124,12 +1124,12 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.calculadores</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.calculadores</span><span
 class="sy0">;</span> <span class="co1">// En el paquete calculadores</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">org.openxava.calculators.*</span><span
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.facturacion.modelo.*</span><span
+<span class="kw2">import</span> <span class="co2">com.tuempresa.facturacion.modelo.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="kw2">static</span> <span class="co2">org.openxava.jpa.XPersistence.*</span><span
@@ -3316,7 +3316,7 @@ class="sy0">;</span>
       Aunque puedes usar la clase <em>java.util.Properties</em> de Java para
       leer este archivo preferimos usar una clase propia para leer estas
       propiedades. Vamos a llamar a esta clase <em>PreferenciasFacturacion</em>
-      y la pondremos en un nuevo paquete llamado <em>org.openxava.facturacion.util</em>.
+      y la pondremos en un nuevo paquete llamado <em>com.tuempresa.facturacion.util</em>.
       Veamos el código:<br>
       <style type="text/css"><!--
 /**
@@ -3505,7 +3505,7 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.util</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.util</span><span
 class="sy0">;</span> <span class="co1">// En el paquete 'util'</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.io.*</span><span class="sy0">;</span>
@@ -3764,12 +3764,12 @@ class="br0">)</span><span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.facturacion.calculadores</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.tuempresa.facturacion.calculadores</span><span
 class="sy0">;</span> <span class="co1">// En el paquete 'calculadores'</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">org.openxava.calculators.*</span><span
 class="sy0">;</span> <span class="co1">// Para usar 'ICalculator'</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.facturacion.util.*</span><span
+<span class="kw2">import</span> <span class="co2">com.tuempresa.facturacion.util.*</span><span
 class="sy0">;</span> <span class="co1">// Para usar 'PreferenciasFacturacion'</span>
 &nbsp;
 <span class="kw2">public</span> <span class="kw2">class</span> CalculadorPorcentajeIVA <span
@@ -3983,8 +3983,8 @@ class="kw27">BigDecimal</span></a> porcentajeIVA<span class="sy0">;</span></pre>
       Con este código cuando el usuario pulsa para crear una nueva factura, el
       campo <em>porcentajeIVA</em> se rellenará con 18, o cualquier otro valor
       que hayas puesto en <em>facturacion.properties</em>.<br>
-      <h2 id="toc6"><a name="Lección 5: Lógica de negocio básica-Métodos de retollamadas JPA"></a>Métodos
-        de retollamadas JPA</h2>
+      <h2 id="toc6"><a name="Lección 5: Lógica de negocio básica-Métodos de retrollamadas JPA"></a>Métodos
+        de retrollamadas JPA</h2>
       Otra forma práctica de añadir lógica de negocio a tu modelo es mediante
       los métodos de retrollamada JPA. Un método de retrollamada se llama en un
       momento específico del ciclo de vida de la entidad como objeto
@@ -3992,7 +3992,7 @@ class="kw27">BigDecimal</span></a> porcentajeIVA<span class="sy0">;</span></pre>
       grabar, leer, borrar o modificar una entidad.<br>
       En esta sección veremos algunas aplicaciones prácticas de los métodos de
       retrollamada JPA.<br>
-      <h3 id="toc7"><a name="Lección 5: Lógica de negocio básica-Métodos de retollamadas JPA-Cálculo de valor por defecto multiusuario"></a>Cálculo
+      <h3 id="toc7"><a name="Lección 5: Lógica de negocio básica-Métodos de retrollamadas JPA-Cálculo de valor por defecto multiusuario"></a>Cálculo
         de valor por defecto multiusuario</h3>
       Hasta ahora estamos calculando el número para <em>Factura</em> y <em>Pedido</em>
       usando <em>@DefaultValueCalculator</em>. Éste calcula el valor por
@@ -4435,7 +4435,7 @@ class="br0">)</span>
       Prueba ahora el módulo de <em>Factura</em> o <em>Pedido</em>, verás como
       el número está vacío y no es editable, y cuando grabes el documento, el
       número se calcula y se actualiza en la interfaz de usuario.<br>
-      <h3 id="toc8"><a name="Lección 5: Lógica de negocio básica-Métodos de retollamadas JPA-Sincronizar propiedades persistentes y calculadas"></a>Sincronizar
+      <h3 id="toc8"><a name="Lección 5: Lógica de negocio básica-Métodos de retrollamadas JPA-Sincronizar propiedades persistentes y calculadas"></a>Sincronizar
         propiedades persistentes y calculadas</h3>
       La forma en que calculamos el IVA, el importe base y el importe total es
       natural y práctica. Usamos propiedades calculadas que calculan, usando
@@ -6849,7 +6849,7 @@ class="co1">// Valor de archivo de propiedades</span>
       Comprobamos el cálculo del valor por defecto de <em>procentajeIVA</em> y
       verificamos que <em>numero</em> no tiene valor inicial, porque ahora <em>numero</em>
       no se calcula hasta el momento de grabar el documento (sección <a class="wiki_link"
-        href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retollamadas+JPA-C%C3%A1lculo+de+valor+por+defecto+multiusuario">Cálculo
+        href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retrollamadas+JPA-C%C3%A1lculo+de+valor+por+defecto+multiusuario">Cálculo
         de valor por defecto multiusuario</a>). Cuando el documento (factura o
       pedido) se grabe verificaremos que <em>numero</em> se calcula. Cuando la
       línea se añade podemos verificar el cálculo de <em>importe</em> de <em>detalle</em>
@@ -7127,7 +7127,7 @@ class="br0">)</span><span class="sy0">;</span>
       <em>beneficioEstimado</em>. Las cuales probaremos en la siguiente sección.<br>
       <h3 id="toc13"><a name="Lección 5: Lógica de negocio básica-Pruebas JUnit-Sincronización entre propiedad persistente y calculada / @Formula"></a>Sincronización
         entre propiedad persistente y calculada / <em>@Formula</em></h3>
-      En la sección <a class="wiki_link" href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retollamadas+JPA-Sincronizar+propiedades+persistentes+y+calculadas">Sincronizar
+      En la sección <a class="wiki_link" href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retrollamadas+JPA-Sincronizar+propiedades+persistentes+y+calculadas">Sincronizar
         propiedades persistentes y calculadas</a> usamos métodos de retrollamada
       de JPA en <em>DocumentoComercial</em> para tener una propiedad
       persistente, <em>importe</em>, sincronizada con una calculada, <em>importeTotal</em>.
