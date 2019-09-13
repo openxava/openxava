@@ -194,7 +194,9 @@ public class ModuleContext implements java.io.Serializable {
 		}
 
 		synchronized (this) { // Without this CustomerWithSectionTest fails when executed several time. Not completely sure.
-			if (currentWindowId.get() == null) currentWindowId.set(lastUsedWindowId); 
+			// I don't know if the below "null".equals(currentWindowId.get()) is needed, 
+			// 		I suspect is related with CustomerWithSectionTest failing when executed several time
+			if (currentWindowId.get() == null || "null".equals(currentWindowId.get())) currentWindowId.set(lastUsedWindowId);  
 			else lastUsedWindowId = currentWindowId.get();			
 		}
 		

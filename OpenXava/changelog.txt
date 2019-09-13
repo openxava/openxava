@@ -1,16 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- FILE and FILES:
-	* Limpiar código
-	* light.css
-	* Liferay
-	* Pruebas manuales
-	* Limpiar imágenes de la DB
-	- Suite
-	- Redoc: Al menos migration: FILE/FILES y refactoring de métodos
-	
-
+- Editor for FILE and FILES stereotypes with AJAX uploading.
 - Guide for deploying on Tomcat in Spanish and English.
 - Getting started guide simplified. 
 - Quick start guide removed.
