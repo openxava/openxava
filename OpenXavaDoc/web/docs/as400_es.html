@@ -1,0 +1,126 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>openxava - as400_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0">Configuración para AS/400</h1>
+      Configurar tu aplicación OpenXava para ir contra la DB2 de un AS/400 es
+      muy simple, básicamente has de instalar tu controlador JDBC para AS/400 y
+      definir correctamente la fuente de datos. No necesitas tocar nada de
+      código de tu aplicación.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Descargar el controlador JDBC para AS/400</h2>
+      <p>Descarga el controlador para AS/400 desde aquí: <a href="https://sourceforge.net/projects/jt400/files/">https://sourceforge.net/projects/jt400/files/</a><a
+          href="https://dev.mysql.com/downloads/connector/j/"></a></p>
+      Descargarás un archivo como este: <i>jtopen_9_8.zip</i> (el número de
+      versión puede cambiar). Descomprímelo para buscar dentro un archivo
+      llamado <i>jt400.jar</i> (o parecido), este último archivo, el .jar, es
+      el controlador JDBC que vamos a usar.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Crear una variable de classpath en Eclipse<br>
+      </h2>
+      Para poder conectar a AS/400 desde Eclipse vamos a declarar una variable
+      de classpath que apunte al controlador JDBC de AS/400, así lo podrás usar
+      en cualquier proyecto que lo necesites con facilidad. Para ello, en
+      Eclipse ve a <i>Window &gt; Preferences &gt; Java &gt; Build Path &gt;
+        Classpath Variables</i> donde puedes añadir la nueva variable:</div>
+    <img src="files/create-db-classpath-variable-eclipse_es.png" alt="" title="create-db-classpath-variable-eclipse_es.png">
+    <div class="wiki" style="display: block;">Puedes llamar a la variable
+      AS400_DRIVER o CONTROLADOR_AS400 en lugar de DB_DRIVER si lo prefieres. <i>Path</i>
+      sería la ruta del controlador JDBC, en nuestro caso la ruta del <i>jt400.jar</i>
+      que acabamos de descargar.<br>
+      <strong></strong></div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Añadir la variable DB_DRIVER al proyecto Eclipse<br>
+      </h2>
+      En el proyecto en que vayas a usar AS/400 has de añadir la variable que
+      acabas de declarar. Pulsa con el botón derecho del ratón en tu proyecto y
+      selecciona <i>Properties &gt; Java Build Path &gt; Libraries</i>:</div>
+    <img src="files/add-db-classpath-variable-to-your-eclipse-project_es.png" title="add-db-classpath-variable-to-your-eclipse-project_es.png">
+    <div class="wiki" style="display: block;">Con esto tenemos el controlador
+      disponible en el entorno de desarrollo.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Añadir el controlador JDBC al Tomcat de producción</h2>
+      <h2><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Añadir
+          el controlador en producción es mucho más fácil. Copia </span><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><i>jt400.jar</i>
+          a la carpeta <i>lib</i> de tu Tomcat. Nada más.</span></h2>
+    </div>
+    <div class="wiki" style="display: block;"> </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Ajustar la definición de la base de datos</h2>
+      Para desarrollo edita <i>web/META-INF/context.xml</i> de tu proyecto
+      Eclipse y para producción edita <i>conf/context.xml</i> de tu Tomcat,
+      para ajustar la fuente de datos para que apunte a AS/400, algo como esto:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
+	type="javax.sql.DataSource"
+	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
+	username="root" password="ao49fmsk"
+	driverClassName="com.ibm.as400.access.AS400JDBCDriver"
+	url="jdbc:as400:192.168.1.8"/&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Las diferencias están en el <i>driverClassName</i>
+      y la <i>url</i>. Obviamente, en lugar de 192.168.1.8 deberías poner la
+      dirección del AS/400, y también poner los valores correctos para <i>username</i>
+      y <i>password</i>.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Actualizar persistence.xml</h2>
+      No necesitas tocar la unidad de persistencia <i>default</i> de <i>persistence.xml</i>
+      (en <i>persistence/META-INF</i>), a no ser que uses la propiedad <i>hibernate.dialect</i>
+      en cuyo caso lo más fácil es quitar la propiedad <i>hibernate.dialect</i>.
+      Además, deberías especificar la propiedad <i>hibernate.default_schema</i>
+      para todas las unidades de persistencia, para indicar en que biblioteca de
+      tu AS/400 están las tablas de tu aplicación (a no ser que uses <i>@Table(schema=)</i>
+      en cada entidad). </div>
+    <div class="wiki" style="display: block;">Por otra parte, sí que has de
+      modificar la unidad de persistencia <i>junit</i> para que apunte a
+      AS/400:<br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;!-- JUnit AS/400 --&gt;
+&lt;persistence-unit name="junit"&gt;
+	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
+	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;
+	&lt;properties&gt;<br>		&lt;property name="hibernate.default_schema" value="MILIB"/&gt;<br>		&lt;property name="hibernate.connection.driver_class" value="com.ibm.as400.access.AS400JDBCDriver"/&gt;
+		&lt;property name="hibernate.connection.username" value="root"/&gt;
+		&lt;property name="hibernate.connection.password" value="ao49fmsk"/&gt;		
+		&lt;property name="hibernate.connection.url" value="jdbc:as400:192.168.1.8"/&gt;
+	&lt;/properties&gt;
+&lt;/persistence-unit&gt;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Adapta <i>username</i>, <i>password</i>
+        y <i>url</i> a la configuración de tu AS/400. Para el <i>default_schema</i>
+        en lugar de MYLIB pon la librería del AS/400 donde están tus tablas.</div>
+      <div class="wiki" style="display: block;">
+        <h2 id="toc1">Arrancar el diario </h2>
+        Para que tu aplicación OpenXava funcione con AS/400 tus tablas tienen
+        que soportar transacciones. La forma más fácil de conseguirlo es creando
+        la biblioteca para tus tablas desde SQL usando "CREATE COLLECTION
+        MILIB". Desafortunadamente, la mayoría de las veces que trabajas con
+        AS/400 has de hacerlo con tablas preexistentes. En este caso has de
+        crear un diario (journal) para tu biblioteca, de esta manera:
+        <div class="wiki" style="display: block;">
+          <pre><code class="shell">CRTJRNRCV JRNRCV(MILIB/MIRCV) THRESHOLD(5000)
+CRTJRN JRN(MILIB/MIJRN) JRNRCV(MILIB/MIRCV) MNGRCV(*SYSTEM)
+CHGJRN JRN(MILIB/MIJRN) JRNRCV(*GEN) DLTRCV(*YES)
+</code></pre></div>
+        En vez de MILIB usa el nombre de tu biblioteca. Después, tienes que
+        registrar todas las tabla por diario, así:<br>
+        <div class="wiki" style="display: block;">
+          <pre><code class="shell">STRJRNPF FILE(MILIB/*ALL) JRN(MILIB/MIJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+</code></pre></div>
+        Cuando en el futuro crees una nueva tabla para ser usada desde OpenXava
+        has de registrarla por diario:
+        <div class="wiki" style="display: block;">
+          <pre><code class="shell">STRJRNPF FILE(MILIB/MITABLA) JRN(MILIB/MIJRN)
+</code></pre></div>
+        Si no estás familiarizado con la interfaz del AS/400 busca ayuda de
+        algún gurú del AS/400 de tu empresa para esta tarea. </div>
+    </div>
+  </body>
+</html>

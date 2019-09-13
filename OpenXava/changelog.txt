@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Doc for configuring MySQL, PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 and Firebird.
 - Editor for FILE and FILES stereotypes with AJAX uploading.
 - Guide for deploying on Tomcat in Spanish and English.
 - Getting started guide simplified. 
