@@ -125,7 +125,12 @@ public class Product5Test extends CustomizeListTestBase {
 			"List.filter", "List.changeColumnName", "Print.generatePdf",  
 			"Collection.removeSelected", "CollectionCopyPaste.cut", "List.orderBy", "Collection.new",  
 			"Reference.createNew", "Reference.modify", "Print.generateExcel", 
-			"Product5.seeInitial"
+			"Product5.seeInitial",
+			"Product5.addPhoto" // tmp
+		};
+		
+		String[] loadPhotoActions = { // tmp
+			"Mode.list", "LoadPhotoIntoGallery.loadPhoto", "LoadPhotoIntoGallery.cancel" 	
 		};
 		
 		// list -> detail -> list
@@ -141,6 +146,20 @@ public class Product5Test extends CustomizeListTestBase {
 		assertAction("Product5.goA"); 
 		assertNoAction("Product5.goB");
 		assertAction("CRUD.new");
+		
+		
+		// tmp ini
+		// list -> detail -> custom view -> list
+		execute("List.viewDetail", "row=0");
+		assertNoErrors();
+		execute("Product5.addPhoto"); 
+		assertActions(loadPhotoActions); 
+		
+		execute("Mode.list");
+		assertAction("Product5.goA");
+		assertNoAction("Product5.goB");
+		assertAction("CRUD.new");
+		// tmp ini
 	}
 	
 	

@@ -866,6 +866,49 @@ public class AJAXTest extends ModuleTestBase {
 				"messages,");		
 	}
 	
+	public void testCustomView_uploadFile() throws Exception { // tmp 
+		if (!usesAnnotatedPOJO()) return;
+		changeModule("Product5"); 
+		/* tmp
+		execute("List.viewDetail", "row=0");
+		execute("GalleryNoDialog.edit", "galleryProperty=photos"); 
+		assertLoadedParts("errors, view, bottom_buttons, " + 
+				"button_bar, messages");
+		execute("Gallery.addImage");
+		// assertLoadedParts("core, "); When no dialog
+		assertLoadedParts("dialog1, "); // When dialog
+		String imageUrl = System.getProperty("user.dir") + "/test-images/foto_javi.jpg";
+		setFileValue("newImage", imageUrl);
+		execute("LoadImageIntoGallery.loadImage");
+		assertNoErrors();
+		assertMessage("Image added to the gallery"); 
+		assertLoadedParts("core"); 
+		
+		String imageOid = getForm().getInputByName("xava.GALLERY.images").getValueAttribute();
+		execute("Gallery.removeImage", "oid="+imageOid);
+		assertLoadedParts("errors, view, messages");
+		execute("Gallery.close"); 
+		assertLoadedParts("errors, view, bottom_buttons, " +
+				"button_bar, messages");
+		*/
+		// tmp ini
+		execute("List.viewDetail", "row=0");
+		assertFilesCount("photos", 0);
+		execute("Product5.addPhoto");
+		assertLoadedParts("core, "); 
+		String imageUrl = System.getProperty("user.dir") + "/test-images/foto_javi.jpg";
+		setFileValue("newFile", imageUrl);
+		execute("LoadPhotoIntoGallery.loadPhoto");
+		assertNoErrors();
+		assertMessage("Image added to the gallery"); 
+		assertFilesCount("photos", 1);
+		assertLoadedParts("core"); 
+		
+		assertAction("Product5.addPhoto");
+		removeFile("photos", 0);
+		// tmp fin
+	}
+	
 
 	private void assertLoadedParts(String expected) throws Exception {
 		assertEquals("Loaded parts are not the expected ones", order(expected), order(getLoadedParts()));

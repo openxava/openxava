@@ -13,6 +13,7 @@ import org.openxava.annotations.*;
 public class Import implements java.io.Serializable { 
 	
 	@Hidden
+	@Stereotype("FILE")
 	private String data;
 	
 	@Hidden

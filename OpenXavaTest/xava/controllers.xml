@@ -468,7 +468,20 @@
 		</action>
 		<action name="seeInitial" mode="detail"
 			class="org.openxava.test.actions.SeeInitialOfProductNameInADialog"/>
+		<!-- tmp -->
+		<action name="addPhoto" mode="detail"
+			class="org.openxava.test.actions.GoAddPhotoToGalleryAction"/>
+		<!-- tmp -->	
 	</controller>
+	
+	<!-- tmp ini -->
+	<controller name="LoadPhotoIntoGallery">
+		<action name="loadPhoto"
+			class="org.openxava.test.actions.LoadPhotoIntoGalleryAction"/>					 
+		<action name="cancel"
+			class="org.openxava.actions.CancelAction"/>
+	</controller>
+	<!-- tmp fin -->
 			 	
 	<controller name="Customer"> 
 		<extends controller="TypicalExtendedPrint"/>

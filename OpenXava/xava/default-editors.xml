@@ -190,6 +190,18 @@
 		<for-stereotype stereotype="GALERIA_IMAGENES" />
 	</editor>
 	
+	<!-- tmp ini -->
+	<editor name="FileItem" url="uploadEditor.jsp" format="false"> <!-- tmp ¿o File? ¿o ArrayBytes? o ¿Bytes? -->
+		<property name="postAction" value="FileItemEditor.load"/> 
+		<property name="deleteAction" value="FileItemEditor.remove"/> 
+		<property name="getURL" value="/xava/ximage"/> <!-- tmp Pendiente -->
+		<property name="filesIdsProviderClass" value="org.openxava.web.editors.NullFilesIdsProvider"/>
+		<property name="cssClass" value="ox-file"/> <!-- tmp Si sirve, ¿renombrar? -->
+		<property name="imagePreview" value="false"/>
+		<for-type type="org.apache.commons.fileupload.FileItem"/>
+	</editor>
+	<!-- tmp fin -->	
+	
 	<editor name="AttachedFile" url="uploadEditor.jsp" format="false">
 		<property name="postAction" value="AttachedFileEditor.load"/> 
 		<property name="deleteAction" value="AttachedFileEditor.remove"/> 

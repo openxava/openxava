@@ -63,14 +63,14 @@ public class WebEditors {
 
 	public static Object parse(HttpServletRequest request, MetaProperty p, String [] strings, Messages errors, String viewName) throws XavaException { 
 		try {
-			if (!(p.isKey() && p.isHidden())) { 
+			if (!(p.isKey() && p.isHidden())) {
 				MetaEditor ed = getMetaEditorFor(p, viewName);
-				if (ed.hasFormatter()) { 								
+				if (ed.hasFormatter()) { 				
 					return parse(request, ed.getFormatterObject(), p, strings);
 				}
-				else if (ed.isFormatterFromType()){				
+				else if (ed.isFormatterFromType()){			
 					MetaEditor edType = MetaWebEditors.getMetaEditorForTypeOfProperty(p); 
-					if (edType != null && edType.hasFormatter()) {				
+					if (edType != null && edType.hasFormatter()) {
 						return parse(request, edType.getFormatterObject(), p, strings);
 					}
 				}

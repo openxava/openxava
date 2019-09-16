@@ -2,10 +2,11 @@ package org.openxava.actions;
 
 
 /**
+ * tmp 
  * Created on 04/02/2009 (16:23:01)
  * @autor Ana Andres
  */
-public class RemoveImageAction extends ViewBaseAction { 
+public class SetPropertyToNullAction extends ViewBaseAction { 
 	
 	private String property; 
 	

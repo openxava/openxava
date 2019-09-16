@@ -480,19 +480,28 @@ here that you want to override.
 		</action>									
 	</controller>
 	
-	<controller name="ImageEditor"> 
+	<controller name="ImageEditor">  
 		<action name="load"
 			class="org.openxava.actions.LoadImageAction"/>
 		<action name="remove" 
-			class="org.openxava.actions.RemoveImageAction"/>		 
+			class="org.openxava.actions.SetPropertyToNullAction"/>		 
 	</controller>
-	
+		
 	<controller name="GalleryEditor">
 		<action name="load"
 			class="org.openxava.actions.LoadImageIntoGalleryAction"/>						 	
 		<action name="remove"
 			class="org.openxava.actions.RemoveImageFromGalleryAction"/>		 
 	</controller>
+	
+	<!-- tmp ini -->
+	<controller name="FileItemEditor">  
+		<action name="load"
+			class="org.openxava.actions.LoadFileItemAction"/>
+		<action name="remove" 
+			class="org.openxava.actions.SetPropertyToNullAction"/>		 
+	</controller>
+	<!-- tmp fin -->	
 			
 	<controller name="Dialog">
 		<action name="cancel" 

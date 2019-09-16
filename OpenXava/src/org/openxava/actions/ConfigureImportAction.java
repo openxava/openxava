@@ -21,14 +21,15 @@ import org.openxava.web.meta.*;
  */
 
 public class ConfigureImportAction extends TabBaseAction
-	implements INavigationAction, IProcessLoadedFileAction {
+	implements INavigationAction /* tmp , IProcessLoadedFileAction */ {
 	
 	private static Log log = LogFactory.getLog(ConfigureImportAction.class);  
 		 
-	private List fileItems;
+	// tmp private List fileItems;
 	private String[] nextControllers = new String [] { "Import" }; 
 	
 	public void execute() throws Exception {
+		/* tmp
 		String fileName = "UNKNOWN";
 		try {
 		    Iterator i = getFileItems().iterator();                       
@@ -64,6 +65,40 @@ public class ConfigureImportAction extends TabBaseAction
 			addError("import_error", fileName, ex.getMessage()); 
 			cancel();
 		}
+		*/
+		// tmp ini
+		String fileName = "UNKNOWN";
+		try {
+	        FileItem fi = (FileItem) getView().getValue("file");                         
+	        if (fi != null && !Is.emptyString(fi.getName())) {
+	        	fileName = fi.getName().toLowerCase();
+	        	if (fileName.endsWith(".xlsx") ) {
+	        		if (!configureImport(excelToCSV(new XSSFWorkbook(fi.getInputStream())))) cancel();
+		        	return;
+	        	}
+	        	else if (fileName.endsWith(".csv")) {
+		        	if (!configureImport(fi.getString().trim())) cancel(); 
+		        	return;
+	        	} 	        	
+	        	else if (fileName.endsWith(".xls")) {
+		        	if (!configureImport(excelToCSV(new HSSFWorkbook(fi.getInputStream())))) cancel(); 
+		        	return;
+	        	}
+	        	else {
+	        		addError("file_type_not_supported", "CSV, XLSX, XLS");
+	        		cancel();
+	        		return;
+	        	}
+	        }
+		    addError("file_required");
+		    cancel();
+		}
+		catch (Exception ex) {
+			log.error(XavaResources.getString("import_error", fileName, ex.getMessage()), ex);
+			addError("import_error", fileName, ex.getMessage()); 
+			cancel();
+		}		
+		// tmp fin
 	}
 	
 	private boolean configureImport(String data) { 
@@ -215,6 +250,7 @@ public class ConfigureImportAction extends TabBaseAction
 	    return DEFAULT_VIEW;
 	}
 
+	/* tmp
 	public List getFileItems() {
 	    return fileItems;
 	}
@@ -222,5 +258,6 @@ public class ConfigureImportAction extends TabBaseAction
 	public void setFileItems(List fileItems) {                        
 	    this.fileItems = fileItems;
 	}
+	*/
 
 }
