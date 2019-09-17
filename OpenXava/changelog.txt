@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Some new common use labels to be used in applications.
 - FileItem type (from org.apache.commons.fileupload) has an editor associated to upload a file via AJAX. 
 - Import data in list mode uses AJAX for uploading the CSV/Excel file. 
 - New WithFileItem class to use as transient class for dialogs or views to just upload a file.
