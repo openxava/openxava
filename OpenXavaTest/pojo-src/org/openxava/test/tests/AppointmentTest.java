@@ -50,21 +50,13 @@ public class AppointmentTest extends ModuleTestBase {
 		assertError("You must choose a file");
 		
 		execute("ImportData.importData");
-		/* tmp
-		String fileURL = System.getProperty("user.dir") + "/test-images/cake.gif";
-		setFileValue("newFile", fileURL);
-		*/
-		uploadFile("file", "test-images/cake.gif"); // tmp
+		uploadFile("file", "test-images/cake.gif"); 
 		execute("ConfigureImport.configureImport");
 		assertErrorsCount(1);
 		assertError("File type not supported. Supported types: CSV, XLSX, XLS"); 
 		
 		execute("ImportData.importData");
-		/* tmp
-		fileURL = System.getProperty("user.dir") + "/test-files/empty-file.csv";
-		setFileValue("newFile", fileURL);
-		*/
-		uploadFile("file", "test-files/empty-file.csv"); // tmp
+		uploadFile("file", "test-files/empty-file.csv"); 
 		execute("ConfigureImport.configureImport");
 		assertErrorsCount(1);
 		assertError("Empty file");
@@ -75,11 +67,7 @@ public class AppointmentTest extends ModuleTestBase {
 	
 	private void assertImport(String file) throws Exception {
 		execute("ImportData.importData");
-		/* tmp
-		String fileURL = System.getProperty("user.dir") + "/test-files/" + file;
-		setFileValue("newFile", fileURL);
-		*/
-		uploadFile("file", "test-files/" + file); // tmp
+		uploadFile("file", "test-files/" + file); 
 		execute("ConfigureImport.configureImport");
 		assertNoErrors();
 		

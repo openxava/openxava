@@ -21,52 +21,13 @@ import org.openxava.web.meta.*;
  */
 
 public class ConfigureImportAction extends TabBaseAction
-	implements INavigationAction /* tmp , IProcessLoadedFileAction */ {
+	implements INavigationAction {
 	
 	private static Log log = LogFactory.getLog(ConfigureImportAction.class);  
 		 
-	// tmp private List fileItems;
 	private String[] nextControllers = new String [] { "Import" }; 
 	
 	public void execute() throws Exception {
-		/* tmp
-		String fileName = "UNKNOWN";
-		try {
-		    Iterator i = getFileItems().iterator();                       
-		    while (i.hasNext()) {
-		        FileItem fi = (FileItem)i.next();                         
-		        fileName = fi.getName();
-		        if (!Is.emptyString(fileName)) {
-		        	fileName = fileName.toLowerCase();
-		        	if (fileName.endsWith(".xlsx") ) {
-		        		if (!configureImport(excelToCSV(new XSSFWorkbook(fi.getInputStream())))) cancel();
-			        	return;
-		        	}
-		        	else if (fileName.endsWith(".csv")) {
-			        	if (!configureImport(fi.getString().trim())) cancel(); 
-			        	return;
-		        	} 	        	
-		        	else if (fileName.endsWith(".xls")) {
-			        	if (!configureImport(excelToCSV(new HSSFWorkbook(fi.getInputStream())))) cancel(); 
-			        	return;
-		        	}
-		        	else {
-		        		addError("file_type_not_supported", "CSV, XLSX, XLS");
-		        		cancel();
-		        		return;
-		        	}
-		        }
-		    }
-		    addError("file_required");
-		    cancel();
-		}
-		catch (Exception ex) {
-			log.error(XavaResources.getString("import_error", fileName, ex.getMessage()), ex);
-			addError("import_error", fileName, ex.getMessage()); 
-			cancel();
-		}
-		*/
-		// tmp ini
 		String fileName = "UNKNOWN";
 		try {
 	        FileItem fi = (FileItem) getView().getValue("file");                         
@@ -98,7 +59,6 @@ public class ConfigureImportAction extends TabBaseAction
 			addError("import_error", fileName, ex.getMessage()); 
 			cancel();
 		}		
-		// tmp fin
 	}
 	
 	private boolean configureImport(String data) { 
@@ -249,15 +209,5 @@ public class ConfigureImportAction extends TabBaseAction
 	public String getCustomView() {
 	    return DEFAULT_VIEW;
 	}
-
-	/* tmp
-	public List getFileItems() {
-	    return fileItems;
-	}
-	
-	public void setFileItems(List fileItems) {                        
-	    this.fileItems = fileItems;
-	}
-	*/
 
 }

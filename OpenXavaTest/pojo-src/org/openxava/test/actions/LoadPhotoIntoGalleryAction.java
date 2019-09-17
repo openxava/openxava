@@ -8,7 +8,6 @@ import org.openxava.session.*;
 import org.openxava.util.*;
 
 /**
- * tmp
  * 
  * @author Javier Paniza
  */
@@ -17,8 +16,6 @@ public class LoadPhotoIntoGalleryAction extends ViewBaseAction implements INavig
 
 	private List fileItems;
 	
-	
-
 	public void execute() throws Exception {		
 		Iterator i = getFileItems().iterator();
 		int c = 0;
@@ -36,8 +33,7 @@ public class LoadPhotoIntoGalleryAction extends ViewBaseAction implements INavig
 		else if (c > 1) addMessage("images_added_to_gallery", new Integer(c));
 		
 	}
-	
-	
+		
 	public String[] getNextControllers() {		
 		return PREVIOUS_CONTROLLERS;
 	}
@@ -58,6 +54,5 @@ public class LoadPhotoIntoGalleryAction extends ViewBaseAction implements INavig
 		String oid = getView().getValueString("photos");
 		return Gallery.find(oid);
 	}
-
 
 }

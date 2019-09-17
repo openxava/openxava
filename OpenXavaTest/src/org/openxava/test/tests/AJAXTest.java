@@ -866,32 +866,9 @@ public class AJAXTest extends ModuleTestBase {
 				"messages,");		
 	}
 	
-	public void testCustomView_uploadFile() throws Exception { // tmp 
+	public void testCustomView_uploadFile() throws Exception {  
 		if (!usesAnnotatedPOJO()) return;
 		changeModule("Product5"); 
-		/* tmp
-		execute("List.viewDetail", "row=0");
-		execute("GalleryNoDialog.edit", "galleryProperty=photos"); 
-		assertLoadedParts("errors, view, bottom_buttons, " + 
-				"button_bar, messages");
-		execute("Gallery.addImage");
-		// assertLoadedParts("core, "); When no dialog
-		assertLoadedParts("dialog1, "); // When dialog
-		String imageUrl = System.getProperty("user.dir") + "/test-images/foto_javi.jpg";
-		setFileValue("newImage", imageUrl);
-		execute("LoadImageIntoGallery.loadImage");
-		assertNoErrors();
-		assertMessage("Image added to the gallery"); 
-		assertLoadedParts("core"); 
-		
-		String imageOid = getForm().getInputByName("xava.GALLERY.images").getValueAttribute();
-		execute("Gallery.removeImage", "oid="+imageOid);
-		assertLoadedParts("errors, view, messages");
-		execute("Gallery.close"); 
-		assertLoadedParts("errors, view, bottom_buttons, " +
-				"button_bar, messages");
-		*/
-		// tmp ini
 		execute("List.viewDetail", "row=0");
 		assertFilesCount("photos", 0);
 		execute("Product5.addPhoto");
@@ -906,7 +883,6 @@ public class AJAXTest extends ModuleTestBase {
 		
 		assertAction("Product5.addPhoto");
 		removeFile("photos", 0);
-		// tmp fin
 	}
 	
 

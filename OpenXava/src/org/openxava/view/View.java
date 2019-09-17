@@ -2886,17 +2886,14 @@ public class View implements java.io.Serializable {
 		for (Object m: members) { 		
 			if (isMetaProperty(m)) {
 				MetaProperty p = (MetaProperty) m;
-				// tmp ini
-				boolean mustToFormat = WebEditors.mustToFormat(p, getViewName()); // tmp Esto arregla un bug: Editor con format=false sin formatter
+				boolean mustToFormat = WebEditors.mustToFormat(p, getViewName()); 
 				if (!mustToFormat) continue;
-				// tmp fin
 				String propertyKey= qualifier + p.getName();
 				String valueKey = propertyKey + ".value";
 				String [] results = getRequest().getParameterValues(propertyKey);				
 				Object value = WebEditors.parse(getRequest(), p, results, getErrors(), getViewName());
 				boolean isHiddenKeyWithoutValue = p.isHidden() && (results == null); // for not reset hidden values					
-				// tmp if (!isHiddenKeyWithoutValue && WebEditors.mustToFormat(p, getViewName())) { 
-				if (!isHiddenKeyWithoutValue && mustToFormat) { // tmp
+				if (!isHiddenKeyWithoutValue && mustToFormat) { 
 					getRequest().setAttribute(valueKey, value);
 					trySetValue(p.getName(), value);
 					if (isNeededToVerifyHasBeenFormatted(p)) {

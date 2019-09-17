@@ -167,8 +167,8 @@
 	</editor>
 	
 	<editor name="Image" url="uploadEditor.jsp" format="false">
-		<property name="postAction" value="ImageEditor.load"/>
-		<property name="deleteAction" value="ImageEditor.remove"/>
+		<property name="loadAction" value="ImageEditor.load"/>
+		<property name="removeAction" value="ImageEditor.remove"/>
 		<property name="getURL" value="/xava/ximage"/>
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.NullFilesIdsProvider"/>
 		<property name="cssClass" value="ox-image"/> 	
@@ -180,8 +180,8 @@
 	</editor>
 	
 	<editor name="Gallery" url="uploadEditor.jsp" format="false" frame="true">
-		<property name="postAction" value="GalleryEditor.load"/>
-		<property name="deleteAction" value="GalleryEditor.remove"/>
+		<property name="loadAction" value="GalleryEditor.load"/>
+		<property name="removeAction" value="GalleryEditor.remove"/>
 		<property name="getURL" value="/xava/gallery"/>
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.ImagesGalleryFilesIdsProvider"/>
 		<property name="multipleFiles" value="true"/> 
@@ -190,21 +190,19 @@
 		<for-stereotype stereotype="GALERIA_IMAGENES" />
 	</editor>
 	
-	<!-- tmp ini -->
-	<editor name="FileItem" url="uploadEditor.jsp" format="false"> <!-- tmp ¿o File? ¿o ArrayBytes? o ¿Bytes? -->
-		<property name="postAction" value="FileItemEditor.load"/> 
-		<property name="deleteAction" value="FileItemEditor.remove"/> 
-		<property name="getURL" value="/xava/ximage"/> <!-- tmp Pendiente -->
+	<editor name="FileItem" url="uploadEditor.jsp" format="false"> 
+		<property name="loadAction" value="FileItemEditor.load"/> 
+		<property name="removeAction" value="FileItemEditor.remove"/> 
+		<property name="getURL" value="/xava/ximage"/> <!-- We should create a specific servlet for this, but for now it is not used for most cases -->
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.NullFilesIdsProvider"/>
-		<property name="cssClass" value="ox-file"/> <!-- tmp Si sirve, ¿renombrar? -->
+		<property name="cssClass" value="ox-file"/> 
 		<property name="imagePreview" value="false"/>
 		<for-type type="org.apache.commons.fileupload.FileItem"/>
 	</editor>
-	<!-- tmp fin -->	
 	
 	<editor name="AttachedFile" url="uploadEditor.jsp" format="false">
-		<property name="postAction" value="AttachedFileEditor.load"/> 
-		<property name="deleteAction" value="AttachedFileEditor.remove"/> 
+		<property name="loadAction" value="AttachedFileEditor.load"/> 
+		<property name="removeAction" value="AttachedFileEditor.remove"/> 
 		<property name="getURL" value="/xava/xfile"/>
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.PropertyValueFilesIdsProvider"/>
 		<property name="cssClass" value="ox-file"/> 
@@ -215,8 +213,8 @@
 	</editor>			
 	
 	<editor name="AttachedFiles" url="uploadEditor.jsp" format="false">
-		<property name="postAction" value="AttachedFilesEditor.load"/> 
-		<property name="deleteAction" value="AttachedFilesEditor.remove"/> 
+		<property name="loadAction" value="AttachedFilesEditor.load"/> 
+		<property name="removeAction" value="AttachedFilesEditor.remove"/> 
 		<property name="getURL" value="/xava/xfile"/>
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.AttachedFilesFilesIdsProvider"/>
 		<property name="cssClass" value="ox-files"/> 

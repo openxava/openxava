@@ -25,11 +25,7 @@ public class Invoice5Test extends ModuleTestBase {
 	
 	private void assertImportFromExcel(String file, String value0, String value1, String value2, String value3, String value4) throws Exception {
 		execute("ImportData.importData");
-		/* tmp
-		String fileURL = System.getProperty("user.dir") + "/test-files/" + file;
-		setFileValue("newFile", fileURL);
-		*/
-		uploadFile("file", "test-files/" + file); // tmp
+		uploadFile("file", "test-files/" + file); 
 		execute("ConfigureImport.configureImport");
 		execute("Import.import");
 		assertNoErrors(); 

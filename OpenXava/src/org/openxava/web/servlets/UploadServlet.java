@@ -39,14 +39,14 @@ public class UploadServlet extends HttpServlet {
 	}	
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		executeAction(request, response, "post", true); 
+		executeAction(request, response, "load", true); 
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		executeAction(request, response, "delete", false);
+		executeAction(request, response, "remove", false);
 	}
 	
-	private void executeAction(HttpServletRequest request, HttpServletResponse response, String method, boolean parseMultipart) throws ServletException {
+	private void executeAction(HttpServletRequest request, HttpServletResponse response, String actionPrefix, boolean parseMultipart) throws ServletException {
 		String action = "UNKNOWN"; 
 		try {
 			Requests.init(request, request.getParameter("application"), request.getParameter("module"));			
@@ -54,7 +54,7 @@ public class UploadServlet extends HttpServlet {
 			manager.executeBeforeEachRequestActions(request, new Messages(), new Messages());  
 			if (parseMultipart) manager.parseMultipartRequest(request);
 			String property = Ids.undecorate(request.getParameter("propertyKey"));
-			action = getEditorProperty(request, property, method + "Action");
+			action = getEditorProperty(request, property, actionPrefix + "Action");
 			Messages errors = new Messages(); 
 			request.setAttribute("errors", errors);
 			Messages messages = new Messages(); 			

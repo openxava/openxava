@@ -4,7 +4,6 @@ import org.apache.commons.fileupload.*;
 import org.openxava.annotations.*;
 
 /**
- * tmp
  * To use as generic transient class for dialogs.
  * 
  * @since 6.2

@@ -126,10 +126,10 @@ public class Product5Test extends CustomizeListTestBase {
 			"Collection.removeSelected", "CollectionCopyPaste.cut", "List.orderBy", "Collection.new",  
 			"Reference.createNew", "Reference.modify", "Print.generateExcel", 
 			"Product5.seeInitial",
-			"Product5.addPhoto" // tmp
+			"Product5.addPhoto" 
 		};
 		
-		String[] loadPhotoActions = { // tmp
+		String[] loadPhotoActions = { 
 			"Mode.list", "LoadPhotoIntoGallery.loadPhoto", "LoadPhotoIntoGallery.cancel" 	
 		};
 		
@@ -147,8 +147,6 @@ public class Product5Test extends CustomizeListTestBase {
 		assertNoAction("Product5.goB");
 		assertAction("CRUD.new");
 		
-		
-		// tmp ini
 		// list -> detail -> custom view -> list
 		execute("List.viewDetail", "row=0");
 		assertNoErrors();
@@ -159,7 +157,6 @@ public class Product5Test extends CustomizeListTestBase {
 		assertAction("Product5.goA");
 		assertNoAction("Product5.goB");
 		assertAction("CRUD.new");
-		// tmp ini
 	}
 	
 	

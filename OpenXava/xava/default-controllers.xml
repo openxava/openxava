@@ -494,14 +494,12 @@ here that you want to override.
 			class="org.openxava.actions.RemoveImageFromGalleryAction"/>		 
 	</controller>
 	
-	<!-- tmp ini -->
 	<controller name="FileItemEditor">  
 		<action name="load"
 			class="org.openxava.actions.LoadFileItemAction"/>
 		<action name="remove" 
 			class="org.openxava.actions.SetPropertyToNullAction"/>		 
 	</controller>
-	<!-- tmp fin -->	
 			
 	<controller name="Dialog">
 		<action name="cancel" 

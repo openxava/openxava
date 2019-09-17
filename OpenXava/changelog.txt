@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- FileItem type (from org.apache.commons.fileupload) has an editor associated to upload a file via AJAX. 
+- Import data in list mode uses AJAX for uploading the CSV/Excel file. 
+- New WithFileItem class to use as transient class for dialogs or views to just upload a file.
+- Fix: Editors with format=false and no formatter fail if the type has no an editor associated.
 - Doc for configuring MySQL, PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 and Firebird.
 - Editor for FILE and FILES stereotypes with AJAX uploading.
 - Guide for deploying on Tomcat in Spanish and English.

@@ -6,7 +6,6 @@ import org.apache.commons.fileupload.*;
 import org.openxava.util.*;
 
 /**
- * tmp
  * 
  * @author Javier Paniza
  */
