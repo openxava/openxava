@@ -112,7 +112,9 @@ abstract public class ModuleTestBase extends TestCase {
 	 * must use {@link #changeModule} at the very first of your test methods.<br> 
 	 */	
 	public ModuleTestBase(String nameTest, String module) {
-		this(nameTest, getXavaJunitProperties().getProperty("application"), module);
+		this(nameTest,
+			getXavaJunitProperties().getProperty("application", MetaApplications.getApplicationsNames().iterator().next().toString()),
+			module);
 	}
 	
 	
@@ -2933,7 +2935,8 @@ abstract public class ModuleTestBase extends TestCase {
 	 * 
 	 * @since 5.6
 	 */	
-	protected void assertDiscussionCommentsCount(String name, int expectedCount) { 
+	protected void assertDiscussionCommentsCount(String name, int expectedCount) {
+		client.getOptions().setCssEnabled(true); 		
 		HtmlElement comments = getDiscussionCommentsElement(name);
 		assertEquals(expectedCount + 1, comments.getChildElementCount());
 		assertFalse(comments.getLastElementChild().isDisplayed());

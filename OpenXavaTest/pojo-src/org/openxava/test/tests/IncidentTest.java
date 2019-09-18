@@ -18,8 +18,6 @@ public class IncidentTest extends EmailNotificationsTestBase {
 	}
 	
 	public void testDiscussionEditor_defaultPropertiesForListWithoutTab_discussionEmailNotifications() throws Exception {  
-		getWebClient().getOptions().setCssEnabled(true);
-		
 		subscribeToEmailNotifications(); 
 
 		execute("Mode.list"); 
