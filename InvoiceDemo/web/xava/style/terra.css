@@ -22,7 +22,7 @@ body {
 	padding: 0;
 }
 
-body, .ui-dialog, input {
+body, .ui-dialog, input, .filepond--root { 
 	font-family: Roboto, Arial,Helvetica,Verdana,sans-serif !important;
 }
 
@@ -357,7 +357,7 @@ A:hover .module-row, A:hover .folder-row, A:hover #organizations_index {
 
 input[type="text"], input[type="password"], input[type="file"], select, textarea, 
 .ui-widget input[type="text"], .ui-widget input[type="password"], .ui-widget input[type="file"], 
-.ui-widget sel ect, .ui-widget textarea {   
+.ui-widget select, .ui-widget textarea {   
 	border-color: lightgray;  
 	border-style: solid;	
 	border-width: 2px; 
@@ -693,12 +693,6 @@ i {
 	font-size: 200%;
 	padding: 0;
 	margin: -5px;
-}
-
-.ox-images-gallery .ox-frame-title i { 
-	font-size: 120%;
-	padding: 5px;
-	
 }
 
 .ox-customize-controls i {
@@ -1051,24 +1045,6 @@ input[type="button"],
 .ox-frame-actions {
 	float: left;
 	margin-right: 3px;
-}
-
-.ox-images-gallery {
-	padding-top: 10px;
-}
-
-.ox-images-gallery .ox-frame-actions i { 
-	margin-top: -5px;
-	margin-right: -6px;
-}
-
-.ox-images-gallery .ox-frame-title {
-	min-width: 20px;
-}
-
-.ox-images-gallery .ox-frame-actions {
-	float: right;
-	margin-left: 3px;
 }
 
 .ox-sections { 
@@ -2137,3 +2113,68 @@ div[id$="_Index__view"] .ox-list-title {
 .ox-list-header .mdi-arrow-down-bold, .ox-list-header .mdi-arrow-up-bold {
 	color: white; 
 } 
+
+.filepond--item {
+	width: 190px;
+}
+
+.filepond--root {
+	overflow: hidden; 
+}
+
+.filepond--drop-label label {
+	white-space: normal;
+}
+
+.ox-image {
+	width: 220px;
+}
+
+.ox-image .filepond--drop-label label {
+	width: 190px;
+}
+
+.ox-file {
+	width: 330px;;
+}
+
+.ox-files {
+	width: calc(100vw - 400px);
+}
+
+.ox-file .filepond--item, .ox-files .filepond--item {
+	width: 300px;
+	cursor: pointer;
+}
+
+.filepond--panel-root {
+	border-radius: 4px !important;
+}
+
+.filepond--file-action-button {
+    background: #036564 !important;
+}
+
+.filepond--image-preview-overlay-success {
+	color: #6fc664 !important;
+}
+
+.filepond--image-preview-overlay-failure {
+	color: #DC4A38 !important;
+}
+
+.filepond--image-preview-wrapper {
+	cursor: pointer;
+}
+
+.ox-image .filepond--file-info-main, .ox-gallery .filepond--file-info-main {
+	display: none !important;
+}
+
+.ox-element-collection .filepond--root { 
+	height: 180px;
+}
+
+.ox-list img {
+	max-height: 30px;
+}

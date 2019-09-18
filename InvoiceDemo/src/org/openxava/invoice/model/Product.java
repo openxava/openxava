@@ -17,6 +17,10 @@ public class Product {
 	
 	@Required
 	private BigDecimal unitPrice;
+	
+	@Stereotype("IMAGES_GALLERY") 
+	@Column(length=32)
+	private String photos; 
 
 	public int getNumber() {
 		return number;
@@ -40,6 +44,14 @@ public class Product {
 
 	public void setUnitPrice(BigDecimal unitPrice) {
 		this.unitPrice = unitPrice;
+	}
+
+	public String getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(String photos) {
+		this.photos = photos;
 	}
 
 }

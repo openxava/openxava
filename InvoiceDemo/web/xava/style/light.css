@@ -10,7 +10,7 @@ body {
 	padding: 0;
 }
 
-body, .ui-dialog, input { 
+body, .ui-dialog, input, .filepond--root {  
 	font-family: Arial,Helvetica,Verdana,sans-serif !important;
 }
 
@@ -563,12 +563,6 @@ i {
 	margin: -5px;
 }
 
-.ox-images-gallery .ox-frame-title i { 
-	font-size: 120%;
-	padding: 5px;
-	
-}
-
 .ox-customize-controls i {
 	color: #6fc664;
 }
@@ -948,24 +942,6 @@ input[type="button"], .ipad input[type="button"]:hover,
 .ox-frame-actions {
 	float: left;
 	margin-right: 3px;
-}
-
-.ox-images-gallery {
-	padding-top: 10px;
-}
-
-.ox-images-gallery .ox-frame-actions i { 
-	margin-top: -5px;
-	margin-right: -6px;
-}
-
-.ox-images-gallery .ox-frame-title {
-	min-width: 20px;
-}
-
-.ox-images-gallery .ox-frame-actions {
-	float: right;
-	margin-left: 3px;
 }
 
 .ox-sections { 
@@ -1860,3 +1836,69 @@ div[id$="_Index__view"] .ox-list-title {
 .ox-list-header a:hover i.mdi-arrow-down-bold, .ox-list-header a:hover i.mdi-arrow-up-bold {
 	color: blue;
 } 
+
+.filepond--item {
+	width: 190px;
+}
+
+.filepond--root {
+	overflow: hidden; 
+}
+
+.filepond--drop-label label {
+	white-space: normal;
+}
+
+.ox-image {
+	width: 220px;
+}
+
+.ox-image .filepond--drop-label label {
+	width: 190px;
+}
+
+.ox-file {
+	width: 330px;;
+}
+
+.ox-files {
+	width: calc(100vw - 400px);
+}
+
+.ox-file .filepond--item, .ox-files .filepond--item {
+	width: 300px;
+	cursor: pointer;
+}
+
+.filepond--panel-root {
+	border-radius: 4px !important;
+}
+
+.filepond--file-action-button {
+    background: #6F6F6F !important;
+}
+
+.filepond--image-preview-overlay-success {
+	color: #6fc664 !important;
+}
+
+.filepond--image-preview-overlay-failure {
+	color: #DC4A38 !important;
+}
+
+.filepond--image-preview-wrapper {
+	cursor: pointer;
+}
+
+.ox-image .filepond--file-info-main, .ox-gallery .filepond--file-info-main {
+	display: none !important;
+}
+
+.ox-element-collection .filepond--root { 
+	height: 180px;
+}
+
+.ox-list img {
+	max-height: 30px;
+}
+

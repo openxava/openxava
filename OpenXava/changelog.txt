@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- InvoiceDemo includes examples of PHOTO and GALLERY_IMAGES stereotypes.
 - Specifying application on creating a new test is no longer needed.
 - Fix: assertDiscussionCommentsCount() from ModuleTestBase does not work when CSS is disabled.
 - Some new common use labels to be used in applications.

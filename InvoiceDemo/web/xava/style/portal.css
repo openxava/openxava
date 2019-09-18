@@ -1074,3 +1074,74 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 .ox-unsubscribed i {
 	color: lightgray; 
 }
+
+.filepond--root {  
+	font-family: Arial,Helvetica,Verdana,sans-serif !important;
+	overflow: hidden; 
+}
+
+.filepond--item {
+	width: 190px;
+}
+
+.filepond--drop-label label {
+	white-space: normal;
+}
+
+.ox-image {
+	width: 220px;
+}
+
+.ox-image .filepond--drop-label label {
+	width: 190px;
+}
+
+.ox-file {
+	width: 330px;;
+}
+
+.ox-files {
+	width: calc(100vw - 400px);
+}
+
+.ox-file .filepond--item, .ox-files .filepond--item {
+	width: 300px;
+	cursor: pointer;
+}
+
+.filepond--panel-root {
+	border-radius: 4px !important;
+	background-color: white !important;
+}
+
+.filepond--file-action-button {
+    background: #6F6F6F !important;
+}
+
+.filepond--file-action-button:hover {
+	color: white;
+}
+
+.filepond--image-preview-overlay-success {
+	color: #6fc664 !important;
+}
+
+.filepond--image-preview-overlay-failure {
+	color: #ff0000 !important;
+}
+
+.filepond--image-preview-wrapper {
+	cursor: pointer;
+}
+
+.ox-image .filepond--file-info-main, .ox-gallery .filepond--file-info-main {
+	display: none !important;
+}
+
+.ox-element-collection .filepond--root { 
+	height: 180px;
+}
+
+.liferay-xava-cell-wrapper img {
+	max-height: 20px;
+}

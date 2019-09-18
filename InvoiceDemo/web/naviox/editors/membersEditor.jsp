@@ -8,6 +8,7 @@
 <%@ page import="org.openxava.controller.meta.MetaControllers" %>
 <%@ page import="org.openxava.application.meta.MetaModule"%>
 <%@ page import="org.openxava.controller.meta.MetaAction" %>
+<%@ page import="org.openxava.util.Labels" %> 
 
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"><%@page import="org.openxava.controller.meta.MetaController"%></jsp:useBean>
@@ -21,7 +22,7 @@ java.util.Collection members = java.util.Arrays.asList(fvalues);
 int i=0; 
 boolean excludeReadOnly = "true".equalsIgnoreCase(request.getParameter("excludeReadOnly")); 
 MetaModel model = MetaModel.get(module.getModelName());
-for (String memberName: model.getMembersNames()) {
+for (String memberName: model.getMembersNamesNestingAggregates()) { 	
 	MetaMember member = model.getMetaMember(memberName);
 	if (member.isHidden()) continue;
 	if (excludeReadOnly && member instanceof MetaProperty && ((MetaProperty) member).isReadOnly()) continue;
@@ -35,7 +36,7 @@ for (String memberName: model.getMembersNames()) {
 		<%=disabled%>
 		<%=script%>
 	/>		
-	<%=member.getLabel()%> 
+	<%=Labels.getQualified(memberName)%>
 	<% if (++i % 5 == 0) { %></tr><tr><% } %>
 	</td>
 <%		

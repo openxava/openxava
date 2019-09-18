@@ -33,6 +33,7 @@ public class Invoice extends Identifiable {
 	@DefaultValueCalculator(value=IntegerCalculator.class, properties=@PropertyValue(name="value", value="21"))
 	private int vatPercentage;
 	
+	@ReferenceView("Simple") 
 	@ManyToOne(optional=false, fetch=FetchType.LAZY)
 	private Customer customer;
 	
