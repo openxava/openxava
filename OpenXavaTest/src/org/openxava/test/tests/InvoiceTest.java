@@ -1811,7 +1811,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("CRUD.refresh");
 		assertNoErrors();
 		
-		execute("Sections.change", "activeSection=1");
+		execute("Sections.change", "activeSection=1"); 
 
 		String [] aggregateListActions = {
 			"Navigation.previous",

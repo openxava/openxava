@@ -57,7 +57,7 @@ public class HunterTest extends ModuleTestBase {
 		execute("AddToCollection.add", "row=1");
 		assertCollectionRowCount("hounds", 2);
 		
-		assertFalse(isNotVisibleConditionValue(0));
+		assertFalse(isNotVisibleConditionValue(0)); 
 		assertFalse(isNotVisibleConditionValue(2));
 		
 		// Filter String

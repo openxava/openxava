@@ -2303,7 +2303,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			persistentRowsHidden = preferences.getBoolean(ROWS_HIDDEN, rowsHidden);
 			rowsHidden = persistentRowsHidden; 
 			filterVisible = preferences.getBoolean(FILTER_VISIBLE, filterVisible); 
-			pageRowCount = Math.min(preferences.getInt(PAGE_ROW_COUNT, pageRowCount), 20);
+			pageRowCount = Math.min(preferences.getInt(PAGE_ROW_COUNT, pageRowCount), 50); 
 			columnWidths = loadMapFromPreferences(preferences, columnWidths, COLUMN_WIDTH, true);
 			labels = loadMapFromPreferences(preferences, labels, COLUMN_LABEL, false);
 			defaultCondition = getCondition();

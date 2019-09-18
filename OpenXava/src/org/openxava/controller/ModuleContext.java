@@ -278,7 +278,7 @@ public class ModuleContext implements java.io.Serializable {
 	}
 	
 	public static void setCurrentWindowId(HttpServletRequest request) {
-		setCurrentWindowId(request.getHeader("xava_window_id")); 
+		setCurrentWindowId(request.getHeader("xavawindowid"));  
 	}
 	
 	public static void setCurrentWindowId(String id) {

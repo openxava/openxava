@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Isolate state for several browser tabs in the same module fails in nginx.
+- Rows per page in list can be up to 50.
+- Length limit in stereotype MEMO/TEXT_AREA to avoid extremely large pages.
+- Methods of SaveAction, CreateNewElementInCollectionAction and SaveElementInCollection made protected.
 - InvoiceDemo includes examples of PHOTO and GALLERY_IMAGES stereotypes.
 - Specifying application on creating a new test is no longer needed.
 - Fix: assertDiscussionCommentsCount() from ModuleTestBase does not work when CSS is disabled.

@@ -261,7 +261,7 @@ openxava.initWindowId = function() {
 		document.cookie = "XAVA_WINDOW_ID=" + $("#xava_window_id").val(); 
 	});		
 	document.cookie="XAVA_WINDOW_ID=";   
-	dwr.engine.setHeaders({ xava_window_id: $("#xava_window_id").val() }); 
+	dwr.engine.setHeaders({ xavawindowid: $("#xava_window_id").val() }); 
 }
 
 openxava.selectRows = function(application, module, selectedRows) {
