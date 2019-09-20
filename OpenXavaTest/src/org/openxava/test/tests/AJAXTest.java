@@ -737,7 +737,7 @@ public class AJAXTest extends ModuleTestBase {
 		execute("CRUD.new");
 		execute("Sections.change", "activeSection=2");
 		execute("Sections.change", "activeSection=1");
-		assertLoadedParts("errors, messages, sections_xava_view, xava_view_section1_section0_collectionSize");
+		assertLoadedParts("errors, messages, sections_xava_view, xava_view_section1_section0_collectionSize"); 
 		execute("Sections.change", "activeSection=1,viewObject=xava_view_section1");
 		assertLoadedParts("errors, sections_xava_view_section1, messages");
 		execute("Sections.change", "activeSection=1,viewObject=xava_view_section1_section1");

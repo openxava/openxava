@@ -29,7 +29,7 @@ import org.openxava.util.*;
 		"unitPrice, unitPriceInPesetas;"		
 	),
 	@View( name= "NoDescriptionsLists", members=
-		"number, description, photos;" +
+		"number, description; photos;" +
 		"datos [#" + // Don't change this group to test a layout case
 			"family, subfamily;" +
 			"warehouse, unitPrice;" +

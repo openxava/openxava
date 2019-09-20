@@ -228,7 +228,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		execute("ReferenceSearch.choose", "row=0");
 		execute("Reference.createNew", "model=Seller,keyProperty=alternateSeller.number");
 		execute("NewCreation.cancel");
-		assertExists("alternateSeller.number");
+		assertExists("alternateSeller.number"); 
 	}
 
 	

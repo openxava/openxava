@@ -5573,6 +5573,7 @@ public class View implements java.io.Serializable {
 				}
 			}
 		}
+
 		if (hasGroups()) {
 			Iterator itSubviews = getGroupsViews().entrySet().iterator();
 			while (itSubviews.hasNext()) {
@@ -5584,6 +5585,7 @@ public class View implements java.io.Serializable {
 				}
 			}
 		}
+
 		if (!sectionChanged && hasSections()) {
 			// Only the displayed data matters here
 			getSectionView(getActiveSection()).fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(result);	

@@ -8,7 +8,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/xava"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/persistence"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/pojo-src"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/xava-src"/>
 <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/OpenXava/OpenXava">
 <dependency-type>uses</dependency-type>
 </dependent-module>

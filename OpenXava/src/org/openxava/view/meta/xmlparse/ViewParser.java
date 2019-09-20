@@ -190,6 +190,7 @@ public class ViewParser extends XmlElementsNames {
 		a.setReferenceName(el.getAttribute(xreference[lang]));
 		a.setViewName(el.getAttribute(xview[lang]));
 		a.setReadOnly(ParserUtil.getAttributeBoolean(el, xread_only[lang]));
+		a.setReadOnlyOnCreate(a.isReadOnly()); // Not supported in XML component yet
 		a.setCollapsed(ParserUtil.getAttributeBoolean(el, xcollapsed[lang]));
 		a.setAsAggregate(ParserUtil.getAttributeBoolean(el, xas_aggregate[lang]));
 		a.setEditor(el.getAttribute(xeditor[lang]));
@@ -276,6 +277,7 @@ public class ViewParser extends XmlElementsNames {
 		a.setPropertyName(el.getAttribute(xproperty[lang]));
 		a.setLabel(el.getAttribute(xlabel[lang]));	
 		a.setReadOnly(ParserUtil.getAttributeBoolean(el, xread_only[lang]));
+		a.setReadOnlyOnCreate(a.isReadOnly()); // Not supported in XML component yet
 		a.setEditor(el.getAttribute(xeditor[lang])); 
 		String labelFormat = el.getAttribute(xlabel_format[lang]);
 		if (XNORMAL[lang].equals(labelFormat)) a.setLabelFormat(MetaPropertyView.NORMAL_LABEL);

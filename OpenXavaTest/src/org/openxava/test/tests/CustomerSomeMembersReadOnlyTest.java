@@ -15,7 +15,7 @@ public class CustomerSomeMembersReadOnlyTest extends ModuleTestBase {
 	public void testReadOnly() throws Exception { 
 		execute("CRUD.new");
 		assertEditable("type");
-		assertNoEditable("name");
+		assertNoEditable("name"); 
 		assertNoEditable("seller.number");
 		assertNoEditable("alternateSeller");
 	}

@@ -19,6 +19,8 @@ import org.openxava.view.View;
 import org.openxava.web.*;
 import org.openxava.web.servlets.*;
 
+import com.lowagie.text.pdf.interfaces.*;
+
 /**
  * For accessing to module execution from DWR. <p>
  * 
