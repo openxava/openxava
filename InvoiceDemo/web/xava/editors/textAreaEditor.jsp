@@ -13,6 +13,7 @@ boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
 String script = request.getParameter("script");
 int rows = p.getSize() / 80 + 1;
+if (rows > 25) rows = 25; 
 script = script + " onkeyup='return openxava.limitLength(event, " + p.getSize() + ")' ";
 boolean rich = Is.equalAsStringIgnoreCase("true", request.getParameter("rich"));
 String cssClass = request.getParameter("cssClass");
