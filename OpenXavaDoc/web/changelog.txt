@@ -1,6 +1,52 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.2 (2019-9-24)
+------------------------
+- New Editor for FILE and FILES stereotypes with AJAX uploading.
+- New editor for PHOTO/IMAGE stereotype with AJAX uploading.
+- New editor for IMAGES_GALLERY stereotype inline in a frame and with AJAX uploading.
+- Images of PHOTO stereotype are shown in tiny size in list mode.
+- FileItem type (from org.apache.commons.fileupload) has an editor associated to upload a file via AJAX.
+- Import data in list mode uses AJAX for uploading the CSV/Excel file.
+- New uploadFile(), removeFile(), assertFile(), assertNoFile() and assertFilesCount() in ModuleTestBase.
+- New WithFileItem class to use as transient class for dialogs or views to just upload a file.
+- InvoiceDemo includes examples of PHOTO and GALLERY_IMAGES stereotypes.
+- Projects can be launched directly using Run As > Application.
+- No longer is needed to have a Tomcat installed for development.
+- Eclipse for Java Developers is enough, no longer Eclipse for Java Enterprise Developers needed.
+- Each new project includes a DBManager to launch a HSQLDB manager.
+- Getting started guide simplified.
+- Quick start guide removed.
+- Guide for deploying on Tomcat in Spanish and English.
+- Doc for configuring MySQL, PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 and Firebird.
+- MySchool demo project no longer included in distribution.
+- OpenXavaTemplate and OpenXavaPlantilla projects removed from distribution.
+- CreateNewProject.xml and CrearNuevoProyecto.xml available in OpenXava project directly.
+- Workspace in distribution upgraded to Eclipse 2019-09, though it still works with Neon (4.6).
+- Rows per page in list can be up to 50.
+- Length limit in stereotype MEMO/TEXT_AREA to avoid extremely large pages.
+- Grouping by in list mode has a year and month entry for each LocalDate property.
+- Filtering by year, month and year/month in list mode for LocalDate columns.
+- Lessons from 1 to 3 of the course use LocalDate instead of Date.
+- @ReadOnly(onCreate=false) in order the member would be editable on create and read only in the other cases.
+- DBServer class to start a HSQLDB and its manager.
+- Methods of SaveAction, CreateNewElementInCollectionAction and SaveElementInCollection made protected.
+- The methods setHidden() and setEditable() of View accept qualified member names. 
+- Specifying application on creating a new test is no longer needed.
+- Some new common use labels to be used in applications.
+- DWR warning messages no longer shown in log.
+- Commons Codec API available to be used in applications.
+- Servlet API 4.0 included, though we still are compatible with Servlet 3.0.
+- New smtpFromEmail property in xava.property to define a 'from' email different than smtpUserId. 
+- New methods isIE() and isFF() in Browsers utility class.
+- Fix: Isolate state for several browser tabs in the same module fails in nginx.
+- Fix: Some broken links in menu of the Spanish View chapter of reference guide.
+- Fix: assertDiscussionCommentsCount() from ModuleTestBase does not work when CSS is disabled.
+- Fix: Editors with format=false and no formatter fail if the type has no an editor associated.
+- Fix: Unused servlets defined in web.xml.
+- Fix: Broken image when PHOTO stereotype with no image is shown in list.  	
+
 OpenXava 6.1.2 (2019-6-17)
 --------------------------
 - Label aligned on top when editor height is greater than usual.
