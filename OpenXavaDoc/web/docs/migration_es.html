@@ -41,6 +41,16 @@
       <p><br>
       </p>
       <h2>Para migrar de OpenXava 6.1.2 a OpenXava 6.2</h2>
+      <h3>Definición de fuentes de datos en web/META-INF/context.xml del
+        proyecto</h3>
+      Por tanto, si haces un <i>actualizarOX</i> en tu proyecto y lo pruebas en
+      un Tomcat dentro de Eclipse, te fallará. Ahora has de definir tu fuente de
+      datos en <i>web/META-INF/context.xml</i>
+      de tu proyecto. Esta es la fuente de datos para usar en desarrollo, en
+      producción (es decir en Tomcat fuera de Eclipse) las fuentes de datos
+      definidas en <i>conf/context.xml</i> del Tomcat tienen preferencia, por
+      lo que no tienes que cambiar las fuentes de datos en producción, sólo en
+      desarrollo.
       <h3>Nuevo editor para los estereotipos FOTO, IMAGEN, GALERIA_IMAGENES,
         ARCHIVO y ARCHIVOS (para pruebas JUnit)</h3>
       El nuevo editor no requiere ningún cambio en el código de la aplicación,
