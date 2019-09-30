@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Search icon in module searching box missing.
+- Fix: Custom naming strategy for Hibernate not recognized.
+
 OpenXava 6.2 (2019-9-24)
 ------------------------
 - New Editor for FILE and FILES stereotypes with AJAX uploading.

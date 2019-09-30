@@ -199,7 +199,7 @@ public class XPersistence {
 		if (entityManagerFactory == null) {
 			try {
 				Map factoryProperties = properties;
-				if (!factoryProperties.containsKey("hibernate.implicit_naming_strategy")) {
+				if (PersistenceXml.getPropetyValue(getPersistenceUnit(), "hibernate.implicit_naming_strategy") == null) { 
 					factoryProperties = new HashMap(properties);
 					factoryProperties.put("hibernate.implicit_naming_strategy", "legacy-jpa"); 
 				}
@@ -209,6 +209,10 @@ public class XPersistence {
 				log.error(XavaResources.getString("incorrect_openxava_upgrade")); 
 				throw ex;
 			}
+			catch (ParserConfigurationException ex) {
+				log.error(XavaResources.getString("incorrect_openxava_upgrade"));
+				throw new RuntimeException(ex);
+			}			
 			entityManagerFactories.put(new HashMap(properties), entityManagerFactory);			
 		}
 		return entityManagerFactory;
