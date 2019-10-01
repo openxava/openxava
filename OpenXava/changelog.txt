@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+
+- Fix: Dialog to add columns to list freezes when the entity has a lot of nested references. 
+- Fix: Searching in add columns dialog shows the properties in other language from time to time.
 - Fix: Search icon in module searching box missing.
 - Fix: Custom naming strategy for Hibernate not recognized.
 

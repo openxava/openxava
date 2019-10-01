@@ -1694,9 +1694,9 @@ abstract public class MetaModel extends MetaElement {
 		if (recursiveQualifiedPropertiesNames == null) {
 			Collection parents = new HashSet();
 			parents.add(getName());			
-			// tmp recursiveQualifiedPropertiesNames = createQualifiedPropertiesNames(parents, "", Integer.MAX_VALUE);
-			// TMP ME QUEDÉ POR AQUÍ: ¿3 ES UN BUEN NIVEL? ¿PROBAR LOS TESTS SELECCIONADOS?
-			recursiveQualifiedPropertiesNames = createQualifiedPropertiesNames(parents, "", 3); // tmp
+			recursiveQualifiedPropertiesNames = createQualifiedPropertiesNames(parents, "", 4); // The limit cannot be very big because it freezes the add column dialog with plain OpenXava 
+																								// and produces OutOfMemoryError with XavaPro on starting module, 
+																								// with entities with many nested references
 		}
 		return recursiveQualifiedPropertiesNames;
 	}
@@ -1717,7 +1717,6 @@ abstract public class MetaModel extends MetaElement {
 
 	
 	private Collection createQualifiedPropertiesNames(Collection parents, String prefix, int level) throws XavaException {
-		System.out.println("[MetaModel.createQualifiedPropertiesNames] level=" + level); // tmp
 		if (level == 0) return Collections.EMPTY_LIST; 
 		List result = new ArrayList();		
 		for (Iterator it = getMembersNames().iterator(); it.hasNext();) {
