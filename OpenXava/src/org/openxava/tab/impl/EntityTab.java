@@ -61,7 +61,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 					else select.append(" AND "); 								
 				}
 				select.append(condition); 
-			}																		
+			}																
 			tabProvider.search(select.toString(), key);
 		}
 		catch (XavaException ex) {
