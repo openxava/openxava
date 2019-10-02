@@ -34,9 +34,7 @@ public class JPATabProvider extends TabProviderBase {
 	}
 
 	public String getSelectBase() {
-		String result = changePropertiesByJPAProperties(getSelectWithEntityAndJoins());
-		System.out.println("[JPATabProvider.getSelectBase] result=" + result); // tmp
-		return result;
+		return changePropertiesByJPAProperties(getSelectWithEntityAndJoins());
 	}
 	
 	public Collection<TabConverter> getConverters() {	
@@ -45,8 +43,6 @@ public class JPATabProvider extends TabProviderBase {
 	
 	private String getSelectWithEntityAndJoins() {
 		String select = getMetaTab().getSelect();
-		// TMP ME QUEDÉ POR AQUÍ: ESTO ES LO QUE FALLA, NO AÑADE EL ÚLTIMO INNER JOIN. ¿IMPLEMENTAR EN XML?
-		System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] select=" + select); // tmp
 		int i = select.indexOf("from ${");
 		if (i < 0) return select; 
 		int f = select.indexOf("}", i);
@@ -61,7 +57,7 @@ public class JPATabProvider extends TabProviderBase {
 			Iterator itReferencesMappings = getEntityReferencesMappings().iterator();			
 			while (itReferencesMappings.hasNext()) {
 				ReferenceMapping referenceMapping = (ReferenceMapping) itReferencesMappings.next();				
-				String reference = referenceMapping.getReference();				
+				String reference = referenceMapping.getReference();			
 				int idx = reference.lastIndexOf('_');				
 				if (idx >= 0) {
 					// In the case of reference to entity in aggregate only we will take the last reference name
@@ -88,7 +84,6 @@ public class JPATabProvider extends TabProviderBase {
 		
 		StringBuffer result = new StringBuffer(select);
 		result.replace(i, f + 2, entityAndJoins.toString());
-		System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] result=" + result); // tmp
 		return result.toString();
 	}	
 	

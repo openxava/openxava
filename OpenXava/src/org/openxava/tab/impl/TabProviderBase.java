@@ -226,7 +226,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 			entityReferencesMappings = new ArrayList(); 
 			entityReferencesReferenceNames = new HashMap(); 
 			for (Iterator itProperties = getMetaTab().getPropertiesNames().iterator(); itProperties.hasNext();) {
-				String property = (String) itProperties.next();				
+				String property = (String) itProperties.next();		
 				fillEntityReferencesMappings(entityReferencesMappings, property, getMetaModel(), "", ""); 
 			}
 			for (Iterator itProperties = getMetaTab().getHiddenPropertiesNames().iterator(); itProperties.hasNext();) {
@@ -242,7 +242,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 	}
 	
 	private void fillEntityReferencesMappings(Collection result, String property, MetaModel metaModel, String parentReference, String aggregatePrefix, MetaModel parentMetaModel) throws XavaException {		
-		int idx = property.indexOf('.');				
+		int idx = property.indexOf('.');
 		if (idx >= 0) {
 			String referenceName = property.substring(0, idx);	
 			MetaReference ref = metaModel.getMetaReference(referenceName);
@@ -258,10 +258,17 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 						if (parentMetaModel == null) parentMetaModel = metaModel.getMetaModelContainer(); 
 						rm = parentMetaModel.getMapping().getReferenceMapping(aggregatePrefix + referenceName);
 					}
+					/* tmp
 					if (!result.contains(rm)) {
 						entityReferencesReferenceNames.put(rm, parentReference); 
 						result.add(rm);
 					}
+					*/
+					// tmp ini
+					if (result.contains(rm)) rm = rm.clone();  
+					entityReferencesReferenceNames.put(rm, parentReference); 
+					result.add(rm);										
+					// tmp fin
 				}
 			}			
 			 

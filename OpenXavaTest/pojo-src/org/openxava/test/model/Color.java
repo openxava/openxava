@@ -28,8 +28,7 @@ import org.openxava.test.actions.*;
 })
 @Tab( properties = "number, name, hexValue, sample, usedTo.name, characteristicThing.description")
 // tmp @Tab( name="Color2", properties = "number, name, hexValue, sample, usedTo.name, characteristicThing.description")	
-// tmp @Tab( name="Color2", properties = "number, name, hexValue, sample, usedTo.name, characteristicThing.description, characteristicThing.thing.name, anotherCT.thing.name") // tmp
-@Tab( name="Color2", properties = "number, name, characteristicThing.thing.name, anotherCT.thing.name") // tmp Simple, para depurar
+@Tab( name="Color2", properties = "number, name, hexValue, sample, usedTo.name, characteristicThing.description, characteristicThing.thing.name, anotherCT.thing.name") 
 public class Color {
 
 	@Id @Column(length=5)

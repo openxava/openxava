@@ -2,6 +2,7 @@ package org.openxava.test.tests;
 
 import java.math.*;
 import java.util.*;
+import java.util.stream.*;
 
 import javax.persistence.*;
 

@@ -63,7 +63,8 @@ public class Color2Test extends ModuleTestBase {
 		
 		execute("MyReport.generatePdf"); 
 		assertPopupPDFLinesCount(5);  
-		assertPopupPDFLine(3, "0 ROJO FF0000 RED CAR 3 PLACES");
+		// tmp assertPopupPDFLine(3, "0 ROJO FF0000 RED CAR 3 PLACES");
+		assertPopupPDFLine(3, "0 ROJO FF0000 RED CAR 3 PLACES CAR"); // tmp
 		
 		execute("ExtendedPrint.myReports");
 		assertValueInCollection("columns", 4, 0, "Used to"); 
@@ -75,7 +76,14 @@ public class Color2Test extends ModuleTestBase {
 		execute("MyReport.remove", "xava.keyProperty=name");				
 	}
 	
-	public void testFilterDescriptionsList_keyReferenceWithSameNameThatPropertyFather() throws Exception{ 
+	public void testFilterDescriptionsList_keyReferenceWithSameNameThatPropertyFather_twoReferencesToSameModelInList() throws Exception{ // tmp twoReferencesToSameModelInList 
+		// tmp ini
+		// TMP ¿Probar en XML?
+		assertLabelInList(6, "Thing of Characteristic thing");
+		assertLabelInList(7, "Thing of Another CT");
+		assertValueInList(3, 6, "CAR");
+		assertValueInList(3, 7, "LAMPPOST");
+		// tmp fin
 		assertLabelInList(4, "Used to"); 
 		String [][] validValues = {
 			{ "", "" },

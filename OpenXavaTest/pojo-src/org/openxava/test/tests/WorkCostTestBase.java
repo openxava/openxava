@@ -23,7 +23,7 @@ abstract public class WorkCostTestBase extends ModuleTestBase {
 		this.collection = collection;
 	}
 		
-	public void testCalculationAndEditableTotalsInCollections() throws Exception { 
+	public void testCalculationAndEditableTotalsInCollections() throws Exception { // TMP FALLA ME QUEDÉ POR AQUÍ, HE DE REVISAR LOS FALLA
 		assertListRowCount(1);
 		execute("List.viewDetail", "row=0");
 		assertValue("description", "CAR SERVICE");
