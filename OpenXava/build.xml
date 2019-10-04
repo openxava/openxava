@@ -974,14 +974,22 @@
 		
 	</target>
 	
-	<target name="createAppLauncher">
+	<target name="defineJavaClass">
+		<script language="javascript">
+			var javaclass = project.getProperty("project").replace(/ /g,'').replace(/-/g,'');
+			project.setProperty("javaclass", javaclass);
+		 </script>
+	</target>
+
+	<target name="createAppLauncher" depends="defineJavaClass">
 		<mkdir dir="../${project}/src/_run"/>
-		<copy file="${openxava.base.dir}/OpenXava/project-templates/en/src/_run/AppLauncher.java" 
-			tofile="../${project}/src/_run/_Run_${project}.java" overwrite="false">
-	    	<filterset>	    	
+		<copy file="${openxava.base.dir}/OpenXava/project-templates/en/src/_run/AppLauncher.java"
+			tofile="../${project}/src/_run/_Run_${javaclass}.java" overwrite="false">
+			<filterset>
 				<filter token="project" value="${project}"/>
-	    		<filter token="database" value="${project}DB"/> 
-			</filterset> 			         
+				<filter token="javaclass" value="${javaclass}"/>
+				<filter token="database" value="${project}DB"/>
+			</filterset>
 		</copy>
 		<mkdir dir="../${project}/web/META-INF"/>
 		<copy file="${openxava.base.dir}/OpenXava/project-templates/en/web/META-INF/context.xml" 

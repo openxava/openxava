@@ -3,7 +3,7 @@
 <!--
 To create a new OpenXava project:
 	1. Create a new Java Project using Eclipse.
-	2. With Eclipse: Right mouse button on this file > Run As > Ant 
+	2. With Eclipse: Right mouse button on this file > Run As > Ant
 	3. Eclipse will ask you the project name: use the name of the Java project created in step 1.
 -->
 
@@ -12,40 +12,41 @@ To create a new OpenXava project:
 	<input addproperty="project" message="What is your project name?"/>
 	<property name="datasource" value="${project}DS"/> <!-- If you change this revise createAppLauncher of build.xml -->
 	<property name="database" value="${project}DB"/> <!-- If you change this revise createAppLauncher of build.xml -->
-	<property name="schema" value="${project}"/>
-	
-	<target name="definePackage">
+
+	<target name="definePackageAndJavaClass">
 		<script language="javascript">
-			var package = project.getProperty("project").replace(/ /g,'').toLowerCase();
-			project.setProperty("package", package); 
+			var javaclass = project.getProperty("project").replace(/ /g,'').replace(/-/g,'');
+			project.setProperty("javaclass", javaclass);
+			project.setProperty("package", javaclass.toLowerCase());
 		 </script>
 	</target>
-	
-	<target name="createNewProject" depends="definePackage">
+
+	<target name="createNewProject" depends="definePackageAndJavaClass">
 		<mkdir dir="../${project}"/>
 		<copy todir="../${project}" overwrite="true">
 			<fileset dir="project-templates/en"/>
-	    	<filterset>	    	
+			<filterset>
 				<filter token="project" value="${project}"/>
-	    		<filter token="package" value="${package}"/> 
-	    		<filter token="datasource" value="${datasource}"/>
-	    		<filter token="database" value="${database}"/> 
-	    		<filter token="schema" value="${schema}"/>
-			</filterset> 			         
-		</copy>						
-		<move file="../${project}/.project.template" 
-			tofile="../${project}/.project" />		
-		<move file="../${project}/xava/application.xml.template" 
+				<filter token="javaclass" value="${javaclass}"/>
+				<filter token="package" value="${package}"/>
+				<filter token="datasource" value="${datasource}"/>
+				<filter token="database" value="${database}"/>
+				<filter token="schema" value="${javaclass}"/>
+			</filterset>
+		</copy>
+		<move file="../${project}/.project.template"
+			tofile="../${project}/.project" />
+		<move file="../${project}/xava/application.xml.template"
 			tofile="../${project}/xava/application.xml" />
-		<move file="../${project}/xava/controllers.xml.template" 
-			tofile="../${project}/xava/controllers.xml" />		
-		<move file="../${project}/i18n/labels_en.properties.template" 
-			tofile="../${project}/i18n/${project}-labels_en.properties" />				
-		<move file="../${project}/i18n/messages_en.properties.template" 
+		<move file="../${project}/xava/controllers.xml.template"
+			tofile="../${project}/xava/controllers.xml" />
+		<move file="../${project}/i18n/labels_en.properties.template"
+			tofile="../${project}/i18n/${project}-labels_en.properties" />
+		<move file="../${project}/i18n/messages_en.properties.template"
 			tofile="../${project}/i18n/${project}-messages_en.properties" />
-		<move file="../${project}/src/_run/AppLauncher.java" 
-			tofile="../${project}/src/_run/_Run_${project}.java" />		
-		<move file="../${project}/src/com/yourcompany/yourapp/model/YourFirstEntity.java" 
+		<move file="../${project}/src/_run/AppLauncher.java"
+			tofile="../${project}/src/_run/_Run_${javaclass}.java" />
+		<move file="../${project}/src/com/yourcompany/yourapp/model/YourFirstEntity.java"
 			tofile="../${project}/src/com/yourcompany/${package}/model/YourFirstEntity.java" />
 		<delete dir="../${project}/src/com/yourcompany/yourapp" failonerror="false"/>		
 		<delete file="../${project}/data/data.txt"/>
