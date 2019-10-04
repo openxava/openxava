@@ -726,11 +726,9 @@ public class AJAXTest extends ModuleTestBase {
 		execute("Sections.change", "activeSection=1");
 		assertLoadedParts("messages, errors, sections_xava_view, xava_view_section1_section0_collectionSize");
 		execute("Navigation.next");
-		assertLoadedParts("messages, errors, frame_detailsheader, editor_year, collection_details___, editor_paid, editor_number, editor_date,"
+		assertLoadedParts("messages, errors, frame_detailsheader, editor_year, collection_details___, editor_paid, editor_number, editor_date," 
 			+ "xava_view_section1_section0_collectionSize, xava_view_section2_collectionSize, xava_view_section3_collectionSize"); 
 	}
-	
-	
 	
 	public void testSections() throws Exception {
 		changeModule("InvoiceNestedSections");

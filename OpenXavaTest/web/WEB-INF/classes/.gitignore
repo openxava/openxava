@@ -19,6 +19,9 @@
 /hibernate.cfg.xml
 /org/
 /portlets/
+/stereotype-type-default.xml
+/tabs-default-values.xml
+/validators.xml
 /BeansContext.properties
 /Corporation.html
 /CorporationEmployee.html

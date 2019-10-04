@@ -42,6 +42,14 @@
     </div>
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 6.1.2 to OpenXava 6.2</h2>
+      <h3>Datasource definition in web/META-INF/context.xml of project</h3>
+      So, if you do an <i>updateOX</i> on your project and try it in the Tomcat
+      inside Eclipse, it will fail. Now you have to define your datasource in <i>web/META-INF/context.xml</i>
+      of your project. This is the datasource for development, in production
+      (that is in a Tomcat outside Eclipse) the datasources defined in <i>conf/context.xml</i>
+      of Tomcat take preference, so you have not to modify datasources in
+      production, just in development.
+      <h3></h3>
       <h3>New editor for PHOTO, IMAGE, IMAGES_GALLERY, FILE and FILES
         stereotypes (for JUnit tests)</h3>
       The new editor does not require any change in your application code, but

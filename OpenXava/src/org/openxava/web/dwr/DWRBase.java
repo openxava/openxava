@@ -3,6 +3,7 @@ package org.openxava.web.dwr;
 import javax.servlet.http.*;
 
 import org.openxava.controller.*;
+import org.openxava.util.*;
 import org.openxava.web.*;
 import org.openxava.web.servlets.*;
 import org.openxava.web.style.*;
@@ -25,6 +26,7 @@ class DWRBase {
 		Servlets.setCharacterEncoding(request, response);
 		checkSecurity(request, application, module);
 		request.setAttribute("style", Style.getInstance(request)); 
+		Locales.setCurrent(request); 
 		Requests.init(request, application, module); 
 	}
 	

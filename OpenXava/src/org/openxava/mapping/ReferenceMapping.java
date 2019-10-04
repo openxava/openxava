@@ -11,7 +11,7 @@ import org.openxava.model.meta.*;
 import org.openxava.util.*;
 
 
-public class ReferenceMapping implements java.io.Serializable {
+public class ReferenceMapping implements java.io.Serializable, Cloneable { 
 	
 	private ModelMapping container;
 	private String reference;
@@ -21,6 +21,14 @@ public class ReferenceMapping implements java.io.Serializable {
 	private Collection columns = null;
 	
 
+	public ReferenceMapping clone() {
+		try {
+			return (ReferenceMapping) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public void addDetail(ReferenceMappingDetail detail) {
 		details.put(detail.getReferencedModelProperty(), detail);
 		detail.setContainer(this); 

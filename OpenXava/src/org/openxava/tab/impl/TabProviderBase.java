@@ -21,8 +21,8 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 	private static Log log = LogFactory.getLog(TabProviderBase.class);
 	private static final int DEFAULT_CHUNK_SIZE = 50;	
 
-	private Collection entityReferencesMappings;  
-	private Map entityReferencesReferenceNames; 	
+	private Collection<ReferenceMapping> entityReferencesMappings; 
+	private Map<ReferenceMapping, String>  entityReferencesReferenceNames;  	
 	private String select; // Select ... from ...
 	private String selectSize;
 	private Object[] key;
@@ -217,16 +217,16 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		return !getEntityReferencesMappings().isEmpty();
 	}
 	
-	protected Map getEntityReferencesReferenceNames() {
+	protected Map<ReferenceMapping, String> getEntityReferencesReferenceNames() { 
 		return entityReferencesReferenceNames;
 	}
 	
-	protected Collection getEntityReferencesMappings() throws XavaException {	
+	protected Collection<ReferenceMapping> getEntityReferencesMappings() throws XavaException { 	
 		if (entityReferencesMappings == null) {
-			entityReferencesMappings = new ArrayList(); 
-			entityReferencesReferenceNames = new HashMap(); 
+			entityReferencesMappings = new ArrayList<>(); 
+			entityReferencesReferenceNames = new HashMap<>(); 
 			for (Iterator itProperties = getMetaTab().getPropertiesNames().iterator(); itProperties.hasNext();) {
-				String property = (String) itProperties.next();				
+				String property = (String) itProperties.next();		
 				fillEntityReferencesMappings(entityReferencesMappings, property, getMetaModel(), "", ""); 
 			}
 			for (Iterator itProperties = getMetaTab().getHiddenPropertiesNames().iterator(); itProperties.hasNext();) {
@@ -237,12 +237,12 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		return entityReferencesMappings;
 	}
 	
-	private void fillEntityReferencesMappings(Collection result, String property, MetaModel metaModel, String parentReference, String aggregatePrefix) throws XavaException { 
+	private void fillEntityReferencesMappings(Collection<ReferenceMapping> result, String property, MetaModel metaModel, String parentReference, String aggregatePrefix) throws XavaException { 
 		fillEntityReferencesMappings(result, property, metaModel, parentReference, aggregatePrefix, null);
 	}
 	
-	private void fillEntityReferencesMappings(Collection result, String property, MetaModel metaModel, String parentReference, String aggregatePrefix, MetaModel parentMetaModel) throws XavaException {		
-		int idx = property.indexOf('.');				
+	private void fillEntityReferencesMappings(Collection<ReferenceMapping> result, String property, MetaModel metaModel, String parentReference, String aggregatePrefix, MetaModel parentMetaModel) throws XavaException {		
+		int idx = property.indexOf('.');
 		if (idx >= 0) {
 			String referenceName = property.substring(0, idx);	
 			MetaReference ref = metaModel.getMetaReference(referenceName);
@@ -258,10 +258,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 						if (parentMetaModel == null) parentMetaModel = metaModel.getMetaModelContainer(); 
 						rm = parentMetaModel.getMapping().getReferenceMapping(aggregatePrefix + referenceName);
 					}
-					if (!result.contains(rm)) {
-						entityReferencesReferenceNames.put(rm, parentReference); 
-						result.add(rm);
-					}
+					addEntityReferenceMapping(entityReferencesMappings, entityReferencesReferenceNames, rm, parentReference);
 				}
 			}			
 			 
@@ -278,6 +275,10 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 			}
 		}		
 	}
+	
+	/** @since 6.2.1 */
+	abstract protected void addEntityReferenceMapping(Collection<ReferenceMapping> entityReferencesMappings, 
+			Map<ReferenceMapping, String> entityReferencesReferenceNames, ReferenceMapping referenceMapping, String parentReference); 
 	
 	private String concat(String parentReference, String referenceName) { 
 		if (Is.emptyString(parentReference)) return referenceName; 

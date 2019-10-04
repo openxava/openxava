@@ -1694,7 +1694,9 @@ abstract public class MetaModel extends MetaElement {
 		if (recursiveQualifiedPropertiesNames == null) {
 			Collection parents = new HashSet();
 			parents.add(getName());			
-			recursiveQualifiedPropertiesNames = createQualifiedPropertiesNames(parents, "", Integer.MAX_VALUE);
+			recursiveQualifiedPropertiesNames = createQualifiedPropertiesNames(parents, "", 4); // The limit cannot be very big because it freezes the add column dialog with plain OpenXava 
+																								// and produces OutOfMemoryError with XavaPro on starting module, 
+																								// with entities with many nested references
 		}
 		return recursiveQualifiedPropertiesNames;
 	}

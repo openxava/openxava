@@ -576,7 +576,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 	
 	public void testRemoveReportInMyReport() throws Exception { 
 		execute("ExtendedPrint.myReports");
-		setValue("name", "Carrier report 1");
+		setValue("name", "Carrier report 1"); 
 		execute("MyReport.generatePdf");		
 		
 		execute("ExtendedPrint.myReports"); 

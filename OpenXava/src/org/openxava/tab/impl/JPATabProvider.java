@@ -42,7 +42,7 @@ public class JPATabProvider extends TabProviderBase {
 	}
 	
 	private String getSelectWithEntityAndJoins() {
-		String select = getMetaTab().getSelect();		
+		String select = getMetaTab().getSelect();
 		int i = select.indexOf("from ${");
 		if (i < 0) return select; 
 		int f = select.indexOf("}", i);
@@ -57,7 +57,7 @@ public class JPATabProvider extends TabProviderBase {
 			Iterator itReferencesMappings = getEntityReferencesMappings().iterator();			
 			while (itReferencesMappings.hasNext()) {
 				ReferenceMapping referenceMapping = (ReferenceMapping) itReferencesMappings.next();				
-				String reference = referenceMapping.getReference();				
+				String reference = referenceMapping.getReference();			
 				int idx = reference.lastIndexOf('_');				
 				if (idx >= 0) {
 					// In the case of reference to entity in aggregate only we will take the last reference name
@@ -210,5 +210,14 @@ public class JPATabProvider extends TabProviderBase {
 	protected String noValueInSelect() { 
 		return "''";
 	}
-
+	
+	/** @since 6.2.1 */
+	protected void addEntityReferenceMapping(Collection<ReferenceMapping> entityReferencesMappings, 
+		Map<ReferenceMapping, String> entityReferencesReferenceNames, ReferenceMapping referenceMapping, String parentReference) 
+	{
+		if (entityReferencesMappings.contains(referenceMapping)) referenceMapping = referenceMapping.clone();  
+		entityReferencesReferenceNames.put(referenceMapping, parentReference); 
+		entityReferencesMappings.add(referenceMapping);
+	}
+	
 }

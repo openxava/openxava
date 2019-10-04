@@ -47,7 +47,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	
 	public void testCutPasteCascadeCollection() throws Exception {
 		assertValueInList(5, 0, "2004");
-		assertValueInList(5, 1, "12");
+		assertValueInList(5, 1, "12"); 
 		execute("List.viewDetail", "row=5");
 		assertValue("year", "2004");
 		assertValue("number", "12");

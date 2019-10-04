@@ -27,7 +27,7 @@ import org.openxava.test.actions.*;
 	@View( name="Sub", members="actionNumber")
 })
 @Tab( properties = "number, name, hexValue, sample, usedTo.name, characteristicThing.description")
-@Tab( name="Color2", properties = "number, name, hexValue, sample, usedTo.name, characteristicThing.description")	
+@Tab( name="Color2", properties = "number, name, hexValue, sample, usedTo.name, characteristicThing.description, characteristicThing.thing.name, anotherCT.thing.name") 
 public class Color {
 
 	@Id @Column(length=5)
