@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-
+- Fix: Properties from two second level references to the same model fail in list mode.
 - Fix: Dialog to add columns to list freezes when the entity has a lot of nested references. 
 - Fix: Searching in add columns dialog shows the properties in other language from time to time.
 - Fix: Search icon in module searching box missing.

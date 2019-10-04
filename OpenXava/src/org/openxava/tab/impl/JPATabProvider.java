@@ -210,5 +210,14 @@ public class JPATabProvider extends TabProviderBase {
 	protected String noValueInSelect() { 
 		return "''";
 	}
-
+	
+	/** @since 6.2.1 */
+	protected void addEntityReferenceMapping(Collection<ReferenceMapping> entityReferencesMappings, 
+		Map<ReferenceMapping, String> entityReferencesReferenceNames, ReferenceMapping referenceMapping, String parentReference) 
+	{
+		if (entityReferencesMappings.contains(referenceMapping)) referenceMapping = referenceMapping.clone();  
+		entityReferencesReferenceNames.put(referenceMapping, parentReference); 
+		entityReferencesMappings.add(referenceMapping);
+	}
+	
 }

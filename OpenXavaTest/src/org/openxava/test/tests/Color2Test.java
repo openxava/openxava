@@ -63,8 +63,8 @@ public class Color2Test extends ModuleTestBase {
 		
 		execute("MyReport.generatePdf"); 
 		assertPopupPDFLinesCount(5);  
-		// tmp assertPopupPDFLine(3, "0 ROJO FF0000 RED CAR 3 PLACES");
-		assertPopupPDFLine(3, "0 ROJO FF0000 RED CAR 3 PLACES CAR"); // tmp
+		if (usesAnnotatedPOJO()) assertPopupPDFLine(3, "0 ROJO FF0000 RED CAR 3 PLACES CAR");
+		else assertPopupPDFLine(3, "0 ROJO FF0000 RED CAR 3 PLACES");
 		
 		execute("ExtendedPrint.myReports");
 		assertValueInCollection("columns", 4, 0, "Used to"); 
@@ -76,14 +76,14 @@ public class Color2Test extends ModuleTestBase {
 		execute("MyReport.remove", "xava.keyProperty=name");				
 	}
 	
-	public void testFilterDescriptionsList_keyReferenceWithSameNameThatPropertyFather_twoReferencesToSameModelInList() throws Exception{ // tmp twoReferencesToSameModelInList 
-		// tmp ini
-		// TMP ¿Probar en XML?
-		assertLabelInList(6, "Thing of Characteristic thing");
-		assertLabelInList(7, "Thing of Another CT");
-		assertValueInList(3, 6, "CAR");
-		assertValueInList(3, 7, "LAMPPOST");
-		// tmp fin
+	public void testFilterDescriptionsList_keyReferenceWithSameNameThatPropertyFather_twoReferencesToSameModelInList() throws Exception {  
+		if (usesAnnotatedPOJO()) { 
+			// Accessing to a member of two references to same model is not supported in XML components yet 
+			assertLabelInList(6, "Thing of Characteristic thing");
+			assertLabelInList(7, "Thing of Another CT");
+			assertValueInList(3, 6, "CAR");
+			assertValueInList(3, 7, "LAMPPOST");
+		}
 		assertLabelInList(4, "Used to"); 
 		String [][] validValues = {
 			{ "", "" },

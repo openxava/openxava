@@ -36,7 +36,7 @@ public class Invoice2002Test extends CustomizeListTestBase {
 	
 	public void testGenerateExcelWithFilter() throws Exception {
 		execute("Print.generateExcel");		
-		assertContentTypeForPopup("text/x-csv");		
+		assertContentTypeForPopup("text/x-csv"); 		
 	}	
 	
 	public void testChangeTabTitle() throws Exception {

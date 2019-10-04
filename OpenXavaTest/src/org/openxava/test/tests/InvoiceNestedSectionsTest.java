@@ -40,7 +40,7 @@ public class InvoiceNestedSectionsTest extends ModuleTestBase {
 		assertMessage("paid=false");
 		
 		execute("Navigation.next");
-		assertValue("year", "2004");
+		assertValue("year", "2004"); 
 		assertValue("number", "2");
 		assertValue("paid", "true");
 		assertNoEditable("paid");

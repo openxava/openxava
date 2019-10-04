@@ -22,7 +22,7 @@ public class JDBCTabProvider extends TabProviderBase {
 	private Collection<TabConverter> converters;
 
 	protected String translateCondition(String condition) { 
-		return getMetaModel().getMapping().changePropertiesByColumns(condition); 
+		return getMetaModel().getMapping().changePropertiesByColumns(condition);
 	}
 	
 	public String toQueryField(String propertyName) {		
@@ -343,5 +343,15 @@ public class JDBCTabProvider extends TabProviderBase {
 		return "null";
 	}
 
-	
+	/** @since 6.2.1 */
+	protected void addEntityReferenceMapping(Collection<ReferenceMapping> entityReferencesMappings,
+		Map<ReferenceMapping, String> entityReferencesReferenceNames, ReferenceMapping referenceMapping, String parentReference) 
+	{
+		if (!entityReferencesMappings.contains(referenceMapping)) {
+			entityReferencesReferenceNames.put(referenceMapping, parentReference); 
+			entityReferencesMappings.add(referenceMapping);
+		}
+
+	}
+
 }
