@@ -9,7 +9,6 @@ Para crear un nuevo proyecto OpenXava:
 
 <project name="CrearNuevoProyecto" default="crearNuevoProyecto" basedir=".">
 
-	<!-- TMP ME QUEDÉ POR AQUÍ: FALTA PROBARLO Y MEZCLARLO -->
 	<input addproperty="proyecto" message="¿Cuál es el nombre de tu proyecto?"/>
 	<property name="fuentedatos" value="${proyecto}DS"/> <!-- Si cambias esto revisa createAppLauncher de build.xml -->
 	<property name="basedatos" value="${proyecto}DB"/> <!-- Si cambias esto revisa createAppLauncher de build.xml -->
