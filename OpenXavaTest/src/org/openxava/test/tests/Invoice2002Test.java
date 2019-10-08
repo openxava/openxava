@@ -42,7 +42,7 @@ public class Invoice2002Test extends CustomizeListTestBase {
 	public void testChangeTabTitle() throws Exception {
 		assertListTitle("Invoices report of year 2,002"); 
 		execute("Invoice2002.changeListTitle");
-		assertListTitle("The little invoices of 2002");
+		assertListTitle("The little invoices of 2002"); 
 	}
 	
 	public void testCustomizeListWithFilterAndBaseCondition() throws Exception {

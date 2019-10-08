@@ -734,7 +734,7 @@ public class View implements java.io.Serializable {
 		getRoot().registeringExecutedActions = true;			
 		try {
 			moveCollectionValuesToViewValues();
-			setValues(values); 			
+			setValues(values);
 			notifying(values);
 		}
 		finally {
@@ -753,9 +753,20 @@ public class View implements java.io.Serializable {
 		if (collectionValues == null) return;	
 		if (collectionEditingRow < 0 || collectionEditingRow > collectionValues.size()) return; 
 		if (collectionValues.size() == collectionEditingRow) {
-			if (values != null) values.clear();
+			clearValues(); 
 		}
 		else setValues(collectionValues.get(collectionEditingRow)); 		
+	}
+	
+	private void clearValues() {  
+		if (values != null) values.clear();
+		if (hasSubviews()) {
+			Iterator itSubviews = getSubviews().values().iterator();
+			while (itSubviews.hasNext()) {
+				View subview = (View) itSubviews.next();
+				subview.clearValues();
+			}
+		}
 	}
 	
 	
@@ -3365,7 +3376,7 @@ public class View implements java.io.Serializable {
 							propertyChanged(id);
 						}	
 						refreshCollections();
-						moveViewValuesToCollectionValues(); 
+						moveViewValuesToCollectionValues();
 					}
 					finally {
 						searchingObject = false;				 

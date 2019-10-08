@@ -59,7 +59,20 @@ public class RouteTest extends ModuleTestBase {
 		assertValueInCollection("visits", 1, "carrier.name", "UNO");
 		setValueInCollection("visits", 0, "carrier.number", "13");
 		assertValueInCollection("visits", 0, "carrier.number", "3");
-		assertValueInCollection("visits", 0, "carrier.name", "TRES");	
+		assertValueInCollection("visits", 0, "carrier.name", "TRES");
+	}
+	
+	public void testChoosingReferenceInElementCollectionNotSetTheNextReference() throws Exception { 
+		// In the exact below order to reproduce the bug 
+		execute("CRUD.new");
+		setValueInCollection("visits", 0, "customer.number", "1");
+		assertValueInCollection("visits", 0, "customer.name", "Javi");
+		setValueInCollection("visits", 0, "product.number", "3");
+		
+		execute("Reference.search", "keyProperty=visits.1.customer.number");
+		execute("ReferenceSearch.choose", "row=1"); 
+		assertValueInCollection("visits", 1, "customer.name", "Juanillo"); 
+		assertValueInCollection("visits", 1, "product.number", "");		
 	}
 	
 	public void testElementCollectionWithOnChangesThatChangesRootViewRefreshesOnResetView() throws Exception { 
