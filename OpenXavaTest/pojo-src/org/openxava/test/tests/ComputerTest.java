@@ -12,7 +12,7 @@ public class ComputerTest extends ModuleTestBase{
 		super(testName, "Computer");
 	}
 	
-	public void testJoinedInheritanceStrategy() throws Exception { 
+	public void testJoinedInheritanceStrategy() throws Exception {  
 		assertListRowCount(3);
 		
 		assertValueInList(0, 0, "AS/400");

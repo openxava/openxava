@@ -14,7 +14,7 @@ import org.openxava.test.calculators.*;
 public class ProductExpense2 { 
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@DescriptionsList	
+	@DescriptionsList // Must be @DescriptionsList to test a case 	
 	private Carrier carrier;
 
 

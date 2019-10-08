@@ -19,7 +19,7 @@ public class ProductExpenses2 extends Identifiable {
 	private String description;
 	
 	@ElementCollection
-	@ListProperties("carrier.number, invoice, product.description") 
+	@ListProperties("carrier.number, invoice, product.description") // Must be carrier.number and be the first to test a case
 	private Collection<ProductExpense2> expenses;
 
 	public String getDescription() {

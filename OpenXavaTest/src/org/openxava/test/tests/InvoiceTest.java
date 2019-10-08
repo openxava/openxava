@@ -668,7 +668,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setValue("year", "2008");
 		setValue("number", "66");
 		execute("CRUD.refresh");
-		assertError("Object of type Invoice does not exists with key Number:66, Year:2008");
+		assertError("Object of type Invoice does not exists with key Number:66, Year:2008"); 
 		assertValue("comment", "");
 	}
 	

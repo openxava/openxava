@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Element collection values not saved when the first column is a @DescriptionList.
 - Fix: Invalid code is generated when project name contains hyphen.
 - Fix: Properties from two second level references to the same model fail in list mode.
 - Fix: Dialog to add columns to list freezes when the entity has a lot of nested references. 

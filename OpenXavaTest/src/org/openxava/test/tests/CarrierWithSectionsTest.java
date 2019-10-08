@@ -462,7 +462,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		execute("MyReport.generatePdf");
 		
 		execute("ExtendedPrint.myReports");
-		assertValue("name", "Carrier report NAME first");
+		assertValue("name", "Carrier report NAME first"); 
 		String [][] customReports2 = {
 			{ "Carrier report NAME first", "Carrier report NAME first" },	
 			{ "Carrier report NUMBER first", "Carrier report NUMBER first" }			

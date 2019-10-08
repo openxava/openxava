@@ -2951,9 +2951,18 @@ public class View implements java.io.Serializable {
 		collectionValues = new ArrayList();		
 		mustRefreshCollection = false;
 		String lastLineScannedProperty = getMetaPropertiesList().get(0).getName();
-		if (getMetaPropertiesList().get(0).isKey() && getMetaPropertiesList().get(0).getMetaModel().getAllKeyPropertiesNames().size() > 1) {
-			lastLineScannedProperty = lastLineScannedProperty.split("\\.", 2)[0];
+		boolean lastLineScannedPropertyisDescriptionsList = false;
+		String lastLineScannedPropertyBase = lastLineScannedProperty.split("\\.", 2)[0];
+		if (getMetaModel().containsMetaReference(lastLineScannedPropertyBase)) {
+			MetaReference ref = getMetaModel().getMetaReference(lastLineScannedPropertyBase);
+			lastLineScannedPropertyisDescriptionsList = displayAsDescriptionsList(ref);
 		}
+		if (lastLineScannedPropertyisDescriptionsList || 
+			getMetaPropertiesList().get(0).isKey() && 
+			getMetaPropertiesList().get(0).getMetaModel().getAllKeyPropertiesNames().size() > 1) 
+		{
+			lastLineScannedProperty = lastLineScannedPropertyBase;
+		}		
 		String lastLineKeySuffix = "." + lastLineScannedProperty + "_EDITABLE_";
 		int lastLineKeyIncrement = isCollectionEditable()?1:0;
 		for (int i=0; ;i++) {

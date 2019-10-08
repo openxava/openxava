@@ -60,7 +60,7 @@ public class WorkCostOrderedInvoicesTest extends WorkCostTestBase {
 		assertCollectionRowCount("invoices", 1);
 		assertTotals("78.88", "10", "7.89", "86.77");
 		execute("Collection.removeSelected", "row=0,viewObject=xava_view_invoices");
-		assertCollectionRowCount("invoices", 0);
+		assertCollectionRowCount("invoices", 0); 
 		execute("Mode.list");		
 		assertListRowCount(2);
 		execute("List.orderBy", "property=description");
