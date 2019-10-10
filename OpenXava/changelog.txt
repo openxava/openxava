@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Wrong visual style for subcontrollers in collections.
 - Fix: In @ElementCollection when choosing a reference with dialog fills other references from previous row.  
 - Fix: Element collection values not saved when the first column is a @DescriptionList.
 - Fix: Invalid code is generated when project name contains hyphen.

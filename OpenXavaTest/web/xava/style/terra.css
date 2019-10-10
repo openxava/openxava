@@ -547,7 +547,8 @@ i, .ox-icon i.mdi-close-circle
 }
 
 .ox-list-mode .ox-button-bar a[id*="new"], .ox-list-mode .ox-button-bar a[id*="new"] i,
-.ox-collection-list-actions span:nth-of-type(1) a, .ox-collection-list-actions span:nth-of-type(1) i
+.ox-collection-list-actions > span:nth-of-type(1) a, 
+.ox-collection-list-actions > span:nth-of-type(1) i
 {
 	color: white;
 	background: #036564; 

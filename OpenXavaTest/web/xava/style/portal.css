@@ -415,15 +415,15 @@ TD.list-title {
 }
 
 .ox-list-mode .ox-button-bar a[id*="new"], .ox-list-mode .ox-button-bar a[id*="new"] i,
-.ox-frame .ox-button-bar span:nth-of-type(1) a, .ox-frame .ox-button-bar .ox-collection-list-actions span:nth-of-type(1) i,
-.ox-sections .ox-button-bar span:nth-of-type(1) a, .ox-sections .ox-button-bar .ox-collection-list-actions span:nth-of-type(1) i
+.ox-frame .ox-button-bar > span:nth-of-type(1) a, .ox-frame .ox-button-bar .ox-collection-list-actions > span:nth-of-type(1) i,
+.ox-sections .ox-button-bar > span:nth-of-type(1) a, .ox-sections .ox-button-bar .ox-collection-list-actions > span:nth-of-type(1) i
 {
 	color: black;
 }
 
 .ox-list-mode .ox-button-bar a[id*="new"]:hover, .ox-list-mode .ox-button-bar a[id*="new"]:hover i,
-.ox-frame .ox-button-bar span:nth-of-type(1) a:hover, .ox-frame .ox-button-bar .ox-collection-list-actions span:nth-of-type(1) a:hover i,
-.ox-sections .ox-button-bar span:nth-of-type(1) a:hover, .ox-sections .ox-button-bar .ox-collection-list-actions span:nth-of-type(1) a:hover i
+.ox-frame .ox-button-bar > span:nth-of-type(1) a:hover, .ox-frame .ox-button-bar .ox-collection-list-actions > span:nth-of-type(1) a:hover i,
+.ox-sections .ox-button-bar > span:nth-of-type(1) a:hover, .ox-sections .ox-button-bar .ox-collection-list-actions > span:nth-of-type(1) a:hover i
 {
 	color: blue;
 }
