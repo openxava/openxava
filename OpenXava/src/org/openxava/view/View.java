@@ -403,7 +403,7 @@ public class View implements java.io.Serializable {
 
 		try {
 			XObjects.execute(polisher, "refine", 
-				MetaModule.class, getModuleManager(getRequest()).getMetaModule(),
+				MetaModule.class, getMetaModuleForModel(), 
 				View.class, this);
 			polished = true;
 		}
@@ -426,6 +426,15 @@ public class View implements java.io.Serializable {
 				getSectionView(i).polish();
 			}	
 		}
+	}
+	
+	private MetaModule getMetaModuleForModel() { 
+		ModuleManager moduleManager = getModuleManager(getRequest()); 
+		if (getRoot() == this) return moduleManager.getMetaModule();  
+		MetaApplication app = MetaApplications.getMetaApplication(getModuleManager(getRequest()).getApplicationName());
+		String modelName = getModelName();
+		if (modelName.contains(".")) modelName = Strings.lastToken(modelName, ".");
+		return app.getMetaModule(modelName);
 	}
 
 	public void setMetaMembers(Collection metaMembers) {			
