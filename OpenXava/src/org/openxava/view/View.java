@@ -6094,7 +6094,15 @@ public class View implements java.io.Serializable {
 	 * 		or a reference with not composite editor.
 	 */
 	public String getQualifiedNameForDisplayedPropertyOrReferenceWithNotCompositeEditor(String name) { 
-		if (isRepresentsCollection() && !isCollectionDetailVisible()) return null; 
+		if (isRepresentsCollection() && !isCollectionDetailVisible()) return null;
+		// tmp ini
+		String [] nameTokens = name.split("\\.");
+		if (nameTokens.length > 1) {
+			if (hasSubview(nameTokens[0])) {
+				return getSubview(nameTokens[0]).getQualifiedNameForDisplayedPropertyOrReferenceWithNotCompositeEditor(nameTokens[1]);
+			}
+		}
+		// tmp fin		
 		for (Iterator it=getMetaMembers().iterator(); it.hasNext(); ) {
 			MetaMember member = (MetaMember) it.next();
 			if (member instanceof MetaProperty ||
@@ -6107,7 +6115,8 @@ public class View implements java.io.Serializable {
 				}
 				if (member.getName().equals(name)) {
 					if (isHidden(name)) return null; 
-					return member.getQualifiedName();
+					// tmp return member.getQualifiedName();
+					return isRepresentsAggregate()?getMemberName() + "." + member.getName():member.getQualifiedName(); // tmp 
 				}
 			}
 		}

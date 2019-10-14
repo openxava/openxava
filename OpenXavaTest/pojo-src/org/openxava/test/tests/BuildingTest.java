@@ -2,6 +2,7 @@ package org.openxava.test.tests;
 
 import org.openxava.tests.ModuleTestBase;
 import com.gargoylesoftware.htmlunit.*;
+import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * 
@@ -33,6 +34,17 @@ public class BuildingTest extends ModuleTestBase {
 		assertValueInList(0, "address.street", "CUBA");
 		assertValueInList(0, "address.zipCode", "49003");
 		assertValueInList(0, "address.city", "VALENCIA");		
+		
+		// tmp ini
+		execute("List.viewDetail", "row=0");
+		execute("Building.save");
+		HtmlElement addressStreet = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Building__editor_address___street");
+		assertFalse(addressStreet.getAttribute("class").contains("ox-error-editor"));
+		
+		HtmlElement mailingAddressStreet = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Building__editor_mailingAddress___street");
+		assertTrue(mailingAddressStreet.getAttribute("class").contains("ox-error-editor"));		
+		
+		// tmp fin
 	}
 	
 	public void testConfirmDefaultAction() throws Exception { 

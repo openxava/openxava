@@ -596,7 +596,8 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			
 	public void validate(Messages errors, Object object) throws RemoteException {		
 		try {
-			validate(errors, object, getValidators());
+			// tmp validate(errors, object, getValidators());
+			validate(errors, object, getValidators(), null); // tmp
 		} 
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
@@ -606,6 +607,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	}
 	
 	public void validate(Messages errors, Object object, boolean creating) throws RemoteException {
+		/* tmp
 		try {
 			validate(errors, object, getValidators());
 			if (creating) validate(errors, object, getOnlyOnCreateValidators());
@@ -615,14 +617,34 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			throw new RemoteException(
 					XavaResources.getString("validate_error", getName(), getMetaModel().getName()));					
 		}
+		*/
+		validate(errors, object, creating, null);
 	}
+	
+	public void validate(Messages errors, Object object, boolean creating, String container) throws RemoteException { // tmp
+		try {
+			validate(errors, object, getValidators(), container);
+			if (creating) validate(errors, object, getOnlyOnCreateValidators(), container);
+		} 
+		catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			throw new RemoteException(
+					XavaResources.getString("validate_error", getName(), getMetaModel().getName()));					
+		}
+	}
+
 			
-	private void validate(Messages errors, Object object, Collection validators) throws Exception {
+	// tmp private void validate(Messages errors, Object object, Collection validators) throws Exception {
+	private void validate(Messages errors, Object object, Collection validators, String container) throws Exception {
 		if (validators == null) return;
 		Iterator it = validators.iterator();			
 		while (it.hasNext()) {
 			IPropertyValidator v = (IPropertyValidator) it.next();
-			v.validate(errors, object, getName(), getMetaModel().getName());
+			// tmp ini
+			if (container == null) container = getMetaModel().getName(); 
+			v.validate(errors, object, getName(), container);
+			// tmp fin	
+			// tmp v.validate(errors, object, getName(), getMetaModel().getName());
 		}
 	}
 		
