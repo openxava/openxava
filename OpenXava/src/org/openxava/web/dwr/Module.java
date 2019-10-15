@@ -102,7 +102,6 @@ public class Module extends DWRBase {
 			result.setSelectedRows(getSelectedRows());
 			result.setUrlParam(getUrlParam());
 			result.setViewSimple(getView().isSimple());
-			System.out.println("[Module.request] ChangedParts=" + result.getChangedParts().keySet()); // tmp
 			return result;
 		}
 		catch (SecurityException ex) {
@@ -451,7 +450,6 @@ public class Module extends DWRBase {
 			Collection members = new HashSet();
 			for (Iterator it=errors.getMembers().iterator(); it.hasNext(); ) {
 				String member = (String) it.next();
-				System.out.println("[Module.fillEditorsWithError] member=" + member); // tmp
 				String qualifiedMember = addEditor(editorsWithError, view, member);
 				if  (qualifiedMember != null) members.add(qualifiedMember);	
 			}
@@ -463,38 +461,30 @@ public class Module extends DWRBase {
 		editorsWithoutError.removeAll(editorsWithError);
 		if (!editorsWithoutError.isEmpty()) result.setEditorsWithoutError(XCollections.toStringArray(editorsWithoutError));
 		if (!editorsWithError.isEmpty()) result.setEditorsWithError(XCollections.toStringArray(editorsWithError));
-		System.out.println("[Module.fillEditorsWithError] editorsWithError=" + editorsWithError); // tmp
 	}
 
 	private String addEditor(Collection editors, View view, String member) { 
 		String qualifiedMember = view.getQualifiedNameForDisplayedPropertyOrReferenceWithNotCompositeEditor(member);
-		System.out.println("[Module.addEditor] " + member + " -> " + qualifiedMember); // tmp
 		if  (qualifiedMember != null) {
-			System.out.println("[Module.addEditor] A"); // tmp
-			String model = Strings.firstToken(qualifiedMember, ".");
+			String container = Strings.firstToken(qualifiedMember, "."); // Container can be the model or a member name (such a reference name)
 			String viewModelName = view.getModelName().contains(".")?Strings.lastToken(view.getModelName(), "."):view.getModelName();
-			if (model.equals(viewModelName)) {
-				System.out.println("[Module.addEditor] B.1"); // tmp
+			if (container.equals(viewModelName)) {
 				String memberWithoutModel = Strings.noFirstTokenWithoutFirstDelim(qualifiedMember, ".");
 				String prefix = view.getMetaModel().containsMetaReference(memberWithoutModel)?"reference_editor_":"editor_";
 				editors.add(prefix + memberWithoutModel);
 			}
 			else {
-				System.out.println("[Module.addEditor] B.2"); // tmp
 				for (MetaReference ref: view.getMetaModel().getMetaReferences()) {
-					// tmp if (ref.isAggregate() && ref.getReferencedModelName().equals(model)) {
-					if (ref.isAggregate() && ref.getName().equals(model)) { // tmp
+					if (ref.isAggregate() && ref.getName().equals(container)) { 
 						String memberWithoutModel = Strings.noFirstTokenWithoutFirstDelim(qualifiedMember, ".");
 						String memberWithReference = ref.getName() + "." + memberWithoutModel;
 						String prefix = ref.getMetaModelReferenced().containsMetaReference(memberWithoutModel)?"reference_editor_":"editor_";
 						editors.add(prefix + memberWithReference);
-						System.out.println("[Module.addEditor] Added " + prefix + memberWithReference); // tmp
 					}
 				}
 			}
 		}
 		else {
-			System.out.println("[Module.addEditor] B"); // tmp
 			String memberWithoutModel = Strings.noFirstTokenWithoutFirstDelim(member, ".");
 			if (view.getMetaModel().containsMetaReference(memberWithoutModel)) {
 				View subview = view.getSubview(memberWithoutModel);

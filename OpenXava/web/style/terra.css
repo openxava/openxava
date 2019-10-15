@@ -2077,18 +2077,6 @@ div[id$="_Index__view"] .ox-list-title {
 	border-color: #806632; 
 }
 
-.ui-dialog .ox-required-editor input, .ui-dialog .ox-required-editor select {
-	border-color: #a58341 !important;
-}
-
-.ui-dialog .ox-frame .ox-required-editor input, .ui-dialog .ox-frame .ox-required-editor select, .ui-dialog .ox-required-editor textarea {
-	border-color: #806632 !important;
-}
-
-.ui-dialog .ox-frame .ox-frame .ox-required-editor input, .ui-dialog .ox-frame .ox-frame .ox-required-editor select, .ui-dialog .ox-frame .ox-required-editor textarea {
-	border-color: #5b4924 !important;
-}
-
 .ox-error-editor input,
 .ox-frame .ox-error-editor input, .ox-frame .ox-frame .ox-error-editor input,
 .ox-error-editor textarea, 

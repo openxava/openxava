@@ -2,6 +2,8 @@ package org.openxava.test.tests;
 
 import org.openxava.tests.*;
 
+import com.gargoylesoftware.htmlunit.html.*;
+
 /**
  * 
  * @author Javier Paniza
@@ -24,7 +26,7 @@ public class CompanyTest extends ModuleTestBase {
 		assertNoErrors();
 		assertValue("name", "BUILDING A");
 		execute("Collection.save");
-		assertNoErrors();
+		assertNoErrors(); 		
 	}
 	
 	public void testCollectionElementInsideAGroup() throws Exception {
@@ -54,7 +56,7 @@ public class CompanyTest extends ModuleTestBase {
 		execute("Collection.edit", "row=0,viewObject=xava_view_buildings");
 		assertDialog();
 		execute("Company.saveBuildingFailing");
-		assertError("Impossible to execute Save building failing action: Transaction marked as rollbackOnly");
+		assertError("Impossible to execute Save building failing action: Transaction marked as rollbackOnly"); 
 		assertDialog();
 	}
 		

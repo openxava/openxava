@@ -455,7 +455,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		assertAction("MyReport.createNew");
 		assertAction("MyReport.remove");
 		execute("MyReport.createNew", "xava.keyProperty=name");
-		setValue("name", "Carrier report NAME first");
+		setValue("name", "Carrier report NAME first"); 
 		execute("MyReport.columnUp", "row=2,viewObject=xava_view_columns");
 		execute("MyReport.columnUp", "row=1,viewObject=xava_view_columns");
 		assertValueInCollection("columns", 0, 0, "Name");

@@ -29,22 +29,29 @@ public class BuildingTest extends ModuleTestBase {
 		super(testName, "Building");		
 	}
 
-	public void testAttributeOverridesOnEmbeddable() throws Exception {		
+	public void testAttributeOverridesOnEmbeddable_editorsMarkedAsErrorWithRepeatedEmbedded() throws Exception {		
 		assertValueInList(0, "name", "MY OFFICE");
 		assertValueInList(0, "address.street", "CUBA");
 		assertValueInList(0, "address.zipCode", "49003");
 		assertValueInList(0, "address.city", "VALENCIA");		
 		
-		// tmp ini
 		execute("List.viewDetail", "row=0");
 		execute("Building.save");
 		HtmlElement addressStreet = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Building__editor_address___street");
 		assertFalse(addressStreet.getAttribute("class").contains("ox-error-editor"));
+		HtmlElement addressState = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Building__reference_editor_address___state");
+		assertFalse(addressState.getAttribute("class").contains("ox-error-editor"));
 		
 		HtmlElement mailingAddressStreet = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Building__editor_mailingAddress___street");
 		assertTrue(mailingAddressStreet.getAttribute("class").contains("ox-error-editor"));		
+		HtmlElement mailingAddressState = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Building__reference_editor_mailingAddress___state");
+		assertTrue(mailingAddressState.getAttribute("class").contains("ox-error-editor"));
 		
-		// tmp fin
+		assertErrorsCount(4);
+		assertError("Value for Zip code in Mailing address is required"); // Mailing address (the member name) and not Address (the model name)
+		assertError("Value for City in Mailing address is required");
+		assertError("Value for Street in Mailing address is required");
+		assertError("Value for State in Mailing address is required");
 	}
 	
 	public void testConfirmDefaultAction() throws Exception { 

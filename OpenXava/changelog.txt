@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @Embedded members are marked incorrectly as error when they are used more than once in an entity.
+- Fix: Editors not marked as error (with red border) inside dialogs with Terra theme. 
+- Some new common use labels to be used in applications.
 - Fix: Wrong visual style for subcontrollers in collections.
 - Fix: In @ElementCollection when choosing a reference with dialog fills other references from previous row.  
 - Fix: Element collection values not saved when the first column is a @DescriptionList.

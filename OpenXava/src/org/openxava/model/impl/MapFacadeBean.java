@@ -1600,31 +1600,28 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		MetaModel metaModel,
 		String memberName,
 		Object values,
-		boolean creating
-		// tmp ME QUEDÉ POR AQUÍ AÑADIENDO ESTO: String containerMember // tmp
+		boolean creating,
+		String containerMember 
 		) throws XavaException, RemoteException {			
 		try {			
 			if (metaModel.containsMetaProperty(memberName)) {
-				System.out.println("[MapFacadeBean.validate] A=" + memberName); // tmp
-				metaModel.getMetaProperty(memberName).validate(errors, values, creating); 
+				metaModel.getMetaProperty(memberName).validate(errors, values, creating, containerMember); 
 			} 
 			else if (metaModel.containsMetaReference(memberName)) {
-				System.out.println("[MapFacadeBean.validate] B=" + memberName); // tmp
 				MetaReference ref = metaModel.getMetaReference(memberName); 
 				MetaModel referencedModel = ref.getMetaModelReferenced();
 				Map mapValues = (Map) values;					
 				if (referenceHasValue(mapValues)) {
-					// tmp if (ref.isAggregate()) validate(errors, referencedModel, mapValues, mapValues, null, creating);
-					if (ref.isAggregate()) validate(errors, referencedModel, mapValues, mapValues, null, creating); // tmp
+					if (ref.isAggregate()) validate(errors, referencedModel, mapValues, mapValues, null, creating, memberName); 
 				} 
 				else if (metaModel
 					.getMetaReference(memberName)
 					.isRequired()) {
-					errors.add("required", memberName, metaModel.getName());
+					String container = containerMember == null?metaModel.getName():containerMember;
+					errors.add("required", memberName, container);
 				}						
 			} 
 			else if (metaModel.containsMetaCollection(memberName)) {
-				System.out.println("[MapFacadeBean.validate] C=" + memberName); // tmp
 				MetaCollection metaCollection = metaModel.getMetaCollection(memberName);
 				if (metaCollection.isElementCollection()) {
 					metaCollection.validate(errors, values, null, null);
@@ -1635,10 +1632,8 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 					}	
 				}
 			} else if (metaModel.containsMetaPropertyView(memberName)) {
-				System.out.println("[MapFacadeBean.validate] D=" + memberName); // tmp
 				metaModel.getMetaPropertyView(memberName).validate(errors, values, creating);									
 			} else {					
-				System.out.println("[MapFacadeBean.validate] E=" + memberName); // tmp
 				log.warn(XavaResources.getString("not_validate_member_warning", memberName, metaModel.getName()));
 			}
 		} catch (XavaException ex) {
@@ -1664,14 +1659,20 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		return false;
 	}
 	
-	private void validate(Messages errors, MetaModel metaModel, Map values, Map keyValues, Object container, boolean creating)	  
+	private void validate(Messages errors, MetaModel metaModel, Map values, Map keyValues, Object container, boolean creating) 
+		throws ObjectNotFoundException, XavaException, RemoteException 
+	{ 
+		validate(errors, metaModel, values, keyValues, container, creating, null);
+	}
+	
+	private void validate(Messages errors, MetaModel metaModel, Map values, Map keyValues, Object container, boolean creating, String containerMember) 
 		throws ObjectNotFoundException, XavaException, RemoteException {		
 		Iterator it = values.entrySet().iterator();		
 		while (it.hasNext()) {
 			Map.Entry en = (Map.Entry) it.next();
 			String name = (String) en.getKey();
 			Object value = en.getValue();
-			validate(errors, metaModel, name, value, creating);
+			validate(errors, metaModel, name, value, creating, containerMember); 
 		}
 		if (metaModel.containsValidadors()) {
 			validateWithModelValidator(errors, metaModel, values, keyValues, container, creating);			

@@ -6095,14 +6095,12 @@ public class View implements java.io.Serializable {
 	 */
 	public String getQualifiedNameForDisplayedPropertyOrReferenceWithNotCompositeEditor(String name) { 
 		if (isRepresentsCollection() && !isCollectionDetailVisible()) return null;
-		// tmp ini
 		String [] nameTokens = name.split("\\.");
 		if (nameTokens.length > 1) {
 			if (hasSubview(nameTokens[0])) {
 				return getSubview(nameTokens[0]).getQualifiedNameForDisplayedPropertyOrReferenceWithNotCompositeEditor(nameTokens[1]);
 			}
 		}
-		// tmp fin		
 		for (Iterator it=getMetaMembers().iterator(); it.hasNext(); ) {
 			MetaMember member = (MetaMember) it.next();
 			if (member instanceof MetaProperty ||
@@ -6115,8 +6113,7 @@ public class View implements java.io.Serializable {
 				}
 				if (member.getName().equals(name)) {
 					if (isHidden(name)) return null; 
-					// tmp return member.getQualifiedName();
-					return isRepresentsAggregate()?getMemberName() + "." + member.getName():member.getQualifiedName(); // tmp 
+					return isRepresentsAggregate()?getMemberName() + "." + member.getName():member.getQualifiedName();  
 				}
 			}
 		}

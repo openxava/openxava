@@ -11,8 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Views({
-	// tmp @View(members="building [name, function; address]"), // All data in a group for a test	
-	@View(members="building [name, function; address; mailingAddress]"), // All data in a group for a test // tmp
+	@View(members="building [name, function; address; mailingAddress]"), // All data in a group for a test 
 	@View(name="Simple", members="name")
 })
 @Tab( properties= "name, address.street, address.zipCode, address.city" )
@@ -31,7 +30,6 @@ public class Building extends Nameable {
 		column=@Column(name="BZIPCODE"))
 	private Address address;
 	
-	// tmp ini
 	@AttributeOverride(name="street",
 		column=@Column(name="MAILING_STREET"))
 	@AttributeOverride(name="zipCode",
@@ -41,7 +39,6 @@ public class Building extends Nameable {
 	@AssociationOverride(name = "state",
 		joinColumns = @JoinColumn(name = "MAILING_STATE"))
 	private Address mailingAddress;
-	// tmp fin
 
 	public Company getCompany() {
 		return company;
