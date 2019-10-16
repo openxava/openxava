@@ -261,6 +261,7 @@ public class Customer implements IWithName {
 	private Type type;
 	public enum Type { NORMAL, STEADY, SPECIAL };
 	
+	@OnChange(OnChangePhotoAction.class)
 	@Stereotype("PHOTO")
 	private byte [] photo;
 	
