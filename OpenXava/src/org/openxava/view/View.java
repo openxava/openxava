@@ -1597,6 +1597,10 @@ public class View implements java.io.Serializable {
 	public Tab getCollectionTab() throws XavaException {
 		assertRepresentsCollection("getCollectionTab()");
 		if (collectionTab == null) {
+			if (isCollectionFromModel()) {
+				throw new IllegalStateException(
+					XavaResources.getString("not_collection_from_model_for_getCollectionTab"));
+			}
 			collectionTab = new Tab();
 			collectionTab.setCollectionView(this); 
 			collectionTab.setModelName(getModelName());
@@ -1648,7 +1652,7 @@ public class View implements java.io.Serializable {
 				XavaResources.getString("represents_collections_required_in_view", method));
 		}
 	}
-	
+		
 	private String createBaseConditionForCollectionTab() throws XavaException {
 		String referenceToParent = getMetaCollection().getMetaReference().getRole();
 		Collection keyNames = getParent().getMetaModel().getAllKeyPropertiesNames();

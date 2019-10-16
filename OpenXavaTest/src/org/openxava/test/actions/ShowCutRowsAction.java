@@ -1,7 +1,6 @@
 package org.openxava.test.actions;
 
 import javax.inject.*;
-
 import org.openxava.actions.*;
 import org.openxava.session.*;
 
@@ -15,7 +14,7 @@ public class ShowCutRowsAction extends BaseAction {
 	private CutCollectionElements cutCollectionElements;
 	
 	public void execute() throws Exception {
-		addMessage("cut_rows", cutCollectionElements.getElements()); 
+		addMessage("cut_rows", cutCollectionElements.getElements());
 	}
 	
 }
