@@ -43,3 +43,8 @@ AttachedFile and AttachedFiles: Movie with all browsers
 - Delete the movie.
 - Go to first record "FOREST GUMP".
 - Click in one script. The script is downloaded with the correct file title. (In a new tab with Internet Explorer)  
+
+With @OnChange: CustomerFramesOnSameRow with all browsers
+- Go to first customer.
+- Remove the photo: An "Photo changed" message must be produced
+- Add a new photo: An "Photo changed" message must be produced

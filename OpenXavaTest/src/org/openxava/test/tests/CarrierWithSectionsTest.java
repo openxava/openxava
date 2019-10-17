@@ -252,7 +252,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		setValue("hidden", "true");
 		execute("MyReport.saveColumn");
 
-		assertCollectionRowCount("columns", 4);
+		assertCollectionRowCount("columns", 4); 
 		assertValueInCollection("columns", 0, 0, "Calculated");
 		assertValueInCollection("columns", 1, 0, "Number");
 		assertValueInCollection("columns", 2, 0, "Name");

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @OnChange doesn't work for FOTO, IMAGES_GALLERY, FILE, FILES and FileItem properties.
 - Fix: @RowStyle does not work for collections with no row action (@ViewAction or @EditAction) enabled.
 - Fix: View.getCollectionTab() can be called for ManyToMany, @OrderColumn or calculated collections.
 - Fix: @Embedded members are marked incorrectly as error when they are used more than once in an entity.

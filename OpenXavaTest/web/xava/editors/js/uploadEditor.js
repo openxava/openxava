@@ -59,6 +59,14 @@ openxava.addEditorInitFunction(function() {
 	    		uploadEditor.enableUpload(pond, input);
 	    		return true;
 	        }
+	    	if (input.dataset.throwsChanged === "true") {
+		    	pond.onprocessfile = function(error, file) {
+		    		openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
+		    	}	    	
+		    	pond.onremovefile = function(error, file) {
+		    		openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
+		    	}	    		    	
+	    	}
 	    	pond.allowRevert = false;
     	}
     	
