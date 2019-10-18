@@ -1,0 +1,10 @@
+The automated tests in this project do not include CSS style. 
+Therefore, when you touch the CSSsyou have to test it visually
+with Terra and Light theme at least the next cases:
+- Invoice: Go to first detail. 
+	- Checkbox of paid must be well aligned.
+	- Action links in name of customer and street of address must be well aligned.
+	- The editors for street (with regular label) and postal code (with small label) must be well aligned.
+		(Here we tolerate the street label slightly to up)
+	- The editors for city (no label) and state (small label) must be well aligned.
+	- The label of photo must be well aligned (top or middle but not ugly).

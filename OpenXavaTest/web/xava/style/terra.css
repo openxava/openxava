@@ -41,11 +41,11 @@ a:hover {
 }
 
 .ipad input, .ipad textarea, .iphone input, .iphone textarea {
-  -webkit-appearance: none;
+	-webkit-appearance: none;
 }
 
 input[type="checkbox"] {
-  -webkit-appearance: checkbox;
+	-webkit-appearance: checkbox;
 }
 
 .mobile {
@@ -378,6 +378,15 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	background: #ebebe4;
 }
 
+.xava_editor input[type="checkbox"] {
+	position: relative;
+	top: 5px;
+}
+
+.ox-list input[type="checkbox"] {
+	margin-top: 5px;
+}
+
 .ox-date-calendar input {
 	padding-right: 25px;
 }
@@ -418,13 +427,9 @@ select:not([multiple]) {
 
 
 .ox-label { 
-	padding-top: 8px; 
 	padding-right: 7px;
-	font-weight: bold; 
-}
-
-.ox-label, .ox-layout-not-aligned-cell  {
-	vertical-align: top;
+	font-weight: bold;
+	vertical-align: middle;  
 }
 
 .ox-editor-wrapper { 
@@ -1247,6 +1252,11 @@ input[type="button"],
     font-weight: bold;
     padding: 6px;
 }
+
+.xava_editor .ox-action-link {
+	display: inline-block;
+	margin-left: 0px;
+} 
 
 .ox-image-link {
 	padding: 6px 3px 6px 3px;	
