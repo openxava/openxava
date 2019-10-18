@@ -3,7 +3,7 @@ Change Log for OpenXava project
 
 - Fix: Bad alignment of editors when combining small label with no label or regular label. 
 - Fix: Bad alignment of checkboxes and action links inside detail. 
-- Fix: @OnChange doesn't work for FOTO, IMAGES_GALLERY, FILE, FILES and FileItem properties.
+- Fix: @OnChange doesn't work for PHOTO, IMAGES_GALLERY, FILE, FILES and FileItem properties.
 - Fix: @RowStyle does not work for collections with no row action (@ViewAction or @EditAction) enabled.
 - Fix: View.getCollectionTab() can be called for ManyToMany, @OrderColumn or calculated collections.
 - Fix: @Embedded members are marked incorrectly as error when they are used more than once in an entity.
