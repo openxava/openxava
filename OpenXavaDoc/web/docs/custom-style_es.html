@@ -14,25 +14,21 @@
             tu propio estilo</a></div>
         <div style="margin-left: 2em;"><a href="#Estilo%20visual%20personalizado-Modificar%20el%20estilo%20por%20defecto%20%28nuevo%20en%20v4.5%29">Modificar
             el estilo por defecto (nuevo en v4.5)</a></div>
-        <div style="margin-left: 2em;"><a href="#Estilo+visual+personalizado-A%C3%B1adir+elementos+a+la+p%C3%A1gina+%28nuevo+en+v5.6%29">Añadir
+        <div style="margin-left: 2em;"><a href="#Anadir-elementos-a-la-pagina">Añadir
             elementos a la página (nuevo en v5.6)</a></div>
         <div style="margin-left: 2em;"><a href="#Estilo%20visual%20personalizado-Dentro%20de%20portales">Dentro
             de portales</a></div>
-        
-        
         <div style="margin-left: 2em;"><a href="#definirt-tu-propio-estilo-5">Definir
-        tu propio estilo (hasta v5.9.1)</a></div>
-
-        
+            tu propio estilo (hasta v5.9.1)</a></div>
         <div style="margin-left: 2em;"><a href="#Estilo%20visual%20personalizado-Definir%20tu%20propio%20estilo%20%28hasta%20v4.9.1%29">Definir
             tu propio estilo (hasta v4.9.1)</a></div>
         <div style="margin-left: 2em;"><a href="#Estilo%20visual%20personalizado-Estilos%20predefinidos%20%28hasta%20v4.9.1%29">Estilos
             predefinidos (hasta v4.9.1)</a></div>
         <div style="margin-left: 2em;"><a href="#Estilo%20visual%20personalizado-Un%20ejemplo:%20estilo%20para%20iPad%20%28hasta%20v4.9.1%29">Un
             ejemplo: estilo para iPad (hasta v4.9.1)</a></div>
-        <div style="margin-left: 3em;"><a href="#Estilo%20visual%20personalizado-Un%20ejemplo:+estilo+para+iPad+%28hasta+v4.9.1%29-Detecci%C3%B3n+de+navegador/dispositivo">Detección
+        <div style="margin-left: 3em;"><a href="#Un-ejemplo-estilo-para-iPad-hasta-v4.9.1-Deteccion-de-navegador-dispositivo">Detección
             de navegador/dispositivo</a></div>
-        <div style="margin-left: 3em;"><a href="#Estilo%20visual%20personalizado-Un%20ejemplo:+estilo+para+iPad+%28hasta+v4.9.1%29-C%C3%B3digo+JavaScript">Código
+        <div style="margin-left: 3em;"><a href="#Un-ejemplo-estilo-para-iPad-hasta-v4.9.1-Codigo-JavaScript">Código
             JavaScript</a></div>
         <div style="margin-left: 3em;"><a href="#Estilo%20visual%20personalizado-Un%20ejemplo:%20estilo%20para%20iPad%20%28hasta%20v4.9.1%29-Archivo%20CSS">Archivo
             CSS</a></div>
@@ -109,7 +105,7 @@ styleCSS=light.css
       Cambiamos el tamaño de la letra de toda nuestra aplicación (incluso dentro
       de un portal) y la altura de las filas en la lista. Mira en <em>naviox.css</em>
       para ver todas las classes CSS disponibles.<br>
-      <h2 id="toc2"><a name="Estilo visual personalizado-Añadir elementos a la página (nuevo en v5.6)"></a>Añadir
+      <h2><a name="Anadir-elementos-a-la-pagina"></a>Añadir
         elementos a la página <em>(nuevo en v5.6)</em></h2>
       Si queremos añadir nuestros propios elementos a la pagina para que
       aparezcan siempre visibles en nuestra aplicación podemos hacerlo en <em>web/naviox/indexExt.jsp</em>
@@ -240,8 +236,8 @@ class="sy0">;</span>
 </style><pre class="text">liferay6StyleClass=org.openxava.test.style.MyLiferay6Style</pre>
       Y por supuesto, tendrás que escribir la clase <em>MyLiferayStyle</em>.</div>
     <div class="wiki" style="display: block;">
-      <h2><a name="definirt-tu-propio-estilo-5">Definir
-        tu propio estilo <em>(hasta v5.9.1)</em></a></h2>
+      <h2><a name="definirt-tu-propio-estilo-5">Definir tu propio estilo <em>(hasta
+            v5.9.1)</em></a></h2>
       <p>A partir de v5.0 el estilo visual por defecto está definido en <em>/web/naviox/style/naviox.css</em>.
         <span style="line-height: 1.5;">El archivo </span><em><span style="line-height: 1.5;">naviox.css</span></em><span
 
@@ -341,7 +337,7 @@ styleCSS=mystyle/mystyle.css</pre>
       El estilo por iPad se incluye por defecto en OpenXava y se activa
       automáticamente en el momento en que un usuario accede a la aplicación
       desde un iPad.<br>
-      <h3 id="toc7"><a name="Estilo visual personalizado-Un ejemplo: estilo para iPad (hasta v4.9.1)-Detección de navegador/dispositivo"></a>Detección
+      <h3 id="toc7"><a name="Un-ejemplo-estilo-para-iPad-hasta-v4.9.1-Deteccion-de-navegador-dispositivo"></a>Detección
         de navegador/dispositivo</h3>
       Para conseguir la detección del dispositivo, añadimos el siguiente método
       a la clase de estilo:<br>
@@ -376,7 +372,7 @@ styleCSS=mystyle/mystyle.css</pre>
 </style><pre class="text">com.mycompany.myapp.style.MyDeviceStyle</pre>
       Además, has de escribir la clase <em>MyDeviceStyle</em> con le método <em>isForBrowse()</em>
       apropiado.<br>
-      <h3 id="toc8"><a name="Estilo visual personalizado-Un ejemplo: estilo para iPad (hasta v4.9.1)-Código JavaScript"></a>Código
+      <h3 id="toc8"><a name="Un-ejemplo-estilo-para-iPad-hasta-v4.9.1-Codigo-JavaScript"></a>Código
         JavaScript</h3>
       El estilo para iPad también usa efectos nativos para iPad como <em>flip</em>
       (rotación) y <em>slide</em> (desplazamiento). Para conseguir esto usamos
