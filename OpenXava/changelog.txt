@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Broken links in the menu of the Spanish doc for Custom Style, FAQ and Course.
 - Fix: Bad alignment of editors when combining small label with no label or regular label. 
 - Fix: Bad alignment of checkboxes and action links inside detail. 
 - Fix: @OnChange doesn't work for PHOTO, IMAGES_GALLERY, FILE, FILES and FileItem properties.
