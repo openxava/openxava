@@ -233,11 +233,18 @@ public class Module extends DWRBase {
 		memorizeLastMessages(nextModule);		
 		result.setNextModule(nextModule);
 	}	
-	
+		
 	public void requestMultipart(HttpServletRequest request, HttpServletResponse response, String application, String module) throws Exception {
-		request(request, response, application, module, null, null, null, null, null, false, null);
-		memorizeLastMessages();
-		manager.setResetFormPostNeeded(true);
+		if (request.getContentType() != null && request.getContentType().contains("multipart/form-data")) { 
+			request(request, response, application, module, null, null, null, null, null, false, null);
+			memorizeLastMessages();
+			manager.setResetFormPostNeeded(true);
+		
+		} 
+		else {
+			manager = (ModuleManager) getContext(request).get(application, module, "manager");
+			manager.formUploadNextTime();
+		}		
 	}
 
 	private InputStream getURIAsStream(String jspFile, Map values, Map multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {

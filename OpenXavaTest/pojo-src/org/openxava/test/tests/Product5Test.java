@@ -107,7 +107,7 @@ public class Product5Test extends CustomizeListTestBase {
 		assertCollectionColumnCount("productDetailsSupplierContactDetails", 2);
 	}
 
-	public void testRememberActionsInList() throws Exception { 
+	public void testRememberActionsInList_browserReloadOnMultipartForm() throws Exception {  
 		String[] listActions = {
 			"CRUD.new", "CRUD.deleteRow", "CRUD.deleteSelected",
 			"Print.generatePdf", "Print.generateExcel",
@@ -153,10 +153,24 @@ public class Product5Test extends CustomizeListTestBase {
 		execute("Product5.addPhoto"); 
 		assertActions(loadPhotoActions); 
 		
+		
 		execute("Mode.list");
 		assertAction("Product5.goA");
 		assertNoAction("Product5.goB");
 		assertAction("CRUD.new");
+		
+		execute("List.viewDetail", "row=0");
+		assertFilesCount("photos", 0);
+		execute("Product5.addPhoto"); 
+		assertActions(loadPhotoActions);		
+		reload();
+		assertActions(loadPhotoActions);
+		String imageUrl = System.getProperty("user.dir") + "/test-images/foto_javi.jpg";
+		setFileValue("newFile", imageUrl);
+		execute("LoadPhotoIntoGallery.loadPhoto");
+		assertMessage("Image added to the gallery"); 
+		assertFilesCount("photos", 1);
+		removeFile("photos", 0);		
 	}
 	
 	

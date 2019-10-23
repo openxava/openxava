@@ -130,7 +130,8 @@ public class ModuleManager implements java.io.Serializable {
 	private boolean buttonsVisible = true;
 	private boolean viewKeyEditable;
 	private String moduleURL;
-	private String goListAction = "Mode.list"; 
+	private String goListAction = "Mode.list";
+	private boolean formUploadNextTime = false; 
 
 	/**
 	 * HTML action bind to the current form.
@@ -395,7 +396,7 @@ public class ModuleManager implements java.io.Serializable {
 									// not work well in multimodule
 				actionOfThisModule(request);
 	}
-
+	
 	private boolean actionOfThisModule(HttpServletRequest request) {
 		return Is.equal(request.getParameter("xava_action_module"),
 				getModuleName())
@@ -579,7 +580,13 @@ public class ModuleManager implements java.io.Serializable {
 					updateXavaMetaActionsInList();
 				}
 			}
-			setFormUpload(false);
+			if (formUploadNextTime) {
+				setFormUpload(true);
+				formUploadNextTime = false;
+			}
+			else {
+				setFormUpload(false);
+			}
 			if (action instanceof ICustomViewAction) {
 				ICustomViewAction customViewAction = (ICustomViewAction) action;
 				String newView = customViewAction.getCustomView();
@@ -963,13 +970,22 @@ public class ModuleManager implements java.io.Serializable {
 	public void parseMultipartRequest(HttpServletRequest request)
 			throws FileUploadException {
 		List fileItems = (List) request.getAttribute("xava.upload.fileitems");
-		if (fileItems != null)
-			return;
+		if (fileItems != null) return;
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		factory.setSizeThreshold(1000000);
 		ServletFileUpload upload = new ServletFileUpload(factory);
-		request.setAttribute("xava.upload.fileitems",
+		try {  
+			request.setAttribute("xava.upload.fileitems",
 				upload.parseRequest(request));
+		}
+		catch (FileUploadBase.InvalidContentTypeException ex) {
+			request.setAttribute("xava.upload.fileitems", Collections.EMPTY_LIST);
+			log.warn(XavaResources.getString("invalid_content_parsing_multipart") + ": " + ex.getMessage());
+		}
+	}
+	
+	public void formUploadNextTime() { 
+		formUploadNextTime = true;
 	}
 
 	public Environment getEnvironment() throws XavaException {
@@ -1779,7 +1795,7 @@ public class ModuleManager implements java.io.Serializable {
 		formUpload = b;
 		if (formUpload) getContext().dontGenerateNewWindowIdNextTime(); 
 	}
-
+	
 	public String getNextModule() {
 		return nextModule;
 	}
