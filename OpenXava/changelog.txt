@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: View.setFocus() does not select the text of the focused editor.
 - Fix: Keystrokes for hidden actions work and should not.
 - Fix: Reloading page from browser in a multipart form (from ILoadFileAction) produces an infinite loop.
 - Fix: Broken links in the menu of the Spanish doc for Custom Style, FAQ and Course.

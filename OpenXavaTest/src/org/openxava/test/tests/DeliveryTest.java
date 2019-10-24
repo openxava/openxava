@@ -13,6 +13,7 @@ import org.openxava.util.Is;
 
 import com.gargoylesoftware.htmlunit.html.*;
 
+
 /**
  * 
  * @author Javier Paniza
@@ -452,8 +453,11 @@ public class DeliveryTest extends ModuleTestBase {
 		String number = getValue("number");
 		executeClicking("DeliveryDetail.new", "viewObject=xava_view_section2_details_details");  
 		assertMessage("The action New for delivery detail executed");
-		assertValue("description", "DETAIL FOR DELIVERY " + number + "/" + number);		
+		String expectedDescription = "DETAIL FOR DELIVERY " + number + "/" + number;  
+		assertValue("description", expectedDescription);
 		assertFocusOn("description"); 
+		HtmlTextInput descriptionInput = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Delivery__description");
+		assertEquals(expectedDescription, descriptionInput.getSelectedText()); // Text must be selected
 		setValue("number", "66");
 		setValue("description", "JUNIT DELIVERY DETAIL");
 		execute("DeliveryDetail.save");
