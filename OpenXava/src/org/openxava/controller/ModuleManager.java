@@ -1662,8 +1662,7 @@ public class ModuleManager implements java.io.Serializable {
 
 	private void executeInitAction(HttpServletRequest request, Messages errors,
 			Messages messages) {
-		if (!Is.emptyString(getNextModule()))
-			return; // Another module is executing now
+		if (!Is.emptyString(getNextModule())) return; // Another module is executing now
 		Iterator it = getMetaActionsOnInit().iterator();
 		while (it.hasNext()) {
 			MetaAction a = (MetaAction) it.next();

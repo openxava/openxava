@@ -189,6 +189,7 @@ public class Module extends DWRBase {
 		while (it.hasNext()) {
 			MetaAction action = (MetaAction) it.next();
 			if (!action.hasKeystroke()) continue;	
+			if (!manager.actionApplies(action)) continue; 
 
 			KeyStroke key = KeyStroke.getKeyStroke(action.getKeystroke());
 			if (key == null) {

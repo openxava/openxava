@@ -39,7 +39,7 @@ public class WorkCostOrderedInvoicesTest extends WorkCostTestBase {
 		assertMessage("1 row cut from Invoices");
 		assertCollectionRowCount("invoices", 2);
 		execute("CollectionCopyPaste.cut", "row=0,viewObject=xava_view_invoices");
-		assertMessage("1 row cut from Invoices"); // Does not accumulate rows
+		assertMessage("1 row cut from Invoices"); // Does not accumulate rows 
 		
 		execute("CRUD.new");
 		setValue("description", "MOTO SERVICE");

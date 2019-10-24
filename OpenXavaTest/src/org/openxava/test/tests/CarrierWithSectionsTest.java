@@ -443,7 +443,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		execute("MyReport.generatePdf");
 		
 		execute("ExtendedPrint.myReports");
-		assertValue("name", "Carrier report NUMBER first");
+		assertValue("name", "Carrier report NUMBER first"); 
 		String [][] customReports1 = {
 			{ "Carrier report NUMBER first", "Carrier report NUMBER first" }			
 		};
