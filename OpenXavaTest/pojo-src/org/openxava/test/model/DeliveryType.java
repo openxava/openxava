@@ -12,7 +12,8 @@ import org.openxava.test.validators.*;
  * @author Javier Paniza
  */
 @Entity
-@View(members="number; description; comboDeliveries")
+// tmp @View(members="number; description; comboDeliveries")
+@View(members="number; description; deliveries") // TMP ME QUEDÉ POR AQUÍ: ASÍ FALLA, HACER UN MODULO Y UNA PRUEBA UNITARIA
 @RemoveValidator(value=DeliveryTypeRemoveValidator.class,
 	properties=@PropertyValue(name="number")
 )
