@@ -135,11 +135,14 @@ public class MyClass {
         import or, if you still need Hibernate Validator, qualify the <i>@NotBlank</i>
         annotation (that is use <i>@javax.validation.constraints.NotBlank</i>).</p>
       <h3 id="toc38"><a name="Migration-Migration from OpenXava 5.2.1 to OpenXava 5.3-EL libraries upgrade for Tomcat 6"></a>EL
-        libraries upgrade for Tomcat 7</h3>
+        libraries upgrade for Tomcat 7 or any other old application server</h3>
       If you're using Tomcat 7 copy <em>el-api.jar</em> and <em>jasper-el.jar</em>
       from the Tomcat <em>lib</em> folder included in OpenXava (or any Tomcat
       9) to the <em>lib</em> folder of your Tomcat 7. This is required by the
-      latest Hibernate Validator version.<br>
+      latest Hibernate Validator version. If you use another old application
+      server (as an old WebLogic version) and you don't know how to upgrade it,
+      just copy <i>el-api.jar</i> and <i>jasper-el.jar</i> to the WEB-INF/lib
+      folder of your project.<br>
       <h3 id="toc39"><a name="Migration-Migration from OpenXava 5.2.1 to OpenXava 5.3-Automated Business Logic (ABL) library dropped"></a></h3>
       <h3>HtmlUnit upgraded from 2.15 to 2.32</h3>
       <p>If you uses directly the HtmlUnit API, via <i>getWebClient()</i> or <i>getHtmlPage()</i>

@@ -125,8 +125,23 @@ abstract public class ViewBaseAction extends BaseAction {
 	 * @since 5.6
 	 */
 	protected void validateViewValues() { 
+		System.out.println("[ViewBaseAction.validateViewValues] 11"); // tmp
+		System.out.println("[ViewBaseAction.validateViewValues] getView().getModelName()=" + getView().getModelName()); // tmp
+		System.out.println("[ViewBaseAction.validateViewValues] getView().getValues()=" + getView().getValues()); // tmp
+		// tmp ini
+		System.out.println("[ViewBaseAction.validateViewValues] getView().isRepresentsCollection()=" + getView().isRepresentsCollection()); // tmp
+		System.out.println("[ViewBaseAction.validateViewValues] getView().isRepresentsEntityReference()=" + getView().isRepresentsEntityReference()); // tmp
+		if (getView().isRepresentsCollection()) {
+			System.out.println("[ViewBaseAction.validateViewValues] getView().getMetaCollection().getInverseCollection()=" + getView().getMetaCollection().getInverseCollection()); // tmp
+			System.out.println("[ViewBaseAction.validateViewValues] getView().getMetaCollection().getMetaReference().getReferencedModelContainerReference()=" + getView().getMetaCollection().getMetaReference().getReferencedModelContainerReference()); // tmp
+			System.out.println("[ViewBaseAction.validateViewValues] getView().getMetaCollection().getMetaReference().getReferencedModelName()=" + getView().getMetaCollection().getMetaReference().getReferencedModelName()); // tmp
+			System.out.println("[ViewBaseAction.validateViewValues] getView().getMetaCollection().getMetaReference().getRole()=" + getView().getMetaCollection().getMetaReference().getRole()); // tmp
+			// TMP ME QUEDÉ POR AQUÍ. CREO QUE EN getView().getMetaCollection().getMetaReference().getRole() TENGO LA CLAVE, DEVUELVE type, JUSTO LO QUE TENGO QUE EXCLUIR
+		}
+		// tmp fin
 		Messages errors = MapFacade.validateIncludingMissingRequired(getView().getModelName(), getView().getValues()); 
 		if (errors.contains()) throw new ValidationException(errors);
+		System.out.println("[ViewBaseAction.validateViewValues] 999"); // tmp
 	}
 	
 	/**

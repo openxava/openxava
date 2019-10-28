@@ -12,8 +12,8 @@ import org.openxava.test.validators.*;
  * @author Javier Paniza
  */
 @Entity
-// tmp @View(members="number; description; comboDeliveries")
-@View(members="number; description; deliveries") // TMP ME QUEDÉ POR AQUÍ: ASÍ FALLA, HACER UN MODULO Y UNA PRUEBA UNITARIA
+@View(members="number; description; comboDeliveries")
+@View(name="WithDeliveries", members="number; description; deliveries") // tmp
 @RemoveValidator(value=DeliveryTypeRemoveValidator.class,
 	properties=@PropertyValue(name="number")
 )
@@ -25,7 +25,9 @@ public class DeliveryType {
 	@Required
 	private String description;
 	
-	@OneToMany(mappedBy="type")
+	@CollectionView("SimpleWithDetails") // tmp
+	@OneToMany(mappedBy="type") // Never CascadeType.REMOVE or CascadeType.ALL to test a case
+	//@OneToMany(mappedBy="type", cascade = CascadeType.ALL) // tmp
 	private Collection<Delivery> deliveries;
 
 	// For testing description lists which keys	are references to other entities	

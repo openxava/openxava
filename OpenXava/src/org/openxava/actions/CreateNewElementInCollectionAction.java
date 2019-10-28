@@ -21,11 +21,16 @@ public class CreateNewElementInCollectionAction extends CollectionElementViewBas
 	
 	@SuppressWarnings("unchecked")
 	public void execute() throws Exception {
+		System.out.println("[CreateNewElementInCollectionAction.execute] 10"); // tmp
 		if (!isParentSaved()) validateViewValues(); 
+		System.out.println("[CreateNewElementInCollectionAction.execute] 20"); // tmp
 		getCollectionElementView().reset();						
+		System.out.println("[CreateNewElementInCollectionAction.execute] 30"); // tmp
 		getCollectionElementView().setCollectionDetailVisible(true); 
 		getCollectionElementView().setCollectionEditingRow(-1);
+		System.out.println("[CreateNewElementInCollectionAction.execute] 40"); // tmp
 		showDialog(getCollectionElementView());				
+		System.out.println("[CreateNewElementInCollectionAction.execute] 50"); // tmp
 		if (getCollectionElementView().isCollectionEditable() || 
 			getCollectionElementView().isCollectionMembersEditables()) 
 		{ 
@@ -40,11 +45,13 @@ public class CreateNewElementInCollectionAction extends CollectionElementViewBas
 			
 			getCollectionElementView().setKeyEditable(true); 
 		} 		
+		System.out.println("[CreateNewElementInCollectionAction.execute] 60"); // tmp
 		Iterator itDetailActions = getCollectionElementView().getActionsNamesDetail().iterator();		
 		while (itDetailActions.hasNext()) {			
 			addActions(itDetailActions.next().toString());			
 		}
 		addActions(getCollectionElementView().getHideCollectionElementAction());
+		System.out.println("[CreateNewElementInCollectionAction.execute] 999"); // tmp
 	}
 	
 	protected boolean isParentSaved() { 

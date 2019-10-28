@@ -473,7 +473,8 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		return validate(userInfo, modelName, values, false);
 	}
 	
-	public Messages validateIncludingMissingRequired(UserInfo userInfo, String modelName, Map values) throws XavaException, RemoteException { 
+	public Messages validateIncludingMissingRequired(UserInfo userInfo, String modelName, Map values) throws XavaException, RemoteException {
+		System.out.println("[MapFacadeBean.validateIncludingMissingRequired] "); // tmp
 		return validate(userInfo, modelName, values, true);
 	}
 	
@@ -1753,14 +1754,26 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 
 	private void validateExistRequired(Messages errors, MetaModel metaModel, Map values, boolean excludeContainerReference) 
 		throws XavaException {		
-		Iterator it = metaModel.getRequiredMemberNames().iterator();		
+		Iterator it = metaModel.getRequiredMemberNames().iterator();	
+		System.out.println("[MapFacadeBean.validateExistRequired] values=" + values); // tmp
+		System.out.println("[MapFacadeBean.validateExistRequired] excludeContainerReference=" + excludeContainerReference); // tmp
+		System.out.println("[MapFacadeBean.validateExistRequired] metaModel.getContainerReference()=" + metaModel.getContainerReference()); // tmp
+		System.out.println("[MapFacadeBean.validateExistRequired] errors.isEmpty()> " + errors.isEmpty()); // tmp
 		while (it.hasNext()) {
 			String name = (String) it.next();
+			System.out.println("[MapFacadeBean.validateExistRequired] name=" + name); // tmp
+			// tmp ini
+			if (metaModel.containsMetaReference(name)) {
+				MetaReference ref = metaModel.getMetaReference(name);
+				System.out.println("[MapFacadeBean.validateExistRequired] ref(" + name + ").getRole()=" + ref.getRole()); // tmp
+			}
+			// tmp fin
 			if (excludeContainerReference && name.equals(metaModel.getContainerReference())) continue; 
 			if (!values.containsKey(name)) {				
 				errors.add("required", name, metaModel.getName());
 			}
 		}
+		System.out.println("[MapFacadeBean.validateExistRequired] errors.isEmpty()< " + errors.isEmpty()); // tmp
 	}
 	
 	private void validateCollections(Messages errors, MetaModel metaModel)  

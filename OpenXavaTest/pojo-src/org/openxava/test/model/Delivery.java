@@ -102,6 +102,17 @@ import org.openxava.jpa.*;
 		"	description;" +				
 		"]"
 	),
+	// tmp ini
+	@View(name="SimpleWithDetails", members=
+		"invoice;" +
+		"type, number;" +			
+		"date;" +
+		"description;" +
+		"advice;" + 
+		"remarks;" +
+		"details" 
+	),	
+	// tmp fin
 	@View(name="FullInvoice", members= "invoice; number; description"),
 	@View(name="Search", members= "invoice; type; number; date;	description;")
 })
