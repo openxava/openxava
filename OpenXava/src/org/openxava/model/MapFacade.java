@@ -802,12 +802,12 @@ public class MapFacade {
 	{
 		Assert.arg(modelName, values);			
 		try {
-			return getImpl(modelName).validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values);								
+			return getImpl(modelName).validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, null); // tmp null							
 		}
 		catch (RemoteException ex) {			
 			annulImpl(modelName);
 			try {
-				return getImpl(modelName).validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values);
+				return getImpl(modelName).validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, null); // tmp null
 			}
 			catch (RemoteException rex) {
 				throw new SystemException(rex);
@@ -815,7 +815,23 @@ public class MapFacade {
 		}				
 	}
 	
-									
+	public static Messages validateIncludingMissingRequired(String modelName, Map values, String containerReference) // tmp
+		throws XavaException, SystemException 
+	{
+		Assert.arg(modelName, values);			
+		try {
+			return getImpl(modelName).validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, containerReference);								
+		}
+		catch (RemoteException ex) {			
+			annulImpl(modelName);
+			try {
+				return getImpl(modelName).validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, containerReference);
+			}
+			catch (RemoteException rex) {
+				throw new SystemException(rex);
+			}	
+		}				
+	}									
 	
 	private static IMapFacadeImpl getImpl(String modelName) throws SystemException {
 		if (!usesEJB()) return getLocalImpl();

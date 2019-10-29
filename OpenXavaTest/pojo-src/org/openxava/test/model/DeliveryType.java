@@ -27,7 +27,6 @@ public class DeliveryType {
 	
 	@CollectionView("SimpleWithDetails") // tmp
 	@OneToMany(mappedBy="type") // Never CascadeType.REMOVE or CascadeType.ALL to test a case
-	//@OneToMany(mappedBy="type", cascade = CascadeType.ALL) // tmp
 	private Collection<Delivery> deliveries;
 
 	// For testing description lists which keys	are references to other entities	

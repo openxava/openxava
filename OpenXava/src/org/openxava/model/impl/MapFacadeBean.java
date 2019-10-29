@@ -470,15 +470,14 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 	}
 	
 	public Messages validate(UserInfo userInfo, String modelName, Map values) throws XavaException, RemoteException { 
-		return validate(userInfo, modelName, values, false);
+		return validate(userInfo, modelName, values, false, null); // tmp null
 	}
 	
-	public Messages validateIncludingMissingRequired(UserInfo userInfo, String modelName, Map values) throws XavaException, RemoteException {
-		System.out.println("[MapFacadeBean.validateIncludingMissingRequired] "); // tmp
-		return validate(userInfo, modelName, values, true);
+	public Messages validateIncludingMissingRequired(UserInfo userInfo, String modelName, Map values, String containerReference) throws XavaException, RemoteException { // tmp String containerReference
+		return validate(userInfo, modelName, values, true, containerReference); // tmp containerReference
 	}
 	
-	private Messages validate(UserInfo userInfo, String modelName, Map values, boolean includingMissingRequired) throws XavaException, RemoteException {  
+	private Messages validate(UserInfo userInfo, String modelName, Map values, boolean includingMissingRequired, String containerReference) throws XavaException, RemoteException { // tmp String containerReference  
 		Users.setCurrentUserInfo(userInfo);
 		values = Maps.recursiveClone(values); 	
 		MetaModel metaModel = getMetaModel(modelName); 
@@ -487,7 +486,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			Messages result = new Messages();
 			Map key = null;
 			if (includingMissingRequired) {
-				validateExistRequired(result, metaModel, values, true);
+				validateExistRequired(result, metaModel, values, true, containerReference); // tmp containerReference
 			}
 			else key = metaModel.extractKeyValues(values);
 			validate(result, metaModel, values, key, null, false);
@@ -872,8 +871,8 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			//removeReadOnlyFields(metaModel, values); // not remove the read only fields because it maybe needed initialized on create
 			removeReadOnlyWithFormulaFields(metaModel, values); 			
 			removeCalculatedFields(metaModel, values); 						
-			Messages validationErrors = new Messages();				
-			validateExistRequired(validationErrors, metaModel, values, metaModelContainer != null);
+			Messages validationErrors = new Messages();	
+			validateExistRequired(validationErrors, metaModel, values, metaModelContainer != null, null); // tmp null
 			validate(validationErrors, metaModel, values, null, container, true);
 			if (validateCollections) validateCollections(validationErrors, metaModel);
 			removeViewProperties(metaModel, values); 			
@@ -1611,7 +1610,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			else if (metaModel.containsMetaReference(memberName)) {
 				MetaReference ref = metaModel.getMetaReference(memberName); 
 				MetaModel referencedModel = ref.getMetaModelReferenced();
-				Map mapValues = (Map) values;					
+				Map mapValues = (Map) values;		
 				if (referenceHasValue(mapValues)) {
 					if (ref.isAggregate()) validate(errors, referencedModel, mapValues, mapValues, null, creating, memberName); 
 				} 
@@ -1752,28 +1751,18 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		}
 	}
 
-	private void validateExistRequired(Messages errors, MetaModel metaModel, Map values, boolean excludeContainerReference) 
+	private void validateExistRequired(Messages errors, MetaModel metaModel, Map values, boolean excludeContainerReference, String containerReference) // tmp String containerReference 
 		throws XavaException {		
 		Iterator it = metaModel.getRequiredMemberNames().iterator();	
-		System.out.println("[MapFacadeBean.validateExistRequired] values=" + values); // tmp
-		System.out.println("[MapFacadeBean.validateExistRequired] excludeContainerReference=" + excludeContainerReference); // tmp
-		System.out.println("[MapFacadeBean.validateExistRequired] metaModel.getContainerReference()=" + metaModel.getContainerReference()); // tmp
-		System.out.println("[MapFacadeBean.validateExistRequired] errors.isEmpty()> " + errors.isEmpty()); // tmp
+		if (metaModel.getContainerReference() != null) containerReference = metaModel.getContainerReference(); // tmp
 		while (it.hasNext()) {
 			String name = (String) it.next();
-			System.out.println("[MapFacadeBean.validateExistRequired] name=" + name); // tmp
-			// tmp ini
-			if (metaModel.containsMetaReference(name)) {
-				MetaReference ref = metaModel.getMetaReference(name);
-				System.out.println("[MapFacadeBean.validateExistRequired] ref(" + name + ").getRole()=" + ref.getRole()); // tmp
-			}
-			// tmp fin
-			if (excludeContainerReference && name.equals(metaModel.getContainerReference())) continue; 
+			// tmp if (excludeContainerReference && name.equals(metaModel.getContainerReference())) continue; 
+			if (excludeContainerReference && name.equals(containerReference)) continue; // tmp
 			if (!values.containsKey(name)) {				
 				errors.add("required", name, metaModel.getName());
 			}
 		}
-		System.out.println("[MapFacadeBean.validateExistRequired] errors.isEmpty()< " + errors.isEmpty()); // tmp
 	}
 	
 	private void validateCollections(Messages errors, MetaModel metaModel)  

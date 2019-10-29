@@ -117,15 +117,31 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 			}
 		}			
 		else {
-			if (view.getKeyValuesWithValue().isEmpty()) {				
+			// tmp if (view.getKeyValuesWithValue().isEmpty()) {
+			if (view.isKeyEditable()) {
 				Map parentKey = saveIfNotExists(view.getParent());
-				Map key = MapFacade.createAggregateReturningKey( 
-					view.getModelName(),
-					parentKey, view.getMemberName(),
-					view.getValues()
-				);
-				addMessage("aggregate_created", view.getModelName());
+				// tmp ini
+				Map key = null;
+				if (isEntityReferencesCollection(view)) {	
+					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] A"); // tmp
+					Map values = view.getValues();
+					String containerReference = view.getMetaCollection().getMetaReference().getRole();
+					values.put(containerReference, parentKey);
+					key = MapFacade.createNotValidatingCollections(view.getModelName(), values);
+					addMessage("entity_created", view.getModelName()); 
+				}
+				else {
+					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B"); // tmp
+				// tmp fin
+					/* tmp Map */ key = MapFacade.createAggregateReturningKey( 
+						view.getModelName(),
+						parentKey, view.getMemberName(),
+						view.getValues()
+					);
+					addMessage("aggregate_created", view.getModelName());
+				} // tmp
 				view.addValues(key);
+				view.setKeyEditable(false); // tmp
 				return key;										
 			}
 			else {			

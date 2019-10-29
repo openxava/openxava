@@ -84,10 +84,21 @@ abstract public class CollectionElementViewBaseAction extends ViewBaseAction {
 	}
 	
 	protected boolean isEntityReferencesCollection() throws XavaException {
+		/* tmp
 		MetaCollectionView metaCollectionView = getCollectionElementView().getMetaView().getMetaCollectionView(getMetaCollection().getName());
 		if (metaCollectionView != null) return !metaCollectionView.isAsAggregate();
-		return getCollectionElementView().getMetaModel() instanceof MetaEntity; 		
+		return getCollectionElementView().getMetaModel() instanceof MetaEntity;
+		*/
+		return isEntityReferencesCollection(getCollectionElementView()); // tmp
 	}
+	
+	protected boolean isEntityReferencesCollection(View view) throws XavaException { // tmp
+		if (!view.isRepresentsCollection()) return false;
+		MetaCollectionView metaCollectionView = view.getMetaView().getMetaCollectionView(getMetaCollection().getName());
+		if (metaCollectionView != null) return !metaCollectionView.isAsAggregate();
+		return view.getMetaModel() instanceof MetaEntity; 		
+	}
+
 	
 	public String getViewObject() {
 		return viewObject;

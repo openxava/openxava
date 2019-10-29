@@ -20,7 +20,7 @@ public class InvoiceCustomerAsAggregateTest extends ModuleTestBase {
 		setValue("name", "JUNIT DELIVERY PLACE NAME");
 		setValue("address", "JUNIT DELIVERY PLACE ADDRESS");
 		execute("Collection.save");
-		assertNoErrors(); 
+		assertNoErrors(); // TMP FALLA ME QUEDÉ POR AQUÍ. HAY OTROS FALLAS, AUNQUE ESTE PARECE DE VERDAD
 		assertCollectionRowCount("customer.deliveryPlaces", 1);		
 		checkRowCollection("customer.deliveryPlaces", 0);
 		execute("Collection.removeSelected", "viewObject=xava_view_customer_deliveryPlaces");

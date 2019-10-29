@@ -47,7 +47,7 @@ public interface IMapFacadeImpl {
 				
 	Messages validate(UserInfo userInfo, String modelName, Map values) throws XavaException, RemoteException;
 	
-	Messages validateIncludingMissingRequired(UserInfo userInfo, String modelName, Map values) throws XavaException, RemoteException; 
+	Messages validateIncludingMissingRequired(UserInfo userInfo, String modelName, Map values, String containerReference) throws XavaException, RemoteException; // tmp String containerReference  
 
 	Object createAggregate(UserInfo userInfo, String modelName, Map keyContainer, String collectionName, Map values)
 		throws CreateException,ValidationException, XavaException, RemoteException; 
