@@ -31,6 +31,9 @@ boolean multiple = "true".equals(request.getParameter("multipleFiles"));
 String dataMultiple = multiple?"data-multiple='true'":"";
 boolean preview = !"false".equals(request.getParameter("imagePreview"));
 String dataPreview = !preview?"data-preview='false'":"";
+String script = request.getParameter("script");
+boolean throwsChanged = script != null && script.contains(".throwPropertyChanged(");
+String dataThrowsChanged = throwsChanged?"data-throws-changed='true'":"";
 %>
 <input id='<%=propertyKey%>' 
 	type="file" class="xava_upload<%=cssClass%>"
@@ -40,7 +43,8 @@ String dataPreview = !preview?"data-preview='false'":"";
 	<%=dataPreview%>
 	<%=dataFiles%> 
 	<%=dataEmpty%>
-	<%=dataEditable%>/>
+	<%=dataEditable%>
+	<%=dataThrowsChanged%>/> 
 
 <input type="hidden" name="<%=propertyKey%>" value="<%=value%>">
 

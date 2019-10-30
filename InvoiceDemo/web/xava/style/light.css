@@ -344,6 +344,15 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	background: #ebebe4;
 }
 
+.xava_editor input[type="checkbox"] {
+	position: relative;
+	top: 5px;
+}
+
+.ox-list input[type="checkbox"] {
+	margin-top: 5px;
+}
+
 .ox-radio-buttons {
 	margin: 5px 0px 0px 0px; 
 }
@@ -363,12 +372,8 @@ select:not([multiple]) {
 }
 
 .ox-label { 
-	padding-top: 10px; 
-	padding-right: 7px; 
-}
-
-.ox-label, .ox-layout-not-aligned-cell  {
-	vertical-align: top;
+	padding-right: 7px;
+	vertical-align: middle;  
 }
 
 .ox-editor-wrapper { 
@@ -1112,6 +1117,11 @@ input[type="button"], .ipad input[type="button"]:hover,
     color: #5755D2 !important;
 }
 
+.xava_editor .ox-action-link {
+	display: inline-block;
+	margin-left: 0px;
+} 
+
 .ox-button-bar-button span {
 	margin-right: -7px;  
 }
@@ -1296,7 +1306,7 @@ div.ox-subcontroller table{
 	text-align: center;
 }
 
-.row-highlight A.row-highlight {
+.row-highlight {
 	font-weight: bold;
 }
 
@@ -1787,13 +1797,13 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .ox-list-mode .ox-button-bar a[id*="new"], .ox-list-mode .ox-button-bar a[id*="new"] i,
-.ox-collection-list-actions span:nth-of-type(1) a, .ox-collection-list-actions span:nth-of-type(1) i
+.ox-collection-list-actions > span:nth-of-type(1) a, .ox-collection-list-actions > span:nth-of-type(1) i
 {
 	color: #3777D7;
 }
 
 .ox-list-mode .ox-button-bar a[id*="new"]:hover, .ox-list-mode .ox-button-bar a[id*="new"]:hover i,
-.ox-collection-list-actions span:nth-of-type(1) a:hover, .ox-collection-list-actions span:nth-of-type(1) a:hover i
+.ox-collection-list-actions > span:nth-of-type(1) a:hover, .ox-collection-list-actions > span:nth-of-type(1) a:hover i
 {
 	color: blue;
 }

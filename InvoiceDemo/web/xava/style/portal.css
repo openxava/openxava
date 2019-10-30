@@ -95,7 +95,7 @@ TH.list {
 	font-weight: bold;
 }
 
-.row-highlight A.row-highlight {
+.row-highlight {
 	font-weight: bold;
 	color: #3366ff;
 }
@@ -415,15 +415,15 @@ TD.list-title {
 }
 
 .ox-list-mode .ox-button-bar a[id*="new"], .ox-list-mode .ox-button-bar a[id*="new"] i,
-.ox-frame .ox-button-bar span:nth-of-type(1) a, .ox-frame .ox-button-bar .ox-collection-list-actions span:nth-of-type(1) i,
-.ox-sections .ox-button-bar span:nth-of-type(1) a, .ox-sections .ox-button-bar .ox-collection-list-actions span:nth-of-type(1) i
+.ox-frame .ox-button-bar > span:nth-of-type(1) a, .ox-frame .ox-button-bar .ox-collection-list-actions > span:nth-of-type(1) i,
+.ox-sections .ox-button-bar > span:nth-of-type(1) a, .ox-sections .ox-button-bar .ox-collection-list-actions > span:nth-of-type(1) i
 {
 	color: black;
 }
 
 .ox-list-mode .ox-button-bar a[id*="new"]:hover, .ox-list-mode .ox-button-bar a[id*="new"]:hover i,
-.ox-frame .ox-button-bar span:nth-of-type(1) a:hover, .ox-frame .ox-button-bar .ox-collection-list-actions span:nth-of-type(1) a:hover i,
-.ox-sections .ox-button-bar span:nth-of-type(1) a:hover, .ox-sections .ox-button-bar .ox-collection-list-actions span:nth-of-type(1) a:hover i
+.ox-frame .ox-button-bar > span:nth-of-type(1) a:hover, .ox-frame .ox-button-bar .ox-collection-list-actions > span:nth-of-type(1) a:hover i,
+.ox-sections .ox-button-bar > span:nth-of-type(1) a:hover, .ox-sections .ox-button-bar .ox-collection-list-actions > span:nth-of-type(1) a:hover i
 {
 	color: blue;
 }
@@ -497,6 +497,11 @@ a.ox-selected-list-format, a.ox-selected-list-format:hover {
 	margin-left: 7px;
 }
 
+.xava_editor .ox-action-link {
+	display: inline-block;
+	margin-left: 0px;
+} 
+
 .ox-help img {
 	border: 0;
 	padding-top: 5px;
@@ -509,12 +514,8 @@ a.ox-selected-list-format, a.ox-selected-list-format:hover {
 
 .ox-label { 
 	text-align: left;
-	padding-top: 6px; 
-	padding-right: 7px; 	
-}
-
-.ox-label, .ox-layout-not-aligned-cell  {
-	vertical-align: top;
+	padding-right: 7px; 
+	vertical-align: middle;  	
 }
 
 .ox-frame-totals {
@@ -775,6 +776,11 @@ i.mdi-eraser {
 input[type="radio"] {
 	margin: 2px 0px 4px 10px;
 	vertical-align: middle;
+}
+
+.xava_editor input[type="checkbox"] {
+	position: relative;
+	top: 5px;
 }
 
 .ui-autocomplete {
@@ -1145,3 +1151,4 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 .liferay-xava-cell-wrapper img {
 	max-height: 20px;
 }
+

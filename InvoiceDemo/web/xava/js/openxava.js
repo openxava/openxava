@@ -839,7 +839,6 @@ openxava.setFocusOnElement = function(form, name) {
 		if (!$(element).is(':visible')) return false; 		
 		if (element.type != "hidden") {			
 			element.focus();
-			return true; 
 		}
 		if (typeof element.select != "undefined") {			
 			element.select();

@@ -41,11 +41,11 @@ a:hover {
 }
 
 .ipad input, .ipad textarea, .iphone input, .iphone textarea {
-  -webkit-appearance: none;
+	-webkit-appearance: none;
 }
 
 input[type="checkbox"] {
-  -webkit-appearance: checkbox;
+	-webkit-appearance: checkbox;
 }
 
 .mobile {
@@ -378,6 +378,15 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	background: #ebebe4;
 }
 
+.xava_editor input[type="checkbox"] {
+	position: relative;
+	top: 5px;
+}
+
+.ox-list input[type="checkbox"] {
+	margin-top: 5px;
+}
+
 .ox-date-calendar input {
 	padding-right: 25px;
 }
@@ -418,13 +427,9 @@ select:not([multiple]) {
 
 
 .ox-label { 
-	padding-top: 8px; 
 	padding-right: 7px;
-	font-weight: bold; 
-}
-
-.ox-label, .ox-layout-not-aligned-cell  {
-	vertical-align: top;
+	font-weight: bold;
+	vertical-align: middle;  
 }
 
 .ox-editor-wrapper { 
@@ -547,7 +552,8 @@ i, .ox-icon i.mdi-close-circle
 }
 
 .ox-list-mode .ox-button-bar a[id*="new"], .ox-list-mode .ox-button-bar a[id*="new"] i,
-.ox-collection-list-actions span:nth-of-type(1) a, .ox-collection-list-actions span:nth-of-type(1) i
+.ox-collection-list-actions > span:nth-of-type(1) a, 
+.ox-collection-list-actions > span:nth-of-type(1) i
 {
 	color: white;
 	background: #036564; 
@@ -1247,6 +1253,11 @@ input[type="button"],
     padding: 6px;
 }
 
+.xava_editor .ox-action-link {
+	display: inline-block;
+	margin-left: 0px;
+} 
+
 .ox-image-link {
 	padding: 6px 3px 6px 3px;	
 }
@@ -1478,7 +1489,7 @@ div.ox-subcontroller table{
 	text-align: center;
 }
 
-.row-highlight A.row-highlight {
+.row-highlight {
 	font-weight: bold;
 }
 
@@ -2074,18 +2085,6 @@ div[id$="_Index__view"] .ox-list-title {
 
 .ox-frame .ox-frame .ox-required-editor input, .ox-frame .ox-frame .ox-required-editor select, .ox-frame .ox-required-editor textarea {
 	border-color: #806632; 
-}
-
-.ui-dialog .ox-required-editor input, .ui-dialog .ox-required-editor select {
-	border-color: #a58341 !important;
-}
-
-.ui-dialog .ox-frame .ox-required-editor input, .ui-dialog .ox-frame .ox-required-editor select, .ui-dialog .ox-required-editor textarea {
-	border-color: #806632 !important;
-}
-
-.ui-dialog .ox-frame .ox-frame .ox-required-editor input, .ui-dialog .ox-frame .ox-frame .ox-required-editor select, .ui-dialog .ox-frame .ox-required-editor textarea {
-	border-color: #5b4924 !important;
 }
 
 .ox-error-editor input,
