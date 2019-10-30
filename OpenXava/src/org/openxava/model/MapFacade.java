@@ -802,12 +802,12 @@ public class MapFacade {
 	{
 		Assert.arg(modelName, values);			
 		try {
-			return getImpl(modelName).validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, null); // tmp null							
+			return getImpl(modelName).validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, null); 							
 		}
 		catch (RemoteException ex) {			
 			annulImpl(modelName);
 			try {
-				return getImpl(modelName).validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, null); // tmp null
+				return getImpl(modelName).validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, null); 
 			}
 			catch (RemoteException rex) {
 				throw new SystemException(rex);
@@ -815,7 +815,7 @@ public class MapFacade {
 		}				
 	}
 	
-	public static Messages validateIncludingMissingRequired(String modelName, Map values, String containerReference) // tmp
+	public static Messages validateIncludingMissingRequired(String modelName, Map values, String containerReference) 
 		throws XavaException, SystemException 
 	{
 		Assert.arg(modelName, values);			

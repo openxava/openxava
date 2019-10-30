@@ -117,13 +117,10 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 			}
 		}			
 		else {
-			// tmp if (view.getKeyValuesWithValue().isEmpty()) {
-			if (view.isKeyEditable()) {
+			if (isKeyIncomplete(view)) { 
 				Map parentKey = saveIfNotExists(view.getParent());
-				// tmp ini
 				Map key = null;
 				if (isEntityReferencesCollection(view)) {	
-					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] A"); // tmp
 					Map values = view.getValues();
 					String containerReference = view.getMetaCollection().getMetaReference().getRole();
 					values.put(containerReference, parentKey);
@@ -131,23 +128,26 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 					addMessage("entity_created", view.getModelName()); 
 				}
 				else {
-					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B"); // tmp
-				// tmp fin
-					/* tmp Map */ key = MapFacade.createAggregateReturningKey( 
+					key = MapFacade.createAggregateReturningKey( 
 						view.getModelName(),
 						parentKey, view.getMemberName(),
 						view.getValues()
 					);
 					addMessage("aggregate_created", view.getModelName());
-				} // tmp
+				} 
 				view.addValues(key);
-				view.setKeyEditable(false); // tmp
 				return key;										
 			}
 			else {			
 				return view.getKeyValues();
 			}
 		}
+	}
+	
+	private boolean isKeyIncomplete(View view) { 
+		Map keyValues = view.getKeyValuesWithValue(); 
+		return keyValues.isEmpty() || 
+			keyValues.size() < view.getMetaModel().getKeyPropertiesNames().size() + view.getMetaModel().getKeyReferencesNames().size();		
 	}
 	
 	/**

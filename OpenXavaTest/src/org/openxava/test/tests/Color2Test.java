@@ -96,7 +96,7 @@ public class Color2Test extends ModuleTestBase {
 		assertValueInList(0, 4, "CAR");
 		setConditionValues(new String[] { "", "", "", "1"} );
 		// execute("List.filter"); // Not needed because filterOnChange=true
-		assertListRowCount(1); // TMP FALLA
+		assertListRowCount(1); 
 	}
 		
 }

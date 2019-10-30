@@ -224,7 +224,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	// To fix a concrete bug
 	public void testNavigateToSearchReferenceAndCreateReference() throws Exception { 
 		execute("CRUD.new");
-		execute("Reference.search", "keyProperty=alternateSeller.number");
+		execute("Reference.search", "keyProperty=alternateSeller.number"); 
 		execute("ReferenceSearch.choose", "row=0");
 		execute("Reference.createNew", "model=Seller,keyProperty=alternateSeller.number");
 		execute("NewCreation.cancel");

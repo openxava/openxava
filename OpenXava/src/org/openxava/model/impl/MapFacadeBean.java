@@ -470,14 +470,14 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 	}
 	
 	public Messages validate(UserInfo userInfo, String modelName, Map values) throws XavaException, RemoteException { 
-		return validate(userInfo, modelName, values, false, null); // tmp null
+		return validate(userInfo, modelName, values, false, null); 
 	}
 	
-	public Messages validateIncludingMissingRequired(UserInfo userInfo, String modelName, Map values, String containerReference) throws XavaException, RemoteException { // tmp String containerReference
-		return validate(userInfo, modelName, values, true, containerReference); // tmp containerReference
+	public Messages validateIncludingMissingRequired(UserInfo userInfo, String modelName, Map values, String containerReference) throws XavaException, RemoteException { 
+		return validate(userInfo, modelName, values, true, containerReference); 
 	}
 	
-	private Messages validate(UserInfo userInfo, String modelName, Map values, boolean includingMissingRequired, String containerReference) throws XavaException, RemoteException { // tmp String containerReference  
+	private Messages validate(UserInfo userInfo, String modelName, Map values, boolean includingMissingRequired, String containerReference) throws XavaException, RemoteException {   
 		Users.setCurrentUserInfo(userInfo);
 		values = Maps.recursiveClone(values); 	
 		MetaModel metaModel = getMetaModel(modelName); 
@@ -486,7 +486,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			Messages result = new Messages();
 			Map key = null;
 			if (includingMissingRequired) {
-				validateExistRequired(result, metaModel, values, true, containerReference); // tmp containerReference
+				validateExistRequired(result, metaModel, values, true, containerReference); 
 			}
 			else key = metaModel.extractKeyValues(values);
 			validate(result, metaModel, values, key, null, false);
@@ -872,7 +872,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			removeReadOnlyWithFormulaFields(metaModel, values); 			
 			removeCalculatedFields(metaModel, values); 						
 			Messages validationErrors = new Messages();	
-			validateExistRequired(validationErrors, metaModel, values, metaModelContainer != null, null); // tmp null
+			validateExistRequired(validationErrors, metaModel, values, metaModelContainer != null, null); 
 			validate(validationErrors, metaModel, values, null, container, true);
 			if (validateCollections) validateCollections(validationErrors, metaModel);
 			removeViewProperties(metaModel, values); 			
@@ -1751,14 +1751,13 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		}
 	}
 
-	private void validateExistRequired(Messages errors, MetaModel metaModel, Map values, boolean excludeContainerReference, String containerReference) // tmp String containerReference 
+	private void validateExistRequired(Messages errors, MetaModel metaModel, Map values, boolean excludeContainerReference, String containerReference)  
 		throws XavaException {		
 		Iterator it = metaModel.getRequiredMemberNames().iterator();	
-		if (metaModel.getContainerReference() != null) containerReference = metaModel.getContainerReference(); // tmp
+		if (metaModel.getContainerReference() != null) containerReference = metaModel.getContainerReference(); 
 		while (it.hasNext()) {
-			String name = (String) it.next();
-			// tmp if (excludeContainerReference && name.equals(metaModel.getContainerReference())) continue; 
-			if (excludeContainerReference && name.equals(containerReference)) continue; // tmp
+			String name = (String) it.next(); 
+			if (excludeContainerReference && name.equals(containerReference)) continue; 
 			if (!values.containsKey(name)) {				
 				errors.add("required", name, metaModel.getName());
 			}

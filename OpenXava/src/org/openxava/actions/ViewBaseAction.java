@@ -127,14 +127,11 @@ abstract public class ViewBaseAction extends BaseAction {
 	 * @since 5.6
 	 */
 	protected void validateViewValues() { 
-		// tmp ini
 		String containerReference = null;
 		if (getView().isRepresentsCollection()) {
 			containerReference = getView().getMetaCollection().getMetaReference().getRole();
 		}
 		Messages errors = MapFacade.validateIncludingMissingRequired(getView().getModelName(), getView().getValues(), containerReference);
-		// tmp fin
-		// tmp Messages errors = MapFacade.validateIncludingMissingRequired(getView().getModelName(), getView().getValues()); 
 		if (errors.contains()) throw new ValidationException(errors);
 	}
 	

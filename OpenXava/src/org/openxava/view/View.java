@@ -2590,7 +2590,7 @@ public class View implements java.io.Serializable {
 	}
 
 	public boolean isKeyEditable() {
-		if (insideAViewDisplayedAsDescriptionsListAndReferenceView()) return false; 
+		if (insideAViewDisplayedAsDescriptionsListAndReferenceView()) return false;
 		return !isReadOnly() && keyEditable;
 	}
 	

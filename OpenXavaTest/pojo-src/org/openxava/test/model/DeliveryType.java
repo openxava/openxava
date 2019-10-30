@@ -13,7 +13,7 @@ import org.openxava.test.validators.*;
  */
 @Entity
 @View(members="number; description; comboDeliveries")
-@View(name="WithDeliveries", members="number; description; deliveries") // tmp
+@View(name="WithDeliveries", members="number; description; deliveries") 
 @RemoveValidator(value=DeliveryTypeRemoveValidator.class,
 	properties=@PropertyValue(name="number")
 )
@@ -25,7 +25,7 @@ public class DeliveryType {
 	@Required
 	private String description;
 	
-	@CollectionView("SimpleWithDetails") // tmp
+	@CollectionView("SimpleWithDetails") 
 	@OneToMany(mappedBy="type") // Never CascadeType.REMOVE or CascadeType.ALL to test a case
 	private Collection<Delivery> deliveries;
 
