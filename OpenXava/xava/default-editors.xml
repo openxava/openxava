@@ -42,7 +42,7 @@
 	
 	<editor name="TextField" url="textEditor.jsp">
 		<for-type type="java.lang.String" />
-		<list-formatter class="org.openxava.formatters.HTMLFilterListFormatter" />		
+		<list-formatter class="org.openxava.formatters.HTMLFilterListFormatter" />
 	</editor>	
 
 

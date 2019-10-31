@@ -123,8 +123,7 @@ public class WebEditors {
 			if (i < strings.length - 1) result.append('/');
 		}
 		return result.toString();
-	}
-	
+	}	
 
 	/** 
 	 * @return If has a multiple converter return a array of string else return a string

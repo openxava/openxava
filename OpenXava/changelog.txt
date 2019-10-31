@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Print &quot; instead of " in PDF reports.
 - Fix: Saving an element in a nested collection if root collection is not cascade remove fails.
 - Fix: New action of a collection inside a collection element of a not cascade remove collection fails.
 - Fix: View.setFocus() does not select the text of the focused editor.

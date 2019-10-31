@@ -15,7 +15,7 @@ public class SocialNetworkTest extends ModuleTestBase {
 		super(testName, "SocialNetwork");		
 	}
 	
-	public void testManyToManyNewFromACollection_restoringControllersWhenSetControllersInDialog() throws Exception {
+	public void testManyToManyNewFromACollection_restoringControllersWhenSetControllersInDialog_quoteHtmlEntityNotInPDF() throws Exception {
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "LA RED \"L'HORTA\"");
 		execute("Collection.edit", "row=0,viewObject=xava_view_communities"); 
@@ -31,6 +31,10 @@ public class SocialNetworkTest extends ModuleTestBase {
 		assertNoAction("Collection.hideDetail");
 		assertAction("CRUD.new");
 		assertAction("CRUD.save");
+		
+		execute("Mode.list");
+		execute("Print.generatePdf");
+		assertPopupPDFLine(3, "LA RED \"L'HORTA\"");		
 	}
-	
+		
 }

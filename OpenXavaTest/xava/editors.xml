@@ -22,7 +22,6 @@
 	<!-- For work only in uppercase -->
 	<editor url="textEditor.jsp">
 		<formatter class="org.openxava.formatters.UpperCaseFormatter" />
-		<list-formatter class="org.openxava.formatters.HTMLFilterListFormatter" /> <!-- TMP ME QUEDÉ POR AQUÍ: CON ESTO YA FALLA SocialNetwork HACER PRUEBA JUNIT Y ARREGLAR -->
 		<for-type type="java.lang.String" />
 	</editor>
 

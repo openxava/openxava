@@ -118,7 +118,6 @@ public class GenerateReportServlet extends HttpServlet {
 				return formatBigDecimal(r, locale); 
 			}
 			
-			System.out.println("[GenerateReportServlet.TableModelDecorator.getValueWithoutWebEditorsFormat(" + row + ", " + column + ")] " + r); // tmp
 			return r;
 		}
 		
@@ -129,7 +128,9 @@ public class GenerateReportServlet extends HttpServlet {
 			if (isHtml(result)){	// this avoids that the report shows html content
 				result = WebEditors.format(this.request, metaProperty, r, null, "", false);
 			}
-			System.out.println("[GenerateReportServlet.TableModelDecorator.getValueWithWebEditorsFormat(" + row + ", " + column + ")] " + result); // tmp
+			else {
+				result = result.replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&quot;", "\"");
+			}
 			return result;
 		}
 		
