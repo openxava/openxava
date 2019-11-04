@@ -18,7 +18,7 @@ abstract public class IssueTestBase extends ModuleTestBase {
 		this.descriptionSuffix = descriptionSuffix;
 	}
 		
-	public void testDynamicChangeOfCompany() throws Exception {  
+	public void testDynamicChangeOfCompany() throws Exception { 
 		// We start on schema 'COMPANYA'
 		assertListRowCount(2); 
 		assertValueInList(0, "id", "A0001");

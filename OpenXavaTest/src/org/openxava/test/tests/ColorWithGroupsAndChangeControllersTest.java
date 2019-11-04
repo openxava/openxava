@@ -1,7 +1,5 @@
 package org.openxava.test.tests;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.openxava.test.model.Color;
 import org.openxava.tests.ModuleTestBase;
 
@@ -10,7 +8,6 @@ import org.openxava.tests.ModuleTestBase;
  * @author Ana Andres
  */
 public class ColorWithGroupsAndChangeControllersTest extends ModuleTestBase {
-	private static Log log = LogFactory.getLog(ColorWithGroupsAndChangeControllersTest.class);
 	
 	public ColorWithGroupsAndChangeControllersTest(String testName) {
 		super(testName, "ColorWithGroupsAndChangeControllers");		

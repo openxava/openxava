@@ -7,7 +7,6 @@ import net.sf.jasperreports.engine.data.*;
 
 import org.openxava.actions.*;
 import org.openxava.hibernate.*;
-import org.openxava.jpa.*;
 import org.openxava.model.*;
 import org.openxava.test.model.*;
 import org.openxava.util.*;
