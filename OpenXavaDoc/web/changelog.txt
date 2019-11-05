@@ -1,6 +1,34 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.2.1 (2019-11-5)
+--------------------------
+- Some new common use labels to be used in applications.
+- Fix: Eclipse compilation errors on open OpenXava workspace because it is not refreshed on startup.
+- Fix: Print &quot; instead of " in PDF reports.
+- Fix: Saving an element in a nested collection if root collection is not cascade remove fails.
+- Fix: New action of a collection inside a collection element of a not cascade remove collection fails.
+- Fix: View.setFocus() does not select the text of the focused editor.
+- Fix: Keystrokes for hidden actions work and should not.
+- Fix: Reloading page from browser in a multipart form (from ILoadFileAction) produces an infinite loop.
+- Fix: Broken links in the menu of the Spanish doc for Custom Style, FAQ and Course.
+- Fix: Bad alignment of editors when combining small label with no label or regular label. 
+- Fix: Bad alignment of checkboxes and action links inside detail. 
+- Fix: @OnChange doesn't work for PHOTO, IMAGES_GALLERY, FILE, FILES and FileItem properties.
+- Fix: @RowStyle does not work for collections with no row action (@ViewAction or @EditAction) enabled.
+- Fix: View.getCollectionTab() can be called for ManyToMany, @OrderColumn or calculated collections.
+- Fix: @Embedded members are marked incorrectly as error when they are used more than once in an entity.
+- Fix: Editors not marked as error (with red border) inside dialogs with Terra theme. 
+- Fix: Wrong visual style for subcontrollers in collections.
+- Fix: In @ElementCollection when choosing a reference with dialog fills other references from previous row.  
+- Fix: Element collection values not saved when the first column is a @DescriptionList.
+- Fix: Invalid code is generated when project name contains hyphen.
+- Fix: Properties from two second level references to the same model fail in list mode.
+- Fix: Dialog to add columns to list freezes when the entity has a lot of nested references. 
+- Fix: Searching in add columns dialog shows the properties in other language from time to time.
+- Fix: Search icon in module searching box missing.
+- Fix: Custom naming strategy for Hibernate not recognized.
+
 OpenXava 6.2 (2019-9-24)
 ------------------------
 - New Editor for FILE and FILES stereotypes with AJAX uploading.

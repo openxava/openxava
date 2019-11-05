@@ -40,6 +40,8 @@
       </ul>
       <p><br>
       </p>
+      <h2>Para migrar de OpenXava 6.2 a OpenXava 6.2.1</h2>
+      No hay consideraciones.
       <h2>Para migrar de OpenXava 6.1.2 a OpenXava 6.2</h2>
       <h3>Definición de fuentes de datos en web/META-INF/context.xml del
         proyecto</h3>
@@ -141,10 +143,10 @@ public class MiClase {
       Si usas Tomcat 7 copia <em>el-api.jar</em> y <em>jasper-el.jar</em> de
       la carpeta <em>lib</em> del Tomcat incluido en OpenXava (o cualquier
       Tomcat 9) a la carpeta <em>lib</em> de tu Tomcat 7. Esto es requerido por
-      última versión de Hibernate Validator.
-      Si usas otro servidor de aplicaciones antiguo (como una versión vieja de
-      WebLogic) y no sabes como actualizarlo, simplemente copia <i>el-api.jar</i>
-      y <i>jasper-el.jar</i> a la carpeta WEB-INF/lib de tu proyecto.
+      última versión de Hibernate Validator. Si usas otro servidor de
+      aplicaciones antiguo (como una versión vieja de WebLogic) y no sabes como
+      actualizarlo, simplemente copia <i>el-api.jar</i> y <i>jasper-el.jar</i>
+      a la carpeta WEB-INF/lib de tu proyecto.
       <h3>HtmlUnit actualizado de 2.15 a 2.32 </h3>
       <p>Si usas directamente el API de HtmlUnit, vía <i>getWebClient()</i> o <i>getHtmlPage()</i>
         de <i>ModuleTestBase</i>, tienes que adaptar tu código al nuevo
