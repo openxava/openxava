@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Module loses its state from time to time under high load on server.
+
 OpenXava 6.2.1 (2019-11-5)
 --------------------------
 - Some new common use labels to be used in applications.

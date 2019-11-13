@@ -155,7 +155,7 @@ public class Product5Test extends CustomizeListTestBase {
 		
 		
 		execute("Mode.list");
-		assertAction("Product5.goA");
+		assertAction("Product5.goA"); 
 		assertNoAction("Product5.goB");
 		assertAction("CRUD.new");
 		

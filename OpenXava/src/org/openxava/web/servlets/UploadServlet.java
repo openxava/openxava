@@ -33,8 +33,12 @@ public class UploadServlet extends HttpServlet {
 			getServletContext().getRequestDispatcher(url).forward(request, response);
 		}
 		finally {
-			ModuleManager.commit();
-			Requests.clean(); 
+			try {
+				ModuleManager.commit();
+			}
+			finally { 
+				Requests.clean();
+			}
 		}
 	}	
        
@@ -49,7 +53,7 @@ public class UploadServlet extends HttpServlet {
 	private void executeAction(HttpServletRequest request, HttpServletResponse response, String actionPrefix, boolean parseMultipart) throws ServletException {
 		String action = "UNKNOWN"; 
 		try {
-			Requests.init(request, request.getParameter("application"), request.getParameter("module"));			
+			Requests.init(request, request.getParameter("application"), request.getParameter("module"));
 			ModuleManager manager = getManager(request);
 			manager.executeBeforeEachRequestActions(request, new Messages(), new Messages());  
 			if (parseMultipart) manager.parseMultipartRequest(request);
@@ -69,8 +73,12 @@ public class UploadServlet extends HttpServlet {
 			throw new ServletException(XavaResources.getString("upload_error"));  
 		}
 		finally {
-			ModuleManager.commit();
-			Requests.clean(); 
+			try {
+				ModuleManager.commit();
+			}
+			finally { 
+				Requests.clean();
+			}
 		}
 	}
 
@@ -90,5 +98,5 @@ public class UploadServlet extends HttpServlet {
 		ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
 		return (View) context.get(request, "xava_view");
 	}
-
+	
 }

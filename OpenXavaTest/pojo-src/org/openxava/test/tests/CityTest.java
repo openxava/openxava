@@ -15,11 +15,12 @@ public class CityTest extends ModuleTestBase{
 		super(testName, "City");
 	}
 	
-	public void testStateFullNameWithFormulaFromAReference_listFormatter_isolateModuleSessionForEachBrowserTab() throws Exception {
+	public void testStateFullNameWithFormulaFromAReference_listFormatter_isolateModuleSessionForEachBrowserTab() throws Exception {		
 		assertValueInList(0, 0, "1"); 
 		assertValueInList(0, 1, "PHOENIX CITY"); 
 		assertLabelInList(2, "Full name with formula of State"); 
 		assertValueInList(0, 2, "AZARIZONA");
+		assertValueInList(1, 1, "TUCSON CITY"); 
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "Phoenix");
 		
@@ -31,7 +32,10 @@ public class CityTest extends ModuleTestBase{
 		waitAJAX(); 
 		String tabText = newTabPage.asText();
 		assertTrue(tabText.contains("New Delete Generate PDF Generate Excel")); // In list mode 
-		assertFalse(tabText.contains("New Save Delete Search Refresh")); // Not in detail mode		
+		assertFalse(tabText.contains("New Save Delete Search Refresh")); // Not in detail mode
+		
+		execute("Navigation.next");
+		assertValue("name", "Tucson");
 	}
 	
 	public void testChangeDescriptionsListCondition() throws Exception{

@@ -12,6 +12,7 @@ import net.sf.jasperreports.engine.*;
 
 import org.openxava.jpa.*;
 import org.openxava.util.*;
+import org.openxava.web.*;
 
 /**
  * To generate your custom Jasper Report. <p>

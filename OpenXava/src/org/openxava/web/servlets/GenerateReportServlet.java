@@ -14,6 +14,7 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.*;
 
 import org.apache.commons.logging.*;
+import org.openxava.controller.*;
 import org.openxava.hibernate.*;
 import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
@@ -163,12 +164,13 @@ public class GenerateReportServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		try {				
 			Locales.setCurrent(request); 
-			SessionData.setCurrent(request); 
+			SessionData.setCurrent(request);
 			if (Users.getCurrent() == null) { // for a bug in websphere portal 5.1 with Domino LDAP
 				Users.setCurrent((String)request.getSession().getAttribute("xava.user"));
-			}						
+			}
 			request.getParameter("application"); // for a bug in websphere 5.1 
 			request.getParameter("module"); // for a bug in websphere 5.1
+			 
 			Tab tab = (Tab) request.getSession().getAttribute("xava_reportTab");
 			int [] selectedRowsNumber = (int []) request.getSession().getAttribute("xava_selectedRowsReportTab");
 			Map [] selectedKeys = (Map []) request.getSession().getAttribute("xava_selectedKeysReportTab");

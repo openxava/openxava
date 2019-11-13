@@ -15,6 +15,7 @@ public class Customer {
 	private String name;
 	
 	@Stereotype("PHOTO")
+	@Basic(fetch=FetchType.LAZY)
 	private byte [] photo; 
 
 	public int getNumber() {

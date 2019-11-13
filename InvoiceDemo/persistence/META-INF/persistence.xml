@@ -17,7 +17,7 @@
     	<class>org.openxava.web.editors.DiscussionComment</class>
         <properties>
 			<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
-			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost:1888"/>
+			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost:1666"/>
         </properties>
     </persistence-unit>    
     

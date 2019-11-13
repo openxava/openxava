@@ -15,6 +15,8 @@
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
 
 <%
+String windowId = context.getWindowId(request);
+context.setCurrentWindowId(windowId);	
 String app = request.getParameter("application");
 String module = context.getCurrentModule(request);
 Locales.setCurrent(request);

@@ -75,7 +75,7 @@ public class Module extends DWRBase {
 				else {
 					result.setForwardURL(request.getScheme() + "://" + 
 						request.getServerName() + ":" + request.getServerPort() + 
-						request.getContextPath() + forwardURI);
+						request.getContextPath() + forwardURI); 
 				}
 				result.setForwardInNewWindow("true".equals(request.getSession().getAttribute("xava_forward_inNewWindow")));
 				request.getSession().removeAttribute("xava_forward");
@@ -122,8 +122,12 @@ public class Module extends DWRBase {
 			return result;
 		}		
 		finally {			
-			ModuleManager.commit(); // If hibernate, jpa, etc is used to render some value here is commit
-			cleanRequest();   
+			try {
+				ModuleManager.commit(); // If hibernate, jpa, etc is used to render some value here is commit
+			}
+			finally { 
+				cleanRequest();
+			}
 			long time = System.currentTimeMillis() - ini; 
 			log.debug(XavaResources.getString("request_time") + "=" + time + " ms"); 
 		}
@@ -167,9 +171,9 @@ public class Module extends DWRBase {
 	 
 	public Map getStrokeActions(HttpServletRequest request, HttpServletResponse response, String application, String module) {
 		try {
-			ModuleContext.setCurrentWindowId(request);
 			ModuleContext context = getContext(request);
 			if (context == null) return Collections.EMPTY_MAP;
+			context.setCurrentWindowId(request); 
 			this.manager = (ModuleManager) context.get(application, module, "manager");
 			return getStrokeActions();		
 		}
@@ -178,8 +182,12 @@ public class Module extends DWRBase {
 			return null; // Maybe the session has been invalidated and it's needed to reload the page
 		}
 		finally {
-			ModuleManager.commit(); 
-			cleanRequest(); 
+			try {
+				ModuleManager.commit();
+			}
+			finally { 
+				cleanRequest();
+			}
 		}
 	}
 
