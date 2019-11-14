@@ -97,12 +97,55 @@ execute("Gallery.close");
         <pre><code class="java">@View(members="number, description, screenshots, date")</code></pre>
       </div>
       <div class="wiki" style="display: block;">Where <i>screenshots</i> is an
-        IMAGES_GALLERY, now you should rewrite it in this way:</div>
+        IMAGES_GALLERY property, now you should rewrite it in this way:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="java">@View(members="number, description; screenshots; date")</code></pre>
       </div>
       <div class="wiki" style="display: block;">Leaving a single line for the <i>
-          screenshots</i> property.<br>
+          screenshots</i> property.</div>
+      <div class="wiki" style="display: block;">
+        <h3>The new editor for FILES stereotype fills all the width of the view</h3>
+        It means that maybe you have to adapt the layout of some of your views.
+        For example, if you have:
+        <div class="wiki" style="display: block;">
+          <pre><code class="java">@View(members="number, description, attachments, date")</code></pre>
+        </div>
+        <div class="wiki" style="display: block;">Where <i>attachments</i> is a
+          FILES property, now you should rewrite it in this way:</div>
+        <div class="wiki" style="display: block;">
+          <pre><code class="java">@View(members="number, description; attachments; date")</code></pre>
+        </div>
+        <div class="wiki" style="display: block;">Leaving a single line for the
+          <i>attachments</i> property.</div>
+        <div class="wiki" style="display: block;">Also you should not use FILES
+          in a view aligned by column (that one with a # before members), that
+          is you should change:</div>
+        <div class="wiki" style="display: block;">
+          <pre><code class="java">@View(members=
+    "datasheet [ #title;" +	
+    "   releaseDate, director;"   +
+    "   writers, starring;"    +
+    "   scripts;" + // FILES
+    "]"
+)
+</code></pre> </div>
+        <div class="wiki" style="display: block;">Where <i>scripts</i> is a
+          FILES property, by:</div>
+        <div class="wiki" style="display: block;">
+          <pre><code class="java">@View(members=
+    "datasheet [ #title;" +	
+    "   releaseDate, director;"   +
+    "   writers, starring;"    +
+    "]" +
+    "scripts [ scripts ]"
+)
+</code></pre>
+        </div>
+        <div class="wiki" style="display: block;">Note as we put the FILES
+          property, <i>scripts</i>, in its own group.<br>
+          <h2></h2>
+        </div>
+        <h2></h2>
         <h2></h2>
       </div>
       <h2></h2>

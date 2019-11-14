@@ -102,7 +102,50 @@ execute("Gallery.close");
             <pre><code class="java">@View(members="numero, descripcion; pantallazos; fecha")</code></pre>
           </div>
           <div class="wiki" style="display: block;">Dejando una sola línea para
-            la propiedad <i>pantallazos</i>.<br>
+            la propiedad <i>pantallazos</i>.</div>
+          <div class="wiki" style="display: block;">
+            <h3>El nuevo editor para el estereotipo ARCHIVOS llena todo el ancho
+              de la vista</h3>
+            Esto implica que quizás tengas que adaptar la disposición de algunas
+            de tus vistas. Por ejemplo, si tienes:
+            <div class="wiki" style="display: block;">
+              <pre><code class="java">@View(members="numero, descripcion, adjuntos, fecha")</code></pre>
+            </div>
+            <div class="wiki" style="display: block;">Donde <i>adjuntos</i> es
+              una propiedad ARCHIVOS, ahora deberías reescribirla de la
+              siguiente forma:</div>
+            <div class="wiki" style="display: block;">
+              <pre><code class="java">@View(members="numero, descripcion; adjuntos; fecha")</code></pre>
+            </div>
+            <div class="wiki" style="display: block;">Dejando una sola línea
+              para la propiedad <i>adjuntos</i>.</div>
+            <div class="wiki" style="display: block;">Además no deberías usar
+              ARCHIVOS en vistas alineadas por columas (las que tienen un #
+              antes de los miembros), es decir deberías cambiar:</div>
+            <div class="wiki" style="display: block;">
+              <pre><code class="java">@View(members=
+    "datos [ #titulo;" +	
+    "   fechaEstreno, director;"   +
+    "   guionistas, elenco;"    +
+    "   guiones;" + // ARCHIVOS
+    "]"
+)
+</code></pre> </div>
+            <div class="wiki" style="display: block;">Donde <i>guiones</i> es
+              una propiedad ARCHIVOS, por:</div>
+            <div class="wiki" style="display: block;">
+              <pre><code class="java">@View(members=
+    "datos [ #titulo;" +	
+    "   fechaEstreno, director;"   +
+    "   guionistas, elenco;"    +
+    "]" +
+    "guiones [ guiones ]"
+)
+</code></pre></div>
+            <div class="wiki" style="display: block;">Fíjate como ponemos la
+              propiedad ARCHIVOS, <i>guiones</i>, en su propio grupo.<br>
+              <h2></h2>
+            </div>
           </div>
         </div>
       </div>
