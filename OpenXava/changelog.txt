@@ -8,7 +8,7 @@ OpenXava 6.2.1 (2019-11-5)
 --------------------------
 - Some new common use labels to be used in applications.
 - Fix: Eclipse compilation errors on open OpenXava workspace because it is not refreshed on startup.
-- Fix: Print &quot; instead of " in PDF reports.
+- Fix: Print &quot;, &lt and &gt; instead of ", < and > in PDF reports.
 - Fix: Saving an element in a nested collection if root collection is not cascade remove fails.
 - Fix: New action of a collection inside a collection element of a not cascade remove collection fails.
 - Fix: View.setFocus() does not select the text of the focused editor.
