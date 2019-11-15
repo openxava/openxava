@@ -719,6 +719,13 @@ abstract public class ModuleTestBase extends TestCase {
 		if (getLoadedParts().endsWith("ERROR")) {
 			fail(XavaResources.getString("ajax_loading_parts_error"));
 		}
+		// tmp ini
+		else if (Is.emptyString(getLoadedParts())) {
+			Thread.sleep(200); // TMP ME QUEDÉ POR AQUÍ, PROBÉ CON 100 Y NO IBA, PROBAR CON 200, 300, ETC
+								// TMP DEBERÍA EJECUTAR testSharedUsersAmongOrganizations() DE NAVIOX 4 VECES SEGUIDAS
+								// TMP HE DE HACER updateOX CADA VEZ
+		}
+		// tmp fin
 	}
 	
 	private void assertSystemError() { 
