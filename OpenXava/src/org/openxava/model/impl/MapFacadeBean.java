@@ -43,7 +43,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		values = Maps.recursiveClone(values);
 		MetaModel metaModel = getMetaModel(modelName); 
 		try {
-			beginTransaction(metaModel); 			
+			beginTransaction(metaModel); 		
 			Object result = create(metaModel, values, null, null, null, 0, true); 
 			commitTransaction(metaModel);			
 			return result;
@@ -880,12 +880,15 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 				throw new ValidationException(validationErrors);			
 			}		
 			updateReferencedEntities(metaModel, values);			
-			Map convertedValues = convertSubmapsInObject(metaModel, values); 
+			Map convertedValues = convertSubmapsInObject(metaModel, values);
+			if (!validateCollections) {
+				setCollectionsWithMinimumToNull(metaModel, convertedValues);
+			}			
 			Object newObject = null;			
-			if (container == null) { 
+			if (container == null) {
 				newObject = getPersistenceProvider(metaModel).create(metaModel, convertedValues); 
 			} 
-			else {								
+			else {
 				if (metaModelContainer == null) {
 					metaModelContainer = metaModel.getMetaModelContainer();
 				}
@@ -1395,6 +1398,13 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		}
 	}
 	
+	private void setCollectionsWithMinimumToNull(MetaModel metaModel, Map values) throws XavaException { 
+		for (MetaCollection col: metaModel.getMetaCollections()) {
+			if (!col.isElementCollection() && col.getMinimum() > 0) {
+				values.put(col.getName(), null);
+			}
+		}
+	}
 		
 	private void removeCalculatedFields(MetaModel metaModel, Map values)
 		throws XavaException {

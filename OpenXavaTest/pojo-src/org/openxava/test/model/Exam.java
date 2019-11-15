@@ -26,7 +26,7 @@ public class Exam extends Nameable {
 	
 	@javax.validation.constraints.Size(min=1, max=4)
 	@OneToMany(mappedBy="exam", cascade=CascadeType.ALL)
-	private Collection<Question> questioning;
+	private Collection<Question> questioning = new ArrayList<>(); // With the new ArrayList<>() to test a case
 	
 	public String getFile() {
 		return file;
