@@ -1,6 +1,7 @@
 package org.openxava.test.actions;
 
 import org.openxava.actions.*;
+import org.openxava.test.model.*;
 import org.openxava.util.*;
 
 /**
@@ -10,7 +11,7 @@ import org.openxava.util.*;
 public class OnChangeArtistNameAction extends OnChangePropertyBaseAction {
 
 	public void execute() throws Exception {
-		String name = getView().getValueString("name");
+		String name = ((Artist) getView().getEntity()).getName(); 
 		if (Is.emptyString(name)) return;
 		showDialog();
 		getView().setTitleId("sure_change_name");

@@ -5,11 +5,10 @@ import java.beans.*;
 import java.rmi.*;
 import java.util.*;
 
-
-
-
+import org.apache.commons.beanutils.*;
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
+import org.openxava.jpa.*;
 import org.openxava.mapping.*;
 import org.openxava.model.*;
 import org.openxava.util.*;
@@ -1404,6 +1403,7 @@ abstract public class MetaModel extends MetaElement {
 	 */
 	public void fillPOJO(Object pojo, Map values) throws XavaException { 
 		try {
+			//System.out.println("[MetaModel.fillPOJO] " + pojo.getClass() + "=" + values); // tmp
 			values = Maps.plainToTree(values); 	
 			values.remove(MapFacade.MODEL_NAME);
 			PropertiesManager pm = new PropertiesManager(pojo);			
@@ -1417,7 +1417,9 @@ abstract public class MetaModel extends MetaElement {
 					MetaReference ref = getMetaReference((String)en.getKey());
 					MetaModel referencedModel = ref.getMetaModelReferenced();
 					Object referencedObject = pm.executeGet((String)en.getKey());
-					if (referencedObject == null) {
+					// TMP ASÍ FUNCIONA LA SUITE AL 100%. ¿DEJARLO?
+					// System.out.println("[MetaModel.fillPOJO] ref." + ref.getName() + "=" + en.getValue()); // tmp
+					// tmp if (referencedObject == null) {
 						Map refValues = (Map) en.getValue();
 						if (!ref.isAggregate()) { 							 
 							Map key = referencedModel.extractKeyValues(refValues);
@@ -1426,10 +1428,14 @@ abstract public class MetaModel extends MetaElement {
 							}
 						}						
 						pm.executeSet((String)en.getKey(), referencedModel.toPOJO(refValues));
+					/* tmp	
 					}
 					else {
+						System.out.println("[MetaModel.fillPOJO] referencedObject.getClass()=" + referencedObject.getClass()); // tmp
+						referencedObject = BeanUtils.cloneBean(referencedObject); // tmp
 						referencedModel.fillPOJO(referencedObject, (Map) en.getValue());
 					}
+					*/
 				}
 				else if (containsMetaCollection((String)en.getKey())) {
 					if (en.getValue() == null) { 
@@ -1459,7 +1465,7 @@ abstract public class MetaModel extends MetaElement {
 					MetaProperty property = getMetaProperty((String)en.getKey());
 					if (property.isReadOnly()) continue; 
 					Object value = en.getValue();
-					try {						
+					try {				
 						pm.executeSet((String)en.getKey(), en.getValue());
 					}
 					catch (IllegalArgumentException ex) {

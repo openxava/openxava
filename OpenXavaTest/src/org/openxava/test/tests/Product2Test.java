@@ -354,6 +354,13 @@ public class Product2Test extends EmailNotificationsTestBase {
 		
 		// Modify
 		setValue("subfamily.number", "13");
+		// tmp ini
+		Warehouse warehouseKey2 = new Warehouse();
+		warehouseKey2.setNumber(1);
+		warehouseKey2.setZoneNumber(1);
+		setValue("warehouse.KEY", toKeyString(warehouseKey2));
+		assertNoErrors();
+		// tmp fin
 		execute("CRUD.save");
 		assertNoErrors();
 		assertValue("number", "");
@@ -367,7 +374,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertValue("description", "JUNIT PRODUCT");
 		assertValue("family.number", "2");
 		assertValue("subfamily.number", "13");
-
+		assertValue("warehouse.KEY", toKeyString(warehouseKey2)); // tmp
 				
 		// Delete
 		execute("CRUD.delete");
