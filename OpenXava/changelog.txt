@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Calling getEntity() from an @OnChange action of a references throws an exception.
 - Fix: Error creating an entity with a collection with @Size(min=) and new ArrayList<>() in the declaration. 
 - Migration documentation for adapting views to new FILES stereotype.
 - Fix: Module loses its state from time to time under high load on server.
