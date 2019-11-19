@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: ModuleTestBase.login() does not find the user field from time to time.
 - Migration documentation for adapting views to new FILES stereotype.
 - Fix: Module loses its state from time to time under high load on server.
 

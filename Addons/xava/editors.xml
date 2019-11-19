@@ -1,0 +1,78 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE editors SYSTEM "dtds/editors.dtd">
+
+<!-- NaviOX -->
+
+<editors>
+	
+	<editor url="textEditor.jsp">
+		<for-model-property model="User" property="name" />		
+		<for-model-property model="SignIn" property="user" />				
+		<for-model-property model="Role" property="name" />
+		<for-model-property model="Module" property="name" />		
+		<for-model-property model="Module" property="application" />						
+	</editor>
+	
+	<editor url="../../naviox/editors/actionsEditor.jsp" frame="true">			
+		<formatter class="com.openxava.naviox.formatters.ArrayAsStringFormatter" />	
+		<list-formatter class="com.openxava.naviox.formatters.ActionsListFormatter" />
+		<for-model-property model="ModuleRights" property="excludedActions" />
+	</editor>
+	
+	<editor url="../../naviox/editors/membersEditor.jsp" frame="true">			
+		<formatter class="com.openxava.naviox.formatters.ArrayAsStringFormatter" />
+		<list-formatter class="com.openxava.naviox.formatters.MembersListFormatter" />
+		<for-model-property model="ModuleRights" property="excludedMembers" />
+	</editor>
+	
+	<editor url="../../naviox/editors/membersEditor.jsp" frame="true">		
+		<property name="excludeReadOnly" value="true"/>	
+		<formatter class="com.openxava.naviox.formatters.ArrayAsStringFormatter" />
+		<list-formatter class="com.openxava.naviox.formatters.MembersListFormatter" />
+		<for-model-property model="ModuleRights" property="readOnlyMembers" /> 	
+	</editor>
+
+	<editor url="../../naviox/editors/organizationUrlEditor.jsp">
+		<for-model-property model="Organization" property="url" />
+	</editor>
+	
+	<editor url="../../naviox/editors/privacyPolicyEditor.jsp" frame="true">
+		<for-model-property model="SignUp" property="privacyPolicy" />
+	</editor>
+	
+	<editor url="textWithSuffixEditor.jsp">
+		<property name="suffix" value="days_suffix"/>
+		<for-model-property model="ConfigurationRecord" property="forceChangePasswordDays" />
+	</editor>
+	
+	<editor url="textWithSuffixEditor.jsp">
+		<property name="suffix" value="minutes_suffix"/>
+		<for-model-property model="ConfigurationRecord" property="lockSessionMinutes" />
+	</editor>
+	
+	<editor url="textWithSuffixEditor.jsp">
+		<property name="suffix" value="days_suffix"/>
+		<for-model-property model="ConfigurationRecord" property="inactiveDaysBeforeDisablingUser" />
+	</editor>
+
+	<editor url="textWithSuffixEditor.jsp">
+		<property name="suffix" value="0_for_never_suffix"/>
+		<for-model-property model="ConfigurationRecord" property="loginAttemptsBeforeLocking" />
+	</editor>	
+	
+	<editor url="textWithSuffixEditor.jsp">
+		<property name="suffix" value="days_suffix"/>
+		<for-model-property model="ConfigurationRecord" property="inactiveDaysBeforeDisablingUser" />
+	</editor>
+
+	<editor url="booleanWithSuffixEditor.jsp">
+		<property name="suffix" value="shared_users_change_warning"/>
+		<formatter class="org.openxava.formatters.BooleanFormatter" >
+			<set property="nullAsFalse" value="true"/>
+		</formatter>
+		<list-formatter class="org.openxava.formatters.BooleanListFormatter" />
+		<for-model-property model="ConfigurationRecord" property="sharedUsersBetweenOrganizations" />
+	</editor>
+		
+</editors>

@@ -24,11 +24,8 @@ class DWRBase {
 	 */
 	protected void initRequest(HttpServletRequest request, HttpServletResponse response, String application, String module) {
 		Servlets.setCharacterEncoding(request, response);
-		// tmp getContext(request).setCurrentWindowId(request); // Must be here, before checkSecurity()
-		// tmp ini
-		ModuleContext context = getContext(request);
+		ModuleContext context = getContext(request); // Must be here, before checkSecurity()
 		if (context != null) context.setCurrentWindowId(request);
-		// tmp fin
 		checkSecurity(request, application, module);
 		request.setAttribute("style", Style.getInstance(request)); 
 		Locales.setCurrent(request); 
