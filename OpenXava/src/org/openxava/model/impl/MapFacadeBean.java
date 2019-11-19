@@ -335,10 +335,20 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		Users.setCurrentUserInfo(userInfo);
 		containerKeyValues = Maps.recursiveClone(containerKeyValues);
 		values = Maps.recursiveClone(values);
-		MetaModel metaModel = getMetaModel(modelName); 
+		MetaModel metaModel = getMetaModel(modelName);
+		// tmp ini
+		// TMP ME QUEDÉ POR AQUÍ, GRABANDO UN PROJECT NUEVO CON UN PROJECT MEMBER NUEVO. TODAVÍA FALLA, PERO HE AVANZADO
+		String containerModelName = metaModel.getContainerModelName();
+		if (Is.emptyString(containerModelName) && modelName.contains(".")) {
+			containerModelName = modelName.split("\\.")[0];
+		}
+		MetaModel metaModelContainer = MetaComponent.get(containerModelName).getMetaEntity();
+		System.out.println("[MapFacadeBean.createAggregate] " + modelName + " --> " + metaModel.getName()); // tmp
+		// tmp fin
 		try {		
 			beginTransaction(metaModel);			
-			Object result = createAggregate(metaModel, containerKeyValues, collectionName, counter, values);
+			// tmp Object result = createAggregate(metaModel, containerKeyValues, collectionName, counter, values);
+			Object result = createAggregate(metaModel, metaModelContainer, containerKeyValues, collectionName, counter, values); // tmp
 			commitTransaction(metaModel);			
 			return result;
 		}	
@@ -724,6 +734,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 
 	private void addKeyToValues(MetaModel metaModelContainer,	String collectionName, Map containerKeyValues, Map values) { 
 		if (collectionName == null) return;
+		System.out.println("[MapFacadeBean.addKeyToValues] metaModelContainer.getName()=" + metaModelContainer.getName()); // tmp
 		MetaCollection metaCollection = metaModelContainer.getMetaCollection(collectionName);
 		Map parentKey = new HashMap();
 		parentKey.put(metaCollection.getMetaReference().getRole(), containerKeyValues);
@@ -736,10 +747,12 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		return createAggregate(metaModel, container, null, counter, values, true);
 	}
 	
-	private Object createAggregate(MetaModel metaModel, Map containerKeyValues, String collectionName, int counter, Map values) 
+	// tmp private Object createAggregate(MetaModel metaModel, Map containerKeyValues, String collectionName, int counter, Map values) 
+	private Object createAggregate(MetaModel metaModel, MetaModel metaModelContainer, Map containerKeyValues, String collectionName, int counter, Map values) // tmp
 		throws CreateException,ValidationException, XavaException, RemoteException 
 	{		
-		MetaModel metaModelContainer = metaModel.getMetaModelContainer();
+		// tmp MetaModel metaModelContainer = metaModel.getMetaModelContainer();
+		System.out.println("[MapFacadeBean.createAggregate] metaModelContainer.getName()=" + metaModelContainer.getName()); // tmp
 		addKeyToValues(metaModelContainer, collectionName, containerKeyValues, values);
 
 		try {					
@@ -824,7 +837,9 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		throws CreateException,ValidationException, XavaException, RemoteException 
 	{
 		// counter is ignored, we keep it for backward compatibility in method signatures
-		MetaModel metaModelContainer = metaModel.getMetaModelContainer();
+		// tmp MetaModel metaModelContainer = metaModel.getMetaModelContainer();
+		System.out.println("[MapFacadeBean.createAggregate] container.getClass()=" + container.getClass()); // tmp
+		MetaModel metaModelContainer = metaModel.getMetaCollection(collectionName).getMetaModel(); // tmp
 		if (metaModel.isAnnotatedEJB3()) {
 			return create(metaModel, values, metaModelContainer, container, collectionName, -1, validateCollections);
 		}
@@ -1029,7 +1044,14 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			String component = modelName.substring(0, idx);
 			idx = modelName.lastIndexOf('.'); // just in case we have: MyEntity.MyAggregate.MyAnotherAggregate --> It get MyAnotherAggregate within MyEntity Component
 			String aggregate = modelName.substring(idx + 1);
-			return MetaComponent.get(component).getMetaAggregate(aggregate);
+			try { // tmp 
+				return MetaComponent.get(component).getMetaAggregate(aggregate);
+			// tmp ini	
+			}
+			catch (ElementNotFoundException ex) {
+				return MetaComponent.get(aggregate).getMetaEntity();
+			}
+			// tmp fin
 		}
 	}
 	

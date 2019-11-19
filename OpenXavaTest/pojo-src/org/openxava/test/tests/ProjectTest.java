@@ -58,6 +58,18 @@ public class ProjectTest extends ModuleTestBase {
 		execute("Collection.removeSelected", "row=0,viewObject=xava_view_members");
 		assertCollectionRowCount("members", 0);
 		
+		// tmp ini
+		execute("Collection.new", "viewObject=xava_view_members");
+		setValue("name", "AMANDA");
+		execute("Collection.save");
+		assertNoErrors();
+		assertCollectionRowCount("members", 1);
+		assertValueInCollection("members", 0, 0, "AMANDA");
+		execute("Collection.removeSelected", "row=0,viewObject=xava_view_members");
+		assertCollectionRowCount("members", 0);		
+		// tmp TENGO QUE ELIMINAR A PEDRO
+		// tmp fin
+		
 		assertCollectionRowCount("tasks", 0);	
 		execute("Collection.new", "viewObject=xava_view_tasks");
 		setValue("description", "THE JUNIT TASK");

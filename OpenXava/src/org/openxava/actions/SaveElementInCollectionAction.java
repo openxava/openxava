@@ -78,7 +78,9 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 	
 	protected void create(Map values, boolean isEntity, Map containerKey) throws CreateException { 
 		validateMaximum(1);
-		if (isEntity) {
+		// tmp if (isEntity) {
+		if (false) { // tmp
+			System.out.println("[SaveElementInCollectionAction.create] A"); // tmp
 			Map parentKey = new HashMap();
 			MetaCollection metaCollection = getMetaCollection();
 			parentKey.put(metaCollection.getMetaReference().getRole(), containerKey);
@@ -87,7 +89,9 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 			addMessage("entity_created_and_associated", getCollectionElementView().getModelName(), getCollectionElementView().getParent().getModelName());
 		}
 		else {
-			MapFacade.createAggregate(getCollectionElementView().getModelName(), containerKey, getMetaCollection().getName(), values);
+			System.out.println("[SaveElementInCollectionAction.create] B: getCollectionElementView().getModelName()=" + getCollectionElementView().getModelName()); // tmp
+			// tmp MapFacade.createAggregate(getCollectionElementView().getModelName(), containerKey, getMetaCollection().getName(), values);
+			MapFacade.createAggregate(getCollectionElementView().getParent().getModelName() + "." + getCollectionElementView().getModelName(), containerKey, getMetaCollection().getName(), values);
 			addMessage("aggregate_created",	getCollectionElementView().getModelName(), getCollectionElementView().getParent().getModelName());
 		}
 	}
