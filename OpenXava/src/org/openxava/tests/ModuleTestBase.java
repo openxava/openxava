@@ -192,7 +192,13 @@ abstract public class ModuleTestBase extends TestCase {
 			// NaviOX, the built-in OpenXava login mechanism
 			String originalModule = module;
 			selectModuleInPage("SignIn");
-			setValue("user", user);
+			try { 
+				setValue("user", user); 
+			}
+			catch (ElementNotFoundException ex) {
+				reload(); // Under high load sometime the page ajax loading takes some time, and this is the only way we found to solve the issue
+				setValue("user", user);
+			}
 			setValue("password", password);
 			execute("SignIn.signIn");
 			assertNoErrors();
@@ -631,7 +637,7 @@ abstract public class ModuleTestBase extends TestCase {
 		metaView = null;
 		metaTab = null;				
 		if (reloadPage) page = (HtmlPage) client.getPage(getModuleURL()); 
-		resetForm();		
+		resetForm();	
 		restorePage(); 
 	}
 	
