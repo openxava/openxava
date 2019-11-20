@@ -336,19 +336,10 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		containerKeyValues = Maps.recursiveClone(containerKeyValues);
 		values = Maps.recursiveClone(values);
 		MetaModel metaModel = getMetaModel(modelName);
-		// tmp ini
-		// TMP ME QUEDÉ POR AQUÍ, GRABANDO UN PROJECT NUEVO CON UN PROJECT MEMBER NUEVO. TODAVÍA FALLA, PERO HE AVANZADO
-		String containerModelName = metaModel.getContainerModelName();
-		if (Is.emptyString(containerModelName) && modelName.contains(".")) {
-			containerModelName = modelName.split("\\.")[0];
-		}
-		MetaModel metaModelContainer = MetaComponent.get(containerModelName).getMetaEntity();
-		System.out.println("[MapFacadeBean.createAggregate] " + modelName + " --> " + metaModel.getName()); // tmp
-		// tmp fin
+		MetaModel metaModelContainer = getMetaModelContainer(metaModel, modelName);  
 		try {		
 			beginTransaction(metaModel);			
-			// tmp Object result = createAggregate(metaModel, containerKeyValues, collectionName, counter, values);
-			Object result = createAggregate(metaModel, metaModelContainer, containerKeyValues, collectionName, counter, values); // tmp
+			Object result = createAggregate(metaModel, metaModelContainer, containerKeyValues, collectionName, counter, values); 
 			commitTransaction(metaModel);			
 			return result;
 		}	
@@ -367,6 +358,14 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			rollback(metaModel); 
 			throw new RemoteException(ex.getMessage());
 		}
+	}
+
+	private MetaModel getMetaModelContainer(MetaModel metaModel, String modelName) { 
+		String containerModelName = metaModel.getContainerModelName();
+		if (Is.emptyString(containerModelName) && modelName.contains(".")) {
+			containerModelName = modelName.split("\\.")[0];
+		}
+		return MetaComponent.get(containerModelName).getMetaEntity();
 	}
 	
 	public Object createAggregate(UserInfo userInfo, String modelName, Map containerKeyValues, String collectionName, Map values)  
@@ -390,7 +389,8 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		MetaModel metaModel = getMetaModel(modelName); 
 		try {		
 			beginTransaction(metaModel);
-			Object result = createAggregate(metaModel, container, counter, values);
+			MetaModel metaModelContainer = getMetaModelContainer(metaModel, modelName);  
+			Object result = createAggregate(metaModel, metaModelContainer, container, counter, values); 
 			commitTransaction(metaModel);			
 			return result;
 		}	
@@ -420,7 +420,8 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		MetaModel metaModel = getMetaModel(modelName); 
 		try {			
 			beginTransaction(metaModel);
-			Map result = createAggregateReturningKey(metaModel, containerKeyValues, collectionName, counter, values);
+			MetaModel metaModelContainer = getMetaModelContainer(metaModel, modelName);  
+			Map result = createAggregateReturningKey(metaModel, metaModelContainer, containerKeyValues, collectionName, counter, values); 
 			commitTransaction(metaModel);			
 			return result;
 		}	
@@ -717,14 +718,13 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		}
 	}
 	
-	private Map createAggregateReturningKey(MetaModel metaModel, Map containerKeyValues, String collectionName, int counter, Map values) 
+	private Map createAggregateReturningKey(MetaModel metaModel, MetaModel metaModelContainer, Map containerKeyValues, String collectionName, int counter, Map values)
 		throws CreateException,ValidationException, XavaException, RemoteException 
 	{		
-		MetaModel metaModelContainer = metaModel.getMetaModelContainer();
 		addKeyToValues(metaModelContainer, collectionName, containerKeyValues, values); 
 		try {								
 			Object container = metaModelContainer.toPOJO(containerKeyValues); 
-			Object aggregate = createAggregate(metaModel, container, collectionName, counter, values, false);
+			Object aggregate = createAggregate(metaModel, metaModelContainer, container, collectionName, counter, values, false);
 			return getValues(metaModel, aggregate, getKeyNames(metaModel));			
 		}
 		catch (ClassCastException ex) {
@@ -734,34 +734,34 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 
 	private void addKeyToValues(MetaModel metaModelContainer,	String collectionName, Map containerKeyValues, Map values) { 
 		if (collectionName == null) return;
-		System.out.println("[MapFacadeBean.addKeyToValues] metaModelContainer.getName()=" + metaModelContainer.getName()); // tmp
 		MetaCollection metaCollection = metaModelContainer.getMetaCollection(collectionName);
 		Map parentKey = new HashMap();
 		parentKey.put(metaCollection.getMetaReference().getRole(), containerKeyValues);
 		values.putAll(parentKey);
 	}
 	
-	private Object createAggregate(MetaModel metaModel, Object container, int counter, Map values) 
+	private Object createAggregate(MetaModel metaModel, MetaModel metaModelContainer, Object container, int counter, Map values)
 		throws CreateException,ValidationException, XavaException, RemoteException
 	{		
-		return createAggregate(metaModel, container, null, counter, values, true);
+		return createAggregate(metaModel, metaModelContainer, container, null, counter, values, true);
 	}
 	
-	// tmp private Object createAggregate(MetaModel metaModel, Map containerKeyValues, String collectionName, int counter, Map values) 
-	private Object createAggregate(MetaModel metaModel, MetaModel metaModelContainer, Map containerKeyValues, String collectionName, int counter, Map values) // tmp
+	private Object createAggregate(MetaModel metaModel, MetaModel metaModelContainer, Map containerKeyValues, String collectionName, int counter, Map values) 
 		throws CreateException,ValidationException, XavaException, RemoteException 
 	{		
-		// tmp MetaModel metaModelContainer = metaModel.getMetaModelContainer();
-		System.out.println("[MapFacadeBean.createAggregate] metaModelContainer.getName()=" + metaModelContainer.getName()); // tmp
 		addKeyToValues(metaModelContainer, collectionName, containerKeyValues, values);
 
-		try {					
-			Object containerKey = getPersistenceProvider(metaModel).getContainer(metaModel, containerKeyValues); 
-			return createAggregate(metaModel, containerKey, collectionName, counter, values, true);
+		try {	
+			Object containerKey = getPersistenceProvider(metaModel).find(metaModelContainer, containerKeyValues); 
+			return createAggregate(metaModel, metaModelContainer, containerKey, collectionName, counter, values, true); 
 		}
 		catch (ClassCastException ex) {
 			throw new XavaException("aggregate_must_be_persistent_for_create", metaModel.getMetaModelContainer().getName());					
-		}		
+		}
+		catch (FinderException ex) {
+			log.warn(ex.getMessage(), ex);
+			throw new XavaException("container_for_pojo_error");
+		}
 	}	
 	
 	private Map createReturningKey(MetaModel metaModel, Map values, boolean validateCollection) 
@@ -833,13 +833,10 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		return names;
 	}
 	
-	private Object createAggregate(MetaModel metaModel, Object container, String collectionName, int counter, Map values, boolean validateCollections) 
+	private Object createAggregate(MetaModel metaModel, MetaModel metaModelContainer, Object container, String collectionName, int counter, Map values, boolean validateCollections) 
 		throws CreateException,ValidationException, XavaException, RemoteException 
 	{
 		// counter is ignored, we keep it for backward compatibility in method signatures
-		// tmp MetaModel metaModelContainer = metaModel.getMetaModelContainer();
-		System.out.println("[MapFacadeBean.createAggregate] container.getClass()=" + container.getClass()); // tmp
-		MetaModel metaModelContainer = metaModel.getMetaCollection(collectionName).getMetaModel(); // tmp
 		if (metaModel.isAnnotatedEJB3()) {
 			return create(metaModel, values, metaModelContainer, container, collectionName, -1, validateCollections);
 		}
@@ -1044,14 +1041,12 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			String component = modelName.substring(0, idx);
 			idx = modelName.lastIndexOf('.'); // just in case we have: MyEntity.MyAggregate.MyAnotherAggregate --> It get MyAnotherAggregate within MyEntity Component
 			String aggregate = modelName.substring(idx + 1);
-			try { // tmp 
+			try {  
 				return MetaComponent.get(component).getMetaAggregate(aggregate);
-			// tmp ini	
 			}
 			catch (ElementNotFoundException ex) {
 				return MetaComponent.get(aggregate).getMetaEntity();
 			}
-			// tmp fin
 		}
 	}
 	

@@ -78,22 +78,9 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 	
 	protected void create(Map values, boolean isEntity, Map containerKey) throws CreateException { 
 		validateMaximum(1);
-		// tmp if (isEntity) {
-		if (false) { // tmp
-			System.out.println("[SaveElementInCollectionAction.create] A"); // tmp
-			Map parentKey = new HashMap();
-			MetaCollection metaCollection = getMetaCollection();
-			parentKey.put(metaCollection.getMetaReference().getRole(), containerKey);
-			values.putAll(parentKey);
-			MapFacade.create(getCollectionElementView().getModelName(), values);
-			addMessage("entity_created_and_associated", getCollectionElementView().getModelName(), getCollectionElementView().getParent().getModelName());
-		}
-		else {
-			System.out.println("[SaveElementInCollectionAction.create] B: getCollectionElementView().getModelName()=" + getCollectionElementView().getModelName()); // tmp
-			// tmp MapFacade.createAggregate(getCollectionElementView().getModelName(), containerKey, getMetaCollection().getName(), values);
-			MapFacade.createAggregate(getCollectionElementView().getParent().getModelName() + "." + getCollectionElementView().getModelName(), containerKey, getMetaCollection().getName(), values);
-			addMessage("aggregate_created",	getCollectionElementView().getModelName(), getCollectionElementView().getParent().getModelName());
-		}
+		String modelName = isEntity?getCollectionElementView().getParent().getModelName() + "." + getCollectionElementView().getModelName():getCollectionElementView().getModelName();
+		MapFacade.createAggregate(modelName, containerKey, getMetaCollection().getName(), values);
+		addMessage(isEntity?"entity_created_and_associated":"aggregate_created", getCollectionElementView().getModelName(), getCollectionElementView().getParent().getModelName());
 	}
 
 	protected void associateEntity(Map keyValues) throws ValidationException, XavaException, ObjectNotFoundException, FinderException, RemoteException {		

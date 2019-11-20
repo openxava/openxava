@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: New element in an @OrderColumn list with @OneToMany without cascade fails.
+- Fix: Getting started guides still make references to configure Tomcat inside Eclipse. 
 - Fix: Calling getEntity() from an @OnChange action of a references throws an exception.
 - Fix: Error creating an entity with a collection with @Size(min=) and new ArrayList<>() in the declaration. 
 - Migration documentation for adapting views to new FILES stereotype.

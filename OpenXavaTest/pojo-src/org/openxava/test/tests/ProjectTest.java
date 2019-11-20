@@ -58,7 +58,6 @@ public class ProjectTest extends ModuleTestBase {
 		execute("Collection.removeSelected", "row=0,viewObject=xava_view_members");
 		assertCollectionRowCount("members", 0);
 		
-		// tmp ini
 		execute("Collection.new", "viewObject=xava_view_members");
 		setValue("name", "AMANDA");
 		execute("Collection.save");
@@ -67,8 +66,6 @@ public class ProjectTest extends ModuleTestBase {
 		assertValueInCollection("members", 0, 0, "AMANDA");
 		execute("Collection.removeSelected", "row=0,viewObject=xava_view_members");
 		assertCollectionRowCount("members", 0);		
-		// tmp TENGO QUE ELIMINAR A PEDRO
-		// tmp fin
 		
 		assertCollectionRowCount("tasks", 0);	
 		execute("Collection.new", "viewObject=xava_view_tasks");
@@ -88,6 +85,8 @@ public class ProjectTest extends ModuleTestBase {
 				
 		execute("CRUD.delete");
 		assertNoErrors();
+		
+		XPersistence.getManager().createQuery("delete from ProjectMember m where m.name = 'AMANDA'").executeUpdate(); // tm
 	}
 		
 	public void testMoveElementAfterAddingSeveralElementsInElementCollection() throws Exception {
