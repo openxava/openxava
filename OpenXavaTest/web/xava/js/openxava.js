@@ -191,7 +191,7 @@ openxava.refreshPage = function(result) {
 	}
 	document.body.style.cursor='auto';
 	if (openxava.postRefreshPage != null) openxava.postRefreshPage(); 
-	openxava.setUrlParam(result.urlParam);
+	openxava.setUrlParam(result.urlParam); 
 }
 
 openxava.initUI = function(application, module, currentRow, viewSimple) { 
@@ -205,7 +205,7 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initCurrentRow(application, module, currentRow);
 	openxava.initViewSimple(application, module, viewSimple);
 	openxava.initTooltips();
-	openxava.initPlaceholder(); 
+	openxava.initPlaceholder();
 }
 
 openxava.stylizeEditorsWithError = function(application, module, editorsWithError, editorsWithoutError) { 

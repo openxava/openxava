@@ -6,7 +6,7 @@ openxava.addEditorInitFunction(function() {
 		$(this).autocomplete({
 			source: eval($(this).data("values")), 
 			minLength: 0,
-			disabled: true, // tmp
+			disabled: true, // For IE11 not open combos on init with accents
 			select: function( event, ui ) {
 				$(event.target).val(ui.item.label);
 				$(event.target).next().val(ui.item.value);
@@ -47,21 +47,17 @@ openxava.addEditorInitFunction(function() {
 		}); 	
 		
 		$(this).attr("autocomplete", "nope");
-		
-		// tmp ini
-		// TMP ME QUEDÉ POR AQUÍ. INTENTANDO QUE EL IE11 NO SAQUE LOS COMBOS, CON Product2
-		$(this).click({
-			//$(this).autocomplete("disabled", "false");
-			alert("Hola");
+
+		var editor = $(this);
+		$(this).parent().click(function() {
+			editor.autocomplete("enable");
 		});
-		// tmp fin
+		$(this).focus(function() {
+			editor.autocomplete("enable");
+		});		
+
 	});
 
-	// tmp ini
-	//$(this).autocomplete( "close" ); // tmp
-	setTimeout("descriptionsEditor.close('ox_OpenXavaTest_Product2__subfamily___number')", 500);
-	console.log("[descriptionsEditor.js] "); // tmp
-	// tmp fin
 	
 });
 
