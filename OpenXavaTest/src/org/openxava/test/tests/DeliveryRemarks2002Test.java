@@ -25,7 +25,8 @@ public class DeliveryRemarks2002Test extends ModuleTestBase {
 				
 		StringTokenizer excel = new StringTokenizer(getPopupText(), "\n\r");
 		String header = excel.nextToken();
-		assertEquals("header", "Year;Number;Remarks", header);		
+		// tmp assertEquals("header", "Year;Number;Remarks", header);		
+		assertEquals("header", "Year of Invoice;Number of Invoice;Remarks", header); // TMP ME QUEDÉ POR AQUÍ: TEST HECHO FALTA ARREGLAR EL BUG
 		String line1 = excel.nextToken();
 		assertEquals("line1", expectedLine, line1); 
 		assertTrue("Only one line must have generated", !excel.hasMoreTokens());
