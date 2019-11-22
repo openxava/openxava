@@ -79,8 +79,8 @@ public class GenerateReportServlet extends HttpServlet {
 			return columnCountLimit == null?original.getColumnCount():columnCountLimit;
 		}
 
-		public String getColumnName(int c) {			
-			return labelAsHeader?getMetaProperty(c).getLabel(locale):Strings.change(getMetaProperty(c).getQualifiedName(), ".", "_");
+		public String getColumnName(int c) {
+			return labelAsHeader?getMetaProperty(c).getQualifiedLabel(locale):Strings.change(getMetaProperty(c).getQualifiedName(), ".", "_"); 
 		}
 
 		public Class getColumnClass(int c) {						

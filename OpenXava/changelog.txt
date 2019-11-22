@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Labels for excel generation in list mode are not qualified.
 - Fix: @DescriptionsList combos with tildes opened by default with Internet Explorer 11.
 - Fix: New element in an @OrderColumn list with @OneToMany without cascade fails.
 - Fix: Getting started guides still make references to configure Tomcat inside Eclipse. 
