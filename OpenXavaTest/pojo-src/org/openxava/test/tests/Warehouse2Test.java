@@ -38,11 +38,21 @@ public class Warehouse2Test extends ModuleTestBase {
 		setValue("key.zoneNumber", "6"); 
 		setValue("key.number", "66");
 		setValue("name", "WAREHOUSE JUNIT");
+		// tmp ini
+		execute("Collection.new", "viewObject=xava_view_buildings");
+		setValue("name", "BUILDING JUNIT");
+		execute("Collection.save");
+		assertNoErrors();
+		assertCollectionRowCount("building", 1);
+		assertValueInCollection("building", 0, 0, "BUILDING JUNIT");
+		// tmp fin
+		
 		execute("CRUD.save");
 		assertNoErrors();
 		assertValue("key.zoneNumber", ""); 
 		assertValue("key.number", "");
 		assertValue("name", "");
+		assertCollectionRowCount("building", 0); // tmp
 		
 		// Read
 		setValue("key.zoneNumber", "6"); 
@@ -51,6 +61,11 @@ public class Warehouse2Test extends ModuleTestBase {
 		assertValue("key.zoneNumber", "6"); 
 		assertValue("key.number", "66");
 		assertValue("name", "WAREHOUSE JUNIT");
+		// tmp ini
+		assertCollectionRowCount("building", 1);
+		assertValueInCollection("building", 0, 0, "BUILDING JUNIT");
+		// tmp fin
+		
 		
 		// Modify
 		setValue("name", "WAREHOUSE JUNIT MODIFIED");
@@ -59,6 +74,7 @@ public class Warehouse2Test extends ModuleTestBase {
 		assertValue("key.zoneNumber", ""); 
 		assertValue("key.number", "");
 		assertValue("name", "");
+		assertCollectionRowCount("building", 0); // tmp
 
 		// Verify modified
 		setValue("key.zoneNumber", "6"); 

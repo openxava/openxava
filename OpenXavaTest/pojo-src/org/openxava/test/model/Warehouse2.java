@@ -1,5 +1,7 @@
 package org.openxava.test.model;
 
+import java.util.*;
+
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
@@ -20,6 +22,9 @@ public class Warehouse2 {
 	@Column(length=40) @Required
 	private String name;
 	
+	@OneToMany(mappedBy = "warehouse", cascade = CascadeType.REMOVE)
+	private Collection<Warehouse2Building> buildings; // tmp 
+	
 	public Warehouse2Key getKey() {
 		return key;
 	}
@@ -34,6 +39,14 @@ public class Warehouse2 {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Collection<Warehouse2Building> getBuildings() {
+		return buildings;
+	}
+
+	public void setBuildings(Collection<Warehouse2Building> buildings) {
+		this.buildings = buildings;
 	}	
 		
 }

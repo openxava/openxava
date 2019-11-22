@@ -1230,7 +1230,14 @@ abstract public class MetaModel extends MetaElement {
 			String name = (String) it.next();
 			if (isKey(keyTester, name)) {
 				if (isReference(name) && getMetaReference(name).isAggregate()) { // @EmbeddedId case  
-					return (Map) values.get(name);
+					// tmp return (Map) values.get(name);
+					// tmp ini
+					// TMP ME QUEDÉ POR AQUÍ: CON ESTO SE ARREGLA EL BUG, PERO NO ESTOY SEGURO QUE FUNCIONE TODA LA PRUEBA (BORRAR A MANO UN WARESHOUSE NO FUNCIONO) 
+					// TMP		TENGO LOS WARESHOUSE 66 Y 67 CREADOS
+					Map embeddedId = new HashMap();
+					embeddedId.put(name, values.get(name));
+					return embeddedId;
+					// tmp fin
 				}
 				else {
 					result.put(name, values.get(name));

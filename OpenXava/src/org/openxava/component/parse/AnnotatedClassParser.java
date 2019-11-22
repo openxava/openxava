@@ -2615,7 +2615,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			}
 			else if (file.getName().endsWith(".class")) {				
 				String modelName = file.getName().substring(0, file.getName().length() - ".class".length());
-				if (modelName.equals("Boot")) continue; // tmp
+				// if (modelName.equals("Boot")) continue; // tmp OJO, ESTABA ASÍ, LO QUITO A VER QUE PASA
 				String className = basePackage + modelName;
 				try { 
 					Class entityClass = Class.forName(className);
