@@ -26,6 +26,7 @@ public class SchemaTool {
 	
 	private static Log log = LogFactory.getLog(SchemaTool.class);	
 	private boolean commitOnFinish = true;
+	private boolean onlySequences = false; 
 	private Collection<Class> annotatedClasses = null;
 	
 	public static void main(String[] args) throws Exception {
@@ -147,6 +148,7 @@ public class SchemaTool {
 				schemaExport.createOnly(EnumSet.of(TargetType.SCRIPT), metadata.buildMetadata());
 				Collection<String> scripts = FileUtils.readLines(file);
 				for (String script: scripts) {
+					if (onlySequences && !script.startsWith("create sequence ")) continue; 
 					if (console) {
 						System.out.print(script); 
 						System.out.println(';');
@@ -181,6 +183,16 @@ public class SchemaTool {
 	public void addAnnotatedClass(Class annotatedClass) {
 		if (annotatedClasses == null) annotatedClasses = new ArrayList<Class>(); 
 		annotatedClasses.add(annotatedClass);		
+	}
+
+	/** @since 6.2.2 */
+	public boolean isOnlySequences() {
+		return onlySequences;
+	}
+
+	/** @since 6.2.2 */
+	public void setOnlySequences(boolean onlySequences) {
+		this.onlySequences = onlySequences;
 	}
 	
 }
