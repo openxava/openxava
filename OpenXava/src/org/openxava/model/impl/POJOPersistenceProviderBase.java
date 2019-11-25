@@ -199,7 +199,9 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 	}
 
 	public Object getKey(MetaModel metaModel, Map keyValues) throws XavaException {
-		return getObject(metaModel.getPOJOKeyClass(), metaModel.extractKeyValues(keyValues), "key_for_pojo_error");
+		keyValues = Maps.plainToTree(keyValues);
+		keyValues = metaModel.extractKeyValuesFlattenEmbeddedIds(keyValues);
+		return getObject(metaModel.getPOJOKeyClass(), keyValues, "key_for_pojo_error"); 
 	}
 	
 	public Object getContainer(MetaModel metaModel, Map containerKeyValues) throws XavaException {

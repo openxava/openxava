@@ -32,5 +32,5 @@ public class Warehouse2Key implements java.io.Serializable {
 	public void setZoneNumber(int zoneNumber) {
 		this.zoneNumber = zoneNumber;
 	}
-		
+	
 }

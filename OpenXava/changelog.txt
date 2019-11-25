@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Adding an element to a collection of entity with @Embedded fails.
+- Fix: Deleting from list mode with @EmbeddedId fails.
 - Fix: Labels for excel generation in list mode are not qualified.
 - Fix: @DescriptionsList combos with tildes opened by default with Internet Explorer 11.
 - Fix: New element in an @OrderColumn list with @OneToMany without cascade fails.

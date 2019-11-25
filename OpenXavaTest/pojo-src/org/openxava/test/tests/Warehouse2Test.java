@@ -5,7 +5,6 @@ import org.openxava.tests.*;
 /**
  * Only for OX3 test.
  * 
- * 
  * @author Javier Paniza
  */
 
@@ -38,21 +37,19 @@ public class Warehouse2Test extends ModuleTestBase {
 		setValue("key.zoneNumber", "6"); 
 		setValue("key.number", "66");
 		setValue("name", "WAREHOUSE JUNIT");
-		// tmp ini
 		execute("Collection.new", "viewObject=xava_view_buildings");
 		setValue("name", "BUILDING JUNIT");
 		execute("Collection.save");
 		assertNoErrors();
-		assertCollectionRowCount("building", 1);
-		assertValueInCollection("building", 0, 0, "BUILDING JUNIT");
-		// tmp fin
+		assertCollectionRowCount("buildings", 1);
+		assertValueInCollection("buildings", 0, 0, "BUILDING JUNIT");
 		
 		execute("CRUD.save");
 		assertNoErrors();
 		assertValue("key.zoneNumber", ""); 
 		assertValue("key.number", "");
 		assertValue("name", "");
-		assertCollectionRowCount("building", 0); // tmp
+		assertCollectionRowCount("buildings", 0); 
 		
 		// Read
 		setValue("key.zoneNumber", "6"); 
@@ -61,10 +58,8 @@ public class Warehouse2Test extends ModuleTestBase {
 		assertValue("key.zoneNumber", "6"); 
 		assertValue("key.number", "66");
 		assertValue("name", "WAREHOUSE JUNIT");
-		// tmp ini
-		assertCollectionRowCount("building", 1);
-		assertValueInCollection("building", 0, 0, "BUILDING JUNIT");
-		// tmp fin
+		assertCollectionRowCount("buildings", 1);
+		assertValueInCollection("buildings", 0, 0, "BUILDING JUNIT");
 		
 		
 		// Modify
@@ -74,7 +69,7 @@ public class Warehouse2Test extends ModuleTestBase {
 		assertValue("key.zoneNumber", ""); 
 		assertValue("key.number", "");
 		assertValue("name", "");
-		assertCollectionRowCount("building", 0); // tmp
+		assertCollectionRowCount("buildings", 0); 
 
 		// Verify modified
 		setValue("key.zoneNumber", "6"); 
@@ -92,6 +87,22 @@ public class Warehouse2Test extends ModuleTestBase {
 		setValue("key.number", "66");
 		execute("CRUD.refresh");
 		assertError("Object of type Warehouse 2 does not exists with key Number:66, Zone:6");
+		
+		execute("CRUD.new");
+		setValue("key.zoneNumber", "999"); 
+		setValue("key.number", "1");
+		setValue("name", "WAREHOUSE JUNIT 999/1");
+		execute("CRUD.save");		
+		execute("Mode.list");
+		execute("List.orderBy", "property=key.zoneNumber");
+		execute("List.orderBy", "property=key.zoneNumber");
+		assertValueInList(0, 0, "1000");
+		assertValueInList(1, 0, "999");
+		assertValueInList(2, 0, "10");
+		execute("CRUD.deleteRow", "row=1");
+		assertNoErrors();
+		assertValueInList(0, 0, "1000");
+		assertValueInList(1, 0, "10");
 	}
 	
 }

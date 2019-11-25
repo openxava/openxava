@@ -21,9 +21,9 @@ public class Warehouse2 {
 		
 	@Column(length=40) @Required
 	private String name;
-	
+		
 	@OneToMany(mappedBy = "warehouse", cascade = CascadeType.REMOVE)
-	private Collection<Warehouse2Building> buildings; // tmp 
+	private Collection<Warehouse2Building> buildings;  
 	
 	public Warehouse2Key getKey() {
 		return key;

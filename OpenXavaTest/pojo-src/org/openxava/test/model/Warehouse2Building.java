@@ -3,7 +3,6 @@ package org.openxava.test.model;
 import javax.persistence.*;
 
 /**
- * tmp
  * 
  * @author Javier Paniza
  */

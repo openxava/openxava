@@ -339,8 +339,6 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		MetaModel metaModelContainer = getMetaModelContainer(metaModel, modelName);  
 		try {		
 			beginTransaction(metaModel);	
-			System.out.println("[MapFacadeBean.createAggregate] containerKeyValues=" + containerKeyValues); // tmp
-			System.out.println("[MapFacadeBean.createAggregate] values=" + values); // tmp
 			Object result = createAggregate(metaModel, metaModelContainer, containerKeyValues, collectionName, counter, values); 
 			commitTransaction(metaModel);			
 			return result;
@@ -751,13 +749,10 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 	private Object createAggregate(MetaModel metaModel, MetaModel metaModelContainer, Map containerKeyValues, String collectionName, int counter, Map values) 
 		throws CreateException,ValidationException, XavaException, RemoteException 
 	{		
-		System.out.println("[MapFacadeBean.createAggregate] values> " + values); // tmp
 		addKeyToValues(metaModelContainer, collectionName, containerKeyValues, values);
-		System.out.println("[MapFacadeBean.createAggregate] values> " + values); // tmp
 
 		try {	
 			Object containerKey = getPersistenceProvider(metaModel).find(metaModelContainer, containerKeyValues);
-			System.out.println("[MapFacadeBean.createAggregate] containerKey=" + containerKey); // tmp
 			return createAggregate(metaModel, metaModelContainer, containerKey, collectionName, counter, values, true); 
 		}
 		catch (ClassCastException ex) {
@@ -897,9 +892,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 				throw new ValidationException(validationErrors);			
 			}		
 			updateReferencedEntities(metaModel, values);			
-			System.out.println("[MapFacadeBean.create] values=" + values); // tmp
 			Map convertedValues = convertSubmapsInObject(metaModel, values);
-			System.out.println("[MapFacadeBean.create] convertedValues=" + convertedValues); // tmp
 			if (!validateCollections) {
 				setCollectionsWithMinimumToNull(metaModel, convertedValues);
 			}			
@@ -1333,10 +1326,8 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		try {		
 			r = metaModel.getMetaReference(memberName);
 			if (r.isAggregate()) {
-				System.out.println("[MapFacadeBean.mapToReferencedObject(" + memberName + ")] A"); // tmp
 				return instanceAggregate((MetaAggregateForReference) r.getMetaModelReferenced(), values);
 			} else {
-				System.out.println("[MapFacadeBean.mapToReferencedObject(" + memberName + ")] B"); // tmp
 				if (Maps.isEmpty(values)) return null;
 				return findAssociatedEntity(r.getMetaModelReferenced(), values); 
 			}
@@ -1386,10 +1377,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 	
 	private Object findAssociatedEntity(MetaModel metaEntity, Map values) 
 		throws FinderException, XavaException, RemoteException {
-		System.out.println("[MapFacadeBean.findAssociatedEntity] metaEntity=" + metaEntity.getName()); // tmp
-		System.out.println("[MapFacadeBean.findAssociatedEntity] values=" + values); // tmp
 		Map keyValues = metaEntity.extractKeyValues(values);
-		System.out.println("[MapFacadeBean.findAssociatedEntity] keyValues=" + keyValues); // tmp
 		if (Maps.isEmpty(keyValues)) {
 			return findEntityByAnyProperty(metaEntity, metaEntity.extractSearchKeyValues(values));
 		}
