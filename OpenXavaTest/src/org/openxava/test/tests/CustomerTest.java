@@ -717,7 +717,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("type", usesAnnotatedPOJO()?"2":"3");		
 	}
 	
-	public void testRefisher() throws Exception { 
+	public void testRefisher() throws Exception { // tmp Falla este y otros
 		execute("Customer.startRefisher");
 		assertEquals(-1, getRefisherEntriesCount()); // If it fails try to stop the refisher clicking in the button of the module
 		execute("List.viewDetail", "row=0");

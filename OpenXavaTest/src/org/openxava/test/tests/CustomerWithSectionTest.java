@@ -10,7 +10,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Javier Paniza
  */
 
-public class CustomerWithSectionTest extends CustomerTest {
+public class CustomerWithSectionTest extends CustomerTest { 
 
 	private String [] listActions = {
 		"Print.generatePdf",

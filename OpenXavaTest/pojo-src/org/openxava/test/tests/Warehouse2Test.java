@@ -88,6 +88,7 @@ public class Warehouse2Test extends ModuleTestBase {
 		execute("CRUD.refresh");
 		assertError("Object of type Warehouse 2 does not exists with key Number:66, Zone:6");
 		
+		// Delete from list mode
 		execute("CRUD.new");
 		setValue("key.zoneNumber", "999"); 
 		setValue("key.number", "1");

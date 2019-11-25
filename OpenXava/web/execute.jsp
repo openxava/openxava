@@ -102,5 +102,5 @@ if (!(loadingModulePage && manager.isCoreViaAJAX(request))) {
 if ("true".equals(request.getParameter("firstRequest")) && manager.isCoreViaAJAX(request)) { 
 	manager.executeBeforeLoadPage(request, errors, messages);
 }
-view.setRequest(request); 
+if (manager.isDetailMode()) view.setRequest(request);   
 %>
