@@ -1,3 +1,4 @@
+/org/
 /BeansContext.properties
 /Corporation.html
 /CorporationEmployee.html
@@ -15,7 +16,6 @@
 /logging.properties
 /naviox-users.properties
 /naviox.properties
-/org/
 /portlets/
 /xava-junit.properties
 /xava.properties
