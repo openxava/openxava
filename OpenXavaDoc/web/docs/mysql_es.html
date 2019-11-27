@@ -63,21 +63,36 @@
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
 	driverClassName="com.mysql.jdbc.Driver"
-	url="jdbc:mysql://localhost:3306/miaplicaciondb"/&gt;
+	url="jdbc:mysql://localhost:3306/"/&gt;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Las diferencias están en el <i>driverClassName</i>
-      y la <i>url</i>. La parte final de la <i>url</i>, <i>miaplicaciondb</i>
-      en este ejemplo, es el nombre de tu base de datos MySQL. Obviamente, en
-      lugar de <i>localhost</i> deberías poner la dirección del servidor donde
-      está el MySQL, y también poner los valores correctos para <i>username</i>
-      y <i>password</i>.</div>
+      y la <i>url</i>. Obviamente, en lugar de <i>localhost</i> deberías poner
+      la dirección del servidor donde está el MySQL, y también poner los valores
+      correctos para <i>username</i> y <i>password</i>.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Actualizar persistence.xml</h2>
-      No necesitas tocar la unidad de persistencia <i>default</i> de <i>persistence.xml</i>
-      (en <i>persistence/META-INF</i>), a no ser que uses la propiedad <i>hibernate.dialect</i>
-      en cuyo caso lo más fácil es quitar la propiedad <i>hibernate.dialect</i>.
-      Sin embargo, sí que has de modificar la unidad de persistencia <i>junit</i>
-      para que apunte a MySQL:<br>
+      En la unidad de persistencia <i>default</i> de <i>persistence.xml</i>
+      (en <i>persistence/META-INF</i>) has de cambiar la propiedad <i>hibernate.default_schema</i>
+      por <i>hibernate.default_catalog. </i>Si usas la propiedad <i>hibernate.dialect</i>
+      quítala.<br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;persistence-unit name="default"&gt;
+	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
+	&lt;non-jta-data-source&gt;java://comp/env/jdbc/MiAplicacionDS&lt;/non-jta-data-source&gt;
+	&lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;
+	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;
+	&lt;properties&gt;
+		&lt;property name="javax.persistence.schema-generation.database.action" value="update"/&gt;
+		&lt;property name="javax.persistence.create-database-schemas" value="true"/&gt; 
+		&lt;property name="hibernate.default_catalog" value="miaplicaciondb"/&gt;
+		&lt;property name="hibernate.jdbc.use_streams_for_binary" value="true"/&gt;
+	&lt;/properties&gt;
+&lt;/persistence-unit&gt;
+</code></pre> </div>
+      Fíjate como usamos <i>hibernate.default_catalog</i> para indicar tu base
+      de datos MySQL, <i>miaplicaciondb</i> en este caso. </div>
+    <div class="wiki" style="display: block;">Además, has de modificar la unidad
+      de persistencia <i>junit</i> para que apunte a MySQL:<br>
       <div class="wiki" style="display: block;">
         <pre><code class="xml">&lt;!-- JUnit MySQL --&gt;
 &lt;persistence-unit name="junit"&gt;

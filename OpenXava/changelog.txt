@@ -2,6 +2,7 @@ Change Log for OpenXava project
 ===============================
 
 - Fix: Throwing ValidationException from a validator doesn't show the original message saving with JPA.
+- Fix: XPersistence.setDefaultSchema() does to work for MySQL if dialect is not specified.
 - Fix: Adding an element to a collection of entity with @Embedded fails.
 - Fix: Deleting from list mode with @EmbeddedId fails.
 - Fix: Labels for excel generation in list mode are not qualified.

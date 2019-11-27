@@ -366,8 +366,10 @@ public class XHibernate {
 	}
 	
 	private static String getHibernateDefaultSchemaPropertyName() { 
-		String dialect = (String) getSessionFactory().getProperties().get("hibernate.dialect"); 
+		Map<String, Object> properties = getSessionFactory().getProperties();
+		String dialect = (String) properties.get("hibernate.dialect");
 		if (dialect != null && dialect.toLowerCase().contains("mysql")) return "hibernate.default_catalog";
+		if (!Is.emptyString((String)properties.get("hibernate.default_catalog"))) return "hibernate.default_catalog";
 		return "hibernate.default_schema";
 	}
 
