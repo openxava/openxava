@@ -1429,4 +1429,10 @@
 			keystroke="F9"/>
 	</controller>
 	
+	<controller name="MonthlyActivity">
+	    <extends controller="Typical"/>
+		<action name="saveWithJPA" mode="detail"
+			class="org.openxava.test.actions.SaveMonthlyActivityWithJPAAction"/>			
+	</controller>	
+	
 </controllers>

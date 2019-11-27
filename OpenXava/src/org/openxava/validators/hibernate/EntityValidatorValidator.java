@@ -48,11 +48,16 @@ public class EntityValidatorValidator implements ConstraintValidator<EntityValid
 				   .addConstraintViolation();
 			return false;
 		}
+		catch (javax.validation.ValidationException|org.openxava.validators.ValidationException  ex) { 
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(ex.getMessage())
+				   .addConstraintViolation();
+			return false;
+		}
 		catch (RuntimeException ex) {
 			throw ex;
 		}
 		catch (Exception ex) {
-			ex.printStackTrace();
 			throw new RuntimeException(ex.getMessage(), ex);
 		}		
 	}

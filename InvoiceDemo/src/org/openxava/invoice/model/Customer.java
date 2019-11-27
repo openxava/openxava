@@ -6,7 +6,7 @@ import org.openxava.annotations.*;
 
 @Entity
 @View(name="Simple", members="number, name") 
-@Tab(properties="number, name") // tmp
+@Tab(properties="number, name") 
 public class Customer {
 	
 	@Id
