@@ -1788,6 +1788,14 @@ span[id*="reference_editor"] + .ox-layout-detail {
 	margin: 0px -10px -5px -10px;
 }
 
+.ox-active-section.ox-flow-layout .cke_chrome {
+	margin-left: 10px; 
+}
+
+.ox-active-section.ox-flow-layout .ox-frame .cke_chrome {
+	margin-left: -10px; 
+}
+
 .cke_top {
 	background: #CDB380 !important;
 	border: none !important;

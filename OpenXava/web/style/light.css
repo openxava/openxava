@@ -1604,6 +1604,14 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 	box-shadow: 0px 0px 5px #CCCCCC inset !important;  
 }
 
+.ox-active-section.ox-flow-layout .cke_chrome {
+	margin-left: 10px; 
+}
+
+.ox-active-section.ox-flow-layout .ox-frame .cke_chrome {
+	margin-left: -10px; 
+}
+
 .ox-list-title { 
 	padding: 0px 10px 0px 10px;
 	margin-bottom: 10px;
