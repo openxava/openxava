@@ -28,3 +28,10 @@ Incident module:
 	- No buttons on editor. 
 	- Top bar buttons on module.
 	- Bottom buttons on module.
+- Write a title for the incident. 
+- Go to Activity tab. Create an Activity with a long name (full all positions).
+- Go to main tab. Click on comment.
+	- No bottom buttons on module.
+- Go to Activity tab.
+	- Collection weight must be normal, not narrowed, no scrollbar.
+- Delete the created incident.  	

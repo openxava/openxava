@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: When editing a DISCUSSION property the collections of other sections are narrowed.  
 - Fix: @Column(scale=) ignored when MONEY stereotype is used.
 - Fix: Throwing ValidationException from a validator doesn't show the original message saving with JPA.
 - Fix: XPersistence.setDefaultSchema() does to work for MySQL if dialect is not specified.

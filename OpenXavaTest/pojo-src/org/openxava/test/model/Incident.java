@@ -15,6 +15,10 @@ import org.openxava.web.editors.*;
  */
 
 @Entity
+@View( members = 
+	"incident { title; description; discussion }" +
+	"activity { activity }"
+)
 // DO NOT ADD @Tab we use this class to test default properties without @Tab
 public class Incident extends Identifiable {
 	
@@ -31,6 +35,9 @@ public class Incident extends Identifiable {
 	
 	@Stereotype("DISCUSSION") @Column(length=32) 
 	private String discussion;
+	
+	@OneToMany(mappedBy="incident", cascade=CascadeType.REMOVE)
+	private Collection<IncidentActivity> activity; 
 	
 	@PreRemove
 	private void removeDiscussion() { 
@@ -59,6 +66,14 @@ public class Incident extends Identifiable {
 
 	public void setDiscussion(String discussion) {
 		this.discussion = discussion;
+	}
+
+	public Collection<IncidentActivity> getActivity() {
+		return activity;
+	}
+
+	public void setActivity(Collection<IncidentActivity> activity) {
+		this.activity = activity;
 	}
 
 }

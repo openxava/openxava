@@ -36,7 +36,7 @@ openxava.addEditorInitFunction(function() {
 		 	editor.on( 'focus', function( e ) {			
 				var id = "#" + $(e.editor.element).attr("id") + "_buttons";
 				$(id + " input").fadeIn();
-				$('.ox-bottom-buttons').fadeOut();
+				$('.ox-bottom-buttons').children().fadeOut(); 
 				$('.ox-button-bar-button').fadeOut(); 
 			});
 		}
