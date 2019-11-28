@@ -184,5 +184,7 @@ public class Product5Test extends CustomizeListTestBase {
 		assertAction("Dialog.cancel");
 		execute("Dialog.cancel");
 		assertAction("Navigation.first");
+		
+		assertValue("unitPrice", "11.0000"); // We test that has 4 decimals, the specific value does not matter
 	}
 }

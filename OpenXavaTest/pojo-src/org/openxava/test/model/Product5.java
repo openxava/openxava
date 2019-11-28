@@ -79,7 +79,9 @@ public class Product5 {
 	@OnChange(org.openxava.test.actions.OnChangeWarehouseAction.class)
 	private Warehouse warehouse;
 
-	@Stereotype("MONEY") @Required
+	@Column(precision=12, scale=4) // Must be scale=4 to test a case
+	@Stereotype("MONEY") // Must be MONEY to test a case 
+	@Required
 	@DefaultValueCalculator(value=DefaultProductPriceCalculator.class, properties=
 		@PropertyValue(name="familyNumber")
 	)

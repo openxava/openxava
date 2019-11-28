@@ -5,6 +5,7 @@ import java.text.*;
 
 import javax.servlet.http.*;
 
+import org.openxava.model.meta.*;
 import org.openxava.util.*;
 
 /**
@@ -13,23 +14,24 @@ import org.openxava.util.*;
  * @author Javier Paniza
  */
 
-public class MoneyFormatter implements IFormatter {
+public class MoneyFormatter implements IMetaPropertyFormatter {
 
-	public String format(HttpServletRequest request, Object object)	throws Exception {
+	public String format(HttpServletRequest request, MetaProperty metaProperty, Object object) throws Exception {
 		if (object == null) return "";
-		return getFormat().format(object);
+		return getFormat(metaProperty).format(object);
 	}
 
-	public Object parse(HttpServletRequest request, String string) throws Exception {
+	public Object parse(HttpServletRequest request, MetaProperty metaProperty, String string) throws Exception {
 		if (Is.emptyString(string)) return null; 
 		string = Strings.change(string, " ", ""); // In order to work with Polish		
-		return new BigDecimal(getFormat().parse(string).toString()).setScale(2);
+		return new BigDecimal(getFormat(metaProperty).parse(string).toString()).setScale(2);
 	}
 	
-	private NumberFormat getFormat() {
+	private NumberFormat getFormat(MetaProperty metaProperty) {
+		int decimals = metaProperty.getScale() > 0?metaProperty.getScale():2;
 		NumberFormat f = DecimalFormat.getNumberInstance(Locales.getCurrent());
-		f.setMinimumFractionDigits(2);
-		f.setMaximumFractionDigits(2);
+		f.setMinimumFractionDigits(decimals);
+		f.setMaximumFractionDigits(decimals);
 		return f;
 	}
 
