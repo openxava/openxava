@@ -11,7 +11,7 @@ String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 %>
 
 <a style="position: relative; right: 25px;" target="_blank" href="<%=fvalue%>"
-	onclick="var url=$('#<%=propertyKey%>').val(); if (url.substr(0, 7) !== 'http://') url = 'http://' + url; this.href=url" 
+	onclick="var url=$('#<%=propertyKey%>').val(); if (url.substr(0, 7) !== 'http://' && url.substr(0, 8) !== 'https://') url = 'http://' + url; this.href=url"
 >
 	<i class="mdi mdi-open-in-new"></i>
 </a>

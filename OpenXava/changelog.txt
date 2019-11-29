@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Link in WEBURL fails when URL starts with "https://".
 - Fix: HTML_TEXT alone in a section with flowLayout=true has no margin on left.
 - Fix: When editing a DISCUSSION property the collections of other sections are narrowed.  
 - Fix: @Column(scale=) ignored when MONEY stereotype is used.
