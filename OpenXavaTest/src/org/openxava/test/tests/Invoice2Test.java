@@ -181,7 +181,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertValuesInList(1, "2004",  "5,706.00", "5");
 		assertValuesInList(2, "2007",  "6,059.00", "1");
 		assertValuesInList(3, "2009",      "0.00", "1");
-		assertValuesInList(4, "2011", "18,207.00", "1");		
+		assertValuesInList(4, "2011", "18,207.00", "1");
 		
 		selectGroupBy("Group by customer");
 		assertNoAction("CRUD.deleteSelected");
@@ -208,6 +208,19 @@ public class Invoice2Test extends ModuleTestBase {
 		assertValuesInList(5, "2009/6",      "0.00", "1"); 
 		assertValuesInList(6, "2011/3", "18,207.00", "1");
 		
+		execute("List.orderBy", "property=date");
+		assertNoErrors();
+		execute("List.orderBy", "property=date");
+		assertListRowCount(7);
+		assertListColumnCount(3);
+		assertValuesInList(0, "2011/3", "18,207.00", "1");
+		assertValuesInList(1, "2009/6",      "0.00", "1");
+		assertValuesInList(2, "2007/5",  "6,059.00", "1");
+		assertValuesInList(3, "2006/11",   "110.00", "2");
+		assertValuesInList(4, "2004/12", "1,189.00", "1");
+		assertValuesInList(5, "2004/1",  "4,407.00", "2");
+		assertValuesInList(6, "2002/1",  "2,500.00", "1");
+		
 		selectGroupBy("Group by year of date");
 		assertNoAction("CRUD.deleteSelected");
 		assertNoAction("List.viewDetail");
@@ -219,7 +232,19 @@ public class Invoice2Test extends ModuleTestBase {
 		assertValuesInList(2, "2006",    "110.00", "2");
 		assertValuesInList(3, "2007",  "6,059.00", "1");
 		assertValuesInList(4, "2009",      "0.00", "1");
-		assertValuesInList(5, "2011", "18,207.00", "1");		
+		assertValuesInList(5, "2011", "18,207.00", "1");
+		
+		execute("List.orderBy", "property=date");
+		assertNoErrors();
+		execute("List.orderBy", "property=date");
+		assertListRowCount(6);
+		assertListColumnCount(3);
+		assertValuesInList(0, "2011", "18,207.00", "1");
+		assertValuesInList(1, "2009",      "0.00", "1");
+		assertValuesInList(2, "2007",  "6,059.00", "1");
+		assertValuesInList(3, "2006",    "110.00", "2");
+		assertValuesInList(4, "2004",  "5,596.00", "3");
+		assertValuesInList(5, "2002",  "2,500.00", "1");
 		
 		selectGroupBy("No grouping");
 		assertAction("CRUD.deleteSelected");

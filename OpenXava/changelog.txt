@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Grouping by a year or month of a date in list and then order by that date fails.
 - Fix: Link in WEBURL fails when URL starts with "https://".
 - Fix: HTML_TEXT alone in a section with flowLayout=true has no margin on left.
 - Fix: When editing a DISCUSSION property the collections of other sections are narrowed.  

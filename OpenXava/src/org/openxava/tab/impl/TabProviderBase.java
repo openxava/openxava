@@ -84,14 +84,24 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 				select = select.replace(original + " desc", alias + " desc");
 			} 
 		}
+		String orderBy = null;
+		if (select.contains(" order by " )) {
+			String [] selectTokens = select.split(" order by ", 2);
+			select = selectTokens[0];
+			orderBy = selectTokens[1]; 
+		}
 		if (select.endsWith("[month]")) { 
 			select = select.replace(groupByProperty + "[month]", "year(" + groupByProperty + "), month(" + groupByProperty + ")");
 			select = select.replaceFirst(groupByProperty, "concat(year(" + groupByProperty + "), '/',month(" + groupByProperty + "))");
+			if (orderBy != null) orderBy = orderBy.replaceFirst(groupByProperty, "concat(year(" + groupByProperty + "), '/',month(" + groupByProperty + "))"); 
 		}
 		else if (select.endsWith("[year]")) { 
 			select = select.replace(groupByProperty + "[year]", "year(" + groupByProperty + ")");
 			select = select.replaceFirst(groupByProperty, "year(" + groupByProperty + ")");
+			if (orderBy != null) orderBy = orderBy.replaceFirst(groupByProperty, "year(" + groupByProperty + ")"); 
 		} 
+		
+		if (orderBy != null) select = select + " order by " + orderBy; 
 
 		return select;
 	}
