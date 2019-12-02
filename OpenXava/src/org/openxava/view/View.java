@@ -849,6 +849,10 @@ public class View implements java.io.Serializable {
 				if (elementIndex < 0 || elementIndex >= collectionValues.size()) return null;
 				Map element = (Map) collectionValues.get(elementIndex);
 				String collectionMember = Strings.noFirstTokenWithoutFirstDelim(member, ".");
+				// tmp ini
+				System.out.println("[View.getValue] collectionMember=" + collectionMember); // tmp
+				collectionMember = collectionMember.replaceAll("^this\\.", ""); // tmp
+				// tmp fin
 				return Maps.getValueFromQualifiedName(element, collectionMember);
 			}
 			else {
@@ -879,6 +883,7 @@ public class View implements java.io.Serializable {
 	 * @param name  Qualified properties are allowed
 	 */	
 	public Object getValue(String name) throws XavaException {
+		System.out.println("[View.getValue] name=" + name); // tmp
 		return getValue(name, true);
 	}
 
@@ -3929,6 +3934,10 @@ public class View implements java.io.Serializable {
 				if (getMetaModel().containsMetaCollection(reference)) { 
 					// From element collection
 					String collectionMember = Strings.noFirstTokenWithoutFirstDelim(member, ".");
+					System.out.println("[View.getMetaProperty] member=" + member); // tmp
+					System.out.println("[View.getMetaProperty] collectionMember.1=" + collectionMember); // tmp
+					collectionMember = collectionMember.replaceAll("^this\\.", ""); // tmp
+					System.out.println("[View.getMetaProperty] collectionMember.2=" + collectionMember); // tmp
 					return getMetaModel().getMetaCollection(reference).getMetaReference().getMetaModelReferenced().getMetaProperty(collectionMember);
 				}
 				if (getMetaModel().containsMetaReference(reference)) { 

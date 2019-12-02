@@ -34,7 +34,8 @@ public class ProductExpense {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@DescriptionsList(
-		depends="family",
+		// tmp depends="family", tmp ¿Seguir testeando este caso?
+		depends="this.family", // tmp
 		condition="${family.number} = ?"
 	)
 	private Subfamily2 subfamily;

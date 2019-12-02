@@ -13,7 +13,13 @@ import org.openxava.model.*;
  */
 
 @Entity
+// tmp ini
+@View( members = "description; expenses")
+// tmp fin
 public class ProductExpenses extends Identifiable {
+	
+	@ManyToOne
+	private TotalExpenses totalExpenses; // tmp
 	
 	@Column(length=40)
 	private String description;
@@ -36,6 +42,14 @@ public class ProductExpenses extends Identifiable {
 
 	public void setExpenses(Collection<ProductExpense> expenses) {
 		this.expenses = expenses;
+	}
+
+	public TotalExpenses getTotalExpenses() {
+		return totalExpenses;
+	}
+
+	public void setTotalExpenses(TotalExpenses totalExpenses) {
+		this.totalExpenses = totalExpenses;
 	}
 	
 }
