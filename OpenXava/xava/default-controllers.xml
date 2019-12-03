@@ -229,7 +229,7 @@ here that you want to override.
 			image="save.gif"
 			icon="content-save"
 			by-default="if-possible"
-			keystroke="F3">			
+			keystroke="control S">			
 			<set property="resetAfter" value="false"/>
 		</action>				
 	</controller>
