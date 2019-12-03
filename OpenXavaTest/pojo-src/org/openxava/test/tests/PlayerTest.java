@@ -16,7 +16,7 @@ public class PlayerTest extends ModuleTestBase {
 		setValue("name", "HUGO SOTIL");
 		setValue("birthdate", "05/18/1949");
 		execute("Player.save");
-		assertError("HUGO SOTIL is not less than 40 years old"); 
+		assertError("HUGO SOTIL is not less than 40 years old");
 	}
 		
 }

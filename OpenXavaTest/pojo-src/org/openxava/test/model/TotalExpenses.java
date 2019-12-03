@@ -7,10 +7,10 @@ import javax.persistence.*;
 import org.openxava.model.*;
 
 /**
- * tmp ME QUEDÉ POR AQUÍ: FALTA CREAR LAS TABLAS Y HACER UNA PRUEBA JUNIT
  * 
  * @author Javier Paniza
  */
+@Entity
 public class TotalExpenses extends Identifiable {
 	
 	@Column(length=40)

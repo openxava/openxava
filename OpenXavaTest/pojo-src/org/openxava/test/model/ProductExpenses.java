@@ -13,13 +13,11 @@ import org.openxava.model.*;
  */
 
 @Entity
-// tmp ini
 @View( members = "description; expenses")
-// tmp fin
 public class ProductExpenses extends Identifiable {
 	
 	@ManyToOne
-	private TotalExpenses totalExpenses; // tmp
+	private TotalExpenses totalExpenses; 
 	
 	@Column(length=40)
 	private String description;

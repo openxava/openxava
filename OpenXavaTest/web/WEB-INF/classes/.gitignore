@@ -1,3 +1,10 @@
+/application.xml
+/org/
+/code-generators.xml
+/controllers.xml
+/converters.xml
+/default-size.xml
+/dtds/
 /GalleryImage.hbm.xml
 /META-INF/
 /OpenXavaTest-labels_ca.properties
@@ -8,7 +15,6 @@
 /OpenXavaTest-messages_en.properties
 /OpenXavaTest-messages_es.properties
 /OpenXavaTest-messages_fr.properties
-/dtds/
 /editors.xml
 /hibernate-junit.cfg.xml
 /hibernate.cfg.xml
@@ -33,6 +39,5 @@
 /logging.properties
 /naviox-users.properties
 /naviox.properties
-/org/
 /xava-junit.properties
 /xava.properties

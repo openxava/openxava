@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Dependent @DescriptionsList in an @ElementCollection fails when depends uses "this" as prefix.
+- Fix: Dependent @DescriptionsList in an @ElementCollection inside a dialog does not display the editor.
+- Some new common use labels to be used in applications. 
+- Fix: TypicalNotResetOnSave.save keystroke does not match CRUD.save keystroke.
 - Fix: Grouping by a year or month of a date in list and then order by that date fails.
 - Fix: Link in WEBURL fails when URL starts with "https://".
 - Fix: HTML_TEXT alone in a section with flowLayout=true has no margin on left.
