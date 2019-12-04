@@ -1,0 +1,35 @@
+	/**
+	 * @ejb:interface-method
+	 */
+	public org.openxava.test.model.Warehouse getWarehouseKey() {
+		org.openxava.test.model.Warehouse key = new org.openxava.test.model.Warehouse();
+		key.setNumber(getWarehouseNumber()==null?0:getWarehouseNumber().intValue());
+		key.setZoneNumber(getWarehouseZoneNumber());
+		return key;
+	}
+
+	/**
+	 * @ejb:interface-method
+	 */
+	public void setWarehouseKey(org.openxava.test.model.Warehouse warehouseKey) {
+		setWarehouseNumber(new Integer(warehouseKey.getNumber()));
+		setWarehouseZoneNumber(warehouseKey.getZoneNumber());
+	}
+	
+	/**	
+	 * @ejb:persistent-field
+	 *
+	 * @jboss:column-name "ZONE"
+	 */
+	public abstract int getWarehouseZoneNumber();
+	public abstract void setWarehouseZoneNumber(int newWarehouseZoneNumber);
+
+	
+	/**
+	 * @ejb:persistent-field
+	 *
+	 * @jboss:column-name "WAREHOUSE"
+	 */
+	public abstract Integer getWarehouseNumber();
+	public abstract void setWarehouseNumber(Integer newWarehouseNumber);
+	

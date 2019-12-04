@@ -4,7 +4,6 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import org.apache.commons.logging.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
@@ -218,7 +217,7 @@ public class ColorTest extends ModuleTestBase {
 
 		assertLinkTooltip("CRUD.new", "control N - Create a new entity");
 		assertLinkTooltip("Reference.createNew", "Add");
-		assertInputTooltip("TypicalNotResetOnSave.save", "F3 - Save the current entity");
+		assertInputTooltip("TypicalNotResetOnSave.save", "control S - Save the current entity"); 
 		assertInputTooltip("Color.seeMessage", "");
 	}		
 		

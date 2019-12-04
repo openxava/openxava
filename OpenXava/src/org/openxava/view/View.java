@@ -849,6 +849,7 @@ public class View implements java.io.Serializable {
 				if (elementIndex < 0 || elementIndex >= collectionValues.size()) return null;
 				Map element = (Map) collectionValues.get(elementIndex);
 				String collectionMember = Strings.noFirstTokenWithoutFirstDelim(member, ".");
+				collectionMember = collectionMember.replaceAll("^this\\.", ""); 
 				return Maps.getValueFromQualifiedName(element, collectionMember);
 			}
 			else {
@@ -880,6 +881,18 @@ public class View implements java.io.Serializable {
 	 */	
 	public Object getValue(String name) throws XavaException {
 		return getValue(name, true);
+	}
+	
+	/** @since 6.2.2 */
+	public boolean isMemberFromElementCollection(String memberName) {
+		if (!memberName.contains(".")) return false;
+		String subviewName = memberName.split("\\.")[0];
+		try {
+			return getSubview(subviewName).isRepresentsElementCollection();
+		}
+		catch (ElementNotFoundException ex) {
+			return false;
+		}
 	}
 
 	/**
@@ -3929,6 +3942,7 @@ public class View implements java.io.Serializable {
 				if (getMetaModel().containsMetaCollection(reference)) { 
 					// From element collection
 					String collectionMember = Strings.noFirstTokenWithoutFirstDelim(member, ".");
+					collectionMember = collectionMember.replaceAll("^this\\.", ""); 
 					return getMetaModel().getMetaCollection(reference).getMetaReference().getMetaModelReferenced().getMetaProperty(collectionMember);
 				}
 				if (getMetaModel().containsMetaReference(reference)) { 
