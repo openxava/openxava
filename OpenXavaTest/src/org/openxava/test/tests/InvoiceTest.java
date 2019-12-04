@@ -626,26 +626,26 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	public void testGenerateTwoReportsAtOnce() throws Exception { 
-		assertGenerateTwoReportsAtOnce("InvoicePrint.print2Pdfs"); 
+		assertGenerateTwoReportsAtOnce("InvoicePrint.print2Rtfs", "rtf"); 
 	}
 	
 	public void testGenerateTwoReportsAtOnceWithDifferentParameters() throws Exception { 
-		assertGenerateTwoReportsAtOnce("InvoicePrint.printInvoiceAndCustomer"); 
+		assertGenerateTwoReportsAtOnce("InvoicePrint.printInvoiceAndCustomer", "pdf"); 
 	}
 	
 	public void testGenerateTwoReportsAtOnceWithDifferentParametersUsingAddParameters() throws Exception { 
-		assertGenerateTwoReportsAtOnce("InvoicePrint.printInvoiceAndCustomer2"); 
+		assertGenerateTwoReportsAtOnce("InvoicePrint.printInvoiceAndCustomer2", "pdf"); 
 	}
 
 	
 	
-	private void assertGenerateTwoReportsAtOnce(String action) throws Exception {  
+	private void assertGenerateTwoReportsAtOnce(String action, String contentType) throws Exception {   
 		execute("List.viewDetail", "row=0");
 		execute(action);		
 		assertNoErrors();		
 		assertPopupCount(2); 
-		assertContentTypeForPopup(0, "application/pdf");
-		assertContentTypeForPopup(1, "application/pdf");
+		assertContentTypeForPopup(0, "application/" + contentType);
+		assertContentTypeForPopup(1, "application/" + contentType);		
 	}
 		
 	// Only behaves thus when mapFacadeAutocommit=false (the default)
@@ -1782,7 +1782,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			"CRUD.refresh",
 			"SearchForCRUD.search", 
 			"InvoicePrint.printPdf",
-			"InvoicePrint.print2Pdfs",
+			"InvoicePrint.print2Rtfs", 
 			"InvoicePrint.printInvoiceAndCustomer",
 			"InvoicePrint.printInvoiceAndCustomer2",
 			"InvoicePrint.printExcel",
@@ -1823,7 +1823,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			"CRUD.refresh",
 			"SearchForCRUD.search", 
 			"InvoicePrint.printPdf",
-			"InvoicePrint.print2Pdfs",
+			"InvoicePrint.print2Rtfs", 
 			"InvoicePrint.printInvoiceAndCustomer",
 			"InvoicePrint.printInvoiceAndCustomer2",
 			"InvoicePrint.printExcel",
