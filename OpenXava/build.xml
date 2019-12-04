@@ -992,6 +992,9 @@
 			</filterset>
 		</copy>
 		<mkdir dir="../${project}/web/META-INF"/>
+		<touch>
+		    <fileset dir="../${project}/web/META-INF"/>
+		</touch>
 		<copy file="${openxava.base.dir}/OpenXava/project-templates/en/web/META-INF/context.xml" 
 			tofile="../${project}/web/META-INF/context.xml" overwrite="false">
 	    	<filterset>	    	

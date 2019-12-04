@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: updateOX ant task overwrites web/META-INF/context.xml sometimes when you update OpenXava version.
 - Fix: Dependent @DescriptionsList in an @ElementCollection fails when depends uses "this" as prefix.
 - Fix: Dependent @DescriptionsList in an @ElementCollection inside a dialog does not display the editor.
 - Some new common use labels to be used in applications. 

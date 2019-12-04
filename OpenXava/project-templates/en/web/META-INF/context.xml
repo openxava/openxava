@@ -4,7 +4,7 @@
 
 	<JarScanner scanClassPath="false" />
 	
-	<!--
+	<!-- 
 	To define the access to your database uncomment the corresponding one
 	from the below configurations. If you don't find the yours, look in
 	internet for the JDBC URL and driver class for your database and define 
