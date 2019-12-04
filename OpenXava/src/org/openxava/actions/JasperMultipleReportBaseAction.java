@@ -203,10 +203,8 @@ abstract public class JasperMultipleReportBaseAction extends ViewBaseAction
 			}
 			jprintArray[i]=jprint;
 		}
-		getRequest().getSession()
-		.setAttribute("xava.report.jprints", jprintArray);
-		getRequest().getSession().setAttribute("xava.report.format",
-				getFormat());
+		getRequest().getSession().setAttribute("xava.report.jprints", jprintArray);
+		getRequest().getSession().setAttribute("xava.report.format", getFormat());
 	}
 
 	private boolean isAbsolutePath(String design) {

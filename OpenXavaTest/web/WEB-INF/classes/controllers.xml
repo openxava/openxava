@@ -674,11 +674,11 @@
 			image="pdf.gif">
 			<set property="format" value="pdf"/>												
 		</action>
-		<action name="print2Pdfs" mode="detail"
+		<action name="print2Rtfs" mode="detail"
 			class="org.openxava.test.actions.InvoiceTwoReportsAction"
 			icon="numeric-2-box-multiple-outline">
-			<set property="format" value="pdf"/>												
-		</action>
+			<set property="format" value="rtf"/>												
+		</action>		
 		<action name="printInvoiceAndCustomer" mode="detail"
 			class="org.openxava.test.actions.InvoiceAndCustomerReportsAction"
 			image="pdf.gif">
@@ -708,7 +708,7 @@
 			class="org.openxava.test.actions.InvoiceReportAction" >
 			<set property="format" value="pdf"/>
 			<set property="newAfter" value="true"/>												
-		</action>	
+		</action>
 	</controller>
 	
 		
