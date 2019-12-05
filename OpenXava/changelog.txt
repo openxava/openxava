@@ -1,12 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
+- Migration documentation for adapting views to new FILES stereotype.
+- Some new common use labels to be used in applications.
 - Fix: JasperMultipleReportBaseAction with a type other than PDF has null as file name.
 - Fix: Format type in JasperMultipleReportBaseAction lost after first report.
 - Fix: updateOX ant task overwrites web/META-INF/context.xml sometimes when you update OpenXava version.
 - Fix: Dependent @DescriptionsList in an @ElementCollection fails when depends uses "this" as prefix.
 - Fix: Dependent @DescriptionsList in an @ElementCollection inside a dialog does not display the editor.
-- Some new common use labels to be used in applications. 
 - Fix: TypicalNotResetOnSave.save keystroke does not match CRUD.save keystroke.
 - Fix: Grouping by a year or month of a date in list and then order by that date fails.
 - Fix: Link in WEBURL fails when URL starts with "https://".
@@ -24,7 +25,6 @@ Change Log for OpenXava project
 - Fix: Calling getEntity() from an @OnChange action of a references throws an exception.
 - Fix: Error creating an entity with a collection with @Size(min=) and new ArrayList<>() in the declaration. 
 - Fix: ModuleTestBase.login() does not find the user field from time to time.
-- Migration documentation for adapting views to new FILES stereotype.
 - Fix: Module loses its state from time to time under high load on server.
 
 OpenXava 6.2.1 (2019-11-5)
