@@ -122,7 +122,7 @@ public class SellerTest extends CustomizeListTestBase {
 		execute("Collection.removeSelected", "row=0,viewObject=xava_view_customers");
 		assertCollectionRowCount("customers", 0);
 		
-		assertCreateElementInEntityCollection();
+		assertCreateElementInEntityCollection(); 
 		
 		assertEmailNotifications(  
 			"CREATED: email=openxavatest1@getnada.com, user=openxavatest2@getnada.com, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080/OpenXavaTest/modules/Seller?detail=66",
@@ -417,7 +417,7 @@ public class SellerTest extends CustomizeListTestBase {
 		execute("List.viewDetail", "row=2");
 		assertValue("name", "ELISEO FERNANDEZ");
 		assertCollectionRowCount("customers", 0); 
-		assertCreateElementInEntityCollection();		
+		assertCreateElementInEntityCollection(); 		
 		assertEditElementInEntityCollection();
 		assertRemoveElementInEntityCollection();
 		deleteJUnitCustomer();
@@ -458,7 +458,7 @@ public class SellerTest extends CustomizeListTestBase {
 		setValue("address.city", "JUNIT CITY");
 		setValue("address.state.id", "CA");
 		execute("Collection.save");
-		assertCollectionRowCount("customers", 1);
+		assertCollectionRowCount("customers", 1); 
 		assertValueInCollection("customers", 0, 1, "Junit Customer");
 	}
 		

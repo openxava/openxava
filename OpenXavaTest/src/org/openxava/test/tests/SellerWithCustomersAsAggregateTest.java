@@ -39,7 +39,7 @@ public class SellerWithCustomersAsAggregateTest extends ModuleTestBase {
 		setValue("address.state.id", "CA");
 		
 		execute("Collection.save");		
-		assertMessage("Customer created and associated to Seller");
+		assertMessage("Customer created and associated to Seller"); 
 		assertCollectionRowCount("customers", 1);
 		assertValueInCollection("customers", 0, "name", "Junit 66");
 		assertCustomerExists(66);

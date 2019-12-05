@@ -89,8 +89,8 @@
 	boolean htmlHead = isPortlet?false:!Is.equalAsStringIgnoreCase(request.getParameter("htmlHead"), "false");
 	String version = org.openxava.controller.ModuleManager.getVersion();
 	String realPath = request.getSession().getServletContext()
-			.getRealPath("/");			
-	Requests.init(request, app, module); 
+			.getRealPath("/");
+	Requests.init(request, app, module);
 	manager.log(request, "MODULE:" + module);
 	manager.setModuleURL(request);
 %>
@@ -235,7 +235,7 @@ if (!coreViaAJAX && restoreLastMessage) {
 	Module.restoreLastMessages(request, app, module);
 }	
 
-if (manager.isResetFormPostNeeded()) {	
+if (manager.isResetFormPostNeeded()) {
 %>		
 	<form id="xava_reset_form">
 		<% if (!"true".equals(request.getParameter("friendlyURL"))) { // To support old URL style (with xava/moduls.jsp?application=...) %>
@@ -350,7 +350,11 @@ if (manager.isResetFormPostNeeded()) {
 <%=onLoadFunction%>();
 </script>
 <% }
-manager.commit();
-context.cleanCurrentWindowId(); 
-org.openxava.util.SessionData.clean(); 
+try {
+	manager.commit();
+}
+finally {
+	context.cleanCurrentWindowId(); 
+	org.openxava.util.SessionData.clean();
+} 
 %>

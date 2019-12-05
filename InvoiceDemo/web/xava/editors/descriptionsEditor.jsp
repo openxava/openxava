@@ -133,6 +133,9 @@ if (parameterValuesStereotypes != null || parameterValuesProperties != null) {
 			parameterValueKey = parameterValueKey.substring(5);
 			v = view;
 		}
+		else if (parameterValueKey != null && view.isMemberFromElementCollection(parameterValueKey)) {
+			v = view;
+		}		
 		else {
 			v = view.getRoot();
 		}

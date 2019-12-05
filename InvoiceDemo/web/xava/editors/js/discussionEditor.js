@@ -21,6 +21,6 @@ discussionEditor.cancel = function(discussionId) {
 discussionEditor.clear = function(discussionId) {
 	$("#xava_new_comment_" + discussionId + "_buttons input").fadeOut();
 	$('.ox-button-bar-button').fadeIn(); 
-	$('.ox-bottom-buttons').fadeIn();
+	$('.ox-bottom-buttons').children().fadeIn(); 
 	CKEDITOR.instances['xava_new_comment_' + discussionId].setData('');
 }

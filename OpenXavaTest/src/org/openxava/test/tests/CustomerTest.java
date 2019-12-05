@@ -98,7 +98,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		execute("Collection.new", "viewObject=xava_view_receptionists");
 		setValue("name", "JUNIT");
 		execute("Collection.save");
-		assertCollectionRowCount("receptionists", 3);
+		assertCollectionRowCount("receptionists", 3); 
 		checkRowCollection("receptionists", 2);
 		execute("Collection.removeSelected", "viewObject=xava_view_receptionists");
 		assertCollectionRowCount("receptionists", 2);
@@ -717,7 +717,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("type", usesAnnotatedPOJO()?"2":"3");		
 	}
 	
-	public void testRefisher() throws Exception { // tmp Falla este y otros
+	public void testRefisher() throws Exception { 
 		execute("Customer.startRefisher");
 		assertEquals(-1, getRefisherEntriesCount()); // If it fails try to stop the refisher clicking in the button of the module
 		execute("List.viewDetail", "row=0");
