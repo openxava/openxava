@@ -1,11 +1,39 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.2.2 (2019-12-9)
+--------------------------
+- Migration documentation for adapting views to new FILES stereotype.
+- Some new common use labels to be used in applications.
+- Fix: JasperMultipleReportBaseAction with a type other than PDF has null as file name.
+- Fix: Format type in JasperMultipleReportBaseAction lost after first report.
+- Fix: updateOX ant task overwrites web/META-INF/context.xml sometimes when you update OpenXava version.
+- Fix: Dependent @DescriptionsList in an @ElementCollection fails when depends uses "this" as prefix.
+- Fix: Dependent @DescriptionsList in an @ElementCollection inside a dialog does not display the editor.
+- Fix: TypicalNotResetOnSave.save keystroke does not match CRUD.save keystroke.
+- Fix: Grouping by a year or month of a date in list and then order by that date fails.
+- Fix: Link in WEBURL fails when URL starts with "https://".
+- Fix: HTML_TEXT alone in a section with flowLayout=true has no margin on left.
+- Fix: When editing a DISCUSSION property the collections of other sections are narrowed.  
+- Fix: @Column(scale=) ignored when MONEY stereotype is used.
+- Fix: Throwing ValidationException from a validator doesn't show the original message saving with JPA.
+- Fix: XPersistence.setDefaultSchema() does to work for MySQL if dialect is not specified.
+- Fix: Adding an element to a collection of an entity with @EmbeddedId fails.
+- Fix: Deleting from list mode with @EmbeddedId fails.
+- Fix: Labels for excel generation in list mode are not qualified.
+- Fix: @DescriptionsList combos with tildes opened by default with Internet Explorer 11.
+- Fix: New element in an @OrderColumn list with @OneToMany without cascade fails.
+- Fix: Getting started guides still make references to configure Tomcat inside Eclipse. 
+- Fix: Calling getEntity() from an @OnChange action of a references throws an exception.
+- Fix: Error creating an entity with a collection with @Size(min=) and new ArrayList<>() in the declaration. 
+- Fix: ModuleTestBase.login() does not find the user field from time to time.
+- Fix: Module loses its state from time to time under high load on server.
+
 OpenXava 6.2.1 (2019-11-5)
 --------------------------
 - Some new common use labels to be used in applications.
 - Fix: Eclipse compilation errors on open OpenXava workspace because it is not refreshed on startup.
-- Fix: Print &quot; instead of " in PDF reports.
+- Fix: Print &quot;, &lt and &gt; instead of ", < and > in PDF reports.
 - Fix: Saving an element in a nested collection if root collection is not cascade remove fails.
 - Fix: New action of a collection inside a collection element of a not cascade remove collection fails.
 - Fix: View.setFocus() does not select the text of the focused editor.

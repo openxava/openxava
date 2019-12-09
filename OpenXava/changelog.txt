@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.2.2 (2019-12-9)
+--------------------------
 - Migration documentation for adapting views to new FILES stereotype.
 - Some new common use labels to be used in applications.
 - Fix: JasperMultipleReportBaseAction with a type other than PDF has null as file name.
@@ -16,7 +18,7 @@ Change Log for OpenXava project
 - Fix: @Column(scale=) ignored when MONEY stereotype is used.
 - Fix: Throwing ValidationException from a validator doesn't show the original message saving with JPA.
 - Fix: XPersistence.setDefaultSchema() does to work for MySQL if dialect is not specified.
-- Fix: Adding an element to a collection of entity with @Embedded fails.
+- Fix: Adding an element to a collection of an entity with @EmbeddedId fails.
 - Fix: Deleting from list mode with @EmbeddedId fails.
 - Fix: Labels for excel generation in list mode are not qualified.
 - Fix: @DescriptionsList combos with tildes opened by default with Internet Explorer 11.
