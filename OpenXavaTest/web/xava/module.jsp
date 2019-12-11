@@ -157,6 +157,15 @@
 	<% if (Browsers.isIE(request)) { %>
 	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/babel-polyfill.js?ox=<%=version%>"></script>
 	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/filepond-polyfill.js?ox=<%=version%>"></script>
+	<%-- tmp ini --%>
+	<%-- tmp Descargar libreria --%>
+	<script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+	<script type='text/javascript'>
+	cssVars({
+	  // Options...
+	});
+	</script>
+	<%-- tmp fin --%>
 	<% } %>
 	<script type='text/javascript'>
 		openxava.lastApplication='<%=app%>'; 		
