@@ -1,5 +1,274 @@
 /* tmp ini */
 
+/* tmp Truco para oscurecer color
+	background: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0.05),
+		rgba(0, 0, 0, 0.05)
+	  ) var(--list-header-background);
+*/
+
+/* Terra: a, c, d, e, b2 
+:root {
+	--color-a:  #E8DDCB;
+	--color-b:  #806632; 
+	--color-c:  #036564;
+	--color-d:  #033649;
+	--color-e:  #031634;
+	--color-b2: #CDB380; 
+	--color-b3: #be9c5a;
+	--color-b4: #a58341;
+	--color-b5: #5b4924;
+}
+*/
+
+:root {
+	--color-a:  #E8DDCB;
+	--color-b:  #806632; 
+	--color-c:  #036564;
+	--color-d:  #033649;
+	--color-e:  #031634;
+	--color-b2: #CDB380; 
+	--color-b3: var(--color-b2);
+	--color-b4: var(--color-b2);
+	--color-b5: var(--color-b);
+}
+
+
+:root {
+	--background: var(--color-a);
+	--mobile-modules-list: var(--color-a);
+	--modules-list-scrollbar-color: var(--color-a);
+	--back-folder-color: var(--color-a);
+	--search-modules-input-border: var(--color-a);
+	--module-header-link-color: var(--color-a);
+	--organization-name-color: var(--color-a);
+	--mobile-button-bar-color: var(--color-a);
+	--module-name-color: var(--color-a);
+	--organizations-index-icon-color: var(--color-a);
+	--folder-name-icon-color: var(--color-a);
+	--unsubscribed-color: var(--color-a);
+	--subcontroller-select-background: var(--color-a);
+	--default-action-button-color: var(--color-a);
+	--customize-controls-color: var(--color-a);
+	--list-formats-color: var(--color-a);
+	--list-row-hover-background: var(--color-a);	
+	--selected-row-background: var(--color-a);	
+	--section-color: var(--color-a);	
+	--dialog-titlebar-button-background: var(--color-a);	
+	--welcome-background: var(--color-a);
+	--chart-type-icon-color: var(--color-a);
+	--autocomplete-scrollbar-background: var(--color-a);
+	--ui-menu-item-state-focus-border: var(--color-a);
+	--ui-menu-item-state-focus-background: var(--color-a);
+	--icons-list-background: var(--color-a);
+	--cke-button-on-background: var(--color-a);
+	--card-subheader-color: var(--color-a);		
+	--card-content-b-color: var(--color-a);	
+	
+	--color: var(--color-b);
+	--mobile-module-name-color: var(--color-b);
+	--subscribed-color: var(--color-b);
+	--frame-frame-required-editor-border: var(--color-b);
+	--selected-list-format-color: var(--color-b);
+	--selected-list-format-border: var(--color-b);
+	--page-navigation-selected-color: var(--color-b);
+	--active-section-tab-color: var(--color-b);
+	--active-section-tab-bottom-color: var(--color-b);
+	--dialog-content-color: var(--color-b);
+	--welcome-color: var(--color-b);
+	--selected-chart-type-icon-color: var(--color-b);
+	--selected-chart-type-icon-border-bottom: var(--color-b);
+	--card-color: var(--color-b);
+	--card-content-color: var(--color-b);		
+
+	--link-color: var(--color-c);
+	--action-link-color: var(--color-c);
+	--xava-processing-layer-background: var(--color-c);
+	--load-more-modules-color: var(--color-c);
+	--reference-search-icon-background: var(--color-c);
+	--bar-links-and-icons-color: var(--color-c);
+	--highlight-bar-action-background: var(--color-c);
+	--delete-button-color: var(--color-c);
+	--first-steps-icon-color: var(--color-c);
+	--filepond--file-action-button-background: var(--color-c);
+
+	--xava-loading-shadow: var(--color-d);
+	--modules-list-background: var(--color-d);
+	--mobile-search-modules-input-focus-border: var(--color-d);
+	--module-header-background: var(--color-d);
+	--mobile-button-bar-background: var(--color-d);
+	--input-focus-border: var(--color-d);
+	--reference-search-icon-hover-background: var(--color-d);
+	--highlight-bar-action-hover-color: var(--color-d);
+	--button-bar-button-hover-color: var(--color-d);
+	--icon-hover-color: var(--color-d);
+	--button-hover-color: var(--color-d);
+	--default-action-button-background: var(--color-d);
+	--default-action-button-shadow: var(--color-d);
+	--dialog-titlebar-color: var(--color-d);
+	--icon-i-color: var(--color-d);
+	--icons-list-i-color: var(--color-d);
+	
+	--xava-loading-color: var(--color-e);
+	--modules-list-scrollbar-background: var(--color-e);
+	--modules-list-selected-background: var(--color-e);
+	--module-row-hover-background: var(--color-e);
+	--mobile-icon-module-loading-color: var(--color-e);
+	--input-color: var(--color-e);
+	--tooltip-background: var(--color-e);
+	--default-action-button-hover-background: var(--color-e);
+	--default-action-button-hover-shadow: var(--color-e);
+	--list-row-a-color: var(--color-e);
+	--total-cell-color: var(--color-e);
+	--icon-i-hover-color: var(--color-e);
+	--icons-list-i-hover-color: var(--color-e);
+	
+	--search-modules-input-focus-border: var(--color-b2);
+	--mobile-search-modules-filter-list-background: var(--color-b2);
+	--mobile-search-modules-filter-list-shadow: var(--color-b2);
+	--module-header-icon-color: var(--color-b2);
+	--button-bar-background: var(--color-b2);
+	--required-editor-border: var(--color-b2);
+	--subcontroller-background: var(--color-b2);
+	--button-focus-outline: var(--color-b2);
+	--page-navigation-selected-background: var(--color-b2);
+	--list-header-background: var(--color-b2);
+	--frame-background: var(--color-b2);
+	--frame-shadow: var(--color-b2);
+	--section-background: var(--color-b2);
+	--dialog-background: var(--color-b2);
+	--dialog-titlebar-background: var(--color-b2);
+	--sign-in-background: var(--color-b2);
+	--chart-type-background: var(--color-b2);
+	--autocomplete-scrollbar-background-thumb: var(--color-b2);
+	--cke-top-background: var(--color-b2);
+	
+	--frame-list-shadow: var(--color-b3);
+	--frame-list-header-background: var(--color-b3);
+	--frame-frame-shadow: var(--color-b3);	
+	--frame-frame-background: var(--color-b3);	
+	--dialog-section-background: var(--color-b3);	
+	--icons-list-scrollbar-background: var(--color-b3);	
+	--frame-frame-cke-top-background: var(--color-b3);	
+	--card-background: var(--color-b3);	
+	
+	--frame-required-editor-border: var(--color-b4);
+	--frame-frame-list-shadow: var(--color-b4);
+	--frame-frame-list-header-background: var(--color-b4);
+	--dialog-frame-frame-background: var(--color-b4);
+	--dialog-frame-frame-shadow: var(--color-b4);
+	--sign-in-input-focus-outline-color: var(--color-b4);
+	--frame-frame-frame-cke-top-background: var(--color-b4);
+	
+	--icons-list-scrollbar-color: var(--color-b5);	
+	--card-header-color: var(--color-b5);
+	--card-content-hover-color: var(--color-b5);					
+					
+	--modules-list-shadow: black;				
+	--tooltip-arrow-after-shadow: black;
+	--icon-check-color: black;
+	--screenshot-shadow: black;
+	--reverse-label-background: black;
+	--icon-in-list: black;
+	--sort-indicator-color: black;
+	--message-box-shadow: black;
+	
+	--action-link-hover-background: white;
+	--xava-loading-background-color: white;
+	--xava-processing-layer-color: white;
+	--sign-out-color: white;
+	--sign-in-a-hover-color: white;
+	--back-folder-hover-color: white;
+	--modules-list-header-color: white;
+	--modules-list-header-border-bottom: white;
+	--loading-more-modules-color: white;
+	--module-row-hover-color: white;
+	--selected-module-color: white;
+	--module-header-color: white;
+	--module-header-link-hover-color: white;
+	--application-name-color: white;
+	--icon-module-loading-color: white;
+	--organizations-index-icon-color-hover: white;	
+	--folder-row-hover-icon-color: white;
+	--tooltip-color: white;
+	--tooltip-border: white;
+	--subscribed-hover-color: white;
+	--reference-search-icon-color: white;
+	--reference-search-icon-hover-color: white;		
+	--highlight-bar-action-color: white;
+	--highlight-bar-action-hover-background: white;
+	--button-bar-button-hover-background: white;
+	--button-bar-button-hover-border: white;
+	--button-hover-background: white;
+	--default-action-button-hover-color: white;
+	--delete-button-hover-background: white;
+	--customize-controls-hover-color: white;
+	--list-formats-hover-color: white;
+	--list-column2-background: white;
+	--element-collection-row-hover-background: white;
+	--list-background: white;
+	--list-header-arrows-color: white;
+	--section-hover-color: white;
+	--dialog-titlebar-button-hover-background: white;
+	--message-box-color: white;
+	--message-box-a-color: white;
+	--message-box-close-hover-color: white;
+	--reverse-label-color: white;
+	--chart-type-icon-hover-color: white;
+	--crop-free-icon-color: white;
+	--plus-icon-color: white;
+	--close-column-icon: white;
+	--icons-list-i-hover-background: white;
+	--cke-button-off-background: white;
+	--card-subheader-hover-color: white;
+	--card-content-b-hover-color: white;
+		
+	--input-border: lightgray;
+	--message-box-close-color: lightgray;
+	--autocomplete-border: lightgray;
+	--xava-dropped-shadow: lightgray;
+	
+	--subcontroller-shadow: gray;
+	--dialog-shadow: gray;
+	--card-hover-shadow: gray;
+	
+	--modules-list-selected-border-right: red;
+	--icon-delete-hover-color: red;
+	--delete-button-hover-color: red;
+	
+	--error-editor-border: #DC4A38;
+	--errors-background: #DC4A38;
+	--filepond--image-preview-overlay-failure: #DC4A38;	
+		
+	--disabled-input-background: #ebebe4;
+	
+	--list-even-column-background: #f4f4f4;
+	
+	--list-row-bottom-color: #EBEBEB;
+	
+	--list-shadow: #d8c5a7;
+	--cke-shadow: #d8c5a7;
+	
+	--messages-background: #6fc664;
+	--filepond--image-preview-overlay-success-color: #6fc664;	
+	
+	--infos-background: #a1a4a5;
+	
+	--warnings-background: #ffb347;	
+	
+	--attached-file-color: #5755D2;
+	
+	--card-header-hover-color: #372c16;
+	
+	--xava-placeholder-background: #F5F5F5;
+	
+	--mobile-tap-highlight-color: rgb(205,179,128, 0.4);
+	
+}
+/* tmp fin */
+
+/* tmp Por color
 :root {
 	--background: #E8DDCB;
 	--mobile-modules-list: #E8DDCB;
@@ -58,6 +327,87 @@
 	--first-steps-icon-color: #036564;
 	--filepond--file-action-button-background: #036564;
 
+	--xava-loading-shadow: #033649;
+	--modules-list-background: #033649;
+	--mobile-search-modules-input-focus-border: #033649;
+	--module-header-background: #033649;
+	--mobile-button-bar-background: #033649;
+	--input-focus-border: #033649;
+	--reference-search-icon-hover-background: #033649;
+	--highlight-bar-action-hover-color: #033649;
+	--button-bar-button-hover-color: #033649;
+	--icon-hover-color: #033649;
+	--button-hover-color: #033649;
+	--default-action-button-background: #033649;
+	--default-action-button-shadow: #033649;
+	--dialog-titlebar-color: #033649;
+	--icon-i-color: #033649;
+	--icons-list-i-color: #033649;	
+	
+	--xava-loading-color: #031634;
+	--modules-list-scrollbar-background: #031634;
+	--modules-list-selected-background: #031634;
+	--module-row-hover-background: #031634;
+	--mobile-icon-module-loading-color: #031634;
+	--input-color: #031634;
+	--tooltip-background: #031634;
+	--default-action-button-hover-background: #031634;	
+	--default-action-button-hover-shadow: #031634;
+	--list-row-a-color: #031634;
+	--total-cell-color: #031634;
+	--icon-i-hover-color: #031634;
+	--icons-list-i-hover-color: #031634;
+	
+	--search-modules-input-focus-border: #CDB380;
+	--mobile-search-modules-filter-list-background: #CDB380;
+	--mobile-search-modules-filter-list-shadow: #CDB380;
+	--module-header-icon-color: #CDB380;
+	--button-bar-background: #CDB380;
+	--required-editor-border: #CDB380;
+	--subcontroller-background: #CDB380;
+	--button-focus-outline: #CDB380;
+	--page-navigation-selected-background: #CDB380;
+	--list-header-background: #CDB380;
+	--frame-background: #CDB380;
+	--frame-shadow: #CDB380;
+	--section-background: #CDB380;
+	--dialog-background: #CDB380;
+	--dialog-titlebar-background: #CDB380;
+	--sign-in-background: #CDB380;
+	--chart-type-background: #CDB380;
+	--autocomplete-scrollbar-background-thumb: #CDB380;
+	--cke-top-background: #CDB380;
+	
+	--frame-list-shadow: #be9c5a;
+	--frame-list-header-background: #be9c5a;
+	--frame-frame-shadow: #be9c5a;	
+	--frame-frame-background: #be9c5a;	
+	--dialog-section-background: #be9c5a;	
+	--icons-list-scrollbar-background: #be9c5a;	
+	--frame-frame-cke-top-background: #be9c5a;	
+	--card-background: #be9c5a;	
+	
+	--frame-required-editor-border: #a58341;
+	--frame-frame-list-shadow: #a58341;
+	--frame-frame-list-header-background: #a58341;
+	--dialog-frame-frame-background: #a58341;
+	--dialog-frame-frame-shadow: #a58341;
+	--sign-in-input-focus-outline-color: #a58341;
+	--frame-frame-frame-cke-top-background: #a58341;
+	
+	--icons-list-scrollbar-color: #5b4924;	
+	--card-header-color: #5b4924;
+	--card-content-hover-color: #5b4924;					
+					
+	--modules-list-shadow: black;				
+	--tooltip-arrow-after-shadow: black;
+	--icon-check-color: black;
+	--screenshot-shadow: black;
+	--reverse-label-background: black;
+	--icon-in-list: black;
+	--sort-indicator-color: black;
+	--message-box-shadow: black;
+	
 	--action-link-hover-background: white;
 	--xava-loading-background-color: white;
 	--xava-processing-layer-color: white;
@@ -107,114 +457,52 @@
 	--cke-button-off-background: white;
 	--card-subheader-hover-color: white;
 	--card-content-b-hover-color: white;
-
-
-	/* TMP ME QUEDÉ POR AQUÍ: UNIFICANDO COLORES */				
-	 
+		
+	--input-border: lightgray;
+	--message-box-close-color: lightgray;
+	--autocomplete-border: lightgray;
+	--xava-dropped-shadow: lightgray;
+	
+	--subcontroller-shadow: gray;
+	--dialog-shadow: gray;
+	--card-hover-shadow: gray;
+	
+	--modules-list-selected-border-right: red;
+	--icon-delete-hover-color: red;
+	--delete-button-hover-color: red;
+	
+	--error-editor-border: #DC4A38;
+	--errors-background: #DC4A38;
+	--filepond--image-preview-overlay-failure: #DC4A38;	
+		
+	--disabled-input-background: #ebebe4;
+	
+	--list-even-column-background: #f4f4f4;
+	
+	--list-row-bottom-color: #EBEBEB;
+	
+	--list-shadow: #d8c5a7;
+	--cke-shadow: #d8c5a7;
+	
+	--messages-background: #6fc664;
+	--filepond--image-preview-overlay-success-color: #6fc664;	
+	
+	--infos-background: #a1a4a5;
+	
+	--warnings-background: #ffb347;	
+	
+	--attached-file-color: #5755D2;
+	
+	--card-header-hover-color: #372c16;
+	
+	--xava-placeholder-background: #F5F5F5;
 	
 	--mobile-tap-highlight-color: rgb(205,179,128, 0.4);
-	--xava-loading-shadow: #033649;
-	--xava-loading-color: #031634;
-	--xava-placeholder-background: #F5F5F5;
-	--xava-dropped-shadow: #CCCCCC;
-	--modules-list-background: #033649;
-	--modules-list-scrollbar-background: #031634;
-	--search-modules-input-focus-border: #CDB380;
-	--mobile-search-modules-input-focus-border: #033649;
-	--modules-list-selected-background: #031634;
-	--modules-list-shadow: black;
-	--modules-list-selected-border-right: red;
-	--module-row-hover-background: #031634;
-	--mobile-search-modules-filter-list-background: #CDB380;
-	--mobile-search-modules-filter-list-shadow: #CDB380;
-	--module-header-background: #033649;
-	--module-header-icon-color: #CDB380;
-	--button-bar-background: #CDB380;
-	--mobile-button-bar-background: #033649;
-	--mobile-icon-module-loading-color: #031634;
-	--input-border: lightgray;
-	--input-color: #031634;
-	--disabled-input-background: #ebebe4;
-	--input-focus-border: #033649;
-	--tooltip-background: #031634;
-	--tooltip-arrow-after-shadow: black;
-	--reference-search-icon-hover-background: #033649;
-	--required-editor-border: #CDB380;
-	--frame-required-editor-border: #a58341;
-	--error-editor-border: #DC4A38;
-	--highlight-bar-action-hover-color: #033649;
-	--button-bar-button-hover-color: #033649;
-	--icon-hover-color: #033649;
-	--icon-delete-hover-color: red;
-	--icon-check-color: black;
-	--subcontroller-background: #CDB380;
-	--subcontroller-shadow: gray;
-	--button-hover-color: #033649;
-	--button-focus-outline: #CDB380;
-	--default-action-button-background: #033649;
-	--default-action-button-shadow: #033649;
-	--default-action-button-hover-background: #031634;
-	--default-action-button-hover-shadow: #031634;
-	--delete-button-hover-color: red;
-	--list-even-column-background: #f4f4f4;
-	--list-row-bottom-color: #EBEBEB;
-	--list-row-a-color: #031634;
-	--page-navigation-selected-background: #CDB380;
-	--total-cell-color: #031634;
-	--list-shadow: #d8c5a7;
-	--frame-list-shadow: #be9c5a;
-	--frame-frame-list-shadow: #a58341;
-	--list-header-background: #CDB380;
-	--frame-list-header-background: #be9c5a;
-	--frame-frame-list-header-background: #a58341;
-	--frame-background: #CDB380;
-	--frame-shadow: #CDB380;
-	--frame-frame-shadow: #be9c5a;
-	--frame-frame-background: #be9c5a;
-	--dialog-frame-frame-background: #a58341;
-	--dialog-frame-frame-shadow: #a58341;
-	--section-background: #CDB380;
-	--dialog-section-background: #be9c5a;
-	--dialog-shadow: gray;
-	--dialog-background: #CDB380;
-	--dialog-titlebar-color: #033649;
-	--dialog-titlebar-background: #CDB380;
-	--message-box-shadow: #000;
-	--message-box-close-color: lightgray;
-	--errors-background: #DC4A38;
-	--messages-background: #6fc664;
-	--infos-background: #a1a4a5;
-	--warnings-background: #ffb347;
-	--sign-in-background: #CDB380;
-	--sign-in-input-focus-outline-color: #a58341;
-	--screenshot-shadow: black;
-	--reverse-label-background: black;
-	--attached-file-color: #5755D2;
-	--chart-type-background: #CDB380;
-	--autocomplete-border: #CCC;
-	--autocomplete-scrollbar-background-thumb: #CDB380;
-	--icon-i-color: #033649;
-	--icon-i-hover-color: #031634;
-	--icons-list-i-hover-color: #031634;
-	--icons-list-i-color: #033649;
-	--icon-in-list: black;
-	--icons-list-scrollbar-background: #be9c5a;
-	--icons-list-scrollbar-color: #5b4924;
-	--sort-indicator-color: black;
-	--cke-shadow: #d8c5a7;
-	--cke-top-background: #CDB380;
-	--frame-frame-cke-top-background: #be9c5a;
-	--frame-frame-frame-cke-top-background: #a58341;
-	--card-background: #be9c5a;
-	--card-header-color: #5b4924;
-	--card-header-hover-color: #372c16;
-	--card-content-hover-color: #5b4924;
-	--card-hover-shadow: gray;
-	--filepond--image-preview-overlay-success-color: #6fc664;
-	--filepond--image-preview-overlay-failure: #DC4A38;
+	
 }
+*/
 
-/* tmp
+/* tmp Refinados
 :root {
 	--background: #E8DDCB;
 	--color: #806632; 
