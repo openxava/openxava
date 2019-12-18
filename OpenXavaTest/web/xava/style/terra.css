@@ -1,5 +1,7 @@
 /* tmp ini */
 
+/* TMP ME QUEDÉ EXPERIMENTANDO CON LAS SECCIONES */
+
 /* tmp Truco para oscurecer color
 	background: linear-gradient(
 		to top,
@@ -8,7 +10,7 @@
 	  ) var(--list-header-background);
 */
 
-/* Terra: a, c, d, e, b2 
+/* Terra: a, c, d, e, b2  
 :root {
 	--color-a:  #E8DDCB;
 	--color-b:  #806632; 
@@ -22,6 +24,7 @@
 }
 */
 
+/*  */
 :root {
 	--color-a:  #E8DDCB;
 	--color-b:  #806632; 
@@ -32,6 +35,7 @@
 	--color-b3: var(--color-b2);
 	--color-b4: var(--color-b2);
 	--color-b5: var(--color-b);
+	--color-b-soft: #dfcfad;
 }
 
 
@@ -137,8 +141,14 @@
 	--frame-background: var(--color-b2);
 	--frame-shadow: var(--color-b2);
 	--section-background: var(--color-b2);
+	/* tmp
 	--dialog-background: var(--color-b2);
 	--dialog-titlebar-background: var(--color-b2);
+	*/
+	/* tmp ini */
+	--dialog-background: var(--color-a);
+	--dialog-titlebar-background: var(--color-a);	
+	/* tmp fin */
 	--sign-in-background: var(--color-b2);
 	--chart-type-background: var(--color-b2);
 	--autocomplete-scrollbar-background-thumb: var(--color-b2);
@@ -1955,9 +1965,19 @@ input[type="button"],
 }
 
 .ox-frame {
-	float: left; 
+	float: left;
+	/* tmp ini */
+	background: linear-gradient(
+		to bottom,
+		rgba(205, 179, 128, 0.2), /* tmp Color a variable */
+		rgba(205, 179, 128, 0)  /* tmp Color a variable */
+	  ) var(--color-a);
+	box-shadow: none;  
+	/* tmp fin */	  
+	 
 }
 
+/* tmp ¿Quitar esto?
 .ox-frame .ox-frame, .ui-dialog .ox-frame {
 	box-shadow: 2px 2px 9px var(--frame-frame-shadow);
 	background: var(--frame-frame-background);
@@ -1967,6 +1987,7 @@ input[type="button"],
 	background: var(--dialog-frame-frame-background);
 	box-shadow: 2px 2px 9px var(--dialog-frame-frame-shadow);
 }
+*/
 
 #sign_in_box select, #sign_in_box input[type="text"], #sign_in_box input[type="password"] { 
 	box-sizing: content-box;  
@@ -2250,10 +2271,11 @@ div.ox-subcontroller table{
 	background: var(--list-background);
 	margin: 10px;
 	border-radius: 2px;
-	box-shadow: 1px 1px 11px var(--list-shadow);
+	/* tmp box-shadow: 1px 1px 11px var(--list-shadow); */
 	
 }
 
+/* tmp
 .ox-frame .ox-list, .ui-dialog .ox-list {
 	box-shadow: 2px 2px 9px var(--frame-list-shadow);
 }
@@ -2261,6 +2283,7 @@ div.ox-subcontroller table{
 .ox-frame .ox-frame .ox-list, .ui-dialog .ox-frame .ox-list {
 	box-shadow: 2px 2px 9px var(--frame-frame-list-shadow);
 }
+*/
 
 .ox-list .ox-list-header:last-child  {
 	border-top-right-radius: 2px;
@@ -2271,9 +2294,11 @@ div.ox-subcontroller table{
 }
 
 .ox-list-header, .ox-list-subheader {	
-	background: var(--list-header-background);
+	/* tmp background: var(--list-header-background); */
+	background: var(--color-b-soft); /* tmp */
 }
 
+/* tmp
 .ox-frame .ox-list-header, .ox-frame .ox-list-subheader,
 .ui-dialog .ox-list-header, .ui-dialog .ox-list-subheader {
 	background: var(--frame-list-header-background);
@@ -2283,6 +2308,7 @@ div.ox-subcontroller table{
 .ui-dialog .ox-frame .ox-list-header, .ui-dialog .ox-frame .ox-list-subheader {
 	background: var(--frame-frame-list-header-background);
 }
+*/
 
 .ox-list-header .ox-image-link:hover, .ox-list-subheader .ox-image-link:hover {
 	background: transparent;
