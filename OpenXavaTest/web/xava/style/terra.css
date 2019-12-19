@@ -1,6 +1,6 @@
 /* tmp ini */
 
-/* TMP ME QUEDÉ EXPERIMENTANDO CON LAS SECCIONES */
+/* TMP ME QUEDÉ HACIENDO PRIMERAS PRUEBAS CON ESQUEMA CHROME */
 
 /* tmp Truco para oscurecer color
 	background: linear-gradient(
@@ -10,7 +10,7 @@
 	  ) var(--list-header-background);
 */
 
-/* Terra: a, c, d, e, b2  
+/* Terra original: a, c, d, e, b2  
 :root {
 	--color-a:  #E8DDCB;
 	--color-b:  #806632; 
@@ -24,7 +24,7 @@
 }
 */
 
-/*  */
+/* Terra refinado 
 :root {
 	--color-a:  #E8DDCB;
 	--color-b:  #806632; 
@@ -32,10 +32,36 @@
 	--color-d:  #033649;
 	--color-e:  #031634;
 	--color-b2: #CDB380; 
-	--color-b3: var(--color-b2);
+	--color-b3: #be9c5a;
 	--color-b4: var(--color-b2);
 	--color-b5: var(--color-b);
 	--color-b-soft: #dfcfad;
+	--color-b-softer: rgba(205, 179, 128, 0.2);
+}
+*/
+
+/* Chrome */
+:root {
+	--chrome-blue: rgb(51, 103, 214);
+	--chrome-lightgray: rgb(248, 249, 250);
+	--chrome-gray: rgb(95, 99, 104);
+	--chrome-black: #202124;
+	--chrome-white: rgb(32, 33, 36);
+	--chrome-darkblue: #2850a7;
+	
+	
+	
+	--color-a:  var(--chrome-lightgray);
+	--color-b:  #806632; 
+	--color-c:  #036564;
+	--color-d:  var(--chrome-darkblue);
+	--color-e:  #031634;
+	--color-b2: #CDB380; 
+	--color-b3: #be9c5a;
+	--color-b4: var(--color-b2);
+	--color-b5: var(--color-b);
+	--color-b-soft: #dfcfad;
+	--color-b-softer: rgba(205, 179, 128, 0.2);
 }
 
 
@@ -58,7 +84,8 @@
 	--list-formats-color: var(--color-a);
 	--list-row-hover-background: var(--color-a);	
 	--selected-row-background: var(--color-a);	
-	--section-color: var(--color-a);	
+	/* tmp --section-color: var(--color-a); */
+	--section-color: var(--color-b3); /* tmp */	
 	--dialog-titlebar-button-background: var(--color-a);	
 	--welcome-background: var(--color-a);
 	--chart-type-icon-color: var(--color-a);
@@ -140,7 +167,8 @@
 	--list-header-background: var(--color-b2);
 	--frame-background: var(--color-b2);
 	--frame-shadow: var(--color-b2);
-	--section-background: var(--color-b2);
+	/* tmp --section-background: var(--color-b2); */
+	--section-background: var(--color-b-softer); /* tmp */
 	/* tmp
 	--dialog-background: var(--color-b2);
 	--dialog-titlebar-background: var(--color-b2);
@@ -152,7 +180,8 @@
 	--sign-in-background: var(--color-b2);
 	--chart-type-background: var(--color-b2);
 	--autocomplete-scrollbar-background-thumb: var(--color-b2);
-	--cke-top-background: var(--color-b2);
+	/* tmp --cke-top-background: var(--color-b2); */
+	--cke-top-background: var(--color-b-soft); /* tmp */
 	
 	--frame-list-shadow: var(--color-b3);
 	--frame-list-header-background: var(--color-b3);
@@ -1386,8 +1415,8 @@ select:not([multiple]) {
 	padding: 1px 12px 5px 0px; 
 }
 
-input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus, select:focus, textarea:focus, #module .cke_focus,
-.ox-frame .ox-required-editor input:focus, .ox-frame .ox-frame .ox-required-editor input:focus { 
+input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus, select:focus, textarea:focus, #module .cke_focus /* tmp ,
+ .ox-frame .ox-required-editor input:focus, .ox-frame .ox-frame .ox-required-editor input:focus */ { 
 	outline: 0;
 	border-color: var(--input-focus-border) !important; 
 }
@@ -2024,7 +2053,7 @@ input[type="button"],
 
 .ui-dialog .ox-section {
 	margin: 0px -6px 10px 0px;  
-	background: var(--dialog-section-background);
+	/* tmp background: var(--dialog-section-background); ¿Quitar la variable? */
 }
 
 .ox-section a, .ui-dialog .ox-section a {
@@ -2744,7 +2773,8 @@ span[id*="reference_editor"] + .ox-layout-detail {
 
 .cke_chrome {
 	border: none !important;
-	box-shadow: 1px 1px 11px var(--cke-shadow) !important;
+	/* tmp box-shadow: 1px 1px 11px var(--cke-shadow) !important; */
+	box-shadow: none !important; /* tmp */
 }
 
 .ox-frame .cke_chrome {
@@ -2766,6 +2796,7 @@ span[id*="reference_editor"] + .ox-layout-detail {
 	box-shadow: none !important;
 }
 
+/* tmp
 .ui-dialog .ox-frame .cke_top, .ox-frame .ox-frame .cke_top, .ui-dialog .ox-sections .cke_top { 
 	background: var(--frame-frame-cke-top-background) !important;
 }
@@ -2773,6 +2804,7 @@ span[id*="reference_editor"] + .ox-layout-detail {
 .ui-dialog .ox-frame .ox-frame .cke_top, .ox-frame .ox-frame .ox-frame .cke_top {
 	background: var(--frame-frame-frame-cke-top-background) !important;
 }
+*/
 
 a.cke_button_off {
 	opacity: .65;
@@ -3053,16 +3085,18 @@ div[id$="_Index__view"] .ox-list-title {
 	border-color: var(--frame-required-editor-border); 
 }
 
+/* tmp
 .ox-frame .ox-frame .ox-required-editor input, .ox-frame .ox-frame .ox-required-editor select, .ox-frame .ox-required-editor textarea {
 	border-color: var(--frame-frame-required-editor-border); 
 }
+*/
 
-.ox-error-editor input,
-.ox-frame .ox-error-editor input, .ox-frame .ox-frame .ox-error-editor input,
-.ox-error-editor textarea, 
-.ox-frame .ox-error-editor textarea, .ox-frame .ox-frame .ox-error-editor textarea,
-.ox-error-editor select, 
-.ox-frame .ox-error-editor select, .ox-frame .ox-frame .ox-error-editor select {   
+.ox-error-editor input /* tmp ,
+.ox-frame .ox-error-editor input, .ox-frame .ox-frame .ox-error-editor input, */
+.ox-error-editor textarea /* tmp , 
+.ox-frame .ox-error-editor textarea, .ox-frame .ox-frame .ox-error-editor textarea, */
+.ox-error-editor select /* tmp , 
+.ox-frame .ox-error-editor select, .ox-frame .ox-frame .ox-error-editor select */ {   
 	border-color: var(--error-editor-border) !important; /* To work in dialog */
 }
 
