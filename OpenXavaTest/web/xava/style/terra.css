@@ -1,18 +1,23 @@
 /* tmp ini */
 
-/* TMP ME QUEDÉ HACIENDO LAS COLECCIONES CON CHROME, LES ACABABA DE PONER UNA SOMBRA. EL PLAN SERÍA ACABAR CHROME Y REFACTORIZAR  */
+/* TMP ME QUEDÉ POR: TENGO HECHO TODO LO BÁSICO PARA Light (o Chrome) FALTARÍA HACER COSAS AVANZADAS COMO CARDS, HTML_TEXT, ETC.  */
 
 /* tmp Cosas modificables:
 - Sombra colecciones: ¿misma que sombre marcos?
+- Fondo colecciones.
+- Cabecera colecciones 
 - Degradado marcos.
 - Color y fondo menu izquierda.
 - Color y fondo barra de herramientas.
 - Fondo. 
 - Etiquetas.
+- Botonera: Incluidos hovers
 - Border editores. ¿Podría oscurecer alguno?
 - Barra título.
 
-
+REFACTORIZAR: El objetivo es tocar poco para tener un nuevo tema.
+Generalizar, a costa de perder algo de personalizado.
+Intentar usar colores calculados. La idea es que si definimos un azul o un verde, no tengamos que hacer todos los tonos. Además de tener que definir menos cosas.
 */
 
 /* tmp Truco para oscurecer color
@@ -81,9 +86,11 @@
 :root {
 	--background: var(--color-a);
 	--mobile-modules-list: var(--color-a);
-	--modules-list-scrollbar-color: var(--color-a);
+	/* tmp --modules-list-scrollbar-color: var(--color-a); */
+	--modules-list-scrollbar-color: var(--chrome-gray); /* tmp Chrome */
 	--back-folder-color: var(--color-a);
-	--search-modules-input-border: var(--color-a);
+	/* tmp --search-modules-input-border: var(--color-a); */
+	--search-modules-input-border: var(--input-border); /* tmp Chrome */
 	--module-header-link-color: var(--color-a);
 	--organization-name-color: var(--color-a);
 	--mobile-button-bar-color: var(--color-a);
@@ -95,7 +102,8 @@
 	--subcontroller-select-background: var(--color-a);
 	--default-action-button-color: var(--color-a);
 	--customize-controls-color: var(--color-a);
-	--list-formats-color: var(--color-a);
+	/* tmp --list-formats-color: var(--color-a); */
+	--list-formats-color: gray; /* tmp Chrome */
 	--list-row-hover-background: var(--color-a);	
 	--selected-row-background: var(--color-a);	
 	/* tmp --section-color: var(--color-a); */
@@ -130,7 +138,8 @@
 	--link-color: var(--color-c);
 	--action-link-color: var(--color-c);
 	--xava-processing-layer-background: var(--color-c);
-	--load-more-modules-color: var(--color-c);
+	/* tmp --load-more-modules-color: var(--color-c); */
+	--load-more-modules-color: var(--chrome-blue); /* tmp Chrome */
 	--reference-search-icon-background: var(--color-c);
 	/* tmp --bar-links-and-icons-color: var(--color-c); */
 	--bar-links-and-icons-color: var(--chrome-gray); /* tmp */
@@ -147,25 +156,38 @@
 	--mobile-button-bar-background: var(--color-d);
 	--input-focus-border: var(--color-d);
 	--reference-search-icon-hover-background: var(--color-d);
-	--highlight-bar-action-hover-color: var(--color-d);
-	--button-bar-button-hover-color: var(--color-d);
-	--icon-hover-color: var(--color-d);
+	/* tmp --highlight-bar-action-hover-color: var(--color-d); */
+	--highlight-bar-action-hover-color: var(--chrome-white); /* tmp Chrome */
+	/* tmp --button-bar-button-hover-color: var(--color-d); */
+	--button-bar-button-hover-color: none; /* tmp */
+	/* tmp --icon-hover-color: var(--color-d); */
+	--icon-hover-color: var(--chrome-black); /* tmp Chrome */
 	--button-hover-color: var(--color-d);
 	--default-action-button-background: var(--color-d);
 	--default-action-button-shadow: var(--color-d);
-	--dialog-titlebar-color: var(--color-d);
+	/* tmp --dialog-titlebar-color: var(--color-d); */
+	--dialog-titlebar-color: var(--chrome-black); /* tmp Chrome */
 	--icon-i-color: var(--color-d);
 	--icons-list-i-color: var(--color-d);
 	
 	--xava-loading-color: var(--color-e);
-	--modules-list-scrollbar-background: var(--color-e);
-	--modules-list-selected-background: var(--color-e);
-	--module-row-hover-background: var(--color-e);
+	/* tmp --modules-list-scrollbar-background: var(--color-e); */
+	--modules-list-scrollbar-background: lightgray; /* tmp */
+	/* --modules-list-selected-background: var(--color-e); tmp */
+	--modules-list-selected-background: lightgray; /* tmp Chrome */
+	/* --module-row-hover-background: var(--color-e); tmp */
+	--module-row-hover-background: lightgray; /* tmp Chrome */
 	--mobile-icon-module-loading-color: var(--color-e);
 	--input-color: var(--color-e);
 	--tooltip-background: var(--color-e);
+	/* tmp
 	--default-action-button-hover-background: var(--color-e);
 	--default-action-button-hover-shadow: var(--color-e);
+	*/
+	/* tmp ini */
+	--default-action-button-hover-background: blue;
+	--default-action-button-hover-shadow: blue;	
+	/* tmp fin */
 	--list-row-a-color: var(--color-e);
 	--total-cell-color: var(--color-e);
 	--icon-i-hover-color: var(--color-e);
@@ -240,14 +262,18 @@
 	--back-folder-hover-color: white;
 	--modules-list-header-color: white;
 	--modules-list-header-border-bottom: white;
-	--loading-more-modules-color: white;
-	--module-row-hover-color: white;
-	--selected-module-color: white;
+	/* tmp --loading-more-modules-color: white; */
+	--loading-more-modules-color: var(--chrome-black); /* tmp Chrome */
+	/* tmp --module-row-hover-color: white; */
+	--module-row-hover-color: var(--chrome-black); /* tmp Chrome */
+	/* --selected-module-color: white; tmp ¡Ojo! No coherente con --modules-list-selected--???  */
+	--selected-module-color: var(--chrome-black); /* tmp Chrome */
 	--module-header-color: white;
 	--module-header-link-hover-color: white;
 	/* tmp --application-name-color: white; */
-	--application-name-color: var(--chrome-gray); /* tmp */
-	--icon-module-loading-color: white;
+	--application-name-color: var(--chrome-black); /* tmp Chrome*/
+	/* tmp --icon-module-loading-color: white; */
+	--icon-module-loading-color: var(--chrome-black); /* tmp Chrome */
 	--organizations-index-icon-color-hover: white;	
 	--folder-row-hover-icon-color: white;
 	--tooltip-color: white;
@@ -256,14 +282,17 @@
 	--reference-search-icon-color: white;
 	--reference-search-icon-hover-color: white;		
 	--highlight-bar-action-color: white;
-	--highlight-bar-action-hover-background: white;
-	--button-bar-button-hover-background: white;
+	/* tmp --highlight-bar-action-hover-background: white; */
+	--highlight-bar-action-hover-background: var(--chrome-blue); /* tmp Chrome */
+	/* tmp --button-bar-button-hover-background: white; */
+	--button-bar-button-hover-background: lightgray; /* tmp Chrome */
 	--button-bar-button-hover-border: white;
 	--button-hover-background: white;
 	--default-action-button-hover-color: white;
 	--delete-button-hover-background: white;
 	--customize-controls-hover-color: white;
-	--list-formats-hover-color: white;
+	/* tmp --list-formats-hover-color: white; */
+	--list-formats-hover-color: var(--chrome-gray); /* tmp Chrome */
 	--list-column2-background: white;
 	--element-collection-row-hover-background: white;
 	--list-background: white;
@@ -292,7 +321,8 @@
 	--dialog-shadow: gray;
 	--card-hover-shadow: gray;
 	
-	--modules-list-selected-border-right: red;
+	/* tmp --modules-list-selected-border-right: red; */
+	--modules-list-selected-border-right: var(--chrome-black); /* tmp Chrome */
 	--icon-delete-hover-color: red;
 	--delete-button-hover-color: red;
 	
@@ -1561,7 +1591,7 @@ i, .ox-icon i.mdi-close-circle
 {
 	color: var(--highlight-bar-action-color);
 	background: var(--highlight-bar-action-background); 
-	border: 1px solid transparent;
+	/* border: 1px solid transparent; tmp Chrome */
 }
 
 .ox-list-mode .ox-button-bar a[id*="new"]:hover, .ox-list-mode .ox-button-bar a[id*="new"]:hover i,
@@ -2330,7 +2360,7 @@ div.ox-subcontroller table{
 	margin: 10px;
 	border-radius: 2px;
 	/* tmp box-shadow: 1px 1px 11px var(--list-shadow); */
-	
+	box-shadow: 0px 0px 3px var(--chrome-gray); /* tmp para Chrome */
 }
 
 /* tmp
@@ -2354,6 +2384,12 @@ div.ox-subcontroller table{
 .ox-list-header, .ox-list-subheader {	
 	/* tmp background: var(--list-header-background); */
 	background: var(--color-b-soft); /* tmp */
+	background: var(--chrome-white); /* tmp Chrome*/
+	border-bottom: 1px solid lightgray; /* tmp Chrome*/
+}
+
+.ox-list-subheader {
+	padding-top: 5px; /* tmp Chrome*/
 }
 
 /* tmp
