@@ -15,44 +15,100 @@
 	--color-b-soft: #dfcfad;
 	--color-b-softer: rgba(205, 179, 128, 0.2);
 	
-	
-	--modules-list-scrollbar-color: var(--color-a); 
-	--search-modules-input-border: var(--color-a);
-	--module-name-color: var(--color-a); 
-	--list-formats-color: var(--color-a); 
-	--section-color: var(--color-a); 
-	--cke-button-on-background: var(--color-a);
-	--load-more-modules-color: var(--color-c);  
-	--bar-links-and-icons-color: var(--color-c); 
+	/* Modules left menu */
+	--modules-list-color: var(--color-a);
 	--modules-list-background: var(--color-d);
+	--modules-list-selected-color: white;
+	--modules-list-selected-background: var(--color-e);
+	--modules-list-selected-border-right: red;
+	--module-row-hover-color: white;
+	--module-row-hover-background: var(--color-e);
+	--search-modules-input-border: var(--color-a);
+	--modules-list-shadow: black;
+	--load-more-modules-color: var(--color-c);
+	--loading-more-modules-color: white; 
+	--icon-module-loading-color: white; 
+	--modules-list-scrollbar-color: var(--color-a); 
+	--modules-list-scrollbar-background: var(--color-e); 
+ 	
+ 	 
+	 		
+	 
+	
+	
+	/* */
+	
+	 
+	--list-formats-color: var(--color-a); 
+	--section-color: var(--color-b3); 
+	--cke-button-on-background: var(--color-a);
+	--bar-links-and-icons-color: var(--color-c); 
 	--highlight-bar-action-hover-color: var(--color-d); 
 	--button-bar-button-hover-color: var(--color-d); 
 	--icon-hover-color: var(--color-d); 
 	--dialog-titlebar-color: var(--color-d); 
-	--modules-list-scrollbar-background: var(--color-e); 
- 	--modules-list-selected-background: var(--color-e);
- 	--module-row-hover-background: var(--color-e); 
 	--default-action-button-hover-background: var(--color-e);
 	--default-action-button-hover-shadow: var(--color-e);
 	--button-bar-background: var(--color-b2); 
 	--required-editor-border: var(--color-b2);  			
-	--section-background: var(--color-b2); 
+	--section-background: var(--color-b-softer); 
 	--dialog-background: var(--color-b2);
 	--dialog-titlebar-background: var(--color-b2);
 	--cke-top-background: var(--color-b-soft); 
-	--modules-list-shadow: black; 		
-	--loading-more-modules-color: white; 
-	--module-row-hover-color: white; 
-	--modules-list-selected-color: white; 
-	--application-name-color: white; 
-	--icon-module-loading-color: white; 
 	--highlight-bar-action-hover-background: white; 
 	--button-bar-button-hover-background: white;
 	--list-formats-hover-color: white; 
 	--cke-button-off-background: white; 
-	--modules-list-selected-border-right: red; 
 	--module-header-color: white;
 	--module-header-background: var(--color-d);			 
 					
 }
 
+.ox-button-bar {
+	box-shadow: 0px 2px 9px var(--button-bar-background);	
+}
+
+.ox-list-mode .ox-button-bar a[id*="new"], .ox-list-mode .ox-button-bar a[id*="new"] i,
+.ox-collection-list-actions > span:nth-of-type(1) a, 
+.ox-collection-list-actions > span:nth-of-type(1) i
+{
+	border: 1px solid transparent; 
+}
+
+.ox-action-link:hover {        
+	color: var(--icon-hover-color); 
+}
+
+.ox-frame, #sign_in_box, .ox-card {  
+	box-shadow: 2px 2px 9px var(--frame-shadow); 
+}
+
+.ox-frame {
+	/* tmp ini Falta colores a variables. */ 
+	background: linear-gradient(
+		to bottom,
+		rgba(205, 179, 128, 0.2), 
+		rgba(205, 179, 128, 0)  
+	  ) var(--color-a);
+	box-shadow: none;	 
+}
+
+.ox-list, .ox-chart-data {
+	box-shadow: 1px 1px 11px var(--list-shadow); 
+}
+
+.ox-list-header, .ox-list-subheader {	
+	background: var(--color-b-soft); /* tmp ¿Qué hacemos con --list-header-background?*/
+}
+
+.cke_chrome {
+	box-shadow: none !important; 
+}
+
+.ox-card-content b {
+	color: var(--card-content-b-color); 
+}
+
+.ox-card:hover .ox-card-content b {
+	color: var(--card-content-b-hover-color); 
+}

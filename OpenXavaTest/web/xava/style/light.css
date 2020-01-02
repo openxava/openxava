@@ -10,7 +10,6 @@
 	--chrome-white: white;
 	--chrome-darkblue: #2850a7;
 	
-
 	--color-a: var(--chrome-lightgray);
 	--color-b: var(--chrome-black); 
 	--color-c: var(--chrome-gray);
@@ -23,24 +22,38 @@
 	--color-b-soft: rgba(32, 33, 36, 0.4);
 	--color-b-softer: rgba(32, 33, 36, 0.2);
 	
+	/* Modules left menu */	
+	/* TMP ME QUEDÉ POR AQUÍ: INTENTANDO OSCURECER COLORES PARA LAS OPCIONES SELECCIONADAS */
+	--modules-list-color: var(--chrome-gray); 
+	--modules-list-background: var(--chrmoe-ligthgray);
+	--modules-list-selected-color: var(--chrome-black);
+	--modules-list-selected-background: lightgray;
+	--modules-list-selected-border-right: var(--chrome-black);
+	--module-row-hover-color: var(--chrome-black);
+	--module-row-hover-background: lightgray;
+	--search-modules-input-border: var(--input-border);
+	--modules-list-shadow: gray;
+	--load-more-modules-color: var(--chrome-blue);
+	--loading-more-modules-color: var(--chrome-black); 
+	--icon-module-loading-color: var(--chrome-black); 
+	--modules-list-scrollbar-color: var(--chrome-gray);
+	--modules-list-scrollbar-background: lightgray; 
+	 
+	 
+					
+		
 	
 
-	--modules-list-scrollbar-color: var(--chrome-gray);
-	--search-modules-input-border: var(--input-border); 
-	--module-name-color: var(--chrome-gray); 
+	/* */
+	 
 	--list-formats-color: gray; 
 	--section-color: var(--color-b3); 	
 	--cke-button-on-background: lightgray;
-	--load-more-modules-color: var(--chrome-blue); 
 	--bar-links-and-icons-color: var(--chrome-gray); 
-	--modules-list-background: var(--chrmoe-ligthgray); 
 	--highlight-bar-action-hover-color: var(--chrome-white);
 	--button-bar-button-hover-color: none; 
 	--icon-hover-color: var(--chrome-black); 
 	--dialog-titlebar-color: var(--chrome-black); 
-	--modules-list-scrollbar-background: lightgray; 
-	--modules-list-selected-background: lightgray; 
-	--module-row-hover-background: lightgray; 
 	--default-action-button-hover-background: blue;
 	--default-action-button-hover-shadow: blue;	
 	--button-bar-background: var(--chrome-lightgray); 
@@ -49,18 +62,50 @@
 	--dialog-background: var(--color-a);
 	--dialog-titlebar-background: var(--color-a);
 	--cke-top-background: var(--chrome-lightgray); 
-	--modules-list-shadow: gray; 				
-	--loading-more-modules-color: var(--chrome-black); 
-	--module-row-hover-color: var(--chrome-black); 
-	--modules-list-selected-color: var(--chrome-black); 
-	--application-name-color: var(--chrome-black); 
-	--icon-module-loading-color: var(--chrome-black); 
 	--highlight-bar-action-hover-background: var(--chrome-blue); 
 	--button-bar-button-hover-background: lightgray; 
 	--list-formats-hover-color: var(--chrome-gray); 
 	--cke-button-off-background: lightgray; 
-	--modules-list-selected-border-right: var(--chrome-black); 
+	 
 	--module-header-color: var(--chrome-black);
 	--module-header-background: var(--chrome-white);		
+}
+
+.ox-button-bar {
+	box-shadow: 0px 1px 3px lightgray; 		
+}
+
+.ox-frame, #sign_in_box, .ox-card {  
+	box-shadow: 0px 0px 3px var(--chrome-gray); 
+}
+
+.ox-action-link:hover, .ox-image-link:hover, .ox-page-navigation:hover, .ox-page-navigation-arrow:hover {
+	color: var(--icon-hover-color) !important; 
+}
+
+.ox-list, .ox-chart-data {
+	box-shadow: 0px 0px 3px var(--chrome-gray); 
+}
+
+.ox-list-header, .ox-list-subheader {	
+	background: var(--chrome-white); 
+	border-bottom: 1px solid lightgray; 
+}
+
+.ox-list-subheader {
+	padding-top: 5px; 
+}
+
+.cke_chrome {
+	border-radius: 2px ; 
+    box-shadow: 0px 0px 3px var(--chrome-gray) !important; 
+}
+
+.ox-card-content b {
+	color: var(--chrome-gray); 
+}
+
+.ox-card:hover .ox-card-content b {
+	color: var(--chrome-black); 
 }
 
