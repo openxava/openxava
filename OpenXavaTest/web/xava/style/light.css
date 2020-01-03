@@ -23,15 +23,10 @@
 	--color-b-softer: rgba(32, 33, 36, 0.2);
 	
 	/* Modules left menu */	
-	/* TMP ME QUEDÉ POR AQUÍ: INTENTANDO OSCURECER COLORES PARA LAS OPCIONES SELECCIONADAS */
 	--modules-list-color: var(--chrome-gray); 
-	--modules-list-background: var(--chrmoe-ligthgray);
+	--modules-list-background: var(--chrome-lightgray);
 	--modules-list-selected-color: var(--chrome-black);
-	--modules-list-selected-background: lightgray;
-	--modules-list-selected-border-right: var(--chrome-black);
-	--module-row-hover-color: var(--chrome-black);
-	--module-row-hover-background: lightgray;
-	--search-modules-input-border: var(--input-border);
+	/* TMP ME QUEDÉ POR AQUÍ: FALTA REFACTORIZAR A PARTIR DE AQUÍ */	
 	--modules-list-shadow: gray;
 	--load-more-modules-color: var(--chrome-blue);
 	--loading-more-modules-color: var(--chrome-black); 

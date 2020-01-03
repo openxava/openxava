@@ -19,11 +19,8 @@
 	--modules-list-color: var(--color-a);
 	--modules-list-background: var(--color-d);
 	--modules-list-selected-color: white;
-	--modules-list-selected-background: var(--color-e);
 	--modules-list-selected-border-right: red;
-	--module-row-hover-color: white;
-	--module-row-hover-background: var(--color-e);
-	--search-modules-input-border: var(--color-a);
+	 
 	--modules-list-shadow: black;
 	--load-more-modules-color: var(--color-c);
 	--loading-more-modules-color: white; 

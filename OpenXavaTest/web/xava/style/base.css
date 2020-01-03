@@ -33,6 +33,19 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 :root {
 	--background: var(--color-a);
 	--application-name-color: var(--modules-list-selected-color);
+	--module-row-hover-color: var(--modules-list-selected-color);
+	--modules-list-selected-border-right: var(--modules-list-selected-color);
+	
+	--modules-list-background-darker: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0.3),
+		rgba(0, 0, 0, 0.3)
+	) var(--modules-list-background);
+
+	--modules-list-selected-background: var(--modules-list-background-darker);	
+	--module-row-hover-background: var(--modules-list-background-darker);
+	--search-modules-input-border: var(--input-border);
+		
 	--mobile-modules-list: var(--color-a);
 	--back-folder-color: var(--color-a);
 	--module-header-link-color: var(--color-a);
