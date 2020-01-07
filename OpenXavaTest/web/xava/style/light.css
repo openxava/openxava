@@ -26,44 +26,41 @@
 	--modules-list-color: var(--chrome-gray); 
 	--modules-list-background: var(--chrome-lightgray);
 	--modules-list-selected-color: var(--chrome-black);
-	/* TMP ME QUEDÉ POR AQUÍ: FALTA REFACTORIZAR A PARTIR DE AQUÍ */	
-	--modules-list-shadow: gray;
-	--load-more-modules-color: var(--chrome-blue);
-	--loading-more-modules-color: var(--chrome-black); 
-	--icon-module-loading-color: var(--chrome-black); 
-	--modules-list-scrollbar-color: var(--chrome-gray);
-	--modules-list-scrollbar-background: lightgray; 
-	 
-	 
-					
 		
+	/* Module header */				
+	--module-header-color: var(--chrome-black);
+	--module-header-background: var(--chrome-white);		
+		
+	/* Button bar */
+	--button-bar-background: var(--chrome-lightgray);
+	--button-bar-button-hover-color: none;
+	--button-bar-button-hover-background: lightgray;
+	--highlight-bar-action-hover-color: var(--chrome-white);
+	--highlight-bar-action-hover-background: var(--chrome-blue);
+	--list-formats-color: gray;	
+	--list-formats-hover-color: var(--chrome-gray);
 	
-
+	/* Actions */
+	--action-color: var(--chrome-gray);
+	--action-hover-color: var(--chrome-black);  
+	/* TMP ME QUEDÉ POR AQUÍ: REVISANDO LOS BOTONES DE ABAJO. Button bar no está hecho */
+	
 	/* */
 	 
-	--list-formats-color: gray; 
+ 
 	--section-color: var(--color-b3); 	
 	--cke-button-on-background: lightgray;
-	--bar-links-and-icons-color: var(--chrome-gray); 
-	--highlight-bar-action-hover-color: var(--chrome-white);
-	--button-bar-button-hover-color: none; 
-	--icon-hover-color: var(--chrome-black); 
+	 
 	--dialog-titlebar-color: var(--chrome-black); 
 	--default-action-button-hover-background: blue;
 	--default-action-button-hover-shadow: blue;	
-	--button-bar-background: var(--chrome-lightgray); 
 	--required-editor-border: gray; 
 	--section-background: var(--color-b-softer); 	 
 	--dialog-background: var(--color-a);
 	--dialog-titlebar-background: var(--color-a);
 	--cke-top-background: var(--chrome-lightgray); 
-	--highlight-bar-action-hover-background: var(--chrome-blue); 
-	--button-bar-button-hover-background: lightgray; 
-	--list-formats-hover-color: var(--chrome-gray); 
 	--cke-button-off-background: lightgray; 
 	 
-	--module-header-color: var(--chrome-black);
-	--module-header-background: var(--chrome-white);		
 }
 
 .ox-button-bar {
@@ -75,7 +72,7 @@
 }
 
 .ox-action-link:hover, .ox-image-link:hover, .ox-page-navigation:hover, .ox-page-navigation-arrow:hover {
-	color: var(--icon-hover-color) !important; 
+	color: var(--action-hover-color) !important; /* tmp ¿A base? */ 
 }
 
 .ox-list, .ox-chart-data {

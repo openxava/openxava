@@ -21,43 +21,42 @@
 	--modules-list-selected-color: white;
 	--modules-list-selected-border-right: red;
 	 
-	--modules-list-shadow: black;
-	--load-more-modules-color: var(--color-c);
-	--loading-more-modules-color: white; 
-	--icon-module-loading-color: white; 
-	--modules-list-scrollbar-color: var(--color-a); 
-	--modules-list-scrollbar-background: var(--color-e); 
- 	
- 	 
-	 		
-	 
+	/* Module header */ 
+	--module-header-color: white;
+	--module-header-background: var(--color-d);		
 	
+	/* Button bar */	 
+	--button-bar-background: var(--color-b2);
+	--button-bar-button-hover-color: var(--color-d);
+	--button-bar-button-hover-background: white;
+	--highlight-bar-action-hover-color: var(--color-d); 
+	--highlight-bar-action-hover-background: white;
+	--list-formats-color: var(--color-a);
+	--list-formats-hover-color: white;
+	
+	/* Actions */
+	--action-color: var(--color-c);	
+	--action-hover-color: var(--color-d);
 	
 	/* */
 	
 	 
-	--list-formats-color: var(--color-a); 
+	 
 	--section-color: var(--color-b3); 
 	--cke-button-on-background: var(--color-a);
-	--bar-links-and-icons-color: var(--color-c); 
-	--highlight-bar-action-hover-color: var(--color-d); 
-	--button-bar-button-hover-color: var(--color-d); 
-	--icon-hover-color: var(--color-d); 
+	 
 	--dialog-titlebar-color: var(--color-d); 
 	--default-action-button-hover-background: var(--color-e);
-	--default-action-button-hover-shadow: var(--color-e);
-	--button-bar-background: var(--color-b2); 
+	--default-action-button-hover-shadow: var(--color-e); 
 	--required-editor-border: var(--color-b2);  			
 	--section-background: var(--color-b-softer); 
 	--dialog-background: var(--color-b2);
 	--dialog-titlebar-background: var(--color-b2);
 	--cke-top-background: var(--color-b-soft); 
-	--highlight-bar-action-hover-background: white; 
-	--button-bar-button-hover-background: white;
-	--list-formats-hover-color: white; 
+	 
+	
+	 
 	--cke-button-off-background: white; 
-	--module-header-color: white;
-	--module-header-background: var(--color-d);			 
 					
 }
 
@@ -73,7 +72,7 @@
 }
 
 .ox-action-link:hover {        
-	color: var(--icon-hover-color); 
+	color: var(--action-hover-color); /* tmp ¿A base? */ 
 }
 
 .ox-frame, #sign_in_box, .ox-card {  

@@ -1,10 +1,11 @@
 /* TMP: ¿base.css? o core.css, openxava.css, common.css */
 
 
-/* tmp Cosas modificables:
-- Menu de módulos. 
-	- ¿Generalizar los scroll? Echar un vistazo a Añadir columnas e Icons
-- Cabecera de módulo.
+/* tmp 
+
+Cosas modificables:
+* Menu de módulos. 	
+* Cabecera de módulo.
 - Botonera.
 - Fondo. 
 - Etiquetas.
@@ -13,7 +14,13 @@
 - Collecciones. ¿misma sombra que marcos?
 - Secciones
 - Marcos.
-- ¿Diálogos? 
+- ¿Diálogos?
+
+Testear:
+- Scroll: Echar un vistazo a Añadir columnas e Icons, ¿generalizar con barra izquierda?
+- Charts.
+- Modo tarjetas.
+- Paginación lista 
 
 
 REFACTORIZAR: El objetivo es tocar poco para tener un nuevo tema.
@@ -45,7 +52,14 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 	--modules-list-selected-background: var(--modules-list-background-darker);	
 	--module-row-hover-background: var(--modules-list-background-darker);
 	--search-modules-input-border: var(--input-border);
-		
+	--modules-list-shadow: black;
+	--load-more-modules-color: var(--modules-list-color);
+	--loading-more-modules-color: var(--modules-list-selected-color); 
+	--icon-module-loading-color: var(--modules-list-selected-color);
+	--modules-list-scrollbar-color: var(--modules-list-color);
+	--modules-list-scrollbar-background: var(--modules-list-background-darker);
+	 
+	
 	--mobile-modules-list: var(--color-a);
 	--back-folder-color: var(--color-a);
 	--module-header-link-color: var(--color-a);
@@ -386,7 +400,7 @@ A.sign-out  {
 	flex-direction: column;
 	height: 100vh;
 	background: var(--modules-list-background);
-	box-shadow: 0px 0px 7px var(--modules-list-shadow);
+	box-shadow: 0px 0px 4px var(--modules-list-shadow);
 	z-index: 10;
 }
 
@@ -546,7 +560,7 @@ a #load_more_modules {
 	color: var(--load-more-modules-color);
 }
 
-a #loading_more_modules  {
+a #loading_more_modules, a:hover #load_more_modules  {
 	color: var(--loading-more-modules-color);
 }
 
@@ -775,7 +789,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 .ox-button-bar-button i,
 i, .ox-icon i.mdi-close-circle
 {  
-	color: var(--bar-links-and-icons-color);
+	color: var(--action-color);
 }
 
 .ox-button-bar .ox-button-bar-button a, 
@@ -842,7 +856,7 @@ i:hover, .ox-icon i.mdi-plus:hover, .ox-icon i.mdi-close-circle:hover,
 .ox-customize-controls .mdi-sort-alphabetical:hover, .ox-customize-controls a:hover .mdi-sort-alphabetical,
 .ox-customize-controls .mdi-filter:hover, 
 .ox-customize-controls .mdi-filter-remove:hover {        
-	color: var(--icon-hover-color); 
+	color: var(--action-hover-color); 
 }
 
 .ox-button-bar-button a span {
