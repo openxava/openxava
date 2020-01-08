@@ -27,29 +27,33 @@
 	
 	/* Button bar */	 
 	--button-bar-background: var(--color-b2);
-	--button-bar-button-hover-color: var(--color-d);
-	--button-bar-button-hover-background: white;
-	--highlight-bar-action-hover-color: var(--color-d); 
-	--highlight-bar-action-hover-background: white;
 	--list-formats-color: var(--color-a);
 	--list-formats-hover-color: white;
+	
+	/* Background & labels */
+	--background: var(--color-a);
+	--color: var(--color-b);	
 	
 	/* Actions */
 	--action-color: var(--color-c);	
 	--action-hover-color: var(--color-d);
+	--action-hover-background: white;
+	--default-action-button-background: var(--color-d);
 	
+	/* Editors */
+	--required-editor-border: var(--color-b2);
+	
+	/* Sections */
+	--section-color: var(--color-b3);
+	--section-background: var(--color-b-softer);
 	/* */
 	
 	 
 	 
-	--section-color: var(--color-b3); 
-	--cke-button-on-background: var(--color-a);
 	 
+	--cke-button-on-background: var(--color-a);
 	--dialog-titlebar-color: var(--color-d); 
-	--default-action-button-hover-background: var(--color-e);
-	--default-action-button-hover-shadow: var(--color-e); 
-	--required-editor-border: var(--color-b2);  			
-	--section-background: var(--color-b-softer); 
+	 
 	--dialog-background: var(--color-b2);
 	--dialog-titlebar-background: var(--color-b2);
 	--cke-top-background: var(--color-b-soft); 

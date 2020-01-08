@@ -33,29 +33,34 @@
 		
 	/* Button bar */
 	--button-bar-background: var(--chrome-lightgray);
-	--button-bar-button-hover-color: none;
-	--button-bar-button-hover-background: lightgray;
-	--highlight-bar-action-hover-color: var(--chrome-white);
-	--highlight-bar-action-hover-background: var(--chrome-blue);
 	--list-formats-color: gray;	
 	--list-formats-hover-color: var(--chrome-gray);
+	
+	/* Background & labels */
+	--background: var(--color-a);
+	--color: var(--color-b);
 	
 	/* Actions */
 	--action-color: var(--chrome-gray);
 	--action-hover-color: var(--chrome-black);  
-	/* TMP ME QUEDÉ POR AQUÍ: REVISANDO LOS BOTONES DE ABAJO. Button bar no está hecho */
+	--action-hover-background: lightgray;	
+	--default-action-button-background: var(--color-d);
+	
+	/* Editors */
+	--required-editor-border: gray;
+	
+	/* Sections */
+	--section-color: var(--color-b3);
+	--section-background: var(--color-b-softer);
+	/* TMP ME QUEDÉ POR AQUÍ: QUIZÁS DEBERÍA HACER LOS FRAMES ANTES Y USAR SUS COLORES PARA LAS SECCIONES */
 	
 	/* */
 	 
  
-	--section-color: var(--color-b3); 	
+	 	
 	--cke-button-on-background: lightgray;
-	 
 	--dialog-titlebar-color: var(--chrome-black); 
-	--default-action-button-hover-background: blue;
-	--default-action-button-hover-shadow: blue;	
-	--required-editor-border: gray; 
-	--section-background: var(--color-b-softer); 	 
+	 	 
 	--dialog-background: var(--color-a);
 	--dialog-titlebar-background: var(--color-a);
 	--cke-top-background: var(--chrome-lightgray); 
