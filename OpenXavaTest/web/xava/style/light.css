@@ -4,7 +4,7 @@
 
 :root {
 	--chrome-blue: rgb(51, 103, 214);
-	--chrome-lightgray: rgb(248, 249, 250);
+	--chrome-lightgray: rgb(243, 243, 243);
 	--chrome-gray: rgb(95, 99, 104);
 	--chrome-black: rgb(32, 33, 36);
 	--chrome-white: white;
@@ -36,9 +36,12 @@
 	--list-formats-color: gray;	
 	--list-formats-hover-color: var(--chrome-gray);
 	
-	/* Background & labels */
-	--background: var(--color-a);
+	/* Backgrounds & labels */
+	--background: var(--chrome-white);
 	--color: var(--color-b);
+	
+	/* Frames */
+	--frame-background: var(--chrome-lightgray);
 	
 	/* Actions */
 	--action-color: var(--chrome-gray);
@@ -49,30 +52,19 @@
 	/* Editors */
 	--required-editor-border: gray;
 	
-	/* Sections */
-	--section-color: var(--color-b3);
-	--section-background: var(--color-b-softer);
-	/* TMP ME QUEDÉ POR AQUÍ: QUIZÁS DEBERÍA HACER LOS FRAMES ANTES Y USAR SUS COLORES PARA LAS SECCIONES */
-	
-	/* */
-	 
  
-	 	
+	/* Cke */
+	/* TMP ME QUEDÉ POR AQUI: REFACTORIZAR CKE*/ 	
 	--cke-button-on-background: lightgray;
-	--dialog-titlebar-color: var(--chrome-black); 
-	 	 
-	--dialog-background: var(--color-a);
-	--dialog-titlebar-background: var(--color-a);
 	--cke-top-background: var(--chrome-lightgray); 
-	--cke-button-off-background: lightgray; 
-	 
+	--cke-button-off-background: lightgray;  
 }
 
 .ox-button-bar {
 	box-shadow: 0px 1px 3px lightgray; 		
 }
 
-.ox-frame, #sign_in_box, .ox-card {  
+#sign_in_box, .ox-card {  
 	box-shadow: 0px 0px 3px var(--chrome-gray); 
 }
 

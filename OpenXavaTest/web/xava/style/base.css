@@ -12,17 +12,19 @@ Cosas modificables:
 * Border editores. 
 * Acciones: Botones, iconos, vínculos
 - Collecciones. ¿misma sombra que marcos?
-- Secciones
-- Marcos.
-- ¿Diálogos?
+* Secciones
+* Marcos.
+* Diálogos
 
 Testear:
 - Hover Botón "Quitar albaranes" en Facturas
 - Scroll: Echar un vistazo a Añadir columnas e Icons, ¿generalizar con barra izquierda?
 - Charts.
 - Modo tarjetas.
-- Paginación lista 
+- Paginación lista
+- cke 
 - Signin
+
 
 REFACTORIZAR: El objetivo es tocar poco para tener un nuevo tema.
 Generalizar, a costa de perder algo de personalizado.
@@ -73,8 +75,12 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 	--default-action-button-hover-shadow: var(--default-action-button-background); 
 	--highlight-bar-action-hover-color: white; 
 	--highlight-bar-action-hover-background: var(--default-action-button-hover-background);
-	
-	
+	--section-color: var(--action-color);
+	--section-background: var(--frame-background);
+	--section-hover-background: var(--action-hover-background);	
+	--dialog-background: var(--background);
+	--dialog-titlebar-background: var(--dialog-background);
+	--dialog-titlebar-color: var(--color);	
 		 
 	
 	--mobile-modules-list: var(--color-a);
@@ -150,8 +156,7 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 	--button-focus-outline: var(--color-b2);
 	--page-navigation-selected-background: var(--color-b2);
 	--list-header-background: var(--color-b2);
-	--frame-background: var(--color-b2);
-	--frame-shadow: var(--color-b2);
+	--frame-shadow: var(--frame-background);
 	--sign-in-background: var(--color-b2);
 	--chart-type-background: var(--color-b2);
 	--autocomplete-scrollbar-background-thumb: var(--color-b2);
@@ -209,7 +214,7 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 	--element-collection-row-hover-background: white;
 	--list-background: white;
 	--list-header-arrows-color: white;
-	--section-hover-color: white;
+	--section-hover-color: var(--action-hover-color);
 	--dialog-titlebar-button-hover-background: white;
 	--message-box-color: white;
 	--message-box-a-color: white;
@@ -1278,7 +1283,15 @@ input[type="button"] {
 	margin-right: 7px; 
 	padding: 10px 10px 3px 10px;
 	border-radius: 2px;
-	background: var(--frame-background);
+}
+
+.ox-frame {
+	background: linear-gradient(
+		to bottom,
+		var(--frame-background), 
+		rgba(0, 0, 0, 0)  
+	) var(--background);
+	box-shadow: none;	 
 }
 
 .ox-frame {
@@ -1330,6 +1343,7 @@ input[type="button"] {
 .ox-section a:hover {
 	text-decoration: none;
 	color: var(--section-hover-color);
+	background: var(--section-hover-background);
 }
 
 .ox-section a, .ox-active .ox-section-tab {
