@@ -2,43 +2,18 @@
 
 
 /* tmp 
-
-Cosas modificables:
-* Menu de módulos. 	
-* Cabecera de módulo.
-* Botonera.
-* Fondo. 
-* Etiquetas.
-* Border editores. 
-* Acciones: Botones, iconos, vínculos
+Falta:
+- Refactorizar CSS particular.
+- Simplificar paletas.
+- Ordenar y limpiar colores.
 - Collecciones. ¿misma sombra que marcos?
-* Secciones
-* Marcos.
-* Diálogos
-
-Testear:
-- Hover Botón "Quitar albaranes" en Facturas
-- Scroll: Echar un vistazo a Añadir columnas e Icons, ¿generalizar con barra izquierda?
-- Charts.
-- Modo tarjetas.
-- Paginación lista
 - cke 
+- Scroll: Echar un vistazo a Añadir columnas e Icons, ¿generalizar con menu módulos?
+- Charts.
+- Paginación lista
+- Hover Botón "Quitar albaranes" en Facturas
 - Signin
-
-
-REFACTORIZAR: El objetivo es tocar poco para tener un nuevo tema.
-Generalizar, a costa de perder algo de personalizado.
-Intentar usar colores calculados. La idea es que si definimos un azul o un verde, no tengamos que hacer todos los tonos. Además de tener que definir menos cosas.
 */
-
-/* tmp Truco para oscurecer color
-	background: linear-gradient(
-		to top,
-		rgba(0, 0, 0, 0.05),
-		rgba(0, 0, 0, 0.05)
-	  ) var(--list-header-background);
-*/
-
 
 :root {
 	
@@ -72,6 +47,7 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 		rgba(0, 0, 0, 0.3),
 		rgba(0, 0, 0, 0.3)
 	) var(--default-action-button-background);
+
 	--default-action-button-hover-shadow: var(--default-action-button-background); 
 	--highlight-bar-action-hover-color: white; 
 	--highlight-bar-action-hover-background: var(--default-action-button-hover-background);
@@ -80,7 +56,31 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 	--section-hover-background: var(--action-hover-background);	
 	--dialog-background: var(--background);
 	--dialog-titlebar-background: var(--dialog-background);
-	--dialog-titlebar-color: var(--color);	
+	--dialog-titlebar-color: var(--color);
+	
+	--cke-button-on-background: var(--cke-button-off-background);
+	--cke-button-off-background: var(--action-hover-background);
+	--cke-top-background: linear-gradient(
+		to top,
+		var(--frame-background),
+		var(--frame-background)
+	) var(--background);
+	
+	--button-bar-shadow: lightgray;
+	
+	--card-subheader-color: var(--action-color);		
+	--card-content-b-color: var(--action-color);	
+	--card-color: var(--color);
+	--card-content-color: var(--card-color);		
+    --card-background: var(--button-bar-background);
+	--card-header-color: var(--card-color);
+	--card-content-hover-color: var(--card-color);					
+	--card-subheader-hover-color: var(--action-hover-color);
+	--card-content-b-hover-color: var(--action-hover-color);
+    --card-hover-shadow: gray;
+    --card-header-hover-color: var(--action-hover-color);
+	
+			
 		 
 	
 	--mobile-modules-list: var(--color-a);
@@ -103,8 +103,6 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 	--ui-menu-item-state-focus-border: var(--color-a);
 	--ui-menu-item-state-focus-background: var(--color-a);
 	--icons-list-background: var(--color-a);
-	--card-subheader-color: var(--color-a);		
-	--card-content-b-color: var(--color-a);	
 	
 	
 	--mobile-module-name-color: var(--color-b);
@@ -118,8 +116,6 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 	--welcome-color: var(--color-b);
 	--selected-chart-type-icon-color: var(--color-b);
 	--selected-chart-type-icon-border-bottom: var(--color-b);
-	--card-color: var(--color-b);
-	--card-content-color: var(--color-b);		
 
 	--link-color: var(--color-c);
 	--action-link-color: var(--color-c);
@@ -167,7 +163,6 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 	--frame-frame-background: var(--color-b3);	
 	--icons-list-scrollbar-background: var(--color-b3);	
 	--frame-frame-cke-top-background: var(--color-b3);	
-	--card-background: var(--color-b3);	
 	
 	--frame-required-editor-border: var(--color-b4);
 	--frame-frame-list-shadow: var(--color-b4);
@@ -178,8 +173,6 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 	--frame-frame-frame-cke-top-background: var(--color-b4);
 	
 	--icons-list-scrollbar-color: var(--color-b5);	
-	--card-header-color: var(--color-b5);
-	--card-content-hover-color: var(--color-b5);					
 					
 	--tooltip-arrow-after-shadow: black;
 	--icon-check-color: black;
@@ -225,8 +218,6 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 	--plus-icon-color: white;
 	--close-column-icon: white;
 	--icons-list-i-hover-background: white;
-	--card-subheader-hover-color: white;
-	--card-content-b-hover-color: white;
 		
 	--input-border: lightgray;
 	--message-box-close-color: lightgray;
@@ -235,7 +226,6 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 	
 	--subcontroller-shadow: gray;
 	--dialog-shadow: gray;
-	--card-hover-shadow: gray;
 	
 	--icon-delete-hover-color: red;
 	--delete-button-hover-color: red;
@@ -262,7 +252,6 @@ Intentar usar colores calculados. La idea es que si definimos un azul o un verde
 	
 	--attached-file-color: #5755D2;
 	
-	--card-header-hover-color: #372c16;
 	
 	--xava-placeholder-background: #F5F5F5;
 	
@@ -766,6 +755,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 .ox-button-bar {
 	padding: 8px 10px 16px 10px;
 	background: var(--button-bar-background);
+	box-shadow: 0px 1px 3px var(--button-bar-shadow); 
 }
 
 .mobile .ox-button-bar, .mobile #modules_list_header {
@@ -1285,6 +1275,10 @@ input[type="button"] {
 	border-radius: 2px;
 }
 
+#sign_in_box, .ox-card {  
+	box-shadow: 2px 2px 9px var(--frame-shadow); 
+}
+
 .ox-frame {
 	background: linear-gradient(
 		to bottom,
@@ -1537,6 +1531,7 @@ input[type="button"] {
 .ox-action-link:hover, .ox-image-link:hover, .ox-page-navigation:hover, .ox-page-navigation-arrow:hover {
 	background: var(--action-link-hover-background);
 	text-decoration: none;
+	color: var(--action-hover-color) !important;
 }
 
 .ox-button-bar-button span {
@@ -2164,9 +2159,13 @@ div[id$="_Index__view"] .ox-list-title {
 	color: var(--card-content-color); 
 }
 
+.ox-card-content b {
+	color: var(--card-content-b-color); 
+}
+
 .ox-card:hover {
 	cursor: pointer;
-	box-shadow: 2px 2px 9px var(--card-hover-shadow);
+	box-shadow: 1px 1px 5px var(--card-hover-shadow);
 }
 
 .ox-card:hover .ox-card-header {
@@ -2180,6 +2179,11 @@ div[id$="_Index__view"] .ox-list-title {
 .ox-card:hover .ox-card-content {
 	color: var(--card-content-hover-color);
 }
+
+.ox-card:hover .ox-card-content b {
+	color: var(--card-content-b-hover-color); 
+}
+
 
 #xava_loading_more_elements {
 	min-height: 20px;

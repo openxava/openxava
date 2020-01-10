@@ -46,30 +46,10 @@
 	/* Editors */
 	--required-editor-border: var(--color-b2);
 		 
-	/* Cke */
-	--cke-button-on-background: var(--color-a);
-	--cke-top-background: var(--color-b-soft); 
-	--cke-button-off-background: white; 					
+						
 }
 
-.ox-button-bar {
-	box-shadow: 0px 2px 9px var(--button-bar-background);	
-}
 
-.ox-list-mode .ox-button-bar a[id*="new"], .ox-list-mode .ox-button-bar a[id*="new"] i,
-.ox-collection-list-actions > span:nth-of-type(1) a, 
-.ox-collection-list-actions > span:nth-of-type(1) i
-{
-	border: 1px solid transparent; 
-}
-
-.ox-action-link:hover {        
-	color: var(--action-hover-color); /* tmp ¿A base? */ 
-}
-
-#sign_in_box, .ox-card {  
-	box-shadow: 2px 2px 9px var(--frame-shadow); 
-}
 
 
 .ox-list, .ox-chart-data {
@@ -84,10 +64,3 @@
 	box-shadow: none !important; 
 }
 
-.ox-card-content b {
-	color: var(--card-content-b-color); 
-}
-
-.ox-card:hover .ox-card-content b {
-	color: var(--card-content-b-hover-color); 
-}

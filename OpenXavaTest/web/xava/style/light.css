@@ -52,25 +52,10 @@
 	/* Editors */
 	--required-editor-border: gray;
 	
- 
-	/* Cke */
-	/* TMP ME QUEDÉ POR AQUI: REFACTORIZAR CKE*/ 	
-	--cke-button-on-background: lightgray;
-	--cke-top-background: var(--chrome-lightgray); 
-	--cke-button-off-background: lightgray;  
+	  
 }
 
-.ox-button-bar {
-	box-shadow: 0px 1px 3px lightgray; 		
-}
-
-#sign_in_box, .ox-card {  
-	box-shadow: 0px 0px 3px var(--chrome-gray); 
-}
-
-.ox-action-link:hover, .ox-image-link:hover, .ox-page-navigation:hover, .ox-page-navigation-arrow:hover {
-	color: var(--action-hover-color) !important; /* tmp ¿A base? */ 
-}
+/* TMP ME QUEDÉ POR AQUÍ: REFACTORIZANDO LO DE ABAJO */
 
 .ox-list, .ox-chart-data {
 	box-shadow: 0px 0px 3px var(--chrome-gray); 
@@ -90,11 +75,4 @@
     box-shadow: 0px 0px 3px var(--chrome-gray) !important; 
 }
 
-.ox-card-content b {
-	color: var(--chrome-gray); 
-}
-
-.ox-card:hover .ox-card-content b {
-	color: var(--chrome-black); 
-}
 
