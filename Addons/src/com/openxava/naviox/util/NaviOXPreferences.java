@@ -161,5 +161,35 @@ public class NaviOXPreferences {
 	public String getEmailValidatorForSignUpClass() { 
 		return getProperties().getProperty("emailValidatorForSignUpClass", EmailValidator.class.getName()).trim();
 	}
-		
+	
+	/**
+	 * Amazon s3 credentials
+	 */
+	
+	/** Amazon s3 bucketName */
+	public String getAmazonBucketName() { 
+		return getProperties().getProperty("bucketName", "").trim();
+	}	
+	
+	/** Amazon s3 AccessKey */
+	public String getAmazonAccessKey() { 
+		return getProperties().getProperty("accessKey", "").trim();
+	}
+	
+	/** Amazon s3 SecretKey */
+	public String getAmazonSecretKey() { 
+		return getProperties().getProperty("secretKey", "").trim();
+	}
+	
+	/** Amazon s3 Region */
+	public String getAmazonRegion() { 
+		return getProperties().getProperty("region", "").trim();
+	}
+	
+	/** Amazon s3 Region */
+	public String getAmazonBucketPrefixFolderName() { 
+		String prefixName = "";
+		prefixName = getProperties().getProperty("bucketPrefixFolderName", "").trim();
+		return prefixName.isEmpty() ? prefixName : prefixName + "/"; 
+	}
 }
