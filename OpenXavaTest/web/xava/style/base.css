@@ -3,7 +3,6 @@
 
 /* tmp 
 Falta:
-- Refactorizar CSS particular.
 - Simplificar paletas.
 - Ordenar y limpiar colores.
 - Collecciones. ¿misma sombra que marcos?
@@ -58,13 +57,16 @@ Falta:
 	--dialog-titlebar-background: var(--dialog-background);
 	--dialog-titlebar-color: var(--color);
 	
-	--cke-button-on-background: var(--cke-button-off-background);
-	--cke-button-off-background: var(--action-hover-background);
-	--cke-top-background: linear-gradient(
+	--header-background: linear-gradient(
 		to top,
 		var(--frame-background),
 		var(--frame-background)
-	) var(--background);
+	) var(--background);	
+	
+	--cke-button-on-background: var(--cke-button-off-background);
+	--cke-button-off-background: var(--action-hover-background);
+	--cke-top-background: var(--header-background);
+	
 	
 	--button-bar-shadow: lightgray;
 	
@@ -79,7 +81,8 @@ Falta:
 	--card-content-b-hover-color: var(--action-hover-color);
     --card-hover-shadow: gray;
     --card-header-hover-color: var(--action-hover-color);
-	
+	--shadow: gray;	
+	--list-header-background: var(--header-background);		
 			
 		 
 	
@@ -135,26 +138,26 @@ Falta:
 	--icon-i-color: var(--color-d);
 	--icons-list-i-color: var(--color-d);
 	
-	--xava-loading-color: var(--color-e);
-	--mobile-icon-module-loading-color: var(--color-e);
-	--input-color: var(--color-e);
-	--tooltip-background: var(--color-e);
-	--list-row-a-color: var(--color-e);
-	--total-cell-color: var(--color-e);
-	--icon-i-hover-color: var(--color-e);
-	--icons-list-i-hover-color: var(--color-e);
+	--xava-loading-color: black;
+	--mobile-icon-module-loading-color: black;
+	--input-color: black;
+	--tooltip-background: black;
+	--list-row-a-color: black;
+	--total-cell-color: black;
+	--icon-i-hover-color: black;
+	--icons-list-i-hover-color: black;
 	
-	--search-modules-input-focus-border: var(--color-b2);
-	--mobile-search-modules-filter-list-background: var(--color-b2);
-	--mobile-search-modules-filter-list-shadow: var(--color-b2);
-	--module-header-icon-color: var(--color-b2);
-	--subcontroller-background: var(--color-b2);
-	--button-focus-outline: var(--color-b2);
-	--page-navigation-selected-background: var(--color-b2);
-	--list-header-background: var(--color-b2);
-	--frame-shadow: var(--frame-background);
-	--sign-in-background: var(--color-b2);
-	--chart-type-background: var(--color-b2);
+	--search-modules-input-focus-border: var(--required-editor-border);
+	--mobile-search-modules-filter-list-background: var(--button-bar-background);
+	--mobile-search-modules-filter-list-shadow: var(--button-bar-background);
+	--module-header-icon-color: var(--module-header-color);
+	--subcontroller-background: var(--button-bar-background);
+	--button-focus-outline: var(--input-focus-border);
+	--page-navigation-selected-background: var(--button-bar-background);
+	
+	--sign-in-background: var(--button-bar-background);
+	--chart-type-background: var(--button-bar-background);
+	/* TMP ME QUEDÉ POR AQUÍ: ELIMINANDO color-b2 */
 	--autocomplete-scrollbar-background-thumb: var(--color-b2);
 	
 	--frame-list-shadow: var(--color-b3);
@@ -224,8 +227,8 @@ Falta:
 	--autocomplete-border: lightgray;
 	--xava-dropped-shadow: lightgray;
 	
-	--subcontroller-shadow: gray;
-	--dialog-shadow: gray;
+	--subcontroller-shadow: var(--shadow);
+	--dialog-shadow: var(--shadow);
 	
 	--icon-delete-hover-color: red;
 	--delete-button-hover-color: red;
@@ -239,9 +242,6 @@ Falta:
 	--list-even-column-background: #f4f4f4;
 	
 	--list-row-bottom-color: #EBEBEB;
-	
-	--list-shadow: #d8c5a7;
-	--cke-shadow: #d8c5a7;
 	
 	--messages-background: #6fc664;
 	--filepond--image-preview-overlay-success-color: #6fc664;	
@@ -1101,6 +1101,11 @@ input[type="button"] {
   color: var(--delete-button-hover-color);
 }
 
+.ox-list-header, .ox-list-subheader {	
+	background: var(--list-header-background); 
+}
+
+
 .ox-list-header th, .ox-list-subheader td, .ox-list-pair td, .ox-list-odd td, .ox-total-row td  { 
 	padding-left: 4px;
 	padding-right: 4px !important;	
@@ -1275,8 +1280,8 @@ input[type="button"] {
 	border-radius: 2px;
 }
 
-#sign_in_box, .ox-card {  
-	box-shadow: 2px 2px 9px var(--frame-shadow); 
+#sign_in_box, .ox-card, .ox-list, .ox-chart-data, .cke_chrome {  
+	box-shadow: 0px 0px 3px var(--shadow) !important; 
 }
 
 .ox-frame {

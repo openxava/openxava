@@ -14,7 +14,6 @@
 	--color-b: var(--chrome-black); 
 	--color-c: var(--chrome-gray);
 	--color-d: var(--chrome-blue);
-	--color-e: var(--chrome-black);
 	--color-b2: var(--chrome-white); 
 	--color-b3: var(--chrome-lightgray);
 	--color-b4: var(--color-b2);
@@ -53,26 +52,6 @@
 	--required-editor-border: gray;
 	
 	  
-}
-
-/* TMP ME QUEDÉ POR AQUÍ: REFACTORIZANDO LO DE ABAJO */
-
-.ox-list, .ox-chart-data {
-	box-shadow: 0px 0px 3px var(--chrome-gray); 
-}
-
-.ox-list-header, .ox-list-subheader {	
-	background: var(--chrome-white); 
-	border-bottom: 1px solid lightgray; 
-}
-
-.ox-list-subheader {
-	padding-top: 5px; 
-}
-
-.cke_chrome {
-	border-radius: 2px ; 
-    box-shadow: 0px 0px 3px var(--chrome-gray) !important; 
 }
 
 

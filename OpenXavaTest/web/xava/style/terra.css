@@ -7,7 +7,6 @@
 	--color-b:  #806632; 
 	--color-c:  #036564;
 	--color-d:  #033649;
-	--color-e:  #031634;
 	--color-b2: #CDB380; 
 	--color-b3: #be9c5a;
 	--color-b4: var(--color-b2);
@@ -49,18 +48,4 @@
 						
 }
 
-
-
-
-.ox-list, .ox-chart-data {
-	box-shadow: 1px 1px 11px var(--list-shadow); 
-}
-
-.ox-list-header, .ox-list-subheader {	
-	background: var(--color-b-soft); /* tmp ¿Qué hacemos con --list-header-background?*/
-}
-
-.cke_chrome {
-	box-shadow: none !important; 
-}
 
