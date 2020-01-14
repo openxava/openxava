@@ -86,16 +86,16 @@ Falta:
 			
 		 
 	
-	--mobile-modules-list: var(--color-a);
-	--back-folder-color: var(--color-a);
-	--module-header-link-color: var(--color-a);
-	--organization-name-color: var(--color-a);
-	--mobile-button-bar-color: var(--color-a);
-	--organizations-index-icon-color: var(--color-a);
-	--folder-name-icon-color: var(--color-a);
-	--unsubscribed-color: var(--color-a);
-	--subcontroller-select-background: var(--color-a);
-	
+	--mobile-modules-list-background: var(--background);
+	--back-folder-color: var(--modules-list-color);
+	--module-header-link-color: var(--module-header-color);
+	--organization-name-color: var(--application-name-color);
+	--mobile-button-bar-color: var(--modules-list-background);
+	--organizations-index-icon-color: var(--organization-name-color);
+	--folder-name-icon-color: var(--modules-list-color);
+	--unsubscribed-color: var(--background);
+	--subcontroller-select-background: var(--background);
+	/* TMP ME QUEDÉ POR AQUÍ: QUITANDO LOS --color-a */
 	--customize-controls-color: var(--color-a);
 	--list-row-hover-background: var(--color-a);	
 	--selected-row-background: var(--color-a);	
@@ -108,17 +108,17 @@ Falta:
 	--icons-list-background: var(--color-a);
 	
 	
-	--mobile-module-name-color: var(--color-b);
-	--subscribed-color: var(--color-b);
-	--selected-list-format-color: var(--color-b);
-	--selected-list-format-border: var(--color-b);
-	--page-navigation-selected-color: var(--color-b);
-	--active-section-tab-color: var(--color-b);
-	--active-section-tab-bottom-color: var(--color-b);
-	--dialog-content-color: var(--color-b);
-	--welcome-color: var(--color-b);
-	--selected-chart-type-icon-color: var(--color-b);
-	--selected-chart-type-icon-border-bottom: var(--color-b);
+	--mobile-module-name-color: var(--color);
+	--subscribed-color: var(--color);
+	--selected-list-format-color: var(--color);
+	--selected-list-format-border: var(--color);
+	--page-navigation-selected-color: var(--color);
+	--active-section-tab-color: var(--color);
+	--active-section-tab-bottom-color: var(--color);
+	--dialog-content-color: var(--color);
+	--welcome-color: var(--color);
+	--selected-chart-type-icon-color: var(--color);
+	--selected-chart-type-icon-border-bottom: var(--color);
 
 	--link-color: var(--color-c);
 	--action-link-color: var(--color-c);
@@ -157,25 +157,27 @@ Falta:
 	
 	--sign-in-background: var(--button-bar-background);
 	--chart-type-background: var(--button-bar-background);
-	/* TMP ME QUEDÉ POR AQUÍ: ELIMINANDO color-b2 */
-	--autocomplete-scrollbar-background-thumb: var(--color-b2);
+	--autocomplete-scrollbar-background-thumb: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0.3),
+		rgba(0, 0, 0, 0.3)
+	) var(--autocomplete-scrollbar-background);
 	
-	--frame-list-shadow: var(--color-b3);
-	--frame-list-header-background: var(--color-b3);
-	--frame-frame-shadow: var(--color-b3);	
-	--frame-frame-background: var(--color-b3);	
-	--icons-list-scrollbar-background: var(--color-b3);	
-	--frame-frame-cke-top-background: var(--color-b3);	
 	
-	--frame-required-editor-border: var(--color-b4);
-	--frame-frame-list-shadow: var(--color-b4);
-	--frame-frame-list-header-background: var(--color-b4);
-	--dialog-frame-frame-background: var(--color-b4);
-	--dialog-frame-frame-shadow: var(--color-b4);
-	--sign-in-input-focus-outline-color: var(--color-b4);
-	--frame-frame-frame-cke-top-background: var(--color-b4);
+	--icons-list-scrollbar-background: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0.2),
+		rgba(0, 0, 0, 0.2)
+	) var(--icons-list-background);
+		
 	
-	--icons-list-scrollbar-color: var(--color-b5);	
+	--sign-in-input-focus-outline-color: var(--button-focus-outline);
+	
+	--icons-list-scrollbar-color: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0.4),
+		rgba(0, 0, 0, 0.4)
+	) var(--icons-list-background);	
 					
 	--tooltip-arrow-after-shadow: black;
 	--icon-check-color: black;
@@ -193,7 +195,7 @@ Falta:
 	--back-folder-hover-color: white;
 	--modules-list-header-color: white;
 	--modules-list-header-border-bottom: white;
-	--module-header-link-hover-color: white;
+	--module-header-link-hover-color: var(--module-header-color);
 	--organizations-index-icon-color-hover: white;	
 	--folder-row-hover-icon-color: white;
 	--tooltip-color: white;
@@ -413,7 +415,7 @@ A.sign-out  {
 }
 
 .mobile #modules_list {
-	background: var(--mobile-modules-list);
+	background: var(--mobile-modules-list-background);
 }
 
 #modules_list_core::-webkit-scrollbar {

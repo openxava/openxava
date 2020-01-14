@@ -3,19 +3,14 @@
 @import 'base.css';
 
 :root {
-	--color-a:  #E8DDCB;
-	--color-b:  #806632; 
-	--color-c:  #036564;
-	--color-d:  #033649;
-	--color-b2: #CDB380; 
-	--color-b3: #be9c5a;
-	--color-b4: var(--color-b2);
-	--color-b5: var(--color-b);
-	--color-b-soft: #dfcfad;
-	--color-b-softer: rgba(205, 179, 128, 0.2);
+	--light-terra: #E8DDCB;
+	--dark-terra: #806632; 
+	--color-c: #036564;
+	--color-d: #033649;
+	--terra: #CDB380; 
 	
 	/* Modules left menu */
-	--modules-list-color: var(--color-a);
+	--modules-list-color: var(--light-terra);
 	--modules-list-background: var(--color-d);
 	--modules-list-selected-color: white;
 	--modules-list-selected-border-right: red;
@@ -25,13 +20,13 @@
 	--module-header-background: var(--color-d);		
 	
 	/* Button bar */	 
-	--button-bar-background: var(--color-b2);
-	--list-formats-color: var(--color-a);
+	--button-bar-background: var(--terra);
+	--list-formats-color: var(--light-terra);
 	--list-formats-hover-color: white;
 	
 	/* Backgrounds & labels */
-	--background: var(--color-a);
-	--color: var(--color-b);
+	--background: var(--light-terra);
+	--color: var(--dark-terra);
 	
 	/* Frames */	
 	--frame-background: rgba(205, 179, 128, 0.2);
@@ -43,7 +38,7 @@
 	--default-action-button-background: var(--color-d);
 	
 	/* Editors */
-	--required-editor-border: var(--color-b2);
+	--required-editor-border: var(--terra);
 		 
 						
 }
