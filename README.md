@@ -46,7 +46,7 @@ region=region
 bucketPrefixFolderName=bucketPrefixFolderName
 ```
 
-- Example: Using above credentials the Client is build 
+  **Example: Using above credentials the Client is build**
 
 ```
 	    BasicAWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
@@ -60,7 +60,7 @@ bucketPrefixFolderName=bucketPrefixFolderName
 
 ## If IAM role based access is used then region, accessKey and secretkey are not required as mandatory
 
-- Example: Building client without region, accessKey and secretkey
+ **Example: Building client without region, accessKey and secretkey**
 
 ```
    	    AmazonS3Client s3 = (AmazonS3Client) AmazonS3ClientBuilder
