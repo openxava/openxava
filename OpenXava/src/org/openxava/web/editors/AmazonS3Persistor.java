@@ -15,6 +15,7 @@ public class AmazonS3Persistor {
 	
    private static final java.io.File PARENT  = new java.io.File(XavaPreferences.getInstance().getFilesPath());
    private static final String PrefixFolderName = NaviOXPreferences.getInstance().getAmazonBucketPrefixFolderName();
+   private static Log log = LogFactory.getLog(AmazonS3Persistor.class);
    
    public static AmazonS3Client initialize() {
 	   
@@ -132,20 +133,20 @@ public class AmazonS3Persistor {
    }
    
    public static void amazonException(AmazonServiceException ase) {
-	   System.out.println("Caught an AmazonServiceException, which means your request made it "
-               + "to Amazon S3, but was rejected with an error response for some reason.");
-       System.out.println("Error Message:    " + ase.getMessage());
-       System.out.println("HTTP Status Code: " + ase.getStatusCode());
-       System.out.println("AWS Error Code:   " + ase.getErrorCode());
-       System.out.println("Error Type:       " + ase.getErrorType());
-       System.out.println("Request ID:       " + ase.getRequestId());
+	log.error("Caught an AmazonServiceException, which means your request made it "
+	               + "to Amazon S3, but was rejected with an error response for some reason.");
+	log.debug("Error Message:    " + ase.getMessage());
+	log.debug("HTTP Status Code: " + ase.getStatusCode());
+	log.debug("AWS Error Code:   " + ase.getErrorCode());
+	log.debug("Error Type:       " + ase.getErrorType());
+	log.debug("Request ID:       " + ase.getRequestId());
    }
    
    public static void amazonClientException(AmazonClientException ace) {
-	   System.out.println("Caught an AmazonClientException, which means the client encountered "
+	log.error("Caught an AmazonClientException, which means the client encountered "
                + "a serious internal problem while trying to communicate with S3, "
                + "such as not being able to access the network.");
-       System.out.println("Error Message: " + ace.getMessage());
+	log.debug("Error Message: " + ace.getMessage());
    }
 
 }

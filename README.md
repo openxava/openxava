@@ -39,14 +39,34 @@
 bucketName=bucketName
 accessKey=accessKey
 secretKey=secretKey
+region=region
 ```
 - Extra property: To prefix with new folder you can add folder name with this property.
 ```
 bucketPrefixFolderName=bucketPrefixFolderName
 ```
 
-## If IAM role based access is used then accessKey and secretkey are not required as mandatory
+# Example: Using above credentials the Client is build 
 
+```
+	    BasicAWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+		
+   	    AmazonS3Client s3 = (AmazonS3Client) AmazonS3ClientBuilder
+		            	      .standard()
+		            	      .withCredentials(new AWSStaticCredentialsProvider(credentials))
+		            	      .withRegion(region)
+		            	      .build();
+```
+
+## If IAM role based access is used then region, accessKey and secretkey are not required as mandatory
+
+# Example: Building client without region, accessKey and secretkey
+
+```
+   	    AmazonS3Client s3 = (AmazonS3Client) AmazonS3ClientBuilder
+		            	      .standard()
+		            	      .build();
+```
 
 ## Need any help for more advanced use cases / support?
 
