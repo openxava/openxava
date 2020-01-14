@@ -29,9 +29,19 @@ public class AmazonS3Persistor {
 	   String region = NaviOXPreferences.getInstance().getAmazonRegion();
 	   
 	   /**
+	    * Building a s3 client without credentials using IAM role based access
+	    */
+       	   if (secretKey.isEmpty() || accessKey.isEmpty()) {
+		   AmazonS3Client s3 = (AmazonS3Client) AmazonS3ClientBuilder
+         	      .standard()
+         	      .build();
+		   return s3;
+	    }	   
+
+           /**
 	    * Building a s3 client using credentials and region
 	    */
-	   BasicAWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+           BasicAWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 	   
 	   AmazonS3Client s3 = (AmazonS3Client) AmazonS3ClientBuilder
 		            	      .standard()
