@@ -1,0 +1,197 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE controllers SYSTEM "dtds/controllers.dtd">
+
+<!-- NaviOX -->
+
+<controllers>
+
+	<object name="naviox_locked" class="java.lang.Boolean" value="false" scope="global"/>
+	<object name="naviox_locking" class="java.lang.Boolean" value="false"/>
+
+	<controller name="SignIn">
+	
+		<action name="init" on-init="true" hidden="true"  			
+			class="com.openxava.naviox.actions.InitSignInAction"/>
+	
+		<action name="signIn"  			
+			class="com.openxava.naviox.actions.SignInAction"/>			
+					
+	</controller>
+	
+	<controller name="GoSignUp">
+		
+		<action name="signUp"
+        	class="com.openxava.naviox.actions.GoSignUpAction"/>	
+        	
+	</controller>
+	
+	<controller name="UserJoin">
+		
+        <action name="join"
+        	class="com.openxava.naviox.actions.UserJoinAction"/>	
+        	
+	</controller>	
+	
+	<controller name="SignUp">
+    	<action name="init" on-init="true" hidden="true"
+        	class="com.openxava.naviox.actions.InitSignUpAction"/>		
+    	<action name="signUp" takes-long="true"
+        	class="com.openxava.naviox.actions.SignUpAction"/>							      
+	</controller>
+	
+	<controller name="RecoverPassword">
+    	<action name="recoverPassword"
+        	class="com.openxava.naviox.actions.RecoverPasswordAction"/>			
+	</controller>
+	
+	<controller name="RestorePassword">
+		<action name="init" on-each-request="true" hidden="true"
+			class="com.openxava.naviox.actions.InitRestorePasswordAction"/>
+    	<action name="setPassword"
+        	class="com.openxava.naviox.actions.RestorePasswordAction"/>        					      	
+	</controller>	
+
+	<controller name="SessionLocker">
+		<action name="lock" hidden="true" 			
+			class="com.openxava.naviox.actions.LockAction"/>
+		<action name="unlock" hidden="true" 			
+			class="com.openxava.naviox.actions.UnlockAction"/>
+	</controller>
+	
+	<controller name="Configuration">
+	
+		<action name="init" after-each-request="true" hidden="true"  			
+			class="com.openxava.naviox.actions.InitConfigurationAction"/>
+	
+		<action name="save" mode="detail"
+			by-default="if-possible"
+			class="com.openxava.naviox.actions.SaveConfigurationAction"
+			keystroke="Control S"/>
+						
+	</controller>		
+	
+	<controller name="History">
+		<extends controller="Print"/>
+		<action name="warnNotEnabled" on-init="true" hidden="true" 
+			class="com.openxava.naviox.actions.WarnHistoryNotEnabledAction"/> 
+	</controller>
+
+	<controller name="User">
+		<extends controller="Typical"/>
+		<action name="save" mode="detail"
+			by-default="if-possible"
+			class="com.openxava.naviox.actions.SaveUserAction"
+			image="save.gif"
+			icon="content-save"
+			keystroke="Control S"/>	
+	</controller>
+	
+	<controller name="Module">
+		<extends controller="Typical"/>
+	</controller>
+	
+	<controller name="Role">
+		<extends controller="Typical"/>
+		<action name="addModulesRights" icon="table-row-plus-after" hidden="true"
+			class="com.openxava.naviox.actions.GoAddModulesRightsToRoleAction"/>										
+	</controller>
+	
+	<controller name="AddToModulesRights">
+		<extends controller="AddToCollection"/>
+		<action name="add" 
+			class="com.openxava.naviox.actions.AddModulesRightsToRoleAction"/>		
+	</controller>
+	
+	
+	<controller name="Folder">
+		<extends controller="Typical"/>
+		
+		<action name="updateROOTFolder" hidden="true" on-init="true" 
+			class="com.openxava.naviox.actions.UpdateROOTFolderAction"/>		
+		<action name="saveSubfolder" hidden="true" 
+			class="com.openxava.naviox.actions.SaveSubfolderAction"/>
+		<action name="moduleUp" hidden="true" 
+			class="com.openxava.naviox.actions.CallFolderMethodAction"
+			icon="menu-up">
+			<set property="method" value="moduleUp"/>
+		</action>
+		<action name="moduleDown" hidden="true" 
+			class="com.openxava.naviox.actions.CallFolderMethodAction"
+			icon="menu-down">
+			<set property="method" value="moduleDown"/>
+		</action>
+		<action name="subfolderUp" hidden="true" 
+			class="com.openxava.naviox.actions.CallFolderMethodAction"
+			icon="menu-up">
+			<set property="method" value="subfolderUp"/>
+		</action>
+		<action name="subfolderDown" hidden="true" 
+			class="com.openxava.naviox.actions.CallFolderMethodAction"
+			icon="menu-down">
+			<set property="method" value="subfolderDown"/>
+		</action>
+	</controller>
+	
+	<controller name="ChangePassword">
+		<action name="init" after-each-request="true"  hidden="true"  			
+			class="com.openxava.naviox.actions.InitChangePasswordAction"/>
+		<action name="changePassword" 
+			class="com.openxava.naviox.actions.ChangePasswordAction"/>			
+	</controller>
+	
+	<controller name="MyPersonalData">
+		<action name="init" on-init="true"  hidden="true"  			
+			class="com.openxava.naviox.actions.InitMyPersonalDataAction"/>
+		<action name="save" 
+			class="com.openxava.naviox.actions.SaveMyPersonalDataAction"/>			
+	</controller>
+	
+	<controller name="WarnNoEmail">
+		<action name="warnNoEmail" after-each-request="true" hidden="true"
+			class="com.openxava.naviox.actions.WarnNoEmailAction"/>
+	</controller>
+	
+	<controller name="NewOnlyInList">
+		<action  name="new" mode="list"
+			class="org.openxava.actions.NewAction"
+			icon="library-plus"
+			keystroke="Control N">
+			<set property="restoreModel" value="true"/>			
+		</action>
+	</controller>
+	
+	<controller name="Organization">
+		<extends controller="Navigation"/>
+		<extends controller="NewOnlyInList"/>
+		<extends controller="Print"/>
+				
+		<action name="createNewOrganization" mode="detail" takes-long="true"
+			class="com.openxava.naviox.actions.CreateNewOrganizationAction"/>
+			
+		<action name="modify" mode="detail" available-on-new="false"
+			class="com.openxava.naviox.actions.ModifyOrganizationAction"
+			by-default="if-possible"
+			keystroke="F3">			
+			<set property="resetAfter" value="false"/>
+		</action>			
+			
+		<action name="delete" mode="detail" confirm="true"
+			class="com.openxava.naviox.actions.DeleteOrganizationAction"/>
+		
+		<action name="go" in-each-row="true" mode="NONE" icon="exit-to-app"			
+			class="com.openxava.naviox.actions.GoOrganizationAction"/>
+						
+	</controller>
+
+	<controller name="PhoneList">
+
+		<action name="orderByAscending" 
+			class="com.openxava.phone.actions.OrderByAscendingAction"/>
+			
+		<action name="orderByDescending" 
+			class="com.openxava.phone.actions.OrderByDescendingAction"/>	
+		
+	</controller>
+		
+</controllers>
