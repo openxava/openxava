@@ -12,6 +12,9 @@ Falta:
 - Paginación lista
 - Hover Botón "Quitar albaranes" en Facturas
 - Signin
+- Revisar todos los componentes en los dos estilos.
+- Blue & Dark (¿diferir?)
+- Documentar (¿diferir?)
 */
 
 :root {
@@ -95,17 +98,28 @@ Falta:
 	--folder-name-icon-color: var(--modules-list-color);
 	--unsubscribed-color: var(--background);
 	--subcontroller-select-background: var(--background);
-	/* TMP ME QUEDÉ POR AQUÍ: QUITANDO LOS --color-a */
-	--customize-controls-color: var(--color-a);
-	--list-row-hover-background: var(--color-a);	
-	--selected-row-background: var(--color-a);	
-	--dialog-titlebar-button-background: var(--color-a);	
-	--welcome-background: var(--color-a);
-	--chart-type-icon-color: var(--color-a);
-	--autocomplete-scrollbar-background: var(--color-a);
-	--ui-menu-item-state-focus-border: var(--color-a);
-	--ui-menu-item-state-focus-background: var(--color-a);
-	--icons-list-background: var(--color-a);
+	--customize-controls-color: var(--messages-background);
+	--list-row-hover-background: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0.05),
+		rgba(0, 0, 0, 0.05)
+	) var(--list-even-column-background);
+	--selected-row-background: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0.1),
+		rgba(0, 0, 0, 0.1)
+	) var(--list-even-column-background);
+	--dialog-titlebar-button-background: transparent;	
+	--welcome-background: var(--background);
+	--chart-type-icon-color: var(--list-formats-color);
+	--autocomplete-scrollbar-background: var(--background);
+	--ui-menu-item-state-focus-background: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0.1),
+		rgba(0, 0, 0, 0.1)
+	) var(--background);
+	--ui-menu-item-state-focus-border: transparent;
+	--icons-list-background: var(--background);
 	
 	
 	--mobile-module-name-color: var(--color);
@@ -120,23 +134,23 @@ Falta:
 	--selected-chart-type-icon-color: var(--color);
 	--selected-chart-type-icon-border-bottom: var(--color);
 
-	--link-color: var(--color-c);
-	--action-link-color: var(--color-c);
-	--xava-processing-layer-background: var(--color-c);
-	--reference-search-icon-background: var(--color-c);
+	--link-color: var(--action-color);
+	--action-link-color: var(--action-color);
+	--xava-processing-layer-background: var(--action-color);
+	--reference-search-icon-background: var(--action-color);
 	--highlight-bar-action-background: var(--action-color);
 	--delete-button-color: var(--action-color);
-	--first-steps-icon-color: var(--color-c);
-	--filepond--file-action-button-background: var(--color-c);
+	--first-steps-icon-color: var(--action-color);
+	--filepond--file-action-button-background: var(--action-color);
 
-	--xava-loading-shadow: var(--color-d);
-	--mobile-search-modules-input-focus-border: var(--color-d);
-	--mobile-button-bar-background: var(--color-d);
-	--input-focus-border: var(--color-d);
-	--reference-search-icon-hover-background: var(--color-d);
+	--xava-loading-shadow: gray;
+	--mobile-search-modules-input-focus-border: var(--input-focus-border);
+	--mobile-button-bar-background: var(--modules-list-background);
+	--input-focus-border: var(--default-action-button-background);
+	--reference-search-icon-hover-background: var(--default-action-button-hover-background);
 	--button-hover-color: var(--action-hover-color);
-	--icon-i-color: var(--color-d);
-	--icons-list-i-color: var(--color-d);
+	--icon-i-color: var(--action-color);
+	--icons-list-i-color: var(--icon-i-color);
 	
 	--xava-loading-color: black;
 	--mobile-icon-module-loading-color: black;
@@ -218,11 +232,11 @@ Falta:
 	--message-box-a-color: white;
 	--message-box-close-hover-color: white;
 	--reverse-label-color: white;
-	--chart-type-icon-hover-color: white;
-	--crop-free-icon-color: white;
-	--plus-icon-color: white;
+	--chart-type-icon-hover-color: var(--list-formats-hover-color);
+	--crop-free-icon-color: var(--required-editor-border);
+	--plus-icon-color: var(--crop-free-icon-color);
 	--close-column-icon: white;
-	--icons-list-i-hover-background: white;
+	--icons-list-i-hover-background: var(--action-hover-background);
 		
 	--input-border: lightgray;
 	--message-box-close-color: lightgray;
@@ -2022,6 +2036,10 @@ span[id*="reference_editor"] + .ox-layout-detail {
 .ox-icons-list::-webkit-scrollbar-thumb {
 	background: var(--icons-list-scrollbar-color);
 	border-radius: 10px;
+}
+
+.ox-icon .ox-image-link:hover {
+	background: transparent;
 }
 
 .cke_chrome {

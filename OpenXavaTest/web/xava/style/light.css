@@ -11,10 +11,6 @@
 	--chrome-white: white;
 	--chrome-darkblue: #2850a7;
 	
-	--color-a: var(--chrome-lightgray);
-	--color-c: var(--chrome-gray);
-	--color-d: var(--chrome-blue);
-	
 	/* Modules left menu */	
 	--modules-list-color: var(--chrome-gray); 
 	--modules-list-background: var(--chrome-lightgray);
@@ -40,7 +36,7 @@
 	--action-color: var(--chrome-gray);
 	--action-hover-color: var(--chrome-black);  
 	--action-hover-background: lightgray;	
-	--default-action-button-background: var(--color-d);
+	--default-action-button-background: var(--chrome-blue);
 	
 	/* Editors */
 	--required-editor-border: gray;

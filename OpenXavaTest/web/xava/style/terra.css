@@ -1,23 +1,25 @@
 /* TMP */
 
+/* TMP ME QUEDÉ POR AQUÍ: Colores a, b, c y d eliminados. Revisar paleta y colores de terra.css y light.csss*/
+
 @import 'base.css';
 
 :root {
 	--light-terra: #E8DDCB;
 	--dark-terra: #806632; 
-	--color-c: #036564;
-	--color-d: #033649;
+	--acqua: #036564;
+	--acqua-profonda: #033649;
 	--terra: #CDB380; 
 	
 	/* Modules left menu */
 	--modules-list-color: var(--light-terra);
-	--modules-list-background: var(--color-d);
+	--modules-list-background: var(--acqua-profonda);
 	--modules-list-selected-color: white;
 	--modules-list-selected-border-right: red;
 	 
 	/* Module header */ 
 	--module-header-color: white;
-	--module-header-background: var(--color-d);		
+	--module-header-background: var(--acqua-profonda);		
 	
 	/* Button bar */	 
 	--button-bar-background: var(--terra);
@@ -32,10 +34,10 @@
 	--frame-background: rgba(205, 179, 128, 0.2);
 	
 	/* Actions */
-	--action-color: var(--color-c);	
-	--action-hover-color: var(--color-d);
+	--action-color: var(--acqua);	
+	--action-hover-color: var(--acqua-profonda);
 	--action-hover-background: white;
-	--default-action-button-background: var(--color-d);
+	--default-action-button-background: var(--acqua-profonda);
 	
 	/* Editors */
 	--required-editor-border: var(--terra);
