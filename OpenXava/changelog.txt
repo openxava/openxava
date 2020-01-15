@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Maven documentation updated.
+
 OpenXava 6.2.2 (2019-12-9)
 --------------------------
 - Migration documentation for adapting views to new FILES stereotype.
