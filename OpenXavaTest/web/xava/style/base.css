@@ -3,13 +3,6 @@
 
 /* tmp 
 Falta:
-- Simplificar paletas.
-- Ordenar y limpiar colores.
-- Collecciones. ¿misma sombra que marcos?
-- cke 
-- Scroll: Echar un vistazo a Añadir columnas e Icons, ¿generalizar con menu módulos?
-- Charts.
-- Paginación lista
 - Hover Botón "Quitar albaranes" en Facturas
 - Signin
 - Revisar todos los componentes en los dos estilos.
@@ -18,17 +11,14 @@ Falta:
 */
 
 :root {
-	
 	--application-name-color: var(--modules-list-selected-color);
 	--module-row-hover-color: var(--modules-list-selected-color);
 	--modules-list-selected-border-right: var(--modules-list-selected-color);
-	
 	--modules-list-background-darker: linear-gradient(
-		to top,
-		rgba(0, 0, 0, 0.3),
-		rgba(0, 0, 0, 0.3)
-	) var(--modules-list-background);
-
+			to top,
+			rgba(0, 0, 0, 0.3),
+			rgba(0, 0, 0, 0.3)
+		) var(--modules-list-background);
 	--modules-list-selected-background: var(--modules-list-background-darker);	
 	--module-row-hover-background: var(--modules-list-background-darker);
 	--search-modules-input-border: var(--input-border);
@@ -38,40 +28,98 @@ Falta:
 	--icon-module-loading-color: var(--modules-list-selected-color);
 	--modules-list-scrollbar-color: var(--modules-list-color);
 	--modules-list-scrollbar-background: var(--modules-list-background-darker);
+	--back-folder-color: var(--modules-list-color);
+	--organization-name-color: var(--application-name-color);
+	--organizations-index-icon-color: var(--organization-name-color);
+	--folder-name-icon-color: var(--modules-list-color);
+	--search-modules-input-focus-border: var(--required-editor-border);
+	--back-folder-hover-color: white;
+	--modules-list-header-color: white;
+	--modules-list-header-border-bottom: white;
+	--module-header-link-hover-color: var(--module-header-color);
+	--organizations-index-icon-color-hover: white;	
+	--folder-row-hover-icon-color: white;	
+	
+	--module-header-link-color: var(--module-header-color);
+	--module-header-icon-color: var(--module-header-color);
+	--sign-out-color: white;
+	--sign-in-a-hover-color: white;
+
 	--button-bar-button-hover-background: var(--action-hover-background);
 	--button-bar-button-hover-color: var(--action-hover-color);
+	--button-bar-button-hover-border: white;
+	--highlight-bar-action-hover-color: white; 
+	--highlight-bar-action-hover-background: var(--default-action-button-hover-background);
+	--highlight-bar-action-color: var(--background);
+	--button-bar-shadow: lightgray;
+	--subcontroller-select-background: var(--background);
+	--subscribed-color: var(--color);
+	--unsubscribed-color: var(--background);
+	--subscribed-hover-color: white;
+	--selected-list-format-color: var(--color);
+	--selected-list-format-border: var(--color);
+	--selected-chart-type-icon-color: var(--color);
+	--selected-chart-type-icon-border-bottom: var(--color);
+	--highlight-bar-action-background: var(--action-color);
+	--subcontroller-background: var(--button-bar-background);
+	--subcontroller-shadow: var(--shadow);
+	--icon-delete-hover-color: red;
+		
 	--default-action-button-color: var(--background);
 	--default-action-button-shadow: var(--default-action-button-background);
 	--default-action-button-hover-color: white;
-	
 	--default-action-button-hover-background: linear-gradient(
-		to top,
-		rgba(0, 0, 0, 0.3),
-		rgba(0, 0, 0, 0.3)
-	) var(--default-action-button-background);
-
-	--default-action-button-hover-shadow: var(--default-action-button-background); 
-	--highlight-bar-action-hover-color: white; 
-	--highlight-bar-action-hover-background: var(--default-action-button-hover-background);
+			to top,
+			rgba(0, 0, 0, 0.3),
+			rgba(0, 0, 0, 0.3)
+		) var(--default-action-button-background);
+	--default-action-button-hover-shadow: var(--default-action-button-background);
+	--delete-button-color: var(--action-color);
+	--delete-button-hover-color: red;
+	--delete-button-hover-background: var(--action-hover-background);
+	--button-hover-color: var(--action-hover-color);
+	--button-focus-outline: var(--input-focus-border);
+	--button-hover-background: var(--action-hover-background);
+	
+	--link-color: var(--action-color);
+	--action-link-color: var(--action-color);
+	--action-link-hover-background: var(--action-hover-background);
+	--reference-search-icon-background: var(--action-color);
+	--reference-search-icon-hover-background: var(--default-action-button-hover-background);
+	--reference-search-icon-color: white;
+	--reference-search-icon-hover-color: white;		
+	
+	--welcome-background: var(--background);
+	--welcome-color: var(--color);
+	--first-steps-icon-color: var(--action-color);
+	--screenshot-shadow: black;
+	
+	--sign-in-background: var(--button-bar-background);
+	--sign-in-input-focus-outline-color: var(--button-focus-outline);
+	
+	--header-background: linear-gradient(
+			to top,
+			var(--frame-background),
+			var(--frame-background)
+		) var(--background);
+	--shadow: gray;
+	
 	--section-color: var(--action-color);
 	--section-background: var(--frame-background);
-	--section-hover-background: var(--action-hover-background);	
+	--section-hover-color: var(--action-hover-color);
+	--section-hover-background: var(--action-hover-background);
+	--active-section-tab-color: var(--color);
+	--active-section-tab-bottom-color: var(--color);
+	
 	--dialog-background: var(--background);
 	--dialog-titlebar-background: var(--dialog-background);
 	--dialog-titlebar-color: var(--color);
-	
-	--header-background: linear-gradient(
-		to top,
-		var(--frame-background),
-		var(--frame-background)
-	) var(--background);	
+	--dialog-titlebar-button-hover-background: white;
+	--dialog-shadow: var(--shadow);
 	
 	--cke-button-on-background: var(--cke-button-off-background);
 	--cke-button-off-background: var(--action-hover-background);
 	--cke-top-background: var(--header-background);
-	
-	
-	--button-bar-shadow: lightgray;
 	
 	--card-subheader-color: var(--action-color);		
 	--card-content-b-color: var(--action-color);	
@@ -84,195 +132,123 @@ Falta:
 	--card-content-b-hover-color: var(--action-hover-color);
     --card-hover-shadow: gray;
     --card-header-hover-color: var(--action-hover-color);
-	--shadow: gray;	
-	--list-header-background: var(--header-background);		
-			
-		 
-	
-	--mobile-modules-list-background: var(--background);
-	--back-folder-color: var(--modules-list-color);
-	--module-header-link-color: var(--module-header-color);
-	--organization-name-color: var(--application-name-color);
-	--mobile-button-bar-color: var(--modules-list-background);
-	--organizations-index-icon-color: var(--organization-name-color);
-	--folder-name-icon-color: var(--modules-list-color);
-	--unsubscribed-color: var(--background);
-	--subcontroller-select-background: var(--background);
-	--customize-controls-color: var(--messages-background);
-	--list-row-hover-background: linear-gradient(
-		to top,
-		rgba(0, 0, 0, 0.05),
-		rgba(0, 0, 0, 0.05)
-	) var(--list-even-column-background);
-	--selected-row-background: linear-gradient(
-		to top,
-		rgba(0, 0, 0, 0.1),
-		rgba(0, 0, 0, 0.1)
-	) var(--list-even-column-background);
-	--dialog-titlebar-button-background: transparent;	
-	--welcome-background: var(--background);
-	--chart-type-icon-color: var(--list-formats-color);
-	--autocomplete-scrollbar-background: var(--background);
-	--ui-menu-item-state-focus-background: linear-gradient(
-		to top,
-		rgba(0, 0, 0, 0.1),
-		rgba(0, 0, 0, 0.1)
-	) var(--background);
-	--ui-menu-item-state-focus-border: transparent;
-	--icons-list-background: var(--background);
-	
-	
-	--mobile-module-name-color: var(--color);
-	--subscribed-color: var(--color);
-	--selected-list-format-color: var(--color);
-	--selected-list-format-border: var(--color);
-	--page-navigation-selected-color: var(--color);
-	--active-section-tab-color: var(--color);
-	--active-section-tab-bottom-color: var(--color);
-	--dialog-content-color: var(--color);
-	--welcome-color: var(--color);
-	--selected-chart-type-icon-color: var(--color);
-	--selected-chart-type-icon-border-bottom: var(--color);
-
-	--link-color: var(--action-color);
-	--action-link-color: var(--action-color);
-	--xava-processing-layer-background: var(--action-color);
-	--reference-search-icon-background: var(--action-color);
-	--highlight-bar-action-background: var(--action-color);
-	--delete-button-color: var(--action-color);
-	--first-steps-icon-color: var(--action-color);
-	--filepond--file-action-button-background: var(--action-color);
-
-	--xava-loading-shadow: gray;
-	--mobile-search-modules-input-focus-border: var(--input-focus-border);
-	--mobile-button-bar-background: var(--modules-list-background);
-	--input-focus-border: var(--default-action-button-background);
-	--reference-search-icon-hover-background: var(--default-action-button-hover-background);
-	--button-hover-color: var(--action-hover-color);
-	--icon-i-color: var(--action-color);
-	--icons-list-i-color: var(--icon-i-color);
-	
-	--xava-loading-color: black;
-	--mobile-icon-module-loading-color: black;
-	--input-color: black;
-	--tooltip-background: black;
-	--list-row-a-color: black;
-	--total-cell-color: black;
-	--icon-i-hover-color: black;
-	--icons-list-i-hover-color: black;
-	
-	--search-modules-input-focus-border: var(--required-editor-border);
-	--mobile-search-modules-filter-list-background: var(--button-bar-background);
-	--mobile-search-modules-filter-list-shadow: var(--button-bar-background);
-	--module-header-icon-color: var(--module-header-color);
-	--subcontroller-background: var(--button-bar-background);
-	--button-focus-outline: var(--input-focus-border);
-	--page-navigation-selected-background: var(--button-bar-background);
-	
-	--sign-in-background: var(--button-bar-background);
-	--chart-type-background: var(--button-bar-background);
-	--autocomplete-scrollbar-background-thumb: linear-gradient(
-		to top,
-		rgba(0, 0, 0, 0.3),
-		rgba(0, 0, 0, 0.3)
-	) var(--autocomplete-scrollbar-background);
-	
-	
-	--icons-list-scrollbar-background: linear-gradient(
-		to top,
-		rgba(0, 0, 0, 0.2),
-		rgba(0, 0, 0, 0.2)
-	) var(--icons-list-background);
 		
-	
-	--sign-in-input-focus-outline-color: var(--button-focus-outline);
-	
-	--icons-list-scrollbar-color: linear-gradient(
-		to top,
-		rgba(0, 0, 0, 0.4),
-		rgba(0, 0, 0, 0.4)
-	) var(--icons-list-background);	
-					
-	--tooltip-arrow-after-shadow: black;
-	--icon-check-color: black;
-	--screenshot-shadow: black;
-	--reverse-label-background: black;
-	--icon-in-list: black;
-	--sort-indicator-color: black;
-	--message-box-shadow: black;
-	
-	--action-link-hover-background: var(--action-hover-background);
-	--xava-loading-background-color: white;
-	--xava-processing-layer-color: white;
-	--sign-out-color: white;
-	--sign-in-a-hover-color: white;
-	--back-folder-hover-color: white;
-	--modules-list-header-color: white;
-	--modules-list-header-border-bottom: white;
-	--module-header-link-hover-color: var(--module-header-color);
-	--organizations-index-icon-color-hover: white;	
-	--folder-row-hover-icon-color: white;
-	--tooltip-color: white;
-	--tooltip-border: white;
-	--subscribed-hover-color: white;
-	--reference-search-icon-color: white;
-	--reference-search-icon-hover-color: white;		
-	--highlight-bar-action-color: var(--background);
-	--button-bar-button-hover-border: white;
-	--button-hover-background: var(--action-hover-background);
-	--delete-button-hover-background: var(--action-hover-background);
-	--customize-controls-hover-color: white;
+	--list-header-background: var(--header-background);
 	--list-column2-background: white;
 	--element-collection-row-hover-background: white;
 	--list-background: white;
 	--list-header-arrows-color: white;
-	--section-hover-color: var(--action-hover-color);
-	--dialog-titlebar-button-hover-background: white;
-	--message-box-color: white;
-	--message-box-a-color: white;
-	--message-box-close-hover-color: white;
-	--reverse-label-color: white;
-	--chart-type-icon-hover-color: var(--list-formats-hover-color);
-	--crop-free-icon-color: var(--required-editor-border);
-	--plus-icon-color: var(--crop-free-icon-color);
-	--close-column-icon: white;
-	--icons-list-i-hover-background: var(--action-hover-background);
-		
-	--input-border: lightgray;
-	--message-box-close-color: lightgray;
-	--autocomplete-border: lightgray;
-	--xava-dropped-shadow: lightgray;
-	
-	--subcontroller-shadow: var(--shadow);
-	--dialog-shadow: var(--shadow);
-	
-	--icon-delete-hover-color: red;
-	--delete-button-hover-color: red;
-	
-	--error-editor-border: #DC4A38;
-	--errors-background: #DC4A38;
-	--filepond--image-preview-overlay-failure: #DC4A38;	
-		
-	--disabled-input-background: #ebebe4;
-	
 	--list-even-column-background: #f4f4f4;
+	--list-row-bottom-color: #EBEBEB;			
+	--customize-controls-color: var(--messages-background);
+	--customize-controls-hover-color: white;		
+	--list-row-hover-background: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.05),
+			rgba(0, 0, 0, 0.05)
+		) var(--list-even-column-background);
+	--selected-row-background: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.1),
+			rgba(0, 0, 0, 0.1)
+		) var(--list-even-column-background);
+	--list-row-a-color: black;
+	--total-cell-color: black;
+	--icon-check-color: black;
+	--icon-in-list: black;
+	--sort-indicator-color: black;
+	--close-column-icon: white;
+	--xava-dropped-shadow: lightgray;		
+		
+	--dialog-titlebar-button-background: transparent;
+	--dialog-content-color: var(--color);
 	
-	--list-row-bottom-color: #EBEBEB;
+	--chart-type-icon-color: var(--list-formats-color);
+	--chart-type-background: var(--button-bar-background);
+	--chart-type-icon-hover-color: var(--list-formats-hover-color);
+
+	--autocomplete-scrollbar-background: var(--background);
+	--ui-menu-item-state-focus-background: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.1),
+			rgba(0, 0, 0, 0.1)
+		) var(--background);
+	--ui-menu-item-state-focus-border: transparent;
+		
+	--page-navigation-selected-color: var(--color);
+	--page-navigation-selected-background: var(--button-bar-background);
 	
-	--messages-background: #6fc664;
+	--xava-processing-layer-background: var(--action-color);
+	--xava-loading-shadow: gray;
+	--xava-loading-color: black;
+	--xava-loading-background-color: white;
+	--xava-processing-layer-color: white;
+	
+	--filepond--file-action-button-background: var(--action-color);
+	--filepond--image-preview-overlay-failure: #DC4A38;
 	--filepond--image-preview-overlay-success-color: #6fc664;	
-	
-	--infos-background: #a1a4a5;
-	
-	--warnings-background: #ffb347;	
-	
-	--attached-file-color: #5755D2;
-	
-	
+	--attached-file-color: #5755D2;	
+
+	--input-border: lightgray;
+	--input-focus-border: var(--default-action-button-background);
+	--input-color: black;
+	--error-editor-border: #DC4A38;
+	--disabled-input-background: #ebebe4;
 	--xava-placeholder-background: #F5F5F5;
 	
-	--mobile-tap-highlight-color: rgb(205,179,128, 0.4);
+	--icon-i-color: var(--action-color);
+	--icons-list-i-color: var(--icon-i-color);
+	--icon-i-hover-color: black;
+	--icons-list-i-hover-color: black;
+	--icons-list-background: var(--background);
+	--icons-list-i-hover-background: var(--action-hover-background);	
+	--crop-free-icon-color: var(--required-editor-border);
+	--plus-icon-color: var(--crop-free-icon-color);
+	--icons-list-scrollbar-background: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.2),
+			rgba(0, 0, 0, 0.2)
+		) var(--icons-list-background);
+	--icons-list-scrollbar-color: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.4),
+			rgba(0, 0, 0, 0.4)
+		) var(--icons-list-background);	
 	
+	--tooltip-background: black;
+	--tooltip-arrow-after-shadow: black;
+	--tooltip-color: white;
+	--tooltip-border: white;	
+	
+	--autocomplete-scrollbar-background-thumb: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.3),
+			rgba(0, 0, 0, 0.3)
+		) var(--autocomplete-scrollbar-background);
+	--autocomplete-border: lightgray;		
+	
+	--reverse-label-color: white;
+	--reverse-label-background: black;
+		
+	--message-box-color: white;
+	--message-box-a-color: white;
+	--message-box-close-hover-color: white;	
+	--message-box-shadow: black;
+	--message-box-close-color: lightgray;
+	--messages-background: #6fc664;
+	--errors-background: #DC4A38;
+	--warnings-background: #ffb347;
+	--infos-background: #a1a4a5;
+	
+	--mobile-tap-highlight-color: rgb(205,179,128, 0.4);
+	--mobile-modules-list-background: var(--background);
+	--mobile-button-bar-color: var(--modules-list-background);
+	--mobile-module-name-color: var(--color);
+	--mobile-search-modules-input-focus-border: var(--input-focus-border);
+	--mobile-button-bar-background: var(--modules-list-background);
+	--mobile-icon-module-loading-color: black;
+	--mobile-search-modules-filter-list-background: var(--button-bar-background);
+	--mobile-search-modules-filter-list-shadow: var(--button-bar-background);
 }
 
 
@@ -1111,6 +1087,7 @@ input[type="button"] {
 .ox-bottom-buttons input[id*="delete"]:hover, .ox-bottom-buttons input[id*="remove"]:hover, .ox-bottom-buttons input[id*="borrar"]:hover {
 	background: var(--delete-button-hover-background);
 	color: var(--delete-button-hover-color);
+	box-shadow: none; /* TMP ME QUEDÉ POR AQUÍ: VERIFICARLO */
 }
 
 .ox-button-bar a[id*="delete"]:hover i {
@@ -1871,7 +1848,11 @@ div.ox-subcontroller table{
 	width: 120px;
 }
 
-.ox-charts .ox-element-collection .ox-list-pair:hover td , .ox-charts .ox-element-collection .ox-list-odd:hover td {
+.ox-charts .ox-element-collection .ox-list-pair:hover td, 
+.ox-charts .ox-element-collection .ox-list-odd:hover td,
+.ox-charts .ox-element-collection .ox-list-pair:hover, 
+.ox-charts .ox-element-collection .ox-list-odd:hover,
+.ox-charts .ox-element-collection .ox-image-link:hover {
 	background: transparent;
 }
 
