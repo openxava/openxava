@@ -19,7 +19,11 @@ import com.openxava.naviox.util.*;
 public class NaviOXFilter implements Filter {
 	
 	public void init(FilterConfig cfg) throws ServletException {
-		Modules.init(cfg.getServletContext().getContextPath().substring(1)); 
+		/**
+		 * Default the application name with url
+		 */			
+		String applicationName = NaviOXPreferences.getInstance().getapplicationName();
+		Modules.init(applicationName); 
 	}
 
 
@@ -54,7 +58,10 @@ public class NaviOXFilter implements Filter {
 				chain.doFilter(secureRequest, response);
 			}
 			else {
-				char base = secureRequest.getRequestURI().split("/")[2].charAt(0)=='p'?'p':'m'; 
+				/**
+				 * Default the application name with url
+				 */
+				char base = secureRequest.getRequestURI().split("/")[1].charAt(0)=='p'?'p':'m'; 
 				String originalURI = secureRequest.getRequestURI();
 				String organization = Organizations.getCurrent(request);
 				if (organization != null) originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");
