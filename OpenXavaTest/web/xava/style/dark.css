@@ -1,0 +1,59 @@
+/* TMP */
+
+@import 'base.css';
+
+/* TMP ME QUEDÉ POR AQUÍ: VIENDO COMO HACER ACCIONES EN COLECCIONES. VI CARDS Y CKE. VER TODO LO DEMAS */
+
+:root {
+	--terra: #CDB380;
+	--light-terra: #E8DDCB;
+	--dark-terra: #806632;
+	--transparent-terra: rgba(205, 179, 128, 0.2); 
+	--acqua: #036564;
+	--acqua-profonda: #033649;
+	--abisso: #031634;
+	--my-green: #1db954;
+	--my-black: #191414;
+	 
+	/* Modules left menu */
+	--modules-list-color: lightgray;
+	--modules-list-background: var(--acqua-profonda);
+	--modules-list-selected-color: white;
+	 
+	/* Module header */ 
+	--module-header-color: white;
+	--module-header-background: var(--acqua-profonda);		
+
+	
+	/* Button bar */	 
+	--button-bar-background: black;
+	--list-formats-color: lightgray;
+	--list-formats-hover-color: white;
+	
+	/* Backgrounds & labels */
+	--background: var(--acqua-profonda);
+	--color: var(--light-terra);
+	--color: white;
+	
+	/* Frames */	
+	--frame-background: var(--abisso);
+	
+	/* Actions */
+	--action-color: lightgray;	
+	--action-hover-color: white;
+	--action-hover-background: transparent;
+	--default-action-button-background: var(--my-green);
+	--default-action-button-color: white; /* tmp */
+	--default-action-button-shadow: none;
+	--default-action-button-hover-shadow: none;
+	
+	/* Editors */
+	--required-editor-border: green;
+	--input-focus-border: var(--my-green); /* tmp */
+
+	--button-bar-shadow: black; /* tmp */
+	--shadow: black; /* tmp */
+	
+	--cke-top-background: lightgray; /* tmp */
+	
+}

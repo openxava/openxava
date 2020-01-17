@@ -3,11 +3,8 @@
 
 /* tmp 
 Falta:
-- Hover Botón "Quitar albaranes" en Facturas
-- Signin
-- Revisar todos los componentes en los dos estilos.
-- Blue & Dark (¿diferir?)
-- Documentar (¿diferir?)
+- Blue & Dark 
+- Documentar 
 */
 
 :root {
@@ -96,6 +93,7 @@ Falta:
 	
 	--sign-in-background: var(--button-bar-background);
 	--sign-in-input-focus-outline-color: var(--button-focus-outline);
+	--sign-in-input-border: var(--color);
 	
 	--header-background: linear-gradient(
 			to top,
@@ -1087,7 +1085,7 @@ input[type="button"] {
 .ox-bottom-buttons input[id*="delete"]:hover, .ox-bottom-buttons input[id*="remove"]:hover, .ox-bottom-buttons input[id*="borrar"]:hover {
 	background: var(--delete-button-hover-background);
 	color: var(--delete-button-hover-color);
-	box-shadow: none; /* TMP ME QUEDÉ POR AQUÍ: VERIFICARLO */
+	box-shadow: none; 
 }
 
 .ox-button-bar a[id*="delete"]:hover i {
@@ -1678,6 +1676,7 @@ div.ox-subcontroller table{
 
 #sign_in_box .editor { 
 	margin: 2px 0px 15px 1px;
+	border-color: var(--sign-in-input-border);
 }
 
 #first_steps {

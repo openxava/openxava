@@ -7,11 +7,12 @@
 	--my-lightgray: rgb(243, 243, 243);
 	--my-gray: rgb(95, 99, 104);
 	--my-black: rgb(32, 33, 36);
+	--my-darkblue: #2850a7;
 	
 	/* Modules left menu */	
-	--modules-list-color: var(--my-gray); 
-	--modules-list-background: var(--my-lightgray);
-	--modules-list-selected-color: var(--my-black);
+	--modules-list-color: var(--my-lightgray); 
+	--modules-list-background: var(--my-blue);
+	--modules-list-selected-color: white;
 		
 	/* Module header */				
 	--module-header-color: var(--my-black);
