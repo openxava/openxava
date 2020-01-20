@@ -1,9 +1,5 @@
-/* TMP: ¿base.css? o core.css, openxava.css, common.css */
-
-
 /* tmp 
 Falta:
-- Blue & Dark 
 - Documentar 
 */
 
@@ -84,7 +80,7 @@ Falta:
 	--reference-search-icon-background: var(--action-color);
 	--reference-search-icon-hover-background: var(--default-action-button-hover-background);
 	--reference-search-icon-color: white;
-	--reference-search-icon-hover-color: white;		
+	--reference-search-icon-hover-color: white;
 	
 	--welcome-background: var(--background);
 	--welcome-color: var(--color);
@@ -154,6 +150,10 @@ Falta:
 	--total-cell-color: black;
 	--icon-check-color: black;
 	--icon-in-list: black;
+	--list-row-action-color: var(--action-color);
+	--list-row-action-hover-color: var(--action-hover-color);
+	--list-total-row-action-color: var(--list-row-action-color);
+	--list-total-row-action-hover-color: var(--list-row-action-hover-color);	
 	--sort-indicator-color: black;
 	--close-column-icon: white;
 	--xava-dropped-shadow: lightgray;		
@@ -217,7 +217,9 @@ Falta:
 	--tooltip-arrow-after-shadow: black;
 	--tooltip-color: white;
 	--tooltip-border: white;	
-	
+
+	--descriptions-list-handle-color: var(--list-row-action-color);
+	--descriptions-list-handle-hover-color: var(--list-row-action-hover-color);	
 	--autocomplete-scrollbar-background-thumb: linear-gradient(
 			to top,
 			rgba(0, 0, 0, 0.3),
@@ -786,7 +788,8 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 .ox-button-bar .ox-button-bar-button a, 
 .ox-collection-list-actions .ox-button-bar-button a,
 .ox-button-bar-button i,
-i, .ox-icon i.mdi-close-circle
+i, .ox-icon i.mdi-close-circle,
+.ox-charts .ox-element-collection .ox-image-link i
 {  
 	color: var(--action-color);
 }
@@ -854,7 +857,8 @@ i:hover, .ox-icon i.mdi-plus:hover, .ox-icon i.mdi-close-circle:hover,
 .ox-customize-controls .mdi-sort-numeric:hover, .ox-customize-controls a:hover .mdi-sort-numeric, 
 .ox-customize-controls .mdi-sort-alphabetical:hover, .ox-customize-controls a:hover .mdi-sort-alphabetical,
 .ox-customize-controls .mdi-filter:hover, 
-.ox-customize-controls .mdi-filter-remove:hover {        
+.ox-customize-controls .mdi-filter-remove:hover,
+.ox-charts .ox-element-collection .ox-image-link:hover i {            
 	color: var(--action-hover-color); 
 }
 
@@ -1142,6 +1146,24 @@ input[type="button"] {
 
 .ox-list-pair a, .ox-list-odd a {
 	color: var(--list-row-a-color); 
+}
+
+.ox-list-pair .ox-image-link i, .ox-list-odd .ox-image-link i,
+.ox-list-pair .ox-action-link, .ox-list-odd .ox-action-link {
+	color: var(--list-row-action-color);
+}
+
+.ox-list-pair .ox-image-link:hover i, .ox-list-odd .ox-image-link:hover i,
+.ox-list-pair .ox-action-link:hover, .ox-list-odd .ox-action-link:hover {
+	color: var(--list-row-action-hover-color);
+}
+
+.ox-total-row .ox-image-link i {
+	color: var(--list-total-row-action-color);
+}
+
+.ox-total-row .ox-image-link:hover i {
+	color: var(--list-total-row-action-hover-color);
 }
 
 .ox-list-pair a nobr, .ox-list-odd a nobr {
@@ -1506,7 +1528,7 @@ input[type="button"] {
 
 .ox-action-link {
     margin-left: 7px;
-    color: var(--action-link-color) !important; 
+    color: var(--action-link-color); 
     font-weight: bold;
     padding: 6px;
 }
@@ -1527,7 +1549,7 @@ input[type="button"] {
 .ox-action-link:hover, .ox-image-link:hover, .ox-page-navigation:hover, .ox-page-navigation-arrow:hover {
 	background: var(--action-link-hover-background);
 	text-decoration: none;
-	color: var(--action-hover-color) !important;
+	color: var(--action-hover-color);
 }
 
 .ox-button-bar-button span {
@@ -1923,6 +1945,11 @@ i.ox-sort-indicator2 {
  	right: 32px; 
  	margin-right: -20px;
  	padding: 5px;
+ 	color: var(--descriptions-list-handle-color);
+}
+
+.ox-descriptions-list i:hover {
+	color: var(--descriptions-list-handle-hover-color);
 }
 
 .ox-web-url { 

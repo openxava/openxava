@@ -968,8 +968,10 @@
 			<set property="model" value="Carrier" />
 		</action>
 		
+		<!-- tmp 
 		<action name="search" image="search.gif" mode="detail" 
 			class="org.openxava.test.actions.CarriersSearchAction"/>
+		-->	
     	    	
 		<action name="onSelectFellowCarriersCalculated" hidden="true" 
 			class="org.openxava.test.actions.OnSelectFellowCarriersCalculatedAction"/>

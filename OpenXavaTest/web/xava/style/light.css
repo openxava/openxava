@@ -3,7 +3,7 @@
 @import 'base.css';
 
 :root {
-	--my-blue: rgb(51, 103, 214);
+	--my-highlight: rgb(51, 103, 214);
 	--my-lightgray: rgb(243, 243, 243);
 	--my-gray: rgb(95, 99, 104);
 	--my-black: rgb(32, 33, 36);
@@ -33,7 +33,7 @@
 	--action-color: var(--my-gray);
 	--action-hover-color: var(--my-black);  
 	--action-hover-background: lightgray;	
-	--default-action-button-background: var(--my-blue);
+	--default-action-button-background: var(--my-highlight);
 	
 	/* Editors */
 	--required-editor-border: gray;

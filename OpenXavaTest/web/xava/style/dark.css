@@ -2,8 +2,6 @@
 
 @import 'base.css';
 
-/* TMP ME QUEDÉ POR AQUÍ: VIENDO COMO HACER ACCIONES EN COLECCIONES. VI CARDS Y CKE. VER TODO LO DEMAS */
-
 :root {
 	--terra: #CDB380;
 	--light-terra: #E8DDCB;
@@ -26,7 +24,7 @@
 
 	
 	/* Button bar */	 
-	--button-bar-background: black;
+	--button-bar-background: var(--abisso);
 	--list-formats-color: lightgray;
 	--list-formats-hover-color: white;
 	
@@ -46,6 +44,8 @@
 	--default-action-button-color: white; /* tmp */
 	--default-action-button-shadow: none;
 	--default-action-button-hover-shadow: none;
+	--list-row-action-color: gray; /* tmp */
+	--list-row-action-hover-color: var(--acqua-profonda); /* tmp */
 	
 	/* Editors */
 	--required-editor-border: green;
@@ -56,4 +56,7 @@
 	
 	--cke-top-background: lightgray; /* tmp */
 	
+	--autocomplete-scrollbar-background: lightgray; /* tmp */
+	--ui-menu-item-state-focus-background: lightgray; /* tmp */
+	--icons-list-scrollbar-color: lightgray; /* tmp */
 }

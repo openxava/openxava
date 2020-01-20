@@ -55,7 +55,7 @@ public class Carrier {
 	
 	@ManyToOne(optional=false) 
 	@ReferenceView("KeyInGroup")
-	@Action("WarehouseReference.createNewNoDialog") 
+	// tmp @Action("WarehouseReference.createNewNoDialog") 
 	@DescriptionsList(forViews="CollectionsTogether", descriptionProperties="name")
 	private Warehouse warehouse;
 

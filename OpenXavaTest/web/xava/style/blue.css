@@ -1,44 +1,20 @@
 /* tmp */
 
-@import 'base.css';
+@import 'light.css';
 
 :root {
-	--my-blue: rgb(51, 103, 214);
-	--my-lightgray: rgb(243, 243, 243);
-	--my-gray: rgb(95, 99, 104);
-	--my-black: rgb(32, 33, 36);
-	--my-darkblue: #2850a7;
 	
 	/* Modules left menu */	
 	--modules-list-color: var(--my-lightgray); 
-	--modules-list-background: var(--my-blue);
+	--modules-list-background: #0059ff;
 	--modules-list-selected-color: white;
-		
-	/* Module header */				
-	--module-header-color: var(--my-black);
-	--module-header-background: white;		
-		
-	/* Button bar */
-	--button-bar-background: var(--my-lightgray);
-	--list-formats-color: gray;	
-	--list-formats-hover-color: var(--my-gray);
+
+	--my-highlight: #2850a7;
+	--my-highlight: #009ADA;
+	--my-highlight: #0059ff;
+	--my-highlight:	#fe0000;
 	
-	/* Backgrounds & labels */
-	--background: white;
-	--color: var(--my-black);
-	
-	/* Frames */
-	--frame-background: var(--my-lightgray);
-	
-	/* Actions */
-	--action-color: var(--my-gray);
-	--action-hover-color: var(--my-black);  
-	--action-hover-background: lightgray;	
-	--default-action-button-background: var(--my-blue);
-	
-	/* Editors */
-	--required-editor-border: gray;
-	
+	/* TMP ME QUEDÉ POR AQUÍ: INTENANTANDO HACER UN BLUE MÁS CHULO ANTES DE HACER EL PANTALLAZO */			
 }
 
 
