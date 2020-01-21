@@ -3,18 +3,24 @@
 @import 'light.css';
 
 :root {
+
+	--my-blue: rgb(51, 103, 214);
+	--my-dark-blue: #2850a7;
+	--my-red: #fe0000;
+	--my-highlight:	var(--my-red);
 	
 	/* Modules left menu */	
 	--modules-list-color: var(--my-lightgray); 
-	--modules-list-background: #0059ff;
+	--modules-list-background: var(--my-dark-blue);
 	--modules-list-selected-color: white;
 
-	--my-highlight: #2850a7;
-	--my-highlight: #009ADA;
-	--my-highlight: #0059ff;
-	--my-highlight:	#fe0000;
-	
-	/* TMP ME QUEDÉ POR AQUÍ: INTENANTANDO HACER UN BLUE MÁS CHULO ANTES DE HACER EL PANTALLAZO */			
+	/* Module header */	
+	--module-header-color: white;
+	--module-header-background: var(--my-blue);			
+
+	/* Editors */
+	--required-editor-border: var(--my-blue);
+	--input-focus-border: var(--my-dark-blue);
 }
 
 

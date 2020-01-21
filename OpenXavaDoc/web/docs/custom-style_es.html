@@ -37,7 +37,7 @@
       </div>
       <h1 id="toc0"><a name="Estilo visual personalizado"></a>Estilo visual
         personalizado</h1>
-      <p> OpenXava incluye dos estilos visuales. Por defecto usa Terra:<br>
+      <p> OpenXava incluye varios estilos visuales. Por defecto usa Terra:<br>
         <img src="files/terra-detail_es.png" alt="Terra theme sample"> </p>
       <div class="wiki" style="display: block;"><br>
       </div>
@@ -46,14 +46,45 @@
       <img src="files/light-detail_es.png" alt="Light theme sample">
       <div class="wiki" style="display: block;"><br>
       </div>
+      <div class="wiki" style="display: block;">Y Dark: </div>
+      <div class="wiki" style="display: block;"><img src="files/dark-detail_es.png"
+
+          alt=""><br>
+        <div class="wiki" style="display: block;"><br>
+        </div>
+        <div class="wiki" style="display: block;">O Blank &amp; White:</div>
+        <img src="files/black-and-white-detail_es.png" alt="">
+        <div class="wiki" style="display: block;"><br>
+        </div>
+        <div class="wiki" style="display: block;">También Blue:<br>
+        </div>
+        <div class="wiki" style="display: block;"></div>
+        <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><div class="wiki" style="display: block;"></div>
+      </div>
       <div class="wiki" id="content_view" style="display: block;"></div>
+      <img src="files/blue-detail_es.png" alt="">
+      <div class="wiki" style="display: block;"><br>
+      </div>
       <div class="wiki" style="display: block;">Para escoger uno edita el
         archivo <i>xava.properties</i> de la carpeta <i>properties</i> de tu
         proyecto y pon valor a la entrada <i>styleCSS</i>:</div>
       <div class="wiki">
         <pre class="text"># Visual style
 # styleCSS=terra.css
-styleCSS=light.css
+# styleCSS=light.css
+styleCSS=dark.css
+# styleCSS=black-and-white.css
+# styleCSS=blue.css
 </pre></div>
       <div class="wiki" style="display: block;">
         <h2><a name="definir-tu-propio-estilo">Definir tu propio estilo</a></h2>
@@ -105,8 +136,8 @@ styleCSS=light.css
       Cambiamos el tamaño de la letra de toda nuestra aplicación (incluso dentro
       de un portal) y la altura de las filas en la lista. Mira en <em>naviox.css</em>
       para ver todas las classes CSS disponibles.<br>
-      <h2><a name="Anadir-elementos-a-la-pagina"></a>Añadir
-        elementos a la página <em>(nuevo en v5.6)</em></h2>
+      <h2><a name="Anadir-elementos-a-la-pagina"></a>Añadir elementos a la
+        página <em>(nuevo en v5.6)</em></h2>
       Si queremos añadir nuestros propios elementos a la pagina para que
       aparezcan siempre visibles en nuestra aplicación podemos hacerlo en <em>web/naviox/indexExt.jsp</em>
       de nuestro proyecto. Esto se incluye al final de la página, pero usando

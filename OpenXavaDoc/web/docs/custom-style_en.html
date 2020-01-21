@@ -18,12 +18,9 @@
             few css tricks</a></div>
         <div style="margin-left: 2em;"><a href="#Custom%20visual%20style-Add%20elements%20to%20the%20page%20%28new%20in%20v5.6%29">Add
             elements to the page (new in v5.6)</a></div>
-        
-              <h2><a name=""></a></h2>
-
+        <h2><a name=""></a></h2>
         <div style="margin-left: 2em;"><a href="#defining-your-own-style-5">Defining
-        your own style (until v5.9.1)</a></div>
-        
+            your own style (until v5.9.1)</a></div>
         <div style="margin-left: 2em;"><a href="#Custom%20visual%20style-Defining%20your%20own%20style%20%28until%20v4.9.1%29">Defining
             your own style (until v4.9.1)</a></div>
         <div style="margin-left: 2em;"><a href="#Custom%20visual%20style-Predefined%20styles%20%28until%20v4.9.1%29">Predefined
@@ -40,13 +37,23 @@
             class</a></div>
       </div>
       <h1 id="toc0"><a name="Custom visual style"></a>Custom visual style</h1>
-      OpenXava includes two visual styles. The default one is Terra:</div>
+      OpenXava includes several visual styles. The default one is Terra:</div>
     <img src="files/terra-detail_en.png" alt="Terra theme sample">
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">You also can use the Light theme:</div>
     <img src="files/light-detail_en.png" alt="Light theme sample">
     <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">And Dark:</div>
+    <img src="files/dark-detail_en.png" alt="">
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Or Blank &amp; White:</div>
+    <img src="files/black-and-white-detail_en.png" alt="">
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Also Blue:<br>
     </div>
     <style type="text/css"><!--
 /**
@@ -58,13 +65,19 @@
 .text span.xtra { display:block; }
 
 -->
-</style> <div class="wiki" style="display: block;">In order to choose one, edit
-      the <i>xava.properties</i> file from the <i>properties</i> folder of
-      your project and set value for the <i>styleCSS</i> entry:</div>
+</style> <img src="files/blue-detail_en.png" alt="">
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">In order to choose one, edit the <i>xava.properties</i>
+      file from the <i>properties</i> folder of your project and set value for
+      the <i>styleCSS</i> entry:</div>
     <div class="wiki">
       <pre class="text"># Visual style
 # styleCSS=terra.css
-styleCSS=light.css
+# styleCSS=light.css
+styleCSS=dark.css
+# styleCSS=black-and-white.css
+# styleCSS=blue.css
 </pre></div>
     <div class="wiki" style="display: block;">
       <h2><a name="defining-your-own-style">Defining your own style</a></h2>
@@ -388,8 +401,8 @@ class="sy0">;</span>
 </style><pre class="text">liferay6StyleClass=org.openxava.test.style.MyLiferay6Style</pre>
       Of course, you have to write the <em>MyLiferayStyle</em> class.</div>
     <div class="wiki" style="display: block;">
-      <h2><a name="defining-your-own-style-5">Defining
-        your own style <em>(until v5.9.1)</em></a></h2>
+      <h2><a name="defining-your-own-style-5">Defining your own style <em>(until
+            v5.9.1)</em></a></h2>
     </div>
     <div class="wiki" style="display: block;">In v5 the default visual style of
       OpenXava is defined in <em>/web/naviox/style/naviox.css</em>. The <em>naviox.css</em>
