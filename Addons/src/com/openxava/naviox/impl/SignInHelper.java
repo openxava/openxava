@@ -29,7 +29,8 @@ public class SignInHelper {
 		return forwardURI;
 	}	
 	
-	public static void signIn(HttpSession session, String userName) {
+	public static void signIn(HttpServletRequest request, String userName) {
+		HttpSession session = request.getSession();
 		session.setAttribute("naviox.user", userName);
 		Modules modules = (Modules) session.getAttribute("modules");
 		modules.reset();		

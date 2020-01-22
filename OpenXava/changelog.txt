@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Some new common use labels to be used in applications.
+
 OpenXava 6.2.2 (2019-12-9)
 --------------------------
 - Migration documentation for adapting views to new FILES stereotype.

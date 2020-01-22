@@ -38,7 +38,7 @@ public class NaviOXFilter implements Filter {
 				String autologinUser = NaviOXPreferences.getInstance().getAutologinUser();
 				if (!Is.emptyString(autologinUser)) {
 					if (SignInHelper.isAuthorized(autologinUser, NaviOXPreferences.getInstance().getAutologinPassword())) {
-						SignInHelper.signIn(session, autologinUser);
+						SignInHelper.signIn((HttpServletRequest) request, autologinUser); 
 					}					
 				}
 			}
