@@ -72,7 +72,3 @@
 
 ## Note
 	If IAM role based access is used then region, accessKey and secretkey are not required
-
-## Need any help for more advanced use cases / support?
-
-- Contact us via sales@mahaswami.com
