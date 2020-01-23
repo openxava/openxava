@@ -156,19 +156,15 @@ public class Categoria {
       diferentes usos del mismo tipo. Los estereotipo son justo para marcar este
       uso específico.<br>
       La mejor forma de entender que es un estereotipo es verlo en acción.
-      Añadamos las propiedades <em>precio</em>, <em>foto</em>, <em>masFotos</em>
-      y <em>observaciones</em> a tu entidad <em>Producto</em>:</div>
+      Añadamos las propiedades <em>precio</em>, <em>foto</em><em>s</em> y <em>observaciones</em>
+      a tu entidad <em>Producto</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Stereotype("DINERO") // La propiedad precio se usa para almacenar dinero
 private BigDecimal precio; // Incluye el import java.math.*  BigDecimal se suele usar para dinero
  
-@Stereotype("FOTO") // El usuario puede ver y cambiar una foto
-@Column(length=16777216) // Este tamaño para poder guardar fotos grandes
-private byte [] foto;
- 
 @Stereotype("GALERIA_IMAGENES") // Una galería de fotos completa está disponible
 @Column(length=32) // La cadena de 32 de longitud es para almacenar la clave de la galería
-private String masFotos;
+private String fotos;
  
 @Stereotype("TEXTO_GRANDE") // Esto es para un texto grande, se usará un área de texto o equivalente
 private String observaciones;
@@ -189,14 +185,13 @@ private String observaciones;
       editores, etc. Y te permiten reutilizar funcionalidad predefinida con
       facilidad. Por ejemplo, sólo marcando una simple propiedad <em>String</em>
       con <em>@Stereotype(“IMAGES_GALLERY”)</em> tendrás disponible toda una
-      galería de imágenes. Pulsando en la cámara de la propiedad <em>masFotos</em>
-      verás la galería:<br>
-      <img src="files/modeling_es050.png" alt="modeling_es050.png" title="modeling_es050.png"><br>
-      A parte de estos, OpenXava tiene muchos estereotipos predefinidos que te
-      pueden ser útiles, tales como ETIQUETA, ETIQUETA_NEGRITA, HORA, FECHAHORA,
-      RELLENADO_CON_CEROS, TEXTO_HTML, ETIQUETA_IMAGEN, EMAIL, TELEFONO, WEBURL,
-      IP, ISBN, TARJETA_CREDITO, LISTA_EMAIL, CONTRASENA, MAC, ARCHIVO,
-      ARCHIVOS, ICONO, etc.<br>
+      galería de imágenes. </div>
+    <div class="wiki" style="display: block;">A parte de estos, OpenXava tiene
+      muchos estereotipos predefinidos que te pueden ser útiles, tales como
+      FOTO, ETIQUETA, ETIQUETA_NEGRITA, HORA, FECHAHORA, RELLENADO_CON_CEROS,
+      TEXTO_HTML, ETIQUETA_IMAGEN, EMAIL, TELEFONO, WEBURL, IP, ISBN,
+      TARJETA_CREDITO, LISTA_EMAIL, CONTRASENA, MAC, ARCHIVO, ARCHIVOS, ICONO,
+      etc.<br>
       Ya tienes <em>Producto</em> listo. Refinemos ahora <em>Cliente</em>.<br>
       <h3 id="toc4"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Embeddable"></a>Embeddable</h3>
       Vamos a añadir una dirección a nuestro, hasta ahora algo desnudo, <em>Cliente</em>.

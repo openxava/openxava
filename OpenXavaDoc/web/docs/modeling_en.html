@@ -40,10 +40,8 @@
         <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Summary">Summary</a></div>
       </div>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <strong>2. Modeling with Java</strong> | <a class="wiki_link"
-
-        href="testing_en.html">3. Automated testing</a> | <a class="wiki_link"
-
+        Getting started</a> | <strong>2. Modeling with Java</strong> | <a class="wiki_link"
+        href="testing_en.html">3. Automated testing</a> | <a class="wiki_link"
         href="inheritance_en.html">4. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
         Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
         Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
@@ -60,8 +58,7 @@
       you will create all the entities required for your project in order to get
       your application working.<br>
       By now I assume that you know how to create a new entity with Eclipse and
-      how to run the application, because you have already read <a class="wiki_link"
-
+      how to run the application, because you have already read <a class="wiki_link"
         href="getting-started_en.html">Lesson1: Getting started</a>, right?<br>
       <h2 id="toc1"><a name="Lesson 2: Modeling with Java-Basic domain model"></a>Basic
         domain model</h2>
@@ -123,10 +120,8 @@ public class Category {
       button on the entity code, or Ctrl-1 on a field.<br>
       Execute the <em>Category</em> module and add some categories:<br>
       <img src="files/modeling_en035.png" alt="modeling_en035.png" title="modeling_en035.png"><br>
-      <span style="line-height: 1.5;">Now, we'll associate </span><em><span style="line-height: 1.5;">Product</span></em><span
-
-        style="line-height: 1.5;"> with </span><em><span style="line-height: 1.5;">Category</span></em><span
-
+      <span style="line-height: 1.5;">Now, we'll associate </span><em><span style="line-height: 1.5;">Product</span></em><span
+        style="line-height: 1.5;"> with </span><em><span style="line-height: 1.5;">Category</span></em><span
         style="line-height: 1.5;">: Add the next <em>category</em> reference
         declaration in your <em>Product</em> entity:</span></div>
     <div class="wiki" style="display: block;">
@@ -145,8 +140,7 @@ public class Category {
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">This is a plain JPA many-to-one
-      relationship, the one that you can learn more about in <a class="wiki_link"
-
+      relationship, the one that you can learn more about in <a class="wiki_link"
         href="jpa_en.html">appendix B</a>. In this case, thanks to the <em>@DescriptionsList</em>
       annotation it is displayed as a combo:<br>
       <img src="files/modeling_en020.png" alt="modeling_en020.png" title="modeling_en020.png"><br>
@@ -160,19 +154,15 @@ public class Category {
       percentages, money or quantities. Different uses of stereotypes is to mark
       this specific use.<br>
       The best way to understand what a stereotype is, is to see it in action.
-      Let's add <em>price</em>, <em>photo</em>, <em>morePhotos</em> and <em>remarks</em>
+      Let's add <em>price</em>, <em>photos</em><em></em> and <em>remarks</em>
       properties to your <em>Product</em> entity:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Stereotype("MONEY") // The price property is used to store money
 private BigDecimal price; // Include the import java.math.*  BigDecimal is typically used for money
  
-@Stereotype("PHOTO") // The user can view and change a photo
-@Column(length=16777216) // This size to store big photos
-private byte [] photo;
- 
 @Stereotype("IMAGES_GALLERY") // A complete image gallery is available
 @Column(length=32) // The 32 length string is for storing the key of the gallery
-private String morePhotos;
+private String photos;
  
 @Stereotype("MEMO") // This is for a big text, a text area or equivalent will be used
 private String remarks;
@@ -191,23 +181,22 @@ private String remarks;
       Stereotypes have effects in sizes, validations, editors, etc. Stereotypes
       also allow you to reuse built-in functionality easily. For example, with a
       mere marking of a simple string property as <em>@Stereotype(“IMAGES_GALLERY”)</em>
-      you have a full image gallery available. Click on the camera of the <em>morePhotos</em>
-      property and you'll see the gallery:</div>
-    <div class="wiki" style="display: block;"> <img src="files/modeling_en050.png"
-
-        alt="modeling_en050.png" title="modeling_en050.png"><br>
-      Apart from these, OpenXava has many other useful built in stereotypes such
-      as LABEL, BOLD_LABEL, TIME, DATETIME, ZEROS_FILLED, HTML_TEXT,
-      IMAGE_LABEL, EMAIL, TELEPHONE, WEBURL, IP, ISBN, CREDIT_CARD, EMAIL_LIST,
-      PASSWORD, MAC, FILE, FILES, ICON, etc.<br>
+      you have a full images gallery available. </div>
+    <div class="wiki" style="display: block;">Apart from these, OpenXava has
+      many other useful built in stereotypes such as PHOTO, LABEL, BOLD_LABEL,
+      TIME, DATETIME, ZEROS_FILLED, HTML_TEXT, IMAGE_LABEL, EMAIL, TELEPHONE,
+      WEBURL, IP, ISBN, CREDIT_CARD, EMAIL_LIST, PASSWORD, MAC, FILE, FILES,
+      ICON, etc.<br>
       Now you have <em>Product</em> ready to use. Let's refine the <em>Customer</em>
       now.<br>
       <h3 id="toc4"><a name="Lesson 2: Modeling with Java-Basic domain model-Embeddable"></a>Embeddable</h3>
-      We are going to add <em>Address</em> to our until now pretty naked <em>Customer</em>.
-      The customer address is not shared by other customers, and when the
-      customer is removed his address is removed too. Therefore we'll model the
-      address concept as an embeddable class in this case. You can learn more
-      about this in <a class="wiki_link" href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Embeddable%20classes">appendix
+      TMP ME QUEDÉ POR AQUÍ</div>
+    <div class="wiki" style="display: block;"> We are going to add <em>Address</em>
+      to our until now pretty naked <em>Customer</em>. The customer address is
+      not shared by other customers, and when the customer is removed his
+      address is removed too. Therefore we'll model the address concept as an
+      embeddable class in this case. You can learn more about this in <a class="wiki_link"
+        href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Embeddable%20classes">appendix
         B</a>.<br>
       Add the <em>Address</em> class to your project:</div>
     <div class="wiki" style="display: block;">
@@ -346,12 +335,9 @@ public class InvoiceKey implements java.io.Serializable { // The key class must 
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">This
         code shows some of the requirements of a primary key class, such as to
-        be serializable and to implement </span><em><span style="line-height: 1.5;">hashCode()</span></em><span
-
-        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">equals()</span></em><span
-
-        style="line-height: 1.5;">. Eclipse can generate them for you with </span><em><span
-
+        be serializable and to implement </span><em><span style="line-height: 1.5;">hashCode()</span></em><span
+        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">equals()</span></em><span
+        style="line-height: 1.5;">. Eclipse can generate them for you with </span><em><span
           style="line-height: 1.5;">Source &gt; Generate hashCode and
           equals()...</span></em><br>
       You already know how to use a composite key, and given that we have
@@ -426,15 +412,11 @@ private LocalDate date;
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">From
         now on when the user clicks on the 'new' button the year field will have
         the current year, and the date field the current date. These two
-        calculators (</span><em><span style="line-height: 1.5;">CurrentYearCalculator</span></em><span
-
-        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">CurrentLocalDateCalculator</span></em><span
-
+        calculators (</span><em><span style="line-height: 1.5;">CurrentYearCalculator</span></em><span
+        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">CurrentLocalDateCalculator</span></em><span
         style="line-height: 1.5;">) are included in OpenXava. You can explore
-        the </span><em><span style="line-height: 1.5;"><a class="wiki_link_ext"
-
-            href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html"
-
+        the </span><em><span style="line-height: 1.5;"><a class="wiki_link_ext"
+            href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html"
             rel="nofollow">org.openxava.calculators</a></span></em><span style="line-height: 1.5;">
         package to see other useful built-in calculators.</span></div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Note
@@ -484,8 +466,7 @@ public class NextNumberForYearCalculator implements ICalculator { // A calculato
     <div class="wiki" style="display: block;">Your calculator must implement <em>ICalculator</em>
       interface (and therefore have a <em>calculate()</em> method). We declare
       a <em>year</em> property to put in the year of the calculation. To
-      implement the logic we use a JPA query. You can learn how to use JPA in <a
-
+      implement the logic we use a JPA query. You can learn how to use JPA in <a
         class="wiki_link" href="jpa_en.html">appendix B</a>. Now we only have to
       annotate the number <em>property</em> in the <em>Invoice</em> entity:</div>
     <div class="wiki" style="display: block;">
@@ -589,8 +570,7 @@ public class Detail {
 private Collection&lt;Detail&gt; details;
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">As
-        you can see, you only have to feed the value for the annotation </span><em><span
-
+        you can see, you only have to feed the value for the annotation </span><em><span
           style="line-height: 1.5;">@ListProperties</span></em><span style="line-height: 1.5;">
         with the list of the properties you wish, separated by commas. You can
         use qualified properties, that is, to use the dot notation for accessing
@@ -676,8 +656,7 @@ private Customer customer;
       compact way:<br>
       <img src="files/modeling_en130.png" alt="modeling_en130.png" title="modeling_en130.png"><br>
       You can see below how you have refined your <i>Invoice</i> interface.<br>
-      <h3 id="toc12"><a name="Lesson 2: Modeling with Java-Refining the user interface-Refined user interface"></a><span
-
+      <h3 id="toc12"><a name="Lesson 2: Modeling with Java-Refining the user interface-Refined user interface"></a><span
           style="font-size: 1.1em; line-height: 1.5;">Refined user interface</span></h3>
       This is the result of our refinements in the <em>Invoice</em> user
       interface:<br>
@@ -691,8 +670,7 @@ private Customer customer;
       Nowadays agile development is no longer a “new and breaking technique”,
       but an established way to do software development, even the ideal way to
       go for many people.<br>
-      If you are not familiar with agile development you can have a look at <a
-
+      If you are not familiar with agile development you can have a look at <a
         class="wiki_link_ext" href="http://www.agilemanifesto.org" rel="nofollow">www.agilemanifesto.org</a>.
       Basically, agile development encourages the use of feedback from a working
       product over a careful upfront design. This gives a more prominent role to
@@ -810,12 +788,10 @@ private Collection&lt;Product&gt; products;
       into a business application ready for your user.<br>
       You will learn all these advanced topics in the forthcoming lessons.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_en.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="testing_en.html">Go to Lesson 3</a></strong>
     </div>
