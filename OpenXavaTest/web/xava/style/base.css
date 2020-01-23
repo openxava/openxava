@@ -38,6 +38,7 @@ Falta:
 	--sign-out-color: white;
 	--sign-in-a-hover-color: white;
 
+	--button-bar-button-color: var(--action-color);
 	--button-bar-button-hover-background: var(--action-hover-background);
 	--button-bar-button-hover-color: var(--action-hover-color);
 	--button-bar-button-hover-border: white;
@@ -785,14 +786,19 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 
 .ox-list-header a, .ui-widget-content .ox-list-header a, .ox-customize-controls .mdi-sort-numeric, .ox-customize-controls .mdi-sort-alphabetical,
 .ox-customize-controls .mdi-filter, .ox-customize-controls .mdi-filter-remove, 
-.ox-button-bar .ox-button-bar-button a, 
-.ox-collection-list-actions .ox-button-bar-button a,
-.ox-button-bar-button i,
 i, .ox-icon i.mdi-close-circle,
 .ox-charts .ox-element-collection .ox-image-link i
 {  
 	color: var(--action-color);
 }
+
+.ox-button-bar .ox-button-bar-button a, 
+.ox-collection-list-actions .ox-button-bar-button a,
+.ox-button-bar-button i
+{  
+	color: var(--button-bar-button-color);
+}
+
 
 .ox-button-bar .ox-button-bar-button a, 
 .ox-collection-list-actions .ox-button-bar-button a 
