@@ -48,15 +48,16 @@
     <img src="files/light-detail_en.png" alt="Light theme sample">
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;">And Dark:</div>
+    <div class="wiki" style="display: block;">And Dark <i>(new in v6.3)</i>:</div>
     <img src="files/dark-detail_en.png" alt="">
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;">Or Blank &amp; White:</div>
+    <div class="wiki" style="display: block;">Or Blank &amp; White <i>(new in
+        v6.3)</i>:</div>
     <img src="files/black-and-white-detail_en.png" alt="">
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;">Also Blue:<br>
+    <div class="wiki" style="display: block;">Also Blue <i>(new in v6.3)</i>:<br>
     </div>
     <style type="text/css"><!--
 /**
@@ -85,11 +86,13 @@ styleCSS=dark.css
     <div class="wiki" style="display: block;">
       <h2><a name="defining-your-own-style">Defining your own style</a></h2>
       <p>To create a new style just create your own CSS file in <i>web/xava/style</i>
-        folder of your project and add styleCSS property in <i>xava.properties</i>.</p>
+        folder of your project and point to it in the <i>styleCSS</i> property
+        of <i>xava.properties</i>.</p>
+      <h3>Extending an existing style <i>(new in v6.3)</i></h3>
       <p>If you want a slight modification over an existing style, you can
         extend that style. For example, if you want the Light style but with
-        gold color for the left menu and the main button, create a golden.css
-        file in web/xava/style with this content:</p>
+        gold color for the left menu and the main button, create a <i>golden.css</i>
+        file in <i>web/xava/style</i> with this content:</p>
     </div>
     <div class="wiki" style="display: block;">
       <pre><code class="css">/* golden.css */
@@ -109,12 +112,15 @@ styleCSS=dark.css
 </code></pre> </div>
     <div class="wiki" style="display: block;">Note that we use <i>@import
         'light.css'</i> to extend Light style. We redefine the <i>--my-highlight</i>
-      variable that is the color for the main button, this variable is from
-      <i> light.css</i>, and then just define the colors for the left menu. Now
-      I change the <i>styleCSS</i> value in <i>xava.properties</i>:</div>
+      variable that is the color for the main button, this variable is from <i>
+        light.css</i>, and then just define the colors for the left menu. Now I
+      change the <i>styleCSS</i> value in <i>xava.properties</i>:</div>
     <pre class="text">styleCSS=golden.css</pre>
     <div class="wiki" style="display: block;">To get this result:</div>
     <img src="files/golden-detail_en.png" alt="">
+    <div class="wiki" style="display: block;">
+      <h3>Your own color scheme <i>(new in v6.3)</i></h3>
+    </div>
     <div class="wiki" style="display: block;">On the other hand to define your
       own color scheme, not just a refinement, extends directly from <i>base.css</i>.
       For example, to define a Pink style create a <i>pink.css</i> like this:</div>
@@ -174,6 +180,9 @@ styleCSS=dark.css
       of the define individually the color for each single part of the
       interface, look at the <i>base.css</i> file to see all the color
       variables available, more than 200.</div>
+    <div class="wiki" style="display: block;">
+      <h3>Refining other aspects of the UI</h3>
+    </div>
     <div class="wiki" style="display: block;">But not only the colors, you can
       refine each single aspect of the interface: margins, fonts, borders, etc.
       For example, if you want to change the beautiful gradient for frames used
@@ -190,20 +199,24 @@ styleCSS=dark.css
     <img src="files/frames-with-border_en.png" alt="">
     <div class="wiki" style="display: block;">You can modify any aspect of the
       user interface, have a look at <i>base.css</i> to see all the available
-      options. Of course, if you're going to change many things an option if to
+      options. Of course, if you're going to change many things an option is to
       define your own CSS from scratch, without extending <i>base.css</i>.<br>
       <p></p>
       <h2><a name="Custom visual style-Modify the default style (new in v4.5)"></a><span
-          style="background-color: #ffffff;">Modify the default style <em>(new
+          style="background-color: #ffffff;">Modify the application style <em>(new
             in v4.5)</em></span> <span style="background-color: #ffffff;"></span></h2>
       <h2><span style="background-color: #ffffff;"></span></h2>
       <div class="wiki" style="display: block;"><span style="background-color: #ffffff;">Since
-          version 4.5 you can add and modify styles with the file </span><em><span
-            style="background-color: #ffffff;">custom.css</span></em><span style="background-color: #ffffff;">
-          in </span><em><span style="background-color: #ffffff;">web/xava/style.</span></em><br>
-        <span style="background-color: #ffffff;">To overwrite an existing style
-          just add the style name and define it in your <em>custom.css</em>
-          file. If you put:</span><br>
+          version 4.5 you can add and modify styles for your application with
+          the file </span><em><span style="background-color: #ffffff;">custom.css</span></em><span
+          style="background-color: #ffffff;"> in </span><em><span style="background-color: #ffffff;">web/xava/style.</span></em><span
+          style="background-color: #ffffff;"> This affect only to your
+          application. This is a fast way to change the visual style without
+          creating a new theme.<br>
+        </span></div>
+      <div class="wiki" style="display: block;"><span style="background-color: #ffffff;">To
+          overwrite an existing style just add the style name and define it in
+          your <em>custom.css</em> file. If you put:</span><br>
         <pre class="text">body{
    font-size: 9px;
 }
@@ -212,7 +225,7 @@ styleCSS=dark.css
 }</pre>
         <span style="background-color: #ffffff;">You change the <em>font-size</em>
           to all your application (inside portal too) and the height of the rows
-          in list. Look at <em>naviox.css</em> for a complete list of available
+          in list. Look at <em>base.css</em> for a complete list of available
           CSS classes.</span><br>
         <h3 id="toc2"><a name="Custom visual style-Modify the default style (new in v4.5)-A few css tricks"></a><span
             style="background-color: #ffffff;">A few css tricks</span></h3>

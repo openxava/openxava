@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>    
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -49,17 +49,19 @@
       <img src="files/light-detail_es.png" alt="Light theme sample">
       <div class="wiki" style="display: block;"><br>
       </div>
-      <div class="wiki" style="display: block;">Y Dark: </div>
-      <div class="wiki" style="display: block;"><img src="files/dark-detail_es.png"
-
+      <div class="wiki" style="display: block;">Y Dark <i>(nuevo en v6.3)</i>:
+      </div>
+      <div class="wiki" style="display: block;"><img src="files/dark-detail_es.png"
           alt=""><br>
         <div class="wiki" style="display: block;"><br>
         </div>
-        <div class="wiki" style="display: block;">O Blank &amp; White:</div>
+        <div class="wiki" style="display: block;">O Blank &amp; White <i>(nuevo
+            en v6.3)</i>:</div>
         <img src="files/black-and-white-detail_es.png" alt="">
         <div class="wiki" style="display: block;"><br>
         </div>
-        <div class="wiki" style="display: block;">También Blue:<br>
+        <div class="wiki" style="display: block;">También Blue <i>(nuevo en
+            v6.3)</i>:<br>
         </div>
         <div class="wiki" style="display: block;"></div>
         <style type="text/css"><!--
@@ -91,16 +93,124 @@ styleCSS=dark.css
 </pre></div>
       <div class="wiki" style="display: block;">
         <h2><a name="definir-tu-propio-estilo">Definir tu propio estilo</a></h2>
-        <p>Para crear un estilo completamente nuevo copia y pega <i>terra.css</i>
-          (o light.css) en la carpeta <i>web/xava/style</i> como <i>miestilo.css</i>
-          (o un nombre que te guste más). Después modifica <i>web/xava/style/miestilo.css</i>
-          (recién creado) a tu gusto. Para finalizar, añade la siguiente entrada
-          en tu <i>xava.properties</i>:<br>
+        <p>Para crear un nuevo estilo crea tu propio archivo CSS en la carpeta <i>web/xava/style</i>
+          de tu proyecto y apunta a él en la propiedad <i>styleCSS</i> de <i>xava.properties</i>.
         </p>
-        <pre class="text">styleCSS=miestilo.css</pre>
-        Si simplemente quieres hacer unas cuantas modificaciones al estilo por
-        defecto, es mucho más fácil añadir tus reglas CSS a <i>custom.css</i>,
-        como se explica abajo.<br>
+        <h3>Extender un estilo existente</h3>
+        <p>Si simplemente quieres una pequeña modificación de un estilo
+          existente, puedes extender ese estilo. Por ejemplo, si quieres el
+          estilo Light pero con el menú de la izquierda y el botón principal
+          dorados, crea un archivo <i>dorado.css</i> en <i>web/xava/style</i>
+          con este contenido:</p>
+        <div class="wiki" style="display: block;">
+          <pre><code class="css">/* dorado.css */
+
+@import 'light.css';
+
+:root {
+
+	--mi-oro: #cda434;
+	--my-highlight: var(--mi-oro);
+	
+	/* Menú de módulos de la izquierda */	
+	--modules-list-color: var(--my-lightgray); 
+	--modules-list-background: var(--mi-oro);
+
+}
+</code></pre> </div>
+        <div class="wiki" style="display: block;">Fíjate que usamos <i>@import
+            'light.css'</i> para extender el estilo Light. Redefinimos la
+          variable <i>--my-highlight</i> que es el color para el botón
+          principal, esta variable es de <i>light.css</i>. Después definimos
+          los colores para el menú de la izquierda. Ahora cambio el valor de <i>styleCSS</i>
+          en <i>xava.properties</i>:</div>
+        <pre class="text">styleCSS=dorado.css</pre>
+        <div class="wiki" style="display: block;">Para obtener este resultado:</div>
+        <img src="files/golden-detail_es.png" alt="">
+        <div class="wiki" style="display: block;">
+          <h3>Tu propio esquema de colores</h3>
+        </div>
+        <div class="wiki" style="display: block;">Por otra parte puedes definir
+          tu propio esquema de colores, no sólo un refinamiento, extendiendo
+          directamente de <i>base.css</i>. Por ejemplo, para definir un estilo
+          Rosa crea a <i>rosa.css</i> como este:</div>
+        <div class="wiki" style="display: block;">
+          <pre><code class="css">/* rosa.css */
+
+@import 'base.css';
+
+:root {
+	--mi-rosa: #E94E77;
+	--mi-rosa-oscuro: #D68189;
+	--mi-beis: #F4EAD5;
+	--mi-marron: #C6A49A;
+	--rosa-transparente: rgb(198, 164, 154, 0.2); 
+	
+	 
+	/* Menú de módulos de la izquierda */
+	--modules-list-color: var(--mi-beis);
+	--modules-list-background: var(--mi-rosa);
+	--modules-list-selected-color: white;
+	 
+	/* Cabecera del módulo */ 
+	--module-header-color: white;
+	--module-header-background: var(--mi-rosa);		
+	
+	/* Botonera */	 
+	--button-bar-button-color: var(--mi-beis);
+	--button-bar-background: var(--mi-rosa-oscuro);
+	--list-formats-color: var(--mi-beis);
+	--list-formats-hover-color: white;
+	
+	/* Fondos y etiquetas */
+	--background: var(--mi-beis);
+	--color: var(--mi-marron);
+	
+	/* Marcos */	
+	--frame-background: var(--rosa-transparente);
+	
+	/* Acciones */
+	--action-color: var(--mi-rosa-oscuro);	
+	--action-hover-color: var(--mi-rosa);
+	--action-hover-background: white;
+	--default-action-button-background: var(--mi-rosa);
+	
+	/* Editores */
+	--required-editor-border: var(--mi-rosa-oscuro);
+	
+}
+</code></pre> </div>
+        <div class="wiki" style="display: block;">Fíjate como extendemos de <i>base.css</i>
+          y definimos los colores para las partes principales de la interfaz.
+          Con sólo el código de arriba obtienes:</div>
+        <img src="files/pink-detail_es.png" alt="">
+        <div class="wiki" style="display: block;">Sólo tienes que definir unos
+          pocos colores y todos los demás se derivan a partir de ellos, así
+          tienes un esquema de colores consistente con poco esfuerzo. Además,
+          tienes la opción de definir individualmente el color para que detalle
+          de la interfaz de usuario, echa un vistazo a <i>base.css</i> para ver
+          todas las variables de color disponibles, más de 200.</div>
+        <div class="wiki" style="display: block;">
+          <h3>Refinar otros aspectos de la interfaz de usuario</h3>
+        </div>
+        <div class="wiki" style="display: block;">Pero no sólo los colores,
+          puedes refinar cualquier aspecto de la interfaz: márgenes, fuentes,
+          bordes, etc. Por ejemplo, si quiere cambiar el bonito degradado que se
+          usa por defecto para los marcos, por un más convencional y aburrido
+          marco con sombra, puedes añadir estas líneas a tu CSS CSS:</div>
+        <div class="wiki" style="display: block;">
+          <pre><code class="css">.ox-frame {
+	background: white;
+	box-shadow: 0px 0px 4px gray;
+}
+</code></pre> </div>
+        <div class="wiki" style="display: block;">De esta manera, los marcos se
+          visualizarán así:</div>
+        <img src="files/frames-with-border_es.png" alt=""> </div>
+      <div class="wiki" style="display: block;">Puedes modificar cualquier cosa
+        de la interfaz gráfica, echa un vistazo a <i>base.css</i> para ver
+        todas las acciones disponibles. Por supuesto, si vas a cambiar muchas
+        cosas una opción es definir tu propio CSS desde cero, sin extender de <i>base.css</i>.<br>
         <p></p>
       </div>
       <style type="text/css"><!--
@@ -117,9 +227,12 @@ styleCSS=dark.css
         el estilo por defecto <em>(nuevo en v4.5)</em> </h2>
     </div>
     <div class="wiki" style="display: block;">Desde la versión 4.5 podemos
-      añadir y modificar estilos mediante el fichero <em>custom.css</em> en <em>web/xava/style.</em><br>
-      Para sobreescribir un estilo ya existente, basta con añadir el nombre del
-      estilo y definirlo en nuestro fichero. Poniendo:<br>
+      añadir y modificar estilos de la aplicación mediante el fichero <em>custom.css</em>
+      en <em>web/xava/style. </em>Esto afecta sólo a tu aplicación. Esto es
+      una forma fácil de cambiar el estilo sin tener que crear un nuevo tema.</div>
+    <div class="wiki" style="display: block;">Para sobreescribir un estilo ya
+      existente, basta con añadir el nombre del estilo y definirlo en nuestro
+      fichero. Poniendo:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -137,7 +250,7 @@ styleCSS=dark.css
    height: 20px;
 }</pre>
       Cambiamos el tamaño de la letra de toda nuestra aplicación (incluso dentro
-      de un portal) y la altura de las filas en la lista. Mira en <em>naviox.css</em>
+      de un portal) y la altura de las filas en la lista. Mira en <em>base.css</em>
       para ver todas las classes CSS disponibles.<br>
       <h2><a name="Anadir-elementos-a-la-pagina"></a>Añadir elementos a la
         página <em>(nuevo en v5.6)</em></h2>
@@ -171,10 +284,8 @@ styleCSS=dark.css
 .html4strict span.xtra { display:block; }
 
 -->
-</style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">div</span> <span
-
-class="kw3">id</span><span class="sy0">=</span><span class="st0">"beta"</span>&gt;</span>BETA<span
-
+</style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">div</span> <span
+class="kw3">id</span><span class="sy0">=</span><span class="st0">"beta"</span>&gt;</span>BETA<span
 class="sc2">&lt;<span class="sy0">/</span><span class="kw2">div</span>&gt;</span></pre>
       Y después posicionarlo añadiendo lo siguiente a <em>custom.css</em>:<br>
       <style type="text/css"><!--
@@ -203,40 +314,28 @@ class="sc2">&lt;<span class="sy0">/</span><span class="kw2">div</span>&gt;</span
 
 -->
 </style><pre class="css"><span class="re0">#beta</span> <span class="br0">{</span>
-    <span class="kw1">position</span><span class="sy0">:</span><span class="kw2">absolute</span><span
-
+    <span class="kw1">position</span><span class="sy0">:</span><span class="kw2">absolute</span><span
 class="sy0">;</span>
-    <span class="kw1">right</span><span class="sy0">:</span> <span class="re3">-65px</span><span
-
+    <span class="kw1">right</span><span class="sy0">:</span> <span class="re3">-65px</span><span
 class="sy0">;</span>
-    <span class="kw1">top</span><span class="sy0">:</span> <span class="re3">5px</span><span
-
+    <span class="kw1">top</span><span class="sy0">:</span> <span class="re3">5px</span><span
 class="sy0">;</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
 class="sy0">;</span>
-    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">120%</span><span
-
+    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">120%</span><span
 class="sy0">;</span>
-    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
-
+    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
 class="sy0">;</span>
-    transform<span class="sy0">:</span> rotate<span class="br0">(</span>45deg<span
-
+    transform<span class="sy0">:</span> rotate<span class="br0">(</span>45deg<span
 class="br0">)</span><span class="sy0">;</span>
-    -webkit-transform<span class="sy0">:</span> rotate<span class="br0">(</span>45deg<span
-
+    -webkit-transform<span class="sy0">:</span> rotate<span class="br0">(</span>45deg<span
 class="br0">)</span><span class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> <span class="kw2">red</span><span
-
+    <span class="kw1">background</span><span class="sy0">:</span> <span class="kw2">red</span><span
 class="sy0">;</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">50px</span> <span
-
-class="re3">50px</span> <span class="re3">5px</span> <span class="re3">50px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">50px</span> <span
+class="re3">50px</span> <span class="re3">5px</span> <span class="re3">50px</span><span
 class="sy0">;</span>
-    <span class="kw1">z-index</span><span class="sy0">:</span> -<span class="nu0">10</span><span
-
+    <span class="kw1">z-index</span><span class="sy0">:</span> -<span class="nu0">10</span><span
 class="sy0">;</span>
 <span class="br0">}</span></pre>
       <h2 id="toc3"><a name="Estilo visual personalizado-Dentro de portales"></a>Dentro
@@ -246,8 +345,7 @@ class="sy0">;</span>
       has de crear o modificar el estilo del propio portal, y la aplicación de
       OpenXava se adaptará. Por ejemplo, cuando despliegas tu aplicación en
       Liferay se ve de esta forma:<br>
-      <img src="files/liferay6-customer-list_es.png" alt="liferay6-customer-list_es.png"
-
+      <img src="files/liferay6-customer-list_es.png" alt="liferay6-customer-list_es.png"
         title="liferay6-customer-list_es.png"><br>
       <br>
       Adicionalmente, si quieres un estilo específico para un portal, las
@@ -273,16 +371,12 @@ class="sy0">;</span>
       <h2><a name="definirt-tu-propio-estilo-5">Definir tu propio estilo <em>(hasta
             v5.9.1)</em></a></h2>
       <p>A partir de v5.0 el estilo visual por defecto está definido en <em>/web/naviox/style/naviox.css</em>.
-        <span style="line-height: 1.5;">El archivo </span><em><span style="line-height: 1.5;">naviox.css</span></em><span
-
+        <span style="line-height: 1.5;">El archivo </span><em><span style="line-height: 1.5;">naviox.css</span></em><span
           style="line-height: 1.5;"> está en tu proyecto pero se copia desde el
-          proyecto </span><em><span style="line-height: 1.5;">Addons</span></em><span
-
+          proyecto </span><em><span style="line-height: 1.5;">Addons</span></em><span
           style="line-height: 1.5;"> al desplegar. En todo caso, en lugar de
-          modificar </span><em><span style="line-height: 1.5;">naviox.css</span></em><span
-
-          style="line-height: 1.5;"> es mejor modificar </span><em><span style="line-height: 1.5;">custom.css</span></em><span
-
+          modificar </span><em><span style="line-height: 1.5;">naviox.css</span></em><span
+          style="line-height: 1.5;"> es mejor modificar </span><em><span style="line-height: 1.5;">custom.css</span></em><span
           style="line-height: 1.5;">, como se explica en la siguiente sección.</span><br>
       </p>
       <h2 id="toc4"><a name="Estilo visual personalizado-Definir tu propio estilo (hasta v4.9.1)"></a>Definir
@@ -322,18 +416,15 @@ styleCSS=mystyle/mystyle.css</pre>
         ox-help, ox-total-row, ox-total-cell, ox-total-capable-cell,
         ox-filter-cell, ox-frame-totals, ox-frame-totals-label,
         ox-frame-totals-value</em>.<br>
-      Opcionalmente, puedes crear tu propia clase <em>Style</em> extendiendo <em><a
-
-          class="wiki_link_ext" href="http://openxava.org/OpenXavaDoc/apidocs/org/openxava/web/style/Style.html"
-
+      Opcionalmente, puedes crear tu propia clase <em>Style</em> extendiendo <em><a
+          class="wiki_link_ext" href="http://openxava.org/OpenXavaDoc/apidocs/org/openxava/web/style/Style.html"
           rel="nofollow">org.openxava.web.style.Style</a>.</em> Esto te permite
       control adicional sobre la apariencia, disposición y comportamiento de tu
       aplicación.<br>
       <h2 id="toc5"><a name="Estilo visual personalizado-Estilos predefinidos (hasta v4.9.1)"></a>Estilos
         predefinidos <em>(hasta v4.9.1)</em></h2>
       <em>Puedes usar los estilos en esta sección con v5.0 si desactivas los
-        menús y la identificación de usuario como se explica en la <a class="wiki_link"
-
+        menús y la identificación de usuario como se explica en la <a class="wiki_link"
           href="migration_es">migración</a> de v4.9.1 a v5.0.</em><br>
       OpenXava viene con algunos estilos predefinidos incluidos. Los puedes
       configurar en <em>properties/xava.properties</em> de tu proyecto:<br>
@@ -470,217 +561,138 @@ public String [] getNoPortalModuleJsFiles() {
 .javascript span.xtra { display:block; }
 
 -->
-</style><pre class="javascript"><span class="kw1">if</span> <span class="br0">(</span>ipad <span
-
-class="sy0">==</span> <span class="kw2">null</span><span class="br0">)</span> <span
-
-class="kw2">var</span> ipad <span class="sy0">=</span> <span class="br0">{</span><span
-
+</style><pre class="javascript"><span class="kw1">if</span> <span class="br0">(</span>ipad <span
+class="sy0">==</span> <span class="kw2">null</span><span class="br0">)</span> <span
+class="kw2">var</span> ipad <span class="sy0">=</span> <span class="br0">{</span><span
 class="br0">}</span><span class="sy0">;</span>
 &nbsp;
-ipad.<span class="kw3">onLoad</span> <span class="sy0">=</span> <span class="kw2">function</span><span
-
+ipad.<span class="kw3">onLoad</span> <span class="sy0">=</span> <span class="kw2">function</span><span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
-    <span class="kw2">var</span> id <span class="sy0">=</span> $<span class="br0">(</span><span
-
-class="st0">'body'</span><span class="br0">)</span>.<span class="me1">data</span><span
-
-class="br0">(</span><span class="st0">'ipad-slide-element'</span><span class="br0">)</span><span
-
+    <span class="kw2">var</span> id <span class="sy0">=</span> $<span class="br0">(</span><span
+class="st0">'body'</span><span class="br0">)</span>.<span class="me1">data</span><span
+class="br0">(</span><span class="st0">'ipad-slide-element'</span><span class="br0">)</span><span
 class="sy0">;</span>
-    <span class="kw2">var</span> clazz <span class="sy0">=</span> $<span class="br0">(</span><span
-
-class="st0">'body'</span><span class="br0">)</span>.<span class="me1">data</span><span
-
-class="br0">(</span><span class="st0">'ipad-slide-class'</span><span class="br0">)</span><span
-
+    <span class="kw2">var</span> clazz <span class="sy0">=</span> $<span class="br0">(</span><span
+class="st0">'body'</span><span class="br0">)</span>.<span class="me1">data</span><span
+class="br0">(</span><span class="st0">'ipad-slide-class'</span><span class="br0">)</span><span
 class="sy0">;</span>
-    $<span class="br0">(</span><span class="st0">'#'</span> <span class="sy0">+</span> id<span
-
-class="br0">)</span>.<span class="me1">addClass</span><span class="br0">(</span>clazz<span
-
+    $<span class="br0">(</span><span class="st0">'#'</span> <span class="sy0">+</span> id<span
+class="br0">)</span>.<span class="me1">addClass</span><span class="br0">(</span>clazz<span
 class="br0">)</span><span class="sy0">;</span>
-    setTimeout<span class="br0">(</span><span class="st0">"$('#"</span> <span class="sy0">+</span> id <span
-
-class="sy0">+</span> <span class="st0">"').removeClass('"</span> <span class="sy0">+</span> clazz <span
-
-class="sy0">+</span> <span class="st0">"')"</span><span class="sy0">,</span> <span
-
+    setTimeout<span class="br0">(</span><span class="st0">"$('#"</span> <span class="sy0">+</span> id <span
+class="sy0">+</span> <span class="st0">"').removeClass('"</span> <span class="sy0">+</span> clazz <span
+class="sy0">+</span> <span class="st0">"')"</span><span class="sy0">,</span> <span
 class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span>
-    $<span class="br0">(</span><span class="st0">'body'</span><span class="br0">)</span>.<span
-
-class="me1">removeData</span><span class="br0">(</span><span class="br0">)</span><span
-
+    $<span class="br0">(</span><span class="st0">'body'</span><span class="br0">)</span>.<span
+class="me1">removeData</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-ipad.<span class="me1">onClickNextPage</span> <span class="sy0">=</span> <span class="kw2">function</span><span
-
+ipad.<span class="me1">onClickNextPage</span> <span class="sy0">=</span> <span class="kw2">function</span><span
 class="br0">(</span>listId<span class="br0">)</span> <span class="br0">{</span>
-    $<span class="br0">(</span><span class="st0">'#'</span> <span class="sy0">+</span> listId<span
-
-class="br0">)</span>.<span class="me1">addClass</span><span class="br0">(</span><span
-
+    $<span class="br0">(</span><span class="st0">'#'</span> <span class="sy0">+</span> listId<span
+class="br0">)</span>.<span class="me1">addClass</span><span class="br0">(</span><span
 class="st0">'slided-left'</span><span class="br0">)</span><span class="sy0">;</span>
-    $<span class="br0">(</span><span class="st0">'body'</span><span class="br0">)</span>.<span
-
-class="me1">data</span><span class="br0">(</span><span class="st0">'ipad-slide-element'</span><span
-
+    $<span class="br0">(</span><span class="st0">'body'</span><span class="br0">)</span>.<span
+class="me1">data</span><span class="br0">(</span><span class="st0">'ipad-slide-element'</span><span
 class="sy0">,</span> listId<span class="br0">)</span><span class="sy0">;</span>
-    $<span class="br0">(</span><span class="st0">'body'</span><span class="br0">)</span>.<span
-
-class="me1">data</span><span class="br0">(</span><span class="st0">'ipad-slide-class'</span><span
-
-class="sy0">,</span> <span class="st0">'slided-right'</span><span class="br0">)</span><span
-
+    $<span class="br0">(</span><span class="st0">'body'</span><span class="br0">)</span>.<span
+class="me1">data</span><span class="br0">(</span><span class="st0">'ipad-slide-class'</span><span
+class="sy0">,</span> <span class="st0">'slided-right'</span><span class="br0">)</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-ipad.<span class="me1">onClickPreviousPage</span> <span class="sy0">=</span> <span
-
-class="kw2">function</span><span class="br0">(</span>listId<span class="br0">)</span> <span
-
+ipad.<span class="me1">onClickPreviousPage</span> <span class="sy0">=</span> <span
+class="kw2">function</span><span class="br0">(</span>listId<span class="br0">)</span> <span
 class="br0">{</span>
-    $<span class="br0">(</span><span class="st0">'#'</span> <span class="sy0">+</span> listId<span
-
-class="br0">)</span>.<span class="me1">addClass</span><span class="br0">(</span><span
-
+    $<span class="br0">(</span><span class="st0">'#'</span> <span class="sy0">+</span> listId<span
+class="br0">)</span>.<span class="me1">addClass</span><span class="br0">(</span><span
 class="st0">'slided-right'</span><span class="br0">)</span><span class="sy0">;</span>
-    $<span class="br0">(</span><span class="st0">'body'</span><span class="br0">)</span>.<span
-
-class="me1">data</span><span class="br0">(</span><span class="st0">'ipad-slide-element'</span><span
-
+    $<span class="br0">(</span><span class="st0">'body'</span><span class="br0">)</span>.<span
+class="me1">data</span><span class="br0">(</span><span class="st0">'ipad-slide-element'</span><span
 class="sy0">,</span> listId<span class="br0">)</span><span class="sy0">;</span>
-    $<span class="br0">(</span><span class="st0">'body'</span><span class="br0">)</span>.<span
-
-class="me1">data</span><span class="br0">(</span><span class="st0">'ipad-slide-class'</span><span
-
-class="sy0">,</span> <span class="st0">'slided-left'</span><span class="br0">)</span><span
-
+    $<span class="br0">(</span><span class="st0">'body'</span><span class="br0">)</span>.<span
+class="me1">data</span><span class="br0">(</span><span class="st0">'ipad-slide-class'</span><span
+class="sy0">,</span> <span class="st0">'slided-left'</span><span class="br0">)</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-ipad.<span class="me1">setHtml</span> <span class="sy0">=</span> <span class="kw2">function</span><span
-
-class="br0">(</span>id<span class="sy0">,</span> content<span class="br0">)</span> <span
-
+ipad.<span class="me1">setHtml</span> <span class="sy0">=</span> <span class="kw2">function</span><span
+class="br0">(</span>id<span class="sy0">,</span> content<span class="br0">)</span> <span
 class="br0">{</span>
-    <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>id.<span
-
-class="me1">match</span><span class="br0">(</span><span class="co2">/__core$/</span><span
-
+    <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>id.<span
+class="me1">match</span><span class="br0">(</span><span class="co2">/__core$/</span><span
 class="br0">)</span><span class="br0">)</span> <span class="br0">{</span>
-        $<span class="br0">(</span><span class="st0">"#"</span> <span class="sy0">+</span> id<span
-
-class="br0">)</span>.<span class="me1">html</span><span class="br0">(</span>content<span
-
+        $<span class="br0">(</span><span class="st0">"#"</span> <span class="sy0">+</span> id<span
+class="br0">)</span>.<span class="me1">html</span><span class="br0">(</span>content<span
 class="br0">)</span><span class="sy0">;</span>
         <span class="kw1">return</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
     <span class="co1">// Core</span>
-    $<span class="br0">(</span><span class="st0">"#container"</span><span class="br0">)</span>.<span
-
-class="me1">addClass</span><span class="br0">(</span><span class="st0">"container"</span><span
-
+    $<span class="br0">(</span><span class="st0">"#container"</span><span class="br0">)</span>.<span
+class="me1">addClass</span><span class="br0">(</span><span class="st0">"container"</span><span
 class="br0">)</span><span class="sy0">;</span>
-    $<span class="br0">(</span><span class="st0">"#sheet"</span><span class="br0">)</span>.<span
-
-class="me1">addClass</span><span class="br0">(</span><span class="st0">"sheet"</span><span
-
+    $<span class="br0">(</span><span class="st0">"#sheet"</span><span class="br0">)</span>.<span
+class="me1">addClass</span><span class="br0">(</span><span class="st0">"sheet"</span><span
 class="br0">)</span><span class="sy0">;</span>
-    $<span class="br0">(</span><span class="st0">"#front"</span><span class="br0">)</span>.<span
-
-class="me1">addClass</span><span class="br0">(</span><span class="st0">"face"</span><span
-
+    $<span class="br0">(</span><span class="st0">"#front"</span><span class="br0">)</span>.<span
+class="me1">addClass</span><span class="br0">(</span><span class="st0">"face"</span><span
 class="br0">)</span><span class="sy0">;</span>
-    $<span class="br0">(</span><span class="st0">"#back"</span><span class="br0">)</span>.<span
-
-class="me1">addClass</span><span class="br0">(</span><span class="st0">"face"</span><span
-
+    $<span class="br0">(</span><span class="st0">"#back"</span><span class="br0">)</span>.<span
+class="me1">addClass</span><span class="br0">(</span><span class="st0">"face"</span><span
 class="br0">)</span><span class="sy0">;</span>
 &nbsp;
-    <span class="kw1">if</span> <span class="br0">(</span>$<span class="br0">(</span><span
-
-class="st0">"#sheet"</span><span class="br0">)</span>.<span class="me1">hasClass</span><span
-
-class="br0">(</span><span class="st0">"flipped"</span><span class="br0">)</span><span
-
+    <span class="kw1">if</span> <span class="br0">(</span>$<span class="br0">(</span><span
+class="st0">"#sheet"</span><span class="br0">)</span>.<span class="me1">hasClass</span><span
+class="br0">(</span><span class="st0">"flipped"</span><span class="br0">)</span><span
 class="br0">)</span> <span class="br0">{</span>
-        $<span class="br0">(</span><span class="st0">"#"</span> <span class="sy0">+</span> id<span
-
-class="br0">)</span>.<span class="me1">html</span><span class="br0">(</span>content<span
-
+        $<span class="br0">(</span><span class="st0">"#"</span> <span class="sy0">+</span> id<span
+class="br0">)</span>.<span class="me1">html</span><span class="br0">(</span>content<span
 class="br0">)</span><span class="sy0">;</span>
-        $<span class="br0">(</span><span class="st0">"#sheet"</span><span class="br0">)</span>.<span
-
-class="me1">removeClass</span><span class="br0">(</span><span class="st0">"flipped"</span><span
-
+        $<span class="br0">(</span><span class="st0">"#sheet"</span><span class="br0">)</span>.<span
+class="me1">removeClass</span><span class="br0">(</span><span class="st0">"flipped"</span><span
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
     <span class="kw1">else</span> <span class="br0">{</span>
-        $<span class="br0">(</span><span class="st0">"#core_BACK"</span><span class="br0">)</span>.<span
-
-class="me1">html</span><span class="br0">(</span>content<span class="br0">)</span><span
-
+        $<span class="br0">(</span><span class="st0">"#core_BACK"</span><span class="br0">)</span>.<span
+class="me1">html</span><span class="br0">(</span>content<span class="br0">)</span><span
 class="sy0">;</span>
-        $<span class="br0">(</span><span class="st0">"#sheet"</span><span class="br0">)</span>.<span
-
-class="me1">addClass</span><span class="br0">(</span><span class="st0">"flipped"</span><span
-
+        $<span class="br0">(</span><span class="st0">"#sheet"</span><span class="br0">)</span>.<span
+class="me1">addClass</span><span class="br0">(</span><span class="st0">"flipped"</span><span
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    $<span class="br0">(</span><span class="st0">'#sheet'</span><span class="br0">)</span>.<span
-
-class="me1">bind</span><span class="br0">(</span><span class="st0">'webkitTransitionEnd'</span><span
-
+    $<span class="br0">(</span><span class="st0">'#sheet'</span><span class="br0">)</span>.<span
+class="me1">bind</span><span class="br0">(</span><span class="st0">'webkitTransitionEnd'</span><span
 class="sy0">,</span>
-        <span class="kw2">function</span><span class="br0">(</span> event <span
-
+        <span class="kw2">function</span><span class="br0">(</span> event <span
 class="br0">)</span> <span class="br0">{</span>
-            <span class="kw1">if</span> <span class="br0">(</span>$<span class="br0">(</span><span
-
-class="st0">"#sheet"</span><span class="br0">)</span>.<span class="me1">hasClass</span><span
-
-class="br0">(</span><span class="st0">"flipped"</span><span class="br0">)</span><span
-
-class="br0">)</span> $<span class="br0">(</span><span class="st0">"#"</span> <span
-
-class="sy0">+</span> id<span class="br0">)</span>.<span class="me1">empty</span><span
-
+            <span class="kw1">if</span> <span class="br0">(</span>$<span class="br0">(</span><span
+class="st0">"#sheet"</span><span class="br0">)</span>.<span class="me1">hasClass</span><span
+class="br0">(</span><span class="st0">"flipped"</span><span class="br0">)</span><span
+class="br0">)</span> $<span class="br0">(</span><span class="st0">"#"</span> <span
+class="sy0">+</span> id<span class="br0">)</span>.<span class="me1">empty</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
             <span class="kw1">else</span> <span class="br0">{</span>
-                $<span class="br0">(</span><span class="st0">"#core_BACK"</span><span
-
-class="br0">)</span>.<span class="me1">empty</span><span class="br0">(</span><span
-
+                $<span class="br0">(</span><span class="st0">"#core_BACK"</span><span
+class="br0">)</span>.<span class="me1">empty</span><span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>
-                $<span class="br0">(</span><span class="st0">"#container"</span><span
-
-class="br0">)</span>.<span class="me1">removeClass</span><span class="br0">(</span><span
-
+                $<span class="br0">(</span><span class="st0">"#container"</span><span
+class="br0">)</span>.<span class="me1">removeClass</span><span class="br0">(</span><span
 class="st0">"container"</span><span class="br0">)</span><span class="sy0">;</span>
-                $<span class="br0">(</span><span class="st0">"#sheet"</span><span
-
-class="br0">)</span>.<span class="me1">removeClass</span><span class="br0">(</span><span
-
+                $<span class="br0">(</span><span class="st0">"#sheet"</span><span
+class="br0">)</span>.<span class="me1">removeClass</span><span class="br0">(</span><span
 class="st0">"sheet"</span><span class="br0">)</span><span class="sy0">;</span>
-                $<span class="br0">(</span><span class="st0">"#front"</span><span
-
-class="br0">)</span>.<span class="me1">removeClass</span><span class="br0">(</span><span
-
+                $<span class="br0">(</span><span class="st0">"#front"</span><span
+class="br0">)</span>.<span class="me1">removeClass</span><span class="br0">(</span><span
 class="st0">"face"</span><span class="br0">)</span><span class="sy0">;</span>
-                $<span class="br0">(</span><span class="st0">"#back"</span><span
-
-class="br0">)</span>.<span class="me1">removeClass</span><span class="br0">(</span><span
-
+                $<span class="br0">(</span><span class="st0">"#back"</span><span
+class="br0">)</span>.<span class="me1">removeClass</span><span class="br0">(</span><span
 class="st0">"face"</span><span class="br0">)</span><span class="sy0">;</span>
             <span class="br0">}</span>
-            $<span class="br0">(</span><span class="st0">'#sheet'</span><span class="br0">)</span>.<span
-
-class="me1">unbind</span><span class="br0">(</span><span class="br0">)</span><span
-
+            $<span class="br0">(</span><span class="st0">'#sheet'</span><span class="br0">)</span>.<span
+class="me1">unbind</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span>
         <span class="br0">}</span><span class="sy0">,</span>
         <span class="kw2">false</span>
@@ -717,165 +729,115 @@ class="sy0">;</span>
 
 -->
 </style><pre class="css">body <span class="br0">{</span>
-    <span class="kw1">margin</span><span class="sy0">:</span> <span class="re3">0px</span><span
-
-class="sy0">;</span> <span class="kw1">background</span><span class="sy0">:</span> <span
-
+    <span class="kw1">margin</span><span class="sy0">:</span> <span class="re3">0px</span><span
+class="sy0">;</span> <span class="kw1">background</span><span class="sy0">:</span> <span
 class="kw1">black</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re0">#xava_loading</span><span class="sy0">,</span> <span class="re0">#xava_loading2</span> <span
-
+<span class="re0">#xava_loading</span><span class="sy0">,</span> <span class="re0">#xava_loading2</span> <span
 class="br0">{</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">20px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">20px</span><span
 class="sy0">;</span>
-        <span class="kw1">border</span><span class="sy0">:</span> <span class="kw2">none</span><span
-
+        <span class="kw1">border</span><span class="sy0">:</span> <span class="kw2">none</span><span
 class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
-
-class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
-
-class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
-
+    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
+class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
+class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
 class="kw1">top</span><span class="sy0">,</span>
-        from<span class="br0">(</span><span class="re0">#10182C</span><span class="br0">)</span><span
-
-class="sy0">,</span> color-stop<span class="br0">(</span><span class="nu0">0.5</span><span
-
-class="sy0">,</span> <span class="re0">#121A2E</span><span class="br0">)</span><span
-
+        from<span class="br0">(</span><span class="re0">#10182C</span><span class="br0">)</span><span
+class="sy0">,</span> color-stop<span class="br0">(</span><span class="nu0">0.5</span><span
+class="sy0">,</span> <span class="re0">#121A2E</span><span class="br0">)</span><span
 class="sy0">,</span>
-        color-stop<span class="br0">(</span><span class="nu0">0.51</span><span class="sy0">,</span> <span
-
-class="re0">#282F41</span><span class="br0">)</span><span class="sy0">,</span> to<span
-
-class="br0">(</span><span class="re0">#7E838D</span><span class="br0">)</span><span
-
+        color-stop<span class="br0">(</span><span class="nu0">0.51</span><span class="sy0">,</span> <span
+class="re0">#282F41</span><span class="br0">)</span><span class="sy0">,</span> to<span
+class="br0">(</span><span class="re0">#7E838D</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
     opacity<span class="sy0">:</span>.60<span class="sy0">;</span>
-    -webkit-border-radius<span class="sy0">:</span> <span class="re3">7px</span><span
-
+    -webkit-border-radius<span class="sy0">:</span> <span class="re3">7px</span><span
 class="sy0">;</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
-
-class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">(</span><span
-
-class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span
-
-class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
+class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">(</span><span
+class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span
+class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span
 class="br0">)</span><span class="sy0">;</span>
-    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
-
+    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
 class="sy0">;</span>
-    -webkit-box-shadow<span class="sy0">:</span> <span class="re3">10px</span> <span
-
-class="re3">10px</span> <span class="re3">10px</span> rgba<span class="br0">(</span><span
-
-class="nu0">140</span><span class="sy0">,</span><span class="nu0">140</span><span
-
-class="sy0">,</span><span class="nu0">140</span><span class="sy0">,</span><span
-
+    -webkit-box-shadow<span class="sy0">:</span> <span class="re3">10px</span> <span
+class="re3">10px</span> <span class="re3">10px</span> rgba<span class="br0">(</span><span
+class="nu0">140</span><span class="sy0">,</span><span class="nu0">140</span><span
+class="sy0">,</span><span class="nu0">140</span><span class="sy0">,</span><span
 class="nu0">0.75</span><span class="br0">)</span><span class="sy0">;;</span>
-    <span class="kw1">display</span><span class="sy0">:</span><span class="kw2">none</span><span
-
+    <span class="kw1">display</span><span class="sy0">:</span><span class="kw2">none</span><span
 class="sy0">;</span>
-    <span class="kw1">z-index</span><span class="sy0">:</span> <span class="nu0">9999</span><span
-
+    <span class="kw1">z-index</span><span class="sy0">:</span> <span class="nu0">9999</span><span
 class="sy0">;</span>
-    <span class="kw1">position</span><span class="sy0">:</span> <span class="kw2">fixed</span><span
-
+    <span class="kw1">position</span><span class="sy0">:</span> <span class="kw2">fixed</span><span
 class="sy0">;</span>
     <span class="kw1">left</span><span class="sy0">:</span> <span class="re3">45%</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re0">#xava_loading</span> <span class="br0">{</span>
-    <span class="kw1">top</span><span class="sy0">:</span> <span class="re3">25%</span><span
-
+    <span class="kw1">top</span><span class="sy0">:</span> <span class="re3">25%</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re0">#xava_loading2</span> <span class="br0">{</span>
-    <span class="kw1">top</span><span class="sy0">:</span> <span class="re3">120%</span><span
-
+    <span class="kw1">top</span><span class="sy0">:</span> <span class="re3">120%</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-module</span> <span class="br0">{</span>
-    <span class="kw1">font-family</span><span class="sy0">:</span> Helvetica<span
-
-class="sy0">,</span> Arial<span class="sy0">,</span> <span class="kw2">sans-serif</span><span
-
+    <span class="kw1">font-family</span><span class="sy0">:</span> Helvetica<span
+class="sy0">,</span> Arial<span class="sy0">,</span> <span class="kw2">sans-serif</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 &nbsp;
 <span class="coMULTI">/* Portrait */</span>
 <span class="co1">@media screen and (orientation:portrait) {</span>
-    <span class="re1">.ox-module</span><span class="sy0">,</span> .ui-widget-<span
-
-class="kw1">content</span><span class="sy0">,</span> <span class="re0">#xava_loading</span><span
-
+    <span class="re1">.ox-module</span><span class="sy0">,</span> .ui-widget-<span
+class="kw1">content</span><span class="sy0">,</span> <span class="re0">#xava_loading</span><span
 class="sy0">,</span> <span class="re0">#xava_loading2</span> <span class="br0">{</span>
-        <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">1.2em</span><span
-
+        <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">1.2em</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
     .ui-widget-<span class="kw1">content</span> <span class="br0">{</span>
-        <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">1.1em</span><span
-
+        <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">1.1em</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
     <span class="re1">.ui-widget-header</span> <span class="br0">{</span>
-        <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">180%</span><span
-
+        <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">180%</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
-    <span class="re1">.ox-button-bar</span><span class="sy0">,</span> <span class="re1">.ox-section</span> <span
-
+    <span class="re1">.ox-button-bar</span><span class="sy0">,</span> <span class="re1">.ox-section</span> <span
 class="br0">{</span>
-        <span class="kw1">height</span><span class="sy0">:</span> <span class="re3">32px</span><span
-
+        <span class="kw1">height</span><span class="sy0">:</span> <span class="re3">32px</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
     <span class="re1">.ox-page-navigation-pages</span> <span class="br0">{</span>
-        <span class="kw1">top</span><span class="sy0">:</span> <span class="re3">8px</span><span
-
+        <span class="kw1">top</span><span class="sy0">:</span> <span class="re3">8px</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
-    <span class="re1">.ox-bottom-buttons</span> input<span class="br0">[</span>type<span
-
-class="sy0">=</span><span class="st0">"button"</span><span class="br0">]</span> <span
-
+    <span class="re1">.ox-bottom-buttons</span> input<span class="br0">[</span>type<span
+class="sy0">=</span><span class="st0">"button"</span><span class="br0">]</span> <span
 class="br0">{</span>
-        -webkit-box-shadow<span class="sy0">:</span> <span class="re3">0px</span> <span
-
-class="re3">2px</span> <span class="re3">0px</span> <span class="kw2">white</span><span
-
+        -webkit-box-shadow<span class="sy0">:</span> <span class="re3">0px</span> <span
+class="re3">2px</span> <span class="re3">0px</span> <span class="kw2">white</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
-    <span class="re1">.ox-detail</span><span class="sy0">,</span> .ox-frame-<span
-
-class="kw1">content</span><span class="sy0">,</span> <span class="re1">.ox-active-section</span> <span
-
+    <span class="re1">.ox-detail</span><span class="sy0">,</span> .ox-frame-<span
+class="kw1">content</span><span class="sy0">,</span> <span class="re1">.ox-active-section</span> <span
 class="br0">{</span>
-        <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">2px</span> <span
-
+        <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">2px</span> <span
 class="kw2">solid</span> <span class="re0">#B2B4B8</span><span class="sy0">;</span>
-        -webkit-box-shadow<span class="sy0">:</span> <span class="re3">0px</span> <span
-
-class="re3">2px</span> <span class="re3">0px</span> <span class="kw2">white</span><span
-
+        -webkit-box-shadow<span class="sy0">:</span> <span class="re3">0px</span> <span
+class="re3">2px</span> <span class="re3">0px</span> <span class="kw2">white</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
     <span class="re1">.ox-frame-actions</span> img <span class="br0">{</span>
-        <span class="kw1">height</span><span class="sy0">:</span> <span class="re3">38px</span><span
-
+        <span class="kw1">height</span><span class="sy0">:</span> <span class="re3">38px</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 <span class="br0">}</span>
@@ -885,981 +847,680 @@ class="sy0">;</span>
 <span class="coMULTI">/* Landscape */</span>
 <span class="co1">@media screen and (orientation:landscape) {</span>
     <span class="re1">.ox-module</span> <span class="br0">{</span>
-        <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.9em</span><span
-
+        <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.9em</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
-    .ui-widget-<span class="kw1">content</span><span class="sy0">,</span> <span
-
-class="re0">#xava_loading</span><span class="sy0">,</span> <span class="re0">#xava_loading2</span> <span
-
+    .ui-widget-<span class="kw1">content</span><span class="sy0">,</span> <span
+class="re0">#xava_loading</span><span class="sy0">,</span> <span class="re0">#xava_loading2</span> <span
 class="br0">{</span>
-        <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.95em</span><span
-
+        <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.95em</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
     <span class="re1">.ui-widget-header</span> <span class="br0">{</span>
-        <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">150%</span><span
-
+        <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">150%</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
-    <span class="re1">.ox-button-bar</span><span class="sy0">,</span> <span class="re1">.ox-section</span> <span
-
+    <span class="re1">.ox-button-bar</span><span class="sy0">,</span> <span class="re1">.ox-section</span> <span
 class="br0">{</span>
-        <span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="kw2">none</span><span
-
+        <span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="kw2">none</span><span
 class="sy0">;</span>
-        <span class="kw1">height</span><span class="sy0">:</span> <span class="re3">25px</span><span
-
+        <span class="kw1">height</span><span class="sy0">:</span> <span class="re3">25px</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
     <span class="re1">.ox-page-navigation-pages</span> <span class="br0">{</span>
-        <span class="kw1">top</span><span class="sy0">:</span> <span class="re3">11px</span><span
-
+        <span class="kw1">top</span><span class="sy0">:</span> <span class="re3">11px</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
-    <span class="re1">.ox-bottom-buttons</span> input<span class="br0">[</span>type<span
-
-class="sy0">=</span><span class="st0">"button"</span><span class="br0">]</span> <span
-
+    <span class="re1">.ox-bottom-buttons</span> input<span class="br0">[</span>type<span
+class="sy0">=</span><span class="st0">"button"</span><span class="br0">]</span> <span
 class="br0">{</span>
-        -webkit-box-shadow<span class="sy0">:</span> <span class="re3">0px</span> <span
-
-class="re3">1px</span> <span class="re3">0px</span> <span class="kw2">white</span><span
-
+        -webkit-box-shadow<span class="sy0">:</span> <span class="re3">0px</span> <span
+class="re3">1px</span> <span class="re3">0px</span> <span class="kw2">white</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
     <span class="re1">.ox-button-bar-image</span> img <span class="br0">{</span>
-        <span class="kw1">height</span><span class="sy0">:</span> <span class="re3">19px</span><span
-
+        <span class="kw1">height</span><span class="sy0">:</span> <span class="re3">19px</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
-    <span class="re1">.ox-detail</span><span class="sy0">,</span> .ox-frame-<span
-
-class="kw1">content</span><span class="sy0">,</span> <span class="re1">.ox-active-section</span> <span
-
+    <span class="re1">.ox-detail</span><span class="sy0">,</span> .ox-frame-<span
+class="kw1">content</span><span class="sy0">,</span> <span class="re1">.ox-active-section</span> <span
 class="br0">{</span>
-        <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+        <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#B2B4B8</span><span class="sy0">;</span>
-        <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+        <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#8F8F8F</span><span class="sy0">;</span>
-        -webkit-box-shadow<span class="sy0">:</span> <span class="re3">0px</span> <span
-
-class="re3">1px</span> <span class="re3">0px</span> <span class="kw2">white</span><span
-
+        -webkit-box-shadow<span class="sy0">:</span> <span class="re3">0px</span> <span
+class="re3">1px</span> <span class="re3">0px</span> <span class="kw2">white</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-view</span> <span class="br0">{</span>
-    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#D8D8D9</span><span
-
+    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#D8D8D9</span><span
 class="sy0">;</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">20px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">20px</span><span
 class="sy0">;</span>
-    <span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#959596</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-detail</span> <span class="br0">{</span>
-    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">130%</span><span
-
+    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">130%</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-detail</span><span class="sy0">,</span> .ox-frame-<span class="kw1">content</span><span
-
+<span class="re1">.ox-detail</span><span class="sy0">,</span> .ox-frame-<span class="kw1">content</span><span
 class="sy0">,</span> <span class="re1">.ox-active-section</span> <span class="br0">{</span>
-    <span class="kw1">background</span><span class="sy0">:</span> <span class="kw2">white</span><span
-
+    <span class="kw1">background</span><span class="sy0">:</span> <span class="kw2">white</span><span
 class="sy0">;</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span><span
 class="sy0">;</span>
-    -webkit-border-radius<span class="sy0">:</span><span class="re3">15px</span><span
-
+    -webkit-border-radius<span class="sy0">:</span><span class="re3">15px</span><span
 class="sy0">;</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#385587</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#385587</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span> <span class="re3">0px</span> <span
-
-class="re3">1px</span> <span class="re3">1px</span> <span class="kw1">black</span> <span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span> <span class="re3">0px</span> <span
+class="re3">1px</span> <span class="re3">1px</span> <span class="kw1">black</span> <span
 class="re0">#A0ADC4</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-active-section</span> <span class="br0">{</span>
-    -webkit-border-top-left-radius<span class="sy0">:</span> <span class="re3">0px</span><span
-
+    -webkit-border-top-left-radius<span class="sy0">:</span> <span class="re3">0px</span><span
 class="sy0">;</span>
-    -webkit-border-top-right-radius<span class="sy0">:</span> <span class="re3">0px</span><span
-
+    -webkit-border-top-right-radius<span class="sy0">:</span> <span class="re3">0px</span><span
 class="sy0">;</span>
-    <span class="kw1">border-left</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-left</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#B2B4B8</span><span class="sy0">;</span>
-    <span class="kw1">border-right</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-right</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#B2B4B8</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-frame-title-label</span> <span class="br0">{</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span> <span
-
-class="re3">0px</span> <span class="re3">0px</span> <span class="re3">10px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span> <span
+class="re3">0px</span> <span class="re3">0px</span> <span class="re3">10px</span><span
 class="sy0">;</span>
-    <span class="kw1">vertical-align</span><span class="sy0">:</span> <span class="kw1">bottom</span><span
-
+    <span class="kw1">vertical-align</span><span class="sy0">:</span> <span class="kw1">bottom</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 input <span class="br0">{</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#385587</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#385587</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-label</span> <span class="br0">{</span>
-    <span class="kw1">text-align</span><span class="sy0">:</span> <span class="kw1">left</span><span
-
+    <span class="kw1">text-align</span><span class="sy0">:</span> <span class="kw1">left</span><span
 class="sy0">;</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw1">black</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw1">black</span><span
 class="sy0">;</span>
-    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
-
+    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span> <span class="re3">0px</span> <span
-
-class="re3">2px</span> <span class="re3">1px</span> <span class="re0">#E8E8E9</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span> <span class="re3">0px</span> <span
+class="re3">2px</span> <span class="re3">1px</span> <span class="re0">#E8E8E9</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-button-bar</span><span class="sy0">,</span> <span class="re1">.ox-collection-list-actions</span><span
-
+<span class="re1">.ox-button-bar</span><span class="sy0">,</span> <span class="re1">.ox-collection-list-actions</span><span
 class="sy0">,</span> <span class="re1">.ox-section</span> <span class="br0">{</span>
-    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.9em</span><span
-
+    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.9em</span><span
 class="sy0">;</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span> <span
-
-class="re3">4px</span> <span class="re3">0px</span> <span class="re3">6px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span> <span
+class="re3">4px</span> <span class="re3">0px</span> <span class="re3">6px</span><span
 class="sy0">;</span>
-    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="kw2">white</span><span class="sy0">;</span>
-    -webkit-border-top-left-radius<span class="sy0">:</span> <span class="re3">7px</span><span
-
+    -webkit-border-top-left-radius<span class="sy0">:</span> <span class="re3">7px</span><span
 class="sy0">;</span>
-    -webkit-border-top-right-radius<span class="sy0">:</span> <span class="re3">7px</span><span
-
+    -webkit-border-top-right-radius<span class="sy0">:</span> <span class="re3">7px</span><span
 class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> <span class="kw2">white</span><span
-
+    <span class="kw1">background</span><span class="sy0">:</span> <span class="kw2">white</span><span
 class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
-
-class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
-
-class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
-
+    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
+class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
+class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
 class="kw1">top</span><span class="sy0">,</span>
-        from<span class="br0">(</span><span class="re0">#A8ADB9</span><span class="br0">)</span><span
-
-class="sy0">,</span> to<span class="br0">(</span><span class="re0">#F5F6F7</span><span
-
+        from<span class="br0">(</span><span class="re0">#A8ADB9</span><span class="br0">)</span><span
+class="sy0">,</span> to<span class="br0">(</span><span class="re0">#F5F6F7</span><span
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 <span class="re1">.ox-collection-list-actions</span> <span class="br0">{</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">0px</span> <span
-
-class="re3">4px</span> <span class="re3">0px</span> <span class="re3">6px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">0px</span> <span
+class="re3">4px</span> <span class="re3">0px</span> <span class="re3">6px</span><span
 class="sy0">;</span>
-    <span class="kw1">height</span><span class="sy0">:</span> <span class="re3">40px</span><span
-
+    <span class="kw1">height</span><span class="sy0">:</span> <span class="re3">40px</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-detail</span> <span class="re1">.ox-action-link</span> <span
-
+<span class="re1">.ox-detail</span> <span class="re1">.ox-action-link</span> <span
 class="br0">{</span>
-    <span class="kw1">background</span><span class="sy0">:</span> <span class="kw2">white</span><span
-
+    <span class="kw1">background</span><span class="sy0">:</span> <span class="kw2">white</span><span
 class="sy0">;</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">5px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">5px</span><span
 class="sy0">;</span>
-    <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#C4C4C4</span><span class="sy0">;</span>
-    -webkit-border-radius<span class="sy0">:</span><span class="re3">5px</span><span
-
+    -webkit-border-radius<span class="sy0">:</span><span class="re3">5px</span><span
 class="sy0">;</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#7C7A77</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#7C7A77</span><span
 class="sy0">;</span>
-    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.9em</span><span
-
+    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.9em</span><span
 class="sy0">;</span>
-    <span class="kw1">text-decoration</span><span class="sy0">:</span> <span class="kw2">none</span><span
-
+    <span class="kw1">text-decoration</span><span class="sy0">:</span> <span class="kw2">none</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">1px</span> <span
-
-class="re3">0px</span> <span class="re3">0px</span> <span class="re0">#EDEDED</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">1px</span> <span
+class="re3">0px</span> <span class="re3">0px</span> <span class="re0">#EDEDED</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-button-bar-button</span> a<span class="sy0">,</span> <span
-
+<span class="re1">.ox-button-bar-button</span> a<span class="sy0">,</span> <span
 class="re1">.ox-list</span> <span class="re1">.ox-action-link</span> <span class="br0">{</span>
-    <span class="kw1">margin-right</span><span class="sy0">:</span> <span class="re3">5px</span><span
-
+    <span class="kw1">margin-right</span><span class="sy0">:</span> <span class="re3">5px</span><span
 class="sy0">;</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">4px</span> <span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">4px</span> <span
 class="re3">9px</span> <span class="re3">5px</span><span class="sy0">;</span>
-    <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#51555B</span><span class="sy0">;</span>
-    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#4C4E50</span><span class="sy0">;</span>
-    -webkit-border-radius<span class="sy0">:</span><span class="re3">5px</span><span
-
+    -webkit-border-radius<span class="sy0">:</span><span class="re3">5px</span><span
 class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
-
-class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
-
-class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
-
+    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
+class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
+class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
 class="kw1">top</span><span class="sy0">,</span>
-        from<span class="br0">(</span><span class="re0">#6B737E</span><span class="br0">)</span><span
-
-class="sy0">,</span> to<span class="br0">(</span><span class="re0">#B2B5BB</span><span
-
+        from<span class="br0">(</span><span class="re0">#6B737E</span><span class="br0">)</span><span
+class="sy0">,</span> to<span class="br0">(</span><span class="re0">#B2B5BB</span><span
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
 class="sy0">;</span>
-    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
-
+    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
 class="sy0">;</span>
-    <span class="kw1">text-decoration</span><span class="sy0">:</span><span class="kw2">none</span><span
-
+    <span class="kw1">text-decoration</span><span class="sy0">:</span><span class="kw2">none</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
-
-class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">(</span><span
-
-class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span
-
-class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
+class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">(</span><span
+class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span
+class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-button-bar-image</span> <span class="br0">{</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">0px</span> <span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">0px</span> <span
 class="re3">15px</span> <span class="re3">5px</span><span class="sy0">;</span>
-    <span class="kw1">vertical-align</span><span class="sy0">:</span> <span class="kw1">top</span><span
-
+    <span class="kw1">vertical-align</span><span class="sy0">:</span> <span class="kw1">top</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-button-bar-mode-button</span><span class="sy0">,</span> <span
-
-class="re1">.ox-section-tab</span><span class="sy0">,</span> <span class="re1">.ox-section-link</span> <span
-
+<span class="re1">.ox-button-bar-mode-button</span><span class="sy0">,</span> <span
+class="re1">.ox-section-tab</span><span class="sy0">,</span> <span class="re1">.ox-section-link</span> <span
 class="br0">{</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">4px</span> <span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">4px</span> <span
 class="re3">9px</span> <span class="re3">5px</span><span class="sy0">;</span>
-    <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#51555B</span><span class="sy0">;</span>
-    <span class="kw1">border-right</span><span class="sy0">:</span> <span class="kw2">none</span><span
-
+    <span class="kw1">border-right</span><span class="sy0">:</span> <span class="kw2">none</span><span
 class="sy0">;</span>
-    <span class="kw1">border-left</span><span class="sy0">:</span> <span class="kw2">none</span><span
-
+    <span class="kw1">border-left</span><span class="sy0">:</span> <span class="kw2">none</span><span
 class="sy0">;</span>
-    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#4C4E50</span><span class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
-
-class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
-
-class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
-
+    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
+class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
+class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
 class="kw1">top</span><span class="sy0">,</span>
-        from<span class="br0">(</span><span class="re0">#A8ADB9</span><span class="br0">)</span><span
-
-class="sy0">,</span> to<span class="br0">(</span><span class="re0">#F5F6F7</span><span
-
+        from<span class="br0">(</span><span class="re0">#A8ADB9</span><span class="br0">)</span><span
+class="sy0">,</span> to<span class="br0">(</span><span class="re0">#F5F6F7</span><span
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
-
+    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
 class="sy0">;</span>
-    <span class="kw1">text-decoration</span><span class="sy0">:</span><span class="kw2">none</span><span
-
+    <span class="kw1">text-decoration</span><span class="sy0">:</span><span class="kw2">none</span><span
 class="sy0">;</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#5D6065</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#5D6065</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
-
-class="re3">1px</span> <span class="re3">1px</span> <span class="kw2">white</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
+class="re3">1px</span> <span class="re3">1px</span> <span class="kw2">white</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-active</span> <span class="re1">.ox-button-bar-mode-button</span><span
-
-class="sy0">,</span> <span class="re1">.ox-active</span> <span class="re1">.ox-section-tab</span> <span
-
+<span class="re1">.ox-active</span> <span class="re1">.ox-button-bar-mode-button</span><span
+class="sy0">,</span> <span class="re1">.ox-active</span> <span class="re1">.ox-section-tab</span> <span
 class="br0">{</span>
-    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
-
-class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
-
-class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
-
+    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
+class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
+class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
 class="kw1">top</span><span class="sy0">,</span>
-        from<span class="br0">(</span><span class="re0">#6B737E</span><span class="br0">)</span><span
-
-class="sy0">,</span> to<span class="br0">(</span><span class="re0">#B2B5BB</span><span
-
+        from<span class="br0">(</span><span class="re0">#6B737E</span><span class="br0">)</span><span
+class="sy0">,</span> to<span class="br0">(</span><span class="re0">#B2B5BB</span><span
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
-
-class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">(</span><span
-
-class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span
-
-class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
+class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">(</span><span
+class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span
+class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-first</span> <span class="re1">.ox-button-bar-mode-button</span><span
-
-class="sy0">,</span> <span class="re1">.ox-first</span> <span class="re1">.ox-section-tab</span> <span
-
+<span class="re1">.ox-first</span> <span class="re1">.ox-button-bar-mode-button</span><span
+class="sy0">,</span> <span class="re1">.ox-first</span> <span class="re1">.ox-section-tab</span> <span
 class="br0">{</span>
-    <span class="kw1">border-left</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-left</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#51555B</span><span class="sy0">;</span>
-    -webkit-border-top-left-radius<span class="sy0">:</span> <span class="re3">5px</span><span
-
+    -webkit-border-top-left-radius<span class="sy0">:</span> <span class="re3">5px</span><span
 class="sy0">;</span>
-    -webkit-border-bottom-left-radius<span class="sy0">:</span> <span class="re3">5px</span><span
-
+    -webkit-border-bottom-left-radius<span class="sy0">:</span> <span class="re3">5px</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-last</span> <span class="re1">.ox-button-bar-mode-button</span><span
-
-class="sy0">,</span> <span class="re1">.ox-last</span> <span class="re1">.ox-section-tab</span> <span
-
+<span class="re1">.ox-last</span> <span class="re1">.ox-button-bar-mode-button</span><span
+class="sy0">,</span> <span class="re1">.ox-last</span> <span class="re1">.ox-section-tab</span> <span
 class="br0">{</span>
-    <span class="kw1">border-right</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-right</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#51555B</span><span class="sy0">;</span>
-    -webkit-border-top-right-radius<span class="sy0">:</span> <span class="re3">5px</span><span
-
+    -webkit-border-top-right-radius<span class="sy0">:</span> <span class="re3">5px</span><span
 class="sy0">;</span>
-    -webkit-border-bottom-right-radius<span class="sy0">:</span> <span class="re3">5px</span><span
-
+    -webkit-border-bottom-right-radius<span class="sy0">:</span> <span class="re3">5px</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-list</span> <span class="br0">{</span>
-    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.9em</span><span
-
+    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">0.9em</span><span
 class="sy0">;</span>
-    <span class="kw1">border</span><span class="sy0">:</span> <span class="kw2">none</span><span
-
+    <span class="kw1">border</span><span class="sy0">:</span> <span class="kw2">none</span><span
 class="sy0">;</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">2px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">2px</span><span
 class="sy0">;</span>
-    -webkit-border-radius<span class="sy0">:</span><span class="re3">7px</span><span
-
+    -webkit-border-radius<span class="sy0">:</span><span class="re3">7px</span><span
 class="sy0">;</span>
-    -webkit-box-shadow<span class="sy0">:</span> <span class="kw2">inset</span> <span
-
-class="re3">1px</span> <span class="re3">1px</span> <span class="re3">4px</span> <span
-
+    -webkit-box-shadow<span class="sy0">:</span> <span class="kw2">inset</span> <span
+class="re3">1px</span> <span class="re3">1px</span> <span class="re3">4px</span> <span
 class="re0">#4E4E4E</span><span class="sy0">;</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#5D6065</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#5D6065</span><span
 class="sy0">;</span>
-    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
-
+    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
-
-class="re3">1px</span> <span class="re3">1px</span> <span class="kw2">white</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
+class="re3">1px</span> <span class="re3">1px</span> <span class="kw2">white</span><span
 class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#D8D8D9</span><span
-
+    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#D8D8D9</span><span
 class="sy0">;</span>
-    -webkit-transition-property<span class="sy0">:</span> -webkit-transform<span
-
+    -webkit-transition-property<span class="sy0">:</span> -webkit-transform<span
 class="sy0">;</span>
     -webkit-transition-duration<span class="sy0">:</span> 1.5s<span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 .slided-<span class="kw1">left</span> <span class="br0">{</span>
-    -webkit-transform<span class="sy0">:</span> translateX<span class="br0">(</span><span
-
+    -webkit-transform<span class="sy0">:</span> translateX<span class="br0">(</span><span
 class="re3">-130%</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 .slided-<span class="kw1">right</span> <span class="br0">{</span>
-    -webkit-transform<span class="sy0">:</span> translateX<span class="br0">(</span><span
-
+    -webkit-transform<span class="sy0">:</span> translateX<span class="br0">(</span><span
 class="re3">200%</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 &nbsp;
 <span class="re1">.ox-list-odd</span> <span class="br0">{</span>
-    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#BBBBBB</span><span
-
+    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#BBBBBB</span><span
 class="sy0">;</span>
-    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#CFCFCF</span><span class="sy0">;</span>
-    <span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#959596</span><span class="sy0">;</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span> <span
-
-class="re3">8px</span> <span class="re3">10px</span> <span class="re3">8px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span> <span
+class="re3">8px</span> <span class="re3">10px</span> <span class="re3">8px</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-list-pair</span> <span class="br0">{</span>
-    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#AFAFAF</span><span
-
+    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#AFAFAF</span><span
 class="sy0">;</span>
-    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#C6C6C6</span><span class="sy0">;</span>
-    <span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#959596</span><span class="sy0">;</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span> <span
-
-class="re3">8px</span> <span class="re3">10px</span> <span class="re3">8px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span> <span
+class="re3">8px</span> <span class="re3">10px</span> <span class="re3">8px</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-total-row</span> <span class="br0">{</span>
-    <span class="kw1">height</span><span class="sy0">:</span> <span class="re3">40px</span><span
-
+    <span class="kw1">height</span><span class="sy0">:</span> <span class="re3">40px</span><span
 class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#AFAFAF</span><span
-
+    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#AFAFAF</span><span
 class="sy0">;</span>
-    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#C6C6C6</span><span class="sy0">;</span>
-    <span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-bottom</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#959596</span><span class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
-
-class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
-
-class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
-
+    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
+class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
+class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
 class="kw1">top</span><span class="sy0">,</span>
-        from<span class="br0">(</span><span class="re0">#565A63</span><span class="br0">)</span><span
-
-class="sy0">,</span> color-stop<span class="br0">(</span><span class="nu0">0.5</span><span
-
-class="sy0">,</span> <span class="re0">#6A6E76</span><span class="br0">)</span><span
-
+        from<span class="br0">(</span><span class="re0">#565A63</span><span class="br0">)</span><span
+class="sy0">,</span> color-stop<span class="br0">(</span><span class="nu0">0.5</span><span
+class="sy0">,</span> <span class="re0">#6A6E76</span><span class="br0">)</span><span
 class="sy0">,</span>
-        color-stop<span class="br0">(</span><span class="nu0">0.51</span><span class="sy0">,</span> <span
-
-class="re0">#797D84</span><span class="br0">)</span><span class="sy0">,</span> to<span
-
-class="br0">(</span><span class="re0">#91969E</span><span class="br0">)</span><span
-
+        color-stop<span class="br0">(</span><span class="nu0">0.51</span><span class="sy0">,</span> <span
+class="re0">#797D84</span><span class="br0">)</span><span class="sy0">,</span> to<span
+class="br0">(</span><span class="re0">#91969E</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-total-cell</span><span class="sy0">,</span> <span class="re1">.ox-total-capable-cell</span> <span
-
+<span class="re1">.ox-total-cell</span><span class="sy0">,</span> <span class="re1">.ox-total-capable-cell</span> <span
 class="br0">{</span>
-    <span class="kw1">text-align</span><span class="sy0">:</span> <span class="kw1">right</span><span
-
+    <span class="kw1">text-align</span><span class="sy0">:</span> <span class="kw1">right</span><span
 class="sy0">;</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
-
-class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">(</span><span
-
-class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span
-
-class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
+class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">(</span><span
+class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span
+class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-list-header</span> a <span class="br0">{</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
-
-class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">(</span><span
-
-class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span
-
-class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
+class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">(</span><span
+class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span
+class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-list-header</span> <span class="br0">{</span>
-    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
-
-class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
-
-class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
-
+    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
+class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
+class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
 class="kw1">top</span><span class="sy0">,</span>
-        from<span class="br0">(</span><span class="re0">#797D84</span><span class="br0">)</span><span
-
-class="sy0">,</span> to<span class="br0">(</span><span class="re0">#91969E</span><span
-
+        from<span class="br0">(</span><span class="re0">#797D84</span><span class="br0">)</span><span
+class="sy0">,</span> to<span class="br0">(</span><span class="re0">#91969E</span><span
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-list-subheader</span> <span class="br0">{</span>
-    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
-
-class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
-
-class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
-
+    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
+class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
+class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
 class="kw1">top</span><span class="sy0">,</span>
-        from<span class="br0">(</span><span class="re0">#565A63</span><span class="br0">)</span><span
-
-class="sy0">,</span> to<span class="br0">(</span><span class="re0">#6A6E76</span><span
-
+        from<span class="br0">(</span><span class="re0">#565A63</span><span class="br0">)</span><span
+class="sy0">,</span> to<span class="br0">(</span><span class="re0">#6A6E76</span><span
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">2px</span> <span
-
-class="re3">8px</span> <span class="re3">2px</span> <span class="re3">10px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">2px</span> <span
+class="re3">8px</span> <span class="re3">2px</span> <span class="re3">10px</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-list-title</span><span class="sy0">,</span> <span class="re1">.ox-module-description</span> <span
-
+<span class="re1">.ox-list-title</span><span class="sy0">,</span> <span class="re1">.ox-module-description</span> <span
 class="br0">{</span>
-    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
-
+    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
 class="sy0">;</span>
-    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">140%</span><span
-
+    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">140%</span><span
 class="sy0">;</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#2C2F33</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#2C2F33</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
-
-class="re3">2px</span> <span class="re3">1px</span> <span class="re0">#E8E8E9</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
+class="re3">2px</span> <span class="re3">1px</span> <span class="re0">#E8E8E9</span><span
 class="sy0">;</span>
-    <span class="kw1">padding-left</span><span class="sy0">:</span> <span class="re3">12px</span><span
-
+    <span class="kw1">padding-left</span><span class="sy0">:</span> <span class="re3">12px</span><span
 class="sy0">;</span>
-    <span class="kw1">padding-bottom</span><span class="sy0">:</span> <span class="re3">12px</span><span
-
+    <span class="kw1">padding-bottom</span><span class="sy0">:</span> <span class="re3">12px</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-module-description</span> <span class="br0">{</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#385587</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#385587</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span> <span class="re3">0px</span> <span
-
-class="re3">1px</span> <span class="re3">1px</span> <span class="kw2">white</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span> <span class="re3">0px</span> <span
+class="re3">1px</span> <span class="re3">1px</span> <span class="kw2">white</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-header-list-count</span> <span class="br0">{</span>
-    <span class="kw1">margin-left</span><span class="sy0">:</span> <span class="re3">10px</span><span
-
+    <span class="kw1">margin-left</span><span class="sy0">:</span> <span class="re3">10px</span><span
 class="sy0">;</span>
-    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">75%</span><span
-
+    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">75%</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-list-info</span> <span class="br0">{</span>
-    <span class="kw1">margin-top</span><span class="sy0">:</span> <span class="re3">10px</span><span
-
+    <span class="kw1">margin-top</span><span class="sy0">:</span> <span class="re3">10px</span><span
 class="sy0">;</span>
-    -webkit-border-radius<span class="sy0">:</span><span class="re3">7px</span><span
-
+    -webkit-border-radius<span class="sy0">:</span><span class="re3">7px</span><span
 class="sy0">;</span>
-    <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#505153</span><span class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
-
-class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
-
-class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
-
+    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
+class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
+class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
 class="kw1">top</span><span class="sy0">,</span>
-        from<span class="br0">(</span><span class="re0">#565A63</span><span class="br0">)</span><span
-
-class="sy0">,</span> color-stop<span class="br0">(</span><span class="nu0">0.5</span><span
-
-class="sy0">,</span> <span class="re0">#6A6E76</span><span class="br0">)</span><span
-
+        from<span class="br0">(</span><span class="re0">#565A63</span><span class="br0">)</span><span
+class="sy0">,</span> color-stop<span class="br0">(</span><span class="nu0">0.5</span><span
+class="sy0">,</span> <span class="re0">#6A6E76</span><span class="br0">)</span><span
 class="sy0">,</span>
-        color-stop<span class="br0">(</span><span class="nu0">0.51</span><span class="sy0">,</span> <span
-
-class="re0">#797D84</span><span class="br0">)</span><span class="sy0">,</span> to<span
-
-class="br0">(</span><span class="re0">#91969E</span><span class="br0">)</span><span
-
+        color-stop<span class="br0">(</span><span class="nu0">0.51</span><span class="sy0">,</span> <span
+class="re0">#797D84</span><span class="br0">)</span><span class="sy0">,</span> to<span
+class="br0">(</span><span class="re0">#91969E</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-page-navigation-arrow-disable</span><span class="sy0">,</span> <span
-
+<span class="re1">.ox-page-navigation-arrow-disable</span><span class="sy0">,</span> <span
 class="re1">.ox-page-navigation-arrow</span> img <span class="br0">{</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">5px</span> <span
-
-class="re3">10px</span> <span class="re3">7px</span> <span class="re3">10px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">5px</span> <span
+class="re3">10px</span> <span class="re3">7px</span> <span class="re3">10px</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-first</span> <span class="re1">.ox-page-navigation-arrow</span><span
-
-class="sy0">,</span> <span class="re1">.ox-first</span> <span class="re1">.ox-page-navigation-arrow-disable</span> <span
-
+<span class="re1">.ox-first</span> <span class="re1">.ox-page-navigation-arrow</span><span
+class="sy0">,</span> <span class="re1">.ox-first</span> <span class="re1">.ox-page-navigation-arrow-disable</span> <span
 class="br0">{</span>
-    <span class="kw1">border-right</span><span class="sy0">:</span> <span class="re3">2px</span> <span
-
+    <span class="kw1">border-right</span><span class="sy0">:</span> <span class="re3">2px</span> <span
 class="kw2">ridge</span> <span class="re0">#878B91</span><span class="sy0">;</span>
-    <span class="kw1">float</span><span class="sy0">:</span> <span class="kw1">left</span><span
-
+    <span class="kw1">float</span><span class="sy0">:</span> <span class="kw1">left</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-last</span> <span class="re1">.ox-page-navigation-arrow</span><span
-
-class="sy0">,</span> <span class="re1">.ox-last</span> <span class="re1">.ox-page-navigation-arrow-disable</span> <span
-
+<span class="re1">.ox-last</span> <span class="re1">.ox-page-navigation-arrow</span><span
+class="sy0">,</span> <span class="re1">.ox-last</span> <span class="re1">.ox-page-navigation-arrow-disable</span> <span
 class="br0">{</span>
-    <span class="kw1">border-left</span><span class="sy0">:</span> <span class="re3">2px</span> <span
-
+    <span class="kw1">border-left</span><span class="sy0">:</span> <span class="re3">2px</span> <span
 class="kw2">groove</span> <span class="re0">#878B91</span><span class="sy0">;</span>
-    <span class="kw1">float</span><span class="sy0">:</span> <span class="kw1">right</span><span
-
+    <span class="kw1">float</span><span class="sy0">:</span> <span class="kw1">right</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-page-navigation-pages</span> <span class="br0">{</span>
-    <span class="kw1">float</span><span class="sy0">:</span><span class="kw1">left</span><span
-
+    <span class="kw1">float</span><span class="sy0">:</span><span class="kw1">left</span><span
 class="sy0">;</span>
-    <span class="kw1">position</span><span class="sy0">:</span><span class="kw2">relative</span><span
-
+    <span class="kw1">position</span><span class="sy0">:</span><span class="kw2">relative</span><span
 class="sy0">;</span>
-    <span class="kw1">left</span><span class="sy0">:</span><span class="re3">40%</span><span
-
+    <span class="kw1">left</span><span class="sy0">:</span><span class="re3">40%</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-page-navigation</span><span class="sy0">,</span> <span class="re1">.ox-page-navigation-selected</span> <span
-
+<span class="re1">.ox-page-navigation</span><span class="sy0">,</span> <span class="re1">.ox-page-navigation-selected</span> <span
 class="br0">{</span>
-    <span class="kw1">margin-right</span><span class="sy0">:</span> <span class="re3">10px</span><span
-
+    <span class="kw1">margin-right</span><span class="sy0">:</span> <span class="re3">10px</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-bottom-buttons</span> <span class="br0">{</span>
-    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border-top</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="kw2">white</span><span class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#D8D8D9</span><span
-
+    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#D8D8D9</span><span
 class="sy0">;</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">10px</span><span
 class="sy0">;</span>
-    <span class="kw1">text-align</span><span class="sy0">:</span> <span class="kw2">center</span><span
-
+    <span class="kw1">text-align</span><span class="sy0">:</span> <span class="kw2">center</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ox-bottom-buttons</span> input<span class="br0">[</span>type<span
-
-class="sy0">=</span><span class="st0">"button"</span><span class="br0">]</span> <span
-
+<span class="re1">.ox-bottom-buttons</span> input<span class="br0">[</span>type<span
+class="sy0">=</span><span class="st0">"button"</span><span class="br0">]</span> <span
 class="br0">{</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">20px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">20px</span><span
 class="sy0">;</span>
-    <span class="kw1">margin</span><span class="sy0">:</span> <span class="re3">10px</span><span
-
+    <span class="kw1">margin</span><span class="sy0">:</span> <span class="re3">10px</span><span
 class="sy0">;</span>
-    <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span
-
+    <span class="kw1">border</span><span class="sy0">:</span> <span class="re3">1px</span> <span
 class="kw2">solid</span> <span class="re0">#979797</span><span class="sy0">;</span>
-    -webkit-border-radius<span class="sy0">:</span><span class="re3">10px</span><span
-
+    -webkit-border-radius<span class="sy0">:</span><span class="re3">10px</span><span
 class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
-
-class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
-
-class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
-
+    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
+class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
+class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
 class="kw1">top</span><span class="sy0">,</span>
-        from<span class="br0">(</span><span class="re0">#D9D9D9</span><span class="br0">)</span><span
-
-class="sy0">,</span> to<span class="br0">(</span><span class="kw2">white</span><span
-
+        from<span class="br0">(</span><span class="re0">#D9D9D9</span><span class="br0">)</span><span
+class="sy0">,</span> to<span class="br0">(</span><span class="kw2">white</span><span
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw1">black</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw1">black</span><span
 class="sy0">;</span>
-    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
-
+    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
 class="sy0">;</span>
-    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">110%</span><span
-
+    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">110%</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-errors</span> <span class="br0">{</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#CF0000</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#CF0000</span><span
 class="sy0">;</span>
-    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
-
+    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
 class="sy0">;</span>
-    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">140%</span><span
-
+    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">140%</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
-
-class="re3">2px</span> <span class="re3">1px</span> <span class="re0">#E8E8E9</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
+class="re3">2px</span> <span class="re3">1px</span> <span class="re0">#E8E8E9</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-messages</span> <span class="br0">{</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#2160DD</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#2160DD</span><span
 class="sy0">;</span>
-    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
-
+    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
 class="sy0">;</span>
-    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">140%</span><span
-
+    <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">140%</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
-
-class="re3">2px</span> <span class="re3">1px</span> <span class="re0">#E8E8E9</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
+class="re3">2px</span> <span class="re3">1px</span> <span class="re0">#E8E8E9</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-filter-cell</span> <span class="br0">{</span>
-    <span class="kw1">text-align</span><span class="sy0">:</span> <span class="kw1">left</span><span
-
+    <span class="kw1">text-align</span><span class="sy0">:</span> <span class="kw1">left</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-frame-totals</span> <span class="br0">{</span>
-    <span class="kw1">float</span><span class="sy0">:</span> <span class="kw1">right</span><span
-
+    <span class="kw1">float</span><span class="sy0">:</span> <span class="kw1">right</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 <span class="re1">.ox-frame-totals-label</span> <span class="br0">{</span>
-    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">normal</span><span
-
+    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">normal</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ox-frame-totals-value</span> <span class="br0">{</span>
-    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
-
+    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ui-widget-header</span> <span class="br0">{</span>
-    <span class="kw1">border</span><span class="sy0">:</span> <span class="kw2">none</span><span
-
+    <span class="kw1">border</span><span class="sy0">:</span> <span class="kw2">none</span><span
 class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
-
-class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
-
-class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
-
+    <span class="kw1">background</span><span class="sy0">:</span> -webkit-gradient<span
+class="br0">(</span>linear<span class="sy0">,</span> <span class="kw1">left</span> <span
+class="kw1">bottom</span><span class="sy0">,</span> <span class="kw1">left</span> <span
 class="kw1">top</span><span class="sy0">,</span>
-        from<span class="br0">(</span><span class="re0">#10182C</span><span class="br0">)</span><span
-
-class="sy0">,</span> color-stop<span class="br0">(</span><span class="nu0">0.5</span><span
-
-class="sy0">,</span> <span class="re0">#121A2E</span><span class="br0">)</span><span
-
+        from<span class="br0">(</span><span class="re0">#10182C</span><span class="br0">)</span><span
+class="sy0">,</span> color-stop<span class="br0">(</span><span class="nu0">0.5</span><span
+class="sy0">,</span> <span class="re0">#121A2E</span><span class="br0">)</span><span
 class="sy0">,</span>
-        color-stop<span class="br0">(</span><span class="nu0">0.51</span><span class="sy0">,</span> <span
-
-class="re0">#282F41</span><span class="br0">)</span><span class="sy0">,</span> to<span
-
-class="br0">(</span><span class="re0">#7E838D</span><span class="br0">)</span><span
-
+        color-stop<span class="br0">(</span><span class="nu0">0.51</span><span class="sy0">,</span> <span
+class="re0">#282F41</span><span class="br0">)</span><span class="sy0">,</span> to<span
+class="br0">(</span><span class="re0">#7E838D</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
-    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
-
+    <span class="kw1">color</span><span class="sy0">:</span> <span class="kw2">white</span><span
 class="sy0">;</span>
-    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
-
-class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">(</span><span
-
-class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span
-
-class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span
-
+    <span class="kw1">text-shadow</span><span class="sy0">:</span><span class="re3">0px</span> <span
+class="re3">-1px</span> <span class="re3">1px</span> rgba<span class="br0">(</span><span
+class="nu0">0</span><span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span
+class="nu0">0</span><span class="sy0">,</span><span class="nu0">0.75</span><span
 class="br0">)</span><span class="sy0">;</span>
-    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
-
+    <span class="kw1">font-weight</span><span class="sy0">:</span> <span class="kw2">bold</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re1">.ui-corner-all</span> <span class="br0">{</span>
-    -webkit-border-radius<span class="sy0">:</span> <span class="re3">10px</span><span
-
+    -webkit-border-radius<span class="sy0">:</span> <span class="re3">10px</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 .ui-widget-<span class="kw1">content</span> <span class="br0">{</span>
-    <span class="kw1">border</span><span class="sy0">:</span> <span class="kw2">none</span><span
-
+    <span class="kw1">border</span><span class="sy0">:</span> <span class="kw2">none</span><span
 class="sy0">;</span>
-    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#151D31</span><span
-
+    <span class="kw1">background</span><span class="sy0">:</span> <span class="re0">#151D31</span><span
 class="sy0">;</span>
-    -webkit-box-shadow<span class="sy0">:</span> <span class="re3">15px</span> <span
-
-class="re3">15px</span> <span class="re3">30px</span> rgba<span class="br0">(</span><span
-
-class="nu0">140</span><span class="sy0">,</span><span class="nu0">140</span><span
-
-class="sy0">,</span><span class="nu0">140</span><span class="sy0">,</span><span
-
+    -webkit-box-shadow<span class="sy0">:</span> <span class="re3">15px</span> <span
+class="re3">15px</span> <span class="re3">30px</span> rgba<span class="br0">(</span><span
+class="nu0">140</span><span class="sy0">,</span><span class="nu0">140</span><span
+class="sy0">,</span><span class="nu0">140</span><span class="sy0">,</span><span
 class="nu0">0.75</span><span class="br0">)</span><span class="sy0">;;</span>
 <span class="br0">}</span>
 &nbsp;
-.ui-widget-<span class="kw1">content</span> <span class="re1">.ox-view</span> <span
-
+.ui-widget-<span class="kw1">content</span> <span class="re1">.ox-view</span> <span
 class="br0">{</span>
-    -webkit-border-top-left-radius<span class="sy0">:</span> <span class="re3">7px</span><span
-
+    -webkit-border-top-left-radius<span class="sy0">:</span> <span class="re3">7px</span><span
 class="sy0">;</span>
-    -webkit-border-top-right-radius<span class="sy0">:</span> <span class="re3">7px</span><span
-
+    -webkit-border-top-right-radius<span class="sy0">:</span> <span class="re3">7px</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
-.ui-widget-<span class="kw1">content</span> <span class="re1">.ox-bottom-buttons</span> <span
-
+.ui-widget-<span class="kw1">content</span> <span class="re1">.ox-bottom-buttons</span> <span
 class="br0">{</span>
-    -webkit-border-bottom-left-radius<span class="sy0">:</span> <span class="re3">7px</span><span
-
+    -webkit-border-bottom-left-radius<span class="sy0">:</span> <span class="re3">7px</span><span
 class="sy0">;</span>
-    -webkit-border-bottom-right-radius<span class="sy0">:</span> <span class="re3">7px</span><span
-
+    -webkit-border-bottom-right-radius<span class="sy0">:</span> <span class="re3">7px</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re1">.ui-dialog</span> .ui-dialog-<span class="kw1">content</span> <span
-
+<span class="re1">.ui-dialog</span> .ui-dialog-<span class="kw1">content</span> <span
 class="br0">{</span>
-    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">5px</span><span
-
+    <span class="kw1">padding</span><span class="sy0">:</span> <span class="re3">5px</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 &nbsp;
 <span class="coMULTI">/* For flip effect */</span>
 <span class="re1">.container</span> <span class="br0">{</span>
-    -webkit-perspective<span class="sy0">:</span> <span class="nu0">600</span><span
-
+    -webkit-perspective<span class="sy0">:</span> <span class="nu0">600</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 &nbsp;
 <span class="re1">.sheet</span> <span class="br0">{</span>
-    <span class="kw1">position</span><span class="sy0">:</span> <span class="kw2">absolute</span><span
-
+    <span class="kw1">position</span><span class="sy0">:</span> <span class="kw2">absolute</span><span
 class="sy0">;</span>
-     <span class="kw1">width</span><span class="sy0">:</span> <span class="re3">100%</span><span
-
+     <span class="kw1">width</span><span class="sy0">:</span> <span class="re3">100%</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 &nbsp;
 <span class="re1">.face</span> <span class="br0">{</span>
-    <span class="kw1">position</span><span class="sy0">:</span> <span class="kw2">absolute</span><span
-
+    <span class="kw1">position</span><span class="sy0">:</span> <span class="kw2">absolute</span><span
 class="sy0">;</span>
-    <span class="kw1">width</span><span class="sy0">:</span> <span class="re3">100%</span><span
-
+    <span class="kw1">width</span><span class="sy0">:</span> <span class="re3">100%</span><span
 class="sy0">;</span>
-    <span class="kw1">overflow</span><span class="sy0">:</span> <span class="kw2">hidden</span><span
-
+    <span class="kw1">overflow</span><span class="sy0">:</span> <span class="kw2">hidden</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 &nbsp;
 <span class="re1">.sheet</span> <span class="br0">{</span>
     -webkit-transform-style<span class="sy0">:</span> preserve-3d<span class="sy0">;</span>
-    -webkit-transition-property<span class="sy0">:</span> -webkit-transform<span
-
+    -webkit-transition-property<span class="sy0">:</span> -webkit-transform<span
 class="sy0">;</span>
     -webkit-transition-duration<span class="sy0">:</span> 1.5s<span class="sy0">;</span>
 <span class="br0">}</span>
@@ -1867,22 +1528,18 @@ class="sy0">;</span>
 &nbsp;
 <span class="re1">.flipped</span>
 <span class="br0">{</span>
-    -webkit-transform<span class="sy0">:</span> rotateY<span class="br0">(</span>180deg<span
-
+    -webkit-transform<span class="sy0">:</span> rotateY<span class="br0">(</span>180deg<span
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="re0">#front</span><span class="sy0">,</span> <span class="re0">#back</span> <span
-
+<span class="re0">#front</span><span class="sy0">,</span> <span class="re0">#back</span> <span
 class="br0">{</span>
-    -webkit-backface-<span class="kw1">visibility</span><span class="sy0">:</span> <span
-
+    -webkit-backface-<span class="kw1">visibility</span><span class="sy0">:</span> <span
 class="kw2">hidden</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="re0">#back</span> <span class="br0">{</span>
-    -webkit-transform<span class="sy0">:</span> rotateY<span class="br0">(</span>180deg<span
-
+    -webkit-transform<span class="sy0">:</span> rotateY<span class="br0">(</span>180deg<span
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span></pre>
       <h3 id="toc10"><a name="Estilo visual personalizado-Un ejemplo: estilo para iPad (hasta v4.9.1)-Clase de estilo"></a>Clase
@@ -2076,8 +1733,7 @@ class="br0">)</span><span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.web.style</span><span
-
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.web.style</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="co3">/**
@@ -2086,285 +1742,214 @@ class="sy0">;</span>
  * @author Javier Paniza
  */</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> IPadStyle <span class="kw2">extends</span> <a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/Style.html"><span
-
+<span class="kw2">public</span> <span class="kw2">class</span> IPadStyle <span class="kw2">extends</span> <a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/Style.html"><span
 class="kw116">Style</span></a> <span class="br0">{</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> jsFiles = <span
-
+    <span class="kw2">private</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> jsFiles = <span
 class="br0">{</span>
         <span class="st0">"ipad/ipad.js"</span>,
     <span class="br0">}</span><span class="sy0">;</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw2">static</span> IPadStyle instance = <span
-
+    <span class="kw2">private</span> <span class="kw2">static</span> IPadStyle instance = <span
 class="kw4">null</span><span class="sy0">;</span>
 &nbsp;
-    <span class="kw2">protected</span> IPadStyle<span class="br0">(</span><span
-
+    <span class="kw2">protected</span> IPadStyle<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/Style.html"><span
-
-class="kw116">Style</span></a> getInstance<span class="br0">(</span><span class="br0">)</span> <span
-
+    <span class="kw2">public</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/Style.html"><span
+class="kw116">Style</span></a> getInstance<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>instance == <span
-
+        <span class="kw1">if</span> <span class="br0">(</span>instance == <span
 class="kw4">null</span><span class="br0">)</span> <span class="br0">{</span>
-            instance = <span class="kw2">new</span> IPadStyle<span class="br0">(</span><span
-
+            instance = <span class="kw2">new</span> IPadStyle<span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>
         <span class="br0">}</span>
         <span class="kw2">return</span> instance<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isForBrowse<span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isForBrowse<span
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> browser<span class="br0">)</span> <span class="br0">{</span>
-        <span class="kw2">return</span> browser <span class="sy0">!</span>= <span
-
-class="kw4">null</span> <span class="sy0">&amp;&amp;</span> browser.<span class="me1">contains</span><span
-
-class="br0">(</span><span class="st0">"iPad"</span><span class="br0">)</span><span
-
+        <span class="kw2">return</span> browser <span class="sy0">!</span>= <span
+class="kw4">null</span> <span class="sy0">&amp;&amp;</span> browser.<span class="me1">contains</span><span
+class="br0">(</span><span class="st0">"iPad"</span><span class="br0">)</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isOnlyOneButtonForModeIfTwoModes<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isOnlyOneButtonForModeIfTwoModes<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isSeparatorBeforeBottomButtons<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isSeparatorBeforeBottomButtons<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getSetHtmlFunction<span class="br0">(</span><span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getSetHtmlFunction<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
-        <span class="kw2">return</span> <span class="st0">"ipad.setHtml"</span><span
-
+        <span class="kw2">return</span> <span class="st0">"ipad.setHtml"</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getCssFile<span class="br0">(</span><span class="br0">)</span> <span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getCssFile<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">{</span>
-        <span class="kw2">return</span> <span class="st0">"ipad/ipad.css"</span><span
-
+        <span class="kw2">return</span> <span class="st0">"ipad/ipad.css"</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> getNoPortalModuleJsFiles<span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> getNoPortalModuleJsFiles<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> jsFiles<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getInitThemeScript<span class="br0">(</span><span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getInitThemeScript<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
-        <span class="kw2">return</span> <span class="st0">"ipad.onLoad()"</span><span
-
+        <span class="kw2">return</span> <span class="st0">"ipad.onLoad()"</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getNextPageNavigationEvents<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> listId<span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getNextPageNavigationEvents<span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> listId<span
 class="br0">)</span> <span class="br0">{</span>
-        <span class="kw2">return</span> <span class="st0">"onclick=ipad.onClickNextPage('"</span> + listId + <span
-
+        <span class="kw2">return</span> <span class="st0">"onclick=ipad.onClickNextPage('"</span> + listId + <span
 class="st0">"')"</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getPreviousPageNavigationEvents<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> listId<span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getPreviousPageNavigationEvents<span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> listId<span
 class="br0">)</span> <span class="br0">{</span>
-        <span class="kw2">return</span> <span class="st0">"onclick=ipad.onClickPreviousPage('"</span> + listId + <span
-
+        <span class="kw2">return</span> <span class="st0">"onclick=ipad.onClickPreviousPage('"</span> + listId + <span
 class="st0">"')"</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getCoreStartDecoration<span class="br0">(</span><span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getCoreStartDecoration<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
-        <span class="kw2">return</span> <span class="st0">"&lt;div id='container'&gt;&lt;div id='sheet'&gt;&lt;div id='front'&gt;"</span><span
-
+        <span class="kw2">return</span> <span class="st0">"&lt;div id='container'&gt;&lt;div id='sheet'&gt;&lt;div id='front'&gt;"</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getCoreEndDecoration<span class="br0">(</span><span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getCoreEndDecoration<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span>
             <span class="st0">"&lt;/div&gt;&lt;div id='back'&gt;&lt;div id='core_BACK' style='display: inline;' class='"</span>
-            + getModule<span class="br0">(</span><span class="br0">)</span> + <span
-
-class="st0">"'&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;"</span><span
-
+            + getModule<span class="br0">(</span><span class="br0">)</span> + <span
+class="st0">"'&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;"</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getDefaultModeController<span class="br0">(</span><span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getDefaultModeController<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
-        <span class="kw2">return</span> <span class="st0">"DetailList"</span><span
-
+        <span class="kw2">return</span> <span class="st0">"DetailList"</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> allowsResizeColumns<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> allowsResizeColumns<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isRowLinkable<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isRowLinkable<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isShowPageNumber<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isShowPageNumber<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isShowModuleDescription<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isShowModuleDescription<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isSeveralActionsPerRow<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isSeveralActionsPerRow<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isChangingPageRowCountAllowed<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isChangingPageRowCountAllowed<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isHideRowsAllowed<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isHideRowsAllowed<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isShowRowCountOnTop<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isShowRowCountOnTop<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isUseLinkForNoButtonBarAction<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isUseLinkForNoButtonBarAction<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isHelpAvailable<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isHelpAvailable<span
 class="br0">(</span><span class="br0">)</span>  <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isShowImageInButtonBarButton<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isShowImageInButtonBarButton<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isUseStandardImageActionForOnlyImageActionOnButtonBar<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isUseStandardImageActionForOnlyImageActionOnButtonBar<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isFixedPositionSupported<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isFixedPositionSupported<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getMetaTags<span class="br0">(</span><span class="br0">)</span> <span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getMetaTags<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">{</span>
-        <span class="kw2">return</span> <span class="st0">"&lt;meta name='apple-mobile-web-app-capable' content='yes'/&gt;"</span><span
-
+        <span class="kw2">return</span> <span class="st0">"&lt;meta name='apple-mobile-web-app-capable' content='yes'/&gt;"</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getModuleSpacing<span class="br0">(</span><span class="br0">)</span> <span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getModuleSpacing<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">{</span>
-        <span class="kw2">return</span> <span class="st0">"style='padding: 0px;'"</span><span
-
+        <span class="kw2">return</span> <span class="st0">"style='padding: 0px;'"</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getListCellSpacing<span class="br0">(</span><span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getListCellSpacing<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
-        <span class="kw2">return</span> <span class="st0">"cellspacing=0 cellpadding=0"</span><span
-
+        <span class="kw2">return</span> <span class="st0">"cellspacing=0 cellpadding=0"</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getImagesFolder<span class="br0">(</span><span class="br0">)</span> <span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getImagesFolder<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">{</span>
-        <span class="kw2">return</span> <span class="st0">"xava/style/ipad/images"</span><span
-
+        <span class="kw2">return</span> <span class="st0">"xava/style/ipad/images"</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;

@@ -1,6 +1,6 @@
 /* tmp 
 Falta:
-- Documentar: TMP ME QUEDÉ DOCUMENTANDO: HICE LA PRIMERA SECCIÓN. 
+- Documentar: ME FALTAN LOS MENUS Y REVISAR 
 */
 
 :root {
@@ -786,6 +786,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 
 .ox-list-header a, .ui-widget-content .ox-list-header a, .ox-customize-controls .mdi-sort-numeric, .ox-customize-controls .mdi-sort-alphabetical,
 .ox-customize-controls .mdi-filter, .ox-customize-controls .mdi-filter-remove, 
+.ox-collection-list-actions .ox-button-bar-button a, .ox-collection-list-actions .ox-button-bar-button i,
 i, .ox-icon i.mdi-close-circle,
 .ox-charts .ox-element-collection .ox-image-link i
 {  
@@ -793,7 +794,6 @@ i, .ox-icon i.mdi-close-circle,
 }
 
 .ox-button-bar .ox-button-bar-button a, 
-.ox-collection-list-actions .ox-button-bar-button a,
 .ox-button-bar-button i
 {  
 	color: var(--button-bar-button-color);
