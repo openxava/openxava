@@ -190,13 +190,11 @@ private String remarks;
       Now you have <em>Product</em> ready to use. Let's refine the <em>Customer</em>
       now.<br>
       <h3 id="toc4"><a name="Lesson 2: Modeling with Java-Basic domain model-Embeddable"></a>Embeddable</h3>
-      TMP ME QUEDÉ POR AQUÍ</div>
-    <div class="wiki" style="display: block;"> We are going to add <em>Address</em>
-      to our until now pretty naked <em>Customer</em>. The customer address is
-      not shared by other customers, and when the customer is removed his
-      address is removed too. Therefore we'll model the address concept as an
-      embeddable class in this case. You can learn more about this in <a class="wiki_link"
-        href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Embeddable%20classes">appendix
+      We are going to add <em>Address</em> to our until now pretty naked <em>Customer</em>.
+      The customer address is not shared by other customers, and when the
+      customer is removed his address is removed too. Therefore we'll model the
+      address concept as an embeddable class in this case. You can learn more
+      about this in <a class="wiki_link" href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Embeddable%20classes">appendix
         B</a>.<br>
       Add the <em>Address</em> class to your project:</div>
     <div class="wiki" style="display: block;">
@@ -430,8 +428,21 @@ private LocalDate date;
       example, for <em>number</em> we want to add one to the last invoice
       number in the same year. Creating your own calculator with your logic is
       easy. First, create a package for calculators and call it <em>com.yourcompany.invoicing.calculators</em>.
-      Then create in it a <em>NextNumberForYearCalculator</em> class, with the
-      next code:</div>
+    </div>
+    <div class="wiki" style="display: block;">For create a new package select
+      the <i>Invoice/src</i> folder and click on the <i>New Java Package</i>
+      button:</div>
+    <img src="files/modeling_en064.png" alt="">
+    <div class="wiki" style="display: block;">It shows a dialog where you enter
+      the package name, <em>com.yourcompany.invoicing.calculators</em>, and
+      click on <i>Finish</i>:</div>
+    <img src="files/modeling_en066.png" alt="">
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: HABLAR UN
+      POCO DE LOS PAQUETES, QUE SON Y COM SE DEBERIAN LLAMA. Y REVISAR LOS
+      ESTILOS (CURSIVAS, ENTRE COMILLAS) PARA BOTONES DE FINISH Y DE JAVA NEW
+      PACKAGE</div>
+    <div class="wiki" style="display: block;">Then create in it a <em>NextNumberForYearCalculator</em>
+      class, with the next code:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.yourcompany.invoicing.calculators;
  
