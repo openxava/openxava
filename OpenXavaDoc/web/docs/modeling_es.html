@@ -105,15 +105,15 @@ public class Categoria {
       Oracle, Informix, etc) sin tocar tu código. Los otros generadores de
       identificadores de JPA usan la base de datos para generar el
       identificador, por lo que no son tan portables como UUID.<br>
-      Aunque no hayamos incluidos los <em>getters</em> y <em>setters</em> en
-      el código de arriba, los getters y los setters tienen que incluirse
-      obligatoriamente en el código. Por suerte Eclipse puede escribirlos por
-      nosotros. Primero escoge <em>Source &gt; Generate Getters and Setters...</em>
-      en el menú del Eclipse:<br>
+      Aunque no hayamos incluidos los getters y setters en el código de arriba,
+      los getters y los setters tienen que incluirse obligatoriamente en el
+      código. Por suerte Eclipse puede escribirlos por nosotros. Primero escoge
+      <em>Source &gt; Generate Getters and Setters...</em> en el menú del
+      Eclipse:<br>
       <img src="files/modeling020.png" alt="modeling020.png" title="modeling020.png"><br>
       <br>
       Después pulsa en <em>Select All</em> y entonces en <em>OK</em> para
-      tener los <em>getters</em> y <em>setters</em> en tu código:<br>
+      tener los getters y setters en tu código:<br>
       <img src="files/modeling_es030.png" alt="modeling_es030.png" title="modeling_es030.png"><br>
       Recuerda hacer esto cada vez que crees una nueva entidad o añadas un nuevo
       campo a una ya existente. Esta utilidad también está disponible con el
@@ -122,9 +122,9 @@ public class Categoria {
       Ahora puedes ejecutar el módulo <em>Categoria</em> y añadir algunas
       categorías:<br>
       <img src="files/modeling_es035.png" alt="modeling_es035.png" title="modeling_es035.png"><br>
-      Ahora, asociaremos <em>Producto</em> con <em>Categoria</em>: Añade la
-      siguiente declaración para la referencia <em>categoria</em> en tu entidad
-      <em>Producto</em>:</div>
+      Lo siguiente sería asociar <em>Producto</em> con <em>Categoria</em>:
+      Añade la siguiente declaración para la referencia <em>categoria</em> en
+      tu entidad <em>Producto</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public class Producto {
  
@@ -254,7 +254,7 @@ public class Direccion {
       se almacenan en la misma tabla que los de <em>Cliente</em>. Y desde una
       perspectiva de la interfaz de usuario hay un marco alrededor de <i>Direccion</i>,
       aunque si no te gusta el marco sólo has de anotar la referencia con <em>@NoFrame</em>,
-      como muestra aquí:</div>
+      como se muestra aquí:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Embedded @NoFrame // Con @NoFrame no se muestra marco para direccion
 private Direccion direccion;
@@ -427,7 +427,19 @@ private LocalDate fecha;
       queremos sumar uno al último número de factura dentro de este mismo año.
       Crear tu propio calculador con tu lógica es fácil. Primero, crea un
       paquete <em>com.tuempresa.facturacion.calculadores</em> para los
-      calculadores. Y crea en él una clase <em>CalculadorSiguienteNumeroParaAnyo</em>,
+      calculadores. Para crear un paquete nuevo selecciona la carpeta <i>Facturacion/src</i>
+      y pulsa en el botón <i>New Java Package</i>: <img src="files/modeling_es064.png"
+        alt="">
+      <div class="wiki" style="display: block;">Se mostrará un diálogo donde
+        introducir el nombre del paquete, <em>com.tuempresa.facturacion.calculadores</em>,
+        y pulsa <i>Finish</i>:</div>
+      <img src="files/modeling_es066.png" alt="">
+      <div class="wiki" style="display: block;">Las paquetes son la forma que
+        tiene Java de organizar el código. Deberías cambiar <i>com.tuempresa</i>
+        por el dominio de tu organización, es decir si trabajas para Telefónica
+        el paquete para los calculadores debería ser <i>es.telefonica.facturacion.calculadores</i>.
+      </div>
+      Ahora crea en él una clase <em>CalculadorSiguienteNumeroParaAnyo</em>,
       con el siguiente código:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.tuempresa.facturacion.calculadores;
@@ -468,7 +480,7 @@ public class CalculadorSiguienteNumeroParaAnyo
         class="wiki_link" href="jpa_es.html">apéndice B</a> sobre JPA. Ahora
       sólo queda anotar la propiedad <em>numero</em> en la entidad <em>Factura</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Id @Column(length=6)
+      <pre><code class="java">@Column(length=6)
 @DefaultValueCalculator(value=CalculadorSiguienteNumeroParaAnyo.class,
     properties=@PropertyValue(name="anyo") // Para inyectar el valor de anyo de Factura
                                            // en el calculador antes de llamar a calculate()
@@ -730,9 +742,9 @@ private Autor autor;
       y <em>setter</em> para autor.<br>
       Realmente has escrito una cantidad pequeña de código. Para ver el efecto,
       solo necesitas construir tu proyecto (esto solo es pulsar Ctrl-B en tu
-      Eclipse), lo cual es inmediato. Después ve al navegador y recarga la
-      página con el módulo <em>Producto</em>, y ahí verás, un combo para
-      escoger el autor del producto, como muestra aquí:<br>
+      Eclipse), parar la aplicación y volverla a arrancar. Después ve al
+      navegador y recarga la página con el módulo <em>Producto</em>, y ahí
+      verás, un combo para escoger el autor del producto, como muestra aquí:<br>
       <img src="files/modeling_es150.png" alt="modeling_es150.png" title="modeling_es150.png"><br>
       ¿Qué ocurre si el usuario quiere escoger un autor y ver todos sus
       productos? Está chupado. Solo has de hacer la relación entre <em>Producto</em>
@@ -751,9 +763,10 @@ private Collection&lt;Producto&gt; productos;
       <pre><code class="java">import java.util.*;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Recuerda generar el getter y
-      setter para <em>productos</em>. Ahora pulsas Ctrl-B (para construir) y
-      refresca tu navegador con el módulo <em>Autor</em>. Escoge un autor y
-      verás sus productos. Tienes algo parecido a esto:<br>
+      setter para <em>productos</em>. Ahora pulsas Ctrl-B (para construir),
+      para tu aplicación, arráncala de nuevo y refresca tu navegador con el
+      módulo <em>Autor</em>. Escoge un autor y verás sus productos. Tienes algo
+      parecido a esto:<br>
       <img src="files/modeling_es160.png" alt="modeling_es160.png" title="modeling_es160.png"><br>
     </div>
     <div class="wiki" style="display: block;">Sí, añades una nueva colección,

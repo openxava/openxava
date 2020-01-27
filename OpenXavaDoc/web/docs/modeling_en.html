@@ -437,10 +437,10 @@ private LocalDate date;
       the package name, <em>com.yourcompany.invoicing.calculators</em>, and
       click on <i>Finish</i>:</div>
     <img src="files/modeling_en066.png" alt="">
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: HABLAR UN
-      POCO DE LOS PAQUETES, QUE SON Y COM SE DEBERIAN LLAMA. Y REVISAR LOS
-      ESTILOS (CURSIVAS, ENTRE COMILLAS) PARA BOTONES DE FINISH Y DE JAVA NEW
-      PACKAGE</div>
+    <div class="wiki" style="display: block;">Packages are the way has Java to
+      organize the code. You should change <i>com.yourcompany</i> by the domain
+      of your organization, that is if you work for Google the package for
+      calculators should be <i>com.google.invoicing.calculators</i>. </div>
     <div class="wiki" style="display: block;">Then create in it a <em>NextNumberForYearCalculator</em>
       class, with the next code:</div>
     <div class="wiki" style="display: block;">
@@ -481,7 +481,7 @@ public class NextNumberForYearCalculator implements ICalculator { // A calculato
         class="wiki_link" href="jpa_en.html">appendix B</a>. Now we only have to
       annotate the number <em>property</em> in the <em>Invoice</em> entity:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Id @Column(length=6)
+      <pre><code class="java">@Column(length=6)
 @DefaultValueCalculator(value=NextNumberForYearCalculator.class,
     properties=@PropertyValue(name="year") // To inject the value of year from Invoice to
                                            // the calculator before calling to calculate()
@@ -542,7 +542,7 @@ private Collection&lt;Detail&gt; details;
       when the invoice is removed its details are removed too. The details are
       not saved in the database until the invoice is saved and they are saved
       all at once.<br>
-      In order to make this collection work you need to write the <em>Detail</em>
+      In order to make this collection works you need to write the <em>Detail</em>
       class:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.yourcompany.invoicing.model;
@@ -737,9 +737,10 @@ private Author author;
       setter and setter for <em>author</em>.<br>
       Really you have written a little amount of code. In order to see the
       effect, you only need to build your project (just press Ctrl-B in your
-      Eclipse), which is just immediate. Then go to the browser and reload the
-      page with the <em>Product</em> module, and you will see there, a combo
-      for choosing the author of the product, just as you see here:<br>
+      Eclipse), stop the application and start it again. Then go to the browser
+      and reload the page with the <em>Product</em> module, and you will see
+      there, a combo for choosing the author of the product, just as you see
+      here:<br>
       <img src="files/modeling_en150.png" alt="modeling_en150.png" title="modeling_en150.png"><br>
       What if the user wants to choose an author and see all his products? Well.
       This is plain vanilla. You only have to make the relationship between <em>Product</em>
@@ -758,9 +759,10 @@ private Collection&lt;Product&gt; products;
       <pre><code class="java">import java.util.*;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Remember to generate the getter
-      and setter for <em>products</em>. Now, press Ctrl+B (to build) and
-      refresh the browser with <em>Author</em> module. Choose an author and you
-      will see his products. You have to see something like this:<br>
+      and setter for <em>products</em>. Now, press Ctrl+B (to build), stop your
+      application, start it again and refresh the browser with <em>Author</em>
+      module. Choose an author and you will see his products. You have to see
+      something like this:<br>
       <img src="files/modeling_en160.png" alt="modeling_en160.png" title="modeling_en160.png"><br>
     </div>
     <div class="wiki" style="display: block;">Yes, you added a new collection,
