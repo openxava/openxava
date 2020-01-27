@@ -157,11 +157,8 @@
 	<% if (Browsers.isIE(request)) { %>
 	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/babel-polyfill.js?ox=<%=version%>"></script>
 	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/filepond-polyfill.js?ox=<%=version%>"></script>
-	<%-- tmp ini --%>
-	<%-- tmp Descargar libreria --%>
 	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/css-vars-ponyfill.js?ox=<%=version%>"></script>
 	<script type='text/javascript'>cssVars({ }); </script>
-	<%-- tmp fin --%>
 	<% } %>
 	<script type='text/javascript'>
 		openxava.lastApplication='<%=app%>'; 		

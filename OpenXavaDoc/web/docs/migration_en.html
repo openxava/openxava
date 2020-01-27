@@ -41,6 +41,20 @@
       </ul>
     </div>
     <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 6.2.2 to OpenXava 6.3</h2>
+      <h3>Welcome page for Internet Explorer</h3>
+      We have move colors in CSS to variables. Variables are not supported in
+      Internet Explorer 11, fortunately it's very easy to add CSS variable
+      support to IE11 using a JS library, we have done it for all OpenXava code,
+      but Welcome page (welcome.jsp) is yours, so you have to add the next code
+      to welcome.jsp in order it can use the OpenXava styles well with IE9:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="jsp">&lt;% if (org.openxava.web.Browsers.isIE(request)) { %&gt;
+&lt;script type='text/javascript' src="&lt;%=request.getContextPath()%&gt;/xava/js/css-vars-ponyfill.js?ox=&lt;%=oxVersion%&gt;"&gt;&lt;/script&gt;
+&lt;script type='text/javascript'&gt;cssVars({ }); &lt;/script&gt;	
+&lt;% } %&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">fffTMP ME QUEDÉ POR AQUÍ<br>
       <h2>Migration from OpenXava 6.2.1 to OpenXava 6.2.2</h2>
       No issues.
       <h2>Migration from OpenXava 6.2 to OpenXava 6.2.1</h2>

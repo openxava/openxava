@@ -15,13 +15,18 @@
             visual style</a></div>
         <div style="margin-left: 2em;"><a href="#defining-your-own-style">Defining
             your own style</a></div>
+        <div style="margin-left: 3em;"><a href="#extending-existing-style">Extending
+            an existing style (new in v6.3)</a></div>
+        <div style="margin-left: 3em;"><a href="#color-scheme">Your own color
+            scheme (new in v6.3)</a></div>
+        <div style="margin-left: 3em;"><a href="#refining-other-aspects">Refining
+            other aspects of the UI</a></div>
         <div style="margin-left: 2em;"><a href="#Custom%20visual%20style-Modify%20the%20default%20style%20%28new%20in%20v4.5%29">Modify
-            the default style (new in v4.5)</a></div>
+            the application style (new in v4.5)</a></div>
         <div style="margin-left: 3em;"><a href="#Custom%20visual%20style-Modify%20the%20default%20style%20%28new%20in%20v4.5%29-A%20few%20css%20tricks">A
             few css tricks</a></div>
         <div style="margin-left: 2em;"><a href="#Custom%20visual%20style-Add%20elements%20to%20the%20page%20%28new%20in%20v5.6%29">Add
             elements to the page (new in v5.6)</a></div>
-        <h2><a name=""></a></h2>
         <div style="margin-left: 2em;"><a href="#defining-your-own-style-5">Defining
             your own style (until v5.9.1)</a></div>
         <div style="margin-left: 2em;"><a href="#Custom%20visual%20style-Defining%20your%20own%20style%20%28until%20v4.9.1%29">Defining
@@ -88,7 +93,8 @@ styleCSS=dark.css
       <p>To create a new style just create your own CSS file in <i>web/xava/style</i>
         folder of your project and point to it in the <i>styleCSS</i> property
         of <i>xava.properties</i>.</p>
-      <h3>Extending an existing style <i>(new in v6.3)</i></h3>
+      <h3><a name="extending-existing-style">Extending an existing style <i>(new
+            in v6.3)</i></a></h3>
       <p>If you want a slight modification over an existing style, you can
         extend that style. For example, if you want the Light style but with
         gold color for the left menu and the main button, create a <i>golden.css</i>
@@ -119,7 +125,7 @@ styleCSS=dark.css
     <div class="wiki" style="display: block;">To get this result:</div>
     <img src="files/golden-detail_en.png" alt="">
     <div class="wiki" style="display: block;">
-      <h3>Your own color scheme <i>(new in v6.3)</i></h3>
+      <h3><a name="color-scheme">Your own color scheme <i>(new in v6.3)</i></a></h3>
     </div>
     <div class="wiki" style="display: block;">On the other hand to define your
       own color scheme, not just a refinement, extends directly from <i>base.css</i>.
@@ -181,7 +187,7 @@ styleCSS=dark.css
       interface, look at the <i>base.css</i> file to see all the color
       variables available, more than 200.</div>
     <div class="wiki" style="display: block;">
-      <h3>Refining other aspects of the UI</h3>
+      <h3><a name="refining-other-aspects">Refining other aspects of the UI</a></h3>
     </div>
     <div class="wiki" style="display: block;">But not only the colors, you can
       refine each single aspect of the interface: margins, fonts, borders, etc.
@@ -198,9 +204,10 @@ styleCSS=dark.css
       this way:</div>
     <img src="files/frames-with-border_en.png" alt="">
     <div class="wiki" style="display: block;">You can modify any aspect of the
-      user interface, have a look at <i>base.css</i> to see all the available
-      options. Of course, if you're going to change many things an option is to
-      define your own CSS from scratch, without extending <i>base.css</i>.<br>
+      user interface, have a look at <i>base.css</i> (or <i>terra.css/light.css</i>
+      antes de v6.3) to see all the available options. Of course, if you're
+      going to change many things an option is to define your own CSS from
+      scratch, without extending <i>base.css</i>.<br>
       <p></p>
       <h2><a name="Custom visual style-Modify the default style (new in v4.5)"></a><span
           style="background-color: #ffffff;">Modify the application style <em>(new
@@ -225,12 +232,12 @@ styleCSS=dark.css
 }</pre>
         <span style="background-color: #ffffff;">You change the <em>font-size</em>
           to all your application (inside portal too) and the height of the rows
-          in list. Look at <em>base.css</em> for a complete list of available
-          CSS classes.</span><br>
+          in list. Look at <em>base.css</em> (or terra.css/light.css before
+          v6.3) for a complete list of available CSS classes.</span><br>
         <h3 id="toc2"><a name="Custom visual style-Modify the default style (new in v4.5)-A few css tricks"></a><span
             style="background-color: #ffffff;">A few css tricks</span></h3>
         <span style="background-color: #ffffff;">Here are a couple of css
-          tricks/tips. Please add/edit an entries you feel appropriate.</span><br>
+          tricks/tips. Please add/edit entries you feel appropriate.</span><br>
         <strong><span style="background-color: #ffffff; line-height: 1.5;">Style
             @ReadOnly fields uniquely</span></strong><br>
         <style type="text/css"><!--

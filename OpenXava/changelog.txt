@@ -1,6 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
+TMP PROBAR CREAR NUEVO PROYECTO: welcome, estilos, IE
+- Terra theme soften.
+- Light theme unified with Terra, though it keeps its colors. 
+- New visual themes Dark, Blank & White and Blue.  
+- Color refactoring to allow creating a new color scheme defining a few colors.
+- Moving all colors to variables in CSS. 
+- base.css to facilitate the creation of a new CSS style.
 - Maven documentation updated.
 
 OpenXava 6.2.2 (2019-12-9)

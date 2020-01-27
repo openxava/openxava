@@ -15,8 +15,14 @@
             visual personalizado</a></div>
         <div style="margin-left: 2em;"><a href="#definir-tu-propio-estilo">Definir
             tu propio estilo</a></div>
+        <div style="margin-left: 3em;"><a href="#extender-estilo-existente">Extender
+            un estilo existente (nuevo en v6.3)</a></div>
+        <div style="margin-left: 3em;"><a href="#esquema-colores">Tu propio
+            esquema de colores (nuevo en v6.3)</a></div>
+        <div style="margin-left: 3em;"><a href="#refinar-otros-aspectos">Refinar
+            otros aspectos de la interfaz de usuario</a></div>
         <div style="margin-left: 2em;"><a href="#Estilo%20visual%20personalizado-Modificar%20el%20estilo%20por%20defecto%20%28nuevo%20en%20v4.5%29">Modificar
-            el estilo por defecto (nuevo en v4.5)</a></div>
+            el estilo de la aplicación (nuevo en v4.5)</a></div>
         <div style="margin-left: 2em;"><a href="#Anadir-elementos-a-la-pagina">Añadir
             elementos a la página (nuevo en v5.6)</a></div>
         <div style="margin-left: 2em;"><a href="#Estilo%20visual%20personalizado-Dentro%20de%20portales">Dentro
@@ -96,7 +102,8 @@ styleCSS=dark.css
         <p>Para crear un nuevo estilo crea tu propio archivo CSS en la carpeta <i>web/xava/style</i>
           de tu proyecto y apunta a él en la propiedad <i>styleCSS</i> de <i>xava.properties</i>.
         </p>
-        <h3>Extender un estilo existente</h3>
+        <h3><a name="extender-estilo-existente">Extender un estilo existente <i>(nuevo
+              en v6.3)</i></a></h3>
         <p>Si simplemente quieres una pequeña modificación de un estilo
           existente, puedes extender ese estilo. Por ejemplo, si quieres el
           estilo Light pero con el menú de la izquierda y el botón principal
@@ -128,12 +135,13 @@ styleCSS=dark.css
         <div class="wiki" style="display: block;">Para obtener este resultado:</div>
         <img src="files/golden-detail_es.png" alt="">
         <div class="wiki" style="display: block;">
-          <h3>Tu propio esquema de colores</h3>
+          <h3><a name="esquema-colores">Tu propio esquema de colores <i>(nuevo
+                en v6.3)</i></a></h3>
         </div>
         <div class="wiki" style="display: block;">Por otra parte puedes definir
           tu propio esquema de colores, no sólo un refinamiento, extendiendo
           directamente de <i>base.css</i>. Por ejemplo, para definir un estilo
-          Rosa crea a <i>rosa.css</i> como este:</div>
+          Rosa crea un <i>rosa.css</i> como este:</div>
         <div class="wiki" style="display: block;">
           <pre><code class="css">/* rosa.css */
 
@@ -191,13 +199,14 @@ styleCSS=dark.css
           de la interfaz de usuario, echa un vistazo a <i>base.css</i> para ver
           todas las variables de color disponibles, más de 200.</div>
         <div class="wiki" style="display: block;">
-          <h3>Refinar otros aspectos de la interfaz de usuario</h3>
+          <h3><a name="refinar-otros-aspectos">Refinar otros aspectos de la
+              interfaz de usuario</a></h3>
         </div>
         <div class="wiki" style="display: block;">Pero no sólo los colores,
           puedes refinar cualquier aspecto de la interfaz: márgenes, fuentes,
           bordes, etc. Por ejemplo, si quiere cambiar el bonito degradado que se
           usa por defecto para los marcos, por un más convencional y aburrido
-          marco con sombra, puedes añadir estas líneas a tu CSS CSS:</div>
+          marco con sombra, puedes añadir estas líneas a tu CSS:</div>
         <div class="wiki" style="display: block;">
           <pre><code class="css">.ox-frame {
 	background: white;
@@ -208,9 +217,10 @@ styleCSS=dark.css
           visualizarán así:</div>
         <img src="files/frames-with-border_es.png" alt=""> </div>
       <div class="wiki" style="display: block;">Puedes modificar cualquier cosa
-        de la interfaz gráfica, echa un vistazo a <i>base.css</i> para ver
-        todas las acciones disponibles. Por supuesto, si vas a cambiar muchas
-        cosas una opción es definir tu propio CSS desde cero, sin extender de <i>base.css</i>.<br>
+        de la interfaz gráfica, echa un vistazo a <i>base.css</i> (o <i>terra.css/light.css</i>
+        antes v6.3) para ver todas las acciones disponibles. Por supuesto, si
+        vas a cambiar muchas cosas una opción es definir tu propio CSS desde
+        cero, sin extender de <i>base.css</i>.<br>
         <p></p>
       </div>
       <style type="text/css"><!--
@@ -224,7 +234,7 @@ styleCSS=dark.css
 
 -->
 </style> <h2><a name="Estilo visual personalizado-Modificar el estilo por defecto (nuevo en v4.5)"></a>Modificar
-        el estilo por defecto <em>(nuevo en v4.5)</em> </h2>
+        el estilo de la aplicación <em>(nuevo en v4.5)</em> </h2>
     </div>
     <div class="wiki" style="display: block;">Desde la versión 4.5 podemos
       añadir y modificar estilos de la aplicación mediante el fichero <em>custom.css</em>
@@ -251,7 +261,8 @@ styleCSS=dark.css
 }</pre>
       Cambiamos el tamaño de la letra de toda nuestra aplicación (incluso dentro
       de un portal) y la altura de las filas en la lista. Mira en <em>base.css</em>
-      para ver todas las classes CSS disponibles.<br>
+      (o terra.css/light.css antes v6.3) para ver todas las classes CSS
+      disponibles.<br>
       <h2><a name="Anadir-elementos-a-la-pagina"></a>Añadir elementos a la
         página <em>(nuevo en v5.6)</em></h2>
       Si queremos añadir nuestros propios elementos a la pagina para que

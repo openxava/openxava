@@ -1,981 +1,252 @@
-/* tmp ini */
-
-/* tmp Truco para oscurecer color
-	background: linear-gradient(
-		to top,
-		rgba(0, 0, 0, 0.05),
-		rgba(0, 0, 0, 0.05)
-	  ) var(--list-header-background);
-*/
-
-/* Terra original: a, c, d, e, b2  
 :root {
-	--color-a:  #E8DDCB;
-	--color-b:  #806632; 
-	--color-c:  #036564;
-	--color-d:  #033649;
-	--color-e:  #031634;
-	--color-b2: #CDB380; 
-	--color-b3: #be9c5a;
-	--color-b4: #a58341;
-	--color-b5: #5b4924;
-}
-*/
-
-/* Terra refinado */ 
-:root {
-	--color-a:  #E8DDCB;
-	--color-b:  #806632; 
-	--color-c:  #036564;
-	--color-d:  #033649;
-	--color-e:  #031634;
-	--color-b2: #CDB380; 
-	--color-b3: #be9c5a;
-	--color-b4: var(--color-b2);
-	--color-b5: var(--color-b);
-	--color-b-soft: #dfcfad;
-	--color-b-softer: rgba(205, 179, 128, 0.2);
-}
-
-
-/* Chrome 
-:root {
-	--chrome-blue: rgb(51, 103, 214);
-	--chrome-lightgray: rgb(248, 249, 250);
-	--chrome-gray: rgb(95, 99, 104);
-	--chrome-black: #202124;
-	--chrome-white: rgb(32, 33, 36);
-	--chrome-darkblue: #2850a7;
-	
-	
-	
-	--color-a:  var(--chrome-lightgray);
-	--color-b:  #806632; 
-	--color-c:  #036564;
-	--color-d:  var(--chrome-darkblue);
-	--color-e:  #031634;
-	--color-b2: #CDB380; 
-	--color-b3: #be9c5a;
-	--color-b4: var(--color-b2);
-	--color-b5: var(--color-b);
-	--color-b-soft: #dfcfad;
-	--color-b-softer: rgba(205, 179, 128, 0.2);
-}
-*/
-
-
-:root {
-	--background: var(--color-a);
-	--mobile-modules-list: var(--color-a);
-	--modules-list-scrollbar-color: var(--color-a);
-	--back-folder-color: var(--color-a);
-	--search-modules-input-border: var(--color-a);
-	--module-header-link-color: var(--color-a);
-	--organization-name-color: var(--color-a);
-	--mobile-button-bar-color: var(--color-a);
-	--module-name-color: var(--color-a);
-	--organizations-index-icon-color: var(--color-a);
-	--folder-name-icon-color: var(--color-a);
-	--unsubscribed-color: var(--color-a);
-	--subcontroller-select-background: var(--color-a);
-	--default-action-button-color: var(--color-a);
-	--customize-controls-color: var(--color-a);
-	--list-formats-color: var(--color-a);
-	--list-row-hover-background: var(--color-a);	
-	--selected-row-background: var(--color-a);	
-	/* tmp --section-color: var(--color-a); */
-	--section-color: var(--color-b3); /* tmp */	
-	--dialog-titlebar-button-background: var(--color-a);	
-	--welcome-background: var(--color-a);
-	--chart-type-icon-color: var(--color-a);
-	--autocomplete-scrollbar-background: var(--color-a);
-	--ui-menu-item-state-focus-border: var(--color-a);
-	--ui-menu-item-state-focus-background: var(--color-a);
-	--icons-list-background: var(--color-a);
-	--cke-button-on-background: var(--color-a);
-	--card-subheader-color: var(--color-a);		
-	--card-content-b-color: var(--color-a);	
-	
-	--color: var(--color-b);
-	--mobile-module-name-color: var(--color-b);
-	--subscribed-color: var(--color-b);
-	--frame-frame-required-editor-border: var(--color-b);
-	--selected-list-format-color: var(--color-b);
-	--selected-list-format-border: var(--color-b);
-	--page-navigation-selected-color: var(--color-b);
-	--active-section-tab-color: var(--color-b);
-	--active-section-tab-bottom-color: var(--color-b);
-	--dialog-content-color: var(--color-b);
-	--welcome-color: var(--color-b);
-	--selected-chart-type-icon-color: var(--color-b);
-	--selected-chart-type-icon-border-bottom: var(--color-b);
-	--card-color: var(--color-b);
-	--card-content-color: var(--color-b);		
-
-	--link-color: var(--color-c);
-	--action-link-color: var(--color-c);
-	--xava-processing-layer-background: var(--color-c);
-	--load-more-modules-color: var(--color-c);
-	--reference-search-icon-background: var(--color-c);
-	--bar-links-and-icons-color: var(--color-c);
-	--highlight-bar-action-background: var(--color-c);
-	--delete-button-color: var(--color-c);
-	--first-steps-icon-color: var(--color-c);
-	--filepond--file-action-button-background: var(--color-c);
-
-	--xava-loading-shadow: var(--color-d);
-	--modules-list-background: var(--color-d);
-	--mobile-search-modules-input-focus-border: var(--color-d);
-	--module-header-background: var(--color-d);
-	--mobile-button-bar-background: var(--color-d);
-	--input-focus-border: var(--color-d);
-	--reference-search-icon-hover-background: var(--color-d);
-	--highlight-bar-action-hover-color: var(--color-d);
-	--button-bar-button-hover-color: var(--color-d);
-	--icon-hover-color: var(--color-d);
-	--button-hover-color: var(--color-d);
-	--default-action-button-background: var(--color-d);
-	--default-action-button-shadow: var(--color-d);
-	--dialog-titlebar-color: var(--color-d);
-	--icon-i-color: var(--color-d);
-	--icons-list-i-color: var(--color-d);
-	
-	--xava-loading-color: var(--color-e);
-	--modules-list-scrollbar-background: var(--color-e);
-	--modules-list-selected-background: var(--color-e);
-	--module-row-hover-background: var(--color-e);
-	--mobile-icon-module-loading-color: var(--color-e);
-	--input-color: var(--color-e);
-	--tooltip-background: var(--color-e);
-	--default-action-button-hover-background: var(--color-e);
-	--default-action-button-hover-shadow: var(--color-e);
-	--list-row-a-color: var(--color-e);
-	--total-cell-color: var(--color-e);
-	--icon-i-hover-color: var(--color-e);
-	--icons-list-i-hover-color: var(--color-e);
-	
-	--search-modules-input-focus-border: var(--color-b2);
-	--mobile-search-modules-filter-list-background: var(--color-b2);
-	--mobile-search-modules-filter-list-shadow: var(--color-b2);
-	--module-header-icon-color: var(--color-b2);
-	--button-bar-background: var(--color-b2);
-	--required-editor-border: var(--color-b2);
-	--subcontroller-background: var(--color-b2);
-	--button-focus-outline: var(--color-b2);
-	--page-navigation-selected-background: var(--color-b2);
-	--list-header-background: var(--color-b2);
-	--frame-background: var(--color-b2);
-	--frame-shadow: var(--color-b2);
-	/* tmp --section-background: var(--color-b2); */
-	--section-background: var(--color-b-softer); /* tmp */
-	/* tmp
-	--dialog-background: var(--color-b2);
-	--dialog-titlebar-background: var(--color-b2);
-	*/
-	/* tmp ini */
-	--dialog-background: var(--color-a);
-	--dialog-titlebar-background: var(--color-a);	
-	/* tmp fin */
-	--sign-in-background: var(--color-b2);
-	--chart-type-background: var(--color-b2);
-	--autocomplete-scrollbar-background-thumb: var(--color-b2);
-	/* tmp --cke-top-background: var(--color-b2); */
-	--cke-top-background: var(--color-b-soft); /* tmp */
-	
-	--frame-list-shadow: var(--color-b3);
-	--frame-list-header-background: var(--color-b3);
-	--frame-frame-shadow: var(--color-b3);	
-	--frame-frame-background: var(--color-b3);	
-	--dialog-section-background: var(--color-b3);	
-	--icons-list-scrollbar-background: var(--color-b3);	
-	--frame-frame-cke-top-background: var(--color-b3);	
-	--card-background: var(--color-b3);	
-	
-	--frame-required-editor-border: var(--color-b4);
-	--frame-frame-list-shadow: var(--color-b4);
-	--frame-frame-list-header-background: var(--color-b4);
-	--dialog-frame-frame-background: var(--color-b4);
-	--dialog-frame-frame-shadow: var(--color-b4);
-	--sign-in-input-focus-outline-color: var(--color-b4);
-	--frame-frame-frame-cke-top-background: var(--color-b4);
-	
-	--icons-list-scrollbar-color: var(--color-b5);	
-	--card-header-color: var(--color-b5);
-	--card-content-hover-color: var(--color-b5);					
-					
-	--modules-list-shadow: black;				
-	--tooltip-arrow-after-shadow: black;
-	--icon-check-color: black;
-	--screenshot-shadow: black;
-	--reverse-label-background: black;
-	--icon-in-list: black;
-	--sort-indicator-color: black;
-	--message-box-shadow: black;
-	
-	--action-link-hover-background: white;
-	--xava-loading-background-color: white;
-	--xava-processing-layer-color: white;
-	--sign-out-color: white;
-	--sign-in-a-hover-color: white;
-	--back-folder-hover-color: white;
-	--modules-list-header-color: white;
-	--modules-list-header-border-bottom: white;
-	--loading-more-modules-color: white;
-	--module-row-hover-color: white;
-	--selected-module-color: white;
-	--module-header-color: white;
-	--module-header-link-hover-color: white;
-	--application-name-color: white;
-	--icon-module-loading-color: white;
-	--organizations-index-icon-color-hover: white;	
-	--folder-row-hover-icon-color: white;
-	--tooltip-color: white;
-	--tooltip-border: white;
-	--subscribed-hover-color: white;
-	--reference-search-icon-color: white;
-	--reference-search-icon-hover-color: white;		
-	--highlight-bar-action-color: white;
-	--highlight-bar-action-hover-background: white;
-	--button-bar-button-hover-background: white;
-	--button-bar-button-hover-border: white;
-	--button-hover-background: white;
-	--default-action-button-hover-color: white;
-	--delete-button-hover-background: white;
-	--customize-controls-hover-color: white;
-	--list-formats-hover-color: white;
-	--list-column2-background: white;
-	--element-collection-row-hover-background: white;
-	--list-background: white;
-	--list-header-arrows-color: white;
-	--section-hover-color: white;
-	--dialog-titlebar-button-hover-background: white;
-	--message-box-color: white;
-	--message-box-a-color: white;
-	--message-box-close-hover-color: white;
-	--reverse-label-color: white;
-	--chart-type-icon-hover-color: white;
-	--crop-free-icon-color: white;
-	--plus-icon-color: white;
-	--close-column-icon: white;
-	--icons-list-i-hover-background: white;
-	--cke-button-off-background: white;
-	--card-subheader-hover-color: white;
-	--card-content-b-hover-color: white;
-		
-	--input-border: lightgray;
-	--message-box-close-color: lightgray;
-	--autocomplete-border: lightgray;
-	--xava-dropped-shadow: lightgray;
-	
-	--subcontroller-shadow: gray;
-	--dialog-shadow: gray;
-	--card-hover-shadow: gray;
-	
-	--modules-list-selected-border-right: red;
-	--icon-delete-hover-color: red;
-	--delete-button-hover-color: red;
-	
-	--error-editor-border: #DC4A38;
-	--errors-background: #DC4A38;
-	--filepond--image-preview-overlay-failure: #DC4A38;	
-		
-	--disabled-input-background: #ebebe4;
-	
-	--list-even-column-background: #f4f4f4;
-	
-	--list-row-bottom-color: #EBEBEB;
-	
-	--list-shadow: #d8c5a7;
-	--cke-shadow: #d8c5a7;
-	
-	--messages-background: #6fc664;
-	--filepond--image-preview-overlay-success-color: #6fc664;	
-	
-	--infos-background: #a1a4a5;
-	
-	--warnings-background: #ffb347;	
-	
-	--attached-file-color: #5755D2;
-	
-	--card-header-hover-color: #372c16;
-	
-	--xava-placeholder-background: #F5F5F5;
-	
-	--mobile-tap-highlight-color: rgb(205,179,128, 0.4);
-	
-}
-/* tmp fin */
-
-/* tmp Por color
-:root {
-	--background: #E8DDCB;
-	--mobile-modules-list: #E8DDCB;
-	--modules-list-scrollbar-color: #E8DDCB;
-	--back-folder-color: #E8DDCB;
-	--search-modules-input-border: #E8DDCB;
-	--module-header-link-color: #E8DDCB;
-	--organization-name-color: #E8DDCB;
-	--mobile-button-bar-color: #E8DDCB;
-	--module-name-color: #E8DDCB;
-	--organizations-index-icon-color: #E8DDCB;
-	--folder-name-icon-color: #E8DDCB;
-	--unsubscribed-color: #E8DDCB;
-	--subcontroller-select-background: #E8DDCB;
-	--default-action-button-color: #E8DDCB;
-	--customize-controls-color: #E8DDCB;
-	--list-formats-color: #E8DDCB;
-	--list-row-hover-background: #E8DDCB;	
-	--selected-row-background: #E8DDCB;	
-	--section-color: #E8DDCB;	
-	--dialog-titlebar-button-background: #E8DDCB;	
-	--welcome-background: #e8ddcb;
-	--chart-type-icon-color: #E8DDCB;
-	--autocomplete-scrollbar-background: #E8DDCB;
-	--ui-menu-item-state-focus-border: #E8DDCB;
-	--ui-menu-item-state-focus-background: #E8DDCB;
-	--icons-list-background: #E8DDCB;
-	--cke-button-on-background: #E8DDCB;
-	--card-subheader-color: #E8DDCB;		
-	--card-content-b-color: #E8DDCB;	
-	
-	--color: #806632;
-	--mobile-module-name-color: #806632;
-	--subscribed-color: #806632;
-	--frame-frame-required-editor-border: #806632;
-	--selected-list-format-color: #806632;
-	--selected-list-format-border: #806632;
-	--page-navigation-selected-color: #806632;
-	--active-section-tab-color: #806632;
-	--active-section-tab-bottom-color: #806632;
-	--dialog-content-color: #806632;
-	--welcome-color: #806632;
-	--selected-chart-type-icon-color: #806632;
-	--selected-chart-type-icon-border-bottom: #806632;
-	--card-color: #806632;
-	--card-content-color: #806632;		
-
-	--link-color: #036564;
-	--action-link-color: #036564;
-	--xava-processing-layer-background: #036564;
-	--load-more-modules-color: #036564;
-	--reference-search-icon-background: #036564;
-	--bar-links-and-icons-color: #036564;
-	--highlight-bar-action-background: #036564;
-	--delete-button-color: #036564;
-	--first-steps-icon-color: #036564;
-	--filepond--file-action-button-background: #036564;
-
-	--xava-loading-shadow: #033649;
-	--modules-list-background: #033649;
-	--mobile-search-modules-input-focus-border: #033649;
-	--module-header-background: #033649;
-	--mobile-button-bar-background: #033649;
-	--input-focus-border: #033649;
-	--reference-search-icon-hover-background: #033649;
-	--highlight-bar-action-hover-color: #033649;
-	--button-bar-button-hover-color: #033649;
-	--icon-hover-color: #033649;
-	--button-hover-color: #033649;
-	--default-action-button-background: #033649;
-	--default-action-button-shadow: #033649;
-	--dialog-titlebar-color: #033649;
-	--icon-i-color: #033649;
-	--icons-list-i-color: #033649;	
-	
-	--xava-loading-color: #031634;
-	--modules-list-scrollbar-background: #031634;
-	--modules-list-selected-background: #031634;
-	--module-row-hover-background: #031634;
-	--mobile-icon-module-loading-color: #031634;
-	--input-color: #031634;
-	--tooltip-background: #031634;
-	--default-action-button-hover-background: #031634;	
-	--default-action-button-hover-shadow: #031634;
-	--list-row-a-color: #031634;
-	--total-cell-color: #031634;
-	--icon-i-hover-color: #031634;
-	--icons-list-i-hover-color: #031634;
-	
-	--search-modules-input-focus-border: #CDB380;
-	--mobile-search-modules-filter-list-background: #CDB380;
-	--mobile-search-modules-filter-list-shadow: #CDB380;
-	--module-header-icon-color: #CDB380;
-	--button-bar-background: #CDB380;
-	--required-editor-border: #CDB380;
-	--subcontroller-background: #CDB380;
-	--button-focus-outline: #CDB380;
-	--page-navigation-selected-background: #CDB380;
-	--list-header-background: #CDB380;
-	--frame-background: #CDB380;
-	--frame-shadow: #CDB380;
-	--section-background: #CDB380;
-	--dialog-background: #CDB380;
-	--dialog-titlebar-background: #CDB380;
-	--sign-in-background: #CDB380;
-	--chart-type-background: #CDB380;
-	--autocomplete-scrollbar-background-thumb: #CDB380;
-	--cke-top-background: #CDB380;
-	
-	--frame-list-shadow: #be9c5a;
-	--frame-list-header-background: #be9c5a;
-	--frame-frame-shadow: #be9c5a;	
-	--frame-frame-background: #be9c5a;	
-	--dialog-section-background: #be9c5a;	
-	--icons-list-scrollbar-background: #be9c5a;	
-	--frame-frame-cke-top-background: #be9c5a;	
-	--card-background: #be9c5a;	
-	
-	--frame-required-editor-border: #a58341;
-	--frame-frame-list-shadow: #a58341;
-	--frame-frame-list-header-background: #a58341;
-	--dialog-frame-frame-background: #a58341;
-	--dialog-frame-frame-shadow: #a58341;
-	--sign-in-input-focus-outline-color: #a58341;
-	--frame-frame-frame-cke-top-background: #a58341;
-	
-	--icons-list-scrollbar-color: #5b4924;	
-	--card-header-color: #5b4924;
-	--card-content-hover-color: #5b4924;					
-					
-	--modules-list-shadow: black;				
-	--tooltip-arrow-after-shadow: black;
-	--icon-check-color: black;
-	--screenshot-shadow: black;
-	--reverse-label-background: black;
-	--icon-in-list: black;
-	--sort-indicator-color: black;
-	--message-box-shadow: black;
-	
-	--action-link-hover-background: white;
-	--xava-loading-background-color: white;
-	--xava-processing-layer-color: white;
-	--sign-out-color: white;
-	--sign-in-a-hover-color: white;
-	--back-folder-hover-color: white;
-	--modules-list-header-color: white;
-	--modules-list-header-border-bottom: white;
-	--loading-more-modules-color: white;
-	--module-row-hover-color: white;
-	--selected-module-color: white;
-	--module-header-color: white;
-	--module-header-link-hover-color: white;
-	--application-name-color: white;
-	--icon-module-loading-color: white;
-	--organizations-index-icon-color-hover: white;	
-	--folder-row-hover-icon-color: white;
-	--tooltip-color: white;
-	--tooltip-border: white;
-	--subscribed-hover-color: white;
-	--reference-search-icon-color: white;
-	--reference-search-icon-hover-color: white;		
-	--highlight-bar-action-color: white;
-	--highlight-bar-action-hover-background: white;
-	--button-bar-button-hover-background: white;
-	--button-bar-button-hover-border: white;
-	--button-hover-background: white;
-	--default-action-button-hover-color: white;
-	--delete-button-hover-background: white;
-	--customize-controls-hover-color: white;
-	--list-formats-hover-color: white;
-	--list-column2-background: white;
-	--element-collection-row-hover-background: white;
-	--list-background: white;
-	--list-header-arrows-color: white;
-	--section-hover-color: white;
-	--dialog-titlebar-button-hover-background: white;
-	--message-box-color: white;
-	--message-box-a-color: white;
-	--message-box-close-hover-color: white;
-	--reverse-label-color: white;
-	--chart-type-icon-hover-color: white;
-	--crop-free-icon-color: white;
-	--plus-icon-color: white;
-	--close-column-icon: white;
-	--icons-list-i-hover-background: white;
-	--cke-button-off-background: white;
-	--card-subheader-hover-color: white;
-	--card-content-b-hover-color: white;
-		
-	--input-border: lightgray;
-	--message-box-close-color: lightgray;
-	--autocomplete-border: lightgray;
-	--xava-dropped-shadow: lightgray;
-	
-	--subcontroller-shadow: gray;
-	--dialog-shadow: gray;
-	--card-hover-shadow: gray;
-	
-	--modules-list-selected-border-right: red;
-	--icon-delete-hover-color: red;
-	--delete-button-hover-color: red;
-	
-	--error-editor-border: #DC4A38;
-	--errors-background: #DC4A38;
-	--filepond--image-preview-overlay-failure: #DC4A38;	
-		
-	--disabled-input-background: #ebebe4;
-	
-	--list-even-column-background: #f4f4f4;
-	
-	--list-row-bottom-color: #EBEBEB;
-	
-	--list-shadow: #d8c5a7;
-	--cke-shadow: #d8c5a7;
-	
-	--messages-background: #6fc664;
-	--filepond--image-preview-overlay-success-color: #6fc664;	
-	
-	--infos-background: #a1a4a5;
-	
-	--warnings-background: #ffb347;	
-	
-	--attached-file-color: #5755D2;
-	
-	--card-header-hover-color: #372c16;
-	
-	--xava-placeholder-background: #F5F5F5;
-	
-	--mobile-tap-highlight-color: rgb(205,179,128, 0.4);
-	
-}
-*/
-
-/* tmp Refinados
-:root {
-	--background: #E8DDCB;
-	--color: #806632; 
-	--link-color: #036564;
-	--mobile-tap-highlight-color: rgb(205,179,128, 0.4);
-	--action-link-color: #036564;
-	--action-link-hover-background: white;
-	
-	--xava-loading-background-color: white;
-	--xava-loading-shadow: #033649;
-	--xava-loading-color: #031634;
-	--xava-processing-layer-background: #036564;
-	--xava-processing-layer-color: white;
-	--xava-placeholder-background: #F5F5F5;
-	--xava-dropped-shadow: #CCCCCC;
-	
-	--sign-out-color: white;
-	--sign-in-a-hover-color: white;
-	
-	--modules-list-background: #033649;
-	--mobile-modules-list: #E8DDCB;
-	--modules-list-scrollbar-background: #031634;
-	--modules-list-scrollbar-color: #E8DDCB;
-	--back-folder-color: #E8DDCB;
-	--back-folder-hover-color: white;
-	--search-modules-input-border: #E8DDCB;
-	--search-modules-input-focus-border: #CDB380;
-	--mobile-search-modules-input-focus-border: #033649;
-	--modules-list-header-color: white;
-	--modules-list-header-border-bottom: white;
-	--modules-list-selected-background: #031634;
+	--application-name-color: var(--modules-list-selected-color);
+	--module-row-hover-color: var(--modules-list-selected-color);
+	--modules-list-selected-border-right: var(--modules-list-selected-color);
+	--modules-list-background-darker: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.3),
+			rgba(0, 0, 0, 0.3)
+		) var(--modules-list-background);
+	--modules-list-selected-background: var(--modules-list-background-darker);	
+	--module-row-hover-background: var(--modules-list-background-darker);
+	--search-modules-input-border: var(--input-border);
 	--modules-list-shadow: black;
-	--modules-list-selected-border-right: red;
-	--load-more-modules-color: #036564;
-	--loading-more-modules-color: white;
-	--module-row-hover-background: #031634;
-	--module-row-hover-color: white;
-	--selected-module-color: white;
-	--mobile-search-modules-filter-list-background: #CDB380;
-	--mobile-search-modules-filter-list-shadow: #CDB380;
-	--module-header-color: white;
-	--module-header-background: #033649;
-	--module-header-link-color: #E8DDCB;
-	--module-header-link-hover-color: white;
-	--module-header-icon-color: #CDB380;
-	--organization-name-color: #E8DDCB;
-	--button-bar-background: #CDB380;
-	--mobile-button-bar-background: #033649;
-	--mobile-button-bar-color: #E8DDCB;
-	--application-name-color: white;
-	--module-name-color: #E8DDCB;
-	--mobile-module-name-color: #806632;
-	--icon-module-loading-color: white;
-	--mobile-icon-module-loading-color: #031634;
-	--organizations-index-icon-color: #E8DDCB;
-	--organizations-index-icon-color-hover: white;	
-	--folder-name-icon-color: #E8DDCB;
-	--folder-row-hover-icon-color: white;
-	
-	--input-border: lightgray;
-	--input-color: #031634;
-	--disabled-input-background: #ebebe4;
-	--input-focus-border: #033649;
-	--tooltip-color: white;
-	--tooltip-background: #031634;
-	--tooltip-border: white;
-	--tooltip-arrow-after-shadow: black;
-	--subscribed-color: #806632;
-	--unsubscribed-color: #E8DDCB;
-	--subscribed-hover-color: white;
-	--reference-search-icon-color: white;
-	--reference-search-icon-background: #036564;
-	--reference-search-icon-hover-background: #033649;
-	--reference-search-icon-hover-color: white;
-	--required-editor-border: #CDB380;
-	--frame-required-editor-border: #a58341;
-	--frame-frame-required-editor-border: #806632;
-	--error-editor-border: #DC4A38;
-				
- 	--bar-links-and-icons-color: #036564;
-	--highlight-bar-action-color: white;
-	--highlight-bar-action-background: #036564;
-	--highlight-bar-action-hover-background: white;
-	--highlight-bar-action-hover-color: #033649;
-	--button-bar-button-hover-color: #033649;
-	--button-bar-button-hover-background: white;
-	--button-bar-button-hover-border: white;
-	--icon-hover-color: #033649;
-	--icon-delete-hover-color: red;
-	--icon-check-color: black;
-	--subcontroller-background: #CDB380;
-	--subcontroller-shadow: gray;
-	--subcontroller-select-background: #E8DDCB;
-	
-
-	--button-hover-color: #033649;
-	--button-hover-background: white;
-	--button-focus-outline: #CDB380;
-	--default-action-button-background: #033649;
-	--default-action-button-color: #E8DDCB;
-	--default-action-button-shadow: #033649;
-	--default-action-button-hover-color: white;
-	--default-action-button-hover-background: #031634;
-	--default-action-button-hover-shadow: #031634;
-	--delete-button-color: #036564;
-	--delete-button-hover-background: white;
-	--delete-button-hover-color: red;
-
-	--customize-controls-color: #E8DDCB;
-	--customize-controls-hover-color: white;
-	--list-formats-color: #E8DDCB;
-	--list-formats-hover-color: white;
-	--selected-list-format-color: #806632;
-	--selected-list-format-border: #806632;
-	--list-even-column-background: #f4f4f4;
-	--list-column2-background: white;
-	--list-row-bottom-color: #EBEBEB;
-	--list-row-a-color: #031634;
-	--list-row-hover-background: #E8DDCB;
-	--element-collection-row-hover-background: white;
-	--selected-row-background: #E8DDCB;
-	--page-navigation-selected-color: #806632;
-	--page-navigation-selected-background: #CDB380;
-	--total-cell-color: #031634;
-	--list-background: white;
-	--list-shadow: #d8c5a7;
-	--frame-list-shadow: #be9c5a;
-	--frame-frame-list-shadow: #a58341;
-	--list-header-background: #CDB380;
-	--frame-list-header-background: #be9c5a;
-	--frame-frame-list-header-background: #a58341;
-	--list-header-arrows-color: white;
-	
-	--frame-background: #CDB380;
-	--frame-shadow: #CDB380;
-	--frame-frame-shadow: #be9c5a;
-	--frame-frame-background: #be9c5a;
-	--dialog-frame-frame-background: #a58341;
-	--dialog-frame-frame-shadow: #a58341;
-
-	--section-background: #CDB380;
-	--dialog-section-background: #be9c5a;
-	--section-color: #E8DDCB;
-	--section-hover-color: white;
-	--active-section-tab-color: #806632;
-	--active-section-tab-bottom-color: #806632;
-
-	--dialog-shadow: gray;
-	--dialog-background: #CDB380;
-	--dialog-content-color: #806632;
-	--dialog-titlebar-color: #033649;
-	--dialog-titlebar-background: #CDB380;
-	--dialog-titlebar-button-background: #E8DDCB;
-	--dialog-titlebar-button-hover-background: white;
-	
-	--message-box-color: white;
-	--message-box-shadow: #000;
-	--message-box-a-color: white;
-	--message-box-close-color: lightgray;
-	--message-box-close-hover-color: white;
-	--errors-background: #DC4A38;
-	--messages-background: #6fc664;
-	--infos-background: #a1a4a5;
-	--warnings-background: #ffb347;
-	
-	--welcome-color: #806632;
-	--welcome-background: #e8ddcb;
-	--sign-in-background: #CDB380;
-	--sign-in-input-focus-outline-color: #a58341;
-	--first-steps-icon-color: #036564;
-	--screenshot-shadow: black;
-
-	--reverse-label-color: white;
-	--reverse-label-background: black;
-	--attached-file-color: #5755D2;
-	--chart-type-background: #CDB380;
-	--chart-type-icon-color: #E8DDCB;
-	--chart-type-icon-hover-color: white;
-	--selected-chart-type-icon-color: #806632;
-	--selected-chart-type-icon-border-bottom: #806632;
-	--autocomplete-border: #CCC;
-	--autocomplete-scrollbar-background: #E8DDCB;
-	--autocomplete-scrollbar-background-thumb: #CDB380;
-	--ui-menu-item-state-focus-border: #E8DDCB;
-	--ui-menu-item-state-focus-background: #E8DDCB;
-	--icon-i-color: #033649;
-	--icon-i-hover-color: #031634;
-	--crop-free-icon-color: white;
-	--plus-icon-color: white;
-	--close-column-icon: white;
-	--icons-list-background: #E8DDCB;
-	--icons-list-i-hover-background: white;
-	--icons-list-i-hover-color: #031634;
-	--icons-list-i-color: #033649;
-	--icon-in-list: black;
-	--icons-list-scrollbar-background: #be9c5a;
-	--icons-list-scrollbar-color: #5b4924;
-	--sort-indicator-color: black;
-	--cke-shadow: #d8c5a7;
-	--cke-top-background: #CDB380;
-	--frame-frame-cke-top-background: #be9c5a;
-	--frame-frame-frame-cke-top-background: #a58341;
-	--cke-button-off-background: white;
-	--cke-button-on-background: #E8DDCB;
-	--card-color: #806632;
-	--card-background: #be9c5a;
-	--card-header-color: #5b4924;
-	--card-subheader-color: #E8DDCB;
-	--card-content-color: #806632;
-	--card-content-b-color: #E8DDCB;
-	--card-header-hover-color: #372c16;
-	--card-subheader-hover-color: white;
-	--card-content-hover-color: #5b4924;
-	--card-content-b-hover-color: white;
-	--card-hover-shadow: gray;
-	--filepond--file-action-button-background: #036564;
-	--filepond--image-preview-overlay-success-color: #6fc664;
-	--filepond--image-preview-overlay-failure: #DC4A38;
-}
-*/
-
-/* tmp Original
-:root {
-	--body-background-color: #E8DDCB;
-	--body-color: #806632; 
-	--a-color: #036564;
-	--xava-loading-background-color: white;
-	--xava-loading-shadow: #033649;
-	--xava-loading-color: #031634;
-	--mobile-tap-highlight-color: rgb(205,179,128, 0.4);
-	--xava-processing-layer-background: #036564;
-	--xava-processing-layer-color: white;
-	--xava-processing-layer-color: white;
-	--xava-placeholder-background: #F5F5F5;
-	--xava-dropped-shadow: #CCCCCC;
-	--sign-out-color: white;
-	--sign-in-a-hover-color: white;
-	--modules-list-background: #033649;
-	--mobile-modules-list: #E8DDCB;
-	--modules-list-scrollbar-background: #031634;
-	--modules-list-scrollbar-thumb-background: #E8DDCB;
-	--modules-list-scrollbar-face-color: #E8DDCB;
-	--back-folder-color: #E8DDCB;
+	--load-more-modules-color: var(--modules-list-color);
+	--loading-more-modules-color: var(--modules-list-selected-color); 
+	--icon-module-loading-color: var(--modules-list-selected-color);
+	--modules-list-scrollbar-color: var(--modules-list-color);
+	--modules-list-scrollbar-background: var(--modules-list-background-darker);
+	--back-folder-color: var(--modules-list-color);
+	--organization-name-color: var(--application-name-color);
+	--organizations-index-icon-color: var(--organization-name-color);
+	--folder-name-icon-color: var(--modules-list-color);
+	--search-modules-input-focus-border: var(--required-editor-border);
 	--back-folder-hover-color: white;
-	--mobile-search-modules-filter-list-background: #CDB380;
-	--mobile-search-modules-filter-list-shadow: #CDB380;
-	--search-modules-input-border: #E8DDCB;
-	--search-modules-input-focus-border: #CDB380;
-	--mobile-search-modules-input-focus-border: #033649;
 	--modules-list-header-color: white;
 	--modules-list-header-border-bottom: white;
-	--modules-list-selected-background: #031634;
-	--modules-list-shadow: black;
-	--modules-list-selected-border-right: red;
-	--load-more-modules-color: #036564;
-	--loading-more-modules-color: white;
-	--module-row-hover-background: #031634;
-	--module-row-hover-color: white;
-	--selected-module-color: white;
-	--input-border: lightgray;
-	--input-color: #031634;
-	--disabled-input-background: #ebebe4;
-	--input-focus-border: #033649;
-	--module-header-color: white;
-	--module-header-background: #033649;
-	--module-header-a-color: #E8DDCB;
-	--module-header-a-hover-color: white;
-	--module-header-i-color: #CDB380;
-	--organization-name-color: #E8DDCB;
-	--button-bar-background: #CDB380;
-	--button-bar-shadow: #CDB380;			 		
-	--mobile-button-bar-background: #033649;
-	--mobile-button-bar-shadow: #033649;
-	--mobile-button-bar-color: #E8DDCB;
- 	--mobile-button-bar-i-color: #E8DDCB;
- 	--bar-links-and-icons-color: #036564;
-	--highlight-bar-action-color: white;
-	--highlight-bar-action-background: #036564;
-	--highlight-bar-action-hover-background: white;
-	--highlight-bar-action-hover-color: #033649;
-	--application-name-color: white;
-	--module-name-color: #E8DDCB;
-	--mobile-module-name-color: #806632;
-	--i-module-loading-color: white;
-	--mobile-i-module-loading-color: #031634;
-	--button-bar-button-hover-color: #033649;
-	--button-bar-button-hover-background: white;
+	--module-header-link-hover-color: var(--module-header-color);
+	--organizations-index-icon-color-hover: white;	
+	--folder-row-hover-icon-color: white;	
+	
+	--module-header-link-color: var(--module-header-color);
+	--module-header-icon-color: var(--module-header-color);
+	--sign-out-color: white;
+	--sign-in-a-hover-color: white;
+
+	--button-bar-button-color: var(--action-color);
+	--button-bar-button-hover-background: var(--action-hover-background);
+	--button-bar-button-hover-color: var(--action-hover-color);
 	--button-bar-button-hover-border: white;
-	--i-hover-color: #033649;
+	--highlight-bar-action-hover-color: white; 
+	--highlight-bar-action-hover-background: var(--default-action-button-hover-background);
+	--highlight-bar-action-color: var(--background);
+	--button-bar-shadow: lightgray;
+	--subcontroller-select-background: var(--background);
+	--subscribed-color: var(--color);
+	--unsubscribed-color: var(--background);
+	--subscribed-hover-color: white;
+	--selected-list-format-color: var(--color);
+	--selected-list-format-border: var(--color);
+	--selected-chart-type-icon-color: var(--color);
+	--selected-chart-type-icon-border-bottom: var(--color);
+	--highlight-bar-action-background: var(--action-color);
+	--subcontroller-background: var(--button-bar-background);
+	--subcontroller-shadow: var(--shadow);
 	--icon-delete-hover-color: red;
-	--icon-check-color: black;
-	--customize-controls-color: #E8DDCB;
-	--customize-controls-hover-color: white;
-	--list-formats-color: #E8DDCB;
-	--list-formats-hover-color: white;
-	--selected-list-format-color: #806632;
-	--selected-list-format-border: #806632;
-	--folder-name-i-color: #E8DDCB;
-	--folder-row-hover-i-color: white;
-	--organizations-index-i-color: #E8DDCB;
-	--organizations-index-i-color-hover: white;
-	--button-hover-color: #033649;
-	--button-hover-background: white;
-	--button-focus-outline: #CDB380;
-	--default-action-button-background: #033649;
-	--default-action-button-color: #E8DDCB;
-	--default-action-button-shadow: #033649;
+		
+	--default-action-button-color: var(--background);
+	--default-action-button-shadow: var(--default-action-button-background);
 	--default-action-button-hover-color: white;
-	--default-action-button-hover-background: #031634;
-	--default-action-button-hover-shadow: #031634;
-	--delete-button-color: #036564;
-	--delete-button-hover-background: white;
+	--default-action-button-hover-background: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.3),
+			rgba(0, 0, 0, 0.3)
+		) var(--default-action-button-background);
+	--default-action-button-hover-shadow: var(--default-action-button-background);
+	--delete-button-color: var(--action-color);
 	--delete-button-hover-color: red;
-	--list-even-column-background: #f4f4f4;
-	--list-column2-background: white;
-	--list-row-bottom-color: #EBEBEB;
-	--list-row-a-color: #031634;
-	--list-row-hover-background: #E8DDCB;
-	--element-collection-row-hover-background: white;
-	--selected-row-background: #E8DDCB;
-	--page-navigation-selected-color: #806632;
-	--page-navigation-selected-background: #CDB380;
-	--frame-background: #CDB380;
-	--frame-shadow: #CDB380;
-	--frame-frame-shadow: #be9c5a;
-	--frame-frame-background: #be9c5a;
-	--dialog-frame-frame-background: #a58341;
-	--dialog-frame-frame-shadow: #a58341;
-	--section-background: #CDB380;
-	--dialog-section-background: #be9c5a;
-	--section-color: #E8DDCB;
-	--section-hover-color: white;
-	--active-section-tab-color: #806632;
-	--active-section-tab-bottom-color: #806632;
-	--total-cell-color: #031634;
-	--dialog-shadow: gray;
-	--dialog-background: #CDB380;
-	--dialog-content-color: #806632;
-	--dialog-titlebar-color: #033649;
-	--dialog-titlebar-background: #CDB380;
-	--dialog-titlebar-button-background: #E8DDCB;
-	--dialog-titlebar-button-hover-background: white;
-	--message-box-color: white;
-	--message-box-shadow: #000;
-	--message-box-a-color: white;
-	--message-box-close-color: lightgray;
-	--message-box-close-hover-color: white;
-	--errors-background: #DC4A38;
-	--messages-background: #6fc664;
-	--infos-background: #a1a4a5;
-	--warnings-background: #ffb347;
-	--action-link-color: #036564;
-	--action-link-hover-background: white;
-	--subcontroller-background: #CDB380;
-	--subcontroller-shadow: gray;
-	--subcontroller-select-background: #E8DDCB;
-	--list-background: white;
-	--list-shadow: #d8c5a7;
-	--frame-list-shadow: #be9c5a;
-	--frame-frame-list-shadow: #a58341;
-	--list-header-background: #CDB380;
-	--frame-list-header-background: #be9c5a;
-	--frame-frame-list-header-background: #a58341;
-	--welcome-color: #806632;
-	--welcome-background: #e8ddcb;
-	--sign-in-background: #CDB380;
-	--sign-in-input-focus-outline-color: #a58341;
-	--first-steps-icon-color: #036564;
+	--delete-button-hover-background: var(--action-hover-background);
+	--button-hover-color: var(--action-hover-color);
+	--button-focus-outline: var(--input-focus-border);
+	--button-hover-background: var(--action-hover-background);
+	
+	--link-color: var(--action-color);
+	--action-link-color: var(--action-color);
+	--action-link-hover-background: var(--action-hover-background);
+	--reference-search-icon-background: var(--action-color);
+	--reference-search-icon-hover-background: var(--default-action-button-hover-background);
+	--reference-search-icon-color: white;
+	--reference-search-icon-hover-color: white;
+	
+	--welcome-background: var(--background);
+	--welcome-color: var(--color);
+	--first-steps-icon-color: var(--action-color);
 	--screenshot-shadow: black;
+	
+	--sign-in-background: var(--button-bar-background);
+	--sign-in-input-focus-outline-color: var(--button-focus-outline);
+	--sign-in-input-border: var(--color);
+	
+	--header-background: linear-gradient(
+			to top,
+			var(--frame-background),
+			var(--frame-background)
+		) var(--background);
+	--shadow: gray;
+	
+	--section-color: var(--action-color);
+	--section-background: var(--frame-background);
+	--section-hover-color: var(--action-hover-color);
+	--section-hover-background: var(--action-hover-background);
+	--active-section-tab-color: var(--color);
+	--active-section-tab-bottom-color: var(--color);
+	
+	--dialog-background: var(--background);
+	--dialog-titlebar-background: var(--dialog-background);
+	--dialog-titlebar-color: var(--color);
+	--dialog-titlebar-button-hover-background: white;
+	--dialog-shadow: var(--shadow);
+	
+	--cke-button-on-background: var(--cke-button-off-background);
+	--cke-button-off-background: var(--action-hover-background);
+	--cke-top-background: var(--header-background);
+	
+	--card-subheader-color: var(--action-color);		
+	--card-content-b-color: var(--action-color);	
+	--card-color: var(--color);
+	--card-content-color: var(--card-color);		
+    --card-background: var(--button-bar-background);
+	--card-header-color: var(--card-color);
+	--card-content-hover-color: var(--card-color);					
+	--card-subheader-hover-color: var(--action-hover-color);
+	--card-content-b-hover-color: var(--action-hover-color);
+    --card-hover-shadow: gray;
+    --card-header-hover-color: var(--action-hover-color);
+		
+	--list-header-background: var(--header-background);
+	--list-column2-background: white;
+	--element-collection-row-hover-background: white;
+	--list-background: white;
+	--list-header-arrows-color: white;
+	--list-even-column-background: #f4f4f4;
+	--list-row-bottom-color: #EBEBEB;			
+	--customize-controls-color: var(--messages-background);
+	--customize-controls-hover-color: white;		
+	--list-row-hover-background: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.05),
+			rgba(0, 0, 0, 0.05)
+		) var(--list-even-column-background);
+	--selected-row-background: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.1),
+			rgba(0, 0, 0, 0.1)
+		) var(--list-even-column-background);
+	--list-row-a-color: black;
+	--total-cell-color: black;
+	--icon-check-color: black;
+	--icon-in-list: black;
+	--list-row-action-color: var(--action-color);
+	--list-row-action-hover-color: var(--action-hover-color);
+	--list-total-row-action-color: var(--list-row-action-color);
+	--list-total-row-action-hover-color: var(--list-row-action-hover-color);	
+	--sort-indicator-color: black;
+	--close-column-icon: white;
+	--xava-dropped-shadow: lightgray;		
+		
+	--dialog-titlebar-button-background: transparent;
+	--dialog-content-color: var(--color);
+	
+	--chart-type-icon-color: var(--list-formats-color);
+	--chart-type-background: var(--button-bar-background);
+	--chart-type-icon-hover-color: var(--list-formats-hover-color);
+
+	--autocomplete-scrollbar-background: var(--background);
+	--ui-menu-item-state-focus-background: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.1),
+			rgba(0, 0, 0, 0.1)
+		) var(--background);
+	--ui-menu-item-state-focus-border: transparent;
+		
+	--page-navigation-selected-color: var(--color);
+	--page-navigation-selected-background: var(--button-bar-background);
+	
+	--xava-processing-layer-background: var(--action-color);
+	--xava-loading-shadow: gray;
+	--xava-loading-color: black;
+	--xava-loading-background-color: white;
+	--xava-processing-layer-color: white;
+	
+	--filepond--file-action-button-background: var(--action-color);
+	--filepond--image-preview-overlay-failure: #DC4A38;
+	--filepond--image-preview-overlay-success-color: #6fc664;	
+	--attached-file-color: #5755D2;	
+
+	--input-border: lightgray;
+	--input-focus-border: var(--default-action-button-background);
+	--input-color: black;
+	--error-editor-border: #DC4A38;
+	--disabled-input-background: #ebebe4;
+	--xava-placeholder-background: #F5F5F5;
+	
+	--icon-i-color: var(--action-color);
+	--icons-list-i-color: var(--icon-i-color);
+	--icon-i-hover-color: black;
+	--icons-list-i-hover-color: black;
+	--icons-list-background: var(--background);
+	--icons-list-i-hover-background: var(--action-hover-background);	
+	--crop-free-icon-color: var(--required-editor-border);
+	--plus-icon-color: var(--crop-free-icon-color);
+	--icons-list-scrollbar-background: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.2),
+			rgba(0, 0, 0, 0.2)
+		) var(--icons-list-background);
+	--icons-list-scrollbar-color: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.4),
+			rgba(0, 0, 0, 0.4)
+		) var(--icons-list-background);	
+	
+	--tooltip-background: black;
+	--tooltip-arrow-after-shadow: black;
+	--tooltip-color: white;
+	--tooltip-border: white;	
+
+	--descriptions-list-handle-color: var(--list-row-action-color);
+	--descriptions-list-handle-hover-color: var(--list-row-action-hover-color);	
+	--autocomplete-scrollbar-background-thumb: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.3),
+			rgba(0, 0, 0, 0.3)
+		) var(--autocomplete-scrollbar-background);
+	--autocomplete-border: lightgray;		
+	
 	--reverse-label-color: white;
 	--reverse-label-background: black;
-	--attached-file-color: #5755D2;
-	--chart-type-background: #CDB380;
-	--chart-type-i-color: #E8DDCB;
-	--chart-type-i-hover-color: white;
-	--selected-chart-type-i-color: #806632;
-	--selected-chart-type-i-border-bottom: #806632;
-	--autocomplete-border: #CCC;
-	--autocomplete-scrollbar-background: #E8DDCB;
-	--autocomplete-scrollbar-background-thumb: #CDB380;
-	--ui-menu-item-state-focus-border: #E8DDCB;
-	--ui-menu-item-state-focus-background: #E8DDCB;
-	--icon-i-color: #033649;
-	--icon-i-hover-color: #031634;
-	--crop-free-icon-color: white;
-	--plus-icon-color: white;
-	--close-column-icon: white;
-	--icons-list-background: #E8DDCB;
-	--icons-list-i-hover-background: white;
-	--icons-list-i-hover-color: #031634;
-	--icons-list-i-color: #033649;
-	--icon-in-list: black;
-	--icons-list-scrollbar-background: #be9c5a;
-	--icons-list-scrollbar-background-thumb: #5b4924;
-	--sort-indicator-color: black;
-	--cke-shadow: #d8c5a7;
-	--cke-top-background: #CDB380;
-	--frame-frame-cke-top-background: #be9c5a;
-	--frame-frame-frame-cke-top-background: #a58341;
-	--cke-button-off-background: white;
-	--cke-button-off-background: #E8DDCB;
-	--card-color: #806632;
-	--card-background: #be9c5a;
-	--card-header-color: #5b4924;
-	--card-subheader-color: #E8DDCB;
-	--card-content-color: #806632;
-	--card-content-b-color: #E8DDCB;
-	--card-header-hover-color: #372c16;
-	--card-subheader-hover-color: white;
-	--card-content-hover-color: #5b4924;
-	--card-content-b-hover-color: white;
-	--card-hover-shadow: gray;
-	--tooltip-color: white;
-	--tooltip-shadow: #031634;
-	--tooltip-background: #031634;
-	--tooltip-border: white;
-	--tooltip-arrow-after-shadow: black;	
-	--subscribed-color: #806632;
-	--unsubscribed-color: #E8DDCB;
-	--subscribed-hover-color: white;
-	--reference-search-icon-color: white;
-	--reference-search-icon-background: #036564;
-	--reference-search-icon-hover-background: #033649;
-	--reference-search-icon-hover-color: white;
-	--required-editor-border: #CDB380;
-	--frame-required-editor-border: #a58341;
-	--frame-frame-required-editor-border: #806632;
-	--error-editor-border: #DC4A38;
-	--list-header-arrows-color: white;
-	--filepond--file-action-button-background: #036564;
-	--filepond--image-preview-overlay-success-color: #6fc664;
-	--filepond--image-preview-overlay-failure: #DC4A38;
+		
+	--message-box-color: white;
+	--message-box-a-color: white;
+	--message-box-close-hover-color: white;	
+	--message-box-shadow: black;
+	--message-box-close-color: lightgray;
+	--messages-background: #6fc664;
+	--errors-background: #DC4A38;
+	--warnings-background: #ffb347;
+	--infos-background: #a1a4a5;
+	
+	--mobile-tap-highlight-color: rgb(205,179,128, 0.4);
+	--mobile-modules-list-background: var(--background);
+	--mobile-button-bar-color: var(--modules-list-background);
+	--mobile-module-name-color: var(--color);
+	--mobile-search-modules-input-focus-border: var(--input-focus-border);
+	--mobile-button-bar-background: var(--modules-list-background);
+	--mobile-icon-module-loading-color: black;
+	--mobile-search-modules-filter-list-background: var(--button-bar-background);
+	--mobile-search-modules-filter-list-shadow: var(--button-bar-background);
 }
-*/
-/* tmp fin */
+
 
 @font-face {
     font-family: 'Roboto';
@@ -1125,12 +396,12 @@ A.sign-out  {
 	flex-direction: column;
 	height: 100vh;
 	background: var(--modules-list-background);
-	box-shadow: 0px 0px 7px var(--modules-list-shadow);
+	box-shadow: 0px 0px 4px var(--modules-list-shadow);
 	z-index: 10;
 }
 
 .mobile #modules_list {
-	background: var(--mobile-modules-list);
+	background: var(--mobile-modules-list-background);
 }
 
 #modules_list_core::-webkit-scrollbar {
@@ -1285,7 +556,7 @@ a #load_more_modules {
 	color: var(--load-more-modules-color);
 }
 
-a #loading_more_modules  {
+a #loading_more_modules, a:hover #load_more_modules  {
 	color: var(--loading-more-modules-color);
 }
 
@@ -1312,7 +583,7 @@ A:hover .module-row, A:hover .folder-row, A:hover #organizations_index {
 }
 
 .selected .module-name, #organizations_index.selected, #organizations_index.selected i { 
-	color: var(--selected-module-color);
+	color: var(--modules-list-selected-color);
 }
 
 .privacy-policy {
@@ -1414,8 +685,7 @@ select:not([multiple]) {
 	padding: 1px 12px 5px 0px; 
 }
 
-input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus, select:focus, textarea:focus, #module .cke_focus /* tmp ,
- .ox-frame .ox-required-editor input:focus, .ox-frame .ox-frame .ox-required-editor input:focus */ { 
+input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus, select:focus, textarea:focus, #module .cke_focus { 
 	outline: 0;
 	border-color: var(--input-focus-border) !important; 
 }
@@ -1473,7 +743,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 .ox-button-bar {
 	padding: 8px 10px 16px 10px;
 	background: var(--button-bar-background);
-	box-shadow: 0px 2px 9px var(--button-bar-background);	
+	box-shadow: 0px 1px 3px var(--button-bar-shadow); 
 }
 
 .mobile .ox-button-bar, .mobile #modules_list_header {
@@ -1511,13 +781,19 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 
 .ox-list-header a, .ui-widget-content .ox-list-header a, .ox-customize-controls .mdi-sort-numeric, .ox-customize-controls .mdi-sort-alphabetical,
 .ox-customize-controls .mdi-filter, .ox-customize-controls .mdi-filter-remove, 
-.ox-button-bar .ox-button-bar-button a, 
-.ox-collection-list-actions .ox-button-bar-button a,
-.ox-button-bar-button i,
-i, .ox-icon i.mdi-close-circle
+.ox-collection-list-actions .ox-button-bar-button a, .ox-collection-list-actions .ox-button-bar-button i,
+i, .ox-icon i.mdi-close-circle,
+.ox-charts .ox-element-collection .ox-image-link i
 {  
-	color: var(--bar-links-and-icons-color);
+	color: var(--action-color);
 }
+
+.ox-button-bar .ox-button-bar-button a, 
+.ox-button-bar-button i
+{  
+	color: var(--button-bar-button-color);
+}
+
 
 .ox-button-bar .ox-button-bar-button a, 
 .ox-collection-list-actions .ox-button-bar-button a 
@@ -1533,7 +809,6 @@ i, .ox-icon i.mdi-close-circle
 {
 	color: var(--highlight-bar-action-color);
 	background: var(--highlight-bar-action-background); 
-	border: 1px solid transparent;
 }
 
 .ox-list-mode .ox-button-bar a[id*="new"]:hover, .ox-list-mode .ox-button-bar a[id*="new"]:hover i,
@@ -1543,13 +818,12 @@ i, .ox-icon i.mdi-close-circle
 	color: var(--highlight-bar-action-hover-color);
 }
 
-
 #application_name {
 	color: var(--application-name-color);
 }
 
 .module-name, .folder-row, #organizations_index {    
-	color: var(--module-name-color);
+	color: var(--modules-list-color);
 }
 
 .mobile .module-name, .mobile .folder-row, .mobile #organizations_index,
@@ -1580,12 +854,13 @@ i.module-loading  {
 
 i:hover, .ox-icon i.mdi-plus:hover, .ox-icon i.mdi-close-circle:hover,
 .ox-list-header a:hover, .ox-list-header a:hover i,
-.ox-action-link:hover, .ox-image-link:hover i, .ox-page-navigation:hover,
+.ox-image-link:hover i, .ox-page-navigation:hover,
 .ox-customize-controls .mdi-sort-numeric:hover, .ox-customize-controls a:hover .mdi-sort-numeric, 
 .ox-customize-controls .mdi-sort-alphabetical:hover, .ox-customize-controls a:hover .mdi-sort-alphabetical,
 .ox-customize-controls .mdi-filter:hover, 
-.ox-customize-controls .mdi-filter-remove:hover {        
-	color: var(--icon-hover-color);
+.ox-customize-controls .mdi-filter-remove:hover,
+.ox-charts .ox-element-collection .ox-image-link:hover i {            
+	color: var(--action-hover-color); 
 }
 
 .ox-button-bar-button a span {
@@ -1797,10 +1072,15 @@ input[type="button"]:focus {
 	box-shadow: 0px 1px 7px var(--default-action-button-hover-shadow); 
 }
 
-input[type="button"],  
+input[type="button"] {
+	background: transparent; 
+	border: none; 
+	color: var(--action-color);
+	box-shadow: none;
+}
+
 .ox-bottom-buttons input[id*="delete"], .ox-bottom-buttons input[id*="remove"], 
-.ox-bottom-buttons input[id*="borrar"],  
-.ox-bottom-buttons input[id*="remove"]:hover {
+.ox-bottom-buttons input[id*="borrar"] {
 	background: transparent; 
 	border: none; 
 	color: var(--delete-button-color);
@@ -1810,11 +1090,17 @@ input[type="button"],
 .ox-bottom-buttons input[id*="delete"]:hover, .ox-bottom-buttons input[id*="remove"]:hover, .ox-bottom-buttons input[id*="borrar"]:hover {
 	background: var(--delete-button-hover-background);
 	color: var(--delete-button-hover-color);
+	box-shadow: none; 
 }
 
 .ox-button-bar a[id*="delete"]:hover i {
   color: var(--delete-button-hover-color);
 }
+
+.ox-list-header, .ox-list-subheader {	
+	background: var(--list-header-background); 
+}
+
 
 .ox-list-header th, .ox-list-subheader td, .ox-list-pair td, .ox-list-odd td, .ox-total-row td  { 
 	padding-left: 4px;
@@ -1861,6 +1147,24 @@ input[type="button"],
 
 .ox-list-pair a, .ox-list-odd a {
 	color: var(--list-row-a-color); 
+}
+
+.ox-list-pair .ox-image-link i, .ox-list-odd .ox-image-link i,
+.ox-list-pair .ox-action-link, .ox-list-odd .ox-action-link {
+	color: var(--list-row-action-color);
+}
+
+.ox-list-pair .ox-image-link:hover i, .ox-list-odd .ox-image-link:hover i,
+.ox-list-pair .ox-action-link:hover, .ox-list-odd .ox-action-link:hover {
+	color: var(--list-row-action-hover-color);
+}
+
+.ox-total-row .ox-image-link i {
+	color: var(--list-total-row-action-color);
+}
+
+.ox-total-row .ox-image-link:hover i {
+	color: var(--list-total-row-action-hover-color);
 }
 
 .ox-list-pair a nobr, .ox-list-odd a nobr {
@@ -1988,34 +1292,24 @@ input[type="button"],
 	margin-right: 7px; 
 	padding: 10px 10px 3px 10px;
 	border-radius: 2px;
-	background: var(--frame-background);
-	box-shadow: 2px 2px 9px var(--frame-shadow);
+}
+
+#sign_in_box, .ox-card, .ox-list, .ox-chart-data, .cke_chrome {  
+	box-shadow: 0px 0px 3px var(--shadow) !important; 
+}
+
+.ox-frame {
+	background: linear-gradient(
+		to bottom,
+		var(--frame-background), 
+		rgba(0, 0, 0, 0)  
+	) var(--background);
+	box-shadow: none;	 
 }
 
 .ox-frame {
 	float: left;
-	/* tmp ini */
-	background: linear-gradient(
-		to bottom,
-		rgba(205, 179, 128, 0.2), /* tmp Color a variable */
-		rgba(205, 179, 128, 0)  /* tmp Color a variable */
-	  ) var(--color-a);
-	box-shadow: none;  
-	/* tmp fin */	  
-	 
 }
-
-/* tmp Quitar esto?
-.ox-frame .ox-frame, .ui-dialog .ox-frame {
-	box-shadow: 2px 2px 9px var(--frame-frame-shadow);
-	background: var(--frame-frame-background);
-}
-
-.ui-dialog .ox-frame .ox-frame{
-	background: var(--dialog-frame-frame-background);
-	box-shadow: 2px 2px 9px var(--dialog-frame-frame-shadow);
-}
-*/
 
 #sign_in_box select, #sign_in_box input[type="text"], #sign_in_box input[type="password"] { 
 	box-sizing: content-box;  
@@ -2052,7 +1346,6 @@ input[type="button"],
 
 .ui-dialog .ox-section {
 	margin: 0px -6px 10px 0px;  
-	/* tmp background: var(--dialog-section-background); Quitar la variable? */
 }
 
 .ox-section a, .ui-dialog .ox-section a {
@@ -2063,6 +1356,7 @@ input[type="button"],
 .ox-section a:hover {
 	text-decoration: none;
 	color: var(--section-hover-color);
+	background: var(--section-hover-background);
 }
 
 .ox-section a, .ox-active .ox-section-tab {
@@ -2235,7 +1529,7 @@ input[type="button"],
 
 .ox-action-link {
     margin-left: 7px;
-    color: var(--action-link-color) !important; 
+    color: var(--action-link-color); 
     font-weight: bold;
     padding: 6px;
 }
@@ -2256,6 +1550,7 @@ input[type="button"],
 .ox-action-link:hover, .ox-image-link:hover, .ox-page-navigation:hover, .ox-page-navigation-arrow:hover {
 	background: var(--action-link-hover-background);
 	text-decoration: none;
+	color: var(--action-hover-color);
 }
 
 .ox-button-bar-button span {
@@ -2299,19 +1594,7 @@ div.ox-subcontroller table{
 	background: var(--list-background);
 	margin: 10px;
 	border-radius: 2px;
-	/* tmp box-shadow: 1px 1px 11px var(--list-shadow); */
-	
 }
-
-/* tmp
-.ox-frame .ox-list, .ui-dialog .ox-list {
-	box-shadow: 2px 2px 9px var(--frame-list-shadow);
-}
-
-.ox-frame .ox-frame .ox-list, .ui-dialog .ox-frame .ox-list {
-	box-shadow: 2px 2px 9px var(--frame-frame-list-shadow);
-}
-*/
 
 .ox-list .ox-list-header:last-child  {
 	border-top-right-radius: 2px;
@@ -2320,23 +1603,6 @@ div.ox-subcontroller table{
 .ox-list .ox-list-header:first-child  {
 	border-top-left-radius: 2px;
 }
-
-.ox-list-header, .ox-list-subheader {	
-	/* tmp background: var(--list-header-background); */
-	background: var(--color-b-soft); /* tmp */
-}
-
-/* tmp
-.ox-frame .ox-list-header, .ox-frame .ox-list-subheader,
-.ui-dialog .ox-list-header, .ui-dialog .ox-list-subheader {
-	background: var(--frame-list-header-background);
-}
-
-.ox-frame .ox-frame .ox-list-header, .ox-frame .ox-frame .ox-list-subheader,
-.ui-dialog .ox-frame .ox-list-header, .ui-dialog .ox-frame .ox-list-subheader {
-	background: var(--frame-frame-list-header-background);
-}
-*/
 
 .ox-list-header .ox-image-link:hover, .ox-list-subheader .ox-image-link:hover {
 	background: transparent;
@@ -2433,6 +1699,7 @@ div.ox-subcontroller table{
 
 #sign_in_box .editor { 
 	margin: 2px 0px 15px 1px;
+	border-color: var(--sign-in-input-border);
 }
 
 #first_steps {
@@ -2603,7 +1870,11 @@ div.ox-subcontroller table{
 	width: 120px;
 }
 
-.ox-charts .ox-element-collection .ox-list-pair:hover td , .ox-charts .ox-element-collection .ox-list-odd:hover td {
+.ox-charts .ox-element-collection .ox-list-pair:hover td, 
+.ox-charts .ox-element-collection .ox-list-odd:hover td,
+.ox-charts .ox-element-collection .ox-list-pair:hover, 
+.ox-charts .ox-element-collection .ox-list-odd:hover,
+.ox-charts .ox-element-collection .ox-image-link:hover {
 	background: transparent;
 }
 
@@ -2675,6 +1946,11 @@ i.ox-sort-indicator2 {
  	right: 32px; 
  	margin-right: -20px;
  	padding: 5px;
+ 	color: var(--descriptions-list-handle-color);
+}
+
+.ox-descriptions-list i:hover {
+	color: var(--descriptions-list-handle-hover-color);
 }
 
 .ox-web-url { 
@@ -2770,10 +2046,12 @@ span[id*="reference_editor"] + .ox-layout-detail {
 	border-radius: 10px;
 }
 
+.ox-icon .ox-image-link:hover {
+	background: transparent;
+}
+
 .cke_chrome {
 	border: none !important;
-	/* tmp box-shadow: 1px 1px 11px var(--cke-shadow) !important; */
-	box-shadow: none !important; /* tmp */
 }
 
 .ox-frame .cke_chrome {
@@ -2794,16 +2072,6 @@ span[id*="reference_editor"] + .ox-layout-detail {
 	border: none !important;
 	box-shadow: none !important;
 }
-
-/* tmp
-.ui-dialog .ox-frame .cke_top, .ox-frame .ox-frame .cke_top, .ui-dialog .ox-sections .cke_top { 
-	background: var(--frame-frame-cke-top-background) !important;
-}
-
-.ui-dialog .ox-frame .ox-frame .cke_top, .ox-frame .ox-frame .ox-frame .cke_top {
-	background: var(--frame-frame-frame-cke-top-background) !important;
-}
-*/
 
 a.cke_button_off {
 	opacity: .65;
@@ -2839,7 +2107,6 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 	box-shadow: none !important; 
 
 }
-
 
 .cke_button_on, .cke_button_on:hover {
 	background: var(--cke-button-on-background) !important; 
@@ -2926,12 +2193,12 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .ox-card-content b {
-	color: var(--card-content-b-color);
+	color: var(--card-content-b-color); 
 }
 
 .ox-card:hover {
 	cursor: pointer;
-	box-shadow: 2px 2px 9px var(--card-hover-shadow);
+	box-shadow: 1px 1px 5px var(--card-hover-shadow);
 }
 
 .ox-card:hover .ox-card-header {
@@ -2947,8 +2214,9 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .ox-card:hover .ox-card-content b {
-	color: var(--card-content-b-hover-color);
+	color: var(--card-content-b-hover-color); 
 }
+
 
 #xava_loading_more_elements {
 	min-height: 20px;
@@ -3080,22 +2348,9 @@ div[id$="_Index__view"] .ox-list-title {
 	border-color: var(--required-editor-border); 
 }
 
-.ox-frame .ox-required-editor input, .ox-frame .ox-required-editor select, #sign_in_box .ox-required-editor input, .ox-required-editor textarea {
-	border-color: var(--frame-required-editor-border); 
-}
-
-/* tmp
-.ox-frame .ox-frame .ox-required-editor input, .ox-frame .ox-frame .ox-required-editor select, .ox-frame .ox-required-editor textarea {
-	border-color: var(--frame-frame-required-editor-border); 
-}
-*/
-
-.ox-error-editor input /* tmp ,
-.ox-frame .ox-error-editor input, .ox-frame .ox-frame .ox-error-editor input, */
-.ox-error-editor textarea /* tmp , 
-.ox-frame .ox-error-editor textarea, .ox-frame .ox-frame .ox-error-editor textarea, */
-.ox-error-editor select /* tmp , 
-.ox-frame .ox-error-editor select, .ox-frame .ox-frame .ox-error-editor select */ {   
+.ox-error-editor input,
+.ox-error-editor textarea 
+.ox-error-editor select {   
 	border-color: var(--error-editor-border) !important; /* To work in dialog */
 }
 
