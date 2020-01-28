@@ -99,7 +99,7 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
 &lt;/controller&gt;</pre>
       Just define your own class for <em>Organization.createNewOrganization</em>.<br>
       You can hide the combo with the list of organizations on sign in adding
-      the next entry to <em>naviox.properties (new v5.6)</em>:<br>
+      the next entry to <em>naviox.properties (new in v5.6)</em>:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -111,6 +111,23 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
 
 -->
 </style><pre class="text">showOrganizationOnSignIn=false</pre>
+      Also you have the option of using a simple text field instead of a combo
+      to entering the organization name, in this way the user has not access to
+      the list of all organizations. Add the next entry to <em>naviox.properties
+        (new in v6.3)</em>:<br>
+      <div class="wiki" id="content_view">
+        <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">showListOfOrganizationsOnSignIn=false</pre>
+      </div>
       <h2 id="toc3"><a name="Multitenancy-JDBC inside organizations (new in v5.6)"></a>JDBC
         inside organizations <em>(new in v5.6)</em></h2>
       Any JPA or Hibernate code (Hibernate since v5.6) from your actions,

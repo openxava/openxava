@@ -1,9 +1,6 @@
 package com.openxava.naviox.actions;
 
-import org.openxava.controller.*;
 import org.openxava.util.*;
-import org.openxava.view.*;
-
 import com.openxava.naviox.impl.*;
 
 /**
@@ -14,6 +11,7 @@ public class SignInAction extends ForwardToOriginalURIBaseAction {
 	
 	public void execute() throws Exception {		
 		SignInHelper.init(getRequest(), getView()); 
+		if (getErrors().contains()) return; 
 		String userName = getView().getValueString("user");
 		String password = getView().getValueString("password");
 		if (Is.emptyString(userName, password)) { 

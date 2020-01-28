@@ -104,7 +104,7 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
       Simplemente define tu propia clase para <em>Organization.createNewOrganization</em>.<br>
       Puedes ocultar el combo con la lista de organizaciones en el momento de la
       identificación con la siguiente entrada en <em>naviox.properties (nuevo
-        v5.6)</em>:<br>
+        en v5.6)</em>:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -116,6 +116,24 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
 
 -->
 </style><pre class="text">showOrganizationOnSignIn=false</pre>
+      También tienes la opción de usar un campo de texto simple en lugar de un
+      combo para introducir el nombre de la organización, de esta manera el
+      usuario no tiene acceso a la lista de todas las organizaciones. Añade la
+      siguiente entrada en <em>naviox.properties (nuevo en v6.3)</em>:<br>
+      <div class="wiki" id="content_view">
+        <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">showListOfOrganizationsOnSignIn=false</pre>
+      </div>
+      <h2 id="toc3"><a name="Multitenancy-JDBC inside organizations (new in v5.6)"></a></h2>
       <h2 id="toc3"><a name="Multiempresa/multimunicipio-JDBC dentro de las organizaciones (nuevo en v5.6)"></a>JDBC
         dentro de las organizaciones <em>(nuevo en v5.6)</em></h2>
       El código JPA o Hibernate (Hibernate a partir de v5.6) en tus acciones,
