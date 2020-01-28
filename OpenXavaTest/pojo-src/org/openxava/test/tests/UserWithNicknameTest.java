@@ -149,7 +149,8 @@ public class UserWithNicknameTest extends ModuleTestBase {
 				                               "name=:photo or name=:document");
 		query.setParameter("photo", "foto_javi.jpg");
 		query.setParameter("document", "Corporation.html");
-		assertTrue(query.executeUpdate() == 2);
+		int count = query.executeUpdate();
+		assertEquals(2, count);
 		XPersistence.commit();
 	}
 }

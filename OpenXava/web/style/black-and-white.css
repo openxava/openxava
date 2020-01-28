@@ -1,0 +1,11 @@
+@import 'light.css';
+
+:root {
+	
+	--modules-list-color: var(--my-lightgray); 
+	--modules-list-background: var(--my-black);
+	--modules-list-selected-color: white;
+	
+	--my-highlight: #1db954;
+	
+}

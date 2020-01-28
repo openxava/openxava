@@ -41,9 +41,19 @@
       <p><br>
       </p>
       <h2>Para migrar de OpenXava 6.2.2 a OpenXava 6.3</h2>
-      <h3>Definición de fuentes de datos en web/META-INF/context.xml del
-        proyecto</h3>
-      Por tanto
+      <h3>Página de bienvenida para Internet Explorer</h3>
+      Hemos movido los colores a variables CSS. Las variables no se soportan en
+      Internet Explorer 11, por suerte es muy fácil añadir soporte de variables
+      CSS a IE11 usando una librería JS. Lo hemos hecho para todo el código de
+      OpenXava, pero la página de bienvenida (<i>welcome.jsp</i>) es tuya, por
+      lo que has de añadir el siguiente código a <i>welcome.jsp</i> para que
+      pueda usar los estilos de OpenXava bien con IE9:
+      <div class="wiki" style="display: block;">
+        <pre><code class="jsp">&lt;% if (org.openxava.web.Browsers.isIE(request)) { %&gt;
+&lt;script type='text/javascript' src="&lt;%=request.getContextPath()%&gt;/xava/js/css-vars-ponyfill.js?ox=&lt;%=oxVersion%&gt;"&gt;&lt;/script&gt;
+&lt;script type='text/javascript'&gt;cssVars({ }); &lt;/script&gt;	
+&lt;% } %&gt;</code></pre>
+      </div>
       <h2>Para migrar de OpenXava 6.2.1 a OpenXava 6.2.2</h2>
       No hay consideraciones.
       <h2></h2>

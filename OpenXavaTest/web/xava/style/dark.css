@@ -1,13 +1,7 @@
-/* TMP */
-
 @import 'base.css';
 
 :root {
-	--terra: #CDB380;
 	--light-terra: #E8DDCB;
-	--dark-terra: #806632;
-	--transparent-terra: rgba(205, 179, 128, 0.2); 
-	--acqua: #036564;
 	--acqua-profonda: #033649;
 	--abisso: #031634;
 	--my-green: #1db954;
@@ -41,22 +35,22 @@
 	--action-hover-color: white;
 	--action-hover-background: transparent;
 	--default-action-button-background: var(--my-green);
-	--default-action-button-color: white; /* tmp */
+	--default-action-button-color: white; 
 	--default-action-button-shadow: none;
 	--default-action-button-hover-shadow: none;
-	--list-row-action-color: gray; /* tmp */
-	--list-row-action-hover-color: var(--acqua-profonda); /* tmp */
+	--list-row-action-color: gray; 
+	--list-row-action-hover-color: var(--acqua-profonda); 
 	
 	/* Editors */
 	--required-editor-border: green;
-	--input-focus-border: var(--my-green); /* tmp */
+	--input-focus-border: var(--my-green); 
 
-	--button-bar-shadow: black; /* tmp */
-	--shadow: black; /* tmp */
+	--button-bar-shadow: black; 
+	--shadow: black; 
 	
-	--cke-top-background: lightgray; /* tmp */
+	--cke-top-background: lightgray; 
 	
-	--autocomplete-scrollbar-background: lightgray; /* tmp */
-	--ui-menu-item-state-focus-background: lightgray; /* tmp */
-	--icons-list-scrollbar-color: lightgray; /* tmp */
+	--autocomplete-scrollbar-background: lightgray; 
+	--ui-menu-item-state-focus-background: lightgray; 
+	--icons-list-scrollbar-color: lightgray; 
 }

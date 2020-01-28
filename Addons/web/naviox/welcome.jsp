@@ -35,6 +35,7 @@ if (title == null) title = metaApplication.getLabel();
 	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/css-vars-ponyfill.js?ox=<%=oxVersion%>"></script>
 	<script type='text/javascript'>cssVars({ }); </script>	
 	<% } %>
+	
 </head>
 
 <body id="welcome" <%=XavaStyle.getBodyClass(request)%>>

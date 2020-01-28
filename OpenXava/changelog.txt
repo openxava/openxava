@@ -1,7 +1,6 @@
 Change Log for OpenXava project
 ===============================
 
-TMP PROBAR CREAR NUEVO PROYECTO: welcome, estilos, IE
 - Terra theme soften.
 - Light theme unified with Terra, though it keeps its colors. 
 - New visual themes Dark, Blank & White and Blue.  

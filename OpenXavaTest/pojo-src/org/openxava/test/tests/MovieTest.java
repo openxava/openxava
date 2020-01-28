@@ -12,7 +12,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Jeromy Altuna
  * @author Javier Paniza
  */
-public class MovieTest extends EmailNotificationsTestBase {
+public class MovieTest extends EmailNotificationsTestBase { 
 	
 	private static final String MIME_UNKNOWN = "application/octet-stream";
 	
