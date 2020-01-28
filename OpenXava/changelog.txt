@@ -3,7 +3,7 @@ Change Log for OpenXava project
 
 - Terra theme soften.
 - Light theme unified with Terra, though it keeps its colors. 
-- New visual themes Dark, Blank & White and Blue.  
+- New visual themes Dark, Black & White and Blue.  
 - Color refactoring to allow creating a new color scheme defining a few colors.
 - Moving all colors to variables in CSS. 
 - base.css to facilitate the creation of a new CSS style.
