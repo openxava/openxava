@@ -186,7 +186,7 @@ private String observaciones;
       facilidad. Por ejemplo, sólo marcando una simple propiedad <em>String</em>
       con <em>@Stereotype(“IMAGES_GALLERY”)</em> tendrás disponible toda una
       galería de imágenes. </div>
-    <div class="wiki" style="display: block;">A parte de estos, OpenXava tiene
+    <div class="wiki" style="display: block;">Aparte de estos, OpenXava tiene
       muchos estereotipos predefinidos que te pueden ser útiles, tales como
       FOTO, ETIQUETA, ETIQUETA_NEGRITA, HORA, FECHAHORA, RELLENADO_CON_CEROS,
       TEXTO_HTML, ETIQUETA_IMAGEN, EMAIL, TELEFONO, WEBURL, IP, ISBN,
@@ -427,8 +427,11 @@ private LocalDate fecha;
       queremos sumar uno al último número de factura dentro de este mismo año.
       Crear tu propio calculador con tu lógica es fácil. Primero, crea un
       paquete <em>com.tuempresa.facturacion.calculadores</em> para los
-      calculadores. Para crear un paquete nuevo selecciona la carpeta <i>Facturacion/src</i>
-      y pulsa en el botón <i>New Java Package</i>: <img src="files/modeling_es064.png"
+      calculadores. </div>
+    <div class="wiki" style="display: block;">Para crear un paquete nuevo
+      selecciona la carpeta <i>Facturacion/src</i> y pulsa en el botón <i>New
+        Java Package</i>:</div>
+    <div class="wiki" style="display: block;"> <img src="files/modeling_es064.png"
         alt="">
       <div class="wiki" style="display: block;">Se mostrará un diálogo donde
         introducir el nombre del paquete, <em>com.tuempresa.facturacion.calculadores</em>,
@@ -744,7 +747,7 @@ private Autor autor;
       solo necesitas construir tu proyecto (esto solo es pulsar Ctrl-B en tu
       Eclipse), parar la aplicación y volverla a arrancar. Después ve al
       navegador y recarga la página con el módulo <em>Producto</em>, y ahí
-      verás, un combo para escoger el autor del producto, como muestra aquí:<br>
+      verás, un combo para escoger el autor del producto, como se muestra aquí:<br>
       <img src="files/modeling_es150.png" alt="modeling_es150.png" title="modeling_es150.png"><br>
       ¿Qué ocurre si el usuario quiere escoger un autor y ver todos sus
       productos? Está chupado. Solo has de hacer la relación entre <em>Producto</em>
@@ -764,19 +767,19 @@ private Collection&lt;Producto&gt; productos;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Recuerda generar el getter y
       setter para <em>productos</em>. Ahora pulsas Ctrl-B (para construir),
-      para tu aplicación, arráncala de nuevo y refresca tu navegador con el
+      detén tu aplicación, arráncala de nuevo y refresca tu navegador con el
       módulo <em>Autor</em>. Escoge un autor y verás sus productos. Tienes algo
       parecido a esto:<br>
       <img src="files/modeling_es160.png" alt="modeling_es160.png" title="modeling_es160.png"><br>
     </div>
     <div class="wiki" style="display: block;">Sí, añades una nueva colección,
-      refrescas tu navegador y tienes una interfaz de usuario completa para
-      manejarla. En este caso el usuario puede pulsar en el botón <em>Añadir</em>
-      para escoger un libro de una lista de libros existentes o pulsar <i>Nuevo</i>
-      para introducir los datos para crear un nuevo libro que se añadirá a la
-      colección. Además cuando el autor se borre sus libros seguirán estando en
-      la base de datos. Puedes definir un comportamiento diferente con <em>cascade</em>
-      como REMOVE o ALL, así:</div>
+      rearrancas tu aplicación, refrescas tu navegador y tienes una interfaz de
+      usuario completa para manejarla. En este caso el usuario puede pulsar en
+      el botón <em>Añadir</em> para escoger un libro de una lista de libros
+      existentes o pulsar <i>Nuevo</i> para introducir los datos para crear un
+      nuevo libro que se añadirá a la colección. Además cuando el autor se borre
+      sus libros seguirán estando en la base de datos. Puedes definir un
+      comportamiento diferente con <em>cascade</em> como REMOVE o ALL, así:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@OneToMany(mappedBy="autor", cascade=CascadeType.REMOVE) // NO LO AÑADAS A TU CÓDIGO
 </code></pre> </div>

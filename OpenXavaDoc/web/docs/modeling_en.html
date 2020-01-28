@@ -766,13 +766,13 @@ private Collection&lt;Product&gt; products;
       <img src="files/modeling_en160.png" alt="modeling_en160.png" title="modeling_en160.png"><br>
     </div>
     <div class="wiki" style="display: block;">Yes, you added a new collection,
-      refreshed your browser and there you get the full user interface to manage
-      it. In this case the user can click on <em>Add</em> button to choose a
-      book from a list of all existing books or click on <i>New</i> to enter
-      the data to create a new book that will be added to the collection.
-      Moreover when the author is removed his books are still there in the
-      database. You can define another behavior with cascade as REMOVE or ALL,
-      thus:</div>
+      restarted your application, refreshed your browser and there you get the
+      full user interface to manage it. In this case the user can click on <em>Add</em>
+      button to choose a book from a list of all existing books or click on <i>New</i>
+      to enter the data to create a new book that will be added to the
+      collection. Moreover when the author is removed his books are still there
+      in the database. You can define another behavior with cascade as REMOVE or
+      ALL, thus:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@OneToMany(mappedBy="author", cascade=CascadeType.REMOVE)
 </code></pre> </div>
