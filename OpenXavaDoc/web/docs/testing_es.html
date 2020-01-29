@@ -95,8 +95,8 @@
       útiles para probar tu módulo. Creemos la prueba para tu módulo <em>Cliente</em>.<br>
       <h3 id="toc3"><a name="Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-El+codigo+para+la+prueba"></a>El
         código para la prueba</h3>
-      Crea un paquete nuevo llamado <em>com.tuempresa.facturacion.pruebas</em> y
-      dentro de él una nueva clase llamada <em>PruebaCliente</em> con el
+      Crea un paquete nuevo llamado <em>com.tuempresa.facturacion.pruebas</em>
+      y dentro de él una nueva clase llamada <em>PruebaCliente</em> con el
       siguiente código:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.tuempresa.facturacion.pruebas;
@@ -416,7 +416,8 @@ getManager().remove(autor); // Funciona
       <h3 id="toc10"><a name="Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA-Usar+instancias+de+entidad+dentro+de+una+prueba"></a>Usar
         instancias de entidad dentro de una prueba</h3>
       La prueba que queda, <em>testCambiarPrecio()</em>, simplemente escoge un
-      producto y cambia su precio. Vamos a usar en él una entidad creada en <em>crearProductos()</em>:</div>
+      producto y cambia su precio. Vamos a usar en la prueba una entidad creada
+      en <em>crearProductos()</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public void testCambiarPrecio() throws Exception {
     login("admin", "admin");
@@ -533,10 +534,9 @@ public class PruebaCategoria extends ModuleTestBase {
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.tuempresa.facturacion.pruebas;
  
-import java.util.*;<br>import java.time.*;
+import java.time.*;
 import java.time.format.*;<br>import javax.persistence.*;
 import org.openxava.tests.*;
-import org.openxava.util.*;
 import static org.openxava.jpa.XPersistence.*; // Para usar JPA
  
 public class PruebaFactura extends ModuleTestBase {
@@ -621,8 +621,7 @@ private String getNumero() { // El número de factura para una factura nueva
     if (numero == null) { // Usamos inicialización vaga
         Query query = getManager(). // Una consulta JPA para obtener el último número
                 createQuery("select max(f.numero) from Factura f where f.anyo = :anyo");
-        query.setParameter("anyo", Dates.getYear(new Date()));  // Dates es una
-                                                                // utilidad de OpenXava
+        query.setParameter("anyo", LocalDate.now().getYear());  
         Integer ultimoNumero = (Integer) query.getSingleResult();
         if (ultimoNumero == null) ultimoNumero = 0;
         numero = Integer.toString(ultimoNumero + 1); // Añadimos 1 al
@@ -641,8 +640,6 @@ private String getNumero() { // El número de factura para una factura nueva
       vaga retrasa el cálculo hasta la primera vez que se necesita y después lo
       almacena para futuros usos. Esto lo hacemos guardando el valor en el campo
       <em>numero</em>.<br>
-      Fíjate en el uso de la clase <em>Dates</em> para extraer el año de la
-      fecha. <em>Dates</em> es una clase de utilidad que puedes encontrar en <em>org.openxava.util</em>.<br>
       <h3 id="toc15"><a name="Leccion+3:+Pruebas+automaticas-Probar+colecciones-Entrada+de+datos"></a>Entrada
         de datos</h3>
       Ahora es el momento de <em>escogerCliente()</em> de la factura:</div>

@@ -49,8 +49,7 @@
       </div>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
-        Modeling with Java</a> | <strong>3. Automated testing</strong> | <a class="wiki_link"
-
+        Modeling with Java</a> | <strong>3. Automated testing</strong> | <a class="wiki_link"
         href="inheritance_en.html">4. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
         Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
         Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
@@ -95,9 +94,9 @@
       module.<br>
       <h3 id="toc3"><a name="Lesson 3: Automated testing-ModuleTestBase for testing the modules-The code for the test"></a>The
         code for the test</h3>
-      Create a new package named <em>com.yourcompany.invoicing.tests</em> and then
-      create a new class named <em>CustomerTest</em> inside it with the next
-      code:</div>
+      Create a new package named <em>com.yourcompany.invoicing.tests</em> and
+      then create a new class named <em>CustomerTest</em> inside it with the
+      next code:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.yourcompany.invoicing.tests;
  
@@ -189,8 +188,7 @@ public class CustomerTest extends ModuleTestBase { // Must extend from ModuleTes
       As mentioned earlier, JUnit is integrated into Eclipse, so running your
       tests from Eclipse is plain vanilla. Just put your mouse over the test
       class, and with the right button choose <em>Run As &gt; JUnit Test</em>:<br>
-      <img src="files/testing_en030.png" alt="testing_en030.png" title="testing_en030.png"
-
+      <img src="files/testing_en030.png" alt="testing_en030.png" title="testing_en030.png"
         style="height: 288px; width: 800px;"><br>
       If the test does not pass, the bar will be red. You can try it. Edit the <em>CustomerTest</em>
       and comment the line that sets the value for the <em>name</em> field:<br>
@@ -276,7 +274,7 @@ public class ProductTest extends ModuleTestBase {
  
     public void testRemoveFromList() throws Exception { ... }
  
-    public void testChangePrice() throws Exception { ... }
+    public void testUploadPhotos() throws Exception { ... }
  
     private void createProducts() { ... }
  
@@ -427,28 +425,36 @@ ends_comparator,
       <em>not_in_comparator</em> and <em>range_comparator</em>.<br>
       <h3 id="toc10"><a name="Lesson 3: Automated testing-Creating test data using JPA-Using entity instances inside a test"></a>Using
         entity instances inside a test</h3>
-      The remaining test, <em>testChangePrice()</em>, simply chooses a product
-      and changes its price. We are going to use it in an entity created in <em>createProducts()</em>:</div>
+      TMP ME QUEDÉ POR AQUÍ: EL CÓDIGO YA ES EL NUEVO, FALTA ADAPTAR EL TEXTO</div>
+    <div class="wiki" style="display: block;"> The remaining test, <em>testChangePrice()</em>,
+      simply chooses a product and changes its price. We are going to use in the
+      test an entity created in <em>createProducts()</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public void testChangePrice() throws Exception {
-    login("admin", "admin");
+      <pre><code class="java">public void testUploadPhotos() throws Exception { 
+	login("admin", "admin");
  
-    // Searching the product1
-    execute("CRUD.new");
-    setValue("number", Integer.toString(product1.getNumber())); // (1)
-    execute("CRUD.refresh");
-    assertValue("price", "10.00");
+	// Searching the product1
+	execute("CRUD.new");
+	setValue("number", Integer.toString(product1.getNumber())); // (1)
+	execute("CRUD.refresh");
+	assertFilesCount("photos", 0);
  
-    // Changing the price
-    setValue("price", "12.00");
-    execute("CRUD.save");
-    assertNoErrors();
-    assertValue("price", "");
+	// Uploading photos
+	uploadFile("photos", "web/xava/images/add.gif"); 
+	uploadFile("photos", "web/xava/images/attach.gif"); 
  
-    // Verifying
-    setValue("number", Integer.toString(product1.getNumber())); // (1)
-    execute("CRUD.refresh");
-    assertValue("price", "12.00");
+	// Verifying
+	execute("CRUD.new");
+	assertFilesCount("photos", 0);
+	setValue("number", Integer.toString(product1.getNumber())); // (1)
+	execute("CRUD.refresh");
+	assertFilesCount("photos", 2);
+	assertFile("photos", 0, "image");
+	assertFile("photos", 1, "image");
+	
+	// Remove photos
+	removeFile("photos", 1);
+	removeFile("photos", 0);
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">The only new thing in this test is
@@ -543,11 +549,9 @@ public class CategoryTest extends ModuleTestBase {
       methods:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.yourcompany.invoicing.tests;
- 
-import java.util.*;<br>import java.time.*;
+ <br>import java.time.*;
 import java.time.format.*;<br>import javax.persistence.*;
 import org.openxava.tests.*;
-import org.openxava.util.*;
 import static org.openxava.jpa.XPersistence.*; // To use JPA
  
 public class InvoiceTest extends ModuleTestBase {
@@ -632,8 +636,7 @@ private String getNumber() { // The invoice number for a new invoice
     if (number == null) { // We use lazy initialization
         Query query = getManager(). // A JPA query to get the last number
                 createQuery("select max(i.number) from Invoice i where i.year = :year");
-        query.setParameter("year", Dates.getYear(new Date()));     // Dates is an
-                                                                // OpenXava utility
+        query.setParameter("year", LocalDate.now().getYear());
         Integer lastNumber = (Integer) query.getSingleResult();
         if (lastNumber == null) lastNumber = 0;
         number = Integer.toString(lastNumber + 1); // Adding 1 to the last invoice number
@@ -651,8 +654,6 @@ private String getNumber() { // The invoice number for a new invoice
       initialization. Lazy initialization delays the calculation until the first
       time it is needed, and stores it for future use. We do it by saving the
       value in the number field.<br>
-      Note the usage of the <em>Dates</em> class to extract the year from the
-      date. <em>Dates</em> is a utility class you can find in <em>org.openxava.util</em>.<br>
       <h3 id="toc15"><a name="Lesson 3: Automated testing-Testing collections-Data entry"></a>Data
         entry</h3>
       Now it's time for the <em>chooseCustomer()</em> method of the invoice:</div>
@@ -751,7 +752,7 @@ private String getNumber() { // The invoice number for a new invoice
     <div class="wiki" style="display: block;">After searching the created
       invoice we verify whether the values we have saved are there. If the test
       reaches this point your <em>Invoice</em> module works fine. The only
-      thing remaining is to delete the created invoice so that the test can be<br>
+      thing remaining is to delete the created invoice so that the test can be
       executed again. We do that in the <em>remove()</em> method:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">private void remove() throws Exception {
@@ -795,12 +796,10 @@ private String getNumber() { // The invoice number for a new invoice
       rest of the book. Thus you will learn more tips about testing in the next
       lessons.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-3-testing_en.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-3-testing_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="inheritance_en.html">Go to Lesson 4</a></strong>
     </div>
