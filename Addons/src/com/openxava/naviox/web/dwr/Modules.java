@@ -62,7 +62,7 @@ public class Modules {
 		try {
 			RequestReseter.reset(request); 
 			com.openxava.naviox.Modules modules = (com.openxava.naviox.Modules) request.getSession().getAttribute("modules");
-			modules.bookmarkCurrentModule();
+			modules.bookmarkCurrentModule(request); 
 		}
 		catch (Exception ex) { 
 			log.warn(XavaResources.getString("bookmark_module_problem"), ex);  
@@ -73,7 +73,7 @@ public class Modules {
 		try {
 			RequestReseter.reset(request);  
 			com.openxava.naviox.Modules modules = (com.openxava.naviox.Modules) request.getSession().getAttribute("modules");
-			modules.unbookmarkCurrentModule();
+			modules.unbookmarkCurrentModule(request); 
 		}
 		catch (Exception ex) { 
 			log.warn(XavaResources.getString("unbookmark_module_problem"), ex);  

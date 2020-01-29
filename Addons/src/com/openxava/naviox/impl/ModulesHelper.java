@@ -9,8 +9,6 @@ import org.openxava.application.meta.*;
 import org.openxava.util.*;
 
 import com.openxava.naviox.*;
-import com.openxava.naviox.model.*;
-import com.openxava.naviox.util.*;
 
 /**
  * 
@@ -33,7 +31,7 @@ public class ModulesHelper {
 		return "SignIn";
 	}
 	
-	public static List<MetaModule> getAll() {
+	public static List<MetaModule> getAll(HttpServletRequest request) { 
 		if (Users.getCurrent() == null) return Collections.EMPTY_LIST;
 		if (all == null) all = createAll();
 		return all;
@@ -59,7 +57,7 @@ public class ModulesHelper {
 
 	public static boolean showsSearchModules(HttpServletRequest request) { 
 		Modules modules = (Modules) request.getSession().getAttribute("modules");
-		return modules.getAll().size() > 30;  
+		return modules.getAll(request).size() > 30;   
 	}	
 
 }

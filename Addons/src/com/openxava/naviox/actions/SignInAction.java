@@ -21,7 +21,7 @@ public class SignInAction extends ForwardToOriginalURIBaseAction {
 		if (!SignInHelper.isAuthorized(userName, password, getErrors())) {
 			return;									
 		}		
-		SignInHelper.signIn(getRequest().getSession(), userName);
+		SignInHelper.signIn(getRequest(), userName); 
 		getView().reset();
 		getContext().resetAllModulesExceptCurrent(getRequest()); 
 		forwardToOriginalURI();
