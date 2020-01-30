@@ -187,8 +187,8 @@ public class PruebaCliente extends ModuleTestBase { // Ha de extender de ModuleT
         las pruebas desde Eclipse</h3>
       JUnit está integrado dentro de Eclipse, por eso ejecutar tus prueba en
       Eclipse es más fácil que quitarle un caramelo a un niño. Pon el ratón
-      sobre tu clase de prueba, y con el botón derecho escoge <em>Run As &gt;
-        JUnit Test</em>:<br>
+      sobre tu clase de prueba, <i>PruebaCliente</i>, y con el botón derecho
+      escoge <em>Run As &gt; JUnit Test</em>:<br>
       <img src="files/testing_es030.png" alt="testing_es030.png" title="testing_es030.png"
         style="height: 285px; width: 800px;"><br>
       Si la prueba no es satisfactoria la barra sale roja. Puedes probarlo.
@@ -196,8 +196,8 @@ public class PruebaCliente extends ModuleTestBase { // Ha de extender de ModuleT
     <div class="wiki" style="display: block;">
       <pre><code class="java">...
 setValue("numero", "77");
-// setValue("name", "Cliente JUNIT"); // Comenta esta línea
-setValue("address.street", "Calle JUNIT");
+// setValue("nombre", "Cliente JUNIT"); // Comenta esta línea
+setValue("direccion.viaPublica", "Calle JUNIT");
 ...
 </code></pre> </div>
     <div class="wiki" style="display: block;">Ahora, reejecuta la prueba. Ya que
@@ -263,7 +263,7 @@ public class PruebaProducto extends ModuleTestBase {
  
     public void testBorrarDesdeLista() throws Exception { ... }
  
-    public void testCambiarPrecio() throws Exception { ... }
+    public void testSubirFotos() throws Exception { ... }
  
     private void crearProductos() { ... }
  
@@ -415,37 +415,48 @@ getManager().remove(autor); // Funciona
         in_comparator</em>, <em>not_in_comparator</em> y <em>range_comparator</em>.<br>
       <h3 id="toc10"><a name="Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA-Usar+instancias+de+entidad+dentro+de+una+prueba"></a>Usar
         instancias de entidad dentro de una prueba</h3>
-      La prueba que queda, <em>testCambiarPrecio()</em>, simplemente escoge un
-      producto y cambia su precio. Vamos a usar en la prueba una entidad creada
-      en <em>crearProductos()</em>:</div>
+      La prueba que queda, <em>testSubirFotos()</em>, escoge un producto y sube
+      fotos en él. Vamos a usar en la prueba una entidad creada en <em>crearProductos()</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public void testCambiarPrecio() throws Exception {
-    login("admin", "admin");
+      <pre><code class="java">public void testSubirFotos() throws Exception { 
+	login("admin", "admin");
  
-    // Buscar producto1
-    execute("CRUD.new");
-    setValue("numero", Integer.toString(producto1.getNumero())); // (1)
-    execute("CRUD.refresh");
-    assertValue("precio", "10,00");
+	// Buscar producto1
+	execute("CRUD.new");
+	setValue("numero", Integer.toString(producto1.getNumero())); // (1)
+	execute("CRUD.refresh");
+	assertFilesCount("fotos", 0);
  
-    // Cambiar el precio
-    setValue("precio", "12,00");
-    execute("CRUD.save");
-    assertNoErrors();
-    assertValue("precio", "");
+	// Subir fotos
+	uploadFile("fotos", "web/xava/images/add.gif"); // (2)
+	uploadFile("fotos", "web/xava/images/attach.gif"); // (2)
  
-    // Verificar
-    setValue("numero", Integer.toString(producto1.getNumero())); // (1)
-    execute("CRUD.refresh");
-    assertValue("precio", "12,00");
+	// Verificar
+	execute("CRUD.new");
+	assertFilesCount("fotos", 0);
+	setValue("numero", Integer.toString(producto1.getNumero())); // (1)
+	execute("CRUD.refresh");
+	assertFilesCount("fotos", 2);
+	assertFile("fotos", 0, "image");
+	assertFile("fotos", 1, "image");
+	
+	// Quitar fotos
+	removeFile("fotos", 1);
+	removeFile("fotos", 0);
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Lo único nuevo en esta prueba es
+    <div class="wiki" style="display: block;">Lo interesante de esta prueba es
       que para dar valor al número usado para buscar el producto, lo obtenemos
       de <em>producto1.getNumero()</em> (1). Recuerda que <em>producto1</em>
       es una variable de instancia de la prueba a la que se asigna valor en <em>crearProductos()</em>,
       el cual es llamado desde <em>setUp()</em>, es decir se ejecuta antes de
-      cada prueba.<br>
+      cada prueba. También has aprendido como usar los métodos <i>uploadFile(),
+        assertFileCount(), assertFile()</i> y <i>removeFile()</i> para trabajar
+      con las fotos. Estos métodos funcionan con cualquier propiedad que permita
+      subir archivos (GALERIA_IMAGENES, FOTO, IMAGEN, ARCHIVO, ARCHIVOS, etc).
+      En este caso usamos imágenes incluidas en OpenXava, gifs de <i>web/xava/images
+        </i>(2), pero puedes crear tu propia carpeta con tus propias imágenes
+      para las pruebas.<br>
       <br>
       Ya tienes la prueba para <em>Producto</em> y al mismo tiempo has
       aprendido como probar usando datos de prueba creados mediante JPA.

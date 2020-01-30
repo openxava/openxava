@@ -425,10 +425,9 @@ ends_comparator,
       <em>not_in_comparator</em> and <em>range_comparator</em>.<br>
       <h3 id="toc10"><a name="Lesson 3: Automated testing-Creating test data using JPA-Using entity instances inside a test"></a>Using
         entity instances inside a test</h3>
-      TMP ME QUEDÉ POR AQUÍ: EL CÓDIGO YA ES EL NUEVO, FALTA ADAPTAR EL TEXTO</div>
-    <div class="wiki" style="display: block;"> The remaining test, <em>testChangePrice()</em>,
-      simply chooses a product and changes its price. We are going to use in the
-      test an entity created in <em>createProducts()</em>:</div>
+      The remaining test, <em>testUploadPhotos()</em>, chooses a product and
+      upload photos on it. We are going to use in the test an entity created in
+      <em>createProducts()</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public void testUploadPhotos() throws Exception { 
 	login("admin", "admin");
@@ -440,8 +439,8 @@ ends_comparator,
 	assertFilesCount("photos", 0);
  
 	// Uploading photos
-	uploadFile("photos", "web/xava/images/add.gif"); 
-	uploadFile("photos", "web/xava/images/attach.gif"); 
+	uploadFile("photos", "web/xava/images/add.gif"); // (2)
+	uploadFile("photos", "web/xava/images/attach.gif"); // (2)
  
 	// Verifying
 	execute("CRUD.new");
@@ -457,11 +456,17 @@ ends_comparator,
 	removeFile("photos", 0);
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">The only new thing in this test is
-      to provide a value to number to search the product. We get the value using
-      <em>product1.getNumber()</em> (shown as 1). Remember that <em>product1</em>
+    <div class="wiki" style="display: block;">The interesting thing in this test
+      is to provide a value to number to search the product. We get the value
+      using <em>product1.getNumber()</em> (shown as 1). Remember that <em>product1</em>
       is an instance variable of the test that is populated in <em>createProducts()</em>,
-      which is called from <em>setUp()</em> so it is executed before each test.<br>
+      which is called from <em>setUp()</em> so it is executed before each test.
+      Also you have learned how to use the methods <i>uploadFile(),
+        assertFileCount(), assertFile()</i> and <i>removeFile()</i> to work
+      with photos. These methods works with any property that uploads files
+      (IMAGES_GALLERY, PHOTO, IMAGE, FILE, FILES, etc). In this case we use
+      images included in OpenXava, gifs from <i>web/xava/images </i>(shown as
+      2), but you can create your own folder with your own images for testing.<br>
       <br>
       You have a test class for <em>Product</em> and at the same time you have
       learned testing with test data created using JPA. Run it, it should be

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Lessons from 1 to 3 of course upgraded to latest features.
 - Some new common use labels to be used in applications.
 
 OpenXava 6.2.2 (2019-12-9)
