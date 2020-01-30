@@ -16,8 +16,8 @@ public class MetaApplications {
 	
 	private static Collection applicationNames;
 
-	private static Map metaAplicacions;
-	
+	private static Map<String, MetaApplication> metaAplicacions; // tmp <String, MetaApplication>
+	private static MetaApplication mainMetaApplication; // tmp
 	
 	
 	/**
@@ -33,11 +33,21 @@ public class MetaApplications {
 	/**
 	 * @return Collection of <tt>MetaApplication</tt>. Not null.
 	 */
-	public static Collection getMetaApplications() throws XavaException {
+	public static Collection<MetaApplication> getMetaApplications() throws XavaException {
 		if (metaAplicacions == null) {
 			configure();
 		}
 		return metaAplicacions.values();
+	}
+	
+	public static MetaApplication getMainMetaApplication() { // tmp
+		if (mainMetaApplication == null) {
+			long ini = System.currentTimeMillis(); // tmp
+			mainMetaApplication = MetaApplications.getMetaApplications().iterator().next();
+			long cuesta = System.currentTimeMillis() - ini;
+			System.out.println("[MetaApplications.getMainMetaApplication] cuesta=" + cuesta); // tmp
+		}
+		return mainMetaApplication;
 	}
 	
 	private static void configure() throws XavaException {

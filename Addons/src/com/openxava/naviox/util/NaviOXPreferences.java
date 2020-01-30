@@ -183,8 +183,10 @@ public class NaviOXPreferences {
     /**
 	* Default the application name with url
 	*/	
+	/* tmp
 	public String getapplicationName() { 
 		return getProperties().getProperty("applicationName", "").trim();
 	}
+	*/
 		
 }

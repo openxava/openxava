@@ -129,7 +129,8 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	private void resetPreferences() throws Exception {
-		getUtilClient().getPage("http://" + getHost() + ":" + getPort() + "/" + application + "/xava/resetPreferences.jsp?zxy=HOljkso83");
+		// tmp getUtilClient().getPage("http://" + getHost() + ":" + getPort() + "/" + application + "/xava/resetPreferences.jsp?zxy=HOljkso83");
+		getUtilClient().getPage("http://" + getHost() + ":" + getPort() + getContext() + "xava/resetPreferences.jsp?zxy=HOljkso83"); // tmp
 	}
 	
 	private static WebClient getUtilClient() throws Exception { 
@@ -651,7 +652,8 @@ abstract public class ModuleTestBase extends TestCase {
 			return "http://" + getHost() + ":" + getPort() + "/" + getJetspeed2URL() + "/portal/" + application + "/" + folder + module + ".psml";
 		}
 		else {
-			return "http://" + getHost() + ":" + getPort() + "/" + application + "/modules/" + module + "?modulesLimit=0";
+			// tmp return "http://" + getHost() + ":" + getPort() + "/" + application + "/modules/" + module + "?modulesLimit=0";
+			return "http://" + getHost() + ":" + getPort() + getContext() + "modules/" + module + "?modulesLimit=0"; // tmp
 		}
 	}
 	
@@ -2652,6 +2654,10 @@ abstract public class ModuleTestBase extends TestCase {
 	 */
 	static public String getXavaJUnitProperty(String id) {
 		return getXavaJunitProperties().getProperty(id);
+	}
+	
+	private String getContext() { // tmp 
+		return getXavaJunitProperties().getProperty("context", "/" + application + "/");
 	}
 	
 	/**

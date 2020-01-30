@@ -243,8 +243,11 @@ public class Modules implements Serializable {
 			if (uri.length < 3) {
 				return false;			
 			}
-			String applicationName = NaviOXPreferences.getInstance().getapplicationName();
-			return isModuleAuthorized(request, MetaModuleFactory.create(applicationName, uri[2]));
+			// tmp String applicationName = NaviOXPreferences.getInstance().getapplicationName();
+			String applicationName = MetaModuleFactory.getApplication(); // tmp
+			String moduleName = uri[uri.length - 1]; // tmp
+			// tmp return isModuleAuthorized(request, MetaModuleFactory.create(applicationName, uri[2]));
+			return isModuleAuthorized(request, MetaModuleFactory.create(applicationName, moduleName)); // tmp
 		}
 		catch (Exception ex) {			
 			log.warn(XavaResources.getString("module_not_authorized"), ex); 

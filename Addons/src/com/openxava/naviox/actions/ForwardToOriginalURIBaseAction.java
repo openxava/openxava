@@ -21,12 +21,11 @@ abstract public class ForwardToOriginalURIBaseAction extends ViewBaseAction impl
 		else {
 			int idx = originalURI.indexOf("/", 1);			
 			if (!originalURI.endsWith("/SignIn") && idx > 0 && idx < originalURI.length()) {
-			      /**
-			       * Default the application name with url
-			       * Bug: After signIn /m/ is removed from the url.
-			       * Fix: After signIn the original url is forwarded instead of substring
-			       */
-				forwardURI = originalURI;
+				// forwardURI = originalURI; // tmp No funciona con aplicación como contexto
+				// forwardURI = originalURI.substring(idx); // tmp Código original. No funciona con contexto raíz
+				// tmp ini
+				forwardURI = originalURI.startsWith("/" + MetaModuleFactory.getApplication())?originalURI.substring(idx):originalURI;
+				// tmp fin
 			}
 			else {
 				forwardURI = "/";

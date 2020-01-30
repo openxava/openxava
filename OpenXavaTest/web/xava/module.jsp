@@ -60,6 +60,7 @@
 	String module = context.getCurrentModule(request);
 	String contextPath = (String) request.getAttribute("xava.contextPath");
 	if (contextPath == null) contextPath = request.getContextPath();
+	System.out.println("[module.jsp] contextPath=" + contextPath); // TMP ME QUEDÉ POR AQUÍ: USAR CONTEXTPATH 
 
 	org.openxava.controller.ModuleManager managerHome = (org.openxava.controller.ModuleManager) context
 			.get(request, "manager",

@@ -5,6 +5,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import org.openxava.application.meta.*;
 import org.openxava.jpa.*;
 import org.openxava.util.*;
 
@@ -22,7 +23,8 @@ public class NaviOXFilter implements Filter {
 		/**
 		 * Default the application name with url
 		 */			
-		String applicationName = NaviOXPreferences.getInstance().getapplicationName();
+		// tmp String applicationName = NaviOXPreferences.getInstance().getapplicationName();
+		String applicationName = MetaApplications.getMainMetaApplication().getName(); // tmp
 		Modules.init(applicationName); 
 	}
 
@@ -61,7 +63,7 @@ public class NaviOXFilter implements Filter {
 				/**
 				 * Default the application name with url
 				 */
-				char base = secureRequest.getRequestURI().split("/")[1].charAt(0)=='p'?'p':'m'; 
+				char base = secureRequest.getRequestURI().split("/")[1].charAt(0)=='p'?'p':'m'; // tmp Debería probar en móvil, era [2]
 				String originalURI = secureRequest.getRequestURI();
 				String organization = Organizations.getCurrent(request);
 				if (organization != null) originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");
