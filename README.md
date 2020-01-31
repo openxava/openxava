@@ -12,9 +12,9 @@
 ## Steps
   
    ## Step 1
-   - Enable ```amazonS3Persistor``` in xava.properties
+   - Enable ```AmazonS3Persistor``` in xava.properties
    ```
-   amazonS3Persistor=true
+   filePersistorClass=org.openxava.web.editors.AmazonS3Persistor
    ```
    ## Step 2
    - Download the below jars and place it in web/WEB-INF/lib/
