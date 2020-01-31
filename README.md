@@ -9,13 +9,6 @@
 
   - In addition to the current two methods this patch introduces ```Amazon S3 persistence```
   
-  - We have used Java Reflection API that is used to examine or modify the behaviour of methods, classes and interfaces at runtime. 
-  - The required packages for Reflection, the “java.lang.reflect” package, allows us to invoke methods at runtime irrespective of the access modifier.
-  
-  - From Java reflection we removed the dependency of having the required jars during compile time. 
-  
-  - Now since the dependency of jars not required. Additonal jars are required only if you enable ```amazonS3Persistor``` in xava.properties
-  
 ## Steps
   
    ## Step 1
