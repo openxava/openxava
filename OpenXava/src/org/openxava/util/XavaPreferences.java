@@ -522,10 +522,5 @@ public class XavaPreferences {
 		String path = getProperties().getProperty("filesPath");
 		return path != null ? path : System.getProperty("user.home") + System.getProperty("file.separator") + "oxfiles";
 	}
-
-    /** S3 Enabled */
-	public boolean isSaveToS3Enabled() { 
-		return "true".equalsIgnoreCase(getProperties().getProperty("amazonS3Persistor", "true").trim());
-	}
 	
 }

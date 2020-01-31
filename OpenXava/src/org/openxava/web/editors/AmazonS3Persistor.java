@@ -259,14 +259,12 @@ public class AmazonS3Persistor implements IFilePersistor {
 									FileFilterUtils.prefixFileFilter(uuid), null);
 		if(files.size() == 1) return files.iterator().next();
 		if(files.size() > 1) log.warn(XavaResources.getString("multiple_file_matches", uuid));
-		if (XavaPreferences.getInstance().isSaveToS3Enabled() == true){
-			if(files.size() == 0) {
-				downloadFromAmazonS3(uuid); 
-				Collection<java.io.File> files1 = FileUtils.listFiles(PARENT, 
-						FileFilterUtils.prefixFileFilter(uuid), null);
-				if(files1.size() == 1) return files1.iterator().next();
-				if(files1.size() > 1) log.warn(XavaResources.getString("multiple_file_matches", uuid));
-			}
+		if(files.size() == 0) {
+			downloadFromAmazonS3(uuid); 
+			Collection<java.io.File> files1 = FileUtils.listFiles(PARENT, 
+					FileFilterUtils.prefixFileFilter(uuid), null);
+			if(files1.size() == 1) return files1.iterator().next();
+			if(files1.size() > 1) log.warn(XavaResources.getString("multiple_file_matches", uuid));
 		}
 		return null;
 	}
