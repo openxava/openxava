@@ -12,55 +12,63 @@
   - We have used Java Reflection API that is used to examine or modify the behaviour of methods, classes and interfaces at runtime. 
   - The required packages for Reflection, the “java.lang.reflect” package, allows us to invoke methods at runtime irrespective of the access modifier.
   
-  - From Java reflection we remove the dependency on having the required jars during compile time. 
+  - From Java reflection we removed the dependency of having the required jars during compile time. 
   
   - Now since the dependency of jars not required. Additonal jars are required only if you enable ```amazonS3Persistor``` in xava.properties
   
 ## Steps
-
-    - Download the below jars and place it in web/WEB-INF/lib/
-    
-       - aws-java-sdk-core.jar (https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-core)
-       - aws-java-sdk-s3.jar (https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3)  
-       
-        - Aws sdk dependency jars
-          
-          - jackson-annotations.jar (https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations)
-		  -	jackson-core.jar (https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core)
-		  - jackson-databind.jar (https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind)
-		  -	jackson-dataformat.jar (https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml)
-          - joda-time.jar (https://mvnrepository.com/artifact/joda-time/joda-time)
   
-    - Enable ```amazonS3Persistor``` in xava.properties
-      ```
-      amazonS3Persistor=true
-      ```
-  
-	## Configure S3 credential
+   ## Step 1
+   - Enable ```amazonS3Persistor``` in xava.properties
+   ```
+   amazonS3Persistor=true
+   ```
+   ## Step 2
+   - Download the below jars and place it in web/WEB-INF/lib/
+   
+	   - Aws sdk jars
 
-		- Amazon S3 requires few properties for making request using AWS SDK
-		```
-		  Region
-		  Bucket Name
-		  Access key ID
-		  Secret access key
-		```
+	   ```
 
-		- The following properties can be configured in naviox.properties
-		```
-		bucketName=bucketName
-		accessKey=accessKey
-		secretKey=secretKey
-		region=region
-		```
-		
-		- Extra property: To prefix with new folder you can add folder name with this property.
-		```
-		bucketPrefixFolderName=bucketPrefixFolderName
-		```
+	   - aws-java-sdk-core.jar (https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-core)
+	   - aws-java-sdk-s3.jar (https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3)  
 
-## If IAM role based access is used then region, accessKey and secretkey are not required
+	   ```
 
-## Need any help for more advanced use cases / support?
+	   - Aws sdk dependency jars
 
-- Contact us via sales@mahaswami.com
+	   ```
+	   - jackson-annotations.jar (https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations) 
+	   - jackson-core.jar (https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core)
+	   - jackson-databind.jar (https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind)
+	   - jackson-dataformat.jar (https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml)
+	   - joda-time.jar (https://mvnrepository.com/artifact/joda-time/joda-time)
+	   ```
+   
+ 
+  ## Step 3
+  - Configure S3 credential
+
+	- Amazon S3 requires few properties for making request using AWS SDK
+	```
+	  Region
+	  Bucket Name
+	  Access key ID
+	  Secret access key
+	```
+	
+   	- The following properties can be configured in naviox.properties
+	```
+	bucketName=bucketName
+	accessKey=accessKey
+	secretKey=secretKey
+	region=region
+	```
+
+   	- Extra property: To prefix with new folder you can add folder name with this property.
+	```
+	bucketPrefixFolderName=bucketPrefixFolderName
+	```
+
+## Note
+	If IAM role based access is used then region, accessKey and secretkey are not required
