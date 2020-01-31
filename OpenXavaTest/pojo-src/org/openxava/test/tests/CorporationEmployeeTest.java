@@ -16,7 +16,7 @@ public class CorporationEmployeeTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		execute("CorporationEmployee.report");
 		assertNoErrors();
-		assertTrue(getPopupText().contains("<tr><td>Corporation:</td><td>RANONE</td></tr>"));
+		assertTrue(getPopupText().contains("<tr><td>Corporation:</td><td>RANONE</td></tr>")); 
 	}
 	
 	public void testTabEditorForModel() throws Exception {

@@ -88,9 +88,16 @@ public class MovieTest extends EmailNotificationsTestBase {
 		reload();
 		assertFilesCount("scripts", 3); 
 
-		assertEmailNotifications(
+		System.out.println("[MovieTest.testFileset] getContext()=" + getContext()); // tmp
+		assertEmailNotifications( // tmp Falla
+			/* tmp	
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080/OpenXavaTest/modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li><b>Scripts</b>: NEW FILES ADDED --> Corporation.html</li></ul>",
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080/OpenXavaTest/modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li><b>Scripts</b>: FILE REMOVED --> Corporation.html</li></ul>"
+			*/
+			// tmp ini	
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080" + getContext() + "modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li><b>Scripts</b>: NEW FILES ADDED --> Corporation.html</li></ul>",
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080" + getContext() + "modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li><b>Scripts</b>: FILE REMOVED --> Corporation.html</li></ul>"
+			// tmp fin	
 		);
 	}
 	

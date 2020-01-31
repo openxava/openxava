@@ -108,13 +108,23 @@ public class SeveralModulesTest extends ModuleTestBase {
 	}
 	
 	
-	protected String getModuleURL() throws XavaException { 
+	protected String getModuleURL() throws XavaException {
+		/* tmp
 		if (isLiferayEnabled()) {
 			return "http://" + getHost() + ":" + getPort() + "/" + getLiferayURL() + "/OpenXavaTest/SeveralModules";
 		}
 		else {
 			return"http://" + getHost() + ":" + getPort() + "/OpenXavaTest/xava/severalModules.jsp";
 		}
+		*/
+		// tmp ini
+		if (isLiferayEnabled()) {
+			return "http://" + getHost() + ":" + getPort() + "/" + getLiferayURL() + getContext() + "SeveralModules";
+		}
+		else {
+			return"http://" + getHost() + ":" + getPort() + getContext() + "xava/severalModules.jsp";
+		}		
+		// tmp fin
 	}
 
 }

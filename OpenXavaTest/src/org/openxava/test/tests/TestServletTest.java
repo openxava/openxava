@@ -14,7 +14,8 @@ public class TestServletTest extends TestCase {
 	
 	public void testTestServlet() throws Exception {
 		WebClient client = new WebClient();
-		Page page = client.getPage("http://" + getHost() + ":" + getPort() + "/OpenXavaTest/test"); 
+		// tmp Page page = client.getPage("http://" + getHost() + ":" + getPort() + "/OpenXavaTest/test"); 
+		Page page = client.getPage("http://" + getHost() + ":" + getPort() + getContext() + "test"); // tmp
 		String content = page.getWebResponse().getContentAsString();		
 		assertTrue(content.indexOf("Hello, I'm a test servlet from OpenXava") >= 0);
 	}
@@ -26,5 +27,10 @@ public class TestServletTest extends TestCase {
 	private String getHost() { 
 		return ModuleTestBase.getXavaJUnitProperty("host", "localhost"); 
 	}		
+	
+	protected String getContext() { // tmp ¿Este nombre? 
+		return ModuleTestBase.getXavaJUnitProperty("context", "/OpenXavaTest/");
+	}
+	
 
 }

@@ -396,7 +396,11 @@ public class EmailNotifications {
 
 	
 	private static String toBaseURL(String moduleURL) {
-		int idx = StringUtils.ordinalIndexOf(moduleURL, "/", 4);
+		// tmp int idx = StringUtils.ordinalIndexOf(moduleURL, "/", 4);
+		// tmp ini
+		int startingPoint = moduleURL.contains("/" + getCurrentApplication() + "/")?4:3;
+		int idx = StringUtils.ordinalIndexOf(moduleURL, "/", startingPoint); 
+		// tmp fin
 		return moduleURL.substring(0, idx);
 	}
 

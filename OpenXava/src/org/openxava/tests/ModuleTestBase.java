@@ -2656,7 +2656,7 @@ abstract public class ModuleTestBase extends TestCase {
 		return getXavaJunitProperties().getProperty(id);
 	}
 	
-	private String getContext() { // tmp 
+	protected String getContext() { // tmp ¿Este nombre? ¿Static?
 		return getXavaJunitProperties().getProperty("context", "/" + application + "/");
 	}
 	

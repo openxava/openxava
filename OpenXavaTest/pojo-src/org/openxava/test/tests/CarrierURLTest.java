@@ -18,26 +18,30 @@ public class CarrierURLTest extends ModuleTestBase {
 	// We also have a Selenium test for this
 	public void testPermalink() throws Exception {
 		execute("ListFormat.select", "editor=Charts"); 
-		moduleURI = "/m/Carrier?detail=5";
+		// tmp moduleURI = "/m/Carrier?detail=5";
+		moduleURI = "m/Carrier?detail=5"; // tmp
 		resetModule();
 		assertNoErrors(); 
 		assertValue("number", "5");
 		assertValue("name", "Cinco");
 		
-		moduleURI = "/m/Carrier?action=CRUD.new";
+		// tmp moduleURI = "/m/Carrier?action=CRUD.new";
+		moduleURI = "m/Carrier?action=CRUD.new"; // tmp
 		resetModule();
 		assertNoErrors();
 		assertValue("number", "");
 		assertValue("name", "");
 		
-		moduleURI = "/m/Carrier?action=CRUD.create";
+		// tmp moduleURI = "/m/Carrier?action=CRUD.create";
+		moduleURI = "m/Carrier?action=CRUD.create"; // tmp
 		resetModule();
 		assertError("Action CRUD.create not available"); 
 		execute("ListFormat.select", "editor=List");
 	}
 		
 	protected String getModuleURL() { 
-		return "http://" + getHost() + ":" + getPort() + "/OpenXavaTest" + moduleURI;
+		// tmp return "http://" + getHost() + ":" + getPort() + "/OpenXavaTest" + moduleURI;
+		return "http://" + getHost() + ":" + getPort() + getContext() + moduleURI; // tmp
 	}
 	
 }

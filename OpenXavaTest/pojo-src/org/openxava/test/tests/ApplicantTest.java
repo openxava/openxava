@@ -87,7 +87,7 @@ public class ApplicantTest extends ModuleTestBase {
 		modulesLimit = false;
 		resetModule();
 		
-		assertModulesCount(30);
+		assertModulesCount(30); 
 		assertTrue(AbstractWall.class.isAnnotationPresent(MappedSuperclass.class)); // This should be the first one, but as it's MappedSupperclass in not shown
 		assertFirstModuleInMenu("Academic year"); // Not in i18n, to test a case 
 
@@ -206,7 +206,8 @@ public class ApplicantTest extends ModuleTestBase {
 	}
 	
 	protected String getModuleURL() { 
-		return modulesLimit?super.getModuleURL():"http://" + getHost() + ":" + getPort() + "/OpenXavaTest/modules/Applicant";
+		// tmp return modulesLimit?super.getModuleURL():"http://" + getHost() + ":" + getPort() + "/OpenXavaTest/modules/Applicant";
+		return modulesLimit?super.getModuleURL():"http://" + getHost() + ":" + getPort() + getContext() + "modules/Applicant"; // tmp
 	}
 	
 	private void assertModulesCount(int expectedCount) {

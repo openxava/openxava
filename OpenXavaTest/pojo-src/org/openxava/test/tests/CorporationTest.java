@@ -22,7 +22,7 @@ public class CorporationTest extends ModuleTestBase {
 		closeDialog();
 		execute("Corporation.report");
 		assertNoErrors();
-		assertTrue(getPopupText().contains("<tr><td>Name:</td><td>RANONE</td></tr>")); 
+		assertTrue(getPopupText().contains("<tr><td>Name:</td><td>RANONE</td></tr>"));  
 	}
 	
 	public void testIconEditor() throws Exception { 

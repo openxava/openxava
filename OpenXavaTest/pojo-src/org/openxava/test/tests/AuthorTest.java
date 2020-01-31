@@ -204,7 +204,8 @@ public class AuthorTest extends CustomizeListTestBase {
 	}
 	
 	protected String getModuleURL() {  
-		return modulesLimit?super.getModuleURL():"http://" + getHost() + ":" + getPort() + "/OpenXavaTest/m/Author"; // /m/ not /modules/ in order a test works
+		// tmp return modulesLimit?super.getModuleURL():"http://" + getHost() + ":" + getPort() + "/OpenXavaTest/m/Author"; // /m/ not /modules/ in order a test works
+		return modulesLimit?super.getModuleURL():"http://" + getHost() + ":" + getPort() + getContext() + "m/Author"; // /m/ not /modules/ in order a test works // tmp
 	}
 	
 }
