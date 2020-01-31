@@ -45,16 +45,6 @@ public class FileSystemPersistor implements IFilePersistor {
 			filename.append(Is.emptyString(file.getLibraryId()) ? "NOLIBRARY" : file.getLibraryId());
 			FileUtils.writeByteArrayToFile(new java.io.File(PARENT, filename.toString()), file.getData());
 			file.setId(uuid);
-            /**
-			 * Save to Amazon S3 if amazonS3Persistor property is enabled in xava.properties
-			 */
-			if (XavaPreferences.getInstance().isSaveToS3Enabled() == true){
-				/**
-				 * Upload to Amazon S3
-				 */
-				AmazonS3Persistor.uploadToAmazonS3(filename.toString());
-			}
-
 		} catch(Exception ex) {
 			log.error(ex.getMessage(), ex);
 			throw new RuntimeException("save_file_error");
@@ -66,15 +56,9 @@ public class FileSystemPersistor implements IFilePersistor {
 	 */
 	@Override
 	public void remove(String id) {
-		java.io.File f;
-		try {
-			f = findIOFile(id);
-			if(f == null) return;
-			FileUtils.deleteQuietly(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		java.io.File f = findIOFile(id);
+		if(f == null) return;
+		FileUtils.deleteQuietly(f);
 	}
 	
 	/**
@@ -94,16 +78,9 @@ public class FileSystemPersistor implements IFilePersistor {
 	 */
 	@Override
 	public AttachedFile find(String id) {
-		java.io.File f;
-		try {
-			f = findIOFile(id);
-			if(f == null) return null;
-			return convertIOFileToOXFile(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		java.io.File f = findIOFile(id);
+		if(f == null) return null;
+		return convertIOFileToOXFile(f);
 	}
 	
 	/**
@@ -120,27 +97,11 @@ public class FileSystemPersistor implements IFilePersistor {
 		return oxFiles;
 	}
 	
-	private java.io.File findIOFile(String uuid) throws IOException {
+	private java.io.File findIOFile(String uuid) {
 		Collection<java.io.File> files = FileUtils.listFiles(PARENT, 
 									FileFilterUtils.prefixFileFilter(uuid), null);
 		if(files.size() == 1) return files.iterator().next();
 		if(files.size() > 1) log.warn(XavaResources.getString("multiple_file_matches", uuid));
-        /**
-		 * Save to Amazon S3 if amazonS3Persistor property is enabled in xava.properties
-		 */
-		if (XavaPreferences.getInstance().isSaveToS3Enabled() == true){
-			if(files.size() == 0) {
-				/**
-				 * Download from Amazon S3 if the file doesn't exist in the local
-				 */
-				AmazonS3Persistor.downloadFromAmazonS3(uuid); 
-
-				Collection<java.io.File> files1 = FileUtils.listFiles(PARENT, 
-						FileFilterUtils.prefixFileFilter(uuid), null);
-				if(files1.size() == 1) return files1.iterator().next();
-				if(files1.size() > 1) log.warn(XavaResources.getString("multiple_file_matches", uuid));
-			}
-		}
 		return null;
 	}
 	

@@ -5,13 +5,16 @@ import java.lang.reflect.*;
 import java.util.*;
 
 import org.apache.commons.io.*;
+import org.apache.commons.io.filefilter.*;
 import org.apache.commons.logging.*;
+import org.openxava.calculators.*;
 import org.openxava.util.*;
 
 import com.openxava.naviox.util.*;
 
-public class AmazonS3Persistor {
-	
+public class AmazonS3Persistor implements IFilePersistor {
+
+   private static final String SEPARATOR     = "_OX_";
    private static final java.io.File PARENT  = new java.io.File(XavaPreferences.getInstance().getFilesPath());
    private static final String PrefixFolderName = NaviOXPreferences.getInstance().getAmazonBucketPrefixFolderName();
    private static Log log = LogFactory.getLog(AmazonS3Persistor.class); 
@@ -155,4 +158,133 @@ public class AmazonS3Persistor {
 		} 
    }
   
+   
+   public static void deleteFromAmazonS3(String uuid) {
+	   
+	   try {
+		   
+			/** Initializing the Amazon S3 Client Connection with access key and secret key */
+			Object s3 = initialize();
+			/** Amazon S3 Bucket name */
+			String bucketName = amazonBucketName();
+			
+			Class deleteObjectRequestCls = Class.forName("com.amazonaws.services.s3.model.DeleteObjectRequest");
+			
+			Constructor deleteObjectRequestCons = deleteObjectRequestCls.getConstructor(String.class, String.class);
+			
+			Object deleteObjectRequest = deleteObjectRequestCons.newInstance(bucketName, PrefixFolderName + uuid);
+			
+			Method deleteObject = s3.getClass().getMethod("deleteObject", deleteObjectRequestCls);
+			
+			Object s3Objects = deleteObject.invoke(s3, deleteObjectRequest);
+	
+	   } catch (Exception e) {
+		// TODO: handle exception
+	}
+   }
+
+
+   @Override
+   public void save(AttachedFile file) {
+	// TODO Auto-generated method stub
+		try {
+			String uuid = (String) new UUIDCalculator().calculate();
+			StringBuilder filename = new StringBuilder(); //filename = UUID_OX_FILENAME_OX_LIBRARYID			
+			filename.append(uuid).append(SEPARATOR).append(file.getName()).append(SEPARATOR);
+			filename.append(Is.emptyString(file.getLibraryId()) ? "NOLIBRARY" : file.getLibraryId());
+			FileUtils.writeByteArrayToFile(new java.io.File(PARENT, filename.toString()), file.getData());
+			file.setId(uuid);
+			uploadToAmazonS3(filename.toString());          
+		} catch(Exception ex) {
+			log.error(ex.getMessage(), ex);
+			throw new RuntimeException("save_file_error");
+		}
+   }
+
+
+   @Override
+   public void remove(String id) {
+	   java.io.File f;
+		try {
+			f = findIOFile(id);
+			if(f == null) return;
+			deleteFromAmazonS3(id);
+			FileUtils.deleteQuietly(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   }
+ 
+   @Override
+   public void removeLibrary(String libraryId) {
+	// TODO Auto-generated method stub
+		Collection<java.io.File> ioFiles = FileUtils.listFiles(PARENT, 
+					FileFilterUtils.suffixFileFilter(libraryId), null);
+		for(Iterator<java.io.File> it = ioFiles.iterator(); it.hasNext(); ) {
+			String[] id = it.next().getName().split("_");
+			deleteFromAmazonS3(id[0]);
+			FileUtils.deleteQuietly(it.next());
+		}
+   }
+
+   @Override
+   public AttachedFile find(String id) {
+	// TODO Auto-generated method stub
+		java.io.File f;
+		try {
+			f = findIOFile(id);
+			if(f == null) return null;
+			return convertIOFileToOXFile(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+   }
+
+   @Override
+   public Collection<AttachedFile> findLibrary(String libraryId) {
+		Collection<java.io.File> ioFiles = FileUtils.listFiles(PARENT, 
+				FileFilterUtils.suffixFileFilter(libraryId), null);
+		Collection<AttachedFile> oxFiles = new ArrayList<AttachedFile>();
+		for(Iterator<java.io.File> it = ioFiles.iterator(); it.hasNext(); ) {
+		oxFiles.add(convertIOFileToOXFile(it.next()));
+		}
+		return oxFiles;   
+   }
+
+   private java.io.File findIOFile(String uuid) throws IOException{
+		Collection<java.io.File> files = FileUtils.listFiles(PARENT, 
+									FileFilterUtils.prefixFileFilter(uuid), null);
+		if(files.size() == 1) return files.iterator().next();
+		if(files.size() > 1) log.warn(XavaResources.getString("multiple_file_matches", uuid));
+		if (XavaPreferences.getInstance().isSaveToS3Enabled() == true){
+			if(files.size() == 0) {
+				downloadFromAmazonS3(uuid); 
+				Collection<java.io.File> files1 = FileUtils.listFiles(PARENT, 
+						FileFilterUtils.prefixFileFilter(uuid), null);
+				if(files1.size() == 1) return files1.iterator().next();
+				if(files1.size() > 1) log.warn(XavaResources.getString("multiple_file_matches", uuid));
+			}
+		}
+		return null;
+	}
+	
+   private AttachedFile convertIOFileToOXFile(java.io.File f) {
+		String[] parts = f.getName().split(SEPARATOR);
+		AttachedFile file = new AttachedFile();
+		file.setId(parts[0]);
+		file.setName(parts[1]);
+		file.setLibraryId(parts[2]);
+		try {
+			file.setData(FileUtils.readFileToByteArray(f));
+		} catch (IOException ex) {
+			log.error(ex.getMessage(), ex);
+			throw new RuntimeException(XavaResources.getString("convert_iofile_to_oxfile_error"));
+		}
+		return file;
+	}
+
+ 
 }
