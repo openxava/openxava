@@ -17,8 +17,7 @@ welcome_point1=This is a additional explanatory line
 --%>
 
 <%
-String applicationName = NaviOXPreferences.getInstance().getapplicationName();
-MetaApplication metaApplication = MetaApplications.getMetaApplication(applicationName);
+MetaApplication metaApplication = MetaApplications.getMainMetaApplication(); 
 Locales.setCurrent(request);
 String oxVersion = org.openxava.controller.ModuleManager.getVersion();
 String title = (String) request.getAttribute("naviox.pageTitle");

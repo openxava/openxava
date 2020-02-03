@@ -79,19 +79,11 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("CRUD.delete");
 		assertNoErrors();
 
-		assertEmailNotifications( // tmp Falla
-			/* tmp	
-			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080/OpenXavaTest/modules/Incident, changes=<ul><li><b>Discussion</b>: NEW COMMENT --> Hi, it's me</li></ul>",
-			"CREATED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080/OpenXavaTest/modules/Incident?detail=" + id,
-			"MODIFIED: email=openxavatest1@getnada.com, user=juan, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080/OpenXavaTest/modules/Incident?detail=" + id + ", changes=<ul><li><b>Discussion</b>: NEW COMMENT --> Soy Juan</li></ul>",
-			"REMOVED: email=openxavatest1@getnada.com, user=juan, application=OpenXavaTest, module=Incident, url=http://localhost:8080/OpenXavaTest/modules/Incident, key={id=" + id + "}"
-			*/
-			// tmp ini
-			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContext() + "modules/Incident, changes=<ul><li><b>Discussion</b>: NEW COMMENT --> Hi, it's me</li></ul>",
-			"CREATED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContext() + "modules/Incident?detail=" + id,
-			"MODIFIED: email=openxavatest1@getnada.com, user=juan, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContext() + "modules/Incident?detail=" + id + ", changes=<ul><li><b>Discussion</b>: NEW COMMENT --> Soy Juan</li></ul>",
-			"REMOVED: email=openxavatest1@getnada.com, user=juan, application=OpenXavaTest, module=Incident, url=http://localhost:8080" + getContext() + "modules/Incident, key={id=" + id + "}"				
-			// tmp fin
+		assertEmailNotifications( 
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContextPath() + "modules/Incident, changes=<ul><li><b>Discussion</b>: NEW COMMENT --> Hi, it's me</li></ul>",
+			"CREATED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContextPath() + "modules/Incident?detail=" + id,
+			"MODIFIED: email=openxavatest1@getnada.com, user=juan, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContextPath() + "modules/Incident?detail=" + id + ", changes=<ul><li><b>Discussion</b>: NEW COMMENT --> Soy Juan</li></ul>",
+			"REMOVED: email=openxavatest1@getnada.com, user=juan, application=OpenXavaTest, module=Incident, url=http://localhost:8080" + getContextPath() + "modules/Incident, key={id=" + id + "}"				
 		);	
 	}
 

@@ -237,17 +237,12 @@ public class Modules implements Serializable {
 					request.getRequestURI().startsWith(request.getContextPath() + "/p/") || 
 					request.getRequestURI().startsWith(request.getContextPath() + "/modules/"))) return true;
 			String [] uri = request.getRequestURI().split("/");
-			/**
-		         * Default the application name with url
-		         */				
 			if (uri.length < 3) {
 				return false;			
 			}
-			// tmp String applicationName = NaviOXPreferences.getInstance().getapplicationName();
-			String applicationName = MetaModuleFactory.getApplication(); // tmp
-			String moduleName = uri[uri.length - 1]; // tmp
-			// tmp return isModuleAuthorized(request, MetaModuleFactory.create(applicationName, uri[2]));
-			return isModuleAuthorized(request, MetaModuleFactory.create(applicationName, moduleName)); // tmp
+			String applicationName = MetaModuleFactory.getApplication(); 
+			String moduleName = uri[uri.length - 1]; 
+			return isModuleAuthorized(request, MetaModuleFactory.create(applicationName, moduleName)); 
 		}
 		catch (Exception ex) {			
 			log.warn(XavaResources.getString("module_not_authorized"), ex); 
@@ -273,10 +268,7 @@ public class Modules implements Serializable {
 	public String getModuleURI(HttpServletRequest request, MetaModule module) { 
 		String organization = Organizations.getCurrent(request); 
 		String prefix = organization == null?"":"/o/" + organization;
-		/**
-		 * Default the application name with url
-		 */		
-		return "/m/" + module.getName();
+		return request.getContextPath() + prefix + "/m/" + module.getName();
 	}
 		
 	public boolean isModuleAuthorized(HttpServletRequest request, MetaModule module) {   

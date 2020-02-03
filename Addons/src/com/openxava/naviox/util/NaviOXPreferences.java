@@ -180,13 +180,4 @@ public class NaviOXPreferences {
 		return getProperties().getProperty("emailValidatorForSignUpClass", EmailValidator.class.getName()).trim();
 	}
 
-    /**
-	* Default the application name with url
-	*/	
-	/* tmp
-	public String getapplicationName() { 
-		return getProperties().getProperty("applicationName", "").trim();
-	}
-	*/
-		
 }

@@ -60,7 +60,7 @@
 	String module = context.getCurrentModule(request);
 	String contextPath = (String) request.getAttribute("xava.contextPath");
 	if (contextPath == null) contextPath = request.getContextPath();
-
+	
 	org.openxava.controller.ModuleManager managerHome = (org.openxava.controller.ModuleManager) context
 			.get(request, "manager",
 					"org.openxava.controller.ModuleManager");
@@ -164,6 +164,7 @@
 		openxava.lastApplication='<%=app%>'; 		
 		openxava.lastModule='<%=module%>'; 	
 		openxava.language='<%=request.getLocale().getLanguage()%>';
+		openxava.contextPath = '<%=contextPath%>';
 	</script>	
 	<%
 		if (style.isNeededToIncludeCalendar()) {

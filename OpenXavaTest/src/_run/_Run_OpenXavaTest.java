@@ -12,8 +12,8 @@ public class _Run_OpenXavaTest {
 
 	public static void main(String[] args) throws Exception {
 		DBServer.start("OpenXavaTestDB"); // To use your own database comment this line and configure web/META-INF/context.xml
-		// tmp AppServer.run("OpenXavaTest");
-		AppServer.run(""); // tmp
+		AppServer.run("OpenXavaTest");
+		// tmp AppServer.run(""); // tmp
 	}
 
 }

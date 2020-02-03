@@ -206,8 +206,7 @@ public class ApplicantTest extends ModuleTestBase {
 	}
 	
 	protected String getModuleURL() { 
-		// tmp return modulesLimit?super.getModuleURL():"http://" + getHost() + ":" + getPort() + "/OpenXavaTest/modules/Applicant";
-		return modulesLimit?super.getModuleURL():"http://" + getHost() + ":" + getPort() + getContext() + "modules/Applicant"; // tmp
+		return modulesLimit?super.getModuleURL():"http://" + getHost() + ":" + getPort() + getContextPath() + "modules/Applicant"; 
 	}
 	
 	private void assertModulesCount(int expectedCount) {

@@ -20,11 +20,7 @@ import com.openxava.naviox.util.*;
 public class NaviOXFilter implements Filter {
 	
 	public void init(FilterConfig cfg) throws ServletException {
-		/**
-		 * Default the application name with url
-		 */			
-		// tmp String applicationName = NaviOXPreferences.getInstance().getapplicationName();
-		String applicationName = MetaApplications.getMainMetaApplication().getName(); // tmp
+		String applicationName = MetaApplications.getMainMetaApplication().getName(); 
 		Modules.init(applicationName); 
 	}
 
@@ -60,10 +56,7 @@ public class NaviOXFilter implements Filter {
 				chain.doFilter(secureRequest, response);
 			}
 			else {
-				/**
-				 * Default the application name with url
-				 */
-				char base = secureRequest.getRequestURI().split("/")[1].charAt(0)=='p'?'p':'m'; // tmp Debería probar en móvil, era [2]
+				char base = secureRequest.getRequestURI().split("/")[1].charAt(0)=='p'?'p':'m'; 
 				String originalURI = secureRequest.getRequestURI();
 				String organization = Organizations.getCurrent(request);
 				if (organization != null) originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");

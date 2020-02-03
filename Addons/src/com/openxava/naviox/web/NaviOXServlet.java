@@ -19,22 +19,13 @@ public class NaviOXServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String [] uri = request.getRequestURI().split("/");
-		/**
-		 * Default the application name with url
-		 */		
 		if (uri.length < 3) {
 			response.getWriter().print(XavaResources.getString(request, "module_name_missing"));
 			return;
 		}
-		/* tmp
-		String applicationName = NaviOXPreferences.getInstance().getapplicationName();
-		String url = Browsers.isMobile(request)?"/p/" + uri[2]:"/naviox/index.jsp?application=" + applicationName + "&module=" + uri[2];
-		*/
-		// tmp ini
 		String applicationName = MetaModuleFactory.getApplication(); 
 		String moduleName = uri[uri.length - 1]; 
 		String url = Browsers.isMobile(request)?"/p/" + moduleName:"/naviox/index.jsp?application=" + applicationName + "&module=" + moduleName;
-		// tmp fin
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);		
 		
 		Style.setPotalInstance(XavaStyle.getInstance()); // We manage style in NaviOX as in the portal case, to override the style defined in xava.properties and by device 

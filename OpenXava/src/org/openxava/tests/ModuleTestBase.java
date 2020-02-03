@@ -129,8 +129,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	private void resetPreferences() throws Exception {
-		// tmp getUtilClient().getPage("http://" + getHost() + ":" + getPort() + "/" + application + "/xava/resetPreferences.jsp?zxy=HOljkso83");
-		getUtilClient().getPage("http://" + getHost() + ":" + getPort() + getContext() + "xava/resetPreferences.jsp?zxy=HOljkso83"); // tmp
+		getUtilClient().getPage("http://" + getHost() + ":" + getPort() + getContextPath() + "xava/resetPreferences.jsp?zxy=HOljkso83"); 
 	}
 	
 	private static WebClient getUtilClient() throws Exception { 
@@ -652,8 +651,7 @@ abstract public class ModuleTestBase extends TestCase {
 			return "http://" + getHost() + ":" + getPort() + "/" + getJetspeed2URL() + "/portal/" + application + "/" + folder + module + ".psml";
 		}
 		else {
-			// tmp return "http://" + getHost() + ":" + getPort() + "/" + application + "/modules/" + module + "?modulesLimit=0";
-			return "http://" + getHost() + ":" + getPort() + getContext() + "modules/" + module + "?modulesLimit=0"; // tmp
+			return "http://" + getHost() + ":" + getPort() + getContextPath() + "modules/" + module + "?modulesLimit=0"; 
 		}
 	}
 	
@@ -2585,6 +2583,14 @@ abstract public class ModuleTestBase extends TestCase {
 		return host;		
 	}	
 	
+	/**
+	 * 
+	 * @since 6.3
+	 */
+	protected String getContextPath() { 
+		return getXavaJunitProperties().getProperty("contextPath", "/" + application + "/");
+	}
+
 		
 	private static String getDefaultLocale() {
 		if (!isDefaultLocaleSet) {
@@ -2656,9 +2662,6 @@ abstract public class ModuleTestBase extends TestCase {
 		return getXavaJunitProperties().getProperty(id);
 	}
 	
-	protected String getContext() { // tmp ¿Este nombre? ¿Static?
-		return getXavaJunitProperties().getProperty("context", "/" + application + "/");
-	}
 	
 	/**
 	 * From file xava-junit.properties 

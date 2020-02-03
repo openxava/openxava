@@ -5,10 +5,6 @@ import java.net.*;
 
 import org.openxava.tests.*;
 import org.openxava.util.*;
-import org.openxava.web.*;
-
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
 
 /** 
  * 
@@ -109,22 +105,12 @@ public class SeveralModulesTest extends ModuleTestBase {
 	
 	
 	protected String getModuleURL() throws XavaException {
-		/* tmp
 		if (isLiferayEnabled()) {
-			return "http://" + getHost() + ":" + getPort() + "/" + getLiferayURL() + "/OpenXavaTest/SeveralModules";
+			return "http://" + getHost() + ":" + getPort() + "/" + getLiferayURL() + getContextPath() + "SeveralModules";
 		}
 		else {
-			return"http://" + getHost() + ":" + getPort() + "/OpenXavaTest/xava/severalModules.jsp";
-		}
-		*/
-		// tmp ini
-		if (isLiferayEnabled()) {
-			return "http://" + getHost() + ":" + getPort() + "/" + getLiferayURL() + getContext() + "SeveralModules";
-		}
-		else {
-			return"http://" + getHost() + ":" + getPort() + getContext() + "xava/severalModules.jsp";
+			return"http://" + getHost() + ":" + getPort() + getContextPath() + "xava/severalModules.jsp";
 		}		
-		// tmp fin
 	}
 
 }

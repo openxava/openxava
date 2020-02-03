@@ -11,8 +11,7 @@ public class PublicJSPTest extends TestCase {
 	
 	public void testPublicJSP() throws Exception {
 		WebClient client = new WebClient();
-	    // tmp HtmlPage page = (HtmlPage) client.getPage("http://" + getHost() + ":" + getPort() + "/" + getApplication() + "/public/myPublicJSP.jsp" );  
-		HtmlPage page = (HtmlPage) client.getPage("http://" + getHost() + ":" + getPort() + getContext() + "public/myPublicJSP.jsp" ); // tmp
+		HtmlPage page = (HtmlPage) client.getPage("http://" + getHost() + ":" + getPort() + getContextPath() + "public/myPublicJSP.jsp" ); 
 	    assertTrue(page.asText().startsWith("The uri of this JSP is"));
 	}
 	
@@ -23,15 +22,9 @@ public class PublicJSPTest extends TestCase {
 	private static String getHost() {
 		return ModuleTestBase.getXavaJUnitProperty("host", "localhost"); 
 	}	
-
-	/* tmp
-	private static String getApplication() {
-		return ModuleTestBase.getXavaJUnitProperty("application", "OpenXavaTest"); 
-	}
-	*/
 	
-	protected static String getContext() { // tmp 
-		return ModuleTestBase.getXavaJUnitProperty("context", "/OpenXavaTest/");
+	private static String getContextPath() { 
+		return ModuleTestBase.getXavaJUnitProperty("contextPath", "/OpenXavaTest/");
 	}
 
 

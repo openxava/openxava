@@ -16,8 +16,8 @@ public class MetaApplications {
 	
 	private static Collection applicationNames;
 
-	private static Map<String, MetaApplication> metaAplicacions; // tmp <String, MetaApplication>
-	private static MetaApplication mainMetaApplication; // tmp
+	private static Map<String, MetaApplication> metaAplicacions; 
+	private static MetaApplication mainMetaApplication; 
 	
 	
 	/**
@@ -40,12 +40,12 @@ public class MetaApplications {
 		return metaAplicacions.values();
 	}
 	
-	public static MetaApplication getMainMetaApplication() { // tmp
+	/**
+	 * @since 6.3
+	 */
+	public static MetaApplication getMainMetaApplication() { 
 		if (mainMetaApplication == null) {
-			long ini = System.currentTimeMillis(); // tmp
 			mainMetaApplication = MetaApplications.getMetaApplications().iterator().next();
-			long cuesta = System.currentTimeMillis() - ini;
-			System.out.println("[MetaApplications.getMainMetaApplication] cuesta=" + cuesta); // tmp
 		}
 		return mainMetaApplication;
 	}

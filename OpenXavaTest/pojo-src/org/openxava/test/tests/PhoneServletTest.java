@@ -1,10 +1,6 @@
 package org.openxava.test.tests;
 
-import java.io.*;
-import java.net.*;
-
 import org.openxava.tests.*;
-import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
@@ -30,14 +26,8 @@ public class PhoneServletTest extends ModuleTestBase {
 	
 	public void testPhoneServlet() throws Exception {
 		WebClient client = new WebClient();
-		/* tmp
-		assertNoMobileUI(client, "http://" + getHost() + ":" + getPort() + "/OpenXavaTest/p/" + MODULE); // tmp Falla
-		assertNoMobileUI(client, "http://" + getHost() + ":" + getPort() + "/OpenXavaTest/phone");
-		*/
-		// tmp ini
-		assertNoMobileUI(client, "http://" + getHost() + ":" + getPort() + getContext() + "p/" + MODULE); 
-		assertNoMobileUI(client, "http://" + getHost() + ":" + getPort() + getContext() +"phone");		
-		// tmp fin
+		assertNoMobileUI(client, "http://" + getHost() + ":" + getPort() + getContextPath() + "p/" + MODULE); 
+		assertNoMobileUI(client, "http://" + getHost() + ":" + getPort() + getContextPath() +"phone");		
 	}
 
 	private void assertNoMobileUI(WebClient client, String url) throws Exception {
