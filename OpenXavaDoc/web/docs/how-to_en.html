@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>openxava - how-to_en</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -61,6 +64,9 @@
         <div style="margin-left: 2em;"><a href="#openxava-and-addons-projects-in-different-folder">How
             to have OpenXava and Addons projects in a different folder than your
             own project (new in v6.1.1)?<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#app-in-root-context">How to run
+            your application in the root context (new in v6.3)?<br>
           </a></div>
       </div>
       <h1 id="toc0"><a name="How to ..."></a>How to ...</h1>
@@ -5009,5 +5015,27 @@ class="sy0">;</span>
       <pre>&lt;property name="openxava.base.dir" value="/home/john/my-openxava"/&gt;</pre>
       In this way your project will use the <i>OpenXava </i>and <i>Addons </i>projects
       from <i>/home/john/my-openxava</i> directory.</div>
+    <div class="wiki" style="display: block;"> <a name="app-in-root-context"></a>
+      <h2>How to run your application in the root context <i>(new in v6.3)</i>?</h2>
+      That is using it from browser without application name in the URL, like
+      this: <i>https://localhost:8080/</i></div>
+    <div class="wiki" style="display: block;">For production calling the war <i>ROOT.war</i>
+      to deploy on Tomcat is enough, you don't need any change in your code.</div>
+    <div class="wiki" style="display: block;">For development you can modify the
+      <i>_Run_YourApplication</i> launcher class changing:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">AppServer.run("YourApplication");
+</code></pre> </div>
+    <div class="wiki" style="display: block;">By:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">AppServer.run("");
+</code></pre> </div>
+    <div class="wiki" style="display: block;">And if you want to test your
+      application in the root context using JUnit, add the next entry in <i>xava-junit.properties</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">contextPath=/
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Of course, you can use root
+      context only for production and not for development, or vice versa.</div>
   </body>
 </html>

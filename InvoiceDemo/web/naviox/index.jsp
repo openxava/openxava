@@ -24,7 +24,7 @@ modules.setCurrent(request.getParameter("application"), request.getParameter("mo
 String oxVersion = org.openxava.controller.ModuleManager.getVersion();
 String title = (String) request.getAttribute("naviox.pageTitle");
 if (title == null) title = modules.getCurrentModuleDescription(request); 
-boolean hasModules = modules.hasModules(); 		
+boolean hasModules = modules.hasModules(request); 		
 org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleManager) context
 		.get(app, module, "manager", "org.openxava.controller.ModuleManager");
 manager.setSession(session);
@@ -56,8 +56,8 @@ manager.setModuleName(module); // In order to show the correct description in he
 			<div id="module_header">
 				<%String moduleTitle = hasModules?modules.getCurrentModuleLabel():modules.getCurrentModuleDescription(request);%>
 				<span id="module_title"><%=moduleTitle%></span> 
-				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked()?"unbookmark_module":"bookmark_module"%>'/>">
-					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked()?"":"-outline"%>'></i>
+				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
+					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
 				</a>
 				<div id="sign_in_out">
 					<%

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Application can run in root context, that without application name in URL.
 - Terra theme soften.
 - Light theme unified with Terra, though it keeps its colors. 
 - New visual themes Dark, Black & White and Blue.  

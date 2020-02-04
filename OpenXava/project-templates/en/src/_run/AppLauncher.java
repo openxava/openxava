@@ -12,7 +12,7 @@ public class _Run_@javaclass@ {
 
 	public static void main(String[] args) throws Exception {
 		DBServer.start("@database@"); // To use your own database comment this line and configure web/META-INF/context.xml
-		AppServer.run("@project@");
+		AppServer.run("@project@"); // Use AppServer.run("") to run in root context
 	}
 
 }
