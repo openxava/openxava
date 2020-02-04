@@ -238,7 +238,7 @@
 	
 	--mobile-tap-highlight-color: rgb(205,179,128, 0.4);
 	--mobile-modules-list-background: var(--background);
-	--mobile-button-bar-color: var(--modules-list-background);
+	--mobile-button-bar-color: var(--modules-list-color); 
 	--mobile-module-name-color: var(--color);
 	--mobile-search-modules-input-focus-border: var(--input-focus-border);
 	--mobile-button-bar-background: var(--modules-list-background);
