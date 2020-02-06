@@ -13,7 +13,8 @@
 <%@page import="org.openxava.web.dwr.Module"%>
 <%@page import="org.openxava.web.servlets.Servlets"%>
 <%@page import="org.openxava.web.Ids"%>
-<%@page import="org.openxava.web.Requests"%> 
+<%@page import="org.openxava.web.Requests"%>
+<%@page import="org.openxava.web.style.Themes"%> <%-- tmp --%> 
 <%@page import="org.apache.commons.logging.LogFactory" %>
 <%@page import="org.apache.commons.logging.Log" %>
 <%@page import="org.openxava.web.Browsers"%> 
@@ -272,6 +273,11 @@ if (manager.isResetFormPostNeeded()) {
 	<%=style.getCoreEndDecoration()%>
 	
 <% } %>			
+	<%-- tmp ini --%>
+	<% if (Themes.isChooserEnabled()) { %>
+	<jsp:include page="themeChooser.jsp"/>
+	<% } %>
+	<%-- tmp fin --%>
 	<div id="xava_console" >
 	</div>
 	<div id="xava_loading">				

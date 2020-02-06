@@ -181,6 +181,10 @@ public class XavaPreferences {
 	public String getStyleCSS() {
 		return getProperties().getProperty("styleCSS", "terra.css").trim(); 
 	}
+	
+	public String getThemes() { // tmp
+		return getProperties().getProperty("themes", ""); 
+	}	
 
 	public String getLiferay51StyleClass() {
 		return getProperties().getProperty("liferay51StyleClass",

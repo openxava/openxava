@@ -2435,3 +2435,10 @@ div[id$="_Index__view"] .ox-list-title {
 .ox-list img {
 	max-height: 30px;
 }
+
+/* tmp ini */
+#theme_chooser {
+	margin-top: 40px;
+	text-align: center;
+}
+/* tmp fin */
