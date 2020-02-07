@@ -45,13 +45,15 @@ public class MetaApplications {
 	 */
 	public static MetaApplication getMainMetaApplication() { 
 		if (mainMetaApplication == null) {
-			// tmp mainMetaApplication = MetaApplications.getMetaApplications().iterator().next();
-			mainMetaApplication = getMetaApplications().iterator().next(); // tmp
+			mainMetaApplication = getMetaApplications().iterator().next(); 
 		}
 		return mainMetaApplication;
 	}
 	
-	public static void setMainApplicationName(String applicationName) { // tmp
+	/**
+	 * @since 6.3
+	 */	
+	public static void setMainApplicationName(String applicationName) { 
 		if (metaAplicacions == null) configure();
 		mainMetaApplication = metaAplicacions.get(applicationName);
 	}
