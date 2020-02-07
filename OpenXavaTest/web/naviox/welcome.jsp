@@ -4,7 +4,6 @@
 <%@page import="org.openxava.application.meta.MetaApplication"%>
 <%@page import="org.openxava.util.Locales"%>
 <%@page import="org.openxava.web.style.XavaStyle"%>
-<%@page import="org.openxava.web.style.Themes"%> <%-- tmp --%>
 <%@page import="org.openxava.util.XavaPreferences"%>
 <%@page import="org.openxava.web.Browsers"%> 
 
@@ -30,12 +29,7 @@ if (title == null) title = metaApplication.getLabel();
 <head>
 	<title><%=title%></title>
 	<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
-	<%-- tmp
 	<link href="<%=request.getContextPath()%>/xava/style/<%=XavaPreferences.getInstance().getStyleCSS()%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
-	--%>
-	<%-- tmp ini En migration --%>
-	<link href="<%=request.getContextPath()%>/xava/style/<%=Themes.getCSS(request)%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
-	<%-- tmp fin --%>
 	<% if (Browsers.isIE(request)) { %>
 	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/css-vars-ponyfill.js?ox=<%=oxVersion%>"></script>
 	<script type='text/javascript'>cssVars({ }); </script>	

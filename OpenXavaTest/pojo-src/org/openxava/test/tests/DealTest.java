@@ -14,12 +14,11 @@ public class DealTest extends ModuleTestBase {
 		super(testName, "Deal");		
 	}
 	
-	public void testListWithOneToOneWithPrimaryKeyJoinColumn_themeChooser() throws Exception { // tmp themeChooser 
+	public void testListWithOneToOneWithPrimaryKeyJoinColumn_themeChooser() throws Exception {  
 		assertValueInList(0, 0, "1"); 
 		assertValueInList(0, 1, "THE BIG DEAL");
 		assertValueInList(0, 2, "JUAN");
 		
-		// tmp ini
 		assertTrue(getHtml().contains("/xava/style/terra.css"));
 		assertFalse(getHtml().contains("/xava/style/blue.css"));
 		HtmlElement blueLink = getHtmlPage().getBody().getOneHtmlElementByAttribute("a","href", "?theme=blue.css");
@@ -30,7 +29,6 @@ public class DealTest extends ModuleTestBase {
 		resetModule();
 		assertFalse(getHtml().contains("/xava/style/terra.css"));
 		assertTrue(getHtml().contains("/xava/style/blue.css"));		
-		// tmp fin
 	}
 	
 	public void testIdInsideASection() throws Exception {

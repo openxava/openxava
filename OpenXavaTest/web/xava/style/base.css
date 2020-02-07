@@ -349,6 +349,15 @@ input[type="checkbox"] {
 	color: var(--xava-processing-layer-color);
 }
 
+#theme_chooser {
+	margin-top: 40px;
+	text-align: center;
+}
+
+#sign_in_box #theme_chooser {
+	display: none;
+}
+
 .xava_placeholder {
 	background: var(--xava-placeholder-background); 
 }
@@ -2436,9 +2445,3 @@ div[id$="_Index__view"] .ox-list-title {
 	max-height: 30px;
 }
 
-/* tmp ini */
-#theme_chooser {
-	margin-top: 40px;
-	text-align: center;
-}
-/* tmp fin */

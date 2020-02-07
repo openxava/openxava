@@ -5,16 +5,19 @@ import java.util.prefs.*;
 
 import javax.servlet.http.*;
 
+import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;
 import org.openxava.util.*;
 
 /**
- * tmp 
- * 
+ *  
+ * @since 6.3
  * @author Javier Paniza
  */
 
 public class Themes {
+	
+	private static Log log = LogFactory.getLog(Themes.class); 
 	
 	public static boolean isChooserEnabled() {
 		return !Is.emptyString(XavaPreferences.getInstance().getThemes());
@@ -22,7 +25,6 @@ public class Themes {
 	
 	public static String getCSS(HttpServletRequest request) { 
 		if (!isChooserEnabled()) {
-			System.out.println("[Themes.getCSS] Chooser not enabled"); // tmp
 			return XavaPreferences.getInstance().getStyleCSS(); 
 		}
 		String newTheme = request.getParameter("theme");
@@ -35,8 +37,8 @@ public class Themes {
 			}		
 			return getPreferences().get("theme", XavaPreferences.getInstance().getStyleCSS());
 		} 
-		catch (Exception e) {
-			e.printStackTrace(); // tmp log
+		catch (Exception ex) {
+			log.warn(XavaResources.getString("user_theme_error_using_default"), ex);
 			return XavaPreferences.getInstance().getStyleCSS();
 		}
 	}

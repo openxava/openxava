@@ -6,7 +6,7 @@
 <%@page import="org.openxava.util.Locales"%>
 <%@page import="org.openxava.util.XavaPreferences"%>
 <%@page import="org.openxava.web.style.XavaStyle"%>
-<%@page import="org.openxava.web.style.Themes"%> <%-- tmp --%>
+<%@page import="org.openxava.web.style.Themes"%> 
 <%@page import="com.openxava.naviox.util.Organizations"%>
 <%@page import="org.openxava.util.Users"%>
 <%@page import="com.openxava.naviox.util.NaviOXPreferences"%>
@@ -38,12 +38,7 @@ manager.setModuleName(module); // In order to show the correct description in he
 <head>
 	<title><%=title%></title>
 	<link href="<%=request.getContextPath()%>/xava/style/layout.css?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
-	<%-- tmp
-    <link href="<%=request.getContextPath()%>/xava/style/<%=XavaPreferences.getInstance().getStyleCSS()%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
-    --%>
-    <%-- tmp ini --%>
-    <link href="<%=request.getContextPath()%>/xava/style/<%=Themes.getCSS(request)%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
-    <%-- tmp fin --%> 
+    <link href="<%=request.getContextPath()%>/xava/style/<%=Themes.getCSS(request)%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css"> 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/xava/style/materialdesignicons.css?ox=<%=oxVersion%>">
 	<script type='text/javascript' src='<%=request.getContextPath()%>/xava/js/dwr-engine.js?ox=<%=oxVersion%>'></script>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Modules.js?ox=<%=oxVersion%>'></script>
@@ -101,7 +96,7 @@ manager.setModuleName(module); // In order to show the correct description in he
 		</div>
 		
 	</div> 
-		
+	
 	<%@include file="indexExt.jsp"%>
 
 	<script type='text/javascript' src='<%=request.getContextPath()%>/naviox/js/naviox.js?ox=<%=oxVersion%>'></script> 
