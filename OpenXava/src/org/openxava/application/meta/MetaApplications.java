@@ -45,10 +45,19 @@ public class MetaApplications {
 	 */
 	public static MetaApplication getMainMetaApplication() { 
 		if (mainMetaApplication == null) {
-			mainMetaApplication = MetaApplications.getMetaApplications().iterator().next();
+			mainMetaApplication = getMetaApplications().iterator().next(); 
 		}
 		return mainMetaApplication;
 	}
+	
+	/**
+	 * @since 6.3
+	 */	
+	public static void setMainApplicationName(String applicationName) { 
+		if (metaAplicacions == null) configure();
+		mainMetaApplication = metaAplicacions.get(applicationName);
+	}
+
 	
 	private static void configure() throws XavaException {
 		metaAplicacions = new HashMap();

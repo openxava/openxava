@@ -20,7 +20,19 @@ import com.openxava.naviox.util.*;
 public class NaviOXFilter implements Filter {
 	
 	public void init(FilterConfig cfg) throws ServletException {
-		String applicationName = MetaApplications.getMainMetaApplication().getName(); 
+		String contextPath = cfg.getServletContext().getContextPath();
+		String applicationName = null;
+		if (Is.emptyString(contextPath)) {
+			if (MetaApplications.getMetaApplications().size() > 1) {
+				throw new XavaException("root_context_only_one_app"); 
+			}
+			applicationName = MetaApplications.getMainMetaApplication().getName(); 
+		}
+		else {
+			applicationName = contextPath.substring(1);
+			MetaApplications.setMainApplicationName(applicationName);
+		}
+		
 		Modules.init(applicationName); 
 	}
 
@@ -56,7 +68,7 @@ public class NaviOXFilter implements Filter {
 				chain.doFilter(secureRequest, response);
 			}
 			else {
-				char base = secureRequest.getRequestURI().split("/")[1].charAt(0)=='p'?'p':'m'; 
+				char base = secureRequest.getRequestURI().split("/")[Is.emptyString(request.getServletContext().getContextPath())?1:2].charAt(0)=='p'?'p':'m';
 				String originalURI = secureRequest.getRequestURI();
 				String organization = Organizations.getCurrent(request);
 				if (organization != null) originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");

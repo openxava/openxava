@@ -179,5 +179,5 @@ public class NaviOXPreferences {
 	public String getEmailValidatorForSignUpClass() { 
 		return getProperties().getProperty("emailValidatorForSignUpClass", EmailValidator.class.getName()).trim();
 	}
-
+		
 }
