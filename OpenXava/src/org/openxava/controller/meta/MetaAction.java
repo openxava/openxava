@@ -244,6 +244,10 @@ public class MetaAction extends MetaControllerElement implements Cloneable {
 		return getConfirmMessage(Locale.getDefault());
 	}
 	
+	public boolean isLosesChangedData() { // tmp
+		return Is.anyEqual(getName(), "new", "list", "first", "previous", "next"); // tmp ¿Mover a una propiedad o dejarlo a piñon fijo?
+	}
+	
 	/** @param argv  Since 4m5 */
 	public String getConfirmMessage(Locale locale, String... argv) {
 		if (!isConfirm()) return "";

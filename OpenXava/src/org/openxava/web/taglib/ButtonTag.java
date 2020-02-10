@@ -60,6 +60,10 @@ public class ButtonTag extends ActionTagBase {
 			pageContext.getOut().print('"');
 			pageContext.getOut().print(", ");
 			pageContext.getOut().print(metaAction.isTakesLong());
+			// tmp ini
+			pageContext.getOut().print(", ");			
+			pageContext.getOut().print(metaAction.isLosesChangedData());			
+			// tmp fin			
 			pageContext.getOut().print(", \"");
 			pageContext.getOut().print(getAction());
 			pageContext.getOut().print('"');

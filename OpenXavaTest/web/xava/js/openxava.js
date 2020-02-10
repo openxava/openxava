@@ -191,7 +191,7 @@ openxava.refreshPage = function(result) {
 	}
 	document.body.style.cursor='auto';
 	if (openxava.postRefreshPage != null) openxava.postRefreshPage(); 
-	openxava.setUrlParam(result.urlParam); 
+	openxava.setUrlParam(result.urlParam);
 }
 
 openxava.initUI = function(application, module, currentRow, viewSimple) { 
@@ -206,6 +206,25 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initViewSimple(application, module, viewSimple);
 	openxava.initTooltips();
 	openxava.initPlaceholder();
+	openxava.listenChanges(); // tmp
+}
+
+
+openxava.listenChanges = function() { // tmp
+	/* TMP ME QUEDÉ POR AQUÍ: FUNCIONA PARA CASOS SIMPLES, PERO
+	 * 	- SI SE EJECUTA CUALQUIER ACCION DE LA VISTA YA NO VA.
+	 *  - SI CAMBIAR UNA REFERENCIA CON EL DIÁLOGO NO RECONOCE EL CAMBIO
+	 */
+	openxava.dataChanged = false;
+	window.onbeforeunload = null;
+	$(".editor").change(function() {
+		  openxava.dataChanged = true;
+		  console.log("[openxava.listenChanges] 10a"); // tmp 
+		  window.onbeforeunload = function(e) {
+			  return 'Texto de aviso'; // tmp i18n Funciona sólo en IE, comprobar
+		  };
+		  console.log("[openxava.listenChanges] 20a"); // tmp
+	});
 }
 
 openxava.stylizeEditorsWithError = function(application, module, editorsWithError, editorsWithoutError) { 
@@ -693,8 +712,12 @@ openxava.setPageRowCount = function(application, module, collection, select) {
 	openxava.executeAction(application, module, '', false, "List.setPageRowCount", "rowCount=" + select.value + ",collection=" + collection)
 }
 
-openxava.executeAction = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) { 
+// tmp openxava.executeAction = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) { 
+openxava.executeAction = function(application, module, confirmMessage, takesLong, losesChangedData, action, argv, range, alreadyProcessed, inNewWindow) { // tmp
 	if (confirmMessage != "" && !confirm(confirmMessage)) return;
+	// tmp ini
+	if (losesChangedData && openxava.dataChanged && !confirm("Si sales perderás los cambios")) return;
+	// tmp fin
 	if (takesLong) { 
 		$('#xava_processing_layer').fadeIn(); 
 	}
