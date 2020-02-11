@@ -2,7 +2,9 @@ package org.openxava.test.tests;
 
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
+import org.openxava.test.tests.BuildingTest.*;
 
+import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 
 /**
@@ -11,6 +13,32 @@ import com.gargoylesoftware.htmlunit.html.*;
  */
 
 public class CustomerWithSectionTest extends CustomerTest { 
+	
+	private class MessageConfirmHandler implements ConfirmHandler { // tmp Copiado de BuildingTest ¿Unificar? 
+
+		private String message;
+		
+		public boolean handleConfirm(Page page, String message) {
+			this.message = message; 
+			return true;
+		}
+		
+		public String getMessage() {
+			return message;
+		}
+				
+		public void assertNoMessage() {
+			assertEquals(null, message);
+			message = null;
+		}
+		
+		public void assertMessage() {
+			assertEquals("You will lose all changes made since your last save. Do you want to continue?", message);
+			message = null;
+		}
+
+	}
+
 
 	private String [] listActions = {
 		"Print.generatePdf",
@@ -726,5 +754,59 @@ public class CustomerWithSectionTest extends CustomerTest {
 			fail("It is required at least one Customer of 'Special' type for run this test");
 		}
 	}
+	
+	public void testLeaveEntityWithoutSaving() throws Exception { // tmp
+		MessageConfirmHandler confirmHandler = new MessageConfirmHandler();
+		getWebClient().setConfirmHandler(confirmHandler);
+		confirmHandler.assertNoMessage();
 		
+		// No changes
+		execute("List.viewDetail", "row=0");
+		assertValue("name", "Javi");
+		confirmHandler.assertNoMessage();
+		execute("CRUD.new");
+		assertValue("name", "");
+		confirmHandler.assertNoMessage();
+		
+		// Property with event
+		execute("Navigation.first");
+		assertValue("name", "Javi");
+		confirmHandler.assertNoMessage();		
+		setValue("name", "Javix");
+		confirmHandler.assertNoMessage();
+		execute("CRUD.new");
+		confirmHandler.assertMessage();
+		assertValue("name", "");
+
+		// Property without event
+		execute("Navigation.first");
+		assertValue("name", "Javi");
+		confirmHandler.assertNoMessage();
+		setValue("email", "jose@mycompany.com");
+		getHtmlPage().executeJavaScript("$('#ox_OpenXavaTest_CustomerWithSection__name').change();");
+		confirmHandler.assertNoMessage();
+		execute("CRUD.new");
+		confirmHandler.assertMessage();
+		assertValue("name", "");
+		
+		// Reference
+		execute("Navigation.first");
+		assertValue("name", "Javi");
+		confirmHandler.assertNoMessage();
+		execute("Reference.search", "keyProperty=alternateSeller.number");
+		confirmHandler.assertNoMessage();
+		execute("ReferenceSearch.choose", "row=0");
+		confirmHandler.assertNoMessage();
+		execute("CRUD.new");
+		confirmHandler.assertMessage();
+		assertValue("name", "");
+		
+		// DescriptionsList
+		// TMP ME QUEDÉ POR AQUÍ: TODAVÍA NO FUNCIONAN
+		
+		
+	}
+	
+	
+			
 }

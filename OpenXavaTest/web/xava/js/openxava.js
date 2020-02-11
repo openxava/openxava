@@ -14,7 +14,8 @@ openxava.init = function(application, module, initUI) {
 		}
 		$(openxava.staticInit);
 	}
-	openxava.initStrokeActions(application, module); 
+	openxava.initStrokeActions(application, module);
+	openxava.dataChanged = false; // tmp
 }
 
 openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) {
@@ -184,6 +185,8 @@ openxava.refreshPage = function(result) {
 	openxava.showMessages(result); 
 	openxava.resetRequesting(result);
 	openxava.propertiesUsedInCalculationsChange(result);
+	openxava.dataChanged = result.changed; // tmp
+	console.log("[openxava.refreshPage] openxava.dataChanged=" + openxava.dataChanged); // tmp
 	$('#xava_loading').hide();
 	$('#xava_loading2').hide();
 	if (result.postJS != null) {
@@ -211,11 +214,6 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 
 
 openxava.listenChanges = function() { // tmp
-	/* TMP ME QUEDÉ POR AQUÍ: FUNCIONA PARA CASOS SIMPLES, PERO
-	 * 	- SI SE EJECUTA CUALQUIER ACCION DE LA VISTA YA NO VA.
-	 *  - SI CAMBIAR UNA REFERENCIA CON EL DIÁLOGO NO RECONOCE EL CAMBIO
-	 */
-	openxava.dataChanged = false;
 	window.onbeforeunload = null;
 	$(".editor").change(function() {
 		  openxava.dataChanged = true;
@@ -224,6 +222,7 @@ openxava.listenChanges = function() { // tmp
 			  return 'Texto de aviso'; // tmp i18n Funciona sólo en IE, comprobar
 		  };
 		  console.log("[openxava.listenChanges] 20a"); // tmp
+		  console.log("[openxava.listenChanges] openxava.dataChanged=" + openxava.dataChanged); // tmp
 	});
 }
 
@@ -716,7 +715,12 @@ openxava.setPageRowCount = function(application, module, collection, select) {
 openxava.executeAction = function(application, module, confirmMessage, takesLong, losesChangedData, action, argv, range, alreadyProcessed, inNewWindow) { // tmp
 	if (confirmMessage != "" && !confirm(confirmMessage)) return;
 	// tmp ini
-	if (losesChangedData && openxava.dataChanged && !confirm("Si sales perderás los cambios")) return;
+	console.log("[openxava.executeAction] action=" + action + ", argv=" + argv); // tmp
+	console.log("[openxava.executeAction] openxava.dataChanged=" + openxava.dataChanged); // tmp
+	if (losesChangedData && openxava.dataChanged) {
+		if (!confirm("You will lose all changes made since your last save. Do you want to continue?")) return;
+		openxava.dataChanged = false;
+	}
 	// tmp fin
 	if (takesLong) { 
 		$('#xava_processing_layer').fadeIn(); 

@@ -31,6 +31,7 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 			available=true; 
 			HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 			MetaAction metaAction = MetaControllers.getMetaAction(getAction());
+			System.out.println("[LinkTag.doStartTag] action=" + metaAction.getName()); // tmp
 			
 			String application = request.getParameter("application");
 			String module = request.getParameter("module");
