@@ -45,6 +45,7 @@ public class MetaAction extends MetaControllerElement implements Cloneable {
 	private boolean inEachRow; 
 	private boolean processSelectedItems;
 	private boolean availableOnNew; 
+	private boolean losesChangedData; // tmp Poner en referencia
 	
 	public MetaAction() {
 	}
@@ -244,9 +245,6 @@ public class MetaAction extends MetaControllerElement implements Cloneable {
 		return getConfirmMessage(Locale.getDefault());
 	}
 	
-	public boolean isLosesChangedData() { // tmp
-		return Is.anyEqual(getName(), "new", "list", "first", "previous", "next"); // tmp ¿Mover a una propiedad o dejarlo a piñon fijo?
-	}
 	
 	/** @param argv  Since 4m5 */
 	public String getConfirmMessage(Locale locale, String... argv) {
@@ -362,5 +360,17 @@ public class MetaAction extends MetaControllerElement implements Cloneable {
 	public void setAvailableOnNew(boolean availableOnNew) {
 		this.availableOnNew = availableOnNew;
 	}
+	
+	public boolean isLosesChangedData() { // tmp
+		// tmp return Is.anyEqual(getName(), "new", "list", "first", "previous", "next"); 
+		return losesChangedData;
+	}
+
+	public void setLosesChangedData(boolean losesChangedData) {
+		this.losesChangedData = losesChangedData;
+	}
+	
+	
+
 
 }

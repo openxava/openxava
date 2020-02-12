@@ -58,7 +58,8 @@ here that you want to override.
 			class="org.openxava.actions.NewAction"
 			image="new.gif"
 			icon="library-plus"
-			keystroke="Control N">
+			keystroke="Control N"
+			loses-changed-data="true">
 			<set property="restoreModel" value="true"/>			
 		</action>
 
@@ -283,7 +284,8 @@ here that you want to override.
 		<action name="list"
 			icon="chevron-left"
 			class="org.openxava.actions.GoListAction"
-			keystroke="F9"/>
+			keystroke="F9"
+			loses-changed-data="true"/>
 		<action name="detail"
 			hidden="true"
 			class="org.openxava.actions.GoDetailAction"/>
@@ -458,7 +460,8 @@ here that you want to override.
 			icon="skip-backward"
 			class="org.openxava.actions.ViewDetailAction"
 			by-default="never"			
-			keystroke="control alt HOME">
+			keystroke="control alt HOME"
+			loses-changed-data="true">
 			<set property="goFirst" value="true"/>
 		</action>
 												
@@ -467,7 +470,8 @@ here that you want to override.
 			icon="skip-previous"
 			class="org.openxava.actions.ViewDetailAction"
 			by-default="never"
-			keystroke="control alt LEFT">
+			keystroke="control alt LEFT"
+			loses-changed-data="true">
 			<set property="increment" value="-1"/>
 		</action>							
 		<action name="next" mode="detail"
@@ -475,7 +479,8 @@ here that you want to override.
 			icon="skip-next"
 			class="org.openxava.actions.ViewDetailAction"
 			by-default="never"
-			keystroke="control alt RIGHT">
+			keystroke="control alt RIGHT"
+			loses-changed-data="true">
 			<set property="increment" value="1"/>			
 		</action>									
 	</controller>

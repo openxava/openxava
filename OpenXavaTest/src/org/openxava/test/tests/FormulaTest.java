@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
+import org.openxava.test.tests.CustomerWithSectionTest.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 
@@ -19,6 +20,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Javier Paniza
  */
 public class FormulaTest extends ModuleTestBase {
+	
 	
 	public FormulaTest(String testName) {
 		super(testName, "Formula");		
@@ -256,5 +258,5 @@ public class FormulaTest extends ModuleTestBase {
 		execute("Sections.change", "activeSection=1");
 		assertValue("recipe", "L'Ajuntament");
 	}
-		
+			
 }

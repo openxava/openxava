@@ -190,7 +190,7 @@ public class View implements java.io.Serializable {
 	private Map<String, List<String>> totalProperties; 
 	private StringBuffer defaultSumProperties;
 	private int collectionSize = -1;
-	private boolean changed; // tmp ¿Este nombre?
+	private boolean dataChanged; // tmp 
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -626,7 +626,7 @@ public class View implements java.io.Serializable {
 		}	
 		setValues(values, true);
 		// tmp ini
-		getRoot().changed = !isFirstLevel(); 
+		getRoot().dataChanged = !isFirstLevel(); 
 		// tmp fin
 		if (modelChanged) refresh();
 	}
@@ -1293,7 +1293,7 @@ public class View implements java.io.Serializable {
 			String viewName = getViewName() == null?"":"'" + getViewName() + "'";
 			throw new XavaException("member_not_found_in_view", "'" + name + "'", viewName, "'" + getModelName() + "'");
 		}
-		getRoot().changed = true; // tmp
+		getRoot().dataChanged = true; // tmp
 		moveViewValuesToCollectionValues();
 	}	
 	
@@ -1367,8 +1367,8 @@ public class View implements java.io.Serializable {
 		return true;
 	}
 	
-	public boolean isChanged() { // tmp
-		return changed;
+	public boolean isDataChanged() { // tmp 
+		return dataChanged;
 	}
 	
 	private void growCollection(Collection collection, int newSize) { 
@@ -2382,7 +2382,7 @@ public class View implements java.io.Serializable {
 		clear();
 		resetCollections(true); 
 		calculateDefaultValues(true);
-		getRoot().changed = false; // tmp
+		getRoot().dataChanged = false; // tmp
 	}
 	
 	/**

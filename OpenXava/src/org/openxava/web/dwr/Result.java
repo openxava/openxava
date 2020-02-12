@@ -37,7 +37,7 @@ public class Result {
 	private String postJS;
 	private String [] editorsWithError; 
 	private String [] editorsWithoutError; 
-	private boolean changed; // tmp ¿Este nombre?
+	private boolean dataChanged; // tmp 
 	
 	public Result() {
 	}
@@ -246,12 +246,12 @@ public class Result {
 		this.editorsWithoutError = editorsWithoutError;
 	}
 
-	public boolean isChanged() {
-		return changed;
+	public boolean isDataChanged() {
+		return dataChanged;
 	}
 
-	public void setChanged(boolean changed) {
-		this.changed = changed;
+	public void setDataChanged(boolean changed) {
+		this.dataChanged = changed;
 	}
 	
 }

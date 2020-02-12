@@ -185,8 +185,7 @@ openxava.refreshPage = function(result) {
 	openxava.showMessages(result); 
 	openxava.resetRequesting(result);
 	openxava.propertiesUsedInCalculationsChange(result);
-	openxava.dataChanged = result.changed; // tmp
-	console.log("[openxava.refreshPage] openxava.dataChanged=" + openxava.dataChanged); // tmp
+	openxava.dataChanged = result.dataChanged; // tmp
 	$('#xava_loading').hide();
 	$('#xava_loading2').hide();
 	if (result.postJS != null) {
@@ -215,10 +214,9 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 
 openxava.listenChanges = function() { // tmp
 	window.onbeforeunload = null;
-	$(".editor").change(function() {
-		  openxava.dataChanged = true;
-		  console.log("[openxava.listenChanges] 10a"); // tmp 
-		  window.onbeforeunload = function(e) {
+	$(".editor").change(function() { // TMP ME QUEDÉ POR AQUÍ. NO DEJAR .editor PORQUE DEPENDE ESTILO. PUEDO HACERLO COMO EN initPlaceholder
+		  openxava.dataChanged = true; 
+		  window.onbeforeunload = function(e) { // TMP ¿Incluir esto? 
 			  return 'Texto de aviso'; // tmp i18n Funciona sólo en IE, comprobar
 		  };
 		  console.log("[openxava.listenChanges] 20a"); // tmp

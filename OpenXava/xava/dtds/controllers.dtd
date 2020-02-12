@@ -41,6 +41,7 @@
  in-each-row (true|false) "false"
  process-selected-items (true|false) "false"
  available-on-new (true|false) "true"
+ loses-changed-data (true|false) "false"
 >
 
 <!ELEMENT use-object EMPTY>

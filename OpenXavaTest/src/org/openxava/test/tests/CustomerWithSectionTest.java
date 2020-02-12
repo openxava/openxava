@@ -14,13 +14,22 @@ import com.gargoylesoftware.htmlunit.html.*;
 
 public class CustomerWithSectionTest extends CustomerTest { 
 	
-	private class MessageConfirmHandler implements ConfirmHandler { // tmp Copiado de BuildingTest ¿Unificar? 
-
+	private class MessageConfirmHandler implements ConfirmHandler { // tmp
+		
+		private boolean confirm = true;
+		
 		private String message;
+		
+		public MessageConfirmHandler() {			
+		}
+		
+		public MessageConfirmHandler(boolean confirm) {
+			this.confirm = confirm;
+		}
 		
 		public boolean handleConfirm(Page page, String message) {
 			this.message = message; 
-			return true;
+			return confirm;
 		}
 		
 		public String getMessage() {
@@ -802,9 +811,46 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValue("name", "");
 		
 		// DescriptionsList
-		// TMP ME QUEDÉ POR AQUÍ: TODAVÍA NO FUNCIONAN
+		execute("Navigation.first");
+		assertValue("name", "Javi");
+		confirmHandler.assertNoMessage();
+		setValue("address.state.id", "CA");
+		getHtmlPage().executeJavaScript("$('#ox_OpenXavaTest_CustomerWithSection__reference_editor_address___state .ox-descriptions-list').change();");
+		confirmHandler.assertNoMessage();
+		execute("CRUD.new");
+		confirmHandler.assertMessage();
+		assertValue("name", "");
 		
+		// Saving
+		execute("Navigation.first");
+		assertValue("name", "Javi");
+		confirmHandler.assertNoMessage();		
+		setValue("name", "Javix");
+		confirmHandler.assertNoMessage();
+		execute("Customer.save");
+		confirmHandler.assertNoMessage();
+		assertValue("name", "Javix"); // This save version does not clear the view
+		execute("CRUD.new");
+		confirmHandler.assertNoMessage();
+		assertValue("name", "");
 		
+		// Canceling
+		MessageConfirmHandler cancelHandler = new MessageConfirmHandler(false);
+		getWebClient().setConfirmHandler(cancelHandler);
+		execute("Navigation.first");
+		assertValue("name", "Javix");
+		cancelHandler.assertNoMessage();		
+		setValue("name", "Javi");
+		cancelHandler.assertNoMessage();
+		execute("CRUD.new");
+		cancelHandler.assertMessage();
+		assertValue("name", "Javi");
+		execute("Customer.save");
+		assertValue("name", "Javi");
+		cancelHandler.assertNoMessage();
+		execute("CRUD.new");
+		cancelHandler.assertNoMessage();
+		assertValue("name", "");
 	}
 	
 	
