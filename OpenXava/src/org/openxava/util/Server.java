@@ -2,11 +2,6 @@ package org.openxava.util;
 
 import java.rmi.*;
 import java.util.*;
-
-import javax.rmi.*;
-
-
-
 import org.apache.commons.logging.*;
 import org.openxava.actions.*;
 import org.openxava.calculators.*;
@@ -18,7 +13,7 @@ import org.openxava.util.impl.*;
 /**
  * Executes code in server. <p>
  * 
- * Connects to EJB server en execute the code using
+ * Connects to EJB server and executes the code using
  * a SessionBean.
  * 
  * @author Javier Paniza

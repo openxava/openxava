@@ -4,7 +4,6 @@ import java.util.*;
 
 import org.apache.commons.logging.*;
 import org.hibernate.*;
-import org.hibernate.event.*;
 import org.hibernate.event.spi.*;
 import org.openxava.calculators.*;
 import org.openxava.model.*;
