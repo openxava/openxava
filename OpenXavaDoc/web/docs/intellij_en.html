@@ -80,10 +80,62 @@
       project has been created. It should look like this:</div>
     <img src="files/intellij-plain-java-project.png" alt="">
     <div class="wiki" style="display: block;">
-      <h3><a name="extending-existing-style">Import OpenXava and Addons</a></h3>
-      <p>You have to import OpenXava and Addons as modules in your project. For
-        that, choos </p>
+      <h3><a name="extending-existing-style">Import OpenXava as a module </a></h3>
+      <p>For that, choose <i>File &gt; New &gt; Module From Existing Sources...</i>:
+      </p>
+      <img src="files/intellj-new-module-from-existing.png" alt="">
+      <p>Now select the OpenXava project inside the workspace folder of your
+        OpenXava distribution:</p>
+      <img src="files/intellij-import-openxava-module.png" alt="">
+      <p>Note, we choose OpenXava inside workspace-6.3/workspace. Click on OK.</p>
+      <p>In the next dialog select Import module from external model &gt;
+        Eclipse:</p>
+      <img src="files/intellij-import-module-select-eclipse.png" alt="">
+      <p>And click on Next. This takes you to the next dialog:</p>
+      <img src="files/intellij-import-module-select-eclipse-directory.png" alt="">
+      <p>Where you have to click on Next without touching anything. </p>
+      <p>In the next step unselect OpenXavaTemplate and OpenXavaPlantilla,
+        leaving only OpenXava, thus:</p>
+      <img src="files/intellij-import-module-openxava-unselect-templates.png" alt="">
+      <p>Click on Next.In the next dialog about code style:</p>
+      <img src="files/intellij-import-module-code-style.png" alt="">
+      <p>Just click on Finish.</p>
+      <h3><a name="extending-existing-style">Import Addons as module </a></h3>
+      <p>For that, choose <i>File &gt; New &gt; Module From Existing Sources...</i>:
+      </p>
+      <img src="files/intellj-new-module-from-existing.png" alt="">
+      <p>Now select the Addons project inside the workspace folder of your
+        OpenXava distribution:</p>
+      <img src="files/intellij-import-addons-module.png" alt="">
+      <p>As you already have figure out this is the same procedure we have used
+        to import OpenXava, so yes click on OK, then Next, Next, Next and
+        Finish, accepting all default values. </p>
+      <p>Finally, you have your project with three modules, Addons, OpenXava and
+        Payroll:</p>
+      <img src="files/intellij-project-with-all-modules.png" alt="">
+      <h3><a name="extending-existing-style">Remove Payroll module </a></h3>
+      <p>Don't worry, we'all add it again in a few steps. Click with mouse right
+        button on Payroll module, and the select Remove Module:</p>
+      <img src="files/intellij-remove-module.png" alt="">
+      <p>IntelliJ will ask you for confirmation:</p>
+      <img src="files/intellij-remove-module-confirm.png" alt="">
+      <p>Click on Remove, with no fear.</p>
+      <h3><a name="extending-existing-style">Create OpenXava project</a></h3>
+      <p>Look for CreateNewProject.xml on the root of OpenXava module, and click
+        on it with the mouse right button. Select the option Add as Ant Build
+        File:</p>
+      <p></p>
+      <img src="files/intellij-add-as-ant-build-file.png" alt="">
+      <p>It shows an Ant view on the left. There choose CreateNewProject and
+        click on the Run button (the button with the play green icon).</p>
+      <img src="files/intellij-run-ant-create-new-project.png" alt="">
+      <p></p>
+      <p>It ask you for the project name, type Payroll, and click on OK.</p>
+      <img src="files/intellij-openxava-project-name-ant.png" alt="">
+      <p>And wait until the message "Ant Build Progress" on bottom disappears:</p>
+      <img src="files/intellij-ant-build-progress.png" alt="">
       <p>fff</p>
+      <p></p>
     </div>
   </body>
 </html>
