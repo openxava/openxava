@@ -322,12 +322,14 @@ if (manager.isResetFormPostNeeded()) {
 		openxava.browser.ff = <%=Browsers.isFF(request)%>;
 		openxava.showFiltersMessage = '<xava:message key="show_filters"/>';
 		openxava.hideFiltersMessage = '<xava:message key="hide_filters"/>';
+		openxava.confirmLoseChangesMessage = '<xava:message key="confirm_lose_changes"/>'; <%-- tmp --%> 
 		openxava.selectedRowClass = '<%=style.getSelectedRow()%>';
 		openxava.currentRowClass = '<%=style.getCurrentRow()%>';
 		openxava.currentRowCellClass = '<%=style.getCurrentRowCell()%>';
 		openxava.selectedListFormatClass = '<%=style.getSelectedListFormat()%>'; 
 		openxava.customizeControlsClass = '<%=style.getCustomizeControls()%>';
 		openxava.errorEditorClass = '<%=style.getErrorEditor()%>';
+		openxava.editorClass = '<%=style.getEditor()%>'; <%-- tmp --%>
 		openxava.listAdjustment = <%=style.getListAdjustment()%>;
 		openxava.collectionAdjustment = <%=style.getCollectionAdjustment()%>;
 		openxava.closeDialogOnEscape = <%=browser != null && browser.indexOf("Firefox") >= 0 ? "false":"true"%>;		  

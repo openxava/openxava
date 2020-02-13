@@ -40,7 +40,19 @@ openxava.addEditorInitFunction(function() {
 				$('.ox-button-bar-button').fadeOut(); 
 			});
 		}
-	 });
+	});
+	
+	// tmp ini
+	// tmp Poner mensaje con tests
+	$('.ox-ckeditor, .ox-simple-ckeditor').each( function () {		 
+		var editor = CKEDITOR.instances[this.id];		
+		if (editor !== undefined) {
+		 	editor.on( 'change', function( e ) {
+		 		openxava.dataChanged = true;
+			});
+		}
+	});
+	// tmp fin
 
 });
 

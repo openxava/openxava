@@ -213,14 +213,8 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 
 
 openxava.listenChanges = function() { // tmp
-	window.onbeforeunload = null;
-	$(".editor").change(function() { // TMP ME QUEDÉ POR AQUÍ. NO DEJAR .editor PORQUE DEPENDE ESTILO. PUEDO HACERLO COMO EN initPlaceholder
-		  openxava.dataChanged = true; 
-		  window.onbeforeunload = function(e) { // TMP ¿Incluir esto? 
-			  return 'Texto de aviso'; // tmp i18n Funciona sólo en IE, comprobar
-		  };
-		  console.log("[openxava.listenChanges] 20a"); // tmp
-		  console.log("[openxava.listenChanges] openxava.dataChanged=" + openxava.dataChanged); // tmp
+	$("." + openxava.editorClass).change(function() { 
+		  openxava.dataChanged = true;
 	});
 }
 
@@ -713,10 +707,8 @@ openxava.setPageRowCount = function(application, module, collection, select) {
 openxava.executeAction = function(application, module, confirmMessage, takesLong, losesChangedData, action, argv, range, alreadyProcessed, inNewWindow) { // tmp
 	if (confirmMessage != "" && !confirm(confirmMessage)) return;
 	// tmp ini
-	console.log("[openxava.executeAction] action=" + action + ", argv=" + argv); // tmp
-	console.log("[openxava.executeAction] openxava.dataChanged=" + openxava.dataChanged); // tmp
 	if (losesChangedData && openxava.dataChanged) {
-		if (!confirm("You will lose all changes made since your last save. Do you want to continue?")) return;
+		if (!confirm(openxava.confirmLoseChangesMessage)) return;
 		openxava.dataChanged = false;
 	}
 	// tmp fin

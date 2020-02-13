@@ -42,6 +42,7 @@
  en-cada-fila (true|false) "false"
  procesar-elementos-seleccionados (true|false) "false"
  disponible-en-nuevo (true|false) "true"
+ pierde-datos-cambiados (true|false) "false"
 >
 
 <!ELEMENT usa-objeto EMPTY>

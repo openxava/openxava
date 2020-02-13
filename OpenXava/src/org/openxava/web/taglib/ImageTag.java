@@ -30,7 +30,6 @@ public class ImageTag extends ActionTagBase {
 			}
 			HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 			MetaAction metaAction = MetaControllers.getMetaAction(getAction());
-			System.out.println("[ImageTag.doStartTag] action=" + metaAction.getName()); // tmp
 			String application = request.getParameter("application");
 			String module = request.getParameter("module");
 			if (!isActionAvailable(metaAction, application, module, request)) {

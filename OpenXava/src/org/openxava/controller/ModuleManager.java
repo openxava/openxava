@@ -428,6 +428,8 @@ public class ModuleManager implements java.io.Serializable {
 						alreadyProcessed = "";
 
 					// range
+					System.out.println("[ModuleManager.execute] KK range=" + range); // tmp ME QUEDÉ POR AQUÍ: COMPROBAR SI ESTO SALE EN openxava-6.2.2, MODIFICAR INSTRUCCIONES MIGRACIÓN
+																						// TMP YA ESTÁ LISTA PARA LA SUITE. PROBAR CustomerWithSectonTest PRIMERO
 					int first = Is.empty(range) ? 0 : Integer.parseInt(range
 							.substring(0, range.indexOf("_")));
 					int last = Is.empty(range) ? 0 : Integer.parseInt(range
