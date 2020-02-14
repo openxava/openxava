@@ -46,7 +46,8 @@ public class ButtonTag extends ActionTagBase {
 			pageContext.getOut().print(" class='");
 			Style style = (Style) request.getAttribute("style");
 			pageContext.getOut().print(style.getButton());
-			pageContext.getOut().print("'\tonclick='openxava.executeAction(");			
+			if (metaAction.isLosesChangedData()) pageContext.getOut().print("'\tonclick='openxava.executeActionConfirmLosesChangedData(");
+			else pageContext.getOut().print("'\tonclick='openxava.executeAction(");
 			pageContext.getOut().print('"');				
 			pageContext.getOut().print(application);
 			pageContext.getOut().print('"');
@@ -60,10 +61,6 @@ public class ButtonTag extends ActionTagBase {
 			pageContext.getOut().print('"');
 			pageContext.getOut().print(", ");
 			pageContext.getOut().print(metaAction.isTakesLong());
-			// tmp ini
-			pageContext.getOut().print(", ");			
-			pageContext.getOut().print(metaAction.isLosesChangedData());			
-			// tmp fin			
 			pageContext.getOut().print(", \"");
 			pageContext.getOut().print(getAction());
 			pageContext.getOut().print('"');

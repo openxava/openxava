@@ -217,6 +217,6 @@ public class XmlElementsNames {
 	protected final static String [] xcalculation = { "calculation", "calculo" };
 	protected final static String [] xavailable_on_new = { "available-on-new", "disponible-en-nuevo" };
 	protected final static String [] xexcluded_actions = { "excluded-actions", "acciones-excluidas" };
-	protected final static String [] xloses_changed_data = { "loses-changed-data", "pierde-datos-cambiados" }; // tmp
+	protected final static String [] xloses_changed_data = { "loses-changed-data", "pierde-datos-cambiados" }; 
 	
 }

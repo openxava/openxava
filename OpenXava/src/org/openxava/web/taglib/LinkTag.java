@@ -63,7 +63,8 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 			pageContext.getOut().print(" title='");
 			pageContext.getOut().print(getTooltip(metaAction)); 
 			pageContext.getOut().print("'");			
-			pageContext.getOut().print(" href=\"javascript:openxava.executeAction(");
+			if (metaAction.isLosesChangedData()) pageContext.getOut().print(" href=\"javascript:openxava.executeActionConfirmLosesChangedData(");
+			else pageContext.getOut().print(" href=\"javascript:openxava.executeAction(");
 			pageContext.getOut().print("'");				
 			pageContext.getOut().print(request.getParameter("application"));
 			pageContext.getOut().print("', '");
@@ -74,10 +75,6 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 			pageContext.getOut().print("'");
 			pageContext.getOut().print(", ");			
 			pageContext.getOut().print(metaAction.isTakesLong());
-			// tmp ini
-			pageContext.getOut().print(", ");			
-			pageContext.getOut().print(metaAction.isLosesChangedData());			
-			// tmp fin
 			pageContext.getOut().print(", '");
 			pageContext.getOut().print(getAction());
 			pageContext.getOut().print("'");

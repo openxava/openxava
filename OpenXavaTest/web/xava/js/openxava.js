@@ -15,7 +15,7 @@ openxava.init = function(application, module, initUI) {
 		$(openxava.staticInit);
 	}
 	openxava.initStrokeActions(application, module);
-	openxava.dataChanged = false; // tmp
+	openxava.dataChanged = false; 
 }
 
 openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) {
@@ -185,7 +185,7 @@ openxava.refreshPage = function(result) {
 	openxava.showMessages(result); 
 	openxava.resetRequesting(result);
 	openxava.propertiesUsedInCalculationsChange(result);
-	openxava.dataChanged = result.dataChanged; // tmp
+	openxava.dataChanged = result.dataChanged; 
 	$('#xava_loading').hide();
 	$('#xava_loading2').hide();
 	if (result.postJS != null) {
@@ -208,11 +208,11 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initViewSimple(application, module, viewSimple);
 	openxava.initTooltips();
 	openxava.initPlaceholder();
-	openxava.listenChanges(); // tmp
+	openxava.listenChanges(); 
 }
 
 
-openxava.listenChanges = function() { // tmp
+openxava.listenChanges = function() { 
 	$("." + openxava.editorClass).change(function() { 
 		  openxava.dataChanged = true;
 	});
@@ -703,15 +703,16 @@ openxava.setPageRowCount = function(application, module, collection, select) {
 	openxava.executeAction(application, module, '', false, "List.setPageRowCount", "rowCount=" + select.value + ",collection=" + collection)
 }
 
-// tmp openxava.executeAction = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) { 
-openxava.executeAction = function(application, module, confirmMessage, takesLong, losesChangedData, action, argv, range, alreadyProcessed, inNewWindow) { // tmp
-	if (confirmMessage != "" && !confirm(confirmMessage)) return;
-	// tmp ini
-	if (losesChangedData && openxava.dataChanged) {
+openxava.executeActionConfirmLosesChangedData = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) { 
+	if (openxava.dataChanged) {
 		if (!confirm(openxava.confirmLoseChangesMessage)) return;
 		openxava.dataChanged = false;
 	}
-	// tmp fin
+	openxava.executeAction(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow);
+}
+
+openxava.executeAction = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) { 
+	if (confirmMessage != "" && !confirm(confirmMessage)) return;
 	if (takesLong) { 
 		$('#xava_processing_layer').fadeIn(); 
 	}

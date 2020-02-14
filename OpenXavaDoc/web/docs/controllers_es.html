@@ -395,12 +395,12 @@ class="re2">&gt;</span></span>
     ocultar-dialogo="true|false|defecto"                 <span class="sc-1">&lt;!-- 18  Solo en v4m1 --&gt;</span>
     en-cada-fila="true|false"                            <span class="sc-1">&lt;!-- 19  Nuevo en v4m4 --&gt;</span>
     procesar-elementos-seleccionados="true|false"        <span class="sc-1">&lt;!-- 20  Nuevo en v5.7 --&gt;</span>
-    disponible-en-nuevo="true|false"                     <span class="sc-1">&lt;!-- 21  Nuevo en v5.8 --&gt;</span>
-&gt;
+    disponible-en-nuevo="true|false"                     <span class="sc-1">&lt;!-- 21  Nuevo en v5.8 --&gt;<br></span>    pierde-datos-cambiados="true|false"                  <span
+class="sc-1">&lt;!-- 22  Nuevo en v6.3 --&gt;<br></span>&gt;
    <span class="sc3"><span class="re1">&lt;poner</span> ... <span class="re2">/&gt;</span></span> ...                                     <span
-class="sc-1">&lt;!-- 22 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;usa-objeto</span> ... <span class="re2">/&gt;</span></span> ...                                <span
 class="sc-1">&lt;!-- 23 --&gt;</span>
+   <span class="sc3"><span class="re1">&lt;usa-objeto</span> ... <span class="re2">/&gt;</span></span> ...                                <span
+class="sc-1">&lt;!-- 24 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/accion<span class="re2">&gt;</span></span></span></pre>
       <ol>
         <li><strong>nombre</strong> (obligado): Nombre identificativo de la
@@ -516,6 +516,12 @@ class="sc-1">&lt;!-- 23 --&gt;</span>
             v5.8)</em> Si <em>false</em> la acción no estará disponible
           mientras se crea una nueva entidad (cuando el usuario pulsa <em>Nuevo</em>).
           Por defecto vale <em>true</em>.</li>
+        <li><strong>pierde-datos-cambiados </strong>(opcional): <em>(Nuevo en
+            v6.3)</em> Si <em>true</em> significa que cuando se ejecute todos
+          los datos cambiados por el usuario en la vista desde la última
+          grabación se perderán. Esto puede ser usado por OpenXava para
+          preguntar por confirmación antes de ejecutar la acción. Por defecto
+          vale <em>false</em>.</li>
         <li><strong>poner</strong> (varios, opcional): Sirve para dar valor a
           las propiedades de la acción. De esta forma una misma acción
           configurada de forma diferente puede usarse en varios controladores.</li>

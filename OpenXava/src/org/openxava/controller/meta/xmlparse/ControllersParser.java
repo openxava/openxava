@@ -123,7 +123,7 @@ public class ControllersParser extends ParserBase {
 		result.setInEachRow(getAttributeBoolean(el, xin_each_row[lang]));
 		result.setProcessSelectedItems(getAttributeBoolean(el, xprocess_selected_items[lang]));
 		result.setAvailableOnNew(getAttributeBoolean(el, xavailable_on_new[lang], true));
-		result.setLosesChangedData(getAttributeBoolean(el, xloses_changed_data[lang], false)); // tmp
+		result.setLosesChangedData(getAttributeBoolean(el, xloses_changed_data[lang], false));
 		fillSet(el, result);		
 		fillUseObject(el, result);
 		return result;

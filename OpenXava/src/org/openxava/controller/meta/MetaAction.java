@@ -45,7 +45,7 @@ public class MetaAction extends MetaControllerElement implements Cloneable {
 	private boolean inEachRow; 
 	private boolean processSelectedItems;
 	private boolean availableOnNew; 
-	private boolean losesChangedData; // tmp Poner en referencia
+	private boolean losesChangedData; 
 	
 	public MetaAction() {
 	}
@@ -361,16 +361,14 @@ public class MetaAction extends MetaControllerElement implements Cloneable {
 		this.availableOnNew = availableOnNew;
 	}
 	
-	public boolean isLosesChangedData() { // tmp
-		// tmp return Is.anyEqual(getName(), "new", "list", "first", "previous", "next"); 
+	/** @since 6.3 */
+	public boolean isLosesChangedData() { 
 		return losesChangedData;
 	}
 
+	/** @since 6.3 */	
 	public void setLosesChangedData(boolean losesChangedData) {
 		this.losesChangedData = losesChangedData;
 	}
 	
-	
-
-
 }

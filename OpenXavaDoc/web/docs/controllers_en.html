@@ -392,12 +392,12 @@ class="re2">&gt;</span></span>
     hide-dialog="true|false|default"                     <span class="sc-1">&lt;!-- 18  Only in v4m1 --&gt;</span>
     in-each-row="true|false"                             <span class="sc-1">&lt;!-- 19  New in v4m4 --&gt;</span>
     process-selected-items="true|false"                  <span class="sc-1">&lt;!-- 20  New in v5.7 --&gt;</span>
-    available-on-new="true|false"                        <span class="sc-1">&lt;!-- 21  New in v5.8 --&gt;</span>
-&gt;
+    available-on-new="true|false"                        <span class="sc-1">&lt;!-- 21  New in v5.8 --&gt;</span><br>    loses-changed-data="true|false"                      <span
+class="sc-1">&lt;!-- 22  New in v6.3 --&gt;<br></span>&gt;
    <span class="sc3"><span class="re1">&lt;set</span> ... <span class="re2">/&gt;</span></span> ...                                       <span
-class="sc-1">&lt;!-- 22 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;use-object</span> ... <span class="re2">/&gt;</span></span> ...                                <span
 class="sc-1">&lt;!-- 23 --&gt;</span>
+   <span class="sc3"><span class="re1">&lt;use-object</span> ... <span class="re2">/&gt;</span></span> ...                                <span
+class="sc-1">&lt;!-- 24 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span></pre>
       <ol>
         <li><strong>name</strong> (required): Action name that must be unique
@@ -505,6 +505,11 @@ class="sc-1">&lt;!-- 23 --&gt;</span>
           If <em>false</em> this action is not available when the user is
           creating a new entity (when he clicks on <em>New</em>). The default
           is <em>true</em>.</li>
+        <li><strong>loses-changed-data </strong>(optional): <em>(New in v6.3)</em>
+          If <em>true</em> it means that when executed all the data changed by
+          the user in the view since the last saving will be lost. This can be
+          used by OpenXava in order to ask for confirmation before executing the
+          action The default is <em>false</em>.</li>
         <li><strong>set</strong> (several, optional): Sets a value of action
           properties. Thus the same action class can be configured in different
           ways and it can be used in several controllers.</li>

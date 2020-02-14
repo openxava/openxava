@@ -2,8 +2,6 @@ package org.openxava.test.tests;
 
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
-import org.openxava.test.tests.BuildingTest.*;
-
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 
@@ -14,7 +12,7 @@ import com.gargoylesoftware.htmlunit.html.*;
 
 public class CustomerWithSectionTest extends CustomerTest { 
 	
-	private class MessageConfirmHandler implements ConfirmHandler { // tmp
+	private class MessageConfirmHandler implements ConfirmHandler { 
 		
 		private boolean confirm = true;
 		
@@ -764,7 +762,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		}
 	}
 	
-	public void testLeaveEntityWithoutSaving() throws Exception { // tmp
+	public void testLeaveEntityWithoutSaving() throws Exception { 
 		MessageConfirmHandler confirmHandler = new MessageConfirmHandler();
 		getWebClient().setConfirmHandler(confirmHandler);
 		confirmHandler.assertNoMessage();
