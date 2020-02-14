@@ -134,7 +134,65 @@
       <img src="files/intellij-openxava-project-name-ant.png" alt="">
       <p>And wait until the message "Ant Build Progress" on bottom disappears:</p>
       <img src="files/intellij-ant-build-progress.png" alt="">
-      <p>fff</p>
+      <h3><a name="extending-existing-style">Import the just created OpenXava
+          project</a></h3>
+      <p>We are going to import the just created Payroll project as a module.
+        Choose <i>File &gt; New &gt; Module From Existing Sources...</i>: </p>
+      <img src="files/intellj-new-module-from-existing.png" alt="">
+      <p>Now select the Payroll project inside the workspace folder of your
+        OpenXava distribution:</p>
+      <p><img src="files/intellij-import-payroll-module.png.png"> </p>
+      <p>As you already have figure out this is the same procedure we have used
+        to import OpenXava and Addons, so yes click on OK, then Next, Next, Next
+        and Finish, accepting all default values. Before creating the modules
+        IntelliJ will ask you a last question:</p>
+      <img src="files/intellij-modules-files-found.png" alt="">
+      <p>Click on No. Finally, you have your project with three modules again,
+        Addons, OpenXava and Payroll:</p>
+      <img src="files/intellij-project-with-all-modules.png" alt="">
+      <h3><a name="extending-existing-style"></a></h3>
+      <h3><a name="extending-existing-style">Run your project</a></h3>
+      <p>Finally, the big moment. Open Payroll &gt; src &gt; _run, and there
+        click on _Run_Payroll with the mouse right button. Then choose Run
+        '_Run_Payroll.main()'.</p>
+      <img src="files/intellij-run-payroll.png" alt="">
+      <p>Be patient, the first time it has to build everything. Then you will
+        get in console:</p>
+      <img src="files/intellij-application-started.png" alt="">
+      <p>Click on the link http://localhost:8080/Payroll and try your
+        application. Congrutalutions! You're new OpenXava application is running
+        in IntellJ. Now you can modify your code, adding a new entity for
+        example, and restart your application to see the changes.</p>
+      <h2><a name="defining-your-own-style">Migrating your existing project from
+          Eclipse<br>
+        </a></h2>
+      <p>If you're already have your OpenXava project working in Eclipse and
+        want to migrate to IntelliJ follow the steps below.</p>
+      <h3><a name="extending-existing-style">Create a new IntelliJ project from
+          existing sources<br>
+        </a></h3>
+      <p>In IntelliJ choose File &gt; New &gt; Project from Existing Sources...:</p>
+      <img src="files/intellij-file-new-project-from-existing.png" alt="">
+      <p>Now select your project inside of your Eclipse workspace, for this
+        tutorial we're going to import InvoiceDemo, included by default with
+        OpenXava:</p>
+      <img src="files/intellij-import-project-invoice-demo.png" alt="">
+      <p>In the next dialog select Import project from external model &gt;
+        Eclipse, possibly the default option:</p>
+      <img src="files/intellij-import-project-select-eclipse.png.png" alt="">
+      <p>And click on Next. This takes you to the next dialog:</p>
+      <img src="files/intellij-import-project-select-eclipse-directory.png" alt="">
+      <p>Where you have to click on Next without touching anything. It takes you
+        to the next the dialog:</p>
+      <img src="files/intellij-import-invoice-demo-module.png" alt="">
+      <p>Click on Next.In the next dialog about code style:</p>
+      <img src="files/intellij-import-project-code-style.png" alt="">
+      <p>Click Next without touching anything. Now you have to choose the JDK:</p>
+      <img src="files/intellij-import-project-select-jdk.png" alt="">
+      <p>Accept the default values clicking on Finish.</p>
+      <p>TMP ME QUEDÉ POR AQUÍ: TENGO QUE VOLVER A HACERLO PORQUE ME FALTO
+        CAPTURAR UN DIÁLOGO DE ERROR</p>
+      <p></p>
       <p></p>
     </div>
   </body>
