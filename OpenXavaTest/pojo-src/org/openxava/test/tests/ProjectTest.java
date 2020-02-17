@@ -42,7 +42,7 @@ public class ProjectTest extends ModuleTestBase {
 		
 		assertCollectionRowCount("members", 0);	
 		execute("Collection.add", "viewObject=xava_view_members");
-		assertValueInList(4, 0, "ZOE");
+		assertValueInList(4, 0, "ZOE"); // TMP ME QUEDÉ POR AQUÍ: FALLABA. INTENTANDO QUE LOS ASSERTS FUNCIONEN CON LOS ICONOS
 		execute("AddToCollection.add", "row=4");
 		assertNoErrors();
 		assertCollectionRowCount("members", 1);

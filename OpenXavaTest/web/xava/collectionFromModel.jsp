@@ -124,7 +124,8 @@ for (int f=0; itAggregates.hasNext(); f++) {
 		String fvalue = null;
 		Object value = null;
 		String propertyName = p.getName();
-		value = Maps.getValueFromQualifiedName(row, propertyName);		
+		value = Maps.getValueFromQualifiedName(row, propertyName);
+		/* tmp		
 		if (p.hasValidValues()) {
 			if (value instanceof Number) {
 				fvalue = p.getValidValueLabel(request, ((Number) value).intValue());
@@ -135,8 +136,9 @@ for (int f=0; itAggregates.hasNext(); f++) {
 			}
 		}
 		else {
+		*/
 			fvalue = WebEditors.format(request, p, value, errors, view.getViewName(), true);	
-		}
+		// tmp }
 		Object title = WebEditors.formatTitle(request, p, value, errors, view.getViewName(), true); 
 %>
 	<td class="<%=cssCellClass%>" style="<%=cellStyle%>; padding-right: 0px">
