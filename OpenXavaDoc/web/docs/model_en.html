@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>openxava - model_en</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -29,6 +32,8 @@
         <div style="margin-left: 3em;"><a href="#Model-Properties-Concurrency%20and%20version%20property">Concurrency
             and version property</a></div>
         <div style="margin-left: 3em;"><a href="#Model-Properties-Enums">Enums</a></div>
+        <div style="margin-left: 3em;"><a href="#enums-with-icon">Enums with
+            icon (new in v6.3)</a></div>
         <div style="margin-left: 3em;"><a href="#Model-Properties-Calculated%20properties">Calculated
             properties</a></div>
         <div style="margin-left: 3em;"><a href="#Model-Properties-Formula%20%28new%20in%20v3.1.4%29">Formula
@@ -2927,7 +2932,33 @@ class="br0">}</span><span class="sy0">;</span>
       LOCAL, 1 for NATIONAL, 2 for INTERNATIONAL and null for no value), but
       another field type can easily be configured in order to work correctly
       with legacy databases. See more about this in the <a class="wiki_link" href="mapping_en">mapping
-        chapter</a>.<br>
+        chapter</a>..<br>
+      <h3 id="toc12"><a name="enums-with-icon"></a>Enums with icon <i>(new in
+          v6.3)</i></h3>
+      You can associate an icon to each enum option using <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/model/IIconEnum.html"><i>org.openxava.model.IIconEnum</i></a>:<span
+        class="sy0"></span>
+      <div class="wiki" id="content_view">
+        <pre><code class="java">public enum Priority implements IIconEnum { 
+<br>	LOW("transfer-down"), MEDIUM("square-medium"), HIGH("transfer-up");
+
+	private String icon;
+
+	private Priority(String icon) {
+		this.icon = icon;
+	}
+
+	public String getIcon() {
+		return icon;
+	} 
+		
+};
+private Priority priority;
+</code></pre>Just make your enum to implement <i>IIconEnum</i> that forces you
+        to have a <i>getIcon()</i> method. This method has to return an icon id
+        from <a href="https://materialdesignicons.com/">Material Design Icons</a>.
+        OpenXava can use these icons in several parts of the UI, for example in
+        list:</div>
+      <img src="files/model_en010.png" alt="">
       <h3 id="toc13"><a name="Model-Properties-Calculated properties"></a>Calculated
         properties</h3>
       The calculated properties are read only (only have <em>getter</em>) and

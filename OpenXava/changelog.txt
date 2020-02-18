@@ -3,7 +3,7 @@ Change Log for OpenXava project
 
 
 materialdesignicons-webfont.woff y materialdesgnicons.css hay que copiarlos de OpenXavaTest a OpenXava
-Actualizar lista de iconos
+
 
 
 - Asks for confirmation when leaving a record with changed data without saving first.
