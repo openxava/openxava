@@ -39,7 +39,12 @@ public class DeliveryTest extends ModuleTestBase {
 		"List.changeConfiguration",
 		"List.changeColumnName", 
 		"ListFormat.select",
-		"Delivery.addShortcutOptions" 
+		"Delivery.addShortcutOptions",
+		// tmp ini
+		"Delivery.clearShortcutOptions",
+		"Delivery.disableShortcutOptions",
+		"Delivery.removeBlankShortcutOption"
+		// tmp fin
 	};
 		
 	public DeliveryTest(String testName) {
@@ -664,7 +669,12 @@ public class DeliveryTest extends ModuleTestBase {
 			"Delivery.viewCurrentYearInvoices",
 			"Delivery.hideAdvice",
 			"Delivery.hideShortcut",
-			"Delivery.addShortcutOptions", 
+			"Delivery.addShortcutOptions",
+			// tmp ini
+			"Delivery.clearShortcutOptions",
+			"Delivery.disableShortcutOptions",
+			"Delivery.removeBlankShortcutOption",
+			// tmp fin			
 			"EditableOnOff.setOn",
 			"EditableOnOff.setOff",
 			"Remarks.hideRemarks",

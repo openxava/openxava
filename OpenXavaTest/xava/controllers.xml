@@ -354,6 +354,15 @@
 		</action>
 		<action name="addShortcutOptions"
 			class="org.openxava.test.actions.AddShortcutOptionsAction"/>
+		<!-- tmp ini -->	
+		<action name="clearShortcutOptions"
+			class="org.openxava.test.actions.ClearShortcutOptionsAction"/>
+		<action name="disableShortcutOptions"
+			class="org.openxava.test.actions.DisableShortcutOptionsAction"/>			
+		<action name="removeBlankShortcutOption"
+			class="org.openxava.test.actions.RemoveBlankShortcutOptionAction"/>			
+		<!-- tmp fin -->
+			
 	</controller>
 	
 	<controller name="DeliveryListFilteredProgramatically">
