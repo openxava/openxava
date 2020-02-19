@@ -3,7 +3,6 @@
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%  
-// tmp
 // Material Design Icons v4.9.95
 // To upgrade copy the icon list from preview.html of the newer icon distribution
 

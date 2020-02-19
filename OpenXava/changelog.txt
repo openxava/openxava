@@ -2,10 +2,9 @@ Change Log for OpenXava project
 ===============================
 
 
-materialdesignicons-webfont.woff y materialdesgnicons.css hay que copiarlos de OpenXavaTest a OpenXava
-
-
-
+- IIconEnum to associate an icon to each option of an enum.
+- Material Design Icons upgraded to 4.9.95. Now with 4996 icons available.
+- Fix: List formatters do not apply to enums in @OrderColumn lists, calculated and many to many collections.
 - Asks for confirmation when leaving a record with changed data without saving first.
 - New loses-changed-data option for <action/> in controllers.xml.
 - Theme chooser available for the user. 

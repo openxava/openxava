@@ -29,6 +29,8 @@
         <div style="margin-left: 3em;"><a href="#Modelo-Propiedades-Concurrencia+y+propiedad+version">Concurrencia
             y propiedad versión</a></div>
         <div style="margin-left: 3em;"><a href="#Modelo-Propiedades-Enums">Enums</a></div>
+        <div style="margin-left: 3em;"><a href="#enums-con-icono">Enums con
+            icono (nuevo en v6.3)</a></div>
         <div style="margin-left: 3em;"><a href="#Modelo-Propiedades-Propiedades%20calculadas">Propiedades
             calculadas</a></div>
         <div style="margin-left: 3em;"><a href="#Modelo-Propiedades-Formula%20%28nuevo%20en%20v3.1.4%29">Formula
@@ -2935,7 +2937,7 @@ class="br0">}</span><span class="sy0">;</span></pre>
       datos legadas. Ver más de esto último en el <a class="wiki_link" href="mapping_es">capítulo
         sobre mapeo</a>.</div>
     <div class="wiki" style="display: block;">
-      <h3 id="toc12"><a name="enums-with-icon"></a>Enums con icono <i>(nuevo en
+      <h3 id="toc12"><a name="enums-con-icono"></a>Enums con icono <i>(nuevo en
           v6.3)</i></h3>
       Puedes asociar un icono a cada opción de un <i>enum</i> usando <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/model/IIconEnum.html"><i>org.openxava.model.IIconEnum</i></a>:<span
         class="sy0"></span>
@@ -2955,8 +2957,8 @@ class="br0">}</span><span class="sy0">;</span></pre>
 		
 };
 private Prioridad prioridad;
-</code></pre>Siplemente haz que tu <i>enum</i> implemente <i>IIconEnum</i> que
-        fuerza a que tengas un método <i>getIcon()</i>. Este método ha de
+</code></pre>Simplemente haz que tu <i>enum</i> implemente <i>IIconEnum</i>
+        que fuerza a que tengas un método <i>getIcon()</i>. Este método ha de
         devolver un identificador de icono de <a href="https://materialdesignicons.com/">Material
           Design Icons</a>. OpenXava puede usar estos iconos en varias partes de
         la interfaz de usuario, por ejemplo en la lista:</div>

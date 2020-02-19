@@ -21,9 +21,7 @@ public class ProjectTask extends Identifiable {
 	@Required @Column(length=60)
 	private String description;
 	
-	// tmp public enum Priority { LOW, MEDIUM, HIGH };
-	// tmp ini
-	public enum Priority implements IIconEnum { // tmp Documentar 
+	public enum Priority implements IIconEnum {  
 		LOW("transfer-down"), MEDIUM("square-medium"), HIGH("transfer-up");
 
 		private String icon;
@@ -37,7 +35,6 @@ public class ProjectTask extends Identifiable {
 		} 
 		
 	};
-	// tmp fin
 	private Priority priority;
 	
 	private Date dueDate;

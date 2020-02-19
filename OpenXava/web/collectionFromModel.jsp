@@ -124,19 +124,8 @@ for (int f=0; itAggregates.hasNext(); f++) {
 		String fvalue = null;
 		Object value = null;
 		String propertyName = p.getName();
-		value = Maps.getValueFromQualifiedName(row, propertyName);		
-		if (p.hasValidValues()) {
-			if (value instanceof Number) {
-				fvalue = p.getValidValueLabel(request, ((Number) value).intValue());
-			}
-			else {
-				// In this case value is a enum type
-				fvalue = p.getValidValueLabel(request, value);
-			}
-		}
-		else {
-			fvalue = WebEditors.format(request, p, value, errors, view.getViewName(), true);	
-		}
+		value = Maps.getValueFromQualifiedName(row, propertyName);
+		fvalue = WebEditors.format(request, p, value, errors, view.getViewName(), true);	
 		Object title = WebEditors.formatTitle(request, p, value, errors, view.getViewName(), true); 
 %>
 	<td class="<%=cssCellClass%>" style="<%=cellStyle%>; padding-right: 0px">

@@ -6,14 +6,12 @@ import org.openxava.model.meta.*;
 import org.openxava.web.style.*;
 
 /**
- * tmp
+ * @since 6.3
  * @author Javier Paniza
  */
 public class EnumListFormatter implements IMetaPropertyFormatter {
 
-
 	public String format(HttpServletRequest request, MetaProperty metaProperty, Object object) throws Exception {
-		// tmp String label = metaProperty.format(object, Locales.getCurrent());
 		if (object == null) return "";
 		String label = object instanceof Number?
 			metaProperty.getValidValueLabel(((Number) object).intValue()):
@@ -30,6 +28,5 @@ public class EnumListFormatter implements IMetaPropertyFormatter {
 	public Object parse(HttpServletRequest request, MetaProperty metaProperty, String string) throws Exception {
 		return null;
 	}
-
 
 }
