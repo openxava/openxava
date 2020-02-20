@@ -1,7 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-
+- Blank option can be removed from dynamic combos with View.removeBlankValidValue().
+- New methods in View for dynamic combos: clearValidValues(), disableValidValues() and hasBlankValidValue(). 
 - IIconEnum to associate an icon to each option of an enum.
 - Material Design Icons upgraded to 4.9.95. Now with 4996 icons available.
 - Fix: List formatters do not apply to enums in @OrderColumn lists, calculated and many to many collections.
