@@ -4,7 +4,6 @@ import java.rmi.*;
 import java.util.*;
 
 import javax.ejb.*;
-import javax.rmi.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.component.*;

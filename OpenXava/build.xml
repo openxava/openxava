@@ -624,13 +624,13 @@
 	</target>
 
 	<target name="createWebXml">
-		<loadfile property="servlets.xml" srcfile="../${project}/web/WEB-INF/servlets.xml" failonerror="false"/>
+		<loadfile property="servlets.xml" srcfile="../${project}/web/WEB-INF/servlets.xml" failonerror="false" quiet="true"/>
 		<property name="servlets.xml" value=""/>
-		<loadfile property="filters.xml" srcfile="../${project}/web/WEB-INF/filters.xml" failonerror="false"/>
+		<loadfile property="filters.xml" srcfile="../${project}/web/WEB-INF/filters.xml" failonerror="false" quiet="true"/>
 		<property name="filters.xml" value=""/>
-		<loadfile property="listeners.xml" srcfile="../${project}/web/WEB-INF/listeners.xml" failonerror="false"/>
+		<loadfile property="listeners.xml" srcfile="../${project}/web/WEB-INF/listeners.xml" failonerror="false" quiet="true"/>
 		<property name="listeners.xml" value=""/>
-		<loadfile property="resources.xml" srcfile="../${project}/web/WEB-INF/resources.xml" failonerror="false"/>
+		<loadfile property="resources.xml" srcfile="../${project}/web/WEB-INF/resources.xml" failonerror="false" quiet="true"/>
 		<property name="resources.xml" value=""/>
 		<copy file="${openxava.base.dir}/OpenXava/web/WEB-INF/web.xml" 
   			todir="../${project}/web/WEB-INF" overwrite="true">
