@@ -16,8 +16,7 @@ public class DeliveryNoXMLTest extends ModuleTestBase {
 		super(testName, "Delivery");		
 	}
 	
-	// tmp public void testViewAddValidValueInSection() throws Exception { 
-	public void testViewDynamicValidValueInSection() throws Exception { // tmp
+	public void testViewDynamicValidValueInSection() throws Exception { 
 		execute("Delivery.addShortcutOptions"); 
 		execute("CRUD.new");
 		String [][] validValues = {
@@ -26,7 +25,6 @@ public class DeliveryNoXMLTest extends ModuleTestBase {
 			{ "b", "BB" }
 		};
 		assertValidValues("shortcut", validValues); 
-		// tmp ini
 		
 		String [][] validValuesWithNoBlank = {
 			{ "a", "AA" },
@@ -52,9 +50,6 @@ public class DeliveryNoXMLTest extends ModuleTestBase {
 		execute("Sections.change", "activeSection=0"); // To refresh, surely we should improve this, in order valid values View methods refresh automatically
 		shortcut = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Delivery__shortcut");
 		assertTrue(shortcut instanceof HtmlTextInput);
-		
-		
-		// tmp fin
 	}
 	
 }

@@ -26,7 +26,9 @@ Object description = validValues.get(value);
 if (editable) { 
 %>
 <select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> <%=script%> title="<%=p.getDescription(request)%>">
+	<% if (view.hasBlankValidValue(p.getName())) { %>
     <option value=""></option>
+    <% } %>
 <%
 	for (Map.Entry e: validValues.entrySet()) {
 		String selected = e.getKey().equals(value) ?"selected":"";

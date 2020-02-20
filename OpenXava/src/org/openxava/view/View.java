@@ -186,7 +186,7 @@ public class View implements java.io.Serializable {
 	private Map oldCollectionTotals;    
 	private Map membersNameForElementCollection;
 	private Map<MetaProperty, Map> validValuesByProperty;
-	private Set<String> noBlankValidValuesProperties; // tmp
+	private Set<String> noBlankValidValuesProperties; 
 	private Collection<String> sumProperties;  
 	private Map<String, List<String>> totalProperties; 
 	private StringBuffer defaultSumProperties;
@@ -6594,8 +6594,7 @@ public class View implements java.io.Serializable {
 	 * @param property  The name of the property. It has to be in the model, but not in the view in this moment.
 	 * @param value  The valid value stored in the property that we want to remove, the type has to match with the property type.
 	 * @since 5.8
-	 */
-	
+	 */	
 	public void removeValidValue(String property, Object value) {
 		if (isSection() || isGroup()) {
 			getParent().removeValidValue(property, value);
@@ -6614,7 +6613,7 @@ public class View implements java.io.Serializable {
 	 * @param property  The name of the property. It has to be in the model, but not in the view in this moment.
 	 * @since 6.3
 	 */
-	public void clearValidValues(String property) { // tmp
+	public void clearValidValues(String property) { 
 		if (isSection() || isGroup()) {
 			getParent().clearValidValues(property);
 			return;
@@ -6625,9 +6624,15 @@ public class View implements java.io.Serializable {
 		if (noBlankValidValuesProperties != null) noBlankValidValuesProperties.remove(property);
 	}
 	
-	// TMP ME QUEDÉ HACIENDO LA DOC (LA DE INGLÉS ESTÁ HECHA, REVISARLA). SUITE PASADA AL 100%. FALTARIA JAVADOC Y REVISAR CODIGO
-	
-	public void disableValidValues(String property) { // tmp
+	/**
+	 * Remove all the valid values previously added with addValidValue() and disable the combo. <br>
+	 * 
+	 * After calling the method the property is displayed as regular text field, no longer as a combo.
+	 * 
+	 * @param property  The name of the property. It has to be in the model, but not in the view in this moment.
+	 * @since 6.3
+	 */	
+	public void disableValidValues(String property) { 
 		if (isSection() || isGroup()) {
 			getParent().disableValidValues(property);
 			return;
@@ -6637,8 +6642,16 @@ public class View implements java.io.Serializable {
 		validValuesByProperty.remove(metaProperty);
 		if (noBlankValidValuesProperties != null) noBlankValidValuesProperties.remove(property);
 	}
-	
-	public void removeBlankValidValue(String property) { // tmp
+
+	/**
+	 * Removed the blank option of a valid value created with addValidValue().
+	 * 
+	 * By default using addValidValues() creates a combo that includes a blank option. This method removes that blank option.
+	 * 
+	 * @param property  The name of the property. It has to be in the model, but not in the view in this moment.
+	 * @since 6.3
+	 */		
+	public void removeBlankValidValue(String property) { 
 		if (isSection() || isGroup()) {
 			getParent().removeBlankValidValue(property);
 			return;
@@ -6647,7 +6660,13 @@ public class View implements java.io.Serializable {
 		noBlankValidValuesProperties.add(property);
 	}
 	
-	public boolean hasBlankValidValue(String property) { // tmp
+	/**
+	 * If the property with valid values added via addValidValue() has a blank option. <p>
+	 * 
+	 * @param property  The name of the property. It has to be in the model, but not in the view in this moment.
+	 * @since 6.3
+	 */
+	public boolean hasBlankValidValue(String property) { 
 		if (isSection() || isGroup()) {
 			return getParent().hasBlankValidValue(property);
 		}

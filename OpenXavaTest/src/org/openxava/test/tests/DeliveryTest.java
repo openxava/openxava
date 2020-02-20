@@ -40,11 +40,9 @@ public class DeliveryTest extends ModuleTestBase {
 		"List.changeColumnName", 
 		"ListFormat.select",
 		"Delivery.addShortcutOptions",
-		// tmp ini
 		"Delivery.clearShortcutOptions",
 		"Delivery.disableShortcutOptions",
 		"Delivery.removeBlankShortcutOption"
-		// tmp fin
 	};
 		
 	public DeliveryTest(String testName) {
@@ -670,11 +668,9 @@ public class DeliveryTest extends ModuleTestBase {
 			"Delivery.hideAdvice",
 			"Delivery.hideShortcut",
 			"Delivery.addShortcutOptions",
-			// tmp ini
 			"Delivery.clearShortcutOptions",
 			"Delivery.disableShortcutOptions",
 			"Delivery.removeBlankShortcutOption",
-			// tmp fin			
 			"EditableOnOff.setOn",
 			"EditableOnOff.setOff",
 			"Remarks.hideRemarks",
