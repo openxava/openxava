@@ -14,7 +14,8 @@ openxava.init = function(application, module, initUI) {
 		}
 		$(openxava.staticInit);
 	}
-	openxava.initStrokeActions(application, module); 
+	openxava.initStrokeActions(application, module);
+	openxava.dataChanged = false; 
 }
 
 openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) {
@@ -184,6 +185,7 @@ openxava.refreshPage = function(result) {
 	openxava.showMessages(result); 
 	openxava.resetRequesting(result);
 	openxava.propertiesUsedInCalculationsChange(result);
+	openxava.dataChanged = result.dataChanged; 
 	$('#xava_loading').hide();
 	$('#xava_loading2').hide();
 	if (result.postJS != null) {
@@ -191,7 +193,7 @@ openxava.refreshPage = function(result) {
 	}
 	document.body.style.cursor='auto';
 	if (openxava.postRefreshPage != null) openxava.postRefreshPage(); 
-	openxava.setUrlParam(result.urlParam); 
+	openxava.setUrlParam(result.urlParam);
 }
 
 openxava.initUI = function(application, module, currentRow, viewSimple) { 
@@ -206,6 +208,14 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initViewSimple(application, module, viewSimple);
 	openxava.initTooltips();
 	openxava.initPlaceholder();
+	openxava.listenChanges(); 
+}
+
+
+openxava.listenChanges = function() { 
+	$("." + openxava.editorClass).change(function() { 
+		  openxava.dataChanged = true;
+	});
 }
 
 openxava.stylizeEditorsWithError = function(application, module, editorsWithError, editorsWithoutError) { 
@@ -691,6 +701,14 @@ openxava.removeColumn = function(application, module, columnId, tabObject) {
 
 openxava.setPageRowCount = function(application, module, collection, select) {	
 	openxava.executeAction(application, module, '', false, "List.setPageRowCount", "rowCount=" + select.value + ",collection=" + collection)
+}
+
+openxava.executeActionConfirmLosesChangedData = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) { 
+	if (openxava.dataChanged) {
+		if (!confirm(openxava.confirmLoseChangesMessage)) return;
+		openxava.dataChanged = false;
+	}
+	openxava.executeAction(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow);
 }
 
 openxava.executeAction = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) { 

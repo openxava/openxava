@@ -192,7 +192,7 @@ if (editable) {
 		maxDescriptionLength += 5;
 		selectedDescription = selectedDescription.replaceAll("\"", "&quot;"); 
 	%>
-	<span class="<%=style.getDescriptionsList()%>">
+	<span class="<%=style.getDescriptionsList()%> <%=style.getEditor()%>">
 	<%-- The JavaScript code depends on the order of the next elements --%>
 	<input name="<%=propertyKey%>__CONTROL__" type="text" tabindex="1" class="xava_select <%=style.getEditor()%>" size="<%=maxDescriptionLength%>" <%=script%> title="<%=title%>" 
 		data-values='<%=values%>' value="<%=selectedDescription%>"/>

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- IntelliJ IDEA support including documentation.
 - Blank option can be removed from dynamic combos with View.removeBlankValidValue().
 - New methods in View for dynamic combos: clearValidValues(), disableValidValues() and hasBlankValidValue(). 
 - IIconEnum to associate an icon to each option of an enum.

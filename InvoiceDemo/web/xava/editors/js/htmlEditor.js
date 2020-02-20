@@ -40,7 +40,17 @@ openxava.addEditorInitFunction(function() {
 				$('.ox-button-bar-button').fadeOut(); 
 			});
 		}
-	 });
+	});
+	
+	// If you modify the next code: test modify a field with this editor and then click on new, should ask for confirmation
+	$('.ox-ckeditor, .ox-simple-ckeditor').each( function () {		 
+		var editor = CKEDITOR.instances[this.id];		
+		if (editor !== undefined) {
+		 	editor.on( 'change', function( e ) {
+		 		openxava.dataChanged = true;
+			});
+		}
+	});
 
 });
 
