@@ -361,7 +361,7 @@ public class CarrierTest extends CarrierTestBase {
 		assertMessage("Carrier deleted successfully");		
 	}
 	
-	public void testGoListModeWithoutRecords() throws Exception {
+	public void testGoListModeWithoutRecords() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertNoErrors();
 		assertValue("number", "1");

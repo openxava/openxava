@@ -1,25 +1,26 @@
 Change Log for OpenXava project
 ===============================
-
-- IntelliJ IDEA support including documentation.
-- Blank option can be removed from dynamic combos with View.removeBlankValidValue().
-- New methods in View for dynamic combos: clearValidValues(), disableValidValues() and hasBlankValidValue(). 
-- IIconEnum to associate an icon to each option of an enum.
-- Material Design Icons upgraded to 4.9.95. Now with 4996 icons available.
-- Fix: List formatters do not apply to enums in @OrderColumn lists, calculated and many to many collections.
-- Asks for confirmation when leaving a record with changed data without saving first.
-- New loses-changed-data option for <action/> in controllers.xml.
-- Theme chooser available for the user. 
-- Lessons from 1 to 3 of course upgraded to latest features.
-- Application can run in root context, that without application name in URL.
+ 
 - Terra theme soften.
 - Light theme unified with Terra, though it keeps its colors. 
 - New visual themes Dark, Black & White and Blue.  
 - Color refactoring to allow creating a new color scheme defining a few colors.
 - Moving all colors to variables in CSS. 
 - base.css to facilitate the creation of a new CSS style.
+- Theme chooser available for the user. 
+- IntelliJ IDEA support including documentation.
+- Asks for confirmation when leaving a record with changed data without saving first.
+- New loses-changed-data option for <action/> in controllers.xml.
+- Application can run in root context, that without application name in URL.
+- IIconEnum to associate an icon to each option of an enum.
+- Blank option can be removed from dynamic combos with View.removeBlankValidValue().
+- New methods in View for dynamic combos: clearValidValues(), disableValidValues() and hasBlankValidValue(). 
+- Material Design Icons upgraded to 4.9.95. Now with 4996 icons available.
+- Lessons from 1 to 3 of course upgraded to latest features.
 - Maven documentation updated.
 - Some new common use labels to be used in applications.
+- Fix: List formatters do not apply to enums in @OrderColumn lists, calculated and many to many collections.
+
 
 OpenXava 6.2.2 (2019-12-9)
 --------------------------
