@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
  
-- Terra theme soften.
+- Terra theme softened.
 - Light theme unified with Terra, though it keeps its colors. 
 - New visual themes Dark, Black & White and Blue.  
 - Color refactoring to allow creating a new color scheme defining a few colors.
@@ -17,6 +17,7 @@ Change Log for OpenXava project
 - New methods in View for dynamic combos: clearValidValues(), disableValidValues() and hasBlankValidValue(). 
 - Material Design Icons upgraded to 4.9.95. Now with 4996 icons available.
 - Lessons from 1 to 3 of course upgraded to latest features.
+- Workspace in distribution upgraded to Eclipse 2019-12, though it still works with Neon (4.6).
 - Maven documentation updated.
 - Some new common use labels to be used in applications.
 - Fix: List formatters do not apply to enums in @OrderColumn lists, calculated and many to many collections.
