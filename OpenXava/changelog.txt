@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
  
+OpenXava 6.3 (2020-2-26)
+------------------------
 - Terra theme softened.
 - Light theme unified with Terra, though it keeps its colors. 
 - New visual themes Dark, Black & White and Blue.  
@@ -21,7 +23,6 @@ Change Log for OpenXava project
 - Maven documentation updated.
 - Some new common use labels to be used in applications.
 - Fix: List formatters do not apply to enums in @OrderColumn lists, calculated and many to many collections.
-
 
 OpenXava 6.2.2 (2019-12-9)
 --------------------------
