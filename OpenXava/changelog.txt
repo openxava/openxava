@@ -1,5 +1,7 @@
 Change Log for OpenXava project
 ===============================
+
+- Fix: Navigation in collection goes to first page after editing/viewing an element with a dialog.
  
 OpenXava 6.3 (2020-2-26)
 ------------------------

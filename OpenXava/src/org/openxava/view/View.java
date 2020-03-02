@@ -625,7 +625,7 @@ public class View implements java.io.Serializable {
 				modelChanged = true;				
 			}
 		}	
-		setValues(values, true);
+		setValues(values, !isRepresentsCollection()); 
 		getRoot().dataChanged = !isFirstLevel(); 
 		if (modelChanged) refresh();
 	}
@@ -648,7 +648,7 @@ public class View implements java.io.Serializable {
 	private void setValues(Map map, boolean closeCollections) throws XavaException { 
 		if (values == null) values = new HashMap();
 		else values.clear();
-		if (closeCollections) resetCollections(true); 
+		if (closeCollections) resetCollections(true);
 		resetCollectionTotals();
 		addValues(map, true);
 	}

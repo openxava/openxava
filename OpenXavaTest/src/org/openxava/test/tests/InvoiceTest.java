@@ -693,10 +693,15 @@ public class InvoiceTest extends CustomizeListTestBase {
 		
 		execute("List.goPage", "page=2,collection=details");
 		assertCollectionRowCount("details", 4);
+		execute("Invoice.editDetail", "row=10,viewObject=xava_view_section1_details");
+		closeDialog();
+		assertCollectionRowCount("details", 4);
 		execute("Navigation.first");
 		assertValue("year", "2002");
 		assertValue("number", "1");
 		assertCollectionRowCount("details", 2);
+		
+		
 	}
 	
 	public void testGeneratePdfAggregateCollection() throws Exception {
