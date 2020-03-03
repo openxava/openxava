@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-
+- Fix: Search reference icon inside element collections is an opaque circle.   
 - Fix: Fail with locales that use ' as decimal separator, such as Switzerland.
 - Fix: Navigation in collection goes to first page after editing/viewing an element with a dialog.
 - Fix: Creating a new element in a collection of entities fails with XML components.

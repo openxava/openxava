@@ -2339,7 +2339,7 @@ div[id$="_Index__view"] .ox-list-title {
 	color: var(--subscribed-hover-color);
 }
 
-.ox-image-link .mdi-magnify {
+.ox-image-link i.mdi-magnify { 
 	color: var(--reference-search-icon-color);
 	background: var(--reference-search-icon-background);
 	border-radius: 30px;
