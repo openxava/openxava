@@ -51,13 +51,16 @@ public class CarrierTest extends CarrierTestBase {
 		assertNoAction("CollectionCopyPaste.paste");
 	}
 	
-	public void testConfirmActionWithApostrophe() throws Exception { 
+	public void testConfirmActionWithApostrophe_switzerlandLocale() throws Exception { 
 		setLocale("it");
 		assertListRowCount(5);
 		execute("List.viewDetail", "row=0");
 		execute("CRUD.delete");
 		execute("Mode.list");
 		assertListRowCount(4);
+		
+		setLocale("it-CH");
+		assertAction("CRUD.new");
 	}
 		
 	public void testRowActions() throws Exception {		

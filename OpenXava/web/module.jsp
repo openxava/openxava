@@ -336,8 +336,8 @@ if (manager.isResetFormPostNeeded()) {
 		openxava.calendarAlign = '<%=browser != null && browser.indexOf("MSIE 6") >= 0 ? "tr":"Br"%>';
 		openxava.subcontrollerSelectedClass = '<%=style.getSubcontrollerSelected()%>';
 		<% java.text.DecimalFormatSymbols symbols = java.text.DecimalFormatSymbols.getInstance(Locales.getCurrent()); %>
-		openxava.decimalSeparator = '<%=symbols.getDecimalSeparator()%>';
-		openxava.groupingSeparator = '<%=symbols.getGroupingSeparator()%>';
+		openxava.decimalSeparator = "<%=symbols.getDecimalSeparator()%>";
+		openxava.groupingSeparator = "<%=symbols.getGroupingSeparator()%>";		
 		openxava.setHtml = <%=style.getSetHtmlFunction()%>;			
 		<% if (browser != null && browser.contains("HtmlUnit")) { // Because of low performance of fadeIn with HtmlUnit %>
 		openxava.fadeIn = openxava.show;
