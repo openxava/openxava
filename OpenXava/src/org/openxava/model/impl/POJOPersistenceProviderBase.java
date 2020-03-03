@@ -246,8 +246,6 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 	}
 
 	public Object createAggregate(MetaModel metaModel, Map values, MetaModel metaModelContainer, Object containerModel, int number) throws CreateException, ValidationException, RemoteException, XavaException {
-		String container = metaModel.getContainerReference(); 
-		values.put(container, containerModel);
 		// The next two lines use Hibernate. At the momment for Hibernate and EJB3 
 		// In order to support a EJB3 no hibernate implementations we will need to change them
 		org.openxava.hibernate.impl.DefaultValueIdentifierGenerator.setCurrentContainerKey(containerModel);

@@ -360,9 +360,10 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		}
 	}
 
-	private MetaModel getMetaModelContainer(MetaModel metaModel, String modelName) { 
+	private MetaModel getMetaModelContainer(MetaModel metaModel, String modelName) {
 		String containerModelName = metaModel.getContainerModelName();
-		if (Is.emptyString(containerModelName) && modelName.contains(".")) {
+		if (!Is.emptyString(containerModelName)) return metaModel.getMetaModelContainer();
+		if (modelName.contains(".")) {
 			containerModelName = modelName.split("\\.")[0];
 		}
 		return MetaComponent.get(containerModelName).getMetaEntity();
@@ -732,7 +733,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		}
 	}
 
-	private void addKeyToValues(MetaModel metaModelContainer,	String collectionName, Map containerKeyValues, Map values) { 
+	private void addKeyToValues(MetaModel metaModelContainer, String collectionName, Map containerKeyValues, Map values) { 
 		if (collectionName == null) return;
 		MetaCollection metaCollection = metaModelContainer.getMetaCollection(collectionName);
 		Map parentKey = new HashMap();
@@ -904,18 +905,18 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 				if (metaModelContainer == null) {
 					metaModelContainer = metaModel.getMetaModelContainer();
 				}
-				if (number < 0) { 
-					newObject = getPersistenceProvider(metaModel).create(metaModel, convertedValues); 
-					addToCollection(container, collectionName, newObject); 
+				if (number < 0) {
+					newObject = getPersistenceProvider(metaModel).create(metaModel, convertedValues);
 				}
 				else {
-					newObject = getPersistenceProvider(metaModel).createAggregate( 
+					newObject = getPersistenceProvider(metaModel).createAggregate(
 						metaModel,
 						convertedValues,
 						metaModelContainer,
 						container,
 						number);
-				} 
+				}
+				addToCollection(container, collectionName, newObject);		
 			}
 			Map key = getValues(metaModel, newObject, getKeyNames(metaModel), false);
 			AccessTracker.created(metaModel.getName(), key); 
