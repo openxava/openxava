@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Dialogs aligned on top, lowering a little for each new nested dialog to show the titles of all dialogs. 
+- Fix: Combining hide/show member in a dialog with changing sections displaces the dialog outside screen.
+- Fix: Actions inside dialog have a wrong visual style.
 - Fix: Search reference icon inside element collections is an opaque circle.   
 - Fix: Fail with locales that use ' as decimal separator, such as Switzerland.
 - Fix: Navigation in collection goes to first page after editing/viewing an element with a dialog.

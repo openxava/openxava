@@ -140,7 +140,7 @@ openxava.refreshPage = function(result) {
 			dialog.dialog('widget').css('margin-left', '20px'); 
 			dialog.dialog('widget').css('margin-right', '20px'); 
 			dialog.dialog('option', 'height', 'auto');
-			dialog.dialog('option', 'position', { my: "center", at: "center", of: window, collision: "fit" } ); 			
+			dialog.dialog('option', 'position', { my: "center top", at: "center top+" + openxava.dialogLevel * 40, of: window, collision: "fit" } ); 
 			dialog.dialog('option', 'zIndex', 99999 );
 			if (result.dialogTitle.indexOf("!x:") === 0) {
 				dialog.dialog('option', 'title', result.dialogTitle.substring(3));

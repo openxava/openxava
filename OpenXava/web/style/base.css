@@ -1536,7 +1536,7 @@ input[type="button"] {
 	background: var(--warnings-background);
 }
 
-.ox-action-link {
+.ox-action-link, .ui-widget-content .ox-action-link  { 
     margin-left: 7px;
     color: var(--action-link-color); 
     font-weight: bold;
