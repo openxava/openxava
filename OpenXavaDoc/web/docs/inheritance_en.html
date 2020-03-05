@@ -8,7 +8,7 @@
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
-    <div class="wiki" id="content_view" style="display: block;">
+    <div class="wiki" style="display: block;">
       <div id="toc">
         <h1 class="nopad">Table of Contents</h1>
         <div style="margin-left: 1em;"><a href="#Lesson%204:%20Inheritance">Lesson
@@ -378,11 +378,9 @@ public class Invoice extends CommercialDocument {
       works, although the user interface is a little ugly.<br>
       <h2 id="toc9"><a name="Lesson 4: Inheritance-View inheritance"></a>View
         inheritance</h2>
-      TMP ME QUEDÉ POR AQUÍ</div>
-    <div class="wiki" style="display: block;"> You can use inheritance not only
-      for reusing the Java code and mapping, but also for reusing the user
-      interface definition, the <em>@View</em> definitions. This section shows
-      how view inheritance works.<br>
+      You can use inheritance not only for reusing the Java code and mapping,
+      but also for reusing the user interface definition, the <em>@View</em>
+      definitions. This section shows how view inheritance works.<br>
       <h3 id="toc10"><a name="Lesson 4: Inheritance-View inheritance-The extendsView attribute"></a>The
         extendsView attribute</h3>
       Both <em>Order</em> and <em>Invoice</em> use a user interface generated
@@ -406,11 +404,9 @@ public class Child extends Parent { ... }   // Child is displayed using an autom
       <pre><code class="java">@View(members = "a, b, c;") // This view with no name is the DEFAULT view
 public class Parent { ... }
  
-@Views({
-    @View(name="A" members = "d", // Adds d to the inherited view
-        extendsView = "super.DEFAULT"), // Extends the default view from Parent
-    @View(name="B" members = "a, b, c; d") // View B is equals to view A
-})
+@View(name="A" members = "d", // Adds d to the inherited view
+    extendsView = "super.DEFAULT") // Extends the default view from Parent
+@View(name="B" members = "a, b, c; d") // View B is equals to view A
 public class Child extends Parent { ... }   // Child is displayed using an automatically
                                             // generated view, not the view from Parent
 </code></pre> Using <em>extendsView</em> the members that appear will be those
@@ -423,8 +419,11 @@ public class Child extends Parent { ... }   // Child is displayed using an autom
       inherited the current user interface for <em>Invoice</em> it's pretty
       ugly to see, all the members, each in a line. We are going to define a
       better user interface. A view similar to the one we defined previously,
-      but adding a tab for orders, thus:<br>
-      <img src="files/inheritance_en060.png" alt="inheritance_en060.png" title="inheritance_en060.png"><br>
+      but adding a tab for orders, thus:</div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: HACIENDO EL
+      PANTALLAZO</div>
+    <div class="wiki" style="display: block;"> <img src="files/inheritance_en060.png"
+        alt="inheritance_en060.png" title="inheritance_en060.png"><br>
       Note that we have put all the members from the <em>CommercialDocument</em>
       part of the <em>Invoice</em> in the header and the first tab (data), and
       the collection of orders in the other tab. The next code shows the way to
