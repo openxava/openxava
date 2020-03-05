@@ -285,7 +285,7 @@ public class GenerateReportServlet extends HttpServlet {
 		String hibernateDefaultSchemaTab = (String) request.getSession().getAttribute("xava_hibernateDefaultSchemaTab");
 		if (hibernateDefaultSchemaTab != null) {
 			request.getSession().removeAttribute("xava_hibernateDefaultSchemaTab");
-			XHibernate.setDefaultSchema(hibernateDefaultSchemaTab);
+			XHibernate.setDefaultSchema(hibernateDefaultSchemaTab); 
 			
 		}
 		String jpaDefaultSchemaTab = (String) request.getSession().getAttribute("xava_jpaDefaultSchemaTab");

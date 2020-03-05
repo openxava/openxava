@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Generate PDF and Generate Excel fail when hibernate.cfg.xml is misconfigured.
 - Some new common use labels to be used in applications. 
 - Fix: Scrollbar when the mouse over last element of a descriptions list with Firefox and Internet Explorer.
 - Dialogs aligned on top, lowering a little for each new nested dialog to show the titles of all dialogs. 
