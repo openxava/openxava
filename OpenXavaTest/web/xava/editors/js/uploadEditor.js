@@ -30,22 +30,40 @@ openxava.addEditorInitFunction(function() {
 	    		}
 	    	}	    	
 	    	if (input.dataset.empty !== "true") {
+	    		
+	    		var count = 0; // tmp
 	    		if (typeof input.dataset.files !== 'undefined') {
 		    		const filesIds = input.dataset.files.split(",");
 		    		filesIds.forEach(function(fileId) {
 		    			const url = fileURL + "&fileId=" + fileId;
+		    			count++; // tmp
 		    			pond.addFile(url, {metadata: { fileId: fileId }}); 		    			
 		    		});
 	    		}
 	    		else {
+	    			count = 1; // tmp
 	    			pond.addFile(fileURL);
 	    		}
+	    		
+	    		// tmp ini
+	    		// TMP ME QUEDÉ POR AQUÍ: FALTA COMPROBAR QUE PASA SI ALGUN ARCHIVO FALLA
+	    		// TMP  	 SI ESTO NO SE ACTIVARA A LO MEJOR DEBERÍA DESCOMENTAR LOS
+	    		// TMP	     uploadEditor.enableUpload(pond, input); DE ABAJO
+	    		// TMP	  DEBERIA DE PROBAR EL UploadTest.txt COMPLETO
+	    		var c = 1;
+	    		pond.onaddfile = function() {
+	    			if (c++ === count) {
+	    				uploadEditor.enableUpload(pond, input);
+	    			}
+	    		} 
+	    		// tmp fin
+
 	    	}
 	    	else {
 	    		uploadEditor.enableUpload(pond, input);
 	    	}
 	    	pond.onremovefile = function(error, file) { 
-	    		uploadEditor.enableUpload(pond, input);
+	    		// tmp uploadEditor.enableUpload(pond, input);
 	    		$.ajax({
 	    			url: uploadEditor.getUploadURL(input) + uploadEditor.getFileIdParam(file), 
 	    			method: "DELETE"
@@ -54,11 +72,13 @@ openxava.addEditorInitFunction(function() {
 	    	if (input.dataset.editable === "true") {
 	    		pond.disabled = true; 
 	    	}
+	    	/* tmp
 	    	pond.dropValidation = true;
 	    	pond.beforeDropFile = function() {
 	    		uploadEditor.enableUpload(pond, input);
 	    		return true;
 	        }
+	        */
 	    	if (input.dataset.throwsChanged === "true") {
 		    	pond.onprocessfile = function(error, file) {
 		    		openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);

@@ -27,9 +27,15 @@ GalleryImage: Product2 with all browsers
 - Go to list, choose the first product. It should have the two images.
 - Click on one image. A new browser tab should open displaying the image. Close it.
 	- With Firefox: The image is shown in the same tab, click back in browser to return.
-- Remove one image. Go to the next record (no images), return to the first one: one image.
+// tmp ini
+- Add one image with browsing.
+- Go to the next record (no images), return to the first one: three image.
+- Add one image with drag & drop.
+- Go to the next record (no images), return to the first one: four image.
+// tmp fin
+- Remove one image. Go to the next record (no images), return to the first one: three images. // tmp three (era one)
 - Execute "SET OFF" action. Try to click on remove photo. It should not work.
-- Execute "SET ON" action. Remove the image.
+- Execute "SET ON" action. Remove all images. // tmp (era remove the image)
 - Execute "SET OFF" action. Try to click on Browser link. It should not work.
 
 AttachedFile and AttachedFiles: Movie with all browsers
