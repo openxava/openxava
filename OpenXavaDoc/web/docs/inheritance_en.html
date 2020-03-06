@@ -420,8 +420,6 @@ public class Child extends Parent { ... }   // Child is displayed using an autom
       ugly to see, all the members, each in a line. We are going to define a
       better user interface. A view similar to the one we defined previously,
       but adding a tab for orders, thus:</div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: HACIENDO EL
-      PANTALLAZO</div>
     <div class="wiki" style="display: block;"> <img src="files/inheritance_en060.png"
         alt="inheritance_en060.png" title="inheritance_en060.png"><br>
       Note that we have put all the members from the <em>CommercialDocument</em>
@@ -487,22 +485,23 @@ public class Order extends CommercialDocument {
       plus a tab with the invoice.<br>
       <h3 id="toc13"><a name="Lesson 4: Inheritance-View inheritance-Using @ReferenceView and @CollectionView to refine views"></a>Using
         @ReferenceView and @CollectionView to refine views</h3>
-      When an order is to be viewed from the <em>Invoice</em> user interface,
-      we want the view used to do so to be simple, with no customer or invoice
-      information, because this data is redundant in this case:<br>
+    </div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ</div>
+    <div class="wiki" style="display: block;">When an order is to be viewed from
+      the <em>Invoice</em> user interface, we want the view used to do so to be
+      simple, with no customer or invoice information, because this data is
+      redundant in this case:<br>
       <img src="files/inheritance_en080.png" alt="inheritance_en080.png" title="inheritance_en080.png"><br>
       To get this result define a simpler view in <em>Order</em>:<br>
-      <pre><code class="java">@Views({ // In order to declare more than one view
-    @View( extendsView="super.DEFAULT", // The default view
-        members="invoice { invoice } "
-    ),
-    @View( name="NoCustomerNoInvoice", // A view named NoCustomerNoInvoice
-        members=                       // that does not include customer and invoice.
-            "year, number, date;" +    // Ideal to be used from Invoice
-            "details;" +
-            "remarks"
-    )
-})
+      <pre><code class="java">@View( extendsView="super.DEFAULT", // The default view
+    members="invoice { invoice } "
+)
+@View( name="NoCustomerNoInvoice", // A view named NoCustomerNoInvoice
+    members=                       // that does not include customer and invoice.
+        "year, number, date;" +    // Ideal to be used from Invoice
+        "details;" +
+        "remarks"
+)
 public class Order extends CommercialDocument {
 </code></pre> This new view defined in <em>Order</em> named <em>NoCustomerNoInvoice</em>
       can be referenced from <em>Invoice</em> to display the individual
