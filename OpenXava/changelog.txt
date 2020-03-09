@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Adding a new file to a FILES property that already has files using the Explore link fails. 
 - Fix: Generate PDF and Generate Excel fail when hibernate.cfg.xml is misconfigured.
 - Some new common use labels to be used in applications. 
 - Fix: Scrollbar when the mouse over last element of a descriptions list with Firefox and Internet Explorer.
