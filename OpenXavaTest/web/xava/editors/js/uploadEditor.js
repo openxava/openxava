@@ -7,7 +7,6 @@ openxava.addEditorInitFunction(function() {
     $('.xava_upload').each(function() {
     	const input = this;
     	if (FilePond.find(input) == null) {
-    		if ($(input).is(":hidden")) return;
 	    	const pond = FilePond.create(input); 
 	    	if (typeof pond === 'undefined') return;
 	    	if (input.dataset.mutiple === "true") pond.allowMultiple = true;

@@ -35,6 +35,9 @@ GalleryImage: Product2 with all browsers
 - Execute "SET OFF" action. Try to click on remove photo. It should not work.
 - Execute "SET ON" action. Remove all images. 
 - Execute "SET OFF" action. Try to click on Browser link. It should not work.
+- Close the frame with the images.
+- Go to list. Select the first element.
+- Open the frame with the images. The upload editor must be here.
 
 AttachedFile and AttachedFiles: Movie with all browsers
 - Click on New.
