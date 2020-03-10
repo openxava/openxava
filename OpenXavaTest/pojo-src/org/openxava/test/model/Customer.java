@@ -124,6 +124,7 @@ import org.openxava.test.actions.*;
 	"	alternateSeller;" + 
 	"	deliveryPlaces;" +
 	"	remarks;" + 	
+	"   deliveryPlacesCount;" + // tmp ME QUEDÉ POR AQUÍ: PREPARANDO UN CASO
 	"}" + 
 	"states { states }"			
 )
@@ -323,6 +324,9 @@ public class Customer implements IWithName {
 	@ListProperties("name, address, remarks, preferredWarehouse.name")	
 	private Collection<DeliveryPlace> deliveryPlaces;
 	
+	@Transient
+	private int deliveryPlacesCount; // tmp
+	
 	@ManyToMany	
 	@JoinTable(name="CUSTOMER_STATE",  
 		joinColumns=@JoinColumn(name="CUSTOMER"), 
@@ -506,6 +510,14 @@ public class Customer implements IWithName {
 
 	public void setGroup(CustomerGroup group) {
 		this.group = group;
+	}
+
+	public int getDeliveryPlacesCount() {
+		return deliveryPlacesCount;
+	}
+
+	public void setDeliveryPlacesCount(int deliveryPlacesCount) {
+		this.deliveryPlacesCount = deliveryPlacesCount;
 	}
 				
 }
