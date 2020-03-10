@@ -486,7 +486,6 @@ public class Order extends CommercialDocument {
       <h3 id="toc13"><a name="Lesson 4: Inheritance-View inheritance-Using @ReferenceView and @CollectionView to refine views"></a>Using
         @ReferenceView and @CollectionView to refine views</h3>
     </div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ</div>
     <div class="wiki" style="display: block;">When an order is to be viewed from
       the <em>Invoice</em> user interface, we want the view used to do so to be
       simple, with no customer or invoice information, because this data is
@@ -514,17 +513,15 @@ private Collection&lt;Order&gt; orders;
       Moreover, we do not want to display the customer and order information
       from the <em>Order</em> user interface because it is redundant data in
       this case. To do so, we are going to define a simpler view in <em>Invoice</em>:<br>
-      <pre><code class="java">@Views({ // In order to declare more than one view
-    @View( extendsView="super.DEFAULT", // The default view
-        members="orders { orders } "
-    ),
-    @View( name="NoCustomerNoOrders", // A view named NoCustomerNoOrders
-        members=                      // that does not include customer and orders
-            "year, number, date;" +   // Ideal to be used from Order
-            "details;" +
-            "remarks"
-    )
-})
+      <pre><code class="java">@View( extendsView="super.DEFAULT", // The default view
+    members="orders { orders }"
+)
+@View( name="NoCustomerNoOrders", // A view named NoCustomerNoOrders
+    members=                      // that does not include customer and orders
+        "year, number, date;" +   // Ideal to be used from Order
+        "details;" +
+        "remarks"
+)
 public class Invoice extends CommercialDocument {
 </code></pre> This new view defined in <em>Invoice</em> named <em>NoCustomerNoOrders</em>
       can be referenced from <em>Order</em> to display the reference to <em>Invoice</em>
@@ -566,14 +563,11 @@ public class Invoice extends CommercialDocument {
       then make the changes indicated in the next code:<br>
       <pre><code class="java">package com.yourcompany.invoicing.tests;
  
-import java.text.*;
-import java.util.*;
+import java.time.*;
+import java.time.format.*;
 import javax.persistence.*;
 import org.openxava.tests.*;
-import org.openxava.util.*;
-import static org.openxava.jpa.XPersistence.*;
- 
-abstract public class CommercialDocumentTest // Add abstract to class definition
+import static org.openxava.jpa.XPersistence.*;<br><br>abstract public class CommercialDocumentTest // Add abstract to class definition
     extends ModuleTestBase {
  
     private String number;
