@@ -52,9 +52,12 @@
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
-        Automated testing</a> | <strong>4. Inheritance</strong> | <a class="wiki_link"
-        href="basic-business-logic_en.html">5. Basic business logic</a> | <a class="wiki_link"
-        href="validation_en.html">6. Advanced validation</a> | <a class="wiki_link"
+        Automated testing</a> | <strong>4. Inheritance</strong> | <a class="wiki_link"
+
+        href="basic-business-logic_en.html">5. Basic business logic</a> | <a class="wiki_link"
+
+        href="validation_en.html">6. Advanced validation</a> | <a class="wiki_link"
+
         href="refining-standard-behavior_en.html">7. Refining the standard
         behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
@@ -75,7 +78,7 @@
       The <em>Author</em>, <em>Category</em> and <em>Invoice</em> classes
       have some common code, the <em>oid</em> field definition:<br>
       <pre><code class="java">@Id @GeneratedValue(generator="system-uuid") @Hidden
-@GenericGenerator(name="system-uuid", strategy = "uuid")
+@GenericGenerator(name="system-uuid", strategy="uuid")
 @Column(length=32)
 private String oid;
  
@@ -107,7 +110,7 @@ import org.openxava.annotations.*;
 public class Identifiable {
  
     @Id @GeneratedValue(generator="system-uuid") @Hidden
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GenericGenerator(name="system-uuid", strategy="uuid")
     @Column(length=32)
     private String oid; // Property definition includes OpenXava and JPA annotations
  
@@ -252,7 +255,9 @@ DROP TABLE invoicing.invoice;
 </code></pre> To execute these SQL statements, first make sure your application
       is running, then go to the <i>DBManager</i> class in <i>Invoicing/src/_run</i>,
       and with the right mouse button choose <i>Run As &gt; Java Application</i>:<br>
-      <img src="files/inheritance_en040.png" alt="inheritance040.png" title="inheritance040.png"><br>
+      <img src="files/inheritance_en040.png" alt="inheritance_en040.png"
+
+        title="inheritance_en040.png"><br>
       Then:<br>
       <img src="files/inheritance_en050.png" alt="inheritance_en050.png" title="inheritance_en050.png"><br>
       Now you can execute the <em>Invoice</em> module and see it working in
@@ -420,7 +425,8 @@ public class Child extends Parent { ... }   // Child is displayed using an autom
       ugly to see, all the members, each in a line. We are going to define a
       better user interface. A view similar to the one we defined previously,
       but adding a tab for orders, thus:</div>
-    <div class="wiki" style="display: block;"> <img src="files/inheritance_en060.png"
+    <div class="wiki" style="display: block;"> <img src="files/inheritance_en060.png"
+
         alt="inheritance_en060.png" title="inheritance_en060.png"><br>
       Note that we have put all the members from the <em>CommercialDocument</em>
       part of the <em>Invoice</em> in the header and the first tab (data), and
@@ -722,10 +728,12 @@ public void testAddOrders() throws Exception {
       read the documents cited in <a class="wiki_link" href="jpa_en.html">Appendix
         B</a>.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-4-inheritance_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-4-inheritance_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="basic-business-logic_en.html">Go to Lesson 5</a></strong>
     </div>
