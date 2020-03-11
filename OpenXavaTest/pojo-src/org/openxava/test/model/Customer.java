@@ -116,7 +116,8 @@ import org.openxava.test.actions.*;
 	"	telephone, email, additionalEmails;" + 
 	"	website;" +		
 	"	address;" + 
-	"	city;" +
+	// tmp "	city;" +
+	"	city, extendedCity;" + // tmp
 	"	seller [" + 
 	"		seller;" +
 	"		relationWithSeller;" + 
@@ -124,7 +125,6 @@ import org.openxava.test.actions.*;
 	"	alternateSeller;" + 
 	"	deliveryPlaces;" +
 	"	remarks;" + 	
-	"   deliveryPlacesCount;" + // tmp ME QUEDÉ POR AQUÍ: PREPARANDO UN CASO
 	"}" + 
 	"states { states }"			
 )
@@ -287,6 +287,9 @@ public class Customer implements IWithName {
 	@ReferenceView(forViews="Demo", value="Demo")
 	private Address address;	
 	
+	@Transient @Column(length=50)
+	private String extendedCity; // tmp También en XML
+	
 	@ManyToOne(fetch=FetchType.LAZY) @SearchAction("MyReference.search")
 	@ReadOnly(forViews="SomeMembersReadOnly")
 	@AsEmbedded(forViews="SellerAsAggregate, SellerAsAggregate2Levels")
@@ -323,9 +326,6 @@ public class Customer implements IWithName {
 	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL)
 	@ListProperties("name, address, remarks, preferredWarehouse.name")	
 	private Collection<DeliveryPlace> deliveryPlaces;
-	
-	@Transient
-	private int deliveryPlacesCount; // tmp
 	
 	@ManyToMany	
 	@JoinTable(name="CUSTOMER_STATE",  
@@ -512,12 +512,12 @@ public class Customer implements IWithName {
 		this.group = group;
 	}
 
-	public int getDeliveryPlacesCount() {
-		return deliveryPlacesCount;
+	public String getExtendedCity() {
+		return extendedCity;
 	}
 
-	public void setDeliveryPlacesCount(int deliveryPlacesCount) {
-		this.deliveryPlacesCount = deliveryPlacesCount;
+	public void setExtendedCity(String extendedCity) {
+		this.extendedCity = extendedCity;
 	}
 				
 }

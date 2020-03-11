@@ -16,7 +16,7 @@ public class MonthlyActivityTest extends ModuleTestBase {
 	public void testValidationExceptionFromValidatorUsingJPA() throws Exception {
 		setValue("name", "SOL");
 		execute("MonthlyActivity.saveWithJPA");
-		assertErrorsCount(1); // TMP FALLA
+		assertErrorsCount(1); 
 		assertError("SOL is not a valid month name");
 	}	
 			

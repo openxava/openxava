@@ -550,6 +550,16 @@
 		<action name="stopRefisher" class="org.openxava.test.actions.StopRefisherAction"/>
 		
 	</controller>
+	
+	<!-- tmp ini -->
+	<controller name="CustomerWithSection"> 
+		<extends controller="Customer"/>
+		
+		<action name="setExtendedCity" mode="detail"
+			class="org.openxava.test.actions.SetExtendedCityAction"/>
+		
+	</controller>
+	<!-- tmp fin -->
 				
 	<controller name="CustomerNewOnInit">
 		<action name="new" 

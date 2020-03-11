@@ -1292,7 +1292,13 @@ public class View implements java.io.Serializable {
 			String viewName = getViewName() == null?"":"'" + getViewName() + "'";
 			throw new XavaException("member_not_found_in_view", "'" + name + "'", viewName, "'" + getModelName() + "'");
 		}
-		getRoot().dataChanged = true; 
+		// tmp getRoot().dataChanged = true;
+		// tmp ini
+		System.out.println("[View.setValue] getMetaProperty(" + name + ").isTransient()=" + getMetaProperty(name).isTransient()); // tmp
+		if (!getMetaProperty(name).isTransient()) {
+			getRoot().dataChanged = true;
+		}
+		// tmp fin
 		moveViewValuesToCollectionValues();
 	}	
 	

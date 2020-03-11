@@ -775,6 +775,20 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValue("name", "");
 		confirmHandler.assertNoMessage();
 		
+		// tmp ini
+		// TMP ME QUEDÉ POR AQUÍ: YA SALE VERDE. FALTA COMPROBAR SI VA CAMBIANDO EL VALOR DE LA PROPIEDAD EN LA UI
+		// Transient property by code
+		execute("Navigation.first");
+		assertValue("name", "Javi");
+		assertValue("extendedCity", "");
+		execute("CustomerWithSection.setExtendedCity");
+		assertValue("extendedCity", "46540 EL PUIG (NY)"); // The value does not matter
+		confirmHandler.assertNoMessage();
+		execute("CRUD.new");
+		assertValue("name", "");
+		confirmHandler.assertNoMessage();		
+		// tmp fin
+		
 		// Property with event
 		execute("Navigation.first");
 		assertValue("name", "Javi");

@@ -370,7 +370,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertMessage("Customer deleted successfully");
 	}
 		
-	public void testSearchReferenceOnChangeCodeAndOnChangeActionInSubview/*tmp_requiredErrorStyleInAggregates*/() throws Exception { 
+	public void testSearchReferenceOnChangeCodeAndOnChangeActionInSubview() throws Exception { 
 		execute("CRUD.new");
 		setValue("seller.number", "1");
 		assertValue("seller.number", "1");
