@@ -116,8 +116,7 @@ import org.openxava.test.actions.*;
 	"	telephone, email, additionalEmails;" + 
 	"	website;" +		
 	"	address;" + 
-	// tmp "	city;" +
-	"	city, extendedCity;" + // tmp
+	"	city, extendedCity;" + 
 	"	seller [" + 
 	"		seller;" +
 	"		relationWithSeller;" + 
@@ -288,7 +287,7 @@ public class Customer implements IWithName {
 	private Address address;	
 	
 	@Transient @Column(length=50)
-	private String extendedCity; // tmp También en XML
+	private String extendedCity; 
 	
 	@ManyToOne(fetch=FetchType.LAZY) @SearchAction("MyReference.search")
 	@ReadOnly(forViews="SomeMembersReadOnly")

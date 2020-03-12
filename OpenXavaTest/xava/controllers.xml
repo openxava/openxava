@@ -551,7 +551,6 @@
 		
 	</controller>
 	
-	<!-- tmp ini -->
 	<controller name="CustomerWithSection"> 
 		<extends controller="Customer"/>
 		
@@ -559,7 +558,6 @@
 			class="org.openxava.test.actions.SetExtendedCityAction"/>
 		
 	</controller>
-	<!-- tmp fin -->
 				
 	<controller name="CustomerNewOnInit">
 		<action name="new" 

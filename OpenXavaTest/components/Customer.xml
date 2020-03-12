@@ -221,6 +221,7 @@
 	</view>
 		
 	<view name="WithSection">		
+		<property name="extendedCity" type="String" size="50"/>
 		<property-view property="name">
 			<on-change class="org.openxava.test.actions.OnChangeCustomerNameAction"/>
 		</property-view>	
@@ -257,7 +258,7 @@
 				telephone, email, additionalEmails;
 				website; 
 				address; 
-				city;
+				city, extendedCity;
 				<group name="seller">
 					seller;
 					relationWithSeller; 
