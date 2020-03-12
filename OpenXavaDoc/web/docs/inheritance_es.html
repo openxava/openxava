@@ -93,7 +93,7 @@ public void setOid(String oid) {
       formas de herencia. Una de ellas es heredar de una superclase mapeada. Una
       superclase mapeada es una clase Java con anotaciones de mapeo JPA, pero no
       es una entidad en sí. Su único objetivo es ser usada como clase base para
-      definir entidades. Usemos una, y verás su utilidad rápidamente.<br>
+      definir entidades. Usemos una y verás su utilidad rápidamente.<br>
       Primero, movemos el código común a una clase marcada como <em>@MappedSuperclass</em>.
       La llamamos <em>Identificable</em>:<br>
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
@@ -204,7 +204,7 @@ public class Pedido {
       clase <em>Factura</em>, y asunto zanjado. Pero, ¡espera un momento!
       ¿“Copiar y pegar” no era un pecado mortal? Hemos de encontrar una forma de
       reutilizar <em>Factura</em> para <em>Pedido</em>.<br>
-      <h3 id="toc4"><a name="Herencia-de-entidades-CommercialDocument-como-entidad-abstracta"></a>CommercialDocument
+      <h3 id="toc4"><a name="Herencia-de-entidades-CommercialDocument-como-entidad-abstracta"></a>DocumentoComercial
         como entidad abstracta</h3>
       Una manera práctica de reutilizar el código de <em>Factura</em> para <em>Pedido</em>
       es usando herencia, además es una excusa perfecta para aprender lo fácil
@@ -245,7 +245,6 @@ public class Factura extends DocumentoComercial {
 </code></pre> <em>Factura</em> tiene ahora un código bastante breve, de hecho
       el cuerpo de la clase está, por ahora, vacío.<br>
     </div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ</div>
     <div class="wiki" style="display: block;">Este nuevo código necesita un
       esquema de base de datos ligeramente diferente, ahora las facturas y los
       pedidos se almacenarán en la misma tabla (la tabla DocumentoComercial)
@@ -260,7 +259,7 @@ drop table facturacion.factura;
       <img src="files/inheritance_es040.png" alt="inheritance_es040.png" title="inheritance_es040.png"><br>
       Después:<br>
       <img src="files/inheritance_es050.png" alt="inheritance_es050.png" title="inheritance_es050.png"><br>
-      Ya puedes ejecutar el módulo <em>Factura</em> y verlo funcionando en tu
+      Reinicia la aplicación y ejecuta el módulo <em>Factura</em> desde tu
       navegador. Lanza también <em>PruebaFactura</em>. Tiene que salirte verde.<br>
       <h3 id="toc6"><a name="Herencia-de-entidades-Crear-Pedido-usando-herencia"></a>Crear
         Pedido usando herencia</h3>
@@ -548,7 +547,7 @@ public class Factura extends DocumentoComercial {
       <img src="files/inheritance_es090.png" alt="inheritance_es090.png" title="inheritance_es090.png"><br>
       <h2 id="toc14"><a name="Herencia-en-las-pruebas-JUnit"></a>Herencia en las
         pruebas JUnit</h2>
-      <em>Factura</em> ha sido refactorizada para usar herencia, y también hemos
+      <em>Factura</em> ha sido refactorizada para usar herencia y también hemos
       usado herencia para añadir una nueva entidad, <em>Pedido</em>. Además,
       esta entidad <em>Pedido</em> tiene relación con <em>Factura</em>. Lo
       cual es una nueva funcionalidad, por ende has de probar todas estas nuevas
@@ -565,7 +564,7 @@ public class Factura extends DocumentoComercial {
       ambos tienen año, número, fecha, cliente, detalles y observaciones. Por
       tanto, aquí la herencia es una buena herramienta para la reutilización de
       código.<br>
-      Vamos a renombrar <em>PruebaFactura</em> como <em>PruebaDocumentoComercial</em>,
+      Vamos a renombrar <em>PruebaFactura</em> como <em>PruebaDocumentoComercial</em>
       y entonces crearemos <em>PruebaFactura</em> y <em>PruebaPedido</em> a
       partir de él. Éste es el diagrama UML de esta idea:<br>
       <img src="files/inheritance_es100.png" alt="inheritance_es100.png" title="inheritance_es100.png"><br>
@@ -670,7 +669,7 @@ public class PruebaPedido extends PruebaDocumentoComercial {
       <h3 id="toc17"><a name="Herencia-en-las-pruebas-JUnit-Anadir-nuevas-pruebas-a-las-pruebas-de-modulo-extendidas"></a>Añadir
         nuevas pruebas a las pruebas de módulo extendidas</h3>
       Hasta ahora hemos probado como crear una factura y un pedido. En esta
-      sección probaremos como añadir pedidos a una factura en el módulo <em>Factura</em>,
+      sección probaremos como añadir pedidos a una factura en el módulo <em>Factura</em>
       y como establecer la factura a un pedido en el módulo <em>Pedido</em>.<br>
       Para probar como añadir un pedido a una factura añade el método <em>testAnyadirPedidos()</em>
       a <em>PruebaFactura</em>:<br>
