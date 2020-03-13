@@ -52,13 +52,26 @@ public class CarrierTest extends CarrierTestBase {
 	}
 	
 	public void testConfirmActionWithApostrophe_switzerlandLocale() throws Exception { 
-		setLocale("it");
+		// tmp setLocale("it");
+		setLocale("fr");
 		assertListRowCount(5);
 		execute("List.viewDetail", "row=0");
 		execute("CRUD.delete");
 		execute("Mode.list");
 		assertListRowCount(4);
+		// tmp ini
+		execute("CRUD.deleteRow", "row=0");
+		assertListRowCount(3);
 		
+		execute("List.viewDetail", "row=0");
+		execute("Collection.new", "viewObject=xava_view_fellowCarriersCalculated");
+		assertDialogTitle("Préparation d'une nouvelle entité - Transporteur");
+		closeDialog();
+		
+		// TMP ME QUEDÉ POR AQUÍ: FALTA EL CASO DE LA ACCIÓN ABAJO CON ' 
+		// tmp fin
+		
+		execute("Mode.list"); // tmp
 		setLocale("it-CH");
 		assertAction("CRUD.new");
 	}
@@ -563,7 +576,7 @@ public class CarrierTest extends CarrierTestBase {
 		execute("Carrier.translateName", "viewObject=xava_view_fellowCarriers");
 		assertValueInCollection("fellowCarriers", 0, "name", "CUATRO");		
 	}
-	
+		
 	private void assertIconsImagesInViewAction() { 
 		HtmlElement frameHeader = (HtmlElement) getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Carrier__label_warehouse").getParentNode().getParentNode();
 		assertEquals("ox-frame-title", frameHeader.getAttribute("class"));

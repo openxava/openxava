@@ -71,6 +71,11 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 			pageContext.getOut().print(request.getParameter("module"));
 			pageContext.getOut().print("', ");						
 			pageContext.getOut().print("'");
+			// tmp ini
+			if (metaAction != null) {
+				System.out.println("[LinkTag.doStartTag] metaAction.getConfirmMessage(request)=" + metaAction.getConfirmMessage(request)); // tmp
+			}
+			// tmp fin
 			pageContext.getOut().print(metaAction.getConfirmMessage(request));
 			pageContext.getOut().print("'");
 			pageContext.getOut().print(", ");			

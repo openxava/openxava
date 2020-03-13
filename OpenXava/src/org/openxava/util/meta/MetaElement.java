@@ -52,7 +52,11 @@ abstract public class MetaElement implements java.io.Serializable {
 	protected String getLabel(Locale locale, String id) {
 		if (id == null) return "";
 		if (Is.emptyString(label)) label = Strings.javaIdentifierToNaturalLabel(getName());
-		return Labels.get(id, locale, label).trim();
+		//return Labels.get(id, locale, label).trim();
+		// tmp ini
+		String result = Labels.get(id, locale, label).trim();
+		return filterApostrophes(result);
+		// tmp fin
 	}
 	
 		
@@ -103,7 +107,13 @@ abstract public class MetaElement implements java.io.Serializable {
 				(this.description == null?"":this.description) : 
 				(this.placeholder == null?"":this.placeholder);
 		}				
-		return Strings.change(result, "'", "&#145;");
+		// tmp return Strings.change(result, "'", "&#145;");
+		return filterApostrophes(result); // tmp
+	}
+	
+	private String filterApostrophes(String source) { // tmp
+		// return source.replace("''", "&#145;").replace("'", "&#145;"); // tmp ¿Poner en el changelog lo del doble?
+		return source.replace("''", "'");
 	}
 	
 	public String getDescription(ServletRequest request) {

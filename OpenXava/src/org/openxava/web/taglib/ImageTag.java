@@ -66,6 +66,12 @@ public class ImageTag extends ActionTagBase {
 			pageContext.getOut().print(module);
 			pageContext.getOut().print("', ");									
 			pageContext.getOut().print("'");
+			// tmp ini
+			if (metaAction != null && getArgv() != null) {
+				System.out.println("[ImageTag.doStartTag] metaAction.getConfirmMessage(request, getArgv())=" + metaAction.getConfirmMessage(request, getArgv())); // tmp
+				System.out.println("[ImageTag.doStartTag] metaAction.getConfirmMessage(request)=" + metaAction.getConfirmMessage(request)); // tmp
+			}
+			// tmp fin
 			if (!Is.empty(getArgv())) pageContext.getOut().print(metaAction.getConfirmMessage(request, getArgv()));	
 			else pageContext.getOut().print(metaAction.getConfirmMessage(request));
 			pageContext.getOut().print("'");
