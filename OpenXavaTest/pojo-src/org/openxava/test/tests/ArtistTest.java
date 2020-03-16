@@ -27,7 +27,7 @@ public class ArtistTest extends ModuleTestBase {
 		ActingLevel level = XPersistence.getManager().find(ActingLevel.class, "B    ");
 		assertEquals(5, level.getId().length());
 		assertEquals(40, level.getDescription().length());
-		assertDescriptionValue("level.id", "B MAIN CHARACTER"); 
+		assertDescriptionValue("level.id", "B MAIN CHARACTER"); // TMP FALLA ME QUEDÉ POR AQUÍ: HAY 3 FALLA
 		
 		// Bean Validation JSR 303
 		setValue("age", "99");		

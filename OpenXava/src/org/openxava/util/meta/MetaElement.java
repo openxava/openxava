@@ -112,7 +112,6 @@ abstract public class MetaElement implements java.io.Serializable {
 	}
 	
 	private String filterApostrophes(String source) { // tmp
-		// return source.replace("''", "&#145;").replace("'", "&#145;"); // tmp ¿Poner en el changelog lo del doble?
 		return source.replace("''", "'");
 	}
 	

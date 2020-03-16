@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Two apostrophes one after the other in labels if they are in that way in labels files. 
 - Fix: When View.setValue() for a transient property it will ask confirmation before leave the record. 
 - Fix: Upload editor disabled when inside an already closed frame. 
 - Fix: Adding a new file to a FILES property that already has files using the Explore link fails. 

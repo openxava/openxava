@@ -51,26 +51,47 @@ public class CarrierTest extends CarrierTestBase {
 		assertNoAction("CollectionCopyPaste.paste");
 	}
 	
-	public void testConfirmActionWithApostrophe_switzerlandLocale() throws Exception { 
+	public void testApostrophes_switzerlandLocale() throws Exception { 
 		// tmp setLocale("it");
 		setLocale("fr");
+		// Confirm action with apostrophe
 		assertListRowCount(5);
 		execute("List.viewDetail", "row=0");
+		// tmp ini
+		HtmlAnchor deleteLink = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Carrier__CRUD___delete");
+		// To ensure the question has an apostrophe
+		assertEquals("javascript:openxava.executeAction('OpenXavaTest', 'Carrier', 'Effacer l" 
+			+ (char) 145 +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
+			deleteLink.getHrefAttribute());
+		// tmp fin
 		execute("CRUD.delete");
 		execute("Mode.list");
 		assertListRowCount(4);
 		// tmp ini
+		
+		// Confirm row action with apostrophe and title in actions
+		// To ensure the title and question have apostrophe
+		String deleteRowLink = "<a class=\"ox-image-link\" "
+				+ "title=\"Effacer l" + (char) 145 + "entité\" "
+				+ "href=\"javascript:openxava.executeAction('OpenXavaTest', 'Carrier', 'Effacer l" 
+				+ (char) 145 + "entité la ligne 1: êtes-vous sûr ?', false, 'CRUD.deleteRow', 'row=0')\">";
+		assertTrue(getHtml().contains(deleteRowLink));
 		execute("CRUD.deleteRow", "row=0");
 		assertListRowCount(3);
 		
+		// Apostrophe in dialog title
 		execute("List.viewDetail", "row=0");
 		execute("Collection.new", "viewObject=xava_view_fellowCarriersCalculated");
 		assertDialogTitle("Préparation d'une nouvelle entité - Transporteur");
 		closeDialog();
 		
-		// TMP ME QUEDÉ POR AQUÍ: FALTA EL CASO DE LA ACCIÓN ABAJO CON ' 
+		// Apostrophe in bottom button
+		HtmlInput showCutRowsButton = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Carrier__Carrier___showCutRows");
+		assertEquals("Montrer l" + (char) 145 + "article coupé", showCutRowsButton.getValueAttribute());
+		
 		// tmp fin
 		
+		// Switzerland locale
 		execute("Mode.list"); // tmp
 		setLocale("it-CH");
 		assertAction("CRUD.new");
