@@ -56,8 +56,7 @@ public class ImageTag extends ActionTagBase {
 				pageContext.getOut().print("'");	
 			}			
 			pageContext.getOut().print(" title='");
-			// tmp pageContext.getOut().print(getTooltip(metaAction)); 
-			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); // tmp
+			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); 
 			pageContext.getOut().print("'");
 			if (metaAction.isLosesChangedData()) pageContext.getOut().print(" href=\"javascript:openxava.executeActionConfirmLosesChangedData(");
 			else pageContext.getOut().print(" href=\"javascript:openxava.executeAction(");
@@ -67,14 +66,8 @@ public class ImageTag extends ActionTagBase {
 			pageContext.getOut().print(module);
 			pageContext.getOut().print("', ");									
 			pageContext.getOut().print("'");
-			/* tmp
-			if (!Is.empty(getArgv())) pageContext.getOut().print(metaAction.getConfirmMessage(request, getArgv()));	
-			else pageContext.getOut().print(metaAction.getConfirmMessage(request));
-			*/
-			// tmp ini
 			if (!Is.empty(getArgv())) pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request, getArgv())));	
 			else pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request)));			
-			// tmp fin
 			pageContext.getOut().print("'");
 			pageContext.getOut().print(", ");			
 			pageContext.getOut().print(metaAction.isTakesLong());

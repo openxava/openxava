@@ -26,7 +26,7 @@ public class CustomerTwoSellersInListTest extends ModuleTestBase {
 		setValue("website", "http://www.openxava.org");
 		HtmlElement websiteLink = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_CustomerTwoSellersInList__editor_website")
 								.getElementsByTagName("a").get(0);
-		websiteLink.click();
+		websiteLink.click(); 
 		assertEquals("http://www.openxava.org", websiteLink.getAttribute("href"));
 		setValue("website", "https://www.openxava.org");
 		websiteLink.click();

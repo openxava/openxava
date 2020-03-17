@@ -27,7 +27,7 @@ public class EditorsParser extends ParserBase {
 		super(xmlFileURL, language);
 	}
 	
-	public static void setupEditors() throws XavaException {
+	public static void setupEditors() throws XavaException { 
 		EditorsParser defaultParser = new EditorsParser("default-editors.xml", ENGLISH);
 		defaultParser.parse();		
 		EditorsParser enParser = new EditorsParser("editors.xml", ENGLISH);

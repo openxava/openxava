@@ -57,7 +57,7 @@ public class ActionTagBase extends TagSupport implements IActionTag {
 		return (ModuleContext) request.getSession().getAttribute("context");
 	}
 	
-	protected String filterApostrophes(String source) { // tmp
+	protected String filterApostrophes(String source) { 
 		return source.replace("'", "&#145;");
 	}
 

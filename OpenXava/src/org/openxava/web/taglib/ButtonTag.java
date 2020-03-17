@@ -40,9 +40,8 @@ public class ButtonTag extends ActionTagBase {
 				pageContext.getOut().print("'");
 			}
 			pageContext.getOut().print(" tabindex='1'"); 
-			pageContext.getOut().print(" title='"); 
-			// tmp pageContext.getOut().print(getTooltip(metaAction)); 
-			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); // tmp
+			pageContext.getOut().print(" title='");  
+			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); 
 			pageContext.getOut().print("'");
 			pageContext.getOut().print(" class='");
 			Style style = (Style) request.getAttribute("style");
@@ -58,8 +57,7 @@ public class ButtonTag extends ActionTagBase {
 			pageContext.getOut().print('"');
 			pageContext.getOut().print(", ");			
 			pageContext.getOut().print('"');				
-			// tmp pageContext.getOut().print(metaAction.getConfirmMessage(request));
-			pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request))); // tmp
+			pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request))); 
 			pageContext.getOut().print('"');
 			pageContext.getOut().print(", ");
 			pageContext.getOut().print(metaAction.isTakesLong());
@@ -80,8 +78,7 @@ public class ButtonTag extends ActionTagBase {
 				}
 			}
 			pageContext.getOut().print(")' value='");
-			// tmp pageContext.getOut().print(metaAction.getLabel(request));
-			pageContext.getOut().print(filterApostrophes(metaAction.getLabel(request))); // tmp
+			pageContext.getOut().print(filterApostrophes(metaAction.getLabel(request))); 
 			pageContext.getOut().println("'/>");
 		}
 		catch (Exception ex) {

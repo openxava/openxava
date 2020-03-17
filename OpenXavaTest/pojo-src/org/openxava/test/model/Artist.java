@@ -14,6 +14,7 @@ import javax.validation.constraints.*;
 
 @Entity
 @View(name="ConfirmName", members="artistStudio; name; age; level")
+@Tab(defaultOrder="${name}") 
 public class Artist extends Identifiable {
 	
 	@ManyToOne

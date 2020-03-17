@@ -1,6 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Tooltips for actions with apostrophe are shown truncated. 
+- Fix: Row action with confirm=true and description with apostrophe does not work.
+- Fix: Delete button does not work in a row for French.
+- Fix: Title in dialog shows a number instead of apostrophe.
+- Fix: Labels of bottom buttons are truncated with they content an apostrophe.
+- Fix: "FWK005 parse may not be called while parsing" on parsing XMLs from time to time. 
 - Fix: Two apostrophes one after the other in labels if they are in that way in labels files. 
 - Fix: When View.setValue() for a transient property it will ask confirmation before leave the record. 
 - Fix: Upload editor disabled when inside an already closed frame. 

@@ -21,7 +21,7 @@ public class JourneyTest extends ModuleTestBase {
 	
 	public void testCardsPaging() throws Exception { 
 		execute("ListFormat.select", "editor=Cards");
-		assertCardsPaging241(); // TMP FALLA
+		assertCardsPaging241(); 
 		deleteJorney(241);
 		resetModule();
 		assertCardsPaging240(); 

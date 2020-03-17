@@ -52,22 +52,19 @@ public class CarrierTest extends CarrierTestBase {
 	}
 	
 	public void testApostrophes_switzerlandLocale() throws Exception { 
-		// tmp setLocale("it");
 		setLocale("fr");
+
 		// Confirm action with apostrophe
 		assertListRowCount(5);
 		execute("List.viewDetail", "row=0");
-		// tmp ini
-		HtmlAnchor deleteLink = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Carrier__CRUD___delete");
+	HtmlAnchor deleteLink = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Carrier__CRUD___delete");
 		// To ensure the question has an apostrophe
 		assertEquals("javascript:openxava.executeAction('OpenXavaTest', 'Carrier', 'Effacer l" 
 			+ (char) 145 +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
 			deleteLink.getHrefAttribute());
-		// tmp fin
 		execute("CRUD.delete");
 		execute("Mode.list");
 		assertListRowCount(4);
-		// tmp ini
 		
 		// Confirm row action with apostrophe and title in actions
 		// To ensure the title and question have apostrophe
@@ -89,10 +86,8 @@ public class CarrierTest extends CarrierTestBase {
 		HtmlInput showCutRowsButton = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Carrier__Carrier___showCutRows");
 		assertEquals("Montrer l" + (char) 145 + "article coupé", showCutRowsButton.getValueAttribute());
 		
-		// tmp fin
-		
 		// Switzerland locale
-		execute("Mode.list"); // tmp
+		execute("Mode.list"); 
 		setLocale("it-CH");
 		assertAction("CRUD.new");
 	}

@@ -1,5 +1,7 @@
 package org.openxava.test.model;
 
+import java.util.*;
+
 import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -13,9 +15,8 @@ import org.openxava.annotations.*;
 @Entity
 public class Journey {
 	
-	@Id @GeneratedValue(generator="system-uuid") @Hidden 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
-	private String oid;
+	@Id @Hidden
+	private String oid;	
 	
 	@Column(length=20)
 	private String name;
@@ -24,7 +25,12 @@ public class Journey {
 	private AverageSpeed averageSpeed;
 		
 	@Column(length=40)
-	private String description;	
+	private String description;
+	
+	@PrePersist
+	private void generateOid() { 
+		oid = "z" + System.currentTimeMillis();
+	}
 	
 	public String getOid() {
 		return oid;
