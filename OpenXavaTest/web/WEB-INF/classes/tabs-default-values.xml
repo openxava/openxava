@@ -1,0 +1,36 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE tabs-default-values SYSTEM "dtds/tabs-default-values.dtd">
+
+<!-- OpenXavaTest -->
+
+<tabs-default-values>
+
+	<tab>	
+		<filter class="org.openxava.test.filters.ActiveYearFilter"/>		
+		<base-condition>${year} = ?</base-condition>		
+		
+		<for-model model="Invoice3"/>
+		
+	</tab>
+
+	<tab>	
+		<properties>year, number, date</properties>		
+		<default-order>${number} desc</default-order>
+		
+		<for-model model="Invoice3"/>
+	</tab>
+	
+	<tab>	
+		<filter class="org.openxava.test.filters.InventFilter"/>		
+		<base-condition>${value} = ?</base-condition>		
+		
+		<for-model model="Invent"/>
+		
+	</tab>
+	
+	<tab editors="List">		
+		<for-model model="Formula"/>
+	</tab>	
+		
+</tabs-default-values>

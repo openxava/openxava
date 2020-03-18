@@ -1,0 +1,13 @@
+<!ELEMENT longitud-defecto (para-estereotipo|para-tipo)+>
+
+<!ELEMENT para-estereotipo EMPTY>
+<!ATTLIST para-estereotipo
+ nombre CDATA #REQUIRED
+ longitud CDATA #REQUIRED
+>
+
+<!ELEMENT para-tipo EMPTY>
+<!ATTLIST para-tipo
+ clase CDATA #REQUIRED
+ longitud CDATA #REQUIRED
+>

@@ -1,0 +1,29 @@
+	public org.openxava.test.model.Warehouse getWarehouseKey() {
+		org.openxava.test.model.Warehouse key = new org.openxava.test.model.Warehouse();
+		key.setNumber(getWarehouseNumber()==null?0:getWarehouseNumber().intValue());
+		key.setZoneNumber(getWarehouseZoneNumber());
+		return key;
+	}
+
+	public void setWarehouseKey(org.openxava.test.model.Warehouse warehouseKey) {
+		setWarehouseNumber(new Integer(warehouseKey.getNumber()));
+		setWarehouseZoneNumber(warehouseKey.getZoneNumber());
+	}
+
+	private int warehouseZoneNumber;	
+	public int getWarehouseZoneNumber() {
+		return warehouseZoneNumber;
+	}
+	public void setWarehouseZoneNumber(int newWarehouseZoneNumber) {
+		warehouseZoneNumber = newWarehouseZoneNumber;
+	}
+	
+	private Integer warehouseNumber;	
+	public Integer getWarehouseNumber() {
+		return warehouseNumber;
+	}
+	
+	public void setWarehouseNumber(Integer newWarehouseNumber) {
+		warehouseNumber = newWarehouseNumber;
+	}
+	

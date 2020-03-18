@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!ELEMENT validadores (validador*, validador-requerido*, validador-defecto*)>
+
+<!ELEMENT validador EMPTY>
+<!ATTLIST validador
+  nombre ID #REQUIRED
+  clase CDATA #REQUIRED  
+>
+
+<!ELEMENT validador-requerido ((nombre-validador | clase-validador), (para-tipo | para-estereotipo)+)>
+
+<!ELEMENT validador-defecto ((nombre-validador | clase-validador), (para-tipo | para-estereotipo)+)>
+
+<!ELEMENT nombre-validador EMPTY>
+<!ATTLIST nombre-validador
+  nombre CDATA #REQUIRED
+>
+
+<!ELEMENT clase-validador EMPTY>
+<!ATTLIST clase-validador
+  clase CDATA #REQUIRED
+>
+
+<!ELEMENT para-tipo EMPTY>
+<!ATTLIST para-tipo
+  tipo CDATA #REQUIRED
+>
+
+<!ELEMENT para-estereotipo EMPTY>
+<!ATTLIST para-estereotipo
+  estereotipo CDATA #REQUIRED
+>

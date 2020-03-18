@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Inserting thousands separator as you type does not work for Chrome, Internet Explorer and Edge.
 - Fix: Some English source code in Spanish course.
 - Lesson 4 of course upgraded to latest features.
 - Fix: Tooltips for actions with apostrophe are shown truncated. 
