@@ -188,7 +188,7 @@ public class Factura {
 public class Pedido {
  
     @ManyToOne // Sin carga vaga (1)
-    private Invoice invoice;
+    private Factura factura;
     ...
 }
 </code></pre> Es decir, una factura tiene varios pedidos y un pedido puede
@@ -424,7 +424,7 @@ public class Hijo extends Padre { ... } // Hijo se visualiza usando la vista
       <h3 id="toc11"><a name="Herencia-de-vistas-Vista-para-Factura-usando-herencia"></a>Vista
         para Factura usando herencia</h3>
       Dado que la <em>@View</em> de <em>DocumentoComercial</em> no se hereda,
-      la interfaz de usuario actual para <em>Invoice</em> es bastante fea:
+      la interfaz de usuario actual para <em>Factura</em> es bastante fea:
       todos los miembros, uno por línea. Vamos a definir una interfaz de usuario
       mejor. Una vista parecida a la que ya teníamos, pero añadiendo una pestaña
       para pedidos, así:<br>
