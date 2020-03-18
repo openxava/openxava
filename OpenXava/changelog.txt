@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 4 of course upgraded to latest features.
 - Fix: Tooltips for actions with apostrophe are shown truncated. 
 - Fix: Row action with confirm=true and description with apostrophe does not work.
 - Fix: Delete button does not work in a row for French.
