@@ -2404,7 +2404,6 @@ public class View implements java.io.Serializable {
 	 * Clear all displayed data.  
 	 */
 	public void clear() throws XavaException {
-		/* tmp
 		if (rootModelName != null) {
 			String viewName = getViewName(); 
 			setModelName(rootModelName); 
@@ -2420,7 +2419,6 @@ public class View implements java.io.Serializable {
 		setFocusCurrentId(null); 
 		setCollectionDetailVisible(false);
 		resetRecalculatedProperties();
-		*/ 
 		if (values == null) return;
 		Iterator it = values.entrySet().iterator();
 		while (it.hasNext()) {
@@ -2429,7 +2427,6 @@ public class View implements java.io.Serializable {
 			if (getMembersNames().containsKey(e.getKey())) values.put(e.getKey(), null); 
 			else it.remove();
 		}
-		/* tmp
 		if (hasSubviews()) {
 			Iterator itSubviews = getSubviews().values().iterator();
 			while (itSubviews.hasNext()) {
@@ -2450,7 +2447,6 @@ public class View implements java.io.Serializable {
 				getSectionView(i).clear();
 			}	
 		}		
-		*/		
 	}
 	
 	/**

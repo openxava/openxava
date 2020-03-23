@@ -45,24 +45,19 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 		
 		Map [] selectedOnes = getTab().getSelectedKeys();
 		
-		System.out.println("[ViewDetailAction.execute] key.1=" + key); // tmp
 		if (!Is.empty(nextKey)) key = nextKey;
 		else if (isDeleteAllSelected()) key = null;
 		else if (!explicitRow && selectedOnes != null && selectedOnes.length > 0){	// hay seleccionados y no hay fila espec√≠fica
 			// buscamos la clave actual y la situamos en el array, despu√©s buscaremos seg√∫n el increment
 			Map keyActual = getView().getKeyValues();
 			List l = Arrays.asList(selectedOnes);
-			System.out.println("[ViewDetailAction.execute] isGoFirst()=" + isGoFirst()); // tmp
-			System.out.println("[ViewDetailAction.execute] Is.empty(keyActual)=" + Is.empty(keyActual)); // tmp
-			System.out.println("[ViewDetailAction.execute] keyActual=" + keyActual); // tmp
-			if (isGoFirst() /* tmp || Is.empty(keyActual)*/) {
+			if (isGoFirst()) {
 				key = (Map) l.get(0);
-				System.out.println("[ViewDetailAction.execute] A"); // tmp
 			}
 			else{
-				System.out.println("[ViewDetailAction.execute] B"); // tmp
-				keyActual = (Map) getTab().getTableModel().getObjectAt(row); // tmp ME QUED… POR AQUÕ, A—ADÕ ESTA LÕNEA, PERO NO DIO RESULTADO
-				int index = l.indexOf(keyActual);
+				int index = 0;
+				if (Is.empty(keyActual)) index = row;
+				else index = l.indexOf(keyActual);
 				if (increment < 0 && index == 0){
 					setAtListBegin(true);
 					addError("at_list_begin");			
@@ -70,7 +65,8 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 				}
 				index = index + increment;
 				if (l.size() == index) key = null;	// last element
-				else key = (Map)l.get(index);	
+				else key = (Map)l.get(index);
+				row = index; // We use row to store the last index
 			}
 		}
 		else{	// no hay seleccionados o hay fila espec√≠fica
@@ -86,8 +82,6 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 			if (row < 0) row = 0; 
 			key = (Map) getTab().getTableModel().getObjectAt(row);
 		}
-		System.out.println("[ViewDetailAction.execute] key.2=" + key); // tmp
-		System.out.println("[ViewDetailAction.execute] nextKey=" + nextKey); // tmp
 		if (key == null) {
 			setNoElementsInList(true);
 			addError("no_list_elements");
