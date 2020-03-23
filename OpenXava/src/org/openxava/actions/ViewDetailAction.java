@@ -51,9 +51,13 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 			// buscamos la clave actual y la situamos en el array, después buscaremos según el increment
 			Map keyActual = getView().getKeyValues();
 			List l = Arrays.asList(selectedOnes);
-			if (isGoFirst() || Is.empty(keyActual)) key = (Map) l.get(0);
+			if (isGoFirst()) {
+				key = (Map) l.get(0);
+			}
 			else{
-				int index = l.indexOf(keyActual);
+				int index = 0;
+				if (Is.empty(keyActual)) index = row;
+				else index = l.indexOf(keyActual);
 				if (increment < 0 && index == 0){
 					setAtListBegin(true);
 					addError("at_list_begin");			
@@ -61,7 +65,8 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 				}
 				index = index + increment;
 				if (l.size() == index) key = null;	// last element
-				else key = (Map)l.get(index);	
+				else key = (Map)l.get(index);
+				row = index; // We use row to store the last index
 			}
 		}
 		else{	// no hay seleccionados o hay fila específica

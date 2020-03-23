@@ -366,6 +366,10 @@ public class WarehouseTest extends ModuleTestBase {
 		assertValue("zoneNumber", zoneNumber2); 
 		assertValue("number", number2);
 		assertValue("name", name2);
+		execute("CRUD.save"); 
+		assertValue("zoneNumber", ""); // To assure reset after saving to test a case
+		assertValue("number", "");
+		assertValue("name", "");
 		execute("Navigation.next");
 		assertValue("zoneNumber", zoneNumber3);
 		assertValue("number", number3);

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Navigation by selected records starts by the first one after saving a record.
 - Fix: Inserting thousands separator as you type does not work for Chrome, Internet Explorer and Edge.
 - Fix: Some English source code in Spanish course.
 - Lesson 4 of course upgraded to latest features.

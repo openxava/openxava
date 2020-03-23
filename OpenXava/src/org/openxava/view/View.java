@@ -2380,11 +2380,12 @@ public class View implements java.io.Serializable {
 	 * Clear all data and set the default values.
 	 */
 	public void reset() throws XavaException {
-		createSubviews(); 
-		clear();
-		resetCollections(true); 
+		createSubviews();
+		clear();		
+		resetCollections(true); 	
 		calculateDefaultValues(true);
-		getRoot().dataChanged = false; 
+		getRoot().dataChanged = false;
+		 
 	}
 	
 	/**
@@ -2417,7 +2418,7 @@ public class View implements java.io.Serializable {
 		setIdFocusProperty(null);
 		setFocusCurrentId(null); 
 		setCollectionDetailVisible(false);
-		resetRecalculatedProperties(); 
+		resetRecalculatedProperties();
 		if (values == null) return;
 		Iterator it = values.entrySet().iterator();
 		while (it.hasNext()) {
@@ -2445,7 +2446,7 @@ public class View implements java.io.Serializable {
 			for (int i = 0; i < count; i++) {
 				getSectionView(i).clear();
 			}	
-		}				
+		}		
 	}
 	
 	/**
