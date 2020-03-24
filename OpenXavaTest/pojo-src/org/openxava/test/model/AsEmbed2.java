@@ -1,6 +1,8 @@
 package org.openxava.test.model;
 
 import org.openxava.model.*;
+import org.openxava.test.actions.*;
+
 import javax.persistence.*;
 import org.openxava.annotations.*;
 
@@ -9,6 +11,7 @@ import org.openxava.annotations.*;
 public class AsEmbed2 extends Identifiable {
 
 	@Column(length=40)
+	@OnChange(OnChangeAsEmbed2ValueAction.class) // tmp
 	private String value2;
 		
 	@OneToOne(mappedBy = "asEmbed2")

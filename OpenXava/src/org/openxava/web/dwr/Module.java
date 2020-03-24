@@ -424,6 +424,7 @@ public class Module extends DWRBase {
 			Messages messages = (Messages) request.getAttribute("messages");
 			put(result, "messages", messages.contains()?"messages.jsp":null);
 			
+			System.out.println("[Module.getChangedParts] (" + getView() + ").isReloadNeeded()=" + getView().isReloadNeeded()); // tmp
 			if (manager.isReloadViewNeeded() || getView().isReloadNeeded()) {
 				put(result, "view", manager.getViewURL());
 			}

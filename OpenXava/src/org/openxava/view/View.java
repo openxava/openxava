@@ -4527,6 +4527,7 @@ public class View implements java.io.Serializable {
 		boolean modified = false;
 		if (hidden) modified = hiddenMembers.add(name);
 		else modified = hiddenMembers.remove(name);
+		System.out.println("[View(" + oid + ").setHidden] " + name + ".modified=" + modified); // tmp
 		if (modified) { 
 			metaMembers = null;
 			metaMembersIncludingHiddenKey = null;
@@ -4539,7 +4540,12 @@ public class View implements java.io.Serializable {
 			metaPropertiesQualified = null;
 			reloadNeeded = true;			
 			updateHiddenSections(); 
-			getRoot().reloadNeeded = true; 
+			System.out.println("[View.setHidden] getRoot()=" + getRoot()); // tmp
+			System.out.println("[View.setHidden] getRoot().getModelName()=" + getRoot().getModelName()); // tmp
+			System.out.println("[View.setHidden] getFirstLevelView()=" + getFirstLevelView()); // tmp
+			System.out.println("[View.setHidden] getFirstLevelView().getModelName()=" + getFirstLevelView().getModelName()); // tmp			
+			// tmp getRoot().reloadNeeded = true;
+			getFirstLevelView().reloadNeeded = true; // TMP ME QUEDÉ POR AQUÍ: ESTO LO ARREGLA. PROBARLO EN EJEMPLO DEL CLIENTE
 			refreshCollection();
 		}
 		
@@ -4580,6 +4586,11 @@ public class View implements java.io.Serializable {
 		View parent = getParent();
 		if (parent == null) return this;
 		return parent.getRoot();
+	}
+	
+	private View getFirstLevelView() { // tmp
+		if (isFirstLevel()) return this;
+		return getParent().getFirstLevelView();
 	}
 	
 	/**
