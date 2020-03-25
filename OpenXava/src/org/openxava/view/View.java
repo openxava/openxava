@@ -2843,7 +2843,7 @@ public class View implements java.io.Serializable {
 	public void setModelName(String newModel) {
 		if (Is.equal(modelName, newModel)) return;		
 		modelName = newModel;
-		getRoot().reloadNeeded = true; // If the model of the view of a reference changes, the main view must be reloaded.
+		getFirstLevelView().reloadNeeded = true; // If the model of the view of a reference changes, the main view must be reloaded.
 		resetMembers();		
 		if (model != null && !model.getClass().getSimpleName().equals(modelName)) model = null; 
 	}
@@ -4096,8 +4096,8 @@ public class View implements java.io.Serializable {
 		if (Is.equal(viewName, newView)) return;
 		resetMembers();		
 		viewName = newView;
-		getRoot().reloadNeeded = true; // We reload the root view when a subview
-								// is changed. Obviously this can be optimized
+		getFirstLevelView().reloadNeeded = true; // We reload the root view when a subview
+										// is changed. Obviously this can be optimized		
 		reloadNeeded = true;
 	}
 	
@@ -4527,7 +4527,6 @@ public class View implements java.io.Serializable {
 		boolean modified = false;
 		if (hidden) modified = hiddenMembers.add(name);
 		else modified = hiddenMembers.remove(name);
-		System.out.println("[View(" + oid + ").setHidden] " + name + ".modified=" + modified); // tmp
 		if (modified) { 
 			metaMembers = null;
 			metaMembersIncludingHiddenKey = null;
@@ -4540,12 +4539,7 @@ public class View implements java.io.Serializable {
 			metaPropertiesQualified = null;
 			reloadNeeded = true;			
 			updateHiddenSections(); 
-			System.out.println("[View.setHidden] getRoot()=" + getRoot()); // tmp
-			System.out.println("[View.setHidden] getRoot().getModelName()=" + getRoot().getModelName()); // tmp
-			System.out.println("[View.setHidden] getFirstLevelView()=" + getFirstLevelView()); // tmp
-			System.out.println("[View.setHidden] getFirstLevelView().getModelName()=" + getFirstLevelView().getModelName()); // tmp			
-			// tmp getRoot().reloadNeeded = true;
-			getFirstLevelView().reloadNeeded = true; // TMP ME QUEDÉ POR AQUÍ: ESTO LO ARREGLA. PROBARLO EN EJEMPLO DEL CLIENTE
+			getFirstLevelView().reloadNeeded = true; 
 			refreshCollection();
 		}
 		
@@ -4588,7 +4582,7 @@ public class View implements java.io.Serializable {
 		return parent.getRoot();
 	}
 	
-	private View getFirstLevelView() { // tmp
+	private View getFirstLevelView() { 
 		if (isFirstLevel()) return this;
 		return getParent().getFirstLevelView();
 	}
@@ -6503,7 +6497,7 @@ public class View implements java.io.Serializable {
 	 * @since 5.6
 	 */
 	public void reloadMetaModel() { 
-		getRoot().reloadNeeded = true; 
+		getFirstLevelView().reloadNeeded = true; 
 		resetMembers();
 	}
 

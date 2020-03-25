@@ -13,7 +13,7 @@ public class AsEmbedContainerTest extends ModuleTestBase {
 		super(testName, "AsEmbedContainer");		
 	}
 
-	public void test3LevelAsEmbeddedEntities() throws Exception {
+	public void test3LevelAsEmbeddedEntities_hideMemberInEmbeddedInsideDialog() throws Exception {
 		deleteData();
 		execute("CRUD.new");
 		setValue("value", "CONTAINER");
@@ -29,10 +29,8 @@ public class AsEmbedContainerTest extends ModuleTestBase {
 		assertValue("asEmbed2.value2", "VALUE 2");
 		assertValue("asEmbed2.asEmbed3.value3", "VALUE 3");
 		
-		// tmp ini
 		setValue("asEmbed2.value2", "HIDE");
 		assertNotExists("asEmbed2.value2");
-		// tmp fin
 
 		changeModule("AsEmbed2");
 		assertListRowCount(1);

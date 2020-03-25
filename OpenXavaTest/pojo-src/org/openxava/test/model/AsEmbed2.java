@@ -11,7 +11,7 @@ import org.openxava.annotations.*;
 public class AsEmbed2 extends Identifiable {
 
 	@Column(length=40)
-	@OnChange(OnChangeAsEmbed2ValueAction.class) // tmp
+	@OnChange(OnChangeAsEmbed2ValueAction.class) 
 	private String value2;
 		
 	@OneToOne(mappedBy = "asEmbed2")
