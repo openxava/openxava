@@ -49,9 +49,11 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			return result;
 		} 
 		catch (CreateException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (ValidationException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (RuntimeException ex) {
@@ -123,9 +125,10 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		}
 		catch (FinderException ex) {
 			log.error(ex.getMessage(), ex);
+			freeTransaction(); // tmp
 			throw ex;
 		}
-		catch (RuntimeException ex) { 
+		catch (RuntimeException ex) {
 			log.error(ex.getMessage(), ex);
 			rollback(metaModel); 
 			throw ex;
@@ -171,6 +174,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		}
 		catch (FinderException ex) {
 			log.error(ex.getMessage(), ex);
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (RuntimeException ex) { 
@@ -198,9 +202,11 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			commitTransaction(metaModel); 
 		}
 		catch (RemoveException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (ValidationException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (RuntimeException ex) { 
@@ -238,9 +244,11 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			commitTransaction(metaModel); 
 		}
 		catch (FinderException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (ValidationException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (RuntimeException ex) { 
@@ -273,9 +281,11 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			return result;
 		}	
 		catch (CreateException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (ValidationException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (RuntimeException ex) { 
@@ -301,9 +311,11 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			return result;
 		}	
 		catch (CreateException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (ValidationException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (RuntimeException ex) { 
@@ -344,9 +356,11 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			return result;
 		}	
 		catch (CreateException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (ValidationException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (RuntimeException ex) { 
@@ -396,9 +410,11 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			return result;
 		}	
 		catch (CreateException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (ValidationException ex) { 
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (RuntimeException ex) { 
@@ -427,9 +443,11 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			return result;
 		}	
 		catch (CreateException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (ValidationException ex) {		
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (RuntimeException ex) { 
@@ -529,12 +547,15 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			commitTransaction(metaModel);			
 		} 
 		catch (FinderException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (ValidationException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (RemoveException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (RuntimeException ex) { 
@@ -607,9 +628,11 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			commitTransactionForAddCollectionElement(metaModel);		
 		} 
 		catch (FinderException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (ValidationException ex) {
+			freeTransaction(); // tmp
 			throw ex;
 		}
 		catch (RuntimeException ex) { 
@@ -667,9 +690,11 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 				commitTransactionForAddCollectionElement(sourceMetaModel);		
 			} 
 			catch (FinderException ex) {
+				freeTransaction(); // tmp
 				throw ex;
 			}
 			catch (ValidationException ex) {
+				freeTransaction(); // tmp
 				throw ex;
 			}
 			catch (RuntimeException ex) { 
@@ -1814,6 +1839,11 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 	private void rollback(MetaModel metaModel) throws RemoteException {
 		if (getSessionContext() != null) getSessionContext().setRollbackOnly();
 		getPersistenceProvider(metaModel).rollback();
+		HibernateValidatorInhibitor.setInhibited(false); // tmp Ponerlo en changelog, si funciona
+	}
+	
+	private void freeTransaction() throws RemoteException { // tmp
+		HibernateValidatorInhibitor.setInhibited(false); 
 	}
 			
 	private void executePostremoveCollectionElement(MetaModel metaModel, Map keyValues, MetaCollection metaCollection) throws FinderException, ValidationException, XavaException, RemoteException {

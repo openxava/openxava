@@ -136,6 +136,16 @@ public class ProjectTest extends ModuleTestBase {
 		moveElementInCollectionWithOrderColumn("notes", tasksElements, true); 
 	}
 	
+	public void testEditElementInCollectionAfterMoveWithOrderColumn() throws Exception { // tmp
+		execute("List.viewDetail", "row=0");
+		assertCollectionRowCount("members", 3);
+		assertValueInCollection("members", 0, 0, "JOHN");
+		assertValueInCollection("members", 1, 0, "JUAN");
+		assertValueInCollection("members", 2, 0, "PETER");
+	
+		// TMP ME QUEDÉ POR AQUÍ
+	}
+	
 	private void moveElementInCollectionWithOrderColumn(String collection, String [] elements, boolean save) throws Exception {  
 		execute("List.viewDetail", "row=0");
 		assertCollectionRowCount(collection, 3);
