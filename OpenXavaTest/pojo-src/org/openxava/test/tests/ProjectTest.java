@@ -136,14 +136,33 @@ public class ProjectTest extends ModuleTestBase {
 		moveElementInCollectionWithOrderColumn("notes", tasksElements, true); 
 	}
 	
-	public void testEditElementInCollectionAfterMoveWithOrderColumn() throws Exception { // tmp
+	public void testEditElementInCollectionAfterMoveWithOrderColumn() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertCollectionRowCount("members", 3);
 		assertValueInCollection("members", 0, 0, "JOHN");
 		assertValueInCollection("members", 1, 0, "JUAN");
 		assertValueInCollection("members", 2, 0, "PETER");
 	
-		// TMP ME QUEDÉ POR AQUÍ
+		moveRow("members", 2, 0);
+		assertValueInCollection("members", 0, 0, "PETER");
+		assertValueInCollection("members", 1, 0, "JOHN");
+		assertValueInCollection("members", 2, 0, "JUAN");
+		
+		// With HtmlUnit in order to use the actual row 1
+		HtmlTable table = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Project__members");
+		HtmlTableRow row = table.getRow(1);
+		HtmlTableCell cell = row.getCell(2);
+		assertEquals("PETER", cell.asText().trim());
+		HtmlElement link = cell.getElementsByTagName("a").get(0);
+		link.click();
+		waitAJAX();
+		
+		assertValue("name", "PETER");
+		closeDialog();
+		
+		moveRow("members", 1, 0);
+		moveRow("members", 2, 1);
+		
 	}
 	
 	private void moveElementInCollectionWithOrderColumn(String collection, String [] elements, boolean save) throws Exception {  

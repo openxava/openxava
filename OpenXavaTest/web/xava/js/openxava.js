@@ -435,8 +435,10 @@ openxava.initLists = function(application, module) {
 	    	ui.item.startPos = ui.item.index(); 
 	    },		
 	    stop: function( event, ui ) {
-	    	var tableId = $(event.target).closest("table").attr("id");
+	    	var table = $(event.target).closest("table");
+	    	var tableId = table.attr("id");
 	    	View.moveCollectionElement(tableId, ui.item.startPos - 1, ui.item.index() - 1);
+	    	openxava.renumberCollection(table);
 	    }	
 	});
 	openxava.watchColumnsSearch();
@@ -445,6 +447,16 @@ openxava.initLists = function(application, module) {
 	});
 	$('.xava_filter input').change(function() { // If changed, revise ModuleTestBase.setCollectionCondition()
 		$(this).parent().parent().find(".xava_comparator").fadeIn();
+	});
+}
+
+openxava.renumberCollection = function(table) { 
+	table.find("tr").each(function(rowIndex) {
+		$(this).find("a").each(function() {
+			var newHref = $(this).attr("href")
+				.replace(new RegExp("'row=\\d+,viewObject=", "g"), "'row=" + (rowIndex - 1) + ",viewObject=")
+			$(this).attr("href", newHref);
+		});
 	});
 }
 
