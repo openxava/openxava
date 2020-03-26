@@ -68,8 +68,8 @@ elementCollectionEditor.renumber = function(row, rowIndex) {
 		.replace(token1, token2)
 		.replace(new RegExp("this, \\d+", "g"), "this, " + rowIndex)
 		.replace(new RegExp("keyProperty=(.*)\\.\\d+\\.", "g"), "keyProperty=$1." + rowIndex + ".");
-	row.html(rowHtml);	
-	if ($(row).is(":visible")) { 
+	row.html(rowHtml);
+	if ($(row).css("display") !== 'none') { // is:visible/hidden not work on mobile (removing one record removes all until end)
 		elementCollectionEditor.renumber(row.next(), rowIndex + 1);
 	}
 }

@@ -41,8 +41,7 @@ if (p.isNumber()) {
 		maxLength += sizeIncrement;
 	}
 	String integer = p.getScale() == 0?"true":"false";
-	String browser = request.getHeader("user-agent").toLowerCase(); 
-	numericAlt = getNumericAlt(browser, p.getSize(), p.getScale());   
+	numericAlt = getNumericAlt(p.getSize(), p.getScale()); 
 	numericClass = "xava_numeric"; 
 }	
 
@@ -81,14 +80,13 @@ if (editable || !label) {
 <%!
 private static Log log = LogFactory.getLog("textEditor.jsp");
 
-private String getNumericAlt(String browser, int size, int scale) {
+private String getNumericAlt(int size, int scale) {
 	try {		
 		DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(Locales.getCurrent());
 		DecimalFormatSymbols symbols = df.getDecimalFormatSymbols();
 		StringBuffer result = new StringBuffer("alt='n"); // Negatives always allowed
 		result.append(size > 9?"0":Integer.toString(size)); // Size		
-		boolean browseSupportsGrouping = browser != null && browser.contains("firefox") ? true : false;
-		if (scale == 0 || !df.isGroupingUsed() || !browseSupportsGrouping) result.append("x"); // no grouping separator
+		if (scale == 0 || !df.isGroupingUsed()) result.append("x"); // no grouping separator
 		else {
 			switch (symbols.getGroupingSeparator()) {					
 				case ',':					
