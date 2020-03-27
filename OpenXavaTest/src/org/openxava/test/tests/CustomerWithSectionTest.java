@@ -776,6 +776,8 @@ public class CustomerWithSectionTest extends CustomerTest {
 		confirmHandler.assertNoMessage();
 		
 		// Transient property by code
+		// Comment next block for XML Components, they have no transient properties 
+		//   and view properties are not supported yet for this case
 		execute("Navigation.first");
 		assertValue("name", "Javi");
 		assertValue("extendedCity", "");
@@ -784,7 +786,8 @@ public class CustomerWithSectionTest extends CustomerTest {
 		confirmHandler.assertNoMessage();
 		execute("CRUD.new");
 		assertValue("name", "");
-		confirmHandler.assertNoMessage();		
+		confirmHandler.assertNoMessage();
+				
 		
 		// Property with event
 		execute("Navigation.first");
