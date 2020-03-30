@@ -8,7 +8,7 @@
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="sa" password="" driverClassName="org.hsqldb.jdbcDriver"
 	      url="jdbc:hsqldb:hsql://localhost:1666"/>
-	      
+	
 	<Resource name="jdbc/CompanyADS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="sa" password="" driverClassName="org.hsqldb.jdbcDriver"
@@ -18,5 +18,5 @@
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="sa" password="" driverClassName="org.hsqldb.jdbcDriver"
 	      url="jdbc:hsqldb:file:data/CompanyBDB"/>
-	      	      
+		      	      
 </Context>

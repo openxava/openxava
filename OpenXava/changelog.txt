@@ -1,27 +1,30 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.3.1 (2020-3-31)
+--------------------------
+- Workspace in distribution upgraded to Eclipse 2020-03, though it still works with Neon (4.6).
+- Lesson 4 of course upgraded to latest features.
+- Some new common use labels to be used in applications.
+- Dialogs aligned on top, lowering a little for each new nested dialog to show the titles of all dialogs.
 - Fix: BeanValidation does not work when saving directly with JPA from time to time under high load.
 - Fix: After reordering an @OrderColumn collection editing/removing an element edits/removes a wrong one
 - Fix: Hide members from an @OnChange action in an embedded inside a dialog has not effect.
 - Fix: Navigation by selected records starts by the first one after saving a record.
 - Fix: Inserting thousands separator as you type does not work for Chrome, Internet Explorer and Edge.
 - Fix: Some English source code in Spanish course.
-- Lesson 4 of course upgraded to latest features.
 - Fix: Tooltips for actions with apostrophe are shown truncated. 
 - Fix: Row action with confirm=true and description with apostrophe does not work.
 - Fix: Delete button does not work in a row for French.
 - Fix: Title in dialog shows a number instead of apostrophe.
-- Fix: Labels of bottom buttons are truncated with they content an apostrophe.
+- Fix: Labels of bottom buttons are truncated with they contain an apostrophe.
 - Fix: "FWK005 parse may not be called while parsing" on parsing XMLs from time to time. 
 - Fix: Two apostrophes one after the other in labels if they are in that way in labels files. 
 - Fix: When View.setValue() for a transient property it will ask confirmation before leave the record. 
 - Fix: Upload editor disabled when inside an already closed frame. 
 - Fix: Adding a new file to a FILES property that already has files using the Explore link fails. 
-- Fix: Generate PDF and Generate Excel fail when hibernate.cfg.xml is misconfigured.
-- Some new common use labels to be used in applications. 
-- Fix: Scrollbar when the mouse over last element of a descriptions list with Firefox and Internet Explorer.
-- Dialogs aligned on top, lowering a little for each new nested dialog to show the titles of all dialogs. 
+- Fix: Generate PDF and Generate Excel fail when hibernate.cfg.xml is misconfigured. 
+- Fix: Scrollbar when the mouse over last element of a descriptions list with Firefox and Internet Explorer. 
 - Fix: Combining hide/show member in a dialog with changing sections displaces the dialog outside screen.
 - Fix: Actions inside dialog have a wrong visual style.
 - Fix: Search reference icon inside element collections is an opaque circle.   
