@@ -29,15 +29,29 @@ public class Browsers {
 	 */
 	public static boolean isIE(HttpServletRequest request) { 
 		String browser = request.getHeader("user-agent");
+		System.out.println("[Browsers.isIE] browser=" + browser); // tmp
 		return browser == null?false:browser.contains("Trident") || browser.contains("MSIE");
 	}
 	
 	/**
 	 * @since 6.2
 	 */
-	public static boolean isFF(HttpServletRequest request) { 
+	public static boolean isFF(HttpServletRequest request) {
+		/* tmp 
 		String browser = request.getHeader("user-agent");
 		return browser == null?false:browser.contains("Firefox");
-	}	
+		*/
+		return isBrowser(request, "Firefox"); // tmp
+	}
+	
+	public static boolean isEdge(HttpServletRequest request) { // tmp
+		return isBrowser(request, "Edge");
+	}
+	
+	private static boolean isBrowser(HttpServletRequest request, String string) { // tmp  
+		String browser = request.getHeader("user-agent");
+		return browser == null?false:browser.contains(string);
+	}
+
 	
 }
