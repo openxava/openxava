@@ -13,8 +13,7 @@ openxava.addEditorInitFunction(function() {
 	    	if (input.dataset.preview === "false") pond.allowImagePreview = false; 
 	    	const fileURL = uploadEditor.getFileURL(input);
 	    	pond.onactivatefile = function(file) {
-	    		// tmp if (openxava.browser.ie) window.open(fileURL + uploadEditor.getFileIdParam(file));
-	    		if (openxava.browser.edge || openxava.browser.ie) window.open(fileURL + uploadEditor.getFileIdParam(file)); // tmp
+	    		if (openxava.browser.edge || openxava.browser.ie) window.open(fileURL + uploadEditor.getFileIdParam(file)); 
 	    		else  if (pond.allowImagePreview) {
 	    			if (openxava.browser.ff) {
 		    			openxava.setUrlParam("");

@@ -23,7 +23,7 @@ GalleryImage: Product2 with all browsers
 - Add two images, one with drag & drop and another browsing.
 - Click on one image. A new browser tab should open displaying the image. Close it.
 	- With Firefox: The image is shown in the same tab, click back in browser to return.
-	- With Internet Explorer: Fails.
+	- With Edge and Internet Explorer: Fails.
 - Go to list, choose the first product. It should have the two images.
 - Click on one image. A new browser tab should open displaying the image. Close it.
 	- With Firefox: The image is shown in the same tab, click back in browser to return.
@@ -43,13 +43,13 @@ AttachedFile and AttachedFiles: Movie with all browsers
 - Click on New.
 - Enter the title of a movie.
 - Upload in trailer an image. It does not show the preview.
-- Click on the image. The image is downloaded with the correct file title. (Fails with Internet Explorer)
+- Click on the image. The image is downloaded with the correct file title. (Fails with Edge and Internet Explorer)
 - Click on Save.
 - Go list, edit your movie. The image must be there.
-- Click on the image. The image is downloaded with the correct file title. (In a new tab with Internet Explorer)
+- Click on the image. The image is downloaded with the correct file title. (In a new tab with Edge and Internet Explorer)
 - Delete the movie.
 - Go to first record "FOREST GUMP".
-- Click in one script. The script is downloaded with the correct file title. (In a new tab with Internet Explorer)  
+- Click in one script. The script is downloaded with the correct file title. (In a new tab with Edge and Internet Explorer)  
 
 With @OnChange: CustomerFramesOnSameRow with all browsers
 - Go to first customer.

@@ -320,6 +320,7 @@ if (manager.isResetFormPostNeeded()) {
 	if (openxava != null && openxava.<%=initiated%> == null) {
 		openxava.browser.ie = <%=Browsers.isIE(request)%>;
 		openxava.browser.ff = <%=Browsers.isFF(request)%>;
+		openxava.browser.edge = <%=Browsers.isEdge(request)%>; 
 		openxava.showFiltersMessage = '<xava:message key="show_filters"/>';
 		openxava.hideFiltersMessage = '<xava:message key="hide_filters"/>';
 		openxava.confirmLoseChangesMessage = '<xava:message key="confirm_lose_changes"/>';  
