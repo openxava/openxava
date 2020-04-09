@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Loading message does not disappear from time to time.
 - Fix: Viewing image at full size on click does not work with upload file editor on Edge.
 
 OpenXava 6.3.1 (2020-4-1)
