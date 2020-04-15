@@ -1,0 +1,9 @@
+package org.openxava.test.tests;
+
+/**
+ * @author Ana Andres
+ * Created on 15 abr. 2020
+ */
+public class BigDecimalValidatorTest {
+
+}

@@ -20,6 +20,7 @@ public class BigDecimalValidator implements IPropertyValidator {
     public void validate(Messages errors, Object value, String propertyName, String modelName) throws Exception {
     	if (value == null) return;
         BigDecimal bigDecimal = (BigDecimal) value;
+        if (bigDecimal.signum() == 0) return;
         
         int maximumValue = new Integer("1" + Strings.repeat(maximumIntegerDigits, "0")).intValue();
         //

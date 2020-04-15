@@ -1,0 +1,5 @@
+package org.openxava.test.actions;
+
+public class ChangeNameGroupOrSection {
+
+}
