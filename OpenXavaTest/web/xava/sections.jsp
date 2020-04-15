@@ -27,6 +27,7 @@ int activeSection = view.getActiveSection();
 	while (itSections.hasNext()) {
 		MetaView section = (MetaView) itSections.next();
 		View sectionView = view.getSectionView(i);
+		String sectionName = sectionView.getTitle().equals("") ? section.getLabel(request) : sectionView.getTitle();
 		String collectionCountLabel = sectionView.getLabelDecoration();
 		if (activeSection == i) {
 	%>        
@@ -42,7 +43,7 @@ int activeSection = view.getActiveSection();
 				String viewObjectArgv = "xava_view".equals(viewObject)?"":",viewObject=" + viewObject;
 				%>
 				<xava:link action='Sections.change' argv='<%="activeSection=" + i + viewObjectArgv%>' cssClass='<%=style.getSectionLink()%>' cssStyle='<%=style.getSectionLinkStyle()%>'>
-				<%=section.getLabel(request)%> <span id="<xava:id name='<%=sectionView.getViewObject() +  "_collectionSize"%>'/>"><%=collectionCountLabel%></span>
+				<%=sectionName%> <span id="<xava:id name='<%=sectionView.getViewObject() +  "_collectionSize"%>'/>"><%=collectionCountLabel%></span>
 				</xava:link>				
 			<%=style.getSectionTabEndDecoration()%>	
   	<%   	
