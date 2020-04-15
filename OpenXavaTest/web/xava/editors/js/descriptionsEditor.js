@@ -19,6 +19,7 @@ openxava.addEditorInitFunction(function() {
 				event.preventDefault();
 			},			
 			change: function( event, ui ) {
+				console.log("[descriptionsEditor.change] "); // tmp
 				if ($(event.target).val() === "" && $(event.target).next().val() !== "") {  
 					$(event.target).next().val("");
 					$(event.target).next().next().val("");

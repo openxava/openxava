@@ -113,7 +113,7 @@ public class ServiceExpensesTest extends ModuleTestBase {
 		assertTotalInCollection("expenses", 1, "invoice.amount", "118.50");		
 	}
 	
-	private void assertComboOpens(int row, int uiId) throws Exception { // tmp Refactor
+	private void assertComboOpens(int row, int uiId) throws Exception {
 		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_ServiceExpenses__reference_editor_expenses___" + row + "___receptionist");
 		HtmlElement handler = editor.getElementsByTagName("i").get(0);
 		assertTrue(!getHtmlPage().getHtmlElementById("ui-id-" + uiId).isDisplayed());

@@ -42,7 +42,10 @@ elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
 	var header = table.children().first().children().first(); 
 	header.children("[id]").each(function() { 
 		var headerId = $( this ).attr("id");
+		console.log("[elementCollectionEditor.setDefaultValues] headerId=" + headerId); // tmp
 		var inputName = headerId.replace(new RegExp("__H", "g"), "__" + rowIndex);
+		console.log("[elementCollectionEditor.setDefaultValues] inputName=" + inputName); // tmp
+		console.log("[elementCollectionEditor.setDefaultValues] $( this ).attr(data-default-value)=" + $( this ).attr("data-default-value")); // tmp
 		$("[name='" + inputName + "']").val($( this ).attr("data-default-value")); 		
 	});
 }
@@ -55,6 +58,9 @@ elementCollectionEditor.removeRow = function(application, module, element, rowIn
 	if (hasTotals) {
 		openxava.executeAction(application, module, "", false, "ElementCollection.refreshTotals");
 	}	
+	// tmp ini
+	openxava.initEditors();
+	// tmp fin
 }
 
 elementCollectionEditor.renumber = function(row, rowIndex) { 
