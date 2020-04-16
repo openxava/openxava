@@ -15,12 +15,11 @@ public class ProductExpenses2Test extends ModuleTestBase {
 		super(testName, "ProductExpenses2");		
 	}
 		
-	public void testDescriptionsListWithDefaultValueInElementCollection() throws Exception {  // tmp Modificar nombre
-		getWebClient().getOptions().setCssEnabled(true); // tmp
+	public void testDescriptionsListWithDefaultValueInElementCollection_descriptionsListAfterRemovingRowInElementCollection() throws Exception {  // tmp Modificar nombre
+		getWebClient().getOptions().setCssEnabled(true); 
 		execute("CRUD.new");
 		setValue("description", "JUNIT EXPENSES");
 		
-		// tmp Lo de abajo no funciona en real, pero es otro bug, ¿qué hacemos?
 		assertValueInCollection("expenses", 0, "invoice.KEY", "");
 		assertValueInCollection("expenses", 0, "product.number", ""); 				
 		setValueInCollection("expenses", 0, "carrier.number", "3");  
@@ -36,8 +35,6 @@ public class ProductExpenses2Test extends ModuleTestBase {
 		assertValueInCollection("expenses", 0, "invoice.KEY", "[.1.2002.]"); 
 		assertValueInCollection("expenses", 0, "product.number", "2");	
 		
-		// tmp ini
-		// TMP LO DE ABAJO FUNCIONA: TEST HECHO Y BUG RESUELTO. ¿RESOLVER LO DE ARRIBA? ME PARECE QUE NUNCA HA FUNIONADO Y ES COMPLICADO DE IMPLEMENTAR
 		setValueInCollection("expenses", 1, "carrier.number", "2");
 		setValueInCollection("expenses", 2, "carrier.number", "1");
 		assertOpenCombo(0);
@@ -47,7 +44,6 @@ public class ProductExpenses2Test extends ModuleTestBase {
 		removeRow(1);
 		assertOpenCombo(0);
 		assertOpenCombo(1);
-		// tmp fin
 		
 		execute("CRUD.delete");
 		assertNoErrors();
@@ -68,7 +64,7 @@ public class ProductExpenses2Test extends ModuleTestBase {
 	    assertFalse(iconUp.isDisplayed());
 	}
 		
-	private void removeRow(int rowIndex) throws Exception { // tmp ¿Refactor?
+	private void removeRow(int rowIndex) throws Exception { 
 		HtmlElement row = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_ProductExpenses2__expenses___" + rowIndex); 
 		HtmlElement removeIcon = row.getElementsByTagName("a").get(0).getElementsByTagName("i").get(0); 
 		removeIcon.click();		
