@@ -303,3 +303,133 @@ java.lang.IllegalArgumentException: Cannot set lower sequence number for root (p
 	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1143)
 	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:55)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2020-04-17 11:11:42.759 -----------------------------------------------
+eclipse.buildId=4.14.0.I20191210-0610
+java.version=1.8.0_231
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_ES
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.jobs 4 2 2020-04-17 11:18:20.986
+!MESSAGE An internal error occurred during: "Items filtering".
+!STACK 0
+java.lang.ArrayIndexOutOfBoundsException: 1775
+	at org.eclipse.jdt.internal.core.index.DiskIndex.readStreamChars(DiskIndex.java:947)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.readChunk(DiskIndex.java:751)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.readDocumentName(DiskIndex.java:803)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.addQueryResult(DiskIndex.java:157)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.addQueryResults(DiskIndex.java:242)
+	at org.eclipse.jdt.internal.core.index.Index.query(Index.java:147)
+	at org.eclipse.jdt.internal.core.search.matching.TypeDeclarationPattern.queryIn(TypeDeclarationPattern.java:364)
+	at org.eclipse.jdt.core.search.SearchPattern.findIndexMatches(SearchPattern.java:2390)
+	at org.eclipse.jdt.internal.core.search.matching.MatchLocator.findIndexMatches(MatchLocator.java:296)
+	at org.eclipse.jdt.internal.core.search.PatternSearchJob.search(PatternSearchJob.java:117)
+	at org.eclipse.jdt.internal.core.search.PatternSearchJob.execute(PatternSearchJob.java:72)
+	at org.eclipse.jdt.internal.core.search.processing.JobManager.performConcurrentJob(JobManager.java:265)
+	at org.eclipse.jdt.internal.core.search.BasicSearchEngine.searchAllTypeNames(BasicSearchEngine.java:1851)
+	at org.eclipse.jdt.core.search.SearchEngine.searchAllTypeNames(SearchEngine.java:1202)
+	at org.eclipse.jdt.internal.ui.dialogs.FilteredTypesSelectionDialog.fillContentProvider(FilteredTypesSelectionDialog.java:494)
+	at org.eclipse.ui.dialogs.FilteredItemsSelectionDialog$FilterJob.filterContent(FilteredItemsSelectionDialog.java:1959)
+	at org.eclipse.ui.dialogs.FilteredItemsSelectionDialog$FilterJob.internalRun(FilteredItemsSelectionDialog.java:1914)
+	at org.eclipse.ui.dialogs.FilteredItemsSelectionDialog$FilterJob.doRun(FilteredItemsSelectionDialog.java:1891)
+	at org.eclipse.ui.dialogs.FilteredItemsSelectionDialog$FilterJob.run(FilteredItemsSelectionDialog.java:1879)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.core.jobs 4 2 2020-04-17 11:18:35.452
+!MESSAGE An internal error occurred during: "Items filtering".
+!STACK 0
+java.lang.ArrayIndexOutOfBoundsException: 1775
+	at org.eclipse.jdt.internal.core.index.DiskIndex.readStreamChars(DiskIndex.java:947)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.readChunk(DiskIndex.java:751)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.readDocumentName(DiskIndex.java:803)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.addQueryResult(DiskIndex.java:157)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.addQueryResults(DiskIndex.java:242)
+	at org.eclipse.jdt.internal.core.index.Index.query(Index.java:147)
+	at org.eclipse.jdt.internal.core.search.matching.TypeDeclarationPattern.queryIn(TypeDeclarationPattern.java:364)
+	at org.eclipse.jdt.core.search.SearchPattern.findIndexMatches(SearchPattern.java:2390)
+	at org.eclipse.jdt.internal.core.search.matching.MatchLocator.findIndexMatches(MatchLocator.java:296)
+	at org.eclipse.jdt.internal.core.search.PatternSearchJob.search(PatternSearchJob.java:117)
+	at org.eclipse.jdt.internal.core.search.PatternSearchJob.execute(PatternSearchJob.java:72)
+	at org.eclipse.jdt.internal.core.search.processing.JobManager.performConcurrentJob(JobManager.java:265)
+	at org.eclipse.jdt.internal.core.search.BasicSearchEngine.searchAllTypeNames(BasicSearchEngine.java:1851)
+	at org.eclipse.jdt.core.search.SearchEngine.searchAllTypeNames(SearchEngine.java:1202)
+	at org.eclipse.jdt.internal.ui.dialogs.FilteredTypesSelectionDialog.fillContentProvider(FilteredTypesSelectionDialog.java:494)
+	at org.eclipse.ui.dialogs.FilteredItemsSelectionDialog$FilterJob.filterContent(FilteredItemsSelectionDialog.java:1959)
+	at org.eclipse.ui.dialogs.FilteredItemsSelectionDialog$FilterJob.internalRun(FilteredItemsSelectionDialog.java:1914)
+	at org.eclipse.ui.dialogs.FilteredItemsSelectionDialog$FilterJob.doRun(FilteredItemsSelectionDialog.java:1891)
+	at org.eclipse.ui.dialogs.FilteredItemsSelectionDialog$FilterJob.run(FilteredItemsSelectionDialog.java:1879)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.core.resources 4 0 2020-04-17 11:19:08.346
+!MESSAGE Error occurred while reading master table file
+!STACK 0
+java.nio.charset.UnmappableCharacterException: Input length = 1
+	at java.nio.charset.CoderResult.throwException(Unknown Source)
+	at sun.nio.cs.StreamDecoder.implRead(Unknown Source)
+	at sun.nio.cs.StreamDecoder.read(Unknown Source)
+	at java.io.InputStreamReader.read(Unknown Source)
+	at java.io.BufferedReader.fill(Unknown Source)
+	at java.io.BufferedReader.readLine(Unknown Source)
+	at java.io.BufferedReader.readLine(Unknown Source)
+	at java.nio.file.Files.readAllLines(Unknown Source)
+	at org.eclipse.core.internal.resources.SaveManager.getBadSequenceNumberErrorMessage(SaveManager.java:1609)
+	at org.eclipse.core.internal.resources.SaveManager.validateMasterTableBeforeSave(SaveManager.java:1590)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1263)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1255)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1232)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1143)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:55)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.core.jobs 4 2 2020-04-17 11:19:08.347
+!MESSAGE An internal error occurred during: "Periodic workspace save.".
+!STACK 0
+java.lang.IllegalArgumentException: Cannot set lower sequence number for root (previous: 7, new: 2). Location: F:\java\workspaces\openxava\.metadata\.plugins\org.eclipse.core.resources\.safetable\org.eclipse.core.resourcesTimestamps and tree sequence numbers from file:
+	at org.eclipse.core.runtime.Assert.isLegal(Assert.java:66)
+	at org.eclipse.core.internal.resources.SaveManager.validateMasterTableBeforeSave(SaveManager.java:1591)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1263)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1255)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1232)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1143)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:55)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core 4 4 2020-04-17 11:19:41.212
+!MESSAGE Background Indexer Crash Recovery
+!STACK 0
+java.lang.OutOfMemoryError: Java heap space
+	at org.eclipse.jdt.internal.compiler.util.HashtableOfObject.<init>(HashtableOfObject.java:41)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.readCategoryTable(DiskIndex.java:683)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.mergeCategory(DiskIndex.java:486)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.mergeCategories(DiskIndex.java:478)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.mergeWith(DiskIndex.java:580)
+	at org.eclipse.jdt.internal.core.index.Index.save(Index.java:203)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.saveIndex(IndexManager.java:990)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.saveIndexes(IndexManager.java:1032)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.notifyIdle(IndexManager.java:711)
+	at org.eclipse.jdt.internal.core.search.processing.JobManager.run(JobManager.java:384)
+	at java.lang.Thread.run(Unknown Source)
+!SESSION 2020-04-17 11:20:17.514 -----------------------------------------------
+eclipse.buildId=4.14.0.I20191210-0610
+java.version=1.8.0_231
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_ES
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.jdt.debug 2 0 2020-04-17 11:40:58.457
+!MESSAGE Unable to find location of java.lang.Thread.setName() in debuggee JVM, for type java.lang.Thread
+!SESSION 2020-04-17 12:06:35.647 -----------------------------------------------
+eclipse.buildId=4.14.0.I20191210-0610
+java.version=1.8.0_231
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_ES
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.jdt.debug 2 0 2020-04-17 12:45:42.038
+!MESSAGE Unable to find location of java.lang.Thread.setName() in debuggee JVM, for type java.lang.Thread
+
+!ENTRY org.eclipse.jdt.debug 2 0 2020-04-17 12:59:21.811
+!MESSAGE Unable to find location of java.lang.Thread.setName() in debuggee JVM, for type java.lang.Thread
