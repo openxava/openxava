@@ -5310,6 +5310,7 @@ public class View implements java.io.Serializable {
 		if (!Is.equal(old, id)) {
 			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
 			getRoot().changedLabels.put(getPropertyPrefix() + propertyName,
+					// FIXME para grupos esto produce un error rg.openxava.util.ElementNotFoundException: No encontrado miembro deliveryData en modelo Delivery
 				getLabelFor(getMetaModel().getMetaMember(propertyName)));
 		}
 	}
@@ -6320,7 +6321,7 @@ public class View implements java.io.Serializable {
 	/**
 	 * @since 4m1
 	 */	
-	public void setTitle(String title) { 
+	public void setTitle(String title) {
 		this.title = title;
 	}		 
 	
