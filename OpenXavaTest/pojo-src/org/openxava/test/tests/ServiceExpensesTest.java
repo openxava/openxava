@@ -110,7 +110,7 @@ public class ServiceExpensesTest extends ModuleTestBase {
 		setValueInCollection("expenses", 0, "invoice.number", "1");
 		assertValueInCollection("expenses", 0, "invoice.amount", "790.00");
 		assertTotalInCollection("expenses", 0, "invoice.amount", "790.00");
-		assertTotalInCollection("expenses", 1, "invoice.amount", "118.50");
+		assertTotalInCollection("expenses", 1, "invoice.amount", "118.50");		
 	}
 	
 	private void assertComboOpens(int row, int uiId) throws Exception {

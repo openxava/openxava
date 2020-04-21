@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: When customizeList=false in xava.properties the icon to show/hide the filter in list is not shown.
+- Fix: After removing a row in an @ElementCollection, @DescriptionsLists after that row stop to work.
+- Some new common use labels to be used in applications.
 - Fix: Loading message does not disappear from time to time.
 - Fix: Viewing image at full size on click does not work with upload file editor on Edge.
 
