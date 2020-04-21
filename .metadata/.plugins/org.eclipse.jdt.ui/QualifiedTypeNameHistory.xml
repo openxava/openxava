@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.openxava.actions.ViewBaseAction"/>
+<fullyQualifiedTypeName name="org.openxava.validators.BigDecimalValidator"/>
+<fullyQualifiedTypeName name="org.openxava.util.Messages"/>
+<fullyQualifiedTypeName name="java.math.BigDecimal"/>
+</qualifiedTypeNameHistroy>

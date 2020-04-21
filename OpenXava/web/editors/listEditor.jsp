@@ -101,6 +101,7 @@ if (grouping) action = null;
 	<a  id="<xava:id name='<%="customize_" + id%>'/>" href="javascript:openxava.customizeList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=id%>')" title="<xava:message key='customize_list'/>" class="<%=style.getActionImage()%>">
 		<i class="mdi mdi-settings"></i>
 	</a>
+	<% } %>
 	<% if (filter) { %> 
 	<a id="<xava:id name='<%="show_filter_" + id%>'/>" style='display: <%=tab.isFilterVisible()?"none":""%>' href="javascript:openxava.setFilterVisible('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=id%>', '<%=tabObject%>', true)" title="<xava:message key='show_filters'/>">
 		<i id="<xava:id name='<%="filter_image_" + id%>'/>" class="mdi mdi-filter"></i>
@@ -110,14 +111,13 @@ if (grouping) action = null;
 	</a>	
 	<% } // if (filter) %>	
 	<%
-		if (tab.isCustomizeAllowed()) { 
+	if (tab.isCustomizeAllowed()) { 
 	%>
 	<span class="<xava:id name='<%="customize_" + id%>'/>" style="display: none;">
 	<xava:image action="List.addColumns" argv="<%=collectionArgv%>"/>
 	</span>	
 	<%
-		}
-	} 
+	}
 	%>
 </nobr> 
 </th>
