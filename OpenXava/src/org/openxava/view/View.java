@@ -2777,6 +2777,7 @@ public class View implements java.io.Serializable {
 		if (hasSubview(name)) {
 			View subview = getSubview(name);
 			if (subview.isRepresentsEntityReference()) subview.setKeyEditable(editable);
+			else subview.setEditable(editable); // tmp
 		}
 		
 		if (hasGroups()) {
