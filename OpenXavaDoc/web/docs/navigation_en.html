@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>openxava - navigation_en</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -115,51 +118,41 @@ class="sy0">=</span><span class="re1">false</span></pre>
 </style><pre class="properties"><span class="re0">startInLastVisitedModule</span><span
 class="sy0">=</span><span class="re1">false</span></pre>
       If you want that the first page on entering will not be <em>First steps</em>
-      but your own page or module, edit <em>firstSteps.jsp</em>, located in <em>web/naviox</em>,
-      remove all the content and place a redirection on it, thus:<br>
-      <style type="text/css"><!--
+      but your own module add <i>initialModule</i> property <i>(new in v6.3.2)</i>
+      to <i>naviox.properties</i>:<br>
+      <div class="wiki">
+        <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
  */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
 
 -->
-</style><pre class="php"><span class="sy0">&lt;</span>jsp<span class="sy0">:</span>forward page<span
-class="sy0">=</span><span class="st0">"/m/MyInitialModule"</span><span class="sy0">/&gt;</span></pre>
-      In order that the top list of recently visited modules will be clear after
-      sign in, add the next entry to <em>naviox.properties</em>:<br>
+</style><pre class="properties"><span class="re0">initialModule</span><span class="sy0">=</span><span
+class="re1">MyInitialModule</span></pre>
+        If you use a version previous to 6.3.2 edit <em>firstSteps.jsp</em>,
+        located in <em>web/naviox</em>, remove all the content and place a
+        redirection on it, thus:</div>
+      <pre><code class="html">&lt;script&gt;window.location="MyInitialModule"&lt;/script&gt;
+</code></pre>Even if you use 6.3.2 or better you can edit <i>firstSteps.jsp</i>
+      instead of using <i>initialModule</i> in <i>naviox.properties</i>, if
+      you want to add some logic to select the initial module, in this way:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="html">&lt;% String module = isStartWithInvoice()?"Invoice":"Order";%&gt;
+&lt;script&gt;window.location="&lt;%=module%&gt;"&lt;/script&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> In order that the top list of
+      recently visited modules will be clear after sign in, add the next entry
+      to <em>naviox.properties</em>:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
