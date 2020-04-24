@@ -144,8 +144,11 @@ public class NaviOXPreferences {
 	public boolean isStartInLastVisitedModule() { 
 		return "true".equalsIgnoreCase(getProperties().getProperty("startInLastVisitedModule", "true").trim());
 	}
-	
-	public String getInitialModule() { // tmp
+
+	/**
+	 * @since 6.3.2
+	 */	
+	public String getInitialModule() { 
 		return getProperties().getProperty("initialModule", "FirstSteps").trim();
 	}
 		

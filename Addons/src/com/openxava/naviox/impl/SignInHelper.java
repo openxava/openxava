@@ -33,7 +33,7 @@ public class SignInHelper {
 		HttpSession session = request.getSession();
 		session.setAttribute("naviox.user", userName);
 		Modules modules = (Modules) session.getAttribute("modules");
-		Users.setCurrent(userName); // tmp Mirar en XavaPro
+		Users.setCurrent(userName); // In order startInLastVisitedModule=false works
 		modules.reset();		
 	}
 	

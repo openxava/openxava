@@ -106,13 +106,11 @@ public class Modules implements Serializable {
 	public String getCurrent(HttpServletRequest request) { 
 		try {
 			String current = ModulesHelper.getCurrent(request);
-			// tmp return current == null?getPreferences().get("current", FIRST_STEPS):current;
-			return current == null?getPreferences().get("current", NaviOXPreferences.getInstance().getInitialModule()):current; // tmp
+			return current == null?getPreferences().get("current", NaviOXPreferences.getInstance().getInitialModule()):current; 
 		}
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("current_module_problem"), ex); 
-			// tmp return FIRST_STEPS;
-			return NaviOXPreferences.getInstance().getInitialModule(); // tmp
+			return NaviOXPreferences.getInstance().getInitialModule(); 
 		}
 	}
 
