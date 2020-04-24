@@ -66,7 +66,8 @@ public class CustomerWithSectionTest extends CustomerTest {
 		"Customer.hideSellerInList",
 		"Customer.showSellerInList",
 		"Customer.startRefisher",
-		"Customer.stopRefisher",		
+		"Customer.stopRefisher",	
+		"Customer.disableAddress" 
 	};
 
 	public CustomerWithSectionTest(String testName) { 

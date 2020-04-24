@@ -40,7 +40,8 @@ public class CustomerTest extends CustomizeListTestBase {
 		"Customer.hideSellerInList",
 		"Customer.showSellerInList",
 		"Customer.startRefisher",
-		"Customer.stopRefisher"
+		"Customer.stopRefisher",
+		"Customer.disableAddress" 
 	};
 	
 	
@@ -175,8 +176,16 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("remarks", "PREFERRED WAREHOUSE IS 1");
 	}
 		
-	public void testViewGetValueInGroup() throws Exception { 
+	public void testDisableEmbedded_ViewGetValueInGroup() throws Exception { 
+		execute("Customer.disableAddress"); // We set before changing to detail because the AJAX thing does not work well
+											// for this case yet, when we'll fix it we can move it after CRUD.new calling
 		execute("CRUD.new");
+		assertNoEditable("address.viewProperty");
+		assertNoEditable("address.street");
+		assertNoEditable("address.zipCode");
+		assertNoEditable("address.city");
+		assertNoEditable("address.state");
+		
 		assertValue("remarks", ""); 
 		setValue("relationWithSeller", "RELATION WITH SELLER JUNIT");
 		execute("Customer.moveRelationWithSellerToRemarks");
@@ -621,7 +630,7 @@ public class CustomerTest extends CustomizeListTestBase {
 	}
 
 	public void testSetEditableOfReferences_notOnChangeActionsOfReferences() throws Exception {  
-		execute("List.viewDetail", "row=0");
+		execute("List.viewDetail", "row=0");		
 		assertNoMessage("OnChangeVoidAction executed"); 
 		assertEditable("address.street");
 		assertEditable("seller.number");

@@ -33,7 +33,6 @@ import org.openxava.web.DescriptionsLists;
 import org.openxava.web.meta.*;
 
 /**
- * tmp Borrar de aquí
  * Session object to manage a view based in maps,
  * hence suitable for OpenXava
  *
@@ -2795,18 +2794,18 @@ public class View implements java.io.Serializable {
 			}	
 		}						
 	}
-
-	public boolean isEditable() {
+	
+	public boolean isEditable() { 
 		if (isReadOnly()) return false;
 		if (isRepresentsAggregate()) {
-			Set parentNotEditableMembersNames = getParent().notEditableMembersNames;
+			Set parentNotEditableMembersNames = getParentIfSectionOrGroup().getParent().notEditableMembersNames; 
 			if (parentNotEditableMembersNames != null) {
 				if (parentNotEditableMembersNames.contains(getMemberName())) return false;
 			}
 		}
 		return editable;
 	}
-
+	
 	public void setEditable(boolean b) throws XavaException {
 		editable = b;
 			
