@@ -33,6 +33,7 @@ import org.openxava.web.DescriptionsLists;
 import org.openxava.web.meta.*;
 
 /**
+ * tmp Borrar de aquí
  * Session object to manage a view based in maps,
  * hence suitable for OpenXava
  *
@@ -2671,7 +2672,7 @@ public class View implements java.io.Serializable {
 	/**
 	 * If at this moment is editable.
 	 */
-	private boolean isEditableImpl(MetaProperty metaProperty) {		
+	private boolean isEditableImpl(MetaProperty metaProperty) { 		
 		try {
 			MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(metaProperty.getName());
 			if (metaPropertyView != null) {
@@ -2691,6 +2692,7 @@ public class View implements java.io.Serializable {
 			return false;
 		}		
 	}
+
 	
 	/**
 	 * If at this moment is editable.
@@ -2794,8 +2796,15 @@ public class View implements java.io.Serializable {
 		}						
 	}
 
-	public boolean isEditable() {		 
-		return !isReadOnly() && editable;
+	public boolean isEditable() {
+		if (isReadOnly()) return false;
+		if (isRepresentsAggregate()) {
+			Set parentNotEditableMembersNames = getParent().notEditableMembersNames;
+			if (parentNotEditableMembersNames != null) {
+				if (parentNotEditableMembersNames.contains(getMemberName())) return false;
+			}
+		}
+		return editable;
 	}
 
 	public void setEditable(boolean b) throws XavaException {
