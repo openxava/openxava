@@ -5310,7 +5310,6 @@ public class View implements java.io.Serializable {
 		if (!Is.equal(old, id)) {
 			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
 			getRoot().changedLabels.put(getPropertyPrefix() + propertyName,
-					// FIXME para grupos esto produce un error rg.openxava.util.ElementNotFoundException: No encontrado miembro deliveryData en modelo Delivery
 				getLabelFor(getMetaModel().getMetaMember(propertyName)));
 		}
 	}
@@ -6322,8 +6321,31 @@ public class View implements java.io.Serializable {
 	 * @since 4m1
 	 */	
 	public void setTitle(String title) {
+		// Ids.decorate(request, "label_" + view.getPropertyPrefix() + group.getName());
+		/* labelsId
+		String old = (String) getLabels().put(propertyName, id);		
+		if (!Is.equal(old, id)) {
+			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
+			getRoot().changedLabels.put(getPropertyPrefix() + propertyName,
+				getLabelFor(getMetaModel().getMetaMember(propertyName)));
+		}
+		*/ 
+		System.out.println("[View.setTitle] memberName:" + getMemberName()); // tmp
 		this.title = title;
 	}		 
+	
+	public void setTitle(String title, String group) {
+		getGroupView(group).setTitle(title);
+		String id = Ids.decorate(request, "label_" + group);
+		System.out.println("[View.setTitle] id group >" + id + "<"); // tmp
+		System.out.println("[View.setTitle] modificado 2..."); // tmp
+		if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
+		System.out.println("[View.setTitle] cambiado a grupo..."); // tmp
+		
+		
+		// FIXME no añadir de forma fija, solo si hay cambio en la antigua: ver forma en que se hace en label
+		getRoot().changedLabels.put(group,  title);	// FIXME puesto de forma fija
+	}
 	
 	private Collection getFullOrderActionsNamesList() {
 		if (fullOrderActionsNamesList==null) {

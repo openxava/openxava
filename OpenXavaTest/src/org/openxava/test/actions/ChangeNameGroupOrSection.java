@@ -12,13 +12,12 @@ public class ChangeNameGroupOrSection extends ViewBaseAction{
 	@Override
 	public void execute() throws Exception {
 		if (isGroup()) {
-			System.out.println("[ChangeNameGroupOrSection.execute] cambiado..."); // tmp
-			System.out.println("[ChangeNameGroupOrSection.execute] grupo..."); // tmp
-			// getView().getGroupView("deliveryData").setTitle("Grupo alternativo");
-			getView().setLabelId("deliveryData", "Grupo alternativo");
+//			getView().getGroupView("deliveryData").setTitle("Grupo alternativo");
+			getView().setTitle("Grupo alternativo2", "deliveryData");
+			getView().setLabelId("number", "otro2");
+			System.out.println("[ChangeNameGroupOrSection.execute] cambio...."); // tmp
 		}
 		else {	// section
-			System.out.println("[ChangeNameGroupOrSection.execute] sección..."); // tmp
 			getView().getSectionView(1).setTitle("Sección alternativa");
 		}
 	}
