@@ -11,6 +11,7 @@ public class SQLTimeFormatter extends TimeBaseFormatter {
 	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {		
 		TimeData timeData = (TimeData)super.parse(request, string);
+		if (timeData == null) return null; 
 		return new java.sql.Time(timeData.millis());
 	}
 

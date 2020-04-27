@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: java.sql.Time and TIME stereotype do not allow nulls, always save 00:00 instead.
 - Fix: View.setEditable(member, false) does not work for embedded references.
 - New initialModule property in naviox.properties to start with your own module instead of First Steps.
 - Fix: startInLastVisitedModule=false in naviox.properties has no effect.

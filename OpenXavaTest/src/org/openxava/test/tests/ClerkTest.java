@@ -65,6 +65,21 @@ public class ClerkTest extends ModuleTestBase {
 		assertValueInList(0, "arrivalTime", time + ":00");
 		assertValueInList(0, "endingTime", time);
 		
+		setConditionValues(new String [] { "", "", "", "", "" });
+		execute("List.filter");
+		assertValueInList(1, "name", "JUAN");
+		assertValueInList(1, "arrivalTime", "");
+		assertValueInList(1, "endingTime", "");
+		execute("List.viewDetail", "row=1");
+		setValue("arrivalTime", "");
+		setValue("endingTime", "");
+		execute("CRUD.save");
+		assertNoErrors();
+		execute("Mode.list");
+		assertValueInList(1, "name", "JUAN");
+		assertValueInList(1, "arrivalTime", "");
+		assertValueInList(1, "endingTime", "");		
+		
 		// Asserting that java.sql.Time works in JasperReport
 		execute("Print.generatePdf"); 		
 		assertContentTypeForPopup("application/pdf");	
