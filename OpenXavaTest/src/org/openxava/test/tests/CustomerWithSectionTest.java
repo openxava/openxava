@@ -518,7 +518,18 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInCollection("states", 1, 1, "CALIFORNIA");
 	}
 	
-	public void testChangeReferenceLabel() throws Exception {
+	// tmp public void testChangeReferenceLabel() throws Exception {
+	public void testTabSetConditionValueForReference_changeReferenceLabel() throws Exception { // tmp
+		// tmp ini
+		assertListRowCount(5);
+		execute("Customer.filterBySellerOne");
+		assertListRowCount(2);
+		assertValueInList(0, "name", "Javi");
+		assertValueInList(0, "seller.name", "MANUEL CHAVARRI");
+		assertValueInList(1, "name", "Juanillo");
+		assertValueInList(1, "seller.name", "MANUEL CHAVARRI");
+		// tmp fin
+		
 		execute("CRUD.new");
 		assertLabel("alternateSeller", "Alternate seller");
 		execute("Customer.changeAlternateSellerLabel");
