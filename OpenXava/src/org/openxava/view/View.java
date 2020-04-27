@@ -6321,30 +6321,28 @@ public class View implements java.io.Serializable {
 	 * @since 4m1
 	 */	
 	public void setTitle(String title) {
-		// Ids.decorate(request, "label_" + view.getPropertyPrefix() + group.getName());
-		/* labelsId
-		String old = (String) getLabels().put(propertyName, id);		
-		if (!Is.equal(old, id)) {
-			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
-			getRoot().changedLabels.put(getPropertyPrefix() + propertyName,
-				getLabelFor(getMetaModel().getMetaMember(propertyName)));
-		}
-		*/ 
-		System.out.println("[View.setTitle] memberName:" + getMemberName()); // tmp
 		this.title = title;
 	}		 
 	
 	public void setTitle(String title, String group) {
 		getGroupView(group).setTitle(title);
-		String id = Ids.decorate(request, "label_" + group);
-		System.out.println("[View.setTitle] id group >" + id + "<"); // tmp
-		System.out.println("[View.setTitle] modificado 2..."); // tmp
-		if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
-		System.out.println("[View.setTitle] cambiado a grupo..."); // tmp
-		
-		
-		// FIXME no añadir de forma fija, solo si hay cambio en la antigua: ver forma en que se hace en label
-		getRoot().changedLabels.put(group,  title);	// FIXME puesto de forma fija
+		if (getLabels() == null) setLabels(new HashMap());
+		String old = (String) getLabels().put(group, title);
+		if (!Is.equal(old, title)) {
+			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
+			getRoot().changedLabels.put(group,  title);
+		}
+	}
+	
+	public void setTitle(String title, int section) {
+		String sectionId = getViewObject() + "_section" + section + "_sectionName";
+		getSectionView(section).setTitle(title);
+		if (getLabels() == null) setLabels(new HashMap());
+		String old = (String) getLabels().put(sectionId, title);
+		if (!Is.equal(old, title)) {
+			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
+			getRoot().changedLabels.put(sectionId,  title);
+		}
 	}
 	
 	private Collection getFullOrderActionsNamesList() {

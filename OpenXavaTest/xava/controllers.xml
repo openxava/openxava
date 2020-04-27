@@ -360,16 +360,8 @@
 			class="org.openxava.test.actions.DisableShortcutOptionsAction"/>			
 		<action name="removeBlankShortcutOption"
 			class="org.openxava.test.actions.RemoveBlankShortcutOptionAction"/>
-		<subcontroller controller="ChangeNamesGroupAndSection" mode="detail"/>
-	</controller>
-	
-	<controller name="ChangeNamesGroupAndSection">
-		<action name="changeNameGroup"
-			class="org.openxava.test.actions.ChangeNameGroupOrSection"/>
-		<action name="changeNameSection"
-			class="org.openxava.test.actions.ChangeNameGroupOrSection">
-			<set property="group" value="false" />
-		</action>
+		<action name="changeTitles" 
+			class="org.openxava.test.actions.ChangeNameGroupAndSection"/>
 	</controller>
 	
 	<controller name="DeliveryListFilteredProgramatically">

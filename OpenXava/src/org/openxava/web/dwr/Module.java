@@ -270,7 +270,6 @@ public class Module extends DWRBase {
 
 	private void fillResult(Result result, Map values, Map multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {
 		Map changedParts = result.getChangedParts();
-		System.out.println("[Module.fillResult] changedParts:" + changedParts); // tmp
 		getView().resetCollectionsCache(); 
 
 		if (manager.isShowDialog() || manager.isHideDialog() || firstRequest) {
@@ -442,11 +441,9 @@ public class Module extends DWRBase {
 	}
 
 	private void fillChangedLabels(Map result) {
-		System.out.println("[Module.fillChangedLabels] changedLabels:" + getView().getChangedLabels()); // tmp
 		for (Iterator it=getView().getChangedLabels().entrySet().iterator(); it.hasNext(); ) {
 			Map.Entry en = (Map.Entry) it.next();
 			put(result, "label_" + en.getKey(),	"html:" + en.getValue());
-			System.out.println("[Module.fillChangedLabels] key:" + en.getKey()); // tmp
 		}
 	}
 	
