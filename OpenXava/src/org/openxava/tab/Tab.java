@@ -2683,10 +2683,16 @@ public class Tab implements java.io.Serializable, Cloneable {
 			for (int i = 0; i < size; i++) {
 				filterConditionValues[i] = "";
 				MetaProperty metaProperty = (MetaProperty) metaPropertiesNC.get(i);
-				// TMP ME QUEDÉ POR AQUÍ: LO DE ABAJO NO ES SUFICIENTE
-				// tmp if (metaProperty.getName().equals(property)) {
 				if (metaProperty.getQualifiedName().equals(property)) {
-					filterConditionValues[i] = value==null?null:metaProperty.format(value, Locales.getCurrent()); 
+					if (value == null) filterConditionValues[i] = null;
+					else {
+						try {
+							filterConditionValues[i] = metaProperty.format(value, Locales.getCurrent());
+						}
+						catch (ClassCastException ex) { // For the case of a numeric id for the description field of a descriptions list
+							filterConditionValues[i] = value.toString();
+						}
+					}
 					filtered = true;
 				}				
 			}

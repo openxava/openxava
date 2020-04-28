@@ -67,7 +67,8 @@ public class CustomerWithSectionTest extends CustomerTest {
 		"Customer.showSellerInList",
 		"Customer.startRefisher",
 		"Customer.stopRefisher",	
-		"Customer.disableAddress" 
+		"Customer.disableAddress",
+		"Customer.filterBySellerOne" 
 	};
 
 	public CustomerWithSectionTest(String testName) { 
@@ -518,9 +519,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInCollection("states", 1, 1, "CALIFORNIA");
 	}
 	
-	// tmp public void testChangeReferenceLabel() throws Exception {
-	public void testTabSetConditionValueForReference_changeReferenceLabel() throws Exception { // tmp
-		// tmp ini
+	public void testTabSetConditionValueForReference_changeReferenceLabel() throws Exception { 
 		assertListRowCount(5);
 		execute("Customer.filterBySellerOne");
 		assertListRowCount(2);
@@ -528,7 +527,10 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInList(0, "seller.name", "MANUEL CHAVARRI");
 		assertValueInList(1, "name", "Juanillo");
 		assertValueInList(1, "seller.name", "MANUEL CHAVARRI");
-		// tmp fin
+		HtmlSelect comboSeller = getHtmlPage().getElementByName("ox_OpenXavaTest_CustomerWithSection__conditionValue___2");
+		String selectedValue = comboSeller.getSelectedOptions().get(0).getValueAttribute();
+		assertEquals("1:_:MANUEL CHAVARRI", selectedValue);
+
 		
 		execute("CRUD.new");
 		assertLabel("alternateSeller", "Alternate seller");

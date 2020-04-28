@@ -41,7 +41,8 @@ public class CustomerTest extends CustomizeListTestBase {
 		"Customer.showSellerInList",
 		"Customer.startRefisher",
 		"Customer.stopRefisher",
-		"Customer.disableAddress" 
+		"Customer.disableAddress",
+		"Customer.filterBySellerOne" 
 	};
 	
 	
@@ -461,7 +462,7 @@ public class CustomerTest extends CustomizeListTestBase {
 	}
 	
 	public void testLeftJoinInListModeForReference() throws Exception {  
-		assertActions(listActions);
+		assertActions(listActions); 
 		int initialRows = getListRowCount();
 		assertTrue("This test only run with less than 10 rows", initialRows < 10);
 		
