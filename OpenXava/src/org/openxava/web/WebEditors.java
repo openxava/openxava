@@ -214,18 +214,34 @@ public class WebEditors {
 	}
 	
 	public static Collection<String> getEditors(MetaTab metaTab) throws ElementNotFoundException, XavaException { 
+		// tmp Ha sido imposible ejecutar la acción Select: null
+		System.out.println("[WebEditors.getEditors] 10"); // tmp
+		System.out.println("[WebEditors.getEditors] metaTab.getModelName()=" + metaTab.getModelName()); // tmp
 		if (!Is.emptyString(metaTab.getEditors())) {
+			System.out.println("[WebEditors.getEditors] 20A"); // tmp
 			if (!Is.emptyString(metaTab.getEditor())) {
+				System.out.println("[WebEditors.getEditors] 20B"); // tmp
 				log.warn(XavaResources.getString("editors_over_editor", metaTab.getEditor(), metaTab.getName(), metaTab.getModelName()));
 			}
+			System.out.println("[WebEditors.getEditors] 30"); // tmp
 			return Strings.toCollection(metaTab.getEditors());
 		}
+		System.out.println("[WebEditors.getEditors] 40"); // tmp
 		Collection<String> editors = new ArrayList<String>();
+		System.out.println("[WebEditors.getEditors] 50"); // tmp
 		String customEditor = metaTab.getEditor();
+		System.out.println("[WebEditors.getEditors] 60: customEditor=" + customEditor); // tmp
 		if (!Is.emptyString(customEditor)) editors.add(customEditor);
+		System.out.println("[WebEditors.getEditors] 70: editors.size=" + editors.size()); // tmp
+		// TMP ME QUEDÉ POR AQUÍ: EL PROBLEMA ESTÁ AQUÍ, CREO QUE ES UN PROBLEMA DE HILOS. RESOLVIENDO EL ERROR AL ARRANCA Invoice5 COMO PRIMER MODULO
 		for (MetaEditor metaEditor: MetaWebEditors.getMetaEditorsFor(metaTab)) {
-			if (Is.emptyString(customEditor) || !"List".equals(metaEditor.getName())) editors.add(metaEditor.getName()); 
+			System.out.println("[WebEditors.getEditors] 80 Trying " + metaEditor.getName()); // tmp
+			if (Is.emptyString(customEditor) || !"List".equals(metaEditor.getName())) {
+				System.out.println("[WebEditors.getEditors] 90 Adding " + metaEditor.getName()); // tmp
+				editors.add(metaEditor.getName());
+			}
 		}
+		System.out.println("[WebEditors.getEditors] 999 editors.size=" + editors.size()); // tmp
 		return editors;
 	}
 

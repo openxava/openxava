@@ -9,6 +9,8 @@ import org.openxava.tab.meta.*;
 import org.openxava.util.*;
 import org.openxava.web.meta.xmlparse.*;
 
+import com.lowagie.text.pdf.interfaces.*;
+
 /**
  * 
  * @author Javier Paniza
@@ -157,6 +159,15 @@ public class MetaWebEditors {
 		return editorsByType;
 	}
 	
+	private static Collection<MetaEditor> getEditorsForTabs() throws XavaException { // tmp CREO QUE TENGO QUE QUITARLO
+		if (editorsForTabs == null) {
+			init();
+			EditorsParser.setupEditors();
+		}
+		return editorsForTabs;
+	}
+
+	
 	private static Map getEditorsByReferenceModel() throws XavaException { 
 		if (editorsByReferenceModel == null) {
 			init();
@@ -275,12 +286,16 @@ public class MetaWebEditors {
 	}
 	
 	public static Collection<MetaEditor> getMetaEditorsFor(MetaTab tab) throws ElementNotFoundException, XavaException {
+		System.out.println("[MetaWebEditors.getMetaEditorsFor] 10"); // tmp
 		MetaEditor customEditor = (MetaEditor) getMetaEditorForTabModel(tab.getModelName());
-		if (customEditor == null) return editorsForTabs;
+		System.out.println("[MetaWebEditors.getMetaEditorsFor] 20: editorsForTabs=" + editorsForTabs); // tmp
+		// tmp if (customEditor == null) return editorsForTabs;
+		if (customEditor == null) return getEditorsForTabs(); // tmp
 		else {
 			Collection<MetaEditor> result = new ArrayList<MetaEditor>();
 			result.add(customEditor);
-			for (MetaEditor editor: editorsForTabs) {
+			// tmp for (MetaEditor editor: editorsForTabs) {
+			for (MetaEditor editor: getEditorsForTabs()) { // tmp
 				if (!"List".equals(editor.getName())) result.add(editor); 
 			}
 			return result;
@@ -314,7 +329,8 @@ public class MetaWebEditors {
 		else {
 			BeanPropertyValueEqualsPredicate predicate =
 				new BeanPropertyValueEqualsPredicate("name", editor.getName());
-			if (!CollectionUtils.exists(editorsForTabs, predicate)) {
+			// tmp if (!CollectionUtils.exists(editorsForTabs, predicate)) {
+			if (!CollectionUtils.exists(new ArrayList(editorsForTabs), predicate)) { // tmp ConcurrentModificationException
 				editorsForTabs.add(editor);
 			}
 		}

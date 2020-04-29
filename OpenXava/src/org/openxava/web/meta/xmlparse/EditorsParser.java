@@ -34,6 +34,7 @@ public class EditorsParser extends ParserBase {
 		enParser.parse();				
 		EditorsParser esParser = new EditorsParser("editores.xml", ESPANOL);
 		esParser.parse();		
+		System.out.println("[EditorsParser.setupEditors] EDITORS PARSED"); // tmp
 	}
 	
 	private void addEditors(Element el) throws XavaException {
