@@ -553,6 +553,8 @@
 		<action name="startRefisher" class="org.openxava.test.actions.StartRefisherAction"/>
 		<action name="stopRefisher" class="org.openxava.test.actions.StopRefisherAction"/>
 		
+		<action name="filterBySellerOne" class="org.openxava.test.actions.FilterBySellerOneAction" mode="list"/>
+		
 	</controller>
 	
 	<controller name="CustomerWithSection"> 

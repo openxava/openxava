@@ -105,13 +105,15 @@ String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 <%
 	java.util.Iterator it = descriptions.iterator();
 	String selectedDescription = "";	
+	String valuePrefix = value.split(Tab.DESCRIPTIONS_LIST_SEPARATOR)[0] + Tab.DESCRIPTIONS_LIST_SEPARATOR; 
 	while (it.hasNext()) {
 		KeyAndDescription cl = (KeyAndDescription) it.next();	
 		String selected = "";
 		String description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
 		// Intead of asking index < 0 it would better to use a specific parameter such as descriptionInKey or so
-		Object key =cl.getKey() + Tab.DESCRIPTIONS_LIST_SEPARATOR + description;
-		if (Is.equalAsStringIgnoreCase(value, key)) {
+		String keyPrefix = cl.getKey() + Tab.DESCRIPTIONS_LIST_SEPARATOR;
+		Object key = keyPrefix + description;
+		if (keyPrefix.equals(valuePrefix)) { 
 			selected = "selected"; 
 			selectedDescription = description;
 		} 		
