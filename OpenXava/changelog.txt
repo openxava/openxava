@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Clicking on label in radio button editor does not change the option.
 - Fix: Tab.setConditionValue() does not work for references.
 - Fix: java.sql.Time and TIME stereotype do not allow nulls, always save 00:00 instead.
 - Fix: View.setEditable(member, false) does not work for embedded references.
