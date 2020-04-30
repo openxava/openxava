@@ -1,8 +1,11 @@
 package org.openxava.util;
 
 /**
- * tmp En changelog
+ * Functional interface that does not receive or return any value. <p>
  * 
+ * Intended to use in lambdas.
+ * 
+ * @since 6.3.2
  * @author Javier Paniza
  */
 public interface IProcedure {
