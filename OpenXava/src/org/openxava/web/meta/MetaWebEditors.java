@@ -151,7 +151,7 @@ public class MetaWebEditors {
 		return (MetaEditor) getEditorsByName().get(name);
 	}	
 		
-	private static Map getEditorsByType() throws XavaException {
+	private synchronized static Map getEditorsByType() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
 		if (editorsByType == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -159,16 +159,7 @@ public class MetaWebEditors {
 		return editorsByType;
 	}
 	
-	private static Collection<MetaEditor> getEditorsForTabs() throws XavaException { // tmp CREO QUE TENGO QUE QUITARLO
-		if (editorsForTabs == null) {
-			init();
-			EditorsParser.setupEditors();
-		}
-		return editorsForTabs;
-	}
-
-	
-	private static Map getEditorsByReferenceModel() throws XavaException { 
+	private synchronized static Map getEditorsByReferenceModel() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records) 
 		if (editorsByReferenceModel == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -176,7 +167,7 @@ public class MetaWebEditors {
 		return editorsByReferenceModel;
 	}
 	
-	private static Map getEditorsByCollectionModel() throws XavaException {  
+	private synchronized static Map getEditorsByCollectionModel() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)  
 		if (editorsByCollectionModel == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -184,7 +175,7 @@ public class MetaWebEditors {
 		return editorsByCollectionModel;
 	}
 	
-	private static Map getEditorsByTabModel() throws XavaException {   
+	private synchronized static Map getEditorsByTabModel() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)   
 		if (editorsByTabModel == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -193,7 +184,7 @@ public class MetaWebEditors {
 	}	
 	
 	
-	private static Map getEditorsByStereotype() throws XavaException {
+	private synchronized static Map getEditorsByStereotype() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
 		if (editorsByStereotype == null) {
 			init();
 			EditorsParser.setupEditors();								
@@ -201,7 +192,7 @@ public class MetaWebEditors {
 		return editorsByStereotype;
 	}
 	
-	private static Map getEditorsByModelProperty() throws XavaException {		
+	private synchronized static Map getEditorsByModelProperty() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)		
 		if (editorsByModelProperty == null) {
 			init();
 			EditorsParser.setupEditors();			
@@ -209,7 +200,7 @@ public class MetaWebEditors {
 		return editorsByModelProperty;
 	}
 	
-	private static Map getEditorsByName() throws XavaException {
+	private synchronized static Map getEditorsByName() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
 		if (editorsByName == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -286,16 +277,12 @@ public class MetaWebEditors {
 	}
 	
 	public static Collection<MetaEditor> getMetaEditorsFor(MetaTab tab) throws ElementNotFoundException, XavaException {
-		System.out.println("[MetaWebEditors.getMetaEditorsFor] 10"); // tmp
 		MetaEditor customEditor = (MetaEditor) getMetaEditorForTabModel(tab.getModelName());
-		System.out.println("[MetaWebEditors.getMetaEditorsFor] 20: editorsForTabs=" + editorsForTabs); // tmp
-		// tmp if (customEditor == null) return editorsForTabs;
-		if (customEditor == null) return getEditorsForTabs(); // tmp
+		if (customEditor == null) return editorsForTabs;
 		else {
 			Collection<MetaEditor> result = new ArrayList<MetaEditor>();
 			result.add(customEditor);
-			// tmp for (MetaEditor editor: editorsForTabs) {
-			for (MetaEditor editor: getEditorsForTabs()) { // tmp
+			for (MetaEditor editor: editorsForTabs) {
 				if (!"List".equals(editor.getName())) result.add(editor); 
 			}
 			return result;
@@ -329,8 +316,7 @@ public class MetaWebEditors {
 		else {
 			BeanPropertyValueEqualsPredicate predicate =
 				new BeanPropertyValueEqualsPredicate("name", editor.getName());
-			// tmp if (!CollectionUtils.exists(editorsForTabs, predicate)) {
-			if (!CollectionUtils.exists(new ArrayList(editorsForTabs), predicate)) { // tmp ConcurrentModificationException
+			if (!CollectionUtils.exists(editorsForTabs, predicate)) {
 				editorsForTabs.add(editor);
 			}
 		}

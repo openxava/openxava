@@ -35,7 +35,7 @@ public class Invoice5 {
 	private BigDecimal amount;
 	
 	@Column(length=50)
-	private String comment; // tmp
+	private String comment; 
 	
 	public int getYear() {
 		return year;

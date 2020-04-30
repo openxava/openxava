@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Excel import does not work when csvSeparator=, in xava.properties.
+- Fix: Importing Excel with ; in some field truncates data or move it to another column. 
+- Fix: ConcurrentModificationException from time to time for the first execution of the first module. 
+- Fix: 'Impossible to execute Select action' error when the first module executed enters in detail mode.  
 - Fix: Clicking on label in radio button editor does not change the option.
 - Fix: Tab.setConditionValue() does not work for references.
 - Fix: java.sql.Time and TIME stereotype do not allow nulls, always save 00:00 instead.

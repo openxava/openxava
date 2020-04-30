@@ -38,7 +38,8 @@ public class ImportAction extends ViewBaseAction implements IChangeControllersAc
 				if (!Is.empty(column.getNameInApp())) {
 					View moduleView = getPreviousView();
 					MetaProperty p = moduleView.getMetaModel().getMetaProperty(column.getNameInApp());
-					Object value = WebEditors.parse(getRequest(), p, Strings.unquote(rawValue), getErrors(), moduleView.getViewName());
+					String filteredValue = Strings.unquote(Import.decodeSeparators(rawValue)); 
+					Object value = WebEditors.parse(getRequest(), p, filteredValue, getErrors(), moduleView.getViewName()); 
 					values.put(column.getNameInApp(), value);
 				}
 				x++;
