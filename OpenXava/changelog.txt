@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- New IProcedure functional interface that does not receive or return any value to be use in lambdas.
 - Fix: Excel import does not work when csvSeparator=, in xava.properties.
 - Fix: Importing Excel with ; in some field truncates data or move it to another column. 
 - Fix: ConcurrentModificationException from time to time for the first execution of the first module. 
