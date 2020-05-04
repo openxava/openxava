@@ -655,7 +655,7 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 }
 
 .ie .ox-date-calendar input {
-	padding-right: 8px;
+	padding-right: 20px; /* Perfect for Edge, some extra space for IE */ 
 }
 
 .ox-frame .xava_editor textarea {
@@ -2369,6 +2369,7 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .ox-list-title select {
+	max-width: 40%; 
 	margin-top: 10px;
 	margin-bottom: 5px;
 }
