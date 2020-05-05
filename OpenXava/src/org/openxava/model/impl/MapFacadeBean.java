@@ -986,21 +986,32 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 	}
 
 	private void updateReferencedEntities(MetaModel metaModel, Map values) throws XavaException, RemoteException, CreateException, ValidationException {		
+		System.out.println("[MapFacadeBean.updateReferencedEntities] "); // tmp
 		for (Iterator it = metaModel.getMetaReferencesToEntity().iterator(); it.hasNext(); ) {
-			MetaReference ref = (MetaReference) it.next();			
+			MetaReference ref = (MetaReference) it.next();		
+			System.out.println("[MapFacadeBean.updateReferencedEntities] ref=" + ref.getName()); // tmp
 			Map referenceValues = (Map) values.get(ref.getName());
+			System.out.println("[MapFacadeBean.updateReferencedEntities] referenceValues=" + referenceValues); // tmp
 			if (referenceValues != null) {
 				int hiddenKeyNotPresent = getHiddenKeyNotPressent(ref, referenceValues);
 				if (referenceValues.size() + hiddenKeyNotPresent > ref.getMetaModelReferenced().getMetaMembersKey().size()) {
+					System.out.println("[MapFacadeBean.updateReferencedEntities] ENTER"); // tmp
 					try {	
 						findEntity(ref.getMetaModelReferenced(), referenceValues);
-						setValues(ref.getMetaModelReferenced(), new HashMap(referenceValues), new HashMap(referenceValues));						
+						setValues(ref.getMetaModelReferenced(), new HashMap(referenceValues), new HashMap(referenceValues));
 					}
 					catch (FinderException ex) {					
 						referenceValues = createReturningValues(ref.getMetaModelReferenced(), new HashMap(referenceValues)); 
 						values.put(ref.getName(), referenceValues);						
 					}
-				}					
+				}
+				// tmp ini
+				System.out.println("[MapFacadeBean.updateReferencedEntities] " + ref.getName() + ".role=" + ref.getRole()); // tmp
+				System.out.println("[MapFacadeBean.updateReferencedEntities] ref.getReferencedModelContainerReference()=" + ref.getReferencedModelContainerReference()); // tmp
+				System.out.println("[MapFacadeBean.updateReferencedEntities] ref.getOrderFromReferencedModel()=" + ref.getOrderFromReferencedModel()); // tmp
+				System.out.println("[MapFacadeBean.updateReferencedEntities] ref.getMetaModelReferenced().getContainerReference()=" + ref.getMetaModelReferenced().getContainerReference()); // tmp
+				
+				// tmp fin
 			}			
 		}
 	}

@@ -1253,6 +1253,17 @@ public class AnnotatedClassParser implements IComponentParser {
 				}				
 			}
 			collection.setOrphanRemoval(oneToMany.orphanRemoval());
+			// tmp ini
+			// TMP ME QUEDÉ POR AQUI: Necesito saber la colección en MapFacadeBean. Mirando alternativas
+			// TMP		DEJE LA BASE DE DATOS LIMPIA.
+			MetaReference inverseRef = collection.getMetaReference().getMetaModelReferenced().getMetaReference(oneToMany.mappedBy());
+			inverseRef.setReferencedModelContainerReference(oneToMany.mappedBy());
+			// tmp o
+			inverseRef.setRole(oneToMany.mappedBy());
+			// tmp o
+			// tmp inverseRef.setReferencedModelContainerCollection(oneToMany.mappedBy());
+			// tmp u ¿otra opción?
+			// tmp fin
 		}
 		else if (element.isAnnotationPresent(ManyToMany.class)) {
 			ManyToMany manyToMany = element.getAnnotation(ManyToMany.class);

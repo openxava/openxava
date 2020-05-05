@@ -22,6 +22,7 @@ public class ProjectMember extends Nameable {
 	}
 
 	public void setProject(Project project) {
+		// Leave it in this way, just bare, to test a case
 		this.project = project;
 	}
 
