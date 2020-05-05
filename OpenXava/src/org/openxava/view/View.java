@@ -5293,7 +5293,7 @@ public class View implements java.io.Serializable {
 	
 	/**
 	 * 
-	 * @param propertyName  Since v4.2 can qualified
+	 * @param propertyName  Since v4.2 can qualified Since xxx can be groupName or sectionName
 	 * @param id  Id of the label from i18n files
 	 */
 	public void setLabelId(String propertyName, String id) {		
@@ -5309,12 +5309,23 @@ public class View implements java.io.Serializable {
 		String old = (String) getLabels().put(propertyName, id);		
 		if (!Is.equal(old, id)) {
 			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
-			getRoot().changedLabels.put(getPropertyPrefix() + propertyName,
-				getLabelFor(getMetaModel().getMetaMember(propertyName)));
+			if (getMembersNames().containsKey(propertyName)) {
+				getRoot().changedLabels.put(getPropertyPrefix() + propertyName,
+					getLabelFor(getMetaModel().getMetaMember(propertyName)));
+			}
+			else if (getGroupsViews().containsKey(propertyName)) {
+				getGroupView(propertyName).setTitle(id);
+				getRoot().changedLabels.put(propertyName, id);
+			}
+			else if (getSubview(propertyName).isSection()) {
+				int i = getSections().indexOf(getSubview(propertyName));
+				String sectionId = getViewObject() + "_section" + i + "_sectionName";
+				getSectionView(i).setTitle(title);
+				getRoot().changedLabels.put(propertyName,  id);
+			}
 		}
 	}
 		
-	
 	private Map getLabels() {
 		View root = getRoot();
 		if (this == root) return labels;
@@ -6324,6 +6335,7 @@ public class View implements java.io.Serializable {
 		this.title = title;
 	}		 
 	
+	@Deprecated
 	public void setTitle(String title, String group) {
 		getGroupView(group).setTitle(title);
 		if (getLabels() == null) setLabels(new HashMap());
@@ -6334,6 +6346,7 @@ public class View implements java.io.Serializable {
 		}
 	}
 	
+	@Deprecated
 	public void setTitle(String title, int section) {
 		String sectionId = getViewObject() + "_section" + section + "_sectionName";
 		getSectionView(section).setTitle(title);

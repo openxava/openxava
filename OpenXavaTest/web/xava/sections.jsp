@@ -32,7 +32,6 @@ int activeSection = view.getActiveSection();
 		String sectionName = sectionView.getTitle().equals("") ? section.getLabel(request) : sectionView.getTitle();
 		String collectionCountLabel = sectionView.getLabelDecoration();
 		String labelId = Ids.decorate(request, "label_" + sectionView.getViewObject() + "_sectionName");
-// 		String labelId = Ids.decorate(request, "label_" + sectionName);
 		if (activeSection == i) {
 	%>        
 			<%=style.getActiveSectionTabStartDecoration(i == 0, !itSections.hasNext())%>
