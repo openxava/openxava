@@ -1243,10 +1243,12 @@ public class AnnotatedClassParser implements IComponentParser {
 			OneToMany oneToMany = element.getAnnotation(OneToMany.class);
 			collection.getMetaReference().setRole(oneToMany.mappedBy());
 			if (isCascade(oneToMany.cascade())) {							
-				if (!collection.getMetaModel().getName().equals(collection.getMetaReference().getReferencedModelName())) { 
+				if (!collection.getMetaModel().getName().equals(collection.getMetaReference().getReferencedModelName())) {
+					System.out.println("[AnnotatedClassParser.processAnnotations] A: " + collection.getName()); // tmp
 					addAggregateForCollection(collection.getMetaModel(), getClassNameFor(collection.getMetaReference().getReferencedModelName()), oneToMany.mappedBy());					
 				}
 				else {
+					System.out.println("[AnnotatedClassParser.processAnnotations] B"); // tmp
 					collection.getMetaModel().setContainerModelName(collection.getMetaModel().getName()); 
 					collection.getMetaModel().setContainerReference(oneToMany.mappedBy());
 					cascadeAndSelfReference = true;					
@@ -1254,15 +1256,11 @@ public class AnnotatedClassParser implements IComponentParser {
 			}
 			collection.setOrphanRemoval(oneToMany.orphanRemoval());
 			// tmp ini
-			// TMP ME QUEDÉ POR AQUI: Necesito saber la colección en MapFacadeBean. Mirando alternativas
-			// TMP		DEJE LA BASE DE DATOS LIMPIA.
+			collection.getMetaReference().getMetaModelReferenced();
+			/*
 			MetaReference inverseRef = collection.getMetaReference().getMetaModelReferenced().getMetaReference(oneToMany.mappedBy());
-			inverseRef.setReferencedModelContainerReference(oneToMany.mappedBy());
-			// tmp o
-			inverseRef.setRole(oneToMany.mappedBy());
-			// tmp o
-			// tmp inverseRef.setReferencedModelContainerCollection(oneToMany.mappedBy());
-			// tmp u ¿otra opción?
+			inverseRef.setReferencedModelCorrespondingCollection(collection.getName());
+			*/ 			
 			// tmp fin
 		}
 		else if (element.isAnnotationPresent(ManyToMany.class)) {

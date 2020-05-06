@@ -36,7 +36,7 @@ public class MotorVehicleTest extends ModuleTestBase {
 		execute("CRUD.save");
 		assertNoErrors(); 
 		execute("Mode.list");
-		assertListRowCount(1);
+		assertListRowCount(1); // tmp Falla
 		execute("List.viewDetail", "row=0");
 		assertValue("licensePlate", "L2-0002");
 		execute("Reference.search", "keyProperty=driver.name");

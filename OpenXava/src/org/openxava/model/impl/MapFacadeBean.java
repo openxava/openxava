@@ -599,10 +599,15 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			Collection collection = (Collection) pm.executeGet(collectionName);
 			collection.remove(child);
 		}
+		System.out.println("[MapFacadeBean.removeCollectionElement] deletingElement=" + deletingElement); // tmp
+		System.out.println("[MapFacadeBean.removeCollectionElement] metaCollection.isAggregate()=" + metaCollection.isAggregate()); // tmp
+		System.out.println("[MapFacadeBean.removeCollectionElement] metaCollection.isOrphanRemoval()=" + metaCollection.isOrphanRemoval()); // tmp
 		if (deletingElement && (metaCollection.isAggregate() || metaCollection.isOrphanRemoval())) {
+			System.out.println("[MapFacadeBean.removeCollectionElement] A"); // tmp
 			remove(childMetaModel, collectionElementKeyValues);
 		}		
 		else if (childMetaModel.containsMetaReference(refToParent)) {
+			System.out.println("[MapFacadeBean.removeCollectionElement] B"); // tmp
 			// If the child contains the reference to its parent we simply update this reference
 			Map nullParentKey = new HashMap();
 			nullParentKey.put(refToParent, null); 
@@ -942,6 +947,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 				addToCollection(container, collectionName, newObject);		
 			}
 			Map key = getValues(metaModel, newObject, getKeyNames(metaModel), false);
+			updateSortableCollections(metaModel, key, values); // tmp 
 			AccessTracker.created(metaModel.getName(), key); 
 			// Collections are not managed			
 			return newObject;
@@ -986,16 +992,12 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 	}
 
 	private void updateReferencedEntities(MetaModel metaModel, Map values) throws XavaException, RemoteException, CreateException, ValidationException {		
-		System.out.println("[MapFacadeBean.updateReferencedEntities] "); // tmp
 		for (Iterator it = metaModel.getMetaReferencesToEntity().iterator(); it.hasNext(); ) {
 			MetaReference ref = (MetaReference) it.next();		
-			System.out.println("[MapFacadeBean.updateReferencedEntities] ref=" + ref.getName()); // tmp
 			Map referenceValues = (Map) values.get(ref.getName());
-			System.out.println("[MapFacadeBean.updateReferencedEntities] referenceValues=" + referenceValues); // tmp
 			if (referenceValues != null) {
 				int hiddenKeyNotPresent = getHiddenKeyNotPressent(ref, referenceValues);
 				if (referenceValues.size() + hiddenKeyNotPresent > ref.getMetaModelReferenced().getMetaMembersKey().size()) {
-					System.out.println("[MapFacadeBean.updateReferencedEntities] ENTER"); // tmp
 					try {	
 						findEntity(ref.getMetaModelReferenced(), referenceValues);
 						setValues(ref.getMetaModelReferenced(), new HashMap(referenceValues), new HashMap(referenceValues));
@@ -1005,16 +1007,34 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 						values.put(ref.getName(), referenceValues);						
 					}
 				}
-				// tmp ini
-				System.out.println("[MapFacadeBean.updateReferencedEntities] " + ref.getName() + ".role=" + ref.getRole()); // tmp
-				System.out.println("[MapFacadeBean.updateReferencedEntities] ref.getReferencedModelContainerReference()=" + ref.getReferencedModelContainerReference()); // tmp
-				System.out.println("[MapFacadeBean.updateReferencedEntities] ref.getOrderFromReferencedModel()=" + ref.getOrderFromReferencedModel()); // tmp
-				System.out.println("[MapFacadeBean.updateReferencedEntities] ref.getMetaModelReferenced().getContainerReference()=" + ref.getMetaModelReferenced().getContainerReference()); // tmp
-				
-				// tmp fin
 			}			
 		}
 	}
+	
+	private void updateSortableCollections(MetaModel metaModel, Map key, Map values) throws XavaException, RemoteException, CreateException, ValidationException { // tmp		
+		for (Iterator it = metaModel.getMetaReferencesToEntity().iterator(); it.hasNext(); ) {
+			MetaReference ref = (MetaReference) it.next();		
+			Map referenceValues = (Map) values.get(ref.getName());
+			if (referenceValues != null) {
+				if (!Is.emptyString(ref.getReferencedModelCorrespondingCollection())) {
+					if (ref.getMetaModelReferenced().containsMetaCollection(ref.getReferencedModelCorrespondingCollection())) {
+						MetaCollection col = ref.getMetaModelReferenced().getMetaCollection(ref.getReferencedModelCorrespondingCollection());
+						if (col.isSortable()) {
+							try {
+								Map referenceKey = extractKeyValues(ref.getMetaModelReferenced(), referenceValues);
+								addCollectionElement(ref.getMetaModelReferenced(), referenceKey, ref.getReferencedModelCorrespondingCollection(), key);
+							} 
+							catch (PropertiesManagerException | InvocationTargetException | FinderException ex) {
+								log.error(ex.getMessage(), ex);
+								throw new XavaException("add_element_to_collection_error"); 
+							}
+						}
+					}
+				}
+			}			
+		}
+	}
+
 
 	private int getHiddenKeyNotPressent(MetaReference ref, Map referenceValues) throws XavaException {
 		int hiddenKeyNotPresent = 0;
