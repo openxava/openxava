@@ -1,36 +1,92 @@
 package org.openxava.view;
 
-import java.math.*;
-import java.util.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.prefs.*;
-import java.util.stream.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
+import java.util.stream.Collectors;
 
-import javax.ejb.*;
-import javax.servlet.http.*;
+import javax.ejb.FinderException;
+import javax.ejb.ObjectNotFoundException;
+import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections.*;
-import org.apache.commons.lang3.*;
-import org.apache.commons.logging.*;
-import org.openxava.actions.*;
-import org.openxava.annotations.*;
-import org.openxava.application.meta.*;
-import org.openxava.calculators.*;
-import org.openxava.component.*;
-import org.openxava.controller.*;
-import org.openxava.controller.meta.*;
-import org.openxava.filters.*;
-import org.openxava.mapping.*;
-import org.openxava.model.*;
-import org.openxava.model.meta.*;
-import org.openxava.session.*;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.actions.IOnChangePropertyAction;
+import org.openxava.actions.TabBaseAction;
+import org.openxava.annotations.LabelFormatType;
+import org.openxava.application.meta.MetaApplication;
+import org.openxava.application.meta.MetaApplications;
+import org.openxava.application.meta.MetaModule;
+import org.openxava.calculators.ICalculator;
+import org.openxava.calculators.IEntityCalculator;
+import org.openxava.calculators.IJDBCCalculator;
+import org.openxava.calculators.IModelCalculator;
+import org.openxava.calculators.IOptionalCalculator;
+import org.openxava.component.MetaComponent;
+import org.openxava.controller.ModuleContext;
+import org.openxava.controller.ModuleManager;
+import org.openxava.controller.meta.MetaAction;
+import org.openxava.controller.meta.MetaController;
+import org.openxava.controller.meta.MetaControllers;
+import org.openxava.filters.CollectionInViewFilter;
+import org.openxava.filters.CollectionWithConditionInViewFilter;
+import org.openxava.mapping.ModelMapping;
+import org.openxava.model.MapFacade;
+import org.openxava.model.PersistenceFacade;
+import org.openxava.model.meta.MetaAggregate;
+import org.openxava.model.meta.MetaCalculator;
+import org.openxava.model.meta.MetaCollection;
+import org.openxava.model.meta.MetaEntity;
+import org.openxava.model.meta.MetaMember;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.model.meta.MetaReference;
+import org.openxava.session.Chart;
 import org.openxava.tab.Tab;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
-import org.openxava.view.meta.*;
-import org.openxava.web.*;
+import org.openxava.util.DataSourceConnectionProvider;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.Is;
+import org.openxava.util.Labels;
+import org.openxava.util.Locales;
+import org.openxava.util.Maps;
+import org.openxava.util.Messages;
+import org.openxava.util.PropertiesManager;
+import org.openxava.util.Strings;
+import org.openxava.util.Users;
+import org.openxava.util.XArrays;
+import org.openxava.util.XObjects;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaPreferences;
+import org.openxava.util.XavaResources;
+import org.openxava.util.meta.MetaElement;
+import org.openxava.util.meta.MetaSet;
+import org.openxava.view.meta.MetaCollectionView;
+import org.openxava.view.meta.MetaDescriptionsList;
+import org.openxava.view.meta.MetaGroup;
+import org.openxava.view.meta.MetaPropertyView;
+import org.openxava.view.meta.MetaReferenceView;
+import org.openxava.view.meta.MetaView;
+import org.openxava.view.meta.MetaViewAction;
+import org.openxava.view.meta.PropertiesSeparator;
 import org.openxava.web.DescriptionsLists;
-import org.openxava.web.meta.*;
+import org.openxava.web.Ids;
+import org.openxava.web.WebEditors;
+import org.openxava.web.meta.MetaEditor;
 
 /**
  * Session object to manage a view based in maps,
@@ -5293,36 +5349,53 @@ public class View implements java.io.Serializable {
 	
 	/**
 	 * 
-	 * @param propertyName  Since v4.2 can qualified Since xxx can be groupName or sectionName
+	 * @param property  Since v4.2 can qualified. Since v6.3.2 can be group or section name
 	 * @param id  Id of the label from i18n files
 	 */
-	public void setLabelId(String propertyName, String id) {		
-		if (propertyName == null) return; 
-		int idx = propertyName.indexOf('.');
+	public void setLabelId(String property, String id) {
+		if (property == null) return; 
+		int idx = property.indexOf('.');
 		if (idx >= 0) {
-			String subviewName = propertyName.substring(0, idx);
-			String member = propertyName.substring(idx+1);								 				
+			String subviewName = property.substring(0, idx);
+			String member = property.substring(idx+1);								 				
 			getSubview(subviewName).setLabelId(member, id);
 			return;
 		}
 		if (getLabels() == null) setLabels(new HashMap());
-		String old = (String) getLabels().put(propertyName, id);		
+		String old = (String) getLabels().put(property, id);		
 		if (!Is.equal(old, id)) {
 			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
-			if (getMembersNames().containsKey(propertyName)) {
-				getRoot().changedLabels.put(getPropertyPrefix() + propertyName,
-					getLabelFor(getMetaModel().getMetaMember(propertyName)));
+			int sectionIndex = getIndexOfSection(property);
+			if (sectionIndex >= 0) {
+				String sectionId = getViewObject() + "_section" + sectionIndex + "_sectionName";
+				getSectionView(sectionIndex).setTitle(id);
+				getRoot().changedLabels.put(sectionId, id);
 			}
-			else if (getGroupsViews().containsKey(propertyName)) {
-				getGroupView(propertyName).setTitle(id);
-				getRoot().changedLabels.put(propertyName, id);
+			else if (getGroupsViews().containsKey(property)) {
+				getGroupView(property).setTitle(id);
+				getRoot().changedLabels.put(property, id);
 			}
-			else if (getSubview(propertyName).isSection()) {
-				int i = getSections().indexOf(getSubview(propertyName));
-				String sectionId = getViewObject() + "_section" + i + "_sectionName";
-				getSectionView(i).setTitle(title);
-				getRoot().changedLabels.put(propertyName,  id);
+			else {
+				getRoot().changedLabels.put(getPropertyPrefix() + property,
+					getLabelFor(getMetaModel().getMetaMember(property)));
 			}
+		}
+	}
+	
+	/**
+	 * Since v6.3.2
+	 */
+	private int getIndexOfSection(String name) {
+		try {
+			View view = getSection(name);	
+			for (int i = 0; i < getSections().size(); i++) {
+				MetaView mv = (MetaView)getSections().get(i);
+				if (mv.equals(view.getMetaView())) return i;
+			}
+			return -1;
+		}
+		catch(ElementNotFoundException e) {
+			return -1;	// section does not exist
 		}
 	}
 		

@@ -42,12 +42,12 @@
 		<item key="WHOLE_WORD" value="false"/>
 		<item key="SEARCH_DERIVED" value="false"/>
 		<item key="SEARCH_IN_BINARIES" value="false"/>
-		<item key="HISTORY_SIZE" value="5"/>
+		<item key="HISTORY_SIZE" value="6"/>
 		<section name="HISTORY0">
 			<item key="ignoreCase" value="true"/>
 			<item key="isRegExSearch" value="false"/>
 			<item key="isWholeWord" value="false"/>
-			<item key="textPattern" value="changedLabels"/>
+			<item key="textPattern" value="deliveryData"/>
 			<item key="scope" value="1"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -62,7 +62,7 @@
 			<item key="ignoreCase" value="true"/>
 			<item key="isRegExSearch" value="false"/>
 			<item key="isWholeWord" value="false"/>
-			<item key="textPattern" value="test class"/>
+			<item key="textPattern" value="changedLabels"/>
 			<item key="scope" value="1"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -74,7 +74,7 @@
 			<item key="ignoreCase" value="true"/>
 			<item key="isRegExSearch" value="false"/>
 			<item key="isWholeWord" value="false"/>
-			<item key="textPattern" value="springstest"/>
+			<item key="textPattern" value="test class"/>
 			<item key="scope" value="1"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -86,7 +86,7 @@
 			<item key="ignoreCase" value="true"/>
 			<item key="isRegExSearch" value="false"/>
 			<item key="isWholeWord" value="false"/>
-			<item key="textPattern" value="ChangedParts"/>
+			<item key="textPattern" value="springstest"/>
 			<item key="scope" value="1"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -95,6 +95,18 @@
 			</list>
 		</section>
 		<section name="HISTORY4">
+			<item key="ignoreCase" value="true"/>
+			<item key="isRegExSearch" value="false"/>
+			<item key="isWholeWord" value="false"/>
+			<item key="textPattern" value="ChangedParts"/>
+			<item key="scope" value="1"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
+		<section name="HISTORY5">
 			<item key="ignoreCase" value="true"/>
 			<item key="isRegExSearch" value="false"/>
 			<item key="isWholeWord" value="false"/>

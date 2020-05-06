@@ -4,4 +4,5 @@
 <fullyQualifiedTypeName name="org.openxava.validators.BigDecimalValidator"/>
 <fullyQualifiedTypeName name="org.openxava.util.Messages"/>
 <fullyQualifiedTypeName name="java.math.BigDecimal"/>
+<fullyQualifiedTypeName name="java.lang.Deprecated"/>
 </qualifiedTypeNameHistroy>
