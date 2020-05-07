@@ -25,7 +25,7 @@ public class MotorVehicleDriverTest extends ModuleTestBase {
 		execute("CRUD.save");
 		assertNoErrors();
 		execute("Mode.list");
-		assertListRowCount(1); // tmp Falla
+		assertListRowCount(1); 
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "MAGALI AVILA");
 		setValue("approvedDrivingTest", "false");
@@ -48,7 +48,7 @@ public class MotorVehicleDriverTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "MAGALI AVILA");		
 		execute("Collection.add", "viewObject=xava_view_vehicles");
-		assertListRowCount(2); // tmp Falla
+		assertListRowCount(2); 
 		checkAll();
 		execute("AddToCollection.add");
 		assertError("AUTO plate L2-0002 is not roadworthy. It can not be assigned to the driver MAGALI AVILA");		

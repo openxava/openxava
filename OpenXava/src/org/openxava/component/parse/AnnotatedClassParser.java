@@ -1238,30 +1238,38 @@ public class AnnotatedClassParser implements IComponentParser {
 	private void processAnnotations(MetaCollection collection, AnnotatedElement element) throws Exception {
 		if (element == null) return;	
 		boolean cascadeAndSelfReference = false;
+		if (element.isAnnotationPresent(OrderColumn.class)) {
+			if (element instanceof Field) {
+				Field field = (Field) element; 
+				if (List.class.isAssignableFrom(field.getType())) {
+					collection.setSortable(true);
+				}
+				else {
+					log.warn(XavaResources.getString("order_column_requires_list", collection.getName()));
+				}
+			}
+		}
 		if (element.isAnnotationPresent(OneToMany.class)) {
 			collection.setMetaCalculator(null);			
 			OneToMany oneToMany = element.getAnnotation(OneToMany.class);
 			collection.getMetaReference().setRole(oneToMany.mappedBy());
 			if (isCascade(oneToMany.cascade())) {							
 				if (!collection.getMetaModel().getName().equals(collection.getMetaReference().getReferencedModelName())) {
-					System.out.println("[AnnotatedClassParser.processAnnotations] A: " + collection.getName()); // tmp
 					addAggregateForCollection(collection.getMetaModel(), getClassNameFor(collection.getMetaReference().getReferencedModelName()), oneToMany.mappedBy());					
 				}
 				else {
-					System.out.println("[AnnotatedClassParser.processAnnotations] B"); // tmp
 					collection.getMetaModel().setContainerModelName(collection.getMetaModel().getName()); 
 					collection.getMetaModel().setContainerReference(oneToMany.mappedBy());
 					cascadeAndSelfReference = true;					
 				}				
 			}
 			collection.setOrphanRemoval(oneToMany.orphanRemoval());
-			// tmp ini
-			collection.getMetaReference().getMetaModelReferenced();
-			/*
-			MetaReference inverseRef = collection.getMetaReference().getMetaModelReferenced().getMetaReference(oneToMany.mappedBy());
-			inverseRef.setReferencedModelCorrespondingCollection(collection.getName());
-			*/ 			
-			// tmp fin
+			if (collection.isSortable()) { // By now, only needed when sortable
+				// MetaModel metaModelReferenced = collection.getMetaModel().getMetaModelContainer(); // Not in this way, because it would store MetaEntity for aggregate collections producing many lateral problems
+				MetaModel metaModelReferenced = MetaComponent.get(collection.getMetaReference().getReferencedModelName()).getMetaEntity();
+				MetaReference inverseRef = metaModelReferenced.getMetaReference(oneToMany.mappedBy());
+				inverseRef.setReferencedModelCorrespondingCollection(collection.getName());
+			}
 		}
 		else if (element.isAnnotationPresent(ManyToMany.class)) {
 			ManyToMany manyToMany = element.getAnnotation(ManyToMany.class);
@@ -1279,17 +1287,6 @@ public class AnnotatedClassParser implements IComponentParser {
 		else if (element.isAnnotationPresent(Condition.class)) {			
 			collection.setMetaCalculator(null); 
 		}		
-		if (element.isAnnotationPresent(OrderColumn.class)) {
-			if (element instanceof Field) {
-				Field field = (Field) element; 
-				if (List.class.isAssignableFrom(field.getType())) {
-					collection.setSortable(true);
-				}
-				else {
-					log.warn(XavaResources.getString("order_column_requires_list", collection.getName()));
-				}
-			}
-		}
 		
 		if (element.isAnnotationPresent(javax.validation.constraints.Size.class)) {
 			javax.validation.constraints.Size size = element.getAnnotation(javax.validation.constraints.Size.class);

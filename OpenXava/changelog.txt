@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Setting a reference uses as mappedBy in an @OrderColumn breaks the collection.
 - Application chapter of reference guide improved.
 - Fix: Combo for list configurations too large for complex filters.
 - Fix: Calendar icon hides the date with Edge in Spanish.

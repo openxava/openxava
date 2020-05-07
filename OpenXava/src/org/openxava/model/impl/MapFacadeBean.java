@@ -599,15 +599,10 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			Collection collection = (Collection) pm.executeGet(collectionName);
 			collection.remove(child);
 		}
-		System.out.println("[MapFacadeBean.removeCollectionElement] deletingElement=" + deletingElement); // tmp
-		System.out.println("[MapFacadeBean.removeCollectionElement] metaCollection.isAggregate()=" + metaCollection.isAggregate()); // tmp
-		System.out.println("[MapFacadeBean.removeCollectionElement] metaCollection.isOrphanRemoval()=" + metaCollection.isOrphanRemoval()); // tmp
 		if (deletingElement && (metaCollection.isAggregate() || metaCollection.isOrphanRemoval())) {
-			System.out.println("[MapFacadeBean.removeCollectionElement] A"); // tmp
 			remove(childMetaModel, collectionElementKeyValues);
 		}		
 		else if (childMetaModel.containsMetaReference(refToParent)) {
-			System.out.println("[MapFacadeBean.removeCollectionElement] B"); // tmp
 			// If the child contains the reference to its parent we simply update this reference
 			Map nullParentKey = new HashMap();
 			nullParentKey.put(refToParent, null); 
@@ -947,7 +942,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 				addToCollection(container, collectionName, newObject);		
 			}
 			Map key = getValues(metaModel, newObject, getKeyNames(metaModel), false);
-			updateSortableCollections(metaModel, key, values); // tmp 
+			if (container == null) updateSortableCollections(metaModel, key, values); 
 			AccessTracker.created(metaModel.getName(), key); 
 			// Collections are not managed			
 			return newObject;
@@ -1011,7 +1006,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		}
 	}
 	
-	private void updateSortableCollections(MetaModel metaModel, Map key, Map values) throws XavaException, RemoteException, CreateException, ValidationException { // tmp		
+	private void updateSortableCollections(MetaModel metaModel, Map key, Map values) throws XavaException, RemoteException, CreateException, ValidationException { 		
 		for (Iterator it = metaModel.getMetaReferencesToEntity().iterator(); it.hasNext(); ) {
 			MetaReference ref = (MetaReference) it.next();		
 			Map referenceValues = (Map) values.get(ref.getName());
@@ -1032,7 +1027,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 					}
 				}
 			}			
-		}
+		}	
 	}
 
 

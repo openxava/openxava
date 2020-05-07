@@ -3,7 +3,6 @@ package org.openxava.test.tests;
 import org.openxava.tests.*;
 
 /**
- * tmp
  *  
  * @author Javier Paniza
  */
@@ -18,7 +17,7 @@ public class ProjectMemberTest extends ModuleTestBase {
 		execute("CRUD.new");
 		setValue("name", "JUNIT PROJECT MEMBER");
 		execute("Reference.search", "keyProperty=project.name");
-		assertValueInList(0, 0, "THE BIG PROJECT"); // tmp Falla
+		assertValueInList(0, 0, "THE BIG PROJECT"); 
 		execute("ReferenceSearch.choose", "row=0");
 		assertValue("project.name", "THE BIG PROJECT");
 		execute("CRUD.save");

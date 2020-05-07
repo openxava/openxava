@@ -24,7 +24,7 @@ public class MetaReference extends MetaMember implements Cloneable {
 	private MetaModel metaModelReferenced;
 	private String referencedModelName;
 	private String referencedModelContainerReference;
-	private String referencedModelCorrespondingCollection; // tmp
+	private String referencedModelCorrespondingCollection; 
 	private String role;
 	private boolean required;
 	private boolean key;
@@ -62,7 +62,6 @@ public class MetaReference extends MetaMember implements Cloneable {
 		if (metaModelReferenced == null) {
 			ElementName modelName = new ElementName(getReferencedModelName());			
 			if (modelName.isQualified()) {
-				System.out.println("[MetaReference(" + getMetaModel().getName() + "." + getName()  +").getMetaModelReferenced] A"); // tmp
 				String componentName = modelName.getContainerName();
 				String aggregateName = modelName.getUnqualifiedName();
 				return MetaComponent.get(componentName).getMetaAggregate(aggregateName);
@@ -70,17 +69,14 @@ public class MetaReference extends MetaMember implements Cloneable {
 			
 			// Not qualified
 			if (!getMetaModel().isAnnotatedEJB3() && getReferencedModelName().equals(getMetaModel().getName())) {
-				System.out.println("[MetaReference(" + getMetaModel().getName() + "." + getName()  +").getMetaModelReferenced] B"); // tmp
 				metaModelReferenced = getMetaModel(); 
 			}
 			else {
 				if (explicitAggregate && !aggregate && getMetaModel().isAnnotatedEJB3()) {
-					System.out.println("[MetaReference(" + getMetaModel().getName() + "." + getName()  +").getMetaModelReferenced] C1"); // tmp
 					metaModelReferenced = MetaComponent.get(getReferencedModelName()).getMetaEntity();
 					if (!Is.empty(referencedModelContainerReference)) metaModelReferenced.setContainerReference(referencedModelContainerReference); 					
 				}
 				else {
-					System.out.println("[MetaReference(" + getMetaModel().getName() + "." + getName()  +").getMetaModelReferenced] C2"); // tmp
 					try {				
 						// look for local aggregate
 						metaModelReferenced = getMetaModel().getMetaComponent().getMetaAggregate(getReferencedModelName());
@@ -92,7 +88,6 @@ public class MetaReference extends MetaMember implements Cloneable {
 					}
 				}
 			} 
-			System.out.println("[MetaReference(" + getMetaModel().getName() + "." + getName()  +").getMetaModelReferenced] metaModelReferenced.getClass()=" + metaModelReferenced.getClass()); // tmp
 		}
 		return metaModelReferenced;
 	}
