@@ -191,7 +191,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	
 	public void testDialogsInNestedCollections() throws Exception {
 		execute("List.viewDetail", "row=0"); 
-		assertDialogsInNestedCollections(false);
+		assertDialogsInNestedCollections(false); 
 		assertDialogsInNestedCollections(true);
 	}
 	
@@ -801,7 +801,6 @@ public class CustomerWithSectionTest extends CustomerTest {
 		execute("CRUD.new");
 		assertValue("name", "");
 		confirmHandler.assertNoMessage();
-				
 		
 		// Property with event
 		execute("Navigation.first");

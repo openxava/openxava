@@ -19,12 +19,12 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 		HtmlElement c = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_CustomerRadioButton__type1");	// steady  
 		c.click();
 		waitAJAX();
-		assertValue("type", usesAnnotatedPOJO()?"1":"2");	// steady
+		assertValue("type", "1");	// steady
 		
 		c = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_CustomerRadioButton__type2");	// special  
 		c.click();
 		waitAJAX();
-		assertValue("type", usesAnnotatedPOJO()?"2":"3");	// special
+		assertValue("type", "2");	// special
 	}
 	
 	public void testEditorByView_radioButton() throws Exception { 
