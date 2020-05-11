@@ -1,9 +1,0 @@
-package org.openxava.test.actions;
-
-/**
- * @author Ana Andres
- * Created on 15 abr. 2020
- */
-public class ChangeNameGroupOrSection {
-
-}
