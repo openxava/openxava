@@ -55,6 +55,7 @@ elementCollectionEditor.removeRow = function(application, module, element, rowIn
 	if (hasTotals) {
 		openxava.executeAction(application, module, "", false, "ElementCollection.refreshTotals");
 	}	
+	openxava.initEditors();
 }
 
 elementCollectionEditor.renumber = function(row, rowIndex) { 

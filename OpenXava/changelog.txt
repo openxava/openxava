@@ -1,13 +1,17 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.3.2 (2020-5-12)
+--------------------------
+- New initialModule property in naviox.properties to start with your own module instead of First Steps.
+- New IProcedure functional interface that does not receive or return any value to be use in lambdas.
 - Instructions to install Java and Eclipse improved in Getting Started guide.
-- Fix: Setting a reference uses as mappedBy in an @OrderColumn breaks the collection.
 - Application chapter of reference guide improved.
+- Some new common use labels to be used in applications.
+- Fix: Setting a reference used as mappedBy in an @OrderColumn breaks the collection.
 - Fix: Combo for list configurations too large for complex filters.
 - Fix: Calendar icon hides the date with Edge in Spanish.
 - Fix: Drag & drop does not work with Chrome in touch screens.
-- New IProcedure functional interface that does not receive or return any value to be use in lambdas.
 - Fix: Excel import does not work when csvSeparator=, in xava.properties.
 - Fix: Importing Excel with ; in some field truncates data or move it to another column. 
 - Fix: ConcurrentModificationException from time to time for the first execution of the first module. 
@@ -16,14 +20,12 @@ Change Log for OpenXava project
 - Fix: Tab.setConditionValue() does not work for references.
 - Fix: java.sql.Time and TIME stereotype do not allow nulls, always save 00:00 instead.
 - Fix: View.setEditable(member, false) does not work for embedded references.
-- New initialModule property in naviox.properties to start with your own module instead of First Steps.
 - Fix: startInLastVisitedModule=false in naviox.properties has no effect.
 - Fix: @ManyToMany collections with cascade REMOVE do not work.
 - Fix: BigDecimalValidator with 7 or more decimals fails.
 - Fix: When customizeList=false in xava.properties the icon to show/hide the filter in list is not shown.
 - Fix: After removing a row in an @ElementCollection, @DescriptionsLists after that row stop to work.
-- Some new common use labels to be used in applications.
-- Fix: Loading message does not disappear from time to time.
+- Fix: 'Loading...' message does not disappear from time to time.
 - Fix: Viewing image at full size on click does not work with upload file editor on Edge.
 
 OpenXava 6.3.1 (2020-4-1)

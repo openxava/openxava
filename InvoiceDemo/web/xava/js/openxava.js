@@ -1173,7 +1173,10 @@ openxava.markRowAsCut = function(collectionId, rowId) {
 
 
 openxava.fadeIn = function(selector, duration) { 
-	$(selector).fadeIn(duration);
+	// jQuery fadeIn() not work under certain race conditions
+	$(selector).css("opacity", "0"); 
+	$(selector).show(); 
+	$(selector).fadeTo(duration, 1);
 }
 
 openxava.show = function(selector) { 
