@@ -1,9 +1,6 @@
 /application.xml
 /code-generators.xml
 /controllers.xml
-/converters.xml
-/default-size.xml
-/dtds/
 /org/
 /GalleryImage.hbm.xml
 /META-INF/
@@ -15,6 +12,9 @@
 /OpenXavaTest-messages_en.properties
 /OpenXavaTest-messages_es.properties
 /OpenXavaTest-messages_fr.properties
+/converters.xml
+/default-size.xml
+/dtds/
 /editors.xml
 /hibernate-junit.cfg.xml
 /hibernate.cfg.xml
@@ -27,9 +27,6 @@
 /jndi-jboss.properties
 /jndi-websphere.properties
 /jndi.properties
-/logging.properties
-/naviox-users.properties
-/naviox.properties
 /Corporation.html
 /CorporationEmployee.html
 /Customer.jrxml
@@ -39,5 +36,8 @@
 /InvoiceNoVAT.jrxml
 /Products.jrxml
 /_run/
+/logging.properties
+/naviox-users.properties
+/naviox.properties
 /xava-junit.properties
 /xava.properties
