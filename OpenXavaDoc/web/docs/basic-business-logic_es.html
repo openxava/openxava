@@ -44,10 +44,8 @@
         Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
         Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3.
         Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">4.
-        Herencia</a> | <strong>5. Lógica de negocio básica</strong> | <a class="wiki_link"
-
-        href="validation_es.html">6. Validación avanzada</a> | <a class="wiki_link"
-
+        Herencia</a> | <strong>5. Lógica de negocio básica</strong> | <a class="wiki_link"
+        href="validation_es.html">6. Validación avanzada</a> | <a class="wiki_link"
         href="refining-standard-behavior_es.html">7. Refinar el comportamiento
         predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8.
         Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">9.
@@ -105,12 +103,18 @@ public int getImporte() { // No tiene campo, ni setter, solo un getter
       <pre><code class="java">@Stereotype("DINERO")
 @Depends("producto.numero, cantidad") // Cuando usuario cambie producto o cantidad
 public BigDecimal getImporte() { // esta propiedad se recalculará y se redibujará
+    if (producto == null || producto.getPrecio() == null) return BigDecimal.ZERO;
     return new BigDecimal(cantidad).multiply(producto.getPrecio());
 }
-</code></pre> Es tan solo poner el cálculo en <em>getImporte()</em> y usar <em>@Depends</em>
-      para indicar a OpenXava que la propiedad <em>importe</em> depende de <em>producto.numero</em>
-      y <em>cantidad</em>, así cada vez que el usuario cambia alguno de estos
-      valores la propiedad se recalculará.<br>
+</code></pre>Y los imports correspondientes:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import java.math.*;
+import org.openxava.annotations.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> Es tan solo poner el cálculo en <em>getImporte()</em>
+      y usar <em>@Depends</em> para indicar a OpenXava que la propiedad <em>importe</em>
+      depende de <em>producto.numero</em> y <em>cantidad</em>, así cada vez
+      que el usuario cambia alguno de estos valores la propiedad se recalculará.<br>
       Ahora has de añadir esta nueva propiedad a la lista de propiedades
       mostradas en la colección <em>detalles</em> de <em>DocumentoComercial</em>:<br>
       <pre><code class="java">@ElementCollection
@@ -119,15 +123,6 @@ private Collection&lt;Detalle&gt; detalles;
 </code></pre> Nada más. Tan solo necesitas añadir el getter y modificar la lista
       de propiedades. Ahora puedes probar los módulos <em>Factura</em> y <em>Pedido</em>
       para ver la propiedad <em>importe</em> en acción.<br>
-      <table class="wiki_table">
-        <tbody>
-          <tr>
-            <td><strong>Nota:</strong><br>
-              <em>Verifica que los productos tengan precio registrado.</em><br>
-            </td>
-          </tr>
-        </tbody>
-      </table>
       <h3 id="toc3"><a name="Propiedades-calculadas-Usar-DefaultValueCalculator"></a>Usar
         <em>@DefaultValueCalculator</em></h3>
       La forma en que calculamos el importe de la línea de detalle no es la
@@ -189,15 +184,22 @@ public class CalculadorPrecioPorUnidad implements ICalculator {
         this.numeroProducto = numeroProducto;
     }
 }
-</code></pre> De esta forma cuando el usuario escoge un producto el campo de
-      precio unitario se rellena con el precio del producto, pero, dado que es
-      una propiedad persistente, el usuario puede cambiar este valor. Y si en el
-      futuro el precio del producto cambiara este precio unitario de la línea de
-      detalle no cambiaría.<br>
+</code></pre> </div>
+    <div class="wiki" style="display: block;">También añade el siguiente import
+      en la clase <i>Detalle</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import com.tuempresa.facturacion.calculadores.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">De esta forma cuando el usuario
+      escoge un producto el campo de precio unitario se rellena con el precio
+      del producto, pero dado que es una propiedad persistente, el usuario puede
+      cambiar este valor. Y si en el futuro el precio del producto cambiara este
+      precio unitario de la línea de detalle no cambiaría.<br>
       Esto implica que has de adaptar la propiedad calculada <em>importe</em>:<br>
       <pre><code class="java">@Stereotype("DINERO")
 @Depends("precioPorUnidad, cantidad") // precioPorUnidad en vez de producto.numero
 public BigDecimal getImporte() {
+    // El if ya no es necesario porque getPrecioPorUnidad() nunca devuelve nulo
     return new BigDecimal(cantidad).multiply(getPrecioPorUnidad()); // getPrecioPorUnidad() en vez de producto.getPrecio()
 }
 </code></pre> Ahora <em>getImporte()</em> usa <em>precioPorUnidad</em> como
@@ -773,8 +775,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
 }
 </code></pre> Comprobamos el cálculo del valor por defecto de <em>procentajeIVA</em>
       y verificamos que <em>numero</em> no tiene valor inicial, porque ahora <em>numero</em>
-      no se calcula hasta el momento de grabar el documento (sección <a class="wiki_link"
-
+      no se calcula hasta el momento de grabar el documento (sección <a class="wiki_link"
         href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retrollamadas+JPA-C%C3%A1lculo+de+valor+por+defecto+multiusuario">Cálculo
         de valor por defecto multiusuario</a>). Cuando el documento (factura o
       pedido) se grabe verificaremos que <em>numero</em> se calcula. Cuando la
@@ -783,8 +784,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
         calculada simple</a>), el valor por defecto para <em>precioPorUnidad</em>
       (<em>@DefaultValueCalculator</em>, sección <a class="wiki_link" href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-Propiedades+calculadas-Usar+@DefaultValueCalculator">Usar
         @DefaultValueCalculator</a>) y las propiedades de importes del documento
-      (propiedades calculadas que dependen de una colección, sección <a class="wiki_link"
-
+      (propiedades calculadas que dependen de una colección, sección <a class="wiki_link"
         href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-Propiedades+calculadas-Propiedades+calculadas+dependientes+de+una+colecci%C3%B3n">Propiedades
         calculadas dependientes de una colección</a>). Probamos todo esto
       haciendo unas ligeras modificaciones en el ya existente método <em>anyadirDetalles()</em>:<br>
@@ -857,15 +857,14 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
       hemos de hacer una pequeña modificación en el método <em>verificarCreado()</em>,
       que es ejecutado justo después de <em>verificarImporteYBeneficioEstimado()</em>.
       Veamos la modificación:<br>
-<pre><code class="java">private void verificarCreado() throws Exception {
+      <pre><code class="java">private void verificarCreado() throws Exception {
     // setValue("anyo", getAnyoActual()); // Borramos estas líneas
     // setValue("numero", getNumero());  // para buscar el documento
     // execute("CRUD.refresh"); // porque ya lo hemos buscado desde el modo lista
     // El resto de la prueba ...
     ...
-</code></pre>
-      Quitamos estas líneas porque ahora no es necesario buscar el documento
-      recién creado. Ahora en el método <em>verificarImporteYBeneficioEstimado()</em>
+</code></pre> Quitamos estas líneas porque ahora no es necesario buscar el
+      documento recién creado. Ahora en el método <em>verificarImporteYBeneficioEstimado()</em>
       vamos a modo lista y escogemos el documento, por tanto ya estamos editando
       el documento.<br>
       ¡Enhorabuena! Ahora tus pruebas ya están sincronizadas con tu código. Es
@@ -880,12 +879,10 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
       funcionamiento estándar del módulo y añadir tu propia lógica de negocio,
       entre otras formas de añadir lógica personalizada a tu aplicación.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="validation_es.html">Ve a la lección 6</a></strong>
     </div>
