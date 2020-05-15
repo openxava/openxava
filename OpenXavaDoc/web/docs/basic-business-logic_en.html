@@ -212,8 +212,6 @@ private Collection&lt;Detail&gt; details;
       <h3 id="toc4"><a name="Lesson 5: Basic business logic-Calculated properties-Calculated properties depending on a collection"></a>Calculated
         properties depending on a collection</h3>
     </div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ, EL 12 DE
-      MAYO</div>
     <div class="wiki" style="display: block;">We want to add amounts to <em>Order</em>
       and <em>Invoice</em> too. To calculate vat, base amount and total amount
       are indispensable. To do so you only need to add a few calculated
@@ -230,9 +228,13 @@ private Collection&lt;Detail&gt; details;
     return result;
 }
 </code></pre> The implementation is simple, just adding up the amount from all
-      the details.<br>
-      The next property to add is <em>vatPercentage</em> to calculate the vat.
-      See the next code:<br>
+      the details. To use <i>BigDecimal</i> you should add the following import
+      in <i>CommercialDocument</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import java.math.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> The next property to add to <i>CommercialDocument</i>
+      is <em>vatPercentage</em>. See the next code:<br>
       <pre><code class="java">@Digits(integer=2, fraction=0) // To indicate its size
 @Required
 private BigDecimal vatPercentage;
@@ -246,9 +248,14 @@ public void setVatPercentage(BigDecimal vatPercentage) {
 }
 </code></pre> You can see that <em>vatPercentage</em> is a conventional
       persistent property. In this case we use <em>@Digits</em> (an annotation
-      from the Hibernate Validator framework) as an alternative to <em>@Column</em>
-      to specify the size.<br>
-      We continue adding the <em>vat</em> property. See the next code:<br>
+      from Bean Validation, the validation standard of Java) as an alternative
+      to <em>@Column</em> to specify the size. To use it you have to add this
+      import:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import javax.validation.constraints.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> We continue adding the <em>vat</em>
+      property. See the next code:<br>
       <pre><code class="java">public BigDecimal getVat() {
     return getBaseAmount() // baseAmount * vatPercentage / 100
         .multiply(getVatPercentage())
@@ -259,10 +266,14 @@ public void setVatPercentage(BigDecimal vatPercentage) {
       <pre><code class="java">public BigDecimal getTotalAmount() {
     return getBaseAmount().add(getVat()); // baseAmount + vat
 }
-</code></pre> Again a simple calculation.<br>
-      Now that you have written the amount properties of <em>CommercialDocument</em>,
-      you must modify the view by default to show <em>vatPercentage</em> and
-      the list of properties of the collection to show <a class="wiki_link" href="view_en.html#View-Collection%20customization-Total%20properties%20%28new%20in%20v4.3%29">the
+</code></pre> Again a simple calculation.</div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ:
+      CONSIDERANDO PONER EL vatPercentage EN LOS TOTALES. ¿CAMBIAR TAMBIÉN EN
+      InvoiceDemo?</div>
+    <div class="wiki" style="display: block;"> Now that you have written the
+      amount properties of <em>CommercialDocument</em>, you must modify the
+      view by default to show <em>vatPercentage</em> and the list of properties
+      of the collection to show <a class="wiki_link" href="view_en.html#View-Collection%20customization-Total%20properties%20%28new%20in%20v4.3%29">the
         total properties</a> of the <em>CommercialDocument</em> (<em>Invoice</em>
       and <em>Order).</em> Let's see a first approximation:<br>
       <pre><code class="java">@View(members=

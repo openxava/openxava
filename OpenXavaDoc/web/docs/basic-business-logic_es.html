@@ -216,8 +216,8 @@ private Collection&lt;Detalle&gt; detalles;
         calculadas dependientes de una colección</h3>
       También queremos añadir importes a <em>Pedido</em> y <em>Factura</em>.
       Tener IVA, importe base e importe total es indispensable. Para hacerlo
-      solo necesitas añadir unas pocas propiedades calculadas. La siguiente
-      figura muestra la interfaz de usuario para estas propiedades:<br>
+      solo necesitas añadir unas pocas propiedades calculadas a la clase <i>DocumentoComercial</i>.
+      La siguiente figura muestra la interfaz de usuario para estas propiedades:<br>
       <img src="files/business-logic_es030.png" alt="business-logic_es030.png" title="business-logic_es030.png"><br>
       Empecemos con <em>importeBase</em>. El siguiente código muestra su
       implementación:<br>
@@ -229,10 +229,14 @@ private Collection&lt;Detalle&gt; detalles;
     return resultado;
 }
 </code></pre> La implementación es simple, se trata de sumar los importes de
-      todas las líneas.<br>
-      La siguiente propiedad a añadir es <em>porcentajeIVA</em> que se usará
-      para calcular el <em>IVA</em>. El siguiente código muestra su
-      implementación:<br>
+      todas las líneas. Para poder usar <i>BigDecimal</i> deberías añadir el
+      siguiente import en <i>DocumentoComercial</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import java.math.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> La siguiente propiedad a añadir a
+      <i>DocumentoComercial</i> es <em>porcentajeIVA</em>. El siguiente código
+      muestra su implementación:<br>
       <pre><code class="java">@Digits(integer=2, fraction=0) // Para indicar su tamaño
 @Required
 private BigDecimal porcentajeIVA;
@@ -246,10 +250,14 @@ public void setPorcentajeIVA(BigDecimal porcentajeIVA) {
 }
 </code></pre> Puedes ver como <em>porcentajeIVA</em> es una propiedad
       persistente convencional. En este caso usamos <em>@Digits</em> (una
-      anotación del entorno de validación Hibernate Validator) como una
-      alternativa a <em>@Column</em> para especificar el tamaño.<br>
-      Continuaremos añadiendo la propiedad <em>IVA</em>. La puedes ver en el
-      siguiente código:<br>
+      anotación de Bean Validation, el estándar Java para validación) como una
+      alternativa a <em>@Column</em> para especificar el tamaño. Para poder
+      usarlo has de añadir el siguiente import:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import javax.validation.constraints.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> Continuaremos añadiendo la
+      propiedad <em>IVA</em>. La puedes ver en el siguiente código:<br>
       <pre><code class="java">public BigDecimal getIva() {
     return getImporteBase() // importeBase * porcentajeIVA / 100
         .multiply(getPorcentajeIVA())

@@ -19,7 +19,7 @@
             de entidades</a></div>
         <div style="margin-left: 3em;"><a href="#Herencia-de-entidades-Nueva-entidad-Pedido">Nueva
             entidad Pedido</a></div>
-        <div style="margin-left: 3em;"><a href="#Herencia-de-entidades-CommercialDocument-como-entidad-abstracta">CommercialDocument
+        <div style="margin-left: 3em;"><a href="#Herencia-de-entidades-CommercialDocument-como-entidad-abstracta">DocumentoComercial
             como entidad abstracta</a></div>
         <div style="margin-left: 3em;"><a href="#Herencia-de-entidades-Factura-refactorizada-para-usar-herencia">Factura
             refactorizada para usar herencia</a></div>
@@ -204,7 +204,7 @@ public class Pedido {
       clase <em>Factura</em>, y asunto zanjado. Pero, ¡espera un momento!
       ¿“Copiar y pegar” no era un pecado mortal? Hemos de encontrar una forma de
       reutilizar <em>Factura</em> para <em>Pedido</em>.<br>
-      <h3 id="toc4"><a name="Herencia-de-entidades-CommercialDocument-como-entidad-abstracta"></a>CommercialDocument
+      <h3 id="toc4"><a name="Herencia-de-entidades-CommercialDocument-como-entidad-abstracta"></a>DocumentoComercial
         como entidad abstracta</h3>
       Una manera práctica de reutilizar el código de <em>Factura</em> para <em>Pedido</em>
       es usando herencia, además es una excusa perfecta para aprender lo fácil
@@ -245,7 +245,6 @@ public class Factura extends DocumentoComercial {
 </code></pre> <em>Factura</em> tiene ahora un código bastante breve, de hecho
       el cuerpo de la clase está, por ahora, vacío.<br>
     </div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ</div>
     <div class="wiki" style="display: block;">Este nuevo código necesita un
       esquema de base de datos ligeramente diferente, ahora las facturas y los
       pedidos se almacenarán en la misma tabla (la tabla DocumentoComercial)
