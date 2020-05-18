@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Russian translation improved including labels for latest releases.
+
 OpenXava 6.3.2 (2020-5-12)
 --------------------------
 - New initialModule property in naviox.properties to start with your own module instead of First Steps.
