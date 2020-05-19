@@ -258,42 +258,42 @@ public void setPorcentajeIVA(BigDecimal porcentajeIVA) {
 </code></pre> </div>
     <div class="wiki" style="display: block;"> Continuaremos añadiendo la
       propiedad <em>IVA</em>. La puedes ver en el siguiente código:<br>
-      <pre><code class="java">public BigDecimal getIva() {
+      <pre><code class="java">@Depends("porcentajeIVA")
+public BigDecimal getIva() {
     return getImporteBase() // importeBase * porcentajeIVA / 100
         .multiply(getPorcentajeIVA())
         .divide(new BigDecimal(100));
 }
-</code></pre> Es un cálculo simple.<br>
+</code></pre> Es un cálculo simple. Fíjate como usamos <i>@Depends("porcentajeIVA")</i>,
+      en general las propiedades de total no necesitan <i>@Depends</i> porque
+      se recalculan automáticamente cuando un valor de su columna en la
+      colección u otra propiedad de total cambia, pero este es un caso especial
+      porque depende de&nbsp; <i>porcentajeIVA</i>, una propiedad editable, que
+      en este caso vamos a poner con las propiedades de total, pero podría estar
+      en cualquier parte de la interfaz.<br>
       Solo nos queda <em>importeTotal</em> por añadir. Puedes ver su código:<br>
       <pre><code class="java">public BigDecimal getImporteTotal() {
     return getImporteBase().add(getIva()); //importeBase + iva
 }
 </code></pre> Una vez más un cálculo simple.<br>
       Ahora que ya has escrito las propiedades para los importes de <em>DocumentoComercial</em>,
-      tienes que modificar la vista por defecto para mostrar <em>porcentajeIVA</em>
-      y la lista de propiedades de la colección <em>detalles</em> para mostrar
-      las <a class="wiki_link" href="view_es#Vista-Personalizaci%C3%B3n+de+colecci%C3%B3n-Propiedades+de+total+%28nuevo+en+v4.3%29">propiedades
-        de total</a> de <em>DocumentoComercial</em>. Veamos una primera
-      aproximación:<br>
-      <pre><code class="java">@Entity
-@View(members=
-    "anyo, numero, fecha, porcentajeIVA;" + // Añadido porcentajeIVA
-    "datos {" +
-        "cliente;" +
-        "detalles;" +
-        "observaciones" +
-    "}"
-)
-abstract public class DocumentoComercial extends Identificable {
+      tienes que modificar la lista de propiedades de la colección <em>detalles</em>
+      para mostrar las <a class="wiki_link" href="view_es#Vista-Personalizaci%C3%B3n+de+colecci%C3%B3n-Propiedades+de+total+%28nuevo+en+v4.3%29">propiedades
+        de total</a> de <em>DocumentoComercial</em>. Veámoslo:<br>
+      <pre><code class="java">abstract public class DocumentoComercial extends Identificable {
  
     @ElementCollection
     @ListProperties(
         "producto.numero, producto.descripcion, cantidad, precioPorUnidad, " +
-        "importe[factura.importeBase, factura.iva, factura.importeTotal]" // Entidad padre Factura =&gt; [factura.importeBase, ...]
-    )
+        "importe[" + 
+        	"documentoComercial.importeBase," +
+        	"documentoComercial.porcentajeIVA," +
+        	"documentoComercial.iva," +
+        	"documentoComercial.importeTotal" +
+        "]" 
+    )	
     private Collection&lt;Detalle&gt; detalles;
  
-    // El resto del código fuente
     ...
 }
 </code></pre> Prueba el módulo <em>Factura</em> y observarás las nuevas

@@ -256,52 +256,53 @@ public void setVatPercentage(BigDecimal vatPercentage) {
 </code></pre> </div>
     <div class="wiki" style="display: block;"> We continue adding the <em>vat</em>
       property. See the next code:<br>
-      <pre><code class="java">public BigDecimal getVat() {
+      <pre><code class="java">@Depends("vatPercentage")
+public BigDecimal getVat() {
     return getBaseAmount() // baseAmount * vatPercentage / 100
         .multiply(getVatPercentage())
         .divide(new BigDecimal("100"));
 }
-</code></pre> It's a simple calculation.<br>
+</code></pre> It's a simple calculation. Note that we use <i>@Depends("vatPercentage")</i>,
+      in general total properties do not need <i>@Depends</i> because they are
+      recalculated automatically when a value of its column in the collection or
+      other calculated total property changes, but this is a special case
+      because it depends on <i>vatPercentage</i>, an editable property, that in
+      this case we're going to place among the calculated total properties, but
+      it could be placed in any part of the interface.<br>
       Only <em>totalAmount</em> remains. You can see its code:<br>
       <pre><code class="java">public BigDecimal getTotalAmount() {
     return getBaseAmount().add(getVat()); // baseAmount + vat
 }
 </code></pre> Again a simple calculation.</div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ:
-      CONSIDERANDO PONER EL vatPercentage EN LOS TOTALES. ¿CAMBIAR TAMBIÉN EN
-      InvoiceDemo?</div>
     <div class="wiki" style="display: block;"> Now that you have written the
       amount properties of <em>CommercialDocument</em>, you must modify the
-      view by default to show <em>vatPercentage</em> and the list of properties
-      of the collection to show <a class="wiki_link" href="view_en.html#View-Collection%20customization-Total%20properties%20%28new%20in%20v4.3%29">the
+      list of properties of the collection to show <a class="wiki_link" href="view_en.html#View-Collection%20customization-Total%20properties%20%28new%20in%20v4.3%29">the
         total properties</a> of the <em>CommercialDocument</em> (<em>Invoice</em>
-      and <em>Order).</em> Let's see a first approximation:<br>
-      <pre><code class="java">@View(members=
-    "year, number, date, vatPercentage;" + // vatPercentage added
-    "data {" +
-        "customer;" +
-        "details;" +
-        "remarks" +
-    "}"
-)
-abstract public class CommercialDocument extends Identifiable {
+      and <em>Order).</em> Let's see it<br>
+      <pre><code class="java">abstract public class CommercialDocument extends Identifiable {
  
     @ElementCollection
     @ListProperties(
         "product.number, product.description, quantity, pricePerUnit, " +
-        "amount[invoice.baseAmount, invoice.vat, invoice.totalAmount] " // Entity parent Invoice =&gt; [invoice.baseAmount, ...]
+        "amount[" + 
+        	"commercialDocument.baseAmount," +
+        	"commercialDocument.vatPercentage," +
+        	"commercialDocument.vat," +
+        	"commercialDocument.totalAmount" +
+        "]" 
     )
     private Collection&lt;Detail&gt; details;
  
-    // The rest of the source code
     ...
 }
-</code></pre> Try the <em>Invoice</em> module and you will see the new
-      calculated properties, but if you try <em>Order</em> module the
-      properties will not be displayed and you will get an ugly exception in the
-      log of Eclipse IDE. This is because the total properties for <em>Order</em>
-      are not defined, we have only defined the <em>Invoice</em>. Let's see how
-      to define the total properties for <em>Invoice</em> and <em>Order</em>:<br>
+</code></pre>TMP ME QUEDÉ POR AQUÍ: FALTA REFINAR (QUITAR) LO DE ABAJO. COPIAR
+      EL CODIGO A ECLIPSE DE NUEVO. HACER PANTALLAZO</div>
+    <div class="wiki" style="display: block;"> Try the <em>Invoice</em> module
+      and you will see the new calculated properties, but if you try <em>Order</em>
+      module the properties will not be displayed and you will get an ugly
+      exception in the log of Eclipse IDE. This is because the total properties
+      for <em>Order</em> are not defined, we have only defined the <em>Invoice</em>.
+      Let's see how to define the total properties for <em>Invoice</em> and <em>Order</em>:<br>
       <pre><code class="java">// @ElementCollection
 // @ListProperties("product.number, product.description, quantity, pricePerUnit, " +
 //     "amount[invoice.baseAmount, invoice.vat, invoice.totalAmount] "
