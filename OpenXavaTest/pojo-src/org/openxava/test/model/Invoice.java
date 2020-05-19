@@ -175,7 +175,8 @@ import org.openxava.util.*;
 })
 
 @Tabs({
-	@Tab(properties="year, number, date, amountsSum, vat, detailsCount, paid, importance"), 		
+	// tmp @Tab(properties="year, number, date, amountsSum, vat, detailsCount, paid, importance"), 		
+	@Tab(properties="date, year, number, amountsSum, vat, detailsCount, paid, importance, details.product.description"), // tmp
 	@Tab(name="Level4Reference", properties="year, number, customer.seller.level.description"),
 	@Tab(name="Simple", properties="year, number, date, customer.number", 
 		defaultOrder="${year} desc, ${number} desc" 
