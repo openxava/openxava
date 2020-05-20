@@ -149,8 +149,6 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 					metaProperty.setLabelId(labelId);	// fix: some issues with labels in collection
 				}
 				metaProperties.add(metaProperty);
-				// TMP ME QUEDÉ POR AQUÍ (Y Tab Y MetaModel) INTENTANDO SACAR LA COLUMNA PARA LA COLECCIÓN
-				System.out.println("[MetaTab.namesToMetaProperties] " + name + " in entity"); // tmp
 			} catch (ElementNotFoundException ex) {
 				MetaProperty notInEntity = new MetaProperty();
 				notInEntity.setName(name);
@@ -160,7 +158,6 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 					notInEntity.setLabel(metaPropertyTab.getLabel());
 				}
 				metaProperties.add(notInEntity);
-				System.out.println("[MetaTab.namesToMetaProperties] " + name + " not in entity"); // tmp
 			}
 		}
 		return metaProperties;

@@ -46,6 +46,20 @@ public class JPATest extends TestCase {
 		
 	}
 	
+	public void testQueryAutomicsByCollectionValue() throws Exception { // tmp No dejar
+		Query query = XPersistence.getManager().createQuery(
+			"SELECT DISTINCT i.year, i.number" +
+			"	FROM Invoice i, IN(i.details) d" +
+			"   WHERE d.product.description like '%XAVA%'"	
+		);
+		Collection<Object[]> invoices = query.getResultList();
+		for (Object[] invoice: invoices) {
+			System.out.println("[JPATest.testQueryAutomicsByCollectionValue] Invoice[0, 1]=" + invoice[0] + "/" + invoice[1]); // tmp
+		}
+		
+	}
+
+	
 	public void testQueryByElementCollectionValue() throws Exception { // tmp No dejar
 		Query query = XPersistence.getManager().createQuery(
 			"SELECT DISTINCT q" +

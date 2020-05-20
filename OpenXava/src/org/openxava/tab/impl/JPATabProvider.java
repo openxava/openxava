@@ -107,6 +107,13 @@ public class JPATabProvider extends TabProviderBase {
 			if (f < 0) break;
 			String modelElement = r.substring(i + 2, f);
 			String jpaElement = "e." + modelElement; // The more common case
+			// tmp ini
+			// TMP ME QUEDÉ POR AQUÍ, REFINANDO, AUNQUE LOS ULTIMOS CAMBIOS LO ROMPIERON
+			if (isPropertyFromCollection(modelElement)) {
+				jpaElement = "999";
+			}
+			else 
+			// tmp fin
 			if (getMetaModel().isCalculated(modelElement)) {
 				jpaElement = "0";
 			}
@@ -136,6 +143,12 @@ public class JPATabProvider extends TabProviderBase {
 		return r.toString();
 	}
 	
+	private boolean isPropertyFromCollection(String modelElement) { // tmp
+		if (!modelElement.contains(".")) return false;				
+		String collection = modelElement.substring(0, modelElement.lastIndexOf('.'));
+		return getMetaModel().containsMetaCollection(collection);
+	}
+
 	public DataChunk nextChunk() throws RemoteException {
 		if (getSelect() == null || isEOF()) { // search not called yet
 			return new DataChunk(Collections.EMPTY_LIST, true, getCurrent()); // Empty

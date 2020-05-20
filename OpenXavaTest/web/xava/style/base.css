@@ -2369,7 +2369,7 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .ox-list-title select {
-	max-width: 40%; 
+	max-width: 400px; 
 	margin-top: 10px;
 	margin-bottom: 5px;
 }

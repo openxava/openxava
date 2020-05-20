@@ -2388,7 +2388,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 
 	private String removeNonexistentProperties(String properties) {
 		if (propertiesExists(properties)) {
-			System.out.println("[Tab.removeNonexistentProperties] As original: properties=" + properties); // tmp
 			return properties; // It is the usual case, so we save the below code most times
 		}
 		StringBuffer sb = new StringBuffer();
@@ -2398,7 +2397,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 				sb.append(property);
 			}
 		}
-		System.out.println("[Tab.removeNonexistentProperties] " + properties + " -> " + sb); // tmp
 		return sb.toString();
 	}
 	
@@ -2416,7 +2414,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 			return true;
 		}
 		catch (ElementNotFoundException ex) {
-			System.out.println("[Tab.propertyExists] " + property + " not found"); // tmp
 			return false;
 		}
 	}

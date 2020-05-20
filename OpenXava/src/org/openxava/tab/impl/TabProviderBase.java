@@ -53,11 +53,23 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		eof = false;
 		this.key = toArray(key);		
 		condition = condition == null ? "" : condition.trim();
+		System.out.println("[TabProviderBase.search] select.1=" + select); // tmp
 		select = translateCondition(condition);
+		System.out.println("[TabProviderBase.search] select.2=" + select); // tmp
 		selectSize = createSizeSelect(select);
 		select = toGroupBySelect(select);
+		System.out.println("[TabProviderBase.search] select.3=" + select); // tmp
+		select = toSearchByCollectionMemberSelect(select); // tmp
+		System.out.println("[TabProviderBase.search] select.4=" + select); // tmp
 	}
 						
+	private String toSearchByCollectionMemberSelect(String select) { // TMP
+		// TMP SELECT e.number, e.year, e.date, e.year, e.number, 0, 0, 0, e.paid, 0, 0 from Invoice e WHERE upper(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(0, 'Ú', 'U'), 'ú', 'u'), 'Ó', 'O'), 'ó', 'o'), 'Í', 'I'), 'í', 'i'), 'É', 'E'), 'é', 'e'), 'Á', 'A'), 'á', 'a')) like :p0
+		select = select.replace("SELECT ", "SELECT DISTINCT ");
+		select = select.replace(" from Invoice e ", " from Invoice e, IN(e.details) d "); // TMP OJO, A PIÑON FIJO. NO DEJAR ASÍ
+		select = select.replace("999", "d.product.description"); // TMP OJO, A PIÑON FIJO. NO DEJAR ASÍ
+		return select;
+	}
 	private String toGroupBySelect(String select) { 
 		if (!select.contains(" group by ")) return select;
 		String groupByProperty = Strings.lastToken(removeOrder(select)).replace("[month]", "").replace("[year]", "");
@@ -255,6 +267,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		int idx = property.indexOf('.');
 		if (idx >= 0) {
 			String referenceName = property.substring(0, idx);	
+			if (!metaModel.containsMetaReference(referenceName)) return; // tmp
 			MetaReference ref = metaModel.getMetaReference(referenceName);
 			String memberName = property.substring(idx + 1);
 			boolean hasMoreLevels = memberName.indexOf('.') >= 0;

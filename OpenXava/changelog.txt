@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Horizontal scrollbar in list mode with large list configuration descriptions.
 - Russian translation improved including labels for latest releases.
 
 OpenXava 6.3.2 (2020-5-12)
