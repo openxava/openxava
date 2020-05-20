@@ -295,90 +295,9 @@ public BigDecimal getVat() {
  
     ...
 }
-</code></pre>TMP ME QUEDÉ POR AQUÍ: FALTA REFINAR (QUITAR) LO DE ABAJO. COPIAR
-      EL CODIGO A ECLIPSE DE NUEVO. HACER PANTALLAZO</div>
-    <div class="wiki" style="display: block;"> Try the <em>Invoice</em> module
-      and you will see the new calculated properties, but if you try <em>Order</em>
-      module the properties will not be displayed and you will get an ugly
-      exception in the log of Eclipse IDE. This is because the total properties
-      for <em>Order</em> are not defined, we have only defined the <em>Invoice</em>.
-      Let's see how to define the total properties for <em>Invoice</em> and <em>Order</em>:<br>
-      <pre><code class="java">// @ElementCollection
-// @ListProperties("product.number, product.description, quantity, pricePerUnit, " +
-//     "amount[invoice.baseAmount, invoice.vat, invoice.totalAmount] "
-// )
-// private Collection&lt;Detail&gt; details; // The details collection from 'CommercialDocument' deleted
- 
-// public Collection&lt;Detail&gt; getDetails() {  // Getter deleted
-//     return details;
-// }
- 
-// public void setDetails(Collection&lt;Detail&gt; details) { // Setter deleted
-//     this.details = details;
-// }
- 
-abstract public Collection&lt;Detail&gt; getDetails(); // Abstract method added
-</code></pre> First we delete the <em>details</em> from <em>CommercialDocument</em>
-      and declare an abstract method that will allow us to obtain the details of
-      the subclasses of <em>CommercialDocument</em>.<br>
-      Now let's see <em>Invoice</em> and <em>Order</em>:<br>
-      <pre><code class="java">public class Invoice extends CommercialDocument {
- 
-    @ElementCollection
-    @ListProperties("product.number, product.description, quantity, pricePerUnit, " +
-        "amount[invoice.baseAmount, invoice.vat, invoice.totalAmount] "
-    )
-    private Collection&lt;Detail&gt; details;     // Details collection added
- 
-    // Getter added
-    public Collection&lt;Detail&gt; getDetails() { // This method implement the abstract method of 'CommercialDocument'
-        return details;
-    }
- 
-    public void setDetails(Collection&lt;Detail&gt; details) { // Setter added
-        this.details = details;
-    }
- 
-    // The rest of the source code
-   ...
-}
-</code></pre>
-      <pre><code class="java">public class Order extends CommercialDocument {
- 
-    @ElementCollection
-    @ListProperties("product.number, product.description, quantity, pricePerUnit, " +
-        "amount[order.baseAmount, order.vat, order.totalAmount] " // Entity parent 'Order' =&gt; [order.baseAmount, ...]
-    )
-    private Collection&lt;Detail&gt; details;
- 
-    // Getter added
-    public Collection&lt;Detail&gt; getDetails() { // This method implement the abstract method of 'CommercialDocument'
-        return details;
-    }
- 
-    public void setDetails(Collection&lt;Detail&gt; details) { // Setter added
-        this.details = details;
-    }
- 
-    // The rest of the source code
-   ...
-}
-</code></pre> The source code added to <em>Invoice</em> and <em>Order</em>
-      will generate two detail tables <em>INVOICE_DETAILS</em> and <em>ORDER_DETAILS</em>
-      respectively. <br>
-      <table class="wiki_table">
-        <tbody>
-          <tr>
-            <td><strong>Note:</strong> <br>
-              <em>Delete the COMMERCIALDOCUMENT_DETAILS table, you learned to do
-                it in the previous lesson.</em><br>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      Now you can try your application. It would behave almost as in figure at
-      the begin of this section. “Almost” because <em>vatPercentage</em> does
-      not have a default value yet. We add it in the next section.<br>
+</code></pre>Now you can try your application. It would behave almost as in
+      figure at the begin of this section. “Almost” because <em>vatPercentage</em>
+      does not have a default value yet. We add it in the next section.<br>
       <h3 id="toc5"><a name="Lesson 5: Basic business logic-Calculated properties-Default value from a properties file"></a>Default
         value from a properties file</h3>
       It's useful for the user to have the default value populated for the <em>vatPercentage</em>.
@@ -393,7 +312,7 @@ abstract public Collection&lt;Detail&gt; getDetails(); // Abstract method added
       a text editor.<br>
       Let's implement the properties file option. Create a file named <em>invoicing.properties</em>
       in the <em>Invoicing/properties</em> folder with the next content:<br>
-      <pre><code class="properties">defaultVatPercentage=18
+      <pre><code class="properties">defaultVatPercentage=21
 </code></pre> Though you can use the <em>java.util.Properties</em> class from
       Java to read this file we prefer to create a custom class to read these
       properties. We are going to call this class <em>InvoicingPreferences</em>
@@ -458,7 +377,7 @@ public class VatPercentageCalculator implements ICalculator {
       <pre><code class="java">@DefaultValueCalculator(VatPercentageCalculator.class)
 private BigDecimal vatPercentage;
 </code></pre> With this code when the user clicks to create a new invoice, the <em>vatPercentage</em>
-      field will be filled with 18 or whatever other value you put in <em>invoicing.properties</em>.<br>
+      field will be filled with 21 or whatever other value you put in <em>invoicing.properties</em>.<br>
       <h2 id="toc6"><a name="Lesson 5: Basic business logic-JPA callback methods"></a>JPA
         callback methods</h2>
       Another useful way to add business logic to your model is using JPA
@@ -494,17 +413,23 @@ public void calculateNumber() throws Exception {
     Integer lastNumber = (Integer) query.getSingleResult();
     this.number = lastNumber == null ? 1 : lastNumber + 1;
 }
-</code></pre> The previous code is the same as that of the <em>NextNumberForYearCalculator</em>
-      but using <em>getClass().getSimpleName()</em> instead of
-      “CommercialDocument”. The <em>getSimpleName()</em> method returns the
-      name of the class without the package, i.e., just the entity name. It will
-      be “Order” for <em>Order</em> and “Invoice” for <em>Invoice</em>. Thus
-      we can get a different numeration for <em>Order</em> and <em>Invoice</em>.<br>
+</code></pre> </div>
+    <div class="wiki" style="display: block;">To use <i>XPersistence</i> you
+      have to add the next import:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import org.openxava.jpa.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">This code is the same as that of
+      the <em>NextNumberForYearCalculator</em> but using <em>getClass().getSimpleName()</em>
+      instead of “CommercialDocument”. The <em>getSimpleName()</em> method
+      returns the name of the class without the package, i.e., just the entity
+      name. It will be “Order” for <em>Order</em> and “Invoice” for <em>Invoice</em>.
+      Thus we can get a different numeration for <em>Order</em> and <em>Invoice</em>.<br>
       JPA specification states that you should not use JPA API inside a JPA
       callback method. So the above method is not legal from a strict JPA
-      viewpoint. But, Hibernate (the JPA implementation OX uses by default)
-      allows you to use it in <em>@PrePersist</em>. And since JPA is the easier
-      way to do this calculation we use it in our practice.<br>
+      viewpoint. But, Hibernate (the JPA implementation OpenXava uses by
+      default) allows you to use it in <em>@PrePersist</em>. And since JPA is
+      the easier way to do this calculation we use it in our practice.<br>
       Now you can delete the <em>NextNumberForYearCalculator</em> class from
       your project, and modify the number property of <em>CommercialDocument</em>
       to avoid using it:<br>
@@ -519,10 +444,13 @@ private int number;
       cannot enter or modify the <em>number</em>. This is the right approach
       given that the number is generated on saving the object, so the user typed
       value would always be overridden.<br>
-      Try now the <em>Invoice</em> or <em>Order</em> module and you will see
-      that the number is empty and not editable, and when you add the first
-      detail, that saves the container document, the document number is
-      calculated and updated in the user interface.<br>
+    </div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: MODIFICAR
+      EL COMENTARIO DE ABAJO. AHORA EL NUMERO NO APARECE ¿QUÉ HACER?</div>
+    <div class="wiki" style="display: block;">Try now the <em>Invoice</em> or <em>Order</em>
+      module and you will see that the number is empty and not editable, and
+      when you add the first detail, that saves the container document, the
+      document number is calculated and updated in the user interface.<br>
       <h3 id="toc8"><a name="Lesson 5: Basic business logic-JPA callback methods-Synchronizing persistent and calculated properties"></a>Synchronizing
         persistent and calculated properties</h3>
       The approach towards calculating the vat, base amount and total amount of

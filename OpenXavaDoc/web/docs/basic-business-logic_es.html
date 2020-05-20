@@ -296,85 +296,8 @@ public BigDecimal getIva() {
  
     ...
 }
-</code></pre> Prueba el módulo <em>Factura</em> y observarás las nuevas
-      propiedades calculadas, pero, si pruebas el módulo <em>Pedido</em> estas
-      propiedades no se mostrarán y obtendrás una fea excepción en el log de
-      Eclipse. Esto es así porque las propiedades de total para <em>Pedido</em>
-      no han sido definidas, solo las hemos definido para <em>Factura</em>.
-      Observa como definir <em>propiedades de total</em> para <em>Pedido</em>
-      y <em>Factura</em> en el siguiente código:<br>
-      <pre><code class="java">//  @ElementCollection
-//  @ListProperties("producto.numero, producto.descripcion, cantidad, precioPorUnidad, " +
-//     "importe[factura.importeBase, factura.iva, factura.importeTotal]" // Entidad padre Factura =&gt; [factura.importeBase, ...]
-//  )
-//  private Collection&lt;Detalle&gt; detalles; // La colección 'detalles' eliminada
-//
-//  public Collection&lt;Detalle&gt; getDetalles() { // Getter eliminado
-//      return detalles;
-//  }
-//
-//  public void setDetalles(Collection&lt;Detalle&gt; detalles) { // Setter eliminado
-//      this.detalles = detalles;
-//  }
- 
-abstract public Collection&lt;Detalle&gt; getDetalles(); // Añadido método abstracto
-</code></pre> Primero eliminamos <em>detalles</em> de <em>DocumentoComercial</em>
-      y declaramos un método abstracto que nos permitirá obtener los <em>detalles</em>
-      de las subclases de <em>DocumentoComercial</em>.<br>
-      Ahora veamos el código de <em>Factura</em> y <em>Pedido</em>:<br>
-      <pre><code class="java">public class Factura extends DocumentoComercial {
- 
-    @ElementCollection
-    @ListProperties("producto.numero, producto.descripcion, cantidad, precioPorUnidad, " +
-        "importe[factura.importeBase, factura.iva, factura.importeTotal]"
-    )
-    private Collection&lt;Detalle&gt; detalles;
- 
-    public Collection&lt;Detalle&gt; getDetalles() { // Este método implementa el método abstracto de 'DocumentoComecial'
-        return detalles;
-    }
- 
-    public void setDetalles(Collection&lt;Detalle&gt; detalles) {
-        this.detalles = detalles;
-    }
- 
-    // El resto del código fuente
-    ...
-}
-</code></pre>
-      <pre><code class="java">public class Pedido extends DocumentoComercial {
- 
-    @ElementCollection
-    @ListProperties("producto.numero, producto.descripcion, cantidad, precioPorUnidad, " +
-        "importe[pedido.importeBase, pedido.iva, pedido.importeTotal]" // Entidad padre Pedido =&gt; [pedido.importeBase, ...]
-    )
-    private Collection&lt;Detalle&gt; detalles;
- 
-    public Collection&lt;Detalle&gt; getDetalles() { // Este método implementa el método abstracto de 'DocumentoComecial'
-        return detalles;
-    }
- 
-    public void setDetalles(Collection&lt;Detalle&gt; detalles) {
-        this.detalles = detalles;
-    }
- 
-    // El resto del código fuente
-    ...
-}
-</code></pre> El código fuente añadido a <em>Factura</em> y <em>Pedido</em>
-      generará dos tablas FACTURA_DETALLES y PEDIDO_DETALLES respectivamente.<br>
-      <table class="wiki_table">
-        <tbody>
-          <tr>
-            <td><strong>Nota:</strong><br>
-              <em>Elimina la tabla DOCUMENTOCOMERCIAL_DETALLES, aprendiste a
-                hacerlo en la lección anterior.</em><br>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      Ahora puedes probar tu aplicación. Debería funcionar casi como en la
-      figura del inicio de esta sección. “Casi” porque <em>porcentajeIVA</em>
+</code></pre>Ahora puedes probar tu aplicación. Debería funcionar casi como en
+      la figura del inicio de esta sección. “Casi” porque <em>porcentajeIVA</em>
       todavía no tiene un valor por defecto. Lo añadiremos en la siguiente
       sección.<br>
       <h3 id="toc5"><a name="Propiedades-calculadas-Valor-por-defecto-desde-un-archivo-de-propiedades"></a>Valor
@@ -392,7 +315,7 @@ abstract public Collection&lt;Detalle&gt; getDetalles(); // Añadido método abs
       Implementemos la opción del archivo de propiedades. Crea un archivo
       llamado <em>facturacion.properties</em> en la carpeta <em>Facturacion/properties</em>
       con el siguiente contenido:<br>
-      <pre><code class="properties">porcentajeIVADefecto=18
+      <pre><code class="properties">porcentajeIVADefecto=21
 </code></pre> Aunque puedes usar la clase <em>java.util.Properties</em> de Java
       para leer este archivo preferimos usar una clase propia para leer estas
       propiedades. Vamos a llamar a esta clase <em>PreferenciasFacturacion</em>
@@ -463,7 +386,7 @@ public class CalculadorPorcentajeIVA implements ICalculator {
       <pre><code class="java">@DefaultValueCalculator(CalculadorPorcentajeIVA.class)
 private BigDecimal porcentajeIVA;
 </code></pre> Con este código cuando el usuario pulsa para crear una nueva
-      factura, el campo <em>porcentajeIVA</em> se rellenará con 18, o cualquier
+      factura, el campo <em>porcentajeIVA</em> se rellenará con 21, o cualquier
       otro valor que hayas puesto en <em>facturacion.properties</em>.<br>
       <h2 id="toc6"><a name="Metodos-de-retrollamadas-JPA"></a>Métodos de
         retrollamadas JPA</h2>
@@ -501,12 +424,19 @@ public void calcularNumero() {
     Integer ultimoNumero = (Integer) query.getSingleResult();
     this.numero = ultimoNumero == null ? 1 : ultimoNumero + 1;
 }
-</code></pre> El código anterior es el mismo que el de <em>CalculadorSiguienteNumeroParaAnyo</em>
-      pero usando <em>getClass().getSimpleName()</em> en lugar de <em>DocumentoComercial</em>.
-      El método <em>getSimpleName()</em> devuelve el nombre de la clase sin
-      paquete, es decir, precisamente el nombre de la entidad. Será "Pedido"
-      para <em>Pedido</em> y "Factura"" para <em>Factura</em>. Así podremos
-      obtener una numeración diferente para <em>Factura</em> y <em>Pedido</em>.<br>
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Para usar <i>XPersistence</i> has
+      de añadir este import:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import org.openxava.jpa.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Este código es el mismo que el de
+      <em>CalculadorSiguienteNumeroParaAnyo</em> pero usando <em>getClass().getSimpleName()</em>
+      en lugar de <em>DocumentoComercial</em>. El método <em>getSimpleName()</em>
+      devuelve el nombre de la clase sin paquete, es decir, precisamente el
+      nombre de la entidad. Será "Pedido" para <em>Pedido</em> y "Factura""
+      para <em>Factura</em>. Así podremos obtener una numeración diferente para
+      <em>Factura</em> y <em>Pedido</em>.<br>
       La especificación JPA establece que no puedes usar el API JPA dentro de un
       método de retrollamada. Por tanto, el método de arriba no es legal desde
       un punto de vista estricto. Pero, Hibernate (la implementación de JPA que
