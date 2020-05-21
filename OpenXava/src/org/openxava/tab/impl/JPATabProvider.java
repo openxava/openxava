@@ -108,9 +108,8 @@ public class JPATabProvider extends TabProviderBase {
 			String modelElement = r.substring(i + 2, f);
 			String jpaElement = "e." + modelElement; // The more common case
 			// tmp ini
-			// TMP ME QUEDÉ POR AQUÍ, REFINANDO, AUNQUE LOS ULTIMOS CAMBIOS LO ROMPIERON
 			if (isPropertyFromCollection(modelElement)) {
-				jpaElement = "999";
+				jpaElement = "__COL__[" + modelElement + "]";
 			}
 			else 
 			// tmp fin
@@ -145,7 +144,8 @@ public class JPATabProvider extends TabProviderBase {
 	
 	private boolean isPropertyFromCollection(String modelElement) { // tmp
 		if (!modelElement.contains(".")) return false;				
-		String collection = modelElement.substring(0, modelElement.lastIndexOf('.'));
+		String collection = modelElement.substring(0, modelElement.indexOf('.'));
+		System.out.println("[JPATabProvider.isPropertyFromCollection] " + modelElement + " -> " + collection); // tmp
 		return getMetaModel().containsMetaCollection(collection);
 	}
 

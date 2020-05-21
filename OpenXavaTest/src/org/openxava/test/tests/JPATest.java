@@ -6,6 +6,7 @@ import java.util.stream.*;
 
 import javax.persistence.*;
 
+import org.apache.commons.beanutils.*;
 import org.hibernate.validator.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
@@ -56,7 +57,6 @@ public class JPATest extends TestCase {
 		for (Object[] invoice: invoices) {
 			System.out.println("[JPATest.testQueryAutomicsByCollectionValue] Invoice[0, 1]=" + invoice[0] + "/" + invoice[1]); // tmp
 		}
-		
 	}
 
 	
