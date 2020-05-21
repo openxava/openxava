@@ -445,12 +445,10 @@ private int number;
       given that the number is generated on saving the object, so the user typed
       value would always be overridden.<br>
     </div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: MODIFICAR
-      EL COMENTARIO DE ABAJO. AHORA EL NUMERO NO APARECE ¿QUÉ HACER?</div>
     <div class="wiki" style="display: block;">Try now the <em>Invoice</em> or <em>Order</em>
       module and you will see that the number is empty and not editable, and
-      when you add the first detail, that saves the container document, the
-      document number is calculated and updated in the user interface.<br>
+      when you save the document the number is calculated and a message is shown
+      with the year and the just generated number for that invoice/order.<br>
       <h3 id="toc8"><a name="Lesson 5: Basic business logic-JPA callback methods-Synchronizing persistent and calculated properties"></a>Synchronizing
         persistent and calculated properties</h3>
       The approach towards calculating the vat, base amount and total amount of
@@ -512,15 +510,19 @@ private void onPrePersist() throws Exception {
 public void recalculateAmount() {
     setAmount(getTotalAmount());
 }
-</code></pre> Basically, we call the <em>recalculateAmount()</em> method every
-      time a <em>CommercialDocument</em> entity is registered in the database
-      for the first time. But <em>recalculateAmount()</em> must also be
-      executed in the <em>details</em> updates. A first approximation might be
-      to mark <em>recalculateAmount</em> with <em>@PreUpdate</em>, but it
-      would be executed only when changes were made to the properties of <em>CommercialDocument</em>,
-      not changes in <em>details</em>. We will solve this by executing the <em>recalculateAmount()</em>
-      method whenever the user clicks save on a <em>CommercialDocument</em>.
-      Let's see the next code:<br>
+</code></pre> </div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ. COMPROBAR
+      SI LA NUEVA VERSION DE JPA PERMITE MÁS DE UN MÉTODO @PrePersist</div>
+    <div class="wiki" style="display: block;">Basically, we call the <em>recalculateAmount()</em>
+      method every time a <em>CommercialDocument</em> entity is registered in
+      the database for the first time. But <em>recalculateAmount()</em> must
+      also be executed in the <em>details</em> updates. A first approximation
+      might be to mark <em>recalculateAmount</em> with <em>@PreUpdate</em>,
+      but it would be executed only when changes were made to the properties of
+      <em>CommercialDocument</em>, not changes in <em>details</em>. We will
+      solve this by executing the <em>recalculateAmount()</em> method whenever
+      the user clicks save on a <em>CommercialDocument</em>. Let's see the next
+      code:<br>
       <pre><code class="java">@Version
 private Integer version; // 'version' property added, without getter or setter
  
