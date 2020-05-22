@@ -404,7 +404,7 @@ private BigDecimal vatPercentage;
       Edit the <em>CommercialDocument</em> entity and add the <em>calculateNumber()</em>
       method:<br>
       <pre><code class="java">@PrePersist // Executed just before saving the object for the first time
-public void calculateNumber() throws Exception {
+private void calculateNumber() throws Exception {
     Query query = XPersistence.getManager()
         .createQuery("select max(i.number) from " +
         getClass().getSimpleName() + // Thus it's valid for both Invoice and Order
@@ -491,7 +491,7 @@ public void setAmount(BigDecimal amount) {
       method with the same annotation, therefore, we will reorder our code.
       Let's see:<br>
       <pre><code class="java">//@PrePersist // '@PrePersist' annotation deleted
-public void calculateNumber() throws Exception {
+private void calculateNumber() throws Exception {
     Query query = XPersistence.getManager()
         .createQuery("select max(i.number) from " +
             getClass().getSimpleName() + // Thus it's valid for both Invoice and Order
@@ -507,47 +507,23 @@ private void onPrePersist() throws Exception {
     recalculateAmount();
 }
  
-public void recalculateAmount() {
+private void recalculateAmount() {
     setAmount(getTotalAmount());
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ. COMPROBAR
-      SI LA NUEVA VERSION DE JPA PERMITE MÁS DE UN MÉTODO @PrePersist</div>
     <div class="wiki" style="display: block;">Basically, we call the <em>recalculateAmount()</em>
       method every time a <em>CommercialDocument</em> entity is registered in
       the database for the first time. But <em>recalculateAmount()</em> must
-      also be executed in the <em>details</em> updates. A first approximation
-      might be to mark <em>recalculateAmount</em> with <em>@PreUpdate</em>,
-      but it would be executed only when changes were made to the properties of
-      <em>CommercialDocument</em>, not changes in <em>details</em>. We will
-      solve this by executing the <em>recalculateAmount()</em> method whenever
-      the user clicks save on a <em>CommercialDocument</em>. Let's see the next
-      code:<br>
-      <pre><code class="java">@Version
-private Integer version; // 'version' property added, without getter or setter
- 
-@PreUpdate // '@PreUdate' added
-public void recalculateAmount() {
+      also be executed in the <em>details</em> updates. For that we mark <em>recalculateAmount</em>
+      of <i>CommercialDocument</i> with <em>@PreUpdate</em>, in this way:<br>
+      <pre><code class="java">@PreUpdate // '@PreUdate' added
+private void recalculateAmount() {
     setAmount(getTotalAmount());
 }
-</code></pre> The <a class="wiki_link" href="model_en#Model-Properties-Concurrency%20and%20version%20property">version
-        property</a> property ensures that <em>@PreUpdate</em> callback is
-      executed whenever the user <em>Save</em> a <em>CommercialDocument</em>,
-      as this property will always be updated.<br>
-      You can try the <em>Invoice</em> or <em>Order</em> module with this
-      code, and you will see how when a detail line is added, removed or
+</code></pre>You can try the <em>Invoice</em> or <em>Order</em> module with
+      this code, and you will see how when a detail line is added, removed or
       modified, the column in the database for <em>amount</em> is correctly
       updated after saving, ready to be used in massive processing.<br>
-      <table class="wiki_table">
-        <tbody>
-          <tr>
-            <td><strong>Note:</strong> <br>
-              <em>Delete the COMMERCIALDOCUMENT table to be recreated including
-                the "version" column.</em><br>
-            </td>
-          </tr>
-        </tbody>
-      </table>
       <h2 id="toc9"><a name="Lesson 5: Basic business logic-Database logic (@Formula)"></a>Database
         logic (<em>@Formula</em>)</h2>
       Ideally you write all your business logic in Java, inside your entities.
@@ -610,7 +586,9 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
       writing your logic in Java. The advantage of calculated properties over <em>@Formula</em>
       is that your code is not database dependent. Moreover with calculated
       properties you can re-execute the calculation without reading the object
-      from the database, so that you can use <em>@Depends</em>.<br>
+      from the database, so that you can use <em>@Depends</em>.</div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: ¿AÑADIR UNA
+      SECCIÓN PARA @Calculation? ¿INTEGRARLA CON ALGO DE ARRIBA?<br>
       <h2 id="toc10"><a name="Lesson 5: Basic business logic-JUnit tests"></a>JUnit
         tests</h2>
       Before we move on to the next lesson, we are going to write the JUnit code

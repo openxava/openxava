@@ -415,7 +415,7 @@ private BigDecimal porcentajeIVA;
       Edita la entidad <em>DocumentoComercial</em> y añade el método <em>calcularNumero()</em>.
       Veamos el código:<br>
       <pre><code class="java">@PrePersist // Ejecutado justo antes de grabar el objeto por primera vez
-public void calcularNumero() {
+private void calcularNumero() {
     Query query = XPersistence.getManager().createQuery(
         "select max(f.numero) from " +
         getClass().getSimpleName() + // De esta forma es válido para Factura y Pedido
@@ -504,7 +504,7 @@ public void setImporte(BigDecimal importe) {
       marcar más de un método con la misma anotación, por lo tanto, vamos a
       reordenar nuestro código. Veamos:<br>
       <pre><code class="java">// @PrePersist // Elimina esta anotación
-public void calcularNumero() {
+private void calcularNumero() {
     Query query = XPersistence.getManager().createQuery(
         "select max(f.numero) from " +
         getClass().getSimpleName() + // De esta forma es válido para Factura y Pedido
@@ -520,43 +520,22 @@ private void preGrabar() throws Exception {
     recalcularImporte();
 }
  
-public void recalcularImporte() {
+private void recalcularImporte() {
     setImporte(getImporteTotal());
 }
 </code></pre> Básicamente, llamamos a <em>recalcularImporte()</em> cada vez que
       una entidad <em>DocumentoComercial</em> es registrada por primera vez en
       la base de datos. Pero, <em>recalcularImporte()</em> también debe ser
-      ejecutado en la actualización de <em>detalles</em>. Una primera
-      aproximación puede ser marcar <em>recalcularImporte</em> con <em>@PreUpdate</em>,
-      pero este sería ejecutado solo cuando cambian las propiedades de <em>DocumentoComercial</em>,
-      nunca cuando cambian <em>detalles</em>. Nosotros superaremos esto,
-      ejecutando <em>recalcularImporte()</em> siempre que el usuario grabe un <em>DocumentoComercial</em>.
-      Veamos el siguiente código:<br>
-      <pre><code class="java">@Version
-private Integer version; // Añadida propiedad 'version', sin getter, ni setter
- 
-@PreUpdate // Añadido '@PreUPdate'
-public void recalcularImporte() { // Ejecutado justo antes de actualizar el objeto
+      ejecutado en la actualización de <em>detalles</em>. Para es marcamos <em>recalcularImporte</em>
+      de <i>DocumentoComercial</i> con <em>@PreUpdate</em>, de esta manera:<br>
+      <pre><code class="java">@PreUpdate // Añadido '@PreUPdate'
+private void recalcularImporte() { // Ejecutado justo antes de actualizar el objeto
     setImporte(getImporteTotal());
 }
-</code></pre> La <a class="wiki_link" href="model_es#Modelo-Propiedades-Concurrencia+y+propiedad+versi%C3%B3n">propiedad
-        version</a> asegura que la retrollamada <em>@PreUpdate</em> sea
-      ejecutada siempre que el usuario Salve un <em>DocumentoComercial</em>,
-      porque esta propiedad siempre será actualizada al guardar.<br>
-      Puedes probar los módulos Factura y Pedido con este código y verás que
-      cuando una línea de detalle se añade, remueve o modifica, la columna <em>importe</em>
+</code></pre>Puedes probar los módulos Factura y Pedido con este código y verás
+      que cuando una línea de detalle se añade, remueve o modifica, la columna <em>importe</em>
       en la base de datos es correctamente actualizada después de grabar, lista
       para ser usada en un proceso masivo.<br>
-      <table class="wiki_table">
-        <tbody>
-          <tr>
-            <td><strong>Nota:</strong><br>
-              <em>Elimina la tabla DOCUMENTOCOMERCIAL para que se vuelva a
-                generar incluyendo la columna "version"</em>.<br>
-            </td>
-          </tr>
-        </tbody>
-      </table>
       <h2 id="toc9"><a name="Logica-desde-la-base-de-datos-Formula"></a>Lógica
         desde la base de datos (<em>@Formula</em>)</h2>
       Idealmente escribirás toda tu lógica de negocio en Java, dentro de tus
