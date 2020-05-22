@@ -711,7 +711,7 @@ abstract public class MetaModel extends MetaElement {
 	 * 
 	 * @return Collection of <tt>String</tt>, not null and read only 
 	 */
-	public Collection<String> getAllKeyPropertiesNames() throws XavaException {  
+	public Collection<String> getAllKeyPropertiesNames() throws XavaException {   
 		if (allKeyPropertiesNames==null) {
 			ArrayList result = new ArrayList();
 			Iterator itRef = getMetaMembersKey().iterator();

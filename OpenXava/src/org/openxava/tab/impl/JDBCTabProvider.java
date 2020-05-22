@@ -354,4 +354,9 @@ public class JDBCTabProvider extends TabProviderBase {
 
 	}
 
+	protected String toSearchByCollectionMemberSelect(String select) { // tmp
+		// tmp ¿Implementar o hacer bajo demanda?
+		return select;
+	}
+
 }

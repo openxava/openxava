@@ -2,6 +2,7 @@ package org.openxava.tab.impl;
 
 import java.rmi.*;
 import java.util.*;
+import java.util.stream.*;
 
 import javax.persistence.*;
 
@@ -140,6 +141,57 @@ public class JPATabProvider extends TabProviderBase {
 			i = r.toString().indexOf("${");
 		}
 		return r.toString();
+	}
+	
+	protected String toSearchByCollectionMemberSelect(String select) { // tmp
+		// TMP ME QUEDÉ POR AQUÍ: CONSEGUÍ QUE FUNCIONE CON DOS COLECCIONES (DEBERÍA TESTEARLO ASÍ). EMPEZAR LO SIGUIENTE
+		// TMP PROBAR EN UNA ENTIDAD QUE NO SEA Invoice
+		// TMP ETIQUETA CABECERA
+		// TMP SELECT e.number, e.year, e.date, e.year, e.number, 0, 0, 0, e.paid, 0, 0 from Invoice e WHERE upper(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(0, 'Ú', 'U'), 'ú', 'u'), 'Ó', 'O'), 'ó', 'o'), 'Í', 'I'), 'í', 'i'), 'É', 'E'), 'é', 'e'), 'Á', 'A'), 'á', 'a')) like :p0
+		if (!select.contains("__COL__[")) return select;
+		String firstKey = getMetaModel().getAllKeyPropertiesNames().iterator().next().toString();
+		select = select.replace("SELECT ", "SELECT DISTINCT ");
+		StringBuffer ins = new StringBuffer();
+		int i=0;
+		for (String qualifiedMember: collectCollectionMember(select)) {
+			String [] memberTokens = qualifiedMember.split("\\.", 2);
+			String collection = memberTokens[0];
+			String member = memberTokens[1];
+			if (select.contains("(__COL__[" + qualifiedMember + "],")) {
+				ins.append(", IN(e.");
+				ins.append(collection);
+				ins.append(") d");
+				ins.append(i);
+				select = select.replace("(__COL__[" + qualifiedMember + "],", "(d" + i + "." + member + ","); // tmp ¿Funciona sin replace()? 
+				// tmp i18n para 'Matched rows', ¿'Matched details'? (siendo details el nombre de la colección)
+				select = select.replace("__COL__[" + qualifiedMember + "]", "CONCAT('Matched rows: ', COUNT(e." + firstKey + "))"); 
+			}
+			else {
+				// tmp i18n para 'Rows', ¿'Details'? (siendo Details el nombre de la colección)
+				select = select.replace("__COL__[" + qualifiedMember + "]", "CONCAT('Rows: ', COUNT(e." + firstKey + "))"); 			
+			}
+			i++;
+		}
+		
+		select = select.replace(" from " + getMetaModel().getName()	+ " e", " from " + getMetaModel().getName()	+ " e " + ins);
+		 
+		String keys = getMetaModel().getAllKeyPropertiesNames().stream()
+			.map( k -> "e." + k )
+			.collect( Collectors.joining( "," ) );
+		select = select + " GROUP BY " + keys;
+		return select;
+	}
+	
+	private Collection<String> collectCollectionMember(String select) {
+		Collection<String> result = new ArrayList<>();
+		int i = select.indexOf("__COL__[");
+		while (i >= 0) {
+			int f = select.indexOf(']', i + 8);
+			result.add(select.substring(i + 8, f));
+			i = select.indexOf("__COL__[", f);
+		}
+		System.out.println("[JPATabProvider.collectCollectionMember] result=" + result); // tmp
+		return result;
 	}
 	
 	private boolean isPropertyFromCollection(String modelElement) { // tmp

@@ -2,6 +2,7 @@ package org.openxava.tab.impl;
 
 import java.rmi.*;
 import java.util.*;
+import java.util.stream.*;
 
 import javax.ejb.*;
 
@@ -36,7 +37,8 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		
 	abstract protected String translateProperty(String property);
 	abstract protected String translateCondition(String condition);
-	abstract protected Number executeNumberSelect(String select, String errorId);	
+	abstract protected Number executeNumberSelect(String select, String errorId);
+	abstract protected String toSearchByCollectionMemberSelect(String select); // tmp
 	
 	public void setMetaTab(MetaTab metaTab) {
 		this.metaTab = metaTab;
@@ -64,53 +66,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		select = toSearchByCollectionMemberSelect(select); // tmp
 		System.out.println("[TabProviderBase.search] select.4=" + select); // tmp
 	}
-						
-	private String toSearchByCollectionMemberSelect(String select) { // TMP ¿MOVER A JPATabProvider? Debería, porque uso syntaxis JPA
-		// TMP PROBAR BUSCAR POR DOS COLECCIONES
-		// TMP PROBAR EN UNA ENTIDAD QUE NO SEA Invoice
-		// TMP SELECT e.number, e.year, e.date, e.year, e.number, 0, 0, 0, e.paid, 0, 0 from Invoice e WHERE upper(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(0, 'Ú', 'U'), 'ú', 'u'), 'Ó', 'O'), 'ó', 'o'), 'Í', 'I'), 'í', 'i'), 'É', 'E'), 'é', 'e'), 'Á', 'A'), 'á', 'a')) like :p0
-		if (!select.contains("__COL__[")) return select;
-		select = select.replace("SELECT ", "SELECT DISTINCT ");
-		String qualifiedMember = collectCollectionMember(select);
-		String [] memberTokens = qualifiedMember.split("\\.", 2);
-		String collection = memberTokens[0];
-		String member = memberTokens[1];
-		System.out.println("[TabProviderBase.toSearchByCollectionMemberSelect] qualifiedMember=" + qualifiedMember); // tmp
-		System.out.println("[TabProviderBase.toSearchByCollectionMemberSelect] collection=" + collection); // tmp
-		System.out.println("[TabProviderBase.toSearchByCollectionMemberSelect] member=" + member); // tmp
-		
-		select = select.replace(" from " + getMetaModel().getName() + " e", " from " + getMetaModel().getName() 
-			+ " e, IN(e." + collection + ") d"); 
-		if (select.contains("(__COL__[" + qualifiedMember + "],")) {
-			select = select.replace("(__COL__[" + qualifiedMember + "],", "(d." + member + ","); // tmp ¿Funciona sin replace()? 
-			// tmp i18n para 'Matched rows', ¿'Matched details'? (siendo details el nombre de la colección)
-			select = select.replace("__COL__[" + qualifiedMember + "]", "CONCAT('Matched rows: ', COUNT(e.year))"); // TMP OJO, A PIÑON FIJO (e.year). NO DEJAR ASÍ.
-		}
-		else {
-			// tmp i18n para 'Rows', ¿'Details'? (siendo Details el nombre de la colección)
-			select = select.replace("__COL__[" + qualifiedMember + "]", "CONCAT('Rows: ', COUNT(e.year))"); // TMP OJO, A PIÑON FIJO (e.year). NO DEJAR ASÍ.			
-		}
-		 
-		// TMP ME QUEDÉ POR AQUÍ: QUITANDO PIÑONES FIJOS. LO DE ABAJO FUNCIONA. ¿HACERLO CON STREAMS?
-		StringBuffer keys = new StringBuffer();
-		for (String key: getMetaModel().getAllKeyPropertiesNames()) {
-			if (keys.length() > 0) keys.append(','); 
-			keys.append("e.");
-			keys.append(key);
-			
-		}
-		select = select + " GROUP BY " + keys;
-		return select;
-	}
-	
-	private String collectCollectionMember(String select) {
-		int i = select.indexOf("__COL__[");
-		int f = select.indexOf(']', i + 8);
-		return select.substring(i + 8, f);
-	}
-	
-	
-	
+							
 	private String toGroupBySelect(String select) { 
 		if (!select.contains(" group by ")) return select;
 		String groupByProperty = Strings.lastToken(removeOrder(select)).replace("[month]", "").replace("[year]", "");
