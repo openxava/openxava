@@ -176,7 +176,9 @@ import org.openxava.util.*;
 
 @Tabs({
 	// tmp @Tab(properties="year, number, date, amountsSum, vat, detailsCount, paid, importance"), 		
-	@Tab(properties="date, year, number, amountsSum, vat, detailsCount, paid, importance, details.product.description, deliveries.description"), // tmp
+	// tmp Abajo el customer.name ha de estar para testear un caso (cuando funcione quitarlo para ver)
+	// tmp @Tab(properties="date, year, number, customer.name, amountsSum, vat, detailsCount, paid, importance, details.product.description, deliveries.description"), // tmp
+	@Tab(properties="date, year, number, amountsSum, vat, detailsCount, paid, importance, deliveries.description"), // tmp
 	@Tab(name="Level4Reference", properties="year, number, customer.seller.level.description"),
 	@Tab(name="Simple", properties="year, number, date, customer.number", 
 		defaultOrder="${year} desc, ${number} desc" 

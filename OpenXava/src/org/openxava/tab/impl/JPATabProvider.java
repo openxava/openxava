@@ -144,12 +144,13 @@ public class JPATabProvider extends TabProviderBase {
 	}
 	
 	protected String toSearchByCollectionMemberSelect(String select) { // tmp
-		// TMP ME QUEDÉ POR AQUÍ: CONSEGUÍ QUE FUNCIONE CON DOS COLECCIONES (DEBERÍA TESTEARLO ASÍ). EMPEZAR LO SIGUIENTE
-		// TMP PROBAR EN UNA ENTIDAD QUE NO SEA Invoice
+		// TMP PROBAR EN UNA ENTIDAD QUE NO SEA Invoice: ME QUEDÉ POR AQUÍ: PROBANDO Quote, FALLABA
 		// TMP ETIQUETA CABECERA
 		// TMP SELECT e.number, e.year, e.date, e.year, e.number, 0, 0, 0, e.paid, 0, 0 from Invoice e WHERE upper(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(0, 'Ú', 'U'), 'ú', 'u'), 'Ó', 'O'), 'ó', 'o'), 'Í', 'I'), 'í', 'i'), 'É', 'E'), 'é', 'e'), 'Á', 'A'), 'á', 'a')) like :p0
 		if (!select.contains("__COL__[")) return select;
 		String firstKey = getMetaModel().getAllKeyPropertiesNames().iterator().next().toString();
+		String groupByColumns = extractColumnsFromSelect(select);
+		System.out.println("[JPATabProvider.toSearchByCollectionMemberSelect] groupByColumns=" + groupByColumns); // tmp
 		select = select.replace("SELECT ", "SELECT DISTINCT ");
 		StringBuffer ins = new StringBuffer();
 		int i=0;
@@ -175,13 +176,32 @@ public class JPATabProvider extends TabProviderBase {
 		
 		select = select.replace(" from " + getMetaModel().getName()	+ " e", " from " + getMetaModel().getName()	+ " e " + ins);
 		 
+		
 		String keys = getMetaModel().getAllKeyPropertiesNames().stream()
 			.map( k -> "e." + k )
 			.collect( Collectors.joining( "," ) );
 		select = select + " GROUP BY " + keys;
+		
+		// tmp select = select + " GROUP BY " + groupByColumns;
 		return select;
 	}
 	
+	private String extractColumnsFromSelect(String select) { // tmp
+		int f = select.indexOf("from");
+		System.out.println("[JPATabProvider.extractColumnsFromSelect] select=" + select); // tmp
+		System.out.println("[JPATabProvider.extractColumnsFromSelect] f=" + f); // tmp
+		String columns = select.substring(7, f);
+		StringBuffer result = new StringBuffer();
+		for (String column: columns.split(",")) {
+			column = column.trim();
+			if (column.startsWith("e.") || column.startsWith("e_")) {
+				if (result.length() > 0) result.append(',');
+				result.append(column);
+			}
+		}
+		return result.toString();
+	}
+
 	private Collection<String> collectCollectionMember(String select) {
 		Collection<String> result = new ArrayList<>();
 		int i = select.indexOf("__COL__[");
