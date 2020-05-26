@@ -146,13 +146,6 @@ public class WebEditors {
 
 	public static Object formatToStringOrArrayImpl(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException {  
 		try {
-			// tmp ini
-			// TMP ME QUEDÉ POR AQUÍ: ¿UN ICONO? SI NO QUE HACER CUANDO NO HAY MATCH, ¿BLANCO? 
-			// TMP						PONER LA CANTIDAD DE FILAS EMPEORA EL RENDIMIENTO
-			if (fromList && object != null && object.toString().equalsIgnoreCase("ROWS: 1")) {
-				return "<i class='mdi mdi-layers-triple-outline'></i>";
-			}
-			// tmp fin
 			MetaEditor ed = getMetaEditorFor(p, viewName);
 			if (fromList && !Is.empty(ed.getListFormatterClassName())){
 				return format(request, ed.getListFormatterObject(), p, object);

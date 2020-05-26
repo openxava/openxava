@@ -175,10 +175,7 @@ import org.openxava.util.*;
 })
 
 @Tabs({
-	// tmp @Tab(properties="year, number, date, amountsSum, vat, detailsCount, paid, importance"), 		
-	// tmp Abajo el customer.name ha de estar para testear un caso (cuando funcione quitarlo para ver)
-	// tmp @Tab(properties="date, year, number, customer.name, amountsSum, vat, detailsCount, paid, importance, details.product.description, deliveries.description"), // tmp
-	@Tab(properties="date, year, number, amountsSum, vat, detailsCount, paid, importance, deliveries.description"), // tmp
+	@Tab(properties="year, number, date, amountsSum, vat, detailsCount, paid, importance"), 		
 	@Tab(name="Level4Reference", properties="year, number, customer.seller.level.description"),
 	@Tab(name="Simple", properties="year, number, date, customer.number", 
 		defaultOrder="${year} desc, ${number} desc" 
@@ -227,7 +224,15 @@ import org.openxava.util.*;
 	),
 	@Tab(name="ManyTypes", 
 		properties="year, number, date, amountsSum, customer.email, paid, customer.name, customer.type, customer.seller.name" 
-	)
+	),
+	// tmp Abajo el customer.name ha de estar para testear un caso (cuando funcione quitarlo para ver)
+	// tmp ini
+	@Tab(name="PropertiesFromCollection", 
+		// customer.name must be in properties to test a case
+		properties="date, year, number, customer.name, amountsSum, vat, detailsCount, paid, importance, details.product.description, deliveries.description",
+		defaultOrder = "${year}, ${number}" // To test a case
+	) 
+	// tmp fin
 })
 
 public class Invoice {
