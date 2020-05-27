@@ -225,12 +225,11 @@ import org.openxava.util.*;
 	@Tab(name="ManyTypes", 
 		properties="year, number, date, amountsSum, customer.email, paid, customer.name, customer.type, customer.seller.name" 
 	),
-	// tmp Abajo el customer.name ha de estar para testear un caso (cuando funcione quitarlo para ver)
 	// tmp ini
+	// tmp Falta documentar
 	@Tab(name="PropertiesFromCollection", 
-		// customer.name must be in properties to test a case
-		properties="date, year, number, customer.name, amountsSum, vat, detailsCount, paid, importance, details.product.description, deliveries.description",
-		defaultOrder = "${year}, ${number}" // To test a case
+		properties="year, number, date, customer.name, amountsSum, vat, detailsCount, paid, importance, details.product.description, deliveries.description"
+		// Without defaultOrder to test a case
 	) 
 	// tmp fin
 })

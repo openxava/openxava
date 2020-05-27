@@ -6,6 +6,7 @@ import java.util.stream.*;
 
 import javax.persistence.*;
 
+import org.apache.commons.lang3.*;
 import org.apache.commons.logging.*;
 import org.openxava.jpa.*;
 import org.openxava.mapping.*;
@@ -144,12 +145,10 @@ public class JPATabProvider extends TabProviderBase {
 	}
 	
 	protected String toSearchByCollectionMemberSelect(String select) { // tmp
-		// TMP ETIQUETA CABECERA
+		// tmp Probar buscar por valores numéricos
 		if (!select.contains("__COL__[")) return select;
 		String firstKey = getMetaModel().getAllKeyPropertiesNames().iterator().next().toString();
 		String groupByColumns = extractColumnsFromSelect(select);
-		System.out.println("[JPATabProvider.toSearchByCollectionMemberSelect] groupByColumns=" + groupByColumns); // tmp
-		// TMP select = select.replace("SELECT ", "SELECT DISTINCT ");
 		StringBuffer ins = new StringBuffer();
 		int i=0;
 		for (String qualifiedMember: collectCollectionMember(select)) {
@@ -162,8 +161,8 @@ public class JPATabProvider extends TabProviderBase {
 				ins.append(") d");
 				ins.append(i);
 				select = select.replace("(__COL__[" + qualifiedMember + "],", "(d" + i + "." + member + ","); // tmp ¿Funciona sin replace()? 
-				// tmp i18n para 'Matched rows', ¿'Matched details'? (siendo details el nombre de la colección)
-				select = select.replace("__COL__[" + qualifiedMember + "]", "CONCAT('Matched rows: ', COUNT(e." + firstKey + "))"); 
+				String matchedLabel = XavaResources.getString("matching", Labels.get(collection));
+				select = select.replace("__COL__[" + qualifiedMember + "]", "CONCAT('" + matchedLabel + ": ', COUNT(e." + firstKey + "))"); 
 			}
 			else {
 				select = select.replace("__COL__[" + qualifiedMember + "]", "'...'");
@@ -177,8 +176,9 @@ public class JPATabProvider extends TabProviderBase {
 	}
 	
 	private String insertGroupBy(String select, String groupByColumns) { // tmp
-		// TMP ME QUEDÉ POR AQUÍ: ARREGLANDO ESTO PARA QUE FUNCIONE CON ORDER BY
-		System.out.println("[JPATabProvider.insertGroupBy] select=" + select); // tmp
+		if (select.contains(" order by ")) {
+			return select.replace(" order by ", " GROUP BY " + groupByColumns + " order by ");
+		}
 		return select + " GROUP BY " + groupByColumns;
 	}
 

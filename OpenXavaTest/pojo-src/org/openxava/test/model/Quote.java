@@ -19,8 +19,7 @@ import org.openxava.model.Identifiable;
 	@View(members="year, number, date; customer; details"),
 	@View(name="QuoteWithRemoveElementCollection", members="year, number, date; data { customer; details }") 
 })
-@Tab(	properties="year, number, date, customer.number, customer.name, details.product.description") // tmp
-		// tmp defaultOrder="${year} desc") 
+@Tab(defaultOrder="${year} desc") 
 public class Quote extends Identifiable {
 		
 	@Column(length=4) @Required

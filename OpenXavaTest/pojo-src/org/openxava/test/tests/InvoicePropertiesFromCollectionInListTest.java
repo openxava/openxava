@@ -15,6 +15,44 @@ public class InvoicePropertiesFromCollectionInListTest extends CustomizeListTest
 	}
 	
 	public void testPropertiesFromCollectionInList() throws Exception { // tmp ¿Mezclar?
+		assertListRowCount(9);
+		assertLabelInList(9, "Product of details");
+		assertLabelInList(10, "Deliveries");
+		assertValueInList(0, 9, "...");
+		assertValueInList(0, 10, "...");
+		setConditionValues("", "", "", "", "", "IBM");
+		execute("List.filter");
+		assertListRowCount(5);
+		assertValueInList(0, 9, "MATCHING DETAILS: 1");
+		assertValueInList(1, 9, "MATCHING DETAILS: 1");
+		assertValueInList(2, 9, "MATCHING DETAILS: 1");
+		assertValueInList(3, 9, "MATCHING DETAILS: 1");
+		assertValueInList(4, 0, "2007");
+		assertValueInList(4, 1, "14");
+		assertValueInList(4, 9, "MATCHING DETAILS: 3");
+		assertValueInList(0, 10, "...");
+		
+		// Ordering and that properties of references are compatible
+		execute("List.orderBy", "property=customer.name");
+		assertListRowCount(5);
+		assertValueInList(0, 3, "Cuatrero");
+		
+		
+		setConditionValues("", "", "", "", "", "IBM", "666");
+		execute("List.orderBy", "property=customer.name");
+		assertListRowCount(4);		
+		assertValueInList(0,  9, "MATCHING DETAILS: 1");
+		assertValueInList(1,  9, "MATCHING DETAILS: 1");
+		assertValueInList(2,  9, "MATCHING DETAILS: 1");
+		assertValueInList(3,  9, "MATCHING DETAILS: 1");
+		assertValueInList(0, 10, "MATCHING DELIVERIES: 1");
+		assertValueInList(1, 10, "MATCHING DELIVERIES: 1");
+		assertValueInList(2, 10, "MATCHING DELIVERIES: 1");
+		assertValueInList(3, 10, "MATCHING DELIVERIES: 1");
+		
+		// TMP ME QUEDÉ POR AQUÍ: EL TEST YA FUNCIONA, LO SIGUIENTE SERÍA:
+		// TMP - Restaurar el count de registros
+		// TMP - Falta probar ordenar por columna de colección: ¿Permitirlo?
 	}
 	
 	
