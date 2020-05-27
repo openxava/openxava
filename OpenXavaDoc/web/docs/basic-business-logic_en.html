@@ -19,8 +19,8 @@
             calculated property</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Using%20@DefaultValueCalculator">Using
             @DefaultValueCalculator</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Calculated%20properties%20depending%20on%20a%20collection">Calculated
-            properties depending on a collection</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Total%20properties%20of%20a%20collection">Total
+            properties of a collection</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Default%20value%20from%20a%20properties%20file">Default
             value from a properties file</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods">JPA
@@ -208,28 +208,108 @@ public BigDecimal getAmount() {
 @ListProperties("product.number, product.description, quantity, pricePerUnit, amount") // pricePerUnit added
 private Collection&lt;Detail&gt; details;
 </code></pre> Try the <em>Order</em> and <em>Invoice</em> modules and observe
-      the new behavior when adding details.<br>
-      <h3 id="toc4"><a name="Lesson 5: Basic business logic-Calculated properties-Calculated properties depending on a collection"></a>Calculated
-        properties depending on a collection</h3>
+      the new behavior when adding details.</div>
+    <div class="wiki" style="display: block;">
+      <h3>Persistent properties with calculation (TMP FALTA PONERLO EN MENÚ)</h3>
+      <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: ADAPTAR
+        LO DE ABAJO PARA EXPLICAR @Calculation</div>
+      <div class="wiki" style="display: block;">Ideally you write all your
+        business logic in Java, inside your entities. Nevertheless, sometimes
+        that is not the most convenient way. Imagine that you have a calculated
+        property in <em>CommercialDocument</em>, let's say <em>estimatedProfit</em>:<br>
+        <pre><code class="java">@Stereotype("MONEY")
+public BigDecimal getEstimatedProfit() {
+    return getAmount().multiply(new BigDecimal("0.10"));
+}
+</code></pre> If you need to process all those invoices with an <em>estimatedProfit</em>
+        greater than 1000, you have to code something like the next code:<br>
+        <pre><code class="java">Query query = getManager().createQuery("from Invoice"); // No condition in query
+for (Object o: query.getResultList()) { // Iterates over all objects
+    Invoice i = (Invoice) o;
+    if (i.getEstimatedProfit() // Queries every object
+        .compareTo(new BigDecimal("1000")) &gt; 0) {
+            i.doSomething();
+    }
+}
+</code></pre> You cannot use a condition in the query to discriminate by <em>estimatedProfit</em>,
+        because <em>estimatedProfit</em> is not in the database, it's only in
+        the Java object, so you have to instantiate every object in order to ask
+        by the estimated profit. In some cases this way is a good option, but if
+        you have a really huge amount of invoices, and only a few of them have
+        the <em>estimatedProfit</em> greater than 1000, then your process will
+        be very inefficient. What alternative do we have?<br>
+        Our alternative is to use the <em>@Formula</em> annotation. <em>@Formula</em>
+        is a Hibernate extension to the JPA standard, that allows you to map a
+        property to a SQL statement. You can define <em>estimatedProfit</em>
+        with <em>@Formula</em> as shown the next code:<br>
+        <pre><code class="java">@org.hibernate.annotations.Formula("AMOUNT * 0.10") // The calculation using SQL
+@Stereotype("MONEY")
+private BigDecimal estimatedProfit; // A field, as in the persistent property case
+ 
+public BigDecimal getEstimatedProfit() { // Only the getter is needed
+    return estimatedProfit;
+}
+</code></pre> This means that when a <em>CommercialDocument</em> is read from
+        the database, the <em>estimatedProfit</em> field will be filled with
+        the calculation for <em>@Formula</em> that is done by the database. The
+        most useful thing of <em>@Formula</em> properties is that you can use
+        it in different conditions, so that you can rewrite the above process as
+        shown the next code:<br>
+        <pre><code class="java">Query query = getManager().createQuery("from Invoice i where i.estimatedProfit &gt; :estimatedProfit"); // Condition allowed
+query.setParameter("estimatedProfit", new BigDecimal(1000));
+for (Object o: query.getResultList()) { // Iterates only over selected objects
+    Invoice i = (Invoice) o;
+    i.doSomething();
+}
+</code></pre> In this way we put the weight of calculating the estimated profit
+        and selecting the record on the database server, and not on the Java
+        server.<br>
+        This fact also has effect in the list mode, because the user cannot
+        filter or order by calculated properties, but he can do so using <em>@Formula</em>
+        properties:<br>
+        <img src="files/business-logic_en040.png" alt="business-logic_en040.png"
+          title="business-logic_en040.png"><br>
+        <em>@Formula</em> is a good option for improving performance in some
+        cases. Anyways, generally it's better to use calculated properties and
+        writing your logic in Java. The advantage of calculated properties over
+        <em>@Formula</em> is that your code is not database dependent. Moreover
+        with calculated properties you can re-execute the calculation without
+        reading the object from the database, so that you can use <em>@Depends</em>.
+      </div>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h3 id="toc4"><a name="Lesson 5: Basic business logic-Calculated properties-Total properties of a collection"></a></h3>
+      <h3>Total properties of a collection</h3>
     </div>
     <div class="wiki" style="display: block;">We want to add amounts to <em>Order</em>
       and <em>Invoice</em> too. To calculate vat, base amount and total amount
-      are indispensable. To do so you only need to add a few calculated
-      properties to <em>CommercialDocument</em> class. The next figure shows
-      the user interface for these properties:<br>
+      are indispensable. To do so you only need to add a few properties to <em>CommercialDocument</em>
+      class. The next figure shows the user interface for these properties:<br>
       <img src="files/business-logic_en030.png" alt="business-logic_en030.png" title="business-logic_en030.png"><br>
-      Let's start with <em>baseAmount</em>. The next code shows its
-      implementation.<br>
-      <pre><code class="java">public BigDecimal getBaseAmount() {
+      We could implement these total properties as pure calculated ones, that is
+      just with getters with the calculation logic, as following:<br>
+      <pre><code class="java">// WE ARE NOT GOING TO IMPLEMENT IT IN THIS WAY
+<br>public BigDecimal getBaseAmount() {
     BigDecimal result = new BigDecimal("0.00");
     for (Detail detail: getDetails()) { // We iterate through all details
         result = result.add(detail.getAmount()); // Adding up the amount
     }
     return result;
 }
-</code></pre> The implementation is simple, just adding up the amount from all
-      the details. To use <i>BigDecimal</i> you should add the following import
-      in <i>CommercialDocument</i>:</div>
+    
+public BigDecimal getVat() {
+    return getBaseAmount() // baseAmount * vatPercentage / 100
+        .multiply(getVatPercentage())
+        .divide(new BigDecimal("100"));
+}
+
+public BigDecimal getTotalAmount() {
+    return getBaseAmount().add(getVat()); // baseAmount + vat
+} 
+</code></pre></div>
+    <div class="wiki" style="display: block;">The implementation is simple, just
+      adding up the amount from all the details. To use <i>BigDecimal</i> you
+      should add the following import in <i>CommercialDocument</i>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">import java.math.*;
 </code></pre> </div>
@@ -587,8 +667,7 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
       is that your code is not database dependent. Moreover with calculated
       properties you can re-execute the calculation without reading the object
       from the database, so that you can use <em>@Depends</em>.</div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: ¿AÑADIR UNA
-      SECCIÓN PARA @Calculation? ¿INTEGRARLA CON ALGO DE ARRIBA?<br>
+    <div class="wiki" style="display: block;">
       <h2 id="toc10"><a name="Lesson 5: Basic business logic-JUnit tests"></a>JUnit
         tests</h2>
       Before we move on to the next lesson, we are going to write the JUnit code
