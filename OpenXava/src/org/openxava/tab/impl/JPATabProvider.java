@@ -100,6 +100,8 @@ public class JPATabProvider extends TabProviderBase {
 	}
 
 	private String changePropertiesByJPAProperties(String source) { 
+		// TMP ME QUEDÉ POR AQUÍ: INTENTANDO RESOLVER LO DE LA ORDENACIÓN
+		System.out.println("[JPATabProvider.changePropertiesByJPAProperties] source=" + source); // tmp
 		if (!source.contains("${")) return source;
 		StringBuffer r = new StringBuffer(source);		
 		int i = r.toString().indexOf("${");
@@ -141,14 +143,15 @@ public class JPATabProvider extends TabProviderBase {
 			r.replace(i, f + 1, jpaElement);
 			i = r.toString().indexOf("${");
 		}
+		System.out.println("[JPATabProvider.changePropertiesByJPAProperties] result=" + r); // tmp
 		return r.toString();
 	}
 	
 	protected String toSearchByCollectionMemberSelect(String select) { // tmp
 		// tmp Probar buscar por valores numéricos
 		if (!select.contains("__COL__[")) return select;
+		String originalSelect = select;
 		String firstKey = getMetaModel().getAllKeyPropertiesNames().iterator().next().toString();
-		String groupByColumns = extractColumnsFromSelect(select);
 		StringBuffer ins = new StringBuffer();
 		int i=0;
 		for (String qualifiedMember: collectCollectionMember(select)) {
@@ -156,13 +159,13 @@ public class JPATabProvider extends TabProviderBase {
 			String collection = memberTokens[0];
 			String member = memberTokens[1];
 			if (select.contains("(__COL__[" + qualifiedMember + "],")) {
-				ins.append(", IN(e.");
+				ins.append(", in (e.");
 				ins.append(collection);
 				ins.append(") d");
 				ins.append(i);
 				select = select.replace("(__COL__[" + qualifiedMember + "],", "(d" + i + "." + member + ","); // tmp ¿Funciona sin replace()? 
 				String matchedLabel = XavaResources.getString("matching", Labels.get(collection));
-				select = select.replace("__COL__[" + qualifiedMember + "]", "CONCAT('" + matchedLabel + ": ', COUNT(e." + firstKey + "))"); 
+				select = select.replace("__COL__[" + qualifiedMember + "]", "concat('" + matchedLabel + ": ', count(e." + firstKey + "))"); 
 			}
 			else {
 				select = select.replace("__COL__[" + qualifiedMember + "]", "'...'");
@@ -170,16 +173,20 @@ public class JPATabProvider extends TabProviderBase {
 			i++;
 		}
 		
-		select = select.replace(" from " + getMetaModel().getName()	+ " e", " from " + getMetaModel().getName()	+ " e " + ins);		
-		select = insertGroupBy(select, groupByColumns);
+		if (ins.length() > 0) {
+			select = select.replace(" from " + getMetaModel().getName()	+ " e", " from " + getMetaModel().getName()	+ " e " + ins);
+			String groupByColumns = extractColumnsFromSelect(originalSelect);
+			select = insertGroupBy(select, groupByColumns);	
+		}
+		
 		return select;
 	}
 	
 	private String insertGroupBy(String select, String groupByColumns) { // tmp
 		if (select.contains(" order by ")) {
-			return select.replace(" order by ", " GROUP BY " + groupByColumns + " order by ");
+			return select.replace(" order by ", " group by " + groupByColumns + " order by ");
 		}
-		return select + " GROUP BY " + groupByColumns;
+		return select + " group by " + groupByColumns;
 	}
 
 	private String extractColumnsFromSelect(String select) { // tmp

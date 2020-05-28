@@ -60,11 +60,13 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		System.out.println("[TabProviderBase.search] select.1=" + select); // tmp
 		select = translateCondition(condition);
 		System.out.println("[TabProviderBase.search] select.2=" + select); // tmp
-		selectSize = createSizeSelect(select);
+		// tmp selectSize = createSizeSelect(select);
 		select = toGroupBySelect(select);
 		System.out.println("[TabProviderBase.search] select.3=" + select); // tmp
 		select = toSearchByCollectionMemberSelect(select); // tmp
 		System.out.println("[TabProviderBase.search] select.4=" + select); // tmp
+		selectSize = createSizeSelect(select); // tmp
+		System.out.println("[TabProviderBase.search] selectSize=" + selectSize); // tmp
 	}
 							
 	private String toGroupBySelect(String select) { 
@@ -179,7 +181,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 	
 	private String createSizeSelect(String select) {
 		if (select == null) return null;
-		if (select.contains(" group by ")) return null; 
+		if (select.contains(" group by ")) return null;
 		String selectUpperCase = Strings.changeSeparatorsBySpaces(select.toUpperCase());
 		int iniFrom = selectUpperCase.indexOf(" FROM ");
 		int end = selectUpperCase.indexOf("ORDER BY ");

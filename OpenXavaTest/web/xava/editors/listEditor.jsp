@@ -661,12 +661,22 @@ else {
 <% } // of if (style.isChangingPageRowCountAllowed()) %>
 </td>
 <td style='text-align: right; vertical-align: middle' class='<%=style.getListInfoDetail()%>'>
+<%-- tmp
 <% if (XavaPreferences.getInstance().isShowCountInList() && !style.isShowRowCountOnTop() && !grouping) { %> 
 <xava:message key="list_count" intParam="<%=totalSize%>"/>
 <% } %>
 <% if (collection == null && style.isHideRowsAllowed() && !grouping) { %> 
 (<xava:link action="List.hideRows" argv="<%=collectionArgv%>"/>)
 <% } %>
+--%>
+<%-- tmp ini --%>
+<% if (XavaPreferences.getInstance().isShowCountInList() && !style.isShowRowCountOnTop() && !grouping && totalSize < Integer.MAX_VALUE) { %> 
+<xava:message key="list_count" intParam="<%=totalSize%>"/>
+<% } %>
+<% if (collection == null && style.isHideRowsAllowed() && !grouping && totalSize < Integer.MAX_VALUE) { %> 
+(<xava:link action="List.hideRows" argv="<%=collectionArgv%>"/>)
+<% } %>
+<%-- tmp fin --%>
 </td>
 </tr>
 </table>

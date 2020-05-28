@@ -20,6 +20,7 @@ public class InvoicePropertiesFromCollectionInListTest extends CustomizeListTest
 		assertLabelInList(10, "Deliveries");
 		assertValueInList(0, 9, "...");
 		assertValueInList(0, 10, "...");
+		assertTrue(getHtml().contains("There are 9 records in list")); // Count works when no filter
 		setConditionValues("", "", "", "", "", "IBM");
 		execute("List.filter");
 		assertListRowCount(5);
@@ -31,6 +32,7 @@ public class InvoicePropertiesFromCollectionInListTest extends CustomizeListTest
 		assertValueInList(4, 1, "14");
 		assertValueInList(4, 9, "MATCHING DETAILS: 3");
 		assertValueInList(0, 10, "...");
+		assertFalse(getHtml().contains("records in list")); // Count does not work when filter yet
 		
 		// Ordering and that properties of references are compatible
 		execute("List.orderBy", "property=customer.name");
