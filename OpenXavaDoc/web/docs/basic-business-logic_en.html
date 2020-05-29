@@ -19,6 +19,8 @@
             calculated property</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Using%20@DefaultValueCalculator">Using
             @DefaultValueCalculator</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Persistent%20properties%20with%20calculation">Persistent
+            properties with calculation</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Total%20properties%20of%20a%20collection">Total
             properties of a collection</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Default%20value%20from%20a%20properties%20file">Default
@@ -210,16 +212,19 @@ private Collection&lt;Detail&gt; details;
 </code></pre> Try the <em>Order</em> and <em>Invoice</em> modules and observe
       the new behavior when adding details.</div>
     <div class="wiki" style="display: block;">
-      <h3>Persistent properties with calculation (TMP FALTA PONERLO EN MENÚ)</h3>
+      <h3><a name="Lesson 5: Basic business logic-Calculated properties-Persistent properties with calculation"></a>Persistent
+        properties with calculation</h3>
       Sometimes calculated properties are not the best option. Imagine that you
       have a calculated property in <em>Invoice</em>, let's say <em>discount</em>:<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">public BigDecimal getDiscount() {
+        <pre><code class="java">// DON'T ADD TO YOUR CODE, IT'S JUST TO ILLUSTRATE
+public BigDecimal getDiscount() {
     return getAmount().multiply(new BigDecimal("0.10"));
 }
 </code></pre> If you need to process all those invoices with an <i>discount</i>
         greater than 1000, you have to code something like the next code:<br>
-        <pre><code class="java">Query query = getManager().createQuery("from Invoice"); // No condition in query
+        <pre><code class="java">// DON'T ADD TO YOUR CODE, IT'S JUST TO ILLUSTRATE
+Query query = getManager().createQuery("from Invoice"); // No condition in query
 for (Object o: query.getResultList()) { // Iterates over all objects
     Invoice i = (Invoice) o;
     if (i.getDiscount() // Queries every object
@@ -235,10 +240,11 @@ for (Object o: query.getResultList()) { // Iterates over all objects
         greater than 1000, then your process will be very inefficient. What
         alternative do we have?<br>
         Our alternative is to use the <em>@Calculation</em> annotation. <em>@Calculation</em>
-        is an OpenXava annotations that allows associate a simple calculation to
-        a persistent property. You can define <em>discount</em> with <em>@Calculation</em>
+        is an OpenXava annotation that allows to associate a simple calculation
+        to a persistent property. You can define <em>discount</em> with <em>@Calculation</em>
         as shown the next code:<br>
-        <pre><code class="java">@ReadOnly
+        <pre><code class="java">// DON'T ADD TO YOUR CODE, IT'S JUST TO ILLUSTRATE
+@ReadOnly
 @Calculation("amount * 0.10")
 private BigDecimal discount;
 
@@ -257,111 +263,86 @@ public void setDiscount(BigDecimal discount) {
         value will be saved in the database when user clicks on Save, just like
         in any persistent property. We also have annotated <i>discount</i> with
         <i>@ReadOnly</i>, so it looks and behaves like a calculated property,
-        although you can omit <i>@ReadOnly</i> so the user can modify the
+        although you can omit <i>@ReadOnly</i> so the user could modify the
         calculated value.</div>
       <div class="wiki" style="display: block;"> The most useful thing of <em>@Calculation</em>
-        properties is that you can use it in different conditions, so that you
-        can rewrite the above process as shown the next code:<br>
-        <pre><code class="java">Query query = getManager().createQuery("from Invoice i where i.discount &gt; :discount"); // Condition allowed
+        properties is that you can use it in conditions, so that you can rewrite
+        the above process as shown the next code:<br>
+        <pre><code class="java">// DON'T ADD TO YOUR CODE, IT'S JUST TO ILLUSTRATE
+Query query = getManager().createQuery("from Invoice i where i.discount &gt; :discount"); // Condition allowed
 query.setParameter("discount", new BigDecimal(1000));
 for (Object o: query.getResultList()) { // Iterates only over selected objects
     Invoice i = (Invoice) o;
     i.doSomething();
 }
 </code></pre> In this way we put the weight of selecting the records on the
-        database server, and not on the Java server. Moreover, we don't to
-        recalculate the discounts each time, they are already calculated and
-        saved.<br>
+        database server, and not on the Java server. Moreover, the discounts are
+        not recalculated each time, they are already calculated and saved.<br>
         This fact also has effect in the list mode, because the user cannot
         filter or order by calculated properties, but he can do so using
-        persistent properties with <em>@Calculation</em> properties:<br>
-        <img src="files/business-logic_en040.png" alt="business-logic_en040.png"
-          title="business-logic_en040.png"><br>
-        <em>@Formula</em> is a good option for improving performance in some
-        cases. Anyways, generally it's better to use calculated properties and
-        writing your logic in Java. The advantage of calculated properties over
-        <em>@Formula</em> is that your code is not database dependent. Moreover
-        with calculated properties you can re-execute the calculation without
-        reading the object from the database, so that you can use <em>@Depends</em>.
-      </div>
+        persistent properties with <em>@Calculation</em>:<br>
+        <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
+          title="business-logic_en025.png"><br>
+        <em>@Calculation</em> is a good option when you need filtering and
+        sorting, and a simple calculation is enough. A shortcoming of <i>@Calculation</i>
+        properties is that their values are recalculated only when the user
+        interact with the record and changes the properties used in the
+        calculation, therefore when you add a new <i>@Calculation</i> property
+        to an entity with existing data you have to update the values of the new
+        column in the table using SQL. On the other hand if you need a complex
+        calculation, with loops or consulting other entities, you still need a
+        calculated property with your Java logic in the getter. In this last
+        case if you need to sort and filter in list mode for the calculated
+        property an option is to have both, the calculated and the persistent
+        property, and synchronize their values using JPA callback methods (we'll
+        talk about callback methods below). </div>
     </div>
     <div class="wiki" style="display: block;">
-      <h3 id="toc4"><a name="Lesson 5: Basic business logic-Calculated properties-Total properties of a collection"></a></h3>
-      <h3>Total properties of a collection</h3>
+      <h3 id="toc4"><a name="Lesson 5: Basic business logic-Calculated properties-Total properties of a collection"></a>Total
+        properties of a collection</h3>
     </div>
     <div class="wiki" style="display: block;">We want to add amounts to <em>Order</em>
       and <em>Invoice</em> too. To calculate vat, base amount and total amount
       are indispensable. To do so you only need to add a few properties to <em>CommercialDocument</em>
-      class. The next figure shows the user interface for these properties:<br>
-      <img src="files/business-logic_en030.png" alt="business-logic_en030.png" title="business-logic_en030.png"><br>
-      We could implement these total properties as pure calculated ones, that is
-      just with getters with the calculation logic, as following:<br>
-      <pre><code class="java">// WE ARE NOT GOING TO IMPLEMENT IT IN THIS WAY
-<br>public BigDecimal getBaseAmount() {
-    BigDecimal result = new BigDecimal("0.00");
-    for (Detail detail: getDetails()) { // We iterate through all details
-        result = result.add(detail.getAmount()); // Adding up the amount
-    }
-    return result;
-}
-    
-public BigDecimal getVat() {
-    return getBaseAmount() // baseAmount * vatPercentage / 100
-        .multiply(getVatPercentage())
-        .divide(new BigDecimal("100"));
-}
-
-public BigDecimal getTotalAmount() {
-    return getBaseAmount().add(getVat()); // baseAmount + vat
-} 
-</code></pre></div>
-    <div class="wiki" style="display: block;">The implementation is simple, just
-      adding up the amount from all the details. To use <i>BigDecimal</i> you
-      should add the following import in <i>CommercialDocument</i>:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import java.math.*;
-</code></pre> </div>
-    <div class="wiki" style="display: block;"> The next property to add to <i>CommercialDocument</i>
-      is <em>vatPercentage</em>. See the next code:<br>
+      class. The next figure shows the user interface for these properties: TMP
+      REHACER EL PANTALLAZO</div>
+    <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
+        alt="business-logic_en030.png" title="business-logic_en030.png"><br>
+      Add the next code (and generate the getters and setters) to <i>CommercialDocument</i>
+      entity:<br>
       <pre><code class="java">@Digits(integer=2, fraction=0) // To indicate its size
 @Required
+@DefaultValueCalculator(VatPercentageCalculator.class)
 private BigDecimal vatPercentage;
- 
-public BigDecimal getVatPercentage() {
-    return vatPercentage == null ? BigDecimal.ZERO : vatPercentage; // Thus never returns null
-}
- 
-public void setVatPercentage(BigDecimal vatPercentage) {
-    this.vatPercentage = vatPercentage;
-}
-</code></pre> You can see that <em>vatPercentage</em> is a conventional
-      persistent property. In this case we use <em>@Digits</em> (an annotation
-      from Bean Validation, the validation standard of Java) as an alternative
-      to <em>@Column</em> to specify the size. To use it you have to add this
-      import:</div>
+   
+@ReadOnly
+@Stereotype("MONEY")
+@Calculation("sum(details.amount) * vatPercentage / 100")
+private BigDecimal vat;
+
+@ReadOnly
+@Stereotype("MONEY")
+@Calculation("sum(details.amount) + vat")    
+private BigDecimal totalAmount;    
+
+// REMEMBER TO GENERATE THE GETTERS AND SETTERS FOR THE ABOVE FIELDS
+</code></pre></div>
+    <div class="wiki" style="display: block;">To use <i>BigDecimal</i> and <i>@Digits</i>
+      you should add the following imports in <i>CommercialDocument</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">import javax.validation.constraints.*;
+      <pre><code class="java">import java.math.*;
+import javax.validation.constraints.*;      
 </code></pre> </div>
-    <div class="wiki" style="display: block;"> We continue adding the <em>vat</em>
-      property. See the next code:<br>
-      <pre><code class="java">@Depends("vatPercentage")
-public BigDecimal getVat() {
-    return getBaseAmount() // baseAmount * vatPercentage / 100
-        .multiply(getVatPercentage())
-        .divide(new BigDecimal("100"));
-}
-</code></pre> It's a simple calculation. Note that we use <i>@Depends("vatPercentage")</i>,
-      in general total properties do not need <i>@Depends</i> because they are
-      recalculated automatically when a value of its column in the collection or
-      other calculated total property changes, but this is a special case
-      because it depends on <i>vatPercentage</i>, an editable property, that in
-      this case we're going to place among the calculated total properties, but
-      it could be placed in any part of the interface.<br>
-      Only <em>totalAmount</em> remains. You can see its code:<br>
-      <pre><code class="java">public BigDecimal getTotalAmount() {
-    return getBaseAmount().add(getVat()); // baseAmount + vat
-}
-</code></pre> Again a simple calculation.</div>
+    <div class="wiki" style="display: block;"> Note how we have chosen <i>@Calculation
+        + @ReadOnly</i> persistent properties over calculated ones for <i>vat</i>
+      and <i>totalAmount</i>, because the calculations are simple and filtering
+      and ordering for them is very useful. Also, you can see how in
+      @Calculation you can use sum(details.amount) to refer to the sum of the
+      column amount of the collection details, in this way we don't need to have
+      a <i>baseAmount</i> property. On the other hand, <em>vatPercentage</em>
+      is a conventional persistent property. In this case we use <em>@Digits</em>
+      (an annotation from Bean Validation, the validation standard of Java) as
+      an alternative to <em>@Column</em> to specify its size.</div>
     <div class="wiki" style="display: block;"> Now that you have written the
       amount properties of <em>CommercialDocument</em>, you must modify the
       list of properties of the collection to show <a class="wiki_link" href="view_en.html#View-Collection%20customization-Total%20properties%20%28new%20in%20v4.3%29">the
@@ -372,8 +353,7 @@ public BigDecimal getVat() {
     @ElementCollection
     @ListProperties(
         "product.number, product.description, quantity, pricePerUnit, " +
-        "amount[" + 
-        	"commercialDocument.baseAmount," +
+        "amount+[" + 
         	"commercialDocument.vatPercentage," +
         	"commercialDocument.vat," +
         	"commercialDocument.totalAmount" +
@@ -383,17 +363,29 @@ public BigDecimal getVat() {
  
     ...
 }
-</code></pre>Now you can try your application. It would behave almost as in
-      figure at the begin of this section. “Almost” because <em>vatPercentage</em>
-      does not have a default value yet. We add it in the next section.<br>
+</code></pre>Total properties are regular properties of the entity (<i>CommercialDocument</i>
+      in this case) that are placed in the user interface below the column of a
+      collection. For that, in <i>@ListProperties</i> you use square brackets
+      after the property to enumerate them, like <i>amount[commercialDocument.totalAmount]</i>.
+      Also if you want just the summation of the column you don't need a
+      property for that, with a + after the property in <i>@ListProperties</i>
+      is enough, like <i>amount+</i>. In our case we combine both things, + and
+      total properties between [ ]. </div>
+    <div class="wiki" style="display: block;">Now you can try your application.
+      It would behave almost as in figure at the begin of this section. “Almost”
+      because <em>vatPercentage</em> does not have a default value yet. We add
+      it in the next section.<br>
       <h3 id="toc5"><a name="Lesson 5: Basic business logic-Calculated properties-Default value from a properties file"></a>Default
         value from a properties file</h3>
-      It's useful for the user to have the default value populated for the <em>vatPercentage</em>.
-      You can use calculator (with <em>@DefaultValueCalculator</em>) that
-      returns a fixed value. In this case changing the default value means
-      changing your source code. Otherwise you can read the default value from
-      the database (using JPA from your calculator). In that case changing the
-      default value means updating a database table.<br>
+      TMP ME QUEDÉ POR AQUÍ: REPASAR LO DE ABAJO PARA ADAPTAR A LAS NUEVAS
+      @Calculation</div>
+    <div class="wiki" style="display: block;"> It's useful for the user to have
+      the default value populated for the <em>vatPercentage</em>. You can use
+      calculator (with <em>@DefaultValueCalculator</em>) that returns a fixed
+      value. In this case changing the default value means changing your source
+      code. Otherwise you can read the default value from the database (using
+      JPA from your calculator). In that case changing the default value means
+      updating a database table.<br>
       Another option is to store this configuration value in a properties file,
       a plain file with key=value pairs. In this case changing the default value
       for <em>vatPercentage</em> is just a matter of editing a plain file with
