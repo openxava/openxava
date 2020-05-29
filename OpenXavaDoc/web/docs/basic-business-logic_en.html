@@ -211,62 +211,70 @@ private Collection&lt;Detail&gt; details;
       the new behavior when adding details.</div>
     <div class="wiki" style="display: block;">
       <h3>Persistent properties with calculation (TMP FALTA PONERLO EN MENÚ)</h3>
-      <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: ADAPTAR
-        LO DE ABAJO PARA EXPLICAR @Calculation</div>
-      <div class="wiki" style="display: block;">Ideally you write all your
-        business logic in Java, inside your entities. Nevertheless, sometimes
-        that is not the most convenient way. Imagine that you have a calculated
-        property in <em>CommercialDocument</em>, let's say <em>estimatedProfit</em>:<br>
-        <pre><code class="java">@Stereotype("MONEY")
-public BigDecimal getEstimatedProfit() {
+      Sometimes calculated properties are not the best option. Imagine that you
+      have a calculated property in <em>Invoice</em>, let's say <em>discount</em>:<br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">public BigDecimal getDiscount() {
     return getAmount().multiply(new BigDecimal("0.10"));
 }
-</code></pre> If you need to process all those invoices with an <em>estimatedProfit</em>
+</code></pre> If you need to process all those invoices with an <i>discount</i>
         greater than 1000, you have to code something like the next code:<br>
         <pre><code class="java">Query query = getManager().createQuery("from Invoice"); // No condition in query
 for (Object o: query.getResultList()) { // Iterates over all objects
     Invoice i = (Invoice) o;
-    if (i.getEstimatedProfit() // Queries every object
+    if (i.getDiscount() // Queries every object
         .compareTo(new BigDecimal("1000")) &gt; 0) {
             i.doSomething();
     }
 }
-</code></pre> You cannot use a condition in the query to discriminate by <em>estimatedProfit</em>,
-        because <em>estimatedProfit</em> is not in the database, it's only in
-        the Java object, so you have to instantiate every object in order to ask
-        by the estimated profit. In some cases this way is a good option, but if
-        you have a really huge amount of invoices, and only a few of them have
-        the <em>estimatedProfit</em> greater than 1000, then your process will
-        be very inefficient. What alternative do we have?<br>
-        Our alternative is to use the <em>@Formula</em> annotation. <em>@Formula</em>
-        is a Hibernate extension to the JPA standard, that allows you to map a
-        property to a SQL statement. You can define <em>estimatedProfit</em>
-        with <em>@Formula</em> as shown the next code:<br>
-        <pre><code class="java">@org.hibernate.annotations.Formula("AMOUNT * 0.10") // The calculation using SQL
-@Stereotype("MONEY")
-private BigDecimal estimatedProfit; // A field, as in the persistent property case
- 
-public BigDecimal getEstimatedProfit() { // Only the getter is needed
-    return estimatedProfit;
+</code></pre> You cannot use a condition in the query to discriminate by <em>discount</em>,
+        because <i>discount</i> is not in the database, it's only in the Java
+        object, so you have to instantiate every object in order to ask by the <i>discount</i>.
+        In some cases this way is a good option, but if you have a really huge
+        amount of invoices, and only a few of them have the <i>discount</i>
+        greater than 1000, then your process will be very inefficient. What
+        alternative do we have?<br>
+        Our alternative is to use the <em>@Calculation</em> annotation. <em>@Calculation</em>
+        is an OpenXava annotations that allows associate a simple calculation to
+        a persistent property. You can define <em>discount</em> with <em>@Calculation</em>
+        as shown the next code:<br>
+        <pre><code class="java">@ReadOnly
+@Calculation("amount * 0.10")
+private BigDecimal discount;
+
+public BigDecimal getDiscount() {
+    return discount;
 }
-</code></pre> This means that when a <em>CommercialDocument</em> is read from
-        the database, the <em>estimatedProfit</em> field will be filled with
-        the calculation for <em>@Formula</em> that is done by the database. The
-        most useful thing of <em>@Formula</em> properties is that you can use
-        it in different conditions, so that you can rewrite the above process as
-        shown the next code:<br>
-        <pre><code class="java">Query query = getManager().createQuery("from Invoice i where i.estimatedProfit &gt; :estimatedProfit"); // Condition allowed
-query.setParameter("estimatedProfit", new BigDecimal(1000));
+
+public void setDiscount(BigDecimal discount) {
+    this.discount = discount;
+} 
+</code></pre> This is a regular persistent property, that is with a
+        corresponding column in the database, but it has a calculation defined
+        with <i>@Calculation</i>. In this case the calculation is <i>amount *
+          0.10</i>, so whenever the user changes <i>amount</i> in the user
+        interface the discount will be recalculated instantly. The recalculated
+        value will be saved in the database when user clicks on Save, just like
+        in any persistent property. We also have annotated <i>discount</i> with
+        <i>@ReadOnly</i>, so it looks and behaves like a calculated property,
+        although you can omit <i>@ReadOnly</i> so the user can modify the
+        calculated value.</div>
+      <div class="wiki" style="display: block;"> The most useful thing of <em>@Calculation</em>
+        properties is that you can use it in different conditions, so that you
+        can rewrite the above process as shown the next code:<br>
+        <pre><code class="java">Query query = getManager().createQuery("from Invoice i where i.discount &gt; :discount"); // Condition allowed
+query.setParameter("discount", new BigDecimal(1000));
 for (Object o: query.getResultList()) { // Iterates only over selected objects
     Invoice i = (Invoice) o;
     i.doSomething();
 }
-</code></pre> In this way we put the weight of calculating the estimated profit
-        and selecting the record on the database server, and not on the Java
-        server.<br>
+</code></pre> In this way we put the weight of selecting the records on the
+        database server, and not on the Java server. Moreover, we don't to
+        recalculate the discounts each time, they are already calculated and
+        saved.<br>
         This fact also has effect in the list mode, because the user cannot
-        filter or order by calculated properties, but he can do so using <em>@Formula</em>
-        properties:<br>
+        filter or order by calculated properties, but he can do so using
+        persistent properties with <em>@Calculation</em> properties:<br>
         <img src="files/business-logic_en040.png" alt="business-logic_en040.png"
           title="business-logic_en040.png"><br>
         <em>@Formula</em> is a good option for improving performance in some
