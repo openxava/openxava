@@ -564,7 +564,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	public boolean isCalculated() {
 		return getMetaCalculator() != null;
 	}
-	
+			
 	public boolean isPersistent() throws XavaException {
 		return getMapping() != null;
 	}

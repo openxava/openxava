@@ -2851,10 +2851,22 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * @since 4.8
 	 */
 	public boolean isTotalCapable(MetaProperty p) {   
-		return !p.isCalculated() && p.isNumber() && !p.hasValidValues();
+		// tmp return !p.isCalculated() && p.isNumber() && !p.hasValidValues();
+		return !p.isCalculated() && p.isNumber() && !p.hasValidValues() && !isFromCollection(p); // tmp
 	}
 	
+	public boolean isOrderCapable(MetaProperty p) { // tmp   
+		return !p.isCalculated() && !isFromCollection(p);
+	}	
 	
+	public boolean isFromCollection(MetaProperty p) { // tmp
+		String qualifiedName = p.getQualifiedName();
+		int idx = qualifiedName.indexOf('.');
+		if (idx < 0) return false;
+		String rootName = qualifiedName.substring(0, idx);
+		return getMetaTab().getMetaModel().containsMetaCollection(rootName);
+	}
+
 	/**
 	 * @since 4.3
 	 */

@@ -100,8 +100,6 @@ public class JPATabProvider extends TabProviderBase {
 	}
 
 	private String changePropertiesByJPAProperties(String source) { 
-		// TMP ME QUEDÉ POR AQUÍ: INTENTANDO RESOLVER LO DE LA ORDENACIÓN
-		System.out.println("[JPATabProvider.changePropertiesByJPAProperties] source=" + source); // tmp
 		if (!source.contains("${")) return source;
 		StringBuffer r = new StringBuffer(source);		
 		int i = r.toString().indexOf("${");

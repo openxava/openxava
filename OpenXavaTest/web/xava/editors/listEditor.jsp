@@ -163,7 +163,9 @@ while (it.hasNext()) {
 <%
 	String label = property.getQualifiedLabel(request);
 	if (resizeColumns) label = label.replaceAll(" ", "&nbsp;");
-	if (property.isCalculated() || sortable) { 
+	System.out.println("[listEditor.jsp] " +  property.getQualifiedName() + ".isOrderCapable()=" + tab.isOrderCapable(property)); // tmp
+	// tmp if (property.isCalculated() || sortable) { 
+	if (!tab.isOrderCapable(property) || sortable) { // tmp
 %>
 <%=label%>&nbsp;
 <%
@@ -392,13 +394,26 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 <%
 	for (int c=0; c<model.getColumnCount(); c++) {
 		MetaProperty p = tab.getMetaProperty(c);
-		String align =p.isNumber() && !p.hasValidValues()?"vertical-align: middle;text-align: right; ":"vertical-align: middle; ";
+		// tmp String align =p.isNumber() && !p.hasValidValues()?"vertical-align: middle;text-align: right; ":"vertical-align: middle; ";
+		String align =p.isNumber() && !p.hasValidValues() && !tab.isFromCollection(p)?"vertical-align: middle;text-align: right; ":"vertical-align: middle; ";
 		String cellStyle = align + style.getListCellStyle();
 		int columnWidth = tab.getColumnWidth(c);		 		
 		String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px"; 
 		String fvalue = null;
+		// tmp ini
+		Object title = null;
+		if (tab.isFromCollection(p)) {
+			title = fvalue = Strings.toString(model.getValueAt(f, c));
+		}
+		else {
+			fvalue = WebEditors.format(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
+			title = WebEditors.formatTitle(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
+		}
+		// tmp fin
+		/* tmp
 		fvalue = WebEditors.format(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
-		Object title = WebEditors.formatTitle(request, p, model.getValueAt(f, c), errors, view.getViewName(), true); 
+		Object title = WebEditors.formatTitle(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
+		*/ 
 %>
 	<td class="<%=cssCellClass%>" style="<%=cellStyle%>; padding-right: 0px">
 		<% if (style.isRowLinkable()) { %> 	

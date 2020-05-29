@@ -228,7 +228,8 @@ import org.openxava.util.*;
 	// tmp ini
 	// tmp Falta documentar
 	@Tab(name="PropertiesFromCollection", 
-		properties="year, number, date, customer.name, amountsSum, vat, detailsCount, paid, importance, details.product.description, deliveries.description"
+		// tmp properties="year, number, date, customer.name, amountsSum, vat, detailsCount, paid, importance, details.product.description, deliveries.description"
+			properties="year, number, date, customer.name, amountsSum, vat, detailsCount, paid, importance, details.product.unitPrice, deliveries.description"
 		// Without defaultOrder to test a case
 	) 
 	// tmp fin

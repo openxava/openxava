@@ -15,13 +15,17 @@ public class InvoicePropertiesFromCollectionInListTest extends CustomizeListTest
 	}
 	
 	public void testPropertiesFromCollectionInList() throws Exception { // tmp ¿Mezclar?
+		// TMP ME QUEDÉ POR AQUÍ: INTENTANDO QUE BUSQUE POR NUMERO, TEST YA HECHO
 		assertListRowCount(9);
-		assertLabelInList(9, "Product of details");
+		assertLabelInList(9, "Unit price of product of details");
 		assertLabelInList(10, "Deliveries");
 		assertValueInList(0, 9, "...");
 		assertValueInList(0, 10, "...");
 		assertTrue(getHtml().contains("There are 9 records in list")); // Count works when no filter
-		setConditionValues("", "", "", "", "", "IBM");
+		assertNoAction("List.orderBy", "property=details.product.unitPrice");
+		assertNoAction("List.sumColumn", "property=details.product.unitPrice");
+		
+		setConditionValues("", "", "", "", "", "20");
 		execute("List.filter");
 		assertListRowCount(5);
 		assertValueInList(0, 9, "MATCHING DETAILS: 1");
@@ -40,7 +44,7 @@ public class InvoicePropertiesFromCollectionInListTest extends CustomizeListTest
 		assertValueInList(0, 3, "Cuatrero");
 		
 		
-		setConditionValues("", "", "", "", "", "IBM", "666");
+		setConditionValues("", "", "", "", "", "20", "DELIVERY JUNIT");
 		execute("List.orderBy", "property=customer.name");
 		assertListRowCount(4);		
 		assertValueInList(0,  9, "MATCHING DETAILS: 1");
@@ -50,11 +54,7 @@ public class InvoicePropertiesFromCollectionInListTest extends CustomizeListTest
 		assertValueInList(0, 10, "MATCHING DELIVERIES: 1");
 		assertValueInList(1, 10, "MATCHING DELIVERIES: 1");
 		assertValueInList(2, 10, "MATCHING DELIVERIES: 1");
-		assertValueInList(3, 10, "MATCHING DELIVERIES: 1");
-		
-		// TMP ME QUEDÉ POR AQUÍ: EL TEST YA FUNCIONA, LO SIGUIENTE SERÍA:
-		// TMP - Restaurar el count de registros
-		// TMP - Falta probar ordenar por columna de colección: ¿Permitirlo?
+		assertValueInList(3, 10, "MATCHING DELIVERIES: 1");		
 	}
 	
 	
