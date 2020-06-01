@@ -304,8 +304,7 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
     <div class="wiki" style="display: block;">We want to add amounts to <em>Order</em>
       and <em>Invoice</em> too. To calculate vat, base amount and total amount
       are indispensable. To do so you only need to add a few properties to <em>CommercialDocument</em>
-      class. The next figure shows the user interface for these properties: TMP
-      REHACER EL PANTALLAZO</div>
+      class. The next figure shows the user interface for these properties: </div>
     <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
         alt="business-logic_en030.png" title="business-logic_en030.png"><br>
       Add the next code (and generate the getters and setters) to <i>CommercialDocument</i>
@@ -377,15 +376,12 @@ import javax.validation.constraints.*;
       it in the next section.<br>
       <h3 id="toc5"><a name="Lesson 5: Basic business logic-Calculated properties-Default value from a properties file"></a>Default
         value from a properties file</h3>
-      TMP ME QUEDÉ POR AQUÍ: REPASAR LO DE ABAJO PARA ADAPTAR A LAS NUEVAS
-      @Calculation</div>
-    <div class="wiki" style="display: block;"> It's useful for the user to have
-      the default value populated for the <em>vatPercentage</em>. You can use
-      calculator (with <em>@DefaultValueCalculator</em>) that returns a fixed
-      value. In this case changing the default value means changing your source
-      code. Otherwise you can read the default value from the database (using
-      JPA from your calculator). In that case changing the default value means
-      updating a database table.<br>
+      It's useful for the user to have the default value populated for the <em>vatPercentage</em>.
+      You can use calculator (with <em>@DefaultValueCalculator</em>) that
+      returns a fixed value. In this case changing the default value means
+      changing your source code. Otherwise you can read the default value from
+      the database (using JPA from your calculator). In that case changing the
+      default value means updating a database table.<br>
       Another option is to store this configuration value in a properties file,
       a plain file with key=value pairs. In this case changing the default value
       for <em>vatPercentage</em> is just a matter of editing a plain file with
@@ -457,7 +453,9 @@ public class VatPercentageCalculator implements ICalculator {
       <pre><code class="java">@DefaultValueCalculator(VatPercentageCalculator.class)
 private BigDecimal vatPercentage;
 </code></pre> With this code when the user clicks to create a new invoice, the <em>vatPercentage</em>
-      field will be filled with 21 or whatever other value you put in <em>invoicing.properties</em>.<br>
+      field will be filled with 21 or whatever other value you put in <em>invoicing.properties</em>.</div>
+    <div class="wiki" style="display: block;">TMP FALTA EVOLUCIÓ DE ESQUEMA:
+      ¿DONDE PONERLO? ¿PONERLO?<br>
       <h2 id="toc6"><a name="Lesson 5: Basic business logic-JPA callback methods"></a>JPA
         callback methods</h2>
       Another useful way to add business logic to your model is using JPA
@@ -531,10 +529,11 @@ private int number;
       with the year and the just generated number for that invoice/order.<br>
       <h3 id="toc8"><a name="Lesson 5: Basic business logic-JPA callback methods-Synchronizing persistent and calculated properties"></a>Synchronizing
         persistent and calculated properties</h3>
-      The approach towards calculating the vat, base amount and total amount of
-      a commercial document is natural and practical. We used calculated
-      properties that calculate, using pure Java, the values each time they are
-      called.<br>
+      TMP ¿MANTERNERLO CON UN EJEMPLO SENCILLO?</div>
+    <div class="wiki" style="display: block;"> The approach towards calculating
+      the vat, base amount and total amount of a commercial document is natural
+      and practical. We used calculated properties that calculate, using pure
+      Java, the values each time they are called.<br>
       But, calculated properties have some drawbacks. For example, if you want
       to do batch processing or a report for all invoices with a total amount
       between some range, it cannot be done using calculated properties. If you
