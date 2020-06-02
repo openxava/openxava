@@ -25,6 +25,8 @@
             properties of a collection</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Default%20value%20from%20a%20properties%20file">Default
             value from a properties file</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Manual%20schema%20evolution">Manual
+            schema evolution</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods">JPA
             callback methods</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Multiuser%20safe%20default%20value%20calculation">Multiuser
@@ -454,8 +456,78 @@ public class VatPercentageCalculator implements ICalculator {
 private BigDecimal vatPercentage;
 </code></pre> With this code when the user clicks to create a new invoice, the <em>vatPercentage</em>
       field will be filled with 21 or whatever other value you put in <em>invoicing.properties</em>.</div>
-    <div class="wiki" style="display: block;">TMP FALTA EVOLUCIÓ DE ESQUEMA:
-      ¿DONDE PONERLO? ¿PONERLO?<br>
+    <div class="wiki" style="display: block;">
+      <h3><a name="Lesson 5: Basic business logic-Calculated properties-Manual schema evolution"></a>Manual
+        schema evolution</h3>
+      When you use things like <i>@Calculation</i> or <i>@DefaultValueCalculator</i>
+      the automatic evolution schema provides by OpenXava falls short, because
+      it adds a column when you add a new property, but it does not fill the
+      column with the correct values. In this case we have added several <i>@Calculation</i>
+      properties whose values are not recalculated until the user interact with
+      the record. Moreover, we have a default value for <i>vatPercentage</i>
+      that only has effect when the user creates a new record but not on the
+      existing records. We have to fill the new columns with reasonable values.</div>
+    <div class="wiki" style="display: block;">Given that we're in early
+      development stage just removing all the records would be a good enough
+      solution, but for sure that is not a good idea in production, so we're
+      going to adjust our database to new code without lose data to illustrate
+      manual evolution schema.</div>
+    <div class="wiki" style="display: block;">The easier way is to use the
+      application itself to do the updates. We're going to do it for updating
+      the product prices. In order our new calculated properties work nicely all
+      the products should have price, so go to the <i>Product</i> module with
+      the application and make sure that all products have price:</div>
+    <img src="files/business-logic_en040.png" alt="business-logic_en040.png" title="business-logic_en040.png">
+    <div class="wiki" style="display: block;">If some product has no price edit
+      it and enter a price.</div>
+    <div class="wiki" style="display: block;">The next changes are not so
+      simple, therefore we're going to execute SQL statements against our
+      database. To execute these SQL statements, first make sure your
+      application is running, then go to the <i>DBManager</i> class in <i>Invoicing/src/_run</i>,
+      and with the right mouse button choose <i>Run As &gt; Java Application</i>:<br>
+      <img src="files/inheritance_en040.png" alt="inheritance_en040.png" title="inheritance_en040.png"><br>
+      Now you are ready to write and execute SQLs.First, we set value for <i>pricePerUnit</i>
+      column in all details:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="sql">UPDATE invoicing.commercialdocument_details 
+SET pricePerUnit = (
+    SELECT price FROM invoicing.product 
+    WHERE number = product_number
+)
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Then we update the <i>vatPercentage</i>
+      for all invoices:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="sql">UPDATE invoicing.commercialdocument
+SET vatPercentage = 21
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Next, the updating of <i>vat</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="sql">UPDATE invoicing.commercialdocument
+SET vat = (
+    SELECT SUM(pricePerUnit * quantity) * 0.21 
+    FROM invoicing.commercialdocument_details d 
+    WHERE d.commercialdocument_oid = commercialdocument.oid
+)
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Finally, we update the <i>totalAmount</i>
+      of all invoices:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="sql">UPDATE invoicing.commercialdocument
+SET totalAmount = (
+    SELECT SUM(pricePerUnit * quantity) * 1.21 
+    FROM invoicing.commercialdocument_details D 
+    WHERE d.commercialdocument_oid = commercialdocument.oid
+)
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Beware, the above sentences work
+      nicely with HSQLDB, the database included with OpenXava. If you're using
+      another database probably you have to adapt the syntax. After executing
+      the above sentences you can try your application. It would behave as in
+      figure at the begin of the section "Total properties of a collection" even
+      for already existing invoices and orders.<br>
+    </div>
+    <div class="wiki" style="display: block;">
       <h2 id="toc6"><a name="Lesson 5: Basic business logic-JPA callback methods"></a>JPA
         callback methods</h2>
       Another useful way to add business logic to your model is using JPA
@@ -529,7 +601,7 @@ private int number;
       with the year and the just generated number for that invoice/order.<br>
       <h3 id="toc8"><a name="Lesson 5: Basic business logic-JPA callback methods-Synchronizing persistent and calculated properties"></a>Synchronizing
         persistent and calculated properties</h3>
-      TMP ¿MANTERNERLO CON UN EJEMPLO SENCILLO?</div>
+      TMP ME QUEDÉ POR AQUÍ: CODIFICANDO EL EJEMPLO</div>
     <div class="wiki" style="display: block;"> The approach towards calculating
       the vat, base amount and total amount of a commercial document is natural
       and practical. We used calculated properties that calculate, using pure
