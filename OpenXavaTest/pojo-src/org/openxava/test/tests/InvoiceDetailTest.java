@@ -23,7 +23,7 @@ public class InvoiceDetailTest extends ModuleTestBase {
 		assertNoErrors();
 		assertListRowCount(4);
 		assertListColumnCount(4);
-		assertLabelInList(0, "Year of Invoice");
+		assertLabelInList(0, "Year of Invoice"); // TMP FALLA
 		assertLabelInList(1, "Quantity");
 		assertLabelInList(2, "Unit price");
 		assertLabelInList(3, "Record count");

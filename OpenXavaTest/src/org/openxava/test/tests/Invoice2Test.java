@@ -82,7 +82,7 @@ public class Invoice2Test extends ModuleTestBase {
 			{"customer.number", "Number of Customer"},  
 			{"__MORE__", "[SHOW MORE...]"}
 		};
-		assertValidValuesInCollection("columns", 0, "name", chartColumnValues);
+		assertValidValuesInCollection("columns", 0, "name", chartColumnValues); // TMP FALLA
 		
 		selectListConfiguration("Year = 2002"); 
 		assertListAllConfigurations("Year = 2002", "All");

@@ -547,6 +547,7 @@ public class DeliveryTest extends ModuleTestBase {
 		}
 		assertTrue("It's required deliveries with invoices with and without seller discount", withDiscount && withoutDiscount); 
 		
+		// TMP FALLA
 		assertLabelInList(0, "Year of Invoice"); // We need Year to test this case, because is a numeric property of a reference in the first column
 		execute("ListFormat.select", "editor=Charts"); 
 		assertNoErrors(); 

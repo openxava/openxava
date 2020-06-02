@@ -141,12 +141,10 @@ public class JPATabProvider extends TabProviderBase {
 			r.replace(i, f + 1, jpaElement);
 			i = r.toString().indexOf("${");
 		}
-		System.out.println("[JPATabProvider.changePropertiesByJPAProperties] result=" + r); // tmp
 		return r.toString();
 	}
 	
 	protected String toSearchByCollectionMemberSelect(String select) { // tmp
-		// tmp Probar buscar por valores numéricos
 		if (!select.contains("__COL__[")) return select;
 		String originalSelect = select;
 		String firstKey = getMetaModel().getAllKeyPropertiesNames().iterator().next().toString();
@@ -156,14 +154,14 @@ public class JPATabProvider extends TabProviderBase {
 			String [] memberTokens = qualifiedMember.split("\\.", 2);
 			String collection = memberTokens[0];
 			String member = memberTokens[1];
-			if (select.contains("(__COL__[" + qualifiedMember + "],")) {
+			if (StringUtils.countMatches(select, "__COL__[" + qualifiedMember + "]") > 1) { 
 				ins.append(", in (e.");
 				ins.append(collection);
 				ins.append(") d");
 				ins.append(i);
-				select = select.replace("(__COL__[" + qualifiedMember + "],", "(d" + i + "." + member + ","); // tmp ¿Funciona sin replace()? 
-				String matchedLabel = XavaResources.getString("matching", Labels.get(collection));
-				select = select.replace("__COL__[" + qualifiedMember + "]", "concat('" + matchedLabel + ": ', count(e." + firstKey + "))"); 
+				String matchingLabel = Strings.firstUpper(XavaResources.getString("matching", Labels.get(collection)).toLowerCase());
+				select = select.replaceFirst("__COL__\\[" + qualifiedMember.replace(".", "\\.") + "\\]", "concat('" + matchingLabel + ": ', count(e." + firstKey + "))");				
+				select = select.replace("__COL__[" + qualifiedMember + "]", "d" + i + "." + member);  
 			}
 			else {
 				select = select.replace("__COL__[" + qualifiedMember + "]", "'...'");
@@ -205,14 +203,12 @@ public class JPATabProvider extends TabProviderBase {
 			result.add(select.substring(i + 8, f));
 			i = select.indexOf("__COL__[", f);
 		}
-		System.out.println("[JPATabProvider.collectCollectionMember] result=" + result); // tmp
 		return result;
 	}
 	
 	private boolean isPropertyFromCollection(String modelElement) { // tmp
 		if (!modelElement.contains(".")) return false;				
 		String collection = modelElement.substring(0, modelElement.indexOf('.'));
-		System.out.println("[JPATabProvider.isPropertyFromCollection] " + modelElement + " -> " + collection); // tmp
 		return getMetaModel().containsMetaCollection(collection);
 	}
 

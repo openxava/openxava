@@ -158,12 +158,12 @@ public class CarrierTest extends CarrierTestBase {
 		execute("List.addColumns", "collection=fellowCarriers");
 		assertNoAction("AddColumns.showMoreColumns"); // Because has not more than second level properties
 		assertCollectionRowCount("xavaPropertiesList", 6);
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Description of Driving licence");
-		assertValueInCollection("xavaPropertiesList",  1, 0, "Level of Driving licence");
-		assertValueInCollection("xavaPropertiesList",  2, 0, "Name of Warehouse");
-		assertValueInCollection("xavaPropertiesList",  3, 0, "Type of Driving licence");
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Description of driving licence"); 
+		assertValueInCollection("xavaPropertiesList",  1, 0, "Level of driving licence");
+		assertValueInCollection("xavaPropertiesList",  2, 0, "Name of warehouse");
+		assertValueInCollection("xavaPropertiesList",  3, 0, "Type of driving licence");
 		assertValueInCollection("xavaPropertiesList",  4, 0, "Warehouse number");
-		assertValueInCollection("xavaPropertiesList",  5, 0, "Zone of Warehouse"); 
+		assertValueInCollection("xavaPropertiesList",  5, 0, "Zone of warehouse"); 
 		checkRow("selectedProperties", "warehouse.name");		
  		execute("AddColumns.addColumns");
 

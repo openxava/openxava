@@ -23,7 +23,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationGroups(); 
 		assertListConfigurationsEnums();	
 		assertListConfigurationsYearMonthYearMonth(); 
-		assertListConfigurationsDescriptionsLists(); 
+		assertListConfigurationsDescriptionsLists(); // TMP FALLA
 		assertListConfigurationsOrdering(); 
 		assertListConfigurationsRanges();
 		assertListConfigurationsColumns(); 

@@ -33,55 +33,7 @@ public class JPATest extends TestCase {
 	protected void tearDown() throws Exception {
 		XPersistence.commit();
 	}
-	
-	public void testQueryByCollectionValue() throws Exception { // tmp No dejar
-		Query query = XPersistence.getManager().createQuery(
-			"SELECT DISTINCT i" +
-			"	FROM Invoice i, IN(i.details) d" +
-			"   WHERE d.product.description like '%XAVA%'"	
-		);
-		Collection<Invoice> invoices = query.getResultList();
-		for (Invoice invoice: invoices) {
-			print(invoice);
-		}
 		
-	}
-	
-	public void testQueryAutomicsByCollectionValue() throws Exception { // tmp No dejar
-		Query query = XPersistence.getManager().createQuery(
-			"SELECT DISTINCT i.year, i.number" +
-			"	FROM Invoice i, IN(i.details) d" +
-			"   WHERE d.product.description like '%XAVA%'"	
-		);
-		Collection<Object[]> invoices = query.getResultList();
-		for (Object[] invoice: invoices) {
-			System.out.println("[JPATest.testQueryAutomicsByCollectionValue] Invoice[0, 1]=" + invoice[0] + "/" + invoice[1]); // tmp
-		}
-	}
-
-	
-	public void testQueryByElementCollectionValue() throws Exception { // tmp No dejar
-		Query query = XPersistence.getManager().createQuery(
-			"SELECT DISTINCT q" +
-			"	FROM Quote q, IN(q.details) d" +
-			"   WHERE d.product.description like '%MULTA%'"	
-		);
-		Collection<Quote> quotes = query.getResultList();
-		for (Quote quote: quotes) {
-			print(quote);
-		}
-		
-	}
-	
-	private void print(Invoice invoice) { // tmp
-		System.out.println("[JPATest.print] Invoice: " + invoice.getYear() + "/" + invoice.getNumber()); // tmp
-	}
-	
-	private void print(Quote quote) { // tmp
-		System.out.println("[JPATest.print] Quote: " + quote.getYear() + "/" + quote.getNumber()); // tmp
-	}
-
-
 	public void testConvertersAllPropertiesOnCreate() throws Exception { // One way to avoid nulls
 		Subfamily sf = new Subfamily();
 		sf.setNumber(77);

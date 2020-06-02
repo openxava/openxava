@@ -1012,7 +1012,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 		if (pOrder != null) {				
 			if (sb.length() == 0) sb.append(" 1=1 ");
 			sb.append(" order by ");
-			System.out.println("[Tab.createCondition] pOrder.getQualifiedName()=" + pOrder.getQualifiedName()); // tmp
 			sb.append("${");
 			sb.append(pOrder.getQualifiedName()); 
 			sb.append('}');

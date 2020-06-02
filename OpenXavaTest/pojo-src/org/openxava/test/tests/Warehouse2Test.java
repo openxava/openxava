@@ -17,7 +17,7 @@ public class Warehouse2Test extends ModuleTestBase {
 	
 	public void testEmbeddedId() throws Exception {
 		// List mode
-		assertLabelInList(0, "Zone of Key");
+		assertLabelInList(0, "Zone of Key"); // TMP FALLA
 		assertLabelInList(1, "Number of Key");
 		assertLabelInList(2, "Name"); 
 		assertListNotEmpty();

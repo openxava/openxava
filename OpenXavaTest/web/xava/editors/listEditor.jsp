@@ -163,7 +163,6 @@ while (it.hasNext()) {
 <%
 	String label = property.getQualifiedLabel(request);
 	if (resizeColumns) label = label.replaceAll(" ", "&nbsp;");
-	System.out.println("[listEditor.jsp] " +  property.getQualifiedName() + ".isOrderCapable()=" + tab.isOrderCapable(property)); // tmp
 	// tmp if (property.isCalculated() || sortable) { 
 	if (!tab.isOrderCapable(property) || sortable) { // tmp
 %>
@@ -395,7 +394,7 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 	for (int c=0; c<model.getColumnCount(); c++) {
 		MetaProperty p = tab.getMetaProperty(c);
 		// tmp String align =p.isNumber() && !p.hasValidValues()?"vertical-align: middle;text-align: right; ":"vertical-align: middle; ";
-		String align =p.isNumber() && !p.hasValidValues() && !tab.isFromCollection(p)?"vertical-align: middle;text-align: right; ":"vertical-align: middle; ";
+		String align =p.isNumber() && !p.hasValidValues() && !tab.isFromCollection(p)?"vertical-align: middle;text-align: right; ":"vertical-align: middle; "; // tmp
 		String cellStyle = align + style.getListCellStyle();
 		int columnWidth = tab.getColumnWidth(c);		 		
 		String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px"; 

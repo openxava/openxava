@@ -291,7 +291,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "considerable", "Considerable" },
 			{ "__MORE__", "[SHOW MORE...]"}
 		};		
-		assertValidValues("name", defaultColumnNames); 
+		assertValidValues("name", defaultColumnNames); // TMP FALLA
 				
 		setValue("name", "__MORE__");
 		
@@ -785,7 +785,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		
 		execute("List.addColumns");
 		assertCollectionRowCount("xavaPropertiesList", 20); // The limit is 20
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of Customer"); 
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of Customer"); // TMP FALLA
 		assertValueInCollection("xavaPropertiesList",  1, 0, "City of Customer"); 
 		assertValueInCollection("xavaPropertiesList",  2, 0, "Comment");
 		assertValueInCollection("xavaPropertiesList",  3, 0, "Considerable");		
@@ -877,7 +877,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	public void testCustomizeListSearchColumns_customizeListPressEnterWithoutChoosingColumns() throws Exception {   
 		execute("List.addColumns");
 		assertCollectionRowCount("xavaPropertiesList", 20); 		
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of Customer");   
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of Customer");  // TMP FALLA 
 		assertValueInCollection("xavaPropertiesList", 19, 0, "VAT %"); 
 		assertAction("AddColumns.showMoreColumns");
 
@@ -973,7 +973,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	public void testCustomizeList() throws Exception {
-		doTestCustomizeList_addColumns(); 
+		doTestCustomizeList_addColumns(); // TMP FALLA
 		resetModule(); 
 		doTestCustomizeList_storePreferences(); 
 	}

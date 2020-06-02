@@ -57,16 +57,11 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		eof = false;
 		this.key = toArray(key);		
 		condition = condition == null ? "" : condition.trim();
-		System.out.println("[TabProviderBase.search] select.1=" + select); // tmp
 		select = translateCondition(condition);
-		System.out.println("[TabProviderBase.search] select.2=" + select); // tmp
 		// tmp selectSize = createSizeSelect(select);
 		select = toGroupBySelect(select);
-		System.out.println("[TabProviderBase.search] select.3=" + select); // tmp
 		select = toSearchByCollectionMemberSelect(select); // tmp
-		System.out.println("[TabProviderBase.search] select.4=" + select); // tmp
 		selectSize = createSizeSelect(select); // tmp
-		System.out.println("[TabProviderBase.search] selectSize=" + selectSize); // tmp
 	}
 							
 	private String toGroupBySelect(String select) { 

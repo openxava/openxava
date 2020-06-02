@@ -114,22 +114,22 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 			{ "", "" },	
 			{ "number", "Number" },
 			{ "name", "Name" },
-			{ "drivingLicence.type", "Type of Driving licence" },	
-			{ "drivingLicence.level", "Level of Driving licence" },	
-			{ "drivingLicence.description", "Description of Driving licence" },	
-			{ "warehouse.zoneNumber", "Zone of Warehouse" },	
+			{ "drivingLicence.type", "Type of driving licence" },	
+			{ "drivingLicence.level", "Level of driving licence" },	
+			{ "drivingLicence.description", "Description of driving licence" },	
+			{ "warehouse.zoneNumber", "Zone of warehouse" },	
 			{ "warehouse.number", "Warehouse number" },	
-			{ "warehouse.name", "Name of Warehouse" },	
+			{ "warehouse.name", "Name of warehouse" },	
 			{ "remarks", "Remarks" },	
 			{ "calculated", "Calculated" }
 		};		
-		assertValidValues("name", validColumnNames);
+		assertValidValues("name", validColumnNames); 
 		assertValue("name", "");		
 		String [][] emptyComparators = {
 		};
 		assertValidValues("comparator", emptyComparators);
 		setValue("name", "warehouse.zoneNumber");
-		assertValue("label", "Zone of Warehouse");
+		assertValue("label", "Zone of warehouse");
 		assertValue("comparator", "eq_comparator"); 
 		String [][] numberComparators = {
 			{ "eq_comparator", "=" },
@@ -164,7 +164,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		assertValidValues("comparator", stringComparators); 
 
 		setValue("name", "warehouse.zoneNumber"); 
-		assertValue("label", "Zone of Warehouse"); 
+		assertValue("label", "Zone of warehouse"); 
 		assertValue("comparator", "eq_comparator"); 
 		assertValidValues("comparator", numberComparators); 
 		
@@ -177,7 +177,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		assertValueInCollection("columns", 1, 0, "Number");
 		assertValueInCollection("columns", 1, 1, "");
 		assertValueInCollection("columns", 1, 2, "");		
-		assertValueInCollection("columns", 2, 0, "Zone of Warehouse");
+		assertValueInCollection("columns", 2, 0, "Zone of warehouse");
 		assertValueInCollection("columns", 2, 1, "=");
 		assertValueInCollection("columns", 2, 2, "1");
 		
@@ -193,7 +193,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		assertValueInCollection("columns", 1, 0, "Number");
 		assertValueInCollection("columns", 1, 1, "");
 		assertValueInCollection("columns", 1, 2, "");		
-		assertValueInCollection("columns", 2, 0, "Zone of Warehouse");
+		assertValueInCollection("columns", 2, 0, "Zone of warehouse");
 		assertValueInCollection("columns", 2, 1, "=");
 		assertValueInCollection("columns", 2, 2, "1");
 		
@@ -203,7 +203,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		
 		assertPopupPDFLinesCount(5); // Instead of 9, because of warehouse.zoneNumber = 1 and name like 'c%' condition 
 		assertPopupPDFLine(1, "jUnit Carrier report");
-		assertPopupPDFLine(2, "Name Number Zone of Warehouse");  
+		assertPopupPDFLine(2, "Name Number Zone of warehouse");  
 		assertPopupPDFLine(3, "CUATRO 4 1");
 		
 		execute("ExtendedPrint.myReports");
@@ -256,7 +256,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		assertValueInCollection("columns", 0, 0, "Calculated");
 		assertValueInCollection("columns", 1, 0, "Number");
 		assertValueInCollection("columns", 2, 0, "Name");
-		assertValueInCollection("columns", 3, 0, "Zone of Warehouse");
+		assertValueInCollection("columns", 3, 0, "Zone of warehouse"); 
 		assertValueInCollection("columns", 3, 1, "="); 
 		assertValueInCollection("columns", 3, 2, "2");
 		assertValueInCollection("columns", 3, 5, "Hidden"); 
@@ -264,7 +264,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		execute("MyReport.columnUp", "row=3,viewObject=xava_view_columns");
 		assertValueInCollection("columns", 0, 0, "Calculated");
 		assertValueInCollection("columns", 1, 0, "Number");
-		assertValueInCollection("columns", 2, 0, "Zone of Warehouse");
+		assertValueInCollection("columns", 2, 0, "Zone of warehouse");
 		assertValueInCollection("columns", 2, 1, "=");
 		assertValueInCollection("columns", 2, 2, "2");
 		assertValueInCollection("columns", 2, 5, "Hidden"); 
@@ -281,7 +281,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		assertCollectionRowCount("columns", 4);
 		assertValueInCollection("columns", 0, 0, "Calculated");
 		assertValueInCollection("columns", 1, 0, "Number");
-		assertValueInCollection("columns", 2, 0, "Zone of Warehouse");
+		assertValueInCollection("columns", 2, 0, "Zone of warehouse");
 		assertValueInCollection("columns", 2, 1, "=");
 		assertValueInCollection("columns", 2, 2, "2");
 		assertValueInCollection("columns", 2, 5, "Hidden"); 
