@@ -38,7 +38,8 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 	abstract protected String translateProperty(String property);
 	abstract protected String translateCondition(String condition);
 	abstract protected Number executeNumberSelect(String select, String errorId);
-	abstract protected String toSearchByCollectionMemberSelect(String select); // tmp
+	/** @since 6.4 */
+	abstract protected String toSearchByCollectionMemberSelect(String select); 
 	
 	public void setMetaTab(MetaTab metaTab) {
 		this.metaTab = metaTab;
@@ -58,10 +59,9 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		this.key = toArray(key);		
 		condition = condition == null ? "" : condition.trim();
 		select = translateCondition(condition);
-		// tmp selectSize = createSizeSelect(select);
 		select = toGroupBySelect(select);
-		select = toSearchByCollectionMemberSelect(select); // tmp
-		selectSize = createSizeSelect(select); // tmp
+		select = toSearchByCollectionMemberSelect(select); 
+		selectSize = createSizeSelect(select); 
 	}
 							
 	private String toGroupBySelect(String select) { 
@@ -261,7 +261,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		int idx = property.indexOf('.');
 		if (idx >= 0) {
 			String referenceName = property.substring(0, idx);	
-			if (!metaModel.containsMetaReference(referenceName)) return; // tmp
+			if (!metaModel.containsMetaReference(referenceName)) return; 
 			MetaReference ref = metaModel.getMetaReference(referenceName);
 			String memberName = property.substring(idx + 1);
 			boolean hasMoreLevels = memberName.indexOf('.') >= 0;

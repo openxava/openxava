@@ -144,18 +144,10 @@ public class Labels {
 				return get(id.substring(idxDot + 1), locale, qualified);
 			}
 			else {
-				/* tmp
-				return get(id.substring(idxDot + 1), locale, null, qualified) + " " + 
-					XavaResources.getString("of", locale) + " " +
-					get(parent, locale, null, false);
-				*/
-				// tmp ini
-				// tmp Poner en changelog
 				String composeLabel = get(id.substring(idxDot + 1), locale, null, qualified) + " " + 
 					XavaResources.getString("of", locale) + " " +
 					get(parent, locale, null, false);
 				return Strings.firstUpper(composeLabel.toLowerCase());
-				// tmp fin
 			}			
 		}
 	} 

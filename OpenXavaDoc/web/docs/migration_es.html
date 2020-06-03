@@ -40,6 +40,21 @@
       </ul>
       <p><br>
       </p>
+      <h2>Para migrar de OpenXava 6.3.2 a OpenXava 6.4</h2>
+      <h3>Etiqueta automática para miembro de referencia en lista mejorada (para
+        pruebas JUnit)</h3>
+      Las etiquetas automáticas para miembros de referencias ahora hacen la
+      primera letra mayúscula y todas las demás minúsculas. Esto no afecta al
+      código de tu aplicación, pero si verificas las etiquetas de alguna lista
+      puede que tengas que hacer algún ajuste en tus pruebas JUnit, como cambiar
+      este assert::
+      <div class="wiki" style="display: block;">
+        <pre><code class="sql">assertLabelInList(0, "Year of Invoice");
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Por este otro:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="sql">assertLabelInList(0, "Year of invoice");
+</code></pre> </div>
       <h2>Para migrar de OpenXava 6.3.1 a OpenXava 6.3.2</h2>
       No hay consideraciones.
       <h2></h2>

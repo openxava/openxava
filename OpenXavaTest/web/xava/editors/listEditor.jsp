@@ -163,8 +163,7 @@ while (it.hasNext()) {
 <%
 	String label = property.getQualifiedLabel(request);
 	if (resizeColumns) label = label.replaceAll(" ", "&nbsp;");
-	// tmp if (property.isCalculated() || sortable) { 
-	if (!tab.isOrderCapable(property) || sortable) { // tmp
+	if (!tab.isOrderCapable(property) || sortable) { 
 %>
 <%=label%>&nbsp;
 <%
@@ -393,13 +392,11 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 <%
 	for (int c=0; c<model.getColumnCount(); c++) {
 		MetaProperty p = tab.getMetaProperty(c);
-		// tmp String align =p.isNumber() && !p.hasValidValues()?"vertical-align: middle;text-align: right; ":"vertical-align: middle; ";
-		String align =p.isNumber() && !p.hasValidValues() && !tab.isFromCollection(p)?"vertical-align: middle;text-align: right; ":"vertical-align: middle; "; // tmp
+		String align =p.isNumber() && !p.hasValidValues() && !tab.isFromCollection(p)?"vertical-align: middle;text-align: right; ":"vertical-align: middle; "; 
 		String cellStyle = align + style.getListCellStyle();
 		int columnWidth = tab.getColumnWidth(c);		 		
 		String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px"; 
 		String fvalue = null;
-		// tmp ini
 		Object title = null;
 		if (tab.isFromCollection(p)) {
 			title = fvalue = Strings.toString(model.getValueAt(f, c));
@@ -407,12 +404,7 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 		else {
 			fvalue = WebEditors.format(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
 			title = WebEditors.formatTitle(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
-		}
-		// tmp fin
-		/* tmp
-		fvalue = WebEditors.format(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
-		Object title = WebEditors.formatTitle(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
-		*/ 
+		} 
 %>
 	<td class="<%=cssCellClass%>" style="<%=cellStyle%>; padding-right: 0px">
 		<% if (style.isRowLinkable()) { %> 	
@@ -675,22 +667,12 @@ else {
 <% } // of if (style.isChangingPageRowCountAllowed()) %>
 </td>
 <td style='text-align: right; vertical-align: middle' class='<%=style.getListInfoDetail()%>'>
-<%-- tmp
-<% if (XavaPreferences.getInstance().isShowCountInList() && !style.isShowRowCountOnTop() && !grouping) { %> 
-<xava:message key="list_count" intParam="<%=totalSize%>"/>
-<% } %>
-<% if (collection == null && style.isHideRowsAllowed() && !grouping) { %> 
-(<xava:link action="List.hideRows" argv="<%=collectionArgv%>"/>)
-<% } %>
---%>
-<%-- tmp ini --%>
 <% if (XavaPreferences.getInstance().isShowCountInList() && !style.isShowRowCountOnTop() && !grouping && totalSize < Integer.MAX_VALUE) { %> 
 <xava:message key="list_count" intParam="<%=totalSize%>"/>
 <% } %>
 <% if (collection == null && style.isHideRowsAllowed() && !grouping && totalSize < Integer.MAX_VALUE) { %> 
 (<xava:link action="List.hideRows" argv="<%=collectionArgv%>"/>)
 <% } %>
-<%-- tmp fin --%>
 </td>
 </tr>
 </table>

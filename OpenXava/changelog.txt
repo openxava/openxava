@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Automatic label for reference member in list improved.
 - Fix: Horizontal scrollbar in list mode with large list configuration descriptions.
 - Russian translation improved including labels for latest releases.
 

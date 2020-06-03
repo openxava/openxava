@@ -3698,5 +3698,36 @@ class="st0">"List"</span><span class="re2">&gt;</span></span>
       This technique is not just for removing <em>Charts</em>, it's for
       restricting the list formats available for all modules. If not all the
       editors <em>&lt;for-tabs/&gt;</em> are used. </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc11"><a name="Tabular data-Removing the Charts from list mode (new in v5.7)"></a>Searching
+        by the content of a collection from list mode <em>(new in v6.4)</em></h2>
+      It's possible to define a property of a collection in @Tab, therefore the
+      user could search by that property, hence by the content of the collection
+      in list mode. For example, we could have an Invoice module and want to
+      know what invoices have detail lines of certain product. To that</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="sql">@Tab(properties="year, number, date, customer.name, details.product.description")
+public class Invoice {
+
+	...
+	
+	@ElementCollection // Or @OneToMany
+	private Collection&lt;Detail&gt; details;
+
+}
+
+@Embeddable // Or @Entity
+public class Detail {
+
+	...
+
+	@ManyToOne
+	private Product product; // With a description property
+
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">fff</div>
+    <img src="files/tab_en060.png" alt="tab_en060.png" title="tab_en060.png">
+    <div class="wiki" style="display: block;">fff</div>
   </body>
 </html>

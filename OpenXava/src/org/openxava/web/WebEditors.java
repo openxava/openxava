@@ -319,8 +319,13 @@ public class WebEditors {
 		String defaultURL = "";
 		MetaModel metaModel = MetaModel.get(tabModelName);
 		String reference = Strings.noLastTokenWithoutLastDelim(qualifiedName, ".");
-		if (!metaModel.containsMetaReference(reference)) return ""; // tmp
-		MetaReference metaReference = metaModel.getMetaReference(reference);
+		MetaReference metaReference = null;
+		try {
+			metaReference =  metaModel.getMetaReference(reference);
+		}
+		catch (ElementNotFoundException ex) {
+			return "";
+		}
 		metaModel = metaReference.getMetaModel();
 		Collection<MetaView> metaViews = metaModel.getMetaViews();
 		for (MetaView metaView : metaViews){

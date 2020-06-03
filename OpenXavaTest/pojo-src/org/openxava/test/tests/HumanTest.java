@@ -74,8 +74,8 @@ public class HumanTest extends ModuleTestBase {
 		assertListColumnCount(4); 
 		assertLabelInList(0, "Name");
 		assertLabelInList(1, "Sex");
-		assertLabelInList(2, "Author of Favorite author");  // TMP FALLA
-		assertLabelInList(3, "Biography of Favorite author");		
+		assertLabelInList(2, "Author of favorite author");  
+		assertLabelInList(3, "Biography of favorite author");		
 		
 		assertListRowCount(6); 
 		assertValueInList(0, 0, "PEPE");

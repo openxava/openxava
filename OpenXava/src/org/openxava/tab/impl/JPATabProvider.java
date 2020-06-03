@@ -109,13 +109,10 @@ public class JPATabProvider extends TabProviderBase {
 			if (f < 0) break;
 			String modelElement = r.substring(i + 2, f);
 			String jpaElement = "e." + modelElement; // The more common case
-			// tmp ini
 			if (isPropertyFromCollection(modelElement)) {
 				jpaElement = "__COL__[" + modelElement + "]";
 			}
-			else 
-			// tmp fin
-			if (getMetaModel().isCalculated(modelElement)) {
+			else if (getMetaModel().isCalculated(modelElement)) {
 				jpaElement = "0";
 			}
 			else if (modelElement.contains(".")) {				
@@ -144,7 +141,8 @@ public class JPATabProvider extends TabProviderBase {
 		return r.toString();
 	}
 	
-	protected String toSearchByCollectionMemberSelect(String select) { // tmp
+	/** @since 6.4 */
+	protected String toSearchByCollectionMemberSelect(String select) { 
 		if (!select.contains("__COL__[")) return select;
 		String originalSelect = select;
 		String firstKey = getMetaModel().getAllKeyPropertiesNames().iterator().next().toString();
@@ -178,14 +176,14 @@ public class JPATabProvider extends TabProviderBase {
 		return select;
 	}
 	
-	private String insertGroupBy(String select, String groupByColumns) { // tmp
+	private String insertGroupBy(String select, String groupByColumns) { 
 		if (select.contains(" order by ")) {
 			return select.replace(" order by ", " group by " + groupByColumns + " order by ");
 		}
 		return select + " group by " + groupByColumns;
 	}
 
-	private String extractColumnsFromSelect(String select) { // tmp
+	private String extractColumnsFromSelect(String select) { 
 		int f = select.indexOf("from");
 		String columns = select.substring(7, f);
 		return Arrays.stream(columns.split(","))
@@ -206,7 +204,7 @@ public class JPATabProvider extends TabProviderBase {
 		return result;
 	}
 	
-	private boolean isPropertyFromCollection(String modelElement) { // tmp
+	private boolean isPropertyFromCollection(String modelElement) { 
 		if (!modelElement.contains(".")) return false;				
 		String collection = modelElement.substring(0, modelElement.indexOf('.'));
 		return getMetaModel().containsMetaCollection(collection);

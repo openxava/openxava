@@ -397,8 +397,6 @@ abstract public class MetaModel extends MetaElement {
 			if (idx >= 0) {				
 				String referenceName = name.substring(0, idx);								
 				String propertyName = name.substring(idx + 1);				
-				// tmp return getMetaReference(referenceName).getMetaModelReferenced().getMetaProperty(propertyName);
-				// tmp ini
 				try {
 					return getMetaReference(referenceName).getMetaModelReferenced().getMetaProperty(propertyName);
 				}
@@ -406,7 +404,6 @@ abstract public class MetaModel extends MetaElement {
 					String collectionName = referenceName;
 					return getMetaCollection(collectionName).getMetaReference().getMetaModelReferenced().getMetaProperty(propertyName);
 				}
-				// tmp fin
 			}
 			throw new ElementNotFoundException("property_not_found", name, getName());
 		}
