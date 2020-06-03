@@ -601,43 +601,87 @@ private int number;
       with the year and the just generated number for that invoice/order.<br>
       <h3 id="toc8"><a name="Lesson 5: Basic business logic-JPA callback methods-Synchronizing persistent and calculated properties"></a>Synchronizing
         persistent and calculated properties</h3>
-      TMP ME QUEDÉ POR AQUÍ: CODIFICANDO EL EJEMPLO</div>
-    <div class="wiki" style="display: block;"> The approach towards calculating
-      the vat, base amount and total amount of a commercial document is natural
-      and practical. We used calculated properties that calculate, using pure
-      Java, the values each time they are called.<br>
-      But, calculated properties have some drawbacks. For example, if you want
-      to do batch processing or a report for all invoices with a total amount
-      between some range, it cannot be done using calculated properties. If you
-      have a huge database the process will be very slow, because you will have
-      to instantiate all invoices for calculating its total amount. For these
-      cases having a persistent property, a column in the database, for the
-      invoice or order amount, can yield far better performance.<br>
-      In our case we'll maintain the current calculated properties, but we are
-      going to add a new one, called <em>amount</em>, that will contain the
-      same value as <em>totalAmount</em>, but this <em>amount</em> will be
-      persistent with a corresponding column in the database. The tricky issue
-      here is to have the <em>amount</em> property synchronized. We will use
-      the JPA callback method in <em>CommercialDocument</em> (and one more
-      trick) in order to achieve this.<br>
-      The first step is to add the <em>amount</em> property to <em>CommercialDocument</em>.
-      See the next code:<br>
-      <pre><code class="java">@Stereotype("MONEY")
-private BigDecimal amount;
- 
-public BigDecimal getAmount() {
-    return amount;
+      As we already have learned, calculated properties do not allow to filter
+      or ordering in list, so we prefer transient property with <i>@Calculation</i>.
+      However, <i>@Calculation</i> properties are only valid for simple
+      arithmetic calculations, when you need loops, condition, read from
+      database, connect to external services, or some complex logic,
+      @Calculation is not enough. For these cases you need to write the logic
+      with Java, in the getter. But, how we can do it and at the same time keep
+      the ordering and filtering in list? Simple, you can use two properties,
+      one calculated and one persistent, and synchronize both using JPA callback
+      methods. You're going to learn how to do it in this section.</div>
+    <div class="wiki" style="display: block;">Let's add a new property to <i>Order</i>
+      entity called <i>estimatedDeliveryDays</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@Depends("date")
+public int getEstimatedDeliveryDays() {
+    if (getDate().getDayOfYear() &lt; 15) {
+        return 20 - getDate().getDayOfYear(); 
+    }
+    if (getDate().getDayOfWeek() == DayOfWeek.SUNDAY) return 2;
+    if (getDate().getDayOfWeek() == DayOfWeek.SATURDAY) return 3;
+    return 1;
 }
- 
-public void setAmount(BigDecimal amount) {
-    this.amount = amount;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> This is a pure calculated
+      property, a getter with Java logic. It calculates the estimated delivery
+      days using <i>date</i> as source. This case cannot be solved with <i>@Calculation</i>
+      that only supports basic arithmetic calculations. </div>
+    <div class="wiki" style="display: block;">We also have to add <i>estimatedDeliveryDays</i>
+      to the default <i>@View</i> declaration in <i>Order</i> code:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@View(extendsView="super.DEFAULT", 
+    members=
+        "estimatedDeliveryDays;" + // ADD THIS LINE
+        "invoice { invoice }"
+)
+...
+public class Order extends CommercialDocument {
+</code></pre> </div>
+    <div class="wiki" style="display: block;">The result is this: TMP DEBERÍA
+      CAMBIAR EL CÓDIGO DE @View EN CommercialDocument (con la coma) Y
+      ACTUALIZAR CÓDIGO EN SF</div>
+    <img src="files/business-logic_en050.png" alt="business-logic_en050.png" title="business-logic_en050.png">
+    <div class="wiki" style="display: block;">The value is recalculated each
+      time the date changes in the user interface thanks to the <i>@Depends("date")</i>
+      in <i>estimatedDeliveryDays.</i> This is all very nice, but when you go
+      to list mode you cannot order or filter by estimated delivery days. To
+      solve this problem we add a second property, this time a persistent one.
+      Add the next code to your <i>Order</i> entity:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@Column(columnDefinition="integer default 1")
+private int deliveryDays;
+    
+public int getDeliveryDays() {
+    return deliveryDays;
 }
-</code></pre> When the user adds, modifies or removes a detail in the user
-      interface, the vat, base amount and total amount values are recalculated
-      with fresh data instantly, however, in order to persist the changes in <em>details</em>
-      the user must <em>Save</em> the <em>CommercialDocument</em>. To
-      synchronize <em>amount</em> with <em>totalAmount</em> the first time we
-      register a commercial document, we already know that we must use <em>@PrePersist</em>,
+
+public void setDeliveryDays(int deliveryDays) {
+	this.deliveryDays = deliveryDays;
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Note as we have used <i>@Column(columnDefinition="integer
+        default 1")</i>, with this trick when OpenXava creates the column uses
+      "integer as default 1" as column definition, thus the new column has 1 as
+      default value instead of null, and we avoid an ugly error with our int
+      property. Yes, <i>@Column(columnDefinition=)</i> is an alternative to do
+      an UPDATE over the table (as we did in Manual schema evolution section) in
+      many cases, although has the problem that is database dependent. Anyways,
+      this <i>columnDefinition</i> dissertation is tangential to our
+      calculated/persistent synchronization issue, <i>@Column</i> is not
+      required at all, it's just convenient for this int property.</div>
+    <div class="wiki" style="display: block;">This new <i>deliveryDays</i>
+      property will contain the same value as <em>estimatedDeliveryDays</em>,
+      but <i><em>deliveryDays</em></i> will be persistent with a corresponding
+      column in the database. The tricky issue here is to have the <em>deliveryDays</em>
+      property synchronized. We will use the JPA callback methods in <em>Order</em>
+      to achieve this.<br>
+      When the user modifies <i>date</i> in the user interface, the <em>estimatedDeliveryDays</em>
+      value is recalculated with fresh data instantly, however, in order to
+      persist the change in <em>date</em> the user must <em>Save</em> the <em>Order</em>.
+      To synchronize <em>deliveryDays</em> with <em>estimatedDeliveryDays</em>
+      the first time we register an order, we already know that we must use <em>@PrePersist</em>,
       but it turns out that <em>JPA</em> does not allow to mark more than one
       method with the same annotation, therefore, we will reorder our code.
       Let's see:<br>
@@ -655,57 +699,34 @@ private void calculateNumber() throws Exception {
 @PrePersist // Executed just before saving the object for the first time
 private void onPrePersist() throws Exception {
     calculateNumber();
-    recalculateAmount();
+    recalculateDeliveryDays();
 }
  
-private void recalculateAmount() {
-    setAmount(getTotalAmount());
+private void recalculateDeliveryDays() {
+    setDeliveryDays(getEstimatedDeliveryDays());
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Basically, we call the <em>recalculateAmount()</em>
-      method every time a <em>CommercialDocument</em> entity is registered in
-      the database for the first time. But <em>recalculateAmount()</em> must
-      also be executed in the <em>details</em> updates. For that we mark <em>recalculateAmount</em>
-      of <i>CommercialDocument</i> with <em>@PreUpdate</em>, in this way:<br>
+    <div class="wiki" style="display: block;">Basically, we call the <i>recalculateDeliveryDays()</i>
+      method every time an <em>Order</em> entity is registered in the database
+      for the first time. But <i>recalculateDeliveryDays() </i>must also be
+      executed in the order<em></em> updates. For that we mark <i>recalculateDeliveryDays()</i>
+      of <i>Order</i> with <em>@PreUpdate</em>, in this way:<br>
       <pre><code class="java">@PreUpdate // '@PreUdate' added
-private void recalculateAmount() {
-    setAmount(getTotalAmount());
+private void recalculateDeliveryDays() {
+    setDeliveryDays(getEstimatedDeliveryDays());
 }
-</code></pre>You can try the <em>Invoice</em> or <em>Order</em> module with
-      this code, and you will see how when a detail line is added, removed or
-      modified, the column in the database for <em>amount</em> is correctly
-      updated after saving, ready to be used in massive processing.<br>
+</code></pre>You can try the <em>Order</em> module with this code, and you will
+      see how when a order is created or modified, the column in the database
+      for <em>deliveryDays</em> is correctly updated after saving, ready to be
+      used in massive processing and available for ordering and filter in list.<br>
       <h2 id="toc9"><a name="Lesson 5: Basic business logic-Database logic (@Formula)"></a>Database
         logic (<em>@Formula</em>)</h2>
-      Ideally you write all your business logic in Java, inside your entities.
-      Nevertheless, sometimes that is not the most convenient way. Imagine that
-      you have a calculated property in <em>CommercialDocument</em>, let's say
-      <em>estimatedProfit</em>:<br>
-      <pre><code class="java">@Stereotype("MONEY")
-public BigDecimal getEstimatedProfit() {
-    return getAmount().multiply(new BigDecimal("0.10"));
-}
-</code></pre> If you need to process all those invoices with an <em>estimatedProfit</em>
-      greater than 1000, you have to code something like the next code:<br>
-      <pre><code class="java">Query query = getManager().createQuery("from Invoice"); // No condition in query
-for (Object o: query.getResultList()) { // Iterates over all objects
-    Invoice i = (Invoice) o;
-    if (i.getEstimatedProfit() // Queries every object
-        .compareTo(new BigDecimal("1000")) &gt; 0) {
-            i.doSomething();
-    }
-}
-</code></pre> You cannot use a condition in the query to discriminate by <em>estimatedProfit</em>,
-      because <em>estimatedProfit</em> is not in the database, it's only in the
-      Java object, so you have to instantiate every object in order to ask by
-      the estimated profit. In some cases this way is a good option, but if you
-      have a really huge amount of invoices, and only a few of them have the <em>estimatedProfit</em>
-      greater than 1000, then your process will be very inefficient. What
-      alternative do we have?<br>
-      Our alternative is to use the <em>@Formula</em> annotation. <em>@Formula</em>
-      is a Hibernate extension to the JPA standard, that allows you to map a
-      property to a SQL statement. You can define <em>estimatedProfit</em> with
-      <em>@Formula</em> as shown the next code:<br>
+      Another alternative to <i>@Calculation</i> or having
+      calculated/persistent properties synchronized is the <em>@Formula</em>
+      annotation. <em>@Formula</em> is a Hibernate extension to the JPA
+      standard, that allows you to map a property to a SQL statement. For
+      example, you can define <em>estimatedProfit</em> with <em>@Formula</em>
+      in <i>CommercialDocument</i> as shown the next code:<br>
       <pre><code class="java">@org.hibernate.annotations.Formula("AMOUNT * 0.10") // The calculation using SQL
 @Stereotype("MONEY")
 private BigDecimal estimatedProfit; // A field, as in the persistent property case
