@@ -12,7 +12,7 @@ public class InvoicePropertiesFromCollectionInListTest extends CustomizeListTest
 		super(testName, "InvoicePropertiesFromCollectionInList");		
 	}
 	
-	public void testPropertiesFromCollectionInList() throws Exception { // tmp 
+	public void testPropertiesFromCollectionInList() throws Exception { 
 		assertListRowCount(9);
 		assertLabelInList(9, "Unit price of product of details");
 		assertLabelInList(10, "Deliveries");
