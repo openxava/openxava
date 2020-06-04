@@ -646,7 +646,7 @@ for (Object o: query.getResultList()) { // Iteramos solo por los objetos selecci
         "select max(f.numero) from " +
         modelo + // Cambiamos DocumentoComercial por una variable
         " f where f.anyo = :anyo");
-    query.setParameter("anyo", Dates.getYear(new Date()));
+    query.setParameter("anyo", LocalDate.now().getYear());
     Integer ultimoNumero = (Integer) query.getSingleResult();
     if (ultimoNumero == null) ultimoNumero = 0;
     numero = Integer.toString(ultimoNumero + 1);
@@ -689,7 +689,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
     // assertValue("numero", getNumero()); // Ahora el número no tiene valor inicial...
     assertValue("numero", ""); // ... al crear un documento nuevo
     assertValue("fecha", getFechaActual());
-    assertValue("porcentajeIVA", "18"); // Valor de archivo de propiedades
+    assertValue("porcentajeIVA", "21"); // Valor de archivo de propiedades
 }
 </code></pre> Comprobamos el cálculo del valor por defecto de <em>procentajeIVA</em>
       y verificamos que <em>numero</em> no tiene valor inicial, porque ahora <em>numero</em>
@@ -719,11 +719,10 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
     assertValueInCollection("detalles", 0,
         "importe", "62,00"); // Propiedada calculada, sección 'Propiedad calculada simple'
  
-    // Verificando propiedades calculadas del documento
-    assertTotalInCollection("detalles", 0, "importe", "62,00"); // Propiedades calculadas
-    assertTotalInCollection("detalles", 1, "importe", "11,16");  // dependientes de una coleccion,
-    assertTotalInCollection("detalles", 2,
-        "importe", "73,16"); // sección 'Propiedades calculadas dependientes de una colección'
+    // Verificando propiedades de total de la colección
+    assertTotalInCollection("detalles", 0, "importe", "62,00"); 
+    assertTotalInCollection("detalles", 1, "importe", "11,16");
+    assertTotalInCollection("detalles", 2, "importe", "73,16"); 
  
     // Añadir otro detalle
     setValueInCollection("detalles", 1, "producto.numero", "2");

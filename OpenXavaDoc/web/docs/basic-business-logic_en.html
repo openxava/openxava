@@ -487,7 +487,8 @@ private BigDecimal vatPercentage;
       and with the right mouse button choose <i>Run As &gt; Java Application</i>:<br>
       <img src="files/inheritance_en040.png" alt="inheritance_en040.png" title="inheritance_en040.png"><br>
       Now you are ready to write and execute SQLs.First, we set value for <i>pricePerUnit</i>
-      column in all details:</div>
+      column in all details: TMP NOMENCLATURA ¿TODO EN MAYUSCULA PARA DEJAR
+      CLARO QUE NO SON NOMBRES DE CLASE O PROPIEDAD?</div>
     <div class="wiki" style="display: block;">
       <pre><code class="sql">UPDATE invoicing.commercialdocument_details 
 SET pricePerUnit = (
@@ -727,7 +728,7 @@ private void recalculateDeliveryDays() {
       standard, that allows you to map a property to a SQL statement. For
       example, you can define <em>estimatedProfit</em> with <em>@Formula</em>
       in <i>CommercialDocument</i> as shown the next code:<br>
-      <pre><code class="java">@org.hibernate.annotations.Formula("AMOUNT * 0.10") // The calculation using SQL
+      <pre><code class="java">@org.hibernate.annotations.Formula("TOTALAMOUNT * 0.10") // The calculation using SQL
 @Stereotype("MONEY")
 private BigDecimal estimatedProfit; // A field, as in the persistent property case
  
@@ -736,29 +737,11 @@ public BigDecimal getEstimatedProfit() { // Only the getter is needed
 }
 </code></pre> This means that when a <em>CommercialDocument</em> is read from
       the database, the <em>estimatedProfit</em> field will be filled with the
-      calculation for <em>@Formula</em> that is done by the database. The most
-      useful thing of <em>@Formula</em> properties is that you can use it in
-      different conditions, so that you can rewrite the above process as shown
-      the next code:<br>
-      <pre><code class="java">Query query = getManager().createQuery("from Invoice i where i.estimatedProfit &gt; :estimatedProfit"); // Condition allowed
-query.setParameter("estimatedProfit", new BigDecimal(1000));
-for (Object o: query.getResultList()) { // Iterates only over selected objects
-    Invoice i = (Invoice) o;
-    i.doSomething();
-}
-</code></pre> In this way we put the weight of calculating the estimated profit
-      and selecting the record on the database server, and not on the Java
-      server.<br>
-      This fact also has effect in the list mode, because the user cannot filter
-      or order by calculated properties, but he can do so using <em>@Formula</em>
-      properties:<br>
-      <img src="files/business-logic_en040.png" alt="business-logic_en040.png" title="business-logic_en040.png"><br>
-      <em>@Formula</em> is a good option for improving performance in some
-      cases. Anyways, generally it's better to use calculated properties and
-      writing your logic in Java. The advantage of calculated properties over <em>@Formula</em>
-      is that your code is not database dependent. Moreover with calculated
-      properties you can re-execute the calculation without reading the object
-      from the database, so that you can use <em>@Depends</em>.</div>
+      calculation for <em>@Formula</em> that is done by the database. The user
+      can filter and ordering by <i>@Formula</i> properties in list mode, but
+      they are always read only and are not recalculated in real time in detail
+      mode. Moreover, <i>@Formula</i> properties are database dependent,
+      because you can use syntax only supported by certain database vendor.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc10"><a name="Lesson 5: Basic business logic-JUnit tests"></a>JUnit
         tests</h2>
@@ -802,7 +785,7 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
     Query query = getManager().createQuery("select max(i.number) from " +
         model + // We change CommercialDocument for a variable
         " i where i.year = :year");
-    query.setParameter("year", Dates.getYear(new Date()));
+    query.setParameter("year", LocalDate.now().getYear());
     Integer lastNumber = (Integer) query.getSingleResult();
     if (lastNumber == null) lastNumber = 0;
     number = Integer.toString(lastNumber + 1);
@@ -830,23 +813,21 @@ public CommercialDocumentTest(String testName, String moduleName) {
       the module name.<br>
       Let's see the actual testing of the new functionality.<br>
       <h3 id="toc12"><a name="Lesson 5: Basic business logic-JUnit tests-Testing default values and calculated properties"></a>Testing
-        default values and calculated properties</h3>
+        default values, calculated and @Calculation properties (TMP CAMBIAR EL
+        MENU)</h3>
       In this lesson we have done some modifications related to default values.
-      Firstly, the default value for number is not calculated by means of <em>@DefaultValueCalculator</em>
-      instead we use a JPA callback method. Secondly, we have a new property, <em>vatPercentage</em>,
-      whose initial value is calculated by reading from a property file. To test
-      these cases we have to modify the <em>verifyDefaultValues()</em> method
-      as you see:<br>
+      Now the default value for number is not calculated by means of <em>@DefaultValueCalculator</em>
+      instead we use a JPA callback method. To test this case we have to modify
+      the <em>verifyDefaultValues()</em> method as you see:<br>
       <pre><code class="java">private void verifyDefaultValues() throws Exception {
     execute("CRUD.new");
     assertValue("year", getCurrentYear());
     // assertValue("number", getNumber()); // Now number has no initial value
     assertValue("number", ""); // on create a new document
     assertValue("date", getCurrentDate());
-    assertValue("vatPercentage", "18");// Default value from properties file
 }
-</code></pre> We test the <em>vatPercentage</em> default value calculation and
-      we verify that the has no initial value, because now the number is not
+</code></pre> We test the <em>number</em> default value calculation and we
+      verify that the has no initial value, because now the number is not
       calculated until the document is saved (section <a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Multiuser%20safe%20default%20value%20calculation">Multiuser
         safe default value calculation</a>). When the document (invoice or
       order) will be saved we'll verify that the <em>number</em> is calculated.
@@ -855,43 +836,43 @@ public CommercialDocumentTest(String testName, String moduleName) {
         calculated property</a>), the default value calculation for <em>pricePerUnit</em>
       (section <a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Using%20@DefaultValueCalculator">Using
         @DefaultValueCalculator</a>) and the amount properties of the document
-      (section <a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Calculated%20properties%20depending%20on%20a%20collection">Calculated
-        properties depending on a collection</a>). We'll test all this with a
-      few modifications in the already existing <em>addDetails()</em> method:<br>
+      (section <a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Total%20properties%20of%20a%20collection">Total
+        properties of a collection</a>). Among the total properties we test <i>vatPercentage</i>
+      whose default value is calculated reading from a properties file. We'll
+      test all this with a few modifications in the already existing <em>addDetails()</em>
+      method:<br>
       <pre><code class="java">private void addDetails() throws Exception {
-    assertCollectionRowCount("details", 0);
- 
-    // Adding a detail line
+    assertCollectionRowCount("details", 0);<br><br>    // Before running this test code make sure<br>    //   product 1 has 19 as price, and <br>    //   product 2 has 20 as price<br><br>   &nbsp;// Adding a detail line
     setValueInCollection("details", 0, "product.number", "1");
     assertValueInCollection("details", 0,
         "product.description", "Peopleware: Productive Projects and Teams");
     assertValueInCollection("details", 0,
-        "pricePerUnit", "31.00"); // @DefaultValueCalculator, section 'Using @DefaultValueCalculator'
+        "pricePerUnit", "19.00"); // @DefaultValueCalculator
     setValueInCollection("details", 0, "quantity", "2");
     assertValueInCollection("details", 0,
-        "amount", "62.00"); // Calculated property, section 'Simple calculated property'
+        "amount", "38.00"); // Calculated property, section 'Simple calculated property'
  
-    // Verifying calculated properties of document
-    assertTotalInCollection("details", 0, "amount", "62.00"); // Calculated properties
-    assertTotalInCollection("details", 1, "amount", "11.16");  // depending on a collection,
-    assertTotalInCollection("details", 2,
-        "amount", "73.16"); // section 'Calculated properties depending on a collection'
+    // Verifying total properties of collection
+    assertTotalInCollection("details", 0, "amount", "38.00"); // Sum of amounts using +
+    assertTotalInCollection("details", 1, "amount", "21"); // Default value from properties file
+    assertTotalInCollection("details", 1, "amount", "7.98"); // VAT, with @Calculation
+    assertTotalInCollection("details", 2, "amount", "45.98"); // Total amount, with @Calculation
  
     // Adding another detail
     setValueInCollection("details", 1, "product.number", "2");
     assertValueInCollection("details", 1, "product.description", "Arco iris de lágrimas");
-    assertValueInCollection("details", 1,
-        "pricePerUnit", "15.00"); // @DefaultValueCalculator, section 'Using @DefaultValueCalculator'
+    assertValueInCollection("details", 1, "pricePerUnit", "20.00"); 
     setValueInCollection("details", 1, "pricePerUnit", "10.00"); // Modifying the default value
     setValueInCollection("details", 1, "quantity", "1");
     assertValueInCollection("details", 1, "amount", "10.00");
  
     assertCollectionRowCount("details", 2); // Now we have 2 rows
  
-    //Verifying calculated properties of document
-    assertTotalInCollection("details", 0, "amount", "72.00");
-    assertTotalInCollection("details", 1, "amount", "12.96");
-    assertTotalInCollection("details", 2, "amount", "84.96");
+    // Verifying total properties of collection
+    assertTotalInCollection("details", 0, "amount", "48.00");
+    assertTotalInCollection("details", 1, "amount", "21");
+    assertTotalInCollection("details", 2, "amount", "10.08");
+    assertTotalInCollection("details", 3, "amount", "58.08");
 }
 </code></pre> As you see, with these simple modifications we test most of our
       new code. What remains is only the <em>amount</em> and <em>estimatedProfit</em>
@@ -918,8 +899,7 @@ public CommercialDocumentTest(String testName, String moduleName) {
     execute("List.filter"); // Does the filter
     assertValueInList(0, 0, getCurrentYear()); // Verifies that
     assertValueInList(0, 1, getNumber()); // the filter has worked
-    assertValueInList(0, "amount", "84.96"); // Asserts amount
-    assertValueInList(0, "estimatedProfit", "8.50"); // Asserts estimatedProfit
+    assertValueInList(0, "estimatedProfit", "5.81"); // Asserts estimatedProfit
     execute("List.viewDetail", "row=0"); // Goes to detail mode
 }
 </code></pre> Because we now go to list mode and then we go back to detail. We

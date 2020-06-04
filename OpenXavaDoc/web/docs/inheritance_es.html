@@ -601,7 +601,7 @@ abstract public class PruebaDocumentoComercial // A√±ade abstract a la definici√
                     "select max(f.numero) "
                     + "from DocumentoComercial f " // Factura cambiada por DocumentoComercial
                     + "where f.anyo = :anyo");
-            query.setParameter("anyo", Dates.getYear(new Date()));
+            query.setParameter("anyo", LocalDate.now().getYear());
             Integer ultimoNumero = (Integer) query.getSingleResult();
             if (ultimoNumero == null) ultimoNumero = 0;
             numero = Integer.toString(ultimoNumero + 1);
