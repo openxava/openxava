@@ -107,11 +107,24 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 	 * @since 4.3
 	 */
 	public String removeTotalPropertyPrefix(String totalProperty) {
-		String mappedBy = getMetaReference().getRole();
-		if (!totalProperty.startsWith(mappedBy + ".")) {
-			throw new XavaException("total_property_must_be_prefixed", getName(), totalProperty, mappedBy, totalProperty); 
-		}
-		return totalProperty.substring(mappedBy.length() + 1);
+	    if (isElementCollection()) {
+            Class pojoClass = getMetaModel().getPOJOClass();
+            while (!pojoClass.equals(Object.class)) {
+                String parent = Strings.firstLower(pojoClass.getSimpleName());
+                if (totalProperty.startsWith(parent + ".")) {
+                    return totalProperty.substring(parent.length() + 1);
+                }
+                pojoClass = pojoClass.getSuperclass();
+            }
+            throw new XavaException("total_property_must_be_prefixed", getName(), totalProperty, Strings.firstLower(getMetaModel().getName()), totalProperty);
+        }
+        else {
+            String mappedBy = getMetaReference().getRole();
+            if (!totalProperty.startsWith(mappedBy + ".")) {
+                throw new XavaException("total_property_must_be_prefixed", getName(), totalProperty, mappedBy, totalProperty); 
+            }
+            return totalProperty.substring(mappedBy.length() + 1);            
+        }
 	}
 
 	public String getOrder() {
