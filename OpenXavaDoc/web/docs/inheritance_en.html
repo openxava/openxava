@@ -250,8 +250,8 @@ public class Invoice extends CommercialDocument {
       and orders will be stored in the same table (the CommercialDocument table)
       using a discriminator column. Therefore you need to remove the old tables
       executing the next SQL statements:<br>
-      <pre><code class="sql">DROP TABLE invoicing.invoice_details;
-DROP TABLE invoicing.invoice;
+      <pre><code class="sql">DROP TABLE INVOICING.INVOICE_DETAILS;
+DROP TABLE INVOICING.INVOICE;
 </code></pre> To execute these SQL statements, first make sure your application
       is running, then go to the <i>DBManager</i> class in <i>Invoicing/src/_run</i>,
       and with the right mouse button choose <i>Run As &gt; Java Application</i>:<br>

@@ -39,10 +39,12 @@
             tests</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JUnit%20tests-Modifying%20existing%20tests">Modifying
             existing tests</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JUnit%20tests-Testing%20default%20values%20and%20calculated%20properties">Testing
-            default values and calculated properties</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JUnit%20tests-Testing%20calculated%20and%20persistent%20synchronized%20properties%20/%20@Formula">Testing
-            calculated and persistent synchronized properties / @Formula</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JUnit%20tests-Testing%20default%20values,%20calculated%20and%20@Calculation%20properties">Testing
+            default values, calculated and @Calculation properties</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JUnit%20tests-Testing%20@Formula">Testing
+            @Formula</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JUnit%20tests-Testing%20calculated%20and%20persistent%20synchronized%20properties">Testing
+            calculated and persistent synchronized properties</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Summary">Summary</a></div>
       </div>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
@@ -60,11 +62,15 @@
         Annotations</a><br>
       <h1 id="toc0"><a name="Lesson 5: Basic business logic"></a>Lesson 5: Basic
         business logic</h1>
-      You have made your domain model to run a web application. This application
-      is already a useful one, but still there are a lot of refinements that can
-      be made to it. Let's do what's necessary to convert your application into
-      a better application and, in this way you shall learn some new interesting
-      things about OpenXava.<br>
+    </div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ PARA REVISAR TODOS
+      LOS TMP Y DESPUÉS ¿REVISARLO TODO? ¿HACERLO DE CERO? PERO YA ESTABA
+      ACABADO</div>
+    <div class="wiki" style="display: block;">You have made your domain model to
+      run a web application. This application is already a useful one, but still
+      there are a lot of refinements that can be made to it. Let's do what's
+      necessary to convert your application into a better application and, in
+      this way you shall learn some new interesting things about OpenXava.<br>
       We'll start adding business logic to your entities in order to convert
       your application into something more than a simple database manager.<br>
       <h2 id="toc1"><a name="Lesson 5: Basic business logic-Calculated properties"></a>Calculated
@@ -487,38 +493,37 @@ private BigDecimal vatPercentage;
       and with the right mouse button choose <i>Run As &gt; Java Application</i>:<br>
       <img src="files/inheritance_en040.png" alt="inheritance_en040.png" title="inheritance_en040.png"><br>
       Now you are ready to write and execute SQLs.First, we set value for <i>pricePerUnit</i>
-      column in all details: TMP NOMENCLATURA ¿TODO EN MAYUSCULA PARA DEJAR
-      CLARO QUE NO SON NOMBRES DE CLASE O PROPIEDAD?</div>
+      column in all details: </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">UPDATE invoicing.commercialdocument_details 
-SET pricePerUnit = (
-    SELECT price FROM invoicing.product 
-    WHERE number = product_number
+      <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT_DETAILS 
+SET PRICEPERUNIT = (
+    SELECT PRICE FROM INVOICING.PRODUCT 
+    WHERE NUMBER = PRODUCT_NUMBER
 )
 </code></pre> </div>
     <div class="wiki" style="display: block;">Then we update the <i>vatPercentage</i>
       for all invoices:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">UPDATE invoicing.commercialdocument
-SET vatPercentage = 21
+      <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT
+SET VATPERCENTAGE = 21
 </code></pre> </div>
     <div class="wiki" style="display: block;">Next, the updating of <i>vat</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">UPDATE invoicing.commercialdocument
-SET vat = (
-    SELECT SUM(pricePerUnit * quantity) * 0.21 
-    FROM invoicing.commercialdocument_details d 
-    WHERE d.commercialdocument_oid = commercialdocument.oid
+      <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT
+SET VAT = (
+    SELECT SUM(PRICEPERUNIT * QUANTITY) * 0.21 
+    FROM INVOICING.COMMERCIALDOCUMENT_DETAILS D 
+    WHERE D.COMMERCIALDOCUMENT_OID = COMMERCIALDOCUMENT.OID
 )
 </code></pre> </div>
     <div class="wiki" style="display: block;">Finally, we update the <i>totalAmount</i>
       of all invoices:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">UPDATE invoicing.commercialdocument
-SET totalAmount = (
-    SELECT SUM(pricePerUnit * quantity) * 1.21 
-    FROM invoicing.commercialdocument_details D 
-    WHERE d.commercialdocument_oid = commercialdocument.oid
+      <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT
+SET TOTALAMOUNT = (
+    SELECT SUM(PRICEPERUNIT * QUANTITY) * 1.21 
+    FROM INVOICING.COMMERCIALDOCUMENT_DETAILS D 
+    WHERE D.COMMERCIALDOCUMENT_OID = COMMERCIALDOCUMENT.OID
 )
 </code></pre> </div>
     <div class="wiki" style="display: block;">Beware, the above sentences work
@@ -771,12 +776,12 @@ public BigDecimal getEstimatedProfit() { // Only the getter is needed
     addDetails();
     setOtherProperties();
     save();
-    verifyAmountAndEstimatedProfit(); // To test callback method and @Formula
+    verifyEstimatedProfit(); // To test @Formula
     verifyCreated();
     remove();
 }
 </code></pre> As you see, we add a new line in the beginning to calculate the
-      next document number, and call the new <em>verifyAmountAndEstimatedProfit()</em>
+      next document number, and call the new <em>verifyEstimatedProfit()</em>
       method.<br>
       Now it's more convenient to calculate the next document number in the
       beginning to use it during the test. To do this, change the old <em>getNumber()</em>
@@ -812,9 +817,8 @@ public CommercialDocumentTest(String testName, String moduleName) {
       name, Invoice or Order, so the easiest way to get the model name is from
       the module name.<br>
       Let's see the actual testing of the new functionality.<br>
-      <h3 id="toc12"><a name="Lesson 5: Basic business logic-JUnit tests-Testing default values and calculated properties"></a>Testing
-        default values, calculated and @Calculation properties (TMP CAMBIAR EL
-        MENU)</h3>
+      <h3 id="toc12"><a name="Lesson 5: Basic business logic-JUnit tests-Testing default values, calculated and @Calculation properties"></a>Testing
+        default values, calculated and @Calculation properties</h3>
       In this lesson we have done some modifications related to default values.
       Now the default value for number is not calculated by means of <em>@DefaultValueCalculator</em>
       instead we use a JPA callback method. To test this case we have to modify
@@ -877,21 +881,17 @@ public CommercialDocumentTest(String testName, String moduleName) {
 </code></pre> As you see, with these simple modifications we test most of our
       new code. What remains is only the <em>amount</em> and <em>estimatedProfit</em>
       properties. We'll test them in the next section.<br>
-      <h3 id="toc13"><a name="Lesson 5: Basic business logic-JUnit tests-Testing calculated and persistent synchronized properties / @Formula"></a>Testing
-        calculated and persistent synchronized properties / <em>@Formula</em></h3>
-      In section <a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Synchronizing%20persistent%20and%20calculated%20properties">Synchronizing
-        persistent and calculated properties</a> we used a JPA callback method
-      in <em>CommercialDocument</em> to have a persistent property, <em>amount</em>,
-      synchronized with a calculated one, <em>totalAmount</em>. The <em>amount</em>
-      property is only shown in list mode.<br>
+      <h3 id="toc13"><a name="Lesson 5: Basic business logic-JUnit tests-Testing @Formula"></a>Testing
+        <em>@Formula<br>
+        </em></h3>
       In section <a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Database%20logic%20%28@Formula%29">Database
         logic (@Formula)</a> we have created a property that uses <em>@Formula</em>,
       <em>estimatedProfit</em>. This property is shown only in list mode.<br>
       Obviously, the simplest way to test it is by going to list mode and
-      verifying that the values for these two properties are the expected ones.
-      You have already seen that in <em>testCreate()</em> we call the <em>verifyAmountAndEstimatedProfit()</em>.
+      verifying that the values for this two property are the expected ones. You
+      have already seen that in <em>testCreate()</em> we call the <em>verifyEstimatedProfit()</em>.
       Let's see its code:<br>
-      <pre><code class="java">private void verifyAmountAndEstimatedProfit() throws Exception {
+      <pre><code class="java">private void verifyEstimatedProfit() throws Exception {
     execute("Mode.list"); // Changes to list mode
     setConditionValues(new String [] { // Filters to see in the list
         getCurrentYear(), getNumber() // only the newly created document
@@ -904,8 +904,8 @@ public CommercialDocumentTest(String testName, String moduleName) {
 }
 </code></pre> Because we now go to list mode and then we go back to detail. We
       have to make a small modification to the <em>verifyCreated()</em> method,
-      that is executed just after <em>verifyAmountAndEstimatedProfit()</em>.
-      Let's see the modification in the next code:<br>
+      that is executed just after <em>verifyEstimatedProfit()</em>. Let's see
+      the modification in the next code:<br>
       <pre><code class="java">private void verifyCreated() throws Exception {
     // setValue("year", getCurrentYear()); // We delete these lines
     // setValue("number", getNumber()); // for searching the document
@@ -914,17 +914,79 @@ public CommercialDocumentTest(String testName, String moduleName) {
     // The rest of the test...
     ...
 </code></pre> We remove these lines because now it's not necessary to search the
-      newly created document. Now in the <em>verifyAmountAndEstimatedProfit()</em>
+      newly created document. Now in the <em>verifyEstimatedProfit()</em>
       method we went to list mode and chose the document, so we are already
-      editing the document.<br>
-      Congratulations! Now you have your tests up to date with your code. It's a
-      good time to run all the tests for your application.<br>
+      editing the document.</div>
+    <div class="wiki" style="display: block;">
+      <h3><a name="Lesson 5: Basic business logic-JUnit tests-Testing calculated and persistent synchronized properties"></a>Testing
+        calculated and persistent synchronized properties<em></em></h3>
+      In section <a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Synchronizing%20persistent%20and%20calculated%20properties">Synchronizing
+        persistent and calculated properties</a> we used a JPA callback method
+      in <em>Order</em> to have a persistent property, <em>deliveryDays</em><em></em>,
+      synchronized with a calculated one, <em>estimatedDeliveryDays</em>. The <em>deliveryDays</em>
+      property is only shown in list mode.<br>
+      The more reasonable way to test these two properties is adding a new test
+      method in OrderTest. However, we're going to add the new logic in an
+      already existing test method. This is because performance matters, and
+      tests are slow, so as the application grows the suite time can become
+      unbearable, at least you do a balance between performance and code
+      structure. Go to OrderTest class and rename testSetInvoice() as
+      testSetInvoice_deliveryDays(). Then add the below code at the end of the
+      method:<br>
+      <pre><code class="java"> // New name, before it was testSetInvoice()
+public void testSetInvoice_deliveryDays() throws Exception {
+    login("admin", "admin");
+    assertListNotEmpty(); 
+    execute("List.viewDetail", "row=0"); 
+	
+    // Set invoice
+    execute("Sections.change", "activeSection=1"); 
+    assertValue("invoice.number", ""); 
+    assertValue("invoice.year", ""); 
+    execute("Reference.search", 
+        "keyProperty=invoice.year"); 
+    execute("List.orderBy", "property=number"); 
+    String year = getValueInList(0, "year"); 
+    String number = getValueInList(0, "number"); 
+    execute("ReferenceSearch.choose", "row=0"); 
+    assertValue("invoice.year", year); 
+    assertValue("invoice.number", number); 
+
+    // ADD THE FOLLOWING LINES
+    // estimatedDeliveryDays/deliveryDays
+    setValue("date", "6/5/20");
+    assertValue("estimatedDeliveryDays", "1");
+    setValue("date", "6/6/20");
+    assertValue("estimatedDeliveryDays", "3");
+    setValue("date", "6/7/20");
+    assertValue("estimatedDeliveryDays", "2");
+    execute("CRUD.save");
+    execute("Mode.list"); // To verify that deliveryDays is synchronized
+    assertValueInList(0, "deliveryDays", "2"); 
+
+    execute("List.viewDetail", "row=0");
+    setValue("date", "1/13/20");
+    assertValue("estimatedDeliveryDays", "7");
+    execute("CRUD.save");
+    execute("Mode.list"); // To verify that deliveryDays is synchronized
+    assertValueInList(0, "deliveryDays", "7");        
+}
+</code></pre> Add to the test the lines after ADD THE FOLLOWING LINES comment.
+      There we try several values for <i>date</i> in order to verify that <i>estimatedDeliveryDays</i>
+      is correctly calculated each time, moreover we go to list mode to verify
+      that <i>deliveryDays</i> has the correct value so both properties are
+      synchronized.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Congratulations! Now you have your
+      tests up to date with your code. It's a good time to run all the tests for
+      your application.<br>
       <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
       In this lesson you have learned some common ways to add business logic to
       your entities. There should be no doubt about the utility of calculated
-      properties, callback methods or <em>@Formula</em>. Nevertheless, there
-      are many other ways to add logic to your OpenXava application, and we are
-      going to learn them.<br>
+      properties, <i>@Calculation</i>, callback methods or <em>@Formula</em>.
+      Nevertheless, there are many other ways to add logic to your OpenXava
+      application, and we are going to learn them.<br>
       In the coming lessons you'll see how to add validation, modify the
       standard module behavior and add your own business logic, among other ways
       to add custom logic to your application.<br>

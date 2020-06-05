@@ -250,8 +250,8 @@ public class Factura extends DocumentoComercial {
       pedidos se almacenarán en la misma tabla (la tabla DocumentoComercial)
       usando una columna discriminador. Por tanto has de borrar las viejas
       tablas ejecutando las siguientes sentencias SQL:<br>
-      <pre><code class="sql">drop table facturacion.factura_detalles;
-drop table facturacion.factura;
+      <pre><code class="sql">DROP TABLE FACTURACION.FACTURA_DETALLES;
+DROP TABLE FACTURACION.FACTURA;
 </code></pre> Para ejecutar estas sentencias SQL, primero asegurate de que tu
       aplicación se esté ejecutando, después ve a la clase <i>DBManager</i> en
       <i>Facturacion/src/_run</i>, y con el botón derecho del ratón escoge <i>Run
