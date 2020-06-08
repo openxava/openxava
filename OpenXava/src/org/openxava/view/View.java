@@ -2380,6 +2380,7 @@ public class View implements java.io.Serializable {
 	 * Clear all data and set the default values.
 	 */
 	public void reset() throws XavaException {
+		System.out.println("[View.reset] "); // tmp
 		createSubviews();
 		clear();		
 		resetCollections(true); 	
@@ -2453,6 +2454,7 @@ public class View implements java.io.Serializable {
 	 * Set the default values in the empty fields.  
 	 */
 	private void calculateDefaultValues(boolean firstLevel) throws XavaException {
+		// TMP ME QUEDÉ POR AQUÍ: HACER TRATAMIENTO ESPECIAL PARA COLECCIONES
 		// Properties
 		if (firstLevel) { 
 			getRoot().registeringExecutedActions = true;
@@ -2467,7 +2469,9 @@ public class View implements java.io.Serializable {
 				while (it.hasNext()) {
 					MetaProperty p = (MetaProperty) it.next();
 					if (p.hasCalculatorDefaultValueOnCreate()) continue;  
+					System.out.println("[View.calculateDefaultValues] Trying " + p.getName()); // tmp
 					if (membersNames.containsKey(p.getName())) {
+						System.out.println("[View.calculateDefaultValues] Processing " + p.getName()); // tmp
 						try {
 							if (!p.getMetaCalculatorDefaultValue().containsMetaSetsWithoutValue()) { // This way to avoid calculate the dependent ones
 								ICalculator calculator = p.createDefaultValueCalculator();
@@ -2483,6 +2487,11 @@ public class View implements java.io.Serializable {
 							getErrors().add("calculate_default_value_error", p.getName());
 						}				 
 					}
+					// tmp ini
+					else {
+						System.out.println("[View.calculateDefaultValues] " + p.getName() + " DISCARTED"); // tmp
+					}
+					// tmp fin
 				}			
 				
 				if (!alreadyPut.isEmpty()) {
@@ -2514,7 +2523,8 @@ public class View implements java.io.Serializable {
 			while (itSubviews.hasNext()) {
 				View subview = (View) itSubviews.next();
 				if (subview.isRepresentsElementCollection()) subview.calculateDefaultValues(false);
-				else if (subview.isRepresentsCollection()) continue;
+				// tmp else if (subview.isRepresentsCollection()) continue;
+				else if (subview.isRepresentsCollection()) subview.calculateDefaultValues(false); // tmp
 				else if (subview.isRepresentsAggregate()) { 
 					subview.calculateDefaultValues(false);
 				}

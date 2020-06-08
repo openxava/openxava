@@ -5,6 +5,7 @@ import java.util.*;
 
 import javax.persistence.*;
 import org.openxava.annotations.*;
+import org.openxava.calculators.*;
 import org.openxava.model.*;
 
 /**
@@ -22,6 +23,11 @@ public class WorkCost extends Identifiable {
 	@Column(length=40) @Required
 	private String description;
 	
+	// tmp ini
+	@DefaultValueCalculator(value=IntegerCalculator.class,
+		properties=@PropertyValue(name="value", value="13") 
+	)
+	// tmp fin
 	private int profitPercentage;
 	
 	@Calculation("sum(invoices.total) * profitPercentage / 100")
