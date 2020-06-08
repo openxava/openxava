@@ -63,9 +63,6 @@
       <h1 id="toc0"><a name="Lesson 5: Basic business logic"></a>Lesson 5: Basic
         business logic</h1>
     </div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ PARA REVISAR TODOS
-      LOS TMP Y DESPUÉS ¿REVISARLO TODO? ¿HACERLO DE CERO? PERO YA ESTABA
-      ACABADO</div>
     <div class="wiki" style="display: block;">You have made your domain model to
       run a web application. This application is already a useful one, but still
       there are a lot of refinements that can be made to it. Let's do what's
@@ -318,8 +315,6 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
       Add the next code (and generate the getters and setters) to <i>CommercialDocument</i>
       entity:<br>
       <pre><code class="java">@Digits(integer=2, fraction=0) // To indicate its size
-@Required
-@DefaultValueCalculator(VatPercentageCalculator.class)
 private BigDecimal vatPercentage;
    
 @ReadOnly
@@ -343,10 +338,10 @@ import javax.validation.constraints.*;
     <div class="wiki" style="display: block;"> Note how we have chosen <i>@Calculation
         + @ReadOnly</i> persistent properties over calculated ones for <i>vat</i>
       and <i>totalAmount</i>, because the calculations are simple and filtering
-      and ordering for them is very useful. Also, you can see how in
-      @Calculation you can use sum(details.amount) to refer to the sum of the
-      column amount of the collection details, in this way we don't need to have
-      a <i>baseAmount</i> property. On the other hand, <em>vatPercentage</em>
+      and ordering for them is very useful. Also, you can see how in <i>@Calculation</i>
+      you can use <i>sum(details.amount)</i> to refer to the sum of the column
+      <i>amount</i> of the collection <i>details</i>, in this way we don't need
+      to have a <i>baseAmount</i> property. On the other hand, <em>vatPercentage</em>
       is a conventional persistent property. In this case we use <em>@Digits</em>
       (an annotation from Bean Validation, the validation standard of Java) as
       an alternative to <em>@Column</em> to specify its size.</div>
@@ -380,8 +375,8 @@ import javax.validation.constraints.*;
       total properties between [ ]. </div>
     <div class="wiki" style="display: block;">Now you can try your application.
       It would behave almost as in figure at the begin of this section. “Almost”
-      because <em>vatPercentage</em> does not have a default value yet. We add
-      it in the next section.<br>
+      because <i>vatPercentage</i> does not have a default value yet. We add it
+      in the next section.<br>
       <h3 id="toc5"><a name="Lesson 5: Basic business logic-Calculated properties-Default value from a properties file"></a>Default
         value from a properties file</h3>
       It's useful for the user to have the default value populated for the <em>vatPercentage</em>.
@@ -462,6 +457,8 @@ public class VatPercentageCalculator implements ICalculator {
 private BigDecimal vatPercentage;
 </code></pre> With this code when the user clicks to create a new invoice, the <em>vatPercentage</em>
       field will be filled with 21 or whatever other value you put in <em>invoicing.properties</em>.</div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: PROBANDO EL
+      CÓDIGO DESDE CERO</div>
     <div class="wiki" style="display: block;">
       <h3><a name="Lesson 5: Basic business logic-Calculated properties-Manual schema evolution"></a>Manual
         schema evolution</h3>
@@ -611,12 +608,12 @@ private int number;
       or ordering in list, so we prefer transient property with <i>@Calculation</i>.
       However, <i>@Calculation</i> properties are only valid for simple
       arithmetic calculations, when you need loops, condition, read from
-      database, connect to external services, or some complex logic,
-      @Calculation is not enough. For these cases you need to write the logic
-      with Java, in the getter. But, how we can do it and at the same time keep
-      the ordering and filtering in list? Simple, you can use two properties,
-      one calculated and one persistent, and synchronize both using JPA callback
-      methods. You're going to learn how to do it in this section.</div>
+      database, connect to external services, or some complex logic, <i>@Calculation</i>
+      is not enough. For these cases you need to write the logic with Java, in
+      the getter. But, how we can do it and at the same time keep the ordering
+      and filtering in list? Simple, you can use two properties, one calculated
+      and one persistent, and synchronize both using JPA callback methods.
+      You're going to learn how to do it in this section.</div>
     <div class="wiki" style="display: block;">Let's add a new property to <i>Order</i>
       entity called <i>estimatedDeliveryDays</i>:</div>
     <div class="wiki" style="display: block;">
@@ -645,9 +642,7 @@ public int getEstimatedDeliveryDays() {
 ...
 public class Order extends CommercialDocument {
 </code></pre> </div>
-    <div class="wiki" style="display: block;">The result is this: TMP DEBERÍA
-      CAMBIAR EL CÓDIGO DE @View EN CommercialDocument (con la coma) Y
-      ACTUALIZAR CÓDIGO EN SF</div>
+    <div class="wiki" style="display: block;">The result is this:</div>
     <img src="files/business-logic_en050.png" alt="business-logic_en050.png" title="business-logic_en050.png">
     <div class="wiki" style="display: block;">The value is recalculated each
       time the date changes in the user interface thanks to the <i>@Depends("date")</i>
@@ -926,13 +921,13 @@ public CommercialDocumentTest(String testName, String moduleName) {
       synchronized with a calculated one, <em>estimatedDeliveryDays</em>. The <em>deliveryDays</em>
       property is only shown in list mode.<br>
       The more reasonable way to test these two properties is adding a new test
-      method in OrderTest. However, we're going to add the new logic in an
-      already existing test method. This is because performance matters, and
+      method in <i>OrderTest</i>. However, we're going to add the new logic in
+      an already existing test method. This is because performance matters, and
       tests are slow, so as the application grows the suite time can become
-      unbearable, at least you do a balance between performance and code
-      structure. Go to OrderTest class and rename testSetInvoice() as
-      testSetInvoice_deliveryDays(). Then add the below code at the end of the
-      method:<br>
+      unbearable, unless you do a balance between performance and code
+      structure. Go to <i>OrderTest</i> class and rename <i>testSetInvoice()</i>
+      as <i>testSetInvoice_deliveryDays()</i>. Then add the below code at the
+      end of the method:<br>
       <pre><code class="java"> // New name, before it was testSetInvoice()
 public void testSetInvoice_deliveryDays() throws Exception {
     login("admin", "admin");
