@@ -14,8 +14,7 @@ public class WorkCostOrderedInvoicesTest extends WorkCostTestBase {
 		super(testName, "WorkCostOrderedInvoices", "invoices");
 	}		
 	
-	public void testCutPasteOrderColumnCollection_printPdfNotInModelCollections() throws Exception { // tmp Falta cambiar nombre
-		// TMP PROBAR CON @ElementCollection AUNQUE NO HAGAMOS TEST
+	public void testCutPasteOrderColumnCollection_printPdfNotInModelCollections_defaultValueCalculatorInTotalPropertiesWithExplicitView() throws Exception { 
 		assertListRowCount(1); 
 		execute("List.viewDetail", "row=0");
 		assertValue("description", "CAR SERVICE");
@@ -45,15 +44,13 @@ public class WorkCostOrderedInvoicesTest extends WorkCostTestBase {
 		execute("CRUD.new");
 		setValue("description", "MOTO SERVICE");
 		assertCollectionRowCount("invoices", 0);
-		// tmp assertTotals("0.00", "", "0.00", "0.00");
-		assertTotals("0.00", "13", "0.00", "0.00"); // tmp
+		assertTotals("0.00", "13", "0.00", "0.00"); 
 		execute("CollectionCopyPaste.paste", "viewObject=xava_view_invoices");
 		assertNoAction("CollectionCopyPaste.paste");
 		assertMessage("1 row pasted into Invoices");
 		assertCollectionRowCount("invoices", 1);
 		assertValueInCollection("invoices", 0, 0, "1");
-		// tmp assertTotals("52.20", "", "0.00", "52.20");
-		assertTotals("52.20", "13", "6.79", "58.99"); // tmp
+		assertTotals("52.20", "13", "6.79", "58.99"); 
 		
 		execute("Collection.removeSelected", "row=0,viewObject=xava_view_invoices");
 		assertCollectionRowCount("invoices", 0);

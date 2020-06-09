@@ -23,11 +23,9 @@ public class WorkCost extends Identifiable {
 	@Column(length=40) @Required
 	private String description;
 	
-	// tmp ini
 	@DefaultValueCalculator(value=IntegerCalculator.class,
 		properties=@PropertyValue(name="value", value="13") 
 	)
-	// tmp fin
 	private int profitPercentage;
 	
 	@Calculation("sum(invoices.total) * profitPercentage / 100")

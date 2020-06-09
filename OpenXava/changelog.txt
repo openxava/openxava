@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- @DefaultValueCalculator does not work for total properties of a collection if @View is specified.
 - Total properties allowed in an @ElementCollection of a base class.
 - Searching by collection content from list mode allowing qualified collection properties in @Tab.
 - Automatic label for reference member in list improved.
