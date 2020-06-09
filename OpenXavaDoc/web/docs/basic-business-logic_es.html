@@ -19,6 +19,8 @@
             calculada simple</a></div>
         <div style="margin-left: 3em;"><a href="#Propiedades-calculadas-Usar-DefaultValueCalculator">Usar
             @DefaultValueCalculator</a></div>
+        <div style="margin-left: 3em;"><a href="#Propiedades-calculadas-Propiedades-persistentes-con-Calculation">Propiedades
+            persistentes con @Calculation</a></div>
         <div style="margin-left: 3em;"><a href="#Propiedades-calculadas-Propiedades-calculadas-dependientes-de-una-coleccion">Propiedades
             calculadas dependientes de una colección</a></div>
         <div style="margin-left: 3em;"><a href="#Propiedades-calculadas-Valor-por-defecto-desde-un-archivo-de-propiedades">Valor
@@ -132,7 +134,7 @@ private Collection&lt;Detalle&gt; detalles;
       facturas cambian también, y esto no es bueno.<br>
       Para evitar estos inconvenientes lo mejor es almacenar el precio de cada
       producto en cada línea de detalle. Añadamos pues una propiedad persistente
-      <em>precioPorUnidad</em> a la clase <em>Detalle</em>, y calculemos su
+      <em>precioPorUnidad</em> a la clase <em>Detalle</em> y calculemos su
       valor desde <em>precio</em> de <em>Producto</em> usando un <em>@DefaultValueCalculator</em>.
       De tal forma que consigamos el efecto que puedes ver en la siguiente
       figura:<br>
@@ -211,7 +213,93 @@ public BigDecimal getImporte() {
 @ListProperties("producto.numero, producto.descripcion, cantidad, precioPorUnidad, importe") // precioPorUnidad añadida
 private Collection&lt;Detalle&gt; detalles;
 </code></pre> Prueba los módulos <em>Pedido</em> y <em>Factura</em> y podrás
-      observar el nuevo comportamiento al añadir líneas de detalle.<br>
+      observar el nuevo comportamiento al añadir líneas de detalle.</div>
+    <div class="wiki" style="display: block;">
+      <h3><a name="Propiedades-calculadas-Propiedades-persistentes-con-Calculation"></a>Propiedades
+        persistentes con <i>@Calculation</i></h3>
+      A veces las propiedades calculadas no son la mejor opción. Imagínate TMP
+      ME QUEDÉ POR AQUÍ Imagine that you have a calculated property in <em>Invoice</em>,
+      let's say <em>discount</em>:<br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">// DON'T ADD TO YOUR CODE, IT'S JUST TO ILLUSTRATE
+public BigDecimal getDiscount() {
+    return getAmount().multiply(new BigDecimal("0.10"));
+}
+</code></pre> If you need to process all those invoices with an <i>discount</i>
+        greater than 1000, you have to code something like the next code:<br>
+        <pre><code class="java">// DON'T ADD TO YOUR CODE, IT'S JUST TO ILLUSTRATE
+Query query = getManager().createQuery("from Invoice"); // No condition in query
+for (Object o: query.getResultList()) { // Iterates over all objects
+    Invoice i = (Invoice) o;
+    if (i.getDiscount() // Queries every object
+        .compareTo(new BigDecimal("1000")) &gt; 0) {
+            i.doSomething();
+    }
+}
+</code></pre> You cannot use a condition in the query to discriminate by <em>discount</em>,
+        because <i>discount</i> is not in the database, it's only in the Java
+        object, so you have to instantiate every object in order to ask by the <i>discount</i>.
+        In some cases this way is a good option, but if you have a really huge
+        amount of invoices, and only a few of them have the <i>discount</i>
+        greater than 1000, then your process will be very inefficient. What
+        alternative do we have?<br>
+        Our alternative is to use the <em>@Calculation</em> annotation. <em>@Calculation</em>
+        is an OpenXava annotation that allows to associate a simple calculation
+        to a persistent property. You can define <em>discount</em> with <em>@Calculation</em>
+        as shown the next code:<br>
+        <pre><code class="java">// DON'T ADD TO YOUR CODE, IT'S JUST TO ILLUSTRATE
+@ReadOnly
+@Calculation("amount * 0.10")
+private BigDecimal discount;
+
+public BigDecimal getDiscount() {
+    return discount;
+}
+
+public void setDiscount(BigDecimal discount) {
+    this.discount = discount;
+} 
+</code></pre> This is a regular persistent property, that is with a
+        corresponding column in the database, but it has a calculation defined
+        with <i>@Calculation</i>. In this case the calculation is <i>amount *
+          0.10</i>, so whenever the user changes <i>amount</i> in the user
+        interface the discount will be recalculated instantly. The recalculated
+        value will be saved in the database when user clicks on Save, just like
+        in any persistent property. We also have annotated <i>discount</i> with
+        <i>@ReadOnly</i>, so it looks and behaves like a calculated property,
+        although you can omit <i>@ReadOnly</i> so the user could modify the
+        calculated value.</div>
+      <div class="wiki" style="display: block;"> The most useful thing of <em>@Calculation</em>
+        properties is that you can use it in conditions, so that you can rewrite
+        the above process as shown the next code:<br>
+        <pre><code class="java">// DON'T ADD TO YOUR CODE, IT'S JUST TO ILLUSTRATE
+Query query = getManager().createQuery("from Invoice i where i.discount &gt; :discount"); // Condition allowed
+query.setParameter("discount", new BigDecimal(1000));
+for (Object o: query.getResultList()) { // Iterates only over selected objects
+    Invoice i = (Invoice) o;
+    i.doSomething();
+}
+</code></pre> In this way we put the weight of selecting the records on the
+        database server, and not on the Java server. Moreover, the discounts are
+        not recalculated each time, they are already calculated and saved.<br>
+        This fact also has effect in the list mode, because the user cannot
+        filter or order by calculated properties, but he can do so using
+        persistent properties with <em>@Calculation</em>:<br>
+        <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
+          title="business-logic_es025.png"><br>
+        <em>@Calculation</em> is a good option when you need filtering and
+        sorting, and a simple calculation is enough. A shortcoming of <i>@Calculation</i>
+        properties is that their values are recalculated only when the user
+        interact with the record and changes the properties used in the
+        calculation, therefore when you add a new <i>@Calculation</i> property
+        to an entity with existing data you have to update the values of the new
+        column in the table using SQL. On the other hand if you need a complex
+        calculation, with loops or consulting other entities, you still need a
+        calculated property with your Java logic in the getter. In this last
+        case if you need to sort and filter in list mode for the calculated
+        property an option is to have both, the calculated and the persistent
+        property, and synchronize their values using JPA callback methods (we'll
+        talk about callback methods below).</div>
       <h3 id="toc4"><a name="Propiedades-calculadas-Propiedades-calculadas-dependientes-de-una-coleccion"></a>Propiedades
         calculadas dependientes de una colección</h3>
       También queremos añadir importes a <em>Pedido</em> y <em>Factura</em>.
