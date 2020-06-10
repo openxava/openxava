@@ -21,6 +21,7 @@ public class ServiceExpenses extends Identifiable {
 	
 	@Calculation("sum(expenses.invoice.amount) * 0.15")
 	@ReadOnly
+	@Stereotype("MONEY") // MONEY to test a case
 	private BigDecimal discount;
 	
 	@ElementCollection
