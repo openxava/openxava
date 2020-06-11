@@ -38,8 +38,8 @@
         <div style="margin-left: 2em;"><a href="#Pruebas-JUnit">Pruebas JUnit</a></div>
         <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Modificar-la-prueba-existente">Modificar
             la prueba existente</a></div>
-        <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Verificar-valores-por-defecto-y-propiedades-calculadas">Verificar
-            valores por defecto y propiedades calculadas</a></div>
+        <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Verificar-valores-por-defecto-propiedades-calculadas-y-Calculation">Verificar
+            valores por defecto, propiedades calculadas y @Calculation</a></div>
         <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Sincronizacion-entre-propiedad-persistente-y-calculada-Formula">Sincronización
             entre propiedad persistente y calculada / @Formula</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
@@ -489,14 +489,14 @@ private BigDecimal porcentajeIVA;
         que todos los productos tienen precio:</div>
       <img src="files/business-logic_es040.png" alt="business-logic_es040.png" title="business-logic_es040.png">
       <div class="wiki" style="display: block;">Si algún producto no tiene
-        precio editalo e introduce un precio.</div>
+        precio edítalo e introduce un precio.</div>
       <div class="wiki" style="display: block;">Los siguientes cambios no son
         tan sencillos, por lo que vamos a ejecutar sentencias SQL contra nuestra
         base de datos. Para ejecutar estas sentencias SQL, primero asegurate de
         que tu aplicación se está ejecutando, entonces ve a la clase <i>DBManager</i>
         en <i>Facturacion/src/_run</i>, y con el botón derecho del artón escoge
         <i>Run As &gt; Java Application</i>:<br>
-        <img src="files/inheritance_en040.png" alt="inheritance_en040.png" title="inheritance_en040.png"><br>
+        <img src="files/inheritance_es040.png" alt="inheritance_es040.png" title="inheritance_es040.png"><br>
         Ahora estás listo para escribir y ejecutar SQLs. Primero, establecemos
         el valor para la columna <i>precioPorUnidad</i> en todos los detalles:
       </div>
@@ -532,13 +532,13 @@ SET IMPORTETOTAL = (
     WHERE D.DOCUMENTOCOMERCIAL_OID = DOCUMENTOCOMERCIAL.OID
 )
 </code></pre> </div>
-      <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ Beware,
-        the above sentences work nicely with HSQLDB, the database included with
-        OpenXava. If you're using another database probably you have to adapt
-        the syntax. After executing the above sentences you can try your
-        application. It would behave as in figure at the begin of the section
-        "Total properties of a collection" even for already existing invoices
-        and orders.</div>
+      <div class="wiki" style="display: block;">Ten cuidado, las setencias de
+        arriba funciona bien con HSQLDB, la base de datos incluida con OpenXava.
+        Si usas otra base de datos probablemente tengas que adaptar la sintaxis.
+        Después de ejecutar estas sentencias puedes probar tu aplicación.
+        Debería funcionar como en la figura al principio de la sección
+        "Propiedades de total de una colección" incluso para facturas y pedidos
+        ya existentes.</div>
       <h2 id="toc6"><a name="Metodos-de-retrollamadas-JPA"></a>Métodos de
         retrollamadas JPA</h2>
       Otra forma práctica de añadir lógica de negocio a tu modelo es mediante
@@ -583,11 +583,11 @@ private void calcularNumero() {
 </code></pre> </div>
     <div class="wiki" style="display: block;">Este código es el mismo que el de
       <em>CalculadorSiguienteNumeroParaAnyo</em> pero usando <em>getClass().getSimpleName()</em>
-      en lugar de <em>DocumentoComercial</em>. El método <em>getSimpleName()</em>
+      en lugar de "DocumentoComercial". El método <em>getSimpleName()</em>
       devuelve el nombre de la clase sin paquete, es decir, precisamente el
-      nombre de la entidad. Será "Pedido" para <em>Pedido</em> y "Factura""
-      para <em>Factura</em>. Así podremos obtener una numeración diferente para
-      <em>Factura</em> y <em>Pedido</em>.<br>
+      nombre de la entidad. Será "Pedido" para <em>Pedido</em> y "Factura" para
+      <em>Factura</em>. Así podremos obtener una numeración diferente para <em>Factura</em>
+      y <em>Pedido</em>.<br>
       La especificación JPA establece que no puedes usar el API JPA dentro de un
       método de retrollamada. Por tanto, el método de arriba no es legal desde
       un punto de vista estricto. Pero, Hibernate (la implementación de JPA que
@@ -595,15 +595,15 @@ private void calcularNumero() {
       dado que usar JPA es la forma más fácil de hacer este cálculo, nosotros lo
       usamos.<br>
       Ahora borra la clase <em>CalculadorSiguienteNumeroParaAnyo</em> de tu
-      proyecto, y modifica la propiedad <em>numero</em> de <em>DocumentoComercial</em>
-      para que no la use. Mira el siguiente código:<br>
+      proyecto y modifica la propiedad <em>numero</em> de <em>DocumentoComercial</em>
+      para que no la use:<br>
       <pre><code class="java">@Column(length = 6)
 //  @DefaultValueCalculator(value=CalculadorSiguienteNumeroParaAnyo.class, // Quita esto
 //      properties=@PropertyValue(name="anyo")
 //  )
 @ReadOnly // El usuario no puede modificar el valor
 private int numero;
-</code></pre> Nota que, además de quitar <em>@DefaultValueCalculator</em>,
+</code></pre> Fíjate que además de quitar <em>@DefaultValueCalculator</em>,
       hemos añadido la anotación <em>@ReadOnly</em>. Esto significa que el
       usuario no puede introducir ni modificar este número. Esta es la forma
       correcta de hacerlo ahora dado que el número es generado al grabar el
@@ -615,143 +615,128 @@ private int numero;
       calculado para esa factura o pedido.<br>
       <h3 id="toc8"><a name="Metodos-de-retrollamadas-JPA-Sincronizar-propiedades-persistentes-y-calculadas"></a>Sincronizar
         propiedades persistentes y calculadas</h3>
-      La forma en que calculamos el IVA, el importe base y el importe total es
-      natural y práctica. Usamos propiedades calculadas que calculan, usando
-      Java puro, los valores cada vez que son llamadas.<br>
-      Pero, las propiedades calculadas tienen algunos inconvenientes. Por
-      ejemplo, si quieres hacer un proceso masivo o un informe de todas las
-      facturas cuyo importe total esté entre ciertos rangos. En estos casos, si
-      tienes una base de datos demasiado grande el proceso puede ser lentísimo,
-      porque has de instanciar todas las facturas para calcular su importe
-      total. Una solución para este problema es tener una propiedad persistente,
-      por tanto una columna en la base de datos para el importe de la factura o
-      pedido; así el rendimiento es bastante mayor.<br>
-      En nuestro caso mantendremos nuestra actuales propiedades calculadas, pero
-      vamos a añadir una nueva, llamada <em>importe</em>, que contendrá el
-      mismo valor que <em>importeTotal</em>, pero <em>importe</em> será
-      persistente con su correspondiente columna en la base de datos. Lo
-      complicado aquí es mantener sincronizado el valor de la propiedad <em>importe</em>.
-      Vamos a usar métodos de retrollamada JPA (y un truco más) en <em>DocumentoComercial</em>
-      para conseguirlo.<br>
-      El primer paso es añadir la propiedad <em>importe</em> a <em>DocumentoComercial</em>.
-      Nada más fácil, puedes verlo en el siguiente código:<br>
-      <pre><code class="java">@Stereotype("DINERO")
-private BigDecimal importe;
- 
-public BigDecimal getImporte() {
-    return importe;
+      Como ya hemos aprendido, las propiedades calculadas no permiten filtrar ni
+      ordenar en la lista, por lo que preferimos propiedades transitorias con <i>@Calculation</i>.
+      Sin embargo, las propiedades <i>@Calculation</i> sólo sirven para
+      cálculos aritméticos simples. Cuando necesitas bucles, condiciones, leer
+      de la base de datos, conectar a servicios externos or cualquier lógica
+      compleja, <i>@Calculation</i> no es suficiente. Para estos casos
+      necesitas escribir la lógica con Java, en el getter. Pero, ¿cómo podemos
+      hacer esto y al mismo tiempo mantener la ordenación y el filtrado en la
+      lista? Fácil, puedes usar dos propiedades, una calculada y otra
+      persistente, y mantenerlas sincronizadas usando los métodos de
+      retrollamada de JPA. Vamos a aprender como hacerlo en esta sección.
+      <div class="wiki" style="display: block;">Añadamos un nueva propiedad a la
+        entidad <i>Pedido</i> llamada <i>diasEntregaEstimados</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@Depends("fecha")
+public int getDiasEntregaEstimados() {
+    if (getFecha().getDayOfYear() &lt; 15) {
+        return 20 - getFecha().getDayOfYear(); 
+    }
+    if (getFecha().getDayOfWeek() == DayOfWeek.SUNDAY) return 2;
+    if (getFecha().getDayOfWeek() == DayOfWeek.SATURDAY) return 3;
+    return 1;
 }
- 
-public void setImporte(BigDecimal importe) {
-    this.importe = importe;
+</code></pre> </div>
+      <div class="wiki" style="display: block;"> Para usar <i>DayOfWeek</i>
+        añade el siguiente import en la parte de arriba de <i>Pedido</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">import java.time.*;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Esto es una propiedad calculada
+        pura, un getter con lógica Java. Calcula los día estimados de entrega
+        usando <i>fecha</i> como fuente. Este caso no puede solucionarse con <i>@Calculation</i>
+        que solo soporta operaciones aritméticas básicas. </div>
+      <div class="wiki" style="display: block;">También hemos de añadir <i>diasEntregaEstimados</i>
+        a la declaración de la <i>@View</i> por defecto en el código de <i>Pedido</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@View(extendsView="super.DEFAULT", 
+    members=
+        "diasEntregaEstimados," + // ADD THIS LINE
+        "factura { factura }"
+)
+...
+public class Pedido extends CommercialDocument {
+</code></pre> </div>
+      <div class="wiki" style="display: block;">El resultado es este:</div>
+      <img src="files/business-logic_es050.png" alt="business-logic_es050.png" title="business-logic_es050.png">
+      <div class="wiki" style="display: block;">El valor se recalcula cada vez
+        que la fecha cambia en la interfaz de usuario gracias a el <i>@Depends("fecha")</i>
+        en <i>diasEntregaEstimados.</i> Todo esto está muy bien, pero cuando
+        vas a modo lista no puedes ordenar ni filtrar por los días de entrega
+        estimados. Para resolver este problema añadimos una segunda propiedad,
+        en esta ocasión una persistente. </div>
+      <div class="wiki" style="display: block;">Añade el siguiente código a tu
+        entidad <i>Pedido</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@Column(columnDefinition="INTEGER DEFAULT 1")
+private int diasEntrega;
+    
+public int getDiasEntrega() {
+    return diasEntrega;
 }
-</code></pre> Cuando el usuario añade, modifica o elimina un detalle en la
-      interface de usuario, el iva, importe base e importe total son
-      recalculados con datos frescos instantáneamente, no obstante, para
-      persistir estos cambios el usuario debe Guardar el DocumentoComercial.
-      Para sincronizar <em>importe</em> con <em>importeTotal</em> la primera
-      vez que registramos un documento comercial, nosotros ya sabemos que
-      debemos usar <em>@PrePersist</em>, pero, resulta que JPA no permite
-      marcar más de un método con la misma anotación, por lo tanto, vamos a
-      reordenar nuestro código. Veamos:<br>
-      <pre><code class="java">// @PrePersist // Elimina esta anotación
-private void calcularNumero() {
-    Query query = XPersistence.getManager().createQuery(
-        "select max(f.numero) from " +
-        getClass().getSimpleName() + // De esta forma es válido para Factura y Pedido
-        " f where f.anyo = :anyo");
-    query.setParameter("anyo", anyo);
-    Integer ultimoNumero = (Integer) query.getSingleResult();
-    this.numero = ultimoNumero == null ? 1 : ultimoNumero + 1;
+
+public void setDiasEntrega(int diasEntrega) {
+    this.diasEntrega = diasEntrega;
 }
- 
-@PrePersist // Ejecutado justo antes de grabar el objeto por primera vez
-private void preGrabar() throws Exception {
-    calcularNumero();
-    recalcularImporte();
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Fíjate como hemos usado <i>@Column(columnDefinition="INTEGER
+          DEFAULT 1")</i>, con este truco cuando OpenXava crea la columna usa
+        "INTEGER DEFAULT 1" como definición de columna, así la nueva columna
+        tiene 1 como valor por defecto en lugar de nulo y evitamos un feo error
+        con nuestra propiedad int. Sí, en muchos casos <i>@Column(columnDefinition=)</i>
+        es una alternativa a hacer un UPDATE sobre la tabla (como hicimos en la
+        sección "Evolución de esquema manual"), aunque tiene el problema de que
+        es dependiente de la base de datos. De cualquier modo, esta disertación
+        sobre <i>columnDefinition</i> es tangencial a nuestro asunto sobre
+        sincronización entre propiedades calculadas y persistentes, <i>@Column</i>
+        no llega a ser necesario, simplemente es conveniente para nuestra
+        propiedad int.</div>
+      <div class="wiki" style="display: block;">Esta nueva propiedad <i>diasEntrega</i>
+        contendrá el mismo valor que <em>diasEntregaEstimados</em>, pero <i><em>diasEntrega</em></i>
+        será persistente con su columna correspondiente en la base de datos. El
+        truco está en mantener sincronizada la propiedad <em>diasEntrega</em>.
+        Usaremos los métodos de retrollamada de JPA en <em>Pedido</em> para
+        conseguir esto. Es suficiente con asignar el valor de <i>diasEntregaEstimados</i>
+        a <i>diasEntrega</i> cada vez que un nuevo <i>Pedido</i> se crea (<i>@PrePersist</i>)
+        o modifica (<i>@PreUpdate</i>).<br>
+        Añade un método <i>recalcularDiasEntrega()</i> a la entidad <i>Pedido</i>
+        y anótalo con <i>@PrePersist</i> y <i>@PreUpdate</i>, así:<br>
+        <pre><code class="java">@PrePersist @PreUpdate 
+private void recalcularDiasEntrega() {
+    setDiasEntrega(getDiasEntregaEstimados());
 }
- 
-private void recalcularImporte() {
-    setImporte(getImporteTotal());
-}
-</code></pre> Básicamente, llamamos a <em>recalcularImporte()</em> cada vez que
-      una entidad <em>DocumentoComercial</em> es registrada por primera vez en
-      la base de datos. Pero, <em>recalcularImporte()</em> también debe ser
-      ejecutado en la actualización de <em>detalles</em>. Para es marcamos <em>recalcularImporte</em>
-      de <i>DocumentoComercial</i> con <em>@PreUpdate</em>, de esta manera:<br>
-      <pre><code class="java">@PreUpdate // Añadido '@PreUPdate'
-private void recalcularImporte() { // Ejecutado justo antes de actualizar el objeto
-    setImporte(getImporteTotal());
-}
-</code></pre>Puedes probar los módulos Factura y Pedido con este código y verás
-      que cuando una línea de detalle se añade, remueve o modifica, la columna <em>importe</em>
-      en la base de datos es correctamente actualizada después de grabar, lista
-      para ser usada en un proceso masivo.<br>
+</code></pre>Básicamente, el método <i>recalcularDiasEntrega()</i> se llama
+        cada vez que la entidad <em>Pedido</em> se registra en la base de datos
+        por primera vez y cuando se actualiza.</div>
+      Puedes probar el módulo <em>Pedido</em> con este código, y verás como
+      cuando un pedido se crea o modifica, la columna en la base de datos <i>diasEntrega</i>
+      se actualiza correctamente después de grabar, lista para usar en procesos
+      masivos y disponible para filtrar y ordenar en la lista.<br>
       <h2 id="toc9"><a name="Logica-desde-la-base-de-datos-Formula"></a>Lógica
         desde la base de datos (<em>@Formula</em>)</h2>
-      Idealmente escribirás toda tu lógica de negocio en Java, dentro de tus
-      entidades. Sin embargo, hay ocasiones que esto no es lo más conveniente.
-      Imagina que tienes una propiedad calculada en <em>DocumentoComercial</em>,
-      digamos <em>beneficioEstimado</em>, como la siguiente:<br>
-      <pre><code class="java">@Stereotype("DINERO")
-public BigDecimal getBeneficioEstimado() {
-    return getImporte().multiply(new BigDecimal("0.10"));
-}
-</code></pre> Si necesitas realizar un proceso con todas las facturas con un <em>beneficioEstimado</em>
-      mayor de 1000, has de escribir algo parecido al siguiente código:<br>
-      <pre><code class="java">Query query = getManager().createQuery("from Factura"); // Sin condición en la consulta
-for (Object o : query.getResultList()) { // Itera por todos los objetos
-    Factura f = (Factura) o;
-    if (f.getBeneficioestimado() // Pregunta a cada objeto
-       .compareTo(new BigDecimal("1000")) &gt; 0) {
-        f.doSomething();
-    }
-}
-</code></pre> No puedes usar una condición en la consulta para discriminar por <em>beneficioEstimado</em>,
-      porque <em>beneficioEstimado</em> no está en la base de datos, solo está
-      en el objeto Java, por tanto tienes que instanciar cada objeto para
-      preguntar por su <em>beneficioEstimado</em> A veces esto es una buena
-      opción, pero si tienes una cantidad inmensa de facturas, y solo unas
-      cuantas tienen el <em>beneficioEstimado</em> mayor de 1000, entonces el
-      proceso será muy ineficiente. ¿Qué alternativa tenemos?<br>
-      Nuestra alternativa es usar la anotación <em>@Formula</em>. <em>@Formula</em>
-      es una extensión de Hibernate al JPA estándar, que te permite mapear tu
-      propiedad contra un estamento SQL. Puedes definir <em>beneficioEstimado</em>
-      con <em>@Formula</em> como muestra el siguiente código:<br>
-      <pre><code class="java">@org.hibernate.annotations.Formula("IMPORTE * 0.10") // El cálculo usando SQL
+      Otra alternativa a <i>@Calculation,</i> o a tener propiedades calculadas
+      y persistentes sincronizadas, es la anotación <em>@Formula</em>. <em>@Formula</em>
+      es una extensión de Hibernate al estándar JPA, que permite mapear una
+      propiedad a un fragmento de SQL. Por ejemplo, puedes definir <i>beneficioEstimado</i>
+      con <em>@Formula</em> en <i>DocumentoComercial</i> como se muestra en el
+      siguiente código:<br>
+      <pre><code class="java">@org.hibernate.annotations.Formula("IMPORTETOTAL * 0.10") // El cálculo usando SQL
 @Stereotype("DINERO")
-private BigDecimal beneficioEstimado; // Un campo, como con las propiedades persistentes
+private BigDecimal beneficioEstimado; // Un campo, como con una propiedad persistente
  
 public BigDecimal getBeneficioEstimado() { // Sólo el getter es necesario
     return beneficioEstimado;
 }
-</code></pre> Esto indica que cuando un <em>DocumentoComercial</em> se lea de
-      la base de datos, el campo <em>beneficioEstimado</em> se rellenará con el
-      cálculo de <em>@Formula</em>, un cálculo que por cierto hace la base de
-      datos. Lo más útil de las propiedades <em>@Formula</em> es que puedes
-      usarlas en las condiciones, por tanto puedes reescribir el anterior
-      proceso como muestra el siguiente código:<br>
-      <pre><code class="java">Query query = getManager().createQuery(
-    "from Factura f where f.beneficioEstimado &gt; :beneficioEstimado"); // Podemos usar una condición
-query.setParameter("beneficioEstimado", new BigDecimal(1000));
-for (Object o: query.getResultList()) { // Iteramos solo por los objetos seleccionados
-    Factura f = (Factura) o;
-    f.doSomething();
-}
-</code></pre> De esta forma pones el peso del cálculo de <em>beneficioEstimado</em>
-      y la selección de los registros en el servidor de base de datos, y no el
-      servidor Java.<br>
-      Este hecho también tiene efecto en modo lista, porque el usuario no puede
-      filtrar ni ordenar por propiedades calculadas, pero sí por propiedades con
-      <em>@Formula</em>:<br>
-      <img src="files/business-logic_es040.png" alt="business-logic_es040.png" title="business-logic_es040.png"><br>
-      <em>@Formula</em> es una buena opción para mejorar el rendimiento en
-      algunos casos. De todas formas, generalmente es mejor usar propiedades
-      calculadas y escribir así tu lógica en Java. La ventaja de las propiedades
-      calculadas sobre <em>@Formula</em> es que tu código no es dependiente de
-      la base de datos. Además, con las propiedades calculadas puedes reejecutar
-      el cálculo sin tener que leer el objeto de la base de datos, por tanto
-      puedes usar <em>@Depends</em>.<br>
+</code></pre> Esto significa que cuando un <em>DocumentoComercial</em> se lea
+      de la base de datos, el campo <em>beneficioEstimado</em> se rellenerá con
+      el cálculo de <em>@Formula</em> que es ejecutado por la base de datos. El
+      usuario puede filtrar y ordenar por las propiedades <i>@Formula</i> en
+      modo lista, pero siempre son de solo lectura y no se recalculan en tiempo
+      real en modo detalle. Además, las propiedades <i>@Formula</i> dependen de
+      la base de datos, porque podrías usar sintaxis sólo soportada por cierto
+      fabricante de base de datos.<br>
       <h2 id="toc10"><a name="Pruebas-JUnit"></a>Pruebas JUnit</h2>
       Antes de ir a la siguiente lección, vamos a escribir el código JUnit para
       ésta. Recuerda, el código no está terminado si no tiene pruebas JUnit.
@@ -769,7 +754,7 @@ for (Object o: query.getResultList()) { // Iteramos solo por los objetos selecci
       El enfoque más pragmático es modificar el código de prueba existente para
       cubrir todos los nuevos casos que hemos desarrollado. Hagámoslo de esta
       forma.<br>
-      En nuestro caso, todo el código de esta lección aplica a <em>DocumentoComercial</em>,
+      En nuestro caso, la mayoría del código de esta lección aplica a <em>DocumentoComercial</em>,
       por tanto vamos a modificar el método <em>testCrear()</em> de <em>PruebaDocumentoComercial</em>
       para ajustarlo a la nueva funcionalidad. Dejamos el método <em>testCrear()</em>
       tal como muestra el siguiente código:<br>
@@ -781,13 +766,13 @@ for (Object o: query.getResultList()) { // Iteramos solo por los objetos selecci
     anyadirDetalles();
     ponerOtrasPropiedades();
     grabar();
-    verificarImporteYBeneficioEstimado(); // Prueba el método de retrollamada y @Formula
+    verificarBeneficioEstimado(); // Prueba @Formula
     verificarCreado();
     borrar();
 }
 </code></pre> Como ves, añadimos una nueva línea, después de <em>login(...)</em>,
       para calcular el siguiente número de documento, y una llamada al nuevo
-      método <em>verificarImporteYBeneficioEstimado()</em>.<br>
+      método <em>verificarBeneficioEstimado()</em>.<br>
       Ahora nos conviene más calcular el siguiente número de documento al
       principio para usarlo en el resto de la prueba. Para hacer esto, cambia el
       viejo método <em>getNumero()</em> por los dos métodos mostrados en el
@@ -810,7 +795,7 @@ private String getNumero() {
       devolvía el número, ahora tenemos un método para calcular (<em>calcularNumero()</em>),
       y otro para devolver el resultado (<em>getNumero()</em>). Puedes notar que
       la lógica del cálculo tiene un pequeño cambio, en vez de usar
-      “DocumentoComercial” como fuente de la consulta usamos "modelo", una
+      “DocumentoComercial” como fuente de la consulta usamos <i>modelo</i>, una
       variable. Esto es así porque ahora la numeración para facturas y pedidos
       está separada. Llenamos esta variable, un campo de la clase de prueba, en
       el constructor, tal como muestra el siguiente código:<br>
@@ -820,81 +805,86 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
     super(nombrePrueba, "Facturacion", nombreModulo);
     this.modelo = nombreModulo; // El nombre del módulo coincide con el del modelo
 }
-</code></pre> En este caso el nombre de módulo, "Factura" o "Pedido", coincide
-      con el nombre de modelo, <em>Factura</em> o <em>Pedido</em>, así que la
-      forma más fácil de obtener el nombre de modelo es desde el nombre de
-      módulo.<br>
+</code></pre> En este caso el nombre de módulo, <i>Factura</i> o <i>Pedido</i>,
+      coincide con el nombre de modelo, <em>Factura</em> o <em>Pedido</em>,
+      así que la forma más fácil de obtener el nombre de modelo es desde el
+      nombre de módulo.<br>
       Veamos el código que prueba la nueva funcionalidad.<br>
-      <h3 id="toc12"><a name="Pruebas-JUnit-Verificar-valores-por-defecto-y-propiedades-calculadas"></a>Verificar
-        valores por defecto y propiedades calculadas</h3>
+      <h3 id="toc12"><a name="Pruebas-JUnit-Verificar-valores-por-defecto-propiedades-calculadas-y-Calculation"></a>Verificar
+        valores por defecto, propiedades calculadas y <i>@Calculation</i></h3>
       En esta lección hemos hecho algunas modificaciones en los valores por
-      defecto. Primero, el valor por defecto para <em>numero</em> ya no se
+      defecto. Ahora, el valor por defecto para <em>numero</em> ya no se
       calcula mediante un <em>@DefaultValueCalculator</em> en su lugar usamos
-      un método de retrollamada JPA. Segundo, tenemos una nueva propiedad, <em>porcentajeIVA</em>,
-      cuyo valor inicial se calcula leyendo de un archivo de propiedades. Para
-      probar estos casos hemos de modificar el método <em>verificarValoresDefecto()</em>
-      como ves en el siguiente código:<br>
+      un método de retrollamada JPA. Para probar este caso hemos de modificar el
+      método <em>verificarValoresDefecto()</em> como ves en el siguiente
+      código:<br>
       <pre><code class="java">private void verificarValoresDefecto() throws Exception {
     execute("CRUD.new");
     assertValue("anyo", getAnyoActual());
     // assertValue("numero", getNumero()); // Ahora el número no tiene valor inicial...
     assertValue("numero", ""); // ... al crear un documento nuevo
     assertValue("fecha", getFechaActual());
-    assertValue("porcentajeIVA", "21"); // Valor de archivo de propiedades
 }
-</code></pre> Comprobamos el cálculo del valor por defecto de <em>procentajeIVA</em>
-      y verificamos que <em>numero</em> no tiene valor inicial, porque ahora <em>numero</em>
-      no se calcula hasta el momento de grabar el documento (sección <a class="wiki_link"
-        href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retrollamadas+JPA-C%C3%A1lculo+de+valor+por+defecto+multiusuario">Cálculo
+</code></pre>Verificamos que <em>numero</em> no tiene valor inicial, porque
+      ahora <em>numero</em> no se calcula hasta el momento de grabar el
+      documento (sección <a class="wiki_link" href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retrollamadas+JPA-C%C3%A1lculo+de+valor+por+defecto+multiusuario">Cálculo
         de valor por defecto multiusuario</a>). Cuando el documento (factura o
-      pedido) se grabe verificaremos que <em>numero</em> se calcula. Cuando la
-      línea se añade podemos verificar el cálculo de <em>importe</em> de <em>detalle</em>
-      (la propiedad calculada simple, sección <a class="wiki_link" href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-Propiedades+calculadas-Propiedad+calculada+simple">Propiedad
+      pedido) se grabe verificaremos que <em>numero</em> se calcula. </div>
+    <div class="wiki" style="display: block;">Cuando la línea se añade podemos
+      verificar el cálculo de <em>importe</em> de <em>detalle</em> (la
+      propiedad calculada simple, sección <a class="wiki_link" href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-Propiedades+calculadas-Propiedad+calculada+simple">Propiedad
         calculada simple</a>), el valor por defecto para <em>precioPorUnidad</em>
       (<em>@DefaultValueCalculator</em>, sección <a class="wiki_link" href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-Propiedades+calculadas-Usar+@DefaultValueCalculator">Usar
         @DefaultValueCalculator</a>) y las propiedades de importes del documento
-      (propiedades calculadas que dependen de una colección, sección <a class="wiki_link"
-        href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-Propiedades+calculadas-Propiedades+calculadas+dependientes+de+una+colecci%C3%B3n">Propiedades
-        calculadas dependientes de una colección</a>). Probamos todo esto
-      haciendo unas ligeras modificaciones en el ya existente método <em>anyadirDetalles()</em>:<br>
+      (sección <a class="wiki_link" href="basic-business-logic_es.html#Propiedades-calculadas-Propiedades-de-total-de-una-coleccion">Propiedades
+        de total de una colección</a>). Entre las propiedades de total probamos
+      <i>porcentajeIVA</i> cuyo valor por defecto se calcula leyendo de un
+      archivo de propiedades. Todo esto lo probamos haciendo unas ligeras
+      modificaciones en el ya existente método <em>anyadirDetalles()</em>:<br>
       <pre><code class="java">private void anyadirDetalles() throws Exception {
     assertCollectionRowCount("detalles", 0);
+	<br>    // Antes de ejecutar esta prueba asegurate de que
+    //   producto 1 tenga 19 como precio y 
+    //   producto 2 tenga 20 como precio
  
     // Añadir una línea de detalle
     setValueInCollection("detalles", 0, "producto.numero", "1");
     assertValueInCollection("detalles", 0,
         "producto.descripcion", "Peopleware: Productive Projects and Teams");
     assertValueInCollection("detalles", 0,
-        "precioPorUnidad", "31,00"); // @DefaultValueCalculator, section 'Usar @DefaultValueCalculator'
+        "precioPorUnidad", "19,00"); // @DefaultValueCalculator
     setValueInCollection("detalles", 0, "cantidad", "2");
     assertValueInCollection("detalles", 0,
-        "importe", "62,00"); // Propiedada calculada, sección 'Propiedad calculada simple'
+        "importe", "38,00"); // Propiedada calculada, sección 'Propiedad calculada simple'
  
     // Verificando propiedades de total de la colección
-    assertTotalInCollection("detalles", 0, "importe", "62,00"); 
-    assertTotalInCollection("detalles", 1, "importe", "11,16");
-    assertTotalInCollection("detalles", 2, "importe", "73,16"); 
+    assertTotalInCollection("detalles", 0, "importe", "38,00"); // Suma de importes usando +
+    assertTotalInCollection("detalles", 1, "importe", "21"); // Valor por defecto desde un archivo de propiedades
+    assertTotalInCollection("detalles", 2, "importe", "7,98"); // IVA, con @Calculation
+    assertTotalInCollection("detalles", 3, "importe", "45,98"); 
  
     // Añadir otro detalle
     setValueInCollection("detalles", 1, "producto.numero", "2");
     assertValueInCollection("detalles", 1, "producto.descripcion", "Arco iris de lágrimas");
     assertValueInCollection("detalles", 1,
-        "precioPorUnidad", "15,00"); // @DefaultValueCalculator, sección 'Usar @DefaultValueCalculator'
+        "precioPorUnidad", "20,00"); 
     setValueInCollection("detalles", 1, "precioPorUnidad", "10,00"); // Modificando el valor pode defecto
     setValueInCollection("detalles", 1, "cantidad", "1");
     assertValueInCollection("detalles", 1, "importe", "10,00");
  
     assertCollectionRowCount("detalles", 2);
  
-    // Verificando propiedades calculadas del documento
-    assertTotalInCollection("detalles", 0, "importe", "72,00");
-    assertTotalInCollection("detalles", 1, "importe", "12,96");
-    assertTotalInCollection("detalles", 2, "importe", "84,96");
+    // Verificando propiedades de total de la colección
+    assertTotalInCollection("detalles", 0, "importe", "48,00");
+    assertTotalInCollection("detalles", 1, "importe", "21");
+    assertTotalInCollection("detalles", 2, "importe", "10,08");
+    assertTotalInCollection("detalles", 3, "importe", "58,08");
 }
-</code></pre> Como ves, con estas modificaciones sencillas probamos la mayoría
-      de nuestro nuevo código. Nos quedan sólo las propiedades <em>importe</em>
-      y <em>beneficioEstimado</em>. Las cuales probaremos en la siguiente
-      sección.<br>
+</code></pre> ME QUEDÉ POR AQUÍ: REVISAR EL CODIGO DE ARRIBA UNA VEZ MÁS
+      (COMPARARLO CON INGLES) Como ves, con estas modificaciones sencillas
+      probamos la mayoría de nuestro nuevo código. Nos quedan sólo las
+      propiedades <em>importe</em> y <em>beneficioEstimado</em>. Las cuales
+      probaremos en la siguiente sección.<br>
       <h3 id="toc13"><a name="Pruebas-JUnit-Sincronizacion-entre-propiedad-persistente-y-calculada-Formula"></a>Sincronización
         entre propiedad persistente y calculada / <em>@Formula</em></h3>
       En la sección <a class="wiki_link" href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-M%C3%A9todos+de+retrollamadas+JPA-Sincronizar+propiedades+persistentes+y+calculadas">Sincronizar
