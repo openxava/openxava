@@ -60,6 +60,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		
 		assertCollectionRowCount("details", 2);		
 		execute("CRUD.save");
+		assertMessage("Quote created successfully"); 
 		assertValue("year", "");
 		assertValue("number", "");
 		assertValue("customer.number", "");		
@@ -130,6 +131,31 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		execute("CRUD.delete");
 		assertNoErrors();
 	}
+	
+	public void testIdInCreationMessageWhenEmptySearchKeys() throws Exception { 
+		execute("CRUD.new");		
+		setValue("year", "2020");
+		assertValue("number", "");
+		setValue("customer.number", "1");
+		assertValue("customer.name", "Javi");
+		setValueInCollection("details", 0, "product.number", "1");
+		setValueInCollection("details", 0, "quantity", "2");
+		execute("CRUD.save");
+		assertMessage("Quote created successfully: 2020/77"); 
+		assertValue("year", "");
+		assertValue("number", "");
+		assertValue("customer.number", "");		
+		assertCollectionRowCount("details", 0);
+		
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");		
+		assertValue("year", "2020");
+		assertValue("number", "77");
+		assertCollectionRowCount("details", 1);		
+		execute("CRUD.delete");
+		assertNoErrors();
+	}
+
 
 	private void assertRemoveActionInElementCollection() throws Exception {
 		// Annotated remove action on elementCollection

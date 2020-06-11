@@ -43,7 +43,7 @@ public class OrderTest extends ModuleTestBase {
 		assertNoAction("ReferenceSearch.choose");		
 	}
 	
-	public void testCalculatedPropertiesFromCollection_generatedValueOnPersistRefreshedInView_rowAction_noAddActionInCascadeCollections() throws Exception { 
+	public void testCalculatedPropertiesFromCollection_generatedValueOnPersistRefreshedInView_rowAction_noAddActionInCascadeCollections_idInCreationMessageWhenEmptySearchKeys() throws Exception { 
 		String nextNumber = getNextNumber();
 		execute("CRUD.new");
 		assertValue("number", ""); 
@@ -59,6 +59,7 @@ public class OrderTest extends ModuleTestBase {
 		assertValue("amount", "110.00"); 
 		execute("Collection.save");
 		assertNoErrors();
+		assertMessage("Order created successfully"); 
 		assertCollectionRowCount("details", 1);
 		assertValue("amount", "110.00");
 		assertValue("number", nextNumber);
@@ -70,7 +71,25 @@ public class OrderTest extends ModuleTestBase {
 		assertNoAction("OrderDetail.reduceQuantity", "viewObject=xava_view_details");
 		execute("CRUD.delete");
 		assertNoErrors();
+		
+		// Id in creation message when empty search keys
+		execute("CRUD.new");
+		assertValue("number", ""); 
+		setValue("customer.number", "1");
+		assertValue("customer.name", "Javi");
+		String year = getValue("year");
+		execute("CRUD.save");
+		assertMessage("Order created successfully: " + year  + "/" + nextNumber);
+		
+		execute("Mode.list");
+		setConditionValues(year, nextNumber);
+		execute("List.filter");
+		assertValueInList(0, 0, year);
+		assertValueInList(0, 1, nextNumber);
+		execute("CRUD.deleteRow", "row=0");
+		assertNoErrors();
 	}
+	
 	
 	public void testDoubleClickOnlyInsertsACollectionElement() throws Exception {
 		boolean doubleClick = false; 
