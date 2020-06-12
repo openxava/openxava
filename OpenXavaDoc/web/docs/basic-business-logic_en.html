@@ -866,8 +866,8 @@ public CommercialDocumentTest(String testName, String moduleName) {
         logic (@Formula)</a> we have created a property that uses <em>@Formula</em>,
       <em>estimatedProfit</em>. This property is shown only in list mode.<br>
       Obviously, the simplest way to test it is by going to list mode and
-      verifying that the values for this two property are the expected ones. You
-      have already seen that in <em>testCreate()</em> we call the <em>verifyEstimatedProfit()</em>.
+      verifying that the value for this property is the expected one. You have
+      already seen that in <em>testCreate()</em> we call the <em>verifyEstimatedProfit()</em>.
       Let's see its code:<br>
       <pre><code class="java">private void verifyEstimatedProfit() throws Exception {
     execute("Mode.list"); // Changes to list mode
@@ -898,9 +898,9 @@ public CommercialDocumentTest(String testName, String moduleName) {
     <div class="wiki" style="display: block;">
       <h3><a name="Lesson 5: Basic business logic-JUnit tests-Testing calculated and persistent synchronized properties"></a>Testing
         calculated and persistent synchronized properties<em></em></h3>
-      In section <a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Synchronizing%20persistent%20and%20calculated%20properties">Synchronizing
-        persistent and calculated properties</a> we used a JPA callback method
-      in <em>Order</em> to have a persistent property, <em>deliveryDays</em><em></em>,
+      In the <a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Synchronizing%20persistent%20and%20calculated%20properties">Synchronizing
+        persistent and calculated properties</a> section we used a JPA callback
+      method in <em>Order</em> to have a persistent property, <em>deliveryDays</em><em></em>,
       synchronized with a calculated one, <em>estimatedDeliveryDays</em>. The <em>deliveryDays</em>
       property is only shown in list mode.<br>
       Go to <i>OrderTest</i> class and add a new method <i>testDeliveryDays()</i>:<br>
