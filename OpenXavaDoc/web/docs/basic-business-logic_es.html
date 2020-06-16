@@ -50,8 +50,10 @@
         Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
         Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3.
         Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">4.
-        Herencia</a> | <strong>5. Lógica de negocio básica</strong> | <a class="wiki_link"
-        href="validation_es.html">6. Validación avanzada</a> | <a class="wiki_link"
+        Herencia</a> | <strong>5. Lógica de negocio básica</strong> | <a class="wiki_link"
+
+        href="validation_es.html">6. Validación avanzada</a> | <a class="wiki_link"
+
         href="refining-standard-behavior_es.html">7. Refinar el comportamiento
         predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8.
         Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">9.
@@ -155,7 +157,7 @@ private Collection&lt;Detalle&gt; detalles;
 private BigDecimal precioPorUnidad; // Una propiedad persistente convencional...
  
 public BigDecimal getPrecioPorUnidad() { // ... con sus getter y setter
-    return precioPorUnidad == null ? BigDecimal.ZERO : precioPorUnidad; // así nunca devuelve nulo
+    return precioPorUnidad == null ? BigDecimal.ZERO : precioPorUnidad; // Así nunca devuelve nulo
 }
  
 public void setPrecioPorUnidad(BigDecimal precioPorUnidad) {
@@ -268,8 +270,8 @@ public void setDescuento(BigDecimal descuento) {
           * 0.10</i>, de tal manera que cuando el usuario cambia <i>importe</i>
         en la interfaz de usuario <i>descuento</i> se recalcula
         instantaneamente. El valor recalculado se graba en la base de datos
-        cuando el usuario pulsa en Grabar, como con cualquier otra propiedad
-        persistente. También hemos anotado <i>descuento</i> con <i>@ReadOnly</i>,
+        cuando el usuario pulsa en <i>Grabar</i>, como con cualquier otra
+        propiedad persistente. También hemos anotado <i>descuento</i> con <i>@ReadOnly</i>,
         por lo que parece y se comporta como una propiedad calculada, aunque
         puedes omitir <i>@ReadOnly</i> y así el usuario podría modificar el
         valor calculado.</div>
@@ -291,7 +293,8 @@ for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccio
         Este hecho tiene también efecto en el modo lista, porque el usuario no
         puede filtrar ni ordenar por las propiedades calculadas, pero sí que lo
         puede hacer usando propiedades persistentes con <em>@Calculation</em>:<br>
-        <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
+        <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
+
           title="business-logic_es025.png"><br>
         <em>@Calculation</em> es una buena opción cuando necesitas filtrar y
         ordenar, y un cálculo simple es suficiente. Una desventaja de las
@@ -311,7 +314,7 @@ for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccio
         de total de una colección</h3>
       También queremos añadir importes a <em>Pedido</em> y <em>Factura</em>.
       Tener IVA, importe base e importe total es indispensable. Para hacerlo
-      solo necesitas añadir unas pocas propiedades a la clase <i>DocumentoComercial</i>.
+      sólo necesitas añadir unas pocas propiedades a la clase <i>DocumentoComercial</i>.
       La siguiente figura muestra la interfaz de usuario para estas propiedades:<br>
       <img src="files/business-logic_es030.png" alt="business-logic_es030.png" title="business-logic_es030.png"><br>
       Añade el siguiente código (y genera los getters y setters) a la entidad <i>DocumentoComercial</i>:<br>
@@ -348,7 +351,7 @@ import javax.validation.constraints.*;
       para especificar su tamaño. <br>
       Ahora que ya has escrito las propiedades para los importes de <em>DocumentoComercial</em>,
       tienes que modificar la lista de propiedades de la colección <em>detalles</em>
-      para mostrar las <a class="wiki_link" href="view_es#Vista-Personalizaci%C3%B3n+de+colecci%C3%B3n-Propiedades+de+total+%28nuevo+en+v4.3%29">propiedades
+      para mostrar las <a class="wiki_link" href="view_es.html#Vista-Personalizacion+de+coleccion-Propiedades+de+total+%28nuevo+en+v4.3%29">propiedades
         de total</a> de <em>DocumentoComercial</em>. Veámoslo:<br>
       <pre><code class="java">abstract public class DocumentoComercial extends Identificable {
  
@@ -496,7 +499,7 @@ private BigDecimal porcentajeIVA;
         tan sencillos, por lo que vamos a ejecutar sentencias SQL contra nuestra
         base de datos. Para ejecutar estas sentencias SQL, primero asegurate de
         que tu aplicación se está ejecutando, entonces ve a la clase <i>DBManager</i>
-        en <i>Facturacion/src/_run</i>, y con el botón derecho del artón escoge
+        en <i>Facturacion/src/_run</i>, y con el botón derecho del ratón escoge
         <i>Run As &gt; Java Application</i>:<br>
         <img src="files/inheritance_es040.png" alt="inheritance_es040.png" title="inheritance_es040.png"><br>
         Ahora estás listo para escribir y ejecutar SQLs. Primero, establecemos
@@ -555,10 +558,10 @@ SET IMPORTETOTAL = (
       Hasta ahora estamos calculando el número para <em>Factura</em> y <em>Pedido</em>
       usando <em>@DefaultValueCalculator</em>. Éste calcula el valor por
       defecto en el momento que el usuario pulsa para crear una nueva <em>Factura</em>
-      o <em>Pedido</em>. Por tanto, si varios usuarios pulsan en el botón
-      “nuevo” al mismo tiempo todos ellos obtendrán el mismo número. Esto no es
-      apto para aplicaciones multiusuario. La forma correcta de generar un
-      número único es generándolo justo en el momento de grabar.<br>
+      o <em>Pedido</em>. Por tanto, si varios usuarios pulsan en el botón <i>Nuevo</i>
+      al mismo tiempo todos ellos obtendrán el mismo número. Esto no es apto
+      para aplicaciones multiusuario. La forma correcta de generar un número
+      único es generándolo justo en el momento de grabar.<br>
       Vamos a implementar la generación del número usando métodos de
       retrollamada JPA. JPA permite marcar cualquier método de tu clase para ser
       ejecutado en cualquier momento de su ciclo de vida. Indicaremos que justo
@@ -712,7 +715,7 @@ private void recalcularDiasEntrega() {
 </code></pre>Básicamente, el método <i>recalcularDiasEntrega()</i> se llama
         cada vez que la entidad <em>Pedido</em> se registra en la base de datos
         por primera vez y cuando se actualiza.</div>
-      Puedes probar el módulo <em>Pedido</em> con este código, y verás como
+      Puedes probar el módulo <em>Pedido</em> con este código y verás como
       cuando un pedido se crea o modifica, la columna en la base de datos <i>diasEntrega</i>
       se actualiza correctamente después de grabar, lista para usar en procesos
       masivos y disponible para filtrar y ordenar en la lista.<br>
@@ -885,9 +888,10 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
       nuestro nuevo código. Nos quedan sólo las propiedades <em></em><em>beneficioEstimado</em>
       y <i>diasEntrega</i>. Las cuales probaremos en las siguientes secciones.<br>
       <h3 id="toc13"><a name="Pruebas-JUnit-Verificar-Formula"></a>Verificar <em>@Formula</em></h3>
-      En la sección <a class="wiki_link" href="basic-business-logic_es.html#Lecci%C3%B3n+5:+L%C3%B3gica+de+negocio+b%C3%A1sica-L%C3%B3gica+desde+la+base+de+datos+%28@Formula%29">Lógica
-        desde la base de datos</a> hemos creado una propiedad que usa <em>@Formula</em>,
-      <em>beneficioEstimado</em>. Esta propiedad se muestra sólo en modo lista.<br>
+      En la sección <a class="wiki_link" href="basic-business-logic_es.html#Logica-desde-la-base-de-datos-Formula">Lógica
+        desde la base de datos</a> hemos creado una propiedad que
+      usa <em>@Formula</em>, <em>beneficioEstimado</em>. Esta propiedad se
+      muestra sólo en modo lista.<br>
       Obviamente, la forma más simple de probarlo es yendo a modo lista y
       verificando que el valor para esta propiedad es el esperado. En <em>testCrear()</em>
       llamamos a <em>verificarBeneficioEstimado()</em>. Veamos su código:<br>
@@ -967,10 +971,12 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
       funcionamiento estándar del módulo y añadir tu propia lógica de negocio,
       entre otras formas de añadir lógica personalizada a tu aplicación.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="validation_es.html">Ve a la lección 6</a></strong>
     </div>
