@@ -8,6 +8,7 @@ import java.lang.reflect.ParameterizedType;
 import java.math.*;
 import java.net.*;
 import java.util.*;
+import java.util.stream.*;
 
 import javax.persistence.*;
 import javax.persistence.CascadeType;
@@ -165,6 +166,7 @@ public class AnnotatedClassParser implements IComponentParser {
 		{
 			parseMembers(model, superClass, mapping, embedded);
 		}
+		System.out.println("[AnnotatedClassParser.parseMembers] " + model.getName() + " -> " + pojoClass); // tmp
 		// Using declared fields in order to preserve the order in source code
 		Map<String, PropertyDescriptor> propertyDescriptors = getPropertyDescriptors(pojoClass);
 		for (Field f: pojoClass.getDeclaredFields()) {
@@ -174,9 +176,16 @@ public class AnnotatedClassParser implements IComponentParser {
 				log.warn(XavaResources.getString("write_only_property_not_added", pd.getName())); 
 				continue;
 			}			
+			System.out.println("[AnnotatedClassParser.parseMembers(" + model.getName() + ", " + pojoClass + ")] addMember(" + f.getName() + ").field >>"); // tmp
 			addMember(model, mapping, pd, f, embedded);
+			System.out.println("[AnnotatedClassParser.parseMembers(" + model.getName() + ", " + pojoClass + ")] addMember(" + f.getName() + ").field <<"); // tmp
 			propertyDescriptors.remove(f.getName());
 		}
+		// tmp ini
+		getOrderedDeclaredMethods(pojoClass).stream().map(Method::getName).forEach(
+			m -> System.out.println("[AnnotatedClassParser.parseMembers] m=" + m) // tmp
+		);
+		// tmp fin
 		
 		// We order the methods to be consistent with both Sun and JRockit, only JRockit returns the method as declared 			
 		for (Method m: getOrderedDeclaredMethods(pojoClass)) { 
@@ -191,13 +200,16 @@ public class AnnotatedClassParser implements IComponentParser {
 			else continue;
 			PropertyDescriptor pd = propertyDescriptors.get(propertyName);
 			if (pd == null) continue;
+			System.out.println("[AnnotatedClassParser.parseMembers(" + model.getName() + ", " + pojoClass + ")] addMember(" + propertyName + ").getter >>"); // tmp
 			addMember(model, mapping, pd, null, embedded);
+			System.out.println("[AnnotatedClassParser.parseMembers(" + model.getName() + ", " + pojoClass + ")] addMember(" + propertyName + ").getter <<"); // tmp
 		}
 		
 		parseAttributeOverrides(pojoClass, mapping);
 	}
 	
-	private Collection<Method> getOrderedDeclaredMethods(Class theClass) { 
+	private Collection<Method> getOrderedDeclaredMethods(Class theClass) {
+		/* tmp
 		List<Method> methods = Arrays.asList(theClass.getDeclaredMethods());
 		Collections.sort(methods, new Comparator() {
 			public int compare(Object o1, Object o2) {
@@ -206,8 +218,38 @@ public class AnnotatedClassParser implements IComponentParser {
 			}			
 		});
 		return methods;
+		*/
+		// tmp ini
+		/*
+		return Arrays.stream(theClass.getDeclaredMethods())
+			.collect(Collectors.toMap(Method::getName, p -> p, (p, q) -> p)).values().stream()
+			.sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
+			.collect(Collectors.toList());
+		*/
+		long ini = System.currentTimeMillis(); // tmp
+		// TMP ME QUEDÉ POR AQUÍ: LA VERSION DE ABAJO TODAVÍA NO ESTÁ PROBADA
+		Collection<Method> result = Arrays.stream(theClass.getDeclaredMethods())
+			.map(Method::getName)
+			.filter(m -> m.startsWith("is") || m.startsWith("get"))
+			.sorted()
+			.distinct()
+			.map(n -> getDeclaredMethod(theClass, n))
+			.filter(m -> m != null)
+			.collect(Collectors.toList());
+		long cuesta = System.currentTimeMillis() - ini;
+		System.out.println("[AnnotatedClassParser.getOrderedDeclaredMethods] cuesta=" + cuesta); // tmp
+		return result;
+		// tmp fin
 	}
 	
+	private Method getDeclaredMethod(Class theClass, String methodName) { // tmp
+		try {
+			return theClass.getDeclaredMethod(methodName);
+		} 
+		catch (NoSuchMethodException e) {
+			return null;
+		} 
+	}
 	
 	private void parseAttributeOverrides(AnnotatedElement element, ModelMapping mapping) throws XavaException {
 		parseAttributeOverrides(element, mapping, null);
@@ -1989,7 +2031,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			}			
 		}		
 				
-		// for View	
+		// for View
 		for (Object oMetaView: ref.getMetaModel().getMetaViews()) {
 			MetaView metaView = (MetaView) oMetaView;			
 			MetaReferenceView referenceView = new MetaReferenceView();
