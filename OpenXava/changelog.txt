@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Combining inheritance, generic types and @ReferenceView fails.
 - Detail mode of InvoiceDemo improved.
 - Creation confirmation messages include field values if they are generated on saving. 
 - Fix: assertTotalInCollection() in tests does not work for MONEY properties.

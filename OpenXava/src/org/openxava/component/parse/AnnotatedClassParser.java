@@ -166,7 +166,6 @@ public class AnnotatedClassParser implements IComponentParser {
 		{
 			parseMembers(model, superClass, mapping, embedded);
 		}
-		System.out.println("[AnnotatedClassParser.parseMembers] " + model.getName() + " -> " + pojoClass); // tmp
 		// Using declared fields in order to preserve the order in source code
 		Map<String, PropertyDescriptor> propertyDescriptors = getPropertyDescriptors(pojoClass);
 		for (Field f: pojoClass.getDeclaredFields()) {
@@ -176,19 +175,12 @@ public class AnnotatedClassParser implements IComponentParser {
 				log.warn(XavaResources.getString("write_only_property_not_added", pd.getName())); 
 				continue;
 			}			
-			System.out.println("[AnnotatedClassParser.parseMembers(" + model.getName() + ", " + pojoClass + ")] addMember(" + f.getName() + ").field >>"); // tmp
 			addMember(model, mapping, pd, f, embedded);
-			System.out.println("[AnnotatedClassParser.parseMembers(" + model.getName() + ", " + pojoClass + ")] addMember(" + f.getName() + ").field <<"); // tmp
 			propertyDescriptors.remove(f.getName());
 		}
-		// tmp ini
-		getOrderedDeclaredMethods(pojoClass).stream().map(Method::getName).forEach(
-			m -> System.out.println("[AnnotatedClassParser.parseMembers] m=" + m) // tmp
-		);
-		// tmp fin
 		
 		// We order the methods to be consistent with both Sun and JRockit, only JRockit returns the method as declared 			
-		for (Method m: getOrderedDeclaredMethods(pojoClass)) { 
+		for (Method m: getOrderedDeclaredGetterMethods(pojoClass)) { 
 			if (!Modifier.isPublic(m.getModifiers())) continue; 
 			String propertyName = null;
 			if (m.getName().startsWith("get")) {
@@ -200,35 +192,14 @@ public class AnnotatedClassParser implements IComponentParser {
 			else continue;
 			PropertyDescriptor pd = propertyDescriptors.get(propertyName);
 			if (pd == null) continue;
-			System.out.println("[AnnotatedClassParser.parseMembers(" + model.getName() + ", " + pojoClass + ")] addMember(" + propertyName + ").getter >>"); // tmp
 			addMember(model, mapping, pd, null, embedded);
-			System.out.println("[AnnotatedClassParser.parseMembers(" + model.getName() + ", " + pojoClass + ")] addMember(" + propertyName + ").getter <<"); // tmp
 		}
 		
 		parseAttributeOverrides(pojoClass, mapping);
 	}
 	
-	private Collection<Method> getOrderedDeclaredMethods(Class theClass) {
-		/* tmp
-		List<Method> methods = Arrays.asList(theClass.getDeclaredMethods());
-		Collections.sort(methods, new Comparator() {
-			public int compare(Object o1, Object o2) {
-				
-				return ((Method) o1).getName().compareTo( ((Method) o2).getName() );
-			}			
-		});
-		return methods;
-		*/
-		// tmp ini
-		/*
+	private Collection<Method> getOrderedDeclaredGetterMethods(Class theClass) {
 		return Arrays.stream(theClass.getDeclaredMethods())
-			.collect(Collectors.toMap(Method::getName, p -> p, (p, q) -> p)).values().stream()
-			.sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
-			.collect(Collectors.toList());
-		*/
-		long ini = System.currentTimeMillis(); // tmp
-		// TMP ME QUEDÉ POR AQUÍ: LA VERSION DE ABAJO TODAVÍA NO ESTÁ PROBADA
-		Collection<Method> result = Arrays.stream(theClass.getDeclaredMethods())
 			.map(Method::getName)
 			.filter(m -> m.startsWith("is") || m.startsWith("get"))
 			.sorted()
@@ -236,13 +207,9 @@ public class AnnotatedClassParser implements IComponentParser {
 			.map(n -> getDeclaredMethod(theClass, n))
 			.filter(m -> m != null)
 			.collect(Collectors.toList());
-		long cuesta = System.currentTimeMillis() - ini;
-		System.out.println("[AnnotatedClassParser.getOrderedDeclaredMethods] cuesta=" + cuesta); // tmp
-		return result;
-		// tmp fin
 	}
 	
-	private Method getDeclaredMethod(Class theClass, String methodName) { // tmp
+	private Method getDeclaredMethod(Class theClass, String methodName) { 
 		try {
 			return theClass.getDeclaredMethod(methodName);
 		} 
@@ -391,7 +358,9 @@ public class AnnotatedClassParser implements IComponentParser {
 			
 	private void addReference(MetaModel model, ModelMapping mapping, PropertyDescriptor pd, Field field, String embedded, boolean aggregate) throws XavaException {
 		if (model.containsMetaReference(pd.getName())) {
-			processAnnotations(model.getMetaReference(pd.getName()), pd.getReadMethod());			
+			MetaReference ref = model.getMetaReference(pd.getName());
+			ref.setReferencedModelName(pd.getPropertyType().getSimpleName());
+			processAnnotations(ref, pd.getReadMethod());
 			return;
 		}
 		MetaReference ref = new MetaReference();

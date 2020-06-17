@@ -8,7 +8,7 @@ import org.openxava.annotations.*;
 import org.openxava.model.*;
 
 /**
- * tmp
+ * 
  * @author Javier Paniza
  */
 
@@ -16,7 +16,7 @@ import org.openxava.model.*;
 public class TaxpayerTariffBase<T extends TaxpayerBase> extends Identifiable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	private T taxpayer;
+	private T taxpayer;  // T to test a case
 	
 	@Stereotype("MONEY")
 	private BigDecimal tariff; 
