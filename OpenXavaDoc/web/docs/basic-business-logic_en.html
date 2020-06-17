@@ -265,8 +265,8 @@ public void setDiscount(BigDecimal discount) {
         with <i>@Calculation</i>. In this case the calculation is <i>amount *
           0.10</i>, so whenever the user changes <i>amount</i> in the user
         interface <i>discount</i> will be recalculated instantly. The
-        recalculated value will be saved in the database when user clicks on
-        Save, just like in any persistent property. We also have annotated <i>discount</i>
+        recalculated value will be saved in the database when user clicks on <i>Save</i>,
+        just like in any persistent property. We also have annotated <i>discount</i>
         with <i>@ReadOnly</i>, so it looks and behaves like a calculated
         property, although you can omit <i>@ReadOnly</i> so the user could
         modify the calculated value.</div>
@@ -545,9 +545,9 @@ SET TOTALAMOUNT = (
       Until now we were calculating the <em>Invoice</em> and <em>Order</em>
       number using <em>@DefaultValueCalculator</em>. This calculates the
       default value when the user clicks to create a new <em>Invoice</em> or <em>Order</em>.
-      So, if several users click on the “new” button at the same time all of
-      them get the same number. This is not multiuser safe. The way to generate
-      a unique number is by generating it just on save.<br>
+      So, if several users click on the <i>New</i> button at the same time all
+      of them get the same number. This is not multiuser safe. The way to
+      generate a unique number is by generating it just on save.<br>
       We are going to implement it using a JPA callback method. JPA allows you
       to mark any method of your class to be executed in any part of its life
       cycle. We'll indicate the calculation of the number just before the saving
