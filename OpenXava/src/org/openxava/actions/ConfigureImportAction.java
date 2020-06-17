@@ -137,6 +137,14 @@ public class ConfigureImportAction extends TabBaseAction
 		for (MetaProperty property: getTab().getMetaTab().getMetaModel().getMetaPropertiesPersistents()) {
 			columnsView.addValidValue("nameInApp", property.getName(), property.getLabel()); 
 		}
+		// tmp ini
+		for (MetaReference ref: getTab().getMetaTab().getMetaModel().getMetaReferences()) {
+			for (String key: ref.getMetaModelReferenced().getAllKeyPropertiesNames()) {
+				columnsView.addValidValue("nameInApp", ref.getName() + "." + key, 
+					Strings.firstUpper( (Labels.get(key) + " " + XavaResources.getString("of") + " "  + ref.getLabel()).toLowerCase()) );
+			}
+		}
+		// tmp fin
 	}
 
 	private void fillHeaders(Scanner scanner, Collection<ImportColumn> columns) {
