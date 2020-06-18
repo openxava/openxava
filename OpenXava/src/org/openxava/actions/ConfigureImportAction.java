@@ -26,6 +26,7 @@ public class ConfigureImportAction extends TabBaseAction
 	private static Log log = LogFactory.getLog(ConfigureImportAction.class);  
 		 
 	private String[] nextControllers = new String [] { "Import" }; 
+	private Collection<MetaProperty> metaProperties; // tmp
 	
 	public void execute() throws Exception {
 		String fileName = "UNKNOWN";
@@ -134,18 +135,28 @@ public class ConfigureImportAction extends TabBaseAction
 
 	private void fillNamesInAppValidValues() {
 		View columnsView = getView().getSubview("columns");
-		for (MetaProperty property: getTab().getMetaTab().getMetaModel().getMetaPropertiesPersistents()) {
+		// tmp for (MetaProperty property: getTab().getMetaTab().getMetaModel().getMetaPropertiesPersistents()) {
+		for (MetaProperty property: getMetaProperties()) { // tmp 
 			columnsView.addValidValue("nameInApp", property.getName(), property.getLabel()); 
 		}
-		// tmp ini
-		for (MetaReference ref: getTab().getMetaTab().getMetaModel().getMetaReferences()) {
-			for (String key: ref.getMetaModelReferenced().getAllKeyPropertiesNames()) {
-				columnsView.addValidValue("nameInApp", ref.getName() + "." + key, 
-					Strings.firstUpper( (Labels.get(key) + " " + XavaResources.getString("of") + " "  + ref.getLabel()).toLowerCase()) );
-			}
-		}
-		// tmp fin
 	}
+	
+	private Collection<MetaProperty> getMetaProperties() {
+		if (metaProperties == null) {
+			MetaModel metaModel = getTab().getMetaTab().getMetaModel();
+			metaProperties = new ArrayList<>(metaModel.getMetaPropertiesPersistents());
+			for (MetaReference ref: metaModel.getMetaReferences()) {	
+				for (MetaProperty key: ref.getMetaModelReferenced().getAllMetaPropertiesKey()) {
+					MetaProperty qualifiedKey = key.cloneMetaProperty();
+					qualifiedKey.setName(ref.getName() + "." + qualifiedKey.getName());
+					qualifiedKey.setLabel(Strings.firstUpper( (Labels.get(key.getName()) + " " + XavaResources.getString("of") + " "  + ref.getLabel()).toLowerCase()));
+					metaProperties.add(qualifiedKey);
+				}
+			}		
+		}
+		return metaProperties;
+	}
+
 
 	private void fillHeaders(Scanner scanner, Collection<ImportColumn> columns) {
 		String header = scanner.nextLine(); 
@@ -165,7 +176,8 @@ public class ConfigureImportAction extends TabBaseAction
 	
 	private void setProperties(Collection<ImportColumn> columns) {
 		MetaModel metaModel = getTab().getMetaTab().getMetaModel();
-		Collection<MetaProperty> properties = new ArrayList<MetaProperty>(metaModel.getMetaPropertiesPersistents());
+		// tmp Collection<MetaProperty> properties = new ArrayList<MetaProperty>(metaModel.getMetaPropertiesPersistents());
+		Collection<MetaProperty> properties = new ArrayList<MetaProperty>(getMetaProperties()); // tmp
 		int distance = 0;
 		Collection<ImportColumn> remainingColumns = columns;
 		while (!remainingColumns.isEmpty() && distance < 8) {
@@ -218,5 +230,6 @@ public class ConfigureImportAction extends TabBaseAction
 	public String getCustomView() {
 	    return DEFAULT_VIEW;
 	}
+
 
 }
