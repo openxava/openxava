@@ -19,7 +19,7 @@
             de entidades</a></div>
         <div style="margin-left: 3em;"><a href="#Herencia-de-entidades-Nueva-entidad-Pedido">Nueva
             entidad Pedido</a></div>
-        <div style="margin-left: 3em;"><a href="#Herencia-de-entidades-CommercialDocument-como-entidad-abstracta">CommercialDocument
+        <div style="margin-left: 3em;"><a href="#Herencia-de-entidades-CommercialDocument-como-entidad-abstracta">DocumentoComercial
             como entidad abstracta</a></div>
         <div style="margin-left: 3em;"><a href="#Herencia-de-entidades-Factura-refactorizada-para-usar-herencia">Factura
             refactorizada para usar herencia</a></div>
@@ -204,7 +204,7 @@ public class Pedido {
       clase <em>Factura</em>, y asunto zanjado. Pero, ¡espera un momento!
       ¿“Copiar y pegar” no era un pecado mortal? Hemos de encontrar una forma de
       reutilizar <em>Factura</em> para <em>Pedido</em>.<br>
-      <h3 id="toc4"><a name="Herencia-de-entidades-CommercialDocument-como-entidad-abstracta"></a>CommercialDocument
+      <h3 id="toc4"><a name="Herencia-de-entidades-CommercialDocument-como-entidad-abstracta"></a>DocumentoComercial
         como entidad abstracta</h3>
       Una manera práctica de reutilizar el código de <em>Factura</em> para <em>Pedido</em>
       es usando herencia, además es una excusa perfecta para aprender lo fácil
@@ -245,14 +245,13 @@ public class Factura extends DocumentoComercial {
 </code></pre> <em>Factura</em> tiene ahora un código bastante breve, de hecho
       el cuerpo de la clase está, por ahora, vacío.<br>
     </div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ</div>
     <div class="wiki" style="display: block;">Este nuevo código necesita un
       esquema de base de datos ligeramente diferente, ahora las facturas y los
       pedidos se almacenarán en la misma tabla (la tabla DocumentoComercial)
       usando una columna discriminador. Por tanto has de borrar las viejas
       tablas ejecutando las siguientes sentencias SQL:<br>
-      <pre><code class="sql">drop table facturacion.factura_detalles;
-drop table facturacion.factura;
+      <pre><code class="sql">DROP TABLE FACTURACION.FACTURA_DETALLES;
+DROP TABLE FACTURACION.FACTURA;
 </code></pre> Para ejecutar estas sentencias SQL, primero asegurate de que tu
       aplicación se esté ejecutando, después ve a la clase <i>DBManager</i> en
       <i>Facturacion/src/_run</i>, y con el botón derecho del ratón escoge <i>Run
@@ -602,7 +601,7 @@ abstract public class PruebaDocumentoComercial // Añade abstract a la definici�
                     "select max(f.numero) "
                     + "from DocumentoComercial f " // Factura cambiada por DocumentoComercial
                     + "where f.anyo = :anyo");
-            query.setParameter("anyo", Dates.getYear(new Date()));
+            query.setParameter("anyo", LocalDate.now().getYear());
             Integer ultimoNumero = (Integer) query.getSingleResult();
             if (ultimoNumero == null) ultimoNumero = 0;
             numero = Integer.toString(ultimoNumero + 1);
