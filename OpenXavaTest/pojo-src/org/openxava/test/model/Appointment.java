@@ -13,6 +13,7 @@ import org.openxava.model.*;
  */
 
 @Entity
+@Tab(properties="time, description, amountOfPeople, type.description")
 public class Appointment extends Identifiable {
 	
 	@Stereotype("DATETIME") @Required
@@ -22,6 +23,10 @@ public class Appointment extends Identifiable {
 	private String description;
 	
 	private int amountOfPeople;
+	
+	@DescriptionsList
+	@ManyToOne(fetch=FetchType.LAZY)
+	private AppointmentType type; 
 
 	public Date getTime() {
 		return time;
@@ -45,5 +50,13 @@ public class Appointment extends Identifiable {
 
 	public void setAmountOfPeople(int amountOfPeople) {
 		this.amountOfPeople = amountOfPeople;
+	}
+
+	public AppointmentType getType() {
+		return type;
+	}
+
+	public void setType(AppointmentType type) {
+		this.type = type;
 	}
 }

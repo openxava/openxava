@@ -1,10 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- Importing references, pending:
-	- Probar con clave múltiple.
-	- AppointmentTest
-
+- Import data from list supports importing references, not just plain properties.
 - Fix: Combining inheritance, generic types and @ReferenceView fails.
 - Detail mode of InvoiceDemo improved.
 - Creation confirmation messages include field values if they are generated on saving. 

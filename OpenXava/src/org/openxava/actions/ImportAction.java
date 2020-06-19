@@ -45,10 +45,7 @@ public class ImportAction extends ViewBaseAction implements IChangeControllersAc
 				x++;
 			}
 			try {
-				// TMP ME QUEDÉ POR AQUÍ: CON EL CAMBIO DE ABAJO ME FUNCIONO. FALTA HACER PRUEBA.
-				System.out.println("[ImportAction.execute] values=" + values); // tmp
-				values = Maps.plainToTree(values); // tmp
-				System.out.println("[ImportAction.execute] values=" + values); // tmp
+				values = Maps.plainToTree(values); 
 				MapFacade.create(imp.getModelName(), values);
 				count++;
 			}
@@ -71,8 +68,7 @@ public class ImportAction extends ViewBaseAction implements IChangeControllersAc
 		MetaModel metaModel = MetaModel.get(imp.getModelName());
 		Collection<String> requiredMembers = new ArrayList(metaModel.getRequiredMemberNames());
 		for (ImportColumn column: imp.getColumns()) {
-			// tmp requiredMembers.remove(column.getNameInApp());
-			requiredMembers.remove(Strings.firstToken(column.getNameInApp(), ".")); // tmp
+			requiredMembers.remove(Strings.firstToken(column.getNameInApp(), ".")); 
 		}		
 		if (requiredMembers.isEmpty()) return true;
 		StringBuffer members = new StringBuffer(); 

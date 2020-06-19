@@ -26,7 +26,7 @@ public class ConfigureImportAction extends TabBaseAction
 	private static Log log = LogFactory.getLog(ConfigureImportAction.class);  
 		 
 	private String[] nextControllers = new String [] { "Import" }; 
-	private Collection<MetaProperty> metaProperties; // tmp
+	private Collection<MetaProperty> metaProperties; 
 	
 	public void execute() throws Exception {
 		String fileName = "UNKNOWN";
@@ -135,13 +135,12 @@ public class ConfigureImportAction extends TabBaseAction
 
 	private void fillNamesInAppValidValues() {
 		View columnsView = getView().getSubview("columns");
-		// tmp for (MetaProperty property: getTab().getMetaTab().getMetaModel().getMetaPropertiesPersistents()) {
-		for (MetaProperty property: getMetaProperties()) { // tmp 
+		for (MetaProperty property: getMetaProperties()) {  
 			columnsView.addValidValue("nameInApp", property.getName(), property.getLabel()); 
 		}
 	}
 	
-	private Collection<MetaProperty> getMetaProperties() {
+	private Collection<MetaProperty> getMetaProperties() { 
 		if (metaProperties == null) {
 			MetaModel metaModel = getTab().getMetaTab().getMetaModel();
 			metaProperties = new ArrayList<>(metaModel.getMetaPropertiesPersistents());
@@ -176,8 +175,7 @@ public class ConfigureImportAction extends TabBaseAction
 	
 	private void setProperties(Collection<ImportColumn> columns) {
 		MetaModel metaModel = getTab().getMetaTab().getMetaModel();
-		// tmp Collection<MetaProperty> properties = new ArrayList<MetaProperty>(metaModel.getMetaPropertiesPersistents());
-		Collection<MetaProperty> properties = new ArrayList<MetaProperty>(getMetaProperties()); // tmp
+		Collection<MetaProperty> properties = new ArrayList<MetaProperty>(getMetaProperties()); 
 		int distance = 0;
 		Collection<ImportColumn> remainingColumns = columns;
 		while (!remainingColumns.isEmpty() && distance < 8) {
