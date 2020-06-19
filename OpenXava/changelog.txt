@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 5 of course upgraded to latest features.
 - Import data from list supports importing references, not just plain properties.
 - Fix: Combining inheritance, generic types and @ReferenceView fails.
 - Detail mode of InvoiceDemo improved.
