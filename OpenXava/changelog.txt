@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- ENTER to move to next field with enterMovesToNextField=true in xava.properties.
 - Lesson 5 of course upgraded to latest features.
 - Import data from list supports importing references, not just plain properties.
 - Fix: Combining inheritance, generic types and @ReferenceView fails.

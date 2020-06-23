@@ -209,31 +209,23 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initTooltips();
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
-	// tmp ini
-	/* tmp
-	$('input').on('keypress',function(e) {
-	    if(e.which == 13) {
-	        e.preventDefault();
-	        e.target.next('input').focus();
-	    }
-	});
-	*/
-	// TMP ESTO FUNCIONA: FALTA: OPTIMIZAR CODIGO, HACERLO OPCIONAL, PROBARLO A FONDO
-	var focusables = $('input:focusable[tabindex="1"], select:focusable[tabindex="1"], textarea:focusable[tabindex="1"]');
-	focusables.on('keypress',function(e) {
-	     if(e.which === 13 && !$(e.target).is("textarea")) {
-	         e.preventDefault();
-	         var i = focusables.index( $(this) ) + 1;
-	         console.log("[openxava.initUI] i=" + i); // tmp
-	         var next = focusables[i];
-	         console.log("[openxava.initUI] next=" + next); // tmp
-	         next.focus();
-	         if ($(next).is("input")) next.select();
-	     }
-    });
-	// tmp fin
+	openxava.initFocusKey();
 }
 
+openxava.initFocusKey = function() { } 
+
+openxava.setEnterAsFocusKey = function() {
+	var focusables = $('input:focusable[tabindex="1"], select:focusable[tabindex="1"], textarea:focusable[tabindex="1"]');
+	focusables.on('keypress',function(e) {
+		if(e.which === 13 && !$(e.target).is("textarea")) {
+			e.preventDefault();
+			var i = focusables.index($(this));
+			var next = focusables[i + 1];
+			next.focus();
+			if ($(next).is("input")) next.select();
+		}
+	});
+}
 
 openxava.listenChanges = function() { 
 	$("." + openxava.editorClass).change(function() { 
