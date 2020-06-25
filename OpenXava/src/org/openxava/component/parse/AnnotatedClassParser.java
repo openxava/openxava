@@ -2419,6 +2419,13 @@ public class AnnotatedClassParser implements IComponentParser {
 		metaDescriptionList.setShowReferenceView(descriptionsList.showReferenceView());
 		metaDescriptionList.setForTabs(descriptionsList.forTabs());
 		metaDescriptionList.setNotForTabs(descriptionsList.notForTabs());
+		// tmp ini
+		if (!descriptionsList.filter().equals(VoidFilter.class)) {
+			MetaFilter metaFilter = new MetaFilter();
+			metaFilter.setClassName(descriptionsList.filter().getName());
+			metaDescriptionList.setMetaFilter(metaFilter);
+		}
+		// tmp fin
 		return metaDescriptionList;
 	}
 	

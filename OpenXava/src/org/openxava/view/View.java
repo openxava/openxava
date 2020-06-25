@@ -4361,7 +4361,12 @@ public class View implements java.io.Serializable {
 		else {
 			return ref.getParameterValuesPropertiesInDescriptionsList(getMetaView());
 		} 
+	}
+	
+	public String getFilterInDescriptionsList(MetaReference ref) throws XavaException { // tmp
+		return ref.getFilterInDescriptionsList(getMetaView());
 	}	
+
 	
 	
 

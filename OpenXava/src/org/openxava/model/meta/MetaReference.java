@@ -7,6 +7,7 @@ import java.util.*;
 import org.apache.commons.logging.*;
 import org.openxava.calculators.*;
 import org.openxava.component.*;
+import org.openxava.filters.meta.*;
 import org.openxava.util.*;
 import org.openxava.util.meta.*;
 import org.openxava.view.meta.MetaDescriptionsList;
@@ -246,6 +247,14 @@ public class MetaReference extends MetaMember implements Cloneable {
 			}			
 		}		
 		return result.toString();
+	}
+	
+	public String getFilterInDescriptionsList(MetaView metaView) throws XavaException { // tmp
+		MetaDescriptionsList descriptionsList = metaView.getMetaDescriptionList(this);		
+		if (descriptionsList == null) return "";
+		MetaFilter filter = descriptionsList.getMetaFilter();
+		if (filter == null) return "";
+		return filter.getClassName();
 	}
 	
 	public String getKeyProperty(String propertyKey){

@@ -25,7 +25,7 @@ public class DeliveryInvoiceAsDecriptionsListTest extends ModuleTestBase {
 			{"[.9.2004.]", "2004 9 Javi"}
 		};
 		// TMP ME QUEDÉ POR AQUÍ: LO DE ABAJO FALLA, PERO PORQUE NO ENCUENTRA EL ELEMENTO. REVISAR
-		assertValidValues("invoice", invoices2004);
+		assertValidValues("invoice.KEY", invoices2004);
 	}
 		
 }

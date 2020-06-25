@@ -2,6 +2,8 @@ package org.openxava.annotations;
 
 import java.lang.annotation.*;
 
+import org.openxava.filters.*;
+
 /**
  * With <code>@DescriptionsList</code> you can instruct OpenXava to visualize references 
  * as a descriptions list (actually a combo). <p>
@@ -74,6 +76,8 @@ public @interface DescriptionsList {
      * shown in the description list.
 	 */
 	String condition() default "";
+	
+	Class filter() default VoidFilter.class; // tmp
 	
 	/**
 	 * By default the data is ordered by description, but if you set this

@@ -12,6 +12,7 @@ import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.test.actions.*;
 import org.openxava.test.calculators.*;
+import org.openxava.test.filters.*;
 import org.openxava.test.validators.*;
 import org.openxava.jpa.*;
 
@@ -136,8 +137,13 @@ public class Delivery {
 	
 	@Id @ManyToOne(fetch=FetchType.LAZY)
 	@OnChange(forViews="DEFAULT, MoreSections", value=OnChangeInvoiceNumberInDeliveryAction.class)
-	@ReferenceView(notForViews="FullInvoice", value="Simple") 
-	@DescriptionsList(forViews="InvoiceAsDescriptionsList", descriptionProperties = "year, number, customer.name") // tmp
+	@ReferenceView(notForViews="FullInvoice", value="Simple")
+	// tmp ini
+	@DescriptionsList(forViews="InvoiceAsDescriptionsList", 
+		descriptionProperties = "year, number, customer.name",
+		filter=ActiveYearFilter.class,
+		condition = "${year} = 2002") 
+	// tmp fin
 	@NoFrame(forViews="FullInvoice") 
 	@Action(forViews="DEFAULT, MoreSections", value="Delivery.setDefaultInvoice")
 	private Invoice invoice;

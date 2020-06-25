@@ -2,8 +2,7 @@ package org.openxava.view.meta;
 
 import java.util.*;
 
-
-
+import org.openxava.filters.meta.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
 
@@ -24,6 +23,7 @@ public class MetaDescriptionsList implements java.io.Serializable {
 	private String forTabs;
 	private String notForTabs;
 	private String labelStyle = "";
+	private MetaFilter metaFilter; // tmp
 	
 		
 	public String getDescriptionPropertyName() {
@@ -134,6 +134,14 @@ public class MetaDescriptionsList implements java.io.Serializable {
 
 	public void setShowReferenceView(boolean showReferenceView) {
 		this.showReferenceView = showReferenceView;
+	}
+
+	public MetaFilter getMetaFilter() {
+		return metaFilter;
+	}
+
+	public void setMetaFilter(MetaFilter metaFilter) {
+		this.metaFilter = metaFilter;
 	}
 
 }
