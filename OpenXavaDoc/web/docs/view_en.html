@@ -9992,10 +9992,11 @@ class="st0">"xava_view"</span><span class="re2">/&gt;</span></span> <span class=
   depends=<span class="st0">"depends"</span>,                   <span class="co1">// 2</span>
   condition=<span class="st0">"condition"</span>,               <span class="co1">// 3</span>
   orderByKey=<span class="st0">"true|false"</span>,             <span class="co1">// 4</span>
-  order=<span class="st0">"order"</span>,                       <span class="co1">// 5</span>
-  showReferenceView=<span class="st0">"true|false"</span>,      <span class="co1">// 6 New in v5.5</span>
-  forTabs=<span class="st0">"tab1,tab2,..."</span>,             <span class="co1">// 7 New in v4m4</span>
-  notForTabs=<span class="st0">"tab1,tab2,..."</span>           <span class="co1">// 8 New in v4m4</span>
+  order=<span class="st0">"order"</span>,                       <span class="co1">// 5</span><br>  filter=<span
+class="st0">"filter class"</span>,               <span class="co1">// 6 New in v6.4</span><br> &nbsp;showReferenceView=<span
+class="st0">"true|false"</span>,      <span class="co1">// 7 New in v5.5</span>
+  forTabs=<span class="st0">"tab1,tab2,..."</span>,             <span class="co1">// 8 New in v4m4</span>
+  notForTabs=<span class="st0">"tab1,tab2,..."</span>           <span class="co1">// 9 New in v4m4</span>
 <span class="br0">)</span></pre>
       <ol>
         <li><strong>descriptionProperties</strong> (optional): The property or
@@ -10018,6 +10019,11 @@ class="st0">"xava_view"</span><span class="re2">/&gt;</span></span> <span class=
           it will be ordered by key.</li>
         <li><strong>order</strong> (optional): Allows to specify an order (with
           SQL style) for the values that are shown in the description list.</li>
+        <li><b>filter</b> (optional): <i>(New in v6.4)</i> Allows to define the
+          logic to fill the value of the parameters used in the condition (the
+          ?). It must implement <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/filters/IFilter.html"><i>IFilter</i></a>
+          and you can use here the same filters used for <i>@Tab</i>.<br>
+          <strong></strong></li>
         <li><strong>showReferenceView</strong> (optional): <em>(New in v5.5)</em>
           <span style="line-height: 1.5;"><span style="line-height: 1.5;">Shows
               a combo and a detail view of the reference at the same time. </span>The

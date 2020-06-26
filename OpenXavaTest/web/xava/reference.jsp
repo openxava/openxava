@@ -146,7 +146,6 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 	}
 	*/
 	// tmp ini
-	// TMP ME QUEDÉ POR AQUÍ: NO FUNCIONA
 	String filter = view.getFilterInDescriptionsList(ref); ;
 	if (Is.emptyString(filter) && metaTab.hasFilter()) {
 		filter = metaTab.getMetaFilter().getClassName(); 

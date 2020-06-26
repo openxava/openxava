@@ -1,5 +1,7 @@
 package org.openxava.view.meta.xmlparse;
 
+import org.openxava.filters.*;
+import org.openxava.filters.meta.*;
 import org.openxava.model.meta.xmlparse.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
@@ -429,6 +431,16 @@ public class ViewParser extends XmlElementsNames {
 		else if (XNO_LABEL[lang].equals(labelFormat)) m.setLabelFormat(MetaPropertyView.NO_LABEL);
 		else throw new XavaException("invalid_label_format", labelFormat);
 		m.setLabelStyle(el.getAttribute(xlabel_style[lang]));
+		
+		// tmp ini
+		String filter = el.getAttribute(xfilter[lang]);
+		if (!Is.emptyString(filter)) {
+			MetaFilter metaFilter = new MetaFilter();
+			metaFilter.setClassName(filter);
+			m.setMetaFilter(metaFilter);
+		}
+		// tmp fin
+
 		return m;
 	}
 	

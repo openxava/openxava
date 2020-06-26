@@ -344,6 +344,25 @@
 				
 	</view>
 	
+	<!-- tmp ini -->
+	<view name="InvoiceAsDescriptionsList">
+		
+		<reference-view reference="invoice">	
+			<descriptions-list
+				description-properties="year, number, customer.name"
+				filter="org.openxava.test.filters.ActiveYearFilter" 
+				condition="${year} = ?"/>
+		</reference-view>
+		
+		<members>
+			invoice;			
+			number;
+			description
+		</members>			
+				
+	</view>	
+	<!-- tmp ini -->
+	
 	<view name="Search">
 		<reference-view reference="type">	
 			<descriptions-list order="${number} desc"/>			

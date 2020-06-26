@@ -142,7 +142,7 @@ public class Delivery {
 	@DescriptionsList(forViews="InvoiceAsDescriptionsList", 
 		descriptionProperties = "year, number, customer.name",
 		filter=ActiveYearFilter.class,
-		condition = "${year} = 2002") 
+		condition = "${year} = ?") 
 	// tmp fin
 	@NoFrame(forViews="FullInvoice") 
 	@Action(forViews="DEFAULT, MoreSections", value="Delivery.setDefaultInvoice")
