@@ -16,9 +16,20 @@ public class DeliveryInvoiceAsDecriptionsListTest extends ModuleTestBase {
 	
 	
 	public void testFilterInDescriptionsList() throws Exception { // tmp
-		// TMP ME QUEDÉ POR: YA FUNCIONA. HECHO CON XML. TRATANDO DE LANZAR LA SUITE (FALLA EN ExamTest.testChangeDataSource)
-		// TMP   LA SUITE FALLÓ DOS VECES. AUNQUE CREO QUE ES EL ECLIPSE. PROBAR CON 2020-06 PURO.
-		// TMP   HICE ALGO DE DOCUMENTACIÓN.
+		// TMP ME QUEDÉ HACIENDO LA DOC. FALTA ESPAÑOL PARA COMPONENTES XML
+		// TMP   LA SUITE YA FUNCIONO
+		
+		// tmp [.10.2004.]:_:2004 10 Juanillo
+		
+		String [][] invoices2004comparator = {
+			{"", ""},	
+			{"[.10.2004.]:_:2004 10 Juanillo", "2004 10 Juanillo"},
+			{"[.11.2004.]:_:2004 11 Carmelo", "2004 11 Carmelo"},
+			{"[.12.2004.]:_:2004 12 Cuatrero", "2004 12 Cuatrero"},
+			{"[.2.2004.]:_:2004 2 Juanillo", "2004 2 Juanillo"},
+			{"[.9.2004.]:_:2004 9 Javi", "2004 9 Javi"}
+		};
+		assertValidValues("conditionValue___0", invoices2004comparator);			
 		execute("CRUD.new");
 		String [][] invoices2004 = {
 			{"", ""},	

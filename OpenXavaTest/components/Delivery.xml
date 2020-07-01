@@ -348,7 +348,7 @@
 	<view name="InvoiceAsDescriptionsList">
 		
 		<reference-view reference="invoice">	
-			<descriptions-list
+			<descriptions-list for-tabs="InvoiceAsDescriptionsList"
 				description-properties="year, number, customer.name"
 				filter="org.openxava.test.filters.ActiveYearFilter" 
 				condition="${year} = ?"/>

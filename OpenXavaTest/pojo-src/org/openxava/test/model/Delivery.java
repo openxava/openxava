@@ -124,6 +124,10 @@ import org.openxava.jpa.*;
 		properties="invoice.year, invoice.number, remarks",
 		baseCondition="${invoice.year} = 2002"
 	),
+	// tmp ini
+	@Tab(name="InvoiceAsDescriptionsList", 
+		properties="invoice.year, invoice.number, type.number, type.description, number, date, description")
+	// tmp fin
 })
 
 
@@ -139,10 +143,10 @@ public class Delivery {
 	@OnChange(forViews="DEFAULT, MoreSections", value=OnChangeInvoiceNumberInDeliveryAction.class)
 	@ReferenceView(notForViews="FullInvoice", value="Simple")
 	// tmp ini
-	@DescriptionsList(forViews="InvoiceAsDescriptionsList", 
+	@DescriptionsList(forViews="InvoiceAsDescriptionsList", forTabs="InvoiceAsDescriptionsList",
 		descriptionProperties = "year, number, customer.name",
 		filter=ActiveYearFilter.class,
-		condition = "${year} = ?") 
+		condition = "${year} = ?")
 	// tmp fin
 	@NoFrame(forViews="FullInvoice") 
 	@Action(forViews="DEFAULT, MoreSections", value="Delivery.setDefaultInvoice")

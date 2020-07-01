@@ -95,7 +95,7 @@
 		<model name="Delivery"/>
 		<view name="FullInvoice"/>		
 		<controller name="Typical"/>
-	</module>		<!-- tmp ini -->	<module name="DeliveryInvoiceAsDecriptionsList" folder="invoicing.variations">		<model name="Delivery"/>		<view name="InvoiceAsDescriptionsList"/>				<controller name="Typical"/>	</module>	<!-- tmp fin -->				
+	</module>		<!-- tmp ini -->	<module name="DeliveryInvoiceAsDecriptionsList" folder="invoicing.variations">		<model name="Delivery"/>		<view name="InvoiceAsDescriptionsList"/>				<tab name="InvoiceAsDescriptionsList"/>		<controller name="Typical"/>	</module>	<!-- tmp fin -->				
 	<module name="TransportChargeWithDistance" folder="invoicing.variations">
 		<model name="TransportCharge"/>
 		<tab name="WithDistance"/>		

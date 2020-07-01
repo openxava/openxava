@@ -10036,7 +10036,11 @@ class="st0">"true|false"</span>,       <span class="co1">// 7 Nuevo en v5.5</spa
           saldrán ordenados por clave.</li>
         <li><strong>order</strong> (opcional): Permite poner un orden (al estilo
           SQL) para los valores que aparecen en la lista de descripciones.</li>
-        <li><strong>filter</strong> (opcional): ME QUEDÉ POR AQUÍ</li>
+        <li><strong>filter</strong> (opcional): <i>(Nuevo en v6.4)</i> Permite
+          definir la lógica para rellenar los valores de los parametros usados
+          en la condición (los ?). Tiene que implementar <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/filters/IFilter.html"><i>IFilter</i></a>
+          y puedes usar aquí <a href="tab_es.html#Datos+tabulares-Filtros+y+condicion+base">los
+            mismos filtros usadado para <i>@Tab</i></a>.</li>
         <li><strong>showReferenceView</strong> (opcional): <em>(Nuevo en v5.5)</em>
           Muestra un combo y una vista detalle de la referencia al mismo tiempo.
           La vista de la referencia es de solo lectura y sus valores cambian

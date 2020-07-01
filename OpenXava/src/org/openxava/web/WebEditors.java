@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openxava.filters.meta.*;
 import org.openxava.formatters.*;
 import org.openxava.model.meta.MetaMember;
 import org.openxava.model.meta.MetaModel;
@@ -355,14 +356,24 @@ public class WebEditors {
 					+ "&descriptionProperty=" + metaDescriptionsList.getDescriptionPropertyName()
 					+ "&descriptionProperties=" + metaDescriptionsList.getDescriptionPropertiesNames()
 					+ "&parameterValuesProperties=" + metaReference.getParameterValuesPropertiesInDescriptionsList(metaView)
-					+ "&condition=" + refineURLParam(metaDescriptionsList.getCondition()) 
+					+ "&condition=" + refineURLParam(metaDescriptionsList.getCondition())
+					+ "&filter=" + getFilterClass(metaDescriptionsList) // tmp
 					+ "&orderByKey=" + metaDescriptionsList.isOrderByKey()
 					+ "&order=" + metaDescriptionsList.getOrder();
-				if (forTabs.contains(tabName)) return url;
+				if (forTabs.contains(tabName)) {
+					System.out.println("[WebEditors.getEditorURLDescriptionsList] url=" + url); // tmp
+					return url;
+				}
 				if (forTabs.isEmpty()) defaultURL = url;
 			}
 		}
+		System.out.println("[WebEditors.getEditorURLDescriptionsList] defaultURL=" + defaultURL); // tmp
 		return defaultURL;
+	}
+
+	private static String getFilterClass(MetaDescriptionsList metaDescriptionsList) {
+		MetaFilter metaFilter = metaDescriptionsList.getMetaFilter();
+		return metaFilter == null?"":metaFilter.getClassName();
 	}
 
 	private static String refineURLParam(String condition) {
