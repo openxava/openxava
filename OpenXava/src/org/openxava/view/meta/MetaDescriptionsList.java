@@ -23,7 +23,7 @@ public class MetaDescriptionsList implements java.io.Serializable {
 	private String forTabs;
 	private String notForTabs;
 	private String labelStyle = "";
-	private MetaFilter metaFilter; // tmp
+	private MetaFilter metaFilter; 
 	
 		
 	public String getDescriptionPropertyName() {

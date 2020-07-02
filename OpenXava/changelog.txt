@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- New attribute filter in @DescriptionsList to use an IFilter like the ones used by @Tab.
+- New attribute filter in <descriptions-list> of XML components to use an IFilter.
 - ENTER to move to next field with enterMovesToNextField=true in xava.properties.
 - Lesson 5 of course upgraded to latest features.
 - Import data from list supports importing references, not just plain properties.

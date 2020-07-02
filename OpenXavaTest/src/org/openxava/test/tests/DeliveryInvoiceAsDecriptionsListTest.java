@@ -15,12 +15,7 @@ public class DeliveryInvoiceAsDecriptionsListTest extends ModuleTestBase {
 	}
 	
 	
-	public void testFilterInDescriptionsList() throws Exception { // tmp
-		// TMP ME QUEDÉ HACIENDO LA DOC. FALTA ESPAÑOL PARA COMPONENTES XML
-		// TMP   LA SUITE YA FUNCIONO
-		
-		// tmp [.10.2004.]:_:2004 10 Juanillo
-		
+	public void testFilterInDescriptionsList() throws Exception { 
 		String [][] invoices2004comparator = {
 			{"", ""},	
 			{"[.10.2004.]:_:2004 10 Juanillo", "2004 10 Juanillo"},

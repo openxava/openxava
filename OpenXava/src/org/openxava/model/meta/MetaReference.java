@@ -249,7 +249,8 @@ public class MetaReference extends MetaMember implements Cloneable {
 		return result.toString();
 	}
 	
-	public String getFilterInDescriptionsList(MetaView metaView) throws XavaException { // tmp
+	/** @since 6.4 */
+	public String getFilterInDescriptionsList(MetaView metaView) throws XavaException { 
 		MetaDescriptionsList descriptionsList = metaView.getMetaDescriptionList(this);		
 		if (descriptionsList == null) return "";
 		MetaFilter filter = descriptionsList.getMetaFilter();

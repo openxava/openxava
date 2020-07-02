@@ -432,14 +432,12 @@ public class ViewParser extends XmlElementsNames {
 		else throw new XavaException("invalid_label_format", labelFormat);
 		m.setLabelStyle(el.getAttribute(xlabel_style[lang]));
 		
-		// tmp ini
 		String filter = el.getAttribute(xfilter[lang]);
 		if (!Is.emptyString(filter)) {
 			MetaFilter metaFilter = new MetaFilter();
 			metaFilter.setClassName(filter);
 			m.setMetaFilter(metaFilter);
 		}
-		// tmp fin
 
 		return m;
 	}

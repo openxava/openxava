@@ -357,17 +357,13 @@ public class WebEditors {
 					+ "&descriptionProperties=" + metaDescriptionsList.getDescriptionPropertiesNames()
 					+ "&parameterValuesProperties=" + metaReference.getParameterValuesPropertiesInDescriptionsList(metaView)
 					+ "&condition=" + refineURLParam(metaDescriptionsList.getCondition())
-					+ "&filter=" + getFilterClass(metaDescriptionsList) // tmp
+					+ "&filter=" + getFilterClass(metaDescriptionsList) 
 					+ "&orderByKey=" + metaDescriptionsList.isOrderByKey()
 					+ "&order=" + metaDescriptionsList.getOrder();
-				if (forTabs.contains(tabName)) {
-					System.out.println("[WebEditors.getEditorURLDescriptionsList] url=" + url); // tmp
-					return url;
-				}
+				if (forTabs.contains(tabName)) return url;
 				if (forTabs.isEmpty()) defaultURL = url;
 			}
 		}
-		System.out.println("[WebEditors.getEditorURLDescriptionsList] defaultURL=" + defaultURL); // tmp
 		return defaultURL;
 	}
 
