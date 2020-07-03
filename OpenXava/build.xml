@@ -918,7 +918,9 @@
 		<antcall target="createWebXml"/>
 		<antcall target="createDefaultI18nFiles"/>
 		<antcall target="createAppLauncher"/> 
+		<!--tmp
 		<jar jarfile="../${project}/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
+		-->
 		<!-- Delete the old Hibernate jars (used until v4m5) -->
 		<delete file="../${project}/web/WEB-INF/lib/ejb3-persistence.jar"/>
 		<delete file="../${project}/web/WEB-INF/lib/hibernate-annotations.jar"/>
@@ -973,6 +975,36 @@
 		<delete file="../${project}/web/xava/editors/imageEditor.jsp"/>
 		
 	</target>
+	
+	<!-- tmp ini -->
+	<!-- TMP ME QUEDÉ POR AQUÍ: LO DE ABAJO LO ACABE, LO PROBÉ, PERO NO FUNCIONÓ -->
+	<!-- tmp Documentar este target -->
+	<!-- tmp ¿Revisar los compileJava y compileGroovy? Debería hacerlo, a lo mejor alguien lo hace -->
+	<target name="buildOpenXava">
+		<delete file="${openxava.base.dir}/OpenXava/web/WEB-INF/lib"/>
+		<delete includeemptydirs="true">
+		  <fileset dir="${openxava.base.dir}/OpenXava/bin" includes="**/*"/>
+		</delete>
+		<javac destdir="${openxava.base.dir}/OpenXava/bin">
+			<src path="${openxava.base.dir}/OpenXava/src"/>
+			<classpath>
+				<fileset dir="${openxava.base.dir}/OpenXava/web/WEB-INF/lib">
+					<include name="**/*.jar"/>
+				</fileset>
+				<fileset dir="${openxava.base.dir}/OpenXava/lib">
+					<include name="**/*.jar"/>
+				</fileset>
+				<pathelement path="${j2ee.lib};${xava.compiler.path}"/>
+			</classpath>
+		</javac>
+		<copy todir="${openxava.base.dir}/OpenXava/bin">
+			<fileset dir="${openxava.base.dir}/OpenXava/xava"/>
+			<fileset dir="${openxava.base.dir}/OpenXava/properties"/>
+			<fileset dir="${openxava.base.dir}/OpenXava/i18n"/>
+		</copy>
+		<jar jarfile="../${project}/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
+	</target>
+	<!-- tmp fin -->
 	
 	<target name="defineJavaClass">
 		<script language="javascript">
