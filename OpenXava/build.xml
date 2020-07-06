@@ -28,7 +28,12 @@
 	<property name="server.properties.dir" value="${openxava.base.dir}/OpenXava/build/server-properties"/>
 	<property name="server.properties.tmp.dir" value="${user.home}/tmpServerProperties"/>
 	<property name="model.package" value="model"/>
+	<!-- tmp
 	<property name="javac.version" value="1.6"/>
+	-->
+	<!-- tmp ini -->
+	<property name="javac.version" value="1.8"/>
+	<!-- tmp fin -->
 	<property name="portlet.encoding" value="UTF-8"/>
 	<property name="deploy.portlets.dir" value="${deploy.dir}/openxava${war.dir.suffix}/WEB-INF/deploy"/>
 	<property name="generate.jetspeed2.files" value="true"/>
@@ -977,8 +982,11 @@
 	</target>
 	
 	<!-- tmp ini -->
-	<!-- TMP ME QUEDÉ POR AQUÍ: LO DE ABAJO LO ACABE, LO PROBÉ, PERO NO FUNCIONÓ -->
+	<!-- tmp ME QUEDÉ POR: YA COMPILA. FALTA PROBAR LA APLICACIÓN Y PROBAR HACERLO CON Addons -->
 	<!-- tmp Documentar este target -->
+	<!-- tmp Documentar modificar OpenXava:
+				- Un JDK para arrancar el Ant y si falla comprobar que coincida con tools.jar
+	 -->
 	<!-- tmp ¿Revisar los compileJava y compileGroovy? Debería hacerlo, a lo mejor alguien lo hace -->
 	<target name="buildOpenXava">
 		<delete file="${openxava.base.dir}/OpenXava/web/WEB-INF/lib"/>
@@ -1002,7 +1010,7 @@
 			<fileset dir="${openxava.base.dir}/OpenXava/properties"/>
 			<fileset dir="${openxava.base.dir}/OpenXava/i18n"/>
 		</copy>
-		<jar jarfile="../${project}/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
+		<jar jarfile="${openxava.base.dir}/OpenXava/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
 	</target>
 	<!-- tmp fin -->
 	

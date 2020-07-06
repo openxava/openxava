@@ -62,7 +62,8 @@ public class MetaObject {
 			}
 			else {			
 				Constructor constructor = clase.getConstructor(PARAMETER_TYPES);
-				String [] values = { value };
+				// tmp String [] values = { value };
+				Object [] values = { value }; // tmp
 				return constructor.newInstance(values);  
 			}
 		}		

@@ -9,8 +9,6 @@ import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
 
-import sun.awt.SunHints.*;
-
 /**
  * @author Javier Paniza
  */

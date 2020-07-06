@@ -54,7 +54,8 @@ public class Base1EnumType implements UserType, ParameterizedType {
 		if (idx == 0) return null;
 		assertParameters();
 		try {
-			Object values = Class.forName(enumType).getMethod("values", null).invoke(null, null);
+			// tmp Object values = Class.forName(enumType).getMethod("values", null).invoke(null, null);
+			Object values = Class.forName(enumType).getMethod("values", (Class<?> []) null).invoke(null, (Object []) null); // tmp
 			return ((Object []) values)[idx - 1];
 		} 
 		catch (Exception ex) {

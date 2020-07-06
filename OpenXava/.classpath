@@ -84,5 +84,6 @@
 	<classpathentry kind="lib" path="lib/websocket-common.jar"/>
 	<classpathentry kind="lib" path="lib/tomcat-embed-websocket.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/openxava.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
