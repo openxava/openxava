@@ -23,8 +23,6 @@
 	-->
 	 
 	<property name="portlet.encoding" value="UTF-8"/>
-	
-		
 		
 	<target name="regenerateGenerator">
 		<ant antfile="../OpenXava/build.xml" target="regenerateGenerator"/>
@@ -150,6 +148,10 @@
 	</target>	
 	
 	<target name="updateOX">
+		<!-- tmp ini -->
+		<ant antfile="../OpenXava/build.xml" target="buildOpenXava"/>
+		<ant antfile="../OpenXava/build.xml" target="buildAddons"/>
+		<!-- tmp fin -->
 		<ant antfile="../OpenXava/build.xml" target="updateOX"/>
 	</target>
 		
