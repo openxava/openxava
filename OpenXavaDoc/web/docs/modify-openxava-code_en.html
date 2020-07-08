@@ -1,0 +1,484 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>openxava - modify-openxava-code_en</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Groovy"></a>Modify OpenXava code</h1>
+      You can modify OpenXava code to adapt to your needs, fix a bug, add a new
+      feature, etc.<br>
+      <h2 id="toc1">Since v6.4</h2>
+      To modify OpenXava Java code, XML or i18n files:</div>
+    <div class="wiki" style="display: block;">
+      <ul>
+        <li>Modify the code on <i>OpenXava/src</i>, <i>OpenXava/xava</i> or <i>OpenXava/i18n</i>.
+          These are not source code folders for Eclipse, so Eclipse don't
+          compile them.</li>
+        <li>Execute the Ant target <i>buildOpenXava</i> from <i>OpenXava/build.xml</i>.
+          It compiles the OpenXava Java code and creates <i>openxava.jar</i>.</li>
+        <li>Refresh OpenXava project in Eclipse (F5).</li>
+        <li>Execute the Ant target <i>updateOX</i> from the <i>build.xml</i>
+          of your own project. This copy the new <i>openxava.jar</i> to your
+          project.</li>
+        <li>Refresh your own project in Eclipse (F5).</li>
+      </ul>
+      <p>To modify Addons Java code or XML:</p>
+      <ul>
+        <li>Modify the code on <i>Addon/src</i> or <i>Addons/xava</i>. These
+          are not source code folders for Eclipse, so Eclipse don't compile
+          them.
+        </li>
+        <li>Execute the Ant target <i>buildAddons</i> from <i>OpenXava/build.xml</i>.
+          It compiles the Addons Java code and copy XML code.</li>
+        <li>Refresh Addons project in Eclipse (F5).<br>
+        </li>
+        <li>Execute the Ant target <i>updateOX</i> from the <i>build.xml</i>
+          of your own project. </li>
+        <li>Refresh your own project in Eclipse (F5).</li>
+      </ul>
+      <p>To modify JSP/HTML/JavaScript/CSS:</p>
+      <ul>
+        <li>Modify the code on <i>OpenXava/web</i>.<br>
+        </li>
+        <li>Execute the Ant target <i>updateOX</i> from the <i>build.xml</i>
+          of your own project. This copy all the web resources to your project.</li>
+      </ul>
+      <p></p>
+      Since v6.4 though you can still navigate to OpenXava code from your own
+      code inside Eclipse, you cannot edit that code directly, it's read only.
+      So, you have to look for that class in <i>OpenXava/src</i> yourself,
+      modify it and follow the above steps.<br>
+      <h2 id="toc2">Until v6.3.2</h2>
+      If you work from command line, instead of using Eclipse, add a new <em>compile</em>
+      ant target to the <em>build.xml</em> of your project:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc-1">&lt;!--</span>
+<span class="sc-1">Compile all .java and .groovy</span>
+<span class="sc-1">Not needed to call it if you work inside Eclipse</span>
+<span class="sc-1">--&gt;</span>
+<span class="sc3"><span class="re1">&lt;target</span> <span class="re0">name</span>=<span
+class="st0">"compile"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
+class="st0">"../OpenXava/build.xml"</span> <span class="re0">target</span>=<span
+class="st0">"compile"</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span></pre>
+      And remember to call it before calling another target:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">$ ant compile deployWar</pre>
+      The <em>compile</em> ant target is included by default in the new
+      projects.<br>
+      <h2 id="toc3"><a name="Groovy-Some sample code"></a>Some sample code</h2>
+      You can write the JPA entities with Groovy:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.groovy  {font-family:monospace;}
+.groovy .imp {font-weight: bold; color: red;}
+.groovy .kw1 {color: #b1b100;}
+.groovy .kw2 {color: #000000; font-weight: bold;}
+.groovy .kw3 {color: #aaaadd; font-weight: bold;}
+.groovy .kw4 {color: #993333;}
+.groovy .kw5 {color: #663399;}
+.groovy .kw6 {color: #CC0099;}
+.groovy .kw7 {color: #FFCC33;}
+.groovy .kw8 {color: #993399;}
+.groovy .kw9 {color: #993399; font-weight: bold;}
+.groovy .co1 {color: #808080; font-style: italic;}
+.groovy .co2 {color: #a1a100;}
+.groovy .co3 {color: #808080; font-style: italic;}
+.groovy .coMULTI {color: #808080; font-style: italic;}
+.groovy .es0 {color: #000099; font-weight: bold;}
+.groovy .br0 {color: #66cc66;}
+.groovy .sy0 {color: #66cc66;}
+.groovy .st0 {color: #ff0000;}
+.groovy .nu0 {color: #cc66cc;}
+.groovy .me1 {color: #006600;}
+.groovy .me2 {color: #006600;}
+.groovy .re0 {color: #0000ff;}
+.groovy span.xtra { display:block; }
+
+-->
+</style><pre class="groovy"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
+class="sy0">;</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">javax.persistence.*</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.calculators.*</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.jpa.*</span>
+&nbsp;
+@<span class="kw3">Entity</span>
+@Table<span class="br0">(</span>name<span class="sy0">=</span><span class="st0">"TOrder"</span><span
+class="br0">)</span>
+@<span class="kw3">View</span><span class="br0">(</span>members<span class="sy0">=</span><span
+class="st0">"""
+    year, number, date;
+    customer;
+    details;
+    amount;
+    remarks
+    """</span>
+<span class="br0">)</span>
+&nbsp;
+<span class="kw2">class</span> Order <span class="kw2">extends</span> Identifiable <span
+class="br0">{</span>
+&nbsp;
+    @Column<span class="br0">(</span>length<span class="sy0">=</span><span class="nu0">4</span><span
+class="br0">)</span>
+    @DefaultValueCalculator<span class="br0">(</span>CurrentYearCalculator.<span
+class="kw2">class</span><span class="br0">)</span>
+    <span class="kw4">int</span> year
+&nbsp;
+    @Column<span class="br0">(</span>length<span class="sy0">=</span><span class="nu0">6</span><span
+class="br0">)</span>
+    <span class="kw4">int</span> number
+&nbsp;
+    @Required
+    @DefaultValueCalculator<span class="br0">(</span>CurrentDateCalculator.<span
+class="kw2">class</span><span class="br0">)</span>
+    <span class="kw3">Date</span> date
+&nbsp;
+    @ManyToOne<span class="br0">(</span>fetch<span class="sy0">=</span>FetchType.<span
+class="me1">LAZY</span>, optional<span class="sy0">=</span><span class="kw2">false</span><span
+class="br0">)</span>
+    @ReferenceView<span class="br0">(</span><span class="st0">"Simplest"</span><span
+class="br0">)</span>
+    Customer customer
+&nbsp;
+    @OneToMany<span class="br0">(</span>mappedBy<span class="sy0">=</span><span
+class="st0">"parent"</span>, cascade<span class="sy0">=</span>CascadeType.<span
+class="me1">ALL</span><span class="br0">)</span>
+    @ListProperties<span class="br0">(</span><span class="st0">"product.number, product.description, quantity, product.unitPrice, amount"</span><span
+class="br0">)</span>
+    Collection<span class="sy0">&lt;</span>OrderDetail<span class="sy0">&gt;</span> details <span
+class="sy0">=</span> <span class="kw2">new</span> ArrayList<span class="sy0">&lt;</span>OrderDetail<span
+class="sy0">&gt;</span><span class="br0">(</span><span class="br0">)</span>
+&nbsp;
+    @Stereotype<span class="br0">(</span><span class="st0">"MEMO"</span><span class="br0">)</span>
+    <span class="kw3">String</span> remarks
+&nbsp;
+    @Stereotype<span class="br0">(</span><span class="st0">"MONEY"</span><span class="br0">)</span>
+    <span class="kw3">BigDecimal</span> getAmount<span class="br0">(</span><span
+class="br0">)</span> <span class="br0">{</span>
+        <span class="kw3">BigDecimal</span> result <span class="sy0">=</span> <span
+class="nu0">0</span>
+        details.<span class="kw5">each</span> <span class="br0">{</span> OrderDetail detail <span
+class="sy0">-&gt;</span>
+            result <span class="sy0">+=</span> detail.<span class="me1">amount</span>
+        <span class="br0">}</span>
+        <span class="kw2">return</span> result
+    <span class="br0">}</span>
+&nbsp;
+    @PrePersist
+    <span class="kw4">void</span> calculateNumber<span class="br0">(</span><span
+class="br0">)</span> <span class="kw2">throws</span> <span class="kw3">Exception</span> <span
+class="br0">{</span>
+        Query query <span class="sy0">=</span> XPersistence.<span class="me1">getManager</span><span
+class="br0">(</span><span class="br0">)</span>
+            .<span class="me1">createQuery</span><span class="br0">(</span><span
+class="st0">"select max(o.number) from Order o "</span> <span class="sy0">+</span>
+                    <span class="st0">"where o.year = :year"</span><span class="br0">)</span>
+        query.<span class="me1">setParameter</span><span class="br0">(</span><span
+class="st0">"year"</span>, year<span class="br0">)</span>
+        <span class="kw3">Integer</span> lastNumber <span class="sy0">=</span> <span
+class="br0">(</span><span class="kw3">Integer</span><span class="br0">)</span> query.<span
+class="me1">getSingleResult</span><span class="br0">(</span><span class="br0">)</span>
+        <span class="kw2">this</span>.<span class="me1">number</span> <span class="sy0">=</span> lastNumber <span
+class="sy0">==</span> <span class="kw2">null</span><span class="sy0">?</span><span
+class="nu0">1</span>:lastNumber <span class="sy0">+</span> <span class="nu0">1</span>
+    <span class="br0">}</span>
+&nbsp;
+<span class="br0">}</span>
+&nbsp;</pre>
+      Or the actions:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.groovy  {font-family:monospace;}
+.groovy .imp {font-weight: bold; color: red;}
+.groovy .kw1 {color: #b1b100;}
+.groovy .kw2 {color: #000000; font-weight: bold;}
+.groovy .kw3 {color: #aaaadd; font-weight: bold;}
+.groovy .kw4 {color: #993333;}
+.groovy .kw5 {color: #663399;}
+.groovy .kw6 {color: #CC0099;}
+.groovy .kw7 {color: #FFCC33;}
+.groovy .kw8 {color: #993399;}
+.groovy .kw9 {color: #993399; font-weight: bold;}
+.groovy .co1 {color: #808080; font-style: italic;}
+.groovy .co2 {color: #a1a100;}
+.groovy .co3 {color: #808080; font-style: italic;}
+.groovy .coMULTI {color: #808080; font-style: italic;}
+.groovy .es0 {color: #000099; font-weight: bold;}
+.groovy .br0 {color: #66cc66;}
+.groovy .sy0 {color: #66cc66;}
+.groovy .st0 {color: #ff0000;}
+.groovy .nu0 {color: #cc66cc;}
+.groovy .me1 {color: #006600;}
+.groovy .me2 {color: #006600;}
+.groovy .re0 {color: #0000ff;}
+.groovy span.xtra { display:block; }
+
+-->
+</style><pre class="groovy"><span class="kw2">package</span> <span class="co2">org.openxava.test.actions</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span>
+&nbsp;
+<span class="kw2">class</span> ChangeYearConditionAction <span class="kw2">extends</span> TabBaseAction <span
+class="br0">{</span>
+&nbsp;
+    <span class="kw4">int</span> year<span class="sy0">;</span>
+&nbsp;
+    <span class="kw4">void</span> <span class="kw9">execute</span><span class="br0">(</span><span
+class="br0">)</span> <span class="kw2">throws</span> <span class="kw3">Exception</span> <span
+class="br0">{</span>
+        tab.<span class="me1">setConditionValue</span><span class="br0">(</span><span
+class="st0">"year"</span>, year<span class="br0">)</span>
+    <span class="br0">}</span>
+&nbsp;
+<span class="br0">}</span></pre>
+      Even the test cases:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.groovy  {font-family:monospace;}
+.groovy .imp {font-weight: bold; color: red;}
+.groovy .kw1 {color: #b1b100;}
+.groovy .kw2 {color: #000000; font-weight: bold;}
+.groovy .kw3 {color: #aaaadd; font-weight: bold;}
+.groovy .kw4 {color: #993333;}
+.groovy .kw5 {color: #663399;}
+.groovy .kw6 {color: #CC0099;}
+.groovy .kw7 {color: #FFCC33;}
+.groovy .kw8 {color: #993399;}
+.groovy .kw9 {color: #993399; font-weight: bold;}
+.groovy .co1 {color: #808080; font-style: italic;}
+.groovy .co2 {color: #a1a100;}
+.groovy .co3 {color: #808080; font-style: italic;}
+.groovy .coMULTI {color: #808080; font-style: italic;}
+.groovy .es0 {color: #000099; font-weight: bold;}
+.groovy .br0 {color: #66cc66;}
+.groovy .sy0 {color: #66cc66;}
+.groovy .st0 {color: #ff0000;}
+.groovy .nu0 {color: #cc66cc;}
+.groovy .me1 {color: #006600;}
+.groovy .me2 {color: #006600;}
+.groovy .re0 {color: #0000ff;}
+.groovy span.xtra { display:block; }
+
+-->
+</style><pre class="groovy"><span class="kw2">package</span> <span class="co2">org.openxava.test.tests</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">javax.persistence.*</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">org.openxava.tests.*</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">com.gargoylesoftware.htmlunit.html.*</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">static</span> org.<span class="me1">openxava</span>.<span
+class="me1">jpa</span>.<span class="me1">XPersistence</span>.<span class="sy0">*</span>
+&nbsp;
+<span class="kw2">class</span> OrderTest <span class="kw2">extends</span> ModuleTestBase <span
+class="br0">{</span>
+&nbsp;
+    OrderTest<span class="br0">(</span><span class="kw3">String</span> testName<span
+class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">super</span><span class="br0">(</span>testName, <span
+class="st0">"Order"</span><span class="br0">)</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw4">void</span> testCalculatedPropertiesFromCollection_generatedValueOnPersistRefreshedInView<span
+class="br0">(</span><span class="br0">)</span>
+        <span class="kw2">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        <span class="kw3">String</span> nextNumber <span class="sy0">=</span> getNextNumber<span
+class="br0">(</span><span class="br0">)</span>
+        <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"CRUD.new"</span><span
+class="br0">)</span>
+        assertValue<span class="br0">(</span><span class="st0">"number"</span>, <span
+class="st0">""</span><span class="br0">)</span>
+        setValue<span class="br0">(</span><span class="st0">"customer.number"</span>, <span
+class="st0">"1"</span><span class="br0">)</span>
+        assertValue<span class="br0">(</span><span class="st0">"customer.name"</span>, <span
+class="st0">"Javi"</span><span class="br0">)</span>
+        assertCollectionRowCount<span class="br0">(</span><span class="st0">"details"</span>, <span
+class="nu0">0</span><span class="br0">)</span>
+        <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"Collection.new"</span>, <span
+class="st0">"viewObject=xava_view_details"</span><span class="br0">)</span>
+        setValue<span class="br0">(</span><span class="st0">"product.number"</span>, <span
+class="st0">"1"</span><span class="br0">)</span>
+        assertValue<span class="br0">(</span><span class="st0">"product.description"</span>, <span
+class="st0">"MULTAS DE TRAFICO"</span><span class="br0">)</span>
+        assertValue<span class="br0">(</span><span class="st0">"product.unitPrice"</span>, <span
+class="st0">"11.00"</span><span class="br0">)</span>
+        setValue<span class="br0">(</span><span class="st0">"quantity"</span>, <span
+class="st0">"10"</span><span class="br0">)</span>
+        assertValue<span class="br0">(</span><span class="st0">"amount"</span>, <span
+class="st0">"110.00"</span><span class="br0">)</span>
+        <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"Collection.save"</span><span
+class="br0">)</span>
+        assertNoErrors<span class="br0">(</span><span class="br0">)</span>
+        assertCollectionRowCount<span class="br0">(</span><span class="st0">"details"</span>, <span
+class="nu0">1</span><span class="br0">)</span>
+        assertValue<span class="br0">(</span><span class="st0">"amount"</span>, <span
+class="st0">"110.00"</span><span class="br0">)</span>
+        assertValue<span class="br0">(</span><span class="st0">"number"</span>, nextNumber<span
+class="br0">)</span>
+        <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"CRUD.delete"</span><span
+class="br0">)</span>
+        assertNoErrors<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw4">void</span> testDoubleClickOnlyInsertsACollectionElement<span
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <span
+class="kw3">Exception</span> <span class="br0">{</span>
+        <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"CRUD.new"</span><span
+class="br0">)</span>
+        setValue<span class="br0">(</span><span class="st0">"customer.number"</span>, <span
+class="st0">"1"</span><span class="br0">)</span>
+        assertCollectionRowCount<span class="br0">(</span><span class="st0">"details"</span>, <span
+class="nu0">0</span><span class="br0">)</span>
+        <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"Collection.new"</span>, <span
+class="st0">"viewObject=xava_view_details"</span><span class="br0">)</span>
+        setValue<span class="br0">(</span><span class="st0">"product.number"</span>, <span
+class="st0">"1"</span><span class="br0">)</span>
+        setValue<span class="br0">(</span><span class="st0">"quantity"</span>, <span
+class="st0">"10"</span><span class="br0">)</span>
+        HtmlElement action <span class="sy0">=</span> getForm<span class="br0">(</span><span
+class="br0">)</span>.<span class="me1">getElementById</span><span class="br0">(</span>decorateId<span
+class="br0">(</span><span class="st0">"Collection.save"</span><span class="br0">)</span><span
+class="br0">)</span>
+&nbsp;
+        action.<span class="me1">click</span><span class="br0">(</span><span class="br0">)</span> <span
+class="co1">// Not dblClick(), it does not reproduce the problem</span>
+        action.<span class="me1">click</span><span class="br0">(</span><span class="br0">)</span>
+        <span class="kw3">Thread</span>.<span class="me1">sleep</span><span class="br0">(</span><span
+class="nu0">3000</span><span class="br0">)</span>
+&nbsp;
+        assertNoErrors<span class="br0">(</span><span class="br0">)</span>
+        assertCollectionRowCount<span class="br0">(</span><span class="st0">"details"</span>, <span
+class="nu0">1</span><span class="br0">)</span>
+&nbsp;
+        <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"CRUD.delete"</span><span
+class="br0">)</span>
+        assertNoErrors<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw2">private</span> <span class="kw3">String</span> getNextNumber<span
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <span
+class="kw3">Exception</span> <span class="br0">{</span>
+        Query query <span class="sy0">=</span> getManager<span class="br0">(</span><span
+class="br0">)</span>.
+            <span class="me1">createQuery</span><span class="br0">(</span>
+                <span class="st0">"select max(o.number) from Order o where o.year = :year"</span><span
+class="br0">)</span>
+        query.<span class="me1">setParameter</span><span class="br0">(</span><span
+class="st0">"year"</span>, Dates.<span class="me1">getYear</span><span class="br0">(</span><span
+class="kw2">new</span> <span class="kw3">Date</span><span class="br0">(</span><span
+class="br0">)</span><span class="br0">)</span><span class="br0">)</span>
+        <span class="kw3">Integer</span> lastNumber <span class="sy0">=</span> <span
+class="br0">(</span><span class="kw3">Integer</span><span class="br0">)</span> query.<span
+class="me1">getSingleResult</span><span class="br0">(</span><span class="br0">)</span>
+        <span class="kw1">if</span> <span class="br0">(</span>lastNumber <span class="sy0">==</span> <span
+class="kw2">null</span><span class="br0">)</span> lastNumber <span class="sy0">=</span> <span
+class="nu0">0</span>
+        <span class="kw2">return</span> <span class="kw3">Integer</span>.<span class="me1">toString</span><span
+class="br0">(</span>lastNumber <span class="sy0">+</span> <span class="nu0">1</span><span
+class="br0">)</span>
+    <span class="br0">}</span>
+&nbsp;
+<span class="br0">}</span></pre>
+      <h2 id="toc4"><a name="Groovy-Beware with nested annotations"></a>Beware
+        with nested annotations</h2>
+      Most of the Java syntax is compatible with Groovy. However, there is a
+      litte detail of Groovy syntax that you have to take into account when
+      using nested annotations: you have to <strong>use [] instead of {}</strong>,
+      as following:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.groovy  {font-family:monospace;}
+.groovy .imp {font-weight: bold; color: red;}
+.groovy .kw1 {color: #b1b100;}
+.groovy .kw2 {color: #000000; font-weight: bold;}
+.groovy .kw3 {color: #aaaadd; font-weight: bold;}
+.groovy .kw4 {color: #993333;}
+.groovy .kw5 {color: #663399;}
+.groovy .kw6 {color: #CC0099;}
+.groovy .kw7 {color: #FFCC33;}
+.groovy .kw8 {color: #993399;}
+.groovy .kw9 {color: #993399; font-weight: bold;}
+.groovy .co1 {color: #808080; font-style: italic;}
+.groovy .co2 {color: #a1a100;}
+.groovy .co3 {color: #808080; font-style: italic;}
+.groovy .coMULTI {color: #808080; font-style: italic;}
+.groovy .es0 {color: #000099; font-weight: bold;}
+.groovy .br0 {color: #66cc66;}
+.groovy .sy0 {color: #66cc66;}
+.groovy .st0 {color: #ff0000;}
+.groovy .nu0 {color: #cc66cc;}
+.groovy .me1 {color: #006600;}
+.groovy .me2 {color: #006600;}
+.groovy .re0 {color: #0000ff;}
+.groovy span.xtra { display:block; }
+
+-->
+</style><pre class="groovy">@Views<span class="br0">(</span><span class="br0">[</span> <span
+class="co1">// Use [ instead of {</span>
+    @<span class="kw3">View</span><span class="br0">(</span>members<span class="sy0">=</span><span
+class="st0">""" // Use """</span> <span class="kw1">for</span> multiline strings
+        building <span class="br0">[</span>
+            name, function<span class="sy0">;</span>
+            address
+        <span class="br0">]</span>
+    <span class="st0">"""),
+    @View(name="Simple", members="name")
+]) // Use ] instead of }</span></pre>
+      Note how we use <em>@Views([ ... ])</em> instead of <em>@Views({ ... })</em>.
+      Note also that you can use """ for multiline strings.<br>
+      For more details about Groovy syntax read <em><a class="wiki_link_ext" href="http://groovy.codehaus.org/Groovy+style+and+language+feature+guidelines+for+Java+developers"
+          rel="nofollow">Groovy style and language feature guidelines for Java
+          developers</a></em>. </div>
+  </body>
+</html>

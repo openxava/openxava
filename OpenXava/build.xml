@@ -982,7 +982,7 @@
 	</target>
 	
 	<!-- tmp ini -->
-	<!-- tmp ME QUEDÉ POR AQUÍ: SUITE PASADA AL 100%. FALTA CONFIGURAR PARA NAVEGAR POR EL CÓDIGO FUENTE -->
+	<!-- tmp ME QUEDÉ HACIENDO LA DOC: ESTABA HACIENDO LA DOC EN INGLÉS. ES LO ÚLTIMO. -->
 	<!-- tmp Documentar este target -->
 	<!-- tmp Documentar modificar OpenXava:
 				- Un JDK para arrancar el Ant y si falla comprobar que coincida con tools.jar
