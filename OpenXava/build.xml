@@ -28,12 +28,7 @@
 	<property name="server.properties.dir" value="${openxava.base.dir}/OpenXava/build/server-properties"/>
 	<property name="server.properties.tmp.dir" value="${user.home}/tmpServerProperties"/>
 	<property name="model.package" value="model"/>
-	<!-- tmp
-	<property name="javac.version" value="1.6"/>
-	-->
-	<!-- tmp ini -->
 	<property name="javac.version" value="1.8"/>
-	<!-- tmp fin -->
 	<property name="portlet.encoding" value="UTF-8"/>
 	<property name="deploy.portlets.dir" value="${deploy.dir}/openxava${war.dir.suffix}/WEB-INF/deploy"/>
 	<property name="generate.jetspeed2.files" value="true"/>
@@ -923,9 +918,6 @@
 		<antcall target="createWebXml"/>
 		<antcall target="createDefaultI18nFiles"/>
 		<antcall target="createAppLauncher"/> 
-		<!--tmp
-		<jar jarfile="../${project}/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
-		-->
 		<!-- Delete the old Hibernate jars (used until v4m5) -->
 		<delete file="../${project}/web/WEB-INF/lib/ejb3-persistence.jar"/>
 		<delete file="../${project}/web/WEB-INF/lib/hibernate-annotations.jar"/>
@@ -982,13 +974,15 @@
 	</target>
 	
 	<!-- tmp ini -->
-	<!-- tmp ME QUEDÉ HACIENDO LA DOC: ESTABA HACIENDO LA DOC EN INGLÉS. ES LO ÚLTIMO. -->
-	<!-- tmp Documentar este target -->
-	<!-- tmp Documentar modificar OpenXava:
+	<!-- tmp Documentar modificar OpenXava: ME QUEDÉ PARA HACER ESTO
 				- Un JDK para arrancar el Ant y si falla comprobar que coincida con tools.jar
 				- External Tools > OpenXava.buildOPenxava > Common > Encoding : ISO-8859-1  (Si da error al compilar por acentos)..
 	 -->
 	<!-- tmp ¿Revisar los compileJava y compileGroovy? Debería hacerlo, a lo mejor alguien lo hace -->
+	<!--
+	Compile Java code of OpenXava project and create openxava.jar.
+	Call it after you modify OpenXava code, but you still need to call updateOX in your project.
+	-->
 	<target name="buildOpenXava">
 		<delete file="${openxava.base.dir}/OpenXava/web/WEB-INF/lib"/>
 		<antcall target="javac">

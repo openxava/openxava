@@ -133,8 +133,7 @@ public class XavaPortlet extends GenericPortlet {
 		if (request.getClass().getName().equals("com.liferay.portlet.RenderRequestImpl")) {
 			try {
 				// Implementation tries to resolve the servlet request without a formal dependency to Liferay's libraries
-				// tmp HttpServletRequest servletRequest = (HttpServletRequest) request.getClass().getMethod("getHttpServletRequest", null).invoke(request, null);
-				HttpServletRequest servletRequest = (HttpServletRequest) request.getClass().getMethod("getHttpServletRequest", (Class<?> []) null).invoke(request, (Object []) null); // tmp
+				HttpServletRequest servletRequest = (HttpServletRequest) request.getClass().getMethod("getHttpServletRequest", (Class<?> []) null).invoke(request, (Object []) null); 
 				if (servletRequest != null) {
 					String userAgent = servletRequest.getHeader("user-agent");
 					if (userAgent != null) {
