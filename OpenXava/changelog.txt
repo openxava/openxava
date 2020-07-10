@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Building workspace time for Eclipse optimized.
 - New attribute filter in @DescriptionsList to use an IFilter like the ones used by @Tab.
 - New attribute filter in <descriptions-list> of XML components to use an IFilter.
 - ENTER to move to next field with enterMovesToNextField=true in xava.properties.

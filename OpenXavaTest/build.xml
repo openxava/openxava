@@ -53,6 +53,13 @@
 		</ant>
 	</target>
 	
+	<!-- Just to test if compileJava of OpenXava/build.xml works, but it's not needed if you work with Eclipse -->
+	<target name="compileJava">
+		<ant antfile="../OpenXava/build.xml" target="compileJava">
+			<property name="compile.src.path" value="../${project}/src; ../${project}/pojo-src;"/>
+		</ant>
+	</target>
+	
 	<target name="regenerateHibernate">	
 		<ant antfile="../OpenXava/build.xml" target="regenerateHibernate"/>		
 	</target>
@@ -148,10 +155,8 @@
 	</target>	
 	
 	<target name="updateOX">
-		<!-- tmp ini -->
 		<ant antfile="../OpenXava/build.xml" target="buildOpenXava"/>
 		<ant antfile="../OpenXava/build.xml" target="buildAddons"/>
-		<!-- tmp fin -->
 		<ant antfile="../OpenXava/build.xml" target="updateOX"/>
 	</target>
 		

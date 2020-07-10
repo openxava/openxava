@@ -473,9 +473,6 @@
 			-->
 			<classpath>
 				<pathelement path="${openxava.base.dir}/OpenXava/bin"/>
-				<fileset dir="${openxava.base.dir}/OpenXava/web/WEB-INF/lib">
-					<include name="**/*.jar"/>
-				</fileset>
 				<fileset dir="${openxava.base.dir}/OpenXava/lib">
 					<include name="**/*.jar"/>
 				</fileset>
@@ -973,12 +970,6 @@
 		
 	</target>
 	
-	<!-- tmp ini -->
-	<!-- tmp Documentar modificar OpenXava: ME QUEDÉ PARA HACER ESTO
-				- Un JDK para arrancar el Ant y si falla comprobar que coincida con tools.jar
-				- External Tools > OpenXava.buildOPenxava > Common > Encoding : ISO-8859-1  (Si da error al compilar por acentos)..
-	 -->
-	<!-- tmp ¿Revisar los compileJava y compileGroovy? Debería hacerlo, a lo mejor alguien lo hace -->
 	<!--
 	Compile Java code of OpenXava project and create openxava.jar.
 	Call it after you modify OpenXava code, but you still need to call updateOX in your project.
@@ -1025,7 +1016,6 @@
 			</classpath>
 		</javac>
 	</target>	
-	<!-- tmp fin -->
 	
 	<target name="defineJavaClass">
 		<script language="javascript">
