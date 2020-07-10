@@ -1,6 +1,26 @@
 Change Log for OpenXava project
 ===============================
 
+New Getting Started:
+* Page title.
+* Remove all links that opens in another tab.
+* Remove menus.
+* URL to execute application should not be a link, so the application is not executed inside inner Eclipse browser.
+* Pone el nombre del proyecto en minúscula. ¿Poner comentario sobre mayúscula arriba?
+TMP: ME QUEDÉ POR AQUÍ: HACER LO QUE FALTA
+- No encontraba la clase de arranque porque estaba cerrada dentro de _run: Pantallazo para abrir el paquete
+- No sabe crear la segunda entidad, no lo recuerda. Repetir pantallazos
+- Next steps:
+	- Move course references to bottom. We could rename Summary as Next Steps.
+	- Keep references to IntelliJ? Make references to Eclipse?
+- Link to Spanish /  English. Or just to Spanish in English version?
+- Rehacer pantallazos.
+	- No encuentra lo de Crear Nuevo Proyecto aunque revisa la pantalla varias veces. ¿Poner pantallazo completo?
+- Modificar quick-start.html de doc ¿hace falta?
+- Ponerla como página de arranque en distribución.
+- ¿Crear un documento para instalar OpenXava?
+
+
 - Building workspace time for Eclipse optimized.
 - New attribute filter in @DescriptionsList to use an IFilter like the ones used by @Tab.
 - New attribute filter in <descriptions-list> of XML components to use an IFilter.
