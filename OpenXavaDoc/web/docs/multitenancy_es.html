@@ -16,6 +16,8 @@
             dentro de las organizaciones (nuevo en v5.6)</a></div>
         <div style="margin-left: 2em;"><a href="#Multiempresa/multimunicipio-Usuarios%20compartidos%20entre%20organizaciones%20%28nuevo%20en%20v5.6%29">Usuarios
             compartidos entre organizaciones (nuevo en v5.6)</a></div>
+        <div style="margin-left: 2em;"><a href="#Multiempresa/multimunicipio-Tema-visual-por-organizacion">Tema
+            visual por organización (nuevo en v6.4)</a></div>
       </div>
       <h1 id="toc0"><a name="Multiempresa/multimunicipio"></a>Multiempresa/multimunicipio</h1>
       La multitenencia (multitenancy en inglés) te permite desplegar una
@@ -175,5 +177,30 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
       <img src="files/multitenancy_es060.png" alt="multitenancy_es060.png" title="multitenancy_es060.png"><br>
       El usuario puede ir a cualquiera de sus organizaciones sin necesidad de
       identificarse de nuevo. </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc5"><a name="Multiempresa/multimunicipio-Tema-visual-por-organizacion"></a>Tema
+        visual por organización <em>(nuevo en v6.4)</em></h2>
+      Puedes asignar un estilo visual diferente a cada organización. Para ello,
+      ve al módulo Organizaciones y edita una organización. Allí tienes una
+      propiedad llamada <i>tema</i> con un combo para elegir entre los temas
+      disponibles, así:
+      <div class="wiki" style="display: block;"> <img src="files/multitenancy_es070.png"
+
+          alt="multitenancy_en070.png" title="multitenancy_es070.png"> </div>
+      <div class="wiki" style="display: block;">Elige uno y pulsa <i>Modificar</i>,
+        luego la organización usará ese tema sin posibilidad de cambiarlo por el
+        usuario. Si no se define un tema para una organización, todos los temas
+        estarán disponibles para ser elegidos por el usuario en esa
+        organización. </div>
+      <div class="wiki" style="display: block;">Todos los temas disponibles se
+        definen en <i>xava.properties</i> con la propiedad <i>themes</i>, de
+        esta manera::</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="properties">themes=terra.css, light.css, dark.css, black-and-white.css, blue.css</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Aprende más sobre los temas en
+        la <a href="custom-style_es.html">documentación sobre el estilo visual</a>.</div>
+      <div class="wiki" style="display: block;"></div>
+    </div>
   </body>
 </html>

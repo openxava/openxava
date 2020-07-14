@@ -19,28 +19,24 @@ import org.openxava.util.*;
 public class Themes {
 	
 	private static Log log = LogFactory.getLog(Themes.class); 
-	private static IThemeProvider provider; // tmp
+	private static IThemeProvider provider; 
 	
-	public static void setProvider(IThemeProvider theProvider) { // tmp
+	/** @since 6.4 */
+	public static void setProvider(IThemeProvider theProvider) { 
 		provider = theProvider;
 	}
 	
-	// tmp public static boolean isChooserEnabled() {
-	public static boolean isChooserEnabled(HttpServletRequest request) { // tmp
-		// tmp ini
+	public static boolean isChooserEnabled(HttpServletRequest request) { 
 		if (provider != null && provider.getCSS(request) != null) return false;
-		// tmp fin
 		return !Is.emptyString(XavaPreferences.getInstance().getThemes());
 	}
 	
 	public static String getCSS(HttpServletRequest request) {
-		// tmp ini
 		if (provider != null) {
 			String providedTheme = provider.getCSS(request);
 			if (providedTheme != null) return providedTheme;
 		}
-		// tmp fin
-		if (!isChooserEnabled(request)) { // tmp request
+		if (!isChooserEnabled(request)) { 
 			return XavaPreferences.getInstance().getStyleCSS(); 
 		}
 		String newTheme = request.getParameter("theme");
@@ -64,18 +60,13 @@ public class Themes {
 		return Strings.toCollection(themes, ",");
 	}
 	
-	public static String cssToLabel(String cssFile) { // tmp
+	/** @since 6.4 */
+	public static String cssToLabel(String cssFile) { 
 		return Strings.firstUpper(cssFile.replace(".css", "").replace("-", " "));
 	}
-	
-	public static String labelToCSS(String label) { // tmp
-		return Strings.firstLower(label.replace(" ", "-")) + ".css";
-	}
-
 	
 	private static Preferences getPreferences() throws BackingStoreException { 
 		return Users.getCurrentPreferences().node("theme." + MetaApplications.getMainMetaApplication().getName());
 	}
 	
-
 }

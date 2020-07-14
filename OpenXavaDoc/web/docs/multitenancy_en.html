@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>openxava - multitenancy_en</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -16,6 +19,8 @@
             inside organizations (new in v5.6)</a></div>
         <div style="margin-left: 2em;"><a href="#Multitenancy-Shared%20users%20between%20organizations%20%28new%20in%20v5.6%29">Shared
             users between organizations (new in v5.6)</a></div>
+        <div style="margin-left: 2em;"><a href="#Multitenancy-Visual-theme-by-organization">Visual
+            theme by organization (new in v6.4)</a></div>
       </div>
       <h1 id="toc0"><a name="Multitenancy"></a>Multitenancy</h1>
       Multitenancy allows you to deploy an application once and this single
@@ -167,5 +172,29 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
       organizations are shown in order to choose:<br>
       <img src="files/multitenancy_en060.png" alt="multitenancy_en060.png" title="multitenancy_en060.png"><br>
       The user can go to any of his organizations without login again. </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc5"><a name="Multitenancy-Visual-theme-by-organization"></a>Visual
+        theme by organization <em>(new in v6.4)</em></h2>
+      You can assign a different visual style to each organization. For that, go
+      to the Organizations module and edit an organization. There you have a
+      property called <i>theme</i> with a combo to choose from the available
+      themes, thus:</div>
+    <div class="wiki" style="display: block;"> <img src="files/multitenancy_en070.png"
+        alt="multitenancy_en070.png" title="multitenancy_en070.png"> </div>
+    <div class="wiki" style="display: block;">Choose one and click on <i>Modify</i>,
+      afterwards that organization will use that theme with no possibility to
+      change it by the user. If you don't define a theme for an organization all
+      the themes will be available to be chosen by the user in that
+      organization.</div>
+    <div class="wiki" style="display: block;">All the available themes are
+      defined in <i>xava.properties</i> with the <i>themes</i> property, in
+      this way:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">themes=terra.css, light.css, dark.css, black-and-white.css, blue.css</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">Learn more about themes in the <a
+        href="custom-style_en.html">visual style documentation</a>.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
   </body>
 </html>
