@@ -39,6 +39,7 @@ String spanId = Ids.decorate(request, "sc-span-" + controllerName + "_" + mode);
 			id ='<%=aId%>'
 			href="javascript:openxava.subcontroller('<%=id%>','<%=containerId%>','<%=buttonId%>','<%=imageId%>','<%=aId%>','<%=spanId%>')" 
 			>
+			<nobr> 
 			<% if (!Is.emptyString(icon) && (style.isUseIconsInsteadOfImages() || Is.emptyString(image))) { %>
 			<i class="mdi mdi-<%=icon%>"></i>
 			<% } else { %>
@@ -50,6 +51,7 @@ String spanId = Ids.decorate(request, "sc-span-" + controllerName + "_" + mode);
 			<% } %>
 			<%= Labels.get(controllerName)%>
 			<i id='<%=imageId%>' class="mdi mdi-menu-down"></i>&nbsp;
+			</nobr>
 		</a>
 	</span>
 	
