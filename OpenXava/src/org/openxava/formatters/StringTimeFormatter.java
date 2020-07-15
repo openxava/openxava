@@ -15,6 +15,7 @@ public class StringTimeFormatter extends TimeBaseFormatter {
 	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {		
 		TimeData timeData = (TimeData)super.parse(request, string);
+		if (timeData == null) return null; 
 		
 //		format5 (HH:mm) because  in the DB we generally have a String with hours and minutes only, 
 //		so we cut the unused chars in order to prevent data truncation errors

@@ -2,6 +2,8 @@ package org.openxava.test.tests;
 
 import org.openxava.tests.*;
 
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+
 /**
  * @author Javier Paniza
  */
@@ -10,6 +12,19 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 	
 	public CustomerRadioButtonTest(String testName) {
 		super(testName, "CustomerRadioButton");		
+	}
+	
+	public void testSelectTheLabelOnRadioButton() throws Exception {
+		execute("CRUD.new");
+		HtmlElement c = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_CustomerRadioButton__type1");	// steady  
+		c.click();
+		waitAJAX();
+		assertValue("type", "1");	// steady
+		
+		c = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_CustomerRadioButton__type2");	// special  
+		c.click();
+		waitAJAX();
+		assertValue("type", "2");	// special
 	}
 	
 	public void testEditorByView_radioButton() throws Exception { 

@@ -492,7 +492,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			if (Is.emptyString(getModelName())) return Collections.EMPTY_LIST;
 			metaProperties = getMetaTab().getMetaProperties();
 			setPropertiesLabels(metaProperties);
-		}				
+		}		
 		return metaProperties;
 	}
 	
@@ -1011,7 +1011,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		
 		if (pOrder != null) {				
 			if (sb.length() == 0) sb.append(" 1=1 ");
-			sb.append(" order by ");								
+			sb.append(" order by ");
 			sb.append("${");
 			sb.append(pOrder.getQualifiedName()); 
 			sb.append('}');
@@ -2387,7 +2387,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 
 	private String removeNonexistentProperties(String properties) {
-		if (propertiesExists(properties)) return properties; // It is the usual case, so we save the below code most times
+		if (propertiesExists(properties)) {
+			return properties; // It is the usual case, so we save the below code most times
+		}
 		StringBuffer sb = new StringBuffer();
 		for (String property: properties.split(",")) {
 			if (propertyExists(property)) {
@@ -2683,8 +2685,16 @@ public class Tab implements java.io.Serializable, Cloneable {
 			for (int i = 0; i < size; i++) {
 				filterConditionValues[i] = "";
 				MetaProperty metaProperty = (MetaProperty) metaPropertiesNC.get(i);
-				if (metaProperty.getName().equals(property)) {
-					filterConditionValues[i] = value==null?null:metaProperty.format(value, Locales.getCurrent()); 
+				if (metaProperty.getQualifiedName().equals(property)) {
+					if (value == null) filterConditionValues[i] = null;
+					else {
+						try {
+							filterConditionValues[i] = metaProperty.format(value, Locales.getCurrent());
+						}
+						catch (ClassCastException ex) { // For the case of a numeric id for the description field of a descriptions list
+							filterConditionValues[i] = value.toString();
+						}
+					}
 					filtered = true;
 				}				
 			}
@@ -2840,10 +2850,27 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * @since 4.8
 	 */
 	public boolean isTotalCapable(MetaProperty p) {   
-		return !p.isCalculated() && p.isNumber() && !p.hasValidValues();
+		return !p.isCalculated() && p.isNumber() && !p.hasValidValues() && !isFromCollection(p); 
 	}
-	
-	
+
+	/**
+	 * @since 6.4
+	 */
+	public boolean isOrderCapable(MetaProperty p) {    
+		return !p.isCalculated() && !isFromCollection(p);
+	}	
+
+	/**
+	 * @since 6.4
+	 */	
+	public boolean isFromCollection(MetaProperty p) { 
+		String qualifiedName = p.getQualifiedName();
+		int idx = qualifiedName.indexOf('.');
+		if (idx < 0) return false;
+		String rootName = qualifiedName.substring(0, idx);
+		return getMetaTab().getMetaModel().containsMetaCollection(rootName);
+	}
+
 	/**
 	 * @since 4.3
 	 */

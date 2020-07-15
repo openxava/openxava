@@ -57,7 +57,7 @@ public class EnumLetterType implements UserType, ParameterizedType {
 			throw new HibernateException(XavaResources.getString("conversion_java_valid_values", value,  letters));
 		}
 		try {
-			Object values = Class.forName(enumType).getMethod("values", null).invoke(null, null);
+			Object values = Class.forName(enumType).getMethod("values", (Class<?> []) null).invoke(null, (Object []) null); 
 			return ((Object []) values)[idx];
 		} 
 		catch (Exception ex) {

@@ -1,8 +1,11 @@
 package org.openxava.actions;
 
-import java.util.Map;
+import java.util.*;
+import java.util.stream.*;
+
 import javax.ejb.*;
 import org.openxava.model.*;
+import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
 
@@ -67,9 +70,17 @@ public class SaveAction extends TabBaseAction {
 
 	protected Map create() throws Exception {
 		Map values = null;
-		if (isResetAfterOnCreate() || (!isRefreshAfter() && !getView().getMetaModel().hasHiddenKey())) { 
-			MapFacade.create(getModelName(), getValuesToSave());
-			addMessage("entity_created", getModelName());
+		if (isResetAfterOnCreate() || (!isRefreshAfter() && !getView().getMetaModel().hasHiddenKey())) {
+			Collection<String> possibleGeneratedProperties = getPossibleGeneratedProperties();
+			if (possibleGeneratedProperties == null) {
+				MapFacade.create(getModelName(), getValuesToSave());
+				addMessage("entity_created", getModelName());
+			}
+			else {
+				Map keyValues = MapFacade.createReturningKey(getModelName(), getValuesToSave());
+				String idValues = readPropertiesAsString(keyValues, possibleGeneratedProperties); 
+				addMessage("'" + XavaResources.getString("entity_created", getModelName()) + ": " + idValues + "'");
+			}
 		}
 		else {								
 			Map keyValues = MapFacade.createReturningKey(getModelName(), getValuesToSave());					
@@ -84,6 +95,40 @@ public class SaveAction extends TabBaseAction {
 		}
 		getTab().reset();
 		return values;
+	}
+	
+	private String readPropertiesAsString(Map keyValues, Collection<String> properties) throws Exception { 
+		Map membersNames = properties.stream()
+			.collect(HashMap::new, (m,v) -> m.put(v, null), HashMap::putAll);
+		Map values = MapFacade.getValues(getModelName(), keyValues, membersNames);
+		String result = properties.stream()
+			.map(p -> values.get(p))
+			.map(Object::toString)
+			.collect(Collectors.joining("/"));
+		return result.toString();
+	}
+
+	private Collection<String> getPossibleGeneratedProperties() throws Exception { 
+		MetaModel metaModel = getView().getMetaModel();
+		if (!metaModel.hasHiddenKey()) return null;
+		
+		Collection<String> result = metaModel.getMembersNames().stream()
+			.filter(m -> metaModel.containsMetaProperty(m))
+			.map(m -> metaModel.getMetaProperty(m))
+			.filter(MetaProperty::isSearchKey)
+			.map(MetaProperty::getName)
+			.collect(Collectors.toList());
+		
+		if (result.isEmpty()) {
+			List<String> properties = metaModel.getPropertiesNamesWithoutHiddenNorTransient();
+			if (properties.size() > 0) result.add(properties.get(0));
+			if (properties.size() > 1) result.add(properties.get(1));
+		}
+				
+		boolean hasEmpty = result.stream().map(p -> getView().getValue(p)).anyMatch(v -> Is.empty(v));
+		if (!hasEmpty) return null;
+		
+		return result;
 	}
 	
 	protected Map getValuesToSave() throws Exception {		

@@ -31,6 +31,8 @@
             presentation formats using editors (new in v5.7)</a></div>
         <div style="margin-left: 2em;"><a href="#Tabular%20data-Removing%20the%20Charts%20from%20list%20mode%20%28new%20in%20v5.7%29">Removing
             the Charts from list mode (new in v5.7)</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Searching%20by%20the%20content%20of%20a%20collection%20from%20list%20mode">Searching
+            by the content of a collection from list mode (new in v6.4)</a></div>
       </div>
       <strong>Reference guide</strong>: <a class="wiki_link" href="model_en.html">Model</a>
       | <a class="wiki_link" href="view_en.html">View</a> | <strong>Tabular
@@ -3698,5 +3700,42 @@ class="st0">"List"</span><span class="re2">&gt;</span></span>
       This technique is not just for removing <em>Charts</em>, it's for
       restricting the list formats available for all modules. If not all the
       editors <em>&lt;for-tabs/&gt;</em> are used. </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc11"><a name="Tabular data-Searching by the content of a collection from list mode"></a>Searching
+        by the content of a collection from list mode <em>(new in v6.4)</em></h2>
+      It's possible to define a property of a collection in <i>@Tab</i>,
+      therefore the user could search by that property, hence by the content of
+      the collection in list mode. For example, we could have an <i>Invoice</i>
+      module and want to know what invoices have detail lines of certain
+      product. Something like this:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@Tab(properties="year, number, date, customer.name, details.product.description")
+public class Invoice {
+
+	...
+	
+	@ElementCollection // or @OneToMany
+	private Collection&lt;Detail&gt; details;
+
+}
+
+@Embeddable // or @Entity
+public class Detail {
+
+	...
+
+	@ManyToOne
+	private Product product; // With a description property
+
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Note as we put <i>details.product.description</i>
+      in the <i>@Tab</i> properties where <i>details</i> is a collection. The
+      result is this:</div>
+    <img src="files/tab_en060.png" alt="tab_en060.png" title="tab_en060.png">
+    <div class="wiki" style="display: block;">In the above example the user
+      types 'IBM' for <i>Product of details</i> (<i>details.product.description</i>)
+      and the list shows the invoices that contains detail lines whose product
+      description contains 'IBM'.</div>
   </body>
 </html>

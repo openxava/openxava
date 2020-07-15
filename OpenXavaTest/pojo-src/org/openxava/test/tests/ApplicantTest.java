@@ -101,7 +101,7 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlAnchor loadMoreModules = (HtmlAnchor) getHtmlPage().getHtmlElementById("more_modules").getParentNode();
 		loadMoreModules.click();
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertModulesCount(54); // We have to adjust this when we add new modules that content "invoice" 
+		assertModulesCount(56); // We have to adjust this when we add new modules that content "invoice" 
 		
 		
 		searchBox.type(" \b");

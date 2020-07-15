@@ -209,8 +209,23 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initTooltips();
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
+	openxava.initFocusKey();
 }
 
+openxava.initFocusKey = function() { } 
+
+openxava.setEnterAsFocusKey = function() {
+	var focusables = $('input:focusable[tabindex="1"], select:focusable[tabindex="1"], textarea:focusable[tabindex="1"]');
+	focusables.on('keypress',function(e) {
+		if(e.which === 13 && !$(e.target).is("textarea")) {
+			e.preventDefault();
+			var i = focusables.index($(this));
+			var next = focusables[i + 1];
+			next.focus();
+			if ($(next).is("input")) next.select();
+		}
+	});
+}
 
 openxava.listenChanges = function() { 
 	$("." + openxava.editorClass).change(function() { 

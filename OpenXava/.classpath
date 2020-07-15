@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="xava"/>
-	<classpathentry kind="src" path="properties"/>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="i18n"/>
 	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/commons-fileupload.jar"/>
 	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/itext.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/portlet-api-1.0.jar"/>
@@ -88,5 +84,6 @@
 	<classpathentry kind="lib" path="lib/websocket-common.jar"/>
 	<classpathentry kind="lib" path="lib/tomcat-embed-websocket.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/openxava.jar" sourcepath="src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

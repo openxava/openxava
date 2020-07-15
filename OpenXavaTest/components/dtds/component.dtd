@@ -84,6 +84,7 @@
   for-tabs CDATA #IMPLIED
   not-for-tabs CDATA #IMPLIED
   label-style CDATA #IMPLIED
+  filter CDATA #IMPLIED
 >
 
 <!ELEMENT property-view (on-change?, action*)>

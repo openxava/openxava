@@ -29,7 +29,7 @@ public class AppointmentTest extends ModuleTestBase {
 		StringTokenizer excel = new StringTokenizer(getPopupText(), "\n\r");
 		excel.nextToken(); // To skip the header
 		String line1 = excel.nextToken();
-		assertEquals("line1", "\"5/26/15 10:15 AM\";\"ALMUERZO\";0", line1); 
+		assertEquals("line1", "\"5/26/15 10:15 AM\";\"ALMUERZO\";0;", line1); 
 	}
 	
 	public void testImport() throws Exception {
@@ -71,7 +71,7 @@ public class AppointmentTest extends ModuleTestBase {
 		execute("ConfigureImport.configureImport");
 		assertNoErrors();
 		
-		assertCollectionRowCount("columns", 5);
+		assertCollectionRowCount("columns", 7); 
 		
 		assertValueInCollection("columns", 0, 0, "Time");
 		assertValueInCollection("columns", 0, 1, "Time"); 
@@ -98,12 +98,24 @@ public class AppointmentTest extends ModuleTestBase {
 		assertValueInCollection("columns", 4, 2, "Meeting with my friend");  
 		assertValueInCollection("columns", 4, 3, "");
 		
+		assertValueInCollection("columns", 5, 0, "Type of type");
+		assertValueInCollection("columns", 5, 1, "Type of type"); 
+		assertValueInCollection("columns", 5, 2, "");  
+		assertValueInCollection("columns", 5, 3, "");
+		
+		assertValueInCollection("columns", 6, 0, "Level of type");
+		assertValueInCollection("columns", 6, 1, "Level of type"); 
+		assertValueInCollection("columns", 6, 2, "");  
+		assertValueInCollection("columns", 6, 3, "");				
+		
 		String [][] availableProperties = {
 			{ "", "" },
 			{ "id", "Id" },
 			{ "time", "Time" },
 			{ "description", "Description" },
-			{ "amountOfPeople", "Amount of people" }
+			{ "amountOfPeople", "Amount of people" },
+			{ "type.type", "Type of type" }, 
+			{ "type.level", "Level of type" } 
 		};
 		assertValidValuesInCollection("columns", 2, "nameInApp", availableProperties);
 		
@@ -118,9 +130,9 @@ public class AppointmentTest extends ModuleTestBase {
 		execute("Import.import");
 		assertErrorsCount(1); 
 		assertError("Error importing {time=2017-09-12 16:15:00.0, amountOfPeople=null}: Value for description in appointment is required"); 
-		assertMessage("2 records imported");
+		assertMessage("3 records imported"); 
 		
-		assertListRowCount(6);
+		assertListRowCount(7); 
 		assertValueInList(0, 0, "5/26/15 8:15 AM");
 		assertValueInList(0, 1, "DESAYUNO");
 		assertValueInList(1, 0, "5/26/15 10:15 AM");
@@ -135,10 +147,15 @@ public class AppointmentTest extends ModuleTestBase {
 		assertValueInList(5, 0, "9/13/17 8:00 PM");
 		assertValueInList(5, 1, "DRIVING MY BMW");
 		assertValueInList(5, 2, "0");
+		assertValueInList(6, 0, "6/19/20 8:15 PM");
+		assertValueInList(6, 1, "PLAYING FORTNITE");
+		assertValueInList(6, 2, "4");
+		assertValueInList(6, 3, "PERSONAL DISPENSABLE");
 		
 		// Restoring
 		checkRow(4);
 		checkRow(5);
+		checkRow(6); 
 		execute("CRUD.deleteSelected");
 		assertListRowCount(4);				
 	}

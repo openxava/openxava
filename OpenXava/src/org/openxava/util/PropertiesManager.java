@@ -77,7 +77,7 @@ public class PropertiesManager implements java.io.Serializable {
 				throw new PropertiesManagerException(
 					XavaResources.getString("write_only_property", propertyName, getTheClass()));
 			}			
-			return met.invoke(object, null);
+			return met.invoke(object, (Object []) null); 
 		}
 		catch (PropertiesManagerException ex) {
 			throw ex;

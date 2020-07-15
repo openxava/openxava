@@ -127,14 +127,14 @@ public class SellerTest extends CustomizeListTestBase {
 		assertEmailNotifications(  
 			"CREATED: email=openxavatest1@getnada.com, user=openxavatest2@getnada.com, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66",
 			"MODIFIED: email=openxavatest1@getnada.com, user=openxavatest2@getnada.com, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li><b>Name</b>: JUNIT SELLER --> JUNIT SELLER MODIFIED</li></ul>",
-			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li><b>Regions</b>: {} --> {1,3}</li><li><b>Id of Level</b>:  --> A</li></ul>",
-			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li><b>Regions</b>: {} --> {1,3}</li><li><b>Id of Level</b>:  --> A</li></ul>",
-			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li><b>Regions</b>: {1,3} --> {2}</li><li><b>Id of Level</b>: A --> C</li></ul>",
-			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li><b>Regions</b>: {1,3} --> {2}</li><li><b>Id of Level</b>: A --> C</li></ul>",
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li><b>Regions</b>: {} --> {1,3}</li><li><b>Id of level</b>:  --> A</li></ul>",
+			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li><b>Regions</b>: {} --> {1,3}</li><li><b>Id of level</b>:  --> A</li></ul>",
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li><b>Regions</b>: {1,3} --> {2}</li><li><b>Id of level</b>: A --> C</li></ul>",
+			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li><b>Regions</b>: {1,3} --> {2}</li><li><b>Id of level</b>: A --> C</li></ul>",
 			"REMOVED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, url=http://localhost:8080" + getContextPath() + "modules/Seller, key={number=66}",
 			"REMOVED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, url=http://localhost:8080" + getContextPath() + "modules/Seller, key={number=66}",
-			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Customers, permalink=http://localhost:8080" + getContextPath() + "modules/Customer?detail=4, changes=<ul><li><b>Number of Seller</b>:  --> 3</li></ul>",
-			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Customers, permalink=http://localhost:8080" + getContextPath() + "modules/Customer?detail=4, changes=<ul><li><b>Number of Seller</b>: 3 --> </li></ul>",
+			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Customers, permalink=http://localhost:8080" + getContextPath() + "modules/Customer?detail=4, changes=<ul><li><b>Number of seller</b>:  --> 3</li></ul>",
+			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Customers, permalink=http://localhost:8080" + getContextPath() + "modules/Customer?detail=4, changes=<ul><li><b>Number of seller</b>: 3 --> </li></ul>",
 			"CREATED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Customers, permalink=http://localhost:8080" + getContextPath() + "modules/Customer?detail=66"				
 		);		
 
@@ -145,15 +145,15 @@ public class SellerTest extends CustomizeListTestBase {
 			"CONSULTED: user=openxavatest2@getnada.com, model=Seller, key={number=66}",
 			"MODIFIED: user=openxavatest2@getnada.com, model=Seller, key={number=66}, changes=Name: JUNIT SELLER --> JUNIT SELLER MODIFIED",
 			"CONSULTED: user=admin, model=Seller, key={number=66}",
-			"MODIFIED: user=admin, model=Seller, key={number=66}, changes=Regions: {} --> {1,3}, Id of Level:  --> A",
+			"MODIFIED: user=admin, model=Seller, key={number=66}, changes=Regions: {} --> {1,3}, Id of level:  --> A",
 			"CONSULTED: user=admin, model=Seller, key={number=66}",
-			"MODIFIED: user=admin, model=Seller, key={number=66}, changes=Regions: {1,3} --> {2}, Id of Level: A --> C",
+			"MODIFIED: user=admin, model=Seller, key={number=66}, changes=Regions: {1,3} --> {2}, Id of level: A --> C",
 			"CONSULTED: user=admin, model=Seller, key={number=66}",
 			"REMOVED: user=admin, model=Seller, key={number=66}",
 			"CONSULTED: user=admin, model=Seller, key={number=1}",
 			"CONSULTED: user=admin, model=Seller, key={number=3}",
-			"MODIFIED: user=admin, model=Customer, key={number=4}, changes=Number of Seller:  --> 3",
-			"MODIFIED: user=admin, model=Customer, key={number=4}, changes=Number of Seller: 3 --> ",
+			"MODIFIED: user=admin, model=Customer, key={number=4}, changes=Number of seller:  --> 3",
+			"MODIFIED: user=admin, model=Customer, key={number=4}, changes=Number of seller: 3 --> ",
 			"CREATED: user=admin, model=Customer, key={number=66}"
 		);		
 

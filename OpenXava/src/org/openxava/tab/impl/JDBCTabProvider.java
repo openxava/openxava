@@ -354,4 +354,9 @@ public class JDBCTabProvider extends TabProviderBase {
 
 	}
 
+	protected String toSearchByCollectionMemberSelect(String select) { 
+		// Searching by collection members is not supported with JDBC yet
+		return select;
+	}
+
 }

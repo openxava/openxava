@@ -942,6 +942,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 				addToCollection(container, collectionName, newObject);		
 			}
 			Map key = getValues(metaModel, newObject, getKeyNames(metaModel), false);
+			if (container == null) updateSortableCollections(metaModel, key, values); 
 			AccessTracker.created(metaModel.getName(), key); 
 			// Collections are not managed			
 			return newObject;
@@ -987,23 +988,48 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 
 	private void updateReferencedEntities(MetaModel metaModel, Map values) throws XavaException, RemoteException, CreateException, ValidationException {		
 		for (Iterator it = metaModel.getMetaReferencesToEntity().iterator(); it.hasNext(); ) {
-			MetaReference ref = (MetaReference) it.next();			
+			MetaReference ref = (MetaReference) it.next();		
 			Map referenceValues = (Map) values.get(ref.getName());
 			if (referenceValues != null) {
 				int hiddenKeyNotPresent = getHiddenKeyNotPressent(ref, referenceValues);
 				if (referenceValues.size() + hiddenKeyNotPresent > ref.getMetaModelReferenced().getMetaMembersKey().size()) {
 					try {	
 						findEntity(ref.getMetaModelReferenced(), referenceValues);
-						setValues(ref.getMetaModelReferenced(), new HashMap(referenceValues), new HashMap(referenceValues));						
+						setValues(ref.getMetaModelReferenced(), new HashMap(referenceValues), new HashMap(referenceValues));
 					}
 					catch (FinderException ex) {					
 						referenceValues = createReturningValues(ref.getMetaModelReferenced(), new HashMap(referenceValues)); 
 						values.put(ref.getName(), referenceValues);						
 					}
-				}					
+				}
 			}			
 		}
 	}
+	
+	private void updateSortableCollections(MetaModel metaModel, Map key, Map values) throws XavaException, RemoteException, CreateException, ValidationException { 		
+		for (Iterator it = metaModel.getMetaReferencesToEntity().iterator(); it.hasNext(); ) {
+			MetaReference ref = (MetaReference) it.next();		
+			Map referenceValues = (Map) values.get(ref.getName());
+			if (referenceValues != null) {
+				if (!Is.emptyString(ref.getReferencedModelCorrespondingCollection())) {
+					if (ref.getMetaModelReferenced().containsMetaCollection(ref.getReferencedModelCorrespondingCollection())) {
+						MetaCollection col = ref.getMetaModelReferenced().getMetaCollection(ref.getReferencedModelCorrespondingCollection());
+						if (col.isSortable()) {
+							try {
+								Map referenceKey = extractKeyValues(ref.getMetaModelReferenced(), referenceValues);
+								addCollectionElement(ref.getMetaModelReferenced(), referenceKey, ref.getReferencedModelCorrespondingCollection(), key);
+							} 
+							catch (PropertiesManagerException | InvocationTargetException | FinderException ex) {
+								log.error(ex.getMessage(), ex);
+								throw new XavaException("add_element_to_collection_error"); 
+							}
+						}
+					}
+				}
+			}			
+		}	
+	}
+
 
 	private int getHiddenKeyNotPressent(MetaReference ref, Map referenceValues) throws XavaException {
 		int hiddenKeyNotPresent = 0;

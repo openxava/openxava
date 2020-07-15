@@ -89,6 +89,7 @@
   para-tabs CDATA #IMPLIED
   no-para-tabs CDATA #IMPLIED
   estilo-etiqueta CDATA #IMPLIED
+  filtro CDATA #IMPLIED
 >
 
 <!ELEMENT vista-propiedad (al-cambiar?, accion*)>

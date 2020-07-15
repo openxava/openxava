@@ -131,7 +131,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		setConditionValues(condition);
 		execute("List.filter");
 		
-		assertListRowCount(1);
+		assertListRowCount(1); 
 		
 		assertValueInList(0, 0, String.valueOf(getCharge2().getDelivery().getInvoice().getYear()));
 		assertValueInList(0, 1, String.valueOf(getCharge2().getDelivery().getInvoice().getNumber()));

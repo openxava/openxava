@@ -79,8 +79,8 @@ public class Color2Test extends ModuleTestBase {
 	public void testFilterDescriptionsList_keyReferenceWithSameNameThatPropertyFather_twoReferencesToSameModelInList() throws Exception {  
 		if (usesAnnotatedPOJO()) { 
 			// Accessing to a member of two references to same model is not supported in XML components yet 
-			assertLabelInList(6, "Thing of Characteristic thing");
-			assertLabelInList(7, "Thing of Another CT");
+			assertLabelInList(6, "Thing of characteristic thing"); 
+			assertLabelInList(7, "Thing of another ct");
 			assertValueInList(3, 6, "CAR");
 			assertValueInList(3, 7, "LAMPPOST");
 		}

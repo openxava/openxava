@@ -1,9 +1,8 @@
 package org.openxava.test.model;
 
 import javax.persistence.*;
-
 import org.openxava.annotations.*;
-import org.openxava.jpa.*;
+
 
 /**
  * 
@@ -22,6 +21,7 @@ public class ProjectMember extends Nameable {
 	}
 
 	public void setProject(Project project) {
+		// Leave it in this way, just bare, to test a case
 		this.project = project;
 	}
 

@@ -15,12 +15,16 @@
             1: Getting started</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%201:%20Getting%20started-Our%20goal:%20A%20small%20invoicing%20application">Our
             goal: A small invoicing application</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%201:%20Getting%20started-Installing%20needed%20software">Installing
+            needed software</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%201:%20Getting%20started-Install%20Java">Install
+            Java</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%201:%20Getting%20started-Install%20Eclipse">Install
+            Eclipse</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%201:%20Getting%20started-Install%20OpenXava">Install
+            OpenXava</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%201:%20Getting%20started-Creating%20the%20project%20in%20Eclipse">Creating
             the project in Eclipse</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%201:%20Getting%20started-Creating%20the%20project%20in%20Eclipse-Installing%20OpenXava">Installing
-            OpenXava</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%201:%20Getting%20started-Creating%20the%20project%20in%20Eclipse-Create%20the%20project">Create
-            the project</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%201:%20Getting%20started-Creating%20your%20first%20entity">Creating
             your first entity</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%201:%20Getting%20started-Running%20the%20application">Running
@@ -46,7 +50,7 @@
       This lesson is the kick off to your first OpenXava application. After a
       brief revision of the application that we wish to develop, we shall
       configure all the tools that you need to develop an OpenXava application.<br>
-      You are going to install Eclipse and create the project for your
+      You are going to install Java and Eclipse, and create the project for your
       application.<br>
       <h2 id="toc1"><a name="Lesson 1: Getting started-Our goal: A small invoicing application"></a>Our
         goal: A small invoicing application</h2>
@@ -57,24 +61,50 @@
       application of any other domain.<br>
       On the other hand, this invoicing application is a didactic tool. You are
       advised not to use it “as is” for a real invoicing system.<br>
-      <h2 id="toc2"><a name="Lesson 1: Getting started-Creating the project in Eclipse"></a>Creating
-        the project in Eclipse</h2>
-      Eclipse is a popular IDE in the Java world. OpenXava comes out of the box
-      ready to be used with Eclipse (though <a href="intellij_en.html" target="_blank">IntelliJ
-        IDEA is also supported</a>). You are going to develop your invoicing
-      application using Eclipse. At the end of this chapter you'll have a first
-      working version of your application developed as an Eclipse project.<br>
+      <h2 id="toc2"><a name="Lesson 1: Getting started-Installing needed software"></a>Installing
+        needed Software</h2>
+      <h3 id="toc3"><a name="Lesson 1: Getting started-Install Java"></a>Install
+        Java</h3>
+      <div class="wiki" style="display: block;"><i>If you already have JDK 8 or
+          11 in your machine skip this step</i></div>
+      <div class="wiki" style="display: block;">Go to <a href="https://www.oracle.com/java/technologies/javase-jdk11-downloads.html"
+          target="_blank">Oracle JDK 11 download page</a>:</div>
+      <a href="https://www.oracle.com/java/technologies/javase-jdk11-downloads.html"
+        target="_blank"><img src="files/getting-started003.png" title="getting-started003.png"
+          style="box-shadow: 0px 0px 5px lightgray"></a>
+      <div class="wiki" style="display: block;">Choose the installer for your
+        operating system, download it, run it and follow all the steps to
+        install the JDK in your computer.</div>
+      <div class="wiki" style="display: block;">If you have a 32 bits machine,
+        you should download and install JDK 8 instead, go to <a href="https://www.oracle.com/java/technologies/javase-jdk8-downloads.html"
+          target="_blank">JDK 8 download page</a> and choose a 32 bits (i586)
+        version.</div>
+      <h3><a name="Lesson 1: Getting started-Install Eclipse"></a>Install
+        Eclipse</h3>
     </div>
-    <div class="wiki" style="display: block;">If you do not have Eclipse yet <a
-        href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2020-03/R/eclipse-java-2020-03-R-win32-x86_64.zip"
-        target="_blank">download Eclipse for Windows</a>, <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2020-03/R/eclipse-java-2020-03-R-macosx-cocoa-x86_64.dmg"
-        target="_blank">for Mac</a> or <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2020-03/R/eclipse-java-2020-03-R-linux-gtk-x86_64.tar.gz"
-        target="_blank">for Linux</a>. If you don't have Java <a href="https://www.java.com"
-        target="_blank">download it from java.com</a>. If you use a 32 bits
-      computer <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-java-2018-09-win32.zip"
+    <div class="wiki" style="display: block;"><i>If you already have Eclipse
+        (any version) in your machine skip this step</i> </div>
+    <div class="wiki" style="display: block;">Eclipse is a popular IDE in the
+      Java world. OpenXava comes out of the box ready to be used with Eclipse
+      (though <a href="intellij_en.html" target="_blank">IntelliJ IDEA is also
+        supported</a>). You are going to develop your invoicing application
+      using Eclipse. <br>
+    </div>
+    <div class="wiki" style="display: block;">Go to <a href="https://www.eclipse.org/downloads/packages/installer"
+        target="_blank">Eclipse download page</a>:</div>
+    <a href="https://www.eclipse.org/downloads/packages/installer" target="_blank"><img
+        src="files/getting-started005.png" title="getting-started005.png" style="box-shadow: 0px 0px 5px lightgray"></a>
+    <div class="wiki" style="display: block;">Click on the orange <span style="color: #ff9900;">64
+        bit</span> link corresponding to your operating system to download the
+      installer. Run it, it will show the following options:</div>
+    <img src="files/getting-started007.png" title="getting-started007.png" style="box-shadow: 0px 0px 5px lightgray">
+    <div class="wiki" style="display: block;">Choose the first one, <i>Eclipse
+        IDE for Java Developers</i>, and follow the installation process.</div>
+    <div class="wiki" style="display: block;">If you use a 32 bits computer <a
+        href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-java-2018-09-win32.zip"
         target="_blank">download Eclipse 2018-09 for Windows 32</a> or <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-java-2018-09-linux-gtk.tar.gz"
-        target="_blank">for Linux 32</a>.
-      <h3 id="toc3"><a name="Lesson 1: Getting started-Creating the project in Eclipse-Installing OpenXava"></a>Installing
+        target="_blank">for Linux 32</a> instead of following the above steps.
+      <h3 id="toc3"><a name="Lesson 1: Getting started-Install OpenXava"></a>Install
         OpenXava</h3>
       Go to <a href="http://www.openxava.org">www.openxava.org</a> and download
       the latest OpenXava distribution. It is a zip file something like <em>openxava-6.x.zip</em>.
@@ -84,8 +114,8 @@
         title="getting-started_en010.png"><br>
       As you see, OpenXava distribution includes an Eclipse workspace configured
       and ready to use. Let's start to work.<br>
-      <h3 id="toc4"><a name="Lesson 1: Getting started-Creating the project in Eclipse-Create the project"></a>Create
-        the project</h3>
+      <h2 id="toc2"><a name="Lesson 1: Getting started-Creating the project in Eclipse"></a>Creating
+        the project in Eclipse</h2>
       <span style="line-height: 1.5;">Start your Eclipse and open the OpenXava
         workspace with it (</span><em><span style="line-height: 1.5;">File &gt;
           Switch Workspace</span></em><span style="line-height: 1.5;">):</span><br>

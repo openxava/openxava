@@ -221,6 +221,14 @@ public class XavaPreferences {
 		return "true".equalsIgnoreCase(getProperties().getProperty(
 				"mapFacadeAsEJB", "false").trim());
 	}
+	
+	/**
+	 * @since 6.4
+	 */
+	public boolean isEnterMovesToNextField() { 
+		return "true".equalsIgnoreCase(getProperties().getProperty(
+				"enterMovesToNextField", "false").trim());
+	}
 
 	/**
 	 * 

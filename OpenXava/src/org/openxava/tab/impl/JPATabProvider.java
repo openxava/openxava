@@ -2,9 +2,11 @@ package org.openxava.tab.impl;
 
 import java.rmi.*;
 import java.util.*;
+import java.util.stream.*;
 
 import javax.persistence.*;
 
+import org.apache.commons.lang3.*;
 import org.apache.commons.logging.*;
 import org.openxava.jpa.*;
 import org.openxava.mapping.*;
@@ -107,7 +109,10 @@ public class JPATabProvider extends TabProviderBase {
 			if (f < 0) break;
 			String modelElement = r.substring(i + 2, f);
 			String jpaElement = "e." + modelElement; // The more common case
-			if (getMetaModel().isCalculated(modelElement)) {
+			if (isPropertyFromCollection(modelElement)) {
+				jpaElement = "__COL__[" + modelElement + "]";
+			}
+			else if (getMetaModel().isCalculated(modelElement)) {
 				jpaElement = "0";
 			}
 			else if (modelElement.contains(".")) {				
@@ -136,6 +141,75 @@ public class JPATabProvider extends TabProviderBase {
 		return r.toString();
 	}
 	
+	/** @since 6.4 */
+	protected String toSearchByCollectionMemberSelect(String select) { 
+		if (!select.contains("__COL__[")) return select;
+		String originalSelect = select;
+		String firstKey = getMetaModel().getAllKeyPropertiesNames().iterator().next().toString();
+		StringBuffer ins = new StringBuffer();
+		int i=0;
+		for (String qualifiedMember: collectCollectionMember(select)) {
+			String [] memberTokens = qualifiedMember.split("\\.", 2);
+			String collection = memberTokens[0];
+			String member = memberTokens[1];
+			if (StringUtils.countMatches(select, "__COL__[" + qualifiedMember + "]") > 1) { 
+				ins.append(", in (e.");
+				ins.append(collection);
+				ins.append(") d");
+				ins.append(i);
+				String matchingLabel = Strings.firstUpper(XavaResources.getString("matching", Labels.get(collection)).toLowerCase());
+				select = select.replaceFirst("__COL__\\[" + qualifiedMember.replace(".", "\\.") + "\\]", "concat('" + matchingLabel + ": ', count(e." + firstKey + "))");				
+				select = select.replace("__COL__[" + qualifiedMember + "]", "d" + i + "." + member);  
+			}
+			else {
+				select = select.replace("__COL__[" + qualifiedMember + "]", "'...'");
+			}
+			i++;
+		}
+		
+		if (ins.length() > 0) {
+			select = select.replace(" from " + getMetaModel().getName()	+ " e", " from " + getMetaModel().getName()	+ " e " + ins);
+			String groupByColumns = extractColumnsFromSelect(originalSelect);
+			select = insertGroupBy(select, groupByColumns);	
+		}
+		
+		return select;
+	}
+	
+	private String insertGroupBy(String select, String groupByColumns) { 
+		if (select.contains(" order by ")) {
+			return select.replace(" order by ", " group by " + groupByColumns + " order by ");
+		}
+		return select + " group by " + groupByColumns;
+	}
+
+	private String extractColumnsFromSelect(String select) { 
+		int f = select.indexOf("from");
+		String columns = select.substring(7, f);
+		return Arrays.stream(columns.split(","))
+			.map(String::trim)
+			.filter(c -> c.startsWith("e.") || c.startsWith("e_"))
+			.distinct()
+			.collect( Collectors.joining( "," ) );
+	}
+
+	private Collection<String> collectCollectionMember(String select) {
+		Collection<String> result = new ArrayList<>();
+		int i = select.indexOf("__COL__[");
+		while (i >= 0) {
+			int f = select.indexOf(']', i + 8);
+			result.add(select.substring(i + 8, f));
+			i = select.indexOf("__COL__[", f);
+		}
+		return result;
+	}
+	
+	private boolean isPropertyFromCollection(String modelElement) { 
+		if (!modelElement.contains(".")) return false;				
+		String collection = modelElement.substring(0, modelElement.indexOf('.'));
+		return getMetaModel().containsMetaCollection(collection);
+	}
+
 	public DataChunk nextChunk() throws RemoteException {
 		if (getSelect() == null || isEOF()) { // search not called yet
 			return new DataChunk(Collections.EMPTY_LIST, true, getCurrent()); // Empty

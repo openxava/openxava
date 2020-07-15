@@ -2,8 +2,11 @@ package org.openxava.tab.impl;
 
 import java.rmi.*;
 import java.util.*;
+import java.util.stream.*;
 
 import javax.ejb.*;
+
+import org.apache.commons.lang3.*;
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
 import org.openxava.mapping.*;
@@ -34,7 +37,9 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		
 	abstract protected String translateProperty(String property);
 	abstract protected String translateCondition(String condition);
-	abstract protected Number executeNumberSelect(String select, String errorId);	
+	abstract protected Number executeNumberSelect(String select, String errorId);
+	/** @since 6.4 */
+	abstract protected String toSearchByCollectionMemberSelect(String select); 
 	
 	public void setMetaTab(MetaTab metaTab) {
 		this.metaTab = metaTab;
@@ -54,10 +59,11 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		this.key = toArray(key);		
 		condition = condition == null ? "" : condition.trim();
 		select = translateCondition(condition);
-		selectSize = createSizeSelect(select);
 		select = toGroupBySelect(select);
+		select = toSearchByCollectionMemberSelect(select); 
+		selectSize = createSizeSelect(select); 
 	}
-						
+							
 	private String toGroupBySelect(String select) { 
 		if (!select.contains(" group by ")) return select;
 		String groupByProperty = Strings.lastToken(removeOrder(select)).replace("[month]", "").replace("[year]", "");
@@ -170,7 +176,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 	
 	private String createSizeSelect(String select) {
 		if (select == null) return null;
-		if (select.contains(" group by ")) return null; 
+		if (select.contains(" group by ")) return null;
 		String selectUpperCase = Strings.changeSeparatorsBySpaces(select.toUpperCase());
 		int iniFrom = selectUpperCase.indexOf(" FROM ");
 		int end = selectUpperCase.indexOf("ORDER BY ");
@@ -255,6 +261,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		int idx = property.indexOf('.');
 		if (idx >= 0) {
 			String referenceName = property.substring(0, idx);	
+			if (!metaModel.containsMetaReference(referenceName)) return; 
 			MetaReference ref = metaModel.getMetaReference(referenceName);
 			String memberName = property.substring(idx + 1);
 			boolean hasMoreLevels = memberName.indexOf('.') >= 0;

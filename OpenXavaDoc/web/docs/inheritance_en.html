@@ -250,14 +250,12 @@ public class Invoice extends CommercialDocument {
       and orders will be stored in the same table (the CommercialDocument table)
       using a discriminator column. Therefore you need to remove the old tables
       executing the next SQL statements:<br>
-      <pre><code class="sql">DROP TABLE invoicing.invoice_details;
-DROP TABLE invoicing.invoice;
+      <pre><code class="sql">DROP TABLE INVOICING.INVOICE_DETAILS;
+DROP TABLE INVOICING.INVOICE;
 </code></pre> To execute these SQL statements, first make sure your application
       is running, then go to the <i>DBManager</i> class in <i>Invoicing/src/_run</i>,
       and with the right mouse button choose <i>Run As &gt; Java Application</i>:<br>
-      <img src="files/inheritance_en040.png" alt="inheritance_en040.png"
-
-        title="inheritance_en040.png"><br>
+      <img src="files/inheritance_en040.png" alt="inheritance_en040.png" title="inheritance_en040.png"><br>
       Then:<br>
       <img src="files/inheritance_en050.png" alt="inheritance_en050.png" title="inheritance_en050.png"><br>
       Now you can execute the <em>Invoice</em> module and see it working in
@@ -595,7 +593,7 @@ import static org.openxava.jpa.XPersistence.*;<br><br>abstract public class Comm
                 "select max(i.number) from " +
                     "CommercialDocument i " + // Invoice changed for CommercialDocument
                     "i where i.year = :year");
-            query.setParameter("year", Dates.getYear(new Date()));
+            query.setParameter("year", LocalDate.now().getYear());
             Integer lastNumber = (Integer) query.getSingleResult();
             if (lastNumber == null)    lastNumber = 0;
             number = Integer.toString(lastNumber + 1);

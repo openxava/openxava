@@ -321,8 +321,6 @@ public class AJAXTest extends ModuleTestBase {
 				"editor_defaultCarrier.warehouse.number," +
 				"editor_defaultCarrier.warehouse.zoneNumber," +
 				"editor_mainWarehouse.time," + // it's always-reload
-				"editor_officeManager.arrivalTime," + // it's formatted
-				"editor_officeManager.endingTime," + // it's formatted
 				"errors, messages,");		
 	}
 	

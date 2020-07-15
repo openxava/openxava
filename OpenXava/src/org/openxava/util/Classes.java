@@ -17,7 +17,7 @@ public class Classes {
 	 */
 	public static boolean hasMethod(Class theClass, String method) { 
 		try {
-			theClass.getMethod(method, null);
+			theClass.getMethod(method, (Class<?> []) null); 
 			return true;
 		}
 		catch (NoSuchMethodException ex) {

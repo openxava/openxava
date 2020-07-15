@@ -30,9 +30,12 @@ public class Invoice5 {
 	private java.util.Date date;
 		
 	private boolean paid;
-	
+		
 	@Stereotype("MONEY")
 	private BigDecimal amount;
+	
+	@Column(length=50)
+	private String comment; 
 	
 	public int getYear() {
 		return year;
@@ -72,6 +75,14 @@ public class Invoice5 {
 
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 		
 }

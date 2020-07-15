@@ -13,7 +13,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Javier Paniza
  */
 
-public class ProjectTest extends ModuleTestBase {
+public class ProjectTest extends ModuleTestBase { 
 	
 	public ProjectTest(String testName) {
 		super(testName, "Project");		

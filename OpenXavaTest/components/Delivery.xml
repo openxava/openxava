@@ -344,6 +344,23 @@
 				
 	</view>
 	
+	<view name="InvoiceAsDescriptionsList">
+		
+		<reference-view reference="invoice">	
+			<descriptions-list for-tabs="InvoiceAsDescriptionsList"
+				description-properties="year, number, customer.name"
+				filter="org.openxava.test.filters.ActiveYearFilter" 
+				condition="${year} = ?"/>
+		</reference-view>
+		
+		<members>
+			invoice;			
+			number;
+			description
+		</members>			
+				
+	</view>	
+	
 	<view name="Search">
 		<reference-view reference="type">	
 			<descriptions-list order="${number} desc"/>			
@@ -361,7 +378,11 @@
 	<tab name="Remarks2002">
 		<properties>invoice.year, invoice.number, remarks</properties>
 		<base-condition>${invoice.year} = 2002</base-condition>		
-	</tab>	
+	</tab>
+	
+	<tab name="InvoiceAsDescriptionsList">
+		<properties>invoice.year, invoice.number, type.number, type.description, number, date, description</properties>
+	</tab>		
 	
 	<entity-mapping table="XAVATEST@separator@DELIVERY">
 		<reference-mapping reference="invoice">

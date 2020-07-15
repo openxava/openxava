@@ -17,9 +17,9 @@ public class AverageSpeedTest extends ModuleTestBase {
 	
 	public void testDefaultPropertiesForListWithoutTab_searchingInAReferenceByANonIdDoesNotUseLike() throws Exception {
 		assertListColumnCount(4);
-		assertLabelInList(0, "Number of Driver");
+		assertLabelInList(0, "Number of driver"); 
 		assertLabelInList(1, "Driver");
-		assertLabelInList(2, "Code of Vehicle");
+		assertLabelInList(2, "Code of vehicle");
 		assertLabelInList(3, "Speed");
 		
 		execute("CRUD.new"); 

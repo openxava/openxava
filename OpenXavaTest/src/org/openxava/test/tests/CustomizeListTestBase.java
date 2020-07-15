@@ -43,8 +43,8 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 		HtmlElement toCol = table.getRow(0).getCell(to + 2);
 		HtmlElement elementTo = toCol.getElementsByAttribute("i", "class", "mdi mdi-rename-box").get(0); 
 		elementTo.mouseMove();
-		elementTo.mouseUp();
-		Thread.sleep(500);		
+		elementTo.mouseUp();		
+		Thread.sleep(700); 
 	}
 
 	

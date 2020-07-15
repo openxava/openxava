@@ -564,7 +564,7 @@ sections.jsp: String labelId = Ids.decorate(request, "label_" + sectionView.getV
 		}
 		assertTrue("It's required deliveries with invoices with and without seller discount", withDiscount && withoutDiscount); 
 		
-		assertLabelInList(0, "Year of Invoice"); // We need Year to test this case, because is a numeric property of a reference in the first column
+		assertLabelInList(0, "Year of invoice"); // We need Year to test this case, because is a numeric property of a reference in the first column
 		execute("ListFormat.select", "editor=Charts"); 
 		assertNoErrors(); 
 		assertExists("xColumn"); 

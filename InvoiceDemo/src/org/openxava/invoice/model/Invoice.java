@@ -11,7 +11,7 @@ import org.openxava.model.*;
 
 @Entity
 @View(members=
-	"year, number, date, vatPercentage;" +
+	"year, number, date;" +
 	"customer;" +
 	"details { details };" +
 	"remarks { remarks }"
@@ -38,7 +38,7 @@ public class Invoice extends Identifiable {
 	private Customer customer;
 	
 	@ElementCollection @OrderColumn
-	@ListProperties("product.number, product.description, unitPrice, quantity, amount[invoice.sum, invoice.vat, invoice.total]")
+	@ListProperties("product.number, product.description, unitPrice, quantity, amount[invoice.sum, invoice.vatPercentage, invoice.vat, invoice.total]")
 	private List<InvoiceDetail> details;
 	
 	@Stereotype("HTML_TEXT")
@@ -52,10 +52,12 @@ public class Invoice extends Identifiable {
 		return sum;
 	}
 	
+	@Depends("sum, vatPercentage")
 	public BigDecimal getVat() {
 		return getSum().multiply(new BigDecimal(getVatPercentage()).divide(new BigDecimal(100))).setScale(2, RoundingMode.UP);
 	}
 	
+	@Depends("sum, vat")
 	public BigDecimal getTotal() {
 		return getSum().add(getVat()).setScale(2, RoundingMode.UP);
 	}

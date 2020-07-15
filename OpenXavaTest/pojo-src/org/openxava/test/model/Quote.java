@@ -25,7 +25,7 @@ public class Quote extends Identifiable {
 	@Column(length=4) @Required
 	private int year;
 	
-	@Column(length=6) @Required
+	@Column(length=6) 
 	private int number;
 	
 	@Required @DefaultValueCalculator(CurrentDateCalculator.class)
@@ -40,6 +40,11 @@ public class Quote extends Identifiable {
 	@ElementCollection
 	@ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxes, quote.total]")
 	private Collection<QuoteDetail> details;
+
+	@PrePersist
+	private void generateDefaultNumberValue() { 
+		if (number == 0) number = 77;
+	}
 			
 	public BigDecimal getAmountsSum() {
 		BigDecimal sum = new BigDecimal(0);

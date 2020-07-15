@@ -548,8 +548,14 @@
 			<set property="member" value="seller"/>
 		</action>
 		
+		<action name="disableAddress" class="org.openxava.test.actions.SetMemberEditableOffAction">
+			<set property="member" value="address"/>
+		</action>		
+		
 		<action name="startRefisher" class="org.openxava.test.actions.StartRefisherAction"/>
 		<action name="stopRefisher" class="org.openxava.test.actions.StopRefisherAction"/>
+		
+		<action name="filterBySellerOne" class="org.openxava.test.actions.FilterBySellerOneAction" mode="list"/>
 		
 	</controller>
 	

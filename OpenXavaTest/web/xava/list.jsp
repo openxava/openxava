@@ -28,8 +28,10 @@ if (collection == null || collection.equals("")) {
 <% if (style.isShowModuleDescription()) { %>
 <%=manager.getModuleDescription()%>
 <% } %>
-<select onchange="openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '', false, 'List.filter','configurationId=' + this.value)">
-	<% String confName = tab.getConfigurationName();%>
+<% String confName = tab.getConfigurationName();%>
+<select title="<%=confName%>" 
+	onchange="openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '', false, 'List.filter','configurationId=' + this.value)">
+	
 	<option value=""><%=confName%></option>
 	<% 
 	int count = 1; 

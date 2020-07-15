@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>openxava - modify-openxava-code_es</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Groovy"></a>Modificar código de OpenXava</h1>
+      Puedes modificar el código de OpenXava para adaptarlo a tus necesidades,
+      arreglar algún fallo, añadir nuevas características, etc.<br>
+      <h2 id="toc1">Desde v6.4</h2>
+      <i><b>Necesitas un JDK para ejecutar las tareas Ant</b>. En Eclipse ve a
+        External Tools &gt; OpenXava.buildOpenXava (o buildAddons) &gt; JRE y
+        escoge un JDK. A veces puede fallar si el tools.jar en el classpath no
+        coincide con el JDK usado.</i>
+      <div class="wiki" style="display: block;"><i>Si tienes <b>problemas</b>
+          compilando <b>con acentos</b> ve a External Tools &gt;
+          OpenXava.buildOPenxava (o buildAddons) &gt; Common &gt; Encoding : <b>ISO-8859-1</b></i></div>
+      <div class="wiki" style="display: block;"></div>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> Para modificar el código Java,
+      XML o archivos i18n de OpenXava:</div>
+    <div class="wiki" style="display: block;">
+      <ul>
+        <li>Modifica el código en <i>OpenXava/src</i>, <i>OpenXava/xava</i> o
+          <i>OpenXava/i18n</i>. Estas no son carpetas de código fuente para
+          Eclipse, por lo que el Eclipse no las compila.</li>
+        <li>Ejecuta la tarea Ant <i>buildOpenXava</i> de <i>OpenXava/build.xml</i>.
+          Esto compila el código Java de OpenXava y crea <i>openxava.jar</i>.</li>
+        <li>Refresca el proyecto OpenXava en Eclipse (F5).</li>
+        <li>Ejecuta la tarea Ant <i>actualizarOX</i> del <i>build.xml</i> de
+          tu propio proyecto. Esto copia el nuevo <i>openxava.jar</i> a tu
+          proyecto.</li>
+        <li>Refresca tu propio proyecto en Eclipse (F5).</li>
+      </ul>
+      <p>Para modificar el código Java o XML de Addons:</p>
+      <ul>
+        <li>Modifica el código <i>Addon/src</i> o <i>Addons/xava</i>. Estas no
+          son carpetas de código fuente para Eclipse, por lo que el Eclipse no
+          las compila.</li>
+        <li>Ejecuta la tarea Ant <i>buildAddons</i> en <i>OpenXava/build.xml</i>.
+          Esto compila el código Java de Addons y copia su código XML.</li>
+        <li>Refresca el proyecto Addons en Eclipse (F5).<br>
+        </li>
+        <li>Ejecuta la tarea Ant <i>actualizarOX</i> del <i>build.xml</i> de
+          tu propio proyecto. </li>
+        <li>Refresca tu propio proyecto en Eclipse (F5).</li>
+      </ul>
+      <p>Para modificar JSP/HTML/JavaScript/CSS:</p>
+      <ul>
+        <li>Modifica el código en <i>OpenXava/web</i>.<br>
+        </li>
+        <li>Ejecuta la tarea Ant <i>actualizarOX</i> del <i>build.xml</i> de
+          tu propio proyecto. Esto copia todos los recursos web a tu proyecto.</li>
+      </ul>
+      <p></p>
+      Desde v6.4 aunque todavía puedes navegar al código OpenXava desde tu
+      propio código dentro de Eclipse, no puedes editar el código directamente,
+      es de solo lectura. Por tanto, has de buscar la clase en cuestión en <i>OpenXava/src</i>
+      tu mismo, modificarla y seguir los pasos de arriba.<br>
+      <h2 id="toc2">Hasta v6.3.2</h2>
+      Para modificar el código Java, XML o archivos i18n de OpenXava:
+      <ul>
+        <li>Modifica el código en <i>OpenXava/src</i>, <i>OpenXava/xava</i> o
+          <i>OpenXava/i18n</i>. </li>
+        <li>Pulsa el botón <i>Build All</i> o Ctrl-B.</li>
+        <li>Ejecuta la tarea Ant <i>actualizarOX</i> del <i>build.xml</i> de
+          tu propio proyecto. Esto crea un nuevo <i>openxava.jar</i> en tu
+          proyecto.</li>
+        <li>Refresca tu propio proyecto en Eclipse (F5).</li>
+      </ul>
+      <p>Para modificar el código Java o XML de Addons:</p>
+      <ul>
+        <li>Modifica el código en <i>Addon/src</i> o <i>Addons/xava</i>. </li>
+        <li>Pulsa el botón <i>Build All</i> o Ctrl-B.</li>
+        <li>Ejecuta la tarea Ant <i>actualizarOX</i> del <i>build.xml</i> de
+          tu propio proyecto. </li>
+        <li>Refresca tu propio proyecto en Eclipse (F5).</li>
+      </ul>
+      <p>Para modificar JSP/HTML/JavaScript/CSS:</p>
+      <ul>
+        <li>Modifica el código en <i>OpenXava/web</i>.<br>
+        </li>
+        <li>Ejecuta la tarea Ant <i>actualizarOX</i> del <i>build.xml</i> de
+          tu propio proyecto. Esto copia todos los recursos web a tu proyecto.</li>
+      </ul>
+      <p></p>
+    </div>
+  </body>
+</html>

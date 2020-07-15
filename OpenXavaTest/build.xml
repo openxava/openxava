@@ -23,8 +23,6 @@
 	-->
 	 
 	<property name="portlet.encoding" value="UTF-8"/>
-	
-		
 		
 	<target name="regenerateGenerator">
 		<ant antfile="../OpenXava/build.xml" target="regenerateGenerator"/>
@@ -51,6 +49,13 @@
 	<!-- If you have not the Groovy Plugin installed you must call this target -->
 	<target name="compileGroovy">
 		<ant antfile="../OpenXava/build.xml" target="compileGroovy">
+			<property name="compile.src.path" value="../${project}/src; ../${project}/pojo-src;"/>
+		</ant>
+	</target>
+	
+	<!-- Just to test if compileJava of OpenXava/build.xml works, but it's not needed if you work with Eclipse -->
+	<target name="compileJava">
+		<ant antfile="../OpenXava/build.xml" target="compileJava">
 			<property name="compile.src.path" value="../${project}/src; ../${project}/pojo-src;"/>
 		</ant>
 	</target>
@@ -150,6 +155,8 @@
 	</target>	
 	
 	<target name="updateOX">
+		<ant antfile="../OpenXava/build.xml" target="buildOpenXava"/>
+		<ant antfile="../OpenXava/build.xml" target="buildAddons"/>
 		<ant antfile="../OpenXava/build.xml" target="updateOX"/>
 	</target>
 		

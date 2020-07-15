@@ -16,14 +16,14 @@ public class Invoice5Test extends ModuleTestBase {
 	public void testImportFromExcel() throws Exception {  
 		execute("Mode.list");
 		assertListRowCount(0);
-		assertImportFromExcel("invoices5.xlsx", "2017", "1", "9/25/17", "", "1,258.26");  
-		assertImportFromExcel("invoices5.xls", "2017", "1", "9/25/17", "", "1,258.26");
+		assertImportFromExcel("invoices5.xlsx", "2017", "1", "9/25/17", "", "1,258.26", "");  
+		assertImportFromExcel("invoices5.xls", "2017", "1", "9/25/17", "", "1,258.26", "DEFAULTER;FOLLOW UP NEEDED"); 
 		setLocale("es");
 		execute("Mode.list"); 
-		assertImportFromExcel("invoices5.xlsx", "2017", "1", "25/09/2017", "", "1.258,26"); 
+		assertImportFromExcel("invoices5.xlsx", "2017", "1", "25/09/2017", "", "1.258,26", ""); 
 	}
 	
-	private void assertImportFromExcel(String file, String value0, String value1, String value2, String value3, String value4) throws Exception {
+	private void assertImportFromExcel(String file, String value0, String value1, String value2, String value3, String value4, String value5) throws Exception { 
 		execute("ImportData.importData");
 		uploadFile("file", "test-files/" + file); 
 		execute("ConfigureImport.configureImport");
@@ -36,6 +36,7 @@ public class Invoice5Test extends ModuleTestBase {
 		assertValueInList(0, 2, value2);
 		assertValueInList(0, 3, value3);
 		assertValueInList(0, 4, value4);
+		assertValueInList(0, 5, value5); 
 		
 		execute("CRUD.deleteRow", "row=0");
 		assertListRowCount(0);

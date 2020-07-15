@@ -25,7 +25,7 @@ public class DeliveryRemarks2002Test extends ModuleTestBase {
 				
 		StringTokenizer excel = new StringTokenizer(getPopupText(), "\n\r");
 		String header = excel.nextToken();		
-		assertEquals("header", "Year of Invoice;Number of Invoice;Remarks", header);  
+		assertEquals("header", "Year of invoice;Number of invoice;Remarks", header);   
 		String line1 = excel.nextToken();
 		assertEquals("line1", expectedLine, line1); 
 		assertTrue("Only one line must have generated", !excel.hasMoreTokens());

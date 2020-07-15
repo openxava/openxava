@@ -41,6 +41,23 @@
       </ul>
     </div>
     <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 6.3.2 to OpenXava 6.4</h2>
+      <h3>Automatic label for reference member in list improved (for JUnit
+        tests)</h3>
+      The automatic label for members of references now makes the first letter
+      uppercase and the rest lowercase. This does not affect your application
+      code, but if you verify the labels of some list maybe you have to do some
+      adjust in your JUnit tests, such as changing this assert:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="sql">assertLabelInList(0, "Year of Invoice");
+</code></pre> </div>
+    <div class="wiki" style="display: block;">By this one:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="sql">assertLabelInList(0, "Year of invoice");
+</code></pre> </div>
+    <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 6.3.1 to OpenXava 6.3.2</h2>
+      No issues.
       <h2>Migration from OpenXava 6.3 to OpenXava 6.3.1</h2>
       <h3>Closing dialog does not lose collection pagination (for JUnit tests)</h3>
       Really this is a fix, but if your JUnit tests rely on this bug, you have

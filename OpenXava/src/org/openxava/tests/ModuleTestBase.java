@@ -1816,8 +1816,10 @@ abstract public class ModuleTestBase extends TestCase {
 		HtmlTable table = getTable(tableId, message);
 		int rowInTable = table.getRowCount() - getTotalsRowCount(table) + row;
 		column+=getColumnIncrement(table, column);
-		assertEquals(XavaResources.getString("total_not_match", new Integer(column)), total,   
-				table.getCellAt(rowInTable, column).asText().trim());		
+		HtmlTableCell cell = table.getCellAt(rowInTable, column);
+		List<HtmlElement> inputs = cell.getElementsByAttribute("input", "type", "text");
+		String value = inputs.isEmpty()?cell.asText().trim():inputs.get(0).getAttribute("value");
+		assertEquals(XavaResources.getString("total_not_match", new Integer(column)), total, value);
 	}		
 	
 	private int getColumnIncrement(HtmlTable table, int originalColumn) {

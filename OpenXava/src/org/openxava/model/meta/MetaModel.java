@@ -397,7 +397,13 @@ abstract public class MetaModel extends MetaElement {
 			if (idx >= 0) {				
 				String referenceName = name.substring(0, idx);								
 				String propertyName = name.substring(idx + 1);				
-				return getMetaReference(referenceName).getMetaModelReferenced().getMetaProperty(propertyName);
+				try {
+					return getMetaReference(referenceName).getMetaModelReferenced().getMetaProperty(propertyName);
+				}
+				catch (ElementNotFoundException ex) {
+					String collectionName = referenceName;
+					return getMetaCollection(collectionName).getMetaReference().getMetaModelReferenced().getMetaProperty(propertyName);
+				}
 			}
 			throw new ElementNotFoundException("property_not_found", name, getName());
 		}
@@ -702,7 +708,7 @@ abstract public class MetaModel extends MetaElement {
 	 * 
 	 * @return Collection of <tt>String</tt>, not null and read only 
 	 */
-	public Collection<String> getAllKeyPropertiesNames() throws XavaException {  
+	public Collection<String> getAllKeyPropertiesNames() throws XavaException {   
 		if (allKeyPropertiesNames==null) {
 			ArrayList result = new ArrayList();
 			Iterator itRef = getMetaMembersKey().iterator();
@@ -1178,8 +1184,8 @@ abstract public class MetaModel extends MetaElement {
 		
 		int idx = propertyName.indexOf('.');
 		if (idx >= 0) {				
-			String refName = propertyName.substring(0, idx);								
-			String property = propertyName.substring(idx + 1);			
+			String refName = propertyName.substring(0, idx);		
+			String property = propertyName.substring(idx + 1);		
 			return getMetaReference(refName).getMetaModelReferenced().isCalculated(property);
 		}
 		
