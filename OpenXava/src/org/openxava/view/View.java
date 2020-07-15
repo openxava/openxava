@@ -5347,6 +5347,7 @@ public class View implements java.io.Serializable {
 		return p.getLabel(getRequest());
 	}
 	
+	// FIXME Ana >> 
 	/**
 	 * 
 	 * @param property  Since v4.2 can qualified. Since v6.3.2 can be group or section name
@@ -5368,12 +5369,14 @@ public class View implements java.io.Serializable {
 			int sectionIndex = getIndexOfSection(property);
 			if (sectionIndex >= 0) {
 				String sectionId = getViewObject() + "_section" + sectionIndex + "_sectionName";
-				getSectionView(sectionIndex).setTitle(id);
-				getRoot().changedLabels.put(sectionId, id);
+				String label = Labels.get(id);
+				getSectionView(sectionIndex).setTitle(label);
+				getRoot().changedLabels.put(sectionId, label);
 			}
 			else if (getGroupsViews().containsKey(property)) {
-				getGroupView(property).setTitle(id);
-				getRoot().changedLabels.put(property, id);
+				String label = Labels.get(id);
+				getGroupView(property).setTitle(label);
+				getRoot().changedLabels.put(property, label);
 			}
 			else {
 				getRoot().changedLabels.put(getPropertyPrefix() + property,
@@ -5383,6 +5386,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	/**
+	 * @return -1 if name is not a section
 	 * Since v6.3.2
 	 */
 	private int getIndexOfSection(String name) {
@@ -5399,6 +5403,8 @@ public class View implements java.io.Serializable {
 		}
 	}
 		
+	// FIXME Ana <<
+	
 	private Map getLabels() {
 		View root = getRoot();
 		if (this == root) return labels;

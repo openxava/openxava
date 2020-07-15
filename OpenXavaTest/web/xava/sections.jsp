@@ -1,4 +1,3 @@
-<%@page import="com.sun.scenario.effect.impl.prism.PrDrawable"%>
 <%@ include file="imports.jsp"%>
 
 <%@page import="org.openxava.view.meta.MetaView"%>

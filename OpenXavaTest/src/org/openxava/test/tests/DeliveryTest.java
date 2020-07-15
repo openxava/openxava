@@ -59,6 +59,11 @@ public class DeliveryTest extends ModuleTestBase {
 		assertLabel("number", "My property name");
 		assertLabel("deliveryData", "My group name");
 		assertLabel("xava_view_section1_sectionName", "My section name");
+		
+		/*
+html: span: ox_OpenXavaTest_Delivery__label_xava_view_section1_sectionName
+sections.jsp: String labelId = Ids.decorate(request, "label_" + sectionView.getViewObject() + "_sectionName"); 
+		 */
 	}
 	
 	public void testFilterDescriptionsListAndEnumLetterType_myReportConditionWithDescriptionsListAndValidValues() throws Exception { 

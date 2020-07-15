@@ -6,17 +6,16 @@ import org.openxava.actions.ViewBaseAction;
  * @author Ana Andres
  * Created on 15 abr. 2020
  */
-public class ChangeNameGroupAndSection extends ViewBaseAction{
+public class ChangeNameGroupAndSectionAction extends ViewBaseAction{
 
 	@Override
 	public void execute() throws Exception {
-		
 		// group
-		getView().setLabelId("deliveryData", "My group name");
+		getView().setLabelId("deliveryData", "my_group_name");
 		// property
-		getView().setLabelId("number", "My property name");
+		getView().setLabelId("number", "my_property_name");
 		// section
-		getView().setLabelId("incidents", "My section name");
+		getView().setLabelId("incidents", "my_section_name");
 	}
 
 }
