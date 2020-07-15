@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=OpenXavaTest/src&lt;org.openxava.test.tests{CustomerRadioButtonTest.java[CustomerRadioButtonTest" modifiers="1" timestamp="1588137793893"/>
-<typeInfo handle="=InvoiceDemo/src&lt;org.openxava.invoice.model{Customer.java[Customer" modifiers="1" timestamp="1588054907780"/>
-<typeInfo handle="=OpenXavaTest/pojo-src&lt;org.openxava.test.model{Customer.java[Customer" modifiers="1" timestamp="1588054927320"/>
-<typeInfo handle="=OpenXava/src&lt;org.openxava.view{View.java[View" modifiers="1" timestamp="1588929451723"/>
-<typeInfo handle="=OpenXavaTest/src&lt;org.openxava.test.tests{DeliveryTest.java[DeliveryTest" modifiers="1" timestamp="1588936953102"/>
+<typeInfo handle="=OpenXavaTest/src&lt;org.openxava.test.actions{ChangeNameGroupAndSectionAction.java[ChangeNameGroupAndSectionAction" modifiers="1" timestamp="1594791771984"/>
+<typeInfo handle="=OpenXavaTest/src&lt;_run{OpenXavaTestDB.java[OpenXavaTestDB" modifiers="1" timestamp="1588054928717"/>
 </typeInfoHistroy>

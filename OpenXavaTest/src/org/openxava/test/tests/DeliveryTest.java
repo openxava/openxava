@@ -17,7 +17,7 @@ import com.gargoylesoftware.htmlunit.html.*;
 /**
  * 
  * @author Javier Paniza
- * @author Federico Alcántara
+ * @author Federico Alcï¿½ntara
  */
 
 public class DeliveryTest extends ModuleTestBase {
@@ -54,16 +54,11 @@ public class DeliveryTest extends ModuleTestBase {
 		execute("CRUD.new");
 		assertLabel("number", "Number");
 		assertLabel("deliveryData", "Delivery data");
-		assertLabel("xava_view_section1_sectionName", "Incidents");
+		assertLabel(1, "Incidents");
 		execute("Delivery.changeTitles");
 		assertLabel("number", "My property name");
 		assertLabel("deliveryData", "My group name");
-		assertLabel("xava_view_section1_sectionName", "My section name");
-		
-		/*
-html: span: ox_OpenXavaTest_Delivery__label_xava_view_section1_sectionName
-sections.jsp: String labelId = Ids.decorate(request, "label_" + sectionView.getViewObject() + "_sectionName"); 
-		 */
+		assertLabel(1, "My section name");
 	}
 	
 	public void testFilterDescriptionsListAndEnumLetterType_myReportConditionWithDescriptionsListAndValidValues() throws Exception { 
