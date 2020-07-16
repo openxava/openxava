@@ -12,13 +12,14 @@ New Getting Started:
 	- No encuentra lo de Crear Nuevo Proyecto aunque revisa la pantalla varias veces. ¿Poner pantallazo completo?
 	- No encontraba la clase de arranque porque estaba cerrada dentro de _run: Pantallazo para abrir el paquete
 	- No sabe crear la segunda entidad, no lo recuerda. Repetir pantallazos
-- Next steps:
-	- Move course references to bottom. We could rename Summary as Next Steps.
-	- Keep references to IntelliJ? Make references to Eclipse?
-- Link to Spanish /  English. Or just to Spanish in English version?	
+* Next steps:
+	* Move course references to bottom. We could rename Summary as Next Steps.
+	* Keep references to IntelliJ? Make references to Eclipse?
+* Link to Spanish /  English. Or just to Spanish in English version?	
 - Modificar quick-start.html de doc ¿hace falta?
 
 - ¿Crear un documento para instalar OpenXava?
+- ¿Crear un documento para trabajar con Eclipse?
 
 
 - Building workspace time for Eclipse optimized.
