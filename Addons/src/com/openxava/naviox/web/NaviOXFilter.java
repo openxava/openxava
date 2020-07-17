@@ -52,7 +52,7 @@ public class NaviOXFilter implements Filter {
 			if (Is.empty(session.getAttribute("xava.user"))) {
 				String autologinUser = NaviOXPreferences.getInstance().getAutologinUser();
 				if (!Is.emptyString(autologinUser)) {
-					if (SignInHelper.isAuthorized(autologinUser, NaviOXPreferences.getInstance().getAutologinPassword())) {
+					if (SignInHelper.isAuthorized(request, autologinUser, NaviOXPreferences.getInstance().getAutologinPassword())) { 
 						SignInHelper.signIn((HttpServletRequest) request, autologinUser); 
 					}					
 				}

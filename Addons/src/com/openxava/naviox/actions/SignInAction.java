@@ -18,7 +18,7 @@ public class SignInAction extends ForwardToOriginalURIBaseAction {
 			addError("unauthorized_user"); 
 			return;
 		}		
-		if (!SignInHelper.isAuthorized(userName, password, getErrors())) {
+		if (!SignInHelper.isAuthorized(getRequest(), userName, password, getErrors())) { 
 			return;									
 		}		
 		SignInHelper.signIn(getRequest(), userName); 
