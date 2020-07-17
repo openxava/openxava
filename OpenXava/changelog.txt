@@ -18,8 +18,9 @@ New Getting Started:
 * Link to Spanish /  English. Or just to Spanish in English version?	
 
 * Modificar quick-start.html de doc ¿hace falta?
-- ¿Crear un documento para instalar OpenXava? 
-- ¿Crear un documento para trabajar con Eclipse? TMP ME QUEDÉ HACIENDO ESTO
+* ¿Crear un documento para trabajar con Eclipse? 
+- ¿Crear un documento para instalar OpenXava? TMP ME QUEDÉ PARA EMPEZAR ESTO 
+
 
 
 - Building workspace time for Eclipse optimized.
