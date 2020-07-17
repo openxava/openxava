@@ -8,18 +8,18 @@ New Getting Started:
 * URL to execute application should not be a link, so the application is not executed inside inner Eclipse browser.
 * Pone el nombre del proyecto en minúscula. ¿Poner comentario sobre mayúscula arriba?
 * Ponerla como página de arranque en distribución.
-- Rehacer pantallazos.
-	- No encuentra lo de Crear Nuevo Proyecto aunque revisa la pantalla varias veces. ¿Poner pantallazo completo?
-	- No encontraba la clase de arranque porque estaba cerrada dentro de _run: Pantallazo para abrir el paquete
-	- No sabe crear la segunda entidad, no lo recuerda. Repetir pantallazos
+* Rehacer pantallazos.
+	* No encuentra lo de Crear Nuevo Proyecto aunque revisa la pantalla varias veces. ¿Poner pantallazo completo?
+	* No encontraba la clase de arranque porque estaba cerrada dentro de _run: Pantallazo para abrir el paquete
+	* No sabe crear la segunda entidad, no lo recuerda. Repetir pantallazos
 * Next steps:
 	* Move course references to bottom. We could rename Summary as Next Steps.
 	* Keep references to IntelliJ? Make references to Eclipse?
 * Link to Spanish /  English. Or just to Spanish in English version?	
-- Modificar quick-start.html de doc ¿hace falta?
 
-- ¿Crear un documento para instalar OpenXava?
-- ¿Crear un documento para trabajar con Eclipse?
+* Modificar quick-start.html de doc ¿hace falta?
+- ¿Crear un documento para instalar OpenXava? 
+- ¿Crear un documento para trabajar con Eclipse? TMP ME QUEDÉ HACIENDO ESTO
 
 
 - Building workspace time for Eclipse optimized.
