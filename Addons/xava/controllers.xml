@@ -88,7 +88,20 @@
 	</controller>
 	
 	<controller name="Module">
-		<extends controller="Typical"/>
+		<extends controller="Navigation"/>
+		<extends controller="Print"/>
+		<action name="save" mode="detail"
+			by-default="if-possible"
+			class="org.openxava.actions.SaveAction"
+			image="save.gif"
+			icon="content-save"
+			keystroke="Control S"/>
+			
+		<action name="refresh" mode="detail"			
+			class="org.openxava.actions.SearchAction"
+			image="refresh.gif"
+			icon="refresh"
+			keystroke="control B"/>			
 	</controller>
 	
 	<controller name="Role">
