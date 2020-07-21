@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- IThemeProvider to define your own logic to choose the current theme.
 - New method assertLabel(int sectionIndex, String expectedLabel) in ModuleTestBase.
 - View.setLabelId() allows to change the label of sections and groups.
 - Getting started guide simplified and adapted to use OpenXava Studio.  
