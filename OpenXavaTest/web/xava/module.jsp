@@ -274,7 +274,7 @@ if (manager.isResetFormPostNeeded()) {
 	<%=style.getCoreEndDecoration()%>
 	
 <% } %>			
-	<% if (Themes.isChooserEnabled()) { %>
+	<% if (Themes.isChooserEnabled(request)) { %>
 	<jsp:include page="themeChooser.jsp"/>
 	<% } %>
 	<div id="xava_console" >

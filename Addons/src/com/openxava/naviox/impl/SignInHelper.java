@@ -47,7 +47,7 @@ public class SignInHelper {
 	 * @since 5.4 
 	 */
 	public static boolean isAuthorized(ServletRequest request, String userName, String password, Messages errors) {  
-		boolean authorized = isAuthorized(userName, password);
+		boolean authorized = isAuthorized(request, userName, password);
 		if (!authorized) errors.add("unauthorized_user");
 		return authorized;
 	}	
