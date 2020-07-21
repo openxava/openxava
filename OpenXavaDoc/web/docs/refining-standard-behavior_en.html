@@ -1,13 +1,24 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - refining-standard-behavior_en</title>
+    <title>Lesson 7: Refining the standard behavior - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 7: Refining the standard behavior"></a>
+        <span id="breadcrumbs">
+          <span id="openxava">
+          	<a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava
+            </a>
+          </span>  
+          / <a href="index_en.html">documentation</a> /  
+				</span>                
+        Lesson 7: Refining the standard behavior
+      </h1>
       <div id="toc">
-        <h1 class="nopad">Table of Contents</h1>
+        <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior">Lesson
             7: Refining the standard behavior</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions">Custom
@@ -68,9 +79,7 @@
         References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a><br>
-      <h1 id="toc0"><a name="Lesson 7: Refining the standard behavior"></a>Lesson
-        7: Refining the standard behavior</h1>
+        Annotations</a><hr>
       I hope you are very happy with the current code of your Invoicing
       application. It's really simple, you basically have entities, simple
       classes that model your problem. All the business logic is attached to
@@ -128,16 +137,22 @@
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
-class="re0">name</span>=<span class="st0">"Typical"</span><span class="re2">&gt;</span></span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+
+class="re0">name</span>=<span class="st0">"Typical"</span><span class="re2">&gt;</span></span> <span
+
 class="sc-1">&lt;!-- 'Typical' inherits all actions --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+
 class="st0">"Navigation"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- from 'Navigation', --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+
 class="st0">"CRUD"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- from 'CRUD' --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+
 class="st0">"Print"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- from 'Print' --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+
 class="st0">"ImportData"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- and from 'ImportData' controllers --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
       Here you can see how a controller can be defined from other controllers.
@@ -172,15 +187,18 @@ class="st0">"ImportData"</span><span class="re2">/&gt;</span></span> <span class
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+
 class="re0">name</span>=<span class="st0">"CRUD"</span><span class="re2">&gt;</span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
 class="st0">"new"</span></span>
 <span class="sc3">        <span class="re0">class</span>=<span class="st0">"org.openxava.actions.NewAction"</span></span>
 <span class="sc3">        <span class="re0">image</span>=<span class="st0">"images/new.gif"</span></span>
 <span class="sc3">        <span class="re0">icon</span>=<span class="st0">"library-plus"</span></span>
-<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"Control N"</span><span
+<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"Control N"</span><span
+
 class="re2">&gt;</span></span>
         <span class="sc-1">&lt;!--</span>
 <span class="sc-1">        name="new": Name to reference the action from other parts of the application</span>
@@ -190,33 +208,39 @@ class="re2">&gt;</span></span>
 <span class="sc-1">        icon="library-plus": Icon to show for this action, this is by default</span>
 <span class="sc-1">        keystroke="Control N": Keys that the user can press to execute this action</span>
 <span class="sc-1">        --&gt;</span>
-        <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
-class="st0">"restoreModel"</span> <span class="re0">value</span>=<span class="st0">"true"</span><span
+        <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+
+class="st0">"restoreModel"</span> <span class="re0">value</span>=<span class="st0">"true"</span><span
+
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- The restoreModel property of the action class will</span>
 <span class="sc-1">            be set to true before it's executed --&gt;</span>
     <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
 class="st0">"save"</span> <span class="re0">mode</span>=<span class="st0">"detail"</span></span>
 <span class="sc3">        <span class="re0">by-default</span>=<span class="st0">"if-possible"</span></span>
 <span class="sc3">        <span class="re0">class</span>=<span class="st0">"org.openxava.actions.SaveAction"</span></span>
 <span class="sc3">        <span class="re0">image</span>=<span class="st0">"save.gif"</span></span>
 <span class="sc3">        <span class="re0">icon</span>=<span class="st0">"content-save"</span></span>
-<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"Control S"</span><span
+<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"Control S"</span><span
+
 class="re2">/&gt;</span></span>
         <span class="sc-1">&lt;!--</span>
 <span class="sc-1">        mode="detail": This action will be shown only in detail mode</span>
 <span class="sc-1">        by-default=”if-possible”: This action will be executed when the user press ENTER</span>
 <span class="sc-1">        --&gt;</span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
 class="st0">"delete"</span> <span class="re0">mode</span>=<span class="st0">"detail"</span></span>
 <span class="sc3">        <span class="re0">confirm</span>=<span class="st0">"true"</span></span>
 <span class="sc3">        <span class="re0">class</span>=<span class="st0">"org.openxava.actions.DeleteAction"</span></span>
 <span class="sc3">        <span class="re0">image</span>=<span class="st0">"delete.gif"</span></span>
 <span class="sc3">        <span class="re0">icon</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">        <span class="re0">available-on-new</span>=<span class="st0">"false"</span></span>
-<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+
 class="re2">/&gt;</span></span>
         <span class="sc-1">&lt;!--</span>
 <span class="sc-1">        confirm="true" : Ask the user for confirmation before executing the action</span>
@@ -239,7 +263,8 @@ class="re2">/&gt;</span></span>
       user clicks on the<br>
       delete button the invoice will not be removed but instead simply marked as
       removed. This way, we can recover the deleted invoices if needed.<br>
-      <img src="files/refining_behavior_en010.png" alt="refining_behavior_en010.png"
+      <img src="files/refining_behavior_en010.png" alt="refining_behavior_en010.png"
+
         title="refining_behavior_en010.png"><br>
       The previous figure shows the actions from <em>Typical</em>. We want all
       of these actions in our <em>Invoice</em> module, except that we're going
@@ -269,28 +294,34 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
+
 class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 &nbsp;
 <span class="sc0">&lt;!DOCTYPE controllers SYSTEM "dtds/controllers.dtd"&gt;</span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;controllers<span class="re2">&gt;</span></span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"Invoice"</span><span class="re2">&gt;</span></span> <span class="sc-1">&lt;!-- The same name as the entity --&gt;</span>
 &nbsp;
-        <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+        <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- It has all the actions from Typical --&gt;</span>
 &nbsp;
         <span class="sc-1">&lt;!-- Typical already has a 'delete' action, by using the same name we override it --&gt;</span>
-        <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
 class="st0">"delete"</span></span>
-<span class="sc3">            <span class="re0">mode</span>=<span class="st0">"detail"</span> <span
+<span class="sc3">            <span class="re0">mode</span>=<span class="st0">"detail"</span> <span
+
 class="re0">confirm</span>=<span class="st0">"true"</span></span>
 <span class="sc3">            <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.DeleteInvoiceAction"</span></span>
 <span class="sc3">            <span class="re0">icon</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">            <span class="re0">available-on-new</span>=<span class="st0">"false"</span></span>
-<span class="sc3">            <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+<span class="sc3">            <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+
 class="re2">/&gt;</span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span>
@@ -497,26 +528,34 @@ class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
+
 class="sy0">;</span>  <span class="co1">// In 'actions' package</span>
 <span class="co2">
 import</span> <span class="co2">org.openxava.jpa.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span
+
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.model.*</span><span
+<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.model.*</span><span
+
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">public</span> <span class="kw2">class</span> DeleteInvoiceAction
-    <span class="kw2">extends</span> ViewBaseAction <span class="br0">{</span> <span
+    <span class="kw2">extends</span> ViewBaseAction <span class="br0">{</span> <span
+
 class="co1">// ViewBaseAction has getView(), addMessage(), etc</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
-class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span> <span class="co1">// The logic of the action</span>
         addMessage<span class="br0">(</span> <span class="co1">// Add a message to show to the user</span>
-            <span class="st0">"Don't worry! I have cleared only the screen"</span><span
+            <span class="st0">"Don't worry! I have cleared only the screen"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">clear</span><span
+        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">clear</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// getView() returns the xava_view object</span>
             <span class="co1">// clear() clears the data in user interace</span>
     <span class="br0">}</span>
@@ -528,7 +567,8 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span c
       <span class="wikii jcode">ViewBaseAction</span> or any other base action
       from the <span class="wikii jcode">org.openxava.actions</span> package.<br>
       <span class="wikii jcode">ViewBaseAction</span> has a view property that
-      you can use from inside <span class="wikii jcode">execute()</span> with <span
+      you can use from inside <span class="wikii jcode">execute()</span> with <span
+
         class="wikii jcode">getView()</span>. This object of type <span class="wikii jcode">org.openxava.view.View</span>
       allows you manage the user interface. Above we clear the displayed data
       using <span class="wikii jcode">getView().clear()</span>.<br>
@@ -539,7 +579,8 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span c
       The following figure demonstrates the behavior of the <em>Invoice</em>
       module after adding your custom delete action. This is of course mock
       behavior, so let us now add the real functionality.<br>
-      <img src="files/refining_behavior_en020.png" alt="refining_behavior_en020.png"
+      <img src="files/refining_behavior_en020.png" alt="refining_behavior_en020.png"
+
         title="refining_behavior_en020.png"><br>
       In order to mark the current invoice as deleted without actually deleting
       it, we need to add a new property to <em>Invoice</em>. Let's call it <em>deleted</em>.
@@ -731,24 +772,31 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span c
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Invoice <span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Invoice <span
+
 class="kw2">extends</span> CommercialDocument <span class="br0">{</span>
 &nbsp;
     @Hidden <span class="co1">// It will not be shown by default in views and tabs</span>
-    @Column<span class="br0">(</span>columnDefinition=<span class="st0">"boolean default false"</span><span
+    @Column<span class="br0">(</span>columnDefinition=<span class="st0">"boolean default false"</span><span
+
 class="br0">)</span> <span class="co1">// To populate with falses instead of nulls</span>
-    <span class="kw2">private</span> <span class="kw3">boolean</span> deleted<span
+    <span class="kw2">private</span> <span class="kw3">boolean</span> deleted<span
+
 class="sy0">;</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isDeleted<span
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isDeleted<span
+
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> deleted<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> setDeleted<span
-class="br0">(</span><span class="kw3">boolean</span> deleted<span class="br0">)</span> <span
+    <span class="kw2">public</span> <span class="kw3">void</span> setDeleted<span
+
+class="br0">(</span><span class="kw3">boolean</span> deleted<span class="br0">)</span> <span
+
 class="br0">{</span>
-        <span class="kw2">this</span>.<span class="me1">deleted</span> = deleted<span
+        <span class="kw2">this</span>.<span class="me1">deleted</span> = deleted<span
+
 class="sy0">;</span>
     <span class="br0">}</span>
 <span class="br0">}</span></pre>
@@ -951,22 +999,32 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> execute<span
-class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> execute<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-    Invoice invoice = XPersistence.<span class="me1">getManager</span><span class="br0">(</span><span
+    Invoice invoice = XPersistence.<span class="me1">getManager</span><span class="br0">(</span><span
+
 class="br0">)</span>.<span class="me1">find</span><span class="br0">(</span>
         Invoice.<span class="kw2">class</span>,
-        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">getValue</span><span
-class="br0">(</span><span class="st0">"oid"</span><span class="br0">)</span><span
+        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">getValue</span><span
+
+class="br0">(</span><span class="st0">"oid"</span><span class="br0">)</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// We read the id from the view</span>
-    invoice.<span class="me1">setDeleted</span><span class="br0">(</span><span class="kw4">true</span><span
+    invoice.<span class="me1">setDeleted</span><span class="br0">(</span><span class="kw4">true</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// We modify the entity state</span>
-    addMessage<span class="br0">(</span><span class="st0">"object_deleted"</span>, <span
-class="st0">"Invoice"</span><span class="br0">)</span><span class="sy0">;</span> <span
+    addMessage<span class="br0">(</span><span class="st0">"object_deleted"</span>, <span
+
+class="st0">"Invoice"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// The "deleted" message</span>
-    getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">clear</span><span
+    getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">clear</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// The view is cleared</span>
 <span class="br0">}</span></pre>
       The visual effect is the same, a message is shown and the view cleared,
@@ -981,7 +1039,8 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span c
       addition if the user clicks the button the search instruction will fail
       and a somewhat technical and unintelligible message will be shown to our
       helpless user. We can refine this case by not showing the button, such as
-      when we click the "new" button. Note the small modification of the <span
+      when we click the "new" button. Note the small modification of the <span
+
         class="wiki jcode">execute()</span>:<br>
       <style type="text/css"><!--
 /**
@@ -1170,15 +1229,21 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span c
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> execute<span
-class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> execute<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
     <span class="co1">// ...</span>
-    getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">clear</span><span
+    getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">clear</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-    getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setKeyEditable</span><span
-class="br0">(</span><span class="kw4">true</span><span class="br0">)</span><span
+    getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setKeyEditable</span><span
+
+class="br0">(</span><span class="kw4">true</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// A new entity</span>
 <span class="br0">}</span></pre>
       With <span class="wiki jcode">getView().setKeyEditable(true)</span> we
@@ -1205,7 +1270,8 @@ class="sy0">;</span> <span class="co1">// A new entity</span>
       you want an action to mark as deleted instead of actually removing from
       the database any entity, not just invoices. In this case, the current code
       for your action is not enough. You need a more generic code.<br>
-      You can develop more generic actions using an OpenXava class named <span
+      You can develop more generic actions using an OpenXava class named <span
+
         class="wiki jcode">MapFacade</span>. <span class="wiki jcode">MapFacade</span>
       (from <span class="wiki jcode">org.openxava.model</span> package) allows
       you to manage the state of your entities using maps, which is very
@@ -1238,14 +1304,17 @@ class="sy0">;</span> <span class="co1">// A new entity</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;action</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;action</span> <span
+
 class="re0">name</span>=<span class="st0">"delete"</span></span>
-<span class="sc3">    <span class="re0">mode</span>=<span class="st0">"detail"</span> <span
+<span class="sc3">    <span class="re0">mode</span>=<span class="st0">"detail"</span> <span
+
 class="re0">confirm</span>=<span class="st0">"true"</span></span>
 <span class="sc3">    <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.InvoicingDeleteAction"</span></span>
 <span class="sc3">    <span class="re0">icon</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">    <span class="re0">available-on-new</span>=<span class="st0">"false"</span></span>
-<span class="sc3">    <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+<span class="sc3">    <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+
 class="re2">/&gt;</span></span></pre>
       Now, rename your <em>DeleteInvoiceAction</em> to <em>InvoicingDeleteAction</em>
       and rewrite its code:<br>
@@ -1436,51 +1505,76 @@ class="re2">/&gt;</span></span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
+
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span
+
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.model.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.model.*</span><span
+
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> InvoicingDeleteAction <span
+<span class="kw2">public</span> <span class="kw2">class</span> InvoicingDeleteAction <span
+
 class="kw2">extends</span> ViewBaseAction <span class="br0">{</span>
-    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
-class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
-class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
+class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a><span class="sy0">&gt;</span> values =
-            <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/HashMap.html"><span
-class="kw46">HashMap</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="sy0">&gt;</span><span class="br0">(</span><span
+            <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/HashMap.html"><span
+
+class="kw46">HashMap</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// The values to modify in the entity</span>
-        values.<span class="me1">put</span><span class="br0">(</span><span class="st0">"deleted"</span>, <span
-class="kw4">true</span><span class="br0">)</span><span class="sy0">;</span> <span
+        values.<span class="me1">put</span><span class="br0">(</span><span class="st0">"deleted"</span>, <span
+
+class="kw4">true</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// We set true to 'deleted' property</span>
-        MapFacade.<span class="me1">setValues</span><span class="br0">(</span> <span
+        MapFacade.<span class="me1">setValues</span><span class="br0">(</span> <span
+
 class="co1">// Modifies the values of the indicated entity</span>
-            getModelName<span class="br0">(</span><span class="br0">)</span>, <span
+            getModelName<span class="br0">(</span><span class="br0">)</span>, <span
+
 class="co1">// A method from ViewBaseAction</span>
-            getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">getKeyValues</span><span
+            getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">getKeyValues</span><span
+
 class="br0">(</span><span class="br0">)</span>, <span class="co1">// The key of the entity to modify</span>
             values<span class="br0">)</span><span class="sy0">;</span> <span class="co1">// The values to change</span>
-        resetDescriptionsCache<span class="br0">(</span><span class="br0">)</span><span
+        resetDescriptionsCache<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// Clears the caches for combos</span>
-        addMessage<span class="br0">(</span><span class="st0">"object_deleted"</span>, getModelName<span
+        addMessage<span class="br0">(</span><span class="st0">"object_deleted"</span>, getModelName<span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">clear</span><span
+        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">clear</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setKeyEditable</span><span
-class="br0">(</span><span class="kw4">true</span><span class="br0">)</span><span
+        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setKeyEditable</span><span
+
+class="br0">(</span><span class="kw4">true</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setEditable</span><span
-class="br0">(</span><span class="kw4">false</span><span class="br0">)</span><span
+        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setEditable</span><span
+
+class="br0">(</span><span class="kw4">false</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// The view is left as not editable</span>
     <span class="br0">}</span>
 <span class="br0">}</span></pre>
@@ -1537,20 +1631,25 @@ class="sy0">;</span> <span class="co1">// The view is left as not editable</span
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+
 class="re0">name</span>=<span class="st0">"Invoicing"</span><span class="re2">&gt;</span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
 class="st0">"delete"</span></span>
-<span class="sc3">        <span class="re0">mode</span>=<span class="st0">"detail"</span> <span
+<span class="sc3">        <span class="re0">mode</span>=<span class="st0">"detail"</span> <span
+
 class="re0">confirm</span>=<span class="st0">"true"</span></span>
 <span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.InvoicingDeleteAction"</span></span>
 <span class="sc3">        <span class="re0">icon</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">        <span class="re0">available-on-new</span>=<span class="st0">"false"</span></span>
-<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+
 class="re2">/&gt;</span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
@@ -1585,12 +1684,14 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
+
 class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 &nbsp;
 <span class="sc0">&lt;!DOCTYPE application SYSTEM "dtds/application.dtd"&gt;</span>
 &nbsp;
-<span class="sc3"><span class="re1">&lt;application</span> <span class="re0">name</span>=<span
+<span class="sc3"><span class="re1">&lt;application</span> <span class="re0">name</span>=<span
+
 class="st0">"Invoicing"</span><span class="re2">&gt;</span></span>
 &nbsp;
     <span class="sc-1">&lt;!--</span>
@@ -1598,7 +1699,8 @@ class="st0">"Invoicing"</span><span class="re2">&gt;</span></span>
 <span class="sc-1">    controllers on &lt;default-module/&gt;</span>
 <span class="sc-1">    --&gt;</span>
     <span class="sc3"><span class="re1">&lt;default-module<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"Invoicing"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/default-module<span class="re2">&gt;</span></span></span>
 &nbsp;
@@ -1807,7 +1909,8 @@ class="st0">"Invoicing"</span><span class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Invoice <span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Invoice <span
+
 class="kw2">extends</span> CommercialDocument <span class="br0">{</span>
 &nbsp;
     <span class="co1">//@Hidden // It will not be shown by default in views and tabs</span>
@@ -2013,33 +2116,43 @@ class="kw2">extends</span> CommercialDocument <span class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.model</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.model</span><span
+
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
+
 class="sy0">;</span>
 &nbsp;
 @MappedSuperclass
-<span class="kw2">public</span> <span class="kw2">class</span> Deletable <span class="kw2">extends</span> Identifiable <span
+<span class="kw2">public</span> <span class="kw2">class</span> Deletable <span class="kw2">extends</span> Identifiable <span
+
 class="br0">{</span>
 &nbsp;
     @Hidden
-    @Column<span class="br0">(</span>columnDefinition=<span class="st0">"boolean default false"</span><span
+    @Column<span class="br0">(</span>columnDefinition=<span class="st0">"boolean default false"</span><span
+
 class="br0">)</span>
-    <span class="kw2">private</span> <span class="kw3">boolean</span> deleted<span
+    <span class="kw2">private</span> <span class="kw3">boolean</span> deleted<span
+
 class="sy0">;</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isDeleted<span
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isDeleted<span
+
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> deleted<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> setDeleted<span
-class="br0">(</span><span class="kw3">boolean</span> deleted<span class="br0">)</span> <span
+    <span class="kw2">public</span> <span class="kw3">void</span> setDeleted<span
+
+class="br0">(</span><span class="kw3">boolean</span> deleted<span class="br0">)</span> <span
+
 class="br0">{</span>
-        <span class="kw2">this</span>.<span class="me1">deleted</span> = deleted<span
+        <span class="kw2">this</span>.<span class="me1">deleted</span> = deleted<span
+
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
@@ -2239,8 +2352,10 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">abstract</span> <span class="kw2">public</span> <span
-class="kw2">class</span> CommercialDocument <span class="kw2">extends</span> Deletable <span
+</style><pre class="java5"><span class="kw2">abstract</span> <span class="kw2">public</span> <span
+
+class="kw2">class</span> CommercialDocument <span class="kw2">extends</span> Deletable <span
+
 class="br0">{</span>
 <span class="co1">// abstract public class CommercialDocument extends Identifiable {</span>
 ...</pre>
@@ -2439,32 +2554,44 @@ class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Order <span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Order <span
+
 class="kw2">extends</span> CommercialDocument <span class="br0">{</span>
     <span class="co1">// ...</span>
 &nbsp;
     @PreRemove
-    <span class="kw2">private</span> <span class="kw3">void</span> validateOnRemove<span
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
+    <span class="kw2">private</span> <span class="kw3">void</span> validateOnRemove<span
+
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
+
 class="co1">// Now this method is not executed automatically</span>
-        <span class="kw1">if</span> <span class="br0">(</span>invoice <span class="sy0">!</span>= <span
-class="kw4">null</span><span class="br0">)</span> <span class="br0">{</span> <span
+        <span class="kw1">if</span> <span class="br0">(</span>invoice <span class="sy0">!</span>= <span
+
+class="kw4">null</span><span class="br0">)</span> <span class="br0">{</span> <span
+
 class="co1">// since a real deleletion is not done</span>
-            <span class="kw2">throw</span> <span class="kw2">new</span> javax.<span
-class="me1">validation</span>.<span class="me1">ValidationException</span><span
+            <span class="kw2">throw</span> <span class="kw2">new</span> javax.<span
+
+class="me1">validation</span>.<span class="me1">ValidationException</span><span
+
 class="br0">(</span>
                 XavaResources.<span class="me1">getString</span><span class="br0">(</span>
-                    <span class="st0">"cannot_delete_order_with_invoice"</span><span
+                    <span class="st0">"cannot_delete_order_with_invoice"</span><span
+
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
         <span class="br0">}</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> setDeleted<span
-class="br0">(</span><span class="kw3">boolean</span> deleted<span class="br0">)</span> <span
+    <span class="kw2">public</span> <span class="kw3">void</span> setDeleted<span
+
+class="br0">(</span><span class="kw3">boolean</span> deleted<span class="br0">)</span> <span
+
 class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>deleted<span class="br0">)</span> validateOnRemove<span
+        <span class="kw1">if</span> <span class="br0">(</span>deleted<span class="br0">)</span> validateOnRemove<span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// We call the validation explicitly</span>
-        <span class="kw2">super</span>.<span class="me1">setDeleted</span><span
+        <span class="kw2">super</span>.<span class="me1">setDeleted</span><span
+
 class="br0">(</span>deleted<span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 <span class="br0">}</span></pre>
@@ -2476,7 +2603,8 @@ class="br0">(</span>deleted<span class="br0">)</span><span class="sy0">;</span>
       Though if you try to remove an entity in any other module, you'll get an
       ugly error message. The following figure shows what happens when you try
       to delete a <em>Customer</em>.<br>
-      <img src="files/refining_behavior_en030.png" alt="refining_behavior_en030.png"
+      <img src="files/refining_behavior_en030.png" alt="refining_behavior_en030.png"
+
         title="refining_behavior_en030.png"><br>
       If your entity has no <em>deleted</em> property, the delete action fails.
       Using <em>Deletable</em> as base class you can add the <em>deleted</em>
@@ -2676,26 +2804,35 @@ class="br0">(</span>deleted<span class="br0">)</span><span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> execute<span
-class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> execute<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-    <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>getView<span
-class="br0">(</span><span class="br0">)</span>.<span class="me1">getMetaModel</span><span
+    <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>getView<span
+
+class="br0">(</span><span class="br0">)</span>.<span class="me1">getMetaModel</span><span
+
 class="br0">(</span><span class="br0">)</span> <span class="co1">// Metadata about the current entity</span>
-        .<span class="me1">containsMetaProperty</span><span class="br0">(</span><span
-class="st0">"deleted"</span><span class="br0">)</span><span class="br0">)</span> <span
+        .<span class="me1">containsMetaProperty</span><span class="br0">(</span><span
+
+class="st0">"deleted"</span><span class="br0">)</span><span class="br0">)</span> <span
+
 class="co1">// Is there a 'deleted' property?</span>
     <span class="br0">{</span>
         addMessage<span class="br0">(</span> <span class="co1">// For now, only shows a message if 'deleted' is not present</span>
-            <span class="st0">"Not deleted, it has no deleted property"</span><span
+            <span class="st0">"Not deleted, it has no deleted property"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
         <span class="kw2">return</span><span class="sy0">;</span>
     <span class="br0">}</span>
     <span class="co1">// ...</span>
 <span class="br0">}</span></pre>
       The key thing here is <span class="wiki jcode">getView().getMetaModel()</span>
-      that returns a <span class="wiki jcode">MetaModel</span> object from <span
+      that returns a <span class="wiki jcode">MetaModel</span> object from <span
+
         class="wiki jcode">org.openxava.model.meta</span> package. This object
       contains metadata about the entity currently displayed in the view. You
       can ask for the properties, references, collections, methods and other
@@ -2903,74 +3040,108 @@ class="br0">)</span><span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
+
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span
+
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.model.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.model.*</span><span
+
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> InvoicingDeleteAction <span
+<span class="kw2">public</span> <span class="kw2">class</span> InvoicingDeleteAction <span
+
 class="kw2">extends</span> ViewBaseAction
-    <span class="kw2">implements</span> IChainAction <span class="br0">{</span>  <span
+    <span class="kw2">implements</span> IChainAction <span class="br0">{</span>  <span
+
 class="co1">// It chains to another action, returned by getNextAction() method</span>
 &nbsp;
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> nextAction = <span class="kw4">null</span><span class="sy0">;</span> <span
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> nextAction = <span class="kw4">null</span><span class="sy0">;</span> <span
+
 class="co1">// To store the next action to execute</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
-class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>getView<span
-class="br0">(</span><span class="br0">)</span>.<span class="me1">getMetaModel</span><span
+        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>getView<span
+
+class="br0">(</span><span class="br0">)</span>.<span class="me1">getMetaModel</span><span
+
 class="br0">(</span><span class="br0">)</span>
-            .<span class="me1">containsMetaProperty</span><span class="br0">(</span><span
+            .<span class="me1">containsMetaProperty</span><span class="br0">(</span><span
+
 class="st0">"deleted"</span><span class="br0">)</span><span class="br0">)</span>
         <span class="br0">{</span>
-            nextAction = <span class="st0">"CRUD.delete"</span><span class="sy0">;</span> <span
+            nextAction = <span class="st0">"CRUD.delete"</span><span class="sy0">;</span> <span
+
 class="co1">// 'CRUD.delete' will be executed</span>
             <span class="kw2">return</span><span class="sy0">;</span> <span class="co1">// after this action finishes</span>
         <span class="br0">}</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
-class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="sy0">&gt;</span> values = <span class="kw2">new</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/HashMap.html"><span
-class="kw46">HashMap</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="sy0">&gt;</span><span class="br0">(</span><span
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
+class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span> values = <span class="kw2">new</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/HashMap.html"><span
+
+class="kw46">HashMap</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-        values.<span class="me1">put</span><span class="br0">(</span><span class="st0">"deleted"</span>, <span
+        values.<span class="me1">put</span><span class="br0">(</span><span class="st0">"deleted"</span>, <span
+
 class="kw4">true</span><span class="br0">)</span><span class="sy0">;</span>
         MapFacade.<span class="me1">setValues</span><span class="br0">(</span>
             getModelName<span class="br0">(</span><span class="br0">)</span>,
-            getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">getKeyValues</span><span
+            getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">getKeyValues</span><span
+
 class="br0">(</span><span class="br0">)</span>,
             values<span class="br0">)</span><span class="sy0">;</span>
-        resetDescriptionsCache<span class="br0">(</span><span class="br0">)</span><span
+        resetDescriptionsCache<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-        addMessage<span class="br0">(</span><span class="st0">"object_deleted"</span>, getModelName<span
+        addMessage<span class="br0">(</span><span class="st0">"object_deleted"</span>, getModelName<span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">clear</span><span
+        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">clear</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setKeyEditable</span><span
-class="br0">(</span><span class="kw4">true</span><span class="br0">)</span><span
+        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setKeyEditable</span><span
+
+class="br0">(</span><span class="kw4">true</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setEditable</span><span
-class="br0">(</span><span class="kw4">false</span><span class="br0">)</span><span
+        getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setEditable</span><span
+
+class="br0">(</span><span class="kw4">false</span><span class="br0">)</span><span
+
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> getNextAction<span class="br0">(</span><span class="br0">)</span>  <span
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> getNextAction<span class="br0">(</span><span class="br0">)</span>  <span
+
 class="co1">// Required because of IChainAction</span>
-        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a>
     <span class="br0">{</span>
-        <span class="kw2">return</span> nextAction<span class="sy0">;</span> <span
+        <span class="kw2">return</span> nextAction<span class="sy0">;</span> <span
+
 class="co1">// If null no action will be chained</span>
     <span class="br0">}</span>
 <span class="br0">}</span></pre>
@@ -2995,7 +3166,8 @@ class="co1">// If null no action will be chained</span>
       The most obvious place to start is the search action. If you delete an
       invoice and then search for it, it should not be found. The following
       figure shows how searching works in OpenXava.<br>
-      <img src="files/refining_behavior_en040.png" alt="refining_behavior_en040.png"
+      <img src="files/refining_behavior_en040.png" alt="refining_behavior_en040.png"
+
         title="refining_behavior_en040.png"><br>
       The first thing to observe in the previous figure is that searching in
       detail mode is more flexible than it seems. The user can enter any value
@@ -3203,23 +3375,32 @@ class="co1">// If null no action will be chained</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> SearchAction <span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> SearchAction <span
+
 class="kw2">extends</span> BaseAction
-    <span class="kw2">implements</span> IChainAction <span class="br0">{</span> <span
+    <span class="kw2">implements</span> IChainAction <span class="br0">{</span> <span
+
 class="co1">// It chains to another action</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
-class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span> <span class="co1">// Do nothing</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> getNextAction<span class="br0">(</span><span class="br0">)</span> <span
-class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> getNextAction<span class="br0">(</span><span class="br0">)</span> <span
+
+class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-        <span class="kw2">return</span> getEnvironment<span class="br0">(</span><span
+        <span class="kw2">return</span> getEnvironment<span class="br0">(</span><span
+
 class="br0">)</span> <span class="co1">// To access an environment variables</span>
-            .<span class="me1">getValue</span><span class="br0">(</span><span class="st0">"XAVA_SEARCH_ACTION"</span><span
+            .<span class="me1">getValue</span><span class="br0">(</span><span class="st0">"XAVA_SEARCH_ACTION"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 <span class="br0">}</span></pre>
@@ -3260,10 +3441,12 @@ class="br0">)</span><span class="sy0">;</span>
     <span class="sc-1">&lt;!-- To define the global value for an environment variable --&gt;</span>
     <span class="sc3"><span class="re1">&lt;env-var</span></span>
 <span class="sc3">        <span class="re0">name</span>=<span class="st0">"XAVA_SEARCH_ACTION"</span></span>
-<span class="sc3">        <span class="re0">value</span>=<span class="st0">"Invoicing.searchExcludingDeleted"</span> <span
+<span class="sc3">        <span class="re0">value</span>=<span class="st0">"Invoicing.searchExcludingDeleted"</span> <span
+
 class="re2">/&gt;</span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"Invoicing"</span><span class="re2">&gt;</span></span>
 ...</pre>
       This way the value of the <em>XAVA_SEARCH_ACTION</em> environment
@@ -3292,13 +3475,16 @@ class="st0">"Invoicing"</span><span class="re2">&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+
 class="re0">name</span>=<span class="st0">"Invoicing"</span><span class="re2">&gt;</span></span>
     ...
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
 class="st0">"searchExcludingDeleted"</span></span>
 <span class="sc3">        <span class="re0">hidden</span>=<span class="st0">"true"</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.SearchExcludingDeletedAction"</span><span
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.SearchExcludingDeletedAction"</span><span
+
 class="re2">/&gt;</span></span>
         <span class="sc-1">&lt;!-- hidden="true": Thus the action will not be shown in button bar --&gt;</span>
 &nbsp;
@@ -3494,102 +3680,151 @@ class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
+
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">javax.ejb.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span
+
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">public</span> <span class="kw2">class</span> SearchExcludingDeletedAction
-    <span class="kw2">extends</span> SearchByViewKeyAction <span class="br0">{</span> <span
+    <span class="kw2">extends</span> SearchByViewKeyAction <span class="br0">{</span> <span
+
 class="co1">// The standard OpenXava action to search</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw3">boolean</span> isDeletable<span
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
+    <span class="kw2">private</span> <span class="kw3">boolean</span> isDeletable<span
+
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
+
 class="co1">// To see if this entity has a deleted property</span>
-        <span class="kw2">return</span> getView<span class="br0">(</span><span class="br0">)</span>.<span
+        <span class="kw2">return</span> getView<span class="br0">(</span><span class="br0">)</span>.<span
+
 class="me1">getMetaModel</span><span class="br0">(</span><span class="br0">)</span>
-            .<span class="me1">containsMetaProperty</span><span class="br0">(</span><span
+            .<span class="me1">containsMetaProperty</span><span class="br0">(</span><span
+
 class="st0">"deleted"</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
-    <span class="kw2">protected</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
-class="kw46">Map</span></a> getValuesFromView<span class="br0">(</span><span class="br0">)</span> <span
+    <span class="kw2">protected</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
+class="kw46">Map</span></a> getValuesFromView<span class="br0">(</span><span class="br0">)</span> <span
+
 class="co1">// Gets the values displayed in this view</span>
-        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="co1">// These values are used as keys for the search</span>
     <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>isDeletable<span
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> <span
+        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>isDeletable<span
+
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> <span
+
 class="co1">// If not deletable we run the standard logic</span>
-            <span class="kw2">return</span> <span class="kw2">super</span>.<span
-class="me1">getValuesFromView</span><span class="br0">(</span><span class="br0">)</span><span
+            <span class="kw2">return</span> <span class="kw2">super</span>.<span
+
+class="me1">getValuesFromView</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
         <span class="br0">}</span>
-       <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
-class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="sy0">&gt;</span> values = <span class="kw2">super</span>.<span
-class="me1">getValuesFromView</span><span class="br0">(</span><span class="br0">)</span><span
+       <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
+class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span> values = <span class="kw2">super</span>.<span
+
+class="me1">getValuesFromView</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-        values.<span class="me1">put</span><span class="br0">(</span><span class="st0">"deleted"</span>, <span
-class="kw4">false</span><span class="br0">)</span><span class="sy0">;</span> <span
+        values.<span class="me1">put</span><span class="br0">(</span><span class="st0">"deleted"</span>, <span
+
+class="kw4">false</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// We populate deleted property with false</span>
         <span class="kw2">return</span> values<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
-    <span class="kw2">protected</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
-class="kw46">Map</span></a> getMemberNames<span class="br0">(</span><span class="br0">)</span> <span
+    <span class="kw2">protected</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
+class="kw46">Map</span></a> getMemberNames<span class="br0">(</span><span class="br0">)</span> <span
+
 class="co1">// The members to be read from the entity</span>
-        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a>
     <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>isDeletable<span
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> <span
+        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>isDeletable<span
+
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> <span
+
 class="co1">// If not deletable we run the standard logic</span>
-            <span class="kw2">return</span> <span class="kw2">super</span>.<span
-class="me1">getMemberNames</span><span class="br0">(</span><span class="br0">)</span><span
+            <span class="kw2">return</span> <span class="kw2">super</span>.<span
+
+class="me1">getMemberNames</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
         <span class="br0">}</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
-class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="sy0">&gt;</span> members = <span class="kw2">super</span>.<span
-class="me1">getMemberNames</span><span class="br0">(</span><span class="br0">)</span><span
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
+class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span> members = <span class="kw2">super</span>.<span
+
+class="me1">getMemberNames</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-        members.<span class="me1">put</span><span class="br0">(</span><span class="st0">"deleted"</span>, <span
-class="kw4">null</span><span class="br0">)</span><span class="sy0">;</span>  <span
+        members.<span class="me1">put</span><span class="br0">(</span><span class="st0">"deleted"</span>, <span
+
+class="kw4">null</span><span class="br0">)</span><span class="sy0">;</span>  <span
+
 class="co1">// We want to get the deleted property from entity,</span>
-        <span class="kw2">return</span> members<span class="sy0">;</span> <span
+        <span class="kw2">return</span> members<span class="sy0">;</span> <span
+
 class="co1">// though it might not be in the view</span>
     <span class="br0">}</span>
 &nbsp;
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
-    <span class="kw2">protected</span> <span class="kw3">void</span> setValuesToView<span
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+    <span class="kw2">protected</span> <span class="kw3">void</span> setValuesToView<span
+
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
 class="kw46">Map</span></a> values<span class="br0">)</span> <span class="co1">// Assigns the values from the</span>
-        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="co1">// entity to the view</span>
     <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>isDeletable<span class="br0">(</span><span
+        <span class="kw1">if</span> <span class="br0">(</span>isDeletable<span class="br0">(</span><span
+
 class="br0">)</span> <span class="sy0">&amp;&amp;</span> <span class="co1">// If it has an deleted property and</span>
-            <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Boolean.html"><span
-class="kw21">Boolean</span></a><span class="br0">)</span> values.<span class="me1">get</span><span
-class="br0">(</span><span class="st0">"deleted"</span><span class="br0">)</span><span
+            <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Boolean.html"><span
+
+class="kw21">Boolean</span></a><span class="br0">)</span> values.<span class="me1">get</span><span
+
+class="br0">(</span><span class="st0">"deleted"</span><span class="br0">)</span><span
+
 class="br0">)</span> <span class="br0">{</span> <span class="co1">// it is true</span>
-                <span class="kw2">throw</span> <span class="kw2">new</span> ObjectNotFoundException<span
+                <span class="kw2">throw</span> <span class="kw2">new</span> ObjectNotFoundException<span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// The same exception OpenXava</span>
         <span class="br0">}</span> <span class="co1">// throws when the object is not found</span>
         <span class="kw1">else</span> <span class="br0">{</span>
-            <span class="kw2">super</span>.<span class="me1">setValuesToView</span><span
-class="br0">(</span>values<span class="br0">)</span><span class="sy0">;</span> <span
+            <span class="kw2">super</span>.<span class="me1">setValuesToView</span><span
+
+class="br0">(</span>values<span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// Otherwise we run the standard logic</span>
         <span class="br0">}</span>
     <span class="br0">}</span>
@@ -3635,18 +3870,23 @@ class="co1">// Otherwise we run the standard logic</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+
 class="re0">name</span>=<span class="st0">"Product"</span><span class="re2">&gt;</span></span>
     <span class="sc-1">&lt;!-- To give a local value to the environment variable for this module --&gt;</span>
     <span class="sc3"><span class="re1">&lt;env-var</span></span>
 <span class="sc3">       <span class="re0">name</span>=<span class="st0">"XAVA_SEARCH_ACTION"</span></span>
-<span class="sc3">       <span class="re0">value</span>=<span class="st0">"Product.searchByNumber"</span><span
+<span class="sc3">       <span class="re0">value</span>=<span class="st0">"Product.searchByNumber"</span><span
+
 class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+
 class="st0">"Product"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"Product"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"Invoicing"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       In this way for the module <em>Product</em> the <em>XAVA_SEARCH_ACTION</em>
@@ -3862,14 +4102,18 @@ class="st0">"Invoicing"</span><span class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Tab<span class="br0">(</span>baseCondition = <span class="st0">"deleted = false"</span><span
+</style><pre class="java5">@Tab<span class="br0">(</span>baseCondition = <span class="st0">"deleted = false"</span><span
+
 class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="kw2">extends</span> CommercialDocument <span
+<span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="kw2">extends</span> CommercialDocument <span
+
 class="br0">{</span> ... <span class="br0">}</span>
 &nbsp;
-@Tab<span class="br0">(</span>baseCondition = <span class="st0">"deleted = false"</span><span
+@Tab<span class="br0">(</span>baseCondition = <span class="st0">"deleted = false"</span><span
+
 class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+
 class="br0">{</span> ... <span class="br0">}</span></pre>
       And in this simple way the list mode will not show the marked-as-deleted
       entities.<br>
@@ -3904,24 +4148,32 @@ class="br0">{</span> ... <span class="br0">}</span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+
 class="re0">name</span>=<span class="st0">"Invoicing"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
      ...
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
-class="st0">"deleteSelected"</span> <span class="re0">mode</span>=<span class="st0">"list"</span> <span
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
+class="st0">"deleteSelected"</span> <span class="re0">mode</span>=<span class="st0">"list"</span> <span
+
 class="re0">confirm</span>=<span class="st0">"true"</span></span>
 <span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"</span></span>
-<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+<span class="sc3">        <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+
 class="re2">/&gt;</span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
-class="st0">"deleteRow"</span> <span class="re0">mode</span>=<span class="st0">"NONE"</span> <span
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
+class="st0">"deleteRow"</span> <span class="re0">mode</span>=<span class="st0">"NONE"</span> <span
+
 class="re0">confirm</span>=<span class="st0">"true"</span></span>
 <span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"</span></span>
 <span class="sc3">        <span class="re0">icon</span>=<span class="st0">"delete"</span></span>
-<span class="sc3">        <span class="re0">in-each-row</span>=<span class="st0">"true"</span><span
+<span class="sc3">        <span class="re0">in-each-row</span>=<span class="st0">"true"</span><span
+
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
       The standard actions to remove entities from list mode are <em>deleteSelected</em>
@@ -4120,73 +4372,103 @@ class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.actions</span><span
+
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span><span
+
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.model.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.model.*</span><span
+
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.model.meta.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.model.meta.*</span><span
+
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.validators.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.validators.*</span><span
+
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">public</span> <span class="kw2">class</span> InvoicingDeleteSelectedAction
     <span class="kw2">extends</span> TabBaseAction <span class="co1">// To work with tabular data (list) by means of getTab()</span>
-    <span class="kw2">implements</span> IChainActionWithArgv <span class="br0">{</span> <span
+    <span class="kw2">implements</span> IChainActionWithArgv <span class="br0">{</span> <span
+
 class="co1">// It chains to another action, returned by getNextAction() method</span>
 &nbsp;
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> nextAction = <span class="kw4">null</span><span class="sy0">;</span> <span
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> nextAction = <span class="kw4">null</span><span class="sy0">;</span> <span
+
 class="co1">// To store the next action to execute</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
-class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>getMetaModel<span
-class="br0">(</span><span class="br0">)</span>.<span class="me1">containsMetaProperty</span><span
-class="br0">(</span><span class="st0">"deleted"</span><span class="br0">)</span><span
+        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>getMetaModel<span
+
+class="br0">(</span><span class="br0">)</span>.<span class="me1">containsMetaProperty</span><span
+
+class="br0">(</span><span class="st0">"deleted"</span><span class="br0">)</span><span
+
 class="br0">)</span> <span class="br0">{</span>
-            nextAction=<span class="st0">"CRUD.deleteSelected"</span><span class="sy0">;</span> <span
+            nextAction=<span class="st0">"CRUD.deleteSelected"</span><span class="sy0">;</span> <span
+
 class="co1">// 'CRUD.deleteSelected' will be</span>
             <span class="kw2">return</span><span class="sy0">;</span>    <span class="co1">// executed after this action is finisreturn;</span>
         <span class="br0">}</span>
-        markSelectedEntitiesAsDeleted<span class="br0">(</span><span class="br0">)</span><span
+        markSelectedEntitiesAsDeleted<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// The logic to mark the selected rows</span>
             <span class="co1">// as deleted objects</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">private</span> MetaModel getMetaModel<span class="br0">(</span><span
+    <span class="kw2">private</span> MetaModel getMetaModel<span class="br0">(</span><span
+
 class="br0">)</span> <span class="br0">{</span>
-        <span class="kw2">return</span> MetaModel.<span class="me1">get</span><span
-class="br0">(</span>getTab<span class="br0">(</span><span class="br0">)</span>.<span
-class="me1">getModelName</span><span class="br0">(</span><span class="br0">)</span><span
+        <span class="kw2">return</span> MetaModel.<span class="me1">get</span><span
+
+class="br0">(</span>getTab<span class="br0">(</span><span class="br0">)</span>.<span
+
+class="me1">getModelName</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> getNextAction<span class="br0">(</span><span class="br0">)</span> <span
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> getNextAction<span class="br0">(</span><span class="br0">)</span> <span
+
 class="co1">// Required because of IChainAction</span>
-        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a>
     <span class="br0">{</span>
-        <span class="kw2">return</span> nextAction<span class="sy0">;</span> <span
+        <span class="kw2">return</span> nextAction<span class="sy0">;</span> <span
+
 class="co1">// If null no action will be chained</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> getNextActionArgv<span class="br0">(</span><span
-class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> getNextActionArgv<span class="br0">(</span><span
+
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-        <span class="kw2">return</span> <span class="st0">"row="</span> + getRow<span
+        <span class="kw2">return</span> <span class="st0">"row="</span> + getRow<span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// Argument to send to chainged action</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw3">void</span> markSelectedEntitiesAsDeleted<span
-class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">private</span> <span class="kw3">void</span> markSelectedEntitiesAsDeleted<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
         <span class="co1">// ...</span>
     <span class="br0">}</span>
@@ -4391,71 +4673,113 @@ class="kw21">Exception</span></a> <span class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">private</span> <span class="kw3">void</span> markSelectedEntitiesAsDeleted<span
-class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+</style><pre class="java5"><span class="kw2">private</span> <span class="kw3">void</span> markSelectedEntitiesAsDeleted<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
-class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="sy0">&gt;</span> values = <span class="kw2">new</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/HashMap.html"><span
-class="kw46">HashMap</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="sy0">&gt;</span><span class="br0">(</span><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
+class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span> values = <span class="kw2">new</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/HashMap.html"><span
+
+class="kw46">HashMap</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Values to assign to each entity to be marked</span>
-    values.<span class="me1">put</span><span class="br0">(</span><span class="st0">"deleted"</span>, <span
-class="kw4">true</span><span class="br0">)</span><span class="sy0">;</span> <span
+    values.<span class="me1">put</span><span class="br0">(</span><span class="st0">"deleted"</span>, <span
+
+class="kw4">true</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// Just set deleted to true</span>
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
-class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="sy0">&gt;</span><span class="br0">[</span><span
-class="br0">]</span> selectedOnes = getSelectedKeys<span class="br0">(</span><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
+class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span><span class="br0">[</span><span
+
+class="br0">]</span> selectedOnes = getSelectedKeys<span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// We get the selected rows</span>
-    <span class="kw1">if</span> <span class="br0">(</span>selectedOnes <span class="sy0">!</span>= <span
+    <span class="kw1">if</span> <span class="br0">(</span>selectedOnes <span class="sy0">!</span>= <span
+
 class="kw4">null</span><span class="br0">)</span> <span class="br0">{</span>
-        <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i = <span
-class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> selectedOnes.<span
-class="me1">length</span><span class="sy0">;</span> i++<span class="br0">)</span> <span
+        <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i = <span
+
+class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> selectedOnes.<span
+
+class="me1">length</span><span class="sy0">;</span> i++<span class="br0">)</span> <span
+
 class="br0">{</span> <span class="co1">// Loop over all selected rows</span>
-            <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
-class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="sy0">&gt;</span> key = selectedOnes<span
-class="br0">[</span>i<span class="br0">]</span><span class="sy0">;</span> <span
+            <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
+class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span> key = selectedOnes<span
+
+class="br0">[</span>i<span class="br0">]</span><span class="sy0">;</span> <span
+
 class="co1">// We obtain the key of each entity</span>
             <span class="kw2">try</span> <span class="br0">{</span>
-                MapFacade.<span class="me1">setValues</span><span class="br0">(</span>  <span
+                MapFacade.<span class="me1">setValues</span><span class="br0">(</span>  <span
+
 class="co1">// Each entity is modified</span>
-                    getTab<span class="br0">(</span><span class="br0">)</span>.<span
+                    getTab<span class="br0">(</span><span class="br0">)</span>.<span
+
 class="me1">getModelName</span><span class="br0">(</span><span class="br0">)</span>,
                     key,
                     values<span class="br0">)</span><span class="sy0">;</span>
             <span class="br0">}</span>
-            <span class="kw2">catch</span> <span class="br0">(</span>ValidationException ex<span
+            <span class="kw2">catch</span> <span class="br0">(</span>ValidationException ex<span
+
 class="br0">)</span> <span class="br0">{</span>  <span class="co1">// If there is a ValidationException...</span>
-                addError<span class="br0">(</span><span class="st0">"no_delete_row"</span>, <span
-class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-class="kw21">Integer</span></a><span class="br0">(</span>i<span class="br0">)</span>, key<span
+                addError<span class="br0">(</span><span class="st0">"no_delete_row"</span>, <span
+
+class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+
+class="kw21">Integer</span></a><span class="br0">(</span>i<span class="br0">)</span>, key<span
+
 class="br0">)</span><span class="sy0">;</span>
-                addErrors<span class="br0">(</span>ex.<span class="me1">getErrors</span><span
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span
+                addErrors<span class="br0">(</span>ex.<span class="me1">getErrors</span><span
+
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// ...we show the messages</span>
             <span class="br0">}</span>
-            <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
-class="kw21">Exception</span></a> ex<span class="br0">)</span> <span class="br0">{</span> <span
+            <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
+class="kw21">Exception</span></a> ex<span class="br0">)</span> <span class="br0">{</span> <span
+
 class="co1">//  If any other exception is thrown, a generic</span>
-                addError<span class="br0">(</span><span class="st0">"no_delete_row"</span>, <span
-class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-class="kw21">Integer</span></a><span class="br0">(</span>i<span class="br0">)</span>, key<span
+                addError<span class="br0">(</span><span class="st0">"no_delete_row"</span>, <span
+
+class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+
+class="kw21">Integer</span></a><span class="br0">(</span>i<span class="br0">)</span>, key<span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// message is added</span>
             <span class="br0">}</span>
         <span class="br0">}</span>
     <span class="br0">}</span>
-    getTab<span class="br0">(</span><span class="br0">)</span>.<span class="me1">deselectAll</span><span
+    getTab<span class="br0">(</span><span class="br0">)</span>.<span class="me1">deselectAll</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// After removing we deselect the rows</span>
-    resetDescriptionsCache<span class="br0">(</span><span class="br0">)</span><span
+    resetDescriptionsCache<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// And reset the cache for combos for this user</span>
 <span class="br0">}</span></pre>
       As you see the logic is a plain loop over all selected rows, in each
@@ -4493,7 +4817,8 @@ class="sy0">;</span> <span class="co1">// And reset the cache for combos for thi
       invoices or orders where the user can choose several of them and click the
       "Restore" button, or alternatively, for a single entity, click the
       "Restore" link on the row of the item to restore.<br>
-      <img src="files/refining_behavior_en050.png" alt="refining_behavior_en050.png"
+      <img src="files/refining_behavior_en050.png" alt="refining_behavior_en050.png"
+
         title="refining_behavior_en050.png"><br>
       The logic of this restore action is to set the <em>deleted</em> property
       of the selected entities to false. Obviously, this is the same logic we
@@ -4688,42 +5013,61 @@ class="sy0">;</span> <span class="co1">// And reset the cache for combos for thi
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> InvoicingDeleteSelectedAction ... <span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> InvoicingDeleteSelectedAction ... <span
+
 class="br0">{</span>
     ...
-    <span class="kw2">private</span> <span class="kw3">boolean</span> restore<span
+    <span class="kw2">private</span> <span class="kw3">boolean</span> restore<span
+
 class="sy0">;</span> <span class="co1">// A new restore property...</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isRestore<span
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isRestore<span
+
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
+
 class="co1">// ...with its getter</span>
         <span class="kw2">return</span> restore<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> setRestore<span
-class="br0">(</span><span class="kw3">boolean</span> restore<span class="br0">)</span> <span
+    <span class="kw2">public</span> <span class="kw3">void</span> setRestore<span
+
+class="br0">(</span><span class="kw3">boolean</span> restore<span class="br0">)</span> <span
+
 class="br0">{</span> <span class="co1">// ...and setter</span>
-        <span class="kw2">this</span>.<span class="me1">restore</span> = restore<span
+        <span class="kw2">this</span>.<span class="me1">restore</span> = restore<span
+
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw3">void</span> markSelectedEntitiesAsDeleted<span
+    <span class="kw2">private</span> <span class="kw3">void</span> markSelectedEntitiesAsDeleted<span
+
 class="br0">(</span><span class="br0">)</span>
-        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a>
     <span class="br0">{</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
-class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="sy0">&gt;</span> values = <span class="kw2">new</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/HashMap.html"><span
-class="kw46">HashMap</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="sy0">&gt;</span><span class="br0">(</span><span
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
+class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span> values = <span class="kw2">new</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/HashMap.html"><span
+
+class="kw46">HashMap</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
         <span class="co1">// values.put("deleted", true); // Instead of a hardcoded true, we use</span>
-        values.<span class="me1">put</span><span class="br0">(</span><span class="st0">"deleted"</span>, <span
-class="sy0">!</span>isRestore<span class="br0">(</span><span class="br0">)</span><span
+        values.<span class="me1">put</span><span class="br0">(</span><span class="st0">"deleted"</span>, <span
+
+class="sy0">!</span>isRestore<span class="br0">(</span><span class="br0">)</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// the restore property value</span>
         <span class="co1">// ...</span>
     <span class="br0">}</span>
@@ -4758,14 +5102,19 @@ class="br0">)</span><span class="sy0">;</span> <span class="co1">// the restore 
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+
 class="re0">name</span>=<span class="st0">"Trash"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
 class="st0">"restore"</span> <span class="re0">mode</span>=<span class="st0">"list"</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"</span><span
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"</span><span
+
 class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
-class="st0">"restore"</span> <span class="re0">value</span>=<span class="st0">"true"</span><span
+        <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+
+class="st0">"restore"</span> <span class="re0">value</span>=<span class="st0">"true"</span><span
+
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- Initialize the restore property to --&gt;</span>
                 <span class="sc-1">&lt;!-- true before calling the execute() method of the action --&gt;</span>
     <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
@@ -4807,41 +5156,57 @@ class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- Initialize the restor
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span
+
 class="re0">name</span>=<span class="st0">"Invoicing"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;default-module<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"Invoicing"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/default-module<span class="re2">&gt;</span></span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span
+
 class="st0">"InvoiceTrash"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
+
 class="st0">"XAVA_LIST_ACTION"</span></span>
-<span class="sc3">            <span class="re0">value</span>=<span class="st0">"Trash.restore"</span><span
+<span class="sc3">            <span class="re0">value</span>=<span class="st0">"Trash.restore"</span><span
+
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- The action to be shown in each row --&gt;</span>
-        <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+
 class="st0">"Invoice"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">name</span>=<span
+
 class="st0">"Deleted"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- To show only the deleted entities --&gt;</span>
-        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"Trash"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- With only one action: restore --&gt;</span>
-        <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
+
 class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- Only list mode --&gt;</span>
     <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span
+
 class="st0">"OrderTrash"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
-class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">"Trash.restore"</span><span
+        <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
+
+class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">"Trash.restore"</span><span
+
 class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+
 class="st0">"Order"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">name</span>=<span
+
 class="st0">"Deleted"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"Trash"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
+
 class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span></pre>
@@ -4850,7 +5215,8 @@ class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>
       Moreover, they define a specific action as a row action using the <em>XAVA_LIST_ACTION</em>
       environment variable. The next figure shows the <em>InvoiceTrash</em>
       module in action.<br>
-      <img src="files/refining_behavior_en060.png" alt="refining_behavior_en060.png"
+      <img src="files/refining_behavior_en060.png" alt="refining_behavior_en060.png"
+
         title="refining_behavior_en060.png"><br>
       <h3 id="toc18"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Several tabular data definitions by entity"></a>Several
         tabular data definitions by entity</h3>
@@ -4879,10 +5245,12 @@ class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> ... <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> ... <span
+
 class="re2">&gt;</span></span>
     ...
-    <span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">name</span>=<span
+
 class="st0">"Deleted"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 'Deleted' is a @Tab defined in the entity --&gt;</span>
     ...
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
@@ -5075,26 +5443,34 @@ class="st0">"Deleted"</span><span class="re2">/&gt;</span></span> <span class="s
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Tabs<span class="br0">(</span><span class="br0">{</span> <span
+</style><pre class="java5">@Tabs<span class="br0">(</span><span class="br0">{</span> <span
+
 class="co1">// @Tabs is for defining several tabs for the same entity</span>
-    @Tab<span class="br0">(</span>baseCondition = <span class="st0">"deleted = false"</span><span
+    @Tab<span class="br0">(</span>baseCondition = <span class="st0">"deleted = false"</span><span
+
 class="br0">)</span>, <span class="co1">// No name, so the default tab</span>
-    @Tab<span class="br0">(</span>name=<span class="st0">"Deleted"</span>, baseCondition = <span
+    @Tab<span class="br0">(</span>name=<span class="st0">"Deleted"</span>, baseCondition = <span
+
 class="st0">"deleted = true"</span><span class="br0">)</span> <span class="co1">// A named tab</span>
 <span class="br0">}</span><span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="kw2">extends</span> CommercialDocument <span
+<span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="kw2">extends</span> CommercialDocument <span
+
 class="br0">{</span> ... <span class="br0">}</span>
 &nbsp;
 @Tabs<span class="br0">(</span><span class="br0">{</span>
-    @Tab<span class="br0">(</span>baseCondition = <span class="st0">"deleted = false"</span><span
+    @Tab<span class="br0">(</span>baseCondition = <span class="st0">"deleted = false"</span><span
+
 class="br0">)</span>,
-    @Tab<span class="br0">(</span>name=<span class="st0">"Deleted"</span>, baseCondition = <span
+    @Tab<span class="br0">(</span>name=<span class="st0">"Deleted"</span>, baseCondition = <span
+
 class="st0">"deleted = true"</span><span class="br0">)</span>
 <span class="br0">}</span><span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+
 class="br0">{</span> ... <span class="br0">}</span></pre>
       You see how <span class="wiki jcode">@Tabs</span> allows you to define
-      several tabular data definitions for each entity. Thus, you use the <span
+      several tabular data definitions for each entity. Thus, you use the <span
+
         class="wiki jcode">@Tab</span> with no name as default list for <em>Invoice</em>
       and <em>Order</em>, but you have a <span class="wiki jcode">@Tab</span>
       named "Deleted" you can use for generating a list with only the deleted
@@ -5137,29 +5513,42 @@ class="br0">{</span> ... <span class="br0">}</span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;action</span> <span
-class="re0">name</span>=<span class="st0">"deleteSelected"</span> <span class="re0">mode</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;action</span> <span
+
+class="re0">name</span>=<span class="st0">"deleteSelected"</span> <span class="re0">mode</span>=<span
+
 class="st0">"list"</span> <span class="re0">confirm</span>=<span class="st0">"true"</span></span>
 <span class="sc3">    <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.UpdatePropertyAction"</span></span>
-<span class="sc3">    <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+<span class="sc3">    <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+
 class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
-class="st0">"property"</span> <span class="re0">value</span>=<span class="st0">"deleted"</span><span
+    <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+
+class="st0">"property"</span> <span class="re0">value</span>=<span class="st0">"deleted"</span><span
+
 class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
-class="st0">"value"</span> <span class="re0">value</span>=<span class="st0">"true"</span><span
+    <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+
+class="st0">"value"</span> <span class="re0">value</span>=<span class="st0">"true"</span><span
+
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
 &nbsp;
-<span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+<span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
 class="st0">"restore"</span> <span class="re0">mode</span>=<span class="st0">"list"</span></span>
-<span class="sc3">    <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.UpdatePropertyAction"</span><span
+<span class="sc3">    <span class="re0">class</span>=<span class="st0">"com.yourcompany.invoicing.actions.UpdatePropertyAction"</span><span
+
 class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
-class="st0">"property"</span> <span class="re0">value</span>=<span class="st0">"deleted"</span><span
+    <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+
+class="st0">"property"</span> <span class="re0">value</span>=<span class="st0">"deleted"</span><span
+
 class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
-class="st0">"value"</span> <span class="re0">value</span>=<span class="st0">"false"</span><span
+    <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+
+class="st0">"value"</span> <span class="re0">value</span>=<span class="st0">"false"</span><span
+
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span></pre>
       Although it seems like a good idea, we're not going to create this
@@ -5373,51 +5762,67 @@ class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="java5"><span class="co1">// In CustomerTest.java file</span>
-<span class="kw2">public</span> <span class="kw2">class</span> CustomerTest <span
+<span class="kw2">public</span> <span class="kw2">class</span> CustomerTest <span
+
 class="kw2">extends</span> ModuleTestBase <span class="br0">{</span>
     ...
-    <span class="kw2">public</span> <span class="kw3">void</span> testCreateReadUpdateDelete<span
-class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">public</span> <span class="kw3">void</span> testCreateReadUpdateDelete<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
         ...
         <span class="co1">// Delete</span>
         <span class="co1">// execute("CRUD.delete");</span>
-        execute<span class="br0">(</span><span class="st0">"Invoicing.delete"</span><span
+        execute<span class="br0">(</span><span class="st0">"Invoicing.delete"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-        assertMessage<span class="br0">(</span><span class="st0">"Customer deleted successfully"</span><span
+        assertMessage<span class="br0">(</span><span class="st0">"Customer deleted successfully"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
     ...
 <span class="br0">}</span>
 &nbsp;
 <span class="co1">// In CommercialDocumentTest.java file</span>
-<span class="kw2">abstract</span> <span class="kw2">public</span> <span class="kw2">class</span> CommercialDocumentTest <span
+<span class="kw2">abstract</span> <span class="kw2">public</span> <span class="kw2">class</span> CommercialDocumentTest <span
+
 class="kw2">extends</span> ModuleTestBase <span class="br0">{</span>
     ...
-    <span class="kw2">private</span> <span class="kw3">void</span> remove<span class="br0">(</span><span
-class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">private</span> <span class="kw3">void</span> remove<span class="br0">(</span><span
+
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
         <span class="co1">// execute("CRUD.delete");</span>
-        execute<span class="br0">(</span><span class="st0">"Invoicing.delete"</span><span
+        execute<span class="br0">(</span><span class="st0">"Invoicing.delete"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-        assertNoErrors<span class="br0">(</span><span class="br0">)</span><span
+        assertNoErrors<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
     <span class="br0">}</span>
     ...
 <span class="br0">}</span>
 &nbsp;
 <span class="co1">// In ProductTest.java file</span>
-<span class="kw2">public</span> <span class="kw2">class</span> ProductTest <span
+<span class="kw2">public</span> <span class="kw2">class</span> ProductTest <span
+
 class="kw2">extends</span> ModuleTestBase <span class="br0">{</span>
     ...
-    <span class="kw2">public</span> <span class="kw3">void</span> testRemoveFromList<span
-class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">public</span> <span class="kw3">void</span> testRemoveFromList<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
         ...
         <span class="co1">// execute("CRUD.deleteSelected");</span>
-        execute<span class="br0">(</span><span class="st0">"Invoicing.deleteSelected"</span><span
+        execute<span class="br0">(</span><span class="st0">"Invoicing.deleteSelected"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
         ...
     <span class="br0">}</span>
@@ -5425,20 +5830,26 @@ class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 <span class="co1">// In OrderTest.java file</span>
-<span class="kw2">public</span> <span class="kw2">class</span> OrderTest <span class="kw2">extends</span> CommercialDocumentTest <span
+<span class="kw2">public</span> <span class="kw2">class</span> OrderTest <span class="kw2">extends</span> CommercialDocumentTest <span
+
 class="br0">{</span>
     ...
-    <span class="kw2">public</span> <span class="kw3">void</span> testSetInvoice<span
-class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">public</span> <span class="kw3">void</span> testSetInvoice<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
         ...
         <span class="co1">//execute("CRUD.deleteRow", "row=0");</span>
-        execute<span class="br0">(</span><span class="st0">"Invoicing.deleteRow"</span>, <span
+        execute<span class="br0">(</span><span class="st0">"Invoicing.deleteRow"</span>, <span
+
 class="st0">"row=0"</span><span class="br0">)</span><span class="sy0">;</span>
         <span class="co1">// assertError("Impossible to remove Order because: "</span>
         <span class="co1">//     "An order with an invoice cannot be deleted");</span>
-        assertErrorsCount<span class="br0">(</span><span class="nu0">1</span><span
+        assertErrorsCount<span class="br0">(</span><span class="nu0">1</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Now we show a generic message</span>
         ...
     <span class="br0">}</span>
@@ -5658,101 +6069,147 @@ class="br0">)</span><span class="sy0">;</span> <span class="co1">// Now we show 
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testTrash<span
-class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testTrash<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-    login<span class="br0">(</span><span class="st0">"admin"</span>, <span class="st0">"admin"</span><span
+    login<span class="br0">(</span><span class="st0">"admin"</span>, <span class="st0">"admin"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    assertListOnlyOnePage<span class="br0">(</span><span class="br0">)</span><span
+    assertListOnlyOnePage<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// Only one page in the list, that is less than 10 rows</span>
-    execute<span class="br0">(</span><span class="st0">"List.orderBy"</span>, <span
-class="st0">"property=number"</span><span class="br0">)</span><span class="sy0">;</span> <span
+    execute<span class="br0">(</span><span class="st0">"List.orderBy"</span>, <span
+
+class="st0">"property=number"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// We order the list by number</span>
 &nbsp;
     <span class="co1">// Deleting from detail mode</span>
-    <span class="kw3">int</span> initialRowCount = getListRowCount<span class="br0">(</span><span
+    <span class="kw3">int</span> initialRowCount = getListRowCount<span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> year1 = getValueInList<span class="br0">(</span><span
-class="nu0">0</span>, <span class="nu0">0</span><span class="br0">)</span><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> year1 = getValueInList<span class="br0">(</span><span
+
+class="nu0">0</span>, <span class="nu0">0</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> number1 = getValueInList<span class="br0">(</span><span
-class="nu0">0</span>, <span class="nu0">1</span><span class="br0">)</span><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> number1 = getValueInList<span class="br0">(</span><span
+
+class="nu0">0</span>, <span class="nu0">1</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"List.viewDetail", "row=0"</span><span
+    execute<span class="br0">(</span><span class="st0">"List.viewDetail", "row=0"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"Invoicing.delete"</span><span
+    execute<span class="br0">(</span><span class="st0">"Invoicing.delete"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"Mode.list"</span><span class="br0">)</span><span
+    execute<span class="br0">(</span><span class="st0">"Mode.list"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    assertListRowCount<span class="br0">(</span>initialRowCount - <span class="nu0">1</span><span
+    assertListRowCount<span class="br0">(</span>initialRowCount - <span class="nu0">1</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// There is one row less</span>
-    assertDocumentNotInList<span class="br0">(</span>year1, number1<span class="br0">)</span><span
+    assertDocumentNotInList<span class="br0">(</span>year1, number1<span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// The deleted entity is not in the list</span>
 &nbsp;
     <span class="co1">// Deleting from list mode</span>
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> year2 = getValueInList<span class="br0">(</span><span
-class="nu0">0</span>, <span class="nu0">0</span><span class="br0">)</span><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> year2 = getValueInList<span class="br0">(</span><span
+
+class="nu0">0</span>, <span class="nu0">0</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> number2 = getValueInList<span class="br0">(</span><span
-class="nu0">0</span>, <span class="nu0">1</span><span class="br0">)</span><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> number2 = getValueInList<span class="br0">(</span><span
+
+class="nu0">0</span>, <span class="nu0">1</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    checkRow<span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span
+    checkRow<span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"Invoicing.deleteSelected"</span><span
+    execute<span class="br0">(</span><span class="st0">"Invoicing.deleteSelected"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    assertListRowCount<span class="br0">(</span>initialRowCount - <span class="nu0">2</span><span
+    assertListRowCount<span class="br0">(</span>initialRowCount - <span class="nu0">2</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// There are 2 fewer rows</span>
-    assertDocumentNotInList<span class="br0">(</span>year2, number2<span class="br0">)</span><span
+    assertDocumentNotInList<span class="br0">(</span>year2, number2<span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// The other deleted entity is not in the list now</span>
 &nbsp;
     <span class="co1">// Verifying deleted entities are in the trash module</span>
-    changeModule<span class="br0">(</span>model + <span class="st0">"Trash"</span><span
+    changeModule<span class="br0">(</span>model + <span class="st0">"Trash"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// model can be 'Invoice' or 'Order'</span>
-    assertListOnlyOnePage<span class="br0">(</span><span class="br0">)</span><span
+    assertListOnlyOnePage<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    <span class="kw3">int</span> initialTrashRowCount = getListRowCount<span class="br0">(</span><span
+    <span class="kw3">int</span> initialTrashRowCount = getListRowCount<span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    assertDocumentInList<span class="br0">(</span>year1, number1<span class="br0">)</span><span
+    assertDocumentInList<span class="br0">(</span>year1, number1<span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// We verify that the deleted entities</span>
-    assertDocumentInList<span class="br0">(</span>year2, number2<span class="br0">)</span><span
+    assertDocumentInList<span class="br0">(</span>year2, number2<span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// are in the trash module list</span>
     <span class="co1">// Restoring using row action</span>
-    <span class="kw3">int</span> row1 = getDocumentRowInList<span class="br0">(</span>year1, number1<span
+    <span class="kw3">int</span> row1 = getDocumentRowInList<span class="br0">(</span>year1, number1<span
+
 class="br0">)</span><span class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"Trash.restore"</span>, <span
+    execute<span class="br0">(</span><span class="st0">"Trash.restore"</span>, <span
+
 class="st0">"row="</span> + row1<span class="br0">)</span><span class="sy0">;</span>
-    assertListRowCount<span class="br0">(</span>initialTrashRowCount - <span class="nu0">1</span><span
+    assertListRowCount<span class="br0">(</span>initialTrashRowCount - <span class="nu0">1</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// 1 row less after restoring</span>
-    assertDocumentNotInList<span class="br0">(</span>year1, number1<span class="br0">)</span><span
+    assertDocumentNotInList<span class="br0">(</span>year1, number1<span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// The restored entity is no longer shown</span>
                 <span class="co1">// in the trash module list</span>
     <span class="co1">// Restoring by checking a row and using the bottom button</span>
-    <span class="kw3">int</span> row2 = getDocumentRowInList<span class="br0">(</span>year2, number2<span
+    <span class="kw3">int</span> row2 = getDocumentRowInList<span class="br0">(</span>year2, number2<span
+
 class="br0">)</span><span class="sy0">;</span>
     checkRow<span class="br0">(</span>row2<span class="br0">)</span><span class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"Trash.restore"</span><span
+    execute<span class="br0">(</span><span class="st0">"Trash.restore"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    assertListRowCount<span class="br0">(</span>initialTrashRowCount - <span class="nu0">2</span><span
+    assertListRowCount<span class="br0">(</span>initialTrashRowCount - <span class="nu0">2</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// 2 fewer rows</span>
-    assertDocumentNotInList<span class="br0">(</span>year2, number2<span class="br0">)</span><span
+    assertDocumentNotInList<span class="br0">(</span>year2, number2<span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// The restored entity is no longer shown</span>
                 <span class="co1">// in the trash module list</span>
     <span class="co1">// Verifying entities are restored</span>
     changeModule<span class="br0">(</span>model<span class="br0">)</span><span class="sy0">;</span>
-    assertListRowCount<span class="br0">(</span>initialRowCount<span class="br0">)</span><span
+    assertListRowCount<span class="br0">(</span>initialRowCount<span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// After restoring we have the original</span>
-    assertDocumentInList<span class="br0">(</span>year1, number1<span class="br0">)</span><span
+    assertDocumentInList<span class="br0">(</span>year1, number1<span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// rows again</span>
-    assertDocumentInList<span class="br0">(</span>year2, number2<span class="br0">)</span><span
+    assertDocumentInList<span class="br0">(</span>year2, number2<span class="br0">)</span><span
+
 class="sy0">;</span>
 <span class="br0">}</span></pre>
       As you see the <em>testTrash()</em> follows the aforesaid steps. Note how
-      using the <span class="wiki jcode">changeModule()</span> method from <span
+      using the <span class="wiki jcode">changeModule()</span> method from <span
+
         class="wiki jcode">ModuleTestBase</span> your test can change to another
       module. We use it to switch to the trash module, and then come back.<br>
       In our tests we're using a few auxiliary methods you have to add to <em>CommercialDocumentTest</em>.
@@ -5945,15 +6402,21 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">private</span> <span class="kw3">void</span> assertListOnlyOnePage<span
-class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+</style><pre class="java5"><span class="kw2">private</span> <span class="kw3">void</span> assertListOnlyOnePage<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-    assertListNotEmpty<span class="br0">(</span><span class="br0">)</span><span
+    assertListNotEmpty<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// This is from ModuleTestBase</span>
     assertTrue<span class="br0">(</span><span class="st0">"Must be less than 10 rows to run this test"</span>,
-        getListRowCount<span class="br0">(</span><span class="br0">)</span> <span
-class="sy0">&lt;</span> <span class="nu0">10</span><span class="br0">)</span><span
+        getListRowCount<span class="br0">(</span><span class="br0">)</span> <span
+
+class="sy0">&lt;</span> <span class="nu0">10</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 <span class="br0">}</span></pre>
       We need to have less than 10 rows, because the <span class="wiki jcode">getListRowCount()</span>
@@ -6150,53 +6613,78 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">private</span> <span class="kw3">void</span> assertDocumentNotInList<span
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> year, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+</style><pre class="java5"><span class="kw2">private</span> <span class="kw3">void</span> assertDocumentNotInList<span
+
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> year, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> number<span class="br0">)</span>
-    <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a>
 <span class="br0">{</span>
     assertTrue<span class="br0">(</span>
-        <span class="st0">"Document "</span> + year + <span class="st0">"/"</span> + number +<span
+        <span class="st0">"Document "</span> + year + <span class="st0">"/"</span> + number +<span
+
 class="st0">" must not be in list"</span>,
-        getDocumentRowInList<span class="br0">(</span>year, number<span class="br0">)</span> <span
-class="sy0">&lt;</span> <span class="nu0">0</span><span class="br0">)</span><span
+        getDocumentRowInList<span class="br0">(</span>year, number<span class="br0">)</span> <span
+
+class="sy0">&lt;</span> <span class="nu0">0</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="kw2">private</span> <span class="kw3">void</span> assertDocumentInList<span
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> year, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+<span class="kw2">private</span> <span class="kw3">void</span> assertDocumentInList<span
+
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> year, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> number<span class="br0">)</span>
-    <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a>
 <span class="br0">{</span>
     assertTrue<span class="br0">(</span>
-        <span class="st0">"Document "</span> + year + <span class="st0">"/"</span> + number + <span
+        <span class="st0">"Document "</span> + year + <span class="st0">"/"</span> + number + <span
+
 class="st0">" must be in list"</span>,
-        getDocumentRowInList<span class="br0">(</span>year, number<span class="br0">)</span> <span
-class="sy0">&gt;</span>= <span class="nu0">0</span><span class="br0">)</span><span
+        getDocumentRowInList<span class="br0">(</span>year, number<span class="br0">)</span> <span
+
+class="sy0">&gt;</span>= <span class="nu0">0</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="kw2">private</span> <span class="kw3">int</span> getDocumentRowInList<span
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> year, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+<span class="kw2">private</span> <span class="kw3">int</span> getDocumentRowInList<span
+
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> year, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> number<span class="br0">)</span>
-    <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a>
 <span class="br0">{</span>
-    <span class="kw3">int</span> c = getListRowCount<span class="br0">(</span><span
+    <span class="kw3">int</span> c = getListRowCount<span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i=<span
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>c<span
+    <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i=<span
+
+class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>c<span
+
 class="sy0">;</span> i++<span class="br0">)</span> <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span> year.<span class="me1">equals</span><span
-class="br0">(</span>getValueInList<span class="br0">(</span>i, <span class="nu0">0</span><span
+        <span class="kw1">if</span> <span class="br0">(</span> year.<span class="me1">equals</span><span
+
+class="br0">(</span>getValueInList<span class="br0">(</span>i, <span class="nu0">0</span><span
+
 class="br0">)</span><span class="br0">)</span> <span class="sy0">&amp;&amp;</span>
-            number.<span class="me1">equals</span><span class="br0">(</span>getValueInList<span
-class="br0">(</span>i, <span class="nu0">1</span><span class="br0">)</span><span
+            number.<span class="me1">equals</span><span class="br0">(</span>getValueInList<span
+
+class="br0">(</span>i, <span class="nu0">1</span><span class="br0">)</span><span
+
 class="br0">)</span><span class="br0">)</span>
         <span class="br0">{</span>
             <span class="kw2">return</span> i<span class="sy0">;</span>
@@ -6220,10 +6708,12 @@ class="br0">)</span><span class="br0">)</span>
       functionality to help your user solve his problems. We will do more of
       that in the next lesson.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-7-refining-standard-behavior_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-7-refining-standard-behavior_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="business-logic-behavior_en.html">Go to Lesson
           8</a></strong> </div>

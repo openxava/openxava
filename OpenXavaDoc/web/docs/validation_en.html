@@ -1,13 +1,24 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - validation_en</title>
+    <title>Lesson 6: Advanced validation - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a>
+        <span id="breadcrumbs">
+          <span id="openxava">
+          	<a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava
+            </a>
+          </span>  
+          / <a href="index_en.html">documentation</a> /  
+				</span>                
+        Lesson 6: Advanced validation
+      </h1>
       <div id="toc">
-        <h1 class="nopad">Table of Contents</h1>
+        <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Lesson%206:%20Advanced%20validation">Lesson
             6: Advanced validation</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives">Validation
@@ -55,16 +66,16 @@
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
         Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4.
         Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
-        Basic business logic</a> | <strong>6. Advanced validation</strong> | <a
+        Basic business logic</a> | <strong>6. Advanced validation</strong> | <a
+
         class="wiki_link" href="refining-standard-behavior_en.html">7. Refining
         the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
         References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a><br>
-      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a>Lesson 6:
-        Advanced validation</h1>
+        Annotations</a><hr>
+      
       So far we have only done some basic validations using the <span class="wiki jcode">@Required</span>
       annotation. Sometimes it's convenient to write our own logic for the
       validation.<br>
@@ -269,18 +280,23 @@
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">private</span> <span class="kw3">boolean</span> delivered<span
+</style><pre class="java5"><span class="kw2">private</span> <span class="kw3">boolean</span> delivered<span
+
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw3">boolean</span> isDelivered<span
+<span class="kw2">public</span> <span class="kw3">boolean</span> isDelivered<span
+
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
     <span class="kw2">return</span> delivered<span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw3">void</span> setDelivered<span
-class="br0">(</span><span class="kw3">boolean</span> delivered<span class="br0">)</span> <span
+<span class="kw2">public</span> <span class="kw3">void</span> setDelivered<span
+
+class="br0">(</span><span class="kw3">boolean</span> delivered<span class="br0">)</span> <span
+
 class="br0">{</span>
-    <span class="kw2">this</span>.<span class="me1">delivered</span> = delivered<span
+    <span class="kw2">this</span>.<span class="me1">delivered</span> = delivered<span
+
 class="sy0">;</span>
 <span class="br0">}</span></pre>
       Moreover it's necessary to add the <em>delivered</em> property to the
@@ -473,13 +489,15 @@ class="sy0">;</span>
 
 -->
 </style><pre class="java5">@Views<span class="br0">(</span><span class="br0">{</span>
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+
 class="kw116">View</span></a><span class="br0">(</span> extendsView=<span class="st0">"super.DEFAULT"</span>,
         members=<span class="st0">"delivered; invoice { invoice }"</span>
     <span class="br0">)</span>,
     ...
 <span class="br0">}</span><span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+
 class="br0">{</span></pre>
       There is a new <em>delivered</em> property now which indicates the
       delivery state of an order. Try the new code and mark some of the existing
@@ -743,20 +761,26 @@ class="br0">{</span></pre>
 
 -->
 </style><pre class="java5">@EntityValidator<span class="br0">(</span>
-    value=DeliveredToBeInInvoiceValidator.<span class="kw2">class</span>, <span
+    value=DeliveredToBeInInvoiceValidator.<span class="kw2">class</span>, <span
+
 class="co1">// The class with the validation logic</span>
     properties= <span class="br0">{</span>
-        @PropertyValue<span class="br0">(</span>name=<span class="st0">"year"</span><span
+        @PropertyValue<span class="br0">(</span>name=<span class="st0">"year"</span><span
+
 class="br0">)</span>, <span class="co1">// The content of these properties</span>
-        @PropertyValue<span class="br0">(</span>name=<span class="st0">"number"</span><span
+        @PropertyValue<span class="br0">(</span>name=<span class="st0">"number"</span><span
+
 class="br0">)</span>, <span class="co1">// is moved from the 'Order' entity</span>
-        @PropertyValue<span class="br0">(</span>name=<span class="st0">"invoice"</span><span
+        @PropertyValue<span class="br0">(</span>name=<span class="st0">"invoice"</span><span
+
 class="br0">)</span>, <span class="co1">// to the validator before</span>
-        @PropertyValue<span class="br0">(</span>name=<span class="st0">"delivered"</span><span
+        @PropertyValue<span class="br0">(</span>name=<span class="st0">"delivered"</span><span
+
 class="br0">)</span> <span class="co1">// executing the validation</span>
     <span class="br0">}</span>
 <span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+
 class="br0">{</span></pre>
       Every time an <em>Order</em> object is created or modified an object of
       type <em>DeliveredToBeInInvoiceValidator</em> is created. Then its
@@ -951,39 +975,51 @@ class="br0">{</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.validators</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.validators</span><span
+
 class="sy0">;</span> <span class="co1">// In 'validators' package</span>
 <span class="co2">
 import</span> <span class="co2">com.yourcompany.invoicing.model.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
+
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.validators.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.validators.*</span><span
+
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">public</span> <span class="kw2">class</span> DeliveredToBeInInvoiceValidator
-    <span class="kw2">implements</span> IValidator <span class="br0">{</span> <span
+    <span class="kw2">implements</span> IValidator <span class="br0">{</span> <span
+
 class="co1">// Must implement IValidator</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw3">int</span> year<span class="sy0">;</span> <span
+    <span class="kw2">private</span> <span class="kw3">int</span> year<span class="sy0">;</span> <span
+
 class="co1">// Properties to be injected from Order</span>
     <span class="kw2">private</span> <span class="kw3">int</span> number<span class="sy0">;</span>
-    <span class="kw2">private</span> <span class="kw3">boolean</span> delivered<span
+    <span class="kw2">private</span> <span class="kw3">boolean</span> delivered<span
+
 class="sy0">;</span>
     <span class="kw2">private</span> Invoice invoice<span class="sy0">;</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> validate<span
+    <span class="kw2">public</span> <span class="kw3">void</span> validate<span
+
 class="br0">(</span>Messages errors<span class="br0">)</span> <span class="co1">// The validation logic</span>
-        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a>
     <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>invoice == <span class="kw4">null</span><span
+        <span class="kw1">if</span> <span class="br0">(</span>invoice == <span class="kw4">null</span><span
+
 class="br0">)</span> <span class="kw2">return</span><span class="sy0">;</span>
-        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>delivered<span
+        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>delivered<span
+
 class="br0">)</span> <span class="br0">{</span>
-            errors.<span class="me1">add</span><span class="br0">(</span> <span
+            errors.<span class="me1">add</span><span class="br0">(</span> <span
+
 class="co1">// By adding messages to errors the validation will fail</span>
                 <span class="st0">"order_must_be_delivered"</span>, <span class="co1">// An id from i18n file</span>
-                year, number<span class="br0">)</span><span class="sy0">;</span> <span
+                year, number<span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// Arguments for the message</span>
          <span class="br0">}</span>
     <span class="br0">}</span>
@@ -1011,8 +1047,10 @@ class="co1">// Arguments for the message</span>
 
 -->
 </style><pre class="properties"><span class="co1"># Messages for the Invoicing application</span>
-<span class="re0">order_must_be_delivered</span><span class="sy0">=</span><span
-class="re1">Order <span class="br0">{</span>0<span class="br0">}</span>/<span class="br0">{</span>1<span
+<span class="re0">order_must_be_delivered</span><span class="sy0">=</span><span
+
+class="re1">Order <span class="br0">{</span>0<span class="br0">}</span>/<span class="br0">{</span>1<span
+
 class="br0">}</span> must be delivered in order to be added to an Invoice</span></pre>
       Now you can try to add orders to an invoice with the application, you will
       see how the undelivered orders are rejected, as shown the next figure:<br>
@@ -1226,7 +1264,8 @@ class="br0">}</span> must be delivered in order to be added to an Invoice</span>
 <span class="co1">//        @PropertyValue(name="delivered")</span>
 <span class="co1">//    }</span>
 <span class="co1">//)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+
 class="br0">{</span></pre>
       After that we're going to add the validation again, but now inside the <em>Order</em>
       class itself. Add the <em>validate()</em> method to your <em>Order</em>
@@ -1419,16 +1458,23 @@ class="br0">{</span></pre>
 
 -->
 </style><pre class="java5">@PreUpdate <span class="co1">// Just before updating the database</span>
-<span class="kw2">private</span> <span class="kw3">void</span> validate<span class="br0">(</span><span
-class="br0">)</span>  <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+<span class="kw2">private</span> <span class="kw3">void</span> validate<span class="br0">(</span><span
+
+class="br0">)</span>  <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-    <span class="kw1">if</span> <span class="br0">(</span>invoice <span class="sy0">!</span>= <span
-class="kw4">null</span> <span class="sy0">&amp;&amp;</span> <span class="sy0">!</span>isDelivered<span
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> <span
+    <span class="kw1">if</span> <span class="br0">(</span>invoice <span class="sy0">!</span>= <span
+
+class="kw4">null</span> <span class="sy0">&amp;&amp;</span> <span class="sy0">!</span>isDelivered<span
+
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> <span
+
 class="co1">// The validation logic</span>
         <span class="co1">// The validation exception from Bean Validation</span>
-        <span class="kw2">throw</span> <span class="kw2">new</span> javax.<span
-class="me1">validation</span>.<span class="me1">ValidationException</span><span
+        <span class="kw2">throw</span> <span class="kw2">new</span> javax.<span
+
+class="me1">validation</span>.<span class="me1">ValidationException</span><span
+
 class="br0">(</span>
             XavaResources.<span class="me1">getString</span><span class="br0">(</span>
                 <span class="st0">"order_must_be_delivered"</span>,
@@ -1438,7 +1484,8 @@ class="br0">(</span>
         <span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 <span class="br0">}</span></pre>
-      Before saving an order this validation will be executed, if it fails an <span
+      Before saving an order this validation will be executed, if it fails an <span
+
         class="wiki jcode">ValidationException</span> is thrown. This exception
       is from the <em>Bean Validation</em> framework, so OpenXava knows that it
       is a validation exception. This way with only one method within your
@@ -1636,15 +1683,21 @@ class="br0">(</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> setInvoice<span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> setInvoice<span
+
 class="br0">(</span>Invoice invoice<span class="br0">)</span> <span class="br0">{</span>
-    <span class="kw1">if</span> <span class="br0">(</span>invoice <span class="sy0">!</span>= <span
-class="kw4">null</span> <span class="sy0">&amp;&amp;</span> <span class="sy0">!</span>isDelivered<span
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> <span
+    <span class="kw1">if</span> <span class="br0">(</span>invoice <span class="sy0">!</span>= <span
+
+class="kw4">null</span> <span class="sy0">&amp;&amp;</span> <span class="sy0">!</span>isDelivered<span
+
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> <span
+
 class="co1">// The validation logic</span>
         <span class="co1">// The validation exception from Bean Validation</span>
-        <span class="kw2">throw</span> <span class="kw2">new</span> javax.<span
-class="me1">validation</span>.<span class="me1">ValidationException</span><span
+        <span class="kw2">throw</span> <span class="kw2">new</span> javax.<span
+
+class="me1">validation</span>.<span class="me1">ValidationException</span><span
+
 class="br0">(</span>
             XavaResources.<span class="me1">getString</span><span class="br0">(</span>
                 <span class="st0">"order_must_be_delivered"</span>,
@@ -1653,7 +1706,8 @@ class="br0">(</span>
             <span class="br0">)</span>
         <span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-    <span class="kw2">this</span>.<span class="me1">invoice</span> = invoice<span
+    <span class="kw2">this</span>.<span class="me1">invoice</span> = invoice<span
+
 class="sy0">;</span> <span class="co1">// The regular setter assignment</span>
 <span class="br0">}</span></pre>
       This works exactly the same way as the two other options. This is like the
@@ -1857,9 +1911,11 @@ class="sy0">;</span> <span class="co1">// The regular setter assignment</span>
 </style><pre class="java5">@AssertTrue<span class="br0">(</span> <span class="co1">// Before saving it asserts if this method returns true, if not it throws an exception</span>
     message=<span class="st0">"order_must_be_delivered"</span> <span class="co1">// Error message in case false</span>
 <span class="br0">)</span>
-<span class="kw2">private</span> <span class="kw3">boolean</span> isDeliveredToBeInInvoice<span
+<span class="kw2">private</span> <span class="kw3">boolean</span> isDeliveredToBeInInvoice<span
+
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
-    <span class="kw2">return</span> invoice == <span class="kw4">null</span> || isDelivered<span
+    <span class="kw2">return</span> invoice == <span class="kw4">null</span> || isDelivered<span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// The validation logic</span>
 <span class="br0">}</span></pre>
       In previous forms of validation our error message was constructed using
@@ -1887,8 +1943,10 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span c
 
 -->
 </style><pre class="properties"><span class="co1"># Messages for the Invoicing application</span>
-<span class="re0">order_must_be_delivered</span><span class="sy0">=</span><span
-class="re1">Order <span class="br0">{</span>year<span class="br0">}</span>/<span
+<span class="re0">order_must_be_delivered</span><span class="sy0">=</span><span
+
+class="re1">Order <span class="br0">{</span>year<span class="br0">}</span>/<span
+
 class="br0">{</span>number<span class="br0">}</span> must be delivered in order to be added to an Invoice</span></pre>
       OpenXava will fill <em>{year}/{number}</em> with values of <em>year</em>
       and <em>number</em> that has the <em>Order</em> being updated and does
@@ -2095,9 +2153,11 @@ class="br0">{</span>number<span class="br0">}</span> must be delivered in order 
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@RemoveValidator<span class="br0">(</span>OrderRemoveValidator.<span
+</style><pre class="java5">@RemoveValidator<span class="br0">(</span>OrderRemoveValidator.<span
+
 class="kw2">class</span><span class="br0">)</span> <span class="co1">// The class with the validation</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+
 class="br0">{</span></pre>
       Now, before removing an order the logic in <em>OrderRemoveValidator</em>
       is executed, and if validation fails the order is not removed. Let's look
@@ -2289,48 +2349,62 @@ class="br0">{</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.validators</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.validators</span><span
+
 class="sy0">;</span> <span class="co1">// In 'validators' package</span>
 <span class="co2">
 import</span> <span class="co2">com.yourcompany.invoicing.model.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
+
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.validators.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.validators.*</span><span
+
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">public</span> <span class="kw2">class</span> OrderRemoveValidator
-    <span class="kw2">implements</span> IRemoveValidator <span class="br0">{</span> <span
+    <span class="kw2">implements</span> IRemoveValidator <span class="br0">{</span> <span
+
 class="co1">// Must implement IRemoveValidator</span>
 &nbsp;
     <span class="kw2">private</span> Order order<span class="sy0">;</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> setEntity<span
-class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+    <span class="kw2">public</span> <span class="kw3">void</span> setEntity<span
+
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a> entity<span class="br0">)</span> <span class="co1">// The entity to remove will be injected</span>
-        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="co1">// with this method before validating</span>
     <span class="br0">{</span>
-        <span class="kw2">this</span>.<span class="me1">order</span> = <span class="br0">(</span>Order<span
+        <span class="kw2">this</span>.<span class="me1">order</span> = <span class="br0">(</span>Order<span
+
 class="br0">)</span> entity<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> validate<span
+    <span class="kw2">public</span> <span class="kw3">void</span> validate<span
+
 class="br0">(</span>Messages errors<span class="br0">)</span> <span class="co1">// The validation logic</span>
-        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+        <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a>
     <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>order.<span class="me1">getInvoice</span><span
-class="br0">(</span><span class="br0">)</span> <span class="sy0">!</span>= <span
+        <span class="kw1">if</span> <span class="br0">(</span>order.<span class="me1">getInvoice</span><span
+
+class="br0">(</span><span class="br0">)</span> <span class="sy0">!</span>= <span
+
 class="kw4">null</span><span class="br0">)</span> <span class="br0">{</span>
             <span class="co1">// By adding messages to errors the validation</span>
             <span class="co1">// will fail and the removal will be aborted</span>
-            errors.<span class="me1">add</span><span class="br0">(</span><span class="st0">"cannot_delete_order_with_invoice"</span><span
+            errors.<span class="me1">add</span><span class="br0">(</span><span class="st0">"cannot_delete_order_with_invoice"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
         <span class="br0">}</span>
     <span class="br0">}</span>
 <span class="br0">}</span></pre>
       The validation logic is in the <span class="wiki jcode">validate()</span>
-      method. Before calling the entity to be validated, it is injected using <span
+      method. Before calling the entity to be validated, it is injected using <span
+
         class="wiki jcode">setEntity()</span>. If messages are added to the
       errors object the validation will fail and the entity will not be removed.
       You have to add the error message in the <em>Invoicing/i18n/Invoicing-messages_en.properties</em>
@@ -2351,7 +2425,8 @@ class="br0">)</span><span class="sy0">;</span>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">cannot_delete_order_with_invoice</span><span
+</style><pre class="properties"><span class="re0">cannot_delete_order_with_invoice</span><span
+
 class="sy0">=</span><span class="re1">An order with an invoice cannot be deleted</span></pre>
       If you try to remove an order with an associated invoice now, you will get
       an error message and the removal will be rejected.<br>
@@ -2556,7 +2631,8 @@ class="sy0">=</span><span class="re1">An order with an invoice cannot be deleted
 
 -->
 </style><pre class="java5"><span class="co1">//@RemoveValidator(OrderRemoveValidator.class) // Remove the @RemoveValidator</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+<span class="kw2">public</span> <span class="kw2">class</span> Order <span class="kw2">extends</span> CommercialDocument <span
+
 class="br0">{</span></pre>
       We have just removed the validation. Let's add the functionality again,
       but now inside the <em>Order</em> class itself. Add the <em>validateOnRemove()</em>
@@ -2749,17 +2825,24 @@ class="br0">{</span></pre>
 
 -->
 </style><pre class="java5">@PreRemove <span class="co1">// Just before removing the entity</span>
-<span class="kw2">private</span> <span class="kw3">void</span> validateOnRemove<span
+<span class="kw2">private</span> <span class="kw3">void</span> validateOnRemove<span
+
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
-    <span class="kw1">if</span> <span class="br0">(</span>invoice <span class="sy0">!</span>= <span
-class="kw4">null</span><span class="br0">)</span> <span class="br0">{</span> <span
+    <span class="kw1">if</span> <span class="br0">(</span>invoice <span class="sy0">!</span>= <span
+
+class="kw4">null</span><span class="br0">)</span> <span class="br0">{</span> <span
+
 class="co1">// The validation logic</span>
-        <span class="kw2">throw</span> <span class="kw2">new</span> javax.<span
-class="me1">validation</span>.<span class="me1">ValidationException</span><span
+        <span class="kw2">throw</span> <span class="kw2">new</span> javax.<span
+
+class="me1">validation</span>.<span class="me1">ValidationException</span><span
+
 class="br0">(</span> <span class="co1">// Throws a runtime exception</span>
-            XavaResources.<span class="me1">getString</span><span class="br0">(</span> <span
+            XavaResources.<span class="me1">getString</span><span class="br0">(</span> <span
+
 class="co1">// To get the text message</span>
-                <span class="st0">"cannot_delete_order_with_invoice"</span><span
+                <span class="st0">"cannot_delete_order_with_invoice"</span><span
+
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 <span class="br0">}</span></pre>
@@ -2772,7 +2855,8 @@ class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
       You have learned several ways to do validations in your model classes.
       Which of them is the best one? All of them are valid options. It depends
       on your circumstances and personal preferences. If you have a validation
-      that is non-trivial and reusable across your application, then to use <span
+      that is non-trivial and reusable across your application, then to use <span
+
         class="wiki jcode">@EntityValidator</span> and <span class="wiki jcode">@RemoveValidator</span>
       is a good option. On the other hand, if you want to use your model classes
       from outside OpenXava and without JPA, then the use of validation in
@@ -2982,7 +3066,8 @@ class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 
 -->
 </style><pre class="java5">@ISBN <span class="co1">// This annotation indicates this property must be validated as an ISBN</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> isbn<span class="sy0">;</span></pre>
       By merely adding <em>@ISBN</em> to your property, it will be validated
       before the entity is saved into the database. Great! The problem is that <em>@ISBN</em>
@@ -3179,19 +3264,25 @@ class="kw21">String</span></a> isbn<span class="sy0">;</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Column<span class="br0">(</span>length=<span class="nu0">13</span><span
+</style><pre class="java5">@Column<span class="br0">(</span>length=<span class="nu0">13</span><span
+
 class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> isbn<span class="sy0">;</span>
 &nbsp;
-<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> getIsbn<span class="br0">(</span><span class="br0">)</span> <span
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> getIsbn<span class="br0">(</span><span class="br0">)</span> <span
+
 class="br0">{</span>
     <span class="kw2">return</span> isbn<span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw3">void</span> setIsbn<span class="br0">(</span><a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> isbn<span
+<span class="kw2">public</span> <span class="kw3">void</span> setIsbn<span class="br0">(</span><a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> isbn<span
+
 class="br0">)</span> <span class="br0">{</span>
     <span class="kw2">this</span>.<span class="me1">isbn</span> = isbn<span class="sy0">;</span>
 <span class="br0">}</span></pre>
@@ -3392,44 +3483,67 @@ class="br0">)</span> <span class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.annotations</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.annotations</span><span
+
 class="sy0">;</span> <span class="co1">// In 'annotations' package</span>
 <span class="co2">
 import</span> <span class="co2">java.lang.annotation.*</span><span class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">javax.validation.*</span><span
+<span class="kw2">import</span> <span class="co2">javax.validation.*</span><span
+
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.validators.*</span><span
+<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.validators.*</span><span
+
 class="sy0">;</span>
 &nbsp;
-@Constraint<span class="br0">(</span>validatedBy = ISBNValidator.<span class="kw2">class</span><span
+@Constraint<span class="br0">(</span>validatedBy = ISBNValidator.<span class="kw2">class</span><span
+
 class="br0">)</span>
-@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/Target.html"><span
-class="kw22">Target</span></a><span class="br0">(</span><span class="br0">{</span><a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/ElementType.html"><span
-class="kw22">ElementType</span></a>.<span class="me1">FIELD</span>, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/ElementType.html"><span
-class="kw22">ElementType</span></a>.<span class="me1">METHOD</span><span class="br0">}</span><span
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/Target.html"><span
+
+class="kw22">Target</span></a><span class="br0">(</span><span class="br0">{</span><a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/ElementType.html"><span
+
+class="kw22">ElementType</span></a>.<span class="me1">FIELD</span>, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/ElementType.html"><span
+
+class="kw22">ElementType</span></a>.<span class="me1">METHOD</span><span class="br0">}</span><span
+
 class="br0">)</span>
-@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/Retention.html"><span
-class="kw22">Retention</span></a><span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/RetentionPolicy.html"><span
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/Retention.html"><span
+
+class="kw22">Retention</span></a><span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/annotation/RetentionPolicy.html"><span
+
 class="kw22">RetentionPolicy</span></a>.<span class="me1">RUNTIME</span><span class="br0">)</span>
-<span class="kw2">public</span> @<span class="kw2">interface</span> ISBN <span class="br0">{</span> <span
+<span class="kw2">public</span> @<span class="kw2">interface</span> ISBN <span class="br0">{</span> <span
+
 class="co1">// A regular Java annotation definition</span>
 &nbsp;
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Class.html"><span
-class="kw21">Class</span></a><span class="sy0">&lt;?&gt;</span><span class="br0">[</span><span
-class="br0">]</span> groups<span class="br0">(</span><span class="br0">)</span> <span
-class="kw1">default</span><span class="br0">{</span><span class="br0">}</span><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Class.html"><span
+
+class="kw21">Class</span></a><span class="sy0">&lt;?&gt;</span><span class="br0">[</span><span
+
+class="br0">]</span> groups<span class="br0">(</span><span class="br0">)</span> <span
+
+class="kw1">default</span><span class="br0">{</span><span class="br0">}</span><span
+
 class="sy0">;</span>
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Class.html"><span
-class="kw21">Class</span></a><span class="sy0">&lt;?</span> <span class="kw2">extends</span> Payload<span
-class="sy0">&gt;</span><span class="br0">[</span><span class="br0">]</span> payload<span
-class="br0">(</span><span class="br0">)</span> <span class="kw1">default</span><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Class.html"><span
+
+class="kw21">Class</span></a><span class="sy0">&lt;?</span> <span class="kw2">extends</span> Payload<span
+
+class="sy0">&gt;</span><span class="br0">[</span><span class="br0">]</span> payload<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw1">default</span><span
+
 class="br0">{</span><span class="br0">}</span><span class="sy0">;</span>
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> message<span class="br0">(</span><span class="br0">)</span> <span
-class="kw1">default</span> <span class="st0">"ISBN does not exist"</span><span class="sy0">;</span> <span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> message<span class="br0">(</span><span class="br0">)</span> <span
+
+class="kw1">default</span> <span class="st0">"ISBN does not exist"</span><span class="sy0">;</span> <span
+
 class="co1">// The message if validation fails</span>
 <span class="br0">}</span></pre>
       As you can see, this is a regular annotation definition. The <span class="wiki jcode">@Constraint</span>
@@ -3439,7 +3553,8 @@ class="co1">// The message if validation fails</span>
         Apache Commons Validator to implement the validation logic</h3>
       We are going to write the <em>ISBNValidator</em> class with the
       validation logic for an ISBN. Instead of writing the ISBN validation logic
-      we'll use the <a class="wiki_link_ext" href="http://commons.apache.org/validator/"
+      we'll use the <a class="wiki_link_ext" href="http://commons.apache.org/validator/"
+
         rel="nofollow">Commons Validator</a> project from Apache. Commons
       Validator contains validation algorithms for email addresses, dates, URLs
       and so on. The <em>commons-validator.jar</em> is included by default in
@@ -3632,50 +3747,71 @@ class="co1">// The message if validation fails</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.validators</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.validators</span><span
+
 class="sy0">;</span> <span class="co1">// In 'validators' package</span>
 <span class="co2">
 import</span> <span class="co2">javax.validation.*</span><span class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.annotations.*</span><span
+<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.annotations.*</span><span
+
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
+
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">public</span> <span class="kw2">class</span> ISBNValidator
-    <span class="kw2">implements</span> ConstraintValidator<span class="sy0">&lt;</span>ISBN, <a
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="sy0">&gt;</span> <span class="br0">{</span> <span
+    <span class="kw2">implements</span> ConstraintValidator<span class="sy0">&lt;</span>ISBN, <a
+
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span> <span class="br0">{</span> <span
+
 class="co1">// Must implement ConstraintValidator</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw2">static</span> org.<span class="me1">apache</span>.<span
-class="me1">commons</span>.<span class="me1">validator</span>.<span class="me1">routines</span>.<span
+    <span class="kw2">private</span> <span class="kw2">static</span> org.<span class="me1">apache</span>.<span
+
+class="me1">commons</span>.<span class="me1">validator</span>.<span class="me1">routines</span>.<span
+
 class="me1">ISBNValidator</span>
         validator = <span class="co1">// From 'Commons Validator' framework</span>
-            <span class="kw2">new</span> org.<span class="me1">apache</span>.<span
-class="me1">commons</span>.<span class="me1">validator</span>.<span class="me1">routines</span>.<span
-class="me1">ISBNValidator</span><span class="br0">(</span><span class="br0">)</span><span
+            <span class="kw2">new</span> org.<span class="me1">apache</span>.<span
+
+class="me1">commons</span>.<span class="me1">validator</span>.<span class="me1">routines</span>.<span
+
+class="me1">ISBNValidator</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 &nbsp;
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
-    <span class="kw2">public</span> <span class="kw3">void</span> initialize<span
+    <span class="kw2">public</span> <span class="kw3">void</span> initialize<span
+
 class="br0">(</span>ISBN isbn<span class="br0">)</span> <span class="br0">{</span>
 &nbsp;
     <span class="br0">}</span>
 &nbsp;
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isValid<span
-class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isValid<span
+
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a> value,
-        ConstraintValidatorContext context<span class="br0">)</span> <span class="br0">{</span> <span
+        ConstraintValidatorContext context<span class="br0">)</span> <span class="br0">{</span> <span
+
 class="co1">// // Contains the validation logic</span>
-        <span class="kw1">if</span> <span class="br0">(</span>Is.<span class="me1">empty</span><span
-class="br0">(</span>value<span class="br0">)</span><span class="br0">)</span> <span
+        <span class="kw1">if</span> <span class="br0">(</span>Is.<span class="me1">empty</span><span
+
+class="br0">(</span>value<span class="br0">)</span><span class="br0">)</span> <span
+
 class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
-        <span class="kw2">return</span> validator.<span class="me1">isValid</span><span
-class="br0">(</span>value.<span class="me1">toString</span><span class="br0">(</span><span
+        <span class="kw2">return</span> validator.<span class="me1">isValid</span><span
+
+class="br0">(</span>value.<span class="me1">toString</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// Relies on 'Commons Validator'</span>
     <span class="br0">}</span>
 <span class="br0">}</span></pre>
@@ -3877,9 +4013,11 @@ class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span c
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Column<span class="br0">(</span>length=<span class="nu0">13</span><span
+</style><pre class="java5">@Column<span class="br0">(</span>length=<span class="nu0">13</span><span
+
 class="br0">)</span> @ISBN
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> isbn<span class="sy0">;</span></pre>
       Now, you can test your module, and verify that the ISBN values you enter
       are validated correctly. Congratulations, you have written your first <em>Bean
@@ -3909,7 +4047,8 @@ class="kw21">String</span></a> isbn<span class="sy0">;</span></pre>
       call a normal web site to do an ISBN search, and to examine the resulting
       page to determine if the search has succeeded. Something like a
       pseudo-REST web service.<br>
-      To call the web page we'll use the <a class="wiki_link_ext" href="http://htmlunit.sourceforge.net/"
+      To call the web page we'll use the <a class="wiki_link_ext" href="http://htmlunit.sourceforge.net/"
+
         rel="nofollow">HtmlUnit</a> framework. Though the main goal of this
       framework is to create tests for your web applications, you can use it to
       read any web page. We'll use it because it's easier to use than other
@@ -4102,10 +4241,13 @@ class="kw21">String</span></a> isbn<span class="sy0">;</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">WebClient client = <span class="kw2">new</span> WebClient<span
+</style><pre class="java5">WebClient client = <span class="kw2">new</span> WebClient<span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-HtmlPage page = <span class="br0">(</span>HtmlPage<span class="br0">)</span> client.<span
-class="me1">getPage</span><span class="br0">(</span><span class="st0">"http://www.openxava.org/"</span><span
+HtmlPage page = <span class="br0">(</span>HtmlPage<span class="br0">)</span> client.<span
+
+class="me1">getPage</span><span class="br0">(</span><span class="st0">"http://www.openxava.org/"</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       After that, you can use the <em>page</em> object to manipulate the read
       page.<br>
@@ -4306,92 +4448,134 @@ class="br0">)</span><span class="sy0">;</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.validators</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">com.yourcompany.invoicing.validators</span><span
+
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">javax.validation.*</span><span
+<span class="kw2">import</span> <span class="co2">javax.validation.*</span><span
+
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.apache.commons.logging.*</span><span
+<span class="kw2">import</span> <span class="co2">org.apache.commons.logging.*</span><span
+
 class="sy0">;</span> <span class="co1">// To use 'Log'</span>
-<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.annotations.*</span><span
+<span class="kw2">import</span> <span class="co2">com.yourcompany.invoicing.annotations.*</span><span
+
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
+
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">com.gargoylesoftware.htmlunit.*</span><span
+<span class="kw2">import</span> <span class="co2">com.gargoylesoftware.htmlunit.*</span><span
+
 class="sy0">;</span> <span class="co1">// To use 'HtmlUnit'</span>
-<span class="kw2">import</span> <span class="co2">com.gargoylesoftware.htmlunit.html.*</span><span
+<span class="kw2">import</span> <span class="co2">com.gargoylesoftware.htmlunit.html.*</span><span
+
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> ISBNValidator <span
-class="kw2">implements</span> ConstraintValidator<span class="sy0">&lt;</span>ISBN, <a
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+<span class="kw2">public</span> <span class="kw2">class</span> ISBNValidator <span
+
+class="kw2">implements</span> ConstraintValidator<span class="sy0">&lt;</span>ISBN, <a
+
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a><span class="sy0">&gt;</span> <span class="br0">{</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw2">static</span> Log log = LogFactory.<span
-class="me1">getLog</span><span class="br0">(</span>ISBNValidator.<span class="kw2">class</span><span
+    <span class="kw2">private</span> <span class="kw2">static</span> Log log = LogFactory.<span
+
+class="me1">getLog</span><span class="br0">(</span>ISBNValidator.<span class="kw2">class</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Instantiate 'log'</span>
-    <span class="kw2">private</span> <span class="kw2">static</span> org.<span class="me1">apache</span>.<span
-class="me1">commons</span>.<span class="me1">validator</span>.<span class="me1">routines</span>.<span
+    <span class="kw2">private</span> <span class="kw2">static</span> org.<span class="me1">apache</span>.<span
+
+class="me1">commons</span>.<span class="me1">validator</span>.<span class="me1">routines</span>.<span
+
 class="me1">ISBNValidator</span>
-        validator = <span class="kw2">new</span> org.<span class="me1">apache</span>.<span
-class="me1">commons</span>.<span class="me1">validator</span>.<span class="me1">routines</span>.<span
-class="me1">ISBNValidator</span><span class="br0">(</span><span class="br0">)</span><span
+        validator = <span class="kw2">new</span> org.<span class="me1">apache</span>.<span
+
+class="me1">commons</span>.<span class="me1">validator</span>.<span class="me1">routines</span>.<span
+
+class="me1">ISBNValidator</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 &nbsp;
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
-    <span class="kw2">public</span> <span class="kw3">void</span> initialize<span
+    <span class="kw2">public</span> <span class="kw3">void</span> initialize<span
+
 class="br0">(</span>ISBN isbn<span class="br0">)</span> <span class="br0">{</span>
 &nbsp;
     <span class="br0">}</span>
 &nbsp;
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isValid<span
-class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isValid<span
+
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a> value,
         ConstraintValidatorContext context<span class="br0">)</span> <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>Is.<span class="me1">empty</span><span
-class="br0">(</span>value<span class="br0">)</span><span class="br0">)</span> <span
+        <span class="kw1">if</span> <span class="br0">(</span>Is.<span class="me1">empty</span><span
+
+class="br0">(</span>value<span class="br0">)</span><span class="br0">)</span> <span
+
 class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
-        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>validator.<span
-class="me1">isValid</span><span class="br0">(</span>value.<span class="me1">toString</span><span
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span> <span
+        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>validator.<span
+
+class="me1">isValid</span><span class="br0">(</span>value.<span class="me1">toString</span><span
+
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span> <span
+
 class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
-        <span class="kw2">return</span> isbnExists<span class="br0">(</span>value<span
+        <span class="kw2">return</span> isbnExists<span class="br0">(</span>value<span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Here we do the REST call</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw3">boolean</span> isbnExists<span
-class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+    <span class="kw2">private</span> <span class="kw3">boolean</span> isbnExists<span
+
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a> isbn<span class="br0">)</span> <span class="br0">{</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> failMessage =<span class="st0">"can't be found"</span><span
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> failMessage =<span class="st0">"can't be found"</span><span
+
 class="sy0">;</span> <span class="co1">// Failed search message in 'bookfinder4u'</span>
         <span class="kw2">try</span> <span class="br0">{</span>
-            WebClient client = <span class="kw2">new</span> WebClient<span class="br0">(</span><span
+            WebClient client = <span class="kw2">new</span> WebClient<span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-            HtmlPage page = <span class="br0">(</span>HtmlPage<span class="br0">)</span> client.<span
+            HtmlPage page = <span class="br0">(</span>HtmlPage<span class="br0">)</span> client.<span
+
 class="me1">getPage</span><span class="br0">(</span> <span class="co1">// We call</span>
-                <span class="st0">"http://www.bookfinder4u.com/"</span> + <span
+                <span class="st0">"http://www.bookfinder4u.com/"</span> + <span
+
 class="co1">// bookfinder4u</span>
                 <span class="st0">"IsbnSearch.aspx?isbn="</span> + <span class="co1">// using an URL for searching</span>
-                isbn + <span class="st0">"&amp;mode=direct"</span><span class="br0">)</span><span
+                isbn + <span class="st0">"&amp;mode=direct"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// by ISBN</span>
-            <span class="kw2">return</span> page.<span class="me1">asText</span><span
+            <span class="kw2">return</span> page.<span class="me1">asText</span><span
+
 class="br0">(</span><span class="br0">)</span> <span class="co1">// Tests if the resulting page does not contain</span>
-                .<span class="me1">indexOf</span><span class="br0">(</span>failMessage<span
-class="br0">)</span> <span class="sy0">&lt;</span> <span class="nu0">0</span><span
+                .<span class="me1">indexOf</span><span class="br0">(</span>failMessage<span
+
+class="br0">)</span> <span class="sy0">&lt;</span> <span class="nu0">0</span><span
+
 class="sy0">;</span> <span class="co1">// the error message</span>
         <span class="br0">}</span>
-        <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+        <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> ex<span class="br0">)</span> <span class="br0">{</span>
             log.<span class="me1">warn</span><span class="br0">(</span><span class="st0">"Impossible to connect to bookfinder4u"</span> +
-                <span class="st0">"to validate the ISBN. Validation fails"</span>, ex<span
+                <span class="st0">"to validate the ISBN. Validation fails"</span>, ex<span
+
 class="br0">)</span><span class="sy0">;</span>
-            <span class="kw2">return</span> <span class="kw4">false</span><span
+            <span class="kw2">return</span> <span class="kw4">false</span><span
+
 class="sy0">;</span> <span class="co1">// If there are errors we assume that validation fails</span>
         <span class="br0">}</span>
     <span class="br0">}</span>
@@ -4413,7 +4597,8 @@ class="sy0">;</span> <span class="co1">// If there are errors we assume that val
       It's a good idea to create a new <em>Bean Validation</em> annotation if
       you reuse the validation several times, usually across several projects.
       To improve the reusability you may want to parametrize the validation
-      code. For example, for your current project to do the search in <a class="wiki_link_ext"
+      code. For example, for your current project to do the search in <a class="wiki_link_ext"
+
         href="http://www.bookfinder4u.com" rel="nofollow">www.bookfinder4u.com</a>
       for ISBN is OK, but in another project, or even in another entity of your
       current project, you do not want to call this particular URL. The code of
@@ -4609,10 +4794,13 @@ class="sy0">;</span> <span class="co1">// If there are errors we assume that val
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> @<span class="kw2">interface</span> ISBN <span
+</style><pre class="java5"><span class="kw2">public</span> @<span class="kw2">interface</span> ISBN <span
+
 class="br0">{</span>
-    <span class="kw3">boolean</span> search<span class="br0">(</span><span class="br0">)</span> <span
-class="kw1">default</span> <span class="kw4">true</span><span class="sy0">;</span> <span
+    <span class="kw3">boolean</span> search<span class="br0">(</span><span class="br0">)</span> <span
+
+class="kw1">default</span> <span class="kw4">true</span><span class="sy0">;</span> <span
+
 class="co1">// To (de)activate web search on validate</span>
 &nbsp;
     <span class="co1">// ...</span>
@@ -4805,39 +4993,59 @@ class="co1">// To (de)activate web search on validate</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> ISBNValidator <span
-class="kw2">implements</span> ConstraintValidator<span class="sy0">&lt;</span>ISBN, <a
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> ISBNValidator <span
+
+class="kw2">implements</span> ConstraintValidator<span class="sy0">&lt;</span>ISBN, <a
+
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a><span class="sy0">&gt;</span> <span class="br0">{</span>
     <span class="co1">// ...</span>
-    <span class="kw2">private</span> <span class="kw3">boolean</span> search<span
+    <span class="kw2">private</span> <span class="kw3">boolean</span> search<span
+
 class="sy0">;</span> <span class="co1">// Stores the search option</span>
 &nbsp;
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
-    <span class="kw2">public</span> <span class="kw3">void</span> initialize<span
-class="br0">(</span>ISBN isbn<span class="br0">)</span> <span class="br0">{</span> <span
+    <span class="kw2">public</span> <span class="kw3">void</span> initialize<span
+
+class="br0">(</span>ISBN isbn<span class="br0">)</span> <span class="br0">{</span> <span
+
 class="co1">// Read the annotation attributes values</span>
-        <span class="kw2">this</span>.<span class="me1">search</span> = isbn.<span
-class="me1">search</span><span class="br0">(</span><span class="br0">)</span><span
+        <span class="kw2">this</span>.<span class="me1">search</span> = isbn.<span
+
+class="me1">search</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-   @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+   @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isValid<span
-class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> value, ConstraintValidatorContext context<span class="br0">)</span> <span
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isValid<span
+
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a> value, ConstraintValidatorContext context<span class="br0">)</span> <span
+
 class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>Is.<span class="me1">empty</span><span
-class="br0">(</span>value<span class="br0">)</span><span class="br0">)</span> <span
+        <span class="kw1">if</span> <span class="br0">(</span>Is.<span class="me1">empty</span><span
+
+class="br0">(</span>value<span class="br0">)</span><span class="br0">)</span> <span
+
 class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
-        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>validator.<span
-class="me1">isValid</span><span class="br0">(</span>value.<span class="me1">toString</span><span
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span> <span
+        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>validator.<span
+
+class="me1">isValid</span><span class="br0">(</span>value.<span class="me1">toString</span><span
+
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span> <span
+
 class="kw2">return</span> <span class="kw4">false</span><span class="sy0">;</span>
-        <span class="kw2">return</span> search <span class="sy0">?</span> isbnExists<span
-class="br0">(</span>value<span class="br0">)</span> : <span class="kw4">true</span><span
+        <span class="kw2">return</span> search <span class="sy0">?</span> isbnExists<span
+
+class="br0">(</span>value<span class="br0">)</span> : <span class="kw4">true</span><span
+
 class="sy0">;</span> <span class="co1">// Using 'search'</span>
     <span class="br0">}</span>
     <span class="co1">// ...</span>
@@ -5035,9 +5243,11 @@ class="sy0">;</span> <span class="co1">// Using 'search'</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@ISBN<span class="br0">(</span>search=<span class="kw4">false</span><span
+</style><pre class="java5">@ISBN<span class="br0">(</span>search=<span class="kw4">false</span><span
+
 class="br0">)</span> <span class="co1">// In this case no internet search is done to validate the ISBN</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> isbn<span class="sy0">;</span></pre>
       Using this simple method you can add any attribute you need to add more
       flexibility to your ISBN annotation.<br>
@@ -5250,48 +5460,67 @@ class="kw21">String</span></a> isbn<span class="sy0">;</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testAddOrders<span
-class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testAddOrders<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-    login<span class="br0">(</span><span class="st0">"admin"</span>, <span class="st0">"admin"</span><span
+    login<span class="br0">(</span><span class="st0">"admin"</span>, <span class="st0">"admin"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    assertListNotEmpty<span class="br0">(</span><span class="br0">)</span><span
+    assertListNotEmpty<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"List.orderBy"</span>, <span
+    execute<span class="br0">(</span><span class="st0">"List.orderBy"</span>, <span
+
 class="st0">"property=number"</span><span class="br0">)</span><span class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"List.viewDetail", "row=0"</span><span
+    execute<span class="br0">(</span><span class="st0">"List.viewDetail", "row=0"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"Sections.change"</span>, <span
+    execute<span class="br0">(</span><span class="st0">"Sections.change"</span>, <span
+
 class="st0">"activeSection=1"</span><span class="br0">)</span><span class="sy0">;</span>
-    assertCollectionRowCount<span class="br0">(</span><span class="st0">"orders"</span>, <span
+    assertCollectionRowCount<span class="br0">(</span><span class="st0">"orders"</span>, <span
+
 class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span>
     execute<span class="br0">(</span><span class="st0">"Collection.add"</span>,
-        <span class="st0">"viewObject=xava_view_section1_orders"</span><span class="br0">)</span><span
+        <span class="st0">"viewObject=xava_view_section1_orders"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
     <span class="co1">// execute("AddToCollection.add", "row=0"); // Now we don't select randomly</span>
 &nbsp;
-    checkFirstOrderWithDeliveredEquals<span class="br0">(</span><span class="st0">"Delivered"</span><span
+    checkFirstOrderWithDeliveredEquals<span class="br0">(</span><span class="st0">"Delivered"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Selects one delivered order</span>
-    checkFirstOrderWithDeliveredEquals<span class="br0">(</span><span class="st0">""</span><span
+    checkFirstOrderWithDeliveredEquals<span class="br0">(</span><span class="st0">""</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Selects one not delivered order</span>
-    execute<span class="br0">(</span><span class="st0">"AddToCollection.add"</span><span
+    execute<span class="br0">(</span><span class="st0">"AddToCollection.add"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// We try to add both</span>
     assertError<span class="br0">(</span> <span class="co1">// An error, because the not delivered order cannot be added</span>
-        <span class="st0">"ERROR! 1 element(s) NOT added to Orders of Invoice"</span><span
+        <span class="st0">"ERROR! 1 element(s) NOT added to Orders of Invoice"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
     assertMessage<span class="br0">(</span> <span class="co1">// A confirm message, because the delivered order has been added</span>
-        <span class="st0">"1 element(s) added to Orders of Invoice"</span><span
+        <span class="st0">"1 element(s) added to Orders of Invoice"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 &nbsp;
-    assertCollectionRowCount<span class="br0">(</span><span class="st0">"orders"</span>, <span
+    assertCollectionRowCount<span class="br0">(</span><span class="st0">"orders"</span>, <span
+
 class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span>
-    checkRowCollection<span class="br0">(</span><span class="st0">"orders"</span>, <span
+    checkRowCollection<span class="br0">(</span><span class="st0">"orders"</span>, <span
+
 class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span>
     execute<span class="br0">(</span><span class="st0">"Collection.removeSelected"</span>,
-        <span class="st0">"viewObject=xava_view_section1_orders"</span><span class="br0">)</span><span
+        <span class="st0">"viewObject=xava_view_section1_orders"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    assertCollectionRowCount<span class="br0">(</span><span class="st0">"orders"</span>, <span
+    assertCollectionRowCount<span class="br0">(</span><span class="st0">"orders"</span>, <span
+
 class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span></pre>
       We have modified the part for selecting orders to add. Before we selected
@@ -5487,27 +5716,36 @@ class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">private</span> <span class="kw3">void</span> checkFirstOrderWithDeliveredEquals<span
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+</style><pre class="java5"><span class="kw2">private</span> <span class="kw3">void</span> checkFirstOrderWithDeliveredEquals<span
+
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> value<span class="br0">)</span>
-    <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a>
 <span class="br0">{</span>
-    <span class="kw3">int</span> c = getListRowCount<span class="br0">(</span><span
+    <span class="kw3">int</span> c = getListRowCount<span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// The total displayed rows in list</span>
-    <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i=<span
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>c<span
+    <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i=<span
+
+class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>c<span
+
 class="sy0">;</span> i++<span class="br0">)</span> <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>value.<span class="me1">equals</span><span
+        <span class="kw1">if</span> <span class="br0">(</span>value.<span class="me1">equals</span><span
+
 class="br0">(</span>
-            getValueInList<span class="br0">(</span>i, <span class="nu0">13</span><span
+            getValueInList<span class="br0">(</span>i, <span class="nu0">13</span><span
+
 class="br0">)</span><span class="br0">)</span><span class="br0">)</span> <span class="co1">// 13 is the 'delivered' column</span>
         <span class="br0">{</span>
             checkRow<span class="br0">(</span>i<span class="br0">)</span><span class="sy0">;</span>
             <span class="kw2">return</span><span class="sy0">;</span>
         <span class="br0">}</span>
     <span class="br0">}</span>
-    fail<span class="br0">(</span><span class="st0">"There must be at least one row with delivered="</span> + value<span
+    fail<span class="br0">(</span><span class="st0">"There must be at least one row with delivered="</span> + value<span
+
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span></pre>
       Here you see a good technique to do a loop over the displayed list
@@ -5715,78 +5953,115 @@ class="br0">)</span><span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testSetInvoice<span
-class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testSetInvoice<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-    login<span class="br0">(</span><span class="st0">"admin"</span>, <span class="st0">"admin"</span><span
+    login<span class="br0">(</span><span class="st0">"admin"</span>, <span class="st0">"admin"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    assertListNotEmpty<span class="br0">(</span><span class="br0">)</span><span
+    assertListNotEmpty<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"List.orderBy"</span>, <span
-class="st0">"property=number"</span><span class="br0">)</span><span class="sy0">;</span> <span
+    execute<span class="br0">(</span><span class="st0">"List.orderBy"</span>, <span
+
+class="st0">"property=number"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// To set the list order</span>
-    execute<span class="br0">(</span><span class="st0">"List.viewDetail", "row=0"</span><span
+    execute<span class="br0">(</span><span class="st0">"List.viewDetail", "row=0"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    assertValue<span class="br0">(</span><span class="st0">"delivered"</span>, <span
-class="st0">"false"</span><span class="br0">)</span><span class="sy0">;</span> <span
+    assertValue<span class="br0">(</span><span class="st0">"delivered"</span>, <span
+
+class="st0">"false"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// The order must be not delivered</span>
-    execute<span class="br0">(</span><span class="st0">"Sections.change"</span>, <span
+    execute<span class="br0">(</span><span class="st0">"Sections.change"</span>, <span
+
 class="st0">"activeSection=1"</span><span class="br0">)</span><span class="sy0">;</span>
-    assertValue<span class="br0">(</span><span class="st0">"invoice.number"</span>, <span
+    assertValue<span class="br0">(</span><span class="st0">"invoice.number"</span>, <span
+
 class="st0">""</span><span class="br0">)</span><span class="sy0">;</span>
-    assertValue<span class="br0">(</span><span class="st0">"invoice.year"</span>, <span
+    assertValue<span class="br0">(</span><span class="st0">"invoice.year"</span>, <span
+
 class="st0">""</span><span class="br0">)</span><span class="sy0">;</span>
     execute<span class="br0">(</span><span class="st0">"Reference.search"</span>,
-        <span class="st0">"keyProperty=invoice.year"</span><span class="br0">)</span><span
+        <span class="st0">"keyProperty=invoice.year"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"List.orderBy"</span>, <span
+    execute<span class="br0">(</span><span class="st0">"List.orderBy"</span>, <span
+
 class="st0">"property=number"</span><span class="br0">)</span><span class="sy0">;</span>
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> year = getValueInList<span class="br0">(</span><span
-class="nu0">0</span>, <span class="st0">"year"</span><span class="br0">)</span><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> year = getValueInList<span class="br0">(</span><span
+
+class="nu0">0</span>, <span class="st0">"year"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> number = getValueInList<span class="br0">(</span><span
-class="nu0">0</span>, <span class="st0">"number"</span><span class="br0">)</span><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> number = getValueInList<span class="br0">(</span><span
+
+class="nu0">0</span>, <span class="st0">"number"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"ReferenceSearch.choose"</span>, <span
+    execute<span class="br0">(</span><span class="st0">"ReferenceSearch.choose"</span>, <span
+
 class="st0">"row=0"</span><span class="br0">)</span><span class="sy0">;</span>
-    assertValue<span class="br0">(</span><span class="st0">"invoice.year"</span>, year<span
+    assertValue<span class="br0">(</span><span class="st0">"invoice.year"</span>, year<span
+
 class="br0">)</span><span class="sy0">;</span>
-    assertValue<span class="br0">(</span><span class="st0">"invoice.number"</span>, number<span
+    assertValue<span class="br0">(</span><span class="st0">"invoice.number"</span>, number<span
+
 class="br0">)</span><span class="sy0">;</span>
 &nbsp;
     <span class="co1">// Not delivered order cannot have invoice</span>
-    execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+    execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    assertErrorsCount<span class="br0">(</span><span class="nu0">1</span><span class="br0">)</span><span
+    assertErrorsCount<span class="br0">(</span><span class="nu0">1</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// We cannot save because it is not delivered</span>
-    setValue<span class="br0">(</span><span class="st0">"delivered"</span>, <span
+    setValue<span class="br0">(</span><span class="st0">"delivered"</span>, <span
+
 class="st0">"true"</span><span class="br0">)</span><span class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+    execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// With delivered=true we can save the order</span>
     assertNoErrors<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 &nbsp;
     <span class="co1">// Order with invoice cannot be deleted</span>
-    execute<span class="br0">(</span><span class="st0">"Mode.list"</span><span class="br0">)</span><span
+    execute<span class="br0">(</span><span class="st0">"Mode.list"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// We go to list and</span>
-    execute<span class="br0">(</span><span class="st0">"CRUD.deleteRow"</span>, <span
-class="st0">"row=0"</span><span class="br0">)</span><span class="sy0">;</span> <span
+    execute<span class="br0">(</span><span class="st0">"CRUD.deleteRow"</span>, <span
+
+class="st0">"row=0"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// we delete the saved order</span>
-    assertError<span class="br0">(</span><span class="st0">"Impossible to remove Order because: "</span> + <span
+    assertError<span class="br0">(</span><span class="st0">"Impossible to remove Order because: "</span> + <span
+
 class="co1">// We cannot delete because</span>
-        <span class="st0">"An order with an invoice cannot be deleted"</span><span
+        <span class="st0">"An order with an invoice cannot be deleted"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// it has an invoice associated</span>
 &nbsp;
     <span class="co1">// Restoring original values</span>
-    execute<span class="br0">(</span><span class="st0">"List.viewDetail", "row=0"</span><span
+    execute<span class="br0">(</span><span class="st0">"List.viewDetail", "row=0"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    setValue<span class="br0">(</span><span class="st0">"delivered"</span>, <span
+    setValue<span class="br0">(</span><span class="st0">"delivered"</span>, <span
+
 class="st0">"false"</span><span class="br0">)</span><span class="sy0">;</span>
-    setValue<span class="br0">(</span><span class="st0">"invoice.year"</span>, <span
+    setValue<span class="br0">(</span><span class="st0">"invoice.year"</span>, <span
+
 class="st0">""</span><span class="br0">)</span><span class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+    execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
     assertNoErrors<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span></pre>
@@ -5989,54 +6264,74 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testISBNValidator<span
-class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testISBNValidator<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
-    login<span class="br0">(</span><span class="st0">"admin"</span>, <span class="st0">"admin"</span><span
+    login<span class="br0">(</span><span class="st0">"admin"</span>, <span class="st0">"admin"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 &nbsp;
     <span class="co1">// Searching the product1</span>
-    execute<span class="br0">(</span><span class="st0">"CRUD.new"</span><span class="br0">)</span><span
+    execute<span class="br0">(</span><span class="st0">"CRUD.new"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
-    setValue<span class="br0">(</span><span class="st0">"number"</span>, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-class="kw21">Integer</span></a>.<span class="me1">toString</span><span class="br0">(</span>product1.<span
-class="me1">getNumber</span><span class="br0">(</span><span class="br0">)</span><span
+    setValue<span class="br0">(</span><span class="st0">"number"</span>, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+
+class="kw21">Integer</span></a>.<span class="me1">toString</span><span class="br0">(</span>product1.<span
+
+class="me1">getNumber</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"CRUD.refresh"</span><span
+    execute<span class="br0">(</span><span class="st0">"CRUD.refresh"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    assertValue<span class="br0">(</span><span class="st0">"description"</span>, <span
+    assertValue<span class="br0">(</span><span class="st0">"description"</span>, <span
+
 class="st0">"JUNIT Product 1"</span><span class="br0">)</span><span class="sy0">;</span>
-    assertValue<span class="br0">(</span><span class="st0">"isbn"</span>, <span
+    assertValue<span class="br0">(</span><span class="st0">"isbn"</span>, <span
+
 class="st0">""</span><span class="br0">)</span><span class="sy0">;</span>
 &nbsp;
     <span class="co1">// With incorrect ISBN format</span>
-    setValue<span class="br0">(</span><span class="st0">"isbn"</span>, <span class="st0">"1111"</span><span
+    setValue<span class="br0">(</span><span class="st0">"isbn"</span>, <span class="st0">"1111"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+    execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// Fails because of format (apache commons validator)</span>
     assertError<span class="br0">(</span><span class="st0">"1111 is not a valid value for ISBN of "</span> +
-        <span class="st0">"Product: ISBN does not exist"</span><span class="br0">)</span><span
+        <span class="st0">"Product: ISBN does not exist"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 &nbsp;
     <span class="co1">// ISBN does not exist though it has correct format</span>
-    setValue<span class="br0">(</span><span class="st0">"isbn"</span>, <span class="st0">"9791034369997"</span><span
+    setValue<span class="br0">(</span><span class="st0">"isbn"</span>, <span class="st0">"9791034369997"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+    execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// Fails because it does not exist (REST service)</span>
     assertError<span class="br0">(</span><span class="st0">"9791034369997 is not a valid value for ISBN of "</span> +
-        <span class="st0">"Product: ISBN does not exist"</span><span class="br0">)</span><span
+        <span class="st0">"Product: ISBN does not exist"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 &nbsp;
     <span class="co1">// ISBN exists</span>
-    setValue<span class="br0">(</span><span class="st0">"isbn"</span>, <span class="st0">"9780932633439"</span><span
+    setValue<span class="br0">(</span><span class="st0">"isbn"</span>, <span class="st0">"9780932633439"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+    execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// It does not fail</span>
     assertNoErrors<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span></pre>
       Surely the manual testing you were doing during the development of the <em>@ISBN</em>
-      validator was like the one above. Therefore, if <a class="wiki_link_ext"
+      validator was like the one above. Therefore, if <a class="wiki_link_ext"
+
         href="http://www.extremeprogramming.org/rules/testfirst.html" rel="nofollow">you
         write your JUnit test before the application code</a>, you can use it as
       you proceed. This is more efficient than repeating the test procedures by
@@ -6058,10 +6353,12 @@ class="sy0">;</span> <span class="co1">// It does not fail</span>
       it is more convenient to put logic outside your model classes. You will
       learn that in the next lessons.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="refining-standard-behavior_en.html">Go to
           Lesson 7</a></strong> </div>

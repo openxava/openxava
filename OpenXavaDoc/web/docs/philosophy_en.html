@@ -1,80 +1,155 @@
 <html>
   <head>
-    <title>openxava - philosophy_en</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Appendix A: Architecture &amp; philosophy - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Appendix A: Architecture &amp; philosophy">Appendix A: Architecture &amp; philosophy</a></div>
-<div style="margin-left: 2em;"><a href="#Appendix A: Architecture &amp; philosophy-The OpenXava concepts">The OpenXava concepts</a></div>
-<div style="margin-left: 3em;"><a href="#Appendix A: Architecture &amp; philosophy-The OpenXava concepts-Lightweight Model-Driven Development">Lightweight Model-Driven Development</a></div>
-<div style="margin-left: 3em;"><a href="#Appendix A: Architecture &amp; philosophy-The OpenXava concepts-Business Component">Business Component</a></div>
-<div style="margin-left: 2em;"><a href="#Appendix A: Architecture &amp; philosophy-Application architecture">Application architecture</a></div>
-<div style="margin-left: 3em;"><a href="#Appendix A: Architecture &amp; philosophy-Application architecture-Application developer viewpoint">Application developer viewpoint</a></div>
-<div style="margin-left: 3em;"><a href="#Appendix A: Architecture &amp; philosophy-Application architecture-User viewpoint">User viewpoint</a></div>
-<div style="margin-left: 3em;"><a href="#Appendix A: Architecture &amp; philosophy-Application architecture-Project layout">Project layout</a></div>
-<div style="margin-left: 2em;"><a href="#Appendix A: Architecture &amp; philosophy-Flexibility">Flexibility</a></div>
-<div style="margin-left: 3em;"><a href="#Appendix A: Architecture &amp; philosophy-Flexibility-Editors">Editors</a></div>
-<div style="margin-left: 3em;"><a href="#Appendix A: Architecture &amp; philosophy-Flexibility-Custom view">Custom view</a></div>
-<div style="margin-left: 2em;"><a href="#Appendix A: Architecture &amp; philosophy-Summary">Summary</a></div>
-</div>
-<strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a class="wiki_link" href="modeling_en.html">2. Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3. Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5. Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6. Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7. Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8. Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9. References &amp; collections</a> | <strong>A. Architecture &amp; philosophy</strong> | <a class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C. Annotations</a><br />
-<h1 id="toc0"><a name="Appendix A: Architecture &amp; philosophy"></a>Appendix A: Architecture &amp; philosophy</h1>
- OpenXava is a framework for rapid development of business applications using Java. It is easy to learn and one can have an application up in no time. At the same time, OpenXava is extensible, customizable and the application code is structured in a very pure object oriented way, allowing you to develop arbitrarily complex applications.<br />
-The OpenXava approach for rapid development differs from those that use visual environments (like Visual Basic or Delphi) or scripting (like PHP). Instead, OpenXava uses a model-driven development approach, where the core of your application are Java classes that model your problem. This means you can stay productive while still maintaining a high level of encapsulation.<br />
-This lesson will show you the concepts behind OpenXava as well as an overview of its architecture.<br />
-<h2 id="toc1"><a name="Appendix A: Architecture &amp; philosophy-The OpenXava concepts"></a>The OpenXava concepts</h2>
- Though OpenXava takes a very pragmatic approach to development, it is based on the refinement of two well known ideas: The very popular methodology of Model-Driven Development (MDD) and the concept of Business Component. Ideas from MDD are borrowed in a rather lightweight way. The Business Component, however, is at the very heart of OpenXava.<br />
-Let's look at these concepts in closer detail.<br />
-<h3 id="toc2"><a name="Appendix A: Architecture &amp; philosophy-The OpenXava concepts-Lightweight Model-Driven Development"></a>Lightweight Model-Driven Development</h3>
- Basically, MDD states that only the model of an application needs to be developed, and the rest is automatically generated:<br />
-<img src="files/philosophy_en010.png" alt="philosophy_en010.png" title="philosophy_en010.png" /><br />
-<span style="line-height: 1.5;">In the context of MDD the model is the means of representing the data and the logic of the application. It can be either a graphical notation, such as UML, or a textual notation such as a Domain-Specific Language (DSL).</span><br />
-Unfortunately, using MDD is very complex. It requires a big investment of time, expertise, and tooling. Still the idea behind MDD is very good and hence OpenXava uses that idea in a simplified way. OpenXava uses plain annotated Java classes for defining the model, and instead of generating code, all functionalities are generated dynamically at runtime:<br />
-
-
-<table class="wiki_table">
-    <tr>
-        <th><br />
-</th>
-        <th>Model definition<br />
-</th>
-        <th>Application generation<br />
-</th>
-    </tr>
-    <tr>
-        <td>Classic MDD<br />
-</td>
-        <td>UML/DSL<br />
-</td>
-        <td>Code generation<br />
-</td>
-    </tr>
-    <tr>
-        <td>OpenXava<br />
-</td>
-        <td>Simple Java classes<br />
-</td>
-        <td>Dynamically at runtime<br />
-</td>
-    </tr>
-</table>
-
-The next graphic shows why we call OpenXava a <em>Lightweight Model-Driven Framework:</em><br />
-<img src="files/philosophy_en020.png" alt="philosophy_en020.png" title="philosophy_en020.png" /><br />
-From just plain Java classes you obtain a full-fledged application. The next section about the Business Component concept will reveal some important details about the nature of these classes.<br />
-<h3 id="toc3"><a name="Appendix A: Architecture &amp; philosophy-The OpenXava concepts-Business Component"></a>Business Component</h3>
- A Business Component is a part of an application containing all the software artifacts related to some business concept (e.g., an invoice), it is merely a way of organizing software. The orthogonal way of developing software is the paradigm of MVC (Model-View-Controller) where the code is compartmentalized by data (Model), user interface (View), and logic (Controller).<br />
-<span style="line-height: 1.5;">This is the organization of software artifacts in an MVC application:</span><br />
-<img src="files/philosophy_en030.png" alt="philosophy_en030.png" title="philosophy_en030.png" /><br />
-All code units associated with the creation of the user interface, like JSP pages, JSF, Swing, JavaFX, etc., are kept closely together in the view layer, and likewise, for the model and controller layers. This contrasts with a business component architecture where the software artifacts are organized around business concepts, in this way:<br />
-<img src="files/philosophy_en040.png" alt="philosophy_en040.png" title="philosophy_en040.png" /><br />
-Here, all software artifacts contributing to the invoice concept, like user interface, database access, and business logic, are gathered in the same place.<br />
-Which paradigm to choose depends on your needs. If your data structures and business logic are likely to change frequently, then the Business Component approach is very useful since all changes can be made in the same place instead of being scattered over multiple files.<br />
-In OpenXava the main part to develop is the Business Component, which is defined as a simple annotated Java class, exemplified as following:<br />
-
-<style type="text/css"><!--
+      <h1 id="toc0"><a name="Appendix A: Architecture &amp; philosophy"></a>
+        <span id="breadcrumbs">
+          <span id="openxava">
+          	<a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava
+            </a>
+          </span>  
+          / <a href="index_en.html">documentation</a> /  
+				</span>                
+        Appendix A: Architecture &amp; philosophy
+      </h1>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#Appendix%20A:%20Architecture%20&amp;%20philosophy">Appendix
+            A: Architecture &amp; philosophy</a></div>
+        <div style="margin-left: 2em;"><a href="#Appendix%20A:%20Architecture%20&amp;%20philosophy-The%20OpenXava%20concepts">The
+            OpenXava concepts</a></div>
+        <div style="margin-left: 3em;"><a href="#Appendix%20A:%20Architecture%20&amp;%20philosophy-The%20OpenXava%20concepts-Lightweight%20Model-Driven%20Development">Lightweight
+            Model-Driven Development</a></div>
+        <div style="margin-left: 3em;"><a href="#Appendix%20A:%20Architecture%20&amp;%20philosophy-The%20OpenXava%20concepts-Business%20Component">Business
+            Component</a></div>
+        <div style="margin-left: 2em;"><a href="#Appendix%20A:%20Architecture%20&amp;%20philosophy-Application%20architecture">Application
+            architecture</a></div>
+        <div style="margin-left: 3em;"><a href="#Appendix%20A:%20Architecture%20&amp;%20philosophy-Application%20architecture-Application%20developer%20viewpoint">Application
+            developer viewpoint</a></div>
+        <div style="margin-left: 3em;"><a href="#Appendix%20A:%20Architecture%20&amp;%20philosophy-Application%20architecture-User%20viewpoint">User
+            viewpoint</a></div>
+        <div style="margin-left: 3em;"><a href="#Appendix%20A:%20Architecture%20&amp;%20philosophy-Application%20architecture-Project%20layout">Project
+            layout</a></div>
+        <div style="margin-left: 2em;"><a href="#Appendix%20A:%20Architecture%20&amp;%20philosophy-Flexibility">Flexibility</a></div>
+        <div style="margin-left: 3em;"><a href="#Appendix%20A:%20Architecture%20&amp;%20philosophy-Flexibility-Editors">Editors</a></div>
+        <div style="margin-left: 3em;"><a href="#Appendix%20A:%20Architecture%20&amp;%20philosophy-Flexibility-Custom%20view">Custom
+            view</a></div>
+        <div style="margin-left: 2em;"><a href="#Appendix%20A:%20Architecture%20&amp;%20philosophy-Summary">Summary</a></div>
+      </div>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+        Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
+        Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
+        Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4.
+        Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
+        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
+        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
+        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
+        References &amp; collections</a> | <strong>A. Architecture &amp;
+        philosophy</strong> | <a class="wiki_link" href="jpa_en.html">B. Java
+        Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
+        Annotations</a><hr>
+      OpenXava is a framework for rapid development of business applications
+      using Java. It is easy to learn and one can have an application up in no
+      time. At the same time, OpenXava is extensible, customizable and the
+      application code is structured in a very pure object oriented way,
+      allowing you to develop arbitrarily complex applications.<br>
+      The OpenXava approach for rapid development differs from those that use
+      visual environments (like Visual Basic or Delphi) or scripting (like PHP).
+      Instead, OpenXava uses a model-driven development approach, where the core
+      of your application are Java classes that model your problem. This means
+      you can stay productive while still maintaining a high level of
+      encapsulation.<br>
+      This lesson will show you the concepts behind OpenXava as well as an
+      overview of its architecture.<br>
+      <h2 id="toc1"><a name="Appendix A: Architecture &amp; philosophy-The OpenXava concepts"></a>The
+        OpenXava concepts</h2>
+      Though OpenXava takes a very pragmatic approach to development, it is
+      based on the refinement of two well known ideas: The very popular
+      methodology of Model-Driven Development (MDD) and the concept of Business
+      Component. Ideas from MDD are borrowed in a rather lightweight way. The
+      Business Component, however, is at the very heart of OpenXava.<br>
+      Let's look at these concepts in closer detail.<br>
+      <h3 id="toc2"><a name="Appendix A: Architecture &amp; philosophy-The OpenXava concepts-Lightweight Model-Driven Development"></a>Lightweight
+        Model-Driven Development</h3>
+      Basically, MDD states that only the model of an application needs to be
+      developed, and the rest is automatically generated:<br>
+      <img src="files/philosophy_en010.png" alt="philosophy_en010.png" title="philosophy_en010.png"><br>
+      <span style="line-height: 1.5;">In the context of MDD the model is the
+        means of representing the data and the logic of the application. It can
+        be either a graphical notation, such as UML, or a textual notation such
+        as a Domain-Specific Language (DSL).</span><br>
+      Unfortunately, using MDD is very complex. It requires a big investment of
+      time, expertise, and tooling. Still the idea behind MDD is very good and
+      hence OpenXava uses that idea in a simplified way. OpenXava uses plain
+      annotated Java classes for defining the model, and instead of generating
+      code, all functionalities are generated dynamically at runtime:<br>
+      <table class="wiki_table">
+        <tbody>
+          <tr>
+            <th><br>
+            </th>
+            <th>Model definition<br>
+            </th>
+            <th>Application generation<br>
+            </th>
+          </tr>
+          <tr>
+            <td>Classic MDD<br>
+            </td>
+            <td>UML/DSL<br>
+            </td>
+            <td>Code generation<br>
+            </td>
+          </tr>
+          <tr>
+            <td>OpenXava<br>
+            </td>
+            <td>Simple Java classes<br>
+            </td>
+            <td>Dynamically at runtime<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      The next graphic shows why we call OpenXava a <em>Lightweight
+        Model-Driven Framework:</em><br>
+      <img src="files/philosophy_en020.png" alt="philosophy_en020.png" title="philosophy_en020.png"><br>
+      From just plain Java classes you obtain a full-fledged application. The
+      next section about the Business Component concept will reveal some
+      important details about the nature of these classes.<br>
+      <h3 id="toc3"><a name="Appendix A: Architecture &amp; philosophy-The OpenXava concepts-Business Component"></a>Business
+        Component</h3>
+      A Business Component is a part of an application containing all the
+      software artifacts related to some business concept (e.g., an invoice), it
+      is merely a way of organizing software. The orthogonal way of developing
+      software is the paradigm of MVC (Model-View-Controller) where the code is
+      compartmentalized by data (Model), user interface (View), and logic
+      (Controller).<br>
+      <span style="line-height: 1.5;">This is the organization of software
+        artifacts in an MVC application:</span><br>
+      <img src="files/philosophy_en030.png" alt="philosophy_en030.png" title="philosophy_en030.png"><br>
+      All code units associated with the creation of the user interface, like
+      JSP pages, JSF, Swing, JavaFX, etc., are kept closely together in the view
+      layer, and likewise, for the model and controller layers. This contrasts
+      with a business component architecture where the software artifacts are
+      organized around business concepts, in this way:<br>
+      <img src="files/philosophy_en040.png" alt="philosophy_en040.png" title="philosophy_en040.png"><br>
+      Here, all software artifacts contributing to the invoice concept, like
+      user interface, database access, and business logic, are gathered in the
+      same place.<br>
+      Which paradigm to choose depends on your needs. If your data structures
+      and business logic are likely to change frequently, then the Business
+      Component approach is very useful since all changes can be made in the
+      same place instead of being scattered over multiple files.<br>
+      In OpenXava the main part to develop is the Business Component, which is
+      defined as a simple annotated Java class, exemplified as following:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -265,122 +340,231 @@ In OpenXava the main part to develop is the Business Component, which is defined
  * A Java class for defining a business component.
  */</span>
 &nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span class="kw166">Entity</span></a>  <span class="co1">// Database</span>
-@Table<span class="br0">&#40;</span>name=<span class="st0">&quot;GSTFCT&quot;</span><span class="br0">&#41;</span>  <span class="co1">// Database</span>
-@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span class="kw116">View</span></a><span class="br0">&#40;</span>members=  <span class="co1">// User interface</span>
-    <span class="st0">&quot;year, number, date, paid;&quot;</span> +
-    <span class="st0">&quot;customer, seller;&quot;</span> +
-    <span class="st0">&quot;details;&quot;</span> +
-    <span class="st0">&quot;amounts [ amountsSum, vatPercentage, vat ]&quot;</span>
-<span class="br0">&#41;</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="br0">&#123;</span>
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
+class="kw166">Entity</span></a>  <span class="co1">// Database</span>
+@Table<span class="br0">(</span>name=<span class="st0">"GSTFCT"</span><span class="br0">)</span>  <span
+
+class="co1">// Database</span>
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+
+class="kw116">View</span></a><span class="br0">(</span>members=  <span class="co1">// User interface</span>
+    <span class="st0">"year, number, date, paid;"</span> +
+    <span class="st0">"customer, seller;"</span> +
+    <span class="st0">"details;"</span> +
+    <span class="st0">"amounts [ amountsSum, vatPercentage, vat ]"</span>
+<span class="br0">)</span>
+<span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="br0">{</span>
 &nbsp;
     @Id  <span class="co1">// Database</span>
-    @Column<span class="br0">&#40;</span>length=<span class="nu0">4</span><span class="br0">&#41;</span>  <span class="co1">// Database</span>
-    @Max<span class="br0">&#40;</span><span class="nu0">9999</span><span class="br0">&#41;</span>  <span class="co1">// Validation</span>
+    @Column<span class="br0">(</span>length=<span class="nu0">4</span><span class="br0">)</span>  <span
+
+class="co1">// Database</span>
+    @Max<span class="br0">(</span><span class="nu0">9999</span><span class="br0">)</span>  <span
+
+class="co1">// Validation</span>
     @Required  <span class="co1">// Validation</span>
-    @DefaultValueCalculator<span class="br0">&#40;</span>  <span class="co1">// Declarative business logic</span>
+    @DefaultValueCalculator<span class="br0">(</span>  <span class="co1">// Declarative business logic</span>
         CurrentYearCalculator.<span class="kw2">class</span>
-    <span class="br0">&#41;</span>
-    <span class="kw2">private</span> <span class="kw3">int</span> year<span class="sy0">;</span>  <span class="co1">// Data structure (1)</span>
+    <span class="br0">)</span>
+    <span class="kw2">private</span> <span class="kw3">int</span> year<span class="sy0">;</span>  <span
+
+class="co1">// Data structure (1)</span>
 &nbsp;
-    @ManyToOne<span class="br0">&#40;</span>fetch=FetchType.<span class="me1">LAZY</span><span class="br0">&#41;</span>  <span class="co1">// Database</span>
+    @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
+
+class="br0">)</span>  <span class="co1">// Database</span>
     @DescriptionsList     <span class="co1">// User interface</span>
-    <span class="kw2">private</span> Seller seller<span class="sy0">;</span>  <span class="co1">// Data structure</span>
+    <span class="kw2">private</span> Seller seller<span class="sy0">;</span>  <span
+
+class="co1">// Data structure</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> applyDiscounts<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>  <span class="co1">// Programmatic business logic (2)</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> applyDiscounts<span
+
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>  <span
+
+class="co1">// Programmatic business logic (2)</span>
         ...
-    <span class="br0">&#125;</span>
+    <span class="br0">}</span>
 &nbsp;
     ...
-<span class="br0">&#125;</span></pre>
+<span class="br0">}</span></pre>
+      As you can see, everything to do with the concept of invoice is defined in
+      a single place: the <em>Invoice</em> class. This class contains code
+      dealing with persistence, data structures, business logic, user interface,
+      validation, etc.<br>
+      This is accomplished using the Java metadata facility, so-called
+      annotations. These are the annotations used in this example:<br>
+      <table class="wiki_table">
+        <tbody>
+          <tr>
+            <th>Facet<br>
+            </th>
+            <th>Metadata<br>
+            </th>
+            <th>Implemented by<br>
+            </th>
+          </tr>
+          <tr>
+            <td>Database<br>
+            </td>
+            <td>@Entity, @Table, @Id, @Column, @ManyToOne<br>
+            </td>
+            <td>JPA<br>
+            </td>
+          </tr>
+          <tr>
+            <td>User interface<br>
+            </td>
+            <td>@View, @DescriptionsList<br>
+            </td>
+            <td>OpenXava<br>
+            </td>
+          </tr>
+          <tr>
+            <td>Validation<br>
+            </td>
+            <td>@Max, @Required<br>
+            </td>
+            <td>Bean Validation, OpenXava<br>
+            </td>
+          </tr>
+          <tr>
+            <td>Business logic<br>
+            </td>
+            <td>@DefaultValueCalculator<br>
+            </td>
+            <td>OpenXava<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      Thanks to metadata you can do most of the work in a declarative way and
+      the dirty work is done for you by JPA (the Java standard for persistence),
+      Bean Validation (the Java standard for validation) and OpenXava.<br>
+      Moreover, the code you write is plain Java, like properties (<em>year</em>
+      and <em>seller</em>, 1) for defining the data structure, and methods (<em>applyDiscounts()</em>,
+      2) for programmatic business logic.<br>
+      All you need to write about invoice is <em>Invoice.java</em>. It is a
+      Business Component. The magic of OpenXava is that it transforms this
+      Business Component into a ready to use application.<br>
+      <h2 id="toc4"><a name="Appendix A: Architecture &amp; philosophy-Application architecture"></a>Application
+        architecture</h2>
+      You have seen how Business Components are the basic cells to construct in
+      an OpenXava application. Indeed, a complete OpenXava application can be
+      created using only Business Components. Nevertheless, there are plenty of
+      additional ingredients available.<br>
+      <h3 id="toc5"><a name="Appendix A: Architecture &amp; philosophy-Application architecture-Application developer viewpoint"></a>Application
+        developer viewpoint</h3>
+      As stated above, a fully functional application can be built using only
+      Business Components. Usually, however, it is necessary to add more
+      functionalities in order to fit the behavior of the application to your
+      needs. A complete OpenXava application has the next shape:<br>
+      <img src="files/philosophy_en050.png" alt="philosophy_en050.png" title="philosophy_en050.png"><br>
+      <span style="line-height: 1.5;">Apart from Business Components, there are
+        modules, controllers, editors, validators and calculators. Let's see
+        what these things are:</span><br>
+      <ul>
+        <li><strong>Business components</strong>: Java classes that describe all
+          aspects of the business concepts. These classes are the only required
+          pieces in an OpenXava application.</li>
+        <li><strong>Modules</strong>: A module is what the final user sees. It's
+          the union of a Business Component and several controllers. You can
+          omit the module definition, in which case a default module is used for
+          each Business Component.</li>
+        <li><strong>Controllers</strong>: A controller is a collection of
+          actions. From a user viewpoint, actions are buttons or links he can
+          click; for the developer, they are the classes containing program
+          logic to execute when those buttons are clicked. The controllers
+          define the behavior of the application and can be reused in different
+          modules of your application. OpenXava comes with a set of predefined
+          controllers for many everyday tasks, and, of course, you can also
+          define your own custom controllers.</li>
+        <li><strong>Editors</strong>: Editors are user interface components that
+          specify how different members and attributes of the Business Component
+          are displayed and edited. They provide a means for extending and
+          customizing the user interface.</li>
+        <li><strong>Validators</strong>: Reusable validation logic that you can
+          use in any Business Component.</li>
+        <li><strong>Calculators</strong>: Reusable business logic that can be
+          used in various parts of Business Components, e.g., for generating
+          default values.</li>
+      </ul>
+      <h3 id="toc6"><a name="Appendix A: Architecture &amp; philosophy-Application architecture-User viewpoint"></a>User
+        viewpoint</h3>
+      The standard way to access an OpenXava application is to point your
+      browser to one of its modules, either by explicitly typing the module URL
+      or by navigating using the application menu. Typically, the module will
+      have a list mode for browsing through the objects:<br>
+      <img src="files/philosophy_en060.png" alt="philosophy_en060.png" title="philosophy_en060.png"><br>
+      And a detail mode for editing them:<br>
+      <img src="files/philosophy_en070.png" alt="philosophy_en070.png" title="philosophy_en070.png"><br>
+      This shows you visually what a module really is: a functional piece of
+      software generated from a Business Component (data and logic) together
+      with its controllers (behavior).<br>
+      <h3 id="toc7"><a name="Appendix A: Architecture &amp; philosophy-Application architecture-Project layout"></a>Project
+        layout</h3>
+      We have seen the concepts behind OpenXava as well as what it looks like to
+      the end user. But what does OpenXava look like for the developer?:<br>
+      <img src="files/philosophy_en080.png" alt="philosophy_en080.png" title="philosophy_en080.png"><br>
+      Only classes in the <em>model</em> package, the Business Components, are
+      required. This is a bird's-eye view of an OpenXava project. You'll learn
+      more details in the rest of the book.<br>
+      <h2 id="toc8"><a name="Appendix A: Architecture &amp; philosophy-Flexibility"></a>Flexibility</h2>
+      As we have seen, OpenXava takes Java classes, annotated with metadata, and
+      produces a complete application. This includes the automatic generation of
+      the user interface. This might seem too automatic, and that it is quite
+      likely that the resulting user interface will not be rich enough.
+      Especially if your application has very specific requirements. This is not
+      true. OpenXava annotations are flexible enough to generate very powerful
+      user interfaces for most real world problems.<br>
+      Nevertheless, OpenXava provides mechanisms to customize the user
+      interface. Below two of those are presented: editors and custom views.<br>
+      <h3 id="toc9"><a name="Appendix A: Architecture &amp; philosophy-Flexibility-Editors"></a>Editors</h3>
+      Editors are the user interface elements used to view and edit the members
+      of your business component. There are built in editors for all the basic
+      types that will satisfy the vast majority of cases, and OpenXava can
+      readily be extended with your own editors when you need non standard ways
+      of viewing and modifying elements. The next example shows how built-in
+      editors are used for numbers and strings, but for the color property a
+      custom editor is used:<br>
+      <img src="files/philosophy_en090.png" alt="philosophy_en090.png" title="philosophy_en090.png"><br>
+      You can use JSP, JavaScript, HTML, AJAX or whatever web presentation
+      technology you want, to create your custom editor, and then assign this
+      editor to types or specific members.<br>
+      This is a very reusable way to customize the user interface generation of
+      your OpenXava application.<br>
+      <h3 id="toc10"><a name="Appendix A: Architecture &amp; philosophy-Flexibility-Custom view"></a>Custom
+        view</h3>
+      Some Business Components might not render appropriately using the standard
+      OpenXava view. Instead, a very particular interface may be needed like a
+      map, photo gallery, graphic or a calendar. In such cases, you can create
+      your custom interface, using JavaScript, HTML, JSP, or similar, and then
+      use it inside your OpenXava application. The next screenshot is from an
+      OpenXava module that uses a custom view:<br>
+      <img src="files/philosophy_en100.png" alt="philosophy_en100.png" title="philosophy_en100.png"><br>
+      In other words, OpenXava automatically generates a user interface for your
+      Business Components, but you always have the option of doing it yourself.<br>
+      <h2 id="toc11"><a name="Appendix A: Architecture &amp; philosophy-Summary"></a>Summary</h2>
+      OpenXava uses a model-driven approach to rapid development, in which you
+      produce a model and obtain a full application from it. The distinguishing
+      feature of OpenXava is that the model consists of a Business Component.<br>
+      The Business Component approach allows you to structure the application
+      around business concepts. In OpenXava a plain annotated Java class defines
+      the Business Component, making application development highly declarative.<br>
+      Apart from business components an OpenXava application has modules,
+      controllers, validators, calculators, etc. that you can optionally use to
+      customize your application. You can even customize the way OpenXava
+      generates the user interface using editors and custom views.<br>
+      OpenXava is a pragmatic solution to Enterprise Java development. It
+      generates a lot of automatic stuff, but it is flexible enough to be useful
+      developing real life business applications.<br>
+      At the end of the day you can develop applications just using simple Java
+      classes with annotations. In the other appendices you can learn more
+      details about the annotations you can use with OpenXava.<br>
+      <br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
 
-As you can see, everything to do with the concept of invoice is defined in a single place: the <em>Invoice</em> class. This class contains code dealing with persistence, data structures, business logic, user interface, validation, etc.<br />
-This is accomplished using the Java metadata facility, so-called annotations. These are the annotations used in this example:<br />
-
-
-<table class="wiki_table">
-    <tr>
-        <th>Facet<br />
-</th>
-        <th>Metadata<br />
-</th>
-        <th>Implemented by<br />
-</th>
-    </tr>
-    <tr>
-        <td>Database<br />
-</td>
-        <td>@Entity, @Table, @Id, @Column, @ManyToOne<br />
-</td>
-        <td>JPA<br />
-</td>
-    </tr>
-    <tr>
-        <td>User interface<br />
-</td>
-        <td>@View, @DescriptionsList<br />
-</td>
-        <td>OpenXava<br />
-</td>
-    </tr>
-    <tr>
-        <td>Validation<br />
-</td>
-        <td>@Max, @Required<br />
-</td>
-        <td>Bean Validation, OpenXava<br />
-</td>
-    </tr>
-    <tr>
-        <td>Business logic<br />
-</td>
-        <td>@DefaultValueCalculator<br />
-</td>
-        <td>OpenXava<br />
-</td>
-    </tr>
-</table>
-
-Thanks to metadata you can do most of the work in a declarative way and the dirty work is done for you by JPA (the Java standard for persistence), Bean Validation (the Java standard for validation) and OpenXava.<br />
-Moreover, the code you write is plain Java, like properties (<em>year</em> and <em>seller</em>, 1) for defining the data structure, and methods (<em>applyDiscounts()</em>, 2) for programmatic business logic.<br />
-All you need to write about invoice is <em>Invoice.java</em>. It is a Business Component. The magic of OpenXava is that it transforms this Business Component into a ready to use application.<br />
-<h2 id="toc4"><a name="Appendix A: Architecture &amp; philosophy-Application architecture"></a>Application architecture</h2>
- You have seen how Business Components are the basic cells to construct in an OpenXava application. Indeed, a complete OpenXava application can be created using only Business Components. Nevertheless, there are plenty of additional ingredients available.<br />
-<h3 id="toc5"><a name="Appendix A: Architecture &amp; philosophy-Application architecture-Application developer viewpoint"></a>Application developer viewpoint</h3>
- As stated above, a fully functional application can be built using only Business Components. Usually, however, it is necessary to add more functionalities in order to fit the behavior of the application to your needs. A complete OpenXava application has the next shape:<br />
-<img src="files/philosophy_en050.png" alt="philosophy_en050.png" title="philosophy_en050.png" /><br />
-<span style="line-height: 1.5;">Apart from Business Components, there are modules, controllers, editors, validators and calculators. Let's see what these things are:</span><br />
-<ul><li><strong>Business components</strong>: Java classes that describe all aspects of the business concepts. These classes are the only required pieces in an OpenXava application.</li><li><strong>Modules</strong>: A module is what the final user sees. It's the union of a Business Component and several controllers. You can omit the module definition, in which case a default module is used for each Business Component.</li><li><strong>Controllers</strong>: A controller is a collection of actions. From a user viewpoint, actions are buttons or links he can click; for the developer, they are the classes containing program logic to execute when those buttons are clicked. The controllers define the behavior of the application and can be reused in different modules of your application. OpenXava comes with a set of predefined controllers for many everyday tasks, and, of course, you can also define your own custom controllers.</li><li><strong>Editors</strong>: Editors are user interface components that specify how different members and attributes of the Business Component are displayed and edited. They provide a means for extending and customizing the user interface.</li><li><strong>Validators</strong>: Reusable validation logic that you can use in any Business Component.</li><li><strong>Calculators</strong>: Reusable business logic that can be used in various parts of Business Components, e.g., for generating default values.</li></ul><h3 id="toc6"><a name="Appendix A: Architecture &amp; philosophy-Application architecture-User viewpoint"></a>User viewpoint</h3>
- The standard way to access an OpenXava application is to point your browser to one of its modules, either by explicitly typing the module URL or by navigating using the application menu. Typically, the module will have a list mode for browsing through the objects:<br />
-<img src="files/philosophy_en060.png" alt="philosophy_en060.png" title="philosophy_en060.png" /><br />
-And a detail mode for editing them:<br />
-<img src="files/philosophy_en070.png" alt="philosophy_en070.png" title="philosophy_en070.png" /><br />
-This shows you visually what a module really is: a functional piece of software generated from a Business Component (data and logic) together with its controllers (behavior).<br />
-<h3 id="toc7"><a name="Appendix A: Architecture &amp; philosophy-Application architecture-Project layout"></a>Project layout</h3>
- We have seen the concepts behind OpenXava as well as what it looks like to the end user. But what does OpenXava look like for the developer?:<br />
-<img src="files/philosophy_en080.png" alt="philosophy_en080.png" title="philosophy_en080.png" /><br />
-Only classes in the <em>model</em> package, the Business Components, are required. This is a bird's-eye view of an OpenXava project. You'll learn more details in the rest of the book.<br />
-<h2 id="toc8"><a name="Appendix A: Architecture &amp; philosophy-Flexibility"></a>Flexibility</h2>
- As we have seen, OpenXava takes Java classes, annotated with metadata, and produces a complete application. This includes the automatic generation of the user interface. This might seem too automatic, and that it is quite likely that the resulting user interface will not be rich enough. Especially if your application has very specific requirements. This is not true. OpenXava annotations are flexible enough to generate very powerful user interfaces for most real world problems.<br />
-Nevertheless, OpenXava provides mechanisms to customize the user interface. Below two of those are presented: editors and custom views.<br />
-<h3 id="toc9"><a name="Appendix A: Architecture &amp; philosophy-Flexibility-Editors"></a>Editors</h3>
- Editors are the user interface elements used to view and edit the members of your business component. There are built in editors for all the basic types that will satisfy the vast majority of cases, and OpenXava can readily be extended with your own editors when you need non standard ways of viewing and modifying elements. The next example shows how built-in editors are used for numbers and strings, but for the color property a custom editor is used:<br />
-<img src="files/philosophy_en090.png" alt="philosophy_en090.png" title="philosophy_en090.png" /><br />
-You can use JSP, JavaScript, HTML, AJAX or whatever web presentation technology you want, to create your custom editor, and then assign this editor to types or specific members.<br />
-This is a very reusable way to customize the user interface generation of your OpenXava application.<br />
-<h3 id="toc10"><a name="Appendix A: Architecture &amp; philosophy-Flexibility-Custom view"></a>Custom view</h3>
- Some Business Components might not render appropriately using the standard OpenXava view. Instead, a very particular interface may be needed like a map, photo gallery, graphic or a calendar. In such cases, you can create your custom interface, using JavaScript, HTML, JSP, or similar, and then use it inside your OpenXava application. The next screenshot is from an OpenXava module that uses a custom view:<br />
-<img src="files/philosophy_en100.png" alt="philosophy_en100.png" title="philosophy_en100.png" /><br />
-In other words, OpenXava automatically generates a user interface for your Business Components, but you always have the option of doing it yourself.<br />
-<h2 id="toc11"><a name="Appendix A: Architecture &amp; philosophy-Summary"></a>Summary</h2>
- OpenXava uses a model-driven approach to rapid development, in which you produce a model and obtain a full application from it. The distinguishing feature of OpenXava is that the model consists of a Business Component.<br />
-The Business Component approach allows you to structure the application around business concepts. In OpenXava a plain annotated Java class defines the Business Component, making application development highly declarative.<br />
-Apart from business components an OpenXava application has modules, controllers, validators, calculators, etc. that you can optionally use to customize your application. You can even customize the way OpenXava generates the user interface using editors and custom views.<br />
-OpenXava is a pragmatic solution to Enterprise Java development. It generates a lot of automatic stuff, but it is flexible enough to be useful developing real life business applications.<br />
-At the end of the day you can develop applications just using simple Java classes with annotations. In the other appendices you can learn more details about the annotations you can use with OpenXava.<br />
-<br />
-<strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/" rel="nofollow">Ask in the forum</a></strong>
-    </div>
+          rel="nofollow">Ask in the forum</a></strong> </div>
   </body>
 </html>

@@ -1,6 +1,51 @@
+/* tmp ini */
+h1 {
+    margin: -8px -8px 15px -8px ;
+    padding: 5px 10px 5px 10px;
+    background: #2c3135;
+    color: white;
+	font-weight: bold; 
+	font-size: 1.4em;
+	box-shadow: 0px 0px 7px black;
+}
+
+h1 #breadcrumbs {
+    vertical-align: 3;
+    color: #6f7375;
+	font-weight: normal; 
+	font-size: 0.9em;
+}
+
+h1 #breadcrumbs a {
+	color: #6f7375;
+}
+
+h1 #breadcrumbs a:hover {
+	color: #a3a5a6;
+}
+
+h1 #openxava a, h1 #openxava a:hover {
+	text-decoration: none;
+	color: #E8DDCB;
+}
+
+h1 #openxava span {
+	color: red;
+}
+
+h1 #doc {
+	color: white;
+}
+
+#toc h1 {
+	padding: 6px !important;
+}
+
+
+/* tmp fin */
 
 .wiki { line-height: 1.5; font-family: arial, helvetica, sans-serif; font-size: 13px; }
-.wiki h1 { font-weight: bold; padding: 5px 0 0 0; margin: 0; font-size: 1.4em; }
+/* tmp .wiki h1 { font-weight: bold; padding: 5px 0 0 0; margin: 0; font-size: 1.4em; } */
 .wiki h2 { font-weight: bold; padding: 5px 0 0 0; margin: 0; font-size: 1.3em; }
 .wiki h3 { font-weight: bold; padding: 5px 0 0 0; margin: 0; font-size: 1.1em; }
 .wiki h4 { font-weight: normal; padding: 5px 0 0 0; margin: 0; font-size: 1.066em; }

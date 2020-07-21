@@ -1,20 +1,43 @@
 <html>
   <head>
-    <title>openxava - references-collections_en</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lesson 9: References &amp; collections - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-<strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a class="wiki_link" href="modeling_en.html">2. Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3. Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5. Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6. Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7. Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8. Behavior &amp; business logic</a> | <strong>9. References &amp; collections</strong> | <a class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C. Annotations</a><br />
-<h1 id="toc0"><a name="Lesson 9: References &amp; collections"></a>Lesson 9: References &amp; collections</h1>
- This lesson is available in PDF:<br />
-<a href="files/openxava-course9-references-collections_en.pdf">openxava-course9-references-collections_en.pdf</a><br />
-<br />
-<h2 id="toc1"><a name="Lesson 9: References &amp; collections-Note for OpenXava 5.7 and better"></a>Note for OpenXava 5.7 and better</h2>
- Use <em>@AddAction</em> instead of <em>@NewAction</em> to refine the action for adding new elements. For example, change:<br />
-
-<style type="text/css"><!--
+      <h1 id="toc0"><a name="Lesson 9: References &amp; collections"></a>
+        <span id="breadcrumbs">
+          <span id="openxava">
+          	<a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava
+            </a>
+          </span>  
+          / <a href="index_en.html">documentation</a> /  
+				</span>                
+        Lesson 9: References &amp; collections
+      </h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+        Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
+        Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
+        Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4.
+        Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
+        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
+        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
+        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
+        Behavior &amp; business logic</a> | <strong>9. References &amp;
+        collections</strong> | <a class="wiki_link" href="philosophy_en.html">A.
+        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
+        Annotations</a><hr>
+      This lesson is available in PDF:<br>
+      <a href="files/openxava-course9-references-collections_en.pdf">openxava-course9-references-collections_en.pdf</a><br>
+      <br>
+      <h2 id="toc1"><a name="Lesson 9: References &amp; collections-Note for OpenXava 5.7 and better"></a>Note
+        for OpenXava 5.7 and better</h2>
+      Use <em>@AddAction</em> instead of <em>@NewAction</em> to refine the
+      action for adding new elements. For example, change:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -201,14 +224,22 @@
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@OneToMany<span class="br0">&#40;</span>mappedBy=<span class="st0">&quot;invoice&quot;</span><span class="br0">&#41;</span>
-@CollectionView<span class="br0">&#40;</span><span class="st0">&quot;NoCustomerNoInvoice&quot;</span><span class="br0">&#41;</span>
-@NewAction<span class="br0">&#40;</span><span class="st0">&quot;Invoice.addOrders&quot;</span><span class="br0">&#41;</span> <span class="co1">// @NewAction is no longer used for define the add action</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span class="kw46">Collection</span></a><span class="sy0">&lt;</span>Order<span class="sy0">&gt;</span> orders<span class="sy0">;</span></pre>
+</style><pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span><span
 
-By:<br />
+class="br0">)</span>
+@CollectionView<span class="br0">(</span><span class="st0">"NoCustomerNoInvoice"</span><span
 
-<style type="text/css"><!--
+class="br0">)</span>
+@NewAction<span class="br0">(</span><span class="st0">"Invoice.addOrders"</span><span
+
+class="br0">)</span> <span class="co1">// @NewAction is no longer used for define the add action</span>
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Order<span class="sy0">&gt;</span> orders<span
+
+class="sy0">;</span></pre>
+      By:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -395,13 +426,23 @@ By:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@OneToMany<span class="br0">&#40;</span>mappedBy=<span class="st0">&quot;invoice&quot;</span><span class="br0">&#41;</span>
-@CollectionView<span class="br0">&#40;</span><span class="st0">&quot;NoCustomerNoInvoice&quot;</span><span class="br0">&#41;</span>
-@AddAction<span class="br0">&#40;</span><span class="st0">&quot;Invoice.addOrders&quot;</span><span class="br0">&#41;</span> <span class="co1">// @AddAction instead</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span class="kw46">Collection</span></a><span class="sy0">&lt;</span>Order<span class="sy0">&gt;</span> orders<span class="sy0">;</span></pre>
+</style><pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span><span
 
-<br />
-<strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/" rel="nofollow">Ask in the forum</a></strong>
-    </div>
+class="br0">)</span>
+@CollectionView<span class="br0">(</span><span class="st0">"NoCustomerNoInvoice"</span><span
+
+class="br0">)</span>
+@AddAction<span class="br0">(</span><span class="st0">"Invoice.addOrders"</span><span
+
+class="br0">)</span> <span class="co1">// @AddAction instead</span>
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Order<span class="sy0">&gt;</span> orders<span
+
+class="sy0">;</span></pre>
+      <br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+          rel="nofollow">Ask in the forum</a></strong> </div>
   </body>
 </html>
