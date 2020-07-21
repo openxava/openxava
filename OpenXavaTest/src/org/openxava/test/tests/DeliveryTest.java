@@ -42,11 +42,23 @@ public class DeliveryTest extends ModuleTestBase {
 		"Delivery.addShortcutOptions",
 		"Delivery.clearShortcutOptions",
 		"Delivery.disableShortcutOptions",
-		"Delivery.removeBlankShortcutOption"
+		"Delivery.removeBlankShortcutOption",
+		"Delivery.changeTitles"
 	};
 		
 	public DeliveryTest(String testName) {
 		super(testName, "Delivery");		
+	}
+	
+	public void testChangeNameOfGroupAndSection() throws Exception {  
+		execute("CRUD.new");
+		assertLabel("number", "Number");
+		assertLabel("deliveryData", "Delivery data");
+		assertLabel(1, "Incidents");
+		execute("Delivery.changeTitles");
+		assertLabel("number", "My property name");
+		assertLabel("deliveryData", "My group name");
+		assertLabel(1, "My section name");
 	}
 	
 	public void testFilterDescriptionsListAndEnumLetterType_myReportConditionWithDescriptionsListAndValidValues() throws Exception { 
@@ -671,6 +683,7 @@ public class DeliveryTest extends ModuleTestBase {
 			"Delivery.clearShortcutOptions",
 			"Delivery.disableShortcutOptions",
 			"Delivery.removeBlankShortcutOption",
+			"Delivery.changeTitles", 
 			"EditableOnOff.setOn",
 			"EditableOnOff.setOff",
 			"Remarks.hideRemarks",

@@ -359,7 +359,9 @@
 		<action name="disableShortcutOptions"
 			class="org.openxava.test.actions.DisableShortcutOptionsAction"/>			
 		<action name="removeBlankShortcutOption"
-			class="org.openxava.test.actions.RemoveBlankShortcutOptionAction"/>			
+			class="org.openxava.test.actions.RemoveBlankShortcutOptionAction"/>
+		<action name="changeTitles" 
+			class="org.openxava.test.actions.ChangeNameGroupAndSectionAction"/>
 	</controller>
 	
 	<controller name="DeliveryListFilteredProgramatically">

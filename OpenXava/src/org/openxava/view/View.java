@@ -5319,31 +5319,62 @@ public class View implements java.io.Serializable {
 			}			
 		}
 		return p.getLabel(getRequest());
-	}
-	
+	}	
+
 	/**
 	 * 
-	 * @param propertyName  Since v4.2 can qualified
+	 * @param property  Since v4.2 can qualified. Since v6.4 can be a group or section name
 	 * @param id  Id of the label from i18n files
 	 */
-	public void setLabelId(String propertyName, String id) {		
-		if (propertyName == null) return; 
-		int idx = propertyName.indexOf('.');
+	public void setLabelId(String property, String id) {
+		if (property == null) return; 
+		int idx = property.indexOf('.');
 		if (idx >= 0) {
-			String subviewName = propertyName.substring(0, idx);
-			String member = propertyName.substring(idx+1);								 				
+			String subviewName = property.substring(0, idx);
+			String member = property.substring(idx+1);								 				
 			getSubview(subviewName).setLabelId(member, id);
 			return;
 		}
 		if (getLabels() == null) setLabels(new HashMap());
-		String old = (String) getLabels().put(propertyName, id);		
+		String old = (String) getLabels().put(property, id);		
 		if (!Is.equal(old, id)) {
 			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
-			getRoot().changedLabels.put(getPropertyPrefix() + propertyName,
-				getLabelFor(getMetaModel().getMetaMember(propertyName)));
+			int sectionIndex = getIndexOfSection(property);
+			if (sectionIndex >= 0) {
+				String sectionId = getViewObject() + "_section" + sectionIndex + "_sectionName";
+				String label = Labels.get(id);
+				getSectionView(sectionIndex).setTitle(label);
+				getRoot().changedLabels.put(sectionId, label);
+			}
+			else if (getGroupsViews().containsKey(property)) {
+				String label = Labels.get(id);
+				getGroupView(property).setTitle(label);
+				getRoot().changedLabels.put(property, label);
+			}
+			else {
+				getRoot().changedLabels.put(getPropertyPrefix() + property,
+					getLabelFor(getMetaModel().getMetaMember(property)));
+			}
 		}
 	}
-		
+	
+	/**
+	 * @return -1 if name is not a section
+	 * @since 6.4
+	 */
+	private int getIndexOfSection(String name) {
+		try {
+			View view = getSection(name);	
+			for (int i = 0; i < getSections().size(); i++) {
+				MetaView mv = (MetaView)getSections().get(i);
+				if (mv.equals(view.getMetaView())) return i;
+			}
+			return -1;
+		}
+		catch(ElementNotFoundException e) {
+			return -1;	// section does not exist
+		}
+	}
 	
 	private Map getLabels() {
 		View root = getRoot();
@@ -6777,5 +6808,4 @@ public class View implements java.io.Serializable {
 		return descriptionsList.getCondition();
 	}
 
-	
 }

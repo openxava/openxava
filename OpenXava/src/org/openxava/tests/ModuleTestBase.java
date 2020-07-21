@@ -1305,6 +1305,11 @@ abstract public class ModuleTestBase extends TestCase {
 		assertEquals(XavaResources.getString("unexpected_label", name), expectedLabel, getLabel(name));		
 	}
 	
+	/** @since 6.4 */
+	protected void assertLabel(int sectionIndex, String expectedLabel) throws Exception{ 
+		assertLabel("xava_view_section" + sectionIndex + "_sectionName", expectedLabel);
+	}
+	
 	protected void assertNoLabel(String name) throws Exception{
 		try{
 			getLabel(name);

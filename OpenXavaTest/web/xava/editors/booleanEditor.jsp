@@ -16,7 +16,6 @@ if (null != agent && agent.indexOf("MSIE")>=0) {
     script = org.openxava.util.Strings.change(script, "onchange", "onclick");
 }
 %>
-
 <INPUT id="<%=propertyKey%>" type="checkbox" name="<%=propertyKey%>" class=<%=style.getEditor()%>
 	tabindex="1" 
 	value="true" 
@@ -25,7 +24,6 @@ if (null != agent && agent.indexOf("MSIE")>=0) {
 	<%=disabled%>
 	<%=script%>
 />
-
 <% if (!editable) { %>
 	<input type="hidden" name="<%=propertyKey%>" value="<%=value%>">
 <% } %>			
