@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- New method assertLabel(int sectionIndex, String expectedLabel) in ModuleTestBase.
+- View.setLabelId() allows to change the label of sections and groups.
+- Getting started guide simplified and adapted to use OpenXava Studio.  
 - Building workspace time for Eclipse optimized.
 - New attribute filter in @DescriptionsList to use an IFilter like the ones used by @Tab.
 - New attribute filter in <descriptions-list> of XML components to use an IFilter.

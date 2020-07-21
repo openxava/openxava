@@ -5319,39 +5319,11 @@ public class View implements java.io.Serializable {
 			}			
 		}
 		return p.getLabel(getRequest());
-	}
-	
-	// tmp ana: codigo original >>>
+	}	
+
 	/**
 	 * 
-	 * @param propertyName  Since v4.2 can qualified
-	 * @param id  Id of the label from i18n files
-	 */
-	/*
-	public void setLabelId(String propertyName, String id) {		
-		if (propertyName == null) return; 
-		int idx = propertyName.indexOf('.');
-		if (idx >= 0) {
-			String subviewName = propertyName.substring(0, idx);
-			String member = propertyName.substring(idx+1);								 				
-			getSubview(subviewName).setLabelId(member, id);
-			return;
-		}
-		if (getLabels() == null) setLabels(new HashMap());
-		String old = (String) getLabels().put(propertyName, id);		
-		if (!Is.equal(old, id)) {
-			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
-			getRoot().changedLabels.put(getPropertyPrefix() + propertyName,
-				getLabelFor(getMetaModel().getMetaMember(propertyName)));
-		}
-	}
-	*/
-	// tmp ana: codigo original <<<
-	
-	// tmp ana: nuevo codigo >>>
-	/**
-	 * 
-	 * @param property  Since v4.2 can qualified. Since v6.3.2 can be group or section name
+	 * @param property  Since v4.2 can qualified. Since v6.4 can be a group or section name
 	 * @param id  Id of the label from i18n files
 	 */
 	public void setLabelId(String property, String id) {
@@ -5388,7 +5360,7 @@ public class View implements java.io.Serializable {
 	
 	/**
 	 * @return -1 if name is not a section
-	 * Since v6.3.2
+	 * @since 6.4
 	 */
 	private int getIndexOfSection(String name) {
 		try {
@@ -5403,8 +5375,6 @@ public class View implements java.io.Serializable {
 			return -1;	// section does not exist
 		}
 	}
-	
-	// tmp ana: nuevo codigo <<<
 	
 	private Map getLabels() {
 		View root = getRoot();

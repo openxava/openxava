@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - getting-started_es</title>
+    <title>Primeros pasos con OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,125 +9,23 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <div id="toc">
-        <h1 class="nopad">Table of Contents</h1>
-        <div style="margin-left: 1em;"><a href="#Leccion-1-Primeros-pasos">Lección
-            1: Primeros pasos</a></div>
-        <div style="margin-left: 2em;"><a href="#Nuestro-objetivo-Una-pequena-aplicacion-de-facturacion">Nuestro
-            objetivo: Una pequeña aplicación de facturación</a></div>
-        <div style="margin-left: 2em;"><a href="#Instalar-el-software-necesario">Instalar
-            el software necesario</a></div>
-        <div style="margin-left: 3em;"><a href="#Instalar-Java">Instalar Java</a></div>
-        <div style="margin-left: 3em;"><a href="#Instalar-Eclipse">Instalar
-            Eclipse</a></div>
-        <div style="margin-left: 3em;"><a href="#Instalar-OpenXava">Instalar
-            OpenXava</a></div>
-        <div style="margin-left: 2em;"><a href="#Crear-el-proyecto-en-Eclipse">Crear
-            el proyecto en Eclipse</a></div>
-        <div style="margin-left: 2em;"><a href="#Crear-tu-primera-entidad">Crear
-            tu primera entidad</a></div>
-        <div style="margin-left: 2em;"><a href="#Ejecutar-la-aplicacion">Ejecutar
-            la aplicación</a></div>
-        <div style="margin-left: 2em;"><a href="#Modificar-la-aplicacion">Modificar
-            la aplicación</a></div>
-        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
-      </div>
-      <strong>Curso</strong>: <strong>1. Primeros pasos</strong> | <a class="wiki_link"
-        href="modeling_es.html">2. Modelar con Java</a> | <a class="wiki_link"
-        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
-        href="inheritance_es.html">4. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
-        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
-        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
-        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8.
-        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">9.
-        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
-        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a><br>
-      <h1 id="toc0"><a name="Leccion-1-Primeros-pasos"></a>Lección 1: Primeros
-        pasos</h1>
-      Esta lección es la génesis de tu primera aplicación. Después de una breve
-      revisión de la aplicación que queremos desarrollar, configuraremos todas
-      las herramientas que necesitas para desarrollar con OpenXava.<br>
-      Vas a instalar Java y Eclipse, y crear el proyecto para tu aplicación.<br>
-      <h2 id="toc1"><a name="Nuestro-objetivo-Una-pequena-aplicacion-de-facturacion"></a>Nuestro
-        objetivo: Una pequeña aplicación de facturación</h2>
-      La aplicación es una pequeña aplicación de facturación con facturas,
-      clientes, productos y así por el estilo. Esta aplicación es una mera
-      excusa para aprender algunos casos típicos en aplicaciones de gestión.
-      Puedes aplicar todo lo que aprendas con esta aplicación a cualquier otra
-      aplicación de gestión en cualquier otro dominio.<br>
-      Ten en cuenta que esta aplicación de facturación es una herramienta
-      didáctica. No la uses “tal cual” para un sistema de facturación real.<br>
-      <h2 id="toc2"><a name="Instalar-el-software-necesario"></a>Instalar el
-        software necesario</h2>
-      <h3 id="toc3"><a name="Instalar-Java"></a>Instalar Java</h3>
-      <div class="wiki" style="display: block;"><i>Si ya tienes el JDK 8 u 11 en
-          tu máquina sáltate este paso</i></div>
-      <div class="wiki" style="display: block;">Ve a la <a href="https://www.oracle.com/java/technologies/javase-jdk11-downloads.html"
-          target="_blank">página de descarga del JDK 11 de Oracle</a>:</div>
-      <a href="https://www.oracle.com/java/technologies/javase-jdk11-downloads.html"
-        target="_blank"><img src="files/getting-started003.png" title="getting-started003.png"
-          style="box-shadow: 0px 0px 5px lightgray"></a>
-      <div class="wiki" style="display: block;">Escoge el instalador para tu
-        sistema operativo, descárgalo, ejecútalo y sigue todos los pasos para
-        instalar el JDK en tu ordenador.</div>
-      <div class="wiki" style="display: block;">Si tienes una máquina de 32
-        bits, deberías descargar e instalar el JDK 8 en lugar del 11, ve a la <a
-          href="https://www.oracle.com/java/technologies/javase-jdk8-downloads.html"
-          target="_blank">página de descarga del JDK 8</a> y escoge una versión
-        de 32 bits (i586).</div>
-      <h3><a name="Instalar-Eclipse"></a>Instalar Eclipse</h3>
+      <h1 id="toc0">Primeros pasos con OpenXava</h1>
+      Sigue esta guía para crear y ejecutar tu primer proyecto OpenXava.<br>
+      <h2 id="toc2"><a name="Nuestro-objetivo-Una-pequena-aplicacion-de-facturacion"></a>Crear
+        un proyecto nuevo</h2>
     </div>
-    <div class="wiki" style="display: block;"><i>Si ya tienes Eclipse (cualquier
-        versión) en tu máquina sáltate este paso</i> </div>
-    <div class="wiki" style="display: block;">Eclipse es un popular IDE en el
-      mundo Java. OpenXava viene listo para funcionar con Eclipse (aunque <a href="intellij_es.html"
-        target="_blank">IntelliJ IDEA también se soporta</a>). Vas a desarrollar
-      tu aplicación de facturación usando Eclipse. <br>
-    </div>
-    <div class="wiki" style="display: block;">Ve a la <a href="https://www.eclipse.org/downloads/packages/installer"
-        target="_blank">página de descarga de Eclipse</a>:</div>
-    <a href="https://www.eclipse.org/downloads/packages/installer" target="_blank"><img
-        src="files/getting-started005.png" title="getting-started005.png" style="box-shadow: 0px 0px 5px lightgray"></a>
-    <div class="wiki" style="display: block;">Pulsa en el vínculo naranja <span
-        style="color: #ff9900;">64 bit</span> correspondiente a tu sistema
-      operativo para descargar el instalador. Ejecútalo, se mostrarán las
-      siguientes opciones:</div>
-    <img src="files/getting-started007.png" title="getting-started007.png" style="box-shadow: 0px 0px 5px lightgray">
-    <div class="wiki" style="display: block;">Escoge la primera, <i>Eclipse IDE
-        for Java Developers</i>, y sigue el proceso de instalación.</div>
-    <div class="wiki" style="display: block;">Si usas un ordenador de 32 bits <a
-        href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-java-2018-09-win32.zip"
-        target="_blank">descarga Eclipse 2018-09 para Windows 32</a> o <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-java-2018-09-linux-gtk.tar.gz"
-        target="_blank">para Linux 32</a> en lugar de seguir los pasos de
-      arriba.
-      <h3 id="toc3"><a name="Instalar-OpenXava"></a>Instalar OpenXava</h3>
-      Ve a <a href="http://www.openxava.org">www.openxava.org</a> y descarga la
-      última distribución de OpenXava. Es un archivo zip, algo así como <em>openxava-6.x.zip</em>.
-      Simplemente descomprímelo y tendrás un entorno listo para empezar a
-      desarrollar. Algo como esto:<br>
-      <img src="files/getting-started_es010.png" alt="getting-started_es010.png"
-        title="getting-started_es010.png"><br>
-      Como ves, las distribución de OpenXava incluye un workspace de Eclipse
-      configurado y listo para usar. Empecemos a trabajar.<br>
-      <h2 id="toc2"><a name="Crear-el-proyecto-en-Eclipse"></a>Crear el proyecto
-        en Eclipse</h2>
-      <span style="line-height: 1.5;">Arranca tu Eclipse y abre el workspace de
-        OpenXava con él (</span><em><span style="line-height: 1.5;">File &gt;
-          Switch Workspace</span></em><span style="line-height: 1.5;">):</span><br>
-      <img src="files/quick-start_es010.png" alt="quick-start_es010.png" title="quick-start_es010.png"><br>
-      En primer lugar has de crear un proyecto Java nuevo:<br>
+    <div class="wiki" style="display: block;"> En primer lugar has de crear un
+      proyecto Java nuevo:<br>
       <img src="files/getting-started_es020.png" alt="getting-started_es020.png"
         title="getting-started_es020.png"><br>
-      Entonces aparecerá un asistente. Teclea el nombre del proyecto, <em>Facturacion</em>
-      y presiona en Finish:<br>
-      <img src="files/getting-started_es030.png" alt="getting-started_es030.png"
-        title="getting-started_es030.png"><br>
+      Entonces aparecerá un asistente. Teclea el nombre del proyecto, <em>Facturacion</em>.
       Ten cuidado de poner la <em>F</em> de <em>Facturacion</em> en mayúscula
-      y no usar acento, para que los vínculos de abajo funcionen correctamente.</div>
-    <div class="wiki" style="display: block;">Si estás usando Java 9 o superior
-      con una versión reciente de Eclipse, te preguntará:</div>
+      y no usar acento, para que los vínculos de abajo funcionen correctamente.
+      Presiona en <i>Finish</i>:<br>
+      <img src="files/getting-started_es030.png" alt="getting-started_es030.png"
+        title="getting-started_es030.png"></div>
+    <div class="wiki" style="display: block;">Ahora OpenXava Studio te
+      preguntará:</div>
     <img src="files/getting-started_es035.png" alt="Nombre de módulo">
     <div class="wiki" style="display: block;">Pulsa <i>Don't Create</i>.</div>
     <div class="wiki" style="display: block;">Después de esto tendrás un
@@ -138,13 +36,10 @@
       <img src="files/getting-started_es050.png" alt="getting-started_es050.png"
         title="getting-started_es050.png"><br>
       Después de esto has de introducir el nombre de proyecto, teclea <em>Facturacion</em>
-      y presiona OK:<br>
+      y presiona OK. Espera unos pocos segundos hasta que termine y tendrás un
+      proyecto OpenXava completo:<br>
       <img src="files/getting-started_es060.png" alt="getting-started_es060.png"
         title="getting-started_es060.png"><br>
-      Espera unos pocos segundos hasta que termine y tendrás un proyecto
-      OpenXava completo:<br>
-      <img src="files/getting-started_es065.png" alt="getting-started_es065.png"
-        title="getting-started_es065.png"><br>
       Tu proyecto ya está listo para empezar a escribir código.<br>
       <h2 id="toc9"><a name="Crear-tu-primera-entidad"></a>Crear tu primera
         entidad</h2>
@@ -159,9 +54,7 @@
       <img src="files/getting-started_es130.png" alt="getting-started_es130.png"
         title="getting-started_es130.png"><br>
       Fíjate que la <em>C</em> de <em>Cliente</em> está en mayúscula, esto es
-      muy importante, en Java todas las clases empiezan con mayúscula. Has
-      aprendido como crear una clase Java en Eclipse. A partir de ahora no
-      usaremos una figura para eso.<br>
+      muy importante, en Java todas las clases empiezan con mayúscula.<br>
       El código inicial que Eclipse proporciona para <em>Cliente</em> es muy
       simple:</div>
     <div class="wiki" style="display: block;">
@@ -217,16 +110,22 @@ public class Cliente {
       presionando Ctrl-B:<br>
       <img src="files/getting-started_es145.png" alt="getting-started_es145.png"
         title="getting-started_es145.png"><br>
-      Pulsa el botón derecho del ratón en <i>_Run_Facturacion.java</i> (en <i>src/_run</i>)
+      Pulsa el botón derecho del ratón en <i>_Run_Facturacion.java</i> (en <i>Facturacion/src/_run</i>)
       y selecciona <i>Run As &gt; Java Application</i>:<br>
       <img src="files/getting-started_es150.png" alt="getting-started_es150.png"
         title="getting-started_es150.png"><br>
-      Ya tienes tu aplicación ejecutándose. Para verla, abre tu navegador y ve a
-      la URL:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/Facturacion" rel="nofollow"
-        target="_blank">http//:localhost:8080/Facturacion</a><br>
-      Estás viendo tu aplicación por primera vez. Para empezar pulsa en el botón
-      INICIAR SESIÓN:<br>
+      Ya tienes tu aplicación ejecutándose. Para verla, abre tu navegador
+      favorito (Chrome, Firefox, Internet Explorer 11, Edge o Safari) y ve a la
+      siguiente URL:</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <code><i>&nbsp;&nbsp;&nbsp;
+          http://localhost:8080/Facturacion</i></code><br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Estás viendo tu aplicación por
+      primera vez. Para empezar pulsa en el botón INICIAR SESIÓN:<br>
       <img src="files/getting-started_es160.png" alt="getting-started_es160.png"
         title="getting-started_es160.png"></div>
     <div class="wiki" style="display: block;">Ahora, introduce admin/admin y
@@ -245,9 +144,16 @@ public class Cliente {
       <h2 id="toc11"><a name="Modificar-la-aplicacion"></a>Modificar la
         aplicación</h2>
       A partir de ahora, desarrollar con OpenXava es muy fácil. Simplemente,
-      escribes una clase y ya puedes ver el resultado en el navegador.
-      Probémoslo.<br>
-      Crea una nueva entidad para <em>Producto</em> con el siguiente código:</div>
+      escribes una clase y ya puedes ver el resultado en el navegador. Creemos
+      una entidad para <i>Producto</i>.</div>
+    <div class="wiki" style="display: block;">Selecciona el paquete <em>com.tuempresa.facturacion.modelo</em>
+      y pulsa el botón <em>New Java Class</em>:<br>
+      <img src="files/getting-started_es125.png" alt="getting-started_es125.png"
+        title="getting-started_es125.png"><br>
+      Después teclea <em>Producto</em> como nombre de clase y pulsa <em>Finish</em>.<br>
+      <img src="files/getting-started_es193.png" alt="getting-started_es193.png"
+        title="getting-started_es193.png"></div>
+    <div class="wiki" style="display: block;">Escribe el siguiente código para <em>Producto</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
@@ -284,41 +190,105 @@ public class Producto {
     <img src="files/getting-started_es195.png" alt="getting-started_es195.png" title="getting-started_es195.png">
     <div class="wiki" style="display: block;"> Para ver tu nueva entidad en
       acción abre tu navegador y ve a la URL:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/Facturacion/modules/Producto"
-        rel="nofollow" target="_blank">http://localhost:8080/Facturacion/modules/Producto</a><br>
-      Después de identificarte con admin/admin obtendrás:<br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><code><i>&nbsp;&nbsp;&nbsp;
+          http://localhost:8080/Facturacion/modules/Producto</i></code><br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Después de identificarte con
+      admin/admin obtendrás:<br>
       <img src="files/getting-started_es200.png" alt="getting-started_es200.png"
         title="getting-started_es200.png"><br>
       Sí, ya tienes un nuevo módulo en marcha, y solo has tenido que escribir
-      una simple clase. Ahora puedes concentrarte en hacer crecer tu aplicación.<br>
-      <h2 id="toc12"><a name="Resumen"></a>Resumen</h2>
-      Después de esta lección tienes instalado Eclipse y OpenXava. Además, lo
-      tienes configurado todo para poder trabajar. Ahora, tienes tu entorno
-      listo para desarrollar tu aplicación.<br>
-      También, tienes una primera versión de tu aplicación <em>Facturacion</em>
-      funcionando.<br>
-      Pero lo más importante es que has aprendido cómo crear un nuevo proyecto,
-      una nueva clase, cómo ejecutar un módulo OpenXava y algunas otra cosas
-      útiles que usarás en el resto del curso.<br>
-      Ya estás listo para pasar a la siguiente lección, sin embargo deberías
-      considerar adquirir un poco de conocimiento base, tal como:<br>
-      <ul>
-        <li>Si eres nuevo en Java deberías leer un libro de introducción a Java
-          o leerte el <a class="wiki_link_ext" href="https://docs.oracle.com/javase/tutorial/"
-            rel="nofollow">Tutorial de Java</a>.</li>
-        <li>Si estás interesado en la filosofía y arquitectura de OpenXava <a class="wiki_link"
-            href="philosophy_es.html">lee el apéndice A</a> de este curso.</li>
-        <li>Los apéndices B y C sobre <a class="wiki_link" href="jpa_es.html">Java
-            Persistence API</a> y <a class="wiki_link" href="annotations_es.html">anotaciones</a>
-          te serán de mucha utilidad.</li>
-      </ul>
-      <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-1-getting-started_es.zip/download"
-          rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
-      <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
-        <a class="wiki_link" href="modeling_es.html">Ve a la lección 2</a></strong>
-    </div>
+      una simple clase. Ahora puedes concentrarte en hacer crecer tu aplicación.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">¿Has tenido problemas?</h2>
+      ¡Enhorabuena! Has creado tu primera aplicación OpenXava. Si no ha sido así
+      y has tenido algún problema con el ejemplo de arriba, pregunta en el foro:
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;">&nbsp;&nbsp;&nbsp; <strong><a class="wiki_link_ext"
+            href="http://sourceforge.net/p/openxava/discussion/437013/" rel="nofollow">Pregunta
+            en el foro</a></strong><strong><a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+            rel="nofollow"></a></strong></div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;">Te ayudaremos a resolver
+        cualquier dificultad.<br>
+        <h2 id="toc12">Siguientes pasos</h2>
+      </div>
+      <div class="wiki" style="display: block;">Esta guía de primeros pasos es
+        la lección 1 de un curso completo de OpenXava. Este curso te enseñará
+        cómo desarrollar aplicaciones empresariales con OpenXava, así como con
+        otras tecnologías, herramientas y marcos de trabajo Java.
+        Desarrollaremos paso a paso una aplicación completa desde cero. Se trata
+        de una pequeña aplicación de facturación con facturas, clientes,
+        productos y así por el estilo. Esta aplicación es una mera excusa para
+        aprender algunos casos típicos en aplicaciones de gestión. Puedes
+        aplicar todo lo que aprendas con esta aplicación a cualquier otra
+        aplicación de gestión en cualquier otro dominio.<br>
+        <br>
+        Este es el contenido del curso:
+        <ul>
+          <li>Lección 1: Primeros pasos <i>(Estás aquí)</i> </li>
+          <li><a class="wiki_link" href="modeling_es.html">Lección 2: Modelar
+              con Java</a> <i>(Tu siguiente paso)</i> </li>
+          <li><a class="wiki_link" href="testing_es.html">Lección 3: Pruebas
+              automáticas</a></li>
+          <li><a class="wiki_link" href="inheritance_es.html">Lección 4:
+              Herencia</a></li>
+          <li><a class="wiki_link" href="basic-business-logic_es.html">Lección
+              5: Lógica de negocio básica</a></li>
+          <li><a class="wiki_link" href="validation_es.html">Lección 6:
+              Validación avanzada</a></li>
+          <li><a class="wiki_link" href="refining-standard-behavior_es.html">Lección
+              7: Refinar el comportamiento predefinido</a></li>
+          <li><a class="wiki_link" href="business-logic-behavior_es.html">Lección
+              8: Comportamiento y lógica de negocio</a></li>
+          <li><a class="wiki_link" href="references-collections_es.html">Lección
+              9: Referencias y colecciones</a></li>
+          <li><a class="wiki_link" href="philosophy_es.html">Apéndice A:
+              Arquitectura y filosofía</a></li>
+          <li><a class="wiki_link" href="jpa_es.html">Apéndice B: Java
+              Persistence API</a></li>
+          <li><a class="wiki_link" href="annotations_es.html">Apéndice C:
+              Anotaciones</a></li>
+        </ul>
+        <p><br>
+        </p>
+      </div>
+      <div class="wiki" style="display: block;"> Ya estás listo para pasar a la
+        siguiente lección, sin embargo deberías considerar adquirir un poco de
+        conocimiento base, tal como:<br>
+        <ul>
+          <li>Si eres nuevo en Java deberías leer un libro de introducción a
+            Java o leerte el <a class="wiki_link_ext" href="https://docs.oracle.com/javase/tutorial/"
+              rel="nofollow">Tutorial de Java</a>.</li>
+          <li>Si estás interesado en la filosofía y arquitectura de OpenXava <a
+              class="wiki_link" href="philosophy_es.html">lee el apéndice A</a>
+            de este curso.</li>
+          <li>Los apéndices B y C sobre <a class="wiki_link" href="jpa_es.html">Java
+              Persistence API</a> y <a class="wiki_link" href="annotations_es.html">anotaciones</a>
+            te serán de mucha utilidad.</li>
+        </ul>
+      </div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;">¿Quieres usar IntelliJ? ¿Quieres
+        ir contra MySQL, PostgreSQL, Oracle, Microsoft SQL Server, AS/400,
+        Informix, Db2 o Firebird? ¿Quieres una guía de referencia detallada?
+        Echa un vistazo a <a href="index_es.html">la documentación de OpenXava</a>,
+        que incluye todo esto y mucho más.
+        <ul>
+        </ul>
+        <br>
+        <strong>¿Preparado? </strong><strong> <a class="wiki_link" href="modeling_es.html">Ve
+            a la lección 2</a></strong></div>
+      <div class="wiki" style="display: block;"><strong><a class="wiki_link" href="modeling_es.html"><br>
+          </a></strong></div>
+      <strong></strong> </div>
   </body>
 </html>

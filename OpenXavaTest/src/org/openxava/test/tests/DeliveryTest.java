@@ -17,7 +17,7 @@ import com.gargoylesoftware.htmlunit.html.*;
 /**
  * 
  * @author Javier Paniza
- * @author Federico Alcï¿½ntara
+ * @author Federico Alcántara
  */
 
 public class DeliveryTest extends ModuleTestBase {
@@ -50,7 +50,7 @@ public class DeliveryTest extends ModuleTestBase {
 		super(testName, "Delivery");		
 	}
 	
-	public void testChangeNameOfGroupAndSection() throws Exception{
+	public void testChangeNameOfGroupAndSection() throws Exception {  
 		execute("CRUD.new");
 		assertLabel("number", "Number");
 		assertLabel("deliveryData", "Delivery data");
