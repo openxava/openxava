@@ -1,22 +1,41 @@
 <html>
   <head>
-    <title>openxava - ejb3_en</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>EJB3 JPA - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#EJB3 JPA">EJB3 JPA</a></div>
-<div style="margin-left: 2em;"><a href="#EJB3 JPA-Configure your application to work with EJB3">Configure your application to work with EJB3</a></div>
-<div style="margin-left: 2em;"><a href="#EJB3 JPA-Using JPA in your code">Using JPA in your code</a></div>
-<div style="margin-left: 2em;"><a href="#EJB3 JPA-Using JPA from a validator or a callback method">Using JPA from a validator or a callback method</a></div>
-</div>
-<h1 id="toc0"><a name="EJB3 JPA"></a>EJB3 JPA</h1>
- OpenXava supports EJB3 JPA since the version 2.1.<br />
-<h2 id="toc1"><a name="EJB3 JPA-Configure your application to work with EJB3"></a>Configure your application to work with EJB3</h2>
- Since v3.0 JPA is the default persistence engine, so you have to do nothing. But if you are using a v2.1 or v2.2 and you want to use JPA then edit the file <em>properties/xava.properties</em> of your project, and leave it in this way:<br />
-
-<style type="text/css"><!--
+      <h1 id="toc0"><a name="EJB3 JPA"></a>
+        <span id="breadcrumbs">
+          <span id="openxava">
+          	<a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava
+            </a>
+          </span>  
+          / <a href="index_en.html">documentation</a> /  
+				</span>                       
+        EJB3 JPA
+      </h1>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#EJB3%20JPA">EJB3 JPA</a></div>
+        <div style="margin-left: 2em;"><a href="#EJB3%20JPA-Configure%20your%20application%20to%20work%20with%20EJB3">Configure
+            your application to work with EJB3</a></div>
+        <div style="margin-left: 2em;"><a href="#EJB3%20JPA-Using%20JPA%20in%20your%20code">Using
+            JPA in your code</a></div>
+        <div style="margin-left: 2em;"><a href="#EJB3%20JPA-Using%20JPA%20from%20a%20validator%20or%20a%20callback%20method">Using
+            JPA from a validator or a callback method</a></div>
+      </div>
+      
+      OpenXava supports EJB3 JPA since the version 2.1.<br>
+      <h2 id="toc1"><a name="EJB3 JPA-Configure your application to work with EJB3"></a>Configure
+        your application to work with EJB3</h2>
+      Since v3.0 JPA is the default persistence engine, so you have to do
+      nothing. But if you are using a v2.1 or v2.2 and you want to use JPA then
+      edit the file <em>properties/xava.properties</em> of your project, and
+      leave it in this way:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -29,13 +48,22 @@
 </style><pre class="text"># EJB3 Java Persistence API
 persistenceProviderClass=org.openxava.model.impl.JPAPersistenceProvider
 mapFacadeAsEJB=false</pre>
+      From now on, your application will use EJB3 JPA instead of Hibernate to
+      manage object persistence.<br>
+      <h2 id="toc2"><a name="EJB3 JPA-Using JPA in your code"></a>Using JPA in
+        your code</h2>
+      You can use the standard <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Java_Persistence_API"
 
-From now on, your application will use EJB3 JPA instead of Hibernate to manage object persistence.<br />
-<h2 id="toc2"><a name="EJB3 JPA-Using JPA in your code"></a>Using JPA in your code</h2>
- You can use the standard <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Java_Persistence_API" rel="nofollow">Java Persistence API</a> in any part of an OpenXava application, that is, inside calculators, validators, actions, filters, etc.<br />
-In order to facilitate the use of JPA OpenXava provides the <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/jpa/XPersistence.html" rel="nofollow">XPersistence</a></em> class. For example, if you wish to store an object in a database using the JPA, the normal way would be:<br />
+        rel="nofollow">Java Persistence API</a> in any part of an OpenXava
+      application, that is, inside calculators, validators, actions, filters,
+      etc.<br>
+      In order to facilitate the use of JPA OpenXava provides the <em><a class="wiki_link_ext"
 
-<style type="text/css"><!--
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/jpa/XPersistence.html"
+
+          rel="nofollow">XPersistence</a></em> class. For example, if you wish
+      to store an object in a database using the JPA, the normal way would be:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -222,17 +250,34 @@ In order to facilitate the use of JPA OpenXava provides the <em><a class="wiki_l
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">EntityManagerFactory f = Persistence.<span class="me1">createEntityManagerFactory</span><span class="br0">&#40;</span><span class="st0">&quot;default&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-EntityManager manager = f.<span class="me1">createEntityManager</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-manager.<span class="me1">getTransaction</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">begin</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+</style><pre class="java5">EntityManagerFactory f = Persistence.<span class="me1">createEntityManagerFactory</span><span
+
+class="br0">(</span><span class="st0">"default"</span><span class="br0">)</span><span
+
+class="sy0">;</span>
+EntityManager manager = f.<span class="me1">createEntityManager</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+manager.<span class="me1">getTransaction</span><span class="br0">(</span><span class="br0">)</span>.<span
+
+class="me1">begin</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span>
 Customer customer = ... <span class="sy0">;</span>
-manager.<span class="me1">persist</span><span class="br0">&#40;</span>customer<span class="br0">&#41;</span><span class="sy0">;</span>
-manager.<span class="me1">getTransaction</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">commit</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-manager.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+manager.<span class="me1">persist</span><span class="br0">(</span>customer<span
 
-But, inside OpenXava and using <em>XPersistence</em> class you can write this:<br />
+class="br0">)</span><span class="sy0">;</span>
+manager.<span class="me1">getTransaction</span><span class="br0">(</span><span class="br0">)</span>.<span
 
-<style type="text/css"><!--
+class="me1">commit</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span>
+manager.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span></pre>
+      But, inside OpenXava and using <em>XPersistence</em> class you can write
+      this:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -420,16 +465,36 @@ But, inside OpenXava and using <em>XPersistence</em> class you can write this:<b
 
 -->
 </style><pre class="java5">Customer customer = ... <span class="sy0">;</span>
-XPersistence.<span class="me1">getManager</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">persist</span><span class="br0">&#40;</span>customer<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+XPersistence.<span class="me1">getManager</span><span class="br0">(</span><span
 
-No more.<br />
-The first time that you call to <em>XPersistence.getManager()</em> a manager is created and assigned to the current thread and a transaction is created too; the next time that you call it, the same manager is used. At the end of the complete cycle of action execution, OpenXava commits automatically the transaction and closes the manager.<br />
-You can optionally commit the transaction in any moment calling to <em>XPersistence.commit()</em>, if after this you use <em>XPersistence.getManager()</em> an new manager and a new transaction are created for you.<br />
-You can learn more seeing the API doc of <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/jpa/XPersistence.html" rel="nofollow">org.openxava.jpa.XPersistence</a></em> class.<br />
-<h2 id="toc3"><a name="EJB3 JPA-Using JPA from a validator or a callback method"></a>Using JPA from a validator or a callback method</h2>
- Both validators and callback methods can be executed in flush time, so if you use <em>XPersistence.getManager()</em> from them it can produce problems. If you need to use JPA in your validator or callback method, you will need to open a separate entity manager by means of <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/jpa/XPersistence.html#createManager%28%29" rel="nofollow">XPersistence.createManager()</a></em> (so that JPA does not flush your ongoing create or update). Use code like the following to obtain and use a new EntityManager instance:<br />
+class="br0">)</span>.<span class="me1">persist</span><span class="br0">(</span>customer<span
 
-<style type="text/css"><!--
+class="br0">)</span><span class="sy0">;</span></pre>
+      No more.<br>
+      The first time that you call to <em>XPersistence.getManager()</em> a
+      manager is created and assigned to the current thread and a transaction is
+      created too; the next time that you call it, the same manager is used. At
+      the end of the complete cycle of action execution, OpenXava commits
+      automatically the transaction and closes the manager.<br>
+      You can optionally commit the transaction in any moment calling to <em>XPersistence.commit()</em>,
+      if after this you use <em>XPersistence.getManager()</em> an new manager
+      and a new transaction are created for you.<br>
+      You can learn more seeing the API doc of <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/jpa/XPersistence.html"
+
+          rel="nofollow">org.openxava.jpa.XPersistence</a></em> class.<br>
+      <h2 id="toc3"><a name="EJB3 JPA-Using JPA from a validator or a callback method"></a>Using
+        JPA from a validator or a callback method</h2>
+      Both validators and callback methods can be executed in flush time, so if
+      you use <em>XPersistence.getManager()</em> from them it can produce
+      problems. If you need to use JPA in your validator or callback method, you
+      will need to open a separate entity manager by means of <em><a class="wiki_link_ext"
+
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/jpa/XPersistence.html#createManager%28%29"
+
+          rel="nofollow">XPersistence.createManager()</a></em> (so that JPA does
+      not flush your ongoing create or update). Use code like the following to
+      obtain and use a new EntityManager instance:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -616,11 +681,14 @@ You can learn more seeing the API doc of <em><a class="wiki_link_ext" href="http
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">EntityManager em = XPersistence.<span class="me1">createManager</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-<span class="co1">//... query logic</span>
-em.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// You have to close the manager</span></pre>
+</style><pre class="java5">EntityManager em = XPersistence.<span class="me1">createManager</span><span
 
-Also be aware of possible troubles with isolation levels and record locking when using this technique.
-    </div>
+class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="co1">//... query logic</span>
+em.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span> <span class="co1">// You have to close the manager</span></pre>
+      Also be aware of possible troubles with isolation levels and record
+      locking when using this technique. </div>
   </body>
 </html>

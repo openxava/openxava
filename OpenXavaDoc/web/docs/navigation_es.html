@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - navigation_es</title>
+    <title>Navegación entre módulos - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,8 +9,16 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Navegación entre módulos"></a>
+        <span id="breadcrumbs"> 
+        	<span id="openxava"> 
+            <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> 
+          / <a href="index_es.html">documentación</a> / 
+        </span>
+        Navegación entre módulos</h1>
       <div id="toc">
-        <h1 class="nopad">Table of Contents</h1>
+        <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#toc0">Navegación entre módulos</a></div>
         <div style="margin-left: 2em;"><a href="#toc1">Menús</a></div>
         <div style="margin-left: 2em;"><a href="#toc2">Carpetas</a></div>
@@ -19,8 +27,6 @@
         <div style="margin-left: 2em;"><a href="#toc4">Personalización del
             comportamiento</a></div>
       </div>
-      <h1 id="toc0"><a name="Navegación entre módulos"></a>Navegación entre
-        módulos</h1>
       <h2 id="toc1"><a name="Navegación entre módulos-Menús"></a>Menús</h2>
       En la izquierda tienes una lista con todos los módulos, pulsa uno para
       abrirlo:<br>
@@ -34,7 +40,8 @@
       Se trata de crear una nueva carpeta y asignarle algunos módulos. Si
       quieres traducir el nombre de la carpeta, úsalo como clave en los archivos
       i18n de etiquetas.<br>
-      El menú jerárquico está disponible sólo en <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
+      El menú jerárquico está disponible sólo en <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
+
         rel="nofollow">XavaPro</a>. El OpenXava normal usa una lista de módulos
       con una caja de búsqueda.<br>
       <h2 id="toc3"><a name="Navegación entre módulos-Títulos y descripciones para los módulos y la aplicación"></a>Títulos
@@ -65,7 +72,8 @@ Pedido.module[description]=Crea y gestiona pedidos, además genera facturas a pa
       Con la entradas de arriba OpenXava sabe como visualizar el nombre y la
       descripción de los módulos <em>Factura</em> y <em>Pedido</em> en
       español.<br>
-      <img src="files/naviox-module-labels_es.png" alt="naviox-module-labels_es.png"
+      <img src="files/naviox-module-labels_es.png" alt="naviox-module-labels_es.png"
+
         title="naviox-module-labels_es.png"></div>
     <div class="wiki" style="display: block;">A partir de v6.0 la descripciones
       de los módulos ya no se usan, en el menú sólo aparece el nombre de los
@@ -73,7 +81,8 @@ Pedido.module[description]=Crea y gestiona pedidos, además genera facturas a pa
     </div>
     <div class="wiki" style="display: block;">El nombre de la aplicación se
       muestra en la esquina superior izquierda de la página:<br>
-      <img src="files/naviox-application-name_es.png" alt="naviox-application-name_es.png"
+      <img src="files/naviox-application-name_es.png" alt="naviox-application-name_es.png"
+
         title="naviox-application-name_es.png"><br>
       Si no quieres mostrar el nombre de la aplicación añade la entrada <em>showApplicationName</em>
       <em>(nueva en v5.5)</em> en tu <em>naviox.properties</em> (situado en la
@@ -94,7 +103,8 @@ Pedido.module[description]=Crea y gestiona pedidos, además genera facturas a pa
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">showApplicationName</span><span
+</style><pre class="properties"><span class="re0">showApplicationName</span><span
+
 class="sy0">=</span><span class="re1">false</span></pre>
       <h2 id="toc4"><a name="Navegación entre módulos-Personalización del comportamiento"></a>Personalización
         del comportamiento</h2>
@@ -310,7 +320,8 @@ class="sy0">=</span><span class="re1">false</span></pre>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">initialModule</span><span class="sy0">=</span><span
+</style><pre class="properties"><span class="re0">initialModule</span><span class="sy0">=</span><span
+
 class="re1">MiModuloInicial</span></pre>
         Si usas una versión anterior a la 6.3.2 edita <em>firstSteps.jsp</em>,
         localizado en <em>web/naviox</em>, quita todo su contenido y pon una
@@ -341,7 +352,8 @@ class="re1">MiModuloInicial</span></pre>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0"># Hasta v5.9.1<br>rememberVisitedModules</span><span
+</style><pre class="properties"><span class="re0"># Hasta v5.9.1<br>rememberVisitedModules</span><span
+
 class="sy0">=</span><span class="re1">false</span></pre>
       La propiedad <i>rememberVisitedModules</i> no está disponible desde la
       versión 6.0.<br>
@@ -364,7 +376,8 @@ class="sy0">=</span><span class="re1">false</span></pre>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">showModulesMenuWhenNotLogged</span><span
+</style><pre class="properties"><span class="re0">showModulesMenuWhenNotLogged</span><span
+
 class="sy0">=</span><span class="re1">false</span></pre>
       El el menú de módulos no se mostrará incluso si hay módulos disponible
       para los usuarios no identificados.<br>
@@ -386,7 +399,8 @@ class="sy0">=</span><span class="re1">false</span></pre>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">fixModulesOnTopMenu</span><span
+</style><pre class="properties"><span class="re0">fixModulesOnTopMenu</span><span
+
 class="sy0">=</span><span class="re1">Invoice, Order</span></pre>
       Como valor pon la lista de módulos separados por comas. Los módulos
       estarán siempre presentes en la barra superior, a no ser que el usuario no

@@ -1,19 +1,38 @@
 <html>
   <head>
-    <title>openxava - access-tracking_en</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Access tracking - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-<h1 id="toc0"><a name="Access tracking (new in v5.9)"></a>Access tracking <em>(new in v5.9)</em></h1>
- <em>In OpenXava v4.x you can use the <a class="wiki_link" href="access-tracking-old_en.html">old AccessTracking project</a>. Other alternative for auditing is <a class="wiki_link" href="audit_en.html">Hibernate Envers</a>.</em><br />
-<br />
-OpenXava has a mechanism to track any change done by users to the data and also read access. This mechanism is totally configurable and it's disable by default.<br />
-<h2 id="toc1"><a name="Access tracking (new in v5.9)-Access tracker custom implementation"></a>Access tracker custom implementation</h2>
- To track the data access you need an <em><a class="wiki_link_ext" href="http://openxava.org/OpenXavaDoc/apidocs/org/openxava/util/IAccessTrackerProvider.html" rel="nofollow">IAccessTrackerProvider</a></em> (an interface from <em>org.openxava.util</em>). Creating one is easy, just create a class that implement that interface, like the next one:<br />
+      <h1 id="toc0"><a name="Access tracking (new in v5.9)"></a>
+        <span id="breadcrumbs">
+          <span id="openxava">
+          	<a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava
+            </a>
+          </span>  
+          / <a href="index_en.html">documentation</a> /  
+				</span>                               
+        Access tracking <em>(new in v5.9)</em>
+      </h1>
+      <em>In OpenXava v4.x you can use the <a class="wiki_link" href="access-tracking-old_en.html">old
+          AccessTracking project</a>. Other alternative for auditing is <a class="wiki_link"
 
-<style type="text/css"><!--
+          href="audit_en.html">Hibernate Envers</a>.</em><br>
+      <br>
+      OpenXava has a mechanism to track any change done by users to the data and
+      also read access. This mechanism is totally configurable and it's disable
+      by default.<br>
+      <h2 id="toc1"><a name="Access tracking (new in v5.9)-Access tracker custom implementation"></a>Access
+        tracker custom implementation</h2>
+      To track the data access you need an <em><a class="wiki_link_ext" href="http://openxava.org/OpenXavaDoc/apidocs/org/openxava/util/IAccessTrackerProvider.html"
+
+          rel="nofollow">IAccessTrackerProvider</a></em> (an interface from <em>org.openxava.util</em>).
+      Creating one is easy, just create a class that implement that interface,
+      like the next one:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -200,82 +219,273 @@ OpenXava has a mechanism to track any change done by users to the data and also 
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.util</span><span class="sy0">;</span>
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.util</span><span
+
+class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.io.*</span><span class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.apache.commons.logging.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.application.meta.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.apache.commons.logging.*</span><span
+
+class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.application.meta.*</span><span
+
+class="sy0">;</span>
 &nbsp;
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> LogAccessTrackerProvider <span class="kw2">implements</span> IAccessTrackerProvider <span class="br0">&#123;</span>
+<span class="kw2">public</span> <span class="kw2">class</span> LogAccessTrackerProvider <span
+
+class="kw2">implements</span> IAccessTrackerProvider <span class="br0">{</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw2">static</span> Log log = LogFactory.<span class="me1">getLog</span><span class="br0">&#40;</span>LogAccessTrackerProvider.<span class="kw2">class</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw2">private</span> <span class="kw2">static</span> Log log = LogFactory.<span
+
+class="me1">getLog</span><span class="br0">(</span>LogAccessTrackerProvider.<span
+
+class="kw2">class</span><span class="br0">)</span><span class="sy0">;</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> fileName<span class="sy0">;</span>
+    <span class="kw2">private</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> fileName<span class="sy0">;</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> consulted<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> modelName, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span class="kw46">Map</span></a> key<span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        log<span class="br0">&#40;</span><span class="st0">&quot;CONSULTED: user=&quot;</span> + Users.<span class="me1">getCurrent</span><span class="br0">&#40;</span><span class="br0">&#41;</span> +    <span class="st0">&quot;, model=&quot;</span> + modelName + <span class="st0">&quot;, key=&quot;</span> + key<span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> consulted<span
+
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> modelName, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
+class="kw46">Map</span></a> key<span class="br0">)</span> <span class="br0">{</span>
+        log<span class="br0">(</span><span class="st0">"CONSULTED: user="</span> + Users.<span
+
+class="me1">getCurrent</span><span class="br0">(</span><span class="br0">)</span> +    <span
+
+class="st0">", model="</span> + modelName + <span class="st0">", key="</span> + key<span
+
+class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> created<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> modelName, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span class="kw46">Map</span></a> key<span class="br0">&#41;</span> <span class="br0">&#123;</span>
-           log<span class="br0">&#40;</span><span class="st0">&quot;CREATED: user=&quot;</span> + Users.<span class="me1">getCurrent</span><span class="br0">&#40;</span><span class="br0">&#41;</span> +    <span class="st0">&quot;, model=&quot;</span> + modelName + <span class="st0">&quot;, key=&quot;</span> + key<span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> created<span class="br0">(</span><a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> modelName, <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span class="kw46">Map</span></a> key<span
+
+class="br0">)</span> <span class="br0">{</span>
+           log<span class="br0">(</span><span class="st0">"CREATED: user="</span> + Users.<span
+
+class="me1">getCurrent</span><span class="br0">(</span><span class="br0">)</span> +    <span
+
+class="st0">", model="</span> + modelName + <span class="st0">", key="</span> + key<span
+
+class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> modified<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> modelName, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span class="kw46">Map</span></a> key, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a><span class="sy0">&gt;</span> oldChangedValues, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a><span class="sy0">&gt;</span> newChangedValues<span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/StringBuffer.html"><span class="kw21">StringBuffer</span></a> changes = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/StringBuffer.html"><span class="kw21">StringBuffer</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="kw1">for</span> <span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> property: oldChangedValues.<span class="me1">keySet</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
-            <span class="kw1">if</span> <span class="br0">&#40;</span>changes.<span class="me1">length</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span> changes.<span class="me1">append</span><span class="br0">&#40;</span><span class="st0">&quot;, &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-            changes.<span class="me1">append</span><span class="br0">&#40;</span>Labels.<span class="me1">getQualified</span><span class="br0">&#40;</span>property<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-            changes.<span class="me1">append</span><span class="br0">&#40;</span><span class="st0">&quot;: &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-            changes.<span class="me1">append</span><span class="br0">&#40;</span>Strings.<span class="me1">toString</span><span class="br0">&#40;</span>oldChangedValues.<span class="me1">get</span><span class="br0">&#40;</span>property<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-            changes.<span class="me1">append</span><span class="br0">&#40;</span><span class="st0">&quot; --&gt; &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-            changes.<span class="me1">append</span><span class="br0">&#40;</span>Strings.<span class="me1">toString</span><span class="br0">&#40;</span>newChangedValues.<span class="me1">get</span><span class="br0">&#40;</span>property<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="br0">&#125;</span>
-        log<span class="br0">&#40;</span><span class="st0">&quot;MODIFIED: user=&quot;</span> + Users.<span class="me1">getCurrent</span><span class="br0">&#40;</span><span class="br0">&#41;</span> +    <span class="st0">&quot;, model=&quot;</span> + modelName + <span class="st0">&quot;, key=&quot;</span> + key + <span class="st0">&quot;, changes=&quot;</span> + changes<span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> modified<span
+
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> modelName, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
+class="kw46">Map</span></a> key, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
+class="kw46">Map</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span> oldChangedValues, <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span class="kw46">Map</span></a><span
+
+class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a><span class="sy0">&gt;</span> newChangedValues<span
+
+class="br0">)</span> <span class="br0">{</span>
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/StringBuffer.html"><span
+
+class="kw21">StringBuffer</span></a> changes = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/StringBuffer.html"><span
+
+class="kw21">StringBuffer</span></a><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span>
+        <span class="kw1">for</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> property: oldChangedValues.<span class="me1">keySet</span><span
+
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span>
+            <span class="kw1">if</span> <span class="br0">(</span>changes.<span
+
+class="me1">length</span><span class="br0">(</span><span class="br0">)</span> <span
+
+class="sy0">&gt;</span> <span class="nu0">0</span><span class="br0">)</span> changes.<span
+
+class="me1">append</span><span class="br0">(</span><span class="st0">", "</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+            changes.<span class="me1">append</span><span class="br0">(</span>Labels.<span
+
+class="me1">getQualified</span><span class="br0">(</span>property<span class="br0">)</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+            changes.<span class="me1">append</span><span class="br0">(</span><span
+
+class="st0">": "</span><span class="br0">)</span><span class="sy0">;</span>
+            changes.<span class="me1">append</span><span class="br0">(</span>Strings.<span
+
+class="me1">toString</span><span class="br0">(</span>oldChangedValues.<span class="me1">get</span><span
+
+class="br0">(</span>property<span class="br0">)</span><span class="br0">)</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+            changes.<span class="me1">append</span><span class="br0">(</span><span
+
+class="st0">" --&gt; "</span><span class="br0">)</span><span class="sy0">;</span>
+            changes.<span class="me1">append</span><span class="br0">(</span>Strings.<span
+
+class="me1">toString</span><span class="br0">(</span>newChangedValues.<span class="me1">get</span><span
+
+class="br0">(</span>property<span class="br0">)</span><span class="br0">)</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+        log<span class="br0">(</span><span class="st0">"MODIFIED: user="</span> + Users.<span
+
+class="me1">getCurrent</span><span class="br0">(</span><span class="br0">)</span> +    <span
+
+class="st0">", model="</span> + modelName + <span class="st0">", key="</span> + key + <span
+
+class="st0">", changes="</span> + changes<span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> removed<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> modelName, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span class="kw46">Map</span></a> key<span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        log<span class="br0">&#40;</span><span class="st0">&quot;REMOVED: user=&quot;</span> + Users.<span class="me1">getCurrent</span><span class="br0">&#40;</span><span class="br0">&#41;</span> +    <span class="st0">&quot;, model=&quot;</span> + modelName + <span class="st0">&quot;, key=&quot;</span> + key<span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> removed<span class="br0">(</span><a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> modelName, <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span class="kw46">Map</span></a> key<span
+
+class="br0">)</span> <span class="br0">{</span>
+        log<span class="br0">(</span><span class="st0">"REMOVED: user="</span> + Users.<span
+
+class="me1">getCurrent</span><span class="br0">(</span><span class="br0">)</span> +    <span
+
+class="st0">", model="</span> + modelName + <span class="st0">", key="</span> + key<span
+
+class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw2">static</span> <span class="kw3">void</span> log<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> line<span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        <span class="kw2">try</span> <span class="br0">&#123;</span>
-            createFileIfNotExist<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-            <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/FileOutputStream.html"><span class="kw20">FileOutputStream</span></a> f = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/FileOutputStream.html"><span class="kw20">FileOutputStream</span></a><span class="br0">&#40;</span>getFileName<span class="br0">&#40;</span><span class="br0">&#41;</span>, <span class="kw4">true</span><span class="br0">&#41;</span><span class="sy0">;</span>
-            <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/PrintStream.html"><span class="kw20">PrintStream</span></a> p = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/PrintStream.html"><span class="kw20">PrintStream</span></a><span class="br0">&#40;</span>f<span class="br0">&#41;</span><span class="sy0">;</span>
-            p.<span class="me1">println</span><span class="br0">&#40;</span>line<span class="br0">&#41;</span><span class="sy0">;</span>
-            p.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-            f.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="br0">&#125;</span>
-        <span class="kw2">catch</span> <span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> ex<span class="br0">&#41;</span> <span class="br0">&#123;</span>
-            log.<span class="me1">warn</span><span class="br0">&#40;</span>XavaResources.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;log_tracker_log_failed&quot;</span><span class="br0">&#41;</span>, ex<span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="br0">&#125;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">private</span> <span class="kw2">static</span> <span class="kw3">void</span> log<span
+
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> line<span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">try</span> <span class="br0">{</span>
+            createFileIfNotExist<span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span>
+            <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/FileOutputStream.html"><span
+
+class="kw20">FileOutputStream</span></a> f = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/FileOutputStream.html"><span
+
+class="kw20">FileOutputStream</span></a><span class="br0">(</span>getFileName<span
+
+class="br0">(</span><span class="br0">)</span>, <span class="kw4">true</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+            <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/PrintStream.html"><span
+
+class="kw20">PrintStream</span></a> p = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/PrintStream.html"><span
+
+class="kw20">PrintStream</span></a><span class="br0">(</span>f<span class="br0">)</span><span
+
+class="sy0">;</span>
+            p.<span class="me1">println</span><span class="br0">(</span>line<span
+
+class="br0">)</span><span class="sy0">;</span>
+            p.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span>
+            f.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span>
+        <span class="br0">}</span>
+        <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
+class="kw21">Exception</span></a> ex<span class="br0">)</span> <span class="br0">{</span>
+            log.<span class="me1">warn</span><span class="br0">(</span>XavaResources.<span
+
+class="me1">getString</span><span class="br0">(</span><span class="st0">"log_tracker_log_failed"</span><span
+
+class="br0">)</span>, ex<span class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw2">static</span> <span class="kw3">void</span> createFileIfNotExist<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> <span class="br0">&#123;</span>
-        Files.<span class="me1">createFileIfNotExist</span><span class="br0">&#40;</span>getFileName<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">private</span> <span class="kw2">static</span> <span class="kw3">void</span> createFileIfNotExist<span
+
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
+class="kw21">Exception</span></a> <span class="br0">{</span>
+        Files.<span class="me1">createFileIfNotExist</span><span class="br0">(</span>getFileName<span
+
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getFileName<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        <span class="kw1">if</span> <span class="br0">&#40;</span>fileName == <span class="kw4">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
-            <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span class="kw46">Collection</span></a> applicationNames = MetaApplications.<span class="me1">getApplicationsNames</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-            <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> app = <span class="st0">&quot;openxava-app&quot;</span><span class="sy0">;</span>
-            <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>applicationNames.<span class="me1">isEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> app = applicationNames.<span class="me1">iterator</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">next</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">toString</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">toLowerCase</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-            fileName = Files.<span class="me1">getOpenXavaBaseDir</span><span class="br0">&#40;</span><span class="br0">&#41;</span> + app + <span class="st0">&quot;-access.log&quot;</span><span class="sy0">;</span>
-        <span class="br0">&#125;</span>
+    <span class="kw2">private</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> getFileName<span class="br0">(</span><span class="br0">)</span> <span
+
+class="br0">{</span>
+        <span class="kw1">if</span> <span class="br0">(</span>fileName == <span
+
+class="kw4">null</span><span class="br0">)</span> <span class="br0">{</span>
+            <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+
+class="kw46">Collection</span></a> applicationNames = MetaApplications.<span class="me1">getApplicationsNames</span><span
+
+class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+            <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> app = <span class="st0">"openxava-app"</span><span
+
+class="sy0">;</span>
+            <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>applicationNames.<span
+
+class="me1">isEmpty</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="br0">)</span> app = applicationNames.<span class="me1">iterator</span><span
+
+class="br0">(</span><span class="br0">)</span>.<span class="me1">next</span><span
+
+class="br0">(</span><span class="br0">)</span>.<span class="me1">toString</span><span
+
+class="br0">(</span><span class="br0">)</span>.<span class="me1">toLowerCase</span><span
+
+class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+            fileName = Files.<span class="me1">getOpenXavaBaseDir</span><span class="br0">(</span><span
+
+class="br0">)</span> + app + <span class="st0">"-access.log"</span><span class="sy0">;</span>
+        <span class="br0">}</span>
         <span class="kw2">return</span> fileName<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="br0">}</span>
 &nbsp;
-<span class="br0">&#125;</span></pre>
-
-This is the simplest possible implementation, just it registers the accesses in a log file. Note that you have to implement four simple methods: <em>consulted()</em>, <em>created()</em>, <em>modified()</em> and <em>removed()</em>. You can write your own tracker provider to include more data and to save the accesses in a database table, for example. The above tracker provider, <em>LogTrackerAccessProvider</em>, is included in OpenXava, in the package <em>org.openxava.util</em>, so you can use it &quot;as is&quot; if you don't need more.<br />
-<h2 id="toc2"><a name="Access tracking (new in v5.9)-Register the tracker provider"></a>Register the tracker provider</h2>
- In order that your tracker provider works you have to declare it in <em>xava.properties</em> of your project, using the <em>accessTrackerProvidersClasses</em> entry:<br />
-
-<style type="text/css"><!--
+<span class="br0">}</span></pre>
+      This is the simplest possible implementation, just it registers the
+      accesses in a log file. Note that you have to implement four simple
+      methods: <em>consulted()</em>, <em>created()</em>, <em>modified()</em>
+      and <em>removed()</em>. You can write your own tracker provider to
+      include more data and to save the accesses in a database table, for
+      example. The above tracker provider, <em>LogTrackerAccessProvider</em>,
+      is included in OpenXava, in the package <em>org.openxava.util</em>, so
+      you can use it "as is" if you don't need more.<br>
+      <h2 id="toc2"><a name="Access tracking (new in v5.9)-Register the tracker provider"></a>Register
+        the tracker provider</h2>
+      In order that your tracker provider works you have to declare it in <em>xava.properties</em>
+      of your project, using the <em>accessTrackerProvidersClasses</em> entry:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -291,14 +501,25 @@ This is the simplest possible implementation, just it registers the accesses in 
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">accessTrackerProvidersClasses</span><span class="sy0">=</span><span class="re1">org.openxava.util.LogAccessTrackerProvider</span></pre>
+</style><pre class="properties"><span class="re0">accessTrackerProvidersClasses</span><span
 
-You can declare several access tracker providers separated by commas.<br />
-Now, all changes and read access from the users will add a line in the <em>.openxava/yourapplication-accesss.log</em> file.<br />
-<h2 id="toc3"><a name="Access tracking (new in v5.9)-Notify your own changes"></a>Notify your own changes</h2>
- By default, all the changes done via <em>MapFacade</em>, that includes all creation, consult, modification and deletion (in main entity and collections) from a standard OpenXava module. Moreover, the editors included in OpenXava, such as <em>Discussion</em>, <em>ImagesGallery</em> or <em>Files</em> also notify for changes. However, if you access to data from your own code using JPA or JDBC directly you should notify the access using <em><a class="wiki_link_ext" href="http://openxava.org/OpenXavaDoc/apidocs/org/openxava/util/AccessTracker.html" rel="nofollow">AccessTracker</a></em> class from <em>org.openxava.util</em>. For example:<br />
+class="sy0">=</span><span class="re1">org.openxava.util.LogAccessTrackerProvider</span></pre>
+      You can declare several access tracker providers separated by commas.<br>
+      Now, all changes and read access from the users will add a line in the <em>.openxava/yourapplication-accesss.log</em>
+      file.<br>
+      <h2 id="toc3"><a name="Access tracking (new in v5.9)-Notify your own changes"></a>Notify
+        your own changes</h2>
+      By default, all the changes done via <em>MapFacade</em>, that includes
+      all creation, consult, modification and deletion (in main entity and
+      collections) from a standard OpenXava module. Moreover, the editors
+      included in OpenXava, such as <em>Discussion</em>, <em>ImagesGallery</em>
+      or <em>Files</em> also notify for changes. However, if you access to data
+      from your own code using JPA or JDBC directly you should notify the access
+      using <em><a class="wiki_link_ext" href="http://openxava.org/OpenXavaDoc/apidocs/org/openxava/util/AccessTracker.html"
 
-<style type="text/css"><!--
+          rel="nofollow">AccessTracker</a></em> class from <em>org.openxava.util</em>.
+      For example:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -485,10 +706,22 @@ Now, all changes and read access from the users will add a line in the <em>.open
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">createInvoiceWithJPA<span class="br0">&#40;</span>getView<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getKeyValues</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, getView<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getValues</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Here you saved in your own way</span>
-AccessTracking.<span class="me1">created</span><span class="br0">&#40;</span><span class="st0">&quot;Invoice&quot;</span>, getView<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getKeyValues</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// YOU HAVE TO ADD THIS LINE</span></pre>
+</style><pre class="java5">createInvoiceWithJPA<span class="br0">(</span>getView<span
 
+class="br0">(</span><span class="br0">)</span>.<span class="me1">getKeyValues</span><span
 
+class="br0">(</span><span class="br0">)</span>, getView<span class="br0">(</span><span
+
+class="br0">)</span>.<span class="me1">getValues</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// Here you saved in your own way</span>
+AccessTracking.<span class="me1">created</span><span class="br0">(</span><span class="st0">"Invoice"</span>, getView<span
+
+class="br0">(</span><span class="br0">)</span>.<span class="me1">getKeyValues</span><span
+
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span
+
+class="co1">// YOU HAVE TO ADD THIS LINE</span></pre>
     </div>
   </body>
 </html>

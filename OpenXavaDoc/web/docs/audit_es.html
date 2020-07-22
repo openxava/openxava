@@ -1,17 +1,24 @@
 <html>
   <head>
-    <title>openxava - audit_es</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Auditar cambios usando Hibernate Envers - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-<h1 id="toc0"><a name="Auditar cambios usando Hibernate Envers"></a>Auditar cambios usando Hibernate Envers</h1>
- <em>A partir de v5.9 también puedes usar el <a class="wiki_link" href="access-tracking_es.html">nuevo AccessTracker</a> de OpenXava</em><br />
-<br />
-Agregar en <em>persistence.xml</em>:<br />
-
-<style type="text/css"><!--
+      <h1 id="toc0"><a name="Auditar cambios usando Hibernate Envers"></a>
+				<span id="breadcrumbs"> 
+        	<span id="openxava"> 
+            <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> 
+          / <a href="index_es.html">documentación</a> / 
+        </span>        
+        Auditar cambios usando Hibernate Envers</h1>
+      <em>A partir de v5.9 también puedes usar el <a class="wiki_link" href="access-tracking_es.html">nuevo
+          AccessTracker</a> de OpenXava</em><br>
+      <br>
+      Agregar en <em>persistence.xml</em>:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -33,24 +40,45 @@ Agregar en <em>persistence.xml</em>:<br />
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;properties<span
+
+class="re2">&gt;</span></span></span>
 ...
-    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.hbm2ddl.auto&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;update&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"hibernate.hbm2ddl.auto"</span> <span class="re0">value</span>=<span
+
+class="st0">"update"</span><span class="re2">/&gt;</span></span>
 ...
-    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;org.hibernate.envers.audit_strategy&quot;</span></span>
-<span class="sc3">         <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.envers.strategy.ValidityAuditStrategy&quot;</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;org.hibernate.envers.audit_strategy_validity_store_revend_timestamp&quot;</span></span>
-<span class="sc3">         <span class="re0">value</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"org.hibernate.envers.audit_strategy"</span></span>
+<span class="sc3">         <span class="re0">value</span>=<span class="st0">"org.hibernate.envers.strategy.ValidityAuditStrategy"</span><span
+
+class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"org.hibernate.envers.audit_strategy_validity_store_revend_timestamp"</span></span>
+<span class="sc3">         <span class="re0">value</span>=<span class="st0">"true"</span><span
+
+class="re2">/&gt;</span></span>
 ...
 <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span></pre>
+      Es posible configurar varios aspectos del compartamiento de Hibernate
+      Envers, revisa la <a class="wiki_link_ext" href="https://docs.jboss.org/hibernate/orm/4.3/devguide/en-US/html/ch15.html"
 
-Es posible configurar varios aspectos del compartamiento de Hibernate Envers, revisa la <a class="wiki_link_ext" href="https://docs.jboss.org/hibernate/orm/4.3/devguide/en-US/html/ch15.html" rel="nofollow">documentación</a> al respecto.<br />
-A partir de la <em>v5.4</em> se ha añadido la API de Hibernate Envers por defecto. Para las versiones 5.3.* es necesario incluir la API en el classpath. La <em>v5.3</em> presentaba un bug que se resuelve en en esta <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/thread/ce00845b/?limit=25#0b81" rel="nofollow">discusión</a>.<br />
-<br />
-<h2 id="toc1"><a name="Auditar cambios usando Hibernate Envers-Hasta la version 5.2.1"></a>Hasta la version 5.2.1</h2>
- Agregar en <em>persistence.xml</em>:<br />
+        rel="nofollow">documentación</a> al respecto.<br>
+      A partir de la <em>v5.4</em> se ha añadido la API de Hibernate Envers por
+      defecto. Para las versiones 5.3.* es necesario incluir la API en el
+      classpath. La <em>v5.3</em> presentaba un bug que se resuelve en en esta
+      <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/thread/ce00845b/?limit=25#0b81"
 
-<style type="text/css"><!--
+        rel="nofollow">discusión</a>.<br>
+      <br>
+      <h2 id="toc1"><a name="Auditar cambios usando Hibernate Envers-Hasta la version 5.2.1"></a>Hasta
+        la version 5.2.1</h2>
+      Agregar en <em>persistence.xml</em>:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -72,26 +100,51 @@ A partir de la <em>v5.4</em> se ha añadido la API de Hibernate Envers por defec
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;properties<span
+
+class="re2">&gt;</span></span></span>
 ...
-    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.ejb.event.post-insert&quot;</span></span>
-<span class="sc3">        <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.ejb.event.EJB3PostInsertEventListener,org.hibernate.envers.event.AuditEventListener&quot;</span> <span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.ejb.event.post-update&quot;</span></span>
-<span class="sc3">        <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.ejb.event.EJB3PostUpdateEventListener,org.hibernate.envers.event.AuditEventListener&quot;</span> <span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.ejb.event.post-delete&quot;</span></span>
-<span class="sc3">        <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.ejb.event.EJB3PostDeleteEventListener,org.hibernate.envers.event.AuditEventListener&quot;</span> <span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.ejb.event.pre-collection-update&quot;</span></span>
-<span class="sc3">        <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.envers.event.AuditEventListener&quot;</span> <span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.ejb.event.pre-collection-remove&quot;</span></span>
-<span class="sc3">        <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.envers.event.AuditEventListener&quot;</span> <span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.ejb.event.post-collection-recreate&quot;</span></span>
-<span class="sc3">        <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.envers.event.AuditEventListener&quot;</span> <span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"hibernate.ejb.event.post-insert"</span></span>
+<span class="sc3">        <span class="re0">value</span>=<span class="st0">"org.hibernate.ejb.event.EJB3PostInsertEventListener,org.hibernate.envers.event.AuditEventListener"</span> <span
+
+class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"hibernate.ejb.event.post-update"</span></span>
+<span class="sc3">        <span class="re0">value</span>=<span class="st0">"org.hibernate.ejb.event.EJB3PostUpdateEventListener,org.hibernate.envers.event.AuditEventListener"</span> <span
+
+class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"hibernate.ejb.event.post-delete"</span></span>
+<span class="sc3">        <span class="re0">value</span>=<span class="st0">"org.hibernate.ejb.event.EJB3PostDeleteEventListener,org.hibernate.envers.event.AuditEventListener"</span> <span
+
+class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"hibernate.ejb.event.pre-collection-update"</span></span>
+<span class="sc3">        <span class="re0">value</span>=<span class="st0">"org.hibernate.envers.event.AuditEventListener"</span> <span
+
+class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"hibernate.ejb.event.pre-collection-remove"</span></span>
+<span class="sc3">        <span class="re0">value</span>=<span class="st0">"org.hibernate.envers.event.AuditEventListener"</span> <span
+
+class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"hibernate.ejb.event.post-collection-recreate"</span></span>
+<span class="sc3">        <span class="re0">value</span>=<span class="st0">"org.hibernate.envers.event.AuditEventListener"</span> <span
+
+class="re2">/&gt;</span></span>
 ...
 <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span></pre>
-
-En el <em>build.xml</em> del proyecto OpenXava modificar en hibernatetool el classname agregando Envers. Debe quedar así:<br />
-
-<style type="text/css"><!--
+      En el <em>build.xml</em> del proyecto OpenXava modificar en hibernatetool
+      el classname agregando Envers. Debe quedar así:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -113,13 +166,16 @@ En el <em>build.xml</em> del proyecto OpenXava modificar en hibernatetool el cla
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;taskdef</span> <span class="re0">name</span>=<span class="st0">&quot;hibernatetool&quot;</span></span>
-<span class="sc3">  <span class="re0">classname</span>=<span class="st0">&quot;org.hibernate.tool.ant.EnversHibernateToolTask&quot;</span></span>
-<span class="sc3">  <span class="re0">classpathref</span>=<span class="st0">&quot;jpatoolslib&quot;</span><span class="re2">/&gt;</span></span></pre>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;taskdef</span> <span
 
-Crear la clase <em>RevEntidad</em> parar indicar que la revisión tendrá también usuario<br />
+class="re0">name</span>=<span class="st0">"hibernatetool"</span></span>
+<span class="sc3">  <span class="re0">classname</span>=<span class="st0">"org.hibernate.tool.ant.EnversHibernateToolTask"</span></span>
+<span class="sc3">  <span class="re0">classpathref</span>=<span class="st0">"jpatoolslib"</span><span
 
-<style type="text/css"><!--
+class="re2">/&gt;</span></span></pre>
+      Crear la clase <em>RevEntidad</em> parar indicar que la revisión tendrá
+      también usuario<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -306,25 +362,54 @@ Crear la clase <em>RevEntidad</em> parar indicar que la revisión tendrá tambi�
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.tuproyecto.auditoria</span><span class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.envers.RevisionEntity</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.envers.DefaultRevisionEntity</span><span class="sy0">;</span>
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span class="kw166">Entity</span></a>
-@RevisionEntity<span class="br0">&#40;</span>ListenerUsuario.<span class="kw2">class</span><span class="br0">&#41;</span>
-<span class="kw2">public</span> <span class="kw2">class</span> RevEntidad <span class="kw2">extends</span> DefaultRevisionEntity<span class="br0">&#123;</span>
-&nbsp;
-  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> username<span class="sy0">;</span>
-  <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getUsername<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw2">return</span> username<span class="sy0">;</span> <span class="br0">&#125;</span>
-  <span class="kw2">public</span> <span class="kw3">void</span> setUsername<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> username<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw2">this</span>.<span class="me1">username</span> = username<span class="sy0">;</span> <span class="br0">&#125;</span>
-&nbsp;
-<span class="br0">&#125;</span></pre>
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.tuproyecto.auditoria</span><span
 
-Crear la clase <em>ListenerUsuario</em> para capturar el usuario que está haciendo la modificación.<br />
+class="sy0">;</span>
+&nbsp;
+<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
 
-<style type="text/css"><!--
+class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.hibernate.envers.RevisionEntity</span><span
+
+class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.hibernate.envers.DefaultRevisionEntity</span><span
+
+class="sy0">;</span>
+&nbsp;
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
+class="kw166">Entity</span></a>
+@RevisionEntity<span class="br0">(</span>ListenerUsuario.<span class="kw2">class</span><span
+
+class="br0">)</span>
+<span class="kw2">public</span> <span class="kw2">class</span> RevEntidad <span
+
+class="kw2">extends</span> DefaultRevisionEntity<span class="br0">{</span>
+&nbsp;
+  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> username<span class="sy0">;</span>
+  <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> getUsername<span class="br0">(</span><span class="br0">)</span> <span
+
+class="br0">{</span> <span class="kw2">return</span> username<span class="sy0">;</span> <span
+
+class="br0">}</span>
+  <span class="kw2">public</span> <span class="kw3">void</span> setUsername<span
+
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> username<span class="br0">)</span> <span class="br0">{</span> <span
+
+class="kw2">this</span>.<span class="me1">username</span> = username<span class="sy0">;</span> <span
+
+class="br0">}</span>
+&nbsp;
+<span class="br0">}</span></pre>
+      Crear la clase <em>ListenerUsuario</em> para capturar el usuario que está
+      haciendo la modificación.<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -511,32 +596,62 @@ Crear la clase <em>ListenerUsuario</em> para capturar el usuario que está hacie
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.tuproyecto.auditoria</span><span class="sy0">;</span>
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.tuproyecto.auditoria</span><span
+
+class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.hibernate.envers.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.hibernate.envers.*</span><span
+
+class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
+
+class="sy0">;</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> ListenerUsuario <span class="kw2">implements</span> RevisionListener<span class="br0">&#123;</span>
+<span class="kw2">public</span> <span class="kw2">class</span> ListenerUsuario <span
+
+class="kw2">implements</span> RevisionListener<span class="br0">{</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> newRevision<span class="br0">&#40;</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> revisionEntity<span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        RevEntidad reventidad = <span class="br0">&#40;</span>RevEntidad<span class="br0">&#41;</span> revisionEntity<span class="sy0">;</span>
-        reventidad.<span class="me1">setUsername</span><span class="br0">&#40;</span>getUsuarioActual<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> newRevision<span
+
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a> revisionEntity<span class="br0">)</span> <span class="br0">{</span>
+        RevEntidad reventidad = <span class="br0">(</span>RevEntidad<span class="br0">)</span> revisionEntity<span
+
+class="sy0">;</span>
+        reventidad.<span class="me1">setUsername</span><span class="br0">(</span>getUsuarioActual<span
+
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getUsuarioActual<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        <span class="kw1">if</span> <span class="br0">&#40;</span>Users.<span class="me1">getCurrent</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">!</span>= <span class="kw4">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
-            <span class="kw2">return</span> Users.<span class="me1">getCurrentUserInfo</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getGivenName</span><span class="br0">&#40;</span><span class="br0">&#41;</span> + <span class="st0">&quot; &quot;</span> +
-                Users.<span class="me1">getCurrentUserInfo</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getFamilyName</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span>
-            <span class="kw2">return</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span>
-        <span class="br0">&#125;</span>
-    <span class="br0">&#125;</span>
-<span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> getUsuarioActual<span class="br0">(</span><span class="br0">)</span> <span
+
+class="br0">{</span>
+        <span class="kw1">if</span> <span class="br0">(</span>Users.<span class="me1">getCurrent</span><span
+
+class="br0">(</span><span class="br0">)</span> <span class="sy0">!</span>= <span
+
+class="kw4">null</span><span class="br0">)</span> <span class="br0">{</span>
+            <span class="kw2">return</span> Users.<span class="me1">getCurrentUserInfo</span><span
+
+class="br0">(</span><span class="br0">)</span>.<span class="me1">getGivenName</span><span
+
+class="br0">(</span><span class="br0">)</span> + <span class="st0">" "</span> +
+                Users.<span class="me1">getCurrentUserInfo</span><span class="br0">(</span><span
+
+class="br0">)</span>.<span class="me1">getFamilyName</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span> <span class="kw1">else</span> <span class="br0">{</span>
+            <span class="kw2">return</span> <span class="st0">""</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+    <span class="br0">}</span>
+<span class="br0">}</span>
 &nbsp;</pre>
-
-Finalmente agregar a la clase que se desea auditar: <em>@Audited</em><br />
-<br />
-Generar la base de datos y desplegar la aplicación.
-    </div>
+      Finalmente agregar a la clase que se desea auditar: <em>@Audited</em><br>
+      <br>
+      Generar la base de datos y desplegar la aplicación. </div>
   </body>
 </html>

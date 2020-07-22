@@ -1,13 +1,21 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - validation_es</title>
+    <title>Lección 6: Validación avanzada - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-6-Validacion-avanzada"></a>
+        <span id="breadcrumbs"> 
+        	<span id="openxava"> 
+            <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> 
+          / <a href="index_es.html">documentación</a> / 
+        </span>
+        Lección 6: Validación avanzada</h1>
       <div id="toc">
-        <h1 class="nopad">Table of Contents</h1>
+        <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Leccion-6-Validacion-avanzada">Lección
             6: Validación avanzada</a></div>
         <div style="margin-left: 2em;"><a href="#Alternativas-de-validacion">Alternativas
@@ -40,8 +48,7 @@
             a un servicio web REST para validar el ISBN</a></div>
         <div style="margin-left: 3em;"><a href="#Crear-tu-propia-anotacion-de-Bean-Validation-Anadir-atributos-a-tu-anotacion">Añadir
             atributos a tu anotación</a></div>
-        <div style="margin-left: 2em;"><a href="#Pruebas-JUnit">Pruebas
-            JUnit</a></div>
+        <div style="margin-left: 2em;"><a href="#Pruebas-JUnit">Pruebas JUnit</a></div>
         <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-la-validacion-al-anadir-a-una-coleccion">Probar
             la validación al añadir a una colección</a></div>
         <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-validacion-al-asignar-una-referencia-y-al-borrar">Probar
@@ -62,9 +69,7 @@
         Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a><br>
-      <h1 id="toc0"><a name="Leccion-6-Validacion-avanzada"></a>Lección 6:
-        Validación avanzada</h1>
+        Anotaciones</a><hr>
       De momento solo hemos hecho validaciones básicas usando la anotación <span
 
         class="wiki jcode">@Required</span> de OpenXava. A veces es necesario
@@ -73,8 +78,8 @@
         href="annotations_es#toc1">apéndice C</a> se explica como funciona la
       validación. Aquí vamos a añadir validaciones con lógica propia a tu
       aplicación.<br>
-      <h2 id="toc1"><a name="Alternativas-de-validacion"></a>Alternativas
-        de validación</h2>
+      <h2 id="toc1"><a name="Alternativas-de-validacion"></a>Alternativas de
+        validación</h2>
       Vamos a refinar tu código para que el usuario no pueda asignar pedidos a
       una factura si los pedidos no han sido entregados todavía. Es decir, solo
       los pedidos entregados pueden asociarse a una factura. Aprovecharemos la
@@ -5274,8 +5279,7 @@ class="kw21">String</span></a> isbn<span class="sy0">;</span></pre>
       ¡Enhorabuena! Has aprendido como crear tu propia anotación de Bean
       Validation, y de paso a usar la útil herramienta HtmlUnit.<br>
       <br>
-      <h2 id="toc16"><a name="Pruebas-JUnit"></a>Pruebas
-        JUnit</h2>
+      <h2 id="toc16"><a name="Pruebas-JUnit"></a>Pruebas JUnit</h2>
       Nuestra meta no es desarrollar una ingente cantidad de código, sino crear
       software de calidad. Al final, si creas software de calidad acabarás
       escribiendo más cantidad de software, porque podrás dedicar más tiempo a

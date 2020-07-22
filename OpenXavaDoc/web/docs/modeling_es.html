@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - modeling_es</title>
+    <title>Lección 2: Modelar con Java - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,8 +9,17 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Modelar+con+Java"></a>
+        <span id="breadcrumbs"> 
+        	<span id="openxava"> 
+            <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> 
+          / <a href="index_es.html">documentación</a> / 
+        </span>
+        Lección 2: Modelar con Java
+      </h1>
       <div id="toc">
-        <h1 class="nopad">Table of Contents</h1>
+        <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Modelar+con+Java">Lección 2:
             Modelar con Java</a></div>
         <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio">Modelo
@@ -42,8 +51,10 @@
         <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Resumen">Resumen</a></div>
       </div>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
-        Primeros pasos</a> | <strong>2. Modelar con Java</strong> | <a class="wiki_link"
-        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
+        Primeros pasos</a> | <strong>2. Modelar con Java</strong> | <a class="wiki_link"
+
+        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
+
         href="inheritance_es.html">4. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
         Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
         Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
@@ -52,8 +63,8 @@
         Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a><br>
-      <h1 id="toc0"><a name="Modelar+con+Java"></a>Lección 2: Modelar con Java</h1>
+        Anotaciones</a><hr>
+      
       Ahora que tienes tu entorno configurado y sabes como desarrollar con él,
       es hora de dar forma a tu proyecto. En esta lección, crearás todas las
       entidades de tu proyecto y tendrás tu aplicación funcionando en un
@@ -411,7 +422,8 @@ private LocalDate fecha;
       usuario pulse en el botón 'nuevo' el campo para año será el año actual, y
       el campo para la fecha la fecha actual. Estos dos calculadores (<em>CurrentYearCalculator</em>
       y <em>CurrentLocalDateCalculator</em>) están incluidos en OpenXava.
-      Explora el paquete <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html"
+      Explora el paquete <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html"
+
           rel="nofollow">org.openxava.calculators</a></em> para ver otros
       calculadores predefinidos que pueden serte útiles.</div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Fíjate
@@ -431,7 +443,8 @@ private LocalDate fecha;
     <div class="wiki" style="display: block;">Para crear un paquete nuevo
       selecciona la carpeta <i>Facturacion/src</i> y pulsa en el botón <i>New
         Java Package</i>:</div>
-    <div class="wiki" style="display: block;"> <img src="files/modeling_es064.png"
+    <div class="wiki" style="display: block;"> <img src="files/modeling_es064.png"
+
         alt="">
       <div class="wiki" style="display: block;">Se mostrará un diálogo donde
         introducir el nombre del paquete, <em>com.tuempresa.facturacion.calculadores</em>,
@@ -479,7 +492,8 @@ public class CalculadorSiguienteNumeroParaAnyo
     <div class="wiki" style="display: block;">Tu calculador tiene que
       implementar <em>ICalculator</em> (y por lo tanto tener un método <em>calculate()</em>).
       Declaramos una propiedad <em>anyo</em> para poner en ella el año del
-      cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el <a
+      cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el <a
+
         class="wiki_link" href="jpa_es.html">apéndice B</a> sobre JPA. Ahora
       sólo queda anotar la propiedad <em>numero</em> en la entidad <em>Factura</em>:</div>
     <div class="wiki" style="display: block;">
@@ -542,7 +556,8 @@ private Collection&lt;Detalle&gt; detalles;
 // RECUERDA GENERAR EL GETTER Y SETTER PARA detalles
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Usando
-        </span><em><span style="line-height: 1.5;">@ElementCollection</span></em><span
+        </span><em><span style="line-height: 1.5;">@ElementCollection</span></em><span
+
         style="line-height: 1.5;"> cuando la factura se borra sus líneas se
         borran también. Los detalles no se guardan en la base de datos hasta que
         la factura se guarde y se guardan todos al mismo tiempo.</span><br>
@@ -590,7 +605,8 @@ private Collection&lt;Detalle&gt; detalles;
         propiedades calificadas, es decir, usar la notación del punto para
         acceder a las propiedades de referencias, tal como <em>producto.numero</em>
         y <em>producto.descripcion</em> en este caso. El resultado visual es:</span><br>
-      <span style="line-height: 0px; overflow: hidden;"><img src="files/modeling_es100.png"
+      <span style="line-height: 0px; overflow: hidden;"><img src="files/modeling_es100.png"
+
           alt="modeling_es100.png" title="modeling_es100.png"></span><br>
       <h2 id="toc9"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario"></a>Refinar
         la interfaz de usuario</h2>
@@ -671,7 +687,8 @@ private Cliente cliente;
       más compacta:<br>
       <img src="files/modeling_es130.png" alt="modeling_es130.png" title="modeling_es130.png"><br>
       Hemos refinado un poco la interfaz de <em>Factura</em>.<br>
-      <h3 id="toc13"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-La+interfaz+de+usuario+refinada"></a><span
+      <h3 id="toc13"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-La+interfaz+de+usuario+refinada"></a><span
+
           style="font-size: 1.1em; line-height: 1.5;">La interfaz de usuario
           refinada</span></h3>
       Este es el resultado de nuestros refinamientos en la interfaz de usuario
@@ -808,10 +825,12 @@ private Collection&lt;Producto&gt; productos;
       gestión lista para tus usuarios.<br>
       Aprenderás estos temas avanzados en las siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="testing_es.html">Ve a la lección 3</a></strong>
     </div>

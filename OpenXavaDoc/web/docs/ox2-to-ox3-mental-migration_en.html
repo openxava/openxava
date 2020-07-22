@@ -1,30 +1,54 @@
 <html>
   <head>
-    <title>openxava - ox2-to-ox3-mental-migration_en</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>OX2 to OX3 mental migration guide - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#OX2 to OX3 mental migration guide">OX2 to OX3 mental migration guide</a></div>
-<div style="margin-left: 2em;"><a href="#OX2 to OX3 mental migration guide-Component definition">Component definition</a></div>
-<div style="margin-left: 2em;"><a href="#OX2 to OX3 mental migration guide-Aggregates">Aggregates</a></div>
-<div style="margin-left: 2em;"><a href="#OX2 to OX3 mental migration guide-Valid values">Valid values</a></div>
-<div style="margin-left: 2em;"><a href="#OX2 to OX3 mental migration guide-Default value calculators on create">Default value calculators on create</a></div>
-<div style="margin-left: 2em;"><a href="#OX2 to OX3 mental migration guide-Callback calculators: postcreate, postmodify, postload, preremove and postremove">Callback calculators: postcreate, postmodify, postload, preremove and postremove</a></div>
-<div style="margin-left: 2em;"><a href="#OX2 to OX3 mental migration guide-Converters">Converters</a></div>
-<div style="margin-left: 2em;"><a href="#OX2 to OX3 mental migration guide-persistence.xml instead of configuration">persistence.xml instead of configuration</a></div>
-<div style="margin-left: 2em;"><a href="#OX2 to OX3 mental migration guide-JUnit test: Setting value to a combo for a composite key reference">JUnit test: Setting value to a combo for a composite key reference</a></div>
-<div style="margin-left: 2em;"><a href="#OX2 to OX3 mental migration guide-View property">View property</a></div>
-</div>
-<h1 id="toc0"><a name="OX2 to OX3 mental migration guide"></a>OX2 to OX3 mental migration guide</h1>
- This guide is for helping to an OpenXava 2 developer to start rapidly with OpenXava 3.<br />
-OX3 will be fully compatible with OX2 and you will can run your OX2 applications using OX3, also you can develop using XML with OX3.<br />
-<h2 id="toc1"><a name="OX2 to OX3 mental migration guide-Component definition"></a>Component definition</h2>
- The main difference between OX2 and OX3 is the format for defining components.<br />
-In OX2 we use XML, as following:<br />
-
-<style type="text/css"><!--
+      <h1 id="toc0"><a name="OX2 to OX3 mental migration guide"></a>
+        <span id="breadcrumbs">
+          <span id="openxava">
+          	<a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava
+            </a>
+          </span>  
+          / <a href="index_en.html">documentation</a> /  
+				</span>                                         
+        OX2 to OX3 mental migration guide
+      </h1>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#OX2%20to%20OX3%20mental%20migration%20guide">OX2
+            to OX3 mental migration guide</a></div>
+        <div style="margin-left: 2em;"><a href="#OX2%20to%20OX3%20mental%20migration%20guide-Component%20definition">Component
+            definition</a></div>
+        <div style="margin-left: 2em;"><a href="#OX2%20to%20OX3%20mental%20migration%20guide-Aggregates">Aggregates</a></div>
+        <div style="margin-left: 2em;"><a href="#OX2%20to%20OX3%20mental%20migration%20guide-Valid%20values">Valid
+            values</a></div>
+        <div style="margin-left: 2em;"><a href="#OX2%20to%20OX3%20mental%20migration%20guide-Default%20value%20calculators%20on%20create">Default
+            value calculators on create</a></div>
+        <div style="margin-left: 2em;"><a href="#OX2%20to%20OX3%20mental%20migration%20guide-Callback%20calculators:%20postcreate,%20postmodify,%20postload,%20preremove%20and%20postremove">Callback
+            calculators: postcreate, postmodify, postload, preremove and
+            postremove</a></div>
+        <div style="margin-left: 2em;"><a href="#OX2%20to%20OX3%20mental%20migration%20guide-Converters">Converters</a></div>
+        <div style="margin-left: 2em;"><a href="#OX2%20to%20OX3%20mental%20migration%20guide-persistence.xml%20instead%20of%20configuration">persistence.xml
+            instead of configuration</a></div>
+        <div style="margin-left: 2em;"><a href="#OX2%20to%20OX3%20mental%20migration%20guide-JUnit%20test:%20Setting%20value%20to%20a%20combo%20for%20a%20composite%20key%20reference">JUnit
+            test: Setting value to a combo for a composite key reference</a></div>
+        <div style="margin-left: 2em;"><a href="#OX2%20to%20OX3%20mental%20migration%20guide-View%20property">View
+            property</a></div>
+      </div>
+      This guide is for helping to an OpenXava 2 developer to start rapidly with
+      OpenXava 3.<br>
+      OX3 will be fully compatible with OX2 and you will can run your OX2
+      applications using OX3, also you can develop using XML with OX3.<br>
+      <h2 id="toc1"><a name="OX2 to OX3 mental migration guide-Component definition"></a>Component
+        definition</h2>
+      The main difference between OX2 and OX3 is the format for defining
+      components.<br>
+      In OX2 we use XML, as following:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -46,30 +70,54 @@ In OX2 we use XML, as following:<br />
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;ISO-8859-1&quot;</span><span class="re2">?&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span
+
+class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span
+
+class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 &nbsp;
-<span class="sc0">&lt;!DOCTYPE component SYSTEM &quot;dtds/component.dtd&quot;&gt;</span>
+<span class="sc0">&lt;!DOCTYPE component SYSTEM "dtds/component.dtd"&gt;</span>
 &nbsp;
-<span class="sc3"><span class="re1">&lt;component</span> <span class="re0">name</span>=<span class="st0">&quot;Teacher&quot;</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;component</span> <span class="re0">name</span>=<span
+
+class="st0">"Teacher"</span><span class="re2">&gt;</span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;id&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;String&quot;</span> <span class="re0">key</span>=<span class="st0">&quot;true&quot;</span></span>
-<span class="sc3">            <span class="re0">size</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;String&quot;</span></span>
-<span class="sc3">            <span class="re0">size</span>=<span class="st0">&quot;40&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"id"</span> <span class="re0">type</span>=<span class="st0">"String"</span> <span
+
+class="re0">key</span>=<span class="st0">"true"</span></span>
+<span class="sc3">            <span class="re0">size</span>=<span class="st0">"5"</span> <span
+
+class="re0">required</span>=<span class="st0">"true"</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"name"</span> <span class="re0">type</span>=<span class="st0">"String"</span></span>
+<span class="sc3">            <span class="re0">size</span>=<span class="st0">"40"</span> <span
+
+class="re0">required</span>=<span class="st0">"true"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;entity-mapping</span> <span class="re0">table</span>=<span class="st0">&quot;MYSCHOOL@separator@TEACHER&quot;</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;id&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;ID&quot;</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span class="st0">&quot;name&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;NAME&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;entity-mapping</span> <span class="re0">table</span>=<span
+
+class="st0">"MYSCHOOL@separator@TEACHER"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
+
+class="st0">"id"</span> <span class="re0">column</span>=<span class="st0">"ID"</span><span
+
+class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
+
+class="st0">"name"</span> <span class="re0">column</span>=<span class="st0">"NAME"</span><span
+
+class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/entity-mapping<span class="re2">&gt;</span></span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;/component<span class="re2">&gt;</span></span></span></pre>
-
-<br />
-In OX3 we use Java with annotations:<br />
-
-<style type="text/css"><!--
+      <br>
+      In OX3 we use Java with annotations:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -256,46 +304,81 @@ In OX3 we use Java with annotations:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.school.model</span><span class="sy0">;</span>
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.school.model</span><span
+
+class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+
+class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
+
+class="sy0">;</span>
 &nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> Teacher <span class="br0">&#123;</span>
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
+class="kw166">Entity</span></a>
+<span class="kw2">public</span> <span class="kw2">class</span> Teacher <span class="br0">{</span>
 &nbsp;
-    @Id @Column<span class="br0">&#40;</span>length=<span class="nu0">5</span><span class="br0">&#41;</span> @Required
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> id<span class="sy0">;</span>
+    @Id @Column<span class="br0">(</span>length=<span class="nu0">5</span><span
+
+class="br0">)</span> @Required
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> id<span class="sy0">;</span>
 &nbsp;
-    @Column<span class="br0">&#40;</span>length=<span class="nu0">40</span><span class="br0">&#41;</span> @Required
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span class="sy0">;</span>
+    @Column<span class="br0">(</span>length=<span class="nu0">40</span><span class="br0">)</span> @Required
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> name<span class="sy0">;</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getId<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> getId<span class="br0">(</span><span class="br0">)</span> <span
+
+class="br0">{</span>
         <span class="kw2">return</span> id<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> setId<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> id<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> setId<span class="br0">(</span><a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> id<span
+
+class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">this</span>.<span class="me1">id</span> = id<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getName<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> getName<span class="br0">(</span><span class="br0">)</span> <span
+
+class="br0">{</span>
         <span class="kw2">return</span> name<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        <span class="kw2">this</span>.<span class="me1">name</span> = name<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">(</span><a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span
+
+class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">this</span>.<span class="me1">name</span> = name<span
+
+class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
-<span class="br0">&#125;</span></pre>
-
-<br />
-Now you write the logic directly in your Java class, therefore you does not need calculator for calculated properties nor method.<br />
-The object-relational mapping is done by JPA annotations. And the rest (tab and view) is a literal translation of OpenXava XML to Java annotations.<br />
-<h2 id="toc2"><a name="OX2 to OX3 mental migration guide-Aggregates"></a>Aggregates</h2>
- Aggregates do not longer exist on OX2. But you can simulate the aggregate using embeddable objects for single references, and collection of entities with cascade remove for collections.<br />
-That is, in OX2 you writes:<br />
-
-<style type="text/css"><!--
+<span class="br0">}</span></pre>
+      <br>
+      Now you write the logic directly in your Java class, therefore you does
+      not need calculator for calculated properties nor method.<br>
+      The object-relational mapping is done by JPA annotations. And the rest
+      (tab and view) is a literal translation of OpenXava XML to Java
+      annotations.<br>
+      <h2 id="toc2"><a name="OX2 to OX3 mental migration guide-Aggregates"></a>Aggregates</h2>
+      Aggregates do not longer exist on OX2. But you can simulate the aggregate
+      using embeddable objects for single references, and collection of entities
+      with cascade remove for collections.<br>
+      That is, in OX2 you writes:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -318,16 +401,20 @@ That is, in OX2 you writes:<br />
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span class="st0">&quot;address&quot;</span> <span class="re0">model</span>=<span class="st0">&quot;Address&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span
+
+class="st0">"address"</span> <span class="re0">model</span>=<span class="st0">"Address"</span><span
+
+class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span>
 &nbsp;
-<span class="sc3"><span class="re1">&lt;aggregate</span> <span class="re0">name</span>=<span class="st0">&quot;Address&quot;</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;aggregate</span> <span class="re0">name</span>=<span
+
+class="st0">"Address"</span><span class="re2">&gt;</span></span>
 ...
 <span class="sc3"><span class="re1">&lt;/aggregate<span class="re2">&gt;</span></span></span></pre>
-
-And in OX3 you write:<br />
-
-<style type="text/css"><!--
+      And in OX3 you write:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -515,24 +602,25 @@ And in OX3 you write:<br />
 
 -->
 </style><pre class="java5"><span class="co1">// Customer.java</span>
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> Customer <span class="br0">&#123;</span>
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
+class="kw166">Entity</span></a>
+<span class="kw2">public</span> <span class="kw2">class</span> Customer <span class="br0">{</span>
 &nbsp;
     @Embedded
     <span class="kw2">private</span> Address address<span class="sy0">;</span>
 &nbsp;
-<span class="br0">&#125;</span>
+<span class="br0">}</span>
 &nbsp;
 <span class="co1">// Address.java</span>
 @Embeddable
-<span class="kw2">public</span> <span class="kw2">class</span> Address <span class="br0">&#123;</span>
+<span class="kw2">public</span> <span class="kw2">class</span> Address <span class="br0">{</span>
 &nbsp;
-<span class="br0">&#125;</span></pre>
-
-As you can see, we use the JPA Embeddable object that behaves exactly as an aggregate of OpenXava for the case of single reference.<br />
-For collection of aggregate you write using OX2:<br />
-
-<style type="text/css"><!--
+<span class="br0">}</span></pre>
+      As you can see, we use the JPA Embeddable object that behaves exactly as
+      an aggregate of OpenXava for the case of single reference.<br>
+      For collection of aggregate you write using OX2:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -554,23 +642,29 @@ For collection of aggregate you write using OX2:<br />
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;component</span> <span class="re0">name</span>=<span class="st0">&quot;Invoice&quot;</span><span class="re2">&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;component</span> <span
+
+class="re0">name</span>=<span class="st0">"Invoice"</span><span class="re2">&gt;</span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;collection</span> <span class="re0">name</span>=<span class="st0">&quot;details&quot;</span><span class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">model</span>=<span class="st0">&quot;InvoiceDetail&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;collection</span> <span class="re0">name</span>=<span
+
+class="st0">"details"</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">model</span>=<span
+
+class="st0">"InvoiceDetail"</span><span class="re2">/&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;/collection<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;aggregate</span> <span class="re0">name</span>=<span class="st0">&quot;InvoiceDetail&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;aggregate</span> <span class="re0">name</span>=<span
+
+class="st0">"InvoiceDetail"</span><span class="re2">&gt;</span></span>
     ...
     <span class="sc3"><span class="re1">&lt;/aggregate<span class="re2">&gt;</span></span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;/component<span class="re2">&gt;</span></span></span></pre>
-
-But in OX3 you write:<br />
-
-<style type="text/css"><!--
+      But in OX3 you write:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -758,26 +852,39 @@ But in OX3 you write:<br />
 
 -->
 </style><pre class="java5"><span class="co1">// Invoice.java</span>
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="br0">&#123;</span>
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
+class="kw166">Entity</span></a>
+<span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="br0">{</span>
 &nbsp;
-    @OneToMany <span class="br0">&#40;</span>mappedBy=<span class="st0">&quot;invoice&quot;</span>, cascade=CascadeType.<span class="me1">REMOVE</span><span class="br0">&#41;</span>
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span class="kw46">Collection</span></a><span class="sy0">&lt;</span>InvoiceDetail<span class="sy0">&gt;</span> details<span class="sy0">;</span>
+    @OneToMany <span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span>, cascade=CascadeType.<span
+
+class="me1">REMOVE</span><span class="br0">)</span>
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>InvoiceDetail<span
+
+class="sy0">&gt;</span> details<span class="sy0">;</span>
 &nbsp;
-<span class="br0">&#125;</span>
+<span class="br0">}</span>
 &nbsp;
 <span class="co1">// InvoiceDetail.java</span>
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> InvoiceDetail <span class="br0">&#123;</span>
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
+class="kw166">Entity</span></a>
+<span class="kw2">public</span> <span class="kw2">class</span> InvoiceDetail <span
+
+class="br0">{</span>
 &nbsp;
-<span class="br0">&#125;</span></pre>
-
-That is, you use a collection of entities with cascade type remove, and this behaves as the collection of aggregates of OX2.<br />
-<h2 id="toc3"><a name="OX2 to OX3 mental migration guide-Valid values"></a>Valid values</h2>
- The OX2 <em>&lt;valid-values/&gt;</em> are implemented in OX3 with Java 5 enums.<br />
-That is, in OX2 you write:<br />
-
-<style type="text/css"><!--
+<span class="br0">}</span></pre>
+      That is, you use a collection of entities with cascade type remove, and
+      this behaves as the collection of aggregates of OX2.<br>
+      <h2 id="toc3"><a name="OX2 to OX3 mental migration guide-Valid values"></a>Valid
+        values</h2>
+      The OX2 <em>&lt;valid-values/&gt;</em> are implemented in OX3 with Java 5
+      enums.<br>
+      That is, in OX2 you write:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -799,17 +906,23 @@ That is, in OX2 you write:<br />
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;distance&quot;</span><span class="re2">&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span
+
+class="re0">name</span>=<span class="st0">"distance"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;valid-values<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span class="st0">&quot;local&quot;</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span class="st0">&quot;national&quot;</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span class="st0">&quot;international&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
+
+class="st0">"local"</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
+
+class="st0">"national"</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
+
+class="st0">"international"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/valid-values<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span></pre>
-
-Its equivalent in OX3 is:<br />
-
-<style type="text/css"><!--
+      Its equivalent in OX3 is:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -996,14 +1109,24 @@ Its equivalent in OX3 is:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">private</span> Distance distance<span class="sy0">;</span>
-<span class="kw2">public</span> <span class="kw2">enum</span> Distance <span class="br0">&#123;</span> LOCAL, NATIONAL, INTERNATIONAL <span class="br0">&#125;</span><span class="sy0">;</span>
+</style><pre class="java5"><span class="kw2">private</span> Distance distance<span
+
+class="sy0">;</span>
+<span class="kw2">public</span> <span class="kw2">enum</span> Distance <span class="br0">{</span> LOCAL, NATIONAL, INTERNATIONAL <span
+
+class="br0">}</span><span class="sy0">;</span>
 &nbsp;</pre>
-
-It has the same effect, except that:<br />
-<ul><li>The data type is not <em>int</em>, is just <em>Distance</em>.</li><li>On saving to database the valid value saves by default 0 for no value, 1 for local, 2 for national and 3 for interantional, while the enum saves null for no value, 0 for LOCAL, 1 for NATIONAL and 2 for INTERNATIONAL.</li></ul>That is, if you want to use a database of OX2 with OX3 you need to use a Hibernate Type, as following:<br />
-
-<style type="text/css"><!--
+      It has the same effect, except that:<br>
+      <ul>
+        <li>The data type is not <em>int</em>, is just <em>Distance</em>.</li>
+        <li>On saving to database the valid value saves by default 0 for no
+          value, 1 for local, 2 for national and 3 for interantional, while the
+          enum saves null for no value, 0 for LOCAL, 1 for NATIONAL and 2 for
+          INTERNATIONAL.</li>
+      </ul>
+      That is, if you want to use a database of OX2 with OX3 you need to use a
+      Hibernate Type, as following:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1190,21 +1313,37 @@ It has the same effect, except that:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@org.<span class="me1">hibernate</span>.<span class="me1">annotations</span>.<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span class="kw26">Type</span></a><span class="br0">&#40;</span>type=<span class="st0">&quot;org.openxava.types.Base1EnumType&quot;</span>,
-parameters=<span class="br0">&#123;</span>
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/Dynamic/Parameter.html"><span class="kw142">Parameter</span></a><span class="br0">&#40;</span>name=<span class="st0">&quot;enumType&quot;</span>, value=<span class="st0">&quot;org.openxava.test.model.InvoiceDetail$ServiceType&quot;</span><span class="br0">&#41;</span>
-<span class="br0">&#125;</span>
-<span class="br0">&#41;</span>
+</style><pre class="java5">@org.<span class="me1">hibernate</span>.<span class="me1">annotations</span>.<a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
+
+class="kw26">Type</span></a><span class="br0">(</span>type=<span class="st0">"org.openxava.types.Base1EnumType"</span>,
+parameters=<span class="br0">{</span>
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/Dynamic/Parameter.html"><span
+
+class="kw142">Parameter</span></a><span class="br0">(</span>name=<span class="st0">"enumType"</span>, value=<span
+
+class="st0">"org.openxava.test.model.InvoiceDetail$ServiceType"</span><span class="br0">)</span>
+<span class="br0">}</span>
+<span class="br0">)</span>
 <span class="kw2">private</span> ServiceType serviceType<span class="sy0">;</span>
-<span class="kw2">public</span> <span class="kw2">enum</span> ServiceType <span class="br0">&#123;</span> SPECIAL, URGENT <span class="br0">&#125;</span>
+<span class="kw2">public</span> <span class="kw2">enum</span> ServiceType <span
+
+class="br0">{</span> SPECIAL, URGENT <span class="br0">}</span>
 &nbsp;</pre>
-
-<em>Base1EnumType</em> is a Hibernate Type included in OpenXava for saving a Java 5 enum with base 1 index. In this way you go against the database of your OX2 application using OX3.<br />
-<h2 id="toc4"><a name="OX2 to OX3 mental migration guide-Default value calculators on create"></a>Default value calculators on create</h2>
- The <em>default-value-calculator</em> of OX2 is available in OX3 by means of <em>@DefaultValueCalculator</em> annotation. But <em>@DefaultValueCalculator</em> does not support <em>on-create=&quot;true&quot;</em> of its XML counterpart. You have to simulate the effect of this type of calculator using the JPA equivalent.<br />
-For an autogenerated id you have to use the <em>@GeneratedValue</em> JPA annotation. For example, in OX2 you write:<br />
-
-<style type="text/css"><!--
+      <em>Base1EnumType</em> is a Hibernate Type included in OpenXava for saving
+      a Java 5 enum with base 1 index. In this way you go against the database
+      of your OX2 application using OX3.<br>
+      <h2 id="toc4"><a name="OX2 to OX3 mental migration guide-Default value calculators on create"></a>Default
+        value calculators on create</h2>
+      The <em>default-value-calculator</em> of OX2 is available in OX3 by means
+      of <em>@DefaultValueCalculator</em> annotation. But <em>@DefaultValueCalculator</em>
+      does not support <em>on-create="true"</em> of its XML counterpart. You
+      have to simulate the effect of this type of calculator using the JPA
+      equivalent.<br>
+      For an autogenerated id you have to use the <em>@GeneratedValue</em> JPA
+      annotation. For example, in OX2 you write:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1226,13 +1365,23 @@ For an autogenerated id you have to use the <em>@GeneratedValue</em> JPA annotat
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;number&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;Integer&quot;</span> <span class="re0">key</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">size</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;false&quot;</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;default-value-calculator</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.calculators.IdentityCalculator&quot;</span> <span class="re0">on-create</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span
+
+class="re0">name</span>=<span class="st0">"number"</span> <span class="re0">type</span>=<span
+
+class="st0">"Integer"</span> <span class="re0">key</span>=<span class="st0">"true"</span> <span
+
+class="re0">size</span>=<span class="st0">"5"</span> <span class="re0">required</span>=<span
+
+class="st0">"false"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;default-value-calculator</span> <span
+
+class="re0">class</span>=<span class="st0">"org.openxava.calculators.IdentityCalculator"</span> <span
+
+class="re0">on-create</span>=<span class="st0">"true"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span></pre>
-
-In OX3 you write:<br />
-
-<style type="text/css"><!--
+      In OX3 you write:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1419,14 +1568,21 @@ In OX3 you write:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Id @Column<span class="br0">&#40;</span>length=<span class="nu0">5</span><span class="br0">&#41;</span>
-@GeneratedValue<span class="br0">&#40;</span>strategy=GenerationType.<span class="me1">IDENTITY</span><span class="br0">&#41;</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span class="kw21">Integer</span></a> number<span class="sy0">;</span></pre>
+</style><pre class="java5">@Id @Column<span class="br0">(</span>length=<span class="nu0">5</span><span
 
-That is, plain JPA code.<br />
-But <em>&lt;default-value-calculator ... on-create=&quot;true&quot;/&gt;</em> is more flexible than <em>@GeneratedValue</em> because it admits any logic, and it can be used for not key properties. In this case you can use a <em>@PrePersist</em> JPA method. Let's look an example. When in OX2 you write:<br />
+class="br0">)</span>
+@GeneratedValue<span class="br0">(</span>strategy=GenerationType.<span class="me1">IDENTITY</span><span
 
-<style type="text/css"><!--
+class="br0">)</span>
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+
+class="kw21">Integer</span></a> number<span class="sy0">;</span></pre>
+      That is, plain JPA code.<br>
+      But <em>&lt;default-value-calculator ... on-create="true"/&gt;</em> is
+      more flexible than <em>@GeneratedValue</em> because it admits any logic,
+      and it can be used for not key properties. In this case you can use a <em>@PrePersist</em>
+      JPA method. Let's look an example. When in OX2 you write:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1448,16 +1604,24 @@ But <em>&lt;default-value-calculator ... on-create=&quot;true&quot;/&gt;</em> is
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;oid&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;String&quot;</span> <span class="re0">key</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">hidden</span>=<span class="st0">&quot;true&quot;</span><span class="re2">&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span
+
+class="re0">name</span>=<span class="st0">"oid"</span> <span class="re0">type</span>=<span
+
+class="st0">"String"</span> <span class="re0">key</span>=<span class="st0">"true"</span> <span
+
+class="re0">hidden</span>=<span class="st0">"true"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;default-value-calculator</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">&quot;org.openxava.test.calculators.InvoiceDetailOidCalculator&quot;</span></span>
-<span class="sc3">        <span class="re0">on-create</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"org.openxava.test.calculators.InvoiceDetailOidCalculator"</span></span>
+<span class="sc3">        <span class="re0">on-create</span>=<span class="st0">"true"</span><span
+
+class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
 &nbsp;</pre>
-
-Where <em>InvoiceDetailOidCalculator</em> has a custom logic for generated the value. This can be easily translate to OX3 adding the next method to your POJO:<br />
-
-<style type="text/css"><!--
+      Where <em>InvoiceDetailOidCalculator</em> has a custom logic for
+      generated the value. This can be easily translate to OX3 adding the next
+      method to your POJO:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1645,17 +1809,36 @@ Where <em>InvoiceDetailOidCalculator</em> has a custom logic for generated the v
 
 -->
 </style><pre class="java5">@PrePersist
-<span class="kw2">private</span> <span class="kw3">void</span> calculateOID<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
-    oid = invoice.<span class="me1">getYear</span><span class="br0">&#40;</span><span class="br0">&#41;</span> + <span class="st0">&quot;:&quot;</span> + invoice.<span class="me1">getNumber</span><span class="br0">&#40;</span><span class="br0">&#41;</span> + <span class="st0">&quot;:&quot;</span> + <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/System.html"><span class="kw21">System</span></a>.<span class="me1">currentTimeMillis</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-<span class="br0">&#125;</span>
+<span class="kw2">private</span> <span class="kw3">void</span> calculateOID<span
+
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+    oid = invoice.<span class="me1">getYear</span><span class="br0">(</span><span
+
+class="br0">)</span> + <span class="st0">":"</span> + invoice.<span class="me1">getNumber</span><span
+
+class="br0">(</span><span class="br0">)</span> + <span class="st0">":"</span> + <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/System.html"><span class="kw21">System</span></a>.<span
+
+class="me1">currentTimeMillis</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span>
+<span class="br0">}</span>
 &nbsp;</pre>
-
-In this case the logic of <em>calculatedOID</em> method is the same of the <em>InvoiceDetailOIDCalculator</em>. Again, you can see as we are using plain JPA code.<br />
-<h2 id="toc5"><a name="OX2 to OX3 mental migration guide-Callback calculators: postcreate, postmodify, postload, preremove and postremove"></a>Callback calculators: postcreate, postmodify, postload, preremove and postremove</h2>
- Instead of <em>&lt;postcreate-calculator/&gt;</em>, <em>&lt;postmodify-calculator/&gt;</em>, <em>&lt;postload-calculator/&gt;</em>, <em>&lt;preremove-calculator/&gt;</em> and <em>&lt;postremove-calculator/&gt;</em> in OX3 you use the standard JPA callback methods, that is, methods in your entity annotated with <em>@PrePersist</em>, <em>@PostPersist</em>, <em>@PreRemove</em>, <em>@PostRemove</em>, <em>@PreUpdate</em>, <em>@PostUpdate</em> and <em>@PostLoad</em>.<br />
-For example, if you have a collection as this one in an <em>Invoice</em> component:<br />
-
-<style type="text/css"><!--
+      In this case the logic of <em>calculatedOID</em> method is the same of
+      the <em>InvoiceDetailOIDCalculator</em>. Again, you can see as we are
+      using plain JPA code.<br>
+      <h2 id="toc5"><a name="OX2 to OX3 mental migration guide-Callback calculators: postcreate, postmodify, postload, preremove and postremove"></a>Callback
+        calculators: postcreate, postmodify, postload, preremove and postremove</h2>
+      Instead of <em>&lt;postcreate-calculator/&gt;</em>, <em>&lt;postmodify-calculator/&gt;</em>,
+      <em>&lt;postload-calculator/&gt;</em>, <em>&lt;preremove-calculator/&gt;</em>
+      and <em>&lt;postremove-calculator/&gt;</em> in OX3 you use the standard
+      JPA callback methods, that is, methods in your entity annotated with <em>@PrePersist</em>,
+      <em>@PostPersist</em>, <em>@PreRemove</em>, <em>@PostRemove</em>, <em>@PreUpdate</em>,
+      <em>@PostUpdate</em> and <em>@PostLoad</em>.<br>
+      For example, if you have a collection as this one in an <em>Invoice</em>
+      component:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1677,15 +1860,19 @@ For example, if you have a collection as this one in an <em>Invoice</em> compone
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;collection</span> <span class="re0">name</span>=<span class="st0">&quot;details&quot;</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">model</span>=<span class="st0">&quot;InvoiceDetail&quot;</span><span class="re2">/&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;collection</span> <span
+
+class="re0">name</span>=<span class="st0">"details"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">model</span>=<span
+
+class="st0">"InvoiceDetail"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;postremove-calculator</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">&quot;org.openxava.test.calculators.DetailPostremoveCalculator&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"org.openxava.test.calculators.DetailPostremoveCalculator"</span><span
+
+class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/collection<span class="re2">&gt;</span></span></span></pre>
-
-With this calculator class:<br />
-
-<style type="text/css"><!--
+      With this calculator class:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -1872,34 +2059,61 @@ With this calculator class:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.calculators</span><span class="sy0">;</span>
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.calculators</span><span
+
+class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.rmi.*</span><span class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.calculators.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.test.ejb.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.calculators.*</span><span
+
+class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.test.ejb.*</span><span
+
+class="sy0">;</span>
 &nbsp;
 <span class="co3">/**
  * @author Javier Paniza
  */</span>
-<span class="kw2">public</span> <span class="kw2">class</span> DetailPostremoveCalculator <span class="kw2">implements</span> IModelCalculator <span class="br0">&#123;</span>
+<span class="kw2">public</span> <span class="kw2">class</span> DetailPostremoveCalculator <span
+
+class="kw2">implements</span> IModelCalculator <span class="br0">{</span>
 &nbsp;
     <span class="kw2">private</span> IInvoice invoice<span class="sy0">;</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> calculate<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> <span class="br0">&#123;</span>
-        invoice.<span class="me1">setComment</span><span class="br0">&#40;</span>invoice.<span class="me1">getComment</span><span class="br0">&#40;</span><span class="br0">&#41;</span> + <span class="st0">&quot;DETAIL DELETED&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a> calculate<span class="br0">(</span><span class="br0">)</span> <span
+
+class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
+class="kw21">Exception</span></a> <span class="br0">{</span>
+        invoice.<span class="me1">setComment</span><span class="br0">(</span>invoice.<span
+
+class="me1">getComment</span><span class="br0">(</span><span class="br0">)</span> + <span
+
+class="st0">"DETAIL DELETED"</span><span class="br0">)</span><span class="sy0">;</span>
         <span class="kw2">return</span> <span class="kw4">null</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> setEntity<span class="br0">&#40;</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span class="kw166">Object</span></a> model<span class="br0">&#41;</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/rmi/RemoteException.html"><span class="kw34">RemoteException</span></a> <span class="br0">&#123;</span>
-        <span class="kw2">this</span>.<span class="me1">invoice</span> = <span class="br0">&#40;</span>IInvoice<span class="br0">&#41;</span> model<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> setEntity<span
+
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a> model<span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/rmi/RemoteException.html"><span
+
+class="kw34">RemoteException</span></a> <span class="br0">{</span>
+        <span class="kw2">this</span>.<span class="me1">invoice</span> = <span class="br0">(</span>IInvoice<span
+
+class="br0">)</span> model<span class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
-<span class="br0">&#125;</span></pre>
-
-In OX3 you only need to have a method as this one in the <em>InvoiceDetail</em> class:<br />
-
-<style type="text/css"><!--
+<span class="br0">}</span></pre>
+      In OX3 you only need to have a method as this one in the <em>InvoiceDetail</em>
+      class:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -2087,20 +2301,35 @@ In OX3 you only need to have a method as this one in the <em>InvoiceDetail</em> 
 
 -->
 </style><pre class="java5">@PostRemove
-<span class="kw2">private</span> <span class="kw3">void</span> postRemove<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
-    invoice.<span class="me1">setComment</span><span class="br0">&#40;</span>invoice.<span class="me1">getComment</span><span class="br0">&#40;</span><span class="br0">&#41;</span> + <span class="st0">&quot;DETAIL DELETED&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-<span class="br0">&#125;</span>
+<span class="kw2">private</span> <span class="kw3">void</span> postRemove<span class="br0">(</span><span
+
+class="br0">)</span> <span class="br0">{</span>
+    invoice.<span class="me1">setComment</span><span class="br0">(</span>invoice.<span
+
+class="me1">getComment</span><span class="br0">(</span><span class="br0">)</span> + <span
+
+class="st0">"DETAIL DELETED"</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>
 &nbsp;</pre>
+      In this case easier than in OX2.<br>
+      <h2 id="toc6"><a name="OX2 to OX3 mental migration guide-Converters"></a>Converters</h2>
+      The useful OpenXava converters are not available in OX3. But, don't worry,
+      we can use the Type of Hibernate, that provides almost all functionality
+      of OpenXava converters.<br>
+      Look at Hibernate <a class="wiki_link_ext" href="http://www.hibernate.org/hib_docs/v3/reference/en/html/mapping.html#mapping-types-custom"
 
-In this case easier than in OX2.<br />
-<h2 id="toc6"><a name="OX2 to OX3 mental migration guide-Converters"></a>Converters</h2>
- The useful OpenXava converters are not available in OX3. But, don't worry, we can use the Type of Hibernate, that provides almost all functionality of OpenXava converters.<br />
-Look at Hibernate <a class="wiki_link_ext" href="http://www.hibernate.org/hib_docs/v3/reference/en/html/mapping.html#mapping-types-custom" rel="nofollow">Reference about Type</a>,<br />
-Hibernate Type has some little drawback over classic OX converter:<br />
-<ul><li>Converter by defaults (from defaults-converter.xml) not supported.</li><li>Converters for references not supported.</li></ul><h2 id="toc7"><a name="OX2 to OX3 mental migration guide-persistence.xml instead of configuration"></a>persistence.xml instead of configuration</h2>
- In the build.xml the property 'configuration' is not longer used. Now instead of properties files we can comment and uncomment code in persistence.xml in order to work with several configuration, in this way:<br />
-
-<style type="text/css"><!--
+        rel="nofollow">Reference about Type</a>,<br>
+      Hibernate Type has some little drawback over classic OX converter:<br>
+      <ul>
+        <li>Converter by defaults (from defaults-converter.xml) not supported.</li>
+        <li>Converters for references not supported.</li>
+      </ul>
+      <h2 id="toc7"><a name="OX2 to OX3 mental migration guide-persistence.xml instead of configuration"></a>persistence.xml
+        instead of configuration</h2>
+      In the build.xml the property 'configuration' is not longer used. Now
+      instead of properties files we can comment and uncomment code in
+      persistence.xml in order to work with several configuration, in this way:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -2123,41 +2352,51 @@ Hibernate Type has some little drawback over classic OX converter:<br />
 
 -->
 </style><pre class="xml">    <span class="sc-1">&lt;!-- Tomcat + Hypersonic --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;persistence-unit</span> <span class="re0">name</span>=<span class="st0">&quot;default&quot;</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span>java:comp/env/jdbc/MySchoolDS<span class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.session.GalleryImage<span class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;persistence-unit</span> <span class="re0">name</span>=<span
+
+class="st0">"default"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span>java:comp/env/jdbc/MySchoolDS<span
+
+class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.session.GalleryImage<span
+
+class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;hibernate.dialect&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;org.hibernate.dialect.HSQLDialect&quot;</span><span class="re2">/&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"hibernate.dialect"</span> <span class="re0">value</span>=<span class="st0">"org.hibernate.dialect.HSQLDialect"</span><span
+
+class="re2">/&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span>
 &nbsp;
     <span class="sc-1">&lt;!-- JBoss + Hypersonic</span>
-<span class="sc-1">    &lt;persistence-unit name=&quot;default&quot;&gt;</span>
+<span class="sc-1">    &lt;persistence-unit name="default"&gt;</span>
 <span class="sc-1">        &lt;non-jta-data-source&gt;java:/MiEscuelaDS&lt;/non-jta-data-source&gt;</span>
 <span class="sc-1">        &lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;</span>
 <span class="sc-1">        &lt;properties&gt;</span>
-<span class="sc-1">            &lt;property name=&quot;hibernate.dialect&quot; value=&quot;org.hibernate.dialect.HSQLDialect&quot;/&gt;</span>
+<span class="sc-1">            &lt;property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/&gt;</span>
 <span class="sc-1">        &lt;/properties&gt;</span>
 <span class="sc-1">    &lt;/persistence-unit&gt;</span>
 <span class="sc-1">    --&gt;</span>
 &nbsp;
     <span class="sc-1">&lt;!-- WebSphere + AS/400</span>
-<span class="sc-1">    &lt;persistence-unit name=&quot;default&quot;&gt;</span>
+<span class="sc-1">    &lt;persistence-unit name="default"&gt;</span>
 <span class="sc-1">        &lt;non-jta-data-source&gt;jdbc/MiEscuelaDS&lt;/non-jta-data-source&gt;</span>
 <span class="sc-1">        &lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;</span>
 <span class="sc-1">        &lt;properties&gt;</span>
-<span class="sc-1">            &lt;property name=&quot;hibernate.dialect&quot; value=&quot;org.hibernate.dialect.DB2400Dialect&quot;/&gt;</span>
-<span class="sc-1">            &lt;property name=&quot;hibernate.show_sql&quot; value=&quot;false&quot;/&gt;</span>
+<span class="sc-1">            &lt;property name="hibernate.dialect" value="org.hibernate.dialect.DB2400Dialect"/&gt;</span>
+<span class="sc-1">            &lt;property name="hibernate.show_sql" value="false"/&gt;</span>
 <span class="sc-1">        &lt;/properties&gt;</span>
 <span class="sc-1">    &lt;/persistence-unit&gt;</span>
 <span class="sc-1">    --&gt;</span>
 &nbsp;</pre>
-
-Here we have 3 configuration and we can active one of them easily only commenting and uncommenting.<br />
-<h2 id="toc8"><a name="OX2 to OX3 mental migration guide-JUnit test: Setting value to a combo for a composite key reference"></a>JUnit test: Setting value to a combo for a composite key reference</h2>
- In OX3 this is the way to put value to a combo with composite key:<br />
-
-<style type="text/css"><!--
+      Here we have 3 configuration and we can active one of them easily only
+      commenting and uncommenting.<br>
+      <h2 id="toc8"><a name="OX2 to OX3 mental migration guide-JUnit test: Setting value to a combo for a composite key reference"></a>JUnit
+        test: Setting value to a combo for a composite key reference</h2>
+      In OX3 this is the way to put value to a combo with composite key:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -2182,17 +2421,31 @@ Here we have 3 configuration and we can active one of them easily only commentin
 .java span.xtra { display:block; }
 
 -->
-</style><pre class="java">Shipment shipment <span class="sy0">=</span> <span class="br0">&#40;</span>Shipment<span class="br0">&#41;</span> Shipment.<span class="me1">findAll</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">iterator</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">next</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-setValue<span class="br0">&#40;</span><span class="st0">&quot;shipment.KEY&quot;</span>, toKeyString<span class="br0">&#40;</span>shipment<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+</style><pre class="java">Shipment shipment <span class="sy0">=</span> <span class="br0">(</span>Shipment<span
+
+class="br0">)</span> Shipment.<span class="me1">findAll</span><span class="br0">(</span><span
+
+class="br0">)</span>.<span class="me1">iterator</span><span class="br0">(</span><span
+
+class="br0">)</span>.<span class="me1">next</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+setValue<span class="br0">(</span><span class="st0">"shipment.KEY"</span>, toKeyString<span
+
+class="br0">(</span>shipment<span class="br0">)</span><span class="br0">)</span><span
+
+class="sy0">;</span>
 &nbsp;</pre>
-
-As you see you have to use toKeyString() method (included in ModuleTestBase), and not the toString() method of the POJO.<br />
-This technique also works with OX2.<br />
-<h2 id="toc9"><a name="OX2 to OX3 mental migration guide-View property"></a>View property</h2>
- View properties does not exist in OX3. But it's easy to simulate them using <a class="wiki_link" href="view_en.html#tocview_en25">transient properties</a> in your model.<br />
-That is, in OX2 you write:<br />
-
-<style type="text/css"><!--
+      As you see you have to use toKeyString() method (included in
+      ModuleTestBase), and not the toString() method of the POJO.<br>
+      This technique also works with OX2.<br>
+      <h2 id="toc9"><a name="OX2 to OX3 mental migration guide-View property"></a>View
+        property</h2>
+      View properties does not exist in OX3. But it's easy to simulate them
+      using <a class="wiki_link" href="view_en.html#tocview_en25">transient
+        properties</a> in your model.<br>
+      That is, in OX2 you write:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -2215,26 +2468,40 @@ That is, in OX2 you write:<br />
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;view<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;deliveredBy&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"deliveredBy"</span><span class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;valid-values<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span class="st0">&quot;employee&quot;</span><span class="re2">/&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span class="st0">&quot;carrier&quot;</span><span class="re2">/&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
+
+class="st0">"employee"</span><span class="re2">/&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
+
+class="st0">"carrier"</span><span class="re2">/&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;/valid-values<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;default-value-calculator</span></span>
-<span class="sc3">             <span class="re0">class</span>=<span class="st0">&quot;org.openxava.calculators.IntegerCalculator&quot;</span><span class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span class="st0">&quot;value&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;0&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3">             <span class="re0">class</span>=<span class="st0">"org.openxava.calculators.IntegerCalculator"</span><span
+
+class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+
+class="st0">"value"</span> <span class="re0">value</span>=<span class="st0">"0"</span><span
+
+class="re2">/&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;/default-value-calculator<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;property-view</span> <span class="re0">property</span>=<span class="st0">&quot;deliveredBy&quot;</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;on-change</span> <span class="re0">class</span>=<span class="st0">&quot;org.openxava.test.actions.OnChangeDeliveryByAction&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;property-view</span> <span class="re0">property</span>=<span
+
+class="st0">"deliveredBy"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;on-change</span> <span class="re0">class</span>=<span
+
+class="st0">"org.openxava.test.actions.OnChangeDeliveryByAction"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/property-view<span class="re2">&gt;</span></span></span>
     ...
 <span class="sc3"><span class="re1">&lt;/view<span class="re2">&gt;</span></span></span></pre>
-
-And now using OX3 you will write:<br />
-
-<style type="text/css"><!--
+      And now using OX3 you will write:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -2422,18 +2689,24 @@ And now using OX3 you will write:<br />
 
 -->
 </style><pre class="java5">@Transient
-@DefaultValueCalculator<span class="br0">&#40;</span>value=EnumCalculator.<span class="kw2">class</span>,
-    properties=<span class="br0">&#123;</span>
-        @PropertyValue<span class="br0">&#40;</span>name=<span class="st0">&quot;enumType&quot;</span>, value=<span class="st0">&quot;org.openxava.test.model.Delivery$DeliveredBy&quot;</span><span class="br0">&#41;</span>
-        @PropertyValue<span class="br0">&#40;</span>name=<span class="st0">&quot;value&quot;</span>, value=<span class="st0">&quot;CARRIER&quot;</span><span class="br0">&#41;</span>
-    <span class="br0">&#125;</span>
-<span class="br0">&#41;</span>
-@OnChange<span class="br0">&#40;</span>OnChangeDeliveryByAction.<span class="kw2">class</span><span class="br0">&#41;</span>
-<span class="kw2">private</span> DeliveredBy deliveredBy<span class="sy0">;</span>
-<span class="kw2">public</span> <span class="kw2">enum</span> DeliveredBy <span class="br0">&#123;</span> EMPLOYEE, CARRIER <span class="br0">&#125;</span>
-&nbsp;</pre>
+@DefaultValueCalculator<span class="br0">(</span>value=EnumCalculator.<span class="kw2">class</span>,
+    properties=<span class="br0">{</span>
+        @PropertyValue<span class="br0">(</span>name=<span class="st0">"enumType"</span>, value=<span
 
-With the same effect.
-    </div>
+class="st0">"org.openxava.test.model.Delivery$DeliveredBy"</span><span class="br0">)</span>
+        @PropertyValue<span class="br0">(</span>name=<span class="st0">"value"</span>, value=<span
+
+class="st0">"CARRIER"</span><span class="br0">)</span>
+    <span class="br0">}</span>
+<span class="br0">)</span>
+@OnChange<span class="br0">(</span>OnChangeDeliveryByAction.<span class="kw2">class</span><span
+
+class="br0">)</span>
+<span class="kw2">private</span> DeliveredBy deliveredBy<span class="sy0">;</span>
+<span class="kw2">public</span> <span class="kw2">enum</span> DeliveredBy <span
+
+class="br0">{</span> EMPLOYEE, CARRIER <span class="br0">}</span>
+&nbsp;</pre>
+      With the same effect. </div>
   </body>
 </html>

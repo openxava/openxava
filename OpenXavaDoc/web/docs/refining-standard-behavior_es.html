@@ -1,13 +1,21 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - refining-standard-behavior_es</title>
+    <title>Lección 7: Refinar el comportamiento predefinido - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-7-Refinar-el-comportamiento-predefinido"></a>
+        <span id="breadcrumbs"> 
+        	<span id="openxava"> 
+            <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> 
+          / <a href="index_es.html">documentación</a> / 
+        </span>
+        Lección 7: Refinar el comportamiento predefinido</h1>
       <div id="toc">
-        <h1 class="nopad">Table of Contents</h1>
+        <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Leccion-7-Refinar-el-comportamiento-predefinido">Lección
             7: Refinar el comportamiento predefinido</a></div>
         <div style="margin-left: 2em;"><a href="#Acciones-personalizadas">Acciones
@@ -32,8 +40,7 @@
             encadenadas</a></div>
         <div style="margin-left: 3em;"><a href="#Acciones-genericas-Refinar-la-accion-de-busqueda-por-defecto">Refinar
             la acción de búsqueda por defecto</a></div>
-        <div style="margin-left: 2em;"><a href="#Modo-lista">Modo
-            lista</a></div>
+        <div style="margin-left: 2em;"><a href="#Modo-lista">Modo lista</a></div>
         <div style="margin-left: 3em;"><a href="#Modo-lista-Filtrar-datos-tabulares">Filtrar
             datos tabulares</a></div>
         <div style="margin-left: 3em;"><a href="#Modo-lista-Acciones-de-lista">Acciones
@@ -48,8 +55,7 @@
             definiciones de datos tabulares por entidad</a></div>
         <div style="margin-left: 3em;"><a href="#Reutilizar-el-codigo-de-las-acciones-Obsesion-por-reutilizar">Obsesión
             por reutilizar</a></div>
-        <div style="margin-left: 2em;"><a href="#Pruebas-JUnit">Pruebas
-            JUnit</a></div>
+        <div style="margin-left: 2em;"><a href="#Pruebas-JUnit">Pruebas JUnit</a></div>
         <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-el-comportamiento-personalizado-para-borrar">Probar
             el comportamiento personalizado para borrar</a></div>
         <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-varios-modulos-en-el-mismo-metodo-de-prueba">Probar
@@ -68,9 +74,7 @@
         Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a><br>
-      <h1 id="toc0"><a name="Leccion-7-Refinar-el-comportamiento-predefinido"></a>Lección
-        7: Refinar el comportamiento predefinido</h1>
+        Anotaciones</a><hr>
       Espero que estés muy contento con el código de tu aplicación <em>Facturacion</em>.
       Es realmente simple, básicamente tienes entidades, clases simples que
       modelan tu problema. Toda la lógica de negocio está en esas entidades, y
@@ -1252,8 +1256,7 @@ class="sy0">;</span> <span class="co1">// Crearemos una nueva entidad</span>
       botón de borrar no se mostrará.<br>
       Ahora que ya sabes como escribir tus propias acciones personalizadas, es
       tiempo de aprender como escribir código genérico.<br>
-      <h2 id="toc5"><a name="Acciones-genericas"></a>Acciones
-        genéricas</h2>
+      <h2 id="toc5"><a name="Acciones-genericas"></a>Acciones genéricas</h2>
       El código actual de <em>EliminarFactura</em> refleja la forma típica de
       escribir acciones. Es código concreto que accede directamente a entidades
       concretas para manipularlas.<br>
@@ -3918,8 +3921,7 @@ class="st0">"Facturacion"</span><span class="re2">/&gt;</span></span>
       tanto no añadas esta definición de módulo a tu <em>aplicacion.xml</em>.
       Este código solo era para ilustrar el uso de <em>&lt;var-entorno /&gt;</em>
       en los módulos.<br>
-      <h2 id="toc12"><a name="Modo-lista"></a>Modo
-        lista</h2>
+      <h2 id="toc12"><a name="Modo-lista"></a>Modo lista</h2>
       Ya casi tenemos el trabajo hecho. Cuando el usuario borra una entidad con
       una propiedad <em>eliminado</em> la entidad se marca como borrada en vez
       de ser borrada físicamente de la base de datos. Y si el usuario trata de
@@ -4140,8 +4142,8 @@ class="br0">)</span>
 class="br0">{</span> ... <span class="br0">}</span></pre>
       Y de esta forma tan sencilla el modo lista no mostrará las entidades
       “marcadas como borradas”.<br>
-      <h3 id="toc14"><a name="Modo-lista-Acciones-de-lista"></a>Acciones
-        de lista</h3>
+      <h3 id="toc14"><a name="Modo-lista-Acciones-de-lista"></a>Acciones de
+        lista</h3>
       El único detalle que nos queda es el borrar las entidades desde modo
       lista, éstas han de marcarse como borradas si procede. Vamos a refinar la
       acción estándar <em>CRUD.deleteSelected</em> de la misma manera que hemos
@@ -5602,8 +5604,7 @@ class="re2">/&gt;</span></span>
       sencillo es algo imposible de conseguir, hemos de esforzarnos por que
       nuestro código sea lo más sencillo posible. El consejo es: crea código
       reutilizable solo cuando éste simplifique tu aplicación en el presente.<br>
-      <h2 id="toc20"><a name="Pruebas-JUnit"></a>Pruebas
-        JUnit</h2>
+      <h2 id="toc20"><a name="Pruebas-JUnit"></a>Pruebas JUnit</h2>
       Hemos refinado la manera en que tu aplicación borra entidades, además
       hemos añadido dos módulos personalizados, los módulos papelera. Antes de
       seguir adelante, tenemos que escribir las pruebas de estas nuevas

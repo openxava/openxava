@@ -1,32 +1,70 @@
 <html>
   <head>
-    <title>openxava - multischema_en</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Multischema applications - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-<div id="toc"><h1 class="nopad">Table of Contents</h1><div style="margin-left: 1em;"><a href="#Multischema applications">Multischema applications</a></div>
-<div style="margin-left: 2em;"><a href="#Multischema applications-Multi-schema applications">Multi-schema applications</a></div>
-<div style="margin-left: 2em;"><a href="#Multischema applications-Multi-database applications (new in v4.2.2)">Multi-database applications (new in v4.2.2)</a></div>
-<div style="margin-left: 2em;"><a href="#Multischema applications-An example">An example</a></div>
-<div style="margin-left: 2em;"><a href="#Multischema applications-How it works">How it works</a></div>
-<div style="margin-left: 2em;"><a href="#Multischema applications-Switching schema through URL (new in v4m4)">Switching schema through URL (new in v4m4)</a></div>
-</div>
-<h1 id="toc0"><a name="Multischema applications"></a>Multischema applications</h1>
- This document explains how to create multi-schema applications using OpenXava.<br />
-Multi-schema applications work using Hibernate and EJB3 JPA as persistence engines. EJB2 CMP does not support multischema.<br />
-If you want a ready-to-use multitenancy application without programming visit the <a class="wiki_link" href="multitenancy_en.html">multitenancy</a> section.<br />
-<h2 id="toc1"><a name="Multischema applications-Multi-schema applications"></a>Multi-schema applications</h2>
- A multi-schema application allows you to replicate all table structure of your database in several database schemas. Then each user (or in each session) can work with a different schema, that is with different data.<br />
-For example, you can have the data of 3 different companies in the same database server. Your OpenXava application, that is deployed only once in an application sever, can be executed for employees of these 3 companies, but each employee can only access the data of his company. A multi-schema application allows you to implement this. Using several schema in the database is not only for security, but for avoiding having huge database tables; because you can divide the data by companies, years, departments, etc.<br />
-<h2 id="toc2"><a name="Multischema applications-Multi-database applications (new in v4.2.2)"></a>Multi-database applications <em>(new in v4.2.2)</em></h2>
- Instead of several schemas in the same application you can choose to use several completely different databases. In order to do it follow the instructions below changing <em>DefaultSchema</em> controller by <em>PersistenceUnit</em> and <em>SetDefaultSchemaAction</em> by <em>SetPersistenceUnitAction</em>. Moreover, you have to define several persistence units in <em>persistence.xml</em>, one for each database.<br />
-<h2 id="toc3"><a name="Multischema applications-An example"></a>An example</h2>
- Let's see an example of an OpenXava module that uses multi-schema.<br />
-First, we need to have an entity class, as this one:<br />
+      <h1 id="toc0"><a name="Multischema applications"></a>
+        <span id="breadcrumbs">
+          <span id="openxava">
+          	<a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava
+            </a>
+          </span>  
+          / <a href="index_en.html">documentation</a> /  
+				</span>                
+        Multischema applications
+      </h1>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#Multischema%20applications">Multischema
+            applications</a></div>
+        <div style="margin-left: 2em;"><a href="#Multischema%20applications-Multi-schema%20applications">Multi-schema
+            applications</a></div>
+        <div style="margin-left: 2em;"><a href="#Multischema%20applications-Multi-database%20applications%20%28new%20in%20v4.2.2%29">Multi-database
+            applications (new in v4.2.2)</a></div>
+        <div style="margin-left: 2em;"><a href="#Multischema%20applications-An%20example">An
+            example</a></div>
+        <div style="margin-left: 2em;"><a href="#Multischema%20applications-How%20it%20works">How
+            it works</a></div>
+        <div style="margin-left: 2em;"><a href="#Multischema%20applications-Switching%20schema%20through%20URL%20%28new%20in%20v4m4%29">Switching
+            schema through URL (new in v4m4)</a></div>
+      </div>
 
-<style type="text/css"><!--
+      This document explains how to create multi-schema applications using
+      OpenXava.<br>
+      Multi-schema applications work using Hibernate and EJB3 JPA as persistence
+      engines. EJB2 CMP does not support multischema.<br>
+      If you want a ready-to-use multitenancy application without programming
+      visit the <a class="wiki_link" href="multitenancy_en.html">multitenancy</a>
+      section.<br>
+      <h2 id="toc1"><a name="Multischema applications-Multi-schema applications"></a>Multi-schema
+        applications</h2>
+      A multi-schema application allows you to replicate all table structure of
+      your database in several database schemas. Then each user (or in each
+      session) can work with a different schema, that is with different data.<br>
+      For example, you can have the data of 3 different companies in the same
+      database server. Your OpenXava application, that is deployed only once in
+      an application sever, can be executed for employees of these 3 companies,
+      but each employee can only access the data of his company. A multi-schema
+      application allows you to implement this. Using several schema in the
+      database is not only for security, but for avoiding having huge database
+      tables; because you can divide the data by companies, years, departments,
+      etc.<br>
+      <h2 id="toc2"><a name="Multischema applications-Multi-database applications (new in v4.2.2)"></a>Multi-database
+        applications <em>(new in v4.2.2)</em></h2>
+      Instead of several schemas in the same application you can choose to use
+      several completely different databases. In order to do it follow the
+      instructions below changing <em>DefaultSchema</em> controller by <em>PersistenceUnit</em>
+      and <em>SetDefaultSchemaAction</em> by <em>SetPersistenceUnitAction</em>.
+      Moreover, you have to define several persistence units in <em>persistence.xml</em>,
+      one for each database.<br>
+      <h2 id="toc3"><a name="Multischema applications-An example"></a>An example</h2>
+      Let's see an example of an OpenXava module that uses multi-schema.<br>
+      First, we need to have an entity class, as this one:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -213,34 +251,58 @@ First, we need to have an entity class, as this one:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> Issue <span class="br0">&#123;</span>
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
+class="kw166">Entity</span></a>
+<span class="kw2">public</span> <span class="kw2">class</span> Issue <span class="br0">{</span>
 &nbsp;
-    @Id @Column<span class="br0">&#40;</span>length=<span class="nu0">5</span><span class="br0">&#41;</span> @Required
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> id<span class="sy0">;</span>
+    @Id @Column<span class="br0">(</span>length=<span class="nu0">5</span><span
+
+class="br0">)</span> @Required
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> id<span class="sy0">;</span>
 &nbsp;
-    @Column<span class="br0">&#40;</span>length=<span class="nu0">40</span><span class="br0">&#41;</span> @Required
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> description<span class="sy0">;</span>
+    @Column<span class="br0">(</span>length=<span class="nu0">40</span><span class="br0">)</span> @Required
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> description<span class="sy0">;</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getId<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> getId<span class="br0">(</span><span class="br0">)</span> <span
+
+class="br0">{</span>
         <span class="kw2">return</span> id<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
-    <span class="kw2">public</span> <span class="kw3">void</span> setId<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> id<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="br0">}</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> setId<span class="br0">(</span><a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> id<span
+
+class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">this</span>.<span class="me1">id</span> = id<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> getDescription<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> getDescription<span class="br0">(</span><span class="br0">)</span> <span
+
+class="br0">{</span>
         <span class="kw2">return</span> description<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
-    <span class="kw2">public</span> <span class="kw3">void</span> setDescription<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> description<span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        <span class="kw2">this</span>.<span class="me1">description</span> = description<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="br0">}</span>
+    <span class="kw2">public</span> <span class="kw3">void</span> setDescription<span
+
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> description<span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw2">this</span>.<span class="me1">description</span> = description<span
+
+class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
-<span class="br0">&#125;</span></pre>
-
-Or, if you are using the classic OpenXava XML components:<br />
-
-<style type="text/css"><!--
+<span class="br0">}</span></pre>
+      Or, if you are using the classic OpenXava XML components:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -262,26 +324,43 @@ Or, if you are using the classic OpenXava XML components:<br />
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;component</span> <span class="re0">name</span>=<span class="st0">&quot;Issue&quot;</span><span class="re2">&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;component</span> <span
+
+class="re0">name</span>=<span class="st0">"Issue"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;id&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;String&quot;</span> <span class="re0">key</span>=<span class="st0">&quot;true&quot;</span></span>
-<span class="sc3">            <span class="re0">size</span>=<span class="st0">&quot;5&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">&quot;description&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;String&quot;</span></span>
-<span class="sc3">            <span class="re0">size</span>=<span class="st0">&quot;40&quot;</span> <span class="re0">required</span>=<span class="st0">&quot;true&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"id"</span> <span class="re0">type</span>=<span class="st0">"String"</span> <span
+
+class="re0">key</span>=<span class="st0">"true"</span></span>
+<span class="sc3">            <span class="re0">size</span>=<span class="st0">"5"</span> <span
+
+class="re0">required</span>=<span class="st0">"true"</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
+class="st0">"description"</span> <span class="re0">type</span>=<span class="st0">"String"</span></span>
+<span class="sc3">            <span class="re0">size</span>=<span class="st0">"40"</span> <span
+
+class="re0">required</span>=<span class="st0">"true"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;entity-mapping</span> <span class="re0">table</span>=<span class="st0">&quot;ISSUE&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;entity-mapping</span> <span class="re0">table</span>=<span
+
+class="st0">"ISSUE"</span><span class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;property-mapping</span></span>
-<span class="sc3">            <span class="re0">property</span>=<span class="st0">&quot;id&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;ID&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3">            <span class="re0">property</span>=<span class="st0">"id"</span> <span
+
+class="re0">column</span>=<span class="st0">"ID"</span><span class="re2">/&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;property-mapping</span></span>
-<span class="sc3">            <span class="re0">property</span>=<span class="st0">&quot;description&quot;</span> <span class="re0">column</span>=<span class="st0">&quot;DESCRIPTION&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3">            <span class="re0">property</span>=<span class="st0">"description"</span> <span
+
+class="re0">column</span>=<span class="st0">"DESCRIPTION"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/entity-mapping<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/component<span class="re2">&gt;</span></span></span>
 &nbsp;</pre>
-
-You can see how we map the component against the table ISSUE, but we don't specify the schema.<br />
-Now, we can define the module in <em>application.xml</em>, as following:<br />
-
-<style type="text/css"><!--
+      You can see how we map the component against the table ISSUE, but we don't
+      specify the schema.<br>
+      Now, we can define the module in <em>application.xml</em>, as following:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -303,15 +382,22 @@ Now, we can define the module in <em>application.xml</em>, as following:<br />
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;Issues&quot;</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span class="st0">&quot;Issue&quot;</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Typical&quot;</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Issues&quot;</span><span class="re2">/&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+
+class="re0">name</span>=<span class="st0">"Issues"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+
+class="st0">"Issue"</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
+class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
+class="st0">"Issues"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
-
-Then, we define our custom controller <em>Issues</em>, in the <em>controllers.xml</em>, in this way:<br />
-
-<style type="text/css"><!--
+      Then, we define our custom controller <em>Issues</em>, in the <em>controllers.xml</em>,
+      in this way:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -333,28 +419,65 @@ Then, we define our custom controller <em>Issues</em>, in the <em>controllers.xm
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span class="st0">&quot;Issues&quot;</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span class="st0">&quot;DefaultSchema&quot;</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span class="st0">&quot;changeToCompanyA&quot;</span> <span class="re0">on-init</span>=<span class="st0">&quot;true&quot;</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">&quot;org.openxava.actions.SetDefaultSchemaAction&quot;</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span class="st0">&quot;newDefaultSchema&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;COMPANYA&quot;</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span class="st0">&quot;xava_defaultSchema&quot;</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+
+class="re0">name</span>=<span class="st0">"Issues"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+
+class="st0">"DefaultSchema"</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
+class="st0">"changeToCompanyA"</span> <span class="re0">on-init</span>=<span class="st0">"true"</span></span>
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"org.openxava.actions.SetDefaultSchemaAction"</span><span
+
+class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+
+class="st0">"newDefaultSchema"</span> <span class="re0">value</span>=<span class="st0">"COMPANYA"</span><span
+
+class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
+
+class="st0">"xava_defaultSchema"</span><span class="re2">/&gt;</span></span>  <span
+
+class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
     <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span class="st0">&quot;changeToCompanyB&quot;</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">&quot;org.openxava.actions.SetDefaultSchemaAction&quot;</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span class="st0">&quot;newDefaultSchema&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;COMPANYB&quot;</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span class="st0">&quot;xava_defaultSchema&quot;</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
+class="st0">"changeToCompanyB"</span></span>
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"org.openxava.actions.SetDefaultSchemaAction"</span><span
+
+class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+
+class="st0">"newDefaultSchema"</span> <span class="re0">value</span>=<span class="st0">"COMPANYB"</span><span
+
+class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
+
+class="st0">"xava_defaultSchema"</span><span class="re2">/&gt;</span></span>  <span
+
+class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
     <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
+      And now we have a module that can work against the schema 'COMPANYA' or
+      against the schema 'COMPANYB'. The user only have to click in the
+      corresponding button in order to change <em>in hot</em> the source of the
+      data.<br>
+      <br>
+      That's all.<br>
+      <br>
+      <h2 id="toc4"><a name="Multischema applications-How it works"></a>How it
+        works</h2>
+      You can use these ready-to-use controllers and actions, but if you know
+      how it works, you can do it yourself, and adapting it to your special
+      requeriments if needed. The key is the class <em><a class="wiki_link_ext"
 
-And now we have a module that can work against the schema 'COMPANYA' or against the schema 'COMPANYB'. The user only have to click in the corresponding button in order to change <em>in hot</em> the source of the data.<br />
-<br />
-That's all.<br />
-<br />
-<h2 id="toc4"><a name="Multischema applications-How it works"></a>How it works</h2>
- You can use these ready-to-use controllers and actions, but if you know how it works, you can do it yourself, and adapting it to your special requeriments if needed. The key is the class <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/jpa/XPersistence.html" rel="nofollow">XPersistence</a></em>, using this class it's possible to change the default schema in runtime:<br />
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/jpa/XPersistence.html"
 
-<style type="text/css"><!--
+          rel="nofollow">XPersistence</a></em>, using this class it's possible
+      to change the default schema in runtime:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -379,15 +502,21 @@ That's all.<br />
 .java span.xtra { display:block; }
 
 -->
-</style><pre class="java">XPersistence.<span class="me1">setDefaultSchema</span><span class="br0">&#40;</span><span class="st0">&quot;COMPANYA&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</style><pre class="java">XPersistence.<span class="me1">setDefaultSchema</span><span
 
-This changes the default schema to 'COMPANYA', but only for the current execution thread.<br />
-Now, if you use a session object (see section 7.2 of Reference Guide) and use an action with <em>on-each-request=&quot;true&quot;</em> to set the schema associated to the current user as the default schema for the thread of the request, you will have the problem solved.<br />
-<br />
-Let's try to do it.<br />
-Define a session object to store the current schema by user:<br />
+class="br0">(</span><span class="st0">"COMPANYA"</span><span class="br0">)</span><span
 
-<style type="text/css"><!--
+class="sy0">;</span></pre>
+      This changes the default schema to 'COMPANYA', but only for the current
+      execution thread.<br>
+      Now, if you use a session object (see section 7.2 of Reference Guide) and
+      use an action with <em>on-each-request="true"</em> to set the schema
+      associated to the current user as the default schema for the thread of the
+      request, you will have the problem solved.<br>
+      <br>
+      Let's try to do it.<br>
+      Define a session object to store the current schema by user:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -409,13 +538,20 @@ Define a session object to store the current schema by user:<br />
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;object</span> <span class="re0">name</span>=<span class="st0">&quot;xava_defaultSchema&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;java.lang.String&quot;</span> <span class="re0">scope</span>=<span class="st0">&quot;global&quot;</span><span class="re2">/&gt;</span></span></pre>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;object</span> <span
 
-This is defined in <em>OpenXava/xava/default-controllers.xml</em>, therefore it's available for you; although you can create your own session object in your own <em>controllers.xml</em> if you prefer so.<br />
-<br />
-Define an action (in your own controller) to be executed before each request, in controllers.xml:<br />
+class="re0">name</span>=<span class="st0">"xava_defaultSchema"</span> <span class="re0">class</span>=<span
 
-<style type="text/css"><!--
+class="st0">"java.lang.String"</span> <span class="re0">scope</span>=<span class="st0">"global"</span><span
+
+class="re2">/&gt;</span></span></pre>
+      This is defined in <em>OpenXava/xava/default-controllers.xml</em>,
+      therefore it's available for you; although you can create your own session
+      object in your own <em>controllers.xml</em> if you prefer so.<br>
+      <br>
+      Define an action (in your own controller) to be executed before each
+      request, in controllers.xml:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -437,19 +573,31 @@ Define an action (in your own controller) to be executed before each request, in
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> ... <span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span class="st0">&quot;setDefaultSchema&quot;</span> <span class="re0">before-each-request</span>=<span class="st0">&quot;true&quot;</span> <span class="re0">hidden</span>=<span class="st0">&quot;true&quot;</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">&quot;org.openxava.actions.SetDefaultSchemaAction&quot;</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span class="st0">&quot;xava_defaultSchema&quot;</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> ... <span
+
+class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
+class="st0">"setDefaultSchema"</span> <span class="re0">before-each-request</span>=<span
+
+class="st0">"true"</span> <span class="re0">hidden</span>=<span class="st0">"true"</span></span>
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"org.openxava.actions.SetDefaultSchemaAction"</span><span
+
+class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
+
+class="st0">"xava_defaultSchema"</span><span class="re2">/&gt;</span></span>  <span
+
+class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
     <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
     ...
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
-
-<br />
-(The <em>DefaultSchema</em> controller of OpenXava has this action included)<br />
-In this action you only need to have the session object (in this case <em>xava_defaultSchema</em>) and put it as default schema using <em>XPersistence</em>:<br />
-
-<style type="text/css"><!--
+      <br>
+      (The <em>DefaultSchema</em> controller of OpenXava has this action
+      included)<br>
+      In this action you only need to have the session object (in this case <em>xava_defaultSchema</em>)
+      and put it as default schema using <em>XPersistence</em>:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -474,59 +622,100 @@ In this action you only need to have the session object (in this case <em>xava_d
 .java span.xtra { display:block; }
 
 -->
-</style><pre class="java"><span class="kw1">public</span> <span class="kw1">class</span> SetDefaultSchemaAction <span class="kw1">extends</span> BaseAction <span class="br0">&#123;</span>
+</style><pre class="java"><span class="kw1">public</span> <span class="kw1">class</span> SetDefaultSchemaAction <span
+
+class="kw1">extends</span> BaseAction <span class="br0">{</span>
 &nbsp;
     @Inject  <span class="co1">// Since v4m2</span>
-    <span class="kw1">private</span> <span class="kw3">String</span> defaultSchema<span class="sy0">;</span>
-    <span class="kw1">private</span> <span class="kw3">String</span> newDefaultSchema<span class="sy0">;</span>
-&nbsp;
-    <span class="kw1">public</span> <span class="kw4">void</span> execute<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">&#123;</span>
-        <span class="kw1">if</span> <span class="br0">&#40;</span>newDefaultSchema <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">&#41;</span>    defaultSchema <span class="sy0">=</span> newDefaultSchema<span class="sy0">;</span>
-        XPersistence.<span class="me1">setDefaultSchema</span><span class="br0">&#40;</span>defaultSchema<span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
-&nbsp;
-    <span class="co3">/**
-     * The current default schema used by OpenXava and JPA.
-     */</span>
-    <span class="kw1">public</span> <span class="kw3">String</span> getDefaultSchema<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        <span class="kw1">return</span> defaultSchema<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
-&nbsp;
-    <span class="co3">/**
-     * The current default schema used by OpenXava and JPA.
-     */</span>
-    <span class="kw1">public</span> <span class="kw4">void</span> setDefaultSchema<span class="br0">&#40;</span><span class="kw3">String</span> company<span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        <span class="kw1">this</span>.<span class="me1">defaultSchema</span> <span class="sy0">=</span> company<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
-&nbsp;
-    <span class="co3">/**
-     * The new default schema for OpenXava and JPA. &lt;P&gt;
-     *
-     * This value update the property 'defaultSchema'.
-     */</span>
-    <span class="kw1">public</span> <span class="kw3">String</span> getNewDefaultSchema<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        <span class="kw1">return</span> newDefaultSchema<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
-&nbsp;
-    <span class="co3">/**
-     * The new default schema for OpenXava and JPA. &lt;P&gt;
-     *
-     * This value update the property 'defaultSchema'.
-     */</span>
-    <span class="kw1">public</span> <span class="kw4">void</span> setNewDefaultSchema<span class="br0">&#40;</span><span class="kw3">String</span> newCompany<span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        <span class="kw1">this</span>.<span class="me1">newDefaultSchema</span> <span class="sy0">=</span> newCompany<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
-<span class="br0">&#125;</span></pre>
+    <span class="kw1">private</span> <span class="kw3">String</span> defaultSchema<span
 
-Because <em>defaultSchema</em> is injected using <em>&lt;use-object /&gt;</em> (in all OX versions) or <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/6/docs/api/javax/inject/Inject.html" rel="nofollow">@Inject</a></em> (since v4m2) when we change <em>defaultSchema</em> property we also change the session object <em>xava_defaultSchema</em>.<br />
-This action is part of OpenXava core (in <em>org.openxava.actions</em>), you can use it as is, or create your own action using a similar technique.<br />
-<br />
-This techique can be used with <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/hibernate/XHibernate.html" rel="nofollow">XHibernate</a></em> too.<br />
-<br />
-Now you can call to this action (or other alike) when you want to change the current schema for the user.<br />
-<br />
-<h2 id="toc5"><a name="Multischema applications-Switching schema through URL (new in v4m4)"></a>Switching schema through URL <em>(new in v4m4)</em></h2>
- You can also change schema by using its URL, see the details in the <a class="wiki_link" href="how-to_en.html">How to</a> section.
-    </div>
+class="sy0">;</span>
+    <span class="kw1">private</span> <span class="kw3">String</span> newDefaultSchema<span
+
+class="sy0">;</span>
+&nbsp;
+    <span class="kw1">public</span> <span class="kw4">void</span> execute<span class="br0">(</span><span
+
+class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span
+
+class="br0">{</span>
+        <span class="kw1">if</span> <span class="br0">(</span>newDefaultSchema <span
+
+class="sy0">!=</span> <span class="kw2">null</span><span class="br0">)</span>    defaultSchema <span
+
+class="sy0">=</span> newDefaultSchema<span class="sy0">;</span>
+        XPersistence.<span class="me1">setDefaultSchema</span><span class="br0">(</span>defaultSchema<span
+
+class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="co3">/**
+     * The current default schema used by OpenXava and JPA.
+     */</span>
+    <span class="kw1">public</span> <span class="kw3">String</span> getDefaultSchema<span
+
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw1">return</span> defaultSchema<span class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="co3">/**
+     * The current default schema used by OpenXava and JPA.
+     */</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> setDefaultSchema<span
+
+class="br0">(</span><span class="kw3">String</span> company<span class="br0">)</span> <span
+
+class="br0">{</span>
+        <span class="kw1">this</span>.<span class="me1">defaultSchema</span> <span
+
+class="sy0">=</span> company<span class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="co3">/**
+     * The new default schema for OpenXava and JPA. &lt;P&gt;
+     *
+     * This value update the property 'defaultSchema'.
+     */</span>
+    <span class="kw1">public</span> <span class="kw3">String</span> getNewDefaultSchema<span
+
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw1">return</span> newDefaultSchema<span class="sy0">;</span>
+    <span class="br0">}</span>
+&nbsp;
+    <span class="co3">/**
+     * The new default schema for OpenXava and JPA. &lt;P&gt;
+     *
+     * This value update the property 'defaultSchema'.
+     */</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> setNewDefaultSchema<span
+
+class="br0">(</span><span class="kw3">String</span> newCompany<span class="br0">)</span> <span
+
+class="br0">{</span>
+        <span class="kw1">this</span>.<span class="me1">newDefaultSchema</span> <span
+
+class="sy0">=</span> newCompany<span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
+      Because <em>defaultSchema</em> is injected using <em>&lt;use-object
+        /&gt;</em> (in all OX versions) or <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/6/docs/api/javax/inject/Inject.html"
+
+          rel="nofollow">@Inject</a></em> (since v4m2) when we change <em>defaultSchema</em>
+      property we also change the session object <em>xava_defaultSchema</em>.<br>
+      This action is part of OpenXava core (in <em>org.openxava.actions</em>),
+      you can use it as is, or create your own action using a similar technique.<br>
+      <br>
+      This techique can be used with <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/hibernate/XHibernate.html"
+
+          rel="nofollow">XHibernate</a></em> too.<br>
+      <br>
+      Now you can call to this action (or other alike) when you want to change
+      the current schema for the user.<br>
+      <br>
+      <h2 id="toc5"><a name="Multischema applications-Switching schema through URL (new in v4m4)"></a>Switching
+        schema through URL <em>(new in v4m4)</em></h2>
+      You can also change schema by using its URL, see the details in the <a class="wiki_link"
+
+        href="how-to_en.html">How to</a> section. </div>
   </body>
 </html>

@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - basic-business-logic_es</title>
+    <title>Lección 5: Lógica de negocio básica - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,8 +9,16 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-5-Logica-de-negocio-basica"></a>
+        <span id="breadcrumbs"> 
+        	<span id="openxava"> 
+            <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> 
+          / <a href="index_es.html">documentación</a> / 
+        </span>
+        Lección 5: Lógica de negocio básica</h1>
       <div id="toc">
-        <h1 class="nopad">Table of Contents</h1>
+        <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Leccion-5-Logica-de-negocio-basica">Lección
             5: Lógica de negocio básica</a></div>
         <div style="margin-left: 2em;"><a href="#Propiedades-calculadas">Propiedades
@@ -50,17 +58,17 @@
         Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
         Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3.
         Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">4.
-        Herencia</a> | <strong>5. Lógica de negocio básica</strong> | <a class="wiki_link"
-        href="validation_es.html">6. Validación avanzada</a> | <a class="wiki_link"
+        Herencia</a> | <strong>5. Lógica de negocio básica</strong> | <a class="wiki_link"
+
+        href="validation_es.html">6. Validación avanzada</a> | <a class="wiki_link"
+
         href="refining-standard-behavior_es.html">7. Refinar el comportamiento
         predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8.
         Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">9.
         Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a><br>
-      <h1 id="toc0"><a name="Leccion-5-Logica-de-negocio-basica"></a>Lección 5:
-        Lógica de negocio básica</h1>
+        Anotaciones</a><hr>
       Has convertido tu modelo del dominio en una aplicación web plenamente
       funcional. Esta aplicación ya es bastante útil de por sí, aunque aún
       puedes hacerle muchas mejoras. Transformemos pues tu aplicación en algo
@@ -291,7 +299,8 @@ for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccio
         Este hecho tiene también efecto en el modo lista, porque el usuario no
         puede filtrar ni ordenar por las propiedades calculadas, pero sí que lo
         puede hacer usando propiedades persistentes con <em>@Calculation</em>:<br>
-        <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
+        <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
+
           title="business-logic_es025.png"><br>
         <em>@Calculation</em> es una buena opción cuando necesitas filtrar y
         ordenar, y un cálculo simple es suficiente. Una desventaja de las
@@ -967,10 +976,12 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
       funcionamiento estándar del módulo y añadir tu propia lógica de negocio,
       entre otras formas de añadir lógica personalizada a tu aplicación.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="validation_es.html">Ve a la lección 6</a></strong>
     </div>

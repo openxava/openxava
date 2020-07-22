@@ -1,44 +1,75 @@
 <html>
   <head>
-    <title>openxava - bonita-openxava_es</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>OpenXava con Bonita Open Solution - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-<h1 id="toc0"><a name="Aplicacion OXBPM, OpenXava con Bonita Open Solution"></a>Aplicacion OXBPM, OpenXava con Bonita Open Solution</h1>
- Este artículo contiene un enlace para a una aplicación de OpenXava diseñada para Integrar el BPM de Bonita Open Solution.<br />
-La aplicacion corre sobre Liferay 6.1 y Tomcat 7.0.<br />
-Este es el enlace:<br />
-<span style="background-color: #ffffff; color: #1155cc; font-family: arial,sans-serif;"><u><span style="color: #1155cc;"><a class="wiki_link_ext" href="http://200.29.153.50:8080/" rel="nofollow" target="_blank">http://200.29.153.50:8080/</a></span>novedades</u></span><br />
-Pueden ingresar con los usarios siguientes:<br />
-<br />
-Rol 1: Solicitante<br />
-usuario: demo1<br />
-clave: password<br />
-<br />
-Rol 2: Coordinador<br />
-usuario: demo2<br />
-clave password<br />
-<br />
-Los fuentes estan disponibles en la comunidad de bonitasoft, <a class="wiki_link_ext" href="http://www.bonitasoft.org/" rel="nofollow">www.bonitasoft.org</a> El enlace es: <a class="wiki_link_ext" href="http://www.bonitasoft.org/exchange/extension_view.php?eid=93" rel="nofollow">http://www.bonitasoft.org/exchange/extension_view.php?eid=93</a><br />
-<br />
-Los invito a unirse y participar en la comunidad de Bonita Open Solution.<br />
-Bonita Open Solution es una solución potente e intuitiva para crear aplicaciones basadas en procesos<br />
-por un coste inmejorable. Totalmente opensource y con la calidad y funcionalidad de las aplicaciones comerciales.<br />
-<br />
-En la demo tambien se incluye un Proceso Orden de Compra de Ejemplo que esta integrado con OXBPM antes señalado.<br />
-<br />
-Fuentes de OXBP en Comunidad de Bonita: <a class="wiki_link_ext" href="http://www.bonitasoft.org/exchange/extension_view.php?eid=93&amp;rid=113#rev113" rel="nofollow">http://www.bonitasoft.org/exchange/extension_view.php?eid=93&amp;rid=113#rev113</a><br />
-<br />
-Detalles Tècnicos:<br />
-<br />
-<span style="line-height: 1.5;">En cuanto al acceso a la API de Bonita Open Solution (BOS) desde nuestra aplicaciòn de Openxava es muy simple. En el programa OXBPM esto se lleva a cabo en la clase </span><em><span style="line-height: 1.5;">org.zzeus.ox.bpm.integration.runtime.facade.OXBPMModule</span></em><span style="line-height: 1.5;">.</span><br />
-En esta clase se centra toda la funcionalidad BPM del sistema. El truco básico es hacer un login programatico antes de acceder a cualquier método de la API de BOS.<br />
-<br />
-Acá un fragmento de código de la clase:<br />
+      <h1 id="toc0">
+        <span id="breadcrumbs">
+          <span id="openxava"> 
+            <a href="https://www.openxava.org/"> 
+              <span>o</span>pen<span>x</span>ava
+            </a>
+          </span> 
+          / <a href="index_es.html">documentación</a> / 
+        </span>
+        OpenXava con Bonita Open Solution</h1>
+      Este artículo contiene un enlace para a una aplicación de OpenXava
+      diseñada para Integrar el BPM de Bonita Open Solution.<br>
+      La aplicacion corre sobre Liferay 6.1 y Tomcat 7.0.<br>
+      Este es el enlace:<br>
+      <span style="background-color: #ffffff; color: #1155cc; font-family: arial,sans-serif;"><u><span
 
-<style type="text/css"><!--
+            style="color: #1155cc;"><a class="wiki_link_ext" href="http://200.29.153.50:8080/"
+
+              rel="nofollow" target="_blank">http://200.29.153.50:8080/</a></span>novedades</u></span><br>
+      Pueden ingresar con los usarios siguientes:<br>
+      <br>
+      Rol 1: Solicitante<br>
+      usuario: demo1<br>
+      clave: password<br>
+      <br>
+      Rol 2: Coordinador<br>
+      usuario: demo2<br>
+      clave password<br>
+      <br>
+      Los fuentes estan disponibles en la comunidad de bonitasoft, <a class="wiki_link_ext"
+
+        href="http://www.bonitasoft.org/" rel="nofollow">www.bonitasoft.org</a>
+      El enlace es: <a class="wiki_link_ext" href="http://www.bonitasoft.org/exchange/extension_view.php?eid=93"
+
+        rel="nofollow">http://www.bonitasoft.org/exchange/extension_view.php?eid=93</a><br>
+      <br>
+      Los invito a unirse y participar en la comunidad de Bonita Open Solution.<br>
+      Bonita Open Solution es una solución potente e intuitiva para crear
+      aplicaciones basadas en procesos<br>
+      por un coste inmejorable. Totalmente opensource y con la calidad y
+      funcionalidad de las aplicaciones comerciales.<br>
+      <br>
+      En la demo tambien se incluye un Proceso Orden de Compra de Ejemplo que
+      esta integrado con OXBPM antes señalado.<br>
+      <br>
+      Fuentes de OXBP en Comunidad de Bonita: <a class="wiki_link_ext" href="http://www.bonitasoft.org/exchange/extension_view.php?eid=93&amp;rid=113#rev113"
+
+        rel="nofollow">http://www.bonitasoft.org/exchange/extension_view.php?eid=93&amp;rid=113#rev113</a><br>
+      <br>
+      Detalles Tècnicos:<br>
+      <br>
+      <span style="line-height: 1.5;">En cuanto al acceso a la API de Bonita
+        Open Solution (BOS) desde nuestra aplicaciòn de Openxava es muy simple.
+        En el programa OXBPM esto se lleva a cabo en la clase </span><em><span
+
+          style="line-height: 1.5;">org.zzeus.ox.bpm.integration.runtime.facade.OXBPMModule</span></em><span
+
+        style="line-height: 1.5;">.</span><br>
+      En esta clase se centra toda la funcionalidad BPM del sistema. El truco
+      básico es hacer un login programatico antes de acceder a cualquier método
+      de la API de BOS.<br>
+      <br>
+      Acá un fragmento de código de la clase:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -225,70 +256,214 @@ Acá un fragmento de código de la clase:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> OXBPMModule <span class="br0">&#123;</span>
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> OXBPMModule <span
+
+class="br0">{</span>
     <span class="co1">// the api facades</span>
-    <span class="kw2">final</span> RuntimeAPI runtimeAPI = AccessorUtil.<span class="me1">getAPIAccessor</span><span class="br0">&#40;</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span class="br0">&#41;</span>.<span class="me1">getRuntimeAPI</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="kw2">final</span> QueryRuntimeAPI queryRuntimeAPI = AccessorUtil.<span class="me1">getAPIAccessor</span><span class="br0">&#40;</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span class="br0">&#41;</span>.<span class="me1">getQueryRuntimeAPI</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="kw2">final</span> ManagementAPI managementAPI = AccessorUtil.<span class="me1">getAPIAccessor</span><span class="br0">&#40;</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span class="br0">&#41;</span>.<span class="me1">getManagementAPI</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="kw2">final</span> QueryDefinitionAPI queryDefinitionAPI = AccessorUtil.<span class="me1">getAPIAccessor</span><span class="br0">&#40;</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span class="br0">&#41;</span>.<span class="me1">getQueryDefinitionAPI</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="kw2">final</span> RepairAPI repairAPI = AccessorUtil.<span class="me1">getAPIAccessor</span><span class="br0">&#40;</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span class="br0">&#41;</span>.<span class="me1">getRepairAPI</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw2">final</span> RuntimeAPI runtimeAPI = AccessorUtil.<span class="me1">getAPIAccessor</span><span
+
+class="br0">(</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span class="br0">)</span>.<span
+
+class="me1">getRuntimeAPI</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span>
+    <span class="kw2">final</span> QueryRuntimeAPI queryRuntimeAPI = AccessorUtil.<span
+
+class="me1">getAPIAccessor</span><span class="br0">(</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span
+
+class="br0">)</span>.<span class="me1">getQueryRuntimeAPI</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+    <span class="kw2">final</span> ManagementAPI managementAPI = AccessorUtil.<span
+
+class="me1">getAPIAccessor</span><span class="br0">(</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span
+
+class="br0">)</span>.<span class="me1">getManagementAPI</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+    <span class="kw2">final</span> QueryDefinitionAPI queryDefinitionAPI = AccessorUtil.<span
+
+class="me1">getAPIAccessor</span><span class="br0">(</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span
+
+class="br0">)</span>.<span class="me1">getQueryDefinitionAPI</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+    <span class="kw2">final</span> RepairAPI repairAPI = AccessorUtil.<span class="me1">getAPIAccessor</span><span
+
+class="br0">(</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span class="br0">)</span>.<span
+
+class="me1">getRepairAPI</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span>
     <span class="co1">// the realm login to galssfish</span>
-    <span class="kw2">final</span> ProgrammaticLogin programmaticLogin = <span class="kw2">new</span> ProgrammaticLogin<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="kw2">public</span> <span class="kw2">static</span> <span class="kw2">final</span> <span class="kw3">int</span> BAR = <span class="nu0">0</span><span class="sy0">;</span>
-    <span class="kw2">public</span> <span class="kw2">static</span> <span class="kw2">final</span> <span class="kw3">int</span> XPDL = <span class="nu0">1</span><span class="sy0">;</span>
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> currentUserUID<span class="sy0">;</span>
+    <span class="kw2">final</span> ProgrammaticLogin programmaticLogin = <span class="kw2">new</span> ProgrammaticLogin<span
+
+class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="kw2">public</span> <span class="kw2">static</span> <span class="kw2">final</span> <span
+
+class="kw3">int</span> BAR = <span class="nu0">0</span><span class="sy0">;</span>
+    <span class="kw2">public</span> <span class="kw2">static</span> <span class="kw2">final</span> <span
+
+class="kw3">int</span> XPDL = <span class="nu0">1</span><span class="sy0">;</span>
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> currentUserUID<span class="sy0">;</span>
 &nbsp;
-    <span class="kw2">public</span> OXBPMModule<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
-        OXConstants.<span class="me1">loadConstants</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw2">public</span> OXBPMModule<span class="br0">(</span><span class="br0">)</span><span
+
+class="br0">{</span>
+        OXConstants.<span class="me1">loadConstants</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
         User liferayUser<span class="sy0">;</span>
-        <span class="kw2">try</span> <span class="br0">&#123;</span>
-            liferayUser = UserLocalServiceUtil.<span class="me1">getUserById</span><span class="br0">&#40;</span><span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Long.html"><span class="kw21">Long</span></a><span class="br0">&#40;</span>Users.<span class="me1">getCurrent</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-            <span class="kw2">this</span>.<span class="me1">currentUserUID</span>=  liferayUser.<span class="me1">getLogin</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="br0">&#125;</span> <span class="kw2">catch</span> <span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/NumberFormatException.html"><span class="kw21">NumberFormatException</span></a> e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw2">try</span> <span class="br0">{</span>
+            liferayUser = UserLocalServiceUtil.<span class="me1">getUserById</span><span
+
+class="br0">(</span><span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Long.html"><span
+
+class="kw21">Long</span></a><span class="br0">(</span>Users.<span class="me1">getCurrent</span><span
+
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span><span
+
+class="sy0">;</span>
+            <span class="kw2">this</span>.<span class="me1">currentUserUID</span>=  liferayUser.<span
+
+class="me1">getLogin</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span>
+        <span class="br0">}</span> <span class="kw2">catch</span> <span class="br0">(</span><a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/NumberFormatException.html"><span
+
+class="kw21">NumberFormatException</span></a> e<span class="br0">)</span> <span
+
+class="br0">{</span>
             <span class="co1">// TODO Auto-generated catch block</span>
-            e.<span class="me1">printStackTrace</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="br0">&#125;</span> <span class="kw2">catch</span> <span class="br0">&#40;</span>PortalException e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            e.<span class="me1">printStackTrace</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span> <span class="kw2">catch</span> <span class="br0">(</span>PortalException e<span
+
+class="br0">)</span> <span class="br0">{</span>
             <span class="co1">// TODO Auto-generated catch block</span>
-            e.<span class="me1">printStackTrace</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="br0">&#125;</span> <span class="kw2">catch</span> <span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/CORBA/SystemException.html"><span class="kw135">SystemException</span></a> e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            e.<span class="me1">printStackTrace</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span> <span class="kw2">catch</span> <span class="br0">(</span><a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/CORBA/SystemException.html"><span
+
+class="kw135">SystemException</span></a> e<span class="br0">)</span> <span class="br0">{</span>
             <span class="co1">// TODO Auto-generated catch block</span>
-            e.<span class="me1">printStackTrace</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="br0">&#125;</span>
-    <span class="br0">&#125;</span>
+            e.<span class="me1">printStackTrace</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+    <span class="br0">}</span>
 &nbsp;
 &nbsp;
-    <span class="kw2">public</span> OXBPMModule<span class="br0">&#40;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> currentUserUID<span class="br0">&#41;</span> <span class="br0">&#123;</span>
-        OXConstants.<span class="me1">loadConstants</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="kw2">this</span>.<span class="me1">currentUserUID</span> = currentUserUID<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> OXBPMModule<span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> currentUserUID<span class="br0">)</span> <span class="br0">{</span>
+        OXConstants.<span class="me1">loadConstants</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+        <span class="kw2">this</span>.<span class="me1">currentUserUID</span> = currentUserUID<span
+
+class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Set.html"><span class="kw46">Set</span></a><span class="sy0">&lt;</span>ActivityDefinition<span class="sy0">&gt;</span> getProcessActivities<span class="br0">&#40;</span>ProcessDefinitionUUID uuid<span class="br0">&#41;</span> <span class="kw2">throws</span> ProcessNotFoundException, VariableNotFoundException, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> <span class="br0">&#123;</span>
-        programmaticLogin.<span class="me1">login</span><span class="br0">&#40;</span>currentUserUID, <span class="st0">&quot;&quot;</span>, <span class="st0">&quot;processBaseRealm&quot;</span>, <span class="kw4">false</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="kw2">return</span> queryDefinitionAPI.<span class="me1">getProcessActivities</span><span class="br0">&#40;</span>uuid<span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Set.html"><span
+
+class="kw46">Set</span></a><span class="sy0">&lt;</span>ActivityDefinition<span
+
+class="sy0">&gt;</span> getProcessActivities<span class="br0">(</span>ProcessDefinitionUUID uuid<span
+
+class="br0">)</span> <span class="kw2">throws</span> ProcessNotFoundException, VariableNotFoundException, <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
+class="kw21">Exception</span></a> <span class="br0">{</span>
+        programmaticLogin.<span class="me1">login</span><span class="br0">(</span>currentUserUID, <span
+
+class="st0">""</span>, <span class="st0">"processBaseRealm"</span>, <span class="kw4">false</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+        <span class="kw2">return</span> queryDefinitionAPI.<span class="me1">getProcessActivities</span><span
+
+class="br0">(</span>uuid<span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span class="kw46">Collection</span></a><span class="sy0">&lt;</span>OXTaskInstance<span class="sy0">&gt;</span> getTaskList<span class="br0">&#40;</span>ActivityState state<span class="br0">&#41;</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> <span class="br0">&#123;</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span class="kw46">Collection</span></a><span class="sy0">&lt;</span>OXTaskInstance<span class="sy0">&gt;</span> result = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/TreeSet.html"><span class="kw46">TreeSet</span></a><span class="sy0">&lt;</span>OXTaskInstance<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        programmaticLogin.<span class="me1">login</span><span class="br0">&#40;</span>currentUserUID, <span class="st0">&quot;&quot;</span>, <span class="st0">&quot;processBaseRealm&quot;</span>, <span class="kw4">false</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span class="kw46">Collection</span></a><span class="sy0">&lt;</span>TaskInstance<span class="sy0">&gt;</span> tasks =  queryRuntimeAPI.<span class="me1">getTaskList</span><span class="br0">&#40;</span>state<span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="kw1">if</span> <span class="br0">&#40;</span>tasks <span class="sy0">!</span>= <span class="kw4">null</span><span class="br0">&#41;</span>
-        <span class="kw1">for</span> <span class="br0">&#40;</span>TaskInstance task : tasks<span class="br0">&#41;</span><span class="br0">&#123;</span>
-            result.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw2">new</span> OXTaskInstance<span class="br0">&#40;</span>task<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>OXTaskInstance<span
+
+class="sy0">&gt;</span> getTaskList<span class="br0">(</span>ActivityState state<span
+
+class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
+class="kw21">Exception</span></a> <span class="br0">{</span>
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>OXTaskInstance<span
+
+class="sy0">&gt;</span> result = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/TreeSet.html"><span
+
+class="kw46">TreeSet</span></a><span class="sy0">&lt;</span>OXTaskInstance<span
+
+class="sy0">&gt;</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span>
+        programmaticLogin.<span class="me1">login</span><span class="br0">(</span>currentUserUID, <span
+
+class="st0">""</span>, <span class="st0">"processBaseRealm"</span>, <span class="kw4">false</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>TaskInstance<span
+
+class="sy0">&gt;</span> tasks =  queryRuntimeAPI.<span class="me1">getTaskList</span><span
+
+class="br0">(</span>state<span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">if</span> <span class="br0">(</span>tasks <span class="sy0">!</span>= <span
+
+class="kw4">null</span><span class="br0">)</span>
+        <span class="kw1">for</span> <span class="br0">(</span>TaskInstance task : tasks<span
+
+class="br0">)</span><span class="br0">{</span>
+            result.<span class="me1">add</span><span class="br0">(</span><span class="kw2">new</span> OXTaskInstance<span
+
+class="br0">(</span>task<span class="br0">)</span><span class="br0">)</span><span
+
+class="sy0">;</span>
 &nbsp;
 &nbsp;
-        <span class="br0">&#125;</span>
+        <span class="br0">}</span>
         <span class="kw2">return</span> result<span class="sy0">;</span>
-    <span class="br0">&#125;</span>
+    <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Set.html"><span class="kw46">Set</span></a><span class="sy0">&lt;</span>ProcessInstance<span class="sy0">&gt;</span> getUserInstances<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span class="kw21">Exception</span></a> <span class="br0">&#123;</span>
-        programmaticLogin.<span class="me1">login</span><span class="br0">&#40;</span>currentUserUID, <span class="st0">&quot;&quot;</span>, <span class="st0">&quot;processBaseRealm&quot;</span>, <span class="kw4">false</span><span class="br0">&#41;</span><span class="sy0">;</span>
-        <span class="kw2">return</span> queryRuntimeAPI.<span class="me1">getUserInstances</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="br0">&#125;</span>
-<span class="br0">&#125;</span></pre>
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Set.html"><span
 
-Note el uso de la sentencia:<br />
+class="kw46">Set</span></a><span class="sy0">&lt;</span>ProcessInstance<span class="sy0">&gt;</span> getUserInstances<span
 
-<style type="text/css"><!--
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
+class="kw21">Exception</span></a> <span class="br0">{</span>
+        programmaticLogin.<span class="me1">login</span><span class="br0">(</span>currentUserUID, <span
+
+class="st0">""</span>, <span class="st0">"processBaseRealm"</span>, <span class="kw4">false</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+        <span class="kw2">return</span> queryRuntimeAPI.<span class="me1">getUserInstances</span><span
+
+class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
+      Note el uso de la sentencia:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -313,12 +488,14 @@ Note el uso de la sentencia:<br />
 .java span.xtra { display:block; }
 
 -->
-</style><pre class="java">programmaticLogin.<span class="me1">login</span><span class="br0">&#40;</span>currentUserUID, <span class="st0">&quot;&quot;</span>, <span class="st0">&quot;processBaseRealm&quot;</span>, <span class="kw2">false</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</style><pre class="java">programmaticLogin.<span class="me1">login</span><span
 
-antes de cada llamada a función o método de la API.<br />
-La API de BOS se configura en estas líneas de codigo:<br />
+class="br0">(</span>currentUserUID, <span class="st0">""</span>, <span class="st0">"processBaseRealm"</span>, <span
 
-<style type="text/css"><!--
+class="kw2">false</span><span class="br0">)</span><span class="sy0">;</span></pre>
+      antes de cada llamada a función o método de la API.<br>
+      La API de BOS se configura en estas líneas de codigo:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -505,15 +682,45 @@ La API de BOS se configura en estas líneas de codigo:<br />
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">    <span class="kw2">final</span> RuntimeAPI runtimeAPI = AccessorUtil.<span class="me1">getAPIAccessor</span><span class="br0">&#40;</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span class="br0">&#41;</span>.<span class="me1">getRuntimeAPI</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="kw2">final</span> QueryRuntimeAPI queryRuntimeAPI = AccessorUtil.<span class="me1">getAPIAccessor</span><span class="br0">&#40;</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span class="br0">&#41;</span>.<span class="me1">getQueryRuntimeAPI</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="kw2">final</span> ManagementAPI managementAPI = AccessorUtil.<span class="me1">getAPIAccessor</span><span class="br0">&#40;</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span class="br0">&#41;</span>.<span class="me1">getManagementAPI</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="kw2">final</span> QueryDefinitionAPI queryDefinitionAPI = AccessorUtil.<span class="me1">getAPIAccessor</span><span class="br0">&#40;</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span class="br0">&#41;</span>.<span class="me1">getQueryDefinitionAPI</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-    <span class="kw2">final</span> RepairAPI repairAPI = AccessorUtil.<span class="me1">getAPIAccessor</span><span class="br0">&#40;</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span class="br0">&#41;</span>.<span class="me1">getRepairAPI</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</style><pre class="java5">    <span class="kw2">final</span> RuntimeAPI runtimeAPI = AccessorUtil.<span
 
-De igual forma, el siguiente fragmento de código se utiliza para obtener y configurar en el sistema el Usuario de Liferay que actualmente ejecuta la aplicación:<br />
+class="me1">getAPIAccessor</span><span class="br0">(</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span
 
-<style type="text/css"><!--
+class="br0">)</span>.<span class="me1">getRuntimeAPI</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+    <span class="kw2">final</span> QueryRuntimeAPI queryRuntimeAPI = AccessorUtil.<span
+
+class="me1">getAPIAccessor</span><span class="br0">(</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span
+
+class="br0">)</span>.<span class="me1">getQueryRuntimeAPI</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+    <span class="kw2">final</span> ManagementAPI managementAPI = AccessorUtil.<span
+
+class="me1">getAPIAccessor</span><span class="br0">(</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span
+
+class="br0">)</span>.<span class="me1">getManagementAPI</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+    <span class="kw2">final</span> QueryDefinitionAPI queryDefinitionAPI = AccessorUtil.<span
+
+class="me1">getAPIAccessor</span><span class="br0">(</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span
+
+class="br0">)</span>.<span class="me1">getQueryDefinitionAPI</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
+    <span class="kw2">final</span> RepairAPI repairAPI = AccessorUtil.<span class="me1">getAPIAccessor</span><span
+
+class="br0">(</span>OXConstants.<span class="me1">BONITA_EJB_ENV</span><span class="br0">)</span>.<span
+
+class="me1">getRepairAPI</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span></pre>
+      De igual forma, el siguiente fragmento de código se utiliza para obtener y
+      configurar en el sistema el Usuario de Liferay que actualmente ejecuta la
+      aplicación:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -700,10 +907,21 @@ De igual forma, el siguiente fragmento de código se utiliza para obtener y conf
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">  liferayUser = UserLocalServiceUtil.<span class="me1">getUserById</span><span class="br0">&#40;</span><span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Long.html"><span class="kw21">Long</span></a><span class="br0">&#40;</span>Users.<span class="me1">getCurrent</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-  <span class="kw2">this</span>.<span class="me1">currentUserUID</span>=  liferayUser.<span class="me1">getLogin</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</style><pre class="java5">  liferayUser = UserLocalServiceUtil.<span class="me1">getUserById</span><span
 
-Como vemos, no hay mayor dificultad en usar la API de BOS desde una aplicación de Openxava corriendo sobre Liferay.
-    </div>
+class="br0">(</span><span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Long.html"><span
+
+class="kw21">Long</span></a><span class="br0">(</span>Users.<span class="me1">getCurrent</span><span
+
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span><span
+
+class="sy0">;</span>
+  <span class="kw2">this</span>.<span class="me1">currentUserUID</span>=  liferayUser.<span
+
+class="me1">getLogin</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span></pre>
+      Como vemos, no hay mayor dificultad en usar la API de BOS desde una
+      aplicación de Openxava corriendo sobre Liferay. </div>
   </body>
 </html>

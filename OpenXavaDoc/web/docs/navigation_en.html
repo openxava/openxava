@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - navigation_en</title>
+    <title>Module navigation - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,8 +9,19 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Module navigation"></a>
+        <span id="breadcrumbs">
+          <span id="openxava">
+          	<a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava
+            </a>
+          </span>  
+          / <a href="index_en.html">documentation</a> /  
+				</span>       
+        Module navigation
+      </h1>
       <div id="toc">
-        <h1 class="nopad">Table of Contents</h1>
+        <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Module%20navigation">Module
             navigation</a></div>
         <div style="margin-left: 2em;"><a href="#Module%20navigation-Menus">Menus</a></div>
@@ -20,7 +31,6 @@
         <div style="margin-left: 2em;"><a href="#Module%20navigation-Behavior%20customization">Behavior
             customization</a></div>
       </div>
-      <h1 id="toc0"><a name="Module navigation"></a>Module navigation</h1>
       <h2 id="toc1"><a name="Module navigation-Menus"></a>Menus</h2>
       On left side you have a list with all your modules, click (or tap) one to
       open it:<br>
@@ -33,7 +43,8 @@
       <img src="files/naviox-folders_en.png" alt="naviox-folders_en.png" title="naviox-folders_en.png"><br>
       It's just to create a new folder and assigning some modules to it. If you
       want to translate the folder name, use it as key in the i18n labels files.<br>
-      The hierarchical menu is only available in <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
+      The hierarchical menu is only available in <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
+
         rel="nofollow">XavaPro</a>. Plain OpenXava uses a list of modules with a
       search box.<br>
       <h2 id="toc3"><a name="Module navigation-Titles and descriptions for modules and the application"></a>Titles
@@ -63,14 +74,16 @@ Order.module=Orders
 Order.module[description]=Create and manage orders, also generate invoices from orders</pre>
       With the above entries OpenXava knows how to display the name and
       description of <em>Invoice</em> and <em>Order</em> module in English.<br>
-      <img src="files/naviox-module-labels_en.png" alt="naviox-module-labels_en.png"
+      <img src="files/naviox-module-labels_en.png" alt="naviox-module-labels_en.png"
+
         title="naviox-module-labels_en.png"></div>
     <div class="wiki" style="display: block;">Since v6.0 the description of the
       modules is no longer used, so in the menu only the module name is used, as
       you can see in the above first screenshot.</div>
     <div class="wiki" style="display: block;"> The application name is shown in
       the top left corner of the page:<br>
-      <img src="files/naviox-application-name_en.png" alt="naviox-application-name_en.png"
+      <img src="files/naviox-application-name_en.png" alt="naviox-application-name_en.png"
+
         title="naviox-application-name_en.png"><br>
       If you do not want to show the application name add the <em>showApplicationName</em>
       <em>(new in v5.5)</em> entry to your <em>naviox.properties</em> (placed
@@ -91,7 +104,8 @@ Order.module[description]=Create and manage orders, also generate invoices from 
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">showApplicationName</span><span
+</style><pre class="properties"><span class="re0">showApplicationName</span><span
+
 class="sy0">=</span><span class="re1">false</span></pre>
       <h2 id="toc4"><a name="Module navigation-Behavior customization"></a>Behavior
         customization</h2>
@@ -115,7 +129,8 @@ class="sy0">=</span><span class="re1">false</span></pre>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">startInLastVisitedModule</span><span
+</style><pre class="properties"><span class="re0">startInLastVisitedModule</span><span
+
 class="sy0">=</span><span class="re1">false</span></pre>
       If you want that the first page on entering will not be <em>First steps</em>
       but your own module, add <i>initialModule</i> property <i>(new in
@@ -137,7 +152,8 @@ class="sy0">=</span><span class="re1">false</span></pre>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">initialModule</span><span class="sy0">=</span><span
+</style><pre class="properties"><span class="re0">initialModule</span><span class="sy0">=</span><span
+
 class="re1">MyInitialModule</span></pre>
         If you use a version previous to 6.3.2 edit <em>firstSteps.jsp</em>,
         located in <em>web/naviox</em>, remove all the content and place a
@@ -169,7 +185,8 @@ class="re1">MyInitialModule</span></pre>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0"># Until v5.9.1<br>rememberVisitedModules</span><span
+</style><pre class="properties"><span class="re0"># Until v5.9.1<br>rememberVisitedModules</span><span
+
 class="sy0">=</span><span class="re1">false</span></pre>
       The <i>rememberVisitedModules</i> is not available since v6.0.<br>
       <br>
@@ -191,7 +208,8 @@ class="sy0">=</span><span class="re1">false</span></pre>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">showModulesMenuWhenNotLogged</span><span
+</style><pre class="properties"><span class="re0">showModulesMenuWhenNotLogged</span><span
+
 class="sy0">=</span><span class="re1">false</span></pre>
       The modules menu will not be shown even if there are modules available for
       not logged users.</div>
@@ -216,7 +234,8 @@ class="sy0">=</span><span class="re1">false</span></pre>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">fixModulesOnTopMenu</span><span
+</style><pre class="properties"><span class="re0">fixModulesOnTopMenu</span><span
+
 class="sy0">=</span><span class="re1">Invoice, Order</span></pre>
       Just the list of modules separated by commas. The modules will be always
       on the top bar, unless the user has no rights to access them. </div>

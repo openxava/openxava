@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - multitenancy_en</title>
+    <title>Multitenancy - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,8 +9,19 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Multitenancy"></a>
+        <span id="breadcrumbs">
+          <span id="openxava">
+          	<a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava
+            </a>
+          </span>  
+          / <a href="index_en.html">documentation</a> /  
+				</span>       
+        Multitenancy
+      </h1>
       <div id="toc">
-        <h1 class="nopad">Table of Contents</h1>
+        <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Multitenancy">Multitenancy</a></div>
         <div style="margin-left: 2em;"><a href="#Multitenancy-Creating%20a%20new%20organization">Creating
             a new organization</a></div>
@@ -22,7 +33,7 @@
         <div style="margin-left: 2em;"><a href="#Multitenancy-Visual-theme-by-organization">Visual
             theme by organization (new in v6.4)</a></div>
       </div>
-      <h1 id="toc0"><a name="Multitenancy"></a>Multitenancy</h1>
+ 
       Multitenancy allows you to deploy an application once and this single
       application can serve several companies at the same time, where each
       company has access only to its own data. This is perfect for SaaS
@@ -179,7 +190,8 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
       to the Organizations module and edit an organization. There you have a
       property called <i>theme</i> with a combo to choose from the available
       themes, thus:</div>
-    <div class="wiki" style="display: block;"> <img src="files/multitenancy_en070.png"
+    <div class="wiki" style="display: block;"> <img src="files/multitenancy_en070.png"
+
         alt="multitenancy_en070.png" title="multitenancy_en070.png"> </div>
     <div class="wiki" style="display: block;">Choose one and click on <i>Modify</i>,
       afterwards that organization will use that theme with no possibility to
@@ -192,7 +204,8 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
     <div class="wiki" style="display: block;">
       <pre><code class="properties">themes=terra.css, light.css, dark.css, black-and-white.css, blue.css</code></pre>
     </div>
-    <div class="wiki" style="display: block;">Learn more about themes in the <a
+    <div class="wiki" style="display: block;">Learn more about themes in the <a
+
         href="custom-style_en.html">visual style documentation</a>.</div>
     <div class="wiki" style="display: block;"><br>
     </div>

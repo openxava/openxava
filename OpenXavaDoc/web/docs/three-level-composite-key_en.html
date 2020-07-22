@@ -1,15 +1,22 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - three-level-composite-key_en</title>
+    <title>Three-Level Composite Key Demo - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Three-Level Composite Key Demo"></a>Three-Level
-        Composite Key Demo</h1>
+      <h1 id="toc0"><a name="Three-Level Composite Key Demo"></a>
+        <span id="breadcrumbs"> 
+        	<span id="openxava"> 
+            <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> 
+          / <a href="index_en.html">documentation</a> / 
+        </span>        
+        Three-Level Composite Key Demo
+      </h1>
       <div id="toc">
-        <h1 class="nopad">Table of Contents</h1>
+        <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Three-Level%20Composite%20Key%20Demo">Three-Level
             Composite Key Demo</a></div>
         <div style="margin-left: 2em;"><a href="#Three-Level%20Composite%20Key%20Demo-Scenario">Scenario</a></div>
@@ -270,36 +277,48 @@
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
 class="kw166">Entity</span></a>
 <span class="kw2">public</span> <span class="kw2">class</span> Level1 <span class="br0">{</span>
 &nbsp;
   @Id @Hidden
-  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+
 class="st0">"LEVEL1_ID"</span><span class="br0">)</span>
-  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"my_seq_gen"</span>,                                       <span
+  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"my_seq_gen"</span>,                                       <span
+
 class="co1">// 1</span>
     strategy=<span class="st0">"org.openxava.school.persist.SqlSequenceGenerator"</span>,
     parameters=<span class="br0">{</span>
-        @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/Dynamic/Parameter.html"><span
-class="kw142">Parameter</span></a><span class="br0">(</span>name=<span class="st0">"id_query"</span>,value=<span
+        @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/Dynamic/Parameter.html"><span
+
+class="kw142">Parameter</span></a><span class="br0">(</span>name=<span class="st0">"id_query"</span>,value=<span
+
 class="st0">"select max(LEVEL1_ID) + 1 from LEVEL1"</span><span class="br0">)</span>
     <span class="br0">}</span><span class="br0">)</span>
-  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"my_seq_gen"</span><span
+  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"my_seq_gen"</span><span
+
 class="br0">)</span>
   <span class="kw2">private</span> <span class="kw3">int</span> level1Id<span class="sy0">;</span>
 &nbsp;
-  @Column<span class="br0">(</span>length=<span class="nu0">20</span>,name=<span
-class="st0">"LEVEL1_NAME"</span>,unique=<span class="kw4">true</span>,nullable=<span
+  @Column<span class="br0">(</span>length=<span class="nu0">20</span>,name=<span
+
+class="st0">"LEVEL1_NAME"</span>,unique=<span class="kw4">true</span>,nullable=<span
+
 class="kw4">false</span><span class="br0">)</span>           <span class="co1">// 2</span>
   @Required
-  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> level1Name<span class="sy0">;</span>
 &nbsp;
-  @OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"level2Parent"</span><span
+  @OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"level2Parent"</span><span
+
 class="br0">)</span>                                        <span class="co1">// 3</span>
-  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Level2<span class="sy0">&gt;</span> level1Children<span
+  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Level2<span class="sy0">&gt;</span> level1Children<span
+
 class="sy0">;</span>
 &nbsp;
 ... <span class="me1">getters</span> and setters ...</pre>
@@ -503,68 +522,96 @@ class="sy0">;</span>
 
 -->
 </style><pre class="java5">@Tab<span class="br0">(</span>properties=<span class="st0">"level2Parent.level1Name,level2Name"</span>,
-    defaultOrder=<span class="st0">"${level2Parent.level1Name},${level2Name}"</span><span
+    defaultOrder=<span class="st0">"${level2Parent.level1Name},${level2Name}"</span><span
+
 class="br0">)</span>
 &nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
 class="kw166">Entity</span></a>
-@IdClass<span class="br0">(</span>Level2Id.<span class="kw2">class</span><span class="br0">)</span>                                                             <span
+@IdClass<span class="br0">(</span>Level2Id.<span class="kw2">class</span><span class="br0">)</span>                                                             <span
+
 class="co1">// 1</span>
-@Table<span class="br0">(</span>uniqueConstraints=@UniqueConstraint<span class="br0">(</span>columnNames=<span
-class="br0">{</span><span class="st0">"LEVEL1_ID"</span>,<span class="st0">"LEVEL2_NAME"</span><span
+@Table<span class="br0">(</span>uniqueConstraints=@UniqueConstraint<span class="br0">(</span>columnNames=<span
+
+class="br0">{</span><span class="st0">"LEVEL1_ID"</span>,<span class="st0">"LEVEL2_NAME"</span><span
+
 class="br0">}</span><span class="br0">)</span><span class="br0">)</span> <span class="co1">// 2</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Level2 <span class="kw2">implements</span> IDynamicSqlSequence <span
+<span class="kw2">public</span> <span class="kw2">class</span> Level2 <span class="kw2">implements</span> IDynamicSqlSequence <span
+
 class="br0">{</span>                                 <span class="co1">// 3</span>
 &nbsp;
   <span class="co1">// Annotations for this field are duplicated in the ID class due to a Hibernate bug -- please keep in sync!!!</span>
   @Id
-  @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">EAGER</span><span
+  @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">EAGER</span><span
+
 class="br0">)</span>                                                  <span class="co1">// 4</span>
-  @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL1_ID"</span>,referencedColumnName=<span
-class="st0">"LEVEL1_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
-class="kw4">false</span>,insertable=<span class="kw4">true</span>,updatable=<span
+  @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL1_ID"</span>,referencedColumnName=<span
+
+class="st0">"LEVEL1_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
+
+class="kw4">false</span>,insertable=<span class="kw4">true</span>,updatable=<span
+
 class="kw4">true</span><span class="br0">)</span>
-  @DescriptionsList<span class="br0">(</span>descriptionProperties=<span class="st0">"level1Name"</span><span
+  @DescriptionsList<span class="br0">(</span>descriptionProperties=<span class="st0">"level1Name"</span><span
+
 class="br0">)</span>
   <span class="kw2">private</span> Level1 level2Parent<span class="sy0">;</span>
 &nbsp;
   <span class="co1">// Annotations for this field are duplicated in the ID class due to a Hibernate bug -- please keep in sync!!!</span>
   @Id @Hidden
-  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"sql_seq_gen"</span>,                                              <span
+  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"sql_seq_gen"</span>,                                              <span
+
 class="co1">// 5</span>
-    strategy=<span class="st0">"org.openxava.school.persist.SqlSequenceGenerator"</span><span
+    strategy=<span class="st0">"org.openxava.school.persist.SqlSequenceGenerator"</span><span
+
 class="br0">)</span>
-  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"sql_seq_gen"</span><span
+  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"sql_seq_gen"</span><span
+
 class="br0">)</span>
-  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+
 class="st0">"LEVEL2_ID"</span><span class="br0">)</span>
   <span class="kw2">private</span> <span class="kw3">int</span> level2Id<span class="sy0">;</span>
 &nbsp;
-  @Column<span class="br0">(</span>length=<span class="nu0">20</span>,name=<span
+  @Column<span class="br0">(</span>length=<span class="nu0">20</span>,name=<span
+
 class="st0">"LEVEL2_NAME"</span>,nullable=<span class="kw4">false</span><span class="br0">)</span>
   @Required
-  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> level2Name<span class="sy0">;</span>
 &nbsp;
-  @OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"level3Parent"</span><span
+  @OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"level3Parent"</span><span
+
 class="br0">)</span>                                                <span class="co1">// 6</span>
-  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Level3<span class="sy0">&gt;</span> level2Children<span
+  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Level3<span class="sy0">&gt;</span> level2Children<span
+
 class="sy0">;</span>
 &nbsp;
 ... <span class="me1">getters</span> and setters ...
 &nbsp;
-  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
-  <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> nextKeyQuery<span class="br0">(</span><span class="br0">)</span> <span
+  <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> nextKeyQuery<span class="br0">(</span><span class="br0">)</span> <span
+
 class="br0">{</span>
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> myResult = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a><span class="br0">(</span><span class="st0">"select max(LEVEL2_ID) + 1 from LEVEL2 where LEVEL1_ID = "</span><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> myResult = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a><span class="br0">(</span><span class="st0">"select max(LEVEL2_ID) + 1 from LEVEL2 where LEVEL1_ID = "</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-    myResult += level2Parent.<span class="me1">getLevel1Id</span><span class="br0">(</span><span
-class="br0">)</span><span class="sy0">;</span>                                          <span
+    myResult += level2Parent.<span class="me1">getLevel1Id</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>                                          <span
+
 class="co1">// 7</span>
     <span class="kw2">return</span> myResult<span class="sy0">;</span>
   <span class="br0">}</span>
@@ -771,70 +818,100 @@ class="co1">// 7</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Tab<span class="br0">(</span>properties=<span class="st0">"level3Parent.level2Parent.level1Name,level3Parent.level2Name,level3Name"</span><span
+</style><pre class="java5">@Tab<span class="br0">(</span>properties=<span class="st0">"level3Parent.level2Parent.level1Name,level3Parent.level2Name,level3Name"</span><span
+
 class="br0">)</span>
 &nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
 class="kw166">Entity</span></a>
 @IdClass<span class="br0">(</span>Level3Id.<span class="kw2">class</span><span class="br0">)</span>
-@Table<span class="br0">(</span>uniqueConstraints=@UniqueConstraint<span class="br0">(</span>columnNames=<span
-class="br0">{</span><span class="st0">"LEVEL1_ID"</span>,<span class="st0">"LEVEL2_ID"</span>,<span
-class="st0">"LEVEL3_NAME"</span><span class="br0">}</span><span class="br0">)</span><span
+@Table<span class="br0">(</span>uniqueConstraints=@UniqueConstraint<span class="br0">(</span>columnNames=<span
+
+class="br0">{</span><span class="st0">"LEVEL1_ID"</span>,<span class="st0">"LEVEL2_ID"</span>,<span
+
+class="st0">"LEVEL3_NAME"</span><span class="br0">}</span><span class="br0">)</span><span
+
 class="br0">)</span> <span class="co1">// 1</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Level3 <span class="kw2">implements</span> IDynamicSqlSequence <span
+<span class="kw2">public</span> <span class="kw2">class</span> Level3 <span class="kw2">implements</span> IDynamicSqlSequence <span
+
 class="br0">{</span>
 &nbsp;
   <span class="co1">// Annotations for this field are duplicated in the ID class due to a Hibernate bug -- please keep in sync!!!</span>
   @Id
-  @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">EAGER</span><span
+  @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">EAGER</span><span
+
 class="br0">)</span>
-  @JoinColumns<span class="br0">(</span><span class="br0">{</span>                                                                                 <span
+  @JoinColumns<span class="br0">(</span><span class="br0">{</span>                                                                                 <span
+
 class="co1">// 2</span>
-    @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL2_ID"</span>,referencedColumnName=<span
-class="st0">"LEVEL2_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
-class="kw4">false</span>,insertable=<span class="kw4">false</span>,updatable=<span
+    @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL2_ID"</span>,referencedColumnName=<span
+
+class="st0">"LEVEL2_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
+
+class="kw4">false</span>,insertable=<span class="kw4">false</span>,updatable=<span
+
 class="kw4">false</span><span class="br0">)</span>,
-    @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL1_ID"</span>,referencedColumnName=<span
-class="st0">"LEVEL1_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
-class="kw4">false</span>,insertable=<span class="kw4">false</span>,updatable=<span
+    @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL1_ID"</span>,referencedColumnName=<span
+
+class="st0">"LEVEL1_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
+
+class="kw4">false</span>,insertable=<span class="kw4">false</span>,updatable=<span
+
 class="kw4">false</span><span class="br0">)</span>
   <span class="br0">}</span><span class="br0">)</span>
-  @DescriptionsList<span class="br0">(</span>descriptionProperties=<span class="st0">"level2Parent.level1Name,level2Name"</span><span
+  @DescriptionsList<span class="br0">(</span>descriptionProperties=<span class="st0">"level2Parent.level1Name,level2Name"</span><span
+
 class="br0">)</span>
-  <span class="kw2">private</span> Level2 level3Parent<span class="sy0">;</span>                                                                   <span
+  <span class="kw2">private</span> Level2 level3Parent<span class="sy0">;</span>                                                                   <span
+
 class="co1">// 3</span>
 &nbsp;
   <span class="co1">// Annotations for this field are duplicated in the ID class due to a Hibernate bug -- please keep in sync!!!</span>
   @Id @Hidden
-  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"sql_seq_gen"</span>,strategy=<span
+  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"sql_seq_gen"</span>,strategy=<span
+
 class="st0">"org.openxava.school.persist.SqlSequenceGenerator"</span><span class="br0">)</span>
-  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"sql_seq_gen"</span><span
+  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"sql_seq_gen"</span><span
+
 class="br0">)</span>
-  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+
 class="st0">"LEVEL3_ID"</span><span class="br0">)</span>
   <span class="kw2">private</span> <span class="kw3">int</span> level3Id<span class="sy0">;</span>
 &nbsp;
-  @Column<span class="br0">(</span>length=<span class="nu0">20</span>,name=<span
+  @Column<span class="br0">(</span>length=<span class="nu0">20</span>,name=<span
+
 class="st0">"LEVEL3_NAME"</span>,nullable=<span class="kw4">false</span><span class="br0">)</span>
   @Required
-  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> level3Name<span class="sy0">;</span>
 &nbsp;
 ... <span class="me1">getters</span> and setters ...
 &nbsp;
-  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
-  <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> nextKeyQuery<span class="br0">(</span><span class="br0">)</span> <span
+  <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> nextKeyQuery<span class="br0">(</span><span class="br0">)</span> <span
+
 class="br0">{</span>
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> myResult = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a>.<span class="me1">format</span><span class="br0">(</span><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a> myResult = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
+class="kw21">String</span></a>.<span class="me1">format</span><span class="br0">(</span><span
+
 class="st0">"select max(LEVEL3_ID) + 1 from LEVEL3 where LEVEL1_ID = %1$s and LEVEL2_ID = %2$s"</span>,
-        level3Parent.<span class="me1">getLevel2Parent</span><span class="br0">(</span><span
-class="br0">)</span>.<span class="me1">getLevel1Id</span><span class="br0">(</span><span
+        level3Parent.<span class="me1">getLevel2Parent</span><span class="br0">(</span><span
+
+class="br0">)</span>.<span class="me1">getLevel1Id</span><span class="br0">(</span><span
+
 class="br0">)</span>,                                            <span class="co1">// 4</span>
-        level3Parent.<span class="me1">getLevel2Id</span><span class="br0">(</span><span
+        level3Parent.<span class="me1">getLevel2Id</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="kw2">return</span> myResult<span class="sy0">;</span>
   <span class="br0">}</span></pre>
@@ -1040,41 +1117,55 @@ class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Level2Id <span
-class="kw2">implements</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
-class="kw20">Serializable</span></a>, IDynamicSqlSequence <span class="br0">{</span> <span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Level2Id <span
+
+class="kw2">implements</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+
+class="kw20">Serializable</span></a>, IDynamicSqlSequence <span class="br0">{</span> <span
+
 class="co1">// 1</span>
-  <span class="kw2">private</span> <span class="kw2">static</span> <span class="kw2">final</span> <span
+  <span class="kw2">private</span> <span class="kw2">static</span> <span class="kw2">final</span> <span
+
 class="kw3">long</span> serialVersionUID = 1L<span class="sy0">;</span>
 &nbsp;
   <span class="co1">// These field annotations are duplicated from the entity class due to a Hibernate bug. Please keep in sync!!!</span>
   <span class="co1">// If the Hibernate bug gets fixed, these should all be removed.</span>
   @Id
-  @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">EAGER</span><span
+  @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">EAGER</span><span
+
 class="br0">)</span>
-  @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL1_ID"</span>,referencedColumnName=<span
-class="st0">"LEVEL1_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
-class="kw4">false</span>,insertable=<span class="kw4">true</span>,updatable=<span
+  @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL1_ID"</span>,referencedColumnName=<span
+
+class="st0">"LEVEL1_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
+
+class="kw4">false</span>,insertable=<span class="kw4">true</span>,updatable=<span
+
 class="kw4">true</span><span class="br0">)</span>
-  @DescriptionsList<span class="br0">(</span>descriptionProperties=<span class="st0">"level1Name"</span><span
+  @DescriptionsList<span class="br0">(</span>descriptionProperties=<span class="st0">"level1Name"</span><span
+
 class="br0">)</span>
   <span class="kw2">private</span> Level1 level2Parent<span class="sy0">;</span>
 &nbsp;
   <span class="co1">// These field annotations are duplicated from the entity class due to a Hibernate bug. Please keep in sync!!!</span>
   <span class="co1">// If the Hibernate bug gets fixed, these should all be removed.</span>
   @Id
-  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"sql_seq_gen"</span>,strategy=<span
+  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"sql_seq_gen"</span>,strategy=<span
+
 class="st0">"org.openxava.school.persist.SqlSequenceGenerator"</span><span class="br0">)</span>
-  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"sql_seq_gen"</span><span
+  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"sql_seq_gen"</span><span
+
 class="br0">)</span>
-  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+
 class="st0">"LEVEL2_ID"</span><span class="br0">)</span>
   <span class="kw2">private</span> <span class="kw3">int</span> level2Id<span class="sy0">;</span>
 &nbsp;
 ... <span class="me1">getters</span> and setters ...
-... <span class="me1">implement</span> required methods <span class="kw1">for</span> IDynamicSqlSequence <span
+... <span class="me1">implement</span> required methods <span class="kw1">for</span> IDynamicSqlSequence <span
+
 class="kw2">interface</span> <span class="br0">(</span>copy from Level2<span class="br0">)</span> ...
-... <span class="me1">hashCode</span><span class="br0">(</span><span class="br0">)</span> and equals<span
+... <span class="me1">hashCode</span><span class="br0">(</span><span class="br0">)</span> and equals<span
+
 class="br0">(</span><span class="br0">)</span> ...</pre>
       <ol>
         <li>In support of the custom ID generator in the annotations,
@@ -1269,46 +1360,62 @@ class="br0">(</span><span class="br0">)</span> ...</pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Level3Id <span
-class="kw2">implements</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Level3Id <span
+
+class="kw2">implements</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+
 class="kw20">Serializable</span></a>,IDynamicSqlSequence <span class="br0">{</span>
-  <span class="kw2">private</span> <span class="kw2">static</span> <span class="kw2">final</span> <span
+  <span class="kw2">private</span> <span class="kw2">static</span> <span class="kw2">final</span> <span
+
 class="kw3">long</span> serialVersionUID = 4L<span class="sy0">;</span>
 &nbsp;
   <span class="co1">// These field annotations are duplicated from the entity class due to a Hibernate bug. Please keep in sync!!!</span>
   <span class="co1">// If the Hibernate bug gets fixed, these should all be removed.</span>
   @Id
-  @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">EAGER</span><span
+  @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">EAGER</span><span
+
 class="br0">)</span>
   @JoinColumns<span class="br0">(</span><span class="br0">{</span>
-    @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL2_ID"</span>,referencedColumnName=<span
-class="st0">"LEVEL2_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
-class="kw4">false</span>,insertable=<span class="kw4">false</span>,updatable=<span
+    @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL2_ID"</span>,referencedColumnName=<span
+
+class="st0">"LEVEL2_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
+
+class="kw4">false</span>,insertable=<span class="kw4">false</span>,updatable=<span
+
 class="kw4">false</span><span class="br0">)</span>,
-    @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL1_ID"</span>,referencedColumnName=<span
-class="st0">"LEVEL1_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
-class="kw4">false</span>,insertable=<span class="kw4">false</span>,updatable=<span
+    @JoinColumn<span class="br0">(</span>name=<span class="st0">"LEVEL1_ID"</span>,referencedColumnName=<span
+
+class="st0">"LEVEL1_ID"</span>,nullable=<span class="kw4">false</span>,unique=<span
+
+class="kw4">false</span>,insertable=<span class="kw4">false</span>,updatable=<span
+
 class="kw4">false</span><span class="br0">)</span>
   <span class="br0">}</span><span class="br0">)</span>
-  @DescriptionsList<span class="br0">(</span>descriptionProperties=<span class="st0">"level2Parent.level1Name,level2Name"</span><span
+  @DescriptionsList<span class="br0">(</span>descriptionProperties=<span class="st0">"level2Parent.level1Name,level2Name"</span><span
+
 class="br0">)</span>
   <span class="kw2">private</span> Level2 level3Parent<span class="sy0">;</span>
 &nbsp;
   <span class="co1">// These field annotations are duplicated from the entity class due to a Hibernate bug. Please keep in sync!!!</span>
   <span class="co1">// If the Hibernate bug gets fixed, these should all be removed.</span>
   @Id @Hidden
-  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"sql_seq_gen"</span>,strategy=<span
+  @GenericGenerator<span class="br0">(</span>name=<span class="st0">"sql_seq_gen"</span>,strategy=<span
+
 class="st0">"org.openxava.school.persist.SqlSequenceGenerator"</span><span class="br0">)</span>
-  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"sql_seq_gen"</span><span
+  @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"sql_seq_gen"</span><span
+
 class="br0">)</span>
-  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+  @Column<span class="br0">(</span>length=<span class="nu0">5</span>,name=<span
+
 class="st0">"LEVEL3_ID"</span><span class="br0">)</span>
   <span class="kw2">private</span> <span class="kw3">int</span> level3Id<span class="sy0">;</span>
 &nbsp;
 ... <span class="me1">getters</span> and setters ...
-... <span class="me1">implement</span> required methods <span class="kw1">for</span> IDynamicSqlSequence <span
+... <span class="me1">implement</span> required methods <span class="kw1">for</span> IDynamicSqlSequence <span
+
 class="kw2">interface</span> ...
-... <span class="me1">hashCode</span><span class="br0">(</span><span class="br0">)</span> and equals<span
+... <span class="me1">hashCode</span><span class="br0">(</span><span class="br0">)</span> and equals<span
+
 class="br0">(</span><span class="br0">)</span> ...</pre>
       <br>
       <br>
@@ -1519,137 +1626,199 @@ class="br0">(</span><span class="br0">)</span> ...</pre>
  * @author Roy Hellinga
  *
  */</span>
-<span class="kw2">public</span> <span class="kw2">class</span> SqlSequenceGenerator <span
+<span class="kw2">public</span> <span class="kw2">class</span> SqlSequenceGenerator <span
+
 class="kw2">implements</span> IdentifierGenerator, Configurable <span class="br0">{</span>
-  <span class="kw2">public</span> <span class="kw2">static</span> <span class="kw2">final</span> <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> PROPERTY_KEY_QUERY = <span
+  <span class="kw2">public</span> <span class="kw2">static</span> <span class="kw2">final</span> <a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> PROPERTY_KEY_QUERY = <span
+
 class="st0">"id_query"</span><span class="sy0">;</span>
-  <span class="kw2">private</span> <span class="kw2">static</span> Log log = LogFactory.<span
-class="me1">getLog</span><span class="br0">(</span>SqlSequenceGenerator.<span class="kw2">class</span><span
+  <span class="kw2">private</span> <span class="kw2">static</span> Log log = LogFactory.<span
+
+class="me1">getLog</span><span class="br0">(</span>SqlSequenceGenerator.<span class="kw2">class</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Properties.html"><span
+  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Properties.html"><span
+
 class="kw46">Properties</span></a> props = <span class="kw4">null</span><span class="sy0">;</span>
 &nbsp;
   <span class="coMULTI">/* (non-Javadoc)
    * @see org.hibernate.id.IdentifierGenerator#generate(org.hibernate.engine.spi.SessionImplementor, java.lang.Object)
    */</span>
-  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
-  // Until OpenXava 6.0.2 <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
-class="kw20">Serializable</span></a> generate<span class="br0">(</span>SessionImplementor session, <a
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> object<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
-class="br0">{</span><br>  <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
-class="kw20">Serializable</span></a> generate<span class="br0">(</span>SharedSessionContractImplementor session, <a
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> object<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
-class="br0">{ // Since OpenXava 6.0.2 that uses Hibernate 5.3</span><br>&nbsp;<a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-class="kw21">Integer</span></a> nextValue = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-class="kw21">Integer</span></a><span class="br0">(</span><span class="nu0">1</span><span
+  // Until OpenXava 6.0.2 <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+
+class="kw20">Serializable</span></a> generate<span class="br0">(</span>SessionImplementor session, <a
+
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a> object<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
+
+class="br0">{</span><br>  <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+
+class="kw20">Serializable</span></a> generate<span class="br0">(</span>SharedSessionContractImplementor session, <a
+
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
+class="kw166">Object</span></a> object<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
+
+class="br0">{ // Since OpenXava 6.0.2 that uses Hibernate 5.3</span><br>&nbsp;<a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+
+class="kw21">Integer</span></a> nextValue = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+
+class="kw21">Integer</span></a><span class="br0">(</span><span class="nu0">1</span><span
+
 class="br0">)</span><span class="sy0">;</span>
     IDynamicSqlSequence myClass = <span class="kw4">null</span><span class="sy0">;</span>
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/ResultSet.html"><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/ResultSet.html"><span
+
 class="kw44">ResultSet</span></a> rs = <span class="kw4">null</span><span class="sy0">;</span>
 &nbsp;
-    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+    <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> qs = <span class="kw4">null</span><span class="sy0">;</span>
-    <span class="kw1">if</span><span class="br0">(</span>props.<span class="me1">containsKey</span><span
-class="br0">(</span>PROPERTY_KEY_QUERY<span class="br0">)</span><span class="br0">)</span> <span
+    <span class="kw1">if</span><span class="br0">(</span>props.<span class="me1">containsKey</span><span
+
+class="br0">(</span>PROPERTY_KEY_QUERY<span class="br0">)</span><span class="br0">)</span> <span
+
 class="br0">{</span>
-      qs = props.<span class="me1">getProperty</span><span class="br0">(</span>PROPERTY_KEY_QUERY<span
+      qs = props.<span class="me1">getProperty</span><span class="br0">(</span>PROPERTY_KEY_QUERY<span
+
 class="br0">)</span><span class="sy0">;</span>
-      log.<span class="me1">info</span><span class="br0">(</span><span class="st0">"RH:Property-based query for next key="</span> + qs<span
+      log.<span class="me1">info</span><span class="br0">(</span><span class="st0">"RH:Property-based query for next key="</span> + qs<span
+
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
     <span class="kw1">else</span>
     <span class="br0">{</span>
       <span class="kw2">try</span> <span class="br0">{</span>
-        myClass = <span class="br0">(</span>IDynamicSqlSequence<span class="br0">)</span>object<span
+        myClass = <span class="br0">(</span>IDynamicSqlSequence<span class="br0">)</span>object<span
+
 class="sy0">;</span>
       <span class="br0">}</span>
-      <span class="kw2">catch</span><span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+      <span class="kw2">catch</span><span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> e<span class="br0">)</span> <span class="br0">{</span>
-        log.<span class="me1">error</span><span class="br0">(</span><span class="st0">"Problem casting the Entity to the interface. Ensure interface IDynamicSqlSequence is implemented."</span>,e<span
+        log.<span class="me1">error</span><span class="br0">(</span><span class="st0">"Problem casting the Entity to the interface. Ensure interface IDynamicSqlSequence is implemented."</span>,e<span
+
 class="br0">)</span><span class="sy0">;</span>
-        <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
-class="br0">(</span><span class="st0">"Problem casting the Entity to the required interface"</span>,e<span
+        <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
+
+class="br0">(</span><span class="st0">"Problem casting the Entity to the required interface"</span>,e<span
+
 class="br0">)</span><span class="sy0">;</span>
       <span class="br0">}</span>
-      qs = myClass.<span class="me1">nextKeyQuery</span><span class="br0">(</span><span
+      qs = myClass.<span class="me1">nextKeyQuery</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-      <span class="kw1">if</span><span class="br0">(</span>qs == <span class="kw4">null</span><span
+      <span class="kw1">if</span><span class="br0">(</span>qs == <span class="kw4">null</span><span
+
 class="br0">)</span> <span class="br0">{</span>
-        log.<span class="me1">error</span><span class="br0">(</span><span class="st0">"RH:nextKeyQuery() returned null."</span><span
+        log.<span class="me1">error</span><span class="br0">(</span><span class="st0">"RH:nextKeyQuery() returned null."</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-        <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
-class="br0">(</span><span class="st0">"nextKeyQuery() callback returned null"</span><span
+        <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
+
+class="br0">(</span><span class="st0">"nextKeyQuery() callback returned null"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
       <span class="br0">}</span>
       <span class="kw1">else</span> <span class="br0">{</span>
-        log.<span class="me1">info</span><span class="br0">(</span><span class="st0">"RH:Callback query for next key="</span> + qs<span
+        log.<span class="me1">info</span><span class="br0">(</span><span class="st0">"RH:Callback query for next key="</span> + qs<span
+
 class="br0">)</span><span class="sy0">;</span>
       <span class="br0">}</span>
     <span class="br0">}</span>
 &nbsp;
     <span class="kw2">try</span><span class="br0">{</span>
-      rs = session.<span class="me1">connection</span><span class="br0">(</span><span
-class="br0">)</span>.<span class="me1">createStatement</span><span class="br0">(</span><span
-class="br0">)</span>.<span class="me1">executeQuery</span><span class="br0">(</span>qs<span
+      rs = session.<span class="me1">connection</span><span class="br0">(</span><span
+
+class="br0">)</span>.<span class="me1">createStatement</span><span class="br0">(</span><span
+
+class="br0">)</span>.<span class="me1">executeQuery</span><span class="br0">(</span>qs<span
+
 class="br0">)</span><span class="sy0">;</span>
-      <span class="kw1">if</span><span class="br0">(</span>rs.<span class="me1">next</span><span
+      <span class="kw1">if</span><span class="br0">(</span>rs.<span class="me1">next</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="br0">{</span>
-        <span class="kw3">int</span> newId = rs.<span class="me1">getInt</span><span
+        <span class="kw3">int</span> newId = rs.<span class="me1">getInt</span><span
+
 class="br0">(</span><span class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span>
-        log.<span class="me1">info</span><span class="br0">(</span><span class="st0">"RH:Generated next key="</span>+newId<span
+        log.<span class="me1">info</span><span class="br0">(</span><span class="st0">"RH:Generated next key="</span>+newId<span
+
 class="br0">)</span><span class="sy0">;</span>
-        nextValue = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-class="kw21">Integer</span></a><span class="br0">(</span>newId<span class="br0">)</span><span
+        nextValue = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+
+class="kw21">Integer</span></a><span class="br0">(</span>newId<span class="br0">)</span><span
+
 class="sy0">;</span>
       <span class="br0">}</span>
     <span class="br0">}</span>
-    <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
+    <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
+
 class="kw44">SQLException</span></a> e<span class="br0">)</span><span class="br0">{</span>
-      log.<span class="me1">error</span><span class="br0">(</span><span class="st0">"Unexpected SQL Exception while calculating key value"</span>, e<span
+      log.<span class="me1">error</span><span class="br0">(</span><span class="st0">"Unexpected SQL Exception while calculating key value"</span>, e<span
+
 class="br0">)</span><span class="sy0">;</span>
-      <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
+      <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
+
 class="br0">(</span>e<span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
     <span class="kw2">finally</span> <span class="br0">{</span>
-      <span class="kw1">if</span> <span class="br0">(</span>rs <span class="sy0">!</span>= <span
+      <span class="kw1">if</span> <span class="br0">(</span>rs <span class="sy0">!</span>= <span
+
 class="kw4">null</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">try</span> <span class="br0">{</span>
-          rs.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
+          rs.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
         <span class="br0">}</span>
-        <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Throwable.html"><span
+        <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Throwable.html"><span
+
 class="kw21">Throwable</span></a> t<span class="br0">)</span> <span class="br0">{</span>
-          log.<span class="me1">error</span><span class="br0">(</span><span class="st0">"Unexpected exception closing result set"</span>, t<span
+          log.<span class="me1">error</span><span class="br0">(</span><span class="st0">"Unexpected exception closing result set"</span>, t<span
+
 class="br0">)</span><span class="sy0">;</span>
-          <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
+          <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
+
 class="br0">(</span>t<span class="br0">)</span><span class="sy0">;</span>
         <span class="br0">}</span>
       <span class="br0">}</span>
     <span class="br0">}</span>
-    <span class="kw1">if</span><span class="br0">(</span>nextValue.<span class="me1">intValue</span><span
-class="br0">(</span><span class="br0">)</span> <span class="sy0">&lt;</span> <span
+    <span class="kw1">if</span><span class="br0">(</span>nextValue.<span class="me1">intValue</span><span
+
+class="br0">(</span><span class="br0">)</span> <span class="sy0">&lt;</span> <span
+
 class="nu0">1</span><span class="br0">)</span> <span class="br0">{</span>
-      log.<span class="me1">warn</span><span class="br0">(</span><span class="st0">"RH:This must be the first row in this table -- setting initial value to 1"</span><span
+      log.<span class="me1">warn</span><span class="br0">(</span><span class="st0">"RH:This must be the first row in this table -- setting initial value to 1"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
-      nextValue = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-class="kw21">Integer</span></a><span class="br0">(</span><span class="nu0">1</span><span
+      nextValue = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+
+class="kw21">Integer</span></a><span class="br0">(</span><span class="nu0">1</span><span
+
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
     <span class="kw2">return</span> nextValue<span class="sy0">;</span>
 &nbsp;
   <span class="br0">}</span>
 &nbsp;
-  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
-  <span class="kw2">public</span> <span class="kw3">void</span> configure<span class="br0">(</span><a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
-class="kw26">Type</span></a> arg0, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Properties.html"><span
-class="kw46">Properties</span></a> arg1, Dialect arg2<span class="br0">)</span> <span
+  <span class="kw2">public</span> <span class="kw3">void</span> configure<span class="br0">(</span><a
+
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
+
+class="kw26">Type</span></a> arg0, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Properties.html"><span
+
+class="kw46">Properties</span></a> arg1, Dialect arg2<span class="br0">)</span> <span
+
 class="kw2">throws</span> MappingException <span class="br0">{</span>
     props = arg1<span class="sy0">;</span>
   <span class="br0">}</span>

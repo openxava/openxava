@@ -1,13 +1,24 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>openxava - security_en</title>
+    <title>Security and user management - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
+     <h1 id="toc0"><a name="Security and user management"></a>
+        <span id="breadcrumbs">
+          <span id="openxava">
+          	<a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava
+            </a>
+          </span>  
+          / <a href="index_en.html">documentation</a> /  
+				</span>       
+        Security and user management
+     </h1>
       <div id="toc">
-        <h1 class="nopad">Table of Contents</h1>
+        <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Security%20and%20user%20management">Security
             and user management</a></div>
         <div style="margin-left: 2em;"><a href="#Security%20and%20user%20management-User%20management">User
@@ -32,9 +43,8 @@
         <div style="margin-left: 2em;"><a href="#Security%20and%20user%20management-Restrict-access-by-IP">Restrict
             access by IP (new in v6.4)</a></div>
       </div>
-      <h1 id="toc0"><a name="Security and user management"></a>Security and user
-        management</h1>
-      <em>All the features in this article are available only in <a class="wiki_link_ext"
+      <em>All the features in this article are available only in <a class="wiki_link_ext"
+
           href="http://openxava.org/xavapro" rel="nofollow">XavaPro</a></em><br>
       <h2 id="toc1"><a name="Security and user management-User management"></a>User
         management</h2>
@@ -53,7 +63,8 @@
       users of a particular role cannot access the <em>Customer</em> module,
       they cannot create or modify customers from the <em>Invoice</em> module
       either (<em>new in v5.3</em>).<br>
-      The above user management system is only available in <a class="wiki_link_ext"
+      The above user management system is only available in <a class="wiki_link_ext"
+
         href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>, with
       plain OpenXava you have to add users in the <em>naviox-users.properties</em>
       file inside <em>properties</em> folder of your project.<br>
@@ -64,7 +75,8 @@
       choose that role to edit in detail mode. Then click in the module where
       you want to restrict those actions, and a dialog like the next one will
       appear:<br>
-      <img src="files/xavapro-restrict-actions_en.png" alt="xavapro-restrict-actions_en.png"
+      <img src="files/xavapro-restrict-actions_en.png" alt="xavapro-restrict-actions_en.png"
+
         title="xavapro-restrict-actions_en.png"><br>
       Select the actions you want to exclude and click on <em>Save</em>. From
       now on, all the users of that role will not be able to execute those
@@ -74,7 +86,8 @@
       default module of that entity. For example, if you restrict access to <em>Save</em>
       action in <em>Customer</em> module, the user will not be able to modify <em>Customer</em>
       data from <em>Invoice</em> module <em>(new in v5.3)</em>.<br>
-      Restricting user access to actions is only available in <a class="wiki_link_ext"
+      Restricting user access to actions is only available in <a class="wiki_link_ext"
+
         href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>.<br>
       <h2 id="toc3"><a name="Security and user management-Restricting user access to properties, references and collections (new in v5.5)"></a>Restricting
         user access to properties, references and collections <em>(new in v5.5)</em></h2>
@@ -83,26 +96,30 @@
       module and choose that <strong>role</strong> to edit in detail mode. Then
       click in the module where you want to restrict those members, and a dialog
       like the next one will appear:<br>
-      <img src="files/restrict-data-read-only-data-xavapro_en.png" alt="restrict-data-read-only-data-xavapro_en.png"
+      <img src="files/restrict-data-read-only-data-xavapro_en.png" alt="restrict-data-read-only-data-xavapro_en.png"
+
         title="restrict-data-read-only-data-xavapro_en.png"><br>
       Select the members you want to exclude in <em>Excluded data</em> and
       click on <em>Save</em>. From now on, all the users of that role will not
       be able to access those members in that module. Note you also have <em>Read
         only data</em> to allow the users to see the data but not to change it.<br>
       Restricting user access to properties, references or collections is only
-      available in <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
+      available in <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
+
         rel="nofollow">XavaPro</a>.<br>
       <h2 id="toc4"><a name="Security and user management-User and password policies"></a>User
         and password policies</h2>
       There are a lot of options available for user management and password
       policies. In the <em>Admin</em> folder you'll find a <em>Configuration</em>
       module:<br>
-      <img src="files/xavapro-configuration_en.png" alt="xavapro-configuration_en.png"
+      <img src="files/xavapro-configuration_en.png" alt="xavapro-configuration_en.png"
+
         title="xavapro-configuration_en.png"><br>
       You can configure these policies in order for your system to be PCI-DSS
       compliant, which is required for any applications which handles credit
       card data!<br>
-      These policies for users and passwords are only available in <a class="wiki_link_ext"
+      These policies for users and passwords are only available in <a class="wiki_link_ext"
+
         href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>.<br>
       <h2 id="toc5"><a name="Security and user management-LDAP"></a>LDAP</h2>
       <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>
@@ -157,7 +174,8 @@
       To enable LDAP you have to select the users and check <em>Authenticate
         with LDAP</em> option:<br>
       <img src="files/naviox_ldap_en.png" alt="naviox_ldap_en.png" title="naviox_ldap_en.png"><br>
-      LDAP support is only available in <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
+      LDAP support is only available in <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
+
         rel="nofollow">XavaPro</a>.<br>
       <h2 id="toc6"><a name="Security and user management-Guest can create a user account himself"></a>Guest
         can create a user account himself</h2>
@@ -177,16 +195,19 @@
       <h2 id="toc7"><a name="Security and user management-Creation date and record of logins for each user"></a>Creation
         date and record of logins for each user</h2>
       Just go to the users module to see that data:<br>
-      <img src="files/user-creation-date-sessions_en.png" alt="user-creation-date-sessions_en.png"
+      <img src="files/user-creation-date-sessions_en.png" alt="user-creation-date-sessions_en.png"
+
         title="user-creation-date-sessions_en.png"><br>
       <h2 id="toc8"><a name="Security and user management-Password recovery (new in v5.7)"></a>Password
         recovery <em>(new in v5.7)</em></h2>
       The user can recover his password by himself. When he fails to put the
       correct password a "Forgot your password?" message with a link is shown:<br>
-      <img src="files/recover-password-login_en.png" alt="recover-password-login_en.png"
+      <img src="files/recover-password-login_en.png" alt="recover-password-login_en.png"
+
         title="recover-password-login_en.png"><br>
       When the user clicks on the link goes to a page to enter his email:<br>
-      <img src="files/enter-email-recover-password_en.png" alt="enter-email-recover-password_en.png"
+      <img src="files/enter-email-recover-password_en.png" alt="enter-email-recover-password_en.png"
+
         title="enter-email-recover-password_en.png"><br>
       After clicking on the "Recover password" button an email with instructions
       to recover the password is sent. Of course, a user with that email has to
@@ -221,7 +242,8 @@
       In order the recovering password mechanism works it's needed that each
       user has his email registered in the system. So now if the user has no
       email XavaPro asks for it after sign in:<br>
-      <img src="files/enter-email-personal-data_en.png" alt="enter-email-personal-data_en.png"
+      <img src="files/enter-email-personal-data_en.png" alt="enter-email-personal-data_en.png"
+
         title="enter-email-personal-data_en.png"><br>
       Entering the email is not required, the user can go to any other module
       and leaves the email blank if he wishes.<br>

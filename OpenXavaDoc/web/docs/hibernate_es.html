@@ -1,17 +1,27 @@
 <html>
   <head>
-    <title>openxava - hibernate_es</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Hibernate - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-<h1 id="toc0"><a name="Hibernate"></a>Hibernate</h1>
- OpenXava soporta Hibernate desde la versión 2.0.<br />
-<h2 id="toc1"><a name="Hibernate-Configurar nuestra aplicacion para que funcione con Hibernate"></a>Configurar nuestra aplicacion para que funcione con Hibernate</h2>
- Desde la v3.0 JPA, y no Hiberante, es el gestor de pesistencia por defecto, así si usas v3.0 y quieres usar Hibernate como gestor de persistencia entonces has de editar el archivo <em>properties/xava.properties</em> de tu proyecto, y lo dejarlo así:<br />
-
-<style type="text/css"><!--
+      <h1 id="toc0"><a name="Hibernate"></a>
+        <span id="breadcrumbs"> 
+        	<span id="openxava"> 
+            <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> 
+          / <a href="index_es.html">documentación</a> / 
+        </span>
+        Hibernate</h1>
+      OpenXava soporta Hibernate desde la versión 2.0.<br>
+      <h2 id="toc1"><a name="Hibernate-Configurar nuestra aplicacion para que funcione con Hibernate"></a>Configurar
+        nuestra aplicacion para que funcione con Hibernate</h2>
+      Desde la v3.0 JPA, y no Hibernate, es el gestor de pesistencia
+      por defecto, así si usas v3.0 y quieres usar Hibernate como gestor de
+      persistencia entonces has de editar el archivo <em>properties/xava.properties</em>
+      de tu proyecto, y lo dejarlo así:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -24,13 +34,19 @@
 </style><pre class="text"># Hibernate
 persistenceProviderClass=org.openxava.model.impl.HibernatePersistenceProvider
 mapFacadeAsEJB=false</pre>
+      A partir de ahora, tu aplicación usará Hibernate en lugar de EJB3 JPA para
+      manejar la persistencia de los objetos.<br>
+      <h2 id="toc2"><a name="Hibernate-Usando Hibernate en nuestro código"></a>Usando
+        Hibernate en nuestro código</h2>
+      Podemos usar las APIs de Hibernate en cualquier parte de una aplicación
+      OpenXava, esto es, dentro de calculadores, acciones, filtros, etc.<br>
+      Para facilitar el uso de Hibernate OpenXava provee la clase <em><a class="wiki_link_ext"
 
-A partir de ahora, tu aplicación usará Hibernate en lugar de EJB3 JPA para manejar la persistencia de los objetos.<br />
-<h2 id="toc2"><a name="Hibernate-Usando Hibernate en nuestro código"></a>Usando Hibernate en nuestro código</h2>
- Podemos usar las APIs de Hibernate en cualquier parte de una aplicación OpenXava, esto es, dentro de calculadores, acciones, filtros, etc.<br />
-Para facilitar el uso de Hibernate OpenXava provee la clase <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/hibernate/XHibernate.html" rel="nofollow">XHibernate</a></em>. Por ejemplo, si queremos guardar un objeto en la base de datos usando Hibernate, la manera típica sería:<br />
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/hibernate/XHibernate.html"
 
-<style type="text/css"><!--
+          rel="nofollow">XHibernate</a></em>. Por ejemplo, si queremos guardar
+      un objeto en la base de datos usando Hibernate, la manera típica sería:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -217,17 +233,29 @@ Para facilitar el uso de Hibernate OpenXava provee la clase <em><a class="wiki_l
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">Session sesion = HibernateUtil.<span class="me1">getSessionFactory</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getCurrentSession</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-sesion.<span class="me1">beginTransaction</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+</style><pre class="java5">Session sesion = HibernateUtil.<span class="me1">getSessionFactory</span><span
+
+class="br0">(</span><span class="br0">)</span>.<span class="me1">getCurrentSession</span><span
+
+class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+sesion.<span class="me1">beginTransaction</span><span class="br0">(</span><span
+
+class="br0">)</span><span class="sy0">;</span>
 Cliente cliente = ... <span class="sy0">;</span>
-sesion.<span class="me1">save</span><span class="br0">&#40;</span>cliente<span class="br0">&#41;</span><span class="sy0">;</span>
-sesion.<span class="me1">getTransaction</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">commit</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-sesion.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+sesion.<span class="me1">save</span><span class="br0">(</span>cliente<span class="br0">)</span><span
+
+class="sy0">;</span>
+sesion.<span class="me1">getTransaction</span><span class="br0">(</span><span class="br0">)</span>.<span
+
+class="me1">commit</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span>
+sesion.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
+
+class="sy0">;</span>
 &nbsp;</pre>
-
-Pero, dentro de OpenXava y usando XHibernate podemos escribir:<br />
-
-<style type="text/css"><!--
+      Pero, dentro de OpenXava y usando XHibernate podemos escribir:<br>
+      <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
  * (http://qbnz.com/highlighter/ and http://geshi.org/)
@@ -415,13 +443,26 @@ Pero, dentro de OpenXava y usando XHibernate podemos escribir:<br />
 
 -->
 </style><pre class="java5">Cliente cliente = ... <span class="sy0">;</span>
-XHibernate.<span class="me1">getSession</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">save</span><span class="br0">&#40;</span>cliente<span class="br0">&#41;</span><span class="sy0">;</span>
-&nbsp;</pre>
+XHibernate.<span class="me1">getSession</span><span class="br0">(</span><span class="br0">)</span>.<span
 
-Nada más.<br />
-La primera vez que llamamos a <em>XHibernate.getSession()</em> una sesión es creada y asignada al hilo actual y una transacción es creada también; la siguiente vez que lo llamemos, la misma sesión de Hibernate es usada. Al final del ciclo completo de la ejecución de la acción, OpenXava confirma automáticamente la transacción y cierra la sesión. Además, <em>XHibernate.getSession()</em> funciona bien dentro y fuera de un entorno CMT.<br />
-Podemos, opcionalmente, confirmar la transacción en cualquier momento llamando a <em>XHibernate.commit()</em>, si después de esto llamamos a <em>XHibernate.getSession()</em> una nueva sesión y transacción son creadas.<br />
-Podemos ver más acerca de esto consultando el API de <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/hibernate/XHibernate.html" rel="nofollow">org.openxava.hibernate.XHibernate</a></em>.
-    </div>
+class="me1">save</span><span class="br0">(</span>cliente<span class="br0">)</span><span
+
+class="sy0">;</span>
+&nbsp;</pre>
+      Nada más.<br>
+      La primera vez que llamamos a <em>XHibernate.getSession()</em> una sesión
+      es creada y asignada al hilo actual y una transacción es creada también;
+      la siguiente vez que lo llamemos, la misma sesión de Hibernate es usada.
+      Al final del ciclo completo de la ejecución de la acción, OpenXava
+      confirma automáticamente la transacción y cierra la sesión. Además, <em>XHibernate.getSession()</em>
+      funciona bien dentro y fuera de un entorno CMT.<br>
+      Podemos, opcionalmente, confirmar la transacción en cualquier momento
+      llamando a <em>XHibernate.commit()</em>, si después de esto llamamos a <em>XHibernate.getSession()</em>
+      una nueva sesión y transacción son creadas.<br>
+      Podemos ver más acerca de esto consultando el API de <em><a class="wiki_link_ext"
+
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/hibernate/XHibernate.html"
+
+          rel="nofollow">org.openxava.hibernate.XHibernate</a></em>. </div>
   </body>
 </html>
