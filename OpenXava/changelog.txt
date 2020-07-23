@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Header with breadcrumbs navigation in each documentation page.
+- Chapter navigation on top of table of contents for course and reference guide.
+- Links no longer open new windows or tab in documentation.
+- Documentation style adapted to fit better inside OpenXava Studio.
+- More descriptive HTML title in each documentation page. 
 - IThemeProvider to define your own logic to choose the current theme.
 - New method assertLabel(int sectionIndex, String expectedLabel) in ModuleTestBase.
 - View.setLabelId() allows to change the label of sections and groups.
