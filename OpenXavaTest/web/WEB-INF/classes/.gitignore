@@ -19,6 +19,9 @@
 /hibernate.cfg.xml
 /org/
 /portlets/
+/stereotype-type-default.xml
+/tabs-default-values.xml
+/validators.xml
 /BeansContext.properties
 /Corporation.html
 /CorporationEmployee.html
@@ -29,6 +32,7 @@
 /InvoiceNoVAT.jrxml
 /LoginContextFactory.properties
 /Products.jrxml
+/_run/
 /jndi-jboss.properties
 /jndi-websphere.properties
 /jndi.properties
@@ -37,4 +41,3 @@
 /naviox.properties
 /xava-junit.properties
 /xava.properties
-/_run/
