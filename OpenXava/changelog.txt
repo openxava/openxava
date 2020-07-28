@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.4 (2020-7-28)
+------------------------
 - OpenXava Studio, a specific OpenXava IDE, included in the distribution.
 - Searching by collection content from list mode allowing qualified collection properties in @Tab.
 - Import data from list supports importing references, not just plain properties.
@@ -14,7 +16,7 @@ Change Log for OpenXava project
 - Lesson 5 of course upgraded to latest features.
 - Creation confirmation messages include field values if they are generated on saving.
 - Total properties allowed in an @ElementCollection of a base class.
-- View.setLabelId() allows to change the label of sections and groups.
+- View.setLabelId() to allow changing the label of sections and groups.
 - New method assertLabel(int sectionIndex, String expectedLabel) in ModuleTestBase.
 - Detail mode of InvoiceDemo improved.
 - Header with breadcrumbs navigation in each documentation page.
