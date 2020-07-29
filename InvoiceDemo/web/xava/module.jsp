@@ -10,6 +10,7 @@
 <%@page import="org.openxava.util.XSystem"%>
 <%@page import="org.openxava.util.Strings"%>
 <%@page import="org.openxava.util.Is"%>
+<%@page import="org.openxava.util.XavaPreferences"%> 
 <%@page import="org.openxava.web.dwr.Module"%>
 <%@page import="org.openxava.web.servlets.Servlets"%>
 <%@page import="org.openxava.web.Ids"%>
@@ -273,7 +274,7 @@ if (manager.isResetFormPostNeeded()) {
 	<%=style.getCoreEndDecoration()%>
 	
 <% } %>			
-	<% if (Themes.isChooserEnabled()) { %>
+	<% if (Themes.isChooserEnabled(request)) { %>
 	<jsp:include page="themeChooser.jsp"/>
 	<% } %>
 	<div id="xava_console" >
@@ -340,6 +341,9 @@ if (manager.isResetFormPostNeeded()) {
 		openxava.decimalSeparator = "<%=symbols.getDecimalSeparator()%>";
 		openxava.groupingSeparator = "<%=symbols.getGroupingSeparator()%>";		
 		openxava.setHtml = <%=style.getSetHtmlFunction()%>;			
+		<% if (XavaPreferences.getInstance().isEnterMovesToNextField()) { %>
+		openxava.initFocusKey = openxava.setEnterAsFocusKey;
+		<% } %>
 		<% if (browser != null && browser.contains("HtmlUnit")) { // Because of low performance of fadeIn with HtmlUnit %>
 		openxava.fadeIn = openxava.show;
 		<% } %>

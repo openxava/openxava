@@ -9,7 +9,7 @@
 	String nexus = "";
 	String current = Themes.getCSS(request);
 	for (String theme: Themes.getAll()) {
-		String label = Strings.firstUpper(theme.replace(".css", "").replace("-", " "));
+		String label = Themes.cssToLabel(theme); 
 		if (theme.equals(current)) {
 		%>
 			<%=nexus%><b><%=label%></b> 

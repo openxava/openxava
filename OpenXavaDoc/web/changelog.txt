@@ -1,6 +1,37 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.4 (2020-7-28)
+------------------------
+- OpenXava Studio, a specific OpenXava IDE, included in the distribution.
+- Searching by collection content from list mode allowing qualified collection properties in @Tab.
+- Import data from list supports importing references, not just plain properties.
+- ENTER to move to next field with enterMovesToNextField=true in xava.properties.
+- New attribute filter in @DescriptionsList to use an IFilter like the ones used by @Tab.
+- New attribute filter in <descriptions-list> of XML components to use an IFilter.
+- Self-sufficient distributions for Windows, Linux and Mac (install Java and Eclipse is not needed).
+- An open source JRE (Zulu) included in the distribution.
+- Building workspace time for Eclipse optimized.
+- Getting started guide simplified and adapted to use OpenXava Studio.
+- Lesson 5 of course upgraded to latest features.
+- Creation confirmation messages include field values if they are generated on saving.
+- Total properties allowed in an @ElementCollection of a base class.
+- View.setLabelId() to allow changing the label of sections and groups.
+- New method assertLabel(int sectionIndex, String expectedLabel) in ModuleTestBase.
+- Detail mode of InvoiceDemo improved.
+- Header with breadcrumbs navigation in each documentation page.
+- Chapter navigation on top of table of contents for course and reference guide.
+- Links no longer open new windows or tab in documentation.
+- Documentation style adapted to fit better inside OpenXava Studio.
+- More descriptive HTML title in each documentation page. 
+- IThemeProvider to define your own logic to choose the current theme.
+- Automatic label for reference member in list improved.
+- Russian translation improved including labels for latest releases.
+- Fix: Combining inheritance, generic types and @ReferenceView fails.
+- Fix: @DefaultValueCalculator does not work for total properties of a collection if @View is specified.
+- Fix: assertTotalInCollection() in tests does not work for MONEY properties.
+- Fix: Horizontal scrollbar in list mode with large list configuration descriptions.
+
 OpenXava 6.3.2 (2020-5-12)
 --------------------------
 - New initialModule property in naviox.properties to start with your own module instead of First Steps.

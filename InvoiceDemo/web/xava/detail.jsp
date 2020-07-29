@@ -279,8 +279,9 @@ if (!onlySections) {	// IF Not Only Sections
 			<%=closeDivForFrame(view)%> 
 			<%=style.getFrameHeaderStartDecoration(frameWidth)%>
 			<%=style.getFrameTitleStartDecoration()%>
-			<% String labelId = Ids.decorate(request, "label_" + view.getPropertyPrefix() + group.getName()); %>
-			<span id="<%=labelId%>"><%=group.getLabel(request)%></span>
+			<% String labelId = Ids.decorate(request, "label_" + view.getPropertyPrefix() + group.getName()); 
+			String labelGroup = org.openxava.util.Is.empty(subview.getTitle()) ? group.getLabel(request) : subview.getTitle();%>
+			<span id="<%=labelId%>"><%=labelGroup%></span>
 			<%=style.getFrameTitleEndDecoration()%>
 			<%=style.getFrameActionsStartDecoration()%>
 <% 

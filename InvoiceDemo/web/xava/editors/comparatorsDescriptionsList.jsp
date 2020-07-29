@@ -47,14 +47,16 @@ DescriptionsCalculator calculator = new DescriptionsCalculator();
 String model = request.getParameter("model");
 if (model == null) model = request.getParameter("modelo");
 MetaTab metaTab = MetaComponent.get(model).getMetaTab();
-if (metaTab.getMetaFilter() != null){
-	if (metaTab.getMetaFilter().getFilter() != null) {
-		IFilter filter = metaTab.getMetaFilter().getFilter();
-		if (filter instanceof IRequestFilter) {
-			((IRequestFilter) filter).setRequest(request);
-		}
-		calculator.setParameters(null, filter);
+String filterClass = request.getParameter("filter");
+IFilter filter = Is.emptyString(filterClass)?null:(IFilter) Class.forName(filterClass).newInstance();
+if (filter == null && metaTab.getMetaFilter() != null && metaTab.getMetaFilter().getFilter() != null) {
+	filter = metaTab.getMetaFilter().getFilter();
+}
+if (filter != null) {
+	if (filter instanceof IRequestFilter) {
+		((IRequestFilter) filter).setRequest(request);
 	}
+	calculator.setParameters(null, filter);
 }
 calculator.setModel(model);
 String condition = metaTab.getBaseCondition();
