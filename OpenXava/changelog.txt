@@ -31,6 +31,7 @@ OpenXava 6.4 (2020-7-28)
 - Fix: @DefaultValueCalculator does not work for total properties of a collection if @View is specified.
 - Fix: assertTotalInCollection() in tests does not work for MONEY properties.
 - Fix: Horizontal scrollbar in list mode with large list configuration descriptions.
+- Fix: OpenXava.jar and openxava.jar files duplicated in Linux/Mac.
 
 OpenXava 6.3.2 (2020-5-12)
 --------------------------
