@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: From time to time changing the theme by a user changes the login page theme for all users.
+
 OpenXava 6.4 (2020-7-28)
 ------------------------
 - OpenXava Studio, a specific OpenXava IDE, included in the distribution.

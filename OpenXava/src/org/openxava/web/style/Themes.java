@@ -27,6 +27,7 @@ public class Themes {
 	}
 	
 	public static boolean isChooserEnabled(HttpServletRequest request) { 
+		if (Users.getCurrent() == null) return false; 
 		if (provider != null && provider.getCSS(request) != null) return false;
 		return !Is.emptyString(XavaPreferences.getInstance().getThemes());
 	}
