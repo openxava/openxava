@@ -115,7 +115,7 @@ import org.openxava.test.actions.*;
 	"	photo;" +
 	"	telephone, email, additionalEmails;" + 
 	"	website;" +		
-	"	address;" + 
+	"	address;" +
 	"	city, extendedCity;" + 
 	"	seller [" + 
 	"		seller;" +

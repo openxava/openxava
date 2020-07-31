@@ -876,6 +876,30 @@ public class CustomerWithSectionTest extends CustomerTest {
 		execute("CRUD.new");
 		cancelHandler.assertNoMessage();
 		assertValue("name", "");
+		
+		// tmp ini
+		// Adding in @OneToMany collection does not require confirm
+		
+		execute("Navigation.first");
+		assertValue("name", "Javi");
+		assertCollectionRowCount("deliveryPlaces", 0);
+		execute("Collection.new", "viewObject=xava_view_section0_deliveryPlaces");
+		setValue("name", "JUNIT DEVIVERY PLACE");
+		setValue("address", "JUNIT STREET");
+		execute("Collection.save");
+		assertCollectionRowCount("deliveryPlaces", 1);
+		assertValueInCollection("deliveryPlaces", 0, 0, "JUNIT DEVIVERY PLACE");
+		execute("Mode.list");
+		cancelHandler.assertNoMessage();
+		execute("List.viewDetail", "row=0");
+		assertValue("name", "Javi");
+		assertCollectionRowCount("deliveryPlaces", 1);
+		assertValueInCollection("deliveryPlaces", 0, 0, "JUNIT DEVIVERY PLACE");
+		execute("Collection.removeSelected", "row=0,viewObject=xava_view_section0_deliveryPlaces");
+		assertCollectionRowCount("deliveryPlaces", 0); // TMP ME QUEDÉ POR AQUÍ: FALLA, PERO CREO QUE ES EL TEST, POR USAR cancelHandler, Y NO EL BUG QUE ESTÁ RESUELTO
+													// TMP FALTARÍA PASAR LA SUITE, PODRÍA ACTUALIZAR EL STUDIO PARA VER SI AGUANTA
+		// tmp fin
+		
 	}
 	
 	

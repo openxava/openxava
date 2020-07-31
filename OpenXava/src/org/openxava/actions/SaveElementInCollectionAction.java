@@ -27,7 +27,7 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 	
 	private boolean containerSaved = false;
 	
-	public void execute() throws Exception {	
+	public void execute() throws Exception {
 		Map containerKey = saveIfNotExists(getCollectionElementView().getParent());
 		if (XavaPreferences.getInstance().isMapFacadeAutoCommit()) {
 			getView().setKeyEditable(false); // To mark as saved
@@ -56,7 +56,7 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 	 */
 	protected void saveCollectionElement(Map containerKey) throws Exception {
 		if (getCollectionElementView().isEditable()) {
-			// Aggregate or entity reference used as aggregate 
+			// Aggregate or entity reference used as aggregate
 			boolean isEntity = isEntityReferencesCollection();
 			Map values = getValuesToSave();			
 			
