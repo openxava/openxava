@@ -44,7 +44,9 @@ public class WorkInvoiceTest extends ModuleTestBase {
 		setValue("vatPercentage", "21");
 		assertValue("total", "4960" + decimalSeparator + "88");
 		
+		assertValue("workCost.id", ""); // To assure we save an empty reference used as mappedBy in an @OrderColumn collection, a bug 
 		execute("CRUD.save");
+		assertNoErrors(); 
 		execute("Mode.list");
 		setConditionValues("66"); 
 		execute("List.filter");

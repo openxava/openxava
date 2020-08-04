@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Saving an entity with a reference with empty value used by a mappedBy of an @OrderColumn fails.
 - Fix: Creating a new element in an @OneToMany shows "You will lose all changes" message leaving record.
 - Fix: From time to time changing the theme by a user changes the login page theme for all users.
 

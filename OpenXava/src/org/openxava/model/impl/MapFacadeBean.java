@@ -1006,7 +1006,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		}
 	}
 	
-	private void updateSortableCollections(MetaModel metaModel, Map key, Map values) throws XavaException, RemoteException, CreateException, ValidationException { 		
+	private void updateSortableCollections(MetaModel metaModel, Map key, Map values) throws XavaException, RemoteException, CreateException, ValidationException { 
 		for (Iterator it = metaModel.getMetaReferencesToEntity().iterator(); it.hasNext(); ) {
 			MetaReference ref = (MetaReference) it.next();		
 			Map referenceValues = (Map) values.get(ref.getName());
@@ -1017,7 +1017,9 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 						if (col.isSortable()) {
 							try {
 								Map referenceKey = extractKeyValues(ref.getMetaModelReferenced(), referenceValues);
-								addCollectionElement(ref.getMetaModelReferenced(), referenceKey, ref.getReferencedModelCorrespondingCollection(), key);
+								if (!Is.empty(referenceKey)) { 
+									addCollectionElement(ref.getMetaModelReferenced(), referenceKey, ref.getReferencedModelCorrespondingCollection(), key);
+								}
 							} 
 							catch (PropertiesManagerException | InvocationTargetException | FinderException ex) {
 								log.error(ex.getMessage(), ex);

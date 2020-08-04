@@ -12,8 +12,8 @@ import org.openxava.annotations.*;
  * @author Javier Paniza
  */
 @Entity
-@View(
-	members="number, description; hours; worker; tripCost; discount; vatPercentage; total"	
+@View(	
+	members="number, description; hours; worker; workCost; tripCost; discount; vatPercentage; total" 
 )
 public class WorkInvoice { 
 	
@@ -33,6 +33,7 @@ public class WorkInvoice {
 	private BigDecimal discount;
 	
 	@ManyToOne
+	@DescriptionsList 
 	private WorkCost workCost;
 	
 	@Max(99) 
