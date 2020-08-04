@@ -16,7 +16,7 @@ public class JavaProgrammerWithGroupInSectionTest extends ModuleTestBase {
 	public void testViewInheritanceWithGroupInsideSection() throws Exception { 
 		assertNoErrors();
 		execute("List.viewDetail", "row=0");
-		assertCollectionRowCount("experiences", 0);
+		assertCollectionRowCount("experiences", 0); 
 		assertExists("sex");
 		assertValue("mainLanguage", "JAVA");
 	}

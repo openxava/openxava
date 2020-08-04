@@ -134,7 +134,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertNoErrors();
 		assertValue("name", "JUANILLO"); 
 		assertValue("skill.description", "PROGRAMMING");
-		assertValue("skill.language", "JAVA");
+		assertValue("skill.language", "JAVA"); 
 		assertValue("platform", "MULTIPLATFORM");
 		
 		// Labels.put()

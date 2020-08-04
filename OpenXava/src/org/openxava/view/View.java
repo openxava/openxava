@@ -591,9 +591,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public void addValues(Map values) throws XavaException { 
-		System.out.println("[View.addValues] >"); // tmp
 		addValues(values, false);
-		System.out.println("[View.addValues] <"); // tmp
 	}
  
 	private void addValues(Map values, boolean setValuesForSubviews) throws XavaException {		
@@ -614,8 +612,13 @@ public class View implements java.io.Serializable {
 			}
 		}											
 	}
-	
+
 	public void setValues(Map values) throws XavaException {
+		setValuesChangingModel(values);
+		getRoot().dataChanged = !isFirstLevel(); 
+	}
+	
+	public void setValuesChangingModel(Map values) throws XavaException {
 		boolean modelChanged = false;
 		if (values != null) {
 			String modelName = (String) values.get(MapFacade.MODEL_NAME);
@@ -627,12 +630,7 @@ public class View implements java.io.Serializable {
 				modelChanged = true;				
 			}
 		}	
-		setValues(values, !isRepresentsCollection());
-		System.out.println("[View(" + getModelName() + ":" + oid + ").setValues] isRepresentsCollection()=" + isRepresentsCollection()); // tmp
-		System.out.println("[View(" + getModelName() + ":" + oid + ").setValues] isFirstLevel()=" + isFirstLevel()); // tmp
-		getRoot().dataChanged = !isFirstLevel(); 
-		System.out.println("[View(" + getModelName() + ":" + oid + ").setValues] root=" + getRoot().getModelName() + ":" + getRoot().oid); // tmp
-		System.out.println("[View(" + getModelName() + ":" + oid + ").setValues] root.dataChanged=" + getRoot().dataChanged); // tmp
+		setValues(values, !isRepresentsCollection()); 
 		if (modelChanged) refresh();
 	}
 	
@@ -1334,8 +1332,7 @@ public class View implements java.io.Serializable {
 			if (hasSubview(name)) {	
 				View subview = getSubview(name);
 				if (!subview.isRepresentsCollection()) {
-					// tmp if (setValuesForSubviews) subview.setValues((Map)value);
-					if (setValuesForSubviews) subview.setValues((Map)value, !isRepresentsCollection()); // tmp
+					if (setValuesForSubviews) subview.setValuesChangingModel((Map)value); 
 					else subview.addValues((Map)value);
 				}
 				else {
@@ -1377,7 +1374,6 @@ public class View implements java.io.Serializable {
 	
 	/** @since 6.3 */
 	public boolean isDataChanged() {  
-		System.out.println("[View(" + getModelName() + ":" + oid + ").isDataChanged] dataChanged=" + dataChanged); // tmp
 		return dataChanged;
 	}
 	

@@ -161,8 +161,10 @@
 	</target>
 		
 	<target name="runTests">
-		<junit fork="true"  printsummary="true">
-			<jvmarg value="-Xmx1024m -Duser.country=es -Duser.language=ES"/>
+		<junit fork="true"  printsummary="true" >
+			<jvmarg value="-Xmx1024m"/>
+			<jvmarg value="-Duser.country=es"/>
+			<jvmarg value="-Duser.language=ES"/>
 			<formatter type="plain" usefile="false" />
 			<classpath>
 				<pathelement location="../OpenXava/lib/junit.jar"/>
@@ -174,9 +176,6 @@
 				<fileset dir="web/WEB-INF/lib"> 
 					<include name="**/*.jar"/> 
 				</fileset>
-				<fileset dir="lib"> 
-					<include name="**/*.jar"/> 
-				</fileset> 				
 				<pathelement path="${j2ee.lib}"/> 				
 			</classpath>
 			 
