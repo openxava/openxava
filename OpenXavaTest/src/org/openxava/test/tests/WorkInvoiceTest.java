@@ -66,5 +66,39 @@ public class WorkInvoiceTest extends ModuleTestBase {
 		execute("CRUD.delete");
 		assertNoErrors();
 	}
+	
+	public void testAssignReferenceMappedByOrderColumnListOnModifyEntity() throws Exception { 
+		execute("CRUD.new");
+		setValue("number", "66");
+		setValue("description", "JUNIT WORK INVOICE");
+		execute("CRUD.save");
+		
+		assertValue("number", "");
+		assertValue("description", "");
+		setValue("number", "66");
+		execute("CRUD.refresh");
+		assertValue("number", "66");
+		assertValue("description", "JUNIT WORK INVOICE");
+		
+		setValue("workCost.id", "40288118607859d00160786026960000");
+		execute("CRUD.save");
+		assertNoErrors();
+		
+		changeModule("WorkCost");
+		execute("List.viewDetail", "row=0");
+		assertValue("description", "CAR SERVICE");
+		assertCollectionRowCount("invoices", 1);
+		assertValueInCollection("invoices", 0, 0, "66");
+		assertValueInCollection("invoices", 0, 1, "JUNIT WORK INVOICE");
+		
+		changeModule("WorkInvoice");
+
+		setValue("number", "66");
+		execute("CRUD.refresh");
+		assertValue("number", "66");
+		assertValue("description", "JUNIT WORK INVOICE");
+		execute("CRUD.delete");
+		assertNoErrors();
+	}
 		
 }

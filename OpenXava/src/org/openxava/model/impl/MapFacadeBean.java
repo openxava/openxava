@@ -238,7 +238,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		MetaModel metaModel = getMetaModel(modelName); 
 		try {
 			beginTransaction(metaModel); 
-			setValues(metaModel, keyValues, values, true, tracking);
+			setValues(metaModel, keyValues, values, true, tracking, true); 
 			commitTransaction(metaModel); 
 		}
 		catch (FinderException ex) {
@@ -606,7 +606,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			// If the child contains the reference to its parent we simply update this reference
 			Map nullParentKey = new HashMap();
 			nullParentKey.put(refToParent, null); 
-			setValues(childMetaModel, collectionElementKeyValues, nullParentKey, deletingElement, true);  
+			setValues(childMetaModel, collectionElementKeyValues, nullParentKey, deletingElement, true, false);   
 		}
 		if (metaCollection.hasPostRemoveCalculators()) {
 			executePostremoveCollectionElement(parentMetaModel, keyValues, metaCollection);			
@@ -665,7 +665,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			// If the child contains the reference to its parent we simply update this reference
 			Map parentKey = new HashMap();
 			parentKey.put(refToParent, keyValues);		
-			setValues(childMetaModel, collectionElementKeyValues, parentKey, false, true);  
+			setValues(childMetaModel, collectionElementKeyValues, parentKey, false, true, false);   
 		}
 	}
 	
@@ -1554,14 +1554,13 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 	private void setValues(MetaModel metaModel, Map keyValues, Map values) 
 		throws FinderException, ValidationException, XavaException 
 	{
-		setValues(metaModel, keyValues, values, true, true); 
+		setValues(metaModel, keyValues, values, true, true, false); 
 	}
 
-	private void setValues(MetaModel metaModel, Map keyValues, Map values, boolean validate, boolean tracking) 
+	private void setValues(MetaModel metaModel, Map keyValues, Map values, boolean validate, boolean tracking, boolean updateSortableCollections)  
 		throws FinderException, ValidationException, XavaException 
 	{ 		
-		try {						
-			Object entity = findEntity(metaModel, keyValues);
+		try {								Object entity = findEntity(metaModel, keyValues);
 			updateReferencedEntities(metaModel, values);			
 			removeKeyFields(metaModel, values);			
 			removeReadOnlyFields(metaModel, values);						
@@ -1581,6 +1580,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 				Map objects = convertSubmapsInObject(metaModel, values);
 				r.executeSets(objects);
 			}
+			if (updateSortableCollections) updateSortableCollections(metaModel, keyValues, values); 
 			// Collections are not managed			
 		} 
 		catch (FinderException ex) { 
