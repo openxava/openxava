@@ -929,6 +929,7 @@
 		<delete file="../${project}/web/WEB-INF/lib/commons-jexl.jar"/>
 		<delete file="../${project}/web/WEB-INF/lib/hibernate-entitymanager.jar"/>
 		<delete file="../${project}/web/WEB-INF/lib/jboss-logging-annotations.jar"/>
+		<delete file="../${project}/web/WEB-INF/lib/addons-pro.jar"/>
 		
 		<!-- Delete unused CSS -->
 		<delete file="../${project}/web/xava/style/openxava.css"/>
@@ -988,18 +989,17 @@
 	</target>
 	
 	<target name="buildAddons">
-		<delete includeemptydirs="true">
-		  <fileset dir="${openxava.base.dir}/Addons/bin" includes="**/*"/>
-		</delete>
 		<antcall target="javac">
 			<param name="compile.project" value="Addons"/>
 		</antcall>
 		<copy todir="${openxava.base.dir}/Addons/bin">
 			<fileset dir="${openxava.base.dir}/Addons/xava"/>
 		</copy>
+		<jar jarfile="../Addons/web/WEB-INF/lib/addons.jar" basedir="${openxava.base.dir}/Addons/bin"/>
 	</target>
 	
 	<target name="javac">
+		<mkdir dir="${openxava.base.dir}/${compile.project}/bin"/>
 		<delete includeemptydirs="true">
 		  <fileset dir="${openxava.base.dir}/${compile.project}/bin" includes="**/*"/>
 		</delete>
@@ -1077,8 +1077,6 @@
 		<copy todir="../${project}/src" overwrite="true" failonerror="false">
 			<fileset dir="${openxava.base.dir}/Addons/src-to-copy"/>
 		</copy>		
-		<delete file="../${project}/web/WEB-INF/lib/addons.jar" failonerror="false"/>
-		<jar jarfile="../${project}/web/WEB-INF/lib/addons.jar" basedir="${openxava.base.dir}/Addons/bin"/>		
 	</target>
 	
 	<target name="defineSchemaToolPath">
