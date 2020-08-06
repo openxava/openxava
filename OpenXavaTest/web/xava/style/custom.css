@@ -5,14 +5,3 @@ Put here your own style
 	color: red;
 	font-weight:bold;
 }
-
-/* tmp ini */
-.read-only .filepond--drop-label {
-	display: none !important;
-
-}
-
-.read-only .filepond--action-remove-item {
-	display: none;
-}
-/* tmp fin */
