@@ -45,6 +45,7 @@ public class Movie extends Identifiable {
 	@Column(length=32)
 	private String trailer;
 	
+	@ReadOnly // tmp
 	@Stereotype("FILES")
 	@Column(length=32)	
 	private String scripts;

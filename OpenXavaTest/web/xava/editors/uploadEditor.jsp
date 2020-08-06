@@ -27,6 +27,7 @@ if (!Is.empty(value)) {
 String dataEmpty = "null".equals(value) || Is.empty(value) || !Is.empty(value) && filesIds != null && "".equals(filesIds)?"data-empty='true'":""; 
 String cssClass = request.getParameter("cssClass");
 cssClass = Is.emptyString(cssClass)?"":" " + cssClass;
+if (!editable) cssClass = cssClass + " read-only"; // tmp ME QUEDÉ POR AQUÍ. ESTO FUNCIONÓ. ¿ESTE NOMBRE PARA LA CLASE? FALTA PROBARLO A FONDO
 boolean multiple = "true".equals(request.getParameter("multipleFiles"));
 String dataMultiple = multiple?"data-multiple='true'":"";
 boolean preview = !"false".equals(request.getParameter("imagePreview"));
