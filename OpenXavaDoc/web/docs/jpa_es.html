@@ -6,11 +6,11 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Apéndice B: Java Persistence API"></a>
-        <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span> Apéndice B: Java Persistence API </h1>
-       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+      <h1 id="toc0"><a name="Apéndice B: Java Persistence API"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Apéndice B: Java Persistence API </h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
         Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3.
         Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">4.
@@ -22,24 +22,26 @@
         Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <strong>B. Java Persistence API</strong>
       | <a class="wiki_link" href="annotations_es.html">C. Anotaciones</a>
-      <hr> 
+      <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Ap%C3%A9ndice+B:+Java+Persistence+API">Apéndice
+        <div style="margin-left: 1em;"><a href="#Apendice+B:+Java+Persistence+API">Apéndice
             B: Java Persistence API</a></div>
-        <div style="margin-left: 2em;"><a href="#Ap%C3%A9ndice+B:+Java+Persistence+API-Anotaciones+JPA">Anotaciones
+        <div style="margin-left: 2em;"><a href="#Apendice+B:+Java+Persistence+API-Anotaciones+JPA">Anotaciones
             JPA</a></div>
-        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+B:+Java+Persistence+API-Anotaciones+JPA-Entidad">Entidad</a></div>
-        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+B:+Java+Persistence+API-Anotaciones+JPA-Propiedades">Propiedades</a></div>
-        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+B:+Java+Persistence+API-Anotaciones+JPA-Referencias">Referencias</a></div>
-        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+B:+Java+Persistence+API-Anotaciones+JPA-Clases+incrustables">Clases
+        <div style="margin-left: 3em;"><a href="#Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Entidad">Entidad</a></div>
+        <div style="margin-left: 3em;"><a href="#Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Propiedades">Propiedades</a></div>
+        <div style="margin-left: 3em;"><a href="#Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Referencias">Referencias</a></div>
+        <div style="margin-left: 3em;"><a href="#Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Clases+incrustables">Clases
             incrustables</a></div>
-        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+B:+Java+Persistence+API-Anotaciones+JPA-Colecciones">Colecciones</a></div>
-        <div style="margin-left: 2em;"><a href="#Ap%C3%A9ndice+B:+Java+Persistence+API-API+JPA">API
+        <div style="margin-left: 3em;"><a href="#Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Colecciones">Colecciones</a></div>
+        <div style="margin-left: 3em;"><a href="#Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Clave+compuesta">Clave
+            compuesta</a></div>
+        <div style="margin-left: 2em;"><a href="#Apendice+B:+Java+Persistence+API-API+JPA">API
             JPA</a></div>
-        <div style="margin-left: 2em;"><a href="#Ap%C3%A9ndice+B:+Java+Persistence+API-Resumen">Resumen</a></div>
+        <div style="margin-left: 2em;"><a href="#Apendice+B:+Java+Persistence+API-Resumen">Resumen</a></div>
       </div>
-     Java Persistence API (JPA) es el estándar Java para hacer mapeo
+      Java Persistence API (JPA) es el estándar Java para hacer mapeo
       objeto-relacional. El mapeo objeto-relacional te permite acceder a los
       datos en una base de datos relacional usando un estilo orientado a
       objetos. En tu aplicación solo trabajas con objetos, estos objetos se
@@ -57,14 +59,14 @@
       hecho, se citan algunos en el sumario de esta lección. OpenXava soporta
       JPA 2.2 desde v6.1.<br>
       Por otra parte, si ya conoces JPA puedes saltarte esta lección.<br>
-      <h2 id="toc1"><a name="Apéndice B: Java Persistence API-Anotaciones JPA"></a>Anotaciones
+      <h2 id="toc1"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA"></a>Anotaciones
         JPA</h2>
       JPA tiene 2 aspectos diferenciados, el primero es un conjunto de
       anotaciones Java para añadir a tus clases marcándolas como persistentes y
       dando detalles acerca del mapeo entre las clases y las tablas. Y el
       segundo es un API para leer y escribir objetos desde tu aplicación. Veamos
       primero las anotaciones.<br>
-      <h3 id="toc2"><a name="Apéndice B: Java Persistence API-Anotaciones JPA-Entidad"></a>Entidad</h3>
+      <h3 id="toc2"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Entidad"></a>Entidad</h3>
       En la nomenclatura JPA a una clase persistente se le llama entidad.
       Podemos decir que una entidad es una clase cuyas instancias se graban en
       la base de datos. Usualmente cada entidad representa un concepto del
@@ -276,7 +278,7 @@ class="co1">// Para indicar la tabla de la base de datos (opcional)</span>
       Además, marcar Cliente con <em>@Entity</em> es suficiente para que
       OpenXava la reconozca como un componente de negocio. Sí, en OpenXava
       “entidad” es sinónimo de componente de negocio.<br>
-      <h3 id="toc3"><a name="Apéndice B: Java Persistence API-Anotaciones JPA-Propiedades"></a>Propiedades</h3>
+      <h3 id="toc3"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Propiedades"></a>Propiedades</h3>
       El estado básico de una entidad se representa mediante propiedades. Las
       propiedades de una entidad son propiedades Java convencionales, con <em>getters</em>
       y <em>setters</em>:<br>
@@ -1174,7 +1176,7 @@ class="sy0">;</span>
       Ahora que ya sabes como definir propiedades básicas en tu entidad,
       aprendamos como declarar relaciones entre entidades usando referencias y
       colecciones.<br>
-      <h3 id="toc4"><a name="Apéndice B: Java Persistence API-Anotaciones JPA-Referencias"></a>Referencias</h3>
+      <h3 id="toc4"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Referencias"></a>Referencias</h3>
       Una entidad puede hacer referencia a otra entidad. Únicamente has de
       definir una referencia Java convencional anotada con la anotación JPA @<em>ManyToOne</em>:<br>
       <style type="text/css"><!--
@@ -1404,7 +1406,7 @@ class="co1">// Una referencia Java convencional (4)</span>
       Has visto como hacer referencia a otras entidades, pero también puedes
       hacer referencia a otros objetos que no son entidades, por ejemplo, a
       objetos incrustados.<br>
-      <h3 id="toc5"><a name="Apéndice B: Java Persistence API-Anotaciones JPA-Clases incrustables"></a>Clases
+      <h3 id="toc5"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Clases+incrustables"></a>Clases
         incrustables</h3>
       Además de entidades puedes usar clases incrustables para modelar algunos
       conceptos de tu dominio. Si tienes una entidad A que tiene una referencia
@@ -1843,7 +1845,7 @@ class="co1">// Una referencia Java convencional</span>
       OpenXava genera automáticamente para una referencia a una clase
       incrustable una interfaz de usuario como esta:<br>
       <img src="files/jpa_es050.png" alt="jpa_es050.png" title="jpa_es050.png"><br>
-      <h3 id="toc6"><a name="Apéndice B: Java Persistence API-Anotaciones JPA-Colecciones"></a>Colecciones</h3>
+      <h3 id="toc6"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Colecciones"></a>Colecciones</h3>
       Una entidad puede tener una colección de entidades. Sólo has de definir
       una colección de Java convencional anotada con las anotaciones JPA <em>@OneToMany</em>
       o <em>@ManyToMany</em>:<br>
@@ -2892,13 +2894,87 @@ class="br0">{</span>
       semántica de incrustado, es decir podemos decir "tiene un". Escoger una
       opción es fácil para un programador OpenXava, porque cada opción genera
       una interfaz de usuario totalmente diferente.<br>
-      <br>
-      <br>
+      <h3 id="toc6"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Clave+compuesta"></a>Clave compuesta</h3>
+      Es mejor evitar el uso de claves compuestas. Siempre tienes la opción de
+      usar un identificador oculto autogenerado. Aunque, algunas veces tienes la
+      necesidad de conectarte a bases de datos legadas o puede que el diseño del
+      esquema lo haya hecho alguien que le gustan las claves compuestas, y no
+      tengas otra opción que usar claves compuestas aunque no sea lo ideal. Por
+      lo tanto, vamos a aprender como usar una clave compuesta.<br>
+      Veamos una versión sencilla de una entidad <em>Factura</em>:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">package com.tuempresa.facturacion.modelo;
+ 
+import java.time.*;<br>import java.util.*;
+import javax.persistence.*;
+import org.openxava.annotations.*;
+ 
+@Entity
+@IdClass(FacturaKey.class) // La clase id contiene todas las propiedades clave (1)
+public class Factura {
+ 
+    @Id // Aunque tenemos las clase id aún es necesario marcarlo como @Id (2)
+    @Column(length = 4)
+    private int anyo;
+ 
+    @Id // Aunque tenemos las clase id aún es necesario marcarlo como @Id (2)
+    @Column(length = 6)
+    private int numero;
+ 
+    @Required
+    private LocalDate fecha;
+ 
+    @Stereotype("MEMO")
+    private String observaciones;
+ 
+    // RECUERDA GENERAR LOS GETTERS Y SETTERS PARA LOS CAMPOS
+ 
+}
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Si quieres usar <em>anyo</em> y
+        <em>numero</em> como clave compuesta para <em>Factura</em>, una forma
+        de hacerlo, es marcándolos con <em>@Id</em> (2), y además tener una
+        clase id (1). La clase id tiene que tener <em>anyo</em> y <em>numero</em>
+        como propiedades. Puedes ver <em>FacturaKey</em> aquí:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">package com.tuempresa.facturacion.modelo;
+ 
+public class FacturaKey implements java.io.Serializable { // La clase key tiene que ser serializable
+ 
+    private int anyo; // Contiene las propiedades marcadas ...
+    private int numero; // ... como @Id en la entidad
+ 
+    public boolean equals(Object obj) { // Ha de definir el método equals
+        if (obj == null) return false;
+        return obj.toString().equals(this.toString());
+    }
+ 
+    public int hashCode() { // Ha de definir el método hashCode
+        return toString().hashCode();
+    }
+ 
+    public String toString() {
+        return "FacturaKey::" + anyo + ":" + numero;
+    }
+ 
+    // RECUERDA GENERAR LOS GETTERS Y SETTERS PARA anyo Y numero
+ 
+}
+</code></pre> </div>
+      <div class="wiki" style="display: block;">En este código se ven algunos de
+        los requerimientos para una clase id, como el ser serializable e
+        implementar <em>hashCode()</em> y <em>equals()</em>. OpenXava Studio
+        (o Eclipse) puede generartelos con <em>Source &gt; Generate hashCode()
+          and equals()...</em></div>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <br>
       Has visto como escribir tus entidades usando anotaciones JPA, y como
       OpenXava las interpreta para así generar una interfaz de usuario adecuada.
       Ahora vas a aprender como usar el API JPA para leer y escribir de la base
       de datos de desde tu propio código.<br>
-      <h2 id="toc7"><a name="Apéndice B: Java Persistence API-API JPA"></a>API
+      <h2 id="toc7"><a name="Apendice+B:+Java+Persistence+API-API+JPA"></a>API
         JPA</h2>
       La clase de JPA más importante es <em>javax.persistence.EntityManager</em>.
       Un <em>EntityManager</em> te permite grabar, modificar y buscar
@@ -3757,7 +3833,7 @@ class="sy0">;</span>  <span class="co1">// Para obtener una colección de entida
       y obtener una entidad única, usando el método <em>getSingleResult()</em>
       (2), o una colección de entidades mediante el <em>getResultList()</em>
       (3).<br>
-      <h2 id="toc8"><a name="Apéndice B: Java Persistence API-Resumen"></a>Resumen</h2>
+      <h2 id="toc8"><a name="Apendice+B:+Java+Persistence+API-Resumen"></a>Resumen</h2>
       Esta lección ha sido una breve introducción a la tecnología JPA. Por
       desgracia, muchas e interesantes cosas sobre JPA se nos han quedado en el
       tintero, como la herencia, el polimorfismo, las claves compuestas,
