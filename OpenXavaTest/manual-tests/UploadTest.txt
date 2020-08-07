@@ -14,9 +14,14 @@ Image: Customer module with all browsers
 - Click to remove the photo. Save.
 - Go to List. Select the second record. You have to see no photo.
 - Go to previous record. You have to see the photo of first customer.
-- Execute "SET OFF" action. Try to click on remove photo. It should not work. 
+- Execute "SET OFF" action. 
+- Remove and Browse links should be hidden. 
+- Click on the photo, should be shown in another tab.
+- Try to drop a new photo, should not work. 
 - Go to next record. You have to see no photo.
-- Execute "SET OFF" action. Try to click on Browser link. It should not work. 
+- Execute "SET OFF" action. 
+- Remove and Browse link should be hidden.
+- Try to drop a new photo, should not work. 
 
 GalleryImage: Product2 with all browsers
 - Go to first product: No images.
@@ -32,9 +37,14 @@ GalleryImage: Product2 with all browsers
 - Add one image with drag & drop.
 - Go to the next record (no images), return to the first one: four image.
 - Remove one image. Go to the next record (no images), return to the first one: three images. 
-- Execute "SET OFF" action. Try to click on remove photo. It should not work.
+- Execute "SET OFF" action.
+- Remove and Browse link should be hidden. 
+- Click on a image, should be shown in another tab.
+- Try to drop a new image, should not work. 
 - Execute "SET ON" action. Remove all images. 
-- Execute "SET OFF" action. Try to click on Browser link. It should not work.
+- Execute "SET OFF" action. 
+- Remove and Browse link should be hidden. 
+- Try to drop a new image, should not work. 
 - Close the frame with the images.
 - Go to list. Select the first element.
 - Open the frame with the images. The upload editor must be here.
