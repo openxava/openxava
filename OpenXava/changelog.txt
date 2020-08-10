@@ -2,6 +2,9 @@ Change Log for OpenXava project
 ===============================
 
 - Fix: Upload editor (PHOTO, IMAGES_GALLERY and FILES) doesn't allow to download file when read only.
+- Lesson 2 of course simplified removing some error prone parts.
+- Composite key explanation included in JPA documention.
+- Fix: Links of menu in JPA docs in Spanish broken. 
 - Fix: Assigning initial value to a reference used as mappedBy of an @OrderColumn list breaks the list.
 - Fix: Saving an entity with a reference with empty value used by a mappedBy of an @OrderColumn fails.
 - Fix: Creating a new element in an @OneToMany shows "You will lose all changes" message leaving record.

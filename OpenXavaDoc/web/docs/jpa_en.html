@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Appendix B: Java Persistence API - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -10,7 +13,7 @@
         <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
           / </span> Appendix B: Java Persistence API </h1>
-       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
         Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4.
@@ -35,6 +38,8 @@
         <div style="margin-left: 3em;"><a href="#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Embeddable%20classes">Embeddable
             classes</a></div>
         <div style="margin-left: 3em;"><a href="#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Collections">Collections</a></div>
+        <div style="margin-left: 3em;"><a href="#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Composite+key">Composite
+            key</a></div>
         <div style="margin-left: 2em;"><a href="#Appendix%20B:%20Java%20Persistence%20API-JPA%20API">JPA
             API</a></div>
         <div style="margin-left: 3em;"><a href="#Appendix%20B:%20Java%20Persistence%20API-JPA%20API-Accessing%20referenced%20properties">Accessing
@@ -2878,9 +2883,90 @@ class="br0">{</span>
       elements when the container entity is deleted. Both options have the
       embedded semantic, that is we can say "has a". Choosing an option is very
       easy for an OpenXava developer, because each option generates a very
-      differente user interface.<br>
-      <br>
-      <br>
+      differente user interface.</div>
+    <div class="wiki" style="display: block;">
+      <h3 id="toc6"><a name="Appendix B: Java Persistence API-JPA Annotations-Composite+key"></a>Composite
+        key</h3>
+      It's better to avoid the use of composite keys. You always have the option
+      to use an auto generated hidden id. Although, sometimes you may need to
+      connect to a legacy database or maybe the schema design has been done by
+      someone that likes composite keys, and you must use composite keys albeit
+      it's not the best choice. Therefore, here you will learn how to use a
+      composite key.<br>
+      Let's see a simple version of an <em>Invoice</em> entity:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import java.time.*;<br>import java.util.*;
+import javax.persistence.*;
+import org.openxava.annotations.*;
+ 
+@Entity
+@IdClass(InvoiceKey.class) // The id class has all the key properties (1)
+public class Invoice {
+ 
+    @Id // Though we have id class it still needs to be marked as @Id (2)
+    @Column(length = 4)
+    private int year;
+ 
+    @Id // Though we have id class it still needs to be marked as @Id (2)
+    @Column(length = 6)
+    private int number;
+ 
+    @Required
+    private LocalDate date;
+ 
+    @Stereotype("MEMO")
+    private String remarks;
+ 
+    // REMEMBER TO GENERATE THE GETTERS AND SETTERS FOR THE ABOVE FIELDS
+ 
+}
+</code></pre> </div>
+      <div class="wiki" style="display: block;">If you want to use <em>year</em>
+        and <em>number</em> as a composite key for your <em>Invoice</em>, a
+        way to do so is by marking <em>year</em> and <em>number</em> as <em>@Id</em>
+        (shown as 2), and also to have an id class (shown as 1). The id class
+        must have <em>year</em> and <em>number</em> as properties. You can see
+        <em>InvoiceKey</em> here:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+public class InvoiceKey implements java.io.Serializable { // The key class must be serializable
+ 
+    private int year; // It contains the properties marked ...
+    private int number; // ... as @Id in the entity
+ 
+    public boolean equals(Object obj) { // It must define equals method
+        if (obj == null) return false;
+        return obj.toString().equals(this.toString());
+    }
+ 
+    public int hashCode() { // It must define hashCode method
+        return toString().hashCode();
+    }
+ 
+    public String toString() {
+        return "InvoiceKey::" + year + ":" + number;
+    }
+ 
+    // REMEMBER TO GENERATE THE GETTERS AND SETTERS FOR year AND number
+ 
+}
+</code></pre> </div>
+      <div class="wiki" style="display: block;"><span style="line-height: 1.5;">This
+          code shows some of the requirements of a primary key class, such as to
+          be serializable and to implement </span><em><span style="line-height: 1.5;">hashCode()</span></em><span
+
+          style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">equals()</span></em><span
+
+          style="line-height: 1.5;">. OpenXava Studio (or Eclipse) can generate
+          them for you with </span><em><span style="line-height: 1.5;">Source
+            &gt; Generate hashCode and equals()...</span></em></div>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <br>
       You have seen how to write your entities using JPA annotations and how
       OpenXava interprets them in order to generate a suitable user interface.
       Now you are going to learn how to use the JPA API to write and read from

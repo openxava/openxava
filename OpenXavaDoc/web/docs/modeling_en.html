@@ -9,16 +9,13 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 2: Modeling with Java"></a> <span
-
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Lesson 2: Modeling with Java </h1>
-        <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <strong>2. Modeling with Java</strong> | <a class="wiki_link"
-
-        href="testing_en.html">3. Automated testing</a> | <a class="wiki_link"
-
+      <h1 id="toc0"><a name="Lesson 2: Modeling with Java"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 2: Modeling with Java </h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+        Getting started</a> | <strong>2. Modeling with Java</strong> | <a class="wiki_link"
+        href="testing_en.html">3. Automated testing</a> | <a class="wiki_link"
         href="inheritance_en.html">4. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
         Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
         Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
@@ -39,8 +36,6 @@
             (ManyToOne) as descriptions list (combo)</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Stereotypes">Stereotypes</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Embeddable">Embeddable</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Composite%20key">Composite
-            key</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Calculating%20default%20values">Calculating
             default values</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Regular%20reference%20%28ManyToOne%29">Regular
@@ -59,13 +54,12 @@
             development</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Summary">Summary</a></div>
       </div>
-     Once you have your environment configured and know how to develop an
+      Once you have your environment configured and know how to develop an
       application with it, it's time to make your own project. In this lesson
       you will create all the entities required for your project in order to get
       your application working.<br>
       By now I assume that you know how to create a new entity with Eclipse and
-      how to run the application, because you have already read <a class="wiki_link"
-
+      how to run the application, because you have already read <a class="wiki_link"
         href="getting-started_en.html">Lesson1: Getting started</a>, right?<br>
       <h2 id="toc1"><a name="Lesson 2: Modeling with Java-Basic domain model"></a>Basic
         domain model</h2>
@@ -127,10 +121,8 @@ public class Category {
       button on the entity code, or Ctrl-1 on a field.<br>
       Execute the <em>Category</em> module and add some categories:<br>
       <img src="files/modeling_en035.png" alt="modeling_en035.png" title="modeling_en035.png"><br>
-      <span style="line-height: 1.5;">Now, we'll associate </span><em><span style="line-height: 1.5;">Product</span></em><span
-
-        style="line-height: 1.5;"> with </span><em><span style="line-height: 1.5;">Category</span></em><span
-
+      <span style="line-height: 1.5;">Now, we'll associate </span><em><span style="line-height: 1.5;">Product</span></em><span
+        style="line-height: 1.5;"> with </span><em><span style="line-height: 1.5;">Category</span></em><span
         style="line-height: 1.5;">: Add the next <em>category</em> reference
         declaration in your <em>Product</em> entity:</span></div>
     <div class="wiki" style="display: block;">
@@ -149,8 +141,7 @@ public class Category {
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">This is a plain JPA many-to-one
-      relationship, the one that you can learn more about in <a class="wiki_link"
-
+      relationship, the one that you can learn more about in <a class="wiki_link"
         href="jpa_en.html">appendix B</a>. In this case, thanks to the <em>@DescriptionsList</em>
       annotation it is displayed as a combo:<br>
       <img src="files/modeling_en020.png" alt="modeling_en020.png" title="modeling_en020.png"><br>
@@ -271,36 +262,44 @@ private Address address;
       Now that we have the basic entities running, it's time to face the core
       entity of your application, the <em>Invoice</em> entity. Let's start with
       it step by step.<br>
-      <h3 id="toc5"><a name="Lesson 2: Modeling with Java-Basic domain model-Composite key"></a>Composite
-        key</h3>
-      We are not going to use a composite key for <em>Invoice</em>. It's better
-      to avoid the use of composite keys. You always have the option to use an
-      auto generated hidden id. Although, sometimes you may need to connect to a
-      legacy database or maybe the schema design has been done by someone that
-      likes composite keys, and you must use composite keys albeit it's not the
-      best choice. Therefore, here you will learn how to use a composite key,
-      though at the end we'll change it to a single auto generated id.<br>
-      Let's start with a simple version of <em>Invoice</em> entity:</div>
+      <h3 id="toc6"><a name="Lesson 2: Modeling with Java-Basic domain model-Calculating default values"></a>Calculating
+        default values</h3>
+    </div>
+    <div class="wiki" style="display: block;"> We're going to write our <i>Invoice</i>
+      entity with <i>year</i>, <i>number</i> and <i>date</i>. It would be
+      nice to have default values for these properties, so the user does not
+      have to type them. It's easy to do it using the <em>@DefaultValueCalculator</em>
+      annotation. In this first version of <i>Invoice</i> you can see how we
+      define default values for <em>year</em> and <em>date</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
-import java.time.*;<br>import java.util.*;
+import java.time.*;
+import java.util.*;
 import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
+import org.openxava.calculators.*;
  
 @Entity
-@IdClass(InvoiceKey.class) // The id class has all the key properties (1)
 public class Invoice {
- 
-    @Id // Though we have id class it still needs to be marked as @Id (2)
-    @Column(length = 4)
+
+    @Id
+    @GeneratedValue(generator="system-uuid")
+    @Hidden
+    @GenericGenerator(name="system-uuid", strategy="uuid")
+    @Column(length=32)
+    private String oid;
+
+    @Column(length=4)
+    @DefaultValueCalculator(CurrentYearCalculator.class) // Current year
     private int year;
  
-    @Id // Though we have id class it still needs to be marked as @Id (2)
-    @Column(length = 6)
+    @Column(length=6)
     private int number;
  
     @Required
+    @DefaultValueCalculator(CurrentLocalDateCalculator.class) // Current date
     private LocalDate date;
  
     @Stereotype("MEMO")
@@ -310,130 +309,15 @@ public class Invoice {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">If you want to use <em>year</em>
-      and <em>number</em> as a composite key for your <em>Invoice</em>, a way
-      to do so is by marking <em>year</em> and <em>number</em> as <em>@Id</em>
-      (shown as 2), and also to have an id class (shown as 1). The id class must
-      have <em>year</em> and <em>number</em> as properties. You can see <em>InvoiceKey</em>
-      here:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.invoicing.model;
- 
-public class InvoiceKey implements java.io.Serializable { // The key class must be serializable
- 
-    private int year; // It contains the properties marked ...
-    private int number; // ... as @Id in the entity
- 
-    public boolean equals(Object obj) { // It must define equals method
-        if (obj == null) return false;
-        return obj.toString().equals(this.toString());
-    }
- 
-    public int hashCode() { // It must define hashCode method
-        return toString().hashCode();
-    }
- 
-    public String toString() {
-        return "InvoiceKey::" + year + ":" + number;
-    }
- 
-    // REMEMBER TO GENERATE THE GETTERS AND SETTERS FOR year AND number
- 
-}
-</code></pre> </div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">This
-        code shows some of the requirements of a primary key class, such as to
-        be serializable and to implement </span><em><span style="line-height: 1.5;">hashCode()</span></em><span
-
-        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">equals()</span></em><span
-
-        style="line-height: 1.5;">. Eclipse can generate them for you with </span><em><span
-
-          style="line-height: 1.5;">Source &gt; Generate hashCode and
-          equals()...</span></em><br>
-      You already know how to use a composite key, and given that we have
-      control over our schema, in the end we are going to use a UUID identifier
-      for <em>Invoice</em>. Rewrite the <em>Invoice</em> entity to leave it as
-      shown:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.invoicing.model;
- 
-import java.time.*;<br>import java.util.*;
-import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator; // ADD THIS IMPORT
-import org.openxava.annotations.*;
- 
-@Entity
-// @IdClass(InvoiceKey.class) // REMOVE THE @IdClass ANNOTATION
-public class Invoice {
- 
-    // ADD THE oid PROPERTY
-    @Id
-    @GeneratedValue(generator="system-uuid")
-    @Hidden
-    @GenericGenerator(name="system-uuid", strategy="uuid")
-    @Column(length=32)
-    private String oid;
- 
-    // REMEMBER TO GENERATE THE GETTER AND SETTER FOR oid
- 
-    // @Id // REMOVE THE @Id ANNOTATION
-    @Column(length=4)
-    private int year;
- 
-    // @Id // REMOVE THE @Id ANNOTATION
-    @Column(length=6)
-    private int number;
- 
-    ...
- 
-}
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Also delete the <em>InvoiceKey</em>
-      class. Using a hidden auto-generated key for <em>Invoice</em> class has
-      several practical advantages over a composite key: You do not have to
-      write the boring <em>InvoiceKey</em> class, you can modify the invoice
-      number without losing any association from other objects and you can store
-      in the same table the orders and invoices with the year/number repeated.<br>
-      The code you have is enough to run the <em>Invoice</em> module. Do it and
-      add some invoices if you want. Still a lot of work is remaining to be done
-      in <em>Invoice</em>, like the default values for <em>year</em>, <em>number</em>
-      and <em>date</em>.<br>
-      <h3 id="toc6"><a name="Lesson 2: Modeling with Java-Basic domain model-Calculating default values"></a>Calculating
-        default values</h3>
-      Currently the user needs to type the year, number and date in order to
-      enter an invoice. It would be nice to have default values for them. It's
-      easy to do it using the <em>@DefaultValueCalculator</em> annotation. In
-      the next code you see how we can add the default values for <em>year</em>
-      and <em>date</em>:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">@Column(length=4)
-@DefaultValueCalculator(CurrentYearCalculator.class) // Current year
-private int year;
- 
-@Required
-@DefaultValueCalculator(CurrentLocalDateCalculator.class) // Current date
-private LocalDate date;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Also you have to add the next
-      import at the top of your class:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import org.openxava.calculators.*;
-</code></pre> </div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">From
-        now on when the user clicks on the 'new' button the year field will have
-        the current year, and the date field the current date. These two
-        calculators (</span><em><span style="line-height: 1.5;">CurrentYearCalculator</span></em><span
-
-        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">CurrentLocalDateCalculator</span></em><span
-
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Thus
+        when the user clicks on the 'new' button the year field will have the
+        current year, and the date field the current date. These two calculators
+        (</span><em><span style="line-height: 1.5;">CurrentYearCalculator</span></em><span
+        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">CurrentLocalDateCalculator</span></em><span
         style="line-height: 1.5;">) are included in OpenXava. You can explore
-        the </span><em><span style="line-height: 1.5;"><a class="wiki_link_ext"
-
-            href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html"
-
-            rel="nofollow">org.openxava.calculators</a></span></em><span style="line-height: 1.5;">
-        package to see other useful built-in calculators.</span></div>
+        the </span><em><a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html">org.openxava.calculators</a></em><span
+        style="line-height: 1.5;"> package to see other useful built-in
+        calculators.</span></div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Note
         that for the date we use the type <i>LocalDate</i> (from <i>java.time</i>
         package). Java has a type <i>Date</i> (in <i>java.util</i> package).
@@ -494,8 +378,7 @@ public class NextNumberForYearCalculator implements ICalculator { // A calculato
     <div class="wiki" style="display: block;">Your calculator must implement <em>ICalculator</em>
       interface (and therefore have a <em>calculate()</em> method). We declare
       a <em>year</em> property to put in the year of the calculation. To
-      implement the logic we use a JPA query. You can learn how to use JPA in <a
-
+      implement the logic we use a JPA query. You can learn how to use JPA in <a
         class="wiki_link" href="jpa_en.html">appendix B</a>. Now we only have to
       annotate the number <em>property</em> in the <em>Invoice</em> entity:</div>
     <div class="wiki" style="display: block;">
@@ -521,7 +404,11 @@ private int number;
       This is the visual effect of the default value calculators:<br>
       <img src="files/modeling_en070.png" alt="modeling_en070.png" title="modeling_en070.png"><br>
       Default values are only the initial values. The user can change them if he
-      wishes to.<br>
+      wishes to.</div>
+    <div class="wiki" style="display: block;">Note as <i>year</i> and <i>number</i>
+      are not key, instead we use an <i>oid</i> property as key (annotated with
+      <i>@Id</i>). Generally using single keys is better, however <a href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Composite+key">using
+        composite keys is also possible</a>.<br>
       <h3 id="toc7"><a name="Lesson 2: Modeling with Java-Basic domain model-Regular reference (ManyToOne)"></a>Regular
         reference (ManyToOne)</h3>
       Now that we have all atomic properties ready to use it's time to add
@@ -599,8 +486,7 @@ public class Detail {
 private Collection&lt;Detail&gt; details;
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">As
-        you can see, you only have to feed the value for the annotation </span><em><span
-
+        you can see, you only have to feed the value for the annotation </span><em><span
           style="line-height: 1.5;">@ListProperties</span></em><span style="line-height: 1.5;">
         with the list of the properties you wish, separated by commas. You can
         use qualified properties, that is, to use the dot notation for accessing
@@ -686,8 +572,7 @@ private Customer customer;
       compact way:<br>
       <img src="files/modeling_en130.png" alt="modeling_en130.png" title="modeling_en130.png"><br>
       You can see below how you have refined your <i>Invoice</i> interface.<br>
-      <h3 id="toc12"><a name="Lesson 2: Modeling with Java-Refining the user interface-Refined user interface"></a><span
-
+      <h3 id="toc12"><a name="Lesson 2: Modeling with Java-Refining the user interface-Refined user interface"></a><span
           style="font-size: 1.1em; line-height: 1.5;">Refined user interface</span></h3>
       This is the result of our refinements in the <em>Invoice</em> user
       interface:<br>
@@ -701,8 +586,7 @@ private Customer customer;
       Nowadays agile development is no longer a “new and breaking technique”,
       but an established way to do software development, even the ideal way to
       go for many people.<br>
-      If you are not familiar with agile development you can have a look at <a
-
+      If you are not familiar with agile development you can have a look at <a
         class="wiki_link_ext" href="http://www.agilemanifesto.org" rel="nofollow">www.agilemanifesto.org</a>.
       Basically, agile development encourages the use of feedback from a working
       product over a careful upfront design. This gives a more prominent role to
@@ -822,12 +706,10 @@ private Collection&lt;Product&gt; products;
       into a business application ready for your user.<br>
       You will learn all these advanced topics in the forthcoming lessons.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_en.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="testing_en.html">Go to Lesson 3</a></strong>
     </div>

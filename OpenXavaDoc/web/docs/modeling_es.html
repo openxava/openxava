@@ -9,15 +9,13 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Modelar+con+Java"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+      <h1 id="toc0"><a name="Modelar+con+Java"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Lección 2: Modelar con Java </h1>
-         <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
-        Primeros pasos</a> | <strong>2. Modelar con Java</strong> | <a class="wiki_link"
-
-        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
-
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <strong>2. Modelar con Java</strong> | <a class="wiki_link"
+        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
         href="inheritance_es.html">4. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
         Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
         Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
@@ -38,8 +36,6 @@
             (ManyToOne) como lista de descripciones (combo)</a></div>
         <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Estereotipos">Estereotipos</a></div>
         <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Embeddable">Embeddable</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Clave+compuesta">Clave
-            compuesta</a></div>
         <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Calcular+valores+por+defecto">Calcular
             valores por defecto</a></div>
         <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Referencias+convencionales+ManyToOne">Referencias
@@ -60,8 +56,8 @@
             ágil</a></div>
         <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Resumen">Resumen</a></div>
       </div>
-    Ahora que tienes tu entorno configurado y sabes como desarrollar con
-      él, es hora de dar forma a tu proyecto. En esta lección, crearás todas las
+      Ahora que tienes tu entorno configurado y sabes como desarrollar con él,
+      es hora de dar forma a tu proyecto. En esta lección, crearás todas las
       entidades de tu proyecto y tendrás tu aplicación funcionando en un
       santiamén.<br>
       Asumo que sabes crear una nueva entidad con Eclipse y como ejecutar la
@@ -271,37 +267,42 @@ private Direccion direccion;
       Ahora que tenemos las entidades básicas en marcha, es el momento de
       enfrentarnos a la entidad principal de la aplicación: <em>Factura</em>.
       Empecemos poco a poco.<br>
-      <h3 id="toc5"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Clave+compuesta"></a>Clave
-        compuesta</h3>
-      No vamos a usar una clave compuesta para <em>Factura</em>. Es mejor
-      evitar el uso de claves compuestas. Siempre tienes la opción de usar un
-      identificador oculto autogenerado. Aunque, algunas veces tienes la
-      necesidad de conectarte a bases de datos legadas o puede que el diseño del
-      esquema lo haya hecho alguien que le gustan las claves compuestas, y no
-      tengas otra opción que usar claves compuestas aunque no sea lo ideal. Por
-      lo tanto, vamos a aprender como usar una clave compuesta, aunque al final
-      cambiaremos a una clave simple autogenerada.<br>
-      Empecemos con una versión sencilla de la entidad <em>Factura</em>:</div>
+      <h3 id="toc6"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Calcular+valores+por+defecto"></a>Calcular
+        valores por defecto</h3>
+      Vamos a escribir nuestra entidad <i>Factura</i> con año, número y fecha.
+      Estaría bien tener valores por defecto para estas propiedades, para que el
+      usuario no tuviera que teclearlos. Esto es fácil de conseguir usando la
+      anotación <em>@DefaultValueCalculator</em>. En esta primera versión de <i>Factura</i>
+      puedes ver como definimos valores por defecto para <i>anyo</i> y <i><em><em>fecha</em></em></i>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
-import java.time.*;<br>import java.util.*;
+import java.time.*;
+import java.util.*;
 import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
+import org.openxava.calculators.*;
  
 @Entity
-@IdClass(FacturaKey.class) // La clase id contiene todas las propiedades clave (1)
 public class Factura {
+
+    @Id
+    @GeneratedValue(generator="system-uuid")
+    @Hidden
+    @GenericGenerator(name="system-uuid", strategy="uuid")
+    @Column(length=32)
+    private String oid;
  
-    @Id // Aunque tenemos las clase id aún es necesario marcarlo como @Id (2)
-    @Column(length = 4)
+    @Column(length=4)
+    @DefaultValueCalculator(CurrentYearCalculator.class) // Año actual
     private int anyo;
  
-    @Id // Aunque tenemos las clase id aún es necesario marcarlo como @Id (2)
-    @Column(length = 6)
+    @Column(length=6)
     private int numero;
  
     @Required
+    @DefaultValueCalculator(CurrentLocalDateCalculator.class) // Fecha actual
     private LocalDate fecha;
  
     @Stereotype("MEMO")
@@ -311,116 +312,12 @@ public class Factura {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Si quieres usar <em>anyo</em> y <em>numero</em>
-      como clave compuesta para <em>Factura</em>, una forma de hacerlo, es
-      marcándolos con <em>@Id</em> (2), y además tener una clase id (1). La
-      clase id tiene que tener <em>anyo</em> y <em>numero</em> como
-      propiedades. Puedes ver <em>FacturaKey</em> aquí:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
- 
-public class FacturaKey implements java.io.Serializable { // La clase key tiene que ser serializable
- 
-    private int anyo; // Contiene las propiedades marcadas ...
-    private int numero; // ... como @Id en la entidad
- 
-    public boolean equals(Object obj) { // Ha de definir el método equals
-        if (obj == null) return false;
-        return obj.toString().equals(this.toString());
-    }
- 
-    public int hashCode() { // Ha de definir el método hashCode
-        return toString().hashCode();
-    }
- 
-    public String toString() {
-        return "FacturaKey::" + anyo + ":" + numero;
-    }
- 
-    // RECUERDA GENERAR LOS GETTERS Y SETTERS PARA anyo Y numero
- 
-}
-</code></pre> </div>
-    <div class="wiki" style="display: block;">En este código se ven algunos de
-      los requerimientos para una clase id, como el ser serializable e
-      implementar <em>hashCode()</em> y <em>equals()</em>. Eclipse puede
-      generartelos con <em>Source &gt; Generate hashCode() and equals()...</em><br>
-      Has visto como usar una clave compuesta. Pero dado que tenemos control
-      sobre nuestro esquema, al final vamos a usar un identificador UUID para <em>Factura</em>.
-      Reescribe la entidad <em>Factura</em> para dejarla así:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
- 
-import java.time.*;<br>import java.util.*;
-import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator; // AÑADE ESTE IMPORT
-import org.openxava.annotations.*;
- 
-@Entity
-// @IdClass(FacturaKey.class) // QUITA LA ANOTACIÓN @IdClass
-public class Factura {
- 
-    // AÑADE LA PROPIEDAD oid
-    @Id
-    @GeneratedValue(generator="system-uuid")
-    @Hidden
-    @GenericGenerator(name="system-uuid", strategy="uuid")
-    @Column(length=32)
-    private String oid;
- 
-    // RECUERDA GENERAR EL GETTER Y EL SETTER PARA oid
- 
-    // @Id // QUITA LA ANOTACIÓN @Id
-    @Column(length=4)
-    private int anyo;
- 
-    // @Id // QUITA LA ANOTACIÓN @Id
-    @Column(length=6)
-    private int numero;
- 
-    ...
- 
-}
-</code></pre> </div>
-    <div class="wiki" style="display: block;">También borra la clase <em>FacturaKey</em>.
-      Usar una clave oculta autogenerada para <em>Factura</em> tiene varios
-      beneficios prácticos sobre una clave compuesta: No has de escribir la
-      aburrida <em>FacturaKey</em>, puedes modificar el número de factura sin
-      perder ninguna asociación con otros objetos y puedes almacenar en la misma
-      tabla pedidos y facturas con el par año/numero repetido.<br>
-      El código que tienes es suficiente para hacer funcionar el módulo <em>Factura</em>.
-      Hazlo y añade algunas facturas si quieres. Aunque todavía queda mucho
-      trabajo por hacer en <em>Factura</em>, como asignar los valores por
-      defecto para <em>anyo</em>, <em>numero</em> y <em>fecha</em>.<br>
-      <h3 id="toc6"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Calcular+valores+por+defecto"></a>Calcular
-        valores por defecto</h3>
-      Si has probado el módulo <em>Factura</em>, habrás visto que necesitas
-      teclear el año, el número y la fecha. Estaría bien tener valores por
-      defecto. Es fácil de hacer usando la anotación <em>@DefaultValueCalculator</em>.
-      En el siguiente código ves como podemos añadir los valores por defecto
-      para <em>anyo</em> y <em>fecha</em>:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">@Column(length=4)
-@DefaultValueCalculator(CurrentYearCalculator.class) // Año actual
-private int anyo;
- 
-@Required
-@DefaultValueCalculator(CurrentLocalDateCalculator.class) // Fecha actual
-private LocalDate fecha;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">También has de añadir el siguiente
-      <em>import</em> en la parte de arriba de tu clase:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import org.openxava.calculators.*;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">A partir de ahora cuando el
-      usuario pulse en el botón 'nuevo' el campo para año será el año actual, y
-      el campo para la fecha la fecha actual. Estos dos calculadores (<em>CurrentYearCalculator</em>
+    <div class="wiki" style="display: block;">Así cuando el usuario pulse en el
+      botón 'nuevo' el campo para año será el año actual, y el campo para la
+      fecha la fecha actual. Estos dos calculadores (<em>CurrentYearCalculator</em>
       y <em>CurrentLocalDateCalculator</em>) están incluidos en OpenXava.
-      Explora el paquete <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html"
-
-          rel="nofollow">org.openxava.calculators</a></em> para ver otros
-      calculadores predefinidos que pueden serte útiles.</div>
+      Explora el paquete <em><a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html">org.openxava.calculators</a></em>
+      para ver otros calculadores predefinidos que pueden serte útiles.</div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Fíjate
         que para la fecha usamos el tipo <i>LocalDate</i> (del paquete <i>java.time</i>).
         Java tiene un tipo <i>Date</i> (en el paquete <i>java.util</i>). Sin
@@ -438,8 +335,7 @@ private LocalDate fecha;
     <div class="wiki" style="display: block;">Para crear un paquete nuevo
       selecciona la carpeta <i>Facturacion/src</i> y pulsa en el botón <i>New
         Java Package</i>:</div>
-    <div class="wiki" style="display: block;"> <img src="files/modeling_es064.png"
-
+    <div class="wiki" style="display: block;"> <img src="files/modeling_es064.png"
         alt="">
       <div class="wiki" style="display: block;">Se mostrará un diálogo donde
         introducir el nombre del paquete, <em>com.tuempresa.facturacion.calculadores</em>,
@@ -487,8 +383,7 @@ public class CalculadorSiguienteNumeroParaAnyo
     <div class="wiki" style="display: block;">Tu calculador tiene que
       implementar <em>ICalculator</em> (y por lo tanto tener un método <em>calculate()</em>).
       Declaramos una propiedad <em>anyo</em> para poner en ella el año del
-      cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el <a
-
+      cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el <a
         class="wiki_link" href="jpa_es.html">apéndice B</a> sobre JPA. Ahora
       sólo queda anotar la propiedad <em>numero</em> en la entidad <em>Factura</em>:</div>
     <div class="wiki" style="display: block;">
@@ -514,7 +409,13 @@ private int numero;
       El efecto visual del calculador para valor por defecto es este:<br>
       <img src="files/modeling_es070.png" alt="modeling_es070.png" title="modeling_es070.png"><br>
       Los valores por defecto son solo los valores iniciales, el usuario los
-      puede cambiar si así lo desea.<br>
+      puede cambiar si así lo desea.</div>
+    <div class="wiki" style="display: block;">Fíjate como <i>anyo</i> y <i>numero</i>
+      no son clave, en su lugar usamos una propiedad <i>oid</i> como clave
+      (anotada con <i>@Id</i>). Generalmente usar claves simples es mejor, sin
+      embargo <a href="jpa_es.html#Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Clave+compuesta">usar
+        claves compuesta también es posible</a>.<br>
+      <h3 id="toc7"><a name="Lesson 2: Modeling with Java-Basic domain model-Regular reference (ManyToOne)"></a></h3>
       <h3 id="toc7"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Referencias+convencionales+ManyToOne"></a>Referencias
         convencionales (ManyToOne)</h3>
       Ahora que tenemos todas las propiedades atómicas listas para usar, es
@@ -551,8 +452,7 @@ private Collection&lt;Detalle&gt; detalles;
 // RECUERDA GENERAR EL GETTER Y SETTER PARA detalles
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Usando
-        </span><em><span style="line-height: 1.5;">@ElementCollection</span></em><span
-
+        </span><em><span style="line-height: 1.5;">@ElementCollection</span></em><span
         style="line-height: 1.5;"> cuando la factura se borra sus líneas se
         borran también. Los detalles no se guardan en la base de datos hasta que
         la factura se guarde y se guardan todos al mismo tiempo.</span><br>
@@ -600,8 +500,7 @@ private Collection&lt;Detalle&gt; detalles;
         propiedades calificadas, es decir, usar la notación del punto para
         acceder a las propiedades de referencias, tal como <em>producto.numero</em>
         y <em>producto.descripcion</em> en este caso. El resultado visual es:</span><br>
-      <span style="line-height: 0px; overflow: hidden;"><img src="files/modeling_es100.png"
-
+      <span style="line-height: 0px; overflow: hidden;"><img src="files/modeling_es100.png"
           alt="modeling_es100.png" title="modeling_es100.png"></span><br>
       <h2 id="toc9"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario"></a>Refinar
         la interfaz de usuario</h2>
@@ -682,8 +581,7 @@ private Cliente cliente;
       más compacta:<br>
       <img src="files/modeling_es130.png" alt="modeling_es130.png" title="modeling_es130.png"><br>
       Hemos refinado un poco la interfaz de <em>Factura</em>.<br>
-      <h3 id="toc13"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-La+interfaz+de+usuario+refinada"></a><span
-
+      <h3 id="toc13"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-La+interfaz+de+usuario+refinada"></a><span
           style="font-size: 1.1em; line-height: 1.5;">La interfaz de usuario
           refinada</span></h3>
       Este es el resultado de nuestros refinamientos en la interfaz de usuario
@@ -820,12 +718,10 @@ private Collection&lt;Producto&gt; productos;
       gestión lista para tus usuarios.<br>
       Aprenderás estos temas avanzados en las siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="testing_es.html">Ve a la lección 3</a></strong>
     </div>
