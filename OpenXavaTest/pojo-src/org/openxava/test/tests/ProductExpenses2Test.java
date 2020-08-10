@@ -15,7 +15,7 @@ public class ProductExpenses2Test extends ModuleTestBase {
 		super(testName, "ProductExpenses2");		
 	}
 		
-	public void testDescriptionsListWithDefaultValueInElementCollection_descriptionsListAfterRemovingRowInElementCollection() throws Exception {  // tmp Modificar nombre
+	public void testDescriptionsListWithDefaultValueInElementCollection_descriptionsListAfterRemovingRowInElementCollection() throws Exception {  
 		getWebClient().getOptions().setCssEnabled(true); 
 		execute("CRUD.new");
 		setValue("description", "JUNIT EXPENSES");

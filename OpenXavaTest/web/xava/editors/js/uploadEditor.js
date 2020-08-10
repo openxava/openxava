@@ -62,12 +62,9 @@ openxava.addEditorInitFunction(function() {
     			})
     		}
 	    	if (input.dataset.editable === "true") {
-	    		// tmp pond.disabled = true;
-	    		// tmp ini
 		    	pond.allowDrop = false;
 		    	pond.allowBrowse = false;
 		    	pond.allowPaste = false;
-		    	// tmp fin    		 
 	    	}
 	    	if (input.dataset.throwsChanged === "true") {
 		    	pond.onprocessfile = function(error, file) {

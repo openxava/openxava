@@ -45,7 +45,6 @@ public class Movie extends Identifiable {
 	@Column(length=32)
 	private String trailer;
 	
-	@ReadOnly // TMP ME QUEDÉ POR AQUÍ. AL RECARGAR CONSERVA EL READONLY, PERO CON Product2 Y Customer NO. REVISAR
 	@Stereotype("FILES")
 	@Column(length=32)	
 	private String scripts;
