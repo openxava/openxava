@@ -2,6 +2,7 @@ package org.openxava.test.model;
 
 import javax.persistence.*;
 import org.openxava.annotations.*;
+import org.openxava.test.actions.*;
 
 /**
  * WARNING! DON'T ADD ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends. 
@@ -36,6 +37,12 @@ public class Product6 {
 	private Subfamily2 subfamily;
 	
 	
+	@Required
+	@Stereotype("IMAGES_GALLERY")
+	@OnChange(OnChangeVoidAction.class)
+	private String photos; // tmp
+	
+	
 	// WARNING! DON'T ADD ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends.
 		
 	public String getDescription() {
@@ -68,6 +75,14 @@ public class Product6 {
 
 	public void setSubfamily(Subfamily2 subfamily) {
 		this.subfamily = subfamily;
+	}
+
+	public String getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(String photos) {
+		this.photos = photos;
 	}
 
 }

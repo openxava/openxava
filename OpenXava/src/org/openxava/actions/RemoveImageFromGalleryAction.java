@@ -3,6 +3,7 @@ package org.openxava.actions;
 import java.util.*;
 import org.openxava.session.*;
 import org.openxava.util.*;
+import org.openxava.validators.*;
 import org.openxava.view.*;
 
 /**
@@ -18,7 +19,20 @@ public class RemoveImageFromGalleryAction extends ViewBaseAction {
 	public void execute() throws Exception {
 		String galleryOid = getView().getValueString(property);
 		Gallery gallery = Gallery.find(galleryOid);
-		gallery.removeImage(fileId);
+		// tmp gallery.removeImage(fileId);
+		// tmp ini
+		// TMP ME QUEDÉ POR AQUÍ: INTENTANDO CUBRIR EL CASO DE QUITAR LA ÚLTIMA IMAGEN Y SALIR SI GRABAR, QUE LA QUITA. 
+		// TMP						NO SACA LOS MENSAJES, INVESTIGANDO COMO LO HACE LA ACCIÓN DE @OnChange
+		System.out.println("[RemoveImageFromGalleryAction.execute] gallery.getImagesOids().size()=" + gallery.getImagesOids().size()); // tmp
+		if (getView().getMetaProperty(property).isRequired() && gallery.getImagesOids().size() < 2) {
+			// tmp addError("No pots deixarlo buit");
+			System.out.println("[RemoveImageFromGalleryAction.execute] Lanzando excepción"); // tmp
+			throw new ValidationException("No puedes dejarlo vacío");
+		}
+		else {
+			gallery.removeImage(fileId);
+		}
+		// tmp fin
 		trackModification(galleryOid); 
 	}
 	
