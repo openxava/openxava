@@ -28,8 +28,7 @@ openxava.addEditorInitFunction(function() {
 	    			link.dispatchEvent(new MouseEvent('click'));
 	    		}
 	    	}	    	
-	    	if (input.dataset.empty !== "true") {
-	    		
+	    	if (input.dataset.empty !== "true") {	
 	    		var count = 0; 
 	    		if (typeof input.dataset.files !== 'undefined') {
 		    		const filesIds = input.dataset.files.split(",");
@@ -71,6 +70,7 @@ openxava.addEditorInitFunction(function() {
 		    		openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
 		    	}	    	
 		    	pond.onremovefile = function(error, file) {
+		    		// tmp ¿Añadir aquí lo de borrar? Es un bug diferente. OJO, tengo Product2 con una foto en el registro 2
 		    		openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
 		    	}	    		    	
 	    	}

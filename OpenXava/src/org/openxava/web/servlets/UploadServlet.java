@@ -25,7 +25,6 @@ public class UploadServlet extends HttpServlet {
 	private static Log log = LogFactory.getLog(UploadServlet.class);
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("[UploadServlet.doGet] "); // tmp
 		Requests.init(request, request.getParameter("application"), request.getParameter("module"));
 		getManager(request).executeBeforeEachRequestActions(request, new Messages(), new Messages());  
 		try {
@@ -44,14 +43,11 @@ public class UploadServlet extends HttpServlet {
 	}	
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("[UploadServlet.doPost] "); // tmp
 		executeAction(request, response, "load", true); 
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("[UploadServlet.doDelete] >"); // tmp
 		executeAction(request, response, "remove", false);
-		System.out.println("[UploadServlet.doDelete] <"); // tmp
 	}
 	
 	private void executeAction(HttpServletRequest request, HttpServletResponse response, String actionPrefix, boolean parseMultipart) throws ServletException {
@@ -71,14 +67,6 @@ public class UploadServlet extends HttpServlet {
 			String propertyValues = "property=" + property; 
 			if (fileId != null) propertyValues = propertyValues + ",fileId=" + fileId; 
 			manager.executeAction(action, errors, messages, propertyValues, request);
-			// tmp ini
-			messages.add("Un mensajito");
-			if (errors.contains()) {
-				System.out.println("[UploadServlet.executeAction] 405"); // tmp
-				response.sendError(404);
-				throw new Exception("MAL");
-			}
-			// tmp fin
 		}
 		catch (Exception ex) { 
 			log.error(XavaResources.getString("no_execute_action", action, ex.getMessage()), ex); 

@@ -39,7 +39,6 @@ public class Product6 {
 	
 	@Required
 	@Stereotype("IMAGES_GALLERY")
-	@OnChange(OnChangeVoidAction.class)
 	private String photos; // tmp
 	
 	

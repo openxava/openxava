@@ -10,7 +10,6 @@ public class OnChangeVoidAction extends OnChangePropertyBaseAction {
 	public void execute() throws Exception {
 		// Do nothing... if only for test a case		
 		addMessage("on_change_void_executed");
-		System.out.println("[OnChangeVoidAction.execute] "); // tmp
 	}
 
 }

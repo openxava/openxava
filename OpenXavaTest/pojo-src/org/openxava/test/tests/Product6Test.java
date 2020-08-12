@@ -20,13 +20,30 @@ public class Product6Test extends CustomizeListTestBase {
 		
 		// tmp ini
 		execute("Mode.list");
-		execute("List.viewDetail", "row=0");
-		assertValue("number", "1");	
-		assertFilesCount("photos", 0); 
-		uploadFile("photos", "test-images/cake.gif"); 
+		execute("List.viewDetail", "row=6");
+		assertValue("number", "7");	
+		assertFilesCount("photos", 1); 
 		removeFile("photos", 0);
 		execute("CRUD.save");
 		assertError("Value for Photos in Product 6 is required");
+		
+		execute("Mode.list");
+		execute("List.viewDetail", "row=6");
+		assertValue("number", "7");	
+		assertFilesCount("photos", 1);
+		uploadFile("photos", "test-images/foto_javi.jpg");
+		
+		execute("Mode.list");
+		execute("List.viewDetail", "row=6");		
+		assertValue("number", "7");	
+		assertFilesCount("photos", 2); 
+		removeFile("photos", 1);
+		removeFile("photos", 0);
+		
+		execute("Mode.list");
+		execute("List.viewDetail", "row=6");		
+		assertValue("number", "7");	
+		assertFilesCount("photos", 1); 		
 		// tmp fin
 	}
 	

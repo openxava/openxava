@@ -14,6 +14,7 @@ public class RemoveAttachedFileAction extends ViewBaseAction {
 	private String property;  
 	
 	public void execute() throws Exception {
+		// TMP ¿DEBERIA ELIMINAR EL ARCHIVO? ESTO SERÍA OTRO BUG
 		getView().setValue(getProperty(), null);
 	}
 
