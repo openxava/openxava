@@ -70,12 +70,11 @@
             el Bean Validation propio</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
-      De momento solo hemos hecho validaciones básicas usando la anotación <span
-        class="wiki jcode">@Required</span> de OpenXava. A veces es necesario
-      escribir nuestra propia lógica de validación. En el <a class="wiki_link"
-        href="annotations_es#toc1">apéndice C</a> se explica como funciona la
-      validación. Aquí vamos a añadir validaciones con lógica propia a tu
-      aplicación.<br>
+      De momento solo hemos hecho validaciones básicas usando la anotación <i>@Required</i>
+      de OpenXava. A veces es necesario escribir nuestra propia lógica de
+      validación. En el <a class="wiki_link" href="annotations_es#toc1">apéndice
+        C</a> se explica como funciona la validación. Aquí vamos a añadir
+      validaciones con lógica propia a tu aplicación.<br>
       <h2 id="toc1"><a name="Alternativas-de-validacion"></a>Alternativas de
         validación</h2>
       Vamos a refinar tu código para que el usuario no pueda asignar pedidos a
@@ -86,7 +85,8 @@
         la propiedad entregado a Pedido</h3>
       Para hacer esto, lo primero es añadir una nueva propiedad a la entidad <em>Pedido</em>.
       La propiedad <em>entregado</em>:<br>
-      <pre><code class="java">private boolean entregado;
+      <pre><code class="java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+private boolean entregado;
  
 public boolean isEntregado() {
     return entregado;
@@ -98,75 +98,16 @@ public void setEntregado(boolean entregado) {
 </code></pre> Además es necesario añadir la propiedad <em>entregado</em> a la
       vista. Modifica la vista <em>Pedido</em> como muestra el siguiente
       código:<br>
-      <pre><code class="java">@View( extendsView="super.DEFAULT",
-   members="entregado; factura { factura } " // Propiedad 'entregado' añadida
+      <pre><code class="java">@View(extendsView="super.DEFAULT", 
+    members=
+        "diasEntregaEstimados, entregado, " + // Añade entregado
+        "factura { factura }"
 )
 ...
-public class Pedido extends DocumentoComercial
+public class Pedido extends DocumentoComercial {
 </code></pre> Ahora tienes una nueva propiedad <em>entregado</em> que el
       usuario puede marcar para indicar que el pedido ha sido entregado. Ejecuta
       el nuevo código y marca algunos de los pedidos existentes como entregados.<br>
-      <table class="wiki_table">
-        <tbody>
-          <tr>
-            <td><strong>Nota:</strong><br>
-              Al arrancar la aplicación se añadirá la columna <em>entregado</em>
-              a la tabla <em>DocumentoComercial</em>, ésta tendrá el valor <em>null</em>
-              para todos los registros. Debemos actualizar esta columna con las
-              siguiente sentencia SQL:<br>
-              <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.mysql  {font-family:monospace;}
-.mysql .imp {font-weight: bold; color: red;}
-.mysql .kw1 {color: #990099; font-weight: bold;}
-.mysql .kw2 {color: #990099; font-weight: bold;}
-.mysql .kw3 {color: #9900FF; font-weight: bold;}
-.mysql .kw4 {color: #999900; font-weight: bold;}
-.mysql .kw5 {color: #999900; font-weight: bold;}
-.mysql .kw6 {color: #FF9900; font-weight: bold;}
-.mysql .kw7 {color: #FF9900; font-weight: bold;}
-.mysql .kw8 {color: #9900FF; font-weight: bold;}
-.mysql .kw9 {color: #9900FF; font-weight: bold;}
-.mysql .kw10 {color: #CC0099; font-weight: bold;}
-.mysql .kw11 {color: #CC0099; font-weight: bold;}
-.mysql .kw12 {color: #009900;}
-.mysql .kw13 {color: #000099;}
-.mysql .kw14 {color: #000099;}
-.mysql .kw15 {color: #000099;}
-.mysql .kw16 {color: #000099;}
-.mysql .kw17 {color: #000099;}
-.mysql .kw18 {color: #000099;}
-.mysql .kw19 {color: #000099;}
-.mysql .kw20 {color: #000099;}
-.mysql .kw21 {color: #000099;}
-.mysql .kw22 {color: #000099;}
-.mysql .kw23 {color: #000099;}
-.mysql .kw24 {color: #000099;}
-.mysql .kw25 {color: #000099;}
-.mysql .kw26 {color: #000099;}
-.mysql .kw27 {color: #00CC00;}
-.mysql .coMULTI {color: #808000; font-style: italic;}
-.mysql .co1 {color: #808080; font-style: italic;}
-.mysql .co2 {color: #808080; font-style: italic;}
-.mysql .es0 {color: #004000; font-weight: bold;}
-.mysql .es1 {color: #008080; font-weight: bold;}
-.mysql .br0 {color: #FF00FF;}
-.mysql .sy1 {color: #CC0099;}
-.mysql .sy2 {color: #000033;}
-.mysql .st0 {color: #008000;}
-.mysql .nu0 {color: #008080;}
-.mysql span.xtra { display:block; }
-
--->
-</style><pre class="mysql"><span class="kw1">UPDATE</span> DocumentoComercial
-<span class="kw1">SET</span> entregado <span class="sy1">=</span> <span class="kw3">false</span></pre>
-            </td>
-          </tr>
-        </tbody>
-      </table>
       <h3 id="toc3"><a name="Alternativas-de-validacion-Validar-con-EntityValidator"></a>Validar
         con <em>@EntityValidator</em></h3>
       En tu aplicación actual el usuario puede añadir cualquier pedido que le
@@ -175,10 +116,9 @@ public class Pedido extends DocumentoComercial
       restringir esto. Solo los pedidos entregados podrán añadirse a una
       factura.<br>
       La primera alternativa que usaremos para implementar esta validación es
-      mediante <span class="wiki jcode">@EntityValidator</span>. Esta anotación
-      te permite asignar a tu entidad una clase con la lógica de validación
-      deseada. Anotemos tu entidad <em>Pedido</em> tal como muestra el
-      siguiente código:<br>
+      mediante <i>@EntityValidator</i>. Esta anotación te permite asignar a tu
+      entidad una clase con la lógica de validación deseada. Anotemos tu entidad
+      <em>Pedido</em> tal como muestra el siguiente código:<br>
       <pre><code class="java">@EntityValidator(
     value=ValidadorEntregadoParaEstarEnFactura.class, // Clase con la lógica de validación
     properties= {
@@ -188,12 +128,18 @@ public class Pedido extends DocumentoComercial
         @PropertyValue(name="entregado") // ejecutar la validación
 })
 public class Pedido extends DocumentoComercial {
-</code></pre> Cada vez que un objeto <em>Pedido</em> se crea o modifica un
-      objeto del tipo <em>ValidadorEntregadoParaEstarEnFactura</em> es creado,
-      entonces las propiedades <em>anyo</em>, <em>numero</em>, <em>factura</em>
+</code></pre><em>ValidadorEntregadoParaEstarEnFactura </em>está en el <i>com.tuempresa.facturacion.validadores</i>
+      (que dicho sea de paso tienes que crear) por lo que has de añadir el
+      siguiente import a tu clase <i>Pedido</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import com.tuempresa.facturacion.validadores.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> Cada vez que un objeto <em>Pedido</em>
+      se crea o modifica un objeto del tipo <em>ValidadorEntregadoParaEstarEnFactura</em>
+      es creado, entonces las propiedades <em>anyo</em>, <em>numero</em>, <em>factura</em>
       y <em>entregado</em> se rellenan con las propiedades del mismo nombre del
-      objeto <em>Pedido</em>. Después de eso, el método <span class="wiki jcode">validate()</span>
-      del validador se ejecuta. Puedes ver el código del validador:<br>
+      objeto <em>Pedido</em>. Después de eso, el método <i>validate()</i> del
+      validador se ejecuta. Puedes ver el código del validador:<br>
       <pre><code class="java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
  
 import com.tuempresa.facturacion.modelo.*;
@@ -229,21 +175,32 @@ public class ValidadorEntregadoParaEstarEnFactura
       <pre><code class="properties"># Mensajes  para la aplicación Facturacion
 pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadido a una Factura
 </code></pre> Ahora puedes intentar añadir pedidos a una factura con la
-      aplicación, verás como los pedidos no servidos son rechazados. Como se ve
-      en la siguiente figura:<br>
-      <img src="files/validation_es010.png" alt="validation_es010.png" title="validation_es010.png"><br>
-      Ya tienes tu validación hecha con <span class="wiki jcode">@EntityValidator</span>.
-      No es difícil, pero es un poco verboso, porque necesitas escribir una
-      clase nueva solo para añadir 2 línea de lógica. Aprendamos otras formas de
-      hacer esta misma validación.<br>
+      aplicación, verás como los pedidos no entregados son rechazados. Ve al
+      módulo <i>Facturas</i>, selecciona la pestaña PEDIDOS de una factura y
+      desde ahí pulsa en el botón <i>Añadir</i>:
+      <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"
+          alt="validation_es010.png" title="validation_es010.png"></div>
+      <div class="wiki" style="display: block;">Se mostrará un diálogo con una
+        lista de pedidos para escoger. Selecciona dos, uno de ellos no entregado
+        todavía y pulsa en AÑADIR:</div>
+      <img src="files/validation_es013.png" alt="validation_es013.png" title="validation_es013.png">
+      <div class="wiki" style="display: block;">Entonces el pedido entregado se
+        añadirá mientras que el otro es rechazado, generando los siguientes
+        mensajes:</div>
+      <img src="files/validation_es017.png" alt="validation_es017.png" title="validation_es017.png">
+      <div class="wiki" style="display: block;"> Ya tienes tu validación hecha
+        con <i>@EntityValidator</i>. No es difícil, pero es un poco verboso,
+        porque necesitas escribir una clase nueva solo para añadir 2 línea de
+        lógica. Aprendamos otras formas de hacer esta misma validación.<br>
+      </div>
       <h3 id="toc4"><a name="Alternativas-de-validacion-Validar-con-metodos-de-retrollamada-JPA"></a>Validar
         con métodos de retrollamada JPA</h3>
       Vamos a probar otra forma más sencilla de hacer esta validación,
       simplemente moviendo la lógica de validación desde la clase validador a la
-      misma entidad <em>Pedido</em>, en este caso a un método <span class="wiki jcode">@PreUpdate</span>.<br>
+      misma entidad <em>Pedido</em>, en este caso a un método <i>@PreUpdate</i>.<br>
       Lo primero es eliminar la clase <em>ValidadorEntregadoParaEstarEnFactura</em>
-      de tu proyecto. También quita la anotación <span class="wiki jcode">@EntityValidator</span>
-      de tu entidad <em>Pedido</em>:<br>
+      de tu proyecto. También quita la anotación <i>@EntityValidator</i> de tu
+      entidad <em>Pedido</em>:<br>
       <pre><code class="java">// @EntityValidator( // Eliminar '@EntityValidator'
 //    value=ValidadorEntregadoParaEstarEnFactura.class,
 //    properties= {
@@ -270,10 +227,10 @@ private void validar() throws Exception {
     }
 }
 </code></pre> Antes de grabar un pedido esta validación se ejecutará, si falla
-      una <span class="wiki jcode">ValidationException</span> será lanzada.
-      Esta excepción es del marco de validación Bean Validation, de esta forma
-      OpenXava sabe que es una excepción de validación. Así con solo un método
-      dentro de tu entidad tienes la validación hecha.<br>
+      una <i>ValidationException</i> será lanzada. Esta excepción es del marco
+      de validación Bean Validation, de esta forma OpenXava sabe que es una
+      excepción de validación. Así con solo un método dentro de tu entidad
+      tienes la validación hecha.<br>
       <h3 id="toc5"><a name="Alternativas-de-validacion-Validar-en-el-setter"></a>Validar
         en el setter</h3>
       Otra alternativa para hacer tu validación es poner tu lógica de validación

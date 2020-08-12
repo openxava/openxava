@@ -18,8 +18,7 @@
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
         Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4.
         Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
-        Basic business logic</a> | <strong>6. Advanced validation</strong> | <a
-
+        Basic business logic</a> | <strong>6. Advanced validation</strong> | <a
         class="wiki_link" href="refining-standard-behavior_en.html">7. Refining
         the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
@@ -72,14 +71,14 @@
             the custom Bean Validation</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Summary">Summary</a></div>
       </div>
-      So far we have only done some basic validations using the <span class="wiki jcode">@Required</span>
+      So far we have only done some basic validations using the <i>@Required</i>
       annotation. Sometimes it's convenient to write our own logic for the
       validation.<br>
       In <a class="wiki_link" href="annotations_en#toc1">appendix C</a> we
-      introduce the <span class="wiki jcode">@Required</span> annotation as a
-      basic way to implement validation logic. In this lesson we are going to
-      describe custom validation methods which allow us to add specific business
-      logic to your application.<br>
+      introduce the <i>@Required</i> annotation as a basic way to implement
+      validation logic. In this lesson we are going to describe custom
+      validation methods which allow us to add specific business logic to your
+      application.<br>
       <h2 id="toc1"><a name="Lesson 6: Advanced validation-Validation alternatives"></a>Validation
         alternatives</h2>
       We are going to enhance your code with this logic: if the orders are not
@@ -89,7 +88,8 @@
         <em>delivered</em> property to <em>Order</em></h3>
       First you have to add a new property to the <em>Order</em> entity. The <em>delivered</em>
       property:<br>
-      <pre><code class="java">private boolean delivered;
+      <pre><code class="java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+private boolean delivered;
  
 public boolean isDelivered() {
     return delivered;
@@ -100,82 +100,23 @@ public void setDelivered(boolean delivered) {
 }
 </code></pre> Moreover it's necessary to add the <em>delivered</em> property to
       the view. Modify the <em>Order</em> view as shown in the following code:<br>
-      <pre><code class="java">@View( extendsView="super.DEFAULT",
-     members="delivered; invoice { invoice }"
+      <pre><code class="java">@View(extendsView="super.DEFAULT", 
+    members=
+        "estimatedDeliveryDays, delivered," + // Add delivered
+        "invoice { invoice }" 
 )
 ...
 public class Order extends CommercialDocument {
 </code></pre> There is a new <em>delivered</em> property now which indicates
       the delivery state of an order. Try the new code and mark some of the
       existing orders as delivered.<br>
-      <table class="wiki_table">
-        <tbody>
-          <tr>
-            <td><strong>Note:</strong><br>
-              When the application is started, the <em>delivered</em> column
-              will be added to the <em>CommercialDocument</em> table, it will
-              have the value <em>null</em> for all records. We need to update
-              this column with the following SQL statement:<br>
-              <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.mysql  {font-family:monospace;}
-.mysql .imp {font-weight: bold; color: red;}
-.mysql .kw1 {color: #990099; font-weight: bold;}
-.mysql .kw2 {color: #990099; font-weight: bold;}
-.mysql .kw3 {color: #9900FF; font-weight: bold;}
-.mysql .kw4 {color: #999900; font-weight: bold;}
-.mysql .kw5 {color: #999900; font-weight: bold;}
-.mysql .kw6 {color: #FF9900; font-weight: bold;}
-.mysql .kw7 {color: #FF9900; font-weight: bold;}
-.mysql .kw8 {color: #9900FF; font-weight: bold;}
-.mysql .kw9 {color: #9900FF; font-weight: bold;}
-.mysql .kw10 {color: #CC0099; font-weight: bold;}
-.mysql .kw11 {color: #CC0099; font-weight: bold;}
-.mysql .kw12 {color: #009900;}
-.mysql .kw13 {color: #000099;}
-.mysql .kw14 {color: #000099;}
-.mysql .kw15 {color: #000099;}
-.mysql .kw16 {color: #000099;}
-.mysql .kw17 {color: #000099;}
-.mysql .kw18 {color: #000099;}
-.mysql .kw19 {color: #000099;}
-.mysql .kw20 {color: #000099;}
-.mysql .kw21 {color: #000099;}
-.mysql .kw22 {color: #000099;}
-.mysql .kw23 {color: #000099;}
-.mysql .kw24 {color: #000099;}
-.mysql .kw25 {color: #000099;}
-.mysql .kw26 {color: #000099;}
-.mysql .kw27 {color: #00CC00;}
-.mysql .coMULTI {color: #808000; font-style: italic;}
-.mysql .co1 {color: #808080; font-style: italic;}
-.mysql .co2 {color: #808080; font-style: italic;}
-.mysql .es0 {color: #004000; font-weight: bold;}
-.mysql .es1 {color: #008080; font-weight: bold;}
-.mysql .br0 {color: #FF00FF;}
-.mysql .sy1 {color: #CC0099;}
-.mysql .sy2 {color: #000033;}
-.mysql .st0 {color: #008000;}
-.mysql .nu0 {color: #008080;}
-.mysql span.xtra { display:block; }
-
--->
-</style><pre class="mysql"><span class="kw1">UPDATE</span> CommercialDocument
-<span class="kw1">SET</span> delivered <span class="sy1">=</span> <span class="kw3">false</span></pre>
-            </td>
-          </tr>
-        </tbody>
-      </table>
       <h3 id="toc3"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating with @EntityValidator"></a>Validating
         with <em>@EntityValidator</em></h3>
       Up to now the user can add any order to any invoice from the <em>Invoice</em>
       module, and he can associate a particular invoice with any order from the
       <em>Order</em> module. We are going to restrict this: only delivered
       orders are allowed to be added to an invoice.<br>
-      The first alternative to implement this validation is by using an <span class="wiki jcode">@EntityValidator</span>.
+      The first alternative to implement this validation is by using an <i>@EntityValidator</i>.
       This annotation allows you to assign the desired validation logic to your
       entity. Let's annotate the <em>Order</em> entity as show in following
       code:<br>
@@ -189,12 +130,19 @@ public class Order extends CommercialDocument {
     }
 )
 public class Order extends CommercialDocument {
-</code></pre> Every time an <em>Order</em> object is created or modified an
-      object of type <em>DeliveredToBeInInvoiceValidator</em> is created. Then
-      its properties <em>year</em>, <em>number</em>, <em>invoice</em> and <em>delivered</em>
-      are initialized with the properties of the same name from the <em>Order</em>
-      object. After that, the <span class="wiki jcode">validate()</span> method
-      of the validator is executed. You can see the code for the validator:<br>
+</code></pre><em>DeliveredToBeInInvoiceValidator </em>is in <i>com.yourcompany.invoicing.validators</i>
+      package (that by the way you have to create) so you need to add the next
+      import to your <i>Order</i> class:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import com.yourcompany.invoicing.validators.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> Every time an <em>Order</em>
+      object is created or modified an object of type <em>DeliveredToBeInInvoiceValidator</em>
+      is created. Then its properties <em>year</em>, <em>number</em>, <em>invoice</em>
+      and <em>delivered</em> are initialized with the properties of the same
+      name from the <em>Order</em> object. After that, the <i>validate()</i>
+      method of the validator is executed. You can see the code for the
+      validator:<br>
       <pre><code class="java">package com.yourcompany.invoicing.validators; // In 'validators' package
 
 import com.yourcompany.invoicing.model.*;
@@ -230,22 +178,31 @@ public class DeliveredToBeInInvoiceValidator
       <pre><code class="properties"># Messages for the Invoicing application
 order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to an Invoice
 </code></pre> Now you can try to add orders to an invoice with the application,
-      you will see how the undelivered orders are rejected, as shown the next
-      figure:<br>
-      <img src="files/validation_en010.png" alt="validation_en010.png" title="validation_en010.png"><br>
-      Your validation is implemented correctly with <span class="wiki jcode">@EntityValidator</span>.
-      It's not difficult, but a little “verbose”, because you need to write a
-      “fully featured” new class merely to add 2 lines of code logic. Let's
-      learn other ways to do the same validation.<br>
+      you will see how the undelivered orders are rejected. Go to <i>Invoices</i>
+      module, select the ORDERS tab of an invoice, and from there click on <i>Add</i>
+      button:</div>
+    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
+        alt="validation_en010.png" title="validation_en010.png"></div>
+    <div class="wiki" style="display: block;">It will show a dialog with a list
+      of orders to choose from. Choose two, one of them not delivered yet, then
+      click on ADD:</div>
+    <img src="files/validation_en013.png" alt="validation_en013.png" title="validation_en013.png">
+    <div class="wiki" style="display: block;">Then the delivered order is added
+      and the other rejected, producing the next messages:</div>
+    <img src="files/validation_en017.png" alt="validation_en017.png" title="validation_en017.png">
+    <div class="wiki" style="display: block;"> Your validation is implemented
+      correctly with <i>@EntityValidator</i>. It's not difficult, but a little
+      “verbose”, because you need to write a “fully featured” new class merely
+      to add 2 lines of code logic. Let's learn other ways to do the same
+      validation.<br>
       <h3 id="toc4"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating with a JPA callback method"></a>Validating
         with a JPA callback method</h3>
       We're going to try another, maybe even simpler, way to do this validation,
       we'll transfer the validation logic from the validator class into the <em>Order</em>
-      entity itself, in this case in a <span class="wiki jcode">@PreUpdate</span>
-      method.<br>
+      entity itself, in this case in a <i>@PreUpdate</i> method.<br>
       First, remove the <em>DeliveredToBeInInvoiceValidator</em> class from
-      your project. Then remove the <span class="wiki jcode">@EntityValidator</span>
-      annotation from your <em>Order</em> entity:<br>
+      your project. Then remove the <i>@EntityValidator</i> annotation from
+      your <em>Order</em> entity:<br>
       <pre><code class="java">//@EntityValidator( // Remove the '@EntityValidator' annotation
 //    value=DeliveredToBeInInvoiceValidator.class,
 //    properties= {
@@ -273,10 +230,12 @@ private void validate()  throws Exception {
     }
 }
 </code></pre> Before saving an order this validation will be executed, if it
-      fails an <span class="wiki jcode">ValidationException</span> is thrown.
-      This exception is from the <em>Bean Validation</em> framework, so
-      OpenXava knows that it is a validation exception. This way with only one
-      method within your entity you have the validation done.<br>
+      fails a <i>ValidationException</i> is thrown. This exception is from the
+      <em>Bean Validation</em> framework, so OpenXava knows that it is a
+      validation exception. This way with only one method within your entity you
+      have the validation done.</div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: LO DE
+      ARRIBA FUNCIONÓ. ¿USAR ValidationException DE OpenXava?<br>
       <h3 id="toc5"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating in the setter"></a>Validating
         in the setter</h3>
       Another alternative to do your validation is to put the validation logic
@@ -374,8 +333,7 @@ public class OrderRemoveValidator
     }
 }
 </code></pre> The validation logic is in the <span class="wiki jcode">validate()</span>
-      method. Before calling the entity to be validated, it is injected using <span
-
+      method. Before calling the entity to be validated, it is injected using <span
         class="wiki jcode">setEntity()</span>. If messages are added to the
       errors object the validation will fail and the entity will not be removed.
       You have to add the error message in the <em>Invoicing/i18n/Invoicing-messages_en.properties</em>
@@ -418,8 +376,7 @@ private void validateOnRemove() {
       You have learned several ways to do validations in your model classes.
       Which of them is the best one? All of them are valid options. It depends
       on your circumstances and personal preferences. If you have a validation
-      that is non-trivial and reusable across your application, then to use <span
-
+      that is non-trivial and reusable across your application, then to use <span
         class="wiki jcode">@EntityValidator</span> and <span class="wiki jcode">@RemoveValidator</span>
       is a good option. On the other hand, if you want to use your model classes
       from outside OpenXava and without JPA, then the use of validation in
@@ -488,16 +445,14 @@ public @interface ISBN { // A regular Java annotation definition
     Class&lt;? extends Payload&gt;[] payload() default{};
     String message() default "ISBN does not exist"; // The message if validation fails
 }
-</code></pre> As you can see, this is a regular annotation definition. The <span
-
+</code></pre> As you can see, this is a regular annotation definition. The <span
         class="wiki jcode">@Constraint</span> indicates the class with the
       validation logic. Let's write the <em>ISBNValidator</em> class.<br>
       <h3 id="toc13"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation-Using Apache Commons Validator to implement the validation logic"></a>Using
         Apache Commons Validator to implement the validation logic</h3>
       We are going to write the <em>ISBNValidator</em> class with the
       validation logic for an ISBN. Instead of writing the ISBN validation logic
-      we'll use the <a class="wiki_link_ext" href="http://commons.apache.org/validator/"
-
+      we'll use the <a class="wiki_link_ext" href="http://commons.apache.org/validator/"
         rel="nofollow">Commons Validator</a> project from Apache. Commons
       Validator contains validation algorithms for email addresses, dates, URLs
       and so on. The <em>commons-validator.jar</em> is included by default in
@@ -571,8 +526,7 @@ private String isbn;
       call a normal web site to do an ISBN search, and to examine the resulting
       page to determine if the search has succeeded. Something like a
       pseudo-REST web service.<br>
-      To call the web page we'll use the <a class="wiki_link_ext" href="http://htmlunit.sourceforge.net/"
-
+      To call the web page we'll use the <a class="wiki_link_ext" href="http://htmlunit.sourceforge.net/"
         rel="nofollow">HtmlUnit</a> framework. Though the main goal of this
       framework is to create tests for your web applications, you can use it to
       read any web page. We'll use it because it's easier to use than other
@@ -657,8 +611,7 @@ public class ISBNValidator implements ConstraintValidator&lt;ISBN, Object&gt; {
       It's a good idea to create a new <em>Bean Validation</em> annotation if
       you reuse the validation several times, usually across several projects.
       To improve the reusability you may want to parametrize the validation
-      code. For example, for your current project to do the search in <a class="wiki_link_ext"
-
+      code. For example, for your current project to do the search in <a class="wiki_link_ext"
         href="http://www.bookfinder4u.com" rel="nofollow">www.bookfinder4u.com</a>
       for ISBN is OK, but in another project, or even in another entity of your
       current project, you do not want to call this particular URL. The code of
@@ -833,7 +786,7 @@ private String isbn;
       tries to assign an incorrect, a nonexistent and a correct ISBN to a
       product and checks the results for these cases. To do so let's add a <em>testISBNValidator()</em>
       method to <em>ProductTest</em>.<br>
-<pre><code class="java">public void testISBNValidator() throws Exception {
+      <pre><code class="java">public void testISBNValidator() throws Exception {
     login("admin", "admin");
  
     // Searching the product1
@@ -860,10 +813,8 @@ private String isbn;
     execute("CRUD.save"); // It does not fail
     assertNoErrors();
 }
-</code></pre>
-      Surely the manual testing you were doing during the development of the <em>@ISBN</em>
-      validator was like the one above. Therefore, if <a class="wiki_link_ext"
-
+</code></pre> Surely the manual testing you were doing during the development of
+      the <em>@ISBN</em> validator was like the one above. Therefore, if <a class="wiki_link_ext"
         href="http://www.extremeprogramming.org/rules/testfirst.html" rel="nofollow">you
         write your JUnit test before the application code</a>, you can use it as
       you proceed. This is more efficient than repeating the test procedures by
@@ -885,12 +836,10 @@ private String isbn;
       it is more convenient to put logic outside your model classes. You will
       learn that in the next lessons.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="refining-standard-behavior_en.html">Go to
           Lesson 7</a></strong> </div>
