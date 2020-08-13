@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Required validation on modifying does not work for IMAGES_GALLERY and FILES.
+- Fix: Removing a file from an upload editor does not work if it has an @OnChange action associated. 
 - Fix: Upload editor (PHOTO, IMAGES_GALLERY and FILES) doesn't allow to download file when read only.
 - Lesson 2 of course simplified removing some error prone parts.
 - Composite key explanation included in JPA documention.

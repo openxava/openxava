@@ -55,10 +55,7 @@ openxava.addEditorInitFunction(function() {
 	    		uploadEditor.enableUpload(pond, input);
 	    	}
 	    	pond.onremovefile = function(error, file) { 
-	    		$.ajax({
-	    			url: uploadEditor.getUploadURL(input) + uploadEditor.getFileIdParam(file), 
-	    			method: "DELETE"
-    			})
+    			uploadEditor.removeFile(input, file); 
     		}
 	    	if (input.dataset.editable === "true") {
 		    	pond.allowDrop = false;
@@ -70,7 +67,7 @@ openxava.addEditorInitFunction(function() {
 		    		openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
 		    	}	    	
 		    	pond.onremovefile = function(error, file) {
-		    		// tmp ¿Añadir aquí lo de borrar? Es un bug diferente. OJO, tengo Product2 con una foto en el registro 2
+		    		uploadEditor.removeFile(input, file);
 		    		openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
 		    	}	    		    	
 	    	}
@@ -100,4 +97,11 @@ uploadEditor.getFileURL = function(input) {
 uploadEditor.getFileIdParam = function(file) {
 	const fileId = file.getMetadata("fileId");
 	return typeof fileId === 'undefined'?"":"&fileId=" + fileId; 
+}
+
+uploadEditor.removeFile = function(input, file) {
+	$.ajax({
+		url: uploadEditor.getUploadURL(input) + uploadEditor.getFileIdParam(file), 
+		method: "DELETE"
+	})
 }

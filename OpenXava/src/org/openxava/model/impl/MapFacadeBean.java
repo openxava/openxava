@@ -1823,7 +1823,6 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 	
 	private void validate(MetaModel metaModel, Map values, Map keyValues, Object containerKey, boolean creating)
 		throws ObjectNotFoundException, ValidationException, XavaException, RemoteException {
-		System.out.println("[MapFacadeBean.validate] " + metaModel.getName() + ".values=" + values); // tmp
 		Messages errors = new Messages();		
 		validate(errors, metaModel, values, keyValues, containerKey, creating);		
 		if (errors.contains()) {

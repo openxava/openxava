@@ -371,7 +371,7 @@ public class AJAXTest extends ModuleTestBase {
 		execute("Customer.changeNameLabel");		
 		assertLoadedParts("label_name, errors, messages, ");
 		execute("CRUD.new");
-		assertLoadedParts("errors," + 
+		assertLoadedParts("errors," + // TMP FALLA
 				"button_bar, bottom_buttons," + // Because Refresh is removed 
 				"editor_seller.name, " +
 				"editor_number, " +

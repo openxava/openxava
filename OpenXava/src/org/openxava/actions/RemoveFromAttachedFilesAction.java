@@ -21,7 +21,15 @@ public class RemoveFromAttachedFilesAction extends ViewBaseAction {
 	@Override
 	public void execute() throws Exception {
 		AttachedFile file = FilePersistorFactory.getInstance().find(getFileId()); 
-		FilePersistorFactory.getInstance().remove(getFileId());
+		String libraryId = getView().getValueString(property);
+		Collection library = FilePersistorFactory.getInstance().findLibrary(libraryId);
+		if (getView().getMetaProperty(property).isRequired() && library.size() < 2) {
+			getView().setValue(property, null);
+		}
+		else {
+			FilePersistorFactory.getInstance().remove(getFileId());
+		}
+
 		trackModification(file); 
 	}	
 	

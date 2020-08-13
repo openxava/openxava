@@ -19,15 +19,12 @@ public class RemoveImageFromGalleryAction extends ViewBaseAction {
 	public void execute() throws Exception {
 		String galleryOid = getView().getValueString(property);
 		Gallery gallery = Gallery.find(galleryOid);
-		// tmp gallery.removeImage(fileId);
-		// tmp ini
 		if (getView().getMetaProperty(property).isRequired() && gallery.getImagesOids().size() < 2) {
 			getView().setValue(property, null);
 		}
 		else {
 			gallery.removeImage(fileId);
 		}
-		// tmp fin
 		trackModification(galleryOid); 
 	}
 	

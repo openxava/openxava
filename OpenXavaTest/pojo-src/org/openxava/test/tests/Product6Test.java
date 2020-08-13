@@ -11,14 +11,13 @@ public class Product6Test extends CustomizeListTestBase {
 		super(testName, "Product6");		
 	}
 	
-	public void testDefaultValueCalculatorInReferenceWithPropertyFrom_requiredUploadEditorOnModify() throws Exception { // tmp requiredUploadEditorOnModify
+	public void testDefaultValueCalculatorInReferenceWithPropertyFrom_requiredImagesGalleryOnModify() throws Exception { 
 		// WARNING! DON'T ADD TO Product6 ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends.
 		execute("CRUD.new");
 		assertValue("subfamily.number", "");
 		setValue("family.number", "2");
 		assertValue("subfamily.number", "2");
 		
-		// tmp ini
 		execute("Mode.list");
 		execute("List.viewDetail", "row=6");
 		assertValue("number", "7");	
@@ -44,7 +43,6 @@ public class Product6Test extends CustomizeListTestBase {
 		execute("List.viewDetail", "row=6");		
 		assertValue("number", "7");	
 		assertFilesCount("photos", 1); 		
-		// tmp fin
 	}
 	
 }

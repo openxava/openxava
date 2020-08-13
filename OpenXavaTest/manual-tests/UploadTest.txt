@@ -62,6 +62,9 @@ AttachedFile and AttachedFiles: Movie with all browsers
 - Click in one script. The script is downloaded with the correct file title. (In a new tab with Internet Explorer)  
 
 With @OnChange: CustomerFramesOnSameRow with all browsers
-- Go to first customer.
-- Remove the photo: An "Photo changed" message must be produced
+- Go to second customer.
 - Add a new photo: An "Photo changed" message must be produced
+- Save. Go to previous record, return to second record. The photo must be there.
+- Remove the photo: An "Photo changed" message must be produced
+- Save. Go to previous record, return to second record. No photo.
+

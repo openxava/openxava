@@ -39,7 +39,7 @@ public class Product6 {
 	
 	@Required
 	@Stereotype("IMAGES_GALLERY")
-	private String photos; // tmp
+	private String photos; 
 	
 	
 	// WARNING! DON'T ADD ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends.

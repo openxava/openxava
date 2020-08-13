@@ -5,7 +5,6 @@ import org.openxava.annotations.*;
 import org.openxava.model.*;
 
 /**
- * tmp ME QUEDÉ POR AQUÍ, HACIENDO EL CASO PARA FILES. HE DE PROBARLO A MANO Y DESPUÉS HACER PRUEBA JUNIT
  * 
  * @author Javier paniza
  */
@@ -16,6 +15,7 @@ public class Movie2 extends Identifiable {
 	@Required
 	private String title;
 		
+	@Required
 	@Stereotype("FILES")
 	@Column(length=32)	
 	private String scripts;
