@@ -2,6 +2,7 @@ package org.openxava.test.model;
 
 
 import java.math.*;
+import java.util.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -17,6 +18,10 @@ import org.openxava.calculators.*;
 @Entity
 @IdClass(InvoiceKey.class)  // We reuse the key class for Invoice
 @Table(name="INVOICE")
+// tmp ini
+@View(members="year; number; date; amountsSum")
+@View(name="WithDetails", members="year; number; date; details; amountsSum")
+// tmp fin
 public class Invoice6 {
 	
 	@Id @Column(length=4) @Max(9999l) @Required
@@ -29,6 +34,9 @@ public class Invoice6 {
 	@Required
 	@DefaultValueCalculator(CurrentLocalDateCalculator.class)
 	private java.time.LocalDate date;
+	
+	@OneToMany(mappedBy="invoice") // With no Cascade, for testing a case
+	private Collection<InvoiceDetail6> details;
 	
 	@Stereotype("MONEY") 
 	private BigDecimal amountsSum;   
@@ -63,6 +71,14 @@ public class Invoice6 {
 
 	public void setAmountsSum(BigDecimal amountsSum) {
 		this.amountsSum = amountsSum;
+	}
+
+	public Collection<InvoiceDetail6> getDetails() {
+		return details;
+	}
+
+	public void setDetails(Collection<InvoiceDetail6> details) {
+		this.details = details;
 	}
 
 }

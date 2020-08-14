@@ -1,6 +1,7 @@
 package org.openxava.test.model;
 
 import java.math.*;
+import java.util.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -30,7 +31,7 @@ public class Invoice5 {
 	private java.util.Date date;
 		
 	private boolean paid;
-		
+			
 	@Stereotype("MONEY")
 	private BigDecimal amount;
 	
