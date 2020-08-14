@@ -199,7 +199,8 @@ order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to 
         with a JPA callback method</h3>
       We're going to try another, maybe even simpler, way to do this validation,
       we'll transfer the validation logic from the validator class into the <em>Order</em>
-      entity itself, in this case in a <i>@PreUpdate</i> method.<br>
+      entity itself, in this case in a <i>@PrePersist</i> and <i>@PreUpdate</i>
+      method.<br>
       First, remove the <em>DeliveredToBeInInvoiceValidator</em> class from
       your project. Then remove the <i>@EntityValidator</i> annotation from
       your <em>Order</em> entity:<br>
@@ -216,7 +217,7 @@ public class Order extends CommercialDocument {
 </code></pre> After that we're going to add the validation again, but now inside
       the <em>Order</em> class itself. Add the <em>validate()</em> method to
       your <em>Order</em> class:<br>
-      <pre><code class="java">@PreUpdate // Just before updating the database
+      <pre><code class="java">@PrePersist @PreUpdate // Just before creating or updating
 private void validate()  throws Exception {
     if (invoice != null &amp;&amp; !isDelivered()) { // The validation logic
         // The validation exception from Bean Validation
@@ -229,18 +230,65 @@ private void validate()  throws Exception {
         );
     }
 }
-</code></pre> Before saving an order this validation will be executed, if it
-      fails a <i>ValidationException</i> is thrown. This exception is from the
-      <em>Bean Validation</em> framework, so OpenXava knows that it is a
-      validation exception. This way with only one method within your entity you
-      have the validation done.</div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: LO DE
-      ARRIBA FUNCIONÓ. ¿USAR ValidationException DE OpenXava?<br>
+</code></pre>Also add the next import to <i>Order</i> to use <i>XavaResources</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import org.openxava.util.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> Before saving an order this
+      validation will be executed, if it fails a <i>ValidationException</i> is
+      thrown. This exception is from the <em>Bean Validation</em> framework, so
+      OpenXava knows that it is a validation exception. This way with only one
+      method within your entity you have the validation done.</div>
+    <div class="wiki" style="display: block;">Only one <i>@PrePersist</i>
+      method and one <i>@PreUpdate</i> method by entity are allowed, so before
+      executing the above code you have to comment the <i>@PrePersiste and
+        @PreUpdate</i> annotations you have in <i>recalculateDeliveryDays()</i>,
+      in this way:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">// @PrePersist @PreUpdate // Comment these annotations
+private void recalculateDeliveryDays() {
+    setDeliveryDays(getEstimatedDeliveryDays());
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Don't worry, we'll uncomment these
+      annotations later. Although JPA only allows one <i>@PrePersist</i>/<i>@PreUpdate</i>
+      method you always can create a unique callback method and call all other
+      methods from it, but not needed for our case, because we're not going to
+      keep this validation style as definitive.</div>
+    <div class="wiki" style="display: block;">Now, try to add orders not
+      delivered to an invoice and see the validation errors, like in our first
+      example.<br>
       <h3 id="toc5"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating in the setter"></a>Validating
         in the setter</h3>
       Another alternative to do your validation is to put the validation logic
-      inside the setter method. That's a simple approach. First, remove the <em>validate()</em>
-      method from the <em>Order</em> entity, and modify the <em>setInvoice()</em>
+      inside the setter method. That's a simple approach. </div>
+    <div class="wiki" style="display: block;">First, put back again the <i>@PrePersist</i>
+      and <i>@PreUpdate</i> annotations in <i>recalculateDeliveryDays(), also
+      </i>remove the <em>validate()</em> method from the <em>Order</em>
+      entity:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@PrePersist @PreUpdate // Add back the callback annotations
+private void recalculateDeliveryDays() {
+    setDeliveryDays(getEstimatedDeliveryDays());
+}
+    
+// Remove the validate() method
+
+// @PrePersist @PreUpdate // Just before creating or updating
+// private void validate()  throws Exception {
+//     if (invoice != null &amp;&amp; !isDelivered()) { // The validation logic
+//         // The validation exception from Bean Validation
+//         throw new javax.validation.ValidationException(
+//             XavaResources.getString( 
+//                 "order_must_be_delivered",
+//                 getYear(),
+//                 getNumber()
+//             )
+//         );
+//     }
+// }    
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Then modify the <em>setInvoice()</em>
       method in the way you see below:<br>
       <pre><code class="java">public void setInvoice(Invoice invoice) {
     if (invoice != null &amp;&amp; !isDelivered()) { // The validation logic
@@ -256,13 +304,15 @@ private void validate()  throws Exception {
     this.invoice = invoice; // The regular setter assignment
 }
 </code></pre> This works exactly the same way as the two other options. This is
-      like the <span class="wiki jcode">@PreUpdate</span> alternative, only
-      that it does not depend on JPA, it's a basic Java implementation.<br>
+      like the <i>@PrePersist/@PreUpdate</i> alternative, only that it does not
+      depend on JPA, it's a basic Java implementation.<br>
       <h3 id="toc6"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating with Bean Validation"></a>Validating
         with <em>Bean Validation</em></h3>
-      As a last option we are going to do the shortest one: The validation logic
-      is put into a boolean method annotated with the <span class="wiki jcode">@AssertTrue</span>
-      Bean Validation annotation.<br>
+      TMP ME QUEDÉ POR AQUÍ</div>
+    <div class="wiki" style="display: block;"> As a last option we are going to
+      do the shortest one: The validation logic is put into a boolean method
+      annotated with the <span class="wiki jcode">@AssertTrue</span> Bean
+      Validation annotation.<br>
       To implement this alternative first remove the validation logic from the <em>setInvoice()</em>
       method. Then add the <em>isDeliveredToBeInInvoice()</em> method to your <em>Order</em>
       entity:<br>

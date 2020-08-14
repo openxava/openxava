@@ -197,7 +197,8 @@ pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadid
         con métodos de retrollamada JPA</h3>
       Vamos a probar otra forma más sencilla de hacer esta validación,
       simplemente moviendo la lógica de validación desde la clase validador a la
-      misma entidad <em>Pedido</em>, en este caso a un método <i>@PreUpdate</i>.<br>
+      misma entidad <em>Pedido</em>, en este caso a un método <i>@PrePersist</i>
+      y <i>@PreUpdate</i>.<br>
       Lo primero es eliminar la clase <em>ValidadorEntregadoParaEstarEnFactura</em>
       de tu proyecto. También quita la anotación <i>@EntityValidator</i> de tu
       entidad <em>Pedido</em>:<br>
@@ -214,7 +215,7 @@ public class Pedido extends DocumentoComercial {
       nuevo, pero ahora dentro de la misma clase <em>Pedido</em>. Escribe el
       método <em>validar()</em> que se muestra a continuación dentro de tu
       clase <em>Pedido</em>:<br>
-      <pre><code class="java">@PreUpdate
+      <pre><code class="java">@PrePersist @PreUpdate // Antes de crear o modificar
 private void validar() throws Exception {
     if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
         // La excepción de validación del entorno Bean Validation
@@ -226,18 +227,68 @@ private void validar() throws Exception {
         );
     }
 }
-</code></pre> Antes de grabar un pedido esta validación se ejecutará, si falla
-      una <i>ValidationException</i> será lanzada. Esta excepción es del marco
-      de validación Bean Validation, de esta forma OpenXava sabe que es una
-      excepción de validación. Así con solo un método dentro de tu entidad
-      tienes la validación hecha.<br>
+</code></pre>También has de añadir el siguiente import a <i>Pedido</i> para
+      poder usar <i>XavaResources</i>:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">import org.openxava.util.*;
+</code></pre> </div>
+      <div class="wiki" style="display: block;"> Antes de grabar un pedido esta
+        validación se ejecutará, si falla una <i>ValidationException</i> será
+        lanzada. Esta excepción es del marco de validación Bean Validation, de
+        esta forma OpenXava sabe que es una excepción de validación. Así con
+        solo un método dentro de tu entidad tienes la validación hecha.</div>
+      <div class="wiki" style="display: block;">Sólo está permitido un método <i>@PrePersist</i>
+        y un método <i>@PreUpdate</i> por entidad, por eso antes de ejecutar el
+        código de arriba has de comentar las anotaciones <i>@PrePersist</i> y <i>@PreUpdate</i>
+        que tenías en <i>recalcularDiasEntrega()</i>, de esta manera:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">// @PrePersist @PreUpdate // Comenta estas anotaciones
+private void recalcularDiasEntrega()() {
+    setDiasEntrega(getDiasEntregaEstimados());
+}
+</code></pre> </div>
+      <div class="wiki" style="display: block;">No te preocupes, descomentaremos
+        estas anotaciones más adelante. Aunque JPA sólo permita un método <i>@PrePersist/@PreUpdate</i>
+        siempre tenemos la opción de crear un único método de retrollamada desde
+        el cual llamar a todos los demás métodos que necesitemos, pero esto no
+        hace falta en nuestro caso, porque no vamos a quedarnos con este estilo
+        de validación como definitivo.</div>
+      <div class="wiki" style="display: block;">Ahora, intentar añadir pedidos
+        no entregados a una invoice y verás los errores de validación, como en
+        nuestro primer ejemplo.<br>
+        <h3 id="toc5"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating in the setter"></a></h3>
+      </div>
       <h3 id="toc5"><a name="Alternativas-de-validacion-Validar-en-el-setter"></a>Validar
         en el setter</h3>
       Otra alternativa para hacer tu validación es poner tu lógica de validación
-      dentro del método setter. Es un enfoque simple y llano. Para probarlo,
-      quita el método <em>validar()</em> de tu entidad <em>Pedido</em> y
-      modifica el método <em>setFactura()</em> de la forma que mostramos a
-      continuación:<br>
+      dentro del método setter. Es un enfoque simple y llano. </div>
+    <div class="wiki" style="display: block;">Para probarlo, primero vuelve a
+      poner las anotaciones @PrePersist y @PreUpdate en el método <i>recalcularDiasEntrega(),
+        </i>también quita el método <em>validar()</em> de tu entidad <em>Pedido</em>:
+    </div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@PrePersist @PreUpdate // Añádelas de nuevo
+private void recalcularDiasEntrega() {
+    setDiasEntrega(getDiasEntregaEstimados());
+}	
+	
+// Quita el método validar()
+	
+// @PrePersist @PreUpdate // Antes de crear o modificar
+// private void validar() throws Exception {
+//     if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
+//         // La excepción de validación del entorno Bean Validation
+//         throw new javax.validation.ValidationException(
+//             XavaResources.getString( // Para leer un mensaje i18n
+//                 "pedido_debe_estar_entregado",
+//                 getAnyo(),
+//                 getNumero())
+//         );
+//     }
+// }    
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Después modifica el método <em>setFactura()</em>
+      de la forma que mostramos a continuación:<br>
       <pre><code class="java">public void setFactura(Factura factura) {
     if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
         // La excepción de validación del entorno Bean Validation
@@ -251,8 +302,8 @@ private void validar() throws Exception {
     this.factura = factura; // La asignación típica del setter
 }
 </code></pre> Esto funciona exactamente como las dos opciones anteriores. Es
-      parecida a la alternativa del <span class="wiki jcode">@PreUpdate</span>,
-      solo que no depende de JPA, es una implementación básica de Java.<br>
+      parecida a la alternativa del <i>@PrePersist/@PreUpdate</i>, solo que no
+      depende de JPA, es una implementación básica de Java.<br>
       <h3 id="toc6"><a name="Alternativas-de-validacion-Validar-con-Bean-Validation"></a>Validar
         con <em>Bean Validation</em></h3>
       Como opción final vamos a hacer la más breve. Consiste en poner tu lógica
