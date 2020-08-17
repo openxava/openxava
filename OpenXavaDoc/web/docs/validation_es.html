@@ -8,7 +8,7 @@
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
-    <div class="wiki" id="content_view" style="display: block;">
+    <div class="wiki" style="display: block;">
       <h1 id="toc0"><a name="Leccion-6-Validacion-avanzada"></a> <span id="breadcrumbs">
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
@@ -120,7 +120,7 @@ public class Pedido extends DocumentoComercial {
       entidad una clase con la lógica de validación deseada. Anotemos tu entidad
       <em>Pedido</em> tal como muestra el siguiente código:<br>
       <pre><code class="java">@EntityValidator(
-    value=ValidadorEntregadoParaEstarEnFactura.class, // Clase con la lógica de validación
+    value=com.tuempresa.facturacion.validadores.ValidadorEntregadoParaEstarEnFactura.class, // Clase con la lógica de validación
     properties= {
         @PropertyValue(name="anyo"), // El contenido de estas propiedades
         @PropertyValue(name="numero"), // se mueve desde la entidad 'Pedido'
@@ -128,18 +128,14 @@ public class Pedido extends DocumentoComercial {
         @PropertyValue(name="entregado") // ejecutar la validación
 })
 public class Pedido extends DocumentoComercial {
-</code></pre><em>ValidadorEntregadoParaEstarEnFactura </em>está en el <i>com.tuempresa.facturacion.validadores</i>
-      (que dicho sea de paso tienes que crear) por lo que has de añadir el
-      siguiente import a tu clase <i>Pedido</i>:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import com.tuempresa.facturacion.validadores.*;
-</code></pre> </div>
-    <div class="wiki" style="display: block;"> Cada vez que un objeto <em>Pedido</em>
-      se crea o modifica un objeto del tipo <em>ValidadorEntregadoParaEstarEnFactura</em>
-      es creado, entonces las propiedades <em>anyo</em>, <em>numero</em>, <em>factura</em>
+</code></pre><em></em>Cada vez que un objeto <em>Pedido</em> se crea o modifica
+      un objeto del tipo <em>ValidadorEntregadoParaEstarEnFactura</em> es
+      creado, entonces las propiedades <em>anyo</em>, <em>numero</em>, <em>factura</em>
       y <em>entregado</em> se rellenan con las propiedades del mismo nombre del
       objeto <em>Pedido</em>. Después de eso, el método <i>validate()</i> del
-      validador se ejecuta. Puedes ver el código del validador:<br>
+      validador se ejecuta. Escribamos el código del validador, primero crea el
+      paquete <i>com.tuempresa.facturacion.validadores </i>y después pon en él
+      esta clase:<br>
       <pre><code class="java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
  
 import com.tuempresa.facturacion.modelo.*;
@@ -256,16 +252,15 @@ private void recalcularDiasEntrega()() {
       <div class="wiki" style="display: block;">Ahora, intentar añadir pedidos
         no entregados a una invoice y verás los errores de validación, como en
         nuestro primer ejemplo.<br>
-        <h3 id="toc5"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating in the setter"></a></h3>
       </div>
       <h3 id="toc5"><a name="Alternativas-de-validacion-Validar-en-el-setter"></a>Validar
         en el setter</h3>
       Otra alternativa para hacer tu validación es poner tu lógica de validación
       dentro del método setter. Es un enfoque simple y llano. </div>
     <div class="wiki" style="display: block;">Para probarlo, primero vuelve a
-      poner las anotaciones @PrePersist y @PreUpdate en el método <i>recalcularDiasEntrega(),
-        </i>también quita el método <em>validar()</em> de tu entidad <em>Pedido</em>:
-    </div>
+      poner las anotaciones <i>@PrePersist</i> y <i>@PreUpdate</i> en el
+      método <i>recalcularDiasEntrega(), </i>también quita el método <em>validar()</em>
+      de tu entidad <em>Pedido</em>: </div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@PrePersist @PreUpdate // Añádelas de nuevo
 private void recalcularDiasEntrega() {
@@ -308,9 +303,25 @@ private void recalcularDiasEntrega() {
         con <em>Bean Validation</em></h3>
       Como opción final vamos a hacer la más breve. Consiste en poner tu lógica
       de validación dentro de un método booleano anotado con la anotación de
-      Bean Validation <span class="wiki jcode">@AssertTrue</span>.<br>
+      Bean Validation <i>@AssertTrue</i>.<br>
       Para implementar esta alternativa primero quita la lógica de validación
-      del método <em>setFactura()</em>. Después, añade <em>isEntregadoParaEstarEnFactura()</em>
+      del método <em>setFactura()</em>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">public void setFactura(Factura factura) {
+// Quita la siguiente lógica de validación
+//    if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
+//        // La excepción de validación del entorno Bean Validation
+//        throw new javax.validation.ValidationException(
+//            XavaResources.getString( // Para leer un mensaje i18n
+//                "pedido_debe_estar_entregado",
+//                getAnyo(),
+//                getNumero())
+//        );
+//    }
+    this.factura = factura; // La asignación típica del setter
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Después, añade <em>isEntregadoParaEstarEnFactura()</em>
       a tu entidad <em>Pedido</em>, como se muestra a continuación:<br>
       <pre><code class="java">@AssertTrue(  // Antes de grabar confirma que el método devuelve true, si no lanza una excepción
     message="pedido_debe_estar_entregado" // Mensaje de error en caso retorne false
@@ -318,19 +329,31 @@ private void recalcularDiasEntrega() {
 private boolean isEntregadoParaEstarEnFactura() { // ...
     return factura == null || isEntregado(); // La lógica de validación
 }
-</code></pre> En las formas anteriores de validación nuestro mensaje de error
-      era construído mediante dos argumentos, <em>anyo</em> y <em>numero</em>,
-      que en nuestro archivo <em>i18n</em> son representados por <em>{0}/{1}</em>
-      respectivamente. Para el caso de validación con <span class="wiki jcode">@AssertTrue</span>
-      no podemos pasar estos dos argumentos para construir nuestro mensaje de
-      error, sino que podemos declarar propiedades y propiedades calificadas del
-      bean validado en la definición del mensaje. Veamos como modificar la
-      definición del mensaje:<br>
-      <pre><code class="properties"># Mensajes  para la aplicación Facturacion
-pedido_debe_estar_entregado=Pedido {anyo}/{numero} debe estar entregado para ser añadido a una Factura
-</code></pre> OpenXava llenará <em>{anyo}/{numero}</em> con los valores de <em>anyo</em>
-      y <em>numero</em> que tenga el <em>Pedido</em> que está siendo
-      actualizado y no cumple la condición de validación.<br>
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Para usar <i>@AssertTrue</i> has
+      de añadir el siguiente import:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import javax.validation.constraints.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">En las formas anteriores de
+      validación nuestro mensaje de error era construído mediante dos
+      argumentos, <em>anyo</em> y <em>numero</em>, que en nuestro archivo <em>i18n</em>
+      son representados por <em>{0}/{1}</em> respectivamente. Para el caso de
+      validación con <span class="wiki jcode">@AssertTrue</span> no podemos
+      pasar estos dos argumentos para construir nuestro mensaje de error, sino
+      que podemos declarar propiedades y propiedades calificadas del bean
+      validado en la definición del mensaje, para eso cambia en <em>MensajesFacturacion_es.properties</em>
+      la entrada:<br>
+      <pre><code class="properties">pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadido a una Factura
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Por:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">pedido_debe_estar_entregado=Pedido {anyo}/{numero} debe estar entregado para ser añadido a una Factura
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Fíjate que hemos cambiado <i>{0}/{1}</i>
+      por <i>{anyo}/{numero}</i>. OpenXava llenará <em>{anyo}/{numero}</em>
+      con los valores de <em>anyo</em> y <em>numero</em> que tenga el <em>Pedido</em>
+      que está siendo actualizado y no cumple la condición de validación.<br>
       Esta es la forma más simple de validar, porque solo anotamos el método con
       la validación, y es el entorno Bean Validation el responsable de llamar
       este método al grabar, y lanzar la excepción correspondiente si la
@@ -342,11 +365,11 @@ pedido_debe_estar_entregado=Pedido {anyo}/{numero} debe estar entregado para ser
       entidad, y usar la validación para vetar el borrado de la misma.<br>
       Vamos a modificar la aplicación para impedir que un usuario borre un
       pedido si éste tiene una factura asociada. Para hacer esto anota tu
-      entidad <em>Pedido</em> con <span class="wiki jcode">@RemoveValidator</span>,
-      como se muestra a continuación:<br>
-      <pre><code class="java">@RemoveValidator(ValidadorBorrarPedido.class) // La clase con la validación
+      entidad <em>Pedido</em> con <i>@RemoveValidator</i>, como se muestra a
+      continuación:<br>
+      <pre><code class="java">@RemoveValidator(com.tuempresa.facturacion.validadores.ValidadorBorrarPedido.class) // La clase con la validación
 public class Pedido extends DocumentoComercial {
-</code></pre> Ahora, antes de borrar un pedido la lógica de <em>ValidadorBorrarPedido</em>
+</code></pre><em></em>Ahora, antes de borrar un pedido la lógica de <em>ValidadorBorrarPedido</em>
       se ejecuta, y si la validación falla el pedido no se borra. Veamos el
       código de este validador:<br>
       <pre><code class="java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
@@ -360,14 +383,12 @@ public class ValidadorBorrarPedido
  
     private Pedido pedido;
  
-    @Override
     public void setEntity(Object entity) // La entidad a borrar se inyectará...
         throws Exception // ...con este método antes de la validación
     {
         this.pedido = (Pedido) entity;
     }
  
-    @Override
     public void validate(Messages errors) // La lógica de validación
         throws Exception
     {
@@ -378,18 +399,16 @@ public class ValidadorBorrarPedido
         }
     }
 }
-</code></pre> La lógica de validación está en el método <span class="wiki jcode">validate()</span>.
-      Antes de llamarlo la entidad a validar es inyectada usando <span class="wiki jcode">setEntity()</span>.
-      Si se añaden mensajes al objeto <span class="wiki jcode">errors</span> la
-      validación fallará y la entidad no se borrará. Has de añadir el mensaje de
-      error en el archivo <em>Facturacion/i18n/MensajesFacturacion_es.properties</em>:<br>
+</code></pre> La lógica de validación está en el método <i>validate()</i>.
+      Antes de llamarlo la entidad a validar es inyectada usando <i>setEntity()</i>.
+      Si se añaden mensajes al objeto <i>errors</i> la validación fallará y la
+      entidad no se borrará. Has de añadir el mensaje de error en el archivo <em>Facturacion/i18n/MensajesFacturacion_es.properties</em>:<br>
       <pre><code class="properties">no_puede_borrar_pedido_con_factura=Pedido asociado a factura no puede ser eliminado
 </code></pre> Ahora si intentas borrar un pedido con una factura asociada
       obtendrás un mensaje de error y el borrado no se producirá.<br>
-      Puedes ver que usar un <span class="wiki jcode">@RemoveValidator</span>
-      no es difícil, pero es un poco verboso. Has de escribir una clase nueva
-      solo para añadir un simple <span class="wiki jcode">if</span>. Examinemos
-      una alternativa más breve:<br>
+      Puedes ver que usar un <i>@RemoveValidator</i> no es difícil, pero es un
+      poco verboso. Has de escribir una clase nueva solo para añadir un simple
+      if. Examinemos una alternativa más breve:<br>
       <h3 id="toc8"><a name="Alternativas-de-validacion-Validar-al-borrar-con-un-metodo-de-retrollamada"></a>Validar
         al borrar con un método de retrollamada</h3>
       Vamos a probar otra forma más simple de hacer esta validación al borrar,
@@ -412,24 +431,23 @@ private void validarPreBorrar() {
     }
 }
 </code></pre> Antes de borrar un pedido esta validación se efectuará, si falla
-      se lanzará una <span class="wiki jcode">ValidationException</span>.
-      Puedes lanzar cualquier excepción runtime para abortar el borrado. Tan
-      solo con un método dentro de la entidad tienes la validación hecha.<br>
+      se lanzará una ValidationException. Puedes lanzar cualquier excepción
+      runtime para abortar el borrado. Tan solo con un método dentro de la
+      entidad tienes la validación hecha.<br>
       <h3 id="toc9"><a name="Alternativas-de-validacion-Cual-es-la-mejor-forma-de-validar"></a>¿Cuál
         es la mejor forma de validar?</h3>
       Has aprendido varias formas de hacer la validación sobre tus clases del
       modelo. ¿Cuál de ellas es la mejor? Todas ellas son opciones válidas.
       Depende de tus circunstancias y preferencias personales. Si tienes una
       validación que no es trivial y es reutilizable en varios puntos de tu
-      aplicación, entonces usar un <span class="wiki jcode">@EntityValidator</span>
-      y <span class="wiki jcode">@RemoveValidator</span> es una buena opción.
-      Por otra parte, si quieres usar tu modelo fuera de OpenXava y sin JPA,
-      entonces el uso de la validación en los <em>setters</em> es mejor.<br>
-      En nuestro caso particular hemos optado por <span class="wiki jcode">@AssertTrue</span>
-      para la validación “el pedido ha de estar servido para estar en una
-      factura” y por <span class="wiki jcode">@PreRemove</span> para la
-      validación al borrar. Ya que son las alternativas más simples que
-      funcionan.<br>
+      aplicación, entonces usar un <i>@EntityValidator</i> y <i>@RemoveValidator</i>
+      es una buena opción. Por otra parte, si quieres usar tu modelo fuera de
+      OpenXava y sin JPA, entonces el uso de la validación en los <em>setters</em>
+      es mejor.<br>
+      En nuestro caso particular hemos optado por <i>@AssertTrue</i> para la
+      validación “el pedido ha de estar servido para estar en una factura” y por
+      <i>@PreRemove</i> para la validación al borrar. Ya que son las
+      alternativas más simples que funcionan.<br>
       <br>
       <h2 id="toc10"><a name="Crear-tu-propia-anotacion-de-Bean-Validation"></a>Crear
         tu propia anotación de <em>Bean Validation</em></h2>
@@ -470,11 +488,14 @@ public void setIsbn(String isbn) {
       <h3 id="toc12"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Definir-tu-propia-anotacion-ISBN"></a>Definir
         tu propia anotación <em>ISBN</em></h3>
       Creemos la anotación <em>@ISBN</em>. Primero, crea un paquete en tu
-      proyecto llamado <em>com.tuempresa.facturacion.anotaciones</em>, entonces
-      sigue las instrucciones de la siguiente figura para crear una nueva
-      anotación llamada <em>ISBN</em>.<br>
+      proyecto llamado <em>com.tuempresa.facturacion.anotaciones</em>. Pulsa en
+      él con el botón derecho del ratón y escoge <i>New &gt; Annotation</i>,
+      como sigue:<br>
       <img src="files/validation_es020.png" alt="validation_es020.png" title="validation_es020.png"><br>
-      Edita el código de tu recién creada anotación <em>ISBN</em> y déjala así:<br>
+      Se mostrará un diálogo, teclea ISBN y pulsa en <i>Finish</i>:</div>
+    <img src="files/validation_es030.png" alt="validation_es030.png" title="validation_es030.png">
+    <div class="wiki" style="display: block;">Edita el código de tu recién
+      creada anotación <em>ISBN</em> y déjala así:<br>
       <pre><code class="java">package com.tuempresa.facturacion.anotaciones; // En el paquete 'anotaciones'
  
 import java.lang.annotation.*;
@@ -493,14 +514,13 @@ public @interface ISBN {
     String message() default "No existe ISBN"; // Definimos un mensaje por defecto
 }
 </code></pre> Como puedes ver, es una definición de anotación normal y
-      corriente, solo que usas <span class="wiki jcode">@Constraint</span> para
-      indicar la clase con la lógica de validación. Escribamos la clase <em>ValidadorISBN</em>.<br>
+      corriente, solo que usas <i>@Constraint</i> para indicar la clase con la
+      lógica de validación. Escribamos la clase <em>ValidadorISBN</em>.<br>
       <h3 id="toc13"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Usa-Apache-Commons-Validator-para-implementar-la-logica"></a>Usa
         <em>Apache Commons Validator</em> para implementar la lógica</h3>
       Vamos a escribir la clase <em>ValidadorISBN</em> con la lógica de
       validación para un <em>ISBN</em>. En lugar de escribir nosotros mismos la
-      lógica para validar un <em>ISBN</em> usaremos el proyecto <a class="wiki_link_ext"
-        href="http://commons.apache.org/proper/commons-validator/" rel="nofollow">Commons
+      lógica para validar un <em>ISBN</em> usaremos el proyecto <a href="http://commons.apache.org/proper/commons-validator/">Commons
         Validator</a> de Apache. Commons Validator contiene algoritmos de
       validación para direcciones de correo electrónico, fechas, URL y así por
       el estilo. El <em>commons-validator.jar</em> se incluye por defecto en
@@ -520,36 +540,36 @@ public class ValidadorISBN implements ConstraintValidator&lt;ISBN, Object&gt; {
         validador = // De 'Commons Validator'
             new org.apache.commons.validator.routines.ISBNValidator();
  
-    @Override
     public void initialize(ISBN isbn) {
  
     }
  
-    @Override
     public boolean isValid(Object value,
         ConstraintValidatorContext contexto) { // Contiene la lógica de validación
         if (Is.empty(value)) return true;
         return validador.isValid(value.toString()); // Usa 'Commons Validator'
     }
 }
-</code></pre> Como ves, la clase validador tiene que implementar <span class="wiki jcode">ConstraintValidator</span>
+</code></pre> Como ves, la clase validador tiene que implementar <i>ConstraintValidator</i>
       del paquete <em>javax.validation</em>. Esto fuerza a tu validador a
-      implementar <span class="wiki jcode">initialize()</span> e <span class="wiki jcode">isValid()</span>.
-      El método <span class="wiki jcode">isValid()</span> contiene la lógica de
-      validación. Fíjate que si el elemento a validar está vacío asumimos que es
-      válido, porque validar si un valor está presente es responsabilidad de
-      otras anotaciones, como <span class="wiki jcode">@Required</span>, y no
-      de <em>@ISBN</em>.<br>
+      implementar <i>initialize()</i> e <i>isValid()</i>. El método <i>isValid()</i>
+      contiene la lógica de validación. Fíjate que si el elemento a validar está
+      vacío asumimos que es válido, porque validar si un valor está presente es
+      responsabilidad de otras anotaciones, como <i>@Required</i>, y no de <em>@ISBN</em>.<br>
       En este caso la lógica de validación es sencillísima, porque nos limitamos
       a llamar al validador ISBN de Apache Commons Validator.<br>
       <em>@ISBN</em> está listo para usar. Para hacerlo anota tu propiedad <em>isbn</em>
       con él. Puedes ver cómo:<br>
       <pre><code class="java">@Column(length=13) @ISBN
 private String isbn;
-</code></pre> Ahora, puedes probar tu módulo, y verificar que el <em>ISBN</em>
-      que introduces se valida correctamente. Enhorabuena, has escrito tu primer
-      <em>Bean Validation</em>. No ha sido tan difícil: una anotación, una
-      clase.<br>
+</code></pre>Por supuesto, has de añadir el import correspondiente a <i>Producto</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import com.tuempresa.facturacion.anotaciones.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> Ahora, puedes probar tu módulo, y
+      verificar que el <em>ISBN</em> que introduces se valida correctamente.
+      Enhorabuena, has escrito tu primer <em>Bean Validation</em>. No ha sido
+      tan difícil: una anotación, una clase.<br>
       Este <em>@ISBN</em> es suficientemente bueno para usarlo en la vida real,
       sin embargo, vamos a mejorarlo un poco más, y así tendremos la posibilidad
       de experimentar con algunas posibilidades interesantes.<br>
