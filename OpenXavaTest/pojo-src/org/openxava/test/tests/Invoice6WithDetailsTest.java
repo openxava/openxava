@@ -24,7 +24,11 @@ public class Invoice6WithDetailsTest extends ModuleTestBase {
 		execute("List.filter");
 		assertValueInList(0, 7, "This is an orphan detail");
 		execute("AddToCollection.add", "row=0");
-		assertError("Detail not added: Invoice too old"); // TMP ME QUEDÉ POR AQUÍ: FALLA, HE DE ARREGLAR EL BUG
+		assertError("Detail not added: Invoice too old"); 
+		
+		assertDialog();
+		assertAction("AddToCollection.add", "row=0"); // So we have the list
+		execute("AddToCollection.cancel");
 		assertCollectionRowCount("details", 2);
 	}
 			

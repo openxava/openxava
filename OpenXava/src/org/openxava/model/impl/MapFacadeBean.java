@@ -664,8 +664,9 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		if (childMetaModel.containsMetaReference(refToParent)) {
 			// If the child contains the reference to its parent we simply update this reference
 			Map parentKey = new HashMap();
-			parentKey.put(refToParent, keyValues);		
-			setValues(childMetaModel, collectionElementKeyValues, parentKey, false, true, false);   
+			parentKey.put(refToParent, keyValues);	
+			// tmp setValues(childMetaModel, collectionElementKeyValues, parentKey, false, true, false);
+			setValues(childMetaModel, collectionElementKeyValues, parentKey, true, true, false); // tmp
 		}
 	}
 	
@@ -1560,7 +1561,8 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 	private void setValues(MetaModel metaModel, Map keyValues, Map values, boolean validate, boolean tracking, boolean updateSortableCollections)  
 		throws FinderException, ValidationException, XavaException 
 	{ 		
-		try {								Object entity = findEntity(metaModel, keyValues);
+		try {								
+			Object entity = findEntity(metaModel, keyValues);
 			updateReferencedEntities(metaModel, values);			
 			removeKeyFields(metaModel, values);			
 			removeReadOnlyFields(metaModel, values);						
