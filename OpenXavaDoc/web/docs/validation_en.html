@@ -516,10 +516,19 @@ public @interface ISBN { // A regular Java annotation definition
  
     Class&lt;?&gt;[] groups() default{};
     Class&lt;? extends Payload&gt;[] payload() default{};
-    String message() default "ISBN does not exist"; // The message if validation fails
+    String message() default "isbn_invalid"; // Message id from i18n file
 }
-</code></pre> As you can see, this is a regular annotation definition. The <i>@Constraint</i>
-      indicates the class with the validation logic. Let's write the <em>ISBNValidator</em>
+</code></pre> As you can see, this is a regular annotation definition. The <i>message</i>
+      attribute is the message to show to the user if the validation fails, you
+      can write the message "as is" or put an i18n id. The developer can specify
+      its own message when he uses the annotation, although we provide one by
+      default, "isbn_invalid", so we have to add the next entry into <em>Invoicing-messages_en.properties</em>:
+      <div class="wiki" style="display: block;">
+        <pre><code class="properties">isbn_invalid=ISBN invalid or nonexistent
+</code></pre> </div>
+    </div>
+    <div class="wiki" style="display: block;">The <i>@Constraint</i> indicates
+      the class with the validation logic. Let's write the <em>ISBNValidator</em>
       class.<br>
       <h3 id="toc13"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation-Using Apache Commons Validator to implement the validation logic"></a>Using
         Apache Commons Validator to implement the validation logic</h3>
@@ -549,7 +558,7 @@ public class ISBNValidator
     }
  
     public boolean isValid(Object value,
-        ConstraintValidatorContext context) { // // Contains the validation logic
+        ConstraintValidatorContext context) { // Contains the validation logic
         if (Is.empty(value)) return true;
         return validator.isValid(value.toString()); // Relies on 'Commons Validator'
     }
@@ -561,9 +570,9 @@ public class ISBNValidator
       is empty we assume that it is valid. Validating when the value is present
       is the responsibility of other annotations like <i>@Required</i>.<br>
       In this case the validation logic is plain vanilla, because we only call
-      the ISBN validator from the Apache Commons Validator project.<br>
-      <em>@ISBN</em> is ready to be used. Just annotate your isbn property with
-      it. You can see how:<br>
+      the ISBN validator from the Apache Commons Validator project.</div>
+    <div class="wiki" style="display: block;"> <em>@ISBN</em> is ready to be
+      used. Just annotate your isbn property with it. You can see how:<br>
       <pre><code class="java">@Column(length=13) @ISBN
 private String isbn;
 </code></pre>Of course, you have to add the corresponding import to <i>Product</i>:</div>
@@ -577,14 +586,15 @@ private String isbn;
       This <em>@ISBN</em> is good enough for use in real life. Nevertheless,
       we'll try to improve it, simply to have the chance to experiment with a
       few interesting possibilities.</div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ, FUNCIONA,
-      PERO ME GUSTARÍA INVESTIGAR DE DONDE SALE EL MENSAJE<br>
+    <div class="wiki" style="display: block;">
       <h3 id="toc14"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation-Call to a REST web service to validate the ISBN"></a>Call
         to a REST web service to validate the ISBN</h3>
-      Though most validators have simple logic, you can create validator with
-      complex logic if necessary. For example, in the case of our ISBN, we want,
-      not only to verify the correct format, but also to check that a book with
-      that ISBN actually exists. A way to do this is by using web services.<br>
+      TMP ME QUEDÉ POR AQUÍ</div>
+    <div class="wiki" style="display: block;">Though most validators have simple
+      logic, you can create validator with complex logic if necessary. For
+      example, in the case of our ISBN, we want, not only to verify the correct
+      format, but also to check that a book with that ISBN actually exists. A
+      way to do this is by using web services.<br>
       As you already know, a web service is a functionality hosted in web
       servers and can be called by a program. The traditional way to develop and
       use web services is by means of <em>WS-*</em> standards, like <em>SOAP</em>,

@@ -511,11 +511,19 @@ public @interface ISBN {
  
     Class&lt;?&gt;[] groups() default{};
     Class&lt;? extends Payload&gt;[] payload() default{};
-    String message() default "No existe ISBN"; // Definimos un mensaje por defecto
+    String message() default "isbn_invalido"; // Id del mensaje en el archivo i18n
 }
 </code></pre> Como puedes ver, es una definición de anotación normal y
-      corriente, solo que usas <i>@Constraint</i> para indicar la clase con la
-      lógica de validación. Escribamos la clase <em>ValidadorISBN</em>.<br>
+      corriente. El atributo <i>message</i> es el mensaje a mostrar al usuario
+      si la validación falla, puedes escribir el mensaje tal cual o poner un
+      identificador i18n. El desarrollador puede especificar su propio mensaje
+      cuando use la anotación, aunque nosotros proveemos unos por defecto,
+      "isbn_invalido", por lo que hemos de añadir la siguiente entrada en <em>MensajesFacturacion_es.properties</em>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">isbn_invalido=ISBN inválido o inexistente
+</code></pre> </div>
+    <div class="wiki" style="display: block;"><i>@Constraint</i> indica la clase
+      con la lógica de validación. Escribamos la clase <em>ValidadorISBN</em>.<br>
       <h3 id="toc13"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Usa-Apache-Commons-Validator-para-implementar-la-logica"></a>Usa
         <em>Apache Commons Validator</em> para implementar la lógica</h3>
       Vamos a escribir la clase <em>ValidadorISBN</em> con la lógica de
