@@ -12,7 +12,7 @@ import org.openxava.calculators.*;
 import org.openxava.test.validators.*;
 
 /**
- * tmp
+ * 
  * @author Javier Paniza
  */
 

@@ -101,8 +101,7 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlAnchor loadMoreModules = (HtmlAnchor) getHtmlPage().getHtmlElementById("more_modules").getParentNode();
 		loadMoreModules.click();
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		// tmp assertModulesCount(56); // We have to adjust this when we add new modules that content "invoice" 
-		assertModulesCount(58); // We have to adjust this when we add new modules that content "invoice" // tmp
+		assertModulesCount(58); // We have to adjust this when we add new modules that content "invoice" 
 		
 		
 		searchBox.type(" \b");
@@ -139,7 +138,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertValue("platform", "MULTIPLATFORM");
 		
 		// Labels.put()
-		assertLabel("platform", "Platform"); // If it fails reinit the Tomcat cleaning the working directories // TMP FALLA
+		assertLabel("platform", "Platform"); // If it fails reinit the Tomcat cleaning the working directories 
 		execute("Applicant.changePlatformLabel");
 		reload();
 		assertLabel("platform", "Target ecosystem");		

@@ -665,8 +665,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			// If the child contains the reference to its parent we simply update this reference
 			Map parentKey = new HashMap();
 			parentKey.put(refToParent, keyValues);	
-			// tmp setValues(childMetaModel, collectionElementKeyValues, parentKey, false, true, false);
-			setValues(childMetaModel, collectionElementKeyValues, parentKey, true, true, false); // tmp
+			setValues(childMetaModel, collectionElementKeyValues, parentKey, true, true, false); 
 		}
 	}
 	
@@ -1773,24 +1772,14 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 				while (itSets.hasNext()) {
 					MetaSet set = (MetaSet) itSets.next();					
 					Object value = values.get(set.getPropertyNameFrom());
-					if (value == null && !values.containsKey(set.getPropertyNameFrom())) {						
-						if (keyValues != null) {							
-							Map memberName = new HashMap();
-							memberName.put(set.getPropertyNameFrom(), null);
-							Map memberValue = getValues(metaModel, keyValues, memberName);
-							value = memberValue.get(set.getPropertyNameFrom());							
-						}
-						else {
-							Map valuesForPOJO = new HashMap(values); 
-							removeViewProperties(metaModel, valuesForPOJO);
-							Object model = metaModel.toPOJO(valuesForPOJO);
+					if (metaModel.containsMetaReference(set.getPropertyNameFrom())) {
+						MetaReference ref = metaModel.getMetaReference(set.getPropertyNameFrom());
+						if (!creating && keyValues != null && value == null && !values.containsKey(set.getPropertyNameFrom())) {
+							Object model = findEntity(metaModel, keyValues);
 							PropertiesManager modelPM = new PropertiesManager(model);
 							value = modelPM.executeGet(set.getPropertyNameFrom());							
 						}
-					}						
-					if (metaModel.containsMetaReference(set.getPropertyNameFrom())) {
-						MetaReference ref = metaModel.getMetaReference(set.getPropertyNameFrom());
-						if (ref.isAggregate()) {							
+						else if (ref.isAggregate()) {							
 							value = mapToReferencedObject(metaModel, set.getPropertyNameFrom(), (Map) value);
 						}
 						else {							
@@ -1811,6 +1800,22 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 							}																															
 						}		
 					}
+					else if (value == null && !values.containsKey(set.getPropertyNameFrom())) {		
+						if (keyValues != null) {							
+							Map memberName = new HashMap();
+							memberName.put(set.getPropertyNameFrom(), null);
+							Map memberValue = getValues(metaModel, keyValues, memberName);
+							value = memberValue.get(set.getPropertyNameFrom());							
+						}
+						else {
+							Map valuesForPOJO = new HashMap(values); 
+							removeViewProperties(metaModel, valuesForPOJO);
+							Object model = metaModel.toPOJO(valuesForPOJO);
+							PropertiesManager modelPM = new PropertiesManager(model);
+							value = modelPM.executeGet(set.getPropertyNameFrom());
+						}
+					}		
+
 					mp.executeSet(set.getPropertyName(), value);									
 				}							
 				v.validate(errors);

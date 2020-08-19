@@ -22,7 +22,7 @@ public class InvoiceDetailValidator implements IValidator {
 		if (invoice.isPaid()) {
 			errors.add("not_invoice_detail_paid");
 			return; // It's possible continue and acumulate more errors
-		}		
+		}	
 		if (product == null) {
 			errors.add("product_required"); // It is not necessary because product is required='true'
 			return; 

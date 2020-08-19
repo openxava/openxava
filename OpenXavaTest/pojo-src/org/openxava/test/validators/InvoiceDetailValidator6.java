@@ -5,6 +5,7 @@ import org.openxava.util.*;
 import org.openxava.validators.*;
 
 /**
+ * 
  * @author Javier Paniza
  */
 
@@ -19,7 +20,6 @@ public class InvoiceDetailValidator6 implements IValidator {
 		}		
 	}
 	
-
 	public Invoice6 getInvoice() {
 		return invoice;
 	}

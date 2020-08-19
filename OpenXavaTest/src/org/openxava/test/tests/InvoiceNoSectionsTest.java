@@ -112,7 +112,7 @@ public class InvoiceNoSectionsTest extends ModuleTestBase {
 		setValue("year", "2004");
 		setValue("number", "12");
 		execute("CRUD.refresh"); 
-		assertCollectionRowCount("details", 2); // TMP FALLA
+		assertCollectionRowCount("details", 2); 
 		assertValueInCollection("details", 0, "quantity", "5");
 		assertValueInCollection("details", 0, "amount", "50.00");
 		assertValueInCollection("details", 1, "quantity", "5");

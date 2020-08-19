@@ -24,7 +24,7 @@ public class InvoicePropertiesFromCollectionInListTest extends CustomizeListTest
 		
 		setConditionValues("", "", "", "", "", "20");
 		execute("List.filter");
-		assertListRowCount(5); // TMP FALLA ME QUEDÉ POR AQUÍ, HACIENDO LOS FALLAS
+		assertListRowCount(5); 
 		assertValueInList(0, 9, "Matching details: 1");
 		assertValueInList(1, 9, "Matching details: 1");
 		assertValueInList(2, 9, "Matching details: 1");

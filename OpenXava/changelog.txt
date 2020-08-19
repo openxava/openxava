@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @EntityValidator does not work when entity is modified on adding to a collection.
+- Fix: On adding elements to a collection it closes the dialog even if no elements has been added.
+- Fix: Reference not injected in @EntityValidator on modify if it is not on the user interface.
 - Fix: Required validation on modifying does not work for IMAGES_GALLERY and FILES.
 - Fix: Removing a file from an upload editor does not work if it has an @OnChange action associated. 
 - Fix: Upload editor (PHOTO, IMAGES_GALLERY and FILES) doesn't allow to download file when read only.

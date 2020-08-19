@@ -53,7 +53,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValue("number", "12");
 		
 		execute("Sections.change", "activeSection=1");
-		assertCollectionRowCount("details", 2); // TMP FALLA
+		assertCollectionRowCount("details", 2);
 		assertValueInCollection("details", 0, 1, "MULTAS DE TRAFICO");
 		assertValueInCollection("details", 1, 1, "IBM ESERVER ISERIES 270");
 		execute("CollectionCopyPaste.cut", "row=1,viewObject=xava_view_section1_details");

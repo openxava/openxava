@@ -549,7 +549,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		execute("Collection.new", "viewObject=xava_view_receptionists"); 
 		setValue("name", "RECEPTIONISTS JUNIT 1 - 1");		
 		execute("Collection.save");
-		assertNoErrors(); 
+		assertNoErrors();  
 
 		assertCollectionRowCount("receptionists", 1);
 		assertValueInCollection("receptionists", 0, 0, "RECEPTIONISTS JUNIT 1 - 1");
