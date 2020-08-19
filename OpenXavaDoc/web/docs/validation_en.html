@@ -589,12 +589,10 @@ private String isbn;
     <div class="wiki" style="display: block;">
       <h3 id="toc14"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation-Call to a REST web service to validate the ISBN"></a>Call
         to a REST web service to validate the ISBN</h3>
-      TMP ME QUEDÉ POR AQUÍ</div>
-    <div class="wiki" style="display: block;">Though most validators have simple
-      logic, you can create validator with complex logic if necessary. For
-      example, in the case of our ISBN, we want, not only to verify the correct
-      format, but also to check that a book with that ISBN actually exists. A
-      way to do this is by using web services.<br>
+      Though most validators have simple logic, you can create validator with
+      complex logic if necessary. For example, in the case of our ISBN, we want,
+      not only to verify the correct format, but also to check that a book with
+      that ISBN actually exists. A way to do this is by using web services.<br>
       As you already know, a web service is a functionality hosted in web
       servers and can be called by a program. The traditional way to develop and
       use web services is by means of <em>WS-*</em> standards, like <em>SOAP</em>,
@@ -606,31 +604,32 @@ private String isbn;
       <em>JSON</em> or any other format. In other words, the programs use the
       internet just as regular users with their browsers.<br>
       There are a lot of sites with <em>SOAP</em> and <em>REST</em> web
-      services that enable us to consult a book ISBN, but usually they are not
-      free. So, we are going to use a cheaper alternative solution, that is, to
-      call a normal web site to do an ISBN search, and to examine the resulting
-      page to determine if the search has succeeded. Something like a
-      pseudo-REST web service.<br>
-      To call the web page we'll use the <a class="wiki_link_ext" href="http://htmlunit.sourceforge.net/"
-        rel="nofollow">HtmlUnit</a> framework. Though the main goal of this
-      framework is to create tests for your web applications, you can use it to
-      read any web page. We'll use it because it's easier to use than other
-      libraries used for the same purpose, as the <em>Apache Commons HttpClient</em>.
-      See how easy it is to read a web page with <em>HtmlUnit</em>:<br>
-      <pre><code class="java">WebClient client = new WebClient();
-HtmlPage page = (HtmlPage) client.getPage("http://www.openxava.org/");
-</code></pre> After that, you can use the <em>page</em> object to manipulate
-      the read page.<br>
-      OpenXava uses <em>HtmlUnit</em> as an underlaying framework for testing,
-      so it is included with OpenXava. However, by default it's not included in
-      OpenXava applications, so you have to include it yourself in your
-      application. To do so, copy the files <em>cssparser.jar,
-        htmlunit-core-js.jar, htmlunit.jar, httpclient.jar, httpcore.jar,
-        httpmime.jar, nekothml.jar, sac.jar, xalan.jar, xercesImpl.jar,
-        xml-apis.jar</em>, from the <em>OpenXava/lib</em> folder to <em>Invoicing/web/WEB-INF/lib</em>
-      folder.<br>
+      services that enable us to consult a book ISBN, we're going to use <a href="https://openlibrary.org/">openlibrary.org</a>
+      that provides a free REST API to consult its book catalog. To try the Open
+      Library API open a browser and go to the next URL:</div>
+    <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9780932633439">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9780932633439</a></div>
+    <div class="wiki" style="display: block;">Where the last parameter is the
+      ISBN of the book, from it you will get a JSON with the data of the book,
+      something like this:</div>
+    <img src="files/validation040.png" alt="validation040.png" title="validation040.png">
+    <div class="wiki" style="display: block;">A JSON is just data with key/value
+      using {} and [] for nesting and repeating. If you try to get the data of a
+      nonexisten book, like in this URL:</div>
+    <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
+    <div class="wiki" style="display: block;">You'll get an empty JSON, like
+      this:</div>
+    <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+      style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
+    <div class="wiki" style="display: block;">That is an empty JSON, just {}.</div>
+    <div class="wiki" style="display: block;">To call the web page we'll use
+      JAX-RS. JAX-RS is the Java standard to call REST web services. OpenXava
+      includes support to call web services using JAX-RS, so you don't need to
+      add any additional library.<br>
       Let's modify <em>ISBNValidator</em> to use this <em>REST</em> service.
-      See the result:<br>
+      See the result:</div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ. YA CAMBIÉ
+      EL CÓDIGO EN EL WORKSPACE, AUNQUE FALTA PROBARLO (Y HACER LA VERSIÓN EN
+      ESPAÑOL)<br>
       <pre><code class="java">package com.yourcompany.invoicing.validators;
  
 import javax.validation.*;
