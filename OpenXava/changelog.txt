@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Error message of javax.validation.ValidationException from setter not shown on adding to a collection.
 - Fix: @EntityValidator does not work when entity is modified on adding to a collection.
 - Fix: On adding elements to a collection it closes the dialog even if no elements has been added.
 - Fix: Reference not injected in @EntityValidator on modify if it is not on the user interface.

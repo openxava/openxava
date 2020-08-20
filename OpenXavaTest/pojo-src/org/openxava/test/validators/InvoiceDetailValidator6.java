@@ -15,7 +15,7 @@ public class InvoiceDetailValidator6 implements IValidator {
 
 	public void validate(Messages errors) throws Exception {
 		if (invoice == null) return; 
-		if (invoice.getYear() < 2010) {
+		if (invoice.getYear() < 2003) { 
 			errors.add("detail_not_added_invoice_too_old"); 
 		}		
 	}
