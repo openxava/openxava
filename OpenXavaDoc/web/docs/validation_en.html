@@ -620,66 +620,66 @@ private String isbn;
       this:</div>
     <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
       style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
-    <div class="wiki" style="display: block;">That is an empty JSON, just {}.</div>
+    <div class="wiki" style="display: block;">That is, an empty JSON, just {}.</div>
     <div class="wiki" style="display: block;">To call the web page we'll use
       JAX-RS. JAX-RS is the Java standard to call REST web services. OpenXava
       includes support to call web services using JAX-RS, so you don't need to
       add any additional library.<br>
       Let's modify <em>ISBNValidator</em> to use this <em>REST</em> service.
-      See the result:</div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ. YA CAMBIÉ
-      EL CÓDIGO EN EL WORKSPACE, AUNQUE FALTA PROBARLO (Y HACER LA VERSIÓN EN
-      ESPAÑOL)<br>
-      <pre><code class="java">package com.yourcompany.invoicing.validators;
- 
+      See the result:<br>
+      <pre><code class="java">package com.yourcompany.invoicing.validators; 
+
 import javax.validation.*;
- 
-import org.apache.commons.logging.*; // To use 'Log'
+import javax.ws.rs.client.*; // To use JAX-RS
 import com.yourcompany.invoicing.annotations.*;
+import org.apache.commons.logging.*; // To use Log
 import org.openxava.util.*;
  
-import com.gargoylesoftware.htmlunit.*; // To use 'HtmlUnit'
-import com.gargoylesoftware.htmlunit.html.*;
- 
-public class ISBNValidator implements ConstraintValidator&lt;ISBN, Object&gt; {
- 
+public class ISBNValidator
+    implements ConstraintValidator&lt;ISBN, Object&gt; {
+	
     private static Log log = LogFactory.getLog(ISBNValidator.class); // Instantiate 'log'
-    private static org.apache.commons.validator.routines.ISBNValidator
-        validator = new org.apache.commons.validator.routines.ISBNValidator();
  
-    @Override
+    private static org.apache.commons.validator.routines.ISBNValidator
+        validator = 
+            new org.apache.commons.validator.routines.ISBNValidator();
+ 
     public void initialize(ISBN isbn) {
  
     }
  
-    @Override
-    public boolean isValid(Object value,
-        ConstraintValidatorContext context) {
+    public boolean isValid(Object value, ConstraintValidatorContext context) {
         if (Is.empty(value)) return true;
         if (!validator.isValid(value.toString())) return false;
         return isbnExists(value); // Here we do the REST call
     }
- 
+    
     private boolean isbnExists(Object isbn) {
-        String failMessage ="can't be found"; // Failed search message in 'bookfinder4u'
         try {
-            WebClient client = new WebClient();
-            HtmlPage page = (HtmlPage) client.getPage( // We call
-                "http://www.bookfinder4u.com/" + // bookfinder4u
-                "IsbnSearch.aspx?isbn=" + // using an URL for searching
-                isbn + "&amp;mode=direct"); // by ISBN
-            return page.asText() // Tests if the resulting page does not contain
-                .indexOf(failMessage) &gt; 0; // the error message
+            // Here we use JAX-RS to call a REST service
+            String response = ClientBuilder.newClient()
+                .target("http://openlibrary.org/") // The site
+                .path("/api/books") // The path of the service
+                .queryParam("jscmd", "data") // Parameters
+                .queryParam("format", "json")
+                .queryParam("bibkeys", "ISBN:" + isbn) // The ISBN is a parameter
+                .request()
+                .get(String.class); // A String with the JSON
+            return !response.equals("{}"); // Is the JSON empty? Enough for our case.
         }
         catch (Exception ex) {
-            log.warn("Impossible to connect to bookfinder4u" +
+            log.warn("Impossible to connect to openlibrary.org " +
                 "to validate the ISBN. Validation fails", ex);
             return false; // If there are errors we assume that validation fails
         }
     }
+    
 }
 </code></pre> We simply open the URL with the ISBN as the request parameter. If
-      the resulting page does not contain the <em>"can not be found"</em> error
+      the resulting JSON is an empty JSON, that is {}, the search has failed,
+      otherwise we have found the book. For this case, to get the JSON as a
+      String to do a simple comparison is the simplest approach, TMP ME QUEDÉ
+      POR AQUÍ page does not contain the <em>"can not be found"</em> error
       message the search has been successful. The <span class="wiki jcode">page.asText()</span>
       method returns the content of the HTML page without the HTML tags, that
       is, it only contains the text info.<br>
