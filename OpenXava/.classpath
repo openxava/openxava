@@ -85,5 +85,16 @@
 	<classpathentry kind="lib" path="lib/tomcat-embed-websocket.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
 	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/openxava.jar" sourcepath="src"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/jakarta.ws.rs-api.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/jakarta.json.bind-api.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/hk2-api.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/hk2-locator.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/hk2-utils.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/jersey-client.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/jersey-common.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/jersey-hk2.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/jersey-media-json-binding.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/yasson.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/jakarta.json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

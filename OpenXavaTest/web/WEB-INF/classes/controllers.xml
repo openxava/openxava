@@ -36,6 +36,11 @@
 		<extends controller="Typical"/>
 		<action name="disableDiscussion" class="org.openxava.test.actions.DisableDiscussionAction"/> 
 	</controller>
+	
+	<controller name="Book">
+		<extends controller="Typical"/>
+		<action name="fillTitle" class="org.openxava.test.actions.BookTitleFromWebServiceAction" mode="detail"/> 
+	</controller>
 		
 	<controller name="Clerk">	
 		<extends controller="TypicalRealExcel"/>

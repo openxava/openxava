@@ -1,5 +1,11 @@
 package org.openxava.test.tests;
 
+import javax.json.bind.annotation.*;
+import javax.ws.rs.client.*;
+
+import org.openxava.test.actions.BookTitleFromWebServiceAction.*;
+import org.openxava.test.model.*;
+import org.openxava.test.services.*;
 import org.openxava.tests.*;
 
 /**
@@ -29,7 +35,7 @@ public class BookTest extends ModuleTestBase {
 		assertError("Books about RPG are not allowed");
 	}
 	
-	public void testReferenceNameMatchesIdOfReferencedEntityName() throws Exception {
+	public void testReferenceNameMatchesIdOfReferencedEntityName_callRESTService() throws Exception { 
 		execute("CRUD.new");
 		execute("Reference.search", "keyProperty=author.author");	
 		assertListNotEmpty();
@@ -37,6 +43,11 @@ public class BookTest extends ModuleTestBase {
 		execute("ReferenceSearch.choose", "row=0");
 		assertNoErrors(); 				
 		assertValue("author.author", author); 
+		
+		assertValue("title", "");
+		execute("Book.fillTitle");
+		assertValue("title", "THE MYTHICAL MAN-MONTH");
+		assertEquals("The Mythical Man-Month", BookService.get().getTitle()); // To verify you can use REST from JUnit tests
 	}
 	
 	// This test fails in PostgreSQL, but not in Hypersonic
