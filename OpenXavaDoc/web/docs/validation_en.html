@@ -18,7 +18,8 @@
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
         Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4.
         Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
-        Basic business logic</a> | <strong>6. Advanced validation</strong> | <a
+        Basic business logic</a> | <strong>6. Advanced validation</strong> | <a
+
         class="wiki_link" href="refining-standard-behavior_en.html">7. Refining
         the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
@@ -176,7 +177,8 @@ order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to 
       you will see how the undelivered orders are rejected. Go to <i>Invoices</i>
       module, select the ORDERS tab of an invoice, and from there click on <i>Add</i>
       button:</div>
-    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
+    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
+
         alt="validation_en010.png" title="validation_en010.png"></div>
     <div class="wiki" style="display: block;">It will show a dialog with a list
       of orders to choose from. Choose two, one of them not delivered yet, then
@@ -557,8 +559,8 @@ public class ISBNValidator
  
     }
  
-    public boolean isValid(Object value,
-        ConstraintValidatorContext context) { // Contains the validation logic
+    // Contains the validation logic
+    public boolean isValid(Object value, ConstraintValidatorContext context) { 
         if (Is.empty(value)) return true;
         return validator.isValid(value.toString()); // Relies on 'Commons Validator'
     }
@@ -614,14 +616,15 @@ private String isbn;
     <img src="files/validation040.png" alt="validation040.png" title="validation040.png">
     <div class="wiki" style="display: block;">A JSON is just data with key/value
       using {} and [] for nesting and repeating. If you try to get the data of a
-      nonexisten book, like in this URL:</div>
+      non-existen book, like in this URL:</div>
     <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
     <div class="wiki" style="display: block;">You'll get an empty JSON, like
       this:</div>
-    <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+    <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+
       style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
     <div class="wiki" style="display: block;">That is, an empty JSON, just {}.</div>
-    <div class="wiki" style="display: block;">To call the web page we'll use
+    <div class="wiki" style="display: block;">To call this web service we'll use
       JAX-RS. JAX-RS is the Java standard to call REST web services. OpenXava
       includes support to call web services using JAX-RS, so you don't need to
       add any additional library.<br>
@@ -677,17 +680,11 @@ public class ISBNValidator
 }
 </code></pre> We simply open the URL with the ISBN as the request parameter. If
       the resulting JSON is an empty JSON, that is {}, the search has failed,
-      otherwise we have found the book. For this case, to get the JSON as a
-      String to do a simple comparison is the simplest approach, TMP ME QUEDÉ
-      POR AQUÍ page does not contain the <em>"can not be found"</em> error
-      message the search has been successful. The <span class="wiki jcode">page.asText()</span>
-      method returns the content of the HTML page without the HTML tags, that
-      is, it only contains the text info.<br>
-      You can use this trick with any site that allows you to do searches. Thus
-      you can virtually consult millions of web site from inside your
-      application. In a more pure REST web service the result will be a JSON or
-      XML document instead of HTML, but usually you will have to pay some
-      subscription fees.<br>
+      otherwise we have found the book. For this case, getting the JSON as a <i>String</i>
+      to do a simple comparison is the simplest approach, however JAX-RS could
+      parse the JSON as a Java object of your own class (<i>Book</i> for
+      example) filling the corresponding properties, just use <i>.get(Book.class)</i>
+      instead of <i>.get(String.class)</i> as last line of the call.<br>
       Try out your application now and you'll see that validation will fail if
       you enter non-existent ISBN.<br>
       <h3 id="toc15"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation-Adding attributes to your annotation"></a>Adding
@@ -695,7 +692,8 @@ public class ISBNValidator
       It's a good idea to create a new <em>Bean Validation</em> annotation if
       you reuse the validation several times, usually across several projects.
       To improve the reusability you may want to parametrize the validation
-      code. For example, for your current project to do the search in <a class="wiki_link_ext"
+      code. For example, for your current project to do the search in <a class="wiki_link_ext"
+
         href="http://www.bookfinder4u.com" rel="nofollow">www.bookfinder4u.com</a>
       for ISBN is OK, but in another project, or even in another entity of your
       current project, you do not want to call this particular URL. The code of
@@ -898,7 +896,8 @@ private String isbn;
     assertNoErrors();
 }
 </code></pre> Surely the manual testing you were doing during the development of
-      the <em>@ISBN</em> validator was like the one above. Therefore, if <a class="wiki_link_ext"
+      the <em>@ISBN</em> validator was like the one above. Therefore, if <a class="wiki_link_ext"
+
         href="http://www.extremeprogramming.org/rules/testfirst.html" rel="nofollow">you
         write your JUnit test before the application code</a>, you can use it as
       you proceed. This is more efficient than repeating the test procedures by
@@ -920,10 +919,12 @@ private String isbn;
       it is more convenient to put logic outside your model classes. You will
       learn that in the next lessons.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="refining-standard-behavior_en.html">Go to
           Lesson 7</a></strong> </div>

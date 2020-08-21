@@ -551,11 +551,11 @@ public class ValidadorISBN implements ConstraintValidator&lt;ISBN, Object&gt; {
     public void initialize(ISBN isbn) {
  
     }
- 
-    public boolean isValid(Object value,
-        ConstraintValidatorContext contexto) { // Contiene la lógica de validación
-        if (Is.empty(value)) return true;
-        return validador.isValid(value.toString()); // Usa 'Commons Validator'
+    
+    // Contiene la lógica de validación
+    public boolean isValid(Object valor, ConstraintValidatorContext contexto) { 
+        if (Is.empty(valor)) return true;
+        return validador.isValid(valor.toString()); // Usa 'Commons Validator'
     }
 }
 </code></pre> Como ves, la clase validador tiene que implementar <i>ConstraintValidator</i>
@@ -600,89 +600,91 @@ private String isbn;
       <em>JSON</em>, etc. En otras palabras, los programas usan internet de la
       misma manera que lo hacen los usuarios con sus navegadores.<br>
       Hay bastantes sitio con servicios web <em>SOAP</em> y <em>REST</em> para
-      consultar el <em>ISBN</em> de un libro, pero no suele ser gratis. Por
-      tanto, vamos a usar una alternativa más barata, que va a ser llamar a un
-      sitio web convencional para hacer la búsqueda del <em>ISBN</em>, y
-      examinar después la página resultado para determinar si la búsqueda ha
-      funcionado. Algo así como un servicio web pseudo-REST.<br>
-      Para llamar a la página web usaremos el marco de trabajo <a class="wiki_link_ext"
-        href="http://htmlunit.sourceforge.net/" rel="nofollow">HtmlUnit</a>.
-      Aunque el principal cometido de este marco de trabajo sea crear pruebas
-      para tus aplicaciones web, puedes usarlo para leer cualquier página web.
-      Lo usaremos porque es más fácil que otras librerías con este propósito,
-      como por ejemplo <em>Apache Commons HttpClient</em>. Observa lo simple
-      que es leer una página web con <em>HtmlUnit</em>:<br>
-      <pre><code class="java">WebClient cliente = new WebClient();
-HtmlPage pagina = (HtmlPage) cliente.getPage("http://www.openxava.org/");
-</code></pre> Después de esto, puedes usar el objeto <em>pagina</em> para
-      manipular la página leída.<br>
-      OpenXava usa <em>HtmlUnit</em> como marco subyacente para las pruebas,
-      por tanto ya está incluido en OpenXava, pero no se incluye por defecto en
-      las aplicaciones OpenXava, así que tienes que incluirlo tú mismo en tu
-      aplicación. Para hacerlo copia los archivos <em>cssparser.jar,
-        htmlunit-core-js.jar, htmlunit.jar, httpclient.jar, httpcore.jar,
-        httpmime.jar, nekothml.jar, sac.jar, xalan.jar, xercesImpl.jar,
-        xml-apis.jar</em>, desde la carpeta <em>Openxava/lib</em> a la carpeta
-      <em>Facturacion/web/WEB-INF/lib</em>.<br>
-      Modifiquemos <em>ValidadorISBN</em> para que haga uso de este servicio <em>REST</em>.
-      Puedes ver el resultado:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
- 
+      consultar el <em>ISBN</em> de un libro, vamos a usar <a href="https://openlibrary.org/">openlibrary.org</a>
+      que proporciona una API REST gratuita para consultar su catálogo de
+      libros. Para probar la API de Open Library abre un navegado y ve a la
+      siguiente URL:
+      <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9780932633439">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9780932633439</a></div>
+      <div class="wiki" style="display: block;">Donde el último parámetro es el
+        ISBN del libro, a partir del cual obtenemos un JSON con los datos del
+        libro, algo como esto:</div>
+      <img src="files/validation040.png" alt="validation040.png" title="validation040.png">
+      <div class="wiki" style="display: block;">Un JSON es simplemente data con
+        clave/valor que usa {} y [] para anidar y repetir. Si intentas obtener
+        los datos de un libro inexistente, como en esta URL:</div>
+      <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
+      <div class="wiki" style="display: block;">Obtienes un JSON vacío, como
+        este:</div>
+      <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+        style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
+      <div class="wiki" style="display: block;">Es decir, un JSON vacío,
+        simplemente unos llaves vacías, así: {}.</div>
+      <div class="wiki" style="display: block;">Para llamar a este servicio web
+        usaremos JAX-RS. JAX-RS es el estándar Java para llamar a servicios web
+        REST. OpenXava incluye soporte para llamar a servicios web usando
+        JAX-RS, por lo que no necesitas añadir ninguna librería adicional.<br>
+        Modifiquemos <em>ValidadorISBN</em> para usar este servicio <em>REST</em>.
+        Veamos el resultado:<br>
+        <pre><code class="java">package com.tuempresa.facturacion.validadores; 
+
 import javax.validation.*;
- 
-import org.apache.commons.logging.*; // Para usar 'Log'
-import com.tuempresa.facturacion.anotaciones.*;
+import javax.ws.rs.client.*; // Para usar JAX-RS
+import com.yourcompany.invoicing.annotations.*;
+import org.apache.commons.logging.*; // Para usar Log
 import org.openxava.util.*;
  
-import com.gargoylesoftware.htmlunit.*; // Para usar 'HtmlUnit'
-import com.gargoylesoftware.htmlunit.html.*;
+public class ISBNValidator
+    implements ConstraintValidator&lt;ISBN, Object&gt; {
+	
+    private static Log log = LogFactory.getLog(ISBNValidator.class); // Instancia 'log'
  
-public class ValidadorISBN implements ConstraintValidator&lt;ISBN, Object&gt; {
- 
-    private static Log log = LogFactory.getLog(ValidadorISBN.class); // Instanciamos un 'Log'
     private static org.apache.commons.validator.routines.ISBNValidator
-        validador = new org.apache.commons.validator.routines.ISBNValidator();
+        validador = 
+            new org.apache.commons.validator.routines.ISBNValidator();
  
-    @Override
     public void initialize(ISBN isbn) {
  
     }
  
-    @Override
-    public boolean isValid(Object value,
-        ConstraintValidatorContext contexto) { // Contiene la lógica de validación
-        if (Is.empty(value)) return true;
-        if (!validador.isValid(value.toString())) return false;
-        return existeIsbn(value); // Aquí hacemos la llamada REST
+    public boolean isValid(Object valor, ConstraintValidatorContext contexto) {
+        if (Is.empty(valor)) return true;
+        if (!validador.isValid(valor.toString())) return false;
+        return existeISBN(valor); // Aquí hacemos la llamada REST
     }
- 
-    private boolean existeIsbn(Object isbn) {
-        String mensajeError = "can't be found"; // Mensaje de búsqueda fallida en 'bookfinder4u'
+    
+    private boolean existeISBN(Object isbn) {
         try {
-            WebClient cliente = new WebClient();
-            HtmlPage pagina = (HtmlPage) cliente.getPage( // Llamamos a
-                "http://www.bookfinder4u.com/" + // bookfinder4u
-                "IsbnSearch.aspx?isbn=" + // con una url para buscar
-                isbn + "&amp;mode=direct"); // por ISBN
-            return pagina.asText() // Comprueba si la página resultante
-                .indexOf(mensajeError) &lt; 0; // no tiene el mensaje de error
-        } catch (Exception ex) {
-            log.warn("Imposible conectar a bookfinder4u " +
-                "para validar ISBN. Validación falló", ex);
-            return false; // Si hay algún error asumimos que la validación falló
+            // Aquí usamos JAX-RS para llamar al servicio REST
+            String respuesta = ClientBuilder.newClient()
+                .target("http://openlibrary.org/") // El sitio
+                .path("/api/books") // La ruta del servicio
+                .queryParam("jscmd", "data") // Los parámetros
+                .queryParam("format", "json")
+                .queryParam("bibkeys", "ISBN:" + isbn) // El ISBN es un parámetro
+                .request()
+                .get(String.class); // Una cadena con el JSON
+            return !respuesta.equals("{}"); // ¿Está el JSON vacío? Suficiente para nuestro caso
+        }
+        catch (Exception ex) {
+            log.warn("Imposible conectar a openlibrary.org " +
+                "para validar el ISBN. Validación fallida", ex);
+            return false; // Si hay errores asumimos que la validación falla
         }
     }
+    
 }
-</code></pre> Simplemente buscamos una página usando como argumento en la URL el
-      ISBN. Si la página resultante no contiene el mensaje de error <em>"can't
-        be found"</em> la búsqueda ha sido satisfactoria. El método <span class="wiki jcode">pagina.asText()</span>
-      devuelve el contenido de la página HTML sin las marcas HTML, es decir, con
-      solo la información textual.<br>
-      Puedes usar este truco con cualquier sitio que te permita hacer búsquedas,
-      así puedes consultar virtualmente millones de sitios web desde tu
-      aplicación. En un servicio REST más puro el resultado hubiera sido un
-      documento JSON o XML en vez de uno HTML, pero hubieras tenido que pasar
-      por caja.<br>
+</code></pre> </div>
+      <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: TRADUCIR
+        EL PARRAFO DE ABAJO, REVISAR ESTA SECCIÓN (LA DE REST) EN ESPAÑOL Y EN
+        INGLÉS</div>
+      <div class="wiki" style="display: block;">We simply open the URL with the
+        ISBN as the request parameter. If the resulting JSON is an empty JSON,
+        that is {}, the search has failed, otherwise we have found the book. For
+        this case, getting the JSON as a <i>String</i> to do a simple
+        comparison is the simplest approach, however JAX-RS could parse the JSON
+        as a Java object of your own class (<i>Book</i> for example) filling the
+        corresponding properties, just use <i>.get(Book.class)</i> instead of <i>.get(String.class)</i>
+        as last line of the call.</div>
       Prueba ahora tu aplicación y verás como si introduces un ISBN no existente
       la validación falla.<br>
       <h3 id="toc15"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Anadir-atributos-a-tu-anotacion"></a>Añadir
