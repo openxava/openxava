@@ -585,7 +585,7 @@ private String isbn;
         a un servicio web REST para validar el ISBN</h3>
       Aunque la mayoría de los validadores tienen una lógica simple, puedes
       crear validadores con una lógica compleja si lo necesitas. Por ejemplo, en
-      el caso de nuestro <em>ISBN</em>, queremos, no solo verificar el formato
+      el caso de nuestro <em>ISBN</em>, queremos, no sólo verificar el formato
       correcto, sino también comprobar que existe de verdad un libro con ese
       ISBN. Una forma de hacer esto es usando servicios web.<br>
       Como seguramente ya sepas, un servicio web es una funcionalidad que reside
@@ -674,29 +674,25 @@ public class ISBNValidator
     
 }
 </code></pre> </div>
-      <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: TRADUCIR
-        EL PARRAFO DE ABAJO, REVISAR ESTA SECCIÓN (LA DE REST) EN ESPAÑOL Y EN
-        INGLÉS</div>
-      <div class="wiki" style="display: block;">We simply open the URL with the
-        ISBN as the request parameter. If the resulting JSON is an empty JSON,
-        that is {}, the search has failed, otherwise we have found the book. For
-        this case, getting the JSON as a <i>String</i> to do a simple
-        comparison is the simplest approach, however JAX-RS could parse the JSON
-        as a Java object of your own class (<i>Book</i> for example) filling the
-        corresponding properties, just use <i>.get(Book.class)</i> instead of <i>.get(String.class)</i>
-        as last line of the call.</div>
-      Prueba ahora tu aplicación y verás como si introduces un ISBN no existente
-      la validación falla.<br>
+      Simplemente abrimos la URL con el ISBN como parámetro de la petición. Si
+      el JSON resultante es un JSON vacío, es decir {}, la búsqueda ha fallado,
+      en caso contrario hemos encontrado el libro. Para nuestro caso, obtener el
+      JSON como una cadena para poder hacer una comparación simple es el camino
+      más corto, sin embargo JAX-RS permite convertir el JSON en un objeto Java
+      de tu propia clase (<i>Libro</i> por ejemplo) rellenando las propiedades
+      correspondientes, sólo has de usar <i>.get(Libro.class)</i> en lugar de <i>.get(String.class)</i>
+      como última línea de la llamada. </div>
+    <div class="wiki" style="display: block;"> Prueba ahora tu aplicación y
+      verás como si introduces un ISBN no existente la validación falla.<br>
       <h3 id="toc15"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Anadir-atributos-a-tu-anotacion"></a>Añadir
         atributos a tu anotación</h3>
       Creas una anotación <em>Bean Validation</em> cuando quieres reutilizar la
       validación varias veces, usualmente en varios proyectos. En este caso,
       necesitas hacer tu validación adaptable, para que sea reutilizable de
-      verdad. Por ejemplo, en el proyecto actual buscar en <a class="wiki_link_ext"
-        href="http://www.bookfinder4u.com" rel="nofollow">www.bookfinder4u.com</a>
-      el ISBN es conveniente, pero en otro proyecto, o incluso en otra entidad
-      de tu actual proyecto, puede que no quieras hacer esa búsqueda. Necesitas
-      hacer tu anotación más flexible.<br>
+      verdad. Por ejemplo, en el proyecto actual buscar en<a href="https://openlibrary.org/">
+        openlibrary.org</a> el ISBN es conveniente, pero en otro proyecto, o
+      incluso en otra entidad de tu actual proyecto, puede que no quieras hacer
+      esa búsqueda. Necesitas hacer tu anotación más flexible.<br>
       La forma de añadir esta flexibilidad a tu anotación de validación es
       mediante los atributos. Por ejemplo, podemos añadir un atributo de
       búsqueda booleano a nuestra anotación <em>ISBN</em> para poder escoger si
@@ -714,12 +710,10 @@ public class ISBNValidator
     // ...
     private boolean buscar; // Almacena la opción buscar
  
-    @Override
     public void initialize(ISBN isbn) { // Lee los atributos de la anotación
         this.buscar = isbn.buscar();
     }
  
-   @Override
     public boolean isValid(Object value, ConstraintValidatorContext contexto) {
         if (Is.empty(value)) return true;
         if (!validador.isValid(value.toString())) return false;
@@ -727,16 +721,15 @@ public class ISBNValidator
     }
     // ...
 }
-</code></pre> Aquí ves la utilidad del método <span class="wiki jcode">initialize()</span>,
-      que lee la anotación para inicializar el validador. En este caso
-      simplemente almacenamos el valor de <em>isbn.buscar()</em> para preguntar
-      por él en <span class="wiki jcode">isValid()</span>.<br>
+</code></pre> Aquí ves la utilidad del método <i>initialize()</i>, que lee la
+      anotación para inicializar el validador. En este caso simplemente
+      almacenamos el valor de <em>isbn.buscar()</em> para preguntar por él en <i>isValid()</i>.<br>
       Ahora puedes escoger si quieres llamar a nuestro servicio pseudo-REST o no
       para hacer la validación ISBN. Mira como:<br>
       <pre><code class="java">@ISBN(buscar=false) // En este caso no se hace una búsqueda en la web para validar el ISBN
 private String isbn;
 </code></pre> ¡Enhorabuena! Has aprendido como crear tu propia anotación de Bean
-      Validation, y de paso a usar la útil herramienta HtmlUnit.<br>
+      Validation, y de paso a usar JAX-RS para llamar a servicios REST.<br>
       <br>
       <h2 id="toc16"><a name="Pruebas-JUnit"></a>Pruebas JUnit</h2>
       Nuestra meta no es desarrollar una ingente cantidad de código, sino crear
@@ -792,7 +785,7 @@ private String isbn;
     int c = getListRowCount(); // El total de filas visualizadas en la lista
     for (int i = 0; i &lt; c; i++) {
         if (value.equals(
-            getValueInList(i, 13))) // Obtenermos valor de la columna 'entregado'
+            getValueInList(i, 12))) // Obtenermos valor de la columna 'entregado'
             {
                 checkRow(i);
                 return;
@@ -882,13 +875,13 @@ private String isbn;
     setValue("isbn", "1111");
     execute("CRUD.save"); // Falla por el formato (apache commons validator)
     assertError("1111 no es un valor válido para ISBN de Producto: " +
-        "No existe ISBN");
+        "ISBN inválido o inexistente");
  
     // ISBN no existe aunque tiene un formato correcto
     setValue("isbn", "9791034369997");
     execute("CRUD.save"); // Falla porque no existe ISBN (el servicio REST)
     assertError("9791034369997 no es un valor válido para ISBN de " +
-        "Producto: No existe ISBN");
+        "Producto: ISBN inválido o inexistente");
  
     // ISBN existe
     setValue("isbn", "9780932633439");
@@ -901,10 +894,10 @@ private String isbn;
         rel="nofollow">código de prueba antes que el código de la aplicación</a>,
       lo hubieras podido usar mientras que desarrollabas, lo cual es más
       eficiente que repetir una y otra vez a mano las pruebas con el navegador.<br>
-      Fíjate que si usas <span class="wiki jcode">@ISBN(search=false)</span>
-      esta prueba no funciona porque no solo comprueba el formato sino que
-      también hace la búsqueda con el servicio REST. Por tanto, has de usar <em>@ISBN</em>
-      sin atributos para anotar la propiedad isbn y poder ejecutar esta prueba.<br>
+      Fíjate que si usas <i>@ISBN(search=false)</i> esta prueba no funciona
+      porque no solo comprueba el formato sino que también hace la búsqueda con
+      el servicio REST. Por tanto, has de usar <em>@ISBN</em> sin atributos
+      para anotar la propiedad isbn y poder ejecutar esta prueba.<br>
       Ahora ejecuta todas las prueba de tu aplicación <em>Facturación</em> para
       verificar que todo sigue en su sitio.<br>
       <br>

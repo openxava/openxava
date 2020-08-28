@@ -18,8 +18,7 @@
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
         Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4.
         Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
-        Basic business logic</a> | <strong>6. Advanced validation</strong> | <a
-
+        Basic business logic</a> | <strong>6. Advanced validation</strong> | <a
         class="wiki_link" href="refining-standard-behavior_en.html">7. Refining
         the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
@@ -177,8 +176,7 @@ order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to 
       you will see how the undelivered orders are rejected. Go to <i>Invoices</i>
       module, select the ORDERS tab of an invoice, and from there click on <i>Add</i>
       button:</div>
-    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
-
+    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
         alt="validation_en010.png" title="validation_en010.png"></div>
     <div class="wiki" style="display: block;">It will show a dialog with a list
       of orders to choose from. Choose two, one of them not delivered yet, then
@@ -620,8 +618,7 @@ private String isbn;
     <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
     <div class="wiki" style="display: block;">You'll get an empty JSON, like
       this:</div>
-    <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
-
+    <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
       style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
     <div class="wiki" style="display: block;">That is, an empty JSON, just {}.</div>
     <div class="wiki" style="display: block;">To call this web service we'll use
@@ -692,9 +689,7 @@ public class ISBNValidator
       It's a good idea to create a new <em>Bean Validation</em> annotation if
       you reuse the validation several times, usually across several projects.
       To improve the reusability you may want to parametrize the validation
-      code. For example, for your current project to do the search in <a class="wiki_link_ext"
-
-        href="http://www.bookfinder4u.com" rel="nofollow">www.bookfinder4u.com</a>
+      code. For example, for your current project to do the search in <a href="https://openlibrary.org/">openlibrary.org</a>
       for ISBN is OK, but in another project, or even in another entity of your
       current project, you do not want to call this particular URL. The code of
       the annotation has to be more flexible.<br>
@@ -712,12 +707,10 @@ public class ISBNValidator
     // ...
     private boolean search; // Stores the search option
  
-    @Override
     public void initialize(ISBN isbn) { // Read the annotation attributes values
         this.search = isbn.search();
     }
  
-   @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         if (Is.empty(value)) return true;
         if (!validator.isValid(value.toString())) return false;
@@ -725,10 +718,9 @@ public class ISBNValidator
     }
     // ...
 }
-</code></pre> Here you see the use of the <span class="wiki jcode">initialize()</span>
-      method: the source annotation can be used to initialize the validator, in
-      this case simply by storing the <em>isbn.search()</em> value to evaluate
-      it in <span class="wiki jcode">isValid()</span>.<br>
+</code></pre> Here you see the use of the <i>initialize()</i> method: the
+      source annotation can be used to initialize the validator, in this case
+      simply by storing the <em>isbn.search()</em> value to evaluate it in <i>isValid()</i>.<br>
       Now you can choose whether you want to call our pseudo-REST service or
       skip the ISBN validation:<br>
       <pre><code class="java">@ISBN(search=false) // In this case no internet search is done to validate the ISBN
@@ -737,8 +729,8 @@ private String isbn;
       more flexibility to your ISBN annotation.<br>
       <br>
       Congratulations! You have learned how to create your own <em>Bean
-        Validation</em> annotation, and by the way, to use the useful <em>HtmlUnit</em>
-      tool.<br>
+        Validation</em> annotation, and by the way, to use JAX-RS for calling
+      REST services.<br>
       <br>
       <h2 id="toc16"><a name="Lesson 6: Advanced validation-JUnit tests"></a>JUnit
         tests</h2>
@@ -792,7 +784,7 @@ private String isbn;
     int c = getListRowCount(); // The total displayed rows in list
     for (int i=0; i&lt;c; i++) {
         if (value.equals(
-            getValueInList(i, 13))) // 13 is the 'delivered' column
+            getValueInList(i, 12))) // 12 is the 'delivered' column
         {
             checkRow(i);
             return;
@@ -882,13 +874,13 @@ private String isbn;
     setValue("isbn", "1111");
     execute("CRUD.save"); // Fails because of format (apache commons validator)
     assertError("1111 is not a valid value for ISBN of " +
-        "Product: ISBN does not exist");
+        "Product: ISBN invalid or nonexistent");
  
     // ISBN does not exist though it has correct format
     setValue("isbn", "9791034369997");
     execute("CRUD.save"); // Fails because it does not exist (REST service)
     assertError("9791034369997 is not a valid value for ISBN of " +
-        "Product: ISBN does not exist");
+        "Product: ISBN invalid or nonexistent");
  
     // ISBN exists
     setValue("isbn", "9780932633439");
@@ -896,16 +888,15 @@ private String isbn;
     assertNoErrors();
 }
 </code></pre> Surely the manual testing you were doing during the development of
-      the <em>@ISBN</em> validator was like the one above. Therefore, if <a class="wiki_link_ext"
-
+      the <em>@ISBN</em> validator was like the one above. Therefore, if <a class="wiki_link_ext"
         href="http://www.extremeprogramming.org/rules/testfirst.html" rel="nofollow">you
         write your JUnit test before the application code</a>, you can use it as
       you proceed. This is more efficient than repeating the test procedures by
       hand using the browser over and over again.<br>
-      Note that if you use <span class="wiki jcode">@ISBN(search=false)</span>
-      this test will not work because it checks the result of the REST service.
-      So, you have to use the <em>@ISBN</em> annotation of the isbn property
-      without the search attribute in order to run this test successfully.<br>
+      Note that if you use <i>@ISBN(search=false)</i> this test will not work
+      because it checks the result of the REST service. So, you have to use the
+      <em>@ISBN</em> annotation of the isbn property without the search
+      attribute in order to run this test successfully.<br>
       Now execute all the tests for your Invoicing application to verify that
       everything works as expected.<br>
       <br>
@@ -919,12 +910,10 @@ private String isbn;
       it is more convenient to put logic outside your model classes. You will
       learn that in the next lessons.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="refining-standard-behavior_en.html">Go to
           Lesson 7</a></strong> </div>
