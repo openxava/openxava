@@ -71,10 +71,8 @@
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
       De momento solo hemos hecho validaciones básicas usando la anotación <i>@Required</i>
-      de OpenXava. A veces es necesario escribir nuestra propia lógica de
-      validación. En el <a class="wiki_link" href="annotations_es#toc1">apéndice
-        C</a> se explica como funciona la validación. Aquí vamos a añadir
-      validaciones con lógica propia a tu aplicación.<br>
+      de OpenXava. Sin embargo, muchas veces es necesario escribir nuestra
+      propia lógica de validación, algo que vamos a aprender en esta lección.<br>
       <h2 id="toc1"><a name="Alternativas-de-validacion"></a>Alternativas de
         validación</h2>
       Vamos a refinar tu código para que el usuario no pueda asignar pedidos a
@@ -111,7 +109,7 @@ public class Pedido extends DocumentoComercial {
       <h3 id="toc3"><a name="Alternativas-de-validacion-Validar-con-EntityValidator"></a>Validar
         con <em>@EntityValidator</em></h3>
       En tu aplicación actual el usuario puede añadir cualquier pedido que le
-      plazca a una factura usando el módulo <em>Factura</em>, y puede asignar
+      plazca a una factura usando el módulo <em>Factura</em> y puede asignar
       una factura a cualquier pedido desde el módulo <em>Pedido</em>. Vamos a
       restringir esto. Solo los pedidos entregados podrán añadirse a una
       factura.<br>
@@ -250,7 +248,7 @@ private void recalcularDiasEntrega()() {
         hace falta en nuestro caso, porque no vamos a quedarnos con este estilo
         de validación como definitivo.</div>
       <div class="wiki" style="display: block;">Ahora, intentar añadir pedidos
-        no entregados a una invoice y verás los errores de validación, como en
+        no entregados a una factura y verás los errores de validación, como en
         nuestro primer ejemplo.<br>
       </div>
       <h3 id="toc5"><a name="Alternativas-de-validacion-Validar-en-el-setter"></a>Validar
@@ -339,10 +337,10 @@ private boolean isEntregadoParaEstarEnFactura() { // ...
       validación nuestro mensaje de error era construído mediante dos
       argumentos, <em>anyo</em> y <em>numero</em>, que en nuestro archivo <em>i18n</em>
       son representados por <em>{0}/{1}</em> respectivamente. Para el caso de
-      validación con <span class="wiki jcode">@AssertTrue</span> no podemos
-      pasar estos dos argumentos para construir nuestro mensaje de error, sino
-      que podemos declarar propiedades y propiedades calificadas del bean
-      validado en la definición del mensaje, para eso cambia en <em>MensajesFacturacion_es.properties</em>
+      validación con <i>@AssertTrue</i> no podemos pasar estos dos argumentos
+      para construir nuestro mensaje de error, sino que podemos declarar
+      propiedades y propiedades calificadas del bean validado en la definición
+      del mensaje, para eso cambia en <em>MensajesFacturacion_es.properties</em>
       la entrada:<br>
       <pre><code class="properties">pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadido a una Factura
 </code></pre> </div>
@@ -356,13 +354,13 @@ private boolean isEntregadoParaEstarEnFactura() { // ...
       que está siendo actualizado y no cumple la condición de validación.<br>
       Esta es la forma más simple de validar, porque solo anotamos el método con
       la validación, y es el entorno Bean Validation el responsable de llamar
-      este método al grabar, y lanzar la excepción correspondiente si la
+      este método al grabar y lanzar la excepción correspondiente si la
       validación no pasa.<br>
       <h3 id="toc7"><a name="Alternativas-de-validacion-Validar-al-borrar-con-RemoveValidator"></a>Validar
         al borrar con <em>@RemoveValidator</em></h3>
       Las validaciones que hemos visto hasta ahora se hacen cuando la entidad se
       modifica, pero a veces es útil hacer la validación justo al borrar la
-      entidad, y usar la validación para vetar el borrado de la misma.<br>
+      entidad y usar la validación para vetar el borrado de la misma.<br>
       Vamos a modificar la aplicación para impedir que un usuario borre un
       pedido si éste tiene una factura asociada. Para hacer esto anota tu
       entidad <em>Pedido</em> con <i>@RemoveValidator</i>, como se muestra a
@@ -370,7 +368,7 @@ private boolean isEntregadoParaEstarEnFactura() { // ...
       <pre><code class="java">@RemoveValidator(com.tuempresa.facturacion.validadores.ValidadorBorrarPedido.class) // La clase con la validación
 public class Pedido extends DocumentoComercial {
 </code></pre><em></em>Ahora, antes de borrar un pedido la lógica de <em>ValidadorBorrarPedido</em>
-      se ejecuta, y si la validación falla el pedido no se borra. Veamos el
+      se ejecuta y si la validación falla el pedido no se borra. Veamos el
       código de este validador:<br>
       <pre><code class="java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
  
@@ -408,15 +406,15 @@ public class ValidadorBorrarPedido
       obtendrás un mensaje de error y el borrado no se producirá.<br>
       Puedes ver que usar un <i>@RemoveValidator</i> no es difícil, pero es un
       poco verboso. Has de escribir una clase nueva solo para añadir un simple
-      if. Examinemos una alternativa más breve:<br>
+      if. Examinemos una alternativa más breve.<br>
       <h3 id="toc8"><a name="Alternativas-de-validacion-Validar-al-borrar-con-un-metodo-de-retrollamada"></a>Validar
         al borrar con un método de retrollamada</h3>
       Vamos a probar otra forma más simple de hacer esta validación al borrar,
       moviendo la lógica de validación desde la clase validador a la misma
-      entidad <em>Pedido</em>, en este caso en un método <span class="wiki jcode">@PreRemove</span>.<br>
+      entidad <em>Pedido</em>, en este caso en un método <i>@PreRemove</i>.<br>
       El primer paso es eliminar la clase <em>ValidadorBorrarPedido</em> de tu
-      proyecto. Además quita la anotación <span class="wiki jcode">@RemoveValidator</span>
-      de tu entidad <em>Pedido</em>:<br>
+      proyecto. Además quita la anotación <i>@RemoveValidator</i> de tu entidad
+      <em>Pedido</em>:<br>
       <pre><code class="java">// @RemoveValidator(ValidadorBorrarPedido.class) // Quitamos '@RemoveValidator'
 public class Pedido extends DocumentoComercial {
 </code></pre> Hemos quitado la validación. Añadámosla otra vez, pero ahora
@@ -585,22 +583,22 @@ private String isbn;
         a un servicio web REST para validar el ISBN</h3>
       Aunque la mayoría de los validadores tienen una lógica simple, puedes
       crear validadores con una lógica compleja si lo necesitas. Por ejemplo, en
-      el caso de nuestro <em>ISBN</em>, queremos, no sólo verificar el formato
-      correcto, sino también comprobar que existe de verdad un libro con ese
-      ISBN. Una forma de hacer esto es usando servicios web.<br>
+      el caso de nuestro ISBN, queremos, no sólo verificar el formato correcto,
+      sino también comprobar que existe de verdad un libro con ese ISBN. Una
+      forma de hacer esto es usando servicios web.<br>
       Como seguramente ya sepas, un servicio web es una funcionalidad que reside
       en un servidor web y que tú puedes llamar desde tu programa. La forma
-      tradicional de desarrollar servicios web es mediante los estándares <em>WS-*</em>,
-      como <em>SOAP</em>, <em>UDDI</em>, etc. Aunque, hoy en día, la forma más
-      simple de desarrollar servicios es <em>REST</em>. <em>REST</em> consiste
-      básicamente en usar la ya existente “forma de trabajar” de internet para
-      comunicación entre programas. Llamar a un servicio REST consiste en usar
-      una URL web convencional para obtener un recurso de un servidor web. Este
-      recurso usualmente contiene datos en formato <em>XML</em>, <em>HTML</em>,
-      <em>JSON</em>, etc. En otras palabras, los programas usan internet de la
-      misma manera que lo hacen los usuarios con sus navegadores.<br>
-      Hay bastantes sitio con servicios web <em>SOAP</em> y <em>REST</em> para
-      consultar el <em>ISBN</em> de un libro, vamos a usar <a href="https://openlibrary.org/">openlibrary.org</a>
+      tradicional de desarrollar servicios web es mediante los estándares WS-*,
+      como SOAP, UDDI, etc. Aunque, hoy en día, la forma más simple de
+      desarrollar servicios es REST. REST consiste básicamente en usar la ya
+      existente “forma de trabajar” de internet para comunicación entre
+      programas. Llamar a un servicio REST consiste en usar una URL web
+      convencional para obtener un recurso de un servidor web. Este recurso
+      usualmente contiene datos en formato XML, HTML, JSON, etc. En otras
+      palabras, los programas usan internet de la misma manera que lo hacen los
+      usuarios con sus navegadores.<br>
+      Hay bastantes sitio con servicios web SOAP y REST para consultar el ISBN
+      de un libro, vamos a usar <a href="https://openlibrary.org/">openlibrary.org</a>
       que proporciona una API REST gratuita para consultar su catálogo de
       libros. Para probar la API de Open Library abre un navegado y ve a la
       siguiente URL:
@@ -697,8 +695,8 @@ public class ISBNValidator
       mediante los atributos. Por ejemplo, podemos añadir un atributo de
       búsqueda booleano a nuestra anotación <em>ISBN</em> para poder escoger si
       queremos buscar el ISBN en internet para validar o no. Para hacerlo,
-      simplemente añade el atributo <em>buscar</em> al código de la anotación
-      ISBN, tal como muestra el siguiente código:<br>
+      simplemente añade el atributo <em>buscar</em> al código de la anotación <i>ISBN</i>,
+      tal como muestra el siguiente código:<br>
       <pre><code class="java">public @interface ISBN {
  
     boolean buscar() default true; // Para (des)activar la búsqueda web al validar
@@ -890,7 +888,7 @@ private String isbn;
 }
 </code></pre> Seguramente la prueba manual que hacías mientras estabas
       escribiendo el validador <em>@ISBN</em> era parecida a esta. Por eso, si
-      hubieras escrito tu <a class="wiki_link_ext" href="http://www.extremeprogramming.org/rules/testfirst.html"
+      hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
         rel="nofollow">código de prueba antes que el código de la aplicación</a>,
       lo hubieras podido usar mientras que desarrollabas, lo cual es más
       eficiente que repetir una y otra vez a mano las pruebas con el navegador.<br>
