@@ -459,15 +459,15 @@ private void validarPreBorrar() {
       Vamos a aprender como crear un <em>Bean Validation</em>.<br>
       <h3 id="toc11"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Usar-un-Bean-Validation-en-tu-entidad"></a>Usar
         un <em>Bean Validation</em> en tu entidad</h3>
-      Es superfácil. Simplemente anota tu propiedad como ves a a continuación:<br>
+      Es superfácil. Simplemente anota tu propiedad como ves a continuación:<br>
       <pre><code class="java">@ISBN // Esta anotación indica que esta propiedad tiene que validarse como un ISBN
 private String isbn;
-</code></pre> Solo con añadir <em>@ISBN</em> a tu propiedad, y ésta será
-      validada justo antes de que la entidad se grabe en la base de datos,
-      ¡genial! El problema es que <em>@ISBN</em> no está incluida como un
-      validador predefinido en el marco de validación <em>Bean Validation</em>.
-      Esto no es un gran problema, si quieres una anotación <em>@ISBN</em>,
-      hazla tú mismo. De hecho, vamos a crear la anotación de validación <em>@ISBN</em>
+</code></pre> Solo con añadir <em>@ISBN</em> a tu propiedad ésta será validada
+      justo antes de que la entidad se grabe en la base de datos, ¡genial! El
+      problema es que <em>@ISBN</em> no está incluida como un validador
+      predefinido en el marco de validación <em>Bean Validation</em>. Esto no
+      es un gran problema, si quieres una anotación <em>@ISBN</em>, hazla tú
+      mismo. De hecho, vamos a crear la anotación de validación <em>@ISBN</em>
       en esta sección.<br>
       Antes de nada, añadamos una nueva propiedad <em>isbn</em> a <em>Producto</em>.
       Edita tu clase <em>Producto</em> y añádele el siguiente código:<br>
@@ -577,7 +577,7 @@ private String isbn;
       Enhorabuena, has escrito tu primer <em>Bean Validation</em>. No ha sido
       tan difícil: una anotación, una clase.<br>
       Este <em>@ISBN</em> es suficientemente bueno para usarlo en la vida real,
-      sin embargo, vamos a mejorarlo un poco más, y así tendremos la posibilidad
+      sin embargo, vamos a mejorarlo un poco más y así tendremos la posibilidad
       de experimentar con algunas posibilidades interesantes.<br>
       <h3 id="toc14"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Llamar-a-un-servicio-web-REST-para-validar-el-ISBN"></a>Llamar
         a un servicio web REST para validar el ISBN</h3>
@@ -600,7 +600,7 @@ private String isbn;
       Hay bastantes sitio con servicios web SOAP y REST para consultar el ISBN
       de un libro, vamos a usar <a href="https://openlibrary.org/">openlibrary.org</a>
       que proporciona una API REST gratuita para consultar su catálogo de
-      libros. Para probar la API de Open Library abre un navegado y ve a la
+      libros. Para probar la API de Open Library abre un navegador y ve a la
       siguiente URL:
       <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9780932633439">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9780932633439</a></div>
       <div class="wiki" style="display: block;">Donde el último parámetro es el
@@ -616,7 +616,7 @@ private String isbn;
       <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
         style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
       <div class="wiki" style="display: block;">Es decir, un JSON vacío,
-        simplemente unos llaves vacías, así: {}.</div>
+        simplemente unas llaves vacías, así: {}.</div>
       <div class="wiki" style="display: block;">Para llamar a este servicio web
         usaremos JAX-RS. JAX-RS es el estándar Java para llamar a servicios web
         REST. OpenXava incluye soporte para llamar a servicios web usando
@@ -627,14 +627,14 @@ private String isbn;
 
 import javax.validation.*;
 import javax.ws.rs.client.*; // Para usar JAX-RS
-import com.yourcompany.invoicing.annotations.*;
+import com.tuempresa.facturacion.anotaciones.*;
 import org.apache.commons.logging.*; // Para usar Log
 import org.openxava.util.*;
  
-public class ISBNValidator
+public class ValidadorISBN
     implements ConstraintValidator&lt;ISBN, Object&gt; {
 	
-    private static Log log = LogFactory.getLog(ISBNValidator.class); // Instancia 'log'
+    private static Log log = LogFactory.getLog(ValidadorISBN.class); // Instancia 'log'
  
     private static org.apache.commons.validator.routines.ISBNValidator
         validador = 
@@ -712,22 +712,22 @@ public class ISBNValidator
         this.buscar = isbn.buscar();
     }
  
-    public boolean isValid(Object value, ConstraintValidatorContext contexto) {
-        if (Is.empty(value)) return true;
-        if (!validador.isValid(value.toString())) return false;
-        return buscar ? existeIsbn(value) : true; // Usa 'buscar'
+    public boolean isValid(Object valor, ConstraintValidatorContext contexto) {
+        if (Is.empty(valor)) return true;
+        if (!validador.isValid(valor.toString())) return false;
+        return buscar ? existeISBN(valor) : true; // Usa 'buscar'
     }
     // ...
 }
 </code></pre> Aquí ves la utilidad del método <i>initialize()</i>, que lee la
       anotación para inicializar el validador. En este caso simplemente
       almacenamos el valor de <em>isbn.buscar()</em> para preguntar por él en <i>isValid()</i>.<br>
-      Ahora puedes escoger si quieres llamar a nuestro servicio pseudo-REST o no
-      para hacer la validación ISBN. Mira como:<br>
+      Ahora puedes escoger si quieres llamar a nuestro servicio REST o no para
+      hacer la validación ISBN. Mira como:<br>
       <pre><code class="java">@ISBN(buscar=false) // En este caso no se hace una búsqueda en la web para validar el ISBN
 private String isbn;
 </code></pre> ¡Enhorabuena! Has aprendido como crear tu propia anotación de Bean
-      Validation, y de paso a usar JAX-RS para llamar a servicios REST.<br>
+      Validation y de paso a usar JAX-RS para llamar a servicios REST.<br>
       <br>
       <h2 id="toc16"><a name="Pruebas-JUnit"></a>Pruebas JUnit</h2>
       Nuestra meta no es desarrollar una ingente cantidad de código, sino crear
@@ -741,7 +741,7 @@ private String isbn;
       Recuerda que hemos refinado tu código para que el usuario no pueda asignar
       pedidos a una factura si los pedidos no están servidos. Después de esto,
       tu actual <em>testAnyadirPedidos()</em> de <em>PruebaFactura</em> puede
-      fallar, porque trata de añadir el primer pedido, y es posible que ese
+      fallar, porque trata de añadir el primer pedido y es posible que ese
       primer pedido no esté marcado como servido.<br>
       Modifiquemos la prueba para que funcione y también para comprobar la nueva
       funcionalidad de validación. Mira como:<br>
@@ -754,7 +754,7 @@ private String isbn;
     assertCollectionRowCount("pedidos", 0);
     execute("Collection.add",
         "viewObject=xava_view_section1_pedidos");
-//  execute("AddToCollection.add", "row=0"); // Ahora no seleccionamos al azar
+    // execute("AddToCollection.add", "row=0"); // Ahora no seleccionamos al azar
  
     seleccionarPrimerPedidoConEntregadoIgual("Entregado"); // Selecciona un pedido entregado
     seleccionarPrimerPedidoConEntregadoIgual(""); // Selecciona uno no entregado
@@ -777,26 +777,22 @@ private String isbn;
       La pieza que nos falta es la forma de seleccionar los pedidos. Esto es el
       trabajo del método <em>seleccionarPrimerPedidoConEntregadoIgual()</em>.
       Veámoslo:<br>
-      <pre><code class="java">private void seleccionarPrimerPedidoConEntregadoIgual(String value)
-    throws Exception
-{
+      <pre><code class="java">private void seleccionarPrimerPedidoConEntregadoIgual(String valor) throws Exception {
     int c = getListRowCount(); // El total de filas visualizadas en la lista
     for (int i = 0; i &lt; c; i++) {
-        if (value.equals(
-            getValueInList(i, 12))) // Obtenermos valor de la columna 'entregado'
-            {
-                checkRow(i);
-                return;
-            }
+        if (valor.equals(getValueInList(i, 12))) { // Obtenermos valor de la columna 'entregado'    
+            checkRow(i);
+            return;
+        }
     }
-    fail("Debe tener al menos una fila con entregado=" + value);
+    fail("Debe tener al menos una fila con entregado=" + valor);
 }
 </code></pre> Aquí ves una buena técnica para hacer un bucle sobre los elementos
       visualizados de una lista para seleccionarlos y coger algunos datos, o
       cualquier otra cosa que quieras hacer con los datos de la lista.<br>
       <h3 id="toc18"><a name="Pruebas-JUnit-Probar-validacion-al-asignar-una-referencia-y-al-borrar"></a>Probar
         validación al asignar una referencia y al borrar</h3>
-      Desde el módulo <em>Factura</em> el usuario no pueda asignar pedidos a
+      Desde el módulo <em>Factura</em> el usuario no puede asignar pedidos a
       una factura si los pedidos no están servidos, por lo tanto, desde el
       módulo <em>Pedido</em> el usuario tampoco debe poder asignar una factura
       a un pedido si éste no está servido. Es decir, hemos de probar también la
@@ -849,7 +845,7 @@ private String isbn;
 }
 </code></pre> La prueba original solo buscaba una factura, ni siquiera intentaba
       grabarla. Ahora, hemos añadido código al final para probar la grabación de
-      un pedido marcado como servido, y marcado como no servido, de esta forma
+      un pedido marcado como servido y marcado como no servido, de esta forma
       comprobamos la validación. Después de eso, tratamos de borrar el pedido,
       el cual tiene una factura, así probamos también la validación al borrar.<br>
       <h3 id="toc19"><a name="Pruebas-JUnit-Probar-el-Bean-Validation-propio"></a>Probar
@@ -895,7 +891,7 @@ private String isbn;
       Fíjate que si usas <i>@ISBN(search=false)</i> esta prueba no funciona
       porque no solo comprueba el formato sino que también hace la búsqueda con
       el servicio REST. Por tanto, has de usar <em>@ISBN</em> sin atributos
-      para anotar la propiedad isbn y poder ejecutar esta prueba.<br>
+      para anotar la propiedad <i>isbn </i>y poder ejecutar esta prueba.<br>
       Ahora ejecuta todas las prueba de tu aplicación <em>Facturación</em> para
       verificar que todo sigue en su sitio.<br>
       <br>
@@ -904,7 +900,7 @@ private String isbn;
       aplicación OpenXava. Además, ahora estás preparado para encapsular toda la
       lógica de validación reutilizable en anotaciones usando <em>Bean
         Validation</em>.<br>
-      La validación es una parte importante de la lógica de tu aplicación, y te
+      La validación es una parte importante de la lógica de tu aplicación y te
       ánimo a que la pongas en el modelo, es decir en las entidades; tal y como
       esta lección ha mostrado. Aun así, a veces es conveniente poner algo de
       lógica fuera de las clases del modelo. Aprenderás a hacer esto en las

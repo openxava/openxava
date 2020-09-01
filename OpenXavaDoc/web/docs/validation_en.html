@@ -717,8 +717,8 @@ public class ISBNValidator
 </code></pre> Here you see the use of the <i>initialize()</i> method: the
       source annotation can be used to initialize the validator, in this case
       simply by storing the <em>isbn.search()</em> value to evaluate it in <i>isValid()</i>.<br>
-      Now you can choose whether you want to call our pseudo-REST service or
-      skip the ISBN validation:<br>
+      Now you can choose whether you want to call our REST service or skip the
+      ISBN validation:<br>
       <pre><code class="java">@ISBN(search=false) // In this case no internet search is done to validate the ISBN
 private String isbn;
 </code></pre> Using this simple method you can add any attribute you need to add
@@ -890,7 +890,7 @@ private String isbn;
       test procedures by hand using the browser over and over again.<br>
       Note that if you use <i>@ISBN(search=false)</i> this test will not work
       because it checks the result of the REST service. So, you have to use the
-      <em>@ISBN</em> annotation of the isbn property without the search
+      <em>@ISBN</em> annotation of the <i>isbn </i>property without the search
       attribute in order to run this test successfully.<br>
       Now execute all the tests for your Invoicing application to verify that
       everything works as expected.<br>
