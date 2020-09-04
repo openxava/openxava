@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: When running from application launcher the default i18n does not work
+- Fix: The updateOX Ant target fails after a clean of OpenXava project.
+- Fix: Not applicable warnings on updateOX and deployWar Ant targets.
 - Support for JAX-RS 2.1 (JSR 370) for calling RESTful web services.
 - Fix: Error message of javax.validation.ValidationException from setter not shown on adding to a collection.
 - Fix: @EntityValidator does not work when entity is modified on adding to a collection.

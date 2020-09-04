@@ -659,26 +659,21 @@
 		<antcall target="filter"/>
 		<antcall target="createEditorsJS"/>
 		<antcall target="createDefaultI18nFiles"/>
-		<jar jarfile="../${project}/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
 	</target>
 	
 	<target name="createDefaultI18nFiles">
-		<copy file="${openxava.base.dir}/OpenXava/bin/Messages_${default.language}.properties" 
-			tofile="${openxava.base.dir}/OpenXava/bin/Messages.properties"/>
-		<copy file="${openxava.base.dir}/OpenXava/bin/Labels_${default.language}.properties" 
-			tofile="${openxava.base.dir}/OpenXava/bin/Labels.properties"/>
 		<copy file="../${project}/${classes.dir}/${project}-messages_${default.language}.properties" 
 			tofile="../${project}/${classes.dir}/${project}-messages.properties"
-			failonerror="false"/>
+			failonerror="false" quiet="true"/> 
 		<copy file="../${project}/${classes.dir}/${project}-labels_${default.language}.properties" 
 			tofile="../${project}/${classes.dir}/${project}-labels.properties"
-			failonerror="false"/>
+			failonerror="false" quiet="true"/> 
 		<copy file="../${project}/${classes.dir}/Mensajes${project}_${default.language}.properties" 
 			tofile="../${project}/${classes.dir}/Mensajes${project}.properties"
-			failonerror="false"/>
+			failonerror="false" quiet="true"/> 
 		<copy file="../${project}/${classes.dir}/Etiquetas${project}_${default.language}.properties" 
 			tofile="../${project}/${classes.dir}/Etiquetas${project}.properties"
-			failonerror="false"/>		
+			failonerror="false" quiet="true"/> 		
 	</target>
 
 	<target name="createWar" depends="prepareWar">
@@ -985,6 +980,10 @@
 			<fileset dir="${openxava.base.dir}/OpenXava/properties"/>
 			<fileset dir="${openxava.base.dir}/OpenXava/i18n"/>
 		</copy>
+		<copy file="${openxava.base.dir}/OpenXava/bin/Messages_${default.language}.properties" 
+			tofile="${openxava.base.dir}/OpenXava/bin/Messages.properties"/>
+		<copy file="${openxava.base.dir}/OpenXava/bin/Labels_${default.language}.properties" 
+			tofile="${openxava.base.dir}/OpenXava/bin/Labels.properties"/>
 		<jar jarfile="${openxava.base.dir}/OpenXava/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
 	</target>
 	
@@ -1074,7 +1073,7 @@
 				<present present="srconly" targetdir="../${project}/properties" />
 			</fileset>
 		</copy>
-		<copy todir="../${project}/src" overwrite="true" failonerror="false">
+		<copy todir="../${project}/src" overwrite="true" failonerror="false" quiet="true"> 
 			<fileset dir="${openxava.base.dir}/Addons/src-to-copy"/>
 		</copy>		
 	</target>
