@@ -1,5 +1,8 @@
 package org.openxava.test.tests;
 
+import java.text.*;
+import java.util.*;
+
 import org.openxava.tests.*;
 
 /**
@@ -13,6 +16,38 @@ public class Invoice5Test extends ModuleTestBase {
 		super(testName, "Invoice5");		
 	}
 	
+	
+	public void testDateInCroatian() throws Exception { // tmp
+		// TMP ME QUEDÉ POR AQUÍ: EL CASO BÁSICO, UN java.util.Date YA FUNCIONA, FALTA:
+		// tmp   LocalDate
+		// tmp   DATETIME
+		// tmp   JS Calencar
+		// tmp   JDK 8/11
+		setLocale("hr");
+		assertValue("date", getToday());
+		assertDateInCroatian("20.9.2021", "20.09.2021");
+		execute("CRUD.new");
+		assertDateInCroatian("1.12.21", "01.12.2021");		
+	}
+
+	private void assertDateInCroatian(String dateEntered, String dateFormatted) throws Exception {
+		setValue("year", "2021");
+		setValue("number", "66"); 
+		setValue("date", dateEntered);
+		execute("CRUD.save");
+		execute("Mode.list");
+		assertValueInList(0, "date", dateFormatted);
+		execute("List.viewDetail", "row=0");
+		assertValue("date", dateFormatted);
+		execute("CRUD.delete");
+	}
+	
+	private String getToday() {
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+		return df.format(new Date());
+	}
+
+
 	public void testImportFromExcel() throws Exception {  
 		execute("Mode.list");
 		assertListRowCount(0);

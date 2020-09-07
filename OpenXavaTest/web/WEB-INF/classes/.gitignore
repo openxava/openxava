@@ -20,6 +20,8 @@
 /org/
 /portlets/
 /BeansContext.properties
+/LoginContextFactory.properties
+/jndi-jboss.properties
 /Corporation.html
 /CorporationEmployee.html
 /Customer.jrxml
@@ -27,10 +29,8 @@
 /Images.jrxml
 /Invoice.jrxml
 /InvoiceNoVAT.jrxml
-/LoginContextFactory.properties
 /Products.jrxml
 /_run/
-/jndi-jboss.properties
 /jndi-websphere.properties
 /jndi.properties
 /logging.properties
