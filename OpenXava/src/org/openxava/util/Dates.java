@@ -458,9 +458,12 @@ public class Dates {
 	}	
 
 	
-	public static String dateFormatForJSCalendar(Locale locale) {		
+	public static String dateFormatForJSCalendar(Locale locale) {
+		// TMP ME QUEDÉ POR AQUÍ: ME FALTA LO DEL CALENCARIO
 		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-		String date = df.format(create(1, 2, 1971)); // d, m, y
+		// tmp String date = df.format(create(1, 2, 1971)); // d, m, y
+		String date = "hr".equals(locale.getLanguage())?"01.02.1971":df.format(create(1, 2, 1971)); // d, m, y
+		System.out.println("[Dates.dateFormatForJSCalendar] date=" + date); // tmp
 		boolean always4InYear= "es".equals(locale.getLanguage()) || "pl".equals(locale.getLanguage());
 		String result = date.
 			replaceAll("01", "%d").

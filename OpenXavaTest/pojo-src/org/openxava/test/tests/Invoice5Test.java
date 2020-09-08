@@ -17,25 +17,40 @@ public class Invoice5Test extends ModuleTestBase {
 	}
 	
 	
-	public void testDateInCroatian() throws Exception { // tmp
+	public void testDatesInCroatian() throws Exception { // tmp
 		// TMP ME QUEDÉ POR AQUÍ: EL CASO BÁSICO, UN java.util.Date YA FUNCIONA, FALTA:
-		// tmp   LocalDate
-		// tmp   DATETIME
+		// tmp   *Date
+		// tmp   *LocalDate
+		// tmp   *DATETIME
+		// tmp   *Al filtrar en lista
 		// tmp   JS Calencar
-		// tmp   JDK 8/11
+		// tmp   *JDK 8/11
+		assertDatesInCroatian();
+		changeModule("Invoice6"); // To test LocalDate
+		assertDatesInCroatian();
+	}
+	
+	public void assertDatesInCroatian() throws Exception { // tmp
 		setLocale("hr");
-		assertValue("date", getToday());
-		assertDateInCroatian("20.9.2021", "20.09.2021");
 		execute("CRUD.new");
-		assertDateInCroatian("1.12.21", "01.12.2021");		
+		assertValue("date", getToday());
+		assertDateInCroatian("20.9.2031", "20.09.2031");
+		execute("CRUD.new");
+		assertDateInCroatian("1.12.31", "01.12.2031");		
 	}
 
 	private void assertDateInCroatian(String dateEntered, String dateFormatted) throws Exception {
-		setValue("year", "2021");
+		setValue("year", "2031");
 		setValue("number", "66"); 
 		setValue("date", dateEntered);
 		execute("CRUD.save");
+		assertNoErrors();
 		execute("Mode.list");
+		setConditionValues("2031", "66");
+		execute("List.filter");
+		assertListRowCount(1);
+		assertValueInList(0, "year", "2031");
+		assertValueInList(0, "number", "66");
 		assertValueInList(0, "date", dateFormatted);
 		execute("List.viewDetail", "row=0");
 		assertValue("date", dateFormatted);

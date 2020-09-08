@@ -9,8 +9,8 @@ import org.openxava.util.*;
 /**
  * Date formatter with multilocale support. <p>
  * 
- * Although it does some refinement in Spanish case, it support formatting
- * on locale basis.<br>
+ * Although it does some refinement in Spanish, Catalan, Polish, Croatian and French case, 
+ * it support formatting on locale basis.<br>
  *  
  * @author Javier Paniza
  */

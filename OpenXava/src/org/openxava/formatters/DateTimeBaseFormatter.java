@@ -34,6 +34,11 @@ abstract public class DateTimeBaseFormatter {
 			"fr".equals(Locales.getCurrent().getLanguage());
 	}
 	
+	protected boolean isDotFormat() { // tmp
+		return "hr".equals(Locales.getCurrent().getLanguage());
+	}
+
+	
 	private static String dateTimeSeparator = XSystem.isJava9orBetter()?", ":" ";
 	protected String getDateTimeSeparator() {
 		return dateTimeSeparator;
