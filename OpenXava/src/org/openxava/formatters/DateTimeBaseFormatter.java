@@ -34,7 +34,7 @@ abstract public class DateTimeBaseFormatter {
 			"fr".equals(Locales.getCurrent().getLanguage());
 	}
 	
-	protected boolean isDotFormat() { // tmp
+	protected boolean isDotFormat() { 
 		return "hr".equals(Locales.getCurrent().getLanguage());
 	}
 

@@ -17,20 +17,13 @@ public class Invoice5Test extends ModuleTestBase {
 	}
 	
 	
-	public void testDatesInCroatian() throws Exception { // tmp
-		// TMP ME QUEDÉ POR AQUÍ: EL CASO BÁSICO, UN java.util.Date YA FUNCIONA, FALTA:
-		// tmp   *Date
-		// tmp   *LocalDate
-		// tmp   *DATETIME
-		// tmp   *Al filtrar en lista
-		// tmp   JS Calencar
-		// tmp   *JDK 8/11
+	public void testDatesInCroatian() throws Exception { 
 		assertDatesInCroatian();
 		changeModule("Invoice6"); // To test LocalDate
 		assertDatesInCroatian();
 	}
 	
-	public void assertDatesInCroatian() throws Exception { // tmp
+	public void assertDatesInCroatian() throws Exception { 
 		setLocale("hr");
 		execute("CRUD.new");
 		assertValue("date", getToday());

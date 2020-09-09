@@ -17,9 +17,7 @@ import org.openxava.util.*;
 public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements IFormatter {
 
 	private static DateFormat extendedDateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-	// tmp ini
 	private static DateFormat dotDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm"); // Only for some locales like "hr"
-	// tmp fin
 	
 	public String format(HttpServletRequest request, Object date) {
 		if (date == null) return "";
@@ -46,13 +44,12 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 
 	private DateFormat getDateTimeFormat() {
 		if (isExtendedFormat()) return extendedDateTimeFormat;
-		if (isDotFormat()) return dotDateFormat; // tmp
+		if (isDotFormat()) return dotDateFormat; 
 		return Dates.getDateTimeFormat(); 
 	}
 
 	private DateFormat[] getDateTimeFormats() {
-		// tmp if (isExtendedFormat()) return getExtendedDateTimeFormats();
-		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats(); // tmp
+		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats(); 
 		return new DateFormat [] { getDateTimeFormat() };
 	}
 	

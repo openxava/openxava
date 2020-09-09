@@ -29,24 +29,6 @@ public class ShipmentSeparatedTimeTest extends ModuleTestBase {
 		assertNoErrors();
 	}
 	
-	/* tmp
-	public void testDateTimeSeparatedCalendarEditorInSpanish() throws Exception { 
-		setLocale("es");
-		execute("List.viewDetail", "row=0");
-		
-		assertTime("30/6/14", "13:30", "30/06/2014", "13:30");
-		assertTime("30/6/14", "", "30/06/2014", "0:00"); 
-		assertTime("30/6/2014", "13:30", "30/06/2014", "13:30");
-		assertTime("30/6/2014", "", "30/06/2014", "0:00");		
-		
-		String [] emptyTime = { "", "" };
-		setValues("time", emptyTime);
-		execute("CRUD.save");
-		assertNoErrors();
-	}
-	*/
-	
-	// tmp ini
 	public void testDateTimeSeparatedCalendarEditorInSpanishCroatian() throws Exception { 
 		setLocale("es");
 		assertDateTimeSeparatedCalendarEditor("/", "0:00"); 
@@ -67,8 +49,6 @@ public class ShipmentSeparatedTimeTest extends ModuleTestBase {
 		execute("CRUD.save");
 		assertNoErrors();
 	}
-	
-	// tmp fin
 
 	private void assertTime(String date, String time, String expectedDate, String expectedTime) throws Exception { 
 		String [] dateTime = { date, time };

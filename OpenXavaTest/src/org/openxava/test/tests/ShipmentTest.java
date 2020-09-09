@@ -17,41 +17,6 @@ public class ShipmentTest extends ModuleTestBase {
 		super(testName, "Shipment");		
 	}
 	
-	/* tmp
-	public void testDateTimeCombinedSpanishFormat() throws Exception { 
-		setLocale("es");
-		execute("List.viewDetail", "row=0");
-		setValue("time", "30/6/14");
-		execute("CRUD.save");
-		assertValue("time", "");
-		execute("Navigation.first");
-		assertValue("time", "30/06/2014 00:00");
-
-		setValue("time", "30/6/14 13:30");
-		execute("CRUD.save");
-		assertValue("time", "");
-		execute("Navigation.first");
-		assertValue("time", "30/06/2014 13:30");
-		
-		setValue("time", "30/6/2014");
-		execute("CRUD.save");
-		assertValue("time", "");
-		execute("Navigation.first");
-		assertValue("time", "30/06/2014 00:00");
-
-		setValue("time", "30/6/2014 13:30");
-		execute("CRUD.save");
-		assertValue("time", "");
-		execute("Navigation.first");
-		assertValue("time", "30/06/2014 13:30");		
-		
-		setValue("time", "");
-		execute("CRUD.save");
-		assertNoErrors();
-	}
-	*/
-	
-	// tmp ini
 	public void testDateTimeCombinedSpanishCroatianFormat() throws Exception { 
 		setLocale("es");
 		assertDateTimeCombinedFormat("/");
@@ -90,8 +55,6 @@ public class ShipmentTest extends ModuleTestBase {
 		execute("CRUD.save");
 		assertNoErrors();
 	}	
-	// tmp fin
-	
 	
 	public void testCreateReferenceFromCreatingReference() throws Exception { 
 		execute("CRUD.new");

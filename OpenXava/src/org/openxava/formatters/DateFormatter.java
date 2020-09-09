@@ -25,9 +25,7 @@ public class DateFormatter implements IFormatter {
 		new SimpleDateFormat("dd.MM.yy")				
 	};
 
-	// tmp ini
 	private static DateFormat dotDateFormat = new SimpleDateFormat("dd.MM.yyyy"); // Only for some locales like "hr"
-	// tmp fin
 	
 	public String format(HttpServletRequest request, Object date) {
 		if (date == null) return "";
@@ -62,19 +60,18 @@ public class DateFormatter implements IFormatter {
 			"fr".equals(Locales.getCurrent().getLanguage());
 	}
 	
-	private boolean isDotFormat() { // tmp
+	private boolean isDotFormat() { 
 		return "hr".equals(Locales.getCurrent().getLanguage());
 	}	
 	
 	private DateFormat getDateFormat() {
 		if (isExtendedFormat()) return extendedDateFormat;
-		if (isDotFormat()) return dotDateFormat; // tmp
+		if (isDotFormat()) return dotDateFormat; 
 		return DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent());		
 	}
 	
 	private DateFormat[] getDateFormats() {
-		// tmp if (isExtendedFormat()) return extendedDateFormats;
-		if (isExtendedFormat() || isDotFormat()) return extendedDateFormats; // tmp
+		if (isExtendedFormat() || isDotFormat()) return extendedDateFormats; 
 		return new DateFormat [] { getDateFormat() };
 	}
 		

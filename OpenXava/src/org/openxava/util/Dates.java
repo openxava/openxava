@@ -459,20 +459,16 @@ public class Dates {
 
 	
 	public static String dateFormatForJSCalendar(Locale locale) {
-		// TMP ME QUEDÉ POR AQUÍ: ME FALTA LO DEL CALENCARIO
 		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-		// tmp String date = df.format(create(1, 2, 1971)); // d, m, y
-		String date = "hr".equals(locale.getLanguage())?"01.02.1971":df.format(create(1, 2, 1971)); // d, m, y
-		System.out.println("[Dates.dateFormatForJSCalendar] date=" + date); // tmp
+		String date = "hr".equals(locale.getLanguage())?"01.02.1971":df.format(create(1, 2, 1971)); // d, m, y 
 		boolean always4InYear= "es".equals(locale.getLanguage()) || "pl".equals(locale.getLanguage());
-		String result = date.
+		return date.
 			replaceAll("01", "%d").
 			replaceAll("02", "%m").
 			replaceAll("1971", "%Y").
 			replaceAll("71", always4InYear?"%Y":"%y"). 			
 			replaceAll("1", "%d").
 			replaceAll("2", "%m");
-		return result;
 	}	
 	
 	public static String dateTimeFormatForJSCalendar(Locale locale) {		

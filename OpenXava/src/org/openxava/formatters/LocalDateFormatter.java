@@ -29,10 +29,7 @@ public class LocalDateFormatter implements IFormatter {
 		DateTimeFormatter.ofPattern("d.M.yyyy").withResolverStyle(ResolverStyle.SMART)
 	};
 	
-	// tmp ini
 	private static DateTimeFormatter dotFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy"); // Only for some locales like "hr"
-	// tmp fin
-	
 	
 	public String format(HttpServletRequest request, Object date) {
 		if (date == null) return "";
@@ -66,19 +63,19 @@ public class LocalDateFormatter implements IFormatter {
 			"fr".equals(Locales.getCurrent().getLanguage());
 	}
 	
-	private boolean isDotFormat() { // tmp
+	private boolean isDotFormat() { 
 		return "hr".equals(Locales.getCurrent().getLanguage());
 	}	
 	
 	private DateTimeFormatter getFormatter() {
 		if (isExtendedFormat()) return extendedFormatter;
-		if (isDotFormat()) return dotFormatter; // tmp
+		if (isDotFormat()) return dotFormatter; 
 		return DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locales.getCurrent());		
 	}
 	
 	private DateTimeFormatter[] getFormatters() {
 		//if (isExtendedFormat()) return extendedFormatters;
-		if (isExtendedFormat() || isDotFormat()) return extendedFormatters; // tmp
+		if (isExtendedFormat() || isDotFormat()) return extendedFormatters; 
 		return new DateTimeFormatter [] { getFormatter() };
 	}
 
