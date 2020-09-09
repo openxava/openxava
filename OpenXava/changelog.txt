@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- Croatian support for Date, LocalDate and DATETIME.
+- Fix: Date, LocalDate and DATETIME does not work with Croatian language.
 - Lesson 6 of course upgraded to latest features.
 - Fix: When running from application launcher the default i18n does not work
 - Fix: The updateOX Ant target fails after a clean of OpenXava project.
