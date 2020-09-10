@@ -1,7 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-- Fix: Date, LocalDate and DATETIME does not work with Croatian language.
+- Fix: Generate PDF with an IIconEnum property in the list produces an error.
+- Fix: Date, LocalDate and DATETIME do not work with Croatian language.
 - Lesson 6 of course upgraded to latest features.
 - Fix: When running from application launcher the default i18n does not work
 - Fix: The updateOX Ant target fails after a clean of OpenXava project.

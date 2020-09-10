@@ -16,8 +16,8 @@ public class EnumListFormatter implements IMetaPropertyFormatter {
 		String label = object instanceof Number?
 			metaProperty.getValidValueLabel(((Number) object).intValue()):
 			metaProperty.getValidValueLabel(object);
-		Style style = (Style) request.getAttribute("style");	
-		if (object instanceof IIconEnum) {
+		Style style = (Style) request.getAttribute("style");
+		if (style != null && object instanceof IIconEnum) { 
 			return "<span class='" + style.getIconInList() + "'><i class='mdi mdi-" + ((IIconEnum) object).getIcon() + 
 				"' title='" + label + "'></i>" +
 				"<span style='display:none'>" + label + "</span></span>";
