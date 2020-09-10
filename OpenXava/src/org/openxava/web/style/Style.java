@@ -828,6 +828,14 @@ public class Style {
 	}
 	
 	/**
+	 * @since 6.4.1
+	 */
+	public String getReadOnlyHtmlText() { 
+		return "ox-read-only-html-text";
+	}
+
+	
+	/**
 	 * @since 5.6.1
 	 */
 	public String getMoney() {    
