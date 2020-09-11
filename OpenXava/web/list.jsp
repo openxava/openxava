@@ -66,7 +66,7 @@ if (tab.isTitleVisible()) {
 <select onchange="openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '', false, 'List.groupBy','property=' + this.value)">
 	<option value=""><%=grouping?XavaResources.getString("no_grouping"):XavaResources.getString("no_grouping")%></option>
 	<% 
-	for (MetaProperty property: tab.getMetaPropertiesBeforeGrouping()) {
+	for (MetaProperty property: tab.getMetaPropertiesGroupBy()) {
 		String selected = "";
 		if (groupBy.equals(property.getQualifiedName())) {
 			selected = "selected";

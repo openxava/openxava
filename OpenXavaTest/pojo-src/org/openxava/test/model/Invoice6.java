@@ -19,7 +19,7 @@ import org.openxava.calculators.*;
 @IdClass(InvoiceKey.class)  // We reuse the key class for Invoice
 @Table(name="INVOICE")
 @View(members="year; number; date; amountsSum")
-@View(name="WithDetails", members="year; number; date; details; amountsSum")
+@View(name="WithDetails", members="year; number; date; details; amountsSum; amount") 
 public class Invoice6 {
 	
 	@Id @Column(length=4) @Max(9999l) @Required
@@ -38,7 +38,16 @@ public class Invoice6 {
 	
 	@Stereotype("MONEY") 
 	private BigDecimal amountsSum;   
-		
+	
+	@Stereotype("MONEY")
+	public BigDecimal getAmount() { 		
+		BigDecimal result = BigDecimal.ZERO;		
+		for (InvoiceDetail6 detail: getDetails()) { 			
+			result = result.add(detail.getAmount());
+		}		
+		return result;		
+	}
+			
 	public int getYear() {
 		return year;
 	}

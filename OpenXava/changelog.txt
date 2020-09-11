@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Calculated properties are not refreshed on adding to collection.
+- Fix: Calculated properties available for group by in list, when they cannot be used for grouping.
 - Fix: Read only HTML_TEXT in a section put all content in a row overflowing the screen.
 - Fix: Generate PDF with an IIconEnum property in the list produces an error.
 - Fix: Date, LocalDate and DATETIME do not work with Croatian language.

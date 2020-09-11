@@ -1646,6 +1646,12 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return metaPropertiesBeforeGrouping == null?getMetaProperties():metaPropertiesBeforeGrouping;
 	}
 	
+	public Collection<MetaProperty> getMetaPropertiesGroupBy() { 
+		return getMetaPropertiesBeforeGrouping().stream()
+			.filter(p -> !p.isCalculated())
+			.collect(Collectors.toList());
+	}
+	
 	public void orderBy(String property) {
 		setConditionParameters(); 
 		if (Is.equal(property, orderBy)) {

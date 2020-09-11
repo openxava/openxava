@@ -55,7 +55,10 @@ public class AddElementsToCollectionAction extends SaveElementInCollectionAction
 		getTab().deselectAll();
 		getCollectionElementView().refreshCollections(); // To reset collection totals 
 		resetDescriptionsCache();
-		if (added > 0) closeDialog(); 
+		if (added > 0) {
+			getView().recalculateProperties(); 
+			closeDialog();
+		}
 	}
 
 	private void associateEntityInRow(int row) throws FinderException, Exception {
