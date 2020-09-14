@@ -16,7 +16,8 @@ import org.openxava.model.Identifiable;
 
 @Entity
 @Views({
-	@View(members="year, number, date; customer; details"),
+	// tmp @View(members="year, number, date; customer; details"),
+	@View(members="year, number, date; customer; details; estimatedProfit"), // tmp
 	@View(name="QuoteWithRemoveElementCollection", members="year, number, date; data { customer; details }") 
 })
 @Tab(defaultOrder="${year} desc") 
@@ -61,6 +62,12 @@ public class Quote extends Identifiable {
 	public BigDecimal getTotal() {
 		return getAmountsSum().add(getTaxes());
 	}	
+	
+	@Depends("amount") // tmp Debería ser "total" ¿Necesario?
+	public BigDecimal getEstimatedProfit() { // tmp
+		return getTotal().multiply(new BigDecimal("0.1"));
+		
+	}
 	
 	public int getYear() {
 		return year;

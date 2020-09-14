@@ -252,12 +252,14 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertTotalInCollection("details", 0, "amount", "162.00");
 		assertTotalInCollection("details", 1, "amount",  "34.02");
 		assertTotalInCollection("details", 2, "amount", "196.02");
+		assertValue("estimatedProfit", "19.60"); // tmp
 		
 		removeRow(1); 
 		
 		assertTotalInCollection("details", 0, "amount", "102.00");
 		assertTotalInCollection("details", 1, "amount",  "21.42");
 		assertTotalInCollection("details", 2, "amount", "123.42");		
+		assertValue("estimatedProfit", "12.34"); // tmp
 		
 		setValueInCollection("details", 1, "quantity", "5");
 		assertValueInCollection("details", 1, "amount", "100.00"); 

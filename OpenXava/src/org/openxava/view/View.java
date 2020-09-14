@@ -3328,7 +3328,8 @@ public class View implements java.io.Serializable {
 	
 
 	private void propertyChanged(String propertyId) {
-		try {							
+		try {		
+			System.out.println("[View.propertyChanged] propertyId=" + propertyId); // tmp
 			String name = Ids.undecorate(propertyId);
 			if (isRepresentsElementCollection()) {
 				if (StringUtils.isNumeric(Strings.firstToken(name, "."))) {
@@ -3391,7 +3392,10 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void tryPropertyChanged(MetaProperty changedProperty, String changedPropertyQualifiedName) throws Exception {
+		// TMP ME QUEDÉ POR AQUÍ DEPURANDO
+		System.out.println("[View.tryPropertyChanged] changedProperty=" + changedProperty); // tmp
 		if (!isOnlyThrowsOnChange()) {
+			System.out.println("[View.tryPropertyChanged] " + changedProperty + " ENTERING..."); // tmp
 			boolean calculationDone = false; 
 			Iterator it = getMetaPropertiesIncludingGroups().iterator();	
 			while (it.hasNext()) {
