@@ -3378,7 +3378,7 @@ public class View implements java.io.Serializable {
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("property_changed_warning", propertyId),ex);
 			getErrors().add("change_property_error");
-		}				 		 		
+		}			
 	}
 	
 	private void propertyChanged(MetaProperty changedProperty, String changedPropertyQualifiedName) { 
@@ -3402,6 +3402,7 @@ public class View implements java.io.Serializable {
 				MetaProperty pr = (MetaProperty) it.next();				
 				if (dependsOn(pr, changedProperty, changedPropertyQualifiedName)) {
 					if (pr.hasCalculator()) {						
+						System.out.println("[View.tryPropertyChanged] Calculating value for " + pr.getName()); // tmp
 						calculateValue(pr, pr.getMetaCalculator(), pr.getCalculator(), errors, messages);
 						calculationDone = true;
 					}
@@ -3622,7 +3623,8 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void calculateValue(MetaProperty metaProperty, MetaCalculator metaCalculator, ICalculator calculator, Messages errors, Messages messages) {		
-		try {					
+		try {	
+			System.out.println("[View.calculateValue] property=" + metaProperty.getName()); // tmp
 			PropertiesManager mp = new PropertiesManager(calculator);
 			Iterator it = metaCalculator.getMetaSets().iterator();			
 			while (it.hasNext()) {
@@ -3656,8 +3658,12 @@ public class View implements java.io.Serializable {
 				}
 			}
 			Object old = getValue(metaProperty.getName());
+			// TMP ME QUEDÉ POR AQUÍ, DEPURANDO. 
+			System.out.println("[View.calculateValue(" + metaProperty.getName() + ")] newValue=" + newValue); // tmp
+			System.out.println("[View.calculateValue(" + metaProperty.getName() + ")] old=" + old); // tmp
 			if (!setValueNotifyingInTotals(metaProperty.getName(), newValue, old)) {
 				if (!Is.equal(old, newValue)) {				
+					System.out.println("[View.calculateValue] setValueNotifying(" + metaProperty.getName() + ", " + newValue + ")"); // tmp
 					setValueNotifying(metaProperty.getName(), newValue);
 				}
 			}  
@@ -3831,7 +3837,7 @@ public class View implements java.io.Serializable {
 		try {			
 			// In this view								
 			for (Iterator it = getMetaPropertiesQualified().iterator(); it.hasNext();) {
-				Object element = (Object) it.next();				
+				Object element = it.next();				
 				if (isMetaProperty(element)) {
 					MetaProperty pro = (MetaProperty) element;					
 					if (WebEditors.depends(pro, p, getViewName())) {
