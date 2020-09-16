@@ -2911,7 +2911,7 @@ public class View implements java.io.Serializable {
 	}
 		
 	private void assignValuesToWebView(String qualifier, boolean firstLevel) {
-		try {		
+		try {
 			this.firstLevel = firstLevel; 
 			formattedProperties = null; 
 			focusForward = "true".equalsIgnoreCase(getRequest().getParameter("xava_focus_forward"));
@@ -2934,6 +2934,7 @@ public class View implements java.io.Serializable {
 			refreshDescriptionsLists = false;
 			oldNotEditableMembersNames = notEditableMembersNames==null?null:new HashSet(notEditableMembersNames);
 			
+			throwElementCollectionTotalsChanged(); 
 						
 			if (hasSections()) { 								
 				View section = getSectionView(getActiveSection());
@@ -2960,6 +2961,26 @@ public class View implements java.io.Serializable {
 	}
 	
 	
+	private void throwElementCollectionTotalsChanged() { 
+		for (View subview: getSubviews().values()) {				
+			if (subview.isRepresentsElementCollection()) {
+				if (subview.collectionSize < 0 && !subview.getTotalProperties().isEmpty()) {
+					for (Collection<String> totalProperties: subview.getTotalProperties().values()) {
+						for (String totalProperty: totalProperties) {
+							String property = subview.removeTotalPropertyPrefix(totalProperty);
+							propertyChanged(property);
+						}
+					}
+				}
+			}						
+		}			
+			
+		for (Iterator it = getGroupsViews().values().iterator(); it.hasNext();) {				
+			View subview = (View) it.next();
+			subview.throwElementCollectionTotalsChanged(); 
+		}
+	}
+
 	private void assignValuesToMembers(String qualifier, Collection members) {
 		for (Object m: members) { 		
 			if (isMetaProperty(m)) {
@@ -3103,6 +3124,7 @@ public class View implements java.io.Serializable {
 		setCollectionEditionRowFromChangedProperty();
 		oldCollectionTotals = collectionTotals; 
 		moveCollectionValuesToViewValues();
+		collectionSize = collectionValues.size(); 
 		if (collectionValues.size() != oldCount) {
 			collectionTotals = null;
 			collectionSize = -1; 
@@ -3329,7 +3351,6 @@ public class View implements java.io.Serializable {
 
 	private void propertyChanged(String propertyId) {
 		try {		
-			System.out.println("[View.propertyChanged] propertyId=" + propertyId); // tmp
 			String name = Ids.undecorate(propertyId);
 			if (isRepresentsElementCollection()) {
 				if (StringUtils.isNumeric(Strings.firstToken(name, "."))) {
@@ -3371,6 +3392,16 @@ public class View implements java.io.Serializable {
 					getParent().propertyChanged(changedProperty, qualifiedName); 
 				}
 			}
+
+			if (isRepresentsElementCollection()) {
+				Collection<String> totalProperties = getTotalProperties().get(name);
+				if (totalProperties != null) {
+					for (String totalProperty: totalProperties) {
+						String property = Strings.noFirstTokenWithoutFirstDelim(totalProperty, ".");
+						getParent().propertyChanged(property);
+					}
+				}
+			}
 		}
 		catch (ElementNotFoundException ex) {
 			// So that sections that do not have all the properties do not throw exceptions
@@ -3392,17 +3423,13 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void tryPropertyChanged(MetaProperty changedProperty, String changedPropertyQualifiedName) throws Exception {
-		// TMP ME QUEDÉ POR AQUÍ DEPURANDO
-		System.out.println("[View.tryPropertyChanged] changedProperty=" + changedProperty); // tmp
 		if (!isOnlyThrowsOnChange()) {
-			System.out.println("[View.tryPropertyChanged] " + changedProperty + " ENTERING..."); // tmp
 			boolean calculationDone = false; 
 			Iterator it = getMetaPropertiesIncludingGroups().iterator();	
 			while (it.hasNext()) {
 				MetaProperty pr = (MetaProperty) it.next();				
 				if (dependsOn(pr, changedProperty, changedPropertyQualifiedName)) {
 					if (pr.hasCalculator()) {						
-						System.out.println("[View.tryPropertyChanged] Calculating value for " + pr.getName()); // tmp
 						calculateValue(pr, pr.getMetaCalculator(), pr.getCalculator(), errors, messages);
 						calculationDone = true;
 					}
@@ -3624,7 +3651,6 @@ public class View implements java.io.Serializable {
 	
 	private void calculateValue(MetaProperty metaProperty, MetaCalculator metaCalculator, ICalculator calculator, Messages errors, Messages messages) {		
 		try {	
-			System.out.println("[View.calculateValue] property=" + metaProperty.getName()); // tmp
 			PropertiesManager mp = new PropertiesManager(calculator);
 			Iterator it = metaCalculator.getMetaSets().iterator();			
 			while (it.hasNext()) {
@@ -3657,13 +3683,9 @@ public class View implements java.io.Serializable {
 					return;
 				}
 			}
-			Object old = getValue(metaProperty.getName());
-			// TMP ME QUEDÉ POR AQUÍ, DEPURANDO. 
-			System.out.println("[View.calculateValue(" + metaProperty.getName() + ")] newValue=" + newValue); // tmp
-			System.out.println("[View.calculateValue(" + metaProperty.getName() + ")] old=" + old); // tmp
+			Object old = getValue(metaProperty.getName()); 
 			if (!setValueNotifyingInTotals(metaProperty.getName(), newValue, old)) {
 				if (!Is.equal(old, newValue)) {				
-					System.out.println("[View.calculateValue] setValueNotifying(" + metaProperty.getName() + ", " + newValue + ")"); // tmp
 					setValueNotifying(metaProperty.getName(), newValue);
 				}
 			}  

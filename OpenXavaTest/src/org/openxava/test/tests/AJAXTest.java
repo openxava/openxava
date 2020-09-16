@@ -67,6 +67,7 @@ public class AJAXTest extends ModuleTestBase {
 			"collection_total_0_4_details.," +
 			"collection_total_1_4_details.," +
 			"collection_total_2_4_details.," +	
+			"editor_estimatedProfit," + 
 			"errors, messages");
 		setValueInCollection("details", 1, "product.number", "1");
 		assertLoadedParts(
@@ -75,14 +76,16 @@ public class AJAXTest extends ModuleTestBase {
 			"editor_details.1.amount," +
 			"collection_total_0_4_details.," +
 			"collection_total_1_4_details.," +
-			"collection_total_2_4_details.," +				
+			"collection_total_2_4_details.," +
+			"editor_estimatedProfit," + 
 			"errors, messages");
 		setValueInCollection("details", 2, "quantity", "61");		
 		assertLoadedParts(
 			"editor_details.2.amount," +
 			"collection_total_0_4_details.," +
 			"collection_total_1_4_details.," +
-			"collection_total_2_4_details.," +								
+			"collection_total_2_4_details.," +
+			"editor_estimatedProfit," + 
 			"errors, messages");
 		setValue("customer.number", "2"); // To test that the collection is not affected
 		assertLoadedParts(
@@ -103,7 +106,8 @@ public class AJAXTest extends ModuleTestBase {
 		assertLoadedParts(
 			"collection_total_0_4_details.," +
 			"collection_total_1_4_details.," +
-			"collection_total_2_4_details.," +								
+			"collection_total_2_4_details.," +
+			"editor_estimatedProfit," + 
 			"errors, messages");		
 	}
 	
@@ -371,7 +375,7 @@ public class AJAXTest extends ModuleTestBase {
 		execute("Customer.changeNameLabel");		
 		assertLoadedParts("label_name, errors, messages, ");
 		execute("CRUD.new");
-		assertLoadedParts("errors," + // TMP FALLA
+		assertLoadedParts("errors," + 
 				"button_bar, bottom_buttons," + // Because Refresh is removed 
 				"editor_seller.name, " +
 				"editor_number, " +

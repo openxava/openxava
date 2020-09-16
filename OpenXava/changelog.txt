@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: On removing rows from an element collection calculated properties dependent on totals not updated.
+- Fix: Property dependent on a total property of an element collection not recalculated when total changed.
 - Fix: Calculated properties are not refreshed on adding to collection.
 - Fix: Calculated properties available for group by in list, when they cannot be used for grouping.
 - Fix: Read only HTML_TEXT in a section put all content in a row overflowing the screen.

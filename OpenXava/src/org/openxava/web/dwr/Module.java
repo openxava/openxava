@@ -103,7 +103,6 @@ public class Module extends DWRBase {
 			result.setUrlParam(getUrlParam());
 			result.setViewSimple(getView().isSimple());
 			result.setDataChanged(getView().isDataChanged());  
-			System.out.println("[Module.request] ChangedParts=" + result.getChangedParts().keySet()); // tmp
 			return result;
 		}
 		catch (SecurityException ex) {
@@ -605,7 +604,6 @@ public class Module extends DWRBase {
 		Collection changedCollections = view.getChangedCollectionsTotals().entrySet();
 		for (Iterator it = changedCollections.iterator(); it.hasNext(); ) {
 			Map.Entry en = (Map.Entry) it.next();
-			System.out.println("[Module.fillChangedCollectionsTotals] en.getKey()=" + en.getKey()); // tmp
 			String [] key = ((String) en.getKey()).split(":");
 			String qualifiedName = key[0];
 			String row = key[1];
@@ -617,26 +615,7 @@ public class Module extends DWRBase {
 				"&viewObject=" + containerView.getViewObject() +
 				"&row=" + row +
 				"&column=" + column +
-				"&propertyPrefix=" + containerView.getPropertyPrefix());
-			// tmp ini
-			View collectionView = containerView.getSubview(qualifiedName); // tmp
-			String totalPropertyName = collectionView.getCollectionTotalPropertyName(Integer.parseInt(row), Integer.parseInt(column)); // tmp 
-			System.out.println("[Module.fillChangedCollectionsTotals] totalProperty=" + totalPropertyName); // tmp
-			MetaProperty totalProperty = containerView.getMetaProperty(totalPropertyName);
-			
-			for (Object dependentPropertyName: totalProperty.getPropertyNamesThatIDepend()) {
-				System.out.println("[Module.fillChangedCollectionsTotals] " + dependentPropertyName); // tmp
-			}
-			/* tmp
-			try {
-				
-				return getMetaView().getMetaProperty(name);			
-			}
-			catch (ElementNotFoundException ex) { 
-			}
-			*/
-			// tmp fin	
-			
+				"&propertyPrefix=" + containerView.getPropertyPrefix());			
 		}
 	}
 	

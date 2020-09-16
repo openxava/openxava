@@ -240,7 +240,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertTotalInCollection("details", 2, "amount", "88.33");		
 	}
 	
-	public void testElementCollectionGetEntity_removingRowUpdatesTotals_addingSeveralRowsAfterRemoving_referenceSearchCorrectIndexAfterRemoving() throws Exception {  
+	public void testElementCollectionGetEntity_removingRowUpdatesTotals_addingSeveralRowsAfterRemoving_referenceSearchCorrectIndexAfterRemoving_calculatedPropertiesDependingOnTotals() throws Exception {  
 		execute("List.viewDetail", "row=0");
 		assertValue("year", "2014"); // This one ... 
 		assertValue("number", "1");  // ... has 3 details
@@ -252,20 +252,21 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertTotalInCollection("details", 0, "amount", "162.00");
 		assertTotalInCollection("details", 1, "amount",  "34.02");
 		assertTotalInCollection("details", 2, "amount", "196.02");
-		assertValue("estimatedProfit", "19.60"); // tmp
+		assertValue("estimatedProfit", "19.60"); 
 		
 		removeRow(1); 
 		
 		assertTotalInCollection("details", 0, "amount", "102.00");
 		assertTotalInCollection("details", 1, "amount",  "21.42");
 		assertTotalInCollection("details", 2, "amount", "123.42");		
-		assertValue("estimatedProfit", "12.34"); // tmp
+		assertValue("estimatedProfit", "12.34"); 
 		
 		setValueInCollection("details", 1, "quantity", "5");
 		assertValueInCollection("details", 1, "amount", "100.00"); 
 		assertTotalInCollection("details", 0, "amount", "122.00");
 		assertTotalInCollection("details", 1, "amount",  "25.62");
 		assertTotalInCollection("details", 2, "amount", "147.62");
+		assertValue("estimatedProfit", "14.76"); 
 		
 		setValueInCollection("details", 2, "product.number", "1");
 		assertValueInCollection("details", 2, "product.description", "MULTAS DE TRAFICO");

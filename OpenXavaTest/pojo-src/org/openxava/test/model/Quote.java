@@ -16,8 +16,7 @@ import org.openxava.model.Identifiable;
 
 @Entity
 @Views({
-	// tmp @View(members="year, number, date; customer; details"),
-	@View(members="year, number, date; customer; details; amountsSum; estimatedProfit"), // tmp
+	@View(members="year, number, date; customer; details; estimatedProfit"), 
 	@View(name="QuoteWithRemoveElementCollection", members="year, number, date; data { customer; details }") 
 })
 @Tab(defaultOrder="${year} desc") 
@@ -39,8 +38,7 @@ public class Quote extends Identifiable {
 	@RemoveSelectedAction(forViews="QuoteWithRemoveElementCollection", value="Quote.removeDetail") 
 	@javax.validation.constraints.Size(min=1, max=3)  
 	@ElementCollection
-	// tmp @ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxes, quote.total]")
-	@ListProperties("product.number, product.description, unitPrice, quantity, amount") // tmp
+	@ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxes, quote.total]")
 	private Collection<QuoteDetail> details;
 
 	@PrePersist
@@ -48,7 +46,6 @@ public class Quote extends Identifiable {
 		if (number == 0) number = 77;
 	}
 	
-	@Depends("number") // tmp
 	public BigDecimal getAmountsSum() {
 		BigDecimal sum = new BigDecimal(0);
 		for (QuoteDetail detail: getDetails()) {
@@ -65,10 +62,9 @@ public class Quote extends Identifiable {
 		return getAmountsSum().add(getTaxes());
 	}	
 	
-	@Depends("amountsSum") // tmp Debería ser "total" ¿Necesario?
-	public BigDecimal getEstimatedProfit() { // tmp
-		return getAmountsSum().multiply(new BigDecimal("0.1"));
-		
+	@Depends("total") 
+	public BigDecimal getEstimatedProfit() { 
+		return getTotal().multiply(new BigDecimal("0.1"));
 	}
 	
 	public int getYear() {
