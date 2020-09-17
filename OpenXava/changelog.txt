@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Documentation to install the latest OpenXava version on a 64-bit computer.
 - Fix: On removing rows from an element collection calculated properties dependent on totals not updated.
 - Fix: Property dependent on a total property of an element collection not recalculated when total changed.
 - Fix: Calculated properties are not refreshed on adding to collection.
