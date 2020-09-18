@@ -80,7 +80,7 @@ public class WorkInvoiceTest extends ModuleTestBase {
 		assertValue("number", "66");
 		assertValue("description", "JUNIT WORK INVOICE");
 		
-		setValue("workCost.id", "40288118607859d00160786026960000");
+		setValue("workCost.id", "40288118607859d00160786026960000"); 
 		execute("CRUD.save");
 		assertNoErrors();
 		

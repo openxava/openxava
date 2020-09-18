@@ -46,7 +46,7 @@ public class BookTest extends ModuleTestBase {
 		
 		assertValue("title", "");
 		execute("Book.fillTitle");
-		assertValue("title", "THE MYTHICAL MAN-MONTH");
+		assertValue("title", "THE MYTHICAL MAN-MONTH"); // Jersey fails with Tomcat 7. Test it with a Tomcat 8 + Java 8 at least.
 		assertEquals("The Mythical Man-Month", BookService.get().getTitle()); // To verify you can use REST from JUnit tests
 	}
 	
