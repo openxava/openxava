@@ -194,9 +194,8 @@
       The previous figure shows the actions from <em>Typical</em>. We want all
       of these actions in our <em>Invoice</em> module, except that we're going
       to write our own logic for the delete action.<br>
-      In order To define your own controller for <em>Invoice</em> you have to
-      write the following code in your <em>controllers.xml</em> file of the <em>xava</em>
-      folder of your project:<br>
+      You have to define your own controller for <em>Invoice</em> in <em>controllers.xml</em>
+      file of the <em>xava</em> folder of your project, leaving it in this way:<br>
       <pre><code class="xml">&lt;?xml version = "1.0" encoding = "ISO-8859-1"?&gt;
  
 &lt;!DOCTYPE controllers SYSTEM "dtds/controllers.dtd"&gt;
@@ -231,7 +230,8 @@
       will be present in the user interface.<br>
       <h3 id="toc4"><a name="Lesson 7: Refining the standard behavior-Custom actions-Writing your own action"></a>Writing
         your own action</h3>
-      Let's write a first version of our delete action:<br>
+      First, create a new package called <i>com.yourcompany.invoicing.actions</i>.
+      Then create a <i>DeleteInvoiceAction</i> class inside it, with this code:<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions;  // In 'actions' package
 
 import org.openxava.jpa.*;
@@ -243,58 +243,52 @@ public class DeleteInvoiceAction
  
     public void execute() throws Exception { // The logic of the action
         addMessage( // Add a message to show to the user
-            "Don't worry! I have cleared only the screen");
+            "Don't worry! I only have cleared the screen");
         getView().clear(); // getView() returns the xava_view object
-            // clear() clears the data in user interace
+            // clear() clears the data in user interface
     }
 }
-</code></pre> An action is a simple class. It has an <span class="wikii jcode">execute()</span>
-      method with the logic to perform when users click on the corresponding
-      button or link. An action must implement <span class="wikii jcode">org.openxava.actions.IAction</span>
-      interface, though usually it is more practical to extend <span class="wikii jcode">BaseAction</span>,
-      <span class="wikii jcode">ViewBaseAction</span> or any other base action
-      from the <span class="wikii jcode">org.openxava.actions</span> package.<br>
-      <span class="wikii jcode">ViewBaseAction</span> has a view property that
-      you can use from inside <span class="wikii jcode">execute()</span> with <span
-        class="wikii jcode">getView()</span>. This object of type <span class="wikii jcode">org.openxava.view.View</span>
-      allows you manage the user interface. Above we clear the displayed data
-      using <span class="wikii jcode">getView().clear()</span>.<br>
-      We also use <span class="wikii jcode">addMessage()</span>. All the
-      messages added by <span class="wikii jcode">addMessage()</span> will be
-      shown to the user at the end of action execution. You can either add the
-      message to show or an id of an entry in <em>i18n/Invoicing-messages_en.properties</em>.<br>
+</code></pre> An action is a simple class. It has an <i>execute()</i> method
+      with the logic to perform when users click on the corresponding button or
+      link. An action must implement <i>org.openxava.actions.IAction</i>
+      interface, though usually it is more practical to extend <i>BaseAction</i>,
+      <i> ViewBaseAction</i> or any other base action from the <i>org.openxava.actions</i>
+      package.<br>
+      <i> ViewBaseAction</i> has a <i>view</i> property that you can use from
+      inside <i>execute()</i> with <i>getView()</i>. This object of type <i>org.openxava.view.View</i>
+      allows you manage the user interface. Above we cleared the displayed data
+      using <i>getView().clear()</i>.<br>
+      We also used <i>addMessage()</i>. All the messages added by <i>addMessage()</i>
+      will be shown to the user at the end of action execution. You can either
+      add the message to show or an id of an entry in <em>i18n/Invoicing-messages_en.properties</em>.<br>
       The following figure demonstrates the behavior of the <em>Invoice</em>
-      module after adding your custom delete action. This is of course mock
-      behavior, so let us now add the real functionality.<br>
+      module after adding your custom delete action: <br>
       <img src="files/refining_behavior_en020.png" alt="refining_behavior_en020.png"
         title="refining_behavior_en020.png"><br>
+      This is of course mock behavior, so let us now add the real functionality.
       In order to mark the current invoice as deleted without actually deleting
       it, we need to add a new property to <em>Invoice</em>. Let's call it <em>deleted</em>.
       You can see it:<br>
-      <pre><code class="java">public class Invoice extends CommercialDocument {
+      <pre><code class="java">@Hidden // It will not be shown by default in views and tabs
+@Column(columnDefinition="BOOLEAN DEFAULT FALSE") // To populate with falses instead of nulls
+private boolean deleted;
  
-    @Hidden // It will not be shown by default in views and tabs
-    @Column(columnDefinition="boolean default false") // To populate with falses instead of nulls
-    private boolean deleted;
+public boolean isDeleted() {
+    return deleted;
+}
  
-    public boolean isDeleted() {
-        return deleted;
-    }
- 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
+public void setDeleted(boolean deleted) {
+    this.deleted = deleted;
 }
 </code></pre> As you see, it's a plain boolean property. The only new detail is
-      the use of the <span class="wiki jcode">@Hidden</span> annotation. It
-      means that when a default view or a tabular list is generated the deleted
-      property will not be shown; although if you explicitly put it in <span class="wiki jcode">@View(members=)</span>
-      or <span class="wiki jcode">@Tab(properties=)</span> it will be shown.
-      Use this annotation for properties intended for internal use of the
-      developer but makes no sense to the end user.<br>
+      the use of the <i>@Hidden</i> annotation. It means that when a default
+      view or a tabular list is generated the deleted property will not be
+      shown; although if you explicitly put it in <i>@View(members=)</i> or <i>@Tab(properties=)</i>
+      it will be shown. Use this annotation for properties intended for internal
+      use of the developer but makes no sense to the end user.<br>
       We use <em>@Column(columnDefinition=)</em> to populate the column with
       falses instead of nulls. Here you put the SQL column definition to send to
-      the database. It's faster that do a update over the database but the code
+      the database. It's faster that do an update over the database but the code
       is more database dependent.<br>
       We are now ready to write the real code for your action:<br>
       <pre><code class="java">public void execute() throws Exception {
@@ -317,24 +311,23 @@ public class DeleteInvoiceAction
       addition if the user clicks the button the search instruction will fail
       and a somewhat technical and unintelligible message will be shown to our
       helpless user. We can refine this case by not showing the button, such as
-      when we click the "new" button. Note the small modification of the <span
-        class="wiki jcode">execute()</span>:<br>
+      when we click the "new" button. Note the small modification of the <i>execute()</i>:<br>
       <pre><code class="java">public void execute() throws Exception {
     // ...
     getView().clear();
     getView().setKeyEditable(true); // A new entity
 }
-</code></pre> With <span class="wiki jcode">getView().setKeyEditable(true)</span>
-      we indicate that we create a new entity and since our delete action has
-      the attribute <em>available-in-new = "false"</em>, then the delete button
-      will not be displayed.<br>
+</code></pre> With <i>getView().setKeyEditable(true)</i> we indicate that we
+      create a new entity and since our delete action has the attribute <em>available-in-new
+        = "false"</em>, then the delete button will not be displayed.<br>
       Now that you know how to write your own custom actions, it's time to learn
       how to write generic code.<br>
       <h2 id="toc5"><a name="Lesson 7: Refining the standard behavior-Generic actions"></a>Generic
         actions</h2>
-      The above code for your <em>DeleteInvoiceAction</em> reflects the typical
-      way of writing actions. It is concrete code directly accessing and
-      manipulating your entities.<br>
+      TMP ME QUEDÉ POR AQUÍ</div>
+    <div class="wiki" style="display: block;"> The above code for your <em>DeleteInvoiceAction</em>
+      reflects the typical way of writing actions. It is concrete code directly
+      accessing and manipulating your entities.<br>
       But sometimes you have action logic potentially to be used and reused
       across your application, even across all your applications. In this case,
       you can use techniques to produce reusable code, converting your custom

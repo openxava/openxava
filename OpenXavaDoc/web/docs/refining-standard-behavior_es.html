@@ -188,15 +188,14 @@
       factura no sea borrada de la base de datos, sino que simplemente se marque
       como borrada. De esta forma, podemos recuperar las facturas borradas si
       fuese necesario.<br>
-      <img src="files/refining_behavior_es010.png" alt="refining_behavior_es010.png"
-
+      <img src="files/refining_behavior_es010.png" alt="refining_behavior_es010.png"
         title="refining_behavior_es010.png"><br>
       La figura anterior muestra las acciones de <em>Typical</em>; queremos
       todas estas acciones en nuestro módulo <em>Factura</em>, con la excepción
       de que vamos a escribir nuestra propia lógica para la acción de borrar.<br>
-      Para definir tu propio controlador para <em>Factura</em> has de escribir
-      el siguiente código en tu archivo <em>controladores.xml</em> de la
-      carpeta <em>xava</em> de tu proyecto:<br>
+      Define tu propio controlador para <em>Factura</em> añadiéndolo al archivo
+      <em>controladores.xml</em> de la carpeta <em>xava</em> de tu proyecto,
+      dejándolo como sigue:<br>
       <pre><code class="xml">&lt;?xml version = "1.0" encoding = "ISO-8859-1"?&gt;
  
 &lt;!DOCTYPE controladores SYSTEM "dtds/controladores.dtd"&gt;
@@ -232,7 +231,8 @@
       se mostrará al usuario y será la nuestra.<br>
       <h3 id="toc4"><a name="Acciones-personalizadas-Escribir-tu-propia-accion"></a>Escribir
         tu propia acción</h3>
-      Escribamos la primera versión de nuestra acción <em>delete</em>:<br>
+      Primero crea un nuevo paquete llamado <i>com.tuempresa.facturacion.acciones</i>.
+      Después añádele una clase <i>EliminarFactura</i>, con este código:<br>
       <pre><code class="java">package com.tuempresa.facturacion.acciones;  // En el paquete 'acciones'
  
 import org.openxava.actions.*;
@@ -249,56 +249,43 @@ public class EliminarFactura
             // clear() borra los datos en la interfaz de usuario
     }
 }
-</code></pre> Una acción es una clase simple. Tiene un método <span class="wiki jcode">execute()</span>
+</code></pre> Una acción es una clase simple. Tiene un método <i>execute()</i>
       con la lógica a hacer cuando el usuario pulse en el botón o vínculo
-      correspondiente. Una acción ha de implementar la interfaz <span class="wiki jcode">org.openxava.actions.IAction</span>,
-      aunque normalmente es más práctico extender de <span class="wiki jcode">BaseAction</span>,
-      <span class="wiki jcode">ViewBaseAction</span> o cualquier otra acción
-      base del paquete <span class="wiki jcode">org.openxava.actions</span>.<br>
-      <span class="wiki jcode">ViewBaseAction</span> tiene una propiedad <span
-
-        class="wiki jcode">view</span> que puedes usar desde dentro de <span class="wiki jcode">execute()</span>
-      mediante <span class="wiki jcode">getView()</span>. Este objeto del tipo
-      <span class="wiki jcode">org.openxava.view.View</span> permite manejar la
-      interfaz de usuario, en este caso borramos los datos visualizados usando <span
-
-        class="wiki jcode">getView().clear()</span>.<br>
-      También usamos <span class="wiki jcode">addMessage()</span>. Todos los
-      mensajes añadidos con <span class="wiki jcode">addMessage()</span> se
-      mostrarán al usuario al final de la ejecución de la acción. Puedes, bien
-      añadir el mensaje a mostrar, o bien un id de una entrada en <em>i18n/MensajesFacturacion_es.properties</em>.<br>
+      correspondiente. Una acción ha de implementar la interfaz <i>org.openxava.actions.IAction</i>,
+      aunque normalmente es más práctico extender de <i>BaseAction</i>, <i>
+        ViewBaseAction</i> o cualquier otra acción base del paquete <i>org.openxava.actions</i>.<br>
+      <i> ViewBaseAction</i> tiene una propiedad <i>view</i> que puedes usar
+      desde dentro de <i>execute()</i> mediante <i>getView()</i>. Este objeto
+      del tipo <i>org.openxava.view.View</i> permite manejar la interfaz de
+      usuario, en este caso borramos los datos visualizados usando <i>getView().clear()</i>.<br>
+      También usamos <i>addMessage()</i>. Todos los mensajes añadidos con <i>addMessage()</i>
+      se mostrarán al usuario al final de la ejecución de la acción. Puedes,
+      bien añadir el mensaje a mostrar, o bien un id de una entrada en <em>i18n/MensajesFacturacion_es.properties</em>.<br>
       La siguiente imagen muestra el comportamiento del módulo <em>Factura</em>
-      después de añadir la acción de borrar personalizada.<br>
-      <img src="files/refining_behavior_es020.png" alt="refining_behavior_es020.png"
-
+      después de añadir la acción de borrar personalizada:<br>
+      <img src="files/refining_behavior_es020.png" alt="refining_behavior_es020.png"
         title="refining_behavior_es020.png"><br>
       Por supuesto, este es un comportamiento tonto. Añadamos el comportamiento
-      real.<br>
-      Para marcar como borrada la factura actual sin borrarla realmente,
+      real. Para marcar como borrada la factura actual sin borrarla realmente,
       necesitamos añadir una nueva propiedad a <em>Factura</em>. Llamémosla <em>eliminado</em>:<br>
-      <pre><code class="java">public class Factura extends DocumentoComercial {
+      <pre><code class="java">@Hidden // No se mostrará por defecto en las vistas y los tabs
+@Column(columnDefinition="BOOLEAN DEFAULT FALSE") // Para llenar con falses en lugar de con nulos
+private boolean eliminado;
  
-    @Hidden // No se mostrará por defecto en las vistas y los tabs
-    @Column(columnDefinition="boolean default false") // Para llenar con falses en lugar de con nulos
-    private boolean eliminado;
+public boolean isEliminado() {
+    return eliminado;
+}
  
-    public boolean isEliminado() {
-        return eliminado;
-    }
- 
-    public void setEliminado(boolean eliminado) {
-        this.eliminado = eliminado;
-    }
+public void setEliminado(boolean eliminado) {
+    this.eliminado = eliminado;
 }
 </code></pre> Como ves, es una propiedad booleana simple y llana. El único
-      detalle es el uso de la anotación <span class="wiki jcode">@Hidden</span>.
-      Indica que cuando una vista o lista tabular por defecto sea generada la
-      propiedad <em>eliminado</em> no se mostrará; aunque si la pones
-      explícitamente en <span class="wiki jcode">@View(members=)</span> o <span
-
-        class="wiki jcode">@Tab(properties=)</span> sí que se mostrará. Usa esta
-      anotación para marcar aquellas propiedades de uso interno del programador
-      pero que no tienen sentido para el usuario final.<br>
+      detalle es el uso de la anotación <i>@Hidden</i>. Indica que cuando una
+      vista o lista tabular por defecto sea generada la propiedad <em>eliminado</em>
+      no se mostrará; aunque si la pones explícitamente en <i>@View(members=)</i>
+      o <i>@Tab(properties=)</i> sí que se mostrará. Usa esta anotación para
+      marcar aquellas propiedades de uso interno del programador pero que no
+      tienen sentido para el usuario final.<br>
       Usamos <em>@Column(columnDefinition=)</em> para llenar la columna con <em>falses</em>
       en lugar de con nulos. Aquí puedes poner definición SQL de la columna para
       enviar a la base de datos. Es más sencillo que actualizar la base de datos
@@ -325,16 +312,16 @@ public class EliminarFactura
       buscar fallará y un mensaje un tanto técnico e ininteligible se le
       mostrará a nuestro desamparado usuario. Podemos refinar este caso no
       mostrando el botón, tal como cuando pulsamos el botón "nuevo". Observa la
-      ligera modificación al método <span class="wiki jcode">execute()</span>:<br>
+      ligera modificación al método <i>execute()</i>:<br>
       <pre><code class="java">public void execute() throws Exception {
     // ...
     getView().clear();
     getView().setKeyEditable(true); // Crearemos una nueva entidad
 }
-</code></pre> Con <span class="wiki jcode">getView().setKeyEditable(true)</span>
-      indicamos que creamos una nueva entidad y como nuestra acción <em>delete</em>
-      tiene el atributo <em>disponible-en-nuevo="false"</em>, entonces, el
-      botón de borrar no se mostrará.<br>
+</code></pre> Con <i>getView().setKeyEditable(true)</i> indicamos que creamos
+      una nueva entidad y como nuestra acción <em>delete</em> tiene el atributo
+      <em>disponible-en-nuevo="false"</em>, entonces, el botón de borrar no se
+      mostrará.<br>
       Ahora que ya sabes como escribir tus propias acciones personalizadas, es
       tiempo de aprender como escribir código genérico.<br>
       <h2 id="toc5"><a name="Acciones-genericas"></a>Acciones genéricas</h2>
@@ -541,8 +528,7 @@ abstract public class DocumentoComercial extends Eliminable {
 </code></pre> Dado que <em>Factura</em> y <em>Pedido</em> son <em>DocumentoComercial</em>,
       ahora puedes usar tu controlador <em>Facturacion</em> con la <em>ElminarParaFaturacion</em>
       contra ellos.<br>
-      Nos queda un sutil detalle. La entidad <em>Pedido</em> tiene un método <span
-
+      Nos queda un sutil detalle. La entidad <em>Pedido</em> tiene un método <span
         class="wiki jcode">@PreRemove</span> para hacer una validación al
       borrar. Esta validación puede impedir el borrado. Podemos mantener esta
       validación para nuestro borrado personalizado simplemente sobrescribiendo
@@ -571,8 +557,7 @@ abstract public class DocumentoComercial extends Eliminable {
       funcionamiento es bueno. Aunque si tratas de borrar una entidad de
       cualquier otro módulo, recibirás un feo mensaje de error. La figura
       siguiente muestra lo que ocurre cuando intentas borrar un <em>Cliente</em>.<br>
-      <img src="files/refining_behavior_es030.png" alt="refining_behavior_es030.png"
-
+      <img src="files/refining_behavior_es030.png" alt="refining_behavior_es030.png"
         title="refining_behavior_es030.png"><br>
       Sí, si tu entidad no tiene una propiedad <em>eliminado</em>, la acción de
       borrar falla miserablemente. Es verdad que gracias a la clase <em>Eliminable</em>
@@ -601,8 +586,7 @@ abstract public class DocumentoComercial extends Eliminable {
       que devuelve un objeto del paquete <span class="wiki jcode">org.openxava.model.meta</span>.
       Este objeto contiene metadatos sobre la entidad actualmente visualizada en
       la vista. Puedes preguntar por propiedades, referencias, colecciones,
-      métodos y otra metainformación sobre la entidad. Consulta la API de <span
-
+      métodos y otra metainformación sobre la entidad. Consulta la API de <span
         class="wiki jcode">MetaModel</span> para aprender más. En este caso
       preguntamos si la propiedad <em>eliminado</em> existe.<br>
       De momento solo mostramos un mensaje. Mejorémoslo para borrar de verdad la
@@ -679,8 +663,7 @@ public class EliminarParaFacturacion extends ViewBaseAction
       El lugar más obvio para empezar es la acción de búsqueda. Si borras una
       factura y después tratas de buscarla, no deberías encontrarla. La
       siguiente figura muestra como funciona la búsqueda en OpenXava.<br>
-      <img src="files/refining_behavior_es040.png" alt="refining_behavior_es040.png"
-
+      <img src="files/refining_behavior_es040.png" alt="refining_behavior_es040.png"
         title="refining_behavior_es040.png"><br>
       La primera cosa que puedes observar en la figura anterior es que buscar en
       modo detalle es más flexible de lo que parece. El usuario puede introducir
@@ -950,8 +933,7 @@ public class EliminarSeleccionadoParaFacturacion
 </code></pre> Puedes ver como esta acción es bastante parecida a <em>EliminarParaFacturacion</em>.
       Si las entidades no tienen la propiedad <em>eliminado</em> encadena con
       la acción estándar, en caso contrario ejecuta su propia lógica para borrar
-      las entidades. Generalmente las acciones para modo lista extienden de <span
-
+      las entidades. Generalmente las acciones para modo lista extienden de <span
         class="wiki jcode">TabBaseAction</span>, así puedes usar <span class="wiki jcode">getTab()</span>
       para obtener los objetos <em>Tab</em> asociados a la lista. Un <em>Tab</em>
       (de <span class="wiki jcode">org.openxava.tab</span>) te permite
@@ -999,8 +981,7 @@ public class EliminarSeleccionadoParaFacturacion
       esta se habría recorrido después de la ejecución de la acción.<br>
       Hemos llamado a <span class="wiki jcode">resetDescriptionsCache()</span>
       para actualizar las entidades borradas en todos los combos de la actual
-      sesión de usuario. Los combos, es decir las referencias marcadas con <span
-
+      sesión de usuario. Los combos, es decir las referencias marcadas con <span
         class="wiki jcode">@DescriptionsList</span>, usan el <span class="wiki jcode">@Tab</span>
       de la entidad referenciada para filtrar los datos. Es decir, si tuvieras
       un combo de facturas o pedidos con la condición <em>“deleted = false”</em>
@@ -1020,8 +1001,7 @@ public class EliminarSeleccionadoParaFacturacion
       <h3 id="toc16"><a name="Reutilizar-el-codigo-de-las-acciones-Propiedades-para-crear-acciones-reutilizables"></a>Propiedades
         para crear acciones reutilizables</h3>
       La papelera que queremos es como la que puedes ver en la siguiente figura:<br>
-      <img src="files/refining_behavior_es050.png" alt="refining_behavior_es050.png"
-
+      <img src="files/refining_behavior_es050.png" alt="refining_behavior_es050.png"
         title="refining_behavior_es050.png"><br>
       Es decir, una lista de facturas o pedidos donde el usuario pueda
       seleccionar varias y pulsar en el botón <em>"Restaurar"</em>, o
@@ -1116,8 +1096,7 @@ public class EliminarSeleccionadoParaFacturacion
       usado como <em>controlador-modo</em>. Además, definen una acción especial
       como acción de fila usando la variable de entorno <em>XAVA_LIST_ACTION</em>.
       La siguiente figura muestra <em>PapeleraFactura</em>:<br>
-      <img src="files/refining_behavior_es060.png" alt="refining_behavior_es060.png"
-
+      <img src="files/refining_behavior_es060.png" alt="refining_behavior_es060.png"
         title="refining_behavior_es060.png"><br>
       <h3 id="toc18"><a name="Reutilizar-el-codigo-de-las-acciones-Varias-definiciones-de-datos-tabulares-por-entidad"></a>Varias
         definiciones de datos tabulares por entidad</h3>
@@ -1145,8 +1124,7 @@ public class Factura extends DocumentoComercial { ... }
 })
 public class Pedido extends DocumentoComercial { ... }
 </code></pre> Se ve como <span class="wiki jcode">@Tabs</span> permite poner
-      varias definiciones de datos tabulares por entidad. Así, usamos el <span
-
+      varias definiciones de datos tabulares por entidad. Así, usamos el <span
         class="wiki jcode">@Tab</span> sin nombre como lista por defecto para <em>Factura</em>
       y <em>Pedido</em>, pero tenemos un <span class="wiki jcode">@Tab</span>
       llamado <em>"Eliminado"</em> que puedes usar para generar una lista con
@@ -1396,12 +1374,10 @@ private int getFilaDocumentoEnLista(String anyo, String numero)
       usuario necesitas añadir funcionalidad específica que le ayude a resolver
       sus problemas. Haremos esto en la próxima lección.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-7-refining-standard-behavior_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-7-refining-standard-behavior_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="business-logic-behavior_es.html">Ve a la
           lección 8</a></strong> </div>
