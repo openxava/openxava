@@ -8,7 +8,7 @@
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
-    <div class="wiki" id="content_view" style="display: block;">
+    <div class="wiki" style="display: block;">
       <h1 id="toc0"><a name="Lesson 7: Refining the standard behavior"></a> <span
           id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
@@ -49,8 +49,8 @@
             back to the model a little</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Metadata%20for%20more%20generic%20code">Metadata
             for more generic code</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Chaining%20actions">Chaining
-            actions</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Call%20another%20action%20from%20an%20action">Call
+            another action from an action actions</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Refining%20the%20default%20search%20action">Refining
             the default search action</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode">List
@@ -324,10 +324,9 @@ public void setDeleted(boolean deleted) {
       how to write generic code.<br>
       <h2 id="toc5"><a name="Lesson 7: Refining the standard behavior-Generic actions"></a>Generic
         actions</h2>
-      TMP ME QUEDÉ POR AQUÍ</div>
-    <div class="wiki" style="display: block;"> The above code for your <em>DeleteInvoiceAction</em>
-      reflects the typical way of writing actions. It is concrete code directly
-      accessing and manipulating your entities.<br>
+      The above code for your <em>DeleteInvoiceAction</em> reflects the typical
+      way of writing actions. It is concrete code directly accessing and
+      manipulating your entities.<br>
       But sometimes you have action logic potentially to be used and reused
       across your application, even across all your applications. In this case,
       you can use techniques to produce reusable code, converting your custom
@@ -341,13 +340,11 @@ public void setDeleted(boolean deleted) {
       you want an action to mark as deleted instead of actually removing from
       the database any entity, not just invoices. In this case, the current code
       for your action is not enough. You need a more generic code.<br>
-      You can develop more generic actions using an OpenXava class named <span
-        class="wiki jcode">MapFacade</span>. <span class="wiki jcode">MapFacade</span>
-      (from <span class="wiki jcode">org.openxava.model</span> package) allows
-      you to manage the state of your entities using maps, which is very
-      practical since <span class="wiki jcode">View</span> works with maps.
-      Furthermore, maps are more dynamic than objects, and hence more suitable
-      for generic code.<br>
+      You can develop more generic actions using an OpenXava class named <i>MapFacade</i>.
+      <i> MapFacade</i> (from <i>org.openxava.model</i> package) allows you to
+      manage the state of your entities using maps, which is very practical
+      since <i>View</i> works with maps. Furthermore, maps are more dynamic
+      than objects, and hence more suitable for generic code.<br>
       Let's rewrite our delete action. First, we'll rename it from <em>DeleteInvoiceAction</em>
       (an action to delete <em>Invoice</em> objects) to <em>InvoicingDeleteAction</em>
       (the delete action of the <em>Invoicing</em> application). This implies
@@ -368,9 +365,10 @@ import org.openxava.actions.*;
 import org.openxava.model.*;
  
 public class InvoicingDeleteAction extends ViewBaseAction {
+
     public void execute() throws Exception {
         Map&lt;String, Object&gt; values =
-            new HashMap&lt;String, Object&gt;(); // The values to modify in the entity
+            new HashMap&lt;&gt;(); // The values to modify in the entity
         values.put("deleted", true); // We set true to 'deleted' property
         MapFacade.setValues( // Modifies the values of the indicated entity
             getModelName(), // A method from ViewBaseAction
@@ -387,16 +385,14 @@ public class InvoicingDeleteAction extends ViewBaseAction {
       contains no reference to the <em>Invoice</em> entity. This action is
       generic and you can use it with <em>Order</em>, <em>Author</em> or any
       other entity as long they have a <em>deleted</em> property. The trick
-      lies in <span class="wiki jcode">MapFacade</span>. It allows you to
-      modify an entity from maps. These maps can be obtained directly from the
-      view (using <span class="wiki jcode">getView().getKeyValues()</span> for
-      example) or created generically as in the case with values above.<br>
+      lies in <i>MapFacade</i>. It allows you to modify an entity from maps.
+      These maps can be obtained directly from the view (using <i>getView().getKeyValues()</i>
+      for example) or created generically as in the case with values above.<br>
       Additionally you can see two small improvements over the old version.
-      First, we call <span class="wiki jcode">resetDescriptionsCache()</span>,
-      a method from <span class="wiki jcode">BaseAction</span>. This method
-      clears the cache used for combos. When you modify an entity, this is
-      needed if you want the combos to reflect the change instantaneously.
-      Second, we call <span class="wiki jcode">getView().setEditable(false)</span>.
+      First, we call <i>resetDescriptionsCache()</i>, a method from <i>BaseAction</i>.
+      This method clears the cache used for combos. When you modify an entity,
+      this is needed if you want the combos to reflect the change
+      instantaneously. Second, we call <i>getView().setEditable(false)</i>.
       This disables the editors of the view, to prevent the user from filling in
       data in the view. In order to create a new entity the user must click the
       “new” button.<br>
@@ -443,7 +439,7 @@ public class InvoicingDeleteAction extends ViewBaseAction {
 &lt;application name="Invoicing"&gt;
  
     &lt;!--
-        A default module for each entity is assumed with the
+    A default module for each entity is assumed with the
     controllers on &lt;default-module/&gt;
     --&gt;
     &lt;default-module&gt;
@@ -471,7 +467,7 @@ public class InvoicingDeleteAction extends ViewBaseAction {
       <pre><code class="java">public class Invoice extends CommercialDocument {
  
     //@Hidden // It will not be shown by default in views and tabs
-    //@Column(columnDefinition="boolean default false")
+    //@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
     //private boolean deleted;
  
     //public boolean isDeleted() {
@@ -484,6 +480,29 @@ public class InvoicingDeleteAction extends ViewBaseAction {
  
     // ...
 }
+</code></pre> And now create a new mapped superclass named <i>Deletable</i> in
+      <i>com.yourcompany.invoicing.model</i> package:
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import javax.persistence.*;
+import org.openxava.annotations.*;
+ 
+@MappedSuperclass
+public class Deletable extends Identifiable {
+ 
+    @Hidden
+    @Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+    private boolean deleted;
+ 
+    public boolean isDeleted() {
+        return deleted;
+    }
+ 
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+ 
+}
 </code></pre> <em>Deletable</em> is a mapped superclass. Remember, a mapped
       superclass is not an entity, but a class with properties, methods and
       mapping annotations to be used as a superclass for entities. <em>Deletable</em>
@@ -492,17 +511,16 @@ public class InvoicingDeleteAction extends ViewBaseAction {
       Now you can convert any of your current entities to deletable, you only
       have to change <em>Identifiable</em> to <em>Deletable</em> as
       superclass. This is done for <em>CommercialDocument</em>:<br>
-      <pre><code class="java">abstract public class CommercialDocument extends Deletable {
-// abstract public class CommercialDocument extends Identifiable {
+      <pre><code class="java">// abstract public class CommercialDocument extends Identifiable { 
+abstract public class CommercialDocument extends Deletable { 
 ...
 </code></pre> Given that <em>Invoice</em> and <em>Order</em> are subclasses of
       <em>ComercialDocument</em>, now you can use the <em>Invocing</em>
       controller with the <em>InvoicingDeleteAction</em> against them.<br>
-      A subtle detail remains. The <em>Order</em> entity has a <span class="wiki jcode">@PreRemove</span>
+      A subtle detail remains. The <em>Order</em> entity has a <i>@PreRemove</i>
       method to do a validation on remove. This validation can prevent the
       removal. We can maintain this validation for our custom deletion by just
-      overwriting the <span class="wiki jcode">setDeleted()</span>method for
-      Order:<br>
+      overwriting the <i>setDeleted()</i> method for <i>Order</i>:<br>
       <pre><code class="java">public class Order extends CommercialDocument {
     // ...
  
@@ -551,70 +569,61 @@ public class InvoicingDeleteAction extends ViewBaseAction {
     }
     // ...
 }
-</code></pre> The key thing here is <span class="wiki jcode">getView().getMetaModel()</span>
-      that returns a <span class="wiki jcode">MetaModel</span> object from <span
-        class="wiki jcode">org.openxava.model.meta</span> package. This object
-      contains metadata about the entity currently displayed in the view. You
-      can ask for the properties, references, collections, methods and other
-      entity metadata. Consult the <span class="wiki jcode">MetaModel</span>
-      API to learn more. In this case we ask if the <em>deleted</em> property
-      exists.<br>
+</code></pre> The key thing here is <i>getView().getMetaModel()</i> that
+      returns a <i>MetaModel</i> object from <i>org.openxava.model.meta</i>
+      package. This object contains metadata about the entity currently
+      displayed in the view. You can ask for the properties, references,
+      collections, methods and other entity metadata. Consult the <a href="../apidocs/org/openxava/model/meta/MetaModel.html"><i>MetaModel
+          </i>API</a> to learn more. In this case we ask if the <em>deleted</em>
+      property exists.<br>
       For now we only show a message. Let's improve on this to actually delete
       the entity.<br>
-      <h3 id="toc10"><a name="Lesson 7: Refining the standard behavior-Generic actions-Chaining actions"></a>Chaining
-        actions</h3>
+      <h3 id="toc10"><a name="Lesson 7: Refining the standard behavior-Generic actions-Call another action from an action"></a>Call
+        another action from an action</h3>
       Our objective is to remove the entity in the usual way if it lacks the <em>deleted</em>
-      property. Our first option is to write the removal logic ourself, a rather
-      simple task. Nonetheless, it is a much better idea to use the standard
-      removal logic of OpenXava, since we don't need to write any deletion logic
-      and we use a more refined and tested piece of code.<br>
-      For this OpenXava provides the useful feature of chaining actions. This
-      means that after your action another action will be executed. This is as
-      easy as implementing the <span class="wiki jcode">IChainAction</span>
-      interface in your class. The following code shows <em>InvoicingDeleteAction</em>
-      modified to chain to the standard OpenXava delete action:<br>
+      property. Our first option is to write the removal logic ourselves, a
+      rather simple task. Nonetheless, it is a much better idea to use the
+      standard removal logic of OpenXava, since we don't need to write any
+      deletion logic and we use a more refined and tested piece of code.<br>
+      For this OpenXava allows to call an action from inside an action, just
+      call to <i>executeAction()</i> indicating the qualified name of your
+      action, that is the name of the controller and the name of the action. In
+      our case for calling the standard OpenXava delete action we should use <i>executeAction("CRUD.delete")</i>.
+      The following code shows <em>InvoicingDeleteAction</em> modified to call
+      to the standard OpenXava delete action:<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions;
  
 import java.util.*;
+ 
 import org.openxava.actions.*;
 import org.openxava.model.*;
  
-public class InvoicingDeleteAction extends ViewBaseAction
-    implements IChainAction {  // It chains to another action, returned by getNextAction() method
- 
-    private String nextAction = null; // To store the next action to execute
- 
+public class InvoicingDeleteAction extends ViewBaseAction {
+
     public void execute() throws Exception {
-        if (!getView().getMetaModel()
-            .containsMetaProperty("deleted"))
-        {
-            nextAction = "CRUD.delete"; // 'CRUD.delete' will be executed
-            return; // after this action finishes
+        if (!getView().getMetaModel().containsMetaProperty("deleted")) {
+            executeAction("CRUD.delete"); // We call the standard OpenXava
+            return;                       //   action for deleting
         }
-        Map&lt;String, Object&gt; values = new HashMap&lt;String, Object&gt;();
+   	
+        // When "delete" exists we use our own deletion logic
+        Map&lt;String, Object&gt; values = new HashMap&lt;&gt;(); 
         values.put("deleted", true);
-        MapFacade.setValues(
-            getModelName(),
-            getView().getKeyValues(),
-            values);
-        resetDescriptionsCache();
+        MapFacade.setValues(getModelName(), getView().getKeyValues(), values); 
+        resetDescriptionsCache(); 
         addMessage("object_deleted", getModelName());
         getView().clear();
         getView().setKeyEditable(true);
-        getView().setEditable(false);
-    }
- 
-    public String getNextAction()  // Required because of IChainAction
-        throws Exception
-    {
-        return nextAction; // If null no action will be chained
+        getView().setEditable(false); 
     }
 }
-</code></pre> Simple. We only return “CRUD.delete” in <span class="wiki jcode">getNextAction()</span>
-      if we want the default delete action of OpenXava to be executed. Thus, we
-      write our custom removal logic (in this case marking a property as true)
-      for some cases, and we “by-pass” to the standard logic for all other
-      cases.<br>
+</code></pre> </div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ</div>
+    <div class="wiki" style="display: block;">Simple. We only return
+      “CRUD.delete” in <span class="wiki jcode">getNextAction()</span> if we
+      want the default delete action of OpenXava to be executed. Thus, we write
+      our custom removal logic (in this case marking a property as true) for
+      some cases, and we “by-pass” to the standard logic for all other cases.<br>
       Now you can use your <em>InvoicingDeleteAction</em> with any entity. If
       the entity has a <em>deleted</em> property it will be marked as deleted,
       otherwise it will be actually deleted from the database.<br>

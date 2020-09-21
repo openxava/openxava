@@ -49,8 +49,8 @@
             un momento al modelo</a></div>
         <div style="margin-left: 3em;"><a href="#Acciones-genericas-Metadatos-para-un-codigo-mas-generico">Metadatos
             para un código más genérico</a></div>
-        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Acciones-encadenadas">Acciones
-            encadenadas</a></div>
+        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Llamar-a-otra-accion-desde-una-accion">Llamar
+            a otra acción desde una acción</a></div>
         <div style="margin-left: 3em;"><a href="#Acciones-genericas-Refinar-la-accion-de-busqueda-por-defecto">Refinar
             la acción de búsqueda por defecto</a></div>
         <div style="margin-left: 2em;"><a href="#Modo-lista">Modo lista</a></div>
@@ -344,12 +344,11 @@ public void setEliminado(boolean eliminado) {
       no solo facturas sino cualquier entidad. En este caso, el código actual de
       tu acción no es suficiente. Necesitas un código más genérico.<br>
       Puedes conseguir una acción más genérica usando la clase de OpenXava
-      llamada <span class="wiki jcode">MapFacade</span>. <span class="wiki jcode">MapFacade</span>
-      (del paquete <span class="wiki jcode">org.openxava.model</span>) te
-      permite manejar el estado de tus entidades usando mapas, esto es
-      conveniente ya que <span class="wiki jcode">View</span> trabaja con
-      mapas. Además, los mapas son más dinámicos que los objetos y por tanto más
-      apropiados para crear código genérico.<br>
+      llamada <i>MapFacade</i>. <i>MapFacade</i> (del paquete <i>org.openxava.model</i>)
+      te permite manejar el estado de tus entidades usando mapas, esto es
+      conveniente ya que <i>View</i> trabaja con mapas. Además, los mapas son
+      más dinámicos que los objetos y por tanto más apropiados para crear código
+      genérico.<br>
       Reescribamos nuestra acción para borrar. Primero, renombremos <em>EliminarFactura</em>
       (una acción para borrar objetos de tipo <em>Factura</em>) como <em>EliminarParaFacturacion</em>
       (la acción para borrar objetos en la aplicación <em>Facturacion</em>).
@@ -370,9 +369,10 @@ import org.openxava.actions.*;
 import org.openxava.model.*;
  
 public class EliminarParaFacturacion extends ViewBaseAction {
+
     public void execute() throws Exception {
         Map&lt;String, Object&gt; valores =
-            new HashMap&lt;String, Object&gt;(); // Los valores a modificar en la entidad
+            new HashMap&lt;&gt;(); // Los valores a modificar en la entidad
         valores.put("eliminado", true); // Asignamos true a la propiedad 'eliminado'
         MapFacade.setValues( // Modifica los valores de la entidad indicada
             getModelName(), // Un método de ViewBaseAction
@@ -389,17 +389,15 @@ public class EliminarParaFacturacion extends ViewBaseAction {
       referencia a la entidad <em>Factura</em>. Por tanto, es genérica, puedes
       usarla con <em>Pedido</em>, <em>Autor</em> o cualquier otra entidad
       siempre y cuando tenga una propiedad <em>eliminado</em>. El truco está en
-      <span class="wiki jcode">MapFacade</span> la cual permite modificar una
-      entidad a partir de mapas. Puedes obtener esos mapas directamente de la
-      vista (usando <span class="wiki jcode">getView().getKeyValues()</span>
+      <i>MapFacade</i> la cual permite modificar una entidad a partir de mapas.
+      Puedes obtener esos mapas directamente de la vista (usando <i>getView().getKeyValues()</i>
       por ejemplo) o puedes crearlos de una manera genérica, como en el caso del
       mapa <em>valores</em>.<br>
       Adicionalmente puedes ver dos pequeñas mejoras sobre la versión antigua.
-      Primero, llamamos a <span class="wiki jcode">resetDescriptionsCache()</span>,
-      un método de <span class="wiki jcode">BaseAction</span>. Este método
-      borra el caché usado para los combos. Cuando modificas una entidad, si
-      quieres que los combos reflejen los cambios en la sesión actual has de
-      llamar a este método. Segundo, llamamos a <span class="wiki jcode">getView().setEditable(false)</span>.
+      Primero, llamamos a <i>resetDescriptionsCache()</i>, un método de <i>BaseAction</i>.
+      Este método borra el caché usado para los combos. Cuando modificas una
+      entidad, si quieres que los combos reflejen los cambios en la sesión
+      actual has de llamar a este método. Segundo, llamamos a <i>getView().setEditable(false)</i>.
       Esto inhabilita los controles de la vista, para impedir que el usuario
       rellene datos en la vista. Para crear una nueva entidad el usuario tiene
       que pulsar el botón “nuevo”.<br>
@@ -475,7 +473,7 @@ public class EliminarParaFacturacion extends ViewBaseAction {
       <pre><code class="java">public class Factura extends DocumentoComercial {
  
     //@Hidden // No se mostrará por defecto en las vistas y los tabs
-    //@Column(columnDefinition="boolean default false")
+    //@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
     //private boolean eliminado;
  
     //public boolean isEliminado() {
@@ -499,7 +497,7 @@ import org.openxava.annotations.*;
 public class Eliminable extends Identificable {
  
     @Hidden
-    @Column(columnDefinition="boolean default false")
+    @Column(columnDefinition="BOOLEAN DEFAULT FALSE")
     private boolean eliminado;
  
     public boolean isEliminado() {
@@ -519,7 +517,7 @@ public class Eliminable extends Identificable {
       Ahora puedes convertir cualquiera de tus entidades actuales en <em>Eliminable</em>,
       solo has de cambiar <em>Identificable</em> por <em>Eliminable</em> como
       superclase:<br>
-      <pre><code class="java">//abstract public class DocumentoComercial extends Identificable { // Cambia esta línea
+      <pre><code class="java">// abstract public class DocumentoComercial extends Identificable { 
 abstract public class DocumentoComercial extends Eliminable {
  
     // El resto del código...
@@ -528,11 +526,11 @@ abstract public class DocumentoComercial extends Eliminable {
 </code></pre> Dado que <em>Factura</em> y <em>Pedido</em> son <em>DocumentoComercial</em>,
       ahora puedes usar tu controlador <em>Facturacion</em> con la <em>ElminarParaFaturacion</em>
       contra ellos.<br>
-      Nos queda un sutil detalle. La entidad <em>Pedido</em> tiene un método <span
-        class="wiki jcode">@PreRemove</span> para hacer una validación al
-      borrar. Esta validación puede impedir el borrado. Podemos mantener esta
-      validación para nuestro borrado personalizado simplemente sobrescribiendo
-      el método <span class="wiki jcode">setEliminado()</span> de <em>Pedido</em>:<br>
+      Nos queda un sutil detalle. La entidad <em>Pedido</em> tiene un método <i>@PreRemove</i>
+      para hacer una validación al borrar. Esta validación puede impedir el
+      borrado. Podemos mantener esta validación para nuestro borrado
+      personalizado simplemente sobrescribiendo el método <i>setEliminado()</i>
+      de <em>Pedido</em>:<br>
       <pre><code class="java">public class Pedido extends DocumentoComercial {
     // ...
     @PreRemove
@@ -582,63 +580,53 @@ abstract public class DocumentoComercial extends Eliminable {
     }
     // El resto del código...
 }
-</code></pre> La clave aquí es <span class="wiki jcode">getView().getMetaModel()</span>
-      que devuelve un objeto del paquete <span class="wiki jcode">org.openxava.model.meta</span>.
-      Este objeto contiene metadatos sobre la entidad actualmente visualizada en
-      la vista. Puedes preguntar por propiedades, referencias, colecciones,
-      métodos y otra metainformación sobre la entidad. Consulta la API de <span
-        class="wiki jcode">MetaModel</span> para aprender más. En este caso
-      preguntamos si la propiedad <em>eliminado</em> existe.<br>
+</code></pre> La clave aquí es <i>getView().getMetaModel()</i> que devuelve un
+      objeto del paquete <i>org.openxava.model.meta</i>. Este objeto contiene
+      metadatos sobre la entidad actualmente visualizada en la vista. Puedes
+      preguntar por propiedades, referencias, colecciones, métodos y otra
+      metainformación sobre la entidad. Consulta la <a href="../apidocs/org/openxava/model/meta/MetaModel.html">API
+        de <i>MetaModel</i></a> para aprender más. En este caso preguntamos si
+      la propiedad <em>eliminado</em> existe.<br>
       De momento solo mostramos un mensaje. Mejorémoslo para borrar de verdad la
       entidad.<br>
-      <h3 id="toc10"><a name="Acciones-genericas-Acciones-encadenadas"></a>Acciones
-        encadenadas</h3>
+      <h3 id="toc10"><a name="Acciones-genericas-Llamar-a-otra-accion-desde-una-accion"></a>Llamar
+        a otra acción desde una acción</h3>
       Queremos que cuando la entidad no tenga una propiedad <em>eliminado</em>
       sea borrada de la base de datos de la manera habitual. Nuestra primera
       opción es escribir nosotros mismos la lógica de borrado, realmente no es
       una tarea complicada. Sin embargo, es mucho mejor usar la lógica estándar
       de borrado de OpenXava, así no necesitamos escribir ninguna lógica de
       borrado y usamos un código más refinado y probado.<br>
-      Para hacer esto OpenXava provee la posibilidad de encadenar acciones. Es
-      decir, puedes decir que después de tu acción otra acción sea ejecutada.
-      Esto es tan simple como implementar la interfaz <span class="wiki jcode">IChainAction</span>
-      en tu clase. El siguiente código muestra <em>EliminarParaFacturacion</em>
-      modificada para encadenar con la acción estándar de OpenXava para borrar.<br>
+      Para hacer esto OpenXava permite llamar a una acción desde dentro de una
+      acción, simplemente llama a <i>executeAction()</i> indicando el nombre
+      calificado de la acción, es decir, el nombre del controlador y el nombre
+      de la acción.&nbsp; En nuestro caso para llamar a la acción estándar de
+      OpenXava para borrar usaríamos <i>executeAction("CRUD.delete")</i>. El
+      siguiente código muestra <em>EliminarParaFacturacion</em> modificada para
+      llamar a la acción estándar de OpenXava para borrar.<br>
       <pre><code class="java">package com.tuempresa.facturacion.acciones;
  
 import java.util.*;
 import org.openxava.actions.*;
 import org.openxava.model.*;
  
-public class EliminarParaFacturacion extends ViewBaseAction
-    implements IChainAction { // Encadena con otra acción, indicada en el método getNextAction()
- 
-    private String nextAction = null; // Para guardar la siguiente acción a ejecutar
+public class EliminarParaFacturacion extends ViewBaseAction {
  
     public void execute() throws Exception {
-        if (!getView().getMetaModel()
-            .containsMetaProperty("eliminado"))
-        {
-            nextAction = "CRUD.delete"; // 'CRUD.delete' se ejecutará cuando esta
-            return; // acción finalice
+        if (!getView().getMetaModel().containsMetaProperty("eliminado")) {
+            executeAction("CRUD.delete"); // LLamamos a la acción estándar
+            return;                       //   de OpenXava para borrar
         }
-        Map&lt;String, Object&gt; valores = new HashMap&lt;String, Object&gt;();
+
+        // Cuando "eliminado" existe usamos nuestra propia lógica de borrado
+        Map&lt;String, Object&gt; valores = new HashMap&lt;&gt;();
         valores.put("eliminado", true);
-        MapFacade.setValues(
-            getModelName(),
-            getView().getKeyValues(),
-            valores);
+        MapFacade.setValues(getModelName(), getView().getKeyValues(), valores);
         resetDescriptionsCache();
         addMessage("object_deleted", getModelName());
         getView().clear();
         getView().setKeyEditable(true);
         getView().setEditable(false);
-    }
- 
-    public String getNextAction() // Obligatorio por causa de 'IChainAction'
-        throws Exception
-    {
-        return nextAction; // Si es nulo no se encadena con ninguna acción
     }
 }
 </code></pre> Simplemente devolvemos <em>“CRUD.delete”</em> en <span class="wiki jcode">getNextAction()</span>
