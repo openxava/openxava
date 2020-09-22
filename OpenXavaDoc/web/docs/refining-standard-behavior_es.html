@@ -629,8 +629,8 @@ public class EliminarParaFacturacion extends ViewBaseAction {
         getView().setEditable(false);
     }
 }
-</code></pre> Simplemente devolvemos <em>“CRUD.delete”</em> en <span class="wiki jcode">getNextAction()</span>
-      si queremos que la acción por defecto para borrar de OpenXava se ejecute.
+</code></pre> Simplemente llamamos a <i>executeAction(“CRUD.delete”)</i> si
+      queremos que la acción por defecto para borrar de OpenXava se ejecute.
       Así, escribimos nuestra propia lógica de borrado (en este caso marcar una
       propiedad con true) para algunos casos, y “dejamos pasar” la lógica
       estándar para los demás.<br>
@@ -638,9 +638,9 @@ public class EliminarParaFacturacion extends ViewBaseAction {
       entidad. Si la entidad tiene una propiedad <em>eliminado</em> se marcará
       como borrada, en caso contrario se borrará físicamente de la base de
       datos.<br>
-      Este ejemplo te muestra como usar <span class="wiki jcode">IChainAction</span>
-      para refinar la lógica estándar de OpenXava. Otra forma de hacerlo es
-      mediante la herencia. Veamos cómo en la siguiente sección.<br>
+      Este ejemplo te muestra como usar <i>executeAction() </i>para refinar la
+      lógica estándar de OpenXava. Otra forma de hacerlo es mediante la
+      herencia. Veamos cómo en la siguiente sección.<br>
       <h3 id="toc11"><a name="Acciones-genericas-Refinar-la-accion-de-busqueda-por-defecto"></a>Refinar
         la acción de búsqueda por defecto</h3>
       <em>EliminarParaFacturacion</em> ahora funciona bastante bien, aunque no
