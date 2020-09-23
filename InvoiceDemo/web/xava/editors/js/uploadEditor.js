@@ -28,8 +28,7 @@ openxava.addEditorInitFunction(function() {
 	    			link.dispatchEvent(new MouseEvent('click'));
 	    		}
 	    	}	    	
-	    	if (input.dataset.empty !== "true") {
-	    		
+	    	if (input.dataset.empty !== "true") {	
 	    		var count = 0; 
 	    		if (typeof input.dataset.files !== 'undefined') {
 		    		const filesIds = input.dataset.files.split(",");
@@ -56,19 +55,19 @@ openxava.addEditorInitFunction(function() {
 	    		uploadEditor.enableUpload(pond, input);
 	    	}
 	    	pond.onremovefile = function(error, file) { 
-	    		$.ajax({
-	    			url: uploadEditor.getUploadURL(input) + uploadEditor.getFileIdParam(file), 
-	    			method: "DELETE"
-    			})
+    			uploadEditor.removeFile(input, file); 
     		}
 	    	if (input.dataset.editable === "true") {
-	    		pond.disabled = true; 
+		    	pond.allowDrop = false;
+		    	pond.allowBrowse = false;
+		    	pond.allowPaste = false;
 	    	}
 	    	if (input.dataset.throwsChanged === "true") {
 		    	pond.onprocessfile = function(error, file) {
 		    		openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
 		    	}	    	
 		    	pond.onremovefile = function(error, file) {
+		    		uploadEditor.removeFile(input, file);
 		    		openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
 		    	}	    		    	
 	    	}
@@ -98,4 +97,11 @@ uploadEditor.getFileURL = function(input) {
 uploadEditor.getFileIdParam = function(file) {
 	const fileId = file.getMetadata("fileId");
 	return typeof fileId === 'undefined'?"":"&fileId=" + fileId; 
+}
+
+uploadEditor.removeFile = function(input, file) {
+	$.ajax({
+		url: uploadEditor.getUploadURL(input) + uploadEditor.getFileIdParam(file), 
+		method: "DELETE"
+	})
 }

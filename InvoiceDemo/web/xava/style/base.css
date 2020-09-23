@@ -2349,7 +2349,7 @@ div[id$="_Index__view"] .ox-list-title {
 	margin-right: 5px;
 }
 
-.ox-image-link:hover .mdi-magnify {
+.ox-image-link:hover i.mdi-magnify { 
 	background: var(--reference-search-icon-hover-background);
 	color: var(--reference-search-icon-hover-color);
 }
@@ -2447,3 +2447,19 @@ div[id$="_Index__view"] .ox-list-title {
 	max-height: 30px;
 }
 
+.ox-read-only-html-text {
+    white-space: break-spaces;
+}
+
+
+.ox-read-only-html-text p {
+	margin-top: -15px;
+}
+
+.ie .ox-read-only-html-text {
+    white-space: pre-wrap;
+}
+
+.ie .ox-read-only-html-text p {
+	margin-top: -5px;
+}

@@ -1,6 +1,37 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.4.1 (2020-9-22)
+--------------------------
+- Support for JAX-RS 2.1 (JSR 370) for calling RESTful web services.
+- Documentation to install the latest OpenXava version on a 32-bit computer.
+- Composite key explanation included in JPA documentation.
+- Lesson 6 of course upgraded to latest OpenXava features and includes an example of calling REST services.
+- Lesson 2 of course simplified removing some error prone parts.
+- Fix: Reference search icon bad displayed on hover inside element collections.
+- Fix: On removing rows from an element collection calculated properties dependent on totals not updated.
+- Fix: Property dependent on a total property of an element collection not recalculated when total changed.
+- Fix: Calculated properties are not refreshed on adding to collection.
+- Fix: Calculated properties available for "group by" in list, when they cannot be used for grouping.
+- Fix: Read only HTML_TEXT in a section put all content in a row overflowing the screen.
+- Fix: Generate PDF with an IIconEnum property in the list produces an error.
+- Fix: Date, LocalDate and DATETIME do not work with Croatian language.
+- Fix: When running from application launcher the default i18n does not work
+- Fix: The updateOX Ant target fails after a clean of OpenXava project.
+- Fix: Not applicable warnings on updateOX and deployWar Ant targets.
+- Fix: Error message of javax.validation.ValidationException from setter not shown on adding to a collection.
+- Fix: @EntityValidator does not work when entity is modified on adding to a collection.
+- Fix: On adding elements to a collection it closes the dialog even if no elements has been added.
+- Fix: Reference not injected in @EntityValidator on modify if it is not on the user interface.
+- Fix: Required validation on modifying does not work for IMAGES_GALLERY and FILES.
+- Fix: Removing a file from an upload editor does not work if it has an @OnChange action associated. 
+- Fix: Upload editor (PHOTO, IMAGES_GALLERY and FILES) doesn't allow to download file when read only.
+- Fix: Links of menu in JPA docs in Spanish broken. 
+- Fix: Assigning initial value to a reference used as mappedBy of an @OrderColumn list breaks the list.
+- Fix: Saving an entity with a reference with empty value used by a mappedBy of an @OrderColumn fails.
+- Fix: Creating a new element in an @OneToMany shows "You will lose all changes" message leaving record.
+- Fix: From time to time changing the theme by a user changes the login page theme for all users.
+
 OpenXava 6.4 (2020-7-28)
 ------------------------
 - OpenXava Studio, a specific OpenXava IDE, included in the distribution.
@@ -31,6 +62,7 @@ OpenXava 6.4 (2020-7-28)
 - Fix: @DefaultValueCalculator does not work for total properties of a collection if @View is specified.
 - Fix: assertTotalInCollection() in tests does not work for MONEY properties.
 - Fix: Horizontal scrollbar in list mode with large list configuration descriptions.
+- Fix: OpenXava.jar and openxava.jar files duplicated in Linux/Mac.
 
 OpenXava 6.3.2 (2020-5-12)
 --------------------------

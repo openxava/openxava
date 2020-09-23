@@ -1,0 +1,3 @@
+.ox-filepond-read-only .filepond--drop-label, .ox-filepond-read-only .filepond--action-remove-item {
+	display: none;
+}
