@@ -671,15 +671,15 @@ public class EliminarParaFacturacion extends ViewBaseAction {
       la misma acción, y todas las acciones que necesiten buscar encadenarán con
       esta acción. Tal como muestra la anterior figura.<br>
       Esto queda más claro si ves el código de la acción estándar <em>CRUD.refresh</em>,
-      que es <span class="wiki jcode">org.openxava.actions.SearchAction</span>
-      cuyo código se muestra a continuación:<br>
+      que es <i>org.openxava.actions.SearchAction</i> cuyo código se muestra a
+      continuación:<br>
       <pre><code class="java">public class SearchAction extends BaseAction
     implements IChainAction { // Encadena con otra acción
  
     public void execute() throws Exception { // No hace nada
     }
  
-    public String getNextAction() throws Exception {
+    public String getNextAction() throws Exception { // De IChainAction
         return getEnvironment() // Para acceder a las variables de entorno
             .getValue("XAVA_SEARCH_ACTION");
     }
@@ -687,10 +687,10 @@ public class EliminarParaFacturacion extends ViewBaseAction {
 </code></pre> Como ves, la acción estándar para buscar en modo detalle no hace
       nada, simplemente redirige a otra acción. Esta otra acción se define en
       una variable de entorno llamada <em>XAVA_SEARCH_ACTION</em>, que lee
-      usando <span class="wiki jcode">getEnvironment()</span>. Por la tanto, si
-      quieres refinar la lógica de búsqueda de OpenXava la mejor manera es
-      definiendo tu acción como valor para <em>XAVA_SEARCH_ACTION</em>.
-      Hagámoslo pues de esta manera.<br>
+      usando <i>getEnvironment()</i>. Por la tanto, si quieres refinar la
+      lógica de búsqueda de OpenXava la mejor manera es definiendo tu acción
+      como valor para <em>XAVA_SEARCH_ACTION</em>. Hagámoslo pues de esta
+      manera.<br>
       Para dar valor a la variable de entorno edita el archivo <em>controladores.xml</em>
       en la carpeta xava de tu proyecto, y añade al principio la línea <em>&lt;var-entorno
         /&gt;</em> como ves a continuación:<br>
@@ -735,7 +735,6 @@ public class BuscarExcluyendoEliminados
             .containsMetaProperty("eliminado");
     }
  
-    @Override
     protected Map getValuesFromView() // Coge los valores visualizados desde la vista
         throws Exception // Estos valores se usan como clave al buscar
     {
@@ -747,7 +746,6 @@ public class BuscarExcluyendoEliminados
         return valores;
     }
  
-    @Override
     protected Map getMemberNames() // Los miembros a leer de la entidad
         throws Exception
     {
@@ -759,7 +757,6 @@ public class BuscarExcluyendoEliminados
         return miembros; // aunque no esté en la vista
     }
  
-    @Override
     protected void setValuesToView(Map valores) // Asigna los valores desde
         throws Exception // la entidad a la vista
     {
@@ -773,17 +770,16 @@ public class BuscarExcluyendoEliminados
         }
     }
 }
-</code></pre> La lógica estándar para buscar está en la clase <span class="wiki jcode">SearchByViewKeyAction</span>.
+</code></pre> La lógica estándar para buscar está en la clase <i>SearchByViewKeyAction</i>.
       Básicamente, la lógica de esta clase consiste en coger los valores de la
       vista, si la propiedad <em>id</em> está presente buscará por id, en caso
       contrario coge todos los valores en la vista para usar en la condición de
       búsqueda, devolviendo el primer objeto que coincida con la condición.
       Queremos usar este mismo algoritmo cambiando solo algunos detalles sobre
       la propiedad <em>eliminado</em>. Por tanto, en vez de sobrescribir el
-      método <span class="wiki jcode">execute()</span>, que contiene la lógica
-      de búsqueda, sobrescribimos tres métodos protegidos, que son llamados
-      desde <span class="wiki jcode">execute()</span> y contienen algunos
-      puntos susceptibles de ser refinados.<br>
+      método <i>execute()</i>, que contiene la lógica de búsqueda,
+      sobrescribimos tres métodos protegidos, que son llamados desde <i>execute()</i>
+      y contienen algunos puntos susceptibles de ser refinados.<br>
       Después de estos cambios prueba tu aplicación, y verás como cuando tratas
       de buscar una factura o un pedido, si están borrados no se muestran.
       Incluso si escoges una factura o pedido borrado desde el modo lista se
@@ -827,12 +823,12 @@ public class BuscarExcluyendoEliminados
         datos tabulares</h3>
       Solo las entidades con su propiedad <em>eliminado</em> igual a <em>false</em>
       tienen que ser mostradas en modo lista. Esto es muy fácil de conseguir
-      usando la anotación <span class="wiki jcode">@Tab</span>. Esta anotación
-      te permite definir la forma en que los datos tabulares (los datos
-      mostrados en modo lista) son visualizados, y te permite además definir una
-      condición. Por tanto, añadir esta anotación a las entidades que tengan una
-      propiedad <em>eliminado</em> es suficiente para conseguir nuestro
-      objetivo, tal como se muestra a continuación:<br>
+      usando la anotación @Tab. Esta anotación te permite definir la forma en
+      que los datos tabulares (los datos mostrados en modo lista) son
+      visualizados, y te permite además definir una condición. Por tanto, añadir
+      esta anotación a las entidades que tengan una propiedad <em>eliminado</em>
+      es suficiente para conseguir nuestro objetivo, tal como se muestra a
+      continuación:<br>
       <pre><code class="java">@Tab(baseCondition = "eliminado = false")
 public class Factura extends DocumentoComercial { ... }
  
@@ -843,9 +839,9 @@ public class Pedido extends DocumentoComercial { ... }
       <h3 id="toc14"><a name="Modo-lista-Acciones-de-lista"></a>Acciones de
         lista</h3>
       El único detalle que nos queda es el borrar las entidades desde modo
-      lista, éstas han de marcarse como borradas si procede. Vamos a refinar la
-      acción estándar <em>CRUD.deleteSelected</em> de la misma manera que hemos
-      hecho con <em>CRUD.delete</em>.<br>
+      lista, éstas han de marcarse como borradas si procede. Vamos a refinar las
+      acciones estándares <em>CRUD.deleteSelected</em> y <i>CRUD.deleteRow</i>
+      de la misma manera que hemos hecho con <em>CRUD.delete</em>.<br>
       Primero, sobrescribimos la acciones <em>deleteSelected</em> y <em>deleteRow</em>
       para nuestra aplicación. Añade la siguiente definición de acción a tu
       controlador <em>Facturacion</em> definido en <em>controladores.xml</em>:<br>
@@ -855,9 +851,11 @@ public class Pedido extends DocumentoComercial { ... }
     &lt;!-- ... --&gt;
  
     &lt;accion nombre="deleteSelected" modo="list" confirmar="true"
+        procesar-elementos-seleccionados="true"
+        icono="delete"			 
         clase="com.tuempresa.facturacion.acciones.EliminarSeleccionadoParaFacturacion"
-        atajo-de-teclado="Control D"/&gt;
- 
+        atajo-de-teclado="Control D"/&gt;				
+	
     &lt;accion nombre="deleteRow" modo="NONE" confirmar="true"
         clase="com.tuempresa.facturacion.acciones.EliminarSeleccionadoParaFacturacion"
         icono="delete"
@@ -921,15 +919,16 @@ public class EliminarSeleccionadoParaFacturacion
 </code></pre> Puedes ver como esta acción es bastante parecida a <em>EliminarParaFacturacion</em>.
       Si las entidades no tienen la propiedad <em>eliminado</em> encadena con
       la acción estándar, en caso contrario ejecuta su propia lógica para borrar
-      las entidades. Generalmente las acciones para modo lista extienden de <span
-        class="wiki jcode">TabBaseAction</span>, así puedes usar <span class="wiki jcode">getTab()</span>
-      para obtener los objetos <em>Tab</em> asociados a la lista. Un <em>Tab</em>
-      (de <span class="wiki jcode">org.openxava.tab</span>) te permite
-      manipular los datos tabulares. Por ejemplo en el método <span class="wiki jcode">getMetaModel()</span>
-      preguntamos al <em>Tab</em> el nombre del modelo para obtener el <span class="wiki jcode">MetaModel</span>
-      correspondiente.<br>
+      las entidades. Aunque en este caso usamos <i>IChainActionWithArgv</i> en
+      lugar del más sencillo <i>executeAction()</i> porque necesitamos enviar
+      un argumento a la acción encadenada. Generalmente las acciones para modo
+      lista extienden de <i>TabBaseAction</i>, así puedes usar <i>getTab()</i>
+      para obtener el objeto <em>Tab</em> asociados a la lista. Un <em>Tab</em>
+      (de <i>org.openxava.tab</i>) te permite manipular los datos tabulares.
+      Por ejemplo en el método <i>getMetaModel()</i> preguntamos al <em>Tab</em>
+      el nombre del modelo para obtener el <i>MetaModel</i> correspondiente.<br>
       Si la entidad tiene una propiedad <em>eliminado</em> entonces se ejecuta
-      nuestra propia lógica de borrado. Esta lógica está en el método <span class="wiki jcode">marcarEntidadesSeleccionadasComoEliminadas()</span>
+      nuestra propia lógica de borrado. Esta lógica está en el método <i>marcarEntidadesSeleccionadasComoEliminadas()</i>
       que puedes ver a continuación:<br>
       <pre><code class="java">private void marcarEntidadesSeleccionadasComoEliminadas() throws Exception {
     Map&lt;String, Object&gt; valores = new HashMap&lt;String, Object&gt;(); // Valores a asignar a cada entidad para marcarla
@@ -958,23 +957,22 @@ public class EliminarSeleccionadoParaFacturacion
 }
 </code></pre> Como ves la lógica es un simple bucle sobre las claves de las
       filas seleccionadas, y en cada iteración ponemos a <em>true</em> la
-      propiedad <em>eliminado</em> usando el método <span class="wiki jcode">MapFacade.setValues()</span>.
+      propiedad <em>eliminado</em> usando el método <i>MapFacade.setValues()</i>.
       Atrapamos las excepciones dentro de la iteración del bucle, así si hay
       algún problema borrando la entidad, esto no afecta al borrado de las demás
-      entidades. Hemos hecho un pequeño refinamiento para el caso de <span class="wiki jcode">ValidationException</span>,
-      añadiendo los errores de validación (<span class="wiki jcode">ex.getErrors()</span>)
-      a los errores a mostrar al usuario.<br>
-      Al final deseleccionamos todas las filas mediante <span class="wiki jcode">getTab().deselectAll()</span>,
+      entidades. Hemos hecho un pequeño refinamiento para el caso de <i>ValidationException</i>,
+      añadiendo los errores de validación (<i>ex.getErrors()</i>) a los errores
+      a mostrar al usuario.<br>
+      Al final deseleccionamos todas las filas mediante <i>getTab().deselectAll()</i>,
       porque estamos borrando filas, por tanto si no eliminamos la selección,
       esta se habría recorrido después de la ejecución de la acción.<br>
-      Hemos llamado a <span class="wiki jcode">resetDescriptionsCache()</span>
-      para actualizar las entidades borradas en todos los combos de la actual
-      sesión de usuario. Los combos, es decir las referencias marcadas con <span
-        class="wiki jcode">@DescriptionsList</span>, usan el <span class="wiki jcode">@Tab</span>
-      de la entidad referenciada para filtrar los datos. Es decir, si tuvieras
-      un combo de facturas o pedidos con la condición <em>“deleted = false”</em>
-      en el <span class="wiki jcode">@Tab</span>, en este caso el contenido del
-      combo cambiaría.<br>
+      Hemos llamado a <i>resetDescriptionsCache()</i> para actualizar las
+      entidades borradas en todos los combos de la actual sesión de usuario. Los
+      combos, es decir las referencias marcadas con <i>@DescriptionsList</i>,
+      usan el <i>@Tab</i> de la entidad referenciada para filtrar los datos. Es
+      decir, si tuvieras un combo de facturas o pedidos con la condición <em>“deleted
+        = false”</em> en el <i>@Tab</i>, en este caso el contenido del combo
+      cambiaría.<br>
       Ahora ya tienes refinada del todo la forma en que tu aplicación borra las
       entidades. Aunque aún nos quedan cosas interesante por hacer.<br>
       <h2 id="toc15"><a name="Reutilizar-el-codigo-de-las-acciones"></a>Reutilizar

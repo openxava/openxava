@@ -631,12 +631,11 @@ public class InvoicingDeleteAction extends ViewBaseAction {
       Let's see how in the next section.<br>
       <h3 id="toc11"><a name="Lesson 7: Refining the standard behavior-Generic actions-Refining the default search action"></a>Refining
         the default search action</h3>
-      TMP ME QUEDÉ POR AQUÍ</div>
-    <div class="wiki" style="display: block;"> Now, your <em>InvoicingDeleteAction</em>
-      works fine, though it is useless. It is useless to mark objects as deleted
-      if the rest of the application is not aware of that. In other words, we
-      have to modify other parts of the application to treat the
-      marking-as-deleted object as if they do not exist.<br>
+      Now, your <em>InvoicingDeleteAction</em> works fine, though it is
+      useless. It is useless to mark objects as deleted if the rest of the
+      application is not aware of that. In other words, we have to modify other
+      parts of the application to treat the marking-as-deleted object as if they
+      do not exist.<br>
       The most obvious place to start is the search action. If you delete an
       invoice and then search for it, it should not be found. The following
       figure shows how searching works in OpenXava.<br>
@@ -659,15 +658,15 @@ public class InvoicingDeleteAction extends ViewBaseAction {
       need to search will chain to this action. Just as shown in the previous
       figure.<br>
       This gets clearer when you see the code for the standard <em>CRUD.refresh</em>
-      action, <span class="wiki jcode">org.openxava.actions.SearchAction</span>
-      whose code is shown below:<br>
+      action, <i>org.openxava.actions.SearchAction</i> whose code is shown
+      below:<br>
       <pre><code class="java">public class SearchAction extends BaseAction
     implements IChainAction { // It chains to another action
  
     public void execute() throws Exception { // Do nothing
     }
  
-    public String getNextAction() throws Exception {
+    public String getNextAction() throws Exception { // Of IChainAction
         return getEnvironment() // To access an environment variables
             .getValue("XAVA_SEARCH_ACTION");
     }
@@ -675,10 +674,9 @@ public class InvoicingDeleteAction extends ViewBaseAction {
 </code></pre> As you can see, the standard search action for detail mode does
       nothing except redirect to another action. This other action is defined in
       an environment variable called <em>XAVA_SEARCH_ACTION</em>, and can be
-      read using <span class="wiki jcode">getEnvironment()</span>. Therefore,
-      if you want to refine the OpenXava search logic, the best way to do it is
-      to define your action as <em>XAVA_SEARCH_ACTION</em>. So, let's do it
-      this way.<br>
+      read using <i>getEnvironment()</i>. Therefore, if you want to refine the
+      OpenXava search logic, the best way to do it is to define your action as <em>XAVA_SEARCH_ACTION</em>.
+      So, let's do it this way.<br>
       To set the environment variable, edit the <em>controllers.xml</em> file
       in the <em>xava</em> folder of your project, and add the <em>&lt;env-var
         /&gt;</em> line at the beginning:<br>
@@ -721,7 +719,6 @@ public class SearchExcludingDeletedAction
             .containsMetaProperty("deleted");
     }
  
-    @Override
     protected Map getValuesFromView() // Gets the values displayed in this view
         throws Exception // These values are used as keys for the search
     {
@@ -733,7 +730,6 @@ public class SearchExcludingDeletedAction
         return values;
     }
  
-    @Override
     protected Map getMemberNames() // The members to be read from the entity
         throws Exception
     {
@@ -745,7 +741,6 @@ public class SearchExcludingDeletedAction
         return members; // though it might not be in the view
     }
  
-    @Override
     protected void setValuesToView(Map values) // Assigns the values from the
         throws Exception // entity to the view
     {
@@ -758,16 +753,15 @@ public class SearchExcludingDeletedAction
         }
     }
 }
-</code></pre> The standard logic to search resides in the <span class="wiki jcode">SearchByViewKeyAction</span>
+</code></pre> The standard logic to search resides in the <i>SearchByViewKeyAction</i>
       class. Basically, what this action does is that it reads the values from
       the view and searches for an object. If the id property is present this is
       used, otherwise all values are used, and the first object that matches the
       condition is returned. We want to use this same algorithm changing only
       some details about the <em>deleted</em> property. So instead of
-      overwriting the <span class="wiki jcode">execute()</span> method, that
-      contains the search logic, we overwrite three protected methods, that are
-      called from <span class="wiki jcode">execute()</span> and contain some
-      parts suitable to be refined.<br>
+      overwriting the <i>execute()</i> method, that contains the search logic,
+      we overwrite three protected methods, that are called from <i>execute()</i>
+      and contain some parts suitable to be refined.<br>
       After these changes you can try your application, and you will find that
       when you search, a removed invoice or order will never be shown. Even if
       you choose a deleted invoice or order from list mode an error will be
@@ -807,11 +801,11 @@ public class SearchExcludingDeletedAction
       <h3 id="toc13"><a name="Lesson 7: Refining the standard behavior-List mode-Filtering tabular data"></a>Filtering
         tabular data</h3>
       Only entities where the deleted property is false should be shown in list
-      mode. This is very easy to achieve using the <span class="wiki jcode">@Tab</span>
-      annotation. This annotation allows you to define the way the tabular data
-      (the data shown in list mode) is displayed, moreover it allows you to
-      define a condition. So, adding this annotation to the entities with <em>deleted</em>
-      property is sufficient to achieve our goal, as we show below:<br>
+      mode. This is very easy to achieve using the <i>@Tab</i> annotation. This
+      annotation allows you to define the way the tabular data (the data shown
+      in list mode) is displayed, moreover it allows you to define a condition.
+      So, adding this annotation to the entities with <em>deleted</em> property
+      is sufficient to achieve our goal, as we show below:<br>
       <pre><code class="java">@Tab(baseCondition = "deleted = false")
 public class Invoice extends CommercialDocument { ... }
  
@@ -823,8 +817,8 @@ public class Order extends CommercialDocument { ... }
         actions</h3>
       The only remaining detail is that when removing entities from list mode,
       they should be marked as deleted if applicable. We are going to refine the
-      standard <em>CRUD.deleteSelected</em> action in the same way we used for
-      <em>CRUD.delete</em>.<br>
+      standard <em>CRUD.deleteSelected</em> and <i>CRUD.deleteRow</i> actions
+      in the same way we used for <em>CRUD.delete</em>.<br>
       First, we overwrite the <em>deleteSelected</em> and <em>deleteRow</em>
       actions for our application. Add the following action definition to your <em>Invoicing</em>
       controller defined in <em>controllers.xml</em>:<br>
@@ -832,13 +826,16 @@ public class Order extends CommercialDocument { ... }
     &lt;extends controller="Typical"/&gt;
      ...
     &lt;action name="deleteSelected" mode="list" confirm="true"
+        process-selected-items="true"
+        icon="delete"			 
         class="com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"
-        keystroke="Control D"/&gt;
- 
+        keystroke="Control D"/&gt;				
+	
     &lt;action name="deleteRow" mode="NONE" confirm="true"
         class="com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"
         icon="delete"
         in-each-row="true"/&gt;
+        
 &lt;/controller&gt;
 </code></pre> The standard actions to remove entities from list mode are <em>deleteSelected</em>
       (to delete the checked rows) and <em>deleteRow</em> (the action displayed
@@ -848,7 +845,7 @@ public class Order extends CommercialDocument { ... }
       we have defined these actions with the same name, our actions overwrite
       the standard ones. That is, from now on the logic for removing selected
       rows in list mode is in the <em>InvoicingDeleteSelectedAction</em> class.
-      Note how the logic for both actions is in the same Java class.<br>
+      Note how the logic for both actions is in the same Java class:<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions;
  
 import java.util.*;
@@ -894,12 +891,14 @@ public class InvoicingDeleteSelectedAction
 </code></pre> You can see that this action is very similar to <em>InvoicingDeleteAction</em>.
       If the selected entities don't have the deleted property it chains to the
       standard action, otherwise it executes its own logic to delete the
-      entities. Usually the actions for list mode extend <span class="wiki jcode">TabBaseAction</span>,
-      thus you can use <span class="wiki jcode">getTab()</span> to obtain the
-      Tab objects associated to the list. A <em>Tab</em> (from <span class="wiki jcode">org.openxava.tab</span>)
-      allows you to manage the tabular data. For example in the <span class="wiki jcode">getMetaModel()</span>
-      method we retrieve the model name from the Tab in order to obtain the
-      corresponding <span class="wiki jcode">MetaModel</span>.<br>
+      entities. Although in this case we use <i>IChainActionWithArgv</i>
+      instead of a simpler <i>executeAction()</i> because we need to send an
+      argument to the chained action. Usually the actions for list mode extend <i>TabBaseAction</i>,
+      thus you can use <i>getTab()</i> to obtain the <i>Tab</i> object
+      associated to the list. A <em>Tab</em> (from <i>org.openxava.tab</i>)
+      allows you to manage the tabular data. For example in the <i>getMetaModel()</i>
+      method we retrieve the model name from the <i>Tab</i> in order to obtain
+      the corresponding <i>MetaModel</i>.<br>
       If the entity has a <em>deleted</em> property then our custom delete
       logic is executed. This logic is in the <em>markSelectedEntitiesAsDeleted()</em>
       method:<br>
@@ -929,22 +928,20 @@ public class InvoicingDeleteSelectedAction
     resetDescriptionsCache(); // And reset the cache for combos for this user
 }
 </code></pre> As you see the logic is a plain loop over all selected rows, in
-      each iteration we set the <em>deleted</em> property to true using <span
-        class="wiki jcode">MapFacade.setValues()</span>. Exceptions are caught
-      inside the loop, so if there is a problem deleting one of the entities,
-      this does not affect the removal of the other entities. Furthermore, we
-      have added a small refinement for the <span class="wiki jcode">ValidationException</span>
-      case, adding the validation <span class="wiki jcode">errors(ex.getErrors())</span>
-      to the errors to be shown to the user.<br>
-      Here we also deselect all rows by means of <span class="wiki jcode">getTab().deselectAll()</span>,
+      each iteration we set the <em>deleted</em> property to true using <i>MapFacade.setValues()</i>.
+      Exceptions are caught inside the loop, so if there is a problem deleting
+      one of the entities, this does not affect the removal of the other
+      entities. Furthermore, we have added a small refinement for the <i>ValidationException</i>
+      case, adding the validation <i>errors(ex.getErrors())</i> to the errors
+      to be shown to the user.<br>
+      Here we also deselect all rows by means of <i>getTab().deselectAll()</i>,
       because we are removing rows. If we don't remove the selection, it would
       be moved after the action execution.<br>
-      We call <span class="wiki jcode">resetDescriptionsCache()</span> to
-      update all combos in the current user session and remove all deleted
-      entities. The combos (references marked with <span class="wiki jcode">@DescriptionsList</span>)
-      use the <span class="wiki jcode">@Tab</span> of the referenced entity to
-      filter the data. In our case all the combos for invoices and orders use
-      the “deleted = false” condition of the <span class="wiki jcode">@Tab</span>.
+      We call <i>resetDescriptionsCache()</i> to update all combos in the
+      current user session and remove all deleted entities. The combos
+      (references marked with <i>@DescriptionsList</i>) use the <i>@Tab</i> of
+      the referenced entity to filter the data. In our case all the combos for
+      invoices and orders use the “deleted = false” condition of the <i>@Tab</i>.
       So, it's needed to reset the combos cache.<br>
       Now you have thoroughly improved the way your application deletes the
       entities. Nevertheless, there still remains a few interesting things we
@@ -960,10 +957,12 @@ public class InvoicingDeleteSelectedAction
       to life.<br>
       <h3 id="toc16"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Using properties to create reusable actions"></a>Using
         properties to create reusable actions</h3>
-      The trash we want is exhibited in the next figure. It is a list of
-      invoices or orders where the user can choose several of them and click the
-      "Restore" button, or alternatively, for a single entity, click the
-      "Restore" link on the row of the item to restore.<br>
+      TMP ME QUEDÉ POR AQUÍ</div>
+    <div class="wiki" style="display: block;"> The trash we want is exhibited in
+      the next figure. It is a list of invoices or orders where the user can
+      choose several of them and click the "Restore" button, or alternatively,
+      for a single entity, click the "Restore" link on the row of the item to
+      restore.<br>
       <img src="files/refining_behavior_en050.png" alt="refining_behavior_en050.png"
         title="refining_behavior_en050.png"><br>
       The logic of this restore action is to set the <em>deleted</em> property
