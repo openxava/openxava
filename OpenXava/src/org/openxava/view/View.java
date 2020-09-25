@@ -650,8 +650,11 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void setValues(Map map, boolean closeCollections) throws XavaException { 
+		/* tmp
 		if (values == null) values = new HashMap();
 		else values.clear();
+		*/
+		clearValues(); // tmp
 		if (closeCollections) resetCollections(true);
 		resetCollectionTotals();
 		addValues(map, true);
@@ -783,6 +786,21 @@ public class View implements java.io.Serializable {
 				subview.clearValues();
 			}
 		}
+		// tmp ini
+		if (hasGroups()) {
+			Iterator itSubviews = getGroupsViews().values().iterator();
+			while (itSubviews.hasNext()) {
+				View subview = (View) itSubviews.next();
+				subview.clearValues();
+			}
+		}						
+		if (hasSections()) {
+			int count = getSections().size();
+			for (int i = 0; i < count; i++) {
+				getSectionView(i).clearValues();
+			}	
+		}
+		// tmp fin
 	}
 	
 	
@@ -1296,9 +1314,24 @@ public class View implements java.io.Serializable {
 			String viewName = getViewName() == null?"":"'" + getViewName() + "'";
 			throw new XavaException("member_not_found_in_view", "'" + name + "'", viewName, "'" + getModelName() + "'");
 		}
+		/* tmp
 		if (!getMetaProperty(name).isTransient()) {
 			getRoot().dataChanged = true;
 		}
+		*/
+		// tmp ini
+		MetaMember member = getMetaModel().getMetaMember(name);
+		/*
+		if (isMetaProperty(member) 
+				&& !((MetaProperty)member).isTransient()) {
+			getRoot().dataChanged = true;
+		}
+		*/		
+		if (!isMetaProperty(member) || !((MetaProperty)member).isTransient()) {
+			getRoot().dataChanged = true;
+		}
+
+		// tmp fin
 		moveViewValuesToCollectionValues();
 	}	
 	

@@ -22,7 +22,7 @@ public class WorkOrderTest extends ModuleTestBase {
 		setValue("description", "JUNIT DETAIL");
 		execute("Collection.save");
 		assertNoErrors();
-		assertValue("description", "JUNIT REQUISITION");
+		assertValue("description", "JUNIT REQUISITION"); // TMP FALLA
 		assertCollectionRowCount("details", 1);
 		assertValueInCollection("details", 0, 0, "JUNIT DETAIL");
 		closeDialog();

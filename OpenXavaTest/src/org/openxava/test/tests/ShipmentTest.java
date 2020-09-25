@@ -69,7 +69,7 @@ public class ShipmentTest extends ModuleTestBase {
 		setValue("Customer", "address.city", "JUNIT CITY");
 		setValue("Customer", "address.state.id", "CA");
 		execute("NewCreation.saveNew");
-		assertNoErrors();
+		assertNoErrors(); // TMP FALLA
 		setValue("CustomerContactPerson", "name", "JUNIT CONTACT PERSON FROM SHIPMENTS");
 		execute("NewCreation.saveNew");
 		assertNoErrors();

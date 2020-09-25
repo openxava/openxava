@@ -58,7 +58,7 @@ public class CustomerTest extends CustomizeListTestBase {
 	}
 	
 	public void testDescriptionsListInListForSecondLevelReferences_clearConditionExecutesFilter() throws Exception { 
-		assertListRowCount(5); 
+		assertListRowCount(5); // TMP FALLA
 		assertLabelInList(4, "Seller level"); 
 		setConditionValues("", "", "", "", "A");
 		execute("List.filter");
@@ -135,7 +135,7 @@ public class CustomerTest extends CustomizeListTestBase {
 	}
 		
 	public void testFilterByMemberOfAggregate() throws Exception {  
-		assertListRowCount(5); 
+		assertListRowCount(5); // TMP FALLA
 		String [] totalCondition = { "", "", "", "V" };		
 		setConditionValues(totalCondition);		
 		execute("List.filter");
@@ -293,7 +293,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		
 	
 	// references to entities and aggregates
-	public void testCreateModifyAndReadWithReferencesAndOverwriteSaveAction() throws Exception { 			
+	public void testCreateModifyAndReadWithReferencesAndOverwriteSaveAction() throws Exception { // TMP FALLA			
 		// Create one new
 		execute("CRUD.new");
 		assertNoErrors();
@@ -309,7 +309,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		setValue("relationWithSeller", "A RELATION");
 		setValue("alternateSeller.number", "2");		
 		execute("Customer.save");  		
-		assertNoErrors(); 
+		assertNoErrors(); // TMP FALLA 
 
 		assertNoEditable("number");
 		assertEditable("type");		
@@ -476,7 +476,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		setValue("address.city", "POBLE JUNIT PER A J");
 		setValue("address.state.id", "NY");
 		execute("Customer.save");		
-		assertNoErrors(); 
+		assertNoErrors(); // TMP FALLA
 		
 		// Verifying that it is in the list althought it has not seller
 		execute("Mode.list");
@@ -530,7 +530,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValueInList(0, 5, "NEW YORK"); // property of a reference inside an aggregate
 	}
 	
-	public void testNestedAggregateCollections() throws Exception { 
+	public void testNestedAggregateCollections() throws Exception { // TMP FALLA
 		// Creating
 		execute("CRUD.new");
 		setValue("number", "66");
@@ -549,7 +549,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		execute("Collection.new", "viewObject=xava_view_receptionists"); 
 		setValue("name", "RECEPTIONISTS JUNIT 1 - 1");		
 		execute("Collection.save");
-		assertNoErrors();  
+		assertNoErrors(); // TMP FALLA 
 
 		assertCollectionRowCount("receptionists", 1);
 		assertValueInCollection("receptionists", 0, 0, "RECEPTIONISTS JUNIT 1 - 1");

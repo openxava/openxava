@@ -26,7 +26,7 @@ public class CompositeTest extends ModuleTestBase {
 		setValue("name", "MOLUSCO"); 
 		execute("Collection.save");
 		
-		assertValue("name", "INVERTEBRADO");
+		assertValue("name", "INVERTEBRADO"); // TMP FALLA
 		assertCollectionRowCount("children", 1);
 		assertValueInCollection("children", 0, 0, "MOLUSCO");
 		execute("Collection.save");

@@ -298,7 +298,7 @@ public class CarrierTest extends CarrierTestBase {
 		assertRowUnchecked(3);
 	}
 	
-	public void testActionOfCalculatedPropertyAlwaysPresent_referenceKeyEditableWhenInGroup_iconsImagesInViewAction_newFromChartsWithCalculatedCollection() throws Exception {  
+	public void testActionOfCalculatedPropertyAlwaysPresent_referenceKeyEditableWhenInGroup_iconsImagesInViewAction_newFromChartsWithCalculatedCollection_viewSetValueNullForReference() throws Exception {  
 		execute("ListFormat.select", "editor=Charts"); 
 		execute("CRUD.new");		
 		assertAction("Carrier.translateName");
@@ -312,6 +312,18 @@ public class CarrierTest extends CarrierTestBase {
 		assertIconsImagesInViewAction(); 
 		execute("Mode.list");
 		execute("ListFormat.select", "editor=List");
+		
+		// tmp ini
+		execute("List.viewDetail", "row=0");
+		assertValue("warehouse.zoneNumber", "1");
+		assertValue("warehouse.number", "1");
+		assertValue("warehouse.name", "CENTRAL VALENCIA");
+		execute("Carrier.removeWarehouse");
+		assertNoErrors();
+		assertValue("warehouse.zoneNumber", "");
+		assertValue("warehouse.number", "");
+		assertValue("warehouse.name", "");		
+		// tmp fin
 	}
 		
 	public void testFilterIgnoringCase() throws Exception {
