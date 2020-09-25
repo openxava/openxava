@@ -103,6 +103,7 @@ public class SaveAction extends TabBaseAction {
 		Map values = MapFacade.getValues(getModelName(), keyValues, membersNames);
 		String result = properties.stream()
 			.map(p -> values.get(p))
+			.filter(Objects::nonNull) 
 			.map(Object::toString)
 			.collect(Collectors.joining("/"));
 		return result.toString();
