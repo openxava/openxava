@@ -41,7 +41,7 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 		setValue("address.state.id", "CA");
 		execute("CRUD.save");
 		
-		assertNoErrors();  // TMP FALLA
+		assertNoErrors();  
 		assertValue("number", "");
 		assertValue("name", "");
 		assertValue("type", usesAnnotatedPOJO()?"2":"3"); // special, because a default calculator

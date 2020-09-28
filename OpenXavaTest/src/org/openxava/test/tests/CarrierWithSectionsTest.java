@@ -725,7 +725,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		};		
 		
 		// Returning with returnToPreviousController
-		assertActions(defaultActions); // TMP FALLA
+		assertActions(defaultActions); 
 		execute("CarrierWithSections.setTypicalController");
 		assertActions(typicalActions); 
 		execute("CarrierWithSections.setPrintController");

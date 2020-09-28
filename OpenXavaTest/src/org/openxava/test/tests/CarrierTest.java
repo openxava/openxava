@@ -313,7 +313,6 @@ public class CarrierTest extends CarrierTestBase {
 		execute("Mode.list");
 		execute("ListFormat.select", "editor=List");
 		
-		// tmp ini
 		execute("List.viewDetail", "row=0");
 		assertValue("warehouse.zoneNumber", "1");
 		assertValue("warehouse.number", "1");
@@ -323,7 +322,6 @@ public class CarrierTest extends CarrierTestBase {
 		assertValue("warehouse.zoneNumber", "");
 		assertValue("warehouse.number", "");
 		assertValue("warehouse.name", "");		
-		// tmp fin
 	}
 		
 	public void testFilterIgnoringCase() throws Exception {

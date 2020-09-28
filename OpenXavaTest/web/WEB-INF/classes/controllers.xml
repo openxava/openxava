@@ -1004,10 +1004,8 @@
 		<action name="syncCarriersSelection" hidden="true" 
 			class="org.openxava.test.actions.SyncCarriersSelectionAction"/>
 			
-		<!-- tmp ini -->
-		<action name="removeWarehouse" 
+		<action name="removeWarehouse" mode="detail" 
 			class="org.openxava.test.actions.CarrierRemoveWarehouseAction"/>
-		<!-- tmp fin -->	
 			
 	</controller>
 		

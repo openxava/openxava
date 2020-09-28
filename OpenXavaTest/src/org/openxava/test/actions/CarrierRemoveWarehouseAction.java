@@ -3,7 +3,7 @@ package org.openxava.test.actions;
 import org.openxava.actions.ViewBaseAction;
 
 /**
- * tmp
+ * 
  * @author Federico Alcantara
  * Created on Sep 23, 2020
  */
