@@ -903,7 +903,7 @@ public class InvoicingDeleteSelectedAction
       logic is executed. This logic is in the <em>markSelectedEntitiesAsDeleted()</em>
       method:<br>
       <pre><code class="java">private void markSelectedEntitiesAsDeleted() throws Exception {
-    Map&lt;String, Object&gt; values = new HashMap&lt;String, Object&gt;(); // Values to assign to each entity to be marked
+    Map&lt;String, Object&gt; values = new HashMap&lt;&gt;(); // Values to assign to each entity to be marked
     values.put("deleted", true); // Just set deleted to true
     Map&lt;String, Object&gt;[] selectedOnes = getSelectedKeys(); // We get the selected rows
     if (selectedOnes != null) {
@@ -957,12 +957,10 @@ public class InvoicingDeleteSelectedAction
       to life.<br>
       <h3 id="toc16"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Using properties to create reusable actions"></a>Using
         properties to create reusable actions</h3>
-      TMP ME QUEDÉ POR AQUÍ</div>
-    <div class="wiki" style="display: block;"> The trash we want is exhibited in
-      the next figure. It is a list of invoices or orders where the user can
-      choose several of them and click the "Restore" button, or alternatively,
-      for a single entity, click the "Restore" link on the row of the item to
-      restore.<br>
+      The trash we want is exhibited in the next figure. It is a list of
+      invoices or orders where the user can choose several of them and click the
+      <i>Restore</i> button, or alternatively, for a single entity, click the <i>Restore</i>
+      link on the row of the item to restore.<br>
       <img src="files/refining_behavior_en050.png" alt="refining_behavior_en050.png"
         title="refining_behavior_en050.png"><br>
       The logic of this restore action is to set the <em>deleted</em> property
@@ -1024,6 +1022,7 @@ public class InvoicingDeleteSelectedAction
       we will use the <em>Trash</em> controller. See how we define the module
       in the <em>application.xml</em> file:<br>
       <pre><code class="xml">&lt;application name="Invoicing"&gt;
+      
     &lt;default-module&gt;
         &lt;controller name="Invoicing"/&gt;
     &lt;/default-module&gt;
@@ -1034,7 +1033,6 @@ public class InvoicingDeleteSelectedAction
         &lt;model name="Invoice"/&gt;
         &lt;tab name="Deleted"/&gt; &lt;!-- To show only the deleted entities --&gt;
         &lt;controller name="Trash"/&gt; &lt;!-- With only one action: restore --&gt;
-        &lt;mode-controller name="ListOnly"/&gt; &lt;!-- Only list mode --&gt;
     &lt;/module&gt;
  
     &lt;module name="OrderTrash"&gt;
@@ -1042,47 +1040,41 @@ public class InvoicingDeleteSelectedAction
         &lt;model name="Order"/&gt;
         &lt;tab name="Deleted"/&gt;
         &lt;controller name="Trash"/&gt;
-        &lt;mode-controller name="ListOnly"/&gt;
     &lt;/module&gt;
+    
 &lt;/application&gt;
 </code></pre> These modules work as <em>Invoice</em> and <em>Order</em>, but
-      they are list only modules, thanks to the <em>ListOnly</em> controller
-      used as <em>mode-controller</em>. Moreover, they define a specific action
-      as a row action using the <em>XAVA_LIST_ACTION</em> environment variable.
-      The next figure shows the <em>InvoiceTrash</em> module in action.<br>
+      they define a specific action as a row action using the <em>XAVA_LIST_ACTION</em>
+      environment variable. The next figure shows the <em>InvoiceTrash</em>
+      module in action.<br>
       <img src="files/refining_behavior_en060.png" alt="refining_behavior_en060.png"
         title="refining_behavior_en060.png"><br>
       <h3 id="toc18"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Several tabular data definitions by entity"></a>Several
         tabular data definitions by entity</h3>
       Another important detail is that only deleted entities are shown in the
-      list. This is possible because we define a specific <span class="wiki jcode">@Tab</span>
-      by name for the module.<br>
+      list. This is possible because we define a specific <i>@Tab</i> by name
+      for the module.<br>
       <pre><code class="xml">&lt;module ... &gt;
     ...
-    &lt;tab name="Deleted"/&gt; &lt;!-- 'Deleted' is a @Tab defined in the entity --&gt;
+    &lt;tab name="Deleted"/&gt; &lt;!-- "Deleted" is a @Tab defined in the entity --&gt;
     ...
 &lt;/module&gt;
-</code></pre> Of course you must have a <span class="wiki jcode">@Tab</span>
-      named “Deleted” in your <em>Order</em> and <em>Invoice</em> entities.<br>
-      <pre><code class="java">@Tabs({ // @Tabs is for defining several tabs for the same entity
-    @Tab(baseCondition = "deleted = false"), // No name, so the default tab
-    @Tab(name="Deleted", baseCondition = "deleted = true") // A named tab
-})
+</code></pre> Of course you must have a <i>@Tab</i> named “Deleted” in your <em>Order</em>
+      and <em>Invoice</em> entities.<br>
+      <pre><code class="java">@Tab(baseCondition = "deleted = false") // No name, so the default tab
+@Tab(name="Deleted", baseCondition = "deleted = true") // A named tab
 public class Invoice extends CommercialDocument { ... }
  
-@Tabs({
-    @Tab(baseCondition = "deleted = false"),
-    @Tab(name="Deleted", baseCondition = "deleted = true")
-})
+@Tab(baseCondition = "deleted = false")
+@Tab(name="Deleted", baseCondition = "deleted = true")
 public class Order extends CommercialDocument { ... }
-</code></pre> You see how <span class="wiki jcode">@Tabs</span> allows you to
-      define several tabular data definitions for each entity. Thus, you use the
-      <span class="wiki jcode">@Tab</span> with no name as default list for <em>Invoice</em>
-      and <em>Order</em>, but you have a <span class="wiki jcode">@Tab</span>
-      named "Deleted" you can use for generating a list with only the deleted
-      rows. In our context you use it for the trash modules. Now you can try
-      your new trash modules, if you don't see it in the menu, sign out and sign
-      in again.<br>
+</code></pre>You use the <i>@Tab</i> with no name as default list for <em>Invoice</em>
+      and <em>Order</em>, but you have a <i>@Tab</i> named "Deleted" you can
+      use for generating a list with only the deleted rows. In our context you
+      use it for the trash modules. Now you can try your new trash modules, if
+      you don't see it in the menu, sign out and sign in again.</div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: AUNQUE DE
+      ARRIBA TODAVÍA FALTA UN PANTALLAZO<br>
       <h3 id="toc19"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Reusable obsession"></a>Reusable
         obsession</h3>
       We have done a good job! The <em>InvoicingDeleteSelectedAction</em> code

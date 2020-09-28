@@ -931,7 +931,7 @@ public class EliminarSeleccionadoParaFacturacion
       nuestra propia lógica de borrado. Esta lógica está en el método <i>marcarEntidadesSeleccionadasComoEliminadas()</i>
       que puedes ver a continuación:<br>
       <pre><code class="java">private void marcarEntidadesSeleccionadasComoEliminadas() throws Exception {
-    Map&lt;String, Object&gt; valores = new HashMap&lt;String, Object&gt;(); // Valores a asignar a cada entidad para marcarla
+    Map&lt;String, Object&gt; valores = new HashMap&lt;&gt;(); // Valores a asignar a cada entidad para marcarla
     valores.put("eliminado", true); // Pone 'eliminado' a true
     Map&lt;String, Object&gt;[] clavesSeleccionadas = getSelectedKeys(); // Obtenemos las filas seleccionadas
     if (clavesSeleccionadas != null) {
@@ -986,13 +986,14 @@ public class EliminarSeleccionadoParaFacturacion
       los documentos borrados de vuelta a la vida.<br>
       <h3 id="toc16"><a name="Reutilizar-el-codigo-de-las-acciones-Propiedades-para-crear-acciones-reutilizables"></a>Propiedades
         para crear acciones reutilizables</h3>
-      La papelera que queremos es como la que puedes ver en la siguiente figura:<br>
+      La papelera que queremos es como la que puedes ver en la siguiente figura.
+      Es una lista de facturas o pedidos donde el usuario pueda seleccionar
+      varias y pulsar en el botón <em>Restaurar</em>, o simplemente pulsar en
+      el vínculo <em>Restaurar</em> en la fila del documento que quiera
+      restaurar:<br>
+      <br>
       <img src="files/refining_behavior_es050.png" alt="refining_behavior_es050.png"
         title="refining_behavior_es050.png"><br>
-      Es decir, una lista de facturas o pedidos donde el usuario pueda
-      seleccionar varias y pulsar en el botón <em>"Restaurar"</em>, o
-      simplemente pulsar en el vínculo <em>"Restaurar"</em> en la fila del
-      documento que quiera restaurar.<br>
       La lógica de esta acción de restaurar es simplemente poner la propiedad <em>eliminado</em>
       de las entidades seleccionadas a <em>false</em>. Es decir, es exactamente
       la misma lógica que usamos para borrar, pero poniendo <em>false</em> en
@@ -1065,7 +1066,6 @@ public class EliminarSeleccionadoParaFacturacion
         &lt;modelo nombre="Factura"/&gt;
         &lt;tab nombre="Eliminado"/&gt; &lt;!-- Para mostrar solo las entidades borradas --&gt;
         &lt;controlador nombre="Papelera"/&gt; &lt;!-- Con solo una acción: restaurar --&gt;
-        &lt;controlador-modo nombre="ListOnly"/&gt; &lt;!-- Modo lista solo --&gt;
     &lt;/modulo&gt;
  
     &lt;modulo nombre="PapeleraPedido"&gt;
@@ -1073,15 +1073,12 @@ public class EliminarSeleccionadoParaFacturacion
         &lt;modelo nombre="Pedido"/&gt;
         &lt;tab nombre="Eliminado"/&gt;
         &lt;controlador nombre="Papelera"/&gt;
-        &lt;controlador-modo nombre="ListOnly"/&gt;
     &lt;/modulo&gt;
  
 &lt;/aplicacion&gt;
 </code></pre> Estos módulos van contra <em>Factura</em> y <em>Pedido</em>,
-      pero son módulos de solo lista, gracias al controlador <em>ListOnly</em>
-      usado como <em>controlador-modo</em>. Además, definen una acción especial
-      como acción de fila usando la variable de entorno <em>XAVA_LIST_ACTION</em>.
-      La siguiente figura muestra <em>PapeleraFactura</em>:<br>
+      pero definen una acción especial como acción de fila usando la variable de
+      entorno <em>XAVA_LIST_ACTION</em>. La siguiente figura muestra <em>PapeleraFactura</em>:<br>
       <img src="files/refining_behavior_es060.png" alt="refining_behavior_es060.png"
         title="refining_behavior_es060.png"><br>
       <h3 id="toc18"><a name="Reutilizar-el-codigo-de-las-acciones-Varias-definiciones-de-datos-tabulares-por-entidad"></a>Varias
@@ -1089,34 +1086,28 @@ public class EliminarSeleccionadoParaFacturacion
       Otro detalle importante es que solo las entidades borradas se muestran en
       la lista. Esto es posible porque definimos un <span class="wiki jcode">@Tab</span>
       específico indicando su nombre para el módulo. El siguiente código detalla
-      como escoger el <span class="wiki jcode">@Tab</span> para un módulo:<br>
+      como escoger el <i>@Tab</i> para un módulo:<br>
       <pre><code class="xml">&lt;modulo nombre="..."&gt;
     ...
-    &lt;tab nombre="Eliminado"/&gt; &lt;!-- 'Eliminado' es un @Tab definido en la entidad --&gt;
+    &lt;tab nombre="Eliminado"/&gt; &lt;!-- "Eliminado" es un @Tab definido en la entidad --&gt;
     ...
 &lt;/modulo&gt;
-</code></pre> Por supuesto, has de tener un <span class="wiki jcode">@Tab</span>
-      llamado <em>“Eliminado”</em> en tus entidades <em>Pedido</em> y <em>Factura</em>.
-      Tal como se muestra a continuación:<br>
-      <pre><code class="java">@Tabs({ // @Tabs es para definir varios tabs para la misma entidad
-    @Tab(baseCondition = "eliminado = false"), // Tab sin nombre, es el de por defecto
-    @Tab(name="Eliminado", baseCondition = "eliminado = true") // Tab con nombre
-})
+</code></pre> Por supuesto, has de tener un <i>@Tab</i> llamado “Eliminado” en
+      tus entidades <em>Pedido</em> y <em>Factura</em>. Tal como se muestra a
+      continuación:<br>
+      <pre><code class="java">@Tab(baseCondition = "eliminado = false") // Tab sin nombre, es el de por defecto
+@Tab(name="Eliminado", baseCondition = "eliminado = true") // Tab con nombre
 public class Factura extends DocumentoComercial { ... }
  
-@Tabs({
-    @Tab(baseCondition = "eliminado = false"),
-    @Tab(name="Eliminado", baseCondition = "eliminado = true")
-})
+@Tab(baseCondition = "eliminado = false")
+@Tab(name="Eliminado", baseCondition = "eliminado = true")
 public class Pedido extends DocumentoComercial { ... }
-</code></pre> Se ve como <span class="wiki jcode">@Tabs</span> permite poner
-      varias definiciones de datos tabulares por entidad. Así, usamos el <span
-        class="wiki jcode">@Tab</span> sin nombre como lista por defecto para <em>Factura</em>
-      y <em>Pedido</em>, pero tenemos un <span class="wiki jcode">@Tab</span>
-      llamado <em>"Eliminado"</em> que puedes usar para generar una lista con
-      solo las filas borradas. En este caso lo usamos para los módulos papelera.
-      Ahora puedes probar tus nuevos módulos, si no los ves en el menú prueba
-      cerrar sesión y volver a identificarte.<br>
+</code></pre>Usamos el <i>@Tab</i> sin nombre como lista por defecto para <em>Factura</em>
+      y <em>Pedido</em>, pero tenemos un <i>@Tab</i> llamado <em>"Eliminado"</em>
+      que puedes usar para generar una lista con solo las filas borradas. En
+      este caso lo usamos para los módulos papelera. Ahora puedes probar tus
+      nuevos módulos, si no los ves en el menú prueba cerrar sesión y volver a
+      identificarte.<br>
       <h3 id="toc19"><a name="Reutilizar-el-codigo-de-las-acciones-Obsesion-por-reutilizar"></a>Obsesión
         por reutilizar</h3>
       ¡Bien hecho! El código de <em>EliminarSeleccionadoParaFacturacion</em>
