@@ -89,7 +89,7 @@
       El comportamiento de la aplicación viene dado por los controladores. Un
       controlador es una colección de acciones. Una acción contiene el código a
       ejecutar cuando el usuario pulsa en un vínculo o botón. Puedes definir tus
-      propios controladores y acciones y asociarlos a tus módulos o entidades,
+      propios controladores y acciones, y asociarlos a tus módulos o entidades,
       de esta forma refinas la forma en que OpenXava se comporta.<br>
       En esta lección refinaremos los controladores y acciones estándar para
       poder personalizar el comportamiento de tu aplicación <em>Facturacion</em>.<br>
@@ -253,11 +253,13 @@ public class EliminarFactura
       con la lógica a hacer cuando el usuario pulse en el botón o vínculo
       correspondiente. Una acción ha de implementar la interfaz <i>org.openxava.actions.IAction</i>,
       aunque normalmente es más práctico extender de <i>BaseAction</i>, <i>
-        ViewBaseAction</i> o cualquier otra acción base del paquete <i>org.openxava.actions</i>.<br>
-      <i> ViewBaseAction</i> tiene una propiedad <i>view</i> que puedes usar
-      desde dentro de <i>execute()</i> mediante <i>getView()</i>. Este objeto
-      del tipo <i>org.openxava.view.View</i> permite manejar la interfaz de
-      usuario, en este caso borramos los datos visualizados usando <i>getView().clear()</i>.<br>
+        ViewBaseAction</i> o cualquier otra acción base del paquete <i>org.openxava.actions</i>.</div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ</div>
+    <div class="wiki" style="display: block;"> <i> ViewBaseAction</i> tiene una
+      propiedad <i>view</i> que puedes usar desde dentro de <i>execute()</i>
+      mediante <i>getView()</i>. Este objeto del tipo <i>org.openxava.view.View</i>
+      permite manejar la interfaz de usuario, en este caso borramos los datos
+      visualizados usando <i>getView().clear()</i>.<br>
       También usamos <i>addMessage()</i>. Todos los mensajes añadidos con <i>addMessage()</i>
       se mostrarán al usuario al final de la ejecución de la acción. Puedes,
       bien añadir el mensaje a mostrar, o bien un id de una entrada en <em>i18n/MensajesFacturacion_es.properties</em>.<br>
@@ -876,11 +878,10 @@ public class Pedido extends DocumentoComercial { ... }
       <pre><code class="java">package com.tuempresa.facturacion.acciones;
  
 import java.util.*;
- 
+import javax.validation.*; 
 import org.openxava.actions.*;
 import org.openxava.model.*;
 import org.openxava.model.meta.*;
-import org.openxava.validators.*;
  
 public class EliminarSeleccionadoParaFacturacion
     extends TabBaseAction // Para trabajar con datos tabulares (lista) por medio de getTab()
@@ -944,11 +945,11 @@ public class EliminarSeleccionadoParaFacturacion
                     valores);
             }
             catch (ValidationException ex) { // Si se produce una ValidationException..
-                addError("no_delete_row", new Integer(i), clave);
-                addErrors(ex.getErrors()); // ...mostramos los mensajes
+                addError("no_delete_row", i, clave);
+                addError("remove_error", getTab().getModelName(), ex.getMessage()); // ...mostramos el mensaje
             }
             catch (Exception ex) { // Si se lanza cualquier otra excepción, se añade
-                addError("no_delete_row", new Integer(i), clave); // un mensaje genérico
+                addError("no_delete_row", i, clave); // un mensaje genérico
             }
         }
     }
@@ -1123,15 +1124,19 @@ public class Pedido extends DocumentoComercial { ... }
       genérica, una <em>ActualizarPropiedad</em> por ejemplo, y usarla para
       declarar tus acciones <em>deleteSelected</em> y <em>restaurar</em>, tal
       como se muestra a continuación:<br>
-      &lt;accion nombre="deleteSelected" modo="list" confirmar="true"
-      class="com.tuempresa.facturacion.acciones.ActualizarPropiedad"
-      atajo-de-teclado="Control D"&gt; &lt;poner propiedad="propiedad"
-      valor="eliminado" /&gt; &lt;poner propiedad="valor" valor="true" /&gt;
-      &lt;/accion&gt; &lt;accion nombre="restaurar" modo="list"
-      class="com.tuempresa.facturacion.acciones.ActualizarPropiedad"&gt;
-      &lt;poner propiedad="propiedad" valor="eliminado" /&gt; &lt;poner
-      propiedad="valor" valor="false" /&gt; &lt;/accion&gt; Aunque parezca una
-      buena idea, no vamos a crear esta flexible <em>ActualizarPropiedad</em>.
+      <pre><code class="xml">&lt;accion nombre="deleteSelected" modo="list" confirmar="true"
+    class="com.tuempresa.facturacion.acciones.ActualizarPropiedad"
+    atajo-de-teclado="Control D"&gt;
+    &lt;poner propiedad="propiedad" valor="eliminado" /&gt;
+    &lt;poner propiedad="valor" valor="true" /&gt;
+&lt;/accion&gt;
+ 
+&lt;accion nombre="restaurar" modo="list"
+    class="com.tuempresa.facturacion.acciones.ActualizarPropiedad"&gt;
+    &lt;poner propiedad="propiedad" valor="eliminado" /&gt;
+    &lt;poner propiedad="valor" valor="false" /&gt;
+&lt;/accion&gt;
+</code></pre> Aunque parezca una buena idea, no vamos a crear esta flexible <em>ActualizarPropiedad</em>.
       Porque cuanto más flexible sea tu código, más sofisticado será. Y no
       queremos código sofisticado. Queremos código sencillo, y aunque el código
       sencillo es algo imposible de conseguir, hemos de esforzarnos por que
@@ -1196,9 +1201,6 @@ public class PruebaPedido extends PruebaDocumentoComercial {
         ...
         //execute("CRUD.deleteRow", "row=0");
         execute("Facturacion.deleteRow", "row=0");
-        // assertError("Imposible borrar Pedido por: " +
-        //     "Pedido asociado a factura no puede ser eliminado");
-        assertErrorsCount(1); // Ahora mostramos un mensaje genérico.
         ...
     }
 }
@@ -1286,10 +1288,9 @@ public class PruebaPedido extends PruebaDocumentoComercial {
     afirmarDocumentoEstaEnLista(anyo2, numero2);
 }
 </code></pre> Como ves <em>testPapelera()</em> sigue los susodichos pasos.
-      Fíjate como usando el método <span class="wiki jcode">changeModule()</span>
-      de <span class="wiki jcode">ModuleTestBase</span> tu prueba puede cambiar
-      a otro módulo. Usamos esto para cambiar al módulo papelera, y volver
-      atrás.<br>
+      Fíjate como usando el método <i>changeModule()</i> de <i>ModuleTestBase</i>
+      tu prueba puede cambiar a otro módulo. Usamos esto para cambiar al módulo
+      papelera, y volver atrás.<br>
       Aquí estamos utilizando algunos métodos auxiliares que has de añadir a <em>PruebaDocumentoComercial</em>.
       El primero es <em>afirmarSoloUnaPaginaEnLista()</em> que confirma que el
       modo lista es apropiado para ejecutar esta prueba. Mira su código:<br>
@@ -1298,11 +1299,10 @@ public class PruebaPedido extends PruebaDocumentoComercial {
     assertTrue("Debe tener menos de 10 filas para ejecutar esta prueba",
         getListRowCount() &lt; 10);
 }
-</code></pre> Necesitamos tener menos de 10 filas, porque el método <span class="wki jcode">getListRowCount()</span>
+</code></pre> Necesitamos tener menos de 10 filas, porque el método <i>getListRowCount()</i>
       informa solo de las filas visualizadas, por tanto si tienes más de 10
       filas (10 es el número de filas por página por defecto) no puedes
-      aprovechar <span class="wki jcode">getListRowCount()</span>, ya que
-      siempre devolvería 10.<br>
+      aprovechar <i>getListRowCount()</i>, ya que siempre devolvería 10.<br>
       Los métodos restantes son para verificar que cierto pedido o factura está
       (o no está) en la lista. Míralos a continuación:<br>
       <pre><code class="java">private void afirmarDocumentoNoEstaEnLista(String anyo, String numero)

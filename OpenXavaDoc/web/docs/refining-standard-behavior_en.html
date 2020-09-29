@@ -849,10 +849,10 @@ public class Order extends CommercialDocument { ... }
       <pre><code class="java">package com.yourcompany.invoicing.actions;
  
 import java.util.*;
+import javax.validation.*;
 import org.openxava.actions.*;
 import org.openxava.model.*;
 import org.openxava.model.meta.*;
-import org.openxava.validators.*;
  
 public class InvoicingDeleteSelectedAction
     extends TabBaseAction // To work with tabular data (list) by means of getTab()
@@ -916,11 +916,11 @@ public class InvoicingDeleteSelectedAction
                     values);
             }
             catch (ValidationException ex) {  // If there is a ValidationException...
-                addError("no_delete_row", new Integer(i), key);
-                addErrors(ex.getErrors()); // ...we show the messages
+                addError("no_delete_row", i, key);
+                addError("remove_error", getTab().getModelName(), ex.getMessage()); // ...we show the message
             }
             catch (Exception ex) { //  If any other exception is thrown, a generic
-                addError("no_delete_row", new Integer(i), key); // message is added
+                addError("no_delete_row", i, key); // message is added
             }
         }
     }
@@ -1073,8 +1073,7 @@ public class Order extends CommercialDocument { ... }
       use for generating a list with only the deleted rows. In our context you
       use it for the trash modules. Now you can try your new trash modules, if
       you don't see it in the menu, sign out and sign in again.</div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: AUNQUE DE
-      ARRIBA TODAVÍA FALTA UN PANTALLAZO<br>
+    <div class="wiki" style="display: block;">
       <h3 id="toc19"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Reusable obsession"></a>Reusable
         obsession</h3>
       We have done a good job! The <em>InvoicingDeleteSelectedAction</em> code
@@ -1167,9 +1166,6 @@ public class OrderTest extends CommercialDocumentTest {
         ...
         //execute("CRUD.deleteRow", "row=0");
         execute("Invoicing.deleteRow", "row=0");
-        // assertError("Impossible to remove Order because: "
-        //     "An order with an invoice cannot be deleted");
-        assertErrorsCount(1); // Now we show a generic message
         ...
     }
 }
@@ -1196,8 +1192,8 @@ public class OrderTest extends CommercialDocumentTest {
       </ul>
       You can see that we start in the <em>Invoice</em> module. Moreover, you
       surely have realized that the logic to test the <em>Order</em> module is
-      exactly the same. So instead of creating the new test classes,
-      OrderTrashTest and InvoiceTrash, we'll just add the test in the already
+      exactly the same. So instead of creating the new test classes, <i>OrderTrashTest</i>
+      and <i>InvoiceTrashTest</i>, we'll just add the test in the already
       existing <em>CommercialDocumentTest</em>. Thus we reuse the same code for
       testing <em>OrderTrash</em>, <em>InvoiceTrash</em>, and the custom
       delete logic. This code is in the <em>testTrash()</em> method:<br>
@@ -1250,10 +1246,9 @@ public class OrderTest extends CommercialDocumentTest {
     assertDocumentInList(year2, number2);
 }
 </code></pre> As you see the <em>testTrash()</em> follows the aforesaid steps.
-      Note how using the <span class="wiki jcode">changeModule()</span> method
-      from <span class="wiki jcode">ModuleTestBase</span> your test can change
-      to another module. We use it to switch to the trash module, and then come
-      back.<br>
+      Note how using the <i>changeModule()</i> method from <i>ModuleTestBase</i>
+      your test can change to another module. We use it to switch to the trash
+      module, and then come back.<br>
       In our tests we're using a few auxiliary methods you have to add to <em>CommercialDocumentTest</em>.
       The first is <em>assertListOnlyOnePage()</em> to assert that the list is
       adequate for running this test.<br>
@@ -1262,11 +1257,10 @@ public class OrderTest extends CommercialDocumentTest {
     assertTrue("Must be less than 10 rows to run this test",
         getListRowCount() &lt; 10);
 }
-</code></pre> We need to have less than 10 rows, because the <span class="wiki jcode">getListRowCount()</span>
+</code></pre> We need to have less than 10 rows, because the <i>getListRowCount()</i>
       method only informs about rows that are displayed. If you have more than
       10 rows (10 is the default row count per page) you cannot take advantage
-      of <span class="wiki jcode">getListRowCount()</span>, it would always
-      return 10.<br>
+      of <i>getListRowCount()</i>, it would always return 10.<br>
       The remaining methods are for verifying if some order or invoice is (or is
       not) in the list. See them:<br>
       <pre><code class="java">private void assertDocumentNotInList(String year, String number)
@@ -1300,8 +1294,8 @@ private int getDocumentRowInList(String year, String number)
 }
 </code></pre> You can see in <em>getDocumentRowInList()</em> how to create a
       loop for searching after a specific value in a list.<br>
-      Now you can run all the tests for your Invoicing application. Everything
-      should be green.<br>
+      Now you can run all the tests for your <i>Invoicing</i> application.
+      Everything should be green.<br>
       <h2 id="toc23"><a name="Lesson 7: Refining the standard behavior-Summary"></a>Summary</h2>
       The standard OpenXava behavior is only a starting point. Using the delete
       actions as excuse we have explored a couple of ways to refine the details
