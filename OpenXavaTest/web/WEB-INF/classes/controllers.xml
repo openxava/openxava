@@ -769,7 +769,15 @@
 		<extends controller="Typical"/>
 		<action name="filterByDate" 
 			class="org.openxava.test.actions.FilterInvoice4ByDateAction"/>
-	</controller>														
+	</controller>			
+	
+	<!-- tmp ini -->
+	<controller name="Invoice5">
+		<extends controller="Typical"/>
+		<action name="createWithZeroAmount" mode="detail"	
+			class="org.openxava.test.actions.CreateInvoiceWithZeroAmountAction"/>
+	</controller>	
+	<!-- tmp fin -->
 				
 	<controller name="ChangeProductsPrice">			
 
