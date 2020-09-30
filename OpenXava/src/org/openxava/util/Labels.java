@@ -16,7 +16,7 @@ import org.openxava.application.meta.*;
 public class Labels {
 
 	private static Log log = LogFactory.getLog(Labels.class);
-	private static Map<String, String> labels = new HashMap<String, String>();
+	private static Map<String, String> labels = Collections.synchronizedMap(new HashMap<>()); 
 	private static Map<String, String> customLabels; 
 	
 	/**

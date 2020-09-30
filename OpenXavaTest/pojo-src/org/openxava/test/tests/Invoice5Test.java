@@ -66,6 +66,19 @@ public class Invoice5Test extends ModuleTestBase {
 		assertImportFromExcel("invoices5.xlsx", "2017", "1", "25/09/2017", "", "1.258,26", ""); 
 	}
 	
+	public void testMapFacadeIntegerToBigDecimalConversion() throws Exception {
+		setValue("number", "66");
+		setValue("amount", "200");
+		execute("Invoice5.createWithFiveAmount");
+		assertNoErrors();
+		execute("Mode.list");
+		assertValueInList(0, "number", "66");
+		assertValueInList(0, "amount", "5.00");
+		execute("CRUD.deleteRow", "row=0");
+		assertNoErrors();
+		assertListRowCount(0);
+	}
+	
 	private void assertImportFromExcel(String file, String value0, String value1, String value2, String value3, String value4, String value5) throws Exception { 
 		execute("ImportData.importData");
 		uploadFile("file", "test-files/" + file); 

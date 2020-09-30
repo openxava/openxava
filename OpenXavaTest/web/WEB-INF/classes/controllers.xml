@@ -771,13 +771,11 @@
 			class="org.openxava.test.actions.FilterInvoice4ByDateAction"/>
 	</controller>			
 	
-	<!-- tmp ini -->
 	<controller name="Invoice5">
 		<extends controller="Typical"/>
-		<action name="createWithZeroAmount" mode="detail"	
-			class="org.openxava.test.actions.CreateInvoiceWithZeroAmountAction"/>
+		<action name="createWithFiveAmount" mode="detail"	
+			class="org.openxava.test.actions.CreateInvoiceWithFiveAmountAction"/>
 	</controller>	
-	<!-- tmp fin -->
 				
 	<controller name="ChangeProductsPrice">			
 

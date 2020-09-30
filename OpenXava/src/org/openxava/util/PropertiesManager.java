@@ -2,6 +2,7 @@ package org.openxava.util;
 
 import java.beans.*;
 import java.lang.reflect.*;
+import java.math.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -538,6 +539,9 @@ public class PropertiesManager implements java.io.Serializable {
 		else if (type.equals(float.class)) {
 			return new Float(value.floatValue());
 		}
+		else if (type.equals(BigDecimal.class) ) {
+			return new BigDecimal(value.toString());
+		}
 		else if (type.equals(Float.class)) {
 			return new Float(value.floatValue());
 		}
@@ -558,6 +562,9 @@ public class PropertiesManager implements java.io.Serializable {
 		}
 		else if (type.equals(Byte.class)) {
 			return new Byte(value.byteValue());
+		}
+		else if (type.equals(BigInteger.class) ) {
+			return new BigInteger(value.toString());
 		}
 		return null;
 	}

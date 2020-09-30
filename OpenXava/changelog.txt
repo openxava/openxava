@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Assigning an Integer to a BigDecimal property with MapFacade fails instead of doing a conversion. 
+- Fix: Concurrent exception accessing labels from time to time under high load with many concurrent users.
 - Fix: View.setValue() to set null to a reference throws an exception.
 - Fix: Exception on save leaving first fields in blank when they are not required and with null values.
 
