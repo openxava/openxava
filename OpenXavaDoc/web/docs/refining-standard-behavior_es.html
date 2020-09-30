@@ -254,7 +254,6 @@ public class EliminarFactura
       correspondiente. Una acción ha de implementar la interfaz <i>org.openxava.actions.IAction</i>,
       aunque normalmente es más práctico extender de <i>BaseAction</i>, <i>
         ViewBaseAction</i> o cualquier otra acción base del paquete <i>org.openxava.actions</i>.</div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ</div>
     <div class="wiki" style="display: block;"> <i> ViewBaseAction</i> tiene una
       propiedad <i>view</i> que puedes usar desde dentro de <i>execute()</i>
       mediante <i>getView()</i>. Este objeto del tipo <i>org.openxava.view.View</i>
@@ -289,9 +288,9 @@ public void setEliminado(boolean eliminado) {
       marcar aquellas propiedades de uso interno del programador pero que no
       tienen sentido para el usuario final.<br>
       Usamos <em>@Column(columnDefinition=)</em> para llenar la columna con <em>falses</em>
-      en lugar de con nulos. Aquí puedes poner definición SQL de la columna para
-      enviar a la base de datos. Es más sencillo que actualizar la base de datos
-      pero el código es más dependiente de la base de datos.<br>
+      en lugar de con nulos. Aquí puedes poner la definición SQL de la columna
+      para enviar a la base de datos. Es más sencillo que actualizar la base de
+      datos pero el código es más dependiente de la base de datos.<br>
       Ya estamos preparados para escribir el código real de la acción:<br>
       <pre><code class="java">public void execute() throws Exception {
     Factura factura = XPersistence.getManager().find(
@@ -333,7 +332,7 @@ public void setEliminado(boolean eliminado) {
       Pero a veces puedes encontrarte alguna lógica en tu acción susceptible de
       ser usada y reusada por toda tu aplicación, incluso en todas tus
       aplicaciones. En este caso, puedes utilizar algunas técnicas para crear
-      código más reutilizable, y así convertir tus acciones personalizadas en
+      código más reutilizable y así convertir tus acciones personalizadas en
       acciones genéricas.<br>
       Aprendamos estas técnicas para escribir código más genérico en nuestras
       acciones.<br>
@@ -469,8 +468,8 @@ public class EliminarParaFacturacion extends ViewBaseAction {
         un momento al modelo</h3>
       Tu tarea ahora sería añadir la propiedad <em>eliminado</em> a todas las
       entidades para que la <em>EliminarParaFacturacion</em> funcione. Esta es
-      una buena ocasión para usar herencia así poner el código común en el mismo
-      sitio, en lugar de usar el infame “copiar y pegar”.<br>
+      una buena ocasión para usar herencia y así poner el código común en el
+      mismo sitio, en lugar de usar el infame “copiar y pegar”.<br>
       Primero quita la propiedad <em>eliminado</em> de <em>Factura</em>:<br>
       <pre><code class="java">public class Factura extends DocumentoComercial {
  
@@ -518,7 +517,7 @@ public class Eliminable extends Identificable {
       propiedades <em>oid</em> y <em>eliminado</em>.<br>
       Ahora puedes convertir cualquiera de tus entidades actuales en <em>Eliminable</em>,
       solo has de cambiar <em>Identificable</em> por <em>Eliminable</em> como
-      superclase:<br>
+      superclase. Hagámoslo con <i>DocumentoComercial</i>:<br>
       <pre><code class="java">// abstract public class DocumentoComercial extends Identificable { 
 abstract public class DocumentoComercial extends Eliminable {
  
@@ -543,7 +542,6 @@ abstract public class DocumentoComercial extends Eliminable {
         }
     }
  
-    @Override
     public void setEliminado(boolean eliminado) {
         if (eliminado) validarPreBorrar(); // Llamamos a la validación explícitamente
         super.setEliminado(eliminado);
@@ -566,7 +564,7 @@ abstract public class DocumentoComercial extends Eliminable {
       como borradas (<em>Eliminable</em>) y entidades que sean borradas de
       verdad de la base de datos. Queremos que la acción funcione bien en todos
       los casos.<br>
-      OpenXava almacena metadatos para todas tus entidades, y puedes acceder a
+      OpenXava almacena metadatos para todas tus entidades y puedes acceder a
       estos metadatos desde tu código. Esto te permite, por ejemplo, averiguar
       si la entidad tiene una propiedad <em>eliminado</em>.<br>
       El siguiente código muestra una modificación en la acción para preguntar
@@ -583,10 +581,10 @@ abstract public class DocumentoComercial extends Eliminable {
     // El resto del código...
 }
 </code></pre> La clave aquí es <i>getView().getMetaModel()</i> que devuelve un
-      objeto del paquete <i>org.openxava.model.meta</i>. Este objeto contiene
-      metadatos sobre la entidad actualmente visualizada en la vista. Puedes
-      preguntar por propiedades, referencias, colecciones, métodos y otra
-      metainformación sobre la entidad. Consulta la <a href="../apidocs/org/openxava/model/meta/MetaModel.html">API
+      objeto <i>MetaModel</i> del paquete <i>org.openxava.model.meta</i>. Este
+      objeto contiene metadatos sobre la entidad actualmente visualizada en la
+      vista. Puedes preguntar por propiedades, referencias, colecciones, métodos
+      y otra metainformación sobre la entidad. Consulta la <a href="../apidocs/org/openxava/model/meta/MetaModel.html">API
         de <i>MetaModel</i></a> para aprender más. En este caso preguntamos si
       la propiedad <em>eliminado</em> existe.<br>
       De momento solo mostramos un mensaje. Mejorémoslo para borrar de verdad la
@@ -634,7 +632,7 @@ public class EliminarParaFacturacion extends ViewBaseAction {
 </code></pre> Simplemente llamamos a <i>executeAction(“CRUD.delete”)</i> si
       queremos que la acción por defecto para borrar de OpenXava se ejecute.
       Así, escribimos nuestra propia lógica de borrado (en este caso marcar una
-      propiedad con true) para algunos casos, y “dejamos pasar” la lógica
+      propiedad con <i>true</i>) para algunos casos y “dejamos pasar” la lógica
       estándar para los demás.<br>
       Ahora puedes usar tu <em>EliminarParaFacturacion</em> contra cualquier
       entidad. Si la entidad tiene una propiedad <em>eliminado</em> se marcará
@@ -664,10 +662,10 @@ public class EliminarParaFacturacion extends ViewBaseAction {
       misma forma que he refinado <em>CRUD.delete</em>. Por supuesto, puedes
       hacerlo así. Y funcionaría; cuando el usuario pulsara en la acción del
       modo detalle tu código se ejecutaría. Aunque, aquí hay un detalle un tanto
-      sutil. La lógica de buscar no se llama solo desde el modo detalle, sino
+      sutil. La lógica de buscar no se llama sólo desde el modo detalle, sino
       también desde otros puntos del módulo OpenXava. Por ejemplo, cuando el
       usuario escoge un detalle, la acción <em>List.viewDetail</em> coge la
-      clave de la fila, la pone en la vista de detalle, y después ejecuta la
+      clave de la fila, la pone en la vista de detalle y después ejecuta la
       acción de buscar.<br>
       Para hacerlo bien, hemos de poner la lógica para buscar en un módulo, en
       la misma acción, y todas las acciones que necesiten buscar encadenarán con
@@ -720,9 +718,9 @@ public class EliminarParaFacturacion extends ViewBaseAction {
 </code></pre> Y ahora es el momento para escribir la clase de implementación. En
       este caso solo queremos refinar la lógica de búsqueda, es decir, la
       búsqueda se ha de hacer de la forma convencional, con la excepción de las
-      entidades con una propiedad <em>eliminado</em> cuyo valor sea true. Para
-      hacer este refinamiento vamos a usar herencia. El siguiente código muestra
-      la acción:<br>
+      entidades con una propiedad <em>eliminado</em> cuyo valor sea <i>true</i>.
+      Para hacer este refinamiento vamos a usar herencia. El siguiente código
+      muestra la acción:<br>
       <pre><code class="java">package com.tuempresa.facturacion.acciones;
  
 import java.util.*;
@@ -825,8 +823,8 @@ public class BuscarExcluyendoEliminados
         datos tabulares</h3>
       Solo las entidades con su propiedad <em>eliminado</em> igual a <em>false</em>
       tienen que ser mostradas en modo lista. Esto es muy fácil de conseguir
-      usando la anotación @Tab. Esta anotación te permite definir la forma en
-      que los datos tabulares (los datos mostrados en modo lista) son
+      usando la anotación <i>@Tab</i>. Esta anotación te permite definir la
+      forma en que los datos tabulares (los datos mostrados en modo lista) son
       visualizados, y te permite además definir una condición. Por tanto, añadir
       esta anotación a las entidades que tengan una propiedad <em>eliminado</em>
       es suficiente para conseguir nuestro objetivo, tal como se muestra a
@@ -867,7 +865,7 @@ public class Pedido extends DocumentoComercial { ... }
 </code></pre> La acciones estándar para borrar entidades desde modo lista son <em>deleteSelected</em>
       (para borrar las filas seleccionadas) y <em>deleteRow</em> (la acción que
       aparece en cada fila). Estas acciones están definidas en el controlador <em>CRUD</em>.
-      <em>Typical</em> extiende de <em>CRUD</em>, y <em>Facturacion</em>
+      <em>Typical</em> extiende de <em>CRUD</em> y <em>Facturacion</em>
       extiende <em>Typical</em>; así que el controlador <em>Facturacion</em>
       incluye por defecto estas acciones. Dado que hemos definido unas acciones
       con los mismos nombres, nuestras acciones sobrescriben las estándares. Es
@@ -962,7 +960,7 @@ public class EliminarSeleccionadoParaFacturacion
       Atrapamos las excepciones dentro de la iteración del bucle, así si hay
       algún problema borrando la entidad, esto no afecta al borrado de las demás
       entidades. Hemos hecho un pequeño refinamiento para el caso de <i>ValidationException</i>,
-      añadiendo los errores de validación (<i>ex.getErrors()</i>) a los errores
+      añadiendo el mensaje de validación (<i>ex.getMessage()</i>) a los errores
       a mostrar al usuario.<br>
       Al final deseleccionamos todas las filas mediante <i>getTab().deselectAll()</i>,
       porque estamos borrando filas, por tanto si no eliminamos la selección,
@@ -1022,7 +1020,7 @@ public class EliminarSeleccionadoParaFacturacion
         valores.put("eliminado", !isRestaurar()); // el valor de la propiedad 'restaurar';
         // ...
 }
-</code></pre> Como puedes ver solo hemos añadido una propiedad <em>restaurar</em>,
+</code></pre> Como puedes ver solo hemos añadido una propiedad <em>restaurar</em>
       y el uso de su complemento como nuevo valor para la propiedad <em>eliminado</em>
       en la entidad. Es decir, si <em>restaurar</em> es <em>false</em>, el
       caso por defecto, un <em>true</em> se grabará en <em>eliminado</em>, así
@@ -1085,9 +1083,9 @@ public class EliminarSeleccionadoParaFacturacion
       <h3 id="toc18"><a name="Reutilizar-el-codigo-de-las-acciones-Varias-definiciones-de-datos-tabulares-por-entidad"></a>Varias
         definiciones de datos tabulares por entidad</h3>
       Otro detalle importante es que solo las entidades borradas se muestran en
-      la lista. Esto es posible porque definimos un <span class="wiki jcode">@Tab</span>
-      específico indicando su nombre para el módulo. El siguiente código detalla
-      como escoger el <i>@Tab</i> para un módulo:<br>
+      la lista. Esto es posible porque definimos un <i>@Tab</i> específico
+      indicando su nombre para el módulo. El siguiente código detalla como
+      escoger el <i>@Tab</i> para un módulo:<br>
       <pre><code class="xml">&lt;modulo nombre="..."&gt;
     ...
     &lt;tab nombre="Eliminado"/&gt; &lt;!-- "Eliminado" es un @Tab definido en la entidad --&gt;
@@ -1204,7 +1202,7 @@ public class PruebaPedido extends PruebaDocumentoComercial {
         ...
     }
 }
-</code></pre> Después de estos cambios todas tus prueba funcionarán bien, y esto
+</code></pre> Después de estos cambios todas tus prueba funcionarán bien y esto
       confirma que tus acciones para borrar personalizadas conservan la
       semántica original. Solo ha cambiado la implementación.<br>
       <h3 id="toc22"><a name="Pruebas-JUnit-Probar-varios-modulos-en-el-mismo-metodo-de-prueba"></a>Probar
@@ -1238,63 +1236,63 @@ public class PruebaPedido extends PruebaDocumentoComercial {
       está en el método <em>testPapelera()</em> mostrado a continuación:<br>
       <pre><code class="java">public void testPapelera() throws Exception {
     login("admin", "admin");
-    afirmarSoloUnaPaginaEnLista(); // Sólo una página en la lista, es decir menos de 10 filas
+    confirmarSoloUnaPaginaEnLista(); // Sólo una página en la lista, es decir menos de 10 filas
  
     // Borrar desde modo detalle
-    int inicialNumeroFilas = getListRowCount();
+    int numeroFilasInicial = getListRowCount();
     String anyo1 = getValueInList(0, 0);
     String numero1 = getValueInList(0, 1);
     execute("List.viewDetail", "row=0");
     execute("Facturacion.delete");
     execute("Mode.list");
  
-    assertListRowCount(inicialNumeroFilas - 1); // Hay una fila menos
-    afirmarDocumentoNoEstaEnLista(anyo1, numero1); // La entidad borrada no está en lista
+    assertListRowCount(numeroFilasInicial - 1); // Hay una fila menos
+    confirmarDocumentoNoEstaEnLista(anyo1, numero1); // La entidad borrada no está en lista
  
     // Borrar desde el modo lista
     String anyo2 = getValueInList(0, 0);
     String numero2 = getValueInList(0, 1);
     checkRow(0);
     execute("Facturacion.deleteSelected");
-    assertListRowCount(inicialNumeroFilas - 2); // Hay dos filas menos
-    afirmarDocumentoNoEstaEnLista(anyo2, numero2); // La otra entidad borrada no está en la lista
+    assertListRowCount(numeroFilasInicial - 2); // Hay dos filas menos
+    confirmarDocumentoNoEstaEnLista(anyo2, numero2); // La otra entidad borrada no está en la lista
  
     // Verificar la entidades borradas en el módulo papelera
     changeModule("Papelera" + modelo); // model puede ser 'Factura' o 'Pedido'
-    afirmarSoloUnaPaginaEnLista();
-    int inicialNumeroFilasPapelera = getListRowCount();
-    afirmarDocumentoEstaEnLista(anyo1, numero1); // Verificamos que las entidades borradas
-    afirmarDocumentoEstaEnLista(anyo2, numero2); // están en la lista del módulo papelera
+    confirmarSoloUnaPaginaEnLista();
+    int numeroFilasInicialPapelera = getListRowCount();
+    confirmarDocumentoEstaEnLista(anyo1, numero1); // Verificamos que las entidades borradas
+    confirmarDocumentoEstaEnLista(anyo2, numero2); // están en la lista del módulo papelera
  
     // Restaurar usando una acción de fila
     int fila1 = getFilaDocumentoEnLista(anyo1, numero1);
     execute("Papelera.restaurar", "row=" + fila1);
-    assertListRowCount(inicialNumeroFilasPapelera - 1); // 1 fila menos después de restaurar
-    afirmarDocumentoNoEstaEnLista(anyo1, numero1); // La entidad restaurada ya
+    assertListRowCount(numeroFilasInicialPapelera - 1); // 1 fila menos después de restaurar
+    confirmarDocumentoNoEstaEnLista(anyo1, numero1); // La entidad restaurada ya
         // no se muestra en la lista del módulo papelera
  
     // Restaurar seleccionando una fila y usando el botón de abajo
     int fila2 = getFilaDocumentoEnLista(anyo2, numero2);
     checkRow(fila2);
     execute("Papelera.restaurar");
-    assertListRowCount(inicialNumeroFilasPapelera - 2); // 2 filas menos
-    afirmarDocumentoNoEstaEnLista(anyo2, numero2); // La entidad restaurada ya
+    assertListRowCount(numeroFilasInicialPapelera - 2); // 2 filas menos
+    confirmarDocumentoNoEstaEnLista(anyo2, numero2); // La entidad restaurada ya
         // no se muestra en la lista del módulo papelera
  
     // Verificar las entidades restauradas
     changeModule(modelo);
-    assertListRowCount(inicialNumeroFilas); // Después de restaurar tenemos
-    afirmarDocumentoEstaEnLista(anyo1, numero1); // las filas originales de nuevo
-    afirmarDocumentoEstaEnLista(anyo2, numero2);
+    assertListRowCount(numeroFilasInicial); // Después de restaurar tenemos
+    confirmarDocumentoEstaEnLista(anyo1, numero1); // las filas originales de nuevo
+    confirmarDocumentoEstaEnLista(anyo2, numero2);
 }
 </code></pre> Como ves <em>testPapelera()</em> sigue los susodichos pasos.
       Fíjate como usando el método <i>changeModule()</i> de <i>ModuleTestBase</i>
       tu prueba puede cambiar a otro módulo. Usamos esto para cambiar al módulo
-      papelera, y volver atrás.<br>
+      papelera y volver atrás.<br>
       Aquí estamos utilizando algunos métodos auxiliares que has de añadir a <em>PruebaDocumentoComercial</em>.
-      El primero es <em>afirmarSoloUnaPaginaEnLista()</em> que confirma que el
-      modo lista es apropiado para ejecutar esta prueba. Mira su código:<br>
-      <pre><code class="java">private void afirmarSoloUnaPaginaEnLista() throws Exception {
+      El primero es <em>confirmarSoloUnaPaginaEnLista()</em> que confirma que
+      el modo lista es apropiado para ejecutar esta prueba. Mira su código:<br>
+      <pre><code class="java">private void confirmarSoloUnaPaginaEnLista() throws Exception {
     assertListNotEmpty(); // De ModuleTestBase
     assertTrue("Debe tener menos de 10 filas para ejecutar esta prueba",
         getListRowCount() &lt; 10);
@@ -1305,7 +1303,7 @@ public class PruebaPedido extends PruebaDocumentoComercial {
       aprovechar <i>getListRowCount()</i>, ya que siempre devolvería 10.<br>
       Los métodos restantes son para verificar que cierto pedido o factura está
       (o no está) en la lista. Míralos a continuación:<br>
-      <pre><code class="java">private void afirmarDocumentoNoEstaEnLista(String anyo, String numero)
+      <pre><code class="java">private void confirmarDocumentoNoEstaEnLista(String anyo, String numero)
     throws Exception
 {
     assertTrue(
@@ -1313,7 +1311,7 @@ public class PruebaPedido extends PruebaDocumentoComercial {
             getFilaDocumentoEnLista(anyo, numero) &lt; 0);
 }
  
-private void afirmarDocumentoEstaEnLista(String anyo, String numero)
+private void confirmarDocumentoEstaEnLista(String anyo, String numero)
     throws Exception
 {
     assertTrue(

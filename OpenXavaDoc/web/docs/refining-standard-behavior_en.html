@@ -932,8 +932,8 @@ public class InvoicingDeleteSelectedAction
       Exceptions are caught inside the loop, so if there is a problem deleting
       one of the entities, this does not affect the removal of the other
       entities. Furthermore, we have added a small refinement for the <i>ValidationException</i>
-      case, adding the validation <i>errors(ex.getErrors())</i> to the errors
-      to be shown to the user.<br>
+      case, adding the validation message <i>(ex.getMessage())</i> to the
+      errors to be shown to the user.<br>
       Here we also deselect all rows by means of <i>getTab().deselectAll()</i>,
       because we are removing rows. If we don't remove the selection, it would
       be moved after the action execution.<br>
