@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Real excel generation (included in TypicalRealExcel) export BigDecimal as String.
+- New method getPopupContentAsStream() in ModuleTestBase to get the content of new web window.
 - Fix: Assigning an Integer to a BigDecimal property with MapFacade fails instead of doing a conversion. 
 - Fix: Concurrent exception accessing labels from time to time under high load with many concurrent users.
 - Fix: View.setValue() to set null to a reference throws an exception.

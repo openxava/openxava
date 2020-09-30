@@ -45,9 +45,10 @@ public class GenerateReportServlet extends HttpServlet {
 		private boolean labelAsHeader = false;
 		private transient HttpServletRequest request;  
 		private boolean format = false;	// format or no the values. If format = true, all values to the report are String
-		private Integer columnCountLimit; 
-		
-		public TableModelDecorator(HttpServletRequest request, TableModel original, List metaProperties, Locale locale, boolean labelAsHeader, boolean format, Integer columnCountLimit) throws Exception { 
+		private Integer columnCountLimit;
+		private boolean formatBigDecimal = true; 
+
+		public TableModelDecorator(HttpServletRequest request, TableModel original, List metaProperties, Locale locale, boolean labelAsHeader, boolean format, Integer columnCountLimit, boolean formatBigDecimal) throws Exception { 
 			this.request = request;
 			this.original = original;
 			this.metaProperties = metaProperties;
@@ -56,7 +57,9 @@ public class GenerateReportServlet extends HttpServlet {
 			this.labelAsHeader = labelAsHeader;			
 			this.format = format;
 			this.columnCountLimit = columnCountLimit;
+			this.formatBigDecimal = formatBigDecimal; 
 		}
+
 
 		private boolean calculateWithValidValues() {
 			Iterator it = metaProperties.iterator();
@@ -115,7 +118,7 @@ public class GenerateReportServlet extends HttpServlet {
 				return p.format(r, locale); 
 			}
 
-			if (r instanceof BigDecimal) {
+			if (formatBigDecimal && r instanceof BigDecimal) {
 				return formatBigDecimal(r, locale); 
 			}
 			
@@ -225,8 +228,8 @@ public class GenerateReportServlet extends HttpServlet {
 			else if (uri.endsWith(".xls")) {    
                 synchronized (tab) {
                 	tab.setRequest(request);
-                    JxlsWorkbook wb = new JxlsWorkbook(getTableModel(request, tab, selectedRows, true, false, columnCountLimit), 
-                            getFileName(tab));
+                    JxlsWorkbook wb = new JxlsWorkbook(getTableModel(request, tab, selectedRows, true, false, columnCountLimit, false), 
+                            getFileName(tab));                	
                     JxlsSheet sheet = wb.getSheet(0);
                     int lastRow = sheet.getLastRowNumber();
                     JxlsStyle sumStyle = wb.addStyle(JxlsConstants.FLOAT)
@@ -328,7 +331,7 @@ public class GenerateReportServlet extends HttpServlet {
 		return widths;
 	}
 
-	private TableModel getTableModel(HttpServletRequest request, Tab tab, int [] selectedRows, boolean labelAsHeader, boolean format, Integer columnCountLimit) throws Exception {
+	private TableModel getTableModel(HttpServletRequest request, Tab tab, int [] selectedRows, boolean labelAsHeader, boolean format, Integer columnCountLimit, boolean formatBigDecimal) throws Exception {
 		TableModel data = null;
 		if (selectedRows != null && selectedRows.length > 0) {
 			data = new SelectedRowsXTableModel(tab.getTableModel(), selectedRows);
@@ -336,7 +339,11 @@ public class GenerateReportServlet extends HttpServlet {
 		else {
 			data = tab.getAllDataTableModel();
 		}
-		return new TableModelDecorator(request, data, tab.getMetaProperties(), Locales.getCurrent(), labelAsHeader, format, columnCountLimit);
+		return new TableModelDecorator(request, data, tab.getMetaProperties(), Locales.getCurrent(), labelAsHeader, format, columnCountLimit, formatBigDecimal);
+	}	
+	
+	private TableModel getTableModel(HttpServletRequest request, Tab tab, int [] selectedRows, boolean labelAsHeader, boolean format, Integer columnCountLimit) throws Exception {
+		return getTableModel(request, tab, selectedRows, labelAsHeader, format, columnCountLimit, true);
 	}
 	
 	private static Object formatBigDecimal(Object number, Locale locale) { 

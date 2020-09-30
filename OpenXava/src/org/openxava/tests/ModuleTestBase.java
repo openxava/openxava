@@ -1069,6 +1069,14 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	/**
+	 * The content of the response for popup window.
+	 * @since 6.4.2
+	 */
+	protected InputStream getPopupContentAsStream() throws Exception {  
+		return getPopupPage(-1).getWebResponse().getContentAsStream();
+	}	
+	
+	/**
 	 * The content of the PDF in the popup window as text.
 	 * 
 	 * @since 4.6

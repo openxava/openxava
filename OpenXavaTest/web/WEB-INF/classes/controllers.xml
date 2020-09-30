@@ -42,8 +42,8 @@
 		<action name="fillTitle" class="org.openxava.test.actions.BookTitleFromWebServiceAction" mode="detail"/> 
 	</controller>
 		
-	<controller name="Clerk">	
-		<extends controller="TypicalRealExcel"/>
+	<controller name="Clerk">
+		<extends controller="Typical"/> 
 		<action name="createMyExcel" class="org.openxava.test.actions.CreateMyExcelAction" />
 	</controller>
 	

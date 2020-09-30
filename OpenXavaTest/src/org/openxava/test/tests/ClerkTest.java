@@ -42,7 +42,7 @@ public class ClerkTest extends ModuleTestBase {
 		assertContentTypeForPopup("application/vnd.ms-excel");
 	}
 	
-	public void testTimeStereotypeAndSqlTimeAndStringAsByteArrayInDB_i18nOverXmlLabeInXmlComponents_generateRealExcel() throws Exception {
+	public void testTimeStereotypeAndSqlTimeAndStringAsByteArrayInDB_i18nOverXmlLabeInXmlComponents() throws Exception { 
 		assertListNotEmpty();
 		execute("List.viewDetail", "row=0");
 		if (!usesAnnotatedPOJO()) { // Only has sense in XML components
@@ -82,12 +82,7 @@ public class ClerkTest extends ModuleTestBase {
 		
 		// Asserting that java.sql.Time works in JasperReport
 		execute("Print.generatePdf"); 		
-		assertContentTypeForPopup("application/pdf");	
-		
-		// Real Excel
-		execute("TypicalRealExcel.generateExcel");
-		assertNoErrors(); 
-		assertContentTypeForPopup("application/vnd.ms-excel");				
+		assertContentTypeForPopup("application/pdf");			
 	}
 	
 	public void testListFormatSelectedButtonStyle() throws Exception { 
