@@ -117,7 +117,7 @@ public class ConfigureImportAction extends TabBaseAction
 	}
 
 	private String formatNumber(double number) { 
-		if (number % 1 == 0) return Integer.toString(new Double(number).intValue()); 
+		if (number % 1 == 0) return Long.toString(new Double(number).longValue()); 
 		return Import.encodeSeparators(NumberFormat.getNumberInstance(Locales.getCurrent()).format(number)); 
 	}
 

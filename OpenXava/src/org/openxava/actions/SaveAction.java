@@ -101,12 +101,11 @@ public class SaveAction extends TabBaseAction {
 		Map membersNames = properties.stream()
 			.collect(HashMap::new, (m,v) -> m.put(v, null), HashMap::putAll);
 		Map values = MapFacade.getValues(getModelName(), keyValues, membersNames);
-		String result = properties.stream()
+		return properties.stream()
 			.map(p -> values.get(p))
 			.filter(Objects::nonNull) 
 			.map(Object::toString)
 			.collect(Collectors.joining("/"));
-		return result.toString();
 	}
 
 	private Collection<String> getPossibleGeneratedProperties() throws Exception { 
