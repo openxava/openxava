@@ -14,7 +14,14 @@ public class AppointmentTest extends ModuleTestBase {
 		super(testName, "Appointment");		
 	}
 	
-	public void testDateAsDATETIME() throws Exception {   		
+	public void testDateAsDATETIME() throws Exception {
+		selectGroupBy("Group by year of time");
+		assertNoErrors();
+		assertListRowCount(1);
+		assertValueInList(0, 0, "2015");
+		assertValueInList(0, 2, "4");
+		selectGroupBy("No grouping");
+
 		assertListRowCount(4); 
 		setConditionValues("5/26/15");
 		execute("List.filter");
@@ -30,6 +37,7 @@ public class AppointmentTest extends ModuleTestBase {
 		excel.nextToken(); // To skip the header
 		String line1 = excel.nextToken();
 		assertEquals("line1", "\"5/26/15 10:15 AM\";\"ALMUERZO\";0;", line1); 
+		
 	}
 	
 	public void testImport() throws Exception {

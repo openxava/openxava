@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Group by month or year of a DATETIME property implemented with a java.util.Date fails.
 - Fix: Import data from Excel turn big numbers into 2147483647.
 - Fix: Real excel generation (included in TypicalRealExcel) exports BigDecimal as String.
 - New method getPopupContentAsStream() in ModuleTestBase to get the content of new web window.
