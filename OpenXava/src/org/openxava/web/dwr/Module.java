@@ -140,8 +140,10 @@ public class Module extends DWRBase {
 		if (firstRequest) return null; 
 		Stack previousViews = (Stack) getContext(request).get(application, module, "xava_previousViews"); // The previousStack to work for both showDialog() and showNewView()
 		if (!previousViews.isEmpty()) return ""; 
-		Map key = getView().getKeyValuesWithValue();
-		if (key.size() == 1) {
+		View view = getView();
+		Map key = view.getKeyValuesWithValue();
+		boolean modelFromModule = MetaModel.get(manager.getModelName()).getPOJOClass().isAssignableFrom(view.getMetaModel().getPOJOClass());
+		if (modelFromModule && key.size() == 1) { 
 			String id = key.values().iterator().next().toString();
 			return "detail=" + id; 				
 		}

@@ -46,7 +46,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertAction("List.filter");		
 	}
 	
-	public void testGetEntityWithEmptyReferences_duplicateActionsNotAdded_keepAddedActionAfterCloseDialog() throws Exception {   		
+	public void testGetEntityWithEmptyReferences_duplicateActionsNotAdded_keepAddedActionAfterCloseDialog_noPermalinkForNoModuleModel() throws Exception { // noPermalinkForNoModuleModel   		
 		assertListRowCount(1);
 		execute("CRUD.new");
 		assertNoAction("JPACRUD.create");
@@ -67,6 +67,11 @@ public class ApplicantTest extends ModuleTestBase {
 		assertValueInList(1, 0, "JUNIT APPLICANT CREATED"); // The CREATED is for a @PrePersist needed for the test testPolymorphicReferenceFromBaseClass_savingTwiceWithNoRefreshAfterAndHiddenKey()
 		execute("CRUD.deleteRow", "row=1");
 		assertListRowCount(1);
+		
+		execute("List.viewDetail", "row=0");
+		HtmlUnitUtils.assertPageURI(getHtmlPage(), "/Applicant?detail=ff8080823dee26af013dee2998260001");
+		execute("Applicant.setActingLevelA");
+		HtmlUnitUtils.assertPageURI(getHtmlPage(), "/Applicant");
 	}
 		
 	private void assertActionsCount(String action, int expectedCount) { 
@@ -178,7 +183,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertAction("Navigation.next");
 		assertAction("CRUD.refresh");
 		assertNoAction("Navigation.first");
-		assertNoAction("CRUD.save");
+		assertNoAction("CRUD.save");		
 	}
 	
 	public void testListCustomizationWithTabDefaultOrder() throws Exception {  

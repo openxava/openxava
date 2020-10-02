@@ -101,6 +101,8 @@
 			class="org.openxava.test.actions.ShowButtonsAction"/>	
 		<action name="changePlatformLabel"  
 			class="org.openxava.test.actions.ChangePlatformLabelAction"/>
+		<action name="setActingLevelA" mode="detail" 
+			class="org.openxava.test.actions.SetActingLevelAAction"/>
 	</controller>			
 	
 	<controller name="JPACRUD">	
