@@ -909,6 +909,11 @@
 		</action>
 	</controller>		
 
+	<controller name="FilterBySubfamilyAndYear">	
+		<action name="changeToRecord" 
+			class="org.openxava.test.actions.ChangeToFilterBySubfamilyAndYearRecordAction"/>
+	</controller>		
+	
 	<controller name="StateHibernate"> 
 		<action name="search" image="search.gif" mode="detail" 
 			class="org.openxava.test.actions.StateHibernateSearchAction"/>					

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: getView().setModel(anEntity) with an entity in a transient module put the permalink parameter.
 - Fix: Assign a model to the view of different type of the module and then reload the browser page fails. 
 - Lesson 7 of course upgraded to latest OpenXava features.
 - Fix: Group by month or year of a DATETIME property implemented with a java.util.Date fails.

@@ -142,8 +142,9 @@ public class Module extends DWRBase {
 		if (!previousViews.isEmpty()) return ""; 
 		View view = getView();
 		Map key = view.getKeyValuesWithValue();
-		boolean modelFromModule = MetaModel.get(manager.getModelName()).getPOJOClass().isAssignableFrom(view.getMetaModel().getPOJOClass());
-		if (modelFromModule && key.size() == 1) { 
+		MetaModel moduleMetaModel = MetaModel.get(manager.getModelName()); 
+		boolean modelFromModule = moduleMetaModel.getPOJOClass().isAssignableFrom(view.getMetaModel().getPOJOClass());
+		if (modelFromModule && key.size() == 1 && !moduleMetaModel.getMetaComponent().isTransient()) {
 			String id = key.values().iterator().next().toString();
 			return "detail=" + id; 				
 		}

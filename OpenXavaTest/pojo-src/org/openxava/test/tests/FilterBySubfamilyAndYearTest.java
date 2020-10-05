@@ -12,9 +12,15 @@ public class FilterBySubfamilyAndYearTest extends ModuleTestBase {
 		super(testName, "FilterBySubfamilyAndYear");		
 	}
 	
-	public void testTransientClassInheritance() throws Exception { 
+	public void testTransientClassInheritance_setEntityExtendingTransient() throws Exception { 
 		assertExists("year"); 
 		assertExists("subfamily.number");		
+		
+		execute("FilterBySubfamilyAndYear.changeToRecord");
+		assertValue("number", "1");
+		assertValue("description", "ONE");
+		assertNoErrors();
+		HtmlUnitUtils.assertPageURI(getHtmlPage(), "/FilterBySubfamilyAndYear");
 	}
 		
 }
