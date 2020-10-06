@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- New applicationPort property in xava.property to indicate the port used by the application launcher.
+- New applicationPort property in xava.properties to indicate the port used by the application launcher.
 - Fix: Application launcher (the _Run_YourApplication) fails if port 8080 is used by another process.
 - Fix: getView().setModel(anEntity) with an entity in a transient module put the permalink parameter.
 - Fix: Assign a model to the view of different type of the module and then reload the browser page fails. 
