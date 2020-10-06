@@ -21,17 +21,41 @@ public class AppServer {
 		System.out.println(XavaResources.getString("starting_application"));
 		createDefaultI18nFiles(app); 
         String webappDir = new File("web").getAbsolutePath();
-        Tomcat tomcat = new Tomcat();
-        tomcat.setBaseDir("temp"); 
-        tomcat.setPort(8080);
-        tomcat.getConnector();
-        tomcat.enableNaming();
         String contextPath = Is.empty(app)?"":"/" + app;
-        tomcat.addWebapp(contextPath, webappDir);
-        tomcat.start();
-        System.out.println(XavaResources.getString("application_started_go", "http://localhost:8080/" + app));  
+        Tomcat tomcat = null;
+        int initialPort = XavaPreferences.getInstance().getApplicationPort();
+        int finalPort = initialPort + 10;
+        for (int port = initialPort; port < finalPort; port++) {
+        	tomcat = startTomcat(webappDir, contextPath, port);
+        	if (tomcat != null) {
+        		if (port > initialPort) {
+        			System.out.println(XavaResources.getString("port_for_faster_startup", "applicationPort=" + port)); 
+        		}
+        		break;
+        	}
+        }
+        if (tomcat == null) {
+        	System.err.println(XavaResources.getString("app_startup_failed_after_trying_ports"));
+        	System.exit(1);
+        }
+       	System.out.println(XavaResources.getString("application_started_go", "http://localhost:" + tomcat.getConnector().getLocalPort() + "/" + app));
         
         tomcat.getServer().await();
+	}
+	
+	private static Tomcat startTomcat(String webappDir, String contextPath, int port) throws Exception { 
+        Tomcat tomcat = new Tomcat();
+        tomcat.setBaseDir("temp"); 
+        tomcat.setPort(port);
+        tomcat.getConnector();
+        tomcat.enableNaming();
+        tomcat.addWebapp(contextPath, webappDir);
+        tomcat.start();
+       	if (tomcat.getConnector().getLocalPort() < 0) {
+     		tomcat.stop();
+     		return null;
+       	}
+       	return tomcat;
 	}
 	
 	private static void createDefaultI18nFiles(String app) {
