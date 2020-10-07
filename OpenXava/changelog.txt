@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+
+- Fix: View.setValue() for a collection does not work.
+- Fix: View.setValue() for a reference sending the value as a map works but displays an error.
+
 - New applicationPort property in xava.properties to indicate the port used by the application launcher.
 - Fix: Application launcher (the _Run_YourApplication) fails if port 8080 is used by another process.
 - Fix: getView().setModel(anEntity) with an entity in a transient module put the permalink parameter.

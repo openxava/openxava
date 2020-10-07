@@ -8,6 +8,7 @@ import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
+import org.openxava.test.actions.*;
 import org.openxava.test.calculators.*;
 import org.openxava.test.validators.*;
 
@@ -68,7 +69,7 @@ public class Product5 {
 	@NoFrame(forViews="FamilyFromSubfamily") 
 	@ReferenceView(forViews="FamilyFromSubfamily", value="WithFamilyNoFrame") 
 	private Subfamily2 subfamily;
-
+	
 	@ManyToOne(fetch=FetchType.LAZY) 
 	@JoinColumns({ 
 		@JoinColumn(name="ZONE", referencedColumnName="ZONE"), 
@@ -227,6 +228,5 @@ public class Product5 {
 	public Collection<ProductDetailsSupplierContactDetails> getProductDetailsSupplierContactDetails() {
 		return productDetailsSupplierContactDetails;
 	}
-	
 
 }

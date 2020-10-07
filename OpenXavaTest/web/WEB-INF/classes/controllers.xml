@@ -57,6 +57,11 @@
 		<action name="removeDetail" 
 			class="org.openxava.actions.RemoveSelectedInElementCollectionAction"
 			hidden="true"/>
+		<!-- tmp ini -->
+		<action name="setQuantitiesToSeven" mode="detail"
+			class="org.openxava.test.actions.SetQuantityToSevenForAllDetailsAction"/>		
+		<!-- tmp fin -->	
+			
 	</controller>
 	
 	<controller name="Author">
