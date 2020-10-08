@@ -57,6 +57,7 @@ public class AJAXTest extends ModuleTestBase {
 	
 	public void testElementCollections() throws Exception { 
 		if (!usesAnnotatedPOJO()) return;
+		// WARNING! Don't change the order of the below code, because the last case only fails with this order 
 		changeModule("Quote");
 		execute("List.viewDetail", "row=0");
 		assertValue("year", "2014"); // This one ... 
@@ -109,6 +110,13 @@ public class AJAXTest extends ModuleTestBase {
 			"collection_total_2_4_details.," +
 			"editor_estimatedProfit," + 
 			"errors, messages");		
+		
+		// This case only fails with after the above steps in the exact order
+		execute("Quote.setQuantitiesToSeven");
+		assertLoadedParts(
+			"collection_details.," +
+			"frame_detailsheader," +	
+			"errors, messages");
 	}
 	
 	public void testDescriptionsListInElementCollections() throws Exception { 

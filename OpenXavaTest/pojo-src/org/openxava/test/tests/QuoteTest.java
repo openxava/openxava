@@ -197,7 +197,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertTotalInCollection("details", 2, "amount", "8,470.00");
 	}
 	
-	public void testDependentDefaultValueCalculatorInElementCollection() throws Exception {  
+	public void testDependentDefaultValueCalculatorInElementCollection_viewSetValueForElementCollection() throws Exception {   
 		execute("CRUD.new");		
 
 		setValueInCollection("details", 0, "product.number", "1");
@@ -239,14 +239,11 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertTotalInCollection("details", 1, "amount", "15.33");
 		assertTotalInCollection("details", 2, "amount", "88.33");	
 		
-		// tmp ini
-		// TMP ME QUEDÉ POR AQUÍ: ESTO FALLA, HE DE HACER QUE SALGA VERDE
 		execute("Quote.setQuantitiesToSeven");
 		assertValueInCollection("details", 0, "product.number", "2");
 		assertValueInCollection("details", 0, "quantity", "7");		
 		assertValueInCollection("details", 1, "product.number", "1");
 		assertValueInCollection("details", 1, "quantity", "7");
-		// tmp fin
 	}
 	
 	public void testElementCollectionGetEntity_removingRowUpdatesTotals_addingSeveralRowsAfterRemoving_referenceSearchCorrectIndexAfterRemoving_calculatedPropertiesDependingOnTotals() throws Exception {  

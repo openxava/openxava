@@ -1351,7 +1351,8 @@ public class View implements java.io.Serializable {
 					else subview.addValues((Map)value);
 				}
 				else {
-					subview.collectionValues = (List) value; 
+					subview.collectionValues = (List) value;
+					subview.refreshCollection(); 
 				}		
 			}
 			else { 					
@@ -6029,7 +6030,9 @@ public class View implements java.io.Serializable {
 			Iterator itSubviews = getSubviews().values().iterator();
 			while (itSubviews.hasNext()) {
 				View subview = (View) itSubviews.next();
-				if (subview.isRepresentsElementCollection() || (subview.isRepresentsCollection() && subview.isCollectionFromModel())) { 
+				if ((subview.isRepresentsElementCollection() && !subview.mustRefreshCollection) || 
+					(subview.isRepresentsCollection() && subview.isCollectionFromModel() && !subview.isRepresentsElementCollection())) 
+				{
 					int rowCount = subview.getCollectionTotalsCount();
 					int columnCount = subview.getMetaPropertiesList().size();					
 					for (int row=0; row<rowCount; row++) {

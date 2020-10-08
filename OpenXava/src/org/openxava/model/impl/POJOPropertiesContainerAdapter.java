@@ -8,7 +8,6 @@ import java.util.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.util.*;
-// tmp import org.openxava.validators.*;
 
 /**
  * @author Javier Paniza
