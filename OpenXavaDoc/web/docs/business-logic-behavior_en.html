@@ -6,17 +6,11 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 8: Behavior &amp; business logic"></a>
-        <span id="breadcrumbs">
-          <span id="openxava">
-          	<a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava
-            </a>
-          </span>  
-          / <a href="index_en.html">documentation</a> /  
-				</span>                
-        Lesson 8: Behavior &amp; business logic
-      </h1>
+      <h1 id="toc0"><a name="Lesson 8: Behavior &amp; business logic"></a> <span
+
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
+          / </span> Lesson 8: Behavior &amp; business logic </h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
@@ -29,17 +23,80 @@
         References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a><hr>
-      This lesson is available in PDF:<br>
-      <a href="files/openxava-course8-business-logic-behavior_en.pdf">openxava-course8-business-logic-behavior_en.pdf</a><br>
-      <br>
-      <strong>Warning</strong>: We're upgrading the course to latest OpenXava
-      version, unfortunately this lesson is not still upgraded. The lesson
-      content is still valid, but maybe the source code for the example
-      application needs some adaptation because previous lessons are already
-      upgraded. The main change is the use of <em>@ElementCollection</em> for
-      the detail lines of invoices and orders.<br>
-      <br>
+        Annotations</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior">Lesson
+            8: TMP FALTA<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions">Custom
+            actions</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions-Typical%20controller">Typical
+            controller</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions-Refining%20the%20controller%20for%20a%20module">Refining
+            the controller for a module</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions-Writing%20your%20own%20action">Writing
+            your own action</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions">Generic
+            actions</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-MapFacade%20for%20generic%20code">MapFacade
+            for generic code</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Changing%20the%20default%20controller%20for%20all%20modules">Changing
+            the default controller for all modules</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Come%20back%20to%20the%20model%20a%20little">Come
+            back to the model a little</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Metadata%20for%20more%20generic%20code">Metadata
+            for more generic code</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Call%20another%20action%20from%20an%20action">Call
+            another action from an action actions</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Refining%20the%20default%20search%20action">Refining
+            the default search action</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode">List
+            mode</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode-Filtering%20tabular%20data">Filtering
+            tabular data</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode-List%20actions">List
+            actions</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code">Reusing
+            actions code</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code-Using%20properties%20to%20create%20reusable%20actions">Using
+            properties to create reusable actions</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code-Custom%20modules">Custom
+            modules</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code-Several%20tabular%20data%20definitions%20by%20entity">Several
+            tabular data definitions by entity</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code-Reusable%20obsession">Reusable
+            obsession</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-JUnit%20tests">JUnit
+            tests</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-JUnit%20tests-Testing%20the%20customized%20delete%20behavior">Testing
+            the customized delete behavior</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-JUnit%20tests-Testing%20several%20modules%20in%20the%20same%20test%20method">Testing
+            several modules in the same test method</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Summary">Summary</a></div>
+      </div>
+      OpenXava is not just a CRUD framework, but a framework for developing
+      full-fledged business applications. Until now we have learned how to
+      create and enhance a data management application. We will now improve the
+      application further by giving the user the possibility to perform specific
+      business logic.<br>
+      In this lesson we'll see how to add business logic to a model and call
+      this logic from custom actions. In this way you can transform a database
+      management application into a useful tool for the everyday work of your
+      user.<br>
+      <h2><a name="business-logic-in-detail-mode"></a>Business logic in detail
+        mode</h2>
+      We'll start with the simplest case: a button in the detail mode that
+      executes
+      some concrete logic. In this case we'll add a button for creating an
+      invoice from
+      an order:<br>
+    <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png" title="business-logic-behavior_en010.png"><br>
+     fff<br>
+      
+      
+      <br><br><br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
 
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
