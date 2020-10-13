@@ -50,9 +50,6 @@
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 <%
-	if ("true".equals(request.getParameter("init"))) {
-		context.resetModule(request);
-	}
 	String windowId = context.getWindowId(request);
 	context.setCurrentWindowId(windowId);	
 	Locales.setCurrent(request);	

@@ -7,6 +7,7 @@ import javax.persistence.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
+import org.openxava.util.*;
 
 /**
  * 
@@ -17,6 +18,7 @@ public class InvoiceFromCustomersTest extends ModuleTestBase {
 	
 		
 	private Collection invoices;
+	private String moduleURLParameter;
 
 	public InvoiceFromCustomersTest(String testName) {
 		super(testName, "InvoiceFromCustomers");		
@@ -105,7 +107,7 @@ public class InvoiceFromCustomersTest extends ModuleTestBase {
 		assertValueInList(0, 0, "Javi");		
 	}
 	
-	public void testSetBaseConditionOnChangeModule() throws Exception { 
+	public void testSetBaseConditionOnChangeModule_initModuleAfterChangeModuleActionStartsInInitialModule() throws Exception {  
 		execute("Invoice.listOfCustomer", "row=0");
 		assertInvoices("1", 5); 
 		execute("CustomerInvoices.returnWithChainedAction");
@@ -121,7 +123,16 @@ public class InvoiceFromCustomersTest extends ModuleTestBase {
 		execute("Invoice.listOfCustomer", "row=0");
 		assertInvoices("1", 5);		
 		
-		assertListSelectedConfiguration("All"); 
+		assertListSelectedConfiguration("All");
+		
+		moduleURLParameter = "init=true";
+		changeModule("InvoiceFromCustomers");
+		assertValueInList(0, 0, "Javi"); // So customers
+	}
+	
+	protected String getModuleURL() throws XavaException {
+		if (moduleURLParameter == null) return super.getModuleURL();
+		return super.getModuleURL() + "&" + moduleURLParameter;
 	}
 	
 	private void assertInvoices(String customerNumber, int invoicesCount) throws Exception { 

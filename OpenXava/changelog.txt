@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Clicking on menu of a module with IChangeModuleAction does not return to root module.
 - Fix: Duplicate load of totals via AJAX when refreshing an element collection.
 - Fix: View.setValue() for an element collection does not work.
 - Fix: View.setValue() for a reference sending the value as a map works but displays an error.
