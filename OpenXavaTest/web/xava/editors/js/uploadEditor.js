@@ -72,6 +72,20 @@ openxava.addEditorInitFunction(function() {
 		    	}	    		    	
 	    	}
 	    	pond.allowRevert = false;
+	    	// tmp ini
+	    	pond.onprocessfile = function(error, file) {
+		    	if (error) {
+			        console.log('Oh no: ', error);
+			        console.log('error.code: ' + error.code);
+			        console.log('error.name: ' + error.name);
+			        console.log('error.message: ' + error.message);
+			        console.log('error.body: ', error.body);
+			        console.log('error.description: ' + error.description);
+
+			        return;
+			    }
+		    }
+	    	// tmp fin
     	}
     	
     });

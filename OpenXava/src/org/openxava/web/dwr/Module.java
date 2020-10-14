@@ -665,6 +665,11 @@ public class Module extends DWRBase {
 		}			
 	}
 	
+	// tmp ini
+	public static void memorizeLastMessages(HttpServletRequest request, String application, String module) {
+		// TMP ME QUEDÉ POR AQUÍ: INTENTANDO HACER A MANO
+	}
+	// tmp fin
 
 	public static void restoreLastMessages(HttpServletRequest request, String application, String module) {  
 		ModuleContext context = getContext(request);		

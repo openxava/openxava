@@ -29,6 +29,9 @@ public class ConfigureImportAction extends TabBaseAction
 	private Collection<MetaProperty> metaProperties; 
 	
 	public void execute() throws Exception {
+		addMessage("Hola, soy él"); // tmp
+		addError("Adios"); // tmp
+		/* tmp
 		String fileName = "UNKNOWN";
 		try {
 	        FileItem fi = (FileItem) getView().getValue("file");                         
@@ -59,7 +62,8 @@ public class ConfigureImportAction extends TabBaseAction
 			log.error(XavaResources.getString("import_error", fileName, ex.getMessage()), ex);
 			addError("import_error", fileName, ex.getMessage()); 
 			cancel();
-		}		
+		}
+		*/		
 	}
 	
 	private boolean configureImport(String data) { 
