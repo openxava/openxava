@@ -7,15 +7,9 @@
   <body>
     <div class="wiki" id="content_view" style="display: block;">
       <h1 id="toc0"><a name="Lección 8: Comportamiento y lógica de negocio"></a>
-        <span id="breadcrumbs"> 
-        	<span id="openxava"> 
-            <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> 
-          / <a href="index_es.html">documentación</a> / 
-        </span>
-        Lección 8: Comportamiento y lógica de negocio
-      </h1>
-
+        <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span> Lección 8: Comportamiento y lógica de negocio </h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
         Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3.
@@ -28,17 +22,73 @@
         Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a><hr>
-      Esta lección está disponible en PDF:<br>
-      <a href="files/openxava-course8-business-logic-behavior_es.pdf">openxava-course8-business-logic-behavior_es.pdf</a><br>
+        Anotaciones</a>
+      <hr> 
+			<div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Leccion-7-Refinar-el-comportamiento-predefinido">Lección
+            8: TMP</a></div>
+        <div style="margin-left: 2em;"><a href="#Acciones-personalizadas">Acciones
+            personalizadas</a></div>
+        <div style="margin-left: 3em;"><a href="#Acciones-personalizadas-Controlador-Typical">Controlador
+            Typical</a></div>
+        <div style="margin-left: 3em;"><a href="#Acciones-personalizadas-Refinar-el-controlador-para-un-modulo">Refinar
+            el controlador para un módulo</a></div>
+        <div style="margin-left: 3em;"><a href="#Acciones-personalizadas-Escribir-tu-propia-accion">Escribir
+            tu propia acción</a></div>
+        <div style="margin-left: 2em;"><a href="#Acciones-genericas">Acciones
+            genéricas</a></div>
+        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Codigo-generico-con-MapFacade">Código
+            genérico con MapFacade</a></div>
+        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Cambiar-el-controlador-por-defecto-para-todos-los-modulos">Cambiar
+            el controlador por defecto para todos los módulos</a></div>
+        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Volvamos-un-momento-al-modelo">Volvamos
+            un momento al modelo</a></div>
+        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Metadatos-para-un-codigo-mas-generico">Metadatos
+            para un código más genérico</a></div>
+        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Llamar-a-otra-accion-desde-una-accion">Llamar
+            a otra acción desde una acción</a></div>
+        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Refinar-la-accion-de-busqueda-por-defecto">Refinar
+            la acción de búsqueda por defecto</a></div>
+        <div style="margin-left: 2em;"><a href="#Modo-lista">Modo lista</a></div>
+        <div style="margin-left: 3em;"><a href="#Modo-lista-Filtrar-datos-tabulares">Filtrar
+            datos tabulares</a></div>
+        <div style="margin-left: 3em;"><a href="#Modo-lista-Acciones-de-lista">Acciones
+            de lista</a></div>
+        <div style="margin-left: 2em;"><a href="#Reutilizar-el-codigo-de-las-acciones">Reutilizar
+            el código de las acciones</a></div>
+        <div style="margin-left: 3em;"><a href="#Reutilizar-el-codigo-de-las-acciones-Propiedades-para-crear-acciones-reutilizables">Propiedades
+            para crear acciones reutilizables</a></div>
+        <div style="margin-left: 3em;"><a href="#Reutilizar-el-codigo-de-las-acciones-Modulos-personalizados">Módulos
+            personalizados</a></div>
+        <div style="margin-left: 3em;"><a href="#Reutilizar-el-codigo-de-las-acciones-Varias-definiciones-de-datos-tabulares-por-entidad">Varias
+            definiciones de datos tabulares por entidad</a></div>
+        <div style="margin-left: 3em;"><a href="#Reutilizar-el-codigo-de-las-acciones-Obsesion-por-reutilizar">Obsesión
+            por reutilizar</a></div>
+        <div style="margin-left: 2em;"><a href="#Pruebas-JUnit">Pruebas JUnit</a></div>
+        <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-el-comportamiento-personalizado-para-borrar">Probar
+            el comportamiento personalizado para borrar</a></div>
+        <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-varios-modulos-en-el-mismo-metodo-de-prueba">Probar
+            varios módulos en el mismo método de prueba</a></div>
+        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
+      </div>    
+      OpenXava no es simplemente un marco de trabajo para hacer mantenimientos
+(altas, bajas, modificaciones y consultas), más bien está concebido para
+desarrollar aplicaciones de gestión plenamente funcionales. Hasta ahora hemos
+aprendido como crear y refinar la aplicación para manejar los datos. Ahora vamos
+a posibilitar al usuario la ejecución de lógica de negocio específica. <br>
+      En esta lección vamos a ver como escribir lógica de negocio en el modelo y
+llamar a esta lógica desde acciones personalizadas. Así podrás transformar tu
+aplicación de gestión de datos en una herramienta útil para el trabajo cotidiano de
+tu usuario.
+      
+      <h2><a name="logica-de-negocio-desde-el-modo-detalle"></a>Lógica de negocio desde el modo detalle</h2>
+      
+      
+      
+      <br>   
       <br>
-      <strong>Advertencia</strong>: Estamos actualizando el curso a la última
-      versión de OpenXava, por desgracia esta lección todavía no ha sido
-      actualizada. El contenido de la lección es todavía válido, pero puede ser
-      que el código fuente del ejemplo necesite alguna adaptación, especialmente
-      en el caso de las líneas de detalle que ahora son <em>@ElementCollection</em>.
-      Además, en el curso actualizado el código está en español, mientras que en
-      esta lección todavía está en inglés.<br>
+      <br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
 
