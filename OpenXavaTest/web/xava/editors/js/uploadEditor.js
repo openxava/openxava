@@ -81,7 +81,7 @@ openxava.addEditorInitFunction(function() {
 			        console.log('error.message: ' + error.message);
 			        console.log('error.body: ', error.body);
 			        console.log('error.description: ' + error.description);
-
+					openxava.ajaxRequest(input.dataset.application, input.dataset.module, false, false);
 			        return;
 			    }
 		    }

@@ -13,6 +13,7 @@ import org.openxava.util.*;
 import org.openxava.validators.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
+import org.openxava.web.dwr.Module;
 import org.openxava.web.meta.*;
 
 
@@ -26,7 +27,6 @@ public class UploadServlet extends HttpServlet {
 	private static Log log = LogFactory.getLog(UploadServlet.class);
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* tmp
 		Requests.init(request, request.getParameter("application"), request.getParameter("module"));
 		getManager(request).executeBeforeEachRequestActions(request, new Messages(), new Messages());  
 		try {
@@ -42,18 +42,10 @@ public class UploadServlet extends HttpServlet {
 				Requests.clean();
 			}
 		}
-		*/
-		// tmp ini
-		response.sendError(406, "NO es NO");
-		// tmp fin
-
 	}	
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// tmp executeAction(request, response, "load", true);
-		// tmp ini
-		response.sendError(500, "De plano NO");
-		// tmp fin
+		executeAction(request, response, "load", true);
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -79,6 +71,7 @@ public class UploadServlet extends HttpServlet {
 			manager.executeAction(action, errors, messages, propertyValues, request);
 			// tmp ini
 			if (errors.contains()) {
+				Module.memorizeLastMessages(request, request.getParameter("application"), request.getParameter("module"));
 				response.sendError(406, "Lo que pides es inaceptable");
 				response.addHeader("message", "El mensaje");
 				throw new ValidationException(errors);

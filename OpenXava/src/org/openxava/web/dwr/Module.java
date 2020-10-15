@@ -47,6 +47,7 @@ public class Module extends DWRBase {
 	
 	public Result request(HttpServletRequest request, HttpServletResponse response, String application, String module, String additionalParameters, Map values, Map multipleValues, String [] selected, String [] deselected, Boolean firstRequest, String baseFolder) throws Exception {
 		long ini = System.currentTimeMillis();
+		System.out.println("[Module.request] "); // tmp
 		Result result = new Result(); 
 		result.setApplication(application); 
 		result.setModule(module);
@@ -667,7 +668,16 @@ public class Module extends DWRBase {
 	
 	// tmp ini
 	public static void memorizeLastMessages(HttpServletRequest request, String application, String module) {
-		// TMP ME QUEDÉ POR AQUÍ: INTENTANDO HACER A MANO
+		// tmp De momento copiado y pegado. Faltaría refactorizar
+		ModuleContext context = getContext(request);		
+		Object messages = request.getAttribute("messages");
+		if (messages != null) { 
+			context.put(application, module, MESSAGES_LAST_REQUEST, messages);
+		}
+		Object errors = request.getAttribute("errors");
+		if (errors != null) {
+			context.put(application, module, ERRORS_LAST_REQUEST, errors);
+		}			
 	}
 	// tmp fin
 
