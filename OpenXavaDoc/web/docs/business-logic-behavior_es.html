@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Lección 8: Comportamiento y lógica de negocio - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -23,8 +26,8 @@
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
         Anotaciones</a>
-      <hr> 
-			<div id="toc">
+      <hr>
+      <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#Leccion-7-Refinar-el-comportamiento-predefinido">Lección
             8: TMP</a></div>
@@ -71,22 +74,864 @@
         <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-varios-modulos-en-el-mismo-metodo-de-prueba">Probar
             varios módulos en el mismo método de prueba</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
-      </div>    
+      </div>
       OpenXava no es simplemente un marco de trabajo para hacer mantenimientos
-(altas, bajas, modificaciones y consultas), más bien está concebido para
-desarrollar aplicaciones de gestión plenamente funcionales. Hasta ahora hemos
-aprendido como crear y refinar la aplicación para manejar los datos. Ahora vamos
-a posibilitar al usuario la ejecución de lógica de negocio específica. <br>
+      (altas, bajas, modificaciones y consultas), más bien está concebido para
+      desarrollar aplicaciones de gestión plenamente funcionales. Hasta ahora
+      hemos
+      aprendido como crear y refinar la aplicación para manejar los datos. Ahora
+      vamos
+      a posibilitar al usuario la ejecución de lógica de negocio específica. <br>
       En esta lección vamos a ver como escribir lógica de negocio en el modelo y
-llamar a esta lógica desde acciones personalizadas. Así podrás transformar tu
-aplicación de gestión de datos en una herramienta útil para el trabajo cotidiano de
-tu usuario.
+      llamar a esta lógica desde acciones personalizadas. Así podrás transformar
+      tu
+      aplicación de gestión de datos en una herramienta útil para el trabajo
+      cotidiano de
+      tu usuario.
+      <h2><a name="logica-de-negocio-desde-el-modo-detalle"></a>Lógica de
+        negocio desde el modo detalle</h2>
+      Empezaremos con el caso más simple: un botón en modo detalle para ejecutar
+cierta lógica. En este caso para crear la factura desde un pedido:<br>
+      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
+        title="business-logic-behavior_es010.png"><br>
+      Aquí se muestra como esta nueva acción coge el pedido actual y crea una
+factura a partir de él. Simplemente copia todos los datos del pedido a la nueva
+factura, incluyendo las líneas de detalle. Se muestra un mensaje y la pestaña
+'Factura' del pedido visualizará la factura recién creada. Veamos como codificar
+este comportamiento.
+      <h3><a name="crear-una-accion-para-ejecutar-logica-personalizada"></a>Crear una acción para ejecutar lógica personalizada</h3>
+      Como ya sabes el primer paso para tener una acción personalizada en tu
+módulo es definir un controlador con esa acción. Por tanto, editemos
+controllers.xml y añadamos un nuevo controlador. El siguiente código muestra el
+controlador Order.
+      <pre><code class="xml">&lt;controller name="Order"&gt;
+	&lt;extends controller="Invoicing"/&gt; &lt;!-- Para tener las acciones estándar --&gt;
+
+	&lt;action name="createInvoice" mode="detail"
+		class="org.openxava.invoicing.actions.CreateInvoiceFromOrderAction"/&gt;
+	&lt;!-- mode="detail" : Sólo en modo detalle --&gt;
+
+&lt;/controller&gt;
+</code></pre>
+      Dado que hemos seguido la convención de dar al controlador el mismo
+nombre que a la entidad y el módulo, ya tenemos automáticamente esta nueva
+acción disponible para Order. El controlador Order desciende del controlador
+Invoicing. Recuerda que creamos un controlador Invoicing en la lección 7. Es
+un refinamiento del controlador Typical.<br>
+      Ahora hemos de escribir el código Java para la acción. Puedes verlo aquí:
+<pre><code class="java">package org.openxava.invoicing.actions; // En el paquete 'actions'
+
+import org.openxava.actions.*;
+import org.openxava.invoicing.model.*;
+import org.openxava.jpa.*;
+
+public class CreateInvoiceFromOrderAction
+    extends ViewBaseAction { // Para usar getView()
+
+    public void execute() throws Exception {
+        Order order = XPersistence.getManager().find( // Usamos JPA para obtener la
+            Order.class, // entidad Order visualizada en la vista
+            getView().getValue("oid"));
+        order.createInvoice(); // El trabajo de verdad lo delegamos en la entidad
+        getView().refresh(); // Para ver la factura creada en la pestaña 'Invoice'
+        addMessage("invoice_created_from_order", // Mensaje de confirmación
+            order.getInvoice());
+    }
+}
+</code></pre>
+      Realmente simple. Buscamos la entidad Order, llamamos al método
+createInvoice(), refrescamos la vista y mostramos un mensaje. Nota como la
+acción es un mero intermediario entre la vista (la interfaz de usuario) y el modelo
+(la lógica de negocio).<br>
+     Recuerda añadir el texto del mensaje en el archivo Invoicingmessages_en.properties de la carpeta i18n:
+<pre><code class="properties">invoice_created_from_order=Invoice {0} created from current order
+</code></pre>      
+     Sin embargo, el mensaje tal cual está no se muestra de forma agradable,
+porque enviamos como argumento un objeto Invoice. Necesitamos un
+toString() para Invoice y Order que sea útil para el usuario. Sobrescribiremos
+toString() de CommercialDocument (el padre de Invoice y Order) para
+conseguirlo. Puedes ver este método toString():
+<pre><code class="java">abstract public class CommercialDocument extends Deletable {
+
+    ...
+
+    public String toString() {
+        return year + "/" + number;
+    }
+}
+</code></pre>
+      El año y el número son perfectos para identificar una factura o pedido desde el
+punto de vista del usuario.<br>
+      Esto es todo para la acción. Veamos la pieza restante. El método
+createInvoice() de la entidad Order.
       
-      <h2><a name="logica-de-negocio-desde-el-modo-detalle"></a>Lógica de negocio desde el modo detalle</h2>
+      <h3><a name="escribiendo-la-logica-de-negocio-real-en-la-entidad"></a>Escribiendo la lógica de negocio real en la entidad</h3>
+      La lógica de negocio para crear una nueva Invoice está en la entidad Order,
+no en la acción. Esto es la forma natural de hacerlo. El principio esencial de la
+Orientación a Objetos es que los objetos no son solo datos, sino datos y lógica.
+El código más bello es aquel cuyos objetos contienen la lógica para manejar sus
+propios datos. Si tus entidades son meros contenedores de datos (simples
+envoltorios de las tablas de la base de datos) y tus acciones tienen toda la lógica
+para manipularlos, en ese caso tu código es una perversión del objetivo original
+de la Orientación a Objetos.<br>    
+      Aparte de las razones espirituales, poner la lógica para crear una Invoice
+dentro de Order es un enfoque pragmático, porque de esta forma podemos usar
+esta lógica desde otras acciones, proceso masivos, servicios web, etc.<br>
+      Veamos el código del método createInvoice() de la clase Order:
+<pre><code class="java">public class Order extends CommercialDocument {
+
+    ...
+	
+    public void createInvoice() throws Exception { // throws Exception para tener
+                                              // un código más simple, de momento
+        Invoice invoice = new Invoice(); // Instancia una factura
+        BeanUtils.copyProperties(invoice, this); // y copia el estado del pedido actual
+        invoice.setOid(null); // Para que JPA sepa que esta entidad todavía no existe
+        invoice.setDate(new Date());
+        invoice.setDetails(new ArrayList()); // Borra la colección de detalles
+        XPersistence.getManager().persist(invoice);
+        copyDetailsToInvoice(invoice); // Rellena la colección de detalles
+        this.invoice = invoice; // Siempre después de persist()
+    }
+}
+</code></pre>    
+      La lógica consiste en crear un nuevo objeto Invoice, copiar los datos desde el
+Order actual a él y asignar la entidad resultante a la referencia invoice del
+Order actual.<br>
+      Hay dos sutiles detalles aquí. Primero, has de escribir
+invoice.setOid(null), si no la nueva Invoice tendría la misma identidad que
+el Order original, además a JPA no le gusta persistir los objetos con el id
+autogenerado rellenado de antemano. Segundo, has de asignar la nueva Invoice
+a la actual Order (this.invoice = invoice) después de llamar a
+persist(invoice), si no obtendrás un error de JPA (algo así como “object
+references an unsaved transient instance”).
+
+<h3><a name="escribe-menos-codigo-usando-apache-commons-beanutils"></a>Escribe menos código usando Apache Commons BeanUtils</h3>
+Observa como hemos usado BeanUtils.copyProperties() para copiar todas
+las propiedades del actual Order a la nueva Invoice. Este método copia todas las
+propiedades con el mismo nombre de un objeto a otro, incluso si los objetos son
+de clases diferentes. Esta utilidad pertenece al proyecto de apache Commons
+BeanUtils. El jar para esta utilidad, commons-beanutils.jar, ya está incluido en tu
+proyecto.<br> 
+    El siguiente código muestra como usando BeanUtils escribes menos:
+<pre><code class="java">BeanUtils.copyProperties(invoice, this);
+// Es lo mismo que
+invoice.setOid(getOid());
+invoice.setYear(getYear());
+invoice.setNumber(getNumber());
+invoice.setDate(getDate());
+invoice.setDeleted(isDeleted());
+invoice.setCustomer(getCustomer());
+invoice.setVatPercentage(getVatPercentage());
+invoice.setAmount(getAmount());
+invoice.setRemarks(getRemarks());
+invoice.setDetails(getDetails());
+</code></pre>      
+  Sin embargo, la principal ventaja de usar BeanUtils no es ahorrar tiempo de
+tecleo, sino que obtienes un código más resistente a los cambios. Porque, si
+añades, quitas o renombras alguna propiedad de ComercialDocument (el padre
+de Invoice y Order), si estás copiando las propiedades a mano tienes que
+cambiar el código, mientras que si estás usando BeanUtils.copyProperties()
+el código funcionará siempre bien, sin tener que cambiarlo.    
       
       
+<h3><a name="copiar-una-coleccion-de-entidad-a-entidad"></a>Copiar una colección de entidad a entidad</h3>      
+La nueva Invoice tiene que tener las mismas líneas de detalle que el Order.
+Realmente, no la misma colección sino una copia. No podemos asignar la
+colección tal como muestra a continuación:
+<pre><code class="java">invoice.setDetails(getDetails()); // Esto no funciona
+</code></pre>      
+      Esto no funciona porque una misma colección uno-a-muchos no se puede
+asignar a dos entidades al mismo tiempo, por tanto hemos de hacer una copia.
+Nota como en el método createInvoice() (listado 8.4) usamos
+invoice.setDetails(new ArrayList()) para reiniciar la colección. Esto es
+porque BeanUtils.copyProperties() ha copiado la colección details de
+Order. De hecho, copia todo aquello que tenga getter y setter.<br>
+      El siguiente código muestra el método copyDetailsToInvoice() que copia la
+colección details de Order a Invoice:
+      <pre><code class="java">private void copyDetailsToInvoice(Invoice invoice) throws Exception {
+    for (Detail orderDetail: getDetails()) { // Itera por los detalles del pedido actual
+        Detail invoiceDetail = (Detail) // Clona el detalle (1)
+            BeanUtils.cloneBean(orderDetail);
+        invoiceDetail.setOid(null); // Para ser grabada como una nueva entidad (2)
+        invoiceDetail.setParent(invoice); // El punto clave: poner un nuevo padre (3)
+        XPersistence.getManager().persist(invoiceDetail); // (4)
+    }
+}
+</code></pre>
+      Esta es la forma más simple de clonar una colección, simplemente clonando
+cada elemento (1) y asignándole un nuevo padre (3). También has de quitarle su
+identidad (2) y marcarlo como persistente (4).<br>
+      Para clonar el bean usamos BeanUtils otra vez, en este caso el método
+cloneBean(). Este método crea una nueva instancia del mismo tipo que el
+argumento, y después copia todas las propiedades del objeto fuente en el objeto
+recién creado.
       
-      <br>   
+<h3><a name="excepciones-de-aplicacion"></a>Excepciones de aplicación</h3>            
+  Recuerda la frase: “La excepción que confirma la regla”. Las reglas, la vida, y
+el software están llenos de excepciones. Y nuestro método createInvoice() no
+es una excepción. Hemos escrito código que funciona en los casos más comunes.
+Pero, ¿qué ocurre si el pedido no está listo para ser facturado, o si hay algún
+problema para acceder a la base de datos? Obviamente, en este caso necesitamos
+tomar caminos diferentes.<br>
+      Es decir, el simple throws Exception que hemos escrito para el método
+createInvoice() no es suficiente para un comportamiento refinado. Aquí
+      tienes una versión mejorada del método, usando excepciones.
+<pre><code class="java">public void createInvoice()
+    throws ValidationException // Una excepción de aplicación (1)
+{
+    if (this.invoice != null) { // Si ya tiene una factura no podemos crearla
+        throw new ValidationException( // Admite un id de 18n como argumento
+            "impossible_create_invoice_order_already_has_one");
+    }
+    if (!isDelivered()) { // Si el pedido no está entregado no podemos crear la factura
+        throw new ValidationException(
+            "impossible_create_invoice_order_is_not_delivered");
+    }
+    try {
+        Invoice invoice = new Invoice();
+        BeanUtils.copyProperties(invoice, this);
+        invoice.setOid(null);
+        invoice.setDate(new Date());
+        invoice.setDetails(new ArrayList());
+        XPersistence.getManager().persist(invoice);
+        copyDetailsToInvoice(invoice);
+        this.invoice = invoice;
+    }
+    catch (Exception ex) { // Cualquier excepción inesperada (2)
+        throw new SystemException( // Se lanza una excepción runtime (3)
+            "impossible_create_invoice", ex);
+    }
+}
+</code></pre>   
+      Ahora declaramos explícitamente las excepciones de aplicación que este
+método lanza (1). Una excepción de aplicación es una excepción chequeada que
+indica un comportamiento especial pero esperado del método. Una excepción de
+aplicación está relacionada con la lógica de negocio del método. Puedes crear una
+excepción de aplicación para cada posible caso. Por ejemplo, podrías crear una
+OrderAlreadyHasInvoiceException y una InvoiceNotDeliveryException.
+Esto te permitiría tratar cada caso de forma diferente desde el código que usa el
+método. Aunque, esto no es necesario en nuestro caso, por tanto nosotros
+simplemente usamos ValidationException, una excepción de aplicación
+genérica incluida con OpenXava.<br>
+      También hemos de enfrentarnos a problemas inesperados (2). Los problemas
+inesperados incluyen errores del sistema (acceso a base de datos, la red o
+problemas de hardware) o errores de programación (NullPointerException,
+IndexOutOfBoundsException, etc). Cuando nos encontramos con cualquier
+problema inesperado lanzamos una RuntimeException. En este caso hemos
+lanzado una SystemException, una RuntimeException incluida en OpenXava
+por comodidad, pero puedes lanzar la RuntimeException que quieras.<br>
+      No necesitas modificar el código de la acción. Si tu acción no atrapa las
+excepciones, OpenXava lo hace automáticamente. Muestra los mensajes de las
+ValidationExceptions al usuario; y para las excepciones runtime, muestra un
+mensaje de error genérico y aborta la transacción.<br>
+      Para rematar, añadimos el mensaje para la excepción en los archivos i18n.
+Edita el archivo Invoicing-messages_en.properties de la carpeta Invoicing/i18n
+añadiendo las siguientes entradas:
+<pre><code class="properties">impossible_create_invoice_order_already_has_one=Impossible to create invoice:
+the order already has an invoice
+impossible_create_invoice_order_is_not_delivered=Impossible to create invoice:
+the order is not delivered yet
+impossible_create_invoice=Impossible to create invoice
+</code></pre>
+      Hay cierto debate en la comunidad de desarrolladores sobre la manera correcta
+de usar las excepciones en Java. El enfoque usado en esta sección es la forma
+clásica de trabajar con excepciones en el mundo J2EE.
+<h3><a name="validar-desde-la-accion"></a>Validar desde la acción</h3>                  
+Usualmente el mejor lugar para las validaciones es el modelo, es decir, las      
+entidades. Sin embargo, a veces es necesario poner lógica de validación en las
+acciones. Por ejemplo, si quieres preguntar por el estado actual de la interfaz
+gráfica has de hacer la validación en la acción.<br>
+     En nuestro caso si el usuario pulsa en “Crear factura” cuando está creando un
+nuevo pedido que todavía no ha grabado, fallará. Falla porque es imposible crear
+una factura desde un pedido inexistente. El usuario ha de grabar el pedido
+primero.<br> 
+      Modificamos el método execute() de CreateInvoiceFromOrderAction
+para validar que la factura visualizada actualmente esté grabada (listado 8.11):
+<pre><code class="java">public void execute() throws Exception {
+    Object oid = getView().getValue("oid");
+    if (oid == null) { // Si el oid es nulo el pedido actual no se ha grabado todavía
+        addError(
+            "impossible_create_invoice_order_not_exist");
+            return;
+    }
+    MapFacade.setValues("Order", // Si el pedido existe lo grabamos (2)
+        getView().getKeyValues(), getView().getValues());
+    Order order = getManager().find(Order.class, oid);
+    order.createInvoice();
+    getView().refresh();
+    addMessage("invoice_created_from_order", order.getInvoice());
+}
+</code></pre> 
+      La validación consiste en verificar que el oid es nulo (1), en cuyo caso el
+usuario está introduciendo un pedido nuevo, pero todavía no lo ha grabado. En
+este caso se muestra un mensaje y se aborta la creación de la factura. Si el pedido
+ya existe grabamos los datos desde la interfaz de usuario a la base de datos
+usando MapFacade (2). Es importante tener la base de datos sincronizada con la
+vista antes de llamar al método de la entidad para crear la factura. Imagina que el
+usuario marca el pedido como entregado (delivered) y después pulsa en “Create
+invoice”. En este caso obtendría un mensaje de error “Pedido no entregado”. Esto
+puede ser confuso, por tanto grabar la entidad automáticamente antes de llamar a
+un método de la entidad es buena idea. Fíjate como MapFacade es una
+herramienta muy útil para mover datos de la interfaz de usuario al modelo.<br>
+      Aquí también tenemos un mensaje para añadir al archivo i18n. Edita el archivo
+Invoicing-messages_en.properties de la carpeta Invoicing/i18n añadiendo la
+siguiente entrada:
+<pre><code class="properties">impossible_create_invoice_order_not_exist=Impossible to create invoice: the
+order does not exist yet
+</code></pre>
+      Las validaciones le dicen al usuario que ha hecho algo mal. Esto es necesario,
+por supuesto, pero es mejor aún crear una aplicación que ayude al usuario a evitar
+hacer las cosas mal. Veamos una forma de hacerlo en la siguiente sección.
+      
+      <h3><a name="evento-onchange-para-ocultar-mostrar-una-accion-por-codigo"></a>Evento OnChange para ocultar/mostrar una acción por código</h3>                  
+      Nuestro actual código es suficientemente robusto como para prevenir que
+equivocaciones del usuario estropeen los datos. Vamos a ir un paso más allá,
+impidiendo que el usuario se equivoque. Ocultaremos la acción para crear una
+nueva factura cuando el pedido no esté listo para ello.<br>
+      OpenXava permite ocultar y mostrar acciones automáticamente. También
+permite ejecutar una acción cuando cierta propiedad sea cambiada por el usuario
+en la interfaz de usuario. Con estos dos ingredientes podemos mostrar el botón
+sólo cuando la acción esté lista para ser usada.<br>
+      Recuerda que una factura puede ser generada desde un pedido si el pedido ha
+sido entregado y no tiene factura todavía. Por tanto, tenemos que vigilar los
+cambios en la referencia invoice y la propiedad delivered de la entidad Order.
+Haremos esto usando la anotación @OnChange de esta manera:
+      <pre><code class="java">public class Order extends CommercialDocument {
+
+    @ManyToOne
+    @ReferenceView("NoCustomerNoOrders")
+    @OnChange(ShowHideCreateInvoiceAction.class)
+    private Invoice invoice;
+
+    @OnChange(ShowHideCreateInvoiceAction.class)
+    private boolean delivered;
+
+    ...
+}
+</code></pre>
+      Con el código de arriba cuando el usuario cambia el valor de delivered o
+invoice en la pantalla, la acción ShowHideCreateInvoiceAction se ejecutará.
+Observa el código de la acción:
+<pre><code class="java">package org.openxava.invoicing.actions; // En el paquete 'actions'
+
+import org.openxava.actions.*; // Necesario para usar OnChangePropertyAction,
+                               // IShowActionAction and IHideActionAction
+public class ShowHideCreateInvoiceAction
+    extends OnChangePropertyBaseAction // Necesario para acciones @OnChange (1)
+    implements IShowActionAction, // Para mostrar una acción
+        IHideActionAction { // Para ocultar una acción
+
+    private boolean show; // Si true la acción 'Order.createInvoice' se mostrará
+
+    public void execute() throws Exception {
+        show = isOrderCreated() // Establecemos el valor de 'show'. Este valor
+            && isDelivered() // se usará en los método de abajo:
+            && !hasInvoice(); // getActionToShow() y getActionToHide() (2)
+    }
+	
+    private boolean isOrderCreated() {
+        return getView().getValue("oid") != null; // Leemos el valor desde la vista
+   }
+   
+   private boolean isDelivered() {
+       Boolean delivered = (Boolean)
+           getView().getValue("delivered"); // Leemos el valor desde la vista
+       return delivered == null?false:delivered;
+   }
+   
+   private boolean hasInvoice() {
+       return getView().getValue("invoice.oid") != null; // Leemos el valor
+   }                                                     // desde la vista
+   
+   public String getActionToShow() { // Obligatorio por causa de IShowActionAction
+       return show?"Order.createInvoice":""; // La acción a mostrar (3)
+   }
+   
+   public String getActionToHide() { // Obligatorio por causa de IHideActionAction
+       return !show?"Order.createInvoice":""; // La acción a ocultar (3)
+   }
+}
+</code></pre>      
+Ésta es una acción convencional con un método execute(), aunque extiende
+de OnChangePropertyBaseAction (1). Todas las acciones anotadas con
+@OnChange tienen que implementar IOnChangePropertyAction, aunque es más
+fácil extender de OnChangePropertyBaseAction la cual lo implementa. Desde
+esta acción puedes usar getNewValue() y getChangedProperty(), aunque en
+este caso concreto no los necesitamos.<br>     
+El método execute() pone a true el campo show si la orden visualizada está
+grabada, entregada y no tiene factura (2). Este campo show se usa en los métodos
+getActionToShow() y getActionToHide(). Estos métodos indican el nombre
+calificado de la acción a ocultar o mostrar (3). Así, ocultamos o mostramos la
+acción Order.createInvoice, mostrándola solo cuando proceda.<br>      
+Ahora puedes probar el módulo Order. Verás como cuando marcas o
+desmarcas la casilla entregado (delivered) o escoges una factura, el botón para la
+acción se muestra u oculta. También, cuando el usuario pulsa en 'Nuevo' para
+crear un nuevo pedido el botón para crear la factura se oculta. Sin embargo, al
+editar un pedido ya existente, el botón estará siempre presente, aunque el pedido
+no cumpla los requisitos. Esto es porque cuando un objeto se busca y visualiza las
+acciones @OnChange no se ejecutan por defecto. Podemos cambiar esto con una      
+pequeña modificación en SearchExcludingDeleteAction:
+<pre><code class="java">public class SearchExcludingDeletedAction
+    // extends SearchByViewKeyAction {
+    extends SearchExecutingOnChangeAction { // Usa ésta como clase base
+</code></pre>      
+   La acción de búsqueda por defecto, es decir, SearchByViewKeyAction no
+ejecuta las acciones @OnChange por defecto, por tanto cambiamos nuestra acción
+de buscar para que extienda de SearchExecutingOnChangeAction.
+SearchExecutingOnChangeAction se comporta exactamente igual que
+SearchByViewKeyAction pero ejecutando los eventos OnChange. De esta forma
+cuando el usuario escoge un pedido la acción ShowHideCreateInvoiceAction
+se ejecuta.<br>   
+   Nos queda un pequeño detalle para que todo esto sea perfecto: cuando el
+usuario pulsa en 'Crear factura' después de que la factura se haya creado el botón
+se tiene que ocultar. El usuario no puede crear la factura otra vez. Podemos
+implementar esta funcionalidad con un ligero refinamiento de
+CreateInvoiceFromOrderAction, así:
+<pre><code class="java">public class CreateInvoiceFromOrderAction extends ViewBaseAction
+    implements IHideActionAction { // Para ocultar la acción
+
+    private boolean hideAction = false; // Para indicar si la acción se ocultará
+
+    public void execute() throws Exception {
+
+        ...
+
+        hideAction = true; // Todo ha funciona a la perfección, así que ocultamos la acción
+    }
+
+    public String getActionToHide() { // La acción a ocultar, en este caso ella misma
+        return hideAction?"Order.createInvoice":null;
+    }
+}
+</code></pre>      
+      Como puedes ver la acción implementa IHideActionAction para ocultarse a
+sí misma.<br>
+      Mostrar y ocultar acciones no es un sustituto para la validación en el modelo.
+Las validaciones siguen siendo necesarias porque las entidades pueden ser usadas
+desde cualquier otra parte de la aplicación, no solo de los módulos de
+mantenimiento. Sin embargo, el truco de ocultar y mostrar acciones mejora la
+experiencia del usuario.<br>
+      
+      
+
+<h2><a name="logica-de-negocio-desde-el-modo-lista"></a>Lógica de negocio desde el modo lista</h2>
+En la lección 7 aprendiste como crear acciones de lista. Las acciones de lista
+son una herramienta utilísima para dar al usuario la posibilidad de aplicar lógica a
+varios objetos a la vez. En nuestro caso, podemos añadir una acción en el modo
+lista para crear una nueva factura automáticamente a partir de varios pedidos
+seleccionados en la lista. La figura 8.2 muestra la forma en que queremos que
+esta acción funcione.<br>      
+      <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
+           title="business-logic-behavior_es020.png"><br>
+      La figura 8.2 muestra como esta acción de lista coge los pedidos seleccionados
+y crea una factura a partir de ellos. Simplemente copia los datos del pedido en la
+nueva factura, añadiendo las línea de detalle de todos los pedidos en una única
+factura. También se muestra un mensaje. Veamos como codificar este
+comportamiento.
+      
+<h3><a name="accion-de-lista-con-logica-propia"></a>Acción de lista con lógica propia</h3>
+      Como ya sabes, el primer paso para tener una acción propia en tu módulo es
+añadirla a un controlador. Por tanto, editemos controllers.xml añadiendo una
+nueva acción al controlador Order. El listado 8.17 muestra el controlador Order
+modificado.
+<pre><code class="xml">&lt;controller name="Order"&gt;
+    &lt;extends controller="Invoicing"/&gt;
+
+    &lt;action name="createInvoice" mode="detail"
+        class="org.openxava.invoicing.actions.CreateInvoiceFromOrderAction"&gt;
+        &lt;use-object name="xava_view"/&gt;
+    &lt;/action&gt;
+
+    &lt;!-- La nueva acción --&gt;
+    &lt;action name="createInvoiceFromSelectedOrders"
+        mode="list"
+        class="org.openxava.invoicing.actions.CreateInvoiceFromSelectedOrdersAction"
+    /&gt;
+    &lt;!-- mode="list" Solo mostrada en modo lista --&gt;
+	
+&lt;/controller&gt;
+</code></pre>      
+      Solo con esto ya tienes una nueva acción disponible para Order en modo lista.<br>
+      Ahora hemos de escribir el código Java para la acción. Míralo en el listado
+8.18.
+      <pre><code class="java">public class CreateInvoiceFromSelectedOrdersAction
+    extends TabBaseAction { // Típico para acciones de lista. Permite usar getTab() (1)
+
+    public void execute() throws Exception {
+        Collection&lt;Order&gt; orders = getSelectedOrders(); // (2)
+        Invoice invoice = Invoice.createFromOrders(orders); // (3)
+        addMessage("invoice_created_from_orders", invoice, orders); // (4)
+    }
+	
+    private Collection&lt;Order&gt; getSelectedOrders() // (5)
+        throws FinderException
+    {
+        Collection&lt;Order&gt; result = new ArrayList&lt;Order&gt;();
+        for (Map key: getTab().getSelectedKeys()) { // (6)
+            Order order = (Order)
+                MapFacade.findEntity("Order", key); // (7)
+            result.add(order);
+        }
+        return result;
+    }
+}
+</code></pre>
+      Realmente sencillo. Obtenemos la lista de los pedido marcados en la lista (2),
+llamamos al método estático createFromOrders() (3) de Invoice y mostramos
+un mensaje (4). En este caso también ponemos la lógica real en la clase del
+modelo, no en la acción. Dado que la lógica aplica a varios pedidos y crea una
+nueva factura, el lugar natural para ponerlo es en un método estático de la clase
+Invoice.<br>     
+      El método getSelectedOrders() (5) devuelve una colección con las
+entidades Order marcadas por el usuario en la lista. Para hacerlo, el método usa
+getTab() (6), disponible en TabBaseAction (1), que devuelve un objeto
+org.openxava.tab.Tab. El objeto Tab te permite manejar los datos tabulares de
+la lista. En este caso usamos getSelectedKeys() (6) que devuelve una
+colección con las claves de las filas seleccionadas. Dado que esas claves están en
+formato Map usamos MapFacade.findEntity() (7) para convertirlas en
+entidades Order.<br>
+      Acuérdate de añadir el texto del mensaje al fichero Invoicingmessages_en.properties en la carpeta i18n:
+      <pre><code class="properties">invoice_created_from_orders=Invoice {0} created from orders: {1}
+</code></pre>
+      Eso es todo para la acción. Veamos la pieza que falta, el método
+createFromOrders() de la entidad Invoice.
+      
+<h3><a name="logica-de-negocio-en-el-modelo-sobre-varias-entidades"></a>Lógica de negocio en el modelo sobre varias entidades</h3>      
+     La lógica de negocio para crear una nueva Invoice a partir de varias entidades
+Order está en la capa del modelo, es decir, en las entidades, no en la acción. No
+podemos poner el método en la clase Order, porque el proceso se hace a partir de
+varios Orders, no de uno. No podemos usar un método de instancia en Invoice
+porque todavía no existe el objeto Invoice, de hecho lo que queremos es crearlo.
+Por lo tanto, vamos a crear un método de factoría estático en la clase Invoice
+para crear una nueva Invoice a partir de varios Orders. Puedes ver este método
+en el listado 8.20.
+<pre><code class="java">public class Invoice extends CommercialDocument {
+
+    ...
+
+    public static Invoice createFromOrders(Collection&lt;Order&gt; orders)
+        throws ValidationException
+    {
+        Invoice invoice = null;
+        for (Order order: orders) {
+            if (invoice == null) { // La primera vez, el primer pedido
+                order.createInvoice(); // Reutilizamos la lógica para
+                            // crear una factura a partir de un pedido
+                invoice = order.getInvoice(); // y cogemos la factura recién creada
+            }
+            else { // Para el resto de los pedido la factura ya está creada
+                order.setInvoice(invoice); // Asigna la factura
+                order.copyDetailsToInvoice(invoice); // Copia la línea. El método
+            } // copyDetailsToInvoice es privado en Order.
+        } // por tanto tenemos que cambiarlo a público
+        if (invoice == null) { // Si no hay pedidos
+            throw new ValidationException(
+			    "impossible_create_invoice_orders_not_specified");
+        }
+        return invoice;
+    }
+}			
+</code></pre>      
+      Usamos el primer Order para crear una nueva Invoice usando el método ya
+existente createInvoice() de Order. Entonces copiamos las líneas de los
+Orders restantes a la nueva Invoice. Además, asignamos la nueva Invoice
+como la Invoice de los Orders de la colección.<br>
+Si invoice es nulo al final del proceso, es porque la colección orders está
+vacía. En este caso lanzamos una ValidationException, ya que la acción no
+atrapa las excepciones, OpenXava muestra el mensaje de la
+ValidationException al usuario. Esto está bien. Si el usuario no marca los
+pedido y pulsa en el botón para crear la factura, le aparecerá este mensaje de
+error.<br>
+      Usamos el método copyDetailsToInvoice() de Order. Este método era
+privado, por tanto necesitamos cambiarlo a público para poder usarlo desde
+Invoice. Observa el cambio:
+      <pre><code class="java">public class Order extends CommercialDocument {
+
+    ...
+
+    public 		// public
+	// private  // en vez de private
+        void copyDetailsToInvoice(Invoice invoice)
+            // throws Exception // throws Exception se quita. 
+    {                           // Ahora se lanza una excepción runtime
+        try { // Envolvemos todo el código del método con un try/catch
+            for (Detail orderDetail: getDetails()) {
+                Detail invoiceDetail = (Detail)
+                    BeanUtils.cloneBean(orderDetail);
+                invoiceDetail.setOid(null);
+                invoiceDetail.setParent(invoice);
+                XPersistence.getManager().persist(invoiceDetail);
+            }
+        }
+        catch (Exception ex) { // Así convertimos cualquier excepción
+            throw new SystemException( // en una excepción runtime
+                "impossible_copy_details_to_invoice", ex);
+        }
+    }
+}
+</code></pre>
+      Además de cambiar 'private' por 'public' envolvemos cualquier excepción en
+una excepción runtime, de esta manera observamos la ya mencionada convención
+de usar excepciones runtime para los problemas inesperados.<br>
+      Acuérdate de añadir los textos para los mensajes en el archivo Invoicingmessages_en.properties de la carpeta i18n:
+      <pre><code class="properties">impossible_create_invoice_orders_not_specified=Impossible to create invoice:
+orders not specified
+impossible_copy_details_to_invoice=Impossible to copy details from order to
+invoice
+</code></pre>
+      Este no es el único error con el que el usuario puede encontrarse. Todas las
+validaciones que hemos escrito para Invoice y Order hasta ahora se aplican
+automáticamente, por lo tanto el usuario ha de escoger pedidos ya entregados y
+sin factura. La validación del modelo impide que el usuario cree una factura
+desde pedidos no apropiados.
+      
+      
+      <h2><a name="cambiar-de-modulo"></a>Cambiar de módulo</h2>      
+      Sería útil para el usuario que después de crear la factura a partir de varios
+pedidos, pudiera ver y editar la factura recién creada. Una forma de conseguir
+este comportamiento es creando un módulo sólo para editar una factura, es decir
+sin modo lista y sin las típicas acciones CRUD. De esta forma podemos cambiar
+a este módulo después de crear la factura para editarla. La figura 8.3 muestra el
+comportamiento deseado.<br>
+      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+
+        title="business-logic-behavior_es030.png"><br>
+      
+      Veamos como implementar este comportamiento.
+      
+      
+      <h3><a name="uso-de-ichangemoduleaction"></a>Uso de IChangeModuleAction</h3>
+      El primer paso es modificar CreateInvoiceFromSelectedOrdersAction
+para cambiar a otro módulo después de su ejecución. El listado 8.23 muestra la
+modificación.
+      <pre><code class="java">public class CreateInvoiceFromSelectedOrdersAction
+    extends TabBaseAction
+    implements IChangeModuleAction { // Para cambiar a otro módulo después de la ejecución
+
+    public String getNextModule() {
+        return "CurrentInvoiceEdition"; // Nombre de módulo como está definido en
+    }                                   // application.xml
+
+    public boolean hasReinitNextModule() {
+        return true; // Así el módulo se inicializa cada vez que cambiamos a él
+    }
+
+    ...
+}
+</code></pre>
+      Como puedes ver, solo has de implementar IChangeModuleAction. Esto te
+obliga a añadir los métodos getNextModule() que devuelve el nombre del
+módulo tal como está definido en application.xml, y hasReinitNextModule().
+Devolvemos true de hasReinitNextModule() porque escribiremos una acción
+on-init (acción ejecutada cuando el módulo se inicializa) en el módulo
+CurrentInvoiceEdition para cargar la factura correcta en la vista, por tanto
+necesitamos iniciar el módulo cada vez que cambiamos a él. <br>
+      Obviamente, esto no funcionará hasta que tengamos el módulo
+CurrentInvoiceEdition definido. Haremos esto en la siguiente sección.
+      
+      <h3><a name="modulo-de-solo-detalle"></a>Módulo de solo detalle</h3>
+El objetivo del módulo CurrentInvoiceEdition es visualizar una única
+factura y dar la opción de editarla. <br>      
+Para definirlo edita el archivo application.xml y añade la siguiente definición de módulo:
+<pre><code class="xml">&lt;module name="CurrentInvoiceEdition"&gt;
+    &lt;model name="Invoice"/&gt;
+    &lt;controller name="CurrentInvoiceEdition"/&gt;
+    &lt;mode-controller name="Void"/&gt; &lt;!-- Así el módulo tiene sólo modo de detalle --&gt;
+&lt;/module&gt;
+</code></pre>      
+   Dado que este módulo es para editar una Invoice particular, no tiene modo
+lista, sino sólo modo detalle. Usamos Void como mode-controller para
+conseguirlo.<br>   
+      Este módulo sólo permite al usuario cambiar la Invoice, grabar los cambios o
+volver al módulo original. Para hacerlo define un controlador con estas acciones
+llamado CurrentInvoiceEdition. Has de añadirlo a controllers.xml, con este contenido:
+<pre><code class="xml">&lt;controller name="CurrentInvoiceEdition"&gt;
+
+    &lt;action name="save"
+        class="org.openxava.invoicing.actions.SaveInvoiceAction"
+        keystroke="Control S"/&gt;
+
+    &lt;action name="return"
+        class="org.openxava.actions.ReturnPreviousModuleAction"/&gt;
+
+&lt;/controller&gt;
+</code></pre>      
+      Las dos acciones de este controlador representan los dos botones, 'Save' y
+'Return' que viste en la anterior figura 8.3.
+      
+      
+      <h3><a name="volviendo-al-modulo-que-llamo"></a>Volviendo al módulo que llamó</h3>
+      
+      SaveInvoiceAction es un pequeño refinamiento de la estándar SaveAction
+de OpenXava. El listado 8.26 muestra su código.
+<pre><code class="java">public class SaveInvoiceAction
+    extends SaveAction // Acción estándar de OpenXava para grabar el contenido de la vista
+    implements IChangeModuleAction { // Para navegación entre módulos
+
+    public String getNextModule() {
+        return PREVIOUS_MODULE; // Vuelve al módulo que llamó, Order en este caso
+    }
+
+    public boolean hasReinitNextModule() {
+        return false; // No queremos inicializar el módulo Order
+    }
+}
+</code></pre>
+      La acción extiende de SaveAction sin sobreescribir el método execute().
+Por lo tanto su comportamiento es exactamente el mismo que el de la acción
+genérica de OpenXava para grabar los datos visualizados en la base de datos.
+Adicionalmente, indicamos que la acción tiene que volver al módulo que la
+llamó, el módulo Order en nuestro ejemplo, cuando termine. <br>
+De esta forma cuando el usuario pulsa en 'Save' los datos de la factura se
+graban y vuelve a la lista de pedidos, listo para continuar creando facturas desde
+pedidos.<br>      
+      Para volver al módulo que llama tenemos que usar siempre
+PREVIOUS_MODULE. No uses el nombre del módulo:
+<pre><code class="java">public String getNextModule() { return PREVIOUS_MODULE; } // Bien
+public String getNextModule() { return “Order”; } // Muy MAL
+</code></pre>      
+      Si usas PREVIOUS_MODULE tienes la ventaja de que puedes llamar a este
+módulo desde varios módulos de la aplicación, y éste sabrá a que módulo volver
+en cada caso. Pero más importante todavía es el hecho de que OpenXava usa una
+pila de llamadas a módulos para poder volver, por tanto si llamas a un módulo
+que te ha llamado se produce un problema de reentrada.<br>
+      Para el botón 'Return' usamos ReturnPreviousModuleAction, una acción
+incluida en OpenXava que simplemente vuelve al módulo que llamó.
+      
+      
+      <h3><a name="objeto-de-sesion-global-y-accion-on-init"></a>Objeto de sesión global y acción on-init</h3>
+      El código actual está todavía incompleto. Cuando el usuario genera la factura
+el módulo CurrentInvoiceEdition se activa, pero está vacío, no muestra la
+factura. Hemos de llenar la vista del nuevo módulo con la factura recién creada.
+Aprendamos como compartir datos entre módulos.<br>
+      Una forma de compartir datos entre módulos es declarando un objeto de sesión
+de ámbito global. Esto se consigue añadiendo una entrada en controllers.xml
+como se muestra en el listado 8.28.
+      <pre><code class="xml">&lt;controllers&gt;
+
+    ...
+
+    &lt;object name="invoicing_currentInvoiceKey"
+        class="java.util.Map"
+        scope="global"/&gt;
+        &lt;!--
+        name="invoicing_currentInvoiceKey": El nombre tiene que ser único
+        class="java.util.Map": El tipo del objeto
+        scope="global": Compartido por todos los módulos. Por defecto es "module"
+        --&gt;
+
+    ...
+
+</code></pre>
+      Un objeto de sesión es un objeto asociado a la sesión del usuario, por lo tanto
+vivirá mientras que la sesión del usuario esté viva, y cada usuario tiene su propia
+copia del objeto. Si usas scope=”global” el mismo objeto se compartirá por
+todos los módulos, en caso contrario cada módulo tiene su propia copia del
+objeto.<br>
+      Declaramos el ámbito del objeto como global porque queremos usarlo para
+pasar datos desde el módulo Order al módulo CurrentInvoiceEdition. La
+forma de hacer esto es inyectándolo en la acción mediante la anotación
+@Inject12. Antes de llamar al método execute() de la acción, el objeto
+invoicing_currentInvoiceKey se inyecta en el campo currentInvoiceKey de
+la acción. Nota como el nombre del campo es el nombre del objeto de sesión sin
+el prefijo (sin invoicing_ en este caso), aunque puedes inyectar el objeto en una
+propiedad con otro nombre si usas la anotación @Named. El siguiente código muestra el
+campo currentInvoiceKey con @Inject añadido a la acción. 
+<pre><code class="java">
+...
+  
+import javax.inject.*;
+
+public class CreateInvoiceFromSelectedOrdersAction ... {
+
+...
+
+    @Inject
+    private Map currentInvoiceKey; // Un campo privado sin getter ni setter
+
+    ...
+}
+</code></pre>      
+Lo interesante de @Inject es que, además de inyectar el objeto en el campo
+antes de llamar a execute(), extrae el valor del campo y lo vuelve a poner en el
+contexto de la sesión después de ejecutar el método execute(). En otras
+palabras, si modificaras el valor del campo currentInvoiceKey de
+CreateInvoiceFromSelectedOrdersAction entonces el objeto de sesión
+invoicing_currentInvoiceKey se modificaría también. Por lo tanto, podemos
+usar esta acción para dar valor a este objeto de sesión. El listado 8.30 muestra la
+modificación en el código de la acción.
+<pre><code class="java">public class CreateInvoiceFromSelectedOrdersAction ... {
+
+    ...
+
+    public void execute() throws Exception {
+	
+	    ...
+	
+        currentInvoiceKey = toKey(invoice); // Pone la clave de la recién creada
+    }             // factura en el campo currentInvoiceKey, por lo tanto también
+                  // en el objeto de sesión invoicing_ currentInvoiceKey
+				  
+    private Map toKey(Invoice invoice) { // Extrae la clave de la factura en formato mapa
+        Map key = new HashMap();
+        key.put("oid",invoice.getOid());
+        return key;
+    }
+
+    ...
+}
+</code></pre>      
+      Después de la creación de la factura, ponemos la clave de la factura en el
+objeto de sesión. Dar valor a un objeto de sesión es pan comido, solo has de
+asignar un valor al campo declarado con @Inject. En este caso asignar valor a
+setCurrentInvoiceKey() es suficiente para llenar el objeto correspondiente
+invoicing_currentInvoiceKey. Después puedes usar este objeto desde otras
+acciones, ya que su ámbito es global, también desde las acciones de otros
+módulos. <br>
+      Vamos a crear una nueva acción en el módulo CurrentInvoiceEdition para
+cargar el valor de la factura creada en el módulo Order con
+CreateInvoiceFromSelectedOrdersAction. Ésta es
+la declaración de esta acción load en el archivo controllers.xml:
+<pre><code class="xml">&lt;controller name="CurrentInvoiceEdition"&gt;
+
+    &lt;action name="load"
+        class="org.openxava.invoicing.actions.LoadCurrentInvoiceAction"
+        hidden="true"
+        on-init="true"/&gt;
+        &lt;!--
+        hidden="true" : No hay un vínculo o botón en la pantalla para esta acción
+        on-init="true": Se ejecuta automáticamente cuando el módulo se inicializa
+        --&gt;
+
+    ...
+	
+&lt;/controller&gt;
+</code></pre>
+      Declaramos la acción como hidden=true, así no será visible, y por tanto el
+usuario no tendrá la posibilidad de ejecutarla. Además, la declaramos como oninit=true, por tanto se ejecutará automáticamente cuando el módulo se
+inicialice.<br>
+      Recuerda que llamamos a este módulo devolviendo true para
+hasReinitNextModule(), así CurrentInvoiceEdition se inicializa cada vez
+que se llama desde el módulo Order, por ende la acción load se llama siempre.
+Esta acción load es el lugar ideal para rellenar la vista con la factura recién
+creada. Veamos su código en el listado 8.32.
+      <pre><code class="java">public class LoadCurrentInvoiceAction
+    extends SearchByViewKeyAction { // Para llenar la vista a partir de la clave
+
+    @Inject
+    private Map currentInvoiceKey; // Para coger el valor del objeto de sesión
+                    // invoicing_currentInvoiceKey, llenado en el módulo Order
+    
+    public void execute() throws Exception {
+        getView().setValues(currentInvoiceKey); // Pone la clave en la vista
+        super.execute(); // Llena toda la vista a partir de los campos clave
+    }
+}
+</code></pre>
+      
+      
+      <br>
       <br>
       <br>
       <br>
