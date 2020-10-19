@@ -68,3 +68,7 @@ With @OnChange: CustomerFramesOnSameRow with all browsers
 - Remove the photo: An "Photo changed" message must be produced
 - Save. Go to previous record, return to second record. No photo.
 
+Custom load action with error: ShowTextFile with all browsers
+- Attach a non-txt file. Should show "Only TXT files allowed".
+- Attach a txt file. No errors, the previous errors was hidden.
+

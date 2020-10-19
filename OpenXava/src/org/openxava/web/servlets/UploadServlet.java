@@ -27,6 +27,8 @@ public class UploadServlet extends HttpServlet {
 	private static Log log = LogFactory.getLog(UploadServlet.class);
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("[UploadServlet.doGet] request.getParameter('application')=" + request.getParameter("application")); // tmp
+		System.out.println("[UploadServlet.doGet] request.getParameter('module')=" + request.getParameter("module")); // tmp
 		Requests.init(request, request.getParameter("application"), request.getParameter("module"));
 		getManager(request).executeBeforeEachRequestActions(request, new Messages(), new Messages());  
 		try {
@@ -70,23 +72,15 @@ public class UploadServlet extends HttpServlet {
 			if (fileId != null) propertyValues = propertyValues + ",fileId=" + fileId; 
 			manager.executeAction(action, errors, messages, propertyValues, request);
 			// tmp ini
+			System.out.println("[UploadServlet.executeAction] GOOD"); // tmp
 			if (errors.contains()) {
 				Module.memorizeLastMessages(request, request.getParameter("application"), request.getParameter("module"));
-				response.sendError(406, "Lo que pides es inaceptable");
-				response.addHeader("message", "El mensaje");
-				throw new ValidationException(errors);
+				response.sendError(406);
 			}
 			// tmp fin
 		}
-		// tmp ini
-		catch (ValidationException ex) { 
-			System.out.println("[UploadServlet.executeAction] ValidationException atrapada v2"); // tmp 
-			// tmp throw new ServletException("Moko roto");
-			
-		}
-		// tmp fin
 		catch (Exception ex) { 
-			System.out.println("[UploadServlet.executeAction] Excepción atrapada"); // tmp
+			System.out.println("[UploadServlet.executeAction] EXCEPTION"); // tmp
 			log.error(XavaResources.getString("no_execute_action", action, ex.getMessage()), ex); 
 			throw new ServletException(XavaResources.getString("upload_error"));  
 		}
@@ -104,7 +98,7 @@ public class UploadServlet extends HttpServlet {
 		ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
 		return (ModuleManager) context.get(request, "manager");
 	}
-
+	
 	private String getEditorProperty(HttpServletRequest request, String property, String editorProperty) {
 		View view = getCurrentView(request);
 		MetaProperty metaProperty = view.getMetaProperty(property);

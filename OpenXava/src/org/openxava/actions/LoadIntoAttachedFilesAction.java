@@ -26,10 +26,6 @@ public class LoadIntoAttachedFilesAction extends GenerateIdForPropertyBaseAction
 	
 	@Override
 	public void execute() throws Exception {
-		System.out.println("[LoadIntoAttachedFilesAction.execute] 2"); // tmp
-		addError("Ha fallado"); // tmp
-		throw new Exception("Kaskó");
-		/* TMP
 		String libraryId = generateIdForProperty(property);  
 		Iterator<?> it = fileItems.iterator();		
 		StringBuffer filesNames = new StringBuffer(); 
@@ -47,7 +43,6 @@ public class LoadIntoAttachedFilesAction extends GenerateIdForPropertyBaseAction
 		}
 		
 		trackModification(filesNames.toString());
-		*/ 
 	}
 	
 	private void trackModification(String fileName) {  

@@ -1478,6 +1478,13 @@
 	    <extends controller="Typical"/>
 		<action name="saveWithJPA" mode="detail"
 			class="org.openxava.test.actions.SaveMonthlyActivityWithJPAAction"/>			
-	</controller>	
+	</controller>
+	
+	<!-- tmp ini -->
+	<controller name="TextFileEditor">  
+		<action name="load"
+			class="org.openxava.test.actions.LoadTextFileAction"/>
+	</controller>
+	<!-- tmp fin -->	
 	
 </controllers>

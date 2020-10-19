@@ -329,6 +329,10 @@ openxava.showMessages = function(result) {
 	if (!errorsIsEmpty) openxava.effectShow(result.application, result.module, "errors");
 }
 
+openxava.hideErrors = function(application, module) { // tmp 
+	$("#"+openxava.decorateId(application, module, "errors")).fadeOut();
+}
+
 openxava.initSelectedRows = function() { 
 	$("._XAVA_SELECTED_ROW_").addClass(openxava.selectedRowClass);
 }

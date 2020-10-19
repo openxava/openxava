@@ -205,15 +205,14 @@
 	</editor>
 	
 	<!-- tmp ini -->
-	<!-- TMP ME QUEDÉ POR AQUÍ: RECIÉN COPIADO, HE DE HACER UN EDITOR PROPIO PARA PROBAR LA ACCION LOAD -->
-	<editor name="FileItem" url="uploadEditor.jsp" format="false"> 
-		<property name="loadAction" value="FileItemEditor.load"/> 
+	<editor name="TextFile" url="uploadEditor.jsp" format="false"> 
+		<property name="loadAction" value="TextFileEditor.load"/> 
 		<property name="removeAction" value="FileItemEditor.remove"/> 
 		<property name="getURL" value="/xava/ximage"/> <!-- We should create a specific servlet for this, but for now it is not used for most cases -->
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.NullFilesIdsProvider"/>
 		<property name="cssClass" value="ox-file"/> 
 		<property name="imagePreview" value="false"/>
-		<for-type type="org.apache.commons.fileupload.FileItem"/>
+		<for-stereotype steroetype="TEXT_FILE"/>
 	</editor>
 	<!-- tmp ini -->
 	

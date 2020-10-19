@@ -29,7 +29,7 @@ public class CarTest extends ModuleTestBase {
 		execute("CRUD.save");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
-		assertValue("make", "ALFA ROMEO");
+		assertValue("make", "ALFA ROMEO"); // TMP FALLA. ME QUEDÉ POR AQUÍ. FUNCIONA SI QUITO EL IF DE UploadServlet. CUANDO LO ARREGLE HE DE PROBAR DE NUEVO LOS TEST MANUALES Y LANZAR LA SUITE
 		assertValue("model", "MITO");
 		assertValueInCollection("photos", 0, "description", "FRONT");
 		assertValueInCollection("photos", 1, "description", "BACK");
