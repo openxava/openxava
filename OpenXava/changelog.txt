@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: When the load action of an upload editor adds errors the messages are not shown to the user.
+- Fix: After adding two rows in an @ElementCollection with PHOTO the new blank row has an error.
 - Fix: Validation errors in controllers.xml/controladores.xml files in just created projects.
 - Fix: Clicking on menu of a module with IChangeModuleAction does not return to root module.
 - Fix: Duplicate load of totals via AJAX when refreshing an element collection.

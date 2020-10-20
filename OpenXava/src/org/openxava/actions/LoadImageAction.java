@@ -23,7 +23,7 @@ public class LoadImageAction extends ViewBaseAction implements IProcessLoadedFil
 				try {
 					getView().setValue(property, fi.get());
 				}
-				catch (ElementNotFoundException ex) { // tmp
+				catch (ElementNotFoundException ex) { 
 					// It can happen in @ElementCollection
 				}
 			}			

@@ -27,8 +27,6 @@ public class UploadServlet extends HttpServlet {
 	private static Log log = LogFactory.getLog(UploadServlet.class);
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("[UploadServlet.doGet] request.getParameter('application')=" + request.getParameter("application")); // tmp
-		System.out.println("[UploadServlet.doGet] request.getParameter('module')=" + request.getParameter("module")); // tmp
 		Requests.init(request, request.getParameter("application"), request.getParameter("module"));
 		getManager(request).executeBeforeEachRequestActions(request, new Messages(), new Messages());  
 		try {
@@ -71,16 +69,12 @@ public class UploadServlet extends HttpServlet {
 			String propertyValues = "property=" + property; 
 			if (fileId != null) propertyValues = propertyValues + ",fileId=" + fileId; 
 			manager.executeAction(action, errors, messages, propertyValues, request);
-			// tmp ini
-			System.out.println("[UploadServlet.executeAction] GOOD"); // tmp
 			if (errors.contains()) {
 				Module.memorizeLastMessages(request, request.getParameter("application"), request.getParameter("module"));
 				response.sendError(406);
 			}
-			// tmp fin
 		}
 		catch (Exception ex) { 
-			System.out.println("[UploadServlet.executeAction] EXCEPTION"); // tmp
 			log.error(XavaResources.getString("no_execute_action", action, ex.getMessage()), ex); 
 			throw new ServletException(XavaResources.getString("upload_error"));  
 		}

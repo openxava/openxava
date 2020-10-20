@@ -35,9 +35,6 @@ String dataPreview = !preview?"data-preview='false'":"";
 String script = request.getParameter("script");
 boolean throwsChanged = script != null && script.contains(".throwPropertyChanged(");
 String dataThrowsChanged = throwsChanged?"data-throws-changed='true'":"";
-System.out.println("[uploadEditor.jsp] propertyKey=" + propertyKey); // tmp
-System.out.println("[uploadEditor.jsp] applicationName=" + applicationName); // tmp
-System.out.println("[uploadEditor.jsp] module=" + module); // tmp
 %>
 <input id='<%=propertyKey%>' 
 	type="file" class="xava_upload<%=cssClass%>"

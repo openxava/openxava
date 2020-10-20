@@ -1480,11 +1480,9 @@
 			class="org.openxava.test.actions.SaveMonthlyActivityWithJPAAction"/>			
 	</controller>
 	
-	<!-- tmp ini -->
 	<controller name="TextFileEditor">  
 		<action name="load"
 			class="org.openxava.test.actions.LoadTextFileAction"/>
 	</controller>
-	<!-- tmp fin -->	
 	
 </controllers>

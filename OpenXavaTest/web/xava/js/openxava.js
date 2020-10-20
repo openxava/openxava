@@ -329,7 +329,7 @@ openxava.showMessages = function(result) {
 	if (!errorsIsEmpty) openxava.effectShow(result.application, result.module, "errors");
 }
 
-openxava.hideErrors = function(application, module) { // tmp 
+openxava.hideErrors = function(application, module) {  
 	$("#"+openxava.decorateId(application, module, "errors")).fadeOut();
 }
 

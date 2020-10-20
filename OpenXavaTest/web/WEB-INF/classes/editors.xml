@@ -204,7 +204,6 @@
     	<list-formatter class="org.openxava.test.formatters.CarColorFormatter"/>
 	</editor>
 	
-	<!-- tmp ini -->
 	<editor name="TextFile" url="uploadEditor.jsp" format="false"> 
 		<property name="loadAction" value="TextFileEditor.load"/> 
 		<property name="removeAction" value="FileItemEditor.remove"/> 
@@ -214,6 +213,5 @@
 		<property name="imagePreview" value="false"/>
 		<for-stereotype steroetype="TEXT_FILE"/>
 	</editor>
-	<!-- tmp ini -->
 	
 </editors>

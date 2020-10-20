@@ -11,18 +11,12 @@ openxava.addEditorInitFunction(function() {
 	    	if (typeof pond === 'undefined') return;
 	    	if (input.dataset.mutiple === "true") pond.allowMultiple = true;
 	    	if (input.dataset.preview === "false") pond.allowImagePreview = false; 
-	    	// tmp ini
-	    	// TMP ME QUEDÉ POR AQUÍ: ESTO PARECE QUE ARREGLA LO DE INTRODUCIR DOS FILAS CON EL NAVEGADOR, FALLABA EN LA TERCERA QUE AÑADIA.
-	    	// TMP   FALTA PROBARLO A FONDO Y QUE PASE LA PRUEBA JUNIT DE CarTest
-	    	console.log("[each] input.id=" + input.id); // tmp
 	    	if (input.dataset.application == null) {
-	    		var id = input.id.split("_", 4);
-	    		
+	    		var id = input.id.split("_", 4);	    		
 	    		input.dataset.application = id[1];
 	    		input.dataset.module = id[2];
 	    		input.dataset.empty = true;
 	    	}
-	    	// tmp fin
 	    	const fileURL = uploadEditor.getFileURL(input);
 	    	pond.onactivatefile = function(file) {
 	    		if (openxava.browser.edge || openxava.browser.ie) window.open(fileURL + uploadEditor.getFileIdParam(file)); 
@@ -84,20 +78,16 @@ openxava.addEditorInitFunction(function() {
 		    	}	    		    	
 	    	}
 	    	pond.allowRevert = false;
-	    	// tmp ini
 		    pond.onerror = function(error) {
-		    	if (error && error.code == 406) {
+	    	if (error && error.code == 406) {
 					openxava.ajaxRequest(input.dataset.application, input.dataset.module, false, false);
 			    }
 		    }
 		    
 		    pond.onaddfilestart = function() {
 		    	openxava.hideErrors(input.dataset.application, input.dataset.module);
-		    }
-		    
-	    	// tmp fin
-    	}
-    	
+		    }		    
+    	}    	
     });
 	
 });
@@ -111,17 +101,11 @@ uploadEditor.enableUpload = function(pond, input) {
 }
 
 uploadEditor.getUploadURL = function(input) {
-	var url = openxava.contextPath + "/xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id + "&windowId=" + $('#xava_window_id').val();
-	console.log("[uploadEditor.getUploadURL] input.id=" + input.id); // tmp
-	console.log("[uploadEditor.getUploadURL] url=" + url); // tmp	
-	return url;
+	return openxava.contextPath + "/xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id + "&windowId=" + $('#xava_window_id').val();
 }
 
 uploadEditor.getFileURL = function(input) { 
-	var url = openxava.contextPath + "/xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id + "&dif=" + new Date().getTime() + "&windowId=" + $('#xava_window_id').val();
-	console.log("[uploadEditor.getFileURL] input.id=" + input.id); // tmp
-	console.log("[uploadEditor.getFileURL] url=" + url); // tmp
-	return url;
+	return openxava.contextPath + "/xava/upload?application=" + input.dataset.application + "&module=" + input.dataset.module + "&propertyKey=" + input.id + "&dif=" + new Date().getTime() + "&windowId=" + $('#xava_window_id').val();
 }
 
 uploadEditor.getFileIdParam = function(file) {

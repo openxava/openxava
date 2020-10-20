@@ -15,7 +15,7 @@ public class SetPropertyToNullAction extends ViewBaseAction {
 		try {
 			getView().setValue(property, null);
 		}
-		catch (ElementNotFoundException ex) { // tmp
+		catch (ElementNotFoundException ex) { 
 			// For @ElementCollection
 		}
 	}

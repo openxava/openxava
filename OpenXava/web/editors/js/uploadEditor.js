@@ -11,6 +11,12 @@ openxava.addEditorInitFunction(function() {
 	    	if (typeof pond === 'undefined') return;
 	    	if (input.dataset.mutiple === "true") pond.allowMultiple = true;
 	    	if (input.dataset.preview === "false") pond.allowImagePreview = false; 
+	    	if (input.dataset.application == null) {
+	    		var id = input.id.split("_", 4);	    		
+	    		input.dataset.application = id[1];
+	    		input.dataset.module = id[2];
+	    		input.dataset.empty = true;
+	    	}
 	    	const fileURL = uploadEditor.getFileURL(input);
 	    	pond.onactivatefile = function(file) {
 	    		if (openxava.browser.edge || openxava.browser.ie) window.open(fileURL + uploadEditor.getFileIdParam(file)); 
@@ -72,8 +78,16 @@ openxava.addEditorInitFunction(function() {
 		    	}	    		    	
 	    	}
 	    	pond.allowRevert = false;
-    	}
-    	
+		    pond.onerror = function(error) {
+	    	if (error && error.code == 406) {
+					openxava.ajaxRequest(input.dataset.application, input.dataset.module, false, false);
+			    }
+		    }
+		    
+		    pond.onaddfilestart = function() {
+		    	openxava.hideErrors(input.dataset.application, input.dataset.module);
+		    }		    
+    	}    	
     });
 	
 });

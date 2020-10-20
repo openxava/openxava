@@ -654,21 +654,10 @@ public class Module extends DWRBase {
 
 	
 	private void memorizeLastMessages(String module) {  
-		/* tmp
-		ModuleContext context = getContext(request);		
-		Object messages = request.getAttribute("messages");
-		if (messages != null) { 
-			context.put(application, module, MESSAGES_LAST_REQUEST, messages);
-		}
-		Object errors = request.getAttribute("errors");
-		if (errors != null) {
-			context.put(application, module, ERRORS_LAST_REQUEST, errors);
-		}		
-		*/	
-		memorizeLastMessages(request, application, module); // tmp
+		memorizeLastMessages(request, application, module); 
 	}
 	
-	// tmp ini
+	/** @since 6.4.2 */
 	public static void memorizeLastMessages(HttpServletRequest request, String application, String module) {
 		ModuleContext context = getContext(request);		
 		Object messages = request.getAttribute("messages");
@@ -680,7 +669,6 @@ public class Module extends DWRBase {
 			context.put(application, module, ERRORS_LAST_REQUEST, errors);
 		}			
 	}
-	// tmp fin
 
 	public static void restoreLastMessages(HttpServletRequest request, String application, String module) {  
 		ModuleContext context = getContext(request);		
