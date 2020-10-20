@@ -218,7 +218,7 @@ public class Order extends CommercialDocument {
       call to <i>persist(invoice)</i>, if not you get a error from JPA
       (something like “object references an unsaved transient instance”). Third,
       we have to wrap the <i>details</i> collection with an <i>ArrayList()</i>,
-      so it is another collection but with the same elements, because JPA don't
+      so it is a new collection but with the same elements, because JPA don't
       want the same collection assigned to two entities.<br>
       <h3><a name="write-less-code-using-apache-commons-beanutils"></a>Write
         less code using Apache Commons BeanUtils</h3>
@@ -257,39 +257,51 @@ invoice.setDetails(getDetails());
       need to take different paths.<br>
       This is to say that the simple <i>throws Exception</i> we have written
       for <i>createInvoice()</i> method is not enough to ensure a robust
-      behavior. The next code is an improved version of the method using
-      exceptions:
+      behavior. Instead we should use our own exception. Let's create it:
+      <pre><code class="java">package com.yourcompany.invoicing.model; // In model package
+
+import org.openxava.util.*;
+
+public class CreateInvoiceException extends Exception { // Not RuntimeException
+
+    public CreateInvoiceException(String message) {
+        // The XavaResources is to translate the message from the i18n entry id
+        super(XavaResources.getString(message)); 
+    }
+	
+}
+</code></pre>Now we can use our <i>CreateInvoiceException</i> instead of <i>Exception</i>
+      in the <i>createInvoice()</i> method of <i>Order</i>:
       <pre><code class="java">public void createInvoice()
-    throws ValidationException // An application exception (1)
+    throws CreateInvoiceException // An application exception (1)
 {
     if (this.invoice != null) { // If an invoice is already present we cannot create one
-        throw new ValidationException( // Allows an i18n id as argument
-            "impossible_create_invoice_order_already_has_one");
+        throw new CreateInvoiceException( // Allows an i18n id as argument
+            "order_already_has_invoice");
     }
     if (!isDelivered()) { // If the order is not delivered we cannot create the invoice
-        throw new ValidationException(
-            "impossible_create_invoice_order_is_not_delivered");
+        throw new CreateInvoiceException(
+            "order_is_not_delivered");
     }
     try {
-        Invoice invoice = new Invoice();
-        BeanUtils.copyProperties(invoice, this);
-        invoice.setOid(null);
-        invoice.setDate(new Date());
-        invoice.setDetails(new ArrayList());
+        Invoice invoice = new Invoice(); 
+        BeanUtils.copyProperties(invoice, this); 
+        invoice.setOid(null); 
+        invoice.setDate(LocalDate.now()); 
+        invoice.setDetails(new ArrayList&lt;&gt;(getDetails())); 
         XPersistence.getManager().persist(invoice);
-        copyDetailsToInvoice(invoice);
-        this.invoice = invoice;
+        this.invoice = invoice; 
     }
     catch (Exception ex) { // Any unexpected exception (2)
         throw new SystemException( // A runtime exception is thrown (3)
             "impossible_create_invoice", ex);
     }
 }
-</code></pre> Now we declare explicitly which application exceptions this method
-      throws (1). An application exception is a checked exception that indicates
-      a special but expected behavior of the method. An application exception is
-      related to the method's business logic. You could create an application
-      exception for every possible case, such as an
+</code></pre> TMP ME QUEDÉ POR AQUÍ. Now we declare explicitly which application
+      exceptions this method throws (1). An application exception is a checked
+      exception that indicates a special but expected behavior of the method. An
+      application exception is related to the method's business logic. You could
+      create an application exception for every possible case, such as an
       OrderAlreadyHasInvoiceException and an InvoiceNotDeliveredException. This
       enables you to handle each case differently in the calling code. This is
       not needed in our case, so we simply use ValidationException, a generic
@@ -308,8 +320,8 @@ invoice.setDetails(getDetails());
       In order to be complete, we have to add the messages used for the
       exceptions in the i18n files. Edit the Invoicing-messages_en.properties
       file from Invoicing/i18n folder adding the next entries:
-      <pre><code class="properties">impossible_create_invoice_order_already_has_one=Impossible to create invoice: the order already has an invoice
-impossible_create_invoice_order_is_not_delivered=Impossible to create invoice: the order is not delivered yet
+      <pre><code class="properties">order_already_has_invoice=The order already has an invoice
+order_is_not_delivered=The order is not delivered yet
 impossible_create_invoice=Impossible to create invoice
 </code></pre> There is some debate in the developer community regarding the
       correct way of using exceptions in Java. The approach in this section is
