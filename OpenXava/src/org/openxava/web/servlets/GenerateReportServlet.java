@@ -349,6 +349,7 @@ public class GenerateReportServlet extends HttpServlet {
 	private static Object formatBigDecimal(Object number, Locale locale) { 
 		NumberFormat nf = NumberFormat.getNumberInstance(locale);
 		nf.setMinimumFractionDigits(2);
+		nf.setGroupingUsed(false); 
 		return nf.format(number);
 	}
 

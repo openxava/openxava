@@ -1116,29 +1116,28 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}	
 	
 	public void testGenerateExcel() throws Exception {
-		String year = getValueInList(0, 0);
-		String number = getValueInList(0, 1);		
-		String date = getValueInList(0, 2);
-		String amountsSum = formatBigDecimal(getValueInList(0, 3));		
-		String vat = formatBigDecimal(getValueInList(0, 4));
-		String detailsCount = getValueInList(0, 5);
-		String paid = getValueInList(0, 6);
-		paid = paid.equals("")?"No":"Yes"; 
-		String importance = Strings.firstUpper(getValueInList(0, 7).toLowerCase());
-		String expectedLine = year + ";" + number + ";\"" + 
-			date + "\";\"" + amountsSum + "\";\"" + 
-			vat + "\";" + detailsCount + ";\"" +
-			paid + "\";\"" + importance + "\"";
-		
 		execute("Print.generateExcel"); 
 		assertContentTypeForPopup("text/x-csv");
+		assertExcel(
+			"Year;Number;Date;Amounts sum;V.A.T.;Details count;Paid;Importance",	
+			"2002;1;\"1/1/02\";\"2500.00\";\"400.00\";2;\"No\";\"Normal\""); // "2500.00" instead of "2,500.00"
 		
+		setLocale("es");
+		execute("Print.generateExcel");		
+		assertContentTypeForPopup("text/x-csv");		
+		assertExcel(
+			"Año;Número;Fecha;Suma importes;I.V.A.;Cantidad líneas;Pagada;Importancia",	
+			"2002;1;\"1/1/02\";\"2500,00\";\"400,00\";2;\"No\";\"Normal\""); // "2500,00" instead of "2.500,00"
+	}
+	
+	private void assertExcel(String expectedHeader, String expectedLine) throws Exception { 
 		StringTokenizer excel = new StringTokenizer(getPopupText(), "\n\r");
 		String header = excel.nextToken();
-		assertEquals("header", "Year;Number;Date;Amounts sum;V.A.T.;Details count;Paid;Importance", header); 		
+		assertEquals("header", expectedHeader, header);
 		String line1 = excel.nextToken();
-		assertEquals("line1", expectedLine, line1);		
-	}
+		assertEquals("line1", expectedLine, line1); 
+	}	
+
 	
 	public void testGenerateExcelForOnlyCheckedRows() throws Exception { 
 		checkRow(0);
@@ -2270,13 +2269,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 			String date = getValueInList(i, "date");
 			assertTrue(date + " is not of " + year, date.endsWith(year));
 		}
-	}
-	
-	private String formatBigDecimal(String value) throws Exception {
-		NumberFormat nf = NumberFormat.getNumberInstance(Locale.UK);
-		nf.setMinimumFractionDigits(2);
-		Number b = nf.parse(value);
-		return nf.format(b);
 	}
 	
 	private void createOneDetail() throws Exception {

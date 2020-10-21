@@ -1,5 +1,7 @@
 package org.openxava.test.tests;
 
+import java.util.*;
+
 /**
  * @author Javier Paniza
  */
@@ -34,11 +36,11 @@ public class Invoice2002Test extends CustomizeListTestBase {
 		assertContentTypeForPopup("application/pdf"); 		
 	}
 	
-	public void testGenerateExcelWithFilter() throws Exception {
+	public void testGenerateExcelWithFilterCSV() throws Exception { 
 		execute("Print.generateExcel");		
-		assertContentTypeForPopup("text/x-csv"); 		
-	}	
-	
+		assertContentTypeForPopup("text/x-csv");
+	}
+
 	public void testChangeTabTitle() throws Exception {
 		assertListTitle("Invoices report of year 2,002"); 
 		execute("Invoice2002.changeListTitle");
