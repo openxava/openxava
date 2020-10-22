@@ -2354,7 +2354,7 @@ div[id$="_Index__view"] .ox-list-title {
 	color: var(--reference-search-icon-hover-color);
 }
 
-.ox-required-editor input, .ox-required-editor select {
+.ox-required-editor input, .ox-required-editor select, .ox-required-editor textarea {
 	border-color: var(--required-editor-border); 
 }
 
