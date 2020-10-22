@@ -850,6 +850,7 @@ openxava.throwPropertyChanged = function(application, module, property) {
 
 openxava.calculate = function(application, module, propertyId, scale) {
 	var calculation = $('#' + propertyId + "_CALCULATION_").val();
+	if (calculation == null) return;
 	var value = eval(calculation).toFixed(scale).replace(".", openxava.decimalSeparator);
 	$('#' + propertyId).val(value);
 	$('#' + propertyId).change(); 

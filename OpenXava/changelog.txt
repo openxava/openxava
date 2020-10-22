@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: JavaScript error with @Calculation properties: "Cannot read property 'toFixed' of undefined".
 - Fix: BigDecimals not recognized as numeric values by Excel because of thousands separators with CSVs. 
 - Fix: When the load action of an upload editor adds errors the messages are not shown to the user.
 - Fix: After adding two rows in an @ElementCollection with PHOTO the new blank row has an error.
