@@ -561,11 +561,9 @@ public class CreateInvoiceFromSelectedOrdersAction
       cannot put the method in <i>Order</i> class, because the process is done
       from several orders, not just one. We cannot use an instance method in <i>Invoice</i>
       because the invoice does not exist yet, in fact we want to create it.
-      Therefore, we are going to create a static factory method in the Invoice
-      class for creating a new Invoice from several Orders.<br>
-      You can see this method here:TMP ME QUEDÉ POR AQUÍ: EL
-      copyDetailsToInvoice() YA NO EXISTE. TENGO QUE PROBARLO SIN EL Y
-      REHACERlESSON 8<br>
+      Therefore, we are going to create a static factory method in the <i>Invoice</i>
+      class for creating a new invoice from several orders.<br>
+      You can see this method here:<br>
       <pre><code class="java">public class Invoice extends CommercialDocument {
 
     ...
@@ -582,12 +580,12 @@ public class CreateInvoiceFromSelectedOrdersAction
             }
             else { // For the remainding orders the invoice is already created
                 order.setInvoice(invoice); // Assign the invoice
-                order.copyDetailsToInvoice(invoice); // Copies the lines
-            } // The copyDetailsToInvoice method is
-        } // private in Order, so we need to change to public
+                invoice.getDetails().addAll(order.getDetails()); // Copies the lines
+            } 
+        } 
         if (invoice == null) { // If there are no orders
             throw new CreateInvoiceException(
-                "impossible_create_invoice_orders_not_specified");
+                "orders_not_specified");
         }
         return invoice;
     }
@@ -603,47 +601,14 @@ public class CreateInvoiceFromSelectedOrdersAction
       exception message to the user. This is fine. If the user does not check
       any orders and he clicks on the button for creating an invoice, then this
       error message will be shown to him.<br>
-      We use the <i>copyDetailsToInvoice()</i> method from <i>Order</i>. This
-      method was declared as private, so we need to modify this and make it
-      public to be able to use it from <i>Invoice</i>. See the change in the
-      next code:
-      <pre><code class="java">public class Order extends CommercialDocument {
-
-    ...
-
-	public void copyDetailsToInvoice(Invoice invoice) // public instead 
-    // private void copyDetailsToInvoice(Invoice invoice) // of private		
-        throws Exception // throws Exception is removed. Now we'll throw
-    {                    // a runtime exception instead
-        try { // We wrap all the code for the method with a try/catch
-            for (Detail orderDetail: getDetails()) {
-                Detail invoiceDetail = (Detail) BeanUtils.cloneBean(orderDetail);
-                invoiceDetail.setOid(null);
-                invoiceDetail.setParent(invoice);
-                XPersistence.getManager().persist(invoiceDetail);
-             }
-        }
-        catch (Exception ex) { // We convert every exception into
-            throw new SystemException( // a runtime exception
-                "impossible_copy_details_to_invoice", ex);
-        }
-    }
-}
-</code></pre> In addition to changing 'private' to 'public' we convert any
-      exception to a runtime exception by wrapping the method with a a try/catch
-      clause. This way, we adhere to the aforesaid convention of using runtime
-      exception for unexpected problems.<br>
       Remember to add the messages text to the Invoicing-messages_en.properties
       file in i18n folder:
-      <pre><code class="properties">impossible_create_invoice_orders_not_specified=Impossible to create invoice:
-orders not specified
-impossible_copy_details_to_invoice=Impossible to copy details from order to
-invoice
+      <pre><code class="properties">orders_not_specified=Orders not specified
 </code></pre> These are not the only errors the user can get. All previously
-      written validations for Invoice and Order still apply automatically. This
-      ensures that the user has to choose orders from the same customer, that
-      are delivered, that lacks an invoice, etc. Model validation prevents the
-      user from creating invoices from the wrong orders.
+      written validations for <i>Invoice</i> and <i>Order</i> still apply
+      automatically. This ensures that the user has to choose orders from the
+      same customer, that are delivered, that lacks an invoice, etc. Model
+      validation prevents the user from creating invoices from the wrong orders.
       <h2><a name="changing-module"></a>Changing module</h2>
       After creating an invoice from several orders, it would be practical for
       the user to see and possibly edit the newly created invoice. One way of
@@ -709,7 +674,9 @@ invoice
 		
 &lt;/controller&gt;
 </code></pre> The two actions of this controller represent the two buttons,
-      'Save' and 'Return' you saw in the previous figure 8.3.
+      'Save' and 'Return' you saw in the previous figure 8.3. </div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: PASANDO EL
+      CÓDIGO RÁPIDO PARA PROBARLO, DESPUÉS HACER VERSIÓN CON VIEW<br>
       <h3><a name="returning-to-the-calling-module"></a>Returning to the calling
         module</h3>
       SaveInvoiceAction contains just a minor extension of the standard
