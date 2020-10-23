@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Extra second added in java.sql.Time properties with some databases, such as PostgreSQL.
 - Fix: Required style not applied to text area editors.
 - Fix: JavaScript error with @Calculation properties: "Cannot read property 'toFixed' of undefined".
 - Fix: BigDecimals not recognized as numeric values by Excel because of thousands separators with CSVs. 

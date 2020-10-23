@@ -110,7 +110,7 @@ public class ClerkTest extends ModuleTestBase {
 		execute("List.filter");
 		assertListRowCount(8);
 	}
-
+	
 	private String getCurrentTime() {
 		return new SimpleDateFormat("HH:mm").format(new Date());
 	}

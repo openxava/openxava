@@ -33,6 +33,7 @@ public class TimeBaseFormatter implements IFormatter {
 		public long millis() {
 			Calendar cal = Calendar.getInstance();
 			cal.set(1970, 1, 1, hours, minutes, seconds);
+			cal.set(Calendar.MILLISECOND, 0); 
 			return cal.getTimeInMillis();
 		}
 		
