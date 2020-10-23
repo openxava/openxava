@@ -122,7 +122,6 @@
       <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
 import org.openxava.actions.*;
-import org.openxava.jpa.*;
 import com.yourcompany.invoicing.model.*;
 
 
@@ -609,251 +608,99 @@ public class CreateInvoiceFromSelectedOrdersAction
       automatically. This ensures that the user has to choose orders from the
       same customer, that are delivered, that lacks an invoice, etc. Model
       validation prevents the user from creating invoices from the wrong orders.
-      <h2><a name="changing-module"></a>Changing module</h2>
+      <h2><a name="Showing-a-dialog"></a>Showing a dialog</h2>
       After creating an invoice from several orders, it would be practical for
       the user to see and possibly edit the newly created invoice. One way of
-      achieving this is by creating a module solely for editing an invoice, with
-      no list mode and without the typical CRUD actions. This way, we can move
-      into this module upon invoice creation for inspection and editing. Figure
-      8.3 shows the desired behavior.<br>
+      achieving this is by showing a dialog that allows to view and edit that
+      just created invoice. In this way:<br>
       <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
         title="business-logic-behavior_en030.png"><br>
       Let's see how to implement this behavior.
-      <h3><a name="using-ichangemoduleaction"></a>Using IChangeModuleAction</h3>
-      The first step is to modify CreateInvoiceFromSelectedOrdersAction to
-      change the module after its execution. Listing 8.23 shows the
-      modification.
-      <pre><code class="java">public class CreateInvoiceFromSelectedOrdersAction
-    extends TabBaseAction
-    implements IChangeModuleAction { // To change to another module after execution
+      <h3><a name="using-showdialog"></a>Using showDialog()</h3>
+      The first step is to modify <i>CreateInvoiceFromSelectedOrdersAction</i>
+      to show a dialog after creating the invoice, just adding a few lines at
+      the end of <i>execute()</i>:<br>
+      <pre><code class="java">public void execute() throws Exception {
+    Collection&lt;Order&gt; orders = getSelectedOrders(); 
+    Invoice invoice = Invoice.createFromOrders(orders); 
+    addMessage("invoice_created_from_orders", invoice, orders); 
 
-    public String getNextModule() {
-        return "CurrentInvoiceEdition"; // Module name as defined in application.xml
-    }
-	
-    public boolean hasReinitNextModule() {
-        return true; // The module is initialized each time we change to it
-    }
-
-    ...
+    // Add the next lines to show the dialog
+    showDialog(); // (1)
+    // From now on getView() is the dialog
+    getView().setModel(invoice); // Display invoice in the dialog (2)
+    getView().setKeyEditable(false); // To indicate that is an existing object (3)
+    setControllers("InvoiceEdition"); // The actions of the dialog (4)
 }
-</code></pre> As you can see, it suffices to implement the IChangeModuleAction.
-      This forces you to add the methods getNextModule(), to return the name of
-      the module as defined in application.xml, and hasReinitNextModule(). We
-      return true from hasReinitNextModule() because we will write an on-init
-      action (action executed when the module is initialized) in the
-      CurrentInvoiceEdition module and use this to load the correct invoice into
-      the view on every initialization.<br>
-      Obviously, this will not work until we have the CurrentInvoiceEdition
-      module defined. We'll do this in the next section.
-      <h3><a name="detail-only-module"></a>Detail only module</h3>
-      The purpose of the CurrentInvoiceEdition module is to display a single
-      invoice, and present the option of editing it.<br>
-      To define the module, edit the application.xml file and add the next
-      module definition:
-      <pre><code class="xml">&lt;module name="CurrentInvoiceEdition"&gt;
-    &lt;model name="Invoice"/&gt;
-    &lt;controller name="CurrentInvoiceEdition"/&gt;
-    &lt;mode-controller name="Void"/&gt; &lt;!-- Thus the module only has detail mode --&gt;
-&lt;/module&gt;
-</code></pre> Since this module is for editing a particular Invoice, it doesn't
-      have a list mode, but only a detail mode. We use Void as mode-controller
-      to achieve this.<br>
-      This module only allows the user to change the Invoice and save the
-      changes or return to the calling module. This requires a new controller
-      with actions to perform saving and returning. We call this controller
-      CurrentInvoiceEdition and add it to controllers.xml:
+</code></pre>We call to <i>showDialog()</i> (1), it shows a dialog and after
+      that moment when we use <i>getView()</i> it references to the view in the
+      dialog no the main view of the module. After the <i>showDialog()</i> the
+      dialog is blank, until we assign our invoice to the view with <i>getView().setModel(invoice)</i>
+      (2), now the invoice is displayed in the dialog. The next line, <i>getView().setKeyEditable(false)</i>
+      (3), is to indicate that the invoice is already saved, so afterwards the
+      corresponding save action knows how to behaves. Finally, we use <i>setControllers("InvoiceEdition")</i>
+      to define the controller with the actions present in the dialog, that is
+      the buttons on bottom of the dialog. Note as <i>setControllers()</i> is
+      an alternative to <i>addActions()</i>.<br>
+      Obviously, this will not work until we have the <i>InvoiceEdition</i>
+      controller defined. We'll do this in the next section.
+      <h3><a name="define-the-dialog-actions"></a>Define the dialog actions</h3>
+      The dialog allows the user to change the invoice and save the changes or
+      just close the dialog after examining the invoice. These actions are
+      defined in the <i>InvoiceEdition</i> controller in <i>controllers.xml</i>:
       <pre><code class="xml">&lt;controller name="CurrentInvoiceEdition"&gt;
 
     &lt;action name="save"
         class="com.yourcompany.invoicing.actions.SaveInvoiceAction"
         keystroke="Control S"/&gt;
 		
-    &lt;action name="return"
-        class="org.openxava.actions.ReturnPreviousModuleAction"/&gt;
+    &lt;action name="close"
+        class="org.openxava.actions.CancelAction"/&gt;
 		
 &lt;/controller&gt;
-</code></pre> The two actions of this controller represent the two buttons,
-      'Save' and 'Return' you saw in the previous figure 8.3. </div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: PASANDO EL
-      CÓDIGO RÁPIDO PARA PROBARLO, DESPUÉS HACER VERSIÓN CON VIEW<br>
-      <h3><a name="returning-to-the-calling-module"></a>Returning to the calling
-        module</h3>
-      SaveInvoiceAction contains just a minor extension of the standard
-      SaveAction of OpenXava:
-      <pre><code class="java">public class SaveInvoiceAction
-    extends SaveAction // Standard OpenXava action to save the view content
-    implements IChangeModuleAction { // For module navigation
+</code></pre> The two actions of this controller represent the two buttons, SAVE
+      and CLOSE you saw in the previous image.</div>
+    <div class="wiki" style="display: block;">
+      <h3><a name="closing-dialog"></a>Closing dialog </h3>
+      <i>SaveInvoiceAction</i> contains just a minor extension of the standard <i>SaveAction</i>
+      of OpenXava:
+      <pre><code class="java">package com.yourcompany.invoicing.actions;
 
-    public String getNextModule() {
-        return PREVIOUS_MODULE; // Returns to the calling module,
-    } // that is the Order module in this case
+import org.openxava.actions.*;
 
-    public boolean hasReinitNextModule() {
-        return false; // We don't want to initialize the Order module
-    }
-}
-</code></pre> The action extends SaveAction without overwriting the execute()
-      method which means that its behavior is exactly the same as that of the
-      generic OpenXava SaveAction: to save the displayed data in the database.
-      As our addition, we state that the action must return to the calling
-      module, the Order module in our example, when it finishes.<br>
-      In this way, when the user clicks on 'Save', the invoice data is saved and
-      the application returns to the list of orders, ready to continue the
-      creation of invoices from orders.<br>
-      For returning to the calling module we must always use PREVIOUS_MODULE. Do
-      not use the module name, just as shown here:
-      <pre><code class="java">public String getNextModule() { return PREVIOUS_MODULE; } // Good
-public String getNextModule() { return “Order”; } // Very BAD
-</code></pre> If you use PREVIOUS_MODULE you get the advantage that you can call
-      this module from any module in the application, and this will know what
-      module to return to in each case. But even more important is the fact that
-      OpenXava uses a stack of module calls in order to return, so if you call
-      to the calling module you will produce a reentrance problem.<br>
-      For the 'Return' button we use the ReturnPreviousModuleAction, an action
-      included in OpenXava that simply returns to the previous module.
-      <h3><a name="global-session-object-and-on-init-action"></a>Global session
-        object and on-init action</h3>
-      The current code is still incomplete. When the user generates the invoice
-      the CurrentInvoiceEdition module is activated, but it is empty, no invoice
-      is shown. We have to fill the view of the new module with the newly
-      created invoice. Let's learn how to share data between modules.<br>
-      One way of sharing data between modules is to declare a session object
-      with a global scope. This is accomplished by adding an entry in
-      controllers.xml in this way:
-      <pre><code class="xml">&lt;controllers&gt;
-
-    ...
-
-    &lt;object name="invoicing_currentInvoiceKey"
-        class="java.util.Map"
-        scope="global"/&gt;
-        &lt;!--
-        name="invoicing_currentInvoiceKey": Name must be unique
-        class="java.util.Map": The type of the object
-        scope="global": Shared by all modules. The default value is "module"
-        --&gt;
-
-    ...
-	
-</code></pre> A session object is an object associated to the user session,
-      therefore it lives while the user session is alive, and each user has its
-      own copy of the object. If you use scope=”global” the object will be
-      shared by all the modules, otherwise each module has its own copy of the
-      object.<br>
-      We declare the scope of the object as global because we want to use it to
-      pass data from the Order module to CurrentInvoiceEdition module. The way
-      to use such an object is by injecting it into an action by means of
-      @Inject12 annotation. Before calling the execute() method of the action,
-      the invoicing_currentInvoiceKey object is injected into the
-      currentInvoiceKey field of the action. The name of the field in the action
-      is the name of the session object without the prefix (without invoicing_
-      in this case), though you can inject the object in a field with another
-      name if you use the @Named annotation. Listing 8.29 shows the
-      currentInvoiceKey field with the @Inject annotation added to the action
-      class.
-      <pre><code class="java">
-...
-
-import javax.inject.*;
-
-public class CreateInvoiceFromSelectedOrdersAction ... {
-
-    ...
-
-    @Inject
-    private Map currentInvoiceKey; // A private field without getter and setter
-
-    ...
-}
-</code></pre> The interesting thing about @Inject is that, in addition to
-      injecting the object in the field before calling execute(), it extracts
-      the value of the action field and puts it back into the session context
-      after running the execute() method. In other words, if you modify the
-      value of the currentInvoiceKey field from
-      CreateInvoiceFromSelectedOrdersAction then the invoicing_currentInvoiceKey
-      session object is modified too. Hence, we can use this action to give
-      value to this session object. These are the modifications in the action
-      code.
-      <pre><code class="java">public class CreateInvoiceFromSelectedOrdersAction ... {
-
-    ...
-
+public class SaveInvoiceAction
+    extends SaveAction { // Standard OpenXava action to save the view content
+	 
     public void execute() throws Exception {
-	
-	    ...
-		
-        currentInvoiceKey = toKey(invoice); // Puts the key of the newly
-    }              // created invoice in the currentInvoiceKey field, it
-            // also sets the invoicing_ currentInvoiceKey session object
-
-    private Map toKey(Invoice invoice) { // Extracts the key from the
-        Map key = new HashMap(); // invoice in Map format
-        key.put("oid",invoice.getOid());
-        return key;
-    }
-	
-    ...
-}
-</code></pre> After the creation of the invoice, we put the key of that invoice
-      in the session object. Populating a session object is a breeze, you only
-      have to set a value to the field declared with @Inject. In this case
-      assigning value to currentInvoiceKey is sufficient to fill the
-      corresponding invoicing_currentInvoiceKey object. Afterwards, you can use
-      this object from other actions, and since its scope is global, from
-      actions of other modules too. <br>
-      We are going to create a new action in the CurrentInvoiceEdition module to
-      load the values of the invoice created from the Order module with
-      CreateInvoiceFromSelectedOrdersAction. Here you can see the declaration of
-      this load action in the controllers.xml file:
-      <pre><code class="xml">&lt;controller name="CurrentInvoiceEdition"&gt;
-
-    &lt;action name="load"
-        class="com.yourcompany.invoicing.actions.LoadCurrentInvoiceAction"
-        hidden="true" on-init="true"/&gt;
-        &lt;!--
-        hidden="true": There is not a button or link in the UI for this action
-        on-init="true": It is executed automatically when the module initiates
-        --&gt;
-
-    ...
-	
-&lt;/controller&gt;
-</code></pre> We declare the action as hidden=true, thus it will not be visible,
-      and so the user will not have the possibility to execute it. Moreover, we
-      declare it with oninit=true, so it will be executed automatically when the
-      module is initialized.<br>
-      Remember, that when this module is called, the method
-      hasReinitNextModule() returns true. This causes CurrentInvoiceEdition to
-      be initialized every time it is called from the Order module which in turn
-      means it will get its values loaded via the load action. Therefore, this
-      load action is the ideal place to populate the view with the recently
-      created invoice. Let's see its code:
-      <pre><code class="java">public class LoadCurrentInvoiceAction
-    extends SearchByViewKeyAction { // To populate the view from the key values
-
-    @Inject
-    private Map currentInvoiceKey; // To get the value of the session object
-                  // invoicing_currentInvoiceKey, filled in the Order module
-
-    public void execute() throws Exception {
-        getView().setValues(currentInvoiceKey); // Puts the key in the view
-        super.execute(); // Populates the view from the key fields
+        super.execute(); // The standard saving logic (1)
+        closeDialog(); (2)
     }
 }
-</code></pre> It extends from SearchByViewKeyAction which is the standard
-      OpenXava action for searching. SearchByViewKeyAction takes the key fields
-      in the view, does a search for the corresponding entity, and then fills
-      the rest of the view fields from the entity. Therefore, we only have to
-      fill the view with the key values before calling super.execute().<br>
-      By using currentInvoiceKey, we access the key values stored there by
-      CreateInvoiceFromSelectedOrdersAction. Now you have learned how to use a
-      session object to share data between actions, even between actions of
-      different modules.<br>
-      Our work is almost done. If you try out the Order module, choose several
-      orders, and click on the 'Create invoice from selected orders' button you
-      will be directed to the detail mode of the newly created invoice. Just as
-      you saw in the previous figure 8.3.
+</code></pre> The action extends <i>SaveAction</i> overwriting the <i>execute()</i>
+      method to just call to the standard logic, with <i>super.execute()</i>
+      (1), and then to close the dialog with <i>closeDialog()</i> (2). In this
+      way, when the user clicks on SAVE, the invoice data is saved and the
+      application returns to the list of orders, ready to continue the creation
+      of invoices from orders.<br>
+      For the CLOSE button we use the <i>CancelAction</i>, an action included
+      in OpenXava that simply closes the dialog.
+      <h3><a name="closing-dialog"></a>Plain view instead of dialog</h3>
+      Sometime you prefer to replace the current view with a new one, instead of
+      showing a dialog on top. This can be useful when the amount of data to
+      show is huge and dialog looks clumsy. Doing it so easy as change this line
+      of from your <i>CreateInvoiceFromSelectedOrdersAction:</i>
+      <pre><code class="java">showDialog();
+</code></pre> By this one:
+      <pre><code class="java">showNewView();
+</code></pre> No more changes are needed. TMP ME QUEDÉ POR AQUÍ: PONER
+      PANTALLAZO QUE COMPARE DOS OPCIONES. ACTUALIZAR PANTALLAZO DE PRINCIPIO DE
+      LA SECCION. SUGERIR CAMBIAR close POR return COMO NOMBRE DE ACCION DE
+      CERRAR DIALOGO.<br>
+      <br>
+      Our work is almost done. If you try out the <i>Order</i> module, choose
+      several orders, and click on the CREATE INVOICE FROM SELECTED ORDERS
+      button you will be directed to the detail mode of the newly created
+      invoice. Just as you saw in the image at the beginning of this section.
       <h2><a name="junit-tests"></a>JUnit tests</h2>
       The code we have written in this lesson is not complete until we write the
       tests. Remember, all new code must have its corresponding test code. Let's
