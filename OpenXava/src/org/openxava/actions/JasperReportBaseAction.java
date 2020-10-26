@@ -103,7 +103,9 @@ abstract public class JasperReportBaseAction extends ViewBaseAction implements I
 			Connection con = null;
 			try {
 				con = DataSourceConnectionProvider.getByComponent(modelName).getConnection();
-				con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED); // To avoid freezing the application with some reports in some databases
+				if (con.getMetaData().supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_UNCOMMITTED)) { 
+					con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED); // To avoid freezing the application with some reports in some databases
+				}
 				// If the schema is changed through URL or XPersistence.setDefaultSchema, the connection
 				// contains the original catalog (schema) instead of the new one, thus rendering the
 				// wrong data on the report. This is a fix for such behavior.
