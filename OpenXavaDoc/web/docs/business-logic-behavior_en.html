@@ -78,11 +78,11 @@
             several modules in the same test method</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Summary">Summary</a></div>
       </div>
-      OpenXava is not just a CRUD framework, but a framework for developing
-      full-fledged business applications. Until now we have learned how to
-      create and enhance a data management application. We will now improve the
-      application further by giving the user the possibility to perform specific
-      business logic.<br>
+      TMP FALTA MARCAR ORDER 7 Y 8 COMO DELIVERED EN DATA DE LESSON 7 OpenXava
+      is not just a CRUD framework, but a framework for developing full-fledged
+      business applications. Until now we have learned how to create and enhance
+      a data management application. We will now improve the application further
+      by giving the user the possibility to perform specific business logic.<br>
       In this lesson we'll see how to add business logic to a model and call
       this logic from custom actions. In this way you can transform a database
       management application into a useful tool for the everyday work of your
@@ -577,9 +577,13 @@ public class CreateInvoiceFromSelectedOrdersAction
                                        // from an order
                 invoice = order.getInvoice(); // and use the created invoice
             }
-            else { // For the remainding orders the invoice is already created
+            else { // For the remaining orders the invoice is already created
                 order.setInvoice(invoice); // Assign the invoice
                 invoice.getDetails().addAll(order.getDetails()); // Copies the lines
+                invoice.setVat(
+                    invoice.getVat().add(order.getVat())); // Accumalates the vat
+                invoice.setTotalAmount( // and the total amount
+                    invoice.getTotalAmount().add(order.getTotalAmount()));
             } 
         } 
         if (invoice == null) { // If there are no orders
@@ -591,9 +595,10 @@ public class CreateInvoiceFromSelectedOrdersAction
 }
 </code></pre> We use the first <i>Order</i> to create the new <i>Invoice</i>
       using the already existing <i>createInvoice()</i> method from <i>Order</i>.
-      Then we copy the lines from the remainding orders to the new <i>Invoice</i>.
-      Moreover, we set the new <i>Invoice</i> as the invoice for the orders of
-      the collection.<br>
+      Then we copy the lines from the remaining orders to the new <i>Invoice</i>
+      and accumulates on it the <i>vat</i> and <i>totalAmount</i> of the
+      orders. Moreover, we set the new <i>Invoice</i> as the invoice for the
+      orders of the collection.<br>
       If invoice is null at the end of the process it's because the orders
       collection is empty. In this case we throw a <i>CreateException</i>.
       Since the action does not catch the exceptions, OpenXava shows the
@@ -648,7 +653,7 @@ public class CreateInvoiceFromSelectedOrdersAction
       The dialog allows the user to change the invoice and save the changes or
       just close the dialog after examining the invoice. These actions are
       defined in the <i>InvoiceEdition</i> controller in <i>controllers.xml</i>:
-      <pre><code class="xml">&lt;controller name="CurrentInvoiceEdition"&gt;
+      <pre><code class="xml">&lt;controller name="InvoiceEdition"&gt;
 
     &lt;action name="save"
         class="com.yourcompany.invoicing.actions.SaveInvoiceAction"
@@ -847,37 +852,36 @@ import com.yourcompany.invoicing.model.*;
       class:
       <pre><code class="java">public void testCreateInvoiceFromSelectedOrders() throws Exception {
     login("admin", "admin");
-    assertOrder(2010, 9, 2, 362); // Order 2010/9 has 2 lines and 362 as base amount
-    assertOrder(2010, 10, 1, 126); // Order 2010/10 has 1 line and 126 as base amount
+    assertOrder(2020, 7, 2, "75.02"); // Order 2020/7 has 2 lines and 75.02 as total amount
+    assertOrder(2020, 8, 2, "99.22"); // Order 2020/8 has 2 lines and 99.22 as total amount
 
     execute("List.orderBy", "property=number"); // Sorts the list by number
     checkRow( // Checks the row from the row number
-        getDocumentRowInList("2010", "9") // Obtains the row from order year and number
-    ); // So, this line checks the order 2010/9 in the list (1)
+        getDocumentRowInList("2020", "7") // Obtains the row from order year and number
+    ); // So, this line checks the order 2020/7 in the list (1)
     checkRow(
-        getDocumentRowInList("2010", "10")
-    ); // Checks the order 2010/10 in the list (1)
+        getDocumentRowInList("2020", "8")
+    ); // Checks the order 2020/8 in the list (1)
 
     execute("Order.createInvoiceFromSelectedOrders"); // Executes the action we
                                                       // are currently testing (2)
     String invoiceYear = getValue("year"); // We are now in detail mode of the
     String invoiceNumber = getValue("number"); // newly created invoice
     assertMessage("Invoice " + invoiceYear + "/" + invoiceNumber +
-        " created from orders: [2010/9, 2010/10]"); // The confirmation message
-    assertCollectionRowCount("details", 3); // Asserts that the line count of the new
-                        // invoice equals the sum of lines from the source orders (3)
-    assertValue("baseAmount", "488.00"); // Asserts that base amount of the new
-                    // invoice equals the sum of the amounts of the source orders (4)
-    execute("Sections.change", "activeSection=1"); // Changes to the orders
-                                                   // tab of invoice
+        " created from orders: [2020/7, 2020/8]"); // The confirmation message
+    assertCollectionRowCount("details", 4); // Asserts that the line count of the new
+                         // invoice equals the sum of lines from the source orders (3)
+    assertValue("baseAmount", "174.24"); // Asserts that total amount of the new
+                     // invoice equals the sum of the amounts of the source orders (4)
+    execute("Sections.change", "activeSection=1"); // Changes to the orders tab of invoice
     assertCollectionRowCount("orders", 2);// The new invoice has 2 associated orders (5)
-    assertValueInCollection("orders", 0, 0, "2010"); // and they should be the correct
-    assertValueInCollection("orders", 0, 1, "9"); // ones
-    assertValueInCollection("orders", 1, 0, "2010");
-    assertValueInCollection("orders", 1, 1, "10");
+    assertValueInCollection("orders", 0, 0, "2020"); // and they should be the correct 
+    assertValueInCollection("orders", 0, 1, "7"); // ones
+    assertValueInCollection("orders", 1, 0, "2020");
+    assertValueInCollection("orders", 1, 1, "8");
 
-    assertAction("CurrentInvoiceEdition.save"); // The Save (6)
-    assertAction("CurrentInvoiceEdition.return"); // and Return buttons (6)
+    assertAction("InvoiceEdition.save"); // The SAVE (6)
+    assertAction("InvoiceEdition.close"); // and CLOSE buttons (6)
 
     checkRowCollection("orders", 0); // We select the 2 orders
     checkRowCollection("orders", 1);
@@ -885,68 +889,73 @@ import com.yourcompany.invoicing.model.*;
         "viewObject=xava_view_section1_orders");// repeat this test using the same orders
     assertNoErrors();
 
-    execute("CurrentInvoiceEdition.return"); // Returns to the orders list (7)
-    assertDocumentInList("2010", "9"); // Asserts that we are really in orders list
-    assertDocumentInList("2010", "10");
+    execute("InvoiceEdition.close"); // Closes the dialog and returns to the orders list (7)
+    assertDocumentInList("2020", "7"); // Asserts that we are really in orders list
+    assertDocumentInList("2020", "8");
 }
-</code></pre> TMP ME QUEDÉ POR AQUÍ, HE DE ADAPTAR EL CÓDIGO DE ARRIBA. This
-      test checks two orders (1) and clicks the 'Create invoice from selected
-      orders' button (2). Then it verifies that a new invoice is created with
-      the correct number of lines (3), base amount (4) and list of orders (5).
-      Furthermore the test verifies that the 'Save' and 'Return' actions are
+</code></pre> This test checks two orders (1) and clicks the CREATE INVOICE FROM
+      SELECTED ORDERS (2). Then it verifies that a new invoice is created with
+      the correct number of lines (3), total amount (4) and list of orders (5).
+      Furthermore the test verifies that the SAVE and CLOSE actions are
       available (6) and uses the latter for returning to the orders list (7).<br>
-      We use getDocumentRowInList() and assertDocumentInList(), methods from
-      CommercialDocumentTest base class. They were originally defined as
-      private, therefore we must redefine them as protected to use them from
-      OrderTest. Edit CommercialDocumentTest and make the next changes:
+      We use <i>getDocumentRowInList()</i> and <i>assertDocumentInList()</i>,
+      methods from <i>CommercialDocumentTest</i> base class. They were
+      originally defined as private, therefore we must redefine them as
+      protected to use them from <i>OrderTest</i>. Edit <i>CommercialDocumentTest</i>
+      and make the next changes:
       <pre><code class="java">// private void assertDocumentInList(String year, String number) ...
 protected void assertDocumentInList(String year, String number) ...
 
 // private int getDocumentRowInList(String year, String number) ...
 protected int getDocumentRowInList(String year, String number) ...
-</code></pre> The only remaining detail is the assertOrder() method that we'll
-      see in the next section.
+</code></pre> The only remaining detail is the <i>assertOrder()</i> method that
+      we'll see in the next section.
       <h3><a name="asserting-test-data"></a>Asserting test data</h3>
-      In section 3.5 (lesson 3) you learned how to use data existing in the
-      database for your tests. Obviously, if your database is accidentally
-      altered, your test, albeit correct, will not pass. So, asserting the
-      database values before running a test that relies on them is a good
-      practice. In our example we do this by calling assertOrder() at the
-      beginning:
+      In the lesson 3 (Automated testing) you learned how to use data existing
+      in the database for your tests. Obviously, if your database is
+      accidentally altered, your test, albeit correct, will not pass. So,
+      asserting the database values before running a test that relies on them is
+      a good practice. In our example we do this by calling <i>assertOrder()</i>
+      at the beginning:
       <pre><code class="java">private void assertOrder(
-    int year, int number, int detailsCount, int baseAmount)
+    int year, int number, int detailsCount, String totalAmount)
 {
     Order order = findOrder("year = " + year + " and number=" + number);
     assertEquals("To run this test the order " +
         order + " must have " + detailsCount + " details",
         detailsCount, order.getDetails().size());
     assertTrue("To run this test the order " +
-        order + " must have " + baseAmount + " as base amount",
-        order.getBaseAmount().compareTo(new BigDecimal(baseAmount)) == 0);
+        order + " must have " + totalAmount + " as total amount",
+        order.getTotalAmount().compareTo(new BigDecimal(totalAmount)) == 0);
+    assertTrue("To run this test the order " + order + " must be delivered",
+        order.isDelivered());        
 }
-</code></pre> This method finds an order and verifies its details count and base
-      amount. Using this method has the advantage that if the required orders
-      for the test are not in the database with the correct values you get a
-      precise message. Thus, you will not waste time figuring out what is wrong.
-      This is especially useful if the test is not performed by the original
-      developer.
+</code></pre> Also add the next import at beginning of <i>OrderTest</i>:
+      <pre><code class="java">import java.math.*;
+</code></pre> This method finds an order and verifies its details count and
+      total amount. Using this method has the advantage that if the required
+      orders for the test are not in the database with the correct values you
+      get a precise message. Thus, you will not waste time figuring out what is
+      wrong. This is especially useful if the test is not performed by the
+      original developer.
       <h3><a name="testing-exceptional-cases"></a>Testing exceptional cases</h3>
       Given that the action for creating the invoice is hidden if the order is
       not ready to be invoiced, we cannot test the code from detail mode we
-      wrote in section 8.1.5 for handling exceptional cases. In list mode
-      however, the user still has the option of choosing any order for
-      invoicing. Therefore, we will create the invoice for verifying the correct
-      behavior in exceptional cases from list mode. This is the code for
-      OrderTest:
+      wrote for handling exceptional cases. In list mode however, the user still
+      has the option of choosing any order for invoicing. Therefore, we will
+      create the invoice for verifying the correct behavior in exceptional cases
+      from list mode. This is the code for <i> OrderTest</i>:
       <pre><code class="java">public void testCreateInvoiceFromOrderExceptions() throws Exception {
+    login("admin", "admin");      
     assertCreateInvoiceFromOrderException( // Verifies that when the order already has (1)
-        "delivered = true and invoice &lt;&gt; null",// an invoice the correct error is produced
-        "Impossible to create invoice: the order already has an invoice"
+        "delivered = true and invoice &lt;&gt; null", // an invoice the correct error is produced
+        "Impossible to execute Create invoice from selected orders action: " +
+            "The order already has an invoice"
     );
-	
     assertCreateInvoiceFromOrderException( // Verifies that when the order is not (2)
-        "delivered = false and invoice = null",// delivered the correct error is produced
-        "Impossible to create invoice: the order is not delivered yet"
+        "delivered = false and invoice = null", // delivered the correct error is produced
+        "Impossible to execute Create invoice from selected orders action: " +
+            "The order is not delivered yet"
     );
 }
 
@@ -966,10 +975,11 @@ private void assertCreateInvoiceFromOrderException(
 </code></pre> The test verifies that the message is the correct one when trying
       to create an invoice from an order that already has an invoice (1), and
       also from an order not delivered yet (2). To do these verifications it
-      calls the method assertCreateInvoiceFromOrderException(). This method
-      finds an Order entity using the condition (3), locates the row where the
-      entity is displayed (4) and checks it (5). Afterward, the test executes
-      the action (6) and asserts that the expected message is shown (7).
+      calls the method <i>assertCreateInvoiceFromOrderException()</i>. This
+      method finds an <i>Order</i> entity using the condition (3), locates the
+      row where the entity is displayed (4) and checks it (5). Afterward, the
+      test executes the action (6) and asserts that the expected message is
+      shown (7).
       <h2><a name="summary"></a>Summary</h2>
       The salt of your application comes from the actions and entity methods.
       Thanks to them you can convert a simple data management application into a
@@ -978,8 +988,7 @@ private void assertCreateInvoiceFromOrderException(
       You have learned how to create instance and static methods for business
       logic, and how to call them from actions in detail and list mode. Along
       the way you also saw how to hide and show actions, use exceptions,
-      validating from actions, change to another module and how to test all
-      this.<br>
+      validating from actions, show dialogs and how to test all this.<br>
       We still have many interesting things to learn, in the next lesson for
       example we are going to refine the behavior of references and collections.<br>
       <br>

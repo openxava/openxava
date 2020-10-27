@@ -89,14 +89,13 @@
         negocio desde el modo detalle</h2>
       Empezaremos con el caso más simple: un botón en modo detalle para ejecutar
       cierta lógica. En este caso para crear la factura desde un pedido:<br>
-      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
-
+      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
         title="business-logic-behavior_es010.png"><br>
       Aquí se muestra como esta nueva acción coge el pedido actual y crea una
       factura a partir de él. Simplemente copia todos los datos del pedido a la
       nueva factura, incluyendo las líneas de detalle. Se muestra un mensaje y
-      la pestaña 'Factura' del pedido visualizará la factura recién creada.
-      Veamos como codificar este comportamiento.
+      la pestaña FACTURA del pedido visualizará la factura recién creada. Veamos
+      como codificar este comportamiento.
       <h3><a name="crear-una-accion-para-ejecutar-logica-personalizada"></a>Crear
         una acción para ejecutar lógica personalizada</h3>
       Como ya sabes el primer paso para tener una acción personalizada en tu
@@ -509,8 +508,7 @@ public class ShowHideCreateInvoiceAction
       una acción en el modo lista para crear una nueva factura automáticamente a
       partir de varios pedidos seleccionados en la lista. La figura 8.2 muestra
       la forma en que queremos que esta acción funcione.<br>
-      <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
-
+      <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
         title="business-logic-behavior_es020.png"><br>
       La figura 8.2 muestra como esta acción de lista coge los pedidos
       seleccionados y crea una factura a partir de ellos. Simplemente copia los
@@ -678,8 +676,7 @@ invoice
       factura, es decir sin modo lista y sin las típicas acciones CRUD. De esta
       forma podemos cambiar a este módulo después de crear la factura para
       editarla. La figura 8.3 muestra el comportamiento deseado.<br>
-      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
-
+      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
         title="business-logic-behavior_es030.png"><br>
       Veamos como implementar este comportamiento.
       <h3><a name="uso-de-ichangemoduleaction"></a>Uso de IChangeModuleAction</h3>
@@ -904,41 +901,33 @@ public class CreateInvoiceFromSelectedOrdersAction ... {
 </code></pre> Extiende de SearchByViewKeyAction la cual es la acción estándar de
       OpenXava para buscar. SearchByViewKeyAction coge los campos clave de la
       vista, busca la entidad correspondiente, y rellena el resto de la vista a
-      partir de la
-      entidad. Por lo tanto, nosotros sólo hemos de llenar la vista con los
-      valores de la
-      clave antes de llamar a super.execute(). <br>
+      partir de la entidad. Por lo tanto, nosotros sólo hemos de llenar la vista
+      con los valores de la clave antes de llamar a super.execute(). <br>
       Puedes ver como usando currentInvoiceKey accedemos a los valores de la
-      clave almacenados ahí por CreateInvoiceFromSelectedOrdersAction. Has
-      visto como usar un objeto de sesión para compartir datos entre acciones,
-      incluso
+      clave almacenados ahí por CreateInvoiceFromSelectedOrdersAction. Has visto
+      como usar un objeto de sesión para compartir datos entre acciones, incluso
       si éstas son de módulos diferentes.<br>
       El trabajo está casi terminado. Puedes probar el módulo Order: escoge
-      varios
-      pedidos y pulsa en el botón 'Create invoice from selected orders'.
-      Entonces verás
-      la factura creada en un módulo de solo detalle. Tal como viste en la
-      anterior
-      figura 8.3.
+      varios pedidos y pulsa en el botón 'Create invoice from selected orders'.
+      Entonces verás la factura creada en un módulo de solo detalle. Tal como
+      viste en la anterior figura 8.3.
       <h2><a name="pruebas-junit"></a>Pruebas JUnit</h2>
       El código que hemos escrito en esta lección no estará completo hasta que
-      no
-      escribamos las pruebas. Recuerda, todo código nuevo tiene que tener su
+      no escribamos las pruebas. Recuerda, todo código nuevo tiene que tener su
       correspondiente código de prueba. Escribamos pues las pruebas para estas
-      dos
-      nuevas acciones.
+      dos nuevas acciones.
       <h3><a name="probar-la-accion-de-modo-detalle"></a>Probar la acción de
         modo detalle</h3>
-      Primero probaremos la acción Order.createInvoice, la acción para crear
-      una factura a partir del modo detalle del pedido visualizado. Recordamos
-      aquí como funciona este proceso:<br>
-      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
-
+      Primero probaremos la acción Order.createInvoice, la acción para crear una
+      factura a partir del modo detalle del pedido visualizado. Recordamos aquí
+      como funciona este proceso:<br>
+      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
         title="business-logic-behavior_es010.png"><br>
-      Ahora vamos a escribir un test para verificar que funciona justo de esta forma.
-Añade el método testCreateInvoiceFromOrder() a la clase
-OrderTest:
-<pre><code class="java">public void testCreateInvoiceFromOrder() throws Exception {
+      Ahora vamos a escribir un test para verificar que funciona justo de esta
+      forma.
+      Añade el método testCreateInvoiceFromOrder() a la clase
+      OrderTest:
+      <pre><code class="java">public void testCreateInvoiceFromOrder() throws Exception {
     // Buscar el pedido
     searchOrderSusceptibleToBeInvoiced(); // Busca un pedido  
     assertValue("delivered", "true"); // El pedido está entregado
@@ -968,22 +957,26 @@ OrderTest:
     execute("CRUD.save");
     assertNoErrors();
 }
-</code></pre>
-      Esta prueba pulsa el botón para ejecutar la acción Order.createInvoice (1),
-entonces verifica que una factura ha sido creada, está siendo visualizada en la
-pestaña de factura (2) y tiene la misma cantidad de líneas de detalle que el pedido
-actual (4). También verifica que se ha generado el mensaje de confirmación
-correcto (3).<br>
-      Para ejecutarla es necesario escoger un pedido susceptible de ser facturado.
-Esto se hace en el método searchOrderSusceptibleToBeInvoiced() que
-vamos a examinar en la siguiente sección.
-      
-   <h3><a name="buscar-una-entidad-para-la-prueba-usando-el-modo-lista-y-jpa"></a>Buscar una entidad para la prueba usando el modo lista y JPA</h3>   
-   Para seleccionar un pedido adecuado para nuestra prueba usaremos JPA para
-determinar el año y número de ese pedido, y entonces usaremos el modo lista
-para seleccionar este pedido y editarlo en modo detalle. Aquí 
-los métodos para implementar esto:
-<pre><code class="java">private void searchOrderSusceptibleToBeInvoiced() throws Exception {
+</code></pre> Esta prueba pulsa el botón para ejecutar la acción
+      Order.createInvoice (1),
+      entonces verifica que una factura ha sido creada, está siendo visualizada
+      en la
+      pestaña de factura (2) y tiene la misma cantidad de líneas de detalle que
+      el pedido
+      actual (4). También verifica que se ha generado el mensaje de confirmación
+      correcto (3).<br>
+      Para ejecutarla es necesario escoger un pedido susceptible de ser
+      facturado.
+      Esto se hace en el método searchOrderSusceptibleToBeInvoiced() que
+      vamos a examinar en la siguiente sección.
+      <h3><a name="buscar-una-entidad-para-la-prueba-usando-el-modo-lista-y-jpa"></a>Buscar
+        una entidad para la prueba usando el modo lista y JPA</h3>
+      Para seleccionar un pedido adecuado para nuestra prueba usaremos JPA para
+      determinar el año y número de ese pedido, y entonces usaremos el modo
+      lista
+      para seleccionar este pedido y editarlo en modo detalle. Aquí los métodos
+      para implementar esto:
+      <pre><code class="java">private void searchOrderSusceptibleToBeInvoiced() throws Exception {
     searchOrderUsingList("o.delivered = true and o.invoice = null"); // Envía la condición,
 }                            // en este caso buscamos por un pedido entregado y sin factura
 
@@ -1009,22 +1002,25 @@ private Order findOrder(String condition) {
     }
     return (Order) orders.get(0);
 }
-</code></pre>
-      El método searchOrderSusceptibleToBeInvoiced() simplemente llama a
-un método más genérico, searchOrderUsingList(), para buscar una entidad
-por una condición. El método searchOrderUsingList() obtiene la entidad
-Order mediante findOrder(), entonces usa la lista para filtrar por el año y el
-número a partir de este Order, yendo a modo detalle al finalizar. El método
-findOrder() usa JPA simple y llano para buscar.<br>
-      Como puedes ver, combinar el modo lista con JPA es una herramienta muy útil
-en ciertas circunstancias. Usaremos los métodos searchOrderUsingList() y
-findOrder() en las siguientes pruebas.
-      
-      <h3><a name="probar-que-la-accion-se-oculta-cuando-no-aplica"></a>Probar que la acción se oculta cuando no aplica</h3>   
+</code></pre> El método searchOrderSusceptibleToBeInvoiced() simplemente llama a
+      un método más genérico, searchOrderUsingList(), para buscar una entidad
+      por una condición. El método searchOrderUsingList() obtiene la entidad
+      Order mediante findOrder(), entonces usa la lista para filtrar por el año
+      y el
+      número a partir de este Order, yendo a modo detalle al finalizar. El
+      método
+      findOrder() usa JPA simple y llano para buscar.<br>
+      Como puedes ver, combinar el modo lista con JPA es una herramienta muy
+      útil
+      en ciertas circunstancias. Usaremos los métodos searchOrderUsingList() y
+      findOrder() en las siguientes pruebas.
+      <h3><a name="probar-que-la-accion-se-oculta-cuando-no-aplica"></a>Probar
+        que la acción se oculta cuando no aplica</h3>
       Recuerda que refinamos el módulo Order en la sección 8.1.7 para que
-mostrara la acción para crear la factura solo cuando el pedido visualizado fuese
-susceptible de ser facturado. Éste es el método de prueba para
-este caso:
+      mostrara la acción para crear la factura solo cuando el pedido visualizado
+      fuese
+      susceptible de ser facturado. Éste es el método de prueba para
+      este caso:
       <pre><code class="java">public void testHidesCreateInvoiceFromOrderWhenNotApplicable()
     throws Exception
 {
@@ -1038,25 +1034,30 @@ este caso:
     execute("CRUD.new"); // Si el pedido todavía no está grabado
     assertNoAction("Order.createInvoice"); // no puede ser facturado
 }
-</code></pre>
-  Probamos tres casos en los que el botón para crear la factura no tiene que estar
-presente. Fíjate en el uso de assertNoAction() para preguntar si el vínculo o
-botón para una acción está presente en la interfaz de usuario. Aquí estamos
-reutilizando el método searchOrderUsingList() desarrollado en la sección
-anterior.<br>
-      Ya hemos probado que el botón está presente cuando el pedido es adecuado en
-la prueba testCreateInvoiceFromOrder(), porque execute() falla si la acción
-no está en la interfaz de usuario.
-      
-      <h3><a name="probar-la-accion-de-modo-lista"></a>Probar la acción de modo lista</h3>  
+</code></pre> Probamos tres casos en los que el botón para crear la factura no
+      tiene que estar
+      presente. Fíjate en el uso de assertNoAction() para preguntar si el
+      vínculo o
+      botón para una acción está presente en la interfaz de usuario. Aquí
+      estamos
+      reutilizando el método searchOrderUsingList() desarrollado en la sección
+      anterior.<br>
+      Ya hemos probado que el botón está presente cuando el pedido es adecuado
+      en
+      la prueba testCreateInvoiceFromOrder(), porque execute() falla si la
+      acción
+      no está en la interfaz de usuario.
+      <h3><a name="probar-la-accion-de-modo-lista"></a>Probar la acción de modo
+        lista</h3>
       Ahora probaremos Order.createInvoiceFromSelectedOrders, la acción
-que crea una factura desde varios pedidos en modo lista (figura 8.3).<br>
-   <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
-        title="business-logic-behavior_es030.png"><br>  
-      Escribamos una prueba para verificar que esto funciona justo de esta forma.
-Añade el método testCreateInvoiceFromSelectedOrders() a
-la clase OrderTest:
-<pre><code class="java">public void testCreateInvoiceFromSelectedOrders() throws Exception {
+      que crea una factura desde varios pedidos en modo lista (figura 8.3).<br>
+      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+        title="business-logic-behavior_es030.png"><br>
+      Escribamos una prueba para verificar que esto funciona justo de esta
+      forma.
+      Añade el método testCreateInvoiceFromSelectedOrders() a
+      la clase OrderTest:
+      <pre><code class="java">public void testCreateInvoiceFromSelectedOrders() throws Exception {
     assertOrder(2010, 9, 2, 362); // El pedido 2010/9 tiene 2 líneas y 362 de importe base
     assertOrder(2010, 10, 1, 126); // El pedido 2010/10 tiene 1 línea y 126 de importe base
 	
@@ -1098,33 +1099,41 @@ la clase OrderTest:
     assertDocumentInList("2010", "9"); // Confirma que estamos realmente
     assertDocumentInList("2010", "10"); // en la lista de pedidos
 }
-</code></pre>
-      Esta prueba marca dos pedidos (1) y pulsa en el botón 'Create invoice from
-selected orders' (2). Entonces verifica que se ha creado una nueva factura con el
-número correcto de líneas (3), importe base (4) y lista de pedidos (5). También
-verifica que las acciones 'Save' y 'Return' están disponibles (6) y usa el botón
-'Return' para volver a la lista de pedidos (7).<br>
+</code></pre> Esta prueba marca dos pedidos (1) y pulsa en el botón 'Create
+      invoice from
+      selected orders' (2). Entonces verifica que se ha creado una nueva factura
+      con el
+      número correcto de líneas (3), importe base (4) y lista de pedidos (5).
+      También
+      verifica que las acciones 'Save' y 'Return' están disponibles (6) y usa el
+      botón
+      'Return' para volver a la lista de pedidos (7).<br>
       Usamos getDocumentRowInList() y assertDocumentInList(), métodos de
-la clase base CommercialDocumentTest, que fueron definidos originalmente
-como privados, por lo tanto tenemos que redefinirlos como protegidos para poder
-utilizarlos desde OrderTest. Edita CommercialDocumentTest y haz los siguientes cambios:
+      la clase base CommercialDocumentTest, que fueron definidos originalmente
+      como privados, por lo tanto tenemos que redefinirlos como protegidos para
+      poder
+      utilizarlos desde OrderTest. Edita CommercialDocumentTest y haz los
+      siguientes cambios:
       <pre><code class="java">protected void assertDocumentInList(String year, String number) ... // protected instead of
 // private void assertDocumentInList(String year, String number) ... // private
 
 protected int getDocumentRowInList(String year, String number) ... // protected instead of
 // private int getDocumentRowInList(String year, String number) ... // private
-</code></pre>
-      El único detalle pendiente es el método assertOrder() que veremos en la
-      siguiente sección.
-      
-      <h3><a name="verificar-datos-de-prueba"></a>Verificar datos de prueba</h3> 
-      En la lección 6 aprendiste como confiar en datos existentes en la base de datos
-para tus pruebas. Obviamente, si tu base de datos se altera accidentalmente tus
-pruebas, aunque correctas, no pasaran. Por tanto, verificar los valores de la base
-de datos antes de ejecutar la prueba que confía en ellos es una buena práctica. En
-nuestro ejemplo lo hacemos llamando a assertOrder() al principio. Veamos el
-contenido de assertOrder():
-<pre><code class="java">private void assertOrder(
+</code></pre> El único detalle pendiente es el método assertOrder() que veremos
+      en la siguiente sección.
+      <h3><a name="verificar-datos-de-prueba"></a>Verificar datos de prueba</h3>
+      En la lección 6 aprendiste como confiar en datos existentes en la base de
+      datos
+      para tus pruebas. Obviamente, si tu base de datos se altera
+      accidentalmente tus
+      pruebas, aunque correctas, no pasaran. Por tanto, verificar los valores de
+      la base
+      de datos antes de ejecutar la prueba que confía en ellos es una buena
+      práctica. En
+      nuestro ejemplo lo hacemos llamando a assertOrder() al principio. Veamos
+      el
+      contenido de assertOrder():
+      <pre><code class="java">private void assertOrder(
     int year, int number, int detailsCount, int baseAmount)
 {
     Order order = findOrder("year = " + year + " and number=" + number);
@@ -1135,23 +1144,29 @@ contenido de assertOrder():
         order + " must have " + baseAmount + " as base amount",
         order.getBaseAmount().compareTo(new BigDecimal(baseAmount)) == 0);
 }
-</code></pre>      
-      Este método busca un pedido y verifica la cantidad de líneas y el importe base.
-Usar este método tiene la ventaja de que si los pedidos necesarios para la prueba
-no están en la base de datos con los valores correctos obtienes un mensaje
-preciso. Así, no derrocharás tu tiempo intentando adivinar que es lo que está mal.
-Esto es especialmente útil si la prueba no la está ejecutando el programador
-original.
-      
-      <h3><a name="probar-casos-excepcionales"></a>Probar casos excepcionales</h3> 
-      
-Dado que la acción para crear la factura se oculta si el pedido no está listo para
-ser facturado, no podemos probar el código para los casos excepcionales que
-escribimos en la sección 8.1.5 desde modo detalle. Sin embargo, en modo lista el
-usuario todavía tiene la opción de escoger cualquier pedido para facturar. Por
-tanto, intentaremos crear la factura desde la lista de pedidos para probar que los
-casos excepcionales se comportan correctamente. El listado 8.39 muestra el
-código de prueba en OrderTest.
+</code></pre> Este método busca un pedido y verifica la cantidad de líneas y el
+      importe base.
+      Usar este método tiene la ventaja de que si los pedidos necesarios para la
+      prueba
+      no están en la base de datos con los valores correctos obtienes un mensaje
+      preciso. Así, no derrocharás tu tiempo intentando adivinar que es lo que
+      está mal.
+      Esto es especialmente útil si la prueba no la está ejecutando el
+      programador
+      original.
+      <h3><a name="probar-casos-excepcionales"></a>Probar casos excepcionales</h3>
+      Dado que la acción para crear la factura se oculta si el pedido no está
+      listo para
+      ser facturado, no podemos probar el código para los casos excepcionales
+      que
+      escribimos en la sección 8.1.5 desde modo detalle. Sin embargo, en modo
+      lista el
+      usuario todavía tiene la opción de escoger cualquier pedido para facturar.
+      Por
+      tanto, intentaremos crear la factura desde la lista de pedidos para probar
+      que los
+      casos excepcionales se comportan correctamente. El listado 8.39 muestra el
+      código de prueba en OrderTest.
       <pre><code class="java">public void testCreateInvoiceFromOrderExceptions() throws Exception {
     assertCreateInvoiceFromOrderException( // Verifica que cuando el pedido ya tiene (1)
         "delivered = true and invoice &lt;&gt; null", // factura se produce el error correcto
@@ -1176,38 +1191,40 @@ private void assertCreateInvoiceFromOrderException(
     assertError(message); // ¿Se ha mostrado el mensaje esperado? (7)
     uncheckRow(row); // Desmarca la fila, así podemos llamar a este método otra vez
 }
-</code></pre>
-      La prueba verifica que el mensaje es el correcto cuando tratamos de crear una
-factura a partir de un pedido que ya tiene factura (1), y también desde un pedido
-no entregado todavía (2). Para hacer estas verificaciones llama al método
-assertCreateInvoiceFromOrderException(). Este método busca la entidad
-Order usando la condición (3), localiza la fila donde la entidad se está
-visualizando (4) y la marca (5). Después, la prueba ejecuta la acción (6) y verifica
-que el mensaje esperado se muestra (7).
-      
- 
-      <h3><a name="resumen"></a>Resumen</h3> 
-      
-      La sal de tu aplicación son las acciones y los métodos. Gracias a ellos puedes
-convertir una simple aplicación de gestión de datos en una herramienta útil. En
-este caso, por ejemplo, hemos provisto al usuario con una forma de crear
-automáticamente facturas desde pedidos.<br>
-      
+</code></pre> La prueba verifica que el mensaje es el correcto cuando tratamos
+      de crear una
+      factura a partir de un pedido que ya tiene factura (1), y también desde un
+      pedido
+      no entregado todavía (2). Para hacer estas verificaciones llama al método
+      assertCreateInvoiceFromOrderException(). Este método busca la entidad
+      Order usando la condición (3), localiza la fila donde la entidad se está
+      visualizando (4) y la marca (5). Después, la prueba ejecuta la acción (6)
+      y verifica
+      que el mensaje esperado se muestra (7).
+      <h3><a name="resumen"></a>Resumen</h3>
+      La sal de tu aplicación son las acciones y los métodos. Gracias a ellos
+      puedes
+      convertir una simple aplicación de gestión de datos en una herramienta
+      útil. En
+      este caso, por ejemplo, hemos provisto al usuario con una forma de crear
+      automáticamente facturas desde pedidos.<br>
       Has aprendido como crear métodos de lógica de negocio tanto estáticos como
-de instancia, y como llamarlos desde acciones de modo detalle y modo lista. Por
-el camino has visto como ocultar y mostrar acciones, usar excepciones, validar en
-las acciones, cambiar a otro módulo y cómo hacer las pruebas automáticas de
-todo esto.<br>
-      
-      Todavía nos quedan muchas cosas interesante por aprender, por ejemplo en la
-siguiente lección vamos a refinar el comportamiento de las referencias y
-colecciones.<br>
+      de instancia, y como llamarlos desde acciones de modo detalle y modo
+      lista. Por
+      el camino has visto como ocultar y mostrar acciones, usar excepciones,
+      validar en
+      las acciones, cambiar a otro módulo y cómo hacer las pruebas automáticas
+      de
+      todo esto.<br>
+      Todavía nos quedan muchas cosas interesante por aprender, por ejemplo en
+      la
+      siguiente lección vamos a refinar el comportamiento de las referencias y
+      colecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-refining-standard-behavior_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-refining-standard-behavior_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="references-collections_es.html">Ve a la
           lección 9</a></strong> </div>
