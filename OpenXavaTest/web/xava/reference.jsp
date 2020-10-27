@@ -24,6 +24,7 @@ viewObject = (viewObject == null || viewObject.equals(""))?"xava_view":viewObjec
 org.openxava.view.View view = (org.openxava.view.View) context.get(request, viewObject);
 String referenceKey = request.getParameter("referenceKey");
 MetaReference ref = (MetaReference) request.getAttribute(referenceKey);
+System.out.println("[reference.jsp] ref=" + ref.getName() + ", frame=" + frame + ", view.getMemberName()=" + view.getMemberName() + ", view.isFrame()=" + view.isFrame()); // tmp
 String refViewObject = request.getParameter("refViewObject");
 if (Is.emptyString(refViewObject)) refViewObject = viewObject; 
 String labelKey = "xava_label_" + referenceKey;
@@ -45,9 +46,24 @@ if (Is.empty(labelStyle)) labelStyle = XavaPreferences.getInstance().getDefaultL
 String label = ref.getLabel(request);
 %>
 
+<%-- tmp
 <% if (view.isFlowLayout()) { %> 
 <div class='<%=frame?"ox-flow-layout":""%>'>
 <% } %>
+--%>
+<%-- tmp ini --%>
+<%-- TMP ME QUEDÉ POR AQUÍ: LO DE ABAJO ARREGLA EL BUG. REVISAR CÓDIGO. AÑADIR TEST MANUAL --%>
+<% if (view.isFlowLayout()) { %>
+<%
+boolean noFrame = false;
+if (frame) {
+	org.openxava.view.View refView = view.getSubview(ref.getName());
+	noFrame = !refView.isFrame();
+} 
+%> 
+<div class='<%=noFrame?"":"ox-flow-layout"%>'>
+<% } %>
+<%-- tmp fin --%>
 
 <% if (!onlyEditor) { %>
 <%=preLabel%>
