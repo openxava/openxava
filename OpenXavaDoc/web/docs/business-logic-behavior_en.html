@@ -181,9 +181,9 @@ public class CreateInvoiceFromOrderAction
 ...
 
 // Add the next imports
+import java.util.*;
 import org.apache.commons.beanutils.*;
 import org.openxava.jpa.*;
-import java.util.*;
 
 ...
       
@@ -235,7 +235,8 @@ invoice.setDate(getDate());
 invoice.setDeleted(isDeleted());
 invoice.setCustomer(getCustomer());
 invoice.setVatPercentage(getVatPercentage());
-invoice.setAmount(getAmount());
+invoice.setVat(getVat());
+invoice.setTotalAmount(getTotalAmount());
 invoice.setRemarks(getRemarks());
 invoice.setDetails(getDetails());
 </code></pre> However, the main advantage of using BeanUtils is not to save some
@@ -273,12 +274,11 @@ public class CreateInvoiceException extends Exception { // Not RuntimeException
     throws CreateInvoiceException // An application exception (1)
 {
     if (this.invoice != null) { // If an invoice is already present we cannot create one
-        throw new CreateInvoiceException( // Allows an i18n id as argument
-            "order_already_has_invoice");
+        throw new CreateInvoiceException( 
+            "order_already_has_invoice"); // Allows an i18n id as argument
     }
     if (!isDelivered()) { // If the order is not delivered we cannot create the invoice
-        throw new CreateInvoiceException(
-            "order_is_not_delivered");
+        throw new CreateInvoiceException("order_is_not_delivered");
     }
     try {
         Invoice invoice = new Invoice(); 
@@ -299,17 +299,17 @@ public class CreateInvoiceException extends Exception { // Not RuntimeException
       a special but expected behavior of the method. An application exception is
       related to the method's business logic. You could create an application
       exception for every possible case, such as an <i>OrderAlreadyHasInvoiceException</i>
-      and an <i>InvoiceNotDeliveredException</i>. This enables you to handle
-      each case differently in the calling code. This is not needed in our case,
-      so we simply use our <i>CreateInvoiceException</i>, a generic application
+      and an <i>OrderNotDeliveredException</i>. This enables you to handle each
+      case differently in the calling code. This is not needed in our case, so
+      we simply use our <i>CreateInvoiceException</i>, a generic application
       exception for this method.<br>
       Additionally, we have to deal with unexpected problems (2). Unexpected
       problems can be system errors (database access, net or hardware problems)
-      or programmer errors (NullPointerException, IndexOutOfBoundsException,
-      etc). When we find any unexpected problem we throw a runtime exception. In
-      this instance we have thrown <i>SystemException</i>, a runtime exception
-      included in OpenXava for convenience, but you can throw any runtime
-      exception you want. <br>
+      or programmer errors (<i>NullPointerException</i>, <i>IndexOutOfBoundsException</i>,
+      etc). When we find any unexpected problem we throw a runtime exception
+      (3). In this instance we have thrown <i>SystemException</i>, a runtime
+      exception included in OpenXava for convenience, but you can throw any
+      runtime exception you want. <br>
       You do not need to modify the action code. If your action does not catch
       the exceptions, OpenXava does it automatically. It displays the messages
       from the application exceptions to the user, and, for the runtime
@@ -322,7 +322,7 @@ order_is_not_delivered=The order is not delivered yet
 impossible_create_invoice=Impossible to create invoice
 </code></pre> There is some debate in the developer community regarding the
       correct way of using exceptions in Java. The approach in this section is
-      the classic way to work with exceptions in the Java world.
+      the classic way to work with exceptions in the Java Enterprise world.
       <h3><a name="validation-from-action"></a>Validation from action</h3>
       Usually the best place for validations is the model, i.e., the entities.
       However, sometimes it's necessary to put validation logic in the actions.
