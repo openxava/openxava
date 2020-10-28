@@ -38,6 +38,25 @@ import org.openxava.test.validators.*;
 )	
 
 @Views({
+	// tmp ini
+	@View( members = 
+		"number;" +
+		"	subfamilyNumber;" +
+		"data1 [" +		
+		"	description;" +
+		"	familyNumber;" +
+		
+		"]," +
+		"data2 [" +
+		"	unitPrice;" +
+		"	unitPriceInPesetas;" +		
+		"]" +
+		
+		"warehouseKey;" +
+		"remarks;" +
+		"photos;"
+	),
+	// tmp fin
 	@View( name = "WithSection" , members = 
 		"number;" +
 		"data {" +		

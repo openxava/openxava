@@ -275,8 +275,19 @@ if (!onlySections) {	// IF Not Only Sections
 				String viewName = viewObject + "_" + group.getName();
 				View subview = view.getGroupView(group.getName());			
 				context.put(request, viewName, subview);
+				System.out.println("[details.jsp] group.getName()=" + group.getName()); // tmp
+				System.out.println("[details.jsp] frameWidth=" + frameWidth); // tmp
+				System.out.println("[details.jsp] view.isVariousMembersInSameLine(group)=" + view.isVariousMembersInSameLine(group)); // tmp
+				System.out.println("[details.jsp] view.isFirstInLine(group)=" + view.isFirstInLine(group)); // tmp
+				if (view.isFlowLayout() && view.isVariousMembersInSameLine(group)) frameWidth = 50; // tmp
+				
 %>
-			<%=closeDivForFrame(view)%> 
+			<%=closeDivForFrame(view)%>
+			<%-- tmp ini --%>
+			<% if (view.isFlowLayout() && view.isVariousMembersInSameLine(group) && view.isFirstInLine(group)) { %>
+			<div class="ox-flow-layout-new-line"/>
+			<% } %>
+			<%-- tmp fin --%> 
 			<%=style.getFrameHeaderStartDecoration(frameWidth)%>
 			<%=style.getFrameTitleStartDecoration()%>
 			<% String labelId = Ids.decorate(request, "label_" + view.getPropertyPrefix() + group.getName()); 

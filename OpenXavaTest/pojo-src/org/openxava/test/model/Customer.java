@@ -28,7 +28,8 @@ import org.openxava.test.actions.*;
 	"seller [" +  
 	"	seller; " +
 	"	relationWithSeller;" +
-	"]" +
+	// tmp "]" +
+	"]," + // tmp
 	"alternateSeller;"  +		
 	"deliveryPlaces;" +
 	"remarks" 
@@ -274,7 +275,8 @@ public class Customer implements IWithName {
 	@Stereotype("EMAIL_LIST") @DisplaySize(50)  
 	private String additionalEmails;
 	
-	@Stereotype("WEBURL") @Column(length=100)
+	@Stereotype("WEBURL") // tmp  @Column(length=100)
+	 @Column(length=10) // tmp
 	@Editor(forViews="WithSection", value="CustomWebURL") 
 	private String website;
 		

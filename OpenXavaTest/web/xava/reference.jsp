@@ -54,14 +54,14 @@ String label = ref.getLabel(request);
 <%-- tmp ini --%>
 <%-- TMP ME QUEDÉ POR AQUÍ: LO DE ABAJO ARREGLA EL BUG. REVISAR CÓDIGO. AÑADIR TEST MANUAL --%>
 <% if (view.isFlowLayout()) { %>
-<%
-boolean noFrame = false;
-if (frame) {
-	org.openxava.view.View refView = view.getSubview(ref.getName());
-	noFrame = !refView.isFrame();
-} 
-%> 
-<div class='<%=noFrame?"":"ox-flow-layout"%>'>
+    <%
+	boolean noFrame = false;
+	if (frame) {
+		org.openxava.view.View refView = view.getSubview(ref.getName());
+		noFrame = !refView.isFrame();
+	} 
+	%> 
+	<div class='<%=noFrame?"":"ox-flow-layout"%>'>
 <% } %>
 <%-- tmp fin --%>
 

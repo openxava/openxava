@@ -91,7 +91,8 @@ public class XavaStyle extends Style {
 			r.append(" style='width: calc(100% - 15px);'");			
 		}
 		else if (width == 50) { // Two collections in a row
-			r.append(" style='overflow: auto; display: block; width: calc(50% - 29px);'"); 
+			// tmp r.append(" style='overflow: auto; display: block; width: calc(50% - 29px);'"); 
+			r.append(" style='overflow: auto; display: block; width: calc(50% - 38px);'"); // tmp
 		}
 		r.append(getFrameSpacing());
 		r.append(">");
