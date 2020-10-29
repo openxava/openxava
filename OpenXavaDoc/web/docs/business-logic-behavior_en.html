@@ -416,7 +416,7 @@ public class ShowHideCreateInvoiceAction
 	
     private boolean isDelivered() {
         Boolean delivered = (Boolean)
-        getView().getValue("delivered"); // We read the value from the view
+            getView().getValue("delivered"); // We read the value from the view
         return delivered == null?false:delivered;
     }
 
@@ -600,13 +600,13 @@ public class CreateInvoiceFromSelectedOrdersAction
       orders. Moreover, we set the new <i>Invoice</i> as the invoice for the
       orders of the collection.<br>
       If invoice is null at the end of the process it's because the orders
-      collection is empty. In this case we throw a <i>CreateException</i>.
+      collection is empty. In this case we throw a <i>CreateInvoiceException</i>.
       Since the action does not catch the exceptions, OpenXava shows the
       exception message to the user. This is fine. If the user does not check
       any orders and he clicks on the button for creating an invoice, then this
       error message will be shown to him.<br>
-      Remember to add the messages text to the Invoicing-messages_en.properties
-      file in i18n folder:
+      Remember to add the message text to the <i>Invoicing-messages_en.properties</i>
+      file in <i>i18n</i> folder:
       <pre><code class="properties">orders_not_specified=Orders not specified
 </code></pre> These are not the only errors the user can get. All previously
       written validations for <i>Invoice</i> and <i>Order</i> still apply
@@ -685,8 +685,8 @@ public class SaveInvoiceAction
       method to just call to the standard logic, with <i>super.execute()</i>
       (1), and then to close the dialog with <i>closeDialog()</i> (2). In this
       way, when the user clicks on SAVE, the invoice data is saved and the
-      application returns to the list of orders, ready to continue the creation
-      of invoices from orders.<br>
+      dialog is closed, so the application returns to the list of orders, ready
+      to continue the creation of invoices from orders.<br>
       For the CLOSE button we use the <i>CancelAction</i>, an action included
       in OpenXava that simply closes the dialog.
       <h3><a name="closing-dialog"></a>Plain view instead of dialog</h3>
