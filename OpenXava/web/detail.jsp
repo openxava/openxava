@@ -275,8 +275,13 @@ if (!onlySections) {	// IF Not Only Sections
 				String viewName = viewObject + "_" + group.getName();
 				View subview = view.getGroupView(group.getName());			
 				context.put(request, viewName, subview);
+				if (view.isFlowLayout() && view.isVariousMembersInSameLine(group)) frameWidth = 50; 
+				
 %>
-			<%=closeDivForFrame(view)%> 
+			<%=closeDivForFrame(view)%>
+			<% if (view.isFlowLayout() && view.isVariousMembersInSameLine(group) && view.isFirstInLine(group)) { %>
+			<div class="ox-flow-layout-new-line"/>
+			<% } %>
 			<%=style.getFrameHeaderStartDecoration(frameWidth)%>
 			<%=style.getFrameTitleStartDecoration()%>
 			<% String labelId = Ids.decorate(request, "label_" + view.getPropertyPrefix() + group.getName()); 

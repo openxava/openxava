@@ -646,7 +646,7 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	margin-top: 5px;
 }
 
-.ox-date-calendar input, .ox-web-url input { /* tmp .ox-web-url input */ 
+.ox-date-calendar input, .ox-web-url input {  
 	padding-right: 25px;
 }
 
@@ -1962,14 +1962,6 @@ i.ox-sort-indicator2 {
 .ox-descriptions-list i:hover {
 	color: var(--descriptions-list-handle-hover-color);
 }
-
-/* tmp
-TMP ME QUEDÉ POR AQUÍ: ESTO LO ARREGLA. FALTA PROBAR CON FIREFOX, EDGE E IE. PROBAR SIN FLOWLAYOUT EN TODOS LOS NAVEGADORES. PROBAR CON LONGITUD MÁXIMA
-TMP DESPUÉS HE DE HACER UNA PRUEBA MANUALE PARA TODOS ESTOS BUGS
-.ox-web-url { 
-	margin-right: -20px;
-}
-*/
 
 .ox-element-collection .ox-descriptions-list i {
 	top: -3px; 

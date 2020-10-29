@@ -38,26 +38,7 @@ import org.openxava.test.validators.*;
 )	
 
 @Views({
-	// tmp ini
-	@View( members = 
-		"number;" +
-		"	subfamilyNumber;" +
-		"data1 [" +		
-		"	description;" +
-		"	familyNumber;" +
-		
-		"]," +
-		"data2 [" +
-		"	unitPrice;" +
-		"	unitPriceInPesetas;" +		
-		"]" +
-		
-		"warehouseKey;" +
-		"remarks;" +
-		"photos;"
-	),
-	// tmp fin
-	@View( name = "WithSection" , members = 
+	@View( name = "WithSection", members = 
 		"number;" +
 		"data {" +		
 		"	description;" +
@@ -71,6 +52,22 @@ import org.openxava.test.validators.*;
 		"	]" +
 		"	remarks" +		
 		"}"		
+	),
+	@View( name = "WithGroups", members = // Don't change this layout, it's used in a manual test 
+		"number;" +
+		"subfamilyNumber;" +
+		"data1 [" +		
+		"	description;" +
+		"	familyNumber;" +
+		
+		"]," +
+		"data2 [" +
+		"	unitPrice;" +
+		"	unitPriceInPesetas;" +		
+		"]" +
+		"warehouseKey;" +
+		"remarks;" +
+		"photos;"
 	),
 	@View( name="Simple", members = "number, description, unitPrice" ),
 	@View( name="EditPrice", members = "number, description, unitPrice"),

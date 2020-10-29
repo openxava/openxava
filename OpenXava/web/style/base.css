@@ -646,7 +646,7 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	margin-top: 5px;
 }
 
-.ox-date-calendar input {
+.ox-date-calendar input, .ox-web-url input {  
 	padding-right: 25px;
 }
 
@@ -1961,10 +1961,6 @@ i.ox-sort-indicator2 {
 
 .ox-descriptions-list i:hover {
 	color: var(--descriptions-list-handle-hover-color);
-}
-
-.ox-web-url { 
-	margin-right: -20px;
 }
 
 .ox-element-collection .ox-descriptions-list i {

@@ -46,9 +46,7 @@
 	display: inline-block;
 }
 
-/* tmp ini */
 .ox-flow-layout-new-line {
 	flex-basis: 100%;
     height: 0;
 }
-/* tmp fin */
