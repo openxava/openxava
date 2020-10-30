@@ -1071,6 +1071,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertExists("year");
 		
 		execute("Mode.list");
+		/* tmp
 		assertLabelInList(5, "Details count");
 		execute("List.changeColumnName", "property=detailsCount");
 		assertDialog();
@@ -1078,6 +1079,16 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setValue("name", "Number of lines");
 		execute("ChangeColumnName.change");
 		assertLabelInList(5, "Number of lines");
+		*/
+		// tmp ini
+		assertLabelInList(9, "Seller discount");
+		execute("List.changeColumnName", "property=sellerDiscount");
+		assertDialog();
+		assertValue("name", "Seller discount");
+		setValue("name", "Discount for seller ");
+		execute("ChangeColumnName.change");
+		assertLabelInList(9, "Discount for seller");
+		// tmp fin
 	}
 	
 	private void doTestCustomizeList_storePreferences() throws Exception {
@@ -1088,14 +1099,16 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInList(2, "Date");
 		assertLabelInList(3, "Amounts sum");
 		assertLabelInList(4, "V.A.T.");
-		assertLabelInList(5, "Number of lines"); 
+		// tmp assertLabelInList(5, "Number of lines"); 
+		assertLabelInList(5, "Details count"); // tmp
 		assertLabelInList(6, "Paid");
 		assertLabelInList(7, "Importance");
 		assertLabelInList(8, "Customer"); 
-		assertLabelInList(9, "Seller discount"); 
+		// tmp assertLabelInList(9, "Seller discount"); 
+		assertLabelInList(9, "Discount for seller");
 				
-		
-		// Restoring, for next time that test execute
+		/* tmp
+		// Restoring, for next time that test execute		
 		removeColumn(9); 
 		removeColumn(8);
 		
@@ -1112,7 +1125,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInList(4, "V.A.T.");
 		assertLabelInList(5, "Details count");
 		assertLabelInList(6, "Paid");
-		assertLabelInList(7, "Importance");		
+		assertLabelInList(7, "Importance");
+		*/		
 	}	
 	
 	public void testGenerateExcel() throws Exception {
