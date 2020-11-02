@@ -26,8 +26,7 @@
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
         Anotaciones</a>
-      <hr>TMP FALTA AÑADIR EN DATA DE LECCION 7 DOS PEDIDOS ENTREGADOS SIN
-      FACTURA
+      <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#Leccion-7-Refinar-el-comportamiento-predefinido">Lección
@@ -74,15 +73,12 @@
             el comportamiento personalizado para borrar</a></div>
         <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-varios-modulos-en-el-mismo-metodo-de-prueba">Probar
             varios módulos en el mismo método de prueba</a></div>
-        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
-      </div>
-      Y PARA EL TEST&nbsp; testOcultaCrearFacturaDesdePedidoCuandoNoAplicable()
-      OpenXava no es simplemente un marco de trabajo para hacer mantenimientos
-      (altas, bajas, modificaciones y consultas), más bien está concebido para
-      desarrollar aplicaciones de gestión plenamente funcionales. Hasta ahora
-      hemos aprendido como crear y refinar la aplicación para manejar los datos.
-      Ahora vamos a posibilitar al usuario la ejecución de lógica de negocio
-      específica. <br>
+        OpenXava no es simplemente un marco de trabajo para hacer mantenimientos
+        (altas, bajas, modificaciones y consultas), más bien está concebido para
+        desarrollar aplicaciones de gestión plenamente funcionales. Hasta ahora
+        hemos aprendido como crear y refinar la aplicación para manejar los
+        datos. Ahora vamos a posibilitar al usuario la ejecución de lógica de
+        negocio específica. </div>
       En esta lección vamos a ver como escribir lógica de negocio en el modelo y
       llamar a esta lógica desde acciones personalizadas. Así podrás transformar
       tu aplicación de gestión de datos en una herramienta útil para el trabajo
@@ -91,8 +87,7 @@
         negocio desde el modo detalle</h2>
       Empezaremos con el caso más simple: un botón en modo detalle para ejecutar
       cierta lógica. En este caso para crear la factura desde un pedido:<br>
-      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
-
+      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
         title="business-logic-behavior_es010.png"><br>
       Aquí se muestra como esta nueva acción coge el pedido actual y crea una
       factura a partir de él. Simplemente copia todos los datos del pedido a la
@@ -488,8 +483,7 @@ public class MostrarOcultarCrearFactura
       aplicar lógica a varios objetos a la vez. En nuestro caso, podemos añadir
       una acción en el modo lista para crear una nueva factura automáticamente a
       partir de varios pedidos seleccionados en la lista, de esta manera:<br>
-      <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
-
+      <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
         title="business-logic-behavior_es020.png"><br>
       Aquí se muestra como esta acción de lista coge los pedidos seleccionados y
       crea una factura a partir de ellos. Simplemente copia los datos del pedido
@@ -628,8 +622,7 @@ public class CrearFacturaDesdePedidosSeleccionados
       para el usuario ver y posiblemente editar la nueva factura. Una forma de
       conseguir esto es sacando un diálogo que permite ver y editar la recién
       creada factura. De esta forma:<br>
-      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
-
+      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
         title="business-logic-behavior_es030.png"><br>
       Veamos como implementar este comportamiento.
       <h3><a name="usar-showdialog"></a>Usar showDialog()</h3>
@@ -705,12 +698,10 @@ public class GrabarFactura
       <h3><a name="vista-plana-en-lugar-de-dialogo"></a>Vista plana en lugar de
         diálogo</h3>
       A veces en lugar de sacar un diálogo encima:<br>
-      <img src="files/business-logic-behavior_es040.png" alt="business-logic-behavior_es040.png"
-
+      <img src="files/business-logic-behavior_es040.png" alt="business-logic-behavior_es040.png"
         title="business-logic-behavior_es040.png"><br>
       Podriamos preferir reemplazar la vista actual por la nueva, así: <br>
-      <img src="files/business-logic-behavior_es050.png" alt="business-logic-behavior_es050.png"
-
+      <img src="files/business-logic-behavior_es050.png" alt="business-logic-behavior_es050.png"
         title="business-logic-behavior_es050.png"><br>
       Esto puede ser útil cuando la cantidad de información a mostrar es muy
       grande y en un diálogo queda mal. Usar una vista plana en vez de un
@@ -734,8 +725,7 @@ public class GrabarFactura
       Primero probaremos la acción <i>Pedido.crearFactura</i>, la acción para
       crear una factura a partir del modo detalle del pedido visualizado.
       Recordamos aquí como funciona este proceso:<br>
-      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
-
+      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
         title="business-logic-behavior_es010.png"><br>
       Ahora vamos a escribir la prueba para verificar que funciona justo de esta
       forma. Añade el método <i>testCrearFacturaDesdePedido()</i> a la clase <i>PruebaPedido</i>:
@@ -858,139 +848,145 @@ import com.tuempresa.facturacion.modelo.*;
       Ahora probaremos <i>Pedido.crearFacturaDesdePedidosSeleccionados</i>, la
       acción que crea una factura desde varios pedidos en modo lista. Recordemos
       su funcionamiento:<br>
-      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
-
+      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
         title="business-logic-behavior_es030.png"><br>
       Escribamos una prueba para verificar que esto funciona justo de esta
       forma. Añade el método <i>testCrearFacturaDesdePedidosSeleccionados()</i>
       a la clase <i> PruebaPedido</i>:
       <pre><code class="java">public void testCrearFacturaDesdePedidosSeleccionados() throws Exception {
-    assertOrder(2020, 6, 1, "22,99"); // El pedido 2020/6 tiene 1 línea y 22,99 de importe base
-    assertOrder(2010, 7, 2, "75,02"); // El pedido 2020/7 tiene 2 líneas y 75,02 de importe base
+    login("admin", "admin");
+    verificarPedido(2020, 6, 1, "22.99"); // El pedido 2020/6 tiene 1 línea y 22,99 de importe base
+    verificarPedido(2020, 7, 2, "75.02"); // El pedido 2020/7 tiene 2 líneas y 75,02 de importe base
 	
-    // TMP ME QUEDÉ POR AQUÍ
-    execute("List.orderBy", "property=number"); // Ordena la lista por número
+    execute("List.orderBy", "property=numero"); // Ordena la lista por número
     checkRow( // Marca la fila a partir del número de fila
-        getDocumentRowInList("2010", "9") // Obtiene la fila del año y número del pedido
-    );             // por tanto, esta línea marca la línea del pedido 2010/9 en la lista (1)
+        getFilaDocumentoEnLista("2020", "6") // Obtiene la fila del año y número del pedido
+    );             // por tanto, esta línea marca la línea del pedido 2020/6 en la lista (1)
     checkRow(
-        getDocumentRowInList("2010", "10")
-    ); // Marca el pedido 2010/10 en la lista (1)
-    execute("Order.createInvoiceFromSelectedOrders"); // Ejecuta la acción que
-                                                      // estamos probando (2)
-    String invoiceYear = getValue("year"); // Ahora estamos viendo el detalle de
-    String invoiceNumber = getValue("number"); // la factura recién creada
-    assertMessage("Invoice " + invoiceYear + "/" + invoiceNumber +
-        " created from orders: [2010/9, 2010/10]"); // El mensaje de confirmación
-    assertCollectionRowCount("details", 3); // Confirma que el número de líneas de la
+        getFilaDocumentoEnLista("2020", "7") // Marca el pedido 2010/10 en la lista (1)
+    ); 
+    execute("Pedido.crearFacturaDesdePedidosSeleccionados"); // Ejecuta la acción que
+                                                             // estamos probando (2)
+    String anyoFactura = getValue("anyo"); // Ahora estamos viendo el detalle de
+    String numeroFactura = getValue("numero"); // la factura recién creada
+    assertMessage("Factura " + anyoFactura + "/" + numeroFactura +
+        " creada desde pedidos: [2020/6, 2020/7]"); // El mensaje de confirmación
+    assertCollectionRowCount("detalles", 3); // Confirma que el número de líneas de la
                       // factura recién creada es la suma de la de los pedidos fuente (3)
-    assertValue("baseAmount", "488.00"); // Confirma que el importe base de la factura
+    assertValue("importeTotal", "98,01"); // Confirma que el importe base de la factura
                                // recién creada es la suma de la de los pedidos fuente (4)
     execute("Sections.change", "activeSection=1"); // Cambia a la pestaña de
                                                    // pedidos de la factura
-    assertCollectionRowCount("orders", 2); // La nueva factura tiene 2 pedidos (5)
-    assertValueInCollection("orders", 0, 0, "2010"); // y son los correctos
-    assertValueInCollection("orders", 0, 1, "9");
-    assertValueInCollection("orders", 1, 0, "2010");
-    assertValueInCollection("orders", 1, 1, "10");
+    assertCollectionRowCount("pedidos", 2); // La nueva factura tiene 2 pedidos (5)
+    assertValueInCollection("pedidos", 0, 0, "2020"); // y son los correctos
+    assertValueInCollection("pedidos", 0, 1, "6");
+    assertValueInCollection("pedidos", 1, 0, "2020");
+    assertValueInCollection("pedidos", 1, 1, "7");
 	
-    assertAction("CurrentInvoiceEdition.save"); // Los botones 'Save' (6)
-    assertAction("CurrentInvoiceEdition.return"); // y 'Return' (6)
+    assertAction("EdicionFactura.grabar"); // Los botones GRABAR (6)
+    assertAction("EdicionFactura.cerrar"); // y CERRAR (6)
 	
-    checkRowCollection("orders", 0); // Seleccionamos los 2 pedidos
-    checkRowCollection("orders", 1);
+    checkRowCollection("pedidos", 0); // Seleccionamos los 2 pedidos
+    checkRowCollection("pedidos", 1);
     execute("Collection.removeSelected", // y los borramos, para ejecutar esta prueba
-        "viewObject=xava_view_section1_orders"); // otra vez usando los mismo pedidos
+        "viewObject=xava_view_section1_pedidos"); // otra vez usando los mismo pedidos
     assertNoErrors();
 	
-    execute("CurrentInvoiceEdition.return"); // Vuelve a la lista de pedidos (7)
-    assertDocumentInList("2010", "9"); // Confirma que estamos realmente
-    assertDocumentInList("2010", "10"); // en la lista de pedidos
+    execute("EdicionFactura.cerrar"); // Vuelve a la lista de pedidos (7)
+    confirmarDocumentoEstaEnLista("2020", "6"); // Confirma que estamos realmente
+    confirmarDocumentoEstaEnLista("2020", "7"); // en la lista de pedidos
 }
-</code></pre> Esta prueba marca dos pedidos (1) y pulsa en el botón 'Create
-      invoice from selected orders' (2). Entonces verifica que se ha creado una
-      nueva factura con el número correcto de líneas (3), importe base (4) y
-      lista de pedidos (5). También verifica que las acciones 'Save' y 'Return'
-      están disponibles (6) y usa el botón 'Return' para volver a la lista de
-      pedidos (7).<br>
-      Usamos getDocumentRowInList() y assertDocumentInList(), métodos de la
-      clase base CommercialDocumentTest, que fueron definidos originalmente como
-      privados, por lo tanto tenemos que redefinirlos como protegidos para poder
-      utilizarlos desde OrderTest. Edita CommercialDocumentTest y haz los
-      siguientes cambios:
-      <pre><code class="java">protected void assertDocumentInList(String year, String number) ... // protected instead of
-// private void assertDocumentInList(String year, String number) ... // private
+</code></pre> Esta prueba marca dos pedidos (1) y pulsa en el botón CREAR
+      FACTURA DESDE LOS PEDIDOS SELECCIONADOS (2). Entonces verifica que se ha
+      creado una nueva factura con el número correcto de líneas (3), importe
+      total (4) y lista de pedidos (5). También verifica que las acciones GRABAR
+      y CERRAR están disponibles (6) y usa el botón CERRAR para volver a la
+      lista de pedidos (7).<br>
+      Usamos <i>getFilaDocumentoEnLista()</i> y <i>confirmarDocumentoEstaEnLista()</i>,
+      métodos de la clase base <i>PruebaDocumentoComercial</i>, que fueron
+      definidos originalmente como privados, por lo tanto tenemos que
+      redefinirlos como protegidos para poder utilizarlos desde <i>PruebaPedido</i>.
+      Edita <i>PruebaDocumentoComercial</i> y haz los siguientes cambios:
+      <pre><code class="java">protected void confirmarDocumentoEstaEnLista(String anyo, String numero) ... // protected en lugar
+// private void confirmarDocumentoEstaEnLista(String anyo, String numero) ... // de private
 
-protected int getDocumentRowInList(String year, String number) ... // protected instead of
-// private int getDocumentRowInList(String year, String number) ... // private
-</code></pre> El único detalle pendiente es el método assertOrder() que veremos
-      en la siguiente sección.
+protected int getFilaDocumentoEnLista(String anyo, String numero) ... // protected en lugar
+// private int getFilaDocumentoEnLista(String anyo, String numero) ... // de private
+</code></pre> El único detalle pendiente es el método <i>verificarPedido()</i>
+      que veremos en la siguiente sección.
       <h3><a name="verificar-datos-de-prueba"></a>Verificar datos de prueba</h3>
-      En la lección 6 aprendiste como confiar en datos existentes en la base de
-      datos para tus pruebas. Obviamente, si tu base de datos se altera
-      accidentalmente tus pruebas, aunque correctas, no pasaran. Por tanto,
-      verificar los valores de la base de datos antes de ejecutar la prueba que
-      confía en ellos es una buena práctica. En nuestro ejemplo lo hacemos
-      llamando a assertOrder() al principio. Veamos el contenido de
-      assertOrder():
-      <pre><code class="java">private void assertOrder(
-    int year, int number, int detailsCount, int baseAmount)
+      En la lección 3 (Pruebas automáticas) aprendiste como confiar en datos
+      existentes en la base de datos para tus pruebas. Obviamente, si tu base de
+      datos se altera accidentalmente tus pruebas, aunque correctas, no pasarán.
+      Por tanto, verificar los valores de la base de datos antes de ejecutar la
+      prueba que confía en ellos es una buena práctica. En nuestro ejemplo lo
+      hacemos llamando a <i>verificarPedido()</i> al principio. Veamos el
+      contenido de <i>verificarPedido()</i>:
+      <pre><code class="java">private void verificarPedido(
+    int anyo, int numero, int cantidadDetalles, String importeTotal)
 {
-    Order order = findOrder("year = " + year + " and number=" + number);
-    assertEquals("To run this test the order " +
-        order + " must have " + detailsCount + " details",
-        detailsCount, order.getDetails().size());
-    assertTrue("To run this test the order " +
-        order + " must have " + baseAmount + " as base amount",
-        order.getBaseAmount().compareTo(new BigDecimal(baseAmount)) == 0);
+    Pedido pedido = buscarPedido("anyo = " + anyo + " and numero=" + numero);
+    assertEquals("Para ejecutar esta prueba el pedido " +
+        pedido + " tiene que tener " + cantidadDetalles + " detalles",
+        cantidadDetalles, pedido.getDetalles().size());
+    assertTrue("Para ejecutar esta prueba el pedido " +
+        pedido + " must have " + importeTotal + " como importe total",
+        pedido.getImporteTotal().compareTo(new BigDecimal(importeTotal)) == 0);
+    assertTrue("Para ejecutar esta prueba el pedido " + pedido + " tiene que estar entegrado",
+        pedido.isEntregado());        
 }
-</code></pre> Este método busca un pedido y verifica la cantidad de líneas y el
-      importe base. Usar este método tiene la ventaja de que si los pedidos
-      necesarios para la prueba no están en la base de datos con los valores
-      correctos obtienes un mensaje preciso. Así, no derrocharás tu tiempo
-      intentando adivinar que es lo que está mal. Esto es especialmente útil si
-      la prueba no la está ejecutando el programador original.
+</code></pre> Además añade el siguiente import al principio de tu <i>PruebaPedido</i>:
+      <pre><code class="java">import java.math.*;
+</code></pre> Este método busca un pedido y verifica la cantidad de líneas, el
+      importe total y si el pedido está entregado. Usar este método tiene la
+      ventaja de que si los pedidos necesarios para la prueba no están en la
+      base de datos con los valores correctos obtienes un mensaje preciso. Así,
+      no derrocharás tu tiempo intentando adivinar que es lo que está mal. Esto
+      es especialmente útil si la prueba no la está ejecutando el programador
+      original.
       <h3><a name="probar-casos-excepcionales"></a>Probar casos excepcionales</h3>
       Dado que la acción para crear la factura se oculta si el pedido no está
       listo para ser facturado, no podemos probar el código para los casos
-      excepcionales que escribimos en la sección 8.1.5 desde modo detalle. Sin
-      embargo, en modo lista el usuario todavía tiene la opción de escoger
-      cualquier pedido para facturar. Por tanto, intentaremos crear la factura
-      desde la lista de pedidos para probar que los casos excepcionales se
-      comportan correctamente. El listado 8.39 muestra el código de prueba en
-      OrderTest.
-      <pre><code class="java">public void testCreateInvoiceFromOrderExceptions() throws Exception {
-    assertCreateInvoiceFromOrderException( // Verifica que cuando el pedido ya tiene (1)
-        "delivered = true and invoice &lt;&gt; null", // factura se produce el error correcto
-        "Impossible to create invoice: the order already has an invoice"
+      excepcionales desde modo detalle. Sin embargo, en modo lista el usuario
+      todavía tiene la opción de escoger cualquier pedido para facturar. Por
+      tanto, intentaremos crear la factura desde la lista de pedidos para probar
+      que los casos excepcionales se comportan correctamente. Añade el siguiente
+      código a <i>PruebaPedido</i>:
+      <pre><code class="java">public void testExcepcionesCreandoFacturaDesdePedido() throws Exception {
+    login("admin", "admin");
+    confirmarExcepcionCreandoFacturaDesdePedido( // Confirma que cuando el pedido ya tiene (1)
+        "entregado = true and factura &lt;&gt; null", // factura se produce el error correcto
+        "Ha sido imposible ejecutar la acción Crear factura desde pedidos seleccionados: " +
+            "El pedido ya tiene una factura"
     );
-    assertCreateInvoiceFromOrderException( // Verifica que cuando el pedido no está (2)
-        "delivered = false and invoice = null",// entregado se produce el error correcto
-        "Impossible to create invoice: the order is not delivered yet"
+    confirmarExcepcionCreandoFacturaDesdePedido( // Confirma que cuando el pedido no está (2)
+        "entregado = false and factura = null",// entregado se produce el error correcto
+        "Ha sido imposible ejecutar la acción Crear factura desde pedidos seleccionados: " + 
+            "El pedido todavía no está entregado"
     );
 }
 
-private void assertCreateInvoiceFromOrderException(
-    String condition, String message) throws Exception
+private void confirmarExcepcionCreandoFacturaDesdePedido(
+    String condicion, String mensaje) throws Exception
 {
-    Order order = findOrder(condition); // Busca el pedido por la condición (3)
-    int row = getDocumentRowInList( // y obtiene el número de fila para ese pedido (4)
-       String.valueOf(order.getYear()),
-       String.valueOf(order.getNumber())
+    Pedido pedido = buscarPedido(condicion); // Busca el pedido por la condición (3)
+    int fila = getFilaDocumentoEnLista( // y obtiene el número de fila para ese pedido (4)
+       String.valueOf(pedido.getAnyo()),
+       String.valueOf(pedido.getNumero())
     );
-    checkRow(row); // Marca la fila (5)
-    execute("Order.createInvoiceFromSelectedOrders"); // Trata de crear la factura (6)
-    assertError(message); // ¿Se ha mostrado el mensaje esperado? (7)
-    uncheckRow(row); // Desmarca la fila, así podemos llamar a este método otra vez
+    checkRow(fila); // Marca la fila (5)
+    execute("Pedido.crearFacturaDesdePedidosSeleccionados"); // Trata de crear la factura (6)
+    assertError(mensaje); // ¿Se ha mostrado el mensaje esperado? (7)
+    uncheckRow(fila); // Desmarca la fila, así podemos llamar a este método otra vez
 }
 </code></pre> La prueba verifica que el mensaje es el correcto cuando tratamos
       de crear una factura a partir de un pedido que ya tiene factura (1), y
       también desde un pedido no entregado todavía (2). Para hacer estas
-      verificaciones llama al método assertCreateInvoiceFromOrderException().
-      Este método busca la entidad Order usando la condición (3), localiza la
-      fila donde la entidad se está visualizando (4) y la marca (5). Después, la
-      prueba ejecuta la acción (6) y verifica que el mensaje esperado se muestra
-      (7).
+      verificaciones llama al método <i>confirmarExcepcionCreandoFacturaDesdePedido()</i>.
+      Este método busca la entidad <i>Pedido</i> usando la condición (3),
+      localiza la fila donde la entidad se está visualizando (4) y la marca (5).
+      Después, la prueba ejecuta la acción (6) y verifica que el mensaje
+      esperado se muestra (7).
       <h3><a name="resumen"></a>Resumen</h3>
       La sal de tu aplicación son las acciones y los métodos. Gracias a ellos
       puedes convertir una simple aplicación de gestión de datos en una
@@ -999,18 +995,16 @@ private void assertCreateInvoiceFromOrderException(
       Has aprendido como crear métodos de lógica de negocio tanto estáticos como
       de instancia, y como llamarlos desde acciones de modo detalle y modo
       lista. Por el camino has visto como ocultar y mostrar acciones, usar
-      excepciones, validar en las acciones, cambiar a otro módulo y cómo hacer
-      las pruebas automáticas de todo esto.<br>
+      excepciones, validar en las acciones, mostrar diálogos y cómo hacer las
+      pruebas automáticas de todo esto.<br>
       Todavía nos quedan muchas cosas interesante por aprender, por ejemplo en
       la siguiente lección vamos a refinar el comportamiento de las referencias
       y colecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-refining-standard-behavior_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-refining-standard-behavior_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="references-collections_es.html">Ve a la
           lección 9</a></strong> </div>
