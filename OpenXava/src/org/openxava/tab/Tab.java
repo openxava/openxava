@@ -1737,7 +1737,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 
 	public void setTabName(String newTabName) {		
 		if (Is.equal(tabName, newTabName)) return;
-		System.out.println("[Tab(" + this + ").setTabName] tabName=" + tabName + ", newTabName=" + newTabName); // tmp
 		tabName = newTabName;
 		reinitState();		
 		loadUserPreferences();
@@ -2312,11 +2311,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			filterVisible = preferences.getBoolean(FILTER_VISIBLE, filterVisible); 
 			pageRowCount = Math.min(preferences.getInt(PAGE_ROW_COUNT, pageRowCount), 50);
 			columnWidths = loadMapFromPreferences(preferences, columnWidths, COLUMN_WIDTH, true);
-			System.out.println("[Tab(" + this + ").loadUserPreferences] 1> "); // tmp
 			labels = loadMapFromPreferences(preferences, labels, COLUMN_LABEL, false);
-			System.out.println("[Tab(" + this + ").loadUserPreferences] 1< "); // tmp
-			System.out.println("[Tab(" + this + ").loadUserPreferences] 1.labels=" + labels); // tmp
-			//loadColumnWidthsAndLabelsPreferences(preferences, COLUMN_WIDTH, COLUMN_LABEL); // tmp
 			defaultCondition = getCondition();
 			editor = preferences.get(EDITOR, null);
 			if (editor != null && !WebEditors.getEditors(getMetaTab()).contains(editor)) editor = null; // If the developer changes @Tab(editors=) and the last used editor is no longer available
@@ -2326,52 +2321,17 @@ public class Tab implements java.io.Serializable, Cloneable {
 			log.warn(XavaResources.getString("warning_load_preferences_tab"),ex);
 		}
 	}
-	
-	private void loadColumnWidthsAndLabelsPreferences(Preferences preferences, String prefixColumnWidth, String prefixColumnLabel) throws Exception{ // tmp
-
-	    String[] keys = preferences.keys();
-
-	    Map labelsPreferences = new HashMap();
-	    if (labels != null) labelsPreferences.putAll(this.labels);
-
-	    Map columnWidthsPreferences = new HashMap();
-	    if (columnWidths != null) columnWidthsPreferences.putAll(this.columnWidths);
-
-	    for(String key: keys){
-	        if (key.startsWith(prefixColumnLabel)){
-	            String qualifiedName = key.substring(prefixColumnLabel.length());
-	            if (!labelsPreferences.containsKey(qualifiedName)){
-	                labelsPreferences.put(qualifiedName, preferences.get(key, null));
-	            }
-	        }
-	        else if (key.startsWith(prefixColumnWidth)){
-	            String qualifiedName = key.substring(prefixColumnWidth.length());
-	            if (!columnWidthsPreferences.containsKey(qualifiedName)){                   
-	                columnWidthsPreferences.put(qualifiedName, Integer.parseInt(preferences.get(key, null)));
-	            }
-	        }           
-	    }
-
-	    if (!labelsPreferences.isEmpty()){
-	        labels = labelsPreferences;         
-	    }
-	    if (!columnWidthsPreferences.isEmpty()){
-	        columnWidths = columnWidthsPreferences;
-	    }
-	}
-	
-	private Map loadMapFromPreferences(Preferences preferences, Map map, String prefix, boolean toInt) throws Exception { // tmp throws Exception
-		// TMP ME QUEDÉ POR AQUÍ. DEBERÍA CONSERVAR ESTA EFECIENCIA PERO NAVEGAR POR LAS preferences EN LUGAR DE POR LAS PROPERTIES
+		
+	private Map loadMapFromPreferences(Preferences preferences, Map map, String prefix, boolean toInt) throws Exception { 
 		if (map!= null) map.clear();
-		System.out.println("[Tab(" + this + ").loadMapFromPreferences] preferences.keys()=" + Arrays.toString(preferences.keys())); // tmp
-		for (MetaProperty property: getMetaProperties()) {
-			String value = preferences.get(prefix + property.getQualifiedName(), null);
-			System.out.println("[Tab(" + this + ").loadMapFromPreferences] property.getQualifiedName()=" + property.getQualifiedName() + ", value=" + value); // tmp
+		for (String key: preferences.keys()) {
+			if (!key.startsWith(prefix)) continue;
+			String value = preferences.get(key, null);
 			if (value != null) {
 				if (map == null) map = new HashMap();
-				map.put(property.getQualifiedName(), toInt?Integer.parseInt(value):value);
+				map.put(key.substring(prefix.length()), toInt?Integer.parseInt(value):value);
 			}
-		}		
+		}
 		return map;
 	}
 

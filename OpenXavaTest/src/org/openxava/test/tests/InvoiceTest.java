@@ -1071,16 +1071,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertExists("year");
 		
 		execute("Mode.list");
-		/* tmp
-		assertLabelInList(5, "Details count");
-		execute("List.changeColumnName", "property=detailsCount");
-		assertDialog();
-		assertValue("name", "Details count");
-		setValue("name", "Number of lines");
-		execute("ChangeColumnName.change");
-		assertLabelInList(5, "Number of lines");
-		*/
-		// tmp ini
 		assertLabelInList(9, "Seller discount");
 		execute("List.changeColumnName", "property=sellerDiscount");
 		assertDialog();
@@ -1088,7 +1078,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setValue("name", "Discount for seller ");
 		execute("ChangeColumnName.change");
 		assertLabelInList(9, "Discount for seller");
-		// tmp fin
 	}
 	
 	private void doTestCustomizeList_storePreferences() throws Exception {
@@ -1099,34 +1088,11 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInList(2, "Date");
 		assertLabelInList(3, "Amounts sum");
 		assertLabelInList(4, "V.A.T.");
-		// tmp assertLabelInList(5, "Number of lines"); 
-		assertLabelInList(5, "Details count"); // tmp
+		assertLabelInList(5, "Details count"); 
 		assertLabelInList(6, "Paid");
 		assertLabelInList(7, "Importance");
-		assertLabelInList(8, "Customer"); 
-		// tmp assertLabelInList(9, "Seller discount"); 
-		assertLabelInList(9, "Discount for seller");
-				
-		/* tmp
-		// Restoring, for next time that test execute		
-		removeColumn(9); 
-		removeColumn(8);
-		
-		execute("List.changeColumnName", "property=detailsCount");
-		assertValue("name", "Number of lines");
-		setValue("name", "Details count");
-		execute("ChangeColumnName.change");
-		
-		assertListColumnCount(8);
-		assertLabelInList(0, "Year");
-		assertLabelInList(1, "Number");
-		assertLabelInList(2, "Date");
-		assertLabelInList(3, "Amounts sum");
-		assertLabelInList(4, "V.A.T.");
-		assertLabelInList(5, "Details count");
-		assertLabelInList(6, "Paid");
-		assertLabelInList(7, "Importance");
-		*/		
+		assertLabelInList(8, "Customer");  
+		assertLabelInList(9, "Discount for seller");				
 	}	
 	
 	public void testGenerateExcel() throws Exception {

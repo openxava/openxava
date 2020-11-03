@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Label and column width changed by user not persisted if the column isn't in the original @Tab.
 - Fix: @NoFrame references are not well aligned with flowLayout=true.
 - Fix: Two groups in a row (separated by comma) are placed one below other with flowLayout=true.
 - Fix: WEBURL button renders incorrectly when flowLayout=true.
