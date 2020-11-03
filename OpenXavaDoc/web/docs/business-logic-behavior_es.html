@@ -9,10 +9,10 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lección 8: Comportamiento y lógica de negocio"></a>
-        <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span> Lección 8: Comportamiento y lógica de negocio </h1>
+      <h1><a name="comportamiento-y-logica-de-negocio"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 8: Comportamiento y lógica de negocio </h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
         Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3.
@@ -29,56 +29,59 @@
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Leccion-7-Refinar-el-comportamiento-predefinido">Lección
-            8: TMP</a></div>
-        <div style="margin-left: 2em;"><a href="#Acciones-personalizadas">Acciones
-            personalizadas</a></div>
-        <div style="margin-left: 3em;"><a href="#Acciones-personalizadas-Controlador-Typical">Controlador
-            Typical</a></div>
-        <div style="margin-left: 3em;"><a href="#Acciones-personalizadas-Refinar-el-controlador-para-un-modulo">Refinar
-            el controlador para un módulo</a></div>
-        <div style="margin-left: 3em;"><a href="#Acciones-personalizadas-Escribir-tu-propia-accion">Escribir
-            tu propia acción</a></div>
-        <div style="margin-left: 2em;"><a href="#Acciones-genericas">Acciones
-            genéricas</a></div>
-        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Codigo-generico-con-MapFacade">Código
-            genérico con MapFacade</a></div>
-        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Cambiar-el-controlador-por-defecto-para-todos-los-modulos">Cambiar
-            el controlador por defecto para todos los módulos</a></div>
-        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Volvamos-un-momento-al-modelo">Volvamos
-            un momento al modelo</a></div>
-        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Metadatos-para-un-codigo-mas-generico">Metadatos
-            para un código más genérico</a></div>
-        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Llamar-a-otra-accion-desde-una-accion">Llamar
-            a otra acción desde una acción</a></div>
-        <div style="margin-left: 3em;"><a href="#Acciones-genericas-Refinar-la-accion-de-busqueda-por-defecto">Refinar
-            la acción de búsqueda por defecto</a></div>
-        <div style="margin-left: 2em;"><a href="#Modo-lista">Modo lista</a></div>
-        <div style="margin-left: 3em;"><a href="#Modo-lista-Filtrar-datos-tabulares">Filtrar
-            datos tabulares</a></div>
-        <div style="margin-left: 3em;"><a href="#Modo-lista-Acciones-de-lista">Acciones
-            de lista</a></div>
-        <div style="margin-left: 2em;"><a href="#Reutilizar-el-codigo-de-las-acciones">Reutilizar
-            el código de las acciones</a></div>
-        <div style="margin-left: 3em;"><a href="#Reutilizar-el-codigo-de-las-acciones-Propiedades-para-crear-acciones-reutilizables">Propiedades
-            para crear acciones reutilizables</a></div>
-        <div style="margin-left: 3em;"><a href="#Reutilizar-el-codigo-de-las-acciones-Modulos-personalizados">Módulos
-            personalizados</a></div>
-        <div style="margin-left: 3em;"><a href="#Reutilizar-el-codigo-de-las-acciones-Varias-definiciones-de-datos-tabulares-por-entidad">Varias
-            definiciones de datos tabulares por entidad</a></div>
-        <div style="margin-left: 3em;"><a href="#Reutilizar-el-codigo-de-las-acciones-Obsesion-por-reutilizar">Obsesión
-            por reutilizar</a></div>
-        <div style="margin-left: 2em;"><a href="#Pruebas-JUnit">Pruebas JUnit</a></div>
-        <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-el-comportamiento-personalizado-para-borrar">Probar
-            el comportamiento personalizado para borrar</a></div>
-        <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-varios-modulos-en-el-mismo-metodo-de-prueba">Probar
-            varios módulos en el mismo método de prueba</a></div>
+        <div style="margin-left: 1em;"><a href="#comportamiento-y-logica-de-negocio">Lección
+            8: Comportamiento y lógica de negocio</a></div>
+        <div style="margin-left: 2em;"><a href="#logica-de-negocio-desde-el-modo-detalle">Lógica
+            de negocio desde el modo detalle</a></div>
+        <div style="margin-left: 3em;"><a href="#crear-una-accion-para-ejecutar-logica-personalizada">Crear
+            una acción para ejecutar lógica personalizada</a></div>
+        <div style="margin-left: 3em;"><a href="#escribiendo-la-logica-de-negocio-real-en-la-entidad">Escribiendo
+            la lógica de negocio real en la entidad</a></div>
+        <div style="margin-left: 3em;"><a href="#escribe-menos-codigo-usando-apache-commons-beanutils">Escribe
+            menos código usando Apache Commons BeanUtils</a></div>
+        <div style="margin-left: 3em;"><a href="#excepciones-de-aplicacion">Excepciones
+            de aplicación</a></div>
+        <div style="margin-left: 3em;"><a href="#validar-desde-la-accion">Validar
+            desde la acción</a></div>
+        <div style="margin-left: 3em;"><a href="#evento-onchange-para-ocultar-mostrar-una-accion-por-codigo">Evento
+            OnChange para ocultar/mostrar una acción por código</a></div>
+        <div style="margin-left: 2em;"><a href="#logica-de-negocio-desde-el-modo-lista">Lógica
+            de negocio desde el modo lista</a></div>
+        <div style="margin-left: 3em;"><a href="#accion-de-lista-con-logica-propia">Acción
+            de lista con lógica propia</a></div>
+        <div style="margin-left: 3em;"><a href="#logica-de-negocio-en-el-modelo-sobre-varias-entidades">Lógica
+            de negocio en el modelo sobre varias entidades</a></div>
+        <div style="margin-left: 2em;"><a href="#mostrar-un-dialogo">Mostrar un
+            diálogo</a></div>
+        <div style="margin-left: 3em;"><a href="#usar-showdialog">Usar
+            showDialog()</a></div>
+        <div style="margin-left: 3em;"><a href="#definir-las-acciones-del-dialogo">Definir
+            las acciones del diálogo</a></div>
+        <div style="margin-left: 3em;"><a href="#cerrar-el-dialogo">Cerrar el
+            diálogo</a></div>
+        <div style="margin-left: 3em;"><a href="#vista-plana-en-lugar-de-dialogo">Vista
+            plana en lugar de diálogo</a></div>
+        <div style="margin-left: 2em;"><a href="#pruebas-junit">Pruebas JUnit</a></div>
+        <div style="margin-left: 3em;"><a href="#probar-la-accion-de-modo-detalle">Probar
+            la acción de modo detalle</a></div>
+        <div style="margin-left: 3em;"><a href="#buscar-una-entidad-para-la-prueba-usando-el-modo-lista-y-jpa">Buscar
+            una entidad para la prueba usando el modo lista y JPA</a></div>
+        <div style="margin-left: 3em;"><a href="#probar-que-la-accion-se-oculta-cuando-no-aplica">Probar
+            que la acción se oculta cuando no aplica</a></div>
+        <div style="margin-left: 3em;"><a href="#probar-la-accion-de-modo-lista">Probar
+            la acción de modo lista</a></div>
+        <div style="margin-left: 3em;"><a href="#verificar-datos-de-prueba">Verificar
+            datos de prueba</a></div>
+        <div style="margin-left: 3em;"><a href="#probar-casos-excepcionales">Probar
+            casos excepcionales</a></div>
+        <div style="margin-left: 2em;"><a href="#resumen">Resumen</a></div>
+         </div>
         OpenXava no es simplemente un marco de trabajo para hacer mantenimientos
         (altas, bajas, modificaciones y consultas), más bien está concebido para
         desarrollar aplicaciones de gestión plenamente funcionales. Hasta ahora
         hemos aprendido como crear y refinar la aplicación para manejar los
         datos. Ahora vamos a posibilitar al usuario la ejecución de lógica de
-        negocio específica. </div>
+        negocio específica.<br>
       En esta lección vamos a ver como escribir lógica de negocio en el modelo y
       llamar a esta lógica desde acciones personalizadas. Así podrás transformar
       tu aplicación de gestión de datos en una herramienta útil para el trabajo
@@ -87,7 +90,8 @@
         negocio desde el modo detalle</h2>
       Empezaremos con el caso más simple: un botón en modo detalle para ejecutar
       cierta lógica. En este caso para crear la factura desde un pedido:<br>
-      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
+      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
+
         title="business-logic-behavior_es010.png"><br>
       Aquí se muestra como esta nueva acción coge el pedido actual y crea una
       factura a partir de él. Simplemente copia todos los datos del pedido a la
@@ -483,7 +487,8 @@ public class MostrarOcultarCrearFactura
       aplicar lógica a varios objetos a la vez. En nuestro caso, podemos añadir
       una acción en el modo lista para crear una nueva factura automáticamente a
       partir de varios pedidos seleccionados en la lista, de esta manera:<br>
-      <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
+      <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
+
         title="business-logic-behavior_es020.png"><br>
       Aquí se muestra como esta acción de lista coge los pedidos seleccionados y
       crea una factura a partir de ellos. Simplemente copia los datos del pedido
@@ -622,7 +627,8 @@ public class CrearFacturaDesdePedidosSeleccionados
       para el usuario ver y posiblemente editar la nueva factura. Una forma de
       conseguir esto es sacando un diálogo que permite ver y editar la recién
       creada factura. De esta forma:<br>
-      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+
         title="business-logic-behavior_es030.png"><br>
       Veamos como implementar este comportamiento.
       <h3><a name="usar-showdialog"></a>Usar showDialog()</h3>
@@ -698,10 +704,12 @@ public class GrabarFactura
       <h3><a name="vista-plana-en-lugar-de-dialogo"></a>Vista plana en lugar de
         diálogo</h3>
       A veces en lugar de sacar un diálogo encima:<br>
-      <img src="files/business-logic-behavior_es040.png" alt="business-logic-behavior_es040.png"
+      <img src="files/business-logic-behavior_es040.png" alt="business-logic-behavior_es040.png"
+
         title="business-logic-behavior_es040.png"><br>
       Podriamos preferir reemplazar la vista actual por la nueva, así: <br>
-      <img src="files/business-logic-behavior_es050.png" alt="business-logic-behavior_es050.png"
+      <img src="files/business-logic-behavior_es050.png" alt="business-logic-behavior_es050.png"
+
         title="business-logic-behavior_es050.png"><br>
       Esto puede ser útil cuando la cantidad de información a mostrar es muy
       grande y en un diálogo queda mal. Usar una vista plana en vez de un
@@ -725,7 +733,8 @@ public class GrabarFactura
       Primero probaremos la acción <i>Pedido.crearFactura</i>, la acción para
       crear una factura a partir del modo detalle del pedido visualizado.
       Recordamos aquí como funciona este proceso:<br>
-      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
+      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
+
         title="business-logic-behavior_es010.png"><br>
       Ahora vamos a escribir la prueba para verificar que funciona justo de esta
       forma. Añade el método <i>testCrearFacturaDesdePedido()</i> a la clase <i>PruebaPedido</i>:
@@ -848,7 +857,8 @@ import com.tuempresa.facturacion.modelo.*;
       Ahora probaremos <i>Pedido.crearFacturaDesdePedidosSeleccionados</i>, la
       acción que crea una factura desde varios pedidos en modo lista. Recordemos
       su funcionamiento:<br>
-      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+
         title="business-logic-behavior_es030.png"><br>
       Escribamos una prueba para verificar que esto funciona justo de esta
       forma. Añade el método <i>testCrearFacturaDesdePedidosSeleccionados()</i>
@@ -987,7 +997,7 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
       localiza la fila donde la entidad se está visualizando (4) y la marca (5).
       Después, la prueba ejecuta la acción (6) y verifica que el mensaje
       esperado se muestra (7).
-      <h3><a name="resumen"></a>Resumen</h3>
+      <h2><a name="resumen"></a>Resumen</h2>
       La sal de tu aplicación son las acciones y los métodos. Gracias a ellos
       puedes convertir una simple aplicación de gestión de datos en una
       herramienta útil. En este caso, por ejemplo, hemos provisto al usuario con
@@ -1001,12 +1011,15 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
       la siguiente lección vamos a refinar el comportamiento de las referencias
       y colecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-refining-standard-behavior_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-refining-standard-behavior_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="references-collections_es.html">Ve a la
           lección 9</a></strong> </div>
+    
   </body>
 </html>
