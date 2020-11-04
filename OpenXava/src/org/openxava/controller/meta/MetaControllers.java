@@ -38,7 +38,7 @@ public class MetaControllers {
 		ControllersParser.configureControllers(context);		
 	}
 	
-	public static MetaController getMetaController(String name) throws ElementNotFoundException, XavaException {
+	public synchronized static MetaController getMetaController(String name) throws ElementNotFoundException, XavaException {
 		if (metaControllers == null) {
 			setup();
 		}
