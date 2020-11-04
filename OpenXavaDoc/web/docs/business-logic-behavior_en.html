@@ -870,10 +870,10 @@ import com.yourcompany.invoicing.model.*;
         " created from orders: [2020/7, 2020/8]"); // The confirmation message
     assertCollectionRowCount("details", 4); // Asserts that the line count of the new
                          // invoice equals the sum of lines from the source orders (3)
-    assertValue("baseAmount", "174.24"); // Asserts that total amount of the new
+    assertValue("totalAmount", "174.24"); // Asserts that total amount of the new
                      // invoice equals the sum of the amounts of the source orders (4)
     execute("Sections.change", "activeSection=1"); // Changes to the orders tab of invoice
-    assertCollectionRowCount("orders", 2);// The new invoice has 2 associated orders (5)
+    assertCollectionRowCount("orders", 2); // The new invoice has 2 associated orders (5)
     assertValueInCollection("orders", 0, 0, "2020"); // and they should be the correct 
     assertValueInCollection("orders", 0, 1, "7"); // ones
     assertValueInCollection("orders", 1, 0, "2020");
@@ -885,7 +885,7 @@ import com.yourcompany.invoicing.model.*;
     checkRowCollection("orders", 0); // We select the 2 orders
     checkRowCollection("orders", 1);
     execute("Collection.removeSelected", // and remove them, in order to be able to
-        "viewObject=xava_view_section1_orders");// repeat this test using the same orders
+        "viewObject=xava_view_section1_orders"); // repeat this test using the same orders
     assertNoErrors();
 
     execute("InvoiceEdition.close"); // Closes the dialog and returns to the orders list (7)
