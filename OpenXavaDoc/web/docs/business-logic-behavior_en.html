@@ -3,20 +3,17 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Lesson 8: Behavior &amp; business logic - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 8: Behavior &amp; business logic"></a>
-        <span id="breadcrumbs">
-          <span id="openxava">
-          	<a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava
-            </a>
-          </span>  
-          / <a href="index_en.html">documentation</a> /  
-				</span>                
-        Lesson 8: Behavior &amp; business logic
-      </h1>
+      <h1><a name="business-logic-behavior"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 8: Behavior &amp; business logic </h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
@@ -29,16 +26,982 @@
         References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a><hr>
-      This lesson is available in PDF:<br>
-      <a href="files/openxava-course8-business-logic-behavior_en.pdf">openxava-course8-business-logic-behavior_en.pdf</a><br>
+        Annotations</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#business-logic-behavior">Lesson
+            8: Behavior &amp; business logic<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#business-logic-in-detail-mode">Business
+            logic in detail mode</a></div>
+        <div style="margin-left: 3em;"><a href="#creating-an-action-for-custom-logic">Creating
+            an action for custom logic</a></div>
+        <div style="margin-left: 3em;"><a href="#writing-the-real-business-logic-in-the-entity">Writing
+            the real business logic in the entity</a></div>
+        <div style="margin-left: 3em;"><a href="#write-less-code-using-apache-commons-beanutils">Write
+            less code using Apache Commons BeanUtils</a></div>
+        <div style="margin-left: 3em;"><a href="#copying-a-collection-from-entity-to-entity">Application
+            exceptions</a></div>
+        <div style="margin-left: 3em;"><a href="#validation-from-action">Validation
+            from action</a></div>
+        <div style="margin-left: 3em;"><a href="#on-change-event-to-hide-show-an-action-programmatically">On
+            change event to hide/show an action programmatically</a></div>
+        <div style="margin-left: 2em;"><a href="#business-logic-from-list-mode">Business
+            logic from list mode</a></div>
+        <div style="margin-left: 3em;"><a href="#list-action-with-custom-logic">List
+            action with custom logic</a></div>
+        <div style="margin-left: 3em;"><a href="#business-logic-in-the-model-over-several-entities">Business
+            logic in the model over several entities</a></div>
+        <div style="margin-left: 2em;"><a href="#Showing-a-dialog">Showing a
+            dialog</a></div>
+        <div style="margin-left: 3em;"><a href="#using-showdialog">Using
+            showDialog()</a></div>
+        <div style="margin-left: 3em;"><a href="#define-the-dialog-actions">Define
+            the dialog actions</a></div>
+        <div style="margin-left: 3em;"><a href="#closing-dialog">Closing dialog
+          </a></div>
+        <div style="margin-left: 3em;"><a href="#plain-view-instead-of-dialog">Plain
+            view instead of dialog</a></div>
+        <div style="margin-left: 2em;"><a href="#junit-tests">JUnit tests</a></div>
+        <div style="margin-left: 3em;"><a href="#testing-the-detail-mode-action">Testing
+            the detail mode action</a></div>
+        <div style="margin-left: 3em;"><a href="#finding-an-entity-for-testing-using-list-mode-and-jpa">Finding
+            an entity for testing using list mode and JPA</a></div>
+        <div style="margin-left: 3em;"><a href="#testing-hiding-of-the-action">Testing
+            hiding of the action</a></div>
+        <div style="margin-left: 3em;"><a href="#testing-the-list-mode-action">Testing
+            the list mode action</a></div>
+        <div style="margin-left: 3em;"><a href="#asserting-test-data">Asserting
+            test data</a></div>
+        <div style="margin-left: 3em;"><a href="#testing-exceptional-cases">Testing
+            exceptional cases</a></div>
+        <div style="margin-left: 2em;"><a href="#summary">Summary</a></div>
+      </div>
+      OpenXava is not just a CRUD framework, but a framework for developing
+      full-fledged business applications. Until now we have learned how to
+      create and enhance a data management application. We will now improve the
+      application further by giving the user the possibility to perform specific
+      business logic.<br>
+      In this lesson we'll see how to add business logic to a model and call
+      this logic from custom actions. In this way you can transform a database
+      management application into a useful tool for the everyday work of your
+      user.<br>
+      <h2><a name="business-logic-in-detail-mode"></a>Business logic in detail
+        mode</h2>
+      We'll start with the simplest case: a button in the detail mode that
+      executes some concrete logic. In this case we'll add a button for creating
+      an invoice from an order:<br>
+      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
+
+        title="business-logic-behavior_en010.png"><br>
+      This shows how this new action takes the current order and creates an
+      invoice from it. It just copies all the order data to the new invoice,
+      including the detail lines. A message is shown and the INVOICE tab of the
+      order will display the recently created invoice. Let's see how to
+      implement this.
+      <h3><a name="creating-an-action-for-custom-logic"></a>Creating an action
+        for custom logic</h3>
+      As you already know the first step towards having a custom action in your
+      module is defining a controller for that action. Let's edit <i>
+        controllers.xml</i>, to add such a controller. Here you have the <i>Order</i>
+      controller definition:
+      <pre><code class="xml">&lt;controller name="Order"&gt;
+    &lt;extends controller="Invoicing"/&gt; &lt;!-- In order to have the standard actions --&gt;
+    
+    &lt;action name="createInvoice" mode="detail"
+        class="com.yourcompany.invoicing.actions.CreateInvoiceFromOrderAction"/&gt;
+    &lt;!-- mode="detail" : Only in detail mode --&gt;
+    
+&lt;/controller&gt;
+</code></pre> Since we follow the convention of giving the controller the same
+      name as the entity and the module, you automatically have this new action
+      available for <i>Order</i>. <i>Order</i> controller extends <i>Invoicing</i>
+      controller. Remember that we created <i>Invoicing</i> controller in
+      lesson 7. It is a refinement of the <i>Typical</i> controller.<br>
+      Now we have to write the Java code for the action:
+      <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
+
+import org.openxava.actions.*;
+import com.yourcompany.invoicing.model.*;
+
+public class CreateInvoiceFromOrderAction
+    extends ViewBaseAction { // To use getView()
+
+    public void execute() throws Exception {
+        Order order = (Order) getView().getEntity(); // Order entity displayed in the view (1)    
+        order.createInvoice(); // The real work is delegated to the entity (2)
+        getView().refresh(); // In order to see the created invoice in 'Invoice' tab (3)
+        addMessage("invoice_created_from_order", // Confirmation message (4)
+            order.getInvoice());
+    }
+}
+</code></pre> Really simple. We get the <i>Order</i> entity (1), call the <i>createInvoice()</i>
+      method (2), refresh the view (3) and display a message (4). Note how the
+      action is a mere intermediary between the view (the user interface) and
+      the model (the business logic).<br>
+      Remember to add the message text to the <i>Invoicing-messages_en.properties</i>
+      file in <i>i18n</i> folder, as following:
+      <pre><code class="properties">invoice_created_from_order=Invoice {0} created from current order
+</code></pre> However, just “as is” the message is not shown nicely, because we
+      pass an <i>Invoice</i> object as argument. We need a <i>toString()</i>
+      for <i>Invoice</i> and <i>Order</i> useful to the user. We'll overwrite
+      the <i>toString()</i> of <i>CommercialDocument</i> (the parent of <i>Invoice</i>
+      and <i>Order</i>) to achieve this. You can see this <i>toString()</i>
+      method here:
+      <pre><code class="java">abstract public class CommercialDocument extends Deletable {
+
+    ...
+
+    public String toString() {
+        return year + "/" + number;
+    }
+}
+</code></pre> Year and number are perfect to identify an invoice or order from
+      the user perspective.<br>
+      That's all for the action. Let's see the missing piece, the <i>createInvoice()</i>
+      method of the <i>Order</i> entity.<br>
+      <h3><a name="writing-the-real-business-logic-in-the-entity"></a>Writing
+        the real business logic in the entity</h3>
+      The business logic for creating the new <i>Invoice</i> is defined in the
+      <i>Order</i> entity, not in the action. This is just the natural way to
+      go. This is the natural way to go in accordance with the essential
+      principle behind Object-Orientation where the objects are not just data,
+      but data and logic. The most beautiful code is that whose objects contain
+      the logic for managing their own data. If your entities are mere data
+      containers (simple wrappers around database tables), and your actions
+      contain all the logic for manipulating them, your code is a perversion of
+      the original goal of Object-Orientation.<br>
+      Apart from the spiritual reason, to put the logic for creating an <i>Invoice</i>
+      inside the <i>Order</i> entity is a very pragmatic approach, because in
+      this way we can use this logic from other actions, batch processes, web
+      services, etc.<br>
+      Let's see the code of the <i>createInvoice()</i> method of the <i>Order</i>
+      class, also remember to add the indicated imports:
+      <pre><code class="java">
+...
+
+// Add the next imports
+import java.util.*;
+import org.apache.commons.beanutils.*;
+import org.openxava.jpa.*;
+
+...
+      
+public class Order extends CommercialDocument {
+
+    ...
+    
+    public void createInvoice() throws Exception { // throws Exception is just
+                                                   // to get simpler code for now
+        Invoice invoice = new Invoice(); // Instantiates an Invoice (1)
+        BeanUtils.copyProperties(invoice, this); // and copies the state (2)
+                                                 // from the current Order
+        invoice.setOid(null); // To let JPA know this entity does not exist yet
+        invoice.setDate(LocalDate.now()); // The date for the new invoice is today
+        invoice.setDetails(new ArrayList&lt;&gt;(getDetails())); // Clones the details collection
+        XPersistence.getManager().persist(invoice);
+        this.invoice = invoice; // Always after persist() (3)
+    }
+}
+</code></pre> The logic consists of creating a new <i>Invoice</i> object (1),
+      copying the data from the current <i>Order</i> to it (2) and assigning
+      the resulting entity to the invoice reference in the current <i>Order</i>
+      (3).<br>
+      There are three subtle details here. First, you have to write <i>invoice.setOid(null)</i>,
+      otherwise the new <i>Invoice</i> will get the same identity as the source
+      <i>Order</i>. Moreover, JPA does not like to persist objects with the
+      autogenerated id pre-filled. Second, you have to assign the new <i>Invoice</i>
+      to the current <i>Order</i> (<i>this.invoice = invoice</i>) after your
+      call to <i>persist(invoice)</i>, if not you get a error from JPA
+      (something like “object references an unsaved transient instance”). Third,
+      we have to wrap the <i>details</i> collection with a <i>new ArrayList()</i>,
+      so it is a new collection but with the same elements, because JPA don't
+      want the same collection assigned to two entities.<br>
+      <h3><a name="write-less-code-using-apache-commons-beanutils"></a>Write
+        less code using Apache Commons BeanUtils</h3>
+      Note how we have used <i>BeanUtils.copyProperties()</i> to copy all
+      properties from the current <i>Order</i> to the new <i>Invoice</i>. This
+      method copies all properties with the same name from one object to
+      another, even if the objects belong to different classes. This utility is
+      from the Commons BeanUtils project from Apache. The jar for this utility,
+      <i>commons-beanutils.jar</i>, is already included in your project.<br>
+      The next snippet shows how using BeanUtils you actually write less code:
+      <pre><code class="java">BeanUtils.copyProperties(invoice, this);
+// Is the same as
+invoice.setOid(getOid());
+invoice.setYear(getYear());
+invoice.setNumber(getNumber());
+invoice.setDate(getDate());
+invoice.setDeleted(isDeleted());
+invoice.setCustomer(getCustomer());
+invoice.setVatPercentage(getVatPercentage());
+invoice.setVat(getVat());
+invoice.setTotalAmount(getTotalAmount());
+invoice.setRemarks(getRemarks());
+invoice.setDetails(getDetails());
+</code></pre> However, the main advantage of using BeanUtils is not to save some
+      typing, but that you have code more resilient to changes. Because, if you
+      add, remove or rename some property of <i>ComercialDocument</i> (the
+      parent of <i>Invoice</i> and <i>Order</i>) you don't need to change your
+      code, while if you're copying the properties manually you must change the
+      code manually.
+      <h3><a name="copying-a-collection-from-entity-to-entity"></a>Application
+        exceptions</h3>
+      Remember the phrase: “The exception that proves the rule”? Rules, life and
+      software are full of exceptions. And our <i>createInvoice()</i> method is
+      not an exception. We have written the code to work in the most common
+      cases. But, what happens if the order is not ready to be invoiced, or if
+      there is some problem accessing the database? Obviously, in these cases we
+      need to take different paths.<br>
+      This is to say that the simple <i>throws Exception</i> we have written
+      for <i>createInvoice()</i> method is not enough to ensure a robust
+      behavior. Instead we should use our own exception. Let's create it:
+      <pre><code class="java">package com.yourcompany.invoicing.model; // In model package
+
+import org.openxava.util.*;
+
+public class CreateInvoiceException extends Exception { // Not RuntimeException
+
+    public CreateInvoiceException(String message) {
+        // The XavaResources is to translate the message from the i18n entry id
+        super(XavaResources.getString(message)); 
+    }
+	
+}
+</code></pre>Now we can use our <i>CreateInvoiceException</i> instead of <i>Exception</i>
+      in the <i>createInvoice()</i> method of <i>Order</i>:
+      <pre><code class="java">public void createInvoice()
+    throws CreateInvoiceException // An application exception (1)
+{
+    if (this.invoice != null) { // If an invoice is already present we cannot create one
+        throw new CreateInvoiceException( 
+            "order_already_has_invoice"); // Allows an i18n id as argument
+    }
+    if (!isDelivered()) { // If the order is not delivered we cannot create the invoice
+        throw new CreateInvoiceException("order_is_not_delivered");
+    }
+    try {
+        Invoice invoice = new Invoice(); 
+        BeanUtils.copyProperties(invoice, this); 
+        invoice.setOid(null); 
+        invoice.setDate(LocalDate.now()); 
+        invoice.setDetails(new ArrayList&lt;&gt;(getDetails())); 
+        XPersistence.getManager().persist(invoice);
+        this.invoice = invoice; 
+    }
+    catch (Exception ex) { // Any unexpected exception (2)
+        throw new SystemException( // A runtime exception is thrown (3)
+            "impossible_create_invoice", ex);
+    }
+}
+</code></pre>Now we declare explicitly which application exceptions this method
+      throws (1). An application exception is a checked exception that indicates
+      a special but expected behavior of the method. An application exception is
+      related to the method's business logic. You could create an application
+      exception for every possible case, such as an <i>OrderAlreadyHasInvoiceException</i>
+      and an <i>OrderNotDeliveredException</i>. This enables you to handle each
+      case differently in the calling code. This is not needed in our case, so
+      we simply use our <i>CreateInvoiceException</i>, a generic application
+      exception for this method.<br>
+      Additionally, we have to deal with unexpected problems (2). Unexpected
+      problems can be system errors (database access, net or hardware problems)
+      or programmer errors (<i>NullPointerException</i>, <i>IndexOutOfBoundsException</i>,
+      etc). When we find any unexpected problem we throw a runtime exception
+      (3). In this instance we have thrown <i>SystemException</i>, a runtime
+      exception included in OpenXava for convenience, but you can throw any
+      runtime exception you want. <br>
+      You do not need to modify the action code. If your action does not catch
+      the exceptions, OpenXava does it automatically. It displays the messages
+      from the application exceptions to the user, and, for the runtime
+      exceptions, shows a generic error message, and rolls back the transaction.<br>
+      In order to be complete, we have to add the messages used for the
+      exceptions in the i18n files. Edit the <i>Invoicing-messages_en.properties</i>
+      file from <i>Invoicing/i18n</i> folder adding the next entries:
+      <pre><code class="properties">order_already_has_invoice=The order already has an invoice
+order_is_not_delivered=The order is not delivered yet
+impossible_create_invoice=Impossible to create invoice
+</code></pre> There is some debate in the developer community regarding the
+      correct way of using exceptions in Java. The approach in this section is
+      the classic way to work with exceptions in the Java Enterprise world.
+      <h3><a name="validation-from-action"></a>Validation from action</h3>
+      Usually the best place for validations is the model, i.e., the entities.
+      However, sometimes it's necessary to put validation logic in the actions.
+      For example, if you want to obtain the current state of the user
+      interface, the validation must be done from the action.<br>
+      In our case, if the user clicks on CREATE INVOICE when creating a new
+      order, and this order is not yet saved, it will fail. It fails because
+      it's impossible to create an invoice from an non-existent order. The user
+      must first save the order.<br>
+      For that add an condition at the begin of the <i>execute()</i> method of
+      <i>CreateInvoiceFromOrderAction</i> to validate that the currently
+      displayed order is saved:
+      <pre><code class="java">public void execute() throws Exception {
+    // Add the next condition       
+    if (getView().getValue("oid") == null) { 
+        // If oid is null the current order is not saved yet (1)
+        addError("impossible_create_invoice_order_not_exist");
+        return;
+    }
+    
+    ...
+    
+}
+</code></pre> The validation consists of verifying if the <i>oid</i> is null
+      (1), in which case the user is entering a new order, but he did not save
+      it yet. In this case a message is shown, and the creation of the invoice
+      is aborted. <br>
+      Here we also have a message to add to the i18n file. Edit the <i>Invoicing-messages_en.properties</i>
+      file in the <i>Invoicing/i18n</i> folder adding the next entry:
+      <pre><code class="properties">impossible_create_invoice_order_not_exist=Impossible to create invoice: The order does not exist yet
+</code></pre> Validations tell the user that he has done something wrong. This
+      is needed, of course, but better still is to create an application that
+      helps the user to avoid any wrong doings. Let's see one way to do so in
+      the next section.
+      <h3><a name="on-change-event-to-hide-show-an-action-programmatically"></a>On
+        change event to hide/show an action programmatically</h3>
+      Our current code is robust enough to prevent user slips from breaking
+      data. We will go one step further, preventing the user to slip at all.
+      We're going to hide the action for creating a new invoice, if the order is
+      not valid to be invoiced.<br>
+      OpenXava allows to hide and show actions programmatically. It also allows
+      the execution of an action when some property is changed by the user on
+      the screen. We can use these two techniques to show the button only when
+      the action is ready to be used.<br>
+      Remember that an invoice can be generated from an order only if the order
+      has been delivered and it does not yet have an invoice. So, we have to
+      monitor the changes in the <i>invoice</i> reference and <i>delivered</i>
+      property of the <i> Order</i> entity. We'll do that using the <i>@OnChange</i>
+      annotation:
+      <pre><code class="java">
+...
+
+import com.yourcompany.invoicing.actions.*; // Add this import
+
+...
+      
+public class Order extends CommercialDocument {
+
+    ...
+    @OnChange(ShowHideCreateInvoiceAction.class) // Add this
+    private Invoice invoice;
+
+    ...
+    @OnChange(ShowHideCreateInvoiceAction.class) // Add this
+    private boolean delivered;
+
+    ...
+}
+</code></pre> With the above code when the user changes the value of <i>delivered</i>
+      or <i>invoice</i> in the screen, the <i>ShowHideCreateInvoiceAction</i>
+      will be executed. See the action code:
+      <pre><code class="java">package com.yourcompany.invoicing.actions; // In the 'actions' package
+
+import org.openxava.actions.*; // Needed to use OnChangePropertyAction,
+
+public class ShowHideCreateInvoiceAction
+    extends OnChangePropertyBaseAction { // Needed for @OnChange actions (1)
+
+    public void execute() throws Exception {
+        if (isOrderCreated() &amp;&amp; isDelivered() &amp;&amp; !hasInvoice()) { // (2)
+            addActions("Order.createInvoice");
+        }
+        else {
+            removeActions("Order.createInvoice");
+        }
+    }
+	
+    private boolean isOrderCreated() {
+        return getView().getValue("oid") != null; // We read the value from the view
+    }
+	
+    private boolean isDelivered() {
+        Boolean delivered = (Boolean)
+            getView().getValue("delivered"); // We read the value from the view
+        return delivered == null?false:delivered;
+    }
+
+    private boolean hasInvoice() {
+        return getView().getValue("invoice.oid") != null; // We read the value from the view
+    } 	
+}
+</code></pre> This is a conventional action with an <i>execute()</i> method,
+      moreover it extends <i>OnChangePropertyBaseAction</i> (1). All the
+      actions annotated with <i>@OnChange</i> must implement <i>IOnChangePropertyAction</i>,
+      however it's easier to extend <i>OnChangePropertyBaseAction</i> which
+      implements it. From this action you can use the <i>getNewValue()</i> and
+      <i>getChangedProperty()</i>, although in this specific case we don't need
+      them.<br>
+      The <i>execute()</i> method asks if the displayed order is saved,
+      delivered, and does not already have an invoice (2), in that case it shows
+      the action with <i>addActions("Order.createInvoice")</i>, otherwise it
+      hides the action with <i>removeActions("Order.createInvoice")</i>. Thus
+      we hide or show the <i>Order.createInvoice action</i>, only showing it
+      when it is applicable.The <i>add/removeActions()</i> methods allow to
+      specify several actions to show or hide separated by commas. <br>
+      Now when the user checks the delivered checkbox, or chooses an invoice,
+      the action button is shown or hidden. Accordingly, when the user clicks on
+      <i>New</i> button to create a new order the button for creating the
+      invoice is hidden. However, if you choose to modify an already existing
+      order, the button is always present, regardless if the prerequisites are
+      fulfilled. This is because when an object is searched and displayed the <i>@OnChange</i>
+      actions are not executed by default. We can change this with a little
+      modification in <i> SearchExcludingDeleteAction</i>:
+      <pre><code class="java">public class SearchExcludingDeletedAction
+    // extends SearchByViewKeyAction {
+    extends SearchExecutingOnChangeAction { // Use this as base class
+</code></pre> The default search action, i.e., <i>SearchByViewKeyAction</i>
+      does not execute the <i>@OnChange</i> actions, so we change our search
+      action to extend from <i>SearchExecutingOnChangeAction</i>. <i>SearchExecutingOnChangeAction</i>
+      behaves like <i>SearchByViewKeyAction</i> but executes the on-change
+      events. This way, when the user selects an order, the <i>ShowHideCreateInvoiceAction</i>
+      is executed.<br>
+      A tiny detail remains to make all this perfect: when the user click on
+      CREATE INVOICE, after the invoice has been created, the button should be
+      hidden. It should not be possible to create the same invoice twice. We can
+      implement this functionality by refining the <i>CreateInvoiceFromOrderAction</i>:
+      <pre><code class="java">public void execute() throws Exception {
+
+    ...
+
+    // Everything worked fine, so we'll hide the action
+    removeActions("Order.createInvoice"); 
+}
+</code></pre> As you can see we just add the <i>removeActions("Order.createInvoice")</i>
+      at the end of the <i>execute()</i> method.<br>
+      Showing and hiding actions is not a substitute for validation in the
+      model. Validations are still necessary since the entities can be used from
+      any other part of the application, not just from the CRUD module. However,
+      the trick of hiding and showing actions improves the user experience.
+      <h2><a name="business-logic-from-list-mode"></a>Business logic from list
+        mode</h2>
+      In the previous lesson you learned <a href="refining-standard-behavior_en.html#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode-List%20actions">how
+        to create list actions</a>. List actions are very useful tools that
+      provides the user with the ability to perform some specific logic on
+      multiple objects at the same time. In our case, we can add an action in
+      list mode to create a new invoice automatically from several selected
+      orders in the list. We want this action to work this way:<br>
+      <img src="files/business-logic-behavior_en020.png" alt="business-logic-behavior_en020.png"
+
+        title="business-logic-behavior_en020.png"><br>
+      This list action takes the selected orders and creates an invoice from
+      them. It just copies the order data into the new invoice, adding the
+      detail lines of all the orders in one unique invoice. Also a message is
+      shown. Let's see how to code this behavior.
+      <h3><a name="list-action-with-custom-logic"></a>List action with custom
+        logic</h3>
+      As you already know, the first step towards having a new custom action in
+      your module is to add that action to a controller. So, let's edit <i>
+        controllers.xml</i> adding a new action to the <i>Order</i> controller:
+      <pre><code class="xml">&lt;controller name="Order"&gt;
+
+    ...
+    
+    &lt;!-- The new action --&gt;
+    &lt;action name="createInvoiceFromSelectedOrders"
+        mode="list"
+        class="com.yourcompany.invoicing.actions.CreateInvoiceFromSelectedOrdersAction"/&gt;
+	&lt;!-- mode="list": Only shown in list mode --&gt;
+
+&lt;/controller&gt;
+</code></pre> This is all that is needed to have this new action available for <i>
+        Order</i> in list mode.<br>
+      Now we have to write the Java code for the action:
+      <pre><code class="java">package com.yourcompany.invoicing.actions;
+
+import java.util.*;
+import javax.ejb.*;
+import org.openxava.actions.*;
+import org.openxava.model.*;
+import com.yourcompany.invoicing.model.*;
+
+public class CreateInvoiceFromSelectedOrdersAction
+    extends TabBaseAction { // Typical for list actions. It allows you to use getTab() (1)
+
+    public void execute() throws Exception {
+        Collection&lt;Order&gt; orders = getSelectedOrders(); // (2)
+        Invoice invoice = Invoice.createFromOrders(orders); // (3)
+        addMessage("invoice_created_from_orders", invoice, orders); // (4)
+    }
+
+    private Collection&lt;Order&gt; getSelectedOrders() // (5)
+        throws FinderException
+    {
+        Collection&lt;Order&gt; result = new ArrayList&lt;&gt;();
+        for (Map key: getTab().getSelectedKeys()) { // (6)
+            Order order = (Order) MapFacade.findEntity("Order", key); // (7)
+            result.add(order);
+        }
+        return result;
+    }
+}
+</code></pre> Really simple. We obtain the list of the checked orders in the
+      list (2), call <i>createFromOrders()</i> static method (3) of <i>Invoice</i>
+      and show a message (4). In this case we also put the real logic in the
+      model class, not in the action. Since the logic applies to several orders
+      and creates a new invoice the natural place to put it is a static method
+      of <i>Invoice</i> class.<br>
+      The <i>getSelectedOrders()</i> method (5) returns a collection containing
+      the <i> Order</i> entities checked by the user in the list. This is
+      easily achieved using <i>getTab()</i> (6), available from <i>TabBaseAction</i>
+      (1), that returns an <i>org.openxava.tab.Tab</i> object. The <i>Tab</i>
+      object allows you to manage the tabular data of the list. In this case we
+      use <i>getSelectedKeys()</i> (6) that returns a collection with the keys
+      of the selected rows. Since these keys are in <i>Map</i> format we use <i>MapFacade.findEntity()</i>
+      (7) to convert them to <i>Order</i> entities.<br>
+      As always, add the message text to the <i>Invoicing-messages_en.properties</i>
+      file in i18n folder:
+      <pre><code class="properties">invoice_created_from_orders=Invoice {0} created from orders: {1}
+</code></pre> That's all for the action. Let's see the missing piece, the <i>
+        createFromOrders()</i> method of the <i>Invoice</i> class.
+      <h3><a name="business-logic-in-the-model-over-several-entities"></a>Business
+        logic in the model over several entities</h3>
+      The business logic for creating a new <i>Invoice</i> from several <i>Order</i>
+      entities is in the model layer, i.e., the entities, not in the action. We
+      cannot put the method in <i>Order</i> class, because the process is done
+      from several orders, not just one. We cannot use an instance method in <i>Invoice</i>
+      because the invoice does not exist yet, in fact we want to create it.
+      Therefore, we are going to create a static factory method in the <i>Invoice</i>
+      class for creating a new invoice from several orders.<br>
+      You can see this method here:<br>
+      <pre><code class="java">public class Invoice extends CommercialDocument {
+
+    ...
+	
+    public static Invoice createFromOrders(Collection&lt;Order&gt; orders)
+        throws CreateInvoiceException
+    {
+        Invoice invoice = null;
+        for (Order order: orders) {
+            if (invoice == null) { // The first order
+                order.createInvoice(); // We reuse the logic for creating an invoice
+                                       // from an order
+                invoice = order.getInvoice(); // and use the created invoice
+            }
+            else { // For the remaining orders the invoice is already created
+                order.setInvoice(invoice); // Assign the invoice
+                invoice.getDetails().addAll(order.getDetails()); // Copies the lines
+                invoice.setVat(
+                    invoice.getVat().add(order.getVat())); // Accumalates the vat
+                invoice.setTotalAmount( // and the total amount
+                    invoice.getTotalAmount().add(order.getTotalAmount()));
+            } 
+        } 
+        if (invoice == null) { // If there are no orders
+            throw new CreateInvoiceException(
+                "orders_not_specified");
+        }
+        return invoice;
+    }
+}
+</code></pre> We use the first <i>Order</i> to create the new <i>Invoice</i>
+      using the already existing <i>createInvoice()</i> method from <i>Order</i>.
+      Then we copy the lines from the remaining orders to the new <i>Invoice</i>
+      and accumulates on it the <i>vat</i> and <i>totalAmount</i> of the
+      orders. Moreover, we set the new <i>Invoice</i> as the invoice for the
+      orders of the collection.<br>
+      If invoice is null at the end of the process it's because the orders
+      collection is empty. In this case we throw a <i>CreateInvoiceException</i>.
+      Since the action does not catch the exceptions, OpenXava shows the
+      exception message to the user. This is fine. If the user does not check
+      any orders and he clicks on the button for creating an invoice, then this
+      error message will be shown to him.<br>
+      Remember to add the message text to the <i>Invoicing-messages_en.properties</i>
+      file in <i>i18n</i> folder:
+      <pre><code class="properties">orders_not_specified=Orders not specified
+</code></pre> These are not the only errors the user can get. All previously
+      written validations for <i>Invoice</i> and <i>Order</i> still apply
+      automatically. This ensures that the user has to choose orders from the
+      same customer, that are delivered, that lacks an invoice, etc. Model
+      validation prevents the user from creating invoices from the wrong orders.
+      <h2><a name="Showing-a-dialog"></a>Showing a dialog</h2>
+      After creating an invoice from several orders, it would be practical for
+      the user to see and possibly edit the newly created invoice. One way of
+      achieving this is by showing a dialog that allows to view and edit that
+      just created invoice. In this way:<br>
+      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
+
+        title="business-logic-behavior_en030.png"><br>
+      Let's see how to implement this behavior.
+      <h3><a name="using-showdialog"></a>Using showDialog()</h3>
+      The first step is to modify <i>CreateInvoiceFromSelectedOrdersAction</i>
+      to show a dialog after creating the invoice, just adding a few lines at
+      the end of <i>execute()</i>:<br>
+      <pre><code class="java">public void execute() throws Exception {
+    Collection&lt;Order&gt; orders = getSelectedOrders(); 
+    Invoice invoice = Invoice.createFromOrders(orders); 
+    addMessage("invoice_created_from_orders", invoice, orders); 
+
+    // Add the next lines to show the dialog
+    showDialog(); // (1)
+    // From now on getView() is the dialog
+    getView().setModel(invoice); // Display invoice in the dialog (2)
+    getView().setKeyEditable(false); // To indicate that is an existing object (3)
+    setControllers("InvoiceEdition"); // The actions of the dialog (4)
+}
+</code></pre>We call to <i>showDialog()</i> (1), it shows a dialog and after
+      that moment when we use <i>getView()</i> it references to the view in the
+      dialog no the main view of the module. After the <i>showDialog()</i> the
+      dialog is blank, until we assign our invoice to the view with <i>getView().setModel(invoice)</i>
+      (2), now the invoice is displayed in the dialog. The next line, <i>getView().setKeyEditable(false)</i>
+      (3), is to indicate that the invoice is already saved, so afterwards the
+      corresponding save action knows how to behaves. Finally, we use <i>setControllers("InvoiceEdition")</i>
+      to define the controller with the actions present in the dialog, that is
+      the buttons on bottom of the dialog. Note as <i>setControllers()</i> is
+      an alternative to <i>addActions()</i>.<br>
+      Obviously, this will not work until we have the <i>InvoiceEdition</i>
+      controller defined. We'll do this in the next section.
+      <h3><a name="define-the-dialog-actions"></a>Define the dialog actions</h3>
+      The dialog allows the user to change the invoice and save the changes or
+      just close the dialog after examining the invoice. These actions are
+      defined in the <i>InvoiceEdition</i> controller in <i>controllers.xml</i>:
+      <pre><code class="xml">&lt;controller name="InvoiceEdition"&gt;
+
+    &lt;action name="save"
+        class="com.yourcompany.invoicing.actions.SaveInvoiceAction"
+        keystroke="Control S"/&gt;
+		
+    &lt;action name="close"
+        class="org.openxava.actions.CancelAction"/&gt;
+		
+&lt;/controller&gt;
+</code></pre> The two actions of this controller represent the two buttons, SAVE
+      and CLOSE you saw in the previous image.</div>
+    <div class="wiki" style="display: block;">
+      <h3><a name="closing-dialog"></a>Closing dialog </h3>
+      <i>SaveInvoiceAction</i> contains just a minor extension of the standard <i>SaveAction</i>
+      of OpenXava:
+      <pre><code class="java">package com.yourcompany.invoicing.actions;
+
+import org.openxava.actions.*;
+
+public class SaveInvoiceAction
+    extends SaveAction { // Standard OpenXava action to save the view content
+	 
+    public void execute() throws Exception {
+        super.execute(); // The standard saving logic (1)
+        closeDialog(); // (2)
+    }
+}
+</code></pre> The action extends <i>SaveAction</i> overwriting the <i>execute()</i>
+      method to just call to the standard logic, with <i>super.execute()</i>
+      (1), and then to close the dialog with <i>closeDialog()</i> (2). In this
+      way, when the user clicks on SAVE, the invoice data is saved and the
+      dialog is closed, so the application returns to the list of orders, ready
+      to continue the creation of invoices from orders.<br>
+      For the CLOSE button we use the <i>CancelAction</i>, an action included
+      in OpenXava that simply closes the dialog.
+      <h3><a name="plain-view-instead-of-dialog"></a>Plain view instead of
+        dialog</h3>
+      Sometimes instead of showing a dialog on top:<br>
+      <img src="files/business-logic-behavior_en040.png" alt="business-logic-behavior_en040.png"
+
+        title="business-logic-behavior_en040.png"><br>
+      You could prefer to replace the current view with a new one, thus: <br>
+      <img src="files/business-logic-behavior_en050.png" alt="business-logic-behavior_en050.png"
+
+        title="business-logic-behavior_en050.png"><br>
+      This can be useful when the amount of data to show is huge and in a dialog
+      looks clumsy. Using a plain view instead of a dialog is as easy as
+      changing this line of from your <i>CreateInvoiceFromSelectedOrdersAction:</i>
+      <pre><code class="java">showDialog();
+</code></pre> By this one:
+      <pre><code class="java">showNewView();
+</code></pre> No more changes are needed. Well, maybe changing the name of the
+      "close" action to "return" in <i>InvoiceEdition</i> controller in <i>controllers.xml</i>.<br>
       <br>
-      <strong>Warning</strong>: We're upgrading the course to latest OpenXava
-      version, unfortunately this lesson is not still upgraded. The lesson
-      content is still valid, but maybe the source code for the example
-      application needs some adaptation because previous lessons are already
-      upgraded. The main change is the use of <em>@ElementCollection</em> for
-      the detail lines of invoices and orders.<br>
+      Our work is almost done. If you try out the <i>Order</i> module, choose
+      several orders, and click on the CREATE INVOICE FROM SELECTED ORDERS to
+      see a dialog with the newly created invoice. Just as you saw in the image
+      at the beginning of this section.
+      <h2><a name="junit-tests"></a>JUnit tests</h2>
+      The code we have written in this lesson is not complete until we write the
+      tests. Remember, all new code must have its corresponding test code. Let's
+      write tests for the two new actions.
+      <h3><a name="testing-the-detail-mode-action"></a>Testing the detail mode
+        action</h3>
+      First we'll test the <i>Order.createInvoice</i> action, the action for
+      creating an invoice from the displayed order in detail mode. Then next
+      image shows how this process works:<br>
+      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
+
+        title="business-logic-behavior_en010.png"><br>
+      Now we're going to write a test to verify that it really works in this
+      way. Add the <i>testCreateInvoiceFromOrder()</i> method to the <i>OrderTest</i>
+      class:
+      <pre><code class="java">public void testCreateInvoiceFromOrder() throws Exception {
+    login("admin", "admin");      
+    
+    // Looking for the order
+    searchOrderSusceptibleToBeInvoiced(); // Locates an order
+    assertValue("delivered", "true"); // The order is delivered
+    int orderDetailsCount = getCollectionRowCount("details"); // Takes note of the
+                                                     // details count of the order
+    execute("Sections.change", "activeSection=1"); // The section of the invoice
+    assertValue("invoice.year", ""); // There is no invoice yet
+    assertValue("invoice.number", ""); // in this order
+
+    // Creating the invoice
+    execute("Order.createInvoice"); // Executes the action under test (1)
+    String invoiceYear = getValue("invoice.year"); // Verifies that now
+    assertTrue("Invoice year must have value", // there is an invoice in
+        !Is.emptyString(invoiceYear)); // the invoice tab (2)
+    String invoiceNumber = getValue("invoice.number");
+    assertTrue("Invoice number must have value",
+        !Is.emptyString(invoiceNumber)); // Is.emptyString() is from org.openxava.util
+    assertMessage("Invoice " + invoiceYear + "/" + invoiceNumber +
+        " created from current order"); // The confirmation message (3)
+    assertCollectionRowCount("invoice.details", // The newly created invoice
+        orderDetailsCount); // has the same details count as the order (4)
+
+    // Restoring the order for running the test the next time
+    setValue("invoice.year", "");
+    assertValue("invoice.number", "");
+    assertCollectionRowCount("invoice.details", 0);
+    execute("CRUD.save");
+    assertNoErrors();
+}
+</code></pre> As you can see, the test clicks the button for executing <i>
+        Order.createInvoice</i> action (1), then verifies that an invoice has
+      been created, is displayed in the invoice tab (2), and has the same number
+      of detail lines as the current order (4). The test also verifies that the
+      correct confirmation message is generated (3).<br>
+      To run this test it's needed to choose an order suitable to be invoiced.
+      This is done in the <i>searchOrderSusceptibleToBeInvoiced()</i> method
+      that we are going to examine in the next section.
+      <h3><a name="finding-an-entity-for-testing-using-list-mode-and-jpa"></a>Finding
+        an entity for testing using list mode and JPA</h3>
+      To select an order suitable for our test we'll use JPA to determine the
+      year and number of that order, and then we'll use the list mode to select
+      the order to be edited in detail mode. Below the methods to implement
+      this:
+      <pre><code class="java">private void searchOrderSusceptibleToBeInvoiced() throws Exception {
+    searchOrderUsingList("delivered = true and invoice = null"); // Sends
+} // the condition, in this case to search for a delivered order with no invoice
+
+private void searchOrderUsingList(String condition) throws Exception {
+    Order order = findOrder(condition); // Finds the order with the condition using JPA
+    String year = String.valueOf(order.getYear());
+    String number = String.valueOf(order.getNumber());
+    setConditionValues(new String [] { year, number }); // Fills the year and number
+    execute("List.filter"); // and clicks the filter button of the list
+    assertListRowCount(1); // Only one row corresponding to the desired order
+    execute("List.viewDetail", "row=0"); // To see the order in detail mode
+    assertValue("year", year); // Verifies that the edited order
+    assertValue("number", number); // is the desired one
+}
+
+private Order findOrder(String condition) {
+    Query query = XPersistence.getManager().createQuery( // Creates a JPA query
+        "from Order o where o.deleted = false and " // from the condition. Note the
+        + condition); // deleted = false for excluding deleted orders
+    List&lt;Order&gt; orders = query.getResultList();
+    if (orders.isEmpty()) { // It's needed at least one order with the condition
+        fail("To run this test you must have some order with " + condition);
+    }
+    return orders.get(0);
+}
+</code></pre> Also you have the next imports to <i>OrderTest</i> in order it
+      compiles:
+      <pre><code class="java">import java.util.*;
+import javax.persistence.*;
+import org.openxava.jpa.*;
+import org.openxava.util.*;
+import com.yourcompany.invoicing.model.*;
+</code></pre> The <i>searchOrderSusceptibleToBeInvoiced()</i> method simply
+      calls a more generic method, <i>searchOrderUsingList()</i>, to locate an
+      entity from a condition. The <i>searchOrderUsingList()</i> method obtains
+      an <i>Order</i> entity by means of <i>findOrder()</i>, then it uses the
+      list to filter by year and number of this <i>Order</i> before finally
+      going to detail mode. The <i>findOrder()</i> method uses plain JPA for
+      searching.<br>
+      Combining list mode and JPA can be a very useful technique in some cases.
+      We will continue to use the methods <i>searchOrderUsingList()</i> and <i>findOrder()</i>
+      in the remaining tests.
+      <h3><a name="testing-hiding-of-the-action"></a>Testing hiding of the
+        action</h3>
+      We refined the <i>Order</i> module to show the action for creating an
+      invoice only when the displayed order would be suitable to be invoiced.
+      This is the test method for this, add it to <i>OrderTest</i>:
+      <pre><code class="java">public void testHidesCreateInvoiceFromOrderWhenNotApplicable() throws Exception {
+    login("admin", "admin");
+    searchOrderUsingList(
+        "delivered = true and invoice &lt;&gt; null"); // If the order already has an invoice
+    assertNoAction("Order.createInvoice"); // it cannot be invoiced again
+
+    execute("Mode.list");
+
+    searchOrderUsingList(
+        "delivered = false and invoice = null"); // If the order is not delivered
+    assertNoAction("Order.createInvoice"); // it cannot be invoiced
+
+    execute("CRUD.new"); // If the order is not saved yet
+    assertNoAction("Order.createInvoice"); // it cannot be invoiced
+}
+</code></pre> We test three cases when the button for creating an invoice should
+      not be visible. Note the usage of <i>assertNoAction()</i> for asking if a
+      link or button for an action is not present in the user interface. Here we
+      are reusing the <i>searchOrderUsingList()</i> method developed in the
+      previous section.<br>
+      We have already implicitly tested that the button is present when
+      applicable in our previous test, because <i>execute()</i> fails if the
+      action is not in the user interface.
+      <h3><a name="testing-the-list-mode-action"></a>Testing the list mode
+        action</h3>
+      Now we'll test the <i>Order.createInvoiceFromSelectedOrders</i> action,
+      the action for creating an invoice from multiple selected orders in list
+      mode. Remember that this process works in this way: <br>
+      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
+
+        title="business-logic-behavior_en030.png"><br>
+      Let's write a test to verify that it works in just this way. Add the <i>
+        testCreateInvoiceFromSelectedOrders()</i> method to the <i>OrderTest</i>
+      class:
+      <pre><code class="java">public void testCreateInvoiceFromSelectedOrders() throws Exception {
+    login("admin", "admin");
+    assertOrder(2020, 7, 2, "75.02"); // Order 2020/7 has 2 lines and 75.02 as total amount
+    assertOrder(2020, 8, 2, "99.22"); // Order 2020/8 has 2 lines and 99.22 as total amount
+
+    execute("List.orderBy", "property=number"); // Sorts the list by number
+    checkRow( // Checks the row from the row number
+        getDocumentRowInList("2020", "7") // Obtains the row from order year and number
+    ); // So, this line checks the order 2020/7 in the list (1)
+    checkRow(
+        getDocumentRowInList("2020", "8")
+    ); // Checks the order 2020/8 in the list (1)
+
+    execute("Order.createInvoiceFromSelectedOrders"); // Executes the action we
+                                                      // are currently testing (2)
+    String invoiceYear = getValue("year"); // We are now in detail mode of the
+    String invoiceNumber = getValue("number"); // newly created invoice
+    assertMessage("Invoice " + invoiceYear + "/" + invoiceNumber +
+        " created from orders: [2020/7, 2020/8]"); // The confirmation message
+    assertCollectionRowCount("details", 4); // Asserts that the line count of the new
+                         // invoice equals the sum of lines from the source orders (3)
+    assertValue("totalAmount", "174.24"); // Asserts that total amount of the new
+                     // invoice equals the sum of the amounts of the source orders (4)
+    execute("Sections.change", "activeSection=1"); // Changes to the orders tab of invoice
+    assertCollectionRowCount("orders", 2); // The new invoice has 2 associated orders (5)
+    assertValueInCollection("orders", 0, 0, "2020"); // and they should be the correct 
+    assertValueInCollection("orders", 0, 1, "7"); // ones
+    assertValueInCollection("orders", 1, 0, "2020");
+    assertValueInCollection("orders", 1, 1, "8");
+
+    assertAction("InvoiceEdition.save"); // The SAVE (6)
+    assertAction("InvoiceEdition.close"); // and CLOSE buttons (6)
+
+    checkRowCollection("orders", 0); // We select the 2 orders
+    checkRowCollection("orders", 1);
+    execute("Collection.removeSelected", // and remove them, in order to be able to
+        "viewObject=xava_view_section1_orders"); // repeat this test using the same orders
+    assertNoErrors();
+
+    execute("InvoiceEdition.close"); // Closes the dialog and returns to the orders list (7)
+    assertDocumentInList("2020", "7"); // Asserts that we are really in orders list
+    assertDocumentInList("2020", "8");
+}
+</code></pre> This test checks two orders (1) and clicks the CREATE INVOICE FROM
+      SELECTED ORDERS (2). Then it verifies that a new invoice is created with
+      the correct number of lines (3), total amount (4) and list of orders (5).
+      Furthermore the test verifies that the SAVE and CLOSE actions are
+      available (6) and uses the latter for returning to the orders list (7).<br>
+      We use <i>getDocumentRowInList()</i> and <i>assertDocumentInList()</i>,
+      methods from <i>CommercialDocumentTest</i> base class. They were
+      originally defined as private, therefore we must redefine them as
+      protected to use them from <i>OrderTest</i>. Edit <i>CommercialDocumentTest</i>
+      and make the next changes:
+      <pre><code class="java">// private void assertDocumentInList(String year, String number) ...
+protected void assertDocumentInList(String year, String number) ...
+
+// private int getDocumentRowInList(String year, String number) ...
+protected int getDocumentRowInList(String year, String number) ...
+</code></pre> The only remaining detail is the <i>assertOrder()</i> method that
+      we'll see in the next section.
+      <h3><a name="asserting-test-data"></a>Asserting test data</h3>
+      In the lesson 3 (Automated testing) you learned how to use data existing
+      in the database for your tests. Obviously, if your database is
+      accidentally altered, your test, albeit correct, will not pass. So,
+      asserting the database values before running a test that relies on them is
+      a good practice. In our example we do this by calling <i>assertOrder()</i>
+      at the beginning:
+      <pre><code class="java">private void assertOrder(
+    int year, int number, int detailsCount, String totalAmount)
+{
+    Order order = findOrder("year = " + year + " and number=" + number);
+    assertEquals("To run this test the order " +
+        order + " must have " + detailsCount + " details",
+        detailsCount, order.getDetails().size());
+    assertTrue("To run this test the order " +
+        order + " must have " + totalAmount + " as total amount",
+        order.getTotalAmount().compareTo(new BigDecimal(totalAmount)) == 0);
+    assertTrue("To run this test the order " + order + " must be delivered",
+        order.isDelivered());        
+}
+</code></pre> Also add the next import at beginning of <i>OrderTest</i>:
+      <pre><code class="java">import java.math.*;
+</code></pre> This method finds an order and verifies its details count, the
+      total amount and if the order is delivered. Using this method has the
+      advantage that if the required orders for the test are not in the database
+      with the correct values you get a precise message. Thus, you will not
+      waste time figuring out what is wrong. This is especially useful if the
+      test is not performed by the original developer.
+      <h3><a name="testing-exceptional-cases"></a>Testing exceptional cases</h3>
+      Given that the action for creating the invoice is hidden if the order is
+      not ready to be invoiced, we cannot test the code from detail mode we
+      wrote for handling exceptional cases. In list mode however, the user still
+      has the option of choosing any order for invoicing. Therefore, we will
+      create the invoice for verifying the correct behavior in exceptional cases
+      from list mode. Add the next code to <i> OrderTest</i>:
+      <pre><code class="java">public void testCreateInvoiceFromOrderExceptions() throws Exception {
+    login("admin", "admin");      
+    assertCreateInvoiceFromOrderException( // Verifies that when the order already has (1)
+        "delivered = true and invoice &lt;&gt; null", // an invoice the correct error is produced
+        "Impossible to execute Create invoice from selected orders action: " +
+            "The order already has an invoice"
+    );
+    assertCreateInvoiceFromOrderException( // Verifies that when the order is not (2)
+        "delivered = false and invoice = null", // delivered the correct error is produced
+        "Impossible to execute Create invoice from selected orders action: " +
+            "The order is not delivered yet"
+    );
+}
+
+private void assertCreateInvoiceFromOrderException(
+    String condition, String message) throws Exception
+{
+    Order order = findOrder(condition); // Finds an order satisfying the condition (3)
+    int row = getDocumentRowInList( // and obtains the row number for that order (4)
+        String.valueOf(order.getYear()),
+        String.valueOf(order.getNumber())
+    );
+    checkRow(row); // Checks the row (5)
+    execute("Order.createInvoiceFromSelectedOrders"); // Tries to create the invoice(6)
+    assertError(message); // Is the expected message shown? (7)
+    uncheckRow(row); // Uncheck the row so we can call this method again
+}
+</code></pre> The test verifies that the message is the correct one when trying
+      to create an invoice from an order that already has an invoice (1), and
+      also from an order not delivered yet (2). To do these verifications it
+      calls the method <i>assertCreateInvoiceFromOrderException()</i>. This
+      method finds an <i>Order</i> entity using the condition (3), locates the
+      row where the entity is displayed (4) and checks it (5). Afterward, the
+      test executes the action (6) and asserts that the expected message is
+      shown (7).
+      <h2><a name="summary"></a>Summary</h2>
+      The salt of your application comes from the actions and entity methods.
+      Thanks to them you can convert a simple data management application into a
+      useful tool. In this lesson, for example, we provided the user with a way
+      to automatically create invoices from orders.<br>
+      You have learned how to create instance and static methods for business
+      logic, and how to call them from actions in detail and list mode. Along
+      the way you also saw how to hide and show actions, use exceptions,
+      validating from actions, show dialogs and how to test all this.<br>
+      We still have many interesting things to learn, in the next lesson for
+      example we are going to refine the behavior of references and collections.<br>
+      <br>
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_en.zip/download"
+
+          rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
 

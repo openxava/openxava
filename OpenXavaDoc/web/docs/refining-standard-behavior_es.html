@@ -188,7 +188,8 @@
       factura no sea borrada de la base de datos, sino que simplemente se marque
       como borrada. De esta forma, podemos recuperar las facturas borradas si
       fuese necesario.<br>
-      <img src="files/refining_behavior_es010.png" alt="refining_behavior_es010.png"
+      <img src="files/refining_behavior_es010.png" alt="refining_behavior_es010.png"
+
         title="refining_behavior_es010.png"><br>
       La figura anterior muestra las acciones de <em>Typical</em>; queremos
       todas estas acciones en nuestro módulo <em>Factura</em>, con la excepción
@@ -264,7 +265,8 @@ public class EliminarFactura
       bien añadir el mensaje a mostrar, o bien un id de una entrada en <em>i18n/MensajesFacturacion_es.properties</em>.<br>
       La siguiente imagen muestra el comportamiento del módulo <em>Factura</em>
       después de añadir la acción de borrar personalizada:<br>
-      <img src="files/refining_behavior_es020.png" alt="refining_behavior_es020.png"
+      <img src="files/refining_behavior_es020.png" alt="refining_behavior_es020.png"
+
         title="refining_behavior_es020.png"><br>
       Por supuesto, este es un comportamiento tonto. Añadamos el comportamiento
       real. Para marcar como borrada la factura actual sin borrarla realmente,
@@ -555,7 +557,8 @@ abstract public class DocumentoComercial extends Eliminable {
       funcionamiento es bueno. Aunque si tratas de borrar una entidad de
       cualquier otro módulo, recibirás un feo mensaje de error. La figura
       siguiente muestra lo que ocurre cuando intentas borrar un <em>Cliente</em>.<br>
-      <img src="files/refining_behavior_es030.png" alt="refining_behavior_es030.png"
+      <img src="files/refining_behavior_es030.png" alt="refining_behavior_es030.png"
+
         title="refining_behavior_es030.png"><br>
       Sí, si tu entidad no tiene una propiedad <em>eliminado</em>, la acción de
       borrar falla miserablemente. Es verdad que gracias a la clase <em>Eliminable</em>
@@ -651,7 +654,8 @@ public class EliminarParaFacturacion extends ViewBaseAction {
       El lugar más obvio para empezar es la acción de búsqueda. Si borras una
       factura y después tratas de buscarla, no deberías encontrarla. La
       siguiente figura muestra como funciona la búsqueda en OpenXava.<br>
-      <img src="files/refining_behavior_es040.png" alt="refining_behavior_es040.png"
+      <img src="files/refining_behavior_es040.png" alt="refining_behavior_es040.png"
+
         title="refining_behavior_es040.png"><br>
       La primera cosa que puedes observar en la figura anterior es que buscar en
       modo detalle es más flexible de lo que parece. El usuario puede introducir
@@ -991,7 +995,8 @@ public class EliminarSeleccionadoParaFacturacion
       el vínculo <em>Restaurar</em> en la fila del documento que quiera
       restaurar:<br>
       <br>
-      <img src="files/refining_behavior_es050.png" alt="refining_behavior_es050.png"
+      <img src="files/refining_behavior_es050.png" alt="refining_behavior_es050.png"
+
         title="refining_behavior_es050.png"><br>
       La lógica de esta acción de restaurar es simplemente poner la propiedad <em>eliminado</em>
       de las entidades seleccionadas a <em>false</em>. Es decir, es exactamente
@@ -1078,7 +1083,8 @@ public class EliminarSeleccionadoParaFacturacion
 </code></pre> Estos módulos van contra <em>Factura</em> y <em>Pedido</em>,
       pero definen una acción especial como acción de fila usando la variable de
       entorno <em>XAVA_LIST_ACTION</em>. La siguiente figura muestra <em>PapeleraFactura</em>:<br>
-      <img src="files/refining_behavior_es060.png" alt="refining_behavior_es060.png"
+      <img src="files/refining_behavior_es060.png" alt="refining_behavior_es060.png"
+
         title="refining_behavior_es060.png"><br>
       <h3 id="toc18"><a name="Reutilizar-el-codigo-de-las-acciones-Varias-definiciones-de-datos-tabulares-por-entidad"></a>Varias
         definiciones de datos tabulares por entidad</h3>
@@ -1349,10 +1355,12 @@ private int getFilaDocumentoEnLista(String anyo, String numero)
       usuario necesitas añadir funcionalidad específica que le ayude a resolver
       sus problemas. Haremos esto en la próxima lección.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-7-refining-standard-behavior_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-7-refining-standard-behavior_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="business-logic-behavior_es.html">Ve a la
           lección 8</a></strong> </div>

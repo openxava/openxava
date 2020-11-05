@@ -18,7 +18,8 @@
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
         Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4.
         Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
-        Basic business logic</a> | <strong>6. Advanced validation</strong> | <a
+        Basic business logic</a> | <strong>6. Advanced validation</strong> | <a
+
         class="wiki_link" href="refining-standard-behavior_en.html">7. Refining
         the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
@@ -172,7 +173,8 @@ order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to 
       you will see how the undelivered orders are rejected. Go to <i>Invoices</i>
       module, select the ORDERS tab of an invoice, and from there click on <i>Add</i>
       button:</div>
-    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
+    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
+
         alt="validation_en010.png" title="validation_en010.png"></div>
     <div class="wiki" style="display: block;">It will show a dialog with a list
       of orders to choose from. Choose two, one of them not delivered yet, then
@@ -613,7 +615,8 @@ private String isbn;
     <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
     <div class="wiki" style="display: block;">You'll get an empty JSON, like
       this:</div>
-    <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+    <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+
       style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
     <div class="wiki" style="display: block;">That is, an empty JSON, just {}.</div>
     <div class="wiki" style="display: block;">To call this web service we'll use
@@ -839,8 +842,8 @@ private String isbn;
  
     // Restoring original values
     execute("List.viewDetail", "row=0");
-    setValue("delivered", "false");
     setValue("invoice.year", "");
+    setValue("delivered", "false");
     execute("CRUD.save");
     assertNoErrors();
 }
@@ -884,7 +887,8 @@ private String isbn;
     assertNoErrors();
 }
 </code></pre> Surely the manual testing you were doing during the development of
-      the <em>@ISBN</em> validator was like the one above. Therefore, if <a href="http://www.extremeprogramming.org/rules/testfirst.html"
+      the <em>@ISBN</em> validator was like the one above. Therefore, if <a href="http://www.extremeprogramming.org/rules/testfirst.html"
+
         rel="nofollow">you write your JUnit test before the application code</a>,
       you can use it as you proceed. This is more efficient than repeating the
       test procedures by hand using the browser over and over again.<br>
@@ -905,10 +909,12 @@ private String isbn;
       it is more convenient to put logic outside your model classes. You will
       learn that in the next lessons.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="refining-standard-behavior_en.html">Go to
           Lesson 7</a></strong> </div>
