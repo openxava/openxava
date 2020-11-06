@@ -6,4 +6,4 @@ Carrier module:
 Warehouse:
 - Click on New.
 - The first field has not tooltip.
-- The second field shows a black tooltip with a arrow in the correct place.
+- The second field shows a black tooltip with an arrow in the correct place.
