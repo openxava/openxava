@@ -1,13 +1,6 @@
 /GalleryImage.hbm.xml
 /META-INF/
 /OpenXavaTest-labels_ca.properties
-/OpenXavaTest-labels_en.properties
-/OpenXavaTest-labels_es.properties
-/OpenXavaTest-labels_fr.properties
-/OpenXavaTest-messages_ca.properties
-/OpenXavaTest-messages_en.properties
-/OpenXavaTest-messages_es.properties
-/OpenXavaTest-messages_fr.properties
 /application.xml
 /code-generators.xml
 /controllers.xml
@@ -18,6 +11,13 @@
 /hibernate-junit.cfg.xml
 /hibernate.cfg.xml
 /org/
+/OpenXavaTest-labels_en.properties
+/OpenXavaTest-labels_es.properties
+/OpenXavaTest-labels_fr.properties
+/OpenXavaTest-messages_ca.properties
+/OpenXavaTest-messages_en.properties
+/OpenXavaTest-messages_es.properties
+/OpenXavaTest-messages_fr.properties
 /portlets/
 /BeansContext.properties
 /Corporation.html

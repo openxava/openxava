@@ -967,7 +967,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("number", "63");
 		execute("CRUD.refresh");		
 		assertValue("description", "JUNIT BY CARRIER");		
-		assertExists("carrier.number");						    
+		assertExists("carrier.number");					    
 		assertNotExists("employee");
 		assertValue("carrier.number", "1");
 				

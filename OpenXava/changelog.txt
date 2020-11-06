@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Lessons 7 and 8 of course upgraded to latest OpenXava features.
+- New applicationPort property in xava.properties to indicate the port used by the application launcher.
+- New method getPopupContentAsStream() in ModuleTestBase to get the content of new web window.
 - Fix: "Controller YourController not found" error accessing the application when Tomcat is starting.
 - Fix: Label and column width changed by user not persisted if the column isn't in the original @Tab.
 - Fix: @NoFrame references are not well aligned with flowLayout=true.
@@ -19,15 +22,12 @@ Change Log for OpenXava project
 - Fix: Duplicate load of totals via AJAX when refreshing an element collection.
 - Fix: View.setValue() for an element collection does not work.
 - Fix: View.setValue() for a reference sending the value as a map works but displays an error.
-- New applicationPort property in xava.properties to indicate the port used by the application launcher.
 - Fix: Application launcher (the _Run_YourApplication) fails if port 8080 is used by another process.
 - Fix: getView().setModel(anEntity) with an entity in a transient module put the permalink parameter.
 - Fix: Assign a model to the view of different type of the module and then reload the browser page fails. 
-- Lessons 7 and 8 of course upgraded to latest OpenXava features.
 - Fix: Group by month or year of a DATETIME property implemented with a java.util.Date fails.
 - Fix: Import data from Excel turn big numbers into 2147483647.
 - Fix: Real excel generation (included in TypicalRealExcel) exports BigDecimal as String.
-- New method getPopupContentAsStream() in ModuleTestBase to get the content of new web window.
 - Fix: Assigning an Integer to a BigDecimal property with MapFacade fails instead of doing a conversion. 
 - Fix: Concurrent exception accessing labels from time to time under high load with many concurrent users.
 - Fix: View.setValue() to set null to a reference throws an exception.
