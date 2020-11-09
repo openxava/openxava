@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.4.2 (2020-11-9)
+--------------------------
 - Lessons 7 and 8 of course upgraded to latest OpenXava features.
 - New applicationPort property in xava.properties to indicate the port used by the application launcher.
 - New method getPopupContentAsStream() in ModuleTestBase to get the content of new web window.

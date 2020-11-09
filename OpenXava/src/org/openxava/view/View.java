@@ -1310,12 +1310,11 @@ public class View implements java.io.Serializable {
 			String viewName = getViewName() == null?"":"'" + getViewName() + "'";
 			throw new XavaException("member_not_found_in_view", "'" + name + "'", viewName, "'" + getModelName() + "'");
 		}
-		try { // tmp
+		try { 
 			MetaMember member = getMetaModel().getMetaMember(name);
 			if (!isMetaProperty(member) || !((MetaProperty)member).isTransient()) {
 				getRoot().dataChanged = true;
 			}
-		// tmp ini
 		}
 		catch (ElementNotFoundException ex) {
 			// It could be a view property of a XML component
