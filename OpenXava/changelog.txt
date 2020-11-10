@@ -29,7 +29,7 @@ OpenXava 6.4.2 (2020-11-9)
 - Fix: Assign a model to the view of different type of the module and then reload the browser page fails. 
 - Fix: Group by month or year of a DATETIME property implemented with a java.util.Date fails.
 - Fix: Import data from Excel turn big numbers into 2147483647.
-- Fix: Real excel generation (included in TypicalRealExcel) exports BigDecimal as String.
+- Fix: Real Excel generation (included in TypicalRealExcel) exports BigDecimal as String.
 - Fix: Assigning an Integer to a BigDecimal property with MapFacade fails instead of doing a conversion. 
 - Fix: Concurrent exception accessing labels from time to time under high load with many concurrent users.
 - Fix: View.setValue() to set null to a reference throws an exception.
