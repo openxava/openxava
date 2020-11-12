@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Java included in distribution upgraded to 11.0.9 (Zulu 11.43.21).
+- Eclipse Platform for OpenXava Studio upgraded to Eclipse 2020-09.
+
 OpenXava 6.4.2 (2020-11-9)
 --------------------------
 - Lessons 7 and 8 of course upgraded to latest OpenXava features.
