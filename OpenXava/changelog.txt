@@ -1,8 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
-TMP ME QUEDÉ PARA BUSCAR UNA ENTIDAD A LA QUE QUITARLE LOS GETTER. EL STUDIO YA ESTÁ LIST.
-- Java included in distribution upgraded to 11.0.9 (Zulu 11.43.21).
+- TMP FALTA:	
+	- Probar Suite completa.
+	- Probar el Studio en un Windows virgen.
+	- Hacer y probar Studio para Linux.
+	- Hacer y probar Studio para Mac.
+
+- Java included in distribution changed to Eclipse JustJ.
 - Eclipse Platform for OpenXava Studio upgraded to Eclipse 2020-09.
 
 OpenXava 6.4.2 (2020-11-9)
