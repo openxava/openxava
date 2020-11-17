@@ -19,12 +19,14 @@ import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
 
+import lombok.*;
+
 /**
  * 
  * @author Javier Paniza
  */
 
-@Entity
+@Entity @Getter @Setter // tmp @Getter @Setter TMP ME QUEDÉ POR AQUÍ ¿@Data vs @Getter @Setter?
 @IdClass(InvoiceKey.class)
 @Views({
 	@View(members=
@@ -443,7 +445,7 @@ public class Invoice {
 		return (Invoice) query.getSingleResult();
  	} 
 
-	
+	/* tmp
 	public java.util.Date getDate() {
 		return date;
 	}
@@ -483,11 +485,13 @@ public class Invoice {
 	public void setPaid(boolean paid) {
 		this.paid = paid;
 	}
+	*/
 
 	public BigDecimal getVatPercentage() {
 		return vatPercentage==null?BigDecimal.ZERO:vatPercentage;
 	}
 
+	/* tmp
 	public void setVatPercentage(BigDecimal vatPercentage) {
 		this.vatPercentage = vatPercentage;
 	}
@@ -506,7 +510,7 @@ public class Invoice {
 
 	public void setDetails(Collection<InvoiceDetail> details) {
 		this.details = details;
-	}
+	}// tmp
 
 	public Collection<Delivery> getDeliveries() {
 		return deliveries;
@@ -515,5 +519,6 @@ public class Invoice {
 	public void setDeliveries(Collection<Delivery> deliveries) {
 		this.deliveries = deliveries;
 	}
+	*/
 
 }

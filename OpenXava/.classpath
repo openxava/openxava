@@ -96,5 +96,6 @@
 	<classpathentry kind="lib" path="web/WEB-INF/lib/jersey-media-json-binding.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/yasson.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/jakarta.json.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/lombok.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

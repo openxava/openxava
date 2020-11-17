@@ -3,9 +3,10 @@ Change Log for OpenXava project
 
 - TMP FALTA:	
 	- Probar Suite completa.
-	- Probar el Studio en un Windows virgen.
-	- Hacer y probar Studio para Linux.
-	- Hacer y probar Studio para Mac.
+	- Probar con Java 8.
+	- Probar el Studio en un Windows virgen. ¿Esperar a Eclipse 2020-12?
+	- Hacer y probar Studio para Linux. ¿Esperar a Eclipse 2020-12?
+	- Hacer y probar Studio para Mac. ¿Esperar a Eclipse 2020-12?
 
 - Java included in distribution changed to Eclipse JustJ.
 - Eclipse Platform for OpenXava Studio upgraded to Eclipse 2020-09.

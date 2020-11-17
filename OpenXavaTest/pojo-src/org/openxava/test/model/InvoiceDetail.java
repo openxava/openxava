@@ -11,12 +11,14 @@ import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.test.validators.*;
 
+import lombok.*;
+
 /**
  * 
  * @author Javier Paniza
  */
 
-@Entity
+@Entity @Data // tmp @Data
 @Views({
 	@View(members=
 		"serviceType;" +
@@ -125,6 +127,7 @@ public class InvoiceDetail {
 		invoice.setComment(invoice.getComment() + "DETAIL DELETED");
 	}
 	
+	/* tmp
 	public String getOid() {
 		return oid;
 	}
@@ -143,9 +146,13 @@ public class InvoiceDetail {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	*/
+	
 	public BigDecimal getUnitPrice() {
 		return unitPrice==null?BigDecimal.ZERO:unitPrice;
 	}
+	
+	/* tmp
 	public void setUnitPrice(BigDecimal unitPrice) {
 		this.unitPrice = unitPrice;
 	}
@@ -165,6 +172,7 @@ public class InvoiceDetail {
 	public void setDeliveryDate(java.util.Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
+	*/
 
 	public Seller getSoldBy() {
 		// In this way because the column for 'soldBy' does not admit null
@@ -177,6 +185,7 @@ public class InvoiceDetail {
 		}
 	}
 
+	/* tmp
 	public void setSoldBy(Seller soldBy) {
 		this.soldBy = soldBy;
 	}
@@ -196,5 +205,6 @@ public class InvoiceDetail {
 	public void setInvoice(Invoice invoice) {
 		this.invoice = invoice;
 	}
+	*/
 	
 }

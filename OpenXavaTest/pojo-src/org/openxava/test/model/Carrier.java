@@ -7,12 +7,14 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
 
+import lombok.*;
+
 /**
  * 
  * @author Javier Paniza 
  */
 
-@Entity
+@Entity @Data // tmp @Data 
 @View(members="number; name; drivingLicence; warehouse; remarks; calculated; fellowCarriers; fellowCarriersCalculated")			
 @View(name="Simple", members="number, name")
 @View(name="CalculatedFellows", extendsView="Simple", members="; fellowCarriersCalculatedSize; fellowCarriersCalculated")
@@ -50,7 +52,9 @@ public class Carrier {
 		@JoinColumn(name="DRIVINGLICENCE_TYPE", referencedColumnName="TYPE", insertable=false, updatable=false) 
 	})	
 	private DrivingLicence drivingLicence;	
-	private Integer drivingLicence_level; 
+	@Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE) // tmp  
+	private Integer drivingLicence_level;
+	@Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE) // tmp
 	private String drivingLicence_type; 
 	
 	@ManyToOne(optional=false) 
@@ -123,6 +127,7 @@ public class Carrier {
  		return query.getResultList();  				
 	}	
 
+	/* tmp
 	public int getNumber() {
 		return number;
 	}
@@ -138,7 +143,7 @@ public class Carrier {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	*/
 
 	public DrivingLicence getDrivingLicence() {
 		// In this way because the column for type of driving lincence does not admit null
@@ -163,6 +168,7 @@ public class Carrier {
 		if (this.drivingLicence_type == null) this.drivingLicence_type = "";
 	}
 
+	/* tmp
 	public Warehouse getWarehouse() {
 		return warehouse;
 	}
@@ -179,6 +185,7 @@ public class Carrier {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+	*/
 	
 	public void translate() {
 		if (!translateToSpanish()) translateToEnglish();		
@@ -238,6 +245,7 @@ public class Carrier {
 	@Transient
 	private String fellowCarriersSelected;
 
+	/* tmp
 	public String getFellowCarriersSelected() {
 		return fellowCarriersSelected;
 	}
@@ -261,5 +269,6 @@ public class Carrier {
 	public void setOldSync(boolean oldSync) {
 		this.oldSync = oldSync;
 	}
+	*/
 	
 }
