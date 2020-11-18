@@ -26,7 +26,7 @@ import lombok.*;
  * @author Javier Paniza
  */
 
-@Entity @Getter @Setter // tmp @Getter @Setter TMP ME QUEDÉ POR AQUÍ ¿@Data vs @Getter @Setter?
+@Entity @Getter @Setter // tmp @Getter @Setter 
 @IdClass(InvoiceKey.class)
 @Views({
 	@View(members=

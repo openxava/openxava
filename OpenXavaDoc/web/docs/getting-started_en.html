@@ -9,17 +9,9 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1>
-        <span id="breadcrumbs">
-          <span id="openxava">
-          	<a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava
-            </a>
-          </span>  
-          / <a href="index_en.html">documentation</a> /  
-				</span>
-				Getting started with OpenXava
-      </h1>
+      <h1> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
+          / </span> Getting started with OpenXava </h1>
       Follow this guide to create and run your first OpenXava project. <em>También
         <a href="getting-started_es.html">disponible en Español</a>.</em><br>
       <h2 id="toc2"><a name="Lesson 1: Getting started-Our goal: A small invoicing application"></a>Creating
@@ -90,33 +82,19 @@ public class Customer {
  
 import javax.persistence.*;
 import org.openxava.annotations.*;
+import lombok.*;
  
 @Entity  // This marks Customer class as an entity
+@Getter @Setter // This makes all fields below publicly accessible
 public class Customer {
  
     @Id  // The number property is the key property. Keys are required by default
     @Column(length=6)  // The column length is used at the UI level and the DB level
-    private int number;
+    int number;
  
     @Column(length=50)  // The column length is used at the UI level and the DB level
     @Required  // A validation error will be shown if the name property is left empty
-    private String name;
- 
-    public int getNumber() {
-        return number;
-    }
- 
-    public void setNumber(int number) {
-        this.number = number;
-    }
- 
-    public String getName() {
-        return name;
-    }
- 
-    public void setName(String name) {
-        this.name = name;
-    }
+    String name;
  
 }
 </code></pre> </div>
@@ -185,29 +163,16 @@ public class Customer {
  
 import javax.persistence.*;
 import org.openxava.annotations.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Product {
  
     @Id @Column(length=9)
-    private int number;
+    int number;
  
     @Column(length=50) @Required
-    private String description;
- 
-    public int getNumber() {
-        return number;
-    }
-    public void setNumber(int number) {
-        this.number = number;
-    }
- 
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    String description;
  
 }
 </code></pre> </div>

@@ -514,7 +514,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	public void testFilterByRange() throws Exception{ 
 		getWebClient().getOptions().setCssEnabled(true); 
 		
-		assertListRowCount(9); // TMP  
+		assertListRowCount(9); 
 		assertLabelInList(0, "Year");
 		assertLabelInList(2, "Date");
 		assertLabelInList(6, "Paid");		
@@ -742,7 +742,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("Sections.change", "activeSection=2");
 		setValue("vatPercentage", "23");
 				
-		createOneDetail(); // Because at least one detail is required // TMP FALLA
+		createOneDetail(); // Because at least one detail is required 
 		setValue("paid", "true"); // assign true to checkbox 
 		
 		execute("CRUD.save");
@@ -1176,7 +1176,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertTrue("It has to have paid invoices for run this test", paidOnes > 0);		
 		assertTrue("It has to have not paid invoices for run this test", notPaidOnes > 0);
 		assertTrue("The sum of paid and not paid invoices has to match with the total count", total == (paidOnes + notPaidOnes));
-		assertTrue("It has to have less than 10 invoices to run this test", total < 10); // TMP FALLA
+		assertTrue("It has to have less than 10 invoices to run this test", total < 10); 
 		assertListRowCount(total);
 		
 		String [] paidComparators = { "=", "=", "=", "="};
@@ -1410,7 +1410,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setValue("serviceType", usesAnnotatedPOJO()?"1":"2");
 		setValue("quantity", "2");
 		setValue("unitPrice", getProductUnitPrice());
-		assertValue("amount", getProductUnitPriceMultiplyBy("2")); // TMP FALLA
+		assertValue("amount", getProductUnitPriceMultiplyBy("2")); 
 		setValue("product.number", getProductNumber());
 		assertValue("product.description", getProductDescription());
 		assertValue("deliveryDate", getCurrentDate()); 
@@ -1643,7 +1643,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setValue("deliveryDate", "03/18/04");
 		setValue("soldBy.number", getProductNumber());
 		execute("Collection.save");		
-		assertError("It is not possible to add details, the invoice is paid"); // TMP FALLA
+		assertError("It is not possible to add details, the invoice is paid"); 
 		
 		if (XavaPreferences.getInstance().isMapFacadeAutoCommit()) {
 			execute("CRUD.delete");
@@ -1674,7 +1674,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNotExists("customer.number");
 		assertNotExists("vatPercentage");
 		
-		assertCollectionRowCount("details", 0); // TMP FALLA
+		assertCollectionRowCount("details", 0); 
 		
 		assertNoDialog(); 
 		execute("Collection.new", "viewObject=xava_view_section1_details");

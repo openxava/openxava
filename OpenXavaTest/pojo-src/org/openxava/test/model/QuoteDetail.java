@@ -7,16 +7,19 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.test.calculators.*;
 
+import lombok.*;
+
 /**
  * 
  * @author Javier Paniza 
  */
 
 @Embeddable
+@Getter @Setter // tmp
 public class QuoteDetail {
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
-	private Product product;
+	/* tmp private */ Product product;
 	
 	@DefaultValueCalculator( 
 		value=UnitPriceCalculator.class,
@@ -25,9 +28,9 @@ public class QuoteDetail {
 			from="product.number")
 	)
 	@Stereotype("MONEY") 
-	private BigDecimal unitPrice;
+	/* tmp private */ BigDecimal unitPrice;
 	
-	private int quantity;
+	/* private */ int quantity;
 	 		
 	@Column(precision=10, scale=2)
 	@Depends("unitPrice, quantity")
@@ -35,6 +38,7 @@ public class QuoteDetail {
 		return getUnitPrice().multiply(new BigDecimal(getQuantity()));
 	}
 
+	/* tmp
 	public BigDecimal getUnitPrice() {
 		return unitPrice; 
 	}
@@ -58,5 +62,6 @@ public class QuoteDetail {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	*/
 
 }

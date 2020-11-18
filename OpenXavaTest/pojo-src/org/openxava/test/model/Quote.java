@@ -9,12 +9,15 @@ import org.openxava.annotations.*;
 import org.openxava.calculators.CurrentDateCalculator;
 import org.openxava.model.Identifiable;
 
+import lombok.*;
+
 /**
  * 
  * @author Javier Paniza 
  */
 
 @Entity
+@Getter @Setter // tmp 
 @Views({
 	@View(members="year, number, date; customer; details; estimatedProfit"), 
 	@View(name="QuoteWithRemoveElementCollection", members="year, number, date; data { customer; details }") 
@@ -23,23 +26,23 @@ import org.openxava.model.Identifiable;
 public class Quote extends Identifiable {
 		
 	@Column(length=4) @Required
-	private int year;
+	/* tmp private */ int year;
 	
 	@Column(length=6) 
-	private int number;
+	/* tmp private */ int number;
 	
 	@Required @DefaultValueCalculator(CurrentDateCalculator.class)
-	private Date date;
+	/* tmp private */ Date date;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@ReferenceView("Simplest")
-	private Customer customer;
+	/* tmp private */ Customer customer;
 	
 	@RemoveSelectedAction(forViews="QuoteWithRemoveElementCollection", value="Quote.removeDetail") 
 	@javax.validation.constraints.Size(min=1, max=3)  
 	@ElementCollection
 	@ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxes, quote.total]")
-	private Collection<QuoteDetail> details;
+	/* tmp private */ Collection<QuoteDetail> details;
 
 	@PrePersist
 	private void generateDefaultNumberValue() { 
@@ -67,6 +70,7 @@ public class Quote extends Identifiable {
 		return getTotal().multiply(new BigDecimal("0.1"));
 	}
 	
+	/* tmp
 	public int getYear() {
 		return year;
 	}
@@ -106,5 +110,6 @@ public class Quote extends Identifiable {
 	public void setDetails(Collection<QuoteDetail> details) {
 		this.details = details;
 	}
+	*/
 
 }
