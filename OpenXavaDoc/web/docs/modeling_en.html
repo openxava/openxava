@@ -82,8 +82,9 @@
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Category {
  
     @Id
@@ -91,12 +92,10 @@ public class Category {
     @GeneratedValue(generator="system-uuid") // Universally Unique Identifier (1)
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(length=32)
-    private String oid;
+    String oid;
  
     @Column(length=50)
-    private String description;
- 
-    // REMEMBER TO GENERATE THE GETTERS AND SETTERS FOR THE ABOVE FIELDS
+    String description;
  
 }
 </code></pre> </div>
@@ -107,18 +106,6 @@ public class Category {
       database (DB2, MySQL, Oracle, Informix, etc) without touching your code.
       The other id generators of JPA rely on the database to generate the id
       thereby making them not so portable as UUID.<br>
-      Although we have not included the getters and setters in the above code
-      snippet, the getters and setter must be included in the code. Fortunately
-      Eclipse can write them for us. First choose <em>Source &gt; Generate
-        Getters and Setters...</em> from the Eclipse menu:<br>
-      <img src="files/modeling020.png" alt="modeling020.png" title="modeling020.png"><br>
-      <br>
-      Then click on <em>Select All</em> and then <em>OK</em> to have the
-      getters and setters in your code:<br>
-      <img src="files/modeling_en030.png" alt="modeling_en030.png" title="modeling_en030.png"><br>
-      Remember to do this every time you create a new entity or add a new field
-      to an existing one. This utility is also available with the right mouse<br>
-      button on the entity code, or Ctrl-1 on a field.<br>
       Execute the <em>Category</em> module and add some categories:<br>
       <img src="files/modeling_en035.png" alt="modeling_en035.png" title="modeling_en035.png"><br>
       <span style="line-height: 1.5;">Now, we'll associate </span><em><span style="line-height: 1.5;">Product</span></em><span
@@ -134,9 +121,7 @@ public class Category {
         fetch=FetchType.LAZY, // The reference is loaded on demand
         optional=true) // The reference can have no value
     @DescriptionsList // Thus the reference is displayed using a combo
-    private Category category; // A regular Java reference
- 
-    // REMEMBER TO GENERATE THE GETTER AND SETTER FOR category
+    Category category; // A regular Java reference
  
 }
 </code></pre> </div>
@@ -167,11 +152,15 @@ private String photos;
  
 @Stereotype("MEMO") // This is for a big text, a text area or equivalent will be used
 private String remarks;
- 
-// REMEMBER TO GENERATE THE GETTERS AND SETTERS FOR THE ABOVE FIELDS
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note that you have to add the <em>import
-        java.math.*</em> to use <em>BigDecimal</em>. Eclipse helps you to add
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: ¿USAR EL
+      AUTOMATIC IMPORT? Note that you have to add the <em>import java.math.*</em>
+      to use <em>BigDecimal</em>, so add the next line at the beginning of your
+      class:
+      <pre><code class="java">import java.math.*;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">You don't need to copy and paste
+      the above import in your code, because OpenXava studio helps you to add
       imports, just put the cursor at the end of the type, at the end of <em>BigDecimal</em>
       in this case, and press Ctrl - Space Bar.<br>
       You have seen how to use stereotypes. Now you only have to use the name of
