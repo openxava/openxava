@@ -1,11 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+
 - TMP FALTA:	
 	* Probar Suite completa.
 	* Probar con Java 8.
+	- Plantillas de MyFistEntity
 	- Actualizar lección 1 y 2 del curso:
-		TMP ME QUEDÉ POR AQUÍ: LECCION 1 EN INGLÉS HECHA.
 	- Actualizar documentación de Lombok.
 	
 - Java included in distribution changed to Eclipse JustJ.
@@ -20,6 +21,7 @@ OpenXava 6.4.2 (2020-11-9)
 - Fix: Label and column width changed by user not persisted if the column isn't in the original @Tab.
 - Fix: @NoFrame references are not well aligned with flowLayout=true.
 - Fix: Two groups in a row (separated by comma) are placed one below other with flowLayout=true.
+- Fix: WEBURL button overlapped with URL with long URLs.
 - Fix: WEBURL button renders incorrectly when flowLayout=true.
 - Fix: Property ICON in list without label is aligned to top when there are too many columns.
 - Fix: JasperReportBaseAction actions fail with databases with no READ_UNCOMMITTED support like Oracle.

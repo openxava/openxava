@@ -144,28 +144,19 @@ public class Category {
       properties to your <em>Product</em> entity:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Stereotype("MONEY") // The price property is used to store money
-private BigDecimal price; // Include the import java.math.*  BigDecimal is typically used for money
+BigDecimal price; // BigDecimal is typically used for money
  
 @Stereotype("IMAGES_GALLERY") // A complete image gallery is available
 @Column(length=32) // The 32 length string is for storing the key of the gallery
-private String photos;
+String photos;
  
 @Stereotype("MEMO") // This is for a big text, a text area or equivalent will be used
-private String remarks;
+String remarks;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: ¿USAR EL
-      AUTOMATIC IMPORT? Note that you have to add the <em>import java.math.*</em>
-      to use <em>BigDecimal</em>, so add the next line at the beginning of your
-      class:
-      <pre><code class="java">import java.math.*;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">You don't need to copy and paste
-      the above import in your code, because OpenXava studio helps you to add
-      imports, just put the cursor at the end of the type, at the end of <em>BigDecimal</em>
-      in this case, and press Ctrl - Space Bar.<br>
-      You have seen how to use stereotypes. Now you only have to use the name of
-      the stereotype and OpenXava will apply special treatment. Execute the
-      module for the <em>Product</em> now, and you will see:<br>
+    <div class="wiki" style="display: block;"> You have seen how to use
+      stereotypes. Now you only have to use the name of the stereotype and
+      OpenXava will apply special treatment. Execute the module for the <em>Product</em>
+      now, and you will see:<br>
       <img src="files/modeling_en040.png" alt="modeling_en040.png" title="modeling_en040.png"><br>
       As you can see, each stereotype produces an effect in the user interface.
       Stereotypes have effects in sizes, validations, editors, etc. Stereotypes
@@ -191,23 +182,23 @@ private String remarks;
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
+import lombok.*;
  
 @Embeddable // We use @Embeddable instead of @Entity
+@Getter @Setter
 public class Address {
  
     @Column(length = 30) // The members are annotated as in entity case
-    private String street;
+    String street;
  
     @Column(length = 5)
-    private int zipCode;
+    int zipCode;
  
     @Column(length = 20)
-    private String city;
+    String city;
  
     @Column(length = 30)
-    private String state;
- 
-    // REMEMBER TO GENERATE THE GETTERS AND SETTERS FOR THE ABOVE FIELDS
+    String state;
  
 }
 </code></pre> </div>
@@ -215,8 +206,8 @@ public class Address {
       has been annotated as <em>@Embeddable</em>. Its properties are annotated
       in the same way as entities, though embeddable classes do not support all
       functionality of entities.<br>
-      Now, you can use <em>Address</em> in any entity. Just add a reference to
-      your <em>Customer</em> entity:</div>
+      TMP ME QUEDÉ POR AQUÍ Now, you can use <em>Address</em> in any entity.
+      Just add a reference to your <em>Customer</em> entity:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public class Customer {
  
