@@ -58,8 +58,8 @@
       application with it, it's time to make your own project. In this lesson
       you will create all the entities required for your project in order to get
       your application working.<br>
-      By now I assume that you know how to create a new entity with Eclipse and
-      how to run the application, because you have already read <a class="wiki_link"
+      By now I assume that you know how to create a new entity with OpenXava
+      Studio and how to run the application, because you have already read <a class="wiki_link"
         href="getting-started_en.html">Lesson1: Getting started</a>, right?<br>
       <h2 id="toc1"><a name="Lesson 2: Modeling with Java-Basic domain model"></a>Basic
         domain model</h2>
@@ -206,24 +206,15 @@ public class Address {
       has been annotated as <em>@Embeddable</em>. Its properties are annotated
       in the same way as entities, though embeddable classes do not support all
       functionality of entities.<br>
-      TMP ME QUEDÉ POR AQUÍ Now, you can use <em>Address</em> in any entity.
-      Just add a reference to your <em>Customer</em> entity:</div>
+      Now, you can use <em>Address</em> in any entity. Just add a reference to
+      your <em>Customer</em> entity:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public class Customer {
  
     ...
  
     @Embedded // This is the way to reference an embeddable class
-    private Address address; // A regular Java reference
- 
-    public Address getAddress() {
-        if (address == null) address = new Address(); // Thus it never is null
-        return address;
-    }
- 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+    Address address; // A regular Java reference
  
 }
 </code></pre> </div>
@@ -234,7 +225,7 @@ public class Address {
       thus:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Embedded @NoFrame // With @NoFrame no frame is shown for address
-private Address address;
+Address address;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Here's the user interface for an
       embedded reference with and without <em>@NoFrame</em>:<br>
@@ -260,8 +251,9 @@ import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Invoice {
 
     @Id
@@ -269,23 +261,21 @@ public class Invoice {
     @Hidden
     @GenericGenerator(name="system-uuid", strategy="uuid")
     @Column(length=32)
-    private String oid;
+    String oid;
 
     @Column(length=4)
     @DefaultValueCalculator(CurrentYearCalculator.class) // Current year
-    private int year;
+    int year;
  
     @Column(length=6)
-    private int number;
+    int number;
  
     @Required
     @DefaultValueCalculator(CurrentLocalDateCalculator.class) // Current date
-    private LocalDate date;
+    LocalDate date;
  
     @Stereotype("MEMO")
-    private String remarks;
- 
-    // REMEMBER TO GENERATE THE GETTERS AND SETTERS FOR THE ABOVE FIELDS
+    String remarks;
  
 }
 </code></pre> </div>
@@ -330,10 +320,12 @@ public class Invoice {
 import javax.persistence.*;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
+import lombok.*;
  
 public class NextNumberForYearCalculator implements ICalculator { // A calculator must implement ICalculator
- 
-    private int year; // This value will be injected (using its setter) before calculating
+
+    @Getter @Setter // To be publicly accessible
+    int year; // This value will be injected before calculating
  
     public Object calculate() throws Exception { // It does the calculation
         Query query = XPersistence.getManager() // A JPA query
@@ -345,33 +337,21 @@ public class NextNumberForYearCalculator implements ICalculator { // A calculato
                                                         // of the year + 1 or 1 if there is no last number
     }
  
-    public int getYear() {
-        return year;
-    }
- 
-    public void setYear(int year) {
-        this.year = year;
-    }
- 
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">Your calculator must implement <em>ICalculator</em>
-      interface (and therefore have a <em>calculate()</em> method). We declare
-      a <em>year</em> property to put in the year of the calculation. To
-      implement the logic we use a JPA query. You can learn how to use JPA in <a
-        class="wiki_link" href="jpa_en.html">appendix B</a>. Now we only have to
-      annotate the number <em>property</em> in the <em>Invoice</em> entity:</div>
+      interface (and therefore must have a <em>calculate()</em> method). We
+      declare a <em>year</em> property to put in the year of the calculation.
+      To implement the logic we use a JPA query. You can learn how to use JPA in
+      <a class="wiki_link" href="jpa_en.html">appendix B</a>. Now we only have
+      to annotate the number <em>property</em> in the <em>Invoice</em> entity:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Column(length=6)
 @DefaultValueCalculator(value=NextNumberForYearCalculator.class,
     properties=@PropertyValue(name="year") // To inject the value of year from Invoice to
                                            // the calculator before calling to calculate()
 )
-private int number;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Remember to add the import:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import com.yourcompany.invoicing.calculators.*;
+int number;
 </code></pre> </div>
     <div class="wiki" style="display: block;">In this case you see something
       new, an annotation <em>@PropertyValue</em>. By using this annotation
@@ -400,9 +380,7 @@ private int number;
       Add the next code to the <em>Invoice</em> entity:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // Customer is required
-private Customer customer;
- 
-// REMEMBER TO GENERATE THE GETTER AND SETTER FOR customer
+Customer customer;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Nothing more is required. The <em>Invoice</em>
       module is now like this one:<br>
@@ -415,13 +393,11 @@ private Customer customer;
       products, quantities, etc. These details are part of the invoice. They are
       not shared with other invoices, and when an invoice is deleted its details
       are also deleted. So, the more natural way of modeling the invoice details
-      is to use a collection of embeddable objects. To do it with JPA, declare a
-      regular collection annotated with <em>@ElementCollection</em>:</div>
+      is to use a collection of embeddable objects. To do it with JPA, declare
+      in <i>Invoice</i> a regular collection annotated with <em>@ElementCollection</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ElementCollection
-private Collection&lt;Detail&gt; details;
- 
-// REMEMBER TO GENERATE THE GETTER AND SETTER FOR details
+Collection&lt;Detail&gt; details;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Using <em>@ElementCollection</em>
       when the invoice is removed its details are removed too. The details are
@@ -433,16 +409,15 @@ private Collection&lt;Detail&gt; details;
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
+import lombok.*;
  
-@Embeddable
+@Embeddable @Getter @Setter
 public class Detail {
  
-    private int quantity;
+    int quantity;
  
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    private Product product;
- 
-    // REMEMBER TO GENERATE THE GETTERS AND SETTERS FOR THE ABOVE FIELDS
+    Product product;
  
 }
 </code></pre> </div>
@@ -463,7 +438,7 @@ public class Detail {
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ElementCollection
 @ListProperties("product.number, product.description, quantity")
-private Collection&lt;Detail&gt; details;
+Collection&lt;Detail&gt; details;
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">As
         you can see, you only have to feed the value for the annotation </span><em><span
@@ -544,7 +519,7 @@ public class Customer {
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false)
 @ReferenceView("Simple") // The view named 'Simple' is used to display this reference
-private Customer customer;
+Customer customer;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Really simple, you only have to
       indicate the name of the view of the referenced entity you want to use.<br>
@@ -567,7 +542,7 @@ private Customer customer;
       but an established way to do software development, even the ideal way to
       go for many people.<br>
       If you are not familiar with agile development you can have a look at <a
-        class="wiki_link_ext" href="http://www.agilemanifesto.org" rel="nofollow">www.agilemanifesto.org</a>.
+        href="http://www.agilemanifesto.org" rel="nofollow">www.agilemanifesto.org</a>.
       Basically, agile development encourages the use of feedback from a working
       product over a careful upfront design. This gives a more prominent role to
       programmers and users, and minimizes the importance of analysts and
@@ -592,19 +567,18 @@ private Customer customer;
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Author {
  
     @Id @GeneratedValue(generator="system-uuid") @Hidden
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(length=32)
-    private String oid;
+    String oid;
  
     @Column(length=50) @Required
-    private String name;
- 
-    // REMEMBER TO GENERATE THE GETTERS AND SETTERS FOR THE ABOVE FIELDS
+    String name;
  
 }
 </code></pre> </div>
@@ -613,16 +587,13 @@ public class Author {
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY)
 @DescriptionsList
-private Author author;
- 
-// REMEMBER TO GENERATE THE GETTER AND SETTER FOR author
+Author author;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Thus, your <em>Product</em>
-      entity has a reference to <em>Author</em>. Remember to generate the
-      setter and setter for <em>author</em>.<br>
+      entity has a reference to <em>Author</em>.<br>
       Really you have written a little amount of code. In order to see the
-      effect, you only need to build your project (just press Ctrl-B in your
-      Eclipse), stop the application and start it again. Then go to the browser
+      effect, you only need to build your project (just press Ctrl-B in OpenXava
+      Studio), stop the application and start it again. Then go to the browser
       and reload the page with the <em>Product</em> module, and you will see
       there, a combo for choosing the author of the product, just as you see
       here:<br>
@@ -634,18 +605,10 @@ private Author author;
     <div class="wiki" style="display: block;">
       <pre><code class="java">@OneToMany(mappedBy="author")
 @ListProperties("number, description, price")
-private Collection&lt;Product&gt; products;
- 
-// REMEMBER TO GENERATE THE GETTER AND SETTER FOR products
+Collection&lt;Product&gt; products;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">To use <em>Collection</em> you
-      have to add the next import:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import java.util.*;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Remember to generate the getter
-      and setter for <em>products</em>. Now, press Ctrl+B (to build), stop your
-      application, start it again and refresh the browser with <em>Author</em>
+    <div class="wiki" style="display: block;">Now, press Ctrl+B (to build), stop
+      your application, start it again and refresh the browser with <em>Author</em>
       module. Choose an author and you will see his products. You have to see
       something like this:<br>
       <img src="files/modeling_en160.png" alt="modeling_en160.png" title="modeling_en160.png"><br>

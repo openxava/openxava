@@ -60,8 +60,8 @@
       es hora de dar forma a tu proyecto. En esta lección, crearás todas las
       entidades de tu proyecto y tendrás tu aplicación funcionando en un
       santiamén.<br>
-      Asumo que sabes crear una nueva entidad con Eclipse y como ejecutar la
-      aplicación, porque ya has leído la lección 1.<br>
+      Asumo que sabes crear una nueva entidad con OpenXava Studio y como
+      ejecutar la aplicación, porque ya has leído la lección 1.<br>
       <h2 id="toc1"><a name="Modelar+con+Java-Modelo+basico+del+dominio"></a>Modelo
         básico del dominio</h2>
       Primero crearemos las entidades para tu aplicación <em>Facturacion</em>.
@@ -81,8 +81,9 @@
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Categoria {
  
     @Id
@@ -90,12 +91,10 @@ public class Categoria {
     @GeneratedValue(generator="system-uuid") // Identificador Universal Único (1)
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(length=32)
-    private String oid;
+    String oid;
  
     @Column(length=50)
-    private String descripcion;
- 
-    // RECUERDA GENERAR LOS GETTERS Y SETTERS PARA LOS CAMPOS
+    String descripcion;
  
 }
 </code></pre> </div>
@@ -107,20 +106,6 @@ public class Categoria {
       Oracle, Informix, etc) sin tocar tu código. Los otros generadores de
       identificadores de JPA usan la base de datos para generar el
       identificador, por lo que no son tan portables como UUID.<br>
-      Aunque no hayamos incluidos los getters y setters en el código de arriba,
-      los getters y los setters tienen que incluirse obligatoriamente en el
-      código. Por suerte Eclipse puede escribirlos por nosotros. Primero escoge
-      <em>Source &gt; Generate Getters and Setters...</em> en el menú del
-      Eclipse:<br>
-      <img src="files/modeling020.png" alt="modeling020.png" title="modeling020.png"><br>
-      <br>
-      Después pulsa en <em>Select All</em> y entonces en <em>OK</em> para
-      tener los getters y setters en tu código:<br>
-      <img src="files/modeling_es030.png" alt="modeling_es030.png" title="modeling_es030.png"><br>
-      Recuerda hacer esto cada vez que crees una nueva entidad o añadas un nuevo
-      campo a una ya existente. Esta utilidad también está disponible con el
-      botón derecho sobre el código de la entidad o pulsando Ctrl-1 encima del
-      campo.<br>
       Ahora puedes ejecutar el módulo <em>Categoria</em> y añadir algunas
       categorías:<br>
       <img src="files/modeling_es035.png" alt="modeling_es035.png" title="modeling_es035.png"><br>
@@ -136,9 +121,7 @@ public class Categoria {
         fetch=FetchType.LAZY, // La referencia se carga bajo demanda
         optional=true) // La referencia puede estar sin valor
     @DescriptionsList // Así la referencia se visualiza usando un combo
-    private Categoria categoria; // Una referencia Java convencional
- 
-    // RECUERDA GENERAR EL GETTER Y EL SETTER PARA categoria
+    Categoria categoria; // Una referencia Java convencional
  
 }
 </code></pre> </div>
@@ -162,25 +145,19 @@ public class Categoria {
       a tu entidad <em>Producto</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Stereotype("DINERO") // La propiedad precio se usa para almacenar dinero
-private BigDecimal precio; // Incluye el import java.math.*  BigDecimal se suele usar para dinero
+BigDecimal precio; // Incluye el import java.math.*  BigDecimal se suele usar para dinero
  
 @Stereotype("GALERIA_IMAGENES") // Una galería de fotos completa está disponible
 @Column(length=32) // La cadena de 32 de longitud es para almacenar la clave de la galería
-private String fotos;
+String fotos;
  
 @Stereotype("TEXTO_GRANDE") // Esto es para un texto grande, se usará un área de texto o equivalente
-private String observaciones;
- 
-// RECUERDA GENERAR LOS GETTERS Y SETTERS PARA LOS CAMPOS
+String observaciones;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Fíjate en que has de añadir el <em>import
-        java.math.*</em> para poder usar <em>BigDecimal</em>. Eclipse te ayuda
-      a añadir imports, sólo has de posicionar el cursor al final del tipo, al
-      final de <em>BigDecimal</em> en este caso, y pulsar Ctrl - barra
-      espaciadora.<br>
-      Has visto como usar estereotipos, solo has de poner el nombre del
-      estereotipo y OpenXava hará un tratamiento especial. Si ejecutas el módulo
-      para <em>Producto</em> ahora verás lo siguiente:<br>
+    <div class="wiki" style="display: block;">Has visto como usar estereotipos,
+      solo has de poner el nombre del estereotipo y OpenXava hará un tratamiento
+      especial. Si ejecutas el módulo para <em>Producto</em> ahora verás lo
+      siguiente:<br>
       <img src="files/modeling_es040.png" alt="modeling_es040.png" title="modeling_es040.png"><br>
       Como puedes ver, cada estereotipo produce un efecto en la interfaz de
       usuario. Los estereotipos tienen efecto en los tamaños, validaciones,
@@ -196,11 +173,12 @@ private String observaciones;
       etc.<br>
       Ya tienes <em>Producto</em> listo. Refinemos ahora <em>Cliente</em>.<br>
       <h3 id="toc4"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Embeddable"></a>Embeddable</h3>
-      Vamos a añadir una dirección a nuestro, hasta ahora algo desnudo, <em>Cliente</em>.
-      La dirección del <em>Cliente</em> no está compartida por otros objetos <em>Cliente</em>,
-      y cuando un cliente se borra, su dirección es borrada también, por lo
-      tanto modelaremos el concepto de dirección como una clase incrustable.
-      Este se puede ver en el <a class="wiki_link" href="jpa_es.html#Ap%C3%A9ndice%20B:%20Java%20Persistence%20API-Anotaciones%20JPA-Clases%20incrustables">apéndice
+      TMP ME QUEDÉ POR AQUÍ Vamos a añadir una dirección a nuestro, hasta ahora
+      algo desnudo, <em>Cliente</em>. La dirección del <em>Cliente</em> no
+      está compartida por otros objetos <em>Cliente</em>, y cuando un cliente
+      se borra, su dirección es borrada también, por lo tanto modelaremos el
+      concepto de dirección como una clase incrustable. Este se puede ver en el
+      <a class="wiki_link" href="jpa_es.html#Ap%C3%A9ndice%20B:%20Java%20Persistence%20API-Anotaciones%20JPA-Clases%20incrustables">apéndice
         B</a> sobre JPA.<br>
       Añade la clase <em>Direccion</em> a tu proyecto:</div>
     <div class="wiki" style="display: block;">
