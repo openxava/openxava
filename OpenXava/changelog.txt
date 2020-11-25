@@ -2,13 +2,7 @@ Change Log for OpenXava project
 ===============================
 
 
-- TMP FALTA:	
-	* Probar Suite completa.
-	* Probar con Java 8.
-	- Plantillas de MyFistEntity
-	- Actualizar lección 1 y 2 del curso:
-	- Actualizar documentación de Lombok.
-	
+- Lombok library added to OpenXava and OpenXava Studio supports Lombok by default.		
 - Java included in distribution changed to Eclipse JustJ.
 - Eclipse Platform for OpenXava Studio upgraded to Eclipse 2020-09.
 

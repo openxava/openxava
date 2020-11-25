@@ -9,13 +9,16 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Modelar+con+Java"></a> <span id="breadcrumbs"> <span
+      <h1 id="toc0"><a name="Modelar+con+Java"></a> <span id="breadcrumbs"> <span
+
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Lección 2: Modelar con Java </h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
-        Primeros pasos</a> | <strong>2. Modelar con Java</strong> | <a class="wiki_link"
-        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
+        Primeros pasos</a> | <strong>2. Modelar con Java</strong> | <a class="wiki_link"
+
+        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
+
         href="inheritance_es.html">4. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
         Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
         Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
@@ -173,35 +176,34 @@ String observaciones;
       etc.<br>
       Ya tienes <em>Producto</em> listo. Refinemos ahora <em>Cliente</em>.<br>
       <h3 id="toc4"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Embeddable"></a>Embeddable</h3>
-      TMP ME QUEDÉ POR AQUÍ Vamos a añadir una dirección a nuestro, hasta ahora
-      algo desnudo, <em>Cliente</em>. La dirección del <em>Cliente</em> no
-      está compartida por otros objetos <em>Cliente</em>, y cuando un cliente
-      se borra, su dirección es borrada también, por lo tanto modelaremos el
-      concepto de dirección como una clase incrustable. Este se puede ver en el
-      <a class="wiki_link" href="jpa_es.html#Ap%C3%A9ndice%20B:%20Java%20Persistence%20API-Anotaciones%20JPA-Clases%20incrustables">apéndice
+      Vamos a añadir una dirección a nuestro, hasta ahora algo desnudo, <em>Cliente</em>.
+      La dirección del <em>Cliente</em> no está compartida por otros objetos <em>Cliente</em>,
+      y cuando un cliente se borra, su dirección es borrada también, por lo
+      tanto modelaremos el concepto de dirección como una clase incrustable.
+      Este se puede ver en el <a class="wiki_link" href="jpa_es.html#Ap%C3%A9ndice%20B:%20Java%20Persistence%20API-Anotaciones%20JPA-Clases%20incrustables">apéndice
         B</a> sobre JPA.<br>
       Añade la clase <em>Direccion</em> a tu proyecto:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
+import lombok.*;
  
 @Embeddable // Usamos @Embeddable en vez de @Entity
+@Getter @Setter
 public class Direccion {
  
     @Column(length = 30) // Los miembros se anotan igual que en las entidades
-    private String viaPublica;
+    String viaPublica;
  
     @Column(length = 5)
-    private int codigoPostal;
+    int codigoPostal;
  
     @Column(length = 20)
-    private String municipio;
+    String municipio;
  
     @Column(length = 30)
-    private String provincia;
- 
-    // RECUERDA GENERAR LOS GETTERS Y SETTERS PARA LOS CAMPOS
+    String provincia;
  
 }
 </code></pre> </div>
@@ -217,16 +219,7 @@ public class Direccion {
     ...
  
     @Embedded // Así para referenciar a una clase incrustable
-    private Direccion direccion; // Una referencia Java convencional
- 
-    public Direccion getDireccion() {
-        if (direccion == null) direccion = new Direccion(); // Así nunca es nulo
-        return direccion;
-    }
- 
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
-    }
+    Direccion direccion; // Una referencia Java convencional
  
 }
 </code></pre> </div>
@@ -256,13 +249,13 @@ private Direccion direccion;
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import java.time.*;
-import java.util.*;
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Factura {
 
     @Id
@@ -270,23 +263,21 @@ public class Factura {
     @Hidden
     @GenericGenerator(name="system-uuid", strategy="uuid")
     @Column(length=32)
-    private String oid;
+    String oid;
  
     @Column(length=4)
     @DefaultValueCalculator(CurrentYearCalculator.class) // Año actual
-    private int anyo;
+    int anyo;
  
     @Column(length=6)
-    private int numero;
+    int numero;
  
     @Required
     @DefaultValueCalculator(CurrentLocalDateCalculator.class) // Fecha actual
-    private LocalDate fecha;
+    LocalDate fecha;
  
     @Stereotype("MEMO")
-    private String observaciones;
- 
-    // RECUERDA GENERAR LOS GETTERS Y SETTERS PARA LOS CAMPOS
+    String observaciones;
  
 }
 </code></pre> </div>
@@ -313,7 +304,8 @@ public class Factura {
     <div class="wiki" style="display: block;">Para crear un paquete nuevo
       selecciona la carpeta <i>Facturacion/src</i> y pulsa en el botón <i>New
         Java Package</i>:</div>
-    <div class="wiki" style="display: block;"> <img src="files/modeling_es064.png"
+    <div class="wiki" style="display: block;"> <img src="files/modeling_es064.png"
+
         alt="">
       <div class="wiki" style="display: block;">Se mostrará un diálogo donde
         introducir el nombre del paquete, <em>com.tuempresa.facturacion.calculadores</em>,
@@ -332,11 +324,13 @@ public class Factura {
 import javax.persistence.*;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
+import lombok.*;
  
 public class CalculadorSiguienteNumeroParaAnyo
     implements ICalculator { // Un calculador tiene que implementar ICalculator
  
-    private int anyo; // Este valor se inyectará (usando su setter) antes de calcular
+    @Getter @Setter     
+    int anyo; // Este valor se inyectará antes de calcular
  
     public Object calculate() throws Exception { // Hace el cálculo
         Query query = XPersistence.getManager() // Una consulta JPA
@@ -348,20 +342,13 @@ public class CalculadorSiguienteNumeroParaAnyo
                                             // de factura del año + 1 o 1 si no hay último número
     }
  
-    public int getAnyo() {
-        return anyo;
-    }
- 
-    public void setAnyo(int anyo) {
-        this.anyo = anyo;
-    }
- 
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">Tu calculador tiene que
       implementar <em>ICalculator</em> (y por lo tanto tener un método <em>calculate()</em>).
       Declaramos una propiedad <em>anyo</em> para poner en ella el año del
-      cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el <a
+      cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el <a
+
         class="wiki_link" href="jpa_es.html">apéndice B</a> sobre JPA. Ahora
       sólo queda anotar la propiedad <em>numero</em> en la entidad <em>Factura</em>:</div>
     <div class="wiki" style="display: block;">
@@ -370,18 +357,14 @@ public class CalculadorSiguienteNumeroParaAnyo
     properties=@PropertyValue(name="anyo") // Para inyectar el valor de anyo de Factura
                                            // en el calculador antes de llamar a calculate()
 )
-private int numero;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Recuerda añadir el <em>import</em>:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import com.tuempresa.facturacion.calculadores.*;
+int numero;
 </code></pre> </div>
     <div class="wiki" style="display: block;">En este caso ves algo nuevo, <em>@PropertyValue</em>.
       Usándolo, estás diciendo que el valor de la propiedad <em>anyo</em> en la
       <em>Factura</em> actual se moverá a la propiedad <em>anyo</em> del
-      calculador antes de hacer el cálculo. Ahora cuando el usuario pulse en
-      'nuevo' el siguiente número de factura disponible para este año estará en
-      el campo. La forma de calcular el número de factura no es la mejor para
+      calculador antes de hacer el cálculo. Ahora cuando el usuario pulse en <i>Nuevo</i>
+      el siguiente número de factura disponible para este año estará en el
+      campo. La forma de calcular el número de factura no es la mejor para
       muchos usuarios concurrentes añadiendo facturas. No te preocupes, lo
       mejoraremos más adelante.<br>
       El efecto visual del calculador para valor por defecto es este:<br>
@@ -406,9 +389,7 @@ private int numero;
       Añade el siguiente código a la entidad <em>Factura</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // El cliente es obligatorio
-private Cliente cliente;
- 
-// RECUERDA GENERAR EL GETTER Y EL SETTER PARA cliente
+Cliente cliente;
 </code></pre> </div>
     <div class="wiki" style="display: block;">No hace falta más. El módulo <em>Factura</em>
       es así:<br>
@@ -422,15 +403,15 @@ private Cliente cliente;
       compartidos por otras facturas y cuando una factura se borra sus líneas de
       detalle son borradas con ella. Por tanto, la forma más natural de modelar
       los detalles de una factura es usando objetos incrustados. Para hacerlo
-      con JPA declara una colección convencional y anótala con <em>@ElementCollection</em>:</div>
+      con JPA declara una colección convencional en <i>Factura</i> y anótala
+      con <em>@ElementCollection</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ElementCollection
-private Collection&lt;Detalle&gt; detalles;
- 
-// RECUERDA GENERAR EL GETTER Y SETTER PARA detalles
+Collection&lt;Detalle&gt; detalles;
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Usando
-        </span><em><span style="line-height: 1.5;">@ElementCollection</span></em><span
+        </span><em><span style="line-height: 1.5;">@ElementCollection</span></em><span
+
         style="line-height: 1.5;"> cuando la factura se borra sus líneas se
         borran también. Los detalles no se guardan en la base de datos hasta que
         la factura se guarde y se guardan todos al mismo tiempo.</span><br>
@@ -439,16 +420,15 @@ private Collection&lt;Detalle&gt; detalles;
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
+import lombok.*;
  
-@Embeddable
+@Embeddable @Getter @Setter
 public class Detalle {
  
-    private int cantidad;
+    int cantidad;
  
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    private Producto producto;
- 
-    // RECUERDA GENERAR LOS GETTERS Y SETTERS PARA LOS CAMPOS
+    Producto producto;
  
 }
 </code></pre> </div>
@@ -470,7 +450,7 @@ public class Detalle {
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ElementCollection
 @ListProperties("producto.numero, producto.descripcion, cantidad")
-private Collection&lt;Detalle&gt; detalles;
+Collection&lt;Detalle&gt; detalles;
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Como
         puedes ver, solo has de poner como valor para <em>@ListProperties</em>
@@ -478,7 +458,8 @@ private Collection&lt;Detalle&gt; detalles;
         propiedades calificadas, es decir, usar la notación del punto para
         acceder a las propiedades de referencias, tal como <em>producto.numero</em>
         y <em>producto.descripcion</em> en este caso. El resultado visual es:</span><br>
-      <span style="line-height: 0px; overflow: hidden;"><img src="files/modeling_es100.png"
+      <span style="line-height: 0px; overflow: hidden;"><img src="files/modeling_es100.png"
+
           alt="modeling_es100.png" title="modeling_es100.png"></span><br>
       <h2 id="toc9"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario"></a>Refinar
         la interfaz de usuario</h2>
@@ -551,7 +532,7 @@ public class Cliente {
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false)
 @ReferenceView("Simple") // La vista llamada 'Simple' se usará para visualizar esta referencia
-private Cliente cliente;
+Cliente cliente;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Realmente sencillo, solo has de
       indicar el nombre de la vista de la entidad referenciada que quieres usar.<br>
@@ -559,7 +540,8 @@ private Cliente cliente;
       más compacta:<br>
       <img src="files/modeling_es130.png" alt="modeling_es130.png" title="modeling_es130.png"><br>
       Hemos refinado un poco la interfaz de <em>Factura</em>.<br>
-      <h3 id="toc13"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-La+interfaz+de+usuario+refinada"></a><span
+      <h3 id="toc13"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-La+interfaz+de+usuario+refinada"></a><span
+
           style="font-size: 1.1em; line-height: 1.5;">La interfaz de usuario
           refinada</span></h3>
       Este es el resultado de nuestros refinamientos en la interfaz de usuario
@@ -575,7 +557,7 @@ private Cliente cliente;
       rompedora”, sino una forma establecida de hacer desarrollo de software, es
       más, es la forma ideal de desarrollar software para muchos.<br>
       Si no estás familiarizado con el desarrollo ágil puedes echar un vistazo a
-      <a class="wiki_link_ext" href="http://www.agilemanifesto.org" rel="nofollow">www.agilemanifesto.org</a>.
+      <a href="http://www.agilemanifesto.org" rel="nofollow">www.agilemanifesto.org</a>.
       Básicamente, el desarrollo ágil favorece el uso de retroalimentación
       obtenida de un producto funcional sobre un diseño previo meticuloso. Esto
       da más protagonismo a los programadores y usuarios, y minimiza la
@@ -603,20 +585,19 @@ private Cliente cliente;
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Autor {
  
     @Id @GeneratedValue(generator="system-uuid") @Hidden
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(length=32)
-    private String oid;
+    String oid;
  
     @Column(length=50) @Required
-    private String nombre;
- 
-    // RECUERDA GENERAR LOS GETTERS Y SETTERS PARA LOS CAMPOS
- 
+    String nombre;
+  
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">Ahora, añade este código a la ya
@@ -624,13 +605,10 @@ public class Autor {
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY)
 @DescriptionsList
-private Autor autor;
- 
-// RECUERDA GENERAR EL GETTER Y EL SETTER PARA autor
+Autor autor;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Así, tu entidad <em>Producto</em>
-      tiene una referencia a <em>Autor</em>. Recuerda generar el <em>getter</em>
-      y <em>setter</em> para autor.<br>
+      tiene una referencia a <em>Autor</em>.<br>
       Realmente has escrito una cantidad pequeña de código. Para ver el efecto,
       solo necesitas construir tu proyecto (esto solo es pulsar Ctrl-B en tu
       Eclipse), parar la aplicación y volverla a arrancar. Después ve al
@@ -644,14 +622,7 @@ private Autor autor;
     <div class="wiki" style="display: block;">
       <pre><code class="java">@OneToMany(mappedBy="autor")
 @ListProperties("numero, descripcion, precio")
-private Collection&lt;Producto&gt; productos;
- 
-// RECUERDA GENERAR EL GETTER Y EL SETTER PARA productos
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Para usar <em>Collection</em> has
-      de añadir el siguiente import:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import java.util.*;
+Collection&lt;Producto&gt; productos;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Recuerda generar el getter y
       setter para <em>productos</em>. Ahora pulsas Ctrl-B (para construir),
@@ -696,10 +667,12 @@ private Collection&lt;Producto&gt; productos;
       gestión lista para tus usuarios.<br>
       Aprenderás estos temas avanzados en las siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="testing_es.html">Ve a la lección 3</a></strong>
     </div>

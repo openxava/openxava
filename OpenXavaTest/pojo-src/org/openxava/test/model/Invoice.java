@@ -26,7 +26,7 @@ import lombok.*;
  * @author Javier Paniza
  */
 
-@Entity @Getter @Setter // tmp @Getter @Setter 
+@Entity @Getter @Setter  
 @IdClass(InvoiceKey.class)
 @Views({
 	@View(members=
@@ -445,80 +445,8 @@ public class Invoice {
 		return (Invoice) query.getSingleResult();
  	} 
 
-	/* tmp
-	public java.util.Date getDate() {
-		return date;
-	}
-
-	public void setDate(java.util.Date date) {
-		this.date = date;
-	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
-	}
-
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public boolean isPaid() {
-		return paid;
-	}
-
-	public void setPaid(boolean paid) {
-		this.paid = paid;
-	}
-	*/
-
 	public BigDecimal getVatPercentage() {
 		return vatPercentage==null?BigDecimal.ZERO:vatPercentage;
 	}
-
-	/* tmp
-	public void setVatPercentage(BigDecimal vatPercentage) {
-		this.vatPercentage = vatPercentage;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-
-	public Collection<InvoiceDetail> getDetails() {
-		return details; 
-	}
-
-	public void setDetails(Collection<InvoiceDetail> details) {
-		this.details = details;
-	}// tmp
-
-	public Collection<Delivery> getDeliveries() {
-		return deliveries;
-	}
-
-	public void setDeliveries(Collection<Delivery> deliveries) {
-		this.deliveries = deliveries;
-	}
-	*/
 
 }

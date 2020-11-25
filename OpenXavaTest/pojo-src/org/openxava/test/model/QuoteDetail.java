@@ -15,11 +15,11 @@ import lombok.*;
  */
 
 @Embeddable
-@Getter @Setter // tmp
+@Getter @Setter 
 public class QuoteDetail {
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
-	/* tmp private */ Product product;
+	Product product;
 	
 	@DefaultValueCalculator( 
 		value=UnitPriceCalculator.class,
@@ -28,40 +28,14 @@ public class QuoteDetail {
 			from="product.number")
 	)
 	@Stereotype("MONEY") 
-	/* tmp private */ BigDecimal unitPrice;
+	BigDecimal unitPrice;
 	
-	/* private */ int quantity;
+	int quantity;
 	 		
 	@Column(precision=10, scale=2)
 	@Depends("unitPrice, quantity")
 	public BigDecimal getAmount() {
 		return getUnitPrice().multiply(new BigDecimal(getQuantity()));
 	}
-
-	/* tmp
-	public BigDecimal getUnitPrice() {
-		return unitPrice; 
-	}
-
-	public void setUnitPrice(BigDecimal unitPrice) {
-		this.unitPrice = unitPrice;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-	*/
 
 }

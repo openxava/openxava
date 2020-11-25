@@ -18,7 +18,7 @@ import lombok.*;
  * @author Javier Paniza
  */
 
-@Entity @Data // tmp @Data
+@Entity @Data 
 @Views({
 	@View(members=
 		"serviceType;" +
@@ -127,53 +127,10 @@ public class InvoiceDetail {
 		invoice.setComment(invoice.getComment() + "DETAIL DELETED");
 	}
 	
-	/* tmp
-	public String getOid() {
-		return oid;
-	}
-	public void setOid(String oid) {
-		this.oid = oid;
-	}
-	public ServiceType getServiceType() {
-		return serviceType;
-	}
-	public void setServiceType(ServiceType serviceType) {
-		this.serviceType = serviceType;
-	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-	*/
-	
 	public BigDecimal getUnitPrice() {
 		return unitPrice==null?BigDecimal.ZERO:unitPrice;
 	}
 	
-	/* tmp
-	public void setUnitPrice(BigDecimal unitPrice) {
-		this.unitPrice = unitPrice;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public java.util.Date getDeliveryDate() {
-		return deliveryDate;
-	}
-
-	public void setDeliveryDate(java.util.Date deliveryDate) {
-		this.deliveryDate = deliveryDate;
-	}
-	*/
-
 	public Seller getSoldBy() {
 		// In this way because the column for 'soldBy' does not admit null
 		try {
@@ -184,27 +141,5 @@ public class InvoiceDetail {
 			return null;  
 		}
 	}
-
-	/* tmp
-	public void setSoldBy(Seller soldBy) {
-		this.soldBy = soldBy;
-	}
-
-	public String getRemarks() {
-		return remarks;
-	}
-
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-
-	public Invoice getInvoice() {
-		return invoice;
-	}
-
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
-	}
-	*/
 	
 }

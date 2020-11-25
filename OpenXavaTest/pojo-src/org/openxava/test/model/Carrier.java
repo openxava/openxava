@@ -14,7 +14,7 @@ import lombok.*;
  * @author Javier Paniza 
  */
 
-@Entity @Data // tmp @Data 
+@Entity @Data  
 @View(members="number; name; drivingLicence; warehouse; remarks; calculated; fellowCarriers; fellowCarriersCalculated")			
 @View(name="Simple", members="number, name")
 @View(name="CalculatedFellows", extendsView="Simple", members="; fellowCarriersCalculatedSize; fellowCarriersCalculated")
@@ -52,9 +52,9 @@ public class Carrier {
 		@JoinColumn(name="DRIVINGLICENCE_TYPE", referencedColumnName="TYPE", insertable=false, updatable=false) 
 	})	
 	private DrivingLicence drivingLicence;	
-	@Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE) // tmp  
+	@Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE)   
 	private Integer drivingLicence_level;
-	@Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE) // tmp
+	@Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE) 
 	private String drivingLicence_type; 
 	
 	@ManyToOne(optional=false) 
@@ -127,24 +127,6 @@ public class Carrier {
  		return query.getResultList();  				
 	}	
 
-	/* tmp
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	*/
-
 	public DrivingLicence getDrivingLicence() {
 		// In this way because the column for type of driving lincence does not admit null
 		try {
@@ -168,29 +150,9 @@ public class Carrier {
 		if (this.drivingLicence_type == null) this.drivingLicence_type = "";
 	}
 
-	/* tmp
-	public Warehouse getWarehouse() {
-		return warehouse;
-	}
-
-	public void setWarehouse(Warehouse warehouse) {
-		this.warehouse = warehouse;
-	}
-
-
-	public String getRemarks() {
-		return remarks;
-	}
-
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-	*/
-	
 	public void translate() {
 		if (!translateToSpanish()) translateToEnglish();		
 	}
-	
 	
 	public boolean translateToEnglish() {
 		// A naive implementation
@@ -244,31 +206,5 @@ public class Carrier {
 	
 	@Transient
 	private String fellowCarriersSelected;
-
-	/* tmp
-	public String getFellowCarriersSelected() {
-		return fellowCarriersSelected;
-	}
-
-	public void setFellowCarriersSelected(String fellowCarriersSelected) {
-		this.fellowCarriersSelected = fellowCarriersSelected;
-	}
-
-	public Integer getFellowCarriersCalculatedSize() {
-		return fellowCarriersCalculatedSize;
-	}
-
-	public void setFellowCarriersCalculatedSize(Integer fellowCarriersCalculatedSize) {
-		this.fellowCarriersCalculatedSize = fellowCarriersCalculatedSize;
-	}
-
-	public boolean isOldSync() {
-		return oldSync;
-	}
-
-	public void setOldSync(boolean oldSync) {
-		this.oldSync = oldSync;
-	}
-	*/
 	
 }

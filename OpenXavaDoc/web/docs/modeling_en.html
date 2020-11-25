@@ -246,7 +246,6 @@ Address address;
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
 import java.time.*;
-import java.util.*;
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
@@ -357,10 +356,10 @@ int number;
       new, an annotation <em>@PropertyValue</em>. By using this annotation
       you're saying that the value of <em>year</em> property of the current <em>Invoice</em>
       will be moved to the property <em>year</em> of the calculator before
-      doing the calculation. Now when ever the user clicks on 'new' the next
-      invoice number is available for the year field. The way of calculating the
-      invoice number is not the best for many concurrent users adding invoices.
-      Don't worry, we'll improve this issue later on.<br>
+      doing the calculation. Now when ever the user clicks on <i>New</i> the
+      next invoice number is available for the year field. The way of
+      calculating the invoice number is not the best for many concurrent users
+      adding invoices. Don't worry, we'll improve this issue later on.<br>
       This is the visual effect of the default value calculators:<br>
       <img src="files/modeling_en070.png" alt="modeling_en070.png" title="modeling_en070.png"><br>
       Default values are only the initial values. The user can change them if he
