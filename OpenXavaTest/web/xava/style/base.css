@@ -409,6 +409,16 @@ A.sign-out  {
 	z-index: 10;
 }
 
+/* tmp ini */
+@media only screen and (max-width: 1040px) {
+
+	#modules_list {
+		display: none;
+	}
+
+}
+/* tmp fin */
+
 .mobile #modules_list {
 	background: var(--mobile-modules-list-background);
 }
@@ -2459,3 +2469,31 @@ div[id$="_Index__view"] .ox-list-title {
 .ie .ox-read-only-html-text p {
 	margin-top: -5px;
 }
+
+/* tmp ini */
+#modules_list_hide, #modules_list_show  {
+	position: absolute;
+	top: 50%;
+	background: gray;
+    border-radius: 100px;
+    padding: 3px;
+}
+
+#modules_list_hide {
+	left: 160px;
+}
+
+#modules_list_show  {
+	left: -20px;
+}
+
+#modules_list_hide i, #modules_list_show i {
+	font-size: 30px;	
+	position: relative;
+	left: 9px;
+}
+
+#modules_list_show {
+	display: none;
+}
+/* tmp fin */

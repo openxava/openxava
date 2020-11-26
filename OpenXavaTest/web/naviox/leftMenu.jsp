@@ -59,5 +59,15 @@
 			</tr>
 		</table>
 	</div>
-
+	
 </div>
+
+<%-- tmp ini --%>
+<a id="modules_list_hide" href="javascript:naviox.hideModulesList()">
+	<i class="mdi mdi-chevron-left"></i>
+</a>
+
+<a id="modules_list_show" href="javascript:naviox.hideModulesList()">
+	<i class="mdi mdi-chevron-right"></i>
+</a>
+<%-- tmp fin --%>

@@ -68,6 +68,20 @@ naviox.displayAllModulesList = function(searchWord) {
 	Modules.displayAllModulesList(searchWord, naviox.refreshModulesList);  
 }
 
+/* tmp ini */
+naviox.hideModulesList = function() {
+	$('#modules_list_hide').hide();
+	$('#modules_list').toggle("slide");
+	$('#modules_list_show').fadeIn();
+}
+
+naviox.showModulesList = function() {
+	$('#modules_list_show').hide();
+	$('#modules_list').toggle("slide");
+	$('#modules_list_hide').fadeIn();
+}
+/* tmp fin */
+
 naviox.goFolder = function(folderOid) {
 	Folders.goFolder(folderOid, naviox.refreshFolderModulesList);
 }
