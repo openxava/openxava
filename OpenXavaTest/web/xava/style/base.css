@@ -27,6 +27,10 @@
 	--module-header-link-hover-color: var(--module-header-color);
 	--organizations-index-icon-color-hover: white;	
 	--folder-row-hover-icon-color: white;	
+	/* tmp ini */
+	--module-list-hide-show-color: var(--modules-list-selected-color);
+	--module-list-hide-show-background: var(--modules-list-selected-background);
+	/* tmp fin */
 	
 	--module-header-link-color: var(--module-header-color);
 	--module-header-icon-color: var(--module-header-color);
@@ -412,7 +416,7 @@ A.sign-out  {
 /* tmp ini */
 @media only screen and (max-width: 1040px) {
 
-	#modules_list {
+	#modules_list, #modules_list_hide {
 		display: none;
 	}
 
@@ -2474,9 +2478,13 @@ div[id$="_Index__view"] .ox-list-title {
 #modules_list_hide, #modules_list_show  {
 	position: absolute;
 	top: 50%;
-	background: gray;
+	background: var(--module-list-hide-show-background);
+	
     border-radius: 100px;
     padding: 3px;
+}
+
+#modules_list_hide a, #modules_list_show a {
 }
 
 #modules_list_hide {
@@ -2489,11 +2497,8 @@ div[id$="_Index__view"] .ox-list-title {
 
 #modules_list_hide i, #modules_list_show i {
 	font-size: 30px;	
+	color: var(--module-list-hide-show-color);
 	position: relative;
 	left: 9px;
-}
-
-#modules_list_show {
-	display: none;
 }
 /* tmp fin */

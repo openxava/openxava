@@ -430,8 +430,11 @@ openxava.initLists = function(application, module) {
 			Tab.setColumnWidth(event.target.id, $(event.target).closest("th").index() - 2, $(event.target).width());
 		}
 	});				
+	/* tmp
 	openxava.setListsSize(application, module, "list", openxava.listAdjustment); 
 	openxava.setListsSize(application, module, "collection", openxava.collectionAdjustment);
+	*/
+	openxava.resetListsSize(application, module); // tmp
 	$('.xava_sortable_column').sorttable({ 
 		placeholder: 'xava_placeholder',
 	    helperCells: null,
@@ -478,6 +481,13 @@ openxava.renumberCollection = function(table) {
 		});
 	});
 }
+
+// tmp ini
+openxava.resetListsSize = function(application, module) {
+	openxava.setListsSize(application, module, "list", openxava.listAdjustment); 
+	openxava.setListsSize(application, module, "collection", openxava.collectionAdjustment);
+}
+// tmp fin
 
 openxava.setListsSize = function(application, module, type, adjustment) {
 	var buttonBar = $('#' + openxava.decorateId(application, module, "bottom_buttons"));

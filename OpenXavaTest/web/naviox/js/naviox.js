@@ -69,16 +69,18 @@ naviox.displayAllModulesList = function(searchWord) {
 }
 
 /* tmp ini */
-naviox.hideModulesList = function() {
+naviox.hideModulesList = function(application, module) {
 	$('#modules_list_hide').hide();
-	$('#modules_list').toggle("slide");
-	$('#modules_list_show').fadeIn();
+	$('#modules_list').toggle("slide", function() { 
+		openxava.resetListsSize(application, module); 
+	});
 }
 
-naviox.showModulesList = function() {
-	$('#modules_list_show').hide();
-	$('#modules_list').toggle("slide");
-	$('#modules_list_hide').fadeIn();
+naviox.showModulesList = function(application, module) {
+	$('#modules_list').toggle("slide", function() { 
+		$('#modules_list_hide').fadeIn();
+		openxava.resetListsSize(application, module);
+	});
 }
 /* tmp fin */
 
