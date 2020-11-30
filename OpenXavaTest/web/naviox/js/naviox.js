@@ -13,6 +13,10 @@ naviox.init = function() {
 	}
 	
 	$('#modules_list_core').css('height', 'calc(100vh - ' + $('#modules_list_top').height() + 'px)'); 
+	
+	// tmp ini
+	//if (naviox.module == "FirstSteps") naviox.showModulesList(naviox.application, naviox.module);
+	// tmp fin
 }
 
 naviox.watchForIdleUser = function() {
@@ -71,12 +75,16 @@ naviox.displayAllModulesList = function(searchWord) {
 /* tmp ini */
 naviox.hideModulesList = function(application, module) {
 	$('#modules_list_hide').hide();
+	$('#module_header_menu_button').show();
+	$('#module_extended_title').show();
 	$('#modules_list').toggle("slide", function() { 
 		openxava.resetListsSize(application, module); 
 	});
 }
 
 naviox.showModulesList = function(application, module) {
+	$('#module_header_menu_button').hide();
+	$('#module_extended_title').hide();
 	$('#modules_list').toggle("slide", function() { 
 		$('#modules_list_hide').fadeIn();
 		openxava.resetListsSize(application, module);

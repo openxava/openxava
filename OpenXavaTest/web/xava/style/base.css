@@ -414,13 +414,24 @@ A.sign-out  {
 }
 
 /* tmp ini */
+#module_header_menu_button, #module_extended_title {
+	display: none;
+}
+
 @media only screen and (max-width: 1040px) {
 
 	#modules_list, #modules_list_hide {
 		display: none;
 	}
-
+	
+	#module_header_menu_button, #module_extended_title {
+		display: inline;
+	}
+	
 }
+	
+
+
 /* tmp fin */
 
 .mobile #modules_list {
@@ -2482,9 +2493,6 @@ div[id$="_Index__view"] .ox-list-title {
 	
     border-radius: 100px;
     padding: 3px;
-}
-
-#modules_list_hide a, #modules_list_show a {
 }
 
 #modules_list_hide {

@@ -33,7 +33,7 @@ org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleM
 		.get(app, module, "manager", "org.openxava.controller.ModuleManager");
 manager.setSession(session);
 manager.setApplicationName(request.getParameter("application"));
-manager.setModuleName(module); // In order to show the correct description in head
+manager.setModuleName(module); // In order to show the correct description in head 
 %>
 
 <!DOCTYPE html>
@@ -58,8 +58,35 @@ manager.setModuleName(module); // In order to show the correct description in he
 		
 		<div class="module-wrapper">
 			<div id="module_header">
+				<%-- tmp ini --%>
+				<a id="module_header_menu_button" href="javascript:naviox.showModulesList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>')">
+					<i class="mdi mdi-menu"></i></a>
 				<%String moduleTitle = hasModules?modules.getCurrentModuleLabel():modules.getCurrentModuleDescription(request);%>
-				<span id="module_title"><%=moduleTitle%></span> 
+				<span id="module_title">
+					<%
+					if (hasModules) {
+					%>
+					<span id="module_extended_title">
+						<%
+						String organizationName = modules.getOrganizationName(request);
+						if (!Is.emptyString(organizationName)) {
+						%> 
+						<%=organizationName%> - 
+						<%
+						}
+						%>
+						<%=modules.getApplicationLabel(request)%> - 
+					<%
+					}
+					%>
+					</span>
+					<%=moduleTitle%>
+				</span>	
+				<%-- tmp fin --%>
+				<%-- tmp
+				<%String moduleTitle = hasModules?modules.getCurrentModuleLabel():modules.getCurrentModuleDescription(request);%>
+				<span id="module_title"><%=moduleTitle%></span>
+				--%> 
 				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
 					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
 				</a>

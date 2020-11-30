@@ -2,10 +2,10 @@ Change Log for OpenXava project
 ===============================
 
 - TMP Ocultar/Mostrar menú pendiente:
-	- Hamburguesa al lado del módulo, cuando menú oculto.
+	* Hamburguesa al lado del módulo, cuando menú oculto.
+	* Nombre de aplicación y organización con módulo oculto
 	- Menú siempre presente en FirstSteps.
-	- ¿Nombre de aplicación y organización con módulo oculto?
-	- ¿Memorizar último estado por usuario?
+	- Probar en todos los navegadores.
 	- Tests.
 - Lombok library added to OpenXava and OpenXava Studio supports Lombok by default.		
 - Java included in distribution changed to Eclipse JustJ.
