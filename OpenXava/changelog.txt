@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- New projects can be launched with Run As > Java Applicaction.
+- DBManager launcher class no longer included in new projects.
 - Left menu can be hidden or shown by the user.
 - Resposive left menu, it is shown or hidden depending on page size.
 - Fix: Selected menu option protrudes the left modules menu with Internet Explorer.
