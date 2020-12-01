@@ -1118,6 +1118,21 @@
 			<arg value="generate"/>
 			<arg value="${persistence.unit}"/>
 		</java>
-	</target>    
+	</target>
+	
+	<target name="defineDBManagerPath">
+		
+		<path id="dbmanager.path"> 
+			<fileset dir="${openxava.base.dir}/OpenXava/web/WEB-INF/lib">
+				<include name="**/*.jar"/>
+			</fileset>
+			<path path="${openxava.base.dir}/OpenXava/lib/hsqldb.jar"/>
+		</path>
+
+	</target>	
+
+	<target name="runDBManager" depends="defineDBManagerPath">
+		<java classname="org.openxava.tools.DBManager" classpathref="dbmanager.path" fork="true"/>
+	</target>
 
 </project>
