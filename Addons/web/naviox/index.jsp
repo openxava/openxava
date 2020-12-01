@@ -33,7 +33,8 @@ org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleM
 		.get(app, module, "manager", "org.openxava.controller.ModuleManager");
 manager.setSession(session);
 manager.setApplicationName(request.getParameter("application"));
-manager.setModuleName(module); // In order to show the correct description in head
+manager.setModuleName(module); // In order to show the correct description in head 
+boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 %>
 
 <!DOCTYPE html>
@@ -58,8 +59,31 @@ manager.setModuleName(module); // In order to show the correct description in he
 		
 		<div class="module-wrapper">
 			<div id="module_header">
-				<%String moduleTitle = hasModules?modules.getCurrentModuleLabel():modules.getCurrentModuleDescription(request);%>
-				<span id="module_title"><%=moduleTitle%></span> 
+				<% if (!isFirstSteps) { %>
+				<a id="module_header_menu_button" href="javascript:naviox.showModulesList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>')">
+					<i class="mdi mdi-menu"></i></a>
+				<% } %>	
+				<span id="module_title">
+					<%
+					if (hasModules && !isFirstSteps) {
+					%>
+					<span id="module_extended_title">
+						<%
+						String organizationName = modules.getOrganizationName(request);
+						if (!Is.emptyString(organizationName)) {
+						%> 
+						<%=organizationName%> - 
+						<%
+						}
+						%>
+						<%=modules.getApplicationLabel(request)%> - 
+					<%
+					}
+					%>
+					</span>
+					<%String moduleTitle = hasModules?modules.getCurrentModuleLabel():modules.getCurrentModuleDescription(request);%>
+					<%=moduleTitle%>
+				</span>	
 				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
 					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
 				</a>
@@ -68,8 +92,7 @@ manager.setModuleName(module); // In order to show the correct description in he
 					if (Is.emptyString(NaviOXPreferences.getInstance().getAutologinUser())) {
 						String userName = Users.getCurrent();
 						String currentModule = request.getParameter("module");
-						boolean showSignIn = userName == null && !currentModule.equals("SignIn");
-						
+						boolean showSignIn = userName == null && !currentModule.equals("SignIn");						
 						if (showSignIn) {
 							String selected = "SignIn".equals(currentModule)?"selected":"";
 					%>

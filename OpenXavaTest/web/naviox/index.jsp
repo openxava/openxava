@@ -34,6 +34,7 @@ org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleM
 manager.setSession(session);
 manager.setApplicationName(request.getParameter("application"));
 manager.setModuleName(module); // In order to show the correct description in head 
+boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 %>
 
 <!DOCTYPE html>
@@ -58,13 +59,13 @@ manager.setModuleName(module); // In order to show the correct description in he
 		
 		<div class="module-wrapper">
 			<div id="module_header">
-				<%-- tmp ini --%>
+				<% if (!isFirstSteps) { %>
 				<a id="module_header_menu_button" href="javascript:naviox.showModulesList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>')">
 					<i class="mdi mdi-menu"></i></a>
-				<%String moduleTitle = hasModules?modules.getCurrentModuleLabel():modules.getCurrentModuleDescription(request);%>
+				<% } %>	
 				<span id="module_title">
 					<%
-					if (hasModules) {
+					if (hasModules && !isFirstSteps) {
 					%>
 					<span id="module_extended_title">
 						<%
@@ -80,13 +81,9 @@ manager.setModuleName(module); // In order to show the correct description in he
 					}
 					%>
 					</span>
+					<%String moduleTitle = hasModules?modules.getCurrentModuleLabel():modules.getCurrentModuleDescription(request);%>
 					<%=moduleTitle%>
 				</span>	
-				<%-- tmp fin --%>
-				<%-- tmp
-				<%String moduleTitle = hasModules?modules.getCurrentModuleLabel():modules.getCurrentModuleDescription(request);%>
-				<span id="module_title"><%=moduleTitle%></span>
-				--%> 
 				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
 					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
 				</a>
@@ -95,8 +92,7 @@ manager.setModuleName(module); // In order to show the correct description in he
 					if (Is.emptyString(NaviOXPreferences.getInstance().getAutologinUser())) {
 						String userName = Users.getCurrent();
 						String currentModule = request.getParameter("module");
-						boolean showSignIn = userName == null && !currentModule.equals("SignIn");
-						
+						boolean showSignIn = userName == null && !currentModule.equals("SignIn");						
 						if (showSignIn) {
 							String selected = "SignIn".equals(currentModule)?"selected":"";
 					%>

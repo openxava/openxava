@@ -50,5 +50,5 @@ public class ArtistTest extends ModuleTestBase {
 		assertTrue("age has no error style", age.getAttribute("class").contains("ox-error-editor")); 
 
 	}
-	
+		
 }

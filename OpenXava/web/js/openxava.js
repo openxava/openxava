@@ -430,8 +430,7 @@ openxava.initLists = function(application, module) {
 			Tab.setColumnWidth(event.target.id, $(event.target).closest("th").index() - 2, $(event.target).width());
 		}
 	});				
-	openxava.setListsSize(application, module, "list", openxava.listAdjustment); 
-	openxava.setListsSize(application, module, "collection", openxava.collectionAdjustment);
+	openxava.resetListsSize(application, module); 
 	$('.xava_sortable_column').sorttable({ 
 		placeholder: 'xava_placeholder',
 	    helperCells: null,
@@ -477,6 +476,11 @@ openxava.renumberCollection = function(table) {
 			$(this).attr("href", newHref);
 		});
 	});
+}
+
+openxava.resetListsSize = function(application, module) {
+	openxava.setListsSize(application, module, "list", openxava.listAdjustment); 
+	openxava.setListsSize(application, module, "collection", openxava.collectionAdjustment);
 }
 
 openxava.setListsSize = function(application, module, type, adjustment) {

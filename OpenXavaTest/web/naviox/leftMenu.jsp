@@ -5,15 +5,11 @@
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
 
 <%
-// tmp ini
 boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(modules.getCurrentModuleName());
 String display = isFirstSteps?"style='display:block'":""; 
-// TMP ME QUEDÉ POR AQUÍ: LO DE ARRIBA FUNCIONA, HACERLO TAMBIÉN EN index.jsp PARA QUE LA HAMBURGUESA Y EL NOMBRE
-// TMP   DE LA APLICACIÓN NO APAREZCA EN FirstSteps
-// tmp fin
 %>
 
-<div id="modules_list" <%=display%>> <%-- tmp display --%> 
+<div id="modules_list" <%=display%>>  
 
 	<div id="modules_list_top"> 
 
@@ -71,7 +67,6 @@ String display = isFirstSteps?"style='display:block'":"";
 	
 </div>
 
-<%-- tmp ini --%>
 <% if (!isFirstSteps) { %> 
 	<a id="modules_list_hide" href="javascript:naviox.hideModulesList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>')">
 		<i class="mdi mdi-chevron-left"></i>
@@ -81,4 +76,3 @@ String display = isFirstSteps?"style='display:block'":"";
 		<i class="mdi mdi-chevron-right"></i>
 	</a>
 <% } %>
-<%-- tmp fin --%>

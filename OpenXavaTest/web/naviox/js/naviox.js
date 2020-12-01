@@ -13,10 +13,6 @@ naviox.init = function() {
 	}
 	
 	$('#modules_list_core').css('height', 'calc(100vh - ' + $('#modules_list_top').height() + 'px)'); 
-	
-	// tmp ini
-	//if (naviox.module == "FirstSteps") naviox.showModulesList(naviox.application, naviox.module);
-	// tmp fin
 }
 
 naviox.watchForIdleUser = function() {
@@ -72,7 +68,6 @@ naviox.displayAllModulesList = function(searchWord) {
 	Modules.displayAllModulesList(searchWord, naviox.refreshModulesList);  
 }
 
-/* tmp ini */
 naviox.hideModulesList = function(application, module) {
 	$('#modules_list_hide').hide();
 	$('#module_header_menu_button').show();
@@ -90,7 +85,6 @@ naviox.showModulesList = function(application, module) {
 		openxava.resetListsSize(application, module);
 	});
 }
-/* tmp fin */
 
 naviox.goFolder = function(folderOid) {
 	Folders.goFolder(folderOid, naviox.refreshFolderModulesList);
