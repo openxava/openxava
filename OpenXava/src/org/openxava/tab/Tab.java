@@ -470,7 +470,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private String editor;   
 	private Messages errors;
 	private String defaultCondition;
-	private Collection<MetaProperty> metaPropertiesBeforeGrouping; 
+	private Collection<MetaProperty> metaPropertiesBeforeGrouping;
+	private boolean saveConfigurationAllowed; // tmp 
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -3031,5 +3032,19 @@ public class Tab implements java.io.Serializable, Cloneable {
 			throw new RuntimeException(ex); // Never 
 		}
 	}
+
+	// tmp ini
+	public void allowSaveConfiguration() { 
+		saveConfigurationAllowed = true;
+	}
+	
+	public void disallowSaveConfiguration() { 
+		saveConfigurationAllowed = false;
+	}	
+	
+	public boolean isSaveConfigurationAllowed() {
+		return saveConfigurationAllowed;
+	}
+	// tmp fin
 
 }

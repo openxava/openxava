@@ -1485,4 +1485,14 @@
 			class="org.openxava.test.actions.LoadTextFileAction"/>
 	</controller>
 	
+	<!-- tmp ini: Mover a default-controllers.xml -->
+	<controller name="TmpList">
+		<action name="saveQuery"
+			class="org.openxava.actions.GoChangeListConfigurationAction"
+			hidden="true"
+			mode="list"
+			icon="rename-box"/>	
+	</controller>
+	<!-- tmp fin -->
+	
 </controllers>

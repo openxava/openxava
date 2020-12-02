@@ -210,6 +210,14 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
+	// tmp ini
+	// TMP ME QUEDÉ POR AQUÍ: INTENTANDO HACER UN PROTOTIPO POTABLE
+	//$('#ox_OpenXavaTest_InvoiceDetailsWithSections__List___filter').click(function() {
+  	$('#xava_save_list_configuration').fadeIn(2000, 'swing', function() {
+  		$('#xava_save_list_configuration').fadeOut(10000);
+  	});
+	//});
+	// tmp fin
 }
 
 openxava.initFocusKey = function() { } 
