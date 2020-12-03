@@ -15,12 +15,11 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/OpenXava/lib/hsqldb.jar"/>
-	<classpathentry kind="lib" path="/OpenXava/lib/tomcat-embed-core.jar"/>
-	<classpathentry kind="lib" path="/OpenXava/lib/portal-service.jar"/>
 	<classpathentry kind="lib" path="/OpenXava/lib/portal-kernel.jar"/>
-	<classpathentry kind="lib" path="/OpenXava/web/WEB-INF/lib/mime-util.jar"/>
+	<classpathentry kind="lib" path="/OpenXava/lib/portal-service.jar"/>
 	<classpathentry kind="lib" path="/OpenXava/web/WEB-INF/lib/ox-jdbc-adapters.jar"/>
 	<classpathentry kind="lib" path="/OpenXava/lib/pdfbox.jar"/>
+	<classpathentry kind="lib" path="/OpenXava/lib/tomcat-embed-core.jar"/>
+	<classpathentry kind="lib" path="/OpenXava/lib/hsqldb.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>

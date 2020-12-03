@@ -1863,7 +1863,36 @@ public class Tab implements java.io.Serializable, Cloneable {
 		this.titleArguments = valores;
 	}
 	
+	public void createConfiguration() { // tmp  
+		if (!Is.empty(groupBy)) return; 
+		if (configurations.isEmpty()) {			
+			addDefaultConfiguration(); 
+		}
+		Configuration newConfiguration = new Configuration();
+		newConfiguration.setCondition(getCondition()); 
+		newConfiguration.setConditionValues(conditionValues); 
+		newConfiguration.setConditionValuesTo(conditionValuesTo); 
+		newConfiguration.setConditionComparators(conditionComparators);
+		newConfiguration.setOrderBy(orderBy);
+		newConfiguration.setDescendingOrder(descendingOrder);
+		newConfiguration.setOrderBy2(orderBy2);
+		newConfiguration.setDescendingOrder2(descendingOrder2);
+		newConfiguration.setPropertiesNames(getPropertiesNamesAsString()); 
+		if (configurations.containsKey(newConfiguration.getId())) {
+			newConfiguration = configurations.get(newConfiguration.getId());
+		}
+		/* tmp
+		else {			
+			configurations.put(newConfiguration.getId(), newConfiguration);
+		}
+		*/
+		newConfiguration.weightUp(); // tmp ¿Sigue haciendo falta?
+		configuration = newConfiguration;
+	}
+
+	
 	public void saveConfiguration() {  
+		/* tmp
 		if (!Is.empty(groupBy)) return; 
 		if (configurations.isEmpty()) {			
 			addDefaultConfiguration(); 
@@ -1886,6 +1915,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 		newConfiguration.weightUp();
 		configuration = newConfiguration;
+		*/
+		createConfiguration();
+		if (!configurations.containsKey(configuration.getId())) {
+			configurations.put(configuration.getId(), configuration);
+		}
 		saveConfigurationPreferences(false);
 	}
 		
@@ -1955,6 +1989,13 @@ public class Tab implements java.io.Serializable, Cloneable {
 	
 	public void setConfigurationName(String newName) { 
 		if (configuration == null) return;
+		// tmp ini
+		// tmp ¿Refactorizar? 
+		// TMP ME QUEDÉ POR AQUÍ: PARECE QUE SÍ FUNCIONA, TESTEARLO UN POCO MÁS
+		if (!configurations.containsKey(configuration.getId())) {
+			configurations.put(configuration.getId(), configuration);
+		}
+		// tmp fin
 		configuration.setName(newName);
 		saveConfigurationPreferences(true);
 	}

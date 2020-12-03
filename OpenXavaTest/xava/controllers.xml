@@ -1488,11 +1488,19 @@
 	<!-- tmp ini: Mover a default-controllers.xml -->
 	<controller name="TmpList">
 		<action name="saveQuery"
-			class="org.openxava.actions.GoChangeListConfigurationAction"
+			class="org.openxava.actions.GoSaveListConfigurationAction"
 			hidden="true"
 			mode="list"
 			icon="rename-box"/>	
 	</controller>
+	
+	<controller name="TmpSaveListConfiguration">
+		<action name="save"
+			class="org.openxava.actions.ChangeListConfigurationNameAction"/>
+		<action name="cancel" 
+			class="org.openxava.actions.CancelAction"/>		
+	</controller>
+	
 	<!-- tmp fin -->
 	
 </controllers>

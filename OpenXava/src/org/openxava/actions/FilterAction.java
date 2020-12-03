@@ -16,7 +16,10 @@ public class FilterAction extends FilterTabBaseAction {
 		else getTab().setConfigurationId(getConfigurationId());
 		*/
 		// tmp ini
-		if (configurationId == 0) getTab().allowSaveConfiguration();
+		if (configurationId == 0) {
+			getTab().allowSaveConfiguration();
+			getTab().createConfiguration();
+		}
 		else getTab().setConfigurationId(getConfigurationId());
 		// tmp fin
 	}

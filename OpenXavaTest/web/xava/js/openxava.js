@@ -213,9 +213,7 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	// tmp ini
 	// TMP ME QUEDÉ POR AQUÍ: INTENTANDO HACER UN PROTOTIPO POTABLE
 	//$('#ox_OpenXavaTest_InvoiceDetailsWithSections__List___filter').click(function() {
-  	$('#xava_save_list_configuration').fadeIn(2000, 'swing', function() {
-  		$('#xava_save_list_configuration').fadeOut(10000);
-  	});
+  	$('#xava_save_list_configuration').fadeIn(1000, 'swing');
 	//});
 	// tmp fin
 }

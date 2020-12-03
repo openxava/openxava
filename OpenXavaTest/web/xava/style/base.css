@@ -2512,6 +2512,7 @@ div[id$="_Index__view"] .ox-list-title {
 /* tmp ini */
 #xava_save_list_configuration {
 	display: none;	
-    
+    margin-left: 10px;
+    font-weight: bold;
 }
 /* tmp fin */
