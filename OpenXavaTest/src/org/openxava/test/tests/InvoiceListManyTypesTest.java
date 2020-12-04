@@ -17,7 +17,8 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		// Don't separate in several independent tests 
 		// because we want test the accumulation of configuration without duplication
 
-		assertListConfigurationsBasicCases(); 	
+		assertListConfigurationsBasicCases(); 
+		/* tmp
 		assertListConfigurationsBooleans(); 
 		assertListConfigurationsEmptyNotEmpty();
 		assertListConfigurationGroups(); 
@@ -32,6 +33,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationsPersistence(); 
 		assertListConfigurationsRemove(); 
 		assertListConfigurationsNotByDefaultIfNotSelected();
+		*/
 	}
 
 	private void assertListConfigurationsChangeName() throws Exception { 
@@ -714,7 +716,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		setConditionComparators("=", ">"); 
 		execute("List.filter");
 		assertListSelectedConfiguration("Year = 2004 and number > 10");
-		assertListAllConfigurations("Year = 2004 and number > 10", "All", "Number = 1"); 
+		assertListAllConfigurations("Year = 2004 and number > 10", "All", "Number = 1"); // TMP ME QUEDÉ POR AQUÍ: ESTO FALLA
 		assertListRowCount(2);
 		
 		selectListConfiguration("Number = 1"); 

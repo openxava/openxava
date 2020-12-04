@@ -396,6 +396,14 @@ here that you want to override.
 			mode="list"
 			icon="rename-box"/>		 
 			
+		<!-- tmp ini -->
+		<action name="saveConfiguration"
+			class="org.openxava.actions.GoSaveListConfigurationAction"
+			hidden="true"
+			mode="list"/>	
+		<!-- tmp fin -->
+			
+			
 		<action name="changeColumnName"
 			class="org.openxava.actions.GoChangeColumnNameAction"
 			hidden="true"
@@ -405,13 +413,29 @@ here that you want to override.
 	</controller>
 	
 	<controller name="ChangeListConfiguration">
+		<!-- tmp 
 		<action name="change"
 			class="org.openxava.actions.ChangeListConfigurationNameAction"/>
+		-->
+		<!-- tmp ini -->
+		<action name="change"
+			class="org.openxava.actions.SaveListConfigurationNameAction"/>
+		<!-- tmp fin -->	
 		<action name="remove"
 			class="org.openxava.actions.RemoveListConfigurationAction"/>
 		<action name="cancel" 
 			class="org.openxava.actions.CancelAction"/>		
 	</controller>
+	
+	<!-- tmp ini -->
+	<controller name="SaveListConfiguration">
+		<action name="save"
+			class="org.openxava.actions.SaveListConfigurationNameAction"/>
+		<action name="cancel" 
+			class="org.openxava.actions.CancelAction"/>		
+	</controller>
+	<!-- tmp fin -->
+	
 	
 	<controller name="ChangeColumnName">
 		<action name="change"

@@ -46,6 +46,20 @@ if (collection == null || collection.equals("")) {
 	%>
 </select>
 <xava:link action="List.changeConfiguration"/>
+
+<%-- tmp ini --%>
+<%-- tmp No debería salir en Cards ni Charts --%>
+<% if (tab.isSaveConfigurationAllowed()) { %>
+<span id="xava_save_list_configuration">
+<xava:link action="TmpList.saveQuery"/>
+</span>
+<% 
+		tab.disallowSaveConfiguration();
+   }	 
+%>
+<%-- tmp fin --%>
+
+
 <% 
 if (tab.isTitleVisible()) { 
 %> 

@@ -11,11 +11,11 @@ public class GoSaveListConfigurationAction extends TabBaseAction implements ICus
 	
 	public void execute() throws Exception {
 		showDialog();
-		getView().setTitleId("List.saveConfiguration"); // tmp i18n También para changeConfiguration 
+		getView().setTitleId("List.saveConfiguration");  
 		WithRequiredLongName dialog = new WithRequiredLongName();
 		getView().setModel(dialog);
 		getView().setValue("name", getTab().getConfigurationName());
-		setControllers("TmpSaveListConfiguration"); 
+		setControllers("SaveListConfiguration"); 
 	}
 
 	public String getCustomView() throws Exception {

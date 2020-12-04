@@ -1991,7 +1991,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 		if (configuration == null) return;
 		// tmp ini
 		// tmp ¿Refactorizar? 
-		// TMP ME QUEDÉ POR AQUÍ: PARECE QUE SÍ FUNCIONA, TESTEARLO UN POCO MÁS
 		if (!configurations.containsKey(configuration.getId())) {
 			configurations.put(configuration.getId(), configuration);
 		}
