@@ -18,9 +18,9 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		// because we want test the accumulation of configuration without duplication
 
 		assertListConfigurationsBasicCases(); 
-		/* tmp
-		assertListConfigurationsBooleans(); 
+		assertListConfigurationsBooleans();
 		assertListConfigurationsEmptyNotEmpty();
+		/* tmp
 		assertListConfigurationGroups(); 
 		assertListConfigurationsEnums();	
 		assertListConfigurationsYearMonthYearMonth(); 
@@ -640,13 +640,23 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 
 	private void assertListConfigurationsEmptyNotEmpty() throws Exception {
 		clearCondition();
+		/* tmp
 		setConditionComparators("=", "=", "=", Tab.NOT_EMPTY_COMPARATOR, "<>"); // To test not empty combined with boolean(false value) because of a bug
 		setConditionValues("", "", "", "", "true");
 		execute("List.filter");
+		*/
+		// tmp ini
+		// TMP ME QUEDÉ POR AQUÍ: TODAVÍA NO FUNCIONA
+		setConditionComparators("=", "=", "=", Tab.CONTAINS_COMPARATOR); // Really we don't want to test this, it is to not rewrite all tests to remove "Email of customer is not empty" because before all the queries were added
+		saveConfiguration();
+		setConditionComparators("=", "=", "=", Tab.NOT_EMPTY_COMPARATOR, "<>"); // To test not empty combined with boolean(false value) because of a bug
+		
+		// tmp fin
 		assertListSelectedConfiguration("Email of customer is not empty and not paid");
-		assertListAllConfigurations("Email of customer is not empty and not paid", "All", "Email of customer is not empty", 
+		assertListAllConfigurations("Email of customer is not empty and not paid", "All", "Email of customer is not empty",  
 			"Not paid and name of customer starts with j", "Paid", "Not paid", "Year = 2004 and number > 10", "Number = 1");
 		assertListRowCount(5);
+		saveConfiguration(); // tmp
 		
 		clearCondition();
 		setConditionComparators("=", "=", "=", Tab.EMPTY_COMPARATOR); 
@@ -657,6 +667,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Email of customer is not empty", "Not paid and name of customer starts with j", "Paid", "Not paid", 
 			"Year = 2004 and number > 10", "Number = 1");
 		assertListRowCount(4);
+		saveConfiguration(); // tmp
 		
 		selectListConfiguration("Email of customer is not empty and not paid");
 		assertListSelectedConfiguration("Email of customer is not empty and not paid");
@@ -673,14 +684,16 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		execute("List.filter");
 		assertListSelectedConfiguration("Paid");
 		assertListAllConfigurations("Paid", "All", "Year = 2004 and number > 10", "Number = 1"); 
-		assertListRowCount(1);		
+		assertListRowCount(1);	
+		saveConfiguration(); // tmp
 
 		setConditionValues("", "", "", "", "true"); 
 		setConditionComparators("=", "=", "=", "=", "<>");
 		execute("List.filter");
 		assertListSelectedConfiguration("Not paid");
 		assertListAllConfigurations("Not paid", "All", "Paid", "Year = 2004 and number > 10", "Number = 1"); 
-		assertListRowCount(8);		
+		assertListRowCount(8);	
+		saveConfiguration(); // tmp
 				
 		setConditionComparators("=", "=", "=", "=", "<>", Tab.STARTS_COMPARATOR);
 		setConditionValues("", "", "", "", "true", "j"); 
@@ -688,6 +701,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListSelectedConfiguration("Not paid and name of customer starts with j"); // Here the boolean is not the last one
 		assertListAllConfigurations("Not paid and name of customer starts with j", "All", "Not paid", "Paid", "Year = 2004 and number > 10", "Number = 1"); 
 		assertListRowCount(6);
+		saveConfiguration(); // tmp
 		
 		selectListConfiguration("Paid");
 		assertListSelectedConfiguration("Paid");
@@ -711,13 +725,15 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListSelectedConfiguration("Number = 1");
 		assertListAllConfigurations("Number = 1", "All"); 
 		assertListRowCount(3);
+		saveConfiguration(); // tmp
 		
 		setConditionValues("2004", "10"); 
 		setConditionComparators("=", ">"); 
 		execute("List.filter");
 		assertListSelectedConfiguration("Year = 2004 and number > 10");
-		assertListAllConfigurations("Year = 2004 and number > 10", "All", "Number = 1"); // TMP ME QUEDÉ POR AQUÍ: ESTO FALLA
+		assertListAllConfigurations("Year = 2004 and number > 10", "All", "Number = 1"); 
 		assertListRowCount(2);
+		saveConfiguration(); // tmp
 		
 		selectListConfiguration("Number = 1"); 
 		assertListSelectedConfiguration("Number = 1");
@@ -743,16 +759,24 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		setConditionValues("", "1"); // To test not duplicated in combo
 		setConditionComparators("=", "="); 
 		execute("List.filter");
+		saveConfiguration(); // tmp
 		assertListSelectedConfiguration("Number = 1");
 		assertListAllConfigurations("Number = 1", "All", "Year = 2004 and number > 10");
 		assertListRowCount(3);
 		
+		
 		setConditionValues("2004", "10"); // To test not duplicated in combo again, curiously it failed the second time
 		setConditionComparators("=", ">");
 		execute("List.filter");
+		saveConfiguration(); // tmp
 		assertListSelectedConfiguration("Year = 2004 and number > 10");
 		assertListAllConfigurations("Year = 2004 and number > 10", "All", "Number = 1"); 
 		assertListRowCount(2);
+	}
+
+	private void saveConfiguration() throws Exception { // TMP
+		execute("List.saveConfiguration");
+		execute("SaveListConfiguration.save");
 	}
 	
 	private void assertListConfigurationsNotByDefaultIfNotSelected() throws Exception { 
