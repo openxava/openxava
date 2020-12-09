@@ -17,19 +17,29 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		// Don't separate in several independent tests 
 		// because we want test the accumulation of configuration without duplication
 
+		// TMP FALTA REVISAR:
+		// TMP   - Al reiniciar filtro (pulsar gomita) no debería poder guardarse
+		// TMP   - Sin grabar explicitamente no debería guardar al:
+		// TMP      > hacer un filtro
+		// TMP      > ordenar
+		// TMP   - Añadir/quitar columnas:
+		// TMP      > Ya hay un assertListConfigurationsColumns()
+		// TMP      > ¿Cuál debería ser el comportamiento?
+		// TMP   	> Comprobar si cambiar el nombre de una columna se guarda en la configuración
+		// TMP   
 		assertListConfigurationsBasicCases(); 
 		assertListConfigurationsBooleans();
-		assertListConfigurationsEmptyNotEmpty();
-		/* tmp
-		assertListConfigurationGroups(); 
-		assertListConfigurationsEnums();	
-		assertListConfigurationsYearMonthYearMonth(); 
-		assertListConfigurationsDescriptionsLists(); 
-		assertListConfigurationsOrdering(); 
+		assertListConfigurationsEmptyNotEmpty();		
+		assertListConfigurationGroups();		
+		assertListConfigurationsEnums();
+		assertListConfigurationsYearMonthYearMonth();
+		assertListConfigurationsDescriptionsLists(); 		
+		assertListConfigurationsOrdering();
 		assertListConfigurationsRanges();
-		assertListConfigurationsColumns(); 
-		assertListConfigurationsChangeName(); 
+		assertListConfigurationsColumns();
+		assertListConfigurationsChangeName();
 		assertListConfigurationsI18n();
+		/* tmp
 		assertListConfigurationsPersistence(); 
 		assertListConfigurationsRemove(); 
 		assertListConfigurationsNotByDefaultIfNotSelected();
@@ -268,6 +278,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Year not in group(2002, 2004)", "Email of customer is not empty and not paid", "Email of customer is empty", 
 			"Email of customer is not empty", "Not paid and name of customer starts with j", "Paid"); 
 		assertListRowCount(3);
+		saveConfiguration(); // tmp
 		
 		setConditionValues("", "2"); // The same initial value of other one, to test a bug. 
 		setConditionValuesTo("", "12");
@@ -281,6 +292,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Year not in group(2002, 2004)", "Email of customer is not empty and not paid", "Email of customer is empty", 
 			"Email of customer is not empty", "Not paid and name of customer starts with j");  
 		assertListRowCount(5); 
+		saveConfiguration(); // tmp
 		
 		selectListConfiguration("Number between 2 and 10");
 		assertListSelectedConfiguration("Number between 2 and 10");
@@ -385,6 +397,18 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 
 	private void assertListConfigurationsI18n() throws Exception {
 		setLocale("es");
+		assertListSelectedConfiguration("Number between 2 and 10");
+		execute("List.orderBy", "property=customer.name");
+		assertListSelectedConfiguration("Número entre 2 y 10 ordenador por nombre de cliente"); // TMP FALLA: ME QUEDÉ POR AQUÍ
+		assertListAllConfigurations("Número entre 2 y 10 ordenador por nombre de cliente",
+			"Todos", "Seller Manuel Chavarri",  "Customer with email", "Number between 2 and 10", 
+			"Number between 2 and 12", "Ordered by number", "Ordered by number descending", 
+			"Year > 2002 ordered by year descending and number descending", "Ordered by year descending and number descending", 
+			"Ordered by year ascending and number descending", "Year/month of date = 2006/11", "Month of date = 1", 
+			"Year of date = 2002", "Type of customer = steady", "Type of customer = normal", "Year in group(2002, 2004)", 
+			"Year not in group(2002, 2004)", "Email of customer is not empty and not paid", "Email of customer is empty", 
+			"Not paid and name of customer starts with j");
+		/* tmp
 		assertListSelectedConfiguration("Número entre 2 y 10");
 		assertListAllConfigurations("Número entre 2 y 10", "Todos", 
 			"Seller Manuel Chavarri", "Customer with email", // Not translated because has custom name 
@@ -407,6 +431,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Año no en grupo(2002, 2004)", "Correo electrónico de cliente no está vacío y no pagada", "Correo electrónico de cliente está vacío",  
 			"No pagada y nombre de cliente empieza por j"); 
 		assertListRowCount(2);
+		*/
 	}
 
 	private void assertListConfigurationsOrdering() throws Exception { 
@@ -416,12 +441,14 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListRowCount(9);
 		assertValueInList(0, "number", "1");
 		assertValueInList(8, "number", "14");
+		saveConfiguration(); // tmp
 		
 		execute("List.orderBy", "property=number");
 		assertListSelectedConfiguration("Ordered by number descending");
 		assertListRowCount(9);
 		assertValueInList(0, "number", "14");
 		assertValueInList(8, "number", "1");
+		saveConfiguration(); // tmp
 		
 		execute("List.orderBy", "property=year");
 		assertListSelectedConfiguration("Ordered by year ascending and number descending");
@@ -436,6 +463,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertValueInList(4, "number", "9");
 		assertValueInList(5, "year", "2004");
 		assertValueInList(5, "number", "2");
+		saveConfiguration(); // tmp
 		
 		execute("List.orderBy", "property=year");
 		assertListSelectedConfiguration("Ordered by year descending and number descending");
@@ -449,7 +477,8 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertValueInList(6, "year", "2004");
 		assertValueInList(6, "number", "9");
 		assertValueInList(7, "year", "2004");
-		assertValueInList(7, "number", "2");		
+		assertValueInList(7, "number", "2");
+		saveConfiguration(); // tmp
 	
 		setConditionComparators(">");
 		setConditionValues("2002");
@@ -466,6 +495,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertValueInList(6, "number", "9");
 		assertValueInList(7, "year", "2004");
 		assertValueInList(7, "number", "2");
+		saveConfiguration(); // tmp
 		
 		assertListAllConfigurations("Year > 2002 ordered by year descending and number descending", "All",
 			"Ordered by year descending and number descending", "Ordered by year ascending and number descending", 
@@ -493,6 +523,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertValueInList(8, "number", "1");
 		execute("List.orderBy", "property=number"); // We already have this ordering...
 		assertListSelectedConfiguration("Ordered by number"); // ...but is not duplicated
+		saveConfiguration(); // tmp
 		assertListAllConfigurations("Ordered by number", "All", "Ordered by number descending", 
 			"Year > 2002 ordered by year descending and number descending", "Ordered by year descending and number descending", 
 			"Ordered by year ascending and number descending", "Seller of customer = manuel chavarri", "Year/month of date = 2006/11", 
@@ -514,7 +545,8 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Year not in group(2002, 2004)", "Email of customer is not empty and not paid", "Email of customer is empty", 
 			"Email of customer is not empty", "Not paid and name of customer starts with j", "Paid", "Not paid", 
 			"Year = 2004 and number > 10", "Number = 1");
-		assertListRowCount(7);		
+		assertListRowCount(7);	
+		saveConfiguration(); // tmp
 
 		selectListConfiguration("All");
 		assertListSelectedConfiguration("All");		
@@ -547,6 +579,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Email of customer is empty", "Email of customer is not empty", "Not paid and name of customer starts with j", 
 			"Paid", "Not paid", "Year = 2004 and number > 10", "Number = 1");
 		assertListRowCount(1);
+		saveConfiguration(); // tmp
 		
 		setConditionValues("", "", "2006/11");
 		setConditionComparators("", "", Tab.YEAR_MONTH_COMPARATOR); 
@@ -556,6 +589,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Email of customer is not empty and not paid", "Email of customer is empty", "Email of customer is not empty", 
 			"Not paid and name of customer starts with j", "Paid", "Not paid", "Year = 2004 and number > 10", "Number = 1");
 		assertListRowCount(2);		
+		saveConfiguration(); // tmp
 
 		setConditionValues("", "", "1");
 		setConditionComparators("", "", Tab.MONTH_COMPARATOR); 
@@ -565,6 +599,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Email of customer is not empty and not paid", "Email of customer is empty", "Email of customer is not empty", 
 			"Not paid and name of customer starts with j", "Paid", "Not paid", "Year = 2004 and number > 10", "Number = 1");
 		assertListRowCount(3);
+		saveConfiguration(); // tmp
 		
 		selectListConfiguration("Year/month of date = 2006/11");
 		assertListSelectedConfiguration("Year/month of date = 2006/11");
@@ -589,6 +624,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Not paid and name of customer starts with j", "Paid", "Not paid", "Year = 2004 and number > 10", "Number = 1");		
 		
 		assertListRowCount(5);
+		saveConfiguration(); // tmp
 
 		String normal = usesAnnotatedPOJO()?"0":"1"; 
 		setConditionValues("", "", "", "", "", "", normal); 
@@ -599,6 +635,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Email of customer is not empty", "Not paid and name of customer starts with j", "Paid", "Not paid", 
 			"Year = 2004 and number > 10", "Number = 1");
 		assertListRowCount(4);
+		saveConfiguration(); // tmp
 		
 		selectListConfiguration("Type of customer = steady");
 		assertListSelectedConfiguration("Type of customer = steady");
@@ -620,6 +657,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Email of customer is empty", "Email of customer is not empty", "Not paid and name of customer starts with j", 
 			"Paid", "Not paid", "Year = 2004 and number > 10", "Number = 1");
 		assertListRowCount(6);
+		saveConfiguration(); // tmp
 	
 		setConditionComparators(Tab.NOT_IN_COMPARATOR); 
 		execute("List.filter");
@@ -628,6 +666,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Email of customer is not empty and not paid", "Email of customer is empty", "Email of customer is not empty", 
 			"Not paid and name of customer starts with j", "Paid", "Not paid", "Year = 2004 and number > 10", "Number = 1");		
 		assertListRowCount(3);	
+		saveConfiguration(); // tmp
 		
 		selectListConfiguration("Year in group(2002, 2004)");
 		assertListSelectedConfiguration("Year in group(2002, 2004)");
@@ -646,8 +685,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		execute("List.filter");
 		*/
 		// tmp ini
-		// TMP ME QUEDÉ POR AQUÍ: TODAVÍA NO FUNCIONA
-		setConditionComparators("=", "=", "=", Tab.CONTAINS_COMPARATOR); // Really we don't want to test this, it is to not rewrite all tests to remove "Email of customer is not empty" because before all the queries were added
+		setConditionComparators("=", "=", "=", Tab.NOT_EMPTY_COMPARATOR); // Really we don't want to test this, it is to not rewrite all tests to remove "Email of customer is not empty" because before all the queries were added
 		saveConfiguration();
 		setConditionComparators("=", "=", "=", Tab.NOT_EMPTY_COMPARATOR, "<>"); // To test not empty combined with boolean(false value) because of a bug
 		

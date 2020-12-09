@@ -13,7 +13,12 @@ public class OrderByAction extends TabBaseAction  {
 	
 	public void execute() throws Exception {		
 		getTab().orderBy(property);
-		getTab().saveConfiguration();
+		// tmp getTab().saveConfiguration();
+		// tmp ini
+		// tmp ¿Refactorizar lo de abajo 2 en 1?
+		getTab().allowSaveConfiguration();
+		getTab().createConfiguration();
+		// tmp fin
 	}
 
 	public String getProperty() {
