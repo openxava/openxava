@@ -75,12 +75,13 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 						<%=organizationName%> - 
 						<%
 						}
-						%>
-						<%=modules.getApplicationLabel(request)%> - 
+						%>						
+						<%=modules.getApplicationLabel(request)%> -
+					</span>	 
 					<%
 					}
 					%>
-					</span>
+					
 					<%String moduleTitle = hasModules?modules.getCurrentModuleLabel():modules.getCurrentModuleDescription(request);%>
 					<%=moduleTitle%>
 				</span>	
