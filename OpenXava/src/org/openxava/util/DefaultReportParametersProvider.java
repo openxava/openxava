@@ -10,7 +10,7 @@ import javax.servlet.http.*;
  * Create on 11/03/2011 (12:42:24)
  * @author Ana Andres
  */
-public class DefaultReportParametersProvider implements IReportParametersProvider, IRequestReportParametersProvider{
+public class DefaultReportParametersProvider implements /* tmp IReportParametersProvider, */ IRequestReportParametersProvider{
 	private transient HttpServletRequest request;
 	
 	public String getOrganization() {

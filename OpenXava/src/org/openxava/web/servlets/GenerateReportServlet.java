@@ -194,7 +194,8 @@ public class GenerateReportServlet extends HttpServlet {
 				synchronized (tab) {
 					tab.setRequest(request);
 					parameters.put("Title", tab.getTitle());				
-					parameters.put("Organization", getOrganization());
+					// tmp parameters.put("Organization", getOrganization());
+					parameters.put("Organization", getOrganization(request)); // tmp
 					parameters.put("Date", getCurrentDate());
 					for (String totalProperty: tab.getTotalPropertiesNames()) { 								
 						parameters.put(totalProperty + "__TOTAL__", getTotal(request, tab, totalProperty));
@@ -298,8 +299,9 @@ public class GenerateReportServlet extends HttpServlet {
 		}
 	}
 
-	protected String getOrganization() throws MissingResourceException, XavaException {
-		return ReportParametersProviderFactory.getInstance().getOrganization();
+	protected String getOrganization(HttpServletRequest request) throws MissingResourceException, XavaException { // tmp HttpServletRequest request
+		// tmp return ReportParametersProviderFactory.getInstance().getOrganization();
+		return ReportParametersProviderFactory.getInstance(request).getOrganization(); // tmp
 	}
 	
 	private InputStream getReport(HttpServletRequest request, HttpServletResponse response, Tab tab, TableModel tableModel, Integer columnCountLimit) throws ServletException, IOException {
