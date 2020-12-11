@@ -15,7 +15,8 @@ public class DefaultReportParametersProvider implements /* tmp IReportParameters
 	
 	public String getOrganization() {
 		Locale locale = XavaResources.getLocale(request);
-		if (Labels.exists("xava.organization", locale)) {
+		// tmp if (Labels.exists("xava.organization", locale)) {
+		if (Labels.existsExact("xava.organization", locale)) { // tmp En changelog como bug
 			return Labels.get("xava.organization", locale);
 		}		
 		else {

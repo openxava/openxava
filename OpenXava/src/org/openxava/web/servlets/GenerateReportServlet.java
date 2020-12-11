@@ -301,7 +301,15 @@ public class GenerateReportServlet extends HttpServlet {
 
 	protected String getOrganization(HttpServletRequest request) throws MissingResourceException, XavaException { // tmp HttpServletRequest request
 		// tmp return ReportParametersProviderFactory.getInstance().getOrganization();
-		return ReportParametersProviderFactory.getInstance(request).getOrganization(); // tmp
+		// tmp ini
+		try {
+			return ReportParametersProviderFactory.getInstance(request).getOrganization(); 
+		}
+		catch (Exception ex) { // tmp Añadir a changelog como fix
+			log.warn(XavaResources.getString("organization_name_error"), ex); // tmp i18n
+			return "";
+		}
+		// tmp fin 
 	}
 	
 	private InputStream getReport(HttpServletRequest request, HttpServletResponse response, Tab tab, TableModel tableModel, Integer columnCountLimit) throws ServletException, IOException {
