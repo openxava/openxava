@@ -52,13 +52,15 @@ public class Tab implements java.io.Serializable, Cloneable {
 		private String orderBy2;
 		private String propertiesNames;
 		private transient List<MetaProperty> metaPropertiesNotCalculated;
-		private long weight; // To sort: Default, with name ordered by last used (new or existing), without name ordered by last used (new or existing) 
+		private long weight; // To sort: Default, with name ordered by last used (new or existing), without name ordered by last used (new or existing)
+		private Boolean all; // tmp
 		
 		private String translateCondition(String condition) {
 			// IF YOU CHANGE THIS CODE TEST IT WITH ignoreAccentsForStringArgumentsInConditions true and false
 			try { 
 				condition = removeBaseConditionAndDefaultOrder(condition); 
-				if (Is.empty(condition) || condition.trim().equals("1=1")) return Labels.get("all"); 
+				// tmp if (Is.empty(condition) || condition.trim().equals("1=1")) return Labels.get("all"); 
+				if (isAll(condition)) return Labels.get("all"); // tmp
 				String result = condition + " ";
 				if (conditionValues != null) {
 					result = result.replaceAll("\\([\\?,*]+\\)", "(?)"); // Groups: (?,?,?) --> (?)
@@ -138,6 +140,18 @@ public class Tab implements java.io.Serializable, Cloneable {
 				log.error(XavaResources.getString("list_condition_translation_error", condition), ex);
 				return condition;
 			}
+		}
+		
+		public boolean isAll() { // tmp
+			if (all == null) { 
+				String condition = removeBaseConditionAndDefaultOrder(this.condition); 
+				all = isAll(condition); 
+			}
+			return all;
+		}
+		
+		private boolean isAll(String conditionWithoutBaseConditionAndDefaultOrder) {
+			return Is.empty(conditionWithoutBaseConditionAndDefaultOrder) || conditionWithoutBaseConditionAndDefaultOrder.trim().equals("1=1");
 		}
 				
 		private String removeBaseConditionAndDefaultOrder(String condition) { 
@@ -2044,6 +2058,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 	public String getConfigurationName() throws XavaException {
 		if (configuration != null) return configuration.getName(); 
 		return Labels.get("all");
+	}
+	
+	public boolean isAllConfiguration() { // tmp
+		if (configuration != null) return configuration.isAll();
+		return true;
 	}
 
 	/**

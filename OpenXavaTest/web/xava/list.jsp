@@ -45,17 +45,27 @@ if (collection == null || collection.equals("")) {
 	} 
 	%>
 </select>
+<%-- tmp
 <xava:link action="List.changeConfiguration"/>
+--%>
 
 <%-- tmp ini --%>
 <%-- tmp No debería salir en Cards ni Charts --%>
-<% if (tab.isSaveConfigurationAllowed()) { %>
+<%
+if (!tab.isAllConfiguration()) { 
+	if (tab.isSaveConfigurationAllowed()) { %>
 <span id="xava_save_list_configuration">
 <xava:link action="List.saveConfiguration"/>
 </span>
 <% 
 		tab.disallowSaveConfiguration();
-   }	 
+   	}	 
+   	else {
+%>
+<xava:link action="List.changeConfiguration"/>
+<%
+   	}
+}
 %>
 <%-- tmp fin --%>
 
