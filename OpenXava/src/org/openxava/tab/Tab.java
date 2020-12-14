@@ -22,6 +22,7 @@ import org.openxava.mapping.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
 import org.openxava.tab.meta.*;
+import org.openxava.test.actions.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
@@ -2160,7 +2161,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 		configuration.setConditionComparators(insertEmptyString(configuration.getConditionComparators(), index));
 		configuration.setPropertiesNames(getPropertiesNamesAsString());
 		applyConfiguration(); 
-		saveConfigurationPreferences(false);
+		if (configuration.isAll() || configuration.hasCustomName()) { // tmp
+			saveConfigurationPreferences(false);
+		} // tmp
 	}
 	
 	private String [] growWithEmptyStrings(String [] original, int size) { 
@@ -2198,7 +2201,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 		configuration.setConditionComparators(growWithEmptyStrings(configuration.getConditionComparators(), size));
 		configuration.setPropertiesNames(getPropertiesNamesAsString());
 		applyConfiguration();
-		saveConfigurationPreferences(false);
+		if (configuration.isAll() || configuration.hasCustomName()) { // tmp
+			saveConfigurationPreferences(false);
+		}
 	}
 	
 		
@@ -2232,7 +2237,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 			configuration.setConditionComparators(remove(configuration.getConditionComparators(), idx));
 		}
 		configuration.setPropertiesNames(getPropertiesNamesAsString());
-		saveConfigurationPreferences(false);
+		System.out.println("[Tab.removeProperty] configuration.hasCustomName()=" + configuration.hasCustomName()); // tmp
+		System.out.println("[Tab.removeProperty] configuration.isAll()=" + configuration.isAll()); // tmp
+		if (configuration.isAll() || configuration.hasCustomName()) { // tmp
+			saveConfigurationPreferences(false);
+		} // tmp
 	}
 	
 	private String [] remove(String [] array, int idx) {  
@@ -2265,7 +2274,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 		move(configuration.getConditionComparators(), fromForNotCalculatedProperties, toForNotCalculatedProperties);
 		
 		configuration.setPropertiesNames(getPropertiesNamesAsString());
-		saveConfigurationPreferences(false);
+		if (configuration.isAll() || configuration.hasCustomName()) { // tmp
+			saveConfigurationPreferences(false);
+		} // tmp
 	}
 	
 	private void move(Object [] array, int from, int to) { 
@@ -2289,7 +2300,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 			configuration.setConditionComparators(restoreValues(oldProperties, newProperties, configuration.getConditionComparators()));
 			configuration.setPropertiesNames(getPropertiesNamesAsString());			
 			applyConfiguration();
-			saveConfigurationPreferences(false);
+			if (configuration.isAll() || configuration.hasCustomName()) { // tmp
+				saveConfigurationPreferences(false);
+			} // tmp
 		} 
 		removeUserPreferences(); 
 	}
@@ -3094,15 +3107,16 @@ public class Tab implements java.io.Serializable, Cloneable {
 
 	// tmp ini
 	public void allowSaveConfiguration() { 
-		saveConfigurationAllowed = true;
+		// tmp saveConfigurationAllowed = true;
 	}
 	
 	public void disallowSaveConfiguration() { 
-		saveConfigurationAllowed = false;
+		// saveConfigurationAllowed = false;
 	}	
 	
 	public boolean isSaveConfigurationAllowed() {
-		return saveConfigurationAllowed;
+		if (configuration == null) return true;
+		return !configuration.hasCustomName();
 	}
 	// tmp fin
 

@@ -299,7 +299,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		// tmp ini
 		selectListConfiguration("Year/month of date = 2006/11");
 		assertListSelectedConfiguration("Year/month of date = 2006/11");
-		assertListAllConfigurations("Year/month of date = 2006/11", "Todos",  
+		assertListAllConfigurations("Year/month of date = 2006/11", "Todos",  // TMP ME QUEDÉ POR AQUÍ: FALLA, POSIBLEMENTE POR EL ORDEN AL HABER QUITADO ALGUNOS savaConfiguration() 
 			"Number between 2 and 10", "Seller Manuel Chavarri", "Customer with email",  
 			"Number between 2 and 12", "Ordered by number", "Ordered by number descending", 
 			"Year > 2002 ordered by year descending and number descending", "Ordered by year descending and number descending", 
@@ -307,6 +307,16 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Year of date = 2002", "Type of customer = steady", "Type of customer = normal", "Year in group(2002, 2004)", 
 			"Year not in group(2002, 2004)", "Email of customer is not empty and not paid", "Email of customer is empty",
 			"Not paid and name of customer starts with j");
+		
+		assertListAllConfigurations("Número entre 2 y 10 ordenado por nombre de cliente",
+			"Todos", "Number between 2 and 10", "Seller Manuel Chavarri", "Customer with email",  
+			"Number between 2 and 12", "Ordered by number descending",   
+			"Year > 2002 ordered by year descending and number descending", "Ordered by year descending and number descending", 
+			"Ordered by year ascending and number descending", "Ordered by number", "Year/month of date = 2006/11", 
+			"Month of date = 1", "Year of date = 2002", "Type of customer = steady", "Type of customer = normal", 
+			"Year in group(2002, 2004)", "Year not in group(2002, 2004)", "Email of customer is not empty and not paid", 
+			"Email of customer is empty");
+
 		assertListRowCount(2);
 		
 		resetModule();
@@ -499,8 +509,9 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListSelectedConfiguration("Todos");
 		setConditionValues("2004"); 
 		execute("List.filter");
-		removeColumn(5); // TMP ME QUEDÉ POR AQUÍ: ESTO HACE QUE FALLE. MODIFICAR COLUMNAS NO DEBERÍA GUARDAR LA CONFIGURACIÓN
-						// TMP YA ESTÁ TODO, ESTE EL ÚLTIMO DETALLE
+		
+		modifyColumns(); // Modifying column should not save configurations per se
+		
 		assertListSelectedConfiguration("Año = 2004");
 		assertListAllConfigurations("Año = 2004", "Todos",
 			"Number between 2 and 10", "Customer with email", "Number between 2 and 12", 
@@ -548,6 +559,14 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		
 	}
 
+	private void modifyColumns() throws Exception {
+		removeColumn(5); 						
+		execute("List.addColumns");
+		checkRow("selectedProperties", "vat");  
+		execute("AddColumns.addColumns");
+		moveColumn(2, 3);
+	}
+
 	private void assertListConfigurationsI18n() throws Exception {
 		setLocale("es");
 		assertListSelectedConfiguration("Number between 2 and 10");
@@ -557,11 +576,12 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		// Since v6.5 all configuration names are saved as custom names so they are not translated
 		assertListAllConfigurations("Número entre 2 y 10 ordenado por nombre de cliente",
 			"Todos", "Number between 2 and 10", "Seller Manuel Chavarri", "Customer with email",  
-			"Number between 2 and 12", "Ordered by number", "Ordered by number descending", 
+			"Number between 2 and 12", "Ordered by number descending",   
 			"Year > 2002 ordered by year descending and number descending", "Ordered by year descending and number descending", 
-			"Ordered by year ascending and number descending", "Year/month of date = 2006/11", "Month of date = 1", 
-			"Year of date = 2002", "Type of customer = steady", "Type of customer = normal", "Year in group(2002, 2004)", 
-			"Year not in group(2002, 2004)", "Email of customer is not empty and not paid", "Email of customer is empty");
+			"Ordered by year ascending and number descending", "Ordered by number", "Year/month of date = 2006/11", 
+			"Month of date = 1", "Year of date = 2002", "Type of customer = steady", "Type of customer = normal", 
+			"Year in group(2002, 2004)", "Year not in group(2002, 2004)", "Email of customer is not empty and not paid", 
+			"Email of customer is empty");
 		assertListRowCount(3); 
 		/* tmp
 		assertListSelectedConfiguration("Número entre 2 y 10");
@@ -678,7 +698,11 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertValueInList(8, "number", "1");
 		execute("List.orderBy", "property=number"); // We already have this ordering...
 		assertListSelectedConfiguration("Ordered by number"); // ...but is not duplicated
-		saveConfiguration(); // tmp
+		// tmp ini
+		assertNoAction("List.saveConfiguration");
+		assertAction("List.changeConfiguration");
+		// tmp fin
+
 		assertListAllConfigurations("Ordered by number", "All", "Ordered by number descending", 
 			"Year > 2002 ordered by year descending and number descending", "Ordered by year descending and number descending", 
 			"Ordered by year ascending and number descending", "Seller of customer = manuel chavarri", "Year/month of date = 2006/11", 
@@ -952,7 +976,10 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		setConditionValues("", "1"); // To test not duplicated in combo
 		setConditionComparators("=", "="); 
 		execute("List.filter");
-		saveConfiguration(); // tmp
+		// tmp ini
+		assertNoAction("List.saveConfiguration");
+		assertAction("List.changeConfiguration");
+		// tmp fin
 		assertListSelectedConfiguration("Number = 1");
 		assertListAllConfigurations("Number = 1", "All", "Year = 2004 and number > 10");
 		assertListRowCount(3);
@@ -961,7 +988,10 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		setConditionValues("2004", "10"); // To test not duplicated in combo again, curiously it failed the second time
 		setConditionComparators("=", ">");
 		execute("List.filter");
-		saveConfiguration(); // tmp
+		// tmp ini
+		assertNoAction("List.saveConfiguration");
+		assertAction("List.changeConfiguration");
+		// tmp fin
 		assertListSelectedConfiguration("Year = 2004 and number > 10");
 		assertListAllConfigurations("Year = 2004 and number > 10", "All", "Number = 1"); 
 		assertListRowCount(2);
