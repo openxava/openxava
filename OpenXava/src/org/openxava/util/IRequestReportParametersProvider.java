@@ -8,7 +8,7 @@ import javax.servlet.http.*;
  * Create on 23/03/2011 (12:43:47)
  * @author Ana Andres
  */
-public interface IRequestReportParametersProvider extends IReportParametersProvider { // tmp extends IReportParametersProvider
+public interface IRequestReportParametersProvider extends IReportParametersProvider { 
 	
 	void setRequest(HttpServletRequest request);
 	

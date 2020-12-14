@@ -14,10 +14,9 @@ public class ReportParametersProviderFactory {
 	private static Log log = LogFactory.getLog(ReportParametersProviderFactory.class);
 	private static IReportParametersProvider instance;
 	
-	public static IReportParametersProvider getInstance(HttpServletRequest request) { // tmp HttpServletRequest request
+	public static IReportParametersProvider getInstance(HttpServletRequest request) { 
 		if (instance == null) {
 			try {
-				// tmp instance = (IReportParametersProvider) Class.forName(XavaPreferences.getInstance().getReportParametersProviderClass()).newInstance();
 				Object provider = Class.forName(XavaPreferences.getInstance().getReportParametersProviderClass()).newInstance();
 				if (provider instanceof IRequestReportParametersProvider) {
 					IRequestReportParametersProvider requestProvider = (IRequestReportParametersProvider) provider;

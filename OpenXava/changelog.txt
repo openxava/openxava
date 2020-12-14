@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: PDF report is not generated if there are errors obtaining the organization name. 
+- Fix: Request is not injected in IRequestReportParametersProvider. 
+- Now IRequestReportParametersProvider extends IReportParametersProvider.
+- Fix: 'Organization' shown as organization in reports if xava.organization is missing in label files.
 - New projects can be launched with Run As > Java Applicaction.
 - DBManager launcher class no longer included in new projects, moved to OpenXava as an ant target.
 - Left menu can be hidden or shown by the user.
