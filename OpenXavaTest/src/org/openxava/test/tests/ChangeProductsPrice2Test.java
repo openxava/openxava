@@ -35,7 +35,7 @@ public class ChangeProductsPrice2Test extends ModuleTestBase {
 	
 
 	public void testViewSetEditable_isEditable_readOnly() throws Exception {
-		assertActions(listActions); 
+		assertActions(listActions); // TMP FALLA
 		
 		execute("List.viewDetail", "row=0");
 		assertActions(detailActions);

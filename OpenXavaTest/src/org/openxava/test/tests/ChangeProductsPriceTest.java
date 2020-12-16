@@ -35,7 +35,7 @@ public class ChangeProductsPriceTest extends ModuleTestBase {
 	
 
 	public void testActionOnInitAndViewSetEditable() throws Exception {
-		assertActions(listActions); 
+		assertActions(listActions); // TMP FALLA
 		
 		execute("List.viewDetail", "row=0");
 		assertActions(detailActions);

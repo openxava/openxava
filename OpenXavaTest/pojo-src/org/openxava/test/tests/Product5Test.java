@@ -134,7 +134,7 @@ public class Product5Test extends CustomizeListTestBase {
 		};
 		
 		// list -> detail -> list
-		assertActions(listActions); 
+		assertActions(listActions); // TMP FALLA 
 		execute("Product5.goB");
 		assertAction("Product5.goA");
 		assertNoAction("Product5.goB");

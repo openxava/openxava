@@ -44,7 +44,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		
 		selectListConfiguration("All");
 		assertListRowCount(9);
-		selectListConfiguration("Number = 1");
+		selectListConfiguration("Number = 1"); // TMP FALLA
 		assertListRowCount(3);
 		
 		assertLabelInList(0, "Year");

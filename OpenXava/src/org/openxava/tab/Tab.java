@@ -486,7 +486,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private Messages errors;
 	private String defaultCondition;
 	private Collection<MetaProperty> metaPropertiesBeforeGrouping;
-	private boolean saveConfigurationAllowed; // tmp 
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -1901,7 +1900,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			configurations.put(newConfiguration.getId(), newConfiguration);
 		}
 		*/
-		newConfiguration.weightUp(); // tmp ¿Sigue haciendo falta?
+		newConfiguration.weightUp(); 
 		configuration = newConfiguration;
 	}
 
@@ -2004,8 +2003,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	
 	public void setConfigurationName(String newName) { 
 		if (configuration == null) return;
-		// tmp ini
-		// tmp ¿Refactorizar? 
+		// tmp ini 
 		if (!configurations.containsKey(configuration.getId())) {
 			configurations.put(configuration.getId(), configuration);
 		}
@@ -2061,6 +2059,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return Labels.get("all");
 	}
 	
+	/** @since 6.5 */
 	public boolean isAllConfiguration() { // tmp
 		if (configuration != null) return configuration.isAll();
 		return true;
@@ -2224,7 +2223,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 		removeProperty(getMetaProperties().get(index).getQualifiedName());		
 	}	
 
-
 	public void removeProperty(String propertyName) throws XavaException {
 		int idx = indexOf(getMetaPropertiesNotCalculated(), propertyName); 
 		cloneMetaTab();
@@ -2237,8 +2235,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 			configuration.setConditionComparators(remove(configuration.getConditionComparators(), idx));
 		}
 		configuration.setPropertiesNames(getPropertiesNamesAsString());
-		System.out.println("[Tab.removeProperty] configuration.hasCustomName()=" + configuration.hasCustomName()); // tmp
-		System.out.println("[Tab.removeProperty] configuration.isAll()=" + configuration.isAll()); // tmp
 		if (configuration.isAll() || configuration.hasCustomName()) { // tmp
 			saveConfigurationPreferences(false);
 		} // tmp
@@ -3106,14 +3102,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 
 	// tmp ini
-	public void allowSaveConfiguration() { 
-		// tmp saveConfigurationAllowed = true;
-	}
-	
-	public void disallowSaveConfiguration() { 
-		// saveConfigurationAllowed = false;
-	}	
-	
+	/** @since 6.5 */
 	public boolean isSaveConfigurationAllowed() {
 		if (configuration == null) return true;
 		return !configuration.hasCustomName();

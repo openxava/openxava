@@ -18,7 +18,7 @@ public class CollaboratorProfileTest extends ModuleTestBase {
 		assertListRowCount(1);
 		assertValueInList(0, 0, "COLLABORATOR 22");
 		assertValueInList(0, 1, "PROFILE 222");
-		assertListConfigurationsWithCompositeKeyReferenceAsDescriptionsList(); 
+		assertListConfigurationsWithCompositeKeyReferenceAsDescriptionsList(); // TMP FALLA
 	}
 	
 	private void assertListConfigurationsWithCompositeKeyReferenceAsDescriptionsList() throws Exception { 

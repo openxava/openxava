@@ -50,7 +50,6 @@ if (collection == null || collection.equals("")) {
 --%>
 
 <%-- tmp ini --%>
-<%-- tmp No debería salir en Cards ni Charts --%>
 <%
 if (!tab.isAllConfiguration()) { 
 	if (tab.isSaveConfigurationAllowed()) { %>
@@ -58,7 +57,6 @@ if (!tab.isAllConfiguration()) {
 <xava:link action="List.saveConfiguration"/>
 </span>
 <% 
-		tab.disallowSaveConfiguration();
    	}	 
    	else {
 %>

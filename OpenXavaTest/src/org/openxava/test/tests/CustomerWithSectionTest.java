@@ -570,7 +570,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	public void testCustomizeList() throws Exception { 
-		doTestCustomizeList_moveAndRemove(); 
+		doTestCustomizeList_moveAndRemove(); // TMP FALLA 
 		resetModule(); 
 		doTestCustomizeList_generatePDF();
 		resetModule(); 

@@ -36,7 +36,7 @@ public class SuperheroeTest extends ModuleTestBase {
 		
 		assertValueInList(0, 0, "ESCARIANO AVIESO");
 		assertValueInList(1, 0, "SUPERLOPEZ");
-		selectListConfiguration("Ordered by name descending");
+		selectListConfiguration("Ordered by name descending"); // TMP FALLA
 		assertValueInList(0, 0, "SUPERLOPEZ");
 		assertValueInList(1, 0, "ESCARIANO AVIESO");
 		

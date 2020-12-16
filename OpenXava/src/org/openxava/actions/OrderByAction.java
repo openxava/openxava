@@ -1,13 +1,13 @@
 package org.openxava.actions;
 
-import org.apache.commons.logging.*;
+// tmp import org.apache.commons.logging.*;
 
 /**
  * @author Javier Paniza
  */
 
 public class OrderByAction extends TabBaseAction  {
-	private static Log log = LogFactory.getLog(OrderByAction.class);
+	// tmp private static Log log = LogFactory.getLog(OrderByAction.class);
 	
 	private String property;
 	
@@ -15,8 +15,6 @@ public class OrderByAction extends TabBaseAction  {
 		getTab().orderBy(property);
 		// tmp getTab().saveConfiguration();
 		// tmp ini
-		// tmp ¿Refactorizar lo de abajo 2 en 1?
-		getTab().allowSaveConfiguration();
 		getTab().createConfiguration();
 		// tmp fin
 	}

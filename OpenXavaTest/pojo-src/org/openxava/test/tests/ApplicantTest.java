@@ -31,7 +31,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertNoAction("AddColumns.cancel");
 		assertValueInList(0, 0, "PROGRAMMING");
 		
-		execute("List.changeConfiguration");
+		execute("List.changeConfiguration"); // TMP FALLA
 		assertExists("name");
 		assertNoAction("List.filter");
 		execute("ChangeListConfiguration.cancel");

@@ -1,3 +1,5 @@
+/application.xml
+/org/
 /GalleryImage.hbm.xml
 /META-INF/
 /OpenXavaTest-labels_ca.properties
@@ -8,7 +10,6 @@
 /OpenXavaTest-messages_en.properties
 /OpenXavaTest-messages_es.properties
 /OpenXavaTest-messages_fr.properties
-/application.xml
 /code-generators.xml
 /controllers.xml
 /converters.xml
@@ -17,8 +18,10 @@
 /editors.xml
 /hibernate-junit.cfg.xml
 /hibernate.cfg.xml
-/org/
 /portlets/
+/stereotype-type-default.xml
+/tabs-default-values.xml
+/validators.xml
 /BeansContext.properties
 /Corporation.html
 /CorporationEmployee.html
