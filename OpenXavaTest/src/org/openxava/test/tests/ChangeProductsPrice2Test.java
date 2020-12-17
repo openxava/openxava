@@ -23,7 +23,6 @@ public class ChangeProductsPrice2Test extends ModuleTestBase {
 		"List.viewDetail",
 		"List.hideRows",
 		"List.sumColumn",
-		"List.changeConfiguration", 
 		"List.changeColumnName", 
 		"ListFormat.select"
 	};
@@ -35,7 +34,7 @@ public class ChangeProductsPrice2Test extends ModuleTestBase {
 	
 
 	public void testViewSetEditable_isEditable_readOnly() throws Exception {
-		assertActions(listActions); // TMP FALLA
+		assertActions(listActions); 
 		
 		execute("List.viewDetail", "row=0");
 		assertActions(detailActions);

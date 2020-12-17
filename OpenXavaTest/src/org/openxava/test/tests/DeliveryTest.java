@@ -36,7 +36,6 @@ public class DeliveryTest extends ModuleTestBase {
 		"List.viewDetail",
 		"List.hideRows",
 		"List.sumColumn",
-		"List.changeConfiguration",
 		"List.changeColumnName", 
 		"ListFormat.select",
 		"Delivery.addShortcutOptions",
@@ -773,7 +772,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("number", "66");
 		setValue("description", "JUNIT");
 		execute("CRUD.save");
-		assertNoErrors(); // TMP FALLA
+		assertNoErrors(); 
 		assertValue("invoice.year", "");
 		assertValue("invoice.number", "");						
 		assertValue("type.number", "");	
@@ -862,7 +861,7 @@ public class DeliveryTest extends ModuleTestBase {
 		
 		// To list mode and order
 		execute("Mode.list");
-		assertActions(listActions); // TMP FALLA 
+		assertActions(listActions); 
 		execute("List.orderBy", "property=invoice.year"); // ascending
 		execute("List.orderBy", "property=invoice.year"); // descending
 		assertNoErrors(); 
@@ -1050,7 +1049,7 @@ public class DeliveryTest extends ModuleTestBase {
 		// Verifying if date property is well in list 
 		// Only works if there are lest than 11 object (because see in first page)		
 		execute("Mode.list"); 
-		assertActions(listActions); // TMP FALLA
+		assertActions(listActions); 
 		assertNoErrors();
 		int quantity = getListRowCount();
 		boolean found = false;
@@ -1257,7 +1256,7 @@ public class DeliveryTest extends ModuleTestBase {
 		
 		selectGroupBy("Group by year of date of invoice");
 		assertNoErrors();
-		assertListRowCount(3); // TMP FALLA
+		assertListRowCount(3); 
 		assertValuesInList(0, "2002", "1"); 
 		assertValuesInList(1, "2004", "4");
 		assertValuesInList(2, "2006", "2");

@@ -60,7 +60,6 @@ public class CustomerWithSectionTest extends CustomerTest {
 		"List.viewDetail",
 		"List.customize", // It does not exist since 5.2, we put here to verify that ModuleTestBase ignore it 
 		"List.hideRows",
-		"List.changeConfiguration",
 		"List.changeColumnName", 
 		"ListFormat.select",
 		"Customer.hideSellerInList",
@@ -570,7 +569,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	public void testCustomizeList() throws Exception { 
-		doTestCustomizeList_moveAndRemove(); // TMP FALLA 
+		doTestCustomizeList_moveAndRemove(); 
 		resetModule(); 
 		doTestCustomizeList_generatePDF();
 		resetModule(); 

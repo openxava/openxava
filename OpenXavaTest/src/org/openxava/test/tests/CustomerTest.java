@@ -34,7 +34,6 @@ public class CustomerTest extends CustomizeListTestBase {
 		"List.orderBy",
 		"List.viewDetail",
 		"List.hideRows",
-		"List.changeConfiguration", 
 		"List.changeColumnName", 
 		"ListFormat.select", 
 		"Customer.hideSellerInList",
@@ -431,7 +430,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("alternateSeller.name", "DON JUANVI LLAVADOR");								
 	}
 	
-	public void testCustomSearchReferenceAction_searchDialogWhenNotFound() throws Exception { // TMP FALLA
+	public void testCustomSearchReferenceAction_searchDialogWhenNotFound() throws Exception { 
 		execute("CRUD.new");
 		String html = getHtml();		
 		assertTrue("Search of 'seller' should be 'MyReference.search'", html.indexOf("'MyReference.search', 'keyProperty=seller.number'") > 0);
@@ -448,7 +447,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		// Testing that the main tab of module is not affected
 		execute("Mode.list");		
 		assertNoAction("Mode.list");
-		assertAction("List.changeConfiguration"); // To test we are in list mode // TMP FALLA
+		assertAction("ListFormat.select"); // To test we are in list mode 
 	}
 	
 	public void testReferencesIfBlankKey() throws Exception {
@@ -461,8 +460,8 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("seller.name", "MANUEL CHAVARRI");
 	}
 	
-	public void testLeftJoinInListModeForReference() throws Exception { // TMP FALLA 
-		assertActions(listActions); // TMP FALLA
+	public void testLeftJoinInListModeForReference() throws Exception {  
+		assertActions(listActions); 
 		int initialRows = getListRowCount();
 		assertTrue("This test only run with less than 10 rows", initialRows < 10);
 		
@@ -478,7 +477,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		execute("Customer.save");		
 		assertNoErrors(); 
 		
-		// Verifying that it is in the list althought it has not seller
+		// Verifying that it is in the list although it has not seller
 		execute("Mode.list");
 		assertActions(listActions);
 		assertListRowCount(initialRows + 1);		
