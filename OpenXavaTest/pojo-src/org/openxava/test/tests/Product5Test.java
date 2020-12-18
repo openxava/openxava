@@ -112,7 +112,7 @@ public class Product5Test extends CustomizeListTestBase {
 			"CRUD.new", "CRUD.deleteRow", "CRUD.deleteSelected",
 			"Print.generatePdf", "Print.generateExcel",
 			"ImportData.importData", 
-			"List.filter", "List.sumColumn", "List.orderBy", "List.hideRows", "List.changeConfiguration", 
+			"List.filter", "List.sumColumn", "List.orderBy", "List.hideRows",  
 			"List.viewDetail", "List.changeColumnName",  
 			"ExtendedPrint.myReports",
 			"ListFormat.select",
@@ -134,7 +134,7 @@ public class Product5Test extends CustomizeListTestBase {
 		};
 		
 		// list -> detail -> list
-		assertActions(listActions); // TMP FALLA 
+		assertActions(listActions); 
 		execute("Product5.goB");
 		assertAction("Product5.goA");
 		assertNoAction("Product5.goB");

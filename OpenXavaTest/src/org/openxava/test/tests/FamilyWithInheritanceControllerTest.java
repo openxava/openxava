@@ -3,7 +3,7 @@ package org.openxava.test.tests;
 import org.openxava.tests.*;
 
 /**
- * // TMP FALLA
+ * 
  * @author Javier Paniza
  */
 
@@ -41,7 +41,6 @@ public class FamilyWithInheritanceControllerTest extends ModuleTestBase {
 		"List.viewDetail",
 		"List.hideRows",
 		"List.sumColumn",
-		"List.changeConfiguration",
 		"List.changeColumnName", 
 		"ListFormat.select" 
 	};

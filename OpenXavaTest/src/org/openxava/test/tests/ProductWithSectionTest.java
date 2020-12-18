@@ -4,7 +4,7 @@ import org.openxava.test.model.*;
 
 
 /**
- * // TMP FALLA
+ * 
  * @author Javier Paniza
  */
 

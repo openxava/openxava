@@ -28,15 +28,22 @@ public class SuperheroeTest extends ModuleTestBase {
 		assertValueInList(0, 0, "ESCARIANO AVIESO");
 		assertValueInList(1, 0, "SUPERLOPEZ");
 		execute("List.orderBy", "property=name");
+		assertNoAction("List.saveConfiguration"); // Because the order matches with the default one
+		assertNoAction("List.changeConfiguration");
 		execute("List.orderBy", "property=name");
+		execute("List.saveConfiguration");
+		execute("SaveListConfiguration.save");
 		assertValueInList(0, 0, "SUPERLOPEZ");
 		assertValueInList(1, 0, "ESCARIANO AVIESO");
+		selectListConfiguration("All");
+		assertValueInList(0, 0, "ESCARIANO AVIESO");
+		assertValueInList(1, 0, "SUPERLOPEZ");		
 
 		resetModule();
 		
 		assertValueInList(0, 0, "ESCARIANO AVIESO");
 		assertValueInList(1, 0, "SUPERLOPEZ");
-		selectListConfiguration("Ordered by name descending"); // TMP FALLA
+		selectListConfiguration("Ordered by name descending"); 
 		assertValueInList(0, 0, "SUPERLOPEZ");
 		assertValueInList(1, 0, "ESCARIANO AVIESO");
 		

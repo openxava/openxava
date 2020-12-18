@@ -7,7 +7,7 @@ import com.gargoylesoftware.htmlunit.*;
 
 
 /**
- * // TMP FALLA
+ * 
  * @author Javier Paniza
  */
 
@@ -29,10 +29,11 @@ public class Invoice2Test extends ModuleTestBase {
 		assertListSelectedConfiguration("Year = 2002");
 		assertListAllConfigurations("Year = 2002", "All"); 
 		assertListRowCount(1);
-		
+		execute("List.saveConfiguration");
+		execute("SaveListConfiguration.save");
 			
 		selectListConfiguration("All"); 
-		assertListAllConfigurations("All", "Year = 2002");
+		assertListAllConfigurations("All", "Year = 2002"); 
 		assertListRowCount(9);
 		
 		resetModule();

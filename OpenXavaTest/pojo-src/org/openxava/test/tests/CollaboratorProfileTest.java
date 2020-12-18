@@ -18,13 +18,15 @@ public class CollaboratorProfileTest extends ModuleTestBase {
 		assertListRowCount(1);
 		assertValueInList(0, 0, "COLLABORATOR 22");
 		assertValueInList(0, 1, "PROFILE 222");
-		assertListConfigurationsWithCompositeKeyReferenceAsDescriptionsList(); // TMP FALLA
+		assertListConfigurationsWithCompositeKeyReferenceAsDescriptionsList(); 
 	}
 	
 	private void assertListConfigurationsWithCompositeKeyReferenceAsDescriptionsList() throws Exception { 
 		assertListSelectedConfiguration("Profile = profile 222");		
 		assertListAllConfigurations("Profile = profile 222", "All"); 
-		assertListRowCount(1);		
+		assertListRowCount(1);
+		execute("List.saveConfiguration");
+		execute("SaveListConfiguration.save");
 
 		selectListConfiguration("All");
 		assertListSelectedConfiguration("All");		

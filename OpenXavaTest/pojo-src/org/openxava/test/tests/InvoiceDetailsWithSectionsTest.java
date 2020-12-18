@@ -29,6 +29,8 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		setConditionValues("", "1");	
 		execute("List.filter");
 		assertListRowCount(3);
+		execute("List.saveConfiguration");
+		execute("SaveListConfiguration.save");
 		// moveColumn() is better than JavaScript, but for this case it didn't work, so we use JS + reload, enough to reproduce the error
 		getHtmlPage().executeJavaScript("Tab.moveProperty('ox_OpenXavaTest_InvoiceDetailsWithSections__list', 6, 1)"); 
 		waitAJAX();
@@ -44,7 +46,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		
 		selectListConfiguration("All");
 		assertListRowCount(9);
-		selectListConfiguration("Number = 1"); // TMP FALLA
+		selectListConfiguration("Number = 1"); 
 		assertListRowCount(3);
 		
 		assertLabelInList(0, "Year");

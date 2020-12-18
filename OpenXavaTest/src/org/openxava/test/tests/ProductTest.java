@@ -9,7 +9,7 @@ import com.gargoylesoftware.htmlunit.html.*;
 import static org.openxava.util.Strings.multiline;
 
 /**
- * // TMP FALLA
+ * 
  * @author Javier Paniza
  */
 
@@ -59,7 +59,6 @@ public class ProductTest extends ModuleTestBase {
 		"List.viewDetail",
 		"List.hideRows",
 		"List.sumColumn",
-		"List.changeConfiguration",
 		"List.changeColumnName", 
 		"ListFormat.select", 
 	};
