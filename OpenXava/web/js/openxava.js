@@ -210,12 +210,9 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
-	// tmp ini
-	//$('#ox_OpenXavaTest_InvoiceDetailsWithSections__List___filter').click(function() {
-  	$('#xava_save_list_configuration').fadeIn(1000, 'swing');
-	//});
-	// tmp fin
+  	$('#xava_save_list_configuration').fadeIn(1000, 'swing'); 
 }
+
 
 openxava.initFocusKey = function() { } 
 

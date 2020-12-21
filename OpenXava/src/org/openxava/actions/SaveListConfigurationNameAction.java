@@ -1,7 +1,7 @@
 package org.openxava.actions;
 
 /**
- * tmp Era ChangeListConfigurationNameAction
+ * 
  * @since 5.6
  * @author Javier Paniza
  */

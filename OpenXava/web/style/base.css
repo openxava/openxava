@@ -924,6 +924,12 @@ i {
 	color: var(--icon-delete-hover-color);
 }
 
+#xava_save_list_configuration {
+	display: none;	
+    margin-left: 10px;
+    font-weight: bold;
+}
+
 .ox-list-odd i, .ox-list-pair i {
 	vertical-align: -7px;
 }
@@ -2508,11 +2514,3 @@ div[id$="_Index__view"] .ox-list-title {
 #module_header_menu_button {
 	padding-right: 4px;
 }
-
-/* tmp ini */
-#xava_save_list_configuration {
-	display: none;	
-    margin-left: 10px;
-    font-weight: bold;
-}
-/* tmp fin */

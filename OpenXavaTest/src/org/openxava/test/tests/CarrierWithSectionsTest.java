@@ -669,7 +669,6 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 			"List.orderBy",
 			"List.viewDetail",
 			"List.sumColumn",
-			// tmp "List.changeConfiguration", // tmp ¿En migration?
 			"List.changeColumnName", 
 			"ListFormat.select", 
 			"Print.generatePdf",
@@ -692,7 +691,6 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 			"List.orderBy",
 			"List.viewDetail",
 			"List.sumColumn",
-			// tmp "List.changeConfiguration",
 			"List.changeColumnName", 
 			"ListFormat.select", 
 			"Print.generatePdf",
@@ -708,7 +706,6 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 			"List.orderBy",
 			"List.viewDetail",
 			"List.sumColumn", 
-			// tmp "List.changeConfiguration",
 			"List.changeColumnName", 
 			"ListFormat.select", 
 			"Print.generatePdf",

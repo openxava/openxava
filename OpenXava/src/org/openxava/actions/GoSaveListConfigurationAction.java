@@ -3,7 +3,7 @@ package org.openxava.actions;
 import org.openxava.model.transients.*;
 
 /**
- * tmp
+ * 
  * @since 6.5
  * @author Javier Paniza
  */
@@ -22,6 +22,4 @@ public class GoSaveListConfigurationAction extends TabBaseAction implements ICus
 		return DEFAULT_VIEW;
 	}
 	
-	
-
 }

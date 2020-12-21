@@ -22,7 +22,6 @@ import org.openxava.mapping.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
 import org.openxava.tab.meta.*;
-import org.openxava.test.actions.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
@@ -54,14 +53,13 @@ public class Tab implements java.io.Serializable, Cloneable {
 		private String propertiesNames;
 		private transient List<MetaProperty> metaPropertiesNotCalculated;
 		private long weight; // To sort: Default, with name ordered by last used (new or existing), without name ordered by last used (new or existing)
-		private Boolean all; // tmp
+		private Boolean all; 
 		
 		private String translateCondition(String condition) {
 			// IF YOU CHANGE THIS CODE TEST IT WITH ignoreAccentsForStringArgumentsInConditions true and false
 			try { 
 				condition = removeBaseConditionAndDefaultOrder(condition); 
-				// tmp if (Is.empty(condition) || condition.trim().equals("1=1")) return Labels.get("all"); 
-				if (isAll(condition)) return Labels.get("all"); // tmp
+				if (isAll(condition)) return Labels.get("all"); 
 				String result = condition + " ";
 				if (conditionValues != null) {
 					result = result.replaceAll("\\([\\?,*]+\\)", "(?)"); // Groups: (?,?,?) --> (?)
@@ -143,7 +141,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			}
 		}
 		
-		public boolean isAll() { // tmp
+		public boolean isAll() { 
 			if (all == null) { 
 				String condition = removeBaseConditionAndDefaultOrder(this.condition); 
 				all = isAll(condition); 
@@ -1877,7 +1875,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 		this.titleArguments = valores;
 	}
 	
-	public void createConfiguration() { // tmp  
+	/** @since 6.5 */
+	public void createConfiguration() {   
 		if (!Is.empty(groupBy)) return; 
 		if (configurations.isEmpty()) {			
 			addDefaultConfiguration(); 
@@ -1895,41 +1894,12 @@ public class Tab implements java.io.Serializable, Cloneable {
 		if (configurations.containsKey(newConfiguration.getId())) {
 			newConfiguration = configurations.get(newConfiguration.getId());
 		}
-		/* tmp
-		else {			
-			configurations.put(newConfiguration.getId(), newConfiguration);
-		}
-		*/
 		newConfiguration.weightUp(); 
 		configuration = newConfiguration;
 	}
 
 	
 	public void saveConfiguration() {  
-		/* tmp
-		if (!Is.empty(groupBy)) return; 
-		if (configurations.isEmpty()) {			
-			addDefaultConfiguration(); 
-		}
-		Configuration newConfiguration = new Configuration();
-		newConfiguration.setCondition(getCondition()); 
-		newConfiguration.setConditionValues(conditionValues); 
-		newConfiguration.setConditionValuesTo(conditionValuesTo); 
-		newConfiguration.setConditionComparators(conditionComparators);
-		newConfiguration.setOrderBy(orderBy);
-		newConfiguration.setDescendingOrder(descendingOrder);
-		newConfiguration.setOrderBy2(orderBy2);
-		newConfiguration.setDescendingOrder2(descendingOrder2);
-		newConfiguration.setPropertiesNames(getPropertiesNamesAsString()); 
-		if (configurations.containsKey(newConfiguration.getId())) {
-			newConfiguration = configurations.get(newConfiguration.getId());
-		}
-		else {			
-			configurations.put(newConfiguration.getId(), newConfiguration);
-		}
-		newConfiguration.weightUp();
-		configuration = newConfiguration;
-		*/
 		createConfiguration();
 		if (!configurations.containsKey(configuration.getId())) {
 			configurations.put(configuration.getId(), configuration);
@@ -2003,11 +1973,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 	
 	public void setConfigurationName(String newName) { 
 		if (configuration == null) return;
-		// tmp ini 
 		if (!configurations.containsKey(configuration.getId())) {
 			configurations.put(configuration.getId(), configuration);
 		}
-		// tmp fin
 		configuration.setName(newName);
 		saveConfigurationPreferences(true);
 	}
@@ -2060,7 +2028,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	/** @since 6.5 */
-	public boolean isAllConfiguration() { // tmp
+	public boolean isAllConfiguration() { 
 		if (configuration != null) return configuration.isAll();
 		return true;
 	}
@@ -2160,9 +2128,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 		configuration.setConditionComparators(insertEmptyString(configuration.getConditionComparators(), index));
 		configuration.setPropertiesNames(getPropertiesNamesAsString());
 		applyConfiguration(); 
-		if (configuration.isAll() || configuration.hasCustomName()) { // tmp
+		if (configuration.isAll() || configuration.hasCustomName()) { 
 			saveConfigurationPreferences(false);
-		} // tmp
+		} 
 	}
 	
 	private String [] growWithEmptyStrings(String [] original, int size) { 
@@ -2200,7 +2168,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		configuration.setConditionComparators(growWithEmptyStrings(configuration.getConditionComparators(), size));
 		configuration.setPropertiesNames(getPropertiesNamesAsString());
 		applyConfiguration();
-		if (configuration.isAll() || configuration.hasCustomName()) { // tmp
+		if (configuration.isAll() || configuration.hasCustomName()) { 
 			saveConfigurationPreferences(false);
 		}
 	}
@@ -2235,9 +2203,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 			configuration.setConditionComparators(remove(configuration.getConditionComparators(), idx));
 		}
 		configuration.setPropertiesNames(getPropertiesNamesAsString());
-		if (configuration.isAll() || configuration.hasCustomName()) { // tmp
+		if (configuration.isAll() || configuration.hasCustomName()) { 
 			saveConfigurationPreferences(false);
-		} // tmp
+		} 
 	}
 	
 	private String [] remove(String [] array, int idx) {  
@@ -2270,9 +2238,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 		move(configuration.getConditionComparators(), fromForNotCalculatedProperties, toForNotCalculatedProperties);
 		
 		configuration.setPropertiesNames(getPropertiesNamesAsString());
-		if (configuration.isAll() || configuration.hasCustomName()) { // tmp
+		if (configuration.isAll() || configuration.hasCustomName()) { 
 			saveConfigurationPreferences(false);
-		} // tmp
+		} 
 	}
 	
 	private void move(Object [] array, int from, int to) { 
@@ -2296,9 +2264,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 			configuration.setConditionComparators(restoreValues(oldProperties, newProperties, configuration.getConditionComparators()));
 			configuration.setPropertiesNames(getPropertiesNamesAsString());			
 			applyConfiguration();
-			if (configuration.isAll() || configuration.hasCustomName()) { // tmp
+			if (configuration.isAll() || configuration.hasCustomName()) { 
 				saveConfigurationPreferences(false);
-			} // tmp
+			} 
 		} 
 		removeUserPreferences(); 
 	}
@@ -3101,12 +3069,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 	}
 
-	// tmp ini
 	/** @since 6.5 */
 	public boolean isSaveConfigurationAllowed() {
 		if (configuration == null) return true;
 		return !configuration.hasCustomName();
 	}
-	// tmp fin
 
 }

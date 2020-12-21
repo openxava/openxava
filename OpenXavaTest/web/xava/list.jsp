@@ -45,11 +45,7 @@ if (collection == null || collection.equals("")) {
 	} 
 	%>
 </select>
-<%-- tmp
-<xava:link action="List.changeConfiguration"/>
---%>
 
-<%-- tmp ini --%>
 <%
 if (!tab.isAllConfiguration()) { 
 	if (tab.isSaveConfigurationAllowed()) { %>
@@ -65,8 +61,6 @@ if (!tab.isAllConfiguration()) {
    	}
 }
 %>
-<%-- tmp fin --%>
-
 
 <% 
 if (tab.isTitleVisible()) { 

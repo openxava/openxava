@@ -1,8 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-TMP ME QUEDÉ: TODOS LOS TEST HAN FUNCIONAD. FALTA LIMPIRAR EL CÓDIGO, BUSCAR LOS TMP (POR SI NO HE SINCRONIZADO BIEN)
-TMP Y VOLVER A EJECUTAR LA SUITE.
+TMP ME QUEDÉ PARA: EN MIGRACIÓN: QUITAR "List.changeConfiguration" de assertActions()
+
 - OpenXava Studio hangs running long test suites.
 
 - New projects can be launched with Run As > Java Applicaction.
