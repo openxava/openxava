@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Documentation to use OpenXave with a 32bit machine improved.
+- Documentation to use your own Eclipse instead of OpenXava Studio improved.
 - Getting started guide simplified and adapted to new OpenXava Studio wizards.
 - 'All' query in list mode cannot be renamed or removed.
 - New 'Save query' action in list mode, because queries are no longer stored automatically. 
