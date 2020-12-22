@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-
+- Getting started guide simplified and adapted to new OpenXava Studio wizards.
 - 'All' query in list mode cannot be renamed or removed.
 - New 'Save query' action in list mode, because queries are no longer stored automatically. 
 - OpenXava Studio hangs running long test suites.
