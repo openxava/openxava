@@ -6,44 +6,84 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1>
-        <span id="breadcrumbs">
-          <span id="openxava"> 
-            <a href="https://www.openxava.org/"> 
-              <span>o</span>pen<span>x</span>ava
-            </a>
-          </span> 
-          / <a href="index_es.html">documentación</a> / 
-        </span>
-        Eclipse</h1>
+      <h1> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span> Eclipse</h1>
       Desde v6.4 OpenXava incluye OpenXava Studio, por lo que no necesitas un
       IDE adicional para trabajar con OpenXava. OpenXava Studio está basado en
       OpenXava pero es más ligero y bonito. Además, puedes instalar cualquier
       plugin de Eclipse que necesites en OpenXava Studio y cambiar el tema
       visual, para poner un tema claro o iconos con color, por ejemplo. De todas
-      formas, si prefieres trabajar con tu propio Eclipse también es posible. </div>
-    <div class="wiki" style="display: block;">Abre tu propio Eclipse y escoge <i>File
-        &gt; Switch Workspace &gt; Other...</i> Ahí selecciona el workspece
-      incluido con OpenXava:</div>
-    <p><img src="files/eclipse-choose-workspace_es.png" alt="eclipse-choose-workspace_es.png"
-
-        title="eclipse-choose-workspace_en.png"><span style="color: #505050;"><span
-
-          style="font-family: arial,helvetica,sans-serif;"><br>
-        </span></span></p>
-    <p><span style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;">Si
-          tu versión de Eclipse no es exactamente la misma usada por OpenXava
-          Studio, Eclipse dirá que tu workspace es más viejo o más nuevo, no te
-          preocupes y acepta. Eclipse hace un buen trabajo migrando la versión
-          del workspace. Puedes usar desde el Eclipse Neon hasta la última
-          versión de Eclipse sin ningún problema. De hecho, las instrucciones de
-          la guía de primeros pasos deberían funcionar bien con tu propia
-          versión de Eclipse.<br>
-        </span></span></p>
-    <div class="wiki" style="display: block;">Los proyectos OpenXava son
-      proyectos WTP, por lo que si usas Eclipse IDE for Enterprise Java
-      Developers, puedes añadir un servidor Tomcat en la pestaña <i>Servers</i>
-      tab y añadirle tu aplicación OpenXava.<br>
+      formas, si prefieres trabajar con tu propio Eclipse también es posible.
+      Además, los proyectos OpenXava son proyectos WTP, por lo que si usas
+      Eclipse IDE for Enterprise Java Developers, puedes añadir un servidor
+      Tomcat en la pestaña <i>Servers</i> tab y añadirle tu aplicación
+      OpenXava. </div>
+    <div class="wiki" style="display: block;">
+      <h2> Usar workspace de OpenXava</h2>
+      Después de iniciar tu Eclipse éste te preguntará que selecciones un
+      worspace, selecciona la carpeta <i>workspace</i> incluida en tu
+      distribución de OpenXava: <br>
+      <img src="files/switch-workspace_es.png" alt="switch-workspace_es.png" title="switch-workspace_es.png"><br>
+    </div>
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Probablemente
+        Eclipse se quejará de la versión del workspace (demasiado nuevo o
+        demasiado viejo) con un diálogo como este:</span></div>
+    <img src="files/newer-workspace-version-message.png" alt="newer-workspace-version-message.png"
+      title="newer-workspace-version-message.png">
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">No
+        hagas caso y pulsa en <i>Continue</i>.<br>
+      </span></div>
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Si
+        lo has hecho bien, verás los proyectos <i>Addons</i> y <i>OpenXava</i>
+        a la izquierda, dentro del <i>Package Explorer,</i> de esta forma:</span></div>
+    <img src="files/initial-openxava-workspace-with-eclipse.png" alt="initial-openxava-workspace-with-eclipse.png"
+      title="initial-openxava-workspace-with-eclipse.png">
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Si
+        no, no estás en el workspace de OpenXava, usa </span><em><span style="line-height: 1.5;">File
+          &gt; Switch Workspace</span></em><span style="line-height: 1.5;"> para
+        buscar el workspace de OpenXava otra vez.</span></div>
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Para
+        que el workspace de OpenXava funcione bien has de seleccionar el tema
+        Dark. En el menú de arriba selecciona <i>Window &gt; Preferences &gt;
+          General &gt; Appearance</i>:</span></div>
+    <img src="files/eclipse-change-to-dark-theme.png" alt="eclipse-change-to-dark-theme.png"
+      title="eclipse-change-to-dark-theme.png">
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Elige
+        <i>Dark</i> para <i>Theme</i> y pulsa en el botón <i>Apply and Close</i>.</span>
+      <h2>Crear un nuevo proyecto Java</h2>
+      Has de crear un nuevo proyecto Java convencional, para ello escoge <i>File
+        &gt; New &gt; Project</i> en el menú:<br>
+      <img src="files/create-new-project-menu.png" alt="create-new-project-menu.png"
+        title="create-new-project-menu.png"><br>
+      Después selecciona <i>Java Project </i>y pulsa en <i>Next</i>:<br>
+      <img src="files/select-java-as-type-project.png" alt="select-java-as-type-project.png"
+        title="select-java-as-type-project.png"><br>
+    </div>
+    <div class="wiki" style="display: block;">Ahora teclea el nombre del
+      proyecto, <em>Facturación</em> por ejemplo, y pulsa en el botón <em>Finish</em>:<br>
+      <img src="files/create-new-java-project-wizard_es.png" alt="create-new-java-project-wizard_es.png"
+        title="create-new-java-project-wizard_es.png"><br>
+      Si estás usando Java 9 o superior con una versión reciente de Eclipse, te
+      preguntará:<br>
+      <img src="files/dont-create-module_es.png" alt="Asking for module name">
+      <div class="wiki" style="display: block;">Pulsa en <i>Don't Create</i>.</div>
+      Después de este paso ya tienes un proyecto Java vacío llamado <em>Facturacion</em>:<br>
+      <img src="files/bare-java-project_es.png" alt="bare-java-project_es.png" title="bare-java-project_es.png"><br>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2>Convierte el proyecto en un proyecto OpenXava</h2>
+      Ahora has de convertir tu proyecto Java simple y llano en un proyecto
+      OpenXava. Dentro del proyecto <i>OpenXava</i> tienes un archivo <i>CrearNuevoProyecto.xml</i>,
+      ejecutalo como un <i>Ant Build</i>, de esta manera:<br>
+      <img src="files/run-crear-nuevo-proyecto.png" alt="run-crear-nuevo-proyecto.png"
+        title="run-crear-nuevo-proyecto.png"><br>
+      Ahora refresca tu proyecto con F5 y ya estás listo para seguir la guía de
+      primeros pasos:</div>
+    <div class="wiki" style="display: block;"> <br>
+      <b><a href="getting-started_es.html">Sigue la guía Primeros pasos</a></b>
+      <br>
+      <br>
     </div>
   </body>
 </html>
