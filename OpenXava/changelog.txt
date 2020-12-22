@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: PDF report is not generated if there are errors obtaining the organization name. 
+- Fix: Request is not injected in IRequestReportParametersProvider. 
+- Now IRequestReportParametersProvider extends IReportParametersProvider.
+- Fix: 'Organization' shown as organization in reports if xava.organization is missing in label files.
 - Fix: Module title outside corresponding span in some circumstances.
 - Documentation to use OpenXave with a 32bit machine improved.
 - Documentation to use your own Eclipse instead of OpenXava Studio improved.

@@ -993,6 +993,7 @@
 		</antcall>
 		<copy todir="${openxava.base.dir}/Addons/bin">
 			<fileset dir="${openxava.base.dir}/Addons/xava"/>
+			<fileset dir="${openxava.base.dir}/Addons/properties"/>
 		</copy>
 		<jar jarfile="../Addons/web/WEB-INF/lib/addons.jar" basedir="${openxava.base.dir}/Addons/bin"/>
 	</target>
