@@ -41,6 +41,37 @@
       </ul>
     </div>
     <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 6.4.2 to OpenXava 6.5</h2>
+      <h3>Action for change query name in list no longer show for 'All' query
+        (for JUnit tests)</h3>
+      In v6.5 only the queries saved explicitly are saved in list mode, so only
+      the explicitly saved queries can be renamed or removed. Also, the 'All'
+      query cannot be renamed or removed. These changes does not require you
+      modify your application code. However, you must adapt your JUnit tests to
+      the new user interface, because when you enter in a module in list mode,
+      usually the 'All' query is shown, and so the action to Change name/remove
+      (<i>List.changeConfiguration</i>) is no longer there. Therefore, if you
+      use <i>assertActions()</i> in your tests you should adapt the list of
+      actions, removing <i>List.changeConfiguration</i>, thus:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">String [] listActions = {
+    "Print.generatePdf",
+    "Print.generateExcel",
+    "ImportData.importData", 
+    "CRUD.new",
+    "CRUD.deleteSelected",
+    "CRUD.deleteRow",
+    "List.filter",
+    "List.orderBy",
+    "List.viewDetail",
+    "List.hideRows",
+    "List.sumColumn",
+    // "List.changeConfiguration", // REMOVE THIS LINE
+    "List.changeColumnName", 
+    "ListFormat.select" 
+}; 
+assertActions(listActions);
+</code></pre> </div>
       <h2>Migration from OpenXava 6.4.1 to OpenXava 6.4.2</h2>
       No issues.
       <h2>Migration from OpenXava 6.4 to OpenXava 6.4.1</h2>
@@ -66,11 +97,11 @@
       code, but if you verify the labels of some list maybe you have to do some
       adjust in your JUnit tests, such as changing this assert:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">assertLabelInList(0, "Year of Invoice");
+      <pre><code class="java">assertLabelInList(0, "Year of Invoice");
 </code></pre> </div>
     <div class="wiki" style="display: block;">By this one:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">assertLabelInList(0, "Year of invoice");
+      <pre><code class="java">assertLabelInList(0, "Year of invoice");
 </code></pre> </div>
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 6.3.1 to OpenXava 6.3.2</h2>
