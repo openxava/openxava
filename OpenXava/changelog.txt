@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Module title outside corresponding span in some circumstances.
 - Documentation to use OpenXave with a 32bit machine improved.
 - Documentation to use your own Eclipse instead of OpenXava Studio improved.
 - Getting started guide simplified and adapted to new OpenXava Studio wizards.

@@ -72,4 +72,4 @@
  clase CDATA #IMPLIED
  contexto (comun|swing|web) "comun"
 >
-<!ELEMENT controladores (var-entorno*, objeto*, controlador+)>
+<!ELEMENT controladores (var-entorno*, objeto*, controlador*)>
