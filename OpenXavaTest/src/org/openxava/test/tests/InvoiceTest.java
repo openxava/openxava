@@ -705,7 +705,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	public void testGeneratePdfAggregateCollection() throws Exception {
-		execute("List.viewDetail", "row=0");
+		execute("List.viewDetail", "row=0"); 
 		execute("Sections.change", "activeSection=1");
 		execute("Print.generatePdf", "viewObject=xava_view_section1_details"); 
 		assertContentTypeForPopup("application/pdf");

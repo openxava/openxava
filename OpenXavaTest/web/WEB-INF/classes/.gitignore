@@ -18,6 +18,7 @@
 /hibernate-junit.cfg.xml
 /hibernate.cfg.xml
 /org/
+/portlets/
 /BeansContext.properties
 /Corporation.html
 /CorporationEmployee.html
@@ -35,6 +36,5 @@
 /logging.properties
 /naviox-users.properties
 /naviox.properties
-/portlets/
 /xava-junit.properties
 /xava.properties

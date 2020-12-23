@@ -55,7 +55,7 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 		HtmlElement icon = header.getElementsByAttribute("i", "class", "mdi mdi-close-circle").get(0);
 		HtmlElement removeLink = icon.getEnclosingElement("a");		
 		getHtmlPage().executeJavaScript(((HtmlAnchor) removeLink).getHrefAttribute()); // Because removeLink.click() does not work with HtmlUnit 2.32
-		Thread.sleep(600); 
+		Thread.sleep(700); 
 	}
 
 }

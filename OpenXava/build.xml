@@ -971,7 +971,7 @@
 	Call it after you modify OpenXava code, but you still need to call updateOX in your project.
 	-->
 	<target name="buildOpenXava">
-		<delete file="${openxava.base.dir}/OpenXava/web/WEB-INF/lib"/>
+		<delete file="${openxava.base.dir}/OpenXava/web/WEB-INF/lib/openxava.jar"/>
 		<antcall target="javac">
 			<param name="compile.project" value="OpenXava"/>
 		</antcall>
@@ -988,14 +988,15 @@
 	</target>
 	
 	<target name="buildAddons">
+		<delete file="${openxava.base.dir}/Addons/web/WEB-INF/lib/addons.jar"/>
 		<antcall target="javac">
 			<param name="compile.project" value="Addons"/>
 		</antcall>
-		<copy todir="${openxava.base.dir}/Addons/bin">
+		<copy todir="${openxava.base.dir}/Addons/bin" failonerror="false" quiet="true">
 			<fileset dir="${openxava.base.dir}/Addons/xava"/>
 			<fileset dir="${openxava.base.dir}/Addons/properties"/>
-		</copy>
-		<jar jarfile="../Addons/web/WEB-INF/lib/addons.jar" basedir="${openxava.base.dir}/Addons/bin"/>
+		</copy>		
+		<jar jarfile="${openxava.base.dir}/Addons/web/WEB-INF/lib/addons.jar" basedir="${openxava.base.dir}/Addons/bin"/>
 	</target>
 	
 	<target name="javac">

@@ -380,7 +380,7 @@ public class CustomerTest extends CustomizeListTestBase {
 	}
 		
 	public void testSearchReferenceOnChangeCodeAndOnChangeActionInSubview() throws Exception { 
-		execute("CRUD.new");
+		execute("CRUD.new"); 
 		setValue("seller.number", "1");
 		assertValue("seller.number", "1");
 		assertValue("seller.name", "MANUEL CHAVARRI");

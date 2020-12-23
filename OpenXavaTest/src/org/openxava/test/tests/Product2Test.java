@@ -490,7 +490,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertEquals("", familyTextField.getAttribute("value"));
 		familyTextField.type("ware");
 		assertEquals("ware", familyTextField.getAttribute("value"));
-		Thread.sleep(600);
+		Thread.sleep(700);
 		assertTrue(familyList.isDisplayed()); 
 		assertFalse(openFamilyListIcon.isDisplayed());
 		assertTrue(closeFamilyListIcon.isDisplayed());

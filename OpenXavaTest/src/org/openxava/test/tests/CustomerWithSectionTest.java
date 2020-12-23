@@ -543,12 +543,12 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertTrue(getElementById("hide_filter_list").isDisplayed()); 
 		assertTrue(getElementById("list_filter_list").isDisplayed());
 		getElementById("hide_filter_list").click();
-		Thread.sleep(500); 
+		Thread.sleep(600); 
 		assertTrue(getElementById("show_filter_list").isDisplayed());
 		assertFalse(getElementById("hide_filter_list").isDisplayed());
-		assertFalse(getElementById("list_filter_list").isDisplayed());
+		assertFalse(getElementById("list_filter_list").isDisplayed()); 
 		getElementById("show_filter_list").click();
-		Thread.sleep(500); 
+		Thread.sleep(600); 
 		assertFalse(getElementById("show_filter_list").isDisplayed()); 
 		assertTrue(getElementById("hide_filter_list").isDisplayed());
 		assertTrue(getElementById("list_filter_list").isDisplayed());

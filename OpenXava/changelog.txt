@@ -1,12 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: The buildOpenXava and buildAddons Ant tasks do not work if openxava.jar or addons.jar are empty.
 - Fix: PDF report is not generated if there are errors obtaining the organization name. 
 - Fix: Request is not injected in IRequestReportParametersProvider. 
 - Now IRequestReportParametersProvider extends IReportParametersProvider.
 - Fix: 'Organization' shown as organization in reports if xava.organization is missing in label files.
 - Fix: Module title outside corresponding span in some circumstances.
-- Documentation to use OpenXave with a 32bit machine improved.
+- Documentation to use OpenXava with a 32bit machine improved.
 - Documentation to use your own Eclipse instead of OpenXava Studio improved.
 - Getting started guide simplified and adapted to new OpenXava Studio wizards.
 - 'All' query in list mode cannot be renamed or removed.
@@ -20,7 +21,7 @@ Change Log for OpenXava project
 - Wizard for creating a new OpenXava project in OpenXava Studio.
 - Lombok library added to OpenXava and OpenXava Studio supports Lombok by default.		
 - Java included in distribution changed to Eclipse JustJ.
-- Eclipse Platform for OpenXava Studio upgraded to Eclipse 2020-09.
+- Eclipse Platform for OpenXava Studio upgraded to Eclipse 2020-12.
 
 OpenXava 6.4.2 (2020-11-9)
 --------------------------

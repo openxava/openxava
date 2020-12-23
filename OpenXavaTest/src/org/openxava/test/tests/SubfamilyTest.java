@@ -1,7 +1,5 @@
 package org.openxava.test.tests;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.openxava.tests.ModuleTestBase;
 
 /**
@@ -9,14 +7,13 @@ import org.openxava.tests.ModuleTestBase;
  */
 
 public class SubfamilyTest extends ModuleTestBase {
-	private static Log log = LogFactory.getLog(SubfamilyTest.class);
 	
 	public SubfamilyTest(String testName) {
 		super(testName, "Subfamily");		
 	}
 		
 	public void testSaveHiddenKeyWithSections() throws Exception {
-		assertTrue("For this test is required al least 2 families", getListColumnCount() >= 2);
+		assertTrue("For this test is required al least 2 families", getListColumnCount() >= 2); 
 		execute("List.viewDetail", "row=0");
 		assertNoErrors();
 		execute("CRUD.save");
