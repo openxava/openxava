@@ -6,19 +6,19 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lombok"></a>
-        <span id="breadcrumbs"> 
-        	<span id="openxava"> 
-            <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> 
-          / <a href="index_es.html">documentación</a> / 
-        </span>
+      <h1 id="toc0"><a name="Lombok"></a> <span id="breadcrumbs"> <span id="openxava">
+            <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Lombok</h1>
-      Para usar Lombok en tu proyecto.<br>
-      
+      <i>A partir de v6.5 OpenXava Studio incluye Lombok por defecto y lo usamos
+        en la guía de inicio rápido y el curso de OpenXava. Por lo que ya no
+        necesitas seguir las instrucciones de abajo.</i></div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> Para usar Lombok en tu proyecto
+      con Eclipse:<br>
       <ol>
-        <li>Descargar Lombok.jar del sitio oficial de Lombok -&gt; <a class="wiki_link_ext"
-
+        <li>Descargar Lombok.jar del sitio oficial de Lombok -&gt; <a class="wiki_link_ext"
             href="http://projectlombok.org/" rel="nofollow">http://projectlombok.org/</a></li>
         <li>Ejecutar el archivo jar, y especificar la carpeta donde se encuentra
           eclipse.</li>
@@ -54,29 +54,23 @@
 .java span.xtra { display:block; }
 
 -->
-</style><pre class="java"><span class="kw1">import</span> <span class="co2">javax.persistence.*</span><span
-
+</style><pre class="java"><span class="kw1">import</span> <span class="co2">javax.persistence.*</span><span
 class="sy0">;</span>
 &nbsp;
-<span class="kw1">import</span> <span class="co2">org.openxava.annotations.*</span><span
-
+<span class="kw1">import</span> <span class="co2">org.openxava.annotations.*</span><span
 class="sy0">;</span>
-<span class="kw1">import</span> <span class="co2">org.openxava.model.*</span><span
-
+<span class="kw1">import</span> <span class="co2">org.openxava.model.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw1">import</span> <span class="co2">lombok.*</span><span class="sy0">;</span>
 &nbsp;
 @<span class="kw3">Entity</span>
-<span class="kw1">public</span> @Data <span class="kw1">class</span> PruebaPrimera <span
-
+<span class="kw1">public</span> @Data <span class="kw1">class</span> PruebaPrimera <span
 class="kw1">extends</span> Identifiable <span class="br0">{</span>
 &nbsp;
-    @Column<span class="br0">(</span>length<span class="sy0">=</span><span class="nu0">50</span><span
-
+    @Column<span class="br0">(</span>length<span class="sy0">=</span><span class="nu0">50</span><span
 class="br0">)</span>
-    <span class="kw1">private</span> <span class="kw3">String</span> nombre<span
-
+    <span class="kw1">private</span> <span class="kw3">String</span> nombre<span
 class="sy0">;</span>
 &nbsp;
 <span class="br0">}</span></pre>
@@ -118,50 +112,38 @@ class="sy0">;</span>
 .java span.xtra { display:block; }
 
 -->
-</style><pre class="java"><span class="kw1">package</span> <span class="co2">com.testlombok.modelo</span><span
-
+</style><pre class="java"><span class="kw1">package</span> <span class="co2">com.testlombok.modelo</span><span
 class="sy0">;</span>
 &nbsp;
-<span class="kw1">import</span> <span class="co2">javax.persistence.*</span><span
-
+<span class="kw1">import</span> <span class="co2">javax.persistence.*</span><span
 class="sy0">;</span>
 &nbsp;
-<span class="kw1">import</span> <span class="co2">org.openxava.annotations.*</span><span
-
+<span class="kw1">import</span> <span class="co2">org.openxava.annotations.*</span><span
 class="sy0">;</span>
-<span class="kw1">import</span> <span class="co2">org.openxava.model.*</span><span
-
+<span class="kw1">import</span> <span class="co2">org.openxava.model.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw1">import</span> <span class="co2">lombok.*</span><span class="sy0">;</span>
 &nbsp;
 @<span class="kw3">Entity</span>
-<span class="kw1">public</span> <span class="kw1">class</span> PruebaPrimera <span
-
+<span class="kw1">public</span> <span class="kw1">class</span> PruebaPrimera <span
 class="kw1">extends</span> Identifiable <span class="br0">{</span>
 &nbsp;
-    @Column<span class="br0">(</span>length<span class="sy0">=</span><span class="nu0">50</span><span
-
+    @Column<span class="br0">(</span>length<span class="sy0">=</span><span class="nu0">50</span><span
 class="br0">)</span>
-    <span class="kw1">private</span> @Getter @Setter <span class="kw3">String</span> nombre<span
-
+    <span class="kw1">private</span> @Getter @Setter <span class="kw3">String</span> nombre<span
 class="sy0">;</span> <span class="co1">// Getter y Setter autogenerados</span>
 &nbsp;
-    @Stereotype<span class="br0">(</span><span class="st0">"HTML_TEXT"</span><span
-
+    @Stereotype<span class="br0">(</span><span class="st0">"HTML_TEXT"</span><span
 class="br0">)</span>
-    <span class="kw1">private</span> @Getter <span class="kw3">String</span> observaciones<span
-
+    <span class="kw1">private</span> @Getter <span class="kw3">String</span> observaciones<span
 class="sy0">;</span> <span class="co1">// Sólo autogeneramos el Getter, para Setter queremos tomar el control</span>
 &nbsp;
-    <span class="kw1">public</span> <span class="kw4">void</span> setObservaciones<span
-
-class="br0">(</span><span class="kw3">String</span> observaciones<span class="br0">)</span> <span
-
+    <span class="kw1">public</span> <span class="kw4">void</span> setObservaciones<span
+class="br0">(</span><span class="kw3">String</span> observaciones<span class="br0">)</span> <span
 class="br0">{</span>
         <span class="co1">// your custom setter .. tu setter personalizado</span>
-        <span class="kw1">this</span>.<span class="me1">observaciones</span> <span
-
+        <span class="kw1">this</span>.<span class="me1">observaciones</span> <span
 class="sy0">=</span> observaciones<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
