@@ -17,6 +17,10 @@
 <%@ page import="org.openxava.util.Users" %>
 <%@ page import="java.util.prefs.Preferences" %>
 <%@ page import="org.openxava.util.XavaResources" %> 
+<%@ page import="java.lang.reflect.Method" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="org.openxava.tab.impl.HiddenXTableModel" %>
+<%@ page import="org.openxava.tab.impl.TableModelBean" %>
 
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
@@ -342,6 +346,29 @@ totalSize = totalSize < 0?tab.getTotalSize():totalSize;
 if (totalSize > 0 || !Is.emptyString(collection)) { 
 int finalIndex = simple?Integer.MAX_VALUE:tab.getFinalIndex();
 for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) {
+	Collection currentRowActions = new ArrayList<String>();
+	Map map = (Map) model.getObjectAt(f);
+	for (Object rowAction : rowActions) {
+		for (MetaAction tempaction : manager.getMetaActions()) {
+		    if(tempaction.getQualifiedName().equals(rowAction)) {
+		       Class className = Class.forName(tempaction.getClassName());
+		       Method[] allMethods = className.getDeclaredMethods();
+			boolean methodExists = false;
+			for (Method m : allMethods) {
+			    if(m.getName().equals("isApplicableForRow")) {
+				methodExists = true;
+				boolean rowAllowsAction = (boolean) m.invoke(className.newInstance(), (Long) map.get("id"));
+				if (rowAllowsAction) {
+				    currentRowActions.add(rowAction);
+				}
+			    }
+			}
+			if(!methodExists) {
+			    currentRowActions.add(rowAction);
+			}
+		    }
+		}
+	}
 	String checked=tab.isSelected(f)?"checked='true'":"";	
 	String cssClass=f%2==0?style.getListPair():style.getListOdd();	
 	String cssCellClass=f%2==0?style.getListPairCell():style.getListOddCell(); 
@@ -371,7 +398,7 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 <%
 	}
 	if (style.isSeveralActionsPerRow() && !grouping) {
-		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
+		for (java.util.Iterator itRowActions = currentRowActions.iterator(); itRowActions.hasNext(); ) { 	
 			String rowAction = (String) itRowActions.next();		
 %>
 			<xava:action action='<%=rowAction%>' argv='<%="row=" + f + actionArgv%>'/>
