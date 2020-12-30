@@ -430,8 +430,8 @@ public class Detail {
       This screenshot emphasizes that the properties to show by default in a
       collection are the plain ones, that is the properties of references are
       not included by default. This fact produces an ugly user interface for our
-      collection of invoice details, because only the quantity property is
-      shown. You can fix it using <em>@ListProperties</em>, in this way:</div>
+      collection of invoice details, because only the <i>quantity</i> property
+      is shown. You can fix it using <em>@ListProperties</em>, in this way:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ElementCollection
 @ListProperties("product.number, product.description, quantity")
@@ -512,7 +512,9 @@ public class Customer {
       with no name, that view will be the default one, though that is not the
       case here.<br>
       Now, you have to indicate that the reference to <em>Customer</em> from <em>Invoice</em>
-      must use this <em>Simple</em> view. This is done by means of <em>@ReferenceView</em>:</div>
+      must use this <em>Simple</em> view. This is done by means of <em>@ReferenceView</em>.
+      Edit the <i>customer</i> reference in the <i>Invoice</i> class in this
+      way:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false)
 @ReferenceView("Simple") // The view named 'Simple' is used to display this reference
@@ -589,11 +591,12 @@ Author author;
     <div class="wiki" style="display: block;">Thus, your <em>Product</em>
       entity has a reference to <em>Author</em>.<br>
       Really you have written a little amount of code. In order to see the
-      effect, you only need to build your project (just press Ctrl-B in OpenXava
-      Studio), stop the application and start it again. Then go to the browser
-      and reload the page with the <em>Product</em> module, and you will see
-      there, a combo for choosing the author of the product, just as you see
-      here:<br>
+      effect, restart your application clicking on <i>Run</i> button:</div>
+    <div class="wiki" style="display: block;"><img src="files/getting-started_en195.png"
+        alt="getting-started_en195.png" title="getting-started_en195.png"> </div>
+    <div class="wiki" style="display: block;">Then go to the browser and reload
+      the page with the <em>Product</em> module, and you will see there, a
+      combo for choosing the author of the product, just as you see here:<br>
       <img src="files/modeling_en150.png" alt="modeling_en150.png" title="modeling_en150.png"><br>
       What if the user wants to choose an author and see all his products? Well.
       This is plain vanilla. You only have to make the relationship between <em>Product</em>
@@ -604,10 +607,9 @@ Author author;
 @ListProperties("number, description, price")
 Collection&lt;Product&gt; products;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Now, press Ctrl+B (to build), stop
-      your application, start it again and refresh the browser with <em>Author</em>
-      module. Choose an author and you will see his products. You have to see
-      something like this:<br>
+    <div class="wiki" style="display: block;">Now, restart your application and
+      refresh the browser with <em>Author</em> module. Choose an author and you
+      will see his products. You have to see something like this:<br>
       <img src="files/modeling_en160.png" alt="modeling_en160.png" title="modeling_en160.png"><br>
     </div>
     <div class="wiki" style="display: block;">Yes, you added a new collection,
