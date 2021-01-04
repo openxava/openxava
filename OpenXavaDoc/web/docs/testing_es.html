@@ -9,15 +9,13 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Leccion+3:+Pruebas+automaticas"></a> <span
-
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span> Lección 3: Pruebas automáticas</h1>
-         <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+      <h1 id="toc0"><a name="Leccion+3:+Pruebas+automaticas"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 3: Pruebas automáticas</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
-        Modelar con Java</a> | <strong>3. Pruebas automáticas</strong> | <a class="wiki_link"
-
+        Modelar con Java</a> | <strong>3. Pruebas automáticas</strong> | <a class="wiki_link"
         href="inheritance_es.html">4. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
         Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
         Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
@@ -28,9 +26,8 @@
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
         Anotaciones</a>
       <hr>
-            <div id="toc">
+      <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-
         <div style="margin-left: 1em;"><a href="#Leccion+3:+Pruebas+automaticas">Lección
 
             3: Pruebas automáticas</a></div>
@@ -39,8 +36,8 @@
             para probar módulos</a></div>
         <div style="margin-left: 3em;"><a href="#Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-El+codigo+para+la+prueba">El
             código para la prueba</a></div>
-        <div style="margin-left: 3em;"><a href="#Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-Ejecutar+las+pruebas+desde+Eclipse">Ejecutar
-            las pruebas desde Eclipse</a></div>
+        <div style="margin-left: 3em;"><a href="#Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-Ejecutar+las+pruebas+desde+OpenXava+Studio">Ejecutar
+            las pruebas desde OpenXava Studio</a></div>
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA">Crear
             datos de prueba usando JPA</a></div>
         <div style="margin-left: 3em;"><a href="#Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA-Los+metodos+setUp%28%29+y+tearDown%28%29">Los
@@ -68,9 +65,9 @@
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-Suite">Suite</a></div>
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-Resumen">Resumen</a></div>
       </div>
-      Las pruebas son la parte más importante del desarrollo de software.
-      No importa cuan bonita, rápida o tecnológicamente avanzada sea tu
-      aplicación, si falla, darás una impresión muy pobre.<br>
+      Las pruebas son la parte más importante del desarrollo de software. No
+      importa cuan bonita, rápida o tecnológicamente avanzada sea tu aplicación,
+      si falla, darás una impresión muy pobre.<br>
       Hacer pruebas manuales, es decir, abrir el navegador y ejecutar la
       aplicación exactamente como lo haría un usuario final, no es viable;
       porque el problema real no está en el código que acabas de escribir, sino
@@ -83,14 +80,14 @@
       pruebas automáticas. Vamos a hacer pruebas automáticas usando JUnit.<br>
       <h2 id="toc1"><a name="Leccion+3:+Pruebas+automaticas-JUnit"></a>JUnit</h2>
       JUnit es una herramienta muy popular para hacer pruebas automáticas. Esta
-      herramienta está integrada con Eclipse, por tanto no necesitas descargarla
-      para poder usarla. OpenXava extiende las capacidades de JUnit para
-      permitir probar un módulo de OpenXava exactamente de la misma forma que lo
-      haría un usuario final. De hecho, OpenXava usa HtmlUnit, un software que
-      simula un navegador real (incluyendo JavaScript) desde Java. Todo está
-      disponible desde la clase de OpenXava <em>ModuleTestBase</em>, que te
-      permite automatizar las pruebas que tú harías a mano usando un navegador
-      de verdad de una forma simple.<br>
+      herramienta está integrada con OpenXava Studio, por tanto no necesitas
+      descargarla para poder usarla. OpenXava extiende las capacidades de JUnit
+      para permitir probar un módulo de OpenXava exactamente de la misma forma
+      que lo haría un usuario final. De hecho, OpenXava usa HtmlUnit, un
+      software que simula un navegador real (incluyendo JavaScript) desde Java.
+      Todo está disponible desde la clase de OpenXava <em>ModuleTestBase</em>,
+      que te permite automatizar las pruebas que tú harías a mano usando un
+      navegador de verdad de una forma simple.<br>
       La mejor manera de entender como funcionan las pruebas en OpenXava es
       verlo en acción.<br>
       <h2 id="toc2"><a name="Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos"></a>ModuleTestBase
@@ -188,15 +185,16 @@ public class PruebaCliente extends ModuleTestBase { // Ha de extender de ModuleT
       aquellas cosas que normalmente probarías con un navegador. Tu prueba
       crecerá de forma natural a medida que tu aplicación crezca y los usuarios
       vayan encontrando fallos.<br>
-      Aprendamos como ejecutar tu prueba desde Eclipse.<br>
-      <h3 id="toc4"><a name="Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-Ejecutar+las+pruebas+desde+Eclipse"></a>Ejecutar
-        las pruebas desde Eclipse</h3>
-      JUnit está integrado dentro de Eclipse, por eso ejecutar tus prueba en
-      Eclipse es más fácil que quitarle un caramelo a un niño. Pon el ratón
-      sobre tu clase de prueba, <i>PruebaCliente</i>, y con el botón derecho
-      escoge <em>Run As &gt; JUnit Test</em>:<br>
-      <img src="files/testing_es030.png" alt="testing_es030.png" title="testing_es030.png"
-
+      Aprendamos como ejecutar tu prueba desde OpenXava Studio.<br>
+      <h3 id="toc4"><a name="Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-Ejecutar+las+pruebas+desde+OpenXava+Studio"></a>Ejecutar
+        las pruebas desde OpenXava Studio</h3>
+      JUnit está integrado dentro del OpenXava Studio, por eso ejecutar tus
+      pruebas es más fácil que quitarle un caramelo a un niño. Para que la
+      prueba funcione tu aplicación tiene que estar ejecutándose, si no es el
+      caso iníciala antes de nada. Para ejecutar la prueba pon el ratón sobre tu
+      clase de prueba, <i>PruebaCliente</i>, y con el botón derecho escoge <em>Run
+        As &gt; JUnit Test</em>:<br>
+      <img src="files/testing_es030.png" alt="testing_es030.png" title="testing_es030.png"
         style="height: 285px; width: 800px;"><br>
       Si la prueba no es satisfactoria la barra sale roja. Puedes probarlo.
       Edita <em>PruebaCliente</em> y comenta la línea que da valor al campo <em>nombre</em>:</div>
@@ -805,12 +803,10 @@ private String getNumero() { // El número de factura para una factura nueva
       que desarrollemos en el resto del libro. De esta manera aprenderás más
       trucos sobre las pruebas JUnit en las siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-3-testing_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-3-testing_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="inheritance_es.html">Ve a la lección 4</a></strong>
     </div>
