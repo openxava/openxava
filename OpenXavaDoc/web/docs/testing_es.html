@@ -176,7 +176,7 @@ public class PruebaCliente extends ModuleTestBase { // Ha de extender de ModuleT
       En <em>execute()</em> tienes que especificar el nombre calificado de la
       acción, esto quiere decir <em>NombreControlador.nombreAccion</em>. ¿Cómo
       puedes saber el nombre de la acción? Pasea tu ratón sobre el vínculo de la
-      acción, y verás en la barra inferior de tu navegador un código JavaScript
+      acción y verás en la barra inferior de tu navegador un código JavaScript
       que incluye el nombre calificado de la acción:<br>
       <img src="files/testing_es020.png" alt="testing_es020.png" title="testing_es020.png"><br>
       Ahora ya sabes como crear una prueba para probar las operaciones de
@@ -280,9 +280,9 @@ public class PruebaProducto extends ModuleTestBase {
       métodos <em>setUp()</em> y <em>tearDown()</em>. Estos métodos son
       métodos de JUnit que son ejecutados justo antes y después de ejecutar cada
       método de prueba. Creamos los datos de prueba antes de ejecutar cada
-      prueba, y borramos los datos después de cada prueba. Así, cada prueba
-      puede contar con unos datos concretos para ejecutarse. No importa si otras
-      pruebas borran o modifican datos, o el orden de ejecución de las pruebas.
+      prueba y borramos los datos después de cada prueba. Así, cada prueba puede
+      contar con unos datos concretos para ejecutarse. No importa si otras
+      pruebas borran o modifican datos o el orden de ejecución de las pruebas.
       Siempre, al principio de cada método de prueba tenemos todos los datos
       listos para usar.<br>
       <h3 id="toc7"><a name="Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA-Crear+datos+con+JPA"></a>Crear
@@ -371,21 +371,21 @@ private void borrar(Object ... entidades) { // Usamos argumentos varargs
       fácil de entender con el siguiente código:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">getManager().persist(autor); // autor está asociado al contexto persistente actual
-commit(); // El contexto persistente actual se termina, y autor pasa a estar desasociado
+commit(); // El contexto persistente actual se termina y autor pasa a estar desasociado
  
 getManager().remove(autor); // Falla porque autor está desasociado
  
 autor = getManager().merge(autor); // Reasocia autor al contexto actual
 getManager().remove(autor); // Funciona
 </code></pre> </div>
-    <div class="wiki" style="display: block;">A parte de este curioso detalle
+    <div class="wiki" style="display: block;">Aparte de este curioso detalle
       sobre el <em>merge()</em>, el código para borrar es bastante sencillo.<br>
       <h3 id="toc9"><a name="Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA-Filtrar+datos+desde+modo+lista+en+una+prueba"></a>Filtrar
         datos desde modo lista en una prueba</h3>
       Ahora que ya sabes como crear y borrar datos para las pruebas, examinemos
       los métodos de prueba para tu módulo <em>Producto</em>. El primero es <em>testBorrarDesdeLista()</em>
-      que selecciona una fila en el modo lista y pulsa en el botón “Borrar
-      seleccionados”. Veamos su código:</div>
+      que selecciona una fila en el modo lista y pulsa en el botón <i>Borrar
+        seleccionados</i>. Veamos su código:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public void testBorrarDesdeLista() throws Exception {
     login("admin", "admin");
@@ -534,9 +534,9 @@ public class PruebaCategoria extends ModuleTestBase {
       “SOFTWARE”. Acuerdate de crearlos antes de ejecutar esta prueba.<br>
       Puedes ver como la técnica de usar datos preexistentes de una base de
       datos de prueba te permite crear pruebas más simples. Empezar con una
-      prueba simple e ir complicándolo bajo demanda es una buena idea. Recuerda
-      añadir los datos correspondientes usando los módulos antes de ejecutar
-      estas pruebas.<br>
+      prueba simple e ir complicándolo bajo demanda es una buena idea. </div>
+    <div class="wiki" style="display: block;">Recuerda añadir los datos
+      correspondientes usando los módulos antes de ejecutar estas pruebas.<br>
       <h2 id="toc12"><a name="Leccion+3:+Pruebas+automaticas-Probar+colecciones"></a>Probar
         colecciones</h2>
       Es el momento de enfrentarnos a la prueba del módulo principal de tu
@@ -617,11 +617,10 @@ public class PruebaFactura extends ModuleTestBase {
     assertValue("fecha", getFechaActual());
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Cuando el usuario pulsa en
-      “Nuevo”, los campos año, número y fecha tienen que rellenarse con datos
-      válidos. El método <em>verificarValoresDefecto()</em> precisamente
-      comprueba esto. Usa varios métodos de utilidad para calcular los valores
-      esperados:</div>
+    <div class="wiki" style="display: block;">Cuando el usuario pulsa en <i>Nuevo</i>,
+      los campos año, número y fecha tienen que rellenarse con datos válidos. El
+      método <em>verificarValoresDefecto()</em> precisamente comprueba esto.
+      Usa varios métodos de utilidad para calcular los valores esperados:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">private String getAnyoActual() { // Año actual en formato cadena
     return Integer.toString(LocalDate.now().getYear()); // La forma
@@ -719,7 +718,7 @@ private String getNumero() { // El número de factura para una factura nueva
     assertValue("observaciones", "");
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Simplemente pulsa en “Grabar”,
+    <div class="wiki" style="display: block;">Simplemente pulsa en <i>Grabar</i>,
       entonces verifica que no ha habido errores y la vista se ha limpiado.<br>
       <h3 id="toc16"><a name="Leccion+3:+Pruebas+automaticas-Probar+colecciones-Verificar+los+datos"></a>Verificar
         los datos</h3>
@@ -764,8 +763,8 @@ private String getNumero() { // El número de factura para una factura nueva
     assertNoErrors();
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Simplemente presiona en “Borrar” y
-      verifica que no se han producido errores.<br>
+    <div class="wiki" style="display: block;">Simplemente presiona en <i>Borrar</i>
+      y verifica que no se han producido errores.<br>
       <br>
       ¡Enhorabuena! Has completado tu <em>PruebaFactura</em>. Ya puedes
       ejecutarla, debería salir verde, si no comprueba que los datos en la base
@@ -777,11 +776,11 @@ private String getNumero() { // El número de factura para una factura nueva
       aplicación ejecuta todas tus pruebas unitarias para verificar que la
       funcionalidad existente no se ha roto.<br>
       Tradicionalmente, para ejecutar todos las pruebas de tu aplicación
-      deberías crear una suite de pruebas, y ejecutarla. Una suite de pruebas es
+      deberías crear una suite de pruebas y ejecutarla. Una suite de pruebas es
       una clase que agrega todas tus pruebas JUnit para que puedas ejecutarlas
-      todas de un golpe. Afortunadamente, si trabajas con Eclipse no necesitas
-      escribir una clase de suite, Eclipse te permite ejecutar todas las pruebas
-      de tu aplicación automáticamente:<br>
+      todas de un golpe. Afortunadamente, con OpenXava Studio no necesitas
+      escribir una clase de suite, te permite ejecutar todas las pruebas de tu
+      aplicación automáticamente:<br>
       <img src="files/testing_es060.png" alt="testing_es060.png" title="testing_es060.png"><br>
       Es decir, si ejecutas <em>Run As &gt; JUnit Test</em> en el proyecto, se
       ejecutarán todas sus pruebas JUnit.<br>

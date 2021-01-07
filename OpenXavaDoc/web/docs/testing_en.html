@@ -394,7 +394,7 @@ getManager().remove(author); // It works
       Now that you know how to create and remove the data for the tests, let's
       examine the test methods for your <em>Product</em> module. The first one
       is <em>testRemoveFromList()</em> that checks a row in list mode and
-      clicks on “Delete selected” button. Let's see the code:</div>
+      clicks on <i>Delete selected</i> button. Let's see the code:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public void testRemoveFromList() throws Exception {
     login("admin", "admin");
@@ -544,8 +544,9 @@ public class CategoryTest extends ModuleTestBase {
       Remember to create them before executing the test.<br>
       You have seen how the technique of using pre-existing data from a test
       database allows you to create simpler tests. Starting from a simple test
-      and further complicating it on demand is a good way to go. Remember to add
-      the corresponding data using the modules before executing these tests.<br>
+      and further complicating it on demand is a good way to go. </div>
+    <div class="wiki" style="display: block;">Remember to add the corresponding
+      data using the modules before executing these tests.<br>
       <h2 id="toc12"><a name="Lesson 3: Automated testing-Testing collections"></a>Testing
         collections</h2>
       Now it's time to face the test for the main module of your application,
@@ -627,8 +628,8 @@ public class InvoiceTest extends ModuleTestBase {
     assertValue("date", getCurrentDate());
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">When the user clicks on “New”, the
-      year, number and date field must be prefilled with valid data. The <em>verifyDefaultValues()</em>
+    <div class="wiki" style="display: block;">When the user clicks on <i>New</i>,
+      the year, number and date field must be prefilled with valid data. The <em>verifyDefaultValues()</em>
       method tests this. It uses several utility methods to calculate the
       expected values:</div>
     <div class="wiki" style="display: block;">
@@ -725,8 +726,8 @@ private String getNumber() { // The invoice number for a new invoice
     assertValue("remarks", "");
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">It simply clicks on “Save”, then
-      verifies for any errors and makes sure that the view is clean.<br>
+    <div class="wiki" style="display: block;">It simply clicks on <i>Save</i>,
+      then verifies for any errors and makes sure that the view is clean.<br>
       <h3 id="toc16"><a name="Lesson 3: Automated testing-Testing collections-Verifying the data"></a>Verifying
         the data</h3>
       Now, we will search the newly created invoice to verify that it has been
@@ -770,8 +771,8 @@ private String getNumber() { // The invoice number for a new invoice
     assertNoErrors();
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">It just clicks on “Delete” and
-      verifies that no errors are produced.<br>
+    <div class="wiki" style="display: block;">It just clicks on <i>Delete</i>
+      and verifies that no errors are produced.<br>
       <br>
       Congratulations! You have your <em>InvoiceTest</em> completed. Execute
       it, it should be green; if not revise the data in the database, maybe you
@@ -784,9 +785,9 @@ private String getNumber() { // The invoice number for a new invoice
       Traditionally, to execute all the test for your application you have to
       create a test suite, and execute it. A test suite is a class that
       aggregates all your JUnit tests so you can execute them all at once.
-      Fortunately, if you are working with Eclipse you do not need to write a
-      test suite class, Eclipse allows you to execute all the test for your
-      application automatically:<br>
+      Fortunately, with OpenXava Studio you do not need to write a test suite
+      class, it allows you to execute all the tests for your application
+      automatically:<br>
       <img src="files/testing_en060.png" alt="testing_en060.png" title="testing_en060.png"><br>
       That is, if you execute <em>Run As &gt; JUnit Test</em> on the project
       then all its JUnit tests are executed.<br>
