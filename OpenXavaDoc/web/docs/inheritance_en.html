@@ -13,7 +13,7 @@
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
         Lesson 4: Inheritance</h1>
-        <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
         Automated testing</a> | <strong>4. Inheritance</strong> | <a class="wiki_link"
@@ -30,9 +30,8 @@
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
         Annotations</a>
       <hr>
-            <div id="toc">
+      <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-
         <div style="margin-left: 1em;"><a href="#Lesson%204:%20Inheritance">Lesson
             4: Inheritance</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%204:%20Inheritance-Inheriting%20from%20a%20mapped%20superclass">Inheriting
@@ -71,10 +70,10 @@
             new tests to the extended module test</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%204:%20Inheritance-Summary">Summary</a></div>
       </div>
-       Inheritance is a practical way to reuse code in the object oriented
-      world. Using inheritance with JPA and OpenXava is as easy as using it in
-      plain Java. We are going to use inheritance to remove repeated and boring
-      code, like the UUID definition. Also, we'll add a new entity, <em>Order</em>,
+      Inheritance is a practical way to reuse code in the object oriented world.
+      Using inheritance with JPA and OpenXava is as easy as using it in plain
+      Java. We are going to use inheritance to remove repeated and boring code,
+      like the UUID definition. Also, we'll add a new entity, <em>Order</em>,
       and we'll use inheritance to do it with minimal code. Moreover, you'll
       learn how practical it is to use inheritance even for the code used for
       testing.<br>
@@ -85,15 +84,7 @@
       <pre><code class="java">@Id @GeneratedValue(generator="system-uuid") @Hidden
 @GenericGenerator(name="system-uuid", strategy="uuid")
 @Column(length=32)
-private String oid;
- 
-public String getOid() {
-    return oid;
-}
- 
-public void setOid(String oid) {
-    this.oid = oid;
-}
+String oid;
 </code></pre> This code is just the same for all those classes. You know that
       copy and paste is a mortal sin, so we have to look for a solution to
       remove the code repetition, to avoid our way to hell.<br>
@@ -110,22 +101,16 @@ public void setOid(String oid) {
 import javax.persistence.*;
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
+import lombok.*;
  
 @MappedSuperclass // Marked as mapped superclass instead of entity
+@Getter @Setter
 public class Identifiable {
  
     @Id @GeneratedValue(generator="system-uuid") @Hidden
     @GenericGenerator(name="system-uuid", strategy="uuid")
     @Column(length=32)
-    private String oid; // Property definition includes OpenXava and JPA annotations
- 
-    public String getOid() {
-        return oid;
-    }
- 
-    public void setOid(String oid) {
-        this.oid = oid;
-    }
+    String oid; // Property definition includes OpenXava and JPA annotations
  
 }
 </code></pre> Now you can define <em>Author</em>, <em>Category</em> and <em>Invoice</em>
@@ -134,29 +119,23 @@ public class Identifiable {
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
+import lombok.*;
  
-@Entity
-public class Category extends Identifiable { // Extends from Identifiable
-                            // so it does not need to have an id property
+@Entity @Getter @Setter
+public class Category extends Identifiable {
+  
     @Column(length=50)
-    private String description;
+    String description;
  
-    public void setDescription(String description) {
-        this.description = description;
-    }
- 
-    public String getDescription() {
-        return description;
-    }
 }
 </code></pre> The refactoring is plain vanilla. <em>Category</em> now extends
-      from <em>Identifiable</em> and we have removed the oid field and the
-      respective <em>getOid()</em> and <em>setOid()</em> methods. This way,
-      not only is your code shorter, but it's more elegant, because you declare
-      that your class is identifiable (the what, not the how), and you removed
-      from your business logic class code that is somewhat technical.<br>
-      Now, you can apply this same refactoring to the <em>Author</em> and <em>Invoice</em>
-      entities, moreover, from now on you'll extend most of your entities from
+      from <em>Identifiable</em> and we have removed the <i>oid</i> property.
+      This way, not only is your code shorter, but it's more elegant, because
+      you declare that your class is identifiable (the what, not the how), and
+      you removed from your business logic class code that is somewhat
+      technical.<br>
+      Apply this same refactoring to the <em>Author</em> and <em>Invoice</em>
+      entities. Moreover, from now on you'll extend most of your entities from
       the <em>Identifiable</em> mapped superclass.<br>
       We have created our own <em>Identifiable</em> class to see the advantage
       of using mapped superclasses, however OpenXava provides for you a ready to
@@ -188,7 +167,7 @@ public class Category extends Identifiable { // Extends from Identifiable
 public class Invoice {
  
     @OneToMany(mappedBy="invoice")
-    private Collection&lt;Order&gt; orders;
+    Collection&lt;Order&gt; orders;
     ...
 }
  
@@ -196,7 +175,7 @@ public class Invoice {
 public class Order {
  
     @ManyToOne // Without lazy fetching (1)
-    private Invoice invoice;
+    Invoice invoice;
     ...
 }
 </code></pre> That is, an invoice has several orders, and an order can reference
@@ -222,7 +201,7 @@ public class Order {
       rule. It means that we cannot do <em>Invoice</em> extends <em>Order</em>,
       because an <em>Invoice</em> is not an <em>Order</em>. The solution for
       this case is creating a base class for both <em>Order</em> and <em>Invoice</em>.
-      We are going to call this class <em>CommercialDocument</em>.<br>
+      We are going to call that class <em>CommercialDocument</em>.<br>
       Here you have the UML diagram for <em>CommercialDocument</em>:<br>
       <img src="files/inheritance_en030.png" alt="inheritance_en030.png" title="inheritance_en030.png"><br>
       And here you have the same idea expressed with Java:<br>
@@ -244,8 +223,9 @@ public class Invoice extends CommercialDocument { ... }
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Invoice extends CommercialDocument {
  
 }
@@ -258,13 +238,16 @@ public class Invoice extends CommercialDocument {
       <pre><code class="sql">DROP TABLE INVOICING.INVOICE_DETAILS;
 DROP TABLE INVOICING.INVOICE;
 </code></pre> To execute these SQL statements, first make sure your application
-      is running, then go to the <i>DBManager</i> class in <i>Invoicing/src/_run</i>,
-      and with the right mouse button choose <i>Run As &gt; Java Application</i>:<br>
-      <img src="files/inheritance_en040.png" alt="inheritance_en040.png" title="inheritance_en040.png"><br>
+      is running, then use the menu option <i>OpenXava &gt; Database Manager</i>
+      of OpenXava Studio:<br>
+      <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
       Then:<br>
       <img src="files/inheritance_en050.png" alt="inheritance_en050.png" title="inheritance_en050.png"><br>
       Now you can execute the <em>Invoice</em> module and see it working in
-      your browser. Also, execute the <em>InvoiceTest</em>. It must be green.<br>
+      your browser. Also, execute the <em>InvoiceTest</em>. It must be green.</div>
+    <div class="wiki" style="display: block;">If you use your own version of
+      Eclipse or IntelliJ you can run the Database Manager executing the <i>runDBManager</i>
+      Ant target of <i>OpenXava/build.xml</i>.<br>
       <h3 id="toc6"><a name="Lesson 4: Inheritance-Entity inheritance-Creating Order using inheritance"></a>Creating
         Order using inheritance</h3>
       Thanks to <em>CommercialDocument</em> creating the <em>Order</em> entity
@@ -272,8 +255,9 @@ DROP TABLE INVOICING.INVOICE;
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Order extends CommercialDocument {
  
 }
@@ -336,42 +320,28 @@ public class Order extends CommercialDocument {
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Order extends CommercialDocument {
  
     @ManyToOne
-    private Invoice invoice; // Reference to invoice added
- 
-    public Invoice getInvoice() {
-        return invoice;
-    }
- 
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
-    }
+    Invoice invoice; // Reference to invoice added
  
 }
 </code></pre> Conversely in <em>Invoice</em> we add a collection of <em>Order</em>
       entities:<br>
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
-import java.util.*; // Add this import to use Collection
+import java.util.*; 
 import javax.persistence.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Invoice extends CommercialDocument {
  
     @OneToMany(mappedBy="invoice")
-    private Collection&lt;Order&gt; orders; // Collection of Order entities added
- 
-    public Collection&lt;Order&gt; getOrders() {
-        return orders;
-    }
- 
-    public void setOrders(Collection&lt;Order&gt; orders) {
-        this.orders = orders;
-    }
+    Collection&lt;Order&gt; orders; // Collection of Order entities added
  
 }
 </code></pre> After writing this simple code you are ready to test the newly

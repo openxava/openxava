@@ -9,8 +9,9 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Leccion-4-Herencia"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+      <h1 id="toc0"><a name="Leccion-4-Herencia"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Lección 4: Herencia</h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
@@ -69,8 +70,8 @@
             nuevas pruebas a las pruebas de módulo extendidas</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
-       La herencia es una forma práctica de reutilizar el código en el mundo
-      de la orientación a objetos. Usar herencia con JPA y OpenXava es tan fácil
+      La herencia es una forma práctica de reutilizar el código en el mundo de
+      la orientación a objetos. Usar herencia con JPA y OpenXava es tan fácil
       como hacerlo con puro Java. Vamos a usar la herencia para quitar el código
       repetitivo y aburrido, como la definición de los UUID. También, añadiremos
       una nueva entidad, <em>Pedido</em>, y usaremos la herencia para hacerlo
@@ -83,15 +84,7 @@
       <pre><code class="java">@Id @GeneratedValue(generator="system-uuid") @Hidden
 @GenericGenerator(name="system-uuid", strategy="uuid")
 @Column(length=32)
-private String oid;
- 
-public String getOid() {
-    return oid;
-}
- 
-public void setOid(String oid) {
-    this.oid = oid;
-}
+String oid;
 </code></pre> Este código es exactamente el mismo para todas estas clases. Ya
       sabes que copiar y pegar es un pecado mortal, por eso tenemos que buscar
       una forma de quitar este código repetido y así evitar ir al infierno.<br>
@@ -107,22 +100,16 @@ public void setOid(String oid) {
 import javax.persistence.*;
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
+import lombok.*;
  
 @MappedSuperclass // Marcada como una superclase mapeada en vez de como una entidad
+@Getter @Setter
 public class Identificable {
  
     @Id @GeneratedValue(generator="system-uuid") @Hidden
     @GenericGenerator(name="system-uuid", strategy="uuid")
     @Column(length=32)
-    private String oid; // La definición de propiedad incluye anotaciones de OpenXava y JPA
- 
-    public String getOid() {
-        return oid;
-    }
- 
-    public void setOid(String oid) {
-        this.oid = oid;
-    }
+    String oid; // La definición de propiedad incluye anotaciones de OpenXava y JPA
  
 }
 </code></pre> Ahora puedes definir las entidades <em>Autor, Categoria</em> y <em>Factura</em>
@@ -148,14 +135,13 @@ public class Categoria extends Identificable { // Extiende de Identificable
  
 }
 </code></pre> La refactorización es extremadamente simple. <em>Categoria</em>
-      ahora desciende de <em>Identificable</em> y hemos quitado el campo <em>oid</em>
-      y los métodos <em>getOid()</em> y <em>setOid()</em>. De esta forma, no
-      sólo tu código es más corto, sino también más elegante, porque estás
-      declarando tu clase como identificable (el qué, no el cómo), y has quitado
-      de tu clase de negocio un código que era un tanto técnico.<br>
-      Ahora, puedes aplicar esta misma refactorización a las entidades <em>Autor</em>
-      y <em>Factura</em>. Además, a partir de ahora extenderás la mayoría de
-      tus entidades de la superclase mapeada <em>Identificable</em>.<br>
+      ahora desciende de <em>Identificable</em> y hemos quitado la propiedad <em>oid</em>.
+      De esta forma, no sólo tu código es más corto, sino también más elegante,
+      porque estás declarando tu clase como identificable (el qué, no el cómo),
+      y has quitado de tu clase de negocio un código que era un tanto técnico.<br>
+      Aplica esta misma refactorización a las entidades <em>Autor</em> y <em>Factura</em>.
+      Además, a partir de ahora extenderás la mayoría de tus entidades de la
+      superclase mapeada <em>Identificable</em>.<br>
       Hemos creado nuestra propia clase <em>Identificable</em> para ver las
       ventajas de usar superclases mapeadas, sin embargo OpenXava te provee una
       clase <em>Identifiable</em> lista para usar que puedes encontrar en el
@@ -186,7 +172,7 @@ public class Categoria extends Identificable { // Extiende de Identificable
 public class Factura {
  
     @OneToMany(mappedBy="factura")
-    private Collection&lt;Pedido&gt; pedidos;
+    Collection&lt;Pedido&gt; pedidos;
     ...
 }
  
@@ -194,7 +180,7 @@ public class Factura {
 public class Pedido {
  
     @ManyToOne // Sin carga vaga (1)
-    private Factura factura;
+    Factura factura;
     ...
 }
 </code></pre> Es decir, una factura tiene varios pedidos y un pedido puede
@@ -243,8 +229,9 @@ public class Factura extends DocumentoComercial { ... }
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Factura extends DocumentoComercial {
  
 }
@@ -259,14 +246,16 @@ public class Factura extends DocumentoComercial {
       <pre><code class="sql">DROP TABLE FACTURACION.FACTURA_DETALLES;
 DROP TABLE FACTURACION.FACTURA;
 </code></pre> Para ejecutar estas sentencias SQL, primero asegurate de que tu
-      aplicación se esté ejecutando, después ve a la clase <i>DBManager</i> en
-      <i>Facturacion/src/_run</i>, y con el botón derecho del ratón escoge <i>Run
-        As &gt; Java Application</i>:<br>
-      <img src="files/inheritance_es040.png" alt="inheritance_es040.png" title="inheritance_es040.png"><br>
+      aplicación se esté ejecutando, después usa la opción de menú <i>OpenXava
+        &gt; Database Manager</i> de OpenXava Studio:<br>
+      <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
       Después:<br>
       <img src="files/inheritance_es050.png" alt="inheritance_es050.png" title="inheritance_es050.png"><br>
       Ya puedes ejecutar el módulo <em>Factura</em> y verlo funcionando en tu
-      navegador. Lanza también <em>PruebaFactura</em>. Tiene que salirte verde.<br>
+      navegador. Lanza también <em>PruebaFactura</em>. Tiene que salirte verde.</div>
+    <div class="wiki" style="display: block;">Si usas tu propia versión de
+      Eclipse o IntelliJ puedes ejecutar Database Manager ejecutando la tarea
+      Ant <i>runDBManager</i> de <i>OpenXava/build.xml</i>.<br>
       <h3 id="toc6"><a name="Herencia-de-entidades-Crear-Pedido-usando-herencia"></a>Crear
         Pedido usando herencia</h3>
       Gracias a <em>DocumentoComercial</em> el código para <em>Pedido</em> es
@@ -274,8 +263,9 @@ DROP TABLE FACTURACION.FACTURA;
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Pedido extends DocumentoComercial {
  
 }
@@ -341,42 +331,28 @@ public class Pedido extends DocumentoComercial {
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Pedido extends DocumentoComercial {
  
     @ManyToOne
-    private Factura factura; // Referencia a factura añadida
- 
-    public Factura getFactura() {
-        return factura;
-    }
- 
-    public void setFactura(Factura factura) {
-        this.factura = factura;
-    }
+    Factura factura; // Referencia a factura añadida
  
 }
 </code></pre> Por otra parte en <em>Factura</em> añadimos una colección de
       entidades <em>Pedido</em>:<br>
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
-import java.util.*; // Añade este import para usar Collection
+import java.util.*; 
 import javax.persistence.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Factura extends DocumentoComercial {
  
     @OneToMany(mappedBy="factura")
-    private Collection&lt;Pedido&gt; pedidos; // Colección de entidades Pedido añadida
- 
-    public Collection&lt;Pedido&gt; getPedidos() {
-        return pedidos;
-    }
- 
-    public void setPedidos(Collection&lt;Pedido&gt; pedidos) {
-        this.pedidos = pedidos;
-    }
+    Collection&lt;Pedido&gt; pedidos; // Colección de entidades Pedido añadida
  
 }
 </code></pre> Después de escribir este código tan simple, ya puedes probar
