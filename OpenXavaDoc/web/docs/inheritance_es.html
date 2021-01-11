@@ -9,18 +9,15 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Leccion-4-Herencia"></a> <span id="breadcrumbs"> <span
-
+      <h1 id="toc0"><a name="Leccion-4-Herencia"></a> <span id="breadcrumbs"> <span
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Lección 4: Herencia</h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
         Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3.
-        Pruebas automáticas</a> | <strong>4. Herencia</strong> | <a class="wiki_link"
-
-        href="basic-business-logic_es.html">5. Lógica de negocio básica</a> | <a
-
+        Pruebas automáticas</a> | <strong>4. Herencia</strong> | <a class="wiki_link"
+        href="basic-business-logic_es.html">5. Lógica de negocio básica</a> | <a
         class="wiki_link" href="validation_es.html">6. Validación avanzada</a> |
       <a class="wiki_link" href="refining-standard-behavior_es.html">7. Refinar
         el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8.
@@ -441,10 +438,7 @@ abstract public class DocumentoComercial extends Identifiable {
 </code></pre> Esta vista indica como distribuir los datos comunes para todos los
       documentos comerciales. Ahora podemos redefinir la vista de <em>Factura</em>
       a partir de esta:<br>
-      <pre><code class="java">import org.openxava.annotations.*; // Añade este import para usar @View
- 
-@Entity
-@View(extendsView="super.DEFAULT", // Extiende de la vista de DocumentoComercial
+      <pre><code class="java">@View(extendsView="super.DEFAULT", // Extiende de la vista de DocumentoComercial
     members="pedidos { pedidos }" // Añadimos pedidos dentro de una pestaña
 )
 public class Factura extends DocumentoComercial {
@@ -463,10 +457,7 @@ public class Factura extends DocumentoComercial {
       Para obtener este resultado, puedes definir la vista de <em>Pedido</em>
       extendiendo la vista por defecto de <em>DocumentoComercial</em>, y
       añadiendo la referencia a factura, así:<br>
-      <pre><code class="java">import org.openxava.annotations.*; // Añade este import para usar @View
- 
-@Entity
-@View(extendsView="super.DEFAULT", // Extiende de la vista de DocumentoComercial
+      <pre><code class="java">@View(extendsView="super.DEFAULT", // Extiende de la vista de DocumentoComercial
     members="factura { factura } " // Añadimos factura dentro de una pestaña
 )
 public class Pedido extends DocumentoComercial {
@@ -492,9 +483,13 @@ public class Pedido extends DocumentoComercial {
 </code></pre> Esta nueva vista definida en <em>Pedido</em> llamada <em>SinClienteNiFactura</em>
       puede ser referenciada desde <em>Factura</em> para visualizar elementos
       individuales de la colección <em>pedidos</em> usando <em>@CollectionView</em>:<br>
-      <pre><code class="java">@OneToMany(mappedBy="factura")
-@CollectionView("SinClienteNiFactura") // Esta vista se usa para visualizar pedidos
-private Collection&lt;Pedido&gt; pedidos;
+      <pre><code class="java">public class Factura extends DocumentoComercial {
+      
+    ...      
+      
+    @OneToMany(mappedBy="factura")
+    @CollectionView("SinClienteNiFactura") // Esta vista se usa para visualizar pedidos
+    private Collection&lt;Pedido&gt; pedidos;
 </code></pre> Y tan solo con este código la colección <em>pedidos</em> usará
       una vista más apropiada de <em>Factura</em> para visualizar elementos
       individuales.<br>
@@ -521,8 +516,6 @@ public class Factura extends DocumentoComercial {
     private Factura factura;
  
     ...
- 
-}
 </code></pre> Ahora la referencia <em>factura</em> será visualizada desde <em>Pedido</em>
       sin incluir el cliente y los pedidos, por lo que tendrás la interfaz de
       usuario más simple:<br>
@@ -715,12 +708,10 @@ public void testAnyadirPedidos() throws Exception {
       aprender más acerca de la herencia en JPA puedes leer la documentación del
       <a class="wiki_link" href="jpa_es.html">apéndice B</a>.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-4-inheritance_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-4-inheritance_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="basic-business-logic_es.html">Ve a la lección
           5</a></strong> </div>

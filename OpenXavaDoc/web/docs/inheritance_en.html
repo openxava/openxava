@@ -432,10 +432,7 @@ abstract public class CommercialDocument extends Identifiable {
 </code></pre> This view indicates how to layout the common data for all
       commercial documents. Now we can redefine the view for <em>Invoice</em>
       from this one:<br>
-      <pre><code class="java">import org.openxava.annotations.*; // Add this import to use @View
- 
-@Entity
-@View(extendsView="super.DEFAULT", // Extends from the CommercialDocument view
+      <pre><code class="java">@View(extendsView="super.DEFAULT", // Extends from the CommercialDocument view
     members="orders { orders }" // We add the orders inside a tab
 )
 public class Invoice extends CommercialDocument {
@@ -453,10 +450,7 @@ public class Invoice extends CommercialDocument {
       To get this result, you can define the view for <em>Order</em> by
       extending the default view for <em>CommercialDocument</em>, adding the
       referenced invoice in a new tab:<br>
-      <pre><code class="java">import org.openxava.annotations.*; // Add this import to use @View
- 
-@Entity
-@View(extendsView="super.DEFAULT", // Extends from the CommercialDocument view
+      <pre><code class="java">@View(extendsView="super.DEFAULT", // Extends from the CommercialDocument view
     members="invoice { invoice } " // We add the invoice inside a tab
 )
 public class Order extends CommercialDocument {
@@ -484,9 +478,13 @@ public class Order extends CommercialDocument {
 </code></pre> This new view defined in <em>Order</em> named <em>NoCustomerNoInvoice</em>
       can be referenced from <em>Invoice</em> to display the individual
       elements of the orders collection using <em>@CollectionView</em>:<br>
-      <pre><code class="java">@OneToMany(mappedBy="invoice")
-@CollectionView("NoCustomerNoInvoice") // This view is used to display orders
-private Collection&lt;Order&gt; orders;
+      <pre><code class="java">public class Invoice extends CommercialDocument {
+
+    ...
+
+    @OneToMany(mappedBy="invoice")
+    @CollectionView("NoCustomerNoInvoice") // This view is used to display orders
+    private Collection&lt;Order&gt; orders;
 </code></pre> And with this code only, the orders collection will use a more
       appropriate view from <em>Invoice</em> to display individual elements.<br>
       Moreover, we do not want to display the customer and order information
@@ -512,8 +510,6 @@ public class Invoice extends CommercialDocument {
     private Invoice invoice;
  
     ...
- 
-}
 </code></pre> Now the <em>invoice</em> reference will be displayed from <em>Order</em>
       without customers and orders so you'll get a simpler user interface:<br>
       <img src="files/inheritance_en090.png" alt="inheritance_en090.png" title="inheritance_en090.png"><br>
