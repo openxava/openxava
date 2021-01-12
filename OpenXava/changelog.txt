@@ -1,6 +1,15 @@
 Change Log for OpenXava project
 ===============================
 
+- Calendar pendiente:
+	- En DATETIME.
+	- En filtros de listas.
+	- Adaptar a temas.
+	- Con todos los navegadores, incluidos los móviles.
+	- JUnit.
+	- Borrar código de antiguo calendar. ¿Hacerlo automático en el updateOX? Quitar los includes en los JSPs. Quitar calendar.js
+	- Probar con InvoiceDemo.
+
 - Fix: The buildOpenXava and buildAddons Ant tasks do not work if openxava.jar or addons.jar are empty.
 - Fix: PDF report is not generated if there are errors obtaining the organization name. 
 - Fix: Request is not injected in IRequestReportParametersProvider. 

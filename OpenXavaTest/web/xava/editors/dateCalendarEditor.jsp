@@ -16,12 +16,22 @@ int sizeIncrement = browser.contains("Chrome")?0:2;
 if (editable || !label) {
 %>
 <span class="<%=style.getDateCalendar()%>">
+<%-- tmp
 <input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>"
 	tabindex="1" 
 	align='<%=align%>'
 	maxlength="<%=p.getSize()%>" 
 	size="<%=p.getSize() + sizeIncrement%>" 	 
 	value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a style="position: relative; right: 25px;" href="javascript:showCalendar('<%=propertyKey%>', '<%=org.openxava.util.Dates.dateFormatForJSCalendar(org.openxava.util.Locales.getCurrent())%>')"><i class="mdi mdi-calendar"></i></a><%} %>	
+--%>
+<%-- tmp ini --%>
+<input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class="xava_date <%=style.getEditor()%>" title="<%=p.getDescription(request)%>"
+	tabindex="1" 
+	align='<%=align%>'
+	maxlength="<%=p.getSize()%>" 
+	size="<%=p.getSize() + sizeIncrement%>" 	 
+	value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a style="position: relative; right: 25px;" href="javascript:dateCalendarEditor.show('<%=propertyKey%>', '<%=org.openxava.util.Dates.dateFormatForJSCalendar(org.openxava.util.Locales.getCurrent())%>')"><i class="mdi mdi-calendar"></i></a><%} %>	
+<%-- tmp fin --%>
 </span> 
 <%
 } else {

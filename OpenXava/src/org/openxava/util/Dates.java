@@ -458,6 +458,7 @@ public class Dates {
 	}	
 
 	
+	// tmp ¿Todavía se usa?
 	public static String dateFormatForJSCalendar(Locale locale) {
 		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
 		String date = "hr".equals(locale.getLanguage())?"01.02.1971":df.format(create(1, 2, 1971)); // d, m, y 
@@ -471,6 +472,7 @@ public class Dates {
 			replaceAll("2", "%m");
 	}	
 	
+	// tmp ¿Todavía se usa?
 	public static String dateTimeFormatForJSCalendar(Locale locale) {		
 		DateFormat df = getDateTimeFormat(locale); 
 		String datetime = df.format(create(1, 2, 1971, 15, 59, 0)); // d, m, y, hr, min, sec 
