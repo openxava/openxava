@@ -89,7 +89,7 @@ String oid;
       formas de herencia. Una de ellas es heredar de una superclase mapeada. Una
       superclase mapeada es una clase Java con anotaciones de mapeo JPA, pero no
       es una entidad en sí. Su único objetivo es ser usada como clase base para
-      definir entidades. Usemos una, y verás su utilidad rápidamente.<br>
+      definir entidades. Usemos una y verás su utilidad rápidamente.<br>
       Primero, movemos el código común a una clase marcada como <em>@MappedSuperclass</em>.
       La llamamos <em>Identificable</em>:<br>
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
@@ -115,21 +115,14 @@ public class Identificable {
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
+import lombok.*;
  
-@Entity
+@Entity @Getter @Setter
 public class Categoria extends Identificable { // Extiende de Identificable
                         // por tanto no necesita tener una propiedad id
     @Column(length=50)
-    private String descripcion;
- 
-    public String getDescripcion() {
-        return descripcion;
-    }
- 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
- 
+    String descripcion;
+  
 }
 </code></pre> La refactorización es extremadamente simple. <em>Categoria</em>
       ahora desciende de <em>Identificable</em> y hemos quitado la propiedad <em>oid</em>.
@@ -316,7 +309,7 @@ public class Pedido extends DocumentoComercial {
     ...
 }
 </code></pre> Usando esta nomenclatura puedes refactorizar la clase <em>Cuenta</em>
-      en una jerarquía sin renombrar sus miembros, y además puedes escribir
+      en una jerarquía sin renombrar sus miembros y además puedes escribir
       código polimórfico con <em>Cuenta</em>.<br>
       <h3 id="toc8"><a name="Herencia-de-entidades-Asociar-Pedido-con-Factura"></a>Asociar
         Pedido con Factura</h3>
@@ -360,7 +353,7 @@ public class Factura extends DocumentoComercial {
       para asociar una factura al pedido actual. Por otra parte, si exploras el
       módulo <em>Factura</em>, verás una colección de pedidos al final. El
       usuario puede usarla para añadir pedidos a la factura actual.<br>
-      Intenta añadir pedidos a la factura, y asociar una factura a un pedido.
+      Intenta añadir pedidos a la factura y asociar una factura a un pedido.
       Funciona, aunque la interfaz de usuario es un poco fea, de momento.<br>
       <h2 id="toc9"><a name="Herencia-de-vistas"></a>Herencia de vistas</h2>
       La herencia no solo sirve para reutilizar código Java y mapeos, sino
@@ -424,7 +417,7 @@ public class Hijo extends Padre { ... } // Hijo se visualiza usando la vista
       son comunes para todos los <em>DocumentoComercial</em>. Por lo tanto,
       vamos a mover esta parte común a <em>DocumentoComercial</em> y redefinir
       la vista usando herencia.<br>
-      Quita el viejo <em>@View</em> de <em>DocumentoComercial</em>, y escribe
+      Quita el viejo <em>@View</em> de <em>DocumentoComercial</em> y escribe
       esto:<br>
       <pre><code class="java">@View(members=
     "anyo, numero, fecha," + // Los miembros para la cabecera en una línea
@@ -455,7 +448,7 @@ public class Factura extends DocumentoComercial {
       asociada en otra pestaña:<br>
       <img src="files/inheritance_es070.png" alt="inheritance_es070.png" title="inheritance_es070.png"><br>
       Para obtener este resultado, puedes definir la vista de <em>Pedido</em>
-      extendiendo la vista por defecto de <em>DocumentoComercial</em>, y
+      extendiendo la vista por defecto de <em>DocumentoComercial</em> y
       añadiendo la referencia a factura, así:<br>
       <pre><code class="java">@View(extendsView="super.DEFAULT", // Extiende de la vista de DocumentoComercial
     members="factura { factura } " // Añadimos factura dentro de una pestaña
@@ -522,7 +515,7 @@ public class Factura extends DocumentoComercial {
       <img src="files/inheritance_es090.png" alt="inheritance_es090.png" title="inheritance_es090.png"><br>
       <h2 id="toc14"><a name="Herencia-en-las-pruebas-JUnit"></a>Herencia en las
         pruebas JUnit</h2>
-      <em>Factura</em> ha sido refactorizada para usar herencia, y también hemos
+      <em>Factura</em> ha sido refactorizada para usar herencia y también hemos
       usado herencia para añadir una nueva entidad, <em>Pedido</em>. Además,
       esta entidad <em>Pedido</em> tiene relación con <em>Factura</em>. Lo
       cual es una nueva funcionalidad, por ende has de probar todas estas nuevas
@@ -603,8 +596,8 @@ abstract public class PruebaDocumentoComercial // Añade abstract a la definici�
 }
 </code></pre> Como ves has tenido que hacer unos pocos cambios para adaptar <em>PruebaDocumentoComercial</em>.
       Primero, la has declarado abstracta, de esta forma esta clase no es
-      ejecutada por Eclipse como una prueba JUnit, es solo válida como clase
-      base para crear pruebas, pero ella misma no es una prueba.<br>
+      ejecutada por OpenXava Studio como una prueba JUnit, es solo válida como
+      clase base para crear pruebas, pero ella misma no es una prueba.<br>
       Otro cambio importante nos lo encontramos en el constructor, donde ahora
       tienes <em>nombreModulo</em> en vez de “Factura”, así puedes usar esta
       prueba para <em>Pedido</em>, <em>Factura</em> o cualquier otro módulo
@@ -644,7 +637,7 @@ public class PruebaPedido extends PruebaDocumentoComercial {
       <h3 id="toc17"><a name="Herencia-en-las-pruebas-JUnit-Anadir-nuevas-pruebas-a-las-pruebas-de-modulo-extendidas"></a>Añadir
         nuevas pruebas a las pruebas de módulo extendidas</h3>
       Hasta ahora hemos probado como crear una factura y un pedido. En esta
-      sección probaremos como añadir pedidos a una factura en el módulo <em>Factura</em>,
+      sección probaremos como añadir pedidos a una factura en el módulo <em>Factura</em>
       y como establecer la factura a un pedido en el módulo <em>Pedido</em>.<br>
       Para probar como añadir un pedido a una factura añade el método <em>testAnyadirPedidos()</em>
       a <em>PruebaFactura</em>:<br>
@@ -665,7 +658,7 @@ public void testAnyadirPedidos() throws Exception {
         "viewObject=xava_view_section1_pedidos");
     assertCollectionRowCount("pedidos", 0); // El pedido ha sido borrado
 }
-</code></pre> En este caso asumimos que hay al menos una factura, y que la
+</code></pre> En este caso asumimos que hay al menos una factura y que la
       primera factura de la lista no tiene pedidos. Antes de ejecutar esta
       prueba, si no tienes facturas todavía, crea una sin pedidos, o si ya
       tienes facturas, asegúrate de que la primera no tiene pedidos.<br>
@@ -686,12 +679,12 @@ public void testAnyadirPedidos() throws Exception {
     assertValue("factura.anyo", anyo); // Al volver al detalle del pedido verificamos
     assertValue("factura.numero", numero); // que la factura ha sido seleccionada
 }
-</code></pre> En este caso asumimos que hay al menos un pedido, y el primer
+</code></pre> En este caso asumimos que hay al menos un pedido y el primer
       pedido de la lista no tiene factura. Antes de ejecutar esta prueba, si no
       tienes pedidos, crea uno sin factura, o si ya tienes pedidos, asegúrate de
       que el primero no tiene factura.<br>
-      Con esto ya tienes tus pruebas listas. Ejecútalas, y obtendrás el
-      siguiente resultado:<br>
+      Con esto ya tienes tus pruebas listas. Ejecútalas y obtendrás el siguiente
+      resultado:<br>
       <img src="files/inheritance_es110.png" alt="inheritance_es110.png" title="inheritance_es110.png"><br>
       Fíjate que la prueba base <em>PruebaDocumentoComercial</em> no se muestra
       porque es abstracta. Y <em>testCrear()</em> de <em>PruebaDocumentoComercial</em>

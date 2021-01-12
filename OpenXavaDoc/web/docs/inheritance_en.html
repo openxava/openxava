@@ -16,12 +16,9 @@
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
-        Automated testing</a> | <strong>4. Inheritance</strong> | <a class="wiki_link"
-
-        href="basic-business-logic_en.html">5. Basic business logic</a> | <a class="wiki_link"
-
-        href="validation_en.html">6. Advanced validation</a> | <a class="wiki_link"
-
+        Automated testing</a> | <strong>4. Inheritance</strong> | <a class="wiki_link"
+        href="basic-business-logic_en.html">5. Basic business logic</a> | <a class="wiki_link"
+        href="validation_en.html">6. Advanced validation</a> | <a class="wiki_link"
         href="refining-standard-behavior_en.html">7. Refining the standard
         behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
@@ -398,8 +395,7 @@ public class Child extends Parent { ... }   // Child is displayed using an autom
       ugly to see, all the members, each in a line. We are going to define a
       better user interface. A view similar to the one we defined previously,
       but adding a tab for orders, thus:</div>
-    <div class="wiki" style="display: block;"> <img src="files/inheritance_en060.png"
-
+    <div class="wiki" style="display: block;"> <img src="files/inheritance_en060.png"
         alt="inheritance_en060.png" title="inheritance_en060.png"><br>
       Note that we have put all the members from the <em>CommercialDocument</em>
       part of the <em>Invoice</em> in the header and the first tab (data), and
@@ -591,12 +587,12 @@ import static org.openxava.jpa.XPersistence.*;<br><br>abstract public class Comm
 }
 </code></pre> As you see you have to do a few changes in order to adapt <em>CommercialDocumentTest</em>.
       First, you declared it as an abstract class. This way this class is not
-      executed by Eclipse as a JUnit test. It is only valid as base class for
-      creating tests, but it is not a test itself.<br>
+      executed by OpenXava Studio as a JUnit test. It is only valid as base
+      class for creating tests, but it is not a test itself.<br>
       Another important change is in the constructor, where you now use <em>moduleName</em>
       instead of “Invoice”, thus you can use this test for <em>Order</em>, <em>Invoice</em>
       or whatever other module you want. The other change is a simple detail:
-      you have to change “Invoice” for “ComercialDocument” in the query to get
+      you have to change “Invoice” for “CommercialDocument” in the query to get
       the next number.<br>
       Now you have a base class ready to create the module tests for <em>Order</em>
       and <em>Invoice</em>. Let's do it.<br>
@@ -697,12 +693,10 @@ public void testAddOrders() throws Exception {
       read the documents cited in <a class="wiki_link" href="jpa_en.html">Appendix
         B</a>.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-4-inheritance_en.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-4-inheritance_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="basic-business-logic_en.html">Go to Lesson 5</a></strong>
     </div>
