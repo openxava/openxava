@@ -8,12 +8,12 @@
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
-    <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Leccion-5-Logica-de-negocio-basica"></a>
-        <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span> Lección 5: Lógica de negocio básica</h1>
-       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-5-Logica-de-negocio-basica"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 5: Lógica de negocio básica</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
         Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3.
         Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">4.
@@ -33,6 +33,8 @@
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#Leccion-5-Logica-de-negocio-basica">Lección
             5: Lógica de negocio básica</a></div>
+        <div style="margin-left: 2em;"><a href="#Propiedades-en-Java">Propiedades
+            en Java</a></div>
         <div style="margin-left: 2em;"><a href="#Propiedades-calculadas">Propiedades
             calculadas</a></div>
         <div style="margin-left: 3em;"><a href="#Propiedades-calculadas-Propiedad-calculada-simple">Propiedad
@@ -73,6 +75,65 @@
       OpenXava.<br>
       Empezaremos por añadir algo de lógica de negocio a tus entidades para
       hacer de tu aplicación algo más que un simple gestor de base de datos.<br>
+      <h2><a name="Propiedades-en-Java"></a>Propiedades en Java</h2>
+      Para entender bien algunos de los conceptos de esta lección has de saber
+      cómo funcionan las propiedades en Java. La forma estándar de definir una
+      propiedad en Java es:
+      <pre><code class="java">// Propiedad
+      
+private int cantidad; // Tiene un campo
+
+public int getCantidad() { // Un getter para devolver el valor del campo
+    return cantidad;
+}
+
+public void setCantidad(int cantidad) { // Cambia el valor del campo
+    this.cantidad = cantidad;
+}
+</code></pre>Esto se basa en la idea de que nunca deberiamos acceder al estado
+      de un objeto (sus campos) directamente, sino siempre llamando a métodos.
+      Esto es muy útil porque puedes cambiar la implementación de una propiedad
+      sin afecta al codigo que la usa. Además, todas las herramientas, marcos de
+      trabajo y librerias del ecosistema Java confían en esta norma (parte de
+      las especificaciones JavaBeans). Por lo tanto, deberiamos usar esta
+      convención siempre. Una propiedad en Java es un método getter (<i>getCantidad()</i>
+      por ejemplo) y un método setter (<i>setCantidad(int cantidad)</i>) si la
+      propiedad es modificable. De hecho, el campo (<i>private int cantidad</i>
+      en este caso) no es necesario.<br>
+      El problema de este enfoque es que es muy verboso y acabamos con nuestro
+      código lleno de getters y setters que no aportan nada y hacen mucho ruido.
+      Para resolver este problema usamos una librería llamada Lombok. Con Lombok
+      puedes definir la propiedad <i>cantidad</i> de arriba de esta manera:
+      <pre><code class="java">@Getter @Setter // Genera un método getter y uno setter
+int cantidad; 
+</code></pre><i>@Getter</i> y <i>@Setter</i> generan el getter y setter en el
+      código compilado, por lo que cuando accedas a la propiedad has de usarlos,
+      así:
+      <pre><code class="java">int c = elObjeto.getCantidad(); // Nunca int c = elObjeto.cantidad 
+elObjeto.setCantidad(c + 10); // Nunca elObjeto.cantidad = c + 10
+</code></pre>Puedes declarar <i>@Getter</i> y <i>@Setter</i> a nivel de clase
+      y así todos los campos tendrán getter y setter automáticamente. Y por
+      supuesto, puedes escribir tu propio setter y getter si quieres usar tu
+      propia lógica:
+      <pre><code class="java">// @Data // NUNCA USES @Data
+@Getter @Setter
+public class Incidencia {
+
+    int numero;
+    String descripcion;
+	
+    public String getDescripcion() { // Tu propio getter sobrescribe el generado por Lombok
+        if (descripcion == null) return "Todavía sin descripción";
+        return descripcion;
+    }
+
+}
+</code></pre>En este caso Lombok genera para ti <i>getNumero(), setNumero()</i>
+      y <i>setDescripcion()</i> mientras que <i>getDescripcion()</i> es el que
+      hemos escrito nosotros. Fíjate com nunca deberías usar la anotación <i>@Data</i>
+      de Lombok, dado que produce bucles recursivos infinitos si tienes
+      referencias recíprocas, algo bastante común en las aplicaciones de
+      negocio.
       <h2 id="toc1"><a name="Propiedades-calculadas"></a>Propiedades calculadas</h2>
       Quizás la lógica de negocio más simple que puedes añadir a tu aplicación
       es una propiedad calculada. Las propiedades que has usado hasta ahora son
@@ -82,15 +143,8 @@
       accede a la propiedad. Observa la diferencia entre una propiedad
       persistente y una calculada:<br>
       <pre><code class="java">// Propiedad persistente
-private int cantidad; // Tiene un campo, por tanto es persistente
- 
-public int getCantidad() { // Un getter para devolver el valor del campo
-    return cantidad;
-}
- 
-public void setCantidad(int cantidad) { // Cambia el valor del campo
-    this.cantidad = cantidad;
-}
+@Getter @Setter // Tiene getter y setter
+int cantidad; // Tiene un campo, por tanto es persistente
  
 // Propiedad calculada
 public int getImporte() { // No tiene campo, ni setter, solo un getter
@@ -117,20 +171,15 @@ public BigDecimal getImporte() { // esta propiedad se recalculará y se redibuja
     if (producto == null || producto.getPrecio() == null) return BigDecimal.ZERO;
     return new BigDecimal(cantidad).multiply(producto.getPrecio());
 }
-</code></pre>Y los imports correspondientes:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import java.math.*;
-import org.openxava.annotations.*;
-</code></pre> </div>
-    <div class="wiki" style="display: block;"> Es tan solo poner el cálculo en <em>getImporte()</em>
-      y usar <em>@Depends</em> para indicar a OpenXava que la propiedad <em>importe</em>
-      depende de <em>producto.numero</em> y <em>cantidad</em>, así cada vez
-      que el usuario cambia alguno de estos valores la propiedad se recalculará.<br>
+</code></pre>Es tan solo poner el cálculo en <em>getImporte()</em> y usar <em>@Depends</em>
+      para indicar a OpenXava que la propiedad <em>importe</em> depende de <em>producto.numero</em>
+      y <em>cantidad</em>, así cada vez que el usuario cambia alguno de estos
+      valores la propiedad se recalculará.<br>
       Ahora has de añadir esta nueva propiedad a la lista de propiedades
       mostradas en la colección <em>detalles</em> de <em>DocumentoComercial</em>:<br>
       <pre><code class="java">@ElementCollection
 @ListProperties("producto.numero, producto.descripcion, cantidad, importe") // importe añadida
-private Collection&lt;Detalle&gt; detalles;
+Collection&lt;Detalle&gt; detalles;
 </code></pre> Nada más. Tan solo necesitas añadir el getter y modificar la lista
       de propiedades. Ahora puedes probar los módulos <em>Factura</em> y <em>Pedido</em>
       para ver la propiedad <em>importe</em> en acción.<br>
@@ -157,15 +206,7 @@ private Collection&lt;Detalle&gt; detalles;
         from="producto.numero") // ... se llena con el valor de producto.numero de la entidad
 )
 @Stereotype("DINERO")
-private BigDecimal precioPorUnidad; // Una propiedad persistente convencional...
- 
-public BigDecimal getPrecioPorUnidad() { // ... con sus getter y setter
-    return precioPorUnidad == null ? BigDecimal.ZERO : precioPorUnidad; // Así nunca devuelve nulo
-}
- 
-public void setPrecioPorUnidad(BigDecimal precioPorUnidad) {
-    this.precioPorUnidad = precioPorUnidad;
-}
+BigDecimal precioPorUnidad; // Una propiedad persistente convencional
 </code></pre> <em>CalculadorPrecioPorUnidad</em> contiene la lógica para
       calcular el valor inicial. Simplemente lee el precio del producto. Observa
       el código de este calculador:<br>
