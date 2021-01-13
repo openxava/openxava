@@ -463,6 +463,7 @@ public class Dates {
 		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
 		String date = "hr".equals(locale.getLanguage())?"01.02.1971":df.format(create(1, 2, 1971)); // d, m, y 
 		boolean always4InYear= "es".equals(locale.getLanguage()) || "pl".equals(locale.getLanguage());
+		/* tmp
 		return date.
 			replaceAll("01", "%d").
 			replaceAll("02", "%m").
@@ -470,6 +471,16 @@ public class Dates {
 			replaceAll("71", always4InYear?"%Y":"%y"). 			
 			replaceAll("1", "%d").
 			replaceAll("2", "%m");
+		*/
+		// tmp ini
+		return date.
+			replaceAll("01", "d").
+			replaceAll("02", "m").
+			replaceAll("1971", "Y").
+			replaceAll("71", always4InYear?"Y":"y"). 			
+			replaceAll("1", "d").
+			replaceAll("2", "m");		
+		// tmp fin
 	}	
 	
 	// tmp ¿Todavía se usa?

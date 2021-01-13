@@ -1,14 +1,16 @@
 /* tmp */
-if (dateCalendarEditor == null) var dateCalendarEditor = {};
-
 openxava.addEditorInitFunction(function() {
-	$('input.xava_date').flatpickr({
+	$('.xava_date').flatpickr({
 	    allowInput: true,
-	    clickOpens: false,
+	    clickOpens: false, 
+	    wrap: true,
+	    onChange: function(selectedDates, dateStr, instance) {
+        	console.log("[openxava.onChange] "); // tmp
+    	},
+    	onValueUpdate: function(selectedDates, dateStr, instance) {
+        	console.log("[openxava.onValueUpdate] "); // tmp
+    	},
+    	 
 	});
 });
-
-dateCalendarEditor.show = function(id) {
-	flatpickr($('#' + id)).open();
-}
 

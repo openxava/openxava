@@ -15,8 +15,8 @@ String browser = request.getHeader("user-agent");
 int sizeIncrement = browser.contains("Chrome")?0:2; 
 if (editable || !label) {
 %>
-<span class="<%=style.getDateCalendar()%>">
 <%-- tmp
+<span class="<%=style.getDateCalendar()%>">
 <input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>"
 	tabindex="1" 
 	align='<%=align%>'
@@ -25,12 +25,29 @@ if (editable || !label) {
 	value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a style="position: relative; right: 25px;" href="javascript:showCalendar('<%=propertyKey%>', '<%=org.openxava.util.Dates.dateFormatForJSCalendar(org.openxava.util.Locales.getCurrent())%>')"><i class="mdi mdi-calendar"></i></a><%} %>	
 --%>
 <%-- tmp ini --%>
-<input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class="xava_date <%=style.getEditor()%>" title="<%=p.getDescription(request)%>"
+<span class="xava_date <%=style.getDateCalendar()%>" data-date-format="<%=org.openxava.util.Dates.dateFormatForJSCalendar(org.openxava.util.Locales.getCurrent())%>">
+<input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class="<%=style.getEditor()%>" title="<%=p.getDescription(request)%>"
 	tabindex="1" 
 	align='<%=align%>'
-	maxlength="<%=p.getSize()%>" 
-	size="<%=p.getSize() + sizeIncrement%>" 	 
-	value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a style="position: relative; right: 25px;" href="javascript:dateCalendarEditor.show('<%=propertyKey%>', '<%=org.openxava.util.Dates.dateFormatForJSCalendar(org.openxava.util.Locales.getCurrent())%>')"><i class="mdi mdi-calendar"></i></a><%} %>	
+	maxlength="<%=p.getSize()%>"
+	data-input 
+	size="<%=p.getSize() + sizeIncrement%>" 
+	value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a href="javascript:void(0)" data-toggle style="position: relative; right: 25px;"><i class="mdi mdi-calendar"></i></a><%} %>	
+
+<%-- tmp
+<div class="flatpickr xava_date">
+    <input type="text" placeholder="Select Date.." data-input> <!-- input is mandatory -->
+
+    <a class="input-button" title="toggle" data-toggle>
+        <i class="mdi mdi-calendar"></i>
+    </a>
+
+    <a class="input-button" title="clear" data-clear>
+        <i class="icon-close"></i>
+    </a>
+</div>
+--%>
+
 <%-- tmp fin --%>
 </span> 
 <%

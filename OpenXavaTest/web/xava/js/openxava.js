@@ -232,6 +232,7 @@ openxava.setEnterAsFocusKey = function() {
 openxava.listenChanges = function() { 
 	$("." + openxava.editorClass).change(function() { 
 		  openxava.dataChanged = true;
+		  console.log("[openxava.listenChanges] openxava.dataChanged=" + openxava.dataChanged); // tmp
 	});
 }
 

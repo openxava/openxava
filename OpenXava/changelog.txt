@@ -2,6 +2,9 @@ Change Log for OpenXava project
 ===============================
 
 - Calendar pendiente:
+	* Formato. i18n. Tiene que grabar y recuperar bien.
+	- Pregunta: ¿Vas a perder todos los cambios?
+	- Idiomas. Empezar por Lunes/Domingo. 
 	- En DATETIME.
 	- En filtros de listas.
 	- Adaptar a temas.
@@ -9,6 +12,8 @@ Change Log for OpenXava project
 	- JUnit.
 	- Borrar código de antiguo calendar. ¿Hacerlo automático en el updateOX? Quitar los includes en los JSPs. Quitar calendar.js
 	- Probar con InvoiceDemo.
+	- Poner en changelog mejoras en el editor, ya que verifica fecha al salir del campo.
+	- Probar en versión móvil y añadir como característica.
 
 - Fix: The buildOpenXava and buildAddons Ant tasks do not work if openxava.jar or addons.jar are empty.
 - Fix: PDF report is not generated if there are errors obtaining the organization name. 
