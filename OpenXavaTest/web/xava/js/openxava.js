@@ -230,9 +230,17 @@ openxava.setEnterAsFocusKey = function() {
 }
 
 openxava.listenChanges = function() { 
-	$("." + openxava.editorClass).change(function() { 
+	// tmp $("." + openxava.editorClass).change(function() {
+	// tmp ini
+	console.log("[openxava.listenChanges] INIT"); // tmp
+	$("." + openxava.editorClass).unbind( "change" );
+	// tmp fin 
+	$("." + openxava.editorClass).change(function(e) { // tmp
 		  openxava.dataChanged = true;
-		  console.log("[openxava.listenChanges] openxava.dataChanged=" + openxava.dataChanged); // tmp
+		  // tmp ini
+		  $(this).css("background-color", "#7FFF00");
+		  console.log("[openxava.listenChanges] $(this).class=" + $(this).class); // tmp
+		  // tmp fin
 	});
 }
 

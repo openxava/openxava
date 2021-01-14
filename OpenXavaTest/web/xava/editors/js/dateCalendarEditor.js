@@ -1,5 +1,6 @@
 /* tmp */
 openxava.addEditorInitFunction(function() {
+	console.log("[openxava.addEditorInitFunction] CALENDAR INIT"); // tmp
 	$('.xava_date').flatpickr({
 	    allowInput: true,
 	    clickOpens: false, 

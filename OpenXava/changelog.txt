@@ -4,6 +4,7 @@ Change Log for OpenXava project
 - Calendar pendiente:
 	* Formato. i18n. Tiene que grabar y recuperar bien.
 	- Pregunta: ¿Vas a perder todos los cambios?
+		- Comprobar que @OnChange no se lanza
 	- Idiomas. Empezar por Lunes/Domingo. 
 	- En DATETIME.
 	- En filtros de listas.
