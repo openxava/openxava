@@ -177,7 +177,9 @@ public BigDecimal getAmount() { // this property is recalculated and redisplayed
 </code></pre>Simply put the calculation in <em>getAmount()</em> and use <em>@Depends</em>
       to indicate to OpenXava that the <em>amount</em> property depends on <em>product.number</em>
       and <em>quantity</em>, thus each time the user changes any of these
-      values the property will be recalculated.<br>
+      values the property will be recalculated. Note as we in this case we use <i>product</i>
+      instead of <i>getProduct()</i> and <i>quantity</i> instead of <i>getQuantity()</i>
+      because from inside the class you can access directly to its fields.<br>
       Now you have to add this new property to the <em>details</em> collection
       of <em>CommercialDocument</em>:<br>
       <pre><code class="java">@ElementCollection
@@ -199,8 +201,33 @@ Collection&lt;Detail&gt; details;
       using a <em>@DefaultValueCalculator</em>. Just to obtain the effect you
       can see:<br>
       <img src="files/business-logic_en020.png" alt="business-logic_en020.png" title="business-logic_en020.png"><br>
-      The first obvious step is to add the property <em>pricePerUnit</em>. Add
-      the next code to your <em>Detail</em> class:<br>
+      The logic to calculate the initial value will be in <em>PricePerUnitCalculator</em>.
+      It simply reads the price from the product. See the next code for this
+      calculator:<br>
+      <pre><code class="java">package com.yourcompany.invoicing.calculators; // In 'calculators' package
+
+import org.openxava.calculators.*;
+import com.yourcompany.invoicing.model.*;
+import lombok.*;
+ 
+import static org.openxava.jpa.XPersistence.*; // For using getManager()
+ 
+public class PricePerUnitCalculator implements ICalculator {
+ 
+    @Getter @Setter
+    int productNumber; // Contains the product number when calculate() is called
+ 
+    public Object calculate() throws Exception {
+        Product product = getManager() // getManager() from XPersistence
+            .find(Product.class, productNumber); // Find the product
+        return product.getPrice(); // Returns its price
+    }
+ 
+}
+</code></pre>
+      <div class="wiki" style="display: block;">Then we add the property <em>pricePerUnit</em>.
+        Add the next code to your <em>Detail</em> class:<br>
+      </div>
       <pre><code class="java">@DefaultValueCalculator(
     value=PricePerUnitCalculator.class, // This class calculates the initial value
     properties=@PropertyValue(
@@ -209,51 +236,17 @@ Collection&lt;Detail&gt; details;
 )
 @Stereotype("MONEY")
 BigDecimal pricePerUnit; // A regular persistent property
-</code></pre> <em>PricePerUnitCalculator</em> contains the logic to calculate
-      the initial value. It simply reads the price from the product. See the
-      next code for this calculator:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.calculators; // In 'calculators' package
-
-import org.openxava.calculators.*;
-import com.yourcompany.invoicing.model.*;
- 
-import static org.openxava.jpa.XPersistence.*; // For using getManager()
- 
-public class PricePerUnitCalculator implements ICalculator {
- 
-    private int productNumber; // Contains the product number when calculate() is called
- 
-    public Object calculate() throws Exception {
-        Product product = getManager() // getManager() from XPersistence
-            .find(Product.class, productNumber); // Find the product
-        return product.getPrice(); // Returns its price
-    }
- 
-    public void setProductNumber(int productNumber) {
-        this.productNumber = productNumber;
-    }
- 
-    public int getProductNumber() {
-        return productNumber;
-    }
-}
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Also add the next import in <i>Detail</i>
-      class:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import com.yourcompany.invoicing.calculators.*;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">In this way when the user chooses
-      a product the price per unit field is filled with the price of that
-      product but because it's a persistent property, the user can change it.
-      And if in the future the price of the product changes this price per unit
-      of the detail will not change.<br>
+</code></pre><em></em>In this way when the user chooses a product the price per
+      unit field is filled with the price of that product but because it's a
+      persistent property, the user can change it. And if in the future the
+      price of the product changes this price per unit of the detail will not
+      change.<br>
       This means that you have to adapt your amount calculated property:<br>
       <pre><code class="java">@Stereotype("MONEY")
 @Depends("pricePerUnit, quantity") // pricePerUnit instead of product.number
 public BigDecimal getAmount() {
-    // The if is no longer needed because getPricePerUnit() never return null
-    return new BigDecimal(quantity).multiply(getPricePerUnit()); // getPricePerUnit() instead of product.getPrice()
+    if (pricePerUnit == null) return BigDecimal.ZERO; // pricePerUnit instead of product and product.getPrice()
+    return new BigDecimal(quantity).multiply(pricePerUnit); // pricePerUnit instead of product.getPrice()
 }
 </code></pre> The <em>getAmount()</em> method uses <em>pricePerUnit</em> as
       source instead of <em>product.price</em>.<br>
@@ -300,15 +293,7 @@ for (Object o: query.getResultList()) { // Iterates over all objects
         <pre><code class="java">// DON'T ADD TO YOUR CODE, IT'S JUST TO ILLUSTRATE
 @ReadOnly
 @Calculation("amount * 0.10")
-private BigDecimal discount;
-
-public BigDecimal getDiscount() {
-    return discount;
-}
-
-public void setDiscount(BigDecimal discount) {
-    this.discount = discount;
-} 
+BigDecimal discount;
 </code></pre> This is a regular persistent property, that is with a
         corresponding column in the database, but it has a calculation defined
         with <i>@Calculation</i>. In this case the calculation is <i>amount *
@@ -363,30 +348,21 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
     <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
 
         alt="business-logic_en030.png" title="business-logic_en030.png"><br>
-      Add the next code (and generate the getters and setters) to <i>CommercialDocument</i>
-      entity:<br>
+      Add the next code to <i>CommercialDocument</i> entity:<br>
       <pre><code class="java">@Digits(integer=2, fraction=0) // To indicate its size
-private BigDecimal vatPercentage;
+BigDecimal vatPercentage;
    
 @ReadOnly
 @Stereotype("MONEY")
 @Calculation("sum(details.amount) * vatPercentage / 100")
-private BigDecimal vat;
+BigDecimal vat;
 
 @ReadOnly
 @Stereotype("MONEY")
 @Calculation("sum(details.amount) + vat")    
-private BigDecimal totalAmount;    
-
-// REMEMBER TO GENERATE THE GETTERS AND SETTERS FOR THE ABOVE FIELDS
+BigDecimal totalAmount;    
 </code></pre></div>
-    <div class="wiki" style="display: block;">To use <i>BigDecimal</i> and <i>@Digits</i>
-      you should add the following imports in <i>CommercialDocument</i>:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import java.math.*;
-import javax.validation.constraints.*;      
-</code></pre> </div>
-    <div class="wiki" style="display: block;"> Note how we have chosen <i>@Calculation
+    <div class="wiki" style="display: block;">Note how we have chosen <i>@Calculation
         + @ReadOnly</i> persistent properties over calculated ones for <i>vat</i>
       and <i>totalAmount</i>, because the calculations are simple, and
       filtering and ordering for them is very useful. Also, you can see how in <i>@Calculation</i>
@@ -506,7 +482,7 @@ public class VatPercentageCalculator implements ICalculator {
       from <em>InvoicingPreferences</em>. Now, you can use this calculator in
       the definition of <em>vatPercentage</em> property in <em>CommercialDocument</em>:<br>
       <pre><code class="java">@DefaultValueCalculator(VatPercentageCalculator.class)
-private BigDecimal vatPercentage;
+BigDecimal vatPercentage;
 </code></pre> With this code when the user clicks to create a new invoice, the <em>vatPercentage</em>
       field will be filled with 21 or whatever other value you put in <em>invoicing.properties</em>.</div>
     <div class="wiki" style="display: block;">
@@ -537,9 +513,9 @@ private BigDecimal vatPercentage;
     <div class="wiki" style="display: block;">The next changes are not so
       simple, therefore we're going to execute SQL statements against our
       database. To execute these SQL statements, first make sure your
-      application is running, then go to the <i>DBManager</i> class in <i>Invoicing/src/_run</i>,
-      and with the right mouse button choose <i>Run As &gt; Java Application</i>:<br>
-      <img src="files/inheritance_en040.png" alt="inheritance_en040.png" title="inheritance_en040.png"><br>
+      application is running, then use the menu option <i>OpenXava &gt;
+        Database Manager</i> of OpenXava Studio:<br>
+      <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
       Now you are ready to write and execute SQLs.First, we set value for <i>pricePerUnit</i>
       column in all details: </div>
     <div class="wiki" style="display: block;">
@@ -618,11 +594,6 @@ private void calculateNumber() throws Exception {
     this.number = lastNumber == null ? 1 : lastNumber + 1;
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">To use <i>XPersistence</i> you
-      have to add the next import:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import org.openxava.jpa.*;
-</code></pre> </div>
     <div class="wiki" style="display: block;">This code is the same as that of
       the <em>NextNumberForYearCalculator</em> but using <em>getClass().getSimpleName()</em>
       instead of “CommercialDocument”. The <em>getSimpleName()</em> method
@@ -642,7 +613,7 @@ private void calculateNumber() throws Exception {
 //     properties=@PropertyValue(name="year")
 // )
 @ReadOnly // The user cannot modify the value
-private int number;
+int number;
 </code></pre> Note that in addition to removing <em>@DefaultValueCalculator</em>,
       we have added the <em>@ReadOnly</em> annotation. This means that the user
       cannot enter or modify the <em>number</em>. This is the right approach
@@ -678,12 +649,7 @@ public int getEstimatedDeliveryDays() {
     return 1;
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;"> To use <i>DayOfWeek</i> add the
-      next import on top of <i>Order</i> code:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import java.time.*;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">This is a pure calculated
+    <div class="wiki" style="display: block;"> This is a pure calculated
       property, a getter with Java logic. It calculates the estimated delivery
       days using <i>date</i> as source. This case cannot be solved with <i>@Calculation</i>
       that only supports basic arithmetic calculations. </div>
@@ -708,15 +674,7 @@ public class Order extends CommercialDocument {
       Add the next code to your <i>Order</i> entity:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Column(columnDefinition="INTEGER DEFAULT 1")
-private int deliveryDays;
-    
-public int getDeliveryDays() {
-    return deliveryDays;
-}
-
-public void setDeliveryDays(int deliveryDays) {
-    this.deliveryDays = deliveryDays;
-}
+int deliveryDays;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Note as we have used <i>@Column(columnDefinition="INTEGER
         DEFAULT 1")</i>, with this trick when OpenXava creates the column uses
