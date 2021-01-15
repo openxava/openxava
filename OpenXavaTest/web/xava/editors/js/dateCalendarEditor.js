@@ -1,17 +1,24 @@
 /* tmp */
 openxava.addEditorInitFunction(function() {
-	console.log("[openxava.addEditorInitFunction] CALENDAR INIT"); // tmp
 	$('.xava_date').flatpickr({
 	    allowInput: true,
-	    clickOpens: false, 
+	    clickOpens: false,  
 	    wrap: true,
 	    onChange: function(selectedDates, dateStr, instance) {
-        	console.log("[openxava.onChange] "); // tmp
+	    	/* tmp
+	    	console.log("[dateCalendarEditor.onChange] >>>>>>>>>"); // tmp
+	    	console.log("[dateCalendarEditor.onChange] dateStr=" + dateStr); // tmp
+	    	console.log("[dateCalendarEditor.onChange] $(instance.input).attr('value')=" + $(instance.input).attr('value')); // tmp
+	    	*/	    	
+        	if (!$(instance.input).data("datePopupJustClosed") || dateStr === $(instance.input).attr('value')) {
+        		$(instance.input).data("changedCancelled", true);
+        	}
+        	$(instance.input).attr('value', dateStr);
+        	$(instance.input).removeData("datePopupJustClosed");
     	},
-    	onValueUpdate: function(selectedDates, dateStr, instance) {
-        	console.log("[openxava.onValueUpdate] "); // tmp
-    	},
-    	 
+    	onClose: function(selectedDates, dateStr, instance) {
+	    	$(instance.input).data("datePopupJustClosed", true);
+    	},    	 
 	});
 });
 

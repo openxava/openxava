@@ -230,16 +230,16 @@ openxava.setEnterAsFocusKey = function() {
 }
 
 openxava.listenChanges = function() { 
-	// tmp $("." + openxava.editorClass).change(function() {
-	// tmp ini
-	console.log("[openxava.listenChanges] INIT"); // tmp
-	$("." + openxava.editorClass).unbind( "change" );
-	// tmp fin 
-	$("." + openxava.editorClass).change(function(e) { // tmp
-		  openxava.dataChanged = true;
+	$("." + openxava.editorClass).change(function() {
+		  // tmp openxava.dataChanged = true;
 		  // tmp ini
-		  $(this).css("background-color", "#7FFF00");
-		  console.log("[openxava.listenChanges] $(this).class=" + $(this).class); // tmp
+		  if (!$(this).data('changedCancelled')) {
+			  openxava.dataChanged = true;			
+			  console.log("[openxava.listenChanges] CHANGED"); // tmp
+		  }
+		  else {
+		  	$(this).removeData('changedCancelled');
+		  }
 		  // tmp fin
 	});
 }
@@ -854,13 +854,29 @@ openxava.onFocus = function(application, module, property) {
 }
 
 openxava.throwPropertyChanged = function(application, module, property) {
-	if (openxava.isRequesting(application, module)) return;	
+	if (openxava.isRequesting(application, module)) return;
+	/* tmp	
 	document.throwPropertyChange = true;
 	var form = openxava.getForm(application, module);
 	form[openxava.decorateId(application, module, "xava_focus_forward")].value = "true";	
 	form[openxava.decorateId(application, module, "xava_previous_focus")].value=property;
 	form[openxava.decorateId(application, module, "xava_changed_property")].value=property;
-	setTimeout ('openxava.requestOnChange("' + application + '", "' + module + '")', 100);	
+	setTimeout ('openxava.requestOnChange("' + application + '", "' + module + '")', 100);
+	*/
+	// tmp ini
+	var f = $('#' + property);
+	if (!f.data('changedCancelled')) {
+		document.throwPropertyChange = true;
+		var form = openxava.getForm(application, module);
+		form[openxava.decorateId(application, module, "xava_focus_forward")].value = "true";	
+		form[openxava.decorateId(application, module, "xava_previous_focus")].value=property;
+		form[openxava.decorateId(application, module, "xava_changed_property")].value=property;
+		setTimeout ('openxava.requestOnChange("' + application + '", "' + module + '")', 100);
+	}
+	else {
+		f.removeData('changedCancelled');
+	}
+	// tmp fin	
 }
 
 openxava.calculate = function(application, module, propertyId, scale) {

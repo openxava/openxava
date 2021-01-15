@@ -6,17 +6,20 @@ import java.util.*;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OrderBy;
 import javax.validation.constraints.*;
 
 import org.apache.commons.lang.*;
 import org.apache.commons.logging.*;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
-import org.openxava.test.actions.*;
-import org.openxava.test.filters.*;
 import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
+import org.openxava.test.actions.*;
+import org.openxava.test.filters.*;
 import org.openxava.util.*;
 
 import lombok.*;
