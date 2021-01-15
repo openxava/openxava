@@ -17,8 +17,10 @@
         Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
         Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3.
         Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">4.
-        Herencia</a> | <strong>5. Lógica de negocio básica</strong> | <a class="wiki_link"
-        href="validation_es.html">6. Validación avanzada</a> | <a class="wiki_link"
+        Herencia</a> | <strong>5. Lógica de negocio básica</strong> | <a class="wiki_link"
+
+        href="validation_es.html">6. Validación avanzada</a> | <a class="wiki_link"
+
         href="refining-standard-behavior_es.html">7. Refinar el comportamiento
         predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8.
         Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">9.
@@ -198,8 +200,8 @@ Collection&lt;Detalle&gt; detalles;
       De tal forma que consigamos el efecto que puedes ver en la siguiente
       figura:<br>
       <img src="files/business-logic_es020.png" alt="business-logic_es020.png" title="business-logic_es020.png"><br>
-      La lógica para calcular el valor inicial la tendremos en <em>CalculadorPrecioPorUnidad</em>.
-      Simplemente lee el precio del producto. Observa el código de este
+      La lógica para calcular el valor inicial la tendremos en <em>CalculadorPrecioPorUnidad</em>
+      que simplemente lee el precio del producto. Observa el código de este
       calculador:<br>
       <pre><code class="java">package com.tuempresa.facturacion.calculadores; // En el paquete calculadores
  
@@ -275,7 +277,7 @@ for (Object o: query.getResultList()) { // Itera por todos los objetos
     Factura f = (Factura) o;
     if (f.getDescuento() // Pregunta a cada objeto
         .compareTo(new BigDecimal("1000")) &gt; 0) {
-            i.hacerAlgo();
+            f.hacerAlgo();
     }
 }
 </code></pre> No puedes usar una condición en la consulta para discriminar por <i>descuento</i>,
@@ -322,7 +324,8 @@ for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccio
         Este hecho tiene también efecto en el modo lista, porque el usuario no
         puede filtrar ni ordenar por las propiedades calculadas, pero sí que lo
         puede hacer usando propiedades persistentes con <em>@Calculation</em>:<br>
-        <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
+        <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
+
           title="business-logic_es025.png"><br>
         <em>@Calculation</em> es una buena opción cuando necesitas filtrar y
         ordenar, y un cálculo simple es suficiente. Una desventaja de las
@@ -474,7 +477,6 @@ import com.tuempresa.facturacion.util.*; // Para usar 'PreferenciasFacturacion'
  
 public class CalculadorPorcentajeIVA implements ICalculator {
  
-    @Override
     public Object calculate() throws Exception {
         return PreferenciasFacturacion.getPorcentajeIVADefecto();
     }
@@ -728,20 +730,19 @@ private void recalcularDiasEntrega() {
       con <em>@Formula</em> en <i>DocumentoComercial</i> como se muestra en el
       siguiente código:<br>
       <pre><code class="java">@org.hibernate.annotations.Formula("IMPORTETOTAL * 0.10") // El cálculo usando SQL
+@Setter(AccessLevel.NONE) // El setter no se genera, sólo necesitamos el getter
 @Stereotype("DINERO")
-private BigDecimal beneficioEstimado; // Un campo, como con una propiedad persistente
- 
-public BigDecimal getBeneficioEstimado() { // Sólo el getter es necesario
-    return beneficioEstimado;
-}
+BigDecimal beneficioEstimado; // Un campo, como con una propiedad persistente
 </code></pre> Esto significa que cuando un <em>DocumentoComercial</em> se lea
       de la base de datos, el campo <em>beneficioEstimado</em> se rellenerá con
       el cálculo de <em>@Formula</em> que es ejecutado por la base de datos. El
       usuario puede filtrar y ordenar por las propiedades <i>@Formula</i> en
       modo lista, pero siempre son de solo lectura y no se recalculan en tiempo
-      real en modo detalle. Además, las propiedades <i>@Formula</i> dependen de
-      la base de datos, porque podrías usar sintaxis sólo soportada por cierto
-      fabricante de base de datos.<br>
+      real en modo detalle. Dado que son de sólo lectura no necesitan el método
+      getter, por lo que la hemos anotamos con <i>@Setter(AccessLevel.NONE)</i>
+      para que Lombok no genere el setter. Además, las propiedades <i>@Formula</i>
+      dependen de la base de datos, porque podrías usar sintaxis sólo soportada
+      por cierto fabricante de base de datos.<br>
       <h2 id="toc10"><a name="Pruebas-JUnit"></a>Pruebas JUnit</h2>
       Antes de ir a la siguiente lección, vamos a escribir el código JUnit para
       ésta. Recuerda, el código no está terminado si no tiene pruebas JUnit.
@@ -970,10 +971,12 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
       funcionamiento estándar del módulo y añadir tu propia lógica de negocio,
       entre otras formas de añadir lógica personalizada a tu aplicación.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="validation_es.html">Ve a la lección 6</a></strong>
     </div>

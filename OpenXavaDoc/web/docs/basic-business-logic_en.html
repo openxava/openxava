@@ -17,10 +17,8 @@
         Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
         Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4.
-        Inheritance</a> | <strong>5. Basic business logic</strong> | <a class="wiki_link"
-
-        href="validation_en.html">6. Advanced validation</a> | <a class="wiki_link"
-
+        Inheritance</a> | <strong>5. Basic business logic</strong> | <a class="wiki_link"
+        href="validation_en.html">6. Advanced validation</a> | <a class="wiki_link"
         href="refining-standard-behavior_en.html">7. Refining the standard
         behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
@@ -320,8 +318,7 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
         This fact also has effect in the list mode, because the user cannot
         filter or order by calculated properties, but he can do so using
         persistent properties with <em>@Calculation</em>:<br>
-        <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
-
+        <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
           title="business-logic_en025.png"><br>
         <em>@Calculation</em> is a good option when you need filtering and
         sorting, and a simple calculation is enough. A shortcoming of <i>@Calculation</i>
@@ -345,8 +342,7 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
       and <em>Invoice</em> too. To calculate vat, base amount and total amount
       are indispensable. To do so you only need to add a few properties to <em>CommercialDocument</em>
       class. The next figure shows the user interface for these properties: </div>
-    <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
-
+    <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
         alt="business-logic_en030.png" title="business-logic_en030.png"><br>
       Add the next code to <i>CommercialDocument</i> entity:<br>
       <pre><code class="java">@Digits(integer=2, fraction=0) // To indicate its size
@@ -719,18 +715,17 @@ private void recalculateDeliveryDays() {
       example, you can define <em>estimatedProfit</em> with <em>@Formula</em>
       in <i>CommercialDocument</i> as shown the next code:<br>
       <pre><code class="java">@org.hibernate.annotations.Formula("TOTALAMOUNT * 0.10") // The calculation using SQL
+@Setter(AccessLevel.NONE) // The setter is not generated, only the getter is needed
 @Stereotype("MONEY")
-private BigDecimal estimatedProfit; // A field, as in the persistent property case
- 
-public BigDecimal getEstimatedProfit() { // Only the getter is needed
-    return estimatedProfit;
-}
+BigDecimal estimatedProfit; // A field, as in the persistent property case
 </code></pre> This means that when a <em>CommercialDocument</em> is read from
       the database, the <em>estimatedProfit</em> field will be filled with the
       calculation for <em>@Formula</em> that is done by the database. The user
       can filter and ordering by <i>@Formula</i> properties in list mode, but
       they are always read only and are not recalculated in real time in detail
-      mode. Moreover, <i>@Formula</i> properties are database dependent,
+      mode. Given they are read only they don't need the setter method, so we
+      use <i>@Setter(AccessLevel.NONE)</i> to prevent the setter generation by
+      Lombok. Moreover, <i>@Formula</i> properties are database dependent,
       because you can use syntax only supported by certain database vendor.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc10"><a name="Lesson 5: Basic business logic-JUnit tests"></a>JUnit
@@ -816,15 +811,13 @@ public CommercialDocumentTest(String testName, String moduleName) {
     assertValue("date", getCurrentDate());
 }
 </code></pre>We verify that <i>number</i> the has no initial value, because now
-      the number is not calculated until the document is saved (<a class="wiki_link"
-
+      the number is not calculated until the document is saved (<a class="wiki_link"
         href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Multiuser%20safe%20default%20value%20calculation">Multiuser
         safe default value calculation</a> section). When the document (invoice
       or order) will be saved we'll verify that the <em>number</em> is
       calculated. </div>
     <div class="wiki" style="display: block;">When the detail is added we can
-      test the <em>amount</em> for <em>Detail</em> calculation (<a class="wiki_link"
-
+      test the <em>amount</em> for <em>Detail</em> calculation (<a class="wiki_link"
         href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Simple%20calculated%20property">Simple
         calculated property</a> section), the default value calculation for <em>pricePerUnit</em>
       (<a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Using%20@DefaultValueCalculator">Using
@@ -956,12 +949,10 @@ public CommercialDocumentTest(String testName, String moduleName) {
       standard module behavior and add your own business logic, among other ways
       to add custom logic to your application.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_en.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="validation_en.html">Go to Lesson 6</a></strong>
     </div>
