@@ -84,15 +84,7 @@
       Para hacer esto, lo primero es añadir una nueva propiedad a la entidad <em>Pedido</em>.
       La propiedad <em>entregado</em>:<br>
       <pre><code class="java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
-private boolean entregado;
- 
-public boolean isEntregado() {
-    return entregado;
-}
- 
-public void setEntregado(boolean entregado) {
-    this.entregado = entregado;
-}
+boolean entregado;
 </code></pre> Además es necesario añadir la propiedad <em>entregado</em> a la
       vista. Modifica la vista <em>Pedido</em> como muestra el siguiente
       código:<br>
@@ -139,7 +131,9 @@ public class Pedido extends DocumentoComercial {
 import com.tuempresa.facturacion.modelo.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
+import lombok.*;
  
+@Getter @Setter 
 public class ValidadorEntregadoParaEstarEnFactura
     implements IValidator { // ha de implementar 'IValidator'
  
@@ -158,8 +152,7 @@ public class ValidadorEntregadoParaEstarEnFactura
                 anyo, numero); // Argumentos para el mensaje
         }
     }
-    // Getters y setters para anyo, numero, entregado y factura
-    ...
+
 }
 </code></pre> La lógica de validación es extremadamente fácil, si una factura
       está presente y este pedido no ha sido servido añadimos un mensaje de
@@ -172,8 +165,7 @@ pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadid
       aplicación, verás como los pedidos no entregados son rechazados. Ve al
       módulo <i>Facturas</i>, selecciona la pestaña PEDIDOS de una factura y
       desde ahí pulsa en el botón <i>Añadir</i>:
-      <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"
-
+      <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"
           alt="validation_es010.png" title="validation_es010.png"></div>
       <div class="wiki" style="display: block;">Se mostrará un diálogo con una
         lista de pedidos para escoger. Selecciona dos, uno de ellos no entregado
@@ -222,16 +214,11 @@ private void validar() throws Exception {
         );
     }
 }
-</code></pre>También has de añadir el siguiente import a <i>Pedido</i> para
-      poder usar <i>XavaResources</i>:
-      <div class="wiki" style="display: block;">
-        <pre><code class="java">import org.openxava.util.*;
-</code></pre> </div>
-      <div class="wiki" style="display: block;"> Antes de grabar un pedido esta
-        validación se ejecutará, si falla una <i>ValidationException</i> será
-        lanzada. Esta excepción es del marco de validación Bean Validation, de
-        esta forma OpenXava sabe que es una excepción de validación. Así con
-        solo un método dentro de tu entidad tienes la validación hecha.</div>
+</code></pre>Antes de grabar un pedido esta validación se ejecutará, si falla
+      una <i>ValidationException</i> será lanzada. Esta excepción es del marco
+      de validación Bean Validation, de esta forma OpenXava sabe que es una
+      excepción de validación. Así con solo un método dentro de tu entidad
+      tienes la validación hecha.
       <div class="wiki" style="display: block;">Sólo está permitido un método <i>@PrePersist</i>
         y un método <i>@PreUpdate</i> por entidad, por eso antes de ejecutar el
         código de arriba has de comentar las anotaciones <i>@PrePersist</i> y <i>@PreUpdate</i>
@@ -281,8 +268,8 @@ private void recalcularDiasEntrega() {
 //     }
 // }    
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Después modifica el método <em>setFactura()</em>
-      de la forma que mostramos a continuación:<br>
+    <div class="wiki" style="display: block;">Después añade el método setter <em>setFactura()</em>
+      a <i>Pedido</i>:<br>
       <pre><code class="java">public void setFactura(Factura factura) {
     if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
         // La excepción de validación del entorno Bean Validation
@@ -303,11 +290,11 @@ private void recalcularDiasEntrega() {
       Como opción final vamos a hacer la más breve. Consiste en poner tu lógica
       de validación dentro de un método booleano anotado con la anotación de
       Bean Validation <i>@AssertTrue</i>.<br>
-      Para implementar esta alternativa primero quita la lógica de validación
-      del método <em>setFactura()</em>:</div>
+      Para implementar esta alternativa primero quita el método <em>setFactura()</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public void setFactura(Factura factura) {
-// Quita la siguiente lógica de validación
+      <pre><code class="java">// Quita el método setter
+
+// public void setFactura(Factura factura) {
 //    if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
 //        // La excepción de validación del entorno Bean Validation
 //        throw new javax.validation.ValidationException(
@@ -317,8 +304,8 @@ private void recalcularDiasEntrega() {
 //                getNumero())
 //        );
 //    }
-    this.factura = factura; // La asignación típica del setter
-}
+//    this.factura = factura; // La asignación típica del setter
+// }
 </code></pre> </div>
     <div class="wiki" style="display: block;">Después, añade <em>isEntregadoParaEstarEnFactura()</em>
       a tu entidad <em>Pedido</em>, como se muestra a continuación:<br>
@@ -328,11 +315,6 @@ private void recalcularDiasEntrega() {
 private boolean isEntregadoParaEstarEnFactura() { // ...
     return factura == null || isEntregado(); // La lógica de validación
 }
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Para usar <i>@AssertTrue</i> has
-      de añadir el siguiente import:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import javax.validation.constraints.*;
 </code></pre> </div>
     <div class="wiki" style="display: block;">En las formas anteriores de
       validación nuestro mensaje de error era construído mediante dos
@@ -614,8 +596,7 @@ private String isbn;
       <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
       <div class="wiki" style="display: block;">Obtienes un JSON vacío, como
         este:</div>
-      <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
-
+      <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
         style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
       <div class="wiki" style="display: block;">Es decir, un JSON vacío,
         simplemente unas llaves vacías, así: {}.</div>
@@ -886,8 +867,7 @@ private String isbn;
 }
 </code></pre> Seguramente la prueba manual que hacías mientras estabas
       escribiendo el validador <em>@ISBN</em> era parecida a esta. Por eso, si
-      hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
-
+      hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
         rel="nofollow">código de prueba antes que el código de la aplicación</a>,
       lo hubieras podido usar mientras que desarrollabas, lo cual es más
       eficiente que repetir una y otra vez a mano las pruebas con el navegador.<br>
@@ -909,12 +889,10 @@ private String isbn;
       lógica fuera de las clases del modelo. Aprenderás a hacer esto en las
       siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="refining-standard-behavior_es.html">Ve a la
           lección 7</a></strong> </div>
