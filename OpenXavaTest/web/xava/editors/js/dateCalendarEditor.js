@@ -1,9 +1,11 @@
 /* tmp */
 openxava.addEditorInitFunction(function() {
+	// tmp flatpickr.localize(flatpickr.l10ns.ru);
 	$('.xava_date').flatpickr({
 	    allowInput: true,
 	    clickOpens: false,  
 	    wrap: true,
+	    locale: fp.l10ns.ru,
 	    onChange: function(selectedDates, dateStr, instance) {
 	    	/* tmp
 	    	console.log("[dateCalendarEditor.onChange] >>>>>>>>>"); // tmp
