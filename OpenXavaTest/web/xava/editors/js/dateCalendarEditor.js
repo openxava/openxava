@@ -5,7 +5,7 @@ openxava.addEditorInitFunction(function() {
 	    allowInput: true,
 	    clickOpens: false,  
 	    wrap: true,
-	    locale: fp.l10ns.ru,
+	    locale: ru.Russian, /* TMP ME QUEDÉ POR AQUÍ: ESTO FALLA. QUIZÁS DEBERÍA ASEGURARME DE QUE EL OTRO JS SE CARGA ANTES*/
 	    onChange: function(selectedDates, dateStr, instance) {
 	    	/* tmp
 	    	console.log("[dateCalendarEditor.onChange] >>>>>>>>>"); // tmp
