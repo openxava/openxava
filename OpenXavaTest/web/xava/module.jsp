@@ -215,6 +215,10 @@
 			}
 		}	
 	%>	
+	<%-- tmp ini  
+	<script src="https://npmcdn.com/flatpickr/dist/l10n/ru.js"></script>
+	--%>
+	<%-- tmp fin --%>
 	<script type="text/javascript">
 		$ = jQuery;
 		if (typeof portalJQuery != "undefined") {  

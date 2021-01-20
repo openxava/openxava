@@ -1,17 +1,18 @@
 /* tmp */
 openxava.addEditorInitFunction(function() {
-	// tmp flatpickr.localize(flatpickr.l10ns.ru);
+	// TMP ME QUEDÉ POR AQUÍ: EL /OpenXavaTest NO SE PUEDE QUEDAR
+	$.getScript("/OpenXavaTest/xava/editors/js/lang/ru.js").done(function( script, textStatus ) {
+	    console.log( "DONE.1: textStatus: " + textStatus );
+	  })
+	  .fail(function( jqxhr, settings, exception ) {
+	    console.log( "FAILED.1");
+	});
 	$('.xava_date').flatpickr({
 	    allowInput: true,
 	    clickOpens: false,  
 	    wrap: true,
-	    locale: ru.Russian, /* TMP ME QUEDÉ POR AQUÍ: ESTO FALLA. QUIZÁS DEBERÍA ASEGURARME DE QUE EL OTRO JS SE CARGA ANTES*/
+	    locale: "ru", 
 	    onChange: function(selectedDates, dateStr, instance) {
-	    	/* tmp
-	    	console.log("[dateCalendarEditor.onChange] >>>>>>>>>"); // tmp
-	    	console.log("[dateCalendarEditor.onChange] dateStr=" + dateStr); // tmp
-	    	console.log("[dateCalendarEditor.onChange] $(instance.input).attr('value')=" + $(instance.input).attr('value')); // tmp
-	    	*/	    	
         	if (!$(instance.input).data("datePopupJustClosed") || dateStr === $(instance.input).attr('value')) {
         		$(instance.input).data("changedCancelled", true);
         	}
