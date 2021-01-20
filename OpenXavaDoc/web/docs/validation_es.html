@@ -165,7 +165,8 @@ pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadid
       aplicación, verás como los pedidos no entregados son rechazados. Ve al
       módulo <i>Facturas</i>, selecciona la pestaña PEDIDOS de una factura y
       desde ahí pulsa en el botón <i>Añadir</i>:
-      <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"
+      <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"
+
           alt="validation_es010.png" title="validation_es010.png"></div>
       <div class="wiki" style="display: block;">Se mostrará un diálogo con una
         lista de pedidos para escoger. Selecciona dos, uno de ellos no entregado
@@ -429,7 +430,6 @@ private void validarPreBorrar() {
       validación “el pedido ha de estar servido para estar en una factura” y por
       <i>@PreRemove</i> para la validación al borrar. Ya que son las
       alternativas más simples que funcionan.<br>
-      <br>
       <h2 id="toc10"><a name="Crear-tu-propia-anotacion-de-Bean-Validation"></a>Crear
         tu propia anotación de <em>Bean Validation</em></h2>
       Las técnicas mencionadas hasta ahora son muy útiles para la mayoría de las
@@ -444,7 +444,7 @@ private void validarPreBorrar() {
         un <em>Bean Validation</em> en tu entidad</h3>
       Es superfácil. Simplemente anota tu propiedad como ves a continuación:<br>
       <pre><code class="java">@ISBN // Esta anotación indica que esta propiedad tiene que validarse como un ISBN
-private String isbn;
+String isbn;
 </code></pre> Solo con añadir <em>@ISBN</em> a tu propiedad ésta será validada
       justo antes de que la entidad se grabe en la base de datos, ¡genial! El
       problema es que <em>@ISBN</em> no está incluida como un validador
@@ -455,15 +455,7 @@ private String isbn;
       Antes de nada, añadamos una nueva propiedad <em>isbn</em> a <em>Producto</em>.
       Edita tu clase <em>Producto</em> y añádele el siguiente código:<br>
       <pre><code class="java">@Column(length=13)
-private String isbn;
- 
-public String getIsbn() {
-    return isbn;
-}
- 
-public void setIsbn(String isbn) {
-    this.isbn = isbn;
-}
+String isbn;
 </code></pre> Ejecuta el módulo <em>Producto</em> con tu navegador. Sí, la
       propiedad <em>isbn</em> ya está ahí. Ahora, puedes añadir la validación.<br>
       <h3 id="toc12"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Definir-tu-propia-anotacion-ISBN"></a>Definir
@@ -480,12 +472,9 @@ public void setIsbn(String isbn) {
       <pre><code class="java">package com.tuempresa.facturacion.anotaciones; // En el paquete 'anotaciones'
  
 import java.lang.annotation.*;
- 
 import javax.validation.*;
  
-import com.tuempresa.facturacion.validadores.*;
- 
-@Constraint(validatedBy = ValidadorISBN.class)
+@Constraint(validatedBy = com.tuempresa.facturacion.validadores.ValidadorISBN.class)
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ISBN {
@@ -550,11 +539,18 @@ public class ValidadorISBN implements ConstraintValidator&lt;ISBN, Object&gt; {
       <em>@ISBN</em> está listo para usar. Para hacerlo anota tu propiedad <em>isbn</em>
       con él. Puedes ver cómo:<br>
       <pre><code class="java">@Column(length=13) @ISBN
-private String isbn;
-</code></pre>Por supuesto, has de añadir el import correspondiente a <i>Producto</i>:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import com.tuempresa.facturacion.anotaciones.*;
-</code></pre> </div>
+String isbn;
+</code></pre>En este caso cuando grabes la clase el import para <i>@ISBN</i> no
+      se añade automáticamente. Esto es porque hay otra <i>@ISBN</i> disponible
+      (de la librería Hibernate Validator incluida con OpenXava), por tanto
+      OpenXava Studio no sabe cual escoger. No te preocupes, pon el ratón sobre
+      la anotación <i>@ISBN</i> y una ventana emergente se mostrará con varias
+      soluciones posibles, escoge <i>Import 'ISBN'
+        (com.yourcompany.invoicing.annotations)</i> para que el import correcto
+      se añada a la clase <i>Producto</i>:</div>
+    <div class="wiki" style="display: block;"> <img src="files/validation_es035.png"
+
+        alt="validation_es035.png" title="validation_es035.png"> </div>
     <div class="wiki" style="display: block;"> Ahora, puedes probar tu módulo, y
       verificar que el <em>ISBN</em> que introduces se valida correctamente.
       Enhorabuena, has escrito tu primer <em>Bean Validation</em>. No ha sido
@@ -596,7 +592,8 @@ private String isbn;
       <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
       <div class="wiki" style="display: block;">Obtienes un JSON vacío, como
         este:</div>
-      <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+      <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+
         style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
       <div class="wiki" style="display: block;">Es decir, un JSON vacío,
         simplemente unas llaves vacías, así: {}.</div>
@@ -867,7 +864,8 @@ private String isbn;
 }
 </code></pre> Seguramente la prueba manual que hacías mientras estabas
       escribiendo el validador <em>@ISBN</em> era parecida a esta. Por eso, si
-      hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
+      hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
+
         rel="nofollow">código de prueba antes que el código de la aplicación</a>,
       lo hubieras podido usar mientras que desarrollabas, lo cual es más
       eficiente que repetir una y otra vez a mano las pruebas con el navegador.<br>
@@ -889,10 +887,12 @@ private String isbn;
       lógica fuera de las clases del modelo. Aprenderás a hacer esto en las
       siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="refining-standard-behavior_es.html">Ve a la
           lección 7</a></strong> </div>
