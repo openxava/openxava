@@ -18,8 +18,7 @@
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
         Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4.
         Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
-        Basic business logic</a> | <strong>6. Advanced validation</strong> | <a
-
+        Basic business logic</a> | <strong>6. Advanced validation</strong> | <a
         class="wiki_link" href="refining-standard-behavior_en.html">7. Refining
         the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
@@ -166,8 +165,7 @@ order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to 
       you will see how the undelivered orders are rejected. Go to <i>Invoices</i>
       module, select the ORDERS tab of an invoice, and from there click on <i>Add</i>
       button:</div>
-    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
-
+    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
         alt="validation_en010.png" title="validation_en010.png"></div>
     <div class="wiki" style="display: block;">It will show a dialog with a list
       of orders to choose from. Choose two, one of them not delivered yet, then
@@ -191,7 +189,7 @@ order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to 
       your project. Then remove the <i>@EntityValidator</i> annotation from
       your <em>Order</em> entity:<br>
       <pre><code class="java">//@EntityValidator( // Remove the '@EntityValidator' annotation
-//    value=DeliveredToBeInInvoiceValidator.class,
+//    value=com.yourcompany.invoicing.validators.DeliveredToBeInInvoiceValidator.class,
 //    properties= {
 //        @PropertyValue(name="year"),
 //        @PropertyValue(name="number"),
@@ -554,8 +552,7 @@ String isbn;
       with several possible solutions, choose <i>Import 'ISBN'
         (com.yourcompany.invoicing.annotations)</i> so the correct import will
       be added to <i>Product</i> class:</div>
-    <div class="wiki" style="display: block;"> <img src="files/validation_en035.png"
-
+    <div class="wiki" style="display: block;"> <img src="files/validation_en035.png"
         alt="validation_en035.png" title="validation_en035.png"> </div>
     <div class="wiki" style="display: block;"> Now, you can test your module,
       and verify that the ISBN values you enter are validated correctly.
@@ -595,8 +592,7 @@ String isbn;
     <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
     <div class="wiki" style="display: block;">You'll get an empty JSON, like
       this:</div>
-    <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
-
+    <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
       style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
     <div class="wiki" style="display: block;">That is, an empty JSON, just {}.</div>
     <div class="wiki" style="display: block;">To call this web service we'll use
@@ -773,7 +769,8 @@ private String isbn;
 }
 </code></pre> Here you see a good technique to do a loop over the displayed list
       elements in order to check them, get data or do whatever you want with the
-      list data.<br>
+      list data. In order this test works must be at least one order delivered,
+      but not the first one.<br>
       <h3 id="toc18"><a name="Lesson 6: Advanced validation-JUnit tests-Testing validation assigning a reference and validation on removal"></a>Testing
         validation assigning a reference and validation on removal</h3>
       From the <em>Invoice</em> module the user cannot add orders to an invoice
@@ -831,7 +828,8 @@ private String isbn;
       save it. Now, we added test code at the end which tries to save the order
       with delivered=false and with delivered=true, in this way we test the
       validation. After that, we try to delete the order, that has an invoice.
-      Thus we test the validation on removal too.<br>
+      Thus we test the validation on removal too. Before running this test make
+      sure that first order is not delivered and has not invoice.<br>
       <h3 id="toc19"><a name="Lesson 6: Advanced validation-JUnit tests-Testing the custom Bean Validation"></a>Testing
         the custom <em>Bean Validation</em></h3>
       The last step is to test the <em>ISBN Bean Validation</em>, which uses a
@@ -867,8 +865,7 @@ private String isbn;
     assertNoErrors();
 }
 </code></pre> Surely the manual testing you were doing during the development of
-      the <em>@ISBN</em> validator was like the one above. Therefore, if <a href="http://www.extremeprogramming.org/rules/testfirst.html"
-
+      the <em>@ISBN</em> validator was like the one above. Therefore, if <a href="http://www.extremeprogramming.org/rules/testfirst.html"
         rel="nofollow">you write your JUnit test before the application code</a>,
       you can use it as you proceed. This is more efficient than repeating the
       test procedures by hand using the browser over and over again.<br>
@@ -889,12 +886,10 @@ private String isbn;
       it is more convenient to put logic outside your model classes. You will
       learn that in the next lessons.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="refining-standard-behavior_en.html">Go to
           Lesson 7</a></strong> </div>

@@ -142,7 +142,6 @@ public class ValidadorEntregadoParaEstarEnFactura
     private boolean entregado;
     private Factura factura;
  
-    @Override
     public void validate(Messages errors)
         throws Exception { // La lógica de validación
         if (factura == null) return;
@@ -165,8 +164,7 @@ pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadid
       aplicación, verás como los pedidos no entregados son rechazados. Ve al
       módulo <i>Facturas</i>, selecciona la pestaña PEDIDOS de una factura y
       desde ahí pulsa en el botón <i>Añadir</i>:
-      <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"
-
+      <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"
           alt="validation_es010.png" title="validation_es010.png"></div>
       <div class="wiki" style="display: block;">Se mostrará un diálogo con una
         lista de pedidos para escoger. Selecciona dos, uno de ellos no entregado
@@ -191,7 +189,7 @@ pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadid
       de tu proyecto. También quita la anotación <i>@EntityValidator</i> de tu
       entidad <em>Pedido</em>:<br>
       <pre><code class="java">// @EntityValidator( // Eliminar '@EntityValidator'
-//    value=ValidadorEntregadoParaEstarEnFactura.class,
+//    value=com.tuempresa.facturacion.validadores.ValidadorEntregadoParaEstarEnFactura.class,
 //    properties= {
 //        @PropertyValue(name="anyo"),
 //        @PropertyValue(name="numero"),
@@ -199,7 +197,7 @@ pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadid
 //        @PropertyValue(name="entregado")
 // })
 public class Pedido extends DocumentoComercial {
-</code></pre> Acabamos del eliminar la validación. Ahora, vamos a añadirla de
+</code></pre> Acabamos de eliminar la validación. Ahora, vamos a añadirla de
       nuevo, pero ahora dentro de la misma clase <em>Pedido</em>. Escribe el
       método <em>validar()</em> que se muestra a continuación dentro de tu
       clase <em>Pedido</em>:<br>
@@ -399,7 +397,7 @@ public class ValidadorBorrarPedido
       El primer paso es eliminar la clase <em>ValidadorBorrarPedido</em> de tu
       proyecto. Además quita la anotación <i>@RemoveValidator</i> de tu entidad
       <em>Pedido</em>:<br>
-      <pre><code class="java">// @RemoveValidator(ValidadorBorrarPedido.class) // Quitamos '@RemoveValidator'
+      <pre><code class="java">// @RemoveValidator(com.tuempresa.facturacion.validadores.ValidadorBorrarPedido.class) // Quitamos '@RemoveValidator'
 public class Pedido extends DocumentoComercial {
 </code></pre> Hemos quitado la validación. Añadámosla otra vez, pero ahora
       dentro de la misma clase <em>Pedido</em>. Añade el método <em>validarPreBorrar()</em>
@@ -413,9 +411,9 @@ private void validarPreBorrar() {
     }
 }
 </code></pre> Antes de borrar un pedido esta validación se efectuará, si falla
-      se lanzará una ValidationException. Puedes lanzar cualquier excepción
-      runtime para abortar el borrado. Tan solo con un método dentro de la
-      entidad tienes la validación hecha.<br>
+      se lanzará una <i>ValidationException</i>. Puedes lanzar cualquier
+      excepción runtime para abortar el borrado. Tan solo con un método dentro
+      de la entidad tienes la validación hecha.<br>
       <h3 id="toc9"><a name="Alternativas-de-validacion-Cual-es-la-mejor-forma-de-validar"></a>¿Cuál
         es la mejor forma de validar?</h3>
       Has aprendido varias formas de hacer la validación sobre tus clases del
@@ -548,9 +546,9 @@ String isbn;
       soluciones posibles, escoge <i>Import 'ISBN'
         (com.yourcompany.invoicing.annotations)</i> para que el import correcto
       se añada a la clase <i>Producto</i>:</div>
-    <div class="wiki" style="display: block;"> <img src="files/validation_es035.png"
-
-        alt="validation_es035.png" title="validation_es035.png"> </div>
+    <div class="wiki" style="display: block;"> <img src="files/validation_es035.png"
+        alt="validation_es035.png" title="validation_es035.png" style="width: 32px; height: 32px;">
+    </div>
     <div class="wiki" style="display: block;"> Ahora, puedes probar tu módulo, y
       verificar que el <em>ISBN</em> que introduces se valida correctamente.
       Enhorabuena, has escrito tu primer <em>Bean Validation</em>. No ha sido
@@ -592,8 +590,7 @@ String isbn;
       <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
       <div class="wiki" style="display: block;">Obtienes un JSON vacío, como
         este:</div>
-      <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
-
+      <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
         style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
       <div class="wiki" style="display: block;">Es decir, un JSON vacío,
         simplemente unas llaves vacías, así: {}.</div>
@@ -769,7 +766,9 @@ private String isbn;
 }
 </code></pre> Aquí ves una buena técnica para hacer un bucle sobre los elementos
       visualizados de una lista para seleccionarlos y coger algunos datos, o
-      cualquier otra cosa que quieras hacer con los datos de la lista.<br>
+      cualquier otra cosa que quieras hacer con los datos de la lista. Para que
+      esta prueba funcione tiene que haber al menos un pedido entregado, pero
+      que no sea el primero.<br>
       <h3 id="toc18"><a name="Pruebas-JUnit-Probar-validacion-al-asignar-una-referencia-y-al-borrar"></a>Probar
         validación al asignar una referencia y al borrar</h3>
       Desde el módulo <em>Factura</em> el usuario no puede asignar pedidos a
@@ -827,7 +826,9 @@ private String isbn;
       grabarla. Ahora, hemos añadido código al final para probar la grabación de
       un pedido marcado como servido y marcado como no servido, de esta forma
       comprobamos la validación. Después de eso, tratamos de borrar el pedido,
-      el cual tiene una factura, así probamos también la validación al borrar.<br>
+      el cual tiene una factura, así probamos también la validación al borrar.
+      Antes de ejecutar esta prueba asegurate de que el primer pedido no esté
+      entregado y no tenga factura.<br>
       <h3 id="toc19"><a name="Pruebas-JUnit-Probar-el-Bean-Validation-propio"></a>Probar
         el <em>Bean Validation</em> propio</h3>
       Solo nos queda probar tu <em>Bean Validation ISBN</em>, el cual usa un
@@ -864,8 +865,7 @@ private String isbn;
 }
 </code></pre> Seguramente la prueba manual que hacías mientras estabas
       escribiendo el validador <em>@ISBN</em> era parecida a esta. Por eso, si
-      hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
-
+      hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
         rel="nofollow">código de prueba antes que el código de la aplicación</a>,
       lo hubieras podido usar mientras que desarrollabas, lo cual es más
       eficiente que repetir una y otra vez a mano las pruebas con el navegador.<br>
@@ -887,12 +887,10 @@ private String isbn;
       lógica fuera de las clases del modelo. Aprenderás a hacer esto en las
       siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="refining-standard-behavior_es.html">Ve a la
           lección 7</a></strong> </div>
