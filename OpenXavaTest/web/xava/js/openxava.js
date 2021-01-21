@@ -1233,3 +1233,14 @@ openxava.fadeIn = function(selector, duration) {
 openxava.show = function(selector) { 
 	$(selector).show();
 }
+
+/* tmp ini */
+// Instead of $.getScript() because of cache
+openxava.getScript = function( url ) {
+  return jQuery.ajax( {
+    dataType: "script",
+    cache: true,
+    url: url
+  });
+};
+/* tmp fin */

@@ -1,17 +1,12 @@
 /* tmp */
 openxava.addEditorInitFunction(function() {
-	// TMP ME QUEDÉ POR AQUÍ: EL /OpenXavaTest NO SE PUEDE QUEDAR
-	$.getScript("/OpenXavaTest/xava/editors/js/lang/ru.js").done(function( script, textStatus ) {
-	    console.log( "DONE.1: textStatus: " + textStatus );
-	  })
-	  .fail(function( jqxhr, settings, exception ) {
-	    console.log( "FAILED.1");
-	});
+	// TMP ME QUEDÉ POR AQUÍ. YA FUNCIONA. ¿PONER ARRIBA? ¿CARGAR SOLO LA PRIMERA VEZ?
+	openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.language + ".js");
 	$('.xava_date').flatpickr({
 	    allowInput: true,
 	    clickOpens: false,  
 	    wrap: true,
-	    locale: "ru", 
+	    locale: openxava.language, 
 	    onChange: function(selectedDates, dateStr, instance) {
         	if (!$(instance.input).data("datePopupJustClosed") || dateStr === $(instance.input).attr('value')) {
         		$(instance.input).data("changedCancelled", true);
