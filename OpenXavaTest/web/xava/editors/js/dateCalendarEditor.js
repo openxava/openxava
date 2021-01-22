@@ -1,7 +1,7 @@
 /* tmp */
+openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.language + ".js");
+
 openxava.addEditorInitFunction(function() {
-	// TMP ME QUEDÉ POR AQUÍ. YA FUNCIONA. ¿PONER ARRIBA? ¿CARGAR SOLO LA PRIMERA VEZ?
-	openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.language + ".js");
 	$('.xava_date').flatpickr({
 	    allowInput: true,
 	    clickOpens: false,  

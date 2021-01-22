@@ -24,6 +24,7 @@ if (editable || !label) {
 	size="<%=p.getSize() + sizeIncrement%>" 	 
 	value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a style="position: relative; right: 25px;" href="javascript:showCalendar('<%=propertyKey%>', '<%=org.openxava.util.Dates.dateFormatForJSCalendar(org.openxava.util.Locales.getCurrent())%>')"><i class="mdi mdi-calendar"></i></a><%} %>	
 --%>
+<%-- tmp ini --%>
 <span class="xava_date <%=style.getDateCalendar()%>" data-date-format="<%=org.openxava.util.Dates.dateFormatForJSCalendar(org.openxava.util.Locales.getCurrent())%>">
 <input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class="<%=style.getEditor()%>" title="<%=p.getDescription(request)%>"
 	tabindex="1" 
@@ -32,23 +33,6 @@ if (editable || !label) {
 	data-input
 	size="<%=p.getSize() + sizeIncrement%>" 
 	value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a href="javascript:void(0)" data-toggle style="position: relative; right: 25px;"><i class="mdi mdi-calendar"></i></a><%} %>	
-<%-- tmp
-<input id="kk" type="hidden" data-input style="width: 0">
---%>	
-<%-- tmp
-<div class="flatpickr xava_date">
-    <input type="text" placeholder="Select Date.." data-input> <!-- input is mandatory -->
-
-    <a class="input-button" title="toggle" data-toggle>
-        <i class="mdi mdi-calendar"></i>
-    </a>
-
-    <a class="input-button" title="clear" data-clear>
-        <i class="icon-close"></i>
-    </a>
-</div>
---%>
-
 <%-- tmp fin --%>
 </span> 
 <%

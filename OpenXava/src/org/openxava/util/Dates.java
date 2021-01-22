@@ -478,16 +478,16 @@ public class Dates {
 			replaceAll("02", "m").
 			replaceAll("1971", "Y").
 			replaceAll("71", always4InYear?"Y":"y"). 			
-			replaceAll("1", "d").
-			replaceAll("2", "m");		
+			replaceAll("1", "j").
+			replaceAll("2", "n");		
 		// tmp fin
 	}	
 	
-	// tmp ¿Todavía se usa?
 	public static String dateTimeFormatForJSCalendar(Locale locale) {		
 		DateFormat df = getDateTimeFormat(locale); 
 		String datetime = df.format(create(1, 2, 1971, 15, 59, 0)); // d, m, y, hr, min, sec 
 		boolean always4InYear= "es".equals(locale.getLanguage()) || "pl".equals(locale.getLanguage());
+		/* tmp
 		String result = datetime.
 		
 			// time part
@@ -506,7 +506,28 @@ public class Dates {
 			replaceAll("1", "%e"). 	// day - single digit
 			replaceAll("2", "%m")	// month - ??? seems only double digit is supported by calendar
 			;
-					
+		*/
+		// tmp ini
+		String result = datetime.
+				
+				// time part
+				replaceAll("15", "H").	// 24hr format 
+				replaceAll("03", "G").	// 12hr format - double digit 
+				replaceAll("3", "h").	// 12hr format - single digit
+				replaceAll("59","i").	// minute
+				replaceAll("PM", "K").	// AM/PM - uppercase
+				replaceAll("pm", "K").	// am/pm - lowercase // Not supported by the current calendar JS
+
+				// date part
+				replaceAll("01", "d").	// day - double digit
+				replaceAll("02", "m").	// month - double digit
+				replaceAll("1971", "Y").	// year - 4 digit
+				replaceAll("71", always4InYear?"Y":"y"). 	// year - 2 digit 		
+				replaceAll("1", "j"). 	// day - single digit
+				replaceAll("2", "n")	// month - ??? seems only double digit is supported by calendar
+				;
+
+		// tmp fin
 		return result;
 	}	
 	
