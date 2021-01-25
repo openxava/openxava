@@ -12,7 +12,12 @@
 	<for-stereotype name="HTML_TEXT" size="3000"/>
 	<for-stereotype name="TEXTO_HTML" size="3000"/>
 	<for-stereotype name="HORA" size="5"/>	
-	<for-stereotype name="TIME" size="5"/>  
+	<for-stereotype name="TIME" size="5"/>
+	<!-- tmp ini -->
+	<!-- tmp Después de hacer un updateOX ver si ya se ve la fecha y hora completa al filtra en modo lista (con Appoinment por ejemplo). Añadir a changelog -->
+	<for-stereotype name="DATETIME" size="19"/>
+	<for-stereotype name="FECHAHORA" size="19"/>  
+	<!-- tmp fin -->
 	<for-stereotype name="EMAIL" size="50"/>
 	<for-stereotype name="TELEPHONE" size="15"/>
 	<for-stereotype name="TELEFONO" size="15"/>

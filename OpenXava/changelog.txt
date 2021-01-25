@@ -7,7 +7,7 @@ Change Log for OpenXava project
 	* Comprobar que @OnChange no se lanza
 	* Idiomas. Empezar por Lunes/Domingo. 
 	* En DATETIME.
-	- En filtros de listas. Incluidos rangos y DATETIME.
+	* En filtros de listas. Incluidos rangos y DATETIME.
 	- Adaptar a temas.
 	- Con todos los navegadores, incluidos los móviles.
 	- JUnit. 

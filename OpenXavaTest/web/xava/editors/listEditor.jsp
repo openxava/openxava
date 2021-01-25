@@ -290,7 +290,8 @@ while (it.hasNext()) {
 		+ "&idConditionValueTo=" + idConditionValueTo;
 	// tmp String classConditionValue = isDate?"class='" + style.getDateCalendar() + "'":""; 
 	String classConditionValue = isDate?"class='xava_date " + style.getDateCalendar() + "'":""; // tmp
-	String attrConditionValue = isDate?"data-date-format='" + org.openxava.util.Dates.dateFormatForJSCalendar(org.openxava.util.Locales.getCurrent()) + "'":""; // tmp
+	String attrConditionValue = isDate?"data-date-format='" + org.openxava.util.Dates.dateFormatForJSCalendar(org.openxava.util.Locales.getCurrent(), isTimestamp) + "'":""; // tmp
+	if (isTimestamp) attrConditionValue += " data-enable-time='true'"; // tmp 
 	if (isEmptyComparator) {
 %>
 <br/>
@@ -300,12 +301,11 @@ while (it.hasNext()) {
 <jsp:include page="<%=urlComparatorsCombo%>" />
 <br/> 
 </span>
-<%-- tmp
+<%-- tmp 
 <nobr <%=classConditionValue%>>
 <input id="<%=idConditionValue%>" name="<%=idConditionValue%>" class=<%=style.getEditor()%> type="text" maxlength="<%=maxLength%>" size="<%=length%>" value="<%=value%>" placeholder="<%=labelFrom%>" style="<%=styleConditionValue%>; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"/><% if (isDate) { %><a href="javascript:showCalendar('<%=idConditionValue%>', '<%=org.openxava.util.Dates.dateFormatForJSCalendar(org.openxava.util.Locales.getCurrent(), isTimestamp)%>'<%=isTimestamp?", '12'":""%>)" style="position: relative; right: 25px; <%=styleConditionValue%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
 --%>
-<%-- tmp ini --%>
-<%-- TMP ME QUEDÉ POR AQUÍ: YA SALE EL CALENDARIO Y FORMATEA BIEN LA FECHA. FALTA PROBARLO, LOS RANGOS Y CON TIME --%>
+<%-- tmp ini --%> 
 <nobr <%=classConditionValue%> <%=attrConditionValue%>>
 <input id="<%=idConditionValue%>" name="<%=idConditionValue%>" class=<%=style.getEditor()%> type="text" 
 	maxlength="<%=maxLength%>" size="<%=length%>" value="<%=value%>" placeholder="<%=labelFrom%>"
@@ -313,14 +313,24 @@ while (it.hasNext()) {
 	style="<%=styleConditionValue%>; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"/>
 	<% if (isDate) { %>
 		<a href="javascript:void(0)" data-toggle style="position: relative; right: 25px; <%=styleConditionValue%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
-
-<%-- tmp fin --%>
+<%-- tmp fin --%>	
 	<% } %>
 </nobr>
-<br/> 
+<br/>
+<%-- tmp 
 <nobr <%=classConditionValue%>>
 <input id="<%=idConditionValueTo%>" name="<%=idConditionValueTo%>" class=<%=style.getEditor()%> type="text" maxlength="<%=maxLength%>" size="<%=length%>" value="<%=valueTo%>" placeholder="<%=labelTo%>" style="<%=styleConditionValueTo%>; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"/><% if (isDate) { %><a style="position: relative; right: 25px; <%=styleConditionValueTo%>" href="javascript:showCalendar('<%=idConditionValueTo%>', '<%=org.openxava.util.Dates.dateFormatForJSCalendar(org.openxava.util.Locales.getCurrent(), isTimestamp)%>'<%=isTimestamp?", '12'":""%>)" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
-<% } %>
+--%>
+<%-- tmp ini --%> 
+<nobr <%=classConditionValue%> <%=attrConditionValue%>>
+<input id="<%=idConditionValueTo%>" name="<%=idConditionValueTo%>" class=<%=style.getEditor()%> type="text" 
+	maxlength="<%=maxLength%>" size="<%=length%>" value="<%=valueTo%>" placeholder="<%=labelTo%>"
+	<%=isDate?"data-input":""%> 
+	style="<%=styleConditionValueTo%>; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"/>
+	<% if (isDate) { %>
+		<a href="javascript:void(0)" data-toggle style="position: relative; right: 25px; <%=styleConditionValueTo%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
+<%-- tmp fin --%>
+	<% } %>
 </nobr>
 	<%			
 		}
