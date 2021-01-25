@@ -769,8 +769,9 @@ private String isbn;
 }
 </code></pre> Here you see a good technique to do a loop over the displayed list
       elements in order to check them, get data or do whatever you want with the
-      list data. In order this test works must be at least one order delivered,
-      but not the first one.<br>
+      list data. In order this test works the first invoice has to have no
+      deliveries and moreover it must be at least one order delivered, but not
+      the first one.<br>
       <h3 id="toc18"><a name="Lesson 6: Advanced validation-JUnit tests-Testing validation assigning a reference and validation on removal"></a>Testing
         validation assigning a reference and validation on removal</h3>
       From the <em>Invoice</em> module the user cannot add orders to an invoice
@@ -784,8 +785,8 @@ private String isbn;
         on removal with a JPA callback method</a>. There we modified the
       application to prevent the user from removing an order which has an
       invoice associated with it. Now we will test this restriction.<br>
-      The revision of <em>testSetInvoice()</em> with all these enhancements is
-      below:<br>
+      The revision of <em>testSetInvoice()</em> of <i>OrderTest</i> with all
+      these enhancements is below:<br>
       <pre><code class="java">public void testSetInvoice() throws Exception {
     login("admin", "admin");
     assertListNotEmpty();
@@ -825,7 +826,7 @@ private String isbn;
     assertNoErrors();
 }
 </code></pre> The original test only searched for an invoice, but did not even
-      save it. Now, we added test code at the end which tries to save the order
+      save. Now, we added test code at the end which tries to save the order
       with delivered=false and with delivered=true, in this way we test the
       validation. After that, we try to delete the order, that has an invoice.
       Thus we test the validation on removal too. Before running this test make

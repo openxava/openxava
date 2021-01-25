@@ -547,8 +547,7 @@ String isbn;
         (com.yourcompany.invoicing.annotations)</i> para que el import correcto
       se añada a la clase <i>Producto</i>:</div>
     <div class="wiki" style="display: block;"> <img src="files/validation_es035.png"
-        alt="validation_es035.png" title="validation_es035.png" style="width: 32px; height: 32px;">
-    </div>
+        alt="validation_es035.png" title="validation_es035.png"> </div>
     <div class="wiki" style="display: block;"> Ahora, puedes probar tu módulo, y
       verificar que el <em>ISBN</em> que introduces se valida correctamente.
       Enhorabuena, has escrito tu primer <em>Bean Validation</em>. No ha sido
@@ -767,8 +766,8 @@ private String isbn;
 </code></pre> Aquí ves una buena técnica para hacer un bucle sobre los elementos
       visualizados de una lista para seleccionarlos y coger algunos datos, o
       cualquier otra cosa que quieras hacer con los datos de la lista. Para que
-      esta prueba funcione tiene que haber al menos un pedido entregado, pero
-      que no sea el primero.<br>
+      esta prueba funcione la primera factura no ha de tener pedidos y además
+      tiene que haber al menos un pedido entregado, pero que no sea el primero.<br>
       <h3 id="toc18"><a name="Pruebas-JUnit-Probar-validacion-al-asignar-una-referencia-y-al-borrar"></a>Probar
         validación al asignar una referencia y al borrar</h3>
       Desde el módulo <em>Factura</em> el usuario no puede asignar pedidos a
@@ -783,8 +782,8 @@ private String isbn;
         al borrar con un método de retrollamada</a>. Allí modificamos la
       aplicación para impedir que un usuario borrara un pedido si éste tenía una
       factura asociada. Ahora probaremos este hecho.<br>
-      Todo esto está en el <em>testPonerFactura()</em> mejorado que puedes ver
-      a continuación:<br>
+      Todo esto está en el <em>testPonerFactura()</em> de <i>PruebaPedido</i>
+      mejorado que puedes ver a continuación:<br>
       <pre><code class="java">public void testPonerFactura() throws Exception {
     login("admin", "admin");
     assertListNotEmpty();
@@ -823,7 +822,7 @@ private String isbn;
     assertNoErrors();
 }
 </code></pre> La prueba original solo buscaba una factura, ni siquiera intentaba
-      grabarla. Ahora, hemos añadido código al final para probar la grabación de
+      grabar. Ahora, hemos añadido código al final para probar la grabación de
       un pedido marcado como servido y marcado como no servido, de esta forma
       comprobamos la validación. Después de eso, tratamos de borrar el pedido,
       el cual tiene una factura, así probamos también la validación al borrar.
