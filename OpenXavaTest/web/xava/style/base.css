@@ -227,6 +227,10 @@
 	
 	--reverse-label-color: white;
 	--reverse-label-background: black;
+	
+	/* tmp ini */
+	--calendar-selected-day: var(--modules-list-background);
+	/* tmp fin */
 		
 	--message-box-color: white;
 	--message-box-a-color: white;
@@ -2516,12 +2520,8 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 /* tmp ini */
-/* TMP ME QUEDÉ POR AQUÍ: BUSCANDO ALGO QUE SIRVA PARA TODO */
 .flatpickr-day.selected {
-	background: var(--modules-list-selected-background) !important;
-	background: var(--button-bar-background) !important;
-	
-	xbackground: var(--modules-list-background) !important;
+	background: var(--calendar-selected-day) !important;
 	border-color: transparent !important;
 }
 /* tmp fin */
