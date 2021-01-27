@@ -1,6 +1,8 @@
 package org.openxava.test.tests;
 
 import java.math.*;
+import java.text.*;
+import java.util.*;
 
 import org.openxava.util.*;
 

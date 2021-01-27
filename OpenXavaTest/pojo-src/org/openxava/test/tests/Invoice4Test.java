@@ -1,6 +1,10 @@
 package org.openxava.test.tests;
 
+import java.text.*;
+
 import org.openxava.tests.*;
+
+import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * 

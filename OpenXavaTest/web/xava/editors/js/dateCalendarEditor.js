@@ -2,6 +2,7 @@
 openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.language + ".js");
 
 openxava.addEditorInitFunction(function() {
+	$('.flatpickr-calendar').remove();
 	$('.xava_date').flatpickr({
 	    allowInput: true,
 	    clickOpens: false,  

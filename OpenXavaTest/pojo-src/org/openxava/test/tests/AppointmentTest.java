@@ -16,22 +16,6 @@ public class AppointmentTest extends ModuleTestBase {
 		super(testName, "Appointment");		
 	}
 	
-	public void testCalendarEditor() throws Exception { // tmp
-		execute("CRUD.new");
-		printHtml();
-		// TMP ME QUEDÉ POR AQUÍ: VIENDO SI PUEDO USAR JUNIT
-		/*
-		HtmlElement el = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Appointment__editor_time");
-		String html = el.asXml();
-		System.out.println("[AppointmentTest.testCalendarEditor] 1.html=" + html); // tmp
-		*/
-		/*
-		HtmlElement cal = getHtmlPage().getBody().getOneHtmlElementByAttribute("div", "class", "flatpickr-calendar hasTime animate");
-		String htmlCal = cal.asXml();
-		System.out.println("[AppointmentTest.testCalendarEditor] 2.htmlCal=" + htmlCal); // tmp
-		*/
-	}
-	
 	public void testDateAsDATETIME() throws Exception {
 		selectGroupBy("Group by year of time");
 		assertNoErrors();
