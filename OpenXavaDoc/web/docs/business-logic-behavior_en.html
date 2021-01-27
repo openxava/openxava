@@ -9,8 +9,7 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1><a name="business-logic-behavior"></a> <span id="breadcrumbs"> <span
-
+      <h1><a name="business-logic-behavior"></a> <span id="breadcrumbs"> <span
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
         Lesson 8: Behavior &amp; business logic </h1>
@@ -92,8 +91,7 @@
       We'll start with the simplest case: a button in the detail mode that
       executes some concrete logic. In this case we'll add a button for creating
       an invoice from an order:<br>
-      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
-
+      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
         title="business-logic-behavior_en010.png"><br>
       This shows how this new action takes the current order and creates an
       invoice from it. It just copies all the order data to the new invoice,
@@ -178,17 +176,7 @@ public class CreateInvoiceFromOrderAction
       services, etc.<br>
       Let's see the code of the <i>createInvoice()</i> method of the <i>Order</i>
       class, also remember to add the indicated imports:
-      <pre><code class="java">
-...
-
-// Add the next imports
-import java.util.*;
-import org.apache.commons.beanutils.*;
-import org.openxava.jpa.*;
-
-...
-      
-public class Order extends CommercialDocument {
+      <pre><code class="java">public class Order extends CommercialDocument {
 
     ...
     
@@ -481,8 +469,7 @@ public class ShowHideCreateInvoiceAction
       multiple objects at the same time. In our case, we can add an action in
       list mode to create a new invoice automatically from several selected
       orders in the list. We want this action to work this way:<br>
-      <img src="files/business-logic-behavior_en020.png" alt="business-logic-behavior_en020.png"
-
+      <img src="files/business-logic-behavior_en020.png" alt="business-logic-behavior_en020.png"
         title="business-logic-behavior_en020.png"><br>
       This list action takes the selected orders and creates an invoice from
       them. It just copies the order data into the new invoice, adding the
@@ -619,8 +606,7 @@ public class CreateInvoiceFromSelectedOrdersAction
       the user to see and possibly edit the newly created invoice. One way of
       achieving this is by showing a dialog that allows to view and edit that
       just created invoice. In this way:<br>
-      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
-
+      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
         title="business-logic-behavior_en030.png"><br>
       Let's see how to implement this behavior.
       <h3><a name="using-showdialog"></a>Using showDialog()</h3>
@@ -694,12 +680,10 @@ public class SaveInvoiceAction
       <h3><a name="plain-view-instead-of-dialog"></a>Plain view instead of
         dialog</h3>
       Sometimes instead of showing a dialog on top:<br>
-      <img src="files/business-logic-behavior_en040.png" alt="business-logic-behavior_en040.png"
-
+      <img src="files/business-logic-behavior_en040.png" alt="business-logic-behavior_en040.png"
         title="business-logic-behavior_en040.png"><br>
       You could prefer to replace the current view with a new one, thus: <br>
-      <img src="files/business-logic-behavior_en050.png" alt="business-logic-behavior_en050.png"
-
+      <img src="files/business-logic-behavior_en050.png" alt="business-logic-behavior_en050.png"
         title="business-logic-behavior_en050.png"><br>
       This can be useful when the amount of data to show is huge and in a dialog
       looks clumsy. Using a plain view instead of a dialog is as easy as
@@ -723,8 +707,7 @@ public class SaveInvoiceAction
       First we'll test the <i>Order.createInvoice</i> action, the action for
       creating an invoice from the displayed order in detail mode. Then next
       image shows how this process works:<br>
-      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
-
+      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
         title="business-logic-behavior_en010.png"><br>
       Now we're going to write a test to verify that it really works in this
       way. Add the <i>testCreateInvoiceFromOrder()</i> method to the <i>OrderTest</i>
@@ -851,8 +834,7 @@ import com.yourcompany.invoicing.model.*;
       Now we'll test the <i>Order.createInvoiceFromSelectedOrders</i> action,
       the action for creating an invoice from multiple selected orders in list
       mode. Remember that this process works in this way: <br>
-      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
-
+      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
         title="business-logic-behavior_en030.png"><br>
       Let's write a test to verify that it works in just this way. Add the <i>
         testCreateInvoiceFromSelectedOrders()</i> method to the <i>OrderTest</i>
@@ -999,12 +981,10 @@ private void assertCreateInvoiceFromOrderException(
       We still have many interesting things to learn, in the next lesson for
       example we are going to refine the behavior of references and collections.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_en.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="references-collections_en.html">Go to Lesson
           9</a></strong> </div>

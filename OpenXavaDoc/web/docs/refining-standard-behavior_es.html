@@ -302,8 +302,8 @@ boolean eliminado;
       objeto seleccionado, además si el usuario lo pulsa la instrucción para
       buscar fallará y un mensaje un tanto técnico e ininteligible se le
       mostrará a nuestro desamparado usuario. Podemos refinar este caso no
-      mostrando el botón, tal como cuando pulsamos el botón "nuevo". Observa la
-      ligera modificación al método <i>execute()</i>:<br>
+      mostrando el botón, tal como cuando pulsamos el botón <i>Nuevo</i>.
+      Observa la ligera modificación al método <i>execute()</i>:<br>
       <pre><code class="java">public void execute() throws Exception {
     // ...
     getView().clear();
@@ -668,7 +668,7 @@ public class EliminarParaFacturacion extends ViewBaseAction {
       como valor para <em>XAVA_SEARCH_ACTION</em>. Hagámoslo pues de esta
       manera.<br>
       Para dar valor a la variable de entorno edita el archivo <em>controladores.xml</em>
-      en la carpeta xava de tu proyecto, y añade al principio la línea <em>&lt;var-entorno
+      en la carpeta <i>xava</i> de tu proyecto y añade al principio la línea <em>&lt;var-entorno
         /&gt;</em> como ves a continuación:<br>
       <pre><code class="xml">...
 &lt;controladores&gt;
@@ -801,7 +801,7 @@ public class BuscarExcluyendoEliminados
       tienen que ser mostradas en modo lista. Esto es muy fácil de conseguir
       usando la anotación <i>@Tab</i>. Esta anotación te permite definir la
       forma en que los datos tabulares (los datos mostrados en modo lista) son
-      visualizados, y te permite además definir una condición. Por tanto, añadir
+      visualizados y te permite además definir una condición. Por tanto, añadir
       esta anotación a las entidades que tengan una propiedad <em>eliminado</em>
       es suficiente para conseguir nuestro objetivo, tal como se muestra a
       continuación:<br>
@@ -963,7 +963,6 @@ public class EliminarSeleccionadoParaFacturacion
       varias y pulsar en el botón <em>Restaurar</em>, o simplemente pulsar en
       el vínculo <em>Restaurar</em> en la fila del documento que quiera
       restaurar:<br>
-      <br>
       <img src="files/refining_behavior_es050.png" alt="refining_behavior_es050.png"
         title="refining_behavior_es050.png"><br>
       La lógica de esta acción de restaurar es simplemente poner la propiedad <em>eliminado</em>
@@ -1118,11 +1117,11 @@ public class Pedido extends DocumentoComercial { ... }
       cambias la implementación de cierta funcionalidad pero no su uso desde el
       punto de vista del usuario, como es nuestro caso, no necesitas añadir
       nuevas pruebas.<br>
-      Ejecuta todas las prueba de tu aplicación, y ajusta los detalles
-      necesarios para que funcionen bien. Realmente, solo necesitarás cambiar <em>“CRUD.delete”</em>
-      por <em>“Facturacion.delete”</em> y <em>“CRUD.deleteSelected”</em> por <em>“Facturacion.deleteSelected”</em>
-      en algunas pruebas. El siguiente código resume los cambios que necesitas
-      aplicar a tu código de pruebas.<br>
+      Ejecuta todas las prueba de tu aplicación y ajusta los detalles necesarios
+      para que funcionen bien. Realmente, solo necesitarás cambiar “CRUD.delete”
+      por “Facturacion.delete” y “CRUD.deleteSelected” por
+      “Facturacion.deleteSelected” en algunas pruebas. El siguiente código
+      resume los cambios que necesitas aplicar a tu código de pruebas.<br>
       <pre><code class="java">// En el archivo PruebaCliente.java
 public class PruebaCliente extends ModuleTestBase {
     ...
@@ -1173,8 +1172,8 @@ public class PruebaPedido extends PruebaDocumentoComercial {
       semántica original. Solo ha cambiado la implementación.<br>
       <h3 id="toc22"><a name="Pruebas-JUnit-Probar-varios-modulos-en-el-mismo-metodo-de-prueba"></a>Probar
         varios módulos en el mismo método de prueba</h3>
-      También has de probar los nuevos módulos personalizados, <em>"PapeleraPedido"</em>
-      y <em>"PapeleraFactura"</em>. De paso, verificaremos que la lógica de
+      También has de probar los nuevos módulos personalizados, <em>PapeleraPedido</em>
+      y <em>PapeleraFactura</em>. De paso, verificaremos que la lógica de
       borrado funciona bien, y que la entidades son solo marcadas como borradas
       y no son borradas de verdad.<br>
       Para probar el módulo <em>PapeleraFactura</em> seguiremos los siguientes
