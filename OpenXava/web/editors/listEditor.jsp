@@ -349,24 +349,22 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 	Collection currentRowActions = new ArrayList<String>();
 	Map map = (Map) model.getObjectAt(f);
 	for (Object rowAction : rowActions) {
-		for (MetaAction tempaction : manager.getMetaActions()) {
-		    if(tempaction.getQualifiedName().equals(rowAction)) {
-		       Class className = Class.forName(tempaction.getClassName());
-		       Method[] allMethods = className.getDeclaredMethods();
-			boolean methodExists = false;
-			for (Method m : allMethods) {
-			    if(m.getName().equals("isApplicableForRow")) {
-				methodExists = true;
-				boolean rowAllowsAction = (boolean) m.invoke(className.newInstance(), (Long) map.get("id"));
-				if (rowAllowsAction) {
-				    currentRowActions.add(rowAction);
+		for (MetaAction tempAction : manager.getMetaActions()) {
+			if(tempAction.getQualifiedName().equals(rowAction)) {
+			   Class className = Class.forName(tempAction.getClassName());
+				boolean methodExists = false;
+				if (IOptionalRowAction.class.isAssignableFrom(className)) {
+					Method m = className.getDeclaredMethod("isApplicableForRow", Object.class);
+					methodExists = true;
+					boolean rowAllowsAction = (boolean) m.invoke(className.newInstance(), map.get("id"));
+					if (rowAllowsAction) {
+						currentRowActions.add(rowAction);
+					}
 				}
-			    }
+				if(!methodExists) {
+					currentRowActions.add(rowAction);
+				}
 			}
-			if(!methodExists) {
-			    currentRowActions.add(rowAction);
-			}
-		    }
 		}
 	}
 	String checked=tab.isSelected(f)?"checked='true'":"";	
