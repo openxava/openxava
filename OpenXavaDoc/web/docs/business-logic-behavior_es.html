@@ -364,30 +364,9 @@ imposible_crear_factura=Imposible crear factura
       Recuerda que una factura puede ser generada desde un pedido si el pedido
       ha sido entregado y no tiene factura todavía. Por tanto, tenemos que
       vigilar los cambios en la referencia <i>factura</i> y la propiedad <i>entregado</i>
-      de la entidad <i>Pedido</i>. Haremos esto usando la anotación <i>@OnChange</i>
-      de esta manera:
-      <pre><code class="java">
-...
-
-import com.tuempresa.facturacion.acciones.*; // Añade este import
-
-...
-      
-public class Pedido extends DocumentoComercial {
-
-    ...
-    @OnChange(MostrarOcultarCrearFactura.class) // Añade esto
-    private Factura factura;
-
-    ...
-    @OnChange(MostrarOcultarCrearFactura.class) // Añade esto
-    private boolean entregado;
-
-    ...
-}
-</code></pre> Con el código de arriba cuando el usuario cambia el valor de <i>entregado</i>
-      o <i>factura</i> en la pantalla, la acción <i>MostrarOcultarCrearFactura</i>
-      se ejecutará. Observa el código de la acción:
+      de la entidad <i>Pedido</i>. Lo primero será la crear la acción que
+      oculta o muestra la acción para crear una factura desde un pedido, <i>MostrarOcultarCrearFactura</i>,
+      con este código:
       <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
 
 import org.openxava.actions.*; // Necesario para usar OnChangePropertyAction,
@@ -418,11 +397,28 @@ public class MostrarOcultarCrearFactura
         return getView().getValue("factura.oid") != null; // Leemos el valor de la vista
     } 	
 }
-</code></pre> Ésta es una acción convencional con un método <i>execute()</i>,
-      aunque extiende de<i> OnChangePropertyBaseAction</i> (1). Todas las
-      acciones anotadas con <i>@OnChange</i> tienen que implementar <i>IOnChangePropertyAction</i>,
-      aunque es más fácil extender de <i>OnChangePropertyBaseAction</i> la cual
-      lo implementa. Desde esta acción puedes usar <i>getNewValue()</i> y <i>getChangedProperty()</i>,
+</code></pre>Después anotamos <i>factura</i> y <i>entregado</i> en <i>Pedido</i>
+      con <i>@OnChange</i> para que cuando el usuario cambie el valor de <i>entregado</i>
+      o <i>factura</i> en la pantalla, la acción <i>MostrarOcultarCrearFactura</i>
+      se ejecute:
+      <pre><code class="java">public class Pedido extends DocumentoComercial {
+
+    ...
+    @OnChange(MostrarOcultarCrearFactura.class) // Añade esto
+    Factura factura;
+
+    ...
+    @OnChange(MostrarOcultarCrearFactura.class) // Añade esto
+    boolean entregado;
+
+    ...
+}
+</code></pre><i>MostrarOcultarCrearFactura</i> es una acción convencional con un
+      método <i>execute()</i>, aunque extiende de<i> OnChangePropertyBaseAction</i>
+      (1). Todas las acciones anotadas con <i>@OnChange</i> tienen que
+      implementar <i>IOnChangePropertyAction</i>, aunque es más fácil extender
+      de <i>OnChangePropertyBaseAction</i> la cual lo implementa. Desde esta
+      acción puedes usar <i>getNewValue()</i> y <i>getChangedProperty()</i>,
       aunque en este caso concreto no los necesitamos.<br>
       El método <i>execute()</i> pregunta si el pedido visualizado está
       grabado, entregado y todavía no tiene una factura (2), en cuyo caso
@@ -928,15 +924,15 @@ protected int getFilaDocumentoEnLista(String anyo, String numero) ... // protect
     assertTrue("Para ejecutar esta prueba el pedido " + pedido + " tiene que estar entegrado",
         pedido.isEntregado());        
 }
-</code></pre> Además añade el siguiente import al principio de tu <i>PruebaPedido</i>:
-      <pre><code class="java">import java.math.*;
 </code></pre> Este método busca un pedido y verifica la cantidad de líneas, el
       importe total y si el pedido está entregado. Usar este método tiene la
       ventaja de que si los pedidos necesarios para la prueba no están en la
       base de datos con los valores correctos obtienes un mensaje preciso. Así,
       no derrocharás tu tiempo intentando adivinar que es lo que está mal. Esto
       es especialmente útil si la prueba no la está ejecutando el programador
-      original.
+      original.Por cierto, si te resulta dificil adaptar tus pedidos para que se
+      ajusten a esta prueba (número de pedido, importe, número de líneas),
+      puedes adaptar los valores en la prueba a tus pedidos actuales.<br>
       <h3><a name="probar-casos-excepcionales"></a>Probar casos excepcionales</h3>
       Dado que la acción para crear la factura se oculta si el pedido no está
       listo para ser facturado, no podemos probar el código para los casos
