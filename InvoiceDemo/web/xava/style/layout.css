@@ -45,3 +45,8 @@
 .ox-flow-layout .ox-layout-aligned-cell {
 	display: inline-block;
 }
+
+.ox-flow-layout-new-line {
+	flex-basis: 100%;
+    height: 0;
+}

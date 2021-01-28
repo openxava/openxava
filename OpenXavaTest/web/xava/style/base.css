@@ -680,6 +680,13 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	padding-right: 4px;
 }
 
+/* tmp ini */
+.flatpickr-day.selected {
+	background: var(--calendar-selected-day) !important;
+	border-color: transparent !important;
+}
+/* tmp fin */
+
 .ie .ox-date-calendar input {
 	padding-right: 20px; /* Perfect for Edge, some extra space for IE */ 
 }
@@ -2519,9 +2526,3 @@ div[id$="_Index__view"] .ox-list-title {
 	padding-right: 4px;
 }
 
-/* tmp ini */
-.flatpickr-day.selected {
-	background: var(--calendar-selected-day) !important;
-	border-color: transparent !important;
-}
-/* tmp fin */

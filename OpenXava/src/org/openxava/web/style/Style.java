@@ -1125,10 +1125,11 @@ public class Style {
 		return "ox-bottom-buttons";
 	}
 
-	
+	/* tmp
 	public boolean isNeededToIncludeCalendar() {
 		return true;
 	}
+	*/
 
 	/**
 	 * 

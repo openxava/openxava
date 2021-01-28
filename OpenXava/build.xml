@@ -931,6 +931,11 @@
 		<!-- Delete old FCKeditor files -->
 		<delete file="../${project}/web/xava/editors/fckEditor.jsp"/>
 		<delete dir="../${project}/web/xava/editors/FCKeditor"/>
+		<!-- tmp ini -->
+		<!-- Delete old Calendar files -->
+		<delete file="../${project}/web/xava/js/calendar.js"/>
+		<delete dir="../${project}/web/xava/editors/calendar"/>
+		<!-- tmp fin -->
 		<!-- Delete unused JS -->
 		<delete file="../${project}/web/xava/js/jquery.qtip.js"/>
 		<delete file="../${project}/web/xava/js/jquery.bgiframe.min.js"/>

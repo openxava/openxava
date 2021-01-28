@@ -45,7 +45,23 @@ if (collection == null || collection.equals("")) {
 	} 
 	%>
 </select>
+
+<%
+if (!tab.isAllConfiguration()) { 
+	if (tab.isSaveConfigurationAllowed()) { %>
+<span id="xava_save_list_configuration">
+<xava:link action="List.saveConfiguration"/>
+</span>
+<% 
+   	}	 
+   	else {
+%>
 <xava:link action="List.changeConfiguration"/>
+<%
+   	}
+}
+%>
+
 <% 
 if (tab.isTitleVisible()) { 
 %> 

@@ -164,7 +164,8 @@
 		openxava.lastModule='<%=module%>'; 	
 		openxava.language='<%=request.getLocale().getLanguage()%>';
 		openxava.contextPath = '<%=contextPath%>';
-	</script>	
+	</script>
+	<%-- tmp	
 	<%
 		if (style.isNeededToIncludeCalendar()) {
 	%>
@@ -174,6 +175,7 @@
 			}
 		%>	
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/calendar.js?ox=<%=version%>'></script>
+	--%>
 	<%
 		if (new File(realPath + "/xava/js/custom-editors.js").exists()) {
 	%>

@@ -1,3 +1,5 @@
+<%-- WARNING: IF YOU CHANGE THIS CODE PASS THE MANUAL TEST ON DateCalendarTest.txt --%>
+
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>

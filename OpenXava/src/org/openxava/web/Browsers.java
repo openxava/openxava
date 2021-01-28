@@ -11,11 +11,8 @@ import javax.servlet.http.*;
 public class Browsers {
 	
 	public static boolean isMobile(HttpServletRequest request) {
-		/* tmp
 		String browser = request.getHeader("user-agent");
 		return browser != null && ((browser.contains("Android") && browser.contains("Mobile")) || browser.contains("iPhone"));
-		*/
-		return false; // tmp
 	}
 	
 	public static String getCSSClass(HttpServletRequest request) {

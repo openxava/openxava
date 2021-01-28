@@ -38,5 +38,5 @@
 	
 	/* Editors */
 	--required-editor-border: var(--terra);
-	
+	--calendar-selected-day: var(--terra); /* tmp */	
 }

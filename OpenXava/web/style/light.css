@@ -35,5 +35,5 @@
 	
 	/* Editors */
 	--required-editor-border: gray;
-	
+	--calendar-selected-day: gray; /* tmp */
 }

@@ -9,6 +9,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
+import org.openxava.test.actions.*;
 
 /**
  * 

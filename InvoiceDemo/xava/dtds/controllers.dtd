@@ -69,4 +69,4 @@
  image CDATA #IMPLIED
  icon CDATA #IMPLIED
 >
-<!ELEMENT controllers (env-var*, object*, controller+)>
+<!ELEMENT controllers (env-var*, object*, controller*)>

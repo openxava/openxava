@@ -210,7 +210,9 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
+  	$('#xava_save_list_configuration').fadeIn(1000, 'swing'); 
 }
+
 
 openxava.initFocusKey = function() { } 
 
@@ -228,8 +230,17 @@ openxava.setEnterAsFocusKey = function() {
 }
 
 openxava.listenChanges = function() { 
-	$("." + openxava.editorClass).change(function() { 
-		  openxava.dataChanged = true;
+	// WARNING: IF YOU CHANGE THIS PASS DateCalendarTest.txt
+	$("." + openxava.editorClass).change(function() {
+		  // tmp openxava.dataChanged = true;
+		  // tmp ini
+		  if (!$(this).data('changedCancelled')) {
+			  openxava.dataChanged = true;			
+		  }
+		  else {
+		  	$(this).removeData('changedCancelled');
+		  }
+		  // tmp fin
 	});
 }
 
@@ -329,6 +340,10 @@ openxava.showMessages = function(result) {
 	if (!errorsIsEmpty) openxava.effectShow(result.application, result.module, "errors");
 }
 
+openxava.hideErrors = function(application, module) {  
+	$("#"+openxava.decorateId(application, module, "errors")).fadeOut();
+}
+
 openxava.initSelectedRows = function() { 
 	$("._XAVA_SELECTED_ROW_").addClass(openxava.selectedRowClass);
 }
@@ -426,8 +441,7 @@ openxava.initLists = function(application, module) {
 			Tab.setColumnWidth(event.target.id, $(event.target).closest("th").index() - 2, $(event.target).width());
 		}
 	});				
-	openxava.setListsSize(application, module, "list", openxava.listAdjustment); 
-	openxava.setListsSize(application, module, "collection", openxava.collectionAdjustment);
+	openxava.resetListsSize(application, module); 
 	$('.xava_sortable_column').sorttable({ 
 		placeholder: 'xava_placeholder',
 	    helperCells: null,
@@ -473,6 +487,11 @@ openxava.renumberCollection = function(table) {
 			$(this).attr("href", newHref);
 		});
 	});
+}
+
+openxava.resetListsSize = function(application, module) {
+	openxava.setListsSize(application, module, "list", openxava.listAdjustment); 
+	openxava.setListsSize(application, module, "collection", openxava.collectionAdjustment);
 }
 
 openxava.setListsSize = function(application, module, type, adjustment) {
@@ -835,17 +854,34 @@ openxava.onFocus = function(application, module, property) {
 }
 
 openxava.throwPropertyChanged = function(application, module, property) {
-	if (openxava.isRequesting(application, module)) return;	
+	if (openxava.isRequesting(application, module)) return;
+	/* tmp	
 	document.throwPropertyChange = true;
 	var form = openxava.getForm(application, module);
 	form[openxava.decorateId(application, module, "xava_focus_forward")].value = "true";	
 	form[openxava.decorateId(application, module, "xava_previous_focus")].value=property;
 	form[openxava.decorateId(application, module, "xava_changed_property")].value=property;
-	setTimeout ('openxava.requestOnChange("' + application + '", "' + module + '")', 100);	
+	setTimeout ('openxava.requestOnChange("' + application + '", "' + module + '")', 100);
+	*/
+	// tmp ini
+	var f = $('#' + property);
+	if (!f.data('changedCancelled')) {
+		document.throwPropertyChange = true;
+		var form = openxava.getForm(application, module);
+		form[openxava.decorateId(application, module, "xava_focus_forward")].value = "true";	
+		form[openxava.decorateId(application, module, "xava_previous_focus")].value=property;
+		form[openxava.decorateId(application, module, "xava_changed_property")].value=property;
+		setTimeout ('openxava.requestOnChange("' + application + '", "' + module + '")', 100);
+	}
+	else {
+		f.removeData('changedCancelled');
+	}
+	// tmp fin	
 }
 
 openxava.calculate = function(application, module, propertyId, scale) {
 	var calculation = $('#' + propertyId + "_CALCULATION_").val();
+	if (calculation == null) return;
 	var value = eval(calculation).toFixed(scale).replace(".", openxava.decimalSeparator);
 	$('#' + propertyId).val(value);
 	$('#' + propertyId).change(); 
@@ -1197,3 +1233,14 @@ openxava.fadeIn = function(selector, duration) {
 openxava.show = function(selector) { 
 	$(selector).show();
 }
+
+/* tmp ini */
+// Instead of $.getScript() because of cache
+openxava.getScript = function( url ) {
+  return jQuery.ajax( {
+    dataType: "script",
+    cache: true,
+    url: url
+  });
+};
+/* tmp fin */

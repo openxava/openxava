@@ -9,20 +9,9 @@ Use any entity with date (like Invoice4) in detail mode.
 	- Lose the focus of date, without change it, then go to list. No message shown.
 	- Use the dialog to select the current date, then go to list. No message shown.
 	- Use the dialog to select any date, then go to list. A message shown.
-- @OnChage: Add an @OnChange action to your date property.	
+- @OnChage: Add an @OnChange(OnChangeVoidAction.class) action to a date property.	
 	- Lose the focus of date, without change it. @OnChange action not executed.
 	- Use the dialog to select the current date. @OnChange action not executed.
-	- Use the dialog to select any date. @OnChange action executed.
-
-// TMP ME QUEDÉ POR AQUÍ. 
-
-		- Intentar hacer lo de "datos cambiados", sino podría crear un manual test, pero sólo para cuando toquemos el código, indicarlo en el código.
-			- No debería saltar solo saliendo del campo.
-			- Sólo una vez.
-			- Saltar al seleccionar con diálogo, pero solo si es diferente.
-			- No debería salta si después de cambiar la fecha una vez, entramos y salimos del campo.
-		- Intentar hacer lo de @OnChange, sino podría crear un manual test, pero sólo para cuando toquemos el código, indicarlo en el código.
-			- No debería saltar solo saliendo del campo.
-			- Sólo una vez.
-			- Saltar al seleccionar con diálogo, pero solo si es diferente.
-			- No debería salta si después de cambiar la fecha una vez, entramos y salimos del campo.
+	- Use the dialog to select any date. @OnChange action executed, one time.
+	- Select a different date using the dialog (it will execute the action), 
+		then enter and lose the focus of the date, it does not execute the action.

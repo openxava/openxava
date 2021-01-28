@@ -4,7 +4,12 @@
 
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
 
-<div id="modules_list"> 
+<%
+boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(modules.getCurrentModuleName());
+String display = isFirstSteps?"style='display:block'":""; 
+%>
+
+<div id="modules_list" <%=display%>>  
 
 	<div id="modules_list_top"> 
 
@@ -59,5 +64,15 @@
 			</tr>
 		</table>
 	</div>
-
+	
 </div>
+
+<% if (!isFirstSteps) { %> 
+	<a id="modules_list_hide" href="javascript:naviox.hideModulesList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>')">
+		<i class="mdi mdi-chevron-left"></i>
+	</a>
+	
+	<a id="modules_list_show" href="javascript:naviox.showModulesList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>')">
+		<i class="mdi mdi-chevron-right"></i>
+	</a>
+<% } %>
