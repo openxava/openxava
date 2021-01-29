@@ -202,7 +202,7 @@ public class CrearFacturaDesdePedido
       original, además a JPA no le gusta persistir los objetos con el id
       autogenerado rellenado de antemano. Segundo, has de asignar la nueva <i>
         Factura</i> al actual Pedido (<i>this.factura = factura</i>) después de
-      llamar a <i>persist(invoice)</i>, si no obtendrás un error de JPA (algo
+      llamar a <i>persist(factura)</i>, si no obtendrás un error de JPA (algo
       así como “object references an unsaved transient instance”). Tercero,
       hemos de envolver la colección <i>detalles</i> con un <i>new ArrayList()</i>,
       para que sea una colección nueva aunque con los mismos elementos, porque
@@ -364,8 +364,8 @@ imposible_crear_factura=Imposible crear factura
       Recuerda que una factura puede ser generada desde un pedido si el pedido
       ha sido entregado y no tiene factura todavía. Por tanto, tenemos que
       vigilar los cambios en la referencia <i>factura</i> y la propiedad <i>entregado</i>
-      de la entidad <i>Pedido</i>. Lo primero será la crear la acción que
-      oculta o muestra la acción para crear una factura desde un pedido, <i>MostrarOcultarCrearFactura</i>,
+      de la entidad <i>Pedido</i>. Lo primero será crear la acción que oculta o
+      muestra la acción para crear una factura desde un pedido, <i>MostrarOcultarCrearFactura</i>,
       con este código:
       <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
 
