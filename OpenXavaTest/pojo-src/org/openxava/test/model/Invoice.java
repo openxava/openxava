@@ -33,7 +33,8 @@ import lombok.*;
 @IdClass(InvoiceKey.class)
 @Views({
 	@View(members=
-		"year, number, date, paid, detailsCount;" + // detailsCount is useful for testing READ COMMITED (with HSQLDB 2)
+		// tmp "year, number, date, paid, detailsCount;" + // detailsCount is useful for testing READ COMMITED (with HSQLDB 2)
+		"year, number, paid, date, detailsCount;" + // detailsCount is useful for testing READ COMMITED (with HSQLDB 2) // tmp	
 		"discounts [" +
 		"	customerDiscount, customerTypeDiscount, yearDiscount;" +
 		"];" +

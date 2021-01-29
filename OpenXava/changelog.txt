@@ -14,7 +14,12 @@ Change Log for OpenXava project
 	* Revisar código.
 	* Borrar código de antiguo calendar. ¿Hacerlo automático en el updateOX? Quitar los includes en los JSPs. Quitar calendar.js
 	- Probar con InvoiceDemo.
-		TMP ME QUEDÉ POR AQUÍ: FALLA AL ELEGIR LA FECHA Y VOLVER A LA LISTA PORQUE PREGUNTA. PROBAR TODO A FONDO CON InvoiceDemo
+		TMP ME QUEDÉ POR AQUÍ: 
+			ARREGLADO: FALLA AL ELEGIR LA FECHA Y VOLVER A LA LISTA PORQUE PREGUNTA.
+			USAR DateFormatter EN Dates TAMBIÉN PARA TIMEDATE.
+			QUITAR ARGUMENTO (Locale) DE Dates.dateFormatForJSCalendar() Y SU HERMANO. 
+			MODIFY DateCalendarText.txt TO TEST WITH A DATE THAT IS NOT THE FIRST FOCUSED FIELD.
+			PROBAR TODO A FONDO CON InvoiceDemo
 	- Poner en changelog mejoras en el editor, ya que verifica fecha al salir del campo.
 	- Suite.
 	

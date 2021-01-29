@@ -813,9 +813,16 @@
 		<copy todir="${dist.portlets.dir}/xava/editors/ckeditor">
 			<fileset dir="web/xava/editors/ckeditor"/>
 		</copy>
+		<!-- tmp 
 		<copy todir="${dist.portlets.dir}/WEB-INF/jsp" >
 			<fileset dir="web" excludes="WEB-INF/**, xava/images/**, xava/style/**, xava/editors/js/**, xava/editors/calendar/**, xava/editors/ckeditor/**, xava/jasperReport.jsp public/**"/>
 		</copy>
+		-->
+		<!-- tmp ini -->
+		<copy todir="${dist.portlets.dir}/WEB-INF/jsp" >
+			<fileset dir="web" excludes="WEB-INF/**, xava/images/**, xava/style/**, xava/editors/js/**, xava/editors/flatpickr/**, xava/editors/ckeditor/**, xava/jasperReport.jsp public/**"/>
+		</copy>
+		<!-- tmp fin -->
 		<copy todir="${dist.portlets.dir}/public" failonerror="false">
 			<fileset dir="web/public"/>
 		</copy>

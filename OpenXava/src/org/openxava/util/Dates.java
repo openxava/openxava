@@ -3,6 +3,8 @@ package org.openxava.util;
 import java.text.*;
 import java.util.*;
 
+import org.openxava.formatters.*;
+
 
 
 
@@ -458,9 +460,15 @@ public class Dates {
 	}	
 
 	
-	public static String dateFormatForJSCalendar(Locale locale) {
+	public static String dateFormatForJSCalendar(Locale locale) { // tmp ¿Quitar argumento locale?
+		/* tmp
 		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-		String date = "hr".equals(locale.getLanguage())?"01.02.1971":df.format(create(1, 2, 1971)); // d, m, y 
+		String date = "hr".equals(locale.getLanguage())?"01.02.1971":df.format(create(1, 2, 1971)); // d, m, y
+		*/
+		// tmp ini
+		DateFormatter df = new DateFormatter();
+		String date = "hr".equals(locale.getLanguage())?"01.02.1971":df.format(null, create(1, 2, 1971)); // d, m, y
+		// tmp fin
 		boolean always4InYear= "es".equals(locale.getLanguage()) || "pl".equals(locale.getLanguage());
 		/* tmp
 		return date.

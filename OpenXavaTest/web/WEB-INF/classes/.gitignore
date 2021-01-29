@@ -29,6 +29,7 @@
 /InvoiceNoVAT.jrxml
 /LoginContextFactory.properties
 /Products.jrxml
+/_run/
 /jndi-jboss.properties
 /jndi-websphere.properties
 /jndi.properties
@@ -37,4 +38,3 @@
 /naviox.properties
 /xava-junit.properties
 /xava.properties
-/_run/
