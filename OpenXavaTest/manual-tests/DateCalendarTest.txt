@@ -3,7 +3,7 @@ Therefore, when you touch dateCalendarEditor.js, dateCalendarEditor.jsp, dateTim
 dateTimeSeparatedCalendar.jsp, the part of date filtering in list.jsp or the method openxava.listenChanges
 of openxava.js you have to test it visually at least the next cases:
 
-Use any entity with date (like Invoice4) in detail mode.
+Use any entity with a date (not the first focusable field) in detail mode. Like Order. 
 
 - "Data changed" message on going list mode:
 	- Lose the focus of date, without change it, then go to list. No message shown.

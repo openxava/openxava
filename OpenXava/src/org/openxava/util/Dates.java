@@ -454,18 +454,26 @@ public class Dates {
 	 * 
 	 * @since 4.8.1
 	 */
+	/* tmp
 	public static String dateFormatForJSCalendar(Locale locale, boolean includeTime) { 		
 		if (includeTime) return dateTimeFormatForJSCalendar(locale);
 		return dateFormatForJSCalendar(locale);
 	}	
-
+	*/
+	// tmp ini
+	public static String dateFormatForJSCalendar(boolean includeTime) { 		
+		if (includeTime) return dateTimeFormatForJSCalendar();
+		return dateFormatForJSCalendar();
+	}	
+	// tmp fin
 	
-	public static String dateFormatForJSCalendar(Locale locale) { // tmp ¿Quitar argumento locale?
+	public static String dateFormatForJSCalendar() { // tmp ¿Quitar argumento locale?
 		/* tmp
 		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
 		String date = "hr".equals(locale.getLanguage())?"01.02.1971":df.format(create(1, 2, 1971)); // d, m, y
 		*/
 		// tmp ini
+		Locale locale = Locales.getCurrent();
 		DateFormatter df = new DateFormatter();
 		String date = "hr".equals(locale.getLanguage())?"01.02.1971":df.format(null, create(1, 2, 1971)); // d, m, y
 		// tmp fin
@@ -484,15 +492,22 @@ public class Dates {
 			replaceAll("01", "d").
 			replaceAll("02", "m").
 			replaceAll("1971", "Y").
-			replaceAll("71", always4InYear?"Y":"y"). 			
+			replaceAll("71", always4InYear?"Y":"y").
 			replaceAll("1", "j").
 			replaceAll("2", "n");		
 		// tmp fin
 	}	
 	
-	public static String dateTimeFormatForJSCalendar(Locale locale) {		
+	public static String dateTimeFormatForJSCalendar() {
+		/* tmp
 		DateFormat df = getDateTimeFormat(locale); 
-		String datetime = df.format(create(1, 2, 1971, 15, 59, 0)); // d, m, y, hr, min, sec 
+		String datetime = df.format(create(1, 2, 1971, 15, 59, 0)); // d, m, y, hr, min, sec
+		*/
+		// tmp ini
+		Locale locale = Locales.getCurrent();
+		DateTimeCombinedFormatter df = new DateTimeCombinedFormatter(); 
+		String datetime = df.format(null, create(1, 2, 1971, 15, 59, 0)); // d, m, y, hr, min, sec		
+		// tmp fin
 		boolean always4InYear= "es".equals(locale.getLanguage()) || "pl".equals(locale.getLanguage());
 		/* tmp
 		String result = datetime.

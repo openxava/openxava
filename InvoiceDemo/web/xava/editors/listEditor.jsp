@@ -290,7 +290,7 @@ while (it.hasNext()) {
 		+ "&idConditionValueTo=" + idConditionValueTo;
 	// tmp String classConditionValue = isDate?"class='" + style.getDateCalendar() + "'":""; 
 	String classConditionValue = isDate?"class='xava_date " + style.getDateCalendar() + "'":""; // tmp
-	String attrConditionValue = isDate?"data-date-format='" + org.openxava.util.Dates.dateFormatForJSCalendar(org.openxava.util.Locales.getCurrent(), isTimestamp) + "'":""; // tmp
+	String attrConditionValue = isDate?"data-date-format='" + org.openxava.util.Dates.dateFormatForJSCalendar(isTimestamp) + "'":""; // tmp
 	if (isTimestamp) attrConditionValue += " data-enable-time='true'"; // tmp 
 	if (isEmptyComparator) {
 %>

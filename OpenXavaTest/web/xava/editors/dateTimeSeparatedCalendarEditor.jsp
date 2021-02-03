@@ -38,7 +38,7 @@ if (editable || !label) {
 	<%=script%>/>
 --%>	
 <%-- tmp ini --%>
-<span class="xava_date <%=style.getDateCalendar()%>" data-date-format="<%=org.openxava.util.Dates.dateFormatForJSCalendar(org.openxava.util.Locales.getCurrent())%>">
+<span class="xava_date <%=style.getDateCalendar()%>" data-date-format="<%=org.openxava.util.Dates.dateFormatForJSCalendar()%>">
 <input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class="<%=style.getEditor()%>" title="<%=p.getDescription(request)%>"
 	tabindex="1" 
 	align='<%=align%>'

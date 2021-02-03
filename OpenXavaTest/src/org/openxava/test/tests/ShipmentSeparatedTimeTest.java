@@ -16,7 +16,7 @@ public class ShipmentSeparatedTimeTest extends ModuleTestBase {
 	public void testDateTimeSeparatedCalendarEditor() throws Exception {
 		execute("List.viewDetail", "row=0");
 		String [] emptyTime = { "", "" };
-		assertValues("time", emptyTime);
+		assertValues("time", emptyTime); // TMP FALLA
 		String [] time = { "5/27/09", "11:59 AM" };
 		setValues("time", time);
 		execute("CRUD.save");
@@ -31,7 +31,7 @@ public class ShipmentSeparatedTimeTest extends ModuleTestBase {
 	
 	public void testDateTimeSeparatedCalendarEditorInSpanishCroatian() throws Exception { 
 		setLocale("es");
-		assertDateTimeSeparatedCalendarEditor("/", "0:00"); 
+		assertDateTimeSeparatedCalendarEditor("/", "0:00"); // TMP FALLA
 		setLocale("hr");
 		assertDateTimeSeparatedCalendarEditor(".", "00:00");		
 	}
@@ -51,6 +51,8 @@ public class ShipmentSeparatedTimeTest extends ModuleTestBase {
 	}
 
 	private void assertTime(String date, String time, String expectedDate, String expectedTime) throws Exception { 
+		System.out.println("[ShipmentSeparatedTimeTest.assertTime] date=" + date); // tmp
+		System.out.println("[ShipmentSeparatedTimeTest.assertTime] expectedDate=" + expectedDate); // tmp
 		String [] dateTime = { date, time };
 		setValues("time", dateTime);
 		execute("CRUD.save");

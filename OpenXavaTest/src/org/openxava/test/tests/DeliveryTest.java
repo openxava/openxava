@@ -265,7 +265,7 @@ public class DeliveryTest extends ModuleTestBase {
 		execute("Sections.change", "activeSection=2");
 		setValue("vatPercentage", "17");
 		execute("NewCreation.saveNew");
-		assertNoErrors();		
+		assertNoErrors(); // TMP FALLA		
 		assertNoDialog();
 		assertValue("invoice.year", "2009");
 		assertValue("invoice.number", "66");
@@ -525,7 +525,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertError("Value for Advice in Delivery is required"); 
 		setValue("advice", "Modifying");
 		execute("CRUD.save");
-		assertNoErrors();
+		assertNoErrors(); // TMP FALLA
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		assertValue("shipment.KEY", toKeyString(shipment)); 

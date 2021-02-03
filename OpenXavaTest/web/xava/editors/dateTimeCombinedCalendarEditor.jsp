@@ -28,7 +28,7 @@ if (editable || !label) {
 --%>	
 <%-- tmp ini --%>
 <span class="xava_date <%=style.getDateCalendar()%>" 
-	data-date-format="<%=org.openxava.util.Dates.dateTimeFormatForJSCalendar(org.openxava.util.Locales.getCurrent())%>"
+	data-date-format="<%=org.openxava.util.Dates.dateTimeFormatForJSCalendar()%>"
 	data-enable-time="true">
 	<input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class="<%=style.getEditor()%>" title="<%=p.getDescription(request)%>"
 		tabindex="1" 
