@@ -45,7 +45,7 @@ if (editable || !label) {
 	maxlength="10"
 	data-input
 	size="<%=size%>" 
-	value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a href="javascript:void(0)" data-toggle style="position: relative; right: 25px;"><i class="mdi mdi-calendar"></i></a><%} %> <input name="<%=propertyKey%>" class=<%=style.getEditor()%>	
+	value="<%=fDate%>" <%=disabled%> <%=script%>><%if (editable) {%><a href="javascript:void(0)" data-toggle style="position: relative; right: 25px;"><i class="mdi mdi-calendar"></i></a><%} %> <input name="<%=propertyKey%>" class=<%=style.getEditor()%>	
 	type="text" 
 	title="<%=p.getDescription(request)%>"
 	tabindex="1"

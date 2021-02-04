@@ -24,7 +24,6 @@
 /CorporationEmployee.html
 /Customer.jrxml
 /Film.jrxml
-/Images.jrxml
 /LoginContextFactory.properties
 /jndi-jboss.properties
 /jndi-websphere.properties
@@ -34,6 +33,7 @@
 /naviox.properties
 /xava-junit.properties
 /xava.properties
+/Images.jrxml
 /Invoice.jrxml
 /InvoiceNoVAT.jrxml
 /Products.jrxml
