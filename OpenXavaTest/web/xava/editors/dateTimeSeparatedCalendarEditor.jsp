@@ -5,6 +5,7 @@
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
+// TMP FALTA COPIAR ESTO A OpenXava
 String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String [] fvalues = (String []) request.getAttribute(propertyKey + ".fvalue");
@@ -17,8 +18,9 @@ String disabled=editable?"":"disabled";
 String script = request.getParameter("script");
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 String browser = request.getHeader("user-agent");
-String size = browser.contains("Chrome")?"10":"12"; 
+String size = browser.contains("Chrome")?"10":"12";
 if (editable || !label) {
+	String dateClass = editable?"xava_date":""; // tmp
 %>
 <%-- tmp
 <span class="<%=style.getDateCalendar()%>">
@@ -38,7 +40,7 @@ if (editable || !label) {
 	<%=script%>/>
 --%>	
 <%-- tmp ini --%>
-<span class="xava_date <%=style.getDateCalendar()%>" data-date-format="<%=org.openxava.util.Dates.dateFormatForJSCalendar()%>">
+<span class="<%=dateClass%> <%=style.getDateCalendar()%>" data-date-format="<%=org.openxava.util.Dates.dateFormatForJSCalendar()%>">
 <input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class="<%=style.getEditor()%>" title="<%=p.getDescription(request)%>"
 	tabindex="1" 
 	align='<%=align%>'

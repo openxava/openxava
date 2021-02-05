@@ -15,8 +15,8 @@ public class ShipmentSeparatedTimeTest extends ModuleTestBase {
 	
 	public void testDateTimeSeparatedCalendarEditor() throws Exception {
 		execute("List.viewDetail", "row=0");
-		String [] emptyTime = { "", "" };
-		assertValues("time", emptyTime); // TMP FALLA
+		String [] emptyTime = { "", "" }; 
+		assertValues("time", emptyTime); 
 		String [] time = { "5/27/09", "11:59 AM" };
 		setValues("time", time);
 		execute("CRUD.save");
@@ -31,7 +31,7 @@ public class ShipmentSeparatedTimeTest extends ModuleTestBase {
 	
 	public void testDateTimeSeparatedCalendarEditorInSpanishCroatian() throws Exception { 
 		setLocale("es");
-		assertDateTimeSeparatedCalendarEditor("/", "0:00"); // TMP FALLA
+		assertDateTimeSeparatedCalendarEditor("/", "0:00"); 
 		setLocale("hr");
 		assertDateTimeSeparatedCalendarEditor(".", "00:00");		
 	}
@@ -51,8 +51,6 @@ public class ShipmentSeparatedTimeTest extends ModuleTestBase {
 	}
 
 	private void assertTime(String date, String time, String expectedDate, String expectedTime) throws Exception { 
-		System.out.println("[ShipmentSeparatedTimeTest.assertTime] date=" + date); // tmp
-		System.out.println("[ShipmentSeparatedTimeTest.assertTime] expectedDate=" + expectedDate); // tmp
 		String [] dateTime = { date, time };
 		setValues("time", dateTime);
 		execute("CRUD.save");
@@ -61,25 +59,5 @@ public class ShipmentSeparatedTimeTest extends ModuleTestBase {
 		String [] expectedDateTime = { expectedDate, expectedTime };
 		assertValues("time", expectedDateTime);
 	}
-	
-	public void testProva() throws Exception { // tmp
-		// TMP ME QUEDÉ POR AQUÍ: TODAVÍA FALLA
-		setLocale("es");
-		assertDateTimeSeparatedCalendarEditor2("/", "0:00"); // TMP FALLA
-	}
-	
-	public void assertDateTimeSeparatedCalendarEditor2(String separator, String timeZero) throws Exception { // tmp 
-		execute("List.viewDetail", "row=0");
-		assertTime2("30" + separator + "6" + separator + "14", "13:30", "30" + separator + "06" + separator + "2014", "13:30");
-	}
-
-	private void assertTime2(String date, String time, String expectedDate, String expectedTime) throws Exception { // tmp
-		System.out.println("[ShipmentSeparatedTimeTest.assertTime2] date=" + date); // tmp
-		System.out.println("[ShipmentSeparatedTimeTest.assertTime2] expectedDate=" + expectedDate); // tmp
-		String [] expectedDateTime = { expectedDate, expectedTime };
-		printHtml(); 
-		assertValues("time", expectedDateTime);
-	}
-
-						
+							
 }

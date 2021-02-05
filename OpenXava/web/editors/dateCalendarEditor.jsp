@@ -14,7 +14,7 @@ String disabled=editable?"":"disabled";
 String script = request.getParameter("script");
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 String browser = request.getHeader("user-agent");
-int sizeIncrement = browser.contains("Chrome")?0:2; 
+int sizeIncrement = browser.contains("Chrome")?0:2;
 if (editable || !label) {
 %>
 <%-- tmp

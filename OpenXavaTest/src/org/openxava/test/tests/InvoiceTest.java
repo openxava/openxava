@@ -1,26 +1,18 @@
 package org.openxava.test.tests;
 
-import java.math.BigDecimal;
-import java.rmi.RemoteException;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.math.*;
+import java.rmi.*;
+import java.text.*;
 import java.util.*;
 
 import org.openxava.actions.*;
-import org.openxava.jpa.XPersistence;
-import org.openxava.test.calculators.YearInvoiceDiscountCalculator;
+import org.openxava.jpa.*;
+import org.openxava.test.calculators.*;
 import org.openxava.test.model.*;
-import org.openxava.util.Dates;
-import org.openxava.util.Is;
-import org.openxava.util.Strings;
-import org.openxava.util.XavaPreferences;
-import org.openxava.util.XavaResources;
-import org.openxava.web.Ids;
+import org.openxava.util.*;
+import org.openxava.web.*;
 
-import com.gargoylesoftware.htmlunit.*;
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.*;
 
 
@@ -397,7 +389,9 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNotExists("booleanValue");
 		assertNotExists("validValuesValue");
 		
-		assertTrue(getHtml().contains("showCalendar('ox_OpenXavaTest_Invoice__dateValue'"));
+		String dateValue = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Invoice__editor_dateValue").asXml();
+		assertTrue(dateValue.contains("xava_date"));
+		assertTrue(dateValue.contains("mdi-calendar"));
 		
 		setValue("dateValue", "5/28/07");
 		
@@ -534,7 +528,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setConditionValues("2000", "", "01/01/2002");
 		setConditionValuesTo("2004", "", "05/01/2004");
 		assertTrue(isVisibleConditionValueTo(2)); 
-		assertTrue(isVisibleConditionValueToCalendar(2)); 
+		assertTrue(isVisibleConditionValueToCalendar(2));  
 		execute("List.filter");
 		assertListRowCount(3); 
 		// int & Date & boolean
@@ -542,7 +536,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("List.filter");
 		assertListRowCount(1);
 		
-		assertTrue(isVisibleConditionValueTo(0));
+		assertTrue(isVisibleConditionValueTo(0)); 
 		assertFalse(isVisibleConditionValueToCalendar(0));
 		assertTrue(isVisibleConditionValueTo(2));		
 		assertTrue(isVisibleConditionValueToCalendar(2));		
@@ -1294,7 +1288,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setValue("number", String.valueOf(getInvoice().getNumber()));
 		execute("CRUD.refresh");
 		assertNoErrors();
-		assertValue("date", "04/01/1941"); 
+		assertValue("date", "04/01/1941"); // TMP FALLA ME QUEDÉ POR AQUÍ 
 		
 		setValue("date", "30/2/2008");
 		execute("CRUD.save");
@@ -1302,7 +1296,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		
 		// Restore original date
 		setValue("date", originalDate);
-		execute("CRUD.save");
+		execute("CRUD.save"); 
 		assertNoErrors();		 				
 	}
 
@@ -2307,10 +2301,22 @@ public class InvoiceTest extends CustomizeListTestBase {
 		return getHtmlPage().getHtmlElementById(Ids.decorate("OpenXavaTest", "Invoice", "conditionValueTo___" + number)).isDisplayed(); 
 	}
 	
-	private boolean isVisibleConditionValueToCalendar(int number) { 
-		DomNode node = getHtmlPage().getHtmlElementById(Ids.decorate("OpenXavaTest", "Invoice", "conditionValueTo___" + number)).getNextSibling(); 
+	private boolean isVisibleConditionValueToCalendar(int number) {
+		/* tmp
+		DomNode node = getHtmlPage().getHtmlElementById(Ids.decorate("OpenXavaTest", "Invoice", "conditionValueTo___" + number)).getNextSibling();
 		if (!node.isDisplayed()) return false;
 		return node.toString().contains("javascript:showCalendar");
+		*/
+		// tmp ini
+		HtmlElement parent = (HtmlElement) getHtmlPage().getHtmlElementById(Ids.decorate("OpenXavaTest", "Invoice", "conditionValueTo___" + number)).getParentNode();
+		List<HtmlElement> links = parent.getElementsByTagName("a");
+		if (links.isEmpty()) return false;
+		HtmlElement calendar = links.get(0);
+		if (!calendar.isDisplayed()) return false;
+		String html = parent.asXml();
+		return html.contains("mdi-calendar") && html.contains("xava_date");
+		// tmp fin
+
 	}
 	
 	public void testBooleanComboHiddenAfterClearCondition() throws Exception{

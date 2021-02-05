@@ -345,6 +345,7 @@ if (manager.isResetFormPostNeeded()) {
 		<% } %>
 		<% if (browser != null && browser.contains("HtmlUnit")) { // Because of low performance of fadeIn with HtmlUnit %>
 		openxava.fadeIn = openxava.show;
+		openxava.browser.htmlUnit = true; // TMP FALTA MOVER A OpenXava
 		<% } %>
 		<%String initThemeScript = style.getInitThemeScript();
 			if (initThemeScript != null) {%>

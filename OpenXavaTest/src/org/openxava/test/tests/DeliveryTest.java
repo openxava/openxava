@@ -1,15 +1,14 @@
 package org.openxava.test.tests;
 
-import java.text.DateFormat;
+import java.text.*;
 import java.util.*;
 
-import javax.persistence.Query;
+import javax.persistence.*;
 
-import org.openxava.jpa.XPersistence;
-import org.openxava.test.model.DeliveryType;
-import org.openxava.test.model.Shipment;
-import org.openxava.tests.ModuleTestBase;
-import org.openxava.util.Is;
+import org.openxava.jpa.*;
+import org.openxava.test.model.*;
+import org.openxava.tests.*;
+import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
 
@@ -265,7 +264,7 @@ public class DeliveryTest extends ModuleTestBase {
 		execute("Sections.change", "activeSection=2");
 		setValue("vatPercentage", "17");
 		execute("NewCreation.saveNew");
-		assertNoErrors(); // TMP FALLA		
+		assertNoErrors(); 		
 		assertNoDialog();
 		assertValue("invoice.year", "2009");
 		assertValue("invoice.number", "66");
@@ -437,9 +436,12 @@ public class DeliveryTest extends ModuleTestBase {
 	public void testDateCalendarEditor() throws Exception { 
 		execute("CRUD.new");
 		assertExists("invoice.date");
-		String html = getHtml();
-		assertFalse(html.contains("showCalendar('ox_OpenXavaTest_Delivery__invoice___date'")); 
-		assertTrue(html.contains("showCalendar('ox_OpenXavaTest_Delivery__date'")); 
+		String invoiceDate = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Delivery__editor_invoice___date").asXml();
+		assertFalse(invoiceDate.contains("xava_date"));
+		assertFalse(invoiceDate.contains("mdi-calendar"));
+		String deliveryDate = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Delivery__editor_date").asXml();
+		assertTrue(deliveryDate.contains("xava_date"));
+		assertTrue(deliveryDate.contains("mdi-calendar"));		
 	}
 	
 	public void testAggregateInCollectionWithVisibleKeyDoesNotTryToSearchOnChangeKey() throws Exception {
@@ -525,7 +527,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertError("Value for Advice in Delivery is required"); 
 		setValue("advice", "Modifying");
 		execute("CRUD.save");
-		assertNoErrors(); // TMP FALLA
+		assertNoErrors(); 
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		assertValue("shipment.KEY", toKeyString(shipment)); 

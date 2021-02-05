@@ -261,9 +261,9 @@ public class TrainingTest extends ModuleTestBase {
 	}
 
 	private void assertDateEditor() throws Exception {
-		String html = getHtml();
-		assertTrue(html.contains("javascript:showCalendar('ox_OpenXavaTest_Training__sessions___0___date'"));
-		assertTrue(html.contains("<i class=\"mdi mdi-calendar\"")); 		
+		String date = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Training__editor_sessions___0___date").asXml();
+		assertTrue(date.contains("xava_date"));
+		assertTrue(date.contains("mdi-calendar"));
 	}
 		
 }

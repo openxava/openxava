@@ -1,14 +1,14 @@
 package org.openxava.test.model;
 
-import org.openxava.model.*;
-
 import java.math.*;
 import java.util.*;
 
 import javax.persistence.*;
+
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
+import org.openxava.model.*;
 
 @Entity
 @Table(name="TOrder")

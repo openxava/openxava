@@ -15,3 +15,7 @@ Use any entity with a date (not the first focusable field) in detail mode. Like 
 	- Use the dialog to select any date. @OnChange action executed, one time.
 	- Select a different date using the dialog (it will execute the action), 
 		then enter and lose the focus of the date, it does not execute the action.
+- Add "20" to year when two digits with 4 digits format (in Spanish):
+	- Type a date with only two digits for year and lose focus the 20 is
+		added (a 17 is turned in a 2017) and the rest of the date is not changed.
+	- Try to put the date in blank and lose focus, the date must be keep blank.	 		
