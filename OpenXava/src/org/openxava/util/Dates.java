@@ -451,43 +451,22 @@ public class Dates {
 	}
 	
 	/**
-	 * 
+	 * @param locale  Removed in 6.5
 	 * @since 4.8.1
 	 */
-	/* tmp
-	public static String dateFormatForJSCalendar(Locale locale, boolean includeTime) { 		
-		if (includeTime) return dateTimeFormatForJSCalendar(locale);
-		return dateFormatForJSCalendar(locale);
-	}	
-	*/
-	// tmp ini
 	public static String dateFormatForJSCalendar(boolean includeTime) { 		
 		if (includeTime) return dateTimeFormatForJSCalendar();
 		return dateFormatForJSCalendar();
 	}	
-	// tmp fin
 	
-	public static String dateFormatForJSCalendar() { // tmp ¿Quitar argumento locale?
-		/* tmp
-		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-		String date = "hr".equals(locale.getLanguage())?"01.02.1971":df.format(create(1, 2, 1971)); // d, m, y
-		*/
-		// tmp ini
+	/**
+	 * @param locale  Removed in 6.5
+	 */
+	public static String dateFormatForJSCalendar() { 
 		Locale locale = Locales.getCurrent();
 		DateFormatter df = new DateFormatter();
 		String date = "hr".equals(locale.getLanguage())?"01.02.1971":df.format(null, create(1, 2, 1971)); // d, m, y
-		// tmp fin
 		boolean always4InYear= "es".equals(locale.getLanguage()) || "pl".equals(locale.getLanguage());
-		/* tmp
-		return date.
-			replaceAll("01", "%d").
-			replaceAll("02", "%m").
-			replaceAll("1971", "%Y").
-			replaceAll("71", always4InYear?"%Y":"%y"). 			
-			replaceAll("1", "%d").
-			replaceAll("2", "%m");
-		*/
-		// tmp ini
 		return date.
 			replaceAll("01", "d").
 			replaceAll("02", "m").
@@ -495,41 +474,16 @@ public class Dates {
 			replaceAll("71", always4InYear?"Y":"y").
 			replaceAll("1", "j").
 			replaceAll("2", "n");		
-		// tmp fin
 	}	
-	
+
+	/**
+	 * @param locale  Removed in 6.5
+	 */	
 	public static String dateTimeFormatForJSCalendar() {
-		/* tmp
-		DateFormat df = getDateTimeFormat(locale); 
-		String datetime = df.format(create(1, 2, 1971, 15, 59, 0)); // d, m, y, hr, min, sec
-		*/
-		// tmp ini
 		Locale locale = Locales.getCurrent();
 		DateTimeCombinedFormatter df = new DateTimeCombinedFormatter(); 
 		String datetime = df.format(null, create(1, 2, 1971, 15, 59, 0)); // d, m, y, hr, min, sec		
-		// tmp fin
 		boolean always4InYear= "es".equals(locale.getLanguage()) || "pl".equals(locale.getLanguage());
-		/* tmp
-		String result = datetime.
-		
-			// time part
-			replaceAll("15", "%H").	// 24hr format 
-			replaceAll("03", "%I").	// 12hr format - double digit 
-			replaceAll("3", "%l").	// 12hr format - single digit
-			replaceAll("59","%M").	// minute
-			replaceAll("PM", "%p").	// AM/PM - uppercase
-			replaceAll("pm", "%P").	// am/pm - lowercase
-
-			// date part
-			replaceAll("01", "%d").	// day - double digit
-			replaceAll("02", "%m").	// month - double digit
-			replaceAll("1971", "%Y").	// year - 4 digit
-			replaceAll("71", always4InYear?"%Y":"%y"). 	// year - 2 digit 		
-			replaceAll("1", "%e"). 	// day - single digit
-			replaceAll("2", "%m")	// month - ??? seems only double digit is supported by calendar
-			;
-		*/
-		// tmp ini
 		String result = datetime.
 				
 				// time part
@@ -549,7 +503,6 @@ public class Dates {
 				replaceAll("2", "n")	// month - ??? seems only double digit is supported by calendar
 				;
 
-		// tmp fin
 		return result;
 	}	
 	

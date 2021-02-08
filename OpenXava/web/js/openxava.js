@@ -232,15 +232,12 @@ openxava.setEnterAsFocusKey = function() {
 openxava.listenChanges = function() { 
 	// WARNING: IF YOU CHANGE THIS PASS DateCalendarTest.txt
 	$("." + openxava.editorClass).change(function() {
-		  // tmp openxava.dataChanged = true;
-		  // tmp ini
 		  if (!$(this).data('changedCancelled')) {
 			  openxava.dataChanged = true;			
 		  }
 		  else {
 		  	$(this).removeData('changedCancelled');
 		  }
-		  // tmp fin
 	});
 }
 
@@ -855,15 +852,6 @@ openxava.onFocus = function(application, module, property) {
 
 openxava.throwPropertyChanged = function(application, module, property) {
 	if (openxava.isRequesting(application, module)) return;
-	/* tmp	
-	document.throwPropertyChange = true;
-	var form = openxava.getForm(application, module);
-	form[openxava.decorateId(application, module, "xava_focus_forward")].value = "true";	
-	form[openxava.decorateId(application, module, "xava_previous_focus")].value=property;
-	form[openxava.decorateId(application, module, "xava_changed_property")].value=property;
-	setTimeout ('openxava.requestOnChange("' + application + '", "' + module + '")', 100);
-	*/
-	// tmp ini
 	var f = $('#' + property);
 	if (!f.data('changedCancelled')) {
 		document.throwPropertyChange = true;
@@ -876,7 +864,6 @@ openxava.throwPropertyChanged = function(application, module, property) {
 	else {
 		f.removeData('changedCancelled');
 	}
-	// tmp fin	
 }
 
 openxava.calculate = function(application, module, propertyId, scale) {
@@ -1234,7 +1221,6 @@ openxava.show = function(selector) {
 	$(selector).show();
 }
 
-/* tmp ini */
 // Instead of $.getScript() because of cache
 openxava.getScript = function( url ) {
   return jQuery.ajax( {
@@ -1243,4 +1229,3 @@ openxava.getScript = function( url ) {
     url: url
   });
 };
-/* tmp fin */

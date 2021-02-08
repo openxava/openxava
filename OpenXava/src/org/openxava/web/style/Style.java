@@ -162,7 +162,6 @@ public class Style {
 	
 	protected Collection<String> createAdditionalCssFiles() {
 		return Arrays.asList( 
-			// tmp "/xava/editors/calendar/skins/aqua/theme.css", 
 			"/xava/style/yahoo-treeview/treeview.css",
 			"/xava/style/custom.css", 
 			getJQueryCss()
@@ -1124,12 +1123,6 @@ public class Style {
 	public String getBottomButtons() {
 		return "ox-bottom-buttons";
 	}
-
-	/* tmp
-	public boolean isNeededToIncludeCalendar() {
-		return true;
-	}
-	*/
 
 	/**
 	 * 

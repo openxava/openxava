@@ -19,5 +19,5 @@
 	/* Editors */
 	--required-editor-border: var(--my-blue);
 	--input-focus-border: var(--my-dark-blue);
-	--calendar-selected-day: var(--my-blue); /* tmp */
+	--calendar-selected-day: var(--my-blue); 
 }

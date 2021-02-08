@@ -19,3 +19,7 @@ Use any entity with a date (not the first focusable field) in detail mode. Like 
 	- Type a date with only two digits for year and lose focus the 20 is
 		added (a 17 is turned in a 2017) and the rest of the date is not changed.
 	- Try to put the date in blank and lose focus, the date must be keep blank.	 		
+
+	
+NOTE: In IE11 locale is not recognized and change events are not thrown, 
+	possibly because of problems $.getString() of jquery	

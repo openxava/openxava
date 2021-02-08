@@ -165,17 +165,6 @@
 		openxava.language='<%=request.getLocale().getLanguage()%>';
 		openxava.contextPath = '<%=contextPath%>';
 	</script>
-	<%-- tmp	
-	<%
-		if (style.isNeededToIncludeCalendar()) {
-	%>
-	<script type="text/javascript" src="<%=contextPath%>/xava/editors/calendar/calendar.js?ox=<%=version%>"></script>
-	<script type="text/javascript" src="<%=contextPath%>/xava/editors/calendar/lang/calendar-<%=Locales.getCurrent().getLanguage()%>.js?ox=<%=version%>"></script>	
-	<%
-			}
-		%>	
-	<script type='text/javascript' src='<%=contextPath%>/xava/js/calendar.js?ox=<%=version%>'></script>
-	--%>
 	<%
 		if (new File(realPath + "/xava/js/custom-editors.js").exists()) {
 	%>
@@ -345,6 +334,7 @@ if (manager.isResetFormPostNeeded()) {
 		<% } %>
 		<% if (browser != null && browser.contains("HtmlUnit")) { // Because of low performance of fadeIn with HtmlUnit %>
 		openxava.fadeIn = openxava.show;
+		openxava.browser.htmlUnit = true; 
 		<% } %>
 		<%String initThemeScript = style.getInitThemeScript();
 			if (initThemeScript != null) {%>

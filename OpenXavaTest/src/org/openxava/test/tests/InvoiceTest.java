@@ -1099,7 +1099,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setLocale("es");
 		execute("Print.generateExcel");		
 		assertContentTypeForPopup("text/x-csv");
-		// The DateFormat is because Java 11 and 8 formate Spanish dates in different way, 
+		// The DateFormat is because Java 11 and 8 format Spanish dates in different way, 
 		// though we're not interested in testing date format here, just bigdecimals 
 		String date = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es")).format(Dates.create(1, 1, 2002));  		
 		assertExcel(
@@ -1272,23 +1272,23 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoErrors();
 		assertValue("date", "04/01/2004");
 		
-		setValue("date", "4/1/40"); // If current year is 2020 
+		setValue("date", "4/1/41"); // If current year is 2021 
 		execute("CRUD.save");
 		assertNoErrors();
 		setValue("year", String.valueOf(getInvoice().getYear()));
 		setValue("number", String.valueOf(getInvoice().getNumber()));
 		execute("CRUD.refresh");
 		assertNoErrors();
-		assertValue("date", "04/01/2040"); 
+		assertValue("date", "04/01/2041"); 
 		
-		setValue("date", "040141"); // If current year is 2030 
+		setValue("date", "040142"); // If current year is 2021 
 		execute("CRUD.save");
 		assertNoErrors();
 		setValue("year", String.valueOf(getInvoice().getYear()));
 		setValue("number", String.valueOf(getInvoice().getNumber()));
 		execute("CRUD.refresh");
 		assertNoErrors();
-		assertValue("date", "04/01/1941"); // TMP FALLA ME QUEDÉ POR AQUÍ 
+		assertValue("date", "04/01/1942");  
 		
 		setValue("date", "30/2/2008");
 		execute("CRUD.save");
@@ -2302,12 +2302,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	private boolean isVisibleConditionValueToCalendar(int number) {
-		/* tmp
-		DomNode node = getHtmlPage().getHtmlElementById(Ids.decorate("OpenXavaTest", "Invoice", "conditionValueTo___" + number)).getNextSibling();
-		if (!node.isDisplayed()) return false;
-		return node.toString().contains("javascript:showCalendar");
-		*/
-		// tmp ini
 		HtmlElement parent = (HtmlElement) getHtmlPage().getHtmlElementById(Ids.decorate("OpenXavaTest", "Invoice", "conditionValueTo___" + number)).getParentNode();
 		List<HtmlElement> links = parent.getElementsByTagName("a");
 		if (links.isEmpty()) return false;
@@ -2315,8 +2309,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 		if (!calendar.isDisplayed()) return false;
 		String html = parent.asXml();
 		return html.contains("mdi-calendar") && html.contains("xava_date");
-		// tmp fin
-
 	}
 	
 	public void testBooleanComboHiddenAfterClearCondition() throws Exception{
