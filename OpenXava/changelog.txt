@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Getting started guide and the complete course (until lesson 8) adapted to use Lombok.  
 - Modern JavaScript popup calendar for dates and DATETIME.	
 - Date editor verified the date on losing focus. 	
 - Fix: In DateTimeSeparatedCalendar editor the focus does not enter in time field when moving with keyboard.
