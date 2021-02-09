@@ -40,18 +40,44 @@
       <p><br>
       </p>
       <h2>Para migrar de OpenXava 6.4.2 a OpenXava 6.5</h2>
+      <h3>Sólo las consultas grabadas explícitamente se recuerdan en modo lista
+        (para las pruebas JUnit)</h3>
+      En v6.5 sólo las consultas grabadas explícitamente se almacenan en modo
+      lista, por tanto las pruebas JUnit que confiaban en esto para reutilizar
+      un filtro usado previamente fallarán. Es decir, este código ahora falla:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">setConditionValues("1");
+execute("List.filter"); // Esto no graba "Código = 1" automáticamente
+
+// Aquí haces más cosas
+
+selectListConfiguration("Código = 1"); // FALLA EN v6.5
+</code></pre> </div>
+      <div class="wiki" style="display: block;">La solución es grabar la
+        consulta explícitamente, así:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">setConditionValues("1");
+execute("List.filter"); 
+
+execute("List.saveConfiguration"); // AÑADE ESTAS LÍNEAS PARA GRABAR...
+execute("SaveListConfiguration.save"); // ...LA CONSULTA EXPLÍCITAMENTE
+
+// Aquí haces más cosas
+
+selectListConfiguration("Código = 1"); // Ahora funciona
+</code></pre> </div>
       <h3>Acción para cambiar el nombre de la consulta no disponible para la
         consulta 'Todos' (para las pruebas JUnit)</h3>
-      En v6.5 sólo las consultas grabadas explícitamente se almacenan en modo
-      lista, por tanto sólo las consultas grabadas explícitamente se pueden
-      renombrar o quitar. Además, la consulta 'Todos' no se puede renombrar ni
-      quitar. Estos cambios no requieren que modifiques el código de tu
-      aplicación. Sin embargo, tienes que adaptar tus prueba JUnit a la nueva
-      interfaz de usuario, porque cuando entras en un módulo en modo lista,
-      normalmente la consulta 'Todos' se muestra inicialmente, y por tanto la
-      acción para Cambiar nombre/quitar (<i>List.changeConfiguration</i>) ya no
-      está ahí. Por lo tanto, si usas <i>assertActions()</i> en tus pruebas
-      deberías adaptar tu lista de acciones, quitando <i>List.changeConfiguration</i>,
+      Dado que sólo las consultas grabadas explícitamente se almacenan en modo
+      lista, sólo las consultas grabadas explícitamente se pueden renombrar o
+      quitar. Además, la consulta 'Todos' no se puede renombrar ni quitar. Estos
+      cambios no requieren que modifiques el código de tu aplicación. Sin
+      embargo, tienes que adaptar tus prueba JUnit a la nueva interfaz de
+      usuario, porque cuando entras en un módulo en modo lista, normalmente la
+      consulta 'Todos' se muestra inicialmente, y por tanto la acción para
+      Cambiar nombre/quitar (<i>List.changeConfiguration</i>) ya no está ahí.
+      Por lo tanto, si usas <i>assertActions()</i> en tus pruebas deberías
+      adaptar tu lista de acciones, quitando <i>List.changeConfiguration</i>,
       así:
       <div class="wiki" style="display: block;">
         <pre><code class="java">String [] acciones = {

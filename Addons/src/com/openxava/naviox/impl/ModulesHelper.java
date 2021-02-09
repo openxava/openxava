@@ -36,6 +36,11 @@ public class ModulesHelper {
 		if (all == null) all = createAll();
 		return all;
 	}
+	
+	/** @since 6.5 */
+	public static List<MetaModule> getNotInMenu() { 
+		return Collections.EMPTY_LIST;
+	}
 
 	private static List<MetaModule> createAll() {
 		List<MetaModule> result = new ArrayList<MetaModule>();
