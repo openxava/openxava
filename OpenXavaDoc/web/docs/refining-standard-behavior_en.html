@@ -234,9 +234,7 @@
       Then create a <i>DeleteInvoiceAction</i> class inside it, with this code:<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions;  // In 'actions' package
 
-import org.openxava.jpa.*;
 import org.openxava.actions.*;
-import com.yourcompany.invoicing.model.*;
  
 public class DeleteInvoiceAction
     extends ViewBaseAction { // ViewBaseAction has getView(), addMessage(), etc
@@ -271,15 +269,7 @@ public class DeleteInvoiceAction
       You can see it:<br>
       <pre><code class="java">@Hidden // It will not be shown by default in views and tabs
 @Column(columnDefinition="BOOLEAN DEFAULT FALSE") // To populate with falses instead of nulls
-private boolean deleted;
- 
-public boolean isDeleted() {
-    return deleted;
-}
- 
-public void setDeleted(boolean deleted) {
-    this.deleted = deleted;
-}
+boolean deleted;
 </code></pre> As you see, it's a plain boolean property. The only new detail is
       the use of the <i>@Hidden</i> annotation. It means that when a default
       view or a tabular list is generated the deleted property will not be
@@ -311,7 +301,7 @@ public void setDeleted(boolean deleted) {
       addition if the user clicks the button the search instruction will fail
       and a somewhat technical and unintelligible message will be shown to our
       helpless user. We can refine this case by not showing the button, such as
-      when we click the "new" button. Note the small modification of the <i>execute()</i>:<br>
+      when we click the <i>New</i> button. Note the small modification of the <i>execute()</i>:<br>
       <pre><code class="java">public void execute() throws Exception {
     // ...
     getView().clear();
@@ -356,7 +346,7 @@ public void setDeleted(boolean deleted) {
     available-on-new="false"
     keystroke="Control D"/&gt;
 </code></pre> Now, rename your <em>DeleteInvoiceAction</em> to <em>InvoicingDeleteAction</em>
-      and rewrite its code:<br>
+      and crewrite its code:<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions;
  
 import java.util.*;
@@ -395,7 +385,7 @@ public class InvoicingDeleteAction extends ViewBaseAction {
       instantaneously. Second, we call <i>getView().setEditable(false)</i>.
       This disables the editors of the view, to prevent the user from filling in
       data in the view. In order to create a new entity the user must click the
-      “new” button.<br>
+      <i>New</i> button.<br>
       Now your action is ready to use with any other entity. We could copy and
       paste the <em>Invoice</em> controller as <em>Order</em> controller in <em>controllers.xml</em>.
       In this way, our new generic delete logic would be used for <em>Order</em>
@@ -468,15 +458,7 @@ public class InvoicingDeleteAction extends ViewBaseAction {
  
     //@Hidden // It will not be shown by default in views and tabs
     //@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
-    //private boolean deleted;
- 
-    //public boolean isDeleted() {
-    //    return deleted;
-    //}
- 
-    //public void setDeleted(boolean deleted) {
-    //    this.deleted = deleted;
-    //}
+    //boolean deleted;
  
     // ...
 }
@@ -486,21 +468,14 @@ public class InvoicingDeleteAction extends ViewBaseAction {
  
 import javax.persistence.*;
 import org.openxava.annotations.*;
+import lombok.*;
  
-@MappedSuperclass
+@MappedSuperclass @Getter @Setter
 public class Deletable extends Identifiable {
  
     @Hidden
     @Column(columnDefinition="BOOLEAN DEFAULT FALSE")
-    private boolean deleted;
- 
-    public boolean isDeleted() {
-        return deleted;
-    }
- 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
+    boolean deleted;
  
 }
 </code></pre> <em>Deletable</em> is a mapped superclass. Remember, a mapped
@@ -594,7 +569,6 @@ abstract public class CommercialDocument extends Deletable {
       <pre><code class="java">package com.yourcompany.invoicing.actions;
  
 import java.util.*;
- 
 import org.openxava.actions.*;
 import org.openxava.model.*;
  
@@ -606,7 +580,7 @@ public class InvoicingDeleteAction extends ViewBaseAction {
             return;                       //   action for deleting
         }
    	
-        // When "delete" exists we use our own deletion logic
+        // When "deleted" exists we use our own deletion logic
         Map&lt;String, Object&gt; values = new HashMap&lt;&gt;(); 
         values.put("deleted", true);
         MapFacade.setValues(getModelName(), getView().getKeyValues(), values); 
@@ -848,10 +822,7 @@ public class Order extends CommercialDocument { ... }
       Note how the logic for both actions is in the same Java class:<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions;
  
-import java.util.*;
-import javax.validation.*;
 import org.openxava.actions.*;
-import org.openxava.model.*;
 import org.openxava.model.meta.*;
  
 public class InvoicingDeleteSelectedAction
@@ -863,7 +834,7 @@ public class InvoicingDeleteSelectedAction
     public void execute() throws Exception {
         if (!getMetaModel().containsMetaProperty("deleted")) {
             nextAction="CRUD.deleteSelected"; // 'CRUD.deleteSelected' will be
-            return;    // executed after this action is finisreturn;
+            return;    // executed after this action is finished
         }
         markSelectedEntitiesAsDeleted(); // The logic to mark the selected rows
             // as deleted objects
@@ -915,11 +886,11 @@ public class InvoicingDeleteSelectedAction
                     key,
                     values);
             }
-            catch (ValidationException ex) {  // If there is a ValidationException...
+            catch (javax.validation.ValidationException ex) { // If there is a ValidationException...
                 addError("no_delete_row", i, key);
                 addError("remove_error", getTab().getModelName(), ex.getMessage()); // ...we show the message
             }
-            catch (Exception ex) { //  If any other exception is thrown, a generic
+            catch (Exception ex) { // If any other exception is thrown, a generic
                 addError("no_delete_row", i, key); // message is added
             }
         }
@@ -971,16 +942,9 @@ public class InvoicingDeleteSelectedAction
       is enough to enable recovery of deleted entities.<br>
       <pre><code class="java">public class InvoicingDeleteSelectedAction ... {
     ...
-    private boolean restore; // A new restore property...
- 
-    public boolean isRestore() { // ...with its getter
-        return restore;
-    }
- 
-    public void setRestore(boolean restore) { // ...and setter
-        this.restore = restore;
-    }
- 
+    @Getter @Setter
+    boolean restore; // A new restore property
+  
     private void markSelectedEntitiesAsDeleted()
         throws Exception
     {
@@ -1196,7 +1160,7 @@ public class OrderTest extends CommercialDocumentTest {
       and <i>InvoiceTrashTest</i>, we'll just add the test in the already
       existing <em>CommercialDocumentTest</em>. Thus we reuse the same code for
       testing <em>OrderTrash</em>, <em>InvoiceTrash</em>, and the custom
-      delete logic. This code is in the <em>testTrash()</em> method:<br>
+      delete logic. Add the next <em>testTrash()</em> method to <em>CommercialDocumentTest</em>:<br>
       <pre><code class="java">public void testTrash() throws Exception {
     login("admin", "admin");
     assertListOnlyOnePage(); // Only one page in the list, that is less than 10 rows

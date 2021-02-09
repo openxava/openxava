@@ -9,8 +9,7 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1><a name="business-logic-behavior"></a> <span id="breadcrumbs"> <span
-
+      <h1><a name="business-logic-behavior"></a> <span id="breadcrumbs"> <span
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
         Lesson 8: Behavior &amp; business logic </h1>
@@ -92,8 +91,7 @@
       We'll start with the simplest case: a button in the detail mode that
       executes some concrete logic. In this case we'll add a button for creating
       an invoice from an order:<br>
-      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
-
+      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
         title="business-logic-behavior_en010.png"><br>
       This shows how this new action takes the current order and creates an
       invoice from it. It just copies all the order data to the new invoice,
@@ -178,17 +176,7 @@ public class CreateInvoiceFromOrderAction
       services, etc.<br>
       Let's see the code of the <i>createInvoice()</i> method of the <i>Order</i>
       class, also remember to add the indicated imports:
-      <pre><code class="java">
-...
-
-// Add the next imports
-import java.util.*;
-import org.apache.commons.beanutils.*;
-import org.openxava.jpa.*;
-
-...
-      
-public class Order extends CommercialDocument {
+      <pre><code class="java">public class Order extends CommercialDocument {
 
     ...
     
@@ -371,30 +359,9 @@ impossible_create_invoice=Impossible to create invoice
       Remember that an invoice can be generated from an order only if the order
       has been delivered and it does not yet have an invoice. So, we have to
       monitor the changes in the <i>invoice</i> reference and <i>delivered</i>
-      property of the <i> Order</i> entity. We'll do that using the <i>@OnChange</i>
-      annotation:
-      <pre><code class="java">
-...
-
-import com.yourcompany.invoicing.actions.*; // Add this import
-
-...
-      
-public class Order extends CommercialDocument {
-
-    ...
-    @OnChange(ShowHideCreateInvoiceAction.class) // Add this
-    private Invoice invoice;
-
-    ...
-    @OnChange(ShowHideCreateInvoiceAction.class) // Add this
-    private boolean delivered;
-
-    ...
-}
-</code></pre> With the above code when the user changes the value of <i>delivered</i>
-      or <i>invoice</i> in the screen, the <i>ShowHideCreateInvoiceAction</i>
-      will be executed. See the action code:
+      property of the <i> Order</i> entity. First, we'll create an action to
+      show or hide the action for creating an invoice from order, <i>ShowHideCreateInvoiceAction,
+        </i>with this code: <br>
       <pre><code class="java">package com.yourcompany.invoicing.actions; // In the 'actions' package
 
 import org.openxava.actions.*; // Needed to use OnChangePropertyAction,
@@ -425,9 +392,25 @@ public class ShowHideCreateInvoiceAction
         return getView().getValue("invoice.oid") != null; // We read the value from the view
     } 	
 }
-</code></pre> This is a conventional action with an <i>execute()</i> method,
-      moreover it extends <i>OnChangePropertyBaseAction</i> (1). All the
-      actions annotated with <i>@OnChange</i> must implement <i>IOnChangePropertyAction</i>,
+</code></pre> Then we annotate <i>invoice</i> and <i>delivered</i> in <i>Order</i>
+      with <i>@OnChange</i> so when the user changes the value of <i>delivered</i>
+      or <i>invoice</i> in the screen, the <i>ShowHideCreateInvoiceAction</i>
+      will be executed:
+      <pre><code class="java">public class Order extends CommercialDocument {
+
+    ...
+    @OnChange(ShowHideCreateInvoiceAction.class) // Add this
+    Invoice invoice;
+
+    ...
+    @OnChange(ShowHideCreateInvoiceAction.class) // Add this
+    boolean delivered;
+
+    ...
+}
+</code></pre> <i>ShowHideCreateInvoiceAction</i> is a conventional action with
+      an <i>execute()</i> method, moreover it extends <i>OnChangePropertyBaseAction</i>
+      (1). All the actions annotated with <i>@OnChange</i> must implement <i>IOnChangePropertyAction</i>,
       however it's easier to extend <i>OnChangePropertyBaseAction</i> which
       implements it. From this action you can use the <i>getNewValue()</i> and
       <i>getChangedProperty()</i>, although in this specific case we don't need
@@ -481,8 +464,7 @@ public class ShowHideCreateInvoiceAction
       multiple objects at the same time. In our case, we can add an action in
       list mode to create a new invoice automatically from several selected
       orders in the list. We want this action to work this way:<br>
-      <img src="files/business-logic-behavior_en020.png" alt="business-logic-behavior_en020.png"
-
+      <img src="files/business-logic-behavior_en020.png" alt="business-logic-behavior_en020.png"
         title="business-logic-behavior_en020.png"><br>
       This list action takes the selected orders and creates an invoice from
       them. It just copies the order data into the new invoice, adding the
@@ -619,8 +601,7 @@ public class CreateInvoiceFromSelectedOrdersAction
       the user to see and possibly edit the newly created invoice. One way of
       achieving this is by showing a dialog that allows to view and edit that
       just created invoice. In this way:<br>
-      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
-
+      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
         title="business-logic-behavior_en030.png"><br>
       Let's see how to implement this behavior.
       <h3><a name="using-showdialog"></a>Using showDialog()</h3>
@@ -694,12 +675,10 @@ public class SaveInvoiceAction
       <h3><a name="plain-view-instead-of-dialog"></a>Plain view instead of
         dialog</h3>
       Sometimes instead of showing a dialog on top:<br>
-      <img src="files/business-logic-behavior_en040.png" alt="business-logic-behavior_en040.png"
-
+      <img src="files/business-logic-behavior_en040.png" alt="business-logic-behavior_en040.png"
         title="business-logic-behavior_en040.png"><br>
       You could prefer to replace the current view with a new one, thus: <br>
-      <img src="files/business-logic-behavior_en050.png" alt="business-logic-behavior_en050.png"
-
+      <img src="files/business-logic-behavior_en050.png" alt="business-logic-behavior_en050.png"
         title="business-logic-behavior_en050.png"><br>
       This can be useful when the amount of data to show is huge and in a dialog
       looks clumsy. Using a plain view instead of a dialog is as easy as
@@ -723,8 +702,7 @@ public class SaveInvoiceAction
       First we'll test the <i>Order.createInvoice</i> action, the action for
       creating an invoice from the displayed order in detail mode. Then next
       image shows how this process works:<br>
-      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
-
+      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
         title="business-logic-behavior_en010.png"><br>
       Now we're going to write a test to verify that it really works in this
       way. Add the <i>testCreateInvoiceFromOrder()</i> method to the <i>OrderTest</i>
@@ -851,41 +829,40 @@ import com.yourcompany.invoicing.model.*;
       Now we'll test the <i>Order.createInvoiceFromSelectedOrders</i> action,
       the action for creating an invoice from multiple selected orders in list
       mode. Remember that this process works in this way: <br>
-      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
-
+      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
         title="business-logic-behavior_en030.png"><br>
       Let's write a test to verify that it works in just this way. Add the <i>
         testCreateInvoiceFromSelectedOrders()</i> method to the <i>OrderTest</i>
       class:
       <pre><code class="java">public void testCreateInvoiceFromSelectedOrders() throws Exception {
     login("admin", "admin");
-    assertOrder(2020, 7, 2, "75.02"); // Order 2020/7 has 2 lines and 75.02 as total amount
-    assertOrder(2020, 8, 2, "99.22"); // Order 2020/8 has 2 lines and 99.22 as total amount
+    assertOrder(2021, 3, 2, "162.14"); // Order 2021/3 has 2 lines and 162.14 as total amount
+    assertOrder(2021, 4, 1, "48.40"); // Order 2021/4 has 1 line and 48.40 as total amount
 
     execute("List.orderBy", "property=number"); // Sorts the list by number
     checkRow( // Checks the row from the row number
-        getDocumentRowInList("2020", "7") // Obtains the row from order year and number
-    ); // So, this line checks the order 2020/7 in the list (1)
+        getDocumentRowInList("2021", "3") // Obtains the row from order year and number
+	); // So, this line checks the order 2021/3 in the list (1)
     checkRow(
-        getDocumentRowInList("2020", "8")
-    ); // Checks the order 2020/8 in the list (1)
+        getDocumentRowInList("2021", "4")
+    ); // Checks the order 2021/4 in the list (1)
 
     execute("Order.createInvoiceFromSelectedOrders"); // Executes the action we
                                                       // are currently testing (2)
     String invoiceYear = getValue("year"); // We are now in detail mode of the
     String invoiceNumber = getValue("number"); // newly created invoice
     assertMessage("Invoice " + invoiceYear + "/" + invoiceNumber +
-        " created from orders: [2020/7, 2020/8]"); // The confirmation message
-    assertCollectionRowCount("details", 4); // Asserts that the line count of the new
-                         // invoice equals the sum of lines from the source orders (3)
-    assertValue("totalAmount", "174.24"); // Asserts that total amount of the new
-                     // invoice equals the sum of the amounts of the source orders (4)
+        " created from orders: [2021/3, 2021/4]"); // The confirmation message
+    assertCollectionRowCount("details", 3); // Asserts that the line count of the new
+                        // invoice equals the sum of lines from the source orders (3)
+    assertValue("totalAmount", "210.54"); // Asserts that total amount of the new
+                    // invoice equals the sum of the amounts of the source orders (4)
     execute("Sections.change", "activeSection=1"); // Changes to the orders tab of invoice
     assertCollectionRowCount("orders", 2); // The new invoice has 2 associated orders (5)
-    assertValueInCollection("orders", 0, 0, "2020"); // and they should be the correct 
-    assertValueInCollection("orders", 0, 1, "7"); // ones
-    assertValueInCollection("orders", 1, 0, "2020");
-    assertValueInCollection("orders", 1, 1, "8");
+    assertValueInCollection("orders", 0, 0, "2021"); // and they should be the correct 
+    assertValueInCollection("orders", 0, 1, "3"); // ones
+    assertValueInCollection("orders", 1, 0, "2021");
+    assertValueInCollection("orders", 1, 1, "4");
 
     assertAction("InvoiceEdition.save"); // The SAVE (6)
     assertAction("InvoiceEdition.close"); // and CLOSE buttons (6)
@@ -897,8 +874,8 @@ import com.yourcompany.invoicing.model.*;
     assertNoErrors();
 
     execute("InvoiceEdition.close"); // Closes the dialog and returns to the orders list (7)
-    assertDocumentInList("2020", "7"); // Asserts that we are really in orders list
-    assertDocumentInList("2020", "8");
+    assertDocumentInList("2021", "3"); // Asserts that we are really in orders list
+    assertDocumentInList("2021", "4");
 }
 </code></pre> This test checks two orders (1) and clicks the CREATE INVOICE FROM
       SELECTED ORDERS (2). Then it verifies that a new invoice is created with
@@ -937,14 +914,15 @@ protected int getDocumentRowInList(String year, String number) ...
     assertTrue("To run this test the order " + order + " must be delivered",
         order.isDelivered());        
 }
-</code></pre> Also add the next import at beginning of <i>OrderTest</i>:
-      <pre><code class="java">import java.math.*;
 </code></pre> This method finds an order and verifies its details count, the
       total amount and if the order is delivered. Using this method has the
       advantage that if the required orders for the test are not in the database
       with the correct values you get a precise message. Thus, you will not
       waste time figuring out what is wrong. This is especially useful if the
-      test is not performed by the original developer.
+      test is not performed by the original developer. By the way, if you find
+      difficult to create the orders with the data to fit this test (order
+      number, details count, amount), just adapt the values of the test to your
+      current orders.<br>
       <h3><a name="testing-exceptional-cases"></a>Testing exceptional cases</h3>
       Given that the action for creating the invoice is hidden if the order is
       not ready to be invoiced, we cannot test the code from detail mode we
@@ -999,12 +977,10 @@ private void assertCreateInvoiceFromOrderException(
       We still have many interesting things to learn, in the next lesson for
       example we are going to refine the behavior of references and collections.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_en.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="references-collections_en.html">Go to Lesson
           9</a></strong> </div>

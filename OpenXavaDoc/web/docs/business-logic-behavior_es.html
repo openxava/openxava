@@ -90,8 +90,7 @@
         negocio desde el modo detalle</h2>
       Empezaremos con el caso más simple: un botón en modo detalle para ejecutar
       cierta lógica. En este caso para crear la factura desde un pedido:<br>
-      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
-
+      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
         title="business-logic-behavior_es010.png"><br>
       Aquí se muestra como esta nueva acción coge el pedido actual y crea una
       factura a partir de él. Simplemente copia todos los datos del pedido a la
@@ -180,17 +179,7 @@ public class CrearFacturaDesdePedido
       web, etc.<br>
       Veamos el código del método <i>crearFactura()</i> de la clase <i>Pedido</i>,
       no olvides añadir los imports indicados:
-      <pre><code class="java">
-...
-
-// Añade los siguientes imports
-import java.util.*;
-import org.apache.commons.beanutils.*;
-import org.openxava.jpa.*;
-
-...
-
-public class Pedido extends DocumentoComercial {
+      <pre><code class="java">public class Pedido extends DocumentoComercial {
 
     ...
 	
@@ -213,7 +202,7 @@ public class Pedido extends DocumentoComercial {
       original, además a JPA no le gusta persistir los objetos con el id
       autogenerado rellenado de antemano. Segundo, has de asignar la nueva <i>
         Factura</i> al actual Pedido (<i>this.factura = factura</i>) después de
-      llamar a <i>persist(invoice)</i>, si no obtendrás un error de JPA (algo
+      llamar a <i>persist(factura)</i>, si no obtendrás un error de JPA (algo
       así como “object references an unsaved transient instance”). Tercero,
       hemos de envolver la colección <i>detalles</i> con un <i>new ArrayList()</i>,
       para que sea una colección nueva aunque con los mismos elementos, porque
@@ -375,30 +364,9 @@ imposible_crear_factura=Imposible crear factura
       Recuerda que una factura puede ser generada desde un pedido si el pedido
       ha sido entregado y no tiene factura todavía. Por tanto, tenemos que
       vigilar los cambios en la referencia <i>factura</i> y la propiedad <i>entregado</i>
-      de la entidad <i>Pedido</i>. Haremos esto usando la anotación <i>@OnChange</i>
-      de esta manera:
-      <pre><code class="java">
-...
-
-import com.tuempresa.facturacion.acciones.*; // Añade este import
-
-...
-      
-public class Pedido extends DocumentoComercial {
-
-    ...
-    @OnChange(MostrarOcultarCrearFactura.class) // Añade esto
-    private Factura factura;
-
-    ...
-    @OnChange(MostrarOcultarCrearFactura.class) // Añade esto
-    private boolean entregado;
-
-    ...
-}
-</code></pre> Con el código de arriba cuando el usuario cambia el valor de <i>entregado</i>
-      o <i>factura</i> en la pantalla, la acción <i>MostrarOcultarCrearFactura</i>
-      se ejecutará. Observa el código de la acción:
+      de la entidad <i>Pedido</i>. Lo primero será crear la acción que oculta o
+      muestra la acción para crear una factura desde un pedido, <i>MostrarOcultarCrearFactura</i>,
+      con este código:
       <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
 
 import org.openxava.actions.*; // Necesario para usar OnChangePropertyAction,
@@ -429,11 +397,28 @@ public class MostrarOcultarCrearFactura
         return getView().getValue("factura.oid") != null; // Leemos el valor de la vista
     } 	
 }
-</code></pre> Ésta es una acción convencional con un método <i>execute()</i>,
-      aunque extiende de<i> OnChangePropertyBaseAction</i> (1). Todas las
-      acciones anotadas con <i>@OnChange</i> tienen que implementar <i>IOnChangePropertyAction</i>,
-      aunque es más fácil extender de <i>OnChangePropertyBaseAction</i> la cual
-      lo implementa. Desde esta acción puedes usar <i>getNewValue()</i> y <i>getChangedProperty()</i>,
+</code></pre>Después anotamos <i>factura</i> y <i>entregado</i> en <i>Pedido</i>
+      con <i>@OnChange</i> para que cuando el usuario cambie el valor de <i>entregado</i>
+      o <i>factura</i> en la pantalla, la acción <i>MostrarOcultarCrearFactura</i>
+      se ejecute:
+      <pre><code class="java">public class Pedido extends DocumentoComercial {
+
+    ...
+    @OnChange(MostrarOcultarCrearFactura.class) // Añade esto
+    Factura factura;
+
+    ...
+    @OnChange(MostrarOcultarCrearFactura.class) // Añade esto
+    boolean entregado;
+
+    ...
+}
+</code></pre><i>MostrarOcultarCrearFactura</i> es una acción convencional con un
+      método <i>execute()</i>, aunque extiende de<i> OnChangePropertyBaseAction</i>
+      (1). Todas las acciones anotadas con <i>@OnChange</i> tienen que
+      implementar <i>IOnChangePropertyAction</i>, aunque es más fácil extender
+      de <i>OnChangePropertyBaseAction</i> la cual lo implementa. Desde esta
+      acción puedes usar <i>getNewValue()</i> y <i>getChangedProperty()</i>,
       aunque en este caso concreto no los necesitamos.<br>
       El método <i>execute()</i> pregunta si el pedido visualizado está
       grabado, entregado y todavía no tiene una factura (2), en cuyo caso
@@ -487,8 +472,7 @@ public class MostrarOcultarCrearFactura
       aplicar lógica a varios objetos a la vez. En nuestro caso, podemos añadir
       una acción en el modo lista para crear una nueva factura automáticamente a
       partir de varios pedidos seleccionados en la lista, de esta manera:<br>
-      <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
-
+      <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
         title="business-logic-behavior_es020.png"><br>
       Aquí se muestra como esta acción de lista coge los pedidos seleccionados y
       crea una factura a partir de ellos. Simplemente copia los datos del pedido
@@ -626,8 +610,7 @@ public class CrearFacturaDesdePedidosSeleccionados
       para el usuario ver y posiblemente editar la nueva factura. Una forma de
       conseguir esto es sacando un diálogo que permite ver y editar la recién
       creada factura. De esta forma:<br>
-      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
-
+      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
         title="business-logic-behavior_es030.png"><br>
       Veamos como implementar este comportamiento.
       <h3><a name="usar-showdialog"></a>Usar showDialog()</h3>
@@ -703,12 +686,10 @@ public class GrabarFactura
       <h3><a name="vista-plana-en-lugar-de-dialogo"></a>Vista plana en lugar de
         diálogo</h3>
       A veces en lugar de sacar un diálogo encima:<br>
-      <img src="files/business-logic-behavior_es040.png" alt="business-logic-behavior_es040.png"
-
+      <img src="files/business-logic-behavior_es040.png" alt="business-logic-behavior_es040.png"
         title="business-logic-behavior_es040.png"><br>
       Podriamos preferir reemplazar la vista actual por la nueva, así: <br>
-      <img src="files/business-logic-behavior_es050.png" alt="business-logic-behavior_es050.png"
-
+      <img src="files/business-logic-behavior_es050.png" alt="business-logic-behavior_es050.png"
         title="business-logic-behavior_es050.png"><br>
       Esto puede ser útil cuando la cantidad de información a mostrar es muy
       grande y en un diálogo queda mal. Usar una vista plana en vez de un
@@ -732,8 +713,7 @@ public class GrabarFactura
       Primero probaremos la acción <i>Pedido.crearFactura</i>, la acción para
       crear una factura a partir del modo detalle del pedido visualizado.
       Recordamos aquí como funciona este proceso:<br>
-      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
-
+      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
         title="business-logic-behavior_es010.png"><br>
       Ahora vamos a escribir la prueba para verificar que funciona justo de esta
       forma. Añade el método <i>testCrearFacturaDesdePedido()</i> a la clase <i>PruebaPedido</i>:
@@ -857,41 +837,40 @@ import com.tuempresa.facturacion.modelo.*;
       Ahora probaremos <i>Pedido.crearFacturaDesdePedidosSeleccionados</i>, la
       acción que crea una factura desde varios pedidos en modo lista. Recordemos
       su funcionamiento:<br>
-      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
-
+      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
         title="business-logic-behavior_es030.png"><br>
       Escribamos una prueba para verificar que esto funciona justo de esta
       forma. Añade el método <i>testCrearFacturaDesdePedidosSeleccionados()</i>
       a la clase <i> PruebaPedido</i>:
       <pre><code class="java">public void testCrearFacturaDesdePedidosSeleccionados() throws Exception {
     login("admin", "admin");
-    verificarPedido(2020, 5, 1, "22.99"); // El pedido 2020/5 tiene 1 línea y 22,99 de importe base
-    verificarPedido(2020, 6, 2, "75.02"); // El pedido 2020/6 tiene 2 líneas y 75,02 de importe base
+    verificarPedido(2021, 2, 1, "45.98"); // El pedido 2021/2 tiene 1 línea y 45,98 de importe base
+    verificarPedido(2021, 4, 2, "98.01"); // El pedido 2021/4 tiene 2 líneas y 98,01 de importe base
 	
     execute("List.orderBy", "property=numero"); // Ordena la lista por número
     checkRow( // Marca la fila a partir del número de fila
-        getFilaDocumentoEnLista("2020", "5") // Obtiene la fila del año y número del pedido
-    );             // por tanto, esta línea marca la línea del pedido 2020/5 en la lista (1)
+        getFilaDocumentoEnLista("2021", "2") // Obtiene la fila del año y número del pedido
+    );             // por tanto, esta línea marca la línea del pedido 2021/2 en la lista (1)
     checkRow(
-        getFilaDocumentoEnLista("2020", "6") // Marca el pedido 2020/6 en la lista (1)
+        getFilaDocumentoEnLista("2021", "4") // Marca el pedido 2021/4 en la lista (1)
     ); 
     execute("Pedido.crearFacturaDesdePedidosSeleccionados"); // Ejecuta la acción que
                                                              // estamos probando (2)
     String anyoFactura = getValue("anyo"); // Ahora estamos viendo el detalle de
     String numeroFactura = getValue("numero"); // la factura recién creada
     assertMessage("Factura " + anyoFactura + "/" + numeroFactura +
-        " creada a partir de los pedidos: [2020/5, 2020/6]"); // El mensaje de confirmación
+        " creada a partir de los pedidos: [2021/2, 2021/4]"); // El mensaje de confirmación
     assertCollectionRowCount("detalles", 3); // Confirma que el número de líneas de la
                       // factura recién creada es la suma de la de los pedidos fuente (3)
-    assertValue("importeTotal", "98,01"); // Confirma que el importe base de la factura
+    assertValue("importeTotal", "143,99"); // Confirma que el importe base de la factura
                                // recién creada es la suma de la de los pedidos fuente (4)
     execute("Sections.change", "activeSection=1"); // Cambia a la pestaña de
                                                    // pedidos de la factura
     assertCollectionRowCount("pedidos", 2); // La nueva factura tiene 2 pedidos (5)
-    assertValueInCollection("pedidos", 0, 0, "2020"); // y son los correctos
-    assertValueInCollection("pedidos", 0, 1, "5");
-    assertValueInCollection("pedidos", 1, 0, "2020");
-    assertValueInCollection("pedidos", 1, 1, "6");
+    assertValueInCollection("pedidos", 0, 0, "2021"); // y son los correctos
+    assertValueInCollection("pedidos", 0, 1, "2");
+    assertValueInCollection("pedidos", 1, 0, "2021");
+    assertValueInCollection("pedidos", 1, 1, "4");
 	
     assertAction("EdicionFactura.grabar"); // Los botones GRABAR (6)
     assertAction("EdicionFactura.cerrar"); // y CERRAR (6)
@@ -903,8 +882,8 @@ import com.tuempresa.facturacion.modelo.*;
     assertNoErrors();
 	
     execute("EdicionFactura.cerrar"); // Vuelve a la lista de pedidos (7)
-    confirmarDocumentoEstaEnLista("2020", "5"); // Confirma que estamos realmente
-    confirmarDocumentoEstaEnLista("2020", "6"); // en la lista de pedidos
+    confirmarDocumentoEstaEnLista("2021", "2"); // Confirma que estamos realmente
+    confirmarDocumentoEstaEnLista("2021", "4"); // en la lista de pedidos
 }
 </code></pre> Esta prueba marca dos pedidos (1) y pulsa en el botón CREAR
       FACTURA DESDE LOS PEDIDOS SELECCIONADOS (2). Entonces verifica que se ha
@@ -945,15 +924,15 @@ protected int getFilaDocumentoEnLista(String anyo, String numero) ... // protect
     assertTrue("Para ejecutar esta prueba el pedido " + pedido + " tiene que estar entegrado",
         pedido.isEntregado());        
 }
-</code></pre> Además añade el siguiente import al principio de tu <i>PruebaPedido</i>:
-      <pre><code class="java">import java.math.*;
 </code></pre> Este método busca un pedido y verifica la cantidad de líneas, el
       importe total y si el pedido está entregado. Usar este método tiene la
       ventaja de que si los pedidos necesarios para la prueba no están en la
       base de datos con los valores correctos obtienes un mensaje preciso. Así,
       no derrocharás tu tiempo intentando adivinar que es lo que está mal. Esto
       es especialmente útil si la prueba no la está ejecutando el programador
-      original.
+      original. Por cierto, si te resulta dificil adaptar tus pedidos para que
+      se ajusten a esta prueba (número de pedido, importe, número de líneas),
+      puedes adaptar los valores en la prueba a tus pedidos actuales.<br>
       <h3><a name="probar-casos-excepcionales"></a>Probar casos excepcionales</h3>
       Dado que la acción para crear la factura se oculta si el pedido no está
       listo para ser facturado, no podemos probar el código para los casos
@@ -1011,12 +990,10 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
       la siguiente lección vamos a refinar el comportamiento de las referencias
       y colecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="references-collections_es.html">Ve a la
           lección 9</a></strong> </div>

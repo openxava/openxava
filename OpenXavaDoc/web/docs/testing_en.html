@@ -9,17 +9,13 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 3: Automated testing"></a> <span
-
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Lesson 3: Automated testing </h1>
-      
-        
-          <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+      <h1 id="toc0"><a name="Lesson 3: Automated testing"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 3: Automated testing </h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
-        Modeling with Java</a> | <strong>3. Automated testing</strong> | <a class="wiki_link"
-
+        Modeling with Java</a> | <strong>3. Automated testing</strong> | <a class="wiki_link"
         href="inheritance_en.html">4. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
         Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
         Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
@@ -39,8 +35,8 @@
             for testing the modules</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%203:%20Automated%20testing-ModuleTestBase%20for%20testing%20the%20modules-The%20code%20for%20the%20test">The
             code for the test</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%203:%20Automated%20testing-ModuleTestBase%20for%20testing%20the%20modules-Executing%20the%20tests%20from%20Eclipse">Executing
-            the tests from Eclipse</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%203:%20Automated%20testing-ModuleTestBase%20for%20testing%20the%20modules-Executing%20the%20tests%20from%20OpenXava%20Studio">Executing
+            the tests from OpenXava Studio</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%203:%20Automated%20testing-Creating%20test%20data%20using%20JPA">Creating
             test data using JPA</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%203:%20Automated%20testing-Creating%20test%20data%20using%20JPA-Using%20setUp%28%29%20and%20tearDown%28%29%20methods">Using
@@ -68,10 +64,10 @@
         <div style="margin-left: 2em;"><a href="#Lesson%203:%20Automated%20testing-Suite">Suite</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%203:%20Automated%20testing-Summary">Summary</a></div>
       </div>
-     Good testing is the most important part of software development. It
-      does not matter how beautiful, or fast, or high-tech your application is,
-      if it crashes, you leave a poor impression and, crucially, your customer
-      can lose valuable data.<br>
+      Good testing is the most important part of software development. It does
+      not matter how beautiful, or fast, or high-tech your application is, if it
+      crashes, you leave a poor impression and, crucially, your customer can
+      lose valuable data.<br>
       Manual testing of the application as an end user is not a viable way to
       test, because the real problem is not the code you have written, but the
       existing code. Usually you test the code you have just written, but you do
@@ -84,9 +80,9 @@
       automatic testing by means of JUnit.<br>
       <h2 id="toc1"><a name="Lesson 3: Automated testing-JUnit"></a>JUnit</h2>
       JUnit is a popular tool for doing automated testing. This tool comes
-      integrated with Eclipse, so you do not need to download it. OpenXava
-      extends the capacities of JUnit, allowing you to test an OpenXava module
-      exactly in the same way an end user would. In fact, OpenXava uses
+      integrated with OpenXava Studio, so you do not need to download it.
+      OpenXava extends the capacities of JUnit, allowing you to test an OpenXava
+      module exactly in the same way an end user would. In fact, OpenXava uses
       HtmlUnit, software that simulates a real browser (including JavaScript)
       from Java. All this is available from the OpenXava class <em>ModuleTestBase</em>.
       It allows you to automate the test you would do by hand using a real
@@ -189,14 +185,15 @@ public class CustomerTest extends ModuleTestBase { // Must extend from ModuleTes
       test the basic things, those that you usually test using the browser. Your
       test will naturally grows with your application and as the user feedback
       grows.<br>
-      Let's learn how to execute your test from Eclipse.<br>
-      <h3 id="toc4"><a name="Lesson 3: Automated testing-ModuleTestBase for testing the modules-Executing the tests from Eclipse"></a>Executing
-        the tests from Eclipse</h3>
-      As mentioned earlier, JUnit is integrated into Eclipse, so running your
-      tests from Eclipse is plain vanilla. Just put your mouse over the test
-      class, and with the right button choose <em>Run As &gt; JUnit Test</em>:<br>
-      <img src="files/testing_en030.png" alt="testing_en030.png" title="testing_en030.png"
-
+      Let's learn how to execute your test from OpenXava Studio.<br>
+      <h3 id="toc4"><a name="Lesson 3: Automated testing-ModuleTestBase for testing the modules-Executing the tests from OpenXava Studio"></a>Executing
+        the tests from OpenXava Studio</h3>
+      As mentioned earlier, JUnit is integrated into OpenXava Studio, so running
+      your tests is plain vanilla. In order your test works your application
+      must be running, if not start it first. Then run the test with the mouse
+      over the test class, and with the right button choose <em>Run As &gt;
+        JUnit Test</em>:<br>
+      <img src="files/testing_en030.png" alt="testing_en030.png" title="testing_en030.png"
         style="height: 288px; width: 800px;"><br>
       If the test does not pass, the bar will be red. You can try it. Edit the <em>CustomerTest</em>
       and comment the line that sets the value for the <em>name</em> field:<br>
@@ -397,7 +394,7 @@ getManager().remove(author); // It works
       Now that you know how to create and remove the data for the tests, let's
       examine the test methods for your <em>Product</em> module. The first one
       is <em>testRemoveFromList()</em> that checks a row in list mode and
-      clicks on “Delete selected” button. Let's see the code:</div>
+      clicks on <i>Delete selected</i> button. Let's see the code:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public void testRemoveFromList() throws Exception {
     login("admin", "admin");
@@ -471,7 +468,7 @@ ends_comparator,
       which is called from <em>setUp()</em> so it is executed before each test.
       Also you have learned how to use the methods <i>uploadFile(),
         assertFileCount(), assertFile()</i> and <i>removeFile()</i> to work
-      with photos. These methods works with any property that uploads files
+      with photos. These methods work with any property that uploads files
       (IMAGES_GALLERY, PHOTO, IMAGE, FILE, FILES, etc). In this case we use
       images included in OpenXava, gifs from <i>web/xava/images </i>(shown as
       2), but you can create your own folder with your own images for testing.<br>
@@ -547,8 +544,9 @@ public class CategoryTest extends ModuleTestBase {
       Remember to create them before executing the test.<br>
       You have seen how the technique of using pre-existing data from a test
       database allows you to create simpler tests. Starting from a simple test
-      and further complicating it on demand is a good way to go. Remember to add
-      the corresponding data using the modules before executing these tests.<br>
+      and further complicating it on demand is a good way to go. </div>
+    <div class="wiki" style="display: block;">Remember to add the corresponding
+      data using the modules before executing these tests.<br>
       <h2 id="toc12"><a name="Lesson 3: Automated testing-Testing collections"></a>Testing
         collections</h2>
       Now it's time to face the test for the main module of your application,
@@ -630,8 +628,8 @@ public class InvoiceTest extends ModuleTestBase {
     assertValue("date", getCurrentDate());
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">When the user clicks on “New”, the
-      year, number and date field must be prefilled with valid data. The <em>verifyDefaultValues()</em>
+    <div class="wiki" style="display: block;">When the user clicks on <i>New</i>,
+      the year, number and date field must be prefilled with valid data. The <em>verifyDefaultValues()</em>
       method tests this. It uses several utility methods to calculate the
       expected values:</div>
     <div class="wiki" style="display: block;">
@@ -728,8 +726,8 @@ private String getNumber() { // The invoice number for a new invoice
     assertValue("remarks", "");
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">It simply clicks on “Save”, then
-      verifies for any errors and makes sure that the view is clean.<br>
+    <div class="wiki" style="display: block;">It simply clicks on <i>Save</i>,
+      then verifies for any errors and makes sure that the view is clean.<br>
       <h3 id="toc16"><a name="Lesson 3: Automated testing-Testing collections-Verifying the data"></a>Verifying
         the data</h3>
       Now, we will search the newly created invoice to verify that it has been
@@ -773,8 +771,8 @@ private String getNumber() { // The invoice number for a new invoice
     assertNoErrors();
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">It just clicks on “Delete” and
-      verifies that no errors are produced.<br>
+    <div class="wiki" style="display: block;">It just clicks on <i>Delete</i>
+      and verifies that no errors are produced.<br>
       <br>
       Congratulations! You have your <em>InvoiceTest</em> completed. Execute
       it, it should be green; if not revise the data in the database, maybe you
@@ -787,9 +785,9 @@ private String getNumber() { // The invoice number for a new invoice
       Traditionally, to execute all the test for your application you have to
       create a test suite, and execute it. A test suite is a class that
       aggregates all your JUnit tests so you can execute them all at once.
-      Fortunately, if you are working with Eclipse you do not need to write a
-      test suite class, Eclipse allows you to execute all the test for your
-      application automatically:<br>
+      Fortunately, with OpenXava Studio you do not need to write a test suite
+      class, it allows you to execute all the tests for your application
+      automatically:<br>
       <img src="files/testing_en060.png" alt="testing_en060.png" title="testing_en060.png"><br>
       That is, if you execute <em>Run As &gt; JUnit Test</em> on the project
       then all its JUnit tests are executed.<br>
@@ -809,12 +807,10 @@ private String getNumber() { // The invoice number for a new invoice
       rest of the book. Thus you will learn more tips about testing in the next
       lessons.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-3-testing_en.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-3-testing_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="inheritance_en.html">Go to Lesson 4</a></strong>
     </div>

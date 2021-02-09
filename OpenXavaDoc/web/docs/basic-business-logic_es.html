@@ -8,19 +8,17 @@
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
-    <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Leccion-5-Logica-de-negocio-basica"></a>
-        <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span> Lección 5: Lógica de negocio básica</h1>
-       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-5-Logica-de-negocio-basica"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 5: Lógica de negocio básica</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
         Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3.
         Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">4.
-        Herencia</a> | <strong>5. Lógica de negocio básica</strong> | <a class="wiki_link"
-
-        href="validation_es.html">6. Validación avanzada</a> | <a class="wiki_link"
-
+        Herencia</a> | <strong>5. Lógica de negocio básica</strong> | <a class="wiki_link"
+        href="validation_es.html">6. Validación avanzada</a> | <a class="wiki_link"
         href="refining-standard-behavior_es.html">7. Refinar el comportamiento
         predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8.
         Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">9.
@@ -33,6 +31,8 @@
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#Leccion-5-Logica-de-negocio-basica">Lección
             5: Lógica de negocio básica</a></div>
+        <div style="margin-left: 2em;"><a href="#Propiedades-en-Java">Propiedades
+            en Java</a></div>
         <div style="margin-left: 2em;"><a href="#Propiedades-calculadas">Propiedades
             calculadas</a></div>
         <div style="margin-left: 3em;"><a href="#Propiedades-calculadas-Propiedad-calculada-simple">Propiedad
@@ -73,6 +73,65 @@
       OpenXava.<br>
       Empezaremos por añadir algo de lógica de negocio a tus entidades para
       hacer de tu aplicación algo más que un simple gestor de base de datos.<br>
+      <h2><a name="Propiedades-en-Java"></a>Propiedades en Java</h2>
+      Para entender bien algunos de los conceptos de esta lección has de saber
+      cómo funcionan las propiedades en Java. La forma estándar de definir una
+      propiedad en Java es:
+      <pre><code class="java">// Propiedad
+      
+private int cantidad; // Tiene un campo
+
+public int getCantidad() { // Un getter para devolver el valor del campo
+    return cantidad;
+}
+
+public void setCantidad(int cantidad) { // Cambia el valor del campo
+    this.cantidad = cantidad;
+}
+</code></pre>Esto se basa en la idea de que nunca deberiamos acceder al estado
+      de un objeto (sus campos) directamente, sino siempre llamando a métodos.
+      Esto es muy útil porque puedes cambiar la implementación de una propiedad
+      sin afecta al codigo que la usa. Además, todas las herramientas, marcos de
+      trabajo y librerias del ecosistema Java confían en esta norma (parte de
+      las especificaciones JavaBeans). Por lo tanto, deberiamos usar esta
+      convención siempre. Una propiedad en Java es un método getter (<i>getCantidad()</i>
+      por ejemplo) y un método setter (<i>setCantidad(int cantidad)</i>) si la
+      propiedad es modificable. De hecho, el campo (<i>private int cantidad</i>
+      en este caso) no es necesario.<br>
+      El problema de este enfoque es que es muy verboso y acabamos con nuestro
+      código lleno de getters y setters que no aportan nada y hacen mucho ruido.
+      Para resolver este problema usamos una librería llamada Lombok. Con Lombok
+      puedes definir la propiedad <i>cantidad</i> de arriba de esta manera:
+      <pre><code class="java">@Getter @Setter // Genera un método getter y uno setter
+int cantidad; 
+</code></pre><i>@Getter</i> y <i>@Setter</i> generan el getter y setter en el
+      código compilado, por lo que cuando accedas a la propiedad has de usarlos,
+      así:
+      <pre><code class="java">int c = elObjeto.getCantidad(); // Nunca int c = elObjeto.cantidad 
+elObjeto.setCantidad(c + 10); // Nunca elObjeto.cantidad = c + 10
+</code></pre>Puedes declarar <i>@Getter</i> y <i>@Setter</i> a nivel de clase
+      y así todos los campos tendrán getter y setter automáticamente. Y por
+      supuesto, puedes escribir tu propio setter y getter si quieres usar tu
+      propia lógica:
+      <pre><code class="java">// @Data // NUNCA USES @Data
+@Getter @Setter
+public class Incidencia {
+
+    int numero;
+    String descripcion;
+	
+    public String getDescripcion() { // Tu propio getter sobrescribe el generado por Lombok
+        if (descripcion == null) return "Todavía sin descripción";
+        return descripcion;
+    }
+
+}
+</code></pre>En este caso Lombok genera para ti <i>getNumero(), setNumero()</i>
+      y <i>setDescripcion()</i> mientras que <i>getDescripcion()</i> es el que
+      hemos escrito nosotros. Fíjate com nunca deberías usar la anotación <i>@Data</i>
+      de Lombok, dado que produce bucles recursivos infinitos si tienes
+      referencias recíprocas, algo bastante común en las aplicaciones de
+      negocio.
       <h2 id="toc1"><a name="Propiedades-calculadas"></a>Propiedades calculadas</h2>
       Quizás la lógica de negocio más simple que puedes añadir a tu aplicación
       es una propiedad calculada. Las propiedades que has usado hasta ahora son
@@ -82,15 +141,8 @@
       accede a la propiedad. Observa la diferencia entre una propiedad
       persistente y una calculada:<br>
       <pre><code class="java">// Propiedad persistente
-private int cantidad; // Tiene un campo, por tanto es persistente
- 
-public int getCantidad() { // Un getter para devolver el valor del campo
-    return cantidad;
-}
- 
-public void setCantidad(int cantidad) { // Cambia el valor del campo
-    this.cantidad = cantidad;
-}
+@Getter @Setter // Tiene getter y setter
+int cantidad; // Tiene un campo, por tanto es persistente
  
 // Propiedad calculada
 public int getImporte() { // No tiene campo, ni setter, solo un getter
@@ -117,20 +169,18 @@ public BigDecimal getImporte() { // esta propiedad se recalculará y se redibuja
     if (producto == null || producto.getPrecio() == null) return BigDecimal.ZERO;
     return new BigDecimal(cantidad).multiply(producto.getPrecio());
 }
-</code></pre>Y los imports correspondientes:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import java.math.*;
-import org.openxava.annotations.*;
-</code></pre> </div>
-    <div class="wiki" style="display: block;"> Es tan solo poner el cálculo en <em>getImporte()</em>
-      y usar <em>@Depends</em> para indicar a OpenXava que la propiedad <em>importe</em>
-      depende de <em>producto.numero</em> y <em>cantidad</em>, así cada vez
-      que el usuario cambia alguno de estos valores la propiedad se recalculará.<br>
+</code></pre>Es tan solo poner el cálculo en <em>getImporte()</em> y usar <em>@Depends</em>
+      para indicar a OpenXava que la propiedad <em>importe</em> depende de <em>producto.numero</em>
+      y <em>cantidad</em>, así cada vez que el usuario cambia alguno de estos
+      valores la propiedad se recalculará. Fíjate como en este caso usamos <i>producto</i>
+      y no <i>getProducto()</i>, y <i>cantidad</i> en vez de <i>getCantidad()</i>,
+      porque desde dentro de la clase sí que se puede acceder directamente a sus
+      campos.<br>
       Ahora has de añadir esta nueva propiedad a la lista de propiedades
       mostradas en la colección <em>detalles</em> de <em>DocumentoComercial</em>:<br>
       <pre><code class="java">@ElementCollection
 @ListProperties("producto.numero, producto.descripcion, cantidad, importe") // importe añadida
-private Collection&lt;Detalle&gt; detalles;
+Collection&lt;Detalle&gt; detalles;
 </code></pre> Nada más. Tan solo necesitas añadir el getter y modificar la lista
       de propiedades. Ahora puedes probar los módulos <em>Factura</em> y <em>Pedido</em>
       para ver la propiedad <em>importe</em> en acción.<br>
@@ -148,37 +198,21 @@ private Collection&lt;Detalle&gt; detalles;
       De tal forma que consigamos el efecto que puedes ver en la siguiente
       figura:<br>
       <img src="files/business-logic_es020.png" alt="business-logic_es020.png" title="business-logic_es020.png"><br>
-      El primer paso es obviamente añadir la propiedad <em>precioPorUnidad</em>.
-      Añade el siguiente código a la clase <em>Detalle</em>:<br>
-      <pre><code class="java">@DefaultValueCalculator(
-    value=CalculadorPrecioPorUnidad.class, // Esta clase calcula el valor inicial
-    properties=@PropertyValue(
-        name="numeroProducto", // La propiedad numeroProducto del calculador...
-        from="producto.numero") // ... se llena con el valor de producto.numero de la entidad
-)
-@Stereotype("DINERO")
-private BigDecimal precioPorUnidad; // Una propiedad persistente convencional...
- 
-public BigDecimal getPrecioPorUnidad() { // ... con sus getter y setter
-    return precioPorUnidad == null ? BigDecimal.ZERO : precioPorUnidad; // Así nunca devuelve nulo
-}
- 
-public void setPrecioPorUnidad(BigDecimal precioPorUnidad) {
-    this.precioPorUnidad = precioPorUnidad;
-}
-</code></pre> <em>CalculadorPrecioPorUnidad</em> contiene la lógica para
-      calcular el valor inicial. Simplemente lee el precio del producto. Observa
-      el código de este calculador:<br>
+      La lógica para calcular el valor inicial la tendremos en <em>CalculadorPrecioPorUnidad</em>
+      que simplemente lee el precio del producto. Observa el código de este
+      calculador:<br>
       <pre><code class="java">package com.tuempresa.facturacion.calculadores; // En el paquete calculadores
  
 import org.openxava.calculators.*;
 import com.tuempresa.facturacion.modelo.*;
+import lombok.*;
  
 import static org.openxava.jpa.XPersistence.*; //Para usar getManager()
  
 public class CalculadorPrecioPorUnidad implements ICalculator {
  
-    private int numeroProducto;
+    @Getter @Setter
+    int numeroProducto;
  
     @Override
     public Object calculate() throws Exception {
@@ -187,31 +221,31 @@ public class CalculadorPrecioPorUnidad implements ICalculator {
         return producto.getPrecio();    // Retorna su precio
     }
  
-    public int getNumeroProducto() {
-        return numeroProducto;
-    }
- 
-    public void setNumeroProducto(int numeroProducto) {
-        this.numeroProducto = numeroProducto;
-    }
 }
-</code></pre> </div>
-    <div class="wiki" style="display: block;">También añade el siguiente import
-      en la clase <i>Detalle</i>:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import com.tuempresa.facturacion.calculadores.*;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">De esta forma cuando el usuario
-      escoge un producto el campo de precio unitario se rellena con el precio
-      del producto, pero dado que es una propiedad persistente, el usuario puede
-      cambiar este valor. Y si en el futuro el precio del producto cambiara este
-      precio unitario de la línea de detalle no cambiaría.<br>
+</code></pre>
+      <div class="wiki" style="display: block;">El siguiente paso es añadir la
+        propiedad <em>precioPorUnidad</em>. Añade el siguiente código a la
+        clase <em>Detalle</em>:<br>
+      </div>
+      <pre><code class="java">@DefaultValueCalculator(
+    value=CalculadorPrecioPorUnidad.class, // Esta clase calcula el valor inicial
+    properties=@PropertyValue(
+        name="numeroProducto", // La propiedad numeroProducto del calculador...
+        from="producto.numero") // ... se llena con el valor de producto.numero de la entidad
+)
+@Stereotype("DINERO")
+BigDecimal precioPorUnidad; // Una propiedad persistente convencional
+</code></pre>De esta forma cuando el usuario escoge un producto el campo de
+      precio unitario se rellena con el precio del producto, pero dado que es
+      una propiedad persistente, el usuario puede cambiar este valor. Y si en el
+      futuro el precio del producto cambiara este precio unitario de la línea de
+      detalle no cambiaría.<br>
       Esto implica que has de adaptar la propiedad calculada <em>importe</em>:<br>
       <pre><code class="java">@Stereotype("DINERO")
 @Depends("precioPorUnidad, cantidad") // precioPorUnidad en vez de producto.numero
 public BigDecimal getImporte() {
-    // El if ya no es necesario porque getPrecioPorUnidad() nunca devuelve nulo
-    return new BigDecimal(cantidad).multiply(getPrecioPorUnidad()); // getPrecioPorUnidad() en vez de producto.getPrecio()
+    if (precioPorUnidad == null) return BigDecimal.ZERO; // precioPorUnidad en vez de producto y producto.getPrecio()
+    return new BigDecimal(cantidad).multiply(precioPorUnidad); // precioPorUnidad en vez de producto.getPrecio()
 }
 </code></pre> Ahora <em>getImporte()</em> usa <em>precioPorUnidad</em> como
       fuente en lugar de <em>producto.precio</em>.<br>
@@ -241,7 +275,7 @@ for (Object o: query.getResultList()) { // Itera por todos los objetos
     Factura f = (Factura) o;
     if (f.getDescuento() // Pregunta a cada objeto
         .compareTo(new BigDecimal("1000")) &gt; 0) {
-            i.hacerAlgo();
+            f.hacerAlgo();
     }
 }
 </code></pre> No puedes usar una condición en la consulta para discriminar por <i>descuento</i>,
@@ -258,15 +292,7 @@ for (Object o: query.getResultList()) { // Itera por todos los objetos
         <pre><code class="java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
 @ReadOnly
 @Calculation("importe * 0.10")
-private BigDecimal descuento;
-
-public BigDecimal getDescuento() {
-    return descuento;
-}
-
-public void setDescuento(BigDecimal descuento) {
-    this.descuento = descuento;
-} 
+BigDecimal descuento;
 </code></pre> Esto es una propiedad persistente convencional, es decir con una
         columna correspondiente en la base de datos, pero tiene un cálculo
         definido con <i>@Calculation</i>. En este caso el cálculo es <i>importe
@@ -296,8 +322,7 @@ for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccio
         Este hecho tiene también efecto en el modo lista, porque el usuario no
         puede filtrar ni ordenar por las propiedades calculadas, pero sí que lo
         puede hacer usando propiedades persistentes con <em>@Calculation</em>:<br>
-        <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
-
+        <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
           title="business-logic_es025.png"><br>
         <em>@Calculation</em> es una buena opción cuando necesitas filtrar y
         ordenar, y un cálculo simple es suficiente. Una desventaja de las
@@ -320,32 +345,23 @@ for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccio
       sólo necesitas añadir unas pocas propiedades a la clase <i>DocumentoComercial</i>.
       La siguiente figura muestra la interfaz de usuario para estas propiedades:<br>
       <img src="files/business-logic_es030.png" alt="business-logic_es030.png" title="business-logic_es030.png"><br>
-      Añade el siguiente código (y genera los getters y setters) a la entidad <i>DocumentoComercial</i>:<br>
+      Añade el siguiente código a la entidad <i>DocumentoComercial</i>:<br>
       <pre><code class="java">@Digits(integer=2, fraction=0) // Para indicar su tamaño
-private BigDecimal porcentajeIVA;
+BigDecimal porcentajeIVA;
    
 @ReadOnly
 @Stereotype("DINERO")
 @Calculation("sum(detalles.importe) * porcentajeIVA / 100")
-private BigDecimal iva;
+BigDecimal iva;
 
 @ReadOnly
 @Stereotype("DINERO")
 @Calculation("sum(detalles.importe) + iva")    
-private BigDecimal importeTotal;    
-
-// RECUERDA GENERAR LOS GETTERS Y SETTERS PARA LOS CAMPOS DE ARRIBA
-</code></pre> Para usar <i>BigDecimal</i> y <i>@Digits</i> deberías añadir los
-      siguientes imports a <i>DocumentoComercial</i>:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import java.math.*;
-import javax.validation.constraints.*;
-</code></pre> </div>
-    <div class="wiki" style="display: block;"> Fíjate como hemos escogido
-      propiedades persistentes con <i>@Calculation + @ReadOnly</i> en lugar de
-      propiedades calculadas para <i>iva</i> e <i>importeTotal</i>, porque los
-      cálculos son simples, y filtrar y ordenar por ellos es muy útil. También,
-      puedes ver como en <i>@Calculation</i> puedes usar <i>sum(detalles.importe)</i>
+BigDecimal importeTotal;    
+</code></pre> Fíjate como hemos escogido propiedades persistentes con <i>@Calculation
+        + @ReadOnly</i> en lugar de propiedades calculadas para <i>iva</i> e <i>importeTotal</i>,
+      porque los cálculos son simples, y filtrar y ordenar por ellos es muy
+      útil. También, puedes ver como en <i>@Calculation</i> puedes usar <i>sum(detalles.importe)</i>
       para referirte a la suma de columna <i>importe</i> de la colección <i>detalles</i>,
       de esta manera podemos prescindir de una propiedad <i>importeBase</i>.
       Por otra parte, <em>porcentajeIVA</em> es un propiedad persistente
@@ -458,7 +474,6 @@ import com.tuempresa.facturacion.util.*; // Para usar 'PreferenciasFacturacion'
  
 public class CalculadorPorcentajeIVA implements ICalculator {
  
-    @Override
     public Object calculate() throws Exception {
         return PreferenciasFacturacion.getPorcentajeIVADefecto();
     }
@@ -467,7 +482,7 @@ public class CalculadorPorcentajeIVA implements ICalculator {
       Ahora, ya puedes usar este calculador en la definición de la propiedad <em>porcentajeIVA</em>
       en <em>DocumentoComercial</em>. Mira el código:<br>
       <pre><code class="java">@DefaultValueCalculator(CalculadorPorcentajeIVA.class)
-private BigDecimal porcentajeIVA;
+BigDecimal porcentajeIVA;
 </code></pre> Con este código cuando el usuario pulsa para crear una nueva
       factura, el campo <em>porcentajeIVA</em> se rellenará con 21, o cualquier
       otro valor que hayas puesto en <em>facturacion.properties</em>.</div>
@@ -501,10 +516,9 @@ private BigDecimal porcentajeIVA;
       <div class="wiki" style="display: block;">Los siguientes cambios no son
         tan sencillos, por lo que vamos a ejecutar sentencias SQL contra nuestra
         base de datos. Para ejecutar estas sentencias SQL, primero asegurate de
-        que tu aplicación se está ejecutando, entonces ve a la clase <i>DBManager</i>
-        en <i>Facturacion/src/_run</i>, y con el botón derecho del ratón escoge
-        <i>Run As &gt; Java Application</i>:<br>
-        <img src="files/inheritance_es040.png" alt="inheritance_es040.png" title="inheritance_es040.png"><br>
+        que tu aplicación se está ejecutando, después usa la opción de menú <i>OpenXava
+          &gt; Database Manager</i> de OpenXava Studio::<br>
+        <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
         Ahora estás listo para escribir y ejecutar SQLs. Primero, establecemos
         el valor para la columna <i>precioPorUnidad</i> en todos los detalles:
       </div>
@@ -584,11 +598,6 @@ private void calcularNumero() {
     this.numero = ultimoNumero == null ? 1 : ultimoNumero + 1;
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Para usar <i>XPersistence</i> has
-      de añadir este import:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import org.openxava.jpa.*;
-</code></pre> </div>
     <div class="wiki" style="display: block;">Este código es el mismo que el de
       <em>CalculadorSiguienteNumeroParaAnyo</em> pero usando <em>getClass().getSimpleName()</em>
       en lugar de "DocumentoComercial". El método <em>getSimpleName()</em>
@@ -610,7 +619,7 @@ private void calcularNumero() {
 //      properties=@PropertyValue(name="anyo")
 //  )
 @ReadOnly // El usuario no puede modificar el valor
-private int numero;
+int numero;
 </code></pre> Fíjate que además de quitar <em>@DefaultValueCalculator</em>,
       hemos añadido la anotación <em>@ReadOnly</em>. Esto significa que el
       usuario no puede introducir ni modificar este número. Esta es la forma
@@ -647,12 +656,7 @@ public int getDiasEntregaEstimados() {
     return 1;
 }
 </code></pre> </div>
-      <div class="wiki" style="display: block;"> Para usar <i>DayOfWeek</i>
-        añade el siguiente import en la parte de arriba de <i>Pedido</i>:</div>
-      <div class="wiki" style="display: block;">
-        <pre><code class="java">import java.time.*;
-</code></pre> </div>
-      <div class="wiki" style="display: block;">Esto es una propiedad calculada
+      <div class="wiki" style="display: block;"> Esto es una propiedad calculada
         pura, un getter con lógica Java. Calcula los día estimados de entrega
         usando <i>fecha</i> como fuente. Este caso no puede solucionarse con <i>@Calculation</i>
         que solo soporta operaciones aritméticas básicas. </div>
@@ -661,7 +665,7 @@ public int getDiasEntregaEstimados() {
       <div class="wiki" style="display: block;">
         <pre><code class="java">@View(extendsView="super.DEFAULT", 
     members=
-        "diasEntregaEstimados," + // ADD THIS LINE
+        "diasEntregaEstimados," + // AÑADE ESTA LÍNEA
         "factura { factura }"
 )
 ...
@@ -679,15 +683,7 @@ public class Pedido extends CommercialDocument {
         entidad <i>Pedido</i>:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="java">@Column(columnDefinition="INTEGER DEFAULT 1")
-private int diasEntrega;
-    
-public int getDiasEntrega() {
-    return diasEntrega;
-}
-
-public void setDiasEntrega(int diasEntrega) {
-    this.diasEntrega = diasEntrega;
-}
+int diasEntrega;
 </code></pre> </div>
       <div class="wiki" style="display: block;">Fíjate como hemos usado <i>@Column(columnDefinition="INTEGER
           DEFAULT 1")</i>, con este truco cuando OpenXava crea la columna usa
@@ -731,20 +727,19 @@ private void recalcularDiasEntrega() {
       con <em>@Formula</em> en <i>DocumentoComercial</i> como se muestra en el
       siguiente código:<br>
       <pre><code class="java">@org.hibernate.annotations.Formula("IMPORTETOTAL * 0.10") // El cálculo usando SQL
+@Setter(AccessLevel.NONE) // El setter no se genera, sólo necesitamos el getter
 @Stereotype("DINERO")
-private BigDecimal beneficioEstimado; // Un campo, como con una propiedad persistente
- 
-public BigDecimal getBeneficioEstimado() { // Sólo el getter es necesario
-    return beneficioEstimado;
-}
+BigDecimal beneficioEstimado; // Un campo, como con una propiedad persistente
 </code></pre> Esto significa que cuando un <em>DocumentoComercial</em> se lea
       de la base de datos, el campo <em>beneficioEstimado</em> se rellenerá con
       el cálculo de <em>@Formula</em> que es ejecutado por la base de datos. El
       usuario puede filtrar y ordenar por las propiedades <i>@Formula</i> en
       modo lista, pero siempre son de solo lectura y no se recalculan en tiempo
-      real en modo detalle. Además, las propiedades <i>@Formula</i> dependen de
-      la base de datos, porque podrías usar sintaxis sólo soportada por cierto
-      fabricante de base de datos.<br>
+      real en modo detalle. Dado que son de sólo lectura no necesitan el método
+      getter, por lo que la hemos anotamos con <i>@Setter(AccessLevel.NONE)</i>
+      para que Lombok no genere el setter. Además, las propiedades <i>@Formula</i>
+      dependen de la base de datos, porque podrías usar sintaxis sólo soportada
+      por cierto fabricante de base de datos.<br>
       <h2 id="toc10"><a name="Pruebas-JUnit"></a>Pruebas JUnit</h2>
       Antes de ir a la siguiente lección, vamos a escribir el código JUnit para
       ésta. Recuerda, el código no está terminado si no tiene pruebas JUnit.
@@ -839,7 +834,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
         de valor por defecto multiusuario</a>). Cuando el documento (factura o
       pedido) se grabe verificaremos que <em>numero</em> se calcula. </div>
     <div class="wiki" style="display: block;">Cuando la línea se añade podemos
-      verificar el cálculo de <em>importe</em> de <em>detalle</em> (la
+      verificar el cálculo de <em>importe</em> de <em>Detalle</em> (la
       propiedad calculada simple, sección <a class="wiki_link" href="basic-business-logic_es.html#Propiedades-calculadas-Propiedad-calculada-simple">Propiedad
         calculada simple</a>), el valor por defecto para <em>precioPorUnidad</em>
       (<em>@DefaultValueCalculator</em>, sección <a class="wiki_link" href="basic-business-logic_es.html#Propiedades-calculadas-Usar-DefaultValueCalculator">Usar
@@ -973,12 +968,10 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
       funcionamiento estándar del módulo y añadir tu propia lógica de negocio,
       entre otras formas de añadir lógica personalizada a tu aplicación.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="validation_es.html">Ve a la lección 6</a></strong>
     </div>

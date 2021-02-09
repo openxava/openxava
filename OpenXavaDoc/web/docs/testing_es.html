@@ -9,15 +9,13 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Leccion+3:+Pruebas+automaticas"></a> <span
-
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span> Lección 3: Pruebas automáticas</h1>
-         <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+      <h1 id="toc0"><a name="Leccion+3:+Pruebas+automaticas"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 3: Pruebas automáticas</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
-        Modelar con Java</a> | <strong>3. Pruebas automáticas</strong> | <a class="wiki_link"
-
+        Modelar con Java</a> | <strong>3. Pruebas automáticas</strong> | <a class="wiki_link"
         href="inheritance_es.html">4. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
         Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
         Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
@@ -28,9 +26,8 @@
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
         Anotaciones</a>
       <hr>
-            <div id="toc">
+      <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-
         <div style="margin-left: 1em;"><a href="#Leccion+3:+Pruebas+automaticas">Lección
 
             3: Pruebas automáticas</a></div>
@@ -39,8 +36,8 @@
             para probar módulos</a></div>
         <div style="margin-left: 3em;"><a href="#Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-El+codigo+para+la+prueba">El
             código para la prueba</a></div>
-        <div style="margin-left: 3em;"><a href="#Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-Ejecutar+las+pruebas+desde+Eclipse">Ejecutar
-            las pruebas desde Eclipse</a></div>
+        <div style="margin-left: 3em;"><a href="#Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-Ejecutar+las+pruebas+desde+OpenXava+Studio">Ejecutar
+            las pruebas desde OpenXava Studio</a></div>
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA">Crear
             datos de prueba usando JPA</a></div>
         <div style="margin-left: 3em;"><a href="#Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA-Los+metodos+setUp%28%29+y+tearDown%28%29">Los
@@ -68,9 +65,9 @@
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-Suite">Suite</a></div>
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-Resumen">Resumen</a></div>
       </div>
-      Las pruebas son la parte más importante del desarrollo de software.
-      No importa cuan bonita, rápida o tecnológicamente avanzada sea tu
-      aplicación, si falla, darás una impresión muy pobre.<br>
+      Las pruebas son la parte más importante del desarrollo de software. No
+      importa cuan bonita, rápida o tecnológicamente avanzada sea tu aplicación,
+      si falla, darás una impresión muy pobre.<br>
       Hacer pruebas manuales, es decir, abrir el navegador y ejecutar la
       aplicación exactamente como lo haría un usuario final, no es viable;
       porque el problema real no está en el código que acabas de escribir, sino
@@ -83,14 +80,14 @@
       pruebas automáticas. Vamos a hacer pruebas automáticas usando JUnit.<br>
       <h2 id="toc1"><a name="Leccion+3:+Pruebas+automaticas-JUnit"></a>JUnit</h2>
       JUnit es una herramienta muy popular para hacer pruebas automáticas. Esta
-      herramienta está integrada con Eclipse, por tanto no necesitas descargarla
-      para poder usarla. OpenXava extiende las capacidades de JUnit para
-      permitir probar un módulo de OpenXava exactamente de la misma forma que lo
-      haría un usuario final. De hecho, OpenXava usa HtmlUnit, un software que
-      simula un navegador real (incluyendo JavaScript) desde Java. Todo está
-      disponible desde la clase de OpenXava <em>ModuleTestBase</em>, que te
-      permite automatizar las pruebas que tú harías a mano usando un navegador
-      de verdad de una forma simple.<br>
+      herramienta está integrada con OpenXava Studio, por tanto no necesitas
+      descargarla para poder usarla. OpenXava extiende las capacidades de JUnit
+      para permitir probar un módulo de OpenXava exactamente de la misma forma
+      que lo haría un usuario final. De hecho, OpenXava usa HtmlUnit, un
+      software que simula un navegador real (incluyendo JavaScript) desde Java.
+      Todo está disponible desde la clase de OpenXava <em>ModuleTestBase</em>,
+      que te permite automatizar las pruebas que tú harías a mano usando un
+      navegador de verdad de una forma simple.<br>
       La mejor manera de entender como funcionan las pruebas en OpenXava es
       verlo en acción.<br>
       <h2 id="toc2"><a name="Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos"></a>ModuleTestBase
@@ -179,7 +176,7 @@ public class PruebaCliente extends ModuleTestBase { // Ha de extender de ModuleT
       En <em>execute()</em> tienes que especificar el nombre calificado de la
       acción, esto quiere decir <em>NombreControlador.nombreAccion</em>. ¿Cómo
       puedes saber el nombre de la acción? Pasea tu ratón sobre el vínculo de la
-      acción, y verás en la barra inferior de tu navegador un código JavaScript
+      acción y verás en la barra inferior de tu navegador un código JavaScript
       que incluye el nombre calificado de la acción:<br>
       <img src="files/testing_es020.png" alt="testing_es020.png" title="testing_es020.png"><br>
       Ahora ya sabes como crear una prueba para probar las operaciones de
@@ -188,15 +185,16 @@ public class PruebaCliente extends ModuleTestBase { // Ha de extender de ModuleT
       aquellas cosas que normalmente probarías con un navegador. Tu prueba
       crecerá de forma natural a medida que tu aplicación crezca y los usuarios
       vayan encontrando fallos.<br>
-      Aprendamos como ejecutar tu prueba desde Eclipse.<br>
-      <h3 id="toc4"><a name="Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-Ejecutar+las+pruebas+desde+Eclipse"></a>Ejecutar
-        las pruebas desde Eclipse</h3>
-      JUnit está integrado dentro de Eclipse, por eso ejecutar tus prueba en
-      Eclipse es más fácil que quitarle un caramelo a un niño. Pon el ratón
-      sobre tu clase de prueba, <i>PruebaCliente</i>, y con el botón derecho
-      escoge <em>Run As &gt; JUnit Test</em>:<br>
-      <img src="files/testing_es030.png" alt="testing_es030.png" title="testing_es030.png"
-
+      Aprendamos como ejecutar tu prueba desde OpenXava Studio.<br>
+      <h3 id="toc4"><a name="Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-Ejecutar+las+pruebas+desde+OpenXava+Studio"></a>Ejecutar
+        las pruebas desde OpenXava Studio</h3>
+      JUnit está integrado dentro del OpenXava Studio, por eso ejecutar tus
+      pruebas es más fácil que quitarle un caramelo a un niño. Para que la
+      prueba funcione tu aplicación tiene que estar ejecutándose, si no es el
+      caso iníciala antes de nada. Para ejecutar la prueba pon el ratón sobre tu
+      clase de prueba, <i>PruebaCliente</i>, y con el botón derecho escoge <em>Run
+        As &gt; JUnit Test</em>:<br>
+      <img src="files/testing_es030.png" alt="testing_es030.png" title="testing_es030.png"
         style="height: 285px; width: 800px;"><br>
       Si la prueba no es satisfactoria la barra sale roja. Puedes probarlo.
       Edita <em>PruebaCliente</em> y comenta la línea que da valor al campo <em>nombre</em>:</div>
@@ -282,9 +280,9 @@ public class PruebaProducto extends ModuleTestBase {
       métodos <em>setUp()</em> y <em>tearDown()</em>. Estos métodos son
       métodos de JUnit que son ejecutados justo antes y después de ejecutar cada
       método de prueba. Creamos los datos de prueba antes de ejecutar cada
-      prueba, y borramos los datos después de cada prueba. Así, cada prueba
-      puede contar con unos datos concretos para ejecutarse. No importa si otras
-      pruebas borran o modifican datos, o el orden de ejecución de las pruebas.
+      prueba y borramos los datos después de cada prueba. Así, cada prueba puede
+      contar con unos datos concretos para ejecutarse. No importa si otras
+      pruebas borran o modifican datos o el orden de ejecución de las pruebas.
       Siempre, al principio de cada método de prueba tenemos todos los datos
       listos para usar.<br>
       <h3 id="toc7"><a name="Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA-Crear+datos+con+JPA"></a>Crear
@@ -373,21 +371,21 @@ private void borrar(Object ... entidades) { // Usamos argumentos varargs
       fácil de entender con el siguiente código:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">getManager().persist(autor); // autor está asociado al contexto persistente actual
-commit(); // El contexto persistente actual se termina, y autor pasa a estar desasociado
+commit(); // El contexto persistente actual se termina y autor pasa a estar desasociado
  
 getManager().remove(autor); // Falla porque autor está desasociado
  
 autor = getManager().merge(autor); // Reasocia autor al contexto actual
 getManager().remove(autor); // Funciona
 </code></pre> </div>
-    <div class="wiki" style="display: block;">A parte de este curioso detalle
+    <div class="wiki" style="display: block;">Aparte de este curioso detalle
       sobre el <em>merge()</em>, el código para borrar es bastante sencillo.<br>
       <h3 id="toc9"><a name="Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA-Filtrar+datos+desde+modo+lista+en+una+prueba"></a>Filtrar
         datos desde modo lista en una prueba</h3>
       Ahora que ya sabes como crear y borrar datos para las pruebas, examinemos
       los métodos de prueba para tu módulo <em>Producto</em>. El primero es <em>testBorrarDesdeLista()</em>
-      que selecciona una fila en el modo lista y pulsa en el botón “Borrar
-      seleccionados”. Veamos su código:</div>
+      que selecciona una fila en el modo lista y pulsa en el botón <i>Borrar
+        seleccionados</i>. Veamos su código:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public void testBorrarDesdeLista() throws Exception {
     login("admin", "admin");
@@ -536,9 +534,9 @@ public class PruebaCategoria extends ModuleTestBase {
       “SOFTWARE”. Acuerdate de crearlos antes de ejecutar esta prueba.<br>
       Puedes ver como la técnica de usar datos preexistentes de una base de
       datos de prueba te permite crear pruebas más simples. Empezar con una
-      prueba simple e ir complicándolo bajo demanda es una buena idea. Recuerda
-      añadir los datos correspondientes usando los módulos antes de ejecutar
-      estas pruebas.<br>
+      prueba simple e ir complicándolo bajo demanda es una buena idea. </div>
+    <div class="wiki" style="display: block;">Recuerda añadir los datos
+      correspondientes usando los módulos antes de ejecutar estas pruebas.<br>
       <h2 id="toc12"><a name="Leccion+3:+Pruebas+automaticas-Probar+colecciones"></a>Probar
         colecciones</h2>
       Es el momento de enfrentarnos a la prueba del módulo principal de tu
@@ -619,11 +617,10 @@ public class PruebaFactura extends ModuleTestBase {
     assertValue("fecha", getFechaActual());
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Cuando el usuario pulsa en
-      “Nuevo”, los campos año, número y fecha tienen que rellenarse con datos
-      válidos. El método <em>verificarValoresDefecto()</em> precisamente
-      comprueba esto. Usa varios métodos de utilidad para calcular los valores
-      esperados:</div>
+    <div class="wiki" style="display: block;">Cuando el usuario pulsa en <i>Nuevo</i>,
+      los campos año, número y fecha tienen que rellenarse con datos válidos. El
+      método <em>verificarValoresDefecto()</em> precisamente comprueba esto.
+      Usa varios métodos de utilidad para calcular los valores esperados:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">private String getAnyoActual() { // Año actual en formato cadena
     return Integer.toString(LocalDate.now().getYear()); // La forma
@@ -721,7 +718,7 @@ private String getNumero() { // El número de factura para una factura nueva
     assertValue("observaciones", "");
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Simplemente pulsa en “Grabar”,
+    <div class="wiki" style="display: block;">Simplemente pulsa en <i>Grabar</i>,
       entonces verifica que no ha habido errores y la vista se ha limpiado.<br>
       <h3 id="toc16"><a name="Leccion+3:+Pruebas+automaticas-Probar+colecciones-Verificar+los+datos"></a>Verificar
         los datos</h3>
@@ -766,8 +763,8 @@ private String getNumero() { // El número de factura para una factura nueva
     assertNoErrors();
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Simplemente presiona en “Borrar” y
-      verifica que no se han producido errores.<br>
+    <div class="wiki" style="display: block;">Simplemente presiona en <i>Borrar</i>
+      y verifica que no se han producido errores.<br>
       <br>
       ¡Enhorabuena! Has completado tu <em>PruebaFactura</em>. Ya puedes
       ejecutarla, debería salir verde, si no comprueba que los datos en la base
@@ -779,11 +776,11 @@ private String getNumero() { // El número de factura para una factura nueva
       aplicación ejecuta todas tus pruebas unitarias para verificar que la
       funcionalidad existente no se ha roto.<br>
       Tradicionalmente, para ejecutar todos las pruebas de tu aplicación
-      deberías crear una suite de pruebas, y ejecutarla. Una suite de pruebas es
+      deberías crear una suite de pruebas y ejecutarla. Una suite de pruebas es
       una clase que agrega todas tus pruebas JUnit para que puedas ejecutarlas
-      todas de un golpe. Afortunadamente, si trabajas con Eclipse no necesitas
-      escribir una clase de suite, Eclipse te permite ejecutar todas las pruebas
-      de tu aplicación automáticamente:<br>
+      todas de un golpe. Afortunadamente, con OpenXava Studio no necesitas
+      escribir una clase de suite, te permite ejecutar todas las pruebas de tu
+      aplicación automáticamente:<br>
       <img src="files/testing_es060.png" alt="testing_es060.png" title="testing_es060.png"><br>
       Es decir, si ejecutas <em>Run As &gt; JUnit Test</em> en el proyecto, se
       ejecutarán todas sus pruebas JUnit.<br>
@@ -805,12 +802,10 @@ private String getNumero() { // El número de factura para una factura nueva
       que desarrollemos en el resto del libro. De esta manera aprenderás más
       trucos sobre las pruebas JUnit en las siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-3-testing_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-3-testing_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="inheritance_es.html">Ve a la lección 4</a></strong>
     </div>

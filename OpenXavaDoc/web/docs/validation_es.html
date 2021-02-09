@@ -84,15 +84,7 @@
       Para hacer esto, lo primero es añadir una nueva propiedad a la entidad <em>Pedido</em>.
       La propiedad <em>entregado</em>:<br>
       <pre><code class="java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
-private boolean entregado;
- 
-public boolean isEntregado() {
-    return entregado;
-}
- 
-public void setEntregado(boolean entregado) {
-    this.entregado = entregado;
-}
+boolean entregado;
 </code></pre> Además es necesario añadir la propiedad <em>entregado</em> a la
       vista. Modifica la vista <em>Pedido</em> como muestra el siguiente
       código:<br>
@@ -139,7 +131,9 @@ public class Pedido extends DocumentoComercial {
 import com.tuempresa.facturacion.modelo.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
+import lombok.*;
  
+@Getter @Setter 
 public class ValidadorEntregadoParaEstarEnFactura
     implements IValidator { // ha de implementar 'IValidator'
  
@@ -148,7 +142,6 @@ public class ValidadorEntregadoParaEstarEnFactura
     private boolean entregado;
     private Factura factura;
  
-    @Override
     public void validate(Messages errors)
         throws Exception { // La lógica de validación
         if (factura == null) return;
@@ -158,8 +151,7 @@ public class ValidadorEntregadoParaEstarEnFactura
                 anyo, numero); // Argumentos para el mensaje
         }
     }
-    // Getters y setters para anyo, numero, entregado y factura
-    ...
+
 }
 </code></pre> La lógica de validación es extremadamente fácil, si una factura
       está presente y este pedido no ha sido servido añadimos un mensaje de
@@ -172,8 +164,7 @@ pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadid
       aplicación, verás como los pedidos no entregados son rechazados. Ve al
       módulo <i>Facturas</i>, selecciona la pestaña PEDIDOS de una factura y
       desde ahí pulsa en el botón <i>Añadir</i>:
-      <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"
-
+      <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"
           alt="validation_es010.png" title="validation_es010.png"></div>
       <div class="wiki" style="display: block;">Se mostrará un diálogo con una
         lista de pedidos para escoger. Selecciona dos, uno de ellos no entregado
@@ -198,7 +189,7 @@ pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadid
       de tu proyecto. También quita la anotación <i>@EntityValidator</i> de tu
       entidad <em>Pedido</em>:<br>
       <pre><code class="java">// @EntityValidator( // Eliminar '@EntityValidator'
-//    value=ValidadorEntregadoParaEstarEnFactura.class,
+//    value=com.tuempresa.facturacion.validadores.ValidadorEntregadoParaEstarEnFactura.class,
 //    properties= {
 //        @PropertyValue(name="anyo"),
 //        @PropertyValue(name="numero"),
@@ -206,7 +197,7 @@ pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadid
 //        @PropertyValue(name="entregado")
 // })
 public class Pedido extends DocumentoComercial {
-</code></pre> Acabamos del eliminar la validación. Ahora, vamos a añadirla de
+</code></pre> Acabamos de eliminar la validación. Ahora, vamos a añadirla de
       nuevo, pero ahora dentro de la misma clase <em>Pedido</em>. Escribe el
       método <em>validar()</em> que se muestra a continuación dentro de tu
       clase <em>Pedido</em>:<br>
@@ -222,16 +213,11 @@ private void validar() throws Exception {
         );
     }
 }
-</code></pre>También has de añadir el siguiente import a <i>Pedido</i> para
-      poder usar <i>XavaResources</i>:
-      <div class="wiki" style="display: block;">
-        <pre><code class="java">import org.openxava.util.*;
-</code></pre> </div>
-      <div class="wiki" style="display: block;"> Antes de grabar un pedido esta
-        validación se ejecutará, si falla una <i>ValidationException</i> será
-        lanzada. Esta excepción es del marco de validación Bean Validation, de
-        esta forma OpenXava sabe que es una excepción de validación. Así con
-        solo un método dentro de tu entidad tienes la validación hecha.</div>
+</code></pre>Antes de grabar un pedido esta validación se ejecutará, si falla
+      una <i>ValidationException</i> será lanzada. Esta excepción es del marco
+      de validación Bean Validation, de esta forma OpenXava sabe que es una
+      excepción de validación. Así con solo un método dentro de tu entidad
+      tienes la validación hecha.
       <div class="wiki" style="display: block;">Sólo está permitido un método <i>@PrePersist</i>
         y un método <i>@PreUpdate</i> por entidad, por eso antes de ejecutar el
         código de arriba has de comentar las anotaciones <i>@PrePersist</i> y <i>@PreUpdate</i>
@@ -281,8 +267,8 @@ private void recalcularDiasEntrega() {
 //     }
 // }    
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Después modifica el método <em>setFactura()</em>
-      de la forma que mostramos a continuación:<br>
+    <div class="wiki" style="display: block;">Después añade el método setter <em>setFactura()</em>
+      a <i>Pedido</i>:<br>
       <pre><code class="java">public void setFactura(Factura factura) {
     if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
         // La excepción de validación del entorno Bean Validation
@@ -303,11 +289,11 @@ private void recalcularDiasEntrega() {
       Como opción final vamos a hacer la más breve. Consiste en poner tu lógica
       de validación dentro de un método booleano anotado con la anotación de
       Bean Validation <i>@AssertTrue</i>.<br>
-      Para implementar esta alternativa primero quita la lógica de validación
-      del método <em>setFactura()</em>:</div>
+      Para implementar esta alternativa primero quita el método <em>setFactura()</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public void setFactura(Factura factura) {
-// Quita la siguiente lógica de validación
+      <pre><code class="java">// Quita el método setter
+
+// public void setFactura(Factura factura) {
 //    if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
 //        // La excepción de validación del entorno Bean Validation
 //        throw new javax.validation.ValidationException(
@@ -317,8 +303,8 @@ private void recalcularDiasEntrega() {
 //                getNumero())
 //        );
 //    }
-    this.factura = factura; // La asignación típica del setter
-}
+//    this.factura = factura; // La asignación típica del setter
+// }
 </code></pre> </div>
     <div class="wiki" style="display: block;">Después, añade <em>isEntregadoParaEstarEnFactura()</em>
       a tu entidad <em>Pedido</em>, como se muestra a continuación:<br>
@@ -328,11 +314,6 @@ private void recalcularDiasEntrega() {
 private boolean isEntregadoParaEstarEnFactura() { // ...
     return factura == null || isEntregado(); // La lógica de validación
 }
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Para usar <i>@AssertTrue</i> has
-      de añadir el siguiente import:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import javax.validation.constraints.*;
 </code></pre> </div>
     <div class="wiki" style="display: block;">En las formas anteriores de
       validación nuestro mensaje de error era construído mediante dos
@@ -416,7 +397,7 @@ public class ValidadorBorrarPedido
       El primer paso es eliminar la clase <em>ValidadorBorrarPedido</em> de tu
       proyecto. Además quita la anotación <i>@RemoveValidator</i> de tu entidad
       <em>Pedido</em>:<br>
-      <pre><code class="java">// @RemoveValidator(ValidadorBorrarPedido.class) // Quitamos '@RemoveValidator'
+      <pre><code class="java">// @RemoveValidator(com.tuempresa.facturacion.validadores.ValidadorBorrarPedido.class) // Quitamos '@RemoveValidator'
 public class Pedido extends DocumentoComercial {
 </code></pre> Hemos quitado la validación. Añadámosla otra vez, pero ahora
       dentro de la misma clase <em>Pedido</em>. Añade el método <em>validarPreBorrar()</em>
@@ -430,9 +411,9 @@ private void validarPreBorrar() {
     }
 }
 </code></pre> Antes de borrar un pedido esta validación se efectuará, si falla
-      se lanzará una ValidationException. Puedes lanzar cualquier excepción
-      runtime para abortar el borrado. Tan solo con un método dentro de la
-      entidad tienes la validación hecha.<br>
+      se lanzará una <i>ValidationException</i>. Puedes lanzar cualquier
+      excepción runtime para abortar el borrado. Tan solo con un método dentro
+      de la entidad tienes la validación hecha.<br>
       <h3 id="toc9"><a name="Alternativas-de-validacion-Cual-es-la-mejor-forma-de-validar"></a>¿Cuál
         es la mejor forma de validar?</h3>
       Has aprendido varias formas de hacer la validación sobre tus clases del
@@ -447,7 +428,6 @@ private void validarPreBorrar() {
       validación “el pedido ha de estar servido para estar en una factura” y por
       <i>@PreRemove</i> para la validación al borrar. Ya que son las
       alternativas más simples que funcionan.<br>
-      <br>
       <h2 id="toc10"><a name="Crear-tu-propia-anotacion-de-Bean-Validation"></a>Crear
         tu propia anotación de <em>Bean Validation</em></h2>
       Las técnicas mencionadas hasta ahora son muy útiles para la mayoría de las
@@ -462,7 +442,7 @@ private void validarPreBorrar() {
         un <em>Bean Validation</em> en tu entidad</h3>
       Es superfácil. Simplemente anota tu propiedad como ves a continuación:<br>
       <pre><code class="java">@ISBN // Esta anotación indica que esta propiedad tiene que validarse como un ISBN
-private String isbn;
+String isbn;
 </code></pre> Solo con añadir <em>@ISBN</em> a tu propiedad ésta será validada
       justo antes de que la entidad se grabe en la base de datos, ¡genial! El
       problema es que <em>@ISBN</em> no está incluida como un validador
@@ -473,15 +453,7 @@ private String isbn;
       Antes de nada, añadamos una nueva propiedad <em>isbn</em> a <em>Producto</em>.
       Edita tu clase <em>Producto</em> y añádele el siguiente código:<br>
       <pre><code class="java">@Column(length=13)
-private String isbn;
- 
-public String getIsbn() {
-    return isbn;
-}
- 
-public void setIsbn(String isbn) {
-    this.isbn = isbn;
-}
+String isbn;
 </code></pre> Ejecuta el módulo <em>Producto</em> con tu navegador. Sí, la
       propiedad <em>isbn</em> ya está ahí. Ahora, puedes añadir la validación.<br>
       <h3 id="toc12"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Definir-tu-propia-anotacion-ISBN"></a>Definir
@@ -498,12 +470,9 @@ public void setIsbn(String isbn) {
       <pre><code class="java">package com.tuempresa.facturacion.anotaciones; // En el paquete 'anotaciones'
  
 import java.lang.annotation.*;
- 
 import javax.validation.*;
  
-import com.tuempresa.facturacion.validadores.*;
- 
-@Constraint(validatedBy = ValidadorISBN.class)
+@Constraint(validatedBy = com.tuempresa.facturacion.validadores.ValidadorISBN.class)
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ISBN {
@@ -568,11 +537,17 @@ public class ValidadorISBN implements ConstraintValidator&lt;ISBN, Object&gt; {
       <em>@ISBN</em> está listo para usar. Para hacerlo anota tu propiedad <em>isbn</em>
       con él. Puedes ver cómo:<br>
       <pre><code class="java">@Column(length=13) @ISBN
-private String isbn;
-</code></pre>Por supuesto, has de añadir el import correspondiente a <i>Producto</i>:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">import com.tuempresa.facturacion.anotaciones.*;
-</code></pre> </div>
+String isbn;
+</code></pre>En este caso cuando grabes la clase el import para <i>@ISBN</i> no
+      se añade automáticamente. Esto es porque hay otra <i>@ISBN</i> disponible
+      (de la librería Hibernate Validator incluida con OpenXava), por tanto
+      OpenXava Studio no sabe cual escoger. No te preocupes, pon el ratón sobre
+      la anotación <i>@ISBN</i> y una ventana emergente se mostrará con varias
+      soluciones posibles, escoge <i>Import 'ISBN'
+        (com.yourcompany.invoicing.annotations)</i> para que el import correcto
+      se añada a la clase <i>Producto</i>:</div>
+    <div class="wiki" style="display: block;"> <img src="files/validation_es035.png"
+        alt="validation_es035.png" title="validation_es035.png"> </div>
     <div class="wiki" style="display: block;"> Ahora, puedes probar tu módulo, y
       verificar que el <em>ISBN</em> que introduces se valida correctamente.
       Enhorabuena, has escrito tu primer <em>Bean Validation</em>. No ha sido
@@ -614,8 +589,7 @@ private String isbn;
       <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
       <div class="wiki" style="display: block;">Obtienes un JSON vacío, como
         este:</div>
-      <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
-
+      <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
         style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
       <div class="wiki" style="display: block;">Es decir, un JSON vacío,
         simplemente unas llaves vacías, así: {}.</div>
@@ -791,7 +765,9 @@ private String isbn;
 }
 </code></pre> Aquí ves una buena técnica para hacer un bucle sobre los elementos
       visualizados de una lista para seleccionarlos y coger algunos datos, o
-      cualquier otra cosa que quieras hacer con los datos de la lista.<br>
+      cualquier otra cosa que quieras hacer con los datos de la lista. Para que
+      esta prueba funcione la primera factura no ha de tener pedidos y además
+      tiene que haber al menos un pedido entregado, pero que no sea el primero.<br>
       <h3 id="toc18"><a name="Pruebas-JUnit-Probar-validacion-al-asignar-una-referencia-y-al-borrar"></a>Probar
         validación al asignar una referencia y al borrar</h3>
       Desde el módulo <em>Factura</em> el usuario no puede asignar pedidos a
@@ -806,8 +782,8 @@ private String isbn;
         al borrar con un método de retrollamada</a>. Allí modificamos la
       aplicación para impedir que un usuario borrara un pedido si éste tenía una
       factura asociada. Ahora probaremos este hecho.<br>
-      Todo esto está en el <em>testPonerFactura()</em> mejorado que puedes ver
-      a continuación:<br>
+      Todo esto está en el <em>testPonerFactura()</em> de <i>PruebaPedido</i>
+      mejorado que puedes ver a continuación:<br>
       <pre><code class="java">public void testPonerFactura() throws Exception {
     login("admin", "admin");
     assertListNotEmpty();
@@ -846,10 +822,12 @@ private String isbn;
     assertNoErrors();
 }
 </code></pre> La prueba original solo buscaba una factura, ni siquiera intentaba
-      grabarla. Ahora, hemos añadido código al final para probar la grabación de
+      grabar. Ahora, hemos añadido código al final para probar la grabación de
       un pedido marcado como servido y marcado como no servido, de esta forma
       comprobamos la validación. Después de eso, tratamos de borrar el pedido,
-      el cual tiene una factura, así probamos también la validación al borrar.<br>
+      el cual tiene una factura, así probamos también la validación al borrar.
+      Antes de ejecutar esta prueba asegurate de que el primer pedido no esté
+      entregado y no tenga factura.<br>
       <h3 id="toc19"><a name="Pruebas-JUnit-Probar-el-Bean-Validation-propio"></a>Probar
         el <em>Bean Validation</em> propio</h3>
       Solo nos queda probar tu <em>Bean Validation ISBN</em>, el cual usa un
@@ -886,8 +864,7 @@ private String isbn;
 }
 </code></pre> Seguramente la prueba manual que hacías mientras estabas
       escribiendo el validador <em>@ISBN</em> era parecida a esta. Por eso, si
-      hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
-
+      hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
         rel="nofollow">código de prueba antes que el código de la aplicación</a>,
       lo hubieras podido usar mientras que desarrollabas, lo cual es más
       eficiente que repetir una y otra vez a mano las pruebas con el navegador.<br>
@@ -909,12 +886,10 @@ private String isbn;
       lógica fuera de las clases del modelo. Aprenderás a hacer esto en las
       siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="refining-standard-behavior_es.html">Ve a la
           lección 7</a></strong> </div>
