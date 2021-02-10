@@ -1,12 +1,14 @@
 package org.openxava.test.tests;
 
 import java.math.*;
+
 import javax.persistence.*;
 
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
+
 import com.gargoylesoftware.htmlunit.html.*;
 
 /**
@@ -554,7 +556,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		familyTextField = getDescriptionsListTextField("family");
 		familyTextField.setAttribute("value", "");
 		familyTextField.type(" \b");
-		Thread.sleep(500); 
+		Thread.sleep(600); 
 		assertTrue(familyList.isDisplayed()); 
 		assertEquals(3, familyList.getChildElementCount());
 				

@@ -29,9 +29,12 @@ public class Modules implements Serializable {
 	private List<MetaModule> all;
 	private List<MetaModule> bookmarkModules = null;
 	private List<MetaModule> regularModules; 
-	private List<MetaModule> fixedModules; 
+	private List<MetaModule> fixedModules;
+	private List<MetaModule> notInMenuModules; 
 	
 	private MetaModule current;
+
+	
 
 	 
 
@@ -276,6 +279,12 @@ public class Modules implements Serializable {
 		return Collections.binarySearch(getAll(request), module, comparator) >= 0; 
 	}
 	
+	/** @since 6.5 */
+	public boolean isModuleInMenu(HttpServletRequest request, MetaModule module) { 	
+		if (!isModuleAuthorized(request, module)) return false;
+		return Collections.binarySearch(getNotInMenuModules(), module, comparator) < 0;
+	}
+	
 	private void storeBookmarkModules() { 
 		storeModulesInPreferences(bookmarkModules, "bookmark.", BOOKMARK_MODULES); 
 	}
@@ -335,6 +344,14 @@ public class Modules implements Serializable {
 			Collections.sort(all, comparator);
 		}
 		return all;
+	}
+	
+	private List<MetaModule> getNotInMenuModules() { 
+		if (notInMenuModules == null) {			
+			notInMenuModules = ModulesHelper.getNotInMenu(); 
+			Collections.sort(notInMenuModules, comparator);
+		}
+		return notInMenuModules;
 	}
 	
 	/** @since 6.0 */

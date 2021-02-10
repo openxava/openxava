@@ -21,6 +21,8 @@
         <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Restringir+el+acceso+a+ciertas+propiedades,+referencias+o+colecciones">Restringir
             el acceso a ciertas propiedades, referencias o colecciones (nuevo en
             v5.5)</a></div>
+        <div style="margin-left: 2em;"><a href="#ocultar-un-modulo-en-el-menu-sin-restringirlo">Ocultar
+            un módulo en el menú sin restringirlo (nuevo en v6.5)</a></div>
         <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Politicas+para+usuarios+y+contrasenas">Políticas
             para usuarios y contraseñas</a></div>
         <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-LDAP">LDAP</a></div>
@@ -39,14 +41,13 @@
       </div>
       <em>Todas las funcionalidades en este artículo están disponible solo en <a
 
-          class="wiki_link_ext" href="http://openxava.org/xavapro" rel="nofollow">XavaPro</a></em><br>
+          href="http://openxava.org/xavapro">XavaPro</a></em><br>
       <h2 id="toc1"><a name="Seguridad+y+gestion+de+usuarios-Gestion+de+usuarios"></a>Gestión
         de usuarios</h2>
-      <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>
-      añade los módulos <em>Roles</em>, <em>Módulos</em> y <em>Usuarios</em>
-      a tu aplicación, en una carpeta llamada <em>Admin</em>. Estos módulos te
-      permiten configurar los niveles de acceso para los diferentes tipos de
-      usuarios.<br>
+      <a href="http://www.openxava.org/xavapro">XavaPro</a> añade los módulos <em>Roles</em>,
+      <em>Módulos</em> y <em>Usuarios</em> a tu aplicación, en una carpeta
+      llamada <em>Admin</em>. Estos módulos te permiten configurar los niveles
+      de acceso para los diferentes tipos de usuarios.<br>
       <img src="files/naviox-roles_es.png" alt="naviox-roles_es.png" title="naviox-roles_es.png"><br>
       Lo normal es crear un nuevo rol y asignarle algunos módulos. Entonces, en
       el módulo <em>Usuarios</em>, puedes escoger un usuario y asignarle el
@@ -58,10 +59,8 @@
       ejemplo, si los usuarios de cierto rol no pueden acceder al módulo <em>Cliente</em>,
       tampoco podrán crear y modificar clientes desde el módulo <em>Factura</em>
       (<em>nuevo en v5.3</em>).<br>
-      Esta gestión de usuarios está disponible sólo en <a class="wiki_link_ext"
-
-        href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>, con
-      el OpenXava normal tienes que añadir los usuarios en el fichero <em>naviox-users.properties</em>.
+      Esta gestión de usuarios está disponible sólo en <a href="http://www.openxava.org/xavapro">XavaPro</a>,
+      con el OpenXava normal tienes que añadir los usuarios en el fichero <em>naviox-users.properties</em>.
       de la carpeta <em>properties</em> de tu proyecto.<br>
       <h2 id="toc2"><a name="Seguridad+y+gestion+de+usuarios-Restringir+el+acceso+a+ciertas+acciones"></a>Restringir
         el acceso a ciertas acciones</h2>
@@ -81,9 +80,7 @@
       el acceso a la acción <em>Grabar</em> en el módulo <em>Cliente</em>, el
       usuario no podrá modificar los datos de <em>Cliente</em> desde el módulo
       <em>Factura</em> <em>(nuevo en v5.3)</em>.<br>
-      Restringir el acceso a acciones sólo está disponible en <a class="wiki_link_ext"
-
-        href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>.<br>
+      Restringir el acceso a acciones sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
       <h2 id="toc3"><a name="Seguridad+y+gestion+de+usuarios-Restringir+el+acceso+a+ciertas+propiedades,+referencias+o+colecciones"></a>Restringir
         el acceso a ciertas propiedades, referencias o colecciones <em>(nuevo
           en v5.5)</em></h2>
@@ -100,10 +97,25 @@
       no podrán acceder a esos miembros. Fíjate que también tenemos <em>Datos
         de solo lectura</em> para marcar miembros que los usuarios del rol
       podrán leer pero no modificar.<br>
-      Restringir el acceso a miembros sólo está disponible en <a class="wiki_link_ext"
+      Restringir el acceso a miembros sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
+      <h2 id="toc3"><a name="ocultar-un-modulo-en-el-menu-sin-restringirlo"></a>Ocultar
+        un módulo en el menú sin restringirlo <em>(nuevo en v6.5)</em></h2>
+      Si quieres que un módulo no se muestre en el menú para los usuarios<strong>
+      </strong>de ciertos roles pero que al mismo tiempo ese módulo sea
+      accesible por esos usuarios, tecleando la URL en el navegador, por
+      ejemplo. Ve al módulo <em>Roles</em> y escoge el rol que quieras editar
+      en modo detalle, una vez allí pulsa en el módulo que quieras ocultar en el
+      menú y un diálogo como el siguiente aparecerá:<br>
+      <img src="files/hide-module-in-menu-for-role_es.png" alt="hide-module-in-menu-for-role_es.png"
 
-        href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>.<br>
-      <h2 id="toc4"><a name="Seguridad+y+gestion+de+usuarios-Politicas+para+usuarios+y+contrasena"></a>Políticas
+        title="hide-module-in-menu-for-role_es.png"><br>
+      Marca la opción <i>No en el menú</i> y pulsa en <em>Grabar</em>. A
+      partir de ahora, todos los usuario de ese rol no verán el módulo, <i>Customer</i>
+      en nuestro ejemplo, en el menú de la izquierda, sin embargo, seguirá
+      estando disponible, por lo que si el usuario va a <i>http://tusitio.com/TuAplicacion/m/Customer</i>
+      con su navegador el módulo funcionará.<br>
+      Ocultar módulos en el menú sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
+      <h2 id="toc4"><a name="Seguridad+y+gestion+de+usuarios-Politicas+para+usuarios+y+contrasenas"></a>Políticas
         para usuarios y contraseñas</h2>
       Hay un montón de opciones para configurar las políticas de gestión de
       usuarios y contraseñas. En la carpeta <em>Admin</em> encontrarás un
@@ -113,14 +125,11 @@
         title="xavapro-configuration_es.png"><br>
       Puedes configurar estas políticas para que tu sistema sea compatible con
       PCI-DSS, algo muy útil en aplicaciones bancarias.<br>
-      Estas políticas para usuarios y contraseñas sólo están disponible en <a class="wiki_link_ext"
-
-        href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>.<br>
+      Estas políticas para usuarios y contraseñas sólo están disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
       <h2 id="toc5"><a name="Seguridad+y+gestion+de+usuarios-LDAP"></a>LDAP</h2>
-      <a class="wiki_link_ext" href="http://www.openxava.org/xavapro" rel="nofollow">XavaPro</a>
-      permite a los usuarios ser autentificados vía LDAP. Para configurar LDAP
-      edita el archivo <em>naviox.properties</em> y añade las siguientes
-      entradas:<br>
+      <a href="http://www.openxava.org/xavapro">XavaPro</a> permite a los
+      usuarios ser autentificados vía LDAP. Para configurar LDAP edita el
+      archivo <em>naviox.properties</em> y añade las siguientes entradas:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -170,9 +179,7 @@
       almacenadas por XavaPro. Para activar LDAP has de seleccionar los usuarios
       y marcar la opción <em>Autentificar con LDAP</em>:<br>
       <img src="files/naviox_ldap_es.png" alt="naviox_ldap_es.png" title="naviox_ldap_es.png"><br>
-      El soporte de LDAP sólo están disponible en <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
-
-        rel="nofollow">XavaPro</a>.<br>
+      El soporte de LDAP sólo están disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
       <h2 id="toc6"><a name="Seguridad+y+gestion+de+usuarios-Invitado+puede+crearse+una+cuenta+de+usuario+el+mismo"></a>Invitado
         puede crearse una cuenta de usuario él mismo</h2>
       En la caja de identificación hay un vínculo etiquetado como CREAR CUENTA:<br>

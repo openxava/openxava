@@ -42,9 +42,36 @@
     </div>
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 6.4.2 to OpenXava 6.5</h2>
+      <h3>Only queries saved explicitly are stored in list mode (for JUnit
+        tests)</h3>
+      In v6.5 only the queries saved explicitly are stored in list, so JUnit
+      tests that rely on that to reuse a previously used filter will fail. That
+      is, this test code now fails:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">setConditionValues("1");
+execute("List.filter"); // This does not save "Number = 1" automatically
+
+// Here you do more stuff
+
+selectListConfiguration("Number = 1"); // FAILS IN v6.5
+</code></pre> </div>
+    <div class="wiki" style="display: block;">The solution is to save the query
+      explicitly, thus:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">setConditionValues("1");
+execute("List.filter"); 
+
+execute("List.saveConfiguration"); // ADD THESE LINES TO SAVE...
+execute("SaveListConfiguration.save"); // ...THE QUERY EXPLICITLY
+
+// Here you do more stuff
+
+selectListConfiguration("Number = 1"); // Now it works
+</code></pre> </div>
+    <div class="wiki" style="display: block;">
       <h3>Action for change query name in list no longer show for 'All' query
         (for JUnit tests)</h3>
-      In v6.5 only the queries saved explicitly are saved in list mode, so only
+      Given that only the queries saved explicitly are saved in list mode, only
       the explicitly saved queries can be renamed or removed. Also, the 'All'
       query cannot be renamed or removed. These changes does not require you
       modify your application code. However, you must adapt your JUnit tests to
