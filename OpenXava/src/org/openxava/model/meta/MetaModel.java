@@ -5,10 +5,8 @@ import java.beans.*;
 import java.rmi.*;
 import java.util.*;
 
-import org.apache.commons.beanutils.*;
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
-import org.openxava.jpa.*;
 import org.openxava.mapping.*;
 import org.openxava.model.*;
 import org.openxava.util.*;
@@ -49,7 +47,7 @@ abstract public class MetaModel extends MetaElement {
 	private transient Map propertyDescriptors;
 	private Map mapMetaProperties;
 	private Map mapMetaReferences;
-	private Map mapMetaColections;
+	private Map mapMetaCollections;
 	private Map mapMetaViews;
 	private Map mapMetaMethods;
 	private Collection<String> membersNames = new ArrayList<String>(); 
@@ -303,7 +301,7 @@ abstract public class MetaModel extends MetaElement {
 	 * @param newMetaCollection  not null
 	 */	
 	public void addMetaCollection(MetaCollection newMetaCollection) {
-		getMapMetaColections().put(newMetaCollection.getName(), newMetaCollection);
+		getMapMetaCollections().put(newMetaCollection.getName(), newMetaCollection);
 		membersNames.add(newMetaCollection.getName());
 		newMetaCollection.setMetaModel(this);
 	}
@@ -321,7 +319,7 @@ abstract public class MetaModel extends MetaElement {
 	}
 	
 	public boolean containsMetaCollection(String collection) {
-		return getMapMetaColections().containsKey(collection);
+		return getMapMetaCollections().containsKey(collection);
 	}
 	
 	/**
@@ -479,7 +477,7 @@ abstract public class MetaModel extends MetaElement {
 	 * @param name May be qualified, that is mycollection.mynestedcollection
 	 */
 	public MetaCollection getMetaCollection(String name) throws ElementNotFoundException, XavaException {
-		MetaCollection r = (MetaCollection) getMapMetaColections().get(name);
+		MetaCollection r = (MetaCollection) getMapMetaCollections().get(name);
 		if (r == null) {			
 			int idx = name.indexOf('.');
 			if (idx >= 0) {
@@ -507,11 +505,11 @@ abstract public class MetaModel extends MetaElement {
 		return getMapMetaViews().values();
 	}
 		
-	private Map getMapMetaColections() {
-		if (mapMetaColections == null) {
-			mapMetaColections = new HashMap();
+	private Map getMapMetaCollections() {
+		if (mapMetaCollections == null) {
+			mapMetaCollections = new HashMap();
 		}
-		return mapMetaColections;
+		return mapMetaCollections;
 	}
 	
 	
@@ -578,7 +576,7 @@ abstract public class MetaModel extends MetaElement {
 	 */
 	public Collection getColectionsNames() {
 		// We wrap it inside array for make it serializable		
-		return Collections.unmodifiableCollection(new ArrayList(getMapMetaColections().keySet()));
+		return Collections.unmodifiableCollection(new ArrayList(getMapMetaCollections().keySet()));
 	}
 
 	public Collection getEntityReferencesNames() throws XavaException {
@@ -610,7 +608,7 @@ abstract public class MetaModel extends MetaElement {
 	 * @return Collection of <tt>MetaCollection</tt>, not null and read only
 	 */
 	public Collection getMetaCollectionsAgregate() throws XavaException {
-		Iterator it = getMapMetaColections().values().iterator();
+		Iterator it = getMapMetaCollections().values().iterator();
 		ArrayList result = new ArrayList();
 		while (it.hasNext()) {
 			MetaCollection c = (MetaCollection) it.next();
@@ -1142,7 +1140,7 @@ abstract public class MetaModel extends MetaElement {
 	 * @return Collection of <tt>MetaCollection</tt>, not null and read only
 	 */
 	public Collection<MetaCollection> getMetaCollections() { 
-		return Collections.unmodifiableCollection(getMapMetaColections().values());
+		return Collections.unmodifiableCollection(getMapMetaCollections().values());
 	}
 	
 	/**
@@ -1765,6 +1763,18 @@ abstract public class MetaModel extends MetaElement {
 					result.addAll(ref.getMetaModelReferenced().createQualifiedPropertiesNames(newParents, prefix + ref.getName() + ".", level - 1));
 				}
 			}
+			// tmp ini
+			else if (getMapMetaCollections().containsKey(name)) {
+				MetaCollection collection = (MetaCollection) getMapMetaCollections().get(name);
+				MetaReference ref = collection.getMetaReference();
+				if (!parents.contains(ref.getReferencedModelName())) {
+					Collection newParents = new HashSet();
+					newParents.addAll(parents);
+					newParents.add(ref.getReferencedModelName());	
+					result.addAll(ref.getMetaModelReferenced().createQualifiedPropertiesNames(newParents, prefix + collection.getName() + ".", level - 1));
+				}
+			}
+			// tmp fin
 		} 
 		return result;		
 	}

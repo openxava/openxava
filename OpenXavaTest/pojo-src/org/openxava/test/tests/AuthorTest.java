@@ -15,6 +15,12 @@ public class AuthorTest extends CustomizeListTestBase {
 		super(testName, "Author");		
 	}
 	
+	public void testAddColumnFromCollectionInList() throws Exception { // tmp
+		assertListRowCount(2);
+		assertListColumnCount(2);
+		// TMP ME QUEDÉ POR AQUÍ: HACIENDO EL TEST
+	}
+	
 	public void testComparatorsShownOnDemand_noFilterInCollectionByDefault() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true);
 		
