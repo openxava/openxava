@@ -1766,6 +1766,7 @@ abstract public class MetaModel extends MetaElement {
 			// tmp ini
 			else if (getMapMetaCollections().containsKey(name)) {
 				MetaCollection collection = (MetaCollection) getMapMetaCollections().get(name);
+				if (collection.hasCalculator()) continue;
 				MetaReference ref = collection.getMetaReference();
 				if (!parents.contains(ref.getReferencedModelName())) {
 					Collection newParents = new HashSet();

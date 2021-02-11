@@ -248,7 +248,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 	
 	public void testMyReportAddColumnsOnlyFromTwoLevelQualifiedProperties() throws Exception { 
 		execute("ExtendedPrint.myReports");
-		execute("MyReport.newColumn", "viewObject=xava_view_columns");		
+		execute("MyReport.newColumn", "viewObject=xava_view_columns");
+		// TMP ME QUEDÉ POR AQUÍ: TENGO QUE AJUSTAR LOS VALORES DE ABAJO. YA TENGO LOS DE MÁS ABAJO, LOS DE TODOS
 		String [][] defaultColumnNames = {
 			{ "", "" },	
 			{ "year", "Year" },
@@ -283,11 +284,12 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "considerable", "Considerable" },
 			{ "__MORE__", "[SHOW MORE...]"}
 		};		
-		assertValidValues("name", defaultColumnNames); 
+		assertValidValues("name", defaultColumnNames); // TMP FALLA
 				
 		setValue("name", "__MORE__");
 		
 		String [][] allColumnNames = {
+			/* tmp
 			{ "", "" },	
 			{ "year", "Year" },
 			{ "number", "Number" },
@@ -338,6 +340,130 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "vat", "V.A.T." },			
 			{ "yearDiscount", "Year discount" },
 			{ "considerable", "Considerable" }
+			*/
+			// tmp ini
+			{ "", "" },
+			{ "year", "Year" },
+			{ "number", "Number" },
+			{ "date", "Date" },
+			{ "vatPercentage", "VAT %" },
+			{ "comment", "Comment" },
+			{ "paid", "Paid" },
+			{ "customer.number", "Number of customer" },
+			{ "customer.name", "Name of customer" },
+			{ "customer.type", "Type of customer" },
+			{ "customer.photo", "Photo of customer" },
+			{ "customer.telephone", "Telephone of customer" },
+			{ "customer.email", "Email of customer" },
+			{ "customer.additionalEmails", "Additional emails of customer" },
+			{ "customer.website", "Web site of customer" },
+			{ "customer.remarks", "Remarks of customer" },
+			{ "customer.address.street", "Street of address of customer" },
+			{ "customer.address.zipCode", "Zip code of address of customer" },
+			{ "customer.address.city", "City of address of customer" },
+			{ "customer.address.state.id", "Id of state of address of customer" },
+			{ "customer.address.state.name", "State" },
+			{ "customer.address.state.fullNameWithFormula", "Full name with formula of state of address of customer" },
+			{ "customer.address.state.fullName", "Full name of state of address of customer" },
+			{ "customer.address.asString", "As string of address of customer" },
+			{ "customer.seller.number", "Number of seller of customer" },
+			{ "customer.seller.name", "Name of seller of customer" },
+			{ "customer.seller.level.id", "Id of level of seller of customer" },
+			{ "customer.seller.level.description", "Description of level of seller of customer" },
+			{ "customer.seller.regions", "Regions of seller of customer" },
+			{ "customer.relationWithSeller", "Relation with seller of customer" },
+			{ "customer.alternateSeller.number", "Number of alternate seller of customer" },
+			{ "customer.alternateSeller.name", "Name of alternate seller of customer" },
+			{ "customer.alternateSeller.level.id", "Id of level of alternate seller of customer" },
+			{ "customer.alternateSeller.level.description", "Description of level of alternate seller of customer" },
+			{ "customer.alternateSeller.regions", "Regions of alternate seller of customer" },
+			{ "customer.group.name", "Name of group of customer" },
+			{ "customer.deliveryPlaces.name", "Name of delivery places of customer" },
+			{ "customer.deliveryPlaces.address", "Address of delivery places of customer" },
+			{ "customer.deliveryPlaces.preferredWarehouse.zoneNumber", "Zone of preferred warehouse of delivery places of customer" },
+			{ "customer.deliveryPlaces.preferredWarehouse.number", "Warehouse number" },
+			{ "customer.deliveryPlaces.preferredWarehouse.name", "Name of preferred warehouse of delivery places of customer" },
+			{ "customer.deliveryPlaces.remarks", "Remarks of delivery places of customer" },
+			{ "customer.deliveryPlaces.receptionists.name", "Name of receptionists of delivery places of customer" },
+			{ "customer.city", "City of customer" },
+			{ "customer.local", "Lokal of customer" },
+			{ "details.serviceType", "Service type of details" },
+			{ "details.quantity", "Quantity of details" },
+			{ "details.unitPrice", "Unit price of details" },
+			{ "details.product.number", "Number of product of details" },
+			{ "details.product.description", "Description of product of details" },
+			{ "details.product.photos", "Photos of product of details" },
+			{ "details.product.familyNumber", "Family of product of details" },
+			{ "details.product.subfamilyNumber", "Subfamily of product of details" },
+			{ "details.product.unitPrice", "Unit price of product of details" },
+			{ "details.product.remarks", "Remarks of product of details" },
+			{ "details.product.unitPriceInPesetas", "Unit price in pesetas of product of details" },
+			{ "details.product.warehouseKey", "Warehouse of product of details" },
+			{ "details.deliveryDate", "Delivery date of details" },
+			{ "details.soldBy.number", "Number of sold by of details" },
+			{ "details.soldBy.name", "Name of sold by of details" },
+			{ "details.soldBy.level.id", "Id of level of sold by of details" },
+			{ "details.soldBy.level.description", "Description of level of sold by of details" },
+			{ "details.soldBy.customers.number", "Number of customers of sold by of details" },
+			{ "details.soldBy.customers.name", "Name of customers of sold by of details" },
+			{ "details.soldBy.customers.type", "Type of customers of sold by of details" },
+			{ "details.soldBy.customers.photo", "Photo of customers of sold by of details" },
+			{ "details.soldBy.customers.telephone", "Telephone of customers of sold by of details" },
+			{ "details.soldBy.customers.email", "Email of customers of sold by of details" },
+			{ "details.soldBy.customers.additionalEmails", "Additional emails of customers of sold by of details" },
+			{ "details.soldBy.customers.website", "Web site of customers of sold by of details" },
+			{ "details.soldBy.customers.remarks", "Remarks of customers of sold by of details" },
+			{ "details.soldBy.customers.relationWithSeller", "Relation with seller of customers of sold by of details" },
+			{ "details.soldBy.customers.city", "City of customers of sold by of details" },
+			{ "details.soldBy.customers.local", "Lokal of customers of sold by of details" },
+			{ "details.soldBy.regions", "Regions of sold by of details" },
+			{ "details.remarks", "Remarks of details" },
+			{ "details.amount", "Amount of details" },
+			{ "details.free", "Free of details" },
+			{ "deliveries.number", "Number of deliveries" },
+			{ "deliveries.type.number", "Number of type of deliveries" },
+			{ "deliveries.type.description", "Description of type of deliveries" },
+			{ "deliveries.date", "Date of deliveries" },
+			{ "deliveries.description", "Description of deliveries" },
+			{ "deliveries.distance", "Distance of deliveries" },
+			{ "deliveries.vehicle", "Vehicle of deliveries" },
+			{ "deliveries.driverType", "Driver type of deliveries" },
+			{ "deliveries.carrier.number", "Number of carrier of deliveries" },
+			{ "deliveries.carrier.name", "Name of carrier of deliveries" },
+			{ "deliveries.carrier.drivingLicence.type", "Type of driving licence of carrier of deliveries" },
+			{ "deliveries.carrier.drivingLicence.level", "Level of driving licence of carrier of deliveries" },
+			{ "deliveries.carrier.drivingLicence.description", "Description of driving licence of carrier of deliveries" },
+			{ "deliveries.carrier.warehouse.zoneNumber", "Zone of warehouse of carrier of deliveries" },
+			{ "deliveries.carrier.warehouse.number", "Warehouse number" },
+			{ "deliveries.carrier.warehouse.name", "Name of warehouse of carrier of deliveries" },
+			{ "deliveries.carrier.remarks", "Remarks of carrier of deliveries" },
+			{ "deliveries.carrier.calculated", "Calculated of carrier of deliveries" },
+			{ "deliveries.employee", "Employee of deliveries" },
+			{ "deliveries.shipment.type", "Type of shipment of deliveries" },
+			{ "deliveries.shipment.mode", "Mode of shipment of deliveries" },
+			{ "deliveries.shipment.number", "Number of shipment of deliveries" },
+			{ "deliveries.shipment.description", "Description of shipment of deliveries" },
+			{ "deliveries.shipment.time", "Time of shipment of deliveries" },
+			{ "deliveries.shipment.customerContactPerson.name", "Name of contact person of shipment of deliveries" },
+			{ "deliveries.remarks", "Remarks of deliveries" },
+			{ "deliveries.incidents", "Incidents of deliveries" },
+			{ "deliveries.details.number", "Number of details of deliveries" },
+			{ "deliveries.details.description", "Description of details of deliveries" },
+			{ "deliveries.dateAsLabel", "Date as label of deliveries" },
+			{ "deliveries.transportMode", "Transport mode of deliveries" },
+			{ "amountsSum", "Amounts sum" },
+			{ "customerDiscount", "Customer discount" },
+			{ "customerTypeDiscount", "Customer type discount" },
+			{ "deliveryDate", "Delivery date" },
+			{ "detailsCount", "Details count" },
+			{ "importance", "Importance" },
+			{ "productUnitPriceSum", "Product unit price sum" },
+			{ "sellerDiscount", "Seller discount" },
+			{ "total", "Total" },
+			{ "vat", "V.A.T." },
+			{ "yearDiscount", "Year discount" },
+			{ "considerable", "Considerable" }				
+			// tmp fin	
 		};		
 		assertValidValues("name", allColumnNames); 
 		
@@ -780,7 +906,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("List.addColumns");
 		assertCollectionRowCount("xavaPropertiesList", 20); // The limit is 20
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of customer"); 
-		assertValueInCollection("xavaPropertiesList",  1, 0, "City of customer"); 
+		assertValueInCollection("xavaPropertiesList",  1, 0, "City of customer"); // TMP FALLA
 		assertValueInCollection("xavaPropertiesList",  2, 0, "Comment");
 		assertValueInCollection("xavaPropertiesList",  3, 0, "Considerable");		
 		assertValueInCollection("xavaPropertiesList",  4, 0, "Customer discount");
@@ -872,7 +998,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("List.addColumns");
 		assertCollectionRowCount("xavaPropertiesList", 20); 		
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of customer");  
-		assertValueInCollection("xavaPropertiesList", 19, 0, "VAT %"); 
+		assertValueInCollection("xavaPropertiesList", 19, 0, "VAT %"); // TMP FALLA
 		assertAction("AddColumns.showMoreColumns");
 
 		HtmlElement searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
@@ -967,7 +1093,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	public void testCustomizeList() throws Exception {
-		doTestCustomizeList_addColumns(); 
+		doTestCustomizeList_addColumns(); // TMP FALLA
 		resetModule(); 
 		doTestCustomizeList_storePreferences(); 
 	}

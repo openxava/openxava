@@ -18,7 +18,24 @@ public class AuthorTest extends CustomizeListTestBase {
 	public void testAddColumnFromCollectionInList() throws Exception { // tmp
 		assertListRowCount(2);
 		assertListColumnCount(2);
-		// TMP ME QUEDÉ POR AQUÍ: HACIENDO EL TEST
+		assertLabelInList(0, "Author");
+		assertLabelInList(1, "Biography");
+		execute("List.addColumns");
+		assertCollectionRowCount("xavaPropertiesList", 2); 		
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Name of humans");
+		assertValueInCollection("xavaPropertiesList",  1, 0, "Sex of humans");
+		checkRow("selectedProperties", "humans.name");
+		execute("AddColumns.addColumns");
+		assertListRowCount(2);
+		assertListColumnCount(3);
+		assertLabelInList(0, "Author");
+		assertLabelInList(1, "Biography");
+		assertLabelInList(2, "Humans");
+		setConditionValues("", "", "PEPE");
+		execute("List.filter");
+		assertListRowCount(1);
+		assertValueInList(0, 0, "MIGUEL DE CERVANTES");
+		assertValueInList(0, 2, "Matching humans: 1");
 	}
 	
 	public void testComparatorsShownOnDemand_noFilterInCollectionByDefault() throws Exception { 
