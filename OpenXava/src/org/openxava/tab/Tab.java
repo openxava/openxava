@@ -10,7 +10,7 @@ import java.util.stream.*;
 
 import javax.servlet.http.*;
 
-import org.apache.commons.lang.*;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;
@@ -2182,7 +2182,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 */
 	public void setLabel(String propertyName, String label) { 
 		if (labels == null) labels = new HashMap<String, String>();
-		labels.put(propertyName, label); 
+		// tmp labels.put(propertyName, label); 
+		labels.put(propertyName, label==null?"":label.trim()); // tmp En changelog como fix
 		saveUserPreferences(); 
 		resetAfterChangeProperties(); 
 	}

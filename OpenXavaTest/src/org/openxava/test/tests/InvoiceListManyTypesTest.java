@@ -26,7 +26,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationsDescriptionsLists(); 		
 		assertListConfigurationsOrdering();
 		assertListConfigurationsRanges();
-		assertListConfigurationsColumns();
+		assertListConfigurationsColumns(); // TMP FALLA ME QUEDÉ POR AQUÍ, HACIENDO LOS FALLAS, ESTÁ ESTE Y OTRO MÁS.
 		assertListConfigurationsChangeName();
 		assertListConfigurationsI18n();
 		assertListConfigurationsPersistence();
