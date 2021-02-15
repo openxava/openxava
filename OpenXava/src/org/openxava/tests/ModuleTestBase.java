@@ -3047,8 +3047,19 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	private HtmlSelect getSelectListConfigurations() { 
-		return getSelectInListTitle(0);
-	} 
+		try { 
+			return getSelectInListTitle(0);	
+		}
+		catch (ElementNotFoundException ex) {
+			return getPhoneListConfigurationsSelect();
+		}
+	}
+	
+	private HtmlSelect getPhoneListConfigurationsSelect() { 
+		HtmlElement selectParent = getHtmlPage().getHtmlElementById("phone_list_configurations"); 
+		return (HtmlSelect) selectParent.getElementsByTagName("select").get(0); 
+	}
+
 	
 	private HtmlSelect getSelectGroupBy() { 
 		return getSelectInListTitle(1);
