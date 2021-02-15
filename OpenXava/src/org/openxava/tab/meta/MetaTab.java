@@ -763,7 +763,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	}
 
 	public List<String> getRemainingPropertiesNames() throws XavaException { 
-		List<String> result = new ArrayList<String>(getMetaModel().getRecursiveQualifiedPropertiesNames()); 
+		List<String> result = new ArrayList<String>(getMetaModel().getRecursiveQualifiedPropertiesNamesIncludingCollections()); 
 		result.removeAll(getPropertiesNames());
 		removeDroppedMembers(result);
 		return result;
@@ -773,7 +773,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 * @since 5.2
 	 */
 	public List getRemainingPropertiesNamesUntilSecondLevel() throws XavaException {  
-		List result = new ArrayList(getMetaModel().getRecursiveQualifiedPropertiesNamesUntilSecondLevel());
+		List result = new ArrayList(getMetaModel().getRecursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections()); 
 		result.removeAll(getPropertiesNames());
 		removeDroppedMembers(result); 
 		return result;

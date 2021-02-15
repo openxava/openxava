@@ -15,7 +15,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		super(testName, "Author");		
 	}
 	
-	public void testAddColumnFromCollectionInList() throws Exception { // tmp
+	public void testAddColumnFromCollectionInList() throws Exception { 
 		assertListRowCount(2);
 		assertListColumnCount(2);
 		assertLabelInList(0, "Author");

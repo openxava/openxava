@@ -31,9 +31,9 @@ String tabObject = request.getParameter("tabObject");
 tabObject = (tabObject == null || tabObject.equals(""))?"xava_tab":tabObject;
 org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
 java.util.Collection columns = showAllColumns?
-	tab.getMetaTab().getMetaModel().getRecursiveQualifiedPropertiesNames():
-	tab.getMetaTab().getMetaModel().getRecursiveQualifiedPropertiesNamesUntilSecondLevel();
-showAllColumns = tab.getMetaTab().getMetaModel().getRecursiveQualifiedPropertiesNames().size() == columns.size(); 	
+	tab.getMetaTab().getMetaModel().getRecursiveQualifiedPropertiesNamesIncludingCollections(): 
+	tab.getMetaTab().getMetaModel().getRecursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections(); 
+showAllColumns = tab.getMetaTab().getMetaModel().getRecursiveQualifiedPropertiesNamesIncludingCollections().size() == columns.size();  	
 if (!showAllColumns && 
 	!org.openxava.util.Is.emptyString(fvalue) && 
 	!OnChangeMyReportColumnNameAction.SHOW_MORE.equals(fvalue) && 

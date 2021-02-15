@@ -26,7 +26,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationsDescriptionsLists(); 		
 		assertListConfigurationsOrdering();
 		assertListConfigurationsRanges();
-		assertListConfigurationsColumns(); // TMP FALLA ME QUEDÉ POR AQUÍ, HACIENDO LOS FALLAS, ESTÁ ESTE Y OTRO MÁS.
+		assertListConfigurationsColumns(); 
 		assertListConfigurationsChangeName();
 		assertListConfigurationsI18n();
 		assertListConfigurationsPersistence();
@@ -165,7 +165,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 
 		execute("List.addColumns");
 		checkRow("selectedProperties", "customer.city"); // Read only to test a case
-		checkRow("selectedProperties", "customer.telephone" ); 
+		checkRow("selectedProperties", "comment" ); 
 		execute("AddColumns.addColumns");
 		assertListRowCount(5);
 		assertListColumnCount(10);
@@ -176,7 +176,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertLabelInList(4, "Paid");
 		assertLabelInList(7, "Seller of customer"); 
 		assertLabelInList(8, "City of customer");
-		assertLabelInList(9, "Telephone of customer");
+		assertLabelInList(9, "Comment"); 
 		assertValue("conditionComparator___3", "not_empty_comparator"); 
 		assertValue("conditionValue___8", "");
 		
@@ -190,7 +190,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertLabelInList(4, "Paid");				
 		assertLabelInList(7, "Seller of customer"); 
 		assertLabelInList(8, "City of customer");
-		assertLabelInList(9, "Telephone of customer");
+		assertLabelInList(9, "Comment"); 
 		
 		selectListConfiguration("All"); // The columns must be the original ones, it failed
 		assertListRowCount(9);
@@ -228,7 +228,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertLabelInList(4, "Paid");		
 		assertLabelInList(7, "Seller of customer"); 
 		assertLabelInList(8, "City of customer");
-		assertLabelInList(9, "Telephone of customer");
+		assertLabelInList(9, "Comment"); 
 		assertValue("conditionComparator___2", "not_empty_comparator");
 		
 		removeColumn(1);
@@ -239,8 +239,8 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertLabelInList(1, "Date");
 		assertLabelInList(2, "Paid");		
 		assertLabelInList(5, "Seller of customer"); 
-		assertLabelInList(6, "City of customer");
-		assertLabelInList(7, "Telephone of customer");		
+		assertLabelInList(6, "City of customer");		
+		assertLabelInList(7, "Comment"); 
 		
 		selectListConfiguration("Number between 2 and 10");
 		assertListRowCount(3);
@@ -363,7 +363,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertLabelInList(2, "Pagada");		
 		assertLabelInList(5, "Comercial de cliente"); 
 		assertLabelInList(6, "Población de cliente");
-		assertLabelInList(7, "Teléfono de cliente");
+		assertLabelInList(7, "Comentario"); 
 		assertValue("conditionComparator___0", "not_empty_comparator");
 		
 		selectListConfiguration("Number between 2 and 10");

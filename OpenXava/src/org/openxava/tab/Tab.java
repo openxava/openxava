@@ -2182,8 +2182,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 */
 	public void setLabel(String propertyName, String label) { 
 		if (labels == null) labels = new HashMap<String, String>();
-		// tmp labels.put(propertyName, label); 
-		labels.put(propertyName, label==null?"":label.trim()); // tmp En changelog como fix
+		labels.put(propertyName, label==null?"":label.trim()); 
 		saveUserPreferences(); 
 		resetAfterChangeProperties(); 
 	}

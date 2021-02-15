@@ -68,7 +68,9 @@ abstract public class MetaModel extends MetaElement {
 	private Collection persistentPropertiesNames;
 	private Collection interfaces;
 	private Collection recursiveQualifiedPropertiesNames;
-	private Collection recursiveQualifiedPropertiesNamesUntilSecondLevel; 
+	private Collection recursiveQualifiedPropertiesNamesUntilSecondLevel;
+	private Collection<String> recursiveQualifiedPropertiesNamesIncludingCollections;
+	private Collection<String> recursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections;
 	private Collection metaReferencesWithDefaultValueCalculator;
 	private String qualifiedName;
 	private boolean hasDefaultCalculatorOnCreate = false;
@@ -1715,13 +1717,13 @@ abstract public class MetaModel extends MetaElement {
 
 
 	/**
-	 * Does not include <i>Transient</i> properties
+	 * Does not include <i>Transient</i> properties and properties from collections
 	 */
 	public Collection getRecursiveQualifiedPropertiesNames() throws XavaException {
 		if (recursiveQualifiedPropertiesNames == null) {
 			Collection parents = new HashSet();
 			parents.add(getName());			
-			recursiveQualifiedPropertiesNames = createQualifiedPropertiesNames(parents, "", 4); // The limit cannot be very big because it freezes the add column dialog with plain OpenXava 
+			recursiveQualifiedPropertiesNames = createQualifiedPropertiesNames(parents, "", false, 4); // The limit cannot be very big because it freezes the add column dialog with plain OpenXava 
 																								// and produces OutOfMemoryError with XavaPro on starting module, 
 																								// with entities with many nested references
 		}
@@ -1729,7 +1731,7 @@ abstract public class MetaModel extends MetaElement {
 	}
 	
 	/**
-	 * Does not include <i>Transient</i> properties
+	 * Does not include <i>Transient</i> properties and properties from collections
 	 * 
 	 * @since 4.9
 	 */
@@ -1737,13 +1739,41 @@ abstract public class MetaModel extends MetaElement {
 		if (recursiveQualifiedPropertiesNamesUntilSecondLevel == null) {
 			Collection parents = new HashSet();
 			parents.add(getName());			
-			recursiveQualifiedPropertiesNamesUntilSecondLevel = createQualifiedPropertiesNames(parents, "", 2);
+			recursiveQualifiedPropertiesNamesUntilSecondLevel = createQualifiedPropertiesNames(parents, "", false, 2);
 		}
 		return recursiveQualifiedPropertiesNamesUntilSecondLevel;
 	}
-
 	
-	private Collection createQualifiedPropertiesNames(Collection parents, String prefix, int level) throws XavaException {
+	/**
+	 * Does not include <i>Transient</i> properties
+	 * @since 6.5 
+	 */
+	public Collection<String> getRecursiveQualifiedPropertiesNamesIncludingCollections() throws XavaException { 
+		if (recursiveQualifiedPropertiesNamesIncludingCollections == null) {
+			Collection parents = new HashSet();
+			parents.add(getName());			
+			recursiveQualifiedPropertiesNamesIncludingCollections = createQualifiedPropertiesNames(parents, "", true, 4); // The limit cannot be very big because it freezes the add column dialog with plain OpenXava 
+																								// and produces OutOfMemoryError with XavaPro on starting module, 
+																								// with entities with many nested references
+		}
+		return recursiveQualifiedPropertiesNamesIncludingCollections;
+	}
+	
+	/**
+	 * Does not include <i>Transient</i> properties 
+	 * 
+	 * @since 6.5
+	 */
+	public Collection<String> getRecursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections() throws XavaException {  
+		if (recursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections == null) {
+			Collection parents = new HashSet();
+			parents.add(getName());			
+			recursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections = createQualifiedPropertiesNames(parents, "", true, 2);
+		}
+		return recursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections;
+	}
+
+	private Collection<String> createQualifiedPropertiesNames(Collection parents, String prefix, boolean includeCollections, int level) throws XavaException { 
 		if (level == 0) return Collections.EMPTY_LIST; 
 		List result = new ArrayList();		
 		for (Iterator it = getMembersNames().iterator(); it.hasNext();) {
@@ -1760,11 +1790,10 @@ abstract public class MetaModel extends MetaElement {
 					Collection newParents = new HashSet();
 					newParents.addAll(parents);
 					newParents.add(ref.getReferencedModelName());	
-					result.addAll(ref.getMetaModelReferenced().createQualifiedPropertiesNames(newParents, prefix + ref.getName() + ".", level - 1));
+					result.addAll(ref.getMetaModelReferenced().createQualifiedPropertiesNames(newParents, prefix + ref.getName() + ".", includeCollections, level - 1));  
 				}
 			}
-			// tmp ini
-			else if (getMapMetaCollections().containsKey(name)) {
+			else if (includeCollections && getMapMetaCollections().containsKey(name)) {
 				MetaCollection collection = (MetaCollection) getMapMetaCollections().get(name);
 				if (collection.hasCalculator()) continue;
 				MetaReference ref = collection.getMetaReference();
@@ -1772,13 +1801,13 @@ abstract public class MetaModel extends MetaElement {
 					Collection newParents = new HashSet();
 					newParents.addAll(parents);
 					newParents.add(ref.getReferencedModelName());	
-					result.addAll(ref.getMetaModelReferenced().createQualifiedPropertiesNames(newParents, prefix + collection.getName() + ".", level - 1));
+					result.addAll(ref.getMetaModelReferenced().createQualifiedPropertiesNames(newParents, prefix + collection.getName() + ".", includeCollections, level - 1));
 				}
 			}
-			// tmp fin
 		} 
 		return result;		
 	}
+	
 
 	/**
 	 * Gets the MetaModel from its name. <p>

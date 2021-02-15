@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- The user can add properties from collections on customizing list columns.
+- Fix: Label duplicated in list column header when user changes the label adding a space at end. 
 - Getting started guide and the complete course (until lesson 8) adapted to use Lombok.  
 - Modern JavaScript popup calendar for dates and DATETIME.	
 - Date editor verified the date on losing focus. 	
