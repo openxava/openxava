@@ -1957,6 +1957,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 			log.warn(XavaResources.getString("warning_save_preferences_tab"),ex); 
 		}		
 	}
+	
+	/** @since 6.5 */
+	public int getConfigurationsCount() { 
+		return configurations.size();
+	}
 
 	public Collection<Configuration> getConfigurations() {  
 		List<Configuration> result = new ArrayList(configurations.values());  
