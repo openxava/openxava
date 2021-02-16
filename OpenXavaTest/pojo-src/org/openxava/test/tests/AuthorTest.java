@@ -15,6 +15,26 @@ public class AuthorTest extends CustomizeListTestBase {
 		super(testName, "Author");		
 	}
 	
+	public void testShowComparatorInList() throws Exception { // tmp ¿Mezclar con otro?
+		getWebClient().getOptions().setCssEnabled(true);
+		assertListRowCount(2);
+		
+		HtmlSelect comparator = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0");
+		assertFalse(comparator.isDisplayed());
+		HtmlElement value = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0");
+		value.focus();
+		assertTrue(comparator.isDisplayed());
+		
+		comparator.setSelectedAttribute("starts_comparator", true);
+		waitAJAX();
+		comparator = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0");
+		assertTrue(comparator.isDisplayed());
+		value = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0");
+		
+		assertListRowCount(2);
+		// TMP ME QUEDÉ POR AQUÍ
+	}
+	
 	public void testAddColumnFromCollectionInList() throws Exception { 
 		assertListRowCount(2);
 		assertListColumnCount(2);

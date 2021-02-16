@@ -42,12 +42,17 @@ if (propertyKey == null) {
 	int index = Integer.parseInt(request.getParameter("index"));
 	name = Ids.decorate(request, prefix + "conditionComparator." + index);
 	script = Actions.getActionOnChangeComparator(name,idConditionValue,idConditionValueTo);
+	System.out.println("[comparatorsCombo.jsp] A.1 script=" + script); // tmp 
 	
 	if (org.openxava.util.XavaPreferences.getInstance().isFilterOnChange()) {
 		String collection = request.getParameter("collection"); 
 		String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 		script = new StringBuilder(script.replace(")\"", "); "))
-				    .append("if (this.options[this.selectedIndex].value.indexOf('range') < 0) { ") 
+				    //.append("if (this.options[this.selectedIndex].value.indexOf('range') < 0) { ")
+				    // tmp ini 
+				    .append("var valueField = $(this).parent().next().find('input');")
+				    .append("if (valueField == null || valueField.is(':hidden') || this.options[this.selectedIndex].value.indexOf('range') < 0 && valueField.val() !== '') { ")
+				    // tmp fin				  
 				    .append("openxava.executeAction('")
 				    .append(request.getParameter("application"))	
 	 			    .append("', '")
@@ -55,11 +60,13 @@ if (propertyKey == null) {
 	 			    .append("', '', false, 'List.filter','")
 	 			    .append(collectionArgv).append("'); ")		
 				    .append("}\"").toString();
+		System.out.println("[comparatorsCombo.jsp] A.2 script=" + script); // tmp		    
 	}
 }
 else {
 	name = propertyKey;
 	script = request.getParameter("script");
+	System.out.println("[comparatorsCombo.jsp] B.1 script=" + script); // tmp
 }
 %>
 <select id="<%=name%>" name="<%=name%>" class=<%=style.getEditor()%> <%=script%> style="width: 100%;">

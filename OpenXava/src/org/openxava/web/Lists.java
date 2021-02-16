@@ -11,7 +11,8 @@ import org.openxava.model.meta.*;
  */
 public class Lists {
 	
-	public final static String FOCUS_PROPERTY_ID="conditionValue___0";
+	// tmp public final static String FOCUS_PROPERTY_ID="conditionValue___0";
+	public final static String FOCUS_PROPERTY_ID="listConfigurations"; // tmp
 	
 	public static String getOverflow(String browser, Collection<MetaProperty> metaProperties) {
 		boolean ie9 = browser != null && browser.indexOf("MSIE 9") >= 0;

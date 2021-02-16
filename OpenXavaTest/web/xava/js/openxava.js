@@ -468,12 +468,19 @@ openxava.initLists = function(application, module) {
 	    }	
 	});
 	openxava.watchColumnsSearch();
+	/* tmp
 	$('.xava_filter input').keypress(function() { 
 		$(this).parent().parent().find(".xava_comparator").fadeIn();
 	});
 	$('.xava_filter input').change(function() { // If changed, revise ModuleTestBase.setCollectionCondition()
 		$(this).parent().parent().find(".xava_comparator").fadeIn();
 	});
+	*/
+	// tmp ini
+	$('.xava_filter input').focus(function() { // If changed, revise ModuleTestBase.setCollectionCondition()
+		$(this).parent().parent().find(".xava_comparator").fadeIn();
+	});	
+	// tmp fin
 }
 
 openxava.renumberCollection = function(table) { 

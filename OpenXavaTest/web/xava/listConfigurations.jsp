@@ -1,3 +1,5 @@
+<%@ include file="imports.jsp"%> <%-- tmp --%>
+
 <%@ page import="org.openxava.util.Strings" %>
 <%@ page import="org.openxava.tab.Tab"%>
 
@@ -11,7 +13,7 @@ tab.setRequest(request);
 String confName = tab.getConfigurationName();
 %>
 
-<select title="<%=confName%>" 
+<select name='<xava:id name="listConfigurations"/>' title="<%=confName%>" <%-- tmp listConfigurations --%> 
 	onchange="openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '', false, 'List.filter','configurationId=' + this.value)">
 	
 	<option value=""><%=confName%></option>
