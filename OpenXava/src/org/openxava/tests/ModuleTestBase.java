@@ -1219,10 +1219,13 @@ abstract public class ModuleTestBase extends TestCase {
 				}
 				catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex2) {
 				}
+				
 				// A bit Ad Hoc, because we assume that filtering fields have always onchange events, 
 				// if that changes this will not be real, but we have no option
 				// since HtmlUnit 2.32 stopped to react to change events on inputs
-				setFormValueAlwaysThrowChangedEvent(id + "." + i, values[i]); // tmp ¿Cambiar esto?
+				// setFormValueAlwaysThrowChangedEvent(id + "." + i, values[i]); // Until 6.4.2, in 6.5 filtering fields no longer throw change events
+
+				setFormValue(id + "." + i, values[i]);  
 			}
 			catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
 				break;

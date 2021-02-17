@@ -18,9 +18,9 @@ public class ArtistTest extends ModuleTestBase {
 	
 	public void testBeanValidationJSR303_focusOnList_dialogFromOnChangeAction_noSpacesInDescriptionsList() throws Exception { 
 		// Focus on list
-		assertFocusOn("conditionValue___0");
+		assertFocusOn("listConfigurations");
 		execute("List.filter"); 
-		assertFocusOn("conditionValue___0");
+		assertFocusOn("listConfigurations"); 
 		
 		// No spaces in descriptions list
 		execute("List.viewDetail", "row=0");

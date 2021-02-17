@@ -6,6 +6,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * 
  * Create on 09/06/2011 (16:04:34)
  * @author Ana Andres
+ * @author Javier Paniza
  */
 public class AuthorTest extends CustomizeListTestBase {
 	
@@ -13,26 +14,6 @@ public class AuthorTest extends CustomizeListTestBase {
 	
 	public AuthorTest(String testName) {
 		super(testName, "Author");		
-	}
-	
-	public void testShowComparatorInList() throws Exception { // tmp ¿Mezclar con otro?
-		getWebClient().getOptions().setCssEnabled(true);
-		assertListRowCount(2);
-		
-		HtmlSelect comparator = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0");
-		assertFalse(comparator.isDisplayed());
-		HtmlElement value = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0");
-		value.focus();
-		assertTrue(comparator.isDisplayed());
-		
-		comparator.setSelectedAttribute("starts_comparator", true);
-		waitAJAX();
-		comparator = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0");
-		assertTrue(comparator.isDisplayed());
-		value = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0");
-		
-		assertListRowCount(2);
-		// TMP ME QUEDÉ POR AQUÍ
 	}
 	
 	public void testAddColumnFromCollectionInList() throws Exception { 
@@ -61,21 +42,42 @@ public class AuthorTest extends CustomizeListTestBase {
 	public void testComparatorsShownOnDemand_noFilterInCollectionByDefault() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true);
 		
-		assertFalse(getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0").isDisplayed());
-		assertFalse(getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___1").isDisplayed());
-		setConditionValues("JAVI");
-		assertTrue(getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0").isDisplayed()); 
-		assertFalse(getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___1").isDisplayed());
+		assertListRowCount(2);
 		
-		assertTrue(getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0").isDisplayed());
-		setConditionValues("");
-		setConditionComparators("empty_comparator");
-		assertFalse(getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0").isDisplayed());
-		assertTrue(getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0").isDisplayed());
+		HtmlSelect comparator = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0");
+		assertFalse(comparator.isDisplayed());
+		HtmlInput value = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0");
+		value.focus();
+		assertTrue(comparator.isDisplayed());
 		
-		setConditionComparators("not_empty_comparator");
-		assertFalse(getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0").isDisplayed());
-		assertTrue(getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0").isDisplayed());		
+		comparator.setSelectedAttribute("starts_comparator", true);
+		waitAJAX();
+		comparator = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0");
+		assertTrue(comparator.isDisplayed()); // Still displayed because it has not run the query, given the value is blank
+		assertListRowCount(2);
+		
+		value = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0");
+		value.focus();
+		value.setValueAttribute("javi");
+		comparator.setSelectedAttribute("contains_comparator", true);
+		waitAJAX();
+		assertListRowCount(1);
+		
+		comparator = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0");
+		value = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0");
+		value.focus();
+		value.setValueAttribute("");
+		comparator.setSelectedAttribute("empty_comparator", true);
+		waitAJAX();
+		assertListRowCount(0);
+		
+		comparator = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0");
+		value = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0");
+		assertFalse(value.isDisplayed());
+		assertEquals("", value.getValueAttribute());
+		comparator.setSelectedAttribute("not_empty_comparator", true);
+		waitAJAX();
+		assertListRowCount(2);
 		
 		execute("CRUD.new");		
 		assertCollectionFilterNotDisplayed();
