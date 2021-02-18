@@ -1,7 +1,7 @@
 The automated tests in this project do not include date calendar editor JavaScript popup. 
-Therefore, when you touch dateCalendarEditor.js, dateCalendarEditor.jsp, dateTimeCombinedCalenadr.jsp,
+Therefore, when you touch dateCalendarEditor.js, dateCalendarEditor.jsp, dateTimeCombinedCalendar.jsp,
 dateTimeSeparatedCalendar.jsp, the part of date filtering in list.jsp or the method openxava.listenChanges
-of openxava.js you have to test it visually at least the next cases:
+of openxava.js you have to test it visually at least for the next cases:
 
 Use any entity with a date (not the first focusable field) in detail mode. Like Order. 
 

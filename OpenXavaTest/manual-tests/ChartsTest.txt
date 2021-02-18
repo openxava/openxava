@@ -10,7 +10,7 @@ Invoice2 module:
 - Choose Charts: A bar by year with the values of the list.
 
 Invoice2 module:
-- Filter by year = 2002 to create a new list configuration.
+- Filter by year = 2002 and save the query.
 - Select "All" configuration.
 - Choose Charts: All the invoices are shown in charts.
 - Select "Year = 2002" configuration: Only 2002 invoice is shown in chart.
