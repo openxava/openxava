@@ -277,6 +277,10 @@ public class ModuleContext implements java.io.Serializable {
 		if (Is.emptyString(windowId) || "null".equals(windowId)) {
 			windowId = request.getParameter("windowId");
 		}
+		// Fixes occasional loss of window id
+		if (Is.emptyString(windowId) || "null".equals(windowId)) {
+			windowId = getWindowId(request);
+		}
 		setCurrentWindowId(windowId);
 	}
 	
