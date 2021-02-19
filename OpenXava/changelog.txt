@@ -1,39 +1,40 @@
 Change Log for OpenXava project
 ===============================
 
-- Fix: Generating Hibernate code for XML components fails with Java 8 in some cases.
+- Left menu can be hidden or shown by the user.
+- Responsive left menu, it is shown or hidden depending on page size.
+- New 'Save query' action in list mode, because queries are no longer stored automatically.
+- Modern JavaScript popup calendar for dates and DATETIME. 
+- Wizard for creating a new OpenXava project in OpenXava Studio.
+- Lombok library added to OpenXava and OpenXava Studio supports Lombok by default.
+- 'All' query in list mode cannot be renamed or removed.
+- Date editor verified the date on losing focus.
+- New projects can be launched with Run As > Java Applicaction.
+- Eclipse Platform for OpenXava Studio upgraded to Eclipse 2020-12.
+- Java included in distribution changed to Eclipse JustJ.
+- DBManager launcher class no longer included in new projects, moved to OpenXava as an ant target.
+- Getting started guide simplified and adapted to new OpenXava Studio wizards.
+- Documentation to use OpenXava with a 32bit machine improved.
+- Documentation to use your own Eclipse instead of OpenXava Studio improved.
+- Getting started guide and the complete course (until lesson 8) adapted to use Lombok.
+- The user can add properties from collections on customizing list columns.
 - Comparator combo in list is shown when its corresponding value field gets the focus.
 - Focus in list mode is in combo with stored queries, instead of in the first filter field.
-- The user can add properties from collections on customizing list columns.
-- Fix: Label duplicated in list column header when user changes the label adding a space at end. 
-- Getting started guide and the complete course (until lesson 8) adapted to use Lombok.  
-- Modern JavaScript popup calendar for dates and DATETIME.	
-- Date editor verified the date on losing focus. 	
+- Some new common use labels to be used in applications.
+- Now IRequestReportParametersProvider extends IReportParametersProvider.
+- Fix: OpenXava Studio hangs running long test suites.
+- Fix: Plain Java project does not work in OpenXava Studio.
+- Fix: Generating Hibernate code for XML components fails with Java 8 in some cases.
+- Fix: Label duplicated in list column header when user changes the label adding a space at end.
 - Fix: In DateTimeSeparatedCalendar editor the focus does not enter in time field when moving with keyboard.
 - Fix: Hour part of the data hidden partially in DATETIME used in list filtering.
-- Some new common use labels to be used in applications.
 - Fix: Some spelling errors in Spanish labels.	
 - Fix: The buildOpenXava and buildAddons Ant tasks do not work if openxava.jar or addons.jar are empty.
 - Fix: PDF report is not generated if there are errors obtaining the organization name. 
 - Fix: Request is not injected in IRequestReportParametersProvider. 
-- Now IRequestReportParametersProvider extends IReportParametersProvider.
 - Fix: 'Organization' shown as organization in reports if xava.organization is missing in label files.
 - Fix: Module title outside corresponding span in some circumstances.
-- Documentation to use OpenXava with a 32bit machine improved.
-- Documentation to use your own Eclipse instead of OpenXava Studio improved.
-- Getting started guide simplified and adapted to new OpenXava Studio wizards.
-- 'All' query in list mode cannot be renamed or removed.
-- New 'Save query' action in list mode, because queries are no longer stored automatically. 
-- OpenXava Studio hangs running long test suites.
-- New projects can be launched with Run As > Java Applicaction.
-- DBManager launcher class no longer included in new projects, moved to OpenXava as an ant target.
-- Left menu can be hidden or shown by the user.
-- Resposive left menu, it is shown or hidden depending on page size.
 - Fix: Selected menu option protrudes the left modules menu with Internet Explorer.
-- Wizard for creating a new OpenXava project in OpenXava Studio.
-- Lombok library added to OpenXava and OpenXava Studio supports Lombok by default.		
-- Java included in distribution changed to Eclipse JustJ.
-- Eclipse Platform for OpenXava Studio upgraded to Eclipse 2020-12.
 
 OpenXava 6.4.2 (2020-11-9)
 --------------------------
