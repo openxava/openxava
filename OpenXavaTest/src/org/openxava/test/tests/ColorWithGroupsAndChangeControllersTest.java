@@ -1,7 +1,7 @@
 package org.openxava.test.tests;
 
-import org.openxava.test.model.Color;
-import org.openxava.tests.ModuleTestBase;
+import org.openxava.test.model.*;
+import org.openxava.tests.*;
 
 /**
  * Create on 05/03/2009 (10:17:49)

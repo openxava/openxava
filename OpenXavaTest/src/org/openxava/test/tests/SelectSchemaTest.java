@@ -1,7 +1,7 @@
 package org.openxava.test.tests;
 
 import org.openxava.test.model.*;
-import org.openxava.tests.ModuleTestBase;
+import org.openxava.tests.*;
 
 /**
  * Create on 04/09/2009 (10:15:51)

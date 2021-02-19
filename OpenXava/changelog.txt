@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Generating Hibernate code for XML components fails with Java 8 in some cases.
 - Comparator combo in list is shown when its corresponding value field gets the focus.
 - Focus in list mode is in combo with stored queries, instead of in the first filter field.
 - The user can add properties from collections on customizing list columns.

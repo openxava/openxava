@@ -334,7 +334,6 @@
 			<arg value="${package}"/>
 			<arg value="${model.package}"/>
 			<classpath>
-				<pathelement path="${openxava.base.dir}/OpenXava/bin"/>
 				<fileset dir="${openxava.base.dir}/OpenXava/web/WEB-INF/lib">
 					<include name="**/*.jar"/>
 				</fileset>

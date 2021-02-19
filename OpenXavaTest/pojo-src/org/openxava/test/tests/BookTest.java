@@ -1,10 +1,5 @@
 package org.openxava.test.tests;
 
-import javax.json.bind.annotation.*;
-import javax.ws.rs.client.*;
-
-import org.openxava.test.actions.BookTitleFromWebServiceAction.*;
-import org.openxava.test.model.*;
 import org.openxava.test.services.*;
 import org.openxava.tests.*;
 
@@ -46,7 +41,7 @@ public class BookTest extends ModuleTestBase {
 		
 		assertValue("title", "");
 		execute("Book.fillTitle");
-		assertValue("title", "THE MYTHICAL MAN-MONTH"); // Jersey fails with Tomcat 7. Test it with a Tomcat 8 + Java 8 at least.
+		assertValue("title", "THE MYTHICAL MAN-MONTH"); // Jersey fails with Tomcat 7. Test it with a Tomcat 8 + Java 8 at least. 
 		assertEquals("The Mythical Man-Month", BookService.get().getTitle()); // To verify you can use REST from JUnit tests
 	}
 	

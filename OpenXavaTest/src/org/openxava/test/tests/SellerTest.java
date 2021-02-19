@@ -1,10 +1,14 @@
 package org.openxava.test.tests;
 
-import static org.openxava.test.tests.EmailNotificationsTestUtil.*; 
+import static org.openxava.test.tests.EmailNotificationsTestUtil.assertEmailNotifications;
+import static org.openxava.test.tests.EmailNotificationsTestUtil.assertEmailSubscriptions;
+import static org.openxava.test.tests.EmailNotificationsTestUtil.removeAllEmailSubscriptions;
 
 import java.rmi.*;
+
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
+
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 

@@ -301,7 +301,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "considerable", "Considerable" },
 			{ "__MORE__", "[SHOW MORE...]" }
 		};		
-		assertValidValues("name", defaultColumnNames); 
+		assertValidValues("name", defaultColumnNames); // It fails with XML components because they do not match exactly with pojos counterparts
 				
 		setValue("name", "__MORE__");
 		
@@ -890,7 +890,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("xavaPropertiesList", 19, 0, "Name of customer");
 		
 		execute("AddColumns.showMoreColumns");
-		assertCollectionRowCount("xavaPropertiesList", 112);
+		assertCollectionRowCount("xavaPropertiesList", 112); // It fails with XML components because they do not match exactly with pojos counterparts
 		assertValueInCollection("xavaPropertiesList",   0, 0, "Additional emails of customer");
 		assertValueInCollection("xavaPropertiesList",   1, 0, "Additional emails of customers of sold by of details");
 		assertValueInCollection("xavaPropertiesList",   2, 0, "Address of delivery places of customer");
@@ -1055,7 +1055,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertAction("AddColumns.showMoreColumns");
 		
 		execute("AddColumns.showMoreColumns");		
-		assertCollectionRowCount("xavaPropertiesList", 112); 
+		assertCollectionRowCount("xavaPropertiesList", 112); // It fails with XML components because they do not match exactly with pojos counterparts
 		searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
 		searchBox.type("DISCOUNT");
 		assertEquals("DISCOUNT", searchBox.getAttribute("value"));		
