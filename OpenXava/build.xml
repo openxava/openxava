@@ -973,6 +973,9 @@
 	Call it after you modify OpenXava code, but you still need to call updateOX in your project.
 	-->
 	<target name="buildOpenXava">
+		<delete includeemptydirs="true">
+			<fileset dir="${openxava.base.dir}/OpenXava/bin" includes="**/*"/>
+		</delete>
 		<delete file="${openxava.base.dir}/OpenXava/web/WEB-INF/lib/openxava.jar"/>
 		<antcall target="javac">
 			<param name="compile.project" value="OpenXava"/>
@@ -987,9 +990,15 @@
 		<copy file="${openxava.base.dir}/OpenXava/bin/Labels_${default.language}.properties" 
 			tofile="${openxava.base.dir}/OpenXava/bin/Labels.properties"/>
 		<jar jarfile="${openxava.base.dir}/OpenXava/web/WEB-INF/lib/openxava.jar" basedir="${openxava.base.dir}/OpenXava/bin"/>
+		<delete includeemptydirs="true">
+			<fileset dir="${openxava.base.dir}/OpenXava/bin" includes="**/*"/>
+		</delete>
 	</target>
 	
 	<target name="buildAddons">
+		<delete includeemptydirs="true">
+			<fileset dir="${openxava.base.dir}/Addons/bin" includes="**/*"/>
+		</delete>
 		<delete file="${openxava.base.dir}/Addons/web/WEB-INF/lib/addons.jar"/>
 		<antcall target="javac">
 			<param name="compile.project" value="Addons"/>
@@ -999,6 +1008,9 @@
 			<fileset dir="${openxava.base.dir}/Addons/properties"/>
 		</copy>		
 		<jar jarfile="${openxava.base.dir}/Addons/web/WEB-INF/lib/addons.jar" basedir="${openxava.base.dir}/Addons/bin"/>
+		<delete includeemptydirs="true">
+			<fileset dir="${openxava.base.dir}/Addons/bin" includes="**/*"/>
+		</delete>
 	</target>
 	
 	<target name="javac">

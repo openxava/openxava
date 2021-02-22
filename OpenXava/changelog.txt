@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.5 (2021-2-23)
+------------------------
 - Left menu can be hidden or shown by the user.
 - Responsive left menu, it is shown or hidden depending on page size.
 - New 'Save query' action in list mode, because queries are no longer stored automatically.
