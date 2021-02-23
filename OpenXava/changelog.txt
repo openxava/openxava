@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-OpenXava 6.5 (2021-2-23)
+OpenXava 6.5 (2021-2-24)
 ------------------------
 - Left menu can be hidden or shown by the user.
 - Responsive left menu, it is shown or hidden depending on page size.
@@ -11,16 +11,17 @@ OpenXava 6.5 (2021-2-23)
 - Lombok library added to OpenXava and OpenXava Studio supports Lombok by default.
 - 'All' query in list mode cannot be renamed or removed.
 - Date editor verified the date on losing focus.
-- New projects can be launched with Run As > Java Applicaction.
+- A database manager can be launched from an OpenXava Studio menu option. 
+- New projects can be launched with Run As > Java Application on the project.
 - Eclipse Platform for OpenXava Studio upgraded to Eclipse 2020-12.
 - Java included in distribution changed to Eclipse JustJ.
-- DBManager launcher class no longer included in new projects, moved to OpenXava as an ant target.
+- DBManager launcher class no longer included in new projects, moved to OpenXava as an Ant target.
 - Getting started guide simplified and adapted to new OpenXava Studio wizards.
 - Documentation to use OpenXava with a 32bit machine improved.
 - Documentation to use your own Eclipse instead of OpenXava Studio improved.
 - Getting started guide and the complete course (until lesson 8) adapted to use Lombok.
 - The user can add properties from collections on customizing list columns.
-- Comparator combo in list is shown when its corresponding value field gets the focus.
+- Comparator combo in the list is shown when its corresponding value field gets the focus.
 - Focus in list mode is in combo with stored queries, instead of in the first filter field.
 - Some new common use labels to be used in applications.
 - Now IRequestReportParametersProvider extends IReportParametersProvider.
