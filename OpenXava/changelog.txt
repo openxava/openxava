@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: "Session object manager not found in controllers.xml" error from time to time.
+
 OpenXava 6.5 (2021-2-24)
 ------------------------
 - Left menu can be hidden or shown by the user.
