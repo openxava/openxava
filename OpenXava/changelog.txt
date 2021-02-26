@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Losing focus in a date property with @OnChange shows the "Changed data" on exit.
 - Fix: "Session object manager not found in controllers.xml" error from time to time.
 
 OpenXava 6.5 (2021-2-24)
