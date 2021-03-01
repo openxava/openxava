@@ -3,12 +3,28 @@ package org.openxava.test.tests;
 import org.openxava.test.services.*;
 import org.openxava.tests.*;
 
+import com.gargoylesoftware.htmlunit.*;
+
 /**
  * 
  * @author Javier Paniza
  */
 
 public class BookTest extends ModuleTestBase {
+	
+	private class MyAlertHandler implements AlertHandler {
+		
+		private String message;
+
+		public void handleAlert(Page page, String message) {
+			this.message = message;
+		}
+		
+		public String getMessage() {
+			return message;
+		}
+
+	}
 	
 	public BookTest(String testName) {
 		super(testName, "Book");		
@@ -46,12 +62,19 @@ public class BookTest extends ModuleTestBase {
 	}
 	
 	// This test fails in PostgreSQL, but not in Hypersonic
-	public void testListFilterByBooleanColumnInDB() throws Exception {
+	public void testListFilterByBooleanColumnInDB_XSSNotJSInListFilterValues() throws Exception { 
+		MyAlertHandler alertHandler = new MyAlertHandler();
+		getWebClient().setAlertHandler(alertHandler);
+
 		assertListRowCount(2); 
 		setConditionComparators ("=", "=", "=", "=");
 		setConditionValues ("", "", "", "true");
 		execute("List.filter");
 		assertListRowCount(1);
+		
+		setConditionValues("<script>alert('hello');</script>");
+		execute("List.filter");
+		assertNotEquals("Message not expected", "hello", alertHandler.getMessage());
 	}
 		
 }

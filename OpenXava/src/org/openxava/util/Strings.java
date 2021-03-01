@@ -811,8 +811,8 @@ public class Strings {
 	* @return Safe Object 
 	*/ 
 	public static Object removeXSS(Object notSafeValue) { 
-		if (notSafeValue != null && notSafeValue instanceof String) { 
-			return removeXSS(notSafeValue.toString()); 
+		if (notSafeValue != null && notSafeValue instanceof String) {  
+			return removeXSS((String) notSafeValue); 
 		} 
 		return notSafeValue; 
 	}	

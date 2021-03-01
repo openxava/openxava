@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Executing JavaScript content is possible by a XSS attack in certain cases.
 - Fix: Losing focus in a date property with @OnChange shows the "Changed data" on exit.
 - Fix: "Session object manager not found in controllers.xml" error from time to time.
 

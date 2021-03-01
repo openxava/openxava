@@ -1809,7 +1809,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		String conditionComparator = request.getParameter(prefix + "0");
 		Collection conditionComparators = new ArrayList();
 		for (int i=1; conditionComparator != null; i++) {
-			conditionComparators.add(conditionComparator);
+			conditionComparators.add(Strings.removeXSS(conditionComparator)); 
 			conditionComparator = request.getParameter(prefix + i);
 		}
 		String [] result = new String[conditionComparators.size()];
