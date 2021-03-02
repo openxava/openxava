@@ -35,6 +35,7 @@ import org.openxava.test.validators.*;
 	})
 })
 @Views({
+	/* tmp
 	@View( members=
 		"#number, description;" + // Don't remove #, it's needed to test some bugs	
 		"color;" + 
@@ -43,7 +44,13 @@ import org.openxava.test.validators.*;
 		"unitPrice, unitPriceInPesetas;" +
 		"unitPriceWithTax;" +
 		"photos"
-	),	
+	),
+	*/
+	// tmp ini
+	@View( members=
+		"number, family;" 	
+	),
+	// tmp fin
 	@View( name="ColorWithFrame", members= 
 		"number;" +
 		"description;" +
@@ -54,7 +61,8 @@ import org.openxava.test.validators.*;
 		"warehouse, zoneOne;" +
 		"unitPrice, unitPriceInPesetas;"		
 	),
-	@View(name="ReferenceAndStereotype", members="number; family; subfamilyNumber;"),
+	// tmp @View(name="ReferenceAndStereotype", members="number; family; subfamilyNumber;"),
+	@View(name="ReferenceAndStereotype", members="number; description;"), // tmp
 	@View(name="WithFormula", members=
 		"number;" +
 		"description;" +
