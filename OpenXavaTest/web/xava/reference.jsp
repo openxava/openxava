@@ -46,14 +46,7 @@ String label = ref.getLabel(request);
 %>
 
 <% if (view.isFlowLayout()) { %>
-    <%
-	boolean noFrame = false;
-	if (frame) {
-		org.openxava.view.View refView = view.getSubview(ref.getName());
-		noFrame = !refView.isFrame();
-	} 
-	%> 
-	<div class='<%=noFrame?"":"ox-flow-layout"%>'>
+	<div class='<%=frame?"ox-flow-layout":""%>'>
 <% } %>
 
 <% if (!onlyEditor) { %>

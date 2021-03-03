@@ -1292,7 +1292,7 @@ input[type="button"] {
 	margin: 8px 10px 0px 12px;  
 }
 
-.ox-flow-layout {
+.ox-flow-layout, .ox-frame .ox-flow-layout > div.ox-flow-layout { 
 	margin-left: 0px;
 }
 

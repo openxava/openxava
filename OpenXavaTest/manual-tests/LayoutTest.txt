@@ -8,6 +8,8 @@ at least the next cases:
 With flowLayout=true in xava.properties:
 - Customer: The icon of 'Web site' property must be on right, inside the field.
 - Customer: Seller group must have all the properties well aligned. 
+	The number and name of customer must be placed in one line or two when resized. 
 	No matter if 'Relation with seller' is in a new line (by now). 
 - ProductWithGroups: Data 1 and Data 2 groups in the same row. 
 	When you narrow the screen they must place one by row, but aligned in all moment.
+- Product2: All properties well aligned, including the descriptionsLists.	
