@@ -1016,7 +1016,19 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 		
 		if (!Is.emptyString(groupBy)) {
-			if (sb.length() == 0) sb.append(" 1=1 ");
+			// tmp ini
+			// TMP ME QUEDÉ POR AQUÍ: PROBANDO CON NÚMERO QUE NO ES PARTE DE LA REFERENCIA. LE FALTA EL VALOR DEL PARAMETRO
+			String whereCondition = " 1=1 ";
+			if (configuration != null) {
+				System.out.println("[Tab.createCondition] configuration.getCondition()=" + configuration.getCondition()); // tmp
+				String lastWhere = removeOrder(configuration.getCondition());
+				System.out.println("[Tab.createCondition] lastWhere=" + lastWhere); // tmp
+				if (!Is.emptyString(lastWhere)) whereCondition = lastWhere;
+			}
+			System.out.println("[Tab.createCondition] whereCondition=" + whereCondition); // tmp
+			if (sb.length() == 0) sb.append(whereCondition);
+			// tmp fin
+			// tmp if (sb.length() == 0) sb.append(" 1=1 ");
 			sb.append(" group by ${");
 			sb.append(groupBy);
 			sb.append("}");
@@ -1059,7 +1071,15 @@ public class Tab implements java.io.Serializable, Cloneable {
 			this.conditionComparatorsToWhere = null;			
 		}
 
+		System.out.println("[Tab.createCondition] sb=" + sb); // tmp
 		return sb.toString();
+	}
+
+	private String removeOrder(String condition) {
+		if (condition == null) return null;
+		int idx = condition.indexOf(" order by ");
+		if (idx >= 0) return condition.substring(0, idx);
+		return condition;
 	}
 
 	private String buildEmptyCondition(String property, boolean isPropertyString) {

@@ -310,6 +310,30 @@ public class Invoice2Test extends ModuleTestBase {
 		assertValueInCollection("columns", 0, 0, "Amounts sum");
 		assertValueInCollection("columns", 1, 0, "Record count");
 		execute("ListFormat.select", "editor=List");
+		
+		// tmp ini
+		selectGroupBy("No grouping");
+		assertListRowCount(9);
+		setConditionValues("", "", "", "", "", "", "Juanillo");
+		execute("List.filter");
+		assertListRowCount(2);
+		selectGroupBy("Group by year");
+		assertListRowCount(1);
+		assertListColumnCount(3);
+		assertValuesInList(0, "2004",  "1,200.00", "2");
+		/* tmp
+		assertListRowCount(5);
+		assertListColumnCount(3);
+		assertValuesInList(0, "2002",  "2,500.00", "1");
+		assertValuesInList(1, "2004",  "4,396.00", "1");
+		assertValuesInList(2, "2007",  "6,059.00", "1");
+		assertValuesInList(3, "2009",      "0.00", "1");
+		assertValuesInList(4, "2011", "18,207.00", "1");
+		*/		
+		
+		// tmp Al desagrupar debería mantener la condición
+		
+		// tmp fin
 	}
 
 	private void assertCombosForGroupByInCharts() throws Exception {
