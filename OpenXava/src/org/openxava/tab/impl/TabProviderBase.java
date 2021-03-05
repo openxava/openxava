@@ -56,12 +56,10 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		eof = false;
 		this.key = toArray(key);		
 		condition = condition == null ? "" : condition.trim();
-		System.out.println("[TabProviderBase.search] condition=" + condition); // tmp
 		select = translateCondition(condition);
 		select = toGroupBySelect(select);
 		select = toSearchByCollectionMemberSelect(select); 
 		selectSize = createSizeSelect(select); 
-		System.out.println("[TabProviderBase.search] select.9=" + select); // tmp
 	}
 							
 	private String toGroupBySelect(String select) { 

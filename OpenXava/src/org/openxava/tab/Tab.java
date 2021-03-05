@@ -45,7 +45,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		private String condition; 
 		private String [] conditionComparators;
 		private String [] conditionValues;
-		private String [] conditionValuesTo;  
+		private String [] conditionValuesTo;
 		private boolean descendingOrder = false;
 		private boolean descendingOrder2 = false; 
 		private String orderBy;	
@@ -436,6 +436,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private String orderBy2;
 	private String groupBy; 
 	private String condition;
+	// tmp ini
+	private String lastCondition;
+	private Object [] lastKey;
+	// tmp fin
 	private String[] conditionComparators;
 	private String[] conditionValues;
 	private String[] conditionValuesTo;	// to the range: conditionValues like 'from' and conditionValuesTo like 'to'
@@ -775,7 +779,23 @@ public class Tab implements java.io.Serializable, Cloneable {
 		IXTableModel tableModel = null;
 		EntityTab tab = EntityTabFactory.create(getMetaTab());
 		usesConverters = tab.usesConverters();
-		tab.search(getCondition(), getKey());		
+		// tmp ini
+		// tmp ¿Refactorizar con otras partes que hagan search?
+		// TMP ME QUEDÉ POR AQUÍ: LO DE ABAJO ME ACABO DE FUNCIONAR EN Invoic2 CON NÚMERO DE FACURA. 
+		// TMP 		TENDRÍA QUE EMPEZAR A PROBAR CON CLIENTE
+		String condition = getCondition();
+		Object [] key = getKey();
+		if (Is.emptyString(groupBy)) {
+			this.lastCondition = condition;
+			this.lastKey = key;
+		}
+		else {
+			condition =  condition.replace(" group by ", " and " + removeOrder(lastCondition) + " group by ");
+			key = lastKey;
+		}
+		tab.search(condition, key);
+		// tmp fin
+		// tmp tab.search(getCondition(), getKey());		
 		tableModel = tab.getTable();
 		
 		// To load data, thus it's possible go directly to other page than first
@@ -842,7 +862,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		setFilteredConditionValues(); 
 		
 		MetaProperty pOrder = null;
-		MetaProperty pOrder2 = null;		
+		MetaProperty pOrder2 = null;			
 		if (!(conditionValues == null || conditionValues.length == 0)) {
 			for (int i = 0; i < this.conditionValues.length; i++) {
 				MetaProperty p = (MetaProperty) getMetaPropertiesNotCalculated().get(i);
@@ -926,7 +946,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 						metaPropertiesKey.add(p);
 						continue;
 					}
-					ModelMapping mapping = getMetaTab().getMetaModel().getMapping();										 
+					// tmp ModelMapping mapping = getMetaTab().getMetaModel().getMapping();										 
 					sb.append(decorateConditionProperty(p, i));
 					sb.append(' ');
 					sb.append(convertComparator(p, this.conditionComparators[i]));
@@ -1016,19 +1036,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 		
 		if (!Is.emptyString(groupBy)) {
-			// tmp ini
-			// TMP ME QUEDÉ POR AQUÍ: PROBANDO CON NÚMERO QUE NO ES PARTE DE LA REFERENCIA. LE FALTA EL VALOR DEL PARAMETRO
-			String whereCondition = " 1=1 ";
-			if (configuration != null) {
-				System.out.println("[Tab.createCondition] configuration.getCondition()=" + configuration.getCondition()); // tmp
-				String lastWhere = removeOrder(configuration.getCondition());
-				System.out.println("[Tab.createCondition] lastWhere=" + lastWhere); // tmp
-				if (!Is.emptyString(lastWhere)) whereCondition = lastWhere;
-			}
-			System.out.println("[Tab.createCondition] whereCondition=" + whereCondition); // tmp
-			if (sb.length() == 0) sb.append(whereCondition);
-			// tmp fin
-			// tmp if (sb.length() == 0) sb.append(" 1=1 ");
+			if (sb.length() == 0) sb.append(" 1=1 ");
 			sb.append(" group by ${");
 			sb.append(groupBy);
 			sb.append("}");
@@ -1071,11 +1079,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 			this.conditionComparatorsToWhere = null;			
 		}
 
-		System.out.println("[Tab.createCondition] sb=" + sb); // tmp
 		return sb.toString();
 	}
 
-	private String removeOrder(String condition) {
+	private String removeOrder(String condition) { // tmp
 		if (condition == null) return null;
 		int idx = condition.indexOf(" order by ");
 		if (idx >= 0) return condition.substring(0, idx);
@@ -1192,7 +1199,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 
 	private Object [] getKey() throws XavaException {
-		if (conditionValuesToWhere == null || conditionValuesToWhere.length == 0) { 
+		if (conditionValuesToWhere == null || conditionValuesToWhere.length == 0) {
 			return filterKey(null);
 		}
 		Collection key = new ArrayList();

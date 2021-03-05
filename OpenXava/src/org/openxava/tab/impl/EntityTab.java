@@ -54,6 +54,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	public void search(String condition, Object key) throws FinderException, RemoteException {
 		try {				
 			System.out.println("[EntityTab.search] condition=" + condition); // tmp
+			System.out.println("[EntityTab.search] key=" + key); // tmp
 			StringBuffer select = new StringBuffer(getSelectBase());
 			if (!Is.emptyString(condition)) {				
 				if (!condition.toUpperCase().trim().startsWith("ORDER BY")) {

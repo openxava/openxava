@@ -316,7 +316,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertListRowCount(9);
 		setConditionValues("", "", "", "", "", "", "Juanillo");
 		execute("List.filter");
-		assertListRowCount(2);
+		assertListRowCount(2); 
 		selectGroupBy("Group by year");
 		assertListRowCount(1);
 		assertListColumnCount(3);
@@ -331,7 +331,8 @@ public class Invoice2Test extends ModuleTestBase {
 		assertValuesInList(4, "2011", "18,207.00", "1");
 		*/		
 		
-		// tmp Al desagrupar debería mantener la condición
+		// tmp Al desagrupar debeía mantener la condición (es otra incidencia aparte)
+		// tmp Poder filtrar sobre agrupación, debería añadirse al filtro anterior
 		
 		// tmp fin
 	}
