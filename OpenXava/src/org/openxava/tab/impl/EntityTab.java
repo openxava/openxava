@@ -78,7 +78,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}		
 	}
 	
-	private void setConditionProperties(String condition) {
+	private void setConditionProperties(String condition) { // tmp
 		
 	}
 
