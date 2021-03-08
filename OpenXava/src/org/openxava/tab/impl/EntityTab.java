@@ -55,15 +55,21 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		try {				
 			System.out.println("[EntityTab.search] condition=" + condition); // tmp
 			System.out.println("[EntityTab.search] key=" + key); // tmp
+			// tmp ini
+			if (condition != null && condition.contains(" group by ")) {
+				setConditionProperties(condition);
+			}
+			// tmp fin
 			StringBuffer select = new StringBuffer(getSelectBase());
+			System.out.println("[EntityTab.search] select.1=" + select); // tmp
 			if (!Is.emptyString(condition)) {				
 				if (!condition.toUpperCase().trim().startsWith("ORDER BY")) {
 					if (select.toString().toUpperCase().indexOf("WHERE") < 0) select.append(" WHERE "); 
 					else select.append(" AND "); 								
 				}
-				select.append(condition); 
+				select.append(condition);
 			}																
-			System.out.println("[EntityTab.search] select=" + select); // tmp
+			System.out.println("[EntityTab.search] select.2=" + select); // tmp
 			tabProvider.search(select.toString(), key);
 		}
 		catch (XavaException ex) {
@@ -72,6 +78,11 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}		
 	}
 	
+	private void setConditionProperties(String condition) {
+		
+	}
+
+
 	private String getSelectBase() {
 		if (selectBase == null) {
 			String select = tabProvider.getSelectBase();

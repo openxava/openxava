@@ -31,6 +31,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 	private int current;  
 	private boolean eof = true;
 	private MetaTab metaTab;
+	private Collection<String> conditionProperties; // tmp
 		
 		
 	abstract protected String translateProperty(String property);
@@ -247,8 +248,23 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 				String property = (String) itProperties.next();				
 				fillEntityReferencesMappings(entityReferencesMappings, property, getMetaModel(), "", ""); 
 			}						
+			// tmp ini
+			for (Iterator<String> itProperties = getConditionProperties().iterator(); itProperties.hasNext();) {
+				String property = itProperties.next();				
+				fillEntityReferencesMappings(entityReferencesMappings, property, getMetaModel(), "", ""); 
+			}
+			// tmp fin
 		}		
 		return entityReferencesMappings;
+	}
+	
+	private Collection<String> getConditionProperties() { // tmp
+		return conditionProperties == null?Collections.EMPTY_LIST:conditionProperties;
+	}
+	
+	public void setConditionProperties(Collection<String> conditionProperties) {
+		this.conditionProperties = conditionProperties;
+		resetEntityReferencesMappings();
 	}
 	
 	private void fillEntityReferencesMappings(Collection<ReferenceMapping> result, String property, MetaModel metaModel, String parentReference, String aggregatePrefix) throws XavaException { 
@@ -299,6 +315,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		if (Is.emptyString(parentReference)) return referenceName; 
 		return parentReference + "_" + referenceName;
 	}	
+	
 	
 
 }

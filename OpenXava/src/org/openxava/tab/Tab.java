@@ -781,8 +781,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 		usesConverters = tab.usesConverters();
 		// tmp ini
 		// tmp ¿Refactorizar con otras partes que hagan search?
-		// TMP ME QUEDÉ POR AQUÍ: LO DE ABAJO ME ACABO DE FUNCIONAR EN Invoic2 CON NÚMERO DE FACURA. 
-		// TMP 		TENDRÍA QUE EMPEZAR A PROBAR CON CLIENTE
 		String condition = getCondition();
 		Object [] key = getKey();
 		if (Is.emptyString(groupBy)) {

@@ -284,6 +284,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	public List getHiddenPropertiesNames() throws XavaException {
 		if (hiddenPropertiesNames == null) {
 			hiddenPropertiesNames = getMetaModel().isAnnotatedEJB3()?Collections.EMPTY_LIST:obtainPropertiesNamesUsedToCalculate();
+			
 		}
 		return hiddenPropertiesNames;
 	}
