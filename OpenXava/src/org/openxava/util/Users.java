@@ -124,10 +124,11 @@ public class Users {
 	 * it's generic enought to work in any servlet container.
 	 */
 	public static void setCurrent(HttpServletRequest request) {		
-        Object rundata = request.getAttribute("rundata");
+        // tmp Object rundata = request.getAttribute("rundata");
         String portalUser = (String) request.getSession().getAttribute("xava.portal.user"); 
         String webUser = (String) request.getSession().getAttribute("xava.user"); 
         String user = portalUser == null?webUser:portalUser;
+        /* tmp
         if (Is.emptyString(user) && rundata != null) {
 			PropertiesManager pmRundata = new PropertiesManager(rundata);
 			try {
@@ -142,6 +143,7 @@ public class Users {
 				user = null;
 			}			
 		}		
+		*/
 		current.set(user);
 		request.getSession().setAttribute("xava.user", user); 
 				

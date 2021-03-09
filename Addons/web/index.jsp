@@ -5,7 +5,7 @@
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
 
 <%
-Users.setCurrent(request); 
+// TMP Users.setCurrent(request); TMP ME QUEDÉ POR AQUÍ: ACABÉ DE QUITAR TODOS LOS Users.setCurrent(), DEBERÍA HACER UN updateOX Y PROBAR 
 if (Users.getCurrent() != null || Organizations.getCurrent(request) != null) {
 	String module = Users.getCurrent() == null?"SignIn":modules.getCurrent(request);
 	String url = Browsers.isMobile(request) && !"Index".equals(modules.getCurrent(request))?"phone":"m/" + module;

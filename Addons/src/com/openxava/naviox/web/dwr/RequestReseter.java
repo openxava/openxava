@@ -14,7 +14,7 @@ import com.openxava.naviox.util.*;
 class RequestReseter {
 	
 	public static void reset(HttpServletRequest request) {
-		Users.setCurrent(request);
+		// tmp Users.setCurrent(request);
 	}
 
 }
