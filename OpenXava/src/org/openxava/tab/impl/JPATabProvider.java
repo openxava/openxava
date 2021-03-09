@@ -45,7 +45,6 @@ public class JPATabProvider extends TabProviderBase {
 	
 	private String getSelectWithEntityAndJoins() {
 		String select = getMetaTab().getSelect();
-		System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] select> " + select); // tmp
 		int i = select.indexOf("from ${");
 		if (i < 0) return select; 
 		int f = select.indexOf("}", i);
@@ -87,7 +86,6 @@ public class JPATabProvider extends TabProviderBase {
 		
 		StringBuffer result = new StringBuffer(select);
 		result.replace(i, f + 2, entityAndJoins.toString());
-		System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] select< " + result); // tmp
 		return result.toString();
 	}	
 	

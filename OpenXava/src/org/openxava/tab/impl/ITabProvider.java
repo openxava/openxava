@@ -28,6 +28,7 @@ public interface ITabProvider extends ISearch, IDataReader {
 	
 	boolean usesConverters();
 	
-	void setConditionProperties(Collection<String> conditionProperties);
+	/** @since 6.5.1 */
+	void setConditionProperties(Collection<String> conditionProperties); 
   
 }

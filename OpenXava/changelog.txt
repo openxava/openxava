@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Previous query in list is lost after coming back from grouping.
+- Fix: When grouping the current filter of the list is ignored.
+- New setConditionProperties() method in ITabProvider.
+- New extractVariables() methods in Strings utility class.
 - Fix: Flow layout does not work inside @NoFrame references with flowLayout=true.
 - Fix: Bad alignment for @DescriptionsList with flowLayout=true. 
 - Fix: Executing JavaScript content is possible by a XSS attack in certain cases.

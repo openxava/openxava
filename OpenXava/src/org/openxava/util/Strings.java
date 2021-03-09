@@ -972,4 +972,45 @@ public class Strings {
 		return sentence.substring(1, sentence.length() - 1);
 	}
 	
+	/**
+	 * Extract variables names inside ${} from a text. <p>
+	 * 
+	 * So, if you have "select ${number}, ${name} from ${customer}
+	 * you get a collection with the strings "number", "name" and "customer".
+	 * 
+	 * @param text  Text to examine, can be null.
+	 * @return The collection with the variable names, it never will be null.
+	 * @since 6.5.1
+	 */
+	public static Collection<String> extractVariables(String text) { 
+		return extractVariables(text, "${", "}");
+	}
+
+	/**
+	 * Extract variables names inside the indicate separators from a text. <p>
+	 * 
+	 * So, if you have "select [number], [name] from [customer]
+	 * and call sending "[" and "]" as delimiter, you get a collection 
+	 * with the strings "number", "name" and "customer".
+	 * 
+	 * @param text  Text to examine, can be null.
+	 * @parem startDelimiter  The delimiter that start a variable, like ${, { or [.
+	 * @param endDelimiter  The delimiter that finished a variable, like } or ].
+	 * @return The collection with the variable names, it never will be null.
+	 * @since 6.5.1
+	 */	
+	public static Collection<String> extractVariables(String text, String startDelimiter, String endDelimiter) { 
+		if (text == null) return Collections.emptyList();
+		// Pattern.compile is to slow, so we use a simple algorithm
+        Collection<String> variables = new ArrayList<>();
+        int i = text.indexOf(startDelimiter);
+        int f = text.indexOf(endDelimiter);
+        while (i >= 0 && f >= 0) {
+        	variables.add(text.substring(i+2, f));
+            i = text.indexOf(startDelimiter, f);
+            f = text.indexOf(endDelimiter, f+1);
+        }
+        return variables;
+	}
+	
 }

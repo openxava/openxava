@@ -31,8 +31,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 	private int current;  
 	private boolean eof = true;
 	private MetaTab metaTab;
-	private Collection<String> conditionProperties; // tmp
-		
+	private Collection<String> conditionProperties; 
 		
 	abstract protected String translateProperty(String property);
 	abstract protected String translateCondition(String condition);
@@ -248,18 +247,16 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 				String property = (String) itProperties.next();				
 				fillEntityReferencesMappings(entityReferencesMappings, property, getMetaModel(), "", ""); 
 			}						
-			// tmp ini
 			for (Iterator<String> itProperties = getConditionProperties().iterator(); itProperties.hasNext();) {
 				String property = itProperties.next();				
 				fillEntityReferencesMappings(entityReferencesMappings, property, getMetaModel(), "", ""); 
 			}
-			// tmp fin
 		}		
 		return entityReferencesMappings;
 	}
 	
-	private Collection<String> getConditionProperties() { // tmp
-		return conditionProperties == null?Collections.EMPTY_LIST:conditionProperties;
+	private Collection<String> getConditionProperties() { 
+		return conditionProperties == null?Collections.emptyList():conditionProperties;
 	}
 	
 	public void setConditionProperties(Collection<String> conditionProperties) {

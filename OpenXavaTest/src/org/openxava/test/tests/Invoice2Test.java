@@ -311,17 +311,12 @@ public class Invoice2Test extends ModuleTestBase {
 		assertValueInCollection("columns", 1, 0, "Record count");
 		execute("ListFormat.select", "editor=List");
 		
-		// tmp ini
 		selectGroupBy("No grouping");
 		assertListRowCount(9);
-		setConditionValues("", "", "", "", "", "", "Juanillo");
+		setConditionValues("", "", "", "", "", "", "Javi");
 		execute("List.filter");
-		assertListRowCount(2); 
+		assertListRowCount(5); 
 		selectGroupBy("Group by year");
-		assertListRowCount(1);
-		assertListColumnCount(3);
-		assertValuesInList(0, "2004",  "1,200.00", "2");
-		/* tmp
 		assertListRowCount(5);
 		assertListColumnCount(3);
 		assertValuesInList(0, "2002",  "2,500.00", "1");
@@ -329,12 +324,16 @@ public class Invoice2Test extends ModuleTestBase {
 		assertValuesInList(2, "2007",  "6,059.00", "1");
 		assertValuesInList(3, "2009",      "0.00", "1");
 		assertValuesInList(4, "2011", "18,207.00", "1");
-		*/		
 		
-		// tmp Al desagrupar debeía mantener la condición (es otra incidencia aparte)
-		// tmp Poder filtrar sobre agrupación, debería añadirse al filtro anterior
+		setConditionValues("2004");
+		execute("List.filter");
+		assertListRowCount(1); 
+		assertListColumnCount(3);
+		assertValuesInList(0, "2004",  "4,396.00", "1");
 		
-		// tmp fin
+		selectGroupBy("No grouping");
+		assertListRowCount(5); // The 'Javis'
+		assertListColumnCount(7);
 	}
 
 	private void assertCombosForGroupByInCharts() throws Exception {

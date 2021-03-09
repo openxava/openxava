@@ -436,10 +436,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private String orderBy2;
 	private String groupBy; 
 	private String condition;
-	// tmp ini
 	private String lastCondition;
 	private Object [] lastKey;
-	// tmp fin
 	private String[] conditionComparators;
 	private String[] conditionValues;
 	private String[] conditionValuesTo;	// to the range: conditionValues like 'from' and conditionValuesTo like 'to'
@@ -779,21 +777,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		IXTableModel tableModel = null;
 		EntityTab tab = EntityTabFactory.create(getMetaTab());
 		usesConverters = tab.usesConverters();
-		// tmp ini
-		// tmp ¿Refactorizar con otras partes que hagan search?
-		String condition = getCondition();
-		Object [] key = getKey();
-		if (Is.emptyString(groupBy)) {
-			this.lastCondition = condition;
-			this.lastKey = key;
-		}
-		else {
-			condition =  condition.replace(" group by ", " and " + removeOrder(lastCondition) + " group by ");
-			key = lastKey;
-		}
-		tab.search(condition, key);
-		// tmp fin
-		// tmp tab.search(getCondition(), getKey());		
+		search(tab); 		
 		tableModel = tab.getTable();
 		
 		// To load data, thus it's possible go directly to other page than first
@@ -806,6 +790,20 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return tableModel;
 	}
 	
+	private void search(EntityTab tab) throws Exception { 
+		String condition = getCondition();
+		Object [] key = getKey();
+		if (Is.emptyString(groupBy)) {
+			this.lastCondition = condition;
+			this.lastKey = key;
+		}
+		else if (!Is.emptyString(lastCondition)) {
+			condition =  condition.replace(" group by ", " and " + removeOrder(lastCondition) + " group by ");
+			key = ArrayUtils.addAll(key, lastKey);
+		}
+		tab.search(condition, key);		
+	}
+	
 	/**
 	 * A table model with load all data at once. <p>
 	 * 
@@ -814,7 +812,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	public IXTableModel getAllDataTableModel() throws Exception {								
 		EntityTab tab = EntityTabFactory.createAllData(getMetaTab());
 		usesConverters = tab.usesConverters();
-		tab.search(getCondition(), getKey());		
+		search(tab); 		
 		return tab.getTable();
 	}	
 	
@@ -943,8 +941,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 						comparatorsToWhere.add(this.conditionComparators[i]);
 						metaPropertiesKey.add(p);
 						continue;
-					}
-					// tmp ModelMapping mapping = getMetaTab().getMetaModel().getMapping();										 
+					}										 
 					sb.append(decorateConditionProperty(p, i));
 					sb.append(' ');
 					sb.append(convertComparator(p, this.conditionComparators[i]));
@@ -1080,7 +1077,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return sb.toString();
 	}
 
-	private String removeOrder(String condition) { // tmp
+	private String removeOrder(String condition) { 
 		if (condition == null) return null;
 		int idx = condition.indexOf(" order by ");
 		if (idx >= 0) return condition.substring(0, idx);
@@ -1628,19 +1625,13 @@ public class Tab implements java.io.Serializable, Cloneable {
 	public void groupBy(String property) {
 		groupBy = property;
 		condition = null;
-		if (Is.emptyString(groupBy)) resetGroupByProperties();
+		if (Is.emptyString(groupBy)) resetGroupByPropertiesAndCondition();		
 		else setGroupByProperties();
 	}
 
-	private void resetGroupByProperties() {
-		StringBuffer properties = new StringBuffer();
-		for (MetaProperty metaProperty: getMetaPropertiesBeforeGrouping()) {
-			String propertyName = metaProperty.getQualifiedName();
-			if (properties.length() > 0) properties.append(","); 
-			properties.append(propertyName);
-		}
-		setPropertiesNames(properties.toString());
-		metaPropertiesBeforeGrouping = null;
+	private void resetGroupByPropertiesAndCondition() {
+		applyConfiguration(); // Thus, we restore properties and condition 
+		metaPropertiesBeforeGrouping = null;		
 	}
 
 	private void setGroupByProperties() {
@@ -1680,7 +1671,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return groupBy==null?"":groupBy;
 	}
 	
-	public Collection<MetaProperty> getMetaPropertiesBeforeGrouping() {
+	
+	private Collection<MetaProperty> getMetaPropertiesBeforeGrouping() {
 		return metaPropertiesBeforeGrouping == null?getMetaProperties():metaPropertiesBeforeGrouping;
 	}
 	
