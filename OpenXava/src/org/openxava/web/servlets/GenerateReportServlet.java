@@ -167,13 +167,6 @@ public class GenerateReportServlet extends HttpServlet {
 		try {				
 			Locales.setCurrent(request); 
 			SessionData.setCurrent(request);
-			/* tmp
-			if (Users.getCurrent() == null) { // for a bug in websphere portal 5.1 with Domino LDAP
-				Users.setCurrent((String)request.getSession().getAttribute("xava.user"));
-			}
-			request.getParameter("application"); // for a bug in websphere 5.1 
-			request.getParameter("module"); // for a bug in websphere 5.1
-			*/
 			 
 			Tab tab = (Tab) request.getSession().getAttribute("xava_reportTab");
 			int [] selectedRowsNumber = (int []) request.getSession().getAttribute("xava_selectedRowsReportTab");
@@ -184,9 +177,6 @@ public class GenerateReportServlet extends HttpServlet {
 			request.getSession().removeAttribute("xava_columnCountLimitReportTab");
 			
 			setDefaultSchema(request);
-			String user = (String) request.getSession().getAttribute("xava_user");
-			request.getSession().removeAttribute("xava_user");
-			// tmp Users.setCurrent(user);
 			String uri = request.getRequestURI();				
 			if (uri.endsWith(".pdf")) {
 				InputStream is;

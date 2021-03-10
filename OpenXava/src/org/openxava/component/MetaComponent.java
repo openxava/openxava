@@ -3,8 +3,6 @@ package org.openxava.component;
 import java.io.*;
 import java.util.*;
 
-
-
 import org.apache.commons.logging.*;
 import org.openxava.component.parse.*;
 import org.openxava.mapping.*;
@@ -73,7 +71,7 @@ public class MetaComponent implements Serializable {
 		return r;
 	}
 	
-	private static MetaComponent parse(String name) throws XavaException {
+	private synchronized static MetaComponent parse(String name) throws XavaException { 
 		try {
 			for (IComponentParser parser: createParsers()) {
 				MetaComponent r = parser.parse(name);

@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Users.getCurrent() does not work from time to time.
+- Fix: ElementNotFoundException: "Not found tab" accessing application while starting Tomcat.
 - Fix: Previous query in list is lost after coming back from grouping.
 - Fix: When grouping the current filter of the list is ignored.
 - New setConditionProperties() method in ITabProvider.

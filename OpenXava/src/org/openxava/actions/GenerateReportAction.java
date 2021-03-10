@@ -4,7 +4,6 @@ import org.apache.commons.logging.*;
 import org.openxava.hibernate.*;
 import org.openxava.jpa.*;
 import org.openxava.util.*;
-import org.openxava.view.*;
 
 /**
  * @author Javier Paniza
@@ -30,7 +29,6 @@ public class GenerateReportAction extends TabBaseAction implements IForwardActio
 		if (!Is.emptyString(XPersistence.getDefaultSchema())) {
 			getRequest().getSession().setAttribute("xava_jpaDefaultSchemaTab", XPersistence.getDefaultSchema());
 		}
-		getRequest().getSession().setAttribute("xava_user", Users.getCurrent());
 	}
 	
 	private String getHibernateDefaultSchema() {  

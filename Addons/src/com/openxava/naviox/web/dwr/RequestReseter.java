@@ -2,10 +2,6 @@ package com.openxava.naviox.web.dwr;
 
 import javax.servlet.http.*;
 
-import org.openxava.util.*;
-
-import com.openxava.naviox.util.*;
-
 /**
  * 
  * @since 5.2.1
@@ -14,7 +10,6 @@ import com.openxava.naviox.util.*;
 class RequestReseter {
 	
 	public static void reset(HttpServletRequest request) {
-		// tmp Users.setCurrent(request);
 	}
 
 }

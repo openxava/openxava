@@ -9,8 +9,8 @@ import org.openxava.jpa.*;
 import org.openxava.util.*;
 
 /**
- * tmp 
- * 
+ *  
+ * @since 6.5.1
  * @author Javier Paniza
  */
 

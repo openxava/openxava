@@ -20,7 +20,6 @@ public class Requests {
 	/** @since 6.2.2 */
 	public static void partialInit(HttpServletRequest request, String application, String module) {
 		ModuleContext context = getContext(request);
-		// tmp Users.setCurrent(request);
 		ModuleManager manager = (ModuleManager) context.get(application, module, "manager");
 		manager.setSession(request.getSession()); 
 		manager.resetPersistence();
