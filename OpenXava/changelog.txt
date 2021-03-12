@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: AccessTracker does not register the name of the file for FILE stereotype properties.
+- Fix: Messages from UploadServlet do not use the request language from time to time.
 - Fix: Users.getCurrent() does not work from time to time.
 - Fix: ElementNotFoundException: "Not found tab" accessing application while starting Tomcat.
 - Fix: Previous query in list is lost after coming back from grouping.

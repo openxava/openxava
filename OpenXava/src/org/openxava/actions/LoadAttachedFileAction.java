@@ -30,7 +30,7 @@ public class LoadAttachedFileAction extends AttachedFileBaseAction implements IP
 				file.setData(fi.get());
 				FilePersistorFactory.getInstance().save(file);
 				getView().setValue(getProperty(), file.getId()); 
-				trackModification(file, "uploaded_to_file_property"); // tmp
+				trackModification(file, "uploaded_to_file_property"); 
 				break;
 			}			
 		}		

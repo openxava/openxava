@@ -16,12 +16,10 @@ public class RemoveAttachedFileAction extends AttachedFileBaseAction {
 	
 	public void execute() throws Exception {
 		getView().setValue(getProperty(), null);
-		// tmp ini
 		// We don't remove the file from database because the user could remove the file and leave the record without saving
 		//   so we'll have a field with id pointing to an existent file.
 		AttachedFile file = FilePersistorFactory.getInstance().find(getFileId());
 		trackModification(file, "removed_from_file_property");
-		// tmp fin
 	}
 
 	public String getFileId() {

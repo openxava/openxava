@@ -42,7 +42,7 @@ public class CarTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValueInCollection("photos", 0, "description", "FRONT");
 		assertValueInCollection("photos", 1, "description", "BACK");
-		assertNoFile("photos.0.photo"); // tmp falla
+		assertNoFile("photos.0.photo"); 
 		assertFile("photos.1.photo");		
 		
 		setValueInCollection("photos", 1, "description", "");

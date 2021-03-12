@@ -60,17 +60,17 @@ public class MovieTest extends EmailNotificationsTestBase {
 	}
 	
 	
-	public void testDeleteFile() throws Exception {
+	public void testDeleteFile_accessTrackerFile() throws Exception {
 		addFile();
 		assertTrue("Trailer has no value", !Is.emptyString(getValue("trailer")) && !"null".equals(getValue("trailer")));
-		String entityId = getHtmlPage().getUrl().toString().split("=")[1]; // tmp 
-		String fileId = getValue("trailer"); // tmp 
+		String entityId = getHtmlPage().getUrl().toString().split("=")[1]; 
+		String fileId = getValue("trailer"); 
 		removeFile("trailer");
 		saveAndReloadMovie("JUNIT");
 		assertTrue("Trailer has value", Is.emptyString(getValue("trailer")) || "null".equals(getValue("trailer")));
 		removeFile();
 		
-		LogTrackerTestUtil.assertAccessLog( // tmp
+		LogTrackerTestUtil.assertAccessLog( 
 			"MODIFIED: user=admin, model=Movie, key={}, changes=Trailer: File Corporation.html uploaded --> " + fileId,
 			"CREATED: user=admin, model=Movie, key={id=" + entityId + "}",
 			"CONSULTED: user=admin, model=Movie, key={id=" + entityId + "}",

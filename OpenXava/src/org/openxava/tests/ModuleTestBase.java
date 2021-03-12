@@ -3236,8 +3236,9 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 6.2
 	 */	
 	protected void removeFile(String property) throws Exception { 
-		// tmp removeFile(property,  null); 
-		removeFile(property,  getValue(property)); // tmp
+		String value = getValue(property);
+		String fileId = value.length() == 32?value:null;
+		removeFile(property, fileId); 
 	}
 	
 	private void removeFile(String property, String fileId) throws Exception {

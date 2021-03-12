@@ -6,10 +6,9 @@ import org.openxava.util.*;
 import org.openxava.web.editors.*;
 
 /**
- * tmp
  * Base class for  AttachedFileEditor actions in default-controllers.xml. <p>
  * 
- * @author Jeromy Altuna
+ * @since 6.5.1
  * @author Javier Paniza
  */
 abstract public class AttachedFileBaseAction extends ViewBaseAction {
