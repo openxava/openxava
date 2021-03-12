@@ -10,13 +10,18 @@ import org.openxava.web.editors.*;
  * @author Jeromy Altuna
  * @author Javier Paniza
  */
-public class RemoveAttachedFileAction extends ViewBaseAction {
+public class RemoveAttachedFileAction extends AttachedFileBaseAction {
 	
 	private String fileId; 
-	private String property;  
 	
 	public void execute() throws Exception {
 		getView().setValue(getProperty(), null);
+		// tmp ini
+		// We don't remove the file from database because the user could remove the file and leave the record without saving
+		//   so we'll have a field with id pointing to an existent file.
+		AttachedFile file = FilePersistorFactory.getInstance().find(getFileId());
+		trackModification(file, "removed_from_file_property");
+		// tmp fin
 	}
 
 	public String getFileId() {
@@ -27,11 +32,4 @@ public class RemoveAttachedFileAction extends ViewBaseAction {
 		this.fileId = fileId;
 	}
 
-	public String getProperty() {
-		return property;
-	}
-
-	public void setProperty(String property) {
-		this.property = property;
-	}
 }

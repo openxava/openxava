@@ -2,7 +2,6 @@ package org.openxava.actions;
 
 import java.util.*;
 
-
 import org.apache.commons.fileupload.*;
 import org.openxava.util.*;
 import org.openxava.web.editors.*;
@@ -14,12 +13,12 @@ import org.openxava.web.editors.*;
  * in a file container. <p>
  * 
  * @author Jeromy Altuna
+ * @author Javier Paniza
  */
-public class LoadAttachedFileAction extends ViewBaseAction implements IProcessLoadedFileAction {
+public class LoadAttachedFileAction extends AttachedFileBaseAction implements IProcessLoadedFileAction {
 	
 	@SuppressWarnings("rawtypes")
 	private List fileItems;	
-	private String property; 
 		
 	public void execute() throws Exception {
 		Iterator<?> it = getFileItems().iterator();
@@ -30,12 +29,13 @@ public class LoadAttachedFileAction extends ViewBaseAction implements IProcessLo
 				file.setName(fi.getName());
 				file.setData(fi.get());
 				FilePersistorFactory.getInstance().save(file);
-				getView().setValue(property, file.getId()); 
+				getView().setValue(getProperty(), file.getId()); 
+				trackModification(file, "uploaded_to_file_property"); // tmp
 				break;
 			}			
 		}		
 	}
-	
+		
 	@SuppressWarnings("rawtypes")
 	public List getFileItems() {
 		return fileItems;
@@ -44,14 +44,6 @@ public class LoadAttachedFileAction extends ViewBaseAction implements IProcessLo
 	@SuppressWarnings("rawtypes")
 	public void setFileItems(List fileItems) {
 		this.fileItems = fileItems; 
-	}
-
-	public String getProperty() {
-		return property;
-	}
-
-	public void setProperty(String property) {
-		this.property = property;
 	}
 	
 }

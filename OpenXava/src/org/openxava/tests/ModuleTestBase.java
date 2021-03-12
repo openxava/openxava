@@ -3236,10 +3236,11 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 6.2
 	 */	
 	protected void removeFile(String property) throws Exception { 
-		removeFile(property, null); 
+		// tmp removeFile(property,  null); 
+		removeFile(property,  getValue(property)); // tmp
 	}
 	
-	private void removeFile(String property, String fileId) throws Exception { 
+	private void removeFile(String property, String fileId) throws Exception {
 		String fileIdParam = fileId == null?"":" + '&fileId=" + fileId + "'";
 		getHtmlPage().executeJavaScript(
 			"var input = document.getElementById('" + decorateId(property) + "');" +	

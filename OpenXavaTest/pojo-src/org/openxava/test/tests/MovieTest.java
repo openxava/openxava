@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.openxava.jpa.*;
 import org.openxava.util.*;
+
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 
@@ -62,10 +63,24 @@ public class MovieTest extends EmailNotificationsTestBase {
 	public void testDeleteFile() throws Exception {
 		addFile();
 		assertTrue("Trailer has no value", !Is.emptyString(getValue("trailer")) && !"null".equals(getValue("trailer")));
-		removeFile("trailer"); 
+		String entityId = getHtmlPage().getUrl().toString().split("=")[1]; // tmp 
+		String fileId = getValue("trailer"); // tmp 
+		removeFile("trailer");
 		saveAndReloadMovie("JUNIT");
 		assertTrue("Trailer has value", Is.emptyString(getValue("trailer")) || "null".equals(getValue("trailer")));
-		removeFile(); 
+		removeFile();
+		
+		LogTrackerTestUtil.assertAccessLog( // tmp
+			"MODIFIED: user=admin, model=Movie, key={}, changes=Trailer: File Corporation.html uploaded --> " + fileId,
+			"CREATED: user=admin, model=Movie, key={id=" + entityId + "}",
+			"CONSULTED: user=admin, model=Movie, key={id=" + entityId + "}",
+			"CONSULTED: user=admin, model=Movie, key={id=" + entityId + "}",
+			"MODIFIED: user=admin, model=Movie, key={id=" + entityId + "}, changes=Trailer: File Corporation.html removed --> " + fileId,
+			"MODIFIED: user=admin, model=Movie, key={id=" + entityId + "}, changes=Trailer: " + fileId + " --> ", 
+			"CONSULTED: user=admin, model=Movie, key={id=" + entityId + "}",
+			"REMOVED: user=admin, model=Movie, key={id=" + entityId + "}",
+			"CONSULTED: user=admin, model=Movie, key={id=ff80818145622499014562259e980003}"
+		);
 	}
 	
 	public void testFileset() throws Exception {

@@ -21,7 +21,7 @@ public class CustomerImageTest extends ModuleTestBase {
 	public void testDeleteImage() throws Exception { 
 		addImage();
 		removeFile("photo");  				
-		assertNoFile("photo");		
+		assertNoFile("photo"); // tmp falla		
 	}
 	
 	public void testCancelActionAfterChangeImageAction() throws Exception {   

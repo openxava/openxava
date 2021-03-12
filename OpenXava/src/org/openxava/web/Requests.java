@@ -25,6 +25,7 @@ public class Requests {
 		manager.resetPersistence();
 		SessionData.setCurrent(request);
 		EmailNotifications.setModuleInfo(application, module, manager.getModuleURL()); 		
+		Locales.setCurrent(request); // tmp
 	}
 	
 	/** @since 6.2 */
