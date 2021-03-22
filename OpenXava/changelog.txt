@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+
+- Activation framework upgraded to 1.2.1.
+- Fix: Sending emails does not work with Java 11.
+- New Emails.send() without fromEmail getting the value from smtpFromEmail of xava.properties.
+- Portuguese translation for the standard labels.
 - Fix: AccessTracker does not register the name of the file for FILE stereotype properties.
 - Fix: Messages from UploadServlet do not use the request language from time to time.
 - Fix: Users.getCurrent() does not work from time to time.

@@ -105,6 +105,8 @@
 			class="org.openxava.test.actions.ChangePlatformLabelAction"/>
 		<action name="setActingLevelA" mode="detail" 
 			class="org.openxava.test.actions.SetActingLevelAAction"/>
+		<action name="sendEmail"  
+			class="org.openxava.test.actions.SendEmailAction"/>		
 	</controller>			
 	
 	<controller name="JPACRUD">	

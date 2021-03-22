@@ -180,7 +180,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertAction("Applicant.hideButtons");
 	}
 	
-	public void testHtmlHeadNotDuplicated_excludedActionsInControllers() throws Exception { 
+	public void testHtmlHeadNotDuplicated_excludedActionsInControllers_emails() throws Exception {  
 		String html = getHtmlPage().getWebResponse().getContentAsString();
 		assertEquals(1, StringUtils.countMatches(html, "<head>"));
 		execute("CRUD.new"); 
@@ -189,6 +189,10 @@ public class ApplicantTest extends ModuleTestBase {
 		assertAction("CRUD.refresh");
 		assertNoAction("Navigation.first");
 		assertNoAction("CRUD.save");		
+		
+		execute("Applicant.sendEmail");
+		assertError("Impossible to execute Send email action: Couldn't connect to host, port: Host, 25; timeout -1"); // So, JavaMail is working, although it does not send the message because it's not configured
+		assertAction("CRUD.refresh"); // In order to test that the UI is not broken
 	}
 	
 	public void testListCustomizationWithTabDefaultOrder() throws Exception {  
