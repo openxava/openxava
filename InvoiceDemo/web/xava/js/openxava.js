@@ -126,7 +126,7 @@ openxava.refreshPage = function(result) {
 				errors = true;
 				break;
 			}			
-		}  
+		}
 		if (result.showDialog){
 			openxava.initBeforeShowDialog(); 
 			dialog.attr("application", result.application);
@@ -233,7 +233,7 @@ openxava.listenChanges = function() {
 	// WARNING: IF YOU CHANGE THIS PASS DateCalendarTest.txt
 	$("." + openxava.editorClass).change(function() {
 		  if (!$(this).data('changedCancelled')) {
-			  openxava.dataChanged = true;			
+			openxava.dataChanged = true;			
 		  }
 		  else {
 		  	$(this).removeData('changedCancelled');
@@ -857,9 +857,6 @@ openxava.throwPropertyChanged = function(application, module, property) {
 		form[openxava.decorateId(application, module, "xava_previous_focus")].value=property;
 		form[openxava.decorateId(application, module, "xava_changed_property")].value=property;
 		setTimeout ('openxava.requestOnChange("' + application + '", "' + module + '")', 100);
-	}
-	else {
-		f.removeData('changedCancelled');
 	}
 }
 

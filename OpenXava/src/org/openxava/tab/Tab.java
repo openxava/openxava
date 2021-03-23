@@ -2405,10 +2405,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 		for (String confName: configurationsPreferences.childrenNames()) {
 			if (confName.equals(CURRENT_CONFIGURATION_NODE)) continue; 
 			Preferences pref = configurationsPreferences.node(confName);
-			if (pref.getBoolean(CONFIGURATION_REMOVED, false)) continue; 
+			if (pref.getBoolean(CONFIGURATION_REMOVED, false)) continue;
 			Configuration conf = new Configuration();
-			conf.setName(pref.get(CONFIGURATION_NAME, null)); 
+			conf.setName(pref.get(CONFIGURATION_NAME, null));
 			conf.setCondition(pref.get(CONFIGURATION_CONDITION, ""));
+			if (!conf.hasCustomName() && !conf.isDefault()) continue; // To not load configurations without name that were generated prior v6.5. This is not tested in the suite.
 			conf.setConditionComparators(StringUtils.splitPreserveAllTokens(pref.get(CONFIGURATION_CONDITION_COMPARATORS, ""), "|"));
 			conf.setConditionValues(StringUtils.splitPreserveAllTokens(pref.get(CONFIGURATION_CONDITION_VALUES, ""), "|"));
 			conf.setConditionValuesTo(StringUtils.splitPreserveAllTokens(pref.get(CONFIGURATION_CONDITION_VALUES_TO, ""), "|")); 

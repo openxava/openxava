@@ -1,7 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
-
+- Queries in list with no explicit given name are discarded. 
+- Fix: Impossible to change name or remove some queries in list created before v6.5.
+- Fix: The buildAddons and buildOpenXava Ant targets do not work if bin folder does not exist.
 - Activation framework upgraded to 1.2.1.
 - Fix: Sending emails does not work with Java 11.
 - New Emails.send() without fromEmail getting the value from smtpFromEmail of xava.properties.
