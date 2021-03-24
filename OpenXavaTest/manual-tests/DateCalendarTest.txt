@@ -19,7 +19,17 @@ Use any entity with a date (not the first focusable field) in detail mode. Like 
 - Add "20" to year when two digits with 4 digits format (in Spanish):
 	- Type a date with only two digits for year and lose focus the 20 is
 		added (a 17 is turned in a 2017) and the rest of the date is not changed.
-	- Try to put the date in blank and lose focus, the date must be keep blank.	 		
+	- Try to put the date in blank and lose focus, the date must be keep blank.
+- Adding separators when missing:
+	- In Spanish: 
+		 51106   -> 05/11/2006		 		
+		051196   -> 05/11/1996
+		24022019 -> 24/02/2019
+		 7111999 -> 07/11/1999
+	- In English:
+		 32402   ->  3/24/02
+	- Test some of the above cases in list filter.	 	
+		
 
 	
 NOTE: In IE11 locale is not recognized and change events are not thrown, 

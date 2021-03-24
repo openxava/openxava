@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Date fields completes to century XXI even with later dates of century XX.
+- Date separators added to date filter values automatically in list.
+- Date separators added to date field automatically on focus lost.
+- Fix: Date separators not added automatically to date field when missing.
 - Queries in list with no explicit given name are discarded. 
 - Fix: Impossible to change name or remove some queries in list created before v6.5.
 - Fix: The buildAddons and buildOpenXava Ant targets do not work if bin folder does not exist.
