@@ -458,8 +458,9 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertError("Value for Subfamily in Product is required");
 	}
 	
-	public void testAutocompleteInDescriptionsList() throws Exception { 
-		createWarehouseWithQuote(); // To test a bug with quotes 
+	public void testAutocompleteInDescriptionsList() throws Exception {
+		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents // tmp
+		createWarehouseWithQuote(); // To test a bug with quotes
 
 		getWebClient().getOptions().setCssEnabled(true);
 		execute("CRUD.new");
@@ -497,7 +498,8 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertFalse(openFamilyListIcon.isDisplayed());
 		assertTrue(closeFamilyListIcon.isDisplayed());
 		assertEquals(2, familyList.getChildElementCount());
-		assertEquals("SOFTWARE", familyList.getFirstChild().asText());
+		// TMP assertEquals("SOFTWARE", familyList.getFirstChild().asText());
+		assertEquals("SOFTWARÉ", familyList.getFirstChild().asText()); // TMP
 		assertEquals("HARDWARE", familyList.getLastChild().asText());
 		
 		((HtmlElement) familyList.getFirstChild()).click(); // SOFTWARE
@@ -571,10 +573,16 @@ public class Product2Test extends EmailNotificationsTestBase {
 		openSubfamilyListIcon.click();
 		assertFalse(familyList.isDisplayed());
 		
-		
+		setFamilyDescription(1, "SOFTWARE"); // tmp
 		removeWarehouseWithQuote(); 
 	}
 	
+	private void setFamilyDescription(int number, String newDescription) { // TMP
+		Family2 software = XPersistence.getManager().find(Family2.class, number);
+		software.setDescription(newDescription);
+		
+	}
+
 	private void createWarehouseWithQuote() {
 		Warehouse warehouse = new Warehouse();
 		warehouse.setZoneNumber(10);
