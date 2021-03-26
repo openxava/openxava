@@ -43,6 +43,14 @@ openxava.addEditorInitFunction(function() {
 					else $(event.target).val($(event.target).next().next().val()); 
 				}				
 			},
+			source: function( request, response ) {
+				var input = $(this)[0]["element"];
+				var values = $(input).data("values");
+				var matcher = new RegExp($.ui.autocomplete.escapeRegex(descriptionsEditor.removeAccents(request.term)), "i");
+				response( $.grep( values, function( value ) {
+					return matcher.test(descriptionsEditor.removeAccents(value.label));
+				}) );
+			},
 			appendTo: "body"
 		}); 	
 		
@@ -77,4 +85,14 @@ descriptionsEditor.executeOnChange = function(element) {
 	var onchange = element.attr("onchange");
 	if (typeof onchange == 'undefined') return;
 	eval(onchange);
+}
+
+descriptionsEditor.removeAccents = function(str) { 
+	return str.toLowerCase()
+		.replace(/[באגה]/,"a")
+		.replace(/[יטךכ]/,"e")
+		.replace(/[םלמן]/,"i")
+		.replace(/[ףעפצ]/,"o")
+		.replace(/[תשûü]/,"u");
+	return result;	
 }

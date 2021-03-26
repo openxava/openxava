@@ -43,42 +43,14 @@ openxava.addEditorInitFunction(function() {
 					else $(event.target).val($(event.target).next().next().val()); 
 				}				
 			},
-			// tmp ini
 			source: function( request, response ) {
-				/*
-				var matcher = new RegExp( $.ui.autocomplete.escapeRegex( request.term ), "i" );
-				response( $.grep( names, function( value ) {
-					value = value.label || value.value || value;
-					return matcher.test( value ) || matcher.test( normalize( value ) );
-				}) );
-				*/
 				var input = $(this)[0]["element"];
-				
-				console.log("[descriptionsEditor.source] input.name=" + $(input).attr('name')); // tmp
-				
-				var svalues = $(input).data("values");
-				console.log("[descriptionsEditor.source] svalues>" + svalues + "<"); // tmp
-				console.log("[descriptionsEditor.source] typeof svalues=" + typeof svalues); // tmp
-				
-				// TMP ME QUEDÉ POR AQUÍ: FALLA EL PARSE, CREO PORQUE LE FALTAN LAS COMILLAS ALREDEDOR DE LAS CLAVES. 
-				var values = JSON.parse(svalues); 
-				console.log("[descriptionsEditor.source] values=" + values); // tmp
-				console.log("[descriptionsEditor.source] typeof values=" + typeof values); // tmp
-				
-				
-				/*
-				var obj = $(this)[0]["element"];
-				for (var i in obj) {
-				    if (obj.hasOwnProperty(i)) {
-				    	console.log("[descriptionsEditor.source] obj["+ i + "]=" +obj[i]); // tmp	
-				    }
-				}
-				*/
-				
-				var names = [ "Jörn Zaefferer", "Scott González", "John Resig" ];
-				response(values);
+				var values = $(input).data("values");
+				var matcher = new RegExp($.ui.autocomplete.escapeRegex(descriptionsEditor.removeAccents(request.term)), "i");
+				response( $.grep( values, function( value ) {
+					return matcher.test(descriptionsEditor.removeAccents(value.label));
+				}) );
 			},
-			// tmp fin
 			appendTo: "body"
 		}); 	
 		
@@ -113,4 +85,14 @@ descriptionsEditor.executeOnChange = function(element) {
 	var onchange = element.attr("onchange");
 	if (typeof onchange == 'undefined') return;
 	eval(onchange);
+}
+
+descriptionsEditor.removeAccents = function(str) { 
+	return str.toLowerCase()
+		.replace(/[áàâä]/,"a")
+		.replace(/[éèêë]/,"e")
+		.replace(/[íìîï]/,"i")
+		.replace(/[óòôö]/,"o")
+		.replace(/[úùûü]/,"u");
+	return result;	
 }

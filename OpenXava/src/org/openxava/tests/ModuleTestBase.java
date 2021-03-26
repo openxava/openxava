@@ -2395,16 +2395,22 @@ abstract public class ModuleTestBase extends TestCase {
 		HtmlElement textField = (HtmlElement) page.getHtmlElementById(decorateId(name)).getPreviousElementSibling();
 		String actualValues = textField.getAttribute("data-values");
 		StringTokenizer st = new StringTokenizer(actualValues, "\"");
-		st.nextToken();
+		nextTokens(st, 3); 
 		List<KeyAndDescription> validValues = new ArrayList<KeyAndDescription>();
 		while (st.hasMoreTokens()) {			
 			String description = st.nextToken();
-			st.nextToken();
+			nextTokens(st, 3); 
 			String key = st.nextToken();
-			st.nextToken();
+			nextTokens(st, 3); 
 			validValues.add(new KeyAndDescription(key, description));
 		}
 		return validValues;
+	}
+	
+	private void nextTokens(StringTokenizer st, int count) { 
+		for (int i=0; i<count; i++) {
+			if (st.hasMoreTokens()) st.nextToken();
+		}
 	}
 	
 	protected void assertValidValuesCount(String name, int count) throws Exception {

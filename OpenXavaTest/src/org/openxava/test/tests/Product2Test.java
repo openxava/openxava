@@ -459,7 +459,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 	}
 	
 	public void testAutocompleteInDescriptionsList() throws Exception {
-		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents // tmp
+		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
 
 		getWebClient().getOptions().setCssEnabled(true);
@@ -498,8 +498,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertFalse(openFamilyListIcon.isDisplayed());
 		assertTrue(closeFamilyListIcon.isDisplayed());
 		assertEquals(2, familyList.getChildElementCount());
-		// TMP assertEquals("SOFTWARE", familyList.getFirstChild().asText());
-		assertEquals("SOFTWARÉ", familyList.getFirstChild().asText()); // TMP
+		assertEquals("SOFTWARÉ", familyList.getFirstChild().asText()); 
 		assertEquals("HARDWARE", familyList.getLastChild().asText());
 		
 		((HtmlElement) familyList.getFirstChild()).click(); // SOFTWARE
@@ -527,15 +526,15 @@ public class Product2Test extends EmailNotificationsTestBase {
 		execute("List.orderBy", "property=number");
 		assertValueInList(0, "number", "66"); 
 		assertValueInList(0, "description", "JUNIT PRODUCT");
-		assertValueInList(0, "family.description", "SOFTWARE");
+		assertValueInList(0, "family.description", "SOFTWARÉ"); 
 		assertValueInList(0, "subfamily.description", "DESARROLLO");
 		
 		execute("List.viewDetail", "row=0");
 		assertValue("number", "66");
 		assertValue("family.number", "1");
-		assertDescriptionValue("family.number", "SOFTWARE");
+		assertDescriptionValue("family.number", "SOFTWARÉ"); 
 		familyTextField =  getDescriptionsListTextField("family");
-		assertEquals("SOFTWARE", familyTextField.getAttribute("value"));
+		assertEquals("SOFTWARÉ", familyTextField.getAttribute("value")); 
 		assertValue("subfamily.number", "1");
 		assertDescriptionValue("subfamily.number", "DESARROLLO");
 		subfamilyTextField = getDescriptionsListTextField("subfamily");
@@ -573,14 +572,13 @@ public class Product2Test extends EmailNotificationsTestBase {
 		openSubfamilyListIcon.click();
 		assertFalse(familyList.isDisplayed());
 		
-		setFamilyDescription(1, "SOFTWARE"); // tmp
+		setFamilyDescription(1, "SOFTWARE"); 
 		removeWarehouseWithQuote(); 
 	}
 	
-	private void setFamilyDescription(int number, String newDescription) { // TMP
+	private void setFamilyDescription(int number, String newDescription) { 
 		Family2 software = XPersistence.getManager().find(Family2.class, number);
 		software.setDescription(newDescription);
-		
 	}
 
 	private void createWarehouseWithQuote() {

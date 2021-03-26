@@ -180,9 +180,9 @@ if (editable) {
 				selectedDescription = description;
 				selectedKey = cl.getKey().toString();
 			} 		
-			values.append("{label:\"");
+			values.append("{\"label\":\""); 
 			values.append(description.replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
-			values.append("\",value:\"");
+			values.append("\",\"value\":\""); 
 			values.append(cl.getKey().toString().replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
 			values.append("\"}");
 			if (it.hasNext()) values.append(",");
