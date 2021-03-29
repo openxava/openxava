@@ -288,8 +288,18 @@ while (it.hasNext()) {
 		+ "&index=" + iConditionValues
 		+ "&idConditionValue=" + idConditionValue
 		+ "&idConditionValueTo=" + idConditionValueTo;
-	String classConditionValue = isDate?"class='xava_date " + style.getDateCalendar() + "'":""; 
-	String attrConditionValue = isDate?"data-date-format='" + org.openxava.util.Dates.dateFormatForJSCalendar(isTimestamp) + "'":""; 
+	// tmp ini
+	boolean isPureDate = isDate && !Is.anyEqual(comparator, "year_comparator", "year_month_comparator", "month_comparator");
+	String classConditionValue = "";
+	if (isDate) { 
+		if (Is.anyEqual(comparator, "year_comparator", "year_month_comparator", "month_comparator")) classConditionValue="class='" + style.getDateCalendar() + "'";
+		else classConditionValue="class='xava_date " + style.getDateCalendar() + "'";  
+	}
+	// tmp fin
+	/* tmp	
+	String classConditionValue = isDate?"class='xava_date " + style.getDateCalendar() + "'":"";
+	*/  
+	String attrConditionValue = isDate?"data-date-format='" + org.openxava.util.Dates.dateFormatForJSCalendar(isTimestamp) + "'":"";
 	if (isTimestamp) attrConditionValue += " data-enable-time='true'"; 
 	if (isEmptyComparator) {
 %>

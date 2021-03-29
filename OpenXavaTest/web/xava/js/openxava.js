@@ -524,6 +524,7 @@ openxava.destroyEditors = function() {
 }
 
 openxava.initEditors = function() { 
+	console.log("[openxava.initEditors] "); // tmp
 	if (openxava.editorsInitFunctions == null) return;	
 	for (var i in openxava.editorsInitFunctions) {
 		openxava.editorsInitFunctions[i]();
@@ -1117,6 +1118,32 @@ openxava.onChangeComparator = function(id,idConditionValue,idConditionValueTo,la
 			document.getElementById(idConditionValue).placeholder = "";
 		}
 	}
+	// tmp ini
+	// tmp optimizar, al menos el if podría ir arriba
+	// TMP ME QUEDÉ POR AQUÍ: CONSEGUÍ QUE EL EVENTO SE ACTIVARA O DESACTIVAR AL SALIR DE COMPARADOR YEAR/MONTH Y EL POR FECHA NORMAL
+	if ("year_comparator" == comparator || "year_month_comparator" == comparator || "month_comparator" == comparator) {
+		console.log("[openxava.onChangeComparator] A"); // tmp
+		const fp = document.getElementById(idConditionValue).parentNode._flatpickr;
+		fp.destroy(); 
+		var class1 = $(document.getElementById(idConditionValue).parentNode).attr("class");
+		console.log("[openxava.onChangeComparator] class1=" + class1); // tmp 
+		$(document.getElementById(idConditionValue).parentNode).removeClass("xava_date");
+		var class2 = $(document.getElementById(idConditionValue).parentNode).attr("class");
+		console.log("[openxava.onChangeComparator] class2=" + class2); // tmp
+		document.getElementById(idConditionValue).value = "";
+	}
+	else { // tmp ¿Qué pasa si no es de tipo fecha?
+		console.log("[openxava.onChangeComparator] B"); // tmp
+		document.getElementById(idConditionValue).value = "";
+		var class1 = $(document.getElementById(idConditionValue).parentNode).attr("class");
+		console.log("[openxava.onChangeComparator] class1=" + class1); // tmp
+		console.log("[openxava.onChangeComparator] class1=" + class1); // tmp 
+		$(document.getElementById(idConditionValue).parentNode).addClass("xava_date");
+		var class2 = $(document.getElementById(idConditionValue).parentNode).attr("class");
+		console.log("[openxava.onChangeComparator] class2=" + class2); // tmp
+		openxava.initEditors(); 
+	}
+	// tmp fin
 }
 
 openxava.onChangeCheckBox = function(cb,row,application,module,tabObject){
