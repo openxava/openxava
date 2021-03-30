@@ -22,7 +22,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationsEmptyNotEmpty();		
 		assertListConfigurationGroups();		
 		assertListConfigurationsEnums();
-		assertListConfigurationsYearMonthYearMonth();
+		assertListConfigurationsYearMonthYearMonth(); // TMP FALLA ME QUEDÉ POR AQUÍ: HAY DOS FALLAS
 		assertListConfigurationsDescriptionsLists(); 		
 		assertListConfigurationsOrdering();
 		assertListConfigurationsRanges();

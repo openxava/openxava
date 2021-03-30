@@ -524,7 +524,6 @@ openxava.destroyEditors = function() {
 }
 
 openxava.initEditors = function() { 
-	console.log("[openxava.initEditors] "); // tmp
 	if (openxava.editorsInitFunctions == null) return;	
 	for (var i in openxava.editorsInitFunctions) {
 		openxava.editorsInitFunctions[i]();
@@ -1095,22 +1094,24 @@ openxava.hideFrame = function(id) {
 
 openxava.onChangeComparator = function(id,idConditionValue,idConditionValueTo,labelFrom,labelInValues) {
 	var comparator = openxava.getFormValue(document.getElementById(id));
+	var valueInput = $('#' + idConditionValue); // tmp
+	var valueInputTo = $('#' + idConditionValueTo); // tmp
 	var br = $('#' + id).prev();
 	if (br.is('br')) br.remove();
 	
 	if ("range_comparator" == comparator){
-		$('#' + idConditionValue).show().next().show();
-		$('#' + idConditionValueTo).show().next().show();
+		valueInput.show().next().show();
+		valueInputTo.show().next().show();
 		document.getElementById(idConditionValue).placeholder = labelFrom;
 	}
 	else if ("empty_comparator" == comparator || "not_empty_comparator" == comparator) {
 		$('#' + id).before('<br/>');
-		$('#' + idConditionValue).hide().next().hide();
-		$('#' + idConditionValueTo).hide().next().hide();
+		valueInput.hide().next().hide();
+		valueInputTo.hide().next().hide();
 	}
 	else{
-		$('#' + idConditionValue).show().next().show();
-		$('#' + idConditionValueTo).hide().next().hide();		
+		valueInput.show().next().show();
+		valueInputTo.hide().next().hide();		
 		if ("in_comparator" == comparator || "not_in_comparator" == comparator) {
 			document.getElementById(idConditionValue).placeholder = labelInValues;
 		} 		
@@ -1119,28 +1120,20 @@ openxava.onChangeComparator = function(id,idConditionValue,idConditionValueTo,la
 		}
 	}
 	// tmp ini
-	// tmp optimizar, al menos el if podría ir arriba
-	// TMP ME QUEDÉ POR AQUÍ: CONSEGUÍ QUE EL EVENTO SE ACTIVARA O DESACTIVAR AL SALIR DE COMPARADOR YEAR/MONTH Y EL POR FECHA NORMAL
 	if ("year_comparator" == comparator || "year_month_comparator" == comparator || "month_comparator" == comparator) {
-		console.log("[openxava.onChangeComparator] A"); // tmp
-		const fp = document.getElementById(idConditionValue).parentNode._flatpickr;
+		const fp = valueInput.parent()[0]._flatpickr;
 		fp.destroy(); 
-		var class1 = $(document.getElementById(idConditionValue).parentNode).attr("class");
-		console.log("[openxava.onChangeComparator] class1=" + class1); // tmp 
-		$(document.getElementById(idConditionValue).parentNode).removeClass("xava_date");
-		var class2 = $(document.getElementById(idConditionValue).parentNode).attr("class");
-		console.log("[openxava.onChangeComparator] class2=" + class2); // tmp
-		document.getElementById(idConditionValue).value = "";
+		valueInput.off("change");
+		valueInput.parent().removeClass("xava_date");
+		valueInput.val("");
+		valueInput.addClass("xava_date_disabled");
+		valueInput.parent().find('a').hide();
 	}
-	else { // tmp ¿Qué pasa si no es de tipo fecha?
-		console.log("[openxava.onChangeComparator] B"); // tmp
-		document.getElementById(idConditionValue).value = "";
-		var class1 = $(document.getElementById(idConditionValue).parentNode).attr("class");
-		console.log("[openxava.onChangeComparator] class1=" + class1); // tmp
-		console.log("[openxava.onChangeComparator] class1=" + class1); // tmp 
-		$(document.getElementById(idConditionValue).parentNode).addClass("xava_date");
-		var class2 = $(document.getElementById(idConditionValue).parentNode).attr("class");
-		console.log("[openxava.onChangeComparator] class2=" + class2); // tmp
+	else if (valueInput.hasClass("xava_date_disabled")) { 
+		valueInput.val("");
+		valueInput.removeClass("xava_date_disabled");
+		valueInput.parent().addClass("xava_date");
+		valueInput.parent().find('a').show();
 		openxava.initEditors(); 
 	}
 	// tmp fin

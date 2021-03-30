@@ -289,10 +289,15 @@ while (it.hasNext()) {
 		+ "&idConditionValue=" + idConditionValue
 		+ "&idConditionValueTo=" + idConditionValueTo;
 	// tmp ini
-	boolean isPureDate = isDate && !Is.anyEqual(comparator, "year_comparator", "year_month_comparator", "month_comparator");
 	String classConditionValue = "";
+	String dateDisabled = ""; 
+	String styleCalendar = "";
 	if (isDate) { 
-		if (Is.anyEqual(comparator, "year_comparator", "year_month_comparator", "month_comparator")) classConditionValue="class='" + style.getDateCalendar() + "'";
+		if (Is.anyEqual(comparator, "year_comparator", "year_month_comparator", "month_comparator")) {
+			classConditionValue="class='" + style.getDateCalendar() + "'";
+			dateDisabled = "xava_date_disabled";
+			styleCalendar = "display: none;"; 
+		}
 		else classConditionValue="class='xava_date " + style.getDateCalendar() + "'";  
 	}
 	// tmp fin
@@ -312,12 +317,22 @@ while (it.hasNext()) {
 </span>
 <%-- WARNING: IF YOU CHANGE THE NEXT CODE PASS THE MANUAL TEST ON DateCalendarTest.txt --%> 
 <nobr <%=classConditionValue%> <%=attrConditionValue%>>
-<input id="<%=idConditionValue%>" name="<%=idConditionValue%>" class=<%=style.getEditor()%> type="text" 
+<%-- tmp
+<input id="<%=idConditionValue%>" name="<%=idConditionValue%>" class=<%=style.getEditor()%> type="text"
+--%>
+<%-- tmp ini --%>
+<input id="<%=idConditionValue%>" name="<%=idConditionValue%>" class="<%=style.getEditor()%> <%=dateDisabled%>" type="text"
+<%-- tmp fin --%> 
 	maxlength="<%=maxLength%>" size="<%=length%>" value="<%=value%>" placeholder="<%=labelFrom%>"
 	<%=isDate?"data-input":""%> 
 	style="<%=styleConditionValue%>; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"/>
 	<% if (isDate) { %>
+		<%-- tmp
 		<a href="javascript:void(0)" data-toggle style="position: relative; right: 25px; <%=styleConditionValue%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
+		--%>
+		<%-- tmp ini --%>
+		<a href="javascript:void(0)" data-toggle style="position: relative; right: 25px; <%=styleConditionValue%> <%=styleCalendar%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
+		<%-- tmp fin --%>
 	<% } %>
 </nobr>
 <br/>

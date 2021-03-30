@@ -28,9 +28,23 @@ Use any entity with a date (not the first focusable field) in detail mode. Like 
 		 7111999 -> 07/11/1999
 	- In English:
 		 32402   ->  3/24/02
-	- Test some of the above cases in list filter.	 	
+	- Test some of the above cases in list filter.	
+	
+Use any entity with a date in list mode. Like Invoice filtering by date in list.
+- With = (calendar shown)
+- Change to year = (calendar not shown).
+- Type 2020. Lose focus: 2020 is keeped.
+- With = type or choose a date (calendar shown).
+- Change to year = : Date is deleted (calendar not shown).
+- Type a year. Lose focus: Year is keeped.
+- Change to = : Year is deleted (calendar shown).
+- Type a date without separators.
+- Change to  > : Date is keeped (calendar shown).
+- Choose year = and type 2004. (calendar not shown).
+- Execute filter. (calendar not shown)
+- Type 2002 for year in date. Lose focus: 2002 is keeped.
+- Change to = : Year is deleted (calendar shown).	 	
 		
-
 	
 NOTE: In IE11 locale is not recognized and change events are not thrown, 
 	possibly because of problems $.getString() of jquery	
