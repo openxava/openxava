@@ -50,7 +50,10 @@
       the <em>Users</em> module, choose a user and assign the new role to him.
       By default, there are two roles already created: <em>admin</em> with
       access to <em>Users, Roles, Modules</em> and <em>Folders</em> , and <em>user</em>
-      with access to all the modules of your application.<br>
+      with access to all the modules of your application. New modules are not
+      added automatically to <i>user</i> role (or any role), so you have to add
+      new modules explicitly to role <i>user</i> (or any other role) using the
+      <i>Roles</i> module.<br>
       If you remove access to the default module of an entity, modifying and
       creating references to that entity is not allowed. For example, if the
       users of a particular role cannot access the <em>Customer</em> module,
@@ -66,8 +69,7 @@
       choose that role to edit in detail mode. Then click in the module where
       you want to restrict those actions, and a dialog like the next one will
       appear:<br>
-      <img src="files/xavapro-restrict-actions_en.png" alt="xavapro-restrict-actions_en.png"
-
+      <img src="files/xavapro-restrict-actions_en.png" alt="xavapro-restrict-actions_en.png"
         title="xavapro-restrict-actions_en.png"><br>
       Select the actions you want to exclude and click on <em>Save</em>. From
       now on, all the users of that role will not be able to execute those
@@ -85,8 +87,7 @@
       module and choose that <strong>role</strong> to edit in detail mode. Then
       click in the module where you want to restrict those members, and a dialog
       like the next one will appear:<br>
-      <img src="files/restrict-data-read-only-data-xavapro_en.png" alt="restrict-data-read-only-data-xavapro_en.png"
-
+      <img src="files/restrict-data-read-only-data-xavapro_en.png" alt="restrict-data-read-only-data-xavapro_en.png"
         title="restrict-data-read-only-data-xavapro_en.png"><br>
       Select the members you want to exclude in <em>Excluded data</em> and
       click on <em>Save</em>. From now on, all the users of that role will not
@@ -102,24 +103,20 @@
       example. Go to the <em>Roles</em> module and choose that <strong>role</strong>
       to edit in detail mode, once there click on the module you want to hide in
       the menu, and a dialog like the next one will appear:<br>
-      <img src="files/hide-module-in-menu-for-role_en.png" alt="hide-module-in-menu-for-role_en.png"
-
+      <img src="files/hide-module-in-menu-for-role_en.png" alt="hide-module-in-menu-for-role_en.png"
         title="hide-module-in-menu-for-role_en.png"><br>
       Check the <i>Not in menu</i> option and click on <em>Save</em>. From now
       on, all the users of that role will not see the module, <i>Customer</i>
       in our example, in the left menu, however it will be still accessible, so
       if the user goes to <i>http://yoursite.com/YourApp/m/Customer</i> with
       his browser the module will work.<br>
-      Hiding modules in the menu is only available in <a href="http://www.openxava.org/xavapro"
-
-        >XavaPro</a>.<br>
+      Hiding modules in the menu is only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
       <h2 id="toc4"><a name="Security and user management-User and password policies"></a>User
         and password policies</h2>
       There are a lot of options available for user management and password
       policies. In the <em>Admin</em> folder you'll find a <em>Configuration</em>
       module:<br>
-      <img src="files/xavapro-configuration_en.png" alt="xavapro-configuration_en.png"
-
+      <img src="files/xavapro-configuration_en.png" alt="xavapro-configuration_en.png"
         title="xavapro-configuration_en.png"><br>
       You can configure these policies in order for your system to be PCI-DSS
       compliant, which is required for any applications which handles credit
@@ -197,19 +194,16 @@
       <h2 id="toc7"><a name="Security and user management-Creation date and record of logins for each user"></a>Creation
         date and record of logins for each user</h2>
       Just go to the users module to see that data:<br>
-      <img src="files/user-creation-date-sessions_en.png" alt="user-creation-date-sessions_en.png"
-
+      <img src="files/user-creation-date-sessions_en.png" alt="user-creation-date-sessions_en.png"
         title="user-creation-date-sessions_en.png"><br>
       <h2 id="toc8"><a name="Security and user management-Password recovery (new in v5.7)"></a>Password
         recovery <em>(new in v5.7)</em></h2>
       The user can recover his password by himself. When he fails to put the
       correct password a "Forgot your password?" message with a link is shown:<br>
-      <img src="files/recover-password-login_en.png" alt="recover-password-login_en.png"
-
+      <img src="files/recover-password-login_en.png" alt="recover-password-login_en.png"
         title="recover-password-login_en.png"><br>
       When the user clicks on the link goes to a page to enter his email:<br>
-      <img src="files/enter-email-recover-password_en.png" alt="enter-email-recover-password_en.png"
-
+      <img src="files/enter-email-recover-password_en.png" alt="enter-email-recover-password_en.png"
         title="enter-email-recover-password_en.png"><br>
       After clicking on the "Recover password" button an email with instructions
       to recover the password is sent. Of course, a user with that email has to
@@ -244,8 +238,7 @@
       In order the recovering password mechanism works it's needed that each
       user has his email registered in the system. So now if the user has no
       email XavaPro asks for it after sign in:<br>
-      <img src="files/enter-email-personal-data_en.png" alt="enter-email-personal-data_en.png"
-
+      <img src="files/enter-email-personal-data_en.png" alt="enter-email-personal-data_en.png"
         title="enter-email-personal-data_en.png"><br>
       Entering the email is not required, the user can go to any other module
       and leaves the email blank if he wishes.<br>
