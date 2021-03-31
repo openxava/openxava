@@ -1094,8 +1094,8 @@ openxava.hideFrame = function(id) {
 
 openxava.onChangeComparator = function(id,idConditionValue,idConditionValueTo,labelFrom,labelInValues) {
 	var comparator = openxava.getFormValue(document.getElementById(id));
-	var valueInput = $('#' + idConditionValue); // tmp
-	var valueInputTo = $('#' + idConditionValueTo); // tmp
+	var valueInput = $('#' + idConditionValue); 
+	var valueInputTo = $('#' + idConditionValueTo); 
 	var br = $('#' + id).prev();
 	if (br.is('br')) br.remove();
 	
@@ -1119,24 +1119,24 @@ openxava.onChangeComparator = function(id,idConditionValue,idConditionValueTo,la
 			document.getElementById(idConditionValue).placeholder = "";
 		}
 	}
-	// tmp ini
+
+	if (openxava.browser.htmlUnit) return;
 	if ("year_comparator" == comparator || "year_month_comparator" == comparator || "month_comparator" == comparator) {
-		const fp = valueInput.parent()[0]._flatpickr;
-		fp.destroy(); 
-		valueInput.off("change");
-		valueInput.parent().removeClass("xava_date");
+		var fp = valueInput.parent()[0]._flatpickr;
+		fp.destroy();
+		valueInput.off("change");		
+		valueInput.parent().removeClass("xava_date");		
 		valueInput.val("");
 		valueInput.addClass("xava_date_disabled");
 		valueInput.parent().find('a').hide();
 	}
-	else if (valueInput.hasClass("xava_date_disabled")) { 
+	else if (valueInput.hasClass("xava_date_disabled")) {
 		valueInput.val("");
 		valueInput.removeClass("xava_date_disabled");
 		valueInput.parent().addClass("xava_date");
 		valueInput.parent().find('a').show();
-		openxava.initEditors(); 
-	}
-	// tmp fin
+		openxava.initEditors();
+	}	
 }
 
 openxava.onChangeCheckBox = function(cb,row,application,module,tabObject){

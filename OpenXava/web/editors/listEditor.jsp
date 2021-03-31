@@ -288,8 +288,18 @@ while (it.hasNext()) {
 		+ "&index=" + iConditionValues
 		+ "&idConditionValue=" + idConditionValue
 		+ "&idConditionValueTo=" + idConditionValueTo;
-	String classConditionValue = isDate?"class='xava_date " + style.getDateCalendar() + "'":""; 
-	String attrConditionValue = isDate?"data-date-format='" + org.openxava.util.Dates.dateFormatForJSCalendar(isTimestamp) + "'":""; 
+	String classConditionValue = "";
+	String dateDisabled = ""; 
+	String styleCalendar = "";
+	if (isDate) { 
+		if (Is.anyEqual(comparator, "year_comparator", "year_month_comparator", "month_comparator")) {
+			classConditionValue="class='" + style.getDateCalendar() + "'";
+			dateDisabled = "xava_date_disabled";
+			styleCalendar = "display: none;"; 
+		}
+		else classConditionValue="class='xava_date " + style.getDateCalendar() + "'";  
+	}
+	String attrConditionValue = isDate?"data-date-format='" + org.openxava.util.Dates.dateFormatForJSCalendar(isTimestamp) + "'":"";
 	if (isTimestamp) attrConditionValue += " data-enable-time='true'"; 
 	if (isEmptyComparator) {
 %>
@@ -302,12 +312,12 @@ while (it.hasNext()) {
 </span>
 <%-- WARNING: IF YOU CHANGE THE NEXT CODE PASS THE MANUAL TEST ON DateCalendarTest.txt --%> 
 <nobr <%=classConditionValue%> <%=attrConditionValue%>>
-<input id="<%=idConditionValue%>" name="<%=idConditionValue%>" class=<%=style.getEditor()%> type="text" 
+<input id="<%=idConditionValue%>" name="<%=idConditionValue%>" class="<%=style.getEditor()%> <%=dateDisabled%>" type="text"
 	maxlength="<%=maxLength%>" size="<%=length%>" value="<%=value%>" placeholder="<%=labelFrom%>"
 	<%=isDate?"data-input":""%> 
 	style="<%=styleConditionValue%>; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"/>
 	<% if (isDate) { %>
-		<a href="javascript:void(0)" data-toggle style="position: relative; right: 25px; <%=styleConditionValue%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
+		<a href="javascript:void(0)" data-toggle style="position: relative; right: 25px; <%=styleConditionValue%> <%=styleCalendar%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
 	<% } %>
 </nobr>
 <br/>

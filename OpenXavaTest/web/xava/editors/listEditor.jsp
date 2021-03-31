@@ -288,7 +288,6 @@ while (it.hasNext()) {
 		+ "&index=" + iConditionValues
 		+ "&idConditionValue=" + idConditionValue
 		+ "&idConditionValueTo=" + idConditionValueTo;
-	// tmp ini
 	String classConditionValue = "";
 	String dateDisabled = ""; 
 	String styleCalendar = "";
@@ -300,10 +299,6 @@ while (it.hasNext()) {
 		}
 		else classConditionValue="class='xava_date " + style.getDateCalendar() + "'";  
 	}
-	// tmp fin
-	/* tmp	
-	String classConditionValue = isDate?"class='xava_date " + style.getDateCalendar() + "'":"";
-	*/  
 	String attrConditionValue = isDate?"data-date-format='" + org.openxava.util.Dates.dateFormatForJSCalendar(isTimestamp) + "'":"";
 	if (isTimestamp) attrConditionValue += " data-enable-time='true'"; 
 	if (isEmptyComparator) {
@@ -317,22 +312,12 @@ while (it.hasNext()) {
 </span>
 <%-- WARNING: IF YOU CHANGE THE NEXT CODE PASS THE MANUAL TEST ON DateCalendarTest.txt --%> 
 <nobr <%=classConditionValue%> <%=attrConditionValue%>>
-<%-- tmp
-<input id="<%=idConditionValue%>" name="<%=idConditionValue%>" class=<%=style.getEditor()%> type="text"
---%>
-<%-- tmp ini --%>
 <input id="<%=idConditionValue%>" name="<%=idConditionValue%>" class="<%=style.getEditor()%> <%=dateDisabled%>" type="text"
-<%-- tmp fin --%> 
 	maxlength="<%=maxLength%>" size="<%=length%>" value="<%=value%>" placeholder="<%=labelFrom%>"
 	<%=isDate?"data-input":""%> 
 	style="<%=styleConditionValue%>; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"/>
 	<% if (isDate) { %>
-		<%-- tmp
-		<a href="javascript:void(0)" data-toggle style="position: relative; right: 25px; <%=styleConditionValue%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
-		--%>
-		<%-- tmp ini --%>
 		<a href="javascript:void(0)" data-toggle style="position: relative; right: 25px; <%=styleConditionValue%> <%=styleCalendar%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
-		<%-- tmp fin --%>
 	<% } %>
 </nobr>
 <br/>

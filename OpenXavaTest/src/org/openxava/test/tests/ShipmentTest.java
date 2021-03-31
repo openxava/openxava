@@ -205,7 +205,7 @@ public class ShipmentTest extends ModuleTestBase {
 		setConditionValues( new String [] { "", "", "12/25/06 11:32 AM"} );
 		setConditionComparators(new String [] { "=", "=", "="}); 
 		execute("List.filter");
-		assertListRowCount(0); // TMP FALLA
+		assertListRowCount(0); 
 		
 		setConditionValues( new String [] { "", "", "12/25/06 11:33 AM"} );
 		execute("List.filter");

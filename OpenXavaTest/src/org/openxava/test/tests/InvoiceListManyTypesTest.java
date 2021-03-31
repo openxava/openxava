@@ -22,7 +22,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationsEmptyNotEmpty();		
 		assertListConfigurationGroups();		
 		assertListConfigurationsEnums();
-		assertListConfigurationsYearMonthYearMonth(); // TMP FALLA ME QUEDÉ POR AQUÍ: HAY DOS FALLAS
+		assertListConfigurationsYearMonthYearMonth(); 
 		assertListConfigurationsDescriptionsLists(); 		
 		assertListConfigurationsOrdering();
 		assertListConfigurationsRanges();
@@ -636,7 +636,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		saveConfiguration(); 
 		
 		setConditionValues("", "", "2006/11");
-		setConditionComparators("", "", Tab.YEAR_MONTH_COMPARATOR); 
+		setConditionComparators("", "", Tab.YEAR_MONTH_COMPARATOR);
 		assertListSelectedConfiguration("Year/month of date = 2006/11");
 		assertListAllConfigurations("Year/month of date = 2006/11", "All", "Year of date = 2002", "Type of customer = steady", 
 			"Type of customer = normal", "Year in group(2002, 2004)", "Year not in group(2002, 2004)", 

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Filtering by year, month and year/month of a date does not work in list mode.
 - Fix: Filtering in @DescriptionsList does not ignore accents.
 - Fix: Date fields completes to century XXI even with later dates of century XX.
 - Date separators added to date filter values automatically in list.
