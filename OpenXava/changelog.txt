@@ -1,27 +1,29 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.5.1 (2021-4-13)
+--------------------------
+- Date separators added to date field automatically on focus lost.
+- Date separators added to date filter values automatically in list.
+- Queries in list with no explicit given name are discarded.
+- Portuguese translation for the standard labels.
+- New Emails.send() without fromEmail getting the value from smtpFromEmail of xava.properties.
+- New setConditionProperties() method in ITabProvider.
+- New extractVariables() methods in Strings utility class.
+- Activation framework upgraded to 1.2.1.
 - Fix: Filtering by year, month and year/month of a date does not work in list mode.
 - Fix: Filtering in @DescriptionsList does not ignore accents.
 - Fix: Date fields completes to century XXI even with later dates of century XX.
-- Date separators added to date filter values automatically in list.
-- Date separators added to date field automatically on focus lost.
 - Fix: Date separators not added automatically to date field when missing.
-- Queries in list with no explicit given name are discarded. 
 - Fix: Impossible to change name or remove some queries in list created before v6.5.
 - Fix: The buildAddons and buildOpenXava Ant targets do not work if bin folder does not exist.
-- Activation framework upgraded to 1.2.1.
 - Fix: Sending emails does not work with Java 11.
-- New Emails.send() without fromEmail getting the value from smtpFromEmail of xava.properties.
-- Portuguese translation for the standard labels.
 - Fix: AccessTracker does not register the name of the file for FILE stereotype properties.
 - Fix: Messages from UploadServlet do not use the request language from time to time.
 - Fix: Users.getCurrent() does not work from time to time.
 - Fix: ElementNotFoundException: "Not found tab" accessing application while starting Tomcat.
 - Fix: Previous query in list is lost after coming back from grouping.
 - Fix: When grouping the current filter of the list is ignored.
-- New setConditionProperties() method in ITabProvider.
-- New extractVariables() methods in Strings utility class.
 - Fix: Flow layout does not work inside @NoFrame references with flowLayout=true.
 - Fix: Bad alignment for @DescriptionsList with flowLayout=true. 
 - Fix: Executing JavaScript content is possible by a XSS attack in certain cases.
