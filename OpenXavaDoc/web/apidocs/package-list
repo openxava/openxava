@@ -51,6 +51,7 @@ org.openxava.view.meta.xmlparse
 org.openxava.web
 org.openxava.web.dwr
 org.openxava.web.editors
+org.openxava.web.listeners
 org.openxava.web.meta
 org.openxava.web.meta.xmlparse
 org.openxava.web.portlets

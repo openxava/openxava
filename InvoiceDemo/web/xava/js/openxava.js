@@ -1094,22 +1094,24 @@ openxava.hideFrame = function(id) {
 
 openxava.onChangeComparator = function(id,idConditionValue,idConditionValueTo,labelFrom,labelInValues) {
 	var comparator = openxava.getFormValue(document.getElementById(id));
+	var valueInput = $('#' + idConditionValue); 
+	var valueInputTo = $('#' + idConditionValueTo); 
 	var br = $('#' + id).prev();
 	if (br.is('br')) br.remove();
 	
 	if ("range_comparator" == comparator){
-		$('#' + idConditionValue).show().next().show();
-		$('#' + idConditionValueTo).show().next().show();
+		valueInput.show().next().show();
+		valueInputTo.show().next().show();
 		document.getElementById(idConditionValue).placeholder = labelFrom;
 	}
 	else if ("empty_comparator" == comparator || "not_empty_comparator" == comparator) {
 		$('#' + id).before('<br/>');
-		$('#' + idConditionValue).hide().next().hide();
-		$('#' + idConditionValueTo).hide().next().hide();
+		valueInput.hide().next().hide();
+		valueInputTo.hide().next().hide();
 	}
 	else{
-		$('#' + idConditionValue).show().next().show();
-		$('#' + idConditionValueTo).hide().next().hide();		
+		valueInput.show().next().show();
+		valueInputTo.hide().next().hide();		
 		if ("in_comparator" == comparator || "not_in_comparator" == comparator) {
 			document.getElementById(idConditionValue).placeholder = labelInValues;
 		} 		
@@ -1117,6 +1119,24 @@ openxava.onChangeComparator = function(id,idConditionValue,idConditionValueTo,la
 			document.getElementById(idConditionValue).placeholder = "";
 		}
 	}
+
+	if (openxava.browser.htmlUnit) return;
+	if ("year_comparator" == comparator || "year_month_comparator" == comparator || "month_comparator" == comparator) {
+		var fp = valueInput.parent()[0]._flatpickr;
+		fp.destroy();
+		valueInput.off("change");		
+		valueInput.parent().removeClass("xava_date");		
+		valueInput.val("");
+		valueInput.addClass("xava_date_disabled");
+		valueInput.parent().find('a').hide();
+	}
+	else if (valueInput.hasClass("xava_date_disabled")) {
+		valueInput.val("");
+		valueInput.removeClass("xava_date_disabled");
+		valueInput.parent().addClass("xava_date");
+		valueInput.parent().find('a').show();
+		openxava.initEditors();
+	}	
 }
 
 openxava.onChangeCheckBox = function(cb,row,application,module,tabObject){
