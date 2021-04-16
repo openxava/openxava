@@ -121,7 +121,8 @@ import org.openxava.test.actions.*;
 	"		seller;" +
 	"		relationWithSeller;" + 
 	"	]" +   
-	"	alternateSeller;" + 
+	"	alternateSeller;" +
+	"   transientSeller;" + // tmp	
 	"	deliveryPlaces;" +
 	"	remarks;" + 	
 	"}" + 
@@ -303,6 +304,9 @@ public class Customer implements IWithName {
 				+ "SellerAsDescriptionsListShowingReferenceViewNoFrameInSection", 
 		showReferenceView=true)
 	private Seller seller; 
+	
+	@Transient @ManyToOne(fetch=FetchType.LAZY) 
+	private Seller transientSeller; // tmp
 	
 	@DefaultValueCalculator(
 		value=org.openxava.calculators.StringCalculator.class,
@@ -517,6 +521,14 @@ public class Customer implements IWithName {
 
 	public void setExtendedCity(String extendedCity) {
 		this.extendedCity = extendedCity;
+	}
+
+	public Seller getTransientSeller() {
+		return transientSeller;
+	}
+
+	public void setTransientSeller(Seller transientSeller) {
+		this.transientSeller = transientSeller;
 	}
 				
 }

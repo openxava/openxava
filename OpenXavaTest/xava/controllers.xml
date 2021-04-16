@@ -575,6 +575,11 @@
 		
 		<action name="setExtendedCity" mode="detail"
 			class="org.openxava.test.actions.SetExtendedCityAction"/>
+			
+		<!-- tmp ini -->	
+		<action name="setTransientSeller" mode="detail"
+			class="org.openxava.test.actions.SetTransientSellerAction"/>
+		<!-- tmp fin -->				
 		
 	</controller>
 				

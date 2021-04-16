@@ -776,7 +776,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		}
 	}
 	
-	public void testLeaveEntityWithoutSaving() throws Exception { 
+	public void testLeaveEntityWithoutSavingLosesChangedDataMessage() throws Exception { // tmp LosesChangedDataMessage en el nombre 
 		MessageConfirmHandler confirmHandler = new MessageConfirmHandler();
 		getWebClient().setConfirmHandler(confirmHandler);
 		confirmHandler.assertNoMessage();
@@ -801,6 +801,24 @@ public class CustomerWithSectionTest extends CustomerTest {
 		execute("CRUD.new");
 		assertValue("name", "");
 		confirmHandler.assertNoMessage();
+		
+		// tmp ini
+		// Transient property by code
+		// Comment next block for XML Components, they have no transient properties 
+		//   and view properties are not supported yet for this case
+		execute("Navigation.first");
+		assertValue("name", "Javi");
+		assertValue("transientSeller.number", "");
+		assertValue("transientSeller.name", "");
+		execute("CustomerWithSection.setTransientSeller");
+		assertValue("transientSeller.number", "3");
+		assertValue("transientSeller.name", "ELISEO FERNANDEZ"); 
+		confirmHandler.assertNoMessage();
+		execute("CRUD.new");
+		assertValue("name", "");
+		confirmHandler.assertNoMessage(); // TMP ME QUEDÉ POR AQUÍ, ESTO FALLA. HE DE AÑADIR transient A MetaReference, 
+										  // TMP   CAMBIAR EL PARSE Y ACTUALIZAR EL setValue() DE View.
+		// tmp fin
 		
 		// Property with event
 		execute("Navigation.first");
