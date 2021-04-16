@@ -9,16 +9,9 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0">
-        <span id="breadcrumbs">
-          <span id="openxava"> 
-            <a href="https://www.openxava.org/"> 
-              <span>o</span>pen<span>x</span>ava
-            </a>
-          </span> 
-          / <a href="index_es.html">documentación</a> / 
-        </span>
-        Configuración para Oracle</h1>
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span> Configuración para Oracle</h1>
       Configurar tu aplicación OpenXava para ir contra Oracle es muy simple,
       básicamente has de instalar tu controlador JDBC para Oracle y definir
       correctamente la fuente de datos. No necesitas tocar nada de código de tu
@@ -26,8 +19,7 @@
     <div class="wiki" style="display: block;">Asumimos que ya tienes Oracle
       instalado y funcionando.<br>
       <h2 id="toc1">Descargar el controlador JDBC para Oracle</h2>
-      <p>Descarga el controlador para Oracle desde aquí: <a href="https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html">https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html</a><a
-
+      <p>Descarga el controlador para Oracle desde aquí: <a href="https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html">https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html</a><a
           href="https://dev.mysql.com/downloads/connector/j/"></a></p>
       Escoge la versión de base de datos que estés usando y esto te llevará a la
       página de descarga específica para esa versión. Una vez allí, descarga el
@@ -83,11 +75,26 @@
       poner los valores correctos para <i>username</i> y <i>password</i>.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Actualizar persistence.xml</h2>
-      No necesitas tocar la unidad de persistencia <i>default</i> de <i>persistence.xml</i>
-      (en <i>persistence/META-INF</i>), a no ser que uses la propiedad <i>hibernate.dialect</i>
-      en cuyo caso lo más fácil es quitar la propiedad <i>hibernate.dialect</i>.
-      Sin embargo, sí que has de modificar la unidad de persistencia <i>junit</i>
-      para que apunte a Oracle:<br>
+      Necesitas tocar la unidad de persistencia <i>default</i> de <i>persistence.xml</i>
+      (en <i>persistence/META-INF</i>), para añadir la propiedad <i>hibernate.dialect</i>
+      con el valor correcto para tu versión de Oracle:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;!-- Unidad de persistence por defecto para Oracle --&gt;
+&lt;persistence-unit name="default"&gt;
+	...
+	&lt;properties&gt;
+		...
+		&lt;!-- AÑADE LA SIGUIENTE PROPIEDAD --&gt;
+		&lt;property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/&gt;
+	&lt;/properties&gt;
+&lt;/persistence-unit&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Deberías usar <i>Oracle12cDialect</i>
+      para Oracle 12 o superior, es decir para Oracle 19 también usarías <i>Oracle12cDialect</i>,
+      como se muestra arriba. Para versiones más antiguas de Oracle puedes usar
+      <i>Oracle10gDialect</i> o <i>Oracle8iDialect.</i></div>
+    <div class="wiki" style="display: block;">Además, sí que has de modificar la
+      unidad de persistencia <i>junit</i> para que apunte a Oracle:<br>
       <div class="wiki" style="display: block;">
         <pre><code class="xml">&lt;!-- JUnit Oracle --&gt;
 &lt;persistence-unit name="junit"&gt;
@@ -95,8 +102,10 @@
 	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;
 	&lt;properties&gt;
 		&lt;property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/&gt;
+		&lt;property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/&gt;    
 		&lt;property name="hibernate.connection.username" value="root"/&gt;
-		&lt;property name="hibernate.connection.password" value="ao49fmsk"/&gt;		
+		&lt;property name="hibernate.connection.password" value="ao49fmsk"/&gt;
+		&lt;property name="hibernate.default_schema" value="facturacion"/&gt;    
 		&lt;property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:misid"/&gt;
 	&lt;/properties&gt;
 &lt;/persistence-unit&gt;

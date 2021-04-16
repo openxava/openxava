@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Oracle configuration documentation improved.
+
 OpenXava 6.5.1 (2021-4-13)
 --------------------------
 - Date separators added to date field automatically on focus lost.

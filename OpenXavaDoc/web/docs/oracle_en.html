@@ -9,15 +9,9 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0">
-        <span id="breadcrumbs"> 
-        	<span id="openxava"> 
-            <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> 
-          / <a href="index_en.html">documentation</a> / 
-        </span>        
-        Configuration for Oracle
-      </h1>
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
+          / </span> Configuration for Oracle </h1>
       Configuring your OpenXava application to go against Oracle is very simple,
       basically you have to install the JDBC driver for Oracle and define
       correctly the datasource. You don't need to touch any code of your
@@ -25,8 +19,7 @@
     <div class="wiki" style="display: block;">We assume you have already
       installed and running Oracle.<br>
       <h2 id="toc1">Download the JDBC driver for Oracle</h2>
-      <p>Download the Oracle driver from here: <a href="https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html">https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html</a><a
-
+      <p>Download the Oracle driver from here: <a href="https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html">https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html</a><a
           href="https://dev.mysql.com/downloads/connector/j/"></a></p>
       Choose the database version you're using to go to the specific download
       page. Then download the file <i>ojdbc8.jar</i>, if you're using an old
@@ -81,11 +74,26 @@
       the correct <i>username</i> and <i>password</i>.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Update persistence.xml</h2>
-      You don't need to touch the <i>default</i> persistence unit of <i>persistence.xml</i>
-      (in <i>persistence/META-INF</i>), unless you use <i>hibernate.dialect</i>
-      property in which case just remove <i>hibernate.dialect</i> property.
-      However, you have to modify the <i>junit</i> persistence unit to point to
-      Oracle. <br>
+      You need to touch the <i>default</i> persistence unit of <i>persistence.xml</i>
+      (in <i>persistence/META-INF</i>), to add the <i>hibernate.dialect</i>
+      property with the correct value for your Oracle version:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;!-- Default Persistence Unit for Oracle --&gt;
+&lt;persistence-unit name="default"&gt;
+	...
+	&lt;properties&gt;
+		...
+		&lt;!-- ADD THE NEXT PROPERTY --&gt;
+		&lt;property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/&gt;
+	&lt;/properties&gt;
+&lt;/persistence-unit&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">You should use <i>Oracle12cDialect</i>
+      for Oracle 12 or better, that is for Oracle 19 you should use
+      Oracle12cDialect too, as shown above. For older versions of Oracle you can
+      use <i>Oracle10gDialect</i> or <i>Oracle8iDialect</i>. </div>
+    <div class="wiki" style="display: block;">Moreover, you have to modify the <i>junit</i>
+      persistence unit to point to Oracle. <br>
       <div class="wiki" style="display: block;">
         <pre><code class="xml">&lt;!-- JUnit Oracle --&gt;
 &lt;persistence-unit name="junit"&gt;
@@ -93,8 +101,10 @@
 	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;
 	&lt;properties&gt;
 		&lt;property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/&gt;
+		&lt;property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/&gt;
 		&lt;property name="hibernate.connection.username" value="root"/&gt;
-		&lt;property name="hibernate.connection.password" value="ao49fmsk"/&gt;		
+		&lt;property name="hibernate.connection.password" value="ao49fmsk"/&gt;
+		&lt;property name="hibernate.default_schema" value="invoicing"/&gt;
 		&lt;property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:mysid"/&gt;
 	&lt;/properties&gt;
 &lt;/persistence-unit&gt;
