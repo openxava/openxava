@@ -2,16 +2,13 @@ package org.openxava.model.meta;
 
 import java.util.*;
 
-
-
 import org.apache.commons.logging.*;
 import org.openxava.calculators.*;
 import org.openxava.component.*;
 import org.openxava.filters.meta.*;
 import org.openxava.util.*;
 import org.openxava.util.meta.*;
-import org.openxava.view.meta.MetaDescriptionsList;
-import org.openxava.view.meta.MetaView;
+import org.openxava.view.meta.*;
 
 /**
  * 
@@ -294,6 +291,5 @@ public class MetaReference extends MetaMember implements Cloneable {
 	public void setReferencedModelCorrespondingCollection(String referencedModelCorrespondingCollection) {
 		this.referencedModelCorrespondingCollection = referencedModelCorrespondingCollection;
 	}
-
 	
 }

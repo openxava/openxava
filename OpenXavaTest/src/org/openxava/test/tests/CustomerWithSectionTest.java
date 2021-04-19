@@ -803,21 +803,34 @@ public class CustomerWithSectionTest extends CustomerTest {
 		confirmHandler.assertNoMessage();
 		
 		// tmp ini
-		// Transient property by code
-		// Comment next block for XML Components, they have no transient properties 
-		//   and view properties are not supported yet for this case
+		// Transient reference by code
+		// Comment next block for XML Components, they have no transient references 
 		execute("Navigation.first");
 		assertValue("name", "Javi");
 		assertValue("transientSeller.number", "");
 		assertValue("transientSeller.name", "");
-		execute("CustomerWithSection.setTransientSeller");
+		execute("CustomerWithSection.setTransientSellerRefreshing");
 		assertValue("transientSeller.number", "3");
 		assertValue("transientSeller.name", "ELISEO FERNANDEZ"); 
 		confirmHandler.assertNoMessage();
 		execute("CRUD.new");
 		assertValue("name", "");
-		confirmHandler.assertNoMessage(); // TMP ME QUEDÉ POR AQUÍ, ESTO FALLA. HE DE AÑADIR transient A MetaReference, 
-										  // TMP   CAMBIAR EL PARSE Y ACTUALIZAR EL setValue() DE View.
+		confirmHandler.assertNoMessage();
+
+		// Transient reference by code
+		// Comment next block for XML Components, they have no transient references 		
+		execute("Navigation.first");
+		assertValue("name", "Javi");
+		assertValue("transientSeller.number", "");
+		assertValue("transientSeller.name", "");
+		execute("CustomerWithSection.setTransientSellerUsingMap");
+		assertValue("transientSeller.number", "6");
+		assertValue("transientSeller.name", "THE SIX"); 
+		confirmHandler.assertNoMessage();
+		execute("CRUD.new");
+		assertValue("name", "");
+		confirmHandler.assertNoMessage(); // TMP ME QUEDÉ POR AQUÍ: TODAVÍA NO FUNCIONA ASIGNANDO CON MAPAS
+		
 		// tmp fin
 		
 		// Property with event

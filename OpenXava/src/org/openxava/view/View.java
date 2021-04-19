@@ -1310,11 +1310,19 @@ public class View implements java.io.Serializable {
 			String viewName = getViewName() == null?"":"'" + getViewName() + "'";
 			throw new XavaException("member_not_found_in_view", "'" + name + "'", viewName, "'" + getModelName() + "'");
 		}
-		try { 
+		try {
+			/*
 			MetaMember member = getMetaModel().getMetaMember(name);
 			if (!isMetaProperty(member) || !((MetaProperty)member).isTransient()) {
 				getRoot().dataChanged = true;
 			}
+			*/
+			// tmp ini
+			System.out.println("[View(" + getMemberName() + ").setValue] " + name + ".isTransient=" + isTransient(name)); // tmp
+			if (!isTransient(name)) {
+				getRoot().dataChanged = true;
+			}
+			// tmp fin
 		}
 		catch (ElementNotFoundException ex) {
 			// It could be a view property of a XML component
@@ -1322,6 +1330,21 @@ public class View implements java.io.Serializable {
 		moveViewValuesToCollectionValues();
 	}	
 	
+	private boolean isTransient(String memberName) {
+		MetaMember member = getMetaModel().getMetaMember(memberName);
+		if (!isMetaProperty(member)) return false;
+		MetaProperty p = (MetaProperty) member; 
+		if (p.isTransient()) return true;
+		if (memberName.contains(".")) {
+			String refName = Strings.firstToken(memberName, ".");
+			if (getMetaModel().containsMetaReference(refName)) {
+				MetaReference ref = getMetaModel().getMetaReference(refName);
+				if (ref.isTransient()) return true;			
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Try to set the value to the indicated member. <p>
 	 * 

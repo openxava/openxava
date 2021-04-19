@@ -1959,6 +1959,13 @@ public class AnnotatedClassParser implements IComponentParser {
 			ref.setAggregate(false); 
 		}
 		
+		// tmp ini
+		// transient
+		if (element.isAnnotationPresent(javax.persistence.Transient.class)) {  						
+			ref.setTransient(true);
+		}
+		// tmp fin
+		
 		// Default value calculator
 		if (element.isAnnotationPresent(DefaultValueCalculator.class)) {
 			DefaultValueCalculator calculator = element.getAnnotation(DefaultValueCalculator.class);
