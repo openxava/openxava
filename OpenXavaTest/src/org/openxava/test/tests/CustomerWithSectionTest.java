@@ -31,9 +31,11 @@ public class CustomerWithSectionTest extends CustomerTest {
 			return confirm;
 		}
 		
+		/* tmp
 		public String getMessage() {
 			return message;
 		}
+		*/
 				
 		public void assertNoMessage() {
 			assertEquals(null, message);
@@ -789,47 +791,37 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValue("name", "");
 		confirmHandler.assertNoMessage();
 		
-		// Transient property by code
-		// Comment next block for XML Components, they have no transient properties 
-		//   and view properties are not supported yet for this case
-		execute("Navigation.first");
-		assertValue("name", "Javi");
-		assertValue("extendedCity", "");
-		execute("CustomerWithSection.setExtendedCity");
-		assertValue("extendedCity", "46540 EL PUIG (NY)"); // The value does not matter
-		confirmHandler.assertNoMessage();
-		execute("CRUD.new");
-		assertValue("name", "");
-		confirmHandler.assertNoMessage();
+		if (usesAnnotatedPOJO()) { // tmp
+			// Transient property by code
+			// XML Components have no transient properties 
+			//   and view properties are not supported yet for this case
+			execute("Navigation.first");
+			assertValue("name", "Javi");
+			assertValue("extendedCity", "");
+			execute("CustomerWithSection.setExtendedCity");
+			assertValue("extendedCity", "46540 EL PUIG (NY)"); // The value does not matter
+			confirmHandler.assertNoMessage();
+			execute("CRUD.new");
+			assertValue("name", "");
+			confirmHandler.assertNoMessage();
+		}
 		
 		// tmp ini
-		// Transient reference by code
-		// Comment next block for XML Components, they have no transient references 
-		execute("Navigation.first");
-		assertValue("name", "Javi");
-		assertValue("transientSeller.number", "");
-		assertValue("transientSeller.name", "");
-		execute("CustomerWithSection.setTransientSellerRefreshing");
-		assertValue("transientSeller.number", "3");
-		assertValue("transientSeller.name", "ELISEO FERNANDEZ"); 
-		confirmHandler.assertNoMessage();
-		execute("CRUD.new");
-		assertValue("name", "");
-		confirmHandler.assertNoMessage();
+		assertChangeTransientReferenceByCodeNoMessage(confirmHandler, 
+			"CustomerWithSection.setTransientSellerRefreshing", 
+			"3", "ELISEO FERNANDEZ");
+		
+		assertChangeTransientReferenceByCodeNoMessage(confirmHandler, 
+			"CustomerWithSection.setTransientSellerUsingMap", 
+			"6", "THE SIX");
 
-		// Transient reference by code
-		// Comment next block for XML Components, they have no transient references 		
-		execute("Navigation.first");
-		assertValue("name", "Javi");
-		assertValue("transientSeller.number", "");
-		assertValue("transientSeller.name", "");
-		execute("CustomerWithSection.setTransientSellerUsingMap");
-		assertValue("transientSeller.number", "6");
-		assertValue("transientSeller.name", "THE SIX"); 
-		confirmHandler.assertNoMessage();
-		execute("CRUD.new");
-		assertValue("name", "");
-		confirmHandler.assertNoMessage(); // TMP ME QUEDÉ POR AQUÍ: TODAVÍA NO FUNCIONA ASIGNANDO CON MAPAS
+		assertChangeTransientReferenceByCodeNoMessage(confirmHandler, 
+			"CustomerWithSection.setTransientSellerRefreshingInSubview", 
+			"2", "JUANVI LLAVADOR");
+		
+		assertChangeTransientReferenceByCodeNoMessage(confirmHandler, 
+			"CustomerWithSection.setTransientSellerUsingMapInSubview", 
+			"7", "THE SEVEN");		
 		
 		// tmp fin
 		
@@ -927,6 +919,21 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInCollection("deliveryPlaces", 0, 0, "JUNIT DEVIVERY PLACE");
 		execute("Collection.removeSelected", "row=0,viewObject=xava_view_section0_deliveryPlaces");
 		assertCollectionRowCount("deliveryPlaces", 0); 
+	}
+	
+	private void assertChangeTransientReferenceByCodeNoMessage(MessageConfirmHandler confirmHandler, String action,	String expectedNumber, String expectedName) throws Exception {
+		if (!usesAnnotatedPOJO()) return; // Transient reference does not exist in XML components
+		execute("Navigation.first");
+		assertValue("name", "Javi");
+		assertValue("transientSeller.number", "");
+		assertValue("transientSeller.name", "");
+		execute(action);
+		assertValue("transientSeller.number", expectedNumber);
+		assertValue("transientSeller.name", expectedName); 
+		confirmHandler.assertNoMessage();
+		execute("CRUD.new");
+		assertValue("name", "");
+		confirmHandler.assertNoMessage();
 	}
 	
 	

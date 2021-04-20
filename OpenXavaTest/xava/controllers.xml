@@ -581,7 +581,13 @@
 			class="org.openxava.test.actions.SetTransientSellerRefreshingAction"/>
 			
 		<action name="setTransientSellerUsingMap" mode="detail"
-			class="org.openxava.test.actions.SetTransientSellerUsingMapAction"/>		
+			class="org.openxava.test.actions.SetTransientSellerUsingMapAction"/>
+			
+		<action name="setTransientSellerRefreshingInSubview" mode="detail"
+			class="org.openxava.test.actions.SetTransientSellerRefreshingInSubviewAction"/>
+			
+		<action name="setTransientSellerUsingMapInSubview" mode="detail"
+			class="org.openxava.test.actions.SetTransientSellerUsingMapInSubviewAction"/>			
 		<!-- tmp fin -->				
 		
 	</controller>

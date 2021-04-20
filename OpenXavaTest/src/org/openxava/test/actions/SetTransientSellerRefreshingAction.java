@@ -10,7 +10,7 @@ import org.openxava.actions.*;
 public class SetTransientSellerRefreshingAction extends ViewBaseAction {
 
 	public void execute() throws Exception {
-		getView().setValue("transientSeller.number", 3); // TMP PROBAR CONTRA LA SUBVISTA
+		getView().setValue("transientSeller.number", 3); // Using qualified property
 		getView().getSubview("transientSeller").refresh();
 	}
 

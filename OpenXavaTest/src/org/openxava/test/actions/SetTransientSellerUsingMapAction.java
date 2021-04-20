@@ -13,8 +13,8 @@ import org.openxava.util.*;
 public class SetTransientSellerUsingMapAction extends ViewBaseAction {
 
 	public void execute() throws Exception {
-		Map ref = Maps.toMap("number", 6, "name", "THE SIX");
-		getView().setValue("transientSeller", ref); 
+		Map ref = Maps.toMap("number", 6, "name", "THE SIX"); 
+		getView().setValue("transientSeller", ref);
 	}
 
 }

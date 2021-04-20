@@ -17,7 +17,7 @@ abstract public class MetaMember extends MetaElement implements Comparable<MetaM
 	
 	private String label;
 	private Collection<String> propertyNamesThatIDepend; 
-	private boolean _transient; // tmp ¿Dejarlo aquí? Probablemente no
+	private boolean _transient; // tmp 
 	
 	public String getLabel(Locale locale) {
 		if (Is.emptyString(label)) return super.getLabel(locale);
