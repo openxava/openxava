@@ -8,7 +8,6 @@ import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
-import org.openxava.test.actions.*;
 import org.openxava.test.calculators.*;
 import org.openxava.test.validators.*;
 
@@ -40,6 +39,22 @@ import org.openxava.test.validators.*;
 		"	subfamily;" +
 		"]" 		
 	),
+	// tmp ini
+	@View( name="WithGroupsBase", members=
+		"number;" +
+		"description;" +
+		"photos;" +
+		"features [ " +
+		 	"color;" + 
+			"family;" +
+			"subfamily;" +
+			"warehouse, zoneOne;" +
+		"];"
+	),
+	@View( name="WithGroups", extendsView="WithGroupsBase", members= 
+		"prices [ unitPrice, unitPriceInPesetas; unitPriceWithTax];"
+	),
+	// tmp fin
 	@View( name="Dialog", members="description;")
 })
 public class Product5 {
