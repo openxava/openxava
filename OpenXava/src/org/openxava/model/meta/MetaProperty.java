@@ -49,7 +49,6 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	private boolean mappingSet;
 	private PropertyMapping mapping;
 	private DateFormat timeFormat = new SimpleDateFormat("HH:mm"); // 24 hours for all locales
-	// tmp private boolean _transient;
 	private String requiredMessage = "required";
 	private String label;
 	private String qualifiedLabel;
@@ -1116,15 +1115,6 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	public int hashCode() {		
 		return getQualifiedName().hashCode();
 	}
-	
-	/* tmp
-	public boolean isTransient() {
-		return _transient;
-	}
-	public void setTransient(boolean _transient) {
-		this._transient = _transient;
-	}
-	*/
 	
 	private Class getEnumClass() { // Enum
 		try {

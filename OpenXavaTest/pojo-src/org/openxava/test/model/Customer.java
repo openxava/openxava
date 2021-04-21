@@ -122,7 +122,7 @@ import org.openxava.test.actions.*;
 	"		relationWithSeller;" + 
 	"	]" +   
 	"	alternateSeller;" +
-	"   transientSeller;" + // tmp	
+	"   transientSeller;" + 	
 	"	deliveryPlaces;" +
 	"	remarks;" + 	
 	"}" + 
@@ -306,7 +306,7 @@ public class Customer implements IWithName {
 	private Seller seller; 
 	
 	@Transient @ManyToOne(fetch=FetchType.LAZY) 
-	private Seller transientSeller; // tmp
+	private Seller transientSeller; 
 	
 	@DefaultValueCalculator(
 		value=org.openxava.calculators.StringCalculator.class,

@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Modifying a transient reference by code produces the "Changed data" message on exit. 
+- Fix: Transient references are available for adding by user on customizing list columns.
 - Oracle configuration documentation improved.
 
 OpenXava 6.5.1 (2021-4-13)

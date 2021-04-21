@@ -1786,6 +1786,7 @@ abstract public class MetaModel extends MetaElement {
 			}
 			else if (getMapMetaReferences().containsKey(name)) {
 				MetaReference ref = (MetaReference) getMapMetaReferences().get(name);
+				if (ref.isTransient()) continue; 
 				if (!parents.contains(ref.getReferencedModelName())) {
 					Collection newParents = new HashSet();
 					newParents.addAll(parents);

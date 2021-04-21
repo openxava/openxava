@@ -31,12 +31,6 @@ public class CustomerWithSectionTest extends CustomerTest {
 			return confirm;
 		}
 		
-		/* tmp
-		public String getMessage() {
-			return message;
-		}
-		*/
-				
 		public void assertNoMessage() {
 			assertEquals(null, message);
 			message = null;
@@ -778,7 +772,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		}
 	}
 	
-	public void testLeaveEntityWithoutSavingLosesChangedDataMessage() throws Exception { // tmp LosesChangedDataMessage en el nombre 
+	public void testLeaveEntityWithoutSavingLosesChangedDataMessage() throws Exception {  
 		MessageConfirmHandler confirmHandler = new MessageConfirmHandler();
 		getWebClient().setConfirmHandler(confirmHandler);
 		confirmHandler.assertNoMessage();
@@ -791,7 +785,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValue("name", "");
 		confirmHandler.assertNoMessage();
 		
-		if (usesAnnotatedPOJO()) { // tmp
+		if (usesAnnotatedPOJO()) { 
 			// Transient property by code
 			// XML Components have no transient properties 
 			//   and view properties are not supported yet for this case
@@ -806,7 +800,6 @@ public class CustomerWithSectionTest extends CustomerTest {
 			confirmHandler.assertNoMessage();
 		}
 		
-		// tmp ini
 		assertChangeTransientReferenceByCodeNoMessage(confirmHandler, 
 			"CustomerWithSection.setTransientSellerRefreshing", 
 			"3", "ELISEO FERNANDEZ");
@@ -822,8 +815,6 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertChangeTransientReferenceByCodeNoMessage(confirmHandler, 
 			"CustomerWithSection.setTransientSellerUsingMapInSubview", 
 			"7", "THE SEVEN");		
-		
-		// tmp fin
 		
 		// Property with event
 		execute("Navigation.first");

@@ -615,7 +615,6 @@ public class View implements java.io.Serializable {
 
 	public void setValues(Map values) throws XavaException {
 		setValuesChangingModel(values);
-		// tmp getRoot().dataChanged = !isFirstLevel(); 
 		getRoot().dataChanged = !isFirstLevel() && !isRepresentsTransientReference();
 	}
 	
@@ -1312,17 +1311,9 @@ public class View implements java.io.Serializable {
 			throw new XavaException("member_not_found_in_view", "'" + name + "'", viewName, "'" + getModelName() + "'");
 		}
 		try {
-			/*
-			MetaMember member = getMetaModel().getMetaMember(name);
-			if (!isMetaProperty(member) || !((MetaProperty)member).isTransient()) {
-				getRoot().dataChanged = true;
-			}
-			*/
-			// tmp ini
 			if (!isTransient(name)) {
 				getRoot().dataChanged = true;
 			}
-			// tmp fin
 		}
 		catch (ElementNotFoundException ex) {
 			// It could be a view property of a XML component
@@ -1330,11 +1321,11 @@ public class View implements java.io.Serializable {
 		moveViewValuesToCollectionValues();
 	}
 	
-	private boolean isRepresentsTransientReference() { // tmp
+	private boolean isRepresentsTransientReference() { 
 		return isRepresentsEntityReference() && getParent().getMetaReference(getMemberName()).isTransient();
 	}
 	
-	private boolean isTransient(String memberName) { // tmp
+	private boolean isTransient(String memberName) { 
 		MetaMember member = getMetaModel().getMetaMember(memberName);
 		if (member.isTransient()) return true;
 		if (memberName.contains(".")) {

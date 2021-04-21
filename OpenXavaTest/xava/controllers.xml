@@ -576,7 +576,6 @@
 		<action name="setExtendedCity" mode="detail"
 			class="org.openxava.test.actions.SetExtendedCityAction"/>
 			
-		<!-- tmp ini -->	
 		<action name="setTransientSellerRefreshing" mode="detail"
 			class="org.openxava.test.actions.SetTransientSellerRefreshingAction"/>
 			
@@ -588,7 +587,6 @@
 			
 		<action name="setTransientSellerUsingMapInSubview" mode="detail"
 			class="org.openxava.test.actions.SetTransientSellerUsingMapInSubviewAction"/>			
-		<!-- tmp fin -->				
 		
 	</controller>
 				
