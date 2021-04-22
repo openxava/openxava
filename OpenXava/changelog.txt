@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Last new line ( ; ) in a @View used as base with view inheritance is ignored. 
 - Fix: Modifying a transient reference by code produces the "Changed data" message on exit. 
 - Fix: Transient references are available for adding by user on customizing list columns.
 - Oracle configuration documentation improved.

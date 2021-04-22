@@ -3,6 +3,7 @@ Therefore, when you touch the layout code (a.k.a. JSPs) you have to test it visu
 at least the next cases:
 - InvoiceCustomerNoFrame: The properties before frames must be well aligned and on left.
 - Product4NoDescriptionsLists: Fields inside frames must be nicely aligned by column.
+- Product5WithGroups: Features and Prices groups in different lines and filling all the width.
 - CustomerSellerAsDescriptionsListShowingReferenceViewNoFrameInSection: Members in section should have a nice layout.
 
 With flowLayout=true in xava.properties:

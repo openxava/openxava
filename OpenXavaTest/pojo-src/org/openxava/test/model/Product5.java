@@ -39,7 +39,6 @@ import org.openxava.test.validators.*;
 		"	subfamily;" +
 		"]" 		
 	),
-	// tmp ini
 	@View( name="WithGroupsBase", members=
 		"number;" +
 		"description;" +
@@ -49,12 +48,11 @@ import org.openxava.test.validators.*;
 			"family;" +
 			"subfamily;" +
 			"warehouse, zoneOne;" +
-		"];"
+		"];" // Ending with ; for testing a case
 	),
 	@View( name="WithGroups", extendsView="WithGroupsBase", members= 
 		"prices [ unitPrice, unitPriceInPesetas; unitPriceWithTax];"
 	),
-	// tmp fin
 	@View( name="Dialog", members="description;")
 })
 public class Product5 {

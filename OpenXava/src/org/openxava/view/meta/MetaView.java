@@ -1,29 +1,14 @@
 package org.openxava.view.meta;
 
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.stream.*;
+import java.util.*;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.openxava.actions.IOnChangePropertyAction;
-import org.openxava.actions.OnChangeSearchAction;
-import org.openxava.model.meta.MetaMember;
-import org.openxava.model.meta.MetaModel;
-import org.openxava.model.meta.MetaProperty;
-import org.openxava.model.meta.MetaReference;
+import org.apache.commons.lang.*;
+import org.apache.commons.logging.*;
+import org.openxava.actions.*;
+import org.openxava.model.meta.*;
 import org.openxava.util.*;
-import org.openxava.util.meta.MetaElement;
+import org.openxava.util.meta.*;
 
 /**
  * 
@@ -319,7 +304,7 @@ public class MetaView extends MetaElement implements Cloneable {
 		{						
 			createMembersNamesByDefault();			
 		}
-		copyMembersFromExtendedView();  
+		copyMembersFromExtendedView();
 		return Collections.unmodifiableCollection(_membersNames);				
 	}
 	
@@ -328,7 +313,7 @@ public class MetaView extends MetaElement implements Cloneable {
 		MetaView extendsView = getMetaExtendsView();
 		sections = sum(extendsView.sections, sections);
 		metaGroups = sum(extendsView.metaGroups, metaGroups);
-		_membersNames = sum(extendsView._membersNames, _membersNames);		
+		_membersNames = sum(extendsView._membersNames, _membersNames);
 		if (extendsView.sections != null) {
 			for (MetaView section: extendsView.sections) {
 				promote(section);
@@ -415,6 +400,7 @@ public class MetaView extends MetaElement implements Cloneable {
 					addMemberName(NAME_SEPARATOR);
 				}				
 			}
+			if (membersNames.trim().endsWith(";")) addMemberName(NAME_SEPARATOR); 
 		}
 	}
 	
