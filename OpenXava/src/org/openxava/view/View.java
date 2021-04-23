@@ -5673,6 +5673,8 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(Map result) {
+		if (modelName == null) return; // To avoid NullPointerException filtering a list in the dialog to choose an element for a reference
+		
 		propertiesAndReferencesWithReadOnlywithOnCreateFalse(result);
 		
 		if (displayAsDescriptionsList() && 
