@@ -19,8 +19,6 @@ import org.openxava.view.View;
 import org.openxava.web.*;
 import org.openxava.web.servlets.*;
 
-import com.lowagie.text.pdf.interfaces.*;
-
 /**
  * For accessing to module execution from DWR. <p>
  * 
@@ -102,7 +100,8 @@ public class Module extends DWRBase {
 			result.setSelectedRows(getSelectedRows());
 			result.setUrlParam(getUrlParam());
 			result.setViewSimple(getView().isSimple());
-			result.setDataChanged(getView().isDataChanged());  
+			result.setDataChanged(getView().isDataChanged());
+			System.out.println("[Module.request] ChangedParts=" + result.getChangedParts().keySet()); // tmp
 			return result;
 		}
 		catch (SecurityException ex) {

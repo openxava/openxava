@@ -1,13 +1,14 @@
 package org.openxava.test.model;
 
-import java.math.BigDecimal;
+import java.math.*;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;
-import org.openxava.calculators.CurrentDateCalculator;
-import org.openxava.model.Identifiable;
+import org.openxava.calculators.*;
+import org.openxava.model.*;
 
 import lombok.*;
 
@@ -34,6 +35,12 @@ public class Quote extends Identifiable {
 	@Required @DefaultValueCalculator(CurrentDateCalculator.class)
 	Date date;
 	
+	@Digits(integer = 2, fraction = 2)
+	@DefaultValueCalculator(value=BigDecimalCalculator.class,
+		properties = @PropertyValue(name="value", value="21")	
+	)
+	BigDecimal taxesRate; // tmp
+	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@ReferenceView("Simplest")
 	Customer customer;
@@ -41,7 +48,8 @@ public class Quote extends Identifiable {
 	@RemoveSelectedAction(forViews="QuoteWithRemoveElementCollection", value="Quote.removeDetail") 
 	@javax.validation.constraints.Size(min=1, max=3)  
 	@ElementCollection
-	@ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxes, quote.total]")
+	// tmp @ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxes, quote.total]")
+	@ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxesRate, quote.taxes, quote.total]") // tmp
 	Collection<QuoteDetail> details;
 
 	@PrePersist
@@ -57,8 +65,10 @@ public class Quote extends Identifiable {
 		return sum;
 	}
 	
+	@Depends("taxesRate") // tmp ¿Hacerlo opcional?
 	public BigDecimal getTaxes() {
-		return getAmountsSum().multiply(new BigDecimal("0.21"));
+		// tmp return getAmountsSum().multiply(new BigDecimal("0.21"));
+		return getAmountsSum().multiply(getTaxesRate()).divide(new BigDecimal("100")); // tmp
 	}
 	
 	public BigDecimal getTotal() {
