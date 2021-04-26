@@ -242,22 +242,28 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertTotalInCollection("details", 1, "amount", "21.00"); // tmp Indice de abajo recorridos
 		assertTotalInCollection("details", 2, "amount", "15.33");
 		assertTotalInCollection("details", 3, "amount", "88.33");	
-		
-		// tmp ini Cambiar título del método test
-		// tmp Cuando funcione debería probar con InvoiceDemo
-		// TMP ME QUEDÉ POR AQUÍ: LO DE ABAJO NO FALLA, PORQUE EL BUG ES SOLO CON ENTIDADES EXISTENTES,
-		// TMP  PODRÍA PROBAR EN: testElementCollectionGetEntity_removingRowUpdatesTotals_addingSeveralRowsAfterRemoving_referenceSearchCorrectIndexAfterRemoving_calculatedPropertiesDependingOnTotals()
-		// TMP  O EN OTRO QUE LEA UNA Quote EXISTENT
-		setValue("taxesRate", "23"); 
-		assertTotalInCollection("details", 2, "amount", "16.79");
-		assertTotalInCollection("details", 3, "amount", "89.79");	
-		// tmp fin
-		
+				
 		execute("Quote.setQuantitiesToSeven");
 		assertValueInCollection("details", 0, "product.number", "2");
 		assertValueInCollection("details", 0, "quantity", "7");		
 		assertValueInCollection("details", 1, "product.number", "1");
 		assertValueInCollection("details", 1, "quantity", "7");
+	}
+	
+	public void testElementCollectionChangeTotalProperyRecaculatesDependentPropertiesOnExistingEntity() throws Exception {
+		// Only fails if we change the property before touching any collection value
+		// and only in existing entities, not creating new ones.
+		// TMP ME QUEDÉ POR AQUÍ: HACER EL TEST
+		
+		// tmp ini Cambiar título del método test
+		// tmp Cuando funcione debería probar con InvoiceDemo
+		/*
+		setValue("taxesRate", "23"); 
+		assertTotalInCollection("details", 2, "amount",  "28.06");
+		assertTotalInCollection("details", 3, "amount", "150.06");
+		*/
+		// tmp fin
+
 	}
 	
 	public void testElementCollectionGetEntity_removingRowUpdatesTotals_addingSeveralRowsAfterRemoving_referenceSearchCorrectIndexAfterRemoving_calculatedPropertiesDependingOnTotals() throws Exception {  
@@ -270,25 +276,26 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertMessage("MULTAS DE TRAFICO, IBM ESERVER ISERIES 270, XAVA");
 		
 		assertTotalInCollection("details", 0, "amount", "162.00");
-		assertTotalInCollection("details", 1, "amount",  "34.02");
-		assertTotalInCollection("details", 2, "amount", "196.02");
+		assertTotalInCollection("details", 1, "amount",  "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 2, "amount",  "34.02");
+		assertTotalInCollection("details", 3, "amount", "196.02");
 		assertValue("estimatedProfit", "19.60"); 
 		
 		removeRow(1); 
 		
 		assertTotalInCollection("details", 0, "amount", "102.00");
-		assertTotalInCollection("details", 1, "amount",  "21.42");
-		assertTotalInCollection("details", 2, "amount", "123.42");		
+		assertTotalInCollection("details", 1, "amount",  "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 2, "amount",  "21.42");
+		assertTotalInCollection("details", 3, "amount", "123.42");		
 		assertValue("estimatedProfit", "12.34"); 
 		
 		setValueInCollection("details", 1, "quantity", "5");
 		assertValueInCollection("details", 1, "amount", "100.00"); 
 		assertTotalInCollection("details", 0, "amount", "122.00");
-		assertTotalInCollection("details", 1, "amount",  "25.62");
-		assertTotalInCollection("details", 2, "amount", "147.62");
+		assertTotalInCollection("details", 1, "amount",  "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 2, "amount",  "25.62");
+		assertTotalInCollection("details", 3, "amount", "147.62");
 		assertValue("estimatedProfit", "14.76"); 
-		
-		// TMP PUEDE QUE ESTE SEA UN BUEN PUNTO PARA AÑADIR EL TEST
 		
 		setValueInCollection("details", 2, "product.number", "1");
 		assertValueInCollection("details", 2, "product.description", "MULTAS DE TRAFICO");
