@@ -1376,7 +1376,7 @@ public class View implements java.io.Serializable {
 					subview.refreshCollection(); 
 				}		
 			}
-			else { 					
+			else { 		
 				if (values == null) values = new HashMap();					
 				value = Strings.removeXSS(value);
 				values.put(name, value);
@@ -1409,6 +1409,40 @@ public class View implements java.io.Serializable {
 		return true;
 	}
 	
+	private void resetElementCollectionTotalsForProperty(String name) { // tmp
+		collectionTotals = null;
+		if (hasSubviews()) { 
+			Iterator it = getSubviews().values().iterator();
+
+			while (it.hasNext()) {
+				View subview = (View) it.next();
+				if (subview.isRepresentsElementCollection()) {
+					if (subview.collectionTotals != null && subview.collectionTotals.containsKey(name)) {
+						subview.collectionTotals = null;
+					}
+				}
+														
+			}
+		}
+				
+		if (hasGroups()) {
+			Iterator it = getGroupsViews().values().iterator();
+			while (it.hasNext()) {
+				View subview = (View) it.next();
+				subview.resetElementCollectionTotalsForProperty(name);
+			}
+		}
+				
+		if (hasSections()) {
+			int count = getSections().size();
+			for (int i = 0; i < count; i++) {
+				View subview = getSectionView(i); 
+				subview.resetElementCollectionTotalsForProperty(name);
+			}	
+		}					 	
+		
+	}
+
 	/** @since 6.3 */
 	public boolean isDataChanged() {  
 		return dataChanged;
@@ -2049,7 +2083,7 @@ public class View implements java.io.Serializable {
 	/**
 	 * @since 5.9
 	 */
-	public void removeCollectionSumProperty(String property) { 
+	public void removeCollectionSumProperty(String property) {
 		assertRepresentsCollection("removeCollectionSumProperty()");
 		getSumProperties().remove(property);
 		collectionTotals = null;
@@ -3439,6 +3473,8 @@ public class View implements java.io.Serializable {
 					}
 				}
 			}
+			
+			resetElementCollectionTotalsForProperty(name); // tmp
 		}
 		catch (ElementNotFoundException ex) {
 			// So that sections that do not have all the properties do not throw exceptions

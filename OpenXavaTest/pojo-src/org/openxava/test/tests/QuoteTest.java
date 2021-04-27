@@ -253,15 +253,23 @@ public class QuoteTest extends EmailNotificationsTestBase {
 	public void testElementCollectionChangeTotalProperyRecaculatesDependentPropertiesOnExistingEntity() throws Exception {
 		// Only fails if we change the property before touching any collection value
 		// and only in existing entities, not creating new ones.
-		// TMP ME QUEDÉ POR AQUÍ: HACER EL TEST
 		
-		// tmp ini Cambiar título del método test
+		// tmp ini 
 		// tmp Cuando funcione debería probar con InvoiceDemo
-		/*
+		execute("List.viewDetail", "row=0");
+		assertValue("year", "2014"); // This one ... 
+		assertValue("number", "1");  // ... has 3 details
+		
+		assertTotalInCollection("details", 0, "amount", "162.00");
+		assertTotalInCollection("details", 1, "amount",  "21.00"); 
+		assertTotalInCollection("details", 2, "amount",  "34.02");
+		assertTotalInCollection("details", 3, "amount", "196.02");
+		assertValue("estimatedProfit", "19.60");
+		
 		setValue("taxesRate", "23"); 
-		assertTotalInCollection("details", 2, "amount",  "28.06");
-		assertTotalInCollection("details", 3, "amount", "150.06");
-		*/
+		assertTotalInCollection("details", 2, "amount",  "37.26"); // TMP ME QUEDÉ POR AQUÍ: FALLA, AUNQUE EL DE ABAJO PARECE QUE SÍ QUE VA
+		assertTotalInCollection("details", 3, "amount", "199.26");
+		assertValue("estimatedProfit", "19.92");
 		// tmp fin
 
 	}
