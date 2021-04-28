@@ -42,8 +42,9 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 0, "amount", "200.00");  
 		
 		assertTotalInCollection("details", 0, "amount", "200.00");
-		assertTotalInCollection("details", 1, "amount",  "42.00");
-		assertTotalInCollection("details", 2, "amount", "242.00");
+		assertTotalInCollection("details", 1, "amount",  "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 2, "amount",  "42.00");
+		assertTotalInCollection("details", 3, "amount", "242.00");
 		
 		execute("Reference.search", "keyProperty=details.1.product.number");
 		execute("ReferenceSearch.choose", "row=1");
@@ -55,8 +56,9 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 1, "amount", "7,000.00");
 		
 		assertTotalInCollection("details", 0, "amount", "7,200.00");
-		assertTotalInCollection("details", 1, "amount", "1,512.00");
-		assertTotalInCollection("details", 2, "amount", "8,712.00");
+		assertTotalInCollection("details", 1, "amount",    "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 2, "amount", "1,512.00");
+		assertTotalInCollection("details", 3, "amount", "8,712.00");
 		
 		assertCollectionRowCount("details", 2);		
 		execute("CRUD.save");
@@ -88,15 +90,17 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 1, "amount", "7,000.00");
 		
 		assertTotalInCollection("details", 0, "amount", "7,200.00");
-		assertTotalInCollection("details", 1, "amount", "1,512.00");
-		assertTotalInCollection("details", 2, "amount", "8,712.00");
+		assertTotalInCollection("details", 1, "amount",    "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 2, "amount", "1,512.00");
+		assertTotalInCollection("details", 3, "amount", "8,712.00");
 		
 		setValueInCollection("details", 1, "quantity", "2");
 		assertValueInCollection("details", 1, "amount", "14,000.00");
 		
 		assertTotalInCollection("details", 0, "amount", "14,200.00");
-		assertTotalInCollection("details", 1, "amount",  "2,982.00");
-		assertTotalInCollection("details", 2, "amount", "17,182.00");
+		assertTotalInCollection("details", 1, "amount",     "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 2, "amount",  "2,982.00");
+		assertTotalInCollection("details", 3, "amount", "17,182.00");
 		
 		execute("Reference.search", "keyProperty=details.0.product.number");
 		execute("ReferenceSearch.choose", "row=3");
@@ -119,8 +123,9 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 0, "amount", "200.00");
 		
 		assertTotalInCollection("details", 0, "amount", "200.00");
-		assertTotalInCollection("details", 1, "amount",  "42.00");
-		assertTotalInCollection("details", 2, "amount", "242.00");
+		assertTotalInCollection("details", 1, "amount",  "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 2, "amount",  "42.00");
+		assertTotalInCollection("details", 3, "amount", "242.00");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		assertValue("year", "2015");
@@ -178,8 +183,9 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 1, "quantity", "1");
 		assertValueInCollection("details", 1, "amount", "7,000.00");		
 		assertTotalInCollection("details", 0, "amount", "7,200.00");
-		assertTotalInCollection("details", 1, "amount", "1,512.00");
-		assertTotalInCollection("details", 2, "amount", "8,712.00");
+		assertTotalInCollection("details", 1, "amount",    "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 2, "amount", "1,512.00");
+		assertTotalInCollection("details", 3, "amount", "8,712.00");
 		
 		assertAction("Quote.removeDetail", "row=0,viewObject=xava_view_section0_details"); // Important, inside a section
 		execute("Quote.removeDetail", "row=0,viewObject=xava_view_section0_details");
@@ -193,8 +199,9 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 0, "quantity", "1");
 		assertValueInCollection("details", 0, "amount", "7,000.00");		
 		assertTotalInCollection("details", 0, "amount", "7,000.00");
-		assertTotalInCollection("details", 1, "amount", "1,470.00");
-		assertTotalInCollection("details", 2, "amount", "8,470.00");
+		assertTotalInCollection("details", 1, "amount",    "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 2, "amount", "1,470.00");
+		assertTotalInCollection("details", 3, "amount", "8,470.00");
 	}
 	
 	public void testDependentDefaultValueCalculatorInElementCollection_viewSetValueForElementCollection() throws Exception {   
@@ -267,9 +274,9 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValue("estimatedProfit", "19.60");
 		
 		setValue("taxesRate", "23"); 
-		assertTotalInCollection("details", 2, "amount",  "37.26"); // TMP ME QUEDÉ POR AQUÍ: FALLA, AUNQUE EL DE ABAJO PARECE QUE SÍ QUE VA
+		assertTotalInCollection("details", 2, "amount",  "37.26"); 
 		assertTotalInCollection("details", 3, "amount", "199.26");
-		assertValue("estimatedProfit", "19.92");
+		assertValue("estimatedProfit", "19.93");
 		// tmp fin
 
 	}

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Changing total property in @ElementCollection for existing entity not recalculated dependent values. 
 - Fix: NullPointerException in log filtering in a list in the dialog to choose an element for a reference.
 - Fix: Last new line ( ; ) in a @View used as base with view inheritance is ignored. 
 - Fix: Modifying a transient reference by code produces the "Changed data" message on exit. 

@@ -65,12 +65,13 @@ public class Quote extends Identifiable {
 		return sum;
 	}
 	
-	@Depends("taxesRate") // tmp ¿Hacerlo opcional?
+	@Depends("amountsSum, taxesRate") // tmp 
 	public BigDecimal getTaxes() {
 		// tmp return getAmountsSum().multiply(new BigDecimal("0.21"));
 		return getAmountsSum().multiply(getTaxesRate()).divide(new BigDecimal("100")); // tmp
 	}
 	
+	@Depends("amountsSum, taxes") // tmp
 	public BigDecimal getTotal() {
 		return getAmountsSum().add(getTaxes());
 	}	

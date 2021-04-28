@@ -66,8 +66,8 @@ public class AJAXTest extends ModuleTestBase {
 		assertLoadedParts( 
 			"editor_details.0.amount," +
 			"collection_total_0_4_details.," +
-			"collection_total_1_4_details.," +
-			"collection_total_2_4_details.," +	
+			"collection_total_2_4_details.," +
+			"collection_total_3_4_details.," +	
 			"editor_estimatedProfit," + 
 			"errors, messages");
 		setValueInCollection("details", 1, "product.number", "1");
@@ -76,16 +76,16 @@ public class AJAXTest extends ModuleTestBase {
 			"editor_details.1.unitPrice," + 
 			"editor_details.1.amount," +
 			"collection_total_0_4_details.," +
-			"collection_total_1_4_details.," +
 			"collection_total_2_4_details.," +
+			"collection_total_3_4_details.," +
 			"editor_estimatedProfit," + 
 			"errors, messages");
 		setValueInCollection("details", 2, "quantity", "61");		
 		assertLoadedParts(
 			"editor_details.2.amount," +
 			"collection_total_0_4_details.," +
-			"collection_total_1_4_details.," +
 			"collection_total_2_4_details.," +
+			"collection_total_3_4_details.," +
 			"editor_estimatedProfit," + 
 			"errors, messages");
 		setValue("customer.number", "2"); // To test that the collection is not affected
@@ -106,8 +106,8 @@ public class AJAXTest extends ModuleTestBase {
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		assertLoadedParts(
 			"collection_total_0_4_details.," +
-			"collection_total_1_4_details.," +
 			"collection_total_2_4_details.," +
+			"collection_total_3_4_details.," +
 			"editor_estimatedProfit," + 
 			"errors, messages");		
 		

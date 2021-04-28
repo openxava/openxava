@@ -1380,6 +1380,7 @@ public class View implements java.io.Serializable {
 				if (values == null) values = new HashMap();					
 				value = Strings.removeXSS(value);
 				values.put(name, value);
+				resetElementCollectionTotalsForProperty(name); // tmp
 			}	
 		} 
 		else if (displayAsDescriptionsList()) {
@@ -1410,7 +1411,6 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void resetElementCollectionTotalsForProperty(String name) { // tmp
-		collectionTotals = null;
 		if (hasSubviews()) { 
 			Iterator it = getSubviews().values().iterator();
 
@@ -1418,7 +1418,7 @@ public class View implements java.io.Serializable {
 				View subview = (View) it.next();
 				if (subview.isRepresentsElementCollection()) {
 					if (subview.collectionTotals != null && subview.collectionTotals.containsKey(name)) {
-						subview.collectionTotals = null;
+						if (isEditable(name)) subview.collectionTotals = null;
 					}
 				}
 														
@@ -1440,7 +1440,6 @@ public class View implements java.io.Serializable {
 				subview.resetElementCollectionTotalsForProperty(name);
 			}	
 		}					 	
-		
 	}
 
 	/** @since 6.3 */
@@ -3419,7 +3418,6 @@ public class View implements java.io.Serializable {
 		return !Is.emptyString(getNameOfLastPropertyMarkedAsSearchKey());
 	}
 	
-
 	private void propertyChanged(String propertyId) {
 		try {		
 			String name = Ids.undecorate(propertyId);
@@ -3473,8 +3471,6 @@ public class View implements java.io.Serializable {
 					}
 				}
 			}
-			
-			resetElementCollectionTotalsForProperty(name); // tmp
 		}
 		catch (ElementNotFoundException ex) {
 			// So that sections that do not have all the properties do not throw exceptions
@@ -3484,7 +3480,7 @@ public class View implements java.io.Serializable {
 			getErrors().add("change_property_error");
 		}			
 	}
-	
+		
 	private void propertyChanged(MetaProperty changedProperty, String changedPropertyQualifiedName) { 
 		try {			
 			tryPropertyChanged(changedProperty, changedPropertyQualifiedName);
@@ -5726,7 +5722,7 @@ public class View implements java.io.Serializable {
 		{
 			result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
 			return;
-		}		 				
+		}
 		
 		if (displayReferenceWithNotCompositeEditor() && 
 			getParent().hasEditableMemberChanged(getMemberName()))
@@ -5748,7 +5744,7 @@ public class View implements java.io.Serializable {
 		{
 			result.put(getPropertyPrefix().replace(".", ""), getViewForChangedProperty()); 
 		}
-				
+		
 		if (oldValues == null) oldValues = Collections.EMPTY_MAP;
 		if (values == null) values = new HashMap();
 		for (Iterator it=values.entrySet().iterator(); it.hasNext(); ) { 
