@@ -39,7 +39,7 @@ public class Quote extends Identifiable {
 	@DefaultValueCalculator(value=BigDecimalCalculator.class,
 		properties = @PropertyValue(name="value", value="21")	
 	)
-	BigDecimal taxesRate; // tmp
+	BigDecimal taxesRate; 
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@ReferenceView("Simplest")
@@ -48,8 +48,7 @@ public class Quote extends Identifiable {
 	@RemoveSelectedAction(forViews="QuoteWithRemoveElementCollection", value="Quote.removeDetail") 
 	@javax.validation.constraints.Size(min=1, max=3)  
 	@ElementCollection
-	// tmp @ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxes, quote.total]")
-	@ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxesRate, quote.taxes, quote.total]") // tmp
+	@ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxesRate, quote.taxes, quote.total]") 
 	Collection<QuoteDetail> details;
 
 	@PrePersist
@@ -65,13 +64,12 @@ public class Quote extends Identifiable {
 		return sum;
 	}
 	
-	@Depends("amountsSum, taxesRate") // tmp 
+	@Depends("amountsSum, taxesRate") 
 	public BigDecimal getTaxes() {
-		// tmp return getAmountsSum().multiply(new BigDecimal("0.21"));
-		return getAmountsSum().multiply(getTaxesRate()).divide(new BigDecimal("100")); // tmp
+		return getAmountsSum().multiply(getTaxesRate()).divide(new BigDecimal("100")); 
 	}
 	
-	@Depends("amountsSum, taxes") // tmp
+	@Depends("amountsSum, taxes") 
 	public BigDecimal getTotal() {
 		return getAmountsSum().add(getTaxes());
 	}	

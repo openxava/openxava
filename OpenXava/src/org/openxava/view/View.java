@@ -1380,7 +1380,7 @@ public class View implements java.io.Serializable {
 				if (values == null) values = new HashMap();					
 				value = Strings.removeXSS(value);
 				values.put(name, value);
-				resetElementCollectionTotalsForProperty(name); // tmp
+				resetElementCollectionTotalsForProperty(name); 
 			}	
 		} 
 		else if (displayAsDescriptionsList()) {
@@ -1410,7 +1410,7 @@ public class View implements java.io.Serializable {
 		return true;
 	}
 	
-	private void resetElementCollectionTotalsForProperty(String name) { // tmp
+	private void resetElementCollectionTotalsForProperty(String name) { 
 		if (hasSubviews()) { 
 			Iterator it = getSubviews().values().iterator();
 

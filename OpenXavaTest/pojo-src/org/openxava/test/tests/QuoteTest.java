@@ -42,7 +42,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 0, "amount", "200.00");  
 		
 		assertTotalInCollection("details", 0, "amount", "200.00");
-		assertTotalInCollection("details", 1, "amount",  "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount",  "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "42.00");
 		assertTotalInCollection("details", 3, "amount", "242.00");
 		
@@ -56,7 +56,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 1, "amount", "7,000.00");
 		
 		assertTotalInCollection("details", 0, "amount", "7,200.00");
-		assertTotalInCollection("details", 1, "amount",    "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount",    "21.00"); 
 		assertTotalInCollection("details", 2, "amount", "1,512.00");
 		assertTotalInCollection("details", 3, "amount", "8,712.00");
 		
@@ -90,7 +90,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 1, "amount", "7,000.00");
 		
 		assertTotalInCollection("details", 0, "amount", "7,200.00");
-		assertTotalInCollection("details", 1, "amount",    "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount",    "21.00"); 
 		assertTotalInCollection("details", 2, "amount", "1,512.00");
 		assertTotalInCollection("details", 3, "amount", "8,712.00");
 		
@@ -98,7 +98,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 1, "amount", "14,000.00");
 		
 		assertTotalInCollection("details", 0, "amount", "14,200.00");
-		assertTotalInCollection("details", 1, "amount",     "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount",     "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "2,982.00");
 		assertTotalInCollection("details", 3, "amount", "17,182.00");
 		
@@ -123,7 +123,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 0, "amount", "200.00");
 		
 		assertTotalInCollection("details", 0, "amount", "200.00");
-		assertTotalInCollection("details", 1, "amount",  "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount",  "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "42.00");
 		assertTotalInCollection("details", 3, "amount", "242.00");
 		execute("Mode.list");
@@ -183,7 +183,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 1, "quantity", "1");
 		assertValueInCollection("details", 1, "amount", "7,000.00");		
 		assertTotalInCollection("details", 0, "amount", "7,200.00");
-		assertTotalInCollection("details", 1, "amount",    "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount",    "21.00"); 
 		assertTotalInCollection("details", 2, "amount", "1,512.00");
 		assertTotalInCollection("details", 3, "amount", "8,712.00");
 		
@@ -199,7 +199,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 0, "quantity", "1");
 		assertValueInCollection("details", 0, "amount", "7,000.00");		
 		assertTotalInCollection("details", 0, "amount", "7,000.00");
-		assertTotalInCollection("details", 1, "amount",    "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount",    "21.00"); 
 		assertTotalInCollection("details", 2, "amount", "1,470.00");
 		assertTotalInCollection("details", 3, "amount", "8,470.00");
 	}
@@ -213,7 +213,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 0, "amount", "22.00"); 
 		
 		assertTotalInCollection("details", 0, "amount", "22.00");
-		assertTotalInCollection("details", 1, "amount", "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount", "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "4.62");
 		assertTotalInCollection("details", 3, "amount", "26.62");
 		
@@ -225,7 +225,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 1, "amount", "60.00");
 		
 		assertTotalInCollection("details", 0, "amount", "82.00");
-		assertTotalInCollection("details", 1, "amount", "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount", "21.00"); 
 		assertTotalInCollection("details", 2, "amount", "17.22");
 		assertTotalInCollection("details", 3, "amount", "99.22");
 
@@ -235,7 +235,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 0, "amount", "40.00");
 		
 		assertTotalInCollection("details", 0, "amount", "100.00");
-		assertTotalInCollection("details", 1, "amount",  "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount",  "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "21.00");
 		assertTotalInCollection("details", 3, "amount", "121.00");
 		
@@ -246,7 +246,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 1, "amount", "33.00");
 		
 		assertTotalInCollection("details", 0, "amount", "73.00");
-		assertTotalInCollection("details", 1, "amount", "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount", "21.00"); 
 		assertTotalInCollection("details", 2, "amount", "15.33");
 		assertTotalInCollection("details", 3, "amount", "88.33");	
 				
@@ -261,8 +261,6 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		// Only fails if we change the property before touching any collection value
 		// and only in existing entities, not creating new ones.
 		
-		// tmp ini 
-		// tmp Cuando funcione debería probar con InvoiceDemo
 		execute("List.viewDetail", "row=0");
 		assertValue("year", "2014"); // This one ... 
 		assertValue("number", "1");  // ... has 3 details
@@ -277,8 +275,6 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertTotalInCollection("details", 2, "amount",  "37.26"); 
 		assertTotalInCollection("details", 3, "amount", "199.26");
 		assertValue("estimatedProfit", "19.93");
-		// tmp fin
-
 	}
 	
 	public void testElementCollectionGetEntity_removingRowUpdatesTotals_addingSeveralRowsAfterRemoving_referenceSearchCorrectIndexAfterRemoving_calculatedPropertiesDependingOnTotals() throws Exception {  
