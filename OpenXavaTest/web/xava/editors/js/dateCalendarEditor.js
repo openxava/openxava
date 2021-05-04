@@ -4,8 +4,8 @@ openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.
 
 openxava.addEditorInitFunction(function() {
 	if (openxava.browser.htmlUnit) return;
-	$('.xava_date > input').first().css("background-color", "pink"); // tmp 
-	$('.xava_date > input').first().change(function() {
+	// $('.xava_date > input').first().change(function() {
+	$('.xava_date > input').change(function() { // tmp
 		console.log("[openxava.addEditorInitFunction.change] "); // tmp
 		var dateFormat = $(this).parent().data("dateFormat");
   		var date = $(this).val();

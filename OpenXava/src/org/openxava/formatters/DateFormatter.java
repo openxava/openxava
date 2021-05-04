@@ -67,7 +67,7 @@ public class DateFormatter implements IFormatter {
 	private DateFormat getDateFormat() {
 		if (isExtendedFormat()) return extendedDateFormat;
 		if (isDotFormat()) return dotDateFormat; 
-		return DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent());		
+		return DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent()); // TMP ME QUEDÉ POR AQUÍ: HACER QUE ESTO FORMATEE SIEMPRE CON 4 AÑOS. TAMBIÉN PARA LOCALDATE Y CON TIMES		
 	}
 	
 	private DateFormat[] getDateFormats() {
