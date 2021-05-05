@@ -38,7 +38,7 @@ public class DeliveryTypeWithDeliveriesTest extends ModuleTestBase {
 		execute("Collection.hideDetail");
 		
 		execute("Mode.list");
-		assertValueInList(6, 0, "66");
+		assertValueInList(6, 0, "66"); // TMP FALLA
 		execute("List.viewDetail", "row=6");
 		assertValue("number", "66");
 		assertCollectionRowCount("deliveries", 1);

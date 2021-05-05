@@ -1,6 +1,8 @@
 package org.openxava.util;
 
 import java.text.*;
+import java.time.chrono.*;
+import java.time.format.*;
 import java.util.*;
 
 import org.openxava.formatters.*;
@@ -243,9 +245,11 @@ public class Dates {
 	 * @return Not null
 	 * @since 6.0
 	 */	
-	public static DateFormat getDateTimeFormat(Locale locale) {   
+	public static DateFormat getDateTimeFormat(Locale locale) {  
+		// tmp ¿Se testea?
 		// To use the Java 8 (and previous) format for Java 9 and better
 		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
+		/* tmp
 		if (XSystem.isJava9orBetter() && df instanceof SimpleDateFormat) {
 			String pattern = ((SimpleDateFormat) df).toPattern();
 			pattern = pattern.replace(", ", " ");
@@ -255,11 +259,31 @@ public class Dates {
 	        sdf.setDateFormatSymbols(symbols);			
 			df = sdf;
 		}
+		*/
+		// tmp ini
+		if (df instanceof SimpleDateFormat) {
+			String pattern = ((SimpleDateFormat) df).toPattern();
+			boolean java9 = XSystem.isJava9orBetter();
+			if (java9) pattern = pattern.replace(", ", " ");
+			if (!pattern.contains("yyyy")) pattern = pattern.replace("yy", "yyyy");
+			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+			if (java9) {
+				DateFormatSymbols symbols = new DateFormatSymbols(locale);
+		        symbols.setAmPmStrings(new String[] { "AM", "PM" });
+		        sdf.setDateFormatSymbols(symbols);
+			}
+			df = sdf;
+		}		
+		// tmp fin
 		return df;
 	}
-
-
 	
+	public static String getLocalizedDatePattern(Locale locale) { // tmp
+		String pattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern(FormatStyle.SHORT, null, IsoChronology.INSTANCE, locale);
+		if (pattern.contains("yyyy")) return pattern;
+		return pattern.replace("yy", "yyyy");
+	}
+
 	/**
 	 * Creates a date with day, month and year of original,
 	 * but with current time. <p>

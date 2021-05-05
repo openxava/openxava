@@ -23,7 +23,7 @@ public class ShipmentSeparatedTimeTest extends ModuleTestBase {
 		assertValues("time", emptyTime); 
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
-		assertValues("time", time); 
+		assertValues("time", time); // TMP FALLA
 		setValues("time", emptyTime);
 		execute("CRUD.save");
 		assertNoErrors();

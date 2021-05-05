@@ -1,6 +1,6 @@
 package org.openxava.test.tests;
 
-import org.openxava.tests.ModuleTestBase;
+import org.openxava.tests.*;
 
 /**
  * @author Javier Paniza
@@ -12,7 +12,7 @@ public class InvoiceWithParameterInURLTest extends ModuleTestBase {
 		super(testName, "InvoiceWithParameterInURL");		
 	}
 	
-	public void testParametersInURL() throws Exception {
+	public void testParametersInURL() throws Exception { 
 		assertListRowCount(1); // Only one Invoice from 2002 
 		execute("List.filter");
 		assertListRowCount(1);

@@ -1,13 +1,13 @@
 package org.openxava.test.tests;
 
-import org.openxava.tests.ModuleTestBase;
+import org.openxava.tests.*;
 
 /**
  * 
  * @author Federico Alcantara
  */
 
-public class IssueWebTest extends ModuleTestBase {
+public class IssueWebTest extends ModuleTestBase { 
 	
 	private String newParameters="";
 	

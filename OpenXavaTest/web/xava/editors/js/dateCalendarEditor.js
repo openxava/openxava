@@ -10,7 +10,9 @@ openxava.addEditorInitFunction(function() {
 		var dateFormat = $(this).parent().data("dateFormat");
   		var date = $(this).val();
 		if (date === "") return;
-		var separator = dateFormat.substr(-2, 1);
+		// tmp var separator = dateFormat.substr(-2, 1);
+		var separator = dateFormat.substr(1, 1); // tmp
+		console.log("[openxava.addEditorInitFunction.change] separator=" + separator); // tmp
 		var idx = date.lastIndexOf(separator);
 		if (idx < 0) {
 			if (date.length % 2 != 0) date = " " + date;
@@ -20,12 +22,45 @@ openxava.addEditorInitFunction(function() {
 			date = first + separator + middle + separator + year;			
 		}	
 		idx = date.lastIndexOf(separator);
-		if (dateFormat.substr(-1) === "Y" && date.length - idx < 4) {
+		console.log("[openxava.addEditorInitFunction.change] date> " + date); // tmp
+		console.log("[openxava.addEditorInitFunction.change] idx=" + idx); // tmp
+		console.log("[openxava.addEditorInitFunction.change] dateFormat=" + dateFormat); // tmp
+		// tmp ini
+		var idxSpace = date.lastIndexOf(' ');
+		var pureDate = date;
+		var time = "";
+		console.log("[openxava.addEditorInitFunction.change] idxSpace=" + idxSpace); // tmp
+		if (idxSpace >= 0) {
+			time = date.substr(idxSpace);
+			pureDate = date.substr(0, idxSpace);
+			console.log("[openxava.addEditorInitFunction.change] pureDate>" + pureDate + "<"); // tmp
+			console.log("[openxava.addEditorInitFunction.change] time>" + time + "<"); // tmp
+		}
+		if (dateFormat.indexOf('Y') >= 0 && pureDate.length - idx < 4) { // tmp
+  			var dateNoYear = pureDate.substring(0, idx);
+  			var year = pureDate.substring(idx + 1);
+  			var prefix = year > 50?"19":"20";
+  			console.log("[openxava.addEditorInitFunction.change] dateNoYear=" + dateNoYear); // tmp
+  			console.log("[openxava.addEditorInitFunction.change] year=" + year); // tmp
+  			console.log("[openxava.addEditorInitFunction.change] prefix=" + prefix); // tmp
+  			date = dateNoYear + separator + prefix + year + time; // tmp
+  			console.log("[openxava.addEditorInitFunction.change] date< " + date); // tmp	  			 
+  		}			
+		// tmp fin
+		/* tmp 
+		// tmp if (dateFormat.substr(-1) === "Y" && date.length - idx < 4) {
+		if (dateFormat.indexOf('Y') >= 0 && date.length - idx < 4) { // tmp
   			var dateNoYear = date.substring(0, idx);
   			var year = date.substring(idx + 1);
   			var prefix = year > 50?"19":"20";
-  			date = dateNoYear + separator + prefix + year;	  			 
+  			console.log("[openxava.addEditorInitFunction.change] dateNoYear=" + dateNoYear); // tmp
+  			console.log("[openxava.addEditorInitFunction.change] year=" + year); // tmp
+  			console.log("[openxava.addEditorInitFunction.change] prefix=" + prefix); // tmp
+  			// tmp date = dateNoYear + separator + prefix + year;
+  			date = dateNoYear + separator + prefix + year + time; // tmp
+  			console.log("[openxava.addEditorInitFunction.change] date< " + date); // tmp	  			 
   		}	
+  		*/
   		$(this).val(date);
 	});
 	$('.flatpickr-calendar').remove();

@@ -1,14 +1,13 @@
 package org.openxava.test.tests;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.openxava.tests.ModuleTestBase;
+import org.apache.commons.logging.*;
+import org.openxava.tests.*;
 
 /**
  * Create on 21/01/2009 (17:18:32)
  * @autor Ana Andr�s
  */
-public class ColorM1Test extends ModuleTestBase {
+public class ColorM1Test extends ModuleTestBase { 
 	private static Log log = LogFactory.getLog(ColorM1Test.class);
 	
 	public ColorM1Test(String testName) {

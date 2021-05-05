@@ -2,6 +2,7 @@ package org.openxava.test.tests;
 
 import java.time.*;
 import java.time.format.*;
+
 import org.openxava.tests.*;
 
 /**
@@ -18,7 +19,7 @@ public class Invoice6Test extends ModuleTestBase {
 	}
 	
 	public void testLocalDate() throws Exception {
-		assertValueInList(0, 2, "1/1/02");
+		assertValueInList(0, 2, "1/1/02"); // TMP FALLA
 		assertValueInList(1, 2, "1/4/04");
 		execute("List.viewDetail", "row=0");
 		assertValue("date", "1/1/02");
@@ -75,7 +76,7 @@ public class Invoice6Test extends ModuleTestBase {
 		assertListRowCount(3);
 		assertValueInList(0, 0, "2004");
 		assertValueInList(0, 1, "2");
-		assertValueInList(0, 2, "1/4/04");
+		assertValueInList(0, 2, "1/4/04"); // TMP FALLA
 		assertValueInList(1, 0, "2004");
 		assertValueInList(1, 1, "9");
 		assertValueInList(1, 2, "1/4/04");
@@ -127,7 +128,7 @@ public class Invoice6Test extends ModuleTestBase {
 		);
 		
 		assertListRowCount(9);
-		assertValuesInList(0, "2002",  "1",  "1/1/02",  "2,500.00");
+		assertValuesInList(0, "2002",  "1",  "1/1/02",  "2,500.00"); // TMP FALLA
 		assertValuesInList(1, "2004",  "2",  "1/4/04",     "11.00");
 		assertValuesInList(2, "2004",  "9",  "1/4/04",  "4,396.00");
 		assertValuesInList(3, "2004", "10", "12/4/04",  "1,189.00");

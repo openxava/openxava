@@ -14,7 +14,7 @@ public class TransportChargeWithDescriptionsListShowingReferenceViewTest extends
 		deleteAll();
 		createSome();
 		resetModule(); // For refresh 
-		assertValueInList(1, 0, "2004"); 
+		assertValueInList(1, 0, "2004"); // TMP FALLA 
 		execute("List.viewDetail", "row=1");
 		assertNoAction("Reference.createNew", "model=Delivery,keyProperty=delivery__KEY__");
 		assertNoAction("Reference.modify", "model=Delivery,keyProperty=delivery__KEY__");

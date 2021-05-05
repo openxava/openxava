@@ -13,7 +13,7 @@ public class ExperienceWithSimplestProgrammerTest extends ModuleTestBase {
 		super(testName, "ExperienceWithSimplestProgrammer");		
 	}
 	
-	public void testPolymorphicReferenceUsingReferenceView() throws Exception{
+	public void testPolymorphicReferenceUsingReferenceView() throws Exception{ 
 		execute("CRUD.new");
 		assertExists("programmer.name");
 		assertNotExists("programmer.sex");

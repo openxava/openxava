@@ -1,9 +1,8 @@
 package org.openxava.test.tests;
 
 import java.util.*;
-import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import org.openxava.tests.*;
 
 /**
  * 
@@ -30,7 +29,7 @@ public class AppointmentTest extends ModuleTestBase {
 		assertListRowCount(3); 
 		setConditionValues("5/26/15 10:15 AM");
 		execute("List.filter");
-		assertListRowCount(1); 
+		assertListRowCount(1); // TMP FALLA
 		assertValueInList(0, 0, "5/26/15 10:15 AM");
 		assertValueInList(0, 1, "ALMUERZO");		
 		execute("Print.generateExcel"); 
@@ -46,7 +45,7 @@ public class AppointmentTest extends ModuleTestBase {
 		execute("List.orderBy", "property=time");
 		assertListRowCount(4); 
 		assertValueInList(0, 0, "5/26/15 8:15 AM"); 
-		assertValueInList(0, 1, "DESAYUNO");
+		assertValueInList(0, 1, "DESAYUNO"); // TMP FALLA
 		assertValueInList(1, 0, "5/26/15 10:15 AM");
 		assertValueInList(1, 1, "ALMUERZO");
 		assertValueInList(2, 0, "5/26/15 12:34 PM");

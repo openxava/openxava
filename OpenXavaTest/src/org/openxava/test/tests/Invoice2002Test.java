@@ -1,12 +1,10 @@
 package org.openxava.test.tests;
 
-import java.util.*;
-
 /**
  * @author Javier Paniza
  */
 
-public class Invoice2002Test extends CustomizeListTestBase {
+public class Invoice2002Test extends CustomizeListTestBase { 
 	
 	
 	private String [] listActions = {

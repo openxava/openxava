@@ -12,7 +12,7 @@ public class NetMachineWithNewTest extends ModuleTestBase {
 		super(testName, "NetMachineWithNew");
 	}
 	
-	public void testWithoutRecordsExecutesNonCRUDNewOnInit() throws Exception {
+	public void testWithoutRecordsExecutesNonCRUDNewOnInit() throws Exception {  
 		assertExists("name");
 		assertExists("mac");
 	}

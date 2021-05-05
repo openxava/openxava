@@ -1,8 +1,6 @@
 package org.openxava.test.tests;
 
 import java.math.*;
-import java.text.*;
-import java.util.*;
 
 import org.openxava.util.*;
 
@@ -13,7 +11,7 @@ import junit.framework.*;
  * @author Javier Paniza
  */
 
-public class IsTest extends TestCase {
+public class IsTest extends TestCase { 
 	
 	public void testAnyEqual() throws Exception { 
 		assertTrue(Is.anyEqual("Juan", "Antonio", "Juan", "Marisa"));

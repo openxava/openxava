@@ -35,7 +35,7 @@ public class DeliveryTypeTest extends ModuleTestBase {
 		setValue("number", "66");
 		setValue("description", "JUNIT &%=+"); // &%=+ is to test URL special characters
 		execute("DeliveryType.saveNotReset");
-		assertNoErrors();
+		assertNoErrors(); // TMP FALLA
 		
 		assertValue("number", "66");		
 		assertValue("description", "JUNIT &%=+ CREATED"); // 'CREATED' is added in postcreate
@@ -82,7 +82,7 @@ public class DeliveryTypeTest extends ModuleTestBase {
 		setValue("number", "66");
 		setValue("description", "JUNIT"); 
 		execute("DeliveryType.saveResetOnCreateNotRefreshAfter");
-		assertNoErrors();
+		assertNoErrors(); // TMP FALLA
 		assertMessage("Delivery type created successfully");
 		assertValue("number", "");
 		assertValue("description", "");
@@ -176,7 +176,7 @@ public class DeliveryTypeTest extends ModuleTestBase {
 		setValue("number", "66");
 		setValue("description", "JUNIT");
 		execute("CRUD.save");
-		assertValue("number", ""); 
+		assertValue("number", ""); // TMP FALLA
 		assertValue("description", ""); 		
 		assertNoErrors();
 		assertMessage("Delivery type created successfully"); 

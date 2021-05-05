@@ -1,15 +1,15 @@
 package org.openxava.test.tests;
 
-import org.openxava.jpa.XPersistence;
-import org.openxava.test.model.TreeItem;
-import org.openxava.util.Is;
+import org.openxava.jpa.*;
+import org.openxava.test.model.*;
+import org.openxava.util.*;
 
 
 /**
  * @author Federico Alcantara
  */
 
-public class TreeViewDefaultPathPropertyBasedTest extends TreeViewTestBase {
+public class TreeViewDefaultPathPropertyBasedTest extends TreeViewTestBase { 
 	
 	public TreeViewDefaultPathPropertyBasedTest(String testName) {
 		super(testName, "TreeViewDefaultPathPropertyBased");		

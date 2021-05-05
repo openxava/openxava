@@ -1,9 +1,10 @@
 package org.openxava.formatters;
 
-import java.text.*;
 import java.time.*;
 import java.time.format.*;
+
 import javax.servlet.http.*;
+
 import org.openxava.util.*;
 
 /**
@@ -70,7 +71,10 @@ public class LocalDateFormatter implements IFormatter {
 	private DateTimeFormatter getFormatter() {
 		if (isExtendedFormat()) return extendedFormatter;
 		if (isDotFormat()) return dotFormatter; 
-		return DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locales.getCurrent());		
+		// tmp return DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locales.getCurrent());
+		return DateTimeFormatter // tmp ¿Se testea?
+			.ofPattern(Dates.getLocalizedDatePattern(Locales.getCurrent()))
+			.withResolverStyle(ResolverStyle.SMART); 
 	}
 	
 	private DateTimeFormatter[] getFormatters() {

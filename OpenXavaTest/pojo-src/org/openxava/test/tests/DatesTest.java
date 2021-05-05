@@ -1,7 +1,9 @@
 package org.openxava.test.tests;
 
 import java.util.*;
+
 import org.openxava.util.*;
+
 import junit.framework.*;
 
 /**
@@ -74,7 +76,7 @@ public class DatesTest extends TestCase {
 	
 	public void testDateTimeFormatForJSCalendar() throws Exception { 
 		Locales.setCurrent(Locale.US);
-		assertEquals("n/j/y h:i K", Dates.dateTimeFormatForJSCalendar()); // The Java 8 format for all Java versions
+		assertEquals("n/j/y h:i K", Dates.dateTimeFormatForJSCalendar()); // The Java 8 format for all Java versions // TMP FALLA
 		Locales.setCurrent((Locale)null);
 	}
 

@@ -19,7 +19,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Federico Alcántara
  */
 
-public class DeliveryTest extends ModuleTestBase {
+public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
 	
 	private String [] listActions = {
 		"Print.generatePdf",

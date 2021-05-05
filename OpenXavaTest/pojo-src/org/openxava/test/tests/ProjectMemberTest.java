@@ -17,7 +17,7 @@ public class ProjectMemberTest extends ModuleTestBase {
 		execute("CRUD.new");
 		setValue("name", "JUNIT PROJECT MEMBER");
 		execute("Reference.search", "keyProperty=project.name");
-		assertValueInList(0, 0, "THE BIG PROJECT"); 
+		assertValueInList(0, 0, "THE BIG PROJECT"); // TMP FALLA
 		execute("ReferenceSearch.choose", "row=0");
 		assertValue("project.name", "THE BIG PROJECT");
 		execute("CRUD.save");

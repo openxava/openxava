@@ -73,7 +73,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		
 		assertValue("year", "2015");
 		assertValue("number", "66");
-		assertValue("date", "1/1/15");
+		assertValue("date", "1/1/15"); // TMP FALLA
 		assertValue("customer.number", "1");
 		
 		assertCollectionRowCount("details", 2);
@@ -333,7 +333,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		subscribeToEmailNotifications();
 		
 		execute("List.viewDetail", "row=0");
-		assertValue("year", "2014");  
+		assertValue("year", "2014"); // TMP FALLA  
 		assertValue("number", "1");  		
 		execute("CRUD.save");
 		assertNoErrors();

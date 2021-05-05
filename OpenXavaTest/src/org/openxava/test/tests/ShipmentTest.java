@@ -11,7 +11,7 @@ import org.openxava.tests.*;
  * @author Javier Paniza
  */
 
-public class ShipmentTest extends ModuleTestBase {
+public class ShipmentTest extends ModuleTestBase { // TMP FALLAN VARIOS
 	
 	public ShipmentTest(String testName) {
 		super(testName, "Shipment");		

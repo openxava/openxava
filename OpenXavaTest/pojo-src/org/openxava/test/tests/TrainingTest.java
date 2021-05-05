@@ -32,7 +32,7 @@ public class TrainingTest extends ModuleTestBase {
 		String currentDate = DateFormat.getDateInstance(DateFormat.SHORT).format(new java.util.Date()); 
 		assertValueInCollection("sessions", 0, "date", "");  
 		setValueInCollection("sessions", 0, "description", "RUNNING IN THE STREET");
-		assertValueInCollection("sessions", 0, "date", currentDate);  
+		assertValueInCollection("sessions", 0, "date", currentDate); // TMP FALLA  
 		assertCollectionRowCount("sessions", 1);
 		assertValueInCollection("sessions", 1, "description", "");  
 		assertValueInCollection("sessions", 1, "kms", "");
