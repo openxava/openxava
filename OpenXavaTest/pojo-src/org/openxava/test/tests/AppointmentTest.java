@@ -29,28 +29,28 @@ public class AppointmentTest extends ModuleTestBase {
 		assertListRowCount(3); 
 		setConditionValues("5/26/15 10:15 AM");
 		execute("List.filter");
-		assertListRowCount(1); // TMP FALLA
-		assertValueInList(0, 0, "5/26/15 10:15 AM");
+		assertListRowCount(1); 
+		assertValueInList(0, 0, "5/26/2015 10:15 AM");
 		assertValueInList(0, 1, "ALMUERZO");		
 		execute("Print.generateExcel"); 
 		assertContentTypeForPopup("text/x-csv");
 		StringTokenizer excel = new StringTokenizer(getPopupText(), "\n\r");
 		excel.nextToken(); // To skip the header
 		String line1 = excel.nextToken();
-		assertEquals("line1", "\"5/26/15 10:15 AM\";\"ALMUERZO\";0;", line1); 
+		assertEquals("line1", "\"5/26/2015 10:15 AM\";\"ALMUERZO\";0;", line1); 
 		
 	}
 	
 	public void testImport() throws Exception {
 		execute("List.orderBy", "property=time");
 		assertListRowCount(4); 
-		assertValueInList(0, 0, "5/26/15 8:15 AM"); 
-		assertValueInList(0, 1, "DESAYUNO"); // TMP FALLA
-		assertValueInList(1, 0, "5/26/15 10:15 AM");
+		assertValueInList(0, 0, "5/26/2015 8:15 AM"); 
+		assertValueInList(0, 1, "DESAYUNO"); 
+		assertValueInList(1, 0, "5/26/2015 10:15 AM");
 		assertValueInList(1, 1, "ALMUERZO");
-		assertValueInList(2, 0, "5/26/15 12:34 PM");
+		assertValueInList(2, 0, "5/26/2015 12:34 PM");
 		assertValueInList(2, 1, "PAUSA CAFE");
-		assertValueInList(3, 0, "6/1/15 7:25 PM");
+		assertValueInList(3, 0, "6/1/2015 7:25 PM");
 		assertValueInList(3, 1, "IR A LA PISCINA");
 		
 		execute("ImportData.importData");
@@ -70,11 +70,11 @@ public class AppointmentTest extends ModuleTestBase {
 		assertErrorsCount(1);
 		assertError("Empty file");
 		
-		assertImport("appointments.csv"); 
-		assertImport("appointments.xlsx"); 
+		assertImport("appointments.csv", ""); 
+		assertImport("appointments.xlsx", "20"); // 20 because use date OX formatting to turn date from Excel to String 
 	}
 	
-	private void assertImport(String file) throws Exception {
+	private void assertImport(String file, String datePrefix) throws Exception {
 		execute("ImportData.importData");
 		uploadFile("file", "test-files/" + file); 
 		execute("ConfigureImport.configureImport");
@@ -84,8 +84,8 @@ public class AppointmentTest extends ModuleTestBase {
 		
 		assertValueInCollection("columns", 0, 0, "Time");
 		assertValueInCollection("columns", 0, 1, "Time"); 
-		assertValueInCollection("columns", 0, 2, "9/11/17 11:30 AM"); 
-		assertValueInCollection("columns", 0, 3, "9/12/17 4:00 PM");
+		assertValueInCollection("columns", 0, 2, "9/11/" + datePrefix + "17 11:30 AM"); 
+		assertValueInCollection("columns", 0, 3, "9/12/" + datePrefix + "17 4:00 PM");
 		
 		assertValueInCollection("columns", 1, 0, "");
 		assertValueInCollection("columns", 1, 1, "Some comments"); 
@@ -99,8 +99,8 @@ public class AppointmentTest extends ModuleTestBase {
 		
 		assertValueInCollection("columns", 3, 0, "");
 		assertValueInCollection("columns", 3, 1, "Start time"); 
-		assertValueInCollection("columns", 3, 2, "9/11/17 11:45 AM"); 
-		assertValueInCollection("columns", 3, 3, "9/12/17 4:15 PM");
+		assertValueInCollection("columns", 3, 2, "9/11/" + datePrefix + "17 11:45 AM"); 
+		assertValueInCollection("columns", 3, 3, "9/12/" + datePrefix + "17 4:15 PM");
 		
 		assertValueInCollection("columns", 4, 0, "Description");
 		assertValueInCollection("columns", 4, 1, "Descrip"); 
@@ -142,21 +142,21 @@ public class AppointmentTest extends ModuleTestBase {
 		assertMessage("3 records imported"); 
 		
 		assertListRowCount(7); 
-		assertValueInList(0, 0, "5/26/15 8:15 AM");
+		assertValueInList(0, 0, "5/26/2015 8:15 AM");
 		assertValueInList(0, 1, "DESAYUNO");
-		assertValueInList(1, 0, "5/26/15 10:15 AM");
+		assertValueInList(1, 0, "5/26/2015 10:15 AM");
 		assertValueInList(1, 1, "ALMUERZO");
-		assertValueInList(2, 0, "5/26/15 12:34 PM");
+		assertValueInList(2, 0, "5/26/2015 12:34 PM");
 		assertValueInList(2, 1, "PAUSA CAFE");
-		assertValueInList(3, 0, "6/1/15 7:25 PM");
+		assertValueInList(3, 0, "6/1/2015 7:25 PM");
 		assertValueInList(3, 1, "IR A LA PISCINA");
-		assertValueInList(4, 0, "9/11/17 11:45 AM");
+		assertValueInList(4, 0, "9/11/2017 11:45 AM");
 		assertValueInList(4, 1, "MEETING WITH MY FRIEND");
 		assertValueInList(4, 2, "4");
-		assertValueInList(5, 0, "9/13/17 8:00 PM");
+		assertValueInList(5, 0, "9/13/2017 8:00 PM");
 		assertValueInList(5, 1, "DRIVING MY BMW");
 		assertValueInList(5, 2, "0");
-		assertValueInList(6, 0, "6/19/20 8:15 PM");
+		assertValueInList(6, 0, "6/19/2020 8:15 PM");
 		assertValueInList(6, 1, "PLAYING FORTNITE");
 		assertValueInList(6, 2, "4");
 		assertValueInList(6, 3, "PERSONAL DISPENSABLE");

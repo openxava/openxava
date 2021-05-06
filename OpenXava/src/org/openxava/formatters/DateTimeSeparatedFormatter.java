@@ -57,15 +57,13 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 		if (isExtendedFormat())	return extendedDateFormat;		
 		if (isDotFormat()) return dotDateFormat; 
 		// tmp return DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent());
-		return new SimpleDateFormat(Dates.getLocalizedDatePattern(Locales.getCurrent())); // tmp ¿Se testea?
+		return new SimpleDateFormat(Dates.getLocalizedDatePattern(Locales.getCurrent())); // tmp Sí que se testera
 	}
 	
 	private DateFormat[] getDateTimeFormats() {
 		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats(); 
 		// tmp return new DateFormat [] { Dates.getDateTimeFormat() };
-		// TMP ME QUEDÉ POR AQUÍ: PROBANDO LO DE ABAJO PARA QUE FUNCIONE ShipmentSeparatedTimeTest.testDateTimeSeparatedCalendarEditor()
-		// TMP							ESTABA HACIENDO LOS FALLA
-		return new DateFormat [] { DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locales.getCurrent() ) }; // tmp 
+		return new DateFormat [] { Dates.getDateTimeFormatForParsing(Locales.getCurrent()) }; // tmp Sí que se testera
 	}
 		
 }

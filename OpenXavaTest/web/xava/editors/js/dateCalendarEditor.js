@@ -10,6 +10,7 @@ openxava.addEditorInitFunction(function() {
 		var dateFormat = $(this).parent().data("dateFormat");
   		var date = $(this).val();
 		if (date === "") return;
+		date = date.trim(); // tmp
 		// tmp var separator = dateFormat.substr(-2, 1);
 		var separator = dateFormat.substr(1, 1); // tmp
 		console.log("[openxava.addEditorInitFunction.change] separator=" + separator); // tmp
@@ -26,7 +27,7 @@ openxava.addEditorInitFunction(function() {
 		console.log("[openxava.addEditorInitFunction.change] idx=" + idx); // tmp
 		console.log("[openxava.addEditorInitFunction.change] dateFormat=" + dateFormat); // tmp
 		// tmp ini
-		var idxSpace = date.lastIndexOf(' ');
+		var idxSpace = date.indexOf(' ');
 		var pureDate = date;
 		var time = "";
 		console.log("[openxava.addEditorInitFunction.change] idxSpace=" + idxSpace); // tmp

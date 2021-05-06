@@ -24,6 +24,8 @@ Use any entity with a date (not the first focusable field) in detail mode. Like 
 	- Edit the Shipment with date/time, it should have 4 digits for year.
 	- Change the year by a two digits value (like 17). 
 	- It should be completed to four digits (2017) and not losing the hour value.
+	- Insert a space at the beginning of the date, then type other two year digits (like 15).
+	- It should be completed to four digits (2015) and not losing the hour value.
 - Adding separators when missing (use the second date in Quarter):
 	- In Spanish: 
 		 51106   -> 05/11/2006		 		

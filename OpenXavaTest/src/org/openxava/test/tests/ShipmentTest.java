@@ -11,7 +11,7 @@ import org.openxava.tests.*;
  * @author Javier Paniza
  */
 
-public class ShipmentTest extends ModuleTestBase { // TMP FALLAN VARIOS
+public class ShipmentTest extends ModuleTestBase { 
 	
 	public ShipmentTest(String testName) {
 		super(testName, "Shipment");		
@@ -107,7 +107,7 @@ public class ShipmentTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		assertValue("mode", usesAnnotatedPOJO()?"1":"2");
 		assertValue("number", "66");
 		assertValue("description", "JUNIT SHIPMENT");
-		assertValue("time", "10/22/08 6:01 PM"); 
+		assertValue("time", "10/22/2008 6:01 PM"); 
 				
 		// Modify
 		setValue("description", "JUNIT SHIPMENT MODIFIED");
@@ -200,7 +200,7 @@ public class ShipmentTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		execute("List.filter");
 		assertListRowCount(1);
 		assertValueInList(0, "description", "CINC");	
-		assertValueInList(0, "time", "12/25/06 11:33 AM"); 
+		assertValueInList(0, "time", "12/25/2006 11:33 AM"); 
 		
 		setConditionValues( new String [] { "", "", "12/25/06 11:32 AM"} );
 		setConditionComparators(new String [] { "=", "=", "="}); 
@@ -211,7 +211,7 @@ public class ShipmentTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		execute("List.filter");
 		assertListRowCount(1);
 		assertValueInList(0, "description", "CINC");	
-		assertValueInList(0, "time", "12/25/06 11:33 AM");
+		assertValueInList(0, "time", "12/25/2006 11:33 AM");
 	}
 	
 	private void deleteCustomerAndContactPerson(int number) throws Exception {
