@@ -3,13 +3,11 @@ Therefore, when you touch dateCalendarEditor.js, dateCalendarEditor.jsp, dateTim
 dateTimeSeparatedCalendar.jsp, the part of date filtering in list.jsp or the method openxava.listenChanges
 of openxava.js you have to test it visually at least for the next cases:
 
-Use any entity with a date (not the first focusable field) in detail mode. Like Order. 
-
-- "Data changed" message on going list mode:
+ - "Data changed" message on going list mode: Use Order or any entity with a date (not the first focusable field) in detail mode. 
 	- Lose the focus of date, without change it, then go to list. No message shown.
 	- Use the dialog to select the current date, then go to list. No message shown.
 	- Use the dialog to select any date, then go to list. A message shown.
-- @OnChage: Add an @OnChange(OnChangeVoidAction.class) action to a date property.	
+- @OnChage: Add an @OnChange(OnChangeVoidAction.class) action to a date property. Use Order.	
 	- Lose the focus of date, without change it. @OnChange action not executed.
 	- Go to list mode. No "Data changed" message shown.
 	- Use the dialog to select the current date. @OnChange action not executed.
@@ -33,7 +31,7 @@ Use any entity with a date (not the first focusable field) in detail mode. Like 
 		24022019 -> 24/02/2019
 		 7111999 -> 07/11/1999
 	- In English:
-		 32402   ->  3/24/02
+		 32402   ->  3/24/2002
 	- Test some of the above cases in list filter.
 	 		
 	

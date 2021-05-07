@@ -56,14 +56,12 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 	private DateFormat getDateFormat() {
 		if (isExtendedFormat())	return extendedDateFormat;		
 		if (isDotFormat()) return dotDateFormat; 
-		// tmp return DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent());
-		return new SimpleDateFormat(Dates.getLocalizedDatePattern(Locales.getCurrent())); // tmp Sí que se testera
+		return new SimpleDateFormat(Dates.getLocalizedDatePattern(Locales.getCurrent())); 
 	}
 	
 	private DateFormat[] getDateTimeFormats() {
 		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats(); 
-		// tmp return new DateFormat [] { Dates.getDateTimeFormat() };
-		return new DateFormat [] { Dates.getDateTimeFormatForParsing(Locales.getCurrent()) }; // tmp Sí que se testera
+		return new DateFormat [] { Dates.getDateTimeFormatForParsing(Locales.getCurrent()) }; 
 	}
 		
 }

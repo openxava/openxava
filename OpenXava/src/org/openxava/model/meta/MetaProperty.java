@@ -857,8 +857,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 				if (emptyString) return null;
 				java.util.Date date = null;
 				try {
-					// tmp date = Dates.getDateTimeFormat(locale).parse(value); 
-					date = Dates.getDateTimeFormatForParsing(locale).parse(value); // tmp
+					date = Dates.getDateTimeFormatForParsing(locale).parse(value); 
 				}
 				catch (ParseException ex) {
 					date = DateFormat.getDateInstance(DateFormat.SHORT, locale).parse(value);

@@ -675,10 +675,6 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	padding-right: 25px;
 }
 
-.firefox .ox-date-calendar input {
-	padding-right: 4px;
-}
-
 .flatpickr-day.selected {
 	background: var(--calendar-selected-day) !important;
 	border-color: transparent !important;

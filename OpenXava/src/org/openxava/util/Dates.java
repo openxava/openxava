@@ -7,9 +7,6 @@ import java.util.*;
 
 import org.openxava.formatters.*;
 
-
-
-
 /**
  * Utilities to working with dates (<tt>java.util.Date</tt>). <p>  
  * 
@@ -240,64 +237,32 @@ public class Dates {
 	 * DateFormat for date + time consistently among all Java versions. <p>
 	 * 
 	 * The date format is consistent among all Java versions, including Java 6, 7, 8, 9, 10 and 11. 
-	 * While standard Java format differently since Java 9. 
+	 * While standard Java format differently since Java 9.
 	 * 
-	 * @return Not null
-	 * @since 6.0
-	 */
-	/* tmp
-	public static DateFormat getDateTimeFormat(Locale locale) { // tmp original  
-		// To use the Java 8 (and previous) format for Java 9 and better
-		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
-		if (XSystem.isJava9orBetter() && df instanceof SimpleDateFormat) {
-			String pattern = ((SimpleDateFormat) df).toPattern();
-			pattern = pattern.replace(", ", " ");
-			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-			DateFormatSymbols symbols = new DateFormatSymbols(locale);
-	        symbols.setAmPmStrings(new String[] { "AM", "PM" });
-	        sdf.setDateFormatSymbols(symbols);			
-			df = sdf;
-		}
-		return df;
-	}
-	*/
-	
-	
-	/**
-	 * DateFormat for date + time consistently among all Java versions. <p>
-	 * 
-	 * The date format is consistent among all Java versions, including Java 6, 7, 8, 9, 10 and 11. 
-	 * While standard Java format differently since Java 9. 
+	 * Also uses always 4 digits for year no matter the locale (new in v6.5.2). 
 	 * 
 	 * @return Not null
 	 * @since 6.0
 	 */	
-	public static DateFormat getDateTimeFormat(Locale locale) { // tmp
+	public static DateFormat getDateTimeFormat(Locale locale) { 
 		return getDateTimeFormat(locale, true);
 	}
 	
 	/**
-	 * DateFormat for date + time consistently among all Java versions. <p>
+	 * DateFormat for date + time consistently among all Java versions for using in parsing. <p>
 	 * 
 	 * The date format is consistent among all Java versions, including Java 6, 7, 8, 9, 10 and 11. 
 	 * While standard Java format differently since Java 9. 
 	 * 
+	 * It uses 2 or 4 digits for year depending on locale. 
+	 * 
 	 * @return Not null
-	 * @since 6.0
+	 * @since 6.5.2
 	 */	
-	public static DateFormat getDateTimeFormatForParsing(Locale locale) { // tmp
+	public static DateFormat getDateTimeFormatForParsing(Locale locale) { 
 		return getDateTimeFormat(locale, false);
 	}	
 	
-	/**
-	 * DateFormat for date + time consistently among all Java versions. <p>
-	 * 
-	 * The date format is consistent among all Java versions, including Java 6, 7, 8, 9, 10 and 11. 
-	 * While standard Java format differently since Java 9. 
-	 * 
-	 * @return Not null
-	 * @since 6.0
-	 */	
 	private static DateFormat getDateTimeFormat(Locale locale, boolean fourDigitsForYear) { 
 		// To use the Java 8 (and previous) format for Java 9 and better
 		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
@@ -317,8 +282,12 @@ public class Dates {
 		return df;
 	}
 
-	
-	public static String getLocalizedDatePattern(Locale locale) { // tmp
+	/**
+	 * Date partern for short format to be use for both Date and LocalDate. <p>
+	 * 
+	 * It uses always 4 digits for year.
+	 */
+	public static String getLocalizedDatePattern(Locale locale) { 
 		String pattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern(FormatStyle.SHORT, null, IsoChronology.INSTANCE, locale);
 		if (pattern.contains("yyyy")) return pattern;
 		return pattern.replace("yy", "yyyy");

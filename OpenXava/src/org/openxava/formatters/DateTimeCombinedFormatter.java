@@ -8,7 +8,6 @@ import org.openxava.util.*;
 
 
 /**
- * tmp Sí que se testea, tanto el parse como el format
  * Date/Time (combined) formatter with multilocale support. <p>
  *
  * @author Peter Smith
@@ -24,8 +23,7 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 		if (date == null) return "";
 		if (date instanceof String || date instanceof Number) return date.toString();
 		if (Dates.getYear((java.util.Date)date) < 2) return "";
-		// tmp return getDateTimeFormat().format(date);
-		return getDateTimeFormat(false).format(date); // tmp
+		return getDateTimeFormat(false).format(date); 
 	}
 
 	public Object parse(HttpServletRequest request, String string) throws ParseException {
@@ -45,24 +43,15 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 		throw new ParseException(XavaResources.getString("bad_date_format",string),-1);
 	}
 
-	/* tmp
-	private DateFormat getDateTimeFormat() {
+	private DateFormat getDateTimeFormat(boolean forParsing) { 
 		if (isExtendedFormat()) return extendedDateTimeFormat;
 		if (isDotFormat()) return dotDateFormat; 
-		return Dates.getDateTimeFormat(); 
-	}
-	*/
-	
-	private DateFormat getDateTimeFormat(boolean forParsing) { // tmp
-		if (isExtendedFormat()) return extendedDateTimeFormat;
-		if (isDotFormat()) return dotDateFormat; 
-		return forParsing?Dates.getDateTimeFormatForParsing(Locales.getCurrent()):Dates.getDateTimeFormat(); // tmp 
+		return forParsing?Dates.getDateTimeFormatForParsing(Locales.getCurrent()):Dates.getDateTimeFormat();  
 	}
 	
 	private DateFormat[] getDateTimeFormats() {
 		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats(); 
-		// tmp return new DateFormat [] { getDateTimeFormat() };
-		return new DateFormat [] { getDateTimeFormat(true) }; // tmp
+		return new DateFormat [] { getDateTimeFormat(true) }; 
 	}
 	
 }

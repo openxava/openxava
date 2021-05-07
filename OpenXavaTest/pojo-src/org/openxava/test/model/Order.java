@@ -9,7 +9,6 @@ import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
 import org.openxava.model.*;
-import org.openxava.test.actions.*;
 
 @Entity
 @Table(name="TOrder")
@@ -34,14 +33,11 @@ public class Order extends Identifiable {
 	
 	@Required
 	@DefaultValueCalculator(CurrentDateCalculator.class)
-	@OnChange(OnChangeVoidAction.class) // tmp
 	private Date date;	
-	
-	
+		
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@ReferenceView("Simplest")
 	private Customer customer;
-	
 	
 	@OneToMany(mappedBy="parent", cascade=CascadeType.ALL)	
 	@ListProperties("product.number, product.description, quantity, product.unitPrice, amount")

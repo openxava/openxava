@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+TMP ME QUEDÉ POR AQUÍ: SOLO FALTA AÑADIR LOS FIXS EN EL CHANGELOG, AQUÍ. TODO LO DEMÁS ESTA HECHO.
+- Fix: Adding separators to date or completing century in year doesn't work if there is a leading space.
 - 'How to' documentation improved. 
 - Fix: Changing total property in @ElementCollection for existing entity not recalculated dependent values. 
 - Fix: NullPointerException in log filtering in a list in the dialog to choose an element for a reference.

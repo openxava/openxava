@@ -71,23 +71,18 @@ public class LocalDateFormatter implements IFormatter {
 	private DateTimeFormatter getFormatter() {
 		if (isExtendedFormat()) return extendedFormatter;
 		if (isDotFormat()) return dotFormatter; 
-		// tmp return DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locales.getCurrent());
-		return getStandardFormatter(); 	// tmp Sí que se testea
+		return getStandardFormatter(); 	
 	}
 	
 	private DateTimeFormatter[] getFormatters() {
-		//if (isExtendedFormat()) return extendedFormatters;
 		if (isExtendedFormat() || isDotFormat()) return extendedFormatters; 
-		// tmp return new DateTimeFormatter [] { getFormatter() };
-		// tmp ini
-		return new DateTimeFormatter [] { // tmp Sí que se testea
+		return new DateTimeFormatter [] { 
 			DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locales.getCurrent()),
 			getStandardFormatter()
 		};
-		// tmp fin
 	}
 	
-	private DateTimeFormatter getStandardFormatter() { // tmp
+	private DateTimeFormatter getStandardFormatter() { 
 		return DateTimeFormatter 
 			.ofPattern(Dates.getLocalizedDatePattern(Locales.getCurrent()))
 			.withResolverStyle(ResolverStyle.SMART);		
