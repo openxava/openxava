@@ -985,7 +985,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 								p.parse(value, getLocale()):
 								WebEditors.parse(getRequest(), p, value, errors, null); 
 						} 
-						System.out.println("[Tab.createCondition] v="+v); // tmp
 						if ((v instanceof Timestamp || p.isTypeOrStereotypeCompatibleWith(Timestamp.class)) && EQ_COMPARATOR.equals(this.conditionComparators[i])) {  						 
 							if (Dates.hasTime((java.util.Date) v)) { 
 								valuesToWhere.add(v);

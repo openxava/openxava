@@ -18,7 +18,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		execute("CRUD.new");		
 		setValue("year", "2015");
 		setValue("number", "66");
-		setValue("date", "1/1/15");
+		setValue("date", "1/1/2015"); // With 4 digits for year to test a case
 		setValue("customer.number", "1");
 		assertValue("customer.name", "Javi");
 		
@@ -73,7 +73,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		
 		assertValue("year", "2015");
 		assertValue("number", "66");
-		assertValue("date", "1/1/15"); // TMP FALLA
+		assertValue("date", "1/1/2015"); 
 		assertValue("customer.number", "1");
 		
 		assertCollectionRowCount("details", 2);
@@ -287,7 +287,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertMessage("MULTAS DE TRAFICO, IBM ESERVER ISERIES 270, XAVA");
 		
 		assertTotalInCollection("details", 0, "amount", "162.00");
-		assertTotalInCollection("details", 1, "amount",  "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount",  "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "34.02");
 		assertTotalInCollection("details", 3, "amount", "196.02");
 		assertValue("estimatedProfit", "19.60"); 
@@ -295,7 +295,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		removeRow(1); 
 		
 		assertTotalInCollection("details", 0, "amount", "102.00");
-		assertTotalInCollection("details", 1, "amount",  "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount",  "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "21.42");
 		assertTotalInCollection("details", 3, "amount", "123.42");		
 		assertValue("estimatedProfit", "12.34"); 
@@ -303,7 +303,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		setValueInCollection("details", 1, "quantity", "5");
 		assertValueInCollection("details", 1, "amount", "100.00"); 
 		assertTotalInCollection("details", 0, "amount", "122.00");
-		assertTotalInCollection("details", 1, "amount",  "21.00"); // tmp Indice de abajo recorridos
+		assertTotalInCollection("details", 1, "amount",  "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "25.62");
 		assertTotalInCollection("details", 3, "amount", "147.62");
 		assertValue("estimatedProfit", "14.76"); 
@@ -333,7 +333,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		subscribeToEmailNotifications();
 		
 		execute("List.viewDetail", "row=0");
-		assertValue("year", "2014"); // TMP FALLA  
+		assertValue("year", "2014");   
 		assertValue("number", "1");  		
 		execute("CRUD.save");
 		assertNoErrors();
@@ -343,7 +343,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("year", "2014");  
 		assertValue("number", "1");
-		assertValue("date", "10/1/14");
+		assertValue("date", "10/1/2014");
 		setValue("date", "10/2/14");
 		setValueInCollection("details", 2, "product.number", "4");
 		assertValueInCollection("details", 2, "product.description", "CUATRE");
@@ -355,7 +355,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("year", "2014");  
 		assertValue("number", "1");
-		assertValue("date", "10/2/14");
+		assertValue("date", "10/2/2014");
 		setValue("date", "10/1/14");
 		removeRow(2);
 		execute("CRUD.save");
@@ -364,7 +364,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("year", "2014");  
 		assertValue("number", "1");
-		assertValue("date", "10/1/14");
+		assertValue("date", "10/1/2014");
 		assertCollectionRowCount("details", 2);
 		setValueInCollection("details", 2, "product.number", "3");
 		setValueInCollection("details", 2, "unitPrice", "20");

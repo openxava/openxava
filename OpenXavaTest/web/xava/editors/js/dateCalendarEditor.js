@@ -6,11 +6,11 @@ openxava.addEditorInitFunction(function() {
 	if (openxava.browser.htmlUnit) return;
 	// $('.xava_date > input').first().change(function() {
 	$('.xava_date > input').change(function() { // tmp
-		console.log("[openxava.addEditorInitFunction.change] "); // tmp
 		var dateFormat = $(this).parent().data("dateFormat");
   		var date = $(this).val();
 		if (date === "") return;
 		date = date.trim(); // tmp
+		console.log("[openxava.addEditorInitFunction.change] date.1=" + date); // tmp
 		// tmp var separator = dateFormat.substr(-2, 1);
 		var separator = dateFormat.substr(1, 1); // tmp
 		console.log("[openxava.addEditorInitFunction.change] separator=" + separator); // tmp
@@ -20,22 +20,19 @@ openxava.addEditorInitFunction(function() {
 			var year = date.substring(4);
 			var middle = date.substring(2, 4);
 			var first = date.substring(0, 2);
-			date = first + separator + middle + separator + year;			
-		}	
+			date = first + separator + middle + separator + year;
+			date = date.trim(); // tmp ME QUEDÉ POR AQUÍ: ESTO ARREGLA EL PROBLEMA CON DateCalendarTest.txt. VOLVER A PASAR LOS TEST MANUALES OTRA VEZ
+								// TMP   LA SUITE PASO AL 100%. LA DOC DE MIGRACIÓN ESTÁ HECHA			
+		}
+		console.log("[openxava.addEditorInitFunction.change] date.2=" + date); // tmp	
 		idx = date.lastIndexOf(separator);
-		console.log("[openxava.addEditorInitFunction.change] date> " + date); // tmp
-		console.log("[openxava.addEditorInitFunction.change] idx=" + idx); // tmp
-		console.log("[openxava.addEditorInitFunction.change] dateFormat=" + dateFormat); // tmp
 		// tmp ini
 		var idxSpace = date.indexOf(' ');
 		var pureDate = date;
 		var time = "";
-		console.log("[openxava.addEditorInitFunction.change] idxSpace=" + idxSpace); // tmp
 		if (idxSpace >= 0) {
 			time = date.substr(idxSpace);
 			pureDate = date.substr(0, idxSpace);
-			console.log("[openxava.addEditorInitFunction.change] pureDate>" + pureDate + "<"); // tmp
-			console.log("[openxava.addEditorInitFunction.change] time>" + time + "<"); // tmp
 		}
 		if (dateFormat.indexOf('Y') >= 0 && pureDate.length - idx < 4) { // tmp
   			var dateNoYear = pureDate.substring(0, idx);

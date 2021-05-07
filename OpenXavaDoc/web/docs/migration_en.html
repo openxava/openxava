@@ -41,6 +41,19 @@
       </ul>
     </div>
     <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 6.5.1 to OpenXava 6.5.2</h2>
+      <h3>Four digits for year in all locales (for JUnit tests)</h3>
+      Until now we used four digits for year only for selected locales. From now
+      on we'll use four digits for year for all locales. Therefore, if you use a
+      locale that used two digits for year (like English for example) you have
+      to adjust your JUnit tests, changing, for example, this:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">assertValue("date", "5/25/21");</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">By this:
+      <pre><code class="java">assertValue("date", "5/25/2021");</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">Note as we changed 21 by 2021.<br>
       <h2>Migration from OpenXava 6.5 to OpenXava 6.5.1</h2>
       No issues.
       <h2>Migration from OpenXava 6.4.2 to OpenXava 6.5</h2>

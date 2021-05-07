@@ -22,7 +22,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Javier Paniza
  */
 
-public class InvoiceTest extends CustomizeListTestBase { // TMP FALLAN VARIOS
+public class InvoiceTest extends CustomizeListTestBase { 
 	
 	private Invoice invoice;
 	private BigDecimal productUnitPriceDB;
@@ -1649,7 +1649,7 @@ public class InvoiceTest extends CustomizeListTestBase { // TMP FALLAN VARIOS
 		execute("Invoice.editDetail", "row=1,viewObject=xava_view_section1_details");
 		assertValue("product.description", getProductDescription());
 		assertValue("quantity", "200");
-		assertValue("deliveryDate", "3/19/04");
+		assertValue("deliveryDate", "3/19/2004");
 		setValue("quantity", "234");
 		setValue("deliveryDate", "4/23/04");
 		execute("Collection.save");
@@ -1662,7 +1662,7 @@ public class InvoiceTest extends CustomizeListTestBase { // TMP FALLAN VARIOS
 		execute("Invoice.editDetail", "row=1,viewObject=xava_view_section1_details");
 		assertValue("product.description", getProductDescription());
 		assertValue("quantity", "234");
-		assertValue("deliveryDate", "4/23/04");
+		assertValue("deliveryDate", "4/23/2004");
 		closeDialog();
 		
 		// Return to save and consult for see if the line is edited
@@ -1684,7 +1684,7 @@ public class InvoiceTest extends CustomizeListTestBase { // TMP FALLAN VARIOS
 		execute("Invoice.editDetail", "row=1,viewObject=xava_view_section1_details");
 		assertValue("product.description", getProductDescription());
 		assertValue("quantity", "234");
-		assertValue("deliveryDate", "4/23/04");
+		assertValue("deliveryDate", "4/23/2004");
 		closeDialog();
 		
 		// Verifying that it do not delete member in collection that not are in list
@@ -1705,7 +1705,7 @@ public class InvoiceTest extends CustomizeListTestBase { // TMP FALLAN VARIOS
 		execute("Invoice.editDetail", "row=1,viewObject=xava_view_section1_details");
 		assertValue("product.description", getProductDescription());
 		assertValue("quantity", "234");
-		assertValue("deliveryDate", "4/23/04");
+		assertValue("deliveryDate", "4/23/2004");
 
 		// Remove a row from collection
 		execute("Collection.remove");
@@ -2097,7 +2097,7 @@ public class InvoiceTest extends CustomizeListTestBase { // TMP FALLAN VARIOS
 		execute("Collection.view", "row=0,viewObject=xava_view_section3_deliveries");
 		assertDialog(); 
 		assertValue("number", "666");		
-		assertValue("date", "2/22/04");		
+		assertValue("date", "2/22/2004");		
 		assertValue("description", "DELIVERY JUNIT 666");
 		assertNoEditable("number"); 
 		assertNoEditable("date"); 		
@@ -2359,7 +2359,7 @@ public class InvoiceTest extends CustomizeListTestBase { // TMP FALLAN VARIOS
 	}
 		
 	private String getCurrentDate() {
-		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat df = new SimpleDateFormat("M/d/yyyy"); 
 		return df.format(new java.util.Date());
 	}
 	
@@ -2412,8 +2412,8 @@ public class InvoiceTest extends CustomizeListTestBase { // TMP FALLAN VARIOS
 	private void createOneDetail() throws Exception {
 		Calendar date = Calendar.getInstance();
 		String todayDate = (date.get(Calendar.MONTH) + 1) + "/" +
-				date.get(Calendar.DAY_OF_MONTH) + "/" +
-				(date.get(Calendar.YEAR) - 2000);
+			date.get(Calendar.DAY_OF_MONTH) + "/" +
+			(date.get(Calendar.YEAR)); 
 		execute("Sections.change", "activeSection=1");
 		assertNotExists("customer.number");
 		assertNotExists("vatPercentage");
@@ -2450,7 +2450,7 @@ public class InvoiceTest extends CustomizeListTestBase { // TMP FALLAN VARIOS
 		assertTrue(Is.empty(getValue("year")));
 		setValue("date", "1/2/2004");
 		execute("CRUD.refresh");
-		assertError("Object of type Invoice does not exists with key Date:1/2/04, Paid:No");		
+		assertError("Object of type Invoice does not exists with key Date:1/2/2004, Paid:No");		
 		// with reference
 		setValue("customer.number", "43");
 		assertValue("customer.name", "Gonzalo Gonzalez");

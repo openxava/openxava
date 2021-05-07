@@ -39,6 +39,22 @@
       </ul>
       <p><br>
       </p>
+      <h2>Para migrar de OpenXava 6.5.1 a OpenXava 6.5.2</h2>
+      <h3>Cuatro dígitos para año en todos los idiomas (para las pruebas JUnit)</h3>
+      Hasta ahora usábamos cuatro dígitos para el año sólo para algunos idiomas.
+      A partir de ahora usaremos cuatro dígitos para el año en todos los
+      idiomas. Por lo que, si usas un idioma que usaba dos dígitos para el año
+      (como inglés por ejempo) has de ajustar tus pruebas JUnit, cambiando, por
+      ejemplo, esto:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">assertValue("date", "5/25/21");</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Por esto:
+        <pre><code class="java">assertValue("date", "5/25/2021");</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Fíjate como hemos cambiado 21
+        por 2021.<br>
+      </div>
       <h2>Para migrar de OpenXava 6.5 a OpenXava 6.5.1</h2>
       No hay consideraciones.
       <h2>Para migrar de OpenXava 6.4.2 a OpenXava 6.5</h2>

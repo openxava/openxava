@@ -23,11 +23,8 @@ public class ShipmentSeparatedTimeTest extends ModuleTestBase {
 		assertValues("time", emptyTime); 
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
-		// tmp assertValues("time", time); 
-		// tmp ini
 		String [] expectedTime = { "5/27/2009", "11:59 AM" };
-		assertValues("time", expectedTime); // tmp ¿En migration? 
-		// tmp fin
+		assertValues("time", expectedTime);  
 		setValues("time", emptyTime);
 		execute("CRUD.save");
 		assertNoErrors();

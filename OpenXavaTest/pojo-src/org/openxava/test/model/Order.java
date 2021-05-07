@@ -9,6 +9,7 @@ import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
 import org.openxava.model.*;
+import org.openxava.test.actions.*;
 
 @Entity
 @Table(name="TOrder")
@@ -33,6 +34,7 @@ public class Order extends Identifiable {
 	
 	@Required
 	@DefaultValueCalculator(CurrentDateCalculator.class)
+	@OnChange(OnChangeVoidAction.class) // tmp
 	private Date date;	
 	
 	

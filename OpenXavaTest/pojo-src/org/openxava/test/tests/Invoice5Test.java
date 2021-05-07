@@ -59,9 +59,9 @@ public class Invoice5Test extends ModuleTestBase {
 	public void testImportFromExcel() throws Exception {  
 		execute("Mode.list");
 		assertListRowCount(0);
-		assertImportFromExcel("invoices5.xlsx", "2017", "1", "9/25/17", "", "1,258.26", ""); // TMP FALLA  
-		assertImportFromExcel("invoices5.xls", "2017", "1", "9/25/17", "", "1,258.26", "DEFAULTER;FOLLOW UP NEEDED");
-		assertImportFromExcel("invoices5-number-comment.xlsx", "2017", "1", "9/25/17", "", "1,258.26", "30005673496"); 
+		assertImportFromExcel("invoices5.xlsx", "2017", "1", "9/25/2017", "", "1,258.26", "");   
+		assertImportFromExcel("invoices5.xls", "2017", "1", "9/25/2017", "", "1,258.26", "DEFAULTER;FOLLOW UP NEEDED");
+		assertImportFromExcel("invoices5-number-comment.xlsx", "2017", "1", "9/25/2017", "", "1,258.26", "30005673496"); 
 		setLocale("es");
 		execute("Mode.list"); 
 		assertImportFromExcel("invoices5.xlsx", "2017", "1", "25/09/2017", "", "1.258,26", ""); 

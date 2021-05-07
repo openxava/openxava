@@ -33,9 +33,9 @@ public class Invoice4Test extends ModuleTestBase {
 	
 	public void testTabSetConditionValueByDate() throws Exception {
 		execute("Invoice4.filterByDate");
-		assertListRowCount(2); // TMP FALLA
-		assertValueInList(0, 2, "1/4/04");
-		assertValueInList(1, 2, "1/4/04");
+		assertListRowCount(2); 
+		assertValueInList(0, 2, "1/4/2004");
+		assertValueInList(1, 2, "1/4/2004");
 	}
 	
 }

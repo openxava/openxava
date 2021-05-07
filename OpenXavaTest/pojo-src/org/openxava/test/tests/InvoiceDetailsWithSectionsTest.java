@@ -25,7 +25,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertLabelInList(4, "V.A.T.");
 		assertLabelInList(5, "Details count"); 	
 		assertLabelInList(6, "Paid");
-		assertListRowCount(9); // TMP FALLA
+		assertListRowCount(9); 
 		setConditionValues("", "1");	
 		execute("List.filter");
 		assertListRowCount(3);

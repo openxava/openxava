@@ -68,13 +68,13 @@ public class DateFormatter implements IFormatter {
 		if (isExtendedFormat()) return extendedDateFormat;
 		if (isDotFormat()) return dotDateFormat; 
 		// tmp return DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent()); 		
-		return new SimpleDateFormat(Dates.getLocalizedDatePattern(Locales.getCurrent())); // tmp ¿Se testea?
+		return new SimpleDateFormat(Dates.getLocalizedDatePattern(Locales.getCurrent())); // tmp Sí se testea
 	}
 	
 	private DateFormat[] getDateFormats() {
 		if (isExtendedFormat() || isDotFormat()) return extendedDateFormats; 
 		// tmp return new DateFormat [] { getDateFormat() };
-		return new DateFormat [] { DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent()) }; // tmp ¿También con LocalDate?
+		return new DateFormat [] { DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent()) }; // tmp Sí se testea 
 	}
 		
 }

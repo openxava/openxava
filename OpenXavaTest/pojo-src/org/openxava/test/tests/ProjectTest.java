@@ -13,7 +13,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Javier Paniza
  */
 
-public class ProjectTest extends ModuleTestBase { // TMP FALLAN VARIOS
+public class ProjectTest extends ModuleTestBase { 
 	
 	public ProjectTest(String testName) {
 		super(testName, "Project");		
@@ -77,7 +77,7 @@ public class ProjectTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		assertCollectionRowCount("tasks", 1);
 		assertValueInCollection("tasks", 0, 0, "THE JUNIT TASK");
 		assertValueInCollection("tasks", 0, 1, "HIGH");
-		assertValueInCollection("tasks", 0, 2, "3/20/15");
+		assertValueInCollection("tasks", 0, 2, "3/20/2015");
 		
 		execute("Collection.removeSelected", "row=0,viewObject=xava_view_tasks");
 		assertCollectionRowCount("tasks", 0);

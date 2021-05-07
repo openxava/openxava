@@ -16,7 +16,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 	public void testTotalsInCollection() throws Exception { 	
 		execute("List.viewDetail", "row=0");		
 		
-		assertTotalsInCollection("details"); // TMP FALLA  		
+		assertTotalsInCollection("details");   		
 		assertTotalsInCollection("calculatedDetails");		
 		
 		assertNoAction("List.removeColumnSum");
@@ -24,8 +24,8 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		
 		execute("Navigation.next");
 
-		assertValueInCollection("details", 0, "deliveryDate", "7/26/04");
-		assertTotalInCollection("details", "deliveryDate", "7/26/04"); 		
+		assertValueInCollection("details", 0, "deliveryDate", "7/26/2004");
+		assertTotalInCollection("details", "deliveryDate", "7/26/2004"); 		
 
 		assertValueInCollection("details", 0, "product.unitPrice", "11.00");
 		assertTotalInCollection("details", "product.unitPrice", "11.00");		
@@ -46,7 +46,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		assertContentTypeForPopup("application/pdf");
 		
 		removeColumn("details", 3);
-		assertTotalInCollection("details", "deliveryDate", "12/15/10");			
+		assertTotalInCollection("details", "deliveryDate", "12/15/2010");			
 		
 		execute("List.addColumns", "collection=details");
 		execute("AddColumns.restoreDefault");
@@ -67,16 +67,16 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		assertTotalInCollection("calculatedDetails", 1, "amount",   "425.00"); 
 		assertTotalInCollection("calculatedDetails", 2, "amount", "2,925.00");
 		
-		assertTotalsInFrameOfCollection("details", "(2)    Delivery date: 12/15/10    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 425.00    Total: 2,925.00", false);      
-		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/10    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 425.00    Total: 2,925.00", true); 
+		assertTotalsInFrameOfCollection("details", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 425.00    Total: 2,925.00", false);      
+		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 425.00    Total: 2,925.00", true); 
 	}
 
 	public void testTotalsAndAddActionInCollectionFrame() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		execute("List.sumColumn", "property=quantity,collection=details");
-		assertTotalsInFrameOfCollection("details", "(2)    Delivery date: 12/15/10    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00    Sum of Quantity: 150", false); // TMP FALLA        
+		assertTotalsInFrameOfCollection("details", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00    Sum of Quantity: 150", false);         
 		execute("List.removeColumnSum", "property=quantity,collection=details");
-		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/10    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00", true); 
+		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00", true); 
 		
 		// Calling to a collection action does not show the header
 		HtmlElement header = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceDetailsWithTotals__frame_detailsheader"); 
@@ -148,9 +148,9 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 	private void assertTotalsInCollection(String collection) throws Exception {
 		assertCollectionRowCount(collection, 2);
 		
-		assertValueInCollection(collection, 0, "deliveryDate", "11/11/11");
-		assertValueInCollection(collection, 1, "deliveryDate", "12/15/10");
-		assertTotalInCollection(collection, "deliveryDate", "12/15/10"); 		
+		assertValueInCollection(collection, 0, "deliveryDate", "11/11/2011");
+		assertValueInCollection(collection, 1, "deliveryDate", "12/15/2010");
+		assertTotalInCollection(collection, "deliveryDate", "12/15/2010"); 		
 
 		assertValueInCollection(collection, 0, "product.unitPrice", "20.00");
 		assertValueInCollection(collection, 1, "product.unitPrice", "0.00");

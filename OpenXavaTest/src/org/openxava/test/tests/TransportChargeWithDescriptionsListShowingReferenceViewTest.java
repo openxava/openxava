@@ -14,7 +14,7 @@ public class TransportChargeWithDescriptionsListShowingReferenceViewTest extends
 		deleteAll();
 		createSome();
 		resetModule(); // For refresh 
-		assertValueInList(1, 0, "2004"); // TMP FALLA 
+		assertValueInList(1, 0, "2004");  
 		execute("List.viewDetail", "row=1");
 		assertNoAction("Reference.createNew", "model=Delivery,keyProperty=delivery__KEY__");
 		assertNoAction("Reference.modify", "model=Delivery,keyProperty=delivery__KEY__");
@@ -27,7 +27,7 @@ public class TransportChargeWithDescriptionsListShowingReferenceViewTest extends
 		assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/04");
 		assertValue("delivery.invoice.year", "2004");
 		assertValue("delivery.type.number", "1");
-		assertValue("delivery.date", "2/22/04");
+		assertValue("delivery.date", "2/22/2004");
 		
 		execute("CRUD.new");
 		assertAction("Reference.createNew", "model=Delivery,keyProperty=delivery__KEY__");
@@ -47,7 +47,7 @@ public class TransportChargeWithDescriptionsListShowingReferenceViewTest extends
 		assertValue("delivery.KEY", "[.2.2004.777.2.]");
 		assertValue("delivery.invoice.year", "2004");
 		assertValue("delivery.type.number", "2");
-		assertValue("delivery.date", "6/23/06");
+		assertValue("delivery.date", "6/23/2006");
 		assertValue("delivery.description", "FOR TEST SEARCHING BY DESCRIPTION");
 		
 		setValue("amount", "799");
@@ -59,14 +59,14 @@ public class TransportChargeWithDescriptionsListShowingReferenceViewTest extends
 		assertValue("delivery.KEY", "[.2.2004.777.2.]");
 		assertDescriptionValue("delivery.KEY", "FOR TEST SEARCHING BY DESCRIPTION 6/23/06");
 		assertValue("delivery.invoice.year", "2004");
-		assertValue("delivery.invoice.date", "1/4/04"); 
+		assertValue("delivery.invoice.date", "1/4/2004"); 
 		assertValue("delivery.type.number", "2");
-		assertValue("delivery.date", "6/23/06");
+		assertValue("delivery.date", "6/23/2006");
 		assertValue("amount", "799.00");
 		assertValue("delivery.description", "FOR TEST SEARCHING BY DESCRIPTION");
 		
 		execute("Sections.change", "activeSection=1"); // To test a bug that clear the not key members 
-		assertValue("delivery.invoice.date", "1/4/04"); // on action call
+		assertValue("delivery.invoice.date", "1/4/2004"); // on action call
 		
 		execute("CRUD.delete");
 		assertNoErrors();

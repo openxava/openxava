@@ -50,7 +50,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertListSelectedConfiguration("Year = 2002"); 
 		assertListAllConfigurations("Year = 2002", "All");
 		assertListRowCount(1);
-		assertValueInList(0, "1\r\n2002\r\nDate: 1/1/02, VAT %: 16.0, Amounts sum: 2,500.00, Number: 1, Name: Javi"); // TMP FALLA
+		assertValueInList(0, "1\r\n2002\r\nDate: 1/1/2002, VAT %: 16.0, Amounts sum: 2,500.00, Number: 1, Name: Javi");
 		
 		selectListConfiguration("All"); 
 		assertListAllConfigurations("All", "Year = 2002");
@@ -146,15 +146,15 @@ public class Invoice2Test extends ModuleTestBase {
 		assertAction("CRUD.deleteRow");		
 		assertTrue(getHtml().contains("There are 9 records in list")); 
 		assertListRowCount(9);
-		assertValuesInList(0, "2002",  "1",  "1/1/02", "16.0",  "2,500.00", "1", "Javi"); // TMP FALLA
-		assertValuesInList(1, "2004",  "2",  "1/4/04", "42.0",     "11.00", "2", "Juanillo");
-		assertValuesInList(2, "2004",  "9",  "1/4/04", "71.0",  "4,396.00", "1", "Javi");
-		assertValuesInList(3, "2004", "10", "12/4/04", "18.0",  "1,189.00", "2", "Juanillo");
-		assertValuesInList(4, "2004", "11", "11/4/06", "22.0",      "0.00", "3", "Carmelo");
-		assertValuesInList(5, "2004", "12", "11/5/06", "13.0",    "110.00", "4", "Cuatrero");
-		assertValuesInList(6, "2007", "14", "5/28/07", "16.0",  "6,059.00", "1", "Javi");
-		assertValuesInList(7, "2009",  "1", "6/23/09", "16.0",      "0.00", "1", "Javi");
-		assertValuesInList(8, "2011",  "1", "3/14/11", "18.0", "18,207.00", "1", "Javi");
+		assertValuesInList(0, "2002",  "1",  "1/1/2002", "16.0",  "2,500.00", "1", "Javi"); 
+		assertValuesInList(1, "2004",  "2",  "1/4/2004", "42.0",     "11.00", "2", "Juanillo");
+		assertValuesInList(2, "2004",  "9",  "1/4/2004", "71.0",  "4,396.00", "1", "Javi");
+		assertValuesInList(3, "2004", "10", "12/4/2004", "18.0",  "1,189.00", "2", "Juanillo");
+		assertValuesInList(4, "2004", "11", "11/4/2006", "22.0",      "0.00", "3", "Carmelo");
+		assertValuesInList(5, "2004", "12", "11/5/2006", "13.0",    "110.00", "4", "Cuatrero");
+		assertValuesInList(6, "2007", "14", "5/28/2007", "16.0",  "6,059.00", "1", "Javi");
+		assertValuesInList(7, "2009",  "1", "6/23/2009", "16.0",      "0.00", "1", "Javi");
+		assertValuesInList(8, "2011",  "1", "3/14/2011", "18.0", "18,207.00", "1", "Javi");
 		
 		selectGroupBy("Group by date");
 		assertNoAction("CRUD.deleteSelected");
@@ -163,14 +163,14 @@ public class Invoice2Test extends ModuleTestBase {
 		assertFalse(getHtml().contains("There are 9 records in list"));
 		assertListRowCount(8); 
 		assertListColumnCount(3);
-		assertValuesInList(0,  "1/1/02",  "2,500.00", "1");
-		assertValuesInList(1,  "1/4/04",  "4,407.00", "2");
-		assertValuesInList(2, "12/4/04",  "1,189.00", "1");
-		assertValuesInList(3, "11/4/06",      "0.00", "1");
-		assertValuesInList(4, "11/5/06",    "110.00", "1");
-		assertValuesInList(5, "5/28/07",  "6,059.00", "1");
-		assertValuesInList(6, "6/23/09",      "0.00", "1");
-		assertValuesInList(7, "3/14/11", "18,207.00", "1");
+		assertValuesInList(0,  "1/1/2002",  "2,500.00", "1");
+		assertValuesInList(1,  "1/4/2004",  "4,407.00", "2");
+		assertValuesInList(2, "12/4/2004",  "1,189.00", "1");
+		assertValuesInList(3, "11/4/2006",      "0.00", "1");
+		assertValuesInList(4, "11/5/2006",    "110.00", "1");
+		assertValuesInList(5, "5/28/2007",  "6,059.00", "1");
+		assertValuesInList(6, "6/23/2009",      "0.00", "1");
+		assertValuesInList(7, "3/14/2011", "18,207.00", "1");
 		
 		selectGroupBy("Group by year");
 		assertNoAction("CRUD.deleteSelected");
@@ -253,15 +253,15 @@ public class Invoice2Test extends ModuleTestBase {
 		assertAction("CRUD.deleteRow");
 		assertTrue(getHtml().contains("There are 9 records in list"));
 		assertListRowCount(9);
-		assertValuesInList(0, "2002",  "1",  "1/1/02", "16.0",  "2,500.00", "1", "Javi");
-		assertValuesInList(1, "2004",  "2",  "1/4/04", "42.0",     "11.00", "2", "Juanillo");
-		assertValuesInList(2, "2004",  "9",  "1/4/04", "71.0",  "4,396.00", "1", "Javi");
-		assertValuesInList(3, "2004", "10", "12/4/04", "18.0",  "1,189.00", "2", "Juanillo");
-		assertValuesInList(4, "2004", "11", "11/4/06", "22.0",      "0.00", "3", "Carmelo");
-		assertValuesInList(5, "2004", "12", "11/5/06", "13.0",    "110.00", "4", "Cuatrero");
-		assertValuesInList(6, "2007", "14", "5/28/07", "16.0",  "6,059.00", "1", "Javi");
-		assertValuesInList(7, "2009",  "1", "6/23/09", "16.0",      "0.00", "1", "Javi");
-		assertValuesInList(8, "2011",  "1", "3/14/11", "18.0", "18,207.00", "1", "Javi");
+		assertValuesInList(0, "2002",  "1",  "1/1/2002", "16.0",  "2,500.00", "1", "Javi");
+		assertValuesInList(1, "2004",  "2",  "1/4/2004", "42.0",     "11.00", "2", "Juanillo");
+		assertValuesInList(2, "2004",  "9",  "1/4/2004", "71.0",  "4,396.00", "1", "Javi");
+		assertValuesInList(3, "2004", "10", "12/4/2004", "18.0",  "1,189.00", "2", "Juanillo");
+		assertValuesInList(4, "2004", "11", "11/4/2006", "22.0",      "0.00", "3", "Carmelo");
+		assertValuesInList(5, "2004", "12", "11/5/2006", "13.0",    "110.00", "4", "Cuatrero");
+		assertValuesInList(6, "2007", "14", "5/28/2007", "16.0",  "6,059.00", "1", "Javi");
+		assertValuesInList(7, "2009",  "1", "6/23/2009", "16.0",      "0.00", "1", "Javi");
+		assertValuesInList(8, "2011",  "1", "3/14/2011", "18.0", "18,207.00", "1", "Javi");
 		
 		selectGroupBy("Group by year");
 		assertListRowCount(5);

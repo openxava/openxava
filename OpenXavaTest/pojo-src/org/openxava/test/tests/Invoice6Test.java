@@ -19,15 +19,23 @@ public class Invoice6Test extends ModuleTestBase {
 	}
 	
 	public void testLocalDate() throws Exception {
-		assertValueInList(0, 2, "1/1/02"); // TMP FALLA
-		assertValueInList(1, 2, "1/4/04");
+		assertValueInList(0, 2, "1/1/2002"); 
+		assertValueInList(1, 2, "1/4/2004");
 		execute("List.viewDetail", "row=0");
-		assertValue("date", "1/1/02");
-		setValue("date", "3/20/19");
+		assertValue("date", "1/1/2002");
+		setValue("date", "2/20/19"); // With 2 digits for year
 		execute("CRUD.save");
-		assertNoErrors();
+		assertNoErrors(); 
 		execute("Mode.list");
-		assertValueInList(0, 2, "3/20/19");
+		assertValueInList(0, 2, "2/20/2019");
+		
+		execute("List.viewDetail", "row=0");
+		assertValue("date", "2/20/2019"); 
+		setValue("date", "3/20/2019");// With 4 digits for year
+		execute("CRUD.save");
+		assertNoErrors(); 
+		execute("Mode.list");
+		assertValueInList(0, 2, "3/20/2019");		
 		
 		setLocale("es");
 		assertValueInList(0, 2, "20/03/2019");	
@@ -76,13 +84,13 @@ public class Invoice6Test extends ModuleTestBase {
 		assertListRowCount(3);
 		assertValueInList(0, 0, "2004");
 		assertValueInList(0, 1, "2");
-		assertValueInList(0, 2, "1/4/04"); // TMP FALLA
+		assertValueInList(0, 2, "1/4/2004"); 
 		assertValueInList(1, 0, "2004");
 		assertValueInList(1, 1, "9");
-		assertValueInList(1, 2, "1/4/04");
+		assertValueInList(1, 2, "1/4/2004");
 		assertValueInList(2, 0, "2004");
 		assertValueInList(2, 1, "10");
-		assertValueInList(2, 2, "12/4/04");		
+		assertValueInList(2, 2, "12/4/2004");		
 		
 
 		String [] monthComparators = { "=", "=", "month_comparator"};
@@ -93,13 +101,13 @@ public class Invoice6Test extends ModuleTestBase {
 		assertListRowCount(3);
 		assertValueInList(0, 0, "2002");
 		assertValueInList(0, 1, "1");
-		assertValueInList(0, 2, "1/1/02");				
+		assertValueInList(0, 2, "1/1/2002");				
 		assertValueInList(1, 0, "2004");
 		assertValueInList(1, 1, "2");
-		assertValueInList(1, 2, "1/4/04");
+		assertValueInList(1, 2, "1/4/2004");
 		assertValueInList(2, 0, "2004");
 		assertValueInList(2, 1, "9");
-		assertValueInList(2, 2, "1/4/04");
+		assertValueInList(2, 2, "1/4/2004");
 		
 		String [] yearMonthComparators = { "=", "=", "year_month_comparator"};
 		setConditionComparators(yearMonthComparators);		
@@ -109,10 +117,10 @@ public class Invoice6Test extends ModuleTestBase {
 		assertListRowCount(2); 				
 		assertValueInList(0, 0, "2004");
 		assertValueInList(0, 1, "2");
-		assertValueInList(0, 2, "1/4/04");
+		assertValueInList(0, 2, "1/4/2004");
 		assertValueInList(1, 0, "2004");
 		assertValueInList(1, 1, "9");
-		assertValueInList(1, 2, "1/4/04");		
+		assertValueInList(1, 2, "1/4/2004");		
 	}
 	
 	public void testGroupByLocalDate() throws Exception {  
@@ -128,27 +136,27 @@ public class Invoice6Test extends ModuleTestBase {
 		);
 		
 		assertListRowCount(9);
-		assertValuesInList(0, "2002",  "1",  "1/1/02",  "2,500.00"); // TMP FALLA
-		assertValuesInList(1, "2004",  "2",  "1/4/04",     "11.00");
-		assertValuesInList(2, "2004",  "9",  "1/4/04",  "4,396.00");
-		assertValuesInList(3, "2004", "10", "12/4/04",  "1,189.00");
-		assertValuesInList(4, "2004", "11", "11/4/06",      "0.00");
-		assertValuesInList(5, "2004", "12", "11/5/06",    "110.00");
-		assertValuesInList(6, "2007", "14", "5/28/07",  "6,059.00");
-		assertValuesInList(7, "2009",  "1", "6/23/09",      "0.00");
-		assertValuesInList(8, "2011",  "1", "3/14/11", "18,207.00");
+		assertValuesInList(0, "2002",  "1",  "1/1/2002",  "2,500.00"); 
+		assertValuesInList(1, "2004",  "2",  "1/4/2004",     "11.00");
+		assertValuesInList(2, "2004",  "9",  "1/4/2004",  "4,396.00");
+		assertValuesInList(3, "2004", "10", "12/4/2004",  "1,189.00");
+		assertValuesInList(4, "2004", "11", "11/4/2006",      "0.00");
+		assertValuesInList(5, "2004", "12", "11/5/2006",    "110.00");
+		assertValuesInList(6, "2007", "14", "5/28/2007",  "6,059.00");
+		assertValuesInList(7, "2009",  "1", "6/23/2009",      "0.00");
+		assertValuesInList(8, "2011",  "1", "3/14/2011", "18,207.00");
 		
 		selectGroupBy("Group by date");
 		assertListRowCount(8); 
 		assertListColumnCount(3);
-		assertValuesInList(0,  "1/1/02",  "2,500.00", "1");
-		assertValuesInList(1,  "1/4/04",  "4,407.00", "2");
-		assertValuesInList(2, "12/4/04",  "1,189.00", "1");
-		assertValuesInList(3, "11/4/06",      "0.00", "1");
-		assertValuesInList(4, "11/5/06",    "110.00", "1");
-		assertValuesInList(5, "5/28/07",  "6,059.00", "1");
-		assertValuesInList(6, "6/23/09",      "0.00", "1");
-		assertValuesInList(7, "3/14/11", "18,207.00", "1");
+		assertValuesInList(0,  "1/1/2002",  "2,500.00", "1");
+		assertValuesInList(1,  "1/4/2004",  "4,407.00", "2");
+		assertValuesInList(2, "12/4/2004",  "1,189.00", "1");
+		assertValuesInList(3, "11/4/2006",      "0.00", "1");
+		assertValuesInList(4, "11/5/2006",    "110.00", "1");
+		assertValuesInList(5, "5/28/2007",  "6,059.00", "1");
+		assertValuesInList(6, "6/23/2009",      "0.00", "1");
+		assertValuesInList(7, "3/14/2011", "18,207.00", "1");
 		
 		selectGroupBy("Group by month of date");
 		assertListRowCount(7);

@@ -19,7 +19,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Federico Alcántara
  */
 
-public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
+public class DeliveryTest extends ModuleTestBase { 
 	
 	private String [] listActions = {
 		"Print.generatePdf",
@@ -366,7 +366,7 @@ public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		assertMessage("type=null");
 		setValue("invoice.year", "2002");
 		setValue("invoice.number", "1");
-		assertValue("invoice.date", "1/1/02");  						
+		assertValue("invoice.date", "1/1/2002");  						
 		setValue("type.number", "0");
 		assertMessage("type=0"); // Verifies zero as value for on change action
 		assertMessage("type.description=JUNIT DELIVERY TYPE 0 CREATED"); // Obtained with getEntity()
@@ -500,7 +500,7 @@ public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		
 		setValue("invoice.year", "2002");
 		setValue("invoice.number", "1");
-		assertValue("invoice.date", "1/1/02"); 					
+		assertValue("invoice.date", "1/1/2002"); 					
 		setValue("type.number", "1");
 		setValue("number", "66");
 		setValue("description", "JUNIT");
@@ -612,7 +612,7 @@ public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		execute("CRUD.new");
 		setValue("invoice.year", "2002");
 		setValue("invoice.number", "1");
-		assertValue("invoice.date", "1/1/02"); 					
+		assertValue("invoice.date", "1/1/2002"); 					
 		setValue("type.number", "1");
 		setValue("number", "66");
 		setValue("description", "JUNIT");
@@ -639,7 +639,7 @@ public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		assertNoErrors();
 		assertValue("invoice.year", "2002"); 
 		assertValue("invoice.number", "1");				
-		assertValue("invoice.date", "1/1/02");		
+		assertValue("invoice.date", "1/1/2002");		
 		assertValue("type.number", "1");
 		assertValue("number", "66");		
 		assertValue("description", "JUNIT");				
@@ -749,7 +749,7 @@ public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		execute("Delivery.setDefaultInvoice");
 		assertValue("invoice.year", "2002");
 		assertValue("invoice.number", "1");
-		assertValue("invoice.date", "1/1/02"); 		
+		assertValue("invoice.date", "1/1/2002"); 		
 	}
 				
 	public void testActivateDeactivateSection() throws Exception {
@@ -769,7 +769,7 @@ public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		execute("CRUD.new");
 		setValue("invoice.year", "2002");
 		setValue("invoice.number", "1");
-		assertValue("invoice.date", "1/1/02"); 						
+		assertValue("invoice.date", "1/1/2002"); 						
 		setValue("type.number", "1");
 		setValue("number", "66");
 		setValue("description", "JUNIT");
@@ -789,7 +789,7 @@ public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		assertNoErrors();
 		assertValue("invoice.year", "2002");
 		assertValue("invoice.number", "1");				
-		assertValue("invoice.date", "1/1/02");		
+		assertValue("invoice.date", "1/1/2002");		
 		assertValue("type.number", "1");
 		assertValue("number", "66");		
 		assertValue("description", "JUNIT");				
@@ -1023,7 +1023,7 @@ public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		setValue("invoice.number", "1");						
 		setValue("type.number", "1");
 		setValue("number", "66");
-		setValue("date", "2/22/97");
+		setValue("date", "2/22/97"); // With 2 digits for year to test a case
 		setValue("description", "JUNIT");
 		execute("CRUD.save");
 		assertNoErrors(); 
@@ -1031,7 +1031,7 @@ public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		assertValue("invoice.number", "");						
 		assertValue("type.number", "");	
 		assertValue("number", "");
-		assertValue("date", getCurrentDate());
+		assertValue("date", getCurrentDate()); 
 		assertValue("description", "");		
 		// Search just created
 		setValue("invoice.year", "2002");
@@ -1044,7 +1044,7 @@ public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		assertValue("invoice.number", "1");						
 		assertValue("type.number", "1");
 		assertValue("number", "66");		
-		assertValue("date", "2/22/97");
+		assertValue("date", "2/22/1997");
 		assertValue("description", "JUNIT");		
 		assertNoErrors();
 
@@ -1059,7 +1059,7 @@ public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
 		for (i = 0; i < quantity; i++) { 
 			String number = getValueInList(i, "number");						
 			if ("66".equals(number)) {				
-				assertValueInList(i, "date", "2/22/97");
+				assertValueInList(i, "date", "2/22/1997");
 				found = true;
 				break;
 			}			
@@ -1275,7 +1275,7 @@ public class DeliveryTest extends ModuleTestBase { // TMP FALLAN VARIOS
 	}
 	
 	private String getCurrentDate() {
-		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat df = new SimpleDateFormat("M/d/yyyy"); 
 		return df.format(new java.util.Date());
 	}
 		

@@ -299,7 +299,6 @@ public class Dates {
 	 * @since 6.0
 	 */	
 	private static DateFormat getDateTimeFormat(Locale locale, boolean fourDigitsForYear) { 
-		// tmp ¿Se testea?
 		// To use the Java 8 (and previous) format for Java 9 and better
 		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
 		if (df instanceof SimpleDateFormat) {
