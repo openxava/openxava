@@ -86,7 +86,13 @@ openxava.addEditorInitFunction(function() {
 		    
 		    pond.onaddfilestart = function() {
 		    	openxava.hideErrors(input.dataset.application, input.dataset.module);
-		    }		    
+		    }		
+		    
+		    // tmp ini
+		    pond.beforeRemoveFile = function() {
+		    	return confirm("¿Seguro?"); // TMP ME QUEDÉ POR AQUÍ, ESTO FUNCIONA. FALTA EL I18N DEL MENSAJE E INTENTAR PRUEBA AUTOMÁTICA 
+		    }
+		    // tmp fin    
     	}    	
     });
 	
