@@ -1018,7 +1018,7 @@
 		<delete includeemptydirs="true">
 		  <fileset dir="${openxava.base.dir}/${compile.project}/bin" includes="**/*"/>
 		</delete>
-		<javac destdir="${openxava.base.dir}/${compile.project}/bin">
+		<javac encoding="iso-8859-1" destdir="${openxava.base.dir}/${compile.project}/bin">
 			<src path="${openxava.base.dir}/${compile.project}/src"/>
 			<classpath>
 				<fileset dir="${openxava.base.dir}/OpenXava/web/WEB-INF/lib">
