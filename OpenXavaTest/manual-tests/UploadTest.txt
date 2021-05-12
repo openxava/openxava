@@ -41,7 +41,10 @@ GalleryImage: Product2 with all browsers
 - Remove and Browse link should be hidden. 
 - Click on a image, should be shown in another tab (the same tab with Firefox).
 - Try to drop a new image, should not work. 
-- Execute "SET ON" action. Remove all images. 
+- Execute "SET ON" action.
+- Try to remove an image, but answer Cancel to the confirm question. The image is not removed.
+- Go to the next record (no images), return to the first one: The above "not removed" image is there. 
+- Remove all images. 
 - Execute "SET OFF" action. 
 - Remove and Browse link should be hidden. 
 - Try to drop a new image, should not work. (In Firefox and IE on return back the editor could be editable, no problem)

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: It's possible to remove files inadvertently in upload editors, now it asks for confirmation.
 - Documentation to modify and build OpenXava code improved.
 - Fix: OpenXava.buildOpenXava Ant target doesn't work if ISO-8859-1 is not defined at Eclipse level.
 - Use of 4 digits for year in dates for all locales. 
