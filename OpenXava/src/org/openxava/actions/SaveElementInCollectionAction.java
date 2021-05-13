@@ -8,7 +8,6 @@ import javax.validation.*;
 import javax.validation.metadata.*;
 
 import org.openxava.model.*;
-import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.validators.ValidationException;
 import org.openxava.view.*;
@@ -28,7 +27,9 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 	private boolean containerSaved = false;
 	
 	public void execute() throws Exception {
+		System.out.println("[SaveElementInCollectionAction.execute] getCollectionElementView().getParent().getModelName()=" + getCollectionElementView().getParent().getModelName()); // tmp
 		Map containerKey = saveIfNotExists(getCollectionElementView().getParent());
+		System.out.println("[SaveElementInCollectionAction.execute] containerKey=" + containerKey); // tmp
 		if (XavaPreferences.getInstance().isMapFacadeAutoCommit()) {
 			getView().setKeyEditable(false); // To mark as saved
 		}
@@ -96,7 +97,9 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 	 */
 	protected Map saveIfNotExists(View view) throws Exception {
 		if (getView() == view) {
-			if (view.isKeyEditable()) {				
+			System.out.println("[SaveElementInCollectionAction.saveIfNotExists] A: " + view.getModelName()); // tmp
+			if (view.isKeyEditable()) {
+				System.out.println("[SaveElementInCollectionAction.saveIfNotExists] A.1: " + view.getModelName()); // tmp
 				Map key = MapFacade.createNotValidatingCollections(getModelName(), view.getValues());
 				addMessage("entity_created", getModelName());
 				view.addValues(key);
@@ -104,28 +107,55 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 				return key;								
 			}			
 			else {										
+				System.out.println("[SaveElementInCollectionAction.saveIfNotExists] A.2: " + view.getModelName()); // tmp
 				return view.getKeyValues();									
 			}
 		}			
 		else {
+			System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B: " + view.getModelName()); // tmp
 			if (isKeyIncomplete(view)) { 
 				Map parentKey = saveIfNotExists(view.getParent());
 				Map key = null;
-				if (isEntityReferencesCollection(view)) {	
+				if (isEntityReferencesCollection(view)) {
+					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.1: " + view.getModelName()); // tmp
 					Map values = view.getValues();
 					String containerReference = view.getMetaCollection().getMetaReference().getRole();
 					values.put(containerReference, parentKey);
 					key = MapFacade.createNotValidatingCollections(view.getModelName(), values);
 					addMessage("entity_created", view.getModelName()); 
 				}
-				else {
-					key = MapFacade.createAggregateReturningKey( 
+				// tmp else {
+				else if (view.isRepresentsCollection()) {
+					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.2: " + view.getModelName()); // tmp
+					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] view.getModelName()=" + view.getModelName()); // tmp
+					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] parentKey=" + parentKey); // tmp
+					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] view.getMemberName()=" + view.getMemberName()); // tmp
+					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] view.getValues()=" + view.getValues()); // tmp
+					key = MapFacade.createAggregateReturningKey( // tmp Falla aquí
 						view.getModelName(),
 						parentKey, view.getMemberName(),
 						view.getValues()
 					);
 					addMessage("aggregate_created", view.getModelName());
 				} 
+				// tmp ini
+				else {
+					// TMP ME QUEDÉ POR AQUÍ: PARECE QUE LO DE ABAJO FUNCIONA Y AHORA AVANZA MÁS Y SALE UN ERROR MÁS ADELANTE
+					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.3: " + view.getModelName()); // tmp
+					if (view.isKeyEditable()) {
+						System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.3.1: " + view.getModelName()); // tmp
+						Map keys = MapFacade.createNotValidatingCollections(getModelName(), view.getValues());
+						addMessage("entity_created", getModelName());
+						view.addValues(keys);
+						containerSaved=true;				
+						return keys;								
+					}			
+					else {										
+						System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.3.2: " + view.getModelName()); // tmp
+						return view.getKeyValues();									
+					}
+				}
+				// tmp fin
 				view.addValues(key);
 				return key;										
 			}

@@ -1,11 +1,11 @@
 package org.openxava.test.model;
 
-import org.openxava.model.*;
-import org.openxava.test.actions.*;
-import org.openxava.annotations.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
+import org.openxava.annotations.*;
+import org.openxava.model.*;
+import org.openxava.test.actions.*;
 
 /**
  * 
@@ -14,10 +14,12 @@ import javax.validation.constraints.*;
 
 @Entity
 @View(name="ConfirmName", members="artistStudio; name; age; level")
+@View(name="StudioAsEmbedded") // tmp
 @Tab(defaultOrder="${name}") 
 public class Artist extends Identifiable {
 	
 	@ManyToOne
+	@AsEmbedded(forViews="StudioAsEmbedded") // tmp
 	private Studio artistStudio; // Not the same name of parent entity, to test a case
 	
 	@Column(length=40) @Required
