@@ -14,12 +14,10 @@ import org.openxava.test.actions.*;
 
 @Entity
 @View(name="ConfirmName", members="artistStudio; name; age; level")
-@View(name="StudioAsEmbedded") // tmp
 @Tab(defaultOrder="${name}") 
 public class Artist extends Identifiable {
 	
 	@ManyToOne
-	@AsEmbedded(forViews="StudioAsEmbedded") // tmp
 	private Studio artistStudio; // Not the same name of parent entity, to test a case
 	
 	@Column(length=40) @Required

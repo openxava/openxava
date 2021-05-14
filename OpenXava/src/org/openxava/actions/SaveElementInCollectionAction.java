@@ -124,7 +124,7 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 					key = MapFacade.createNotValidatingCollections(view.getModelName(), values);
 					addMessage("entity_created", view.getModelName()); 
 				}
-				// tmp else {
+				// else {
 				else if (view.isRepresentsCollection()) {
 					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.2: " + view.getModelName()); // tmp
 					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] view.getModelName()=" + view.getModelName()); // tmp
@@ -140,20 +140,14 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 				} 
 				// tmp ini
 				else {
-					// TMP ME QUEDÉ POR AQUÍ: PARECE QUE LO DE ABAJO FUNCIONA Y AHORA AVANZA MÁS Y SALE UN ERROR MÁS ADELANTE
+					// TMP ME QUEDÉ POR AQUÍ: LO DE ABAJO LO ARREGLA. LA PRUEBA JUNIT ESTA HECHA A FALTA DE BORRAR DATOS. 
+					// TMP   DEBERÍA OPTIMIZAR EL CÓDIGO PARA HACER EL refresh DE ABAJO SOLO SI ES NECESARIO
 					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.3: " + view.getModelName()); // tmp
-					if (view.isKeyEditable()) {
-						System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.3.1: " + view.getModelName()); // tmp
-						Map keys = MapFacade.createNotValidatingCollections(getModelName(), view.getValues());
-						addMessage("entity_created", getModelName());
-						view.addValues(keys);
-						containerSaved=true;				
-						return keys;								
-					}			
-					else {										
-						System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.3.2: " + view.getModelName()); // tmp
-						return view.getKeyValues();									
-					}
+					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.3: view.getValues()>" + view.getValues()); // tmp
+					view.getRoot().refresh();
+					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.3: view.getValues()<" + view.getValues()); // tmp
+					key = view.getKeyValues();
+					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.3: key=" + key); // tmp
 				}
 				// tmp fin
 				view.addValues(key);
