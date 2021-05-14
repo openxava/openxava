@@ -90,7 +90,8 @@
         negocio desde el modo detalle</h2>
       Empezaremos con el caso más simple: un botón en modo detalle para ejecutar
       cierta lógica. En este caso para crear la factura desde un pedido:<br>
-      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
+      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
+
         title="business-logic-behavior_es010.png"><br>
       Aquí se muestra como esta nueva acción coge el pedido actual y crea una
       factura a partir de él. Simplemente copia todos los datos del pedido a la
@@ -472,7 +473,8 @@ public class MostrarOcultarCrearFactura
       aplicar lógica a varios objetos a la vez. En nuestro caso, podemos añadir
       una acción en el modo lista para crear una nueva factura automáticamente a
       partir de varios pedidos seleccionados en la lista, de esta manera:<br>
-      <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
+      <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
+
         title="business-logic-behavior_es020.png"><br>
       Aquí se muestra como esta acción de lista coge los pedidos seleccionados y
       crea una factura a partir de ellos. Simplemente copia los datos del pedido
@@ -610,7 +612,8 @@ public class CrearFacturaDesdePedidosSeleccionados
       para el usuario ver y posiblemente editar la nueva factura. Una forma de
       conseguir esto es sacando un diálogo que permite ver y editar la recién
       creada factura. De esta forma:<br>
-      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+
         title="business-logic-behavior_es030.png"><br>
       Veamos como implementar este comportamiento.
       <h3><a name="usar-showdialog"></a>Usar showDialog()</h3>
@@ -686,10 +689,12 @@ public class GrabarFactura
       <h3><a name="vista-plana-en-lugar-de-dialogo"></a>Vista plana en lugar de
         diálogo</h3>
       A veces en lugar de sacar un diálogo encima:<br>
-      <img src="files/business-logic-behavior_es040.png" alt="business-logic-behavior_es040.png"
+      <img src="files/business-logic-behavior_es040.png" alt="business-logic-behavior_es040.png"
+
         title="business-logic-behavior_es040.png"><br>
       Podriamos preferir reemplazar la vista actual por la nueva, así: <br>
-      <img src="files/business-logic-behavior_es050.png" alt="business-logic-behavior_es050.png"
+      <img src="files/business-logic-behavior_es050.png" alt="business-logic-behavior_es050.png"
+
         title="business-logic-behavior_es050.png"><br>
       Esto puede ser útil cuando la cantidad de información a mostrar es muy
       grande y en un diálogo queda mal. Usar una vista plana en vez de un
@@ -713,7 +718,8 @@ public class GrabarFactura
       Primero probaremos la acción <i>Pedido.crearFactura</i>, la acción para
       crear una factura a partir del modo detalle del pedido visualizado.
       Recordamos aquí como funciona este proceso:<br>
-      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
+      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
+
         title="business-logic-behavior_es010.png"><br>
       Ahora vamos a escribir la prueba para verificar que funciona justo de esta
       forma. Añade el método <i>testCrearFacturaDesdePedido()</i> a la clase <i>PruebaPedido</i>:
@@ -837,7 +843,8 @@ import com.tuempresa.facturacion.modelo.*;
       Ahora probaremos <i>Pedido.crearFacturaDesdePedidosSeleccionados</i>, la
       acción que crea una factura desde varios pedidos en modo lista. Recordemos
       su funcionamiento:<br>
-      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+
         title="business-logic-behavior_es030.png"><br>
       Escribamos una prueba para verificar que esto funciona justo de esta
       forma. Añade el método <i>testCrearFacturaDesdePedidosSeleccionados()</i>
@@ -990,10 +997,12 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
       la siguiente lección vamos a refinar el comportamiento de las referencias
       y colecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="references-collections_es.html">Ve a la
           lección 9</a></strong> </div>
