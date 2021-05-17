@@ -22,7 +22,7 @@ public class OrderIssue extends Identifiable {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@SearchKey 
-	@AsEmbedded(forViews="OrderAsEmbedded") // tmp
+	@AsEmbedded(forViews="OrderAsEmbedded") 
 	private Order order;
 
 	public Date getDate() {

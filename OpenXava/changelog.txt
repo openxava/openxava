@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Saving a collection element fails if the collection is inside a reference displayed with @AsEmbedded.
 - Concurrency and version property documentation improved.
 - Fix: It's possible to remove attached files inadvertently in upload editors, now it asks for confirmation.
 - Documentation to modify and build OpenXava code improved.

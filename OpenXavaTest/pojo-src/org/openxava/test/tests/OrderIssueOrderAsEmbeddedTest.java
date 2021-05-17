@@ -3,7 +3,7 @@ package org.openxava.test.tests;
 import org.openxava.tests.*;
 
 /**
- * tmp
+ * 
  * @author Javier Paniza
  */
 
@@ -16,6 +16,7 @@ public class OrderIssueOrderAsEmbeddedTest extends ModuleTestBase {
 	public void testCreateCollectionElementInAnEmbeddedReference() throws Exception {
 		// It failed with OrderIssue, Order and OrderDetail, but not in other cases like Invoice with Customer and DeliverPlace,
 		// perhaps because OrderIssue, Order and OrderDetail are Identifiable
+		assertListRowCount(1);
 		execute("CRUD.new");
 		setValue("date", "5/14/2021");
 		setValue("description", "JUNIT ORDER ISSUE");
@@ -34,8 +35,33 @@ public class OrderIssueOrderAsEmbeddedTest extends ModuleTestBase {
 		assertValueInCollection("order.details", 0, 1, "MULTAS DE TRAFICO");
 		assertValueInCollection("order.details", 0, 2, "66");
 
-		// tmp ¿Comprobar que el IssueOrder y Orde se graban?
-		// tmp Falta borrar los datos
+		execute("Mode.list");
+		assertListRowCount(2);
+		assertValueInList(0, 1, "JUNIT ORDER ISSUE");
+		execute("List.viewDetail", "row=0");
+		assertValue("date", "5/14/2021");
+		assertValue("description", "JUNIT ORDER ISSUE");
+		assertValue("order.customer.number", "1");
+		assertValue("order.customer.name", "Javi");
+		assertValue("order.remarks", "JUNIT ORDER CREATED FROM ORDER ISSUE");
+		assertCollectionRowCount("order.details", 1);
+		assertValueInCollection("order.details", 0, 0, "1");
+		assertValueInCollection("order.details", 0, 1, "MULTAS DE TRAFICO");
+		assertValueInCollection("order.details", 0, 2, "66");
+
+		String orderYear = getValue("order.year");
+		String orderNumber = getValue("order.number");
+
+		execute("CRUD.delete");
+		assertNoErrors();
+		changeModule("Order");
+		setConditionValues(orderYear, orderNumber);
+		execute("List.filter");
+		assertValueInList(0, 0, orderYear);
+		assertValueInList(0, 1, orderNumber);
+		assertValueInList(0, 5, "JUNIT ORDER CREATED FROM ORDER ISSUE");
+		execute("CRUD.deleteRow", "row=0");
+		assertNoErrors();
 	}
 			
 }

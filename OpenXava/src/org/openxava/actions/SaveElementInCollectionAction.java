@@ -27,9 +27,7 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 	private boolean containerSaved = false;
 	
 	public void execute() throws Exception {
-		System.out.println("[SaveElementInCollectionAction.execute] getCollectionElementView().getParent().getModelName()=" + getCollectionElementView().getParent().getModelName()); // tmp
 		Map containerKey = saveIfNotExists(getCollectionElementView().getParent());
-		System.out.println("[SaveElementInCollectionAction.execute] containerKey=" + containerKey); // tmp
 		if (XavaPreferences.getInstance().isMapFacadeAutoCommit()) {
 			getView().setKeyEditable(false); // To mark as saved
 		}
@@ -97,9 +95,7 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 	 */
 	protected Map saveIfNotExists(View view) throws Exception {
 		if (getView() == view) {
-			System.out.println("[SaveElementInCollectionAction.saveIfNotExists] A: " + view.getModelName()); // tmp
 			if (view.isKeyEditable()) {
-				System.out.println("[SaveElementInCollectionAction.saveIfNotExists] A.1: " + view.getModelName()); // tmp
 				Map key = MapFacade.createNotValidatingCollections(getModelName(), view.getValues());
 				addMessage("entity_created", getModelName());
 				view.addValues(key);
@@ -107,49 +103,32 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 				return key;								
 			}			
 			else {										
-				System.out.println("[SaveElementInCollectionAction.saveIfNotExists] A.2: " + view.getModelName()); // tmp
 				return view.getKeyValues();									
 			}
 		}			
 		else {
-			System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B: " + view.getModelName()); // tmp
 			if (isKeyIncomplete(view)) { 
 				Map parentKey = saveIfNotExists(view.getParent());
-				Map key = null;
+				Map key = Collections.EMPTY_MAP; 
 				if (isEntityReferencesCollection(view)) {
-					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.1: " + view.getModelName()); // tmp
 					Map values = view.getValues();
 					String containerReference = view.getMetaCollection().getMetaReference().getRole();
 					values.put(containerReference, parentKey);
 					key = MapFacade.createNotValidatingCollections(view.getModelName(), values);
 					addMessage("entity_created", view.getModelName()); 
 				}
-				// else {
-				else if (view.isRepresentsCollection()) {
-					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.2: " + view.getModelName()); // tmp
-					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] view.getModelName()=" + view.getModelName()); // tmp
-					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] parentKey=" + parentKey); // tmp
-					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] view.getMemberName()=" + view.getMemberName()); // tmp
-					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] view.getValues()=" + view.getValues()); // tmp
-					key = MapFacade.createAggregateReturningKey( // tmp Falla aquí
+				else if (view.isRepresentsCollection()) { 
+					key = MapFacade.createAggregateReturningKey( 
 						view.getModelName(),
 						parentKey, view.getMemberName(),
 						view.getValues()
 					);
 					addMessage("aggregate_created", view.getModelName());
 				} 
-				// tmp ini
-				else {
-					// TMP ME QUEDÉ POR AQUÍ: LO DE ABAJO LO ARREGLA. LA PRUEBA JUNIT ESTA HECHA A FALTA DE BORRAR DATOS. 
-					// TMP   DEBERÍA OPTIMIZAR EL CÓDIGO PARA HACER EL refresh DE ABAJO SOLO SI ES NECESARIO
-					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.3: " + view.getModelName()); // tmp
-					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.3: view.getValues()>" + view.getValues()); // tmp
+				else if (view.isRepresentsAggregate() && !view.getMetaModel().getAllMetaPropertiesKey().isEmpty()) { // A reference to an entity @AsEmbedded
 					view.getRoot().refresh();
-					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.3: view.getValues()<" + view.getValues()); // tmp
 					key = view.getKeyValues();
-					System.out.println("[SaveElementInCollectionAction.saveIfNotExists] B.3: key=" + key); // tmp
 				}
-				// tmp fin
 				view.addValues(key);
 				return key;										
 			}
