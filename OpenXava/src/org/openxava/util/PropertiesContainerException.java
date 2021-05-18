@@ -2,9 +2,9 @@ package org.openxava.util;
 
 
 /**
- * tmp
  * Exception thrown by  {@link IPropertiesContainer}. <p>
  *
+ * @since 6.5.2
  * @author  Javier Paniza
  */
 

@@ -812,15 +812,6 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		Map membersNames)
 		throws FinderException, XavaException, RemoteException {
 		try {			
-			/* tmp
-			Map result =
-				getValues(					 
-					metaModel,
-					findEntity(metaModel, keyValues), 
-					membersNames);
-			return result;		
-			*/
-			// tmp ini
 			Object entity = findEntity(metaModel, keyValues);
 			try {
 				return getValues(metaModel, entity,	membersNames);
@@ -829,7 +820,6 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 				getPersistenceProvider(metaModel).refreshIfManaged(entity);
 				return getValues(metaModel, entity,	membersNames);
 			}
-			// tmp fin
 		} catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
 			throw new XavaException("get_values_error", metaModel.getName()); 
@@ -1289,10 +1279,8 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		} catch (FinderException ex) {
 			log.error(ex.getMessage(), ex);
 			throw new XavaException("get_reference_error", memberName, metaModel.getName());
-		// tmp ini	
 		} catch (PropertiesContainerException ex) {
 			throw ex;
-		// tmp fin	
 		} catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
 			throw new XavaException("get_reference_error", memberName, metaModel.getName());

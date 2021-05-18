@@ -29,13 +29,7 @@ public class HibernatePersistenceProvider extends POJOPersistenceProviderBase {
 	
 	protected Object find(Class pojoClass, Serializable key) {
 		flush(); 
-		Object result = XHibernate.getSession().get(pojoClass, (Serializable) key);  
-		/* tmp
-		if (result != null) {			
-			refreshIfManaged(result);
-		}
-		*/
-		return result;
+		return XHibernate.getSession().get(pojoClass, (Serializable) key);  
 	}
 	
 	protected void persist(Object object) {
