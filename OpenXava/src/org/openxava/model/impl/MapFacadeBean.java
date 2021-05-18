@@ -810,14 +810,26 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		MetaModel metaModel, 	
 		Map keyValues,
 		Map membersNames)
-		throws FinderException, XavaException, RemoteException {		
+		throws FinderException, XavaException, RemoteException {
 		try {			
+			/* tmp
 			Map result =
 				getValues(					 
 					metaModel,
 					findEntity(metaModel, keyValues), 
-					membersNames); 	
-			return result;
+					membersNames);
+			return result;		
+			*/
+			// tmp ini
+			Object entity = findEntity(metaModel, keyValues);
+			try {
+				return getValues(metaModel, entity,	membersNames);
+			}
+			catch (PropertiesContainerException ex) {
+				getPersistenceProvider(metaModel).refreshIfManaged(entity);
+				return getValues(metaModel, entity,	membersNames);
+			}
+			// tmp fin
 		} catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
 			throw new XavaException("get_values_error", metaModel.getName()); 
@@ -1155,7 +1167,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 						throw new XavaException("member_not_found", memberName, metaModel.getName());
 					}
 				}
-			}			
+			}
 			result.putAll(r.executeGets(names.toString()));
 			if (includeModelName) result.put(MapFacade.MODEL_NAME, persistenceProvider.getModelName(modelObject)); 
 			return result;
@@ -1165,7 +1177,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			throw new RemoteException(XavaResources.getString("get_values_error", metaModel.getName()));
 		}
 	}
-	
+		
 	public Map getKeyValues(UserInfo userInfo, String modelName, Object entity) throws RemoteException, XavaException {
 		Users.setCurrentUserInfo(userInfo);
 		MetaModel metaModel = getMetaModel(modelName);
@@ -1277,6 +1289,10 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		} catch (FinderException ex) {
 			log.error(ex.getMessage(), ex);
 			throw new XavaException("get_reference_error", memberName, metaModel.getName());
+		// tmp ini	
+		} catch (PropertiesContainerException ex) {
+			throw ex;
+		// tmp fin	
 		} catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
 			throw new XavaException("get_reference_error", memberName, metaModel.getName());

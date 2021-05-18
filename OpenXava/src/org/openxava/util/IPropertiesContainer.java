@@ -22,7 +22,7 @@ public interface IPropertiesContainer {
    * @return Map with<tt>String propertyName:Object value</tt>. Not null
    * @exception RemoteException  Some system problem or another unexpected problem
    */
-  Map executeGets(String properties) throws RemoteException;
+  Map executeGets(String properties) throws PropertiesContainerException, RemoteException; // tmp PropertiesContainerException
   
   /**
    * Update the properties from a map. <p> 
@@ -32,6 +32,6 @@ public interface IPropertiesContainer {
    * @exception ValidationException  Some problem validating the data
    * @exception RemoteException  Some system problem or another unexpected problem
    */
-  void executeSets(Map properties) throws ValidationException, RemoteException;
+  void executeSets(Map properties) throws ValidationException, PropertiesContainerException, RemoteException; // tmp PropertiesContainerException 
   
 }

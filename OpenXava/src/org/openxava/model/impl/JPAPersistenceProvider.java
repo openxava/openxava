@@ -33,7 +33,7 @@ public class JPAPersistenceProvider extends POJOPersistenceProviderBase {
 		try {
 			flush(); 
 			Object result = XPersistence.getManager().find(pojoClass, key);  
-			if (result != null) refreshIfManaged(result); 			
+			// if (result != null) refreshIfManaged(result); 			
 			return result;
 		}
 		catch (EntityNotFoundException ex) {

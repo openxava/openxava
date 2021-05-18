@@ -4,8 +4,6 @@ import java.lang.reflect.*;
 import java.rmi.*;
 import java.util.*;
 
-
-
 import org.apache.commons.logging.*;
 import org.openxava.util.*;
 
@@ -26,8 +24,9 @@ public class POJOPropertiesContainerAdapter implements IPropertiesContainer {
 			return propertiesManager.executeGets(properties);	
 		}
 		catch (Exception ex) {
-			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("get_properties_error", ex.getLocalizedMessage()));
+			// tmp log.error(ex.getMessage(), ex);
+			// tmp throw new RemoteException(XavaResources.getString("get_properties_error", ex.getLocalizedMessage()));
+			throw new PropertiesContainerException("get_properties_error", ex.getLocalizedMessage());
 		}
 	}
 

@@ -7,7 +7,6 @@ import javax.ejb.*;
 
 import org.apache.commons.logging.*;
 import org.hibernate.*;
-
 import org.openxava.hibernate.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
@@ -31,9 +30,11 @@ public class HibernatePersistenceProvider extends POJOPersistenceProviderBase {
 	protected Object find(Class pojoClass, Serializable key) {
 		flush(); 
 		Object result = XHibernate.getSession().get(pojoClass, (Serializable) key);  
+		/* tmp
 		if (result != null) {			
 			refreshIfManaged(result);
 		}
+		*/
 		return result;
 	}
 	
