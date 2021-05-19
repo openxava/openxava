@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Action links for rows in list inside dialogs are difficult to see in Dark theme.
+
 - Fix: Icons inside text fields, like calendar icon in date, are difficult to see in Dark theme.
 - Fix: Error message about SameSite attribute with cookies in FireFox console. 
 - Fix: Dead code in JavaScript editors.

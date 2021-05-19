@@ -79,6 +79,10 @@
 	--reference-search-icon-hover-background: var(--default-action-button-hover-background);
 	--reference-search-icon-color: white;
 	--reference-search-icon-hover-color: white;
+	/* tmp ini */
+	--editor-icon-color: var(--list-row-action-color);
+	--editor-icon-hover-color: var(--list-row-action-hover-color);;
+	/* tmp fin */
 	
 	--welcome-background: var(--background);
 	--welcome-color: var(--color);
@@ -823,6 +827,16 @@ i, .ox-icon i.mdi-close-circle,
 	color: var(--action-color);
 }
 
+/* tmp ini */
+.xava_editor i {  
+	color: var(--editor-icon-color);
+}
+
+.xava_editor i:hover {  
+    color: var(--editor-icon-hover-color);
+}
+/* tmp fin */
+
 .ox-button-bar .ox-button-bar-button a, 
 .ox-button-bar-button i
 {  
@@ -1190,6 +1204,7 @@ input[type="button"] {
 	color: var(--list-row-a-color); 
 }
 
+/* tmp
 .ox-list-pair .ox-image-link i, .ox-list-odd .ox-image-link i,
 .ox-list-pair .ox-action-link, .ox-list-odd .ox-action-link {
 	color: var(--list-row-action-color);
@@ -1199,6 +1214,23 @@ input[type="button"] {
 .ox-list-pair .ox-action-link:hover, .ox-list-odd .ox-action-link:hover {
 	color: var(--list-row-action-hover-color);
 }
+*/
+
+/* tmp ini */
+.ox-list-pair .ox-image-link i, .ox-list-odd .ox-image-link i,
+.ox-list-pair .ox-action-link, .ox-list-odd .ox-action-link, 
+.ui-widget-content .ox-list-pair .ox-action-link, 
+.ui-widget-content .ox-list-odd .ox-action-link {
+	color: var(--list-row-action-color);
+}
+
+.ox-list-pair .ox-image-link:hover i, .ox-list-odd .ox-image-link:hover i,
+.ox-list-pair .ox-action-link:hover, .ox-list-odd .ox-action-link:hover,
+.ui-widget-content .ox-list-pair .ox-action-link:hover, 
+.ui-widget-content .ox-list-odd .ox-action-link:hover {
+	color: var(--list-row-action-hover-color);
+}
+/* tmp fin */
 
 .ox-total-row .ox-image-link i {
 	color: var(--list-total-row-action-color);
