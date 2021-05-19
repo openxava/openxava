@@ -54,3 +54,11 @@
 	--ui-menu-item-state-focus-background: lightgray; 
 	--icons-list-scrollbar-color: lightgray; 
 }
+
+.xava_editor i {  
+	color: var(--list-row-action-color);
+}
+
+.xava_editor i:hover {  
+    color: var(--list-row-action-hover-color);
+}

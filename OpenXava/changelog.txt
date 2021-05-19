@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Icons inside text fields, like calendar icon in date, are difficult to see in Dark theme.
 - Fix: Error message about SameSite attribute with cookies in FireFox console. 
 - Fix: Dead code in JavaScript editors.
 - Fix: Poor performance getting calculated collections in some circumstances.
