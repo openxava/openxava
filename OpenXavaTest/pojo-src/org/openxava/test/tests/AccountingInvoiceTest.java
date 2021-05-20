@@ -13,7 +13,19 @@ public class AccountingInvoiceTest extends ModuleTestBase {
 		super(testName, "AccountingInvoice");		
 	}
 			
-	public void testManyToManyNotRemoveEntityWhenReferencedEntityIsAlsoAOneToManyCascadeRemoveFromOtherEntity() throws Exception {
+	public void testManyToManyNotRemoveEntityWhenReferencedEntityIsAlsoAOneToManyCascadeRemoveFromOtherEntity_excludeMembersOfParentOfCollectionOnAddingColumnsUsingInheritance() throws Exception {
+		// tmp ini
+		execute("List.addColumns");
+		assertNoAction("AddColumns.showMoreColumns");
+		// We could have more columns if we modify the model, 
+		// the important thing is that columns of the parent of detail (document) are not shown, 
+		// like Date of document of positions, Description of document of positions, Number of document of positions
+		// That is no column with "of document of positions", not even after pressing AddColumns.showMoreColumns (not shown by now)
+		assertCollectionRowCount("xavaPropertiesList", 1); 		
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Description of positions");
+		closeDialog();
+		// tmp fin
+
 		execute("List.viewDetail", "row=0");
 		assertValue("description", "INVOICE 1");
 		
@@ -31,13 +43,5 @@ public class AccountingInvoiceTest extends ModuleTestBase {
 		assertCollectionRowCount("positions", 1);
 		assertValueInCollection("positions", 0, 0, "POSITION 1");
 	}
-	
-	public void testExcludeMembersOfParentOfCollectionOnAddingColumnsUsingInheritance() throws Exception { // tmp ¿Fusionar?
-		execute("List.addColumns");
-		execute("AddColumns.showMoreColumns");
-		assertCollectionRowCount("xavaPropertiesList", 1); 		
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Description of positions");		
-		
-	}
-				
+					
 }

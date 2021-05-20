@@ -1786,69 +1786,43 @@ abstract public class MetaModel extends MetaElement {
 			}
 			else if (getMapMetaReferences().containsKey(name)) {
 				MetaReference ref = (MetaReference) getMapMetaReferences().get(name);
-				System.out.println("[MetaModel.createQualifiedPropertiesNames] Reference: " + level + ". " + getName() + "." + name + ": parents=" + parents); // tmp
-				System.out.println("[MetaModel.createQualifiedPropertiesNames] Reference: " + level + ". " + getName() + "." + name + ": ref.getReferencedModelName()=" + ref.getReferencedModelName()); // tmp
 				if (ref.isTransient()) continue; 
 				if (!parents.contains(ref.getReferencedModelName())) {
-					System.out.println("[MetaModel.createQualifiedPropertiesNames] Reference: " + level + ". " + getName() + "." + name + ": Entra"); // tmp
 					Collection newParents = new HashSet();
 					newParents.addAll(parents);
 					newParents.add(ref.getReferencedModelName());	
 					result.addAll(ref.getMetaModelReferenced().createQualifiedPropertiesNames(newParents, prefix + ref.getName() + ".", includeCollections, level - 1));
-					System.out.println("[MetaModel.createQualifiedPropertiesNames] Reference: " + level + ". " + getName() + "." + name + ": result=" + result); // tmp
 				}
-				// tmp ini
-				else {
-					System.out.println("[MetaModel.createQualifiedPropertiesNames] Reference: " + level + ". " + getName() + "." + name + ": No entra"); // tmp
-				}
-				// tmp fin
 			}
 			else if (includeCollections && getMapMetaCollections().containsKey(name)) {
-				System.out.println("[MetaModel.createQualifiedPropertiesNames] Collection: " + level + ". " + getName() + "." + name + ": parents=" + parents); // tmp
 				MetaCollection collection = (MetaCollection) getMapMetaCollections().get(name);
 				if (collection.hasCalculator()) continue;
 				MetaReference ref = collection.getMetaReference();
-				System.out.println("[MetaModel.createQualifiedPropertiesNames] Collection: " + level + ". " + getName() + "." + name + ": ref.getReferencedModelName()=" + ref.getReferencedModelName()); // tmp
 				if (!parents.contains(ref.getReferencedModelName())) {
-					System.out.println("[MetaModel.createQualifiedPropertiesNames] Collection: " + level + ". " + getName() + "." + name + ": Entra"); // tmp
 					Collection newParents = new HashSet();
 					newParents.addAll(parents);
 					newParents.add(ref.getReferencedModelName());	
-					newParents.add(ref.getMetaModel().getParentsWithCollection((String) name)); // tmp
+					newParents.addAll(ref.getMetaModel().getParentsWithCollection((String) name)); // tmp
 					result.addAll(ref.getMetaModelReferenced().createQualifiedPropertiesNames(newParents, prefix + collection.getName() + ".", includeCollections, level - 1));
-					System.out.println("[MetaModel.createQualifiedPropertiesNames] Collection: " + level + ". " + getName() + "." + name + ": result=" + result); // tmp
 				}
-				// tmp ini
-				else {
-					System.out.println("[MetaModel.createQualifiedPropertiesNames] " + level + ". " + getName() + "." + name + ": No entra"); // tmp
-				}
-				// tmp fin
 			}
 		} 
 		return result;		
 	}
 	
 	private Collection<String> getParentsWithCollection(String collectionName) { // tmp
-		// TMP ME QUEDÉ POR AQUÍ: ESTO NO FUNCIONÓ
-		System.out.println("[MetaModel.printParents] >> " + getName() + ": " + collectionName); // tmp
 		Collection<String> result = new ArrayList<String>();
-		Class pojoClass = getPOJOClass();
-		Class superClass = pojoClass.getSuperclass();
+		Class superClass = getPOJOClass().getSuperclass();
 		while (!superClass.equals(Object.class)) {
-			System.out.println("[MetaModel.printParents] superClass=" + superClass); // tmp
-			
 			try {
 				boolean exists = new PropertiesManager(superClass).exists(collectionName);
-				System.out.println("[MetaModel.printParents] " + collectionName + " exists in " + superClass.getSimpleName() + "=" + exists); // tmp
 				if (exists) result.add(superClass.getSimpleName());
 			} catch (PropertiesManagerException e) {
-				// TODO Auto-generated catch block
+				// TMP ME QUEDÉ POR AQUÍ: PONER LOG CON MENSAJE SIGNIFICATIVO
 				e.printStackTrace();
 			}
-			superClass = superClass.getSuperclass();
-			
+			superClass = superClass.getSuperclass();			
 		}
-		System.out.println("[MetaModel.printParents] << " + getName() + ": " + collectionName); // tmp
 		return result;
 	}
 	
