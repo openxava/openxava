@@ -35,11 +35,8 @@ public class AccountingInvoiceTest extends ModuleTestBase {
 	public void testExcludeMembersOfParentOfCollectionOnAddingColumnsUsingInheritance() throws Exception { // tmp ¿Fusionar?
 		execute("List.addColumns");
 		execute("AddColumns.showMoreColumns");
-		// TMP ME QUEDÉ POR AQUÍ: HACIENDO EL TEST
-		assertCollectionRowCount("xavaPropertiesList", 999); 		
-		assertValueInCollection("xavaPropertiesList",  0, 0, "x");
-		assertValueInCollection("xavaPropertiesList",  1, 0, "x");
-		
+		assertCollectionRowCount("xavaPropertiesList", 1); 		
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Description of positions");		
 		
 	}
 				

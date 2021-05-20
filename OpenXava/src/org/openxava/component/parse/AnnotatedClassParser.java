@@ -159,6 +159,8 @@ public class AnnotatedClassParser implements IComponentParser {
 
 	
 	private void parseMembers(MetaModel model, Class pojoClass, ModelMapping mapping, String embedded) throws Exception {
+		System.out.println("[AnnotatedClassParser.parseMembers] pojoClass.getSimpleName()=" + pojoClass.getSimpleName()); // tmp
+		System.out.println("[AnnotatedClassParser.parseMembers] model.getName()=" + model.getName()); // tmp
 		Class superClass = pojoClass.getSuperclass();
 		if (model.getMetaComponent().isTransient() && !superClass.equals(java.lang.Object.class) ||
 			superClass.isAnnotationPresent(Entity.class) || 
