@@ -1,9 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Icon of the action to search references is difficult to see in Dark theme.
+- Fix: Redundant columns to add to list when using inheritance with entities with collections.
 - Fix: Action links for rows in list inside dialogs are difficult to see in Dark theme.
-
-- Fix: Icons inside text fields, like calendar icon in date, are difficult to see in Dark theme.
+- Fix: Calendar icon inside date fields is difficult to see in Dark theme.
 - Fix: Error message about SameSite attribute with cookies in FireFox console. 
 - Fix: Dead code in JavaScript editors.
 - Fix: Poor performance getting calculated collections in some circumstances.

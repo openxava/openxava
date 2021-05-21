@@ -1802,7 +1802,7 @@ abstract public class MetaModel extends MetaElement {
 					Collection newParents = new HashSet();
 					newParents.addAll(parents);
 					newParents.add(ref.getReferencedModelName());	
-					newParents.addAll(ref.getMetaModel().getParentsWithCollection((String) name)); // tmp
+					newParents.addAll(ref.getMetaModel().getParentsWithCollection((String) name)); 
 					result.addAll(ref.getMetaModelReferenced().createQualifiedPropertiesNames(newParents, prefix + collection.getName() + ".", includeCollections, level - 1));
 				}
 			}
@@ -1810,22 +1810,21 @@ abstract public class MetaModel extends MetaElement {
 		return result;		
 	}
 	
-	private Collection<String> getParentsWithCollection(String collectionName) { // tmp
+	private Collection<String> getParentsWithCollection(String collectionName) { 
 		Collection<String> result = new ArrayList<String>();
 		Class superClass = getPOJOClass().getSuperclass();
 		while (!superClass.equals(Object.class)) {
 			try {
 				boolean exists = new PropertiesManager(superClass).exists(collectionName);
 				if (exists) result.add(superClass.getSimpleName());
-			} catch (PropertiesManagerException e) {
-				// TMP ME QUEDÉ POR AQUÍ: PONER LOG CON MENSAJE SIGNIFICATIVO
-				e.printStackTrace();
+			} 
+			catch (PropertiesManagerException ex) {				
+				log.warn(XavaResources.getString("parent_not_excluded_rendundant_columns", superClass.getSimpleName()), ex);
 			}
 			superClass = superClass.getSuperclass();			
 		}
 		return result;
 	}
-	
 
 	/**
 	 * Gets the MetaModel from its name. <p>
