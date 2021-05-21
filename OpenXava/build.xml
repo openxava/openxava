@@ -1096,7 +1096,8 @@
 	
 	<target name="defineSchemaToolPath">
 		
-		<path id="schema.tool.path"> 
+		<path id="schema.tool.path">
+			<path location="web/WEB-INF/classes"/> <!-- tmp -->
 			<!-- Library from OpenXava in order to work the first time
 				before WEB-INF/lib of new project is populated -->
 			<fileset dir="${openxava.base.dir}/OpenXava/web/WEB-INF/lib">
@@ -1108,7 +1109,9 @@
 				<include name="**/*.jar"/>
 			</fileset>
 			<path path="${j2ee.lib}"/>
+			<!-- tmp
 			<path location="web/WEB-INF/classes"/>
+			-->
 			<path location="${schema.path}" />			
 		</path>
 
