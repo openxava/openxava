@@ -198,9 +198,10 @@ public class SchemaTool {
 	}
 	
 	private String addSchema(String script, boolean supportsSchemasInIndexDefinitions, String schema) { // tmp
+		//System.out.println("[SchemaTool.addSchema] supportsSchemasInIndexDefinitions=" + supportsSchemasInIndexDefinitions); // tmp
 		if (!supportsSchemasInIndexDefinitions || Is.emptyString(schema)) return script;
-		// TMP FALTA PROBAR CON MYSQL Y POSTGRESQL LA SINTAXIS. POR LO DEMÁS, CREO QUE YA ESTÁ
-		// tmp Comprobar que esta sintaxis funciona al menos con MySQL y PostgreSQL. Con AS/400 y HSQLDB sí que funciona
+		// TMP FALTA PROBAR CON POSTGRESQL LA SINTAXIS. POR LO DEMÁS, CREO QUE YA ESTÁ
+		// tmp Comprobar que esta sintaxis funciona al menos con MySQL y PostgreSQL. Con AS/400, MySQL y HSQLDB sí que funciona
 		return script.replace("add constraint FK", "add constraint " + schema + ".FK");
 	}
 
