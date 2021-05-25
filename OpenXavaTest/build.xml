@@ -149,13 +149,7 @@
 		
 		<ant antfile="../OpenXava/build.xml" target="generateSchemaJPA">
 			<property name="persistence.unit" value="junit"/>
-			<!-- tmp 
 			<property name="schema.path" value="../OpenXava/lib/hsqldb.jar"/>
-			-->
-			<!-- tmp ini -->
-			<property name="schema.path" value="/Users/javie/java/mysql-connector-java-8.0.17/mysql-connector-java-8.0.17.jar"/>
-			
-			<!-- tmp fin -->
 		</ant>
 				
 	</target>	

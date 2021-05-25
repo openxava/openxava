@@ -32,7 +32,6 @@ public class SchemaTool {
 	private Collection<Class> annotatedClasses = null;
 	
 	public static void main(String[] args) throws Exception {
-		System.out.println("[SchemaTool.main] HOLA"); // tmp
 		if (args.length == 0 || Is.emptyString(args[0])) {
 			log.error(XavaResources.getString("schematool_action_required")); 
 			return;
@@ -87,15 +86,6 @@ public class SchemaTool {
 				}
 			}
 
-			/* tmp
-			if (Is.empty(factoryProperties.get("hibernate.default_catalog"))) {
-				Object schema = factoryProperties.get("hibernate.default_schema"); 
-				if (schema != null) {
-					serviceRegistryBuilder.applySetting("hibernate.default_schema", schema); 
-				}
-			}
-			*/
-			// tmp ini
 			String schema = (String) factoryProperties.get("hibernate.default_catalog"); 
 			if (Is.emptyString(schema)) {
 				schema = (String) factoryProperties.get("hibernate.default_schema"); 
@@ -103,7 +93,6 @@ public class SchemaTool {
 					serviceRegistryBuilder.applySetting("hibernate.default_schema", schema); 
 				}
 			}			
-			// tmp fin
 			
 			if (!Is.empty(factoryProperties.get("hibernate.connection.url"))) {
 				String username = PersistenceXml.getPropetyValue(XPersistence.getPersistenceUnit(), "hibernate.connection.username");
@@ -136,11 +125,8 @@ public class SchemaTool {
 	
 			String fileName = Files.getOpenXavaBaseDir() + "ddl-" + UUID.randomUUID() + ".sql";
 			File file = new File(fileName);
-			// tmp ini
 			java.sql.Connection connection = ((SessionImpl) XPersistence.getManager().getDelegate()).connection(); 
 	    	boolean supportsSchemasInIndexDefinitions = supportsSchemasInIndexDefinitions(connection);
-	    	System.out.println("[SchemaTool.execute] supportsSchemasInIndexDefinitions=" + supportsSchemasInIndexDefinitions); // tmp
-			// tmp fin
 	    	XPersistence.commit();			
 	    	if (update) {
 				SchemaUpdate schemaUpdate = new SchemaUpdate();
@@ -148,6 +134,7 @@ public class SchemaTool {
 				schemaUpdate.execute(EnumSet.of(TargetType.SCRIPT), metadata.buildMetadata());
 				Collection<String> scripts = FileUtils.readLines(file);
 		    	for (String script: scripts) {
+		    		script = addSchema(script, supportsSchemasInIndexDefinitions, schema); 
 		    		log.info(XavaResources.getString("executing") + ": " + script);
 		    		try {
 		    			Query query = XPersistence.getManager().createNativeQuery(script); 
@@ -168,7 +155,7 @@ public class SchemaTool {
 				Collection<String> scripts = FileUtils.readLines(file);
 				for (String script: scripts) {
 					if (onlySequences && !script.startsWith("create sequence ")) continue;
-					script = addSchema(script, supportsSchemasInIndexDefinitions, schema); // tmp
+					script = addSchema(script, supportsSchemasInIndexDefinitions, schema); 
 					if (console) {
 						System.out.print(script); 
 						System.out.println(';');
@@ -192,16 +179,16 @@ public class SchemaTool {
 
 	}
 	
-	private boolean supportsSchemasInIndexDefinitions(Connection connection) throws SQLException { // tmp
+	private boolean supportsSchemasInIndexDefinitions(Connection connection) throws SQLException { 
 		DatabaseMetaData metaData = connection.getMetaData();
+		if ("PostgreSQL".equals(metaData.getDatabaseProductName())) return false;
 		return metaData.supportsSchemasInIndexDefinitions();
 	}
 	
-	private String addSchema(String script, boolean supportsSchemasInIndexDefinitions, String schema) { // tmp
-		//System.out.println("[SchemaTool.addSchema] supportsSchemasInIndexDefinitions=" + supportsSchemasInIndexDefinitions); // tmp
+	private String addSchema(String script, boolean supportsSchemasInIndexDefinitions, String schema) { 
 		if (!supportsSchemasInIndexDefinitions || Is.emptyString(schema)) return script;
-		// TMP FALTA PROBAR CON POSTGRESQL LA SINTAXIS. POR LO DEMÁS, CREO QUE YA ESTÁ
-		// tmp Comprobar que esta sintaxis funciona al menos con MySQL y PostgreSQL. Con AS/400, MySQL y HSQLDB sí que funciona
+		// Needed at least for AS/400 where supportsSchemasInIndexDefinitions is true 
+		// but the dialect does to prefix the FK on alter table, something that AS/400 requires
 		return script.replace("add constraint FK", "add constraint " + schema + ".FK");
 	}
 
