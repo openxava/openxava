@@ -4,6 +4,7 @@
 <%@page import="java.util.Collection"%>
 <%@page import="org.openxava.util.Is"%>
 <%@page import="org.openxava.util.Strings"%> 
+<%@page import="org.openxava.util.Locales"%> <!-- tmp -->
 <%@page import="org.openxava.application.meta.MetaModule"%>
 
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
@@ -20,15 +21,22 @@ String smodulesLimit = request.getParameter("modulesLimit");
 int modulesLimit = smodulesLimit == null?30:Integer.parseInt(smodulesLimit); 
 int counter = 0; 
 boolean loadMore = false;
+System.out.println("[selectModules.jsp] Locales.getCurrent()=" + Locales.getCurrent()); // tmp
 for (Iterator it= modulesList.iterator(); it.hasNext();) {
 	if (counter == modulesLimit) {
 		loadMore = true; 
 		break;
 	}
 	MetaModule module = (MetaModule) it.next();
-	String selected = module.getName().equals(modules.getCurrent(request))?"selected":""; 
+	String selected = module.getName().equals(modules.getCurrent(request))?"selected":"";
+	/* tmp 
 	String label = module.getLabel(request.getLocale()); 
 	String description = module.getDescription(request.getLocale());
+	*/
+	// tmp ini
+	String label = module.getLabel(Locales.getCurrent()); 
+	String description = module.getDescription(Locales.getCurrent());	
+	// tmp fin
 	String normalizedLabel = Strings.removeAccents(label.toLowerCase()); 
 	String normalizedDescription = Strings.removeAccents(description.toLowerCase());
 	if (!Is.emptyString(searchWord) && !normalizedLabel.contains(searchWord) && !normalizedDescription.contains(searchWord)) continue;

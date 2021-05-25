@@ -162,7 +162,7 @@
 	<script type='text/javascript'>
 		openxava.lastApplication='<%=app%>'; 		
 		openxava.lastModule='<%=module%>'; 	
-		openxava.language='<%=request.getLocale().getLanguage()%>';
+		openxava.language='<%=request.getLocale().getLanguage()%>'; // tmp Falta cambiar esto. Se supone que tiene efecto en el calendario y el editor HTML
 		openxava.contextPath = '<%=contextPath%>';
 	</script>
 	<%
