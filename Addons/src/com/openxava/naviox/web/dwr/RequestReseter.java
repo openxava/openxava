@@ -1,6 +1,7 @@
 package com.openxava.naviox.web.dwr;
 
 import javax.servlet.http.*;
+import org.openxava.util.*; 
 
 /**
  * 
@@ -10,6 +11,7 @@ import javax.servlet.http.*;
 class RequestReseter {
 	
 	public static void reset(HttpServletRequest request) {
+		Locales.setCurrent(request); 
 	}
 
 }

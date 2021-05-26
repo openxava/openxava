@@ -161,8 +161,8 @@
 	<% } %>
 	<script type='text/javascript'>
 		openxava.lastApplication='<%=app%>'; 		
-		openxava.lastModule='<%=module%>'; 	
-		openxava.language='<%=request.getLocale().getLanguage()%>';
+		openxava.lastModule='<%=module%>'; 
+		openxava.language='<%=Locales.getCurrent().getLanguage()%>'; 
 		openxava.contextPath = '<%=contextPath%>';
 	</script>
 	<%

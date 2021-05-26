@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Date calendar and rich text editor do not change the language when xava.portal.locale is changed.
+- Fix: When locale is changed via code (xava.portal.locale) the link for help documentation is not updated.
+- Fix: Modules in left menu in incorrect language when you change locale from code (xava.portal.locale).
 - Fix: SchemaTool does not work with AS/400 on creating the foreign keys.
 - Fix: Icon of the action to search references is difficult to see in Dark theme.
 - Fix: Redundant columns to add to list when using inheritance with entities with collections.
