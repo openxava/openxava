@@ -1,6 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.5.2 (2021-5-31)
+--------------------------
+- Use of 4 digits for year in dates for all locales. 
+- 'How to' documentation improved. 
+- Oracle configuration documentation improved.
+- Concurrency and version property documentation improved.
+- Documentation to modify and build OpenXava code improved.
+- Fix: Adding date separators and completing century in year only work for first date in view.
 - Fix: Date calendar and rich text editor do not change the language when xava.portal.locale is changed.
 - Fix: When locale is changed via code (xava.portal.locale) the link for help documentation is not updated.
 - Fix: Modules in left menu in incorrect language when you change locale from code (xava.portal.locale).
@@ -13,22 +21,16 @@ Change Log for OpenXava project
 - Fix: Dead code in JavaScript editors.
 - Fix: Poor performance getting calculated collections in some circumstances.
 - Fix: Saving a collection element fails if the collection is inside a reference displayed with @AsEmbedded.
-- Concurrency and version property documentation improved.
 - Fix: It's possible to remove attached files inadvertently in upload editors, now it asks for confirmation.
-- Documentation to modify and build OpenXava code improved.
 - Fix: OpenXava.buildOpenXava Ant target doesn't work if ISO-8859-1 is not defined at Eclipse level.
-- Use of 4 digits for year in dates for all locales. 
 - Fix: Italian dates do not use 4 digits for years.
 - Fix: Editing a date of 20th century with popup calendar shows the date in the 21st century.
-- Fix: Adding date separators and completing century in year only work for first date in view.
 - Fix: Adding separators to date or completing century in year doesn't work if there is a leading space.
-- 'How to' documentation improved. 
 - Fix: Changing total property in @ElementCollection for existing entity not recalculated dependent values. 
 - Fix: NullPointerException in log filtering in a list in the dialog to choose an element for a reference.
 - Fix: Last new line ( ; ) in a @View used as base with view inheritance is ignored. 
 - Fix: Modifying a transient reference by code produces the "Changed data" message on exit. 
 - Fix: Transient references are available for adding by user on customizing list columns.
-- Oracle configuration documentation improved.
 
 OpenXava 6.5.1 (2021-4-13)
 --------------------------

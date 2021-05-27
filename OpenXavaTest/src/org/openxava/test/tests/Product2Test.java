@@ -557,7 +557,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		familyTextField = getDescriptionsListTextField("family");
 		familyTextField.setAttribute("value", "");
 		familyTextField.type(" \b");
-		Thread.sleep(600); 
+		Thread.sleep(700); 
 		assertTrue(familyList.isDisplayed()); 
 		assertEquals(3, familyList.getChildElementCount());
 				
