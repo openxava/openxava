@@ -161,8 +161,8 @@
 	<% } %>
 	<script type='text/javascript'>
 		openxava.lastApplication='<%=app%>'; 		
-		openxava.lastModule='<%=module%>'; 	
-		openxava.language='<%=request.getLocale().getLanguage()%>';
+		openxava.lastModule='<%=module%>'; 
+		openxava.language='<%=Locales.getCurrent().getLanguage()%>'; 
 		openxava.contextPath = '<%=contextPath%>';
 	</script>
 	<%
@@ -312,7 +312,8 @@ if (manager.isResetFormPostNeeded()) {
 		openxava.browser.edge = <%=Browsers.isEdge(request)%>; 
 		openxava.showFiltersMessage = '<xava:message key="show_filters"/>';
 		openxava.hideFiltersMessage = '<xava:message key="hide_filters"/>';
-		openxava.confirmLoseChangesMessage = '<xava:message key="confirm_lose_changes"/>';  
+		openxava.confirmLoseChangesMessage = '<xava:message key="confirm_lose_changes"/>';
+		openxava.confirmRemoveFileMessage = '<xava:message key="confirm_remove_file"/>';   
 		openxava.selectedRowClass = '<%=style.getSelectedRow()%>';
 		openxava.currentRowClass = '<%=style.getCurrentRow()%>';
 		openxava.currentRowCellClass = '<%=style.getCurrentRowCell()%>';
