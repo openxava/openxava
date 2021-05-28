@@ -1,8 +1,8 @@
 package org.openxava.test.tests;
 
-import javax.persistence.Query;
+import javax.persistence.*;
 
-import org.openxava.jpa.XPersistence;
+import org.openxava.jpa.*;
 import org.openxava.tests.*;
 
 

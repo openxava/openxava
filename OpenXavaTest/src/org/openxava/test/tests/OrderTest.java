@@ -1,14 +1,15 @@
 package org.openxava.test.tests;
 
+import static org.openxava.jpa.XPersistence.getManager;
+
 import java.util.*;
+
 import javax.persistence.*;
 
 import org.openxava.tests.*;
 import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
-
-import static org.openxava.jpa.XPersistence.*;
 
 
 /**
@@ -58,7 +59,7 @@ public class OrderTest extends ModuleTestBase {
 		setValue("quantity", "10");
 		assertValue("amount", "110.00"); 
 		execute("Collection.save");
-		assertNoErrors();
+		assertNoErrors(); 
 		assertMessage("Order created successfully"); 
 		assertCollectionRowCount("details", 1);
 		assertValue("amount", "110.00");

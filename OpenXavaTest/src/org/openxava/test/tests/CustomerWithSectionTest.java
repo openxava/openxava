@@ -446,7 +446,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		execute("Sections.change", "activeSection=1");
 		assertCollectionRowCount("states", 0);
 
-		assertAddingStates();		
+		assertAddingStates(); 		
 		assertNoErrors();
 		assertNoEditable("number");
 		

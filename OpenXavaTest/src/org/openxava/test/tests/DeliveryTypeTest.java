@@ -38,7 +38,7 @@ public class DeliveryTypeTest extends ModuleTestBase {
 		assertNoErrors(); 
 		
 		assertValue("number", "66");		
-		assertValue("description", "JUNIT &%=+ CREATED"); // 'CREATED' is added in postcreate
+		assertValue("description", "JUNIT &%=+ CREATED"); // 'CREATED' is added in postcreate 
 		assertNoEditable("number");
 		assertEditable("description");
 		

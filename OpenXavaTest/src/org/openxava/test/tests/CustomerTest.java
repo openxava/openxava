@@ -2,13 +2,12 @@ package org.openxava.test.tests;
 
 import java.io.*;
 
-import javax.persistence.NoResultException;
+import javax.persistence.*;
 
-import org.openxava.model.meta.MetaModel;
-import org.openxava.test.model.Customer;
-import org.openxava.test.model.Warehouse;
+import org.openxava.model.meta.*;
+import org.openxava.test.model.*;
 import org.openxava.test.util.*;
-import org.openxava.util.Is;
+import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
 
