@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Lesson 9: References &amp; collections - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -75,68 +78,51 @@
         <div style="margin-left: 2em;"><a href="#summary">Summary</a></div>
       </div>
       In previous lessons you learned how to add your own actions. However this
-      is
-      not enough to fully customize the behavior of your application, because
-      the
-      generated user interface, in concrete the user interface for references
-      and
-      collections, has a standard behavior that sometimes is not the most
-      convenient.
-      <br>
+      is not enough to fully customize the behavior of your application, because
+      the generated user interface, in concrete the user interface for
+      references and collections, has a standard behavior that sometimes is not
+      the most convenient. <br>
       Fortunately, OpenXava provides many ways to customize the behavior for
       references and collections. In this lesson you will learn how to do some
-      of these
-      customization, and how this adds value to your application.
+      of these customizations, and how this adds value to your application.
       <h2>Refining reference behavior</h2>
       You might have noticed that the <i>Order</i> module has a little slip:
-      the user can
-      add any invoice he wants to the current order, even if the invoice
-      customer was
-      different. This is not acceptable. Let's fix it.
+      the user can add any invoice he wants to the current order, even if the
+      invoice customer was different. This is not acceptable. Let's fix it.
       <h3>Validation is good, but not enough</h3>
       The user can only associate an invoice to an order if both, invoice and
-      order,
-      belong to the same customer. This is specific business logic of your
-      application,
-      so the standard OpenXava behavior does not solve it.
-      <br>
-      Figure 9.1 Validation error when customer of invoice is incorrect
-      <br>
+      order, belong to the same customer. This is specific business logic of
+      your application, so the standard OpenXava behavior does not solve it. <br>
+      Figure 9.1 Validation error when customer of invoice is incorrect <br>
       Since this is business logic we are going to put it in the model layer,
-      that is, in
-      the entities. We'll do it adding a validation. Thus you'll get the effect
-      of the above figure.
-      You already know how to add this validation to your <i>Order </i>entity.
-      It's just
-      adding a method annotated with <i>@AssertTrue</i>: TMP ME QUEDÉ POR AQUÍ<br>
-      <pre>Listing 9.1 New validation method in Order entity
-@AssertTrue // This method must return true for this order to be valid
-private boolean isCustomerOfInvoiceMustBeTheSame() {
-return invoice == null || // invoice is optional
-invoice.getCustomer().getNumber()==getCustomer().getNumber();
+      that is, in the entities. We'll do it adding a validation. Thus you'll get
+      the effect of the above figure. You already know how to add this
+      validation to your <i>Order </i>entity. It's just adding a method
+      annotated with <i>@AssertTrue</i>: TMP ME QUEDÉ POR AQUÍ<br>
+      <pre><code class="java">public class Order {
+
+	...
+
+    // This method must return true for this order to be valid
+    @AssertTrue(message="customer_order_invoice_must_match") 
+    private boolean isInvoiceCustomerMatches() {
+    	return invoice == null || // invoice is optional
+    		invoice.getCustomer().getNumber() == getCustomer().getNumber();
+    }
+
 }
-</pre>
-      Here we verify that the customer of the invoice is the same as the
-      customer of
-      this order. This is enough to preserve the data integrity, but this
-      validation alone is
-      a poor option from the user viewpoint.
+</code></pre> Here we verify that the customer of the invoice is the same as the
+      customer of this order. This is enough to preserve the data integrity, but
+      this validation alone is a poor option from the user viewpoint.
       <h3>Modifying default tabular data helps</h3>
       Although validation prevents the user from assigning an incorrect invoice
-      to
-      an order, he has a hard time trying to find a correct invoice. Because
-      when the
-      user clicks to search an invoice, all existing invoices are shown and even
-      worse
-      the customer data is not in the list. Look at figure 9.2.
-      <br>
-      Figure 9.2 The list to search invoices does not show customer data
-      <br>
+      to an order, he has a hard time trying to find a correct invoice. Because
+      when the user clicks to search an invoice, all existing invoices are shown
+      and even worse the customer data is not in the list. Look at figure 9.2. <br>
+      Figure 9.2 The list to search invoices does not show customer data <br>
       Obviously, it's difficult to look for an invoice if you do not see the
-      customer.
-      So, let's add the customer to the list using the properties attribute of
-      @Tab in
-      Invoice entity, just as shown in listing 9.2.
+      customer. So, let's add the customer to the list using the properties
+      attribute of @Tab in Invoice entity, just as shown in listing 9.2.
       <pre>Listing 9.2 Tabular data definition for Invoice
 @Tabs({
 @Tab(
@@ -147,46 +133,30 @@ properties="year, number, date, customer.number, customer.name," +
 @Tab(name="Deleted", baseCondition = "deleted = true")
 })
 public class Invoice extends CommercialDocument {
-</pre>
-      The tabular data by default (that is, the list mode) for an entity are all
-      its plain
-      properties, but it does not include references. To change the way the
-      tabular data
-      is shown you can use properties in @Tab annotations. These properties can
-      be
-      qualified, that is you can, using dot notation, put a property from a
-      reference, as
-      customer.number and customer.name in this case.
-      <br>
-      Figure 9.3 Thanks to @Tab the customer data is shown in invoices list
-      <br>
+</pre> The tabular data by default (that is, the list mode) for an entity are
+      all its plain properties, but it does not include references. To change
+      the way the tabular data is shown you can use properties in @Tab
+      annotations. These properties can be qualified, that is you can, using dot
+      notation, put a property from a reference, as customer.number and
+      customer.name in this case. <br>
+      Figure 9.3 Thanks to @Tab the customer data is shown in invoices list <br>
       Now the list for choosing an invoice from an order is like the one in
-      figure 9.3.
-      With this invoice list it is easier to choose the correct one, because now
-      the
-      user can see the customer of each invoice. Moreover, the user can filter
-      by
-      customer to show only the invoices from the customer he is looking for.
-      <br>
+      figure 9.3. With this invoice list it is easier to choose the correct one,
+      because now the user can see the customer of each invoice. Moreover, the
+      user can filter by customer to show only the invoices from the customer he
+      is looking for. <br>
       However, it would be even better if only invoices whose customer is the
-      same as
-      the current order would be shown. Thus the user has no way to make a
-      mistake.
-      <br>
+      same as the current order would be shown. Thus the user has no way to make
+      a mistake. <br>
       Let's do it in the next section.
       <h3>Refining action for searching reference with list</h3>
       Currently when the user searches an invoice all the invoices are available
-      to
-      choose from. We are going to improve this for showing only the invoices
-      from
-      the customer of the current displayed order, just as shown in figure 9.4.
-      <br>
-      Figure 9.4 Searching invoice from order must filter by customer
-      <br>
+      to choose from. We are going to improve this for showing only the invoices
+      from the customer of the current displayed order, just as shown in figure
+      9.4. <br>
+      Figure 9.4 Searching invoice from order must filter by customer <br>
       For defining our own search action for the invoice reference we will use
-      the
-      annotation. Listing 9.3 shows the needed modification in Order
-      class.
+      the annotation. Listing 9.3 shows the needed modification in Order class.
       @SearchAction
       <pre>Listing 9.3 @SearchAction to define a custom action to search invoices
 public class Order extends CommercialDocument {
@@ -197,17 +167,12 @@ public class Order extends CommercialDocument {
 private Invoice invoice;
 ...
 }
-</pre>
-      In this simple way we define the action to execute when the user clicks on
-      the
-      flashlight button to search an invoice. The argument used for
-      @SearchAction,
-      Order.searchInvoice, is the qualified name of the action, that is the
-      action
-      searchInvoice of the controller Order as defined in controllers.xml file.
-      Now we have to edit controllers.xml to add the definition of our new
-      action,
-      just as shown in listing 9.4.
+</pre> In this simple way we define the action to execute when the user clicks
+      on the flashlight button to search an invoice. The argument used for
+      @SearchAction, Order.searchInvoice, is the qualified name of the action,
+      that is the action searchInvoice of the controller Order as defined in
+      controllers.xml file. Now we have to edit controllers.xml to add the
+      definition of our new action, just as shown in listing 9.4.
       <pre>Listing 9.4 Order.searchInvoice action declaration in controllers.xml
 <controller name="Order">
 ...
@@ -217,8 +182,7 @@ image="images/search.gif" hidden="true">
 image="images/search.gif" : The same image as for the standard search action
 ---->
 </action></controller>
-</pre>
-      Our action extends from ReferenceSearchAction which needs them. Listing
+</pre> Our action extends from ReferenceSearchAction which needs them. Listing
       9.5 shows the code of the action.
       <pre>Listing 9.5 Code for custom action to search an invoice from an order
 package org.openxava.invoicing.actions;
@@ -243,42 +207,28 @@ getPreviousView() // getPreviousView() is the main view (getView() is the dialog
 if (customerNumber &gt; 0) { // If there is customer we use it to filter
 getTab().setBaseCondition("${customer.number} = " + customerNumber);
 }
-</pre>
-      Note how we use getTab().setBaseCondition() to establish a condition for
+</pre> Note how we use getTab().setBaseCondition() to establish a condition for
       the list to choose the reference. That is, from a ReferenceSearchAction
-      you can
-      use getTab() to manipulate the way the search list behaves.
-      <br>
+      you can use getTab() to manipulate the way the search list behaves. <br>
       If there is no customer we don't add any condition so all the invoices
-      will be
-      shown, this is the case when the user chooses the invoice before choosing
-      the
-      customer.
+      will be shown, this is the case when the user chooses the invoice before
+      choosing the customer.
       <h3>Searching the reference typing in fields</h3>
       The list for choosing a reference already works fine. However, we want to
-      give
-      the user the possibility to choose the invoice without the list, by just
-      typing the
-      year and number. Very useful if the user already know which invoice he
-      wants.
-      OpenXava provides this functionality by default. If the @Id fields are
-      displayed in the reference they are used for searching, otherwise OpenXava
-      uses
-      the first displayed field to search. This is not convenient in our case,
-      because the
-      first displayed field is the year, and searching an invoice only by year
-      is not very
-      precise. Figure 9.5 shows the default behavior and a more convenient
-      alternative.
-      <br>
-      Figure 9.5 By default invoice is searched only by year
-      <br>
+      give the user the possibility to choose the invoice without the list, by
+      just typing the year and number. Very useful if the user already know
+      which invoice he wants. OpenXava provides this functionality by default.
+      If the @Id fields are displayed in the reference they are used for
+      searching, otherwise OpenXava uses the first displayed field to search.
+      This is not convenient in our case, because the first displayed field is
+      the year, and searching an invoice only by year is not very precise.
+      Figure 9.5 shows the default behavior and a more convenient alternative. <br>
+      Figure 9.5 By default invoice is searched only by year <br>
       Fortunately it's easy to indicate which fields we want to use to search
-      from a
-      user perspective. This is done by means of @SearchKey annotation. Just
-      edit the
-      CommercialDocument class (remember, the parent of Order and Invoice) and
-      add this annotation to the year and number properties (listing 9.6).
+      from a user perspective. This is done by means of @SearchKey annotation.
+      Just edit the CommercialDocument class (remember, the parent of Order and
+      Invoice) and add this annotation to the year and number properties
+      (listing 9.6).
       <pre>Listing 9.6 Defining year and number as search key in CommercialDocument
 abstract public class CommercialDocument extends Deletable {
 ...
@@ -292,41 +242,28 @@ private int year;
 private int number;
 ...
 }
-</pre>
-      In this way when the user searches an order or invoice from a reference he
-      must type the year and the number, and the corresponding entity will be
-      retrieved
-      from database and will populate the user interface.
-      <br>
+</pre> In this way when the user searches an order or invoice from a reference
+      he must type the year and the number, and the corresponding entity will be
+      retrieved from database and will populate the user interface. <br>
       Now it's easy for the user to choose an invoice for the order without
-      using the
-      searching list, just by typing year and number.
+      using the searching list, just by typing year and number.
       <h3>Refining action for searching reference typing key</h3>
       Now that retrieving an invoice by the year and number is usable, we want
-      to
-      refine it in order to help our user to do his work more efficiently. For
-      example, it
-      would be useful that if the user has not chosen a customer for the order
-      yet and he
-      chooses an invoice, the customer of that invoice will be assigned to the
-      current
-      order automatically. Figure 9.6 visualizes the wanted behavior.
-      <br>
-      Figure 9.6 Choosing an invoice when there is no customer selected yet
-      <br>
+      to refine it in order to help our user to do his work more efficiently.
+      For example, it would be useful that if the user has not chosen a customer
+      for the order yet and he chooses an invoice, the customer of that invoice
+      will be assigned to the current order automatically. Figure 9.6 visualizes
+      the wanted behavior. <br>
+      Figure 9.6 Choosing an invoice when there is no customer selected yet <br>
       On the other hand, if the user already has selected the customer for the
-      order, if
-      he is not the same in the invoice, it will be rejected and a message error
-      displayed, just as shown in figure 9.7.
-      <br>
-      Figure 9.7 Choosing an invoice when the customer is already selected
-      <br>
+      order, if he is not the same in the invoice, it will be rejected and a
+      message error displayed, just as shown in figure 9.7. <br>
+      Figure 9.7 Choosing an invoice when the customer is already selected <br>
       For defining this special behavior we have to add an @OnChangeSearch
       annotation in the the invoice reference of Order. @OnChangeSearch allows
-      you
-      to define your own action to do the search of the reference when its key
-      changes
-      in the user interface. You can see the modified reference in listing 9.7.
+      you to define your own action to do the search of the reference when its
+      key changes in the user interface. You can see the modified reference in
+      listing 9.7.
       <pre>Listing 9.7 Refining action to get Invoice from Order when its key changes
 public class Order extends CommercialDocument {
 @ManyToOne
@@ -339,12 +276,10 @@ public class Order extends CommercialDocument {
 private Invoice invoice;
 ...
 }
-</pre>
-      From now on when the user types a new year and number for the invoice, the
-      logic of OnChangeSearchInvoiceAction will be executed. In this action you
-      have to read the invoice data from database and update the user interface.
-      Listing
-      9.8 shows the action code.
+</pre> From now on when the user types a new year and number for the invoice,
+      the logic of OnChangeSearchInvoiceAction will be executed. In this action
+      you have to read the invoice data from database and update the user
+      interface. Listing 9.8 shows the action code.
       <pre>Listing 9.8 Action for searching the invoice when typing a year and number
 package org.openxava.invoicing.actions;
 import
@@ -386,72 +321,46 @@ getView().clear();
 }
 }
 }
-</pre>
-      Given the action extends from OnChangeSearchAction (1) and we use
-      (2) it behaves just in the standard way, that is, when the user
-      types a year and number the invoice data is retrieved and fills the user
-      interface.
+</pre> Given the action extends from OnChangeSearchAction (1) and we use (2) it
+      behaves just in the standard way, that is, when the user types a year and
+      number the invoice data is retrieved and fills the user interface.
       Afterwards, we use getView() (3) to obtain the key of the displayed
-      invoice to
-      find the corresponding entity using MapFacade (4). From inside an
-      OnChangeSearchAction getView() returns the subview of the reference, and
-      not the global view. Therefore, in this case getView() is the view of the
-      invoice
-      super.execute()
-      reference. This allows you to create more reusable @OnChangeSearch
-      actions.
-      Thus you have to write getView().getRoot().getSubview(“customer”) (5)
-      to access to the customer view.
-      <br>
+      invoice to find the corresponding entity using MapFacade (4). From inside
+      an OnChangeSearchAction getView() returns the subview of the reference,
+      and not the global view. Therefore, in this case getView() is the view of
+      the invoice super.execute() reference. This allows you to create more
+      reusable @OnChangeSearch actions. Thus you have to write
+      getView().getRoot().getSubview(“customer”) (5) to access to the customer
+      view. <br>
       To implement the behavior visualized in the previous figure 9.6, the
-      action
-      asks if there is no customer (customberNumber == 0) (6). If this is the
-      case it
-      fills the customer from the customer of the invoice. Otherwise it
-      implements the
-      logic from figure 9.7 verifying that the customer of the current order
-      matches the
-      customer of the retrieved invoice.
-      <br>
+      action asks if there is no customer (customberNumber == 0) (6). If this is
+      the case it fills the customer from the customer of the invoice. Otherwise
+      it implements the logic from figure 9.7 verifying that the customer of the
+      current order matches the customer of the retrieved invoice. <br>
       The last remaining detail is the message text. Add the entry in listing
-      9.9 to the
-      Invoicing-messages_en.properties file of i18n folder.
+      9.9 to the Invoicing-messages_en.properties file of i18n folder.
       <pre>Listing 9.9 Invoice search error in Invoicing-messages_en.properties
 invoice_customer_not_match=Customer Nº {0} of invoice {1} does not match with
 Customer Nº {2} of the current order
-</pre>
-      One interesting thing about @OnChangeSearch is that it is also executed
-      when
-      the invoice is chosen from a list, because in this case the year and
-      number of the
-      invoice also changes. Hence, this is a centralized place to refine the
-      logic for
-      retrieving the reference and populating the view.
+</pre> One interesting thing about @OnChangeSearch is that it is also executed
+      when the invoice is chosen from a list, because in this case the year and
+      number of the invoice also changes. Hence, this is a centralized place to
+      refine the logic for retrieving the reference and populating the view.
       <h2>Refining collection behavior</h2>
       We can refine collections in the same way we have refined references. This
-      is
-      very useful, because it allows us to improve the current behavior of the
-      Invoice
-      module. The user can only add an order to an invoice if the invoice and
-      the orders
-      belongs to the same customer. Moreover, the order must be delivered and
-      must
-      not have an invoice yet.
+      is very useful, because it allows us to improve the current behavior of
+      the Invoice module. The user can only add an order to an invoice if the
+      invoice and the orders belongs to the same customer. Moreover, the order
+      must be delivered and must not have an invoice yet.
       <h3>Modifying default tabular data helps</h3>
       With the default behavior the user may have a hard time trying to find the
       correct orders to add to his invoice. Because when the user clicks to add
-      orders,
-      all existing orders are shown, and even worse, the customer data is not
-      shown in
-      the list. We wanted that the customer data would be shown in the orders
-      list, just
-      as shown figure 9.8.
-      <br>
-      Figure 9.8 Adding orders to invoice showing customer data in orders list
-      <br>
+      orders, all existing orders are shown, and even worse, the customer data
+      is not shown in the list. We wanted that the customer data would be shown
+      in the orders list, just as shown figure 9.8. <br>
+      Figure 9.8 Adding orders to invoice showing customer data in orders list <br>
       Listing 9.10 shows how to add the customer to the list using the
-      properties
-      attribute of @Tab in Order entity.
+      properties attribute of @Tab in Order entity.
       <pre>Listing 9.10 Tabular data definition for Order
 @Tabs({
 @Tab(baseCondition = "deleted = false",
@@ -462,33 +371,23 @@ properties="year, number, date, customer.number, customer.name," +
 @Tab(name="Deleted", baseCondition = "deleted = true")
 })
 public class Order extends CommercialDocument {
-</pre>
-      Note how we have added customer.number and customer.name.
-      Figure 9.8 also shows how the validation in the entities prevent the user
-      from
-      adding incorrect orders.<br>
+</pre> Note how we have added customer.number and customer.name. Figure 9.8 also
+      shows how the validation in the entities prevent the user from adding
+      incorrect orders.<br>
       However, it would be better if only orders available to be added to the
-      current
-      invoice would be present in the list. Thus, the user has no way to make a
-      mistake.
-      <br>
+      current invoice would be present in the list. Thus, the user has no way to
+      make a mistake. <br>
       Let's do it in next section.
       <h3>Refining the list for adding elements to a collection</h3>
       Currently when the user tries to add orders to an invoice all the orders
-      are
-      available. We are going to improve this for showing only the orders from
-      the
-      customer of the invoice, delivered and with not invoice yet, just as shown
-      in
-      figure 9.9.
-      <br>
+      are available. We are going to improve this for showing only the orders
+      from the customer of the invoice, delivered and with not invoice yet, just
+      as shown in figure 9.9. <br>
       Figure 9.9 Adding orders shows only delivered orders of the current
-      customer
-      <br>
+      customer <br>
       We will use the @NewAction annotation for defining our own action to show
       the list for adding orders. Listing 9.11 shows the needed modification in
-      Order
-      class.
+      Order class.
       <pre>Listing 9.11 @NewAction to define a custom action to go to add orders list
 public class Invoice extends CommercialDocument {
 @OneToMany(mappedBy="invoice")
@@ -497,18 +396,14 @@ public class Invoice extends CommercialDocument {
 private Collection<order> orders;
 ...
 }
-</order></pre>
-      In this simple way we define the action to execute when the user clicks on
-      the
-      plus sign (+) button to add orders. The argument used for @NewAction,
-      Invoice.addOrders, is the qualified name of the action, that is the action
-      addOrders of the controller Invoice as defined in controllers.xml file.
-      <br>
+</order></pre> In this simple way we define the action to execute when the user
+      clicks on the plus sign (+) button to add orders. The argument used for
+      @NewAction, Invoice.addOrders, is the qualified name of the action, that
+      is the action addOrders of the controller Invoice as defined in
+      controllers.xml file. <br>
       Now we have to edit controllers.xml to add the Invoice controller (it does
-      not
-      exist yet) definition with our new action. Listing 9.12 shows the
-      controller
-      definition.
+      not exist yet) definition with our new action. Listing 9.12 shows the
+      controller definition.
       <pre>Listing 9.12 Invoice.addOrders action declaration in controllers.xml
 <controller name="Invoice">
 <extends controller="Invoicing">
@@ -518,8 +413,7 @@ image="images/create_new.gif" hidden="true">
 image="images/create_new.gif": The same image as for the standard action
 ---->
 </action></extends></controller>
-</pre>
-      Listing 9.13 shows the action code.
+</pre> Listing 9.13 shows the action code.
       <pre>Listing 9.13 Code for custom action to go to “add orders” from an invoice
 package org.openxava.invoicing.actions;
 import org.openxava.actions.*;
@@ -546,36 +440,27 @@ getTab().setBaseCondition( // The condition of the orders list to add
 );
 }
 }
-</pre>
-      Note how we use getTab().setBaseCondition() to establish a condition for
+</pre> Note how we use getTab().setBaseCondition() to establish a condition for
       the list to choose the entities to add. That is, from a
-      GoAddElementsToCollectionAction you can use getTab() to manipulate the
-      way the list behaves.
+      GoAddElementsToCollectionAction you can use getTab() to manipulate the way
+      the list behaves.
       <h3>Refining the action to add elements to a collection</h3>
       A useful improvement for the orders collection would be that when the user
       adds orders to the current invoice, the detail lines of those orders will
-      be copied
-      automatically to the invoice.<br>
+      be copied automatically to the invoice.<br>
       We cannot use the @NewAction for this, because it is the action to show
-      the list
-      to add elements to the collection. But this is not the action that adds
-      the elements.
-      <br>
+      the list to add elements to the collection. But this is not the action
+      that adds the elements. <br>
       Let's learn how to define the action that actually adds the elements
-      (figure 9.10).
-      <br>
-      Figure 9.10 We want to refine the 'Add' action in orders list
-      <br>
+      (figure 9.10). <br>
+      Figure 9.10 We want to refine the 'Add' action in orders list <br>
       Unfortunately, there is not an annotation to directly define this 'Add'
-      action.
-      However, that is not a very difficult task, we only have to refine the
-      @NewAction
-      instructing it to show our own controller, and in this controller we can
-      put the
-      actions we want. Given we already have defined our @NewAction in the
-      previous
-      section we only have to add a new method to the already existing
-      GoAddOrdersToInvoiceAction class. Listing 9.14 shows this method.
+      action. However, that is not a very difficult task, we only have to refine
+      the @NewAction instructing it to show our own controller, and in this
+      controller we can put the actions we want. Given we already have defined
+      our @NewAction in the previous section we only have to add a new method to
+      the already existing GoAddOrdersToInvoiceAction class. Listing 9.14 shows
+      this method.
       <pre>Listing 9.14 Method getNextController() added to GoAddOrdersToInvoiceAction
 public class GoAddOrdersToInvoiceAction ... {
 ...
@@ -584,27 +469,21 @@ return "AddOrdersToInvoice"; // The controller with the available actions in
 }
 // the list of orders to add
 }
-</pre>
-      By default the actions in the list of entities to add (the 'Add' and
-      'Cancel'
-      buttons) are from the standard OpenXava controller AddToCollection.
-      Overwriting getNextController() in our action allows us to define our own
-      controller instead. Listing 9.15 shows the definition of our custom
-      controller for
-      adding elements in controllers.xml.
+</pre> By default the actions in the list of entities to add (the 'Add' and
+      'Cancel' buttons) are from the standard OpenXava controller
+      AddToCollection. Overwriting getNextController() in our action allows us
+      to define our own controller instead. Listing 9.15 shows the definition of
+      our custom controller for adding elements in controllers.xml.
       <pre>Listing 9.15 Custom controller to add orders to the invoice
 <controller name="AddOrdersToInvoice">
 <extends controller="AddToCollection"> <!-- Extends from the standard controller -->
 <!-- Overwrites the action to add -->
 <action name="add" class="org.openxava.invoicing.actions.AddOrdersToInvoiceAction">
 </action></extends></controller>
-</pre>
-      In this way the action to add orders to the invoice is
-      Remember that the goal of our action is to add the
-      orders to the invoice in the usual way, but also to copy the detail lines
-      from those
-      orders to the invoice. Listing 9.16 shows the action code.
-      AddOrdersToInvoiceAction.
+</pre> In this way the action to add orders to the invoice is Remember that the
+      goal of our action is to add the orders to the invoice in the usual way,
+      but also to copy the detail lines from those orders to the invoice.
+      Listing 9.16 shows the action code. AddOrdersToInvoiceAction.
       <pre>Listing 9.16 Code for custom action to to add orders to an invoice
 package org.openxava.invoicing.actions;
 import
@@ -650,17 +529,12 @@ Order order = (Order) MapFacade.findEntity("Order", keyValues); // (2)
 order.copyDetailsToInvoice(); // Delegates the main work to the entity (3)
 }
 }
-</pre>
-      We overwrite the execute() method only to refresh the view after the
+</pre> We overwrite the execute() method only to refresh the view after the
       process. Really, we want to refine the logic for associating an order to
-      the
-      invoice. The way to do this is overwriting the associateEntity() method.
-      The
-      logic here is simple, after executing the standard logic (1) we search the
-      corresponding Order entity and then call the copyDetailsToInvoice() in
-      that
-      Order.
-      <br>
+      the invoice. The way to do this is overwriting the associateEntity()
+      method. The logic here is simple, after executing the standard logic (1)
+      we search the corresponding Order entity and then call the
+      copyDetailsToInvoice() in that Order. <br>
       Obviously, we need to have a copyDetailsToInvoice() method in Order
       entity. Listing 9.17 shows this method.
       <pre>Listing 9.17 Method copyDetailsInvoice() in Order class
@@ -675,33 +549,24 @@ copyDetailsToInvoice(getInvoice());
 // We rely in an already existing method
 
 }
-</pre>
-      Luckily we already have a method to copy details from an Order to the
+</pre> Luckily we already have a method to copy details from an Order to the
       specified Invoice, we just call this method sending the Invoice of the
-      Order.
-      These little modifications to the behavior of orders collection of Invoice
-      are
-      enough to convert the Invoice module in an effective tool for invoicing
-      individual customers. You only have to create a new invoice, choose a
-      customer
-      and add orders. It is even easier than using the list mode of Order module
-      (we
-      developed an action to do it in section 8.2) because from Invoice module
-      only
-      the suitable orders for the customer are shown.
+      Order. These little modifications to the behavior of orders collection of
+      Invoice are enough to convert the Invoice module in an effective tool for
+      invoicing individual customers. You only have to create a new invoice,
+      choose a customer and add orders. It is even easier than using the list
+      mode of Order module (we developed an action to do it in section 8.2)
+      because from Invoice module only the suitable orders for the customer are
+      shown.
       <h2>JUnit tests</h2>
       We still are in the healthy habit of doing some application code, then
-      some
-      testing code. And now it's time to write the test code for the new feature
-      we added
-      in this lesson.
+      some testing code. And now it's time to write the test code for the new
+      feature we added in this lesson.
       <h3>Adapting OrderTest</h3>
       If you run OrderTest right now it does not pass. This is because our test
-      code
-      relies in some details that have changed. Therefore, we have to modify the
-      current
-      test code. Edit the testSetInvoice() method of OrderTest and apply the
-      changes in listing 9.18.
+      code relies in some details that have changed. Therefore, we have to
+      modify the current test code. Edit the testSetInvoice() method of
+      OrderTest and apply the changes in listing 9.18.
       <pre>Listing 9.18 Modifications in testSetInvoice() method of OrderTest
 public void testSetInvoice() throws Exception {
 ...
@@ -722,18 +587,14 @@ setValue("invoice.year", ""); // Now we need to type a year
 setValue("invoice.number", ""); // and a number to search the invoice (2)
 execute("CRUD.save");
 assertNoErrors();
-</pre>
-      Remember that we annotated the invoice reference in Order with
-      @SearchAction("Order.searchInvoice") (section 9.1.3), so we have to
-      modify the test to call
-      Order.searchInvoice (1) instead of
-      Reference.search. In section 9.1.4 we added @SearchKey to year and number
-      of CommercialDocument, therefore our test has to indicate both year and
-      number
-      to get (or clear in this case) an invoice (2). Because of this last point
-      we also have
-      to modify testCreateInvoiceFromOrder() of OrderTest as shown in listing
-      9.19.
+</pre> Remember that we annotated the invoice reference in Order with
+      @SearchAction("Order.searchInvoice") (section 9.1.3), so we have to modify
+      the test to call Order.searchInvoice (1) instead of Reference.search. In
+      section 9.1.4 we added @SearchKey to year and number of
+      CommercialDocument, therefore our test has to indicate both year and
+      number to get (or clear in this case) an invoice (2). Because of this last
+      point we also have to modify testCreateInvoiceFromOrder() of OrderTest as
+      shown in listing 9.19.
       <pre>Listing 9.19 Modifications in testCreateInvoiceFromOrder() method of OrderTest
 public void testCreateInvoiceFromOrder() throws Exception {
 ...
@@ -747,14 +608,12 @@ assertValue("invoice.number", "");
 assertCollectionRowCount("invoice.details", 0);
 execute("CRUD.save");
 assertNoErrors();
-</pre>
-      After these changes the OrderTest must pass. However, we still have to add
-      the testing of the new functionality of Order module.
+</pre> After these changes the OrderTest must pass. However, we still have to
+      add the testing of the new functionality of Order module.
       <h3>Testing the @SearchAction</h3>
       In section 9.1.3 we used @SearchAction in the invoice reference of Order
       for showing in the search list only the invoices from the customer of the
-      current
-      order. Listing 9.20 shows the test of this functionality.
+      current order. Listing 9.20 shows the test of this functionality.
       <pre>Listing 9.20 Testing searching invoice from order in OrderTest
 public void testSearchInvoiceFromOrder() throws Exception {
 execute("CRUD.new");
@@ -771,8 +630,7 @@ execute("Order.searchInvoice", // ...when the user clicks to choose an invoice..
 }
 "keyProperty=invoice.number");
 assertCustomerInList("2"); // ...only the invoices of customer 2 are shown
-</pre>
-      The trickier part is to assert the invoices list, this is the work for
+</pre> The trickier part is to assert the invoices list, this is the work for
       assertCustomerInList() whose code you can see in listing 9.21.
       <pre>Listing 9.21 Asserting all the values of the customer column are the expected
 private void assertCustomerInList(String customerNumber) throws Exception {
@@ -785,17 +643,13 @@ fail("Customer in row " + i + // If the customer is not the expected one it fail
 }
 }
 }
-</pre>
-      It consists in a loop over all rows verifying the customer number.
+</pre> It consists in a loop over all rows verifying the customer number.
       <h3>Testing the @OnChangeSearch</h3>
       In section 9.1.5 we used @SearchAction in the invoice reference of Order
       for assigning automatically the customer of the chosen invoice to the
-      current
-      order when the order has no customer yet, or for verifying that the
-      invoice and
-      order customer matches, if the order already has a customer. Listing 9.22
-      shows
-      the test method in OrderTest.
+      current order when the order has no customer yet, or for verifying that
+      the invoice and order customer matches, if the order already has a
+      customer. Listing 9.22 shows the test method in OrderTest.
       <pre>Listing 9.22 Testing events on changing the invoice of an order
 public void testOnChangeInvoice() throws Exception {
 execute("CRUD.new"); // We are creating a new order
@@ -833,22 +687,15 @@ customer2Number + " of the current order");
 assertValue("invoice.year", ""); // ...and resets the invoice data (5)
 assertValue("invoice.number", "");
 assertValue("invoice.date", "");
-</pre>
-      Here we test that our on-change action fills the customer data (3) on
-      choosing
-      an invoice (2), and that if the customer is already set, an error message
-      is shown
-      (4) and the invoice is cleared in the view (5). Note how the first time we
-      use the
-      list (1) to choose the invoice and the second time we do it typing the
-      year and
-      number (3).
+</pre> Here we test that our on-change action fills the customer data (3) on
+      choosing an invoice (2), and that if the customer is already set, an error
+      message is shown (4) and the invoice is cleared in the view (5). Note how
+      the first time we use the list (1) to choose the invoice and the second
+      time we do it typing the year and number (3).
       <h3>Adapting InvoiceTest</h3>
       As in the case of OrderTest, InvoiceTest also fails to pass. You have to
-      do a
-      little adjustments so it works fine. Edit testAddOrders() of InvoiceTest
-      and
-      apply the changes shown in listing 9.23.
+      do a little adjustments so it works fine. Edit testAddOrders() of
+      InvoiceTest and apply the changes shown in listing 9.23.
       <pre>Listing 9.23 Modifications in testAddOrders() method of InvoiceTest
 public void testAddOrders() throws Exception {
 assertListNotEmpty();
@@ -875,30 +722,23 @@ checkRowCollection("orders", 0);
 execute("Collection.removeSelected",
 "viewObject=xava_view_section1_orders");
 assertCollectionRowCount("orders", 0);
-</pre>
-      The checkFirstOrderWithDeliveredEquals() method is no longer
-      necessary, therefore we can remove it from InvoiceTest (listing 9.24).
+</pre> The checkFirstOrderWithDeliveredEquals() method is no longer necessary,
+      therefore we can remove it from InvoiceTest (listing 9.24).
       <pre>Listing 9.24 Removing checkFirstOrderWithDeliveredEquals() from InvoiceTest
 private void checkFirstOrderWithDeliveredEquals(String value)
 throws Exception { ... }
-</pre>
-      After these changes the InvoiceTest must pass. However, we still have to
+</pre> After these changes the InvoiceTest must pass. However, we still have to
       add the testing of the new functionality of Invoice module.
       <h3>Testing the @NewAction</h3>
-      In section 9.2.2 we annotated the orders collection of Invoice with
-      to refine the list of orders to be added to the collection. In this way
-      only delivered orders of the customer of the current invoice and with no
-      invoice
-      yet are shown. We are going to test this, and at the same time, we'll
-      learn how to
-      refactor the existing code in order to reuse it.
-      <br>
-      @NewAction
-      <br>
+      In section 9.2.2 we annotated the orders collection of Invoice with to
+      refine the list of orders to be added to the collection. In this way only
+      delivered orders of the customer of the current invoice and with no
+      invoice yet are shown. We are going to test this, and at the same time,
+      we'll learn how to refactor the existing code in order to reuse it. <br>
+      @NewAction <br>
       First, we want to verify that the list to add orders only contains orders
-      of the
-      current customer. Listing 9.25 shows the changes in testAddOrders() to
-      accomplish this.
+      of the current customer. Listing 9.25 shows the changes in testAddOrders()
+      to accomplish this.
       <pre>Listing 9.25 Verifying all orders in list are from the current customer
 public void testAddOrders() throws Exception {
 assertListNotEmpty();
@@ -914,22 +754,13 @@ assertCustomerInList(customerNumber);
 // matches the invoice customer
 ...
 }
-</pre>
-      Now we have to write the assertCustomerInList() method. But, wait a
+</pre> Now we have to write the assertCustomerInList() method. But, wait a
       minute, we already have written this method in OrderTest. We saw it in
-      listing
-      9.34 (section 9.3.2). We are in InvoiceTest so we cannot call this method,
-      fortunately
-      both
-      InvoiceTest
-      and
-      OrderTest
-      extend
-      the
+      listing 9.34 (section 9.3.2). We are in InvoiceTest so we cannot call this
+      method, fortunately both InvoiceTest and OrderTest extend the
       CommercialDocumentTest, therefore we only need to pull up the method. To
-      do
-      it copy the assertCustomerInList() method from OrderTest and paste it in
-      CommercialDocumentTest, changing private to protected, just as shown in
+      do it copy the assertCustomerInList() method from OrderTest and paste it
+      in CommercialDocumentTest, changing private to protected, just as shown in
       listing 9.26.
       <pre>Listing 9.26 assertCustomerInList() moved to CommercialDocumentTest
 abstract public class CommercialDocumentTest extends ModuleTestBase {
@@ -941,8 +772,7 @@ assertCustomerInList(String customerNumber) throws Exception {
 }
 ...
 }
-</pre>
-      Now you can remove the assertCustomerInList() method from OrderTest
+</pre> Now you can remove the assertCustomerInList() method from OrderTest
       (listing 9.27).
       <pre>Listing 9.27 assertCustomerInList() removed from OrderTest
 public class OrderTest extends CommercialDocumentTest {
@@ -950,16 +780,12 @@ private void assertCustomerInList(String customerNumber)
 throws Exception { ... }
 ...
 }
-</pre>
-      After these changes the testAddOrders() method compiles and works.
-      We not only want to test if the orders in list are from the correct
-      customer, but
+</pre> After these changes the testAddOrders() method compiles and works. We not
+      only want to test if the orders in list are from the correct customer, but
       also that they are delivered. The first primary impulse is to copy and
-      paste
-      assertCustomerInList() for creating an assertDeliveredInList() method.
-      However, we resist the temptation, instead we are going to create a
-      reusable
-      method. First, we copy and paste assertCustomerInList() as
+      paste assertCustomerInList() for creating an assertDeliveredInList()
+      method. However, we resist the temptation, instead we are going to create
+      a reusable method. First, we copy and paste assertCustomerInList() as
       assertValueForAllRows(). Listing 9.28 shows these two methods in
       CommercialDocumentTest.
       <pre>Listing 9.28 Creating assertValueForAllRows() from assertCustomerInList()
@@ -995,20 +821,16 @@ getValueInList(i, column)))
 // We ask for the column sent as parameter
 
 fail("Column " + column + " in row " + i + " is not " + value);
-</pre>
-      You can see how with a very slight modification we have turned
+</pre> You can see how with a very slight modification we have turned
       assertCustomerInList() in a generic method to ask for the value of any
       column, not just customer number. Now we have to remove the redundant
-      code,
-      you can either remove assertCustomerInList() or reimplementing it using
-      the
-      new one. Listing 9.29 shows the later option.
+      code, you can either remove assertCustomerInList() or reimplementing it
+      using the new one. Listing 9.29 shows the later option.
       <pre>Listing 9.29 Reimplementing assertCustomerInList() calling to the new method
 protected void assertCustomerInList(String customerNumber) throws Exception {
 assertValueForAllRows(3, customerNumber); // Customer number is in column 3
 }
-</pre>
-      Let's use assertValueForAllRows() to assert the orders list contains only
+</pre> Let's use assertValueForAllRows() to assert the orders list contains only
       delivered orders. Listing 9.30 shows the needed modification in
       testAddOrders() of InvoiceTest.
       <pre>Listing 9.30 Asserting that all orders in list are delivered
@@ -1025,14 +847,10 @@ assertCustomerInList(customerNumber);
 assertValueForAllRows(5, "Yes"); // All the cells of column 5 (delivered) contain 'Yes'
 ...
 }
-</pre>
-      Moreover, we want to test that only orders with no invoice are shown in
-      the
-      list. A simple way to do it is verifying that after adding an order to the
-      current
-      invoice, the list of orders has an entry fewer. Listing 9.31 shows the
-      needed
-      changes to testAddOrders() to do this testing.
+</pre> Moreover, we want to test that only orders with no invoice are shown in
+      the list. A simple way to do it is verifying that after adding an order to
+      the current invoice, the list of orders has an entry fewer. Listing 9.31
+      shows the needed changes to testAddOrders() to do this testing.
       <pre>Listing 9.31 Testing that the added orders cannot be added again
 public void testAddOrders() throws Exception {
 ...
@@ -1050,21 +868,15 @@ assertListRowCount(ordersRowCount - 1); // Now we have an order fewer in the lis
 execute("AddToCollection.cancel");
 ...
 }
-</pre>
-      With the code of this section we have tested the @NewAction of orders
+</pre> With the code of this section we have tested the @NewAction of orders
       collection, and at the same time we have seen how it's not needed to
-      develop
-      generic code from start, because it's not difficult to convert the
-      concrete code into
-      generic on demand.
+      develop generic code from start, because it's not difficult to convert the
+      concrete code into generic on demand.
       <h3>Testing the action to add elements to the collection</h3>
       In section 9.2.3 we learned how the refine the action that adds orders to
-      the
-      invoice, now it's the moment of testing it. Remember that this action
-      copies the
-      lines from selected orders to the current invoice. Listing 9.32 shows the
-      changes
-      for testing of our custom action to add orders.
+      the invoice, now it's the moment of testing it. Remember that this action
+      copies the lines from selected orders to the current invoice. Listing 9.32
+      shows the changes for testing of our custom action to add orders.
       <pre>Listing 9.32 When an order is added its lines are added to the invoice
 public void testAddOrders() throws Exception {
 ...
@@ -1090,13 +902,11 @@ execute("Sections.change", "activeSection=1"); // invoice matches with the one
 // of the recently added order (5)
 ...
 }
-</pre>
-      We remove the detail lines from the invoice (1), afterwards we add an
-      order
-      (2), taking note of its base amount (3), then we verify that current
-      invoice has
-      details (4) and its base amount is the same of the added order (5).
-      All that remains is the deleteDetails() method, shown in listing 9.33.
+</pre> We remove the detail lines from the invoice (1), afterwards we add an
+      order (2), taking note of its base amount (3), then we verify that current
+      invoice has details (4) and its base amount is the same of the added order
+      (5). All that remains is the deleteDetails() method, shown in listing
+      9.33.
       <pre>Listing 9.33 Deletes all the details of the displayed invoice
 private void deleteDetails() throws Exception {
 int c = getCollectionRowCount("details");
@@ -1106,12 +916,9 @@ checkRowCollection("details", i); // Checks each row
 execute("Collection.removeSelected", // Removes the checked rows
 "viewObject=xava_view_section0_details");
 }
-</pre>
-      It selects all the rows of the details collection and clicks on the
-      'Remove
-      selected' button.
-      The testAddOrders() method is finished. You can see its definitive code in
-      listing 9.34.
+</pre> It selects all the rows of the details collection and clicks on the
+      'Remove selected' button. The testAddOrders() method is finished. You can
+      see its definitive code in listing 9.34.
       <pre>Listing 9.34 Definitive code for testAddOrders() of InvoiceTest
 public void testAddOrders() throws Exception {
 assertListNotEmpty();
@@ -1145,41 +952,27 @@ execute("Collection.removeSelected",
 "viewObject=xava_view_section1_orders");
 assertCollectionRowCount("orders", 0);
 }
-</pre>
-      We have finished the test code. Now it's time to execute all the tests for
-      your
-      project. They must be green.
+</pre> We have finished the test code. Now it's time to execute all the tests
+      for your project. They must be green.
       <h2>Summary</h2>
       This lesson has shown you how to refine the standard behavior of
-      references
-      and collections in order for your application to fit the users needs. Here
-      you only
-      have seen some illustrative examples, but OpenXava provides many more
-      possibilities for refining collections and references, such as the next
-      annotations:
-      @ReferenceView, @ReadOnly, @NoFrame, @NoCreate, @NoModify, @NoSearch,
-      @AsEmbedded, @SearchAction, @DescriptionsList, @LabelFormat, @Action,
-      @OnChange, @OnChangeSearch, @Editor, @CollectionView, @EditOnly,
-      @ListProperties, @RowStyle, @EditAction, @ViewAction, @NewAction,
-      @SaveAction,
-      @HideDetailAction,
-      @RemoveAction,
-      @RemoveSelectedAction,
-      @ListAction,
-      @DetailAction
-      and
-      @OnSelectElementAction.
-      <br>
+      references and collections in order for your application to fit the users
+      needs. Here you only have seen some illustrative examples, but OpenXava
+      provides many more possibilities for refining collections and references,
+      such as the next annotations: @ReferenceView, @ReadOnly, @NoFrame,
+      @NoCreate, @NoModify, @NoSearch, @AsEmbedded, @SearchAction,
+      @DescriptionsList, @LabelFormat, @Action, @OnChange, @OnChangeSearch,
+      @Editor, @CollectionView, @EditOnly, @ListProperties, @RowStyle,
+      @EditAction, @ViewAction, @NewAction, @SaveAction, @HideDetailAction,
+      @RemoveAction, @RemoveSelectedAction, @ListAction, @DetailAction and
+      @OnSelectElementAction. <br>
       And if that wasn't enough you always have the option of defining your own
       editor for references or collections. Editors allows you to create a
-      custom user
-      interface component for displaying and editing the reference or
-      collection.
-      <br>
+      custom user interface component for displaying and editing the reference
+      or collection. <br>
       This flexibility allows you to use automatic user interfaces for
-      practically any
-      possible case in real life business applications. <strong><a class="wiki_link_ext"
-          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_en.zip/download"
+      practically any possible case in real life business applications. <strong><a
+          class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
