@@ -75,73 +75,63 @@
       </div>
       En lecciones anteriores aprendiste como añadir tus propias acciones. Sin
       embargo, esto no es suficiente para personalizar del todo el
-      comportamiento de tu
-      aplicación, porque la interfaz de usuario generada, en concreto la
-      interfaz de
-      usuario para referencias y colecciones, tiene un comportamiento estándar
-      que a
-      veces no es el más conveniente.
-      <br>
+      comportamiento de tu aplicación, porque la interfaz de usuario generada,
+      en concreto la interfaz de usuario para referencias y colecciones, tiene
+      un comportamiento estándar que a veces no es el más conveniente. <br>
       Por fortuna, OpenXava proporciona muchas formas de personalizar el
       comportamiento de las referencias y colecciones. En esta lección
-      aprenderás
-      como hacer algunas de estas personalizaciones, y como esto añade valor a
-      tu
-      aplicación.
+      aprenderás como hacer algunas de estas personalizaciones, y como esto
+      añade valor a tu aplicación.
       <h2>Refinar el comportamiento de las referencias</h2>
       Posiblemente te hayas dado cuenta de que el módulo Order tiene un pequeño
       defecto: el usuario puede añadir cualquier factura que quiera al pedido
-      actual,
-      aunque el cliente de la factura sea diferente. Esto no es admisible.
-      Arreglémoslo.
+      actual, aunque el cliente de la factura sea diferente. Esto no es
+      admisible. Arreglémoslo.
       <h3>Las validaciones están bien, pero no son suficientes</h3>
       El usuario sólo puede asociar un pedido a una factura si ambos, factura y
       pedido, pertenecen al mismo cliente. Esto es lógica de negocio específica
-      de tu
-      aplicación, por tanto el comportamiento estándar de OpenXava no lo
-      resuelve.
-      <br>
-      Figura 9.1 Error de validación cuando el cliente de la factura es
-      incorrecto
-      <br>
-      Ya que esto es lógica de negocio la vamos a poner en la capa del modelo,
-      es
-      decir, en las entidades. Lo haremos añadiendo una validación. Así
-      obtendrás el
-      efecto de la figura de arriba.
-      <br>
+      de tu aplicación, por tanto el comportamiento estándar de OpenXava no lo
+      resuelve. <br>
+      La siguiente imagen muestra cómo se produce un error de validación cuando
+      el cliente de la factura es incorrecto: </div>
+    <img src="files/references-collections_es010.png" alt="references-collections_es010"
+      title="references-collections_es010">
+    <div class="wiki" style="display: block;"> Ya que esto es lógica de negocio
+      la vamos a poner en la capa del modelo, es decir, en las entidades. Lo
+      haremos añadiendo una validación. Así obtendrás el efecto de la figura de
+      arriba. <br>
       Ya sabes como añadir esta validación a tu entidad <i>Order</i>. Se trata
-      de añadir un
-      método anotado con <i>@AssertTrue</i>: <br>
-      <pre>Listado 9.1 Nuevo método de validación en la entidad Order
-@AssertTrue // Este método tiene que devolver true para que este pedido sea válido
-private boolean isCustomerOfInvoiceMustBeTheSame() {
-return invoice == null || // invoice es opcional
-invoice.getCustomer().getNumber()==getCustomer().getNumber();
+      de añadir un método anotado con <i>@AssertTrue</i>: <br>
+      <pre><code class="java">public class Pedido {
+
+    ...
+
+    // Este método ha de devolver true para que este pedido sea válido
+    @AssertTrue(message="cliente_pedido_factura_coincidir") 
+    private boolean isClienteFacturaCoincide() {
+    	return factura == null || // factura es opcional
+    		factura.getCliente().getNumero() == getCliente().getNumero();
+    }
+
 }
-</pre>
-      Aquí comprobamos que el cliente de la factura es el mismo que el del
-      pedido.
-      Esto es suficiente para preservar la integridad de los datos, pero la
-      validación sola
-      es una opción bastante pobre desde el punto de vista del usuario.
+</code></pre>También has de añadir el mensaje a <i>i18n/MensajesFacturacion_es.properties</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">cliente_pedido_factura_coincidir=El cliente de la factura y del pedido han de coincidir
+</code></pre>Aquí comprobamos que el cliente de la factura es el mismo que el
+      del pedido. Esto es suficiente para preservar la integridad de los datos,
+      pero la validación sola es una opción bastante pobre desde el punto de
+      vista del usuario.
       <h3>Modificar los datos tabulares por defecto ayuda</h3>
       Aunque la validación impide que el usuario pueda asignar una factura
       incorrecta a un pedido, lo tiene difícil a la hora de escoger una factura
-      correcta.
-      Porque cuando pulsa para buscar una factura, todas las facturas existentes
-      se
-      muestran, y lo que es todavía peor, la información del cliente no aparece
-      en la
-      lista. Fíjate en la figura 9.2.
-      <br>
+      correcta. Porque cuando pulsa para buscar una factura, todas las facturas
+      existentes se muestran, y lo que es todavía peor, la información del
+      cliente no aparece en la lista. Fíjate en la figura 9.2. <br>
       Figura 9.2 La lista para buscar facturas no muestra los datos del cliente
       <br>
       Obviamente, es difícil buscar una factura sin ver de que cliente es.
-      Añadamos
-      pues el cliente a la lista usando el atributo properties de @Tab en la
-      entidad
-      Invoice, tal como muestra el listado 9.2.
+      Añadamos pues el cliente a la lista usando el atributo properties de @Tab
+      en la entidad Invoice, tal como muestra el listado 9.2.
       <pre>Listado 9.2 Definición de datos tabulares para Invoice
 @Tabs({
 @Tab(
@@ -152,47 +142,33 @@ properties="year, number, date, customer.number, customer.name," +
 @Tab(name="Deleted", baseCondition = "deleted = true")
 })
 public class Invoice extends CommercialDocument {
-</pre>
-      Los datos tabulares por defecto (es decir, el modo lista) para una entidad
-      son
-      todas sus propiedades planas, pero no incluyen las referencias. Para
-      cambiar la
-      forma en que los datos tabulares se muestran puedes usar properties en la
-      anotación @Tab. Estas propiedades pueden ser calificadas, es decir puedes,
-      usando la notación del punto, poner una propiedad de una referencia, como
-      customer.number y customer.name en este caso.
-      <br>
+</pre> Los datos tabulares por defecto (es decir, el modo lista) para una
+      entidad son todas sus propiedades planas, pero no incluyen las
+      referencias. Para cambiar la forma en que los datos tabulares se muestran
+      puedes usar properties en la anotación @Tab. Estas propiedades pueden ser
+      calificadas, es decir puedes, usando la notación del punto, poner una
+      propiedad de una referencia, como customer.number y customer.name en este
+      caso. <br>
       Figura 9.3 Gracias a @Tab los datos del cliente se ven en la lista de
-      facturas
-      <br>
+      facturas <br>
       Ahora la lista para escoger una factura de un pedido es como la que se
-      muestra
-      en la figura 9.3.<br>
+      muestra en la figura 9.3.<br>
       Con esta lista de facturas es más fácil escoger la correcta, porque ahora
-      el
-      usuario puede ver el cliente de cada factura. Además, el usuario puede
-      filtrar por
-      cliente para mostrar las facturas del cliente que está buscando. Sin
-      embargo, sería
-      aun mejor si solo se mostraran las facturas cuyo cliente es el mismo que
-      del
-      pedido actual. De esta manera no habría opción para equivocarse. Lo
-      haremos así
-      en la siguiente sección.
+      el usuario puede ver el cliente de cada factura. Además, el usuario puede
+      filtrar por cliente para mostrar las facturas del cliente que está
+      buscando. Sin embargo, sería aun mejor si solo se mostraran las facturas
+      cuyo cliente es el mismo que del pedido actual. De esta manera no habría
+      opción para equivocarse. Lo haremos así en la siguiente sección.
       <h3>Refinar la acción para buscar una referencia con una lista</h3>
       Actualmente cuando el usuario busca una factura todas las facturas están
       disponibles para escoger. Vamos a mejorar esto para mostrar solo las
-      facturas del
-      cliente del pedido visualizado, tal como muestra la figura 9.4.
-      <br>
+      facturas del cliente del pedido visualizado, tal como muestra la figura
+      9.4. <br>
       Figura 9.4 Buscar la factura desde el pedido tiene que filtrarse por
-      cliente
-      <br>
+      cliente <br>
       Para definir nuestra propia acción de búsqueda para la referencia a
-      factura
-      usaremos la anotación @SearchAction. El listado 9.3 muestra la
-      modificación
-      necesaria en la clase Order.
+      factura usaremos la anotación @SearchAction. El listado 9.3 muestra la
+      modificación necesaria en la clase Order.
       <pre>Listado 9.3 @SearchAction define la acción personalizada para buscar facturas
 public class Order extends CommercialDocument {
 @ManyToOne
@@ -202,14 +178,11 @@ public class Order extends CommercialDocument {
 private Invoice invoice;
 ...
 }
-</pre>
-      De esta forma tan simple definimos la acción a ejecutar cuando el usuario
+</pre> De esta forma tan simple definimos la acción a ejecutar cuando el usuario
       pulsa en el botón de la linterna para buscar una factura. El argumento
-      usado para
-      @SearchAction, Order.searchInvoice, es el nombre calificado de la acción,
-      es
-      decir la acción searchInvoice del controlador Order definido en el archivo
-      controllers.xml.<br>
+      usado para @SearchAction, Order.searchInvoice, es el nombre calificado de
+      la acción, es decir la acción searchInvoice del controlador Order definido
+      en el archivo controllers.xml.<br>
       Ahora tenemos que editar controllers.xml y añadir la definición de nuestra
       nueva acción, tal como muestra el listado 9.4.
       <pre>Listado 9.4 Declaración de la acción Order.searchInvoice en controllers.xml
@@ -222,8 +195,7 @@ image="images/search.gif" hidden="true">
 image="images/search.gif": La misma imagen que la de la acción estándar
 ---->
 </action></controller>
-</pre>
-      Nuestra acción hereda de ReferenceSearchAction y ésta los necesita. El
+</pre> Nuestra acción hereda de ReferenceSearchAction y ésta los necesita. El
       listado 9.5 muestra el código de la acción.
       <pre>Listado 9.5 Acción personalizada para buscar una factura desde un pedido
 package org.openxava.invoicing.actions;
@@ -248,42 +220,31 @@ if (customerNumber &gt; 0) { // Si hay cliente los usamos para filtrar
 getTab().setBaseCondition("${customer.number} = " + customerNumber);
 }
 }
-</pre>
-      Observa como usamos getTab().setBaseCondition() para establecer una
+</pre> Observa como usamos getTab().setBaseCondition() para establecer una
       condición en la lista para escoger la referencia. Es decir, desde una
       ReferenceSearchAction puedes usar getTab() para manipular la forma en que
       se comporta la lista.<br>
       Si no hay cliente no añadimos ninguna condición por tanto se mostrarían
-      todas
-      las facturas, esto ocurre cuando el usuario escoge la factura antes que el
-      cliente.
+      todas las facturas, esto ocurre cuando el usuario escoge la factura antes
+      que el cliente.
       <h3>Buscar la referencia tecleando en los campos</h3>
       La lista para escoger una referencia ya funciona bien. Sin embargo,
-      queremos
-      dar al usuario la opción de escoger una factura sin usar la lista,
-      simplemente
-      tecleando el año y el número. Muy útil si el usuario conoce de antemano
-      que
-      factura quiere.<br>
+      queremos dar al usuario la opción de escoger una factura sin usar la
+      lista, simplemente tecleando el año y el número. Muy útil si el usuario
+      conoce de antemano que factura quiere.<br>
       OpenXava provee esa funcionalidad por defecto. Si los campos @Id son
       visualizados en la referencia serán usados para buscar, en caso contrario
       OpenXava usa el primer campo visualizado para buscar. Aunque en nuestro
-      caso
-      esto no es tan conveniente, porque el primer campo visualizado es el año,
-      y
-      buscar una factura sólo por el año no es muy preciso. La figura 9.5
-      muestra el
-      comportamiento por defecto junto con una alternativa más conveniente.
-      <br>
-      Figura 9.5 Por defecto la factura se recupera solo por año
-      <br>
+      caso esto no es tan conveniente, porque el primer campo visualizado es el
+      año, y buscar una factura sólo por el año no es muy preciso. La figura 9.5
+      muestra el comportamiento por defecto junto con una alternativa más
+      conveniente. <br>
+      Figura 9.5 Por defecto la factura se recupera solo por año <br>
       Afortunadamente es fácil indicar que campos queremos usar para buscar
-      desde
-      la perspectiva del usuario. Esto se hace por medio de la anotación
-      @SearchKey.
-      Edita la clase CommercialDocument (recuerda, el padre de Order e Invoice)
-      y
-      añade esta anotación a las propiedades year y number (listado 9.6).
+      desde la perspectiva del usuario. Esto se hace por medio de la anotación
+      @SearchKey. Edita la clase CommercialDocument (recuerda, el padre de Order
+      e Invoice) y añade esta anotación a las propiedades year y number (listado
+      9.6).
       <pre>Listado 9.6 Definir year y number como @SearchKey en CommercialDocument
 abstract public class CommercialDocument extends Deletable {
 ...
@@ -297,42 +258,30 @@ private int year;
 private int number;
 ...
 }
-</pre>
-      De esta forma cuando el usuario busque un pedido o una factura desde una
+</pre> De esta forma cuando el usuario busque un pedido o una factura desde una
       referencia tiene que teclear el año y el número, y la entidad
-      correspondiente será
-      recuperada de la base de datos y rellenará la interfaz de usuario.
-      Ahora es fácil para el usuario escoger una factura desde un pedido sin
-      usar la
-      lista de búsqueda, simplemente tecleando el año y el número.
+      correspondiente será recuperada de la base de datos y rellenará la
+      interfaz de usuario. Ahora es fácil para el usuario escoger una factura
+      desde un pedido sin usar la lista de búsqueda, simplemente tecleando el
+      año y el número.
       <h3>Refinar la acción para buscar cuando se teclea la clave</h3>
       Ahora que obtener una factura tecleando el año y el número funciona
       queremos refinarlo para ayudar al usuario a hacer su trabajo de forma más
       eficiente. Por ejemplo, sería útil que si el usuario todavía no ha
-      escogido al
-      cliente para el pedido y escoge una factura, el cliente de esa factura sea
-      asignado
-      automáticamente al pedido actual. La figura 9.6 visualiza el
-      comportamiento
-      deseado.
-      <br>
+      escogido al cliente para el pedido y escoge una factura, el cliente de esa
+      factura sea asignado automáticamente al pedido actual. La figura 9.6
+      visualiza el comportamiento deseado. <br>
       Figura 9.6 Escoger una factura cuando todavía no hay un cliente
-      seleccionado
-      <br>
+      seleccionado <br>
       Por otra parte, si el usuario ya ha seleccionado un cliente para el
-      pedido, si no
-      coincide con el de la factura, ésta será rechazada y se visualizará un
-      mensaje de
-      error, tal como muestra la figura 9.7.
-      <br>
-      Figura 9.7 Escoger una factura cuando el cliente ya está seleccionado
-      <br>
-      Para definir este comportamiento especial hemos de añadir una anotación
-      en la referencia invoice de Order. @OnChangeSearch
-      permite definir nuestra propia acción para hacer la búsqueda de la
-      referencia
-      cuando su clave cambia en la interfaz de usuario. Puedes ver la referencia
-      modificada en el listado 9.7.<br>
+      pedido, si no coincide con el de la factura, ésta será rechazada y se
+      visualizará un mensaje de error, tal como muestra la figura 9.7. <br>
+      Figura 9.7 Escoger una factura cuando el cliente ya está seleccionado <br>
+      Para definir este comportamiento especial hemos de añadir una anotación en
+      la referencia invoice de Order. @OnChangeSearch permite definir nuestra
+      propia acción para hacer la búsqueda de la referencia cuando su clave
+      cambia en la interfaz de usuario. Puedes ver la referencia modificada en
+      el listado 9.7.<br>
       @OnChangeSearch
       <pre>Listado 9.7 Acción para obtener la factura desde el pedido al cambiar la clave
 public class Order extends CommercialDocument {
@@ -347,13 +296,10 @@ private Invoice invoice;
 
 ...
 }
-</pre>
-      A partir de ahora cuando un usuario teclee un nuevo año y número para la
+</pre> A partir de ahora cuando un usuario teclee un nuevo año y número para la
       factura, OnChangeSearchInvoiceAction se ejecutará. En esta acción se han
-      de
-      leer los datos de la factura de la base de datos y actualizar la interfaz
-      de usuario.
-      El listado 9.8 muestra el código de la acción.
+      de leer los datos de la factura de la base de datos y actualizar la
+      interfaz de usuario. El listado 9.8 muestra el código de la acción.
       <pre>Listado 9.8 Acción para buscar la factura al teclear año y número
 package org.openxava.invoicing.actions;
 import
@@ -395,75 +341,51 @@ getView().clear();
 }
 }
 }
-</pre>
-      Dado que la acción desciende de OnChangeSearchAction (1) y usamos
-      (2) se comporta de la forma estándar, es decir, cuando el
-      usuario teclea el año y el número los datos de la factura se recuperan y
-      rellenan la
-      interfaz de usuario. Después, usamos getView() (3) para obtener la clave
-      de la
-      factura visualizada y así encontrar su correspondiente entidad usando
-      MapFacade
+</pre> Dado que la acción desciende de OnChangeSearchAction (1) y usamos (2) se
+      comporta de la forma estándar, es decir, cuando el usuario teclea el año y
+      el número los datos de la factura se recuperan y rellenan la interfaz de
+      usuario. Después, usamos getView() (3) para obtener la clave de la factura
+      visualizada y así encontrar su correspondiente entidad usando MapFacade
       (4). Desde dentro de ChangeSearchAction getView() devuelve la subvista de
-      la
-      referencia, y no la vista global. Por lo tanto, en este caso getView() es
-      la vista de
-      la referencia a factura. Esto permite crear acciones @OnChangeSearch más
-      reutilizables. Has de escribir getView().getRoot().getSubview(“customer”)
-      (5) para acceder a la vista del cliente.
-      super.execute()
-      <br>
+      la referencia, y no la vista global. Por lo tanto, en este caso getView()
+      es la vista de la referencia a factura. Esto permite crear acciones
+      @OnChangeSearch más reutilizables. Has de escribir
+      getView().getRoot().getSubview(“customer”) (5) para acceder a la vista del
+      cliente. super.execute() <br>
       Para implementar el comportamiento visualizado en la anterior figura 9.6,
-      la
-      acción pregunta si no hay cliente (customberNumber == 0) (6). Si éste es
-      el caso
-      rellena los datos del cliente desde el cliente de la factura. En caso
-      contrario
-      implementa la lógica de la figura 9.7 verificando que el cliente del
-      pedido actual
-      coincide con el cliente de la factura recuperada.<br>
+      la acción pregunta si no hay cliente (customberNumber == 0) (6). Si éste
+      es el caso rellena los datos del cliente desde el cliente de la factura.
+      En caso contrario implementa la lógica de la figura 9.7 verificando que el
+      cliente del pedido actual coincide con el cliente de la factura
+      recuperada.<br>
       Nos queda un pequeño detalle, el texto del mensaje. Añade la entrada
-      mostrada
-      en el listado 9.9 al archivo Invoicing-messages_en.properties de la
-      carpeta i18n.
+      mostrada en el listado 9.9 al archivo Invoicing-messages_en.properties de
+      la carpeta i18n.
       <pre>Listado 9.9 Error de búsqueda de factura en Invoicing-messages_en.properties
 invoice_customer_not_match=Customer Nº {0} of invoice {1} does not match with
 Customer Nº {2} of the current order
-</pre>
-      Una cosa interesante de @OnChangeSearch es que también se ejecuta si la
+</pre> Una cosa interesante de @OnChangeSearch es que también se ejecuta si la
       factura se escoge desde la lista, porque en este caso el año y el número
-      también
-      cambian. Por ende, este es un lugar centralizado donde refinar la lógica
-      para
-      recuperar la referencia y rellenar la vista.
+      también cambian. Por ende, este es un lugar centralizado donde refinar la
+      lógica para recuperar la referencia y rellenar la vista.
       <h2>Refinar el comportamiento de las colecciones</h2>
       Podemos refinar las colecciones de la misma forma que hemos hecho con las
       referencias. Esto es muy útil, porque nos permite mejorar el
-      comportamiento
-      actual del módulo Invoice. El usuario sólo puede añadir un pedido a una
-      factura
-      si la factura y el pedido pertenecen al mismo cliente. Además, el pedido
-      tiene que
-      estar entregado (delivered) y no tener todavía factura.
+      comportamiento actual del módulo Invoice. El usuario sólo puede añadir un
+      pedido a una factura si la factura y el pedido pertenecen al mismo
+      cliente. Además, el pedido tiene que estar entregado (delivered) y no
+      tener todavía factura.
       <h3>Modificar los datos tabulares ayuda</h3>
       Con el comportamiento por defecto, el usuario puedo tener dificultades al
       tratar de encontrar pedidos adecuados para asignar a su factura. Porque
-      cuando el
-      usuario pulsa para añadir pedidos, todos los pedidos existentes son
-      mostrados, y
-      lo que es peor, la información del cliente no se muestra en la lista.
-      Queremos que
-      los datos del cliente se muestren en la lista de pedidos, tal como muestra
-      la figura
-      9.8.
-      <br>
+      cuando el usuario pulsa para añadir pedidos, todos los pedidos existentes
+      son mostrados, y lo que es peor, la información del cliente no se muestra
+      en la lista. Queremos que los datos del cliente se muestren en la lista de
+      pedidos, tal como muestra la figura 9.8. <br>
       Figura 9.8 Añadir pedidos a factura mostrando los datos del cliente en la
-      lista
-      <br>
+      lista <br>
       El listado 9.10 muestra como añadir el cliente a la lista usando el
-      atributo
-      la entidad Order.
-      <br>
+      atributo la entidad Order. <br>
       properties de @Tab en
       <pre>Listado 9.10 Definición de datos tabulares para Order
 @Tabs({
@@ -475,31 +397,22 @@ properties="year, number, date, customer.number, customer.name," +
 @Tab(name="Deleted", baseCondition = "deleted = true")
 })
 public class Order extends CommercialDocument {
-</pre>
-      Fíjate como hemos añadido customer.number y customer.name.
-      La figura 9.8 también muestra como la validación en las entidades impide
-      que
-      el usuario añada pedidos incorrectos.
-      Sin embargo, sería mejor si sólo los pedidos susceptibles de ser añadidos
-      a la
-      factura actual estuvieran presentes en la lista, de tal modo que el
-      usuario no
-      tuviese forma de equivocarse. Lo haremos así en la siguiente sección.
+</pre> Fíjate como hemos añadido customer.number y customer.name. La figura 9.8
+      también muestra como la validación en las entidades impide que el usuario
+      añada pedidos incorrectos. Sin embargo, sería mejor si sólo los pedidos
+      susceptibles de ser añadidos a la factura actual estuvieran presentes en
+      la lista, de tal modo que el usuario no tuviese forma de equivocarse. Lo
+      haremos así en la siguiente sección.
       <h3>Refinar la lista para añadir elementos a la colección</h3>
       Actualmente cuando el usuario trata de añadir pedidos a la factura todos
-      los
-      pedidos están disponibles. Vamos a mejorar esto para mostrar solo los
-      pedidos del
-      cliente de la factura, entregados y todavía sin factura, tal como muestra
-      la figura
-      9.9.
-      <br>
+      los pedidos están disponibles. Vamos a mejorar esto para mostrar solo los
+      pedidos del cliente de la factura, entregados y todavía sin factura, tal
+      como muestra la figura 9.9. <br>
       Figura 9.9 Añadir pedidos muestra solo los entregados y del cliente actual
       <br>
       Usaremos la anotación @NewAction para definir nuestra propia acción que
       muestre la lista para añadir pedidos. El listado 9.11 muestra la
-      modificación
-      necesaria en la clase Order.
+      modificación necesaria en la clase Order.
       <pre>Listado 9.11 @NewAction define la acción para ir a la lista de añadir pedidos
 public class Invoice extends CommercialDocument {
 @OneToMany(mappedBy="invoice")
@@ -508,20 +421,14 @@ public class Invoice extends CommercialDocument {
 private Collection<order> orders;
 ...
 }
-</order></pre>
-      De esta forma tan sencilla definimos la acción a ejecutar cuando el
-      usuario
-      pulsa en el botón con el signo más (+) para añadir pedidos. El argumento
-      usado
-      para @NewAction, Invoice.addOrders, es el nombre calificado de la acción,
-      es
-      decir la acción addOrders del controlador Invoice tal como se ha definido
-      en el
-      archivo controllers.xml.<br>
+</order></pre> De esta forma tan sencilla definimos la acción a ejecutar cuando
+      el usuario pulsa en el botón con el signo más (+) para añadir pedidos. El
+      argumento usado para @NewAction, Invoice.addOrders, es el nombre
+      calificado de la acción, es decir la acción addOrders del controlador
+      Invoice tal como se ha definido en el archivo controllers.xml.<br>
       Ahora hemos de editar controllers.xml para añadir el controlador Invoice
       (todavía no existe) con nuestra acción. El listado 9.12 muestra la
-      definición del
-      controlador.
+      definición del controlador.
       <pre>Listado 9.12 Declaración de la acción Invoice.addOrders en controllers.xml
 <controller name="Invoice">
 <extends controller="Invoicing">
@@ -532,8 +439,7 @@ image="images/create_new.gif" hidden="true">
 image="images/create_new.gif": La misma imagen que la acción estándar
 ---->
 </action></extends></controller>
-</pre>
-      El listado 9.13 muestra el código de la acción.
+</pre> El listado 9.13 muestra el código de la acción.
       <pre>Listado 9.13 Acción personalizada para ir a “añadir pedidos” desde una factura
 package org.openxava.invoicing.actions;
 import org.openxava.actions.*;
@@ -560,37 +466,26 @@ getTab().setBaseCondition( // La condición de la lista de pedidos a añadir
 );
 }
 }
-</pre>
-      Fíjate como usamos getTab().setBaseCondition() para establecer la
+</pre> Fíjate como usamos getTab().setBaseCondition() para establecer la
       condición de la lista para escoger la entidades a añadir. Es decir, desde
-      una
-      GoAddElementsToCollectionAction puedes usar getTab() para manipular la
+      una GoAddElementsToCollectionAction puedes usar getTab() para manipular la
       forma en que la lista se comporta.
       <h3>Refinar la acción que añade elementos a la colección</h3>
       Una mejora interesante para la colección de pedidos sería que cuando el
       usuario añada pedidos a la factura actual, las líneas de detalle de estos
-      pedidos se
-      copien automáticamente a la factura.<br>
+      pedidos se copien automáticamente a la factura.<br>
       No podemos usar @NewAction para esto, porque es la acción que muestra la
       lista de elementos a añadir a la colección. Pero no es la acción que añade
-      los
-      elementos. En esta sección aprenderemos como definir la acción que
-      realmente
-      añade los elementos (figura 9.10).
-      <br>
-      Figura 9.10 Queremos refinar la acción 'Add' en la lista de pedidos
-      <br>
+      los elementos. En esta sección aprenderemos como definir la acción que
+      realmente añade los elementos (figura 9.10). <br>
+      Figura 9.10 Queremos refinar la acción 'Add' en la lista de pedidos <br>
       Por desgracia, no hay una anotación para definir directamente esta acción
-      de
-      añadir. Sin embargo, no es una tarea demasiado difícil, solo hemos de
-      refinar la
-      acción @NewAction instruyéndola para mostrar nuestro propio controlador, y
-      en
-      este controlador podemos poner las acciones que queramos. Dado que ya
-      hemos
-      definido nuestra @NewAction en la sección anterior solo hemos de añadir un
-      nuevo método a la ya existente GoAddOrdersToInvoiceAction. El listado 9.14
-      muestra este método.
+      de añadir. Sin embargo, no es una tarea demasiado difícil, solo hemos de
+      refinar la acción @NewAction instruyéndola para mostrar nuestro propio
+      controlador, y en este controlador podemos poner las acciones que
+      queramos. Dado que ya hemos definido nuestra @NewAction en la sección
+      anterior solo hemos de añadir un nuevo método a la ya existente
+      GoAddOrdersToInvoiceAction. El listado 9.14 muestra este método.
       <pre>Listado 9.14 getNextController() añadido a GoAddOrdersToInvoiceAction
 public class GoAddOrdersToInvoiceAction ... {
 ...
@@ -599,14 +494,12 @@ return "AddOrdersToInvoice"; // El controlador con las acciones disponibles en
 }
 // la lista de pedidos a añadir
 }
-</pre>
-      Por defecto las acciones en la lista de entidades a añadir (los botones
-      'Add' y
-      'Cancel') son del controlador estándar de OpenXava AddToCollection.
-      Sobrescribir getNextController() en nuestra acción nos permite definir
-      nuestro propio controlador en su lugar. El listado 9.15 muestra la
-      definición de
-      nuestro controlador propio para añadir elementos en controllers.xml.
+</pre> Por defecto las acciones en la lista de entidades a añadir (los botones
+      'Add' y 'Cancel') son del controlador estándar de OpenXava
+      AddToCollection. Sobrescribir getNextController() en nuestra acción nos
+      permite definir nuestro propio controlador en su lugar. El listado 9.15
+      muestra la definición de nuestro controlador propio para añadir elementos
+      en controllers.xml.
       <pre>Listado 9.15 Controlador personalizado para añadir pedidos a la factura
 <controller name="AddOrdersToInvoice">
 <extends controller="AddToCollection">
@@ -615,13 +508,11 @@ return "AddOrdersToInvoice"; // El controlador con las acciones disponibles en
 
 class="org.openxava.invoicing.actions.AddOrdersToInvoiceAction"/&gt;
 </action></extends></controller>
-</pre>
-      De esta forma la acción para añadir pedidos a la factura será
+</pre> De esta forma la acción para añadir pedidos a la factura será
       AddOrdersToInvoiceAction. Recuerda que el objetivo de nuestra acción es
       añadir los pedidos a la factura de la manera convencional, pero también
-      copiar las
-      líneas de estos pedidos a la factura. El listado 9.16 muestra el código de
-      la acción.
+      copiar las líneas de estos pedidos a la factura. El listado 9.16 muestra
+      el código de la acción.
       <pre>Listado 9.16 Acción personalizada para añadir pedidos a una factura
 package org.openxava.invoicing.actions;
 import
@@ -667,16 +558,12 @@ Order order = (Order) MapFacade.findEntity("Order", keyValues); // (2)
 order.copyDetailsToInvoice(); // Delega el trabajo principal en la entidad (3)
 }
 }
-</pre>
-      Sobrescribimos el método execute() sólo para refrescar la vista después
-      del
-      proceso. Realmente, lo que nosotros queremos es refinar la lógica de
-      asociar un
-      pedido a la factura. La forma de hacer esto es sobrescribiendo el método
-      associateEntity(). La lógica aquí es simple, después de ejecutar la lógica
-      estándar (1) buscamos la entidad Order correspondiente y entonces llamamos
-      al
-      método copyDetailsToInvoice() de ese Order.<br>
+</pre> Sobrescribimos el método execute() sólo para refrescar la vista después
+      del proceso. Realmente, lo que nosotros queremos es refinar la lógica de
+      asociar un pedido a la factura. La forma de hacer esto es sobrescribiendo
+      el método associateEntity(). La lógica aquí es simple, después de ejecutar
+      la lógica estándar (1) buscamos la entidad Order correspondiente y
+      entonces llamamos al método copyDetailsToInvoice() de ese Order.<br>
       Obviamente, necesitamos tener un método copyDetailsToInvoice() en la
       entidad Order. El listado 9.17 muestra este método.
       <pre>Listado 9.17 Método copyDetailsInvoice() en la clase Order
@@ -690,35 +577,27 @@ copyDetailsToInvoice(getInvoice());
 // Delegamos en un método ya existente
 
 }
-</pre>
-      Por suerte ya teníamos un método para copiar detalles desde una entidad
+</pre> Por suerte ya teníamos un método para copiar detalles desde una entidad
       Order a la Invoice especificada, simplemente llamamos a este método
-      enviando
-      la Invoice del Order.<br>
+      enviando la Invoice del Order.<br>
       Estas pequeñas modificaciones al comportamiento de la colección orders de
       Invoice son suficientes para convertir el módulo de Invoice en una
-      herramienta
-      efectiva para facturar clientes individualmente. Solo has de crear una
-      factura
-      nueva, escoger un cliente y añadir pedidos. Es incluso más fácil de usar
-      que el
-      modo lista del módulo Order (desarrollamos una acción para hacerlo en la
-      sección 8.2) ya que el módulo Invoice solo se muestran los pedidos
-      adecuados al
-      cliente.
+      herramienta efectiva para facturar clientes individualmente. Solo has de
+      crear una factura nueva, escoger un cliente y añadir pedidos. Es incluso
+      más fácil de usar que el modo lista del módulo Order (desarrollamos una
+      acción para hacerlo en la sección 8.2) ya que el módulo Invoice solo se
+      muestran los pedidos adecuados al cliente.
       <h2>Pruebas JUnit</h2>
       Todavía tenemos la sana costumbre de hacer un poco de código de
-      aplicación,
-      y después un poco de código de pruebas. Y ahora es el tiempo de escribir
-      el
-      código de pruebas para las nuevas características añadidas en esta
-      lección.
+      aplicación, y después un poco de código de pruebas. Y ahora es el tiempo
+      de escribir el código de pruebas para las nuevas características añadidas
+      en esta lección.
       <h3>Adaptar OrderTest</h3>
       Si ejecutaras OrderTest ahora, no pasaría. Esto es porque nuestro código
       confía en ciertos detalles que han cambiado. Por lo tanto, hemos de
-      modificar
-      nuestro código de pruebas actual. Edita el método testSetInvoice() de
-      OrderTest y aplica los cambios mostrados en el listado 9.18.
+      modificar nuestro código de pruebas actual. Edita el método
+      testSetInvoice() de OrderTest y aplica los cambios mostrados en el listado
+      9.18.
       <pre>Listado 9.18 Modificaciones en el método testSetInvoice() de OrderTest
 public void testSetInvoice() throws Exception {
 ...
@@ -741,17 +620,14 @@ setValue("invoice.year", "");
 setValue("invoice.number", ""); // y el número para buscar la factura (2)
 execute("CRUD.save");
 assertNoErrors();
-</pre>
-      Recuerda que anotamos la referencia invoice en Order con
+</pre> Recuerda que anotamos la referencia invoice en Order con
       @SearchAction("Order.searchInvoice") (sección 9.1.3), por tanto hemos de
       modificar la prueba para llamar a Order.searchInvoice (1) en vez de a
       Reference.search. En la sección 9.1.4 añadimos @SearchKey a year y number
       de CommercialDocument, por lo tanto nuestra prueba ha de indicar tanto
-      year
-      como number para obtener (o en este caso borrar) una factura (2). Por
-      causa de
-      esto último también hemos de modificar testCreateInvoiceFromOrder() de
-      OrderTest como muestra el listado 9.19.
+      year como number para obtener (o en este caso borrar) una factura (2). Por
+      causa de esto último también hemos de modificar
+      testCreateInvoiceFromOrder() de OrderTest como muestra el listado 9.19.
       <pre>Listado 9.19 Modificaciones en testCreateInvoiceFromOrder() de OrderTest
 public void testCreateInvoiceFromOrder() throws Exception {
 ...
@@ -765,14 +641,12 @@ assertValue("invoice.number", "");
 assertCollectionRowCount("invoice.details", 0);
 execute("CRUD.save");
 assertNoErrors();
-</pre>
-      Después de estos cambios OrderTest tiene que pasar. Sin embargo, todavía
+</pre> Después de estos cambios OrderTest tiene que pasar. Sin embargo, todavía
       nos queda probar la nueva funcionalidad del módulo Order.
       <h3>Probar @SearchAction</h3>
-      En la sección 9.1.3 usamos @SearchAction en la referencia invoice de
-      para mostrar en la lista de búsqueda solo facturas del cliente del pedido
-      actual. El listado 9.20 muestra la prueba de esta funcionalidad.
-      Order
+      En la sección 9.1.3 usamos @SearchAction en la referencia invoice de para
+      mostrar en la lista de búsqueda solo facturas del cliente del pedido
+      actual. El listado 9.20 muestra la prueba de esta funcionalidad. Order
       <pre>Listado 9.20 Probar buscar factura desde pedido en OrderTest
 public void testSearchInvoiceFromOrder() throws Exception {
 execute("CRUD.new");
@@ -788,13 +662,9 @@ execute("Sections.change", "activeSection=1");
 execute("Order.searchInvoice", // ...cuando el usuario pulsa para escoger una factura...
 "keyProperty=invoice.number");
 assertCustomerInList("2"); // ...sólo se muestran las facturas del cliente 2
-</pre>
-      La parte más peliaguda es verificar la lista de facturas, este es el
-      trabajo de
-      código puede verse en el listado 9.21.
-      <br>
-      assertCustomerInList() cuyo
-      <br>
+</pre> La parte más peliaguda es verificar la lista de facturas, este es el
+      trabajo de código puede verse en el listado 9.21. <br>
+      assertCustomerInList() cuyo <br>
       <pre>Listado 9.21 Confirmar que los valores en la columna cliente son los esperados
 private void assertCustomerInList(String customerNumber) throws Exception {
 assertListNotEmpty();
@@ -806,17 +676,13 @@ fail("Customer in row " + i + // Si el cliente no es el esperado falla
 }
 }
 }
-</pre>
-      Consiste en un bucle por todas la filas verificando el número de cliente.
+</pre> Consiste en un bucle por todas la filas verificando el número de cliente.
       <h3>Probar @OnChangeSearch</h3>
-      En la sección 9.1.5 usamos @SearchAction en la referencia invoice de
-      Order para asignar automáticamente el cliente de la factura escogida al
-      pedido
+      En la sección 9.1.5 usamos @SearchAction en la referencia invoice de Order
+      para asignar automáticamente el cliente de la factura escogida al pedido
       actual cuando el usuario todavía no tiene cliente, o para verificar que el
-      cliente de
-      la factura y del pedido coinciden, si el pedido ya tiene cliente. El
-      listado 9.22
-      muestra el método de prueba en OrderTest.
+      cliente de la factura y del pedido coinciden, si el pedido ya tiene
+      cliente. El listado 9.22 muestra el método de prueba en OrderTest.
       <pre>Listado 9.22 Probar los eventos al cambiar la factura de un pedido
 public void testOnChangeInvoice() throws Exception {
 execute("CRUD.new"); // Estamos creando un nuevo pedido
@@ -853,20 +719,15 @@ customer2Number + " of the current order");
 assertValue("invoice.year", ""); // ...y reinicia los datos de la factura (5)
 assertValue("invoice.number", "");
 assertValue("invoice.date", "");
-</pre>
-      Aquí probamos que nuestra acción on-change rellene los datos del cliente
-      (3)
-      al escoger una factura (2), y que si el cliente ya está establecido se
-      muestre un
-      mensaje de error (4) y la factura se borre de la vista (5). Fíjate como la
-      primera
-      vez usamos la lista (1) para escoger la factura y la segunda lo hacemos
-      tecleando
-      el año y el número (3).
+</pre> Aquí probamos que nuestra acción on-change rellene los datos del cliente
+      (3) al escoger una factura (2), y que si el cliente ya está establecido se
+      muestre un mensaje de error (4) y la factura se borre de la vista (5).
+      Fíjate como la primera vez usamos la lista (1) para escoger la factura y
+      la segunda lo hacemos tecleando el año y el número (3).
       <h3>Adaptar InvoiceTest</h3>
-      Como en el caso de OrderTest, InvoiceTest también falla. Has de hacer
-      unos pequeños ajustes para que funcione. Edita testAddOrders() de
-      InvoiceTest y aplica los cambios del listado 9.23.
+      Como en el caso de OrderTest, InvoiceTest también falla. Has de hacer unos
+      pequeños ajustes para que funcione. Edita testAddOrders() de InvoiceTest y
+      aplica los cambios del listado 9.23.
       <pre>Listado 9.23 Modificaciones en el método testAddOrders() de InvoiceTest
 public void testAddOrders() throws Exception {
 assertListNotEmpty();
@@ -890,26 +751,21 @@ execute("Collection.removeSelected",
 "viewObject=xava_view_section1_orders");
 assertCollectionRowCount("orders", 0);
 }
-</pre>
-      Ya no necesitamos el método checkFirstOrderWithDeliveredEquals(),
-      por tanto podemos quitarlo de InvoiceTest (listado 9.24).
+</pre> Ya no necesitamos el método checkFirstOrderWithDeliveredEquals(), por
+      tanto podemos quitarlo de InvoiceTest (listado 9.24).
       <pre>Listado 9.24 Quitar checkFirstOrderWithDeliveredEquals() de InvoiceTest
 private void checkFirstOrderWithDeliveredEquals(String value)
 throws Exception { … }
-</pre>
-      Después de estos cambios InvoiceTest ha de funcionar. Sin embargo, todavía
-      nos queda probar la nueva funcionalidad del módulo Invoice.
+</pre> Después de estos cambios InvoiceTest ha de funcionar. Sin embargo,
+      todavía nos queda probar la nueva funcionalidad del módulo Invoice.
       <h3>Probar @NewAction</h3>
-      En la sección 9.2.2 anotamos la colección orders de Invoice con
-      para refinar la lista de pedidos a ser añadidos a la colección. De esta
-      forma solo los pedidos entregados del cliente de la factura actual y
-      todavía sin
+      En la sección 9.2.2 anotamos la colección orders de Invoice con para
+      refinar la lista de pedidos a ser añadidos a la colección. De esta forma
+      solo los pedidos entregados del cliente de la factura actual y todavía sin
       facturar se mostraban. Vamos a probar esto, y al mismo tiempo,
-      aprenderemos
-      como refactorizar el código existente para poder reutilizarlo.
-      <br>
-      @NewAction
-      <br>
+      aprenderemos como refactorizar el código existente para poder
+      reutilizarlo. <br>
+      @NewAction <br>
       Primero queremos verificar que la lista para añadir pedidos solo contiene
       pedidos del cliente actual. El listado 9.25 muestra los cambios en
       testAddOrders() para conseguir esto.
@@ -928,17 +784,14 @@ assertCustomerInList(customerNumber); // Confirmamos que todos los cliente en
 // la lista coinciden con el cliente de la factura
 ...
 }
-</pre>
-      Ahora hemos de escribir el método assertCustomerInList(). Pero, espera
-      un momento, ya hemos escrito este método en OrderTest. Lo vimos en el
-      listado
+</pre> Ahora hemos de escribir el método assertCustomerInList(). Pero, espera un
+      momento, ya hemos escrito este método en OrderTest. Lo vimos en el listado
       12.34 (sección 9.3.2). Estamos en InvoiceTest por tanto no podemos llamar
-      a
-      este método. Por fortuna tanto InvoiceTest como OrderTest heredan de
+      a este método. Por fortuna tanto InvoiceTest como OrderTest heredan de
       CommercialDocumentTest, por lo tanto sólo tenemos que subir el método a la
       clase madre. Para hacer esto copia el método assertCustomerInList() desde
-      OrderTest a CommercialDocumentTest, cambiando private por protected,
-      tal como muestra el listado 9.26.
+      OrderTest a CommercialDocumentTest, cambiando private por protected, tal
+      como muestra el listado 9.26.
       <pre>Listado 9.26 assertCustomerInList() movido a CommercialDocumentTest
 abstract public class CommercialDocumentTest extends ModuleTestBase {
 private protected void // Cambiamos de private a protected
@@ -947,8 +800,7 @@ assertCustomerInList(String customerNumber) throws Exception {
 }
 ...
 }
-</pre>
-      Ahora puedes quitar el método assertCustomerInList() de OrderTest
+</pre> Ahora puedes quitar el método assertCustomerInList() de OrderTest
       (listado 9.27).
       <pre>Listado 9.27 assertCustomerInList() quitado de OrderTest
 public class OrderTest extends CommercialDocumentTest {
@@ -956,17 +808,13 @@ private void assertCustomerInList(String customerNumber)
 throws Exception { ... }
 ...
 }
-</pre>
-      Después de estos cambios el método testAddOrders() compila y funciona.
-      No solo queremos comprobar que la lista de pedidos son del cliente
-      correcto,
+</pre> Después de estos cambios el método testAddOrders() compila y funciona. No
+      solo queremos comprobar que la lista de pedidos son del cliente correcto,
       sino también que están entregados. Nuestro primer impulso es copiar y
-      pegar
-      assertCustomerInList() para crear un método assertDeliveredInList().
+      pegar assertCustomerInList() para crear un método assertDeliveredInList().
       Sin embargo, resistimos la tentación, y en vez de eso vamos a crear un
-      método
-      reutilizable. Primero, copiamos y pegamos assertCustomerInList() como
-      assertValueForAllRows(). El listado 9.28 muestra estos dos métodos en
+      método reutilizable. Primero, copiamos y pegamos assertCustomerInList()
+      como assertValueForAllRows(). El listado 9.28 muestra estos dos métodos en
       CommercialDocumentTest.
       <pre>Listado 9.28 Crear assertValueForAllRows() a partir de assertCustomerInList()
 protected void assertCustomerInList(String customerNumber) throws Exception {
@@ -996,23 +844,17 @@ getValueInList(i, column))) // Preguntamos por la columna
 fail("Column " + column + " in row " + i + " is not " + value);
 }
 }
-</pre>
-      Puedes ver como con unas ligeras modificaciones hemos convertido
-      en un método genérico para preguntar por el valor de
-      cualquier columna, no solo por la del número de cliente. Ahora hemos de
-      quitar el
-      código redundante, puedes, bien quitar assertCustomerInList() o bien
-      reimplementarlo usando el nuevo método. El listado 9.29 muestra la última
-      opción.
-      <br>
-      assertCustomerInList()
-      <br>
+</pre> Puedes ver como con unas ligeras modificaciones hemos convertido en un
+      método genérico para preguntar por el valor de cualquier columna, no solo
+      por la del número de cliente. Ahora hemos de quitar el código redundante,
+      puedes, bien quitar assertCustomerInList() o bien reimplementarlo usando
+      el nuevo método. El listado 9.29 muestra la última opción. <br>
+      assertCustomerInList() <br>
       <pre>Listado 9.29 Reimplementar assertCustomerInList() llamando al nuevo método
 protected void assertCustomerInList(String customerNumber) throws Exception {
 assertValueForAllRows(3, customerNumber); // Número de cliente está en la columna 3
 }
-</pre>
-      Usemos assertValueForAllRows() para verificar que la lista de pedidos
+</pre> Usemos assertValueForAllRows() para verificar que la lista de pedidos
       contiene solo pedidos entregados. El listado 9.30 muestra la modificación
       necesaria en testAddOrders() de InvoiceTest.
       <pre>Listado 9.30 Confirmar que todos los pedidos están entregados
@@ -1031,13 +873,11 @@ assertValueForAllRows(5, "Yes");
 // tienen 'Yes'
 ...
 }
-</pre>
-      Además, queremos que solo los pedidos sin factura se muestren en la lista.
-      Una forma sencilla de hacerlo es verificando que después de añadir un
-      pedido a la
-      factura actual, la lista de pedidos tenga una entrada menos. El listado
-      9.31
-      muestra los cambios necesarios en testAddOrders() para hacer esto.
+</pre> Además, queremos que solo los pedidos sin factura se muestren en la
+      lista. Una forma sencilla de hacerlo es verificando que después de añadir
+      un pedido a la factura actual, la lista de pedidos tenga una entrada
+      menos. El listado 9.31 muestra los cambios necesarios en testAddOrders()
+      para hacer esto.
       <pre>Listado 9.31 Probar que los pedidos ya añadidos no pueden añadirse otra vez
 public void testAddOrders() throws Exception {
 ...
@@ -1053,22 +893,16 @@ assertListRowCount(ordersRowCount – 1); // Tenemos un pedido menos en la lista
 execute("AddToCollection.cancel");
 ...
 }
-</pre>
-      Con el código de esta sección hemos probado la @NewAction de la colección
+</pre> Con el código de esta sección hemos probado la @NewAction de la colección
       orders, y al mismo tiempo hemos visto como no es necesario crear código
       genérico desde el principio, porque no es difícil convertir el código
-      concreto en
-      genérico bajo demanda.
+      concreto en genérico bajo demanda.
       <h3>Probar la acción para añadir elementos a la colección</h3>
       En la sección 9.2.3 aprendimos como refinar la acción para añadir pedidos
-      a la
-      factura, ahora es el momento de escribir su correspondiente código de
-      prueba.
-      Recuerda que esta acción copia las líneas de los pedidos seleccionados a
-      la
-      factura actual. El listado 9.32 muestra los cambios para probar nuestra
-      acción
-      personalizada para añadir pedidos.
+      a la factura, ahora es el momento de escribir su correspondiente código de
+      prueba. Recuerda que esta acción copia las líneas de los pedidos
+      seleccionados a la factura actual. El listado 9.32 muestra los cambios
+      para probar nuestra acción personalizada para añadir pedidos.
       <pre>Listado 9.32 Cuando un pedido se añade sus líneas se añaden a la factura
 public void testAddOrders() throws Exception {
 ...
@@ -1097,15 +931,11 @@ execute("Sections.change", "activeSection=1");
 
 ...
 }
-</pre>
-      Quitamos las líneas de detalle de la factura (1), después añadimos un
-      pedido
-      (2), tomando nota de su importe base (3), entonces verificamos que la
-      factura
-      actual tiene detalles (4) y que su importe base es el mismo que el del
-      pedido
-      añadido (5).
-      Nos queda el método deleteDetails(), mostrado en el listado 9.33.
+</pre> Quitamos las líneas de detalle de la factura (1), después añadimos un
+      pedido (2), tomando nota de su importe base (3), entonces verificamos que
+      la factura actual tiene detalles (4) y que su importe base es el mismo que
+      el del pedido añadido (5). Nos queda el método deleteDetails(), mostrado
+      en el listado 9.33.
       <pre>Listado 9.33 Borra todos los detalles de la factura visualizada
 private void deleteDetails() throws Exception {
 int c = getCollectionRowCount("details");
@@ -1115,12 +945,9 @@ checkRowCollection("details", i); // Marca cada fila
 execute("Collection.removeSelected", // Borra las filas marcadas
 "viewObject=xava_view_section0_details");
 }
-</pre>
-      Selecciona todas las filas de la colección details y pulsa en el botón
-      'Remove
-      selected'.
-      El método testAddOrders() está acabado. Puedes ver su código definitivo en
-      el listado 9.34.
+</pre> Selecciona todas las filas de la colección details y pulsa en el botón
+      'Remove selected'. El método testAddOrders() está acabado. Puedes ver su
+      código definitivo en el listado 9.34.
       <pre>Listado 9.34 Código definitivo para testAddOrders() de InvoiceTest
 public void testAddOrders() throws Exception {
 assertListNotEmpty();
@@ -1153,41 +980,27 @@ checkRowCollection("orders", 0);
 execute("Collection.removeSelected",
 "viewObject=xava_view_section1_orders");
 assertCollectionRowCount("orders", 0);
-</pre>
-      Hemos finalizado el código de las pruebas automáticas. Ahora puedes
-      ejecutar
-      todas las pruebas de tu proyecto. Han de salir en color verde.
+</pre> Hemos finalizado el código de las pruebas automáticas. Ahora puedes
+      ejecutar todas las pruebas de tu proyecto. Han de salir en color verde.
       <h2>Resumen</h2>
       Esta lección te ha mostrado como refinar el comportamiento estándar de las
       referencias y colecciones para que tu aplicación se adapte a las
-      necesidades del
-      usuario. Aquí sólo has visto algunos ejemplos ilustrativos. OpenXava
-      ofrece
-      muchas más posibilidades para refinar el comportamiento de las colecciones
-      y
-      referencias, con anotaciones como @ReferenceView, @ReadOnly, @NoFrame,
-      @NoCreate,
-      @NoModify,
-      @NoSearch,
-      @AsEmbedded,
-      @SearchAction,
-      @DescriptionsList, @LabelFormat, @Action, @OnChange, @OnChangeSearch,
-      @Editor, @CollectionView, @EditOnly, @ListProperties, @RowStyle,
-      @EditAction, @ViewAction, @NewAction, @SaveAction, @HideDetailAction,
-      @RemoveAction, @RemoveSelectedAction, @ListAction, @DetailAction o
-      @OnSelectElementAction.
-      <br>
+      necesidades del usuario. Aquí sólo has visto algunos ejemplos
+      ilustrativos. OpenXava ofrece muchas más posibilidades para refinar el
+      comportamiento de las colecciones y referencias, con anotaciones como
+      @ReferenceView, @ReadOnly, @NoFrame, @NoCreate, @NoModify, @NoSearch,
+      @AsEmbedded, @SearchAction, @DescriptionsList, @LabelFormat, @Action,
+      @OnChange, @OnChangeSearch, @Editor, @CollectionView, @EditOnly,
+      @ListProperties, @RowStyle, @EditAction, @ViewAction, @NewAction,
+      @SaveAction, @HideDetailAction, @RemoveAction, @RemoveSelectedAction,
+      @ListAction, @DetailAction o @OnSelectElementAction. <br>
       Y por si esto fuera poco, siempre tienes la opción definir tu propio
-      editor para
-      referencias o colecciones. Los editores te permiten crear una interfaz de
-      usuario
-      personalizada para visualizar y editar la referencia o colección.
-      <br>
+      editor para referencias o colecciones. Los editores te permiten crear una
+      interfaz de usuario personalizada para visualizar y editar la referencia o
+      colección. <br>
       Esta flexibilidad te permite usar la generación automática de la interfaz
-      gráfica
-      para prácticamente cualquier caso posible en las aplicaciones de gestión
-      de la
-      vida real. <br>
+      gráfica para prácticamente cualquier caso posible en las aplicaciones de
+      gestión de la vida real. <br>
       <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>

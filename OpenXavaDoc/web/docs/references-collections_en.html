@@ -92,16 +92,19 @@
       <h3>Validation is good, but not enough</h3>
       The user can only associate an invoice to an order if both, invoice and
       order, belong to the same customer. This is specific business logic of
-      your application, so the standard OpenXava behavior does not solve it. <br>
-      Figure 9.1 Validation error when customer of invoice is incorrect <br>
-      Since this is business logic we are going to put it in the model layer,
-      that is, in the entities. We'll do it adding a validation. Thus you'll get
-      the effect of the above figure. You already know how to add this
-      validation to your <i>Order </i>entity. It's just adding a method
-      annotated with <i>@AssertTrue</i>: TMP ME QUEDÉ POR AQUÍ<br>
+      your application, so the standard OpenXava behavior does not solve it. The
+      next image shows as a validation error is produced when customer of
+      invoice is incorrect </div>
+    <img src="files/references-collections_en010.png" alt="references-collections_en010"
+      title="references-collections_en010">
+    <div class="wiki" style="display: block;"> Since this is business logic we
+      are going to put it in the model layer, that is, in the entities. We'll do
+      it adding a validation. Thus you'll get the effect of the above figure.
+      You already know how to add this validation to your <i>Order </i>entity.
+      It's just adding a method annotated with <i>@AssertTrue</i>:<br>
       <pre><code class="java">public class Order {
 
-	...
+    ...
 
     // This method must return true for this order to be valid
     @AssertTrue(message="customer_order_invoice_must_match") 
@@ -111,14 +114,20 @@
     }
 
 }
-</code></pre> Here we verify that the customer of the invoice is the same as the
-      customer of this order. This is enough to preserve the data integrity, but
-      this validation alone is a poor option from the user viewpoint.
+</code></pre>Also you have to add the message to <i>i18n/Invoicing-messages_en.properties</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">customer_order_invoice_must_match=The customer of the invoice and the order must match
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> Here we verify that the customer
+      of the invoice is the same as the customer of this order. This is enough
+      to preserve the data integrity, but this validation alone is a poor option
+      from the user viewpoint.
       <h3>Modifying default tabular data helps</h3>
       Although validation prevents the user from assigning an incorrect invoice
       to an order, he has a hard time trying to find a correct invoice. Because
       when the user clicks to search an invoice, all existing invoices are shown
-      and even worse the customer data is not in the list. Look at figure 9.2. <br>
+      and even worse the customer data is not in the list. TMP ME QUEDÉ POR
+      AQUÍ. Look at figure 9.2. <br>
       Figure 9.2 The list to search invoices does not show customer data <br>
       Obviously, it's difficult to look for an invoice if you do not see the
       customer. So, let's add the customer to the list using the properties
