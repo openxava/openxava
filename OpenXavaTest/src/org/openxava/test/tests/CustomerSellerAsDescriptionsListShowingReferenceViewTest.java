@@ -55,6 +55,8 @@ public class CustomerSellerAsDescriptionsListShowingReferenceViewTest extends Mo
 		execute("Mode.list");
 		execute("CRUD.new");
 		assertAction("Customer.hideSeller");
+		
+		// TMP ME QUEDÉ POR AQUÍ: AÑADIR AQUÍ EL TEST
 	}
 		
 }
