@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @AssertTrue throws error if has a message with a property with null value.
+
 OpenXava 6.5.2 (2021-5-31)
 --------------------------
 - Use of 4 digits for year in dates for all locales. 
