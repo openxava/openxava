@@ -56,7 +56,6 @@ public class CustomerSellerAsDescriptionsListShowingReferenceViewTest extends Mo
 		execute("CRUD.new");
 		assertAction("Customer.hideSeller");
 		
-		// tmp ini
 		execute("Mode.list");
 		execute("List.viewDetail", "row=1");
 		assertValue("name", "Juanillo");
@@ -77,7 +76,6 @@ public class CustomerSellerAsDescriptionsListShowingReferenceViewTest extends Mo
 		assertValue("name", "Gonzalo Gonzalez");
 		assertValue("seller.name", "JUANVI LLAVADOR");
 		assertValue("seller.number__CONTROL__", "JUANVI LLAVADOR");		
-		// tmp fin
 	}
 		
 }

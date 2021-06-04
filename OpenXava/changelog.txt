@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: New action does not clear combo value on references with @DescriptionsList(showReferenceView=true).
+- Fix: @DescriptionsList(showReferenceView=true) does not refresh combo value navigating between records.
 - Fix: @AssertTrue throws error if has a message with a property with null value.
 
 OpenXava 6.5.2 (2021-5-31)

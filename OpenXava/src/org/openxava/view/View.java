@@ -5707,9 +5707,6 @@ public class View implements java.io.Serializable {
 	private void fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(Map result) {
 		if (modelName == null) return; // To avoid NullPointerException filtering a list in the dialog to choose an element for a reference
 		
-		System.out.println("[View.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(" + oid  + ")] " + getMemberName() + ".displayAsDescriptionsList()=" + displayAsDescriptionsList()); // tmp
-		System.out.println("[View.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(" + oid  + ")] " + getMemberName() + ".displayAsDescriptionsListAndReferenceView()=" + displayAsDescriptionsListAndReferenceView()); // tmp
-		
 		propertiesAndReferencesWithReadOnlywithOnCreateFalse(result);
 		
 		if (displayAsDescriptionsList() && 
@@ -5723,7 +5720,6 @@ public class View implements java.io.Serializable {
 				)
 			)
 		{
-			System.out.println("[View.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(" + oid  + ")] ENTER 1"); // tmp
 			result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
 			return;
 		}
@@ -5747,24 +5743,9 @@ public class View implements java.io.Serializable {
 			)
 		)
 		{
-			System.out.println("[View.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(" + oid  + ")] ENTER 2"); // tmp
 			result.put(getPropertyPrefix().replace(".", ""), getViewForChangedProperty()); 
 		}
-		
-		// tmp ini
-		/*
-		if (displayAsDescriptionsListAndReferenceView() && 
-			(
-				true	
-			)
-		)
-		{
-			System.out.println("[View.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(" + oid  + ")] ENTER"); // tmp
-			result.put(getPropertyPrefix().replace(".", ""), getViewForChangedProperty()); 
-		}
-		*/
-		// tmp fin
-		
+				
 		if (oldValues == null) oldValues = Collections.EMPTY_MAP;
 		if (values == null) values = new HashMap();
 		for (Iterator it=values.entrySet().iterator(); it.hasNext(); ) { 
@@ -5779,7 +5760,6 @@ public class View implements java.io.Serializable {
 				formattedProperties != null && formattedProperties.contains(en.getKey()) ||
 				editorMustBeReloaded((String) en.getKey())) 
 			{				
-				System.out.println("[View.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(" + oid  + ")] 1. Adding " + en.getKey()); // tmp
 				addChangedPropertyOrReferenceWithSingleEditor(result, (String) en.getKey());
 			}
 			oldValues.remove(en.getKey());			
@@ -5790,7 +5770,6 @@ public class View implements java.io.Serializable {
 				editorMustBeReloaded((String) en.getKey()) ||
 				hasKeyEditableChanged())  
 			{	
-				System.out.println("[View.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(" + oid  + ")] 2. Adding " + en.getKey()); // tmp
 				addChangedPropertyOrReferenceWithSingleEditor(result, (String) en.getKey());
 			}
 		}	
@@ -5900,7 +5879,6 @@ public class View implements java.io.Serializable {
 		if (!isHidden(name)) {
 			if (displayReferenceWithNotCompositeEditor()) { 				
 				result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
-				System.out.println("[View.addChangedPropertyOrReferenceWithSingleEditor(" + name + ")] A. Added: " + getPropertyPrefix()); // tmp
 			}
 			else if ((
 					getMetaModel().containsMetaProperty(name) || 
@@ -5910,12 +5888,13 @@ public class View implements java.io.Serializable {
 				!getMembersNamesInGroup().contains(name)) 
 			{				
 				result.put(getPropertyPrefix() + name, getViewForChangedProperty());
-				System.out.println("[View.addChangedPropertyOrReferenceWithSingleEditor(" + name + ")] B. Added: " + getPropertyPrefix() + name); // tmp
+				if (displayAsDescriptionsListAndReferenceView()) {
+					result.put(propertyPrefix.substring(0, propertyPrefix.length() - 1), getViewForChangedProperty());
+				}
 			}
 			if (hasKeyEditableChanged() && displayAsDescriptionsListAndReferenceView()) {
 				String propertyPrefix = getPropertyPrefix(); 
 				result.put(propertyPrefix.substring(0, propertyPrefix.length() - 1), getViewForChangedProperty());
-				System.out.println("[View.addChangedPropertyOrReferenceWithSingleEditor(" + name + ")] C. Added: " + propertyPrefix.substring(0, propertyPrefix.length() - 1)); // tmp
 			}
 		}
 		

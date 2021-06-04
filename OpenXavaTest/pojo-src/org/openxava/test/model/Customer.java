@@ -302,8 +302,7 @@ public class Customer implements IWithName {
 		forViews="SellerAsDescriptionsListShowingReferenceView, "
 				+ "SellerAsDescriptionsListShowingReferenceViewNoKey, "
 				+ "SellerAsDescriptionsListShowingReferenceViewNoFrameInSection", 
-		// tmp showReferenceView=true)
-		showReferenceView=false) // tmp 		
+		showReferenceView=true) 		
 	private Seller seller; 
 	
 	@Transient @ManyToOne(fetch=FetchType.LAZY) 

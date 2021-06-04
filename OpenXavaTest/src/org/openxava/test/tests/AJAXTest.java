@@ -187,7 +187,23 @@ public class AJAXTest extends ModuleTestBase {
 		
 		getHtmlPage().executeJavaScript("$('input[name=ox_OpenXavaTest_CustomerSellerAsDescriptionsListShowingReferenceView__seller___number__CONTROL__]').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:2, label:'JUANVI LLAVADOR'}});");
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertLoadedParts("editor_seller___number, editor_seller___name, errors, messages");  
+
+		// We could optimize to exclude reference_editor_seller below. However, if we would optimize the combo of descriptions list
+		// to load on open it, the performance overload of leaving reference_editor_seller would be minimal
+		// We plan to optimize combo data loading: https://openxava.org/XavaProjects/o/OpenXava/m/Issue?detail=ff808081702156050170274028940005 
+		assertLoadedParts("editor_seller___number, editor_seller___name, reference_editor_seller, errors, messages"); 
+		
+		execute("Mode.list");
+		execute("List.viewDetail", "row=3");
+		assertValue("name", "Cuatrero");
+		
+		execute("Navigation.next");
+		assertValue("name", "Gonzalo Gonzalez");
+		assertLoadedParts(
+			"editor_number, editor_name, editor_type, " +
+			"editor_seller.number, editor_seller.name, reference_editor_seller.level, " +
+			"reference_editor_seller," +
+			"errors, messages");
 	}
 	
 	public void testChangingSelectedElementsOfACollectionTabByCodeNoReloadCollection() throws Exception {  
