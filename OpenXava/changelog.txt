@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @Calculation properties does not include thousand separators just after being calculated.
 - Fix: New action does not clear combo value on references with @DescriptionsList(showReferenceView=true).
 - Fix: @DescriptionsList(showReferenceView=true) does not refresh combo value navigating between records.
 - Fix: @AssertTrue throws error if has a message with a property with null value.

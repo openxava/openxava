@@ -43,7 +43,7 @@ public class WorkInvoice {
 	)
 	private int vatPercentage;
 		
-	@Calculation("((hours * worker.hourPrice) + tripCost - discount) * (1 + vatPercentage / 100)")    
+	@Calculation("((hours * worker.hourPrice) + tripCost - discount) * (1 + vatPercentage / 100)")
 	private BigDecimal total;
 
 	public int getNumber() {

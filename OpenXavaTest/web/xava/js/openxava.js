@@ -865,6 +865,7 @@ openxava.calculate = function(application, module, propertyId, scale) {
 	if (calculation == null) return;
 	var value = eval(calculation).toFixed(scale).replace(".", openxava.decimalSeparator);
 	$('#' + propertyId).val(value);
+	$('#' + propertyId).blur(); 	
 	$('#' + propertyId).change(); 
 }
 

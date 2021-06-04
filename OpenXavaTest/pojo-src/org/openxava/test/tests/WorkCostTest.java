@@ -25,16 +25,16 @@ public class WorkCostTest extends WorkCostTestBase {
 		
 		setValue("worker.nickName", "john");
 		assertValue("worker.hourPrice", "20.00");
-		assertValue("total", "5800.00");
+		assertValue("total", "5,800.00");
 		
 		setValue("tripCost", "299.9");
-		assertValue("total", "6147.88");
+		assertValue("total", "6,147.88");
 		
 		setValue("discount", "1200");
-		assertValue("total", "4755.88");
+		assertValue("total", "4,755.88");
 		
 		setValue("vatPercentage", "21");
-		assertValue("total", "4960.88");
+		assertValue("total", "4,960.88");
 	}
 	
 	public void testCalculationInCollectionInSpanish() throws Exception { 
