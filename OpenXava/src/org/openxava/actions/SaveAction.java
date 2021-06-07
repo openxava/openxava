@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.*;
 
 import javax.ejb.*;
+
 import org.openxava.model.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
@@ -78,8 +79,9 @@ public class SaveAction extends TabBaseAction {
 			}
 			else {
 				Map keyValues = MapFacade.createReturningKey(getModelName(), getValuesToSave());
-				String idValues = readPropertiesAsString(keyValues, possibleGeneratedProperties); 
-				addMessage("'" + XavaResources.getString("entity_created", getModelName()) + ": " + idValues + "'");
+				String idValues = readPropertiesAsString(keyValues, possibleGeneratedProperties);
+				String modelName = Labels.get(getModelName());
+				addMessage("'" + XavaResources.getString("entity_created", modelName) + ": " + idValues + "'");
 			}
 		}
 		else {								
