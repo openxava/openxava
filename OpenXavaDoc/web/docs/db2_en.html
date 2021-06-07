@@ -9,15 +9,9 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0">
-        <span id="breadcrumbs"> 
-        	<span id="openxava"> 
-            <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> 
-          / <a href="index_en.html">documentation</a> / 
-        </span>        
-        Configuration for Db2
-      </h1>
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
+          / </span> Configuration for Db2 </h1>
       Configuring your OpenXava application to go against Db2 is very simple,
       basically you have to install the JDBC driver for Db2 and define correctly
       the datasource. You don't need to touch any code of your application.</div>
@@ -53,15 +47,18 @@
       </h2>
       In the project you're going to use Db2 you have to add the variable
       declared above. Click with right mouse button on your project and then
-      choose <i>Properties &gt; Java Build Path &gt; Libraries</i>:</div>
+      choose <i>Java Build Path &gt; Configure Build Path...</i>:<img src="files/project-build-path-eclipse-menu_en.png"
+        alt="project-build-path-eclipse-menu_en.png" title="project-build-path-eclipse-menu_en.png">
+      <div class="wiki" style="display: block;">Then select the <i>Libraries</i>
+        tab:</div>
+    </div>
     <img src="files/add-db-classpath-variable-to-your-eclipse-project_en.png" title="add-db-classpath-variable-to-your-eclipse-project_en.png">
     <div class="wiki" style="display: block;">With this we have the driver
       available for the development environment.</div>
     <div class="wiki" style="display: block;">
       <h2>Add the JDBC driver to the production Tomcat</h2>
       <h2><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Adding
-          the driver in production is much easier. Copy <i>db2jcc4.jar</i></span><span
-
+          the driver in production is much easier. Copy <i>db2jcc4.jar</i></span><span
           style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
           to the <i>lib</i> folder of your Tomcat. Done.</span></h2>
     </div>

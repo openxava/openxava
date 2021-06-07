@@ -9,23 +9,16 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0">
-        <span id="breadcrumbs"> 
-        	<span id="openxava"> 
-            <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> 
-          / <a href="index_en.html">documentation</a> / 
-        </span>        
-        Configuration for AS/400
-      </h1>
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
+          / </span> Configuration for AS/400 </h1>
       Configuring your OpenXava application to go against the DB2 of an AS/400
       is very simple, basically you have to install the JDBC driver for AS/400
       and define correctly the datasource. You don't need to touch any code of
       your application.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Download the JDBC driver for AS/400</h2>
-      <p>Download the AS/400 driver from here: <a href="https://sourceforge.net/projects/jt400/files/">https://sourceforge.net/projects/jt400/files/</a><a
-
+      <p>Download the AS/400 driver from here: <a href="https://sourceforge.net/projects/jt400/files/">https://sourceforge.net/projects/jt400/files/</a><a
           href="https://dev.mysql.com/downloads/connector/j/"></a></p>
       You will download a file like this: <i>jtopen_9_8.zip</i> (the version
       numbers may vary). Uncompress it to find inside a file called <i>jt400.jar</i>
@@ -50,7 +43,11 @@
       </h2>
       In the project you're going to use AS/400 you have to add the variable
       declared above. Click with right mouse button on your project and then
-      choose <i>Properties &gt; Java Build Path &gt; Libraries</i>:</div>
+      choose <i>Java Build Path &gt; Configure Build Path...</i>:<img src="files/project-build-path-eclipse-menu_en.png"
+        alt="project-build-path-eclipse-menu_en.png" title="project-build-path-eclipse-menu_en.png">
+      <div class="wiki" style="display: block;">Then select the <i>Libraries</i>
+        tab:</div>
+    </div>
     <img src="files/add-db-classpath-variable-to-your-eclipse-project_en.png" title="add-db-classpath-variable-to-your-eclipse-project_en.png">
     <div class="wiki" style="display: block;">With this we have the driver
       available for the development environment.</div>
