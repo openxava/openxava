@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- Fix: Database configuration documentation improved.
+- Database configuration documentation improved.
 - Fix: Model name not translated in creation messages when key is included in the message.
 - Fix: @Calculation properties does not include thousand separators just after being calculated.
 - Fix: New action does not clear combo value on references with @DescriptionsList(showReferenceView=true).
