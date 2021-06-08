@@ -16,7 +16,6 @@ import org.apache.commons.fileupload.*;
 import org.apache.commons.fileupload.disk.*;
 import org.apache.commons.fileupload.servlet.*;
 import org.apache.commons.logging.*;
-import org.hibernate.envers.internal.tools.*;
 import org.openxava.actions.*;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;
@@ -57,7 +56,8 @@ public class ModuleManager implements java.io.Serializable {
 	static private String version;
 
 	final static public String getVersion() {
-		return version;
+		// tmp return version;
+		return "v" + System.currentTimeMillis(); // tmp
 	}
 
 	static private String versionDate;
