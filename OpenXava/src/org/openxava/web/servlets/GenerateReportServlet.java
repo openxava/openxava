@@ -267,7 +267,15 @@ public class GenerateReportServlet extends HttpServlet {
 
 	private String getFileName(Tab tab) { 
 		String now = new SimpleDateFormat("yyyyMMdd_HHmm").format(new Date());
-		return tab.getTitle() + " " + now;
+		String fileName = tab.getTitle() + " " + now;
+		byte[] bytes = fileName.getBytes();
+		String encoding = XSystem.getEncoding();
+		try {
+			fileName = new String(bytes, encoding); 
+		} catch (UnsupportedEncodingException e) {
+			log.warn(XavaResources.getString("filename_not_encoded", encoding)); 
+		} 
+		return fileName;
 	}
 
 	private Object getTotal(HttpServletRequest request, Tab tab, String totalProperty) {
