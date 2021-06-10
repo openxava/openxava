@@ -1196,7 +1196,7 @@ input[type="button"] {
 	height: 35px; 
 }
 
-.ox-list-pair a, .ox-list-odd a {
+.ox-list-pair a, .ox-list-odd a, .ox-list-pair, .ox-list-odd {
 	color: var(--list-row-a-color); 
 }
 
