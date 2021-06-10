@@ -10,11 +10,11 @@ import lombok.*;
 
 /**
  * tmp
- * TMP ME QUEDÉ POR AQUÍ: INTENTANDO REPRODUCIR EL PROBLEMA. SIN ÉXITO.
  * @author Javier Paniza
  */
 
 @View(name="Simple", members="name")
+@View(name="FromProductDefinition", members="name; subparts")
 @Entity @Getter @Setter
 public class ProductPart extends Nameable {
 	
