@@ -56,8 +56,7 @@ public class ModuleManager implements java.io.Serializable {
 	static private String version;
 
 	final static public String getVersion() {
-		// tmp return version;
-		return "v" + System.currentTimeMillis(); // tmp
+		return version;
 	}
 
 	static private String versionDate;

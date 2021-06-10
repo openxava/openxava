@@ -5,7 +5,7 @@ import java.io.*;
 import javax.servlet.http.*;
 
 /**
- * tmp
+ * @since 6.5.3
  * @author Javier Paniza
  */
 public class CharResponseWrapper extends HttpServletResponseWrapper {

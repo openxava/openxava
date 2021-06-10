@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-
+- Fix: base.css is not refreshed by browser after updating OpenXava version.
 - Fix: File name for PDF generation and CSV export not encoded, so sometimes local characters are missed.
 - Fix: PDF reports do not work with Cp1250 encoding used by some Central and Eastern European languages.
 - Database configuration documentation improved.
