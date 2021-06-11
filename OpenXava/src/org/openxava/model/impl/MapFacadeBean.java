@@ -346,10 +346,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		containerKeyValues = Maps.recursiveClone(containerKeyValues);
 		values = Maps.recursiveClone(values);
 		MetaModel metaModel = getMetaModel(modelName);
-		// TMP ME QUEDÉ POR AQUÍ: DEPURANDO. PRUEBA JUNIT HECHA.
-		System.out.println("[MapFacadeBean.createAggregate] metaModel=" + metaModel.getName()); // tmp
 		MetaModel metaModelContainer = getMetaModelContainer(metaModel, modelName);  
-		System.out.println("[MapFacadeBean.createAggregate] metaModelContainer=" + metaModelContainer.getName()); // tmp
 		try {		
 			beginTransaction(metaModel);	
 			Object result = createAggregate(metaModel, metaModelContainer, containerKeyValues, collectionName, counter, values); 
@@ -1099,11 +1096,9 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			idx = modelName.lastIndexOf('.'); // just in case we have: MyEntity.MyAggregate.MyAnotherAggregate --> It get MyAnotherAggregate within MyEntity Component
 			String aggregate = modelName.substring(idx + 1);
 			try {  
-				System.out.println("[MapFacadeBean.getMetaModel] aggregate=" + aggregate); // tmp
 				return MetaComponent.get(component).getMetaAggregate(aggregate);
 			}
 			catch (ElementNotFoundException ex) {
-				System.out.println("[MapFacadeBean.getMetaModel] EXCEPTION"); // tmp
 				return MetaComponent.get(aggregate).getMetaEntity();
 			}
 		}

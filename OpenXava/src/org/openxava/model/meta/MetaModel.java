@@ -1657,6 +1657,7 @@ abstract public class MetaModel extends MetaElement {
 			
 	public void setContainerModelName(String modelName) {
 		this.containerModelName = modelName;
+		this.metaModelContainer = null; 
 	}
 	public String getContainerModelName() { 
 		return containerModelName;

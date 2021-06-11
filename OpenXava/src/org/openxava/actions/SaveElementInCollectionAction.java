@@ -78,10 +78,6 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 	protected void create(Map values, boolean isEntity, Map containerKey) throws CreateException { 
 		validateMaximum(1);
 		String modelName = isEntity?getCollectionElementView().getParent().getModelName() + "." + getCollectionElementView().getModelName():getCollectionElementView().getModelName();
-		System.out.println("[SaveElementInCollectionAction.create] modelName=" + modelName); // tmp
-		System.out.println("[SaveElementInCollectionAction.create] containerKey=" + containerKey); // tmp
-		System.out.println("[SaveElementInCollectionAction.create] getMetaCollection().getName()=" + getMetaCollection().getName()); // tmp
-		System.out.println("[SaveElementInCollectionAction.create] values=" + values); // tmp
 		MapFacade.createAggregate(modelName, containerKey, getMetaCollection().getName(), values);
 		addMessage(isEntity?"entity_created_and_associated":"aggregate_created", getCollectionElementView().getModelName(), getCollectionElementView().getParent().getModelName());
 	}

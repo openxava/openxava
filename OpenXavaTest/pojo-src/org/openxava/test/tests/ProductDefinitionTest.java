@@ -3,7 +3,7 @@ package org.openxava.test.tests;
 import org.openxava.tests.*;
 
 /**
- * tmp
+ * 
  * @author Javier Paniza
  */
 
@@ -26,7 +26,8 @@ public class ProductDefinitionTest extends ModuleTestBase {
 		assertNoErrors();
 		assertCollectionRowCount("subparts", 1);
 		
-		// TMP FALTA BORRAR LA LÍNEA
+		execute("Collection.removeSelected", "row=0,viewObject=xava_view_subparts");
+		assertCollectionRowCount("subparts", 0);
 	}
 	
 		

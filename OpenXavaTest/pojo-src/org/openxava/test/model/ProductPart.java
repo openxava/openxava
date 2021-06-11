@@ -9,7 +9,7 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 /**
- * tmp
+ * 
  * @author Javier Paniza
  */
 
