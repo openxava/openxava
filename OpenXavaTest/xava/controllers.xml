@@ -572,6 +572,16 @@
 		
 	</controller>
 	
+	<!-- tmp ini -->
+	
+	<controller name="ArtistAgeReadOnly"> 
+		
+		<action name="search"
+			class="org.openxava.test.actions.SearchArtistAgeReadOnlyAction"/>
+			
+	</controller>		
+	<!-- tmp fin -->
+	
 	<controller name="CustomerWithSection"> 
 		<extends controller="Customer"/>
 		

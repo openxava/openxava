@@ -14,6 +14,10 @@ import org.openxava.test.actions.*;
 
 @Entity
 @View(name="ConfirmName", members="artistStudio; name; age; level")
+// tmp ini
+@View(name="SimpleWithSection", members="name; age { age } ")
+@View(name="AgeReadOnly", extendsView="SimpleWithSection")
+// tmp fin
 @Tab(defaultOrder="${name}") 
 public class Artist extends Identifiable {
 	
@@ -25,6 +29,7 @@ public class Artist extends Identifiable {
 	private String name;
 	
 	@Max(90l)	
+	@ReadOnly(forViews="AgeReadOnly") // tmp
 	private Integer age;
 	
 	@DescriptionsList(descriptionProperties = "id, description")

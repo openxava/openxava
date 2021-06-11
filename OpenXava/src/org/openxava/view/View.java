@@ -2973,7 +2973,7 @@ public class View implements java.io.Serializable {
 		sections = null; 
 		hiddenMembers = null; 
 		groupsViews = null;
-		polished = false; 
+		polished = false;
 	}
 	
 	public void assignValuesToWebView() {
