@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Getting Started guide in English includes video. 
 - Fix: Adding an element in a recursive collection that is also inside another collection fails.
 - Fix: @ReadOnly collections data not visible with Dark theme.
 - Fix: base.css is not refreshed by browser after updating OpenXava version.
