@@ -2752,7 +2752,12 @@ public class View implements java.io.Serializable {
 	/**
 	 * If at this moment is editable.
 	 */
-	public boolean isEditable(MetaProperty metaProperty) { 
+	public boolean isEditable(MetaProperty metaProperty) {
+		// tmp ini
+		System.out.println("[View.isEditable(" + metaProperty.getName() + ")] >>>>"); // tmp
+		boolean result = isEditableImpl(metaProperty);
+		System.out.println("[View.isEditable(" + metaProperty.getName() + ")] <<<< " + result); // tmp
+		// tmp fin
 		if (isEditableImpl(metaProperty)) return true;
 		if (isLastSearchKey(metaProperty)) return isKeyEditable();
 		return false;
@@ -2765,18 +2770,30 @@ public class View implements java.io.Serializable {
 		try {
 			MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(metaProperty.getName());
 			if (metaPropertyView != null) {
-				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate()) return true;
+				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate()) {
+					System.out.println("[View.isEditableImpl(" + metaProperty.getName()+ ")] A: true"); // tmp
+					return true;
+				}
 			}
-			if (metaProperty.isReadOnly()) return false;			
+			if (metaProperty.isReadOnly()) {
+				System.out.println("[View.isEditableImpl(" + metaProperty.getName()+ ")] B: false"); // tmp
+				return false;			
+			}
 			if (metaProperty.isKey() || 
 				(metaProperty.isSearchKey() && isRepresentsEntityReference())) 
 			{
+				System.out.println("[View.isEditableImpl(" + metaProperty.getName()+ ")] C: isKeyEditable()"); // tmp
 				return isKeyEditable();
 			}
-			if (!isEditable()) return false;			
+			if (!isEditable()) {
+				System.out.println("[View.isEditableImpl(" + metaProperty.getName()+ ")] D: false"); // tmp
+				return false;			
+			}
+			System.out.println("[View.isEditableImpl(" + metaProperty.getName()+ ")] Z: isMarkedAsEditable()"); // tmp
 			return isMarkedAsEditable(metaProperty.getName());
 		}
 		catch (Exception ex) {
+			System.out.println("[View.isEditableImpl(" + metaProperty.getName()+ ")] EXCEPTION: false"); // tmp
 			log.warn(XavaResources.getString("readonly_not_know_warning", metaProperty),ex);
 			return false;
 		}		

@@ -70,6 +70,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 	
 	public void addMetaViewProperty(MetaPropertyView metaPropertyView) throws XavaException {
+		System.out.println("[MetaView(" + getName() + ").addMetaViewProperty] " + metaPropertyView.getPropertyName() + ".isReadOnly()=" + metaPropertyView.isReadOnly()); // tmp
 		if (metaViewsProperties == null) metaViewsProperties = new HashMap();
 		else {
 			if (metaViewsProperties.containsKey(metaPropertyView.getPropertyName())) {
@@ -98,7 +99,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	
 	private MetaProperty getMetaProperty(String name, boolean searchInGroups) throws XavaException {
 		try {
-			return getMetaViewProperty(name);			
+			return getMetaViewProperty(name);
 		}
 		catch (ElementNotFoundException ex) {
 			if (metaProperties == null) {
@@ -677,6 +678,7 @@ public class MetaView extends MetaElement implements Cloneable {
 			this.metaViewsCollections = new HashMap();
 		}
 		view.metaViewsCollections = this.metaViewsCollections;
+		view.metaViewsProperties = this.metaViewsProperties; // TMP ME QUEDÉ POR AQUÍ. AÑADÍ ESTA LÍNEA, PERO FUE UN INTENTO FALLIDO
 		view.metaViewProperties = this.metaViewProperties;
 		if (metaGroups == null) metaGroups = new HashMap(); 
 		view.metaGroups = this.metaGroups; 
