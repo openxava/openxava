@@ -322,10 +322,22 @@ public class MetaView extends MetaElement implements Cloneable {
 		if (extendedFromExtendsView || Is.emptyString(getExtendsView())) return;
 		MetaView extendsView = getMetaExtendsView();
 		// tmp sections = sum(extendsView.sections, sections);
-		sections = cloneElements(sum(extendsView.sections, sections)); // TMP ME QUEDÉ POR AQUÍ. ESTO ES LO ÚLTIMO QUE PROBÉ. SIN ÉXITO.
+		
+		// tmp ini
+		// TMP ME QUEDÉ POR AQUÍ: LOS CAMBIOS DE ABAJO NO FUNCIONARON
+		List<MetaView> extendsSections = cloneElements(extendsView.sections);  
+		sections = sum(extendsSections, sections); 
+		// tmp fin
+		// tmp ini
+		for (MetaView section: sections) {
+			System.out.println("[MetaView.copyMembersFromExtendedView] section.metaMembers=" + section.metaMembers); // tmp
+		}
+		System.out.println("[MetaView.copyMembersFromExtendedView] -2-----------------"); // tmp
+		// tmp fin
 		metaGroups = sum(extendsView.metaGroups, metaGroups);
 		_membersNames = sum(extendsView._membersNames, _membersNames);
-		if (extendsView.sections != null) {
+		// tmp if (extendsView.sections != null) {
+		if (extendsSections != null) { // tmp
 			for (MetaView section: extendsView.sections) {
 				promote(section);
 			}
@@ -350,7 +362,10 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 	
 	private List<MetaView> cloneElements(List<MetaView> source) {
-		return source.stream().map(MetaView::cloneMetaView).collect(Collectors.toList());
+		return source.stream()
+			.map(MetaView::cloneMetaView)
+			.map(m -> { m.metaMembers = null; return m; }) 
+			.collect(Collectors.toList());
 	}
 
 	private MetaView getMetaExtendsView() { 
