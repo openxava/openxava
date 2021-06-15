@@ -2770,6 +2770,7 @@ public class View implements java.io.Serializable {
 		try {
 			MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(metaProperty.getName());
 			if (metaPropertyView != null) {
+				System.out.println("[View.isEditableImpl] " + metaPropertyView.getPropertyName() + ".isReadOnly()=" + metaPropertyView.isReadOnly()); // tmp
 				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate()) {
 					System.out.println("[View.isEditableImpl(" + metaProperty.getName()+ ")] A: true"); // tmp
 					return true;

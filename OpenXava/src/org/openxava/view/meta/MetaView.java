@@ -2,6 +2,7 @@ package org.openxava.view.meta;
 
 
 import java.util.*;
+import java.util.stream.*;
 
 import org.apache.commons.lang.*;
 import org.apache.commons.logging.*;
@@ -70,7 +71,6 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 	
 	public void addMetaViewProperty(MetaPropertyView metaPropertyView) throws XavaException {
-		System.out.println("[MetaView(" + getName() + ").addMetaViewProperty] " + metaPropertyView.getPropertyName() + ".isReadOnly()=" + metaPropertyView.isReadOnly()); // tmp
 		if (metaViewsProperties == null) metaViewsProperties = new HashMap();
 		else {
 			if (metaViewsProperties.containsKey(metaPropertyView.getPropertyName())) {
@@ -168,6 +168,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	 * @return Not null, of type <tt>MetaMember</tt> and read only
 	 */
 	public Collection getMetaMembers() throws XavaException {
+		System.out.println("[MetaView(" + this + ":" + getName() + ":" + isSection() + ").getMetaMembers] metaMembers=" + metaMembers); // tmp
 		if (metaMembers == null) {
 			metaMembers = new ArrayList();
 			Iterator it = getMembersNames().iterator();		
@@ -175,7 +176,7 @@ public class MetaView extends MetaElement implements Cloneable {
 				String name = (String) it.next();
 				if (name.startsWith("__GROUP__")) {
 					String groupName = name.substring("__GROUP__".length());					
-					metaMembers.add(getMetaGroup(groupName));					
+					metaMembers.add(getMetaGroup(groupName));
 				}
 				else if (name.startsWith("__ACTION__")) {
 					boolean alwaysEnabled = name.startsWith("__ACTION__AE__");					
@@ -199,7 +200,14 @@ public class MetaView extends MetaElement implements Cloneable {
 					catch (ElementNotFoundException ex) {
 						member = getMetaViewProperty(name);
 					}
+					// tmp ini
+					MetaProperty p = null;
+					if (member instanceof MetaProperty) p = (MetaProperty) member;
+					if (p != null) System.out.println("[MetaView(" + this + ":" + getName() + ":" + isSection() + ").getMetaMembers] > " + p.getName() + ".isReadOnly()=" + p.isReadOnly()); // tmp
+					// tmp fin
 					member = modify(member);
+					if (member instanceof MetaProperty) p = (MetaProperty) member;
+					if (p != null) System.out.println("[MetaView(" + this + ":" + getName() + ":" + isSection() + ").getMetaMembers] < " + p.getName() + ".isReadOnly()=" + p.isReadOnly()); // tmp
 					metaMembers.add(member);					
 				}
 			}
@@ -214,6 +222,7 @@ public class MetaView extends MetaElement implements Cloneable {
 			MetaProperty newProperty = property.cloneMetaProperty();
 			member = newProperty;
 			MetaPropertyView propertyView = getMetaPropertyViewFor(property.getName());
+			System.out.println("[MetaView(" + this + ").modify] " + member.getName() +  ".propertyView=" + propertyView); // tmp
 			if (propertyView != null) {				
 				String label = propertyView.getLabel();				
 				if (!Is.emptyString(label)) {					
@@ -312,7 +321,8 @@ public class MetaView extends MetaElement implements Cloneable {
 	private void copyMembersFromExtendedView() {
 		if (extendedFromExtendsView || Is.emptyString(getExtendsView())) return;
 		MetaView extendsView = getMetaExtendsView();
-		sections = sum(extendsView.sections, sections);
+		// tmp sections = sum(extendsView.sections, sections);
+		sections = cloneElements(sum(extendsView.sections, sections)); // TMP ME QUEDÉ POR AQUÍ. ESTO ES LO ÚLTIMO QUE PROBÉ. SIN ÉXITO.
 		metaGroups = sum(extendsView.metaGroups, metaGroups);
 		_membersNames = sum(extendsView._membersNames, _membersNames);
 		if (extendsView.sections != null) {
@@ -329,6 +339,20 @@ public class MetaView extends MetaElement implements Cloneable {
 		extendedFromExtendsView = true;
 	}
 	
+	private MetaView cloneMetaView() {
+		try {
+			return (MetaView) clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null; // tmp Hacer algo
+		}
+	}
+	
+	private List<MetaView> cloneElements(List<MetaView> source) {
+		return source.stream().map(MetaView::cloneMetaView).collect(Collectors.toList());
+	}
+
 	private MetaView getMetaExtendsView() { 
 		String view = getExtendsView();
 		if ("DEFAULT".equals(view)) return getMetaModel().getMetaViewByDefault();
@@ -669,6 +693,8 @@ public class MetaView extends MetaElement implements Cloneable {
 		if (this.metaViewsProperties == null) {
 			this.metaViewsProperties = new HashMap();
 		}
+		System.out.println("[MetaView(" + this + ").promote] this.metaViewsProperties=" + this.metaViewsProperties); // tmp
+		System.out.println("[MetaView(" + this + ").promote] view.metaViewsProperties=" + view.metaViewsProperties); // tmp
 		view.metaViewsProperties = this.metaViewsProperties;
 		if (this.metaViewsReferences == null) {
 			this.metaViewsReferences = new HashMap();
@@ -678,10 +704,9 @@ public class MetaView extends MetaElement implements Cloneable {
 			this.metaViewsCollections = new HashMap();
 		}
 		view.metaViewsCollections = this.metaViewsCollections;
-		view.metaViewsProperties = this.metaViewsProperties; // TMP ME QUEDÉ POR AQUÍ. AÑADÍ ESTA LÍNEA, PERO FUE UN INTENTO FALLIDO
 		view.metaViewProperties = this.metaViewProperties;
 		if (metaGroups == null) metaGroups = new HashMap(); 
-		view.metaGroups = this.metaGroups; 
+		view.metaGroups = this.metaGroups;
 	}
 	
 	public boolean hasSections() {		
@@ -776,6 +801,9 @@ public class MetaView extends MetaElement implements Cloneable {
 		if (metaViewsCollections != null) clon.metaViewsCollections = new HashMap(metaViewsCollections);
 		if (metaViewProperties != null) clon.metaViewProperties = new HashMap(metaViewProperties);
 		if (metaSearchAction != null) clon.metaSearchAction = (MetaSearchAction) metaSearchAction.clone(); 
+		
+		System.out.println("[MetaView.clone] this=" + this); // tmp
+		System.out.println("[MetaView.clone] clon=" + clon); // tmp
 		
 		return clon;
 	}
