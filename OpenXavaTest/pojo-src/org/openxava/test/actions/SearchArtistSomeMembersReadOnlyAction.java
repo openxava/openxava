@@ -4,11 +4,16 @@ import java.util.*;
 
 import org.openxava.actions.*;
 
-public class SearchArtistAgeReadOnlyAction extends SearchByViewKeyAction {
+/**
+ * tmp
+ * @author Javier Paniza
+ */
+
+public class SearchArtistSomeMembersReadOnlyAction extends SearchByViewKeyAction {
 	
 	public void execute() throws Exception {
 		Map key = getView().getKeyValues();
-		getView().setViewName("AgeReadOnly");
+		getView().setViewName("SomeMembersReadOnly");
 		getView().setValues(key);
 		super.execute();
 	}

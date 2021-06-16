@@ -126,7 +126,7 @@ public class ApplicantTest extends ModuleTestBase {
 		
 		searchBox.type("artist");
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertModulesCount(1); // Test not duplicate when module in application.xml
+		assertModulesCount(1); // Test not duplicate when module in application.xml // TMP FALLA ME QUEDÉ POR AQUÍ: FALTA ARREGLAR LOS FALLA
 		assertFirstModuleInMenu("Artist"); 
 		
 		assertHelp("en"); 
@@ -136,7 +136,7 @@ public class ApplicantTest extends ModuleTestBase {
 		modulesLimit = false;
 		resetModule();
 		
-		assertLabels("Name", "Author");
+		assertLabels("Name", "Author"); // TMP FALLA
 		
 		execute("Applicant.changeToSpanish");
 		reload();

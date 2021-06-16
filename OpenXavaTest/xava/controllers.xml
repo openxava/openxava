@@ -574,10 +574,10 @@
 	
 	<!-- tmp ini -->
 	
-	<controller name="ArtistAgeReadOnly"> 
+	<controller name="ArtistSomeMembersReadOnly"> 
 		
 		<action name="search"
-			class="org.openxava.test.actions.SearchArtistAgeReadOnlyAction"/>
+			class="org.openxava.test.actions.SearchArtistSomeMembersReadOnlyAction"/>
 			
 	</controller>		
 	<!-- tmp fin -->

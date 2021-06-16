@@ -168,7 +168,6 @@ public class MetaView extends MetaElement implements Cloneable {
 	 * @return Not null, of type <tt>MetaMember</tt> and read only
 	 */
 	public Collection getMetaMembers() throws XavaException {
-		System.out.println("[MetaView(" + this + ":" + getName() + ":" + isSection() + ").getMetaMembers] metaMembers=" + metaMembers); // tmp
 		if (metaMembers == null) {
 			metaMembers = new ArrayList();
 			Iterator it = getMembersNames().iterator();		
@@ -200,14 +199,7 @@ public class MetaView extends MetaElement implements Cloneable {
 					catch (ElementNotFoundException ex) {
 						member = getMetaViewProperty(name);
 					}
-					// tmp ini
-					MetaProperty p = null;
-					if (member instanceof MetaProperty) p = (MetaProperty) member;
-					if (p != null) System.out.println("[MetaView(" + this + ":" + getName() + ":" + isSection() + ").getMetaMembers] > " + p.getName() + ".isReadOnly()=" + p.isReadOnly()); // tmp
-					// tmp fin
 					member = modify(member);
-					if (member instanceof MetaProperty) p = (MetaProperty) member;
-					if (p != null) System.out.println("[MetaView(" + this + ":" + getName() + ":" + isSection() + ").getMetaMembers] < " + p.getName() + ".isReadOnly()=" + p.isReadOnly()); // tmp
 					metaMembers.add(member);					
 				}
 			}
@@ -222,7 +214,6 @@ public class MetaView extends MetaElement implements Cloneable {
 			MetaProperty newProperty = property.cloneMetaProperty();
 			member = newProperty;
 			MetaPropertyView propertyView = getMetaPropertyViewFor(property.getName());
-			System.out.println("[MetaView(" + this + ").modify] " + member.getName() +  ".propertyView=" + propertyView); // tmp
 			if (propertyView != null) {				
 				String label = propertyView.getLabel();				
 				if (!Is.emptyString(label)) {					
@@ -321,23 +312,20 @@ public class MetaView extends MetaElement implements Cloneable {
 	private void copyMembersFromExtendedView() {
 		if (extendedFromExtendsView || Is.emptyString(getExtendsView())) return;
 		MetaView extendsView = getMetaExtendsView();
+		
 		// tmp sections = sum(extendsView.sections, sections);
+		// tmp metaGroups = sum(extendsView.metaGroups, metaGroups);
 		
 		// tmp ini
-		// TMP ME QUEDÉ POR AQUÍ: LOS CAMBIOS DE ABAJO NO FUNCIONARON
-		List<MetaView> extendsSections = cloneElements(extendsView.sections);  
-		sections = sum(extendsSections, sections); 
+		List<MetaView> extendsSections = cloneMetaViews(extendsView.sections);
+		sections = sum(extendsSections, sections);
+		Map<String, MetaGroup> extendsGroups = cloneMetaGroups(extendsView.metaGroups);
+		metaGroups = sum(extendsGroups, metaGroups);
 		// tmp fin
-		// tmp ini
-		for (MetaView section: sections) {
-			System.out.println("[MetaView.copyMembersFromExtendedView] section.metaMembers=" + section.metaMembers); // tmp
-		}
-		System.out.println("[MetaView.copyMembersFromExtendedView] -2-----------------"); // tmp
-		// tmp fin
-		metaGroups = sum(extendsView.metaGroups, metaGroups);
+		
 		_membersNames = sum(extendsView._membersNames, _membersNames);
-		// tmp if (extendsView.sections != null) {
-		if (extendsSections != null) { // tmp
+		/* tmp
+		if (extendsView.sections != null) {
 			for (MetaView section: extendsView.sections) {
 				promote(section);
 			}
@@ -348,24 +336,49 @@ public class MetaView extends MetaElement implements Cloneable {
 				promote(group.getMetaView());
 			}
 		}	
+		*/	
+	
+		// tmp ini
+		if (extendsSections != null) {
+			for (MetaView section: extendsSections) {
+				promote(section);
+			}
+		}
+
+		if (extendsGroups != null) {
+			for (MetaGroup group: extendsGroups.values()) {
+				promote(group.getMetaView());
+			}
+		}
+		// tmp fin
+		
 		extendedFromExtendsView = true;
 	}
 	
-	private MetaView cloneMetaView() {
+	MetaView cloneMetaView() { // tmp
 		try {
-			return (MetaView) clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null; // tmp Hacer algo
+			MetaView clone = (MetaView) clone();
+			clone.metaMembers = null;
+			return clone;
+		}
+		catch (CloneNotSupportedException ex) {
+			log.error(ex.getMessage(), ex);
+			throw new RuntimeException(XavaResources.getString("implement_cloneable_required")); 
 		}
 	}
 	
-	private List<MetaView> cloneElements(List<MetaView> source) {
+	private List<MetaView> cloneMetaViews(List<MetaView> source) { // tmp
+		if (source == null) return null;
 		return source.stream()
 			.map(MetaView::cloneMetaView)
-			.map(m -> { m.metaMembers = null; return m; }) 
 			.collect(Collectors.toList());
+	}
+	
+	private Map<String, MetaGroup> cloneMetaGroups(Map<String, MetaGroup> source) { // tmp
+		if (source == null) return null;
+		return source.values().stream()
+			.map(MetaGroup::cloneMetaGroup)
+			.collect(Collectors.toMap(MetaGroup::getName, g -> g));
 	}
 
 	private MetaView getMetaExtendsView() { 
@@ -708,8 +721,6 @@ public class MetaView extends MetaElement implements Cloneable {
 		if (this.metaViewsProperties == null) {
 			this.metaViewsProperties = new HashMap();
 		}
-		System.out.println("[MetaView(" + this + ").promote] this.metaViewsProperties=" + this.metaViewsProperties); // tmp
-		System.out.println("[MetaView(" + this + ").promote] view.metaViewsProperties=" + view.metaViewsProperties); // tmp
 		view.metaViewsProperties = this.metaViewsProperties;
 		if (this.metaViewsReferences == null) {
 			this.metaViewsReferences = new HashMap();
@@ -816,9 +827,6 @@ public class MetaView extends MetaElement implements Cloneable {
 		if (metaViewsCollections != null) clon.metaViewsCollections = new HashMap(metaViewsCollections);
 		if (metaViewProperties != null) clon.metaViewProperties = new HashMap(metaViewProperties);
 		if (metaSearchAction != null) clon.metaSearchAction = (MetaSearchAction) metaSearchAction.clone(); 
-		
-		System.out.println("[MetaView.clone] this=" + this); // tmp
-		System.out.println("[MetaView.clone] clon=" + clon); // tmp
 		
 		return clon;
 	}
