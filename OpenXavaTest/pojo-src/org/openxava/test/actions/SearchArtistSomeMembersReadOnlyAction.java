@@ -5,7 +5,7 @@ import java.util.*;
 import org.openxava.actions.*;
 
 /**
- * tmp
+ * 
  * @author Javier Paniza
  */
 

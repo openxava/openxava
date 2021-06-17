@@ -572,15 +572,12 @@
 		
 	</controller>
 	
-	<!-- tmp ini -->
-	
 	<controller name="ArtistSomeMembersReadOnly"> 
 		
 		<action name="search"
 			class="org.openxava.test.actions.SearchArtistSomeMembersReadOnlyAction"/>
 			
 	</controller>		
-	<!-- tmp fin -->
 	
 	<controller name="CustomerWithSection"> 
 		<extends controller="Customer"/>

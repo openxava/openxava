@@ -8,7 +8,7 @@ import org.openxava.util.*;
 /**
  * @author Javier Paniza
  */
-public class MetaGroup extends MetaMember implements Cloneable { // tmp implements Cloneable
+public class MetaGroup extends MetaMember implements Cloneable { 
 	
 	private static Log log = LogFactory.getLog(MetaGroup.class);
 	
@@ -67,7 +67,7 @@ public class MetaGroup extends MetaMember implements Cloneable { // tmp implemen
 		super.setName(newName);
 	}
 	
-	MetaGroup cloneMetaGroup() { // tmp
+	MetaGroup cloneMetaGroup() { 
 		try {
 			return (MetaGroup) clone();
 		}
@@ -77,11 +77,10 @@ public class MetaGroup extends MetaMember implements Cloneable { // tmp implemen
 		}
 	}
 	
-	protected Object clone() throws CloneNotSupportedException { // tmp 
+	protected Object clone() throws CloneNotSupportedException {  
 		MetaGroup clon =  (MetaGroup) super.clone();
 		clon.metaView = metaView==null?null:metaView.cloneMetaView();
 		return clon;
 	}
 
-	
 }

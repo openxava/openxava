@@ -126,8 +126,9 @@ public class ApplicantTest extends ModuleTestBase {
 		
 		searchBox.type("artist");
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertModulesCount(1); // Test not duplicate when module in application.xml // TMP FALLA ME QUEDÉ POR AQUÍ: FALTA ARREGLAR LOS FALLA
-		assertFirstModuleInMenu("Artist"); 
+		assertModulesCount(2); // Test 'Artist' not duplicate when module in application.xml 
+		assertModuleInMenu(0, "Artist");  
+		assertModuleInMenu(1, "Artist some members read only"); 
 		
 		assertHelp("en"); 
 	}
@@ -136,7 +137,7 @@ public class ApplicantTest extends ModuleTestBase {
 		modulesLimit = false;
 		resetModule();
 		
-		assertLabels("Name", "Author"); // TMP FALLA
+		assertLabels("Name", "Author"); 
 		
 		execute("Applicant.changeToSpanish");
 		reload();
@@ -147,7 +148,7 @@ public class ApplicantTest extends ModuleTestBase {
 	
 	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
 		assertLabelInList(0, propertyLabel);
-		assertModuleInMenu(15, moduleLabel); // Adapt the index if you add more modules on top of Author
+		assertModuleInMenu(16, moduleLabel); // Adapt the index if you add more modules on top of Author 
 		
 		HtmlElement searchBox = getHtmlPage().getHtmlElementById("search_modules_text");
 		searchBox.type("aut");

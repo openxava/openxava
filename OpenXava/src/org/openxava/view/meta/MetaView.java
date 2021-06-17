@@ -312,33 +312,14 @@ public class MetaView extends MetaElement implements Cloneable {
 	private void copyMembersFromExtendedView() {
 		if (extendedFromExtendsView || Is.emptyString(getExtendsView())) return;
 		MetaView extendsView = getMetaExtendsView();
-		
-		// tmp sections = sum(extendsView.sections, sections);
-		// tmp metaGroups = sum(extendsView.metaGroups, metaGroups);
-		
-		// tmp ini
+				
 		List<MetaView> extendsSections = cloneMetaViews(extendsView.sections);
 		sections = sum(extendsSections, sections);
 		Map<String, MetaGroup> extendsGroups = cloneMetaGroups(extendsView.metaGroups);
 		metaGroups = sum(extendsGroups, metaGroups);
-		// tmp fin
 		
 		_membersNames = sum(extendsView._membersNames, _membersNames);
-		/* tmp
-		if (extendsView.sections != null) {
-			for (MetaView section: extendsView.sections) {
-				promote(section);
-			}
-		}
-
-		if (extendsView.metaGroups != null) {
-			for (MetaGroup group: extendsView.metaGroups.values()) {
-				promote(group.getMetaView());
-			}
-		}	
-		*/	
 	
-		// tmp ini
 		if (extendsSections != null) {
 			for (MetaView section: extendsSections) {
 				promote(section);
@@ -350,12 +331,11 @@ public class MetaView extends MetaElement implements Cloneable {
 				promote(group.getMetaView());
 			}
 		}
-		// tmp fin
 		
 		extendedFromExtendsView = true;
 	}
 	
-	MetaView cloneMetaView() { // tmp
+	MetaView cloneMetaView() { 
 		try {
 			MetaView clone = (MetaView) clone();
 			clone.metaMembers = null;
@@ -367,14 +347,14 @@ public class MetaView extends MetaElement implements Cloneable {
 		}
 	}
 	
-	private List<MetaView> cloneMetaViews(List<MetaView> source) { // tmp
+	private List<MetaView> cloneMetaViews(List<MetaView> source) { 
 		if (source == null) return null;
 		return source.stream()
 			.map(MetaView::cloneMetaView)
 			.collect(Collectors.toList());
 	}
 	
-	private Map<String, MetaGroup> cloneMetaGroups(Map<String, MetaGroup> source) { // tmp
+	private Map<String, MetaGroup> cloneMetaGroups(Map<String, MetaGroup> source) { 
 		if (source == null) return null;
 		return source.values().stream()
 			.map(MetaGroup::cloneMetaGroup)

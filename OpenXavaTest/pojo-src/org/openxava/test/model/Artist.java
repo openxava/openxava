@@ -14,11 +14,8 @@ import org.openxava.test.actions.*;
 
 @Entity
 @View(name="ConfirmName", members="artistStudio; name; age; level")
-// tmp ini
-// tmp @View(name="SimpleWithSection", members="name; age { age } ")
 @View(name="WithGroupAndSection", members="name; age [ age ]; level { level }")
 @View(name="SomeMembersReadOnly", extendsView="WithGroupAndSection")
-// tmp fin
 @Tab(defaultOrder="${name}") 
 public class Artist extends Identifiable {
 	
@@ -30,12 +27,12 @@ public class Artist extends Identifiable {
 	private String name;
 	
 	@Max(90l)	
-	@ReadOnly(forViews="SomeMembersReadOnly") // tmp
+	@ReadOnly(forViews="SomeMembersReadOnly") 
 	private Integer age;
 	
 	@DescriptionsList(descriptionProperties = "id, description")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@ReadOnly(forViews="SomeMembersReadOnly") // tmp
+	@ReadOnly(forViews="SomeMembersReadOnly") 
 	private ActingLevel level; 
 		
 	public Studio getArtistStudio() {
