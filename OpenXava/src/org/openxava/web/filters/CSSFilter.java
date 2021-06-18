@@ -21,6 +21,7 @@ public class CSSFilter implements Filter {
 		// so it doesn't use the cached CSS when OpenXava version changes.
 		PrintWriter out = response.getWriter();
 		CharResponseWrapper wrapper = new CharResponseWrapper((HttpServletResponse) response);
+		System.out.println("[CSSFilter.doFilter] request.getRequestURI()=" + ((HttpServletRequest) request).getRequestURI()); // tmp
 		chain.doFilter(request, wrapper);
 		CharArrayWriter caw = new CharArrayWriter();
 		String original = wrapper.toString();

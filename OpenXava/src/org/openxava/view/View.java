@@ -325,11 +325,14 @@ public class View implements java.io.Serializable {
 		}				
 	}
 
-	private boolean isViewInParents(String modelName, String viewName) { 
+	private boolean isViewInParents(String modelName, String viewName) {
+		// TMP ME QUEDÉ POR AQUÍ: DEPURANDO
 		View parent = getParent();		
 		if (parent == null)	return false;
-		if (isSection() || isGroup()) return parent.isViewInParents(modelName, viewName);;  
+		// tmp if (isSection() || isGroup()) return parent.isViewInParents(modelName, viewName);;  
 		String parentView = parent.getViewName();
+		System.out.println("[View.isViewInParents] parentView=" + parentView); // tmp
+		System.out.println("[View.isViewInParents] parent.isSection()=" + parent.isSection()); // tmp
 		if (parentView ==null) parentView = "";		 
 		if (Is.equal(parent.getModelName(), modelName) && 
 			Is.equal(parentView, viewName)) return true;
