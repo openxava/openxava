@@ -4,7 +4,7 @@ Change Log for OpenXava project
 - Fix: Date editor does not work well when locale format has the year at beginning, like in South Africa.
 - Welcome page on starting OpenXava Studio simplified.
 - Fix: @ReadOnly ignored when using inside sections or groups with view inheritance.
-- Getting Started guide in English includes video. 
+- Getting Started guide includes video. 
 - Fix: Adding an element in a recursive collection that is also inside another collection fails.
 - Fix: @ReadOnly collections data not visible with Dark theme.
 - Fix: base.css is not refreshed by browser after updating OpenXava version.
