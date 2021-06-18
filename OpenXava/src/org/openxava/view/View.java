@@ -246,7 +246,7 @@ public class View implements java.io.Serializable {
 			removeNotInListProperties(metaMembers);
 		}
 		else if (isRepresentsCollection()) {     
-			metaMembers = extractAggregateRecursiveReference(metaMembers);					
+			metaMembers = extractAggregateRecursiveReference(metaMembers);
 		}				
 		extractRecursiveReference(metaMembers); 
 		if (!hiddenIncluded && hiddenMembers != null) {
@@ -255,6 +255,8 @@ public class View implements java.io.Serializable {
 		}
 		removeOverlapedProperties(metaMembers);
 		if (collectionTotalsIncluded) addTotalEditablePropertiesInCollections(metaMembers);
+		// TMP ME QUEDÉ POR AQUÍ: DEPURANDO
+		System.out.println("[View(" + oid +").createMetaMembers] metaMembers=" + metaMembers); // tmp
 		return metaMembers;	
 	}
 	
@@ -311,7 +313,9 @@ public class View implements java.io.Serializable {
 		}
 	} 
 
-	private void extractRecursiveReference(Collection metaMembers) {		
+	private void extractRecursiveReference(Collection metaMembers) {
+		/* tmp
+		System.out.println("[View(" + oid + ":" + getModelName() + ":" + getViewName() + ").extractRecursiveReference] ANULADO"); // tmp
 		for (Iterator it=metaMembers.iterator(); it.hasNext(); ) {
 			Object member = it.next();
 			MetaReference ref = null;
@@ -320,23 +324,34 @@ public class View implements java.io.Serializable {
 			String model = ref.getMetaModel().getName();
 			String view = getMetaView().getMetaView(ref).getName();			
 			if (isViewInParents(model, view)) {
+				System.out.println("[View(" + oid + ":" + getModelName() + ":" + getViewName() + ").extractRecursiveReference] isViewInParents(" + model+ ", " + view + ")=true"); // tmp
 				it.remove();
 			}
-		}				
+			// tmp ini
+			else {
+				System.out.println("[View(" + oid + ":" + getModelName() + ":" + getViewName() + ").extractRecursiveReference] isViewInParents(" + model+ ", " + view + ")=false"); // tmp
+			}
+			// tmp fin
+		}		
+		*/		
 	}
 
 	private boolean isViewInParents(String modelName, String viewName) {
-		// TMP ME QUEDÉ POR AQUÍ: DEPURANDO
 		View parent = getParent();		
+		//System.out.println("[View(" + oid + ").isViewInParents(" + modelName + ", " + viewName + ")] parent=" + parent); // tmp
 		if (parent == null)	return false;
-		// tmp if (isSection() || isGroup()) return parent.isViewInParents(modelName, viewName);;  
+		if (isSection() || isGroup()) {
+			//System.out.println("[View(" + oid + ").isViewInParents(" + modelName + ", " + viewName + ")] isSection"); // tmp
+			return parent.isViewInParents(modelName, viewName);  
+		}
 		String parentView = parent.getViewName();
-		System.out.println("[View.isViewInParents] parentView=" + parentView); // tmp
-		System.out.println("[View.isViewInParents] parent.isSection()=" + parent.isSection()); // tmp
+		//System.out.println("[View(" + oid + ").isViewInParents(" + modelName + ", " + viewName + ")] parentView=" + parentView); // tmp
 		if (parentView ==null) parentView = "";		 
+		//System.out.println("[View(" + oid + ").isViewInParents(" + modelName + ", " + viewName + ")] parent.getModelName()=" + parent.getModelName()); // tmp
 		if (Is.equal(parent.getModelName(), modelName) && 
 			Is.equal(parentView, viewName)) return true;
 			
+		//System.out.println("[View(" + oid + ").isViewInParents(" + modelName + ", " + viewName + ")] Calling parent " + parent.oid); // tmp
 		return parent.isViewInParents(modelName, viewName);
 	}
 
