@@ -165,8 +165,8 @@ public class GenerateReportServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		try {				
-			Locales.setCurrent(request); 
-			SessionData.setCurrent(request);
+			// tmp Locales.setCurrent(request); 
+			// tmp SessionData.setCurrent(request);
 			 
 			Tab tab = (Tab) request.getSession().getAttribute("xava_reportTab");
 			int [] selectedRowsNumber = (int []) request.getSession().getAttribute("xava_selectedRowsReportTab");

@@ -28,7 +28,7 @@ class DWRBase {
 		if (context != null) context.setCurrentWindowId(request);
 		checkSecurity(request, application, module);
 		request.setAttribute("style", Style.getInstance(request)); 
-		Locales.setCurrent(request); 
+		// tmp Locales.setCurrent(request); 
 		Requests.partialInit(request, application, module); 
 	}
 	

@@ -24,7 +24,13 @@ public class RequestCleanerListener implements ServletRequestListener {
 	}
 	
 	public void requestInitialized(ServletRequestEvent sre) {
-		Users.setCurrent((HttpServletRequest)sre.getServletRequest());
+		// tmp Users.setCurrent((HttpServletRequest)sre.getServletRequest());
+		// tmp ini
+		HttpServletRequest request = (HttpServletRequest) sre.getServletRequest();
+		Users.setCurrent(request);
+		Locales.setCurrent(request); // TMP QUITAR Locales.setCurrent de todo el código
+		SessionData.setCurrent(request); // TMP QUITAR SessionData.setCurrent de todo el código
+		// tmp fin
 	}
 
 }

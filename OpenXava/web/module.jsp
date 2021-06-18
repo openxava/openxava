@@ -52,7 +52,7 @@
 <%
 	String windowId = context.getWindowId(request);
 	context.setCurrentWindowId(windowId);	
-	Locales.setCurrent(request);	
+	// tmp Locales.setCurrent(request);	
 	request.getSession().setAttribute("xava.user",
 			request.getRemoteUser());
 	String app = request.getParameter("application");
