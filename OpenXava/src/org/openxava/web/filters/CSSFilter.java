@@ -20,10 +20,12 @@ public class CSSFilter implements Filter {
 		// In order that @import "base.css" (or other @import) in CSS include the version number, 
 		// so it doesn't use the cached CSS when OpenXava version changes.
 		
-		// TMP FALLAN LOS PNG. LOS X NO SALEN EN DIÁLOGO, PODRÍA ESTAR RELACIONADO
+		if (!((HttpServletRequest) request).getRequestURI().endsWith(".css")) { // If not PNGs are not correctly served
+			chain.doFilter(request, response);
+			return;
+		}
 		PrintWriter out = response.getWriter();
 		CharResponseWrapper wrapper = new CharResponseWrapper((HttpServletResponse) response);
-		System.out.println("[CSSFilter.doFilter] request.getRequestURI()=" + ((HttpServletRequest) request).getRequestURI()); // tmp
 		chain.doFilter(request, wrapper);
 		CharArrayWriter caw = new CharArrayWriter();
 		String original = wrapper.toString();

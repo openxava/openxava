@@ -217,12 +217,10 @@ import org.openxava.test.actions.*;
 	"number;" + 
 	"type;" +
 	"name;" +
-	"seller;" 
-	/* tmp
+	//"seller;" // tmp 
 	"seller {" +
 	"	seller; " +
 	"}"
-	*/
 )
 // tmp fin
 

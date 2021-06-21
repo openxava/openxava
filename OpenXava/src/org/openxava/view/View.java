@@ -212,11 +212,11 @@ public class View implements java.io.Serializable {
 		return metaMembers;		
 	}
 	
-	private Collection<MetaMember> getMetaMembersIncludingCollectionTotals() throws XavaException { 
+	private Collection<MetaMember> getMetaMembersIncludingCollectionTotals() throws XavaException {
 		if (metaMembersIncludingCollectionTotals == null) {
 			metaMembersIncludingCollectionTotals = createMetaMembers(false, true);
 		}		
-		return metaMembersIncludingCollectionTotals;		
+		return metaMembersIncludingCollectionTotals;
 	}
 	
 	private Collection getMetaMembersIncludingHiddenKey() throws XavaException { 
@@ -255,8 +255,6 @@ public class View implements java.io.Serializable {
 		}
 		removeOverlapedProperties(metaMembers);
 		if (collectionTotalsIncluded) addTotalEditablePropertiesInCollections(metaMembers);
-		// TMP ME QUEDÉ POR AQUÍ: DEPURANDO
-		System.out.println("[View(" + oid +").createMetaMembers] metaMembers=" + metaMembers); // tmp
 		return metaMembers;	
 	}
 	
@@ -314,44 +312,30 @@ public class View implements java.io.Serializable {
 	} 
 
 	private void extractRecursiveReference(Collection metaMembers) {
-		/* tmp
-		System.out.println("[View(" + oid + ":" + getModelName() + ":" + getViewName() + ").extractRecursiveReference] ANULADO"); // tmp
+		
 		for (Iterator it=metaMembers.iterator(); it.hasNext(); ) {
 			Object member = it.next();
 			MetaReference ref = null;
 			if (member instanceof MetaReference) ref = (MetaReference) member; 
 			else continue;
-			String model = ref.getMetaModel().getName();
+			// tmp String model = ref.getMetaModel().getName();
+			String model = ref.getMetaModelReferenced().getName(); // tmp
 			String view = getMetaView().getMetaView(ref).getName();			
 			if (isViewInParents(model, view)) {
-				System.out.println("[View(" + oid + ":" + getModelName() + ":" + getViewName() + ").extractRecursiveReference] isViewInParents(" + model+ ", " + view + ")=true"); // tmp
 				it.remove();
 			}
-			// tmp ini
-			else {
-				System.out.println("[View(" + oid + ":" + getModelName() + ":" + getViewName() + ").extractRecursiveReference] isViewInParents(" + model+ ", " + view + ")=false"); // tmp
-			}
-			// tmp fin
 		}		
-		*/		
+		
 	}
 
 	private boolean isViewInParents(String modelName, String viewName) {
 		View parent = getParent();		
-		//System.out.println("[View(" + oid + ").isViewInParents(" + modelName + ", " + viewName + ")] parent=" + parent); // tmp
 		if (parent == null)	return false;
-		if (isSection() || isGroup()) {
-			//System.out.println("[View(" + oid + ").isViewInParents(" + modelName + ", " + viewName + ")] isSection"); // tmp
-			return parent.isViewInParents(modelName, viewName);  
-		}
+		if (isSection() || isGroup()) return parent.isViewInParents(modelName, viewName);  
 		String parentView = parent.getViewName();
-		//System.out.println("[View(" + oid + ").isViewInParents(" + modelName + ", " + viewName + ")] parentView=" + parentView); // tmp
 		if (parentView ==null) parentView = "";		 
-		//System.out.println("[View(" + oid + ").isViewInParents(" + modelName + ", " + viewName + ")] parent.getModelName()=" + parent.getModelName()); // tmp
 		if (Is.equal(parent.getModelName(), modelName) && 
 			Is.equal(parentView, viewName)) return true;
-			
-		//System.out.println("[View(" + oid + ").isViewInParents(" + modelName + ", " + viewName + ")] Calling parent " + parent.oid); // tmp
 		return parent.isViewInParents(modelName, viewName);
 	}
 
@@ -2920,6 +2904,7 @@ public class View implements java.io.Serializable {
 			
 		for (Iterator it = getSubviews().values().iterator(); it.hasNext();) {				
 			View subview = (View) it.next();
+			
 			if (subview.isRepresentsCollection()) {
 				subview.setCollectionEditable(isMarkedAsEditable(subview.getMemberName())?b:false); 
 				if (!subview.collectionMembersEditables || !isMarkedAsEditable(subview.getMemberName())) {
@@ -2933,24 +2918,26 @@ public class View implements java.io.Serializable {
 			}
 			else if (subview.isRepresentsEntityReference()) {
 				subview.setEditable(false);
-				subview.setKeyEditable(isMarkedAsEditable(subview.getMemberName())?b:false);  
+				subview.setKeyEditable(isMarkedAsEditable(subview.getMemberName())?b:false);						
 			}
 			else {
 				subview.setEditable(b);
-			}						
+			}
+						
 		}			
-			
+		
 		for (Iterator it = getGroupsViews().values().iterator(); it.hasNext();) {				
 			View subview = (View) it.next();
 			subview.setEditable(b); 
 		}		
+		
 		
 		if (hasSections()) {
 			int count = getSections().size();
 			for (int i = 0; i < count; i++) {
 				getSectionView(i).setEditable(b);
 			}	
-		}				
+		}
 	}
 
 	public String getModelName() {		

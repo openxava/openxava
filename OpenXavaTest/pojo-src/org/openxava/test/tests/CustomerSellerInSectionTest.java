@@ -6,9 +6,9 @@ package org.openxava.test.tests;
 import org.openxava.tests.*;
 
 /**
+ * tmp
  * 
  * @author Javier Paniza
- *
  */
 public class CustomerSellerInSectionTest extends ModuleTestBase {
 	
@@ -20,7 +20,7 @@ public class CustomerSellerInSectionTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "Javi");
 		assertValueInCollection("seller.customers", 1, 1, "Juanillo");
-		execute("Collection.view", "row=1,viewObject=xava_view_seller_customers");
+		execute("Collection.view", "row=1,viewObject=xava_view_section0_seller_customers");
 		assertDialog();
 		assertValue("name", "Juanillo");
 		// In the current implementations remove the seller completely to avoid recursion
