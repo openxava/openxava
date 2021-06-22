@@ -202,7 +202,7 @@ public class FormulaTest extends ModuleTestBase {
 		execute("CRUD.new");
 		setValue("name", "SOMETHING"); 
 		execute("Collection.new", "viewObject=xava_view_section0_ingredients");
-		assertExists("anotherFormula.oid"); // Reference to a model of 'Formula' type, the same of the container // TMP ME QUEDÉ POR AQUÍ: FALLA
+		assertExists("anotherFormula.oid"); // Reference to a model of 'Formula' type, the same of the container 
 		
 		String [][] ingredients = {
 			{ "", "" },

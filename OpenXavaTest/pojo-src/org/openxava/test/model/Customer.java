@@ -212,17 +212,14 @@ import org.openxava.test.actions.*;
 	+ "]" 
 )
 
-// tmp ini
 @View( name="SellerInSection", members= 	
 	"number;" + 
 	"type;" +
 	"name;" +
-	//"seller;" // tmp 
 	"seller {" +
 	"	seller; " +
 	"}"
 )
-// tmp fin
 
 @Tabs ({
 	@Tab(
@@ -309,7 +306,7 @@ public class Customer implements IWithName {
 	@ReferenceView(forViews="SellerAsAggregate2Levels", value="LevelNoDescriptionsList")
 	@ReferenceView(forViews="SellerAsDescriptionsListShowingReferenceView", value="Simple")
 	@ReferenceView(forViews="SellerAsDescriptionsListShowingReferenceViewNoKey", value="SimpleNoNumber")
-	@ReferenceView(forViews="SellerInSection", value="CompleteWithCustomersWithSellerInSection") // tmp
+	@ReferenceView(forViews="SellerInSection", value="CompleteWithCustomersWithSellerInSection") 
 	@Action(forViews="SellerAsDescriptionsListShowingReferenceView", value="Customer.hideSeller")
 	@DescriptionsList(
 		forViews="SellerAsDescriptionsListShowingReferenceView, "

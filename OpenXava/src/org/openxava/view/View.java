@@ -318,8 +318,8 @@ public class View implements java.io.Serializable {
 			MetaReference ref = null;
 			if (member instanceof MetaReference) ref = (MetaReference) member; 
 			else continue;
-			// tmp String model = ref.getMetaModel().getName();
-			String model = ref.getMetaModelReferenced().getName(); // tmp
+			if (displayAsDescriptionsList(ref)) continue;
+			String model = ref.getMetaModelReferenced().getName();
 			String view = getMetaView().getMetaView(ref).getName();			
 			if (isViewInParents(model, view)) {
 				it.remove();

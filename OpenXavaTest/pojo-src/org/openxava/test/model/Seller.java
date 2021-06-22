@@ -17,7 +17,7 @@ import org.openxava.annotations.*;
 @Views ({	
 	@View(members="number; name"),				
 	@View(name="Complete",	members="number; name; level; regions; customers"),	
-	@View(name="CompleteWithCustomersWithSellerInSection", members="number; name; level; regions; customers"), // tmp
+	@View(name="CompleteWithCustomersWithSellerInSection", members="number; name; level; regions; customers"), 
 	@View(name="RegionsWithCheckBoxes", members="number; name; regions"), 
 	@View(name="DecorateName", members="number; name"),	
 	@View(name="ForCustomJSP", members="number; name; level"),
@@ -60,7 +60,7 @@ public class Seller {
 	@OneToMany(mappedBy="seller")
 	@CollectionView("Simple")
 	@CollectionView(forViews="Complete", value="SimpleWithDeliveryPlaces")
-	@CollectionView(forViews="CompleteWithCustomersWithSellerInSection", value="SellerInSection") // tmp
+	@CollectionView(forViews="CompleteWithCustomersWithSellerInSection", value="SellerInSection") 
 	@NoCreate(forViews="CannotCreateCustomer")
 	@RowStyle(style="row-highlight", property="type", value="steady")
 	@SearchListCondition(value="${number} < 5", forViews="SearchListCondition, SearchListConditionBlank")
