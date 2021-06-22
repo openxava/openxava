@@ -15,7 +15,7 @@ import org.openxava.util.*;
  */
 
 @WebListener
-public class RequestCleanerListener implements ServletRequestListener {
+public class RequestReseterListener implements ServletRequestListener {
 	
 	public void requestDestroyed(ServletRequestEvent sre) {
 		Users.setCurrent((String) null);
@@ -24,13 +24,10 @@ public class RequestCleanerListener implements ServletRequestListener {
 	}
 	
 	public void requestInitialized(ServletRequestEvent sre) {
-		// tmp Users.setCurrent((HttpServletRequest)sre.getServletRequest());
-		// tmp ini
 		HttpServletRequest request = (HttpServletRequest) sre.getServletRequest();
 		Users.setCurrent(request);
-		Locales.setCurrent(request); // TMP QUITAR Locales.setCurrent de todo el código
-		SessionData.setCurrent(request); // TMP QUITAR SessionData.setCurrent de todo el código
-		// tmp fin
+		Locales.setCurrent(request); 
+		SessionData.setCurrent(request); 
 	}
 
 }

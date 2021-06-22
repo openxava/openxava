@@ -23,9 +23,7 @@ public class Requests {
 		ModuleManager manager = (ModuleManager) context.get(application, module, "manager");
 		manager.setSession(request.getSession()); 
 		manager.resetPersistence();
-		// tmp SessionData.setCurrent(request);
-		EmailNotifications.setModuleInfo(application, module, manager.getModuleURL()); 		
-		// tmp Locales.setCurrent(request); 
+		EmailNotifications.setModuleInfo(application, module, manager.getModuleURL()); 		 
 	}
 	
 	/** @since 6.2 */
