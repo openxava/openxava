@@ -51,8 +51,7 @@
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 <%
 	String windowId = context.getWindowId(request);
-	context.setCurrentWindowId(windowId);	
-	Locales.setCurrent(request);	
+	context.setCurrentWindowId(windowId);		
 	request.getSession().setAttribute("xava.user",
 			request.getRemoteUser());
 	String app = request.getParameter("application");
