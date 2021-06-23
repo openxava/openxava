@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Changing in 'My reports' a comparison in a date from = to year = does not save the value of the year.     
+- Fix: Editing a date field comparing by year in 'My reports' does not show the year. 
+- Fix: Collection inside a section produces infinite loop if the collection element has recursive reference.
 - Fix: Date editor does not work well when locale format has the year at beginning, like in South Africa.
 - Welcome page on starting OpenXava Studio simplified.
 - Fix: @ReadOnly ignored when using inside sections or groups with view inheritance.

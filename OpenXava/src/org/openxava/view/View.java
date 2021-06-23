@@ -212,11 +212,11 @@ public class View implements java.io.Serializable {
 		return metaMembers;		
 	}
 	
-	private Collection<MetaMember> getMetaMembersIncludingCollectionTotals() throws XavaException { 
+	private Collection<MetaMember> getMetaMembersIncludingCollectionTotals() throws XavaException {
 		if (metaMembersIncludingCollectionTotals == null) {
 			metaMembersIncludingCollectionTotals = createMetaMembers(false, true);
 		}		
-		return metaMembersIncludingCollectionTotals;		
+		return metaMembersIncludingCollectionTotals;
 	}
 	
 	private Collection getMetaMembersIncludingHiddenKey() throws XavaException { 
@@ -246,7 +246,7 @@ public class View implements java.io.Serializable {
 			removeNotInListProperties(metaMembers);
 		}
 		else if (isRepresentsCollection()) {     
-			metaMembers = extractAggregateRecursiveReference(metaMembers);					
+			metaMembers = extractAggregateRecursiveReference(metaMembers);
 		}				
 		extractRecursiveReference(metaMembers); 
 		if (!hiddenIncluded && hiddenMembers != null) {
@@ -311,29 +311,31 @@ public class View implements java.io.Serializable {
 		}
 	} 
 
-	private void extractRecursiveReference(Collection metaMembers) {		
+	private void extractRecursiveReference(Collection metaMembers) {
+		
 		for (Iterator it=metaMembers.iterator(); it.hasNext(); ) {
 			Object member = it.next();
 			MetaReference ref = null;
 			if (member instanceof MetaReference) ref = (MetaReference) member; 
 			else continue;
-			String model = ref.getMetaModel().getName();
+			if (displayAsDescriptionsList(ref)) continue;
+			String model = ref.getMetaModelReferenced().getName();
 			String view = getMetaView().getMetaView(ref).getName();			
 			if (isViewInParents(model, view)) {
 				it.remove();
 			}
-		}				
+		}		
+		
 	}
 
-	private boolean isViewInParents(String modelName, String viewName) { 
+	private boolean isViewInParents(String modelName, String viewName) {
 		View parent = getParent();		
 		if (parent == null)	return false;
-		if (isSection() || isGroup()) return parent.isViewInParents(modelName, viewName);;  
+		if (isSection() || isGroup()) return parent.isViewInParents(modelName, viewName);  
 		String parentView = parent.getViewName();
 		if (parentView ==null) parentView = "";		 
 		if (Is.equal(parent.getModelName(), modelName) && 
 			Is.equal(parentView, viewName)) return true;
-			
 		return parent.isViewInParents(modelName, viewName);
 	}
 
@@ -2902,6 +2904,7 @@ public class View implements java.io.Serializable {
 			
 		for (Iterator it = getSubviews().values().iterator(); it.hasNext();) {				
 			View subview = (View) it.next();
+			
 			if (subview.isRepresentsCollection()) {
 				subview.setCollectionEditable(isMarkedAsEditable(subview.getMemberName())?b:false); 
 				if (!subview.collectionMembersEditables || !isMarkedAsEditable(subview.getMemberName())) {
@@ -2915,24 +2918,26 @@ public class View implements java.io.Serializable {
 			}
 			else if (subview.isRepresentsEntityReference()) {
 				subview.setEditable(false);
-				subview.setKeyEditable(isMarkedAsEditable(subview.getMemberName())?b:false);  
+				subview.setKeyEditable(isMarkedAsEditable(subview.getMemberName())?b:false);						
 			}
 			else {
 				subview.setEditable(b);
-			}						
+			}
+						
 		}			
-			
+		
 		for (Iterator it = getGroupsViews().values().iterator(); it.hasNext();) {				
 			View subview = (View) it.next();
 			subview.setEditable(b); 
 		}		
+		
 		
 		if (hasSections()) {
 			int count = getSections().size();
 			for (int i = 0; i < count; i++) {
 				getSectionView(i).setEditable(b);
 			}	
-		}				
+		}
 	}
 
 	public String getModelName() {		
