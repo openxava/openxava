@@ -465,7 +465,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertExists("order");
 		assertValue("booleanValue", "true");
 		
-		// tmp ini
 		closeDialog();
 		assertValueInCollection("columns", 2, 0, "Date");
 		assertValueInCollection("columns", 2, 1, "");
@@ -497,7 +496,39 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertExists("order");
 		assertValue("comparator", "year_comparator");
 		assertValue("value", "2021");
-		// tmp fin
+		
+		setValue("comparator", "=");
+		assertExists("dateValue");
+		assertExists("comparator");
+		assertNotExists("booleanValue"); 
+		assertNotExists("value");
+		assertExists("order");
+		setValue("dateValue", "6/23/2021");
+		execute("MyReport.saveColumn");
+		assertValueInCollection("columns", 2, 0, "Date");
+		assertValueInCollection("columns", 2, 1, "=");
+		assertValueInCollection("columns", 2, 2, "6/23/21"); // 6/23/2021 would be better, but it still a detail pending to improve 
+		
+		execute("MyReport.editColumn", "row=2,viewObject=xava_view_columns");
+		assertExists("dateValue");
+		assertExists("comparator");
+		assertNotExists("booleanValue"); 
+		assertNotExists("value");
+		assertExists("order");
+		assertValue("comparator", "eq_comparator");
+		assertValue("dateValue", "6/23/2021");
+		
+		setValue("comparator", "year_comparator");
+		assertNotExists("dateValue");
+		assertExists("comparator");
+		assertNotExists("booleanValue"); 
+		assertExists("value");
+		assertExists("order");
+		setValue("value", "2021");		
+		execute("MyReport.saveColumn");
+		assertValueInCollection("columns", 2, 0, "Date");
+		assertValueInCollection("columns", 2, 1, "year =");
+		assertValueInCollection("columns", 2, 2, "2021");
 	}
 	
 	public void testMyReportFilteringByDateAndBooleanWithConverter() throws Exception {  

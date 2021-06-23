@@ -188,7 +188,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		execute("MyReport.saveColumn");
 		assertCollectionRowCount("columns", 3);
 		assertValueInCollection("columns", 0, 0, "Name");
-		assertValueInCollection("columns", 0, 1, "starts with"); // TMP FALLA ME QUEDÉ POR AQUÍ, FALTA HACER ESTOS DOS FALLAS
+		assertValueInCollection("columns", 0, 1, "starts with"); 
 		assertValueInCollection("columns", 0, 2, "c");
 		assertValueInCollection("columns", 1, 0, "Number");
 		assertValueInCollection("columns", 1, 1, "");
@@ -350,7 +350,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		assertValueInCollection("columns", 1, 5, ""); 
 		assertValueInCollection("columns", 2, 0, "Name");
 		assertValueInCollection("columns", 3, 0, "Number");
-		assertValueInCollection("columns", 3, 1, "<="); // TMP FALLA
+		assertValueInCollection("columns", 3, 1, "<="); 
 		assertValueInCollection("columns", 3, 2, "4");
 		assertValueInCollection("columns", 3, 5, "Hidden"); // Even on modifying you cannot have more than one not hidden column for the same property 
 		

@@ -31,7 +31,6 @@ public class EditMyReportColumnAction extends CollectionElementViewBaseAction  {
 		MyReportColumn column = myReport.getColumns().get(row); 
 		getCollectionElementView().setModel(column); 
 		getCollectionElementView().setValueNotifying("name", column.getName()); // To throw the change event  
-		getCollectionElementView().setValueNotifying("comparator", column.getComparator()); // To throw the change event // tmp
 		showDialog(getCollectionElementView());		
 		if (getCollectionElementView().isCollectionEditable() || 
 			getCollectionElementView().isCollectionMembersEditables()) 
