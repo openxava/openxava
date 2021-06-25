@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Read only enums not displayed completely when @Column(length=) with a low value is used.
 - Fix: Broken links in Model documentation of Reference Guide.
 - RequestReseter logic moved to a @WebListener.
 - Fix: Changing in 'My reports' a comparison in a date from = to year = does not save the value of the year.     

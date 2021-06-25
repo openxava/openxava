@@ -35,7 +35,10 @@ if (editable) {
 	type="text" 
 	title="<%=p.getDescription(request)%>"	
 	maxlength="<%=p.getSize()%>" 	
-	size="<%=p.getSize()%>" 
+	<%-- size="<%=p.getSize()%>" --%> 
+	<%-- tmp ini --%>
+	size="<%=description.toString().length() + 1%>" 
+	<%-- tmp fin --%> 
 	value="<%=description%>"
 	disabled
 	/>

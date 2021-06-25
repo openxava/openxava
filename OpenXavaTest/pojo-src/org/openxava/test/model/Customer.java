@@ -268,6 +268,7 @@ public class Customer implements IWithName {
 		properties={ @PropertyValue(name="value", value="2") }		
 	)
 	@Editor(forViews="TypeWithRadioButton", value="ValidValuesRadioButton")
+	@Column(length=1) // Required for a test case // tmp
 	private Type type;
 	public enum Type { NORMAL, STEADY, SPECIAL };
 	
