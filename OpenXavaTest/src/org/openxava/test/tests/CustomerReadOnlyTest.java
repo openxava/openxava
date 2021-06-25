@@ -14,7 +14,7 @@ public class CustomerReadOnlyTest extends ModuleTestBase {
 		super(testName, "CustomerReadOnly");				
 	}
 	
-	public void testSearhReadOnlyAction_enumSizeNotDependOnColumnSize() throws Exception { // tmp enumSizeNotDependOnColumnSize
+	public void testSearhReadOnlyAction_enumSizeNotDependOnColumnSize() throws Exception { 
 		setConditionValues("Cuatrero");
 		execute("List.filter");
 		execute("List.viewDetail", "row=0");
@@ -22,7 +22,7 @@ public class CustomerReadOnlyTest extends ModuleTestBase {
 		assertValue("name", "Cuatrero");
 		assertNoEditable("number");
 		assertNoEditable("name");
-		assertTypeSize(); // tmp
+		assertTypeSize(); 
 		execute("Sections.change", "activeSection=1");
 		assertNoAction("Collection.new");
 		execute("Sections.change", "activeSection=0");
