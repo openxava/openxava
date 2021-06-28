@@ -2709,6 +2709,14 @@ public class View implements java.io.Serializable {
 
 	public boolean isKeyEditable() {
 		if (insideAViewDisplayedAsDescriptionsListAndReferenceView()) return false;
+		// tmp ini
+		// tmp ME QUEDÉ POR AQUÍ: DEPURANDO ESTA POSIBILIDAD
+		if (isRepresentsEntityReference() && !isRepresentsCollection()) {
+			MetaReference ref = getParent().getMetaReference(getMemberName());
+			return getParent().isEditable(ref);
+		}
+		// tmp fin
+
 		return !isReadOnly() && keyEditable;
 	}
 	
@@ -2793,19 +2801,29 @@ public class View implements java.io.Serializable {
 		try {
 			MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(metaReference);
 			if (metaReferenceView != null && isKeyEditable() && metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
-				setEditable(metaReference.getName(), true); 
+				setEditable(metaReference.getName(), true);
+				System.out.println("[View.isEditable(" + metaReference.getName() + ")] A"); // tmp
 				return true;
 			}
-			if (metaReferenceView != null && metaReferenceView.isReadOnly()) return false;
+			if (metaReferenceView != null && metaReferenceView.isReadOnly()) {
+				System.out.println("[View.isEditable(" + metaReference.getName() + ")] B"); // tmp
+				return false;
+			}
 			if (metaReference.isKey() || 
 				(metaReference.isSearchKey() && isRepresentsEntityReference())) 
 			{
+				System.out.println("[View.isEditable(" + metaReference.getName() + ")] C"); // tmp
 				return isKeyEditable(); 				
 			}
-			if (!isEditable()) return false;				
+			if (!isEditable()) {
+				System.out.println("[View.isEditable(" + metaReference.getName() + ")] D"); // tmp
+				return false;				
+			}
+			System.out.println("[View.isEditable(" + metaReference.getName() + ")] Z"); // tmp
 			return isMarkedAsEditable(metaReference.getName());
 		}
 		catch (Exception ex) {
+			System.out.println("[View.isEditable(" + metaReference.getName() + ")] ERROR"); // tmp
 			log.warn(XavaResources.getString("readonly_not_know_warning", metaReference),ex);
 			return false;
 		}		
