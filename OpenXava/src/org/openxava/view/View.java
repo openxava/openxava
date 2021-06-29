@@ -2708,12 +2708,16 @@ public class View implements java.io.Serializable {
 	}
 
 	public boolean isKeyEditable() {
+		//System.out.println("[View.isKeyEditable(" + getMemberName() + ")] 0"); // tmp
 		if (insideAViewDisplayedAsDescriptionsListAndReferenceView()) return false;
 		// tmp ini
-		// tmp ME QUEDÉ POR AQUÍ: DEPURANDO ESTA POSIBILIDAD
+		// tmp 
 		if (isRepresentsEntityReference() && !isRepresentsCollection()) {
 			MetaReference ref = getParent().getMetaReference(getMemberName());
-			return getParent().isEditable(ref);
+			boolean result = getParent().isEditable(ref);			
+			//System.out.println("[View(" + getMemberName() + ").isKeyEditable] 1." + ref.getName() + "=" + result); // tmp
+			setKeyEditable(result);
+			return result;
 		}
 		// tmp fin
 
@@ -2763,15 +2767,23 @@ public class View implements java.io.Serializable {
 	 * If at this moment is editable.
 	 */
 	public boolean isEditable(MetaProperty metaProperty) {
-		if (isEditableImpl(metaProperty)) return true;
-		if (isLastSearchKey(metaProperty)) return isKeyEditable();
+		if (isEditableImpl(metaProperty)) {
+			//System.out.println("[View(" + getMemberName() + ").isEditable:PRO(" + metaProperty.getName() + ")] A:true"); // tmp
+			return true;
+		}
+		if (isLastSearchKey(metaProperty)) {
+			boolean result = isKeyEditable();
+			//System.out.println("[View(" + getMemberName() + ").isEditable:PRO(" + metaProperty.getName() + ")] B:" + result); // tmp
+			return result;
+		}
+		//System.out.println("[View(" + getMemberName() + ").isEditable:PRO(" + metaProperty.getName() + ")] Z:false"); // tmp
 		return false;
 	}
 	
 	/**
 	 * If at this moment is editable.
 	 */
-	private boolean isEditableImpl(MetaProperty metaProperty) { 		
+	private boolean isEditableImpl(MetaProperty metaProperty) { 	
 		try {
 			MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(metaProperty.getName());
 			if (metaPropertyView != null) {
@@ -2800,30 +2812,30 @@ public class View implements java.io.Serializable {
 	public boolean isEditable(MetaReference metaReference) {
 		try {
 			MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(metaReference);
-			if (metaReferenceView != null && isKeyEditable() && metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
+			if (metaReferenceView != null && isKeyEditable() &&  metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
 				setEditable(metaReference.getName(), true);
-				System.out.println("[View.isEditable(" + metaReference.getName() + ")] A"); // tmp
+				//System.out.println("[View.isEditable:REF(" + metaReference.getName() + ")] A"); // tmp
 				return true;
 			}
 			if (metaReferenceView != null && metaReferenceView.isReadOnly()) {
-				System.out.println("[View.isEditable(" + metaReference.getName() + ")] B"); // tmp
+				//System.out.println("[View.isEditable:REF(" + metaReference.getName() + ")] B"); // tmp
 				return false;
 			}
 			if (metaReference.isKey() || 
 				(metaReference.isSearchKey() && isRepresentsEntityReference())) 
 			{
-				System.out.println("[View.isEditable(" + metaReference.getName() + ")] C"); // tmp
+				//System.out.println("[View.isEditable:REF(" + metaReference.getName() + ")] C"); // tmp
 				return isKeyEditable(); 				
 			}
 			if (!isEditable()) {
-				System.out.println("[View.isEditable(" + metaReference.getName() + ")] D"); // tmp
+				//System.out.println("[View.isEditable:REF(" + metaReference.getName() + ")] D"); // tmp
 				return false;				
 			}
-			System.out.println("[View.isEditable(" + metaReference.getName() + ")] Z"); // tmp
+			//System.out.println("[View.isEditable:REF(" + metaReference.getName() + ")] Z"); // tmp
 			return isMarkedAsEditable(metaReference.getName());
 		}
 		catch (Exception ex) {
-			System.out.println("[View.isEditable(" + metaReference.getName() + ")] ERROR"); // tmp
+			//System.out.println("[View.isEditable:REF(" + metaReference.getName() + ")] ERROR"); // tmp
 			log.warn(XavaResources.getString("readonly_not_know_warning", metaReference),ex);
 			return false;
 		}		
@@ -2906,8 +2918,9 @@ public class View implements java.io.Serializable {
 		}						
 	}
 	
-	public boolean isEditable() { 
+	public boolean isEditable() {
 		if (isReadOnly()) return false;
+		
 		if (isRepresentsAggregate()) {
 			Set parentNotEditableMembersNames = getParentIfSectionOrGroup().getParent().notEditableMembersNames; 
 			if (parentNotEditableMembersNames != null) {
@@ -5707,10 +5720,12 @@ public class View implements java.io.Serializable {
 			changedPropertiesActionsAndReferencesWithNotCompositeEditor = new HashMap();
 			fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(changedPropertiesActionsAndReferencesWithNotCompositeEditor);
 		}		
+		System.out.println("[View.getChangedPropertiesActionsAndReferencesWithNotCompositeEditor] " + changedPropertiesActionsAndReferencesWithNotCompositeEditor); // tmp
 		return changedPropertiesActionsAndReferencesWithNotCompositeEditor;
 	}
 	
 	private void propertiesAndReferencesWithReadOnlywithOnCreateFalse(Map result) {
+		// TMP ME QUEDÉ POR AQUÍ: PARECE QUE ES UN PROBLEMA CON AJAX
 		for (MetaMember m : getMetaMembers()) {
 			if (m instanceof MetaProperty) {
 				MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(m.getName());
@@ -5721,7 +5736,7 @@ public class View implements java.io.Serializable {
 			else if (m instanceof MetaReference) {
 				MetaReference t = getMetaReference(m.getName());
 				MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(t);
-				if (metaReferenceView != null && isKeyEditable() && metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
+				if (metaReferenceView != null && isKeyEditable() &&  metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
 					result.put(m.getName(), this);
 				}
 			}
