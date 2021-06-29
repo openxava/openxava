@@ -122,66 +122,37 @@
       of the invoice is the same as the customer of this order. This is enough
       to preserve the data integrity, but this validation alone is a poor option
       from the user viewpoint.
-      <h3>Modifying default tabular data helps</h3>
+      <h3>Refining action for searching reference with list</h3>
       Although validation prevents the user from assigning an incorrect invoice
       to an order, he has a hard time trying to find a correct invoice. Because
-      when the user clicks to search an invoice, all existing invoices are shown
-      and even worse the customer data is not in the list. TMP ME QUEDÉ POR
-      AQUÍ. Look at figure 9.2. <br>
-      Figure 9.2 The list to search invoices does not show customer data <br>
-      Obviously, it's difficult to look for an invoice if you do not see the
-      customer. So, let's add the customer to the list using the properties
-      attribute of @Tab in Invoice entity, just as shown in listing 9.2.
-      <pre>Listing 9.2 Tabular data definition for Invoice
-@Tabs({
-@Tab(
-baseCondition = "deleted = false",
-properties="year, number, date, customer.number, customer.name," +
-"vatPercentage, estimatedProfit, baseAmount, " +
-"vat, totalAmount, amount, remarks"),
-@Tab(name="Deleted", baseCondition = "deleted = true")
-})
-public class Invoice extends CommercialDocument {
-</pre> The tabular data by default (that is, the list mode) for an entity are
-      all its plain properties, but it does not include references. To change
-      the way the tabular data is shown you can use properties in @Tab
-      annotations. These properties can be qualified, that is you can, using dot
-      notation, put a property from a reference, as customer.number and
-      customer.name in this case. <br>
-      Figure 9.3 Thanks to @Tab the customer data is shown in invoices list <br>
-      Now the list for choosing an invoice from an order is like the one in
-      figure 9.3. With this invoice list it is easier to choose the correct one,
-      because now the user can see the customer of each invoice. Moreover, the
-      user can filter by customer to show only the invoices from the customer he
-      is looking for. <br>
-      However, it would be even better if only invoices whose customer is the
-      same as the current order would be shown. Thus the user has no way to make
-      a mistake. <br>
-      Let's do it in the next section.
-      <h3>Refining action for searching reference with list</h3>
-      Currently when the user searches an invoice all the invoices are available
-      to choose from. We are going to improve this for showing only the invoices
-      from the customer of the current displayed order, just as shown in figure
-      9.4. <br>
-      Figure 9.4 Searching invoice from order must filter by customer <br>
-      For defining our own search action for the invoice reference we will use
-      the annotation. Listing 9.3 shows the needed modification in Order class.
-      @SearchAction
-      <pre>Listing 9.3 @SearchAction to define a custom action to search invoices
-public class Order extends CommercialDocument {
-@ManyToOne
-@ReferenceView("NoCustomerNoOrders")
-@OnChange(ShowHideCreateInvoiceAction.class)
-@SearchAction("Order.searchInvoice") // To define our own action to search invoices
-private Invoice invoice;
-...
+      when the user clicks to search an invoice, all existing invoices are
+      shown. We are going to improve this for showing only the invoices from the
+      customer of the current displayed order, in this way:</div>
+    <img src="files/references-collections_en020.png" alt="references-collections_en020.png"
+      title="references-collections_en020.png"><br>
+    <div class="wiki" style="display: block;"> For defining our own search
+      action for the invoice reference we will use the <i>@SearchAction</i>
+      annotation.
+      Here you have the needed modification in <i>Order</i> class:&nbsp;
+      <pre><code class="java">public class Order extends CommercialDocument {
+
+    @ManyToOne
+    @ReferenceView("NoCustomerNoOrders")
+    @OnChange(ShowHideCreateInvoiceAction.class)
+    @SearchAction("Order.searchInvoice") // To define our own action to search invoices
+    private Invoice invoice;
+
+    ...
+	
 }
-</pre> In this simple way we define the action to execute when the user clicks
-      on the flashlight button to search an invoice. The argument used for
-      @SearchAction, Order.searchInvoice, is the qualified name of the action,
-      that is the action searchInvoice of the controller Order as defined in
-      controllers.xml file. Now we have to edit controllers.xml to add the
-      definition of our new action, just as shown in listing 9.4.
+</code></pre> In this simple way we define the action to execute when the user
+      clicks on the flashlight button to search an invoice. The argument used
+      for
+      <i> @SearchAction</i>, <i>Order.searchInvoice</i>, is the qualified name
+      of the action, that is the action <i>searchInvoice</i> of the controller
+      <i>Order</i> as defined in
+      <i> controllers.xml</i> file. Now we have to edit <i>controllers.xml</i>
+      to add the definition of our new action, just as shown in listing 9.4.
       <pre>Listing 9.4 Order.searchInvoice action declaration in controllers.xml
 <controller name="Order">
 ...

@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Lección 9: Referencias y colecciones - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -94,7 +97,8 @@
       resuelve. <br>
       La siguiente imagen muestra cómo se produce un error de validación cuando
       el cliente de la factura es incorrecto: </div>
-    <img src="files/references-collections_es010.png" alt="references-collections_es010"
+    <img src="files/references-collections_es010.png" alt="references-collections_es010"
+
       title="references-collections_es010">
     <div class="wiki" style="display: block;"> Ya que esto es lógica de negocio
       la vamos a poner en la capa del modelo, es decir, en las entidades. Lo
@@ -121,74 +125,41 @@
       del pedido. Esto es suficiente para preservar la integridad de los datos,
       pero la validación sola es una opción bastante pobre desde el punto de
       vista del usuario.
-      <h3>Modificar los datos tabulares por defecto ayuda</h3>
+      <h3>Refinar la acción para buscar una referencia con una lista</h3>
       Aunque la validación impide que el usuario pueda asignar una factura
       incorrecta a un pedido, lo tiene difícil a la hora de escoger una factura
       correcta. Porque cuando pulsa para buscar una factura, todas las facturas
-      existentes se muestran, y lo que es todavía peor, la información del
-      cliente no aparece en la lista. Fíjate en la figura 9.2. <br>
-      Figura 9.2 La lista para buscar facturas no muestra los datos del cliente
-      <br>
-      Obviamente, es difícil buscar una factura sin ver de que cliente es.
-      Añadamos pues el cliente a la lista usando el atributo properties de @Tab
-      en la entidad Invoice, tal como muestra el listado 9.2.
-      <pre>Listado 9.2 Definición de datos tabulares para Invoice
-@Tabs({
-@Tab(
-baseCondition = "deleted = false",
-properties="year, number, date, customer.number, customer.name," +
-"vatPercentage, estimatedProfit, baseAmount, " +
-"vat, totalAmount, amount, remarks"),
-@Tab(name="Deleted", baseCondition = "deleted = true")
-})
-public class Invoice extends CommercialDocument {
-</pre> Los datos tabulares por defecto (es decir, el modo lista) para una
-      entidad son todas sus propiedades planas, pero no incluyen las
-      referencias. Para cambiar la forma en que los datos tabulares se muestran
-      puedes usar properties en la anotación @Tab. Estas propiedades pueden ser
-      calificadas, es decir puedes, usando la notación del punto, poner una
-      propiedad de una referencia, como customer.number y customer.name en este
-      caso. <br>
-      Figura 9.3 Gracias a @Tab los datos del cliente se ven en la lista de
-      facturas <br>
-      Ahora la lista para escoger una factura de un pedido es como la que se
-      muestra en la figura 9.3.<br>
-      Con esta lista de facturas es más fácil escoger la correcta, porque ahora
-      el usuario puede ver el cliente de cada factura. Además, el usuario puede
-      filtrar por cliente para mostrar las facturas del cliente que está
-      buscando. Sin embargo, sería aun mejor si solo se mostraran las facturas
-      cuyo cliente es el mismo que del pedido actual. De esta manera no habría
-      opción para equivocarse. Lo haremos así en la siguiente sección.
-      <h3>Refinar la acción para buscar una referencia con una lista</h3>
-      Actualmente cuando el usuario busca una factura todas las facturas están
-      disponibles para escoger. Vamos a mejorar esto para mostrar solo las
-      facturas del cliente del pedido visualizado, tal como muestra la figura
-      9.4. <br>
-      Figura 9.4 Buscar la factura desde el pedido tiene que filtrarse por
-      cliente <br>
+      existentes se muestran. Vamos a mejorar esto para mostrar solo las
+      facturas del cliente del pedido visualizado, de esta manera:<br>
+      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
+
+        title="references-collections_es020.png"><br>
       Para definir nuestra propia acción de búsqueda para la referencia a
-      factura usaremos la anotación @SearchAction. El listado 9.3 muestra la
-      modificación necesaria en la clase Order.
-      <pre>Listado 9.3 @SearchAction define la acción personalizada para buscar facturas
-public class Order extends CommercialDocument {
-@ManyToOne
-@ReferenceView("NoCustomerNoOrders")
-@OnChange(ShowHideCreateInvoiceAction.class)
-@SearchAction("Order.searchInvoice") // Define nuestra acción para buscar facturas
-private Invoice invoice;
-...
+      factura usaremos la anotación <i>@SearchAction</i>. Aquí tienes la
+      modificación necesaria en la clase <i>Pedido</i>:
+      <pre><code class="java">public class Pedido extends DocumentoComercial {
+ 
+    @ManyToOne
+    @ReferenceView("SinClienteNiPedidos") 
+    @OnChange(MostrarOcultarCrearFactura.class) 
+    @SearchAction("Pedido.buscarFactura") // Define nuestra acción para buscar facturas
+    Factura factura; 
+    
+    ...
+	
 }
-</pre> De esta forma tan simple definimos la acción a ejecutar cuando el usuario
-      pulsa en el botón de la linterna para buscar una factura. El argumento
-      usado para @SearchAction, Order.searchInvoice, es el nombre calificado de
-      la acción, es decir la acción searchInvoice del controlador Order definido
-      en el archivo controllers.xml.<br>
+</code></pre> De esta forma tan simple definimos la acción a ejecutar cuando el
+      usuario pulsa en el botón de la linterna para buscar una factura. El
+      argumento usado para @SearchAction, Order.searchInvoice, es el nombre
+      calificado de la acción, es decir la acción searchInvoice del controlador
+      Order definido en el archivo controllers.xml.<br>
       Ahora tenemos que editar controllers.xml y añadir la definición de nuestra
       nueva acción, tal como muestra el listado 9.4.
       <pre>Listado 9.4 Declaración de la acción Order.searchInvoice en controllers.xml
 <controller name="Order">
 ...
-<action name="searchInvoice" class="org.openxava.invoicing.actions.SearchInvoiceFromOrderAction"
+<action name="searchInvoice" class="org.openxava.invoicing.actions.SearchInvoiceFromOrderAction"
+
 image="images/search.gif" hidden="true">
 
 <!---hidden="true": Para que no se muestre en la barra de botones del módulo
@@ -432,7 +403,8 @@ private Collection<order> orders;
       <pre>Listado 9.12 Declaración de la acción Invoice.addOrders en controllers.xml
 <controller name="Invoice">
 <extends controller="Invoicing">
-<action name="addOrders" class="org.openxava.invoicing.actions.GoAddOrdersToInvoiceAction"
+<action name="addOrders" class="org.openxava.invoicing.actions.GoAddOrdersToInvoiceAction"
+
 image="images/create_new.gif" hidden="true">
 
 <!---hidden="true": No se mostrará en la barra de botones del módulo
@@ -1001,10 +973,12 @@ assertCollectionRowCount("orders", 0);
       Esta flexibilidad te permite usar la generación automática de la interfaz
       gráfica para prácticamente cualquier caso posible en las aplicaciones de
       gestión de la vida real. <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="references-collections_es.html">Ve a la
           lección 9</a></strong> </div>
