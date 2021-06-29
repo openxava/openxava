@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Documentation about @Calculation in Reference Model (Model chapter) improved.
 - Fix: Read only enums not displayed completely when @Column(length=) with a low value is used.
 - Fix: Broken links in Model documentation of Reference Guide.
 - RequestReseter logic moved to a @WebListener.

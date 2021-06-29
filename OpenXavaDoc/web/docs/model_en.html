@@ -7753,7 +7753,10 @@ class="kw27">BigDecimal</span></a> total<span class="sy0">;</span></pre>
       reference.<br>
       The calculation is executed and displayed when the user changes any value
       of the properties used in the expression in the user interface, however
-      the value is not saved until the user clicks on save button.<br>
+      the value is not saved until the user clicks on save button. All the
+      properties used in <i>@Calculation</i> (the operands) must be displayed
+      in the user interface in order <i>@Calculation</i> works, if it is not
+      the case you should use a regular calculated property instead.<br>
       <h2 id="toc20"><a name="Model-References"></a>References</h2>
       A reference allows access from an entity to another entity. A reference is
       translated to Java code as a property (with its <em>getter</em> and its <em>setter</em>)
