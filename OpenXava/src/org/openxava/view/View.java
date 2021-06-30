@@ -2708,15 +2708,13 @@ public class View implements java.io.Serializable {
 	}
 
 	public boolean isKeyEditable() {
-		//System.out.println("[View.isKeyEditable(" + getMemberName() + ")] 0"); // tmp
 		if (insideAViewDisplayedAsDescriptionsListAndReferenceView()) return false;
 		// tmp ini
 		// tmp 
 		if (isRepresentsEntityReference() && !isRepresentsCollection()) {
 			MetaReference ref = getParent().getMetaReference(getMemberName());
 			boolean result = getParent().isEditable(ref);			
-			//System.out.println("[View(" + getMemberName() + ").isKeyEditable] 1." + ref.getName() + "=" + result); // tmp
-			setKeyEditable(result);
+			// tmp setKeyEditable(result);
 			return result;
 		}
 		// tmp fin
@@ -2767,16 +2765,8 @@ public class View implements java.io.Serializable {
 	 * If at this moment is editable.
 	 */
 	public boolean isEditable(MetaProperty metaProperty) {
-		if (isEditableImpl(metaProperty)) {
-			//System.out.println("[View(" + getMemberName() + ").isEditable:PRO(" + metaProperty.getName() + ")] A:true"); // tmp
-			return true;
-		}
-		if (isLastSearchKey(metaProperty)) {
-			boolean result = isKeyEditable();
-			//System.out.println("[View(" + getMemberName() + ").isEditable:PRO(" + metaProperty.getName() + ")] B:" + result); // tmp
-			return result;
-		}
-		//System.out.println("[View(" + getMemberName() + ").isEditable:PRO(" + metaProperty.getName() + ")] Z:false"); // tmp
+		if (isEditableImpl(metaProperty)) return true;		
+		if (isLastSearchKey(metaProperty)) return isKeyEditable();
 		return false;
 	}
 	
@@ -2814,28 +2804,14 @@ public class View implements java.io.Serializable {
 			MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(metaReference);
 			if (metaReferenceView != null && isKeyEditable() &&  metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
 				setEditable(metaReference.getName(), true);
-				//System.out.println("[View.isEditable:REF(" + metaReference.getName() + ")] A"); // tmp
 				return true;
 			}
-			if (metaReferenceView != null && metaReferenceView.isReadOnly()) {
-				//System.out.println("[View.isEditable:REF(" + metaReference.getName() + ")] B"); // tmp
-				return false;
-			}
-			if (metaReference.isKey() || 
-				(metaReference.isSearchKey() && isRepresentsEntityReference())) 
-			{
-				//System.out.println("[View.isEditable:REF(" + metaReference.getName() + ")] C"); // tmp
-				return isKeyEditable(); 				
-			}
-			if (!isEditable()) {
-				//System.out.println("[View.isEditable:REF(" + metaReference.getName() + ")] D"); // tmp
-				return false;				
-			}
-			//System.out.println("[View.isEditable:REF(" + metaReference.getName() + ")] Z"); // tmp
+			if (metaReferenceView != null && metaReferenceView.isReadOnly()) return false;			
+			if (metaReference.isKey() || (metaReference.isSearchKey() && isRepresentsEntityReference())) return isKeyEditable(); 				
+			if (!isEditable()) return false;				
 			return isMarkedAsEditable(metaReference.getName());
 		}
 		catch (Exception ex) {
-			//System.out.println("[View.isEditable:REF(" + metaReference.getName() + ")] ERROR"); // tmp
 			log.warn(XavaResources.getString("readonly_not_know_warning", metaReference),ex);
 			return false;
 		}		
@@ -5720,12 +5696,11 @@ public class View implements java.io.Serializable {
 			changedPropertiesActionsAndReferencesWithNotCompositeEditor = new HashMap();
 			fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(changedPropertiesActionsAndReferencesWithNotCompositeEditor);
 		}		
-		System.out.println("[View.getChangedPropertiesActionsAndReferencesWithNotCompositeEditor] " + changedPropertiesActionsAndReferencesWithNotCompositeEditor); // tmp
 		return changedPropertiesActionsAndReferencesWithNotCompositeEditor;
 	}
 	
 	private void propertiesAndReferencesWithReadOnlywithOnCreateFalse(Map result) {
-		// TMP ME QUEDÉ POR AQUÍ: PARECE QUE ES UN PROBLEMA CON AJAX
+		if (!hasKeyEditableChanged()) return; // tmp
 		for (MetaMember m : getMetaMembers()) {
 			if (m instanceof MetaProperty) {
 				MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(m.getName());
@@ -5734,10 +5709,29 @@ public class View implements java.io.Serializable {
 				}
 			}
 			else if (m instanceof MetaReference) {
-				MetaReference t = getMetaReference(m.getName());
-				MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(t);
-				if (metaReferenceView != null && isKeyEditable() &&  metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
-					result.put(m.getName(), this);
+				MetaReference ref = getMetaReference(m.getName());
+				MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(ref);
+				if (metaReferenceView != null /* tmp && isKeyEditable() */ &&  metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
+					// tmp result.put(m.getName(), this);
+					// tmp ini
+					if (displayReferenceWithNotCompositeEditor(ref) ) {
+						result.put(m.getName(), this);
+					}
+					else {
+						View subview = getSubview(ref.getName());
+						for (String key: ref.getMetaModelReferenced().getAllKeyPropertiesNames()) {
+							result.put(ref.getName() + "." + key, subview);
+						}
+						// TMP ME QUEDÉ POR AQUÍ: TRABAJANDO EN LO DE ABAJO. O BIEN NO SE RECARGA POR AJAX AUNQUE NO CAMBIE CONTENIDO O EDITABL
+						// TMP                        O BIEN NO ACTUALIZA LAS ACCIONES
+						System.out.println("[View.propertiesAndReferencesWithReadOnlywithOnCreateFalse] getMetaView().getNotAlwaysEnabledViewActionsNames()=" + getMetaView().getNotAlwaysEnabledViewActionsNames()); // tmp
+						System.out.println("[View.propertiesAndReferencesWithReadOnlywithOnCreateFalse] subview.getMetaView().getNotAlwaysEnabledViewActionsNames()=" + subview.getMetaView().getNotAlwaysEnabledViewActionsNames()); // tmp
+						for (Iterator it = subview.getMetaView().getNotAlwaysEnabledViewActionsNames().iterator(); it.hasNext(); ) {
+							String action = (String) it.next();
+							result.put(subview.getPropertyPrefix() + action, subview);
+						}
+					}
+					// tmp fin
 				}
 			}
 		}

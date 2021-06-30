@@ -45,14 +45,50 @@ public class AJAXTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=5");
 		assertNoEditable("name");
 		assertNoEditable("usedTo");
+		// tmp ini
+		assertNoEditable("mixture.colorName1"); 
+		assertNoEditable("mixture.colorName2"); 
+		// tmp fin
+		
 		
 		execute("CRUD.new");
 		assertEditable("name");
 		assertEditable("usedTo");
-		assertLoadedParts("bottom_buttons, button_bar, editor_name, editor_number, editor_sample, errors, messages, reference_editor_characteristicThing, reference_editor_usedTo");
+		// tmp ini
+		assertEditable("mixture.colorName1"); 
+		assertEditable("mixture.colorName2"); 
+		// tmp fin
+		
+		// tmp assertLoadedParts("bottom_buttons, button_bar, editor_name, editor_number, editor_sample, errors, messages, reference_editor_characteristicThing, reference_editor_usedTo");
+		// tmp ini
+		assertLoadedParts(
+			"editor_name, editor_number," +
+			"reference_editor_characteristicThing, reference_editor_usedTo, editor_sample," +
+			"editor_mixture.colorName1,editor_mixture.colorName2," +
+			"property_actions_mixture.colorName2," +
+			"bottom_buttons, button_bar, errors, messages");
+		// tmp fin
 		
 		execute("CRUD.new");
-		assertLoadedParts("editor_name, errors, messages, reference_editor_characteristicThing, reference_editor_usedTo");
+		// tmp assertLoadedParts("editor_name, errors, messages, reference_editor_characteristicThing, reference_editor_usedTo");
+		assertLoadedParts("reference_editor_characteristicThing, errors, messages"); // tmp
+		
+		// tmp ini
+		execute("Navigation.first");
+		assertNoEditable("mixture.colorName1"); 
+		assertNoEditable("mixture.colorName2");
+		assertValue("mixture.colorName1", ""); 
+		assertValue("mixture.colorName2", "");
+		execute("Navigation.next");
+		assertNoEditable("mixture.colorName1"); 
+		assertNoEditable("mixture.colorName2");
+		assertValue("mixture.colorName1", ""); 
+		assertValue("mixture.colorName2", "");
+		assertLoadedParts(
+			"editor_number, editor_name, editor_sample, editor_hexValue," +
+			"reference_editor_usedTo, reference_editor_characteristicThing," +
+			"errors, messages"); 
+		// tmp fin
 	}
 	
 	public void testElementCollections() throws Exception { 
