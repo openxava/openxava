@@ -45,35 +45,25 @@ public class AJAXTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=5");
 		assertNoEditable("name");
 		assertNoEditable("usedTo");
-		// tmp ini
 		assertNoEditable("mixture.colorName1"); 
 		assertNoEditable("mixture.colorName2"); 
-		// tmp fin
-		
 		
 		execute("CRUD.new");
 		assertEditable("name");
 		assertEditable("usedTo");
-		// tmp ini
 		assertEditable("mixture.colorName1"); 
 		assertEditable("mixture.colorName2"); 
-		// tmp fin
 		
-		// tmp assertLoadedParts("bottom_buttons, button_bar, editor_name, editor_number, editor_sample, errors, messages, reference_editor_characteristicThing, reference_editor_usedTo");
-		// tmp ini
 		assertLoadedParts(
 			"editor_name, editor_number," +
 			"reference_editor_characteristicThing, reference_editor_usedTo, editor_sample," +
 			"editor_mixture.colorName1,editor_mixture.colorName2," +
 			"property_actions_mixture.colorName2," +
 			"bottom_buttons, button_bar, errors, messages");
-		// tmp fin
 		
 		execute("CRUD.new");
-		// tmp assertLoadedParts("editor_name, errors, messages, reference_editor_characteristicThing, reference_editor_usedTo");
-		assertLoadedParts("reference_editor_characteristicThing, errors, messages"); // tmp
+		assertLoadedParts("reference_editor_characteristicThing, errors, messages"); 
 		
-		// tmp ini
 		execute("Navigation.first");
 		assertNoEditable("mixture.colorName1"); 
 		assertNoEditable("mixture.colorName2");
@@ -88,7 +78,6 @@ public class AJAXTest extends ModuleTestBase {
 			"editor_number, editor_name, editor_sample, editor_hexValue," +
 			"reference_editor_usedTo, reference_editor_characteristicThing," +
 			"errors, messages"); 
-		// tmp fin
 	}
 	
 	public void testElementCollections() throws Exception { 
@@ -368,7 +357,7 @@ public class AJAXTest extends ModuleTestBase {
 	
 	public void testCollectionsInsideReferences() throws Exception { 
 		changeModule("Office");
-		execute("CRUD.new");
+		execute("CRUD.new"); 
 		assertCollectionRowCount("defaultCarrier.fellowCarriers", 0);
 		assertCollectionRowCount("defaultCarrier.fellowCarriersCalculated", 0);
 		setValue("defaultCarrier.number", "1");
@@ -725,7 +714,7 @@ public class AJAXTest extends ModuleTestBase {
 		changeModule("Carrier"); 		
 		execute("CRUD.new");
 		assertLoadedParts("core, "); 
-		execute("CRUD.new");
+		execute("CRUD.new"); 
 		assertLoadedParts("errors, messages"); 
 		execute("Mode.list");
 		execute("CRUD.new");
@@ -806,7 +795,7 @@ public class AJAXTest extends ModuleTestBase {
 	
 	public void testSectionsInsideSubview() throws Exception {
 		changeModule("TransportCharge");
-		execute("CRUD.new");
+		execute("CRUD.new"); 
 		execute("Sections.change", "activeSection=4,viewObject=xava_view_delivery");
 		assertLoadedParts("errors, sections_xava_view_delivery, " +
 				"messages, ");

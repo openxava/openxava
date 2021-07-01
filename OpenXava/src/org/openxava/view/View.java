@@ -1778,7 +1778,7 @@ public class View implements java.io.Serializable {
 	// Before 4m6 it was private
 	public MetaCollection getMetaCollection() throws XavaException { 
 		assertRepresentsCollection("getMetaCollection()");
-		return getParent().getMetaModel().getMetaCollection(getMemberName());
+		return getParentIfSectionOrGroup().getParent().getMetaModel().getMetaCollection(getMemberName()); 
 	}
 
 
@@ -2709,16 +2709,11 @@ public class View implements java.io.Serializable {
 
 	public boolean isKeyEditable() {
 		if (insideAViewDisplayedAsDescriptionsListAndReferenceView()) return false;
-		// tmp ini
-		// tmp 
 		if (isRepresentsEntityReference() && !isRepresentsCollection()) {
-			MetaReference ref = getParent().getMetaReference(getMemberName());
-			boolean result = getParent().isEditable(ref);			
-			// tmp setKeyEditable(result);
-			return result;
+			View parent = getParentIfSectionOrGroup().getParent();
+			MetaReference ref = parent.getMetaReference(getMemberName());
+			return parent.isEditable(ref);
 		}
-		// tmp fin
-
 		return !isReadOnly() && keyEditable;
 	}
 	
@@ -4275,6 +4270,7 @@ public class View implements java.io.Serializable {
 	}
 
 	public boolean isRepresentsCollection() {		
+		if (isGroup()) return getParent().isRepresentsCollection(); 
 		return representsCollection;
 	}
 	
@@ -5700,7 +5696,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void propertiesAndReferencesWithReadOnlywithOnCreateFalse(Map result) {
-		if (!hasKeyEditableChanged()) return; // tmp
+		if (!hasKeyEditableChanged()) return; 
 		for (MetaMember m : getMetaMembers()) {
 			if (m instanceof MetaProperty) {
 				MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(m.getName());
@@ -5711,27 +5707,17 @@ public class View implements java.io.Serializable {
 			else if (m instanceof MetaReference) {
 				MetaReference ref = getMetaReference(m.getName());
 				MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(ref);
-				if (metaReferenceView != null /* tmp && isKeyEditable() */ &&  metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
-					// tmp result.put(m.getName(), this);
-					// tmp ini
+				if (metaReferenceView != null  &&  metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
 					if (displayReferenceWithNotCompositeEditor(ref) ) {
 						result.put(m.getName(), this);
 					}
 					else {
 						View subview = getSubview(ref.getName());
+						subview.oldKeyEditable = !subview.keyEditable; // So subview.hasKeyEditableChanged() is true and the actions are refreshed 
 						for (String key: ref.getMetaModelReferenced().getAllKeyPropertiesNames()) {
 							result.put(ref.getName() + "." + key, subview);
 						}
-						// TMP ME QUEDÉ POR AQUÍ: TRABAJANDO EN LO DE ABAJO. O BIEN NO SE RECARGA POR AJAX AUNQUE NO CAMBIE CONTENIDO O EDITABL
-						// TMP                        O BIEN NO ACTUALIZA LAS ACCIONES
-						System.out.println("[View.propertiesAndReferencesWithReadOnlywithOnCreateFalse] getMetaView().getNotAlwaysEnabledViewActionsNames()=" + getMetaView().getNotAlwaysEnabledViewActionsNames()); // tmp
-						System.out.println("[View.propertiesAndReferencesWithReadOnlywithOnCreateFalse] subview.getMetaView().getNotAlwaysEnabledViewActionsNames()=" + subview.getMetaView().getNotAlwaysEnabledViewActionsNames()); // tmp
-						for (Iterator it = subview.getMetaView().getNotAlwaysEnabledViewActionsNames().iterator(); it.hasNext(); ) {
-							String action = (String) it.next();
-							result.put(subview.getPropertyPrefix() + action, subview);
-						}
 					}
-					// tmp fin
 				}
 			}
 		}

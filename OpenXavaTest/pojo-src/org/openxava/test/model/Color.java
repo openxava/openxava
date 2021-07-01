@@ -18,8 +18,7 @@ import org.openxava.test.actions.*;
 @Views({
 	@View( name="Ordinary", members="number; name; sample; hexValue; usedTo, characteristicThing, anotherCT; mixture"),
 	@View( name="Ordinary2", members="number; name; sample; hexValue; usedTo, characteristicThing"),
-	// tmp @View( name="OrdinaryWithReadOnlyOnCreate", members="number; name; sample; hexValue; usedTo, characteristicThing"),
-	@View( name="OrdinaryWithReadOnlyOnCreate", members="number; name; sample; hexValue; usedTo, characteristicThing; mixture"), // tmp
+	@View( name="OrdinaryWithReadOnlyOnCreate", members="number; name; sample; hexValue; usedTo, characteristicThing; mixture"), 
 	@View( name="View1", members="property1"), 
 	@View( name="View2", members="property2"), 
 	@View( name="View2Sub1", members="property2Sub1"), 
@@ -82,9 +81,8 @@ public class Color {
 		@JoinColumn(name="MIXTURE_COLORNAME1", referencedColumnName="COLORNAME1"),
 		@JoinColumn(name="MIXTURE_COLORNAME2", referencedColumnName="COLORNAME2"),
 	})
-	// tmp @DescriptionsList(descriptionProperties="fullDescription")
-	@DescriptionsList(notForViews="OrdinaryWithReadOnlyOnCreate", descriptionProperties="fullDescription") // tmp
-	@ReadOnly(onCreate=false, forViews="OrdinaryWithReadOnlyOnCreate") // tmp
+	@DescriptionsList(notForViews="OrdinaryWithReadOnlyOnCreate", descriptionProperties="fullDescription") 
+	@ReadOnly(onCreate=false, forViews="OrdinaryWithReadOnlyOnCreate") 
 	private Mixture mixture;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

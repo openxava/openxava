@@ -8,9 +8,6 @@ import javax.servlet.http.*;
  * It has to be used from inside an OpenXava request, though you can use it in any part
  * of your application: JSPs, actions, calculators, validators, entities, etc. <br>
  * 
- * If you want use it inside your own servlet you have to call first to SessionData.setCurrent(request), // TMP Este comentario ya no es cierto
- * and SessionData.clean() at end. <br>
- * 
  * An advantage of using this class over direct request.getSession() is that it abstracts your code
  * from web technology, so that code could work in other contexts, as Swing for example. <br>
  *
