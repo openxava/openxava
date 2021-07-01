@@ -97,8 +97,7 @@
       resuelve. <br>
       La siguiente imagen muestra cómo se produce un error de validación cuando
       el cliente de la factura es incorrecto: </div>
-    <img src="files/references-collections_es010.png" alt="references-collections_es010"
-
+    <img src="files/references-collections_es010.png" alt="references-collections_es010"
       title="references-collections_es010">
     <div class="wiki" style="display: block;"> Ya que esto es lógica de negocio
       la vamos a poner en la capa del modelo, es decir, en las entidades. Lo
@@ -131,8 +130,7 @@
       correcta. Porque cuando pulsa para buscar una factura, todas las facturas
       existentes se muestran. Vamos a mejorar esto para mostrar solo las
       facturas del cliente del pedido visualizado, de esta manera:<br>
-      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
-
+      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
         title="references-collections_es020.png"><br>
       Para definir nuestra propia acción de búsqueda para la referencia a
       factura usaremos la anotación <i>@SearchAction</i>. Aquí tienes la
@@ -150,51 +148,48 @@
 }
 </code></pre> De esta forma tan simple definimos la acción a ejecutar cuando el
       usuario pulsa en el botón de la linterna para buscar una factura. El
-      argumento usado para @SearchAction, Order.searchInvoice, es el nombre
-      calificado de la acción, es decir la acción searchInvoice del controlador
-      Order definido en el archivo controllers.xml.<br>
-      Ahora tenemos que editar controllers.xml y añadir la definición de nuestra
-      nueva acción, tal como muestra el listado 9.4.
-      <pre>Listado 9.4 Declaración de la acción Order.searchInvoice en controllers.xml
-<controller name="Order">
-...
-<action name="searchInvoice" class="org.openxava.invoicing.actions.SearchInvoiceFromOrderAction"
+      argumento usado para <i>@SearchAction</i>, <i>Pedido.buscarFactura</i>,
+      es el nombre calificado de la acción, es decir la acción <i>buscarFactura</i>
+      del controlador <i>Pedido</i> definido en el archivo <i>controladores.xml</i>.<br>
+      Ahora tenemos que editar <i>controladores.xml</i> y añadir la definición
+      de nuestra nueva acción:
+      <pre><code class="xml">&lt;controlador nombre="Pedido"&gt;
 
-image="images/search.gif" hidden="true">
+	...
+	
+	&lt;accion nombre="buscarFactura"
+	clase="com.tuempresa.facturacion.acciones.BuscarFacturaDesdePedido"
+	oculta="true" icono="magnify"/&gt;
+	&lt;!--
+	oculta="true" : Para que no se muestre en la barra de botones del módulo
+	icono="magnify" : La misma imagen que la de la acción estándar
+	--&gt;
+	
+&lt;/controlador&gt;
+</code></pre>Nuestra acción hereda de
+      <i> ReferenceSearchAction</i> como se muestra en el siguiente código:
+      <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
 
-<!---hidden="true": Para que no se muestre en la barra de botones del módulo
-image="images/search.gif": La misma imagen que la de la acción estándar
----->
-</action></controller>
-</pre> Nuestra acción hereda de ReferenceSearchAction y ésta los necesita. El
-      listado 9.5 muestra el código de la acción.
-      <pre>Listado 9.5 Acción personalizada para buscar una factura desde un pedido
-package org.openxava.invoicing.actions;
-import org.openxava.actions.*;
+import org.openxava.actions.*; // Para usar ReferenceSearchAction
 
-// En el paquete 'actions'
+public class BuscarFacturaDesdePedido
+    extends ReferenceSearchAction { // Lógica estándar para buscar una referencia
 
-// Para usar ReferenceSearchAction
-
-public class SearchInvoiceFromOrderAction
-extends ReferenceSearchAction { // Lógica estándar para buscar una referencia
-
+    public void execute() throws Exception {
+        int numeroCliente =
+            getView().getValueInt("cliente.numero"); // Lee de la vista el número
+                                                  // de cliente del pedido actual
+        super.execute(); // Ejecuta la lógica estándar, la cual muestra un diálogo
+        if (numeroCliente &gt; 0) { // Si hay cliente los usamos para filtrar
+            getTab().setBaseCondition("${cliente.numero} = " + numeroCliente);
+        }
+    }
 }
-
-public void execute() throws Exception {
-super.execute(); // Ejecuta la lógica estándar, la cual muestra un diálogo
-int customerNumber =
-getPreviousView()// getPreviousView() es la vista principal (getView() es el diálogo)
-.getValueInt("customer.number"); // Lee de la vista el número
-// de cliente del pedido actual
-if (customerNumber &gt; 0) { // Si hay cliente los usamos para filtrar
-getTab().setBaseCondition("${customer.number} = " + customerNumber);
-}
-}
-</pre> Observa como usamos getTab().setBaseCondition() para establecer una
-      condición en la lista para escoger la referencia. Es decir, desde una
-      ReferenceSearchAction puedes usar getTab() para manipular la forma en que
-      se comporta la lista.<br>
+</code></pre> Observa como usamos <i>getTab().setBaseCondition()</i> para
+      establecer una condición en la lista para escoger la referencia. Es decir,
+      desde una
+      <i> ReferenceSearchAction</i> puedes usar <i>getTab()</i> para manipular
+      la forma en que se comporta la lista.<br>
       Si no hay cliente no añadimos ninguna condición por tanto se mostrarían
       todas las facturas, esto ocurre cuando el usuario escoge la factura antes
       que el cliente.
@@ -203,14 +198,15 @@ getTab().setBaseCondition("${customer.number} = " + customerNumber);
       queremos dar al usuario la opción de escoger una factura sin usar la
       lista, simplemente tecleando el año y el número. Muy útil si el usuario
       conoce de antemano que factura quiere.<br>
-      OpenXava provee esa funcionalidad por defecto. Si los campos @Id son
-      visualizados en la referencia serán usados para buscar, en caso contrario
-      OpenXava usa el primer campo visualizado para buscar. Aunque en nuestro
-      caso esto no es tan conveniente, porque el primer campo visualizado es el
-      año, y buscar una factura sólo por el año no es muy preciso. La figura 9.5
-      muestra el comportamiento por defecto junto con una alternativa más
-      conveniente. <br>
-      Figura 9.5 Por defecto la factura se recupera solo por año <br>
+      OpenXava provee esa funcionalidad por defecto. Si los campos <i>@Id</i>
+      son visualizados en la referencia serán usados para buscar, en caso
+      contrario OpenXava usa el primer campo visualizado para buscar. Aunque en
+      nuestro caso esto no es tan conveniente, porque el primer campo
+      visualizado es el año, y buscar una factura sólo por el año no es muy
+      preciso. La siguiente imagen muestra el comportamiento por defecto junto
+      con una alternativa más conveniente:<br>
+      <img src="files/references-collections_es030.png" alt="references-collections_es030.png"
+        title="references-collections_es030.png"><br>
       Afortunadamente es fácil indicar que campos queremos usar para buscar
       desde la perspectiva del usuario. Esto se hace por medio de la anotación
       @SearchKey. Edita la clase CommercialDocument (recuerda, el padre de Order
@@ -403,8 +399,7 @@ private Collection<order> orders;
       <pre>Listado 9.12 Declaración de la acción Invoice.addOrders en controllers.xml
 <controller name="Invoice">
 <extends controller="Invoicing">
-<action name="addOrders" class="org.openxava.invoicing.actions.GoAddOrdersToInvoiceAction"
-
+<action name="addOrders" class="org.openxava.invoicing.actions.GoAddOrdersToInvoiceAction"
 image="images/create_new.gif" hidden="true">
 
 <!---hidden="true": No se mostrará en la barra de botones del módulo
@@ -973,12 +968,10 @@ assertCollectionRowCount("orders", 0);
       Esta flexibilidad te permite usar la generación automática de la interfaz
       gráfica para prácticamente cualquier caso posible en las aplicaciones de
       gestión de la vida real. <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="references-collections_es.html">Ve a la
           lección 9</a></strong> </div>

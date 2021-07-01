@@ -132,8 +132,8 @@
       title="references-collections_en020.png"><br>
     <div class="wiki" style="display: block;"> For defining our own search
       action for the invoice reference we will use the <i>@SearchAction</i>
-      annotation.
-      Here you have the needed modification in <i>Order</i> class:&nbsp;
+      annotation. Here you have the needed modification in <i>Order</i>
+      class:&nbsp;
       <pre><code class="java">public class Order extends CommercialDocument {
 
     @ManyToOne
@@ -147,49 +147,47 @@
 }
 </code></pre> In this simple way we define the action to execute when the user
       clicks on the flashlight button to search an invoice. The argument used
-      for
-      <i> @SearchAction</i>, <i>Order.searchInvoice</i>, is the qualified name
-      of the action, that is the action <i>searchInvoice</i> of the controller
-      <i>Order</i> as defined in
-      <i> controllers.xml</i> file. Now we have to edit <i>controllers.xml</i>
-      to add the definition of our new action, just as shown in listing 9.4.
-      <pre>Listing 9.4 Order.searchInvoice action declaration in controllers.xml
-<controller name="Order">
-...
-<action name="searchInvoice" class="org.openxava.invoicing.actions.SearchInvoiceFromOrderAction"
-image="images/search.gif" hidden="true">
-<!---hidden="true" : Because we don't want the action to be shown in module button bar
-image="images/search.gif" : The same image as for the standard search action
----->
-</action></controller>
-</pre> Our action extends from ReferenceSearchAction which needs them. Listing
-      9.5 shows the code of the action.
-      <pre>Listing 9.5 Code for custom action to search an invoice from an order
-package org.openxava.invoicing.actions;
-import org.openxava.actions.*;
+      for <i> @SearchAction</i>, <i>Order.searchInvoice</i>, is the qualified
+      name of the action, that is the action <i>searchInvoice</i> of the
+      controller <i>Order</i> as defined in <i> controllers.xml</i> file. Now
+      we have to edit <i>controllers.xml</i> to add the definition of our new
+      action:
+      <pre><code class="xml">&lt;controller name="Order"&gt;
 
-// In 'actions' package
+    ...
+	
+    &lt;action name="searchInvoice"
+        class="com.yourcompany.invoicing.actions.SearchInvoiceFromOrderAction"
+        hidden="true" icon="magnify"/&gt;
+        &lt;!--
+        hidden="true" : Because we don't want the action to be shown in module button bar
+        icon="magnify" : The same icon as for the standard search action
+        --&gt;
+	
+&lt;/controller&gt;
+</code></pre> Our action extends from <i>ReferenceSearchAction</i> as shown in
+      the next code:
+      <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
-// To use ReferenceSearchAction
+import org.openxava.actions.*; // To use ReferenceSearchAction
 
 public class SearchInvoiceFromOrderAction
-extends ReferenceSearchAction { // Standard logic for searching a reference
-public void execute() throws Exception {
-super.execute(); // It executes the standard logic that shows a dialog
-}
+    extends ReferenceSearchAction { // Standard logic for searching a reference
 
+    public void execute() throws Exception {
+        int customerNumber =
+            getView().getValueInt("customer.number"); // Reads from the view the
+                                         // customer number of the current order
+        super.execute(); // It executes the standard logic that shows a dialog
+        if (customerNumber &gt; 0) { // If there is customer we use it to filter
+            getTab().setBaseCondition("${customer.number} = " + customerNumber);
+        }
+    }
 }
-
-int customerNumber =
-getPreviousView() // getPreviousView() is the main view (getView() is the dialog)
-.getValueInt("customer.number"); // Reads from the view the
-// customer number of the current order
-if (customerNumber &gt; 0) { // If there is customer we use it to filter
-getTab().setBaseCondition("${customer.number} = " + customerNumber);
-}
-</pre> Note how we use getTab().setBaseCondition() to establish a condition for
-      the list to choose the reference. That is, from a ReferenceSearchAction
-      you can use getTab() to manipulate the way the search list behaves. <br>
+</code></pre> Note how we use <i>getTab().setBaseCondition()</i> to establish a
+      condition for the list to choose the reference. That is, from a <i>
+        ReferenceSearchAction</i> you can use <i>getTab()</i> to manipulate the
+      way the search list behaves. <br>
       If there is no customer we don't add any condition so all the invoices
       will be shown, this is the case when the user chooses the invoice before
       choosing the customer.
@@ -198,17 +196,19 @@ getTab().setBaseCondition("${customer.number} = " + customerNumber);
       give the user the possibility to choose the invoice without the list, by
       just typing the year and number. Very useful if the user already know
       which invoice he wants. OpenXava provides this functionality by default.
-      If the @Id fields are displayed in the reference they are used for
+      If the <i>@Id</i> fields are displayed in the reference they are used for
       searching, otherwise OpenXava uses the first displayed field to search.
       This is not convenient in our case, because the first displayed field is
       the year, and searching an invoice only by year is not very precise.
-      Figure 9.5 shows the default behavior and a more convenient alternative. <br>
-      Figure 9.5 By default invoice is searched only by year <br>
-      Fortunately it's easy to indicate which fields we want to use to search
-      from a user perspective. This is done by means of @SearchKey annotation.
-      Just edit the CommercialDocument class (remember, the parent of Order and
-      Invoice) and add this annotation to the year and number properties
-      (listing 9.6).
+      The following image shows the default behavior and a more convenient
+      alternative:<br>
+      <img src="files/references-collections_en030.png" alt="references-collections_en030.png"
+        title="references-collections_en030.png"><br>
+      TMP ME QUEDÉ POR AQUÍ Fortunately it's easy to indicate which fields we
+      want to use to search from a user perspective. This is done by means of
+      @SearchKey annotation. Just edit the CommercialDocument class (remember,
+      the parent of Order and Invoice) and add this annotation to the year and
+      number properties (listing 9.6).
       <pre>Listing 9.6 Defining year and number as search key in CommercialDocument
 abstract public class CommercialDocument extends Deletable {
 ...
