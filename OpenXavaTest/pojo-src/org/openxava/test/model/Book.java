@@ -27,7 +27,7 @@ public class Book extends Identifiable {
 		 
 	private boolean outOfPrint;  
 	
-	private BigInteger pages; // tmp 
+	private BigInteger pages;  
 	
 	@Required(message="Please, enter a synopsis for the book") 
 	@Stereotype("MEMO")
