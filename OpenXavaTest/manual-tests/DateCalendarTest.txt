@@ -37,7 +37,15 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Change the date with calendar. Date is kept correct, day is not turned in 4 digits.
 	- Modify the date with keyboard. Date is kept correct, day is not turned in 4 digits.
 	- Type 20170617. It is turned into 2017/06/17.	
-	 		
+- Finish with separator: Put the locale to Serbian
+	- Change the date with calendar. Date is kept correct, 20 is not added to date.
+	- Type:
+		 5.2.2017. -> 5.2.2017.
+		 5.2.2017  -> 5.2.2017.
+		 5.2.17.   -> 5.2.2017.
+		 5.2.17    -> 5.2.2017.
+		 05022017  -> 5.2.2017.
+		 050217    -> 5.2.2017.	 		
 	
 Use any entity with a date in list mode. Like Invoice filtering by date in list.
 - With = (calendar shown)

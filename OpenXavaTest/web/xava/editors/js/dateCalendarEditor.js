@@ -28,11 +28,17 @@ openxava.addEditorInitFunction(function() {
 			time = date.substr(idxSpace);
 			pureDate = date.substr(0, idxSpace);
 		}
+		var suffix = "";
+		if (idx == pureDate.length - 1) {
+			pureDate = pureDate.substring(0, idx);
+			suffix = separator;
+			idx = pureDate.lastIndexOf(separator);
+		}
 		if (dateFormat.indexOf('Y') > 0 && pureDate.length - idx < 4) { 
   			var dateNoYear = pureDate.substring(0, idx);
-  			var year = pureDate.substring(idx + 1);
+  			var year = pureDate.substring(idx + 1);	
   			var prefix = year > 50?"19":"20";
-  			date = dateNoYear + separator + prefix + year + time; 
+  			date = dateNoYear + separator + prefix + year + suffix + time; 
   		}			
   		$(this).val(date);
 	});
