@@ -140,7 +140,7 @@
     @ReferenceView("NoCustomerNoOrders")
     @OnChange(ShowHideCreateInvoiceAction.class)
     @SearchAction("Order.searchInvoice") // To define our own action to search invoices
-    private Invoice invoice;
+    Invoice invoice;
 
     ...
 	
@@ -199,32 +199,35 @@ public class SearchInvoiceFromOrderAction
       If the <i>@Id</i> fields are displayed in the reference they are used for
       searching, otherwise OpenXava uses the first displayed field to search.
       This is not convenient in our case, because the first displayed field is
-      the year, and searching an invoice only by year is not very precise.
-      The following image shows the default behavior and a more convenient
+      the year, and searching an invoice only by year is not very precise. The
+      following image shows the default behavior and a more convenient
       alternative:<br>
       <img src="files/references-collections_en030.png" alt="references-collections_en030.png"
         title="references-collections_en030.png"><br>
-      TMP ME QUEDÉ POR AQUÍ Fortunately it's easy to indicate which fields we
-      want to use to search from a user perspective. This is done by means of
-      @SearchKey annotation. Just edit the CommercialDocument class (remember,
-      the parent of Order and Invoice) and add this annotation to the year and
-      number properties (listing 9.6).
-      <pre>Listing 9.6 Defining year and number as search key in CommercialDocument
-abstract public class CommercialDocument extends Deletable {
-...
-@SearchKey // Add this annotation here
-@Column(length=4)
-@DefaultValueCalculator(CurrentYearCalculator.class)
-private int year;
-@SearchKey // Add this annotation here
-@Column(length=6)
-@ReadOnly
-private int number;
-...
+      Fortunately it's easy to indicate which fields we want to use to search
+      from a user perspective. This is done by means of <i>@SearchKey</i>
+      annotation. Just edit the <i>CommercialDocument</i> class (remember, the
+      parent of <i>Order</i> and <i> Invoice</i>) and add that annotation to
+      the <i>year</i> and <i>number</i> properties:
+      <pre><code class="java">abstract public class CommercialDocument extends Deletable {
+
+    @SearchKey // Add this annotation here
+    @Column(length=4)
+    @DefaultValueCalculator(CurrentYearCalculator.class) 
+    int year;
+
+    @SearchKey // Add this annotation here 
+    @Column(length=6)
+    @ReadOnly
+    int number;
+	
+    ...
+	
 }
-</pre> In this way when the user searches an order or invoice from a reference
-      he must type the year and the number, and the corresponding entity will be
-      retrieved from database and will populate the user interface. <br>
+</code></pre> In this way when the user searches an order or invoice from a
+      reference he must type the year and the number, and the corresponding
+      entity will be retrieved from database and will populate the user
+      interface. <br>
       Now it's easy for the user to choose an invoice for the order without
       using the searching list, just by typing year and number.
       <h3>Refining action for searching reference typing key</h3>
@@ -232,34 +235,40 @@ private int number;
       to refine it in order to help our user to do his work more efficiently.
       For example, it would be useful that if the user has not chosen a customer
       for the order yet and he chooses an invoice, the customer of that invoice
-      will be assigned to the current order automatically. Figure 9.6 visualizes
-      the wanted behavior. <br>
-      Figure 9.6 Choosing an invoice when there is no customer selected yet <br>
+      will be assigned to the current order automatically. The following image
+      visualizes the wanted behavior:<br>
+      <img src="files/references-collections_en040.png" alt="references-collections_en040.png"
+        title="references-collections_en040.png"><br>
       On the other hand, if the user already has selected the customer for the
       order, if he is not the same in the invoice, it will be rejected and a
-      message error displayed, just as shown in figure 9.7. <br>
-      Figure 9.7 Choosing an invoice when the customer is already selected <br>
+      message error displayed, just as shown in figure 9.7. </div>
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: ANTES DE
+      HACER LA IMAGEN HE DE EJECUTAR EL CÓDIGO DE BAJO. EL PRIMER TROZO YA ESTÁ
+      HECHO EN INGLÉS Y ESPAÑOL<br>
+    </div>
+    <div class="wiki" style="display: block;">Figure 9.7 Choosing an invoice
+      when the customer is already selected <br>
       For defining this special behavior we have to add an @OnChangeSearch
       annotation in the the invoice reference of Order. @OnChangeSearch allows
       you to define your own action to do the search of the reference when its
       key changes in the user interface. You can see the modified reference in
       listing 9.7.
-      <pre>Listing 9.7 Refining action to get Invoice from Order when its key changes
-public class Order extends CommercialDocument {
-@ManyToOne
-@ReferenceView("NoCustomerNoOrders")
-@OnChange(ShowHideCreateInvoiceAction.class)
-@OnChangeSearch(OnChangeSearchInvoiceAction.class)
-@SearchAction("Order.searchInvoice")
-
-// Add this annotation
-private Invoice invoice;
-...
-}
-</pre> From now on when the user types a new year and number for the invoice,
-      the logic of OnChangeSearchInvoiceAction will be executed. In this action
-      you have to read the invoice data from database and update the user
-      interface. Listing 9.8 shows the action code.
+      <pre><code class="java">public class Order extends CommercialDocument {
+ 
+    @ManyToOne
+    @ReferenceView("NoCustomerNoOrders") 
+    @OnChange(ShowHideCreateInvoiceAction.class)
+    @OnChangeSearch(OnChangeSearchInvoiceAction.class) // Add this annotation
+    @SearchAction("Order.searchInvoice")
+    Invoice invoice;
+	
+    ...
+	
+}	
+</code></pre> From now on when the user types a new year and number for the
+      invoice, the logic of OnChangeSearchInvoiceAction will be executed. In
+      this action you have to read the invoice data from database and update the
+      user interface. Listing 9.8 shows the action code.
       <pre>Listing 9.8 Action for searching the invoice when typing a year and number
 package org.openxava.invoicing.actions;
 import

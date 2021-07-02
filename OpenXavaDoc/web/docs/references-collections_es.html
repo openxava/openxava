@@ -166,8 +166,8 @@
 	--&gt;
 	
 &lt;/controlador&gt;
-</code></pre>Nuestra acción hereda de
-      <i> ReferenceSearchAction</i> como se muestra en el siguiente código:
+</code></pre>Nuestra acción hereda de <i> ReferenceSearchAction</i> como se
+      muestra en el siguiente código:
       <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
 
 import org.openxava.actions.*; // Para usar ReferenceSearchAction
@@ -187,9 +187,8 @@ public class BuscarFacturaDesdePedido
 }
 </code></pre> Observa como usamos <i>getTab().setBaseCondition()</i> para
       establecer una condición en la lista para escoger la referencia. Es decir,
-      desde una
-      <i> ReferenceSearchAction</i> puedes usar <i>getTab()</i> para manipular
-      la forma en que se comporta la lista.<br>
+      desde una <i> ReferenceSearchAction</i> puedes usar <i>getTab()</i> para
+      manipular la forma en que se comporta la lista.<br>
       Si no hay cliente no añadimos ninguna condición por tanto se mostrarían
       todas las facturas, esto ocurre cuando el usuario escoge la factura antes
       que el cliente.
@@ -208,25 +207,27 @@ public class BuscarFacturaDesdePedido
       <img src="files/references-collections_es030.png" alt="references-collections_es030.png"
         title="references-collections_es030.png"><br>
       Afortunadamente es fácil indicar que campos queremos usar para buscar
-      desde la perspectiva del usuario. Esto se hace por medio de la anotación
-      @SearchKey. Edita la clase CommercialDocument (recuerda, el padre de Order
-      e Invoice) y añade esta anotación a las propiedades year y number (listado
-      9.6).
-      <pre>Listado 9.6 Definir year y number como @SearchKey en CommercialDocument
-abstract public class CommercialDocument extends Deletable {
-...
-@SearchKey // Añade esta anotación aquí
-@Column(length=4)
-@DefaultValueCalculator(CurrentYearCalculator.class)
-private int year;
-@SearchKey // Añade esta anotación aquí
-@Column(length=6)
-@ReadOnly
-private int number;
-...
+      desde la perspectiva del usuario. Esto se hace por medio de la anotación <i>@SearchKey</i>.
+      Edita la clase <i>DocumentoComercial</i> (recuerda, el padre de <i>Pedido</i>
+      y <i>Factura</i>) y añade esta anotación a las propiedades <i>anyo</i> y
+      <i>numero</i>:
+      <pre><code class="java">abstract public class DocumentoComercial extends Eliminable {
+
+    @SearchKey // Añade esta anotación aquí
+    @Column(length=4)
+    @DefaultValueCalculator(CurrentYearCalculator.class) 
+    int anyo;
+ 
+    @SearchKey // Añade esta anotación aquí
+    @Column(length=6)
+    @ReadOnly
+    int numero;
+	
+    ...
+	
 }
-</pre> De esta forma cuando el usuario busque un pedido o una factura desde una
-      referencia tiene que teclear el año y el número, y la entidad
+</code></pre> De esta forma cuando el usuario busque un pedido o una factura
+      desde una referencia tiene que teclear el año y el número, y la entidad
       correspondiente será recuperada de la base de datos y rellenará la
       interfaz de usuario. Ahora es fácil para el usuario escoger una factura
       desde un pedido sin usar la lista de búsqueda, simplemente tecleando el
@@ -236,10 +237,10 @@ private int number;
       queremos refinarlo para ayudar al usuario a hacer su trabajo de forma más
       eficiente. Por ejemplo, sería útil que si el usuario todavía no ha
       escogido al cliente para el pedido y escoge una factura, el cliente de esa
-      factura sea asignado automáticamente al pedido actual. La figura 9.6
-      visualiza el comportamiento deseado. <br>
-      Figura 9.6 Escoger una factura cuando todavía no hay un cliente
-      seleccionado <br>
+      factura sea asignado automáticamente al pedido actual. La siguiente imagen
+      visualiza el comportamiento deseado:<br>
+      <img src="files/references-collections_es040.png" alt="references-collections_es040.png"
+        title="references-collections_es040.png"><br>
       Por otra parte, si el usuario ya ha seleccionado un cliente para el
       pedido, si no coincide con el de la factura, ésta será rechazada y se
       visualizará un mensaje de error, tal como muestra la figura 9.7. <br>
@@ -250,22 +251,21 @@ private int number;
       cambia en la interfaz de usuario. Puedes ver la referencia modificada en
       el listado 9.7.<br>
       @OnChangeSearch
-      <pre>Listado 9.7 Acción para obtener la factura desde el pedido al cambiar la clave
-public class Order extends CommercialDocument {
-@ManyToOne
-@ReferenceView("NoCustomerNoOrders")
-@OnChange(ShowHideCreateInvoiceAction.class)
-@OnChangeSearch(OnChangeSearchInvoiceAction.class)
-@SearchAction("Order.searchInvoice")
-private Invoice invoice;
-
-// Añade esta anotación
-
-...
+      <pre><code class="java">public class Pedido extends DocumentoComercial {
+ 
+    @ManyToOne
+    @ReferenceView("SinClienteNiPedidos") 
+    @OnChange(MostrarOcultarCrearFactura.class) 
+    @OnChangeSearch(BuscarAlCambiarFactura.class) // Añade esta anotación
+    @SearchAction("Pedido.buscarFactura") // Define nuestra acción para buscar facturas
+    Factura factura; 
+    
+    ...
+	
 }
-</pre> A partir de ahora cuando un usuario teclee un nuevo año y número para la
-      factura, OnChangeSearchInvoiceAction se ejecutará. En esta acción se han
-      de leer los datos de la factura de la base de datos y actualizar la
+</code></pre> A partir de ahora cuando un usuario teclee un nuevo año y número
+      para la factura, OnChangeSearchInvoiceAction se ejecutará. En esta acción
+      se han de leer los datos de la factura de la base de datos y actualizar la
       interfaz de usuario. El listado 9.8 muestra el código de la acción.
       <pre>Listado 9.8 Acción para buscar la factura al teclear año y número
 package org.openxava.invoicing.actions;
