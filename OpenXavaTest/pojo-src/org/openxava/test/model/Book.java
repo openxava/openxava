@@ -1,9 +1,12 @@
 package org.openxava.test.model;
 
+import java.math.*;
+
+import javax.persistence.*;
+
+import org.openxava.annotations.*;
 import org.openxava.model.*;
 import org.openxava.test.validators.*;
-import javax.persistence.*;
-import org.openxava.annotations.*;
 
 @Entity
 @EntityValidator(value=BookValidator.class,
@@ -23,6 +26,8 @@ public class Book extends Identifiable {
 	private Author author;
 		 
 	private boolean outOfPrint;  
+	
+	private BigInteger pages; // tmp 
 	
 	@Required(message="Please, enter a synopsis for the book") 
 	@Stereotype("MEMO")
@@ -58,6 +63,14 @@ public class Book extends Identifiable {
 
 	public void setSynopsis(String synopsis) {
 		this.synopsis = synopsis;
+	}
+
+	public BigInteger getPages() {
+		return pages;
+	}
+
+	public void setPages(BigInteger pages) {
+		this.pages = pages;
 	}
 
 }

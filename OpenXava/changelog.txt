@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: BigInteger properties are not treated as numeric values.
 - Fix: Dates ending with separator, like in Serbian, are incorrectly altered when modified. 
 - Fix: @ReadOnly(onCreate=false) did not work on references.
 - Fix: Unneeded AJAX loading of editors in some cases with @ReadOnly(onCreate=false), 
