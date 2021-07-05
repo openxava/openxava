@@ -3308,6 +3308,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public boolean throwsPropertyChanged(MetaProperty p) {
+		System.out.println("[View.throwsPropertyChanged] p.getName()=" + p.getName()); // tmp
 		try {									
 			if (hasDependentsProperties(p) && 
 				!(isSubview() && isRepresentsEntityReference() && !displayAsDescriptionsList())) 
@@ -3316,7 +3317,10 @@ public class View implements java.io.Serializable {
 			}
 			if (getMetaView().hasOnChangeAction(p.getName())) return true;			
 			if (isLastSearchKey(p)) return true; 			
-			if (!isSubview()) return false;							
+			if (!isSubview()) return false;		
+			// tmp ini
+			if (isRepresentsElementCollection() && getTotalProperties().containsKey(p.getName())) return true;
+			// tmp fin
 			return isRepresentsEntityReference() && !isRepresentsCollection() && getLastPropertyKeyName().equals(p.getName()); 
 		}
 		catch (Exception ex) {
@@ -3326,6 +3330,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public boolean throwsPropertyChanged(String propertyName) throws XavaException {
+		System.out.println("[View(" + getModelName() + ").throwsPropertyChanged] propertyName=" + propertyName); // tmp
 		int idx = propertyName.indexOf('.'); 
 		if (idx >= 0) {
 			String reference = propertyName.substring(0, idx);			
