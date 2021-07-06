@@ -101,6 +101,8 @@ public class Module extends DWRBase {
 			result.setUrlParam(getUrlParam());
 			result.setViewSimple(getView().isSimple());
 			result.setDataChanged(getView().isDataChanged());
+			System.out.println("[Module.request] PropertiesUsedInCalculations=" + Arrays.toString(result.getPropertiesUsedInCalculations())); // tmp
+			System.out.println("[Module.request] ChangedParts=" + result.getChangedParts().keySet()); // tmp
 			return result;
 		}
 		catch (SecurityException ex) {
@@ -327,7 +329,9 @@ public class Module extends DWRBase {
 
 		for (String collection: view.getChangedCollections().keySet()) {
 			View subview = getView().getSubview(collection);
+			System.out.println("[Module.fillPropertiesUsedInCalculationsFromSumCollectionProperties] collection=" + collection + " > " + propertiesUsedInCalculations.size()); // tmp
 			fillPropertiesUsedInCalculationsFromSumCollectionPropertiesForSubview(propertiesUsedInCalculations, view, subview, collection);
+			System.out.println("[Module.fillPropertiesUsedInCalculationsFromSumCollectionProperties] collection=" + collection + " < " + propertiesUsedInCalculations.size()); // tmp
 		}
 		
 		for (Object o: view.getChangedPropertiesActionsAndReferencesWithNotCompositeEditor().entrySet()) {			
@@ -340,13 +344,20 @@ public class Module extends DWRBase {
 			try {
 				View subview = v.getSubview(collection);
 				if (subview.isRepresentsElementCollection()) {
-					fillPropertiesUsedInCalculationsFromSumCollectionPropertiesForSubview(propertiesUsedInCalculations,	view, subview, collection);				
+					System.out.println("[Module.fillPropertiesUsedInCalculationsFromSumCollectionProperties] property=" + property + " > " + propertiesUsedInCalculations.size()); // tmp
+					fillPropertiesUsedInCalculationsFromSumCollectionPropertiesForSubview(propertiesUsedInCalculations,	view, subview, collection);
+					System.out.println("[Module.fillPropertiesUsedInCalculationsFromSumCollectionProperties] property=" + property + " < " + propertiesUsedInCalculations.size()); // tmp
 				}
 			}
 			catch (ElementNotFoundException ex) {
 			} 
 			
 		}
+		
+		// tmp ini
+		// TMP ME QUEDÉ POR AQUÍ: AÑADÍ UNA :s AL FINAL PARA DISTINGUIR LOS SUM. PODRÍA USARLOS AQUÍ
+		System.out.println("[Module.fillPropertiesUsedInCalculationsFromSumCollectionProperties] view.getChangedCollectionsTotals()=" + view.getChangedCollectionsTotals()); // tmp
+		// tmp fin
 	}
 
 

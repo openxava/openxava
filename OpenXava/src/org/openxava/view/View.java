@@ -3308,7 +3308,6 @@ public class View implements java.io.Serializable {
 	}
 	
 	public boolean throwsPropertyChanged(MetaProperty p) {
-		System.out.println("[View.throwsPropertyChanged] p.getName()=" + p.getName()); // tmp
 		try {									
 			if (hasDependentsProperties(p) && 
 				!(isSubview() && isRepresentsEntityReference() && !displayAsDescriptionsList())) 
@@ -3320,6 +3319,7 @@ public class View implements java.io.Serializable {
 			if (!isSubview()) return false;		
 			// tmp ini
 			if (isRepresentsElementCollection() && getTotalProperties().containsKey(p.getName())) return true;
+			
 			// tmp fin
 			return isRepresentsEntityReference() && !isRepresentsCollection() && getLastPropertyKeyName().equals(p.getName()); 
 		}
@@ -3330,7 +3330,6 @@ public class View implements java.io.Serializable {
 	}
 	
 	public boolean throwsPropertyChanged(String propertyName) throws XavaException {
-		System.out.println("[View(" + getModelName() + ").throwsPropertyChanged] propertyName=" + propertyName); // tmp
 		int idx = propertyName.indexOf('.'); 
 		if (idx >= 0) {
 			String reference = propertyName.substring(0, idx);			
@@ -5692,7 +5691,7 @@ public class View implements java.io.Serializable {
 	 * 
 	 * @return In each entry the key is the qualified id and value the container view 
 	 */
-	public Map getChangedPropertiesActionsAndReferencesWithNotCompositeEditor() {  		
+	public Map getChangedPropertiesActionsAndReferencesWithNotCompositeEditor() {
 		if (changedPropertiesActionsAndReferencesWithNotCompositeEditor == null) {
 			changedPropertiesActionsAndReferencesWithNotCompositeEditor = new HashMap();
 			fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(changedPropertiesActionsAndReferencesWithNotCompositeEditor);
@@ -5754,7 +5753,6 @@ public class View implements java.io.Serializable {
 			result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
 			return;
 		}		
-		
 		
 		if (displayAsDescriptionsListAndReferenceView() && 
 			(
@@ -6122,7 +6120,11 @@ public class View implements java.io.Serializable {
 						for (int column=0; column<columnCount; column++) {
 							if (subview.hasCollectionTotal(row, column)) {
 								if (!Is.equal(subview.getCollectionTotal(row, column), subview.getCollectionTotalOldValue(row, column))) {
-									result.put(getPropertyPrefix() + subview.getMemberName() + ":" + row + ":" + column, this);
+									// tmp ini
+									String suffix = row == 0 && subview.hasCollectionSum(column)?":s":"";
+									result.put(getPropertyPrefix() + subview.getMemberName() + ":" + row + ":" + column + suffix, this);
+									// tmp fin
+									// tmp result.put(getPropertyPrefix() + subview.getMemberName() + ":" + row + ":" + column, this);
 								}
 							}
 						}

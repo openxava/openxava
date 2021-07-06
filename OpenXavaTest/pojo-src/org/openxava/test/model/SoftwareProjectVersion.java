@@ -1,6 +1,5 @@
 package org.openxava.test.model;
 
-import java.math.*;
 import java.util.*;
 
 import javax.persistence.*;
@@ -13,17 +12,16 @@ import org.openxava.annotations.*;
  */
 
 @Entity
-@Table(name="PROJECTVERSION") // TMP ME QUEDÉ POR AQUÍ: INTENTANDO PROBAR CON PROPIEDADES @Calculation
-public class SoftwareProjectVersion extends Nameable /* tmp extends ProjectVersion */ {
+public class SoftwareProjectVersion extends ProjectVersion  {
 	
 	private Date releaseDate;
 	
 	@ElementCollection
-	@ListProperties("description, estimatedDays[softwareProjectVersion.totalDays]") // tmp
+	@ListProperties("description, estimatedDays+[softwareProjectVersion.totalDays]") // tmp
 	private Collection<Feature> features;
 	
-	@Calculation("sum(features.estimatedDays)")
-	private BigDecimal totalDays; // tmp
+	@Calculation("sum(features.estimatedDays) + 100") @ReadOnly
+	private int totalDays; // tmp 
 
 	public Collection<Feature> getFeatures() {
 		return features;
@@ -41,11 +39,11 @@ public class SoftwareProjectVersion extends Nameable /* tmp extends ProjectVersi
 		this.releaseDate = releaseDate;
 	}
 
-	public BigDecimal getTotalDays() {
+	public int getTotalDays() {
 		return totalDays;
 	}
 
-	public void setTotalDays(BigDecimal totalDays) {
+	public void setTotalDays(int totalDays) {
 		this.totalDays = totalDays;
 	}
 	
