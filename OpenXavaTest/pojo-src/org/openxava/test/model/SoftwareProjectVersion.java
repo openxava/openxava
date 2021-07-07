@@ -17,11 +17,11 @@ public class SoftwareProjectVersion extends ProjectVersion  {
 	private Date releaseDate;
 	
 	@ElementCollection
-	@ListProperties("description, estimatedDays+[softwareProjectVersion.totalDays]") // tmp
+	@ListProperties("description, estimatedDays+[softwareProjectVersion.totalDays]") 
 	private Collection<Feature> features;
 	
-	@Calculation("sum(features.estimatedDays) + 100") @ReadOnly
-	private int totalDays; // tmp 
+	@Calculation("sum(features.estimatedDays)") @ReadOnly
+	private int totalDays; 
 
 	public Collection<Feature> getFeatures() {
 		return features;

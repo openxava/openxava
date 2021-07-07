@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @Calculation total property in @ElementCollection depending on summation not updated sometimes.
+- Fix: @ElementCollection summation not updated when the user changes values in the column of the summation. 
 - Fix: BigInteger properties are not treated as numeric values.
 - Fix: Dates ending with separator, like in Serbian, are incorrectly altered when modified. 
 - Fix: @ReadOnly(onCreate=false) did not work on references.

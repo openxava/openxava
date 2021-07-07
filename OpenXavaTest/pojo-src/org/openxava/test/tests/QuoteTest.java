@@ -128,7 +128,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertTotalInCollection("details", 3, "amount", "242.00");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
-		assertValue("year", "2015");
+		assertValue("year", "2015"); 
 		assertValue("number", "66");		
 		
 		assertRemoveActionInElementCollection(); 

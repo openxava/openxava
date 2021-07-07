@@ -3317,10 +3317,7 @@ public class View implements java.io.Serializable {
 			if (getMetaView().hasOnChangeAction(p.getName())) return true;			
 			if (isLastSearchKey(p)) return true; 			
 			if (!isSubview()) return false;		
-			// tmp ini
-			if (isRepresentsElementCollection() && getTotalProperties().containsKey(p.getName())) return true;
-			
-			// tmp fin
+			if (isRepresentsElementCollection() && getTotalProperties().containsKey(p.getName())) return true; 
 			return isRepresentsEntityReference() && !isRepresentsCollection() && getLastPropertyKeyName().equals(p.getName()); 
 		}
 		catch (Exception ex) {
@@ -6100,13 +6097,13 @@ public class View implements java.io.Serializable {
 	 * @return In each entry the key is the qualified id and value the container view
 	 * @since 5.1 
 	 */	
-	public Map getChangedCollectionsTotals() { 		
-		Map result = new HashMap();
+	public Map<String, View> getChangedCollectionsTotals() {  		
+		Map<String, View> result = new HashMap<>(); 
 		fillChangedCollectionsTotals(result);
 		return result;
 	}
 	
-	private void fillChangedCollectionsTotals(Map result) {  
+	private void fillChangedCollectionsTotals(Map<String, View> result) {   
 		if (hasSubviews()) {
 			Iterator itSubviews = getSubviews().values().iterator();
 			while (itSubviews.hasNext()) {
@@ -6120,11 +6117,7 @@ public class View implements java.io.Serializable {
 						for (int column=0; column<columnCount; column++) {
 							if (subview.hasCollectionTotal(row, column)) {
 								if (!Is.equal(subview.getCollectionTotal(row, column), subview.getCollectionTotalOldValue(row, column))) {
-									// tmp ini
-									String suffix = row == 0 && subview.hasCollectionSum(column)?":s":"";
-									result.put(getPropertyPrefix() + subview.getMemberName() + ":" + row + ":" + column + suffix, this);
-									// tmp fin
-									// tmp result.put(getPropertyPrefix() + subview.getMemberName() + ":" + row + ":" + column, this);
+									result.put(getPropertyPrefix() + subview.getMemberName() + ":" + row + ":" + column, this);
 								}
 							}
 						}

@@ -12,7 +12,7 @@ public class Feature {
 	@Column(length=80)
 	private String description;
 	
-	private int estimatedDays; // tmp
+	private int estimatedDays; 
 
 	public String getDescription() {
 		return description;
