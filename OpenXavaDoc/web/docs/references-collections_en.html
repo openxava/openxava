@@ -241,18 +241,14 @@ public class SearchInvoiceFromOrderAction
         title="references-collections_en040.png"><br>
       On the other hand, if the user already has selected the customer for the
       order, if he is not the same in the invoice, it will be rejected and a
-      message error displayed, just as shown in figure 9.7. </div>
-    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ: ANTES DE
-      HACER LA IMAGEN HE DE EJECUTAR EL CÓDIGO DE BAJO. EL PRIMER TROZO YA ESTÁ
-      HECHO EN INGLÉS Y ESPAÑOL<br>
-    </div>
-    <div class="wiki" style="display: block;">Figure 9.7 Choosing an invoice
-      when the customer is already selected <br>
-      For defining this special behavior we have to add an @OnChangeSearch
-      annotation in the the invoice reference of Order. @OnChangeSearch allows
-      you to define your own action to do the search of the reference when its
-      key changes in the user interface. You can see the modified reference in
-      listing 9.7.
+      message error displayed, just in this way:</div>
+    <img src="files/references-collections_en050.png" alt="references-collections_en050.png"
+      title="references-collections_en050.png"><br>
+    <div class="wiki" style="display: block;"> For defining this special
+      behavior we have to add an <i>@OnChangeSearch</i> annotation in the the <i>invoice</i>
+      reference of <i>Order</i>. <i>@OnChangeSearch</i> allows you to define
+      your own action to do the search of the reference when its key changes in
+      the user interface. You can see the modified reference here:
       <pre><code class="java">public class Order extends CommercialDocument {
  
     @ManyToOne
@@ -266,81 +262,74 @@ public class SearchInvoiceFromOrderAction
 	
 }	
 </code></pre> From now on when the user types a new year and number for the
-      invoice, the logic of OnChangeSearchInvoiceAction will be executed. In
-      this action you have to read the invoice data from database and update the
-      user interface. Listing 9.8 shows the action code.
-      <pre>Listing 9.8 Action for searching the invoice when typing a year and number
-package org.openxava.invoicing.actions;
-import
-import
-import
-import
-import
+      invoice, the logic of <i>OnChangeSearchInvoiceAction</i> will be
+      executed. In this action you have to read the invoice data from database
+      and update the user interface. This is the action code:
+      <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
-// In 'actions' package
+import java.util.*;
+import org.openxava.actions.*; // To use OnChangeSearchAction
+import org.openxava.model.*;
+import org.openxava.view.*;
+import com.yourcompany.invoicing.model.*;
 
-java.util.*;
-org.openxava.actions.*; // To use OnChangeSearchAction
-org.openxava.invoicing.model.*;
-org.openxava.model.*;
-org.openxava.view.*;
-
-public class OnChangeSearchInvoiceAction
-extends OnChangeSearchAction { // Standard logic for searching a reference when the
-// the key values change in the user interface (1)
-public void execute() throws Exception {
-super.execute(); // It executes the standard logic (2)
-Map keyValues = getView()// getView() here is the reference view, not the main one (3)
-.getKeyValuesWithValue();
-if (keyValues.isEmpty()) return; // If key is empty no additional logic is executed
-Invoice invoice = (Invoice) // We search the Invoice entity from the typed key (4)
-MapFacade.findEntity(getView().getModelName(), keyValues);
-View customerView = getView().getRoot().getSubview("customer"); // (5)
-int customerNumber = customerView.getValueInt("number");
-if (customerNumber == 0) { // If there is no customer we fill it (6)
-customerView.setValue("number", invoice.getCustomer().getNumber());
-customerView.refresh();
-}
-else { // If there is already customer we verify that he matches the invoice customer (7)
-if (customerNumber != invoice.getCustomer().getNumber()) {
-addError("invoice_customer_not_match",
-invoice.getCustomer().getNumber(), invoice, customerNumber);
-getView().clear();
-}
-}
-}
-}
-</pre> Given the action extends from OnChangeSearchAction (1) and we use (2) it
-      behaves just in the standard way, that is, when the user types a year and
-      number the invoice data is retrieved and fills the user interface.
-      Afterwards, we use getView() (3) to obtain the key of the displayed
-      invoice to find the corresponding entity using MapFacade (4). From inside
-      an OnChangeSearchAction getView() returns the subview of the reference,
-      and not the global view. Therefore, in this case getView() is the view of
-      the invoice super.execute() reference. This allows you to create more
-      reusable @OnChangeSearch actions. Thus you have to write
-      getView().getRoot().getSubview(“customer”) (5) to access to the customer
-      view. <br>
-      To implement the behavior visualized in the previous figure 9.6, the
-      action asks if there is no customer (customberNumber == 0) (6). If this is
+public class OnChangeSearchInvoiceAction 
+    extends OnChangeSearchAction { // Standard logic for searching a reference when
+                                   // the key values change in the user interface (1)
+    public void execute() throws Exception {
+        super.execute(); // It executes the standard logic (2)
+        Map keyValues = getView()// getView() here is the reference view, not the main one (3)
+            .getKeyValuesWithValue();
+        if (keyValues.isEmpty()) return; // If key is empty no additional logic is executed
+        Invoice invoice = (Invoice) // We search the Invoice entity from the typed key (4)
+            MapFacade.findEntity(getView().getModelName(), keyValues);
+        View customerView = getView().getRoot().getSubview("customer"); // (5)
+        int customerNumber = customerView.getValueInt("number");
+        if (customerNumber == 0) { // If there is no customer we fill it (6)
+            customerView.setValue("number", invoice.getCustomer().getNumber());
+            customerView.refresh();
+        } 
+        else { // If there is already customer we verify that he matches the invoice customer (7)
+            if (customerNumber != invoice.getCustomer().getNumber()) {
+                addError("invoice_customer_not_match", 
+                    invoice.getCustomer().getNumber(), invoice, customerNumber);
+                getView().clear();
+            }
+        }
+    }
+}	
+</code></pre> Given the action extends from <i>OnChangeSearchAction</i> (1) and
+      we use <i>super.execute() </i>(2) it behaves just in the standard way,
+      that is, when the user types a year and number the invoice data is
+      retrieved and fills the user interface. Afterwards, we use <i>getView()</i>
+      (3) to obtain the key of the displayed invoice to find the corresponding
+      entity using <i>MapFacade</i> (4). From inside an <i>OnChangeSearchAction</i>
+      <i>getView()</i> returns the subview of the reference, and not the global
+      view. Therefore, in this case <i>getView()</i> is the view of the invoice
+      reference. This allows you to create more reusable <i>@OnChangeSearch</i>
+      actions. Thus you have to write <i>getView().getRoot().getSubview(“customer”)</i>
+      (5) to access to the customer view. <br>
+      To implement the behavior visualized in the previous image, the action
+      asks if there is no customer (<i>customberNumber == 0</i>) (6). If this is
       the case it fills the customer from the customer of the invoice. Otherwise
-      it implements the logic from figure 9.7 verifying that the customer of the
-      current order matches the customer of the retrieved invoice. <br>
-      The last remaining detail is the message text. Add the entry in listing
-      9.9 to the Invoicing-messages_en.properties file of i18n folder.
-      <pre>Listing 9.9 Invoice search error in Invoicing-messages_en.properties
-invoice_customer_not_match=Customer Nº {0} of invoice {1} does not match with
-Customer Nº {2} of the current order
-</pre> One interesting thing about @OnChangeSearch is that it is also executed
-      when the invoice is chosen from a list, because in this case the year and
-      number of the invoice also changes. Hence, this is a centralized place to
-      refine the logic for retrieving the reference and populating the view.
+      it implements the logic from previous image verifying that the customer of
+      the current order matches the customer of the retrieved invoice. <br>
+      The last remaining detail is the message text. Add the next entry to the <i>Invoicing-messages_en.properties</i>
+      file of <i>i18n</i> folder.
+      <pre><code class="properties">invoice_customer_not_match=Customer Nº {0} of invoice {1} does not match with customer Nº {2} of the current order
+</code></pre> One interesting thing about <i>@OnChangeSearch</i> is that it is
+      also executed when the invoice is chosen from a list, because in this case
+      the year and number of the invoice also changes. Hence, this is a
+      centralized place to refine the logic for retrieving the reference and
+      populating the view.
       <h2>Refining collection behavior</h2>
-      We can refine collections in the same way we have refined references. This
-      is very useful, because it allows us to improve the current behavior of
-      the Invoice module. The user can only add an order to an invoice if the
-      invoice and the orders belongs to the same customer. Moreover, the order
-      must be delivered and must not have an invoice yet.
+      TMP ME QUEDÉ POR AQUÍ</div>
+    <div class="wiki" style="display: block;"> We can refine collections in the
+      same way we have refined references. This is very useful, because it
+      allows us to improve the current behavior of the <i>Invoice </i>module.
+      The user can only add an order to an invoice if the invoice and the orders
+      belongs to the same customer. Moreover, the order must be delivered and
+      must not have an invoice yet.
       <h3>Modifying default tabular data helps</h3>
       With the default behavior the user may have a hard time trying to find the
       correct orders to add to his invoice. Because when the user clicks to add

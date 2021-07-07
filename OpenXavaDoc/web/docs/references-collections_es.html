@@ -243,14 +243,14 @@ public class BuscarFacturaDesdePedido
         title="references-collections_es040.png"><br>
       Por otra parte, si el usuario ya ha seleccionado un cliente para el
       pedido, si no coincide con el de la factura, ésta será rechazada y se
-      visualizará un mensaje de error, tal como muestra la figura 9.7. <br>
-      Figura 9.7 Escoger una factura cuando el cliente ya está seleccionado <br>
-      Para definir este comportamiento especial hemos de añadir una anotación en
-      la referencia invoice de Order. @OnChangeSearch permite definir nuestra
-      propia acción para hacer la búsqueda de la referencia cuando su clave
-      cambia en la interfaz de usuario. Puedes ver la referencia modificada en
-      el listado 9.7.<br>
-      @OnChangeSearch
+      visualizará un mensaje de error, tal como se muestra aquí:</div>
+    <img src="files/references-collections_es050.png" alt="references-collections_es050.png"
+      title="references-collections_es050.png">
+    <div class="wiki" style="display: block;">Para definir este comportamiento
+      especial hemos de añadir una anotación en la referencia <i>factura</i> de
+      <i>Pedido</i>. <i>@OnChangeSearch</i> permite definir nuestra propia
+      acción para hacer la búsqueda de la referencia cuando su clave cambia en
+      la interfaz de usuario. Puedes ver la referencia modificada:
       <pre><code class="java">public class Pedido extends DocumentoComercial {
  
     @ManyToOne
@@ -264,77 +264,67 @@ public class BuscarFacturaDesdePedido
 	
 }
 </code></pre> A partir de ahora cuando un usuario teclee un nuevo año y número
-      para la factura, OnChangeSearchInvoiceAction se ejecutará. En esta acción
-      se han de leer los datos de la factura de la base de datos y actualizar la
-      interfaz de usuario. El listado 9.8 muestra el código de la acción.
-      <pre>Listado 9.8 Acción para buscar la factura al teclear año y número
-package org.openxava.invoicing.actions;
-import
-import
-import
-import
-import
+      para la factura, <i>BuscarAlCambiarFactura</i> se ejecutará. En esta
+      acción se han de leer los datos de la factura de la base de datos y
+      actualizar la interfaz de usuario. A continuación el código de la acción:
+      <pre><code class="java">package com.tuempresa.facturacion.actiones; // En el paquete 'acciones'
 
-// En el paquete 'actions'
+import java.util.*;
+import org.openxava.actions.*; // Para usar OnChangeSearchAction
+import org.openxava.model.*;
+import org.openxava.view.*;
+import com.tuempresa.facturacion.modelo.*;
 
-java.util.*;
-org.openxava.actions.*; // Para usar OnChangeSearchAction
-org.openxava.invoicing.model.*;
-org.openxava.model.*;
-org.openxava.view.*;
-
-public class OnChangeSearchInvoiceAction
-extends OnChangeSearchAction { // Lógica estándar para buscar una referencia cuando
-// los valores clave cambian en la interfaz de usuario (1)
-public void execute() throws Exception {
-super.execute(); // Ejecuta la lógica estándar (2)
-Map keyValues = getView() // getView() aquí es la de la referencia, no la principal(3)
-.getKeyValuesWithValue();
-if (keyValues.isEmpty()) return; // Si la clave está vacía no se ejecuta más lógica
-Invoice invoice = (Invoice) // Buscamos la factura usando la clave tecleada (4)
-MapFacade.findEntity(getView().getModelName(), keyValues);
-View customerView = getView().getRoot().getSubview("customer"); // (5)
-int customerNumber = customerView.getValueInt("number");
-if (customerNumber == 0) { // Si no hay cliente lo llenamos (6)
-customerView.setValue("number", invoice.getCustomer().getNumber());
-customerView.refresh();
-}
-else { // Si ya hay un cliente verificamos que coincida con el cliente de la factura (7)
-if (customerNumber != invoice.getCustomer().getNumber()) {
-addError("invoice_customer_not_match",
-invoice.getCustomer().getNumber(), invoice, customerNumber);
-getView().clear();
-}
-}
-}
-}
-</pre> Dado que la acción desciende de OnChangeSearchAction (1) y usamos (2) se
-      comporta de la forma estándar, es decir, cuando el usuario teclea el año y
-      el número los datos de la factura se recuperan y rellenan la interfaz de
-      usuario. Después, usamos getView() (3) para obtener la clave de la factura
-      visualizada y así encontrar su correspondiente entidad usando MapFacade
-      (4). Desde dentro de ChangeSearchAction getView() devuelve la subvista de
-      la referencia, y no la vista global. Por lo tanto, en este caso getView()
-      es la vista de la referencia a factura. Esto permite crear acciones
-      @OnChangeSearch más reutilizables. Has de escribir
-      getView().getRoot().getSubview(“customer”) (5) para acceder a la vista del
-      cliente. super.execute() <br>
-      Para implementar el comportamiento visualizado en la anterior figura 9.6,
-      la acción pregunta si no hay cliente (customberNumber == 0) (6). Si éste
+public class BuscarAlCambiarFactura  
+    extends OnChangeSearchAction { // Lógica estándar para buscar una referencia cuando
+                                   // los valores clave cambian en la interfaz de usuario (1)
+    public void execute() throws Exception {
+        super.execute(); // Ejecuta la lógica estándar (2)
+        Map clave = getView() // getView() aquí es la de la referencia, no la principal(3)
+            .getKeyValuesWithValue();
+        if (clave.isEmpty()) return;  // Si la clave está vacía no se ejecuta más lógica
+        Factura factura = (Factura) // Buscamos la factura usando la clave tecleada (4)
+            MapFacade.findEntity(getView().getModelName(), clave);
+        View vistaCliente = getView().getRoot().getSubview("cliente"); // (5)
+        int numeroCliente = vistaCliente.getValueInt("numero");
+        if (numeroCliente == 0) { // Si no hay cliente lo llenamos (6)
+            vistaCliente.setValue("numero", factura.getCliente().getNumero());
+            vistaCliente.refresh();
+        } 
+        else { // Si ya hay un cliente verificamos que coincida con el cliente de la factura (7)
+            if (numeroCliente != factura.getCliente().getNumero()) {
+                addError("cliente_factura_no_coincide", 
+                    factura.getCliente().getNumero(), factura, numeroCliente);
+                getView().clear();
+            }
+        }
+    }
+}	
+</code></pre> Dado que la acción desciende de <i>OnChangeSearchAction</i> (1) y
+      usamos <i>super.execute()</i> (2) se comporta de la forma estándar, es
+      decir, cuando el usuario teclea el año y el número los datos de la factura
+      se recuperan y rellenan la interfaz de usuario. Después, usamos <i>getView()</i>
+      (3) para obtener la clave de la factura visualizada y así encontrar su
+      correspondiente entidad usando <i>MapFacade</i> (4). Desde dentro de una
+      <i>OnChangeSearchAction</i> <i>getView()</i> devuelve la subvista de la
+      referencia, y no la vista global. Por lo tanto, en este caso <i>getView()</i>
+      es la vista de la referencia a factura. Esto permite crear acciones <i>@OnChangeSearch</i>
+      más reutilizables. Has de escribir <i>getView().getRoot().getSubview(“cliente”)</i>
+      (5) para acceder a la vista del cliente.&nbsp; <br>
+      Para implementar el comportamiento visualizado en la imagen anterior, la
+      acción pregunta si no hay cliente (<i>numeroCliente == 0</i>) (6). Si éste
       es el caso rellena los datos del cliente desde el cliente de la factura.
-      En caso contrario implementa la lógica de la figura 9.7 verificando que el
-      cliente del pedido actual coincide con el cliente de la factura
+      En caso contrario implementa la lógica de la imagen de arriba verificando
+      que el cliente del pedido actual coincide con el cliente de la factura
       recuperada.<br>
-      Nos queda un pequeño detalle, el texto del mensaje. Añade la entrada
-      mostrada en el listado 9.9 al archivo Invoicing-messages_en.properties de
-      la carpeta i18n.
-      <pre>Listado 9.9 Error de búsqueda de factura en Invoicing-messages_en.properties
-invoice_customer_not_match=Customer Nº {0} of invoice {1} does not match with
-Customer Nº {2} of the current order
-</pre> Una cosa interesante de @OnChangeSearch es que también se ejecuta si la
-      factura se escoge desde la lista, porque en este caso el año y el número
-      también cambian. Por ende, este es un lugar centralizado donde refinar la
-      lógica para recuperar la referencia y rellenar la vista.
+      Nos queda un pequeño detalle, el texto del mensaje. Añade la siguiente
+      entrada al archivo <i>MensajesFacturacion_es.properties</i> de la carpeta
+      <i>i18n</i>:
+      <pre><code class="properties">cliente_factura_no_coincide=Cliente Nº {0} de la factura {1} no coincide con el cliente Nº {2} del pedido actual
+</code></pre> Una cosa interesante de <i>@OnChangeSearch</i> es que también se
+      ejecuta si la factura se escoge desde la lista, porque en este caso el año
+      y el número también cambian. Por ende, este es un lugar centralizado donde
+      refinar la lógica para recuperar la referencia y rellenar la vista.
       <h2>Refinar el comportamiento de las colecciones</h2>
       Podemos refinar las colecciones de la misma forma que hemos hecho con las
       referencias. Esto es muy útil, porque nos permite mejorar el
