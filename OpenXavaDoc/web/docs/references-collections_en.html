@@ -323,58 +323,33 @@ public class OnChangeSearchInvoiceAction
       centralized place to refine the logic for retrieving the reference and
       populating the view.
       <h2>Refining collection behavior</h2>
-      TMP ME QUEDÉ POR AQUÍ</div>
-    <div class="wiki" style="display: block;"> We can refine collections in the
-      same way we have refined references. This is very useful, because it
-      allows us to improve the current behavior of the <i>Invoice </i>module.
-      The user can only add an order to an invoice if the invoice and the orders
-      belongs to the same customer. Moreover, the order must be delivered and
-      must not have an invoice yet.
-      <h3>Modifying default tabular data helps</h3>
-      With the default behavior the user may have a hard time trying to find the
-      correct orders to add to his invoice. Because when the user clicks to add
-      orders, all existing orders are shown, and even worse, the customer data
-      is not shown in the list. We wanted that the customer data would be shown
-      in the orders list, just as shown figure 9.8. <br>
-      Figure 9.8 Adding orders to invoice showing customer data in orders list <br>
-      Listing 9.10 shows how to add the customer to the list using the
-      properties attribute of @Tab in Order entity.
-      <pre>Listing 9.10 Tabular data definition for Order
-@Tabs({
-@Tab(baseCondition = "deleted = false",
-properties="year, number, date, customer.number, customer.name," +
-"delivered, vatPercentage, estimatedProfit, baseAmount, " +
-"vat, totalAmount, amount, remarks"
-),
-@Tab(name="Deleted", baseCondition = "deleted = true")
-})
-public class Order extends CommercialDocument {
-</pre> Note how we have added customer.number and customer.name. Figure 9.8 also
-      shows how the validation in the entities prevent the user from adding
-      incorrect orders.<br>
-      However, it would be better if only orders available to be added to the
-      current invoice would be present in the list. Thus, the user has no way to
-      make a mistake. <br>
-      Let's do it in next section.
+      TMP ME QUEDÉ POR AQUÍ: LA IMAGEN Y EL CÓDIGO YA ESTÁ, FALTA REFINAR TEXTO.
+      We can refine collections in the same way we have refined references. This
+      is very useful, because it allows us to improve the current behavior of
+      the <i>Invoice </i>module. The user can only add an order to an invoice
+      if the invoice and the orders belongs to the same customer. Moreover, the
+      order must be delivered and must not have an invoice yet.
       <h3>Refining the list for adding elements to a collection</h3>
       Currently when the user tries to add orders to an invoice all the orders
       are available. We are going to improve this for showing only the orders
       from the customer of the invoice, delivered and with not invoice yet, just
       as shown in figure 9.9. <br>
-      Figure 9.9 Adding orders shows only delivered orders of the current
-      customer <br>
-      We will use the @NewAction annotation for defining our own action to show
+      <img src="files/references-collections_en60.png" alt="references-collections_en60.png"
+        title="references-collections_en60.png"><br>
+      We will use the @AddAction annotation for defining our own action to show
       the list for adding orders. Listing 9.11 shows the needed modification in
       Order class.
-      <pre>Listing 9.11 @NewAction to define a custom action to go to add orders list
-public class Invoice extends CommercialDocument {
-@OneToMany(mappedBy="invoice")
-@CollectionView("NoCustomerNoInvoice")
-@NewAction("Invoice.addOrders") // To define our own action to add orders
-private Collection<order> orders;
-...
+      <pre><code class="java">public class Invoice extends CommercialDocument {
+
+    @OneToMany(mappedBy="invoice")
+    @CollectionView("NoCustomerNoInvoice")
+    @AddAction("Invoice.addOrders") // To define our own action to add orders
+    private Collection&lt;Order&gt; orders;
+
+    ...
+	
 }
-</order></pre> In this simple way we define the action to execute when the user
+</code></pre> In this simple way we define the action to execute when the user
       clicks on the plus sign (+) button to add orders. The argument used for
       @NewAction, Invoice.addOrders, is the qualified name of the action, that
       is the action addOrders of the controller Invoice as defined in
@@ -382,44 +357,40 @@ private Collection<order> orders;
       Now we have to edit controllers.xml to add the Invoice controller (it does
       not exist yet) definition with our new action. Listing 9.12 shows the
       controller definition.
-      <pre>Listing 9.12 Invoice.addOrders action declaration in controllers.xml
-<controller name="Invoice">
-<extends controller="Invoicing">
-<action name="addOrders" class="org.openxava.invoicing.actions.GoAddOrdersToInvoiceAction"
-image="images/create_new.gif" hidden="true">
-<!---hidden="true" : Because we don't want the action to be shown in module button bar
-image="images/create_new.gif": The same image as for the standard action
----->
-</action></extends></controller>
-</pre> Listing 9.13 shows the action code.
-      <pre>Listing 9.13 Code for custom action to go to “add orders” from an invoice
-package org.openxava.invoicing.actions;
-import org.openxava.actions.*;
+      <pre><code class="xml">&lt;controller name="Invoice"&gt;
+    &lt;extends controller="Invoicing"/&gt;
 
-// In 'actions' package
+    &lt;action name="addOrders"
+        class="com.yourcompany.invoicing.actions.GoAddOrdersToInvoiceAction"
+        hidden="true" icon="table-row-plus-after"/&gt;
+        &lt;!--
+        hidden="true" : Because we don't want the action to be shown in module button bar
+        icon="table-row-plus-after" : The same icon as for the standard action
+        --&gt;
 
-// To use GoAddElementsToCollectionAction
+&lt;/controller&gt;
+</code></pre> Listing 9.13 shows the action code.
+      <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
+
+import org.openxava.actions.*; // To use GoAddElementsToCollectionAction
 
 public class GoAddOrdersToInvoiceAction
-extends GoAddElementsToCollectionAction {
-
-// Standard logic to go to
-// adding collection elements list
-
-public void execute() throws Exception {
-super.execute(); // It executes the standard logic, that shows a dialog
-int customerNumber =
-getPreviousView() // getPreviousView() is the main view (we are in a dialog)
-.getValueInt("customer.number"); // Reads the customer number
-// of the current invoice from the view
-getTab().setBaseCondition( // The condition of the orders list to add
-"${customer.number} = " + customerNumber +
-" and ${delivered} = true and ${invoice.oid} is null"
-);
+    extends GoAddElementsToCollectionAction { // Standard logic to go to
+                                              // adding collection elements list
+    public void execute() throws Exception {
+        super.execute(); // It executes the standard logic, that shows a dialog
+        int customerNumber =
+            getPreviousView() // getPreviousView() is the main view (we are in a dialog)
+                .getValueInt("customer.number"); // Reads the customer number
+                                                 // of the current invoice from the view
+        getTab().setBaseCondition( // The condition of the orders list to add
+            "${customer.number} = " + customerNumber +
+            " and ${delivered} = true and ${invoice.oid} is null"
+        );
+    }
 }
-}
-</pre> Note how we use getTab().setBaseCondition() to establish a condition for
-      the list to choose the entities to add. That is, from a
+</code></pre> Note how we use getTab().setBaseCondition() to establish a
+      condition for the list to choose the entities to add. That is, from a
       GoAddElementsToCollectionAction you can use getTab() to manipulate the way
       the list behaves.
       <h3>Refining the action to add elements to a collection</h3>
