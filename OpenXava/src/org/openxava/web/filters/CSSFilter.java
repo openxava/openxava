@@ -35,5 +35,11 @@ public class CSSFilter implements Filter {
 		out.write(caw.toString());					
 		out.close();
 	}
+	
+	 public void init(javax.servlet.FilterConfig filterConfig) throws javax.servlet.ServletException { 
+	 }
+	 
+	 public void destroy() { 
+	 }
 
 }

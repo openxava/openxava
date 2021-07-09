@@ -18,5 +18,17 @@
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="sa" password="" driverClassName="org.hsqldb.jdbcDriver"
 	      url="jdbc:hsqldb:file:data/CompanyBDB"/>
+	      
+	<!-- For WTP  
+	<Resource auth="Container" driverClassName="org.hsqldb.jdbcDriver"
+		maxActive="20" maxIdle="5" maxWait="10000" name="jdbc/CompanyADS"
+		password="" type="javax.sql.DataSource" url="jdbc:hsqldb:file:/Users/javi/git/openxava/OpenXavaTest/data/CompanyADB"
+		username="sa" />
+		
+	<Resource auth="Container" driverClassName="org.hsqldb.jdbcDriver"
+		maxActive="20" maxIdle="5" maxWait="10000" name="jdbc/CompanyBDS"
+		password="" type="javax.sql.DataSource" url="jdbc:hsqldb:file:/Users/javi/git/openxava/OpenXavaTest/data/CompanyBDB"
+		username="sa" />
+	-->	
 	
 </Context>
