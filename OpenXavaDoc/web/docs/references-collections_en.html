@@ -323,7 +323,6 @@ public class OnChangeSearchInvoiceAction
       centralized place to refine the logic for retrieving the reference and
       populating the view.
       <h2>Refining collection behavior</h2>
-      TMP ME QUEDÉ POR AQUÍ: LA IMAGEN Y EL CÓDIGO YA ESTÁ, FALTA REFINAR TEXTO.
       We can refine collections in the same way we have refined references. This
       is very useful, because it allows us to improve the current behavior of
       the <i>Invoice </i>module. The user can only add an order to an invoice
@@ -333,30 +332,29 @@ public class OnChangeSearchInvoiceAction
       Currently when the user tries to add orders to an invoice all the orders
       are available. We are going to improve this for showing only the orders
       from the customer of the invoice, delivered and with not invoice yet, just
-      as shown in figure 9.9. <br>
+      as shown: <br>
       <img src="files/references-collections_en60.png" alt="references-collections_en60.png"
         title="references-collections_en60.png"><br>
-      We will use the @AddAction annotation for defining our own action to show
-      the list for adding orders. Listing 9.11 shows the needed modification in
-      Order class.
+      We will use the <i>@AddAction</i> annotation for defining our own action
+      to show the list for adding orders. The following code shows the needed
+      modification in <i>Invoice</i> class.
       <pre><code class="java">public class Invoice extends CommercialDocument {
 
     @OneToMany(mappedBy="invoice")
     @CollectionView("NoCustomerNoInvoice")
     @AddAction("Invoice.addOrders") // To define our own action to add orders
-    private Collection&lt;Order&gt; orders;
+    Collection&lt;Order&gt; orders;
 
     ...
 	
 }
 </code></pre> In this simple way we define the action to execute when the user
-      clicks on the plus sign (+) button to add orders. The argument used for
-      @NewAction, Invoice.addOrders, is the qualified name of the action, that
-      is the action addOrders of the controller Invoice as defined in
-      controllers.xml file. <br>
-      Now we have to edit controllers.xml to add the Invoice controller (it does
-      not exist yet) definition with our new action. Listing 9.12 shows the
-      controller definition.
+      clicks on the button to add orders. The argument used for <i>@AddAction</i>,
+      <i>Invoice.addOrders</i>, is the qualified name of the action, that is the
+      action <i>addOrders</i> of the controller <i>Invoice</i> as defined in <i>
+        controllers.xml</i> file. <br>
+      Now we have to edit <i>controllers.xml</i> to add the <i>Invoice</i>
+      controller (it does not exist yet) definition with our new action:
       <pre><code class="xml">&lt;controller name="Invoice"&gt;
     &lt;extends controller="Invoicing"/&gt;
 
@@ -369,7 +367,7 @@ public class OnChangeSearchInvoiceAction
         --&gt;
 
 &lt;/controller&gt;
-</code></pre> Listing 9.13 shows the action code.
+</code></pre>This is the action code:
       <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
 import org.openxava.actions.*; // To use GoAddElementsToCollectionAction
@@ -385,128 +383,114 @@ public class GoAddOrdersToInvoiceAction
                                                  // of the current invoice from the view
         getTab().setBaseCondition( // The condition of the orders list to add
             "${customer.number} = " + customerNumber +
-            " and ${delivered} = true and ${invoice.oid} is null"
+            " and ${delivered} = true and ${invoice} is null"
         );
     }
 }
-</code></pre> Note how we use getTab().setBaseCondition() to establish a
-      condition for the list to choose the entities to add. That is, from a
-      GoAddElementsToCollectionAction you can use getTab() to manipulate the way
-      the list behaves.
+</code></pre> Note how we use <i>getTab().setBaseCondition()</i> to establish a
+      condition for the list to choose the entities to add. That is, from a <i>
+        GoAddElementsToCollectionAction</i> you can use <i>getTab()</i> to
+      manipulate the way the list behaves.
       <h3>Refining the action to add elements to a collection</h3>
       A useful improvement for the orders collection would be that when the user
       adds orders to the current invoice, the detail lines of those orders will
       be copied automatically to the invoice.<br>
-      We cannot use the @NewAction for this, because it is the action to show
-      the list to add elements to the collection. But this is not the action
-      that adds the elements. <br>
-      Let's learn how to define the action that actually adds the elements
-      (figure 9.10). <br>
-      Figure 9.10 We want to refine the 'Add' action in orders list <br>
+      We cannot use the <i>@AddAction</i> for this, because it is the action to
+      show the list to add elements to the collection. But this is not the
+      action that adds the elements. <br>
+      Let's learn how to define the action that actually adds the elements: <br>
+      <img src="files/references-collections_en70.png" alt="references-collections_en70.png"
+        title="references-collections_en70.png"><br>
       Unfortunately, there is not an annotation to directly define this 'Add'
       action. However, that is not a very difficult task, we only have to refine
-      the @NewAction instructing it to show our own controller, and in this
-      controller we can put the actions we want. Given we already have defined
-      our @NewAction in the previous section we only have to add a new method to
-      the already existing GoAddOrdersToInvoiceAction class. Listing 9.14 shows
-      this method.
-      <pre>Listing 9.14 Method getNextController() added to GoAddOrdersToInvoiceAction
-public class GoAddOrdersToInvoiceAction ... {
-...
-public String getNextController() { // We add this method
-return "AddOrdersToInvoice"; // The controller with the available actions in
-}
-// the list of orders to add
-}
-</pre> By default the actions in the list of entities to add (the 'Add' and
-      'Cancel' buttons) are from the standard OpenXava controller
-      AddToCollection. Overwriting getNextController() in our action allows us
-      to define our own controller instead. Listing 9.15 shows the definition of
-      our custom controller for adding elements in controllers.xml.
-      <pre>Listing 9.15 Custom controller to add orders to the invoice
-<controller name="AddOrdersToInvoice">
-<extends controller="AddToCollection"> <!-- Extends from the standard controller -->
-<!-- Overwrites the action to add -->
-<action name="add" class="org.openxava.invoicing.actions.AddOrdersToInvoiceAction">
-</action></extends></controller>
-</pre> In this way the action to add orders to the invoice is Remember that the
-      goal of our action is to add the orders to the invoice in the usual way,
-      but also to copy the detail lines from those orders to the invoice.
-      Listing 9.16 shows the action code. AddOrdersToInvoiceAction.
-      <pre>Listing 9.16 Code for custom action to to add orders to an invoice
-package org.openxava.invoicing.actions;
-import
-import
-import
-import
-import
-import
-import
-import
+      the <i>@AddAction</i> instructing it to show our own controller, and in
+      this controller we can put the actions we want. Given we already have
+      defined our <i>@AddAction</i> in the previous section we only have to add
+      a new method to the already existing <i>GoAddOrdersToInvoiceAction</i>
+      class. Add the next <i>getNextController()</i> method to your action:
+      <pre><code class="java">public class GoAddOrdersToInvoiceAction ... {
 
-// In 'actions' package
+    ...
 
-java.rmi.*;
-java.util.*;
-javax.ejb.*;
-org.openxava.actions.*; // To use AddElementsToCollectionAction
-org.openxava.invoicing.model.*;
-org.openxava.model.*;
-org.openxava.util.*;
-org.openxava.validators.*;
+    public String getNextController() { // We add this method
+        return "AddOrdersToInvoice"; // The controller with the available actions
+    }                                // in the list of orders to add
+}
+</code></pre> By default the actions in the list of entities to add (the 'Add'
+      and 'Cancel' buttons) are from the standard OpenXava controller <i>AddToCollection</i>.
+      Overwriting <i>getNextController()</i> in our action allows us to define
+      our own controller instead. Add the next definition in <i>controllers.xml</i>
+      for our custom controller for adding elements:
+      <pre><code class="xml">&lt;controller name="AddOrdersToInvoice"&gt;
+    &lt;extends controller="AddToCollection" /&gt; &lt;!-- Extends from the standard controller --&gt;
+	
+    &lt;!-- Overwrites the action to add --&gt;
+    &lt;action name="add"
+        class="com.yourcompany.invoicing.actions.AddOrdersToInvoiceAction" /&gt;
+		
+&lt;/controller&gt;
+</code></pre> In this way the action to add orders to the invoice is <i>AddOrdersToInvoiceAction</i>.
+      Remember that the goal of our action is to add the orders to the invoice
+      in the usual way, but also to copy the detail lines from those orders to
+      the invoice. This is the code of the action:TMP ME QUEDÉ POR AQUÍ. ESTA
+      HECHO HASTA JUNIT, PERO EL CÓDIGO A PARTIR DE AQUÍ ESTÁ SIN PROBAR, Y
+      PUEDE QUE NO VAYA.<br>
+      <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
+
+import java.rmi.*;
+import java.util.*;
+import javax.ejb.*;
+import org.openxava.actions.*; // To use AddElementsToCollectionAction
+import org.openxava.model.*;
+import org.openxava.util.*;
+import org.openxava.validators.*;
+import com.yourcompany.invoicing.model.*;
 
 public class AddOrdersToInvoiceAction
-extends AddElementsToCollectionAction {
+    extends AddElementsToCollectionAction { // Standard logic for adding
+                                            // collection elements
+    public void execute() throws Exception {
+        super.execute(); // We use the standard logic “as is”
+        getView().refresh(); // To display fresh data, including recalculated
+    }                        // amounts, which depend on detail lines
 
-// Standard logic for adding
-// collection elements
-
-public void execute() throws Exception {
-super.execute(); // We use the standard logic “as is”
-getView().refresh();
-// To display fresh data, including recalculated
+    protected void associateEntity(Map keyValues) // The method called to associate
+        throws ValidationException, // each entity to the main one, in this case to
+            XavaException, ObjectNotFoundException,// associate each order to the invoice
+            FinderException, RemoteException
+    {
+        super.associateEntity(keyValues); // It executes the standard logic (1)
+        Order order = (Order) MapFacade.findEntity("Order", keyValues); // (2)
+        order.copyDetailsToInvoice(); // Delegates the main work to the entity (3)
+    }
 }
-// amounts, which depend on detail lines
-protected void associateEntity(Map keyValues) // The method called to associate
-throws ValidationException,
-// each entity to the main one, in this case to
-XavaException, ObjectNotFoundException,// associate each order to the invoice
-FinderException, RemoteException
-{
-super.associateEntity(keyValues); // It executes the standard logic (1)
-Order order = (Order) MapFacade.findEntity("Order", keyValues); // (2)
-order.copyDetailsToInvoice(); // Delegates the main work to the entity (3)
-}
-}
-</pre> We overwrite the execute() method only to refresh the view after the
-      process. Really, we want to refine the logic for associating an order to
-      the invoice. The way to do this is overwriting the associateEntity()
+</code></pre> We overwrite the <i>execute()</i> method only to refresh the view
+      after the process. Really, we want to refine the logic for associating an
+      order to the invoice. The way to do this is overwriting the <i>associateEntity()</i>
       method. The logic here is simple, after executing the standard logic (1)
-      we search the corresponding Order entity and then call the
-      copyDetailsToInvoice() in that Order. <br>
-      Obviously, we need to have a copyDetailsToInvoice() method in Order
-      entity. Listing 9.17 shows this method.
-      <pre>Listing 9.17 Method copyDetailsInvoice() in Order class
-public class Order extends CommercialDocument {
+      we search the corresponding <i>Order</i> entity and then call the <i>copyDetailsToInvoice()</i>
+      in that <i>Order</i>. <br>
+      Obviously, we need to have a <i>copyDetailsToInvoice()</i> method in <i>Order</i>
+      entity:<br>
+      <pre><code class="java">public class Order extends CommercialDocument {
 
-197 Lesson 9: References &amp; collections
-...
-public void copyDetailsToInvoice() {
-copyDetailsToInvoice(getInvoice());
+    ...
+	
+    public void copyDetailsToInvoice() {
+        copyDetailsToInvoice(getInvoice()); // We rely in an already existing method
+    }
 }
 
-// We rely in an already existing method
-
-}
-</pre> Luckily we already have a method to copy details from an Order to the
-      specified Invoice, we just call this method sending the Invoice of the
-      Order. These little modifications to the behavior of orders collection of
-      Invoice are enough to convert the Invoice module in an effective tool for
-      invoicing individual customers. You only have to create a new invoice,
-      choose a customer and add orders. It is even easier than using the list
-      mode of Order module (we developed an action to do it in section 8.2)
-      because from Invoice module only the suitable orders for the customer are
-      shown.
+</code></pre> Luckily we already have a method to copy details from an <i>Order</i>
+      to the specified <i>Invoice</i>, we just call this method sending the <i>Invoice</i>
+      of the
+      <i> Order</i>. These little modifications to the behavior of <i>orders</i>
+      collection of
+      <i> Invoice</i> are enough to convert the Invoice module in an effective
+      tool for invoicing individual customers. You only have to create a new
+      invoice, choose a customer and add orders. It is even easier than using
+      the list mode of <i>Order</i> module because from <i>Invoice</i> module
+      only the suitable orders for the customer are shown.
       <h2>JUnit tests</h2>
       We still are in the healthy habit of doing some application code, then
       some testing code. And now it's time to write the test code for the new

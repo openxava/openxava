@@ -328,222 +328,175 @@ public class BuscarAlCambiarFactura
       <h2>Refinar el comportamiento de las colecciones</h2>
       Podemos refinar las colecciones de la misma forma que hemos hecho con las
       referencias. Esto es muy útil, porque nos permite mejorar el
-      comportamiento actual del módulo Invoice. El usuario sólo puede añadir un
-      pedido a una factura si la factura y el pedido pertenecen al mismo
-      cliente. Además, el pedido tiene que estar entregado (delivered) y no
-      tener todavía factura.
-      <h3>Modificar los datos tabulares ayuda</h3>
-      Con el comportamiento por defecto, el usuario puedo tener dificultades al
-      tratar de encontrar pedidos adecuados para asignar a su factura. Porque
-      cuando el usuario pulsa para añadir pedidos, todos los pedidos existentes
-      son mostrados, y lo que es peor, la información del cliente no se muestra
-      en la lista. Queremos que los datos del cliente se muestren en la lista de
-      pedidos, tal como muestra la figura 9.8. <br>
-      <img src="files/references-collections_es060.png" alt="references-collections_es060.png"
-        title="references-collections_es060.png"><br>
-      El listado 9.10 muestra como añadir el cliente a la lista usando el
-      atributo la entidad Order. <br>
-      properties de @Tab en
-      <pre>Listado 9.10 Definición de datos tabulares para Order
-@Tabs({
-@Tab(baseCondition = "deleted = false",
-properties="year, number, date, customer.number, customer.name," +
-"delivered, vatPercentage, estimatedProfit, baseAmount, " +
-"vat, totalAmount, amount, remarks"
-),
-@Tab(name="Deleted", baseCondition = "deleted = true")
-})
-public class Order extends CommercialDocument {
-</pre> Fíjate como hemos añadido customer.number y customer.name. La figura 9.8
-      también muestra como la validación en las entidades impide que el usuario
-      añada pedidos incorrectos. Sin embargo, sería mejor si sólo los pedidos
-      susceptibles de ser añadidos a la factura actual estuvieran presentes en
-      la lista, de tal modo que el usuario no tuviese forma de equivocarse. Lo
-      haremos así en la siguiente sección.
+      comportamiento actual del módulo <i>Factura</i>. El usuario sólo puede
+      añadir un pedido a una factura si la factura y el pedido pertenecen al
+      mismo cliente. Además, el pedido tiene que estar entregado y no tener
+      todavía factura.
       <h3>Refinar la lista para añadir elementos a la colección</h3>
       Actualmente cuando el usuario trata de añadir pedidos a la factura todos
       los pedidos están disponibles. Vamos a mejorar esto para mostrar solo los
       pedidos del cliente de la factura, entregados y todavía sin factura, tal
-      como muestra la figura 9.9. <br>
-      Figura 9.9 Añadir pedidos muestra solo los entregados y del cliente actual
-      <br>
-      Usaremos la anotación @NewAction para definir nuestra propia acción que
-      muestre la lista para añadir pedidos. El listado 9.11 muestra la
-      modificación necesaria en la clase Order.
-      <pre>Listado 9.11 @NewAction define la acción para ir a la lista de añadir pedidos
-public class Invoice extends CommercialDocument {
-@OneToMany(mappedBy="invoice")
-@CollectionView("NoCustomerNoInvoice")
-@NewAction("Invoice.addOrders") // Define nuestra propia acción para añadir pedidos
-private Collection<order> orders;
-...
+      como se muestra: <br>
+      <img src="files/references-collections_es060.png" alt="references-collections_es060.png"
+        title="references-collections_es060.png"><br>
+      Usaremos la anotación <i>@AddAction</i> para definir nuestra propia
+      acción que muestre la lista para añadir pedidos. El siguiente código
+      muestra la modificación necesaria en la clase <i>Factura</i>:
+      <pre><code class="java">public class Factura extends DocumentoComercial {
+ 
+    @OneToMany(mappedBy="factura")
+    @CollectionView("SinClienteNiFactura") 
+    @AddAction("Factura.anyadirPedidos") // Define nuestra propia acción para añadir pedidos
+    Collection&lt;Pedido&gt; pedidos;
+	
+    ...
+	
 }
-</order></pre> De esta forma tan sencilla definimos la acción a ejecutar cuando
-      el usuario pulsa en el botón con el signo más (+) para añadir pedidos. El
-      argumento usado para @NewAction, Invoice.addOrders, es el nombre
-      calificado de la acción, es decir la acción addOrders del controlador
-      Invoice tal como se ha definido en el archivo controllers.xml.<br>
-      Ahora hemos de editar controllers.xml para añadir el controlador Invoice
-      (todavía no existe) con nuestra acción. El listado 9.12 muestra la
-      definición del controlador.
-      <pre>Listado 9.12 Declaración de la acción Invoice.addOrders en controllers.xml
-<controller name="Invoice">
-<extends controller="Invoicing">
-<action name="addOrders" class="org.openxava.invoicing.actions.GoAddOrdersToInvoiceAction"
-image="images/create_new.gif" hidden="true">
+</code></pre> De esta forma tan sencilla definimos la acción a ejecutar cuando
+      el usuario pulsa en el botón para añadir pedidos. El argumento usado para
+      <i>@AddAction</i>, <i>Factura.anyadirPedidos</i>, es el nombre calificado
+      de la acción, es decir la acción <i>añadirPedidos</i> del controlador <i>Factura</i>
+      tal como se ha definido en el archivo <i>controladores.xml</i>.<br>
+      Ahora hemos de editar <i>controladores.xml</i> para añadir el controlador
+      <i>Factura</i> (todavía no existe) con nuestra acción:
+      <pre><code class="xml">&lt;controlador nombre="Factura"&gt;
+    &lt;hereda-de controlador="Facturacion"/&gt;
 
-<!---hidden="true": No se mostrará en la barra de botones del módulo
-image="images/create_new.gif": La misma imagen que la acción estándar
----->
-</action></extends></controller>
-</pre> El listado 9.13 muestra el código de la acción.
-      <pre>Listado 9.13 Acción personalizada para ir a “añadir pedidos” desde una factura
-package org.openxava.invoicing.actions;
-import org.openxava.actions.*;
+    &lt;accion nombre="anyadirPedidos"
+        clase="com.tuempresa.facturacion.acciones.IrAnyadirPedidosAFactura"
+        oculta="true" icono="table-row-plus-after"/&gt;
+        &lt;!--
+        oculta="true" : No se mostrará en la barra de botones del módulo
+        icono="table-row-plus-after" : La misma imagen que la acción estándar
+        --&gt;
 
-// En el paquete 'actions'
+&lt;/controlador&gt;
+</code></pre>Este es el código de la acción:
+      <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
 
-// Para usar GoAddElementsToCollectionAction
+import org.openxava.actions.*; // Para usar GoAddElementsToCollectionAction
 
-public class GoAddOrdersToInvoiceAction
-extends GoAddElementsToCollectionAction {
-
-// Lógica estándar para ir a la lista que
-// permite añadir elementos a la colección
-
-public void execute() throws Exception {
-super.execute(); // Ejecuta la lógica estándar, la cual muestra un diálogo
-int customerNumber =
-getPreviousView()// getPreviousView() es la vista principal (estamos en un diálogo)
-.getValueInt("customer.number"); // Lee el número de cliente de la
-// factura actual de la vista
-getTab().setBaseCondition( // La condición de la lista de pedidos a añadir
-"${customer.number} = " + customerNumber +
-" and ${delivered} = true and ${invoice.oid} is null"
-);
+public class IrAnyadirPedidosAFactura
+    extends GoAddElementsToCollectionAction { // Lógica estándar para ir a la lista que
+                                              // permite añadir elementos a la colección
+    public void execute() throws Exception {
+        super.execute(); // Ejecuta la lógica estándar, la cual muestra un diálogo
+        int numeroCliente =
+            getPreviousView() // getPreviousView() es la vista principal (estamos en un diálogo)
+                .getValueInt("cliente.numero"); // Lee el número de cliente de la
+                                                // factura actual de la vista
+        getTab().setBaseCondition( // La condición de la lista de pedidos a añadir
+            "${cliente.numero} = " + numeroCliente +
+            " and ${entregado} = true and ${factura} is null"
+        );
+    }
 }
-}
-</pre> Fíjate como usamos getTab().setBaseCondition() para establecer la
-      condición de la lista para escoger la entidades a añadir. Es decir, desde
-      una GoAddElementsToCollectionAction puedes usar getTab() para manipular la
-      forma en que la lista se comporta.
+</code></pre> Fíjate como usamos <i>getTab().setBaseCondition()</i> para
+      establecer la condición de la lista para escoger la entidades a añadir. Es
+      decir, desde una <i>GoAddElementsToCollectionAction</i> puedes usar <i>getTab()</i>
+      para manipular la forma en que la lista se comporta.
       <h3>Refinar la acción que añade elementos a la colección</h3>
       Una mejora interesante para la colección de pedidos sería que cuando el
       usuario añada pedidos a la factura actual, las líneas de detalle de estos
       pedidos se copien automáticamente a la factura.<br>
-      No podemos usar @NewAction para esto, porque es la acción que muestra la
-      lista de elementos a añadir a la colección. Pero no es la acción que añade
-      los elementos. En esta sección aprenderemos como definir la acción que
-      realmente añade los elementos (figura 9.10). <br>
-      Figura 9.10 Queremos refinar la acción 'Add' en la lista de pedidos <br>
+      No podemos usar <i>@AddAction</i> para esto, porque es la acción que
+      muestra la lista de elementos a añadir a la colección. Pero no es la
+      acción que añade los elementos. En esta sección aprenderemos como definir
+      la acción que realmente añade los elementos: <br>
+      <img src="files/references-collections_es070.png" alt="references-collections_es070.png"
+        title="references-collections_es070.png"><br>
       Por desgracia, no hay una anotación para definir directamente esta acción
       de añadir. Sin embargo, no es una tarea demasiado difícil, solo hemos de
-      refinar la acción @NewAction instruyéndola para mostrar nuestro propio
-      controlador, y en este controlador podemos poner las acciones que
-      queramos. Dado que ya hemos definido nuestra @NewAction en la sección
-      anterior solo hemos de añadir un nuevo método a la ya existente
-      GoAddOrdersToInvoiceAction. El listado 9.14 muestra este método.
-      <pre>Listado 9.14 getNextController() añadido a GoAddOrdersToInvoiceAction
-public class GoAddOrdersToInvoiceAction ... {
-...
-public String getNextController() { // Añadimos este método
-return "AddOrdersToInvoice"; // El controlador con las acciones disponibles en
+      refinar la acción <i>@AddAction</i> instruyéndola para mostrar nuestro
+      propio controlador y en este controlador podemos poner las acciones que
+      queramos. Dado que ya hemos definido nuestra <i>@AddAction</i> en la
+      sección anterior solo hemos de añadir un nuevo método a la ya existente <i>IrAnyadirPedidosAFactura</i>.
+      Añade el siguiente método <i>getNextController()</i> a tu acción:
+      <pre><code class="java">public class IrAnyadirPedidosAFactura ... {
+
+    ...
+
+    public String getNextController() { // Añadimos este método
+        return "AnyadirPedidosAFactura"; // El controlador con las acciones disponibles
+    }                                    // en la lista de pedidos a añadir
 }
-// la lista de pedidos a añadir
-}
-</pre> Por defecto las acciones en la lista de entidades a añadir (los botones
-      'Add' y 'Cancel') son del controlador estándar de OpenXava
+</code></pre> Por defecto las acciones en la lista de entidades a añadir (los
+      botones 'Add' y 'Cancel') son del controlador estándar de OpenXava
       AddToCollection. Sobrescribir getNextController() en nuestra acción nos
-      permite definir nuestro propio controlador en su lugar. El listado 9.15
-      muestra la definición de nuestro controlador propio para añadir elementos
-      en controllers.xml.
-      <pre>Listado 9.15 Controlador personalizado para añadir pedidos a la factura
-<controller name="AddOrdersToInvoice">
-<extends controller="AddToCollection">
-<!-- Sobrescribe la acción para añadir -->
-<action name="add" <!--="" extiende="" del="" controlador="" estándar="" --="">
+      permite definir nuestro propio controlador en su lugar. Añade en <i>controladores.xml</i>
+      la siguiente definición para nuestro controlador propio para añadir
+      elementos:
+      <pre><code class="xml">&lt;controlador nombre="AnyadirPedidosAFactura"&gt;
+    &lt;hereda-de controlador="AddToCollection" /&gt; &lt;!-- Extiende del controlador estándar --&gt;
+	
+    &lt;!-- Sobrescribe la acción para añadir --&gt;
+    &lt;accion nombre="add"
+        clase="com.tuempresa.facturacion.acciones.AnyadirPedidosAFactura" /&gt;
+		
+&lt;/controlador&gt;
+</code></pre> De esta forma la acción para añadir pedidos a la factura será <i>AnyadirPedidosAFactura</i>.
+      Recuerda que el objetivo de nuestra acción es añadir los pedidos a la
+      factura de la manera convencional, pero también copiar las líneas de estos
+      pedidos a la factura. Este es el código de la acción:
+      <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
 
-class="org.openxava.invoicing.actions.AddOrdersToInvoiceAction"/&gt;
-</action></extends></controller>
-</pre> De esta forma la acción para añadir pedidos a la factura será
-      AddOrdersToInvoiceAction. Recuerda que el objetivo de nuestra acción es
-      añadir los pedidos a la factura de la manera convencional, pero también
-      copiar las líneas de estos pedidos a la factura. El listado 9.16 muestra
-      el código de la acción.
-      <pre>Listado 9.16 Acción personalizada para añadir pedidos a una factura
-package org.openxava.invoicing.actions;
-import
-import
-import
-import
-import
-import
-import
-import
+import java.rmi.*;
+import java.util.*;
+import javax.ejb.*;
+import org.openxava.actions.*; // Para usar AddElementsToCollectionAction
+import org.openxava.model.*;
+import org.openxava.util.*;
+import org.openxava.validators.*;
+import com.tuempresa.facturacion.modelo.*;
 
-// En el paquete 'actions'
+public class AnyadirPedidosAFactura
+    extends AddElementsToCollectionAction { // Lógica estándar para añadir
+                                            // elementos a la colección
+    public void execute() throws Exception {
+        super.execute(); // Usamos la lógica estándar "tal cual"
+        getView().refresh(); // Para visualizar datos frescos, incluyendo los importes
+    }                        // recalculados, que dependen de las líneas de detalle
 
-java.rmi.*;
-java.util.*;
-javax.ejb.*;
-org.openxava.actions.*; // Para usar AddElementsToCollectionAction
-org.openxava.invoicing.model.*;
-org.openxava.model.*;
-org.openxava.util.*;
-org.openxava.validators.*;
-
-public class AddOrdersToInvoiceAction
-extends AddElementsToCollectionAction {
-
-// Lógica estándar para añadir
-// elementos a la colección
-
-public void execute() throws Exception {
-super.execute(); // Usamos la lógica estándar “tal cual”
-getView().refresh();
-// Para visualizar datos frescos, incluyendo los importes
+    protected void associateEntity(Map clave) // El método llamado para asociar
+        throws ValidationException, // cada entidad a la principal, en este caso para
+            XavaException, ObjectNotFoundException,// asociar cada pedido a la factura
+            FinderException, RemoteException
+    {
+        super.associateEntity(clave); // Ejecuta la lógica estándar (1)
+        Pedido pedido = (Pedido) MapFacade.findEntity("Pedido", clave); // (2)
+        pedido.copiarDetallesAFactura(); // Delega el trabajo principal en la entidad (3)
+    }
 }
-// recalculados, que dependen de las líneas de detalle
-protected void associateEntity(Map keyValues) // El método llamado para asociar
-throws ValidationException,
-// cada entidad a la principal, en este caso para
-XavaException, ObjectNotFoundException, // asociar cada pedido a la factura
-FinderException, RemoteException
-{
-super.associateEntity(keyValues); // Ejecuta la lógica estándar (1)
-Order order = (Order) MapFacade.findEntity("Order", keyValues); // (2)
-order.copyDetailsToInvoice(); // Delega el trabajo principal en la entidad (3)
-}
-}
-</pre> Sobrescribimos el método execute() sólo para refrescar la vista después
-      del proceso. Realmente, lo que nosotros queremos es refinar la lógica de
-      asociar un pedido a la factura. La forma de hacer esto es sobrescribiendo
-      el método associateEntity(). La lógica aquí es simple, después de ejecutar
-      la lógica estándar (1) buscamos la entidad Order correspondiente y
-      entonces llamamos al método copyDetailsToInvoice() de ese Order.<br>
-      Obviamente, necesitamos tener un método copyDetailsToInvoice() en la
-      entidad Order. El listado 9.17 muestra este método.
-      <pre>Listado 9.17 Método copyDetailsInvoice() en la clase Order
+</code></pre> Sobrescribimos el método <i>execute()</i> sólo para refrescar la
+      vista después del proceso. Realmente, lo que nosotros queremos es refinar
+      la lógica de asociar un pedido a la factura. La forma de hacer esto es
+      sobrescribiendo el método <i>associateEntity()</i>. La lógica aquí es
+      simple, después de ejecutar la lógica estándar (1) buscamos la entidad <i>Pedido</i>
+      correspondiente y entonces llamamos al método <i>copiarDetallesAFactura()</i>
+      de ese <i>Pedido</i>.<br>
+      Obviamente, necesitamos tener un método <i>copiarDetallesAFactura()</i>
+      en la entidad <i>Pedido</i>:
+      <pre><code class="java">public class Pedido extends DocumentoComercial {
 
-public class Order extends CommercialDocument {
-...
-public void copyDetailsToInvoice() {
-copyDetailsToInvoice(getInvoice());
+    ...
+	
+    public void copiarDetallesAFactura() {
+        copiarDetallesAFactura(getFactura()); // Delegamos en un método ya existente
+    }
 }
 
-// Delegamos en un método ya existente
-
-}
-</pre> Por suerte ya teníamos un método para copiar detalles desde una entidad
-      Order a la Invoice especificada, simplemente llamamos a este método
-      enviando la Invoice del Order.<br>
-      Estas pequeñas modificaciones al comportamiento de la colección orders de
-      Invoice son suficientes para convertir el módulo de Invoice en una
-      herramienta efectiva para facturar clientes individualmente. Solo has de
-      crear una factura nueva, escoger un cliente y añadir pedidos. Es incluso
-      más fácil de usar que el modo lista del módulo Order (desarrollamos una
-      acción para hacerlo en la sección 8.2) ya que el módulo Invoice solo se
-      muestran los pedidos adecuados al cliente.
+</code></pre> Por suerte ya teníamos un método para copiar detalles desde una
+      entidad
+      <i>Pedido</i> a la <i>Factura</i> especificada, simplemente llamamos a
+      este método enviando la <i>Factura</i> del <i>Pedido</i>.<br>
+      Estas pequeñas modificaciones al comportamiento de la colección <i>pedidos</i>
+      de
+      <i> Factura</i> son suficientes para convertir el módulo de <i>Factura</i>
+      en una herramienta efectiva para facturar clientes individualmente. Solo
+      has de crear una factura nueva, escoger un cliente y añadir pedidos. Es
+      incluso más fácil de usar que el modo lista del módulo <i>Pedido</i> ya
+      que el módulo <i>Factura</i> solo se muestran los pedidos adecuados al
+      cliente.
       <h2>Pruebas JUnit</h2>
       Todavía tenemos la sana costumbre de hacer un poco de código de
       aplicación, y después un poco de código de pruebas. Y ahora es el tiempo
