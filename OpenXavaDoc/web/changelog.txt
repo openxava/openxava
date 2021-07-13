@@ -1,6 +1,37 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.5.3 (2021-7-12)
+--------------------------
+- Getting Started guide includes video. 
+- Welcome page on starting OpenXava Studio simplified.
+- Documentation about @Calculation in Reference Guide (Model chapter) improved.
+- Database configuration documentation improved.
+- RequestReseter logic moved to a @WebListener.
+- Fix: @Calculation total property in @ElementCollection depending on summation not updated sometimes.
+- Fix: @ElementCollection summation not updated when the user changes values in the column of the summation. 
+- Fix: BigInteger properties are not treated as numeric values.
+- Fix: Dates ending with separator, like in Serbian, are incorrectly altered when modified. 
+- Fix: @ReadOnly(onCreate=false) did not work on references.
+- Fix: Unneeded AJAX loading of editors in some cases with @ReadOnly(onCreate=false), 
+- Fix: Read only enums not displayed completely when @Column(length=) with a low value is used.
+- Fix: Broken links in Model documentation of Reference Guide.
+- Fix: Changing in 'My reports' a comparison in a date from = to year = does not save the value of the year.     
+- Fix: Editing a date field comparing by year in 'My reports' does not show the year. 
+- Fix: Collection inside a section produces infinite loop if the collection element has recursive reference.
+- Fix: Date editor does not work well when locale format has the year at beginning, like in South Africa.
+- Fix: @ReadOnly ignored when using inside sections or groups with view inheritance.
+- Fix: Adding an element in a recursive collection that is also inside another collection fails.
+- Fix: @ReadOnly collections data not visible with Dark theme.
+- Fix: base.css is not refreshed by browser after updating OpenXava version.
+- Fix: File name for PDF generation and CSV export not encoded, so sometimes local characters are missed.
+- Fix: PDF reports do not work with Cp1250 encoding used by some Central and Eastern European languages.
+- Fix: Model name not translated in creation messages when key is included in the message.
+- Fix: @Calculation properties does not include thousand separators just after being calculated.
+- Fix: New action does not clear combo value on references with @DescriptionsList(showReferenceView=true).
+- Fix: @DescriptionsList(showReferenceView=true) does not refresh combo value navigating between records.
+- Fix: @AssertTrue throws error if has a message with a property with null value.
+
 OpenXava 6.5.2 (2021-5-31)
 --------------------------
 - Use of 4 digits for year in dates for all locales. 

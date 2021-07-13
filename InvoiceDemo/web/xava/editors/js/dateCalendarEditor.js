@@ -13,10 +13,11 @@ openxava.addEditorInitFunction(function() {
 		var idx = date.lastIndexOf(separator);
 		if (idx < 0) {
 			if (date.length % 2 != 0) date = " " + date;
-			var year = date.substring(4);
-			var middle = date.substring(2, 4);
-			var first = date.substring(0, 2);
-			date = first + separator + middle + separator + year;
+			var inc = dateFormat.substr(0, 1) === 'Y'?2:0;
+			var last = date.substring(4 + inc);
+			var middle = date.substring(2 + inc, 4 + inc);
+			var first = date.substring(0, 2 + inc);
+			date = first + separator + middle + separator + last;
 			date = date.trim(); 			
 		}	
 		idx = date.lastIndexOf(separator);
@@ -27,11 +28,17 @@ openxava.addEditorInitFunction(function() {
 			time = date.substr(idxSpace);
 			pureDate = date.substr(0, idxSpace);
 		}
-		if (dateFormat.indexOf('Y') >= 0 && pureDate.length - idx < 4) { 
+		var suffix = "";
+		if (idx == pureDate.length - 1) {
+			pureDate = pureDate.substring(0, idx);
+			suffix = separator;
+			idx = pureDate.lastIndexOf(separator);
+		}
+		if (dateFormat.indexOf('Y') > 0 && pureDate.length - idx < 4) { 
   			var dateNoYear = pureDate.substring(0, idx);
-  			var year = pureDate.substring(idx + 1);
+  			var year = pureDate.substring(idx + 1);	
   			var prefix = year > 50?"19":"20";
-  			date = dateNoYear + separator + prefix + year + time; 
+  			date = dateNoYear + separator + prefix + year + suffix + time; 
   		}			
   		$(this).val(date);
 	});
