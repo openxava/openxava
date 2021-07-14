@@ -12,7 +12,8 @@ import org.openxava.test.actions.*;
 @IdClass(CityKey.class)
 @Entity
 @Tab(properties="code, name, state.fullNameWithFormula")
-@View(members="state, stateCondition; code; name")
+// tmp @View(members="state, stateCondition; code; name")
+@View(members="state, stateCondition; code; name; location") // tmp
 public class City {
 	
 	@Id 
@@ -30,6 +31,9 @@ public class City {
 	@Transient
 	@OnChange(OnChangeStateConditionInCity.class)
 	private String stateCondition;
+	
+	@Stereotype("COORDINATES") @Column(length=50)
+	private String location; // tmp
 	
 	public State getState() {
 		return state;
@@ -61,6 +65,14 @@ public class City {
 
 	public void setStateCondition(String stateCondition) {
 		this.stateCondition = stateCondition;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 }
