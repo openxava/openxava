@@ -2,7 +2,7 @@ Change Log for OpenXava project
 ===============================
 
 - Coordinates:
-	- TMP ME QUEDÉ PROBANDO LeafLet, BUSCANDO UN PROVEEDOR GRATUITO.
+	- TMP ME QUEDÉ PROBANDO LeafLet, BUSCANDO UN PROVEEDOR GRATUITO. COPIA prova.html, prova2.htmp y prova3.html EN EL RAIZ DE OpenXavaTest
 	- Etiquetas alineadas arriba.
 	- Con o sin marco. Crear una anotación @Frame para propiedades. Si tenemos @LabelType, ¿por qué no?
 	- Incluir un mapa en InvoiceDemo
