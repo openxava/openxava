@@ -213,5 +213,5 @@
 		<property name="imagePreview" value="false"/>
 		<for-stereotype steroetype="TEXT_FILE"/>
 	</editor>
-	
+		
 </editors>
