@@ -2,10 +2,15 @@ Change Log for OpenXava project
 ===============================
 
 - Coordinates:
-	- TMP ME QUEDÉ PROBANDO LeafLet, BUSCANDO UN PROVEEDOR GRATUITO. COPIA prova.html, prova2.htmp y prova3.html EN EL RAIZ DE OpenXavaTest
+	- URL para tile y attribution sacarla de xava.properties
+	- Posibilidad de indicar tamaño.
 	- Etiquetas alineadas arriba.
 	- Con o sin marco. Crear una anotación @Frame para propiedades. Si tenemos @LabelType, ¿por qué no?
+	- Copiar leaflet.js, leaflet.js, leaflet.css y editors/style/images a OpenXava.
 	- Incluir un mapa en InvoiceDemo
+	- Debería funcionar bien con MapBox. Hay que adaptar parámetros.
+	- Probar con todos los proveedores. ¿Ponerlos en el xava.properties?
+	- Documentar: Cambiar tamaño e incluir editor.
 
 OpenXava 6.5.3 (2021-7-12)
 --------------------------
