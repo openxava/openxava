@@ -2,6 +2,10 @@ Change Log for OpenXava project
 ===============================
 
 - Coordinates:
+	- Validación de los datos introducidos en el campo.
+	- Hacer un L.map() solo si no se ha hecho ya, para mejorar rendimiento con AJAX.
+	- Liberar recursos después de cada petición AJAX.
+	- Cuando no hay coordeandas. ¿Mapamundi? ¿Mapa vacio? ¿Nada? Probar el efecto. 
 	- URL para tile y attribution sacarla de xava.properties
 	- Posibilidad de indicar tamaño.
 	- Etiquetas alineadas arriba.
@@ -10,6 +14,7 @@ Change Log for OpenXava project
 	- Incluir un mapa en InvoiceDemo
 	- Debería funcionar bien con MapBox. Hay que adaptar parámetros.
 	- Probar con todos los proveedores. ¿Ponerlos en el xava.properties?
+	- Probar con dos mapas en una página.
 	- Documentar: Cambiar tamaño e incluir editor.
 
 OpenXava 6.5.3 (2021-7-12)
