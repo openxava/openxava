@@ -1,0 +1,297 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lesson 2: Modeling with Java - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 2: Modeling with Java"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 3: Basic domain model - Parte 2</h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+        Getting started</a> | <strong>2. Modeling with Java</strong> | <a class="wiki_link"
+        href="testing_en.html">3. Automated testing</a> | <a class="wiki_link"
+        href="inheritance_en.html">4. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
+        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
+        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
+        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
+        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
+        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
+        Annotations</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#Lesson%202:%20Modeling%20with%20Java">Lesson
+            2: Modeling with Java</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model">Basic
+            domain model</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Reference%20%28ManyToOne%29%20as%20descriptions%20list%20%28combo%29">Reference
+            (ManyToOne) as descriptions list (combo)</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Stereotypes">Stereotypes</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Embeddable">Embeddable</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Calculating%20default%20values">Calculating
+            default values</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Regular%20reference%20%28ManyToOne%29">Regular
+            reference (ManyToOne)</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Collection%20of%20dependent%20objects">Collection
+            of dependent objects</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface">Refining
+            the user interface</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@View%20for%20defining%20layout">Using
+            @View for defining layout</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@ReferenceView%20to%20refine%20the%20user%20interface%20for%20reference">Using
+            @ReferenceView to refine the user interface for reference</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface-Refined%20user%20interface">Refined
+            user interface</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Agile%20development">Agile
+            development</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Summary">Summary</a></div>
+      </div>
+      In this lesson you'll finish to create all the entities required for your
+      project. We already have the basic entities, now we're going to write the
+      code for the main entity of our invoicing application, the <em>Invoice</em>
+      entity.<br>
+      <h3 id="toc6"><a name="Lesson 2: Modeling with Java-Basic domain model-Calculating default values"></a>Calculating
+        default values</h3>
+    </div>
+    <div class="wiki" style="display: block;"> We're going to write our <i>Invoice</i>
+      entity with <i>year</i>, <i>number</i> and <i>date</i>. It would be
+      nice to have default values for these properties, so the user does not
+      have to type them. It's easy to do it using the <em>@DefaultValueCalculator</em>
+      annotation. In this first version of <i>Invoice</i> you can see how we
+      define default values for <em>year</em> and <em>date</em>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import java.time.*;
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.openxava.annotations.*;
+import org.openxava.calculators.*;
+import lombok.*;
+ 
+@Entity @Getter @Setter
+public class Invoice {
+
+    @Id
+    @GeneratedValue(generator="system-uuid")
+    @Hidden
+    @GenericGenerator(name="system-uuid", strategy="uuid")
+    @Column(length=32)
+    String oid;
+
+    @Column(length=4)
+    @DefaultValueCalculator(CurrentYearCalculator.class) // Current year
+    int year;
+ 
+    @Column(length=6)
+    int number;
+ 
+    @Required
+    @DefaultValueCalculator(CurrentLocalDateCalculator.class) // Current date
+    LocalDate date;
+ 
+    @Stereotype("MEMO")
+    String remarks;
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Thus
+        when the user clicks on the <i>New</i> button the year field will have
+        the current year, and the date field the current date. These two
+        calculators (</span><em><span style="line-height: 1.5;">CurrentYearCalculator</span></em><span
+        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">CurrentLocalDateCalculator</span></em><span
+        style="line-height: 1.5;">) are included in OpenXava. You can explore
+        the </span><em><a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html">org.openxava.calculators</a></em><span
+        style="line-height: 1.5;"> package to see other useful built-in
+        calculators.</span></div>
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Note
+        that for the date we use the type <i>LocalDate</i> (from <i>java.time</i>
+        package). Java has a type <i>Date</i> (in <i>java.util</i> package).
+        However <i>Date</i> is not a date, but a moment in time, including
+        hours, seconds and milliseconds, while <i>LocalDate</i> has just day,
+        month and year, that is a date. For the invoice case, and for most cases
+        in business applications, we'll use <i>LocalDate</i> over <i>Date</i>.</span><br>
+      Sometimes you need your own logic for calculating the default value. For
+      example, for <em>number</em> we want to add one to the last invoice
+      number in the same year. Creating your own calculator with your logic is
+      easy. First, create a package for calculators and call it <em>com.yourcompany.invoicing.calculators</em>.
+    </div>
+    <div class="wiki" style="display: block;">For create a new package select
+      the <i>Invoice/src</i> folder and click on the <i>New Java Package</i>
+      button:</div>
+    <img src="files/modeling_en064.png" alt="">
+    <div class="wiki" style="display: block;">It shows a dialog where you enter
+      the package name, <em>com.yourcompany.invoicing.calculators</em>, and
+      click on <i>Finish</i>:</div>
+    <img src="files/modeling_en066.png" alt="">
+    <div class="wiki" style="display: block;">Packages are the way has Java to
+      organize the code. You should change <i>com.yourcompany</i> by the domain
+      of your organization, that is if you work for Google the package for
+      calculators should be <i>com.google.invoicing.calculators</i>. </div>
+    <div class="wiki" style="display: block;">Then create in it a <em>NextNumberForYearCalculator</em>
+      class, with the next code:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package com.yourcompany.invoicing.calculators;
+ 
+import javax.persistence.*;
+import org.openxava.calculators.*;
+import org.openxava.jpa.*;
+import lombok.*;
+ 
+public class NextNumberForYearCalculator implements ICalculator { // A calculator must implement ICalculator
+
+    @Getter @Setter // To be publicly accessible
+    int year; // This value will be injected before calculating
+ 
+    public Object calculate() throws Exception { // It does the calculation
+        Query query = XPersistence.getManager() // A JPA query
+            .createQuery("select max(i.number) from Invoice i" + " where i.year = :year"); // The query returns
+                                                                // the max invoice number of the indicated year
+        query.setParameter("year", year); // We use the injected year as a parameter for the query
+        Integer lastNumber = (Integer) query.getSingleResult();
+        return lastNumber == null ? 1 : lastNumber + 1; // Returns the last invoice number
+                                                        // of the year + 1 or 1 if there is no last number
+    }
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Your calculator must implement <em>ICalculator</em>
+      interface (and therefore must have a <em>calculate()</em> method). We
+      declare a <em>year</em> property to put in the year of the calculation.
+      To implement the logic we use a JPA query. You can learn how to use JPA in
+      <a class="wiki_link" href="jpa_en.html">appendix B</a>. Now we only have
+      to annotate the number <em>property</em> in the <em>Invoice</em> entity:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@Column(length=6)
+@DefaultValueCalculator(value=NextNumberForYearCalculator.class,
+    properties=@PropertyValue(name="year") // To inject the value of year from Invoice to
+                                           // the calculator before calling to calculate()
+)
+int number;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">In this case you see something
+      new, an annotation <em>@PropertyValue</em>. By using this annotation
+      you're saying that the value of <em>year</em> property of the current <em>Invoice</em>
+      will be moved to the property <em>year</em> of the calculator before
+      doing the calculation. Now when ever the user clicks on <i>New</i> the
+      next invoice number is available for the year field. The way of
+      calculating the invoice number is not the best for many concurrent users
+      adding invoices. Don't worry, we'll improve this issue later on.<br>
+      This is the visual effect of the default value calculators:<br>
+      <img src="files/modeling_en070.png" alt="modeling_en070.png" title="modeling_en070.png"><br>
+      Default values are only the initial values. The user can change them if he
+      wishes to.</div>
+    <div class="wiki" style="display: block;">Note as <i>year</i> and <i>number</i>
+      are not key, instead we use an <i>oid</i> property as key (annotated with
+      <i>@Id</i>). Generally using single keys is better, however <a href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Composite+key">using
+        composite keys is also possible</a>.<br>
+      <h3 id="toc7"><a name="Lesson 2: Modeling with Java-Basic domain model-Regular reference (ManyToOne)"></a>Regular
+        reference (ManyToOne)</h3>
+      Now that we have all atomic properties ready to use it's time to add
+      relationships with other entities. We'll begin adding a reference from <em>Invoice</em>
+      to <em>Customer</em>, because an invoice without customer is not very
+      useful. Before adding the customer <b>use the <em>Invoice</em> module to
+        remove all the current invoices</b> because we're going to make the
+      customer required, so the old data could fail.<br>
+      Add the next code to the <em>Invoice</em> entity:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // Customer is required
+Customer customer;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Nothing more is required. The <em>Invoice</em>
+      module is now like this one:<br>
+      <img src="files/modeling_en080.png" alt="modeling_en080.png" title="modeling_en080.png"><br>
+      There is no more work left here now. Let's add the collection of details
+      to your <em>Invoice</em>.<br>
+      <h3 id="toc8"><a name="Lesson 2: Modeling with Java-Basic domain model-Collection of dependent objects"></a>Collection
+        of dependent objects</h3>
+      Usually an invoice needs to have a couple of lines with the details of
+      products, quantities, etc. These details are part of the invoice. They are
+      not shared with other invoices, and when an invoice is deleted its details
+      are also deleted. So, the more natural way of modeling the invoice details
+      is to use a collection of embeddable objects. To do it with JPA, declare
+      in <i>Invoice</i> a regular collection annotated with <em>@ElementCollection</em>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@ElementCollection
+Collection&lt;Detail&gt; details;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Using <em>@ElementCollection</em>
+      when the invoice is removed its details are removed too. The details are
+      not saved in the database until the invoice is saved and they are saved
+      all at once.<br>
+      In order to make this collection works you need to write the <em>Detail</em>
+      class:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import javax.persistence.*;
+import lombok.*;
+ 
+@Embeddable @Getter @Setter
+public class Detail {
+ 
+    int quantity;
+ 
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    Product product;
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Note that <em>Detail</em> is
+      annotated with <em>@Embeddable</em> not with <em>@Entity</em>, you
+      cannot define an <em>@ElementCollection</em> of entities. This <em>@Embeddable</em>
+      class can contain properties and references but not collections.<br>
+      At the moment we only have <em>quantity</em> and <em>product</em> and
+      that is enough to get the <em>Invoice</em> running with <em>details</em>.
+      The user can add, edit and remove elements from the collection just as in
+      a spreadsheet:<br>
+      <img src="files/modeling_en090.png" alt="modeling_en090.png" title="modeling_en090.png"><br>
+      This screenshot emphasizes that the properties to show by default in a
+      collection are the plain ones, that is the properties of references are
+      not included by default. This fact produces an ugly user interface for our
+      collection of invoice details, because only the <i>quantity</i> property
+      is shown. You can fix it using <em>@ListProperties</em>, in this way:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@ElementCollection
+@ListProperties("product.number, product.description, quantity")
+Collection&lt;Detail&gt; details;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">As
+        you can see, you only have to feed the value for the annotation </span><em><span
+          style="line-height: 1.5;">@ListProperties</span></em><span style="line-height: 1.5;">
+        with the list of the properties you wish, separated by commas. You can
+        use qualified properties, that is, to use the dot notation for accessing
+        properties of references, such as <em>product.number</em> and <em>product.description</em>
+        in this case. The visual result is:</span><br>
+      <img src="files/modeling_en100.png" alt="modeling_en100.png" title="modeling_en100.png"><span
+        style="line-height: 1.5;"></span><br>
+      <h2 id="toc14"><a name="Lesson 2: Modeling with Java-Summary"></a>Summary</h2>
+      Congratulations! You have finished your domain model classes, and you have
+      an application running. Now the user can work with products, categories,
+      customers and even create invoices. In the case of products, categories
+      and customers the user interface is pretty decent, though the user
+      interface for invoices still can be improved a little.
+      By the way, you already have used some OpenXava annotations for refining
+      the presentation, such as <i>@DescriptionsList, @NoFrame</i> and <i>@ListProperties</i>.
+      In the next lesson we'll use more of these annotations to give the <i>Invoice</i>
+      user interface a better look without too much effort. </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
+          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_en.zip/download"
+          rel="nofollow">Download source code of this lesson</a></strong><br>
+      <br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
+        <a class="wiki_link" href="testing_en.html">Go to Lesson 3</a></strong>
+    </div>
+  </body>
+</html>
