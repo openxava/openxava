@@ -2,9 +2,6 @@ Change Log for OpenXava project
 ===============================
 
 - Coordinates:
-	- Validación de los datos introducidos en el campo.
-	- Hacer un L.map() solo si no se ha hecho ya, para mejorar rendimiento con AJAX.
-	- Liberar recursos después de cada petición AJAX.
 	- URL para tile y attribution sacarla de xava.properties
 	- Posibilidad de indicar tamaño.
 	- Etiquetas alineadas arriba.
@@ -18,6 +15,8 @@ Change Log for OpenXava project
 			- Al salir del campo rojo si está mal.
 			- Al salir del campo quita rojo si está bien.
 			- Al mover a otro registro el rojo desaparece. 
+		- Validación Java_
+			- Que aparezca el borde rojo en el campo.
 		
 	- Copiar leaflet.js, leaflet.js, leaflet.css y editors/style/images a OpenXava.
 	- Incluir un mapa en InvoiceDemo

@@ -3,7 +3,7 @@ if (coordinatesEditor == null) var coordinatesEditor = {};
 openxava.addEditorInitFunction(function() {
 	$(".xava_coordinates").each(function() {
 		// var map = L.map(this).setView([39.45399631909972, -0.3838714157032522], 16);
-		var map = L.map(this); // tmp .setView([39.45399631909972, -0.3838714157032522], 16);
+		var map = L.map(this); 
 		L.tileLayer('https://b.tile.opentopomap.org/{z}/{x}/{y}.png', {
 			maxZoom: 18,
 			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
@@ -32,8 +32,21 @@ openxava.addEditorInitFunction(function() {
 			input.val(e.latlng.lat + ", " + e.latlng.lng);
 		});
 		
+		$(this).data("map", map); // tmp
+		
 	});
 });
+
+openxava.addEditorDestroyFunction(function() {
+	$(".xava_coordinates").each(function() {
+		var map = $(this).data("map");
+		console.log("[openxava.addEditorDestroyFunction] map=" + map); // tmp
+		map.off();
+		map.remove();
+		$(this).data("map", null);
+	});
+});
+
 
 coordinatesEditor.setView = function(map, input, markers) {
 	var coordinates = input.val().split(/,/);
