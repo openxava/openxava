@@ -2,8 +2,8 @@ Change Log for OpenXava project
 ===============================
 
 - Coordinates:
-	- URL para tile y attribution sacarla de xava.properties
-	- Posibilidad de indicar tamaño.
+	- Documentar configuración en xava.properties
+	- Posibilidad de indicar tamaño. ¿Podría ser responsibe?
 	- Etiquetas alineadas arriba.
 	- Con o sin marco. Crear una anotación @Frame para propiedades. Si tenemos @LabelType, ¿por qué no?
 	- Pruebas:
@@ -21,10 +21,10 @@ Change Log for OpenXava project
 	- Copiar leaflet.js, leaflet.js, leaflet.css y editors/style/images a OpenXava.
 	- Incluir un mapa en InvoiceDemo
 	- Debería funcionar bien con MapBox. Hay que adaptar parámetros.
-	- Probar con todos los proveedores. ¿Ponerlos en el xava.properties?
 	- Probar con dos mapas en una página.
 	- ¿Maximixar mapa?
 	- Documentar: Cambiar tamaño e incluir editor.
+	- ¿Poner configuración mapa en xava.properties de plantilla de proyecto?
 
 OpenXava 6.5.3 (2021-7-12)
 --------------------------

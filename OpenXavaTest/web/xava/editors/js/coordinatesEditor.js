@@ -3,11 +3,13 @@ if (coordinatesEditor == null) var coordinatesEditor = {};
 openxava.addEditorInitFunction(function() {
 	$(".xava_coordinates").each(function() {
 		var map = L.map(this);
+		console.log("[openxava.addEditorInitFunction] openxava.mapsTileSize=" + openxava.mapsTileSize); // tmp
+		console.log("[openxava.addEditorInitFunction] openxava.mapsZoomOffset=" + openxava.mapsZoomOffset); // tmp
 		L.tileLayer(openxava.mapsTileProvider, {
 			maxZoom: 18,
 			attribution: openxava.mapsAttribution,
 			tileSize: openxava.mapsTileSize,
-			zoomOffset: openxava.zoomOffset
+			zoomOffset: openxava.mapsZoomOffset
 		}).addTo(map);
 		
 		var markers = L.layerGroup().addTo(map);
