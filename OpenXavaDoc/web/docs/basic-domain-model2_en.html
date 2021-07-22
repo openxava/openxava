@@ -1,7 +1,10 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lesson 2: Modeling with Java - OpenXava</title>
+    <title>Lesson 3: Basic domain model 2: Calculating default values
+      (@DefaultValueCalculator), regular references (@ManyToOne), collections of
+      dependent objects (@ElementCollection) - Modeling with Java - OpenXava
+      course</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,13 +12,15 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 2: Modeling with Java"></a> <span id="breadcrumbs">
+      <h1 id="toc0"><a name="Modeling with Java"></a> <span id="breadcrumbs">
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
         Lesson 3: Basic domain model - Parte 2</h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <strong>2. Modeling with Java</strong> | <a class="wiki_link"
-        href="testing_en.html">3. Automated testing</a> | <a class="wiki_link"
+        Getting started</a> | <strong>2. Modeling with Java</strong> | <a class="wiki_link"
+
+        href="testing_en.html">3. Automated testing</a> | <a class="wiki_link"
+
         href="inheritance_en.html">4. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
         Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
         Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
@@ -28,37 +33,21 @@
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#Lesson%202:%20Modeling%20with%20Java">Lesson
-            2: Modeling with Java</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model">Basic
-            domain model</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Reference%20%28ManyToOne%29%20as%20descriptions%20list%20%28combo%29">Reference
-            (ManyToOne) as descriptions list (combo)</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Stereotypes">Stereotypes</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Embeddable">Embeddable</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Calculating%20default%20values">Calculating
+        <div style="margin-left: 1em;"><a href="#Modeling%20with%20Java">Lesson
+            3: Basic domain model - Part 2</a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Basic%20domain%20model-Calculating%20default%20values">Calculating
             default values</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Regular%20reference%20%28ManyToOne%29">Regular
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Basic%20domain%20model-Regular%20reference%20%28ManyToOne%29">Regular
             reference (ManyToOne)</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Collection%20of%20dependent%20objects">Collection
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Basic%20domain%20model-Collection%20of%20dependent%20objects">Collection
             of dependent objects</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface">Refining
-            the user interface</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@View%20for%20defining%20layout">Using
-            @View for defining layout</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@ReferenceView%20to%20refine%20the%20user%20interface%20for%20reference">Using
-            @ReferenceView to refine the user interface for reference</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface-Refined%20user%20interface">Refined
-            user interface</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Agile%20development">Agile
-            development</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Summary">Summary</a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Summary">Summary</a></div>
       </div>
       In this lesson you'll finish to create all the entities required for your
       project. We already have the basic entities, now we're going to write the
       code for the main entity of our invoicing application, the <em>Invoice</em>
       entity.<br>
-      <h3 id="toc6"><a name="Lesson 2: Modeling with Java-Basic domain model-Calculating default values"></a>Calculating
+      <h3 id="toc6"><a name="Modeling with Java-Basic domain model-Calculating default values"></a>Calculating
         default values</h3>
     </div>
     <div class="wiki" style="display: block;"> We're going to write our <i>Invoice</i>
@@ -106,10 +95,13 @@ public class Invoice {
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Thus
         when the user clicks on the <i>New</i> button the year field will have
         the current year, and the date field the current date. These two
-        calculators (</span><em><span style="line-height: 1.5;">CurrentYearCalculator</span></em><span
-        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">CurrentLocalDateCalculator</span></em><span
+        calculators (</span><em><span style="line-height: 1.5;">CurrentYearCalculator</span></em><span
+
+        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">CurrentLocalDateCalculator</span></em><span
+
         style="line-height: 1.5;">) are included in OpenXava. You can explore
-        the </span><em><a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html">org.openxava.calculators</a></em><span
+        the </span><em><a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html">org.openxava.calculators</a></em><span
+
         style="line-height: 1.5;"> package to see other useful built-in
         calculators.</span></div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Note
@@ -193,7 +185,7 @@ int number;
       are not key, instead we use an <i>oid</i> property as key (annotated with
       <i>@Id</i>). Generally using single keys is better, however <a href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Composite+key">using
         composite keys is also possible</a>.<br>
-      <h3 id="toc7"><a name="Lesson 2: Modeling with Java-Basic domain model-Regular reference (ManyToOne)"></a>Regular
+      <h3 id="toc7"><a name="Modeling with Java-Basic domain model-Regular reference (ManyToOne)"></a>Regular
         reference (ManyToOne)</h3>
       Now that we have all atomic properties ready to use it's time to add
       relationships with other entities. We'll begin adding a reference from <em>Invoice</em>
@@ -211,7 +203,7 @@ Customer customer;
       <img src="files/modeling_en080.png" alt="modeling_en080.png" title="modeling_en080.png"><br>
       There is no more work left here now. Let's add the collection of details
       to your <em>Invoice</em>.<br>
-      <h3 id="toc8"><a name="Lesson 2: Modeling with Java-Basic domain model-Collection of dependent objects"></a>Collection
+      <h3 id="toc8"><a name="Modeling with Java-Basic domain model-Collection of dependent objects"></a>Collection
         of dependent objects</h3>
       Usually an invoice needs to have a couple of lines with the details of
       products, quantities, etc. These details are part of the invoice. They are
@@ -265,33 +257,39 @@ public class Detail {
 Collection&lt;Detail&gt; details;
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">As
-        you can see, you only have to feed the value for the annotation </span><em><span
+        you can see, you only have to feed the value for the annotation </span><em><span
+
           style="line-height: 1.5;">@ListProperties</span></em><span style="line-height: 1.5;">
         with the list of the properties you wish, separated by commas. You can
         use qualified properties, that is, to use the dot notation for accessing
         properties of references, such as <em>product.number</em> and <em>product.description</em>
         in this case. The visual result is:</span><br>
-      <img src="files/modeling_en100.png" alt="modeling_en100.png" title="modeling_en100.png"><span
+      <img src="files/modeling_en100.png" alt="modeling_en100.png" title="modeling_en100.png"><span
+
         style="line-height: 1.5;"></span><br>
-      <h2 id="toc14"><a name="Lesson 2: Modeling with Java-Summary"></a>Summary</h2>
+      <h2 id="toc14"><a name="Modeling with Java-Summary"></a>Summary</h2>
       Congratulations! You have finished your domain model classes, and you have
       an application running. Now the user can work with products, categories,
       customers and even create invoices. In the case of products, categories
       and customers the user interface is pretty decent, though the user
-      interface for invoices still can be improved a little.
-      By the way, you already have used some OpenXava annotations for refining
-      the presentation, such as <i>@DescriptionsList, @NoFrame</i> and <i>@ListProperties</i>.
+      interface for invoices still can be improved a little. By the way, you
+      already have used some OpenXava annotations for refining the presentation,
+      such as <i>@DescriptionsList, @NoFrame</i> and <i>@ListProperties</i>.
       In the next lesson we'll use more of these annotations to give the <i>Invoice</i>
       user interface a better look without too much effort. </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
-          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_en.zip/download"
+    <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
+
+          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="testing_en.html">Go to Lesson 3</a></strong>
     </div>
+    
   </body>
 </html>

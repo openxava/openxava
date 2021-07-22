@@ -1,7 +1,10 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lección 2: Modelar con Java - OpenXava</title>
+    <title>Lección 3: Modelo básico del dominio 2: Calcular valores por defecto
+      (@DefaultValueCalculator), referencias convencionales (@ManyToOne),
+      colecciones de objectos dependientes (@ElementCollection) - Modelar con
+      Java - Curso de OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -25,8 +28,40 @@
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
         Anotaciones</a>
-      <hr>En esta lección acabarás de crear todas las entidades necesarias para
-      tu proyecto. Ya tenemos las entidades básicas, ahora vamos a escribir el
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Modelar+con+Java">Lección 3:
+            Modelo básico del dominio - Parte 2</a></div>
+        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio">Modelo
+            básico del dominioTMP ME QUEDÉ POR AQUÍ<br>
+          </a></div>
+        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Referencia+ManyToOne+como+lista+de+descripciones+combo">Referencia
+            (ManyToOne) como lista de descripciones (combo)</a></div>
+        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Estereotipos">Estereotipos</a></div>
+        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Embeddable">Embeddable</a></div>
+        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Calcular+valores+por+defecto">Calcular
+            valores por defecto</a></div>
+        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Referencias+convencionales+ManyToOne">Referencias
+            convencionales (ManyToOne)</a></div>
+        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Coleccion+de+objectos+dependientes">Colección
+            de objectos dependientes</a></div>
+        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario">Refinar
+            la interfaz de usuario</a></div>
+        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-Interfaz+de+usuario+por+defecto">Interfaz
+            de usuario por defecto</a></div>
+        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-Usar+View+para+definir+la+disposicion">Usar
+            @View para definir la disposición</a></div>
+        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-Usar+ReferenceView+para+refinar+la+interfaz+de+referencias">Usar
+            @ReferenceView para refinar la interfaz de referencias</a></div>
+        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-La+interfaz+de+usuario+refinada">La
+            interfaz de usuario refinada</a></div>
+        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Desarrollo+agil">Desarrollo
+            ágil</a></div>
+        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Resumen">Resumen</a></div>
+      </div>
+      En esta lección acabarás de crear todas las entidades necesarias para tu
+      proyecto. Ya tenemos las entidades básicas, ahora vamos a escribir el
       código para la entidad principal de nuestra aplicación, la entidad <i>Factura</i>.<br>
       <h3 id="toc6"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Calcular+valores+por+defecto"></a>Calcular
         valores por defecto</h3>
@@ -251,12 +286,11 @@ Collection&lt;Detalle&gt; detalles;
       una aplicación funcionando. Tus usuarios pueden trabajar con productos,
       categorías, clientes e incluso crear facturas. En el caso de los
       productos, categorías y clientes la interfaz de usuario está bastante
-      bien, aunque para <i>Factura</i> todavía se puede mejorar un poco.
-      Ya has usado algunas anotaciones OpenXava para refinar la presentación,
-      como <i>@DescriptionsList, @NoFrame</i> y <i>@ListProperties</i>. En la
-      siguiente lección usaremos más anotaciones de este tipo para dar a la
-      interfaz de usuario de <i>Factura</i> un mejor aspecto sin demasiado
-      esfuerzo. </div>
+      bien, aunque para <i>Factura</i> todavía se puede mejorar un poco. Ya has
+      usado algunas anotaciones OpenXava para refinar la presentación, como <i>@DescriptionsList,
+        @NoFrame</i> y <i>@ListProperties</i>. En la siguiente lección usaremos
+      más anotaciones de este tipo para dar a la interfaz de usuario de <i>Factura</i>
+      un mejor aspecto sin demasiado esfuerzo. </div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
