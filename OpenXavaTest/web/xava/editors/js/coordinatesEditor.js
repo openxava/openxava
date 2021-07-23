@@ -29,6 +29,13 @@ openxava.addEditorInitFunction(function() {
 			}
 		});
 		
+		// TMP ME QUEDÉ POR AQUÍ: PROBANDO LO DE PEGAR
+		input.on("paste", function(e) {
+			var pastedData = e.originalEvent.clipboardData.getData('text');
+			console.log("pastedData=" + pastedData); // tmp
+			input.blur();
+		});
+		
 		map.on('click', function(e) {
 			markers.clearLayers();
 			L.marker(e.latlng).addTo(markers);
