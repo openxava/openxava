@@ -12,13 +12,16 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Modelar+con+Java"></a> <span id="breadcrumbs"> <span
+      <h1 id="toc0"><a name="Modelar+con+Java"></a> <span id="breadcrumbs"> <span
+
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Lección 3: Modelo básico del dominio - Parte 2 </h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
-        Primeros pasos</a> | <strong>2. Modelar con Java</strong> | <a class="wiki_link"
-        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
+        Primeros pasos</a> | <strong>2. Modelar con Java</strong> | <a class="wiki_link"
+
+        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
+
         href="inheritance_es.html">4. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
         Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
         Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
@@ -33,38 +36,19 @@
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#Modelar+con+Java">Lección 3:
             Modelo básico del dominio - Parte 2</a></div>
-        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio">Modelo
-            básico del dominioTMP ME QUEDÉ POR AQUÍ<br>
-          </a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Referencia+ManyToOne+como+lista+de+descripciones+combo">Referencia
-            (ManyToOne) como lista de descripciones (combo)</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Estereotipos">Estereotipos</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Embeddable">Embeddable</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Calcular+valores+por+defecto">Calcular
+        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Calcular+valores+por+defecto">Calcular
             valores por defecto</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Referencias+convencionales+ManyToOne">Referencias
+        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Referencias+convencionales+ManyToOne">Referencias
             convencionales (ManyToOne)</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Coleccion+de+objectos+dependientes">Colección
+        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Coleccion+de+objectos+dependientes">Colección
             de objectos dependientes</a></div>
-        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario">Refinar
-            la interfaz de usuario</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-Interfaz+de+usuario+por+defecto">Interfaz
-            de usuario por defecto</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-Usar+View+para+definir+la+disposicion">Usar
-            @View para definir la disposición</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-Usar+ReferenceView+para+refinar+la+interfaz+de+referencias">Usar
-            @ReferenceView para refinar la interfaz de referencias</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-La+interfaz+de+usuario+refinada">La
-            interfaz de usuario refinada</a></div>
-        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Desarrollo+agil">Desarrollo
-            ágil</a></div>
         <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Resumen">Resumen</a></div>
       </div>
       En esta lección acabarás de crear todas las entidades necesarias para tu
       proyecto. Ya tenemos las entidades básicas, ahora vamos a escribir el
       código para la entidad principal de nuestra aplicación, la entidad <i>Factura</i>.<br>
-      <h3 id="toc6"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Calcular+valores+por+defecto"></a>Calcular
-        valores por defecto</h3>
+      <h2 id="toc6"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Calcular+valores+por+defecto"></a>Calcular
+        valores por defecto</h2>
       Vamos a escribir nuestra entidad <i>Factura</i> con año, número y fecha.
       Estaría bien tener valores por defecto para estas propiedades, para que el
       usuario no tuviera que teclearlos. Esto es fácil de conseguir usando la
@@ -129,7 +113,8 @@ public class Factura {
     <div class="wiki" style="display: block;">Para crear un paquete nuevo
       selecciona la carpeta <i>Facturacion/src</i> y pulsa en el botón <i>New
         Java Package</i>:</div>
-    <div class="wiki" style="display: block;"> <img src="files/modeling_es064.png"
+    <div class="wiki" style="display: block;"> <img src="files/modeling_es064.png"
+
         alt="">
       <div class="wiki" style="display: block;">Se mostrará un diálogo donde
         introducir el nombre del paquete, <em>com.tuempresa.facturacion.calculadores</em>,
@@ -171,7 +156,8 @@ public class CalculadorSiguienteNumeroParaAnyo
     <div class="wiki" style="display: block;">Tu calculador tiene que
       implementar <em>ICalculator</em> (y por lo tanto tener un método <em>calculate()</em>).
       Declaramos una propiedad <em>anyo</em> para poner en ella el año del
-      cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el <a
+      cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el <a
+
         class="wiki_link" href="jpa_es.html">apéndice B</a> sobre JPA. Ahora
       sólo queda anotar la propiedad <em>numero</em> en la entidad <em>Factura</em>:</div>
     <div class="wiki" style="display: block;">
@@ -199,8 +185,8 @@ int numero;
       (anotada con <i>@Id</i>). Generalmente usar claves simples es mejor, sin
       embargo <a href="jpa_es.html#Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Clave+compuesta">usar
         claves compuesta también es posible</a>.<br>
-      <h3 id="toc7"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Referencias+convencionales+ManyToOne"></a>Referencias
-        convencionales (ManyToOne)</h3>
+      <h2 id="toc7"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Referencias+convencionales+ManyToOne"></a>Referencias
+        convencionales (ManyToOne)</h2>
       Ahora que tenemos todas las propiedades atómicas listas para usar, es
       tiempo de añadir relaciones con otras entidades. Empezaremos añadiendo una
       referencia desde <em>Factura</em> a <em>Cliente</em>, porque una factura
@@ -218,8 +204,8 @@ Cliente cliente;
       <img src="files/modeling_es080.png" alt="modeling_es080.png" title="modeling_es080.png"><br>
       No hay más trabajo que hacer aquí. Añadamos una colección de líneas de
       detalle a <em>Factura</em>.<br>
-      <h3 id="toc8"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Coleccion+de+objectos+dependientes"></a>Colección
-        de objectos dependientes</h3>
+      <h2 id="toc8"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Coleccion+de+objectos+dependientes"></a>Colección
+        de objectos dependientes</h2>
       Usualmente una factura necesita tener varias líneas con productos,
       cantidades, etc. Estos detalles son parte de la factura, no son
       compartidos por otras facturas y cuando una factura se borra sus líneas de
@@ -232,7 +218,8 @@ Cliente cliente;
 Collection&lt;Detalle&gt; detalles;
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Usando
-        </span><em><span style="line-height: 1.5;">@ElementCollection</span></em><span
+        </span><em><span style="line-height: 1.5;">@ElementCollection</span></em><span
+
         style="line-height: 1.5;"> cuando la factura se borra sus líneas se
         borran también. Los detalles no se guardan en la base de datos hasta que
         la factura se guarde y se guardan todos al mismo tiempo.</span><br>
@@ -279,7 +266,8 @@ Collection&lt;Detalle&gt; detalles;
         propiedades calificadas, es decir, usar la notación del punto para
         acceder a las propiedades de referencias, tal como <em>producto.numero</em>
         y <em>producto.descripcion</em> en este caso. El resultado visual es:</span><br>
-      <span style="line-height: 0px; overflow: hidden;"><img src="files/modeling_es100.png"
+      <span style="line-height: 0px; overflow: hidden;"><img src="files/modeling_es100.png"
+
           alt="modeling_es100.png" title="modeling_es100.png"></span><br>
       <h2 id="toc15"><a name="Modelar+con+Java-Resumen"></a>Resumen</h2>
       ¡Enhorabuena! Has finalizado tus clases del modelo del dominio y tienes
@@ -293,13 +281,17 @@ Collection&lt;Detalle&gt; detalles;
       un mejor aspecto sin demasiado esfuerzo. </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
-          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
+    <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
+
+          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="testing_es.html">Ve a la lección 3</a></strong>
     </div>
+    
   </body>
 </html>

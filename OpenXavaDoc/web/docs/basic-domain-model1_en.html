@@ -15,10 +15,8 @@
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
         Lesson 2: Basic domain model - Part 1</h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <strong>2. Modeling with Java</strong> | <a class="wiki_link"
-
-        href="testing_en.html">3. Automated testing</a> | <a class="wiki_link"
-
+        Getting started</a> | <strong>2. Modeling with Java</strong> | <a class="wiki_link"
+        href="testing_en.html">3. Automated testing</a> | <a class="wiki_link"
         href="inheritance_en.html">4. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
         Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
         Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
@@ -33,6 +31,7 @@
         <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Modeling%20with%20Java">Lesson
             2: Basic domain model - Part 1</a></div>
+        <div style="margin-left: 2em;"><a href="#domain-model">Domain model</a></div>
         <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Basic%20domain%20model-Reference%20%28ManyToOne%29%20as%20descriptions%20list%20%28combo%29">Reference
             (ManyToOne) as descriptions list (combo)</a></div>
         <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Basic%20domain%20model-Stereotypes">Stereotypes</a></div>
@@ -42,13 +41,11 @@
       In this lesson you will start to create the entities required for your
       project in order to get your invoicing application working.<br>
       By now I assume that you know how to create a new entity with OpenXava
-      Studio and how to run the application, because you have already read <a class="wiki_link"
-
+      Studio and how to run the application, because you have already read <a class="wiki_link"
         href="getting-started_en.html">Lesson1: Getting started</a>, right?</div>
     <div class="wiki" style="display: block;">If you don't like videos follow
       the instructions below.
-      <h2 id="toc1"><a name="Modeling with Java-Basic domain model"></a>Basic
-        domain model</h2>
+      <h2 id="toc1"><a name="domain-model"></a>Domain model</h2>
       First, we'll create the entities for your <em>Invoicing</em> application.
       The domain model is rather basic, but enough to learn a lot of interesting
       things:<br>
@@ -56,8 +53,8 @@
       We'll start with six classes. Later on we'll add a few more to it.
       Remember that you already have an initial version of <em>Customer</em>
       and <em>Product</em>.<br>
-      <h3 id="toc2"><a name="Modeling with Java-Basic domain model-Reference (ManyToOne) as descriptions list (combo)"></a>Reference
-        (ManyToOne) as descriptions list (combo)</h3>
+      <h2 id="toc2"><a name="Modeling with Java-Basic domain model-Reference (ManyToOne) as descriptions list (combo)"></a>Reference
+        (ManyToOne) as descriptions list (combo)</h2>
       Let's start with the most simple case. We are going to create a <em>Category</em>
       entity and associate it to the <em>Product</em>, displaying it as a
       combo.<br>
@@ -94,10 +91,8 @@ public class Category {
       thereby making them not so portable as UUID.<br>
       Execute the <em>Category</em> module and add some categories:<br>
       <img src="files/modeling_en035.png" alt="modeling_en035.png" title="modeling_en035.png"><br>
-      <span style="line-height: 1.5;">Now, we'll associate </span><em><span style="line-height: 1.5;">Product</span></em><span
-
-        style="line-height: 1.5;"> with </span><em><span style="line-height: 1.5;">Category</span></em><span
-
+      <span style="line-height: 1.5;">Now, we'll associate </span><em><span style="line-height: 1.5;">Product</span></em><span
+        style="line-height: 1.5;"> with </span><em><span style="line-height: 1.5;">Category</span></em><span
         style="line-height: 1.5;">: Add the next <em>category</em> reference
         declaration in your <em>Product</em> entity:</span></div>
     <div class="wiki" style="display: block;">
@@ -114,13 +109,12 @@ public class Category {
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">This is a plain JPA many-to-one
-      relationship, the one that you can learn more about in <a class="wiki_link"
-
+      relationship, the one that you can learn more about in <a class="wiki_link"
         href="jpa_en.html">appendix B</a>. In this case, thanks to the <em>@DescriptionsList</em>
       annotation it is displayed as a combo:<br>
       <img src="files/modeling_en020.png" alt="modeling_en020.png" title="modeling_en020.png"><br>
       Now it's time to complete your <em>Product</em> entity.<br>
-      <h3 id="toc3"><a name="Modeling with Java-Basic domain model-Stereotypes"></a>Stereotypes</h3>
+      <h2 id="toc3"><a name="Modeling with Java-Basic domain model-Stereotypes"></a>Stereotypes</h2>
       <em>Product</em> entity at least needs to have attributes such as price,
       etc. Also it would be nice to have photos and a field for remarks. We are
       going to use stereotypes to do that. A stereotype specifies a special use
@@ -159,7 +153,7 @@ String remarks;
       ICON, etc.<br>
       Now you have <em>Product</em> ready to use. Let's refine the <em>Customer</em>
       now.<br>
-      <h3 id="toc4"><a name="Modeling with Java-Basic domain model-Embeddable"></a>Embeddable</h3>
+      <h2 id="toc4"><a name="Modeling with Java-Basic domain model-Embeddable"></a>Embeddable</h2>
       We are going to add <em>Address</em> to our until now pretty naked <em>Customer</em>.
       The customer address is not shared by other customers, and when the
       customer is removed his address is removed too. Therefore we'll model the
@@ -218,8 +212,7 @@ Address address;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Here's the user interface for an
       embedded reference with and without <em>@NoFrame</em>:<br>
-      <img src="files/modeling_en060.png" alt="modeling_en060.png" title="modeling_en060.png"><span
-
+      <img src="files/modeling_en060.png" alt="modeling_en060.png" title="modeling_en060.png"><span
         style="line-height: 1.5;"></span><br>
       <h2 id="toc14"><a name="Modeling with Java-Summary"></a>Summary</h2>
       In this lesson you have learned how to create references that are
@@ -228,15 +221,12 @@ Address address;
       running, it's time to face the core entity of your application, the <em>Invoice</em>
       entity. Let's do it step by step in the next lesson.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_en.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="testing_en.html">Go to Lesson 3</a></strong>
     </div>
-    
   </body>
 </html>

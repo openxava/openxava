@@ -1,0 +1,179 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lesson 2: Modeling with Java - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 2: Modeling with Java"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 5: Agile development </h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+        Getting started</a> | <strong>2. Modeling with Java</strong> | <a class="wiki_link"
+        href="testing_en.html">3. Automated testing</a> | <a class="wiki_link"
+        href="inheritance_en.html">4. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
+        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
+        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
+        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
+        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
+        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
+        Annotations</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#Lesson%202:%20Modeling%20with%20Java">Lesson
+            2: Modeling with Java</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model">Basic
+            domain model</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Reference%20%28ManyToOne%29%20as%20descriptions%20list%20%28combo%29">Reference
+            (ManyToOne) as descriptions list (combo)</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Stereotypes">Stereotypes</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Embeddable">Embeddable</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Calculating%20default%20values">Calculating
+            default values</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Regular%20reference%20%28ManyToOne%29">Regular
+            reference (ManyToOne)</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Collection%20of%20dependent%20objects">Collection
+            of dependent objects</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface">Refining
+            the user interface</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@View%20for%20defining%20layout">Using
+            @View for defining layout</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@ReferenceView%20to%20refine%20the%20user%20interface%20for%20reference">Using
+            @ReferenceView to refine the user interface for reference</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface-Refined%20user%20interface">Refined
+            user interface</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Agile%20development">Agile
+            development</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Summary">Summary</a></div>
+      </div>
+      Nowadays agile development is no longer a “new and breaking technique”,
+      but an established way to do software development, even the ideal way to
+      go for many people.<br>
+      If you are not familiar with agile development you can have a look at <a
+        href="http://www.agilemanifesto.org" rel="nofollow">www.agilemanifesto.org</a>.
+      Basically, agile development encourages the use of feedback from a working
+      product over a careful upfront design. This gives a more prominent role to
+      programmers and users, and minimizes the importance of analysts and
+      software architects.<br>
+      This type of development also needs a different type of tools. Because you
+      need a working application rapidly. It must be as rapid to develop the
+      initial application as it would be writing the functional description.
+      Moreover, you need to respond to the user feedback quickly. The user needs
+      to see his proposals running in short time.<br>
+      OpenXava is ideal for agile development because not only does it allow a
+      very rapid initial development, but it also allows you to make changes and
+      see the effects instantly. Let's see a little example of this.</div>
+    <div class="wiki" style="display: block;">
+      <h2><a name="adding-a-new-reference"></a>Adding a new reference</h2>
+    </div>
+    <div class="wiki" style="display: block;"> For example, once the user has
+      looked at your application and starts to play with it, he takes into
+      account that he works with books, music, software and so on. All these
+      products have an author, and it would be useful to store the author, and
+      see products by author.<br>
+      Adding this new feature to your application is simple and rapid. First,
+      create a new class for <em>Author</em>, with this:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.openxava.annotations.*;
+import lombok.*;
+ 
+@Entity @Getter @Setter
+public class Author {
+ 
+    @Id @GeneratedValue(generator="system-uuid") @Hidden
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @Column(length=32)
+    String oid;
+ 
+    @Column(length=50) @Required
+    String name;
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Now, add the next code to the
+      existing <em>Product</em> entity:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY)
+@DescriptionsList
+Author author;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Thus, your <em>Product</em>
+      entity has a reference to <em>Author</em>.<br>
+      Really you have written a little amount of code. In order to see the
+      effect, restart your application clicking on <i>Run</i> button:</div>
+    <div class="wiki" style="display: block;"><img src="files/getting-started_en195.png"
+        alt="getting-started_en195.png" title="getting-started_en195.png"> </div>
+    <div class="wiki" style="display: block;">Then go to the browser and reload
+      the page with the <em>Product</em> module, and you will see there, a
+      combo for choosing the author of the product, just as you see here:<br>
+      <img src="files/modeling_en150.png" alt="modeling_en150.png" title="modeling_en150.png"><br>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2><a name="adding-a-collection-of-entities"></a>Adding a collection of
+        entities</h2>
+    </div>
+    <div class="wiki" style="display: block;">What if the user wants to choose
+      an author and see all his products? Well. This is plain vanilla. You only
+      have to make the relationship between <em>Product</em> and <em>Author</em>
+      bidirectional. Go to the <em>Author</em> class and add the next code:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@OneToMany(mappedBy="author")
+@ListProperties("number, description, price")
+Collection&lt;Product&gt; products;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Now, restart your application and
+      refresh the browser with <em>Author</em> module. Choose an author and you
+      will see his products. You have to see something like this:<br>
+      <img src="files/modeling_en160.png" alt="modeling_en160.png" title="modeling_en160.png"><br>
+    </div>
+    <div class="wiki" style="display: block;">Yes, you added a new collection,
+      restarted your application, refreshed your browser and there you get the
+      full user interface to manage it. In this case the user can click on <em>Add</em>
+      button to choose a book from a list of all existing books or click on <i>New</i>
+      to enter the data to create a new book that will be added to the
+      collection. Moreover when the author is removed his books are still there
+      in the database. You can define another behavior with cascade as REMOVE or
+      ALL, thus:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@OneToMany(mappedBy="author", cascade=CascadeType.REMOVE) // DON'T ADD IT TO YOUR CODE
+</code></pre> </div>
+    <div class="wiki" style="display: block;">In this way only the <i>New</i>
+      button to create new books are available, the <i>Add</i> button is not
+      present. Moreover, when the author would be removed his books will be
+      removed too. For the author/books case we don't want this behavior, but it
+      can be useful in many cases where the <em>@ElementCollection</em> is not
+      enough.<br>
+      <h2 id="toc14"><a name="Lesson 2: Modeling with Java-Summary"></a>Summary</h2>
+      <span style="line-height: 1.5;">In this section you have the complete code
+        and steps required to do changes and see the result in the most
+        interactive way. You have seen how OpenXava is an agile tool, ideal for
+        doing agile development.</span></div>
+    <div class="wiki" style="display: block;">Yes! Now you have a working
+      application with little effort. Although this application “as is” can be
+      useful as a CRUD utility or a prototype, you still need to add
+      validations, business logic, user interface behavior and so on in order to
+      convert these entities you have written into a business application ready
+      for your user.<br>
+      You will learn all these advanced topics in the forthcoming lessons.<br>
+      <br>
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_en.zip/download"
+          rel="nofollow">Download source code of this lesson</a></strong><br>
+      <br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
+        <a class="wiki_link" href="testing_en.html">Go to Lesson 3</a></strong>
+    </div>
+  </body>
+</html>

@@ -12,8 +12,9 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Modeling with Java"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+      <h1 id="toc0"><a name="Modeling with Java"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
         Lesson 3: Basic domain model - Parte 2</h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
@@ -47,8 +48,8 @@
       project. We already have the basic entities, now we're going to write the
       code for the main entity of our invoicing application, the <em>Invoice</em>
       entity.<br>
-      <h3 id="toc6"><a name="Modeling with Java-Basic domain model-Calculating default values"></a>Calculating
-        default values</h3>
+      <h2 id="toc6"><a name="Modeling with Java-Basic domain model-Calculating default values"></a>Calculating
+        default values</h2>
     </div>
     <div class="wiki" style="display: block;"> We're going to write our <i>Invoice</i>
       entity with <i>year</i>, <i>number</i> and <i>date</i>. It would be
@@ -185,8 +186,8 @@ int number;
       are not key, instead we use an <i>oid</i> property as key (annotated with
       <i>@Id</i>). Generally using single keys is better, however <a href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Composite+key">using
         composite keys is also possible</a>.<br>
-      <h3 id="toc7"><a name="Modeling with Java-Basic domain model-Regular reference (ManyToOne)"></a>Regular
-        reference (ManyToOne)</h3>
+      <h2 id="toc7"><a name="Modeling with Java-Basic domain model-Regular reference (ManyToOne)"></a>Regular
+        reference (ManyToOne)</h2>
       Now that we have all atomic properties ready to use it's time to add
       relationships with other entities. We'll begin adding a reference from <em>Invoice</em>
       to <em>Customer</em>, because an invoice without customer is not very
@@ -203,8 +204,8 @@ Customer customer;
       <img src="files/modeling_en080.png" alt="modeling_en080.png" title="modeling_en080.png"><br>
       There is no more work left here now. Let's add the collection of details
       to your <em>Invoice</em>.<br>
-      <h3 id="toc8"><a name="Modeling with Java-Basic domain model-Collection of dependent objects"></a>Collection
-        of dependent objects</h3>
+      <h2 id="toc8"><a name="Modeling with Java-Basic domain model-Collection of dependent objects"></a>Collection
+        of dependent objects</h2>
       Usually an invoice needs to have a couple of lines with the details of
       products, quantities, etc. These details are part of the invoice. They are
       not shared with other invoices, and when an invoice is deleted its details

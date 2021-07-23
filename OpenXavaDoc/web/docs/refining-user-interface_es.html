@@ -1,0 +1,149 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 4: Refinar la interfaz de usuario: @View para definir la
+      disposición, @ReferenceView para refinar la interfaz de referencias -
+      Modelar con Java - Curso de OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Modelar+con+Java"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 4: Refinar la interfaz de usuario</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <strong>2. Modelar con Java</strong> | <a class="wiki_link"
+
+        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
+
+        href="inheritance_es.html">4. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
+        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
+        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">9.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Modelar+con+Java">Lección 4:
+            Refinar la interfaz de usuario</a></div>
+        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-Interfaz+de+usuario+por+defecto">Interfaz
+            de usuario por defecto</a></div>
+        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-Usar+View+para+definir+la+disposicion">Usar
+            @View para definir la disposición</a></div>
+        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-Usar+ReferenceView+para+refinar+la+interfaz+de+referencias">Usar
+            @ReferenceView para refinar la interfaz de referencias</a></div>
+        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-La+interfaz+de+usuario+refinada">La
+            interfaz de usuario refinada</a></div>
+        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Resumen">Resumen</a></div>
+      </div>
+      La interfaz de usuario para tu aplicación de facturación escribiendo
+      simplemente clases de Java simples y llanas es bastante decente, de toda
+      formas con solo unas pocas anotaciones en tus clases puedes personalizar
+      tu interfaz de usuario para hacer frente a cualquier caso que
+      te encuentres en una aplicación de gestión.
+      <div class="wiki" style="display: block;">En esta lección vamos a hacer
+        que nuestra aplicación se vea mejor con una pequeña cantidad de código.</div>
+      <h2 id="toc10"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-Interfaz+de+usuario+por+defecto"></a>Interfaz
+        de usuario por defecto</h2>
+      Así es la interfaz de usuario por defecto para <em>Factura</em>:<br>
+      <img src="files/modeling_es110.png" alt="modeling_es110.png" title="modeling_es110.png"><br>
+      Como ves, OpenXava muestra todos los miembros, uno debajo de otro, en el
+      orden en que los has declarado en el código fuente. También ves como en el
+      caso de la referencia <em>cliente</em> se usa la vista por defecto de <em>Cliente</em>.<br>
+      Vamos a hacer algunas pequeñas mejoras. Primero, definiremos la
+      disposición de los miembros explícitamente, de esta forma podemos poner <em>anyo</em>,
+      <em>numero</em> y <em>fecha</em> en la misma línea. Segundo, vamos a usar
+      una vista más simple para <em>Cliente</em>. El usuario no necesita ver
+      todos los datos del cliente cuando está introduciendo la factura.<br>
+      <h2 id="toc11"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-Usar+View+para+definir+la+disposicion"></a>Usar
+        @View para definir la disposición</h2>
+      Para definir la disposición de los miembros de <em>Factura</em> en la
+      interfaz de usuario has de usar la anotación <em>@View</em>. Es fácil,
+      sólo has de enumerar los miembros a mostrar. Mira el código:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@View(members= // Esta vista no tiene nombre, por tanto será la vista usada por defecto
+ "anyo, numero, fecha;" + // Separados por coma significa en la misma línea
+ "cliente;" + // Punto y coma significa nueva línea
+ "detalles;" +
+ "observaciones"
+)
+public class Factura {
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Mostramos todos los miembros de <em>Factura</em>,
+      pero usamos comas para separar <em>anyo</em>, <em>numero</em> y <em>fecha</em>,
+      así son mostrados en la misma línea, produciendo una interfaz de usuario
+      más compacta, como esta:<br>
+      <img src="files/modeling_es120.png" alt="modeling_es120.png" title="modeling_es120.png"><br>
+      <h2 id="toc12"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-Usar+ReferenceView+para+refinar+la+interfaz+de+referencias"></a>Usar
+        @ReferenceView para refinar la interfaz de referencias</h2>
+      Todavía necesitas refinar la forma en que la referencia <em>cliente</em>
+      se visualiza, porque visualiza todos los miembros de <em>Cliente</em>, y
+      para introducir los datos de una <em>Factura</em> una vista más simple
+      del cliente puede ser mejor. Para hacer esto, has de definir una vista <em>Simple</em>
+      en <em>Cliente</em>, y entonces indicar en <em>Factura</em> que quieres
+      usar esa vista <em>Simple</em> de <em>Cliente</em> para visualizarlo.<br>
+      Primero definamos la vista <em>Simple</em> en <em>Cliente</em>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@View(name="Simple", // Esta vista solo se usará cuando se especifique “Simple”
+    members="numero, nombre" // Muestra únicamente numero y nombre en la misma línea
+)
+public class Cliente {
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Cuando una vista tiene un nombre,
+      como en este caso, esa vista solo se usa cuando ese nombre se especifica.
+      Es decir, aunque <em>Cliente</em> solo tiene esta anotación <em>@View</em>,
+      cuando tratas de visualizar un <em>Cliente</em> no usará esta vista <em>Simple</em>,
+      sino la generada por defecto. Si defines una <em>@View</em> sin nombre,
+      esa vista será la vista por defecto, aunque este no es el caso.<br>
+      Ahora has de indicar que la referencia a <em>Cliente</em> desde <em>Factura</em>
+      use esta vista <em>Simple</em>. Esto se hace mediante <em>@ReferenceView</em>.
+      Edita la referencia <i>cliente</i> en la clase <i>Factura</i> de esta
+      forma:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false)
+@ReferenceView("Simple") // La vista llamada 'Simple' se usará para visualizar esta referencia
+Cliente cliente;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Realmente sencillo, solo has de
+      indicar el nombre de la vista de la entidad referenciada que quieres usar.<br>
+      Después de esto la referencia <em>cliente</em> se mostrará de una forma
+      más compacta:<br>
+      <img src="files/modeling_es130.png" alt="modeling_es130.png" title="modeling_es130.png"><br>
+      Hemos refinado un poco la interfaz de <em>Factura</em>.<br>
+      <h2 id="toc13"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-La+interfaz+de+usuario+refinada"></a>La interfaz de usuario
+          refinada</h2>
+      Este es el resultado de nuestros refinamientos en la interfaz de usuario
+      de <em>Factura</em>:<br>
+      <img src="files/modeling_es140.png" alt="modeling_es140.png" title="modeling_es140.png"><br>
+      Has visto lo fácil que es usar <em>@View</em> y <em>@ReferenceView</em>
+      para obtener una interfaz de usuario más compacta para <em>Factura</em>.<br>
+      Ahora tienes una interfaz de usuario suficientemente buena para empezar a
+      trabajar, y realmente hemos hecho poco trabajo para conseguirlo.<br>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc15"><a name="Modelar+con+Java-Resumen"></a>Resumen</h2>
+      En esta lección has aprendido como refinar la interfaz de usuario por
+      defecto usando algunas anotaciones de OpenXava. Si quieres conocer todas
+      las posibilidades que ofrece OpenXava para definir la interfaz de usuario
+      <a class="wiki_link" href="view_es.html">lee la guía de referencia</a>.<br>
+      <br>
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
+
+          rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
+      <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+        <a class="wiki_link" href="testing_es.html">Ve a la lección 3</a></strong>
+    </div>
+  </body>
+</html>
