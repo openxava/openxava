@@ -2534,7 +2534,10 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 /* tmp ini */
-.ox-coordinates-map {
+.xava_coordinates {
+	min-width: 600px;
+	width: 100%;
+	height: 450px;
     margin: 7px 0px 0px 2px;
 }
 /* tmp fin */

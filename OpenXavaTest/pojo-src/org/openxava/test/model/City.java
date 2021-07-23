@@ -34,7 +34,7 @@ public class City {
 	
 	@Stereotype("COORDINATES") @Column(length=50)
 	private String location; // tmp
-	
+		
 	public State getState() {
 		return state;
 	}

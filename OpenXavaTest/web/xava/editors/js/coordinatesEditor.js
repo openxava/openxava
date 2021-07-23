@@ -14,13 +14,14 @@ openxava.addEditorInitFunction(function() {
 		
 		var markers = L.layerGroup().addTo(map);
 				
-		var input = $(this).parent().parent().find("input[type='text']");
+		var input = $(this).parent().find("input[type='text']");
 		input.parent().removeClass("ox-error-editor"); // tmp Coger de Style
 		coordinatesEditor.setView(map, input, markers);		
 		 	
 		input.change(function() {
 			if (coordinatesEditor.isValid(input)) {
 				input.parent().removeClass("ox-error-editor"); // tmp Coger de Style
+				markers.clearLayers();
 				coordinatesEditor.setView(map, input, markers);
 			}
 			else {
