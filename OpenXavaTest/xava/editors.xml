@@ -54,10 +54,12 @@
 	</editor>	
 	
 	<editor name="CityName" url="textEditor.jsp">
+		<!-- tmp ME QUEDÉ POR AQUÍ. PARA QUITAR LAS MINUSCULAS. FALTA YUMA
 		<formatter
 			class="org.openxava.test.formatters.NameFormatter">
 			<set property="firstLetterInUpperCase" value="true" />
 		</formatter>
+		-->
 		<list-formatter
 			class="org.openxava.test.formatters.CityNameFormatter"/>		
 		<for-stereotype stereotype="CITY_NAME" />

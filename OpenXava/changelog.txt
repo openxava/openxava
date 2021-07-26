@@ -1,16 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
-- Coordinates:
-	- Probar si se puede hacer on paste y que tal queda.
-	- Depurar lo tmp de coordinatesEditor.js
-	- Probar con todos los navegadores.	
+- Coordinates:	
 	- Pruebas:
 		- Con registro existente muestra mapa con marca.
 		- Pone coordenadas al marcar.
 		- Si se ponen cooredenadas y se sale muestra mapa y marca.
 		- Si vacío en mapa mundi o lugar
 		- Escoger una coordenada on click y después pegar otra que esté cerca. No debe haber dos marcas.
+		- Copiar y pegar. Debería posicionar sin salir del campo manualmente
 		- Validación JavaScript:
 			- Al salir del campo rojo si está mal.
 			- Al salir del campo quita rojo si está bien.

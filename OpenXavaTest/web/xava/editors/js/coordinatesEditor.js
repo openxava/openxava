@@ -1,10 +1,10 @@
 if (coordinatesEditor == null) var coordinatesEditor = {};
 
+// tmp
+
 openxava.addEditorInitFunction(function() {
 	$(".xava_coordinates").each(function() {
 		var map = L.map(this);
-		console.log("[openxava.addEditorInitFunction] openxava.mapsTileSize=" + openxava.mapsTileSize); // tmp
-		console.log("[openxava.addEditorInitFunction] openxava.mapsZoomOffset=" + openxava.mapsZoomOffset); // tmp
 		L.tileLayer(openxava.mapsTileProvider, {
 			maxZoom: 18,
 			attribution: openxava.mapsAttribution,
@@ -15,25 +15,22 @@ openxava.addEditorInitFunction(function() {
 		var markers = L.layerGroup().addTo(map);
 				
 		var input = $(this).parent().find("input[type='text']");
-		input.parent().removeClass("ox-error-editor"); // tmp Coger de Style
+		input.parent().removeClass(openxava.errorEditorClass); 
 		coordinatesEditor.setView(map, input, markers);		
 		 	
 		input.change(function() {
 			if (coordinatesEditor.isValid(input)) {
-				input.parent().removeClass("ox-error-editor"); // tmp Coger de Style
+				input.parent().removeClass(openxava.errorEditorClass); 
 				markers.clearLayers();
 				coordinatesEditor.setView(map, input, markers);
 			}
 			else {
-				input.parent().addClass("ox-error-editor"); // tmp Coger de Style
+				input.parent().addClass(openxava.errorEditorClass);
 			}
 		});
 		
-		// TMP ME QUEDÉ POR AQUÍ: PROBANDO LO DE PEGAR
 		input.on("paste", function(e) {
-			var pastedData = e.originalEvent.clipboardData.getData('text');
-			console.log("pastedData=" + pastedData); // tmp
-			input.blur();
+			setTimeout(function(){ input.blur(); }, 100);
 		});
 		
 		map.on('click', function(e) {
