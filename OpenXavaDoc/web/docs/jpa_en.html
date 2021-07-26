@@ -9,19 +9,22 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Appendix B: Java Persistence API"></a>
-        <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Appendix B: Java Persistence API </h1>
+      <h1 id="toc0"><a name="Appendix B: Java Persistence API"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Appendix B: Java Persistence API </h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
-        Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
-        Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4.
-        Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
-        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
-        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
+        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
+        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
+        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
+        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
+        Agile development</a> | <a class="wiki_link" href="testing_en.html">6.
+        Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">7.
+        Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">8.
+        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">9.
+        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">10.
+        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">11.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">12.
         References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <strong>B. Java Persistence API</strong>
       | <a class="wiki_link" href="annotations_en.html">C. Annotations</a>
@@ -267,11 +270,9 @@
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>  <span class="co1">// To define this class as persistent</span>
-@Table<span class="br0">(</span>name=<span class="st0">"GSTCST"</span><span class="br0">)</span>  <span
-
+@Table<span class="br0">(</span>name=<span class="st0">"GSTCST"</span><span class="br0">)</span>  <span
 class="co1">// To indicate the database table (optional)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Customer <span class="br0">{</span></pre>
       As you can see, you only have to mark your class with the @<em>Entity</em>
@@ -476,22 +477,17 @@ class="co1">// To indicate the database table (optional)</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+</style><pre class="java5"><span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> name<span class="sy0">;</span>
 &nbsp;
-<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getName<span class="br0">(</span><span class="br0">)</span> <span
-
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getName<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">{</span>
     <span class="kw2">return</span> name<span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span
-
+<span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span
 class="br0">)</span> <span class="br0">{</span>
     <span class="kw2">this</span>.<span class="me1">name</span> = name<span class="sy0">;</span>
 <span class="br0">}</span></pre>
@@ -687,22 +683,17 @@ class="br0">)</span> <span class="br0">{</span>
 
 -->
 </style><pre class="java5">@Transient  <span class="co1">// Marked as transient, it is not stored in the database</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> name<span class="sy0">;</span>
 &nbsp;
-<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getName<span class="br0">(</span><span class="br0">)</span> <span
-
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getName<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">{</span>
     <span class="kw2">return</span> name<span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span
-
+<span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span
 class="br0">)</span> <span class="br0">{</span>
     <span class="kw2">this</span>.<span class="me1">name</span> = name<span class="sy0">;</span>
 <span class="br0">}</span></pre>
@@ -895,23 +886,18 @@ class="br0">)</span> <span class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+</style><pre class="java5"><span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> name<span class="sy0">;</span>
 &nbsp;
 @Transient  <span class="co1">// We mark the getter, so all JPA annotations in this entity must be in getters</span>
-<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getName<span class="br0">(</span><span class="br0">)</span> <span
-
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getName<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">{</span>
     <span class="kw2">return</span> name<span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span
-
+<span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span
 class="br0">)</span> <span class="br0">{</span>
     <span class="kw2">this</span>.<span class="me1">name</span> = name<span class="sy0">;</span>
 <span class="br0">}</span></pre>
@@ -1109,58 +1095,44 @@ class="br0">)</span> <span class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
 @Table<span class="br0">(</span>name=<span class="st0">"GSTCST"</span><span class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Customer <span class="br0">{</span>
 &nbsp;
     @Id  <span class="co1">// Indicates that number is the key property (1)</span>
-    @Column<span class="br0">(</span>length=<span class="nu0">5</span><span class="br0">)</span>  <span
-
+    @Column<span class="br0">(</span>length=<span class="nu0">5</span><span class="br0">)</span>  <span
 class="co1">// Here @Column indicates only the length (2)</span>
     <span class="kw2">private</span> <span class="kw3">int</span> number<span class="sy0">;</span>
 &nbsp;
-    @Column<span class="br0">(</span>name=<span class="st0">"CSTNAM"</span>, length=<span
-
+    @Column<span class="br0">(</span>name=<span class="st0">"CSTNAM"</span>, length=<span
 class="nu0">40</span><span class="br0">)</span>  <span class="co1">// name property is mapped to CSTNAM</span>
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> name<span class="sy0">;</span>               <span
-
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> name<span class="sy0">;</span>               <span
 class="co1">// column in database</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">int</span> getNumber<span
-
+    <span class="kw2">public</span> <span class="kw3">int</span> getNumber<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> number<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> setNumber<span
-
-class="br0">(</span><span class="kw3">int</span> number<span class="br0">)</span> <span
-
+    <span class="kw2">public</span> <span class="kw3">void</span> setNumber<span
+class="br0">(</span><span class="kw3">int</span> number<span class="br0">)</span> <span
 class="br0">{</span>
-        <span class="kw2">this</span>.<span class="me1">number</span> = number<span
-
+        <span class="kw2">this</span>.<span class="me1">number</span> = number<span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getName<span class="br0">(</span><span class="br0">)</span> <span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getName<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">{</span>
         <span class="kw2">return</span> name<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span
-
+    <span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span
 class="br0">)</span> <span class="br0">{</span>
-        <span class="kw2">this</span>.<span class="me1">name</span> = name<span
-
+        <span class="kw2">this</span>.<span class="me1">name</span> = name<span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
@@ -1366,21 +1338,17 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
 <span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="br0">{</span>
 &nbsp;
     @ManyToOne<span class="br0">(</span>  <span class="co1">// The reference is persisted as a database relationship (1)</span>
         fetch=FetchType.<span class="me1">LAZY</span>,  <span class="co1">// The reference is loaded on demand (2)</span>
-        optional=<span class="kw4">false</span><span class="br0">)</span>  <span
-
+        optional=<span class="kw4">false</span><span class="br0">)</span>  <span
 class="co1">// The reference must always have a value</span>
-    @JoinColumn<span class="br0">(</span>name=<span class="st0">"INVCST"</span><span
-
+    @JoinColumn<span class="br0">(</span>name=<span class="st0">"INVCST"</span><span
 class="br0">)</span>  <span class="co1">// INVCST is the foreign key column (3)</span>
-    <span class="kw2">private</span> Customer customer<span class="sy0">;</span>  <span
-
+    <span class="kw2">private</span> Customer customer<span class="sy0">;</span>  <span
 class="co1">// A regular Java reference (4)</span>
 &nbsp;
     <span class="co1">// Getter and setter for customer</span></pre>
@@ -1613,19 +1581,16 @@ class="co1">// A regular Java reference (4)</span>
 </style><pre class="java5">@Embeddable  <span class="co1">// To define this class as embeddable</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Address <span class="br0">{</span>
 &nbsp;
-    @Column<span class="br0">(</span>length=<span class="nu0">30</span><span class="br0">)</span>  <span
-
+    @Column<span class="br0">(</span>length=<span class="nu0">30</span><span class="br0">)</span>  <span
 class="co1">// You can use @Column as in an entity</span>
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> street<span class="sy0">;</span>
 &nbsp;
     @Column<span class="br0">(</span>length=<span class="nu0">5</span><span class="br0">)</span>
     <span class="kw2">private</span> <span class="kw3">int</span> zipCode<span class="sy0">;</span>
 &nbsp;
     @Column<span class="br0">(</span>length=<span class="nu0">20</span><span class="br0">)</span>
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> city<span class="sy0">;</span>
 &nbsp;
     <span class="co1">// Getters and setters</span>
@@ -1820,16 +1785,14 @@ class="kw21">String</span></a> city<span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
 @Table<span class="br0">(</span>name=<span class="st0">"GSTCST"</span><span class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Customer <span class="br0">{</span>
 &nbsp;
 &nbsp;
     @Embedded  <span class="co1">// References to an embeddable class</span>
-    <span class="kw2">private</span> Address address<span class="sy0">;</span>  <span
-
+    <span class="kw2">private</span> Address address<span class="sy0">;</span>  <span
 class="co1">// A regular Java reference</span>
 &nbsp;
     <span class="co1">// Getter and setter for address</span>
@@ -2032,20 +1995,16 @@ class="co1">// A regular Java reference</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
 <span class="kw2">public</span> <span class="kw2">class</span> Customer <span class="br0">{</span>
 &nbsp;
     @OneToMany<span class="br0">(</span>  <span class="co1">// The collection is persistent (1)</span>
-        mappedBy=<span class="st0">"customer"</span><span class="br0">)</span>      <span
-
+        mappedBy=<span class="st0">"customer"</span><span class="br0">)</span>      <span
 class="co1">// The customer reference from Invoice is used</span>
                                         <span class="co1">// to map the relationship at the database level (2)</span>
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Invoice<span class="sy0">&gt;</span> invoices<span
-
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Invoice<span class="sy0">&gt;</span> invoices<span
 class="sy0">;</span>  <span class="co1">// A regular Java collection (3)</span>
 &nbsp;
     <span class="co1">// Getter and setter for invoices</span>
@@ -2251,19 +2210,15 @@ class="sy0">;</span>  <span class="co1">// A regular Java collection (3)</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
 <span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="br0">{</span>
 &nbsp;
     @OneToMany <span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span>,
-        cascade=CascadeType.<span class="me1">REMOVE</span><span class="br0">)</span>  <span
-
+        cascade=CascadeType.<span class="me1">REMOVE</span><span class="br0">)</span>  <span
 class="co1">// Cascade REMOVE to simulate embedded</span>
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>InvoiceDetail<span
-
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>InvoiceDetail<span
 class="sy0">&gt;</span> details<span class="sy0">;</span>
 &nbsp;
     <span class="co1">// Getter and setter for details</span>
@@ -2457,11 +2412,9 @@ class="sy0">&gt;</span> details<span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> InvoiceDetail <span
-
+<span class="kw2">public</span> <span class="kw2">class</span> InvoiceDetail <span
 class="br0">{</span>
     ...
 <span class="br0">}</span></pre>
@@ -2662,16 +2615,13 @@ class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
 <span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="br0">{</span>
 &nbsp;
 @ElementCollection
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>InvoiceDetail<span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>InvoiceDetail<span
 class="sy0">&gt;</span> details<span class="sy0">;</span>
 &nbsp;
 <span class="co1">// Getter and setter for details</span>
@@ -2867,8 +2817,7 @@ class="sy0">&gt;</span> details<span class="sy0">;</span>
 
 -->
 </style><pre class="java5">@Embeddable
-<span class="kw2">public</span> <span class="kw2">class</span> InvoiceDetail <span
-
+<span class="kw2">public</span> <span class="kw2">class</span> InvoiceDetail <span
 class="br0">{</span>
 ...
 <span class="br0">}</span></pre>
@@ -2956,10 +2905,8 @@ public class InvoiceKey implements java.io.Serializable { // The key class must 
 </code></pre> </div>
       <div class="wiki" style="display: block;"><span style="line-height: 1.5;">This
           code shows some of the requirements of a primary key class, such as to
-          be serializable and to implement </span><em><span style="line-height: 1.5;">hashCode()</span></em><span
-
-          style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">equals()</span></em><span
-
+          be serializable and to implement </span><em><span style="line-height: 1.5;">hashCode()</span></em><span
+          style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">equals()</span></em><span
           style="line-height: 1.5;">. OpenXava Studio (or Eclipse) can generate
           them for you with </span><em><span style="line-height: 1.5;">Source
             &gt; Generate hashCode and equals()...</span></em></div>
@@ -3165,36 +3112,25 @@ public class InvoiceKey implements java.io.Serializable { // The key class must 
 
 -->
 </style><pre class="java5">EntityManagerFactory f =  <span class="co1">// You need an EntityManagerFactory to create a manager</span>
-    Persistence.<span class="me1">createEntityManagerFactory</span><span class="br0">(</span><span
-
+    Persistence.<span class="me1">createEntityManagerFactory</span><span class="br0">(</span><span
 class="st0">"default"</span><span class="br0">)</span><span class="sy0">;</span>
-EntityManager manager = f.<span class="me1">createEntityManager</span><span class="br0">(</span><span
-
+EntityManager manager = f.<span class="me1">createEntityManager</span><span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>  <span class="co1">// You create the manager</span>
-manager.<span class="me1">getTransaction</span><span class="br0">(</span><span class="br0">)</span>.<span
-
-class="me1">begin</span><span class="br0">(</span><span class="br0">)</span><span
-
+manager.<span class="me1">getTransaction</span><span class="br0">(</span><span class="br0">)</span>.<span
+class="me1">begin</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span>  <span class="co1">// You have to start a transaction</span>
-Customer customer = <span class="kw2">new</span> Customer<span class="br0">(</span><span
-
+Customer customer = <span class="kw2">new</span> Customer<span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>  <span class="co1">// Now you create your entity</span>
-customer.<span class="me1">setNumber</span><span class="br0">(</span><span class="nu0">1</span><span
-
+customer.<span class="me1">setNumber</span><span class="br0">(</span><span class="nu0">1</span><span
 class="br0">)</span><span class="sy0">;</span>  <span class="co1">// and populate it</span>
-customer.<span class="me1">setName</span><span class="br0">(</span><span class="st0">"JAVI"</span><span
-
+customer.<span class="me1">setName</span><span class="br0">(</span><span class="st0">"JAVI"</span><span
 class="br0">)</span><span class="sy0">;</span>
-manager.<span class="me1">persist</span><span class="br0">(</span>customer<span
-
+manager.<span class="me1">persist</span><span class="br0">(</span>customer<span
 class="br0">)</span><span class="sy0">;</span>  <span class="co1">// persist marks the object as persistent</span>
-manager.<span class="me1">getTransaction</span><span class="br0">(</span><span class="br0">)</span>.<span
-
-class="me1">commit</span><span class="br0">(</span><span class="br0">)</span><span
-
+manager.<span class="me1">getTransaction</span><span class="br0">(</span><span class="br0">)</span>.<span
+class="me1">commit</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span>  <span class="co1">// On commit changes are done into database</span>
-manager.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
-
+manager.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span>  <span class="co1">// You have to close the manager</span></pre>
       You can see how verbose this snippet of code is. Too much of bureaucratic
       code. If you wish you can write JPA code in this way inside an OpenXava
@@ -3387,19 +3323,14 @@ class="sy0">;</span>  <span class="co1">// You have to close the manager</span><
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">Customer customer = <span class="kw2">new</span> Customer<span
-
+</style><pre class="java5">Customer customer = <span class="kw2">new</span> Customer<span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-customer.<span class="me1">setNumber</span><span class="br0">(</span><span class="nu0">1</span><span
-
+customer.<span class="me1">setNumber</span><span class="br0">(</span><span class="nu0">1</span><span
 class="br0">)</span><span class="sy0">;</span>
-customer.<span class="me1">setName</span><span class="br0">(</span><span class="st0">"PEDRO"</span><span
-
+customer.<span class="me1">setName</span><span class="br0">(</span><span class="st0">"PEDRO"</span><span
 class="br0">)</span><span class="sy0">;</span>
-XPersistence.<span class="me1">getManager</span><span class="br0">(</span><span
-
-class="br0">)</span>.<span class="me1">persist</span><span class="br0">(</span>customer<span
-
+XPersistence.<span class="me1">getManager</span><span class="br0">(</span><span
+class="br0">)</span>.<span class="me1">persist</span><span class="br0">(</span>customer<span
 class="br0">)</span><span class="sy0">;</span>  <span class="co1">// This is enough (1)</span></pre>
       Inside an OpenXava application you can obtain the manager by means of <em>org.openxava.jpa.XPersistence</em>
       class. You don't need to close the manager, start and commit a
@@ -3593,16 +3524,12 @@ class="br0">)</span><span class="sy0">;</span>  <span class="co1">// This is eno
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">Customer customer = XPersistence.<span class="me1">getManager</span><span
-
+</style><pre class="java5">Customer customer = XPersistence.<span class="me1">getManager</span><span
 class="br0">(</span><span class="br0">)</span>
-    .<span class="me1">find</span><span class="br0">(</span>Customer.<span class="kw2">class</span>, <span
-
-class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span>  <span
-
+    .<span class="me1">find</span><span class="br0">(</span>Customer.<span class="kw2">class</span>, <span
+class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span>  <span
 class="co1">// First, you search the object to modify (1)</span>
-customer.<span class="me1">setName</span><span class="br0">(</span><span class="st0">"PEDRITO"</span><span
-
+customer.<span class="me1">setName</span><span class="br0">(</span><span class="st0">"PEDRITO"</span><span
 class="br0">)</span><span class="sy0">;</span>  <span class="co1">// Then, you change the object state. No more</span></pre>
       In order to modify an object you only need to find and modify it. JPA is
       responsible for saving the changes to the database on transaction commit
@@ -3796,30 +3723,22 @@ class="br0">)</span><span class="sy0">;</span>  <span class="co1">// Then, you c
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">Customer pedro = <span class="br0">(</span>Customer<span
-
-class="br0">)</span> XPersistence.<span class="me1">getManager</span><span class="br0">(</span><span
-
+</style><pre class="java5">Customer pedro = <span class="br0">(</span>Customer<span
+class="br0">)</span> XPersistence.<span class="me1">getManager</span><span class="br0">(</span><span
 class="br0">)</span>
     .<span class="me1">createQuery</span><span class="br0">(</span>
-        <span class="st0">"from Customer c where c.name = 'PEDRO')"</span><span
-
+        <span class="st0">"from Customer c where c.name = 'PEDRO')"</span><span
 class="br0">)</span>  <span class="co1">// JPQL query (1)</span>
-    .<span class="me1">getSingleResult</span><span class="br0">(</span><span class="br0">)</span><span
-
+    .<span class="me1">getSingleResult</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span>  <span class="co1">// To obtain one single entity (2)</span>
 &nbsp;
-<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+List"><span
-
-class="kw166">List</span></a> pedros = XPersistence.<span class="me1">getManager</span><span
-
+<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+List"><span
+class="kw166">List</span></a> pedros = XPersistence.<span class="me1">getManager</span><span
 class="br0">(</span><span class="br0">)</span>
     .<span class="me1">createQuery</span><span class="br0">(</span>
-        <span class="st0">"from Customer c where c.name like 'PEDRO%')"</span><span
-
+        <span class="st0">"from Customer c where c.name like 'PEDRO%')"</span><span
 class="br0">)</span>  <span class="co1">// JPQL query</span>
-    .<span class="me1">getResultList</span><span class="br0">(</span><span class="br0">)</span><span
-
+    .<span class="me1">getResultList</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span>  <span class="co1">// To obtain a collection of entities (3)</span></pre>
       You can use the Java Persistence Query Language (JPQL, shown as 1) to
       create complex queries on your database and to obtain a single entity
@@ -4019,11 +3938,9 @@ class="sy0">;</span>  <span class="co1">// To obtain a collection of entities (3
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> Customer <span class="kw2">extends</span> Identifiable<span
-
+<span class="kw2">public</span> <span class="kw2">class</span> Customer <span class="kw2">extends</span> Identifiable<span
 class="br0">{</span>
 ....
 @ManyToOne
@@ -4219,20 +4136,16 @@ class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> CustomerStatus <span
-
+<span class="kw2">public</span> <span class="kw2">class</span> CustomerStatus <span
 class="kw2">extends</span> Identifiable<span class="br0">{</span><span class="co1">// Automatically includes unique string "id"</span>
 @Column<span class="br0">(</span>length=<span class="nu0">20</span><span class="br0">)</span>
 @Required
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> description<span class="sy0">;</span>
 <span class="co1">//Appropriate getter/setter methods...//</span></pre>
-      <span style="line-height: 1.5;">So, presume that </span>CustomerStatus<span
-
+      <span style="line-height: 1.5;">So, presume that </span>CustomerStatus<span
         style="line-height: 1.5;"> can be "ACTIVE" or "INACTIVE" for now, as
         text strings. (Obviously, for a simple binary selection like this you
         would normally use a <em>Boolean</em>, but this just shows the concept
@@ -4242,8 +4155,7 @@ class="kw21">String</span></a> description<span class="sy0">;</span>
         change a referenced entity, shown below within your action. (First, of
         course, make sure that you already have a top-level <em>Customer</em>
         entity already active via </span><em><span style="line-height: 1.5;">XPersistence.getManager()...)</span></em><br>
-      <span style="line-height: 1.5;">So, we'll call the action </span><em>SetCustomerStatusInactive</em><span
-
+      <span style="line-height: 1.5;">So, we'll call the action </span><em>SetCustomerStatusInactive</em><span
         style="line-height: 1.5;">. Create this action within Eclipse and,
         within the <em>execute()</em> section, use the following code:</span><br>
       <style type="text/css"><!--
@@ -4434,36 +4346,26 @@ class="kw21">String</span></a> description<span class="sy0">;</span>
 
 -->
 </style><pre class="java5"><span class="co1">// First, get a Query string executed; this pulls in the appropriate CustomerStatus entity with ID.</span>
-<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/management/Query.html"><span
-
-class="kw67">Query</span></a> q = XPersistence.<span class="me1">getManager</span><span
-
-class="br0">(</span><span class="br0">)</span>.<span class="me1">createQuery</span><span
-
-class="br0">(</span><span class="st0">"select t from CustomerStatus t where t.description = 'INACTIVE').getSingleResult()"</span><span
-
+<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/management/Query.html"><span
+class="kw67">Query</span></a> q = XPersistence.<span class="me1">getManager</span><span
+class="br0">(</span><span class="br0">)</span>.<span class="me1">createQuery</span><span
+class="br0">(</span><span class="st0">"select t from CustomerStatus t where t.description = 'INACTIVE').getSingleResult()"</span><span
 class="br0">)</span><span class="sy0">;</span>
 &nbsp;
 <span class="co1">//This is what translates the query result of getting the one customerStatus=='INACTIVE' property and storing it into workingStatus.</span>
-CustomerStatus workingStatus = <span class="br0">(</span>CustomerStatus<span class="br0">)</span> q.<span
-
-class="me1">getSingleResult</span><span class="br0">(</span><span class="br0">)</span><span
-
+CustomerStatus workingStatus = <span class="br0">(</span>CustomerStatus<span class="br0">)</span> q.<span
+class="me1">getSingleResult</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span><span class="co1">// Note that we cast the query result to CustomerStatus type</span>
 &nbsp;
 <span class="co1">// Now, move the "workingStatus" fields to the actual entity, customerStatus.</span>
-customer.<span class="me1">setCustomerStatus</span><span class="br0">(</span>workingStatus<span
-
+customer.<span class="me1">setCustomerStatus</span><span class="br0">(</span>workingStatus<span
 class="br0">)</span><span class="sy0">;</span> <span class="co1">//Set the customer status to the new (workingStatus) status</span>
 &nbsp;
 <span class="co1">// Finally, commit the change and refresh the view:</span>
-XPersistence.<span class="me1">commit</span><span class="br0">(</span><span class="br0">)</span><span
-
+XPersistence.<span class="me1">commit</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span> <span class="co1">//Save</span>
-getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">refresh</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>   <span
-
+getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">refresh</span><span
+class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>   <span
 class="co1">// Refresh the view...</span>
 ..... <span class="co1">// Other actions you want...</span>
 &nbsp;</pre>
@@ -4485,24 +4387,20 @@ class="co1">// Refresh the view...</span>
       while going through this course. If you still want to learn more just read
       some books and references. For example:<br>
       <ul>
-        <li><em><a class="wiki_link_ext" href="https://jcp.org/en/jsr/detail?id=338"
-
+        <li><em><a class="wiki_link_ext" href="https://jcp.org/en/jsr/detail?id=338"
               rel="nofollow">Java Persistence API Specification</a></em> by
           Linda DeMichiel.</li>
-        <li><em><a class="wiki_link_ext" href="https://books.google.es/books?id=Mh5KDwAAQBAJ"
-
+        <li><em><a class="wiki_link_ext" href="https://books.google.es/books?id=Mh5KDwAAQBAJ"
               rel="nofollow">Pro JPA 2</a></em> by Mike Keith and Merrick
           Schincariol.</li>
-        <li><em><a class="wiki_link_ext" href="http://www.amazon.com/Java-Persistence-Hibernate-Christian-Bauer/dp/1617290459/"
-
+        <li><em><a class="wiki_link_ext" href="http://www.amazon.com/Java-Persistence-Hibernate-Christian-Bauer/dp/1617290459/"
               rel="nofollow">Java Persistence with Hibernate</a></em> by
           Christian Bauer and Gavin King.</li>
       </ul>
       JPA is an undisputed technology in the Java Enterprise universe. All the
       assets of knowledge and code around JPA is always a good investment.<br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> </div>
   </body>
 </html>

@@ -1,7 +1,9 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lesson 2: Modeling with Java - OpenXava</title>
+    <title>Lesson 5: Agile development: Adding a new reference (@ManyToOne) and
+      a collection of entities (@OneToMany) - Modeling with Java - OpenXava
+      course</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,18 +11,22 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 2: Modeling with Java"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+      <h1 id="toc0"><a name="agile-development"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
-        Lesson 5: Agile development </h1>
+        Lesson 5: Agile development</h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <strong>2. Modeling with Java</strong> | <a class="wiki_link"
-        href="testing_en.html">3. Automated testing</a> | <a class="wiki_link"
-        href="inheritance_en.html">4. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
-        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
-        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
+        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
+        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
+        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
+        Refining the user interface</a> | <strong>5. Agile development</strong>
+      | <a class="wiki_link" href="testing_en.html">6. Automated testing</a> |
+      <a class="wiki_link" href="inheritance_en.html">7. Inheritance</a> | <a class="wiki_link"
+        href="basic-business-logic_en.html">8. Basic business logic</a> | <a class="wiki_link"
+        href="validation_en.html">9. Advanced validation</a> | <a class="wiki_link"
+        href="refining-standard-behavior_en.html">10. Refining the standard
+        behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">11.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">12.
         References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
@@ -28,31 +34,13 @@
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#Lesson%202:%20Modeling%20with%20Java">Lesson
-            2: Modeling with Java</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model">Basic
-            domain model</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Reference%20%28ManyToOne%29%20as%20descriptions%20list%20%28combo%29">Reference
-            (ManyToOne) as descriptions list (combo)</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Stereotypes">Stereotypes</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Embeddable">Embeddable</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Calculating%20default%20values">Calculating
-            default values</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Regular%20reference%20%28ManyToOne%29">Regular
-            reference (ManyToOne)</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Basic%20domain%20model-Collection%20of%20dependent%20objects">Collection
-            of dependent objects</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface">Refining
-            the user interface</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@View%20for%20defining%20layout">Using
-            @View for defining layout</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@ReferenceView%20to%20refine%20the%20user%20interface%20for%20reference">Using
-            @ReferenceView to refine the user interface for reference</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Refining%20the%20user%20interface-Refined%20user%20interface">Refined
-            user interface</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Agile%20development">Agile
-            development</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%202:%20Modeling%20with%20Java-Summary">Summary</a></div>
+        <div style="margin-left: 1em;"><a href="#agile-development">Lesson 5:
+            Agile development</a></div>
+        <div style="margin-left: 2em;"><a href="#adding-a-new-reference">Adding
+            a new reference</a></div>
+        <div style="margin-left: 2em;"><a href="#adding-a-collection-of-entities">Adding
+            a collection of entities</a></div>
+        <div style="margin-left: 2em;"><a href="#summary">Summary</a></div>
       </div>
       Nowadays agile development is no longer a “new and breaking technique”,
       but an established way to do software development, even the ideal way to
@@ -155,7 +143,7 @@ Collection&lt;Product&gt; products;
       removed too. For the author/books case we don't want this behavior, but it
       can be useful in many cases where the <em>@ElementCollection</em> is not
       enough.<br>
-      <h2 id="toc14"><a name="Lesson 2: Modeling with Java-Summary"></a>Summary</h2>
+      <h2 id="toc14"><a name="summary"></a>Summary</h2>
       <span style="line-height: 1.5;">In this section you have the complete code
         and steps required to do changes and see the result in the most
         interactive way. You have seen how OpenXava is an agile tool, ideal for

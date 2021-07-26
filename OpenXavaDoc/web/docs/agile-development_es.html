@@ -1,7 +1,8 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lección 2: Modelar con Java - OpenXava</title>
+    <title>Lección 5: Desarrollo ágil: Añadir una nueva referencia (@ManyToOne)
+      y nueva colección de entidades (@OneToMany) - Curso de OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,18 +10,22 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Modelar+con+Java"></a> <span id="breadcrumbs"> <span
+      <h1 id="toc0"><a name="desarrollo-agil"></a> <span id="breadcrumbs"> <span
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Lección 5: Desarrollo ágil </h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
-        Primeros pasos</a> | <strong>2. Modelar con Java</strong> | <a class="wiki_link"
-        href="testing_es.html">3. Pruebas automáticas</a> | <a class="wiki_link"
-        href="inheritance_es.html">4. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
-        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
-        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
-        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8.
-        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">9.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <strong>5. Desarrollo ágil</strong>
+      | <a class="wiki_link" href="testing_es.html">6. Pruebas automáticas</a>
+      | <a class="wiki_link" href="inheritance_es.html">7. Herencia</a> | <a class="wiki_link"
+        href="basic-business-logic_es.html">8. Lógica de negocio básica</a> | <a
+        class="wiki_link" href="validation_es.html">9. Validación avanzada</a> |
+      <a class="wiki_link" href="refining-standard-behavior_es.html">10. Refinar
+        el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">11.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">12.
         Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
@@ -28,33 +33,13 @@
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Modelar+con+Java">Lección 2:
-            Modelar con Java</a></div>
-        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio">Modelo
-            básico del dominio</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Referencia+ManyToOne+como+lista+de+descripciones+combo">Referencia
-            (ManyToOne) como lista de descripciones (combo)</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Estereotipos">Estereotipos</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Embeddable">Embeddable</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Calcular+valores+por+defecto">Calcular
-            valores por defecto</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Referencias+convencionales+ManyToOne">Referencias
-            convencionales (ManyToOne)</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Modelo+basico+del+dominio-Coleccion+de+objectos+dependientes">Colección
-            de objectos dependientes</a></div>
-        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario">Refinar
-            la interfaz de usuario</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-Interfaz+de+usuario+por+defecto">Interfaz
-            de usuario por defecto</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-Usar+View+para+definir+la+disposicion">Usar
-            @View para definir la disposición</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-Usar+ReferenceView+para+refinar+la+interfaz+de+referencias">Usar
-            @ReferenceView para refinar la interfaz de referencias</a></div>
-        <div style="margin-left: 3em;"><a href="#Modelar+con+Java-Refinar+la+interfaz+de+usuario-La+interfaz+de+usuario+refinada">La
-            interfaz de usuario refinada</a></div>
-        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Desarrollo+agil">Desarrollo
-            ágil</a></div>
-        <div style="margin-left: 2em;"><a href="#Modelar+con+Java-Resumen">Resumen</a></div>
+        <div style="margin-left: 1em;"><a href="#desarrollo-agil">Lección 5:
+            Desarrollo ágil</a></div>
+        <div style="margin-left: 2em;"><a href="#anadir-otra-referencia">Añadir
+            otra referencia</a></div>
+        <div style="margin-left: 2em;"><a href="#anadir-una-coleccion-de-entidades">Añadir
+            una colección de entidades</a></div>
+        <div style="margin-left: 2em;"><a href="#resumen">Resumen</a></div>
       </div>
       Hoy en día el desarrollo ágil ya no es una “una técnica nueva y
       rompedora”, sino una forma establecida de hacer desarrollo de software, es
@@ -76,7 +61,7 @@
       cambios y ver su efecto instantáneamente. Veamos un pequeño ejemplo de
       esto.</div>
     <div class="wiki" style="display: block;">
-      <h2><a name="anadir-una-referencia"></a>Añadir una referencia</h2>
+      <h2><a name="anadir-otra-referencia"></a>Añadir otra referencia</h2>
     </div>
     <div class="wiki" style="display: block;"> Por ejemplo, una vez que el
       usuario ve tu aplicación y empieza a jugar con ella, se da cuenta que él
@@ -125,7 +110,8 @@ Autor autor;
       escoger el autor del producto, como se muestra aquí:<br>
       <img src="files/modeling_es150.png" alt="modeling_es150.png" title="modeling_es150.png"></div>
     <div class="wiki" style="display: block;">
-      <h2><a name="anadir-una-coleccion"></a>Añadir una colección</h2>
+      <h2><a name="anadir-una-coleccion-de-entidades"></a>Añadir una colección
+        de entidades</h2>
     </div>
     <div class="wiki" style="display: block;"> ¿Qué ocurre si el usuario quiere
       escoger un autor y ver todos sus productos? Está chupado. Solo has de
@@ -158,7 +144,7 @@ Collection&lt;Producto&gt; productos;
       Para el caso autor/libros no queremos este comportamiento, pero puede ser
       útil en muchos casos donde una <em>@ElementCollection</em> sea
       insuficiente.<br>
-      <h2 id="toc15"><a name="Modelar+con+Java-Resumen"></a>Resumen</h2>
+      <h2 id="toc15"><a name="resumen"></a>Resumen</h2>
       Esta sección ha mostrado el código completo y los pasos para hacer cambios
       y ver el resultado de una manera muy interactiva. Tus ojos han visto como
       OpenXava es una herramienta ágil, ideal para hacer desarrollo ágil. </div>
