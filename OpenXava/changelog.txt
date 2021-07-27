@@ -9,19 +9,18 @@ Change Log for OpenXava project
 		- Si vacío en mapa mundi o lugar
 		- Escoger una coordenada on click y después pegar otra que esté cerca. No debe haber dos marcas.
 		- Copiar y pegar. Debería posicionar sin salir del campo manualmente
-		- Validación JavaScript:
-			- Al salir del campo rojo si está mal.
-			- Al salir del campo quita rojo si está bien.
-			- Al mover a otro registro el rojo desaparece. 
-		- Validación Java_
-			- Que aparezca el borde rojo en el campo.
+
 		
 	- Copiar leaflet.js, leaflet.js, leaflet.css y editors/style/images a OpenXava.
-	- Incluir un mapa en InvoiceDemo
+	- Incluir licencias
+	- updateOX
+	- Suite
 	- Documentar: 
 		- Incluir editor.
 		- ¿Poner mapa a la derecha?
+		- Configuración de xava.properties en customization_en
 	- ¿Poner configuración mapa en xava.properties de plantilla de proyecto?
+	- Incluir un mapa en InvoiceDemo
 
 OpenXava 6.5.3 (2021-7-12)
 --------------------------

@@ -1,0 +1,22 @@
+The automated tests in this project do not include some aspects of Coordinates editor.
+Therefore, when you touch Coordinates related code you have to test the next cases.
+
+TMP ME QUEDÉ POR AQUÍ: PROBANDOLO
+City module:
+- Go to first city. A map with its corresponding mark is shown.
+- Go to next record. The map and the mark change.
+- Click in any part of the map. The mark is moved to that part and the coordinates are updated in the text field.
+- Type coordinates and lost focus (40, 0: Castellón). Map is positiones with mark.
+- Click on new. A world map is shown.
+- Accept to know my location in the browser. A map near your location is shown.
+- Mark some point.
+- Copy and paste a point near of the current point:
+	- The previous point is removed.
+	- The map is positioned and the mark is set without losing the focus in the field.
+
+		
+		
+		
+		
+
+

@@ -3,6 +3,7 @@ package org.openxava.test.tests;
 import org.openxava.tests.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
+import com.gargoylesoftware.htmlunit.javascript.host.event.*;
 
 /**
  * Create on 27/02/2012 (10:56:25)
@@ -47,6 +48,80 @@ public class CityTest extends ModuleTestBase{
 		assertValidValuesCount("state.id", 7);	// 6 + void
 		setValue("stateCondition", "");
 		assertValidValuesCount("state.id", 50);	// 49 + void
+	}
+	
+	public void testCoordinatesValidator() throws Exception { // tmp 
+		execute("CRUD.new");
+		setValue("state.id", "CA");
+		setValue("code", "6");
+		setValue("name", "VALENCIA");
+		execute("CRUD.save");
+		assertNoErrors();
+		assertValue("state.id", "");
+		assertValue("code", "");
+		assertValue("name", "");
+
+		setValue("state.id", "CA");
+		setValue("code", "6");
+		execute("CRUD.refresh");
+		assertNoErrors();
+		assertValue("state.id", "CA");
+		assertValue("code", "6");
+		assertValue("name", "Valencia"); // Because of Name formatter, though we're not testing it here
+		
+		setValue("location", "In the coast");
+		execute("CRUD.save");
+		assertError("Location in City must be valid coordinates");
+		assertLocationMarkedAsError();
+		
+		setValue("location", "34.42057860590464, -118.56423692792511");
+		execute("CRUD.save");
+		assertNoErrors();
+		assertValue("state.id", "");
+		assertValue("code", "");
+		assertValue("name", "");
+
+		setValue("state.id", "CA");
+		setValue("code", "6");
+		execute("CRUD.refresh");
+		assertNoErrors();
+		assertValue("state.id", "CA");
+		assertValue("code", "6");
+		assertValue("name", "Valencia");
+		execute("CRUD.delete");
+		assertNoErrors();
+		
+		execute("CRUD.new");
+		assertLocationNotMarkedAsError();
+		setValue("location", "In the coast");
+		fireLocationChanged();
+		assertLocationMarkedAsError();
+		
+		setValue("location", "34.42057860590464, -118.56423692792511");
+		fireLocationChanged();
+		assertLocationNotMarkedAsError();
+		
+		setValue("location", "In the coast");
+		fireLocationChanged();
+		assertLocationMarkedAsError();
+		
+		execute("Navigation.first");
+		assertLocationNotMarkedAsError();
+	}
+
+	private void fireLocationChanged() { // tmp
+		HtmlElement input = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_City__location");
+		input.fireEvent(Event.TYPE_CHANGE);
+	}
+
+	private void assertLocationMarkedAsError() throws Exception { // tmp
+		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_City__editor_location");
+		assertTrue("Location not marked as error", editor.getAttribute("class").contains("ox-error-editor"));	
+	}
+	
+	private void assertLocationNotMarkedAsError() throws Exception { // tmp
+		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_City__editor_location");
+		assertFalse("Location marked as error", editor.getAttribute("class").contains("ox-error-editor"));	
 	}
 		
 }
