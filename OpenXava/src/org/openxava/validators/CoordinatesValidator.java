@@ -3,7 +3,6 @@ package org.openxava.validators;
 import org.openxava.util.*;
 
 /**
- * tmp
  * 
  * @since 6.6
  * @author Javier Paniza

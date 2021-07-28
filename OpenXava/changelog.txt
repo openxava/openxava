@@ -2,25 +2,13 @@ Change Log for OpenXava project
 ===============================
 
 - Coordinates:	
-	- Pruebas:
-		- Con registro existente muestra mapa con marca.
-		- Pone coordenadas al marcar.
-		- Si se ponen cooredenadas y se sale muestra mapa y marca.
-		- Si vacío en mapa mundi o lugar
-		- Escoger una coordenada on click y después pegar otra que esté cerca. No debe haber dos marcas.
-		- Copiar y pegar. Debería posicionar sin salir del campo manualmente
-
-		
-	- Copiar leaflet.js, leaflet.js, leaflet.css y editors/style/images a OpenXava.
-	- Incluir licencias
-	- updateOX
-	- Suite
 	- Documentar: 
 		- Incluir editor.
 		- ¿Poner mapa a la derecha?
 		- Configuración de xava.properties en customization_en
 	- ¿Poner configuración mapa en xava.properties de plantilla de proyecto?
 	- Incluir un mapa en InvoiceDemo
+- Some new common use labels to be used in applications.	
 
 OpenXava 6.5.3 (2021-7-12)
 --------------------------

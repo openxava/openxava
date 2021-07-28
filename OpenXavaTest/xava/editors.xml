@@ -214,13 +214,4 @@
 		<for-stereotype steroetype="TEXT_FILE"/>
 	</editor>
 	
-	<!-- tmp ini -->
-	<!-- tmp Mover a default-controllers.xml --> 
-	<editor name="Coordinates" url="coordinatesEditor.jsp" frame="true"> 
-		<for-stereotype stereotype="COORDINATES" /> 
-		<for-stereotype stereotype="COORDENADAS" />
-	</editor>
-	
-	<!-- tmp fin -->
-		
 </editors>

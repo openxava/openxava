@@ -33,13 +33,15 @@
         <div style="margin-left: 3em;"><a href="#Model-Properties-IMAGES_GALLERY%20stereotype">IMAGES_GALLERY
             stereotype</a></div>
         <div style="margin-left: 3em;"><a href="#Model-Properties-FILE%20%28new%20in%20v5.0%29//%20and%20FILES%20//%28new%20in%20v5.1%29%20stereotypes">FILE
-            (new in v5.0)// and FILES //(new in v5.1) stereotypes</a></div>
+            (new in v5.0) and FILES (new in v5.1) stereotypes</a></div>
         <div style="margin-left: 4em;"><a href="#Model-Properties-FILE%20%28new%20in%20v5.0%29//%20and%20FILES%20//%28new%20in%20v5.1%29%20stereotypes-Storage%20in%20File%20System">Storage
             in File System</a></div>
         <div style="margin-left: 4em;"><a href="#Model-Properties-FILE%20%28new%20in%20v5.0%29//%20and%20FILES%20//%28new%20in%20v5.1%29%20stereotypes-Storage%20in%20Database">Storage
             in Database</a></div>
         <div style="margin-left: 3em;"><a href="#Model-Properties-DISCUSSION%20stereotype%20%28new%20in%20v5.6%29">DISCUSSION
             stereotype (new in v5.6)</a></div>
+        <div style="margin-left: 3em;"><a href="#coordinates">COORDINATES
+            stereotype (new in v6.6)</a></div>
         <div style="margin-left: 3em;"><a href="#Model-Properties-Concurrency%20and%20version%20property">Concurrency
             and version property</a></div>
         <div style="margin-left: 3em;"><a href="#Model-Properties-Enums">Enums</a></div>
@@ -978,6 +980,8 @@ class="br0">}</span>                         <span class="co1">// 13</span>
         <li>ICON, ICONO (<em>new in v5.5</em>)</li>
         <li>DISCUSSION, DISCUSION (<em>new in v5.6</em>) (<a class="wiki_link" href="model_en.html#Model-Properties-DISCUSSION%20stereotype%20%28new%20in%20v5.6%29">setup
             instructions</a>)</li>
+        <li>COORDINATES, COORDENADAS (<i>new in v6.6</i>) (<a class="wiki_link"
+            href="#coordinates">setup instructions</a>)</li>
       </ul>
       <strong>NOTE</strong>: Most of the above Stereotypes return a String, <u>but
         not all</u>! Rather than list the exceptions here, reference the file:<br>
@@ -2047,7 +2051,7 @@ class="br0">)</span>
       storing byte[] (in our case LONGVARBINARY).<br>
       <h3 id="toc10"><a name="Model-Properties-DISCUSSION stereotype (new in v5.6)"></a>DISCUSSION
         stereotype <em>(new in v5.6)</em></h3>
-      If you want a property of your component to containt a discussion thread,
+      If you want a property of your component to contain a discussion thread,
       just like the ones in forums, trackers, blogs, etc. You only have to
       declare your property with the DISCUSSION stereotype, in this way:<br>
       <style type="text/css"><!--
@@ -2518,7 +2522,22 @@ class="br0">)</span>;</pre>
       storing a large text (by default CLOB) in your database, if not just do an
       ALTER COLUMN to put a better type.<br>
       With Tomcat 6 you have to edit the class <em>org.openxava.web.editors.DiscussionComment</em>
-      and remove the <em>@Lob</em> annotation from <em>comment</em> property.<br>
+      and remove the <em>@Lob</em> annotation from <em>comment</em> property.</div>
+    <div class="wiki" style="display: block;">
+      <h3><a name="coordinates"></a>COORDINATES stereotype <em>(new in v6.6)</em></h3>
+      A COORDINATES property allows your user to choose a point in a map and
+      store it. Define a COORDINATES property is as easy as:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@Stereotype("COORDINATES") @Column(length=50)
+private String location;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Note the type, <i>String</i>, and
+      the length, 50, enough to save coordinates. From the above code you get:</div>
+    <img src="files/model_en003.png" alt="model_en003.png" title="model_en003.png">
+    <div class="wiki" style="display: block;">TMP ME QUEDÉ POR AQUÍ If you want
+      a property of your component to containt a discussion thread, just like
+      the ones in forums, trackers, blogs, etc. You only have to declare your
+      property with the DISCUSSION ste
       <h3 id="toc11"><a name="Model-Properties-Concurrency and version property"></a>Concurrency
         and version property</h3>
       Concurrency is the ability of the application to allow several users to

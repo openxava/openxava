@@ -50,7 +50,7 @@ public class CityTest extends ModuleTestBase{
 		assertValidValuesCount("state.id", 50);	// 49 + void
 	}
 	
-	public void testCoordinatesValidator() throws Exception { // tmp 
+	public void testCoordinatesValidator() throws Exception { 
 		execute("CRUD.new");
 		setValue("state.id", "CA");
 		setValue("code", "6");
@@ -109,17 +109,17 @@ public class CityTest extends ModuleTestBase{
 		assertLocationNotMarkedAsError();
 	}
 
-	private void fireLocationChanged() { // tmp
+	private void fireLocationChanged() { 
 		HtmlElement input = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_City__location");
 		input.fireEvent(Event.TYPE_CHANGE);
 	}
 
-	private void assertLocationMarkedAsError() throws Exception { // tmp
+	private void assertLocationMarkedAsError() throws Exception { 
 		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_City__editor_location");
 		assertTrue("Location not marked as error", editor.getAttribute("class").contains("ox-error-editor"));	
 	}
 	
-	private void assertLocationNotMarkedAsError() throws Exception { // tmp
+	private void assertLocationNotMarkedAsError() throws Exception { 
 		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_City__editor_location");
 		assertFalse("Location marked as error", editor.getAttribute("class").contains("ox-error-editor"));	
 	}

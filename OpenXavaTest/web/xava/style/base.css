@@ -2493,7 +2493,6 @@ div[id$="_Index__view"] .ox-list-title {
     white-space: break-spaces;
 }
 
-
 .ox-read-only-html-text p {
 	margin-top: -15px;
 }
@@ -2533,11 +2532,9 @@ div[id$="_Index__view"] .ox-list-title {
 	padding-right: 4px;
 }
 
-/* tmp ini */
 .xava_coordinates {
 	min-width: 600px;
 	width: 100%;
 	height: 450px;
     margin: 7px 0px 0px 2px;
 }
-/* tmp fin */

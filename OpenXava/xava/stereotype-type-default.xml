@@ -44,8 +44,6 @@
 	<for stereotype="ICONO" type="String"/>
 	<for stereotype="DISCUSSION" type="String"/>
 	<for stereotype="DISCUSION" type="String"/>
-	<!-- tmp ini -->
 	<for stereotype="COORDINATES" type="String"/> 
 	<for stereotype="COORDENADAS" type="String"/>
-	<!-- tmp fin -->		
 </stereotype-type-default>

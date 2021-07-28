@@ -1,7 +1,5 @@
 if (coordinatesEditor == null) var coordinatesEditor = {};
 
-// tmp
-
 openxava.addEditorInitFunction(function() {
 	$(".xava_coordinates").each(function() {
 		var map = L.map(this);

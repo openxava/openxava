@@ -347,11 +347,9 @@
 		<for-model-property model="Chart" property="xColumn" />
 	</editor>	
 	
-	<!-- tmp ini -->
-	<editor name="Coordinates" url="coordinatesEditor.jsp"> 
+	<editor name="Coordinates" url="coordinatesEditor.jsp" frame="true"> 
 		<for-stereotype stereotype="COORDINATES" /> 
 		<for-stereotype stereotype="COORDENADAS" />
-	</editor>
-	<!-- tmp fin -->
+	</editor>	
 		
 </editors>

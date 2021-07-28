@@ -8,12 +8,12 @@ import org.openxava.test.actions.*;
 /**
  * Create on 16/01/2012 (09:54:11)
  * @author Ana Andres
+ * @author Javier Paniza
  */
 @IdClass(CityKey.class)
 @Entity
 @Tab(properties="code, name, state.fullNameWithFormula")
-// tmp @View(members="state, stateCondition; code; name")
-@View(members="state, stateCondition; code; name; location") // tmp
+@View(members="state, stateCondition; code; name; location") 
 public class City {
 	
 	@Id 
@@ -33,7 +33,7 @@ public class City {
 	private String stateCondition;
 	
 	@Stereotype("COORDINATES") @Column(length=50)
-	private String location; // tmp
+	private String location; 
 		
 	public State getState() {
 		return state;
