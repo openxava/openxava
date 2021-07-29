@@ -13,7 +13,8 @@ import org.openxava.test.actions.*;
 @IdClass(CityKey.class)
 @Entity
 @Tab(properties="code, name, state.fullNameWithFormula")
-@View(members="state, stateCondition; code; name; location") 
+// tmp @View(members="state, stateCondition; code; name; location")
+@View(members="city [ state; stateCondition; code; name;], location")
 public class City {
 	
 	@Id 
