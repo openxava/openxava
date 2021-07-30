@@ -14,7 +14,22 @@ import org.openxava.test.actions.*;
 @Entity
 @Tab(properties="code, name, state.fullNameWithFormula")
 // tmp @View(members="state, stateCondition; code; name; location")
-@View(members="city [ state; stateCondition; code; name;], location")
+@View(members=
+	"city [ state; "
+		+ "stateCondition;"
+		+ "code;"
+		+ "name;"
+		+ "population;"
+		+ "zipCode;"
+		+ "county;"
+		+ "country;"
+		+ "settled;"
+		+ "area;"
+		+ "elevation;"
+		+ "governmentType;"
+		+ "mayor;"
+	+ "], "
+	+ "location")
 public class City {
 	
 	@Id 
@@ -34,8 +49,67 @@ public class City {
 	private String stateCondition;
 	
 	@Stereotype("COORDINATES") @Column(length=50)
-	private String location; 
+	private String location;
+	
+	@Transient
+	private int population; // tmp
+	
+	@Transient @Column(length=5)
+	private String zipCode; // tmp
+	
+	@Transient @Column(length=50)
+	private String county; // tmp
+	
+	@Transient @Column(length=50)
+	private String country; // tmp 
+	
+	@Transient @Column(length=4)
+	private int settled; // tmp
+	
+	@Transient 
+	private int area; // tmp
+	
+	@Transient
+	private int elevation; // tmp
+	
+	@Transient @Column(length=50)
+	private String governmentType; // tmp
+	
+	@Transient @Column(length=50)
+	private String mayor; // tmp	
 		
+	public int getPopulation() {
+		return population;
+	}
+
+	public void setPopulation(int population) {
+		this.population = population;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getCounty() {
+		return county;
+	}
+
+	public void setCounty(String county) {
+		this.county = county;
+	}
+
+	public int getSettled() {
+		return settled;
+	}
+
+	public void setSettled(int settled) {
+		this.settled = settled;
+	}
+
 	public State getState() {
 		return state;
 	}
@@ -74,6 +148,46 @@ public class City {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public int getArea() {
+		return area;
+	}
+
+	public void setArea(int area) {
+		this.area = area;
+	}
+
+	public int getElevation() {
+		return elevation;
+	}
+
+	public void setElevation(int elevation) {
+		this.elevation = elevation;
+	}
+
+	public String getGovernmentType() {
+		return governmentType;
+	}
+
+	public void setGovernmentType(String governmentType) {
+		this.governmentType = governmentType;
+	}
+
+	public String getMayor() {
+		return mayor;
+	}
+
+	public void setMayor(String mayor) {
+		this.mayor = mayor;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 }
