@@ -2526,13 +2526,13 @@ class="br0">)</span>;</pre>
     <div class="wiki" style="display: block;">
       <h3><a name="coordinates"></a>COORDINATES stereotype <em>(new in v6.6)</em></h3>
       A COORDINATES property allows your user to choose a point in a map and
-      store it. Define a COORDINATES property is as easy as:</div>
+      store it. Defining a COORDINATES property is as easy as:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Stereotype("COORDINATES") @Column(length=50)
 private String location;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Note the type, <i>String</i>, and
-      the length, 50, enough to save coordinates. From the above code you get:</div>
+      the length, 50, enough to store coordinates. From the above code you get:</div>
     <img src="files/model_en003.png" alt="model_en003.png" title="model_en003.png">
     <div class="wiki" style="display: block;">The user can mark in any part of
       the map then the coordinates change. Also if he types or pastes the
@@ -2543,8 +2543,8 @@ private String location;
       JavaScript library to draw the map (<a href="https://leafletjs.com/">Leaflet</a>)
       and the maps are free, from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>.
       Still you need tile provider servers in order maps works, you should
-      install a configure a software in a server to turn the maps into images to
-      send to the JavaScript component on demand. Configure such server is
+      install and configure a software in a server to turn the maps into images
+      to send to the JavaScript component on demand. Configure such server is
       complex and time consuming, so most time it's easier to use tile provider
       servers from third parties. OpenXava allows you to define the tile
       provider you want in <i>xava.properties</i>. By default, it's configured
@@ -2579,9 +2579,35 @@ mapsZoomOffset=-1
       you can use any other tile provider, such as <a href="https://stamen.com/">Stamen</a>,
       <a href="https://www.openstreetmap.org/">OpenStreeMap</a> or <a href="https://www.thunderforest.com/">Thunderforest</a>.</div>
     <div class="wiki" style="display: block;">The editor for COORDINATES is a
-      framed editor, it blah, blah</div>
-    <img src="files/model_en007.png" alt="model_en007.png" title="model_en007.png">
-    <div class="wiki" style="display: block;">blah<br>
+      framed editor, that is it's inside a frame the user can collapse. You can
+      use the <a href="view_en.html">layout features of OpenXava by means of <i>@View</i></a>
+      to place it in the user interface the way you want, for example, if you
+      want a form with all fields on left and the map on right, you can write a
+      <i>@View</i> annotation like this:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@View(members=
+    "city [ state; "
+        + "stateCondition;"
+        + "code;"
+        + "name;"
+        + "population;"
+        + "zipCode;"
+        + "county;"
+        + "country;"
+        + "settled;"
+        + "area;"
+        + "elevation;"
+        + "governmentType;"
+        + "mayor;"
+    + "], "
+    + "location")
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Where <i>location</i> is a
+      COORDINATES property. Note as we used a group (those properties between
+      square brackets []) for the plain properties and place that group side by
+      side (using a comma) with the <i>location</i> property. The result is:</div>
+    <img src="files/model_en007.png" alt="model_en007.png" title="model_en007.png"><br>
+    <div class="wiki" style="display: block;">
       <h3 id="toc11"><a name="Model-Properties-Concurrency and version property"></a>Concurrency
         and version property</h3>
       Concurrency is the ability of the application to allow several users to

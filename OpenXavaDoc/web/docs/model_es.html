@@ -37,6 +37,8 @@
             en Base de Datos</a></div>
         <div style="margin-left: 3em;"><a href="#Modelo-Propiedades-Estereotipo%20DISCUSION%20%28nuevo%20en%20v5.6%29">Estereotipo
             DISCUSION (nuevo en v5.6)</a></div>
+        <div style="margin-left: 3em;"><a href="#coordenadas">Estereotipo
+            COORDENADAS (nuevo en v6.6)</a></div>
         <div style="margin-left: 3em;"><a href="#Modelo-Propiedades-Concurrencia+y+propiedad+version">Concurrencia
             y propiedad versión</a></div>
         <div style="margin-left: 3em;"><a href="#Modelo-Propiedades-Enums">Enums</a></div>
@@ -983,6 +985,8 @@ class="br0">}</span>                    <span class="co1">// 13</span></pre>
         <li>ICONO, ICON (<em>nuevo en v5.5</em>)</li>
         <li>DISCUSION, DISCUSSION <em>(nuevo en v5.6)</em> (<a class="wiki_link"
             href="model_es.html#Modelo-Propiedades-Estereotipo%20DISCUSION%20%28nuevo%20en%20v5.6%29">instrucciones</a>)</li>
+        <li>COORDENADAS, COORDINATES (<i>nuevo in v6.6</i>) (<a class="wiki_link"
+            href="#coordenadas">instrucciones</a>)</li>
       </ul>
       Vamos a ver como definiríamos un estereotipo propio. Crearemos uno llamado
       NOMBRE_PERSONA para representar nombres de persona.<br>
@@ -2521,7 +2525,97 @@ class="br0">)</span>;</pre>
       almacenar un texto grande (CLOB por defecto) en tu base de datos, si no
       haz un ALTER COLUMN para poner un tipo mejor.<br>
       Con Tomcat 6 has de editar la clase <em>org.openxava.web.editors.DiscussionComment</em>
-      y quitarle la anotación <em>@Lob</em> de la propiedad <em>comment</em>.<br>
+      y quitarle la anotación <em>@Lob</em> de la propiedad <em>comment</em>.</div>
+    <div class="wiki" style="display: block;">
+      <h3>Estereotipo <a name="coordenadas"></a>COORDENADAS <em>(nuevo en
+          v6.6)</em></h3>
+      Una propiedad COORDENADAS te permite escoger un punto en un mapa y
+      guardarlo. Definir una propiedad COORDENADAS es tan fácil como:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@Stereotype("COORDENADAS") @Column(length=50)
+private String ubicacion;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Fíjate en el tipo, <i>String</i>,
+        y la longitud, 50, suficiente para almacenar coordenadas. A partir del
+        código de arriba obtienes:</div>
+      <img src="files/model_es003.png" alt="model_es003.png" title="model_es003.png">
+      <div class="wiki" style="display: block;">El usuario puede marcar en
+        cualquier parte del mapa y las coordenadas cambiarán. También si teclea
+        o pega las coordenadas en el campo el mapa y la marca se reposicionan.</div>
+      <div class="wiki" style="display: block;">Puedes usar COORDENADAS sin
+        ninguna configuración especial, sin embargo tienes la opción de cambiar
+        el proveedor de imágenes de trozos de mapa (<i>tile provider</i>) en <i>xava.properties</i>.
+        OpenXava usa una librería JavaScript de código abierto para dibujar los
+        mapas (<a href="https://leafletjs.com/">Leaflet</a>) y los mapas son
+        gratuitos, de <a href="https://www.openstreetmap.org/">OpenStreetMap</a>.
+        Aún así necesitamos un servidor para generar las imágenes de lo mapas
+        bajo demanda y para eso deberíamos instalar y configurar un software en
+        un servidor que convierta los mapas en imágenes y los envíe al
+        componente JavaScript. Configurar este servidor es complejo y cuesta
+        tiempo, por eso la mayoría de las veces es más conveniente usar
+        servidores de terceros que ofrecen ese servicio, lo que llamamos en
+        inglés <i>tile providers</i>. OpenXava te permite definir el <i>tile
+          provider</i> que quieras en <i>xava.properties</i>. Por defecto,
+        viene configurado para usar <a href="https://opentopomap.org/">OpenTopoMap</a>
+        con estas entradas en <i>xava.properties</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="properties"># OpenTopoMap 
+mapsTileProvider=https://b.tile.opentopomap.org/{z}/{x}/{y}.png
+mapsAttribution=Map data © &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors, Imagery © &lt;a href="https://opentopomap.org"&gt;OpenTopoMap&lt;/a&gt; (&lt;a href="https://creativecommons.org/licenses/by-sa/3.0/"&gt;CC-BY-SA&lt;/a&gt;)
+</code></pre> </div>
+      <div class="wiki" style="display: block;">OpenTopoMap es de libre uso
+        incluso para proyectos comerciales con la licencia CC-BY-SA.</div>
+      <div class="wiki" style="display: block;">Puedes definir otros
+        proveedores, como <a href="https://www.mapbox.com/">MapBox</a>, de esta
+        manera: </div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="properties"># MapBox 
+# Cambia abajo YOUR_ACCESS_TOKEN por tu propio token de acceso
+mapsTileProvider=https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=YOUR_ACCESS_TOKEN
+mapsAttribution=Map data © &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors, Imagery © &lt;a href="https://www.mapbox.com/"&gt;Mapbox&lt;/a&gt;
+mapsTileSize=512
+mapsZoomOffset=-1
+</code></pre> </div>
+      <div class="wiki" style="display: block;">MapBox es un proveedor
+        comercial, aunque ofrecen planes gratuitos. Has de registrarte en <a href="https://www.mapbox.com/">https://www.mapbox.com/</a>
+        para obtener un token de acceso. Recuerda cambiar YOUR_ACCESS_TOKEN en
+        la URL por tu propio token de acceso. Para este proveedor has de definir
+        <i>mapsTileSize</i> y <i>mapsZoomOffset</i> para que los mapas se
+        visualicen bien. Con MapBox el mapa anterior tendría este aspecto:</div>
+      <img src="files/model_es005.png" alt="model_es005.png" title="model_es005.png">
+      <div class="wiki" style="display: block;">Aparte de OpenTopoMap y MaxBox
+        puedes usar cualquier otro <i>tile provider</i>, como <a href="https://stamen.com/">Stamen</a>,
+        <a href="https://www.openstreetmap.org/">OpenStreeMap</a> o <a href="https://www.thunderforest.com/">Thunderforest</a>.</div>
+      <div class="wiki" style="display: block;">El editor para COORDENADAS es un
+        editor con marco, es decir están dentro de un marco que el usuario puede
+        plegar. Puedes usar las <a href="view_es.html">características de
+          disposición de OpenXava por medido de <i>@View</i></a> para ponerlo
+        en la interfaz de usuario en la forma que quieras, por ejemplo, si
+        quieres un formulario con todos los campos a la izquierda y el mapa a la
+        derecha, puedes escribir una anotación <i>@View</i> como esta:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@View(members=
+    "ciudad [ estado; "
+        + "condicionEstado;"
+        + "codigo;"
+        + "nombre;"
+        + "población;"
+        + "codigoPostal;"
+        + "condado;"
+        + "pais;"
+        + "fundacion;"
+        + "superficie;"
+        + "altitud;"
+        + "tipoGobierno;"
+        + "alcalde;"
+    + "], "
+    + "ubicacion")
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Donde <i>ubicacion</i> es una
+        propiedad COORDENADAS. Fíjate que usamos un grupo (las propiedades entre
+        corchetes []) para las propiedades planas y colocamos la propiedad <i>ubicacion</i>
+        al lado (usando una coma). El resultado es:</div>
+      <img src="files/model_es007.png" alt="model_es007.png" title="model_es007.png"><br>
       <h3 id="toc11"><a name="Modelo-Propiedades-Concurrencia+y+propiedad+version"></a>Concurrencia
         y propiedad versión</h3>
       Concurrencia es la habilidad de una aplicación para permitir que varios
