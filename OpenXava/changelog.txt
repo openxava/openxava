@@ -2,9 +2,6 @@ Change Log for OpenXava project
 ===============================
 
 - Coordinates:	
-	- Documentar: 
-		- Configuración de xava.properties en customization_en
-	- ¿Poner configuración mapa en xava.properties de plantilla de proyecto?
 	- Incluir un mapa en InvoiceDemo
 - Some new common use labels to be used in applications.	
 
