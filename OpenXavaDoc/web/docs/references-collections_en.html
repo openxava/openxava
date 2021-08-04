@@ -432,9 +432,7 @@ public class GoAddOrdersToInvoiceAction
 </code></pre> In this way the action to add orders to the invoice is <i>AddOrdersToInvoiceAction</i>.
       Remember that the goal of our action is to add the orders to the invoice
       in the usual way, but also to copy the detail lines from those orders to
-      the invoice. This is the code of the action:TMP ME QUEDÉ POR AQUÍ. ESTA
-      HECHO HASTA JUNIT, PERO EL CÓDIGO A PARTIR DE AQUÍ ESTÁ SIN PROBAR, Y
-      PUEDE QUE NO VAYA.<br>
+      the invoice. This is the code of the action:<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
 import java.rmi.*;
@@ -469,25 +467,10 @@ public class AddOrdersToInvoiceAction
       order to the invoice. The way to do this is overwriting the <i>associateEntity()</i>
       method. The logic here is simple, after executing the standard logic (1)
       we search the corresponding <i>Order</i> entity and then call the <i>copyDetailsToInvoice()</i>
-      in that <i>Order</i>. <br>
-      Obviously, we need to have a <i>copyDetailsToInvoice()</i> method in <i>Order</i>
-      entity:<br>
-      <pre><code class="java">public class Order extends CommercialDocument {
-
-    ...
-	
-    public void copyDetailsToInvoice() {
-        copyDetailsToInvoice(getInvoice()); // We rely in an already existing method
-    }
-}
-
-</code></pre> Luckily we already have a method to copy details from an <i>Order</i>
-      to the specified <i>Invoice</i>, we just call this method sending the <i>Invoice</i>
-      of the
-      <i> Order</i>. These little modifications to the behavior of <i>orders</i>
-      collection of
-      <i> Invoice</i> are enough to convert the Invoice module in an effective
-      tool for invoicing individual customers. You only have to create a new
+      in that <i>Order</i>. Luckily we already have a method to copy details
+      from an <i>Order</i> to the specified <i>Invoice</i>, we just call this
+      method. </div>
+    <div class="wiki" style="display: block;">Now you only have to create a new
       invoice, choose a customer and add orders. It is even easier than using
       the list mode of <i>Order</i> module because from <i>Invoice</i> module
       only the suitable orders for the customer are shown.
@@ -495,94 +478,92 @@ public class AddOrdersToInvoiceAction
       We still are in the healthy habit of doing some application code, then
       some testing code. And now it's time to write the test code for the new
       feature we added in this lesson.
-      <h3>Adapting OrderTest</h3>
-      If you run OrderTest right now it does not pass. This is because our test
-      code relies in some details that have changed. Therefore, we have to
-      modify the current test code. Edit the testSetInvoice() method of
-      OrderTest and apply the changes in listing 9.18.
-      <pre>Listing 9.18 Modifications in testSetInvoice() method of OrderTest
-public void testSetInvoice() throws Exception {
-...
-assertValue("invoice.number", "");
-assertValue("invoice.year", "");
-execute("Reference.search", // The standard action for invoice searching
-"keyProperty=invoice.year");
-// is no longer used
-execute("Order.searchInvoice", // Instead we use our custom action (1)
-"keyProperty=invoice.number");
-execute("List.orderBy", "property=number");
-...
-// Restore values
-setValue("delivered", "false");
+      <h3>Adapting <i>OrderTest</i></h3>
+      If you run <i>OrderTest</i> right now it does not pass. This is because
+      our test code relies in some details that have changed. Therefore, we have
+      to modify the current test code. Edit the <i>testSetInvoice()</i> method
+      of <i> OrderTest</i> and apply the next changes:
+      <pre><code class="java">public void testSetInvoice() throws Exception {
 
+    ...
+	
+    assertValue("invoice.number", "");
+    assertValue("invoice.year", "");
+    // execute("Reference.search", // The standard action for invoice searching
+    //    "keyProperty=invoice.year"); // is no longer used
+    execute("Order.searchInvoice", // Instead we use our custom action (1)
+        "keyProperty=invoice.number");
+    execute("List.orderBy", "property=number");
+
+    ...
+	
+    // Restore values
+    setValue("delivered", "false");
+    setValue("invoice.year", ""); // Now we need to type a year
+    setValue("invoice.number", ""); // and a number to search the invoice (2)
+    execute("CRUD.save");
+    assertNoErrors();
 }
-setValue("invoice.year", ""); // Now we need to type a year
-setValue("invoice.number", ""); // and a number to search the invoice (2)
-execute("CRUD.save");
-assertNoErrors();
-</pre> Remember that we annotated the invoice reference in Order with
-      @SearchAction("Order.searchInvoice") (section 9.1.3), so we have to modify
-      the test to call Order.searchInvoice (1) instead of Reference.search. In
-      section 9.1.4 we added @SearchKey to year and number of
-      CommercialDocument, therefore our test has to indicate both year and
-      number to get (or clear in this case) an invoice (2). Because of this last
-      point we also have to modify testCreateInvoiceFromOrder() of OrderTest as
-      shown in listing 9.19.
-      <pre>Listing 9.19 Modifications in testCreateInvoiceFromOrder() method of OrderTest
-public void testCreateInvoiceFromOrder() throws Exception {
-...
+</code></pre> Remember that we annotated the invoice reference in <i>Order </i>with
+      <i>@SearchAction("Order.searchInvoice")</i>, so we have to modify the test
+      to call <i>Order.searchInvoice</i> (1) instead of <i>Reference.search</i>.
+      Also we added <i>@SearchKey</i> to year and number of <i>CommercialDocument</i>,
+      therefore our test has to indicate both year and number to get (or clear
+      in this case) an invoice (2). Because of this last point we also have to
+      modify <i>testCreateInvoiceFromOrder()</i> of <i>OrderTest</i>:
+      <pre><code class="java">public void testCreateInvoiceFromOrder() throws Exception {
 
+    ...
+
+    // Restoring the order for running the test the next time
+    setValue("invoice.year", ""); // Now we need to type a year
+    setValue("invoice.number", ""); // and a number to search the invoice (2)
+    assertValue("invoice.number", "");
+    assertCollectionRowCount("invoice.details", 0);
+    execute("CRUD.save");
+    assertNoErrors();
 }
-
-// Restoring the order for running the test the next time
-setValue("invoice.year", ""); // Now we need to type a year
-setValue("invoice.number", ""); // and a number to search the invoice (2)
-assertValue("invoice.number", "");
-assertCollectionRowCount("invoice.details", 0);
-execute("CRUD.save");
-assertNoErrors();
-</pre> After these changes the OrderTest must pass. However, we still have to
-      add the testing of the new functionality of Order module.
-      <h3>Testing the @SearchAction</h3>
-      In section 9.1.3 we used @SearchAction in the invoice reference of Order
+</code></pre> After these changes the <i>OrderTest</i> must pass. However, we
+      still have to add the testing of the new functionality of <i>Order</i>
+      module.
+      <h3>Testing the <i>@SearchAction</i></h3>
+      We have used <i>@SearchAction</i> in the <i>invoice </i>reference of <i>Order</i>
       for showing in the search list only the invoices from the customer of the
-      current order. Listing 9.20 shows the test of this functionality.
-      <pre>Listing 9.20 Testing searching invoice from order in OrderTest
-public void testSearchInvoiceFromOrder() throws Exception {
-execute("CRUD.new");
-setValue("customer.number", "1"); // If the customer is 1...
-execute("Sections.change", "activeSection=1");
-execute("Order.searchInvoice", // ...when the user clicks to choose an invoice...
-"keyProperty=invoice.number");
-assertCustomerInList("1"); // ...only the invoices of customer 1 are shown
-execute("ReferenceSearch.cancel");
-execute("Sections.change", "activeSection=0");
-setValue("customer.number", "2"); // And if the customer is 2...
-execute("Sections.change", "activeSection=1");
-execute("Order.searchInvoice", // ...when the user clicks to choose an invoice...
+      current order. This is the test of this functionality:
+      <pre><code class="java">public void testSearchInvoiceFromOrder() throws Exception {
+    execute("CRUD.new");
+    setValue("customer.number", "1"); // If the customer is 1...
+    execute("Sections.change", "activeSection=1");
+    execute("Order.searchInvoice", // ...when the user clicks to choose an invoice...
+        "keyProperty=invoice.number");
+    assertCustomerInAllRows("1"); // ...only the invoices of customer 1 are shown
+    execute("ReferenceSearch.cancel");
+    execute("Sections.change", "activeSection=0");
+    setValue("customer.number", "2"); // And if the customer is 2...
+    execute("Sections.change", "activeSection=1");
+    execute("Order.searchInvoice", // ...when the user clicks to choose an invoice...
+        "keyProperty=invoice.number");
+    assertCustomerInList("2"); // ...only the invoices of customer 2 are shown
 }
-"keyProperty=invoice.number");
-assertCustomerInList("2"); // ...only the invoices of customer 2 are shown
-</pre> The trickier part is to assert the invoices list, this is the work for
-      assertCustomerInList() whose code you can see in listing 9.21.
-      <pre>Listing 9.21 Asserting all the values of the customer column are the expected
-private void assertCustomerInList(String customerNumber) throws Exception {
-assertListNotEmpty();
-int c = getListRowCount();
-for (int i=0; i&lt;c; i++) { // A loop over all rows
-if (!customerNumber.equals(getValueInList(i, "customer.number"))) {
-fail("Customer in row " + i + // If the customer is not the expected one it fails
-" is not of customer " + customerNumber);
+</code></pre> The trickier part is to assert the invoices list, this is the work
+      for <i>assertCustomerInAllRows()</i>:
+      <pre><code class="java">private void assertCustomerInAllRows(String customerNumber) throws Exception {
+    assertListNotEmpty();
+    int c = getListRowCount();
+    for (int i=0; i&lt;c; i++) { // A loop over all rows
+        if (!customerNumber.equals(getValueInList(i, "customer.number"))) {
+            fail("Customer in row " + i + // If the customer is not the expected one it fails
+                " is not " + customerNumber);
+        }
+    }
 }
-}
-}
-</pre> It consists in a loop over all rows verifying the customer number.
+</code></pre> It consists in a loop over all rows verifying the customer number.
       <h3>Testing the @OnChangeSearch</h3>
-      In section 9.1.5 we used @SearchAction in the invoice reference of Order
-      for assigning automatically the customer of the chosen invoice to the
-      current order when the order has no customer yet, or for verifying that
-      the invoice and order customer matches, if the order already has a
-      customer. Listing 9.22 shows the test method in OrderTest.
+      TMP ME QUEDÉ POR AQUÍ In section 9.1.5 we used @SearchAction in the
+      invoice reference of Order for assigning automatically the customer of the
+      chosen invoice to the current order when the order has no customer yet, or
+      for verifying that the invoice and order customer matches, if the order
+      already has a customer. Listing 9.22 shows the test method in OrderTest.
       <pre>Listing 9.22 Testing events on changing the invoice of an order
 public void testOnChangeInvoice() throws Exception {
 execute("CRUD.new"); // We are creating a new order
