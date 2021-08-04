@@ -24,13 +24,16 @@ public class Modules implements Serializable {
 	
 	private static Log log = LogFactory.getLog(Modules.class);
 	private final static int BOOKMARK_MODULES = 100;
+	private final static int MODULES_ON_TOP = 20; // tmp
 	private final static ModuleComparator comparator = new ModuleComparator();
 	private static String preferencesNodeName = null; 
 	private List<MetaModule> all;
 	private List<MetaModule> bookmarkModules = null;
 	private List<MetaModule> regularModules; 
 	private List<MetaModule> fixedModules;
-	private List<MetaModule> notInMenuModules; 
+	private List<MetaModule> notInMenuModules;
+	private List<MetaModule> topModules = null; // tmp
+	private int fixedModulesCount = 0; // tmp ¿Dejar lo de los módulos fíjos?
 	
 	private MetaModule current;
 
@@ -57,6 +60,7 @@ public class Modules implements Serializable {
 		
 	public void reset() {
 		all = null;
+		topModules = null; // tmp
 		bookmarkModules = null;
 		fixedModules = null; 
 		regularModules = null; 
@@ -85,6 +89,7 @@ public class Modules implements Serializable {
 
 	public void setCurrent(String application, String module) { 
 		this.current = MetaModuleFactory.create(application, module);
+		/* tmp Sin esto, ¿se acuerda del módulo actual? 
 		try {			
 			Preferences preferences = getPreferences();
 			if (!"SignIn".equals(current.getName())) {
@@ -95,6 +100,46 @@ public class Modules implements Serializable {
 		}
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("storing_current_module_problem"), ex);   
+		}
+		*/
+		
+		// tmp ini
+		if (topModules == null) loadTopModules();	
+		int idx = indexOf(topModules, current);
+		boolean retainOrder = true; // tmp Ojo esto era el tercer argumento de este método. O ponemos el argumento, o quitamos esto.
+		if (idx < 0) {
+			if (topModules.size() >= MODULES_ON_TOP) {
+				topModules.remove(topModules.size() - 1); 
+			}				
+			topModules.add(fixedModulesCount, current); 
+		}		
+		else if (!retainOrder && idx >= fixedModulesCount) { 
+			topModules.remove(idx);
+			topModules.add(fixedModulesCount, current); 
+		}
+		storeTopModules();		
+		// tmp fin
+	}
+	
+	private void loadTopModules() { // tmp
+		topModules = new ArrayList<MetaModule>();
+		loadFixedModules(topModules);
+		// TMP ME QUEDÉ POR AQUÍ: QUITANDO ROJOS
+		// tmp if (NaviOXPreferences.getInstance().isRememberVisitedModules()) { // Esto tenemos que añadirlo
+			loadModulesFromPreferences(topModules, "", MODULES_ON_TOP);	
+		// tmp }
+	}
+	
+	private void storeTopModules() { // tmp
+		storeModulesInPreferences(topModules, "", MODULES_ON_TOP, true);
+	}
+	
+	private void loadFixedModules(Collection<MetaModule> modules) { // tmp 
+		String fixedModules = NaviOXPreferences.getInstance().getFixModulesOnTopMenu();
+		fixedModulesCount = 0; 
+		if (Is.emptyString(fixedModules)) return;
+		for (String moduleName: Strings.toCollection(fixedModules)) {
+			if (loadModule(modules, moduleName)) fixedModulesCount++;												
 		}
 	}
 		
@@ -381,8 +426,7 @@ public class Modules implements Serializable {
 	}
 	
 	public Collection<MetaModule> getTopModules() { // tmp
-		// return topModules;	
-		return Collections.EMPTY_LIST;
+		return topModules;	
 	}
 	
 	private static class ModuleComparator implements Comparator<MetaModule> {

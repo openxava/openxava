@@ -90,14 +90,13 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 				</a>
 				
 				<%-- tmp ini --%>
-				<%-- TMP ME QUEDÉ POR AQUÍ: INTENTANDO QUE SALGAN LOS MÓDULOS --%>
 				<% 
 				for (MetaModule metaModule: modules.getTopModules()) {
 					if (metaModule.getName().equals("SignIn")) continue;
-					if (showsIndexLink && metaModule.getName().equals("Index")) continue; 
+					if (modules.showsIndexLink() && metaModule.getName().equals("Index")) continue; 
 					String selected = metaModule.getName().equals(request.getParameter("module"))?"selected":"";
 				%>		
-					<a  href="<%=modules.getModuleURI(request, module)%>?retainOrder=true" class="<%=selected%>">
+					<a  href="<%=modules.getModuleURI(request, metaModule)%>?retainOrder=true" class="<%=selected%>">
 						<%=metaModule.getLabel(request.getLocale())%>
 					</a>	
 				<%
