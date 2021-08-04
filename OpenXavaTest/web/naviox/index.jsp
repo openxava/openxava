@@ -11,6 +11,7 @@
 <%@page import="org.openxava.util.Users"%>
 <%@page import="com.openxava.naviox.util.NaviOXPreferences"%>
 <%@page import="org.openxava.util.Is"%>
+<%@page import="org.openxava.application.meta.MetaModule"%> <%-- tmp --%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
@@ -87,6 +88,23 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
 					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
 				</a>
+				
+				<%-- tmp ini --%>
+				<%-- TMP ME QUEDÉ POR AQUÍ: INTENTANDO QUE SALGAN LOS MÓDULOS --%>
+				<% 
+				for (MetaModule metaModule: modules.getTopModules()) {
+					if (metaModule.getName().equals("SignIn")) continue;
+					if (showsIndexLink && metaModule.getName().equals("Index")) continue; 
+					String selected = metaModule.getName().equals(request.getParameter("module"))?"selected":"";
+				%>		
+					<a  href="<%=modules.getModuleURI(request, module)%>?retainOrder=true" class="<%=selected%>">
+						<%=metaModule.getLabel(request.getLocale())%>
+					</a>	
+				<%
+				}
+				%>
+				<%-- tmp fin --%>
+				
 				<div id="sign_in_out">
 					<%
 					if (Is.emptyString(NaviOXPreferences.getInstance().getAutologinUser())) {

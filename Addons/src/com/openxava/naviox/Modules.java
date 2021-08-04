@@ -15,7 +15,7 @@ import com.openxava.naviox.impl.*;
 import com.openxava.naviox.util.*;
 
 /**
- * 
+ * tmp Quitar addons-src como carpeta de código fuente en OpenXavaTest
  * @author Javier Paniza 
  */
 public class Modules implements Serializable {
@@ -378,6 +378,11 @@ public class Modules implements Serializable {
 			idx++;
 		}
 		return -1;
+	}
+	
+	public Collection<MetaModule> getTopModules() { // tmp
+		// return topModules;	
+		return Collections.EMPTY_LIST;
 	}
 	
 	private static class ModuleComparator implements Comparator<MetaModule> {

@@ -29,6 +29,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>addons-src</name>
+			<type>2</type>
+			<locationURI>OPENXAVA_LOC/Addons/src</locationURI>
+		</link>
+		<link>
 			<name>xava-src</name>
 			<type>2</type>
 			<locationURI>OPENXAVA_LOC/OpenXava/src</locationURI>
