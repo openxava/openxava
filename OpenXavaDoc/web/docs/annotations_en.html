@@ -11,18 +11,21 @@
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
         Appendix C: Annotations </h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
-        Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
-        Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4.
-        Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
-        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
-        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
+        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
+        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
+        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
+        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
+        Agile development</a> | <a class="wiki_link" href="testing_en.html">6.
+        Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">7.
+        Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">8.
+        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">9.
+        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">10.
+        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">11.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">12.
         References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <strong>C. Annotations</strong>
-      <hr> 
+      <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Appendix%20C:%20Annotations">Appendix
@@ -45,9 +48,9 @@
         <div style="margin-left: 2em;"><a href="#Appendix%20C:%20Annotations-Other%20annotations">Other
             annotations</a></div>
       </div>
-      Annotations are the tool that Java provides to define metadata in
-      your applications. In other words, it is the way to do declarative
-      development in Java, where you refer to “what” and not the “how” part.<br>
+      Annotations are the tool that Java provides to define metadata in your
+      applications. In other words, it is the way to do declarative development
+      in Java, where you refer to “what” and not the “how” part.<br>
       In this lesson you will see the annotations you can use inside an OpenXava
       application to define validations, user interface and some other aspects
       to fit your application to your needs.<br>
@@ -57,10 +60,8 @@
       is out of the scope of this course.<br>
       <h2 id="toc1"><a name="Appendix C: Annotations-Validation"></a>Validation</h2>
       OpenXava includes an easy to use and extensible validation framework.
-      Moreover OpenXava supports <a class="wiki_link_ext" href="http://beanvalidation.org/"
-
-        rel="nofollow">Bean Validation</a>and <a class="wiki_link_ext" href="http://hibernate.org/validator/"
-
+      Moreover OpenXava supports <a class="wiki_link_ext" href="http://beanvalidation.org/"
+        rel="nofollow">Bean Validation</a>and <a class="wiki_link_ext" href="http://hibernate.org/validator/"
         rel="nofollow">Hibernate Validator</a>.<br>
       <h3 id="toc2"><a name="Appendix C: Annotations-Validation-Declarative validation"></a>Declarative
         validation</h3>
@@ -255,8 +256,7 @@
 
 -->
 </style><pre class="java5">@Required  <span class="co1">// This forces to validate this property as required on save</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> name<span class="sy0">;</span></pre>
       And OpenXava will do the appropriate validation on save:<br>
       <img src="files/annotations_en010.png" alt="annotations_en010.png" title="annotations_en010.png"><br>
@@ -888,11 +888,9 @@ class="kw21">String</span></a> name<span class="sy0">;</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@PropertyValidator<span class="br0">(</span>UnitPriceValidator.<span
-
+</style><pre class="java5">@PropertyValidator<span class="br0">(</span>UnitPriceValidator.<span
 class="kw2">class</span><span class="br0">)</span>  <span class="co1">// Contains the validation logic</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
 class="kw27">BigDecimal</span></a> unitPrice<span class="sy0">;</span></pre>
         And now you can write the logic you want inside <em>UnitPriceValidator</em>
         class:<br>
@@ -1084,57 +1082,41 @@ class="kw27">BigDecimal</span></a> unitPrice<span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> UnitPriceValidator
-    <span class="kw2">implements</span> IPropertyValidator <span class="br0">{</span>  <span
-
+    <span class="kw2">implements</span> IPropertyValidator <span class="br0">{</span>  <span
 class="co1">// Must implement IPropertyValidator (1)</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> validate<span
-
+    <span class="kw2">public</span> <span class="kw3">void</span> validate<span
 class="br0">(</span>  <span class="co1">// Required  because of IPropertyValidator (2)</span>
         Messages errors,  <span class="co1">// Here you add the error messages (3)</span>
-        <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
+        <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
 class="kw166">Object</span></a> object,  <span class="co1">// The value to validate</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> objectName,  <span class="co1">// The entity name, usually to use in message</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> propertyName<span class="br0">)</span>  <span class="co1">// The property name, usually to use in message</span>
     <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>object == <span class="kw4">null</span><span
-
+        <span class="kw1">if</span> <span class="br0">(</span>object == <span class="kw4">null</span><span
 class="br0">)</span> <span class="kw2">return</span><span class="sy0">;</span>
-        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span><span
-
-class="br0">(</span>object <span class="kw2">instanceof</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a><span class="br0">)</span><span class="br0">)</span> <span
-
+        <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span><span
+class="br0">(</span>object <span class="kw2">instanceof</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
+class="kw27">BigDecimal</span></a><span class="br0">)</span><span class="br0">)</span> <span
 class="br0">{</span>
-            errors.<span class="me1">add</span><span class="br0">(</span>  <span
-
+            errors.<span class="me1">add</span><span class="br0">(</span>  <span
 class="co1">// If you add an error the validation fails</span>
                 <span class="st0">"expected_type"</span>,  <span class="co1">// Message id in i18n file</span>
                 propertyName,  <span class="co1">// Arguments for i18n message</span>
                 objectName,
-                <span class="st0">"bigdecimal"</span><span class="br0">)</span><span
-
+                <span class="st0">"bigdecimal"</span><span class="br0">)</span><span
 class="sy0">;</span>
             <span class="kw2">return</span><span class="sy0">;</span>
         <span class="br0">}</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a> n = <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
+class="kw27">BigDecimal</span></a> n = <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
 class="kw27">BigDecimal</span></a><span class="br0">)</span> object<span class="sy0">;</span>
-        <span class="kw1">if</span> <span class="br0">(</span>n.<span class="me1">intValue</span><span
-
-class="br0">(</span><span class="br0">)</span> <span class="sy0">&gt;</span> <span
-
+        <span class="kw1">if</span> <span class="br0">(</span>n.<span class="me1">intValue</span><span
+class="br0">(</span><span class="br0">)</span> <span class="sy0">&gt;</span> <span
 class="nu0">1000</span><span class="br0">)</span> <span class="br0">{</span>
-            errors.<span class="me1">add</span><span class="br0">(</span><span class="st0">"not_greater_1000"</span><span
-
+            errors.<span class="me1">add</span><span class="br0">(</span><span class="st0">"not_greater_1000"</span><span
 class="br0">)</span><span class="sy0">;</span>  <span class="co1">// Message id in i18n file</span>
         <span class="br0">}</span>
     <span class="br0">}</span>
@@ -1350,28 +1332,22 @@ class="br0">)</span><span class="sy0">;</span>  <span class="co1">// Message id 
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
 <span class="kw2">public</span> <span class="kw2">class</span> Seller <span class="br0">{</span>
 &nbsp;
-    @Id @Column<span class="br0">(</span>length=<span class="nu0">3</span><span
-
+    @Id @Column<span class="br0">(</span>length=<span class="nu0">3</span><span
 class="br0">)</span>
     <span class="kw2">private</span> <span class="kw3">int</span> number<span class="sy0">;</span>
 &nbsp;
     @Column<span class="br0">(</span>length=<span class="nu0">40</span><span class="br0">)</span> @Required
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> name<span class="sy0">;</span>
 &nbsp;
-    @OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"seller"</span><span
-
+    @OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"seller"</span><span
 class="br0">)</span>
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Customer<span class="sy0">&gt;</span> customers<span
-
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Customer<span class="sy0">&gt;</span> customers<span
 class="sy0">;</span>
 &nbsp;
     <span class="co1">// Getters and setters</span>
@@ -1582,11 +1558,9 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
-@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
-
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
 class="kw116">View</span></a><span class="br0">(</span>members=
     <span class="st0">"year, number, date;"</span> +  <span class="co1">// Comma means in the same line</span>
     <span class="st0">"discounts ["</span> +  <span class="co1">// Between square brackets means inside a frame</span>
@@ -1795,17 +1769,14 @@ class="kw116">View</span></a><span class="br0">(</span>members=
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
 @Views<span class="br0">(</span><span class="br0">{</span>
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
-
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
 class="kw116">View</span></a><span class="br0">(</span>
         members=<span class="st0">"number, name; address; invoices"</span>
     <span class="br0">)</span>,
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
-
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
 class="kw116">View</span></a><span class="br0">(</span>
         name=<span class="st0">"Simple"</span>, members=<span class="st0">"number, name"</span>
     <span class="br0">)</span>
@@ -2017,37 +1988,26 @@ class="kw116">View</span></a><span class="br0">(</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Views <span class="br0">(</span><span class="br0">{</span>     <span
-
+</style><pre class="java5">@Views <span class="br0">(</span><span class="br0">{</span>     <span
 class="co1">// You have several views for Seller</span>
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
-
-class="kw116">View</span></a><span class="br0">(</span>members=<span class="st0">" ... "</span><span
-
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+class="kw116">View</span></a><span class="br0">(</span>members=<span class="st0">" ... "</span><span
 class="br0">)</span>,
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
-
-class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"Simplest"</span>,    members=<span
-
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"Simplest"</span>,    members=<span
 class="st0">" ... "</span><span class="br0">)</span>,
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
-
-class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"Simple"</span>, members=<span
-
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"Simple"</span>, members=<span
 class="st0">" ... "</span><span class="br0">)</span>,
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
-
-class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"Complete"</span>, members=<span
-
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"Complete"</span>, members=<span
 class="st0">" ... "</span><span class="br0">)</span>,
 <span class="br0">}</span><span class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Seller <span class="br0">{</span>
 &nbsp;
-    @DescriptionsList<span class="br0">(</span>forViews=<span class="st0">"Simplest, Simple"</span><span
-
+    @DescriptionsList<span class="br0">(</span>forViews=<span class="st0">"Simplest, Simple"</span><span
 class="br0">)</span>    <span class="co1">// Combo only will be used for</span>
-    @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
-
+    @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
 class="br0">)</span>        <span class="co1">// 'level' in Simplest and Simple views</span>
     <span class="kw2">private</span> SellerLevel level<span class="sy0">;</span></pre>
         The next table shows all OpenXava annotations for customizing the user
@@ -2570,20 +2530,16 @@ class="br0">)</span>        <span class="co1">// 'level' in Simplest and Simple 
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@DisplaySizes<span class="br0">(</span><span class="br0">{</span>  <span
-
+</style><pre class="java5">@DisplaySizes<span class="br0">(</span><span class="br0">{</span>  <span
 class="co1">// To use several @DisplaySize</span>
-    @DisplaySize<span class="br0">(</span>forViews=<span class="st0">"Simple"</span>, value=<span
-
+    @DisplaySize<span class="br0">(</span>forViews=<span class="st0">"Simple"</span>, value=<span
 class="nu0">20</span><span class="br0">)</span>, <span class="co1">// name has 20 as display</span>
                                                <span class="co1">// size in view Simple</span>
-    @DisplaySize<span class="br0">(</span>forViews=<span class="st0">"Complete"</span>, value=<span
-
+    @DisplaySize<span class="br0">(</span>forViews=<span class="st0">"Complete"</span>, value=<span
 class="nu0">40</span><span class="br0">)</span> <span class="co1">// name has 40 as display</span>
                                                 <span class="co1">// size in view Complete</span>
 <span class="br0">}</span><span class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> name<span class="sy0">;</span></pre>
         Don't worry if you don't know how to use all these annotations yet.
         You'll learn them as you develop OpenXava applications.<br>
@@ -2667,16 +2623,14 @@ class="kw21">String</span></a> name<span class="sy0">;</span></pre>
         typically programming stuff, can be done just by annotating our code.<br>
         You can learn a lot of details about these annotations and even learn
         about more annotations in <em><a class="wiki_link" href="reference_en.html">OpenXava
-            Reference Guide</a></em> and in <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/package-summary.html"
-
+            Reference Guide</a></em> and in <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/package-summary.html"
             rel="nofollow">OpenXava API Doc of org.openxava.annotations</a></em>.
         However, the best way to learn is by example. The rest of this course is
         illustrative enough with pure examples that will show you how to use
         these annotations.<br>
         Let's start learning.<br>
         <br>
-        <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+        <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
             rel="nofollow">Ask in the forum</a></strong> </div>
     </div>
   </body>

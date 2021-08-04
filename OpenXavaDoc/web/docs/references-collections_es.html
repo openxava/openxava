@@ -1,37 +1,36 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lección 9: Referencias y colecciones - OpenXava</title>
+    <title>Lección 12: Referencias y colecciones - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
-    <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lección 9: Referencias y colecciones"></a>
-        <span id="breadcrumbs"> 
-        	<span id="openxava"> 
-            <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> 
-          / <a href="index_es.html">documentación</a> / 
-        </span>
-        Lección 9: Referencias y colecciones
-      </h1>
-
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Lección 9: Referencias y colecciones"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 12: Referencias y colecciones </h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
-        Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
-        Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3.
-        Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">4.
-        Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
-        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
-        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
-        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8.
-        Comportamiento y lógica de negocio</a> | <strong>9. Referencias y
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="testing_es.html">6.
+        Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">7.
+        Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">8.
+        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">9.
+        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">10.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">11.
+        Comportamiento y lógica de negocio</a> | <strong>12. Referencias y
         colecciones</strong> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a><hr>
-      Esta lección está disponible en PDF:<br>
+        Anotaciones</a>
+      <hr> Esta lección está disponible en PDF:<br>
       <a href="files/openxava-course9-references-collections_es.pdf">openxava-course9-references-collections_es.pdf</a><br>
-      <br>
+      Esta era la lección 9 del viejo curso. Estamos trabajando en una edición
+      actualizada. Mientras tanto esta lección todavía funciona bien si sigues
+      las instrucciones de abajo.<br>
       <h2 id="toc1"><a name="Lección 9: Referencias y colecciones-Notas para OpenXava 5.7 y superior"></a>Notas
         para OpenXava 5.7 y superior</h2>
       Usa <em>@AddAction</em> en lugar de <em>@NewAction</em> para refinar la
@@ -223,19 +222,14 @@
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span><span
-
+</style><pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span><span
 class="br0">)</span>
-@CollectionView<span class="br0">(</span><span class="st0">"NoCustomerNoInvoice"</span><span
-
+@CollectionView<span class="br0">(</span><span class="st0">"NoCustomerNoInvoice"</span><span
 class="br0">)</span>
-@NewAction<span class="br0">(</span><span class="st0">"Invoice.addOrders"</span><span
-
+@NewAction<span class="br0">(</span><span class="st0">"Invoice.addOrders"</span><span
 class="br0">)</span> <span class="co1">// @NewAction ya no se usa para definir la acción de añadir</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Order<span class="sy0">&gt;</span> orders<span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Order<span class="sy0">&gt;</span> orders<span
 class="sy0">;</span></pre>
       Por::<br>
       <style type="text/css"><!--
@@ -425,23 +419,17 @@ class="sy0">;</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span><span
-
+</style><pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span><span
 class="br0">)</span>
-@CollectionView<span class="br0">(</span><span class="st0">"NoCustomerNoInvoice"</span><span
-
+@CollectionView<span class="br0">(</span><span class="st0">"NoCustomerNoInvoice"</span><span
 class="br0">)</span>
-@AddAction<span class="br0">(</span><span class="st0">"Invoice.addOrders"</span><span
-
+@AddAction<span class="br0">(</span><span class="st0">"Invoice.addOrders"</span><span
 class="br0">)</span> <span class="co1">// @AddAction en su lugar</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Order<span class="sy0">&gt;</span> orders<span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Order<span class="sy0">&gt;</span> orders<span
 class="sy0">;</span></pre>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> </div>
   </body>
 </html>
