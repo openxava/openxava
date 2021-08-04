@@ -1,8 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- Coordinates:	
-	- Incluir un mapa en InvoiceDemo
+- New COORDINATES/COORDENADAS stereotype to store and display a point in a map.	
 - Some new common use labels to be used in applications.	
 
 OpenXava 6.5.3 (2021-7-12)

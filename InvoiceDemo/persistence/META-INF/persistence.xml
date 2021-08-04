@@ -10,6 +10,12 @@
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     	<non-jta-data-source>java://comp/env/jdbc/InvoiceDemoDS</non-jta-data-source>
     	<class>org.openxava.session.GalleryImage</class>
+    	<properties>
+            <property name="javax.persistence.schema-generation.database.action" value="update"/>
+            <property name="javax.persistence.create-database-schemas" value="true"/> 
+            <property name="hibernate.default_schema" value="PUBLIC"/>
+            <property name="hibernate.jdbc.use_streams_for_binary" value="true"/>
+        </properties>
     </persistence-unit>    
             
     <persistence-unit name="junit">
