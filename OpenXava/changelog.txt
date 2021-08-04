@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 2 of course includes video.
+- Lesson 2 of course divided in several smaller lessons.
 - New COORDINATES/COORDENADAS stereotype to store and display a point in a map.	
 - Some new common use labels to be used in applications.	
 
