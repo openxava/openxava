@@ -87,7 +87,7 @@ public class Modules implements Serializable {
 	}
 
 
-	public void setCurrent(String application, String module) { 
+	public void setCurrent(HttpServletRequest request, String application, String module) { // tmp request ¿Quitar application y module como paremetros?
 		this.current = MetaModuleFactory.create(application, module);
 		/* tmp Sin esto, ¿se acuerda del módulo actual? 
 		try {			
@@ -104,7 +104,7 @@ public class Modules implements Serializable {
 		*/
 		
 		// tmp ini
-		if (topModules == null) loadTopModules();	
+		if (topModules == null) loadTopModules(request);	
 		int idx = indexOf(topModules, current);
 		boolean retainOrder = true; // tmp Ojo esto era el tercer argumento de este método. O ponemos el argumento, o quitamos esto.
 		if (idx < 0) {
@@ -121,25 +121,25 @@ public class Modules implements Serializable {
 		// tmp fin
 	}
 	
-	private void loadTopModules() { // tmp
+	private void loadTopModules(HttpServletRequest request) { // tmp
 		topModules = new ArrayList<MetaModule>();
-		loadFixedModules(topModules);
-		// TMP ME QUEDÉ POR AQUÍ: QUITANDO ROJOS
+		loadFixedModules(request, topModules);
 		// tmp if (NaviOXPreferences.getInstance().isRememberVisitedModules()) { // Esto tenemos que añadirlo
-			loadModulesFromPreferences(topModules, "", MODULES_ON_TOP);	
+			loadModulesFromPreferences(request, topModules, "", MODULES_ON_TOP);	
 		// tmp }
 	}
 	
 	private void storeTopModules() { // tmp
-		storeModulesInPreferences(topModules, "", MODULES_ON_TOP, true);
+		// tmp storeModulesInPreferences(topModules, "", MODULES_ON_TOP, true);
+		storeModulesInPreferences(topModules, "", MODULES_ON_TOP); // TMP Deberiamos dejar la de arriba con el , true
 	}
 	
-	private void loadFixedModules(Collection<MetaModule> modules) { // tmp 
+	private void loadFixedModules(HttpServletRequest request, Collection<MetaModule> modules) { // tmp 
 		String fixedModules = NaviOXPreferences.getInstance().getFixModulesOnTopMenu();
 		fixedModulesCount = 0; 
 		if (Is.emptyString(fixedModules)) return;
 		for (String moduleName: Strings.toCollection(fixedModules)) {
-			if (loadModule(modules, moduleName)) fixedModulesCount++;												
+			if (loadModule(request, modules, moduleName)) fixedModulesCount++;												
 		}
 	}
 		
@@ -242,16 +242,18 @@ public class Modules implements Serializable {
 		}
 	}
 
-	private void loadModule(HttpServletRequest request, Collection<MetaModule> modules, String moduleName) {   
+	private boolean loadModule(HttpServletRequest request, Collection<MetaModule> modules, String moduleName) {   
 		try {
 			MetaModule module = MetaModuleFactory.create(moduleName);
 			if (!modules.contains(module) && isModuleAuthorized(request, module)) { 
 				modules.add(module);
+				return true; // tmp
 			}
 		}
 		catch (Exception ex) {					
 			log.warn(XavaResources.getString("module_not_loaded", moduleName, MetaModuleFactory.getApplication()), ex);
 		}
+		return false; // tmp
 	}
 
 	private void loadBookmarkModules(HttpServletRequest request) { 
