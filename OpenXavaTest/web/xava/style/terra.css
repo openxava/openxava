@@ -40,3 +40,32 @@
 	--required-editor-border: var(--terra);
 	--calendar-selected-day: var(--terra); 	
 }
+
+/* tmp ini */
+/* TMP ME QUEDÉ POR AQUÍ: REFINANDO ESTILO DE PESTAÑAS, LA ALTURA DE LAS ETIQUETAS */
+#module_header a {
+	padding: 10px;
+	color: var(--light-terra);
+}
+
+#module_header .selected {
+	padding: 7px 10px 10px 10px;
+	background: var(--terra);
+	color: var(--acqua-profonda);
+	color: var(--acqua-profonda);
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+
+}
+
+#module_header { 
+    font-size: 16px; 
+}
+
+#bookmark {
+	font-size: 20px;
+	float: right;
+	padding: 2px;
+}
+
+/* tmp fin */

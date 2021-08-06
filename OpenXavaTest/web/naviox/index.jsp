@@ -63,7 +63,8 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 				<% if (!isFirstSteps) { %>
 				<a id="module_header_menu_button" href="javascript:naviox.showModulesList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>')">
 					<i class="mdi mdi-menu"></i></a>
-				<% } %>	
+				<% } %>
+				<%-- tmp	
 				<span id="module_title">
 					<%
 					if (hasModules && !isFirstSteps) {
@@ -89,20 +90,26 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
 					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
 				</a>
+				--%>
 				
 				<%-- tmp ini --%>
 				<% 
 				for (MetaModule metaModule: modules.getTopModules()) {
 					if (metaModule.getName().equals("SignIn")) continue;
-					if (modules.showsIndexLink() && metaModule.getName().equals("Index")) continue; 
-					String selected = metaModule.getName().equals(request.getParameter("module"))?"selected":"";
+					if (modules.showsIndexLink() && metaModule.getName().equals("Index")) continue;
+					String selected = metaModule.getName().equals(request.getParameter("module"))?"class='selected'":"";
 				%>		
-					<a  href="<%=modules.getModuleURI(request, metaModule)%>?retainOrder=true" class="<%=selected%>">
-						<%=metaModule.getLabel(request.getLocale())%>
-					</a>	
+					<a href="<%=modules.getModuleURI(request, metaModule)%>?retainOrder=true" <%=selected%>>
+							<%=metaModule.getLabel(request.getLocale())%>
+					</a>
 				<%
 				}
 				%>
+				
+				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
+					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
+				</a>				
+								
 				<%-- tmp fin --%>
 				
 				<div id="sign_in_out">
