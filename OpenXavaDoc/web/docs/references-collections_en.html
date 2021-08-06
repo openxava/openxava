@@ -529,7 +529,8 @@ public class AddOrdersToInvoiceAction
       <h3>Testing the <i>@SearchAction</i></h3>
       We have used <i>@SearchAction</i> in the <i>invoice </i>reference of <i>Order</i>
       for showing in the search list only the invoices from the customer of the
-      current order. This is the test of this functionality:
+      current order. Add the next method to <i>OrderTest</i> to test of this
+      functionality:
       <pre><code class="java">public void testSearchInvoiceFromOrder() throws Exception {
     execute("CRUD.new");
     setValue("customer.number", "1"); // If the customer is 1...
@@ -546,7 +547,7 @@ public class AddOrdersToInvoiceAction
     assertCustomerInList("2"); // ...only the invoices of customer 2 are shown
 }
 </code></pre> The trickier part is to assert the invoices list, this is the work
-      for <i>assertCustomerInAllRows()</i>:
+      for <i>assertCustomerInAllRows()</i> in <i>OrderTest</i>:
       <pre><code class="java">private void assertCustomerInAllRows(String customerNumber) throws Exception {
     assertListNotEmpty();
     int c = getListRowCount();
@@ -559,96 +560,92 @@ public class AddOrdersToInvoiceAction
 }
 </code></pre> It consists in a loop over all rows verifying the customer number.
       <h3>Testing the @OnChangeSearch</h3>
-      TMP ME QUEDÉ POR AQUÍ In section 9.1.5 we used @SearchAction in the
-      invoice reference of Order for assigning automatically the customer of the
-      chosen invoice to the current order when the order has no customer yet, or
-      for verifying that the invoice and order customer matches, if the order
-      already has a customer. Listing 9.22 shows the test method in OrderTest.
-      <pre>Listing 9.22 Testing events on changing the invoice of an order
-public void testOnChangeInvoice() throws Exception {
-execute("CRUD.new"); // We are creating a new order
-assertValue("customer.number", ""); // so it has no customer yet
-execute("Sections.change", "activeSection=1");
-execute("Order.searchInvoice", // Looks for the invoice using a list
-"keyProperty=invoice.number");
-execute("List.orderBy", "property=customer.number"); // It orders by customer
-String customer1Number = getValueInList(0, "customer.number"); // Memorizes..
-String invoiceYear1 = getValueInList(0, "year"); // ..the data of the...
-String invoiceNumber1 = getValueInList(0, "number"); // ...first invoice
-execute("List.orderBy", "property=customer.number"); // It orders by customer
-String customer2Number = getValueInList(0, "customer.number"); // Memorizes..
-String customer2Name = getValueInList(0, "customer.name"); // ..the data of
-// ...the last invoice
-assertNotEquals("Must be invoices of different customer",
-customer1Number, customer2Number); // The 2 memorized invoices aren't the same
-execute("ReferenceSearch.choose","row=0");// The invoice is chosen using the list (1)
-execute("Sections.change", "activeSection=0");
-assertValue("customer.number", customer2Number);
-// The customer data is
-assertValue("customer.name", customer2Name);
-// filled automatically (2)
-execute("Sections.change", "activeSection=1");
-setValue("invoice.year", invoiceYear1); // We try to put an invoice of another...
-setValue("invoice.number", invoiceNumber1); // ...customer (3)
-assertError("Customer Nº " + customer1Number + " of invoice " + // It shows
-invoiceYear1 + "/" + invoiceNumber1 +
-// an error message... (4)
-" does not match with Customer Nº " +
-customer2Number + " of the current order");
-
+      We used <i>@OnChangeSearch</i> in the <i> invoice</i> reference of <i>Order</i>
+      for assigning automatically the customer of the chosen invoice to the
+      current order when the order has no customer yet, or for verifying that
+      the invoice and order customer matches, if the order already has a
+      customer. This is the test method in <i>OrderTest</i>:
+      <pre><code class="java">public void testOnChangeInvoice() throws Exception {
+    execute("CRUD.new"); // We are creating a new order
+    assertValue("customer.number", ""); // so it has no customer yet
+    execute("Sections.change", "activeSection=1");
+    execute("Order.searchInvoice", // Looks for the invoice using a list
+        "keyProperty=invoice.number");
+		
+    execute("List.orderBy", "property=customer.number"); // It orders by customer
+    String customer1Number = getValueInList(0, "customer.number"); // Memorizes..
+    String invoiceYear1 = getValueInList(0, "year"); // ..the data of the...
+    String invoiceNumber1 = getValueInList(0, "number"); // ...first invoice
+    execute("List.orderBy", "property=customer.number"); // It orders by customer
+    String customer2Number = getValueInList(0, "customer.number"); // Memorizes..
+    String customer2Name = getValueInList(0, "customer.name"); // ..the data of
+                                                           // ...the last invoice
+    assertNotEquals("Must be invoices of different customer",
+    customer1Number, customer2Number); // The 2 memorized invoices aren't the same
+	
+    execute("ReferenceSearch.choose","row=0");// The invoice is chosen using the list (1)
+    execute("Sections.change", "activeSection=0");
+    assertValue("customer.number", customer2Number); // The customer data is
+    assertValue("customer.name", customer2Name); // filled automatically (2)
+    execute("Sections.change", "activeSection=1");
+    setValue("invoice.year", invoiceYear1); // We try to put an invoice of another...
+    setValue("invoice.number", invoiceNumber1); // ...customer (3)
+	
+    assertError("Customer Nº " + customer1Number + " of invoice " + // It shows
+        invoiceYear1 + "/" + invoiceNumber1 + // an error message... (4)
+        " does not match with Customer Nº " +
+        customer2Number + " of the current order");
+		
+    assertValue("invoice.year", ""); // ...and resets the invoice data (5)
+    assertValue("invoice.number", "");
+    assertValue("invoice.date", "");
 }
-
-assertValue("invoice.year", ""); // ...and resets the invoice data (5)
-assertValue("invoice.number", "");
-assertValue("invoice.date", "");
-</pre> Here we test that our on-change action fills the customer data (3) on
-      choosing an invoice (2), and that if the customer is already set, an error
-      message is shown (4) and the invoice is cleared in the view (5). Note how
-      the first time we use the list (1) to choose the invoice and the second
-      time we do it typing the year and number (3).
+</code></pre> Here we test that our on-change action fills the customer data (3)
+      on choosing an invoice (2), and that if the customer is already set, an
+      error message is shown (4) and the invoice is cleared in the view (5).
+      Note how the first time we use the list (1) to choose the invoice and the
+      second time we do it typing the year and number (3).
       <h3>Adapting InvoiceTest</h3>
-      As in the case of OrderTest, InvoiceTest also fails to pass. You have to
-      do a little adjustments so it works fine. Edit testAddOrders() of
-      InvoiceTest and apply the changes shown in listing 9.23.
-      <pre>Listing 9.23 Modifications in testAddOrders() method of InvoiceTest
-public void testAddOrders() throws Exception {
-assertListNotEmpty();
-execute("List.orderBy", "property=number");
-execute("Mode.detailAndFirst");
-execute("Sections.change", "activeSection=1");
-assertCollectionRowCount("orders", 0);
-execute("Collection.add", // The standard action for adding orders is no longer used
-execute("Invoice.addOrders", // Instead we use our custom action
-"viewObject=xava_view_section1_orders");
-checkFirstOrderWithDeliveredEquals("Yes"); // Now all orders in the list are
-checkFirstOrderWithDeliveredEquals("No");
-// delivered so it makes no sense
-
+      As in the case of <i>OrderTest</i>, <i>InvoiceTest</i> also fails to
+      pass. You have to do a little adjustments so it works fine. Edit <i>testAddOrders()</i>
+      of <i> InvoiceTest</i> and apply the next changes:
+      <pre><code class="java">public void testAddOrders() throws Exception {
+    assertListNotEmpty();
+    execute("List.orderBy", "property=number");
+    execute("Mode.detailAndFirst");
+    execute("Sections.change", "activeSection=1");
+    assertCollectionRowCount("orders", 0);
+    // execute("Collection.add", // The standard action for adding orders is no longer used
+    execute("Invoice.addOrders", // Instead we use our custom action
+        "viewObject=xava_view_section1_orders");
+    // checkFirstOrderWithDeliveredEquals("Delivered"); // Now all orders in the list are
+    // checkFirstOrderWithDeliveredEquals(""); // delivered so it makes no sense
+    // execute("AddToCollection.add"); // Instead of the standard action...
+    execute("AddOrdersToInvoice.add", "row=0"); // ...now we have our custom one
+    // assertError("ERROR! 1 element(s) NOT added to Orders of Invoice"); // It is
+                             // impossible because the use cannot chose incorrect orders
+    assertMessage("1 element(s) added to Orders of Invoice");
+    assertCollectionRowCount("orders", 1);
+    checkRowCollection("orders", 0);
+    execute("Collection.removeSelected",
+        "viewObject=xava_view_section1_orders");
+    assertCollectionRowCount("orders", 0);
 }
-
-execute("AddToCollection.add"); // Instead of the standard action...
-execute("AddOrdersToInvoice.add", "row=0"); // ...now we have our custom one
-assertError("ERROR! 1 element(s) NOT added to Orders of Invoice"); // It is
-// impossible because the use cannot chose incorrect orders
-assertMessage("1 element(s) added to Orders of Invoice");
-assertCollectionRowCount("orders", 1);
-checkRowCollection("orders", 0);
-execute("Collection.removeSelected",
-"viewObject=xava_view_section1_orders");
-assertCollectionRowCount("orders", 0);
-</pre> The checkFirstOrderWithDeliveredEquals() method is no longer necessary,
-      therefore we can remove it from InvoiceTest (listing 9.24).
-      <pre>Listing 9.24 Removing checkFirstOrderWithDeliveredEquals() from InvoiceTest
-private void checkFirstOrderWithDeliveredEquals(String value)
-throws Exception { ... }
-</pre> After these changes the InvoiceTest must pass. However, we still have to
-      add the testing of the new functionality of Invoice module.
+</code></pre> The <i>checkFirstOrderWithDeliveredEquals()</i> method is no
+      longer necessary, therefore we can remove it from <i>InvoiceTest</i>:
+      <pre><code class="java">// Remove checkFirstOrderWithDeliveredEquals() from InvoiceTest
+// private void checkFirstOrderWithDeliveredEquals(String value)
+// throws Exception { ... }
+</code></pre> After these changes the <i>InvoiceTest</i> must pass. However, we
+      still have to add the testing of the new functionality of <i>Invoice</i>
+      module.
       <h3>Testing the @NewAction</h3>
-      In section 9.2.2 we annotated the orders collection of Invoice with to
-      refine the list of orders to be added to the collection. In this way only
-      delivered orders of the customer of the current invoice and with no
-      invoice yet are shown. We are going to test this, and at the same time,
-      we'll learn how to refactor the existing code in order to reuse it. <br>
+      TMP ME QUEDÉ POR AQUÍ In section 9.2.2 we annotated the orders collection
+      of Invoice with to refine the list of orders to be added to the
+      collection. In this way only delivered orders of the customer of the
+      current invoice and with no invoice yet are shown. We are going to test
+      this, and at the same time, we'll learn how to refactor the existing code
+      in order to reuse it. <br>
       @NewAction <br>
       First, we want to verify that the list to add orders only contains orders
       of the current customer. Listing 9.25 shows the changes in testAddOrders()

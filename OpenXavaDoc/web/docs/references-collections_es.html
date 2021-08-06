@@ -97,8 +97,7 @@
       resuelve. <br>
       La siguiente imagen muestra cómo se produce un error de validación cuando
       el cliente de la factura es incorrecto: </div>
-    <img src="files/references-collections_es010.png" alt="references-collections_es010"
-
+    <img src="files/references-collections_es010.png" alt="references-collections_es010"
       title="references-collections_es010">
     <div class="wiki" style="display: block;"> Ya que esto es lógica de negocio
       la vamos a poner en la capa del modelo, es decir, en las entidades. Lo
@@ -131,8 +130,7 @@
       correcta. Porque cuando pulsa para buscar una factura, todas las facturas
       existentes se muestran. Vamos a mejorar esto para mostrar solo las
       facturas del cliente del pedido visualizado, de esta manera:<br>
-      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
-
+      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
         title="references-collections_es020.png"><br>
       Para definir nuestra propia acción de búsqueda para la referencia a
       factura usaremos la anotación <i>@SearchAction</i>. Aquí tienes la
@@ -206,8 +204,7 @@ public class BuscarFacturaDesdePedido
       visualizado es el año, y buscar una factura sólo por el año no es muy
       preciso. La siguiente imagen muestra el comportamiento por defecto junto
       con una alternativa más conveniente:<br>
-      <img src="files/references-collections_es030.png" alt="references-collections_es030.png"
-
+      <img src="files/references-collections_es030.png" alt="references-collections_es030.png"
         title="references-collections_es030.png"><br>
       Afortunadamente es fácil indicar que campos queremos usar para buscar
       desde la perspectiva del usuario. Esto se hace por medio de la anotación <i>@SearchKey</i>.
@@ -242,14 +239,12 @@ public class BuscarFacturaDesdePedido
       escogido al cliente para el pedido y escoge una factura, el cliente de esa
       factura sea asignado automáticamente al pedido actual. La siguiente imagen
       visualiza el comportamiento deseado:<br>
-      <img src="files/references-collections_es040.png" alt="references-collections_es040.png"
-
+      <img src="files/references-collections_es040.png" alt="references-collections_es040.png"
         title="references-collections_es040.png"><br>
       Por otra parte, si el usuario ya ha seleccionado un cliente para el
       pedido, si no coincide con el de la factura, ésta será rechazada y se
       visualizará un mensaje de error, tal como se muestra aquí:</div>
-    <img src="files/references-collections_es050.png" alt="references-collections_es050.png"
-
+    <img src="files/references-collections_es050.png" alt="references-collections_es050.png"
       title="references-collections_es050.png">
     <div class="wiki" style="display: block;">Para definir este comportamiento
       especial hemos de añadir una anotación en la referencia <i>factura</i> de
@@ -342,8 +337,7 @@ public class BuscarAlCambiarFactura
       los pedidos están disponibles. Vamos a mejorar esto para mostrar solo los
       pedidos del cliente de la factura, entregados y todavía sin factura, tal
       como se muestra: <br>
-      <img src="files/references-collections_es060.png" alt="references-collections_es060.png"
-
+      <img src="files/references-collections_es060.png" alt="references-collections_es060.png"
         title="references-collections_es060.png"><br>
       Usaremos la anotación <i>@AddAction</i> para definir nuestra propia
       acción que muestre la lista para añadir pedidos. El siguiente código
@@ -409,8 +403,7 @@ public class IrAnyadirPedidosAFactura
       muestra la lista de elementos a añadir a la colección. Pero no es la
       acción que añade los elementos. En esta sección aprenderemos como definir
       la acción que realmente añade los elementos: <br>
-      <img src="files/references-collections_es070.png" alt="references-collections_es070.png"
-
+      <img src="files/references-collections_es070.png" alt="references-collections_es070.png"
         title="references-collections_es070.png"><br>
       Por desgracia, no hay una anotación para definir directamente esta acción
       de añadir. Sin embargo, no es una tarea demasiado difícil, solo hemos de
@@ -545,7 +538,8 @@ public class AnyadirPedidosAFactura
       <h3>Probar <i>@SearchAction</i></h3>
       Hemos usado <i>@SearchAction</i> en la referencia <i>factura</i> de <i>Pedido</i>
       para mostrar en la lista de búsqueda solo facturas del cliente del pedido
-      actual. Esta es la prueba de esta funcionalidad :
+      actual. Añade el siguiente método a <i>PruebaPedido</i> para probar esta
+      funcionalidad :
       <pre><code class="java">public void testBuscarFacturaDesdePedido() throws Exception {
     execute("CRUD.new");
     setValue("cliente.numero", "1"); // Si el cliente es 1...
@@ -562,7 +556,7 @@ public class AnyadirPedidosAFactura
     assertCustomerInList("2"); // ...sólo se muestran las facturas del cliente 2
 }
 </code></pre> La parte más peliaguda es verificar la lista de facturas, este es
-      el trabajo <i>confirmarClienteEnTodasFilas()</i>: <br>
+      el trabajo <i>confirmarClienteEnTodasFilas()</i> en <i>PruebaPedido</i>:<br>
       <pre><code class="java">private void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
     assertListNotEmpty();
     int c = getListRowCount();
@@ -573,88 +567,88 @@ public class AnyadirPedidosAFactura
         }
     }
 }
-</code></pre> Consiste en un bucle por todas la filas verificando el número de cliente.
+</code></pre> Consiste en un bucle por todas la filas verificando el número de
+      cliente.
       <h3>Probar @OnChangeSearch</h3>
-      En la sección 9.1.5 usamos @SearchAction en la referencia invoice de Order
+      Hemos usado <i>@OnChangeSearch</i> en la referencia <i>factura</i> de <i>Pedido</i>
       para asignar automáticamente el cliente de la factura escogida al pedido
       actual cuando el usuario todavía no tiene cliente, o para verificar que el
       cliente de la factura y del pedido coinciden, si el pedido ya tiene
-      cliente. El listado 9.22 muestra el método de prueba en OrderTest.
-      <pre>Listado 9.22 Probar los eventos al cambiar la factura de un pedido
-public void testOnChangeInvoice() throws Exception {
-execute("CRUD.new"); // Estamos creando un nuevo pedido
-assertValue("customer.number", ""); // por tanto no tiene cliente todavía
-execute("Sections.change", "activeSection=1");
-execute("Order.searchInvoice", // Busca la factura usando una lista
-"keyProperty=invoice.number");
-execute("List.orderBy", "property=customer.number"); // Ordena por cliente
-String customer1Number = getValueInList(0, "customer.number"); // Memoriza..
-String invoiceYear1 = getValueInList(0, "year"); // ...los datos de la...
-String invoiceNumber1 = getValueInList(0, "number"); // ...primera factura
-execute("List.orderBy", "property=customer.number"); // Ordena por cliente
-String customer2Number = getValueInList(0, "customer.number"); // Memoriza...
-String customer2Name = getValueInList(0, "customer.name"); // ...los datos de...
-...la última factura
-assertNotEquals("Must be invoices of different customer",
-customer1Number, customer2Number);// Las 2 facturas memorizadas no son la misma
-execute("ReferenceSearch.choose","row=0"); // La factura se escoge con la lista (1)
-execute("Sections.change", "activeSection=0");
-assertValue("customer.number", customer2Number); // Los datos del cliente
-assertValue("customer.name", customer2Name);
-// se rellenan automáticamente (2)
-execute("Sections.change", "activeSection=1");
-setValue("invoice.year", invoiceYear1); // Tratamos de poner una factura de...
-setValue("invoice.number", invoiceNumber1); // ...otro cliente (3)
-assertError("Customer Nº " + customer1Number + " of invoice " + // Muestra...
-invoiceYear1 + "/" + invoiceNumber1 +
-// ...un mensaje de error... (4)
-" does not match with Customer Nº " +
-customer2Number + " of the current order");
+      cliente. Aquí se muestra el método de prueba en <i>PruebaPedido</i>:
+      <pre><code class="java">public void testAlCambiarFactura() throws Exception {
+    execute("CRUD.new"); // Estamos creando un nuevo pedido
+    assertValue("cliente.numero", ""); // por tanto no tiene cliente todavía
+    execute("Sections.change", "activeSection=1");
+    execute("Pedido.buscarFactura", // Busca la factura usando una lista
+        "keyProperty=factura.numero");
 
-}
+    execute("List.orderBy", "property=cliente.numero"); // Ordena por cliente
+    String numeroCliente1 = getValueInList(0, "cliente.numero"); // Memoriza..
+    String anyoFactura1 = getValueInList(0, "anyo"); // ...los datos de la...
+    String numeroFactura1 = getValueInList(0, "numero"); // ...primera factura
+    execute("List.orderBy", "property=cliente.numero"); // Ordena por cliente
+    String numeroCliente2 = getValueInList(0, "cliente.numero"); // Memoriza...
+    String nombreCliente2 = getValueInList(0, "cliente.nombre"); // ...los datos de...
+                                                                ...la última factura
+    assertNotEquals("Han de ser facturas de diferentes clientes",
+        customer1Number, customer2Number);// Las 2 facturas memorizadas no son la misma
+    execute("ReferenceSearch.choose","row=0"); // La factura se escoge con la lista (1)
+    execute("Sections.change", "activeSection=0");
+    assertValue("cliente.numero", numeroCliente2); // Los datos del cliente
+    assertValue("cliente.nombre", nombreCliente2); // se rellenan automáticamente (2)
 
-assertValue("invoice.year", ""); // ...y reinicia los datos de la factura (5)
-assertValue("invoice.number", "");
-assertValue("invoice.date", "");
-</pre> Aquí probamos que nuestra acción on-change rellene los datos del cliente
-      (3) al escoger una factura (2), y que si el cliente ya está establecido se
-      muestre un mensaje de error (4) y la factura se borre de la vista (5).
-      Fíjate como la primera vez usamos la lista (1) para escoger la factura y
-      la segunda lo hacemos tecleando el año y el número (3).
-      <h3>Adaptar InvoiceTest</h3>
-      Como en el caso de OrderTest, InvoiceTest también falla. Has de hacer unos
-      pequeños ajustes para que funcione. Edita testAddOrders() de InvoiceTest y
-      aplica los cambios del listado 9.23.
-      <pre>Listado 9.23 Modificaciones en el método testAddOrders() de InvoiceTest
-public void testAddOrders() throws Exception {
-assertListNotEmpty();
-execute("List.orderBy", "property=number");
-execute("Mode.detailAndFirst");
-execute("Sections.change", "activeSection=1");
-assertCollectionRowCount("orders", 0);
-execute("Collection.add", // La acción estándar para añadir pedidos ya no se usa
-execute("Invoice.addOrders", // En su lugar usamos nuestra propia acción
-"viewObject=xava_view_section1_orders");
-checkFirstOrderWithDeliveredEquals("Yes"); // Ahora todos los pedidos de la lista
-checkFirstOrderWithDeliveredEquals("No"); // están entregados; esto ya no hace falta
-execute("AddToCollection.add"); // En lugar de la acción estándar
-execute("AddOrdersToInvoice.add", "row=0"); // ...ahora tenemos la nuestra propia
-assertError("ERROR! 1 element(s) NOT added to Orders of Invoice"); // Es
-// imposible porque el usuario no puede escoger pedidos incorrectos
-assertMessage("1 element(s) added to Orders of Invoice");
-assertCollectionRowCount("orders", 1);
-checkRowCollection("orders", 0);
-execute("Collection.removeSelected",
-"viewObject=xava_view_section1_orders");
-assertCollectionRowCount("orders", 0);
+    execute("Sections.change", "activeSection=1");
+    setValue("factura.anyo", anyoFactura1); // Tratamos de poner una factura de...
+    setValue("factura.numero", numeroFactura1); // ...otro cliente (3)
+
+    assertError("Cliente Nº " + numeroCliente1 + " de factura " + // Muestra...
+        anyoFactura1 + "/" + numeroFactura1 + // ...un mensaje de error... (4)
+        " no coincide con el Cliente Nº " +
+        numeroCliente2 + " del pedido actual");
+
+    assertValue("factura.anyo", ""); // ...y reinicia los datos de la factura (5)
+    assertValue("factura.numero", "");
+    assertValue("factura.fecha", "");
 }
-</pre> Ya no necesitamos el método checkFirstOrderWithDeliveredEquals(), por
-      tanto podemos quitarlo de InvoiceTest (listado 9.24).
-      <pre>Listado 9.24 Quitar checkFirstOrderWithDeliveredEquals() de InvoiceTest
-private void checkFirstOrderWithDeliveredEquals(String value)
-throws Exception { … }
-</pre> Después de estos cambios InvoiceTest ha de funcionar. Sin embargo,
-      todavía nos queda probar la nueva funcionalidad del módulo Invoice.
+</code></pre> Aquí probamos que nuestra acción <i>@OnChangeSearch</i> rellene
+      los datos del cliente (3) al escoger una factura (2), y que si el cliente
+      ya está establecido se muestre un mensaje de error (4) y la factura se
+      borre de la vista (5). Fíjate como la primera vez usamos la lista (1) para
+      escoger la factura y la segunda lo hacemos tecleando el año y el número
+      (3).
+      <h3>Adaptar PruebaFactura</h3>
+      Como en el caso de <i>PruebaPedido</i>,<i> PruebaFactura</i> también
+      falla. Has de hacer unos pequeños ajustes para que funcione. Edita <i>testAnyadirPedidos()</i>
+      de <i>PruebaFactura</i> y aplica los siguiente cambios:
+      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+    assertListNotEmpty();
+    execute("List.orderBy", "property=numero");
+    execute("Mode.detailAndFirst");
+    execute("Sections.change", "activeSection=1");
+    assertCollectionRowCount("pedidos", 0);
+    // execute("Collection.add", // La acción estándar para añadir pedidos ya no se usa
+    execute("Factura.anyadirPedidos", // En su lugar usamos nuestra propia acción
+        "viewObject=xava_view_section1_pedidos");
+    // seleccionarPrimerPedidoConEntregadoIgual("Entregado"); // Ahora todos los pedidos de la lista 
+    // seleccionarPrimerPedidoConEntregadoIgual(""); // están entregados; esto ya no hace falta 	
+    // execute("AddToCollection.add"); // En lugar de la acción estándar
+    execute("AnyadirPedidosAFacturas.add", "row=0"); // ...ahora tenemos la nuestra propia
+    // assertError("¡ERROR! 1 elemento(s) NO añadido a Pedidos de Factura"); // Es
+                  // imposible porque el usuario no puede escoger pedidos incorrectos
+    assertMessage("1 elemento(s) añadido a Pedidos de Factura");
+    assertCollectionRowCount("pedidos", 1);
+    checkRowCollection("pedidos", 0);
+    execute("Collection.removeSelected",
+        "viewObject=xava_view_section1_pedidos");
+    assertCollectionRowCount("pedidos", 0);
+}
+</code></pre> Ya no necesitamos el método <i>seleccionarPrimerPedidoConEntregadoIgual()</i>,
+      por tanto podemos quitarlo de InvoiceTest (listado 9.24).
+      <pre><code class="java">// Quita seleccionarPrimerPedidoConEntregadoIgual() de PruebaFactura
+// private void seleccionarPrimerPedidoConEntregadoIgual(String valor)
+// throws Exception { ... }
+</code></pre> Después de estos cambios <i>PruebaFactura</i> ha de funcionar.
+      Sin embargo, todavía nos queda probar la nueva funcionalidad del módulo <i>Factura</i>.
       <h3>Probar @NewAction</h3>
       En la sección 9.2.2 anotamos la colección orders de Invoice con para
       refinar la lista de pedidos a ser añadidos a la colección. De esta forma
@@ -898,12 +892,10 @@ assertCollectionRowCount("orders", 0);
       Esta flexibilidad te permite usar la generación automática de la interfaz
       gráfica para prácticamente cualquier caso posible en las aplicaciones de
       gestión de la vida real. <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="references-collections_es.html">Ve a la
           lección 9</a></strong> </div>
