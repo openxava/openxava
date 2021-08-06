@@ -2538,3 +2538,36 @@ div[id$="_Index__view"] .ox-list-title {
 	height: 450px;
     margin: 7px 0px 0px 2px;
 }
+
+/* tmp ini */
+/* TMP ME QUEDÉ POR AQUÍ: AJUSTANDO LOS COLORES PARA QUE FUNCIONE CON TODOS: AHORA VAN TODOS MENOS EL BLUE */
+/* tmp Refactorizar, 
+	- Mover a clases de arriba si posible
+	- Crear colores propios 
+*/
+#module_header a {
+	padding: 10px;
+	color: var(--list-formats-color);
+}
+
+#module_header .selected {
+	background: var(--button-bar-background);
+	color: var(--selected-list-format-color);
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+}
+
+#module_header { 
+    font-size: 16px; 
+    padding-top: 13px;
+}
+
+#bookmark {
+	font-size: 20px;
+	float: right;
+}
+
+#sign_in_out {
+	top: 1px;
+}
+/* tmp ini */

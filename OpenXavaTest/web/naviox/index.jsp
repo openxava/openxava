@@ -104,11 +104,7 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 					</a>
 				<%
 				}
-				%>
-				
-				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
-					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
-				</a>				
+				%>				
 								
 				<%-- tmp fin --%>
 				
@@ -136,6 +132,13 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 					} 
 					%>
 				</div>
+				
+				<%-- tmp ini --%>
+				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
+					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
+				</a>
+				<%-- tmp fin --%>
+				
 			</div>				
 			<% if ("SignIn".equals(module)) {  %>
 			<jsp:include page='signIn.jsp'/>
