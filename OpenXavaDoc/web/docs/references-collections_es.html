@@ -569,7 +569,7 @@ public class AnyadirPedidosAFactura
 }
 </code></pre> Consiste en un bucle por todas la filas verificando el número de
       cliente.
-      <h3>Probar @OnChangeSearch</h3>
+      <h3>Probar <i>@OnChangeSearch</i></h3>
       Hemos usado <i>@OnChangeSearch</i> en la referencia <i>factura</i> de <i>Pedido</i>
       para asignar automáticamente el cliente de la factura escogida al pedido
       actual cuando el usuario todavía no tiene cliente, o para verificar que el
@@ -616,7 +616,7 @@ public class AnyadirPedidosAFactura
       borre de la vista (5). Fíjate como la primera vez usamos la lista (1) para
       escoger la factura y la segunda lo hacemos tecleando el año y el número
       (3).
-      <h3>Adaptar PruebaFactura</h3>
+      <h3>Adaptar <i>PruebaFactura</i></h3>
       Como en el caso de <i>PruebaPedido</i>,<i> PruebaFactura</i> también
       falla. Has de hacer unos pequeños ajustes para que funcione. Edita <i>testAnyadirPedidos()</i>
       de <i>PruebaFactura</i> y aplica los siguiente cambios:
@@ -649,49 +649,51 @@ public class AnyadirPedidosAFactura
 // throws Exception { ... }
 </code></pre> Después de estos cambios <i>PruebaFactura</i> ha de funcionar.
       Sin embargo, todavía nos queda probar la nueva funcionalidad del módulo <i>Factura</i>.
-      <h3>Probar @NewAction</h3>
-      En la sección 9.2.2 anotamos la colección orders de Invoice con para
-      refinar la lista de pedidos a ser añadidos a la colección. De esta forma
-      solo los pedidos entregados del cliente de la factura actual y todavía sin
-      facturar se mostraban. Vamos a probar esto, y al mismo tiempo,
-      aprenderemos como refactorizar el código existente para poder
-      reutilizarlo. <br>
-      @NewAction <br>
+      <h3>Probar @AddAction</h3>
+      En esta lección anotamos la colección <i>pedidos</i> de <i>Factura</i>
+      con <i>@AddAction</i> para refinar la lista de pedidos a ser añadidos a
+      la colección. De esta forma solo los pedidos entregados del cliente de la
+      factura actual y todavía sin facturar se mostraban. Vamos a probar esto, y
+      al mismo tiempo, aprenderemos como refactorizar el código existente para
+      poder reutilizarlo.&nbsp; <br>
       Primero queremos verificar que la lista para añadir pedidos solo contiene
-      pedidos del cliente actual. El listado 9.25 muestra los cambios en
-      testAddOrders() para conseguir esto.
-      <pre>Listado 9.25 Verificar que todos los pedidos en la lista son del cliente actual
-public void testAddOrders() throws Exception {
-assertListNotEmpty();
-execute("List.orderBy", "property=number");
-execute("Mode.detailAndFirst");
-String customerNumber = getValue("customer.number"); // Tomamos nota del
-execute("Sections.change", "activeSection=1");
-// cliente de la factura
-assertCollectionRowCount("orders", 0);
-execute("Invoice.addOrders",
-"viewObject=xava_view_section1_orders");
-assertCustomerInList(customerNumber); // Confirmamos que todos los cliente en
-// la lista coinciden con el cliente de la factura
-...
+      pedidos del cliente actual. El siguiente código muestra los cambios en <i>
+        testAnyadirPedidos()</i> para conseguir esto:
+      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+    assertListNotEmpty();
+    execute("List.orderBy", "property=numero");
+    execute("Mode.detailAndFirst");
+    String numeroCliente = getValue("cliente.numero"); // Tomamos nota del
+    execute("Sections.change", "activeSection=1");  // cliente de la factura
+    assertCollectionRowCount("pedidos", 0);
+    execute("Factura.anyadirPedidos",
+        "viewObject=xava_view_section1_pedidos");
+    assertCustomerInList(numeroCliente); // Confirmamos que todos los cliente en
+                               // la lista coinciden con el cliente de la factura
+    ...
+
 }
-</pre> Ahora hemos de escribir el método assertCustomerInList(). Pero, espera un
-      momento, ya hemos escrito este método en OrderTest. Lo vimos en el listado
-      12.34 (sección 9.3.2). Estamos en InvoiceTest por tanto no podemos llamar
-      a este método. Por fortuna tanto InvoiceTest como OrderTest heredan de
-      CommercialDocumentTest, por lo tanto sólo tenemos que subir el método a la
-      clase madre. Para hacer esto copia el método assertCustomerInList() desde
-      OrderTest a CommercialDocumentTest, cambiando private por protected, tal
-      como muestra el listado 9.26.
-      <pre>Listado 9.26 assertCustomerInList() movido a CommercialDocumentTest
-abstract public class CommercialDocumentTest extends ModuleTestBase {
-private protected void // Cambiamos de private a protected
-assertCustomerInList(String customerNumber) throws Exception {
-...
+</code></pre> Ahora hemos de escribir el método <i>confirmarClienteEnTodasFilas()</i>.
+      Pero, espera un momento, ya hemos escrito este método en <i>PruebaPedido</i>.
+      Estamos en <i>PruebaFactura</i> por tanto no podemos llamar a este
+      método. Por fortuna tanto <i>PruebaFactura</i> como <i>PruebaPedido</i>
+      heredan de <i> PruebaDocumentoComercial</i>, por lo tanto sólo tenemos
+      que subir el método a la clase madre. Para hacer esto copia el método <i>confirmarClienteEnTodasFilas()</i>
+      desde <i> PruebaPedido</i> a <i>PruebaDocumentoComercial</i>, cambiando
+      <i>private</i> por <i>protected</i>, tal como se muestra:
+      <pre><code class="java">abstract public class PruebaDocumentoComercial extends ModuleTestBase {
+
+    protected void // Cambiamos de private a protected
+        confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
+
+        ...
+		
+    }
+
+    ...
+	
 }
-...
-}
-</pre> Ahora puedes quitar el método assertCustomerInList() de OrderTest
+</code></pre> Ahora puedes quitar el método assertCustomerInList() de OrderTest
       (listado 9.27).
       <pre>Listado 9.27 assertCustomerInList() quitado de OrderTest
 public class OrderTest extends CommercialDocumentTest {

@@ -559,7 +559,7 @@ public class AddOrdersToInvoiceAction
     }
 }
 </code></pre> It consists in a loop over all rows verifying the customer number.
-      <h3>Testing the @OnChangeSearch</h3>
+      <h3>Testing the <i>@OnChangeSearch</i></h3>
       We used <i>@OnChangeSearch</i> in the <i> invoice</i> reference of <i>Order</i>
       for assigning automatically the customer of the chosen invoice to the
       current order when the order has no customer yet, or for verifying that
@@ -605,7 +605,7 @@ public class AddOrdersToInvoiceAction
       error message is shown (4) and the invoice is cleared in the view (5).
       Note how the first time we use the list (1) to choose the invoice and the
       second time we do it typing the year and number (3).
-      <h3>Adapting InvoiceTest</h3>
+      <h3>Adapting <i>InvoiceTest</i></h3>
       As in the case of <i>OrderTest</i>, <i>InvoiceTest</i> also fails to
       pass. You have to do a little adjustments so it works fine. Edit <i>testAddOrders()</i>
       of <i> InvoiceTest</i> and apply the next changes:
@@ -639,52 +639,51 @@ public class AddOrdersToInvoiceAction
 </code></pre> After these changes the <i>InvoiceTest</i> must pass. However, we
       still have to add the testing of the new functionality of <i>Invoice</i>
       module.
-      <h3>Testing the @NewAction</h3>
-      TMP ME QUEDÉ POR AQUÍ In section 9.2.2 we annotated the orders collection
-      of Invoice with to refine the list of orders to be added to the
+      <h3>Testing the <i>@AddAction</i></h3>
+      In this lesson we annotated the <i>orders</i> collection of <i>Invoice</i>
+      with <i>@AddAction</i> to refine the list of orders to be added to the
       collection. In this way only delivered orders of the customer of the
       current invoice and with no invoice yet are shown. We are going to test
       this, and at the same time, we'll learn how to refactor the existing code
       in order to reuse it. <br>
-      @NewAction <br>
       First, we want to verify that the list to add orders only contains orders
-      of the current customer. Listing 9.25 shows the changes in testAddOrders()
-      to accomplish this.
-      <pre>Listing 9.25 Verifying all orders in list are from the current customer
-public void testAddOrders() throws Exception {
-assertListNotEmpty();
-execute("List.orderBy", "property=number");
-execute("Mode.detailAndFirst");
-String customerNumber = getValue("customer.number"); // We take note of the
-execute("Sections.change", "activeSection=1"); // customer of the invoice
-assertCollectionRowCount("orders", 0);
-execute("Invoice.addOrders",
-"viewObject=xava_view_section1_orders");
-assertCustomerInList(customerNumber);
-// We assert all customers in list
-// matches the invoice customer
-...
-}
-</pre> Now we have to write the assertCustomerInList() method. But, wait a
-      minute, we already have written this method in OrderTest. We saw it in
-      listing 9.34 (section 9.3.2). We are in InvoiceTest so we cannot call this
-      method, fortunately both InvoiceTest and OrderTest extend the
-      CommercialDocumentTest, therefore we only need to pull up the method. To
-      do it copy the assertCustomerInList() method from OrderTest and paste it
-      in CommercialDocumentTest, changing private to protected, just as shown in
-      listing 9.26.
-      <pre>Listing 9.26 assertCustomerInList() moved to CommercialDocumentTest
-abstract public class CommercialDocumentTest extends ModuleTestBase {
-private protected void
+      of the current customer. The next code shows the changes in <i>testAddOrders()</i>
+      of <i>InvoiceTest</i> to accomplish this.
+      <pre><code class="java">public void testAddOrders() throws Exception {
+    assertListNotEmpty();
+    execute("List.orderBy", "property=number");
+    execute("Mode.detailAndFirst");
+    String customerNumber = getValue("customer.number"); // We take note of the
+    execute("Sections.change", "activeSection=1");   // customer of the invoice
+    assertCollectionRowCount("orders", 0);
+    execute("Invoice.addOrders", 
+	    "viewObject=xava_view_section1_orders");
+    assertCustomerInList(customerNumber); // We assert all customers in list
+                                          // matches the invoice customer
+    ...
 
-// We change private to protected
-assertCustomerInList(String customerNumber) throws Exception {
-...
 }
-...
+</code></pre> Now we have to write the <i>assertCustomerInList()</i> method.
+      But, wait a minute, we already have written this method in <i>OrderTest</i>.
+      We are in <i>InvoiceTest</i> so we cannot call this method, fortunately
+      both <i>InvoiceTest</i> and <i>OrderTest</i> extend the <i>CommercialDocumentTest</i>,
+      therefore we only need to pull up the method. To do it copy the <i>assertCustomerInList()</i>
+      method from <i>OrderTest</i> and paste it in <i>CommercialDocumentTest</i>,
+      changing <i>private</i> to <i>protected</i>, just as shown:
+      <pre><code class="java">abstract public class CommercialDocumentTest extends ModuleTestBase {
+
+    protected void // We change private to protected
+        assertCustomerInList(String customerNumber) throws Exception {
+
+        ...
+		
+    }
+
+    ...
+	
 }
-</pre> Now you can remove the assertCustomerInList() method from OrderTest
-      (listing 9.27).
+</code></pre> TMP ME QUEDÉ POR AQUÍ Now you can remove the
+      assertCustomerInList() method from OrderTest (listing 9.27).
       <pre>Listing 9.27 assertCustomerInList() removed from OrderTest
 public class OrderTest extends CommercialDocumentTest {
 private void assertCustomerInList(String customerNumber)
