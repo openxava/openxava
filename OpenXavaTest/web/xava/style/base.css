@@ -2540,14 +2540,14 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 /* tmp ini */
-/* TMP ME QUEDÉ POR AQUÍ: AJUSTANDO LOS COLORES PARA QUE FUNCIONE CON TODOS: AHORA VAN TODOS MENOS EL BLUE */
 /* tmp Refactorizar, 
 	- Mover a clases de arriba si posible
 	- Crear colores propios 
 */
 #module_header a {
 	padding: 10px;
-	color: var(--list-formats-color);
+	color: var(--module-header-icon-color);
+	filter: brightness(0.8);
 }
 
 #module_header .selected {
@@ -2555,6 +2555,7 @@ div[id$="_Index__view"] .ox-list-title {
 	color: var(--selected-list-format-color);
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
+	filter: none;
 }
 
 #module_header { 
@@ -2562,8 +2563,15 @@ div[id$="_Index__view"] .ox-list-title {
     padding-top: 13px;
 }
 
-#bookmark {
+/* TMP ME QUEDÉ POR AQUÍ: COLOR DE LA HAMBURGUESA Y LA ESTRELLITA */
+#module_header i {
 	font-size: 20px;
+	color: var(--module-header-icon-color);
+	padding: 0;
+	filter: none;
+}
+
+#bookmark {
 	float: right;
 }
 

@@ -2,12 +2,10 @@ Change Log for OpenXava project
 ===============================
 
 - Recordar módulos.
-	* Icono de favoritos.
-	* Con vínculos sign off/in.
-	- En todos los estilos.
-	- Hamburguesa cuando menú plegado queda pequeña.
+	- Color Hamburguesa, icono favorito y sign off
 	- Efecto cuando hay muchos. Probar responsive.
 	- Título vs module description, cuando está ocultada el menú de la izquierda.
+	- Refactorizar CSS, incluyendo nombres propios.
 	- ¿Qué hacer con los módulos fijos?
 	- ¿Qué hacer con los módulos favoritos?
 	- Probarlo en portatil.
