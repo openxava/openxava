@@ -719,18 +719,17 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
         }
     }
 }
-</code></pre>TMP ME QUEDÉ POR AQUÍ You can see how with a very slight
-      modification we have turned assertCustomerInList() in a generic method to
-      ask for the value of any column, not just customer number. Now we have to
-      remove the redundant code, you can either remove assertCustomerInList() or
-      reimplementing it using the new one. Listing 9.29 shows the later option.
-      <pre>Listing 9.29 Reimplementing assertCustomerInList() calling to the new method
-protected void assertCustomerInList(String customerNumber) throws Exception {
-assertValueForAllRows(3, customerNumber); // Customer number is in column 3
+</code></pre>You can see how with a very slight modification we have turned <i><i>assertCustomerInAllRows(</i>)</i>
+      in a generic method to ask for the value of any column, not just customer
+      number. Now we have to remove the redundant code, you can either remove <i>assertCustomerInList()</i>
+      or reimplementing it using the new one. The following code in <i>CommercialDocumentTest</i>
+      shows the later option:
+      <pre><code class="java">protected void assertCustomerInAllRows(String customerNumber) throws Exception {
+    assertValueForAllRows(3, customerNumber); // Customer number is in column 3
 }
-</pre> Let's use assertValueForAllRows() to assert the orders list contains only
-      delivered orders. Listing 9.30 shows the needed modification in
-      testAddOrders() of InvoiceTest.
+</code></pre> Let's use <i>assertValueInAllRows()</i> to assert the orders list
+      contains only delivered orders. The next code shows the needed
+      modification in <i>testAddOrders()</i> of <i>InvoiceTest</i>:
       <pre>Listing 9.30 Asserting that all orders in list are delivered
 public void testAddOrders() throws Exception {
 assertListNotEmpty();

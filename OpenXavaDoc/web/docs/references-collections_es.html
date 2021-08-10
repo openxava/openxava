@@ -97,7 +97,8 @@
       resuelve. <br>
       La siguiente imagen muestra cómo se produce un error de validación cuando
       el cliente de la factura es incorrecto: </div>
-    <img src="files/references-collections_es010.png" alt="references-collections_es010"
+    <img src="files/references-collections_es010.png" alt="references-collections_es010"
+
       title="references-collections_es010">
     <div class="wiki" style="display: block;"> Ya que esto es lógica de negocio
       la vamos a poner en la capa del modelo, es decir, en las entidades. Lo
@@ -130,7 +131,8 @@
       correcta. Porque cuando pulsa para buscar una factura, todas las facturas
       existentes se muestran. Vamos a mejorar esto para mostrar solo las
       facturas del cliente del pedido visualizado, de esta manera:<br>
-      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
+      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
+
         title="references-collections_es020.png"><br>
       Para definir nuestra propia acción de búsqueda para la referencia a
       factura usaremos la anotación <i>@SearchAction</i>. Aquí tienes la
@@ -204,7 +206,8 @@ public class BuscarFacturaDesdePedido
       visualizado es el año, y buscar una factura sólo por el año no es muy
       preciso. La siguiente imagen muestra el comportamiento por defecto junto
       con una alternativa más conveniente:<br>
-      <img src="files/references-collections_es030.png" alt="references-collections_es030.png"
+      <img src="files/references-collections_es030.png" alt="references-collections_es030.png"
+
         title="references-collections_es030.png"><br>
       Afortunadamente es fácil indicar que campos queremos usar para buscar
       desde la perspectiva del usuario. Esto se hace por medio de la anotación <i>@SearchKey</i>.
@@ -239,12 +242,14 @@ public class BuscarFacturaDesdePedido
       escogido al cliente para el pedido y escoge una factura, el cliente de esa
       factura sea asignado automáticamente al pedido actual. La siguiente imagen
       visualiza el comportamiento deseado:<br>
-      <img src="files/references-collections_es040.png" alt="references-collections_es040.png"
+      <img src="files/references-collections_es040.png" alt="references-collections_es040.png"
+
         title="references-collections_es040.png"><br>
       Por otra parte, si el usuario ya ha seleccionado un cliente para el
       pedido, si no coincide con el de la factura, ésta será rechazada y se
       visualizará un mensaje de error, tal como se muestra aquí:</div>
-    <img src="files/references-collections_es050.png" alt="references-collections_es050.png"
+    <img src="files/references-collections_es050.png" alt="references-collections_es050.png"
+
       title="references-collections_es050.png">
     <div class="wiki" style="display: block;">Para definir este comportamiento
       especial hemos de añadir una anotación en la referencia <i>factura</i> de
@@ -337,7 +342,8 @@ public class BuscarAlCambiarFactura
       los pedidos están disponibles. Vamos a mejorar esto para mostrar solo los
       pedidos del cliente de la factura, entregados y todavía sin factura, tal
       como se muestra: <br>
-      <img src="files/references-collections_es060.png" alt="references-collections_es060.png"
+      <img src="files/references-collections_es060.png" alt="references-collections_es060.png"
+
         title="references-collections_es060.png"><br>
       Usaremos la anotación <i>@AddAction</i> para definir nuestra propia
       acción que muestre la lista para añadir pedidos. El siguiente código
@@ -403,7 +409,8 @@ public class IrAnyadirPedidosAFactura
       muestra la lista de elementos a añadir a la colección. Pero no es la
       acción que añade los elementos. En esta sección aprenderemos como definir
       la acción que realmente añade los elementos: <br>
-      <img src="files/references-collections_es070.png" alt="references-collections_es070.png"
+      <img src="files/references-collections_es070.png" alt="references-collections_es070.png"
+
         title="references-collections_es070.png"><br>
       Por desgracia, no hay una anotación para definir directamente esta acción
       de añadir. Sin embargo, no es una tarea demasiado difícil, solo hemos de
@@ -720,7 +727,7 @@ public class AnyadirPedidosAFactura
     }
 }
   
-protected void confirmarClienteEnTodasFilas(int columna, String valor) throws Exception {
+protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exception {
     assertListNotEmpty();
     int c = getListRowCount();
     for (int i=0; i&lt;c; i++) {
@@ -734,15 +741,13 @@ protected void confirmarClienteEnTodasFilas(int columna, String valor) throws Ex
 </code></pre> Puedes ver como con unas ligeras modificaciones hemos convertido
       en un método genérico para preguntar por el valor de cualquier columna, no
       solo por la del número de cliente. Ahora hemos de quitar el código
-      redundante, puedes, bien quitar assertCustomerInList() o bien
-      reimplementarlo usando el nuevo método. El listado 9.29 muestra la última
-      opción. <br>
-      assertCustomerInList() <br>
-      <pre>Listado 9.29 Reimplementar assertCustomerInList() llamando al nuevo método
-protected void assertCustomerInList(String customerNumber) throws Exception {
-assertValueForAllRows(3, customerNumber); // Número de cliente está en la columna 3
+      redundante, puedes, bien quitar <i>confirmarClienteEnTodasFilas()</i> o
+      bien reimplementarlo usando el nuevo método. El siguiente código en <i>PruebaDocumentoComercial</i>
+      muestra la última opción:<br>
+      <pre><code class="java">protected void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
+    assertValueForAllRows(3, numeroCliente); // Número de cliente está en la columna 3
 }
-</pre> Usemos assertValueForAllRows() para verificar que la lista de pedidos
+</code></pre> Usemos assertValueForAllRows() para verificar que la lista de pedidos
       contiene solo pedidos entregados. El listado 9.30 muestra la modificación
       necesaria en testAddOrders() de InvoiceTest.
       <pre>Listado 9.30 Confirmar que todos los pedidos están entregados
@@ -889,10 +894,12 @@ assertCollectionRowCount("orders", 0);
       Esta flexibilidad te permite usar la generación automática de la interfaz
       gráfica para prácticamente cualquier caso posible en las aplicaciones de
       gestión de la vida real. <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="references-collections_es.html">Ve a la
           lección 9</a></strong> </div>
