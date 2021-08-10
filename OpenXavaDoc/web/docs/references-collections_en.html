@@ -635,7 +635,7 @@ public class AddOrdersToInvoiceAction
       longer necessary, therefore we can remove it from <i>InvoiceTest</i>:
       <pre><code class="java">// Remove checkFirstOrderWithDeliveredEquals() from InvoiceTest
 // private void checkFirstOrderWithDeliveredEquals(String value)
-// throws Exception { ... }
+//     throws Exception { ... }
 </code></pre> After these changes the <i>InvoiceTest</i> must pass. However, we
       still have to add the testing of the new functionality of <i>Invoice</i>
       module.
@@ -658,22 +658,22 @@ public class AddOrdersToInvoiceAction
     assertCollectionRowCount("orders", 0);
     execute("Invoice.addOrders", 
 	    "viewObject=xava_view_section1_orders");
-    assertCustomerInList(customerNumber); // We assert all customers in list
+    assertCustomerInAllRows(customerNumber); // We assert all customers in list
                                           // matches the invoice customer
     ...
 
 }
-</code></pre> Now we have to write the <i>assertCustomerInList()</i> method.
+</code></pre> Now we have to write the <i>assertCustomerInAllRows()</i> method.
       But, wait a minute, we already have written this method in <i>OrderTest</i>.
       We are in <i>InvoiceTest</i> so we cannot call this method, fortunately
       both <i>InvoiceTest</i> and <i>OrderTest</i> extend the <i>CommercialDocumentTest</i>,
-      therefore we only need to pull up the method. To do it copy the <i>assertCustomerInList()</i>
+      therefore we only need to pull up the method. To do it copy the <i>assertCustomerInAllRows()</i>
       method from <i>OrderTest</i> and paste it in <i>CommercialDocumentTest</i>,
       changing <i>private</i> to <i>protected</i>, just as shown:
       <pre><code class="java">abstract public class CommercialDocumentTest extends ModuleTestBase {
 
     protected void // We change private to protected
-        assertCustomerInList(String customerNumber) throws Exception {
+        assertCustomerInAllRows(String customerNumber) throws Exception {
 
         ...
 		
@@ -682,60 +682,48 @@ public class AddOrdersToInvoiceAction
     ...
 	
 }
-</code></pre> TMP ME QUEDÉ POR AQUÍ Now you can remove the
-      assertCustomerInList() method from OrderTest (listing 9.27).
-      <pre>Listing 9.27 assertCustomerInList() removed from OrderTest
-public class OrderTest extends CommercialDocumentTest {
-private void assertCustomerInList(String customerNumber)
-throws Exception { ... }
-...
-}
-</pre> After these changes the testAddOrders() method compiles and works. We not
-      only want to test if the orders in list are from the correct customer, but
-      also that they are delivered. The first primary impulse is to copy and
-      paste assertCustomerInList() for creating an assertDeliveredInList()
-      method. However, we resist the temptation, instead we are going to create
-      a reusable method. First, we copy and paste assertCustomerInList() as
-      assertValueForAllRows(). Listing 9.28 shows these two methods in
-      CommercialDocumentTest.
-      <pre>Listing 9.28 Creating assertValueForAllRows() from assertCustomerInList()
-protected void assertCustomerInList(String customerNumber) throws Exception {
-assertListNotEmpty();
-int c = getListRowCount();
-for (int i=0; i&lt;c; i++) {
-if (!customerNumber.equals(
-getValueInList(i, "customer.number"))) // We ask “ad hoc” for customer
-{
-fail("Customer in row " + i + " is not of customer "
-+ customerNumber);
-}
-}
-}
-protected void assertValueForAllRows(int column, String value)
-throws Exception
-{
-assertListNotEmpty();
-int c = getListRowCount();
-for (int i=0; i&lt;c; i++) {
-if (!value.equals(
-{
-
+</code></pre>Now you can remove the <i>assertCustomerInAllRows()</i> method
+      from <i>OrderTest</i>:
+      <pre><code class="java">// Remove assertCustomerInAllRows() from OrderTest
+// private void assertCustomerInAllRows(String customerNumber)
+//     throws Exception { ... }
+</code></pre> After these changes the <i>testAddOrders()</i> method compiles
+      and works. We not only want to test if the orders in list are from the
+      correct customer, but also that they are delivered. The first primary
+      impulse is to copy and paste <i>assertCustomerInAllRows()</i> for
+      creating an <i>assertDeliveredInAllRowsList()</i> method. However, we
+      resist the temptation, instead we are going to create a reusable method.
+      First, we copy and paste&nbsp;<i><i>assertCustomerInAllRows(</i>)</i> as <i>assertValueInAllRows()</i>.
+      Here you can see these two methods in <i>CommercialDocumentTest</i>:
+      <pre><code class="java">private void assertCustomerInAllRows(String customerNumber) throws Exception {
+    assertListNotEmpty();
+    int c = getListRowCount();
+    for (int i=0; i&lt;c; i++) { // A loop over all rows
+        if (!customerNumber.equals(
+		    getValueInList(i, "customer.number"))) // We ask “ad hoc” for customer
+		{ 
+            fail("Customer in row " + i + 
+                " is not " + customerNumber);
+        }
+    }
 }
 
+protected void assertValueInAllRows(int column, String value) throws Exception {
+    assertListNotEmpty();
+    int c = getListRowCount();
+    for (int i=0; i&lt;c; i++) {
+        if (!value.equals(
+            getValueInList(i, column))) // We ask for the column sent as parameter
+        {
+            fail("Column " + column + " in row " + i + " is not " + value);
+        }
+    }
 }
-
-}
-
-getValueInList(i, column)))
-
-// We ask for the column sent as parameter
-
-fail("Column " + column + " in row " + i + " is not " + value);
-</pre> You can see how with a very slight modification we have turned
-      assertCustomerInList() in a generic method to ask for the value of any
-      column, not just customer number. Now we have to remove the redundant
-      code, you can either remove assertCustomerInList() or reimplementing it
-      using the new one. Listing 9.29 shows the later option.
+</code></pre>TMP ME QUEDÉ POR AQUÍ You can see how with a very slight
+      modification we have turned assertCustomerInList() in a generic method to
+      ask for the value of any column, not just customer number. Now we have to
+      remove the redundant code, you can either remove assertCustomerInList() or
+      reimplementing it using the new one. Listing 9.29 shows the later option.
       <pre>Listing 9.29 Reimplementing assertCustomerInList() calling to the new method
 protected void assertCustomerInList(String customerNumber) throws Exception {
 assertValueForAllRows(3, customerNumber); // Customer number is in column 3

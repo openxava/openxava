@@ -649,7 +649,7 @@ public class AnyadirPedidosAFactura
 // throws Exception { ... }
 </code></pre> Después de estos cambios <i>PruebaFactura</i> ha de funcionar.
       Sin embargo, todavía nos queda probar la nueva funcionalidad del módulo <i>Factura</i>.
-      <h3>Probar @AddAction</h3>
+      <h3>Probar <i>@AddAction</i></h3>
       En esta lección anotamos la colección <i>pedidos</i> de <i>Factura</i>
       con <i>@AddAction</i> para refinar la lista de pedidos a ser añadidos a
       la colección. De esta forma solo los pedidos entregados del cliente de la
@@ -693,55 +693,50 @@ public class AnyadirPedidosAFactura
     ...
 	
 }
-</code></pre> Ahora puedes quitar el método assertCustomerInList() de OrderTest
-      (listado 9.27).
-      <pre>Listado 9.27 assertCustomerInList() quitado de OrderTest
-public class OrderTest extends CommercialDocumentTest {
-private void assertCustomerInList(String customerNumber)
-throws Exception { ... }
-...
+</code></pre> Ahora puedes quitar el método <i>confirmarClienteEnTodasFilas()</i>
+      de <i>PruebaPedido</i>:
+      <pre><code class="java">// Quita confirmarClienteEnTodasFilas() de PruebaPedido
+// private void confirmarClienteEnTodasFilas(String numeroCliente)
+//     throws Exception { ... }
+</code></pre> Después de estos cambios el método <i>testAnyadirPedidos()</i>
+      compila y funciona. No solo queremos comprobar que la lista de pedidos son
+      del cliente correcto, sino también que están entregados. Nuestro primer
+      impulso es copiar y pegar <i>confirmarClienteEnTodasFilas()</i> para
+      crear un método <i>confirmarEntregadoEnTodasFilas()</i>. Sin embargo,
+      resistimos la tentación, y en vez de eso vamos a crear un método
+      reutilizable. Primero, copiamos y pegamos <i>confirmarClienteEnTodasFilas()</i>
+      como <i>confirmarValorEnTodasFilas</i>. Aquí puedes ver estos dos métodos
+      en <i>PruebaDocumentoComercial</i>:
+      <pre><code class="java">private void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
+    assertListNotEmpty();
+    int c = getListRowCount();
+    for (int i=0; i&lt;c; i++) { 
+        if (!numeroCliente.equals(
+		    getValueInList(i, "cliente.numero"))) // Preguntamos por el cliente de forma fija
+        {
+            fail("Cliente en fila " + i + 
+                " no es " + customerNumber);
+        }
+    }
 }
-</pre> Después de estos cambios el método testAddOrders() compila y funciona. No
-      solo queremos comprobar que la lista de pedidos son del cliente correcto,
-      sino también que están entregados. Nuestro primer impulso es copiar y
-      pegar assertCustomerInList() para crear un método assertDeliveredInList().
-      Sin embargo, resistimos la tentación, y en vez de eso vamos a crear un
-      método reutilizable. Primero, copiamos y pegamos assertCustomerInList()
-      como assertValueForAllRows(). El listado 9.28 muestra estos dos métodos en
-      CommercialDocumentTest.
-      <pre>Listado 9.28 Crear assertValueForAllRows() a partir de assertCustomerInList()
-protected void assertCustomerInList(String customerNumber) throws Exception {
-assertListNotEmpty();
-int c = getListRowCount();
-for (int i=0; i&lt;c; i++) {
-if (!customerNumber.equals(
-getValueInList(i, "customer.number")))
-// Preguntamos por el cliente
-{
-// de forma fija
-fail("Customer in row " + i + " is not of customer "
-+ customerNumber);
+  
+protected void confirmarClienteEnTodasFilas(int columna, String valor) throws Exception {
+    assertListNotEmpty();
+    int c = getListRowCount();
+    for (int i=0; i&lt;c; i++) {
+        if (!value.equals(
+            getValueInList(i, columna))) // Preguntamos por la columna enviada como parámetro
+        {
+            fail("Columna " + column + " en fila " + i + " no es " + valor);
+        }
+    }
 }
-}
-}
-protected void assertValueForAllRows(int column, String value)
-throws Exception
-{
-assertListNotEmpty();
-int c = getListRowCount();
-for (int i=0; i&lt;c; i++) {
-if (!value.equals(
-getValueInList(i, column))) // Preguntamos por la columna
-{
-// enviada como parámetro
-fail("Column " + column + " in row " + i + " is not " + value);
-}
-}
-</pre> Puedes ver como con unas ligeras modificaciones hemos convertido en un
-      método genérico para preguntar por el valor de cualquier columna, no solo
-      por la del número de cliente. Ahora hemos de quitar el código redundante,
-      puedes, bien quitar assertCustomerInList() o bien reimplementarlo usando
-      el nuevo método. El listado 9.29 muestra la última opción. <br>
+</code></pre> Puedes ver como con unas ligeras modificaciones hemos convertido
+      en un método genérico para preguntar por el valor de cualquier columna, no
+      solo por la del número de cliente. Ahora hemos de quitar el código
+      redundante, puedes, bien quitar assertCustomerInList() o bien
+      reimplementarlo usando el nuevo método. El listado 9.29 muestra la última
+      opción. <br>
       assertCustomerInList() <br>
       <pre>Listado 9.29 Reimplementar assertCustomerInList() llamando al nuevo método
 protected void assertCustomerInList(String customerNumber) throws Exception {
