@@ -59,7 +59,11 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 		<% } %>
 		
 		<div class="module-wrapper">
-			<div id="module_header">
+			<%-- tmp ¿Mover esto a un moduleHeader.jsp? --%>
+			<div id="module_header"> 
+			
+				<div id="module_header_left"> <%-- tmp --%>
+			
 				<% if (!isFirstSteps) { %>
 				<a id="module_header_menu_button" href="javascript:naviox.showModulesList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>')">
 					<i class="mdi mdi-menu"></i></a>
@@ -97,15 +101,15 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 				for (MetaModule metaModule: modules.getTopModules()) {
 					if (metaModule.getName().equals("SignIn")) continue;
 					if (modules.showsIndexLink() && metaModule.getName().equals("Index")) continue;
-					String selected = metaModule.getName().equals(request.getParameter("module"))?"class='selected'":"";
+					String selected = metaModule.getName().equals(request.getParameter("module"))?"selected":"unselected";
 				%>		
-					<a href="<%=modules.getModuleURI(request, metaModule)%>?retainOrder=true" <%=selected%>>
-							<%=metaModule.getLabel(request.getLocale())%>
-					</a>
+					<a href="<%=modules.getModuleURI(request, metaModule)%>?retainOrder=true" class="<%=selected%>"><%=metaModule.getLabel(request.getLocale())%></a>
 				<%
 				}
 				%>				
-								
+				</div>
+				
+				<div id="module_header_right"> 				
 				<%-- tmp fin --%>
 				
 				<div id="sign_in_out">
@@ -137,6 +141,8 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
 					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
 				</a>
+				
+				</div>
 				<%-- tmp fin --%>
 				
 			</div>				

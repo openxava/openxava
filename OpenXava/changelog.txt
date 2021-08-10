@@ -2,7 +2,6 @@ Change Log for OpenXava project
 ===============================
 
 - Recordar módulos.
-	- Color Hamburguesa, icono favorito y sign off
 	- Efecto cuando hay muchos. Probar responsive.
 	- Título vs module description, cuando está ocultada el menú de la izquierda.
 	- Refactorizar CSS, incluyendo nombres propios.
