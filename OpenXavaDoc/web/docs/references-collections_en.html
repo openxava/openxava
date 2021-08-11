@@ -730,151 +730,145 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
 </code></pre> Let's use <i>assertValueInAllRows()</i> to assert the orders list
       contains only delivered orders. The next code shows the needed
       modification in <i>testAddOrders()</i> of <i>InvoiceTest</i>:
-      <pre>Listing 9.30 Asserting that all orders in list are delivered
-public void testAddOrders() throws Exception {
-assertListNotEmpty();
-execute("List.orderBy", "property=number");
-execute("Mode.detailAndFirst");
-String customerNumber = getValue("customer.number");
-execute("Sections.change", "activeSection=1");
-assertCollectionRowCount("orders", 0);
-execute("Invoice.addOrders",
-"viewObject=xava_view_section1_orders");
-assertCustomerInList(customerNumber);
-assertValueForAllRows(5, "Yes"); // All the cells of column 5 (delivered) contain 'Yes'
-...
-}
-</pre> Moreover, we want to test that only orders with no invoice are shown in
-      the list. A simple way to do it is verifying that after adding an order to
-      the current invoice, the list of orders has an entry fewer. Listing 9.31
-      shows the needed changes to testAddOrders() to do this testing.
-      <pre>Listing 9.31 Testing that the added orders cannot be added again
-public void testAddOrders() throws Exception {
-...
-assertCustomerInList(customerNumber);
-assertValueForAllRows(5, "Yes");
-int ordersRowCount = getListRowCount();
+      <pre><code class="java">public void testAddOrders() throws Exception {
+    assertListNotEmpty();
+    execute("List.orderBy", "property=number");
+    execute("Mode.detailAndFirst");
+    String customerNumber = getValue("customer.number");
+    execute("Sections.change", "activeSection=1");
+    assertCollectionRowCount("orders", 0);
+    execute("Invoice.addOrders",
+        "viewObject=xava_view_section1_orders");
+    assertCustomerInAllRows(customerNumber);
+    assertValueInAllRows(5, "Delivered"); // All cells of column 5 contain 'Delivered'
 
-// We take note of orders count
-execute("AddOrdersToInvoice.add", "row=0"); // when the list is shown
-assertMessage("1 element(s) added to Orders of Invoice");
-assertCollectionRowCount("orders", 1); // An order was added
-execute("Invoice.addOrders", // We show the orders list again
-"viewObject=xava_view_section1_orders");
-assertListRowCount(ordersRowCount - 1); // Now we have an order fewer in the list
-execute("AddToCollection.cancel");
-...
+    ...
+	
 }
-</pre> With the code of this section we have tested the @NewAction of orders
-      collection, and at the same time we have seen how it's not needed to
-      develop generic code from start, because it's not difficult to convert the
-      concrete code into generic on demand.
+</code></pre> Moreover, we want to test that only orders with no invoice are
+      shown in the list. A simple way to do it is verifying that after adding an
+      order to the current invoice, the list of orders has an entry fewer. The
+      following code shows the needed changes to <i>testAddOrders()</i> of <i>InvoiceTest</i>
+      to do this testing:
+      <pre><code class="java">public void testAddOrders() throws Exception {
+
+    ...
+
+    assertCustomerInAllRows(customerNumber);
+    assertValueInAllRows(5, "Delivered");
+    int ordersRowCount = getListRowCount(); // We take note of orders count
+    execute("AddOrdersToInvoice.add", "row=0"); // when the list is shown
+    assertMessage("1 element(s) added to Orders of Invoice");
+    assertCollectionRowCount("orders", 1); // An order was added
+    execute("Invoice.addOrders", // We show the orders list again
+        "viewObject=xava_view_section1_orders");
+    assertListRowCount(ordersRowCount - 1); // Now we have an order fewer in the list
+    execute("AddToCollection.cancel");
+
+    ... 
+	
+}
+</code></pre> With the code of this section we have tested the <i>@AddAction</i>
+      of <i>orders</i> collection, and at the same time we have seen how it's
+      not needed to develop generic code from start, because it's not difficult
+      to convert the concrete code into generic on demand.
       <h3>Testing the action to add elements to the collection</h3>
-      In section 9.2.3 we learned how the refine the action that adds orders to
-      the invoice, now it's the moment of testing it. Remember that this action
-      copies the lines from selected orders to the current invoice. Listing 9.32
-      shows the changes for testing of our custom action to add orders.
-      <pre>Listing 9.32 When an order is added its lines are added to the invoice
-public void testAddOrders() throws Exception {
-...
-String customerNumber = getValue("customer.number");
-deleteDetails(); // Deletes the detail lines if any (1)
-assertCollectionRowCount("details", 0); // Now the invoice has no details
-assertValue("baseAmount", "0.00"); // With no details base amount is 0
-execute("Sections.change", "activeSection=1");
-assertCollectionRowCount("orders", 0);
-execute("Invoice.addOrders", // When we show the order list (2) ...
-"viewObject=xava_view_section1_orders");
-assertCustomerInList(customerNumber);
-assertValueForAllRows(5, "Yes");
-String firstOrderBaseAmount = getValueInList(0, 8); // ...we take note of base
-int ordersRowCount = getListRowCount();
-// amount of first order in the list (3)
-...
-assertCollectionRowCount("orders", 1);
-execute("Sections.change", "activeSection=0");
-assertCollectionNotEmpty("details"); // There are details, they have been copied (4)
-assertValue("baseAmount", firstOrderBaseAmount); // The base amount of the
-execute("Sections.change", "activeSection=1"); // invoice matches with the one
-// of the recently added order (5)
-...
+      In this lesson we also learned how the refine the action that adds orders
+      to the invoice, now it's the moment of testing it. Remember that this
+      action copies the lines from selected orders to the current invoice. The
+      next code shows the changes in <i>testAddOrders()</i> of <i>InvoiceTest</i>
+      for testing of our custom action to add orders: <br>
+      <pre><code class="java">public void testAddOrders() throws Exception {
+
+    ...
+
+    String customerNumber = getValue("customer.number");
+    assertCollectionRowCount("details", 0); // An invoice with no details for this test
+    assertValue("baseAmount", "0.00"); // With no details base amount is 0
+    execute("Sections.change", "activeSection=1");
+    assertCollectionRowCount("orders", 0);
+    execute("Invoice.addOrders", // When we show the order list (2) ...
+        "viewObject=xava_view_section1_orders");
+    assertCustomerInAllRows(customerNumber);
+    assertValueInAllRows(5, "Delivered");
+    String firstOrderBaseAmount = getValueInList(0, 8); // ...we take note of base
+    int ordersRowCount = getListRowCount(); // amount of first order in the list (3)
+
+    ...
+	
+    assertCollectionRowCount("orders", 1);
+    execute("Sections.change", "activeSection=0");
+    assertCollectionNotEmpty("details"); // There are details, they have been copied (4)
+    assertValue("baseAmount", firstOrderBaseAmount); // The base amount of the
+    execute("Sections.change", "activeSection=1"); // invoice matches with the one
+                                                   // of the recently added order (5)
+    ...
+
 }
-</pre> We remove the detail lines from the invoice (1), afterwards we add an
-      order (2), taking note of its base amount (3), then we verify that current
-      invoice has details (4) and its base amount is the same of the added order
-      (5). All that remains is the deleteDetails() method, shown in listing
-      9.33.
-      <pre>Listing 9.33 Deletes all the details of the displayed invoice
-private void deleteDetails() throws Exception {
-int c = getCollectionRowCount("details");
-for (int i=0; i&lt;c; i++) { // A loop over all rows
-checkRowCollection("details", i); // Checks each row
+</code></pre> We verify that the invoice for this test has no details.
+      Afterwards, we add an order (2), taking note of its base amount (3), then
+      we verify that current invoice has details (4) and its base amount is the
+      same of the added order (5). </div>
+    <div class="wiki" style="display: block;">The <i>testAddOrders()</i> method
+      is finished. This is its definitive code:
+      <pre><code class="java">public void testAddOrders() throws Exception {
+    assertListNotEmpty();
+    execute("List.orderBy", "property=number");
+    execute("Mode.detailAndFirst");
+    String customerNumber = getValue("customer.number");
+    assertCollectionRowCount("details", 0);
+    assertValue("baseAmount", "0.00");
+    execute("Sections.change", "activeSection=1");
+    assertCollectionRowCount("orders", 0);
+    execute("Invoice.addOrders",
+        "viewObject=xava_view_section1_orders");
+    assertCustomerInAllRows(customerNumber);
+    assertValueInAllRows(5, "Delivered");
+    String firstOrderBaseAmount = getValueInList(0, 8);
+    int ordersRowCount = getListRowCount();
+    execute("AddOrdersToInvoice.add", "row=0");
+    assertMessage("1 element(s) added to Orders of Invoice");
+    assertCollectionRowCount("orders", 1);
+    execute("Sections.change", "activeSection=0");
+    assertCollectionNotEmpty("details");
+    assertValue("baseAmount", firstOrderBaseAmount);
+    execute("Sections.change", "activeSection=1");
+    execute("Invoice.addOrders",
+        "viewObject=xava_view_section1_orders");
+    assertListRowCount(ordersRowCount - 1);
+    execute("AddToCollection.cancel");
+    checkRowCollection("orders", 0);
+    execute("Collection.removeSelected",
+        "viewObject=xava_view_section1_orders");
+    assertCollectionRowCount("orders", 0);
 }
-execute("Collection.removeSelected", // Removes the checked rows
-"viewObject=xava_view_section0_details");
-}
-</pre> It selects all the rows of the details collection and clicks on the
-      'Remove selected' button. The testAddOrders() method is finished. You can
-      see its definitive code in listing 9.34.
-      <pre>Listing 9.34 Definitive code for testAddOrders() of InvoiceTest
-public void testAddOrders() throws Exception {
-assertListNotEmpty();
-execute("List.orderBy", "property=number");
-execute("Mode.detailAndFirst");
-String customerNumber = getValue("customer.number");
-deleteDetails();
-assertCollectionRowCount("details", 0);
-assertValue("baseAmount", "0.00");
-execute("Sections.change", "activeSection=1");
-assertCollectionRowCount("orders", 0);
-execute("Invoice.addOrders",
-"viewObject=xava_view_section1_orders");
-assertCustomerInList(customerNumber);
-assertValueForAllRows(5, "Yes");
-String firstOrderBaseAmount = getValueInList(0, 8);
-int ordersRowCount = getListRowCount();
-execute("AddOrdersToInvoice.add", "row=0");
-assertMessage("1 element(s) added to Orders of Invoice");
-assertCollectionRowCount("orders", 1);
-execute("Sections.change", "activeSection=0");
-assertCollectionNotEmpty("details");
-assertValue("baseAmount", firstOrderBaseAmount);
-execute("Sections.change", "activeSection=1");
-execute("Invoice.addOrders",
-"viewObject=xava_view_section1_orders");
-assertListRowCount(ordersRowCount - 1);
-execute("AddToCollection.cancel");
-checkRowCollection("orders", 0);
-execute("Collection.removeSelected",
-"viewObject=xava_view_section1_orders");
-assertCollectionRowCount("orders", 0);
-}
-</pre> We have finished the test code. Now it's time to execute all the tests
-      for your project. They must be green.
+</code></pre> We have finished the test code. Now it's time to execute all the
+      tests for your project. They must be green.
       <h2>Summary</h2>
       This lesson has shown you how to refine the standard behavior of
       references and collections in order for your application to fit the users
       needs. Here you only have seen some illustrative examples, but OpenXava
       provides many more possibilities for refining collections and references,
-      such as the next annotations: @ReferenceView, @ReadOnly, @NoFrame,
-      @NoCreate, @NoModify, @NoSearch, @AsEmbedded, @SearchAction,
-      @DescriptionsList, @LabelFormat, @Action, @OnChange, @OnChangeSearch,
-      @Editor, @CollectionView, @EditOnly, @ListProperties, @RowStyle,
-      @EditAction, @ViewAction, @NewAction, @SaveAction, @HideDetailAction,
-      @RemoveAction, @RemoveSelectedAction, @ListAction, @DetailAction and
-      @OnSelectElementAction. <br>
+      such as the next annotations: <i>@ReferenceView, @ReadOnly, @NoFrame,
+        @NoCreate, @NoModify, @NoSearch, @AsEmbedded, @SearchAction,
+        @DescriptionsList, @LabelFormat, @Action, @OnChange, @OnChangeSearch,
+        @Editor, @CollectionView, @EditOnly, @ListProperties, @RowStyle,
+        @EditAction, @ViewAction, @NewAction, @SaveAction, @HideDetailAction,
+        @RemoveAction, @RemoveSelectedAction, @ListAction, @DetailAction</i> and
+      <i>@OnSelectElementAction</i>. <br>
       And if that wasn't enough you always have the option of defining your own
       editor for references or collections. Editors allows you to create a
       custom user interface component for displaying and editing the reference
       or collection. <br>
       This flexibility allows you to use automatic user interfaces for
-      practically any possible case in real life business applications. <strong><a
-          class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_en.zip/download"
+      practically any possible case in real life business applications. </div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_en.zip/download"
+          rel="nofollow"><br>
+        </a></strong></div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-        <a class="wiki_link" href="references-collections_en.html">Go to Lesson
-          9</a></strong> </div>
+          rel="nofollow">Ask in the forum</a></strong><strong></strong> </div>
   </body>
 </html>
