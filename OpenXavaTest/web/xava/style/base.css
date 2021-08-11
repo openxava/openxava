@@ -32,6 +32,10 @@
 	
 	--module-header-link-color: var(--module-header-color);
 	--module-header-icon-color: var(--module-header-color);
+	/* tmp ini */
+	--module-header-selected-color: var(--selected-list-format-color);
+	--module-header-selected-background: var(--button-bar-background);
+	/* tmp fin */
 	--sign-out-color: white;
 	--sign-in-a-hover-color: white;
 
@@ -742,6 +746,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 
 #module_header a { 
  	color: var(--module-header-link-color);
+ 	padding: 10px; /* tmp */
 }
 
 #module_header a:hover { 
@@ -751,6 +756,27 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 #module_header i, .bookmark-decoration {
 	color: var(--module-header-icon-color); 
 }
+
+/* tmp ini */
+#module_header .unselected {
+	filter: invert(20%);
+}
+
+#module_header .unselected:hover {
+	filter: none;
+}
+
+#module_header .selected {
+	background: var(--module-header-selected-background);
+	color: var(--module-header-selected-color);
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+}
+
+#module_header .selected:hover {
+	color: var(--module-header-selected-color);
+}
+/* tmp fin */
 
 #application_title { 
 	padding: 10px;
@@ -2543,33 +2569,13 @@ div[id$="_Index__view"] .ox-list-title {
 
 /* tmp ini */
 /* tmp Refactorizar, 
-	- Mover a clases de arriba si posible
-	- Crear colores propios 
+	- Mover a clases de arriba si posible: TMP ME QUEDÉ HACIENDO ESTO: MOVIENDO ARRIBA
+	* Crear colores propios
+	- Revisar todo el CSS por si hay redundancias 
 */
-#module_header a {
-	padding: 10px;
-	color: var(--module-header-icon-color);
-	
-}
 
-#module_header .unselected {
-	filter: invert(20%);
-}
 
-#module_header .unselected:hover {
-	filter: none;
-}
 
-#module_header .selected {
-	background: var(--button-bar-background);
-	color: var(--selected-list-format-color);
-	border-top-left-radius: 15px;
-	border-top-right-radius: 15px;
-}
-
-#module_header .selected:hover {
-	color: var(--selected-list-format-color);
-}
 
 #module_header { 
     font-size: 16px; 
