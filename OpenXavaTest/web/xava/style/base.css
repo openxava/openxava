@@ -399,9 +399,11 @@ A.sign-out  {
 }
 
 #sign_in_out {
+	/* tmp
 	position: relative;
 	top: 5px;
 	float: right;
+	*/
 	font-size: 12px;
 }
 
@@ -2565,9 +2567,14 @@ div[id$="_Index__view"] .ox-list-title {
 	border-top-right-radius: 15px;
 }
 
+#module_header .selected:hover {
+	color: var(--selected-list-format-color);
+}
+
 #module_header { 
     font-size: 16px; 
     padding-top: 13px;
+    padding-right: 0;
     height: 22px;
 }
 
@@ -2577,92 +2584,30 @@ div[id$="_Index__view"] .ox-list-title {
 	padding: 0;
 }
 
-/* TMP ME QUEDÉ POR AQUÍ: INTENTANDO QUE FUNCIONE LO DE OCULTAR LAS PESTAÑAS */
 #module_header_left {
-	position: relative;
+	width: 100%;
 	float: left;	
-	top: 0;
-	left: 0;	
 	white-space: nowrap;
 }
 
 #module_header_right {
 	position: relative;
-	top: 0;
-	right: 0;
 	float: right;
+	background: var(--module-header-background);
+	margin-top: -33px;
+	height: 21px;
+	padding: 11px 11px 11px 20px;
+	background: -webkit-gradient(linear, left top, right top, from(white), to(black));
+	background-image: linear-gradient(to left, 
+	    var(--module-header-background), 
+	    var(--module-header-background), 
+	    var(--module-header-background), 
+	    var(--module-header-background),
+	    var(--module-header-background),
+	    transparent);
 }
 
-#bookmark {
-	float: right;
-}
-
-#sign_in_out {
-	top: 1px;
+#module_extended_title {
+	font-weight: bold;
 }
 /* tmp ini */
-
-/* TMP LO SIGUIENTE FUNCIONA PARA OCULTAR LAS PESTAÑAS:
-#module_header a {
-	padding: 10px;
-	color: var(--module-header-icon-color);
-	
-}
-
-#module_header .unselected {
-	filter: invert(20%);
-}
-
-#module_header .unselected:hover {
-	filter: none;
-}
-
-#module_header .selected {
-	background: var(--button-bar-background);
-	color: var(--selected-list-format-color);
-	border-top-left-radius: 15px;
-	border-top-right-radius: 15px;
-}
-
-#module_header { 
-    font-size: 16px; 
-    padding-top: 13px;
-}
-
-#module_header i {
-	font-size: 20px;
-	color: var(--module-header-icon-color);
-	padding: 0;
-}
-
-#bookmark {
-	display: none;
-	position: absolute;
-	xfloat: right;
-	right: 140px;
-}
-
-#sign_in_out {
-	position: relative;
-	float: right;
-	top: 0px;
-	right: 0px;
-	background: var(--module-header-background);
-	xpadding: 14px;
-
-}
-
-#kk {
-width: 80%;
-	overflow-right: hidden;
-	position: relative;
-	float: left;
-	top: 10;
-	right: 30;
-	white-space: nowrap;
-}
-
-#module_header_menu_button {
-	display: none;
-}
-*/

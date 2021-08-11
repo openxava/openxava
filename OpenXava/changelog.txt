@@ -2,11 +2,11 @@ Change Log for OpenXava project
 ===============================
 
 - Recordar módulos.
-	- Efecto cuando hay muchos. Probar responsive.
-	- Título vs module description, cuando está ocultada el menú de la izquierda.
 	- Refactorizar CSS, incluyendo nombres propios.
+	- Refactorizar JSP, ¿mover a un JSP propio?
 	- ¿Qué hacer con los módulos fijos?
 	- ¿Qué hacer con los módulos favoritos?
+	- Refactorizar Modules.java
 	- Probarlo en portatil.
 	- Pruebas JUnit.
 	- Diferir:

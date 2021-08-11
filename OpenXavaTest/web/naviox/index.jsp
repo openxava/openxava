@@ -97,6 +97,24 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 				--%>
 				
 				<%-- tmp ini --%>
+				<%
+				if (hasModules && !isFirstSteps) {
+				%>
+				<span id="module_extended_title">
+					<%
+					String organizationName = modules.getOrganizationName(request);
+					if (!Is.emptyString(organizationName)) {
+					%> 
+					<%=organizationName%> - 
+					<%
+					}
+					%>						
+					<%=modules.getApplicationLabel(request)%> :
+				</span>	 
+				<%
+				}
+				%>
+								
 				<% 
 				for (MetaModule metaModule: modules.getTopModules()) {
 					if (metaModule.getName().equals("SignIn")) continue;
@@ -109,10 +127,15 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 				%>				
 				</div>
 				
-				<div id="module_header_right"> 				
+				<div id="module_header_right">
+				
+				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
+					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
+				</a>
+				 				
 				<%-- tmp fin --%>
 				
-				<div id="sign_in_out">
+				<span id="sign_in_out"> <%-- tmp era div --%>
 					<%
 					if (Is.emptyString(NaviOXPreferences.getInstance().getAutologinUser())) {
 						String userName = Users.getCurrent();
@@ -135,13 +158,9 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 						}
 					} 
 					%>
-				</div>
+				</span>
 				
-				<%-- tmp ini --%>
-				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
-					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
-				</a>
-				
+				<%-- tmp ini --%>				
 				</div>
 				<%-- tmp fin --%>
 				
