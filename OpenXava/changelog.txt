@@ -2,7 +2,6 @@ Change Log for OpenXava project
 ===============================
 
 - Recordar módulos.
-	- Refactorizar CSS, incluyendo nombres propios.
 	- Refactorizar JSP, ¿mover a un JSP propio?
 	- ¿Qué hacer con los módulos fijos?
 	- ¿Qué hacer con los módulos favoritos?
