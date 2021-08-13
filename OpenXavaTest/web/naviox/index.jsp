@@ -7,11 +7,12 @@
 <%@page import="org.openxava.util.XavaPreferences"%>
 <%@page import="org.openxava.web.style.XavaStyle"%>
 <%@page import="org.openxava.web.style.Themes"%> 
+<%-- tmp
 <%@page import="com.openxava.naviox.util.Organizations"%>
 <%@page import="org.openxava.util.Users"%>
 <%@page import="com.openxava.naviox.util.NaviOXPreferences"%>
-<%@page import="org.openxava.util.Is"%>
-<%@page import="org.openxava.application.meta.MetaModule"%> <%-- tmp --%>
+<%@page import="org.openxava.util.Is"%> 
+--%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
@@ -25,7 +26,7 @@ context.setCurrentWindowId(windowId);
 String app = request.getParameter("application");
 String module = context.getCurrentModule(request);
 // tmp modules.setCurrent(request.getParameter("application"), request.getParameter("module"));
-modules.setCurrent(request, request.getParameter("application"), request.getParameter("module")); // tmp
+modules.setCurrent(request); // tmp
 String oxVersion = org.openxava.controller.ModuleManager.getVersion();
 String title = (String) request.getAttribute("naviox.pageTitle");
 if (title == null) title = modules.getCurrentModuleDescription(request); 
@@ -35,7 +36,7 @@ org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleM
 manager.setSession(session);
 manager.setApplicationName(request.getParameter("application"));
 manager.setModuleName(module); // In order to show the correct description in head 
-boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
+// tmp boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 %>
 
 <!DOCTYPE html>
@@ -121,8 +122,8 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 					} 
 					%>
 				</div>
-				--%>				
-			</div>				
+			</div>
+			--%>								
 			<% if ("SignIn".equals(module)) {  %>
 			<jsp:include page='signIn.jsp'/>
 			<% } else { %>

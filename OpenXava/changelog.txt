@@ -2,15 +2,17 @@ Change Log for OpenXava project
 ===============================
 
 - Recordar módulos.
-	- Refactorizar JSP, ¿mover a un JSP propio?
-	- ¿Qué hacer con los módulos fijos?
-	- ¿Qué hacer con los módulos favoritos?
 	- Refactorizar Modules.java
 	- Probarlo en portatil.
-	- Pruebas JUnit.
+	- Pruebas JUnit:
+		- Fixed modules.
+		- Orden de los módulos
+		- Recuerda módulo actual
 	- Diferir:
 		- Cerrar pestaña.
 		- ¿Mover pestaña?
+
+- Fixed modules (those declared with fixModulesOnTopMenu in naviox.properties) are shown on top as tabs.
 - Lesson 2 of course includes video.
 - Lesson 2 of course divided in several smaller lessons.
 - New COORDINATES/COORDENADAS stereotype to store and display a point in a map.	

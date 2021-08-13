@@ -783,6 +783,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	color: var(--module-header-selected-color);
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
+	padding: 10px;
 }
 
 #module_header .selected:hover {

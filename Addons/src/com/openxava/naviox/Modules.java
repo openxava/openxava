@@ -33,7 +33,7 @@ public class Modules implements Serializable {
 	private List<MetaModule> fixedModules;
 	private List<MetaModule> notInMenuModules;
 	private List<MetaModule> topModules = null; // tmp
-	private int fixedModulesCount = 0; // tmp ¿Dejar lo de los módulos fíjos?
+	private int fixedModulesCount = 0; // tmp 
 	
 	private MetaModule current;
 
@@ -86,10 +86,9 @@ public class Modules implements Serializable {
 		return result;
 	}
 
-
-	public void setCurrent(HttpServletRequest request, String application, String module) { // tmp request ¿Quitar application y module como paremetros?
+	/* tmp
+	public void setCurrent(String application, String module) { 
 		this.current = MetaModuleFactory.create(application, module);
-		/* tmp Sin esto, ¿se acuerda del módulo actual? 
 		try {			
 			Preferences preferences = getPreferences();
 			if (!"SignIn".equals(current.getName())) {
@@ -100,13 +99,15 @@ public class Modules implements Serializable {
 		}
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("storing_current_module_problem"), ex);   
-		}
-		*/
-		
-		// tmp ini
+		}		
+	}
+	*/
+	
+	public void setCurrent(HttpServletRequest request) { // tmp
+		this.current = MetaModuleFactory.create(request.getParameter("application"), request.getParameter("module"));
 		if (topModules == null) loadTopModules(request);	
 		int idx = indexOf(topModules, current);
-		boolean retainOrder = true; // tmp Ojo esto era el tercer argumento de este método. O ponemos el argumento, o quitamos esto.
+		boolean retainOrder = "true".equals(request.getParameter("retainOrder")); 
 		if (idx < 0) {
 			if (topModules.size() >= MODULES_ON_TOP) {
 				topModules.remove(topModules.size() - 1); 
@@ -118,20 +119,19 @@ public class Modules implements Serializable {
 			topModules.add(fixedModulesCount, current); 
 		}
 		storeTopModules();		
-		// tmp fin
 	}
 	
 	private void loadTopModules(HttpServletRequest request) { // tmp
 		topModules = new ArrayList<MetaModule>();
 		loadFixedModules(request, topModules);
+		// TMP ME QUEDÉ POR AQUÍ: REVISANDO CÓDIGO
 		// tmp if (NaviOXPreferences.getInstance().isRememberVisitedModules()) { // Esto tenemos que añadirlo
 			loadModulesFromPreferences(request, topModules, "", MODULES_ON_TOP);	
 		// tmp }
 	}
 	
 	private void storeTopModules() { // tmp
-		// tmp storeModulesInPreferences(topModules, "", MODULES_ON_TOP, true);
-		storeModulesInPreferences(topModules, "", MODULES_ON_TOP); // TMP Deberiamos dejar la de arriba con el , true
+		storeModulesInPreferences(topModules, "", MODULES_ON_TOP, true);
 	}
 	
 	private void loadFixedModules(HttpServletRequest request, Collection<MetaModule> modules) { // tmp 
@@ -333,9 +333,11 @@ public class Modules implements Serializable {
 	}
 	
 	private void storeBookmarkModules() { 
-		storeModulesInPreferences(bookmarkModules, "bookmark.", BOOKMARK_MODULES); 
+		// tmp storeModulesInPreferences(bookmarkModules, "bookmark.", BOOKMARK_MODULES); 
+		storeModulesInPreferences(bookmarkModules, "bookmark.", BOOKMARK_MODULES, false); // tmp
 	}
-	
+
+	/* tmp
 	private void storeModulesInPreferences(Collection<MetaModule> modules, String prefix, int limit) { 
 		try {			
 			Preferences preferences = getPreferences();
@@ -356,6 +358,32 @@ public class Modules implements Serializable {
 			log.warn(XavaResources.getString("storing_modules_problem"), ex);  
 		}
 	}
+	*/
+	
+	private void storeModulesInPreferences(Collection<MetaModule> modules, String prefix, int limit, boolean storeCurrent) { 
+		try {			
+			Preferences preferences = getPreferences();
+			int i=0;
+			for (MetaModule module: modules) {				
+				preferences.put(prefix + "application." + i, module.getMetaApplication().getName());
+				preferences.put(prefix + "module." + i, module.getName());
+				i++;
+			}
+			for (; i < limit; i++) {				
+				preferences.remove(prefix + "application." + i);
+				preferences.remove(prefix + "module." + i);
+			}
+			if (storeCurrent && !"SignIn".equals(current.getName())) {
+				preferences.put("current", current.getName());
+			}
+			
+			preferences.flush();
+		}
+		catch (Exception ex) {
+			log.warn(XavaResources.getString("storing_modules_problem"), ex);  
+		}
+	}
+
 
 
 	private Preferences getPreferences() throws BackingStoreException { 
@@ -406,7 +434,7 @@ public class Modules implements Serializable {
 		if (getBookmarkModules(request).isEmpty() && getFixedModules(request).isEmpty()) return getAll(request);  
 		if (regularModules == null) {			
 			regularModules = new ArrayList(getAll(request)); 
-			regularModules.removeAll(getFixedModules(request)); 
+			// tmp regularModules.removeAll(getFixedModules(request)); 
 			regularModules.removeAll(getBookmarkModules(request)); 
 		}
 		return regularModules;
