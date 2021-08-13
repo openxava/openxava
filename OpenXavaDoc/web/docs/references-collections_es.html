@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lección 9: Referencias y colecciones"></a> <span id="breadcrumbs">
+      <h1 id="toc0"><a name="referencias-y-colecciones"></a> <span id="breadcrumbs">
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Lección 9: Referencias y colecciones </h1>
@@ -29,51 +29,37 @@
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#comportamiento-y-logica-de-negocio">Lección
-            8: Comportamiento y lógica de negocio</a></div>
-        <div style="margin-left: 2em;"><a href="#logica-de-negocio-desde-el-modo-detalle">Lógica
-            de negocio desde el modo detalle</a></div>
-        <div style="margin-left: 3em;"><a href="#crear-una-accion-para-ejecutar-logica-personalizada">Crear
-            una acción para ejecutar lógica personalizada</a></div>
-        <div style="margin-left: 3em;"><a href="#escribiendo-la-logica-de-negocio-real-en-la-entidad">Escribiendo
-            la lógica de negocio real en la entidad</a></div>
-        <div style="margin-left: 3em;"><a href="#escribe-menos-codigo-usando-apache-commons-beanutils">Escribe
-            menos código usando Apache Commons BeanUtils</a></div>
-        <div style="margin-left: 3em;"><a href="#excepciones-de-aplicacion">Excepciones
-            de aplicación</a></div>
-        <div style="margin-left: 3em;"><a href="#validar-desde-la-accion">Validar
-            desde la acción</a></div>
-        <div style="margin-left: 3em;"><a href="#evento-onchange-para-ocultar-mostrar-una-accion-por-codigo">Evento
-            OnChange para ocultar/mostrar una acción por código</a></div>
-        <div style="margin-left: 2em;"><a href="#logica-de-negocio-desde-el-modo-lista">Lógica
-            de negocio desde el modo lista</a></div>
-        <div style="margin-left: 3em;"><a href="#accion-de-lista-con-logica-propia">Acción
-            de lista con lógica propia</a></div>
-        <div style="margin-left: 3em;"><a href="#logica-de-negocio-en-el-modelo-sobre-varias-entidades">Lógica
-            de negocio en el modelo sobre varias entidades</a></div>
-        <div style="margin-left: 2em;"><a href="#mostrar-un-dialogo">Mostrar un
-            diálogo</a></div>
-        <div style="margin-left: 3em;"><a href="#usar-showdialog">Usar
-            showDialog()</a></div>
-        <div style="margin-left: 3em;"><a href="#definir-las-acciones-del-dialogo">Definir
-            las acciones del diálogo</a></div>
-        <div style="margin-left: 3em;"><a href="#cerrar-el-dialogo">Cerrar el
-            diálogo</a></div>
-        <div style="margin-left: 3em;"><a href="#vista-plana-en-lugar-de-dialogo">Vista
-            plana en lugar de diálogo</a></div>
+        <div style="margin-left: 1em;"><a href="#referencias-y-colecciones">Lección
+            9: Referencias y colecciones</a></div>
+        <div style="margin-left: 2em;"><a href="#refinar-el-comportamiento-de-las-referencias">Refinar
+            el comportamiento de las referencias</a></div>
+        <div style="margin-left: 3em;"><a href="#las-validaciones-estan-bien-pero-no-son-suficientes">Las
+            validaciones están bien, pero no son suficientes</a></div>
+        <div style="margin-left: 3em;"><a href="#refinar-la-accion-para-buscar-una-referencia-con-una-lista">Refinar
+            la acción para buscar una referencia con una lista</a></div>
+        <div style="margin-left: 3em;"><a href="#buscar-la-referencia-tecleando-en-los-campos">Buscar
+            la referencia tecleando en los campos</a></div>
+        <div style="margin-left: 3em;"><a href="#refinar-la-accion-para-buscar-cuando-se-teclea-la-clave">Refinar
+            la acción para buscar cuando se teclea la clave</a></div>
+        <div style="margin-left: 2em;"><a href="#refinar-el-comportamiento-de-las-colecciones">Refinar
+            el comportamiento de las colecciones</a></div>
+        <div style="margin-left: 3em;"><a href="#refinar-la-lista-para-anadir-elementos-a-la-coleccion">Refinar
+            la lista para añadir elementos a la colección</a></div>
+        <div style="margin-left: 3em;"><a href="#refinar-la-accion-que-anade-elementos-a-la-coleccion">Refinar
+            la acción que añade elementos a la colección</a></div>
         <div style="margin-left: 2em;"><a href="#pruebas-junit">Pruebas JUnit</a></div>
-        <div style="margin-left: 3em;"><a href="#probar-la-accion-de-modo-detalle">Probar
-            la acción de modo detalle</a></div>
-        <div style="margin-left: 3em;"><a href="#buscar-una-entidad-para-la-prueba-usando-el-modo-lista-y-jpa">Buscar
-            una entidad para la prueba usando el modo lista y JPA</a></div>
-        <div style="margin-left: 3em;"><a href="#probar-que-la-accion-se-oculta-cuando-no-aplica">Probar
-            que la acción se oculta cuando no aplica</a></div>
-        <div style="margin-left: 3em;"><a href="#probar-la-accion-de-modo-lista">Probar
-            la acción de modo lista</a></div>
-        <div style="margin-left: 3em;"><a href="#verificar-datos-de-prueba">Verificar
-            datos de prueba</a></div>
-        <div style="margin-left: 3em;"><a href="#probar-casos-excepcionales">Probar
-            casos excepcionales</a></div>
+        <div style="margin-left: 3em;"><a href="#adaptar-pruebapedido">Adaptar
+            PruebaPedido</a></div>
+        <div style="margin-left: 3em;"><a href="#probar-searchaction">Probar
+            @SearchAction</a></div>
+        <div style="margin-left: 3em;"><a href="#probar-onchangesearch">Probar
+            @OnChangeSearch</a></div>
+        <div style="margin-left: 3em;"><a href="#adaptar-pruebafactura">Adaptar
+            PruebaFactura</a></div>
+        <div style="margin-left: 3em;"><a href="#probar-addaction">Probar
+            @AddAction</a></div>
+        <div style="margin-left: 3em;"><a href="#probar-la-accion-para-anadir-elementos-a-la-coleccion">Probar
+            la acción para añadir elementos a la colección</a></div>
         <div style="margin-left: 2em;"><a href="#resumen">Resumen</a></div>
       </div>
       En lecciones anteriores aprendiste como añadir tus propias acciones. Sin
@@ -85,19 +71,22 @@
       comportamiento de las referencias y colecciones. En esta lección
       aprenderás como hacer algunas de estas personalizaciones, y como esto
       añade valor a tu aplicación.
-      <h2>Refinar el comportamiento de las referencias</h2>
-      Posiblemente te hayas dado cuenta de que el módulo Order tiene un pequeño
-      defecto: el usuario puede añadir cualquier factura que quiera al pedido
-      actual, aunque el cliente de la factura sea diferente. Esto no es
+      <h2><a name="refinar-el-comportamiento-de-las-referencias"></a>Refinar el
+        comportamiento de las referencias</h2>
+      Posiblemente te hayas dado cuenta de que el módulo <i>Pedido</i> tiene un
+      pequeño defecto: el usuario puede añadir cualquier factura que quiera al
+      pedido actual, aunque el cliente de la factura sea diferente. Esto no es
       admisible. Arreglémoslo.
-      <h3>Las validaciones están bien, pero no son suficientes</h3>
+      <h3><a name="las-validaciones-estan-bien-pero-no-son-suficientes"></a>Las
+        validaciones están bien, pero no son suficientes</h3>
       El usuario sólo puede asociar un pedido a una factura si ambos, factura y
       pedido, pertenecen al mismo cliente. Esto es lógica de negocio específica
       de tu aplicación, por tanto el comportamiento estándar de OpenXava no lo
       resuelve. <br>
       La siguiente imagen muestra cómo se produce un error de validación cuando
       el cliente de la factura es incorrecto: </div>
-    <img src="files/references-collections_es010.png" alt="references-collections_es010"
+    <img src="files/references-collections_es010.png" alt="references-collections_es010"
+
       title="references-collections_es010">
     <div class="wiki" style="display: block;"> Ya que esto es lógica de negocio
       la vamos a poner en la capa del modelo, es decir, en las entidades. Lo
@@ -124,13 +113,15 @@
       del pedido. Esto es suficiente para preservar la integridad de los datos,
       pero la validación sola es una opción bastante pobre desde el punto de
       vista del usuario.
-      <h3>Refinar la acción para buscar una referencia con una lista</h3>
+      <h3><a name="refinar-la-accion-para-buscar-una-referencia-con-una-lista"></a>Refinar
+        la acción para buscar una referencia con una lista</h3>
       Aunque la validación impide que el usuario pueda asignar una factura
       incorrecta a un pedido, lo tiene difícil a la hora de escoger una factura
       correcta. Porque cuando pulsa para buscar una factura, todas las facturas
       existentes se muestran. Vamos a mejorar esto para mostrar solo las
       facturas del cliente del pedido visualizado, de esta manera:<br>
-      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
+      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
+
         title="references-collections_es020.png"><br>
       Para definir nuestra propia acción de búsqueda para la referencia a
       factura usaremos la anotación <i>@SearchAction</i>. Aquí tienes la
@@ -192,7 +183,8 @@ public class BuscarFacturaDesdePedido
       Si no hay cliente no añadimos ninguna condición por tanto se mostrarían
       todas las facturas, esto ocurre cuando el usuario escoge la factura antes
       que el cliente.
-      <h3>Buscar la referencia tecleando en los campos</h3>
+      <h3><a name="buscar-la-referencia-tecleando-en-los-campos"></a>Buscar la
+        referencia tecleando en los campos</h3>
       La lista para escoger una referencia ya funciona bien. Sin embargo,
       queremos dar al usuario la opción de escoger una factura sin usar la
       lista, simplemente tecleando el año y el número. Muy útil si el usuario
@@ -204,7 +196,8 @@ public class BuscarFacturaDesdePedido
       visualizado es el año, y buscar una factura sólo por el año no es muy
       preciso. La siguiente imagen muestra el comportamiento por defecto junto
       con una alternativa más conveniente:<br>
-      <img src="files/references-collections_es030.png" alt="references-collections_es030.png"
+      <img src="files/references-collections_es030.png" alt="references-collections_es030.png"
+
         title="references-collections_es030.png"><br>
       Afortunadamente es fácil indicar que campos queremos usar para buscar
       desde la perspectiva del usuario. Esto se hace por medio de la anotación <i>@SearchKey</i>.
@@ -232,19 +225,22 @@ public class BuscarFacturaDesdePedido
       interfaz de usuario. Ahora es fácil para el usuario escoger una factura
       desde un pedido sin usar la lista de búsqueda, simplemente tecleando el
       año y el número.
-      <h3>Refinar la acción para buscar cuando se teclea la clave</h3>
+      <h3><a name="refinar-la-accion-para-buscar-cuando-se-teclea-la-clave"></a>Refinar
+        la acción para buscar cuando se teclea la clave</h3>
       Ahora que obtener una factura tecleando el año y el número funciona
       queremos refinarlo para ayudar al usuario a hacer su trabajo de forma más
       eficiente. Por ejemplo, sería útil que si el usuario todavía no ha
       escogido al cliente para el pedido y escoge una factura, el cliente de esa
       factura sea asignado automáticamente al pedido actual. La siguiente imagen
       visualiza el comportamiento deseado:<br>
-      <img src="files/references-collections_es040.png" alt="references-collections_es040.png"
+      <img src="files/references-collections_es040.png" alt="references-collections_es040.png"
+
         title="references-collections_es040.png"><br>
       Por otra parte, si el usuario ya ha seleccionado un cliente para el
       pedido, si no coincide con el de la factura, ésta será rechazada y se
       visualizará un mensaje de error, tal como se muestra aquí:</div>
-    <img src="files/references-collections_es050.png" alt="references-collections_es050.png"
+    <img src="files/references-collections_es050.png" alt="references-collections_es050.png"
+
       title="references-collections_es050.png">
     <div class="wiki" style="display: block;">Para definir este comportamiento
       especial hemos de añadir una anotación en la referencia <i>factura</i> de
@@ -267,7 +263,7 @@ public class BuscarFacturaDesdePedido
       para la factura, <i>BuscarAlCambiarFactura</i> se ejecutará. En esta
       acción se han de leer los datos de la factura de la base de datos y
       actualizar la interfaz de usuario. A continuación el código de la acción:
-      <pre><code class="java">package com.tuempresa.facturacion.actiones; // En el paquete 'acciones'
+      <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
 
 import java.util.*;
 import org.openxava.actions.*; // Para usar OnChangeSearchAction
@@ -325,19 +321,22 @@ public class BuscarAlCambiarFactura
       ejecuta si la factura se escoge desde la lista, porque en este caso el año
       y el número también cambian. Por ende, este es un lugar centralizado donde
       refinar la lógica para recuperar la referencia y rellenar la vista.
-      <h2>Refinar el comportamiento de las colecciones</h2>
+      <h2><a name="refinar-el-comportamiento-de-las-colecciones"></a>Refinar el
+        comportamiento de las colecciones</h2>
       Podemos refinar las colecciones de la misma forma que hemos hecho con las
       referencias. Esto es muy útil, porque nos permite mejorar el
       comportamiento actual del módulo <i>Factura</i>. El usuario sólo puede
       añadir un pedido a una factura si la factura y el pedido pertenecen al
       mismo cliente. Además, el pedido tiene que estar entregado y no tener
       todavía factura.
-      <h3>Refinar la lista para añadir elementos a la colección</h3>
+      <h3><a name="refinar-la-lista-para-anadir-elementos-a-la-coleccion"></a>Refinar
+        la lista para añadir elementos a la colección</h3>
       Actualmente cuando el usuario trata de añadir pedidos a la factura todos
       los pedidos están disponibles. Vamos a mejorar esto para mostrar solo los
       pedidos del cliente de la factura, entregados y todavía sin factura, tal
       como se muestra: <br>
-      <img src="files/references-collections_es060.png" alt="references-collections_es060.png"
+      <img src="files/references-collections_es060.png" alt="references-collections_es060.png"
+
         title="references-collections_es060.png"><br>
       Usaremos la anotación <i>@AddAction</i> para definir nuestra propia
       acción que muestre la lista para añadir pedidos. El siguiente código
@@ -395,7 +394,8 @@ public class IrAnyadirPedidosAFactura
       establecer la condición de la lista para escoger la entidades a añadir. Es
       decir, desde una <i>GoAddElementsToCollectionAction</i> puedes usar <i>getTab()</i>
       para manipular la forma en que la lista se comporta.
-      <h3>Refinar la acción que añade elementos a la colección</h3>
+      <h3><a name="refinar-la-accion-que-anade-elementos-a-la-coleccion"></a>Refinar
+        la acción que añade elementos a la colección</h3>
       Una mejora interesante para la colección de pedidos sería que cuando el
       usuario añada pedidos a la factura actual, las líneas de detalle de estos
       pedidos se copien automáticamente a la factura.<br>
@@ -403,7 +403,8 @@ public class IrAnyadirPedidosAFactura
       muestra la lista de elementos a añadir a la colección. Pero no es la
       acción que añade los elementos. En esta sección aprenderemos como definir
       la acción que realmente añade los elementos: <br>
-      <img src="files/references-collections_es070.png" alt="references-collections_es070.png"
+      <img src="files/references-collections_es070.png" alt="references-collections_es070.png"
+
         title="references-collections_es070.png"><br>
       Por desgracia, no hay una anotación para definir directamente esta acción
       de añadir. Sin embargo, no es una tarea demasiado difícil, solo hemos de
@@ -480,12 +481,12 @@ public class AnyadirPedidosAFactura
       factura nueva, escoger un cliente y añadir pedidos. Es incluso más fácil
       de usar que el modo lista del módulo <i>Pedido</i> ya que el módulo <i>Factura</i>
       solo se muestran los pedidos adecuados al cliente.
-      <h2>Pruebas JUnit</h2>
+      <h2><a name="pruebas-junit"></a>Pruebas JUnit</h2>
       Todavía tenemos la sana costumbre de hacer un poco de código de
       aplicación, y después un poco de código de pruebas. Y ahora es el tiempo
       de escribir el código de pruebas para las nuevas características añadidas
       en esta lección.
-      <h3>Adaptar <i>PruebaPedido</i></h3>
+      <h3><a name="adaptar-pruebapedido"></a>Adaptar <i>PruebaPedido</i></h3>
       Si ejecutaras <i>PruebaPedido</i> ahora, no pasaría. Esto es porque
       nuestro código confía en ciertos detalles que han cambiado. Por lo tanto,
       hemos de modificar nuestro código de pruebas actual. Edita el método <i>
@@ -535,7 +536,7 @@ public class AnyadirPedidosAFactura
 }
 </code></pre> Después de estos cambios <i>PruebaPedido</i> tiene que pasar. Sin
       embargo, todavía nos queda probar la nueva funcionalidad del módulo <i>Pedido</i>.
-      <h3>Probar <i>@SearchAction</i></h3>
+      <h3><a name="probar-searchaction"></a>Probar <i>@SearchAction</i></h3>
       Hemos usado <i>@SearchAction</i> en la referencia <i>factura</i> de <i>Pedido</i>
       para mostrar en la lista de búsqueda solo facturas del cliente del pedido
       actual. Añade el siguiente método a <i>PruebaPedido</i> para probar esta
@@ -553,7 +554,7 @@ public class AnyadirPedidosAFactura
     execute("Sections.change", "activeSection=1");
     execute("Pedido.buscarFactura", // ...cuando el usuario pulsa para escoger una factura...
         "keyProperty=factura.numero");
-    assertCustomerInList("2"); // ...sólo se muestran las facturas del cliente 2
+    confirmarClienteEnTodasFilas("2"); // ...sólo se muestran las facturas del cliente 2
 }
 </code></pre> La parte más peliaguda es verificar la lista de facturas, este es
       el trabajo <i>confirmarClienteEnTodasFilas()</i> en <i>PruebaPedido</i>:<br>
@@ -569,7 +570,7 @@ public class AnyadirPedidosAFactura
 }
 </code></pre> Consiste en un bucle por todas la filas verificando el número de
       cliente.
-      <h3>Probar <i>@OnChangeSearch</i></h3>
+      <h3><a name="probar-onchangesearch"></a>Probar <i>@OnChangeSearch</i></h3>
       Hemos usado <i>@OnChangeSearch</i> en la referencia <i>factura</i> de <i>Pedido</i>
       para asignar automáticamente el cliente de la factura escogida al pedido
       actual cuando el usuario todavía no tiene cliente, o para verificar que el
@@ -591,7 +592,7 @@ public class AnyadirPedidosAFactura
     String nombreCliente2 = getValueInList(0, "cliente.nombre"); // ...los datos de...
                                                                 ...la última factura
     assertNotEquals("Han de ser facturas de diferentes clientes",
-        customer1Number, customer2Number);// Las 2 facturas memorizadas no son la misma
+        numeroCliente1, numeroCliente2);// Las 2 facturas memorizadas no son la misma
     execute("ReferenceSearch.choose","row=0"); // La factura se escoge con la lista (1)
     execute("Sections.change", "activeSection=0");
     assertValue("cliente.numero", numeroCliente2); // Los datos del cliente
@@ -616,7 +617,7 @@ public class AnyadirPedidosAFactura
       borre de la vista (5). Fíjate como la primera vez usamos la lista (1) para
       escoger la factura y la segunda lo hacemos tecleando el año y el número
       (3).
-      <h3>Adaptar <i>PruebaFactura</i></h3>
+      <h3><a name="adaptar-pruebafactura"></a>Adaptar <i>PruebaFactura</i></h3>
       Como en el caso de <i>PruebaPedido</i>,<i> PruebaFactura</i> también
       falla. Has de hacer unos pequeños ajustes para que funcione. Edita <i>testAnyadirPedidos()</i>
       de <i>PruebaFactura</i> y aplica los siguiente cambios:
@@ -643,13 +644,13 @@ public class AnyadirPedidosAFactura
     assertCollectionRowCount("pedidos", 0);
 }
 </code></pre> Ya no necesitamos el método <i>seleccionarPrimerPedidoConEntregadoIgual()</i>,
-      por tanto podemos quitarlo de InvoiceTest (listado 9.24).
+      por tanto podemos quitarlo de <i>PruebaFactura</i>:
       <pre><code class="java">// Quita seleccionarPrimerPedidoConEntregadoIgual() de PruebaFactura
 // private void seleccionarPrimerPedidoConEntregadoIgual(String valor)
 // throws Exception { ... }
 </code></pre> Después de estos cambios <i>PruebaFactura</i> ha de funcionar.
       Sin embargo, todavía nos queda probar la nueva funcionalidad del módulo <i>Factura</i>.
-      <h3>Probar <i>@AddAction</i></h3>
+      <h3><a name="probar-addaction"></a>Probar <i>@AddAction</i></h3>
       En esta lección anotamos la colección <i>pedidos</i> de <i>Factura</i>
       con <i>@AddAction</i> para refinar la lista de pedidos a ser añadidos a
       la colección. De esta forma solo los pedidos entregados del cliente de la
@@ -715,7 +716,7 @@ public class AnyadirPedidosAFactura
 		    getValueInList(i, "cliente.numero"))) // Preguntamos por el cliente de forma fija
         {
             fail("Cliente en fila " + i + 
-                " no es " + customerNumber);
+                " no es " + numeroCliente);
         }
     }
 }
@@ -724,10 +725,10 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
     assertListNotEmpty();
     int c = getListRowCount();
     for (int i=0; i&lt;c; i++) {
-        if (!value.equals(
+        if (!valor.equals(
             getValueInList(i, columna))) // Preguntamos por la columna enviada como parámetro
         {
-            fail("Columna " + column + " en fila " + i + " no es " + valor);
+            fail("Columna " + columna + " en fila " + i + " no es " + valor);
         }
     }
 }
@@ -738,7 +739,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
       bien reimplementarlo usando el nuevo método. El siguiente código en <i>PruebaDocumentoComercial</i>
       muestra la última opción:<br>
       <pre><code class="java">protected void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
-    assertValueForAllRows(3, numeroCliente); // Número de cliente está en la columna 3
+    confirmarValorEnTodasFilas(3, numeroCliente); // Número de cliente está en la columna 3
 }
 </code></pre> Usemos <i>confirmarValorEnTodasFilas()</i> para verificar que la
       lista de pedidos contiene solo pedidos entregados. El siguiente código
@@ -785,7 +786,8 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
       de la colección <i> pedidos</i>, y al mismo tiempo hemos visto como no es
       necesario crear código genérico desde el principio, porque no es difícil
       convertir el código concreto en genérico bajo demanda.
-      <h3>Probar la acción para añadir elementos a la colección</h3>
+      <h3><a name="probar-la-accion-para-anadir-elementos-a-la-coleccion"></a>Probar
+        la acción para añadir elementos a la colección</h3>
       En esta lección también aprendimos como refinar la acción para añadir
       pedidos a la factura, ahora es el momento de escribir su correspondiente
       código de prueba. Recuerda que esta acción copia las líneas de los pedidos
@@ -860,7 +862,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
 </code></pre> Hemos finalizado el código de las pruebas automáticas. Ahora
       puedes ejecutar todas las pruebas de tu proyecto. Han de salir en color
       verde.
-      <h2>Resumen</h2>
+      <h2><a name="resumen"></a>Resumen</h2>
       Esta lección te ha mostrado como refinar el comportamiento estándar de las
       referencias y colecciones para que tu aplicación se adapte a las
       necesidades del usuario. Aquí sólo has visto algunos ejemplos
@@ -871,23 +873,28 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
         @OnChangeSearch, @Editor, @CollectionView, @EditOnly, @ListProperties,
         @RowStyle, @EditAction, @ViewAction, @NewAction, @SaveAction,
         @HideDetailAction, @RemoveAction, @RemoveSelectedAction, @ListAction,
-        @DetailAction</i> o <i>@OnSelectElementAction</i>. <br>
-      Y por si esto fuera poco, siempre tienes la opción definir tu propio
-      editor para referencias o colecciones. Los editores te permiten crear una
-      interfaz de usuario personalizada para visualizar y editar la referencia o
-      colección. <br>
+        @DetailAction</i> o <i>@OnSelectElementAction</i>. Mira las secciones <a
+
+        href="view_es.html#Vista-Personalizacion+de+referencia">Personalización
+        de referencia</a> y <a href="view_es.html#Vista-Personalizacion+de+coleccion">Personalización
+        de colección</a> de la guía de referencia.<br>
+      Y por si esto fuera poco, siempre tienes la opción <a href="customizing_es.html">definir
+        tu propio editor</a> para referencias o colecciones. Los editores te
+      permiten crear una interfaz de usuario personalizada para visualizar y
+      editar la referencia o colección. <br>
       Esta flexibilidad te permite usar la generación automática de la interfaz
       gráfica para prácticamente cualquier caso posible en las aplicaciones de
       gestión de la vida real. </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
-          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
+    <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
+
+          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
-        <a class="wiki_link" href="references-collections_es.html">Ve a la
-          lección 9</a></strong> </div>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
+          rel="nofollow">Pregunta en el foro</a></strong><strong></strong> </div>
   </body>
 </html>

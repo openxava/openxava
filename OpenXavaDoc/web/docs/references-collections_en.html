@@ -9,10 +9,10 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 9: References &amp; collections"></a> <span
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Lesson 9: References &amp; collections </h1>
+      <h1 id="toc0"><a name="references-collections"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 9: References &amp; collections </h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
         Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
@@ -29,52 +29,37 @@
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#business-logic-behavior">Lesson
-            8: Behavior &amp; business logic<br>
-          </a></div>
-        <div style="margin-left: 2em;"><a href="#business-logic-in-detail-mode">Business
-            logic in detail mode</a></div>
-        <div style="margin-left: 3em;"><a href="#creating-an-action-for-custom-logic">Creating
-            an action for custom logic</a></div>
-        <div style="margin-left: 3em;"><a href="#writing-the-real-business-logic-in-the-entity">Writing
-            the real business logic in the entity</a></div>
-        <div style="margin-left: 3em;"><a href="#write-less-code-using-apache-commons-beanutils">Write
-            less code using Apache Commons BeanUtils</a></div>
-        <div style="margin-left: 3em;"><a href="#copying-a-collection-from-entity-to-entity">Application
-            exceptions</a></div>
-        <div style="margin-left: 3em;"><a href="#validation-from-action">Validation
-            from action</a></div>
-        <div style="margin-left: 3em;"><a href="#on-change-event-to-hide-show-an-action-programmatically">On
-            change event to hide/show an action programmatically</a></div>
-        <div style="margin-left: 2em;"><a href="#business-logic-from-list-mode">Business
-            logic from list mode</a></div>
-        <div style="margin-left: 3em;"><a href="#list-action-with-custom-logic">List
-            action with custom logic</a></div>
-        <div style="margin-left: 3em;"><a href="#business-logic-in-the-model-over-several-entities">Business
-            logic in the model over several entities</a></div>
-        <div style="margin-left: 2em;"><a href="#Showing-a-dialog">Showing a
-            dialog</a></div>
-        <div style="margin-left: 3em;"><a href="#using-showdialog">Using
-            showDialog()</a></div>
-        <div style="margin-left: 3em;"><a href="#define-the-dialog-actions">Define
-            the dialog actions</a></div>
-        <div style="margin-left: 3em;"><a href="#closing-dialog">Closing dialog
-          </a></div>
-        <div style="margin-left: 3em;"><a href="#plain-view-instead-of-dialog">Plain
-            view instead of dialog</a></div>
+        <div style="margin-left: 1em;"><a href="#references-collections">Lesson
+            9: References &amp; collections</a></div>
+        <div style="margin-left: 2em;"><a href="#refining-reference-behavior">Refining
+            reference behavior</a></div>
+        <div style="margin-left: 3em;"><a href="#validation-is-good-but-not-enough">Validation
+            is good, but not enough</a></div>
+        <div style="margin-left: 3em;"><a href="#refining-action-for-searching-reference-with-list">Refining
+            action for searching reference with list</a></div>
+        <div style="margin-left: 3em;"><a href="#searching-the-reference-typing-in-fields">Searching
+            the reference typing in fields</a></div>
+        <div style="margin-left: 3em;"><a href="#refining-action-for-searching-reference-typing-key">Refining
+            action for searching reference typing key</a></div>
+        <div style="margin-left: 2em;"><a href="#refining-collection-behavior">Refining
+            collection behavior</a></div>
+        <div style="margin-left: 3em;"><a href="#refining-the-list-for-adding-elements-to-a-collection">Refining
+            the list for adding elements to a collection</a></div>
+        <div style="margin-left: 3em;"><a href="#refining-the-action-to-add-elements-to-a-collection">Refining
+            the action to add elements to a collection</a></div>
         <div style="margin-left: 2em;"><a href="#junit-tests">JUnit tests</a></div>
-        <div style="margin-left: 3em;"><a href="#testing-the-detail-mode-action">Testing
-            the detail mode action</a></div>
-        <div style="margin-left: 3em;"><a href="#finding-an-entity-for-testing-using-list-mode-and-jpa">Finding
-            an entity for testing using list mode and JPA</a></div>
-        <div style="margin-left: 3em;"><a href="#testing-hiding-of-the-action">Testing
-            hiding of the action</a></div>
-        <div style="margin-left: 3em;"><a href="#testing-the-list-mode-action">Testing
-            the list mode action</a></div>
-        <div style="margin-left: 3em;"><a href="#asserting-test-data">Asserting
-            test data</a></div>
-        <div style="margin-left: 3em;"><a href="#testing-exceptional-cases">Testing
-            exceptional cases</a></div>
+        <div style="margin-left: 3em;"><a href="#adapting-ordertest">Adapting
+            OrderTest</a></div>
+        <div style="margin-left: 3em;"><a href="#testing-the-searchaction">Testing
+            the @SearchAction</a></div>
+        <div style="margin-left: 3em;"><a href="#testing-the-onchangesearch">Testing
+            the @OnChangeSearch</a></div>
+        <div style="margin-left: 3em;"><a href="#adapting-invoicetest">Adapting
+            InvoiceTest</a></div>
+        <div style="margin-left: 3em;"><a href="#testing-the-addaction">Testing
+            the @AddAction</a></div>
+        <div style="margin-left: 3em;"><a href="#testing-the-action-to-add-elements-to-the-collection">Testing
+            the action to add elements to the collection</a></div>
         <div style="margin-left: 2em;"><a href="#summary">Summary</a></div>
       </div>
       In previous lessons you learned how to add your own actions. However this
@@ -85,17 +70,19 @@
       Fortunately, OpenXava provides many ways to customize the behavior for
       references and collections. In this lesson you will learn how to do some
       of these customizations, and how this adds value to your application.
-      <h2>Refining reference behavior</h2>
+      <h2><a name="refining-reference-behavior"></a>Refining reference behavior</h2>
       You might have noticed that the <i>Order</i> module has a little slip:
       the user can add any invoice he wants to the current order, even if the
       invoice customer was different. This is not acceptable. Let's fix it.
-      <h3>Validation is good, but not enough</h3>
+      <h3><a name="validation-is-good-but-not-enough"></a>Validation is good,
+        but not enough</h3>
       The user can only associate an invoice to an order if both, invoice and
       order, belong to the same customer. This is specific business logic of
       your application, so the standard OpenXava behavior does not solve it. The
       next image shows as a validation error is produced when customer of
       invoice is incorrect </div>
-    <img src="files/references-collections_en010.png" alt="references-collections_en010"
+    <img src="files/references-collections_en010.png" alt="references-collections_en010"
+
       title="references-collections_en010">
     <div class="wiki" style="display: block;"> Since this is business logic we
       are going to put it in the model layer, that is, in the entities. We'll do
@@ -122,13 +109,15 @@
       of the invoice is the same as the customer of this order. This is enough
       to preserve the data integrity, but this validation alone is a poor option
       from the user viewpoint.
-      <h3>Refining action for searching reference with list</h3>
+      <h3><a name="refining-action-for-searching-reference-with-list"></a>Refining
+        action for searching reference with list</h3>
       Although validation prevents the user from assigning an incorrect invoice
       to an order, he has a hard time trying to find a correct invoice. Because
       when the user clicks to search an invoice, all existing invoices are
       shown. We are going to improve this for showing only the invoices from the
       customer of the current displayed order, in this way:</div>
-    <img src="files/references-collections_en020.png" alt="references-collections_en020.png"
+    <img src="files/references-collections_en020.png" alt="references-collections_en020.png"
+
       title="references-collections_en020.png"><br>
     <div class="wiki" style="display: block;"> For defining our own search
       action for the invoice reference we will use the <i>@SearchAction</i>
@@ -191,7 +180,8 @@ public class SearchInvoiceFromOrderAction
       If there is no customer we don't add any condition so all the invoices
       will be shown, this is the case when the user chooses the invoice before
       choosing the customer.
-      <h3>Searching the reference typing in fields</h3>
+      <h3><a name="searching-the-reference-typing-in-fields"></a>Searching the
+        reference typing in fields</h3>
       The list for choosing a reference already works fine. However, we want to
       give the user the possibility to choose the invoice without the list, by
       just typing the year and number. Very useful if the user already know
@@ -202,7 +192,8 @@ public class SearchInvoiceFromOrderAction
       the year, and searching an invoice only by year is not very precise. The
       following image shows the default behavior and a more convenient
       alternative:<br>
-      <img src="files/references-collections_en030.png" alt="references-collections_en030.png"
+      <img src="files/references-collections_en030.png" alt="references-collections_en030.png"
+
         title="references-collections_en030.png"><br>
       Fortunately it's easy to indicate which fields we want to use to search
       from a user perspective. This is done by means of <i>@SearchKey</i>
@@ -230,19 +221,22 @@ public class SearchInvoiceFromOrderAction
       interface. <br>
       Now it's easy for the user to choose an invoice for the order without
       using the searching list, just by typing year and number.
-      <h3>Refining action for searching reference typing key</h3>
+      <h3><a name="refining-action-for-searching-reference-typing-key"></a>Refining
+        action for searching reference typing key</h3>
       Now that retrieving an invoice by the year and number is usable, we want
       to refine it in order to help our user to do his work more efficiently.
       For example, it would be useful that if the user has not chosen a customer
       for the order yet and he chooses an invoice, the customer of that invoice
       will be assigned to the current order automatically. The following image
       visualizes the wanted behavior:<br>
-      <img src="files/references-collections_en040.png" alt="references-collections_en040.png"
+      <img src="files/references-collections_en040.png" alt="references-collections_en040.png"
+
         title="references-collections_en040.png"><br>
       On the other hand, if the user already has selected the customer for the
       order, if he is not the same in the invoice, it will be rejected and a
       message error displayed, just in this way:</div>
-    <img src="files/references-collections_en050.png" alt="references-collections_en050.png"
+    <img src="files/references-collections_en050.png" alt="references-collections_en050.png"
+
       title="references-collections_en050.png"><br>
     <div class="wiki" style="display: block;"> For defining this special
       behavior we have to add an <i>@OnChangeSearch</i> annotation in the the <i>invoice</i>
@@ -322,18 +316,21 @@ public class OnChangeSearchInvoiceAction
       the year and number of the invoice also changes. Hence, this is a
       centralized place to refine the logic for retrieving the reference and
       populating the view.
-      <h2>Refining collection behavior</h2>
+      <h2><a name="refining-collection-behavior"></a>Refining collection
+        behavior</h2>
       We can refine collections in the same way we have refined references. This
       is very useful, because it allows us to improve the current behavior of
       the <i>Invoice </i>module. The user can only add an order to an invoice
       if the invoice and the orders belongs to the same customer. Moreover, the
       order must be delivered and must not have an invoice yet.
-      <h3>Refining the list for adding elements to a collection</h3>
+      <h3><a name="refining-the-list-for-adding-elements-to-a-collection"></a>Refining
+        the list for adding elements to a collection</h3>
       Currently when the user tries to add orders to an invoice all the orders
       are available. We are going to improve this for showing only the orders
       from the customer of the invoice, delivered and with not invoice yet, just
       as shown: <br>
-      <img src="files/references-collections_en60.png" alt="references-collections_en60.png"
+      <img src="files/references-collections_en60.png" alt="references-collections_en60.png"
+
         title="references-collections_en60.png"><br>
       We will use the <i>@AddAction</i> annotation for defining our own action
       to show the list for adding orders. The following code shows the needed
@@ -391,7 +388,8 @@ public class GoAddOrdersToInvoiceAction
       condition for the list to choose the entities to add. That is, from a <i>
         GoAddElementsToCollectionAction</i> you can use <i>getTab()</i> to
       manipulate the way the list behaves.
-      <h3>Refining the action to add elements to a collection</h3>
+      <h3><a name="refining-the-action-to-add-elements-to-a-collection"></a>Refining
+        the action to add elements to a collection</h3>
       A useful improvement for the orders collection would be that when the user
       adds orders to the current invoice, the detail lines of those orders will
       be copied automatically to the invoice.<br>
@@ -399,7 +397,8 @@ public class GoAddOrdersToInvoiceAction
       show the list to add elements to the collection. But this is not the
       action that adds the elements. <br>
       Let's learn how to define the action that actually adds the elements: <br>
-      <img src="files/references-collections_en70.png" alt="references-collections_en70.png"
+      <img src="files/references-collections_en70.png" alt="references-collections_en70.png"
+
         title="references-collections_en70.png"><br>
       Unfortunately, there is not an annotation to directly define this 'Add'
       action. However, that is not a very difficult task, we only have to refine
@@ -474,11 +473,11 @@ public class AddOrdersToInvoiceAction
       invoice, choose a customer and add orders. It is even easier than using
       the list mode of <i>Order</i> module because from <i>Invoice</i> module
       only the suitable orders for the customer are shown.
-      <h2>JUnit tests</h2>
+      <h2><a name="junit-tests"></a>JUnit tests</h2>
       We still are in the healthy habit of doing some application code, then
       some testing code. And now it's time to write the test code for the new
       feature we added in this lesson.
-      <h3>Adapting <i>OrderTest</i></h3>
+      <h3><a name="adapting-ordertest"></a>Adapting <i>OrderTest</i></h3>
       If you run <i>OrderTest</i> right now it does not pass. This is because
       our test code relies in some details that have changed. Therefore, we have
       to modify the current test code. Edit the <i>testSetInvoice()</i> method
@@ -526,7 +525,7 @@ public class AddOrdersToInvoiceAction
 </code></pre> After these changes the <i>OrderTest</i> must pass. However, we
       still have to add the testing of the new functionality of <i>Order</i>
       module.
-      <h3>Testing the <i>@SearchAction</i></h3>
+      <h3><a name="testing-the-searchaction"></a>Testing the <i>@SearchAction</i></h3>
       We have used <i>@SearchAction</i> in the <i>invoice </i>reference of <i>Order</i>
       for showing in the search list only the invoices from the customer of the
       current order. Add the next method to <i>OrderTest</i> to test of this
@@ -559,7 +558,7 @@ public class AddOrdersToInvoiceAction
     }
 }
 </code></pre> It consists in a loop over all rows verifying the customer number.
-      <h3>Testing the <i>@OnChangeSearch</i></h3>
+      <h3><a name="testing-the-onchangesearch"></a>Testing the <i>@OnChangeSearch</i></h3>
       We used <i>@OnChangeSearch</i> in the <i> invoice</i> reference of <i>Order</i>
       for assigning automatically the customer of the chosen invoice to the
       current order when the order has no customer yet, or for verifying that
@@ -605,7 +604,7 @@ public class AddOrdersToInvoiceAction
       error message is shown (4) and the invoice is cleared in the view (5).
       Note how the first time we use the list (1) to choose the invoice and the
       second time we do it typing the year and number (3).
-      <h3>Adapting <i>InvoiceTest</i></h3>
+      <h3><a name="adapting-invoicetest"></a>Adapting <i>InvoiceTest</i></h3>
       As in the case of <i>OrderTest</i>, <i>InvoiceTest</i> also fails to
       pass. You have to do a little adjustments so it works fine. Edit <i>testAddOrders()</i>
       of <i> InvoiceTest</i> and apply the next changes:
@@ -639,7 +638,7 @@ public class AddOrdersToInvoiceAction
 </code></pre> After these changes the <i>InvoiceTest</i> must pass. However, we
       still have to add the testing of the new functionality of <i>Invoice</i>
       module.
-      <h3>Testing the <i>@AddAction</i></h3>
+      <h3><a name="testing-the-addaction"></a>Testing the <i>@AddAction</i></h3>
       In this lesson we annotated the <i>orders</i> collection of <i>Invoice</i>
       with <i>@AddAction</i> to refine the list of orders to be added to the
       collection. In this way only delivered orders of the customer of the
@@ -772,7 +771,8 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
       of <i>orders</i> collection, and at the same time we have seen how it's
       not needed to develop generic code from start, because it's not difficult
       to convert the concrete code into generic on demand.
-      <h3>Testing the action to add elements to the collection</h3>
+      <h3><a name="testing-the-action-to-add-elements-to-the-collection"></a>Testing
+        the action to add elements to the collection</h3>
       In this lesson we also learned how the refine the action that adds orders
       to the invoice, now it's the moment of testing it. Remember that this
       action copies the lines from selected orders to the current invoice. The
@@ -844,7 +844,7 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
 }
 </code></pre> We have finished the test code. Now it's time to execute all the
       tests for your project. They must be green.
-      <h2>Summary</h2>
+      <h2><a name="summary"></a>Summary</h2>
       This lesson has shown you how to refine the standard behavior of
       references and collections in order for your application to fit the users
       needs. Here you only have seen some illustrative examples, but OpenXava
@@ -855,20 +855,23 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
         @Editor, @CollectionView, @EditOnly, @ListProperties, @RowStyle,
         @EditAction, @ViewAction, @NewAction, @SaveAction, @HideDetailAction,
         @RemoveAction, @RemoveSelectedAction, @ListAction, @DetailAction</i> and
-      <i>@OnSelectElementAction</i>. <br>
-      And if that wasn't enough you always have the option of defining your own
-      editor for references or collections. Editors allows you to create a
-      custom user interface component for displaying and editing the reference
-      or collection. <br>
+      <i>@OnSelectElementAction</i>. Look at the <a href="view_en.html#View-Reference%20customization">Reference
+        customization</a> and <a href="view_en.html#View-Collection%20customization">Collection
+        customization</a> sections of reference guide.<br>
+      And if that wasn't enough you always have the option of <a href="customizing_en.html">defining
+        your own editor</a> for references or collections. Editors allows you to
+      create a custom user interface component for displaying and editing the
+      reference or collection. <br>
       This flexibility allows you to use automatic user interfaces for
       practically any possible case in real life business applications. </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_en.zip/download"
-          rel="nofollow"><br>
-        </a></strong></div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_en.zip/download"
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong><strong></strong> </div>
   </body>
 </html>
