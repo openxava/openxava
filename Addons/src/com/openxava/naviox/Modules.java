@@ -124,10 +124,9 @@ public class Modules implements Serializable {
 	private void loadTopModules(HttpServletRequest request) { // tmp
 		topModules = new ArrayList<MetaModule>();
 		loadFixedModules(request, topModules);
-		// TMP ME QUEDÉ POR AQUÍ: REVISANDO CÓDIGO
-		// tmp if (NaviOXPreferences.getInstance().isRememberVisitedModules()) { // Esto tenemos que añadirlo
+		if (NaviOXPreferences.getInstance().isRememberVisitedModules()) { 
 			loadModulesFromPreferences(request, topModules, "", MODULES_ON_TOP);	
-		// tmp }
+		}
 	}
 	
 	private void storeTopModules() { // tmp
@@ -360,11 +359,12 @@ public class Modules implements Serializable {
 	}
 	*/
 	
-	private void storeModulesInPreferences(Collection<MetaModule> modules, String prefix, int limit, boolean storeCurrent) { 
+	private void storeModulesInPreferences(Collection<MetaModule> modules, String prefix, int limit, boolean storeCurrent) { // tmp  
 		try {			
 			Preferences preferences = getPreferences();
 			int i=0;
-			for (MetaModule module: modules) {				
+			for (MetaModule module: modules) {			
+				if (module.getName().equals(FIRST_STEPS)) continue; // TMP ME QUEDÉ POR AQUÍ: PROBÉ ESTO PARA NO RECORDAR PRIMEROS PASOS, PERO NO FUNCIONO
 				preferences.put(prefix + "application." + i, module.getMetaApplication().getName());
 				preferences.put(prefix + "module." + i, module.getName());
 				i++;

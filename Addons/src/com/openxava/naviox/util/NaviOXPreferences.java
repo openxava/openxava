@@ -1,10 +1,9 @@
 package com.openxava.naviox.util;
 
-import java.io.IOException;
-import java.util.Properties;
+import java.io.*;
+import java.util.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
 
@@ -144,6 +143,15 @@ public class NaviOXPreferences {
 	public boolean isStartInLastVisitedModule() { 
 		return "true".equalsIgnoreCase(getProperties().getProperty("startInLastVisitedModule", "true").trim());
 	}
+	
+	/**
+	 * @since 6.6
+	 */
+	public boolean isRememberVisitedModules() { 
+		return "true".equalsIgnoreCase(getProperties().getProperty("rememberVisitedModules", "true").trim());
+	}
+	
+	
 
 	/**
 	 * @since 6.3.2
