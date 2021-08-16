@@ -85,8 +85,7 @@
       resuelve. <br>
       La siguiente imagen muestra cómo se produce un error de validación cuando
       el cliente de la factura es incorrecto: </div>
-    <img src="files/references-collections_es010.png" alt="references-collections_es010"
-
+    <img src="files/references-collections_es010.png" alt="references-collections_es010"
       title="references-collections_es010">
     <div class="wiki" style="display: block;"> Ya que esto es lógica de negocio
       la vamos a poner en la capa del modelo, es decir, en las entidades. Lo
@@ -120,8 +119,7 @@
       correcta. Porque cuando pulsa para buscar una factura, todas las facturas
       existentes se muestran. Vamos a mejorar esto para mostrar solo las
       facturas del cliente del pedido visualizado, de esta manera:<br>
-      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
-
+      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
         title="references-collections_es020.png"><br>
       Para definir nuestra propia acción de búsqueda para la referencia a
       factura usaremos la anotación <i>@SearchAction</i>. Aquí tienes la
@@ -196,8 +194,7 @@ public class BuscarFacturaDesdePedido
       visualizado es el año, y buscar una factura sólo por el año no es muy
       preciso. La siguiente imagen muestra el comportamiento por defecto junto
       con una alternativa más conveniente:<br>
-      <img src="files/references-collections_es030.png" alt="references-collections_es030.png"
-
+      <img src="files/references-collections_es030.png" alt="references-collections_es030.png"
         title="references-collections_es030.png"><br>
       Afortunadamente es fácil indicar que campos queremos usar para buscar
       desde la perspectiva del usuario. Esto se hace por medio de la anotación <i>@SearchKey</i>.
@@ -233,14 +230,12 @@ public class BuscarFacturaDesdePedido
       escogido al cliente para el pedido y escoge una factura, el cliente de esa
       factura sea asignado automáticamente al pedido actual. La siguiente imagen
       visualiza el comportamiento deseado:<br>
-      <img src="files/references-collections_es040.png" alt="references-collections_es040.png"
-
+      <img src="files/references-collections_es040.png" alt="references-collections_es040.png"
         title="references-collections_es040.png"><br>
       Por otra parte, si el usuario ya ha seleccionado un cliente para el
       pedido, si no coincide con el de la factura, ésta será rechazada y se
       visualizará un mensaje de error, tal como se muestra aquí:</div>
-    <img src="files/references-collections_es050.png" alt="references-collections_es050.png"
-
+    <img src="files/references-collections_es050.png" alt="references-collections_es050.png"
       title="references-collections_es050.png">
     <div class="wiki" style="display: block;">Para definir este comportamiento
       especial hemos de añadir una anotación en la referencia <i>factura</i> de
@@ -335,8 +330,7 @@ public class BuscarAlCambiarFactura
       los pedidos están disponibles. Vamos a mejorar esto para mostrar solo los
       pedidos del cliente de la factura, entregados y todavía sin factura, tal
       como se muestra: <br>
-      <img src="files/references-collections_es060.png" alt="references-collections_es060.png"
-
+      <img src="files/references-collections_es060.png" alt="references-collections_es060.png"
         title="references-collections_es060.png"><br>
       Usaremos la anotación <i>@AddAction</i> para definir nuestra propia
       acción que muestre la lista para añadir pedidos. El siguiente código
@@ -403,8 +397,7 @@ public class IrAnyadirPedidosAFactura
       muestra la lista de elementos a añadir a la colección. Pero no es la
       acción que añade los elementos. En esta sección aprenderemos como definir
       la acción que realmente añade los elementos: <br>
-      <img src="files/references-collections_es070.png" alt="references-collections_es070.png"
-
+      <img src="files/references-collections_es070.png" alt="references-collections_es070.png"
         title="references-collections_es070.png"><br>
       Por desgracia, no hay una anotación para definir directamente esta acción
       de añadir. Sin embargo, no es una tarea demasiado difícil, solo hemos de
@@ -542,6 +535,7 @@ public class AnyadirPedidosAFactura
       actual. Añade el siguiente método a <i>PruebaPedido</i> para probar esta
       funcionalidad :
       <pre><code class="java">public void testBuscarFacturaDesdePedido() throws Exception {
+    login("admin", "admin");      
     execute("CRUD.new");
     setValue("cliente.numero", "1"); // Si el cliente es 1...
     execute("Sections.change", "activeSection=1");
@@ -577,6 +571,7 @@ public class AnyadirPedidosAFactura
       cliente de la factura y del pedido coinciden, si el pedido ya tiene
       cliente. Aquí se muestra el método de prueba en <i>PruebaPedido</i>:
       <pre><code class="java">public void testAlCambiarFactura() throws Exception {
+    login("admin", "admin");
     execute("CRUD.new"); // Estamos creando un nuevo pedido
     assertValue("cliente.numero", ""); // por tanto no tiene cliente todavía
     execute("Sections.change", "activeSection=1");
@@ -622,9 +617,10 @@ public class AnyadirPedidosAFactura
       falla. Has de hacer unos pequeños ajustes para que funcione. Edita <i>testAnyadirPedidos()</i>
       de <i>PruebaFactura</i> y aplica los siguiente cambios:
       <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+    login("admin", "admin");
     assertListNotEmpty();
     execute("List.orderBy", "property=numero");
-    execute("Mode.detailAndFirst");
+    execute("List.viewDetail", "row=0");
     execute("Sections.change", "activeSection=1");
     assertCollectionRowCount("pedidos", 0);
     // execute("Collection.add", // La acción estándar para añadir pedidos ya no se usa
@@ -661,9 +657,10 @@ public class AnyadirPedidosAFactura
       pedidos del cliente actual. El siguiente código muestra los cambios en <i>
         testAnyadirPedidos()</i> para conseguir esto:
       <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+    login("admin", "admin");
     assertListNotEmpty();
     execute("List.orderBy", "property=numero");
-    execute("Mode.detailAndFirst");
+    execute("List.viewDetail", "row=0");
     String numeroCliente = getValue("cliente.numero"); // Tomamos nota del
     execute("Sections.change", "activeSection=1");  // cliente de la factura
     assertCollectionRowCount("pedidos", 0);
@@ -708,7 +705,7 @@ public class AnyadirPedidosAFactura
       reutilizable. Primero, copiamos y pegamos <i>confirmarClienteEnTodasFilas()</i>
       como <i>confirmarValorEnTodasFilas()</i>. Aquí puedes ver estos dos
       métodos en <i>PruebaDocumentoComercial</i>:
-      <pre><code class="java">private void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
+      <pre><code class="java">protected void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
     assertListNotEmpty();
     int c = getListRowCount();
     for (int i=0; i&lt;c; i++) { 
@@ -745,16 +742,17 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
       lista de pedidos contiene solo pedidos entregados. El siguiente código
       muestra la modificación necesaria en <i>testAnyadirPedidos()</i> de <i>PruebaFactura</i>.
       <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+    login("admin", "admin");
     assertListNotEmpty();
     execute("List.orderBy", "property=numero");
-    execute("Mode.detailAndFirst");
+    execute("List.viewDetail", "row=0");
     String numeroCliente = getValue("cliente.numero");
     execute("Sections.change", "activeSection=1");
     assertCollectionRowCount("pedidos", 0);
     execute("Factura.anyadirPedidos",
         "viewObject=xava_view_section1_pedidos");
     confirmarClienteEnTodasFilas(numeroCliente);
-    confirmarValorEnTodasFilas(5, "Entregado"); // Todas las celdas de la columna 5 
+    confirmarValorEnTodasFilas(12, "Entregado"); // Todas las celdas de la columna 12 
                                                 // tienen 'Entregado'
     ...
 	
@@ -769,7 +767,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
     ...
 
     confirmarClienteEnTodasFilas(numeroCliente);
-    confirmarValorEnTodasFilas(5, "Entregado");
+    confirmarValorEnTodasFilas(12, "Entregado");
     int cantidadPedidos = getListRowCount(); // Tomamos nota de la cantidad de pedidos
     execute("AnyadirPedidosAFactura.add", "row=0"); // cuando se muestra la lista
     assertMessage("1 elemento(s) añadido a Pedidos de Factura");
@@ -800,14 +798,14 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
 
     String numeroCliente = getValue("cliente.numero");
     assertCollectionRowCount("detalles", 0); // Factura sin detalles para esta preuba
-    assertValue("importeBase", "0,00"); // Sin detalles el importe base es 0
+    assertValue("importeTotal", "0,00"); // Sin detalles el importe total es 0
     execute("Sections.change", "activeSection=1");
     assertCollectionRowCount("pedidos", 0);
     execute("Factura.anyadirPedidos", // Cuando mostramos la lista de pedidos (2) ...
         "viewObject=xava_view_section1_orders");
     confirmarClienteEnTodasFilas(numeroCliente);
-    confirmarValorEnTodasFilas(5, "Entregado");
-    String importeBasePrimerPedido = getValueInList(0, 8); //..tomamos nota del importe
+    confirmarValorEnTodasFilas(12, "Entregado");
+    String importeTotalPrimerPedido = getValueInList(0, 7); //..tomamos nota del importe
     int cantidadPedidos = getListRowCount();    // base del primer pedido de la lista (3)
 
     ...
@@ -815,7 +813,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
     assertCollectionRowCount("pedidos", 1);
     execute("Sections.change", "activeSection=0");
     assertCollectionNotEmpty("detalles"); // Hay detalles, han sido copiados (4)
-    assertValue("importeBase", importeBasePrimerPedido); // El importe base de la factura
+    assertValue("importeTotal", importeTotalPrimerPedido); // El importe total de la factura
     execute("Sections.change", "activeSection=1"); // coincide con el del
                                                    // pedido recién añadido (5)
     ...
@@ -823,32 +821,33 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
 }
 </code></pre>Verificamos que la factura para esta prueba no tiene detalles. A
       continuación, quitamos las líneas de detalle de la factura (1), después
-      añadimos un pedido (2), tomando nota de su importe base (3), entonces
-      verificamos que la factura actual tiene detalles (4) y que su importe base
-      es el mismo que el del pedido añadido (5). </div>
+      añadimos un pedido (2), tomando nota de su importe total (3), entonces
+      verificamos que la factura actual tiene detalles (4) y que su importe
+      total es el mismo que el del pedido añadido (5). </div>
     <div class="wiki" style="display: block;">El método <i>testAnyadirPedidos()</i>
       está acabado. Éste es su código definitivo:
       <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+    login("admin", "admin");
     assertListNotEmpty();
     execute("List.orderBy", "property=number");
-    execute("Mode.detailAndFirst");
+    execute("List.viewDetail", "row=0");
     String numeroCliente = getValue("cliente.numero");
     assertCollectionRowCount("detalles", 0);
-    assertValue("importeBase", "0,00");
+    assertValue("importeTotal", "0,00");
     execute("Sections.change", "activeSection=1");
     assertCollectionRowCount("pedidos", 0);
     execute("Factura.anyadirPedidos",
         "viewObject=xava_view_section1_pedidos");
     confirmarClienteEnTodasFilas(numeroCliente);
-    confirmarValorEnTodasFilas(5, "Entregado");
-    String importeBasePrimerPedido = getValueInList(0, 8);
+    confirmarValorEnTodasFilas(12, "Entregado");
+    String importeTotalPrimerPedido = getValueInList(0, 7);
     int cantidadPedidos = getListRowCount();
     execute("AnyadirPedidosAFactura.add", "row=0");
     assertMessage("1 elemento(s) añadido a Pedidos de Factura");
     assertCollectionRowCount("pedidos", 1);
     execute("Sections.change", "activeSection=0");
     assertCollectionNotEmpty("detalles");
-    assertValue("importeBase", importeBasePrimerPedido);
+    assertValue("importeTotal", importeTotalPrimerPedido);
     execute("Sections.change", "activeSection=1");
     execute("Factura.anyadirPedidos",
         "viewObject=xava_view_section1_pedidos");
@@ -873,8 +872,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
         @OnChangeSearch, @Editor, @CollectionView, @EditOnly, @ListProperties,
         @RowStyle, @EditAction, @ViewAction, @NewAction, @SaveAction,
         @HideDetailAction, @RemoveAction, @RemoveSelectedAction, @ListAction,
-        @DetailAction</i> o <i>@OnSelectElementAction</i>. Mira las secciones <a
-
+        @DetailAction</i> o <i>@OnSelectElementAction</i>. Mira las secciones <a
         href="view_es.html#Vista-Personalizacion+de+referencia">Personalización
         de referencia</a> y <a href="view_es.html#Vista-Personalizacion+de+coleccion">Personalización
         de colección</a> de la guía de referencia.<br>
@@ -887,14 +885,11 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
       gestión de la vida real. </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
-
-          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
-
+    <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
+          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong><strong></strong> </div>
   </body>
 </html>
