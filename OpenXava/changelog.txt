@@ -2,8 +2,6 @@ Change Log for OpenXava project
 ===============================
 
 - Recordar módulos.
-	- No incluir FirstSteps en módulo recordados.
-	- Probarlo en portatil.
 	- Pruebas JUnit:
 		- Fixed modules.
 		- Orden de los módulos

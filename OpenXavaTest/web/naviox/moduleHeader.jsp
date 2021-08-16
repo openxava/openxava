@@ -1,5 +1,7 @@
 <%-- tmp --%>
 
+<%@include file="../xava/imports.jsp"%>
+
 <%@page import="org.openxava.application.meta.MetaModule"%> 
 <%@page import="org.openxava.util.Is"%>
 <%@page import="com.openxava.naviox.util.NaviOXPreferences"%>
@@ -55,9 +57,11 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 </div>
 				
 <div id="module_header_right">
-	<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
-		<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
-	</a> 				
+	<span id="sign_in_out">
+		<a id="bookmark" href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
+			<i class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
+		</a> 				
+	</span>
 	<span id="sign_in_out"> 
 		<%
 		if (Is.emptyString(NaviOXPreferences.getInstance().getAutologinUser())) {

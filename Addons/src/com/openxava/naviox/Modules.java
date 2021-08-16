@@ -363,8 +363,12 @@ public class Modules implements Serializable {
 		try {			
 			Preferences preferences = getPreferences();
 			int i=0;
+			MetaModule firstSteps = null;
 			for (MetaModule module: modules) {			
-				if (module.getName().equals(FIRST_STEPS)) continue; // TMP ME QUEDÉ POR AQUÍ: PROBÉ ESTO PARA NO RECORDAR PRIMEROS PASOS, PERO NO FUNCIONO
+				if (module.getName().equals(FIRST_STEPS)) {
+					firstSteps = module;
+					continue; 
+				}
 				preferences.put(prefix + "application." + i, module.getMetaApplication().getName());
 				preferences.put(prefix + "module." + i, module.getName());
 				i++;
@@ -375,6 +379,9 @@ public class Modules implements Serializable {
 			}
 			if (storeCurrent && !"SignIn".equals(current.getName())) {
 				preferences.put("current", current.getName());
+			}
+			if (firstSteps != null && (current == null || !current.getName().equals(FIRST_STEPS))) { 
+				modules.remove(firstSteps); 
 			}
 			
 			preferences.flush();
