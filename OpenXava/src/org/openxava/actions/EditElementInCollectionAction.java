@@ -1,12 +1,9 @@
 package org.openxava.actions;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import org.openxava.model.MapFacade;
-import org.openxava.util.XavaException;
+import org.openxava.model.*;
+import org.openxava.util.*;
 
 
 /**

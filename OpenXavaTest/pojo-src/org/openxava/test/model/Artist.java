@@ -1,11 +1,11 @@
 package org.openxava.test.model;
 
-import org.openxava.model.*;
-import org.openxava.test.actions.*;
-import org.openxava.annotations.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
+import org.openxava.annotations.*;
+import org.openxava.model.*;
+import org.openxava.test.actions.*;
 
 /**
  * 
@@ -14,6 +14,8 @@ import javax.validation.constraints.*;
 
 @Entity
 @View(name="ConfirmName", members="artistStudio; name; age; level")
+@View(name="WithGroupAndSection", members="name; age [ age ]; level { level }")
+@View(name="SomeMembersReadOnly", extendsView="WithGroupAndSection")
 @Tab(defaultOrder="${name}") 
 public class Artist extends Identifiable {
 	
@@ -25,10 +27,12 @@ public class Artist extends Identifiable {
 	private String name;
 	
 	@Max(90l)	
+	@ReadOnly(forViews="SomeMembersReadOnly") 
 	private Integer age;
 	
 	@DescriptionsList(descriptionProperties = "id, description")
 	@ManyToOne(fetch = FetchType.LAZY)
+	@ReadOnly(forViews="SomeMembersReadOnly") 
 	private ActingLevel level; 
 		
 	public Studio getArtistStudio() {

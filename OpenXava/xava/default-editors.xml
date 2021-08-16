@@ -346,5 +346,10 @@
 	<editor url="chartXColumnEditor.jsp" always-reload="true">
 		<for-model-property model="Chart" property="xColumn" />
 	</editor>	
+	
+	<editor name="Coordinates" url="coordinatesEditor.jsp" frame="true"> 
+		<for-stereotype stereotype="COORDINATES" /> 
+		<for-stereotype stereotype="COORDENADAS" />
+	</editor>	
 		
 </editors>

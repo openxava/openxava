@@ -55,6 +55,27 @@ public class CustomerSellerAsDescriptionsListShowingReferenceViewTest extends Mo
 		execute("Mode.list");
 		execute("CRUD.new");
 		assertAction("Customer.hideSeller");
+		
+		execute("Mode.list");
+		execute("List.viewDetail", "row=1");
+		assertValue("name", "Juanillo");
+		assertValue("seller.name", "MANUEL CHAVARRI");
+		assertValue("seller.number__CONTROL__", "MANUEL CHAVARRI");
+		
+		execute("Navigation.next");
+		assertValue("name", "Carmelo");
+		assertValue("seller.name", "");
+		assertValue("seller.number__CONTROL__", "");
+		
+		execute("Navigation.next");
+		assertValue("name", "Cuatrero");
+		assertValue("seller.name", "");
+		assertValue("seller.number__CONTROL__", "");
+		
+		execute("Navigation.next");
+		assertValue("name", "Gonzalo Gonzalez");
+		assertValue("seller.name", "JUANVI LLAVADOR");
+		assertValue("seller.number__CONTROL__", "JUANVI LLAVADOR");		
 	}
 		
 }

@@ -271,28 +271,30 @@ public class Module extends DWRBase {
 
 	private void fillResult(Result result, Map values, Map multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {
 		Map changedParts = result.getChangedParts();
-		getView().resetCollectionsCache(); 
+		View view = getView();
+		view.resetCollectionsCache();
 
 		if (manager.isShowDialog() || manager.isHideDialog() || firstRequest) {
 			if (manager.getDialogLevel() > 0) {
 				changedParts.put(decorateId("dialog" + manager.getDialogLevel()),   
 					getURIAsString("core.jsp?buttonBar=false", values, multipleValues, selected, deselected, additionalParameters)					
 				);		
-				getView().resetCollectionsCache(); 
+				view.resetCollectionsCache(); 
 				result.setFocusPropertyId(getView().getFocusPropertyId());
 				return;
 			}			
 		}
 				
-		Collection<String> propertiesUsedInCalculations = new ArrayList<String>();
-		for (Iterator it = getChangedParts(values, propertiesUsedInCalculations).entrySet().iterator(); it.hasNext(); ) { 
+		Collection<String> propertiesUsedInCalculations = new HashSet<String>(); 
+		Map<String, View> changedCollectionsTotals = view.getChangedCollectionsTotals(); 
+		for (Iterator it = getChangedParts(values, propertiesUsedInCalculations, changedCollectionsTotals).entrySet().iterator(); it.hasNext(); ) { 
 			Map.Entry changedPart = (Map.Entry) it.next();
 			changedParts.put(changedPart.getKey(),
 				getURIAsString((String) changedPart.getValue(), values, multipleValues, selected, deselected, additionalParameters)	
 			);
 		}
 	
-		fillPropertiesUsedInCalculationsFromSumCollectionProperties(propertiesUsedInCalculations);
+		fillPropertiesUsedInCalculationsFromSumCollectionProperties(propertiesUsedInCalculations, changedCollectionsTotals); 
 	
 		if (!propertiesUsedInCalculations.isEmpty()) {
 			result.setPropertiesUsedInCalculations(XCollections.toStringArray(propertiesUsedInCalculations));  
@@ -320,7 +322,7 @@ public class Module extends DWRBase {
 	}
 
 
-	private void fillPropertiesUsedInCalculationsFromSumCollectionProperties(Collection<String> propertiesUsedInCalculations) { 
+	private void fillPropertiesUsedInCalculationsFromSumCollectionProperties(Collection<String> propertiesUsedInCalculations, Map<String, View> changedCollectionsTotals) { 
 		if (manager.isFormUpload()) return;  
 		
 		View view = getView();
@@ -329,23 +331,14 @@ public class Module extends DWRBase {
 			View subview = getView().getSubview(collection);
 			fillPropertiesUsedInCalculationsFromSumCollectionPropertiesForSubview(propertiesUsedInCalculations, view, subview, collection);
 		}
-		
-		for (Object o: view.getChangedPropertiesActionsAndReferencesWithNotCompositeEditor().entrySet()) {			
-			Map.Entry e = (Map.Entry) o;
-			String property = (String) e.getKey();
-			int idx = property.indexOf(".");
-			if (idx < 0) continue;
-			String collection = property.substring(0, idx).replace(":", "");
-			View v = (View) e.getValue();
-			try {
-				View subview = v.getSubview(collection);
-				if (subview.isRepresentsElementCollection()) {
-					fillPropertiesUsedInCalculationsFromSumCollectionPropertiesForSubview(propertiesUsedInCalculations,	view, subview, collection);				
-				}
+	
+		for (String totalProperty: changedCollectionsTotals.keySet()) {
+			String collection = Strings.firstToken(totalProperty, ":");
+			View containerView = changedCollectionsTotals.get(totalProperty);
+			View subview = containerView.getSubview(collection);
+			if (subview.isRepresentsElementCollection()) {
+				fillPropertiesUsedInCalculationsFromSumCollectionPropertiesForSubview(propertiesUsedInCalculations,	view, subview, collection);
 			}
-			catch (ElementNotFoundException ex) {
-			} 
-			
 		}
 	}
 
@@ -404,7 +397,7 @@ public class Module extends DWRBase {
 		getView().putObject("xava.dialogTitle", result.getDialogTitle());
 	}
 
-	private Map getChangedParts(Map values, Collection<String> propertiesUsedInCalculations) { 
+	private Map getChangedParts(Map values, Collection<String> propertiesUsedInCalculations, Map<String, View> changedCollectionsTotals) {  
 		Map result = new HashMap();
 		if (values == null || manager.isReloadAllUINeeded() || manager.isFormUpload()) {
 			put(result, "core", "core.jsp");
@@ -431,7 +424,7 @@ public class Module extends DWRBase {
 			else {
 				fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(result, propertiesUsedInCalculations); 
 				fillChangedCollections(result);
-				fillChangedCollectionsTotals(result);
+				fillChangedCollectionsTotals(result, changedCollectionsTotals); 
 				fillChangedCollectionSizesInSections(result); 
 				fillChangedSections(result);
 				fillChangedLabels(result);
@@ -600,9 +593,8 @@ public class Module extends DWRBase {
 		}
 	}
 	
-	private void fillChangedCollectionsTotals(Map result) { 
-		View view = getView();			
-		Collection changedCollections = view.getChangedCollectionsTotals().entrySet();
+	private void fillChangedCollectionsTotals(Map result, Map<String, View> changedCollectionsTotals) {  
+		Collection changedCollections = changedCollectionsTotals.entrySet(); 
 		for (Iterator it = changedCollections.iterator(); it.hasNext(); ) {
 			Map.Entry en = (Map.Entry) it.next();
 			String [] key = ((String) en.getKey()).split(":");

@@ -45,14 +45,39 @@ public class AJAXTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=5");
 		assertNoEditable("name");
 		assertNoEditable("usedTo");
+		assertNoEditable("mixture.colorName1"); 
+		assertNoEditable("mixture.colorName2"); 
 		
 		execute("CRUD.new");
 		assertEditable("name");
 		assertEditable("usedTo");
-		assertLoadedParts("bottom_buttons, button_bar, editor_name, editor_number, editor_sample, errors, messages, reference_editor_characteristicThing, reference_editor_usedTo");
+		assertEditable("mixture.colorName1"); 
+		assertEditable("mixture.colorName2"); 
+		
+		assertLoadedParts(
+			"editor_name, editor_number," +
+			"reference_editor_characteristicThing, reference_editor_usedTo, editor_sample," +
+			"editor_mixture.colorName1,editor_mixture.colorName2," +
+			"property_actions_mixture.colorName2," +
+			"bottom_buttons, button_bar, errors, messages");
 		
 		execute("CRUD.new");
-		assertLoadedParts("editor_name, errors, messages, reference_editor_characteristicThing, reference_editor_usedTo");
+		assertLoadedParts("reference_editor_characteristicThing, errors, messages"); 
+		
+		execute("Navigation.first");
+		assertNoEditable("mixture.colorName1"); 
+		assertNoEditable("mixture.colorName2");
+		assertValue("mixture.colorName1", ""); 
+		assertValue("mixture.colorName2", "");
+		execute("Navigation.next");
+		assertNoEditable("mixture.colorName1"); 
+		assertNoEditable("mixture.colorName2");
+		assertValue("mixture.colorName1", ""); 
+		assertValue("mixture.colorName2", "");
+		assertLoadedParts(
+			"editor_number, editor_name, editor_sample, editor_hexValue," +
+			"reference_editor_usedTo, reference_editor_characteristicThing," +
+			"errors, messages"); 
 	}
 	
 	public void testElementCollections() throws Exception { 
@@ -187,7 +212,23 @@ public class AJAXTest extends ModuleTestBase {
 		
 		getHtmlPage().executeJavaScript("$('input[name=ox_OpenXavaTest_CustomerSellerAsDescriptionsListShowingReferenceView__seller___number__CONTROL__]').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:2, label:'JUANVI LLAVADOR'}});");
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertLoadedParts("editor_seller___number, editor_seller___name, errors, messages");  
+
+		// We could optimize to exclude reference_editor_seller below. However, if we would optimize the combo of descriptions list
+		// to load on open it, the performance overload of leaving reference_editor_seller would be minimal
+		// We plan to optimize combo data loading: https://openxava.org/XavaProjects/o/OpenXava/m/Issue?detail=ff808081702156050170274028940005 
+		assertLoadedParts("editor_seller___number, editor_seller___name, reference_editor_seller, errors, messages"); 
+		
+		execute("Mode.list");
+		execute("List.viewDetail", "row=3");
+		assertValue("name", "Cuatrero");
+		
+		execute("Navigation.next");
+		assertValue("name", "Gonzalo Gonzalez");
+		assertLoadedParts(
+			"editor_number, editor_name, editor_type, " +
+			"editor_seller.number, editor_seller.name, reference_editor_seller.level, " +
+			"reference_editor_seller," +
+			"errors, messages");
 	}
 	
 	public void testChangingSelectedElementsOfACollectionTabByCodeNoReloadCollection() throws Exception {  
@@ -316,7 +357,7 @@ public class AJAXTest extends ModuleTestBase {
 	
 	public void testCollectionsInsideReferences() throws Exception { 
 		changeModule("Office");
-		execute("CRUD.new");
+		execute("CRUD.new"); 
 		assertCollectionRowCount("defaultCarrier.fellowCarriers", 0);
 		assertCollectionRowCount("defaultCarrier.fellowCarriersCalculated", 0);
 		setValue("defaultCarrier.number", "1");
@@ -673,7 +714,7 @@ public class AJAXTest extends ModuleTestBase {
 		changeModule("Carrier"); 		
 		execute("CRUD.new");
 		assertLoadedParts("core, "); 
-		execute("CRUD.new");
+		execute("CRUD.new"); 
 		assertLoadedParts("errors, messages"); 
 		execute("Mode.list");
 		execute("CRUD.new");
@@ -754,7 +795,7 @@ public class AJAXTest extends ModuleTestBase {
 	
 	public void testSectionsInsideSubview() throws Exception {
 		changeModule("TransportCharge");
-		execute("CRUD.new");
+		execute("CRUD.new"); 
 		execute("Sections.change", "activeSection=4,viewObject=xava_view_delivery");
 		assertLoadedParts("errors, sections_xava_view_delivery, " +
 				"messages, ");

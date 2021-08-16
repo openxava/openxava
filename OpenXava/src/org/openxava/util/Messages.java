@@ -100,6 +100,7 @@ public class Messages implements java.io.Serializable {
 											.getClass().getSimpleName()));
 							property = "{" + property + "}"; 
 						}
+						if (property == null) property = XavaResources.getString(locale, "null"); 
 						matcher.appendReplacement(sb, property);
 					}
 					matcher.appendTail(sb);					

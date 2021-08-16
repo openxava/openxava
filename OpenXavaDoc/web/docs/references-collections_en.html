@@ -23,6 +23,7 @@
         Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
         Behavior &amp; business logic</a> | <strong>9. References &amp;
         collections</strong> | <a class="wiki_link" href="philosophy_en.html">A.
+
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
         Annotations</a>
@@ -296,7 +297,7 @@ public class OnChangeSearchInvoiceAction
       <i>getView()</i> returns the subview of the reference, and not the global
       view. Therefore, in this case <i>getView()</i> is the view of the invoice
       reference. This allows you to create more reusable <i>@OnChangeSearch</i>
-      actions. Thus you have to write <i>getView().getRoot().getSubview(“customer”)</i>
+      actions. Thus you have to write <i>getView().getRoot().getSubview("customer")</i>
       (5) to access to the customer view. <br>
       To implement the behavior visualized in the previous image, the action
       asks if there is no customer (<i>customberNumber == 0</i>) (6). If this is
@@ -440,7 +441,7 @@ public class AddOrdersToInvoiceAction
     extends AddElementsToCollectionAction { // Standard logic for adding
                                             // collection elements
     public void execute() throws Exception {
-        super.execute(); // We use the standard logic “as is”
+        super.execute(); // We use the standard logic "as is"
         getView().refresh(); // To display fresh data, including recalculated
     }                        // amounts, which depend on detail lines
 
@@ -696,7 +697,7 @@ public class AddOrdersToInvoiceAction
     int c = getListRowCount();
     for (int i=0; i&lt;c; i++) { // A loop over all rows
         if (!customerNumber.equals(
-		    getValueInList(i, "customer.number"))) // We ask “ad hoc” for customer
+		    getValueInList(i, "customer.number"))) // We ask "ad hoc" for customer
 		{ 
             fail("Customer in row " + i + 
                 " is not " + customerNumber);

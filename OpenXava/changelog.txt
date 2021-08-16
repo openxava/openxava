@@ -1,22 +1,72 @@
 Change Log for OpenXava project
 ===============================
 
-- Concurrency and version property documentation improved.
-- Fix: It's possible to remove attached files inadvertently in upload editors, now it asks for confirmation.
-- Documentation to modify and build OpenXava code improved.
-- Fix: OpenXava.buildOpenXava Ant target doesn't work if ISO-8859-1 is not defined at Eclipse level.
+- Lesson 2 of course includes video.
+- Lesson 2 of course divided in several smaller lessons.
+- New COORDINATES/COORDENADAS stereotype to store and display a point in a map.	
+- Some new common use labels to be used in applications.	
+
+OpenXava 6.5.3 (2021-7-12)
+--------------------------
+- Getting Started guide includes video. 
+- Welcome page on starting OpenXava Studio simplified.
+- Documentation about @Calculation in Reference Guide (Model chapter) improved.
+- Database configuration documentation improved.
+- RequestReseter logic moved to a @WebListener.
+- Fix: @Calculation total property in @ElementCollection depending on summation not updated sometimes.
+- Fix: @ElementCollection summation not updated when the user changes values in the column of the summation. 
+- Fix: BigInteger properties are not treated as numeric values.
+- Fix: Dates ending with separator, like in Serbian, are incorrectly altered when modified. 
+- Fix: @ReadOnly(onCreate=false) did not work on references.
+- Fix: Unneeded AJAX loading of editors in some cases with @ReadOnly(onCreate=false), 
+- Fix: Read only enums not displayed completely when @Column(length=) with a low value is used.
+- Fix: Broken links in Model documentation of Reference Guide.
+- Fix: Changing in 'My reports' a comparison in a date from = to year = does not save the value of the year.     
+- Fix: Editing a date field comparing by year in 'My reports' does not show the year. 
+- Fix: Collection inside a section produces infinite loop if the collection element has recursive reference.
+- Fix: Date editor does not work well when locale format has the year at beginning, like in South Africa.
+- Fix: @ReadOnly ignored when using inside sections or groups with view inheritance.
+- Fix: Adding an element in a recursive collection that is also inside another collection fails.
+- Fix: @ReadOnly collections data not visible with Dark theme.
+- Fix: base.css is not refreshed by browser after updating OpenXava version.
+- Fix: File name for PDF generation and CSV export not encoded, so sometimes local characters are missed.
+- Fix: PDF reports do not work with Cp1250 encoding used by some Central and Eastern European languages.
+- Fix: Model name not translated in creation messages when key is included in the message.
+- Fix: @Calculation properties does not include thousand separators just after being calculated.
+- Fix: New action does not clear combo value on references with @DescriptionsList(showReferenceView=true).
+- Fix: @DescriptionsList(showReferenceView=true) does not refresh combo value navigating between records.
+- Fix: @AssertTrue throws error if has a message with a property with null value.
+
+OpenXava 6.5.2 (2021-5-31)
+--------------------------
 - Use of 4 digits for year in dates for all locales. 
+- 'How to' documentation improved. 
+- Oracle configuration documentation improved.
+- Concurrency and version property documentation improved.
+- Documentation to modify and build OpenXava code improved.
+- Fix: Adding date separators and completing century in year only work for first date in view.
+- Fix: Date calendar and rich text editor do not change the language when xava.portal.locale is changed.
+- Fix: When locale is changed via code (xava.portal.locale) the link for help documentation is not updated.
+- Fix: Modules in left menu in incorrect language when you change locale from code (xava.portal.locale).
+- Fix: SchemaTool does not work with AS/400 on creating the foreign keys.
+- Fix: Icon of the action to search references is difficult to see in Dark theme.
+- Fix: Redundant columns to add to list when using inheritance with entities with collections.
+- Fix: Action links for rows in list inside dialogs are difficult to see in Dark theme.
+- Fix: Calendar icon inside date fields is difficult to see in Dark theme.
+- Fix: Error message about SameSite attribute with cookies in FireFox console. 
+- Fix: Dead code in JavaScript editors.
+- Fix: Poor performance getting calculated collections in some circumstances.
+- Fix: Saving a collection element fails if the collection is inside a reference displayed with @AsEmbedded.
+- Fix: It's possible to remove attached files inadvertently in upload editors, now it asks for confirmation.
+- Fix: OpenXava.buildOpenXava Ant target doesn't work if ISO-8859-1 is not defined at Eclipse level.
 - Fix: Italian dates do not use 4 digits for years.
 - Fix: Editing a date of 20th century with popup calendar shows the date in the 21st century.
-- Fix: Adding date separators and completing century in year only work for first date in view.
 - Fix: Adding separators to date or completing century in year doesn't work if there is a leading space.
-- 'How to' documentation improved. 
 - Fix: Changing total property in @ElementCollection for existing entity not recalculated dependent values. 
 - Fix: NullPointerException in log filtering in a list in the dialog to choose an element for a reference.
 - Fix: Last new line ( ; ) in a @View used as base with view inheritance is ignored. 
 - Fix: Modifying a transient reference by code produces the "Changed data" message on exit. 
 - Fix: Transient references are available for adding by user on customizing list columns.
-- Oracle configuration documentation improved.
 
 OpenXava 6.5.1 (2021-4-13)
 --------------------------

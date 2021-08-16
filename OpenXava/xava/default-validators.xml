@@ -94,6 +94,12 @@
 		<validator-class class="org.openxava.validators.MACValidator"/>
 		<for-stereotype stereotype="MAC"/>
 	</default-validator>	
+	
+	<default-validator>
+		<validator-class class="org.openxava.validators.CoordinatesValidator"/>
+		<for-stereotype stereotype="COORDINATES"/>
+		<for-stereotype stereotype="COORDENADAS"/>
+	</default-validator>	
 					
 </validators>
   

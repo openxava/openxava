@@ -3,6 +3,7 @@
 <%@ page import="org.openxava.controller.meta.MetaAction" %>
 <%@ page import="org.openxava.util.XavaPreferences"%>
 <%@ page import="org.openxava.util.Is"%>
+<%@ page import="org.openxava.util.Locales"%> 
 <%@ page import="org.openxava.controller.meta.MetaSubcontroller"%>
 <%@ page import="java.util.Collection"%>
 <%@ page import="org.openxava.web.Ids"%>
@@ -112,7 +113,7 @@ if (manager.isButtonBarVisible()) {
 
 	
 	if (XavaPreferences.getInstance().isHelpAvailable() && style.isHelpAvailable()) {
-		String language = request.getLocale().getLanguage();
+		String language = Locales.getCurrent().getLanguage();  
 		String href = XavaPreferences.getInstance().getHelpPrefix(); 
 		String suffix = XavaPreferences.getInstance().getHelpSuffix(); 
 		String target = XavaPreferences.getInstance().isHelpInNewWindow() ? "_blank" : "";

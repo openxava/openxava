@@ -39,7 +39,8 @@
 	--default-action-button-shadow: none;
 	--default-action-button-hover-shadow: none;
 	--list-row-action-color: gray; 
-	--list-row-action-hover-color: var(--acqua-profonda); 
+	--list-row-action-hover-color: var(--acqua-profonda);
+	--reference-search-icon-color: var(--acqua-profonda); 
 	
 	/* Editors */
 	--required-editor-border: green;

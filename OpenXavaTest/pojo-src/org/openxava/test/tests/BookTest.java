@@ -62,9 +62,11 @@ public class BookTest extends ModuleTestBase {
 	}
 	
 	// This test fails in PostgreSQL, but not in Hypersonic
-	public void testListFilterByBooleanColumnInDB_XSSNotJSInListFilterValues() throws Exception { 
+	public void testListFilterByBooleanColumnInDB_XSSNotJSInListFilterValues_bigIntegarAsNumeric() throws Exception {  
 		MyAlertHandler alertHandler = new MyAlertHandler();
 		getWebClient().setAlertHandler(alertHandler);
+		
+		assertAction("List.sumColumn", "property=pages"); // So pages is numeric 
 
 		assertListRowCount(2); 
 		setConditionComparators ("=", "=", "=", "=");

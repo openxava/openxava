@@ -212,11 +212,11 @@ public class View implements java.io.Serializable {
 		return metaMembers;		
 	}
 	
-	private Collection<MetaMember> getMetaMembersIncludingCollectionTotals() throws XavaException { 
+	private Collection<MetaMember> getMetaMembersIncludingCollectionTotals() throws XavaException {
 		if (metaMembersIncludingCollectionTotals == null) {
 			metaMembersIncludingCollectionTotals = createMetaMembers(false, true);
 		}		
-		return metaMembersIncludingCollectionTotals;		
+		return metaMembersIncludingCollectionTotals;
 	}
 	
 	private Collection getMetaMembersIncludingHiddenKey() throws XavaException { 
@@ -246,7 +246,7 @@ public class View implements java.io.Serializable {
 			removeNotInListProperties(metaMembers);
 		}
 		else if (isRepresentsCollection()) {     
-			metaMembers = extractAggregateRecursiveReference(metaMembers);					
+			metaMembers = extractAggregateRecursiveReference(metaMembers);
 		}				
 		extractRecursiveReference(metaMembers); 
 		if (!hiddenIncluded && hiddenMembers != null) {
@@ -311,29 +311,31 @@ public class View implements java.io.Serializable {
 		}
 	} 
 
-	private void extractRecursiveReference(Collection metaMembers) {		
+	private void extractRecursiveReference(Collection metaMembers) {
+		
 		for (Iterator it=metaMembers.iterator(); it.hasNext(); ) {
 			Object member = it.next();
 			MetaReference ref = null;
 			if (member instanceof MetaReference) ref = (MetaReference) member; 
 			else continue;
-			String model = ref.getMetaModel().getName();
+			if (displayAsDescriptionsList(ref)) continue;
+			String model = ref.getMetaModelReferenced().getName();
 			String view = getMetaView().getMetaView(ref).getName();			
 			if (isViewInParents(model, view)) {
 				it.remove();
 			}
-		}				
+		}		
+		
 	}
 
-	private boolean isViewInParents(String modelName, String viewName) { 
+	private boolean isViewInParents(String modelName, String viewName) {
 		View parent = getParent();		
 		if (parent == null)	return false;
-		if (isSection() || isGroup()) return parent.isViewInParents(modelName, viewName);;  
+		if (isSection() || isGroup()) return parent.isViewInParents(modelName, viewName);  
 		String parentView = parent.getViewName();
 		if (parentView ==null) parentView = "";		 
 		if (Is.equal(parent.getModelName(), modelName) && 
 			Is.equal(parentView, viewName)) return true;
-			
 		return parent.isViewInParents(modelName, viewName);
 	}
 
@@ -1776,7 +1778,7 @@ public class View implements java.io.Serializable {
 	// Before 4m6 it was private
 	public MetaCollection getMetaCollection() throws XavaException { 
 		assertRepresentsCollection("getMetaCollection()");
-		return getParent().getMetaModel().getMetaCollection(getMemberName());
+		return getParentIfSectionOrGroup().getParent().getMetaModel().getMetaCollection(getMemberName()); 
 	}
 
 
@@ -2707,6 +2709,11 @@ public class View implements java.io.Serializable {
 
 	public boolean isKeyEditable() {
 		if (insideAViewDisplayedAsDescriptionsListAndReferenceView()) return false;
+		if (isRepresentsEntityReference() && !isRepresentsCollection()) {
+			View parent = getParentIfSectionOrGroup().getParent();
+			MetaReference ref = parent.getMetaReference(getMemberName());
+			return parent.isEditable(ref);
+		}
 		return !isReadOnly() && keyEditable;
 	}
 	
@@ -2752,8 +2759,8 @@ public class View implements java.io.Serializable {
 	/**
 	 * If at this moment is editable.
 	 */
-	public boolean isEditable(MetaProperty metaProperty) { 
-		if (isEditableImpl(metaProperty)) return true;
+	public boolean isEditable(MetaProperty metaProperty) {
+		if (isEditableImpl(metaProperty)) return true;		
 		if (isLastSearchKey(metaProperty)) return isKeyEditable();
 		return false;
 	}
@@ -2761,11 +2768,11 @@ public class View implements java.io.Serializable {
 	/**
 	 * If at this moment is editable.
 	 */
-	private boolean isEditableImpl(MetaProperty metaProperty) { 		
+	private boolean isEditableImpl(MetaProperty metaProperty) { 	
 		try {
 			MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(metaProperty.getName());
 			if (metaPropertyView != null) {
-				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate()) return true;
+				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate())	return true;
 			}
 			if (metaProperty.isReadOnly()) return false;			
 			if (metaProperty.isKey() || 
@@ -2774,6 +2781,7 @@ public class View implements java.io.Serializable {
 				return isKeyEditable();
 			}
 			if (!isEditable()) return false;			
+			
 			return isMarkedAsEditable(metaProperty.getName());
 		}
 		catch (Exception ex) {
@@ -2789,16 +2797,12 @@ public class View implements java.io.Serializable {
 	public boolean isEditable(MetaReference metaReference) {
 		try {
 			MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(metaReference);
-			if (metaReferenceView != null && isKeyEditable() && metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
-				setEditable(metaReference.getName(), true); 
+			if (metaReferenceView != null && isKeyEditable() &&  metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
+				setEditable(metaReference.getName(), true);
 				return true;
 			}
-			if (metaReferenceView != null && metaReferenceView.isReadOnly()) return false;
-			if (metaReference.isKey() || 
-				(metaReference.isSearchKey() && isRepresentsEntityReference())) 
-			{
-				return isKeyEditable(); 				
-			}
+			if (metaReferenceView != null && metaReferenceView.isReadOnly()) return false;			
+			if (metaReference.isKey() || (metaReference.isSearchKey() && isRepresentsEntityReference())) return isKeyEditable(); 				
 			if (!isEditable()) return false;				
 			return isMarkedAsEditable(metaReference.getName());
 		}
@@ -2885,8 +2889,9 @@ public class View implements java.io.Serializable {
 		}						
 	}
 	
-	public boolean isEditable() { 
+	public boolean isEditable() {
 		if (isReadOnly()) return false;
+		
 		if (isRepresentsAggregate()) {
 			Set parentNotEditableMembersNames = getParentIfSectionOrGroup().getParent().notEditableMembersNames; 
 			if (parentNotEditableMembersNames != null) {
@@ -2901,6 +2906,7 @@ public class View implements java.io.Serializable {
 			
 		for (Iterator it = getSubviews().values().iterator(); it.hasNext();) {				
 			View subview = (View) it.next();
+			
 			if (subview.isRepresentsCollection()) {
 				subview.setCollectionEditable(isMarkedAsEditable(subview.getMemberName())?b:false); 
 				if (!subview.collectionMembersEditables || !isMarkedAsEditable(subview.getMemberName())) {
@@ -2914,24 +2920,26 @@ public class View implements java.io.Serializable {
 			}
 			else if (subview.isRepresentsEntityReference()) {
 				subview.setEditable(false);
-				subview.setKeyEditable(isMarkedAsEditable(subview.getMemberName())?b:false);  
+				subview.setKeyEditable(isMarkedAsEditable(subview.getMemberName())?b:false);						
 			}
 			else {
 				subview.setEditable(b);
-			}						
+			}
+						
 		}			
-			
+		
 		for (Iterator it = getGroupsViews().values().iterator(); it.hasNext();) {				
 			View subview = (View) it.next();
 			subview.setEditable(b); 
 		}		
+		
 		
 		if (hasSections()) {
 			int count = getSections().size();
 			for (int i = 0; i < count; i++) {
 				getSectionView(i).setEditable(b);
 			}	
-		}				
+		}
 	}
 
 	public String getModelName() {		
@@ -2973,7 +2981,7 @@ public class View implements java.io.Serializable {
 		sections = null; 
 		hiddenMembers = null; 
 		groupsViews = null;
-		polished = false; 
+		polished = false;
 	}
 	
 	public void assignValuesToWebView() {
@@ -3308,7 +3316,8 @@ public class View implements java.io.Serializable {
 			}
 			if (getMetaView().hasOnChangeAction(p.getName())) return true;			
 			if (isLastSearchKey(p)) return true; 			
-			if (!isSubview()) return false;							
+			if (!isSubview()) return false;		
+			if (isRepresentsElementCollection() && getTotalProperties().containsKey(p.getName())) return true; 
 			return isRepresentsEntityReference() && !isRepresentsCollection() && getLastPropertyKeyName().equals(p.getName()); 
 		}
 		catch (Exception ex) {
@@ -4262,6 +4271,7 @@ public class View implements java.io.Serializable {
 	}
 
 	public boolean isRepresentsCollection() {		
+		if (isGroup()) return getParent().isRepresentsCollection(); 
 		return representsCollection;
 	}
 	
@@ -5678,7 +5688,7 @@ public class View implements java.io.Serializable {
 	 * 
 	 * @return In each entry the key is the qualified id and value the container view 
 	 */
-	public Map getChangedPropertiesActionsAndReferencesWithNotCompositeEditor() {  		
+	public Map getChangedPropertiesActionsAndReferencesWithNotCompositeEditor() {
 		if (changedPropertiesActionsAndReferencesWithNotCompositeEditor == null) {
 			changedPropertiesActionsAndReferencesWithNotCompositeEditor = new HashMap();
 			fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(changedPropertiesActionsAndReferencesWithNotCompositeEditor);
@@ -5687,6 +5697,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void propertiesAndReferencesWithReadOnlywithOnCreateFalse(Map result) {
+		if (!hasKeyEditableChanged()) return; 
 		for (MetaMember m : getMetaMembers()) {
 			if (m instanceof MetaProperty) {
 				MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(m.getName());
@@ -5695,10 +5706,19 @@ public class View implements java.io.Serializable {
 				}
 			}
 			else if (m instanceof MetaReference) {
-				MetaReference t = getMetaReference(m.getName());
-				MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(t);
-				if (metaReferenceView != null && isKeyEditable() && metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
-					result.put(m.getName(), this);
+				MetaReference ref = getMetaReference(m.getName());
+				MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(ref);
+				if (metaReferenceView != null  &&  metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
+					if (displayReferenceWithNotCompositeEditor(ref) ) {
+						result.put(m.getName(), this);
+					}
+					else {
+						View subview = getSubview(ref.getName());
+						subview.oldKeyEditable = !subview.keyEditable; // So subview.hasKeyEditableChanged() is true and the actions are refreshed 
+						for (String key: ref.getMetaModelReferenced().getAllKeyPropertiesNames()) {
+							result.put(ref.getName() + "." + key, subview);
+						}
+					}
 				}
 			}
 		}
@@ -5744,7 +5764,7 @@ public class View implements java.io.Serializable {
 		{
 			result.put(getPropertyPrefix().replace(".", ""), getViewForChangedProperty()); 
 		}
-		
+				
 		if (oldValues == null) oldValues = Collections.EMPTY_MAP;
 		if (values == null) values = new HashMap();
 		for (Iterator it=values.entrySet().iterator(); it.hasNext(); ) { 
@@ -5768,7 +5788,7 @@ public class View implements java.io.Serializable {
 			if (!equals(en.getValue(), values.get(en.getKey())) ||
 				editorMustBeReloaded((String) en.getKey()) ||
 				hasKeyEditableChanged())  
-			{					
+			{	
 				addChangedPropertyOrReferenceWithSingleEditor(result, (String) en.getKey());
 			}
 		}	
@@ -5887,6 +5907,9 @@ public class View implements java.io.Serializable {
 				!getMembersNamesInGroup().contains(name)) 
 			{				
 				result.put(getPropertyPrefix() + name, getViewForChangedProperty());
+				if (displayAsDescriptionsListAndReferenceView()) {
+					result.put(propertyPrefix.substring(0, propertyPrefix.length() - 1), getViewForChangedProperty());
+				}
 			}
 			if (hasKeyEditableChanged() && displayAsDescriptionsListAndReferenceView()) {
 				String propertyPrefix = getPropertyPrefix(); 
@@ -6074,13 +6097,13 @@ public class View implements java.io.Serializable {
 	 * @return In each entry the key is the qualified id and value the container view
 	 * @since 5.1 
 	 */	
-	public Map getChangedCollectionsTotals() { 		
-		Map result = new HashMap();
+	public Map<String, View> getChangedCollectionsTotals() {  		
+		Map<String, View> result = new HashMap<>(); 
 		fillChangedCollectionsTotals(result);
 		return result;
 	}
 	
-	private void fillChangedCollectionsTotals(Map result) {  
+	private void fillChangedCollectionsTotals(Map<String, View> result) {   
 		if (hasSubviews()) {
 			Iterator itSubviews = getSubviews().values().iterator();
 			while (itSubviews.hasNext()) {

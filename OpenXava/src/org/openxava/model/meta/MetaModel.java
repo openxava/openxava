@@ -1657,6 +1657,7 @@ abstract public class MetaModel extends MetaElement {
 			
 	public void setContainerModelName(String modelName) {
 		this.containerModelName = modelName;
+		this.metaModelContainer = null; 
 	}
 	public String getContainerModelName() { 
 		return containerModelName;
@@ -1791,7 +1792,7 @@ abstract public class MetaModel extends MetaElement {
 					Collection newParents = new HashSet();
 					newParents.addAll(parents);
 					newParents.add(ref.getReferencedModelName());	
-					result.addAll(ref.getMetaModelReferenced().createQualifiedPropertiesNames(newParents, prefix + ref.getName() + ".", includeCollections, level - 1));  
+					result.addAll(ref.getMetaModelReferenced().createQualifiedPropertiesNames(newParents, prefix + ref.getName() + ".", includeCollections, level - 1));
 				}
 			}
 			else if (includeCollections && getMapMetaCollections().containsKey(name)) {
@@ -1802,6 +1803,7 @@ abstract public class MetaModel extends MetaElement {
 					Collection newParents = new HashSet();
 					newParents.addAll(parents);
 					newParents.add(ref.getReferencedModelName());	
+					newParents.addAll(ref.getMetaModel().getParentsWithCollection((String) name)); 
 					result.addAll(ref.getMetaModelReferenced().createQualifiedPropertiesNames(newParents, prefix + collection.getName() + ".", includeCollections, level - 1));
 				}
 			}
@@ -1809,6 +1811,21 @@ abstract public class MetaModel extends MetaElement {
 		return result;		
 	}
 	
+	private Collection<String> getParentsWithCollection(String collectionName) { 
+		Collection<String> result = new ArrayList<String>();
+		Class superClass = getPOJOClass().getSuperclass();
+		while (!superClass.equals(Object.class)) {
+			try {
+				boolean exists = new PropertiesManager(superClass).exists(collectionName);
+				if (exists) result.add(superClass.getSimpleName());
+			} 
+			catch (PropertiesManagerException ex) {				
+				log.warn(XavaResources.getString("parent_not_excluded_rendundant_columns", superClass.getSimpleName()), ex);
+			}
+			superClass = superClass.getSuperclass();			
+		}
+		return result;
+	}
 
 	/**
 	 * Gets the MetaModel from its name. <p>

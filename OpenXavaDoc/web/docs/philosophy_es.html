@@ -6,22 +6,24 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Apéndice A: Arquitectura y filosofía"></a>
-        <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span> Apéndice A: Arquitectura y filosofía</h1>
+      <h1 id="toc0"><a name="Apéndice A: Arquitectura y filosofía"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Apéndice A: Arquitectura y filosofía</h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
-        Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
-        Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3.
-        Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">4.
-        Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
-        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
-        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
-        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8.
-        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">9.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="testing_es.html">6.
+        Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">7.
+        Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">8.
+        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">9.
+        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">10.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">11.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">12.
         Referencias y colecciones</a> | <strong>A. Arquitectura y filosofía</strong>
-      | <a class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
-
+      | <a class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
         class="wiki_link" href="annotations_es.html">C. Anotaciones</a>
       <hr>
       <div id="toc">
@@ -48,12 +50,11 @@
             personalizada</a></div>
         <div style="margin-left: 2em;"><a href="#Ap%C3%A9ndice+A:+Arquitectura+y+filosof%C3%ADa-Resumen">Resumen</a></div>
       </div>
-       OpenXava es un marco de trabajo para desarrollo rápido de
-      aplicaciones de gestión con Java. Es fácil de aprender y rápido para
-      desarrollar. Al mismo tiempo es extensible y personalizable, además el
-      código de la aplicación se estructura desde un punto de vista orientado a
-      objetos puro. Por lo tanto, puedes enfrentarte a aplicaciones complejas
-      con él.<br>
+      OpenXava es un marco de trabajo para desarrollo rápido de aplicaciones de
+      gestión con Java. Es fácil de aprender y rápido para desarrollar. Al mismo
+      tiempo es extensible y personalizable, además el código de la aplicación
+      se estructura desde un punto de vista orientado a objetos puro. Por lo
+      tanto, puedes enfrentarte a aplicaciones complejas con él.<br>
       La aproximación de OpenXava al desarrollo rápido no es por medio de usar
       entornos visuales (como Visual Basic o Delphi), o <em>scripting</em>,
       como PHP. Más bien, el enfoque de OpenXava es dirigido por el modelo
@@ -120,8 +121,7 @@
       </table>
       <span style="line-height: 1.5;">Podemos decir pues, que OpenXava es un
         Marco de trabajo Ligero Dirigido por el Modelo:</span><br>
-      <span style="line-height: 0px; overflow: hidden;"><img src="files/philosophy_es020.png"
-
+      <span style="line-height: 0px; overflow: hidden;"><img src="files/philosophy_es020.png"
           alt="philosophy_es020.png" title="philosophy_es020.png"></span><br>
       A partir de clases Java simples obtienes una aplicación lista para usar.
       La siguiente sección sobre el concepto de Componente de Negocio revelará
@@ -345,14 +345,11 @@
  * Una clase Java para definir un componente de negocio.
  */</span>
 &nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>  <span class="co1">// Base de datos</span>
-@Table<span class="br0">(</span>name=<span class="st0">"GSTFCT"</span><span class="br0">)</span>  <span
-
+@Table<span class="br0">(</span>name=<span class="st0">"GSTFCT"</span><span class="br0">)</span>  <span
 class="co1">// Base de datos</span>
-@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
-
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
 class="kw116">View</span></a><span class="br0">(</span>members=  <span class="co1">// Interfaz de usuario</span>
     <span class="st0">"anyo, numero, fecha, pagada;"</span> +
     <span class="st0">"cliente, comercial;"</span> +
@@ -362,32 +359,25 @@ class="kw116">View</span></a><span class="br0">(</span>members=  <span class="co
 <span class="kw2">public</span> <span class="kw2">class</span> Factura <span class="br0">{</span>
 &nbsp;
     @Id  <span class="co1">// Base de datos</span>
-    @Column<span class="br0">(</span>length=<span class="nu0">4</span><span class="br0">)</span>  <span
-
+    @Column<span class="br0">(</span>length=<span class="nu0">4</span><span class="br0">)</span>  <span
 class="co1">// Base de datos</span>
-    @Max<span class="br0">(</span><span class="nu0">9999</span><span class="br0">)</span>  <span
-
+    @Max<span class="br0">(</span><span class="nu0">9999</span><span class="br0">)</span>  <span
 class="co1">// Validación</span>
     @Required  <span class="co1">// Validación</span>
     @DefaultValueCalculator<span class="br0">(</span>  <span class="co1">// Lógica de negocio declarativa</span>
         CurrentYearCalculator.<span class="kw2">class</span>
     <span class="br0">)</span>
-    <span class="kw2">private</span> <span class="kw3">int</span> anyo<span class="sy0">;</span>  <span
-
+    <span class="kw2">private</span> <span class="kw3">int</span> anyo<span class="sy0">;</span>  <span
 class="co1">// Estructura de datos (1)</span>
 &nbsp;
-    @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
-
+    @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
 class="br0">)</span>  <span class="co1">// Base de datos</span>
     @DescriptionsList  <span class="co1">// Interfaz de usuario</span>
-    <span class="kw2">private</span> Comercial comercial<span class="sy0">;</span>  <span
-
+    <span class="kw2">private</span> Comercial comercial<span class="sy0">;</span>  <span
 class="co1">//  Estructura de datos</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> aplicarDescuentos<span
-
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>  <span
-
+    <span class="kw2">public</span> <span class="kw3">void</span> aplicarDescuentos<span
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>  <span
 class="co1">// Lógica de negocio programática (2)</span>
         ...
     <span class="br0">}</span>
@@ -582,8 +572,7 @@ class="co1">// Lógica de negocio programática (2)</span>
       con anotaciones. En los otro apéndices puedes aprender más detalles sobre
       las anotaciones que podemos usar con OpenXava.<br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> </div>
   </body>
 </html>

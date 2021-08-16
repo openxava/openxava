@@ -20,9 +20,11 @@ public interface IPropertiesContainer {
    * @param properties  Names of properties to obtain separated by 
    * 		a colon (:). The properties have to exists in the object.
    * @return Map with<tt>String propertyName:Object value</tt>. Not null
-   * @exception RemoteException  Some system problem or another unexpected problem
+   * @exception PropertiesContainerException  Any unexpected problem, since v6.5.2
+   * @exception RemoteException  Some system problem or another unexpected problem, since v6.5.2 is better to use PropertiesContainerException
+   * 						
    */
-  Map executeGets(String properties) throws RemoteException;
+  Map executeGets(String properties) throws PropertiesContainerException, RemoteException; 
   
   /**
    * Update the properties from a map. <p> 
@@ -30,8 +32,9 @@ public interface IPropertiesContainer {
    * @param properties Map with <tt>String propertyName:Object value</tt>. Null is like a empty map.
    *                               
    * @exception ValidationException  Some problem validating the data
-   * @exception RemoteException  Some system problem or another unexpected problem
+   * @exception PropertiesContainerException  Any unexpected problem, since v6.5.2
+   * @exception RemoteException  Some system problem or another unexpected problem, since v6.5.2 is better to use PropertiesContainerException
    */
-  void executeSets(Map properties) throws ValidationException, RemoteException;
+  void executeSets(Map properties) throws ValidationException, PropertiesContainerException, RemoteException;  
   
 }

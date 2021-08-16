@@ -33,16 +33,16 @@ public class WorkInvoiceTest extends ModuleTestBase {
 		
 		setValue("worker.nickName", "john");
 		assertValue("worker.hourPrice", "20" + decimalSeparator + "00");
-		assertValue("total", "5800" + decimalSeparator + "00");
+		assertValue("total", "5" + groupingSeparator + "800" + decimalSeparator + "00"); 
 		
 		setValue("tripCost", "299" + decimalSeparator + "9");
-		assertValue("total", "6147" + decimalSeparator + "88");
+		assertValue("total", "6" + groupingSeparator + "147" + decimalSeparator + "88");
 		
 		setValue("discount", "1200");
-		assertValue("total", "4755" + decimalSeparator + "88");
+		assertValue("total", "4" + groupingSeparator + "755" + decimalSeparator + "88");
 		
 		setValue("vatPercentage", "21");
-		assertValue("total", "4960" + decimalSeparator + "88");
+		assertValue("total", "4" + groupingSeparator + "960" + decimalSeparator + "88");
 		
 		assertValue("workCost.id", ""); // To assure we save an empty reference used as mappedBy in an @OrderColumn collection, a bug 
 		execute("CRUD.save");
@@ -61,7 +61,7 @@ public class WorkInvoiceTest extends ModuleTestBase {
 		assertValue("total", "4" + groupingSeparator + "960" + decimalSeparator + "88");
 		
 		setValue("vatPercentage", "22");
-		assertValue("total", "5001" + decimalSeparator + "88");
+		assertValue("total", "5" + groupingSeparator + "001" + decimalSeparator + "88"); 
 		
 		execute("CRUD.delete");
 		assertNoErrors();
@@ -100,5 +100,5 @@ public class WorkInvoiceTest extends ModuleTestBase {
 		execute("CRUD.delete");
 		assertNoErrors();
 	}
-		
+			
 }

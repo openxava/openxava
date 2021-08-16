@@ -24,7 +24,7 @@ public class Product2ReferenceAndStereotypeTest extends ModuleTestBase {
 		};
 		
 		assertValue("family.number", "2"); // 2 is the default value		
-		assertValidValues("family.number", familyValues);
+		assertValidValues("family.number", familyValues); 
 		setValue("family.number", "");
 			
 		String [][] voidValues = {

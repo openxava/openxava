@@ -8,7 +8,6 @@ import javax.validation.*;
 import javax.validation.metadata.*;
 
 import org.openxava.model.*;
-import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.validators.ValidationException;
 import org.openxava.view.*;
@@ -96,7 +95,7 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 	 */
 	protected Map saveIfNotExists(View view) throws Exception {
 		if (getView() == view) {
-			if (view.isKeyEditable()) {				
+			if (view.isKeyEditable()) {
 				Map key = MapFacade.createNotValidatingCollections(getModelName(), view.getValues());
 				addMessage("entity_created", getModelName());
 				view.addValues(key);
@@ -110,15 +109,15 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 		else {
 			if (isKeyIncomplete(view)) { 
 				Map parentKey = saveIfNotExists(view.getParent());
-				Map key = null;
-				if (isEntityReferencesCollection(view)) {	
+				Map key = Collections.EMPTY_MAP; 
+				if (isEntityReferencesCollection(view)) {
 					Map values = view.getValues();
 					String containerReference = view.getMetaCollection().getMetaReference().getRole();
 					values.put(containerReference, parentKey);
 					key = MapFacade.createNotValidatingCollections(view.getModelName(), values);
 					addMessage("entity_created", view.getModelName()); 
 				}
-				else {
+				else if (view.isRepresentsCollection()) { 
 					key = MapFacade.createAggregateReturningKey( 
 						view.getModelName(),
 						parentKey, view.getMemberName(),
@@ -126,6 +125,10 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 					);
 					addMessage("aggregate_created", view.getModelName());
 				} 
+				else if (view.isRepresentsAggregate() && !view.getMetaModel().getAllMetaPropertiesKey().isEmpty()) { // A reference to an entity @AsEmbedded
+					view.getRoot().refresh();
+					key = view.getKeyValues();
+				}
 				view.addValues(key);
 				return key;										
 			}

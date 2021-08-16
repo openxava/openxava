@@ -33,7 +33,9 @@
 	<for-stereotype name="IMAGES_GALLERY" size="32"/>
 	<for-stereotype name="GALERIA_IMAGENES" size="32"/>
 	<for-stereotype name="FILES" size="32"/>
-	<for-stereotype name="ARCHIVOS" size="32"/>	
+	<for-stereotype name="ARCHIVOS" size="32"/>
+	<for-stereotype name="COORDINATES" size="50"/> 
+	<for-stereotype name="COORDENADAS" size="50"/>
 	<for-type class="java.sql.Time" size="5"/>
 	<for-type class="java.util.Date" size="10"/>
 	<for-type class="java.time.LocalDate" size="10"/>

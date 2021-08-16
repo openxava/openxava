@@ -51,8 +51,7 @@
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 <%
 	String windowId = context.getWindowId(request);
-	context.setCurrentWindowId(windowId);	
-	Locales.setCurrent(request);	
+	context.setCurrentWindowId(windowId);		
 	request.getSession().setAttribute("xava.user",
 			request.getRemoteUser());
 	String app = request.getParameter("application");
@@ -161,8 +160,8 @@
 	<% } %>
 	<script type='text/javascript'>
 		openxava.lastApplication='<%=app%>'; 		
-		openxava.lastModule='<%=module%>'; 	
-		openxava.language='<%=request.getLocale().getLanguage()%>';
+		openxava.lastModule='<%=module%>'; 
+		openxava.language='<%=Locales.getCurrent().getLanguage()%>'; 
 		openxava.contextPath = '<%=contextPath%>';
 	</script>
 	<%
@@ -326,6 +325,10 @@ if (manager.isResetFormPostNeeded()) {
 		openxava.closeDialogOnEscape = <%=browser != null && browser.indexOf("Firefox") >= 0 ? "false":"true"%>;		  
 		openxava.calendarAlign = '<%=browser != null && browser.indexOf("MSIE 6") >= 0 ? "tr":"Br"%>';
 		openxava.subcontrollerSelectedClass = '<%=style.getSubcontrollerSelected()%>';
+		openxava.mapsTileProvider = '<%=XavaPreferences.getInstance().getMapsTileProvider()%>';
+		openxava.mapsAttribution = "<%=XavaPreferences.getInstance().getMapsAttribution().replace("\"", "'")%>";
+		openxava.mapsTileSize = <%=XavaPreferences.getInstance().getMapsTileSize()%>;
+		openxava.mapsZoomOffset = <%=XavaPreferences.getInstance().getMapsZoomOffset()%>;
 		<% java.text.DecimalFormatSymbols symbols = java.text.DecimalFormatSymbols.getInstance(Locales.getCurrent()); %>
 		openxava.decimalSeparator = "<%=symbols.getDecimalSeparator()%>";
 		openxava.groupingSeparator = "<%=symbols.getGroupingSeparator()%>";		

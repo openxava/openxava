@@ -93,6 +93,5 @@ descriptionsEditor.removeAccents = function(str) {
 		.replace(/[יטךכ]/,"e")
 		.replace(/[םלמן]/,"i")
 		.replace(/[ףעפצ]/,"o")
-		.replace(/[תשûü]/,"u");
-	return result;	
+		.replace(/[תשûü]/,"u");	
 }

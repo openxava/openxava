@@ -4,6 +4,7 @@
 <%@page import="java.util.Collection"%>
 <%@page import="org.openxava.util.Is"%>
 <%@page import="org.openxava.util.Strings"%> 
+<%@page import="org.openxava.util.Locales"%> 
 <%@page import="org.openxava.application.meta.MetaModule"%>
 
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
@@ -26,9 +27,9 @@ for (Iterator it= modulesList.iterator(); it.hasNext();) {
 		break;
 	}
 	MetaModule module = (MetaModule) it.next();
-	String selected = module.getName().equals(modules.getCurrent(request))?"selected":""; 
-	String label = module.getLabel(request.getLocale()); 
-	String description = module.getDescription(request.getLocale());
+	String selected = module.getName().equals(modules.getCurrent(request))?"selected":"";
+	String label = module.getLabel(Locales.getCurrent()); 
+	String description = module.getDescription(Locales.getCurrent());
 	String normalizedLabel = Strings.removeAccents(label.toLowerCase()); 
 	String normalizedDescription = Strings.removeAccents(description.toLowerCase());
 	if (!Is.emptyString(searchWord) && !normalizedLabel.contains(searchWord) && !normalizedDescription.contains(searchWord)) continue;

@@ -33,13 +33,15 @@
         <div style="margin-left: 3em;"><a href="#Model-Properties-IMAGES_GALLERY%20stereotype">IMAGES_GALLERY
             stereotype</a></div>
         <div style="margin-left: 3em;"><a href="#Model-Properties-FILE%20%28new%20in%20v5.0%29//%20and%20FILES%20//%28new%20in%20v5.1%29%20stereotypes">FILE
-            (new in v5.0)// and FILES //(new in v5.1) stereotypes</a></div>
+            (new in v5.0) and FILES (new in v5.1) stereotypes</a></div>
         <div style="margin-left: 4em;"><a href="#Model-Properties-FILE%20%28new%20in%20v5.0%29//%20and%20FILES%20//%28new%20in%20v5.1%29%20stereotypes-Storage%20in%20File%20System">Storage
             in File System</a></div>
         <div style="margin-left: 4em;"><a href="#Model-Properties-FILE%20%28new%20in%20v5.0%29//%20and%20FILES%20//%28new%20in%20v5.1%29%20stereotypes-Storage%20in%20Database">Storage
             in Database</a></div>
         <div style="margin-left: 3em;"><a href="#Model-Properties-DISCUSSION%20stereotype%20%28new%20in%20v5.6%29">DISCUSSION
             stereotype (new in v5.6)</a></div>
+        <div style="margin-left: 3em;"><a href="#coordinates">COORDINATES
+            stereotype (new in v6.6)</a></div>
         <div style="margin-left: 3em;"><a href="#Model-Properties-Concurrency%20and%20version%20property">Concurrency
             and version property</a></div>
         <div style="margin-left: 3em;"><a href="#Model-Properties-Enums">Enums</a></div>
@@ -953,7 +955,7 @@ class="br0">}</span>                         <span class="co1">// 13</span>
         <li>BOLD_LABEL, ETIQUETA_NEGRITA</li>
         <li>TIME, HORA</li>
         <li>DATETIME, FECHAHORA</li>
-        <li>IMAGES_GALLERY, GALERIA_IMAGENES (<a class="wiki_link" href="model_en#toc6">setup
+        <li>IMAGES_GALLERY, GALERIA_IMAGENES (<a class="wiki_link" href="#toc6">setup
             instructions</a>)</li>
         <li>ZEROS_FILLED, RELLENADO_CON_CEROS</li>
         <li>HTML_TEXT, TEXTO_HTML (text with editable format)</li>
@@ -971,13 +973,15 @@ class="br0">}</span>                         <span class="co1">// 13</span>
           works inside Liferay)</li>
         <li>PASSWORD, CONTRASENA (<em>new in v4.1</em>)</li>
         <li>MAC <em>(new in v4.8)</em></li>
-        <li>FILE, ARCHIVO (<em>new in v5.0</em>) (<a class="wiki_link" href="model_en#toc7">setup
+        <li>FILE, ARCHIVO (<em>new in v5.0</em>) (<a class="wiki_link" href="#toc7">setup
             instructions</a>)</li>
-        <li>FILES, ARCHIVOS (<em>new in v5.1</em>) (<a class="wiki_link" href="model_en#toc7">setup
+        <li>FILES, ARCHIVOS (<em>new in v5.1</em>) (<a class="wiki_link" href="#toc7">setup
             instructions</a>)</li>
         <li>ICON, ICONO (<em>new in v5.5</em>)</li>
         <li>DISCUSSION, DISCUSION (<em>new in v5.6</em>) (<a class="wiki_link" href="model_en.html#Model-Properties-DISCUSSION%20stereotype%20%28new%20in%20v5.6%29">setup
             instructions</a>)</li>
+        <li>COORDINATES, COORDENADAS (<i>new in v6.6</i>) (<a class="wiki_link"
+            href="#coordinates">setup instructions</a>)</li>
       </ul>
       <strong>NOTE</strong>: Most of the above Stereotypes return a String, <u>but
         not all</u>! Rather than list the exceptions here, reference the file:<br>
@@ -2047,7 +2051,7 @@ class="br0">)</span>
       storing byte[] (in our case LONGVARBINARY).<br>
       <h3 id="toc10"><a name="Model-Properties-DISCUSSION stereotype (new in v5.6)"></a>DISCUSSION
         stereotype <em>(new in v5.6)</em></h3>
-      If you want a property of your component to containt a discussion thread,
+      If you want a property of your component to contain a discussion thread,
       just like the ones in forums, trackers, blogs, etc. You only have to
       declare your property with the DISCUSSION stereotype, in this way:<br>
       <style type="text/css"><!--
@@ -2518,7 +2522,92 @@ class="br0">)</span>;</pre>
       storing a large text (by default CLOB) in your database, if not just do an
       ALTER COLUMN to put a better type.<br>
       With Tomcat 6 you have to edit the class <em>org.openxava.web.editors.DiscussionComment</em>
-      and remove the <em>@Lob</em> annotation from <em>comment</em> property.<br>
+      and remove the <em>@Lob</em> annotation from <em>comment</em> property.</div>
+    <div class="wiki" style="display: block;">
+      <h3><a name="coordinates"></a>COORDINATES stereotype <em>(new in v6.6)</em></h3>
+      A COORDINATES property allows your user to choose a point in a map and
+      store it. Defining a COORDINATES property is as easy as:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@Stereotype("COORDINATES") @Column(length=50)
+private String location;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Note the type, <i>String</i>, and
+      the length, 50, enough to store coordinates. From the above code you get:</div>
+    <img src="files/model_en003.png" alt="model_en003.png" title="model_en003.png">
+    <div class="wiki" style="display: block;">The user can mark in any part of
+      the map then the coordinates change. Also if he types or pastes the
+      coordinates in the field the map and the mark are repositioned.</div>
+    <div class="wiki" style="display: block;">You can use COORDINATES without
+      any special setup, however you have the option of changing the tile
+      provider in <i>xava.properties</i>. OpenXava uses an open source
+      JavaScript library to draw the map (<a href="https://leafletjs.com/">Leaflet</a>)
+      and the maps are free, from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>.
+      Still you need tile provider servers in order maps works, you should
+      install and configure a software in a server to turn the maps into images
+      to send to the JavaScript component on demand. Configure such server is
+      complex and time consuming, so most time it's easier to use tile provider
+      servers from third parties. OpenXava allows you to define the tile
+      provider you want in <i>xava.properties</i>. By default, it's configured
+      to use <a href="https://opentopomap.org/">OpenTopoMap</a> with these
+      entries in <i>xava.properties</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties"># OpenTopoMap 
+mapsTileProvider=https://b.tile.opentopomap.org/{z}/{x}/{y}.png
+mapsAttribution=Map data © &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors, Imagery © &lt;a href="https://opentopomap.org"&gt;OpenTopoMap&lt;/a&gt; (&lt;a href="https://creativecommons.org/licenses/by-sa/3.0/"&gt;CC-BY-SA&lt;/a&gt;)
+</code></pre> </div>
+    <div class="wiki" style="display: block;">OpenTopoMap is free to use even
+      for commercial projects with CC-BY-SA license.</div>
+    <div class="wiki" style="display: block;">You can define other tile
+      providers, like <a href="https://www.mapbox.com/">MapBox</a>, in this
+      way: </div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties"># MapBox 
+# Change below YOUR_ACCESS_TOKEN by your own access token
+mapsTileProvider=https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=YOUR_ACCESS_TOKEN
+mapsAttribution=Map data © &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors, Imagery © &lt;a href="https://www.mapbox.com/"&gt;Mapbox&lt;/a&gt;
+mapsTileSize=512
+mapsZoomOffset=-1
+</code></pre> </div>
+    <div class="wiki" style="display: block;">MapBox is a commercial provider,
+      although they offer free plans. You have to register in <a href="https://www.mapbox.com/">https://www.mapbox.com/</a>
+      to get an access token. Remember to change YOUR_ACCESS_TOKEN in the URL by
+      your own access token. For this provider you have to define <i>mapsTileSize</i>
+      and <i>mapsZoomOffset</i> in order the maps would be displayed nicely.
+      With MapBox the map looks like this:</div>
+    <img src="files/model_en005.png" alt="model_en005.png" title="model_en005.png">
+    <div class="wiki" style="display: block;">Apart of OpenTopoMap and MaxBox
+      you can use any other tile provider, such as <a href="https://stamen.com/">Stamen</a>,
+      <a href="https://www.openstreetmap.org/">OpenStreeMap</a> or <a href="https://www.thunderforest.com/">Thunderforest</a>.</div>
+    <div class="wiki" style="display: block;">The editor for COORDINATES is a
+      framed editor, that is it's inside a frame the user can collapse. You can
+      use the <a href="view_en.html">layout features of OpenXava by means of <i>@View</i></a>
+      to place it in the user interface the way you want, for example, if you
+      want a form with all fields on left and the map on right, you can write a
+      <i>@View</i> annotation like this:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@View(members=
+    "city [ state; "
+        + "stateCondition;"
+        + "code;"
+        + "name;"
+        + "population;"
+        + "zipCode;"
+        + "county;"
+        + "country;"
+        + "settled;"
+        + "area;"
+        + "elevation;"
+        + "governmentType;"
+        + "mayor;"
+    + "], "
+    + "location")
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Where <i>location</i> is a
+      COORDINATES property. Note as we used a group (those properties between
+      square brackets []) for the plain properties and place that group side by
+      side (using a comma) with the <i>location</i> property. The result is:</div>
+    <img src="files/model_en007.png" alt="model_en007.png" title="model_en007.png"><br>
+    <div class="wiki" style="display: block;">
       <h3 id="toc11"><a name="Model-Properties-Concurrency and version property"></a>Concurrency
         and version property</h3>
       Concurrency is the ability of the application to allow several users to
@@ -7753,7 +7842,10 @@ class="kw27">BigDecimal</span></a> total<span class="sy0">;</span></pre>
       reference.<br>
       The calculation is executed and displayed when the user changes any value
       of the properties used in the expression in the user interface, however
-      the value is not saved until the user clicks on save button.<br>
+      the value is not saved until the user clicks on save button. All the
+      properties used in <i>@Calculation</i> (the operands) must be displayed
+      in the user interface in order <i>@Calculation</i> works, if it is not
+      the case you should use a regular calculated property instead.<br>
       <h2 id="toc20"><a name="Model-References"></a>References</h2>
       A reference allows access from an entity to another entity. A reference is
       translated to Java code as a property (with its <em>getter</em> and its <em>setter</em>)

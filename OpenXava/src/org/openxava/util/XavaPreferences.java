@@ -102,6 +102,26 @@ public class XavaPreferences {
 	public String getSMTPUserPassword() {
 		return getProperties().getProperty("smtpUserPassword");
 	}
+		
+	/** @since 6.6 */
+	public String getMapsTileProvider() { 
+		return getProperties().getProperty("mapsTileProvider", "https://b.tile.opentopomap.org/{z}/{x}/{y}.png");
+	}
+
+	/** @since 6.6 */
+	public String getMapsAttribution() { 
+		return getProperties().getProperty("mapsAttribution", "Map data &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, Imagery &copy; <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)");
+	}
+	
+	/** @since 6.6 */
+	public int getMapsTileSize() { 
+		return Integer.parseInt(getProperties().getProperty("mapsTileSize", "256"));
+	}
+	
+	/** @since 6.6 */
+	public int getMapsZoomOffset() { 
+		return Integer.parseInt(getProperties().getProperty("mapsZoomOffset", "0"));
+	}
 	
 	/** @since 6.2 */
 	public String getSMTPFromEmail() { 

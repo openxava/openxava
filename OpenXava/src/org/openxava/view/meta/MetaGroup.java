@@ -8,7 +8,7 @@ import org.openxava.util.*;
 /**
  * @author Javier Paniza
  */
-public class MetaGroup extends MetaMember {
+public class MetaGroup extends MetaMember implements Cloneable { 
 	
 	private static Log log = LogFactory.getLog(MetaGroup.class);
 	
@@ -44,8 +44,7 @@ public class MetaGroup extends MetaMember {
 	}
 
 	public void setAlignedByColumns(boolean alignedByColumns) {
-		this.alignedByColumns = alignedByColumns;
-	}
+		this.alignedByColumns = alignedByColumns;	}
 	
 	/**
 	 * If {@code newName} is null or empty is replaced by {@code emptyGroup}. <p> 
@@ -67,4 +66,21 @@ public class MetaGroup extends MetaMember {
 			
 		super.setName(newName);
 	}
+	
+	MetaGroup cloneMetaGroup() { 
+		try {
+			return (MetaGroup) clone();
+		}
+		catch (CloneNotSupportedException ex) {
+			log.error(ex.getMessage(), ex);
+			throw new RuntimeException(XavaResources.getString("implement_cloneable_required")); 
+		}
+	}
+	
+	protected Object clone() throws CloneNotSupportedException {  
+		MetaGroup clon =  (MetaGroup) super.clone();
+		clon.metaView = metaView==null?null:metaView.cloneMetaView();
+		return clon;
+	}
+
 }

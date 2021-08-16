@@ -149,7 +149,7 @@
 		
 		<ant antfile="../OpenXava/build.xml" target="generateSchemaJPA">
 			<property name="persistence.unit" value="junit"/>
-			<property name="schema.path" value="../OpenXava/lib/hsqldb.jar"/> 
+			<property name="schema.path" value="../OpenXava/lib/hsqldb.jar"/>
 		</ant>
 				
 	</target>	

@@ -16,7 +16,6 @@ import org.apache.commons.fileupload.*;
 import org.apache.commons.fileupload.disk.*;
 import org.apache.commons.fileupload.servlet.*;
 import org.apache.commons.logging.*;
-import org.hibernate.envers.internal.tools.*;
 import org.openxava.actions.*;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;

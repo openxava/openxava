@@ -267,6 +267,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			java.lang.Long.class.equals(getType()) ||
 			long.class.equals(getType()) ||
 			java.math.BigDecimal.class.equals(getType()) ||
+			java.math.BigInteger.class.equals(getType()) || 
 			java.lang.Short.class.equals(getType()) ||
 			short.class.equals(getType()) ||
 			java.lang.Float.class.equals(getType()) ||

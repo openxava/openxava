@@ -2,6 +2,7 @@ package org.openxava.view.meta;
 
 
 import java.util.*;
+import java.util.stream.*;
 
 import org.apache.commons.lang.*;
 import org.apache.commons.logging.*;
@@ -98,7 +99,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	
 	private MetaProperty getMetaProperty(String name, boolean searchInGroups) throws XavaException {
 		try {
-			return getMetaViewProperty(name);			
+			return getMetaViewProperty(name);
 		}
 		catch (ElementNotFoundException ex) {
 			if (metaProperties == null) {
@@ -174,7 +175,7 @@ public class MetaView extends MetaElement implements Cloneable {
 				String name = (String) it.next();
 				if (name.startsWith("__GROUP__")) {
 					String groupName = name.substring("__GROUP__".length());					
-					metaMembers.add(getMetaGroup(groupName));					
+					metaMembers.add(getMetaGroup(groupName));
 				}
 				else if (name.startsWith("__ACTION__")) {
 					boolean alwaysEnabled = name.startsWith("__ACTION__AE__");					
@@ -311,23 +312,55 @@ public class MetaView extends MetaElement implements Cloneable {
 	private void copyMembersFromExtendedView() {
 		if (extendedFromExtendsView || Is.emptyString(getExtendsView())) return;
 		MetaView extendsView = getMetaExtendsView();
-		sections = sum(extendsView.sections, sections);
-		metaGroups = sum(extendsView.metaGroups, metaGroups);
+				
+		List<MetaView> extendsSections = cloneMetaViews(extendsView.sections);
+		sections = sum(extendsSections, sections);
+		Map<String, MetaGroup> extendsGroups = cloneMetaGroups(extendsView.metaGroups);
+		metaGroups = sum(extendsGroups, metaGroups);
+		
 		_membersNames = sum(extendsView._membersNames, _membersNames);
-		if (extendsView.sections != null) {
-			for (MetaView section: extendsView.sections) {
+	
+		if (extendsSections != null) {
+			for (MetaView section: extendsSections) {
 				promote(section);
 			}
 		}
 
-		if (extendsView.metaGroups != null) {
-			for (MetaGroup group: extendsView.metaGroups.values()) {
+		if (extendsGroups != null) {
+			for (MetaGroup group: extendsGroups.values()) {
 				promote(group.getMetaView());
 			}
-		}	
+		}
+		
 		extendedFromExtendsView = true;
 	}
 	
+	MetaView cloneMetaView() { 
+		try {
+			MetaView clone = (MetaView) clone();
+			clone.metaMembers = null;
+			return clone;
+		}
+		catch (CloneNotSupportedException ex) {
+			log.error(ex.getMessage(), ex);
+			throw new RuntimeException(XavaResources.getString("implement_cloneable_required")); 
+		}
+	}
+	
+	private List<MetaView> cloneMetaViews(List<MetaView> source) { 
+		if (source == null) return null;
+		return source.stream()
+			.map(MetaView::cloneMetaView)
+			.collect(Collectors.toList());
+	}
+	
+	private Map<String, MetaGroup> cloneMetaGroups(Map<String, MetaGroup> source) { 
+		if (source == null) return null;
+		return source.values().stream()
+			.map(MetaGroup::cloneMetaGroup)
+			.collect(Collectors.toMap(MetaGroup::getName, g -> g));
+	}
+
 	private MetaView getMetaExtendsView() { 
 		String view = getExtendsView();
 		if ("DEFAULT".equals(view)) return getMetaModel().getMetaViewByDefault();
@@ -679,7 +712,7 @@ public class MetaView extends MetaElement implements Cloneable {
 		view.metaViewsCollections = this.metaViewsCollections;
 		view.metaViewProperties = this.metaViewProperties;
 		if (metaGroups == null) metaGroups = new HashMap(); 
-		view.metaGroups = this.metaGroups; 
+		view.metaGroups = this.metaGroups;
 	}
 	
 	public boolean hasSections() {		

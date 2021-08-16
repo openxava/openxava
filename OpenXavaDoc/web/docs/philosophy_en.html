@@ -6,19 +6,22 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Appendix A: Architecture &amp; philosophy"></a>
-        <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+      <h1 id="toc0"><a name="Appendix A: Architecture &amp; philosophy"></a> <span
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
           / </span> Appendix A: Architecture &amp; philosophy </h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <a class="wiki_link" href="modeling_en.html">2.
-        Modeling with Java</a> | <a class="wiki_link" href="testing_en.html">3.
-        Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">4.
-        Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">5.
-        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">6.
-        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">7.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">8.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">9.
+        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
+        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
+        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
+        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
+        Agile development</a> | <a class="wiki_link" href="testing_en.html">6.
+        Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">7.
+        Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">8.
+        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">9.
+        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">10.
+        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">11.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">12.
         References &amp; collections</a> | <strong>A. Architecture &amp;
         philosophy</strong> | <a class="wiki_link" href="jpa_en.html">B. Java
         Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
@@ -48,11 +51,11 @@
             view</a></div>
         <div style="margin-left: 2em;"><a href="#Appendix%20A:%20Architecture%20&amp;%20philosophy-Summary">Summary</a></div>
       </div>
-       OpenXava is a framework for rapid development of business
-      applications using Java. It is easy to learn and one can have an
-      application up in no time. At the same time, OpenXava is extensible,
-      customizable and the application code is structured in a very pure object
-      oriented way, allowing you to develop arbitrarily complex applications.<br>
+      OpenXava is a framework for rapid development of business applications
+      using Java. It is easy to learn and one can have an application up in no
+      time. At the same time, OpenXava is extensible, customizable and the
+      application code is structured in a very pure object oriented way,
+      allowing you to develop arbitrarily complex applications.<br>
       The OpenXava approach for rapid development differs from those that use
       visual environments (like Visual Basic or Delphi) or scripting (like PHP).
       Instead, OpenXava uses a model-driven development approach, where the core
@@ -334,14 +337,11 @@
  * A Java class for defining a business component.
  */</span>
 &nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>  <span class="co1">// Database</span>
-@Table<span class="br0">(</span>name=<span class="st0">"GSTFCT"</span><span class="br0">)</span>  <span
-
+@Table<span class="br0">(</span>name=<span class="st0">"GSTFCT"</span><span class="br0">)</span>  <span
 class="co1">// Database</span>
-@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
-
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
 class="kw116">View</span></a><span class="br0">(</span>members=  <span class="co1">// User interface</span>
     <span class="st0">"year, number, date, paid;"</span> +
     <span class="st0">"customer, seller;"</span> +
@@ -351,32 +351,25 @@ class="kw116">View</span></a><span class="br0">(</span>members=  <span class="co
 <span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="br0">{</span>
 &nbsp;
     @Id  <span class="co1">// Database</span>
-    @Column<span class="br0">(</span>length=<span class="nu0">4</span><span class="br0">)</span>  <span
-
+    @Column<span class="br0">(</span>length=<span class="nu0">4</span><span class="br0">)</span>  <span
 class="co1">// Database</span>
-    @Max<span class="br0">(</span><span class="nu0">9999</span><span class="br0">)</span>  <span
-
+    @Max<span class="br0">(</span><span class="nu0">9999</span><span class="br0">)</span>  <span
 class="co1">// Validation</span>
     @Required  <span class="co1">// Validation</span>
     @DefaultValueCalculator<span class="br0">(</span>  <span class="co1">// Declarative business logic</span>
         CurrentYearCalculator.<span class="kw2">class</span>
     <span class="br0">)</span>
-    <span class="kw2">private</span> <span class="kw3">int</span> year<span class="sy0">;</span>  <span
-
+    <span class="kw2">private</span> <span class="kw3">int</span> year<span class="sy0">;</span>  <span
 class="co1">// Data structure (1)</span>
 &nbsp;
-    @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
-
+    @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
 class="br0">)</span>  <span class="co1">// Database</span>
     @DescriptionsList     <span class="co1">// User interface</span>
-    <span class="kw2">private</span> Seller seller<span class="sy0">;</span>  <span
-
+    <span class="kw2">private</span> Seller seller<span class="sy0">;</span>  <span
 class="co1">// Data structure</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> applyDiscounts<span
-
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>  <span
-
+    <span class="kw2">public</span> <span class="kw3">void</span> applyDiscounts<span
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>  <span
 class="co1">// Programmatic business logic (2)</span>
         ...
     <span class="br0">}</span>
@@ -557,8 +550,7 @@ class="co1">// Programmatic business logic (2)</span>
       classes with annotations. In the other appendices you can learn more
       details about the annotations you can use with OpenXava.<br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> </div>
   </body>
 </html>

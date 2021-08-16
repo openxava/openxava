@@ -9,16 +9,9 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0">
-        <span id="breadcrumbs">
-          <span id="openxava"> 
-            <a href="https://www.openxava.org/"> 
-              <span>o</span>pen<span>x</span>ava
-            </a>
-          </span> 
-          / <a href="index_es.html">documentación</a> / 
-        </span>
-        Configuración para Db2</h1>
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span> Configuración para Db2</h1>
       Configurar tu aplicación OpenXava para ir contra Db2 es muy simple,
       básicamente has de instalar tu controlador JDBC para Db2 y definir
       correctamente la fuente de datos. No necesitas tocar nada de código de tu
@@ -26,8 +19,7 @@
     <div class="wiki" style="display: block;">Asumimos que ya tienes Db2
       instalado y funcionando.<br>
       <h2 id="toc1">Descargar el controlador JDBC para Db2</h2>
-      <p>Descarga el controlador para Db2 desde aquí: <a href="https://www.ibm.com/support/pages/db2-jdbc-driver-versions-and-downloads">https://www.ibm.com/support/pages/db2-jdbc-driver-versions-and-downloads</a><a
-
+      <p>Descarga el controlador para Db2 desde aquí: <a href="https://www.ibm.com/support/pages/db2-jdbc-driver-versions-and-downloads">https://www.ibm.com/support/pages/db2-jdbc-driver-versions-and-downloads</a><a
           href="https://dev.mysql.com/downloads/connector/j/"></a></p>
       En la página de descarga escoge el controlador adecuado para tu versión de
       Db2. Esto te llevará a otra página donde has de elegir <i>IBM Data Server
@@ -57,15 +49,17 @@
       </h2>
       En el proyecto en que vayas a usar Db2 has de añadir la variable que
       acabas de declarar. Pulsa con el botón derecho del ratón en tu proyecto y
-      selecciona <i>Properties &gt; Java Build Path &gt; Libraries</i>:</div>
+      selecciona <i>Build Path &gt; Configure Build Path</i>:<img src="files/project-build-path-eclipse-menu_es.png"
+        alt="project-build-path-eclipse-menu_es.png" title="project-build-path-eclipse-menu_es.png">
+      <div class="wiki" style="display: block;">Después selecciona la pestaña <i>Libraries</i>:</div>
+    </div>
     <img src="files/add-db-classpath-variable-to-your-eclipse-project_es.png" title="add-db-classpath-variable-to-your-eclipse-project_es.png">
     <div class="wiki" style="display: block;">Con esto tenemos el controlador
       disponible en el entorno de desarrollo.</div>
     <div class="wiki" style="display: block;">
       <h2>Añadir el controlador JDBC al Tomcat de producción</h2>
       <h2><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Añadir
-          el controlador en producción es mucho más fácil. Copia <i>db2jcc4.jar</i></span><span
-
+          el controlador en producción es mucho más fácil. Copia <i>db2jcc4.jar</i></span><span
           style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
           a la carpeta <i>lib</i> de tu Tomcat. Nada más.</span></h2>
     </div>

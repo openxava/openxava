@@ -55,5 +55,5 @@
 			<property name="hibernate.default_schema" value="XAVATEST"/>
         </properties>
     </persistence-unit>
-                      
+                          
 </persistence>

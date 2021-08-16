@@ -43,5 +43,7 @@
 	<for stereotype="ICON" type="String"/> 
 	<for stereotype="ICONO" type="String"/>
 	<for stereotype="DISCUSSION" type="String"/>
-	<for stereotype="DISCUSION" type="String"/>	
+	<for stereotype="DISCUSION" type="String"/>
+	<for stereotype="COORDINATES" type="String"/> 
+	<for stereotype="COORDENADAS" type="String"/>
 </stereotype-type-default>

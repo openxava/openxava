@@ -7,7 +7,7 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Lose the focus of date, without change it, then go to list. No message shown.
 	- Use the dialog to select the current date, then go to list. No message shown.
 	- Use the dialog to select any date, then go to list. A message shown.
-- @OnChage: Add an @OnChange(OnChangeVoidAction.class) action to a date property. Use Order.	
+- @OnChange: Add an @OnChange(OnChangeVoidAction.class) action to a date property. Use Order.	
 	- Lose the focus of date, without change it. @OnChange action not executed.
 	- Go to list mode. No "Data changed" message shown.
 	- Use the dialog to select the current date. @OnChange action not executed.
@@ -33,21 +33,33 @@ of openxava.js you have to test it visually at least for the next cases:
 	- In English:
 		 32402   ->  3/24/2002
 	- Test some of the above cases in list filter.
-	 		
+- Year at beginning: Put the locale to South Africa
+	- Change the date with calendar. Date is kept correct, day is not turned in 4 digits.
+	- Modify the date with keyboard. Date is kept correct, day is not turned in 4 digits.
+	- Type 20170617. It is turned into 2017/06/17.	
+- Finish with separator: Put the locale to Serbian
+	- Change the date with calendar. Date is kept correct, 20 is not added to date.
+	- Type:
+		 5.2.2017. -> 5.2.2017.
+		 5.2.2017  -> 5.2.2017.
+		 5.2.17.   -> 5.2.2017.
+		 5.2.17    -> 5.2.2017.
+		 05022017  -> 5.2.2017.
+		 050217    -> 5.2.2017.	 		
 	
 Use any entity with a date in list mode. Like Invoice filtering by date in list.
 - With = (calendar shown)
 - Change to year = (calendar not shown).
-- Type 2020. Lose focus: 2020 is keeped.
+- Type 2020. Lose focus: 2020 is kept.
 - With = type or choose a date (calendar shown).
 - Change to year = : Date is deleted (calendar not shown).
-- Type a year. Lose focus: Year is keeped.
+- Type a year. Lose focus: Year is kept.
 - Change to = : Year is deleted (calendar shown).
 - Type a date without separators.
-- Change to  > : Date is keeped (calendar shown).
+- Change to  > : Date is kept (calendar shown).
 - Choose year = and type 2004. (calendar not shown).
 - Execute filter. (calendar not shown)
-- Type 2002 for year in date. Lose focus: 2002 is keeped.
+- Type 2002 for year in date. Lose focus: 2002 is kept.
 - Change to = : Year is deleted (calendar shown).	 	
 		
 	

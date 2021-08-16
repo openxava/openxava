@@ -8,11 +8,12 @@ import org.openxava.test.actions.*;
 /**
  * Create on 16/01/2012 (09:54:11)
  * @author Ana Andres
+ * @author Javier Paniza
  */
 @IdClass(CityKey.class)
 @Entity
 @Tab(properties="code, name, state.fullNameWithFormula")
-@View(members="state, stateCondition; code; name")
+@View(members="state, stateCondition; code; name; location")
 public class City {
 	
 	@Id 
@@ -30,6 +31,9 @@ public class City {
 	@Transient
 	@OnChange(OnChangeStateConditionInCity.class)
 	private String stateCondition;
+	
+	@Stereotype("COORDINATES") @Column(length=50)
+	private String location;
 	
 	public State getState() {
 		return state;
@@ -61,6 +65,14 @@ public class City {
 
 	public void setStateCondition(String stateCondition) {
 		this.stateCondition = stateCondition;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 }

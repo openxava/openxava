@@ -350,7 +350,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		assertValueInCollection("columns", 1, 5, ""); 
 		assertValueInCollection("columns", 2, 0, "Name");
 		assertValueInCollection("columns", 3, 0, "Number");
-		assertValueInCollection("columns", 3, 1, "<=");
+		assertValueInCollection("columns", 3, 1, "<="); 
 		assertValueInCollection("columns", 3, 2, "4");
 		assertValueInCollection("columns", 3, 5, "Hidden"); // Even on modifying you cannot have more than one not hidden column for the same property 
 		

@@ -106,7 +106,9 @@
 		<action name="setActingLevelA" mode="detail" 
 			class="org.openxava.test.actions.SetActingLevelAAction"/>
 		<action name="sendEmail"  
-			class="org.openxava.test.actions.SendEmailAction"/>		
+			class="org.openxava.test.actions.SendEmailAction"/>
+		<action name="changeToSpanish"
+			class="org.openxava.test.actions.ChangeToSpanishAction"/>
 	</controller>			
 	
 	<controller name="JPACRUD">	
@@ -569,6 +571,13 @@
 		<action name="filterBySellerOne" class="org.openxava.test.actions.FilterBySellerOneAction" mode="list"/>
 		
 	</controller>
+	
+	<controller name="ArtistSomeMembersReadOnly"> 
+		
+		<action name="search"
+			class="org.openxava.test.actions.SearchArtistSomeMembersReadOnlyAction"/>
+			
+	</controller>		
 	
 	<controller name="CustomerWithSection"> 
 		<extends controller="Customer"/>

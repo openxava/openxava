@@ -4,6 +4,8 @@ import java.math.*;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
+
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.model.*;
@@ -16,7 +18,8 @@ import org.openxava.model.*;
 @Views({
 	// Not default view to test a case
 	@View(name="OrderedInvoices", members="description; invoices"),
-	@View(name="UnorderedInvoices", members="description; unorderedInvoices")
+	@View(name="UnorderedInvoices", members="description; unorderedInvoices"),
+	@View(name="OnlyDescription", members="description") 
 })
 public class WorkCost extends Identifiable {
 	
@@ -34,7 +37,12 @@ public class WorkCost extends Identifiable {
 	
 	@Calculation("sum(invoices.total) + profit")
 	@ReadOnly
-	private BigDecimal total; // Same name of total from WorkInvoce to test a bug 
+	private BigDecimal total; // Same name of total from WorkInvoce to test a bug
+	
+	@AssertTrue(message="incorrect_value_for_profit")
+	private boolean isProfitNotNull() {
+		return profit != null;
+	}
 	
 	@OneToMany (mappedBy="workCost")
 	@OrderColumn 

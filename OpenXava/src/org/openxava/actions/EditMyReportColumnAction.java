@@ -1,9 +1,9 @@
 package org.openxava.actions;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
+
 import javax.inject.*;
+
 import org.openxava.session.*;
 
 

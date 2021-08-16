@@ -86,7 +86,11 @@ openxava.addEditorInitFunction(function() {
 		    
 		    pond.onaddfilestart = function() {
 		    	openxava.hideErrors(input.dataset.application, input.dataset.module);
-		    }		    
+		    }		
+		    
+		    pond.beforeRemoveFile = function() {
+		    	return confirm(openxava.confirmRemoveFileMessage);   
+		    }
     	}    	
     });
 	

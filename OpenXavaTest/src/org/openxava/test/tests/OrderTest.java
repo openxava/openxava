@@ -1,14 +1,15 @@
 package org.openxava.test.tests;
 
+import static org.openxava.jpa.XPersistence.getManager;
+
 import java.util.*;
+
 import javax.persistence.*;
 
 import org.openxava.tests.*;
 import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
-
-import static org.openxava.jpa.XPersistence.*;
 
 
 /**
@@ -43,7 +44,8 @@ public class OrderTest extends ModuleTestBase {
 		assertNoAction("ReferenceSearch.choose");		
 	}
 	
-	public void testCalculatedPropertiesFromCollection_generatedValueOnPersistRefreshedInView_rowAction_noAddActionInCascadeCollections_idInCreationMessageWhenEmptySearchKeys() throws Exception { 
+	public void testCalculatedPropertiesFromCollection_generatedValueOnPersistRefreshedInView_rowAction_noAddActionInCascadeCollections_idInCreationMessageWhenEmptySearchKeys() throws Exception {
+		setLocale("es"); // Verify that entity names are translated in the messages  
 		String nextNumber = getNextNumber();
 		execute("CRUD.new");
 		assertValue("number", ""); 
@@ -54,20 +56,20 @@ public class OrderTest extends ModuleTestBase {
 		execute("Collection.new", "viewObject=xava_view_details");
 		setValue("product.number", "1"); 
 		assertValue("product.description", "MULTAS DE TRAFICO");
-		assertValue("product.unitPrice", "11.00");
+		assertValue("product.unitPrice", "11,00");
 		setValue("quantity", "10");
-		assertValue("amount", "110.00"); 
+		assertValue("amount", "110,00"); 
 		execute("Collection.save");
-		assertNoErrors();
-		assertMessage("Order created successfully"); 
+		assertNoErrors(); 
+		assertMessage("Orden creado/a satisfactoriamente"); 
 		assertCollectionRowCount("details", 1);
-		assertValue("amount", "110.00");
+		assertValue("amount", "110,00");
 		assertValue("number", nextNumber);
 		assertValueInCollection("details", 0, "quantity", "10");
-		assertValueInCollection("details", 0, "amount", "110.00");
+		assertValueInCollection("details", 0, "amount", "110,00");
 		execute("OrderDetail.reduceQuantity", "row=0,viewObject=xava_view_details");
 		assertValueInCollection("details", 0, "quantity", "9");
-		assertValueInCollection("details", 0, "amount", "99.00");
+		assertValueInCollection("details", 0, "amount", "99,00");
 		assertNoAction("OrderDetail.reduceQuantity", "viewObject=xava_view_details");
 		execute("CRUD.delete");
 		assertNoErrors();
@@ -79,7 +81,7 @@ public class OrderTest extends ModuleTestBase {
 		assertValue("customer.name", "Javi");
 		String year = getValue("year");
 		execute("CRUD.save");
-		assertMessage("Order created successfully: " + year  + "/" + nextNumber);
+		assertMessage("Orden creado/a satisfactoriamente: " + year  + "/" + nextNumber); 
 		
 		execute("Mode.list");
 		setConditionValues(year, nextNumber);

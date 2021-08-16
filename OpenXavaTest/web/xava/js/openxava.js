@@ -291,9 +291,9 @@ openxava.initBeforeShowDialog = function() {
 
 openxava.initWindowId = function() { 
 	$(window).bind('beforeunload',function(){
-		document.cookie = "XAVA_WINDOW_ID=" + $("#xava_window_id").val(); 
+		document.cookie = "XAVA_WINDOW_ID=" + $("#xava_window_id").val() + ";SameSite=Strict"; 
 	});		
-	document.cookie="XAVA_WINDOW_ID=";   
+	document.cookie="XAVA_WINDOW_ID=;SameSite=Strict";	
 	dwr.engine.setHeaders({ xavawindowid: $("#xava_window_id").val() }); 
 }
 
@@ -865,6 +865,7 @@ openxava.calculate = function(application, module, propertyId, scale) {
 	if (calculation == null) return;
 	var value = eval(calculation).toFixed(scale).replace(".", openxava.decimalSeparator);
 	$('#' + propertyId).val(value);
+	$('#' + propertyId).blur(); 	
 	$('#' + propertyId).change(); 
 }
 

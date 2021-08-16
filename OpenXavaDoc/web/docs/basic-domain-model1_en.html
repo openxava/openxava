@@ -1,0 +1,246 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lesson 2: Basic domain model 1: @ManyToOne as @DescriptionsList,
+      stereotypes, @Embeddable - Modeling with Java - OpenXava course</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 2: Modeling with Java"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 2: Basic domain model - Part 1</h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+        Getting started</a> | <strong>2. Basic domain model (1)</strong> | <a
+
+        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain
+        model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
+        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
+        Agile development</a> | <a class="wiki_link" href="testing_en.html">6.
+        Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">7.
+        Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">8.
+        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">9.
+        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">10.
+        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">11.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">12.
+        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
+        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
+        Annotations</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#Modeling%20with%20Java">Lesson
+            2: Basic domain model - Part 1</a></div>
+        <div style="margin-left: 2em;"><a href="#domain-model">Domain model</a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Basic%20domain%20model-Reference%20%28ManyToOne%29%20as%20descriptions%20list%20%28combo%29">Reference
+            (ManyToOne) as descriptions list (combo)</a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Basic%20domain%20model-Stereotypes">Stereotypes</a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Basic%20domain%20model-Embeddable">Embeddable</a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Summary">Summary</a></div>
+      </div>
+      In this lesson you will start to create the entities required for your
+      project in order to get your invoicing application working.<br>
+      By now I assume that you know how to create a new entity with OpenXava
+      Studio and how to run the application, because you have already read <a class="wiki_link"
+
+        href="getting-started_en.html">Lesson1: Getting started</a>, right?</div>
+    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=nlknjcWbpt8"
+
+        target="_blank"><img src="files/basic-domain-model1-video_en.png"
+
+          title="Video for lesson 2: Basic domain model - Part 1"></a><br>
+    </div>
+    <div class="wiki" style="display: block;">If you don't like videos follow
+      the instructions below.
+      <h2 id="toc1"><a name="domain-model"></a>Domain model</h2>
+      First, we'll create the entities for your <em>Invoicing</em> application.
+      The domain model is rather basic, but enough to learn a lot of interesting
+      things:<br>
+      <img src="files/modeling_en010.png" alt="modeling_en010.png" title="modeling_en010.png"><br>
+      We'll start with six classes. Later on we'll add a few more to it.
+      Remember that you already have an initial version of <em>Customer</em>
+      and <em>Product</em>.<br>
+      <h2 id="toc2"><a name="Modeling with Java-Basic domain model-Reference (ManyToOne) as descriptions list (combo)"></a>Reference
+        (ManyToOne) as descriptions list (combo)</h2>
+      Let's start with the most simple case. We are going to create a <em>Category</em>
+      entity and associate it to the <em>Product</em>, displaying it as a
+      combo.<br>
+      The code for <em>Category</em> entity is:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.openxava.annotations.*;
+import lombok.*;
+ 
+@Entity @Getter @Setter
+public class Category {
+ 
+    @Id
+    @Hidden // The property is not shown to the user. It's an internal identifier
+    @GeneratedValue(generator="system-uuid") // Universally Unique Identifier (1)
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @Column(length=32)
+    String oid;
+ 
+    @Column(length=50)
+    String description;
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">It only has an identifier and a
+      description property. In this case we use the Universally Unique
+      Identifier (shown as 1) algorithm to generate the id. The advantage of
+      this id generator is that you can migrate your application to another
+      database (DB2, MySQL, Oracle, Informix, etc) without touching your code.
+      The other id generators of JPA rely on the database to generate the id
+      thereby making them not so portable as UUID.<br>
+      Execute the <em>Category</em> module and add some categories:<br>
+      <img src="files/modeling_en035.png" alt="modeling_en035.png" title="modeling_en035.png"><br>
+      <span style="line-height: 1.5;">Now, we'll associate </span><em><span style="line-height: 1.5;">Product</span></em><span
+
+        style="line-height: 1.5;"> with </span><em><span style="line-height: 1.5;">Category</span></em><span
+
+        style="line-height: 1.5;">: Add the next <em>category</em> reference
+        declaration in your <em>Product</em> entity:</span></div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">public class Product {
+ 
+    ...
+ 
+    @ManyToOne( // The reference is persisted as a database relationship
+        fetch=FetchType.LAZY, // The reference is loaded on demand
+        optional=true) // The reference can have no value
+    @DescriptionsList // Thus the reference is displayed using a combo
+    Category category; // A regular Java reference
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">This is a plain JPA many-to-one
+      relationship, the one that you can learn more about in <a class="wiki_link"
+
+        href="jpa_en.html">appendix B</a>. In this case, thanks to the <em>@DescriptionsList</em>
+      annotation it is displayed as a combo:<br>
+      <img src="files/modeling_en020.png" alt="modeling_en020.png" title="modeling_en020.png"><br>
+      Now it's time to complete your <em>Product</em> entity.<br>
+      <h2 id="toc3"><a name="Modeling with Java-Basic domain model-Stereotypes"></a>Stereotypes</h2>
+      <em>Product</em> entity at least needs to have attributes such as price,
+      etc. Also it would be nice to have photos and a field for remarks. We are
+      going to use stereotypes to do that. A stereotype specifies a special use
+      of a type. For example, you can use <em>String</em> to store names,
+      comments or identifiers, and you can use a <em>BigDecimal</em> to store
+      percentages, money or quantities. Different uses of stereotypes is to mark
+      this specific use.<br>
+      The best way to understand what a stereotype is, is to see it in action.
+      Let's add <em>price</em>, <em>photos</em><em></em> and <em>remarks</em>
+      properties to your <em>Product</em> entity:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@Stereotype("MONEY") // The price property is used to store money
+BigDecimal price; // BigDecimal is typically used for money
+ 
+@Stereotype("IMAGES_GALLERY") // A complete image gallery is available
+@Column(length=32) // The 32 length string is for storing the key of the gallery
+String photos;
+ 
+@Stereotype("MEMO") // This is for a big text, a text area or equivalent will be used
+String remarks;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> You have seen how to use
+      stereotypes. Now you only have to use the name of the stereotype and
+      OpenXava will apply special treatment. Execute the module for the <em>Product</em>
+      now, and you will see:<br>
+      <img src="files/modeling_en040.png" alt="modeling_en040.png" title="modeling_en040.png"><br>
+      As you can see, each stereotype produces an effect in the user interface.
+      Stereotypes have effects in sizes, validations, editors, etc. Stereotypes
+      also allow you to reuse built-in functionality easily. For example, with a
+      mere marking of a simple string property as <em>@Stereotype(“IMAGES_GALLERY”)</em>
+      you have a full images gallery available. </div>
+    <div class="wiki" style="display: block;">Apart from these, OpenXava has
+      many other useful built in stereotypes such as PHOTO, LABEL, BOLD_LABEL,
+      TIME, DATETIME, ZEROS_FILLED, HTML_TEXT, IMAGE_LABEL, EMAIL, TELEPHONE,
+      WEBURL, IP, ISBN, CREDIT_CARD, EMAIL_LIST, PASSWORD, MAC, FILE, FILES,
+      ICON, etc.<br>
+      Now you have <em>Product</em> ready to use. Let's refine the <em>Customer</em>
+      now.<br>
+      <h2 id="toc4"><a name="Modeling with Java-Basic domain model-Embeddable"></a>Embeddable</h2>
+      We are going to add <em>Address</em> to our until now pretty naked <em>Customer</em>.
+      The customer address is not shared by other customers, and when the
+      customer is removed his address is removed too. Therefore we'll model the
+      address concept as an embeddable class in this case. You can learn more
+      about this in <a class="wiki_link" href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Embeddable%20classes">appendix
+        B</a>.<br>
+      Add the <em>Address</em> class to your project:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import javax.persistence.*;
+import lombok.*;
+ 
+@Embeddable // We use @Embeddable instead of @Entity
+@Getter @Setter
+public class Address {
+ 
+    @Column(length = 30) // The members are annotated as in entity case
+    String street;
+ 
+    @Column(length = 5)
+    int zipCode;
+ 
+    @Column(length = 20)
+    String city;
+ 
+    @Column(length = 30)
+    String state;
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">You can see how the regular class
+      has been annotated as <em>@Embeddable</em>. Its properties are annotated
+      in the same way as entities, though embeddable classes do not support all
+      functionality of entities.<br>
+      Now, you can use <em>Address</em> in any entity. Just add a reference to
+      your <em>Customer</em> entity:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">public class Customer {
+ 
+    ...
+ 
+    @Embedded // This is the way to reference an embeddable class
+    Address address; // A regular Java reference
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">The <em>Address</em> data is
+      stored in the same table as the <em>Customer</em> data. And from a user
+      interface perspective you have a frame around address. If you do not like
+      the frame you only have to annotate the reference with <em>@NoFrame</em>
+      thus:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@Embedded @NoFrame // With @NoFrame no frame is shown for address
+Address address;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Here's the user interface for an
+      embedded reference with and without <em>@NoFrame</em>:<br>
+      <img src="files/modeling_en060.png" alt="modeling_en060.png" title="modeling_en060.png"><span
+
+        style="line-height: 1.5;"></span><br>
+      <h2 id="toc14"><a name="Modeling with Java-Summary"></a>Summary</h2>
+      In this lesson you have learned how to create references that are
+      displayed with combos with <i>@DescriptionsList</i>, how to use
+      stereotypes and <i>@Embeddable</i>. Now that we have the basic entities
+      running, it's time to face the core entity of your application, the <em>Invoice</em>
+      entity. Let's do it step by step in the next lesson.<br>
+      <br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
+        <a class="wiki_link" href="basic-domain-model2_en.html">Go to Lesson 3</a></strong>
+    </div>
+  </body>
+</html>

@@ -83,10 +83,10 @@ public class ApplicantTest extends ModuleTestBase {
 		String inputName = "ox_OpenXavaTest_Applicant__action___" + action.replace(".", "___"); 
 		assertEquals(expectedCount, getHtmlPage().getElementsByName(inputName).size());		
 	}
-	
-	private void assertHelp() throws Exception { 
+
+	private void assertHelp(String language) throws Exception { 
 		try {
-			getHtmlPage().getAnchorByHref("http://www.openxava.org/OpenXavaDoc/docs/help_en.html");
+			getHtmlPage().getAnchorByHref("http://www.openxava.org/OpenXavaDoc/docs/help_" + language + ".html");
 		}
 		catch (ElementNotFoundException ex) {		
 			fail("Help link is not correct"); 
@@ -126,18 +126,47 @@ public class ApplicantTest extends ModuleTestBase {
 		
 		searchBox.type("artist");
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertModulesCount(1); // Test not duplicate when module in application.xml
-		assertFirstModuleInMenu("Artist"); 
+		assertModulesCount(2); // Test 'Artist' not duplicate when module in application.xml 
+		assertModuleInMenu(0, "Artist");  
+		assertModuleInMenu(1, "Artist some members read only"); 
 		
-		assertHelp();
+		assertHelp("en"); 
+	}
+	
+	public void testChangeLocaleAffectsMenu() throws Exception {  
+		modulesLimit = false;
+		resetModule();
+		
+		assertLabels("Name", "Author"); 
+		
+		execute("Applicant.changeToSpanish");
+		reload();
+		
+		assertLabels("Nombre", "Autor");
+		assertHelp("es"); 
+	}
+	
+	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
+		assertLabelInList(0, propertyLabel);
+		assertModuleInMenu(16, moduleLabel); // Adapt the index if you add more modules on top of Author 
+		
+		HtmlElement searchBox = getHtmlPage().getHtmlElementById("search_modules_text");
+		searchBox.type("aut");
+		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
+		assertModulesCount(1);
+		assertFirstModuleInMenu(moduleLabel);  		
 	}
 
 	private void assertFirstModuleInMenu(String expectedName) {
-		HtmlElement module = getHtmlPage().getHtmlElementById("modules_list").getElementsByAttribute("div", "class", "module-row ").get(0); 
+		assertModuleInMenu(0, expectedName);
+	}
+	
+	private void assertModuleInMenu(int row, String expectedName) {
+		HtmlElement module = getHtmlPage().getHtmlElementById("modules_list").getElementsByAttribute("div", "class", "module-row ").get(row); 
 		HtmlElement moduleName = module.getElementsByAttribute("div", "class", "module-name").get(0);
 		assertEquals(expectedName, moduleName.asText());
-	}
-
+	}	
+	
 	public void testPolymorphicReferenceFromBaseClass_savingTwiceWithNoRefreshAfterAndHiddenKey_showHideButtons_labelsPut() throws Exception {  
 		// Polymorphic reference from base class
 		execute("List.viewDetail", "row=0");

@@ -3,6 +3,7 @@ package org.openxava.test.model;
 import java.util.*;
 
 import javax.persistence.*;
+
 import org.openxava.annotations.*;
 import org.openxava.model.*;
 
@@ -11,6 +12,7 @@ import org.openxava.model.*;
  * @author Javier Paniza 
  */
 @Entity
+@View(name="OrderAsEmbedded")
 public class OrderIssue extends Identifiable {
 	
 	private Date date;
@@ -20,6 +22,7 @@ public class OrderIssue extends Identifiable {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@SearchKey 
+	@AsEmbedded(forViews="OrderAsEmbedded") 
 	private Order order;
 
 	public Date getDate() {

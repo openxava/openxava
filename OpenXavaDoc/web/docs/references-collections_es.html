@@ -1,27 +1,27 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lección 9: Referencias y colecciones - OpenXava</title>
+    <title>Lección 12: Referencias y colecciones - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
-    <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
-    <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="referencias-y-colecciones"></a> <span id="breadcrumbs">
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Lección 9: Referencias y colecciones"></a> <span id="breadcrumbs">
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
-        Lección 9: Referencias y colecciones </h1>
+        Lección 12: Referencias y colecciones </h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
-        Primeros pasos</a> | <a class="wiki_link" href="modeling_es.html">2.
-        Modelar con Java</a> | <a class="wiki_link" href="testing_es.html">3.
-        Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">4.
-        Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">5.
-        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">6.
-        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">7.
-        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">8.
-        Comportamiento y lógica de negocio</a> | <strong>9. Referencias y
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="testing_es.html">6.
+        Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">7.
+        Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">8.
+        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">9.
+        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">10.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">11.
+        Comportamiento y lógica de negocio</a> | <strong>12. Referencias y
         colecciones</strong> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
@@ -300,7 +300,7 @@ public class BuscarAlCambiarFactura
       <i>OnChangeSearchAction</i> <i>getView()</i> devuelve la subvista de la
       referencia, y no la vista global. Por lo tanto, en este caso <i>getView()</i>
       es la vista de la referencia a factura. Esto permite crear acciones <i>@OnChangeSearch</i>
-      más reutilizables. Has de escribir <i>getView().getRoot().getSubview(“cliente”)</i>
+      más reutilizables. Has de escribir <i>getView().getRoot().getSubview("cliente")</i>
       (5) para acceder a la vista del cliente.&nbsp; <br>
       Para implementar el comportamiento visualizado en la imagen anterior, la
       acción pregunta si no hay cliente (<i>numeroCliente == 0</i>) (6). Si éste

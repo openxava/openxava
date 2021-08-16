@@ -29,7 +29,7 @@ import org.openxava.test.actions.*;
 	"	seller; " +
 	"	relationWithSeller;" +
 	"]" +
-	"alternateSeller;"  +		
+	"alternateSeller;" +		
 	"deliveryPlaces;" +
 	"remarks" 
 )
@@ -212,6 +212,15 @@ import org.openxava.test.actions.*;
 	+ "]" 
 )
 
+@View( name="SellerInSection", members= 	
+	"number;" + 
+	"type;" +
+	"name;" +
+	"seller {" +
+	"	seller; " +
+	"}"
+)
+
 @Tabs ({
 	@Tab(
 		rowStyles={
@@ -259,6 +268,7 @@ public class Customer implements IWithName {
 		properties={ @PropertyValue(name="value", value="2") }		
 	)
 	@Editor(forViews="TypeWithRadioButton", value="ValidValuesRadioButton")
+	@Column(length=1) // Required for a test case 
 	private Type type;
 	public enum Type { NORMAL, STEADY, SPECIAL };
 	
@@ -296,13 +306,14 @@ public class Customer implements IWithName {
 	@NoFrame(notForViews="SellerAsAggregate, Demo, SellerAsDescriptionsListShowingReferenceView, SellerAsDescriptionsListShowingReferenceViewNoKey") 
 	@ReferenceView(forViews="SellerAsAggregate2Levels", value="LevelNoDescriptionsList")
 	@ReferenceView(forViews="SellerAsDescriptionsListShowingReferenceView", value="Simple")
-	@ReferenceView(forViews="SellerAsDescriptionsListShowingReferenceViewNoKey", value="SimpleNoNumber") 		
+	@ReferenceView(forViews="SellerAsDescriptionsListShowingReferenceViewNoKey", value="SimpleNoNumber")
+	@ReferenceView(forViews="SellerInSection", value="CompleteWithCustomersWithSellerInSection") 
 	@Action(forViews="SellerAsDescriptionsListShowingReferenceView", value="Customer.hideSeller")
 	@DescriptionsList(
 		forViews="SellerAsDescriptionsListShowingReferenceView, "
 				+ "SellerAsDescriptionsListShowingReferenceViewNoKey, "
 				+ "SellerAsDescriptionsListShowingReferenceViewNoFrameInSection", 
-		showReferenceView=true)
+		showReferenceView=true) 		
 	private Seller seller; 
 	
 	@Transient @ManyToOne(fetch=FetchType.LAZY) 

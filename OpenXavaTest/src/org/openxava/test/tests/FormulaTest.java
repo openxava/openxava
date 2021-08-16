@@ -1,17 +1,10 @@
 package org.openxava.test.tests;
 
-import java.net.*;
-
 import javax.persistence.*;
 
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
-import org.openxava.test.tests.CustomerWithSectionTest.*;
 import org.openxava.tests.*;
-import org.openxava.util.*;
-
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
 
 
 
@@ -209,7 +202,7 @@ public class FormulaTest extends ModuleTestBase {
 		execute("CRUD.new");
 		setValue("name", "SOMETHING"); 
 		execute("Collection.new", "viewObject=xava_view_section0_ingredients");
-		assertExists("anotherFormula.oid"); // Reference to a model of 'Formula' type, the same of the container
+		assertExists("anotherFormula.oid"); // Reference to a model of 'Formula' type, the same of the container 
 		
 		String [][] ingredients = {
 			{ "", "" },

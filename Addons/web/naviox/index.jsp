@@ -23,7 +23,6 @@ String windowId = context.getWindowId(request);
 context.setCurrentWindowId(windowId);
 String app = request.getParameter("application");
 String module = context.getCurrentModule(request);
-Locales.setCurrent(request);
 modules.setCurrent(request.getParameter("application"), request.getParameter("module"));
 String oxVersion = org.openxava.controller.ModuleManager.getVersion();
 String title = (String) request.getAttribute("naviox.pageTitle");

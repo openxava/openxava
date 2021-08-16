@@ -18,7 +18,6 @@ welcome_point1=This is a additional explanatory line
 
 <%
 MetaApplication metaApplication = MetaApplications.getMainMetaApplication(); 
-Locales.setCurrent(request);
 String oxVersion = org.openxava.controller.ModuleManager.getVersion();
 String title = (String) request.getAttribute("naviox.pageTitle");
 if (title == null) title = metaApplication.getLabel();
