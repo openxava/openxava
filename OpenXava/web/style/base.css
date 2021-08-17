@@ -32,6 +32,8 @@
 	
 	--module-header-link-color: var(--module-header-color);
 	--module-header-icon-color: var(--module-header-color);
+	--module-header-selected-color: var(--selected-list-format-color);
+	--module-header-selected-background: var(--button-bar-background);
 	--sign-out-color: white;
 	--sign-in-a-hover-color: white;
 
@@ -399,9 +401,6 @@ A.sign-out  {
 }
 
 #sign_in_out {
-	position: relative;
-	top: 5px;
-	float: right;
 	font-size: 12px;
 }
 
@@ -731,15 +730,17 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	width: 100%; 
 }
 
- #module_header { 
-	padding: 10px 10px 10px 10px;
-	font-size: 20px;
+ #module_header {
+	padding: 13px 0px 10px 10px;
+	font-size: 16px;
+	height: 22px;
 	color: var(--module-header-color);
 	background: var(--module-header-background);
 }
 
 #module_header a { 
  	color: var(--module-header-link-color);
+ 	padding: 10px; 
 }
 
 #module_header a:hover { 
@@ -748,6 +749,58 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 
 #module_header i, .bookmark-decoration {
 	color: var(--module-header-icon-color); 
+}
+
+#module_header i {
+	font-size: 20px;
+	padding: 0;
+}
+
+#module_header .unselected {
+	filter: invert(20%);
+}
+
+#module_header .unselected:hover {
+	filter: none;
+}
+
+#module_header .selected {
+	background: var(--module-header-selected-background);
+	color: var(--module-header-selected-color);
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	padding: 10px;
+}
+
+#module_header .selected:hover {
+	color: var(--module-header-selected-color);
+}
+
+#module_header_left {
+	width: 100%;
+	float: left;	
+	white-space: nowrap;
+}
+
+#module_header_right {
+	position: relative;
+	float: right;
+	background: var(--module-header-background);
+	margin-top: -33px;
+	height: 21px;
+	padding: 11px 11px 11px 20px;
+	background: -webkit-gradient(linear, left top, right top, from(white), to(black));
+	background-image: linear-gradient(to left, 
+	    var(--module-header-background), 
+	    var(--module-header-background), 
+	    var(--module-header-background), 
+	    var(--module-header-background),
+	    var(--module-header-background),
+	    transparent);
+}
+
+#module_extended_title {
+	font-weight: bold;
 }
 
 #application_title { 
@@ -766,6 +819,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 
 #bookmark { 
 	margin-left: 5px;
+	text-decoration: none; 
 }
 
 .bookmark-decoration { 

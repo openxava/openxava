@@ -1,18 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- Recordar módulos.
-	- Suite
-	- Doc:
-		- rememberVisitedModules
-		- Revisar doc, por si hay algo más
-	- Plantilla proyecto:
-		- ¿Poner fixModulesOnTopMenu y rememberVisitedModules en naviox.properties?
-	- Diferir:
-		- Cerrar pestaña.
-		- ¿Mover pestaña?
-		
-
+- Last used modules are remembered and they can be accessed using tabs at the top of the module.
 - Property rememberVisitedModules in naviox.properties to remember the modules visited in last session.
 - Fixed modules (those declared with fixModulesOnTopMenu in naviox.properties) are shown on top as tabs.
 - Lesson 2 of course includes video.

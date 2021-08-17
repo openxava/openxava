@@ -38,12 +38,6 @@ String display = isFirstSteps?"style='display:block'":"";
 			
 		<% } %>
 	
-		<%-- tmp
-		<jsp:include page="selectModules.jsp">
-			<jsp:param name="fixedModules" value="true"/>
-		</jsp:include>
-		--%>
-		
 		<jsp:include page="selectModules.jsp">
 			<jsp:param name="bookmarkModules" value="true"/>
 		</jsp:include>

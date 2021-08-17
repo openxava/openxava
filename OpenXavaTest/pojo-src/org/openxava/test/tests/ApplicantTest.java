@@ -19,7 +19,7 @@ import com.gargoylesoftware.htmlunit.html.*;
 public class ApplicantTest extends ModuleTestBase {
 	
 	private boolean modulesLimit = true;
-	private boolean moduleURLOnRoot = false; // tmp
+	private boolean moduleURLOnRoot = false; 
 	
 	public ApplicantTest(String testName) {
 		super(testName, "Applicant");		
@@ -96,7 +96,7 @@ public class ApplicantTest extends ModuleTestBase {
 		}
 	}
 	
-	public void testModulesOnTop() throws Exception { // tmp
+	public void testModulesOnTop() throws Exception { 
 		modulesLimit = false;
 		resetModule();		
 		
@@ -343,13 +343,9 @@ public class ApplicantTest extends ModuleTestBase {
 	}
 	
 	protected String getModuleURL() {
-		// tmp ini
 		String root = "http://" + getHost() + ":" + getPort() + getContextPath();
 		if (moduleURLOnRoot) return root;
 		return modulesLimit?super.getModuleURL():root + "modules/Applicant";
-		// tmp fin
-		
-		// tmp return modulesLimit?super.getModuleURL():"http://" + getHost() + ":" + getPort() + getContextPath() + "modules/Applicant"; 
 	}
 	
 	private void assertModulesCount(int expectedCount) {

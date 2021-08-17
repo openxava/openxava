@@ -18,7 +18,7 @@ public class SearchAuthorAction extends SearchByViewKeyAction implements IJavaSc
 	}
 
 	public String getPostJavaScript() { 
-		return "$('#module_title').html('Author - " + author + "')";
+		return "$('#module_extended_title').html('Author - " + author + "')"; 
 	}
 
 }

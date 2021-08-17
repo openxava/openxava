@@ -32,10 +32,8 @@
 	
 	--module-header-link-color: var(--module-header-color);
 	--module-header-icon-color: var(--module-header-color);
-	/* tmp ini */
 	--module-header-selected-color: var(--selected-list-format-color);
 	--module-header-selected-background: var(--button-bar-background);
-	/* tmp fin */
 	--sign-out-color: white;
 	--sign-in-a-hover-color: white;
 
@@ -403,11 +401,6 @@ A.sign-out  {
 }
 
 #sign_in_out {
-	/* tmp
-	position: relative;
-	top: 5px;
-	float: right;
-	*/
 	font-size: 12px;
 }
 
@@ -738,22 +731,16 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
  #module_header {
- 	/* tmp  
-	padding: 10px 10px 10px 10px;
-	font-size: 20px; 
-	*/
-	/* tmp ini */
 	padding: 13px 0px 10px 10px;
 	font-size: 16px;
 	height: 22px;
-	/* tmp fin */
 	color: var(--module-header-color);
 	background: var(--module-header-background);
 }
 
 #module_header a { 
  	color: var(--module-header-link-color);
- 	padding: 10px; /* tmp */
+ 	padding: 10px; 
 }
 
 #module_header a:hover { 
@@ -764,7 +751,6 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	color: var(--module-header-icon-color); 
 }
 
-/* tmp ini */
 #module_header i {
 	font-size: 20px;
 	padding: 0;
@@ -816,7 +802,6 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 #module_extended_title {
 	font-weight: bold;
 }
-/* tmp fin */
 
 #application_title { 
 	padding: 10px;
@@ -834,7 +819,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 
 #bookmark { 
 	margin-left: 5px;
-	text-decoration: none; /* tmp */
+	text-decoration: none; 
 }
 
 .bookmark-decoration { 

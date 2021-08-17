@@ -15,7 +15,7 @@ import com.openxava.naviox.impl.*;
 import com.openxava.naviox.util.*;
 
 /**
- * tmp Quitar addons-src como carpeta de código fuente en OpenXavaTest
+ * 
  * @author Javier Paniza 
  */
 public class Modules implements Serializable {
@@ -24,7 +24,7 @@ public class Modules implements Serializable {
 	
 	private static Log log = LogFactory.getLog(Modules.class);
 	private final static int BOOKMARK_MODULES = 100;
-	private final static int MODULES_ON_TOP = 20; // tmp
+	private final static int MODULES_ON_TOP = 20; 
 	private final static ModuleComparator comparator = new ModuleComparator();
 	private static String preferencesNodeName = null; 
 	private List<MetaModule> all;
@@ -32,8 +32,8 @@ public class Modules implements Serializable {
 	private List<MetaModule> regularModules; 
 	private List<MetaModule> fixedModules;
 	private List<MetaModule> notInMenuModules;
-	private List<MetaModule> topModules = null; // tmp
-	private int fixedModulesCount = 0; // tmp 
+	private List<MetaModule> topModules = null; 
+	private int fixedModulesCount = 0;  
 	
 	private MetaModule current;
 
@@ -60,7 +60,7 @@ public class Modules implements Serializable {
 		
 	public void reset() {
 		all = null;
-		topModules = null; // tmp
+		topModules = null; 
 		bookmarkModules = null;
 		fixedModules = null; 
 		regularModules = null; 
@@ -86,24 +86,7 @@ public class Modules implements Serializable {
 		return result;
 	}
 
-	/* tmp
-	public void setCurrent(String application, String module) { 
-		this.current = MetaModuleFactory.create(application, module);
-		try {			
-			Preferences preferences = getPreferences();
-			if (!"SignIn".equals(current.getName())) {
-				preferences.put("current", current.getName());
-			}
-			
-			preferences.flush();
-		}
-		catch (Exception ex) {
-			log.warn(XavaResources.getString("storing_current_module_problem"), ex);   
-		}		
-	}
-	*/
-	
-	public void setCurrent(HttpServletRequest request) { // tmp
+	public void setCurrent(HttpServletRequest request) { 
 		this.current = MetaModuleFactory.create(request.getParameter("application"), request.getParameter("module"));
 		if (topModules == null) loadTopModules(request);	
 		int idx = indexOf(topModules, current);
@@ -121,7 +104,7 @@ public class Modules implements Serializable {
 		storeTopModules();		
 	}
 	
-	private void loadTopModules(HttpServletRequest request) { // tmp
+	private void loadTopModules(HttpServletRequest request) { 
 		topModules = new ArrayList<MetaModule>();
 		loadFixedModules(request, topModules);
 		if (NaviOXPreferences.getInstance().isRememberVisitedModules()) { 
@@ -129,11 +112,11 @@ public class Modules implements Serializable {
 		}
 	}
 	
-	private void storeTopModules() { // tmp
+	private void storeTopModules() { 
 		storeModulesInPreferences(topModules, "", MODULES_ON_TOP, true);
 	}
 	
-	private void loadFixedModules(HttpServletRequest request, Collection<MetaModule> modules) { // tmp 
+	private void loadFixedModules(HttpServletRequest request, Collection<MetaModule> modules) {  
 		String fixedModules = NaviOXPreferences.getInstance().getFixModulesOnTopMenu();
 		fixedModulesCount = 0; 
 		if (Is.emptyString(fixedModules)) return;
@@ -246,13 +229,13 @@ public class Modules implements Serializable {
 			MetaModule module = MetaModuleFactory.create(moduleName);
 			if (!modules.contains(module) && isModuleAuthorized(request, module)) { 
 				modules.add(module);
-				return true; // tmp
+				return true; 
 			}
 		}
 		catch (Exception ex) {					
 			log.warn(XavaResources.getString("module_not_loaded", moduleName, MetaModuleFactory.getApplication()), ex);
 		}
-		return false; // tmp
+		return false; 
 	}
 
 	private void loadBookmarkModules(HttpServletRequest request) { 
@@ -331,35 +314,11 @@ public class Modules implements Serializable {
 		return Collections.binarySearch(getNotInMenuModules(), module, comparator) < 0;
 	}
 	
-	private void storeBookmarkModules() { 
-		// tmp storeModulesInPreferences(bookmarkModules, "bookmark.", BOOKMARK_MODULES); 
-		storeModulesInPreferences(bookmarkModules, "bookmark.", BOOKMARK_MODULES, false); // tmp
+	private void storeBookmarkModules() {  
+		storeModulesInPreferences(bookmarkModules, "bookmark.", BOOKMARK_MODULES, false); 
 	}
-
-	/* tmp
-	private void storeModulesInPreferences(Collection<MetaModule> modules, String prefix, int limit) { 
-		try {			
-			Preferences preferences = getPreferences();
-			int i=0;
-			for (MetaModule module: modules) {				
-				preferences.put(prefix + "application." + i, module.getMetaApplication().getName());
-				preferences.put(prefix + "module." + i, module.getName());
-				i++;
-			}
-			for (; i < limit; i++) {				
-				preferences.remove(prefix + "application." + i);
-				preferences.remove(prefix + "module." + i);
-			}
-			
-			preferences.flush();
-		}
-		catch (Exception ex) {
-			log.warn(XavaResources.getString("storing_modules_problem"), ex);  
-		}
-	}
-	*/
 	
-	private void storeModulesInPreferences(Collection<MetaModule> modules, String prefix, int limit, boolean storeCurrent) { // tmp  
+	private void storeModulesInPreferences(Collection<MetaModule> modules, String prefix, int limit, boolean storeCurrent) {   
 		try {			
 			Preferences preferences = getPreferences();
 			int i=0;
@@ -440,8 +399,7 @@ public class Modules implements Serializable {
 	public List getRegularModules(HttpServletRequest request) {  
 		if (getBookmarkModules(request).isEmpty() && getFixedModules(request).isEmpty()) return getAll(request);  
 		if (regularModules == null) {			
-			regularModules = new ArrayList(getAll(request)); 
-			// tmp regularModules.removeAll(getFixedModules(request)); 
+			regularModules = new ArrayList(getAll(request));  
 			regularModules.removeAll(getBookmarkModules(request)); 
 		}
 		return regularModules;
@@ -462,7 +420,7 @@ public class Modules implements Serializable {
 		return -1;
 	}
 	
-	public Collection<MetaModule> getTopModules() { // tmp
+	public Collection<MetaModule> getTopModules() { 
 		return topModules;	
 	}
 	

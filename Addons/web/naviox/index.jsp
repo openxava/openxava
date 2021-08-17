@@ -7,10 +7,6 @@
 <%@page import="org.openxava.util.XavaPreferences"%>
 <%@page import="org.openxava.web.style.XavaStyle"%>
 <%@page import="org.openxava.web.style.Themes"%> 
-<%@page import="com.openxava.naviox.util.Organizations"%>
-<%@page import="org.openxava.util.Users"%>
-<%@page import="com.openxava.naviox.util.NaviOXPreferences"%>
-<%@page import="org.openxava.util.Is"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
@@ -23,7 +19,7 @@ String windowId = context.getWindowId(request);
 context.setCurrentWindowId(windowId);
 String app = request.getParameter("application");
 String module = context.getCurrentModule(request);
-modules.setCurrent(request.getParameter("application"), request.getParameter("module"));
+modules.setCurrent(request); 
 String oxVersion = org.openxava.controller.ModuleManager.getVersion();
 String title = (String) request.getAttribute("naviox.pageTitle");
 if (title == null) title = modules.getCurrentModuleDescription(request); 
@@ -33,7 +29,6 @@ org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleM
 manager.setSession(session);
 manager.setApplicationName(request.getParameter("application"));
 manager.setModuleName(module); // In order to show the correct description in head 
-boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 %>
 
 <!DOCTYPE html>
@@ -58,60 +53,8 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 		
 		<div class="module-wrapper">
 			<div id="module_header">
-				<% if (!isFirstSteps) { %>
-				<a id="module_header_menu_button" href="javascript:naviox.showModulesList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>')">
-					<i class="mdi mdi-menu"></i></a>
-				<% } %>	
-				<span id="module_title">
-					<%
-					if (hasModules && !isFirstSteps) {
-					%>
-					<span id="module_extended_title">
-						<%
-						String organizationName = modules.getOrganizationName(request);
-						if (!Is.emptyString(organizationName)) {
-						%> 
-						<%=organizationName%> - 
-						<%
-						}
-						%>						
-						<%=modules.getApplicationLabel(request)%> -
-					</span>	 
-					<%
-					}
-					%>
-					
-					<%String moduleTitle = hasModules?modules.getCurrentModuleLabel():modules.getCurrentModuleDescription(request);%>
-					<%=moduleTitle%>
-				</span>	
-				<a href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
-					<i id="bookmark" class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
-				</a>
-				<div id="sign_in_out">
-					<%
-					if (Is.emptyString(NaviOXPreferences.getInstance().getAutologinUser())) {
-						String userName = Users.getCurrent();
-						String currentModule = request.getParameter("module");
-						boolean showSignIn = userName == null && !currentModule.equals("SignIn");						
-						if (showSignIn) {
-							String selected = "SignIn".equals(currentModule)?"selected":"";
-					%>
-					<a href="<%=request.getContextPath()%>/m/SignIn" class="sign-in <%=selected%>">
-							<xava:message key="signin"/>
-					</a>
-					<%
-						}
-						if (userName != null) {
-							String organization = Organizations.getCurrent(request);
-							if (organization == null) organization = "";
-					%>
-					<a  href="<%=request.getContextPath()%>/naviox/signOut.jsp?organization=<%=organization%>" class="sign-in"><xava:message key="signout"/> (<%=userName%>)</a>
-					<%
-						}
-					} 
-					%>
-				</div>
-			</div>				
+				 <jsp:include page="moduleHeader.jsp"/>
+			</div>
 			<% if ("SignIn".equals(module)) {  %>
 			<jsp:include page='signIn.jsp'/>
 			<% } else { %>
