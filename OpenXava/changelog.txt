@@ -2,11 +2,7 @@ Change Log for OpenXava project
 ===============================
 
 - Recordar módulos.
-	- Pruebas JUnit:
-		- Fixed modules.
-		- Orden de los módulos
-		- Recuerda módulo actual
-		- No incluye FirstSteps en recordados.
+	- Suite
 	- Doc:
 		- rememberVisitedModules
 		- Revisar doc, por si hay algo más

@@ -1,5 +1,7 @@
 package org.openxava.test.tests;
 
+import java.util.*;
+
 import javax.persistence.*;
 
 import org.apache.commons.lang.*;
@@ -17,6 +19,7 @@ import com.gargoylesoftware.htmlunit.html.*;
 public class ApplicantTest extends ModuleTestBase {
 	
 	private boolean modulesLimit = true;
+	private boolean moduleURLOnRoot = false; // tmp
 	
 	public ApplicantTest(String testName) {
 		super(testName, "Applicant");		
@@ -92,7 +95,49 @@ public class ApplicantTest extends ModuleTestBase {
 			fail("Help link is not correct"); 
 		}
 	}
-
+	
+	public void testModulesOnTop() throws Exception { // tmp
+		modulesLimit = false;
+		resetModule();		
+		
+		HtmlPage page = getHtmlPage();
+		HtmlDivision moduleHeader = page.getHtmlElementById("module_header_left");
+		assertEquals("OpenXavaTest : Invoices Orders Applicant", moduleHeader.asText());
+				
+		HtmlElement articleLink = page.getAnchorByHref("/OpenXavaTest/m/Article?init=true");
+		page = articleLink.click();
+		moduleHeader = page.getHtmlElementById("module_header_left");
+		assertEquals("OpenXavaTest : Invoices Orders Articles Applicant", moduleHeader.asText());
+		List<HtmlElement> selectedElements = moduleHeader.getElementsByAttribute("span", "class", "selected");
+		assertEquals(1, selectedElements.size());
+		assertEquals("Articles", selectedElements.get(0).asText());
+		
+		HtmlElement artistLink = page.getAnchorByHref("/OpenXavaTest/m/Artist?init=true");
+		page = artistLink.click();
+		moduleHeader = page.getHtmlElementById("module_header_left");
+		assertEquals("OpenXavaTest : Invoices Orders Artist Articles Applicant", moduleHeader.asText());
+		selectedElements = moduleHeader.getElementsByAttribute("span", "class", "selected");
+		assertEquals(1, selectedElements.size());
+		assertEquals("Artist", selectedElements.get(0).asText());		
+		
+		articleLink = moduleHeader.getOneHtmlElementByAttribute("a", "href", "/OpenXavaTest/m/Article?retainOrder=true");
+		page = articleLink.click();
+		moduleHeader = page.getHtmlElementById("module_header_left");
+		assertEquals("OpenXavaTest : Invoices Orders Artist Articles Applicant", moduleHeader.asText());		
+		selectedElements = moduleHeader.getElementsByAttribute("span", "class", "selected");
+		assertEquals(1, selectedElements.size());
+		assertEquals("Articles", selectedElements.get(0).asText());		
+		
+		moduleURLOnRoot = true;
+		resetModule();
+		page = getHtmlPage();
+		moduleHeader = page.getHtmlElementById("module_header_left");
+		assertEquals("OpenXavaTest : Invoices Orders Articles Artist Applicant", moduleHeader.asText());		
+		selectedElements = moduleHeader.getElementsByAttribute("span", "class", "selected");
+		assertEquals(1, selectedElements.size());
+		assertEquals("Articles", selectedElements.get(0).asText());		
+	}
+	
 	public void testModulesMenu_help() throws Exception { 
 		modulesLimit = false;
 		resetModule();
@@ -297,8 +342,14 @@ public class ApplicantTest extends ModuleTestBase {
 		assertListAllConfigurations("All"); 
 	}
 	
-	protected String getModuleURL() { 
-		return modulesLimit?super.getModuleURL():"http://" + getHost() + ":" + getPort() + getContextPath() + "modules/Applicant"; 
+	protected String getModuleURL() {
+		// tmp ini
+		String root = "http://" + getHost() + ":" + getPort() + getContextPath();
+		if (moduleURLOnRoot) return root;
+		return modulesLimit?super.getModuleURL():root + "modules/Applicant";
+		// tmp fin
+		
+		// tmp return modulesLimit?super.getModuleURL():"http://" + getHost() + ":" + getPort() + getContextPath() + "modules/Applicant"; 
 	}
 	
 	private void assertModulesCount(int expectedCount) {
