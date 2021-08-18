@@ -89,13 +89,12 @@
       this logic from custom actions. In this way you can transform a database
       management application into a useful tool for the everyday work of your
       user.<br>
-      <h2><a name="business-logic-in-detail-mode"></a>Business logic
-        in detail mode</h2>
+      <h2><a name="business-logic-in-detail-mode"></a>Business logic in detail
+        mode</h2>
       We'll start with the simplest case: a button in the detail mode that
       executes some concrete logic. In this case we'll add a button for creating
       an invoice from an order:<br>
-      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
-
+      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
         title="business-logic-behavior_en010.png"><br>
       This shows how this new action takes the current order and creates an
       invoice from it. It just copies all the order data to the new invoice,
@@ -179,7 +178,7 @@ public class CreateInvoiceFromOrderAction
       this way we can use this logic from other actions, batch processes, web
       services, etc.<br>
       Let's see the code of the <i>createInvoice()</i> method of the <i>Order</i>
-      class, also remember to add the indicated imports:
+      class:
       <pre><code class="java">public class Order extends CommercialDocument {
 
     ...
@@ -468,8 +467,7 @@ public class ShowHideCreateInvoiceAction
       multiple objects at the same time. In our case, we can add an action in
       list mode to create a new invoice automatically from several selected
       orders in the list. We want this action to work this way:<br>
-      <img src="files/business-logic-behavior_en020.png" alt="business-logic-behavior_en020.png"
-
+      <img src="files/business-logic-behavior_en020.png" alt="business-logic-behavior_en020.png"
         title="business-logic-behavior_en020.png"><br>
       This list action takes the selected orders and creates an invoice from
       them. It just copies the order data into the new invoice, adding the
@@ -567,11 +565,7 @@ public class CreateInvoiceFromSelectedOrdersAction
             }
             else { // For the remaining orders the invoice is already created
                 order.setInvoice(invoice); // Assign the invoice
-                invoice.getDetails().addAll(order.getDetails()); // Copies the lines
-                invoice.setVat(
-                    invoice.getVat().add(order.getVat())); // Accumalates the vat
-                invoice.setTotalAmount( // and the total amount
-                    invoice.getTotalAmount().add(order.getTotalAmount()));
+                order.copyDetailsToInvoice(); // A method of Order to copy the lines
             } 
         } 
         if (invoice == null) { // If there are no orders
@@ -583,18 +577,38 @@ public class CreateInvoiceFromSelectedOrdersAction
 }
 </code></pre> We use the first <i>Order</i> to create the new <i>Invoice</i>
       using the already existing <i>createInvoice()</i> method from <i>Order</i>.
-      Then we copy the lines from the remaining orders to the new <i>Invoice</i>
-      and accumulates on it the <i>vat</i> and <i>totalAmount</i> of the
-      orders. Moreover, we set the new <i>Invoice</i> as the invoice for the
-      orders of the collection.<br>
+      Then we call&nbsp; to the <i>copyDetailsToInvoice()</i> method of <i>Order
+        </i>to copy the lines from the remaining orders to the new <i>Invoice</i>
+      and accumulates on it the <i>vat</i> and <i>totalAmount</i>. Moreover,
+      we set the new <i>Invoice</i> as the invoice for the orders of the
+      collection.<br>
       If invoice is null at the end of the process it's because the orders
       collection is empty. In this case we throw a <i>CreateInvoiceException</i>.
       Since the action does not catch the exceptions, OpenXava shows the
       exception message to the user. This is fine. If the user does not check
       any orders and he clicks on the button for creating an invoice, then this
-      error message will be shown to him.<br>
-      Remember to add the message text to the <i>Invoicing-messages_en.properties</i>
-      file in <i>i18n</i> folder:
+      error message will be shown to him.</div>
+    <div class="wiki" style="display: block;">We still have to add the <i>copyDetailsToInvoice()</i>
+      method to <i>Order</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">public class Order extends CommercialDocument {
+
+    ...
+	
+    public void copyDetailsToInvoice() { 
+        invoice.getDetails().addAll(getDetails()); // Copies the lines
+        invoice.setVat(invoice.getVat().add(getVat())); // Accumalates the vat
+        invoice.setTotalAmount( // and the total amount
+            invoice.getTotalAmount().add(getTotalAmount())); 
+    }
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">As you can see, It copies the
+      details of the current order to the invoice and accumulates the <i>vat</i>
+      and <i>totalAmount</i>.</div>
+    <div class="wiki" style="display: block;"> Remember to add the message text
+      to the <i>Invoicing-messages_en.properties</i> file in <i>i18n</i>
+      folder:
       <pre><code class="properties">orders_not_specified=Orders not specified
 </code></pre> These are not the only errors the user can get. All previously
       written validations for <i>Invoice</i> and <i>Order</i> still apply
@@ -606,8 +620,7 @@ public class CreateInvoiceFromSelectedOrdersAction
       the user to see and possibly edit the newly created invoice. One way of
       achieving this is by showing a dialog that allows to view and edit that
       just created invoice. In this way:<br>
-      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
-
+      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
         title="business-logic-behavior_en030.png"><br>
       Let's see how to implement this behavior.
       <h3><a name="using-showdialog"></a>Using showDialog()</h3>
@@ -681,12 +694,10 @@ public class SaveInvoiceAction
       <h3><a name="plain-view-instead-of-dialog"></a>Plain view instead of
         dialog</h3>
       Sometimes instead of showing a dialog on top:<br>
-      <img src="files/business-logic-behavior_en040.png" alt="business-logic-behavior_en040.png"
-
+      <img src="files/business-logic-behavior_en040.png" alt="business-logic-behavior_en040.png"
         title="business-logic-behavior_en040.png"><br>
       You could prefer to replace the current view with a new one, thus: <br>
-      <img src="files/business-logic-behavior_en050.png" alt="business-logic-behavior_en050.png"
-
+      <img src="files/business-logic-behavior_en050.png" alt="business-logic-behavior_en050.png"
         title="business-logic-behavior_en050.png"><br>
       This can be useful when the amount of data to show is huge and in a dialog
       looks clumsy. Using a plain view instead of a dialog is as easy as
@@ -710,8 +721,7 @@ public class SaveInvoiceAction
       First we'll test the <i>Order.createInvoice</i> action, the action for
       creating an invoice from the displayed order in detail mode. Then next
       image shows how this process works:<br>
-      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
-
+      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
         title="business-logic-behavior_en010.png"><br>
       Now we're going to write a test to verify that it really works in this
       way. Add the <i>testCreateInvoiceFromOrder()</i> method to the <i>OrderTest</i>
@@ -995,4 +1005,3 @@ private void assertCreateInvoiceFromOrderException(
           12</a></strong> </div>
   </body>
 </html>
-
