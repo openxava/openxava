@@ -61,11 +61,12 @@
       </div>
       La interfaz de usuario generada por OpenXava es buena para la mayoría de
       los casos, pero a veces puede que necesitemos personalizar alguna parte de
-      la interfaz de usuario (creando nuestros propios <a class="wiki_link" href="customizing_es#toc1">editores</a>)
+      la interfaz de usuario (creando nuestros propios <a class="wiki_link" href="#Personalizacion-Editores">editores</a>)
       o crear nuestra interfaz de usuario íntegramente a mano (usando <a class="wiki_link"
-        href="customizing_es#toc5">vistas personalizadas con JSP</a>).<br>
+        href="#Personalizacion-Vistas+JSP+propias+y+taglibs+de+OpenXava">vistas
+        personalizadas con JSP</a>).<br>
       Por otra parte, si simplemente quieres definir la apariencia visual de tu
-      aplicación, mira la guía para definir un <a class="wiki_link" href="custom-style_es">Estilo
+      aplicación, mira la guía para definir un <a class="wiki_link" href="custom-style_es.html">Estilo
         visual personalizado</a>.<br>
       <h2 id="toc1"><a name="Personalizacion-Editores"></a>Editores</h2>
       <h3 id="toc2"><a name="Personalizacion-Editores-Configuracion+de+editores"></a>Configuración
@@ -1308,8 +1309,9 @@ class="st0">"Color"</span><span class="re2">/&gt;</span></span>
       Con este código estamos diciendo que cualquier referencia a la entidad <em>Color</em>
       se tiene que visualizar usando <em>colorEditor.jsp</em> (para usar un
       editor solo para una referencia concreta en una entidad concreta véase la
-      sección <a class="wiki_link" href="overview_es#toc21">Escoger un editor</a>
-      del <a class="wiki_link" href="view_es">capítulo 4</a>).<br>
+      sección <a class="wiki_link" href="view_es.html#Vista-Personalizacion+de+referencia-Escoger+un+editor+%28referencia,+nuevo+in+v3.1.3%29">Escoger
+        un editor</a> del <a class="wiki_link" href="view_es.html">capítulo
+        sobre Vista</a>).<br>
       Aquí tenemos el código para <em>colorEditor.jsp</em>:<br>
       <style type="text/css"><!--
 /**
@@ -1484,8 +1486,9 @@ class="st0">"ComentarioBlog"</span><span class="re2">/&gt;</span></span>
       entidades <em>ComentarioBlog</em> tiene que ser visualizada y editada
       usando <em>comentariosBlogEditor.jsp</em> (para usar un editor solo para
       una colección concreta en una entidad concreta ver la sección <a class="wiki_link"
-        href="view_es#toc29">Escoger un editor</a> en el <a class="wiki_link" href="view_es">capítulo
-        4</a>).<br>
+        href="view_es.html#Vista-Personalizacion+de+coleccion-Escoger+un+editor+%28colecciones,+nuevo+in+v3.1.3%29">Escoger
+        un editor</a> en el <a class="wiki_link" href="view_es.html">capítulo
+        sobre Vista</a>).<br>
       <em>&lt;para-coleccion /&gt;</em> funciona para colecciones de tipo <em>@OneToMany/@ManyToMany</em>
       y <em>@ElementCollection</em>.<br>
       Aquí tenemos el código para <em>comentariosBlogEditor.jsp</em>:<br>
@@ -2631,7 +2634,7 @@ class="st0">"SUBFAMILIA"</span><span class="re2">/&gt;</span></span> <span class
       <ol>
         <li><strong>modelo</strong>: Modelo del que se obtiene los datos. Puede
           ser el nombre de una entidad (<em>Factura</em>) o el nombre de un
-          modelo usado en una <a class="wiki_link" href="model_es#toc24">colección
+          modelo usado en una <a class="wiki_link" href="model_es.html#Modelo-Colecciones-Colecciones%20incrustadas">colección
             incrustada</a> (<em>Factura.LineaFactura</em>).</li>
         <li><strong>propiedadClave</strong> o <strong>propiedadesClave</strong>:
           Propiedad clave o lista de propiedades clave que es lo que se va a
@@ -2671,11 +2674,11 @@ class="st0">"SUBFAMILIA"</span><span class="re2">/&gt;</span></span> <span class
       <h2 id="toc14"><a name="Personalizacion-Vistas+JSP+propias+y+taglibs+de+OpenXava"></a>Vistas
         JSP propias y taglibs de OpenXava</h2>
       Obviamente la mejor forma de crear interfaces de usuario es usando las
-      anotaciones de vista que se ven en el <a class="wiki_link" href="view_es">capítulo
-        4</a>. Pero, en casos extremos quizás necesitemos definir nuestra propia
-      vista usando JSP. OpenXava nos permite hacerlo. Y para hacer más fácil la
-      labor podemos usar algunas taglibs JSP provistas por OpenXava. Veamos un
-      ejemplo.<br>
+      anotaciones de vista que se ven en el <a class="wiki_link" href="view_es.html">capítulo
+        sobre Vista</a>. Pero, en casos extremos quizás necesitemos definir
+      nuestra propia vista usando JSP. OpenXava nos permite hacerlo. Y para
+      hacer más fácil la labor podemos usar algunas taglibs JSP provistas por
+      OpenXava. Veamos un ejemplo.<br>
       <h3 id="toc15"><a name="Personalizacion-Vistas+JSP+propias+y+taglibs+de+OpenXava-Ejemplo"></a>Ejemplo</h3>
       Lo primero es indicar en nuestro módulo que queremos usar nuestro propio
       JSP, en <em>aplicacion.xml</em>:<br>

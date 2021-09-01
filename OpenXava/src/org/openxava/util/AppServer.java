@@ -1,12 +1,12 @@
 package org.openxava.util; 
 
 import java.io.*;
-import org.apache.catalina.startup.*;
-import org.apache.commons.logging.*;
-
 import java.nio.file.*;
 import java.nio.file.Files;
 import java.util.*;
+
+import org.apache.catalina.startup.*;
+import org.apache.commons.logging.*;
 
 /**
  * 
@@ -19,6 +19,7 @@ public class AppServer {
 	
 	public static void run(String app) throws Exception {
 		System.out.println(XavaResources.getString("starting_application"));
+		System.setProperty("tomcat.util.scan.StandardJarScanFilter.jarsToSkip", "activation.jar,addons.jar,antlr.jar,byte-buddy.jar,classmate.jar,commons-*.jar,dom4j.jar,dsn.jar,dwr.jar,ejb.jar,groovy-all.jar,hibernate-*.jar,hk2-*.jar,imap.jar,itext.jar,jakarta.*.jar,jandex.jar,jasperreports-fonts.jar,jasperreports.jar,javassist.jar,javax.inject.jar,jaxb-*.jar,jboss-logging.jar,jersey-*.jar,jpa.jar,jsoup.jar,jta.jar,lombok.jar,mailapi.jar,mime-util.jar,ox-jdbc-adapters.jar,poi-*.jar,poi.jar,pop3.jar,slf4j-*.jar,smtp.jar,validation-api.jar,xmlbeans.jar,yasson.jar");
 		createDefaultI18nFiles(app); 
         String webappDir = new File("web").getAbsolutePath();
         String contextPath = Is.empty(app)?"":"/" + app;

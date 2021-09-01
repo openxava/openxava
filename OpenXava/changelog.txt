@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Startup time for application in development (embedded Tomcat) improved (x2).
+- Fix: Broken links in Customizing chapter of Reference Guide.
 - Fix: Minor errors in Spanish course version.
 - Last used modules are remembered and they can be accessed using tabs at the top of the module.
 - Property rememberVisitedModules in naviox.properties to remember the modules visited in last session.
