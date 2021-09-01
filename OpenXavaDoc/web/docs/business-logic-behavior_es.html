@@ -921,13 +921,13 @@ protected int getFilaDocumentoEnLista(String anyo, String numero) ... // protect
 </code></pre> El único detalle pendiente es el método <i>verificarPedido()</i>
       que veremos en la siguiente sección.
       <h3><a name="verificar-datos-de-prueba"></a>Verificar datos de prueba</h3>
-      En la lección 3 (Pruebas automáticas) aprendiste como confiar en datos
+      En la lección sobre pruebas automáticas aprendiste como confiar en datos
       existentes en la base de datos para tus pruebas. Obviamente, si tu base de
       datos se altera accidentalmente tus pruebas, aunque correctas, no pasarán.
       Por tanto, verificar los valores de la base de datos antes de ejecutar la
       prueba que confía en ellos es una buena práctica. En nuestro ejemplo lo
       hacemos llamando a <i>verificarPedido()</i> al principio. Veamos el
-      contenido de <i>verificarPedido()</i>:
+      contenido de <i>verificarPedido()</i> en <i>PruebaPedido</i>:
       <pre><code class="java">private void verificarPedido(
     int anyo, int numero, int cantidadDetalles, String importeTotal)
 {

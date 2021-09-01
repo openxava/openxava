@@ -23,9 +23,9 @@
         Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">8.
         Basic business logic</a> | <a class="wiki_link" href="validation_en.html">9.
         Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">10.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">11. Behavior &amp;
-        business logic</a> | <strong>12.
-        References &amp; collections</strong> | <a class="wiki_link" href="philosophy_en.html">A.
+        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">11.
+        Behavior &amp; business logic</a> | <strong>12. References &amp;
+        collections</strong> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
         Annotations</a>
@@ -500,9 +500,10 @@ public class AddOrdersToInvoiceAction
     ...
 	
     // Restore values
-    setValue("delivered", "false");
+    
     setValue("invoice.year", ""); // Now we need to type a year
     setValue("invoice.number", ""); // and a number to search the invoice (2)
+    setValue("delivered", "false");
     execute("CRUD.save");
     assertNoErrors();
 }
