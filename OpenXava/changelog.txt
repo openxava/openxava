@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Labels and messages for Serbian upgraded.
 - Startup time for application in development (embedded Tomcat) improved (x2).
 - Fix: Broken links in Customizing chapter of Reference Guide.
 - Fix: Minor errors in Spanish course version.
