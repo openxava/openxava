@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Top button bar is fixed on top of the page when the user scrolls the detail or list view. 
+- Left menu with modules is fixed when the user scrolls the main view of the module.
 - Labels and messages for Serbian upgraded.
 - Startup time for application in development (embedded Tomcat) improved (x2).
 - Fix: Broken links in Customizing chapter of Reference Guide.

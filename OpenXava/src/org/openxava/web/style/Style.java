@@ -316,6 +316,13 @@ public class Style {
 		return "ox-button-bar"; 
 	}
 	
+	/**
+	 * @since 6.6
+	 */
+	public String getButtonBarContainer() {
+		return "ox-button-bar-container"; 
+	}
+	
 	public String getButtonBarButton() { 
 		return "ox-button-bar-button";
 	}
