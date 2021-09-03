@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Lección 12: Referencias y colecciones - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -85,14 +88,13 @@
       resuelve. <br>
       La siguiente imagen muestra cómo se produce un error de validación cuando
       el cliente de la factura es incorrecto: </div>
-    <img src="files/references-collections_es010.png" alt="references-collections_es010"
-
+    <img src="files/references-collections_es010.png" alt="references-collections_es010"
       title="references-collections_es010">
     <div class="wiki" style="display: block;"> Ya que esto es lógica de negocio
       la vamos a poner en la capa del modelo, es decir, en las entidades. Lo
       haremos añadiendo una validación. Así obtendrás el efecto de la figura de
       arriba. <br>
-      Ya sabes como añadir esta validación a tu entidad <i>Order</i>. Se trata
+      Ya sabes como añadir esta validación a tu entidad <i>Pedido</i>. Se trata
       de añadir un método anotado con <i>@AssertTrue</i>: <br>
       <pre><code class="java">public class Pedido {
 
@@ -120,8 +122,7 @@
       correcta. Porque cuando pulsa para buscar una factura, todas las facturas
       existentes se muestran. Vamos a mejorar esto para mostrar solo las
       facturas del cliente del pedido visualizado, de esta manera:<br>
-      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
-
+      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
         title="references-collections_es020.png"><br>
       Para definir nuestra propia acción de búsqueda para la referencia a
       factura usaremos la anotación <i>@SearchAction</i>. Aquí tienes la
@@ -146,15 +147,15 @@
       de nuestra nueva acción:
       <pre><code class="xml">&lt;controlador nombre="Pedido"&gt;
 
-	...
+    ...
 	
-	&lt;accion nombre="buscarFactura"
-	clase="com.tuempresa.facturacion.acciones.BuscarFacturaDesdePedido"
-	oculta="true" icono="magnify"/&gt;
-	&lt;!--
-	oculta="true" : Para que no se muestre en la barra de botones del módulo
-	icono="magnify" : La misma imagen que la de la acción estándar
-	--&gt;
+    &lt;accion nombre="buscarFactura"
+        clase="com.tuempresa.facturacion.acciones.BuscarFacturaDesdePedido"
+        oculta="true" icono="magnify"/&gt;
+        &lt;!--
+        oculta="true" : Para que no se muestre en la barra de botones del módulo
+        icono="magnify" : La misma imagen que la de la acción estándar
+        --&gt;
 	
 &lt;/controlador&gt;
 </code></pre>Nuestra acción hereda de <i> ReferenceSearchAction</i> como se
@@ -196,8 +197,7 @@ public class BuscarFacturaDesdePedido
       visualizado es el año, y buscar una factura sólo por el año no es muy
       preciso. La siguiente imagen muestra el comportamiento por defecto junto
       con una alternativa más conveniente:<br>
-      <img src="files/references-collections_es030.png" alt="references-collections_es030.png"
-
+      <img src="files/references-collections_es030.png" alt="references-collections_es030.png"
         title="references-collections_es030.png"><br>
       Afortunadamente es fácil indicar que campos queremos usar para buscar
       desde la perspectiva del usuario. Esto se hace por medio de la anotación <i>@SearchKey</i>.
@@ -233,14 +233,12 @@ public class BuscarFacturaDesdePedido
       escogido al cliente para el pedido y escoge una factura, el cliente de esa
       factura sea asignado automáticamente al pedido actual. La siguiente imagen
       visualiza el comportamiento deseado:<br>
-      <img src="files/references-collections_es040.png" alt="references-collections_es040.png"
-
+      <img src="files/references-collections_es040.png" alt="references-collections_es040.png"
         title="references-collections_es040.png"><br>
       Por otra parte, si el usuario ya ha seleccionado un cliente para el
       pedido, si no coincide con el de la factura, ésta será rechazada y se
       visualizará un mensaje de error, tal como se muestra aquí:</div>
-    <img src="files/references-collections_es050.png" alt="references-collections_es050.png"
-
+    <img src="files/references-collections_es050.png" alt="references-collections_es050.png"
       title="references-collections_es050.png">
     <div class="wiki" style="display: block;">Para definir este comportamiento
       especial hemos de añadir una anotación en la referencia <i>factura</i> de
@@ -253,7 +251,7 @@ public class BuscarFacturaDesdePedido
     @ReferenceView("SinClienteNiPedidos") 
     @OnChange(MostrarOcultarCrearFactura.class) 
     @OnChangeSearch(BuscarAlCambiarFactura.class) // Añade esta anotación
-    @SearchAction("Pedido.buscarFactura") // Define nuestra acción para buscar facturas
+    @SearchAction("Pedido.buscarFactura") 
     Factura factura; 
     
     ...
@@ -335,8 +333,7 @@ public class BuscarAlCambiarFactura
       los pedidos están disponibles. Vamos a mejorar esto para mostrar solo los
       pedidos del cliente de la factura, entregados y todavía sin factura, tal
       como se muestra: <br>
-      <img src="files/references-collections_es060.png" alt="references-collections_es060.png"
-
+      <img src="files/references-collections_es060.png" alt="references-collections_es060.png"
         title="references-collections_es060.png"><br>
       Usaremos la anotación <i>@AddAction</i> para definir nuestra propia
       acción que muestre la lista para añadir pedidos. El siguiente código
@@ -403,8 +400,7 @@ public class IrAnyadirPedidosAFactura
       muestra la lista de elementos a añadir a la colección. Pero no es la
       acción que añade los elementos. En esta sección aprenderemos como definir
       la acción que realmente añade los elementos: <br>
-      <img src="files/references-collections_es070.png" alt="references-collections_es070.png"
-
+      <img src="files/references-collections_es070.png" alt="references-collections_es070.png"
         title="references-collections_es070.png"><br>
       Por desgracia, no hay una anotación para definir directamente esta acción
       de añadir. Sin embargo, no es una tarea demasiado difícil, solo hemos de
@@ -422,9 +418,9 @@ public class IrAnyadirPedidosAFactura
     }                                    // en la lista de pedidos a añadir
 }
 </code></pre> Por defecto las acciones en la lista de entidades a añadir (los
-      botones 'Add' y 'Cancel') son del controlador estándar de OpenXava
-      AddToCollection. Sobrescribir getNextController() en nuestra acción nos
-      permite definir nuestro propio controlador en su lugar. Añade en <i>controladores.xml</i>
+      botones AÑADIR y CANCELAR) son del controlador estándar de OpenXava <i>AddToCollection</i>.
+      Sobrescribir <i>getNextController()</i> en nuestra acción nos permite
+      definir nuestro propio controlador en su lugar. Añade en <i>controladores.xml</i>
       la siguiente definición para nuestro controlador propio para añadir
       elementos:
       <pre><code class="xml">&lt;controlador nombre="AnyadirPedidosAFactura"&gt;
@@ -565,7 +561,7 @@ public class AnyadirPedidosAFactura
     for (int i=0; i&lt;c; i++) { // Un bucle por todas las filas
         if (!numeroCliente.equals(getValueInList(i, "cliente.numero"))) {
             fail("Cliente en fila " + i + // Si el cliente no es el esperado falla
-                " no es " + customerNumber);
+                " no es " + numeroCliente);
         }
     }
 }
@@ -592,7 +588,7 @@ public class AnyadirPedidosAFactura
     execute("List.orderBy", "property=cliente.numero"); // Ordena por cliente
     String numeroCliente2 = getValueInList(0, "cliente.numero"); // Memoriza...
     String nombreCliente2 = getValueInList(0, "cliente.nombre"); // ...los datos de...
-                                                                ...la última factura
+                                                                 // ...la última factura
     assertNotEquals("Han de ser facturas de diferentes clientes",
         numeroCliente1, numeroCliente2);// Las 2 facturas memorizadas no son la misma
     execute("ReferenceSearch.choose","row=0"); // La factura se escoge con la lista (1)
@@ -604,9 +600,9 @@ public class AnyadirPedidosAFactura
     setValue("factura.anyo", anyoFactura1); // Tratamos de poner una factura de...
     setValue("factura.numero", numeroFactura1); // ...otro cliente (3)
 
-    assertError("Cliente Nº " + numeroCliente1 + " de factura " + // Muestra...
+    assertError("Cliente Nº " + numeroCliente1 + " de la factura " + // Muestra...
         anyoFactura1 + "/" + numeroFactura1 + // ...un mensaje de error... (4)
-        " no coincide con el Cliente Nº " +
+        " no coincide con el cliente Nº " +
         numeroCliente2 + " del pedido actual");
 
     assertValue("factura.anyo", ""); // ...y reinicia los datos de la factura (5)
@@ -636,7 +632,7 @@ public class AnyadirPedidosAFactura
     // seleccionarPrimerPedidoConEntregadoIgual("Entregado"); // Ahora todos los pedidos de la lista 
     // seleccionarPrimerPedidoConEntregadoIgual(""); // están entregados; esto ya no hace falta 	
     // execute("AddToCollection.add"); // En lugar de la acción estándar
-    execute("AnyadirPedidosAFacturas.add", "row=0"); // ...ahora tenemos la nuestra propia
+    execute("AnyadirPedidosAFactura.add", "row=0"); // ...ahora tenemos la nuestra propia
     // assertError("¡ERROR! 1 elemento(s) NO añadido a Pedidos de Factura"); // Es
                   // imposible porque el usuario no puede escoger pedidos incorrectos
     assertMessage("1 elemento(s) añadido a Pedidos de Factura");
@@ -673,7 +669,7 @@ public class AnyadirPedidosAFactura
     assertCollectionRowCount("pedidos", 0);
     execute("Factura.anyadirPedidos",
         "viewObject=xava_view_section1_pedidos");
-    assertCustomerInList(numeroCliente); // Confirmamos que todos los cliente en
+    confirmarClienteEnTodasFilas(numeroCliente); // Confirmamos que todos los cliente en
                                // la lista coinciden con el cliente de la factura
     ...
 
@@ -781,7 +777,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
     assertCollectionRowCount("pedidos", 1); // Se añadió un pedido
     execute("Factura.anyadirPedidos", // Mostramos la lista de pedidos otra vez
         "viewObject=xava_view_section1_pedidos");
-    assertListRowCount(cantidadPedidos – 1); // Tenemos un pedido menos en la lista
+    assertListRowCount(cantidadPedidos - 1); // Tenemos un pedido menos en la lista
     execute("AddToCollection.cancel");
 
     ...
@@ -836,7 +832,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
       <pre><code class="java">public void testAnyadirPedidos() throws Exception {
     login("admin", "admin");
     assertListNotEmpty();
-    execute("List.orderBy", "property=number");
+    execute("List.orderBy", "property=numero");
     execute("List.viewDetail", "row=0");
     String numeroCliente = getValue("cliente.numero");
     assertCollectionRowCount("detalles", 0);
@@ -850,7 +846,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
     String importeTotalPrimerPedido = getValueInList(0, 7);
     int cantidadPedidos = getListRowCount();
     execute("AnyadirPedidosAFactura.add", "row=0");
-    assertMessage("1 elemento(s) añadido a Pedidos de Factura");
+    assertMessage("1 elemento(s) añadido(s) a Pedidos de Factura");
     assertCollectionRowCount("pedidos", 1);
     execute("Sections.change", "activeSection=0");
     assertCollectionNotEmpty("detalles");
@@ -879,8 +875,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
         @OnChangeSearch, @Editor, @CollectionView, @EditOnly, @ListProperties,
         @RowStyle, @EditAction, @ViewAction, @NewAction, @SaveAction,
         @HideDetailAction, @RemoveAction, @RemoveSelectedAction, @ListAction,
-        @DetailAction</i> o <i>@OnSelectElementAction</i>. Mira las secciones <a
-
+        @DetailAction</i> o <i>@OnSelectElementAction</i>. Mira las secciones <a
         href="view_es.html#Vista-Personalizacion+de+referencia">Personalización
         de referencia</a> y <a href="view_es.html#Vista-Personalizacion+de+coleccion">Personalización
         de colección</a> de la guía de referencia.<br>
@@ -893,14 +888,11 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
       gestión de la vida real. </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
-
-          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
-
+    <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
+          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-references-collections_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong><strong></strong> </div>
   </body>
 </html>
