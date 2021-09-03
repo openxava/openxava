@@ -3,14 +3,16 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Lesson 12: References &amp; collections - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
-    <div class="wiki" style="display: block;" id="content_view">
-      <h1 id="toc0"><a name="Lesson 9: References &amp; collections"></a> <span
-
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Lesson 12: References &amp; collections </h1>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="references-collections"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 12: References &amp; collections </h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
         Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
@@ -22,426 +24,855 @@
         Basic business logic</a> | <a class="wiki_link" href="validation_en.html">9.
         Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">10.
         Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">11.
-        Behavior &amp; business logic</a> | <strong>12. References
-        &amp; collections</strong> | <a class="wiki_link" href="philosophy_en.html">A.
+        Behavior &amp; business logic</a> | <strong>12. References &amp;
+        collections</strong> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
         Annotations</a>
-      <hr> This lesson is available in PDF:<br>
-      <a href="files/openxava-course9-references-collections_en.pdf">openxava-course9-references-collections_en.pdf</a><br>
-      This lesson was the lesson 9 of the old course. We're working in an
-      updated edition of this lesson, in meantime the lesson still will work for
-      you if you follow the instructions below.<br>
-      <h2 id="toc1"><a name="Lesson 9: References &amp; collections-Note for OpenXava 5.7 and better"></a>Note
-        for OpenXava 5.7 and better</h2>
-      Use <em>@AddAction</em> instead of <em>@NewAction</em> to refine the
-      action for adding new elements. For example, change:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.java5  {font-family:monospace;}
-.java5 .imp {font-weight: bold; color: red;}
-.java5 .kw1 {color: #000000;  font-weight: bold;}
-.java5 .kw2 {color: #000000; font-weight: bold;}
-.java5 .kw3 {color: #006600; font-weight: bold;}
-.java5 .kw4 {color: #006600; font-weight: bold;}
-.java5 .kw5 {color: #003399; font-weight: bold;}
-.java5 .kw6 {color: #003399; font-weight: bold;}
-.java5 .kw7 {color: #003399; font-weight: bold;}
-.java5 .kw8 {color: #003399; font-weight: bold;}
-.java5 .kw9 {color: #003399; font-weight: bold;}
-.java5 .kw10 {color: #003399; font-weight: bold;}
-.java5 .kw11 {color: #003399; font-weight: bold;}
-.java5 .kw12 {color: #003399; font-weight: bold;}
-.java5 .kw13 {color: #003399; font-weight: bold;}
-.java5 .kw14 {color: #003399; font-weight: bold;}
-.java5 .kw15 {color: #003399; font-weight: bold;}
-.java5 .kw16 {color: #003399; font-weight: bold;}
-.java5 .kw17 {color: #003399; font-weight: bold;}
-.java5 .kw18 {color: #003399; font-weight: bold;}
-.java5 .kw19 {color: #003399; font-weight: bold;}
-.java5 .kw20 {color: #003399; font-weight: bold;}
-.java5 .kw21 {color: #003399; font-weight: bold;}
-.java5 .kw22 {color: #003399; font-weight: bold;}
-.java5 .kw23 {color: #003399; font-weight: bold;}
-.java5 .kw24 {color: #003399; font-weight: bold;}
-.java5 .kw25 {color: #003399; font-weight: bold;}
-.java5 .kw26 {color: #003399; font-weight: bold;}
-.java5 .kw27 {color: #003399; font-weight: bold;}
-.java5 .kw28 {color: #003399; font-weight: bold;}
-.java5 .kw29 {color: #003399; font-weight: bold;}
-.java5 .kw30 {color: #003399; font-weight: bold;}
-.java5 .kw31 {color: #003399; font-weight: bold;}
-.java5 .kw32 {color: #003399; font-weight: bold;}
-.java5 .kw33 {color: #003399; font-weight: bold;}
-.java5 .kw34 {color: #003399; font-weight: bold;}
-.java5 .kw35 {color: #003399; font-weight: bold;}
-.java5 .kw36 {color: #003399; font-weight: bold;}
-.java5 .kw37 {color: #003399; font-weight: bold;}
-.java5 .kw38 {color: #003399; font-weight: bold;}
-.java5 .kw39 {color: #003399; font-weight: bold;}
-.java5 .kw40 {color: #003399; font-weight: bold;}
-.java5 .kw41 {color: #003399; font-weight: bold;}
-.java5 .kw42 {color: #003399; font-weight: bold;}
-.java5 .kw43 {color: #003399; font-weight: bold;}
-.java5 .kw44 {color: #003399; font-weight: bold;}
-.java5 .kw45 {color: #003399; font-weight: bold;}
-.java5 .kw46 {color: #003399; font-weight: bold;}
-.java5 .kw47 {color: #003399; font-weight: bold;}
-.java5 .kw48 {color: #003399; font-weight: bold;}
-.java5 .kw49 {color: #003399; font-weight: bold;}
-.java5 .kw50 {color: #003399; font-weight: bold;}
-.java5 .kw51 {color: #003399; font-weight: bold;}
-.java5 .kw52 {color: #003399; font-weight: bold;}
-.java5 .kw53 {color: #003399; font-weight: bold;}
-.java5 .kw54 {color: #003399; font-weight: bold;}
-.java5 .kw55 {color: #003399; font-weight: bold;}
-.java5 .kw56 {color: #003399; font-weight: bold;}
-.java5 .kw57 {color: #003399; font-weight: bold;}
-.java5 .kw58 {color: #003399; font-weight: bold;}
-.java5 .kw59 {color: #003399; font-weight: bold;}
-.java5 .kw60 {color: #003399; font-weight: bold;}
-.java5 .kw61 {color: #003399; font-weight: bold;}
-.java5 .kw62 {color: #003399; font-weight: bold;}
-.java5 .kw63 {color: #003399; font-weight: bold;}
-.java5 .kw64 {color: #003399; font-weight: bold;}
-.java5 .kw65 {color: #003399; font-weight: bold;}
-.java5 .kw66 {color: #003399; font-weight: bold;}
-.java5 .kw67 {color: #003399; font-weight: bold;}
-.java5 .kw68 {color: #003399; font-weight: bold;}
-.java5 .kw69 {color: #003399; font-weight: bold;}
-.java5 .kw70 {color: #003399; font-weight: bold;}
-.java5 .kw71 {color: #003399; font-weight: bold;}
-.java5 .kw72 {color: #003399; font-weight: bold;}
-.java5 .kw73 {color: #003399; font-weight: bold;}
-.java5 .kw74 {color: #003399; font-weight: bold;}
-.java5 .kw75 {color: #003399; font-weight: bold;}
-.java5 .kw76 {color: #003399; font-weight: bold;}
-.java5 .kw77 {color: #003399; font-weight: bold;}
-.java5 .kw78 {color: #003399; font-weight: bold;}
-.java5 .kw79 {color: #003399; font-weight: bold;}
-.java5 .kw80 {color: #003399; font-weight: bold;}
-.java5 .kw81 {color: #003399; font-weight: bold;}
-.java5 .kw82 {color: #003399; font-weight: bold;}
-.java5 .kw83 {color: #003399; font-weight: bold;}
-.java5 .kw84 {color: #003399; font-weight: bold;}
-.java5 .kw85 {color: #003399; font-weight: bold;}
-.java5 .kw86 {color: #003399; font-weight: bold;}
-.java5 .kw87 {color: #003399; font-weight: bold;}
-.java5 .kw88 {color: #003399; font-weight: bold;}
-.java5 .kw89 {color: #003399; font-weight: bold;}
-.java5 .kw90 {color: #003399; font-weight: bold;}
-.java5 .kw91 {color: #003399; font-weight: bold;}
-.java5 .kw92 {color: #003399; font-weight: bold;}
-.java5 .kw93 {color: #003399; font-weight: bold;}
-.java5 .kw94 {color: #003399; font-weight: bold;}
-.java5 .kw95 {color: #003399; font-weight: bold;}
-.java5 .kw96 {color: #003399; font-weight: bold;}
-.java5 .kw97 {color: #003399; font-weight: bold;}
-.java5 .kw98 {color: #003399; font-weight: bold;}
-.java5 .kw99 {color: #003399; font-weight: bold;}
-.java5 .kw100 {color: #003399; font-weight: bold;}
-.java5 .kw101 {color: #003399; font-weight: bold;}
-.java5 .kw102 {color: #003399; font-weight: bold;}
-.java5 .kw103 {color: #003399; font-weight: bold;}
-.java5 .kw104 {color: #003399; font-weight: bold;}
-.java5 .kw105 {color: #003399; font-weight: bold;}
-.java5 .kw106 {color: #003399; font-weight: bold;}
-.java5 .kw107 {color: #003399; font-weight: bold;}
-.java5 .kw108 {color: #003399; font-weight: bold;}
-.java5 .kw109 {color: #003399; font-weight: bold;}
-.java5 .kw110 {color: #003399; font-weight: bold;}
-.java5 .kw111 {color: #003399; font-weight: bold;}
-.java5 .kw112 {color: #003399; font-weight: bold;}
-.java5 .kw113 {color: #003399; font-weight: bold;}
-.java5 .kw114 {color: #003399; font-weight: bold;}
-.java5 .kw115 {color: #003399; font-weight: bold;}
-.java5 .kw116 {color: #003399; font-weight: bold;}
-.java5 .kw117 {color: #003399; font-weight: bold;}
-.java5 .kw118 {color: #003399; font-weight: bold;}
-.java5 .kw119 {color: #003399; font-weight: bold;}
-.java5 .kw120 {color: #003399; font-weight: bold;}
-.java5 .kw121 {color: #003399; font-weight: bold;}
-.java5 .kw122 {color: #003399; font-weight: bold;}
-.java5 .kw123 {color: #003399; font-weight: bold;}
-.java5 .kw124 {color: #003399; font-weight: bold;}
-.java5 .kw125 {color: #003399; font-weight: bold;}
-.java5 .kw126 {color: #003399; font-weight: bold;}
-.java5 .kw127 {color: #003399; font-weight: bold;}
-.java5 .kw128 {color: #003399; font-weight: bold;}
-.java5 .kw129 {color: #003399; font-weight: bold;}
-.java5 .kw130 {color: #003399; font-weight: bold;}
-.java5 .kw131 {color: #003399; font-weight: bold;}
-.java5 .kw132 {color: #003399; font-weight: bold;}
-.java5 .kw133 {color: #003399; font-weight: bold;}
-.java5 .kw134 {color: #003399; font-weight: bold;}
-.java5 .kw135 {color: #003399; font-weight: bold;}
-.java5 .kw136 {color: #003399; font-weight: bold;}
-.java5 .kw137 {color: #003399; font-weight: bold;}
-.java5 .kw138 {color: #003399; font-weight: bold;}
-.java5 .kw139 {color: #003399; font-weight: bold;}
-.java5 .kw140 {color: #003399; font-weight: bold;}
-.java5 .kw141 {color: #003399; font-weight: bold;}
-.java5 .kw142 {color: #003399; font-weight: bold;}
-.java5 .kw143 {color: #003399; font-weight: bold;}
-.java5 .kw144 {color: #003399; font-weight: bold;}
-.java5 .kw145 {color: #003399; font-weight: bold;}
-.java5 .kw146 {color: #003399; font-weight: bold;}
-.java5 .kw147 {color: #003399; font-weight: bold;}
-.java5 .kw148 {color: #003399; font-weight: bold;}
-.java5 .kw149 {color: #003399; font-weight: bold;}
-.java5 .kw150 {color: #003399; font-weight: bold;}
-.java5 .kw151 {color: #003399; font-weight: bold;}
-.java5 .kw152 {color: #003399; font-weight: bold;}
-.java5 .kw153 {color: #003399; font-weight: bold;}
-.java5 .kw154 {color: #003399; font-weight: bold;}
-.java5 .kw155 {color: #003399; font-weight: bold;}
-.java5 .kw156 {color: #003399; font-weight: bold;}
-.java5 .kw157 {color: #003399; font-weight: bold;}
-.java5 .kw158 {color: #003399; font-weight: bold;}
-.java5 .kw159 {color: #003399; font-weight: bold;}
-.java5 .kw160 {color: #003399; font-weight: bold;}
-.java5 .kw161 {color: #003399; font-weight: bold;}
-.java5 .kw162 {color: #003399; font-weight: bold;}
-.java5 .kw163 {color: #003399; font-weight: bold;}
-.java5 .kw164 {color: #003399; font-weight: bold;}
-.java5 .kw165 {color: #003399; font-weight: bold;}
-.java5 .kw166 {color: #003399; font-weight: bold;}
-.java5 .co1 {color: #666666; font-style: italic;}
-.java5 .co2 {color: #006699;}
-.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
-.java5 .coMULTI {color: #666666; font-style: italic;}
-.java5 .es0 {color: #000099; font-weight: bold;}
-.java5 .br0 {color: #009900;}
-.java5 .sy0 {color: #339933;}
-.java5 .st0 {color: #0000ff;}
-.java5 .nu0 {color: #cc66cc;}
-.java5 .me1 {color: #006633;}
-.java5 .me2 {color: #006633;}
-.java5 span.xtra { display:block; }
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#references-collections">Lesson
+            12: References &amp; collections</a></div>
+        <div style="margin-left: 2em;"><a href="#refining-reference-behavior">Refining
+            reference behavior</a></div>
+        <div style="margin-left: 3em;"><a href="#validation-is-good-but-not-enough">Validation
+            is good, but not enough</a></div>
+        <div style="margin-left: 3em;"><a href="#refining-action-for-searching-reference-with-list">Refining
+            action for searching reference with list</a></div>
+        <div style="margin-left: 3em;"><a href="#searching-the-reference-typing-in-fields">Searching
+            the reference typing in fields</a></div>
+        <div style="margin-left: 3em;"><a href="#refining-action-for-searching-reference-typing-key">Refining
+            action for searching reference typing key</a></div>
+        <div style="margin-left: 2em;"><a href="#refining-collection-behavior">Refining
+            collection behavior</a></div>
+        <div style="margin-left: 3em;"><a href="#refining-the-list-for-adding-elements-to-a-collection">Refining
+            the list for adding elements to a collection</a></div>
+        <div style="margin-left: 3em;"><a href="#refining-the-action-to-add-elements-to-a-collection">Refining
+            the action to add elements to a collection</a></div>
+        <div style="margin-left: 2em;"><a href="#junit-tests">JUnit tests</a></div>
+        <div style="margin-left: 3em;"><a href="#adapting-ordertest">Adapting
+            OrderTest</a></div>
+        <div style="margin-left: 3em;"><a href="#testing-the-searchaction">Testing
+            the @SearchAction</a></div>
+        <div style="margin-left: 3em;"><a href="#testing-the-onchangesearch">Testing
+            the @OnChangeSearch</a></div>
+        <div style="margin-left: 3em;"><a href="#adapting-invoicetest">Adapting
+            InvoiceTest</a></div>
+        <div style="margin-left: 3em;"><a href="#testing-the-addaction">Testing
+            the @AddAction</a></div>
+        <div style="margin-left: 3em;"><a href="#testing-the-action-to-add-elements-to-the-collection">Testing
+            the action to add elements to the collection</a></div>
+        <div style="margin-left: 2em;"><a href="#summary">Summary</a></div>
+      </div>
+      In previous lessons you learned how to add your own actions. However this
+      is not enough to fully customize the behavior of your application, because
+      the generated user interface, in concrete the user interface for
+      references and collections, has a standard behavior that sometimes is not
+      the most convenient. <br>
+      Fortunately, OpenXava provides many ways to customize the behavior for
+      references and collections. In this lesson you will learn how to do some
+      of these customizations, and how this adds value to your application.
+      <h2><a name="refining-reference-behavior"></a>Refining reference behavior</h2>
+      You might have noticed that the <i>Order</i> module has a little slip:
+      the user can add any invoice he wants to the current order, even if the
+      invoice customer was different. This is not acceptable. Let's fix it.
+      <h3><a name="validation-is-good-but-not-enough"></a>Validation is good,
+        but not enough</h3>
+      The user can only associate an invoice to an order if both, invoice and
+      order, belong to the same customer. This is specific business logic of
+      your application, so the standard OpenXava behavior does not solve it. The
+      next image shows as a validation error is produced when customer of
+      invoice is incorrect </div>
+    <img src="files/references-collections_en010.png" alt="references-collections_en010"
+      title="references-collections_en010">
+    <div class="wiki" style="display: block;"> Since this is business logic we
+      are going to put it in the model layer, that is, in the entities. We'll do
+      it adding a validation. Thus you'll get the effect of the above figure.
+      You already know how to add this validation to your <i>Order </i>entity.
+      It's just adding a method annotated with <i>@AssertTrue</i>:<br>
+      <pre><code class="java">public class Order {
 
--->
-</style><pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span><span
+    ...
 
-class="br0">)</span>
-@CollectionView<span class="br0">(</span><span class="st0">"NoCustomerNoInvoice"</span><span
+    // This method must return true for this order to be valid
+    @AssertTrue(message="customer_order_invoice_must_match") 
+    private boolean isInvoiceCustomerMatches() {
+    	return invoice == null || // invoice is optional
+    		invoice.getCustomer().getNumber() == getCustomer().getNumber();
+    }
 
-class="br0">)</span>
-@NewAction<span class="br0">(</span><span class="st0">"Invoice.addOrders"</span><span
+}
+</code></pre>Also you have to add the message to <i>i18n/Invoicing-messages_en.properties</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">customer_order_invoice_must_match=The customer of the invoice and the order must match
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> Here we verify that the customer
+      of the invoice is the same as the customer of this order. This is enough
+      to preserve the data integrity, but this validation alone is a poor option
+      from the user viewpoint.
+      <h3><a name="refining-action-for-searching-reference-with-list"></a>Refining
+        action for searching reference with list</h3>
+      Although validation prevents the user from assigning an incorrect invoice
+      to an order, he has a hard time trying to find a correct invoice. Because
+      when the user clicks to search an invoice, all existing invoices are
+      shown. We are going to improve this for showing only the invoices from the
+      customer of the current displayed order, in this way:</div>
+    <img src="files/references-collections_en020.png" alt="references-collections_en020.png"
+      title="references-collections_en020.png"><br>
+    <div class="wiki" style="display: block;"> For defining our own search
+      action for the invoice reference we will use the <i>@SearchAction</i>
+      annotation. Here you have the needed modification in <i>Order</i>
+      class:&nbsp;
+      <pre><code class="java">public class Order extends CommercialDocument {
 
-class="br0">)</span> <span class="co1">// @NewAction is no longer used for define the add action</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+    @ManyToOne
+    @ReferenceView("NoCustomerNoOrders")
+    @OnChange(ShowHideCreateInvoiceAction.class)
+    @SearchAction("Order.searchInvoice") // To define our own action to search invoices
+    Invoice invoice;
 
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Order<span class="sy0">&gt;</span> orders<span
+    ...
+	
+}
+</code></pre> In this simple way we define the action to execute when the user
+      clicks on the flashlight button to search an invoice. The argument used
+      for <i> @SearchAction</i>, <i>Order.searchInvoice</i>, is the qualified
+      name of the action, that is the action <i>searchInvoice</i> of the
+      controller <i>Order</i> as defined in <i> controllers.xml</i> file. Now
+      we have to edit <i>controllers.xml</i> to add the definition of our new
+      action:
+      <pre><code class="xml">&lt;controller name="Order"&gt;
 
-class="sy0">;</span></pre>
-      By:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.java5  {font-family:monospace;}
-.java5 .imp {font-weight: bold; color: red;}
-.java5 .kw1 {color: #000000;  font-weight: bold;}
-.java5 .kw2 {color: #000000; font-weight: bold;}
-.java5 .kw3 {color: #006600; font-weight: bold;}
-.java5 .kw4 {color: #006600; font-weight: bold;}
-.java5 .kw5 {color: #003399; font-weight: bold;}
-.java5 .kw6 {color: #003399; font-weight: bold;}
-.java5 .kw7 {color: #003399; font-weight: bold;}
-.java5 .kw8 {color: #003399; font-weight: bold;}
-.java5 .kw9 {color: #003399; font-weight: bold;}
-.java5 .kw10 {color: #003399; font-weight: bold;}
-.java5 .kw11 {color: #003399; font-weight: bold;}
-.java5 .kw12 {color: #003399; font-weight: bold;}
-.java5 .kw13 {color: #003399; font-weight: bold;}
-.java5 .kw14 {color: #003399; font-weight: bold;}
-.java5 .kw15 {color: #003399; font-weight: bold;}
-.java5 .kw16 {color: #003399; font-weight: bold;}
-.java5 .kw17 {color: #003399; font-weight: bold;}
-.java5 .kw18 {color: #003399; font-weight: bold;}
-.java5 .kw19 {color: #003399; font-weight: bold;}
-.java5 .kw20 {color: #003399; font-weight: bold;}
-.java5 .kw21 {color: #003399; font-weight: bold;}
-.java5 .kw22 {color: #003399; font-weight: bold;}
-.java5 .kw23 {color: #003399; font-weight: bold;}
-.java5 .kw24 {color: #003399; font-weight: bold;}
-.java5 .kw25 {color: #003399; font-weight: bold;}
-.java5 .kw26 {color: #003399; font-weight: bold;}
-.java5 .kw27 {color: #003399; font-weight: bold;}
-.java5 .kw28 {color: #003399; font-weight: bold;}
-.java5 .kw29 {color: #003399; font-weight: bold;}
-.java5 .kw30 {color: #003399; font-weight: bold;}
-.java5 .kw31 {color: #003399; font-weight: bold;}
-.java5 .kw32 {color: #003399; font-weight: bold;}
-.java5 .kw33 {color: #003399; font-weight: bold;}
-.java5 .kw34 {color: #003399; font-weight: bold;}
-.java5 .kw35 {color: #003399; font-weight: bold;}
-.java5 .kw36 {color: #003399; font-weight: bold;}
-.java5 .kw37 {color: #003399; font-weight: bold;}
-.java5 .kw38 {color: #003399; font-weight: bold;}
-.java5 .kw39 {color: #003399; font-weight: bold;}
-.java5 .kw40 {color: #003399; font-weight: bold;}
-.java5 .kw41 {color: #003399; font-weight: bold;}
-.java5 .kw42 {color: #003399; font-weight: bold;}
-.java5 .kw43 {color: #003399; font-weight: bold;}
-.java5 .kw44 {color: #003399; font-weight: bold;}
-.java5 .kw45 {color: #003399; font-weight: bold;}
-.java5 .kw46 {color: #003399; font-weight: bold;}
-.java5 .kw47 {color: #003399; font-weight: bold;}
-.java5 .kw48 {color: #003399; font-weight: bold;}
-.java5 .kw49 {color: #003399; font-weight: bold;}
-.java5 .kw50 {color: #003399; font-weight: bold;}
-.java5 .kw51 {color: #003399; font-weight: bold;}
-.java5 .kw52 {color: #003399; font-weight: bold;}
-.java5 .kw53 {color: #003399; font-weight: bold;}
-.java5 .kw54 {color: #003399; font-weight: bold;}
-.java5 .kw55 {color: #003399; font-weight: bold;}
-.java5 .kw56 {color: #003399; font-weight: bold;}
-.java5 .kw57 {color: #003399; font-weight: bold;}
-.java5 .kw58 {color: #003399; font-weight: bold;}
-.java5 .kw59 {color: #003399; font-weight: bold;}
-.java5 .kw60 {color: #003399; font-weight: bold;}
-.java5 .kw61 {color: #003399; font-weight: bold;}
-.java5 .kw62 {color: #003399; font-weight: bold;}
-.java5 .kw63 {color: #003399; font-weight: bold;}
-.java5 .kw64 {color: #003399; font-weight: bold;}
-.java5 .kw65 {color: #003399; font-weight: bold;}
-.java5 .kw66 {color: #003399; font-weight: bold;}
-.java5 .kw67 {color: #003399; font-weight: bold;}
-.java5 .kw68 {color: #003399; font-weight: bold;}
-.java5 .kw69 {color: #003399; font-weight: bold;}
-.java5 .kw70 {color: #003399; font-weight: bold;}
-.java5 .kw71 {color: #003399; font-weight: bold;}
-.java5 .kw72 {color: #003399; font-weight: bold;}
-.java5 .kw73 {color: #003399; font-weight: bold;}
-.java5 .kw74 {color: #003399; font-weight: bold;}
-.java5 .kw75 {color: #003399; font-weight: bold;}
-.java5 .kw76 {color: #003399; font-weight: bold;}
-.java5 .kw77 {color: #003399; font-weight: bold;}
-.java5 .kw78 {color: #003399; font-weight: bold;}
-.java5 .kw79 {color: #003399; font-weight: bold;}
-.java5 .kw80 {color: #003399; font-weight: bold;}
-.java5 .kw81 {color: #003399; font-weight: bold;}
-.java5 .kw82 {color: #003399; font-weight: bold;}
-.java5 .kw83 {color: #003399; font-weight: bold;}
-.java5 .kw84 {color: #003399; font-weight: bold;}
-.java5 .kw85 {color: #003399; font-weight: bold;}
-.java5 .kw86 {color: #003399; font-weight: bold;}
-.java5 .kw87 {color: #003399; font-weight: bold;}
-.java5 .kw88 {color: #003399; font-weight: bold;}
-.java5 .kw89 {color: #003399; font-weight: bold;}
-.java5 .kw90 {color: #003399; font-weight: bold;}
-.java5 .kw91 {color: #003399; font-weight: bold;}
-.java5 .kw92 {color: #003399; font-weight: bold;}
-.java5 .kw93 {color: #003399; font-weight: bold;}
-.java5 .kw94 {color: #003399; font-weight: bold;}
-.java5 .kw95 {color: #003399; font-weight: bold;}
-.java5 .kw96 {color: #003399; font-weight: bold;}
-.java5 .kw97 {color: #003399; font-weight: bold;}
-.java5 .kw98 {color: #003399; font-weight: bold;}
-.java5 .kw99 {color: #003399; font-weight: bold;}
-.java5 .kw100 {color: #003399; font-weight: bold;}
-.java5 .kw101 {color: #003399; font-weight: bold;}
-.java5 .kw102 {color: #003399; font-weight: bold;}
-.java5 .kw103 {color: #003399; font-weight: bold;}
-.java5 .kw104 {color: #003399; font-weight: bold;}
-.java5 .kw105 {color: #003399; font-weight: bold;}
-.java5 .kw106 {color: #003399; font-weight: bold;}
-.java5 .kw107 {color: #003399; font-weight: bold;}
-.java5 .kw108 {color: #003399; font-weight: bold;}
-.java5 .kw109 {color: #003399; font-weight: bold;}
-.java5 .kw110 {color: #003399; font-weight: bold;}
-.java5 .kw111 {color: #003399; font-weight: bold;}
-.java5 .kw112 {color: #003399; font-weight: bold;}
-.java5 .kw113 {color: #003399; font-weight: bold;}
-.java5 .kw114 {color: #003399; font-weight: bold;}
-.java5 .kw115 {color: #003399; font-weight: bold;}
-.java5 .kw116 {color: #003399; font-weight: bold;}
-.java5 .kw117 {color: #003399; font-weight: bold;}
-.java5 .kw118 {color: #003399; font-weight: bold;}
-.java5 .kw119 {color: #003399; font-weight: bold;}
-.java5 .kw120 {color: #003399; font-weight: bold;}
-.java5 .kw121 {color: #003399; font-weight: bold;}
-.java5 .kw122 {color: #003399; font-weight: bold;}
-.java5 .kw123 {color: #003399; font-weight: bold;}
-.java5 .kw124 {color: #003399; font-weight: bold;}
-.java5 .kw125 {color: #003399; font-weight: bold;}
-.java5 .kw126 {color: #003399; font-weight: bold;}
-.java5 .kw127 {color: #003399; font-weight: bold;}
-.java5 .kw128 {color: #003399; font-weight: bold;}
-.java5 .kw129 {color: #003399; font-weight: bold;}
-.java5 .kw130 {color: #003399; font-weight: bold;}
-.java5 .kw131 {color: #003399; font-weight: bold;}
-.java5 .kw132 {color: #003399; font-weight: bold;}
-.java5 .kw133 {color: #003399; font-weight: bold;}
-.java5 .kw134 {color: #003399; font-weight: bold;}
-.java5 .kw135 {color: #003399; font-weight: bold;}
-.java5 .kw136 {color: #003399; font-weight: bold;}
-.java5 .kw137 {color: #003399; font-weight: bold;}
-.java5 .kw138 {color: #003399; font-weight: bold;}
-.java5 .kw139 {color: #003399; font-weight: bold;}
-.java5 .kw140 {color: #003399; font-weight: bold;}
-.java5 .kw141 {color: #003399; font-weight: bold;}
-.java5 .kw142 {color: #003399; font-weight: bold;}
-.java5 .kw143 {color: #003399; font-weight: bold;}
-.java5 .kw144 {color: #003399; font-weight: bold;}
-.java5 .kw145 {color: #003399; font-weight: bold;}
-.java5 .kw146 {color: #003399; font-weight: bold;}
-.java5 .kw147 {color: #003399; font-weight: bold;}
-.java5 .kw148 {color: #003399; font-weight: bold;}
-.java5 .kw149 {color: #003399; font-weight: bold;}
-.java5 .kw150 {color: #003399; font-weight: bold;}
-.java5 .kw151 {color: #003399; font-weight: bold;}
-.java5 .kw152 {color: #003399; font-weight: bold;}
-.java5 .kw153 {color: #003399; font-weight: bold;}
-.java5 .kw154 {color: #003399; font-weight: bold;}
-.java5 .kw155 {color: #003399; font-weight: bold;}
-.java5 .kw156 {color: #003399; font-weight: bold;}
-.java5 .kw157 {color: #003399; font-weight: bold;}
-.java5 .kw158 {color: #003399; font-weight: bold;}
-.java5 .kw159 {color: #003399; font-weight: bold;}
-.java5 .kw160 {color: #003399; font-weight: bold;}
-.java5 .kw161 {color: #003399; font-weight: bold;}
-.java5 .kw162 {color: #003399; font-weight: bold;}
-.java5 .kw163 {color: #003399; font-weight: bold;}
-.java5 .kw164 {color: #003399; font-weight: bold;}
-.java5 .kw165 {color: #003399; font-weight: bold;}
-.java5 .kw166 {color: #003399; font-weight: bold;}
-.java5 .co1 {color: #666666; font-style: italic;}
-.java5 .co2 {color: #006699;}
-.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
-.java5 .coMULTI {color: #666666; font-style: italic;}
-.java5 .es0 {color: #000099; font-weight: bold;}
-.java5 .br0 {color: #009900;}
-.java5 .sy0 {color: #339933;}
-.java5 .st0 {color: #0000ff;}
-.java5 .nu0 {color: #cc66cc;}
-.java5 .me1 {color: #006633;}
-.java5 .me2 {color: #006633;}
-.java5 span.xtra { display:block; }
+    ...
+	
+    &lt;action name="searchInvoice"
+        class="com.yourcompany.invoicing.actions.SearchInvoiceFromOrderAction"
+        hidden="true" icon="magnify"/&gt;
+        &lt;!--
+        hidden="true" : Because we don't want the action to be shown in module button bar
+        icon="magnify" : The same icon as for the standard search action
+        --&gt;
+	
+&lt;/controller&gt;
+</code></pre> Our action extends from <i>ReferenceSearchAction</i> as shown in
+      the next code:
+      <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
--->
-</style><pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span><span
+import org.openxava.actions.*; // To use ReferenceSearchAction
 
-class="br0">)</span>
-@CollectionView<span class="br0">(</span><span class="st0">"NoCustomerNoInvoice"</span><span
+public class SearchInvoiceFromOrderAction
+    extends ReferenceSearchAction { // Standard logic for searching a reference
 
-class="br0">)</span>
-@AddAction<span class="br0">(</span><span class="st0">"Invoice.addOrders"</span><span
+    public void execute() throws Exception {
+        int customerNumber =
+            getView().getValueInt("customer.number"); // Reads from the view the
+                                         // customer number of the current order
+        super.execute(); // It executes the standard logic that shows a dialog
+        if (customerNumber &gt; 0) { // If there is customer we use it to filter
+            getTab().setBaseCondition("${customer.number} = " + customerNumber);
+        }
+    }
+}
+</code></pre> Note how we use <i>getTab().setBaseCondition()</i> to establish a
+      condition for the list to choose the reference. That is, from a <i>
+        ReferenceSearchAction</i> you can use <i>getTab()</i> to manipulate the
+      way the search list behaves. <br>
+      If there is no customer we don't add any condition so all the invoices
+      will be shown, this is the case when the user chooses the invoice before
+      choosing the customer.
+      <h3><a name="searching-the-reference-typing-in-fields"></a>Searching the
+        reference typing in fields</h3>
+      The list for choosing a reference already works fine. However, we want to
+      give the user the possibility to choose the invoice without the list, by
+      just typing the year and number. Very useful if the user already know
+      which invoice he wants. OpenXava provides this functionality by default.
+      If the <i>@Id</i> fields are displayed in the reference they are used for
+      searching, otherwise OpenXava uses the first displayed field to search.
+      This is not convenient in our case, because the first displayed field is
+      the year, and searching an invoice only by year is not very precise. The
+      following image shows the default behavior and a more convenient
+      alternative:<br>
+      <img src="files/references-collections_en030.png" alt="references-collections_en030.png"
+        title="references-collections_en030.png"><br>
+      Fortunately it's easy to indicate which fields we want to use to search
+      from a user perspective. This is done by means of <i>@SearchKey</i>
+      annotation. Just edit the <i>CommercialDocument</i> class (remember, the
+      parent of <i>Order</i> and <i> Invoice</i>) and add that annotation to
+      the <i>year</i> and <i>number</i> properties:
+      <pre><code class="java">abstract public class CommercialDocument extends Deletable {
 
-class="br0">)</span> <span class="co1">// @AddAction instead</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+    @SearchKey // Add this annotation here
+    @Column(length=4)
+    @DefaultValueCalculator(CurrentYearCalculator.class) 
+    int year;
 
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Order<span class="sy0">&gt;</span> orders<span
+    @SearchKey // Add this annotation here 
+    @Column(length=6)
+    @ReadOnly
+    int number;
+	
+    ...
+	
+}
+</code></pre> In this way when the user searches an order or invoice from a
+      reference he must type the year and the number, and the corresponding
+      entity will be retrieved from database and will populate the user
+      interface. <br>
+      Now it's easy for the user to choose an invoice for the order without
+      using the searching list, just by typing year and number.
+      <h3><a name="refining-action-for-searching-reference-typing-key"></a>Refining
+        action for searching reference typing key</h3>
+      Now that retrieving an invoice by the year and number is usable, we want
+      to refine it in order to help our user to do his work more efficiently.
+      For example, it would be useful that if the user has not chosen a customer
+      for the order yet and he chooses an invoice, the customer of that invoice
+      will be assigned to the current order automatically. The following image
+      visualizes the wanted behavior:<br>
+      <img src="files/references-collections_en040.png" alt="references-collections_en040.png"
+        title="references-collections_en040.png"><br>
+      On the other hand, if the user already has selected the customer for the
+      order, if he is not the same in the invoice, it will be rejected and a
+      message error displayed, just in this way:</div>
+    <img src="files/references-collections_en050.png" alt="references-collections_en050.png"
+      title="references-collections_en050.png"><br>
+    <div class="wiki" style="display: block;"> For defining this special
+      behavior we have to add an <i>@OnChangeSearch</i> annotation in the the <i>invoice</i>
+      reference of <i>Order</i>. <i>@OnChangeSearch</i> allows you to define
+      your own action to do the search of the reference when its key changes in
+      the user interface. You can see the modified reference here:
+      <pre><code class="java">public class Order extends CommercialDocument {
+ 
+    @ManyToOne
+    @ReferenceView("NoCustomerNoOrders") 
+    @OnChange(ShowHideCreateInvoiceAction.class)
+    @OnChangeSearch(OnChangeSearchInvoiceAction.class) // Add this annotation
+    @SearchAction("Order.searchInvoice")
+    Invoice invoice;
+	
+    ...
+	
+}	
+</code></pre> From now on when the user types a new year and number for the
+      invoice, the logic of <i>OnChangeSearchInvoiceAction</i> will be
+      executed. In this action you have to read the invoice data from database
+      and update the user interface. This is the action code:
+      <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
-class="sy0">;</span></pre>
+import java.util.*;
+import org.openxava.actions.*; // To use OnChangeSearchAction
+import org.openxava.model.*;
+import org.openxava.view.*;
+import com.yourcompany.invoicing.model.*;
+
+public class OnChangeSearchInvoiceAction 
+    extends OnChangeSearchAction { // Standard logic for searching a reference when
+                                   // the key values change in the user interface (1)
+    public void execute() throws Exception {
+        super.execute(); // It executes the standard logic (2)
+        Map keyValues = getView()// getView() here is the reference view, not the main one (3)
+            .getKeyValuesWithValue();
+        if (keyValues.isEmpty()) return; // If key is empty no additional logic is executed
+        Invoice invoice = (Invoice) // We search the Invoice entity from the typed key (4)
+            MapFacade.findEntity(getView().getModelName(), keyValues);
+        View customerView = getView().getRoot().getSubview("customer"); // (5)
+        int customerNumber = customerView.getValueInt("number");
+        if (customerNumber == 0) { // If there is no customer we fill it (6)
+            customerView.setValue("number", invoice.getCustomer().getNumber());
+            customerView.refresh();
+        } 
+        else { // If there is already customer we verify that he matches the invoice customer (7)
+            if (customerNumber != invoice.getCustomer().getNumber()) {
+                addError("invoice_customer_not_match", 
+                    invoice.getCustomer().getNumber(), invoice, customerNumber);
+                getView().clear();
+            }
+        }
+    }
+}	
+</code></pre> Given the action extends from <i>OnChangeSearchAction</i> (1) and
+      we use <i>super.execute() </i>(2) it behaves just in the standard way,
+      that is, when the user types a year and number the invoice data is
+      retrieved and fills the user interface. Afterwards, we use <i>getView()</i>
+      (3) to obtain the key of the displayed invoice to find the corresponding
+      entity using <i>MapFacade</i> (4). From inside an <i>OnChangeSearchAction</i>
+      <i>getView()</i> returns the subview of the reference, and not the global
+      view. Therefore, in this case <i>getView()</i> is the view of the invoice
+      reference. This allows you to create more reusable <i>@OnChangeSearch</i>
+      actions. Thus you have to write <i>getView().getRoot().getSubview("customer")</i>
+      (5) to access to the customer view. <br>
+      To implement the behavior visualized in the previous image, the action
+      asks if there is no customer (<i>customberNumber == 0</i>) (6). If this is
+      the case it fills the customer from the customer of the invoice. Otherwise
+      it implements the logic from previous image verifying that the customer of
+      the current order matches the customer of the retrieved invoice. <br>
+      The last remaining detail is the message text. Add the next entry to the <i>Invoicing-messages_en.properties</i>
+      file of <i>i18n</i> folder.
+      <pre><code class="properties">invoice_customer_not_match=Customer Nº {0} of invoice {1} does not match with customer Nº {2} of the current order
+</code></pre> One interesting thing about <i>@OnChangeSearch</i> is that it is
+      also executed when the invoice is chosen from a list, because in this case
+      the year and number of the invoice also changes. Hence, this is a
+      centralized place to refine the logic for retrieving the reference and
+      populating the view.
+      <h2><a name="refining-collection-behavior"></a>Refining collection
+        behavior</h2>
+      We can refine collections in the same way we have refined references. This
+      is very useful, because it allows us to improve the current behavior of
+      the <i>Invoice </i>module. The user can only add an order to an invoice
+      if the invoice and the orders belongs to the same customer. Moreover, the
+      order must be delivered and must not have an invoice yet.
+      <h3><a name="refining-the-list-for-adding-elements-to-a-collection"></a>Refining
+        the list for adding elements to a collection</h3>
+      Currently when the user tries to add orders to an invoice all the orders
+      are available. We are going to improve this for showing only the orders
+      from the customer of the invoice, delivered and with not invoice yet, just
+      as shown: <br>
+      <img src="files/references-collections_en60.png" alt="references-collections_en60.png"
+        title="references-collections_en60.png"><br>
+      We will use the <i>@AddAction</i> annotation for defining our own action
+      to show the list for adding orders. The following code shows the needed
+      modification in <i>Invoice</i> class.
+      <pre><code class="java">public class Invoice extends CommercialDocument {
+
+    @OneToMany(mappedBy="invoice")
+    @CollectionView("NoCustomerNoInvoice")
+    @AddAction("Invoice.addOrders") // To define our own action to add orders
+    Collection&lt;Order&gt; orders;
+
+    ...
+	
+}
+</code></pre> In this simple way we define the action to execute when the user
+      clicks on the button to add orders. The argument used for <i>@AddAction</i>,
+      <i>Invoice.addOrders</i>, is the qualified name of the action, that is the
+      action <i>addOrders</i> of the controller <i>Invoice</i> as defined in <i>
+        controllers.xml</i> file. <br>
+      Now we have to edit <i>controllers.xml</i> to add the <i>Invoice</i>
+      controller (it does not exist yet) definition with our new action:
+      <pre><code class="xml">&lt;controller name="Invoice"&gt;
+    &lt;extends controller="Invoicing"/&gt;
+
+    &lt;action name="addOrders"
+        class="com.yourcompany.invoicing.actions.GoAddOrdersToInvoiceAction"
+        hidden="true" icon="table-row-plus-after"/&gt;
+        &lt;!--
+        hidden="true" : Because we don't want the action to be shown in module button bar
+        icon="table-row-plus-after" : The same icon as for the standard action
+        --&gt;
+
+&lt;/controller&gt;
+</code></pre>This is the action code:
+      <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
+
+import org.openxava.actions.*; // To use GoAddElementsToCollectionAction
+
+public class GoAddOrdersToInvoiceAction
+    extends GoAddElementsToCollectionAction { // Standard logic to go to
+                                              // adding collection elements list
+    public void execute() throws Exception {
+        super.execute(); // It executes the standard logic, that shows a dialog
+        int customerNumber =
+            getPreviousView() // getPreviousView() is the main view (we are in a dialog)
+                .getValueInt("customer.number"); // Reads the customer number
+                                                 // of the current invoice from the view
+        getTab().setBaseCondition( // The condition of the orders list to add
+            "${customer.number} = " + customerNumber +
+            " and ${delivered} = true and ${invoice} is null"
+        );
+    }
+}
+</code></pre> Note how we use <i>getTab().setBaseCondition()</i> to establish a
+      condition for the list to choose the entities to add. That is, from a <i>
+        GoAddElementsToCollectionAction</i> you can use <i>getTab()</i> to
+      manipulate the way the list behaves.
+      <h3><a name="refining-the-action-to-add-elements-to-a-collection"></a>Refining
+        the action to add elements to a collection</h3>
+      A useful improvement for the orders collection would be that when the user
+      adds orders to the current invoice, the detail lines of those orders will
+      be copied automatically to the invoice.<br>
+      We cannot use the <i>@AddAction</i> for this, because it is the action to
+      show the list to add elements to the collection. But this is not the
+      action that adds the elements. <br>
+      Let's learn how to define the action that actually adds the elements: <br>
+      <img src="files/references-collections_en70.png" alt="references-collections_en70.png"
+        title="references-collections_en70.png"><br>
+      Unfortunately, there is not an annotation to directly define this 'Add'
+      action. However, that is not a very difficult task, we only have to refine
+      the <i>@AddAction</i> instructing it to show our own controller, and in
+      this controller we can put the actions we want. Given we already have
+      defined our <i>@AddAction</i> in the previous section we only have to add
+      a new method to the already existing <i>GoAddOrdersToInvoiceAction</i>
+      class. Add the next <i>getNextController()</i> method to your action:
+      <pre><code class="java">public class GoAddOrdersToInvoiceAction ... {
+
+    ...
+
+    public String getNextController() { // We add this method
+        return "AddOrdersToInvoice"; // The controller with the available actions
+    }                                // in the list of orders to add
+}
+</code></pre> By default the actions in the list of entities to add (the ADD and
+      CANCEL buttons) are from the standard OpenXava controller <i>AddToCollection</i>.
+      Overwriting <i>getNextController()</i> in our action allows us to define
+      our own controller instead. Add the next definition in <i>controllers.xml</i>
+      for our custom controller for adding elements:
+      <pre><code class="xml">&lt;controller name="AddOrdersToInvoice"&gt;
+    &lt;extends controller="AddToCollection" /&gt; &lt;!-- Extends from the standard controller --&gt;
+	
+    &lt;!-- Overwrites the action to add --&gt;
+    &lt;action name="add"
+        class="com.yourcompany.invoicing.actions.AddOrdersToInvoiceAction" /&gt;
+		
+&lt;/controller&gt;
+</code></pre> In this way the action to add orders to the invoice is <i>AddOrdersToInvoiceAction</i>.
+      Remember that the goal of our action is to add the orders to the invoice
+      in the usual way, but also to copy the detail lines from those orders to
+      the invoice. This is the code of the action:<br>
+      <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
+
+import java.rmi.*;
+import java.util.*;
+import javax.ejb.*;
+import org.openxava.actions.*; // To use AddElementsToCollectionAction
+import org.openxava.model.*;
+import org.openxava.util.*;
+import org.openxava.validators.*;
+import com.yourcompany.invoicing.model.*;
+
+public class AddOrdersToInvoiceAction
+    extends AddElementsToCollectionAction { // Standard logic for adding
+                                            // collection elements
+    public void execute() throws Exception {
+        super.execute(); // We use the standard logic "as is"
+        getView().refresh(); // To display fresh data, including recalculated
+    }                        // amounts, which depend on detail lines
+
+    protected void associateEntity(Map keyValues) // The method called to associate
+        throws ValidationException, // each entity to the main one, in this case to
+            XavaException, ObjectNotFoundException,// associate each order to the invoice
+            FinderException, RemoteException
+    {
+        super.associateEntity(keyValues); // It executes the standard logic (1)
+        Order order = (Order) MapFacade.findEntity("Order", keyValues); // (2)
+        order.copyDetailsToInvoice(); // Delegates the main work to the entity (3)
+    }
+}
+</code></pre> We overwrite the <i>execute()</i> method only to refresh the view
+      after the process. Really, we want to refine the logic for associating an
+      order to the invoice. The way to do this is overwriting the <i>associateEntity()</i>
+      method. The logic here is simple, after executing the standard logic (1)
+      we search the corresponding <i>Order</i> entity and then call the <i>copyDetailsToInvoice()</i>
+      in that <i>Order</i>. Luckily we already have a method to copy details
+      from an <i>Order</i> to the specified <i>Invoice</i>, we just call this
+      method. </div>
+    <div class="wiki" style="display: block;">Now you only have to create a new
+      invoice, choose a customer and add orders. It is even easier than using
+      the list mode of <i>Order</i> module because from <i>Invoice</i> module
+      only the suitable orders for the customer are shown.
+      <h2><a name="junit-tests"></a>JUnit tests</h2>
+      We still are in the healthy habit of doing some application code, then
+      some testing code. And now it's time to write the test code for the new
+      feature we added in this lesson.
+      <h3><a name="adapting-ordertest"></a>Adapting <i>OrderTest</i></h3>
+      If you run <i>OrderTest</i> right now it does not pass. This is because
+      our test code relies in some details that have changed. Therefore, we have
+      to modify the current test code. Edit the <i>testSetInvoice()</i> method
+      of <i> OrderTest</i> and apply the next changes:
+      <pre><code class="java">public void testSetInvoice() throws Exception {
+
+    ...
+	
+    assertValue("invoice.number", "");
+    assertValue("invoice.year", "");
+    // execute("Reference.search", // The standard action for invoice searching
+    //    "keyProperty=invoice.year"); // is no longer used
+    execute("Order.searchInvoice", // Instead we use our custom action (1)
+        "keyProperty=invoice.number");
+    execute("List.orderBy", "property=number");
+
+    ...
+	
+    // Restore values
+    
+    setValue("invoice.year", ""); // Now we need to type a year
+    setValue("invoice.number", ""); // and a number to search the invoice (2)
+    setValue("delivered", "false");
+    execute("CRUD.save");
+    assertNoErrors();
+}
+</code></pre> Remember that we annotated the invoice reference in <i>Order </i>with
+      <i>@SearchAction("Order.searchInvoice")</i>, so we have to modify the test
+      to call <i>Order.searchInvoice</i> (1) instead of <i>Reference.search</i>.
+      Also we added <i>@SearchKey</i> to year and number of <i>CommercialDocument</i>,
+      therefore our test has to indicate both year and number to get (or clear
+      in this case) an invoice (2). Because of this last point we also have to
+      modify <i>testCreateInvoiceFromOrder()</i> of <i>OrderTest</i>:
+      <pre><code class="java">public void testCreateInvoiceFromOrder() throws Exception {
+
+    ...
+
+    // Restoring the order for running the test the next time
+    setValue("invoice.year", ""); // Now we need to type a year
+    setValue("invoice.number", ""); // and a number to search the invoice (2)
+    assertValue("invoice.number", "");
+    assertCollectionRowCount("invoice.details", 0);
+    execute("CRUD.save");
+    assertNoErrors();
+}
+</code></pre> After these changes the <i>OrderTest</i> must pass. However, we
+      still have to add the testing of the new functionality of <i>Order</i>
+      module.
+      <h3><a name="testing-the-searchaction"></a>Testing the <i>@SearchAction</i></h3>
+      We have used <i>@SearchAction</i> in the <i>invoice </i>reference of <i>Order</i>
+      for showing in the search list only the invoices from the customer of the
+      current order. Add the next method to <i>OrderTest</i> to test of this
+      functionality:
+      <pre><code class="java">public void testSearchInvoiceFromOrder() throws Exception {
+    login("admin", "admin");      
+    execute("CRUD.new");
+    setValue("customer.number", "1"); // If the customer is 1...
+    execute("Sections.change", "activeSection=1");
+    execute("Order.searchInvoice", // ...when the user clicks to choose an invoice...
+        "keyProperty=invoice.number");
+    assertCustomerInAllRows("1"); // ...only the invoices of customer 1 are shown
+    execute("ReferenceSearch.cancel");
+    execute("Sections.change", "activeSection=0");
+    setValue("customer.number", "2"); // And if the customer is 2...
+    execute("Sections.change", "activeSection=1");
+    execute("Order.searchInvoice", // ...when the user clicks to choose an invoice...
+        "keyProperty=invoice.number");
+    assertCustomerInAllRows("2"); // ...only the invoices of customer 2 are shown
+}
+</code></pre> The trickier part is to assert the invoices list, this is the work
+      for <i>assertCustomerInAllRows()</i> in <i>OrderTest</i>:
+      <pre><code class="java">private void assertCustomerInAllRows(String customerNumber) throws Exception {
+    assertListNotEmpty();
+    int c = getListRowCount();
+    for (int i=0; i&lt;c; i++) { // A loop over all rows
+        if (!customerNumber.equals(getValueInList(i, "customer.number"))) {
+            fail("Customer in row " + i + // If the customer is not the expected one it fails
+                " is not " + customerNumber);
+        }
+    }
+}
+</code></pre> It consists in a loop over all rows verifying the customer number.
+      <h3><a name="testing-the-onchangesearch"></a>Testing the <i>@OnChangeSearch</i></h3>
+      We used <i>@OnChangeSearch</i> in the <i> invoice</i> reference of <i>Order</i>
+      for assigning automatically the customer of the chosen invoice to the
+      current order when the order has no customer yet, or for verifying that
+      the invoice and order customer matches, if the order already has a
+      customer. This is the test method in <i>OrderTest</i>:
+      <pre><code class="java">public void testOnChangeInvoice() throws Exception {
+    login("admin", "admin");
+    execute("CRUD.new"); // We are creating a new order
+    assertValue("customer.number", ""); // so it has no customer yet
+    execute("Sections.change", "activeSection=1");
+    execute("Order.searchInvoice", // Looks for the invoice using a list
+        "keyProperty=invoice.number");
+		
+    execute("List.orderBy", "property=customer.number"); // It orders by customer
+    String customer1Number = getValueInList(0, "customer.number"); // Memorizes..
+    String invoiceYear1 = getValueInList(0, "year"); // ..the data of the...
+    String invoiceNumber1 = getValueInList(0, "number"); // ...first invoice
+    execute("List.orderBy", "property=customer.number"); // It orders by customer
+    String customer2Number = getValueInList(0, "customer.number"); // Memorizes..
+    String customer2Name = getValueInList(0, "customer.name"); // ..the data of
+                                                           // ...the last invoice
+    assertNotEquals("Must be invoices of different customer",
+    customer1Number, customer2Number); // The 2 memorized invoices aren't the same
+	
+    execute("ReferenceSearch.choose","row=0");// The invoice is chosen using the list (1)
+    execute("Sections.change", "activeSection=0");
+    assertValue("customer.number", customer2Number); // The customer data is
+    assertValue("customer.name", customer2Name); // filled automatically (2)
+    execute("Sections.change", "activeSection=1");
+    setValue("invoice.year", invoiceYear1); // We try to put an invoice of another...
+    setValue("invoice.number", invoiceNumber1); // ...customer (3)
+	
+    assertError("Customer Nº " + customer1Number + " of invoice " + // It shows
+        invoiceYear1 + "/" + invoiceNumber1 + // an error message... (4)
+        " does not match with customer Nº " +
+        customer2Number + " of the current order");
+		
+    assertValue("invoice.year", ""); // ...and resets the invoice data (5)
+    assertValue("invoice.number", "");
+    assertValue("invoice.date", "");
+}
+</code></pre> Here we test that our on-change action fills the customer data (3)
+      on choosing an invoice (2), and that if the customer is already set, an
+      error message is shown (4) and the invoice is cleared in the view (5).
+      Note how the first time we use the list (1) to choose the invoice and the
+      second time we do it typing the year and number (3).
+      <h3><a name="adapting-invoicetest"></a>Adapting <i>InvoiceTest</i></h3>
+      As in the case of <i>OrderTest</i>, <i>InvoiceTest</i> also fails to
+      pass. You have to do a little adjustments so it works fine. Edit <i>testAddOrders()</i>
+      of <i> InvoiceTest</i> and apply the next changes:
+      <pre><code class="java">public void testAddOrders() throws Exception {
+    login("admin", "admin");
+    assertListNotEmpty();
+    execute("List.orderBy", "property=number");
+    execute("List.viewDetail", "row=0");
+    execute("Sections.change", "activeSection=1");
+    assertCollectionRowCount("orders", 0);
+    // execute("Collection.add", // The standard action for adding orders is no longer used
+    execute("Invoice.addOrders", // Instead we use our custom action
+        "viewObject=xava_view_section1_orders");
+    // checkFirstOrderWithDeliveredEquals("Delivered"); // Now all orders in the list are
+    // checkFirstOrderWithDeliveredEquals(""); // delivered so it makes no sense
+    // execute("AddToCollection.add"); // Instead of the standard action...
+    execute("AddOrdersToInvoice.add", "row=0"); // ...now we have our custom one
+    // assertError("ERROR! 1 element(s) NOT added to Orders of Invoice"); // It is
+                             // impossible because the use cannot chose incorrect orders
+    assertMessage("1 element(s) added to Orders of Invoice");
+    assertCollectionRowCount("orders", 1);
+    checkRowCollection("orders", 0);
+    execute("Collection.removeSelected",
+        "viewObject=xava_view_section1_orders");
+    assertCollectionRowCount("orders", 0);
+}
+</code></pre> The <i>checkFirstOrderWithDeliveredEquals()</i> method is no
+      longer necessary, therefore we can remove it from <i>InvoiceTest</i>:
+      <pre><code class="java">// Remove checkFirstOrderWithDeliveredEquals() from InvoiceTest
+// private void checkFirstOrderWithDeliveredEquals(String value)
+//     throws Exception { ... }
+</code></pre> After these changes the <i>InvoiceTest</i> must pass. However, we
+      still have to add the testing of the new functionality of <i>Invoice</i>
+      module.
+      <h3><a name="testing-the-addaction"></a>Testing the <i>@AddAction</i></h3>
+      In this lesson we annotated the <i>orders</i> collection of <i>Invoice</i>
+      with <i>@AddAction</i> to refine the list of orders to be added to the
+      collection. In this way only delivered orders of the customer of the
+      current invoice and with no invoice yet are shown. We are going to test
+      this, and at the same time, we'll learn how to refactor the existing code
+      in order to reuse it. <br>
+      First, we want to verify that the list to add orders only contains orders
+      of the current customer. The next code shows the changes in <i>testAddOrders()</i>
+      of <i>InvoiceTest</i> to accomplish this.
+      <pre><code class="java">public void testAddOrders() throws Exception {
+    login("admin", "admin");
+    assertListNotEmpty();
+    execute("List.orderBy", "property=number");
+    execute("List.viewDetail", "row=0");
+    String customerNumber = getValue("customer.number"); // We take note of the
+    execute("Sections.change", "activeSection=1");   // customer of the invoice
+    assertCollectionRowCount("orders", 0);
+    execute("Invoice.addOrders", 
+	    "viewObject=xava_view_section1_orders");
+    assertCustomerInAllRows(customerNumber); // We assert all customers in list
+                                          // matches the invoice customer
+    ...
+
+}
+</code></pre> Now we have to write the <i>assertCustomerInAllRows()</i> method.
+      But, wait a minute, we already have written this method in <i>OrderTest</i>.
+      We are in <i>InvoiceTest</i> so we cannot call this method, fortunately
+      both <i>InvoiceTest</i> and <i>OrderTest</i> extend the <i>CommercialDocumentTest</i>,
+      therefore we only need to pull up the method. To do it copy the <i>assertCustomerInAllRows()</i>
+      method from <i>OrderTest</i> and paste it in <i>CommercialDocumentTest</i>,
+      changing <i>private</i> to <i>protected</i>, just as shown:
+      <pre><code class="java">abstract public class CommercialDocumentTest extends ModuleTestBase {
+
+    protected void // We change private to protected
+        assertCustomerInAllRows(String customerNumber) throws Exception {
+
+        ...
+		
+    }
+
+    ...
+	
+}
+</code></pre>Now you can remove the <i>assertCustomerInAllRows()</i> method
+      from <i>OrderTest</i>:
+      <pre><code class="java">// Remove assertCustomerInAllRows() from OrderTest
+// private void assertCustomerInAllRows(String customerNumber)
+//     throws Exception { ... }
+</code></pre> After these changes the <i>testAddOrders()</i> method compiles
+      and works. We not only want to test if the orders in list are from the
+      correct customer, but also that they are delivered. The first primary
+      impulse is to copy and paste <i>assertCustomerInAllRows()</i> for
+      creating an <i>assertDeliveredInAllRowsList()</i> method. However, we
+      resist the temptation, instead we are going to create a reusable method.
+      First, we copy and paste&nbsp;<i><i>assertCustomerInAllRows(</i>)</i> as <i>assertValueInAllRows()</i>.
+      Here you can see these two methods in <i>CommercialDocumentTest</i>:
+      <pre><code class="java">protected void assertCustomerInAllRows(String customerNumber) throws Exception {
+    assertListNotEmpty();
+    int c = getListRowCount();
+    for (int i=0; i&lt;c; i++) { // A loop over all rows
+        if (!customerNumber.equals(
+		    getValueInList(i, "customer.number"))) // We ask "ad hoc" for customer
+		{ 
+            fail("Customer in row " + i + 
+                " is not " + customerNumber);
+        }
+    }
+}
+
+protected void assertValueInAllRows(int column, String value) throws Exception {
+    assertListNotEmpty();
+    int c = getListRowCount();
+    for (int i=0; i&lt;c; i++) {
+        if (!value.equals(
+            getValueInList(i, column))) // We ask for the column sent as parameter
+        {
+            fail("Column " + column + " in row " + i + " is not " + value);
+        }
+    }
+}
+</code></pre>You can see how with a very slight modification we have turned <i><i>assertCustomerInAllRows(</i>)</i>
+      in a generic method to ask for the value of any column, not just customer
+      number. Now we have to remove the redundant code, you can either remove <i>assertCustomerInList()</i>
+      or reimplementing it using the new one. The following code in <i>CommercialDocumentTest</i>
+      shows the later option:
+      <pre><code class="java">protected void assertCustomerInAllRows(String customerNumber) throws Exception {
+    assertValueInAllRows(3, customerNumber); // Customer number is in column 3
+}
+</code></pre> Let's use <i>assertValueInAllRows()</i> to assert the orders list
+      contains only delivered orders. The next code shows the needed
+      modification in <i>testAddOrders()</i> of <i>InvoiceTest</i>:
+      <pre><code class="java">public void testAddOrders() throws Exception {
+    login("admin", "admin");
+    assertListNotEmpty();
+    execute("List.orderBy", "property=number");
+    execute("Mode.detailAndFirst");
+    String customerNumber = getValue("customer.number");
+    execute("Sections.change", "activeSection=1");
+    assertCollectionRowCount("orders", 0);
+    execute("Invoice.addOrders",
+        "viewObject=xava_view_section1_orders");
+    assertCustomerInAllRows(customerNumber);
+    assertValueInAllRows(12, "Delivered"); // All cells of column 12 contain 'Delivered'
+
+    ...
+	
+}
+</code></pre> Moreover, we want to test that only orders with no invoice are
+      shown in the list. A simple way to do it is verifying that after adding an
+      order to the current invoice, the list of orders has an entry fewer. The
+      following code shows the needed changes to <i>testAddOrders()</i> of <i>InvoiceTest</i>
+      to do this testing:
+      <pre><code class="java">public void testAddOrders() throws Exception {
+
+    ...
+
+    assertCustomerInAllRows(customerNumber);
+    assertValueInAllRows(12, "Delivered");
+    int ordersRowCount = getListRowCount(); // We take note of orders count
+    execute("AddOrdersToInvoice.add", "row=0"); // when the list is shown
+    assertMessage("1 element(s) added to Orders of Invoice");
+    assertCollectionRowCount("orders", 1); // An order was added
+    execute("Invoice.addOrders", // We show the orders list again
+        "viewObject=xava_view_section1_orders");
+    assertListRowCount(ordersRowCount - 1); // Now we have an order fewer in the list
+    execute("AddToCollection.cancel");
+
+    ... 
+	
+}
+</code></pre> With the code of this section we have tested the <i>@AddAction</i>
+      of <i>orders</i> collection, and at the same time we have seen how it's
+      not needed to develop generic code from start, because it's not difficult
+      to convert the concrete code into generic on demand.
+      <h3><a name="testing-the-action-to-add-elements-to-the-collection"></a>Testing
+        the action to add elements to the collection</h3>
+      In this lesson we also learned how the refine the action that adds orders
+      to the invoice, now it's the moment of testing it. Remember that this
+      action copies the lines from selected orders to the current invoice. The
+      next code shows the changes in <i>testAddOrders()</i> of <i>InvoiceTest</i>
+      for testing of our custom action to add orders: <br>
+      <pre><code class="java">public void testAddOrders() throws Exception {
+
+    ...
+
+    String customerNumber = getValue("customer.number");
+    assertCollectionRowCount("details", 0); // An invoice with no details for this test
+    assertValue("totalAmount", "0.00"); // With no details total amount is 0
+    execute("Sections.change", "activeSection=1");
+    assertCollectionRowCount("orders", 0);
+    execute("Invoice.addOrders", // When we show the order list (2) ...
+        "viewObject=xava_view_section1_orders");
+    assertCustomerInAllRows(customerNumber);
+    assertValueInAllRows(12, "Delivered");
+    String firstOrderTotalAmount = getValueInList(0, 7); // ...we take note of amount
+    int ordersRowCount = getListRowCount(); // amount of first order in the list (3)
+
+    ...
+	
+    assertCollectionRowCount("orders", 1);
+    execute("Sections.change", "activeSection=0");
+    assertCollectionNotEmpty("details"); // There are details, they have been copied (4)
+    assertValue("totalAmount", firstOrderTotalAmount); // The total amount of the
+    execute("Sections.change", "activeSection=1"); // invoice matches with the one
+                                                   // of the recently added order (5)
+    ...
+
+}
+</code></pre> We verify that the invoice for this test has no details.
+      Afterwards, we add an order (2), taking note of its total amount (3), then
+      we verify that current invoice has details (4) and its total amount is the
+      same of the added order (5). </div>
+    <div class="wiki" style="display: block;">The <i>testAddOrders()</i> method
+      is finished. This is its definitive code:
+      <pre><code class="java">public void testAddOrders() throws Exception {
+    login("admin", "admin");
+    assertListNotEmpty();
+    execute("List.orderBy", "property=number");
+    execute("List.viewDetail", "row=0");
+    String customerNumber = getValue("customer.number");
+    assertCollectionRowCount("details", 0);
+    assertValue("totalAmount", "0.00");
+    execute("Sections.change", "activeSection=1");
+    assertCollectionRowCount("orders", 0);
+    execute("Invoice.addOrders",
+        "viewObject=xava_view_section1_orders");
+    assertCustomerInAllRows(customerNumber);
+    assertValueInAllRows(12, "Delivered");
+    String firstOrderTotalAmount = getValueInList(0, 7);
+    int ordersRowCount = getListRowCount();
+    execute("AddOrdersToInvoice.add", "row=0");
+    assertMessage("1 element(s) added to Orders of Invoice");
+    assertCollectionRowCount("orders", 1);
+    execute("Sections.change", "activeSection=0");
+    assertCollectionNotEmpty("details");
+    assertValue("totalAmount", firstOrderTotalAmount);
+    execute("Sections.change", "activeSection=1");
+    execute("Invoice.addOrders",
+        "viewObject=xava_view_section1_orders");
+    assertListRowCount(ordersRowCount - 1);
+    execute("AddToCollection.cancel");
+    checkRowCollection("orders", 0);
+    execute("Collection.removeSelected",
+        "viewObject=xava_view_section1_orders");
+    assertCollectionRowCount("orders", 0);
+}
+</code></pre> We have finished the test code. Now it's time to execute all the
+      tests for your project. They must be green.
+      <h2><a name="summary"></a>Summary</h2>
+      This lesson has shown you how to refine the standard behavior of
+      references and collections in order for your application to fit the users
+      needs. Here you only have seen some illustrative examples, but OpenXava
+      provides many more possibilities for refining collections and references,
+      such as the next annotations: <i>@ReferenceView, @ReadOnly, @NoFrame,
+        @NoCreate, @NoModify, @NoSearch, @AsEmbedded, @SearchAction,
+        @DescriptionsList, @LabelFormat, @Action, @OnChange, @OnChangeSearch,
+        @Editor, @CollectionView, @EditOnly, @ListProperties, @RowStyle,
+        @EditAction, @ViewAction, @NewAction, @SaveAction, @HideDetailAction,
+        @RemoveAction, @RemoveSelectedAction, @ListAction, @DetailAction</i> and
+      <i>@OnSelectElementAction</i>. Look at the <a href="view_en.html#View-Reference%20customization">Reference
+        customization</a> and <a href="view_en.html#View-Collection%20customization">Collection
+        customization</a> sections of reference guide.<br>
+      And if that wasn't enough you always have the option of <a href="customizing_en.html">defining
+        your own editor</a> for references or collections. Editors allows you to
+      create a custom user interface component for displaying and editing the
+      reference or collection. <br>
+      This flexibility allows you to use automatic user interfaces for
+      practically any possible case in real life business applications. </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code-references-collections_en.zip/download"
+          rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
-          rel="nofollow">Ask in the forum</a></strong> </div>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong><strong></strong> </div>
   </body>
 </html>

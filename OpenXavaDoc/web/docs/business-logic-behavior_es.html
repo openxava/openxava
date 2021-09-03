@@ -118,8 +118,8 @@
       mismo nombre que a la entidad y el módulo, ya tenemos automáticamente esta
       nueva acción disponible para <i>Pedido</i>. El controlador <i>Pedido</i>
       desciende del controlador <i>Facturacion</i>. Recuerda que creamos un
-      controlador <i>Facturacion</i> en la lección 7. Es un refinamiento del
-      controlador <i>Typical</i>.<br>
+      controlador <i>Facturacion</i> en la lección anterior. Es un refinamiento
+      del controlador <i>Typical</i>.<br>
       Ahora hemos de escribir el código Java para la acción. Puedes verlo aquí:
       <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
 
@@ -180,8 +180,7 @@ public class CrearFacturaDesdePedido
       dentro de <i>Pedido</i> es un enfoque pragmático, porque de esta forma
       podemos usar esta lógica desde otras acciones, proceso masivos, servicios
       web, etc.<br>
-      Veamos el código del método <i>crearFactura()</i> de la clase <i>Pedido</i>,
-      no olvides añadir los imports indicados:
+      Veamos el código del método <i>crearFactura()</i> de la clase <i>Pedido</i>:
       <pre><code class="java">public class Pedido extends DocumentoComercial {
 
     ...
@@ -206,8 +205,8 @@ public class CrearFacturaDesdePedido
       autogenerado rellenado de antemano. Segundo, has de asignar la nueva <i>
         Factura</i> al actual Pedido (<i>this.factura = factura</i>) después de
       llamar a <i>persist(factura)</i>, si no obtendrás un error de JPA (algo
-      así como “object references an unsaved transient instance”). Tercero,
-      hemos de envolver la colección <i>detalles</i> con un <i>new ArrayList()</i>,
+      así como "object references an unsaved transient instance". Tercero, hemos
+      de envolver la colección <i>detalles</i> con un <i>new ArrayList()</i>,
       para que sea una colección nueva aunque con los mismos elementos, porque
       JPA no quiere la misma colección asignada a dos entidades.
       <h3><a name="escribe-menos-codigo-usando-apache-commons-beanutils"></a>Escribe
@@ -240,7 +239,7 @@ factura.setDetalles(getDetalles());
       usando <i> BeanUtils.copyProperties()</i> el código funcionará siempre
       bien, sin tener que cambiarlo.
       <h3><a name="excepciones-de-aplicacion"></a>Excepciones de aplicación</h3>
-      Recuerda la frase: “La excepción que confirma la regla”. Las reglas, la
+      Recuerda la frase: "La excepción que confirma la regla". Las reglas, la
       vida y el software están llenos de excepciones. Y nuestro método <i>
         crearFactura()</i> no es una excepción. Hemos escrito código que
       funciona en los casos más comunes. Pero, ¿qué ocurre si el pedido no está
@@ -470,11 +469,12 @@ public class MostrarOcultarCrearFactura
       acciones mejora la experiencia del usuario.<br>
       <h2><a name="logica-de-negocio-desde-el-modo-lista"></a>Lógica de negocio
         desde el modo lista</h2>
-      En la lección 7 aprendiste como crear acciones de lista. Las acciones de
-      lista son una herramienta utilísima para dar al usuario la posibilidad de
-      aplicar lógica a varios objetos a la vez. En nuestro caso, podemos añadir
-      una acción en el modo lista para crear una nueva factura automáticamente a
-      partir de varios pedidos seleccionados en la lista, de esta manera:<br>
+      En la lección anterior aprendiste como crear acciones de lista. Las
+      acciones de lista son una herramienta utilísima para dar al usuario la
+      posibilidad de aplicar lógica a varios objetos a la vez. En nuestro caso,
+      podemos añadir una acción en el modo lista para crear una nueva factura
+      automáticamente a partir de varios pedidos seleccionados en la lista, de
+      esta manera:<br>
       <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
         title="business-logic-behavior_es020.png"><br>
       Aquí se muestra como esta acción de lista coge los pedidos seleccionados y
@@ -575,11 +575,7 @@ public class CrearFacturaDesdePedidosSeleccionados
             }
             else { // Para el resto de los pedidos la factura ya está creada
                 pedido.setFactura(factura); // Asigna la factura
-                factura.getDetalles().addAll(pedido.getDetalles()); // Copia las líneas
-                factura.setIva(
-                    factura.getIva().add(pedido.getIva())); // Acumala el IVA
-                factura.setImporteTotal( // y el importe total
-                    factura.getImporteTotal().add(pedido.getImporteTotal()));
+                pedido.copiarDetallesAFactura(); // Un método de Pedido para copiar las lineas
             } 
         } 
         if (factura == null) { // Si no hay pedidos
@@ -590,8 +586,9 @@ public class CrearFacturaDesdePedidosSeleccionados
 }
 </code></pre> Usamos el primer <i>Pedido</i> para crear una nueva <i>Factura</i>
       usando el método ya existente <i>crearFactura()</i> de <i>Pedido</i>.
-      Entonces copiamos las líneas de los pedidos restantes a la nueva <i>Factura</i>
-      y acumulamos en ella el <i>iva</i> e <i>importeTotal</i> de los pedidos.
+      Entonces llamamos a <i>copiarDetallesAFactura()</i> de <i>Pedido</i>
+      para copiar las líneas de los pedidos restantes a la nueva <i>Factura</i>
+      acumulando en ella el <i>iva</i> e <i>importeTotal</i> de los pedidos.
       Además, asignamos la nueva <i>Factura</i> como la factura de los pedidos
       de la colección.<br>
       Si <i>factura</i> es nulo al final del proceso, es porque la colección <i>pedidos</i>
@@ -599,8 +596,26 @@ public class CrearFacturaDesdePedidosSeleccionados
       que la acción no atrapa las excepciones, OpenXava muestra el mensaje de la
       excepción al usuario. Esto está bien. Si el usuario no marca los pedido y
       pulsa en el botón para crear la factura, le aparecerá ese mensaje de
-      error.<br>
-      Acuérdate de añadir los textos para los mensajes en el archivo <i>MensajesFacturacion_es.properties</i>
+      error.</div>
+    <div class="wiki" style="display: block;">Todavía nos queda añadir el método
+      <i>copiarDetallesAFactura()</i> a <i>Pedido</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">public class Pedido extends DocumentoComercial {
+
+    ...
+	
+    public void copiarDetallesAFactura() { 
+        factura.getDetalles().addAll(getDetalles()); // Copia las líneas
+        factura.setIva(factura.getIva().add(getIva())); // Acumula el IVA
+        factura.setImporteTotal( // y el importe total
+		    factura.getImporteTotal().add(getImporteTotal()));
+    }
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Como puedes ver, copia los
+      detalles del pedido actual a la factura y acumula el <i>iva</i> y el <i>importeTotal</i>.</div>
+    <div class="wiki" style="display: block;"> Acuérdate de añadir los textos
+      para los mensajes en el archivo <i>MensajesFacturacion_es.properties</i>
       de la carpeta <i>i18n</i>:
       <pre><code class="properties">pedidos_no_especificados=Pedidos no especificados
 </code></pre> Este no es el único error con el que el usuario puede encontrarse.
@@ -907,13 +922,13 @@ protected int getFilaDocumentoEnLista(String anyo, String numero) ... // protect
 </code></pre> El único detalle pendiente es el método <i>verificarPedido()</i>
       que veremos en la siguiente sección.
       <h3><a name="verificar-datos-de-prueba"></a>Verificar datos de prueba</h3>
-      En la lección 3 (Pruebas automáticas) aprendiste como confiar en datos
+      En la lección sobre pruebas automáticas aprendiste como confiar en datos
       existentes en la base de datos para tus pruebas. Obviamente, si tu base de
       datos se altera accidentalmente tus pruebas, aunque correctas, no pasarán.
       Por tanto, verificar los valores de la base de datos antes de ejecutar la
       prueba que confía en ellos es una buena práctica. En nuestro ejemplo lo
       hacemos llamando a <i>verificarPedido()</i> al principio. Veamos el
-      contenido de <i>verificarPedido()</i>:
+      contenido de <i>verificarPedido()</i> en <i>PruebaPedido</i>:
       <pre><code class="java">private void verificarPedido(
     int anyo, int numero, int cantidadDetalles, String importeTotal)
 {
@@ -993,7 +1008,7 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
       la siguiente lección vamos a refinar el comportamiento de las referencias
       y colecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-8-business-logic-behavior_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-business-logic-behavior_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"

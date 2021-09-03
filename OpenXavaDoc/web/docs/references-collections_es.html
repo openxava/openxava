@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Lección 12: Referencias y colecciones - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -26,410 +29,870 @@
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
         Anotaciones</a>
-      <hr> Esta lección está disponible en PDF:<br>
-      <a href="files/openxava-course9-references-collections_es.pdf">openxava-course9-references-collections_es.pdf</a><br>
-      Esta era la lección 9 del viejo curso. Estamos trabajando en una edición
-      actualizada. Mientras tanto esta lección todavía funciona bien si sigues
-      las instrucciones de abajo.<br>
-      <h2 id="toc1"><a name="Lección 9: Referencias y colecciones-Notas para OpenXava 5.7 y superior"></a>Notas
-        para OpenXava 5.7 y superior</h2>
-      Usa <em>@AddAction</em> en lugar de <em>@NewAction</em> para refinar la
-      acción para añadir nuevos elementos. Por ejemplo, cambia:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.java5  {font-family:monospace;}
-.java5 .imp {font-weight: bold; color: red;}
-.java5 .kw1 {color: #000000;  font-weight: bold;}
-.java5 .kw2 {color: #000000; font-weight: bold;}
-.java5 .kw3 {color: #006600; font-weight: bold;}
-.java5 .kw4 {color: #006600; font-weight: bold;}
-.java5 .kw5 {color: #003399; font-weight: bold;}
-.java5 .kw6 {color: #003399; font-weight: bold;}
-.java5 .kw7 {color: #003399; font-weight: bold;}
-.java5 .kw8 {color: #003399; font-weight: bold;}
-.java5 .kw9 {color: #003399; font-weight: bold;}
-.java5 .kw10 {color: #003399; font-weight: bold;}
-.java5 .kw11 {color: #003399; font-weight: bold;}
-.java5 .kw12 {color: #003399; font-weight: bold;}
-.java5 .kw13 {color: #003399; font-weight: bold;}
-.java5 .kw14 {color: #003399; font-weight: bold;}
-.java5 .kw15 {color: #003399; font-weight: bold;}
-.java5 .kw16 {color: #003399; font-weight: bold;}
-.java5 .kw17 {color: #003399; font-weight: bold;}
-.java5 .kw18 {color: #003399; font-weight: bold;}
-.java5 .kw19 {color: #003399; font-weight: bold;}
-.java5 .kw20 {color: #003399; font-weight: bold;}
-.java5 .kw21 {color: #003399; font-weight: bold;}
-.java5 .kw22 {color: #003399; font-weight: bold;}
-.java5 .kw23 {color: #003399; font-weight: bold;}
-.java5 .kw24 {color: #003399; font-weight: bold;}
-.java5 .kw25 {color: #003399; font-weight: bold;}
-.java5 .kw26 {color: #003399; font-weight: bold;}
-.java5 .kw27 {color: #003399; font-weight: bold;}
-.java5 .kw28 {color: #003399; font-weight: bold;}
-.java5 .kw29 {color: #003399; font-weight: bold;}
-.java5 .kw30 {color: #003399; font-weight: bold;}
-.java5 .kw31 {color: #003399; font-weight: bold;}
-.java5 .kw32 {color: #003399; font-weight: bold;}
-.java5 .kw33 {color: #003399; font-weight: bold;}
-.java5 .kw34 {color: #003399; font-weight: bold;}
-.java5 .kw35 {color: #003399; font-weight: bold;}
-.java5 .kw36 {color: #003399; font-weight: bold;}
-.java5 .kw37 {color: #003399; font-weight: bold;}
-.java5 .kw38 {color: #003399; font-weight: bold;}
-.java5 .kw39 {color: #003399; font-weight: bold;}
-.java5 .kw40 {color: #003399; font-weight: bold;}
-.java5 .kw41 {color: #003399; font-weight: bold;}
-.java5 .kw42 {color: #003399; font-weight: bold;}
-.java5 .kw43 {color: #003399; font-weight: bold;}
-.java5 .kw44 {color: #003399; font-weight: bold;}
-.java5 .kw45 {color: #003399; font-weight: bold;}
-.java5 .kw46 {color: #003399; font-weight: bold;}
-.java5 .kw47 {color: #003399; font-weight: bold;}
-.java5 .kw48 {color: #003399; font-weight: bold;}
-.java5 .kw49 {color: #003399; font-weight: bold;}
-.java5 .kw50 {color: #003399; font-weight: bold;}
-.java5 .kw51 {color: #003399; font-weight: bold;}
-.java5 .kw52 {color: #003399; font-weight: bold;}
-.java5 .kw53 {color: #003399; font-weight: bold;}
-.java5 .kw54 {color: #003399; font-weight: bold;}
-.java5 .kw55 {color: #003399; font-weight: bold;}
-.java5 .kw56 {color: #003399; font-weight: bold;}
-.java5 .kw57 {color: #003399; font-weight: bold;}
-.java5 .kw58 {color: #003399; font-weight: bold;}
-.java5 .kw59 {color: #003399; font-weight: bold;}
-.java5 .kw60 {color: #003399; font-weight: bold;}
-.java5 .kw61 {color: #003399; font-weight: bold;}
-.java5 .kw62 {color: #003399; font-weight: bold;}
-.java5 .kw63 {color: #003399; font-weight: bold;}
-.java5 .kw64 {color: #003399; font-weight: bold;}
-.java5 .kw65 {color: #003399; font-weight: bold;}
-.java5 .kw66 {color: #003399; font-weight: bold;}
-.java5 .kw67 {color: #003399; font-weight: bold;}
-.java5 .kw68 {color: #003399; font-weight: bold;}
-.java5 .kw69 {color: #003399; font-weight: bold;}
-.java5 .kw70 {color: #003399; font-weight: bold;}
-.java5 .kw71 {color: #003399; font-weight: bold;}
-.java5 .kw72 {color: #003399; font-weight: bold;}
-.java5 .kw73 {color: #003399; font-weight: bold;}
-.java5 .kw74 {color: #003399; font-weight: bold;}
-.java5 .kw75 {color: #003399; font-weight: bold;}
-.java5 .kw76 {color: #003399; font-weight: bold;}
-.java5 .kw77 {color: #003399; font-weight: bold;}
-.java5 .kw78 {color: #003399; font-weight: bold;}
-.java5 .kw79 {color: #003399; font-weight: bold;}
-.java5 .kw80 {color: #003399; font-weight: bold;}
-.java5 .kw81 {color: #003399; font-weight: bold;}
-.java5 .kw82 {color: #003399; font-weight: bold;}
-.java5 .kw83 {color: #003399; font-weight: bold;}
-.java5 .kw84 {color: #003399; font-weight: bold;}
-.java5 .kw85 {color: #003399; font-weight: bold;}
-.java5 .kw86 {color: #003399; font-weight: bold;}
-.java5 .kw87 {color: #003399; font-weight: bold;}
-.java5 .kw88 {color: #003399; font-weight: bold;}
-.java5 .kw89 {color: #003399; font-weight: bold;}
-.java5 .kw90 {color: #003399; font-weight: bold;}
-.java5 .kw91 {color: #003399; font-weight: bold;}
-.java5 .kw92 {color: #003399; font-weight: bold;}
-.java5 .kw93 {color: #003399; font-weight: bold;}
-.java5 .kw94 {color: #003399; font-weight: bold;}
-.java5 .kw95 {color: #003399; font-weight: bold;}
-.java5 .kw96 {color: #003399; font-weight: bold;}
-.java5 .kw97 {color: #003399; font-weight: bold;}
-.java5 .kw98 {color: #003399; font-weight: bold;}
-.java5 .kw99 {color: #003399; font-weight: bold;}
-.java5 .kw100 {color: #003399; font-weight: bold;}
-.java5 .kw101 {color: #003399; font-weight: bold;}
-.java5 .kw102 {color: #003399; font-weight: bold;}
-.java5 .kw103 {color: #003399; font-weight: bold;}
-.java5 .kw104 {color: #003399; font-weight: bold;}
-.java5 .kw105 {color: #003399; font-weight: bold;}
-.java5 .kw106 {color: #003399; font-weight: bold;}
-.java5 .kw107 {color: #003399; font-weight: bold;}
-.java5 .kw108 {color: #003399; font-weight: bold;}
-.java5 .kw109 {color: #003399; font-weight: bold;}
-.java5 .kw110 {color: #003399; font-weight: bold;}
-.java5 .kw111 {color: #003399; font-weight: bold;}
-.java5 .kw112 {color: #003399; font-weight: bold;}
-.java5 .kw113 {color: #003399; font-weight: bold;}
-.java5 .kw114 {color: #003399; font-weight: bold;}
-.java5 .kw115 {color: #003399; font-weight: bold;}
-.java5 .kw116 {color: #003399; font-weight: bold;}
-.java5 .kw117 {color: #003399; font-weight: bold;}
-.java5 .kw118 {color: #003399; font-weight: bold;}
-.java5 .kw119 {color: #003399; font-weight: bold;}
-.java5 .kw120 {color: #003399; font-weight: bold;}
-.java5 .kw121 {color: #003399; font-weight: bold;}
-.java5 .kw122 {color: #003399; font-weight: bold;}
-.java5 .kw123 {color: #003399; font-weight: bold;}
-.java5 .kw124 {color: #003399; font-weight: bold;}
-.java5 .kw125 {color: #003399; font-weight: bold;}
-.java5 .kw126 {color: #003399; font-weight: bold;}
-.java5 .kw127 {color: #003399; font-weight: bold;}
-.java5 .kw128 {color: #003399; font-weight: bold;}
-.java5 .kw129 {color: #003399; font-weight: bold;}
-.java5 .kw130 {color: #003399; font-weight: bold;}
-.java5 .kw131 {color: #003399; font-weight: bold;}
-.java5 .kw132 {color: #003399; font-weight: bold;}
-.java5 .kw133 {color: #003399; font-weight: bold;}
-.java5 .kw134 {color: #003399; font-weight: bold;}
-.java5 .kw135 {color: #003399; font-weight: bold;}
-.java5 .kw136 {color: #003399; font-weight: bold;}
-.java5 .kw137 {color: #003399; font-weight: bold;}
-.java5 .kw138 {color: #003399; font-weight: bold;}
-.java5 .kw139 {color: #003399; font-weight: bold;}
-.java5 .kw140 {color: #003399; font-weight: bold;}
-.java5 .kw141 {color: #003399; font-weight: bold;}
-.java5 .kw142 {color: #003399; font-weight: bold;}
-.java5 .kw143 {color: #003399; font-weight: bold;}
-.java5 .kw144 {color: #003399; font-weight: bold;}
-.java5 .kw145 {color: #003399; font-weight: bold;}
-.java5 .kw146 {color: #003399; font-weight: bold;}
-.java5 .kw147 {color: #003399; font-weight: bold;}
-.java5 .kw148 {color: #003399; font-weight: bold;}
-.java5 .kw149 {color: #003399; font-weight: bold;}
-.java5 .kw150 {color: #003399; font-weight: bold;}
-.java5 .kw151 {color: #003399; font-weight: bold;}
-.java5 .kw152 {color: #003399; font-weight: bold;}
-.java5 .kw153 {color: #003399; font-weight: bold;}
-.java5 .kw154 {color: #003399; font-weight: bold;}
-.java5 .kw155 {color: #003399; font-weight: bold;}
-.java5 .kw156 {color: #003399; font-weight: bold;}
-.java5 .kw157 {color: #003399; font-weight: bold;}
-.java5 .kw158 {color: #003399; font-weight: bold;}
-.java5 .kw159 {color: #003399; font-weight: bold;}
-.java5 .kw160 {color: #003399; font-weight: bold;}
-.java5 .kw161 {color: #003399; font-weight: bold;}
-.java5 .kw162 {color: #003399; font-weight: bold;}
-.java5 .kw163 {color: #003399; font-weight: bold;}
-.java5 .kw164 {color: #003399; font-weight: bold;}
-.java5 .kw165 {color: #003399; font-weight: bold;}
-.java5 .kw166 {color: #003399; font-weight: bold;}
-.java5 .co1 {color: #666666; font-style: italic;}
-.java5 .co2 {color: #006699;}
-.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
-.java5 .coMULTI {color: #666666; font-style: italic;}
-.java5 .es0 {color: #000099; font-weight: bold;}
-.java5 .br0 {color: #009900;}
-.java5 .sy0 {color: #339933;}
-.java5 .st0 {color: #0000ff;}
-.java5 .nu0 {color: #cc66cc;}
-.java5 .me1 {color: #006633;}
-.java5 .me2 {color: #006633;}
-.java5 span.xtra { display:block; }
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#referencias-y-colecciones">Lección
+            12: Referencias y colecciones</a></div>
+        <div style="margin-left: 2em;"><a href="#refinar-el-comportamiento-de-las-referencias">Refinar
+            el comportamiento de las referencias</a></div>
+        <div style="margin-left: 3em;"><a href="#las-validaciones-estan-bien-pero-no-son-suficientes">Las
+            validaciones están bien, pero no son suficientes</a></div>
+        <div style="margin-left: 3em;"><a href="#refinar-la-accion-para-buscar-una-referencia-con-una-lista">Refinar
+            la acción para buscar una referencia con una lista</a></div>
+        <div style="margin-left: 3em;"><a href="#buscar-la-referencia-tecleando-en-los-campos">Buscar
+            la referencia tecleando en los campos</a></div>
+        <div style="margin-left: 3em;"><a href="#refinar-la-accion-para-buscar-cuando-se-teclea-la-clave">Refinar
+            la acción para buscar cuando se teclea la clave</a></div>
+        <div style="margin-left: 2em;"><a href="#refinar-el-comportamiento-de-las-colecciones">Refinar
+            el comportamiento de las colecciones</a></div>
+        <div style="margin-left: 3em;"><a href="#refinar-la-lista-para-anadir-elementos-a-la-coleccion">Refinar
+            la lista para añadir elementos a la colección</a></div>
+        <div style="margin-left: 3em;"><a href="#refinar-la-accion-que-anade-elementos-a-la-coleccion">Refinar
+            la acción que añade elementos a la colección</a></div>
+        <div style="margin-left: 2em;"><a href="#pruebas-junit">Pruebas JUnit</a></div>
+        <div style="margin-left: 3em;"><a href="#adaptar-pruebapedido">Adaptar
+            PruebaPedido</a></div>
+        <div style="margin-left: 3em;"><a href="#probar-searchaction">Probar
+            @SearchAction</a></div>
+        <div style="margin-left: 3em;"><a href="#probar-onchangesearch">Probar
+            @OnChangeSearch</a></div>
+        <div style="margin-left: 3em;"><a href="#adaptar-pruebafactura">Adaptar
+            PruebaFactura</a></div>
+        <div style="margin-left: 3em;"><a href="#probar-addaction">Probar
+            @AddAction</a></div>
+        <div style="margin-left: 3em;"><a href="#probar-la-accion-para-anadir-elementos-a-la-coleccion">Probar
+            la acción para añadir elementos a la colección</a></div>
+        <div style="margin-left: 2em;"><a href="#resumen">Resumen</a></div>
+      </div>
+      En lecciones anteriores aprendiste como añadir tus propias acciones. Sin
+      embargo, esto no es suficiente para personalizar del todo el
+      comportamiento de tu aplicación, porque la interfaz de usuario generada,
+      en concreto la interfaz de usuario para referencias y colecciones, tiene
+      un comportamiento estándar que a veces no es el más conveniente. <br>
+      Por fortuna, OpenXava proporciona muchas formas de personalizar el
+      comportamiento de las referencias y colecciones. En esta lección
+      aprenderás como hacer algunas de estas personalizaciones, y como esto
+      añade valor a tu aplicación.
+      <h2><a name="refinar-el-comportamiento-de-las-referencias"></a>Refinar el
+        comportamiento de las referencias</h2>
+      Posiblemente te hayas dado cuenta de que el módulo <i>Pedido</i> tiene un
+      pequeño defecto: el usuario puede añadir cualquier factura que quiera al
+      pedido actual, aunque el cliente de la factura sea diferente. Esto no es
+      admisible. Arreglémoslo.
+      <h3><a name="las-validaciones-estan-bien-pero-no-son-suficientes"></a>Las
+        validaciones están bien, pero no son suficientes</h3>
+      El usuario sólo puede asociar un pedido a una factura si ambos, factura y
+      pedido, pertenecen al mismo cliente. Esto es lógica de negocio específica
+      de tu aplicación, por tanto el comportamiento estándar de OpenXava no lo
+      resuelve. <br>
+      La siguiente imagen muestra cómo se produce un error de validación cuando
+      el cliente de la factura es incorrecto: </div>
+    <img src="files/references-collections_es010.png" alt="references-collections_es010"
+      title="references-collections_es010">
+    <div class="wiki" style="display: block;"> Ya que esto es lógica de negocio
+      la vamos a poner en la capa del modelo, es decir, en las entidades. Lo
+      haremos añadiendo una validación. Así obtendrás el efecto de la figura de
+      arriba. <br>
+      Ya sabes como añadir esta validación a tu entidad <i>Pedido</i>. Se trata
+      de añadir un método anotado con <i>@AssertTrue</i>: <br>
+      <pre><code class="java">public class Pedido {
 
--->
-</style><pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span><span
-class="br0">)</span>
-@CollectionView<span class="br0">(</span><span class="st0">"NoCustomerNoInvoice"</span><span
-class="br0">)</span>
-@NewAction<span class="br0">(</span><span class="st0">"Invoice.addOrders"</span><span
-class="br0">)</span> <span class="co1">// @NewAction ya no se usa para definir la acción de añadir</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Order<span class="sy0">&gt;</span> orders<span
-class="sy0">;</span></pre>
-      Por::<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.java5  {font-family:monospace;}
-.java5 .imp {font-weight: bold; color: red;}
-.java5 .kw1 {color: #000000;  font-weight: bold;}
-.java5 .kw2 {color: #000000; font-weight: bold;}
-.java5 .kw3 {color: #006600; font-weight: bold;}
-.java5 .kw4 {color: #006600; font-weight: bold;}
-.java5 .kw5 {color: #003399; font-weight: bold;}
-.java5 .kw6 {color: #003399; font-weight: bold;}
-.java5 .kw7 {color: #003399; font-weight: bold;}
-.java5 .kw8 {color: #003399; font-weight: bold;}
-.java5 .kw9 {color: #003399; font-weight: bold;}
-.java5 .kw10 {color: #003399; font-weight: bold;}
-.java5 .kw11 {color: #003399; font-weight: bold;}
-.java5 .kw12 {color: #003399; font-weight: bold;}
-.java5 .kw13 {color: #003399; font-weight: bold;}
-.java5 .kw14 {color: #003399; font-weight: bold;}
-.java5 .kw15 {color: #003399; font-weight: bold;}
-.java5 .kw16 {color: #003399; font-weight: bold;}
-.java5 .kw17 {color: #003399; font-weight: bold;}
-.java5 .kw18 {color: #003399; font-weight: bold;}
-.java5 .kw19 {color: #003399; font-weight: bold;}
-.java5 .kw20 {color: #003399; font-weight: bold;}
-.java5 .kw21 {color: #003399; font-weight: bold;}
-.java5 .kw22 {color: #003399; font-weight: bold;}
-.java5 .kw23 {color: #003399; font-weight: bold;}
-.java5 .kw24 {color: #003399; font-weight: bold;}
-.java5 .kw25 {color: #003399; font-weight: bold;}
-.java5 .kw26 {color: #003399; font-weight: bold;}
-.java5 .kw27 {color: #003399; font-weight: bold;}
-.java5 .kw28 {color: #003399; font-weight: bold;}
-.java5 .kw29 {color: #003399; font-weight: bold;}
-.java5 .kw30 {color: #003399; font-weight: bold;}
-.java5 .kw31 {color: #003399; font-weight: bold;}
-.java5 .kw32 {color: #003399; font-weight: bold;}
-.java5 .kw33 {color: #003399; font-weight: bold;}
-.java5 .kw34 {color: #003399; font-weight: bold;}
-.java5 .kw35 {color: #003399; font-weight: bold;}
-.java5 .kw36 {color: #003399; font-weight: bold;}
-.java5 .kw37 {color: #003399; font-weight: bold;}
-.java5 .kw38 {color: #003399; font-weight: bold;}
-.java5 .kw39 {color: #003399; font-weight: bold;}
-.java5 .kw40 {color: #003399; font-weight: bold;}
-.java5 .kw41 {color: #003399; font-weight: bold;}
-.java5 .kw42 {color: #003399; font-weight: bold;}
-.java5 .kw43 {color: #003399; font-weight: bold;}
-.java5 .kw44 {color: #003399; font-weight: bold;}
-.java5 .kw45 {color: #003399; font-weight: bold;}
-.java5 .kw46 {color: #003399; font-weight: bold;}
-.java5 .kw47 {color: #003399; font-weight: bold;}
-.java5 .kw48 {color: #003399; font-weight: bold;}
-.java5 .kw49 {color: #003399; font-weight: bold;}
-.java5 .kw50 {color: #003399; font-weight: bold;}
-.java5 .kw51 {color: #003399; font-weight: bold;}
-.java5 .kw52 {color: #003399; font-weight: bold;}
-.java5 .kw53 {color: #003399; font-weight: bold;}
-.java5 .kw54 {color: #003399; font-weight: bold;}
-.java5 .kw55 {color: #003399; font-weight: bold;}
-.java5 .kw56 {color: #003399; font-weight: bold;}
-.java5 .kw57 {color: #003399; font-weight: bold;}
-.java5 .kw58 {color: #003399; font-weight: bold;}
-.java5 .kw59 {color: #003399; font-weight: bold;}
-.java5 .kw60 {color: #003399; font-weight: bold;}
-.java5 .kw61 {color: #003399; font-weight: bold;}
-.java5 .kw62 {color: #003399; font-weight: bold;}
-.java5 .kw63 {color: #003399; font-weight: bold;}
-.java5 .kw64 {color: #003399; font-weight: bold;}
-.java5 .kw65 {color: #003399; font-weight: bold;}
-.java5 .kw66 {color: #003399; font-weight: bold;}
-.java5 .kw67 {color: #003399; font-weight: bold;}
-.java5 .kw68 {color: #003399; font-weight: bold;}
-.java5 .kw69 {color: #003399; font-weight: bold;}
-.java5 .kw70 {color: #003399; font-weight: bold;}
-.java5 .kw71 {color: #003399; font-weight: bold;}
-.java5 .kw72 {color: #003399; font-weight: bold;}
-.java5 .kw73 {color: #003399; font-weight: bold;}
-.java5 .kw74 {color: #003399; font-weight: bold;}
-.java5 .kw75 {color: #003399; font-weight: bold;}
-.java5 .kw76 {color: #003399; font-weight: bold;}
-.java5 .kw77 {color: #003399; font-weight: bold;}
-.java5 .kw78 {color: #003399; font-weight: bold;}
-.java5 .kw79 {color: #003399; font-weight: bold;}
-.java5 .kw80 {color: #003399; font-weight: bold;}
-.java5 .kw81 {color: #003399; font-weight: bold;}
-.java5 .kw82 {color: #003399; font-weight: bold;}
-.java5 .kw83 {color: #003399; font-weight: bold;}
-.java5 .kw84 {color: #003399; font-weight: bold;}
-.java5 .kw85 {color: #003399; font-weight: bold;}
-.java5 .kw86 {color: #003399; font-weight: bold;}
-.java5 .kw87 {color: #003399; font-weight: bold;}
-.java5 .kw88 {color: #003399; font-weight: bold;}
-.java5 .kw89 {color: #003399; font-weight: bold;}
-.java5 .kw90 {color: #003399; font-weight: bold;}
-.java5 .kw91 {color: #003399; font-weight: bold;}
-.java5 .kw92 {color: #003399; font-weight: bold;}
-.java5 .kw93 {color: #003399; font-weight: bold;}
-.java5 .kw94 {color: #003399; font-weight: bold;}
-.java5 .kw95 {color: #003399; font-weight: bold;}
-.java5 .kw96 {color: #003399; font-weight: bold;}
-.java5 .kw97 {color: #003399; font-weight: bold;}
-.java5 .kw98 {color: #003399; font-weight: bold;}
-.java5 .kw99 {color: #003399; font-weight: bold;}
-.java5 .kw100 {color: #003399; font-weight: bold;}
-.java5 .kw101 {color: #003399; font-weight: bold;}
-.java5 .kw102 {color: #003399; font-weight: bold;}
-.java5 .kw103 {color: #003399; font-weight: bold;}
-.java5 .kw104 {color: #003399; font-weight: bold;}
-.java5 .kw105 {color: #003399; font-weight: bold;}
-.java5 .kw106 {color: #003399; font-weight: bold;}
-.java5 .kw107 {color: #003399; font-weight: bold;}
-.java5 .kw108 {color: #003399; font-weight: bold;}
-.java5 .kw109 {color: #003399; font-weight: bold;}
-.java5 .kw110 {color: #003399; font-weight: bold;}
-.java5 .kw111 {color: #003399; font-weight: bold;}
-.java5 .kw112 {color: #003399; font-weight: bold;}
-.java5 .kw113 {color: #003399; font-weight: bold;}
-.java5 .kw114 {color: #003399; font-weight: bold;}
-.java5 .kw115 {color: #003399; font-weight: bold;}
-.java5 .kw116 {color: #003399; font-weight: bold;}
-.java5 .kw117 {color: #003399; font-weight: bold;}
-.java5 .kw118 {color: #003399; font-weight: bold;}
-.java5 .kw119 {color: #003399; font-weight: bold;}
-.java5 .kw120 {color: #003399; font-weight: bold;}
-.java5 .kw121 {color: #003399; font-weight: bold;}
-.java5 .kw122 {color: #003399; font-weight: bold;}
-.java5 .kw123 {color: #003399; font-weight: bold;}
-.java5 .kw124 {color: #003399; font-weight: bold;}
-.java5 .kw125 {color: #003399; font-weight: bold;}
-.java5 .kw126 {color: #003399; font-weight: bold;}
-.java5 .kw127 {color: #003399; font-weight: bold;}
-.java5 .kw128 {color: #003399; font-weight: bold;}
-.java5 .kw129 {color: #003399; font-weight: bold;}
-.java5 .kw130 {color: #003399; font-weight: bold;}
-.java5 .kw131 {color: #003399; font-weight: bold;}
-.java5 .kw132 {color: #003399; font-weight: bold;}
-.java5 .kw133 {color: #003399; font-weight: bold;}
-.java5 .kw134 {color: #003399; font-weight: bold;}
-.java5 .kw135 {color: #003399; font-weight: bold;}
-.java5 .kw136 {color: #003399; font-weight: bold;}
-.java5 .kw137 {color: #003399; font-weight: bold;}
-.java5 .kw138 {color: #003399; font-weight: bold;}
-.java5 .kw139 {color: #003399; font-weight: bold;}
-.java5 .kw140 {color: #003399; font-weight: bold;}
-.java5 .kw141 {color: #003399; font-weight: bold;}
-.java5 .kw142 {color: #003399; font-weight: bold;}
-.java5 .kw143 {color: #003399; font-weight: bold;}
-.java5 .kw144 {color: #003399; font-weight: bold;}
-.java5 .kw145 {color: #003399; font-weight: bold;}
-.java5 .kw146 {color: #003399; font-weight: bold;}
-.java5 .kw147 {color: #003399; font-weight: bold;}
-.java5 .kw148 {color: #003399; font-weight: bold;}
-.java5 .kw149 {color: #003399; font-weight: bold;}
-.java5 .kw150 {color: #003399; font-weight: bold;}
-.java5 .kw151 {color: #003399; font-weight: bold;}
-.java5 .kw152 {color: #003399; font-weight: bold;}
-.java5 .kw153 {color: #003399; font-weight: bold;}
-.java5 .kw154 {color: #003399; font-weight: bold;}
-.java5 .kw155 {color: #003399; font-weight: bold;}
-.java5 .kw156 {color: #003399; font-weight: bold;}
-.java5 .kw157 {color: #003399; font-weight: bold;}
-.java5 .kw158 {color: #003399; font-weight: bold;}
-.java5 .kw159 {color: #003399; font-weight: bold;}
-.java5 .kw160 {color: #003399; font-weight: bold;}
-.java5 .kw161 {color: #003399; font-weight: bold;}
-.java5 .kw162 {color: #003399; font-weight: bold;}
-.java5 .kw163 {color: #003399; font-weight: bold;}
-.java5 .kw164 {color: #003399; font-weight: bold;}
-.java5 .kw165 {color: #003399; font-weight: bold;}
-.java5 .kw166 {color: #003399; font-weight: bold;}
-.java5 .co1 {color: #666666; font-style: italic;}
-.java5 .co2 {color: #006699;}
-.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
-.java5 .coMULTI {color: #666666; font-style: italic;}
-.java5 .es0 {color: #000099; font-weight: bold;}
-.java5 .br0 {color: #009900;}
-.java5 .sy0 {color: #339933;}
-.java5 .st0 {color: #0000ff;}
-.java5 .nu0 {color: #cc66cc;}
-.java5 .me1 {color: #006633;}
-.java5 .me2 {color: #006633;}
-.java5 span.xtra { display:block; }
+    ...
 
--->
-</style><pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span><span
-class="br0">)</span>
-@CollectionView<span class="br0">(</span><span class="st0">"NoCustomerNoInvoice"</span><span
-class="br0">)</span>
-@AddAction<span class="br0">(</span><span class="st0">"Invoice.addOrders"</span><span
-class="br0">)</span> <span class="co1">// @AddAction en su lugar</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Order<span class="sy0">&gt;</span> orders<span
-class="sy0">;</span></pre>
+    // Este método ha de devolver true para que este pedido sea válido
+    @AssertTrue(message="cliente_pedido_factura_coincidir") 
+    private boolean isClienteFacturaCoincide() {
+    	return factura == null || // factura es opcional
+    		factura.getCliente().getNumero() == getCliente().getNumero();
+    }
+
+}
+</code></pre>También has de añadir el mensaje a <i>i18n/MensajesFacturacion_es.properties</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">cliente_pedido_factura_coincidir=El cliente de la factura y del pedido han de coincidir
+</code></pre>Aquí comprobamos que el cliente de la factura es el mismo que el
+      del pedido. Esto es suficiente para preservar la integridad de los datos,
+      pero la validación sola es una opción bastante pobre desde el punto de
+      vista del usuario.
+      <h3><a name="refinar-la-accion-para-buscar-una-referencia-con-una-lista"></a>Refinar
+        la acción para buscar una referencia con una lista</h3>
+      Aunque la validación impide que el usuario pueda asignar una factura
+      incorrecta a un pedido, lo tiene difícil a la hora de escoger una factura
+      correcta. Porque cuando pulsa para buscar una factura, todas las facturas
+      existentes se muestran. Vamos a mejorar esto para mostrar solo las
+      facturas del cliente del pedido visualizado, de esta manera:<br>
+      <img src="files/references-collections_es020.png" alt="references-collections_es020.png"
+        title="references-collections_es020.png"><br>
+      Para definir nuestra propia acción de búsqueda para la referencia a
+      factura usaremos la anotación <i>@SearchAction</i>. Aquí tienes la
+      modificación necesaria en la clase <i>Pedido</i>:
+      <pre><code class="java">public class Pedido extends DocumentoComercial {
+ 
+    @ManyToOne
+    @ReferenceView("SinClienteNiPedidos") 
+    @OnChange(MostrarOcultarCrearFactura.class) 
+    @SearchAction("Pedido.buscarFactura") // Define nuestra acción para buscar facturas
+    Factura factura; 
+    
+    ...
+	
+}
+</code></pre> De esta forma tan simple definimos la acción a ejecutar cuando el
+      usuario pulsa en el botón de la linterna para buscar una factura. El
+      argumento usado para <i>@SearchAction</i>, <i>Pedido.buscarFactura</i>,
+      es el nombre calificado de la acción, es decir la acción <i>buscarFactura</i>
+      del controlador <i>Pedido</i> definido en el archivo <i>controladores.xml</i>.<br>
+      Ahora tenemos que editar <i>controladores.xml</i> y añadir la definición
+      de nuestra nueva acción:
+      <pre><code class="xml">&lt;controlador nombre="Pedido"&gt;
+
+    ...
+	
+    &lt;accion nombre="buscarFactura"
+        clase="com.tuempresa.facturacion.acciones.BuscarFacturaDesdePedido"
+        oculta="true" icono="magnify"/&gt;
+        &lt;!--
+        oculta="true" : Para que no se muestre en la barra de botones del módulo
+        icono="magnify" : La misma imagen que la de la acción estándar
+        --&gt;
+	
+&lt;/controlador&gt;
+</code></pre>Nuestra acción hereda de <i> ReferenceSearchAction</i> como se
+      muestra en el siguiente código:
+      <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
+
+import org.openxava.actions.*; // Para usar ReferenceSearchAction
+
+public class BuscarFacturaDesdePedido
+    extends ReferenceSearchAction { // Lógica estándar para buscar una referencia
+
+    public void execute() throws Exception {
+        int numeroCliente =
+            getView().getValueInt("cliente.numero"); // Lee de la vista el número
+                                                  // de cliente del pedido actual
+        super.execute(); // Ejecuta la lógica estándar, la cual muestra un diálogo
+        if (numeroCliente &gt; 0) { // Si hay cliente los usamos para filtrar
+            getTab().setBaseCondition("${cliente.numero} = " + numeroCliente);
+        }
+    }
+}
+</code></pre> Observa como usamos <i>getTab().setBaseCondition()</i> para
+      establecer una condición en la lista para escoger la referencia. Es decir,
+      desde una <i> ReferenceSearchAction</i> puedes usar <i>getTab()</i> para
+      manipular la forma en que se comporta la lista.<br>
+      Si no hay cliente no añadimos ninguna condición por tanto se mostrarían
+      todas las facturas, esto ocurre cuando el usuario escoge la factura antes
+      que el cliente.
+      <h3><a name="buscar-la-referencia-tecleando-en-los-campos"></a>Buscar la
+        referencia tecleando en los campos</h3>
+      La lista para escoger una referencia ya funciona bien. Sin embargo,
+      queremos dar al usuario la opción de escoger una factura sin usar la
+      lista, simplemente tecleando el año y el número. Muy útil si el usuario
+      conoce de antemano que factura quiere.<br>
+      OpenXava provee esa funcionalidad por defecto. Si los campos <i>@Id</i>
+      son visualizados en la referencia serán usados para buscar, en caso
+      contrario OpenXava usa el primer campo visualizado para buscar. Aunque en
+      nuestro caso esto no es tan conveniente, porque el primer campo
+      visualizado es el año, y buscar una factura sólo por el año no es muy
+      preciso. La siguiente imagen muestra el comportamiento por defecto junto
+      con una alternativa más conveniente:<br>
+      <img src="files/references-collections_es030.png" alt="references-collections_es030.png"
+        title="references-collections_es030.png"><br>
+      Afortunadamente es fácil indicar que campos queremos usar para buscar
+      desde la perspectiva del usuario. Esto se hace por medio de la anotación <i>@SearchKey</i>.
+      Edita la clase <i>DocumentoComercial</i> (recuerda, el padre de <i>Pedido</i>
+      y <i>Factura</i>) y añade esta anotación a las propiedades <i>anyo</i> y
+      <i>numero</i>:
+      <pre><code class="java">abstract public class DocumentoComercial extends Eliminable {
+
+    @SearchKey // Añade esta anotación aquí
+    @Column(length=4)
+    @DefaultValueCalculator(CurrentYearCalculator.class) 
+    int anyo;
+ 
+    @SearchKey // Añade esta anotación aquí
+    @Column(length=6)
+    @ReadOnly
+    int numero;
+	
+    ...
+	
+}
+</code></pre> De esta forma cuando el usuario busque un pedido o una factura
+      desde una referencia tiene que teclear el año y el número, y la entidad
+      correspondiente será recuperada de la base de datos y rellenará la
+      interfaz de usuario. Ahora es fácil para el usuario escoger una factura
+      desde un pedido sin usar la lista de búsqueda, simplemente tecleando el
+      año y el número.
+      <h3><a name="refinar-la-accion-para-buscar-cuando-se-teclea-la-clave"></a>Refinar
+        la acción para buscar cuando se teclea la clave</h3>
+      Ahora que obtener una factura tecleando el año y el número funciona
+      queremos refinarlo para ayudar al usuario a hacer su trabajo de forma más
+      eficiente. Por ejemplo, sería útil que si el usuario todavía no ha
+      escogido al cliente para el pedido y escoge una factura, el cliente de esa
+      factura sea asignado automáticamente al pedido actual. La siguiente imagen
+      visualiza el comportamiento deseado:<br>
+      <img src="files/references-collections_es040.png" alt="references-collections_es040.png"
+        title="references-collections_es040.png"><br>
+      Por otra parte, si el usuario ya ha seleccionado un cliente para el
+      pedido, si no coincide con el de la factura, ésta será rechazada y se
+      visualizará un mensaje de error, tal como se muestra aquí:</div>
+    <img src="files/references-collections_es050.png" alt="references-collections_es050.png"
+      title="references-collections_es050.png">
+    <div class="wiki" style="display: block;">Para definir este comportamiento
+      especial hemos de añadir una anotación en la referencia <i>factura</i> de
+      <i>Pedido</i>. <i>@OnChangeSearch</i> permite definir nuestra propia
+      acción para hacer la búsqueda de la referencia cuando su clave cambia en
+      la interfaz de usuario. Puedes ver la referencia modificada:
+      <pre><code class="java">public class Pedido extends DocumentoComercial {
+ 
+    @ManyToOne
+    @ReferenceView("SinClienteNiPedidos") 
+    @OnChange(MostrarOcultarCrearFactura.class) 
+    @OnChangeSearch(BuscarAlCambiarFactura.class) // Añade esta anotación
+    @SearchAction("Pedido.buscarFactura") 
+    Factura factura; 
+    
+    ...
+	
+}
+</code></pre> A partir de ahora cuando un usuario teclee un nuevo año y número
+      para la factura, <i>BuscarAlCambiarFactura</i> se ejecutará. En esta
+      acción se han de leer los datos de la factura de la base de datos y
+      actualizar la interfaz de usuario. A continuación el código de la acción:
+      <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
+
+import java.util.*;
+import org.openxava.actions.*; // Para usar OnChangeSearchAction
+import org.openxava.model.*;
+import org.openxava.view.*;
+import com.tuempresa.facturacion.modelo.*;
+
+public class BuscarAlCambiarFactura  
+    extends OnChangeSearchAction { // Lógica estándar para buscar una referencia cuando
+                                   // los valores clave cambian en la interfaz de usuario (1)
+    public void execute() throws Exception {
+        super.execute(); // Ejecuta la lógica estándar (2)
+        Map clave = getView() // getView() aquí es la de la referencia, no la principal(3)
+            .getKeyValuesWithValue();
+        if (clave.isEmpty()) return;  // Si la clave está vacía no se ejecuta más lógica
+        Factura factura = (Factura) // Buscamos la factura usando la clave tecleada (4)
+            MapFacade.findEntity(getView().getModelName(), clave);
+        View vistaCliente = getView().getRoot().getSubview("cliente"); // (5)
+        int numeroCliente = vistaCliente.getValueInt("numero");
+        if (numeroCliente == 0) { // Si no hay cliente lo llenamos (6)
+            vistaCliente.setValue("numero", factura.getCliente().getNumero());
+            vistaCliente.refresh();
+        } 
+        else { // Si ya hay un cliente verificamos que coincida con el cliente de la factura (7)
+            if (numeroCliente != factura.getCliente().getNumero()) {
+                addError("cliente_factura_no_coincide", 
+                    factura.getCliente().getNumero(), factura, numeroCliente);
+                getView().clear();
+            }
+        }
+    }
+}	
+</code></pre> Dado que la acción desciende de <i>OnChangeSearchAction</i> (1) y
+      usamos <i>super.execute()</i> (2) se comporta de la forma estándar, es
+      decir, cuando el usuario teclea el año y el número los datos de la factura
+      se recuperan y rellenan la interfaz de usuario. Después, usamos <i>getView()</i>
+      (3) para obtener la clave de la factura visualizada y así encontrar su
+      correspondiente entidad usando <i>MapFacade</i> (4). Desde dentro de una
+      <i>OnChangeSearchAction</i> <i>getView()</i> devuelve la subvista de la
+      referencia, y no la vista global. Por lo tanto, en este caso <i>getView()</i>
+      es la vista de la referencia a factura. Esto permite crear acciones <i>@OnChangeSearch</i>
+      más reutilizables. Has de escribir <i>getView().getRoot().getSubview("cliente")</i>
+      (5) para acceder a la vista del cliente.&nbsp; <br>
+      Para implementar el comportamiento visualizado en la imagen anterior, la
+      acción pregunta si no hay cliente (<i>numeroCliente == 0</i>) (6). Si éste
+      es el caso rellena los datos del cliente desde el cliente de la factura.
+      En caso contrario implementa la lógica de la imagen de arriba verificando
+      que el cliente del pedido actual coincide con el cliente de la factura
+      recuperada.<br>
+      Nos queda un pequeño detalle, el texto del mensaje. Añade la siguiente
+      entrada al archivo <i>MensajesFacturacion_es.properties</i> de la carpeta
+      <i>i18n</i>:
+      <pre><code class="properties">cliente_factura_no_coincide=Cliente Nº {0} de la factura {1} no coincide con el cliente Nº {2} del pedido actual
+</code></pre> Una cosa interesante de <i>@OnChangeSearch</i> es que también se
+      ejecuta si la factura se escoge desde la lista, porque en este caso el año
+      y el número también cambian. Por ende, este es un lugar centralizado donde
+      refinar la lógica para recuperar la referencia y rellenar la vista.
+      <h2><a name="refinar-el-comportamiento-de-las-colecciones"></a>Refinar el
+        comportamiento de las colecciones</h2>
+      Podemos refinar las colecciones de la misma forma que hemos hecho con las
+      referencias. Esto es muy útil, porque nos permite mejorar el
+      comportamiento actual del módulo <i>Factura</i>. El usuario sólo puede
+      añadir un pedido a una factura si la factura y el pedido pertenecen al
+      mismo cliente. Además, el pedido tiene que estar entregado y no tener
+      todavía factura.
+      <h3><a name="refinar-la-lista-para-anadir-elementos-a-la-coleccion"></a>Refinar
+        la lista para añadir elementos a la colección</h3>
+      Actualmente cuando el usuario trata de añadir pedidos a la factura todos
+      los pedidos están disponibles. Vamos a mejorar esto para mostrar solo los
+      pedidos del cliente de la factura, entregados y todavía sin factura, tal
+      como se muestra: <br>
+      <img src="files/references-collections_es060.png" alt="references-collections_es060.png"
+        title="references-collections_es060.png"><br>
+      Usaremos la anotación <i>@AddAction</i> para definir nuestra propia
+      acción que muestre la lista para añadir pedidos. El siguiente código
+      muestra la modificación necesaria en la clase <i>Factura</i>:
+      <pre><code class="java">public class Factura extends DocumentoComercial {
+ 
+    @OneToMany(mappedBy="factura")
+    @CollectionView("SinClienteNiFactura") 
+    @AddAction("Factura.anyadirPedidos") // Define nuestra propia acción para añadir pedidos
+    Collection&lt;Pedido&gt; pedidos;
+	
+    ...
+	
+}
+</code></pre> De esta forma tan sencilla definimos la acción a ejecutar cuando
+      el usuario pulsa en el botón para añadir pedidos. El argumento usado para
+      <i>@AddAction</i>, <i>Factura.anyadirPedidos</i>, es el nombre calificado
+      de la acción, es decir la acción <i>añadirPedidos</i> del controlador <i>Factura</i>
+      tal como se ha definido en el archivo <i>controladores.xml</i>.<br>
+      Ahora hemos de editar <i>controladores.xml</i> para añadir el controlador
+      <i>Factura</i> (todavía no existe) con nuestra acción:
+      <pre><code class="xml">&lt;controlador nombre="Factura"&gt;
+    &lt;hereda-de controlador="Facturacion"/&gt;
+
+    &lt;accion nombre="anyadirPedidos"
+        clase="com.tuempresa.facturacion.acciones.IrAnyadirPedidosAFactura"
+        oculta="true" icono="table-row-plus-after"/&gt;
+        &lt;!--
+        oculta="true" : No se mostrará en la barra de botones del módulo
+        icono="table-row-plus-after" : La misma imagen que la acción estándar
+        --&gt;
+
+&lt;/controlador&gt;
+</code></pre>Este es el código de la acción:
+      <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
+
+import org.openxava.actions.*; // Para usar GoAddElementsToCollectionAction
+
+public class IrAnyadirPedidosAFactura
+    extends GoAddElementsToCollectionAction { // Lógica estándar para ir a la lista que
+                                              // permite añadir elementos a la colección
+    public void execute() throws Exception {
+        super.execute(); // Ejecuta la lógica estándar, la cual muestra un diálogo
+        int numeroCliente =
+            getPreviousView() // getPreviousView() es la vista principal (estamos en un diálogo)
+                .getValueInt("cliente.numero"); // Lee el número de cliente de la
+                                                // factura actual de la vista
+        getTab().setBaseCondition( // La condición de la lista de pedidos a añadir
+            "${cliente.numero} = " + numeroCliente +
+            " and ${entregado} = true and ${factura} is null"
+        );
+    }
+}
+</code></pre> Fíjate como usamos <i>getTab().setBaseCondition()</i> para
+      establecer la condición de la lista para escoger la entidades a añadir. Es
+      decir, desde una <i>GoAddElementsToCollectionAction</i> puedes usar <i>getTab()</i>
+      para manipular la forma en que la lista se comporta.
+      <h3><a name="refinar-la-accion-que-anade-elementos-a-la-coleccion"></a>Refinar
+        la acción que añade elementos a la colección</h3>
+      Una mejora interesante para la colección de pedidos sería que cuando el
+      usuario añada pedidos a la factura actual, las líneas de detalle de estos
+      pedidos se copien automáticamente a la factura.<br>
+      No podemos usar <i>@AddAction</i> para esto, porque es la acción que
+      muestra la lista de elementos a añadir a la colección. Pero no es la
+      acción que añade los elementos. En esta sección aprenderemos como definir
+      la acción que realmente añade los elementos: <br>
+      <img src="files/references-collections_es070.png" alt="references-collections_es070.png"
+        title="references-collections_es070.png"><br>
+      Por desgracia, no hay una anotación para definir directamente esta acción
+      de añadir. Sin embargo, no es una tarea demasiado difícil, solo hemos de
+      refinar la acción <i>@AddAction</i> instruyéndola para mostrar nuestro
+      propio controlador y en este controlador podemos poner las acciones que
+      queramos. Dado que ya hemos definido nuestra <i>@AddAction</i> en la
+      sección anterior solo hemos de añadir un nuevo método a la ya existente <i>IrAnyadirPedidosAFactura</i>.
+      Añade el siguiente método <i>getNextController()</i> a tu acción:
+      <pre><code class="java">public class IrAnyadirPedidosAFactura ... {
+
+    ...
+
+    public String getNextController() { // Añadimos este método
+        return "AnyadirPedidosAFactura"; // El controlador con las acciones disponibles
+    }                                    // en la lista de pedidos a añadir
+}
+</code></pre> Por defecto las acciones en la lista de entidades a añadir (los
+      botones AÑADIR y CANCELAR) son del controlador estándar de OpenXava <i>AddToCollection</i>.
+      Sobrescribir <i>getNextController()</i> en nuestra acción nos permite
+      definir nuestro propio controlador en su lugar. Añade en <i>controladores.xml</i>
+      la siguiente definición para nuestro controlador propio para añadir
+      elementos:
+      <pre><code class="xml">&lt;controlador nombre="AnyadirPedidosAFactura"&gt;
+    &lt;hereda-de controlador="AddToCollection" /&gt; &lt;!-- Extiende del controlador estándar --&gt;
+	
+    &lt;!-- Sobrescribe la acción para añadir --&gt;
+    &lt;accion nombre="add"
+        clase="com.tuempresa.facturacion.acciones.AnyadirPedidosAFactura" /&gt;
+		
+&lt;/controlador&gt;
+</code></pre> De esta forma la acción para añadir pedidos a la factura será <i>AnyadirPedidosAFactura</i>.
+      Recuerda que el objetivo de nuestra acción es añadir los pedidos a la
+      factura de la manera convencional, pero también copiar las líneas de estos
+      pedidos a la factura. Este es el código de la acción:
+      <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
+
+import java.rmi.*;
+import java.util.*;
+import javax.ejb.*;
+import org.openxava.actions.*; // Para usar AddElementsToCollectionAction
+import org.openxava.model.*;
+import org.openxava.util.*;
+import org.openxava.validators.*;
+import com.tuempresa.facturacion.modelo.*;
+
+public class AnyadirPedidosAFactura
+    extends AddElementsToCollectionAction { // Lógica estándar para añadir
+                                            // elementos a la colección
+    public void execute() throws Exception {
+        super.execute(); // Usamos la lógica estándar "tal cual"
+        getView().refresh(); // Para visualizar datos frescos, incluyendo los importes
+    }                        // recalculados, que dependen de las líneas de detalle
+
+    protected void associateEntity(Map clave) // El método llamado para asociar
+        throws ValidationException, // cada entidad a la principal, en este caso para
+            XavaException, ObjectNotFoundException,// asociar cada pedido a la factura
+            FinderException, RemoteException
+    {
+        super.associateEntity(clave); // Ejecuta la lógica estándar (1)
+        Pedido pedido = (Pedido) MapFacade.findEntity("Pedido", clave); // (2)
+        pedido.copiarDetallesAFactura(); // Delega el trabajo principal en la entidad (3)
+    }
+}
+</code></pre> Sobrescribimos el método <i>execute()</i> sólo para refrescar la
+      vista después del proceso. Realmente, lo que nosotros queremos es refinar
+      la lógica de asociar un pedido a la factura. La forma de hacer esto es
+      sobrescribiendo el método <i>associateEntity()</i>. La lógica aquí es
+      simple, después de ejecutar la lógica estándar (1) buscamos la entidad <i>Pedido</i>
+      correspondiente y entonces llamamos al método <i>copiarDetallesAFactura()</i>
+      de ese <i>Pedido</i>. Por suerte ya teníamos un método para copiar
+      detalles desde una entidad <i>Pedido</i> a la <i>Factura</i>
+      especificada, simplemente llamamos a este método.</div>
+    <div class="wiki" style="display: block;">Ahora solo has de crear una
+      factura nueva, escoger un cliente y añadir pedidos. Es incluso más fácil
+      de usar que el modo lista del módulo <i>Pedido</i> ya que el módulo <i>Factura</i>
+      solo se muestran los pedidos adecuados al cliente.
+      <h2><a name="pruebas-junit"></a>Pruebas JUnit</h2>
+      Todavía tenemos la sana costumbre de hacer un poco de código de
+      aplicación, y después un poco de código de pruebas. Y ahora es el tiempo
+      de escribir el código de pruebas para las nuevas características añadidas
+      en esta lección.
+      <h3><a name="adaptar-pruebapedido"></a>Adaptar <i>PruebaPedido</i></h3>
+      Si ejecutaras <i>PruebaPedido</i> ahora, no pasaría. Esto es porque
+      nuestro código confía en ciertos detalles que han cambiado. Por lo tanto,
+      hemos de modificar nuestro código de pruebas actual. Edita el método <i>
+        testPonerFactura()</i> de <i>PruebaPedido</i> y aplica los siguientes
+      cambios:
+      <pre><code class="java">public void testPonerFactura() throws Exception {
+
+    ...
+
+    assertValue("factura.numero", "");
+    assertValue("factura.anyo", "");
+    // execute("Reference.search", // Ya no usamos la acción estándar para
+    //    "keyProperty=factura.anyo"); // buscar la factura, en su lugar
+    execute("Pedido.buscarFactura", // usamos nuestra acción personalizada (1)
+        "keyProperty=factura.numero");
+    execute("List.orderBy", "property=numero");
+
+    ...
+	
+    // Restaurar valores
+    setValue("factura.anyo", ""); // Ahora es necesario teclear el año
+    setValue("factura.numero", ""); // y el número para buscar la factura (2)
+    setValue("entregado", "false");
+    execute("CRUD.save");
+    assertNoErrors();
+}
+</code></pre> Recuerda que anotamos la referencia <i>factura</i> en <i>Pedido</i>
+      con <i>@SearchAction("Pedido.buscarFactura")</i>, por tanto hemos de
+      modificar la prueba para llamar a <i>Pedido.buscarFactura</i> (1) en vez
+      de a <i>Reference.search</i>. También añadimos <i>@SearchKey</i> a <i>anyo</i>
+      y <i>numero</i> de <i>CommercialDocument</i>, por lo tanto nuestra
+      prueba ha de indicar <i>anyo</i> tanto como <i>numero</i> para obtener
+      (o en este caso borrar) una factura (2). Por causa de esto último también
+      hemos de modificar <i> testCrearFacturaDesdePedido()</i> de <i>PruebaPedido</i>
+      como se muestra:
+      <pre><code class="java">public void testCrearFacturaDesdePedido() throws Exception {
+
+    ...
+
+    // Restaurar el pedido para ejecutar la prueba la siguiente vez
+    setValue("factura.anyo", ""); // Ahora es necesario teclear el año
+    setValue("factura.numero", ""); // y el número para buscar la factura (2)
+    assertValue("factura.numero", "");
+    assertCollectionRowCount("factura.detalles", 0);
+    execute("CRUD.save");
+    assertNoErrors();
+}
+</code></pre> Después de estos cambios <i>PruebaPedido</i> tiene que pasar. Sin
+      embargo, todavía nos queda probar la nueva funcionalidad del módulo <i>Pedido</i>.
+      <h3><a name="probar-searchaction"></a>Probar <i>@SearchAction</i></h3>
+      Hemos usado <i>@SearchAction</i> en la referencia <i>factura</i> de <i>Pedido</i>
+      para mostrar en la lista de búsqueda solo facturas del cliente del pedido
+      actual. Añade el siguiente método a <i>PruebaPedido</i> para probar esta
+      funcionalidad :
+      <pre><code class="java">public void testBuscarFacturaDesdePedido() throws Exception {
+    login("admin", "admin");      
+    execute("CRUD.new");
+    setValue("cliente.numero", "1"); // Si el cliente es 1...
+    execute("Sections.change", "activeSection=1");
+    execute("Pedido.buscarFactura", // ...cuando el usuario pulsa para escoger una factura...
+        "keyProperty=factura.numero");
+    confirmarClienteEnTodasFilas("1"); // ...sólo se muestran las facturas del cliente 1
+    execute("ReferenceSearch.cancel");
+    execute("Sections.change", "activeSection=0");
+    setValue("cliente.numero", "2"); // Y si el cliente es 2...
+    execute("Sections.change", "activeSection=1");
+    execute("Pedido.buscarFactura", // ...cuando el usuario pulsa para escoger una factura...
+        "keyProperty=factura.numero");
+    confirmarClienteEnTodasFilas("2"); // ...sólo se muestran las facturas del cliente 2
+}
+</code></pre> La parte más peliaguda es verificar la lista de facturas, este es
+      el trabajo <i>confirmarClienteEnTodasFilas()</i> en <i>PruebaPedido</i>:<br>
+      <pre><code class="java">private void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
+    assertListNotEmpty();
+    int c = getListRowCount();
+    for (int i=0; i&lt;c; i++) { // Un bucle por todas las filas
+        if (!numeroCliente.equals(getValueInList(i, "cliente.numero"))) {
+            fail("Cliente en fila " + i + // Si el cliente no es el esperado falla
+                " no es " + numeroCliente);
+        }
+    }
+}
+</code></pre> Consiste en un bucle por todas la filas verificando el número de
+      cliente.
+      <h3><a name="probar-onchangesearch"></a>Probar <i>@OnChangeSearch</i></h3>
+      Hemos usado <i>@OnChangeSearch</i> en la referencia <i>factura</i> de <i>Pedido</i>
+      para asignar automáticamente el cliente de la factura escogida al pedido
+      actual cuando el usuario todavía no tiene cliente, o para verificar que el
+      cliente de la factura y del pedido coinciden, si el pedido ya tiene
+      cliente. Aquí se muestra el método de prueba en <i>PruebaPedido</i>:
+      <pre><code class="java">public void testAlCambiarFactura() throws Exception {
+    login("admin", "admin");
+    execute("CRUD.new"); // Estamos creando un nuevo pedido
+    assertValue("cliente.numero", ""); // por tanto no tiene cliente todavía
+    execute("Sections.change", "activeSection=1");
+    execute("Pedido.buscarFactura", // Busca la factura usando una lista
+        "keyProperty=factura.numero");
+
+    execute("List.orderBy", "property=cliente.numero"); // Ordena por cliente
+    String numeroCliente1 = getValueInList(0, "cliente.numero"); // Memoriza..
+    String anyoFactura1 = getValueInList(0, "anyo"); // ...los datos de la...
+    String numeroFactura1 = getValueInList(0, "numero"); // ...primera factura
+    execute("List.orderBy", "property=cliente.numero"); // Ordena por cliente
+    String numeroCliente2 = getValueInList(0, "cliente.numero"); // Memoriza...
+    String nombreCliente2 = getValueInList(0, "cliente.nombre"); // ...los datos de...
+                                                                 // ...la última factura
+    assertNotEquals("Han de ser facturas de diferentes clientes",
+        numeroCliente1, numeroCliente2);// Las 2 facturas memorizadas no son la misma
+    execute("ReferenceSearch.choose","row=0"); // La factura se escoge con la lista (1)
+    execute("Sections.change", "activeSection=0");
+    assertValue("cliente.numero", numeroCliente2); // Los datos del cliente
+    assertValue("cliente.nombre", nombreCliente2); // se rellenan automáticamente (2)
+
+    execute("Sections.change", "activeSection=1");
+    setValue("factura.anyo", anyoFactura1); // Tratamos de poner una factura de...
+    setValue("factura.numero", numeroFactura1); // ...otro cliente (3)
+
+    assertError("Cliente Nº " + numeroCliente1 + " de la factura " + // Muestra...
+        anyoFactura1 + "/" + numeroFactura1 + // ...un mensaje de error... (4)
+        " no coincide con el cliente Nº " +
+        numeroCliente2 + " del pedido actual");
+
+    assertValue("factura.anyo", ""); // ...y reinicia los datos de la factura (5)
+    assertValue("factura.numero", "");
+    assertValue("factura.fecha", "");
+}
+</code></pre> Aquí probamos que nuestra acción <i>@OnChangeSearch</i> rellene
+      los datos del cliente (3) al escoger una factura (2), y que si el cliente
+      ya está establecido se muestre un mensaje de error (4) y la factura se
+      borre de la vista (5). Fíjate como la primera vez usamos la lista (1) para
+      escoger la factura y la segunda lo hacemos tecleando el año y el número
+      (3).
+      <h3><a name="adaptar-pruebafactura"></a>Adaptar <i>PruebaFactura</i></h3>
+      Como en el caso de <i>PruebaPedido</i>,<i> PruebaFactura</i> también
+      falla. Has de hacer unos pequeños ajustes para que funcione. Edita <i>testAnyadirPedidos()</i>
+      de <i>PruebaFactura</i> y aplica los siguiente cambios:
+      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+    login("admin", "admin");
+    assertListNotEmpty();
+    execute("List.orderBy", "property=numero");
+    execute("List.viewDetail", "row=0");
+    execute("Sections.change", "activeSection=1");
+    assertCollectionRowCount("pedidos", 0);
+    // execute("Collection.add", // La acción estándar para añadir pedidos ya no se usa
+    execute("Factura.anyadirPedidos", // En su lugar usamos nuestra propia acción
+        "viewObject=xava_view_section1_pedidos");
+    // seleccionarPrimerPedidoConEntregadoIgual("Entregado"); // Ahora todos los pedidos de la lista 
+    // seleccionarPrimerPedidoConEntregadoIgual(""); // están entregados; esto ya no hace falta 	
+    // execute("AddToCollection.add"); // En lugar de la acción estándar
+    execute("AnyadirPedidosAFactura.add", "row=0"); // ...ahora tenemos la nuestra propia
+    // assertError("¡ERROR! 1 elemento(s) NO añadido a Pedidos de Factura"); // Es
+                  // imposible porque el usuario no puede escoger pedidos incorrectos
+    assertMessage("1 elemento(s) añadido a Pedidos de Factura");
+    assertCollectionRowCount("pedidos", 1);
+    checkRowCollection("pedidos", 0);
+    execute("Collection.removeSelected",
+        "viewObject=xava_view_section1_pedidos");
+    assertCollectionRowCount("pedidos", 0);
+}
+</code></pre> Ya no necesitamos el método <i>seleccionarPrimerPedidoConEntregadoIgual()</i>,
+      por tanto podemos quitarlo de <i>PruebaFactura</i>:
+      <pre><code class="java">// Quita seleccionarPrimerPedidoConEntregadoIgual() de PruebaFactura
+// private void seleccionarPrimerPedidoConEntregadoIgual(String valor)
+// throws Exception { ... }
+</code></pre> Después de estos cambios <i>PruebaFactura</i> ha de funcionar.
+      Sin embargo, todavía nos queda probar la nueva funcionalidad del módulo <i>Factura</i>.
+      <h3><a name="probar-addaction"></a>Probar <i>@AddAction</i></h3>
+      En esta lección anotamos la colección <i>pedidos</i> de <i>Factura</i>
+      con <i>@AddAction</i> para refinar la lista de pedidos a ser añadidos a
+      la colección. De esta forma solo los pedidos entregados del cliente de la
+      factura actual y todavía sin facturar se mostraban. Vamos a probar esto, y
+      al mismo tiempo, aprenderemos como refactorizar el código existente para
+      poder reutilizarlo.&nbsp; <br>
+      Primero queremos verificar que la lista para añadir pedidos solo contiene
+      pedidos del cliente actual. El siguiente código muestra los cambios en <i>
+        testAnyadirPedidos()</i> para conseguir esto:
+      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+    login("admin", "admin");
+    assertListNotEmpty();
+    execute("List.orderBy", "property=numero");
+    execute("List.viewDetail", "row=0");
+    String numeroCliente = getValue("cliente.numero"); // Tomamos nota del
+    execute("Sections.change", "activeSection=1");  // cliente de la factura
+    assertCollectionRowCount("pedidos", 0);
+    execute("Factura.anyadirPedidos",
+        "viewObject=xava_view_section1_pedidos");
+    confirmarClienteEnTodasFilas(numeroCliente); // Confirmamos que todos los cliente en
+                               // la lista coinciden con el cliente de la factura
+    ...
+
+}
+</code></pre> Ahora hemos de escribir el método <i>confirmarClienteEnTodasFilas()</i>.
+      Pero, espera un momento, ya hemos escrito este método en <i>PruebaPedido</i>.
+      Estamos en <i>PruebaFactura</i> por tanto no podemos llamar a este
+      método. Por fortuna tanto <i>PruebaFactura</i> como <i>PruebaPedido</i>
+      heredan de <i> PruebaDocumentoComercial</i>, por lo tanto sólo tenemos
+      que subir el método a la clase madre. Para hacer esto copia el método <i>confirmarClienteEnTodasFilas()</i>
+      desde <i> PruebaPedido</i> a <i>PruebaDocumentoComercial</i>, cambiando
+      <i>private</i> por <i>protected</i>, tal como se muestra:
+      <pre><code class="java">abstract public class PruebaDocumentoComercial extends ModuleTestBase {
+
+    protected void // Cambiamos de private a protected
+        confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
+
+        ...
+		
+    }
+
+    ...
+	
+}
+</code></pre> Ahora puedes quitar el método <i>confirmarClienteEnTodasFilas()</i>
+      de <i>PruebaPedido</i>:
+      <pre><code class="java">// Quita confirmarClienteEnTodasFilas() de PruebaPedido
+// private void confirmarClienteEnTodasFilas(String numeroCliente)
+//     throws Exception { ... }
+</code></pre> Después de estos cambios el método <i>testAnyadirPedidos()</i>
+      compila y funciona. No solo queremos comprobar que la lista de pedidos son
+      del cliente correcto, sino también que están entregados. Nuestro primer
+      impulso es copiar y pegar <i>confirmarClienteEnTodasFilas()</i> para
+      crear un método <i>confirmarEntregadoEnTodasFilas()</i>. Sin embargo,
+      resistimos la tentación, y en vez de eso vamos a crear un método
+      reutilizable. Primero, copiamos y pegamos <i>confirmarClienteEnTodasFilas()</i>
+      como <i>confirmarValorEnTodasFilas()</i>. Aquí puedes ver estos dos
+      métodos en <i>PruebaDocumentoComercial</i>:
+      <pre><code class="java">protected void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
+    assertListNotEmpty();
+    int c = getListRowCount();
+    for (int i=0; i&lt;c; i++) { 
+        if (!numeroCliente.equals(
+		    getValueInList(i, "cliente.numero"))) // Preguntamos por el cliente de forma fija
+        {
+            fail("Cliente en fila " + i + 
+                " no es " + numeroCliente);
+        }
+    }
+}
+  
+protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exception {
+    assertListNotEmpty();
+    int c = getListRowCount();
+    for (int i=0; i&lt;c; i++) {
+        if (!valor.equals(
+            getValueInList(i, columna))) // Preguntamos por la columna enviada como parámetro
+        {
+            fail("Columna " + columna + " en fila " + i + " no es " + valor);
+        }
+    }
+}
+</code></pre> Puedes ver como con unas ligeras modificaciones hemos convertido
+      en un método genérico para preguntar por el valor de cualquier columna, no
+      solo por la del número de cliente. Ahora hemos de quitar el código
+      redundante, puedes, bien quitar <i>confirmarClienteEnTodasFilas()</i> o
+      bien reimplementarlo usando el nuevo método. El siguiente código en <i>PruebaDocumentoComercial</i>
+      muestra la última opción:<br>
+      <pre><code class="java">protected void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
+    confirmarValorEnTodasFilas(3, numeroCliente); // Número de cliente está en la columna 3
+}
+</code></pre> Usemos <i>confirmarValorEnTodasFilas()</i> para verificar que la
+      lista de pedidos contiene solo pedidos entregados. El siguiente código
+      muestra la modificación necesaria en <i>testAnyadirPedidos()</i> de <i>PruebaFactura</i>.
+      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+    login("admin", "admin");
+    assertListNotEmpty();
+    execute("List.orderBy", "property=numero");
+    execute("List.viewDetail", "row=0");
+    String numeroCliente = getValue("cliente.numero");
+    execute("Sections.change", "activeSection=1");
+    assertCollectionRowCount("pedidos", 0);
+    execute("Factura.anyadirPedidos",
+        "viewObject=xava_view_section1_pedidos");
+    confirmarClienteEnTodasFilas(numeroCliente);
+    confirmarValorEnTodasFilas(12, "Entregado"); // Todas las celdas de la columna 12 
+                                                // tienen 'Entregado'
+    ...
+	
+}
+</code></pre> Además, queremos que solo los pedidos sin factura se muestren en
+      la lista. Una forma sencilla de hacerlo es verificando que después de
+      añadir un pedido a la factura actual, la lista de pedidos tenga una
+      entrada menos. El siguiente código muestra los cambios necesarios en <i>
+        testAnyadirPedidos()</i> de <i>PruebaFactura</i> para hacer esto:
+      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+
+    ...
+
+    confirmarClienteEnTodasFilas(numeroCliente);
+    confirmarValorEnTodasFilas(12, "Entregado");
+    int cantidadPedidos = getListRowCount(); // Tomamos nota de la cantidad de pedidos
+    execute("AnyadirPedidosAFactura.add", "row=0"); // cuando se muestra la lista
+    assertMessage("1 elemento(s) añadido a Pedidos de Factura");
+    assertCollectionRowCount("pedidos", 1); // Se añadió un pedido
+    execute("Factura.anyadirPedidos", // Mostramos la lista de pedidos otra vez
+        "viewObject=xava_view_section1_pedidos");
+    assertListRowCount(cantidadPedidos - 1); // Tenemos un pedido menos en la lista
+    execute("AddToCollection.cancel");
+
+    ...
+	
+}
+</code></pre> Con el código de esta sección hemos probado la <i>@AddAction</i>
+      de la colección <i> pedidos</i>, y al mismo tiempo hemos visto como no es
+      necesario crear código genérico desde el principio, porque no es difícil
+      convertir el código concreto en genérico bajo demanda.
+      <h3><a name="probar-la-accion-para-anadir-elementos-a-la-coleccion"></a>Probar
+        la acción para añadir elementos a la colección</h3>
+      En esta lección también aprendimos como refinar la acción para añadir
+      pedidos a la factura, ahora es el momento de escribir su correspondiente
+      código de prueba. Recuerda que esta acción copia las líneas de los pedidos
+      seleccionados a la factura actual. El siguiente código muestra los cambios
+      en <i> testAnyadirPedidos()</i> de <i>PruebaFactura</i> para probar
+      nuestra acción personalizada para añadir pedidos:
+      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+
+    ...
+
+    String numeroCliente = getValue("cliente.numero");
+    assertCollectionRowCount("detalles", 0); // Factura sin detalles para esta preuba
+    assertValue("importeTotal", "0,00"); // Sin detalles el importe total es 0
+    execute("Sections.change", "activeSection=1");
+    assertCollectionRowCount("pedidos", 0);
+    execute("Factura.anyadirPedidos", // Cuando mostramos la lista de pedidos (2) ...
+        "viewObject=xava_view_section1_orders");
+    confirmarClienteEnTodasFilas(numeroCliente);
+    confirmarValorEnTodasFilas(12, "Entregado");
+    String importeTotalPrimerPedido = getValueInList(0, 7); //..tomamos nota del importe
+    int cantidadPedidos = getListRowCount();    // base del primer pedido de la lista (3)
+
+    ...
+
+    assertCollectionRowCount("pedidos", 1);
+    execute("Sections.change", "activeSection=0");
+    assertCollectionNotEmpty("detalles"); // Hay detalles, han sido copiados (4)
+    assertValue("importeTotal", importeTotalPrimerPedido); // El importe total de la factura
+    execute("Sections.change", "activeSection=1"); // coincide con el del
+                                                   // pedido recién añadido (5)
+    ...
+	
+}
+</code></pre>Verificamos que la factura para esta prueba no tiene detalles. A
+      continuación, quitamos las líneas de detalle de la factura (1), después
+      añadimos un pedido (2), tomando nota de su importe total (3), entonces
+      verificamos que la factura actual tiene detalles (4) y que su importe
+      total es el mismo que el del pedido añadido (5). </div>
+    <div class="wiki" style="display: block;">El método <i>testAnyadirPedidos()</i>
+      está acabado. Éste es su código definitivo:
+      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+    login("admin", "admin");
+    assertListNotEmpty();
+    execute("List.orderBy", "property=numero");
+    execute("List.viewDetail", "row=0");
+    String numeroCliente = getValue("cliente.numero");
+    assertCollectionRowCount("detalles", 0);
+    assertValue("importeTotal", "0,00");
+    execute("Sections.change", "activeSection=1");
+    assertCollectionRowCount("pedidos", 0);
+    execute("Factura.anyadirPedidos",
+        "viewObject=xava_view_section1_pedidos");
+    confirmarClienteEnTodasFilas(numeroCliente);
+    confirmarValorEnTodasFilas(12, "Entregado");
+    String importeTotalPrimerPedido = getValueInList(0, 7);
+    int cantidadPedidos = getListRowCount();
+    execute("AnyadirPedidosAFactura.add", "row=0");
+    assertMessage("1 elemento(s) añadido(s) a Pedidos de Factura");
+    assertCollectionRowCount("pedidos", 1);
+    execute("Sections.change", "activeSection=0");
+    assertCollectionNotEmpty("detalles");
+    assertValue("importeTotal", importeTotalPrimerPedido);
+    execute("Sections.change", "activeSection=1");
+    execute("Factura.anyadirPedidos",
+        "viewObject=xava_view_section1_pedidos");
+    assertListRowCount(cantidadPedidos - 1);
+    execute("AddToCollection.cancel");
+    checkRowCollection("pedidos", 0);
+    execute("Collection.removeSelected",
+        "viewObject=xava_view_section1_pedidos");
+    assertCollectionRowCount("pedidos", 0);
+}	
+</code></pre> Hemos finalizado el código de las pruebas automáticas. Ahora
+      puedes ejecutar todas las pruebas de tu proyecto. Han de salir en color
+      verde.
+      <h2><a name="resumen"></a>Resumen</h2>
+      Esta lección te ha mostrado como refinar el comportamiento estándar de las
+      referencias y colecciones para que tu aplicación se adapte a las
+      necesidades del usuario. Aquí sólo has visto algunos ejemplos
+      ilustrativos. OpenXava ofrece muchas más posibilidades para refinar el
+      comportamiento de las colecciones y referencias, con anotaciones como <i>@ReferenceView,
+        @ReadOnly, @NoFrame, @NoCreate, @NoModify, @NoSearch, @AsEmbedded,
+        @SearchAction, @DescriptionsList, @LabelFormat, @Action, @OnChange,
+        @OnChangeSearch, @Editor, @CollectionView, @EditOnly, @ListProperties,
+        @RowStyle, @EditAction, @ViewAction, @NewAction, @SaveAction,
+        @HideDetailAction, @RemoveAction, @RemoveSelectedAction, @ListAction,
+        @DetailAction</i> o <i>@OnSelectElementAction</i>. Mira las secciones <a
+        href="view_es.html#Vista-Personalizacion+de+referencia">Personalización
+        de referencia</a> y <a href="view_es.html#Vista-Personalizacion+de+coleccion">Personalización
+        de colección</a> de la guía de referencia.<br>
+      Y por si esto fuera poco, siempre tienes la opción <a href="customizing_es.html">definir
+        tu propio editor</a> para referencias o colecciones. Los editores te
+      permiten crear una interfaz de usuario personalizada para visualizar y
+      editar la referencia o colección. <br>
+      Esta flexibilidad te permite usar la generación automática de la interfaz
+      gráfica para prácticamente cualquier caso posible en las aplicaciones de
+      gestión de la vida real. </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
+          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-references-collections_es.zip/download"
+          rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-          rel="nofollow">Pregunta en el foro</a></strong> </div>
+          rel="nofollow">Pregunta en el foro</a></strong><strong></strong> </div>
   </body>
 </html>
