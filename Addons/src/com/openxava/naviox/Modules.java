@@ -86,8 +86,9 @@ public class Modules implements Serializable {
 		return result;
 	}
 
-	public void setCurrent(HttpServletRequest request) { 
-		this.current = MetaModuleFactory.create(request.getParameter("application"), request.getParameter("module"));
+
+	public void setCurrent(HttpServletRequest request, String application, String module) { 
+		this.current = MetaModuleFactory.create(application, module);
 		if (topModules == null) loadTopModules(request);	
 		int idx = indexOf(topModules, current);
 		boolean retainOrder = "true".equals(request.getParameter("retainOrder")); 
@@ -102,6 +103,10 @@ public class Modules implements Serializable {
 			topModules.add(fixedModulesCount, current); 
 		}
 		storeTopModules();		
+	}
+	
+	public void setCurrent(HttpServletRequest request) { 
+		setCurrent(request, request.getParameter("application"), request.getParameter("module"));
 	}
 	
 	private void loadTopModules(HttpServletRequest request) { 

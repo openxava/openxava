@@ -38,7 +38,7 @@ naviox.watchSearch = function() {
 }
 
 naviox.bookmark = function() {
-	var bookmark = $('#bookmark');
+	var bookmark = $('#bookmark').children(":first"); 
 	var bookmarkClass = bookmark.attr('class');
 	if (naviox.changeBookmark(bookmark, bookmarkClass, "star-outline", "star")) {
 		Modules.bookmarkCurrentModule();
