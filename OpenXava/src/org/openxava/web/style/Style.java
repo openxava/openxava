@@ -306,6 +306,14 @@ public class Style {
 	}
 	
 	/**
+	 * @since 6.6
+	 */
+	public String getActionLabel() { 
+		return "ox-action-label";
+	}
+
+	
+	/**
 	 * @since 5.5
 	 */
 	public String getCustomizeControls() { 

@@ -27,9 +27,15 @@ public class ActionTagBase extends TagSupport implements IActionTag {
 	protected String getTooltip(MetaAction metaAction) {  
 		String description = getActionDescription(metaAction);
 		StringBuffer result = new StringBuffer();
-		result.append(metaAction.getKeystroke());
-		if (result.length() > 0 && !Is.emptyString(description)) result.append(" - ");
-		result.append(description);
+		result.append(metaAction.getLabel());
+		if (!Is.emptyString(metaAction.getKeystroke())) {
+			result.append(" - ");
+			result.append(metaAction.getKeystroke());
+		}
+		if (!Is.emptyString(description) && !description.equals(metaAction.getLabel())) {
+			result.append(" - ");
+			result.append(description);
+		}
 		return result.toString();
 	}
 	

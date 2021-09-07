@@ -43,7 +43,7 @@ if (!Is.emptyString(actionName)) {
 		<%
 		}
 		if (showLabel) { %>			 				 			
-		<%=label%>
+		<span class="<%=style.getActionLabel()%>"><%=label%></span> 
 		<% } %>		
 	</xava:link>
 	<% } %>	

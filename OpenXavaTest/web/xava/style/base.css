@@ -420,7 +420,7 @@ A.sign-out  {
 	display: none;
 }
 
-@media only screen and (max-width: 1040px) {
+@media only screen and (max-width: 1120px) { 
 
 	#modules_list, #modules_list_hide {
 		display: none;
@@ -864,10 +864,23 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	border: 1px solid transparent; 
 	font-weight: bold;
 	text-decoration: none;
+	white-space: nowrap;  
 }
 
 .ox-button-bar .ox-button-bar-button a {  
 	padding: 6px 6px 6px 0px;  
+}
+
+@media only screen and (max-width: 870px) {
+	.ox-button-bar .ox-action-label {
+		display: none;
+	}
+	.ox-button-bar .ox-subcontroller .ox-action-label {
+		display: inline;
+	}
+	.ox-button-bar .ox-button-bar-button a {  
+        padding-left: 4px;
+	}
 }
 
 .ox-collection-list-actions .ox-button-bar-button a {

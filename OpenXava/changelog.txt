@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Responsive top bar button, now when the UI is narrowed the action labels are hidden.
+- Top bar button and left menu adapted to look better in iPad. 
+- Tooltips for actions include the name of the action, useful when action label is not shown.
 - Last lesson of course, about references and collections, upgraded to latest OpenXava version.
 - Top button bar is fixed on top of the page when the user scrolls the detail or list view. 
 - Left menu with modules is fixed when the user scrolls the main view of the module.

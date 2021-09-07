@@ -206,7 +206,7 @@ public class ColorTest extends ModuleTestBase {
 	}
 	
 	public void testKeysWithZeroValue_actionsTooltips() throws Exception { 
-		assertLinkTooltip("Color.seeMessageSelected", ""); 
+		assertLinkTooltip("Color.seeMessageSelected", "See message selected"); 
 		assertValueInList(0, "number", "0");
 		assertValueInList(0, "name", "ROJO");
 		execute("List.viewDetail", "row=0");
@@ -215,10 +215,10 @@ public class ColorTest extends ModuleTestBase {
 		assertValue("name", "ROJO");
 		assertValue("sample", "RED");
 
-		assertLinkTooltip("CRUD.new", "control N - Create a new entity");
+		assertLinkTooltip("CRUD.new", "New - control N - Create a new entity");
 		assertLinkTooltip("Reference.createNew", "Add");
-		assertInputTooltip("TypicalNotResetOnSave.save", "control S - Save the current entity"); 
-		assertInputTooltip("Color.seeMessage", "");
+		assertInputTooltip("TypicalNotResetOnSave.save", "Save - control S - Save the current entity"); 
+		assertInputTooltip("Color.seeMessage", "See message"); 
 	}		
 		
 	public void testActionOnInitOnEachBeforeRequestInSubcontrollers_messageScapedWithQuotes() throws Exception{ 
