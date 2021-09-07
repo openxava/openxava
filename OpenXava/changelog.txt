@@ -11,7 +11,7 @@ Change Log for OpenXava project
 - Last used modules are remembered and they can be accessed using tabs at the top of the module.
 - Property rememberVisitedModules in naviox.properties to remember the modules visited in last session.
 - Fixed modules (those declared with fixModulesOnTopMenu in naviox.properties) are shown on top as tabs.
-- Lesson 2 of course includes video.
+- Lesson 2 and 3 of course includes video.
 - Lesson 2 of course divided in several smaller lessons.
 - New COORDINATES/COORDENADAS stereotype to store and display a point in a map.	
 - Some new common use labels to be used in applications. 	

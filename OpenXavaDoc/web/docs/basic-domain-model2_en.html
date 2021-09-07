@@ -12,7 +12,8 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Modeling with Java"></a> <span id="breadcrumbs"> <span
+      <h1 id="toc0"><a name="Modeling with Java"></a> <span id="breadcrumbs"> <span
+
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
         Lesson 3: Basic domain model - Parte 2</h1>
@@ -48,7 +49,16 @@
       In this lesson you'll finish to create all the entities required for your
       project. We already have the basic entities, now we're going to write the
       code for the main entity of our invoicing application, the <em>Invoice</em>
-      entity.<br>
+      entity.</div>
+    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=74vFNB6_tVU"
+
+        target="_blank"><img src="files/basic-domain-model2-video_en.png"
+
+          title="Video for lesson 3: Basic domain model - Part 2"></a><br>
+    </div>
+    <div class="wiki" style="display: block;">If you don't like videos follow
+      the instructions below.</div>
+    <div class="wiki" style="display: block;">
       <h2 id="toc6"><a name="Modeling with Java-Basic domain model-Calculating default values"></a>Calculating
         default values</h2>
     </div>
@@ -97,10 +107,13 @@ public class Invoice {
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Thus
         when the user clicks on the <i>New</i> button the year field will have
         the current year, and the date field the current date. These two
-        calculators (</span><em><span style="line-height: 1.5;">CurrentYearCalculator</span></em><span
-        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">CurrentLocalDateCalculator</span></em><span
+        calculators (</span><em><span style="line-height: 1.5;">CurrentYearCalculator</span></em><span
+
+        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">CurrentLocalDateCalculator</span></em><span
+
         style="line-height: 1.5;">) are included in OpenXava. You can explore
-        the </span><em><a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html">org.openxava.calculators</a></em><span
+        the </span><em><a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html">org.openxava.calculators</a></em><span
+
         style="line-height: 1.5;"> package to see other useful built-in
         calculators.</span></div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Note
@@ -256,13 +269,15 @@ public class Detail {
 Collection&lt;Detail&gt; details;
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">As
-        you can see, you only have to feed the value for the annotation </span><em><span
+        you can see, you only have to feed the value for the annotation </span><em><span
+
           style="line-height: 1.5;">@ListProperties</span></em><span style="line-height: 1.5;">
         with the list of the properties you wish, separated by commas. You can
         use qualified properties, that is, to use the dot notation for accessing
         properties of references, such as <em>product.number</em> and <em>product.description</em>
         in this case. The visual result is:</span><br>
-      <img src="files/modeling_en100.png" alt="modeling_en100.png" title="modeling_en100.png"><span
+      <img src="files/modeling_en100.png" alt="modeling_en100.png" title="modeling_en100.png"><span
+
         style="line-height: 1.5;"></span><br>
       <h2 id="toc14"><a name="Modeling with Java-Summary"></a>Summary</h2>
       Congratulations! You have finished your domain model classes, and you have
@@ -277,7 +292,8 @@ Collection&lt;Detail&gt; details;
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;"> <strong>Any problem with this
-        lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+        lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="refining-user-interface_en.html">Go to Lesson
           4</a></strong> </div>
