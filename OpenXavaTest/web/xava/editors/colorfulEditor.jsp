@@ -9,7 +9,8 @@ MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 AnnotatedElement e = p.getAnnotatedElement();
 Colorful colorful = e.getAnnotation(Colorful.class);
 String background = request.getParameter("background");
+String highlight = request.getParameter("highlight");
 %>
 
 Mi color es: <%=colorful.color()%><br>
-y el fondo es: <%=background%>
+y el fondo es: <%=background%>, con highlight: <%=highlight%> 

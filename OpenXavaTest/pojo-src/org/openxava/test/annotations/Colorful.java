@@ -14,5 +14,7 @@ import java.lang.annotation.*;
 public @interface Colorful {
 	
 	String color() default "black";
+	
+	boolean highlight() default false;
 
 }

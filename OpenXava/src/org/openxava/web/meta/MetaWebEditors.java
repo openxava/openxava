@@ -31,7 +31,8 @@ public class MetaWebEditors {
 	private static MetaEditor editorForReferences;
 	private static MetaEditor editorForCollections;
 	private static MetaEditor editorForElementCollections; 
-	private static Collection<MetaEditor> editorsForTabs; 
+	private static Collection<MetaEditor> editorsForTabs;
+	private static Map<MetaProperty, MetaEditor> editorsByMetaProperty; // tmp
 	
 	public static void addMetaEditorForType(String type, MetaEditor editor) throws XavaException {
 		if (editorsByType == null) {
@@ -140,14 +141,35 @@ public class MetaWebEditors {
 	}
 	
 	public static MetaEditor getMetaEditorForAnnotation(MetaProperty p)	throws XavaException { // tmp
-		System.out.println("[MetaWebEditors.getMetaEditorForAnnotation] p.getQualifiedName()=" + p.getQualifiedName()); // tmp
-		AnnotatedElement element = p.getAnnotatedElement();
+		
+		AnnotatedElement element = p.getAnnotatedElement(); // TMP ¿Así?
 		if (element == null) return null;
 		
+		if (editorsByMetaProperty != null && editorsByMetaProperty.containsKey(p)) {
+			return editorsByMetaProperty.get(p);
+		}
+		
+		// TMP ME QUEDÉ POR AQUÍ: PROBANDO SI EL CACHÉ FUNCIONA BIEN Y SOLO CLONA UNA VEZ
 		for (Annotation a: element.getAnnotations()) {
 			MetaEditor r = getEditorsByAnnotation().get(a.annotationType().getName());
-			if (r != null) return r;
+			if (r != null) {
+				r = r.cloneMetaEditor(); // tmp Sólo clonarlo cuando haya propiedades
+				for (Method m: a.annotationType().getMethods()) {
+					if (Is.anyEqual(m.getName(), "equals", "toString", "hashCode", "annotationType")) continue;
+					Object value = null;
+					try {
+						value = XObjects.execute(a, m.getName());
+					} catch (Exception e) {
+						e.printStackTrace(); // tmp
+					}
+					r.addProperty(m.getName(), value.toString());
+				}
+				if (editorsByMetaProperty == null) editorsByMetaProperty = new HashMap<>();
+				editorsByMetaProperty.put(p, r);
+				return r;
+			}
 		}
+		// TMP Hacer caché también de los null
 		return null;
 	}
 	

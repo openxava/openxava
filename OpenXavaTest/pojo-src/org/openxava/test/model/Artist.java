@@ -25,11 +25,12 @@ public class Artist extends Identifiable {
 	
 	@Column(length=40) @Required
 	@OnChange(forViews="ConfirmName", value=OnChangeArtistNameAction.class)
-	@Colorful(color = "pink") // tmp
+	@Colorful(color = "pink", highlight = true) // tmp
 	private String name;
 	
 	@Max(90l)	
-	@ReadOnly(forViews="SomeMembersReadOnly") 
+	@ReadOnly(forViews="SomeMembersReadOnly")
+	@Colorful(color = "green", highlight = false) // tmp
 	private Integer age;
 	
 	@DescriptionsList(descriptionProperties = "id, description")

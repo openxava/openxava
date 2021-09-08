@@ -2,8 +2,6 @@ package org.openxava.web.meta;
 
 import java.util.*;
 
-
-
 import org.apache.commons.logging.*;
 import org.openxava.formatters.*;
 import org.openxava.model.meta.*;
@@ -15,7 +13,7 @@ import org.openxava.util.meta.*;
  * 
  * @author Javier Paniza
  */
-public class MetaEditor {
+public class MetaEditor implements Cloneable { // tmp implements Cloneable
 	
 	private static Log log = LogFactory.getLog(MetaEditor.class);
 	
@@ -72,6 +70,17 @@ public class MetaEditor {
 	/** @since 6.2 */
 	public String getProperty(String name) { 
 		return properties == null?null:(String) properties.get(name);
+	}
+	
+	public MetaEditor cloneMetaEditor()  { // tmp
+		try {
+			MetaEditor r = (MetaEditor) clone();
+			if (properties != null) r.properties = new HashMap(properties);
+			System.out.println("[MetaEditor.cloneMetaEditor] " + getName() + " CLONED"); // tmp
+			return r;
+		} catch (CloneNotSupportedException e) {
+			return null; // Never
+		}		
 	}
 	
 	private String getPropertiesURL() {
