@@ -211,7 +211,14 @@
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.NullFilesIdsProvider"/>
 		<property name="cssClass" value="ox-file"/> 
 		<property name="imagePreview" value="false"/>
-		<for-stereotype steroetype="TEXT_FILE"/>
+		<for-stereotype stereotype="TEXT_FILE"/>
 	</editor>
+	
+	<!-- tmp ini -->
+	<editor name="Colorful" url="colorfulEditor.jsp" format="false">
+		<property name="background" value="rojo"/> 
+		<for-annotation annotation="org.openxava.test.annotations.Colorful"/>
+	</editor>
+	<!-- tmp fin -->
 	
 </editors>

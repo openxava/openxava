@@ -6,6 +6,7 @@ import javax.validation.constraints.*;
 import org.openxava.annotations.*;
 import org.openxava.model.*;
 import org.openxava.test.actions.*;
+import org.openxava.test.annotations.*;
 
 /**
  * 
@@ -23,7 +24,8 @@ public class Artist extends Identifiable {
 	private Studio artistStudio; // Not the same name of parent entity, to test a case
 	
 	@Column(length=40) @Required
-	@OnChange(forViews="ConfirmName", value=OnChangeArtistNameAction.class) 
+	@OnChange(forViews="ConfirmName", value=OnChangeArtistNameAction.class)
+	@Colorful(color = "pink") // tmp
 	private String name;
 	
 	@Max(90l)	

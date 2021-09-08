@@ -3,17 +3,12 @@ package org.openxava.web.meta.xmlparse;
 
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.openxava.util.Is;
-import org.openxava.util.XavaException;
-import org.openxava.util.meta.MetaSet;
-import org.openxava.util.xmlparse.ParserBase;
-import org.openxava.web.meta.MetaEditor;
-import org.openxava.web.meta.MetaWebEditors;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.apache.commons.logging.*;
+import org.openxava.util.*;
+import org.openxava.util.meta.*;
+import org.openxava.util.xmlparse.*;
+import org.openxava.web.meta.*;
+import org.w3c.dom.*;
 
 /**
  * @author: Javier Paniza
@@ -77,6 +72,7 @@ public class EditorsParser extends ParserBase {
 		MetaWebEditors.addMetaEditor(editor);
 		addEditorsForType(editor, el);
 		addEditorsForStereotype(editor, el);
+		addEditorsForAnnotation(editor, el); // tmp
 		addEditorsForModelProperty(editor, el);
 		addEditorsForValidValues(editor, el);
 		addEditorsForReferences(editor, el);
@@ -167,6 +163,14 @@ public class EditorsParser extends ParserBase {
 		}		
 	}
 	
+	private void addEditorsForAnnotation(MetaEditor editor, Element n) throws XavaException { // tmp		
+		NodeList l = n.getElementsByTagName(xfor_annotation[lang]);
+		int c = l.getLength();
+		for (int i = 0; i < c; i++) {
+			Element el = (Element) l.item(i);		
+			MetaWebEditors.addMetaEditorForAnnotation(el.getAttribute(xannotation[lang]), editor);
+		}		
+	}
 
 	private void addEditorsForReferenceModel(MetaEditor editor, Element n) throws XavaException {		
 		NodeList l = n.getElementsByTagName(xfor_reference[lang]);

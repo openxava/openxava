@@ -1,5 +1,7 @@
 package org.openxava.web.meta;
 
+import java.lang.annotation.*;
+import java.lang.reflect.*;
 import java.util.*;
 
 import org.apache.commons.beanutils.*;
@@ -9,7 +11,7 @@ import org.openxava.tab.meta.*;
 import org.openxava.util.*;
 import org.openxava.web.meta.xmlparse.*;
 
-import com.lowagie.text.pdf.interfaces.*;
+
 
 /**
  * 
@@ -21,6 +23,7 @@ public class MetaWebEditors {
 	private static Map editorsByName; 
 	private static Map editorsByType;
 	private static Map editorsByStereotype;
+	private static Map<String, MetaEditor> editorsByAnnotation; // tmp
 	private static Map editorsByModelProperty;
 	private static Map editorsByReferenceModel;
 	private static Map editorsByCollectionModel; 
@@ -35,6 +38,13 @@ public class MetaWebEditors {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForType");
 		}
 		editorsByType.put(type, editor);		
+	}
+	
+	public static void addMetaEditorForAnnotation(String annotation, MetaEditor editor) throws XavaException { // tmp
+		if (editorsByAnnotation == null) {
+			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForAnnotation");
+		}
+		editorsByAnnotation.put(annotation, editor);		
 	}
 
 	public static void addMetaEditorForReferenceModel(String model, MetaEditor editor) throws XavaException {
@@ -129,6 +139,18 @@ public class MetaWebEditors {
 		return r;
 	}
 	
+	public static MetaEditor getMetaEditorForAnnotation(MetaProperty p)	throws XavaException { // tmp
+		System.out.println("[MetaWebEditors.getMetaEditorForAnnotation] p.getQualifiedName()=" + p.getQualifiedName()); // tmp
+		AnnotatedElement element = p.getAnnotatedElement();
+		if (element == null) return null;
+		
+		for (Annotation a: element.getAnnotations()) {
+			MetaEditor r = getEditorsByAnnotation().get(a.annotationType().getName());
+			if (r != null) return r;
+		}
+		return null;
+	}
+	
 	/**
 	 * @return Null if no editor registered for the specified stereotype
 	 */
@@ -157,6 +179,15 @@ public class MetaWebEditors {
 			EditorsParser.setupEditors();
 		}
 		return editorsByType;
+	}
+	
+	// tmp
+	private synchronized static Map<String, MetaEditor> getEditorsByAnnotation() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
+		if (editorsByAnnotation == null) {
+			init();
+			EditorsParser.setupEditors();
+		}
+		return editorsByAnnotation;
 	}
 	
 	private synchronized static Map getEditorsByReferenceModel() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records) 
@@ -211,6 +242,7 @@ public class MetaWebEditors {
 	private static void init() { 
 		editorsByType = new HashMap();
 		editorsByStereotype = new HashMap();
+		editorsByAnnotation = new HashMap<>(); // tmp
 		editorsByModelProperty = new HashMap();
 		editorsByName = new HashMap();
 		editorsByReferenceModel = new HashMap(); 
@@ -236,8 +268,15 @@ public class MetaWebEditors {
 			if (r != null) {				
 				return r;
 			}
-		}		
-		MetaEditor r = (MetaEditor) getMetaEditorForTypeOfProperty(p);		
+		}
+		// tmp ini
+		MetaEditor r = (MetaEditor) getMetaEditorForAnnotation(p);
+		if (r != null) {
+			return r;
+		}
+		r = (MetaEditor) getMetaEditorForTypeOfProperty(p);
+		// tmp fin
+		// tmp MetaEditor r = (MetaEditor) getMetaEditorForTypeOfProperty(p);		
 		if (r == null) {
 			throw new ElementNotFoundException("editor_not_found", p.getId());
 		}		
