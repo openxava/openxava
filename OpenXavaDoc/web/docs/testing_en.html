@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lesson 6: Automated testing - OpenXava</title>
+    <title>Appendix D: Automated testing - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,30 +9,29 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 3: Automated testing"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_en.html">documentation</a> / </span>
-        Lesson 6: Automated testing </h1>
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
+          / </span> Appendix D: Automated testing </h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
         Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
         Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
         Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
-        Agile development</a> | <strong>6. Automated testing</strong> | <a class="wiki_link"
-        href="inheritance_en.html">7. Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">8.
-        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">9.
-        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">10.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">11.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">12.
+        Agile development</a> | <a class="wiki_link" href="inheritance_en.html">6.
+        Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">7.
+        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">8.
+        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">9.
+        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">10.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">11.
         References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a>
+        Annotations</a> | <strong>D. Automated testing</strong>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#Lesson%203:%20Automated%20testing">Lesson
-            6: Automated testing</a></div>
+        <div style="margin-left: 1em;"><a href="#Lesson%203:%20Automated%20testing">Appendix
+            D: Automated testing</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%203:%20Automated%20testing-JUnit">JUnit</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%203:%20Automated%20testing-ModuleTestBase%20for%20testing%20the%20modules">ModuleTestBase
             for testing the modules</a></div>
@@ -793,7 +792,17 @@ private String getNumber() { // The invoice number for a new invoice
       automatically:<br>
       <img src="files/testing_en060.png" alt="testing_en060.png" title="testing_en060.png"><br>
       That is, if you execute <em>Run As &gt; JUnit Test</em> on the project
-      then all its JUnit tests are executed.<br>
+      then all its JUnit tests are executed.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Source code until lesson 5</h2>
+      <p>The above test code is to be applied on top of code of lesson 5. Here
+        you can download the source code of lesson 5 but including the above
+        testing code:</p>
+      <p><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-testing_en.zip/download"
+            rel="nofollow">Download source code until lesson 5 with testing</a></strong></p>
+      <p>All the source code to download from lessons above the 5 already
+        include the testing code, that you can also look with explanation in the
+        rest of this appendix. </p>
       <h2 id="toc18"><a name="Lesson 3: Automated testing-Summary"></a>Summary</h2>
       You have automated the tests for all the current functionality of your
       application. This test code seems to be more verbose and boring than the
@@ -809,9 +818,6 @@ private String getNumber() { // The invoice number for a new invoice
       from now on we'll write all the tests for the code we will develop in the
       rest of the book. Thus you will learn more tips about testing in the next
       lessons.<br>
-      <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-3-testing_en.zip/download"
-          rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?

@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lección 6: Pruebas automáticas - OpenXava</title>
+    <title>Apéndice D: Pruebas automáticas - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,30 +9,29 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Leccion+3:+Pruebas+automaticas"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_es.html">documentación</a> / </span>
-        Lección 6: Pruebas automáticas</h1>
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span> Appendix D: Pruebas automáticas</h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
         Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
         Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
         Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
-        Desarrollo ágil</a> | <strong>6. Pruebas automáticas</strong> | <a class="wiki_link"
-        href="inheritance_es.html">7. Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">8.
-        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">9.
-        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">10.
-        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">11.
-        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">12.
+        Desarrollo ágil</a> | <a class="wiki_link" href="inheritance_es.html">6.
+        Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">7.
+        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">8.
+        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">9.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">10.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">11.
         Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a>
+        Anotaciones</a> | <strong>D. Pruebas automáticas</strong>
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Leccion+3:+Pruebas+automaticas">Lección
-            6: Pruebas automáticas</a></div>
+        <div style="margin-left: 1em;"><a href="#Leccion+3:+Pruebas+automaticas">Appendix
+            D: Pruebas automáticas</a></div>
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-JUnit">JUnit</a></div>
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos">ModuleTestBase
             para probar módulos</a></div>
@@ -785,7 +784,17 @@ private String getNumero() { // El número de factura para una factura nueva
       aplicación automáticamente:<br>
       <img src="files/testing_es060.png" alt="testing_es060.png" title="testing_es060.png"><br>
       Es decir, si ejecutas <em>Run As &gt; JUnit Test</em> en el proyecto, se
-      ejecutarán todas sus pruebas JUnit.<br>
+      ejecutarán todas sus pruebas JUnit.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Código fuente hasta la lección 5</h2>
+      <p>El código de prueba hasta aquí es para aplicar sobre el código de la
+        lección 5. Aquí puedes descarga el código fuente de la lección 5 pero
+        incluyendo el código de prueba de arriba:</p>
+      <p><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-testing_es.zip/download"
+            rel="nofollow">Descarga el código fuente hasta la lección 5 con
+            pruebas</a></strong></p>
+      <p>Todo el código a descargar a partir de la lección 5 ya include el
+        código de prueba, que puedes ver con explicaciones a partir de aquí.</p>
       <h2 id="toc18"><a name="Leccion+3:+Pruebas+automaticas-Resumen"></a>Resumen</h2>
       Has automatizado las pruebas de toda la funcionalidad actual de tu
       aplicación. Puede parecer que este código de prueba es mucho más largo y
