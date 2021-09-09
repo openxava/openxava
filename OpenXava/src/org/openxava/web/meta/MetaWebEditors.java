@@ -141,6 +141,19 @@ public class MetaWebEditors {
 	}
 	
 	public static MetaEditor getMetaEditorForAnnotation(MetaProperty p)	throws XavaException { // tmp
+		/* tmp
+		if (!p.getMetaModel().isPOJOAvailable()) return null;
+		
+		AnnotatedElement element = null;
+		try {
+			element = p.getMetaModel().getPOJOClass().getField(p.getName());
+		} 
+		catch (Exception ex) {
+			ex.printStackTrace(); // tmp
+		}
+		*/
+		
+		// TMP ME QUEDÉ POR AQUÍ: NO INCLUIR AnnotatedElement EN MetaProperty
 		AnnotatedElement element = p.getAnnotatedElement(); // TMP ¿Así?
 		if (element == null) return null;
 		

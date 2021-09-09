@@ -85,7 +85,7 @@
 >
 
 <!-- tmp ini -->
-<!-- tmp Poner en españo. Mover a OpenXava -->
+<!-- tmp Mover a OpenXava -->
 <!ELEMENT for-annotation EMPTY>
 <!ATTLIST for-annotation
  annotation CDATA #REQUIRED

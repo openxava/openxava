@@ -2,9 +2,11 @@ Change Log for OpenXava project
 ===============================
 
 - Annotations for Editors:
-	- Prueba JUnit.
-	- DTD en español.
+	- No incluir AnnotatedElement en MetraProperty
+	- Revisar código.
+	- Suite
 	- Documentación.
+	- updateOX
 
 - Responsive top bar button, now when the UI is narrowed the action labels are hidden.
 - Top bar button and left menu adapted to look better in iPad. 

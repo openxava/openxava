@@ -16,7 +16,7 @@ public class ArtistTest extends ModuleTestBase {
 		super(testName, "Artist");		
 	}
 	
-	public void testBeanValidationJSR303_focusOnList_dialogFromOnChangeAction_noSpacesInDescriptionsList() throws Exception { 
+	public void testBeanValidationJSR303_focusOnList_dialogFromOnChangeAction_noSpacesInDescriptionsList_editorForAnnotation() throws Exception { // tmp editorForAnnotation 
 		// Focus on list
 		assertFocusOn("listConfigurations");
 		execute("List.filter"); 
@@ -28,6 +28,12 @@ public class ArtistTest extends ModuleTestBase {
 		assertEquals(5, level.getId().length());
 		assertEquals(40, level.getDescription().length());
 		assertDescriptionValue("level.id", "B MAIN CHARACTER"); 
+		
+		// tmp ini
+		// Editor for annotation
+		assertEditorForAnnotation("name", "green");
+		assertEditorForAnnotation("age", "pink");
+		// tmp fin
 		
 		// Bean Validation JSR 303
 		setValue("age", "99");		
@@ -45,6 +51,13 @@ public class ArtistTest extends ModuleTestBase {
 		assertNotExists("age");		
 	}
 	
+	private void assertEditorForAnnotation(String property, String color) { // tmp
+		String editorHTML = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Artist__editor_" + property).asXml();
+		assertTrue(editorHTML.contains("color: " + color + ";"));
+		assertTrue(editorHTML.contains("background: yellow;"));
+		assertTrue(editorHTML.contains("class=\"ox-colorful-" + color + "\""));
+	}
+
 	private void assertErrorStyle() throws Exception {
 		HtmlSpan age = (HtmlSpan) getHtmlPage().getElementById("ox_OpenXavaTest_Artist__editor_age");
 		assertTrue("age has no error style", age.getAttribute("class").contains("ox-error-editor")); 

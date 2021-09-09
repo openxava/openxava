@@ -30,7 +30,6 @@ public class Artist extends Identifiable {
 	
 	@Max(90l)	
 	@ReadOnly(forViews="SomeMembersReadOnly")
-	@Colorful(color = "pink") // tmp
 	private Integer age;
 	
 	@DescriptionsList(descriptionProperties = "id, description")
@@ -54,6 +53,7 @@ public class Artist extends Identifiable {
 		this.name = name;
 	}
 
+	@Colorful(color = "pink") // tmp
 	public Integer getAge() {
 		return age;
 	}
