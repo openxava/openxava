@@ -1,16 +1,19 @@
-<%@ page import="org.openxava.model.meta.MetaProperty" %>
-<%@ page import="java.lang.reflect.AnnotatedElement" %>
-<%@ page import="org.openxava.test.annotations.Colorful" %>
+<%@ page import="java.util.UUID" %>
 
 <%
 // tmp
-String propertyKey = request.getParameter("propertyKey");
-MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
-AnnotatedElement e = p.getAnnotatedElement();
-Colorful colorful = e.getAnnotation(Colorful.class);
 String background = request.getParameter("background");
-String highlight = request.getParameter("highlight");
+String color = request.getParameter("color");
+String cssClass ="ox-colorful-" + color;
 %>
 
-Mi color es: <%=colorful.color()%><br>
-y el fondo es: <%=background%>, con highlight: <%=highlight%> 
+<style>
+.<%=cssClass%> input {
+	color: <%=color%>;
+	background: <%=background%>;
+}
+</style>
+
+<span class="<%=cssClass%>">
+	<jsp:include page="textEditor.jsp"/>
+</span>

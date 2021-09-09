@@ -2,15 +2,9 @@ Change Log for OpenXava project
 ===============================
 
 - Annotations for Editors:
-	- ¿Código reutilizable para fuentes no Java (XML, JDBC, Typescript o Python)?
-		- Imposible evitar hacer un parse de las anotaciones. 
-			Al usar anotaciones favorecemos programadores Java, algo bueno.
-		- Pero sí podemos evitar usar anotaciones en el código del editor. 
-			El código del editor se podría reutilizar en otras tecnologías, 
-			sólo habría que escribir el parser.
-	- forViews: ¿Postergar?
-	- Varias anotaciones: ¿Postergar? ¿Vincular a forViews?
-	- Referencias y colecciones: ¿Postergar?
+	- Prueba JUnit.
+	- DTD en español.
+	- Documentación.
 
 - Responsive top bar button, now when the UI is narrowed the action labels are hidden.
 - Top bar button and left menu adapted to look better in iPad. 

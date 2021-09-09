@@ -32,7 +32,7 @@ public class MetaWebEditors {
 	private static MetaEditor editorForCollections;
 	private static MetaEditor editorForElementCollections; 
 	private static Collection<MetaEditor> editorsForTabs;
-	private static Map<MetaProperty, MetaEditor> editorsByMetaProperty; // tmp
+	private static Map<String, MetaEditor> editorsByProperty; // tmp
 	
 	public static void addMetaEditorForType(String type, MetaEditor editor) throws XavaException {
 		if (editorsByType == null) {
@@ -141,19 +141,18 @@ public class MetaWebEditors {
 	}
 	
 	public static MetaEditor getMetaEditorForAnnotation(MetaProperty p)	throws XavaException { // tmp
-		
 		AnnotatedElement element = p.getAnnotatedElement(); // TMP ¿Así?
 		if (element == null) return null;
 		
-		if (editorsByMetaProperty != null && editorsByMetaProperty.containsKey(p)) {
-			return editorsByMetaProperty.get(p);
+		String propertyId = p.getMetaModel().getName() + "." + p.getName();		
+		if (editorsByProperty != null && editorsByProperty.containsKey(propertyId)) {
+			return editorsByProperty.get(propertyId);
 		}
 		
-		// TMP ME QUEDÉ POR AQUÍ: PROBANDO SI EL CACHÉ FUNCIONA BIEN Y SOLO CLONA UNA VEZ
 		for (Annotation a: element.getAnnotations()) {
-			MetaEditor r = getEditorsByAnnotation().get(a.annotationType().getName());
-			if (r != null) {
-				r = r.cloneMetaEditor(); // tmp Sólo clonarlo cuando haya propiedades
+			MetaEditor editor = getEditorsByAnnotation().get(a.annotationType().getName());
+			if (editor != null) {
+				MetaEditor clonedEditor = null;				 
 				for (Method m: a.annotationType().getMethods()) {
 					if (Is.anyEqual(m.getName(), "equals", "toString", "hashCode", "annotationType")) continue;
 					Object value = null;
@@ -162,14 +161,15 @@ public class MetaWebEditors {
 					} catch (Exception e) {
 						e.printStackTrace(); // tmp
 					}
-					r.addProperty(m.getName(), value.toString());
+					if (clonedEditor == null) clonedEditor = editor.cloneMetaEditor();
+					clonedEditor.addProperty(m.getName(), value.toString());
 				}
-				if (editorsByMetaProperty == null) editorsByMetaProperty = new HashMap<>();
-				editorsByMetaProperty.put(p, r);
-				return r;
+				if (editorsByProperty == null) editorsByProperty = new HashMap<>();
+				if (clonedEditor != null) editor = clonedEditor;
+				editorsByProperty.put(propertyId, editor);
+				return editor;
 			}
 		}
-		// TMP Hacer caché también de los null
 		return null;
 	}
 	

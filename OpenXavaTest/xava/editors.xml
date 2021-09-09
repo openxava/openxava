@@ -215,8 +215,8 @@
 	</editor>
 	
 	<!-- tmp ini -->
-	<editor name="Colorful" url="colorfulEditor.jsp" format="false">
-		<property name="background" value="rojo"/> 
+	<editor name="Colorful" url="colorfulEditor.jsp">
+		<property name="background" value="yellow"/> 
 		<for-annotation annotation="org.openxava.test.annotations.Colorful"/>
 	</editor>
 	<!-- tmp fin -->
