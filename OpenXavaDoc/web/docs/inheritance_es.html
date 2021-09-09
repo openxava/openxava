@@ -9,7 +9,8 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Leccion-4-Herencia"></a> <span id="breadcrumbs"> <span
+      <h1 id="toc0"><a name="Leccion-4-Herencia"></a> <span id="breadcrumbs"> <span
+
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Lección 6: Herencia</h1>
@@ -18,8 +19,10 @@
         Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
         Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
         Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
-        Desarrollo ágil</a> | <strong>6. Herencia</strong> | <a class="wiki_link"
-        href="basic-business-logic_es.html">7. Lógica de negocio básica</a> | <a
+        Desarrollo ágil</a> | <strong>6. Herencia</strong> | <a class="wiki_link"
+
+        href="basic-business-logic_es.html">7. Lógica de negocio básica</a> | <a
+
         class="wiki_link" href="validation_es.html">8. Validación avanzada</a> |
       <a class="wiki_link" href="refining-standard-behavior_es.html">9. Refinar
         el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">10.
@@ -60,14 +63,7 @@
             para Pedido usando herencia</a></div>
         <div style="margin-left: 3em;"><a href="#Herencia-de-vistas-Usar-ReferenceView-y-CollectionView-para-refinar-vistas">Usar
             @ReferenceView y @CollectionView para refinar vistas</a></div>
-        <div style="margin-left: 2em;"><a href="#Herencia-en-las-pruebas-JUnit">Herencia
-            en las pruebas JUnit</a></div>
-        <div style="margin-left: 3em;"><a href="#Herencia-en-las-pruebas-JUnit-Crear-una-prueba-de-modulo-abstracta">Crear
-            una prueba de módulo abstracta</a></div>
-        <div style="margin-left: 3em;"><a href="#Herencia-en-las-pruebas-JUnit-Prueba-base-abstracta-para-crear-pruebas-de-modulo-concretas">Prueba
-            base abstracta para crear pruebas de módulo concretas</a></div>
-        <div style="margin-left: 3em;"><a href="#Herencia-en-las-pruebas-JUnit-Anadir-nuevas-pruebas-a-las-pruebas-de-modulo-extendidas">Añadir
-            nuevas pruebas a las pruebas de módulo extendidas</a></div>
+ 
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
       La herencia es una forma práctica de reutilizar el código en el mundo de
@@ -516,185 +512,6 @@ public class Factura extends DocumentoComercial {
       sin incluir el cliente y los pedidos, por lo que tendrás la interfaz de
       usuario más simple:<br>
       <img src="files/inheritance_es090.png" alt="inheritance_es090.png" title="inheritance_es090.png"><br>
-      <h2 id="toc14"><a name="Herencia-en-las-pruebas-JUnit"></a>Herencia en las
-        pruebas JUnit</h2>
-      <em>Factura</em> ha sido refactorizada para usar herencia y también hemos
-      usado herencia para añadir una nueva entidad, <em>Pedido</em>. Además,
-      esta entidad <em>Pedido</em> tiene relación con <em>Factura</em>. Lo
-      cual es una nueva funcionalidad, por ende has de probar todas estas nuevas
-      características.<br>
-      Dado que <em>Factura</em> y <em>Pedido</em> tienen bastantes cosas en
-      común (la parte de <em>DocumentoComercial</em>) podemos refactorizar las
-      pruebas para usar herencia, y así eludir el dañino “copiar y pegar”
-      también en tu código de prueba.<br>
-      <h3 id="toc15"><a name="Herencia-en-las-pruebas-JUnit-Crear-una-prueba-de-modulo-abstracta"></a>Crear
-        una prueba de módulo abstracta</h3>
-      Si examinas la prueba para crear una factura, en el método <em>testCrear()</em>
-      de <em>PruebaFactura</em>. Puedes notar que probar la creación de una
-      factura es exactamente igual que probar la creación de un pedido. Porque
-      ambos tienen año, número, fecha, cliente, detalles y observaciones. Por
-      tanto, aquí la herencia es una buena herramienta para la reutilización de
-      código.<br>
-      Vamos a renombrar <em>PruebaFactura</em> como <em>PruebaDocumentoComercial</em>,
-      y entonces crearemos <em>PruebaFactura</em> y <em>PruebaPedido</em> a
-      partir de él. Éste es el diagrama UML de esta idea:<br>
-      <img src="files/inheritance_es100.png" alt="inheritance_es100.png" title="inheritance_es100.png"><br>
-      Primero renombra tu actual clase <em>PruebaFactura</em> a <em>PruebaDocumentoComercial</em>,
-      y después haz los cambios indicados en el siguiente código:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
- 
-import java.time.*;
-import java.time.format.*;
-import javax.persistence.*;
-import org.openxava.tests.*;
-import static org.openxava.jpa.XPersistence.*; 
- 
-abstract public class PruebaDocumentoComercial // Añade abstract a la definición de clase
-    extends ModuleTestBase {
- 
-    private String numero;
- 
-    public PruebaDocumentoComercial(
-        String nombrePrueba,
-        String nombreModulo) // nombreModulo añadido como argumento en el constructor
-    {
-        super(nombrePrueba, "Facturacion", nombreModulo); // nombreModulo en vez de "Factura"
-    }
- 
-    public void testCrear() throws Exception { … } // Como el original
- 
-    private void anyadirDetalles() throws Exception { … } // Como el original
- 
-    private String getNumero() {
-        if (numero == null) {
-            Query query = getManager().
-                createQuery(
-                    "select max(f.numero) "
-                    + "from DocumentoComercial f " // Factura cambiada por DocumentoComercial
-                    + "where f.anyo = :anyo");
-            query.setParameter("anyo", LocalDate.now().getYear());
-            Integer ultimoNumero = (Integer) query.getSingleResult();
-            if (ultimoNumero == null) ultimoNumero = 0;
-            numero = Integer.toString(ultimoNumero + 1);
-        }
-        return numero;
-    }
- 
-    private void borrar() throws Exception { … } // Como original
- 
-    private void verificarCreado() throws Exception { … } // Como original
- 
-    private void grabar() throws Exception { … } // Como original
- 
-    private void ponerOtrasPropiedades() throws Exception { … } // Como original
- 
-    private void escogerCliente() throws Exception { … } // Como original
- 
-    private void verificarValoresDefecto() throws Exception { … } // Como original
- 
-    private String getAnyoActual() { … } // Como original
- 
-    private String getFechaActual() { … } // Como original
- 
-}
-</code></pre> Como ves has tenido que hacer unos pocos cambios para adaptar <em>PruebaDocumentoComercial</em>.
-      Primero, la has declarado abstracta, de esta forma esta clase no es
-      ejecutada por OpenXava Studio como una prueba JUnit, es solo válida como
-      clase base para crear pruebas, pero ella misma no es una prueba.<br>
-      Otro cambio importante nos lo encontramos en el constructor, donde ahora
-      tienes <em>nombreModulo</em> en vez de “Factura”, así puedes usar esta
-      prueba para <em>Pedido</em>, <em>Factura</em> o cualquier otro módulo
-      que quieras. El otro cambio es un simple detalle: has de cambiar “Factura”
-      por “DocumentoComercial” en la consulta para obtener el siguiente número.<br>
-      Ahora ya tienes una clase base lista para crear los módulos de prueba para
-      <em>Pedido</em> y <em>Factura</em>. Hagámoslo sin más dilación.<br>
-      <h3 id="toc16"><a name="Herencia-en-las-pruebas-JUnit-Prueba-base-abstracta-para-crear-pruebas-de-modulo-concretas"></a>Prueba
-        base abstracta para crear pruebas de módulo concretas</h3>
-      Crear tu primera versión para <em>PruebaFactura</em> y <em>PruebaPedido</em>
-      es simplemente extender de <em>PruebaDocumentoComercial</em>. Nada más.
-      Mira el código de <em>PruebaFactura</em>:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
- 
-public class PruebaFactura extends PruebaDocumentoComercial {
- 
-    public PruebaFactura(String nombrePrueba) {
-        super(nombrePrueba, "Factura");
-    }
- 
-}
-</code></pre> Y <em>PruebaPedido</em>:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
- 
-public class PruebaPedido extends PruebaDocumentoComercial {
- 
-    public PruebaPedido(String nombrePrueba) {
-        super(nombrePrueba, "Pedido");
-    }
- 
-}
-</code></pre> Ejecuta estas dos prueba y verás como <em>testCrear()</em>,
-      heredado de <em>PruebaDocumentoComercial</em>, se ejecuta en ambos casos,
-      contra su módulo correspondiente. Con esto estamos probando el
-      comportamiento común para <em>Pedido</em> y <em>Factura</em>. Probemos
-      ahora la funcionalidad particular de cada uno.<br>
-      <h3 id="toc17"><a name="Herencia-en-las-pruebas-JUnit-Anadir-nuevas-pruebas-a-las-pruebas-de-modulo-extendidas"></a>Añadir
-        nuevas pruebas a las pruebas de módulo extendidas</h3>
-      Hasta ahora hemos probado como crear una factura y un pedido. En esta
-      sección probaremos como añadir pedidos a una factura en el módulo <em>Factura</em>
-      y como establecer la factura a un pedido en el módulo <em>Pedido</em>.<br>
-      Para probar como añadir un pedido a una factura añade el método <em>testAnyadirPedidos()</em>
-      a <em>PruebaFactura</em>:<br>
-      <pre><code class="java">// Esta prueba confía en que al menos exista una factura y un pedido
-public void testAnyadirPedidos() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty(); // Esta prueba confía en que ya existen facturas
-    execute("List.orderBy", "property=numero"); // Para usar siempre el mismo pedido
-    execute("List.viewDetail", "row=0"); // Va al modo detalle editando la primera factura
-    execute("Sections.change", "activeSection=1"); // Cambia a la pestaña 1
-    assertCollectionRowCount("pedidos", 0); // Esta factura no tiene pedidos
-    execute("Collection.add", // Pulsa el botón para añadir un nuevo pedido, esto te lleva
-        "viewObject=xava_view_section1_pedidos"); // a la lista de pedidos
-    execute("AddToCollection.add", "row=0"); // Escoge el primer pedido de la lista
-    assertCollectionRowCount("pedidos", 1); // El pedido se ha añadido a la factura
-    checkRowCollection("pedidos", 0); // Marca el pedido, para borrarlo
-    execute("Collection.removeSelected", // Borra el pedido recién añadido
-        "viewObject=xava_view_section1_pedidos");
-    assertCollectionRowCount("pedidos", 0); // El pedido ha sido borrado
-}
-</code></pre> En este caso asumimos que hay al menos una factura y que la
-      primera factura de la lista no tiene pedidos. Antes de ejecutar esta
-      prueba, si no tienes facturas todavía, crea una sin pedidos, o si ya
-      tienes facturas, asegúrate de que la primera no tiene pedidos.<br>
-      Para probar como asignar una factura a un pedido añade el método <em>testPonerFactura()</em>
-      a <em>PruebaPedido</em>:<br>
-      <pre><code class="java">public void testPonerFactura() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty(); // Esta prueba confía en que existen pedidos
-    execute("List.viewDetail", "row=0"); // Va a modo detalle editando la primera factura
-    execute("Sections.change", "activeSection=1"); // Cambia a la pestaña 1
-    assertValue("factura.numero", ""); // Este pedido todavía no tiene
-    assertValue("factura.anyo", ""); // una factura asignada
-    execute("Reference.search", // Pulsa en el botón para buscar la factura, esto te
-        "keyProperty=factura.anyo"); // lleva a la lista de facturas
-    String anyo = getValueInList(0, "anyo"); // Memoriza el año y el número de
-    String numero = getValueInList(0, "numero"); // la primera factura de la lista
-    execute("ReferenceSearch.choose", "row=0"); // Escoge la primera factura
-    assertValue("factura.anyo", anyo); // Al volver al detalle del pedido verificamos
-    assertValue("factura.numero", numero); // que la factura ha sido seleccionada
-}
-</code></pre> En este caso asumimos que hay al menos un pedido y el primer
-      pedido de la lista no tiene factura. Antes de ejecutar esta prueba, si no
-      tienes pedidos, crea uno sin factura, o si ya tienes pedidos, asegúrate de
-      que el primero no tiene factura.<br>
-      Con esto ya tienes tus pruebas listas. Ejecútalas y obtendrás el siguiente
-      resultado:<br>
-      <img src="files/inheritance_es110.png" alt="inheritance_es110.png" title="inheritance_es110.png"><br>
-      Fíjate que la prueba base <em>PruebaDocumentoComercial</em> no se muestra
-      porque es abstracta. Y <em>testCrear()</em> de <em>PruebaDocumentoComercial</em>
-      se ejecuta para <em>PruebaFactura</em> y <em>PruebaPedido</em>.<br>
-      No solo has adaptado tu código de pruebas al nuevo código de <em>Facturacion</em>,
-      sino que también has aprendido como usar herencia en el mismo código de
-      pruebas.<br>
       <h2 id="toc18"><a name="Resumen"></a>Resumen</h2>
       Esta lección te ha mostrado algunos ejemplos prácticos sobre como usar
       herencia con Java y JPA para simplificar tu código. Hemos usado la
@@ -704,10 +521,12 @@ public void testAnyadirPedidos() throws Exception {
       aprender más acerca de la herencia en JPA puedes leer la documentación del
       <a class="wiki_link" href="jpa_es.html">apéndice B</a>.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-4-inheritance_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-4-inheritance_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="basic-business-logic_es.html">Ve a la lección
           7</a></strong> </div>

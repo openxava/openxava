@@ -19,8 +19,10 @@
         Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
         Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
         Desarrollo ágil</a> | <a class="wiki_link" href="inheritance_es.html">6.
-        Herencia</a> | <strong>7. Lógica de negocio básica</strong> | <a class="wiki_link"
-        href="validation_es.html">8. Validación avanzada</a> | <a class="wiki_link"
+        Herencia</a> | <strong>7. Lógica de negocio básica</strong> | <a class="wiki_link"
+
+        href="validation_es.html">8. Validación avanzada</a> | <a class="wiki_link"
+
         href="refining-standard-behavior_es.html">9. Refinar el comportamiento
         predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">10.
         Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">11.
@@ -58,15 +60,6 @@
             propiedades persistentes y calculadas</a></div>
         <div style="margin-left: 2em;"><a href="#Logica-desde-la-base-de-datos-Formula">Lógica
             desde la base de datos (@Formula)</a></div>
-        <div style="margin-left: 2em;"><a href="#Pruebas-JUnit">Pruebas JUnit</a></div>
-        <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Modificar-la-prueba-existente">Modificar
-            la prueba existente</a></div>
-        <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Verificar-valores-por-defecto-propiedades-calculadas-y-Calculation">Verificar
-            valores por defecto, propiedades calculadas y @Calculation</a></div>
-        <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Verificar-Formula">Verificar
-            @Formula</a></div>
-        <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-sincronizacion-de-propiedades-calculadas-y-persistentes">Probar
-            sincronización de propiedades calculadas y persistentes</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
       Has convertido tu modelo del dominio en una aplicación web plenamente
@@ -325,7 +318,8 @@ for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccio
         Este hecho tiene también efecto en el modo lista, porque el usuario no
         puede filtrar ni ordenar por las propiedades calculadas, pero sí que lo
         puede hacer usando propiedades persistentes con <em>@Calculation</em>:<br>
-        <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
+        <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
+
           title="business-logic_es025.png"><br>
         <em>@Calculation</em> es una buena opción cuando necesitas filtrar y
         ordenar, y un cálculo simple es suficiente. Una desventaja de las
@@ -743,224 +737,8 @@ BigDecimal beneficioEstimado; // Un campo, como con una propiedad persistente
       para que Lombok no genere el setter. Además, las propiedades <i>@Formula</i>
       dependen de la base de datos, porque podrías usar sintaxis sólo soportada
       por cierto fabricante de base de datos.<br>
-      <h2 id="toc10"><a name="Pruebas-JUnit"></a>Pruebas JUnit</h2>
-      Antes de ir a la siguiente lección, vamos a escribir el código JUnit para
-      ésta. Recuerda, el código no está terminado si no tiene pruebas JUnit.
-      Puedes escribir las pruebas antes, durante o después del código principal.
-      Pero siempre has de escribirlas.<br>
-      El código de prueba mostrado aquí no es solo para darte un buen ejemplo,
-      sino también para enseñarte maneras de probar diferentes casos en tu
-      aplicación OpenXava.<br>
-      <h3 id="toc11"><a name="Pruebas-JUnit-Modificar-la-prueba-existente"></a>Modificar
-        la prueba existente</h3>
-      Crear una nueva prueba para cada nuevo caso parece una buena idea desde un
-      punto de vista estructural, pero en la mayoría de los casos no es
-      práctico, porque de esa forma tu código de prueba crecerá muy rápido, y
-      con el tiempo, ejecutar todas las pruebas supondrá muchísimo tiempo.<br>
-      El enfoque más pragmático es modificar el código de prueba existente para
-      cubrir todos los nuevos casos que hemos desarrollado. Hagámoslo de esta
-      forma.<br>
-      En nuestro caso, la mayoría del código de esta lección aplica a <em>DocumentoComercial</em>,
-      por tanto vamos a modificar el método <em>testCrear()</em> de <em>PruebaDocumentoComercial</em>
-      para ajustarlo a la nueva funcionalidad. Dejamos el método <em>testCrear()</em>
-      tal como muestra el siguiente código:<br>
-      <pre><code class="java">public void testCrear() throws Exception {
-    login("admin", "admin");
-    calcularNumero(); // Añadido para calcular primero el siguiente número de documento
-    verificarValoresDefecto();
-    escogerCliente();
-    anyadirDetalles();
-    ponerOtrasPropiedades();
-    grabar();
-    verificarBeneficioEstimado(); // Prueba @Formula
-    verificarCreado();
-    borrar();
-}
-</code></pre> Como ves, añadimos una nueva línea, después de <em>login(...)</em>,
-      para calcular el siguiente número de documento, y una llamada al nuevo
-      método <em>verificarBeneficioEstimado()</em>.<br>
-      Ahora nos conviene más calcular el siguiente número de documento al
-      principio para usarlo en el resto de la prueba. Para hacer esto, cambia el
-      viejo método <em>getNumero()</em> por los dos métodos mostrados en el
-      siguiente código:<br>
-      <pre><code class="java">private void calcularNumero() {
-    Query query = getManager().createQuery(
-        "select max(f.numero) from " +
-        modelo + // Cambiamos DocumentoComercial por una variable
-        " f where f.anyo = :anyo");
-    query.setParameter("anyo", LocalDate.now().getYear());
-    Integer ultimoNumero = (Integer) query.getSingleResult();
-    if (ultimoNumero == null) ultimoNumero = 0;
-    numero = Integer.toString(ultimoNumero + 1);
-}
- 
-private String getNumero() {
-    return numero;
-}
-</code></pre> Anteriormente, teníamos solo <em>getNumero()</em> que calculaba y
-      devolvía el número, ahora tenemos un método para calcular (<em>calcularNumero()</em>),
-      y otro para devolver el resultado (<em>getNumero()</em>). Puedes notar que
-      la lógica del cálculo tiene un pequeño cambio, en vez de usar
-      “DocumentoComercial” como fuente de la consulta usamos <i>modelo</i>, una
-      variable. Esto es así porque ahora la numeración para facturas y pedidos
-      está separada. Llenamos esta variable, un campo de la clase de prueba, en
-      el constructor, tal como muestra el siguiente código:<br>
-      <pre><code class="java">private String modelo; // Nombre del modelo para la condición. Puede ser 'Factura' o 'Pedido'
- 
-public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
-    super(nombrePrueba, "Facturacion", nombreModulo);
-    this.modelo = nombreModulo; // El nombre del módulo coincide con el del modelo
-}
-</code></pre> En este caso el nombre de módulo, <i>Factura</i> o <i>Pedido</i>,
-      coincide con el nombre de modelo, <em>Factura</em> o <em>Pedido</em>,
-      así que la forma más fácil de obtener el nombre de modelo es desde el
-      nombre de módulo.<br>
-      Veamos el código que prueba la nueva funcionalidad.<br>
-      <h3 id="toc12"><a name="Pruebas-JUnit-Verificar-valores-por-defecto-propiedades-calculadas-y-Calculation"></a>Verificar
-        valores por defecto, propiedades calculadas y <i>@Calculation</i></h3>
-      En esta lección hemos hecho algunas modificaciones en los valores por
-      defecto. Ahora, el valor por defecto para <em>numero</em> ya no se
-      calcula mediante un <em>@DefaultValueCalculator</em> en su lugar usamos
-      un método de retrollamada JPA. Para probar este caso hemos de modificar el
-      método <em>verificarValoresDefecto()</em> como ves en el siguiente
-      código:<br>
-      <pre><code class="java">private void verificarValoresDefecto() throws Exception {
-    execute("CRUD.new");
-    assertValue("anyo", getAnyoActual());
-    // assertValue("numero", getNumero()); // Ahora el número no tiene valor inicial...
-    assertValue("numero", ""); // ... al crear un documento nuevo
-    assertValue("fecha", getFechaActual());
-}
-</code></pre>Verificamos que <em>numero</em> no tiene valor inicial, porque
-      ahora <em>numero</em> no se calcula hasta el momento de grabar el
-      documento (sección <a class="wiki_link" href="basic-business-logic_es.html#Metodos-de-retrollamadas-JPA-Calculo-de-valor-por-defecto-multiusuario">Cálculo
-        de valor por defecto multiusuario</a>). Cuando el documento (factura o
-      pedido) se grabe verificaremos que <em>numero</em> se calcula. </div>
-    <div class="wiki" style="display: block;">Cuando la línea se añade podemos
-      verificar el cálculo de <em>importe</em> de <em>Detalle</em> (la
-      propiedad calculada simple, sección <a class="wiki_link" href="basic-business-logic_es.html#Propiedades-calculadas-Propiedad-calculada-simple">Propiedad
-        calculada simple</a>), el valor por defecto para <em>precioPorUnidad</em>
-      (<em>@DefaultValueCalculator</em>, sección <a class="wiki_link" href="basic-business-logic_es.html#Propiedades-calculadas-Usar-DefaultValueCalculator">Usar
-        @DefaultValueCalculator</a>) y las propiedades de importes del documento
-      (sección <a class="wiki_link" href="basic-business-logic_es.html#Propiedades-calculadas-Propiedades-de-total-de-una-coleccion">Propiedades
-        de total de una colección</a>). Entre las propiedades de total probamos
-      <i>porcentajeIVA</i> cuyo valor por defecto se calcula leyendo de un
-      archivo de propiedades. Todo esto lo probamos haciendo unas ligeras
-      modificaciones en el ya existente método <em>anyadirDetalles()</em>:<br>
-      <pre><code class="java">private void anyadirDetalles() throws Exception {
-    assertCollectionRowCount("detalles", 0);
-	<br>    // Antes de ejecutar esta prueba asegurate de que
-    //   producto 1 tenga 19 como precio y 
-    //   producto 2 tenga 20 como precio
- 
-    // Añadir una línea de detalle
-    setValueInCollection("detalles", 0, "producto.numero", "1");
-    assertValueInCollection("detalles", 0,
-        "producto.descripcion", "Peopleware: Productive Projects and Teams");
-    assertValueInCollection("detalles", 0,
-        "precioPorUnidad", "19,00"); // @DefaultValueCalculator
-    setValueInCollection("detalles", 0, "cantidad", "2");
-    assertValueInCollection("detalles", 0,
-        "importe", "38,00"); // Propiedada calculada, sección 'Propiedad calculada simple'
- 
-    // Verificando propiedades de total de la colección
-    assertTotalInCollection("detalles", 0, "importe", "38,00"); // Suma de importes usando +
-    assertTotalInCollection("detalles", 1, "importe", "21"); // Valor por defecto desde un archivo de propiedades
-    assertTotalInCollection("detalles", 2, "importe", "7,98"); // IVA, con @Calculation
-    assertTotalInCollection("detalles", 3, "importe", "45,98"); // Importe total, con @Calculation
- 
-    // Añadir otro detalle
-    setValueInCollection("detalles", 1, "producto.numero", "2");
-    assertValueInCollection("detalles", 1, "producto.descripcion", "Arco iris de lágrimas");
-    assertValueInCollection("detalles", 1, "precioPorUnidad", "20,00"); 
-    setValueInCollection("detalles", 1, "precioPorUnidad", "10,00"); // Modificando el valor por defecto
-    setValueInCollection("detalles", 1, "cantidad", "1");
-    assertValueInCollection("detalles", 1, "importe", "10,00");
- 
-    assertCollectionRowCount("detalles", 2); // Ahora tenemos dos líneas
- 
-    // Verificando propiedades de total de la colección
-    assertTotalInCollection("detalles", 0, "importe", "48,00");
-    assertTotalInCollection("detalles", 1, "importe", "21");
-    assertTotalInCollection("detalles", 2, "importe", "10,08");
-    assertTotalInCollection("detalles", 3, "importe", "58,08");
-}
-</code></pre>Como ves, con estas modificaciones sencillas probamos la mayoría de
-      nuestro nuevo código. Nos quedan sólo las propiedades <em></em><em>beneficioEstimado</em>
-      y <i>diasEntrega</i>. Las cuales probaremos en las siguientes secciones.<br>
-      <h3 id="toc13"><a name="Pruebas-JUnit-Verificar-Formula"></a>Verificar <em>@Formula</em></h3>
-      En la sección <a class="wiki_link" href="basic-business-logic_es.html#Logica-desde-la-base-de-datos-Formula">Lógica
-        desde la base de datos</a> hemos creado una propiedad que usa <em>@Formula</em>,
-      <em>beneficioEstimado</em>. Esta propiedad se muestra sólo en modo lista.<br>
-      Obviamente, la forma más simple de probarlo es yendo a modo lista y
-      verificando que el valor para esta propiedad es el esperado. En <em>testCrear()</em>
-      llamamos a <em>verificarBeneficioEstimado()</em>. Veamos su código:<br>
-      <pre><code class="java">private void verificarBeneficioEstimado() throws Exception {
-    execute("Mode.list"); // Cambiar a modo lista
-    setConditionValues(new String [] { // Filtra para ver en la lista solamente
-        getAnyoActual(), getNumero() // el documento que acabamos de crear
-    });
-    execute("List.filter"); // Hace filtro
-    assertValueInList(0, 0, getAnyoActual()); // Verifica que
-    assertValueInList(0, 1, getNumero()); // el filtro ha funcionado
-    assertValueInList(0, "beneficioEstimado", "5,81"); // Confirma el beneficio estimado
-    execute("List.viewDetail", "row=0"); // Va a modo detalle
-}
-</code></pre> Dado que ahora vamos a modo lista y después volvemos a detalles,
-      hemos de hacer una pequeña modificación en el método <em>verificarCreado()</em>,
-      que es ejecutado justo después de <em>verificarBeneficioEstimado()</em>.
-      Veamos la modificación:<br>
-      <pre><code class="java">private void verificarCreado() throws Exception {
-    // setValue("anyo", getAnyoActual()); // Borramos estas líneas
-    // setValue("numero", getNumero());  // para buscar el documento
-    // execute("CRUD.refresh"); // porque ya lo hemos buscado desde el modo lista
-    // El resto de la prueba ...
-    ...
-</code></pre> Quitamos estas líneas porque ahora no es necesario buscar el
-      documento recién creado. Ahora en el método <em>verificarBeneficioEstimado()</em>
-      vamos a modo lista y escogemos el documento, por tanto ya estamos editando
-      el documento.</div>
-    <div class="wiki" style="display: block;">
-      <h3><a name="Pruebas-JUnit-Probar-sincronizacion-de-propiedades-calculadas-y-persistentes"></a>Probar
-        sincronización de propiedades calculadas y persistentes</h3>
-      En la sección <a class="wiki_link" href="basic-business-logic_es.html#Metodos-de-retrollamadas-JPA-Sincronizar-propiedades-persistentes-y-calculadas">Sincronizar
-        propiedades persistentes y calculadas</a> usamos métodos de retrollamada
-      JPA en <em>Pedido</em> para tener una propiedad persistente, <em>diasEntrega</em><em></em>,
-      sincronizada con una calculada, <em>diasEntregaEstimados</em>. La
-      propiedad <em>diasEntrega</em> sólo se muestra en modo lista.<br>
-      Ve a la clase <i>PruebaPedido</i> y añade un nuevo método <i>testDiasEntrega()</i>:<br>
-      <pre><code class="java">public void testDiasEntrega() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty(); 
-    execute("List.viewDetail", "row=0"); 
-	
-    setValue("fecha", "5/6/2020");
-    assertValue("diasEntregaEstimados", "1");
-    setValue("fecha", "6/6/2020");
-    assertValue("diasEntregaEstimados", "3");
-    setValue("fecha", "7/6/2020");
-    assertValue("diasEntregaEstimados", "2");
-    execute("CRUD.save");
-    execute("Mode.list"); // Para verificar que diasEntrega está sincronizado
-    assertValueInList(0, "diasEntrega", "2"); 
-
-    execute("List.viewDetail", "row=0");
-    setValue("fecha", "13/1/2020");
-    assertValue("diasEntregaEstimados", "7");
-    execute("CRUD.save");
-    execute("Mode.list"); // Para verificar que diasEntrega está sincronizado
-    assertValueInList(0, "diasEntrega", "7");        
-}
-</code></pre>Probamos varios valores para <i>fecha</i> para verificar que <i>diasEntregaEstimados</i>
-      se calcula correctamente cada vez, además vamos a modo lista para
-      verificar que <i>diasEntrega</i> tiene el valor correcto y por tanto
-      ambas propiedades están sincronizadas.
-      <div class="wiki" style="display: block;"><br>
-      </div>
     </div>
-    <div class="wiki" style="display: block;"> ¡Enhorabuena! Ahora tus pruebas
-      ya están sincronizadas con tu código. Es un buen momento para ejecutar
-      todas las pruebas de tu aplicación.<br>
+    <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
       En esta lección has aprendido algunas formas comunes de añadir lógica de
       negocio a tus entidades. No hay duda sobre la utilidad de las propiedades
@@ -971,10 +749,12 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
       funcionamiento estándar del módulo y añadir tu propia lógica de negocio,
       entre otras formas de añadir lógica personalizada a tu aplicación.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="validation_es.html">Ve a la lección 8</a></strong>
     </div>

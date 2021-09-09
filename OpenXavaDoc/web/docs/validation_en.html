@@ -20,7 +20,8 @@
         Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
         Agile development</a> | <a class="wiki_link" href="inheritance_en.html">6.
         Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">7.
-        Basic business logic</a> | <strong>8. Advanced validation</strong> | <a
+        Basic business logic</a> | <strong>8. Advanced validation</strong> | <a
+
         class="wiki_link" href="refining-standard-behavior_en.html">9. Refining
         the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">10.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">11.
@@ -64,14 +65,6 @@
             to a REST web service to validate the ISBN</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%206:%20Advanced%20validation-Creating%20your%20own%20Bean%20Validation%20annotation-Adding%20attributes%20to%20your%20annotation">Adding
             attributes to your annotation</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-JUnit%20tests">JUnit
-            tests</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%206:%20Advanced%20validation-JUnit%20tests-Testing%20validation%20for%20adding%20to%20a%20collection">Testing
-            validation for adding to a collection</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%206:%20Advanced%20validation-JUnit%20tests-Testing%20validation%20assigning%20a%20reference%20and%20validation%20on%20removal">Testing
-            validation assigning a reference and validation on removal</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%206:%20Advanced%20validation-JUnit%20tests-Testing%20the%20custom%20Bean%20Validation">Testing
-            the custom Bean Validation</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Summary">Summary</a></div>
       </div>
       So far we have only done some basic validations using the <i>@Required</i>
@@ -168,7 +161,8 @@ order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to 
       you will see how the undelivered orders are rejected. Go to <i>Invoices</i>
       module, select the ORDERS tab of an invoice, and from there click on <i>Add</i>
       button:</div>
-    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
+    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
+
         alt="validation_en010.png" title="validation_en010.png"></div>
     <div class="wiki" style="display: block;">It will show a dialog with a list
       of orders to choose from. Choose two, one of them not delivered yet, then
@@ -555,7 +549,8 @@ String isbn;
       with several possible solutions, choose <i>Import 'ISBN'
         (com.yourcompany.invoicing.annotations)</i> so the correct import will
       be added to <i>Product</i> class:</div>
-    <div class="wiki" style="display: block;"> <img src="files/validation_en035.png"
+    <div class="wiki" style="display: block;"> <img src="files/validation_en035.png"
+
         alt="validation_en035.png" title="validation_en035.png"> </div>
     <div class="wiki" style="display: block;"> Now, you can test your module,
       and verify that the ISBN values you enter are validated correctly.
@@ -595,7 +590,8 @@ String isbn;
     <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
     <div class="wiki" style="display: block;">You'll get an empty JSON, like
       this:</div>
-    <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+    <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+
       style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
     <div class="wiki" style="display: block;">That is, an empty JSON, just {}.</div>
     <div class="wiki" style="display: block;">To call this web service we'll use
@@ -709,177 +705,6 @@ private String isbn;
       Congratulations! You have learned how to create your own <em>Bean
         Validation</em> annotation, and by the way, to use JAX-RS for calling
       REST services.<br>
-      <br>
-      <h2 id="toc16"><a name="Lesson 6: Advanced validation-JUnit tests"></a>JUnit
-        tests</h2>
-      Our goal is not to develop a huge quantity of software, but to create
-      quality software. At the end of the day, if you create quality software
-      you will deliver more functionality, because you will spend more time on
-      new and exciting things and less time on debugging legions of bugs. And
-      you know that the only way to quality is automated testing, so lets update
-      our test code.<br>
-      <h3 id="toc17"><a name="Lesson 6: Advanced validation-JUnit tests-Testing validation for adding to a collection"></a>Testing
-        validation for adding to a collection</h3>
-      Recall that we have refined the code in a way that the user cannot assign
-      orders to an invoice if the orders are not marked as delivered yet. After
-      that, your current <em>testAddOrders()</em> of <em>InvoiceTest</em> can
-      fail, because it tries to add the first order, and this first order might
-      not be marked as delivered yet.<br>
-      Let's modify the test method to run correctly and also to test your new
-      validation functionality:<br>
-      <pre><code class="java">public void testAddOrders() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty();
-    execute("List.orderBy", "property=number");
-    execute("List.viewDetail", "row=0");
-    execute("Sections.change", "activeSection=1");
-    assertCollectionRowCount("orders", 0);
-    execute("Collection.add",
-        "viewObject=xava_view_section1_orders");
-    // execute("AddToCollection.add", "row=0"); // Now we don't select randomly
- 
-    checkFirstOrderWithDeliveredEquals("Delivered"); // Selects one delivered order
-    checkFirstOrderWithDeliveredEquals(""); // Selects one not delivered order
-    execute("AddToCollection.add"); // We try to add both
-    assertError( // An error, because the not delivered order cannot be added
-        "ERROR! 1 element(s) NOT added to Orders of Invoice");
-    assertMessage( // A confirm message, because the delivered order has been added
-        "1 element(s) added to Orders of Invoice");
- 
-    assertCollectionRowCount("orders", 1);
-    checkRowCollection("orders", 0);
-    execute("Collection.removeSelected",
-        "viewObject=xava_view_section1_orders");
-    assertCollectionRowCount("orders", 0);
-}
-</code></pre> We have modified the part for selecting orders to add. Before we
-      selected the first order, no matter if it's delivered or not. Now we
-      select one order delivered and one order not delivered. In this way we
-      test if the delivered one is added and the not delivered one is rejected.<br>
-      The missing piece here is the way to check the orders. This is the task of
-      the <em>checkFirstOrderWithDeliveredEquals()</em> method:<br>
-      <pre><code class="java">private void checkFirstOrderWithDeliveredEquals(String value) throws Exception {
-    int c = getListRowCount(); // The total displayed rows in list
-    for (int i=0; i&lt;c; i++) {
-        if (value.equals(
-            getValueInList(i, 12))) // 12 is the 'delivered' column
-        {
-            checkRow(i);
-            return;
-        }
-    }
-    fail("There must be at least one row with delivered=" + value);
-}
-</code></pre> Here you see a good technique to do a loop over the displayed list
-      elements in order to check them, get data or do whatever you want with the
-      list data. In order this test works the first invoice has to have no
-      deliveries and moreover it must be at least one order delivered, but not
-      the first one.<br>
-      <h3 id="toc18"><a name="Lesson 6: Advanced validation-JUnit tests-Testing validation assigning a reference and validation on removal"></a>Testing
-        validation assigning a reference and validation on removal</h3>
-      From the <em>Invoice</em> module the user cannot add orders to an invoice
-      if they are not delivered yet, therefore, from the <em>Order</em> module
-      the user cannot assign an invoice to an order if the order is not
-      delivered. That is, we have to test the other side of the association too.
-      We'll do it by modifying the existing <em>testSetInvoice()</em> of <em>OrderTest</em>.<br>
-      Moreover, we'll use this case to test the remove validation we introduced
-      in sections <a class="wiki_link" href="validation_en.html#toc7">Validating
-        on removal with @RemoveValidator</a> and <a class="wiki_link" href="validation_en.html#toc8">Validating
-        on removal with a JPA callback method</a>. There we modified the
-      application to prevent the user from removing an order which has an
-      invoice associated with it. Now we will test this restriction.<br>
-      The revision of <em>testSetInvoice()</em> of <i>OrderTest</i> with all
-      these enhancements is below:<br>
-      <pre><code class="java">public void testSetInvoice() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty();
-    execute("List.orderBy", "property=number"); // To set the list order
-    execute("List.viewDetail", "row=0");
-    assertValue("delivered", "false"); // The order must be not delivered
-    execute("Sections.change", "activeSection=1");
-    assertValue("invoice.number", "");
-    assertValue("invoice.year", "");
-    execute("Reference.search",
-        "keyProperty=invoice.year");
-    execute("List.orderBy", "property=number");
-    String year = getValueInList(0, "year");
-    String number = getValueInList(0, "number");
-    execute("ReferenceSearch.choose", "row=0");
-    assertValue("invoice.year", year);
-    assertValue("invoice.number", number);
- 
-    // Not delivered order cannot have invoice
-    execute("CRUD.save");
-    assertErrorsCount(1); // We cannot save because it is not delivered
-    setValue("delivered", "true");
-    execute("CRUD.save"); // With delivered=true we can save the order
-    assertNoErrors();
- 
-    // Order with invoice cannot be deleted
-    execute("Mode.list"); // We go to list and
-    execute("CRUD.deleteRow", "row=0"); // we delete the saved order
-    assertError("Impossible to remove Order because: " + // We cannot delete because
-        "An order with an invoice cannot be deleted"); // it has an invoice associated
- 
-    // Restoring original values
-    execute("List.viewDetail", "row=0");
-    setValue("invoice.year", "");
-    setValue("delivered", "false");
-    execute("CRUD.save");
-    assertNoErrors();
-}
-</code></pre> The original test only searched for an invoice, but did not even
-      save. Now, we added test code at the end which tries to save the order
-      with delivered=false and with delivered=true, in this way we test the
-      validation. After that, we try to delete the order, that has an invoice.
-      Thus we test the validation on removal too. Before running this test make
-      sure that first order is not delivered and has not invoice.<br>
-      <h3 id="toc19"><a name="Lesson 6: Advanced validation-JUnit tests-Testing the custom Bean Validation"></a>Testing
-        the custom <em>Bean Validation</em></h3>
-      The last step is to test the <em>ISBN Bean Validation</em>, which uses a
-      REST service to do validation. We simply have to write a test case that
-      tries to assign an incorrect, a nonexistent and a correct ISBN to a
-      product and checks the results for these cases. To do so let's add a <em>testISBNValidator()</em>
-      method to <em>ProductTest</em>.<br>
-      <pre><code class="java">public void testISBNValidator() throws Exception {
-    login("admin", "admin");
- 
-    // Searching the product1
-    execute("CRUD.new");
-    setValue("number", Integer.toString(product1.getNumber()));
-    execute("CRUD.refresh");
-    assertValue("description", "JUNIT Product 1");
-    assertValue("isbn", "");
- 
-    // With incorrect ISBN format
-    setValue("isbn", "1111");
-    execute("CRUD.save"); // Fails because of format (apache commons validator)
-    assertError("1111 is not a valid value for ISBN of " +
-        "Product: ISBN invalid or nonexistent");
- 
-    // ISBN does not exist though it has correct format
-    setValue("isbn", "9791034369997");
-    execute("CRUD.save"); // Fails because it does not exist (REST service)
-    assertError("9791034369997 is not a valid value for ISBN of " +
-        "Product: ISBN invalid or nonexistent");
- 
-    // ISBN exists
-    setValue("isbn", "9780932633439");
-    execute("CRUD.save"); // It does not fail
-    assertNoErrors();
-}
-</code></pre> Surely the manual testing you were doing during the development of
-      the <em>@ISBN</em> validator was like the one above. Therefore, if <a href="http://www.extremeprogramming.org/rules/testfirst.html"
-        rel="nofollow">you write your JUnit test before the application code</a>,
-      you can use it as you proceed. This is more efficient than repeating the
-      test procedures by hand using the browser over and over again.<br>
-      Note that if you use <i>@ISBN(search=false)</i> this test will not work
-      because it checks the result of the REST service. So, you have to use the
-      <em>@ISBN</em> annotation of the <i>isbn </i>property without the search
-      attribute in order to run this test successfully.<br>
-      Now execute all the tests for your <i>Invoicing</i> application to verify
-      that everything works as expected.<br>
-      <br>
       <h2 id="toc20"><a name="Lesson 6: Advanced validation-Summary"></a>Summary</h2>
       In this lesson you have learned several ways to do validation in an
       OpenXava application. Also, you know how to encapsulate the reusable
@@ -890,10 +715,12 @@ private String isbn;
       it is more convenient to put logic outside your model classes. You will
       learn that in the next lessons.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="refining-standard-behavior_en.html">Go to
           Lesson 9</a></strong> </div>

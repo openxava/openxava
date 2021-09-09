@@ -18,9 +18,12 @@
         Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
         Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
         Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
-        Agile development</a> | <strong>6. Inheritance</strong> | <a class="wiki_link"
-        href="basic-business-logic_en.html">7. Basic business logic</a> | <a class="wiki_link"
-        href="validation_en.html">8. Advanced validation</a> | <a class="wiki_link"
+        Agile development</a> | <strong>6. Inheritance</strong> | <a class="wiki_link"
+
+        href="basic-business-logic_en.html">7. Basic business logic</a> | <a class="wiki_link"
+
+        href="validation_en.html">8. Advanced validation</a> | <a class="wiki_link"
+
         href="refining-standard-behavior_en.html">9. Refining the standard
         behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">10.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">11.
@@ -60,14 +63,6 @@
             for Order using inheritance</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-View%20inheritance-Using%20@ReferenceView%20and%20@CollectionView%20to%20refine%20views">Using
             @ReferenceView and @CollectionView to refine views</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%204:%20Inheritance-Inheritance%20in%20JUnit%20tests">Inheritance
-            in JUnit tests</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-Inheritance%20in%20JUnit%20tests-Creating%20an%20abstract%20module%20test">Creating
-            an abstract module test</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-Inheritance%20in%20JUnit%20tests-Using%20the%20abstract%20module%20test%20to%20create%20concrete%20module%20tests">Using
-            the abstract module test to create concrete module tests</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-Inheritance%20in%20JUnit%20tests-Adding%20new%20tests%20to%20the%20extended%20module%20test">Adding
-            new tests to the extended module test</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%204:%20Inheritance-Summary">Summary</a></div>
       </div>
       Inheritance is a practical way to reuse code in the object oriented world.
@@ -398,7 +393,8 @@ public class Child extends Parent { ... }   // Child is displayed using an autom
       ugly to see, all the members, each in a line. We are going to define a
       better user interface. A view similar to the one we defined previously,
       but adding a tab for orders, thus:</div>
-    <div class="wiki" style="display: block;"> <img src="files/inheritance_en060.png"
+    <div class="wiki" style="display: block;"> <img src="files/inheritance_en060.png"
+
         alt="inheritance_en060.png" title="inheritance_en060.png"><br>
       Note that we have put all the members from the <em>CommercialDocument</em>
       part of the <em>Invoice</em> in the header and the first tab (data), and
@@ -512,181 +508,6 @@ public class Invoice extends CommercialDocument {
 </code></pre> Now the <em>invoice</em> reference will be displayed from <em>Order</em>
       without customers and orders so you'll get a simpler user interface:<br>
       <img src="files/inheritance_en090.png" alt="inheritance_en090.png" title="inheritance_en090.png"><br>
-      <h2 id="toc14"><a name="Lesson 4: Inheritance-Inheritance in JUnit tests"></a>Inheritance
-        in JUnit tests</h2>
-      <em>Invoice</em> has been refactored to use inheritance, also we have used
-      inheritance to add a new <em>Order</em> entity. Moreover, this <em>Order</em>
-      entity has a relationship with <em>Invoice</em>. You have a lot of new
-      functionality, therefore you must test all the new features.<br>
-      Because <em>Invoice</em> and <em>Order</em> have a lot of common stuff
-      (the <em>CommercialDocument</em> part) we can refactor the tests in order
-      to use inheritance, thus you avoid the harmful “copy and paste” in your
-      test code as well.<br>
-      <h3 id="toc15"><a name="Lesson 4: Inheritance-Inheritance in JUnit tests-Creating an abstract module test"></a>Creating
-        an abstract module test</h3>
-      If you examine the test for creating an invoice, from the <em>testCreate()</em>
-      method of <em>InvoiceTest</em>. You can note that testing the creation of
-      an invoice is exactly the same to testing the creation of an order.
-      Because, both have year, number, date, customer, details and remarks. So,
-      here inheritance is a good tool for code reuse.<br>
-      We are going to rename <em>InvoiceTest</em> as <em>CommercialDocumentTest</em>,
-      then we'll create <em>InvoiceTest</em> and <em>OrderTest</em> from it.
-      See the UML diagram for this idea:<br>
-      <img src="files/inheritance_en100.png" alt="inheritance_en100.png" title="inheritance_en100.png"><br>
-      First rename your current <em>InvoiceTest</em> class to <em>CommercialDocumentTest</em>,
-      then make the changes indicated in the next code:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.tests;
- 
-import java.time.*;
-import java.time.format.*;
-import javax.persistence.*;
-import org.openxava.tests.*;
-import static org.openxava.jpa.XPersistence.*;<br><br>abstract public class CommercialDocumentTest // Add abstract to class definition
-    extends ModuleTestBase {
- 
-    private String number;
- 
-    public CommercialDocumentTest(
-        String testName,
-        String moduleName) // moduleName added as constructor argument
-    {
-        super(testName, "Invoicing", moduleName); // Send moduleName
-    }
- 
-    public void testCreate() throws Exception { ... } // As original
- 
-    private void addDetails() throws Exception { ... } // As original
- 
-    private String getNumber() {
-        if (number == null) {
-            Query query = getManager().createQuery(
-                "select max(i.number) from " +
-                    "CommercialDocument i " + // Invoice changed for CommercialDocument
-                    "i where i.year = :year");
-            query.setParameter("year", LocalDate.now().getYear());
-            Integer lastNumber = (Integer) query.getSingleResult();
-            if (lastNumber == null)    lastNumber = 0;
-            number = Integer.toString(lastNumber + 1);
-        }
-        return number;
-    }
- 
-    private void remove() throws Exception { ... } // As original
- 
-    private void verifyCreated() throws Exception { ... } // As original
- 
-    private void save() throws Exception { ... } // As original
- 
-    private void setOtherProperties() throws Exception { ... } // As original
- 
-    private void chooseCustomer() throws Exception { ... } // As original
- 
-    private void verifyDefaultValues() throws Exception { ... } // As original
- 
-    private String getCurrentYear() { ... } // As original
- 
-    private String getCurrentDate() { ... } // As original
- 
-}
-</code></pre> As you see you have to do a few changes in order to adapt <em>CommercialDocumentTest</em>.
-      First, you declared it as an abstract class. This way this class is not
-      executed by OpenXava Studio as a JUnit test. It is only valid as base
-      class for creating tests, but it is not a test itself.<br>
-      Another important change is in the constructor, where you now use <em>moduleName</em>
-      instead of “Invoice”, thus you can use this test for <em>Order</em>, <em>Invoice</em>
-      or whatever other module you want. The other change is a simple detail:
-      you have to change “Invoice” for “CommercialDocument” in the query to get
-      the next number.<br>
-      Now you have a base class ready to create the module tests for <em>Order</em>
-      and <em>Invoice</em>. Let's do it.<br>
-      <h3 id="toc16"><a name="Lesson 4: Inheritance-Inheritance in JUnit tests-Using the abstract module test to create concrete module tests"></a>Using
-        the abstract module test to create concrete module tests</h3>
-      Creating your first version of <em>OrderTest</em> and <em>InvoiceTest</em>
-      is just a matter of extending from <em>CommercialDocumentTest</em>.
-      Nothing more. See the <em>InvoiceTest</em> code:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.tests;
- 
-public class InvoiceTest extends CommercialDocumentTest {
- 
-    public InvoiceTest(String testName) {
-        super(testName, "Invoice");
-    }
- 
-}
-</code></pre> And <em>OrderTest</em>:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.tests;
- 
-public class OrderTest extends CommercialDocumentTest {
- 
-    public OrderTest(String testName) {
-        super(testName, "Order");
-    }
- 
-}
-</code></pre> Execute these two tests and you will see how <em>testCreate()</em>,
-      inherited from <em>CommercialDocumentTest</em>, is executed in both
-      cases, against its corresponding module. With this we are testing the
-      common behavior of <em>Order</em> and <em>Invoice</em>. Let's test the
-      different cases for them.<br>
-      <h3 id="toc17"><a name="Lesson 4: Inheritance-Inheritance in JUnit tests-Adding new tests to the extended module test"></a>Adding
-        new tests to the extended module test</h3>
-      So far we tested how to create an invoice and an order. In this section
-      we'll test also how to add orders to an invoice in the <em>Invoice</em>
-      module, and how to set the invoice to an order from the <em>Order</em>
-      module.<br>
-      To test how to add an order to an invoice, add the <em>testAddOrders()</em>
-      method to <em>InvoiceTest</em>:<br>
-      <pre><code class="java">// This test assumes that at least one invoice and order order already exist
-public void testAddOrders() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty(); // This test assumes that some invoices already exist
-    execute("List.orderBy", "property=number"); // To always work with the same order
-    execute("List.viewDetail", "row=0"); // Goes to detail mode editing the first invoice
-    execute("Sections.change", "activeSection=1"); // Changes to tab 1
-    assertCollectionRowCount("orders", 0); // This invoice has no orders
-    execute("Collection.add", // Clicks on the button for adding a new order, this takes
-        "viewObject=xava_view_section1_orders"); // you to a list of orders
-    execute("AddToCollection.add", "row=0"); // Chooses the first order in the list
-    assertCollectionRowCount("orders", 1); // Order added to the invoice
-    checkRowCollection("orders", 0); // Checks the order, to remove it
-    execute("Collection.removeSelected", // Removes the recently added order
-        "viewObject=xava_view_section1_orders");
-    assertCollectionRowCount("orders", 0); // The order has been removed
-}
-</code></pre> In this case we rely on the fact that there is at least one
-      invoice, and that the first invoice in the list has no orders. Before
-      running this test, if you have no invoices, create one with no orders, or
-      if you already have invoices, be sure that the first one has no orders.<br>
-      To test how to assign an invoice to an order add the <em>testSetInvoice()</em>
-      method to <em>OrderTest</em>:<br>
-      <pre><code class="java">public void testSetInvoice() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty(); // This test assumes that some orders already exist
-    execute("List.viewDetail", "row=0"); // Goes to detail mode editing the first invoice
-    execute("Sections.change", "activeSection=1"); // Changes to tab 1
-    assertValue("invoice.number", ""); // This order has no
-    assertValue("invoice.year", ""); // invoice assigned yet
-    execute("Reference.search", // Clicks on the button to search the invoice, this
-        "keyProperty=invoice.year"); // takes you to a list of invoices
-    execute("List.orderBy", "property=number"); // To sort the list of invoices
-    String year = getValueInList(0, "year"); // Stores the year and number of
-    String number = getValueInList(0, "number"); // the first invoice in the list
-    execute("ReferenceSearch.choose", "row=0"); // Chooses the first invoice
-    assertValue("invoice.year", year); // On return to order detail we verify
-    assertValue("invoice.number", number); // the invoice has been selected
-}
-</code></pre> In this case we rely on the fact that there is at least one order,
-      and that the first order in the list has no invoice. Before running this
-      test, if you have no orders, create one with no invoice, or if you already
-      have orders, be sure that the first one has no invoice.<br>
-      With this you have your tests ready. Just execute them, and you'll get the
-      next result:<br>
-      <img src="files/inheritance_en110.png" alt="inheritance_en110.png" title="inheritance_en110.png"><br>
-      Note that the base test <em>CommercialDocumentTest</em> is not shown
-      because it is abstract. And the <em>testCreate()</em> method of <em>CommercialDocumentTest</em>
-      is executed for both <em>InvoiceTest</em> and <em>OrderTest</em>.<br>
-      Not only have you adapted your testing code to the improved code for <em>Invoicing</em>,
-      but you have also learned how to use inheritance in the test code as well.<br>
       <h2 id="toc18"><a name="Lesson 4: Inheritance-Summary"></a>Summary</h2>
       This lesson has shown you some practical examples about how to use the
       inheritance of Java and JPA to simplify your code. We used the default JPA
@@ -696,10 +517,12 @@ public void testAddOrders() throws Exception {
       read the documents cited in <a class="wiki_link" href="jpa_en.html">Appendix
         B</a>.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-4-inheritance_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-4-inheritance_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="basic-business-logic_en.html">Go to Lesson 7</a></strong>
     </div>

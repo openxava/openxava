@@ -50,19 +50,6 @@
             the list for adding elements to a collection</a></div>
         <div style="margin-left: 3em;"><a href="#refining-the-action-to-add-elements-to-a-collection">Refining
             the action to add elements to a collection</a></div>
-        <div style="margin-left: 2em;"><a href="#junit-tests">JUnit tests</a></div>
-        <div style="margin-left: 3em;"><a href="#adapting-ordertest">Adapting
-            OrderTest</a></div>
-        <div style="margin-left: 3em;"><a href="#testing-the-searchaction">Testing
-            the @SearchAction</a></div>
-        <div style="margin-left: 3em;"><a href="#testing-the-onchangesearch">Testing
-            the @OnChangeSearch</a></div>
-        <div style="margin-left: 3em;"><a href="#adapting-invoicetest">Adapting
-            InvoiceTest</a></div>
-        <div style="margin-left: 3em;"><a href="#testing-the-addaction">Testing
-            the @AddAction</a></div>
-        <div style="margin-left: 3em;"><a href="#testing-the-action-to-add-elements-to-the-collection">Testing
-            the action to add elements to the collection</a></div>
         <div style="margin-left: 2em;"><a href="#summary">Summary</a></div>
       </div>
       In previous lessons you learned how to add your own actions. However this
@@ -84,8 +71,7 @@
       your application, so the standard OpenXava behavior does not solve it. The
       next image shows as a validation error is produced when customer of
       invoice is incorrect </div>
-    <img src="files/references-collections_en010.png" alt="references-collections_en010"
-
+    <img src="files/references-collections_en010.png" alt="references-collections_en010"
       title="references-collections_en010">
     <div class="wiki" style="display: block;"> Since this is business logic we
       are going to put it in the model layer, that is, in the entities. We'll do
@@ -119,8 +105,7 @@
       when the user clicks to search an invoice, all existing invoices are
       shown. We are going to improve this for showing only the invoices from the
       customer of the current displayed order, in this way:</div>
-    <img src="files/references-collections_en020.png" alt="references-collections_en020.png"
-
+    <img src="files/references-collections_en020.png" alt="references-collections_en020.png"
       title="references-collections_en020.png"><br>
     <div class="wiki" style="display: block;"> For defining our own search
       action for the invoice reference we will use the <i>@SearchAction</i>
@@ -195,8 +180,7 @@ public class SearchInvoiceFromOrderAction
       the year, and searching an invoice only by year is not very precise. The
       following image shows the default behavior and a more convenient
       alternative:<br>
-      <img src="files/references-collections_en030.png" alt="references-collections_en030.png"
-
+      <img src="files/references-collections_en030.png" alt="references-collections_en030.png"
         title="references-collections_en030.png"><br>
       Fortunately it's easy to indicate which fields we want to use to search
       from a user perspective. This is done by means of <i>@SearchKey</i>
@@ -232,14 +216,12 @@ public class SearchInvoiceFromOrderAction
       for the order yet and he chooses an invoice, the customer of that invoice
       will be assigned to the current order automatically. The following image
       visualizes the wanted behavior:<br>
-      <img src="files/references-collections_en040.png" alt="references-collections_en040.png"
-
+      <img src="files/references-collections_en040.png" alt="references-collections_en040.png"
         title="references-collections_en040.png"><br>
       On the other hand, if the user already has selected the customer for the
       order, if he is not the same in the invoice, it will be rejected and a
       message error displayed, just in this way:</div>
-    <img src="files/references-collections_en050.png" alt="references-collections_en050.png"
-
+    <img src="files/references-collections_en050.png" alt="references-collections_en050.png"
       title="references-collections_en050.png"><br>
     <div class="wiki" style="display: block;"> For defining this special
       behavior we have to add an <i>@OnChangeSearch</i> annotation in the the <i>invoice</i>
@@ -332,8 +314,7 @@ public class OnChangeSearchInvoiceAction
       are available. We are going to improve this for showing only the orders
       from the customer of the invoice, delivered and with not invoice yet, just
       as shown: <br>
-      <img src="files/references-collections_en60.png" alt="references-collections_en60.png"
-
+      <img src="files/references-collections_en60.png" alt="references-collections_en60.png"
         title="references-collections_en60.png"><br>
       We will use the <i>@AddAction</i> annotation for defining our own action
       to show the list for adding orders. The following code shows the needed
@@ -400,8 +381,7 @@ public class GoAddOrdersToInvoiceAction
       show the list to add elements to the collection. But this is not the
       action that adds the elements. <br>
       Let's learn how to define the action that actually adds the elements: <br>
-      <img src="files/references-collections_en70.png" alt="references-collections_en70.png"
-
+      <img src="files/references-collections_en70.png" alt="references-collections_en70.png"
         title="references-collections_en70.png"><br>
       Unfortunately, there is not an annotation to directly define this 'Add'
       action. However, that is not a very difficult task, we only have to refine
@@ -476,384 +456,6 @@ public class AddOrdersToInvoiceAction
       invoice, choose a customer and add orders. It is even easier than using
       the list mode of <i>Order</i> module because from <i>Invoice</i> module
       only the suitable orders for the customer are shown.
-      <h2><a name="junit-tests"></a>JUnit tests</h2>
-      We still are in the healthy habit of doing some application code, then
-      some testing code. And now it's time to write the test code for the new
-      feature we added in this lesson.
-      <h3><a name="adapting-ordertest"></a>Adapting <i>OrderTest</i></h3>
-      If you run <i>OrderTest</i> right now it does not pass. This is because
-      our test code relies in some details that have changed. Therefore, we have
-      to modify the current test code. Edit the <i>testSetInvoice()</i> method
-      of <i> OrderTest</i> and apply the next changes:
-      <pre><code class="java">public void testSetInvoice() throws Exception {
-
-    ...
-	
-    assertValue("invoice.number", "");
-    assertValue("invoice.year", "");
-    // execute("Reference.search", // The standard action for invoice searching
-    //    "keyProperty=invoice.year"); // is no longer used
-    execute("Order.searchInvoice", // Instead we use our custom action (1)
-        "keyProperty=invoice.number");
-    execute("List.orderBy", "property=number");
-
-    ...
-	
-    // Restore values
-    
-    setValue("invoice.year", ""); // Now we need to type a year
-    setValue("invoice.number", ""); // and a number to search the invoice (2)
-    setValue("delivered", "false");
-    execute("CRUD.save");
-    assertNoErrors();
-}
-</code></pre> Remember that we annotated the invoice reference in <i>Order </i>with
-      <i>@SearchAction("Order.searchInvoice")</i>, so we have to modify the test
-      to call <i>Order.searchInvoice</i> (1) instead of <i>Reference.search</i>.
-      Also we added <i>@SearchKey</i> to year and number of <i>CommercialDocument</i>,
-      therefore our test has to indicate both year and number to get (or clear
-      in this case) an invoice (2). Because of this last point we also have to
-      modify <i>testCreateInvoiceFromOrder()</i> of <i>OrderTest</i>:
-      <pre><code class="java">public void testCreateInvoiceFromOrder() throws Exception {
-
-    ...
-
-    // Restoring the order for running the test the next time
-    setValue("invoice.year", ""); // Now we need to type a year
-    setValue("invoice.number", ""); // and a number to search the invoice (2)
-    assertValue("invoice.number", "");
-    assertCollectionRowCount("invoice.details", 0);
-    execute("CRUD.save");
-    assertNoErrors();
-}
-</code></pre> After these changes the <i>OrderTest</i> must pass. However, we
-      still have to add the testing of the new functionality of <i>Order</i>
-      module.
-      <h3><a name="testing-the-searchaction"></a>Testing the <i>@SearchAction</i></h3>
-      We have used <i>@SearchAction</i> in the <i>invoice </i>reference of <i>Order</i>
-      for showing in the search list only the invoices from the customer of the
-      current order. Add the next method to <i>OrderTest</i> to test of this
-      functionality:
-      <pre><code class="java">public void testSearchInvoiceFromOrder() throws Exception {
-    login("admin", "admin");      
-    execute("CRUD.new");
-    setValue("customer.number", "1"); // If the customer is 1...
-    execute("Sections.change", "activeSection=1");
-    execute("Order.searchInvoice", // ...when the user clicks to choose an invoice...
-        "keyProperty=invoice.number");
-    assertCustomerInAllRows("1"); // ...only the invoices of customer 1 are shown
-    execute("ReferenceSearch.cancel");
-    execute("Sections.change", "activeSection=0");
-    setValue("customer.number", "2"); // And if the customer is 2...
-    execute("Sections.change", "activeSection=1");
-    execute("Order.searchInvoice", // ...when the user clicks to choose an invoice...
-        "keyProperty=invoice.number");
-    assertCustomerInAllRows("2"); // ...only the invoices of customer 2 are shown
-}
-</code></pre> The trickier part is to assert the invoices list, this is the work
-      for <i>assertCustomerInAllRows()</i> in <i>OrderTest</i>:
-      <pre><code class="java">private void assertCustomerInAllRows(String customerNumber) throws Exception {
-    assertListNotEmpty();
-    int c = getListRowCount();
-    for (int i=0; i&lt;c; i++) { // A loop over all rows
-        if (!customerNumber.equals(getValueInList(i, "customer.number"))) {
-            fail("Customer in row " + i + // If the customer is not the expected one it fails
-                " is not " + customerNumber);
-        }
-    }
-}
-</code></pre> It consists in a loop over all rows verifying the customer number.
-      <h3><a name="testing-the-onchangesearch"></a>Testing the <i>@OnChangeSearch</i></h3>
-      We used <i>@OnChangeSearch</i> in the <i> invoice</i> reference of <i>Order</i>
-      for assigning automatically the customer of the chosen invoice to the
-      current order when the order has no customer yet, or for verifying that
-      the invoice and order customer matches, if the order already has a
-      customer. This is the test method in <i>OrderTest</i>:
-      <pre><code class="java">public void testOnChangeInvoice() throws Exception {
-    login("admin", "admin");
-    execute("CRUD.new"); // We are creating a new order
-    assertValue("customer.number", ""); // so it has no customer yet
-    execute("Sections.change", "activeSection=1");
-    execute("Order.searchInvoice", // Looks for the invoice using a list
-        "keyProperty=invoice.number");
-		
-    execute("List.orderBy", "property=customer.number"); // It orders by customer
-    String customer1Number = getValueInList(0, "customer.number"); // Memorizes..
-    String invoiceYear1 = getValueInList(0, "year"); // ..the data of the...
-    String invoiceNumber1 = getValueInList(0, "number"); // ...first invoice
-    execute("List.orderBy", "property=customer.number"); // It orders by customer
-    String customer2Number = getValueInList(0, "customer.number"); // Memorizes..
-    String customer2Name = getValueInList(0, "customer.name"); // ..the data of
-                                                           // ...the last invoice
-    assertNotEquals("Must be invoices of different customer",
-    customer1Number, customer2Number); // The 2 memorized invoices aren't the same
-	
-    execute("ReferenceSearch.choose","row=0");// The invoice is chosen using the list (1)
-    execute("Sections.change", "activeSection=0");
-    assertValue("customer.number", customer2Number); // The customer data is
-    assertValue("customer.name", customer2Name); // filled automatically (2)
-    execute("Sections.change", "activeSection=1");
-    setValue("invoice.year", invoiceYear1); // We try to put an invoice of another...
-    setValue("invoice.number", invoiceNumber1); // ...customer (3)
-	
-    assertError("Customer Nº " + customer1Number + " of invoice " + // It shows
-        invoiceYear1 + "/" + invoiceNumber1 + // an error message... (4)
-        " does not match with customer Nº " +
-        customer2Number + " of the current order");
-		
-    assertValue("invoice.year", ""); // ...and resets the invoice data (5)
-    assertValue("invoice.number", "");
-    assertValue("invoice.date", "");
-}
-</code></pre> Here we test that our on-change action fills the customer data (3)
-      on choosing an invoice (2), and that if the customer is already set, an
-      error message is shown (4) and the invoice is cleared in the view (5).
-      Note how the first time we use the list (1) to choose the invoice and the
-      second time we do it typing the year and number (3).
-      <h3><a name="adapting-invoicetest"></a>Adapting <i>InvoiceTest</i></h3>
-      As in the case of <i>OrderTest</i>, <i>InvoiceTest</i> also fails to
-      pass. You have to do a little adjustments so it works fine. Edit <i>testAddOrders()</i>
-      of <i> InvoiceTest</i> and apply the next changes:
-      <pre><code class="java">public void testAddOrders() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty();
-    execute("List.orderBy", "property=number");
-    execute("List.viewDetail", "row=0");
-    execute("Sections.change", "activeSection=1");
-    assertCollectionRowCount("orders", 0);
-    // execute("Collection.add", // The standard action for adding orders is no longer used
-    execute("Invoice.addOrders", // Instead we use our custom action
-        "viewObject=xava_view_section1_orders");
-    // checkFirstOrderWithDeliveredEquals("Delivered"); // Now all orders in the list are
-    // checkFirstOrderWithDeliveredEquals(""); // delivered so it makes no sense
-    // execute("AddToCollection.add"); // Instead of the standard action...
-    execute("AddOrdersToInvoice.add", "row=0"); // ...now we have our custom one
-    // assertError("ERROR! 1 element(s) NOT added to Orders of Invoice"); // It is
-                             // impossible because the use cannot chose incorrect orders
-    assertMessage("1 element(s) added to Orders of Invoice");
-    assertCollectionRowCount("orders", 1);
-    checkRowCollection("orders", 0);
-    execute("Collection.removeSelected",
-        "viewObject=xava_view_section1_orders");
-    assertCollectionRowCount("orders", 0);
-}
-</code></pre> The <i>checkFirstOrderWithDeliveredEquals()</i> method is no
-      longer necessary, therefore we can remove it from <i>InvoiceTest</i>:
-      <pre><code class="java">// Remove checkFirstOrderWithDeliveredEquals() from InvoiceTest
-// private void checkFirstOrderWithDeliveredEquals(String value)
-//     throws Exception { ... }
-</code></pre> After these changes the <i>InvoiceTest</i> must pass. However, we
-      still have to add the testing of the new functionality of <i>Invoice</i>
-      module.
-      <h3><a name="testing-the-addaction"></a>Testing the <i>@AddAction</i></h3>
-      In this lesson we annotated the <i>orders</i> collection of <i>Invoice</i>
-      with <i>@AddAction</i> to refine the list of orders to be added to the
-      collection. In this way only delivered orders of the customer of the
-      current invoice and with no invoice yet are shown. We are going to test
-      this, and at the same time, we'll learn how to refactor the existing code
-      in order to reuse it. <br>
-      First, we want to verify that the list to add orders only contains orders
-      of the current customer. The next code shows the changes in <i>testAddOrders()</i>
-      of <i>InvoiceTest</i> to accomplish this.
-      <pre><code class="java">public void testAddOrders() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty();
-    execute("List.orderBy", "property=number");
-    execute("List.viewDetail", "row=0");
-    String customerNumber = getValue("customer.number"); // We take note of the
-    execute("Sections.change", "activeSection=1");   // customer of the invoice
-    assertCollectionRowCount("orders", 0);
-    execute("Invoice.addOrders", 
-	    "viewObject=xava_view_section1_orders");
-    assertCustomerInAllRows(customerNumber); // We assert all customers in list
-                                          // matches the invoice customer
-    ...
-
-}
-</code></pre> Now we have to write the <i>assertCustomerInAllRows()</i> method.
-      But, wait a minute, we already have written this method in <i>OrderTest</i>.
-      We are in <i>InvoiceTest</i> so we cannot call this method, fortunately
-      both <i>InvoiceTest</i> and <i>OrderTest</i> extend the <i>CommercialDocumentTest</i>,
-      therefore we only need to pull up the method. To do it copy the <i>assertCustomerInAllRows()</i>
-      method from <i>OrderTest</i> and paste it in <i>CommercialDocumentTest</i>,
-      changing <i>private</i> to <i>protected</i>, just as shown:
-      <pre><code class="java">abstract public class CommercialDocumentTest extends ModuleTestBase {
-
-    protected void // We change private to protected
-        assertCustomerInAllRows(String customerNumber) throws Exception {
-
-        ...
-		
-    }
-
-    ...
-	
-}
-</code></pre>Now you can remove the <i>assertCustomerInAllRows()</i> method
-      from <i>OrderTest</i>:
-      <pre><code class="java">// Remove assertCustomerInAllRows() from OrderTest
-// private void assertCustomerInAllRows(String customerNumber)
-//     throws Exception { ... }
-</code></pre> After these changes the <i>testAddOrders()</i> method compiles
-      and works. We not only want to test if the orders in list are from the
-      correct customer, but also that they are delivered. The first primary
-      impulse is to copy and paste <i>assertCustomerInAllRows()</i> for
-      creating an <i>assertDeliveredInAllRowsList()</i> method. However, we
-      resist the temptation, instead we are going to create a reusable method.
-      First, we copy and paste&nbsp;<i><i>assertCustomerInAllRows(</i>)</i> as <i>assertValueInAllRows()</i>.
-      Here you can see these two methods in <i>CommercialDocumentTest</i>:
-      <pre><code class="java">protected void assertCustomerInAllRows(String customerNumber) throws Exception {
-    assertListNotEmpty();
-    int c = getListRowCount();
-    for (int i=0; i&lt;c; i++) { // A loop over all rows
-        if (!customerNumber.equals(
-		    getValueInList(i, "customer.number"))) // We ask "ad hoc" for customer
-		{ 
-            fail("Customer in row " + i + 
-                " is not " + customerNumber);
-        }
-    }
-}
-
-protected void assertValueInAllRows(int column, String value) throws Exception {
-    assertListNotEmpty();
-    int c = getListRowCount();
-    for (int i=0; i&lt;c; i++) {
-        if (!value.equals(
-            getValueInList(i, column))) // We ask for the column sent as parameter
-        {
-            fail("Column " + column + " in row " + i + " is not " + value);
-        }
-    }
-}
-</code></pre>You can see how with a very slight modification we have turned <i><i>assertCustomerInAllRows(</i>)</i>
-      in a generic method to ask for the value of any column, not just customer
-      number. Now we have to remove the redundant code, you can either remove <i>assertCustomerInList()</i>
-      or reimplementing it using the new one. The following code in <i>CommercialDocumentTest</i>
-      shows the later option:
-      <pre><code class="java">protected void assertCustomerInAllRows(String customerNumber) throws Exception {
-    assertValueInAllRows(3, customerNumber); // Customer number is in column 3
-}
-</code></pre> Let's use <i>assertValueInAllRows()</i> to assert the orders list
-      contains only delivered orders. The next code shows the needed
-      modification in <i>testAddOrders()</i> of <i>InvoiceTest</i>:
-      <pre><code class="java">public void testAddOrders() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty();
-    execute("List.orderBy", "property=number");
-    execute("Mode.detailAndFirst");
-    String customerNumber = getValue("customer.number");
-    execute("Sections.change", "activeSection=1");
-    assertCollectionRowCount("orders", 0);
-    execute("Invoice.addOrders",
-        "viewObject=xava_view_section1_orders");
-    assertCustomerInAllRows(customerNumber);
-    assertValueInAllRows(12, "Delivered"); // All cells of column 12 contain 'Delivered'
-
-    ...
-	
-}
-</code></pre> Moreover, we want to test that only orders with no invoice are
-      shown in the list. A simple way to do it is verifying that after adding an
-      order to the current invoice, the list of orders has an entry fewer. The
-      following code shows the needed changes to <i>testAddOrders()</i> of <i>InvoiceTest</i>
-      to do this testing:
-      <pre><code class="java">public void testAddOrders() throws Exception {
-
-    ...
-
-    assertCustomerInAllRows(customerNumber);
-    assertValueInAllRows(12, "Delivered");
-    int ordersRowCount = getListRowCount(); // We take note of orders count
-    execute("AddOrdersToInvoice.add", "row=0"); // when the list is shown
-    assertMessage("1 element(s) added to Orders of Invoice");
-    assertCollectionRowCount("orders", 1); // An order was added
-    execute("Invoice.addOrders", // We show the orders list again
-        "viewObject=xava_view_section1_orders");
-    assertListRowCount(ordersRowCount - 1); // Now we have an order fewer in the list
-    execute("AddToCollection.cancel");
-
-    ... 
-	
-}
-</code></pre> With the code of this section we have tested the <i>@AddAction</i>
-      of <i>orders</i> collection, and at the same time we have seen how it's
-      not needed to develop generic code from start, because it's not difficult
-      to convert the concrete code into generic on demand.
-      <h3><a name="testing-the-action-to-add-elements-to-the-collection"></a>Testing
-        the action to add elements to the collection</h3>
-      In this lesson we also learned how the refine the action that adds orders
-      to the invoice, now it's the moment of testing it. Remember that this
-      action copies the lines from selected orders to the current invoice. The
-      next code shows the changes in <i>testAddOrders()</i> of <i>InvoiceTest</i>
-      for testing of our custom action to add orders: <br>
-      <pre><code class="java">public void testAddOrders() throws Exception {
-
-    ...
-
-    String customerNumber = getValue("customer.number");
-    assertCollectionRowCount("details", 0); // An invoice with no details for this test
-    assertValue("totalAmount", "0.00"); // With no details total amount is 0
-    execute("Sections.change", "activeSection=1");
-    assertCollectionRowCount("orders", 0);
-    execute("Invoice.addOrders", // When we show the order list (2) ...
-        "viewObject=xava_view_section1_orders");
-    assertCustomerInAllRows(customerNumber);
-    assertValueInAllRows(12, "Delivered");
-    String firstOrderTotalAmount = getValueInList(0, 7); // ...we take note of amount
-    int ordersRowCount = getListRowCount(); // amount of first order in the list (3)
-
-    ...
-	
-    assertCollectionRowCount("orders", 1);
-    execute("Sections.change", "activeSection=0");
-    assertCollectionNotEmpty("details"); // There are details, they have been copied (4)
-    assertValue("totalAmount", firstOrderTotalAmount); // The total amount of the
-    execute("Sections.change", "activeSection=1"); // invoice matches with the one
-                                                   // of the recently added order (5)
-    ...
-
-}
-</code></pre> We verify that the invoice for this test has no details.
-      Afterwards, we add an order (2), taking note of its total amount (3), then
-      we verify that current invoice has details (4) and its total amount is the
-      same of the added order (5). </div>
-    <div class="wiki" style="display: block;">The <i>testAddOrders()</i> method
-      is finished. This is its definitive code:
-      <pre><code class="java">public void testAddOrders() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty();
-    execute("List.orderBy", "property=number");
-    execute("List.viewDetail", "row=0");
-    String customerNumber = getValue("customer.number");
-    assertCollectionRowCount("details", 0);
-    assertValue("totalAmount", "0.00");
-    execute("Sections.change", "activeSection=1");
-    assertCollectionRowCount("orders", 0);
-    execute("Invoice.addOrders",
-        "viewObject=xava_view_section1_orders");
-    assertCustomerInAllRows(customerNumber);
-    assertValueInAllRows(12, "Delivered");
-    String firstOrderTotalAmount = getValueInList(0, 7);
-    int ordersRowCount = getListRowCount();
-    execute("AddOrdersToInvoice.add", "row=0");
-    assertMessage("1 element(s) added to Orders of Invoice");
-    assertCollectionRowCount("orders", 1);
-    execute("Sections.change", "activeSection=0");
-    assertCollectionNotEmpty("details");
-    assertValue("totalAmount", firstOrderTotalAmount);
-    execute("Sections.change", "activeSection=1");
-    execute("Invoice.addOrders",
-        "viewObject=xava_view_section1_orders");
-    assertListRowCount(ordersRowCount - 1);
-    execute("AddToCollection.cancel");
-    checkRowCollection("orders", 0);
-    execute("Collection.removeSelected",
-        "viewObject=xava_view_section1_orders");
-    assertCollectionRowCount("orders", 0);
-}
-</code></pre> We have finished the test code. Now it's time to execute all the
-      tests for your project. They must be green.
       <h2><a name="summary"></a>Summary</h2>
       This lesson has shown you how to refine the standard behavior of
       references and collections in order for your application to fit the users
@@ -876,12 +478,10 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
       practically any possible case in real life business applications. </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code-references-collections_en.zip/download"
-
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code-references-collections_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong><strong></strong> </div>
   </body>
 </html>
