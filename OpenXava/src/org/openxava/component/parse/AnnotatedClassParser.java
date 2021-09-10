@@ -858,7 +858,6 @@ public class AnnotatedClassParser implements IComponentParser {
 
 	private void processAnnotations(MetaProperty property, AnnotatedElement element) throws XavaException {
 		if (element == null) return;
-		property.setAnnotatedElement(element); // tmp
 		// key
 		if (element.isAnnotationPresent(Id.class)) {
 			property.setKey(true);

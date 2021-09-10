@@ -110,7 +110,7 @@ public class Invoice2Test extends ModuleTestBase {
 		setValueInCollection("columns", 0, "name", Tab.GROUP_COUNT_PROPERTY); 
 		assertChartEditor();
 		execute("ListFormat.select", "editor=List");
-		assertAction("List.filter");
+		assertAction("List.filter"); 
 		resetModule();
 		assertListColumnCount(originalColumnCount);
 		execute("ListFormat.select", "editor=Charts");

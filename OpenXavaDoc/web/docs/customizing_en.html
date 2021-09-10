@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Customizing - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -2164,7 +2167,70 @@ class="re2">&gt;</span></span>
       of your project.<br>
       The above is about changing the list formats at global level, if you want
       to change the formats for a specific list use the <a class="wiki_link" href="tab_en.html#several-presentation-formats-editors">editors
-        attribute of @Tab</a> in your entity.<br>
+        attribute of @Tab</a> in your entity.</div>
+    <div class="wiki" style="display: block;">
+      <h3 id="toc7"><a name="Customizing-Editors-Editors for list formats (new in v5.7)"></a>Editors
+        for annotations <em>(new in v6.6)</em></h3>
+      It's possible attach an editor to a Java annotation, so when an property
+      would be annotated with it that editor will be used. For example, you can
+      define an annotation like this one:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package com.yourcompany.invoicing.annotations;
+
+import java.lang.annotation.*;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.FIELD, ElementType.METHOD })
+public @interface Colorful {
+
+    String color() default "black";
+
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Note as it's a regular Java
+      annotation with no special requirement, you can even use already existing
+      annotations from any Java library. </div>
+    <div class="wiki" style="display: block;">Then you annotate a property of
+      your entity with your annotation, in this way:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@Column(length=40) @Required
+@Colorful(color = "green") 
+String name;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Now you want that the name
+      property will be displayed using your own editor instead of the regular
+      one for String properties. For that, define your editor in editors.xml and
+      assign it to your annotations. Add the next fragment to your editors.xml:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;editor name="Colorful" url="colorfulEditor.jsp"&gt;
+    &lt;property name="background" value="yellow"/&gt; 
+    &lt;for-annotation annotation="org.openxava.test.annotations.Colorful"/&gt;
+&lt;/editor&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Here you're linking the Colorful
+      annotation to the colorfulEditor.jsp editor. Also we define a property
+      "background" to send to the editor. This is the code of
+      colorfulEditor.jsp:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="html">&lt;%@ page import="java.util.UUID" %&gt;
+&lt;%
+String background = request.getParameter("background");
+String color = request.getParameter("color");
+String cssClass ="ox-colorful-" + color;
+%&gt;
+
+&lt;style&gt;
+.&lt;%=cssClass%&gt; input {
+    color: &lt;%=color%&gt;;
+    background: &lt;%=background%&gt;;
+}
+&lt;/style&gt;
+
+&lt;span class="&lt;%=cssClass%&gt;"&gt;
+    &lt;jsp:include page="textEditor.jsp"/&gt;
+&lt;/span&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">fff<br>
       <h3 id="toc8"><a name="Customizing-Editors-JavaScript in editors"></a><span
           style="font-size: 1.1em;"><strong>JavaScript in editors</strong></span></h3>
       <h4 id="toc9"><a name="Customizing-Editors-JavaScript in editors-Since v4m3"></a>Since

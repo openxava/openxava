@@ -2,9 +2,9 @@ Change Log for OpenXava project
 ===============================
 
 - Annotations for Editors:
-	- No incluir AnnotatedElement en MetraProperty
-	- Revisar código.
-	- Suite
+	- Suite: 
+		- OJO, Tardó el doble 6000 segundos.
+		- Arreglé 8 fallos, está lista para relanzarse.
 	- Documentación.
 	- updateOX
 

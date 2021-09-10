@@ -1,6 +1,5 @@
 package org.openxava.model.meta;
 
-import java.lang.reflect.*;
 import java.math.*;
 import java.rmi.*;
 import java.sql.*;
@@ -55,7 +54,12 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	private String qualifiedLabel;
 	private String calculation; 
 	private Set<String> propertiesNamesUsedForCalculation; 
-	private AnnotatedElement annotatedElement; // tmp ¿Esto es correcto? 
+	
+	public String getSimpleName() { // tmp
+		String name = getName();
+		if (!name.contains(".")) return name;
+		return Strings.lastToken(name, ".");		
+	}
 	
 	public void setLabel(String newLabel) {
 		super.setLabel(newLabel);
@@ -1170,15 +1174,5 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	public boolean hasCalculation() { 
 		return !Is.emptyString(calculation);
 	}
-
-	public AnnotatedElement getAnnotatedElement() {
-		return annotatedElement;
-	}
-
-	public void setAnnotatedElement(AnnotatedElement annotatedElement) {
-		this.annotatedElement = annotatedElement;
-	}
-
-
 	
 }

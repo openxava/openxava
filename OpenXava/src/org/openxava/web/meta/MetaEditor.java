@@ -76,7 +76,6 @@ public class MetaEditor implements Cloneable { // tmp implements Cloneable
 		try {
 			MetaEditor r = (MetaEditor) clone();
 			if (properties != null) r.properties = new HashMap(properties);
-			System.out.println("[MetaEditor.cloneMetaEditor] " + getName() + " CLONED"); // tmp
 			return r;
 		} catch (CloneNotSupportedException e) {
 			return null; // Never

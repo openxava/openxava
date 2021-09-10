@@ -18,7 +18,7 @@ public class AppointmentTest extends ModuleTestBase {
 	public void testDateAsDATETIME() throws Exception {
 		selectGroupBy("Group by year of time");
 		assertNoErrors();
-		assertListRowCount(1);
+		assertListRowCount(1); 
 		assertValueInList(0, 0, "2015");
 		assertValueInList(0, 2, "4");
 		selectGroupBy("No grouping");

@@ -53,7 +53,7 @@ public class Artist extends Identifiable {
 		this.name = name;
 	}
 
-	@Colorful(color = "pink") // tmp
+	@Colorful(color = "pink") // In the getter, to test a case // tmp
 	public Integer getAge() {
 		return age;
 	}
