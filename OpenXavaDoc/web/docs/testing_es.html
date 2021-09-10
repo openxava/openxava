@@ -11,7 +11,7 @@
     <div class="wiki" id="content_view" style="display: block;">
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span> Appendix D: Pruebas automáticas</h1>
+          / </span> Apéndice D: Pruebas automáticas</h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
         Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
@@ -30,7 +30,7 @@
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Leccion+3:+Pruebas+automaticas">Appendix
+        <div style="margin-left: 1em;"><a href="#Leccion+3:+Pruebas+automaticas">Apéndice
             D: Pruebas automáticas</a></div>
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-JUnit">JUnit</a></div>
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos">ModuleTestBase
@@ -64,6 +64,8 @@
         <div style="margin-left: 3em;"><a href="#Leccion+3:+Pruebas+automaticas-Probar+colecciones-Verificar+los+datos">Verificar
             los datos</a></div>
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-Suite">Suite</a></div>
+        <div style="margin-left: 2em;"><a href="#codigo-fuente-hasta-la-leccion-5">Código
+            fuente hasta la lección 5</a></div>
         <div style="margin-left: 2em;"><a href="#Herencia-en-las-pruebas-JUnit">Herencia
             en las pruebas JUnit</a></div>
         <div style="margin-left: 3em;"><a href="#Herencia-en-las-pruebas-JUnit-Crear-una-prueba-de-modulo-abstracta">Crear
@@ -138,7 +140,10 @@
       aplicación puedes romper cualquier otra parte inadvertidamente.<br>
       Necesitas poder hacer cualquier cambio en tu código con la tranquilidad de
       que no vas a romper tu aplicación. Una forma de conseguirlo, es usando
-      pruebas automáticas. Vamos a hacer pruebas automáticas usando JUnit.<br>
+      pruebas automáticas. Vamos a hacer pruebas automáticas usando JUnit.</div>
+    <div class="wiki" style="display: block;"><b><span style="color: green;">El
+          código fuente a partir de aquí es para ponerlo encima del código de la
+          sección <i>Modelar con Java</i> (lección 5), hasta nuevo aviso.</span></b>
       <h2 id="toc1"><a name="Leccion+3:+Pruebas+automaticas-JUnit"></a>JUnit</h2>
       JUnit es una herramienta muy popular para hacer pruebas automáticas. Esta
       herramienta está integrada con OpenXava Studio, por tanto no necesitas
@@ -255,8 +260,7 @@ public class PruebaCliente extends ModuleTestBase { // Ha de extender de ModuleT
       caso iníciala antes de nada. Para ejecutar la prueba pon el ratón sobre tu
       clase de prueba, <i>PruebaCliente</i>, y con el botón derecho escoge <em>Run
         As &gt; JUnit Test</em>:<br>
-      <img src="files/testing_es030.png" alt="testing_es030.png" title="testing_es030.png"
-
+      <img src="files/testing_es030.png" alt="testing_es030.png" title="testing_es030.png"
         style="height: 285px; width: 800px;"><br>
       Si la prueba no es satisfactoria la barra sale roja. Puedes probarlo.
       Edita <em>PruebaCliente</em> y comenta la línea que da valor al campo <em>nombre</em>:</div>
@@ -847,22 +851,25 @@ private String getNumero() { // El número de factura para una factura nueva
       Es decir, si ejecutas <em>Run As &gt; JUnit Test</em> en el proyecto, se
       ejecutarán todas sus pruebas JUnit.</div>
     <div class="wiki" style="display: block;">
-      <h2>Código fuente hasta la lección 5</h2>
+      <h2><a name="codigo-fuente-hasta-la-leccion-5"></a>Código fuente hasta la
+        lección 5</h2>
       <p>El código de prueba hasta aquí es para aplicar sobre el código de la
         lección 5. Aquí puedes descarga el código fuente de la lección 5 pero
         incluyendo el código de prueba de arriba:</p>
-      <p><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-testing_es.zip/download"
-
+      <p><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-testing_es.zip/download"
             rel="nofollow">Descarga el código fuente hasta la lección 5 con
             pruebas</a></strong></p>
       <p>Todo el código a descargar a partir de la lección 5 ya include el
         código de prueba, que puedes ver con explicaciones a partir de aquí.</p>
       <h2 id="Herencia-en-las-pruebas-JUnit">Herencia en las pruebas JUnit</h2>
-      <em>Factura</em> ha sido refactorizada para usar herencia y también hemos
-      usado herencia para añadir una nueva entidad, <em>Pedido</em>. Además,
-      esta entidad <em>Pedido</em> tiene relación con <em>Factura</em>. Lo
-      cual es una nueva funcionalidad, por ende has de probar todas estas nuevas
-      características.<br>
+      <b><span style="color: green;">El código fuente a partir de aquí es para
+          ponerlo encima del código de la sección <i>Herencia</i>, hasta nuevo
+          aviso.</span></b></div>
+    <div class="wiki" style="display: block;"><em>Factura</em> ha sido
+      refactorizada para usar herencia y también hemos usado herencia para
+      añadir una nueva entidad, <em>Pedido</em>. Además, esta entidad <em>Pedido</em>
+      tiene relación con <em>Factura</em>. Lo cual es una nueva funcionalidad,
+      por ende has de probar todas estas nuevas características.<br>
       Dado que <em>Factura</em> y <em>Pedido</em> tienen bastantes cosas en
       común (la parte de <em>DocumentoComercial</em>) podemos refactorizar las
       pruebas para usar herencia, y así eludir el dañino “copiar y pegar”
@@ -1037,10 +1044,14 @@ public void testAnyadirPedidos() throws Exception {
       pruebas.</div>
     <div class="wiki" style="display: block;">
       <h2 id="probar-logica-de-negocio-basica">Probar lógica de negocio básica</h2>
-      Antes de ir a la siguiente lección, vamos a escribir el código JUnit para
-      ésta. Recuerda, el código no está terminado si no tiene pruebas JUnit.
-      Puedes escribir las pruebas antes, durante o después del código principal.
-      Pero siempre has de escribirlas.<br>
+      <b><span style="color: green;">El código fuente a partir de aquí es para
+          ponerlo encima del código de la sección <i>Lógica de negocio básica</i>,
+          hasta nuevo aviso.</span></b></div>
+    <div class="wiki" style="display: block;">Vamos a escribir el código JUnit
+      para la sección <i>Lógica de negocio básica</i>. Recuerda, el código no
+      está terminado si no tiene pruebas JUnit. Puedes escribir las pruebas
+      antes, durante o después del código principal. Pero siempre has de
+      escribirlas.<br>
       El código de prueba mostrado aquí no es solo para darte un buen ejemplo,
       sino también para enseñarte maneras de probar diferentes casos en tu
       aplicación OpenXava.<br>
@@ -1258,12 +1269,16 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
         ya están sincronizadas con tu código. Es un buen momento para ejecutar
         todas las pruebas de tu aplicación.<br>
         <h2 id="probar-validacion"><a name="Pruebas-JUnit"></a>Probar validación</h2>
-        Nuestra meta no es desarrollar una ingente cantidad de código, sino
-        crear software de calidad. Al final, si creas software de calidad
-        acabarás escribiendo más cantidad de software, porque podrás dedicar más
-        tiempo a hacer cosas nuevas y excitantes, y menos depurando legiones de
-        bugs. Y tú sabes que la única forma de conseguir calidad es mediante las
-        pruebas automáticas, por tanto actualicemos nuestro código de prueba.<br>
+        <b><span style="color: green;">El código fuente a partir de aquí es para
+            ponerlo encima del código de la sección <i>Validación avanzada</i>,
+            hasta nuevo aviso.</span></b></div>
+      <div class="wiki" style="display: block;"> Nuestra meta no es desarrollar
+        una ingente cantidad de código, sino crear software de calidad. Al
+        final, si creas software de calidad acabarás escribiendo más cantidad de
+        software, porque podrás dedicar más tiempo a hacer cosas nuevas y
+        excitantes, y menos depurando legiones de bugs. Y tú sabes que la única
+        forma de conseguir calidad es mediante las pruebas automáticas, por
+        tanto actualicemos nuestro código de prueba.<br>
         <h3 id="toc17"><a name="Pruebas-JUnit-Probar-la-validacion-al-anadir-a-una-coleccion"></a>Probar
           la validación al añadir a una colección</h3>
         Recuerda que hemos refinado tu código para que el usuario no pueda
@@ -1417,8 +1432,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
 }
 </code></pre> Seguramente la prueba manual que hacías mientras estabas
         escribiendo el validador <em>@ISBN</em> era parecida a esta. Por eso,
-        si hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
-
+        si hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
           rel="nofollow">código de prueba antes que el código de la aplicación</a>,
         lo hubieras podido usar mientras que desarrollabas, lo cual es más
         eficiente que repetir una y otra vez a mano las pruebas con el
@@ -1433,10 +1447,13 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
       <div class="wiki" style="display: block;">
         <h2 id="probar-refinar-el-comportamiento-predefinido"><a name="Pruebas-JUnit"></a>Probar
           refinar el comportamiento predefinido</h2>
-        Hemos refinado la manera en que tu aplicación borra entidades, además
-        hemos añadido dos módulos personalizados, los módulos papelera. Antes de
-        seguir adelante, tenemos que escribir las pruebas de estas nuevas
-        funcionalidades.<br>
+        <b><span style="color: green;">El código fuente a partir de aquí es para
+            ponerlo encima del código de la sección <i>Refinar el
+              comportamiento predefinido</i>, hasta nuevo aviso.</span></b></div>
+      <div class="wiki" style="display: block;"> Hemos refinado la manera en que
+        tu aplicación borra entidades, además hemos añadido dos módulos
+        personalizados, los módulos papelera. Antes de seguir adelante, tenemos
+        que escribir las pruebas de estas nuevas funcionalidades.<br>
         <h3 id="toc21"><a name="Pruebas-JUnit-Probar-el-comportamiento-personalizado-para-borrar"></a>Probar
           el comportamiento personalizado para borrar</h3>
         No hemos de escribir una prueba para esto, porque el código actual de
@@ -1631,17 +1648,20 @@ private int getFilaDocumentoEnLista(String anyo, String numero)
       <div class="wiki" style="display: block;">
         <h2><a name="probar-comportamiento-y-logica-de-negocio"></a>Probar
           comportamiento y lógica de negocio</h2>
-        El código que hemos escrito en esta lección no estará completo hasta que
-        no escribamos las pruebas. Recuerda, todo código nuevo tiene que tener
-        su correspondiente código de prueba. Escribamos pues las pruebas para
-        estas dos nuevas acciones.
+        <b><span style="color: green;">El código fuente a partir de aquí es para
+            ponerlo encima del código de la sección <i>Comportamiento y lógica
+              de negocio</i>, hasta nuevo aviso.</span></b></div>
+      <div class="wiki" style="display: block;"> El código que escribimos en la
+        sección <i>Comportamiento y lógica de negocio</i> no estará completo
+        hasta que no escribamos las pruebas. Recuerda, todo código nuevo tiene
+        que tener su correspondiente código de prueba. Escribamos pues las
+        pruebas para estas dos nuevas acciones.
         <h3><a name="probar-la-accion-de-modo-detalle"></a>Probar la acción de
           modo detalle</h3>
         Primero probaremos la acción <i>Pedido.crearFactura</i>, la acción para
         crear una factura a partir del modo detalle del pedido visualizado.
         Recordamos aquí como funciona este proceso:<br>
-        <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
-
+        <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
           title="business-logic-behavior_es010.png"><br>
         Ahora vamos a escribir la prueba para verificar que funciona justo de
         esta forma. Añade el método <i>testCrearFacturaDesdePedido()</i> a la
@@ -1766,8 +1786,7 @@ import com.tuempresa.facturacion.modelo.*;
         Ahora probaremos <i>Pedido.crearFacturaDesdePedidosSeleccionados</i>,
         la acción que crea una factura desde varios pedidos en modo lista.
         Recordemos su funcionamiento:<br>
-        <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
-
+        <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
           title="business-logic-behavior_es030.png"><br>
         Escribamos una prueba para verificar que esto funciona justo de esta
         forma. Añade el método <i>testCrearFacturaDesdePedidosSeleccionados()</i>
@@ -1910,10 +1929,14 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
       <div class="wiki" style="display: block;">
         <h2><a name="probar-referencias-y-colecciones"></a>Probar referencias y
           colecciones</h2>
-        Todavía tenemos la sana costumbre de hacer un poco de código de
-        aplicación, y después un poco de código de pruebas. Y ahora es el tiempo
-        de escribir el código de pruebas para las nuevas características
-        añadidas en esta lección.
+        <b><span style="color: green;">El código fuente a partir de aquí es para
+            ponerlo encima del código de la sección <i>Referencias y
+              colecciones</i>.</span></b></div>
+      <div class="wiki" style="display: block;"> Todavía tenemos la sana
+        costumbre de hacer un poco de código de aplicación, y después un poco de
+        código de pruebas. Y ahora es el tiempo de escribir el código de pruebas
+        para las nuevas características añadidas en la sección <i>Referencias y
+          colecciones</i>.
         <h3><a name="adaptar-pruebapedido"></a>Adaptar <i>PruebaPedido</i></h3>
         Si ejecutaras <i>PruebaPedido</i> ahora, no pasaría. Esto es porque
         nuestro código confía en ciertos detalles que han cambiado. Por lo
@@ -2299,31 +2322,20 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
           color verde.</div>
       </div>
       <h2 id="resumen">Resumen</h2>
-      Has automatizado las pruebas de toda la funcionalidad actual de tu
-      aplicación. Puede parecer que este código de prueba es mucho más largo y
-      aburrido que el código real de la aplicación. Pero recuerda, el código de
-      prueba es el tesoro más valioso que tienes. Quizás ahora no me creas, pero
-      trata de hacer pruebas JUnit y una vez te hayan salvado la vida, ya no
-      podrás desarrollar sin pruebas automáticas nunca más.<br>
+      Has automatizado las pruebas de toda la funcionalidad de tu aplicación.
+      Puede parecer que este código de prueba es mucho más largo y aburrido que
+      el código real de la aplicación. Pero recuerda, el código de prueba es el
+      tesoro más valioso que tienes. Quizás ahora no me creas, pero trata de
+      hacer pruebas JUnit y una vez te hayan salvado la vida, ya no podrás
+      desarrollar sin pruebas automáticas nunca más.<br>
       ¿Qué probar? No hagas pruebas exhaustivas al principio. Es mejor probar
       poco que no probar nada. Si tratas de hacer pruebas muy exhaustivas
       acabarás no haciendo pruebas en absoluto. Empieza haciendo algunas pruebas
       JUnit para tu código, y con cada nueva característica o nuevo arreglo
       añade nuevas pruebas. Al final, tendrás una suite de pruebas muy completa.
       En resumen, prueba poco, pero prueba siempre.<br>
-      Sí, hacer pruebas automáticas es una tarea continua. Y para predicar con
-      el ejemplo a partir de ahora escribiremos todas las pruebas para el código
-      que desarrollemos en el resto del libro. De esta manera aprenderás más
-      trucos sobre las pruebas JUnit en las siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-3-testing_es.zip/download"
-
-          rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
-      <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
-          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
-        <a class="wiki_link" href="inheritance_es.html">Ve a la lección 7</a></strong>
-    </div>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong><strong></strong> </div>
   </body>
 </html>

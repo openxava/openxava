@@ -64,6 +64,8 @@
         <div style="margin-left: 3em;"><a href="#Lesson%203:%20Automated%20testing-Testing%20collections-Verifying%20the%20data">Verifying
             the data</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%203:%20Automated%20testing-Suite">Suite</a></div>
+        <div style="margin-left: 2em;"><a href="#source-code-until-lesson-5">Source
+            code until lesson 5</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%204:%20Inheritance-Inheritance%20in%20JUnit%20tests">Inheritance
             in JUnit tests</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-Inheritance%20in%20JUnit%20tests-Creating%20an%20abstract%20module%20test">Creating
@@ -140,7 +142,10 @@
       While making any changes to your code, you want to handle it with the
       immense responsibility to keep the application from breaking. The best way
       to accomplish this is by using automatic testing. We are going to use
-      automatic testing by means of JUnit.<br>
+      automatic testing by means of JUnit.</div>
+    <div class="wiki" style="display: block;"><b><span style="color: green;">The
+          source code below is to write on top of code from section <i>Modeling
+            with Java</i> (until lesson 5), until new notice.</span></b><br>
       <h2 id="toc1"><a name="Lesson 3: Automated testing-JUnit"></a>JUnit</h2>
       JUnit is a popular tool for doing automated testing. This tool comes
       integrated with OpenXava Studio, so you do not need to download it.
@@ -256,8 +261,7 @@ public class CustomerTest extends ModuleTestBase { // Must extend from ModuleTes
       must be running, if not start it first. Then run the test with the mouse
       over the test class, and with the right button choose <em>Run As &gt;
         JUnit Test</em>:<br>
-      <img src="files/testing_en030.png" alt="testing_en030.png" title="testing_en030.png"
-
+      <img src="files/testing_en030.png" alt="testing_en030.png" title="testing_en030.png"
         style="height: 288px; width: 800px;"><br>
       If the test does not pass, the bar will be red. You can try it. Edit the <em>CustomerTest</em>
       and comment the line that sets the value for the <em>name</em> field:<br>
@@ -856,22 +860,25 @@ private String getNumber() { // The invoice number for a new invoice
       That is, if you execute <em>Run As &gt; JUnit Test</em> on the project
       then all its JUnit tests are executed.</div>
     <div class="wiki" style="display: block;">
-      <h2>Source code until lesson 5</h2>
+      <h2><a name="source-code-until-lesson-5"></a>Source code until lesson 5</h2>
       <p>The above test code is to be applied on top of code of lesson 5. Here
         you can download the source code of lesson 5 but including the above
         testing code:</p>
-      <p><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-testing_en.zip/download"
-
+      <p><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-testing_en.zip/download"
             rel="nofollow">Download source code until lesson 5 with testing</a></strong></p>
       <p>All the source code to download from lessons above the 5 already
         include the testing code, that you can also look with explanation in the
         rest of this appendix. </p>
       <h2 id="toc14"><a name="Lesson 4: Inheritance-Inheritance in JUnit tests"></a>Inheritance
         in JUnit tests</h2>
-      <em>Invoice</em> has been refactored to use inheritance, also we have used
-      inheritance to add a new <em>Order</em> entity. Moreover, this <em>Order</em>
-      entity has a relationship with <em>Invoice</em>. You have a lot of new
-      functionality, therefore you must test all the new features.<br>
+      <b><span style="color: green;">The source code below is to write on top of
+          code from section <i>Inheritance</i>, until new notice.</span></b><br>
+    </div>
+    <div class="wiki" style="display: block;"><em>Invoice</em> has been
+      refactored to use inheritance, also we have used inheritance to add a new
+      <em>Order</em> entity. Moreover, this <em>Order</em> entity has a
+      relationship with <em>Invoice</em>. You have a lot of new functionality,
+      therefore you must test all the new features.<br>
       Because <em>Invoice</em> and <em>Order</em> have a lot of common stuff
       (the <em>CommercialDocument</em> part) we can refactor the tests in order
       to use inheritance, thus you avoid the harmful “copy and paste” in your
@@ -1045,10 +1052,12 @@ public void testAddOrders() throws Exception {
     <div class="wiki" style="display: block;">
       <h2 id="Lesson%205:%20Basic%20business%20logic-JUnit%20tests">Testing
         basic business logic</h2>
-      Before we move on to the next lesson, we are going to write the JUnit code
-      for this one. Remember, the code is not done if it has no tests. You can
-      write the tests before, during or after coding. But you always have to
-      write the tests.<br>
+      <b><span style="color: green;">The source code below is to write on top of
+          code from section <i>Basic business logic</i>, until new notice.</span></b></div>
+    <div class="wiki" style="display: block;">We are going to write the JUnit
+      code for the <i>Basic business logic</i> section. Remember, the code is
+      not done if it has no tests. You can write the tests before, during or
+      after coding. But you always have to write the tests.<br>
       The test code here is not only to give you a good example, but also to
       teach you ways to test different cases in your OpenXava application.<br>
       <h3 id="toc11"><a name="Lesson 5: Basic business logic-JUnit tests-Modifying existing tests"></a>Modifying
@@ -1126,15 +1135,13 @@ public CommercialDocumentTest(String testName, String moduleName) {
     assertValue("date", getCurrentDate());
 }
 </code></pre>We verify that <i>number</i> the has no initial value, because now
-      the number is not calculated until the document is saved (<a class="wiki_link"
-
+      the number is not calculated until the document is saved (<a class="wiki_link"
         href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Multiuser%20safe%20default%20value%20calculation">Multiuser
         safe default value calculation</a> section). When the document (invoice
       or order) will be saved we'll verify that the <em>number</em> is
       calculated.
       <div class="wiki" style="display: block;">When the detail is added we can
-        test the <em>amount</em> for <em>Detail</em> calculation (<a class="wiki_link"
-
+        test the <em>amount</em> for <em>Detail</em> calculation (<a class="wiki_link"
           href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Simple%20calculated%20property">Simple
           calculated property</a> section), the default value calculation for <em>pricePerUnit</em>
         (<a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Using%20@DefaultValueCalculator">Using
@@ -1258,12 +1265,16 @@ public CommercialDocumentTest(String testName, String moduleName) {
         tests for your application.<br>
         <h2 id="Lesson%206:%20Advanced%20validation-JUnit%20tests">Testing
           validation</h2>
-        Our goal is not to develop a huge quantity of software, but to create
-        quality software. At the end of the day, if you create quality software
-        you will deliver more functionality, because you will spend more time on
-        new and exciting things and less time on debugging legions of bugs. And
-        you know that the only way to quality is automated testing, so lets
-        update our test code.<br>
+      </div>
+      <div class="wiki" style="display: block;"><b><span style="color: green;">The
+            source code below is to write on top of code from section <i>Advanced
+              validation</i>, until new notice.</span></b></div>
+      <div class="wiki" style="display: block;">Our goal is not to develop a
+        huge quantity of software, but to create quality software. At the end of
+        the day, if you create quality software you will deliver more
+        functionality, because you will spend more time on new and exciting
+        things and less time on debugging legions of bugs. And you know that the
+        only way to quality is automated testing, so lets update our test code.<br>
         <h3 id="toc17"><a name="Lesson 6: Advanced validation-JUnit tests-Testing validation for adding to a collection"></a>Testing
           validation for adding to a collection</h3>
         Recall that we have refined the code in a way that the user cannot
@@ -1417,8 +1428,7 @@ public CommercialDocumentTest(String testName, String moduleName) {
     assertNoErrors();
 }
 </code></pre> Surely the manual testing you were doing during the development of
-        the <em>@ISBN</em> validator was like the one above. Therefore, if <a
-
+        the <em>@ISBN</em> validator was like the one above. Therefore, if <a
           href="http://www.extremeprogramming.org/rules/testfirst.html" rel="nofollow">you
           write your JUnit test before the application code</a>, you can use it
         as you proceed. This is more efficient than repeating the test
@@ -1432,9 +1442,13 @@ public CommercialDocumentTest(String testName, String moduleName) {
       <div class="wiki" style="display: block;">
         <h2 id="Lesson%207:%20Refining%20the%20standard%20behavior-JUnit%20tests">Testing
           of refining the standard behavior</h2>
-        We have refined the way your application deletes entities, moreover we
-        added two custom modules, the trash modules. Before we move ahead, we
-        must write the tests for the new features.<br>
+        <b><span style="color: green;">The source code below is to write on top
+            of code from section <i>Refining the standard behavior</i>, until
+            new notice.</span></b></div>
+      <div class="wiki" style="display: block;"> We have refined the way your
+        application deletes entities, moreover we added two custom modules, the
+        trash modules. Before we move ahead, we must write the tests for the new
+        features.<br>
         <h3 id="toc21"><a name="Lesson 7: Refining the standard behavior-JUnit tests-Testing the customized delete behavior"></a>Testing
           the customized delete behavior</h3>
         We do not have to write new tests for the deletion, because the current
@@ -1623,16 +1637,20 @@ private int getDocumentRowInList(String year, String number)
       <div class="wiki" style="display: block;">
         <h2 id="testing-behavior-business-logic">Testing behavior &amp; business
           logic</h2>
-        The code we have written in this lesson is not complete until we write
-        the tests. Remember, all new code must have its corresponding test code.
-        Let's write tests for the two new actions.
+      </div>
+      <div class="wiki" style="display: block;"><b><span style="color: green;">The
+            source code below is to write on top of code from section <i>Behavior
+              &amp; business logic</i>, until new notice.</span></b></div>
+      <div class="wiki" style="display: block;">The code we have written in the
+        <i>Behavior &amp; business logic</i> section is not complete until we
+        write the tests. Remember, all new code must have its corresponding test
+        code. Let's write tests for the two new actions.
         <h3><a name="testing-the-detail-mode-action"></a>Testing the detail mode
           action</h3>
         First we'll test the <i>Order.createInvoice</i> action, the action for
         creating an invoice from the displayed order in detail mode. Then next
         image shows how this process works:<br>
-        <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
-
+        <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
           title="business-logic-behavior_en010.png"><br>
         Now we're going to write a test to verify that it really works in this
         way. Add the <i>testCreateInvoiceFromOrder()</i> method to the <i>OrderTest</i>
@@ -1759,8 +1777,7 @@ import com.yourcompany.invoicing.model.*;
         Now we'll test the <i>Order.createInvoiceFromSelectedOrders</i> action,
         the action for creating an invoice from multiple selected orders in list
         mode. Remember that this process works in this way: <br>
-        <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
-
+        <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
           title="business-logic-behavior_en030.png"><br>
         Let's write a test to verify that it works in just this way. Add the <i>
           testCreateInvoiceFromSelectedOrders()</i> method to the <i>OrderTest</i>
@@ -1899,9 +1916,14 @@ private void assertCreateInvoiceFromOrderException(
       <div class="wiki" style="display: block;">
         <h2 id="testing-references-collections">Testing references &amp;
           collections</h2>
-        We still are in the healthy habit of doing some application code, then
-        some testing code. And now it's time to write the test code for the new
-        feature we added in this lesson.
+      </div>
+      <div class="wiki" style="display: block;"><b><span style="color: green;">The
+            source code below is to write on top of code from section <i>References
+              &amp; collections</i>.</span></b></div>
+      <div class="wiki" style="display: block;">We still are in the healthy
+        habit of doing some application code, then some testing code. And now
+        it's time to write the test code for the new features we added in the <i>References
+          &amp; collections</i> section.
         <h3><a name="adapting-ordertest"></a>Adapting <i>OrderTest</i></h3>
         If you run <i>OrderTest</i> right now it does not pass. This is because
         our test code relies in some details that have changed. Therefore, we
@@ -2279,7 +2301,7 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
           tests for your project. They must be green.</div>
       </div>
       <h2 id="summary">Summary</h2>
-      You have automated the tests for all the current functionality of your
+      You have automated the tests for all the functionality of your
       application. This test code seems to be more verbose and boring than the
       real application code. But remember, the test code is the most valuable
       asset you have. Right now you may not believe me, but try to do tests and
@@ -2289,15 +2311,8 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
       end up testing nothing. Start doing a little testing of all your code, and
       with any new feature or fix also write the test for it. In the end, you
       will have a very powerful test suite. Test little but test always.<br>
-      In fact, testing is an on going task. In order to preach with the example,
-      from now on we'll write all the tests for the code we will develop in the
-      rest of the book. Thus you will learn more tips about testing in the next
-      lessons.<br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-        <a class="wiki_link" href="inheritance_en.html">Go to Lesson 7</a></strong>
-    </div>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong><strong></strong> </div>
   </body>
 </html>
