@@ -16,7 +16,7 @@ public class ArtistTest extends ModuleTestBase {
 		super(testName, "Artist");		
 	}
 	
-	public void testBeanValidationJSR303_focusOnList_dialogFromOnChangeAction_noSpacesInDescriptionsList_editorForAnnotation() throws Exception { // tmp editorForAnnotation 
+	public void testBeanValidationJSR303_focusOnList_dialogFromOnChangeAction_noSpacesInDescriptionsList_editorForAnnotation() throws Exception {  
 		// Focus on list
 		assertFocusOn("listConfigurations");
 		execute("List.filter"); 
@@ -29,11 +29,9 @@ public class ArtistTest extends ModuleTestBase {
 		assertEquals(40, level.getDescription().length());
 		assertDescriptionValue("level.id", "B MAIN CHARACTER"); 
 		
-		// tmp ini
 		// Editor for annotation
 		assertEditorForAnnotation("name", "green");
 		assertEditorForAnnotation("age", "pink");
-		// tmp fin
 		
 		// Bean Validation JSR 303
 		setValue("age", "99");		
@@ -51,7 +49,7 @@ public class ArtistTest extends ModuleTestBase {
 		assertNotExists("age");		
 	}
 	
-	private void assertEditorForAnnotation(String property, String color) { // tmp
+	private void assertEditorForAnnotation(String property, String color) { 
 		String editorHTML = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Artist__editor_" + property).asXml();
 		assertTrue(editorHTML.contains("color: " + color + ";"));
 		assertTrue(editorHTML.contains("background: yellow;"));

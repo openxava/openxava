@@ -13,7 +13,7 @@ import org.openxava.util.meta.*;
  * 
  * @author Javier Paniza
  */
-public class MetaEditor implements Cloneable { // tmp implements Cloneable
+public class MetaEditor implements Cloneable { 
 	
 	private static Log log = LogFactory.getLog(MetaEditor.class);
 	
@@ -72,7 +72,8 @@ public class MetaEditor implements Cloneable { // tmp implements Cloneable
 		return properties == null?null:(String) properties.get(name);
 	}
 	
-	public MetaEditor cloneMetaEditor()  { // tmp
+	/** @since 6.6 */
+	public MetaEditor cloneMetaEditor()  { 
 		try {
 			MetaEditor r = (MetaEditor) clone();
 			if (properties != null) r.properties = new HashMap(properties);

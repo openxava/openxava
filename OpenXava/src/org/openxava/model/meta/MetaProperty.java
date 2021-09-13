@@ -55,7 +55,8 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	private String calculation; 
 	private Set<String> propertiesNamesUsedForCalculation; 
 	
-	public String getSimpleName() { // tmp
+	/** @since 6.6 */
+	public String getSimpleName() { 
 		String name = getName();
 		if (!name.contains(".")) return name;
 		return Strings.lastToken(name, ".");		

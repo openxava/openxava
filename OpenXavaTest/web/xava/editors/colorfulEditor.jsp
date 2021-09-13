@@ -1,7 +1,4 @@
-<%@ page import="java.util.UUID" %>
-
 <%
-// tmp
 String background = request.getParameter("background");
 String color = request.getParameter("color");
 String cssClass ="ox-colorful-" + color;

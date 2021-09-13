@@ -35,6 +35,8 @@
             for tabs (list mode) (new in v4.6)</a></div>
         <div style="margin-left: 3em;"><a href="#Customizing-Editors-Editors%20for%20list%20formats%20%28new%20in%20v5.7%29">Editors
             for list formats (new in v5.7)</a></div>
+        <div style="margin-left: 3em;"><a href="#editors-for-annotations">Editors
+            for annotations (new in v6.6)</a></div>
         <div style="margin-left: 3em;"><a href="#Customizing-Editors-JavaScript%20in%20editors">JavaScript
             in editors</a></div>
         <div style="margin-left: 4em;"><a href="#Customizing-Editors-JavaScript%20in%20editors-Since%20v4m3">Since
@@ -157,28 +159,28 @@ class="sc-1">&lt;!-- 14 --&gt;</span>
    <span class="sc3"><span class="re1">&lt;list-formatter</span> ... <span class="re2">/&gt;</span></span>               <span
 class="sc-1">&lt;!-- 15  New in v3.1.4 --&gt;</span>
    <span class="sc3"><span class="re1">&lt;for-stereotype</span> ... <span class="re2">/&gt;</span></span> ...           <span
-class="sc-1">&lt;!-- 16 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-type</span> ... <span class="re2">/&gt;</span></span> ...                 <span
-class="sc-1">&lt;!-- 17 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-model-property</span> ... <span class="re2">/&gt;</span></span> ...       <span
-class="sc-1">&lt;!-- 18 --&gt;</span>
+class="sc-1">&lt;!-- 16 --&gt;</span><br>   <span class="sc3"><span class="re1">&lt;for-annotation</span> ... <span
+class="re2">/&gt;</span></span> ...           <span class="sc-1">&lt;!-- 17  New in v6.6 --&gt;<br>  </span>&nbsp;<span
+class="sc3"><span class="re1">&lt;for-type</span> ... <span class="re2">/&gt;</span></span> ...                 <span
+class="sc-1">&lt;!-- 18 --&gt;<br></span>  &nbsp;<span class="sc3"><span class="re1">&lt;for-model-property</span> ... <span
+class="re2">/&gt;</span></span> ...       <span class="sc-1">&lt;!-- 19 --&gt;</span>
    <span class="sc3"><span class="re1">&lt;for-reference</span> ... <span class="re2">/&gt;</span></span> ...            <span
-class="sc-1">&lt;!-- 19  New in v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-collection</span> ... <span class="re2">/&gt;</span></span> ...           <span
 class="sc-1">&lt;!-- 20  New in v3.1.3 --&gt;</span>
+   <span class="sc3"><span class="re1">&lt;for-collection</span> ... <span class="re2">/&gt;</span></span> ...           <span
+class="sc-1">&lt;!-- 21  New in v3.1.3 --&gt;</span>
    <span class="sc3"><span class="re1">&lt;for-tab</span> ... <span class="re2">/&gt;</span></span> ...                  <span
-class="sc-1">&lt;!-- 21  New in v4.6 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-valid-values</span> <span class="re2">/&gt;</span></span>                 <span
-class="sc-1">&lt;!-- 22  New in v2.1.2 --&gt;</span>
+class="sc-1">&lt;!-- 22  New in v4.6 --&gt;</span><br>  &nbsp;<span class="sc3"><span
+class="re1">&lt;for-valid-values</span> <span class="re2">/&gt;</span></span>                 <span
+class="sc-1">&lt;!-- 23  New in v2.1.2 --&gt;</span>
    <span class="sc3"><span class="re1">&lt;for-references</span> <span class="re2">/&gt;</span></span>                   <span
-class="sc-1">&lt;!-- 23  New in v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-collections</span> <span class="re2">/&gt;</span></span>                  <span
 class="sc-1">&lt;!-- 24  New in v3.1.3 --&gt;</span>
+   <span class="sc3"><span class="re1">&lt;for-collections</span> <span class="re2">/&gt;</span></span>                  <span
+class="sc-1">&lt;!-- 25  New in v3.1.3 --&gt;</span>
    <span class="sc3"><span class="re1">&lt;for-element-collections</span> <span
-class="re2">/&gt;</span></span>          <span class="sc-1">&lt;!-- 25  New in v5.0 --&gt;</span>
+class="re2">/&gt;</span></span>          <span class="sc-1">&lt;!-- 26  New in v5.0 --&gt;</span>
    <span class="sc3"><span class="re1">&lt;for-tabs</span> <span class="re2">/&gt;</span></span>                         <span
-class="sc-1">&lt;!-- 26  New in v4.6 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+class="sc-1">&lt;!-- 27  New in v4.6 --&gt;</span><br><span class="sc3"><span class="re1">&lt;/editor<span
+class="re2">&gt;</span></span></span></pre>
       <ol>
         <li><strong>name</strong> (optional): <em>(New in v2.1.3)</em> Name for
           referencing to this editor from other places, like <em>@Editor</em>
@@ -244,13 +246,18 @@ class="sc-1">&lt;!-- 26  New in v4.6 --&gt;</span>
           in list mode.</li>
         <li><strong>for-stereotype</strong> (several, optional): Associates this
           editor with a stereotype. The preference order is: first model
-          property, then stereotype and finally type.</li>
+          property, then stereotype, afterwards annotation and finally type.</li>
+        <li><strong>for-annotation</strong> (several, optional): <em>(New in
+            v6.6) </em>Associates this editor with a Java annotation. The
+          preference order is: first model property, then stereotype, afterwards
+          annotation and finally type.</li>
         <li><strong>for-type</strong> (several, optional): Associates this
           editor with a type. The preference order is: first model property,
-          then stereotype and finally type.</li>
+          then stereotype,&nbsp; afterwards annotation and finally type.</li>
         <li><strong>for-model-property</strong> (several, optional): Associates
           this editor with a concrete property of a model. The preference order
-          is: first model property, then stereotype and finally type.</li>
+          is: first model property, then stereotype, afterwards annotation and
+          finally type.</li>
         <li><strong>for-reference</strong> (several, optional): <em>(New in
             v3.1.3)</em> This editor will be used for the references to the
           specified model.</li>
@@ -2169,11 +2176,11 @@ class="re2">&gt;</span></span>
       to change the formats for a specific list use the <a class="wiki_link" href="tab_en.html#several-presentation-formats-editors">editors
         attribute of @Tab</a> in your entity.</div>
     <div class="wiki" style="display: block;">
-      <h3 id="toc7"><a name="Customizing-Editors-Editors for list formats (new in v5.7)"></a>Editors
-        for annotations <em>(new in v6.6)</em></h3>
-      It's possible attach an editor to a Java annotation, so when an property
-      would be annotated with it that editor will be used. For example, you can
-      define an annotation like this one:</div>
+      <h3><a name="editors-for-annotations"></a>Editors for annotations <em>(new
+          in v6.6)</em></h3>
+      It's possible to attach an editor to a Java annotation, so when a property
+      is annotated with that annotation the corresponding editor is used. For
+      example, you can define an annotation like this one:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.yourcompany.invoicing.annotations;
 
@@ -2188,7 +2195,7 @@ public @interface Colorful {
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">Note as it's a regular Java
-      annotation with no special requirement, you can even use already existing
+      annotation with no special requirements, you can even use already existing
       annotations from any Java library. </div>
     <div class="wiki" style="display: block;">Then you annotate a property of
       your entity with your annotation, in this way:</div>
@@ -2197,25 +2204,23 @@ public @interface Colorful {
 @Colorful(color = "green") 
 String name;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Now you want that the name
+    <div class="wiki" style="display: block;">Now you want that the <i>name</i>
       property will be displayed using your own editor instead of the regular
-      one for String properties. For that, define your editor in editors.xml and
-      assign it to your annotations. Add the next fragment to your editors.xml:</div>
+      one for <i>String</i> properties. For that, define your editor in <i>editors.xml</i>
+      and assign it to your annotation using <i>for-annotation</i>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;editor name="Colorful" url="colorfulEditor.jsp"&gt;
     &lt;property name="background" value="yellow"/&gt; 
-    &lt;for-annotation annotation="org.openxava.test.annotations.Colorful"/&gt;
+    &lt;for-annotation annotation="com.yourcompany.invoicing.annotations.Colorful"/&gt;
 &lt;/editor&gt;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Here you're linking the Colorful
-      annotation to the colorfulEditor.jsp editor. Also we define a property
-      "background" to send to the editor. This is the code of
-      colorfulEditor.jsp:</div>
+    <div class="wiki" style="display: block;">Here you're linking the <i>Colorful</i>
+      annotation to the <i>colorfulEditor.jsp</i> editor. Also we define a
+      property "background" to send to the editor. This is the code of <i>colorfulEditor.jsp</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="html">&lt;%@ page import="java.util.UUID" %&gt;
-&lt;%
-String background = request.getParameter("background");
-String color = request.getParameter("color");
+      <pre><code class="html">&lt;%
+String background = request.getParameter("background"); // Reads the property in editors.xml
+String color = request.getParameter("color"); // Reads the attribute of @Colorful annotation
 String cssClass ="ox-colorful-" + color;
 %&gt;
 
@@ -2230,7 +2235,11 @@ String cssClass ="ox-colorful-" + color;
     &lt;jsp:include page="textEditor.jsp"/&gt;
 &lt;/span&gt;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">fff<br>
+    <div class="wiki" style="display: block;">In this case the editor just wraps
+      the standard <i>textEditor.jsp</i> to define a custom color for letters
+      and background. The important thing here is that you can read the
+      attribute defined in your annotation (<i>color = "green"</i> in this case)
+      using <i>request.getParameter("color")</i>.<br>
       <h3 id="toc8"><a name="Customizing-Editors-JavaScript in editors"></a><span
           style="font-size: 1.1em;"><strong>JavaScript in editors</strong></span></h3>
       <h4 id="toc9"><a name="Customizing-Editors-JavaScript in editors-Since v4m3"></a>Since

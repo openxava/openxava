@@ -1,13 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- Annotations for Editors:
-	- Suite: 
-		- OJO, Tardó el doble 6000 segundos.
-		- Arreglé 8 fallos, está lista para relanzarse.
-	- Documentación.
-	- updateOX
-
+- Java annotations can be associated to editors in editors.xml. 
 - Responsive top bar button, now when the UI is narrowed the action labels are hidden.
 - Top bar button and left menu adapted to look better in iPad. 
 - Tooltips for actions include the name of the action, useful when action label is not shown.

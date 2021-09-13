@@ -72,7 +72,7 @@ public class EditorsParser extends ParserBase {
 		MetaWebEditors.addMetaEditor(editor);
 		addEditorsForType(editor, el);
 		addEditorsForStereotype(editor, el);
-		addEditorsForAnnotation(editor, el); // tmp
+		addEditorsForAnnotation(editor, el); 
 		addEditorsForModelProperty(editor, el);
 		addEditorsForValidValues(editor, el);
 		addEditorsForReferences(editor, el);
@@ -163,7 +163,7 @@ public class EditorsParser extends ParserBase {
 		}		
 	}
 	
-	private void addEditorsForAnnotation(MetaEditor editor, Element n) throws XavaException { // tmp		
+	private void addEditorsForAnnotation(MetaEditor editor, Element n) throws XavaException { 		
 		NodeList l = n.getElementsByTagName(xfor_annotation[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {

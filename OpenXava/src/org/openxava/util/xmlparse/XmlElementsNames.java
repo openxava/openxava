@@ -218,7 +218,7 @@ public class XmlElementsNames {
 	protected final static String [] xavailable_on_new = { "available-on-new", "disponible-en-nuevo" };
 	protected final static String [] xexcluded_actions = { "excluded-actions", "acciones-excluidas" };
 	protected final static String [] xloses_changed_data = { "loses-changed-data", "pierde-datos-cambiados" }; 
-	protected final static String [] xfor_annotation = { "for-annotation", "para-anotacion" }; // tmp
-	protected final static String [] xannotation = { "annotation", "anotacion" }; // tmp
+	protected final static String [] xfor_annotation = { "for-annotation", "para-anotacion" }; 
+	protected final static String [] xannotation = { "annotation", "anotacion" }; 
 	
 }

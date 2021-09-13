@@ -2,7 +2,6 @@
 
 <!ELEMENT editores (editor*)>
 
-<!-- tmp para-anotacion. Mover a OpenXava -->
 <!ELEMENT editor (propiedad*, formateador?, formateador-lista?, (para-tipo | para-estereotipo | para-propiedad-modelo | para-valores-posibles | para-referencias | para-referencia | para-colecciones | para-colecciones-elementos | para-coleccion | para-tabs | para-tab | para-anotacion)*)>
 <!ATTLIST editor
  nombre CDATA #IMPLIED
@@ -85,11 +84,8 @@
  modelo CDATA #REQUIRED 
 >
 
-<!-- tmp ini -->
-<!-- tmp Mover a OpenXava -->
 <!ELEMENT para-anotacion EMPTY>
 <!ATTLIST para-anotacion
  anotacion CDATA #REQUIRED
 >
-<!-- tmp fin -->
 

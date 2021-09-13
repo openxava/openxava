@@ -25,7 +25,7 @@ public class Artist extends Identifiable {
 	
 	@Column(length=40) @Required
 	@OnChange(forViews="ConfirmName", value=OnChangeArtistNameAction.class)
-	@Colorful(color = "green") // tmp
+	@Colorful(color = "green") 
 	private String name;
 	
 	@Max(90l)	
@@ -53,7 +53,7 @@ public class Artist extends Identifiable {
 		this.name = name;
 	}
 
-	@Colorful(color = "pink") // In the getter, to test a case // tmp
+	@Colorful(color = "pink") // In the getter, to test a case 
 	public Integer getAge() {
 		return age;
 	}

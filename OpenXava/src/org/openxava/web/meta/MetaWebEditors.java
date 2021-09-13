@@ -6,6 +6,7 @@ import java.util.*;
 
 import org.apache.commons.beanutils.*;
 import org.apache.commons.collections.*;
+import org.apache.commons.logging.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
@@ -19,11 +20,13 @@ import org.openxava.web.meta.xmlparse.*;
  */
 
 public class MetaWebEditors {
+	
+	private static Log log = LogFactory.getLog(MetaEditor.class);
 		
 	private static Map editorsByName; 
 	private static Map editorsByType;
 	private static Map editorsByStereotype;
-	private static Map<String, MetaEditor> editorsByAnnotation; // tmp
+	private static Map<String, MetaEditor> editorsByAnnotation; 
 	private static Map editorsByModelProperty;
 	private static Map editorsByReferenceModel;
 	private static Map editorsByCollectionModel; 
@@ -32,7 +35,7 @@ public class MetaWebEditors {
 	private static MetaEditor editorForCollections;
 	private static MetaEditor editorForElementCollections; 
 	private static Collection<MetaEditor> editorsForTabs;
-	private static Map<String, MetaEditor> editorsByProperty; // tmp
+	private static Map<String, MetaEditor> editorsByProperty; 
 	
 	public static void addMetaEditorForType(String type, MetaEditor editor) throws XavaException {
 		if (editorsByType == null) {
@@ -41,7 +44,7 @@ public class MetaWebEditors {
 		editorsByType.put(type, editor);		
 	}
 	
-	public static void addMetaEditorForAnnotation(String annotation, MetaEditor editor) throws XavaException { // tmp
+	public static void addMetaEditorForAnnotation(String annotation, MetaEditor editor) throws XavaException { 
 		if (editorsByAnnotation == null) {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForAnnotation");
 		}
@@ -140,7 +143,7 @@ public class MetaWebEditors {
 		return r;
 	}
 	
-	public static MetaEditor getMetaEditorForAnnotation(MetaProperty p)	throws XavaException { // tmp
+	public static MetaEditor getMetaEditorForAnnotation(MetaProperty p)	throws XavaException { 
 		if (p.getMetaModel() == null) return null;
 		if (!p.getMetaModel().isPOJOAvailable()) return null;
 		String propertyId = p.getMetaModel().getName() + "." + p.getSimpleName();
@@ -158,7 +161,8 @@ public class MetaWebEditors {
 					try {
 						value = XObjects.execute(a, m.getName());
 					} catch (Exception e) {
-						e.printStackTrace(); // tmp
+						log.warn(XavaResources.getString("impossible_get_value_annotation_attribute", m.getName(), a.annotationType().getName()), e);
+						
 					}
 					if (clonedEditor == null) clonedEditor = editor.cloneMetaEditor();
 					clonedEditor.addProperty(m.getName(), value.toString());
@@ -172,7 +176,7 @@ public class MetaWebEditors {
 		return null;
 	}
 	
-	private static Annotation[] getAnnotations(MetaProperty p) { // tmp
+	private static Annotation[] getAnnotations(MetaProperty p) { 
 		// We avoid to sum everything in a collection to save memory, 
 		//   because this method is called a lot of times, while most times
 		//   the annotation are in the field, not in the getter
@@ -195,14 +199,14 @@ public class MetaWebEditors {
 				result = getAnnotationsFromGetter(p, result, "is");
 			} 
 			catch (NoSuchMethodException ex2) {
-				ex.printStackTrace(); // tmp Poner mensaje significativo, no se encuentra campo ni getter
+				log.warn(XavaResources.getString("field_getter_not_found", p.getName(), p.getMetaModel().getName()), ex2);
 			}
 		}
 
 		return result;
 	}
 
-	private static Annotation[] getAnnotationsFromGetter(MetaProperty p, Annotation[] result, String prefix) throws NoSuchMethodException { // tmp
+	private static Annotation[] getAnnotationsFromGetter(MetaProperty p, Annotation[] result, String prefix) throws NoSuchMethodException { 
 		AnnotatedElement element = p.getMetaModel().getPOJOClass().getMethod(prefix + Strings.firstUpper(p.getSimpleName()));
 		Annotation[] getterAnnotations = element.getAnnotations();
 		if (getterAnnotations.length > 0) {
@@ -245,7 +249,6 @@ public class MetaWebEditors {
 		return editorsByType;
 	}
 	
-	// tmp
 	private synchronized static Map<String, MetaEditor> getEditorsByAnnotation() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
 		if (editorsByAnnotation == null) {
 			init();
@@ -306,7 +309,7 @@ public class MetaWebEditors {
 	private static void init() { 
 		editorsByType = new HashMap();
 		editorsByStereotype = new HashMap();
-		editorsByAnnotation = new HashMap<>(); // tmp
+		editorsByAnnotation = new HashMap<>(); 
 		editorsByModelProperty = new HashMap();
 		editorsByName = new HashMap();
 		editorsByReferenceModel = new HashMap(); 
@@ -333,14 +336,11 @@ public class MetaWebEditors {
 				return r;
 			}
 		}
-		// tmp ini
 		MetaEditor r = (MetaEditor) getMetaEditorForAnnotation(p);
 		if (r != null) {
 			return r;
 		}
 		r = (MetaEditor) getMetaEditorForTypeOfProperty(p);
-		// tmp fin
-		// tmp MetaEditor r = (MetaEditor) getMetaEditorForTypeOfProperty(p);		
 		if (r == null) {
 			throw new ElementNotFoundException("editor_not_found", p.getId());
 		}		
