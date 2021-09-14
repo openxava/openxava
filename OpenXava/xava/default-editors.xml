@@ -223,6 +223,9 @@
 		<property name="imagePreview" value="false"/>		
 		<for-stereotype stereotype="FILES" />
 		<for-stereotype stereotype="ARCHIVOS" />
+		<!-- tmp ini -->
+		<for-annotation annotation="org.openxava.annotations.Files"/>
+		<!-- tmp fin -->
 	</editor>
 	
 	<editor name="ZeroFilled" url="textEditor.jsp">
