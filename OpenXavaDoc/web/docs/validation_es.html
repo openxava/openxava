@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lección 9: Validación avanzada - OpenXava</title>
+    <title>Lección 8: Validación avanzada - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -12,29 +12,28 @@
       <h1 id="toc0"><a name="Leccion-6-Validacion-avanzada"></a> <span id="breadcrumbs">
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
-        Lección 9: Validación avanzada</h1>
+        Lección 8: Validación avanzada</h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
         Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
         Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
         Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
-        Desarrollo ágil</a> | <a class="wiki_link" href="testing_es.html">6.
-        Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">7.
-        Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">8.
-        Lógica de negocio básica</a> | <strong>9. Validación avanzada</strong>
-      | <a class="wiki_link" href="refining-standard-behavior_es.html">10.
-        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">11.
-        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">12.
+        Desarrollo ágil</a> | <a class="wiki_link" href="inheritance_es.html">6.
+        Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">7.
+        Lógica de negocio básica</a> | <strong>8. Validación avanzada</strong>
+      | <a class="wiki_link" href="refining-standard-behavior_es.html">9.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">10.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">11.
         Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a>
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#Leccion-6-Validacion-avanzada">Lección
-9:
-            Validación avanzada</a></div>
+            8: Validación avanzada</a></div>
         <div style="margin-left: 2em;"><a href="#Alternativas-de-validacion">Alternativas
             de validación</a></div>
         <div style="margin-left: 3em;"><a href="#Alternativas-de-validacion-Anadir-la-propiedad-entregado-a-Pedido">Añadir
@@ -65,13 +64,6 @@
             a un servicio web REST para validar el ISBN</a></div>
         <div style="margin-left: 3em;"><a href="#Crear-tu-propia-anotacion-de-Bean-Validation-Anadir-atributos-a-tu-anotacion">Añadir
             atributos a tu anotación</a></div>
-        <div style="margin-left: 2em;"><a href="#Pruebas-JUnit">Pruebas JUnit</a></div>
-        <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-la-validacion-al-anadir-a-una-coleccion">Probar
-            la validación al añadir a una colección</a></div>
-        <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-validacion-al-asignar-una-referencia-y-al-borrar">Probar
-            validación al asignar una referencia y al borrar</a></div>
-        <div style="margin-left: 3em;"><a href="#Pruebas-JUnit-Probar-el-Bean-Validation-propio">Probar
-            el Bean Validation propio</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
       De momento solo hemos hecho validaciones básicas usando la anotación <i>@Required</i>
@@ -168,7 +160,8 @@ pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadid
       aplicación, verás como los pedidos no entregados son rechazados. Ve al
       módulo <i>Facturas</i>, selecciona la pestaña PEDIDOS de una factura y
       desde ahí pulsa en el botón <i>Añadir</i>:
-      <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"
+      <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"
+
           alt="validation_es010.png" title="validation_es010.png"></div>
       <div class="wiki" style="display: block;">Se mostrará un diálogo con una
         lista de pedidos para escoger. Selecciona dos, uno de ellos no entregado
@@ -550,7 +543,8 @@ String isbn;
       soluciones posibles, escoge <i>Import 'ISBN'
         (com.yourcompany.invoicing.annotations)</i> para que el import correcto
       se añada a la clase <i>Producto</i>:</div>
-    <div class="wiki" style="display: block;"> <img src="files/validation_es035.png"
+    <div class="wiki" style="display: block;"> <img src="files/validation_es035.png"
+
         alt="validation_es035.png" title="validation_es035.png"> </div>
     <div class="wiki" style="display: block;"> Ahora, puedes probar tu módulo, y
       verificar que el <em>ISBN</em> que introduces se valida correctamente.
@@ -593,7 +587,8 @@ String isbn;
       <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
       <div class="wiki" style="display: block;">Obtienes un JSON vacío, como
         este:</div>
-      <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+      <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+
         style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
       <div class="wiki" style="display: block;">Es decir, un JSON vacío,
         simplemente unas llaves vacías, así: {}.</div>
@@ -708,177 +703,6 @@ public class ValidadorISBN
 private String isbn;
 </code></pre> ¡Enhorabuena! Has aprendido como crear tu propia anotación de Bean
       Validation y de paso a usar JAX-RS para llamar a servicios REST.<br>
-      <br>
-      <h2 id="toc16"><a name="Pruebas-JUnit"></a>Pruebas JUnit</h2>
-      Nuestra meta no es desarrollar una ingente cantidad de código, sino crear
-      software de calidad. Al final, si creas software de calidad acabarás
-      escribiendo más cantidad de software, porque podrás dedicar más tiempo a
-      hacer cosas nuevas y excitantes, y menos depurando legiones de bugs. Y tú
-      sabes que la única forma de conseguir calidad es mediante las pruebas
-      automáticas, por tanto actualicemos nuestro código de prueba.<br>
-      <h3 id="toc17"><a name="Pruebas-JUnit-Probar-la-validacion-al-anadir-a-una-coleccion"></a>Probar
-        la validación al añadir a una colección</h3>
-      Recuerda que hemos refinado tu código para que el usuario no pueda asignar
-      pedidos a una factura si los pedidos no están servidos. Después de esto,
-      tu actual <em>testAnyadirPedidos()</em> de <em>PruebaFactura</em> puede
-      fallar, porque trata de añadir el primer pedido y es posible que ese
-      primer pedido no esté marcado como servido.<br>
-      Modifiquemos la prueba para que funcione y también para comprobar la nueva
-      funcionalidad de validación. Mira como:<br>
-      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty();
-    execute("List.orderBy", "property=numero");
-    execute("List.viewDetail", "row=0");
-    execute("Sections.change", "activeSection=1");
-    assertCollectionRowCount("pedidos", 0);
-    execute("Collection.add",
-        "viewObject=xava_view_section1_pedidos");
-    // execute("AddToCollection.add", "row=0"); // Ahora no seleccionamos al azar
- 
-    seleccionarPrimerPedidoConEntregadoIgual("Entregado"); // Selecciona un pedido entregado
-    seleccionarPrimerPedidoConEntregadoIgual(""); // Selecciona uno no entregado
-    execute("AddToCollection.add"); // Tratamos de añadir ambos
-    assertError( // Un error, porque el pedido no entregado no se puede añadir
-        "¡ERROR! 1 elemento(s) NO añadido(s) a Pedidos de Factura");
-    assertMessage( // Un mensaje de confirmación, porque el pedido entregado ha sido añadido
-        "1 elemento(s) añadido(s) a Pedidos de Factura");
- 
-    assertCollectionRowCount("pedidos", 1);
-    checkRowCollection("pedidos", 0);
-    execute("Collection.removeSelected",
-        "viewObject=xava_view_section1_pedidos");
-    assertCollectionRowCount("pedidos", 0);
-}
-</code></pre> Hemos modificado la parte de la selección de pedidos a añadir,
-      antes seleccionábamos el primero, no importaba si estaba servido o no.
-      Ahora seleccionamos un pedido servido y otro no servido, de esta forma
-      comprobamos que el pedido servido se añade y el no servido es rechazado.<br>
-      La pieza que nos falta es la forma de seleccionar los pedidos. Esto es el
-      trabajo del método <em>seleccionarPrimerPedidoConEntregadoIgual()</em>.
-      Veámoslo:<br>
-      <pre><code class="java">private void seleccionarPrimerPedidoConEntregadoIgual(String valor) throws Exception {
-    int c = getListRowCount(); // El total de filas visualizadas en la lista
-    for (int i = 0; i &lt; c; i++) {
-        if (valor.equals(getValueInList(i, 12))) { // Obtenermos valor de la columna 'entregado'    
-            checkRow(i);
-            return;
-        }
-    }
-    fail("Debe tener al menos una fila con entregado=" + valor);
-}
-</code></pre> Aquí ves una buena técnica para hacer un bucle sobre los elementos
-      visualizados de una lista para seleccionarlos y coger algunos datos, o
-      cualquier otra cosa que quieras hacer con los datos de la lista. Para que
-      esta prueba funcione la primera factura no ha de tener pedidos y además
-      tiene que haber al menos un pedido entregado, pero que no sea el primero.<br>
-      <h3 id="toc18"><a name="Pruebas-JUnit-Probar-validacion-al-asignar-una-referencia-y-al-borrar"></a>Probar
-        validación al asignar una referencia y al borrar</h3>
-      Desde el módulo <em>Factura</em> el usuario no puede asignar pedidos a
-      una factura si los pedidos no están servidos, por lo tanto, desde el
-      módulo <em>Pedido</em> el usuario tampoco debe poder asignar una factura
-      a un pedido si éste no está servido. Es decir, hemos de probar también la
-      otra parte de la asociación. Lo haremos modificando el actual <em>testPonerFactura()</em>
-      de <em>PruebaPedido</em>.<br>
-      Además, aprovecharemos este caso para probar la validación al borrar que
-      vimos en las secciones <a class="wiki_link" href="validation_es.html#toc7">Validar
-        al borrar con @RemoveValidator</a> y <a class="wiki_link" href="validation_es.html#toc8">Validar
-        al borrar con un método de retrollamada</a>. Allí modificamos la
-      aplicación para impedir que un usuario borrara un pedido si éste tenía una
-      factura asociada. Ahora probaremos este hecho.<br>
-      Todo esto está en el <em>testPonerFactura()</em> de <i>PruebaPedido</i>
-      mejorado que puedes ver a continuación:<br>
-      <pre><code class="java">public void testPonerFactura() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty();
-    execute("List.orderBy", "property=numero"); // Establece el orden de la lista
-    execute("List.viewDetail", "row=0");
-    assertValue("entregado", "false"); // El pedido no debe estar entregado
-    execute("Sections.change", "activeSection=1");
-    assertValue("factura.numero", "");
-    assertValue("factura.anyo", "");
-    execute("Reference.search",
-        "keyProperty=factura.anyo");
-    String anyo = getValueInList(0, "anyo");
-    String numero = getValueInList(0, "numero");
-    execute("ReferenceSearch.choose", "row=0");
-    assertValue("factura.anyo", anyo);
-    assertValue("factura.numero", numero);
- 
-    // Los pedidos no entregados no pueden tener factura
-    execute("CRUD.save");
-    assertErrorsCount(1); // No podemos grabar porque no ha sido entregado
-    setValue("entregado", "true");
-    execute("CRUD.save"); // Con 'entregado=true' podemos grabar el pedido
-    assertNoErrors();
- 
-    // Un pedido con factura no se puede borrar
-    execute("Mode.list"); // Vamos al modo lista
-    execute("CRUD.deleteRow", "row=0"); // y eliminanos el pedido grabado
-    assertError("Imposible borrar Pedido por: " + // No podemos borrar porque tiene
-        "Pedido asociado a factura no puede ser eliminado"); // una factura asociada
- 
-    // Restaurar los valores originales
-    execute("List.viewDetail", "row=0");
-    setValue("factura.anyo", "");
-    setValue("entregado", "false");
-    execute("CRUD.save");
-    assertNoErrors();
-}
-</code></pre> La prueba original solo buscaba una factura, ni siquiera intentaba
-      grabar. Ahora, hemos añadido código al final para probar la grabación de
-      un pedido marcado como servido y marcado como no servido, de esta forma
-      comprobamos la validación. Después de eso, tratamos de borrar el pedido,
-      el cual tiene una factura, así probamos también la validación al borrar.
-      Antes de ejecutar esta prueba asegurate de que el primer pedido no esté
-      entregado y no tenga factura.<br>
-      <h3 id="toc19"><a name="Pruebas-JUnit-Probar-el-Bean-Validation-propio"></a>Probar
-        el <em>Bean Validation</em> propio</h3>
-      Solo nos queda probar tu <em>Bean Validation ISBN</em>, el cual usa un
-      servicio REST para hacer la validación. Simplemente hemos de escribir una
-      prueba que trate de asignar un ISBN incorrecto, uno inexistente y uno
-      correcto a un producto, y ver que pasa. Para hacer esto añadamos un método
-      <em>testValidarISBN()</em> a <em>PruebaProducto</em>.<br>
-      <pre><code class="java">public void testValidarISBN() throws Exception {
-    login("admin", "admin");
- 
-    // Buscar producto1
-    execute("CRUD.new");
-    setValue("numero", Integer.toString(producto1.getNumero()));
-    execute("CRUD.refresh");
-    assertValue("descripcion", "Producto JUNIT 1");
-    assertValue("isbn", "");
- 
-    // Con un formato de ISBN incorrecto
-    setValue("isbn", "1111");
-    execute("CRUD.save"); // Falla por el formato (apache commons validator)
-    assertError("1111 no es un valor válido para ISBN de Producto: " +
-        "ISBN inválido o inexistente");
- 
-    // ISBN no existe aunque tiene un formato correcto
-    setValue("isbn", "9791034369997");
-    execute("CRUD.save"); // Falla porque no existe ISBN (el servicio REST)
-    assertError("9791034369997 no es un valor válido para ISBN de " +
-        "Producto: ISBN inválido o inexistente");
- 
-    // ISBN existe
-    setValue("isbn", "9780932633439");
-    execute("CRUD.save"); // No falla
-    assertNoErrors();
-}
-</code></pre> Seguramente la prueba manual que hacías mientras estabas
-      escribiendo el validador <em>@ISBN</em> era parecida a esta. Por eso, si
-      hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
-        rel="nofollow">código de prueba antes que el código de la aplicación</a>,
-      lo hubieras podido usar mientras que desarrollabas, lo cual es más
-      eficiente que repetir una y otra vez a mano las pruebas con el navegador.<br>
-      Fíjate que si usas <i>@ISBN(search=false)</i> esta prueba no funciona
-      porque no solo comprueba el formato sino que también hace la búsqueda con
-      el servicio REST. Por tanto, has de usar <em>@ISBN</em> sin atributos
-      para anotar la propiedad <i>isbn </i>y poder ejecutar esta prueba.<br>
-      Ahora ejecuta todas las prueba de tu aplicación <em>Facturación</em> para
-      verificar que todo sigue en su sitio.<br>
-      <br>
       <h2 id="toc20"><a name="Resumen"></a>Resumen</h2>
       En esta lección has aprendido varias formas de hacer validación en una
       aplicación OpenXava. Además, ahora estás preparado para encapsular toda la
@@ -890,12 +714,14 @@ private String isbn;
       lógica fuera de las clases del modelo. Aprenderás a hacer esto en las
       siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-6-validation_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="refining-standard-behavior_es.html">Ve a la
-          lección 10</a></strong> </div>
+          lección 9</a></strong> </div>
   </body>
 </html>

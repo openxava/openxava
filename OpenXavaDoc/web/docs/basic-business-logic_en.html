@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lesson 8: Basic business logic - OpenXava</title>
+    <title>Lesson 7: Basic business logic - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -12,28 +12,30 @@
       <h1 id="toc0"><a name="Lesson 5: Basic business logic"></a> <span id="breadcrumbs">
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
-        Lesson 8: Basic business logic </h1>
+        Lesson 7: Basic business logic </h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
         Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
         Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
         Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
-        Agile development</a> | <a class="wiki_link" href="testing_en.html">6.
-        Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">7.
-        Inheritance</a> | <strong>8. Basic business logic</strong> | <a class="wiki_link"
-        href="validation_en.html">9. Advanced validation</a> | <a class="wiki_link"
-        href="refining-standard-behavior_en.html">10. Refining the standard
-        behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">11.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">12.
+        Agile development</a> | <a class="wiki_link" href="inheritance_en.html">6.
+        Inheritance</a> | <strong>7. Basic business logic</strong> | <a class="wiki_link"
+
+        href="validation_en.html">8. Advanced validation</a> | <a class="wiki_link"
+
+        href="refining-standard-behavior_en.html">9. Refining the standard
+        behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">10.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">11.
         References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a>
+        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
+        Automated testing</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Lesson%205:%20Basic%20business%20logic">Lesson
-            8: Basic business logic</a></div>
+            7: Basic business logic</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Properties%20in%20Java">Properties
             in Java</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties">Calculated
@@ -58,16 +60,6 @@
             persistent and calculated properties</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Database%20logic%20%28@Formula%29">Database
             logic (@Formula)</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-JUnit%20tests">JUnit
-            tests</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JUnit%20tests-Modifying%20existing%20tests">Modifying
-            existing tests</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JUnit%20tests-Testing%20default%20values,%20calculated%20and%20@Calculation%20properties">Testing
-            default values, calculated and @Calculation properties</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JUnit%20tests-Testing%20@Formula">Testing
-            @Formula</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JUnit%20tests-Testing%20calculated%20and%20persistent%20synchronized%20properties">Testing
-            calculated and persistent synchronized properties</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Summary">Summary</a></div>
       </div>
     </div>
@@ -321,7 +313,8 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
         This fact also has effect in the list mode, because the user cannot
         filter or order by calculated properties, but he can do so using
         persistent properties with <em>@Calculation</em>:<br>
-        <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
+        <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
+
           title="business-logic_en025.png"><br>
         <em>@Calculation</em> is a good option when you need filtering and
         sorting, and a simple calculation is enough. A shortcoming of <i>@Calculation</i>
@@ -345,7 +338,8 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
       and <em>Invoice</em> too. To calculate vat, base amount and total amount
       are indispensable. To do so you only need to add a few properties to <em>CommercialDocument</em>
       class. The next figure shows the user interface for these properties: </div>
-    <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
+    <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
+
         alt="business-logic_en030.png" title="business-logic_en030.png"><br>
       Add the next code to <i>CommercialDocument</i> entity:<br>
       <pre><code class="java">@Digits(integer=2, fraction=0) // To indicate its size
@@ -731,217 +725,6 @@ BigDecimal estimatedProfit; // A field, as in the persistent property case
       Lombok. Moreover, <i>@Formula</i> properties are database dependent,
       because you can use syntax only supported by certain database vendor.</div>
     <div class="wiki" style="display: block;">
-      <h2 id="toc10"><a name="Lesson 5: Basic business logic-JUnit tests"></a>JUnit
-        tests</h2>
-      Before we move on to the next lesson, we are going to write the JUnit code
-      for this one. Remember, the code is not done if it has no tests. You can
-      write the tests before, during or after coding. But you always have to
-      write the tests.<br>
-      The test code here is not only to give you a good example, but also to
-      teach you ways to test different cases in your OpenXava application.<br>
-      <h3 id="toc11"><a name="Lesson 5: Basic business logic-JUnit tests-Modifying existing tests"></a>Modifying
-        existing tests</h3>
-      Creating a new test for each new case seems like a good idea from a
-      structural viewpoint, but in most cases it is not practical because in
-      doing so your test code would grow very fast, and execution of all the
-      tests for your application would take a substantial amount of time.<br>
-      The more pragmatic approach is to modify the existing test code to cover
-      all the new cases we have developed. Let's do it in this way.<br>
-      In our case, most of the code for this lesson applies to <em>CommercialDocument</em>,
-      so we are going to modify the <em>testCreate()</em> method of <em>CommercialDocumentTest</em>
-      to match the new functionality. We leave the <em>testCreate()</em> method
-      as you see in the next code:<br>
-      <pre><code class="java">public void testCreate() throws Exception {
-    login("admin", "admin");
-    calculateNumber(); // Added to calculate the next document number first
-    verifyDefaultValues();
-    chooseCustomer();
-    addDetails();
-    setOtherProperties();
-    save();
-    verifyEstimatedProfit(); // To test @Formula
-    verifyCreated();
-    remove();
-}
-</code></pre> As you see, we add a new line in the beginning to calculate the
-      next document number, and call the new <em>verifyEstimatedProfit()</em>
-      method.<br>
-      Now it's more convenient to calculate the next document number in the
-      beginning to use it during the test. To do this, change the old <em>getNumber()</em>
-      method for the following two methods:<br>
-      <pre><code class="java">private void calculateNumber() {
-    Query query = getManager().createQuery("select max(i.number) from " +
-        model + // We change CommercialDocument for a variable
-        " i where i.year = :year");
-    query.setParameter("year", LocalDate.now().getYear());
-    Integer lastNumber = (Integer) query.getSingleResult();
-    if (lastNumber == null) lastNumber = 0;
-    number = Integer.toString(lastNumber + 1);
-}
- 
-private String getNumber() {
-    return number;
-}
-</code></pre> Previously we only had <em>getNumber()</em> to calculate and
-      return the number, now we have a method to calculate (<em>calculateNumber()</em>),
-      and another one to return the result (<em>getNumber()</em>). You can note
-      that the calculation logic has a little change, instead of using
-      “CommercialDocument” as the source of the query we use <em>model</em>, a
-      variable. This is because now the numeration for invoices and orders are
-      separated. We fill this variable, a field of the test class, in the test
-      constructor, just as shows in the next code:<br>
-      <pre><code class="java">private String model; // The model name to use in the query. Can be “Invoice” or “Order”
- 
-public CommercialDocumentTest(String testName, String moduleName) {
-    super(testName, "Invoicing", moduleName);
-    this.model = moduleName; // In this case module name matches model
-}
-</code></pre> In this case module name, <i>Invoice</i> or <i>Order</i>,
-      coincides with model name, <i>Invoice</i> or <i>Order</i>, so the
-      easiest way to get the model name is from the module name.<br>
-      Let's see the actual testing of the new functionality.<br>
-      <h3 id="toc12"><a name="Lesson 5: Basic business logic-JUnit tests-Testing default values, calculated and @Calculation properties"></a>Testing
-        default values, calculated and <i>@Calculation</i> properties</h3>
-      In this lesson we have done some modifications related to default values.
-      Now the default value for number is not calculated by means of <em>@DefaultValueCalculator</em>
-      instead we use a JPA callback method. To test this case we have to modify
-      the <em>verifyDefaultValues()</em> method as you see:<br>
-      <pre><code class="java">private void verifyDefaultValues() throws Exception {
-    execute("CRUD.new");
-    assertValue("year", getCurrentYear());
-    // assertValue("number", getNumber()); // Now number has no initial value
-    assertValue("number", ""); // on create a new document
-    assertValue("date", getCurrentDate());
-}
-</code></pre>We verify that <i>number</i> the has no initial value, because now
-      the number is not calculated until the document is saved (<a class="wiki_link"
-        href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Multiuser%20safe%20default%20value%20calculation">Multiuser
-        safe default value calculation</a> section). When the document (invoice
-      or order) will be saved we'll verify that the <em>number</em> is
-      calculated. </div>
-    <div class="wiki" style="display: block;">When the detail is added we can
-      test the <em>amount</em> for <em>Detail</em> calculation (<a class="wiki_link"
-        href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Simple%20calculated%20property">Simple
-        calculated property</a> section), the default value calculation for <em>pricePerUnit</em>
-      (<a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Using%20@DefaultValueCalculator">Using
-        @DefaultValueCalculator</a> section) and the amount properties of the
-      document (<a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Total%20properties%20of%20a%20collection">Total
-        properties of a collection</a> section). Among the total properties we
-      test <i>vatPercentage</i> whose default value is calculated reading from
-      a properties file. We'll test all this with a few modifications in the
-      already existing <em>addDetails()</em> method:<br>
-      <pre><code class="java">private void addDetails() throws Exception {
-    assertCollectionRowCount("details", 0);<br><br>    // Before running this test code make sure<br>    //   product 1 has 19 as price, and <br>    //   product 2 has 20 as price<br><br>   &nbsp;// Adding a detail line
-    setValueInCollection("details", 0, "product.number", "1");
-    assertValueInCollection("details", 0,
-        "product.description", "Peopleware: Productive Projects and Teams");
-    assertValueInCollection("details", 0,
-        "pricePerUnit", "19.00"); // @DefaultValueCalculator
-    setValueInCollection("details", 0, "quantity", "2");
-    assertValueInCollection("details", 0,
-        "amount", "38.00"); // Calculated property, section 'Simple calculated property'
- 
-    // Verifying total properties of collection
-    assertTotalInCollection("details", 0, "amount", "38.00"); // Sum of amounts using +
-    assertTotalInCollection("details", 1, "amount", "21"); // Default value from properties file
-    assertTotalInCollection("details", 2, "amount", "7.98"); // VAT, with @Calculation
-    assertTotalInCollection("details", 3, "amount", "45.98"); // Total amount, with @Calculation
- 
-    // Adding another detail
-    setValueInCollection("details", 1, "product.number", "2");
-    assertValueInCollection("details", 1, "product.description", "Arco iris de lágrimas");
-    assertValueInCollection("details", 1, "pricePerUnit", "20.00"); 
-    setValueInCollection("details", 1, "pricePerUnit", "10.00"); // Modifying the default value
-    setValueInCollection("details", 1, "quantity", "1");
-    assertValueInCollection("details", 1, "amount", "10.00");
- 
-    assertCollectionRowCount("details", 2); // Now we have 2 rows
- 
-    // Verifying total properties of collection
-    assertTotalInCollection("details", 0, "amount", "48.00");
-    assertTotalInCollection("details", 1, "amount", "21");
-    assertTotalInCollection("details", 2, "amount", "10.08");
-    assertTotalInCollection("details", 3, "amount", "58.08");
-}
-</code></pre> As you see, with these simple modifications we test most of our
-      new code. What remains is only the <em>estimatedProfit</em> and <i>deliveryDays</i>
-      properties. We'll test them in the next sections.<br>
-      <h3 id="toc13"><a name="Lesson 5: Basic business logic-JUnit tests-Testing @Formula"></a>Testing
-        <em>@Formula<br>
-        </em></h3>
-      In section <a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Database%20logic%20%28@Formula%29">Database
-        logic (@Formula)</a> we have created a property that uses <em>@Formula</em>,
-      <em>estimatedProfit</em>. This property is shown only in list mode.<br>
-      Obviously, the simplest way to test it is by going to list mode and
-      verifying that the value for this property is the expected one. You have
-      already seen that in <em>testCreate()</em> we call the <em>verifyEstimatedProfit()</em>.
-      Let's see its code:<br>
-      <pre><code class="java">private void verifyEstimatedProfit() throws Exception {
-    execute("Mode.list"); // Changes to list mode
-    setConditionValues(new String [] { // Filters to see in the list
-        getCurrentYear(), getNumber() // only the newly created document
-    });
-    execute("List.filter"); // Does the filter
-    assertValueInList(0, 0, getCurrentYear()); // Verifies that
-    assertValueInList(0, 1, getNumber()); // the filter has worked
-    assertValueInList(0, "estimatedProfit", "5.81"); // Asserts estimatedProfit
-    execute("List.viewDetail", "row=0"); // Goes to detail mode
-}
-</code></pre> Because we now go to list mode and then we go back to detail. We
-      have to make a small modification to the <em>verifyCreated()</em> method,
-      that is executed just after <em>verifyEstimatedProfit()</em>. Let's see
-      the modification in the next code:<br>
-      <pre><code class="java">private void verifyCreated() throws Exception {
-    // setValue("year", getCurrentYear()); // We delete these lines
-    // setValue("number", getNumber()); // for searching the document
-    // execute("CRUD.refresh"); // because we already searched it with list mode
- 
-    // The rest of the test...
-    ...
-</code></pre> We remove these lines because now it's not necessary to search the
-      newly created document. Now in the <em>verifyEstimatedProfit()</em>
-      method we went to list mode and chose the document, so we are already
-      editing the document.</div>
-    <div class="wiki" style="display: block;">
-      <h3><a name="Lesson 5: Basic business logic-JUnit tests-Testing calculated and persistent synchronized properties"></a>Testing
-        calculated and persistent synchronized properties<em></em></h3>
-      In the <a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Synchronizing%20persistent%20and%20calculated%20properties">Synchronizing
-        persistent and calculated properties</a> section we used a JPA callback
-      method in <em>Order</em> to have a persistent property, <em>deliveryDays</em><em></em>,
-      synchronized with a calculated one, <em>estimatedDeliveryDays</em>. The <em>deliveryDays</em>
-      property is only shown in list mode.<br>
-      Go to <i>OrderTest</i> class and add a new method <i>testDeliveryDays()</i>:<br>
-      <pre><code class="java">public void testDeliveryDays() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty(); 
-    execute("List.viewDetail", "row=0"); 
-	
-    setValue("date", "6/5/20");
-    assertValue("estimatedDeliveryDays", "1");
-    setValue("date", "6/6/20");
-    assertValue("estimatedDeliveryDays", "3");
-    setValue("date", "6/7/20");
-    assertValue("estimatedDeliveryDays", "2");
-    execute("CRUD.save");
-    execute("Mode.list"); // To verify that deliveryDays is synchronized
-    assertValueInList(0, "deliveryDays", "2"); 
-
-    execute("List.viewDetail", "row=0");
-    setValue("date", "1/13/20");
-    assertValue("estimatedDeliveryDays", "7");
-    execute("CRUD.save");
-    execute("Mode.list"); // To verify that deliveryDays is synchronized
-    assertValueInList(0, "deliveryDays", "7");        
-}
-</code></pre> We try several values for <i>date</i> in order to verify that <i>estimatedDeliveryDays</i>
-      is correctly calculated each time, moreover we go to list mode to verify
-      that <i>deliveryDays</i> has the correct value so both properties are
-      synchronized.</div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;">Congratulations! Now you have your
-      tests up to date with your code. It's a good time to run all the tests for
-      your application.<br>
       <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
       In this lesson you have learned some common ways to add business logic to
       your entities. There should be no doubt about the utility of calculated
@@ -952,12 +735,14 @@ public CommercialDocumentTest(String testName, String moduleName) {
       standard module behavior and add your own business logic, among other ways
       to add custom logic to your application.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-        <a class="wiki_link" href="validation_en.html">Go to Lesson 9</a></strong>
+        <a class="wiki_link" href="validation_en.html">Go to Lesson 8</a></strong>
     </div>
   </body>
 </html>

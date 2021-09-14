@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lección 12: Referencias y colecciones - OpenXava</title>
+    <title>Lección 11: Referencias y colecciones - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -12,28 +12,28 @@
       <h1 id="toc0"><a name="Lección 9: Referencias y colecciones"></a> <span id="breadcrumbs">
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
-        Lección 12: Referencias y colecciones </h1>
+        Lección 11: Referencias y colecciones </h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
         Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
         Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
         Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
-        Desarrollo ágil</a> | <a class="wiki_link" href="testing_es.html">6.
-        Pruebas automáticas</a> | <a class="wiki_link" href="inheritance_es.html">7.
-        Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">8.
-        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">9.
-        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">10.
-        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">11.
-        Comportamiento y lógica de negocio</a> | <strong>12. Referencias y
+        Desarrollo ágil</a> | <a class="wiki_link" href="inheritance_es.html">6.
+        Herencia</a> | <a class="wiki_link" href="basic-business-logic_es.html">7.
+        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">8.
+        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">9.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">10.
+        Comportamiento y lógica de negocio</a> | <strong>11. Referencias y
         colecciones</strong> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a>
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#referencias-y-colecciones">Lección
-            12: Referencias y colecciones</a></div>
+            11: Referencias y colecciones</a></div>
         <div style="margin-left: 2em;"><a href="#refinar-el-comportamiento-de-las-referencias">Refinar
             el comportamiento de las referencias</a></div>
         <div style="margin-left: 3em;"><a href="#las-validaciones-estan-bien-pero-no-son-suficientes">Las
@@ -50,19 +50,6 @@
             la lista para añadir elementos a la colección</a></div>
         <div style="margin-left: 3em;"><a href="#refinar-la-accion-que-anade-elementos-a-la-coleccion">Refinar
             la acción que añade elementos a la colección</a></div>
-        <div style="margin-left: 2em;"><a href="#pruebas-junit">Pruebas JUnit</a></div>
-        <div style="margin-left: 3em;"><a href="#adaptar-pruebapedido">Adaptar
-            PruebaPedido</a></div>
-        <div style="margin-left: 3em;"><a href="#probar-searchaction">Probar
-            @SearchAction</a></div>
-        <div style="margin-left: 3em;"><a href="#probar-onchangesearch">Probar
-            @OnChangeSearch</a></div>
-        <div style="margin-left: 3em;"><a href="#adaptar-pruebafactura">Adaptar
-            PruebaFactura</a></div>
-        <div style="margin-left: 3em;"><a href="#probar-addaction">Probar
-            @AddAction</a></div>
-        <div style="margin-left: 3em;"><a href="#probar-la-accion-para-anadir-elementos-a-la-coleccion">Probar
-            la acción para añadir elementos a la colección</a></div>
         <div style="margin-left: 2em;"><a href="#resumen">Resumen</a></div>
       </div>
       En lecciones anteriores aprendiste como añadir tus propias acciones. Sin
@@ -477,393 +464,6 @@ public class AnyadirPedidosAFactura
       factura nueva, escoger un cliente y añadir pedidos. Es incluso más fácil
       de usar que el modo lista del módulo <i>Pedido</i> ya que el módulo <i>Factura</i>
       solo se muestran los pedidos adecuados al cliente.
-      <h2><a name="pruebas-junit"></a>Pruebas JUnit</h2>
-      Todavía tenemos la sana costumbre de hacer un poco de código de
-      aplicación, y después un poco de código de pruebas. Y ahora es el tiempo
-      de escribir el código de pruebas para las nuevas características añadidas
-      en esta lección.
-      <h3><a name="adaptar-pruebapedido"></a>Adaptar <i>PruebaPedido</i></h3>
-      Si ejecutaras <i>PruebaPedido</i> ahora, no pasaría. Esto es porque
-      nuestro código confía en ciertos detalles que han cambiado. Por lo tanto,
-      hemos de modificar nuestro código de pruebas actual. Edita el método <i>
-        testPonerFactura()</i> de <i>PruebaPedido</i> y aplica los siguientes
-      cambios:
-      <pre><code class="java">public void testPonerFactura() throws Exception {
-
-    ...
-
-    assertValue("factura.numero", "");
-    assertValue("factura.anyo", "");
-    // execute("Reference.search", // Ya no usamos la acción estándar para
-    //    "keyProperty=factura.anyo"); // buscar la factura, en su lugar
-    execute("Pedido.buscarFactura", // usamos nuestra acción personalizada (1)
-        "keyProperty=factura.numero");
-    execute("List.orderBy", "property=numero");
-
-    ...
-	
-    // Restaurar valores
-    setValue("factura.anyo", ""); // Ahora es necesario teclear el año
-    setValue("factura.numero", ""); // y el número para buscar la factura (2)
-    setValue("entregado", "false");
-    execute("CRUD.save");
-    assertNoErrors();
-}
-</code></pre> Recuerda que anotamos la referencia <i>factura</i> en <i>Pedido</i>
-      con <i>@SearchAction("Pedido.buscarFactura")</i>, por tanto hemos de
-      modificar la prueba para llamar a <i>Pedido.buscarFactura</i> (1) en vez
-      de a <i>Reference.search</i>. También añadimos <i>@SearchKey</i> a <i>anyo</i>
-      y <i>numero</i> de <i>CommercialDocument</i>, por lo tanto nuestra
-      prueba ha de indicar <i>anyo</i> tanto como <i>numero</i> para obtener
-      (o en este caso borrar) una factura (2). Por causa de esto último también
-      hemos de modificar <i> testCrearFacturaDesdePedido()</i> de <i>PruebaPedido</i>
-      como se muestra:
-      <pre><code class="java">public void testCrearFacturaDesdePedido() throws Exception {
-
-    ...
-
-    // Restaurar el pedido para ejecutar la prueba la siguiente vez
-    setValue("factura.anyo", ""); // Ahora es necesario teclear el año
-    setValue("factura.numero", ""); // y el número para buscar la factura (2)
-    assertValue("factura.numero", "");
-    assertCollectionRowCount("factura.detalles", 0);
-    execute("CRUD.save");
-    assertNoErrors();
-}
-</code></pre> Después de estos cambios <i>PruebaPedido</i> tiene que pasar. Sin
-      embargo, todavía nos queda probar la nueva funcionalidad del módulo <i>Pedido</i>.
-      <h3><a name="probar-searchaction"></a>Probar <i>@SearchAction</i></h3>
-      Hemos usado <i>@SearchAction</i> en la referencia <i>factura</i> de <i>Pedido</i>
-      para mostrar en la lista de búsqueda solo facturas del cliente del pedido
-      actual. Añade el siguiente método a <i>PruebaPedido</i> para probar esta
-      funcionalidad :
-      <pre><code class="java">public void testBuscarFacturaDesdePedido() throws Exception {
-    login("admin", "admin");      
-    execute("CRUD.new");
-    setValue("cliente.numero", "1"); // Si el cliente es 1...
-    execute("Sections.change", "activeSection=1");
-    execute("Pedido.buscarFactura", // ...cuando el usuario pulsa para escoger una factura...
-        "keyProperty=factura.numero");
-    confirmarClienteEnTodasFilas("1"); // ...sólo se muestran las facturas del cliente 1
-    execute("ReferenceSearch.cancel");
-    execute("Sections.change", "activeSection=0");
-    setValue("cliente.numero", "2"); // Y si el cliente es 2...
-    execute("Sections.change", "activeSection=1");
-    execute("Pedido.buscarFactura", // ...cuando el usuario pulsa para escoger una factura...
-        "keyProperty=factura.numero");
-    confirmarClienteEnTodasFilas("2"); // ...sólo se muestran las facturas del cliente 2
-}
-</code></pre> La parte más peliaguda es verificar la lista de facturas, este es
-      el trabajo <i>confirmarClienteEnTodasFilas()</i> en <i>PruebaPedido</i>:<br>
-      <pre><code class="java">private void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
-    assertListNotEmpty();
-    int c = getListRowCount();
-    for (int i=0; i&lt;c; i++) { // Un bucle por todas las filas
-        if (!numeroCliente.equals(getValueInList(i, "cliente.numero"))) {
-            fail("Cliente en fila " + i + // Si el cliente no es el esperado falla
-                " no es " + numeroCliente);
-        }
-    }
-}
-</code></pre> Consiste en un bucle por todas la filas verificando el número de
-      cliente.
-      <h3><a name="probar-onchangesearch"></a>Probar <i>@OnChangeSearch</i></h3>
-      Hemos usado <i>@OnChangeSearch</i> en la referencia <i>factura</i> de <i>Pedido</i>
-      para asignar automáticamente el cliente de la factura escogida al pedido
-      actual cuando el usuario todavía no tiene cliente, o para verificar que el
-      cliente de la factura y del pedido coinciden, si el pedido ya tiene
-      cliente. Aquí se muestra el método de prueba en <i>PruebaPedido</i>:
-      <pre><code class="java">public void testAlCambiarFactura() throws Exception {
-    login("admin", "admin");
-    execute("CRUD.new"); // Estamos creando un nuevo pedido
-    assertValue("cliente.numero", ""); // por tanto no tiene cliente todavía
-    execute("Sections.change", "activeSection=1");
-    execute("Pedido.buscarFactura", // Busca la factura usando una lista
-        "keyProperty=factura.numero");
-
-    execute("List.orderBy", "property=cliente.numero"); // Ordena por cliente
-    String numeroCliente1 = getValueInList(0, "cliente.numero"); // Memoriza..
-    String anyoFactura1 = getValueInList(0, "anyo"); // ...los datos de la...
-    String numeroFactura1 = getValueInList(0, "numero"); // ...primera factura
-    execute("List.orderBy", "property=cliente.numero"); // Ordena por cliente
-    String numeroCliente2 = getValueInList(0, "cliente.numero"); // Memoriza...
-    String nombreCliente2 = getValueInList(0, "cliente.nombre"); // ...los datos de...
-                                                                 // ...la última factura
-    assertNotEquals("Han de ser facturas de diferentes clientes",
-        numeroCliente1, numeroCliente2);// Las 2 facturas memorizadas no son la misma
-    execute("ReferenceSearch.choose","row=0"); // La factura se escoge con la lista (1)
-    execute("Sections.change", "activeSection=0");
-    assertValue("cliente.numero", numeroCliente2); // Los datos del cliente
-    assertValue("cliente.nombre", nombreCliente2); // se rellenan automáticamente (2)
-
-    execute("Sections.change", "activeSection=1");
-    setValue("factura.anyo", anyoFactura1); // Tratamos de poner una factura de...
-    setValue("factura.numero", numeroFactura1); // ...otro cliente (3)
-
-    assertError("Cliente Nº " + numeroCliente1 + " de la factura " + // Muestra...
-        anyoFactura1 + "/" + numeroFactura1 + // ...un mensaje de error... (4)
-        " no coincide con el cliente Nº " +
-        numeroCliente2 + " del pedido actual");
-
-    assertValue("factura.anyo", ""); // ...y reinicia los datos de la factura (5)
-    assertValue("factura.numero", "");
-    assertValue("factura.fecha", "");
-}
-</code></pre> Aquí probamos que nuestra acción <i>@OnChangeSearch</i> rellene
-      los datos del cliente (3) al escoger una factura (2), y que si el cliente
-      ya está establecido se muestre un mensaje de error (4) y la factura se
-      borre de la vista (5). Fíjate como la primera vez usamos la lista (1) para
-      escoger la factura y la segunda lo hacemos tecleando el año y el número
-      (3).
-      <h3><a name="adaptar-pruebafactura"></a>Adaptar <i>PruebaFactura</i></h3>
-      Como en el caso de <i>PruebaPedido</i>,<i> PruebaFactura</i> también
-      falla. Has de hacer unos pequeños ajustes para que funcione. Edita <i>testAnyadirPedidos()</i>
-      de <i>PruebaFactura</i> y aplica los siguiente cambios:
-      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty();
-    execute("List.orderBy", "property=numero");
-    execute("List.viewDetail", "row=0");
-    execute("Sections.change", "activeSection=1");
-    assertCollectionRowCount("pedidos", 0);
-    // execute("Collection.add", // La acción estándar para añadir pedidos ya no se usa
-    execute("Factura.anyadirPedidos", // En su lugar usamos nuestra propia acción
-        "viewObject=xava_view_section1_pedidos");
-    // seleccionarPrimerPedidoConEntregadoIgual("Entregado"); // Ahora todos los pedidos de la lista 
-    // seleccionarPrimerPedidoConEntregadoIgual(""); // están entregados; esto ya no hace falta 	
-    // execute("AddToCollection.add"); // En lugar de la acción estándar
-    execute("AnyadirPedidosAFactura.add", "row=0"); // ...ahora tenemos la nuestra propia
-    // assertError("¡ERROR! 1 elemento(s) NO añadido a Pedidos de Factura"); // Es
-                  // imposible porque el usuario no puede escoger pedidos incorrectos
-    assertMessage("1 elemento(s) añadido a Pedidos de Factura");
-    assertCollectionRowCount("pedidos", 1);
-    checkRowCollection("pedidos", 0);
-    execute("Collection.removeSelected",
-        "viewObject=xava_view_section1_pedidos");
-    assertCollectionRowCount("pedidos", 0);
-}
-</code></pre> Ya no necesitamos el método <i>seleccionarPrimerPedidoConEntregadoIgual()</i>,
-      por tanto podemos quitarlo de <i>PruebaFactura</i>:
-      <pre><code class="java">// Quita seleccionarPrimerPedidoConEntregadoIgual() de PruebaFactura
-// private void seleccionarPrimerPedidoConEntregadoIgual(String valor)
-// throws Exception { ... }
-</code></pre> Después de estos cambios <i>PruebaFactura</i> ha de funcionar.
-      Sin embargo, todavía nos queda probar la nueva funcionalidad del módulo <i>Factura</i>.
-      <h3><a name="probar-addaction"></a>Probar <i>@AddAction</i></h3>
-      En esta lección anotamos la colección <i>pedidos</i> de <i>Factura</i>
-      con <i>@AddAction</i> para refinar la lista de pedidos a ser añadidos a
-      la colección. De esta forma solo los pedidos entregados del cliente de la
-      factura actual y todavía sin facturar se mostraban. Vamos a probar esto, y
-      al mismo tiempo, aprenderemos como refactorizar el código existente para
-      poder reutilizarlo.&nbsp; <br>
-      Primero queremos verificar que la lista para añadir pedidos solo contiene
-      pedidos del cliente actual. El siguiente código muestra los cambios en <i>
-        testAnyadirPedidos()</i> para conseguir esto:
-      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty();
-    execute("List.orderBy", "property=numero");
-    execute("List.viewDetail", "row=0");
-    String numeroCliente = getValue("cliente.numero"); // Tomamos nota del
-    execute("Sections.change", "activeSection=1");  // cliente de la factura
-    assertCollectionRowCount("pedidos", 0);
-    execute("Factura.anyadirPedidos",
-        "viewObject=xava_view_section1_pedidos");
-    confirmarClienteEnTodasFilas(numeroCliente); // Confirmamos que todos los cliente en
-                               // la lista coinciden con el cliente de la factura
-    ...
-
-}
-</code></pre> Ahora hemos de escribir el método <i>confirmarClienteEnTodasFilas()</i>.
-      Pero, espera un momento, ya hemos escrito este método en <i>PruebaPedido</i>.
-      Estamos en <i>PruebaFactura</i> por tanto no podemos llamar a este
-      método. Por fortuna tanto <i>PruebaFactura</i> como <i>PruebaPedido</i>
-      heredan de <i> PruebaDocumentoComercial</i>, por lo tanto sólo tenemos
-      que subir el método a la clase madre. Para hacer esto copia el método <i>confirmarClienteEnTodasFilas()</i>
-      desde <i> PruebaPedido</i> a <i>PruebaDocumentoComercial</i>, cambiando
-      <i>private</i> por <i>protected</i>, tal como se muestra:
-      <pre><code class="java">abstract public class PruebaDocumentoComercial extends ModuleTestBase {
-
-    protected void // Cambiamos de private a protected
-        confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
-
-        ...
-		
-    }
-
-    ...
-	
-}
-</code></pre> Ahora puedes quitar el método <i>confirmarClienteEnTodasFilas()</i>
-      de <i>PruebaPedido</i>:
-      <pre><code class="java">// Quita confirmarClienteEnTodasFilas() de PruebaPedido
-// private void confirmarClienteEnTodasFilas(String numeroCliente)
-//     throws Exception { ... }
-</code></pre> Después de estos cambios el método <i>testAnyadirPedidos()</i>
-      compila y funciona. No solo queremos comprobar que la lista de pedidos son
-      del cliente correcto, sino también que están entregados. Nuestro primer
-      impulso es copiar y pegar <i>confirmarClienteEnTodasFilas()</i> para
-      crear un método <i>confirmarEntregadoEnTodasFilas()</i>. Sin embargo,
-      resistimos la tentación, y en vez de eso vamos a crear un método
-      reutilizable. Primero, copiamos y pegamos <i>confirmarClienteEnTodasFilas()</i>
-      como <i>confirmarValorEnTodasFilas()</i>. Aquí puedes ver estos dos
-      métodos en <i>PruebaDocumentoComercial</i>:
-      <pre><code class="java">protected void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
-    assertListNotEmpty();
-    int c = getListRowCount();
-    for (int i=0; i&lt;c; i++) { 
-        if (!numeroCliente.equals(
-		    getValueInList(i, "cliente.numero"))) // Preguntamos por el cliente de forma fija
-        {
-            fail("Cliente en fila " + i + 
-                " no es " + numeroCliente);
-        }
-    }
-}
-  
-protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exception {
-    assertListNotEmpty();
-    int c = getListRowCount();
-    for (int i=0; i&lt;c; i++) {
-        if (!valor.equals(
-            getValueInList(i, columna))) // Preguntamos por la columna enviada como parámetro
-        {
-            fail("Columna " + columna + " en fila " + i + " no es " + valor);
-        }
-    }
-}
-</code></pre> Puedes ver como con unas ligeras modificaciones hemos convertido
-      en un método genérico para preguntar por el valor de cualquier columna, no
-      solo por la del número de cliente. Ahora hemos de quitar el código
-      redundante, puedes, bien quitar <i>confirmarClienteEnTodasFilas()</i> o
-      bien reimplementarlo usando el nuevo método. El siguiente código en <i>PruebaDocumentoComercial</i>
-      muestra la última opción:<br>
-      <pre><code class="java">protected void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
-    confirmarValorEnTodasFilas(3, numeroCliente); // Número de cliente está en la columna 3
-}
-</code></pre> Usemos <i>confirmarValorEnTodasFilas()</i> para verificar que la
-      lista de pedidos contiene solo pedidos entregados. El siguiente código
-      muestra la modificación necesaria en <i>testAnyadirPedidos()</i> de <i>PruebaFactura</i>.
-      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty();
-    execute("List.orderBy", "property=numero");
-    execute("List.viewDetail", "row=0");
-    String numeroCliente = getValue("cliente.numero");
-    execute("Sections.change", "activeSection=1");
-    assertCollectionRowCount("pedidos", 0);
-    execute("Factura.anyadirPedidos",
-        "viewObject=xava_view_section1_pedidos");
-    confirmarClienteEnTodasFilas(numeroCliente);
-    confirmarValorEnTodasFilas(12, "Entregado"); // Todas las celdas de la columna 12 
-                                                // tienen 'Entregado'
-    ...
-	
-}
-</code></pre> Además, queremos que solo los pedidos sin factura se muestren en
-      la lista. Una forma sencilla de hacerlo es verificando que después de
-      añadir un pedido a la factura actual, la lista de pedidos tenga una
-      entrada menos. El siguiente código muestra los cambios necesarios en <i>
-        testAnyadirPedidos()</i> de <i>PruebaFactura</i> para hacer esto:
-      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
-
-    ...
-
-    confirmarClienteEnTodasFilas(numeroCliente);
-    confirmarValorEnTodasFilas(12, "Entregado");
-    int cantidadPedidos = getListRowCount(); // Tomamos nota de la cantidad de pedidos
-    execute("AnyadirPedidosAFactura.add", "row=0"); // cuando se muestra la lista
-    assertMessage("1 elemento(s) añadido a Pedidos de Factura");
-    assertCollectionRowCount("pedidos", 1); // Se añadió un pedido
-    execute("Factura.anyadirPedidos", // Mostramos la lista de pedidos otra vez
-        "viewObject=xava_view_section1_pedidos");
-    assertListRowCount(cantidadPedidos - 1); // Tenemos un pedido menos en la lista
-    execute("AddToCollection.cancel");
-
-    ...
-	
-}
-</code></pre> Con el código de esta sección hemos probado la <i>@AddAction</i>
-      de la colección <i> pedidos</i>, y al mismo tiempo hemos visto como no es
-      necesario crear código genérico desde el principio, porque no es difícil
-      convertir el código concreto en genérico bajo demanda.
-      <h3><a name="probar-la-accion-para-anadir-elementos-a-la-coleccion"></a>Probar
-        la acción para añadir elementos a la colección</h3>
-      En esta lección también aprendimos como refinar la acción para añadir
-      pedidos a la factura, ahora es el momento de escribir su correspondiente
-      código de prueba. Recuerda que esta acción copia las líneas de los pedidos
-      seleccionados a la factura actual. El siguiente código muestra los cambios
-      en <i> testAnyadirPedidos()</i> de <i>PruebaFactura</i> para probar
-      nuestra acción personalizada para añadir pedidos:
-      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
-
-    ...
-
-    String numeroCliente = getValue("cliente.numero");
-    assertCollectionRowCount("detalles", 0); // Factura sin detalles para esta preuba
-    assertValue("importeTotal", "0,00"); // Sin detalles el importe total es 0
-    execute("Sections.change", "activeSection=1");
-    assertCollectionRowCount("pedidos", 0);
-    execute("Factura.anyadirPedidos", // Cuando mostramos la lista de pedidos (2) ...
-        "viewObject=xava_view_section1_orders");
-    confirmarClienteEnTodasFilas(numeroCliente);
-    confirmarValorEnTodasFilas(12, "Entregado");
-    String importeTotalPrimerPedido = getValueInList(0, 7); //..tomamos nota del importe
-    int cantidadPedidos = getListRowCount();    // base del primer pedido de la lista (3)
-
-    ...
-
-    assertCollectionRowCount("pedidos", 1);
-    execute("Sections.change", "activeSection=0");
-    assertCollectionNotEmpty("detalles"); // Hay detalles, han sido copiados (4)
-    assertValue("importeTotal", importeTotalPrimerPedido); // El importe total de la factura
-    execute("Sections.change", "activeSection=1"); // coincide con el del
-                                                   // pedido recién añadido (5)
-    ...
-	
-}
-</code></pre>Verificamos que la factura para esta prueba no tiene detalles. A
-      continuación, quitamos las líneas de detalle de la factura (1), después
-      añadimos un pedido (2), tomando nota de su importe total (3), entonces
-      verificamos que la factura actual tiene detalles (4) y que su importe
-      total es el mismo que el del pedido añadido (5). </div>
-    <div class="wiki" style="display: block;">El método <i>testAnyadirPedidos()</i>
-      está acabado. Éste es su código definitivo:
-      <pre><code class="java">public void testAnyadirPedidos() throws Exception {
-    login("admin", "admin");
-    assertListNotEmpty();
-    execute("List.orderBy", "property=numero");
-    execute("List.viewDetail", "row=0");
-    String numeroCliente = getValue("cliente.numero");
-    assertCollectionRowCount("detalles", 0);
-    assertValue("importeTotal", "0,00");
-    execute("Sections.change", "activeSection=1");
-    assertCollectionRowCount("pedidos", 0);
-    execute("Factura.anyadirPedidos",
-        "viewObject=xava_view_section1_pedidos");
-    confirmarClienteEnTodasFilas(numeroCliente);
-    confirmarValorEnTodasFilas(12, "Entregado");
-    String importeTotalPrimerPedido = getValueInList(0, 7);
-    int cantidadPedidos = getListRowCount();
-    execute("AnyadirPedidosAFactura.add", "row=0");
-    assertMessage("1 elemento(s) añadido(s) a Pedidos de Factura");
-    assertCollectionRowCount("pedidos", 1);
-    execute("Sections.change", "activeSection=0");
-    assertCollectionNotEmpty("detalles");
-    assertValue("importeTotal", importeTotalPrimerPedido);
-    execute("Sections.change", "activeSection=1");
-    execute("Factura.anyadirPedidos",
-        "viewObject=xava_view_section1_pedidos");
-    assertListRowCount(cantidadPedidos - 1);
-    execute("AddToCollection.cancel");
-    checkRowCollection("pedidos", 0);
-    execute("Collection.removeSelected",
-        "viewObject=xava_view_section1_pedidos");
-    assertCollectionRowCount("pedidos", 0);
-}	
-</code></pre> Hemos finalizado el código de las pruebas automáticas. Ahora
-      puedes ejecutar todas las pruebas de tu proyecto. Han de salir en color
-      verde.
       <h2><a name="resumen"></a>Resumen</h2>
       Esta lección te ha mostrado como refinar el comportamiento estándar de las
       referencias y colecciones para que tu aplicación se adapte a las

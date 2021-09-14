@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lesson 10: Refining the standard behavior - OpenXava</title>
+    <title>Lesson 9: Refining the standard behavior - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,31 +9,32 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 7: Refining the standard behavior"></a> <span
+      <h1 id="toc0"><a name="Lesson 7: Refining the standard behavior"></a> <span
+
           id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Lesson 10: Refining the standard behavior </h1>
+          / </span> Lesson 9: Refining the standard behavior </h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
         Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
         Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
         Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
-        Agile development</a> | <a class="wiki_link" href="testing_en.html">6.
-        Automated testing</a> | <a class="wiki_link" href="inheritance_en.html">7.
-        Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">8.
-        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">9.
-        Advanced validation</a> | <strong>10. Refining the standard behavior</strong>
-      | <a class="wiki_link" href="business-logic-behavior_en.html">11.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">12.
+        Agile development</a> | <a class="wiki_link" href="inheritance_en.html">6.
+        Inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">7.
+        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">8.
+        Advanced validation</a> | <strong>9. Refining the standard behavior</strong>
+      | <a class="wiki_link" href="business-logic-behavior_en.html">10.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">11.
         References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a>
+        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
+        Automated testing</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior">Lesson
-            10: Refining the standard behavior</a></div>
+            9: Refining the standard behavior</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions">Custom
             actions</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions-Typical%20controller">Typical
@@ -72,12 +73,7 @@
             tabular data definitions by entity</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code-Reusable%20obsession">Reusable
             obsession</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-JUnit%20tests">JUnit
-            tests</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-JUnit%20tests-Testing%20the%20customized%20delete%20behavior">Testing
-            the customized delete behavior</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-JUnit%20tests-Testing%20several%20modules%20in%20the%20same%20test%20method">Testing
-            several modules in the same test method</a></div>
+
         <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Summary">Summary</a></div>
       </div>
       I hope you are very happy with the current code of your <i>Invoicing</i>
@@ -192,7 +188,8 @@
       user clicks on the<br>
       delete button the invoice will not be removed but instead simply marked as
       removed. This way, we can recover the deleted invoices if needed.<br>
-      <img src="files/refining_behavior_en010.png" alt="refining_behavior_en010.png"
+      <img src="files/refining_behavior_en010.png" alt="refining_behavior_en010.png"
+
         title="refining_behavior_en010.png"><br>
       The previous figure shows the actions from <em>Typical</em>. We want all
       of these actions in our <em>Invoice</em> module, except that we're going
@@ -264,7 +261,8 @@ public class DeleteInvoiceAction
       add the message to show or an id of an entry in <em>i18n/Invoicing-messages_en.properties</em>.<br>
       The following figure demonstrates the behavior of the <em>Invoice</em>
       module after adding your custom delete action: <br>
-      <img src="files/refining_behavior_en020.png" alt="refining_behavior_en020.png"
+      <img src="files/refining_behavior_en020.png" alt="refining_behavior_en020.png"
+
         title="refining_behavior_en020.png"><br>
       This is of course mock behavior, so let us now add the real functionality.
       In order to mark the current invoice as deleted without actually deleting
@@ -524,7 +522,8 @@ abstract public class CommercialDocument extends Deletable {
       Though if you try to remove an entity in any other module, you'll get an
       ugly error message. The following figure shows what happens when you try
       to delete a <em>Customer</em>.<br>
-      <img src="files/refining_behavior_en030.png" alt="refining_behavior_en030.png"
+      <img src="files/refining_behavior_en030.png" alt="refining_behavior_en030.png"
+
         title="refining_behavior_en030.png"><br>
       If your entity has no <em>deleted</em> property, the delete action fails.
       Using <em>Deletable</em> as base class you can add the <em>deleted</em>
@@ -616,7 +615,8 @@ public class InvoicingDeleteAction extends ViewBaseAction {
       The most obvious place to start is the search action. If you delete an
       invoice and then search for it, it should not be found. The following
       figure shows how searching works in OpenXava.<br>
-      <img src="files/refining_behavior_en040.png" alt="refining_behavior_en040.png"
+      <img src="files/refining_behavior_en040.png" alt="refining_behavior_en040.png"
+
         title="refining_behavior_en040.png"><br>
       The first thing to observe in the previous figure is that searching in
       detail mode is more flexible than it seems. The user can enter any value
@@ -935,7 +935,8 @@ public class InvoicingDeleteSelectedAction
       invoices or orders where the user can choose several of them and click the
       <i>Restore</i> button, or alternatively, for a single entity, click the <i>Restore</i>
       link on the row of the item to restore.<br>
-      <img src="files/refining_behavior_en050.png" alt="refining_behavior_en050.png"
+      <img src="files/refining_behavior_en050.png" alt="refining_behavior_en050.png"
+
         title="refining_behavior_en050.png"><br>
       The logic of this restore action is to set the <em>deleted</em> property
       of the selected entities to false. Obviously, this is the same logic we
@@ -1014,7 +1015,8 @@ public class InvoicingDeleteSelectedAction
       they define a specific action as a row action using the <em>XAVA_LIST_ACTION</em>
       environment variable. The next figure shows the <em>InvoiceTrash</em>
       module in action.<br>
-      <img src="files/refining_behavior_en060.png" alt="refining_behavior_en060.png"
+      <img src="files/refining_behavior_en060.png" alt="refining_behavior_en060.png"
+
         title="refining_behavior_en060.png"><br>
       <h3 id="toc18"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Several tabular data definitions by entity"></a>Several
         tabular data definitions by entity</h3>
@@ -1074,195 +1076,6 @@ public class Order extends CommercialDocument { ... }
       achieve, we must make an effort to have the simplest possible code. The
       advice is: create reusable code only when it simplifies your application
       right now.<br>
-      <h2 id="toc20"><a name="Lesson 7: Refining the standard behavior-JUnit tests"></a>JUnit
-        tests</h2>
-      We have refined the way your application deletes entities, moreover we
-      added two custom modules, the trash modules. Before we move ahead, we must
-      write the tests for the new features.<br>
-      <h3 id="toc21"><a name="Lesson 7: Refining the standard behavior-JUnit tests-Testing the customized delete behavior"></a>Testing
-        the customized delete behavior</h3>
-      We do not have to write new tests for the deletion, because the current
-      testing code already tests the delete functionality. Usually, when you
-      change the implementation of some functionality but not their use from the
-      user viewpoint, as in our current case, you do not need to add new tests.<br>
-      Just run all the tests for your application, and adjust the needed details
-      in order for them to work properly. In fact you only need to change
-      “CRUD.delete” to “Invoicing.delete” and “CRUD.deleteSelected” to
-      “Invoicing.deleteSelected” in a few tests. The next code summarizes the
-      changes you need to apply to your current test code:<br>
-      <pre><code class="java">// In CustomerTest.java file
-public class CustomerTest extends ModuleTestBase {
-    ...
-    public void testCreateReadUpdateDelete() throws Exception {
-        ...
-        // Delete
-        // execute("CRUD.delete");
-        execute("Invoicing.delete");
-        assertMessage("Customer deleted successfully");
-    }
-    ...
-}
- 
-// In CommercialDocumentTest.java file
-abstract public class CommercialDocumentTest extends ModuleTestBase {
-    ...
-    private void remove() throws Exception {
-        // execute("CRUD.delete");
-        execute("Invoicing.delete");
-        assertNoErrors();
-    }
-    ...
-}
- 
-// In ProductTest.java file
-public class ProductTest extends ModuleTestBase {
-    ...
-    public void testRemoveFromList() throws Exception {
-        ...
-        // execute("CRUD.deleteSelected");
-        execute("Invoicing.deleteSelected");
-        ...
-    }
-    ...
-}
- 
-// In OrderTest.java file
-public class OrderTest extends CommercialDocumentTest {
-    ...
-    public void testSetInvoice() throws Exception {
-        ...
-        //execute("CRUD.deleteRow", "row=0");
-        execute("Invoicing.deleteRow", "row=0");
-        ...
-    }
-}
-</code></pre> After these changes all your tests will work properly, and this
-      verifies that your refined delete actions preserve the original semantics.
-      Only the implementation has changed.<br>
-      <h3 id="toc22"><a name="Lesson 7: Refining the standard behavior-JUnit tests-Testing several modules in the same test method"></a>Testing
-        several modules in the same test method</h3>
-      You also have to test the new custom modules, <em>OrderTrash</em> and <em>InvoiceTrash</em>.
-      Additionally, we will also verify that the removal logic works fine, and
-      that the entities are only marked as deleted and not actually removed.<br>
-      To test the InvoiceTrash module we will follow the steps below:<br>
-      <ul>
-        <li>Start in the Invoice module.</li>
-        <li>Delete an invoice from detail mode and verify that it has been
-          deleted.</li>
-        <li>Delete an invoice from list mode and verify that it has been
-          deleted.</li>
-        <li>Go to the InvoiceTrash module.</li>
-        <li>Verify that it contains the two deleted invoices.</li>
-        <li>Restore them and verify that they disappear from the trash list.</li>
-        <li>Come back to the Invoice module.</li>
-        <li>Verify that the two restored invoices are in the list.</li>
-      </ul>
-      You can see that we start in the <em>Invoice</em> module. Moreover, you
-      surely have realized that the logic to test the <em>Order</em> module is
-      exactly the same. So instead of creating the new test classes, <i>OrderTrashTest</i>
-      and <i>InvoiceTrashTest</i>, we'll just add the test in the already
-      existing <em>CommercialDocumentTest</em>. Thus we reuse the same code for
-      testing <em>OrderTrash</em>, <em>InvoiceTrash</em>, and the custom
-      delete logic. Add the next <em>testTrash()</em> method to <em>CommercialDocumentTest</em>:<br>
-      <pre><code class="java">public void testTrash() throws Exception {
-    login("admin", "admin");
-    assertListOnlyOnePage(); // Only one page in the list, that is less than 10 rows
-    execute("List.orderBy", "property=number"); // We order the list by number
- 
-    // Deleting from detail mode
-    int initialRowCount = getListRowCount();
-    String year1 = getValueInList(0, 0);
-    String number1 = getValueInList(0, 1);
-    execute("List.viewDetail", "row=0");
-    execute("Invoicing.delete");
-    execute("Mode.list");
-    assertListRowCount(initialRowCount - 1); // There is one row less
-    assertDocumentNotInList(year1, number1); // The deleted entity is not in the list
- 
-    // Deleting from list mode
-    String year2 = getValueInList(0, 0);
-    String number2 = getValueInList(0, 1);
-    checkRow(0);
-    execute("Invoicing.deleteSelected");
-    assertListRowCount(initialRowCount - 2); // There are 2 fewer rows
-    assertDocumentNotInList(year2, number2); // The other deleted entity is not in the list now
- 
-    // Verifying deleted entities are in the trash module
-    changeModule(model + "Trash"); // model can be 'Invoice' or 'Order'
-    assertListOnlyOnePage();
-    int initialTrashRowCount = getListRowCount();
-    assertDocumentInList(year1, number1); // We verify that the deleted entities
-    assertDocumentInList(year2, number2); // are in the trash module list
-    // Restoring using row action
-    int row1 = getDocumentRowInList(year1, number1);
-    execute("Trash.restore", "row=" + row1);
-    assertListRowCount(initialTrashRowCount - 1); // 1 row less after restoring
-    assertDocumentNotInList(year1, number1); // The restored entity is no longer shown
-                // in the trash module list
-    // Restoring by checking a row and using the bottom button
-    int row2 = getDocumentRowInList(year2, number2);
-    checkRow(row2);
-    execute("Trash.restore");
-    assertListRowCount(initialTrashRowCount - 2); // 2 fewer rows
-    assertDocumentNotInList(year2, number2); // The restored entity is no longer shown
-                // in the trash module list
-    // Verifying entities are restored
-    changeModule(model);
-    assertListRowCount(initialRowCount); // After restoring we have the original
-    assertDocumentInList(year1, number1); // rows again
-    assertDocumentInList(year2, number2);
-}
-</code></pre> As you see the <em>testTrash()</em> follows the aforesaid steps.
-      Note how using the <i>changeModule()</i> method from <i>ModuleTestBase</i>
-      your test can change to another module. We use it to switch to the trash
-      module, and then come back.<br>
-      In our tests we're using a few auxiliary methods you have to add to <em>CommercialDocumentTest</em>.
-      The first is <em>assertListOnlyOnePage()</em> to assert that the list is
-      adequate for running this test.<br>
-      <pre><code class="java">private void assertListOnlyOnePage() throws Exception {
-    assertListNotEmpty(); // This is from ModuleTestBase
-    assertTrue("Must be less than 10 rows to run this test",
-        getListRowCount() &lt; 10);
-}
-</code></pre> We need to have less than 10 rows, because the <i>getListRowCount()</i>
-      method only informs about rows that are displayed. If you have more than
-      10 rows (10 is the default row count per page) you cannot take advantage
-      of <i>getListRowCount()</i>, it would always return 10.<br>
-      The remaining methods are for verifying if some order or invoice is (or is
-      not) in the list. See them:<br>
-      <pre><code class="java">private void assertDocumentNotInList(String year, String number)
-    throws Exception
-{
-    assertTrue(
-        "Document " + year + "/" + number +" must not be in list",
-        getDocumentRowInList(year, number) &lt; 0);
-}
- 
-private void assertDocumentInList(String year, String number)
-    throws Exception
-{
-    assertTrue(
-        "Document " + year + "/" + number + " must be in list",
-        getDocumentRowInList(year, number) &gt;= 0);
-}
- 
-private int getDocumentRowInList(String year, String number)
-    throws Exception
-{
-    int c = getListRowCount();
-    for (int i=0; i&lt;c; i++) {
-        if ( year.equals(getValueInList(i, 0)) &amp;&amp;
-            number.equals(getValueInList(i, 1)))
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-</code></pre> You can see in <em>getDocumentRowInList()</em> how to create a
-      loop for searching after a specific value in a list.<br>
-      Now you can run all the tests for your <i>Invoicing</i> application.
-      Everything should be green.<br>
       <h2 id="toc23"><a name="Lesson 7: Refining the standard behavior-Summary"></a>Summary</h2>
       The standard OpenXava behavior is only a starting point. Using the delete
       actions as excuse we have explored a couple of ways to refine the details
@@ -1275,12 +1088,14 @@ private int getDocumentRowInList(String year, String number)
       functionality to help your user solve his problems. We will do more of
       that in the next lesson.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-7-refining-standard-behavior_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-7-refining-standard-behavior_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="business-logic-behavior_en.html">Go to Lesson
-          11</a></strong> </div>
+          10</a></strong> </div>
   </body>
 </html>
