@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Automated testing content of the course moved to appendix D.
 - Java annotations can be associated to editors in editors.xml. 
 - Responsive top bar button, now when the UI is narrowed the action labels are hidden.
 - Top bar button and left menu adapted to look better in iPad. 
