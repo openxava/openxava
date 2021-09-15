@@ -2532,6 +2532,13 @@ div[id$="_Index__view"] .ox-list-title {
 	cursor: pointer;
 }
 
+/* tmp ini */
+.ox-gallery .filepond--item {
+	width: 300px;
+	cursor: pointer;
+}
+/* tmp fin */
+
 .filepond--panel-root {
 	border-radius: 4px !important;
 }

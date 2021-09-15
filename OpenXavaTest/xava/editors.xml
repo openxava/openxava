@@ -219,4 +219,17 @@
 		<for-annotation annotation="org.openxava.test.annotations.Colorful"/>
 	</editor>
 	
+	<!-- tmp ini -->
+	<!-- tmp Mover a OpenXava -->
+	<editor name="Files" url="uploadEditor.jsp" format="false" frame="true">
+		<property name="loadAction" value="AttachedFilesEditor.load"/> 
+		<property name="removeAction" value="AttachedFilesEditor.remove"/> 
+		<property name="getURL" value="/xava/xfile"/>
+		<property name="filesIdsProviderClass" value="org.openxava.web.editors.AttachedFilesFilesIdsProvider"/>
+		<property name="multipleFiles" value="true"/>
+		<property name="cssClass" value="ox-gallery"/>
+		<for-annotation annotation="org.openxava.annotations.Files"/>
+	</editor>	
+	<!-- tmp fin -->
+	
 </editors>

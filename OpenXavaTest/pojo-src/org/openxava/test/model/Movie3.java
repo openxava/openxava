@@ -9,7 +9,7 @@ import org.openxava.jpa.*;
 import org.openxava.model.*;
 
 /**
- * tmp
+ * tmp Redoc
  * Model to test concatenated reports using 
  * {@link org.openxava.test.actions.MovieReportAction MovieReportAction} and to 
  * test stereotypes FILE and FILES. <p>
@@ -18,6 +18,7 @@ import org.openxava.model.*;
  */
 @Entity
 @Table(name="Movie")
+/* tmp
 @View(members=
 	"data sheet ["   +
 	"   title, releaseDate;" +	
@@ -33,6 +34,7 @@ import org.openxava.model.*;
 	"   photographs" +
 	"}"
 )
+*/
 @Tab(properties="title, director, writers, releaseDate, trailer")
 public class Movie3 extends Identifiable {
 
@@ -47,13 +49,15 @@ public class Movie3 extends Identifiable {
 	@Column(length=32)
 	private String trailer;
 	
+	
+	@Stereotype("IMAGES_GALLERY")
+	@Column(length=32)
+	private String photographs;
+	
 	@Files
 	@Column(length=32)	
 	private String scripts;
-	
-	@Files
-	@Column(length=32)
-	private String photographs;
+
 	
 	public static Movie3 findById(String id) {
 		Query query = XPersistence.getManager().createQuery("from Movie m where m.id = :id");

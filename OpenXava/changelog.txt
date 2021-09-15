@@ -2,6 +2,44 @@ Change Log for OpenXava project
 ===============================
 
 - File annotations: @Files
+
+TMP ME QUEDÉ BUSCANDO UNA OPCIÓN PARA QUE EL preview=true FUNCIONE PARA FOTOS Y ARCHIVOS NORMALES A LA VEZ.
+
+Estas son mis ideas actuales:
+
+PHOTO, 				@Files(multiple=false, preview=true) @NoFrame
+IMAGES_GALLERY		@Files(preview=true)
+
+- @Files tiene el problema del forViews
+
+@NoFrame: 
++ Reutilizamos la anotación.
++ Por defecto queda mejor con frames.
+
+Dejarlo con frames por defecto:
+
+Option B:
+FILE				@File(preview=false)
+FILES, 				@Files(preview=false)
+PHOTO, 				@File
+IMAGES_GALLERY		@Files
+
+@Files tiene el problema de cuando forViews
+
+Option B.nonliteral:
+FILE				@File
+FILES, 				@Files
+PHOTO, 				@File
+IMAGES_GALLERY		@Files
+
+Option C:
+FILE				@File @NoFrame
+FILES, 				@File(multiple=true) @NoFrame
+PHOTO, 				@File(preview=true) @NoFrame
+IMAGES_GALLERY		@File(multiple=true, preview=true)
+
+
+
  	 
 - Automated testing content of the course moved to appendix D.
 - Java annotations can be associated to editors in editors.xml. 
