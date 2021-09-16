@@ -2523,21 +2523,16 @@ div[id$="_Index__view"] .ox-list-title {
 	width: 330px;;
 }
 
+/* tmp
 .ox-files {
 	width: calc(100vw - 400px);
 }
+*/
 
 .ox-file .filepond--item, .ox-files .filepond--item {
 	width: 300px;
 	cursor: pointer;
 }
-
-/* tmp ini */
-.ox-gallery .filepond--item {
-	width: 300px;
-	cursor: pointer;
-}
-/* tmp fin */
 
 .filepond--panel-root {
 	border-radius: 4px !important;

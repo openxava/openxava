@@ -1,42 +1,17 @@
 Change Log for OpenXava project
 ===============================
 
-- File annotations: @Files
+- File annotations: @Files, @File
 
-TMP ME QUEDÉ BUSCANDO UNA OPCIÓN PARA QUE EL preview=true FUNCIONE PARA FOTOS Y ARCHIVOS NORMALES A LA VEZ.
-
-Estas son mis ideas actuales:
-
-PHOTO, 				@Files(multiple=false, preview=true) @NoFrame
-IMAGES_GALLERY		@Files(preview=true)
-
-- @Files tiene el problema del forViews
-
-@NoFrame: 
-+ Reutilizamos la anotación.
-+ Por defecto queda mejor con frames.
-
-Dejarlo con frames por defecto:
-
-Option B:
-FILE				@File(preview=false)
-FILES, 				@Files(preview=false)
-PHOTO, 				@File
-IMAGES_GALLERY		@Files
+TMP: ME QUEDÉ SOLUCIONANDO EL PROBLEMA DE QUE NO REDIMENSIOAN AL AÑADIR IMAGEN Y MEZCLAR CON Y SIN IMAGEN
 
 @Files tiene el problema de cuando forViews
 
-Option B.nonliteral:
 FILE				@File
-FILES, 				@Files
-PHOTO, 				@File
+FILES 				@Files
+PHOTO 				@File
 IMAGES_GALLERY		@Files
 
-Option C:
-FILE				@File @NoFrame
-FILES, 				@File(multiple=true) @NoFrame
-PHOTO, 				@File(preview=true) @NoFrame
-IMAGES_GALLERY		@File(multiple=true, preview=true)
 
 
 

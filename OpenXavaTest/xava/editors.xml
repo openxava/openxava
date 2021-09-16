@@ -221,15 +221,26 @@
 	
 	<!-- tmp ini -->
 	<!-- tmp Mover a OpenXava -->
+	<editor name="File" url="uploadEditor.jsp" format="false">
+		<property name="loadAction" value="AttachedFileEditor.load"/> 
+		<property name="removeAction" value="AttachedFileEditor.remove"/> 
+		<property name="getURL" value="/xava/xfile"/>
+		<property name="filesIdsProviderClass" value="org.openxava.web.editors.PropertyValueFilesIdsProvider"/>
+		<property name="cssClass" value="ox-file"/> 
+		<property name="imagePreview" value="true"/>
+		<list-formatter class="org.openxava.formatters.FileListFormatter" />
+		<for-annotation annotation="org.openxava.annotations.File"/> 
+	</editor>	
+	
 	<editor name="Files" url="uploadEditor.jsp" format="false" frame="true">
 		<property name="loadAction" value="AttachedFilesEditor.load"/> 
 		<property name="removeAction" value="AttachedFilesEditor.remove"/> 
 		<property name="getURL" value="/xava/xfile"/>
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.AttachedFilesFilesIdsProvider"/>
 		<property name="multipleFiles" value="true"/>
-		<property name="cssClass" value="ox-gallery"/>
+		<property name="cssClass" value="ox-files"/>
 		<for-annotation annotation="org.openxava.annotations.Files"/>
-	</editor>	
+	</editor>		
 	<!-- tmp fin -->
 	
 </editors>

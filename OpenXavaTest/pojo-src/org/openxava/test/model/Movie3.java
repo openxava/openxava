@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
+import org.openxava.annotations.File; // tmp ¿En migración?
 import org.openxava.jpa.*;
 import org.openxava.model.*;
 
@@ -45,7 +46,7 @@ public class Movie3 extends Identifiable {
 	
 	private Date releaseDate;
 	
-	@Files
+	@File
 	@Column(length=32)
 	private String trailer;
 	

@@ -1,7 +1,7 @@
 package org.openxava.component.parse;
 
 import java.beans.*;
-import java.io.*;
+import java.io.File; // tmp It was java.io.* In migration?
 import java.lang.annotation.*;
 import java.lang.reflect.*;
 import java.lang.reflect.ParameterizedType;
