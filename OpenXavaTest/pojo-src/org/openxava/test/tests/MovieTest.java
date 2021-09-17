@@ -2,7 +2,6 @@ package org.openxava.test.tests;
 
 import java.util.*;
 
-import org.openxava.jpa.*;
 import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.*;
@@ -13,12 +12,12 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Jeromy Altuna
  * @author Javier Paniza
  */
-public class MovieTest extends EmailNotificationsTestBase { 
+public class MovieTest extends /* tmp EmailNotificationsTestBase */ MovieBaseTest { 
 	
 	private static final String MIME_UNKNOWN = "application/octet-stream";
 	
 	public MovieTest(String testName) {
-		super(testName, "Movie");
+		super(testName, "Movie"); 
 	}
 	
 	public void testPdfConcatReport() throws Exception {
@@ -41,6 +40,7 @@ public class MovieTest extends EmailNotificationsTestBase {
 				   response.getContentType().equals(MIME_UNKNOWN));
 	}
 	
+	/* tmp
 	public void testAddFile() throws Exception {
 		addFile();
 		assertFile("trailer", "text/html"); 
@@ -58,7 +58,7 @@ public class MovieTest extends EmailNotificationsTestBase {
 		removeFile("scripts", 0);
 		execute("CRUD.delete");
 	}
-	
+	*/
 	
 	public void testDeleteFile_accessTrackerFile() throws Exception {
 		addFile();
@@ -188,6 +188,7 @@ public class MovieTest extends EmailNotificationsTestBase {
 		assertTrue(isNotVisibleConditionValue(3));
 	}
 	
+	/* tmp
 	private void addFile() throws Exception {
 		execute("CRUD.new");
 		setValue("title", "JUNIT");
@@ -209,6 +210,7 @@ public class MovieTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("title", title);		
 	}
+	*/
 	
 	private String getUrlToFile(String filename) { 
 		String href = getFileAnchors().get(filename).getHrefAttribute();

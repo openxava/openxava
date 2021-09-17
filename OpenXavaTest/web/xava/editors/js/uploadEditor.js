@@ -19,8 +19,10 @@ openxava.addEditorInitFunction(function() {
 	    	}
 	    	const fileURL = uploadEditor.getFileURL(input);
 	    	pond.onactivatefile = function(file) {
+	    		console.log("[uploadEditor.js] file.file.type=" + file.file.type); // tmp
 	    		if (openxava.browser.edge || openxava.browser.ie) window.open(fileURL + uploadEditor.getFileIdParam(file)); 
-	    		else  if (pond.allowImagePreview) {
+	    		// tmp else if (pond.allowImagePreview) {
+	    		else if (pond.allowImagePreview && file.file.type.indexOf("image") == 0) { // tmp
 	    			if (openxava.browser.ff) {
 		    			openxava.setUrlParam("");
 		    			window.location = URL.createObjectURL(file.file);

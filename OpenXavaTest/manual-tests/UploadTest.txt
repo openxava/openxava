@@ -55,11 +55,19 @@ GalleryImage: Product2 with all browsers
 AttachedFile and AttachedFiles: Movie with all browsers
 - Click on New.
 - Enter the title of a movie.
-- Upload in trailer an image. It does not show the preview.
-- Click on the image. The image is downloaded with the correct file title. (Fails with Internet Explorer)
+- Upload in trailer a not-image file. It does not show the preview.
+- Click on the file. The file is downloaded with the correct file title. (Fails with Internet Explorer)
+- Click on Save.
+- Go list, edit your movie. The file must be there.
+- Click on the file. The file is downloaded with the correct file title. (In a new tab with Internet Explorer)
+- Delete the movie.
+- Click on New.
+- Enter the title of a movie.
+- Upload in trailer an image. It shows the preview.
+- Click on the image. The image is shown in another tab. (Fails with Internet Explorer)
 - Click on Save.
 - Go list, edit your movie. The image must be there.
-- Click on the image. The image is downloaded with the correct file title. (In a new tab with Internet Explorer)
+- Click on the image. The image is shown in another tab. (In a new tab with Internet Explorer)
 - Delete the movie.
 - Go to first record "FOREST GUMP".
 - Click in one script. The script is downloaded with the correct file title. (In a new tab with Internet Explorer)  

@@ -1,16 +1,44 @@
 Change Log for OpenXava project
 ===============================
 
-- File annotations: @Files, @File
-
-TMP: ME QUEDÉ SOLUCIONANDO EL PROBLEMA DE QUE NO REDIMENSIOAN AL AÑADIR IMAGEN Y MEZCLAR CON Y SIN IMAGEN
-
-@Files tiene el problema de cuando forViews
+File annotations: @Files, @File
+-------------------------------
 
 FILE				@File
 FILES 				@Files
 PHOTO 				@File
 IMAGES_GALLERY		@Files
+
+@File sinonimo de FILE
+@Files sinonimo de FILES
+
+Frame por defecto para @Files y Sin frame por defecto para @File
+showImage siempre por defecto
+Ancho imagen por defecto para ficheros
+Nombre archivo siempre visible
+
+Pendiente:
+* No ajusta tamaño al mezclar imágenes con no imágenes
+* ¿Que pasa al pulsar imagen? ¿y fichero?
+* Unificar estereotipo 
+- Prueba. TMP ME QUEDÉ POR AQUÍ: AÑADI GATTACA, PERO FALLAN MUCHAS PRUEBA. QUIZAS DEBERÍA PROBAR CON LAS 2 QUE TENGO
+	- Se puede mezclar con FILE/FILES. Ya que compartimos implementación.
+	- En todos los navegadores ahora. ¿Siempre?
+	- Mezcla imagenes/archivos imagenes no cortadas al tamaño de archivo.
+	- Al pulsar imagen preview, archivo descarga con nombre.
+- Prueba	
+- Doc:
+	- ¿Curso?
+
+Diferible 6.6:
+- Foto visualizada en lista para @File
+	- Cambiar InvoiceDemo a @File
+- Filtro de tipo.
+	- Modificar importación.
+- Límite de tamaño.
+
+
+Postpuesto:
 
 
 

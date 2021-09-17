@@ -5,7 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
-import org.openxava.annotations.File; // tmp ¿En migración?
+import org.openxava.annotations.File;// tmp ¿En migración?
 import org.openxava.jpa.*;
 import org.openxava.model.*;
 
@@ -14,8 +14,7 @@ import org.openxava.model.*;
  * Model to test concatenated reports using 
  * {@link org.openxava.test.actions.MovieReportAction MovieReportAction} and to 
  * test stereotypes FILE and FILES. <p>
- * 
- * @author Jeromy Altuna
+ *  * @author Jeromy Altuna
  */
 @Entity
 @Table(name="Movie")
@@ -49,8 +48,7 @@ public class Movie3 extends Identifiable {
 	@File
 	@Column(length=32)
 	private String trailer;
-	
-	
+		
 	@Stereotype("IMAGES_GALLERY")
 	@Column(length=32)
 	private String photographs;
