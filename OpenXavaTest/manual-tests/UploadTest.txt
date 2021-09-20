@@ -61,16 +61,15 @@ AttachedFile and AttachedFiles: Movie with all browsers
 - Go list, edit your movie. The file must be there.
 - Click on the file. The file is downloaded with the correct file title. (In a new tab with Internet Explorer)
 - Delete the movie.
-- Click on New.
-- Enter the title of a movie.
-- Upload in trailer an image. It shows the preview.
-- Click on the image. The image is shown in another tab. (Fails with Internet Explorer)
-- Click on Save.
-- Go list, edit your movie. The image must be there.
-- Click on the image. The image is shown in another tab. (In a new tab with Internet Explorer)
-- Delete the movie.
-- Go to first record "FOREST GUMP".
-- Click in one script. The script is downloaded with the correct file title. (In a new tab with Internet Explorer)  
+
+@File and @Files: Movie3 with all browsers
+- Go to second record "GATTACA".
+- The trailer is shown with image preview.
+- Click on trailer. The image is shown in another tab. (In the same tab with Firefox)
+- The scripts are shown, one with image preview. Other with no image preview (the .txt).
+- The image preview is not cut.
+- Click in the script with image. The image is shown in another tab. (In the same tab with Firefox)
+- Click in the script that is a txt. The script is downloaded with the correct file title. (In a new tab with Internet Explorer)  
 
 With @OnChange: CustomerFramesOnSameRow with all browsers
 - Go to second customer.

@@ -3,7 +3,7 @@ package org.openxava.test.tests;
 import org.openxava.jpa.*;
 
 /** 
- * tmp 
+ * tmr
  * 
  * @author Jeromy Altuna
  * @author Javier Paniza
@@ -51,8 +51,8 @@ abstract public class MovieBaseTest extends EmailNotificationsTestBase {
 	protected void saveAndReloadMovie(String title) throws Exception { 
 		execute("CRUD.save");
 		execute("Mode.list");
-		assertValueInList(0, 0, title);
-		execute("List.viewDetail", "row=0");
+		assertValueInList(2, 0, title);
+		execute("List.viewDetail", "row=2");
 		assertValue("title", title);		
 	}
 		

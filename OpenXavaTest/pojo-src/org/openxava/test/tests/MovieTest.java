@@ -12,7 +12,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Jeromy Altuna
  * @author Javier Paniza
  */
-public class MovieTest extends /* tmp EmailNotificationsTestBase */ MovieBaseTest { 
+public class MovieTest extends /* tmr EmailNotificationsTestBase */ MovieBaseTest { 
 	
 	private static final String MIME_UNKNOWN = "application/octet-stream";
 	
@@ -21,7 +21,8 @@ public class MovieTest extends /* tmp EmailNotificationsTestBase */ MovieBaseTes
 	}
 	
 	public void testPdfConcatReport() throws Exception {
-		assertListRowCount(2);
+		// tmr assertListRowCount(2);
+		assertListRowCount(3);
 		execute("List.viewDetail", "row=0");
 		assertAction("Movie.printDatasheet");
 		assertValue("title", "FORREST GUMP");
@@ -33,14 +34,15 @@ public class MovieTest extends /* tmp EmailNotificationsTestBase */ MovieBaseTes
 	}
 	
 	public void testClickOnFileInListMode() throws Exception {
-		assertListRowCount(2);
+		// tmr assertListRowCount(2);
+		assertListRowCount(3); // tmr
 		WebResponse response = getWebClient().getPage(
 				    getUrlToFile("Forrest Gump Trailer.webm")).getWebResponse(); 
 		assertTrue(response.getContentType().equals("video/webm") || 
 				   response.getContentType().equals(MIME_UNKNOWN));
 	}
 	
-	/* tmp
+	/* tmr
 	public void testAddFile() throws Exception {
 		addFile();
 		assertFile("trailer", "text/html"); 
@@ -79,14 +81,16 @@ public class MovieTest extends /* tmp EmailNotificationsTestBase */ MovieBaseTes
 			"MODIFIED: user=admin, model=Movie, key={id=" + entityId + "}, changes=Trailer: " + fileId + " --> ", 
 			"CONSULTED: user=admin, model=Movie, key={id=" + entityId + "}",
 			"REMOVED: user=admin, model=Movie, key={id=" + entityId + "}",
-			"CONSULTED: user=admin, model=Movie, key={id=ff80818145622499014562259e980003}"
+			// tmp "CONSULTED: user=admin, model=Movie, key={id=ff80818145622499014562259e980003}"
+			"CONSULTED: user=admin, model=Movie, key={id=ff80818150176f470150176ff2cb0000}" // tmp
 		);
 	}
 	
 	public void testFileset() throws Exception {
 		subscribeToEmailNotifications(); 
 		
-		assertListRowCount(2);
+		// tmr assertListRowCount(2);
+		assertListRowCount(3); // tmr
 		execute("List.viewDetail", "row=0");
 		assertFilesCount("scripts", 3); 
 		
@@ -112,7 +116,8 @@ public class MovieTest extends /* tmp EmailNotificationsTestBase */ MovieBaseTes
 	public void testGroupName() throws Exception {
 		String groupId = Strings.removeBlanks("data sheet");
 		
-		assertListRowCount(2);
+		// tmr assertListRowCount(2);
+		assertListRowCount(3); // tmr
 		execute("List.viewDetail", "row=0");
 		String groupName = getHtmlPage().getElementById("ox_OpenXavaTest_Movie__label_" + groupId)
 										.asText().trim(); 
@@ -124,47 +129,72 @@ public class MovieTest extends /* tmp EmailNotificationsTestBase */ MovieBaseTes
 		sn.add(Labels.get(Strings.removeBlanks("Multimedia 1")));
 		sn.add(Labels.get(Strings.removeBlanks("Multimedia 2")));
 				
-		assertListRowCount(2);
+		// tmr assertListRowCount(2);
+		assertListRowCount(3); // tmr
 		execute("List.viewDetail", "row=0");
 		assertTrue("At most two sections", getSectionsNames().size() == 2);
 		assertTrue("Incorrect sections names", sn.removeAll(getSectionsNames()) && sn.isEmpty());
 	}	
 	
 	public void testFilterEmptyValues() throws Exception {
-		assertListRowCount(2);
+		// tmr assertListRowCount(2);
+		assertListRowCount(3); // tmr
 		assertFalse(isNotVisibleConditionValue(2));
 		assertFalse(isNotVisibleConditionValue(3));
 		
 		// Filter String
 		setConditionComparators("=", "=", "empty_comparator");
         // execute("List.filter");		
+		/* tmr 
 		assertListRowCount(1);
-		assertValueInList(0, 0, "NOVECENTO"); 
+		assertValueInList(0, 0, "NOVECENTO");
+		*/
+		// tmr ini
+		assertListRowCount(2);
+		assertValueInList(0, 0, "GATTACA");
+		assertValueInList(1, 0, "NOVECENTO");
+		// tmr fin
 		assertTrue(isNotVisibleConditionValue(2));
 		
 		setConditionComparators("=", "=", "=");
 		execute("List.filter");
-		assertListRowCount(2);
+		// tmr assertListRowCount(2);
+		assertListRowCount(3); // tmr
 		assertFalse(isNotVisibleConditionValue(2));
 		
 		//Filter Date
 		setConditionComparators("=", "=", "=", "empty_comparator");
 		// execute("List.filter");
+		/* tmr
 		assertListRowCount(1);
-		assertValueInList(0, 0, "NOVECENTO"); 
+		assertValueInList(0, 0, "NOVECENTO");
+		*/ 
+		// tmr ini
+		assertListRowCount(2);
+		assertValueInList(0, 0, "GATTACA");
+		assertValueInList(1, 0, "NOVECENTO");
+		// tmr fin
 		assertTrue(isNotVisibleConditionValue(3));
 		
 		// Filter keeping the value
 		setConditionValues("", "", "f");
 		setConditionComparators("=", "=", "empty_comparator");
         // execute("List.filter");		
+		/* tmr
 		assertListRowCount(1);
-		assertValueInList(0, 0, "NOVECENTO"); 
+		assertValueInList(0, 0, "NOVECENTO");
+		*/
+		// tmr ini
+		assertListRowCount(2);
+		assertValueInList(0, 0, "GATTACA");
+		assertValueInList(1, 0, "NOVECENTO");
+		// tmr fin
 		assertTrue(isNotVisibleConditionValue(2));		
 	}
 	
 	public void testFilterNotEmptyValues() throws Exception {
-		assertListRowCount(2); 
+		// tmr assertListRowCount(2); 
+		assertListRowCount(3); // tmr
 		assertFalse(isNotVisibleConditionValue(2));
 		assertFalse(isNotVisibleConditionValue(3));
 		
@@ -177,7 +207,8 @@ public class MovieTest extends /* tmp EmailNotificationsTestBase */ MovieBaseTes
 		
 		setConditionComparators("=", "=", "=");
 		execute("List.filter");
-		assertListRowCount(2);
+		// tmr assertListRowCount(2);
+		assertListRowCount(3); // tmr
 		assertFalse(isNotVisibleConditionValue(2));
 		
 		//Filter Date
@@ -188,7 +219,7 @@ public class MovieTest extends /* tmp EmailNotificationsTestBase */ MovieBaseTes
 		assertTrue(isNotVisibleConditionValue(3));
 	}
 	
-	/* tmp
+	/* tmr
 	private void addFile() throws Exception {
 		execute("CRUD.new");
 		setValue("title", "JUNIT");

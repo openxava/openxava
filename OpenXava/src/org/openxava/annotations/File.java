@@ -3,7 +3,7 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmp Redoc
+ * tmr Redoc
  * Associates an action to a property or reference in the view. <p>
  * 
  * Applies to properties and references.<p>

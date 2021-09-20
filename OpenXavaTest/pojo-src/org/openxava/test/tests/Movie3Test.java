@@ -1,7 +1,7 @@
 package org.openxava.test.tests;
 
 /** 
- * tmp 
+ * tmr
  * 
  * @author Javier Paniza
  */

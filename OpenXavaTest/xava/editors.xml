@@ -219,33 +219,33 @@
 		<for-annotation annotation="org.openxava.test.annotations.Colorful"/>
 	</editor>
 	
-	<!-- tmp ini -->
-	<!-- tmp Mover a OpenXava -->
+	<!-- tmr ini -->
+	<!-- tmr Mover a OpenXava -->
 	<editor name="AttachedFile" url="uploadEditor.jsp" format="false">
 		<property name="loadAction" value="AttachedFileEditor.load"/> 
 		<property name="removeAction" value="AttachedFileEditor.remove"/> 
 		<property name="getURL" value="/xava/xfile"/>
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.PropertyValueFilesIdsProvider"/>
 		<property name="cssClass" value="ox-file"/> 
-		<property name="imagePreview" value="true"/> <!-- tmp It was false -->
+		<property name="imagePreview" value="true"/> <!-- tmr It was false -->
 		<list-formatter class="org.openxava.formatters.FileListFormatter" /> 
 		<for-stereotype stereotype="FILE" />
 		<for-stereotype stereotype="ARCHIVO" />
-		<for-annotation annotation="org.openxava.annotations.File"/> <!-- tmp -->
+		<for-annotation annotation="org.openxava.annotations.File"/> <!-- tmr -->
 	</editor>				
 	
-	<editor name="AttachedFiles" url="uploadEditor.jsp" format="false" frame="true"> <!-- tmp frame=true -->
+	<editor name="AttachedFiles" url="uploadEditor.jsp" format="false" frame="true"> <!-- tmr frame=true -->
 		<property name="loadAction" value="AttachedFilesEditor.load"/> 
 		<property name="removeAction" value="AttachedFilesEditor.remove"/> 
 		<property name="getURL" value="/xava/xfile"/>
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.AttachedFilesFilesIdsProvider"/>
 		<property name="cssClass" value="ox-files"/> 
 		<property name="multipleFiles" value="true"/>
-		<property name="imagePreview" value="true"/> <!-- tmp It was false -->
+		<property name="imagePreview" value="true"/> <!-- tmr It was false -->
 		<for-stereotype stereotype="FILES" />
 		<for-stereotype stereotype="ARCHIVOS" />
-		<for-annotation annotation="org.openxava.annotations.Files"/> <!-- tmp -->
+		<for-annotation annotation="org.openxava.annotations.Files"/> <!-- tmr -->
 	</editor>	
-	<!-- tmp fin -->
+	<!-- tmr fin -->
 	
 </editors>

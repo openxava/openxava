@@ -18,17 +18,12 @@ Ancho imagen por defecto para ficheros
 Nombre archivo siempre visible
 
 Pendiente:
-* No ajusta tamaño al mezclar imágenes con no imágenes
-* ¿Que pasa al pulsar imagen? ¿y fichero?
-* Unificar estereotipo 
-- Prueba. TMP ME QUEDÉ POR AQUÍ: AÑADI GATTACA, PERO FALLAN MUCHAS PRUEBA. QUIZAS DEBERÍA PROBAR CON LAS 2 QUE TENGO
-	- Se puede mezclar con FILE/FILES. Ya que compartimos implementación.
-	- En todos los navegadores ahora. ¿Siempre?
-	- Mezcla imagenes/archivos imagenes no cortadas al tamaño de archivo.
-	- Al pulsar imagen preview, archivo descarga con nombre.
-- Prueba	
+TMR ME QUEDÉ POR AQUÍ: SUITE Y PRUEBAS MANUALES PASADAS. SEGUIR CON:
+- Limpiar código
+- updateOX 
 - Doc:
-	- ¿Curso?
+	- Promocionar @File y @Files para todo.
+	- ¿Curso? Puedo diferir para mezclar mejor con refactorización de curso.
 
 Diferible 6.6:
 - Foto visualizada en lista para @File

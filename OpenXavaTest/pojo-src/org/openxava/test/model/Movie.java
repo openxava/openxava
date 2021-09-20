@@ -31,7 +31,7 @@ import org.openxava.model.*;
 	"   photographs" +
 	"}"
 )
-@Tab(properties="title, director, writers, releaseDate, trailer")
+@Tab(properties="title, director, writers, releaseDate, trailer", defaultOrder = "${title}") // tmr defaultOrder 
 public class Movie extends Identifiable {
 
 	private String title;

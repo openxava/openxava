@@ -10,7 +10,7 @@ import org.openxava.jpa.*;
 import org.openxava.model.*;
 
 /**
- * tmp Redoc
+ * tmr Redoc
  * Model to test concatenated reports using 
  * {@link org.openxava.test.actions.MovieReportAction MovieReportAction} and to 
  * test stereotypes FILE and FILES. <p>
@@ -18,7 +18,7 @@ import org.openxava.model.*;
  */
 @Entity
 @Table(name="Movie")
-/* tmp
+/* tmr
 @View(members=
 	"data sheet ["   +
 	"   title, releaseDate;" +	
@@ -35,7 +35,7 @@ import org.openxava.model.*;
 	"}"
 )
 */
-@Tab(properties="title, director, writers, releaseDate, trailer")
+@Tab(properties="title, director, writers, releaseDate, trailer", defaultOrder = "${title}")
 public class Movie3 extends Identifiable {
 
 	private String title;

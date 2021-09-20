@@ -12,12 +12,12 @@ public class AttachedFilesFilesIdsProvider implements IUploadFilesIdsProvider {
 
 	public String getFilesIds(Object propertyValue) {
 		Collection<AttachedFile> files = FilePersistorFactory.getInstance().findLibrary((String) propertyValue);
-		// tmp return files.stream().map(AttachedFile::getId).collect(Collectors.joining(","));
-		// tmp ini
+		// tmr return files.stream().map(AttachedFile::getId).collect(Collectors.joining(","));
+		// tmr ini
 		return files.stream()
 			.sorted((a, b) -> previewIndex(a) - previewIndex(b))
 			.map(AttachedFile::getId).collect(Collectors.joining(","));
-		// tmp fin
+		// tmr fin
 	}
 
 	private int previewIndex(AttachedFile f) {

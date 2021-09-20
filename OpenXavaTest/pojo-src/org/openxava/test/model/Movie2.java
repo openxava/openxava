@@ -1,6 +1,7 @@
 package org.openxava.test.model;
 
 import javax.persistence.*;
+
 import org.openxava.annotations.*;
 import org.openxava.model.*;
 
@@ -10,6 +11,7 @@ import org.openxava.model.*;
  */
 @Entity
 @Table(name="MOVIE")
+@Tab(defaultOrder = "${title}") // tmr
 public class Movie2 extends Identifiable {
 
 	@Required
