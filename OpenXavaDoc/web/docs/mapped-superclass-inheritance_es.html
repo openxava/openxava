@@ -1,0 +1,133 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 6: Herencia de superclases mapedas - Herencia - Curso de
+      OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-4-Herencia"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 6: Herencia de superclases mapedas</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <strong>6. Herencia</strong> | <a class="wiki_link"
+
+        href="basic-business-logic_es.html">7. Lógica de negocio básica</a> | <a
+
+        class="wiki_link" href="validation_es.html">8. Validación avanzada</a> |
+      <a class="wiki_link" href="refining-standard-behavior_es.html">9. Refinar
+        el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">10.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">11.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#toc0">Lección 6:
+            Herencia de superclases mapeadas<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#superclase-mapeada">Superclase
+            mapeada</a></div>
+        <div style="margin-left: 2em;"><a href="#simplificar-tus-entidades">Simplificar tus entidades</a></div>
+        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
+      </div>
+      La herencia es una forma práctica de reutilizar el código en el mundo de
+      la orientación a objetos. Usar herencia con JPA y OpenXava es tan fácil
+      como hacerlo con puro Java. Vamos a usar la herencia para quitar el código
+      repetitivo y aburrido, como la definición de los UUID, esto lo haremos
+      usando superclases mapeadas de JPA.<br>
+      <h2 id="toc1"><a name="superclase-mapeada"></a>Superclase mapeada</h2>
+      Las clases <em>Autor</em>, <em>Categoria</em> y <em>Factura</em> tienen
+      algo de código en común. Este código es la definición del campo <em>oid</em>:<br>
+      <pre><code class="java">@Id @GeneratedValue(generator="system-uuid") @Hidden
+@GenericGenerator(name="system-uuid", strategy="uuid")
+@Column(length=32)
+String oid;
+</code></pre> Este código es exactamente el mismo para todas estas clases. Ya
+      sabes que copiar y pegar es un pecado mortal, por eso tenemos que buscar
+      una forma de quitar este código repetido y así evitar ir al infierno.<br>
+      Una solución elegante en este caso es usar herencia. JPA permite varias
+      formas de herencia. Una de ellas es heredar de una superclase mapeada. Una
+      superclase mapeada es una clase Java con anotaciones de mapeo JPA, pero no
+      es una entidad en sí. Su único objetivo es ser usada como clase base para
+      definir entidades. Usemos una y verás su utilidad rápidamente.<br>
+      Primero, movemos el código común a una clase marcada como <em>@MappedSuperclass</em>.
+      La llamamos <em>Identificable</em>:<br>
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+ 
+import javax.persistence.*;
+import org.hibernate.annotations.*;
+import org.openxava.annotations.*;
+import lombok.*;
+ 
+@MappedSuperclass // Marcada como una superclase mapeada en vez de como una entidad
+@Getter @Setter
+public class Identificable {
+ 
+    @Id @GeneratedValue(generator="system-uuid") @Hidden
+    @GenericGenerator(name="system-uuid", strategy="uuid")
+    @Column(length=32)
+    String oid; // La definición de propiedad incluye anotaciones de OpenXava y JPA
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1"><a name="simplificar-tus-entidades"></a>Simplificar tus entidades</h2>
+    </div>
+    <div class="wiki" style="display: block;">Ahora puedes definir las entidades
+      <em>Autor, Categoria</em> y <em>Factura</em> de una manera más sucinta.
+      Para ver un ejemplo aquí tienes el nuevo código para <em>Categoria</em>:<br>
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+ 
+import javax.persistence.*;
+import lombok.*;
+ 
+@Entity @Getter @Setter
+public class Categoria extends Identificable { // Extiende de Identificable
+                        // por tanto no necesita tener una propiedad id
+    @Column(length=50)
+    String descripcion;
+  
+}
+</code></pre> La refactorización es extremadamente simple. <em>Categoria</em>
+      ahora desciende de <em>Identificable</em> y hemos quitado la propiedad <em>oid</em>.
+      De esta forma, no sólo tu código es más corto, sino también más elegante,
+      porque estás declarando tu clase como identificable (el qué, no el cómo),
+      y has quitado de tu clase de negocio un código que era un tanto técnico.<br>
+      Aplica esta misma refactorización a las entidades <em>Autor</em> y <em>Factura</em>.
+      Además, a partir de ahora extenderás la mayoría de tus entidades de la
+      superclase mapeada <em>Identificable</em>.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> Hemos creado nuestra propia clase
+      <em>Identificable</em> para ver las ventajas de usar superclases mapeadas,
+      sin embargo OpenXava te provee una clase <em>Identifiable</em> lista para
+      usar que puedes encontrar en el paquete <em>org.openxava.model</em>. Por
+      tanto, en tu próximo proyecto no has de escribir la clase <em>Identificable</em>
+      otra vez, simplemente usa la incluida en OpenXava.<br>
+      <h2 id="toc18"><a name="Resumen"></a>Resumen</h2>
+      Has aprendido, pues, que una superclase mapeada es una clase normal y
+      corriente con anotaciones de mapeo JPA que puedes usar como clase base
+      para tus entidades. También has aprendido como usar una superclase mapeada
+      para simplificar tu código.<br>
+      <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+        <a class="wiki_link" href="basic-business-logic_es.html">Ve a la lección
+          7</a></strong> </div>
+  </body>
+</html>

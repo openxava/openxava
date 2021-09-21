@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lesson 6: Mapped superclass inheritance - Inheritance - OpenXava
+      course</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 4: Inheritance"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 6: Mapped superclass inheritance</h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
+        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
+        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
+        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
+        Agile development</a> | <strong>6. Inheritance</strong> | <a class="wiki_link"
+
+        href="basic-business-logic_en.html">7. Basic business logic</a> | <a class="wiki_link"
+
+        href="validation_en.html">8. Advanced validation</a> | <a class="wiki_link"
+
+        href="refining-standard-behavior_en.html">9. Refining the standard
+        behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">10.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">11.
+        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
+        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
+        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
+        Automated testing</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#toc0">Lesson
+            6: Mapped superclass inheritance</a></div>
+        <div style="margin-left: 2em;"><a href="#mapped-superclass">Mapped
+            superclass</a></div>
+        <div style="margin-left: 2em;"><a href="#simplify-your-entities">Simplify
+            your entities</a></div>
+        <div style="margin-left: 2em;"><a href="#summary">Summary</a></div>
+      </div>
+      Inheritance is a practical way to reuse code in the object oriented world.
+      Using inheritance with JPA and OpenXava is as easy as using it in plain
+      Java. We are going to use inheritance to remove repeated and boring code,
+      like the UUID definition, we'll do it using JPA mapped superclasses.<br>
+      <h2><a name="mapped-superclass"></a>Mapped superclass</h2>
+      The <em>Author</em>, <em>Category</em> and <em>Invoice</em> classes
+      have some common code, the <em>oid</em> field definition:<br>
+      <pre><code class="java">@Id @GeneratedValue(generator="system-uuid") @Hidden
+@GenericGenerator(name="system-uuid", strategy="uuid")
+@Column(length=32)
+String oid;
+</code></pre> This code is just the same for all those classes. You know that
+      copy and paste is a mortal sin, so we have to look for a solution to
+      remove the code repetition, to avoid our way to hell.<br>
+      An elegant solution for this situation is inheritance. JPA allows you to
+      exploit the concept of inheritance. One of them is to inherit from a
+      mapped superclass. A mapped superclass is a Java class with JPA mapping
+      annotations, but it is not an entity itself. Its only goal is to be used
+      as superclass for an entity. Let's use it, and you'll see its utility
+      quickly.<br>
+      First, we move this common piece of code to a class marked as <em>@MappedSuperclass</em>.
+      We name it <em>Identifiable</em>:<br>
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import javax.persistence.*;
+import org.hibernate.annotations.*;
+import org.openxava.annotations.*;
+import lombok.*;
+ 
+@MappedSuperclass // Marked as mapped superclass instead of entity
+@Getter @Setter
+public class Identifiable {
+ 
+    @Id @GeneratedValue(generator="system-uuid") @Hidden
+    @GenericGenerator(name="system-uuid", strategy="uuid")
+    @Column(length=32)
+    String oid; // Property definition includes OpenXava and JPA annotations
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1"><a name="simplify-your-entities"></a>Simplify your entities</h2>
+    </div>
+    <div class="wiki" style="display: block;">Now you can define <em>Author</em>,
+      <em>Category</em> and <em>Invoice</em> entities in a more succinct way.
+      To see an example you have the new code for <em>Category</em> here:<br>
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import javax.persistence.*;
+import lombok.*;
+ 
+@Entity @Getter @Setter
+public class Category extends Identifiable {
+  
+    @Column(length=50)
+    String description;
+ 
+}
+</code></pre> The refactoring is plain vanilla. <em>Category</em> now extends
+      from <em>Identifiable</em> and we have removed the <i>oid</i> property.
+      This way, not only is your code shorter, but it's more elegant, because
+      you declare that your class is identifiable (the what, not the how), and
+      you removed from your business logic class code that is somewhat
+      technical.<br>
+      Apply this same refactoring to the <em>Author</em> and <em>Invoice</em>
+      entities. Moreover, from now on you'll extend most of your entities from
+      the <em>Identifiable</em> mapped superclass.<br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">We have created our own <em>Identifiable</em>
+      class to see the advantage of using mapped superclasses, however OpenXava
+      provides for you a ready to use <em>Identifiable</em> class that you can
+      find in the <em>org.openxava.model</em> package. So in your next project
+      you don't need to write the <em>Identifiable</em> class again, just use
+      the one included in OpenXava.<br>
+      <h2><a name="summary"></a>Summary</h2>
+      You have learned that a mapped superclass is a regular class with JPA
+      mapping annotations that you can use as a base class for your entities.
+      Moreover, you have learned how to use mapped superclasses to simplify your
+      code.<br>
+      <br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
+        <a class="wiki_link" href="basic-business-logic_en.html">Go to Lesson 7</a></strong>
+    </div>
+  </body>
+</html>

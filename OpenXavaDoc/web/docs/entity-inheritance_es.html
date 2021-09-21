@@ -1,0 +1,283 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 7: Herencia de entidades - Herencia - Curso de OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-4-Herencia"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 7: Herencia de entidades</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <strong>6. Herencia</strong> | <a class="wiki_link"
+
+        href="basic-business-logic_es.html">7. Lógica de negocio básica</a> | <a
+
+        class="wiki_link" href="validation_es.html">8. Validación avanzada</a> |
+      <a class="wiki_link" href="refining-standard-behavior_es.html">9. Refinar
+        el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">10.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">11.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Leccion-4-Herencia">Lección 7:
+            Herencia de entidades<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Herencia-de-entidades-Nueva-entidad-Pedido">Nueva
+            entidad Pedido</a></div>
+        <div style="margin-left: 2em;"><a href="#Herencia-de-entidades-CommercialDocument-como-entidad-abstracta">DocumentoComercial
+            como entidad abstracta</a></div>
+        <div style="margin-left: 2em;"><a href="#Herencia-de-entidades-Factura-refactorizada-para-usar-herencia">Factura
+            refactorizada para usar herencia</a></div>
+        <div style="margin-left: 2em;"><a href="#Herencia-de-entidades-Crear-Pedido-usando-herencia">Crear
+            Pedido usando herencia</a></div>
+        <div style="margin-left: 2em;"><a href="#Herencia-de-entidades-Convencion-de-nombres-y-herencia">Convención
+            de nombres y herencia</a></div>
+        <div style="margin-left: 2em;"><a href="#Herencia-de-entidades-Asociar-Pedido-con-Factura">Asociar
+            Pedido con Factura</a></div>
+        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
+      </div>
+      Una entidad puede heredar de otra entidad. Esta herencia de entidades es
+      una herramienta muy útil para simplificar tu modelo. Vamos a usarla para
+      añadir una nueva entidad, <em>Pedido</em>, a tu aplicación <em>Facturacion</em>.<br>
+      <h2 id="toc3"><a name="Herencia-de-entidades-Nueva-entidad-Pedido"></a>Nueva
+        entidad Pedido</h2>
+      Queremos añadir un nuevo concepto a la aplicación <em>Facturacion</em>:
+      pedido. Mientras que una factura es algo que quieres cobrar a tu cliente,
+      un pedido es algo que tu cliente te ha solicitado. Estos dos conceptos
+      están fuertemente unidos, porque cobrarás por las cosas que tu cliente te
+      ha pedido y tú le has servido.<br>
+      Sería interesante poder tratar pedidos en tu aplicación y asociar estos
+      pedidos con sus correspondientes facturas. Tal como muestra el siguiente
+      diagrama UML:<br>
+      <img src="files/inheritance_es010.png" alt="inheritance_es010.png" title="inheritance_es010.png"><br>
+      Y con código Java:<br>
+      <pre><code class="java">@Entity
+public class Factura {
+ 
+    @OneToMany(mappedBy="factura")
+    Collection&lt;Pedido&gt; pedidos;
+    ...
+}
+ 
+@Entity
+public class Pedido {
+ 
+    @ManyToOne // Sin carga vaga (1)
+    Factura factura;
+    ...
+}
+</code></pre> Es decir, una factura tiene varios pedidos y un pedido puede
+      referenciar a una factura. Fíjate como no usamos inicialización vaga (lazy
+      fetching) para la referencia <em>factura</em> (1), esto es por un bug de
+      Hibernate cuando la referencia contiene la relación bidireccional (es
+      decir, es la referencia declarada en el atributo <em>mappedBy</em> del <em>@OneToMany</em>).<br>
+      ¿Cómo es <em>Pedido</em>? Bien, tiene un cliente, unas líneas de detalle
+      con producto y cantidad, un año y un número. Algo así como esto:<br>
+      <img src="files/inheritance_es020.png" alt="inheritance_es020.png" title="inheritance_es020.png"><br>
+      Curiosamente, este diagrama UML es idéntico al diagrama de <em>Factura</em>.
+      Es decir, para crear tu entidad <em>Pedido</em> puedes copiar y pegar la
+      clase <em>Factura</em>, y asunto zanjado. Pero, ¡espera un momento!
+      ¿“Copiar y pegar” no era un pecado mortal? Hemos de encontrar una forma de
+      reutilizar <em>Factura</em> para <em>Pedido</em>.<br>
+      <h2 id="toc4"><a name="Herencia-de-entidades-CommercialDocument-como-entidad-abstracta"></a>DocumentoComercial
+        como entidad abstracta</h2>
+      Una manera práctica de reutilizar el código de <em>Factura</em> para <em>Pedido</em>
+      es usando herencia, además es una excusa perfecta para aprender lo fácil
+      que es usar la herencia con JPA y OpenXava.<br>
+      En la mayoría de las culturas orientadas a objetos has de observar el
+      precepto sagrado <em>es un</em>. Esto significa que no podemos hacer que
+      <em>Factura</em> herede de <em>Pedido</em>, porque una <em>Factura</em>
+      no es un <em>Pedido</em>, y por la misma regla no podemos hacer que <em>Pedido</em>
+      descienda de <em>Factura</em>. La solución para este caso es crear una
+      clase base para ambos, <em>Pedido</em> y <em>Factura</em>. Llamaremos a
+      esta clase <em>DocumentoComercial</em>.<br>
+      Aquí tienes el diagrama UML para <em>DocumentoComercial</em>:<br>
+      <img src="files/inheritance_es030.png" alt="inheritance_es030.png" title="inheritance_es030.png"><br>
+      Y aquí tienes la misma idea expresada con Java:<br>
+      <pre><code class="java">public class DocumentoComercial { ... }
+public class Pedido extends DocumentoComercial { ... }
+public class Factura extends DocumentoComercial { ... }
+</code></pre> Empecemos a refactorizar el código actual. Primero, renombra
+      (usando <em>Refactor &gt; Rename</em>) <em>Factura</em> como <em>DocumentoComercial</em>.
+      Después, edita el código de <em>DocumentoComercial</em> para declararla
+      como una clase abstracta, así:<br>
+      <pre><code class="java">abstract public class DocumentoComercial // Añadimos el modificador abstract
+</code></pre> Queremos crear instancias de <em>Factura</em> y <em>Pedido</em>,
+      pero no queremos crear instancias de <em>DocumentoComercial</em>
+      directamente, por eso la declaramos abstracta.<br>
+      <h2 id="toc5"><a name="Herencia-de-entidades-Factura-refactorizada-para-usar-herencia"></a>Factura
+        refactorizada para usar herencia</h2>
+      Ahora, has de crear la entidad <em>Factura</em> extendiéndola de <em>DocumentoComercial</em>.
+      Puedes ver el nuevo código de <em>Factura</em>:<br>
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+ 
+import javax.persistence.*;
+import lombok.*;
+ 
+@Entity @Getter @Setter
+public class Factura extends DocumentoComercial {
+ 
+}
+</code></pre> <em>Factura</em> tiene ahora un código bastante breve, de hecho
+      el cuerpo de la clase está, por ahora, vacío.<br>
+    </div>
+    <div class="wiki" style="display: block;">Este nuevo código necesita un
+      esquema de base de datos ligeramente diferente, ahora las facturas y los
+      pedidos se almacenarán en la misma tabla (la tabla DocumentoComercial)
+      usando una columna discriminador. Por tanto has de borrar las viejas
+      tablas ejecutando las siguientes sentencias SQL:<br>
+      <pre><code class="sql">DROP TABLE FACTURACION.FACTURA_DETALLES;
+DROP TABLE FACTURACION.FACTURA;
+</code></pre> Para ejecutar estas sentencias SQL, primero asegurate de que tu
+      aplicación se esté ejecutando, después usa la opción de menú <i>OpenXava
+        &gt; Database Manager</i> de OpenXava Studio:<br>
+      <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
+      Después:<br>
+      <img src="files/inheritance_es050.png" alt="inheritance_es050.png" title="inheritance_es050.png"><br>
+      Ya puedes ejecutar el módulo <em>Factura</em> y verlo funcionando en tu
+      navegador. Lanza también <em>PruebaFactura</em>. Tiene que salirte verde.</div>
+    <div class="wiki" style="display: block;">Si usas tu propia versión de
+      Eclipse o IntelliJ puedes ejecutar Database Manager ejecutando la tarea
+      Ant <i>runDBManager</i> de <i>OpenXava/build.xml</i>.<br>
+      <h2 id="toc6"><a name="Herencia-de-entidades-Crear-Pedido-usando-herencia"></a>Crear
+        Pedido usando herencia</h2>
+      Gracias a <em>DocumentoComercial</em> el código para <em>Pedido</em> es
+      más sencillo que el mecanismo de un sonajero:<br>
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+ 
+import javax.persistence.*;
+import lombok.*;
+ 
+@Entity @Getter @Setter
+public class Pedido extends DocumentoComercial {
+ 
+}
+</code></pre> Después de escribir la clase <em>Pedido</em>, aunque de momento
+      esté vacía, ya puedes usar el módulo <em>Pedido</em> desde tu navegador.
+      Sí, a partir de ahora crear una nueva entidad con una estructura parecida
+      a <em>Factura</em>, es decir cualquier entidad para un documento
+      comercial, es simple y rápido. Un buen uso de la herencia es una forma
+      elegante de tener un código más simple.<br>
+      El módulo <em>Pedido</em> funciona perfectamente, pero tiene un pequeño
+      problema. El nuevo número de pedido lo calcula a partir del último número
+      de factura, no de pedido. Esto es así porque el calculador para el
+      siguiente número lee de la entidad <em>Factura</em>. Un solución obvia es
+      mover la definición de la propiedad <em>numero</em> de <em>DocumentoComercial</em>
+      a <em>Factura</em> y <em>Pedido</em>. Aunque, no lo vamos a hacer así,
+      porque en la siguiente lección refinaremos la forma de calcular el número
+      de documento, de momento simplemente haremos un pequeño ajuste en el
+      código actual para que no falle. Edita la clase <em>CalculadorSiguienteNumeroParaAnyo</em>
+      y en la consulta cambia “Factura” por “DocumentoComercial”, dejando el
+      método <em>calculate()</em>, así:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">public Object calculate() throws Exception {
+    Query query = XPersistence.getManager().createQuery(
+        "select max(f.numero) from " +
+        "DocumentoComercial f " + // DocumentoComercial en vez de Factura
+        "where f.anyo = :anyo");
+    query.setParameter("anyo", anyo);
+    Integer ultimoNumero = (Integer) query.getSingleResult();
+    return ultimoNumero == null?1:ultimoNumero + 1;
+}
+</code></pre> Ahora buscamos el número máximo de cualquier tipo de documento
+      comercial del año para calcular el nuevo número, por lo tanto la
+      numeración es compartida para todos los tipos de documentos. Esto lo
+      mejoraremos en la siguiente lección para separar la numeración para
+      facturas y pedidos; y para tener un mejor soporte de entornos
+      multiusuario.<br>
+      <h2 id="toc7"><a name="Herencia-de-entidades-Convencion-de-nombres-y-herencia"></a>Convención
+        de nombres y herencia</h2>
+      Fíjate que no has necesitado cambiar el nombre de ninguna propiedad de <em>Factura</em>
+      para hacer la refactorización. Esto es por el siguiente principio
+      práctico: <em>No uses el nombre de clase en los nombres de miembro</em>,
+      por ejemplo, dentro de una clase <em>Cuenta</em> no uses la palabra
+      “Cuenta” en ningún método o propiedad:<br>
+      <pre><code class="java">public class Cuenta { // No usaremos Cuenta en los nombres de los miembros
+ 
+    private int numeroCuenta; // Mal, porque usa “cuenta”
+    private int numero; // Bien, no usa “cuenta”
+ 
+    public void cancelarCuenta() { } // Mal, porque usa “Cuenta”
+    public void cancelar() { } // Bien, no usa “cuenta”
+    ...
+}
+</code></pre> Usando esta nomenclatura puedes refactorizar la clase <em>Cuenta</em>
+      en una jerarquía sin renombrar sus miembros y además puedes escribir
+      código polimórfico con <em>Cuenta</em>.<br>
+      <h2 id="toc8"><a name="Herencia-de-entidades-Asociar-Pedido-con-Factura"></a>Asociar
+        Pedido con Factura</h2>
+      Hasta ahora, <em>Pedido</em> y <em>Factura</em> son exactamente iguales.
+      Vamos a hacerles sus primeras extensiones, que va a ser asociar <em>Pedido</em>
+      con <em>Factura</em>, como se muestra en el diagrama:<br>
+      <img src="files/inheritance_es010.png" alt="inheritance_es010.png" title="inheritance_es010.png"><br>
+      Solo necesitas añadir una referencia desde <em>Pedido</em> a <em>Factura</em>:<br>
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+ 
+import javax.persistence.*;
+import lombok.*;
+ 
+@Entity @Getter @Setter
+public class Pedido extends DocumentoComercial {
+ 
+    @ManyToOne
+    Factura factura; // Referencia a factura añadida
+ 
+}
+</code></pre> Por otra parte en <em>Factura</em> añadimos una colección de
+      entidades <em>Pedido</em>:<br>
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+ 
+import java.util.*; 
+import javax.persistence.*;
+import lombok.*;
+ 
+@Entity @Getter @Setter
+public class Factura extends DocumentoComercial {
+ 
+    @OneToMany(mappedBy="factura")
+    Collection&lt;Pedido&gt; pedidos; // Colección de entidades Pedido añadida
+ 
+}
+</code></pre> Después de escribir este código tan simple, ya puedes probar
+      estas, recién creadas, relaciones. Reinicia tu aplicación y abre tu
+      navegador y explora los módulos <em>Pedido</em> y <em>Factura</em>.
+      Fíjate como al final de la interfaz de usuario de <em>Pedido</em> tienes
+      una referencia a <em>Factura</em>. El usuario puede usar esta referencia
+      para asociar una factura al pedido actual. Por otra parte, si exploras el
+      módulo <em>Factura</em>, verás una colección de pedidos al final. El
+      usuario puede usarla para añadir pedidos a la factura actual.<br>
+      Intenta añadir pedidos a la factura y asociar una factura a un pedido.
+      Funciona, aunque la interfaz de usuario es un poco fea. No te preocupes,
+      mejoraremos esto en la siguiente lección.<br>
+      <h2 id="toc18"><a name="Resumen"></a>Resumen</h2>
+      Esta lección te ha mostrado algunos ejemplos prácticos sobre como usar
+      herencia de Java con entidades JPA para simplificar tu código. Hemos usado
+      la configuración por defecto de JPA para la herencia, aunque puedes
+      refinar el comportamiento de JPA para la herencia con anotaciones como <em>@Inheritance</em>,
+      <em>@DiscriminatorColumn</em>, <em>@DiscriminatorValue</em>, etc. Para
+      aprender más acerca de la herencia en JPA puedes leer la documentación del
+      <a class="wiki_link" href="jpa_es.html">apéndice B</a>.<br>
+      <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+        <a class="wiki_link" href="basic-business-logic_es.html">Ve a la lección
+          7</a></strong> </div>
+  </body>
+</html>
