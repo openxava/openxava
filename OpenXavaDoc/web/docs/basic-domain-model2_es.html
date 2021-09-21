@@ -12,7 +12,8 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Modelar+con+Java"></a> <span id="breadcrumbs"> <span
+      <h1 id="toc0"><a name="Modelar+con+Java"></a> <span id="breadcrumbs"> <span
+
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Lección 3: Modelo básico del dominio - Parte 2 </h1>
@@ -48,8 +49,11 @@
       En esta lección acabarás de crear todas las entidades necesarias para tu
       proyecto. Ya tenemos las entidades básicas, ahora vamos a escribir el
       código para la entidad principal de nuestra aplicación, la entidad <i>Factura</i>.</div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=2XzIq_u6jZM"
-        target="_blank"><img src="files/basic-domain-model2-video_es.png" title="Video para la lección 3: Modelo básico del dominio - Parte 2"></a>
+    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=2XzIq_u6jZM"
+
+        target="_blank"><img src="files/basic-domain-model2-video_es.png"
+
+          title="Video para la lección 3: Modelo básico del dominio - Parte 2"></a>
     </div>
     <div class="wiki" style="display: block;">Si no te gustan los videos sigue
       las instrucciones a continuación.
@@ -119,7 +123,8 @@ public class Factura {
     <div class="wiki" style="display: block;">Para crear un paquete nuevo
       selecciona la carpeta <i>Facturacion/src</i> y pulsa en el botón <i>New
         Java Package</i>:</div>
-    <div class="wiki" style="display: block;"> <img src="files/modeling_es064.png"
+    <div class="wiki" style="display: block;"> <img src="files/modeling_es064.png"
+
         alt="">
       <div class="wiki" style="display: block;">Se mostrará un diálogo donde
         introducir el nombre del paquete, <em>com.tuempresa.facturacion.calculadores</em>,
@@ -161,7 +166,8 @@ public class CalculadorSiguienteNumeroParaAnyo
     <div class="wiki" style="display: block;">Tu calculador tiene que
       implementar <em>ICalculator</em> (y por lo tanto tener un método <em>calculate()</em>).
       Declaramos una propiedad <em>anyo</em> para poner en ella el año del
-      cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el <a
+      cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el <a
+
         class="wiki_link" href="jpa_es.html">apéndice B</a> sobre JPA. Ahora
       sólo queda anotar la propiedad <em>numero</em> en la entidad <em>Factura</em>:</div>
     <div class="wiki" style="display: block;">
@@ -222,7 +228,8 @@ Cliente cliente;
 Collection&lt;Detalle&gt; detalles;
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Usando
-        </span><em><span style="line-height: 1.5;">@ElementCollection</span></em><span
+        </span><em><span style="line-height: 1.5;">@ElementCollection</span></em><span
+
         style="line-height: 1.5;"> cuando la factura se borra sus líneas se
         borran también. Los detalles no se guardan en la base de datos hasta que
         la factura se guarde y se guardan todos al mismo tiempo.</span><br>
@@ -269,7 +276,8 @@ Collection&lt;Detalle&gt; detalles;
         propiedades calificadas, es decir, usar la notación del punto para
         acceder a las propiedades de referencias, tal como <em>producto.numero</em>
         y <em>producto.descripcion</em> en este caso. El resultado visual es:</span><br>
-      <span style="line-height: 0px; overflow: hidden;"><img src="files/modeling_es100.png"
+      <span style="line-height: 0px; overflow: hidden;"><img src="files/modeling_es100.png"
+
           alt="modeling_es100.png" title="modeling_es100.png"></span><br>
       <h2 id="toc15"><a name="Modelar+con+Java-Resumen"></a>Resumen</h2>
       ¡Enhorabuena! Has finalizado tus clases del modelo del dominio y tienes
@@ -283,7 +291,8 @@ Collection&lt;Detalle&gt; detalles;
       un mejor aspecto sin demasiado esfuerzo. </div>
     <br>
     <div class="wiki" style="display: block;"> <strong>¿Problemas con la
-        lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+        lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="refining-user-interface_es.html">Ve a la
           lección 4</a></strong> </div>
