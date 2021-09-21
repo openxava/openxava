@@ -2523,10 +2523,6 @@ div[id$="_Index__view"] .ox-list-title {
 	width: 330px;;
 }
 
-.ox-files {
-	width: calc(100vw - 400px);
-}
-
 .ox-file .filepond--item, .ox-files .filepond--item {
 	width: 300px;
 	cursor: pointer;

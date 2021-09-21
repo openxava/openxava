@@ -12,7 +12,7 @@ public class Movie2Test extends CustomizeListTestBase {
 	}
 	
 	public void testRequiredFilesOnModify() throws Exception { 
-		execute("List.viewDetail", "row=2"); // tmr era 1
+		execute("List.viewDetail", "row=2"); 
 		assertValue("title", "NOVECENTO");	
 		assertFilesCount("scripts", 1); 
 		removeFile("scripts", 0);
@@ -20,20 +20,20 @@ public class Movie2Test extends CustomizeListTestBase {
 		assertError("Value for Scripts in Movie 2 is required");
 		
 		execute("Mode.list");
-		execute("List.viewDetail", "row=2"); // tmr era 1
+		execute("List.viewDetail", "row=2"); 
 		assertValue("title", "NOVECENTO");	
 		assertFilesCount("scripts", 1);
 		uploadFile("scripts", "test-images/foto_javi.jpg");
 		
 		execute("Mode.list");
-		execute("List.viewDetail", "row=2"); // tmr era 1
+		execute("List.viewDetail", "row=2"); 
 		assertValue("title", "NOVECENTO");	
 		assertFilesCount("scripts", 2); 
 		removeFile("scripts", 1);
 		removeFile("scripts", 0);
 		
 		execute("Mode.list");
-		execute("List.viewDetail", "row=2"); // tmr era 1
+		execute("List.viewDetail", "row=2"); 
 		assertValue("title", "NOVECENTO");	
 		assertFilesCount("scripts", 1);
 	}

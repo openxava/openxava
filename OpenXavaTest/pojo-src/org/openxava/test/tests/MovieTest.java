@@ -12,7 +12,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Jeromy Altuna
  * @author Javier Paniza
  */
-public class MovieTest extends /* tmr EmailNotificationsTestBase */ MovieBaseTest { 
+public class MovieTest extends MovieBaseTest { 
 	
 	private static final String MIME_UNKNOWN = "application/octet-stream";
 	
@@ -21,7 +21,6 @@ public class MovieTest extends /* tmr EmailNotificationsTestBase */ MovieBaseTes
 	}
 	
 	public void testPdfConcatReport() throws Exception {
-		// tmr assertListRowCount(2);
 		assertListRowCount(3);
 		execute("List.viewDetail", "row=0");
 		assertAction("Movie.printDatasheet");
@@ -34,34 +33,13 @@ public class MovieTest extends /* tmr EmailNotificationsTestBase */ MovieBaseTes
 	}
 	
 	public void testClickOnFileInListMode() throws Exception {
-		// tmr assertListRowCount(2);
-		assertListRowCount(3); // tmr
+		assertListRowCount(3); 
 		WebResponse response = getWebClient().getPage(
 				    getUrlToFile("Forrest Gump Trailer.webm")).getWebResponse(); 
 		assertTrue(response.getContentType().equals("video/webm") || 
 				   response.getContentType().equals(MIME_UNKNOWN));
 	}
-	
-	/* tmr
-	public void testAddFile() throws Exception {
-		addFile();
-		assertFile("trailer", "text/html"); 
-		removeFile(); 
-	}
-	
-	public void testAddFilesInNewEntity() throws Exception { 
-		execute("CRUD.new");
-		setValue("title", "MATRIX");
-		uploadFile("scripts", "reports/Corporation.html");
-		saveAndReloadMovie("MATRIX");
-		assertFilesCount("scripts", 1);
-		assertFile("scripts", 0, "text/html");
 		
-		removeFile("scripts", 0);
-		execute("CRUD.delete");
-	}
-	*/
-	
 	public void testDeleteFile_accessTrackerFile() throws Exception {
 		addFile();
 		assertTrue("Trailer has no value", !Is.emptyString(getValue("trailer")) && !"null".equals(getValue("trailer")));
@@ -81,16 +59,14 @@ public class MovieTest extends /* tmr EmailNotificationsTestBase */ MovieBaseTes
 			"MODIFIED: user=admin, model=Movie, key={id=" + entityId + "}, changes=Trailer: " + fileId + " --> ", 
 			"CONSULTED: user=admin, model=Movie, key={id=" + entityId + "}",
 			"REMOVED: user=admin, model=Movie, key={id=" + entityId + "}",
-			// tmp "CONSULTED: user=admin, model=Movie, key={id=ff80818145622499014562259e980003}"
-			"CONSULTED: user=admin, model=Movie, key={id=ff80818150176f470150176ff2cb0000}" // tmp
+			"CONSULTED: user=admin, model=Movie, key={id=ff80818150176f470150176ff2cb0000}" 
 		);
 	}
 	
 	public void testFileset() throws Exception {
 		subscribeToEmailNotifications(); 
 		
-		// tmr assertListRowCount(2);
-		assertListRowCount(3); // tmr
+		assertListRowCount(3); 
 		execute("List.viewDetail", "row=0");
 		assertFilesCount("scripts", 3); 
 		
@@ -116,8 +92,7 @@ public class MovieTest extends /* tmr EmailNotificationsTestBase */ MovieBaseTes
 	public void testGroupName() throws Exception {
 		String groupId = Strings.removeBlanks("data sheet");
 		
-		// tmr assertListRowCount(2);
-		assertListRowCount(3); // tmr
+		assertListRowCount(3); 
 		execute("List.viewDetail", "row=0");
 		String groupName = getHtmlPage().getElementById("ox_OpenXavaTest_Movie__label_" + groupId)
 										.asText().trim(); 
@@ -129,72 +104,50 @@ public class MovieTest extends /* tmr EmailNotificationsTestBase */ MovieBaseTes
 		sn.add(Labels.get(Strings.removeBlanks("Multimedia 1")));
 		sn.add(Labels.get(Strings.removeBlanks("Multimedia 2")));
 				
-		// tmr assertListRowCount(2);
-		assertListRowCount(3); // tmr
+		assertListRowCount(3); 
 		execute("List.viewDetail", "row=0");
 		assertTrue("At most two sections", getSectionsNames().size() == 2);
 		assertTrue("Incorrect sections names", sn.removeAll(getSectionsNames()) && sn.isEmpty());
 	}	
 	
 	public void testFilterEmptyValues() throws Exception {
-		// tmr assertListRowCount(2);
-		assertListRowCount(3); // tmr
+		assertListRowCount(3); 
 		assertFalse(isNotVisibleConditionValue(2));
 		assertFalse(isNotVisibleConditionValue(3));
 		
 		// Filter String
 		setConditionComparators("=", "=", "empty_comparator");
         // execute("List.filter");		
-		/* tmr 
-		assertListRowCount(1);
-		assertValueInList(0, 0, "NOVECENTO");
-		*/
-		// tmr ini
 		assertListRowCount(2);
 		assertValueInList(0, 0, "GATTACA");
 		assertValueInList(1, 0, "NOVECENTO");
-		// tmr fin
 		assertTrue(isNotVisibleConditionValue(2));
 		
 		setConditionComparators("=", "=", "=");
 		execute("List.filter");
-		// tmr assertListRowCount(2);
-		assertListRowCount(3); // tmr
+		assertListRowCount(3); 
 		assertFalse(isNotVisibleConditionValue(2));
 		
 		//Filter Date
 		setConditionComparators("=", "=", "=", "empty_comparator");
 		// execute("List.filter");
-		/* tmr
-		assertListRowCount(1);
-		assertValueInList(0, 0, "NOVECENTO");
-		*/ 
-		// tmr ini
 		assertListRowCount(2);
 		assertValueInList(0, 0, "GATTACA");
 		assertValueInList(1, 0, "NOVECENTO");
-		// tmr fin
 		assertTrue(isNotVisibleConditionValue(3));
 		
 		// Filter keeping the value
 		setConditionValues("", "", "f");
 		setConditionComparators("=", "=", "empty_comparator");
         // execute("List.filter");		
-		/* tmr
-		assertListRowCount(1);
-		assertValueInList(0, 0, "NOVECENTO");
-		*/
-		// tmr ini
 		assertListRowCount(2);
 		assertValueInList(0, 0, "GATTACA");
 		assertValueInList(1, 0, "NOVECENTO");
-		// tmr fin
 		assertTrue(isNotVisibleConditionValue(2));		
 	}
 	
 	public void testFilterNotEmptyValues() throws Exception {
-		// tmr assertListRowCount(2); 
-		assertListRowCount(3); // tmr
+		assertListRowCount(3); 
 		assertFalse(isNotVisibleConditionValue(2));
 		assertFalse(isNotVisibleConditionValue(3));
 		
@@ -207,8 +160,7 @@ public class MovieTest extends /* tmr EmailNotificationsTestBase */ MovieBaseTes
 		
 		setConditionComparators("=", "=", "=");
 		execute("List.filter");
-		// tmr assertListRowCount(2);
-		assertListRowCount(3); // tmr
+		assertListRowCount(3); 
 		assertFalse(isNotVisibleConditionValue(2));
 		
 		//Filter Date
@@ -218,31 +170,7 @@ public class MovieTest extends /* tmr EmailNotificationsTestBase */ MovieBaseTes
 		assertValueInList(0, 0, "FORREST GUMP");
 		assertTrue(isNotVisibleConditionValue(3));
 	}
-	
-	/* tmr
-	private void addFile() throws Exception {
-		execute("CRUD.new");
-		setValue("title", "JUNIT");
-		uploadFile("trailer", "reports/Corporation.html"); 
-		saveAndReloadMovie("JUNIT");
-	}
-	
-	private void removeFile() throws Exception { 
-		execute("CRUD.delete");
-		XPersistence.getManager()
-			.createQuery("delete from AttachedFile where name = 'Corporation.html'")
-			.executeUpdate();
-	}
-	
-	private void saveAndReloadMovie(String title) throws Exception { 
-		execute("CRUD.save");
-		execute("Mode.list");
-		assertValueInList(0, 0, title);
-		execute("List.viewDetail", "row=0");
-		assertValue("title", title);		
-	}
-	*/
-	
+		
 	private String getUrlToFile(String filename) { 
 		String href = getFileAnchors().get(filename).getHrefAttribute();
 		return "http://" + getHost() + ":" + getPort() + href;

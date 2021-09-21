@@ -3,8 +3,6 @@ package org.openxava.test.tests;
 import org.openxava.jpa.*;
 
 /** 
- * tmr
- * 
  * @author Jeromy Altuna
  * @author Javier Paniza
  */

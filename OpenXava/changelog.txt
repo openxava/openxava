@@ -1,44 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
-File annotations: @Files, @File
--------------------------------
-
-FILE				@File
-FILES 				@Files
-PHOTO 				@File
-IMAGES_GALLERY		@Files
-
-@File sinonimo de FILE
-@Files sinonimo de FILES
-
-Frame por defecto para @Files y Sin frame por defecto para @File
-showImage siempre por defecto
-Ancho imagen por defecto para ficheros
-Nombre archivo siempre visible
-
-Pendiente:
-TMR ME QUEDÉ POR AQUÍ: SUITE Y PRUEBAS MANUALES PASADAS. SEGUIR CON:
-- Limpiar código
-- updateOX 
-- Doc:
-	- Promocionar @File y @Files para todo.
-	- ¿Curso? Puedo diferir para mezclar mejor con refactorización de curso.
-
-Diferible 6.6:
-- Foto visualizada en lista para @File
-	- Cambiar InvoiceDemo a @File
-- Filtro de tipo.
-	- Modificar importación.
-- Límite de tamaño.
-
-
-Postpuesto:
-
-
-
-
- 	 
+- @File and @Files annotations as alternative to FILE and FILES stereotypes.
+- FILES and FILE stereotype shows a preview if the uploaded file is an image.
+- FILES stereotype is shown inside a frame by default.
 - Automated testing content of the course moved to appendix D.
 - Java annotations can be associated to editors in editors.xml. 
 - Responsive top bar button, now when the UI is narrowed the action labels are hidden.

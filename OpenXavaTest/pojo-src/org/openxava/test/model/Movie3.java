@@ -5,36 +5,15 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
-import org.openxava.annotations.File;// tmp ¿En migración?
+import org.openxava.annotations.File;
 import org.openxava.jpa.*;
 import org.openxava.model.*;
 
 /**
- * tmr Redoc
- * Model to test concatenated reports using 
- * {@link org.openxava.test.actions.MovieReportAction MovieReportAction} and to 
- * test stereotypes FILE and FILES. <p>
- *  * @author Jeromy Altuna
+ * @author Javier Paniza
  */
 @Entity
 @Table(name="Movie")
-/* tmr
-@View(members=
-	"data sheet ["   +
-	"   title, releaseDate;" +	
-	"   director;"   +
-	"   writers;"    +
-	"   starring;"   +
-	"] " +
-	"Multimedia 1 {" +
-	"   trailer;"    +
-	"   scripts;" +
-	"}" +
-	"Multimedia 2 {" +
-	"   photographs" +
-	"}"
-)
-*/
 @Tab(properties="title, director, writers, releaseDate, trailer", defaultOrder = "${title}")
 public class Movie3 extends Identifiable {
 

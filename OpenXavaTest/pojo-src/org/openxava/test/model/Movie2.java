@@ -11,7 +11,7 @@ import org.openxava.model.*;
  */
 @Entity
 @Table(name="MOVIE")
-@Tab(defaultOrder = "${title}") // tmr
+@Tab(defaultOrder = "${title}") 
 public class Movie2 extends Identifiable {
 
 	@Required

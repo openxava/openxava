@@ -3,20 +3,25 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr Redoc
- * Associates an action to a property or reference in the view. <p>
+ * The user can upload several files in this property, so the files are attached to the entity. <p>
  * 
- * Applies to properties and references.<p>
+ * The files that are images are shown with image preview. 
+ * The user can download any file or see any image (if it is an image) just clicking on it.
+ * 
+ * The data type is String with a length of 32.
+ * 
+ * Applies to properties.<p>
  * 
  * Example:
  * <pre>
- * &nbsp;@Action("Deliveries.generateNumber")
- * &nbsp;private int number;
+ * &nbsp;@Files
+ * &nbsp;@Column(length=32)
+ * &nbsp;private String documents;
  * </pre>
- * The actions are displayed as a link or an image beside the property.<br>
- * By default the action link is present only when the property is editable, 
- * but if the property is read only or calculated then it is always present.<br>
  * 
+ * It's synonymous of @Stereotype("FILES").
+ *
+ * @since 6.6
  * @author Javier Paniza
  */
 
