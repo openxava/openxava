@@ -43,7 +43,7 @@ String listModeClass=manager.isListMode()?"class='" + style.getListMode() + "'":
 <div <%=listModeClass%> <%=style.getModuleSpacing()%>>
 
 	<% if (buttonBar) {	%> 
-    <div id='<xava:id name="button_bar"/>'>    
+    <div id='<xava:id name="button_bar"/>' class="<%=style.getButtonBarContainer()%>">     
 		<jsp:include page="buttonBar.jsp"/> 
 	</div>
 	<% } %>

@@ -13,7 +13,20 @@ import java.io.*;
 
 public class Files {
 	
-	
+	/**
+	 * @since 6.6
+	 */
+	public static boolean isImage(String fileName) { 
+		return 
+			fileName.endsWith(".png") || 
+			fileName.endsWith(".jpg") ||
+			fileName.endsWith(".jpg") ||
+			fileName.endsWith(".bmp") ||
+			fileName.endsWith(".gif") ||
+			fileName.endsWith(".ico") ||
+			fileName.endsWith(".tiff") ||
+			fileName.endsWith(".tif");
+	}
 	
 	public static boolean deleteDir(String dirURL) {
         return deleteDir(new File(dirURL));

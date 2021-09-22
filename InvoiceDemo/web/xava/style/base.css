@@ -405,6 +405,8 @@ A.sign-out  {
 }
 
 #modules_list {
+	position: sticky;
+	top: 0;
 	vertical-align: top;
 	display: flex;
 	flex-direction: column;
@@ -418,7 +420,7 @@ A.sign-out  {
 	display: none;
 }
 
-@media only screen and (max-width: 1040px) {
+@media only screen and (max-width: 1120px) { 
 
 	#modules_list, #modules_list_hide {
 		display: none;
@@ -837,6 +839,12 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	box-shadow: 0px 1px 3px var(--button-bar-shadow); 
 }
 
+.ox-button-bar-container {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
 .mobile .ox-button-bar, .mobile #modules_list_header {
 	background: var(--mobile-button-bar-background);
 	box-shadow: 2px 0px 9px var(--mobile-button-bar-background);	
@@ -856,10 +864,23 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	border: 1px solid transparent; 
 	font-weight: bold;
 	text-decoration: none;
+	white-space: nowrap;  
 }
 
 .ox-button-bar .ox-button-bar-button a {  
 	padding: 6px 6px 6px 0px;  
+}
+
+@media only screen and (max-width: 870px) {
+	.ox-button-bar .ox-action-label {
+		display: none;
+	}
+	.ox-button-bar .ox-subcontroller .ox-action-label {
+		display: inline;
+	}
+	.ox-button-bar .ox-button-bar-button a {  
+        padding-left: 4px;
+	}
 }
 
 .ox-collection-list-actions .ox-button-bar-button a {
@@ -2502,10 +2523,6 @@ div[id$="_Index__view"] .ox-list-title {
 	width: 330px;;
 }
 
-.ox-files {
-	width: calc(100vw - 400px);
-}
-
 .ox-file .filepond--item, .ox-files .filepond--item {
 	width: 300px;
 	cursor: pointer;
@@ -2560,7 +2577,7 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 #modules_list_hide, #modules_list_show  {
-	position: absolute;
+	position: fixed; 
 	top: 50%;
 	background: var(--module-list-hide-show-background);	
     border-radius: 100px;

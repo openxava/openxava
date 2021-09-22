@@ -53,6 +53,7 @@ GalleryImage: Product2 with all browsers
 - Open the frame with the images. The upload editor must be here.
 
 AttachedFile and AttachedFiles: Movie with all browsers
+- In list a row shows a link to download (a regular file) the trailer and other a little image preview (an image).
 - Click on New.
 - Enter the title of a movie.
 - Upload in trailer a not-image file. It does not show the preview.

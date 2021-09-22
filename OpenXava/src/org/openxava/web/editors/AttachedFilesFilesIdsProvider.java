@@ -3,6 +3,8 @@ package org.openxava.web.editors;
 import java.util.*;
 import java.util.stream.*;
 
+import org.openxava.util.*;
+
 /**
  *
  * @since 6.2
@@ -18,18 +20,7 @@ public class AttachedFilesFilesIdsProvider implements IUploadFilesIdsProvider {
 	}
 
 	private int previewIndex(AttachedFile f) {
-		if (f.getName().endsWith(".png") || 
-			f.getName().endsWith(".jpg") ||
-			f.getName().endsWith(".jpg") ||
-			f.getName().endsWith(".bmp") ||
-			f.getName().endsWith(".gif") ||
-			f.getName().endsWith(".ico") ||
-			f.getName().endsWith(".tiff") ||
-			f.getName().endsWith(".tif"))
-		{
-			return 1;
-		}
-		return 0;
+		return Files.isImage(f.getName())?1:0;  
 	}
 
 }

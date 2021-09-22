@@ -7,9 +7,10 @@ import org.openxava.web.editors.*;
 import org.openxava.web.style.*;
 
 /**
- * For stereotypes FILE and ARCHIVO in list mode. <p>
+ * For FILE/ARCHIVO stereotype and @File annotation in list mode. <p>
  * 
  * @author Jeromy Altuna
+ * @author Javier Paniza
  */
 public class FileListFormatter implements IFormatter {
 
@@ -17,24 +18,39 @@ public class FileListFormatter implements IFormatter {
 		if(Is.empty(object)) return "";
 		AttachedFile file = FilePersistorFactory.getInstance().find((String) object);
 		if(file != null) {
-			return new StringBuilder("<a href='").append(request.getContextPath())
-				.append("/xava/xfile?application=")
-				.append(request.getParameter("application"))
-				.append("&module=").append(request.getParameter("module"))
-				.append("&fileId=").append(file.getId())
-			    .append("&dif=") .append(System.currentTimeMillis())
-			    .append("'target='_blank'>")
-			    .append("<span class=\"")
-			    .append(Style.getInstance().getAttachedFile())
-			    .append("\">").append(file.getName()).append("</span>")
-			    .append("</a>") 
-			    .toString();			
+			return Files.isImage(file.getName())?toImageURL(request, file):toFileURL(request, file);			
 		}
 		return "";
 	}
 
 	public Object parse(HttpServletRequest request, String string) throws Exception {		
 		return null;
+	}
+	
+	private String toFileURL(HttpServletRequest request, AttachedFile file) { 
+		return new StringBuilder("<a href='").append(request.getContextPath())
+			.append("/xava/xfile?application=")
+			.append(request.getParameter("application"))
+			.append("&module=").append(request.getParameter("module"))
+			.append("&fileId=").append(file.getId())
+		    .append("&dif=") .append(System.currentTimeMillis())
+		    .append("'target='_blank'>")
+		    .append("<span class=\"")
+		    .append(Style.getInstance().getAttachedFile())
+		    .append("\">").append(file.getName()).append("</span>")
+		    .append("</a>") 
+		    .toString();		
+	}
+	
+	private String toImageURL(HttpServletRequest request, AttachedFile file) { 
+		return new StringBuilder("<img src='").append(request.getContextPath())
+			.append("/xava/xfile?application=")
+			.append(request.getParameter("application"))
+			.append("&module=").append(request.getParameter("module"))
+			.append("&fileId=").append(file.getId())
+		    .append("&dif=") .append(System.currentTimeMillis())
+		    .append("'/>")
+		    .toString();	
 	}
 
 }

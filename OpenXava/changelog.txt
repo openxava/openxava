@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- @File/FILE displays a small preview image in list mode if the file is of image type.
+- InvoiceDemo includes examples of COORDINATES, @Files and @File.
+- New isImage() method in org.openxava.util.Files utility class. 
 - @File and @Files annotations as alternative to FILE and FILES stereotypes.
 - FILES and FILE stereotype shows a preview if the uploaded file is an image.
 - FILES stereotype is shown inside a frame by default.

@@ -10,7 +10,6 @@ import org.apache.commons.codec.binary.*;
 
 
 /**
- * A simple implementation: Only it shows a icon to indicate that it's a image/photo. <p> 
  * 
  * @author Javier Paniza
  * @author Franklin Alier 

@@ -20,24 +20,25 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 		<a id="module_header_menu_button" href="javascript:naviox.showModulesList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>')">
 			<i class="mdi mdi-menu"></i></a>
 	<% } %>				
+	<%
+	String organizationName = modules.getOrganizationName(request);
+	if (!Is.emptyString(organizationName)) organizationName += " - ";
+	String title = organizationName + modules.getApplicationLabel(request);
+	%>
 	<% if (hasModules && !isFirstSteps) { %>
 		<span id="module_extended_title">
-			<%
-			String organizationName = modules.getOrganizationName(request);
-			if (!Is.emptyString(organizationName)) {
-			%> 
-				<%=organizationName%> - 
-			<%
-			}
-			%>						
-			<%=modules.getApplicationLabel(request)%> :
+			<%=title%> :
 		</span>	 
+	<%
+	}
+	else if ("SignIn".equals(module)) {
+	%>
+		<%=title%>
 	<%
 	}
 
 	for (MetaModule metaModule: modules.getTopModules()) {
 		if (metaModule.getName().equals("SignIn")) continue;
-		if (modules.showsIndexLink() && metaModule.getName().equals("Index")) continue;
 		boolean isSelected = metaModule.getName().equals(request.getParameter("module")); 
 		String selected = isSelected?"selected":"unselected";
 		if (isSelected) {
@@ -52,14 +53,13 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 		}	
 	}
 	%>				
+	&nbsp;
 </div>
 				
 <div id="module_header_right">
-	<span id="sign_in_out">
-		<a id="bookmark" href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
-			<i class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
-		</a> 				
-	</span>
+	<a id="bookmark" href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
+		<i class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
+	</a> 				
 	<span id="sign_in_out"> 
 		<%
 		if (Is.emptyString(NaviOXPreferences.getInstance().getAutologinUser())) {
