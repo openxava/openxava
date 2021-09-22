@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lesson 6: Inheritance - OpenXava</title>
+    <title>Lesson 8: View inheritance - Inheritance - OpenXava course</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,21 +9,24 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 4: Inheritance"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_en.html">documentation</a> / </span>
-        Lesson 8: View inheritance</h1>
+      <h1 id="toc0"><span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
+          / </span> Lesson 8: View inheritance</h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
         Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
         Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
         Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
-        Agile development</a> | <strong>6. Inheritance</strong> | <a class="wiki_link"
-        href="basic-business-logic_en.html">7. Basic business logic</a> | <a class="wiki_link"
-        href="validation_en.html">8. Advanced validation</a> | <a class="wiki_link"
-        href="refining-standard-behavior_en.html">9. Refining the standard
-        behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">10.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">11.
+        Agile development</a> | <a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
+        Mapped superclass inheritance</a> |
+      <a class="wiki_link" href="entity-inheritance_en.html">7. Entity
+        inheritance</a> |
+      <b><span class="wiki_link">8. View inheritance</span></b> | <a class="wiki_link"
+        href="basic-business-logic_en.html">9. Basic business logic</a> | <a class="wiki_link"
+        href="validation_en.html">10. Advanced validation</a> | <a class="wiki_link"
+        href="refining-standard-behavior_en.html">11. Refining the standard
+        behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">12.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">13.
         References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
@@ -32,41 +35,23 @@
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#Lesson%204:%20Inheritance">Lesson
-            6: Inheritance</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%204:%20Inheritance-Inheriting%20from%20a%20mapped%20superclass">Inheriting
-            from a mapped superclass</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%204:%20Inheritance-Entity%20inheritance">Entity
+        <div style="margin-left: 1em;"><a href="#toc0">Lesson 8: View
             inheritance</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-Entity%20inheritance-New%20Order%20entity">New
-            Order entity</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-Entity%20inheritance-CommercialDocument%20as%20an%20abstract%20entity">CommercialDocument
-            as an abstract entity</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-Entity%20inheritance-Invoice%20refactored%20to%20use%20inheritance">Invoice
-            refactored to use inheritance</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-Entity%20inheritance-Creating%20Order%20using%20inheritance">Creating
-            Order using inheritance</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-Entity%20inheritance-Naming%20convention%20and%20inheritance">Naming
-            convention and inheritance</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-Entity%20inheritance-Associating%20Order%20with%20Invoice">Associating
-            Order with Invoice</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%204:%20Inheritance-View%20inheritance">View
-            inheritance</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-View%20inheritance-The%20extendsView%20attribute">The
+        <div style="margin-left: 2em;"><a href="#The%20extendsView%20attribute">The
             extendsView attribute</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-View%20inheritance-View%20for%20Invoice%20using%20inheritance">View
+        <div style="margin-left: 2em;"><a href="#View%20for%20Invoice%20using%20inheritance">View
             for Invoice using inheritance</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-View%20inheritance-View%20for%20Order%20using%20inheritance">View
+        <div style="margin-left: 2em;"><a href="#View%20for%20Order%20using%20inheritance">View
             for Order using inheritance</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%204:%20Inheritance-View%20inheritance-Using%20@ReferenceView%20and%20@CollectionView%20to%20refine%20views">Using
+        <div style="margin-left: 2em;"><a href="#Using%20@ReferenceView%20and%20@CollectionView%20to%20refine%20views">Using
             @ReferenceView and @CollectionView to refine views</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%204:%20Inheritance-Summary">Summary</a></div>
+        <div style="margin-left: 2em;"><a href="#Summary">Summary</a></div>
       </div>
       You can use inheritance not only for reusing the Java code and mapping,
       but also for reusing the user interface definition, the <em>@View</em>
       definitions. This lesson shows how view inheritance works.<br>
-      <h3 id="toc10"><a name="Lesson 4: Inheritance-View inheritance-The extendsView attribute"></a>The
-        extendsView attribute</h3>
+      <h2 id="toc10"><a name="The extendsView attribute"></a>The extendsView
+        attribute</h2>
       Both <em>Order</em> and <em>Invoice</em> use a user interface generated
       by default with all its members one in each line. Note that the annotation
       <em>@View</em> that we have declared in <em>CommercialDocument</em> is
@@ -97,8 +82,8 @@ public class Child extends Parent { ... }   // Child is displayed using an autom
       of the extended view plus those declared in members of the current one.<br>
       We are going to use this feature for defining the views for <em>CommercialDocument</em>,
       <em>Order</em> and <em>Invoice</em>.<br>
-      <h3 id="toc11"><a name="Lesson 4: Inheritance-View inheritance-View for Invoice using inheritance"></a>View
-        for Invoice using inheritance</h3>
+      <h2><a name="View for Invoice using inheritance"></a>View for Invoice
+        using inheritance</h2>
       Given that the <em>@View</em> of <em>CommercialDocument</em> has not
       inherited the current user interface for <em>Invoice</em> it's pretty
       ugly to see, all the members, each in a line. We are going to define a
@@ -146,8 +131,8 @@ public class Invoice extends CommercialDocument {
       all other possible <em>CommercialDocument</em> objects are all in one
       place. So if you add a new property to <em>CommercialDocument</em> you
       only need to touch the view for <em>CommercialDocument</em>.<br>
-      <h3 id="toc12"><a name="Lesson 4: Inheritance-View inheritance-View for Order using inheritance"></a>View
-        for Order using inheritance</h3>
+      <h2><a name="View for Order using inheritance"></a>View for Order using
+        inheritance</h2>
       Now that you have a suitable view in <em>CommercialDocument</em>,
       declararing the view for <em>Order</em> is plain vanilla. We want
       something like this:<br>
@@ -161,8 +146,8 @@ public class Invoice extends CommercialDocument {
 public class Order extends CommercialDocument {
 </code></pre> With this we get all the data from <em>CommercialDocument</em>
       plus a tab with the invoice.<br>
-      <h3 id="toc13"><a name="Lesson 4: Inheritance-View inheritance-Using @ReferenceView and @CollectionView to refine views"></a>Using
-        @ReferenceView and @CollectionView to refine views</h3>
+      <h2><a name="Using @ReferenceView and @CollectionView to refine views"></a>Using
+        @ReferenceView and @CollectionView to refine views</h2>
     </div>
     <div class="wiki" style="display: block;">When an order is to be viewed from
       the <em>Invoice</em> user interface, we want the view used to do so to be
@@ -218,7 +203,7 @@ public class Invoice extends CommercialDocument {
 </code></pre> Now the <em>invoice</em> reference will be displayed from <em>Order</em>
       without customers and orders so you'll get a simpler user interface:<br>
       <img src="files/inheritance_en090.png" alt="inheritance_en090.png" title="inheritance_en090.png"><br>
-      <h2 id="toc18"><a name="Lesson 4: Inheritance-Summary"></a>Summary</h2>
+      <h2 id="toc18"><a name="Summary"></a>Summary</h2>
       This lesson has shown you how to use inheritance to simplify the
       definition of the user interface, by using the <i>extendsView</i>
       attribute of <i>@View</i>. Along the way you also have seen some examples
@@ -230,7 +215,7 @@ public class Invoice extends CommercialDocument {
       <br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-        <a class="wiki_link" href="basic-business-logic_en.html">Go to Lesson 7</a></strong>
+        <a class="wiki_link" href="basic-business-logic_en.html">Go to Lesson 9</a></strong>
     </div>
   </body>
 </html>
