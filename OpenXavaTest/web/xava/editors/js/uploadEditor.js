@@ -3,6 +3,7 @@ if (uploadEditor == null) var uploadEditor = {};
 openxava.addEditorInitFunction(function() {
 	
     FilePond.registerPlugin(FilePondPluginImagePreview);
+    FilePond.registerPlugin(FilePondPluginFileValidateType); // tmr
 
     $('.xava_upload').each(function() {
     	const input = this;

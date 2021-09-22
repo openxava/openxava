@@ -1,6 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+- Filtrar por tipo de archivo en @File/@Files:
+
+	- Poner en PHOTO/IMAGES_GALLERY (new feature)
+	- Probar arrastrar y soltar. Si se produce error, ¿se puede localizar?
+	- Poner en importar datos (new feature)
+
 - @File/FILE displays a small preview image in list mode if the file is of image type.
 - InvoiceDemo includes examples of COORDINATES, @Files and @File.
 - New isImage() method in org.openxava.util.Files utility class. 

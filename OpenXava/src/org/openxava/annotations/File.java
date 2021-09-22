@@ -29,4 +29,7 @@ import java.lang.annotation.*;
 @Target({ ElementType.FIELD, ElementType.METHOD })
 public @interface File {
 	
+	// tmr doc
+	String acceptFileTypes() default "";
+	
 }

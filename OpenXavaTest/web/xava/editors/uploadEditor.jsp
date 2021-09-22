@@ -35,11 +35,18 @@ String dataPreview = !preview?"data-preview='false'":"";
 String script = request.getParameter("script");
 boolean throwsChanged = script != null && script.contains(".throwPropertyChanged(");
 String dataThrowsChanged = throwsChanged?"data-throws-changed='true'":"";
+// tmr ini
+// TMR ME QUEDÉ POR AQUÍ: LLEGA EL acceptFileTypes PERO NO FUNCIONA
+String acceptFileTypes = request.getParameter("acceptFileTypes");
+System.out.println("[uploadEditor.jsp] acceptFileTypes=" + acceptFileTypes); // tmp 
+String accept = Is.emptyString(acceptFileTypes)?"":"accept='+ acceptFileTypes +'";
+// tmr fin
 %>
 <input id='<%=propertyKey%>' 
 	type="file" class="xava_upload<%=cssClass%>"
 	data-application="<%=applicationName%>" 
 	data-module="<%=module%>"
+	<%=accept%> <%-- tmr --%>
 	<%=dataMultiple%>
 	<%=dataPreview%>
 	<%=dataFiles%> 
