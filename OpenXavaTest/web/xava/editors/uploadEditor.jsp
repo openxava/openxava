@@ -36,10 +36,10 @@ String script = request.getParameter("script");
 boolean throwsChanged = script != null && script.contains(".throwPropertyChanged(");
 String dataThrowsChanged = throwsChanged?"data-throws-changed='true'":"";
 // tmr ini
-// TMR ME QUEDÉ POR AQUÍ: LLEGA EL acceptFileTypes PERO NO FUNCIONA
 String acceptFileTypes = request.getParameter("acceptFileTypes");
 System.out.println("[uploadEditor.jsp] acceptFileTypes=" + acceptFileTypes); // tmp 
-String accept = Is.emptyString(acceptFileTypes)?"":"accept='+ acceptFileTypes +'";
+String accept = Is.emptyString(acceptFileTypes)?"":"accept='" + acceptFileTypes + "'";
+System.out.println("[uploadEditor.jsp] accept=" + accept); // tmp
 // tmr fin
 %>
 <input id='<%=propertyKey%>' 

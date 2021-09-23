@@ -92,6 +92,23 @@ openxava.addEditorInitFunction(function() {
 		    pond.beforeRemoveFile = function() {
 		    	return confirm(openxava.confirmRemoveFileMessage);   
 		    }
+		    // tmr ini
+		    // TMR ME QUEDÉ POR AQUÍ: NO HAY MANERA DE QUE FUNCIONES CON CSV, O NO FILTRA O NO VALIDA
+		    pond.allowFileTypeValidation = true;
+		    pond.fileValidateTypeDetectType = (source, type) =>
+        		new Promise((resolve, reject) => {
+        			console.log("[pond.fileValidateTypeDetectType] type> " + type);
+        			if (type == "" && source.name.substr(-4).toLowerCase() === '.csv') {
+        				type = "text/csv";
+        				pond.allowFileTypeValidation = false;
+        			}
+        			else {
+        				pond.allowFileTypeValidation = true;
+        			}
+        			console.log("[pond.fileValidateTypeDetectType] type< " + type);
+            		resolve(type);
+        		})
+		    // tmr fin
     	}    	
     });
 	

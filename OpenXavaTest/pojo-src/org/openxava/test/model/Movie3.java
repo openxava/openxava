@@ -24,7 +24,7 @@ public class Movie3 extends Identifiable {
 	
 	private Date releaseDate;
 	
-	@File(acceptFileTypes = "images/*") // tmp
+	@File(acceptFileTypes = "image/*") // tmr
 	@Column(length=32)
 	private String trailer;
 		

@@ -6,6 +6,11 @@ Change Log for OpenXava project
 	- Poner en PHOTO/IMAGES_GALLERY (new feature)
 	- Probar arrastrar y soltar. Si se produce error, ¿se puede localizar?
 	- Poner en importar datos (new feature)
+	- Pruebas: Han de ser manuales
+		- Que en PHOTO no se pueda añadir no imagenes. Así probamos filtro
+	- Doc:
+		- API
+		- Reference
 
 - @File/FILE displays a small preview image in list mode if the file is of image type.
 - InvoiceDemo includes examples of COORDINATES, @Files and @File.
