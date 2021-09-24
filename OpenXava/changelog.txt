@@ -14,6 +14,7 @@ Change Log for OpenXava project
 		- Reference
 		- @FileItemUpload
 		
+- PHOTO/IMAGE and IMAGES_GALLERY stereotypes only allow uploading images.		
 - Import data in list mode only allows uploading CSV, XSL and XSLX files.		
 
 - @File/FILE displays a small preview image in list mode if the file is of image type.
