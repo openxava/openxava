@@ -37,9 +37,13 @@ boolean throwsChanged = script != null && script.contains(".throwPropertyChanged
 String dataThrowsChanged = throwsChanged?"data-throws-changed='true'":"";
 // tmr ini
 String acceptFileTypes = request.getParameter("acceptFileTypes");
-System.out.println("[uploadEditor.jsp] acceptFileTypes=" + acceptFileTypes); // tmp 
+System.out.println("[uploadEditor.jsp] acceptFileTypes.1=" + acceptFileTypes); // tmr
+if (!Is.emptyString(acceptFileTypes) && acceptFileTypes.toLowerCase().contains("text/csv")) {
+	acceptFileTypes += ",.csv";
+}
+System.out.println("[uploadEditor.jsp] acceptFileTypes.2=" + acceptFileTypes); // tmr 
 String accept = Is.emptyString(acceptFileTypes)?"":"accept='" + acceptFileTypes + "'";
-System.out.println("[uploadEditor.jsp] accept=" + accept); // tmp
+System.out.println("[uploadEditor.jsp] accept=" + accept); // tmr
 // tmr fin
 %>
 <input id='<%=propertyKey%>' 

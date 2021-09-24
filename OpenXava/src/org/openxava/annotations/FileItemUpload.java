@@ -3,7 +3,7 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr Redoc
+ * tmr Redoc. Añadir en changelog
  * The user can upload a file in this property, so the file is attached to the entity. <p>
  * 
  * If the uploaded file is an image, an image preview is shown. 

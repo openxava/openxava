@@ -230,6 +230,33 @@
 		<for-type type="org.apache.commons.fileupload.FileItem"/>
 		<for-annotation annotation="org.openxava.annotations.FileItemUpload"/>
 	</editor>
+	
+	<editor name="Image" url="uploadEditor.jsp" format="false">
+		<property name="loadAction" value="ImageEditor.load"/>
+		<property name="removeAction" value="ImageEditor.remove"/>
+		<property name="getURL" value="/xava/ximage"/>
+		<property name="filesIdsProviderClass" value="org.openxava.web.editors.NullFilesIdsProvider"/>
+		<property name="cssClass" value="ox-image"/>
+		<property name="acceptFileTypes" value="image/*"/> <!-- tmp --> 	
+		<formatter class="org.openxava.formatters.ImageFormatter" />
+		<for-stereotype stereotype="FOTO" />
+		<for-stereotype stereotype="PHOTO" />
+		<for-stereotype stereotype="IMAGEN" />
+		<for-stereotype stereotype="IMAGE" />
+	</editor>
+	
+	<editor name="Gallery" url="uploadEditor.jsp" format="false" frame="true">
+		<property name="loadAction" value="GalleryEditor.load"/>
+		<property name="removeAction" value="GalleryEditor.remove"/>
+		<property name="getURL" value="/xava/gallery"/>
+		<property name="filesIdsProviderClass" value="org.openxava.web.editors.ImagesGalleryFilesIdsProvider"/>
+		<property name="multipleFiles" value="true"/> 
+		<property name="cssClass" value="ox-gallery"/>
+		<property name="acceptFileTypes" value="image/*"/> <!-- tmp --> 
+		<for-stereotype stereotype="IMAGES_GALLERY" />
+		<for-stereotype stereotype="GALERIA_IMAGENES" />
+	</editor>
+	
 	<!-- tmr fin -->
 		
 </editors>

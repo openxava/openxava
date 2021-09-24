@@ -3,14 +3,18 @@ Change Log for OpenXava project
 
 - Filtrar por tipo de archivo en @File/@Files:
 
-	- Poner en PHOTO/IMAGES_GALLERY (new feature)
-	- Probar arrastrar y soltar. Si se produce error, ¿se puede localizar?
-	- Poner en importar datos (new feature)
+	- i18n: TMR ME QUEDÉ POR AQUÍ
 	- Pruebas: Han de ser manuales
-		- Que en PHOTO no se pueda añadir no imagenes. Así probamos filtro
+		- Que al importar solo aparezcan .csv, .xsl y .xsls
+		- Que en PHOTO/IMAGES_GALLERY no se pueda añadir no imagenes. Así probamos filtro
+	- Suite
+	- updateOX:
 	- Doc:
 		- API
 		- Reference
+		- @FileItemUpload
+		
+- Import data in list mode only allows uploading CSV, XSL and XSLX files.		
 
 - @File/FILE displays a small preview image in list mode if the file is of image type.
 - InvoiceDemo includes examples of COORDINATES, @Files and @File.
