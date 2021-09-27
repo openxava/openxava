@@ -62,6 +62,3 @@ Use any entity with a date in list mode. Like Invoice filtering by date in list.
 - Type 2002 for year in date. Lose focus: 2002 is kept.
 - Change to = : Year is deleted (calendar shown).	 	
 		
-	
-NOTE: In IE11 locale is not recognized and change events are not thrown, 
-	possibly because of problems $.getString() of jquery	

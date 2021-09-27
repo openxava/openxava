@@ -939,6 +939,11 @@
 		<delete file="../${project}/web/xava/js/jquery.bgiframe.js"/> 
 		<delete file="../${project}/web/xava/style/liferay51/js/init_liferay.js"/>
 		<delete file="../${project}/web/naviox/js/typewatch.js"/> 
+		<!-- tmr ini -->
+		<delete file="../${project}/web/xava/js/babel-polyfill.js"/>
+		<delete file="../${project}/web/xava/js/filepond-polyfill.js"/>
+		<delete file="../${project}/web/xava/js/css-vars-ponyfill.js"/>
+		<!-- tmr fin -->
 		<!-- Delete JSPs moved to editors folder -->
 		<delete file="../${project}/web/xava/comparatorsBooleanCombo.jsp"/>
 		<delete file="../${project}/web/xava/comparatorsCombo.jsp"/>

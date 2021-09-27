@@ -3,19 +3,22 @@ Change Log for OpenXava project
 
 - Filtrar por tipo de archivo en @File/@Files:
 
-	- i18n: TMR ME QUEDÉ POR AQUÍ
 	- Pruebas: Han de ser manuales
-		- Que al importar solo aparezcan .csv, .xsl y .xsls
-		- Que en PHOTO/IMAGES_GALLERY no se pueda añadir no imagenes. Así probamos filtro
+		- Probar con @File y @Files. Una vez, con todos los navegadores y quitarlo
+		- Probar la parte de UploadTest.txt nueva con Chrome y FF.
+		- Refinar código.
+		- Probar la parte de UploadTest.txt completo.
 	- Suite
 	- updateOX:
+		- Comprobar que borra los polyfills en InvoiceDemo 
 	- Doc:
 		- API
 		- Reference
 		- @FileItemUpload
 		
 - PHOTO/IMAGE and IMAGES_GALLERY stereotypes only allow uploading images.		
-- Import data in list mode only allows uploading CSV, XSL and XSLX files.		
+- Import data in list mode only allows uploading CSV, XSL and XSLX files.
+- Dropped support for Internet Explorer.		
 
 - @File/FILE displays a small preview image in list mode if the file is of image type.
 - InvoiceDemo includes examples of COORDINATES, @Files and @File.

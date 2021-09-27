@@ -1,6 +1,6 @@
 The automated tests in this project do not include some aspects of upload editors.
 
-Image: Customer module with all browsers
+Image: Customer module with Chrome and Firefox
 - Add the photo column to the list. Photos are tiny and no broken links for no photo.
 - Go to first customer: Must have a photo. No uploading progress must be done.
 - Navigate to the next one: Must have a link to browse for a new photo.
@@ -23,7 +23,7 @@ Image: Customer module with all browsers
 - Remove and Browse link should be hidden.
 - Try to drop a new photo, should not work. 
 
-GalleryImage: Product2 with all browsers
+GalleryImage: Product2 with Chrome and Firefox
 - Go to first product: No images.
 - Add two images, one with drag & drop and another browsing.
 - Click on one image. A new browser tab should open displaying the image. Close it.
@@ -52,7 +52,7 @@ GalleryImage: Product2 with all browsers
 - Go to list. Select the first element.
 - Open the frame with the images. The upload editor must be here.
 
-AttachedFile and AttachedFiles: Movie with all browsers
+AttachedFile and AttachedFiles: Movie with Chrome and Firefox
 - In list a row shows a link to download (a regular file) the trailer and other a little image preview (an image).
 - Click on New.
 - Enter the title of a movie.
@@ -63,7 +63,7 @@ AttachedFile and AttachedFiles: Movie with all browsers
 - Click on the file. The file is downloaded with the correct file title. (In a new tab with Internet Explorer)
 - Delete the movie.
 
-@File and @Files: Movie3 with all browsers
+@File and @Files: Movie3 with Chrome and Firefox
 - Go to second record "GATTACA".
 - The trailer is shown with image preview.
 - Click on trailer. The image is shown in another tab. (In the same tab with Firefox)
@@ -72,16 +72,22 @@ AttachedFile and AttachedFiles: Movie with all browsers
 - Click in the script with image. The image is shown in another tab. (In the same tab with Firefox)
 - Click in the script that is a txt. The script is downloaded with the correct file title. (In a new tab with Internet Explorer)  
 
-With @OnChange: CustomerFramesOnSameRow with all browsers
+With @OnChange: CustomerFramesOnSameRow with Chrome and Firefox
 - Go to second customer.
 - Add a new photo: An "Photo changed" message must be produced
 - Save. Go to previous record, return to second record. The photo must be there.
 - Remove the photo: An "Photo changed" message must be produced
 - Save. Go to previous record, return to second record. No photo.
 
-Custom load action with error: ShowTextFile with all browsers
+Custom load action with error: ShowTextFile with Chrome and Firefox
 - Attach a non-txt file. Should show "Only TXT files allowed".
 - Attach a txt file. No errors, the previous errors was hidden.
+
+Filter by type: Car with Chrome
+- Import data. 
+- Browse for file in a folder with many types. All files should be CSV, XLS, CSV.
+- Choose an not CSV, XLS, CSV. An error localized and indicating the correct valid extensions is displayed.
+- Choose an CSV. It must be loaded correcting with no error. It's not needed to import the data.
 
 Element collections: Car with Chrome
 - Click on New.

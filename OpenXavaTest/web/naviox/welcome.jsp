@@ -30,11 +30,12 @@ if (title == null) title = metaApplication.getLabel();
 	<title><%=title%></title>
 	<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
 	<link href="<%=request.getContextPath()%>/xava/style/<%=XavaPreferences.getInstance().getStyleCSS()%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
+	<%-- tmp
 	<% if (Browsers.isIE(request)) { %>
 	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/css-vars-ponyfill.js?ox=<%=oxVersion%>"></script>
 	<script type='text/javascript'>cssVars({ }); </script>	
 	<% } %>
-	
+	--%>
 </head>
 
 <body id="welcome" <%=XavaStyle.getBodyClass(request)%>>
