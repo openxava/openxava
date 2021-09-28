@@ -1,5 +1,3 @@
-/* tmr Mover a OpenXava*/
-
 /*!
  * FilePondPluginFileValidateType 1.2.6
  * Licensed under MIT, https://opensource.org/licenses/MIT/

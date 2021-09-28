@@ -28,7 +28,6 @@ GalleryImage: Product2 with Chrome and Firefox
 - Add two images, one with drag & drop and another browsing.
 - Click on one image. A new browser tab should open displaying the image. Close it.
 	- With Firefox: The image is shown in the same tab, click back in browser to return.
-	- With Internet Explorer: Fails.
 - Go to list, choose the first product. It should have the two images.
 - Click on one image. A new browser tab should open displaying the image. Close it.
 	- With Firefox: The image is shown in the same tab, click back in browser to return.
@@ -47,7 +46,7 @@ GalleryImage: Product2 with Chrome and Firefox
 - Remove all images. 
 - Execute "SET OFF" action. 
 - Remove and Browse link should be hidden. 
-- Try to drop a new image, should not work. (In Firefox and IE on return back the editor could be editable, no problem)
+- Try to drop a new image, should not work. (In Firefox on return back the editor could be editable, no problem)
 - Close the frame with the images.
 - Go to list. Select the first element.
 - Open the frame with the images. The upload editor must be here.
@@ -57,10 +56,10 @@ AttachedFile and AttachedFiles: Movie with Chrome and Firefox
 - Click on New.
 - Enter the title of a movie.
 - Upload in trailer a not-image file. It does not show the preview.
-- Click on the file. The file is downloaded with the correct file title. (Fails with Internet Explorer)
+- Click on the file. The file is downloaded with the correct file title. 
 - Click on Save.
 - Go list, edit your movie. The file must be there.
-- Click on the file. The file is downloaded with the correct file title. (In a new tab with Internet Explorer)
+- Click on the file. The file is downloaded with the correct file title. 
 - Delete the movie.
 
 @File and @Files: Movie3 with Chrome and Firefox

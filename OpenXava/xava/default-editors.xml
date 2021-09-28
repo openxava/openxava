@@ -172,7 +172,8 @@
 		<property name="removeAction" value="ImageEditor.remove"/>
 		<property name="getURL" value="/xava/ximage"/>
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.NullFilesIdsProvider"/>
-		<property name="cssClass" value="ox-image"/> 	
+		<property name="cssClass" value="ox-image"/>
+		<property name="acceptFileTypes" value="image/*"/>  	
 		<formatter class="org.openxava.formatters.ImageFormatter" />
 		<for-stereotype stereotype="FOTO" />
 		<for-stereotype stereotype="PHOTO" />
@@ -186,7 +187,8 @@
 		<property name="getURL" value="/xava/gallery"/>
 		<property name="filesIdsProviderClass" value="org.openxava.web.editors.ImagesGalleryFilesIdsProvider"/>
 		<property name="multipleFiles" value="true"/> 
-		<property name="cssClass" value="ox-gallery"/> 
+		<property name="cssClass" value="ox-gallery"/>
+		<property name="acceptFileTypes" value="image/*"/>  
 		<for-stereotype stereotype="IMAGES_GALLERY" />
 		<for-stereotype stereotype="GALERIA_IMAGENES" />
 	</editor>
@@ -199,8 +201,9 @@
 		<property name="cssClass" value="ox-file"/> 
 		<property name="imagePreview" value="false"/>
 		<for-type type="org.apache.commons.fileupload.FileItem"/>
+		<for-annotation annotation="org.openxava.annotations.FileItemUpload"/>
 	</editor>
-		
+			
 	<editor name="AttachedFile" url="uploadEditor.jsp" format="false">
 		<property name="loadAction" value="AttachedFileEditor.load"/> 
 		<property name="removeAction" value="AttachedFileEditor.remove"/> 

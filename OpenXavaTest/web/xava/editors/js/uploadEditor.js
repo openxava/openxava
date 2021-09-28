@@ -3,7 +3,7 @@ if (uploadEditor == null) var uploadEditor = {};
 openxava.addEditorInitFunction(function() {
 	
     FilePond.registerPlugin(FilePondPluginImagePreview);
-    FilePond.registerPlugin(FilePondPluginFileValidateType); // tmr
+    FilePond.registerPlugin(FilePondPluginFileValidateType); 
 
     $('.xava_upload').each(function() {
     	const input = this;
@@ -92,16 +92,14 @@ openxava.addEditorInitFunction(function() {
 		    pond.beforeRemoveFile = function() {
 		    	return confirm(openxava.confirmRemoveFileMessage);   
 		    }
-		    // tmr ini
-		    pond.fileValidateTypeLabelExpectedTypesMap = uploadEditor.fileValidateTypeLabelExpectedTypesMap;
-		    
+
+		    pond.fileValidateTypeLabelExpectedTypesMap = uploadEditor.fileValidateTypeLabelExpectedTypesMap;		    
 		    pond.fileValidateTypeDetectType = (source, type) => new Promise((resolve, reject) => {
     			if (type == "" && source.name.substr(-4).toLowerCase() === '.csv') {
     				type = "text/csv";
     			}
         		resolve(type);
     		})
-		    // tmr fin
     	}    	
     });
 	
@@ -135,7 +133,6 @@ uploadEditor.removeFile = function(input, file) {
 	})
 }
 
-// tmp ini
 uploadEditor.fileValidateTypeLabelExpectedTypesMap = {
     '.csv': null,
     'text/csv': 'CSV',
@@ -204,4 +201,3 @@ uploadEditor.fileValidateTypeLabelExpectedTypesMap = {
 	'video/x-msvideo': 'AVI',
 	'video/mp4': 'M4V, MP4'		        
 }
-// tmp fin

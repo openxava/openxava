@@ -3,6 +3,7 @@ if (uploadEditor == null) var uploadEditor = {};
 openxava.addEditorInitFunction(function() {
 	
     FilePond.registerPlugin(FilePondPluginImagePreview);
+    FilePond.registerPlugin(FilePondPluginFileValidateType); 
 
     $('.xava_upload').each(function() {
     	const input = this;
@@ -91,6 +92,14 @@ openxava.addEditorInitFunction(function() {
 		    pond.beforeRemoveFile = function() {
 		    	return confirm(openxava.confirmRemoveFileMessage);   
 		    }
+
+		    pond.fileValidateTypeLabelExpectedTypesMap = uploadEditor.fileValidateTypeLabelExpectedTypesMap;		    
+		    pond.fileValidateTypeDetectType = (source, type) => new Promise((resolve, reject) => {
+    			if (type == "" && source.name.substr(-4).toLowerCase() === '.csv') {
+    				type = "text/csv";
+    			}
+        		resolve(type);
+    		})
     	}    	
     });
 	
@@ -122,4 +131,73 @@ uploadEditor.removeFile = function(input, file) {
 		url: uploadEditor.getUploadURL(input) + uploadEditor.getFileIdParam(file), 
 		method: "DELETE"
 	})
+}
+
+uploadEditor.fileValidateTypeLabelExpectedTypesMap = {
+    '.csv': null,
+    'text/csv': 'CSV',
+	'text/html': 'HTML, HTM, SHTML',
+	'text/css': 'CSS',
+	'text/xml': 'XML',
+	'text/plain': 'TXT',
+	'text/vnd.sun.j2me.app-descriptor': 'JAD',
+	'text/vnd.wap.wml': 'WML',
+	'text/x-component': 'HTC',
+	'text/mathml': 'MML',	
+	'image/*': 'PNG, JPG, GIF, TIF, BMP...',
+	'image/gif': 'GIF',
+	'image/jpeg': 'JPEG, JPG',
+	'image/png': 'PNG',
+	'image/tiff': 'TIF, TIFF',
+	'image/vnd.wap.wbmp': 'WBMP',
+	'image/x-icon': 'ICO',
+	'image/x-jng': 'JNG',
+	'image/x-ms-bmp': 'BMP',
+	'image/svg+xml': 'SVG',
+	'image/webp': 'WEBP',
+	'application/x-javascript': 'JS',
+	'application/atom+xml': 'ATOM',
+	'application/rss+xml': 'RSS',
+	'application/java-archive': 'JAR, WAR, EAR',
+	'application/mac-binhex40': 'HQX',
+	'application/msword': 'DOC',
+	'application/pdf': 'PDF',
+	'application/postscript': 'PS, EPS, AI',
+	'application/rtf': 'RTF',
+	'application/vnd.ms-excel': 'XLS',
+	'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'XLSX',
+	'application/vnd.ms-powerpoint': 'PPT',
+	'application/vnd.wap.wmlc': 'WMLC',
+	'application/vnd.google-earth.kml+xml': 'KML',
+	'application/vnd.google-earth.kmz': 'KMZ',
+	'application/x-7z-compressed': '7z',
+	'application/x-cocoa': 'CCO',
+	'application/x-java-archive-diff': 'JARDIFF',
+	'application/x-java-jnlp-file': 'JNLP',
+	'application/x-makeself': 'RUN',
+	'application/x-perl': 'PL, PM',
+	'application/x-pilot': 'PRC, PDB',
+	'application/x-rar-compressed': 'RAR',
+	'application/x-redhat-package-manager': 'RPM',
+	'application/x-sea': 'SEA',
+	'application/x-shockwave-flash': 'SWF',
+	'application/x-stuffit': 'SIT',
+	'application/x-tcl': 'TCL, TK',
+	'application/x-x509-ca-cert': 'DER, PEM, CRT',
+	'application/x-xpinstall': 'XPI',
+	'application/xhtml+xml': 'XHTML',
+	'application/zip': 'ZIP',
+	'audio/midi': 'MID, MIDI, KAR',
+	'audio/mpeg': 'MP3',
+	'audio/ogg': 'OGG',
+	'audio/x-realaudio': 'RA',
+	'video/3gpp': '3GPP, 3GP',
+	'video/mpeg': 'MPEG, MPG',
+	'video/quicktime': 'MOV',
+	'video/x-flv': 'FLV',
+	'video/x-mng': 'MNG',
+	'video/x-ms-asf': 'ASX, ASF',
+	'video/x-ms-wmv': 'WMV',
+	'video/x-msvideo': 'AVI',
+	'video/mp4': 'M4V, MP4'		        
 }

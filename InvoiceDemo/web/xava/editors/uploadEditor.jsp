@@ -35,11 +35,17 @@ String dataPreview = !preview?"data-preview='false'":"";
 String script = request.getParameter("script");
 boolean throwsChanged = script != null && script.contains(".throwPropertyChanged(");
 String dataThrowsChanged = throwsChanged?"data-throws-changed='true'":"";
+String acceptFileTypes = request.getParameter("acceptFileTypes");
+if (!Is.emptyString(acceptFileTypes) && acceptFileTypes.toLowerCase().contains("text/csv")) {
+	acceptFileTypes += ",.csv";
+}
+String accept = Is.emptyString(acceptFileTypes)?"":"accept='" + acceptFileTypes + "'";
 %>
 <input id='<%=propertyKey%>' 
 	type="file" class="xava_upload<%=cssClass%>"
 	data-application="<%=applicationName%>" 
 	data-module="<%=module%>"
+	<%=accept%> 
 	<%=dataMultiple%>
 	<%=dataPreview%>
 	<%=dataFiles%> 

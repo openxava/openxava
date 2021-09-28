@@ -3,19 +3,12 @@ Change Log for OpenXava project
 
 - Filtrar por tipo de archivo en @File/@Files:
 
-	- Pruebas: Han de ser manuales
-		- Probar con @File y @Files. Una vez, con todos los navegadores y quitarlo
-		- Probar la parte de UploadTest.txt nueva con Chrome y FF.
-		- Refinar código.
-		- Probar la parte de UploadTest.txt completo.
-	- Suite
-	- updateOX:
-		- Comprobar que borra los polyfills en InvoiceDemo 
 	- Doc:
-		- API
-		- Reference
-		- @FileItemUpload
+		- @FileItemUpload // TMP ME QUEDE POR AQUÍ: SOLO FALTA ESTO, DOC EN LA REFERENCIA
 		
+- Attribute acceptFileTypes in @File/@Files/@FileItemUpload to restrict the type of files to upload.
+- Property acceptFileTypes in editors.xml definition to restrict the type of files to upload.		
+- New @FileItemUpload annotation to configure properties of FileItem type.		
 - PHOTO/IMAGE and IMAGES_GALLERY stereotypes only allow uploading images.		
 - Import data in list mode only allows uploading CSV, XSL and XSLX files.
 - Dropped support for Internet Explorer.		

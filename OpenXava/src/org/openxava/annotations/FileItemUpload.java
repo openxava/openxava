@@ -3,25 +3,16 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr Redoc. Añadir en changelog
- * The user can upload a file in this property, so the file is attached to the entity. <p>
+ * Configure the way files can be uploaded in a FileItem property. <p>
  * 
- * If the uploaded file is an image, an image preview is shown. 
- * The user can download the file or see the image (if it is an image) just clicking.
- * 
- * The data type is String with a length of 32.
- * 
- * Applies to properties.<p>
+ * Applies to properties of org.apache.commons.fileupload.FileItem type.<br>
  * 
  * Example:
  * <pre>
- * &nbsp;@File
- * &nbsp;@Column(length=32)
- * &nbsp;private String document;
+ * @FileItemUpload(acceptFileTypes="text/plain")
+ * private FileItem file;
  * </pre>
  * 
- * It's synonymous of @Stereotype("FILE").
- *
  * @since 6.6
  * @author Javier Paniza
  */
@@ -30,7 +21,25 @@ import java.lang.annotation.*;
 @Target({ ElementType.FIELD, ElementType.METHOD })
 public @interface FileItemUpload {
 	
-	// tmr doc
+	/** 
+	 * Comma separated list of accepted mime types. <p>
+	 * 
+	 * If the uploaded file does not match with specified types the file is rejected.<br>
+	 * For example, with this code:
+	 * <pre>
+	 * @FileItemUpload(acceptFileTypes="image/*")
+	 * private FileItem file;
+	 * </pre>
+	 * 
+	 * The user can only upload images, and with this one:
+	 * <pre>
+	 * @FileItemUpload(acceptFileTypes = "text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+	 * private FileItem file;
+  	 * </pre>
+	 * Only CSV and Excel files. As you can see in acceptFileTypes you put a 
+	 * <a href="https://docs.w3cub.com/http/basics_of_http/mime_types/complete_list_of_mime_types">list of mime types</a> 
+	 * separated by commas and you can use wildcards.
+	 */
 	String acceptFileTypes() default "";
 	
 }

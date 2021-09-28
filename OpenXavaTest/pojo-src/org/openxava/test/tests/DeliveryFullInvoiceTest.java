@@ -1,8 +1,7 @@
 package org.openxava.test.tests;
 
-import org.openxava.tests.ModuleTestBase;
+import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*; 
 
 /**
@@ -17,7 +16,7 @@ public class DeliveryFullInvoiceTest extends ModuleTestBase {
 	
 	public void testGeneratePDFFromCollectionOfReferenceInsideSection() throws Exception { 
 		execute("CRUD.new");
-		setValue("invoice.year", "2002");
+		setValue("invoice.year", "2002"); 
 		setValue("invoice.number", "1");
 		execute("Sections.change", "activeSection=1,viewObject=xava_view_invoice");
 		assertCollectionRowCount("invoice.details", 2);
@@ -35,9 +34,5 @@ public class DeliveryFullInvoiceTest extends ModuleTestBase {
 		execute("List.addColumns", "collection=invoice.details");
 		assertNoErrors();		
 	}
-	
-	protected BrowserVersion getBrowserVersion() throws Exception { 
-		return BrowserVersion.INTERNET_EXPLORER; 
-	}
-	
+		
 }

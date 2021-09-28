@@ -4,8 +4,7 @@ import org.apache.commons.fileupload.*;
 import org.openxava.annotations.*;
 
 /**
- * tmr
- * To use as generic transient class for dialogs.
+ * To use as generic transient class for dialogs with a single property that allows only Excel and CSV files.
  * 
  * @since 6.6
  * @author Javier Paniza

@@ -28,10 +28,8 @@ if (!Locales.getCurrent().getLanguage().equals("en") && request.getAttribute("xa
 		labelButtonUndoItemProcessing: '<xava:label key="undo"/>', 
 		filepond_labelButtonRetryItemProcessing: '<xava:label key="retry"/>', 
 		filepond_labelButtonProcessItem: '<xava:label key="upload"/>',
-		<%-- tmr ini --%>
 		labelFileTypeNotAllowed: '<xava:message key="invalid_file_type"/>',
 		fileValidateTypeLabelExpectedTypes: '<xava:message key="filepond_fileValidateTypeLabelExpectedTypes"/>'
-		<%-- tmr fin --%> 
 	});
 	</script>
 <%

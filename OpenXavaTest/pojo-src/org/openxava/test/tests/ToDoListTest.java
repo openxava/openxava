@@ -2,7 +2,6 @@ package org.openxava.test.tests;
 
 import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 
 
@@ -33,7 +32,7 @@ public class ToDoListTest extends ModuleTestBase {
 	public void testSelectAndDeselectAllCollectionElements_notCutPasteInCollectionWhenDifferentType() throws Exception {
 		execute("List.viewDetail", "row=0");
 		
-		assertAllCollectionUnchecked("tasks");
+		assertAllCollectionUnchecked("tasks"); 
 		checkAllCollection("tasks");
 		assertAllCollectionUnchecked("components");
 		assertAllCollectionChecked("tasks");
@@ -122,9 +121,5 @@ public class ToDoListTest extends ModuleTestBase {
 		assertCollectionRowCount("components", 1);
 		assertValueInCollection("components", 0, 0, "COMPONENT 1");
 	}
-	
-	protected BrowserVersion getBrowserVersion() throws Exception {
-		return BrowserVersion.INTERNET_EXPLORER; 
-	}
-	
+		
 }

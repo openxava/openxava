@@ -18,6 +18,7 @@ welcome_point1=This is a additional explanatory line
 
 <%
 MetaApplication metaApplication = MetaApplications.getMainMetaApplication(); 
+Locales.setCurrent(request);
 String oxVersion = org.openxava.controller.ModuleManager.getVersion();
 String title = (String) request.getAttribute("naviox.pageTitle");
 if (title == null) title = metaApplication.getLabel();
@@ -29,11 +30,6 @@ if (title == null) title = metaApplication.getLabel();
 	<title><%=title%></title>
 	<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
 	<link href="<%=request.getContextPath()%>/xava/style/<%=XavaPreferences.getInstance().getStyleCSS()%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
-	<% if (Browsers.isIE(request)) { %>
-	<script type='text/javascript' src="<%=request.getContextPath()%>/xava/js/css-vars-ponyfill.js?ox=<%=oxVersion%>"></script>
-	<script type='text/javascript'>cssVars({ }); </script>	
-	<% } %>
-	
 </head>
 
 <body id="welcome" <%=XavaStyle.getBodyClass(request)%>>
