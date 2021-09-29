@@ -1,6 +1,24 @@
 Change Log for OpenXava project
 ===============================
 
+- Limiting size:
+	TMR ME QUEDÉ POR AQUÍ, PARA EMPEZAR EL SIGUIENTE PUNTO
+	- Revisar código
+	- Pruebas (solo manuales):
+		- Probar en Chrome y Firefox.
+		- Probar en 3 anotaciones y en editores.
+		- Modificar UploadTest.txt
+		- Probar UploadTest.txt completo.
+	- Suite
+	- Limpiar código.
+	- updateOX:
+		- Probar traducción de mensajes.
+	- Doc:
+		- API
+		- Reference model.
+		- Referencie controllers
+			
+
 - Attribute acceptFileTypes in @File/@Files/@FileItemUpload to restrict the type of files to upload.
 - Property acceptFileTypes in editors.xml definition to restrict the type of files to upload.		
 - New @FileItemUpload annotation to configure properties of FileItem type.		

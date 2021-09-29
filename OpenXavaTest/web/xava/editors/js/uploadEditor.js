@@ -103,10 +103,9 @@ openxava.addEditorInitFunction(function() {
     		})
     		
     		// tmr ini
-    		// tmr ME QUEDÉ POR AQUÍ: NO VA
     		console.log("[uploadEditor.js] input.dataset.maxFileSize=" + input.dataset.maxFileSize);
     		if (input.dataset.maxFileSize != null) {
-    			pond.maxFileSize = "50KB"; // TMR OJO A PIÑON FIJO // tmr input.dataset.maxFileSize;
+    			pond.maxFileSize = input.dataset.maxFileSize;
     			console.log("[uploadEditor.js] pond.maxFileSize=" + pond.maxFileSize);
     		}
     		
