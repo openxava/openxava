@@ -1,18 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
-- Filtrar por tipo de archivo en @File/@Files:
-
-	- Doc:
-		- @FileItemUpload // TMP ME QUEDE POR AQUÍ: SOLO FALTA ESTO, DOC EN LA REFERENCIA
-		
 - Attribute acceptFileTypes in @File/@Files/@FileItemUpload to restrict the type of files to upload.
 - Property acceptFileTypes in editors.xml definition to restrict the type of files to upload.		
 - New @FileItemUpload annotation to configure properties of FileItem type.		
 - PHOTO/IMAGE and IMAGES_GALLERY stereotypes only allow uploading images.		
 - Import data in list mode only allows uploading CSV, XSL and XSLX files.
 - Dropped support for Internet Explorer.		
-
 - @File/FILE displays a small preview image in list mode if the file is of image type.
 - InvoiceDemo includes examples of COORDINATES, @Files and @File.
 - New isImage() method in org.openxava.util.Files utility class. 

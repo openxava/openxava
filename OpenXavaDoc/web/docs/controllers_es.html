@@ -4815,34 +4815,40 @@ class="br0">)</span><span class="sy0">;</span>
 
 import java.time.*;
 import org.apache.commons.fileupload.*;
+import org.openxava.annotations.*;
 
 public class MostrarFichero {
 		
-	private FileItem fichero;
+    @FileItemUpload(acceptFileTypes="text/plain") // Since v6.6
+    private FileItem fichero;
 	
-	private LocalDate fecha;
+    private LocalDate fecha;
 
-	public FileItem getFichero() {
-		return fichero;
-	}
+    public FileItem getFichero() {
+        return fichero;
+    }
 
-	public void setFichero(FileItem fichero) {
-		this.fichero = fichero;
-	}
+    public void setFichero(FileItem fichero) {
+        this.fichero = fichero;
+    }
 
-	public LocalDate getFecha() {
-		return fecha;
-	}
+    public LocalDate getFecha() {
+        return fecha;
+    }
 
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
-	}
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
 
 }
 </code></pre> </div>
       <div class="wiki" style="display: block;">Fíjate como puedes tener más
         propiedades aparte de <i>fichero</i>, como una propiedad fecha en este
-        caso. </div>
+        caso. A partir de v6.6 puedes anotar tu propiedad <i>FileItem</i> con <a
+          href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/FileItemUpload.html"><i>@FileItemUpload</i></a>
+        para limitar el tipo de archivo a subir, en <i>acceptFileTypes</i>
+        pones una <a href="https://docs.w3cub.com/http/basics_of_http/mime_types/complete_list_of_mime_types">lista
+          de tipos mime</a> separada por comas y puedes usar asteriscos.</div>
       <div class="wiki" style="display: block;">Ahora has de definir un módulo
         en <i>aplicacion.xml</i> porque las clases transitorias no se reconocen
         como módulos automáticamente:</div>

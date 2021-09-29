@@ -4754,35 +4754,40 @@ class="br0">)</span><span class="sy0">;</span>
       <pre><code class="java">package com.yourcompany.uploadtest.model;
 
 import java.time.*;
-
 import org.apache.commons.fileupload.*;
+import org.openxava.annotations.*;
 
 public class ShowFile {
 		
-	private FileItem file;
+    @FileItemUpload(acceptFileTypes="text/plain") // Since v6.6
+    private FileItem file;
 	
-	private LocalDate date;
+    private LocalDate date;
 
-	public FileItem getFile() {
-		return file;
-	}
+    public FileItem getFile() {
+        return file;
+    }
 
-	public void setFile(FileItem file) {
-		this.file = file;
-	}
+    public void setFile(FileItem file) {
+        this.file = file;
+    }
 
-	public LocalDate getDate() {
-		return date;
-	}
+    public LocalDate getDate() {
+        return date;
+    }
 
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">Note as you can have more
-      properties apart from <i>file</i>, such a date property in this case. </div>
+      properties apart from <i>file</i>, such a date property in this case.
+      Since v6.6 you can annotate your <i>FileItem</i> property with <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/FileItemUpload.html"><i>@FileItemUpload</i></a>
+      to limit the type of files to upload, in <i>acceptFileTypes</i> you put a
+      <a href="https://docs.w3cub.com/http/basics_of_http/mime_types/complete_list_of_mime_types">list
+        of mime types</a> separated by commas and you can use wildcards. </div>
     <div class="wiki" style="display: block;">Now you have to define a module in
       <i>application.xml</i> because transient classes are not automatically
       recognized as modules:</div>
