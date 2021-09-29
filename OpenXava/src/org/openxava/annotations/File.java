@@ -51,5 +51,7 @@ public @interface File {
 	 * separated by commas and you can use wildcards.
 	 */
 	String acceptFileTypes() default "";
-	
+
+	// tmr doc
+	long maxFileSizeInKb() default -1L;
 }

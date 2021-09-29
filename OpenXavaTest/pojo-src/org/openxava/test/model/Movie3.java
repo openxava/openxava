@@ -24,7 +24,7 @@ public class Movie3 extends Identifiable {
 	
 	private Date releaseDate;
 	
-	@File
+	@File(maxFileSizeInKb = 50)
 	@Column(length=32)
 	private String trailer;
 		

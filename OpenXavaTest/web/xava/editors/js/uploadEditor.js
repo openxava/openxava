@@ -3,7 +3,8 @@ if (uploadEditor == null) var uploadEditor = {};
 openxava.addEditorInitFunction(function() {
 	
     FilePond.registerPlugin(FilePondPluginImagePreview);
-    FilePond.registerPlugin(FilePondPluginFileValidateType); 
+    FilePond.registerPlugin(FilePondPluginFileValidateType);
+    FilePond.registerPlugin(FilePondPluginFileValidateSize); // tmr 
 
     $('.xava_upload').each(function() {
     	const input = this;
@@ -100,6 +101,16 @@ openxava.addEditorInitFunction(function() {
     			}
         		resolve(type);
     		})
+    		
+    		// tmr ini
+    		// tmr ME QUEDÉ POR AQUÍ: NO VA
+    		console.log("[uploadEditor.js] input.dataset.maxFileSize=" + input.dataset.maxFileSize);
+    		if (input.dataset.maxFileSize != null) {
+    			pond.maxFileSize = "50KB"; // TMR OJO A PIÑON FIJO // tmr input.dataset.maxFileSize;
+    			console.log("[uploadEditor.js] pond.maxFileSize=" + pond.maxFileSize);
+    		}
+    		
+    		// tmr fin
     	}    	
     });
 	

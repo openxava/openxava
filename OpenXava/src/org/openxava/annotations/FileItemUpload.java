@@ -42,4 +42,7 @@ public @interface FileItemUpload {
 	 */
 	String acceptFileTypes() default "";
 	
+	// tmr doc
+	long maxFileSizeInKb() default -1L;
+	
 }
