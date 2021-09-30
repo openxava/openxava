@@ -1604,15 +1604,16 @@ private String documentos;
 @Column(length=32)
 private String documentos;
 </code></pre>Cuando usas la versión con anotación (<i>@File</i> o <i>@Files</i>)
-      puedes definir atributos como <i>acceptFileTypes</i> para restringir los
-      archivos que el usuario puede subir. Por ejemplo, con este código:
+      puedes definir atributos como <i>acceptFileTypes</i> o <i>maxFileSizeInKb
+        </i>para restringir los archivos que el usuario puede subir. Por
+      ejemplo, con este código:
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@File(acceptFileTypes="image/*")
+        <pre><code class="java">@File(acceptFileTypes="image/*", maxFileSizeInKb=90)
 @Column(length=32)
 private String foto;
 </code></pre> </div>
       <div class="wiki" style="display: block;">El usuario sólo puede subir
-        imágenes, y con este otro:</div>
+        imágenes de 90 Kb o menos, y con este otro:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="java">@Files(acceptFileTypes="text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 @Column(length=32)

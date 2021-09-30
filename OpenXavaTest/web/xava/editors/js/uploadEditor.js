@@ -4,7 +4,7 @@ openxava.addEditorInitFunction(function() {
 	
     FilePond.registerPlugin(FilePondPluginImagePreview);
     FilePond.registerPlugin(FilePondPluginFileValidateType);
-    FilePond.registerPlugin(FilePondPluginFileValidateSize); // tmr 
+    FilePond.registerPlugin(FilePondPluginFileValidateSize);  
 
     $('.xava_upload').each(function() {
     	const input = this;
@@ -102,14 +102,9 @@ openxava.addEditorInitFunction(function() {
         		resolve(type);
     		})
     		
-    		// tmr ini
-    		console.log("[uploadEditor.js] input.dataset.maxFileSize=" + input.dataset.maxFileSize);
     		if (input.dataset.maxFileSize != null) {
     			pond.maxFileSize = input.dataset.maxFileSize;
-    			console.log("[uploadEditor.js] pond.maxFileSize=" + pond.maxFileSize);
-    		}
-    		
-    		// tmr fin
+    		}    		
     	}    	
     });
 	

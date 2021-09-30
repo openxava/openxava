@@ -40,11 +40,8 @@ if (!Is.emptyString(acceptFileTypes) && acceptFileTypes.toLowerCase().contains("
 	acceptFileTypes += ",.csv";
 }
 String accept = Is.emptyString(acceptFileTypes)?"":"accept='" + acceptFileTypes + "'";
-// tmr ini
 String maxFileSizeInKb = request.getParameter("maxFileSizeInKb");
 String dataFileSizeInKb = Is.emptyString(maxFileSizeInKb) || "-1".equals(maxFileSizeInKb)?"":"data-max-file-size='" + maxFileSizeInKb + "KB'";
-System.out.println("[uploadEditor.jsp] dataFileSizeInKb=" + dataFileSizeInKb); // tmp
-// tmr fin
 %>
 <input id='<%=propertyKey%>' 
 	type="file" class="xava_upload<%=cssClass%>"
@@ -57,7 +54,7 @@ System.out.println("[uploadEditor.jsp] dataFileSizeInKb=" + dataFileSizeInKb); /
 	<%=dataEmpty%>
 	<%=dataEditable%>
 	<%=dataThrowsChanged%>
-	<%=dataFileSizeInKb%> <%-- tmr --%>
+	<%=dataFileSizeInKb%> 
 /> 
 
 <input type="hidden" name="<%=propertyKey%>" value="<%=value%>">

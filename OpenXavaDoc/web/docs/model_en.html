@@ -1599,15 +1599,15 @@ private String documents;
 @Column(length=32)
 private String documents;
 </code></pre>When you use the annotation version (<i>@File</i> or <i>@Files</i>)
-      you can define attributes like <i>acceptFileTypes</i> to restrict the
-      files the user can upload. For example, with this code:</div>
+      you can define attributes like <i>acceptFileTypes</i> or <i>maxFileSizeInKb</i>
+      to restrict the files the user can upload. For example, with this code:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@File(acceptFileTypes="image/*")
+      <pre><code class="java">@File(acceptFileTypes="image/*", maxFileSizeInKb=90)
 @Column(length=32)
 private String photo;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">The user can only upload images,
-      and with this one:</div>
+    <div class="wiki" style="display: block;">The user can only upload images of
+      90 Kb or less, and with this one:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Files(acceptFileTypes="text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 @Column(length=32)

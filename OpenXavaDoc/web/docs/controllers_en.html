@@ -4759,7 +4759,7 @@ import org.openxava.annotations.*;
 
 public class ShowFile {
 		
-    @FileItemUpload(acceptFileTypes="text/plain") // Since v6.6
+    @FileItemUpload(acceptFileTypes="text/plain", maxFileSizeInKb=200) // Since v6.6
     private FileItem file;
 	
     private LocalDate date;
@@ -4785,9 +4785,10 @@ public class ShowFile {
     <div class="wiki" style="display: block;">Note as you can have more
       properties apart from <i>file</i>, such a date property in this case.
       Since v6.6 you can annotate your <i>FileItem</i> property with <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/FileItemUpload.html"><i>@FileItemUpload</i></a>
-      to limit the type of files to upload, in <i>acceptFileTypes</i> you put a
-      <a href="https://docs.w3cub.com/http/basics_of_http/mime_types/complete_list_of_mime_types">list
-        of mime types</a> separated by commas and you can use wildcards. </div>
+      to limit the files to upload, in <i>acceptFileTypes</i> you put a <a href="https://docs.w3cub.com/http/basics_of_http/mime_types/complete_list_of_mime_types">list
+        of mime types</a> separated by commas and you can use wildcards, and
+      with <i>maxFileSizeInKb</i> you limit the size of the file. In this case
+      only plain text files of 200 Kb at most can be uploaded.</div>
     <div class="wiki" style="display: block;">Now you have to define a module in
       <i>application.xml</i> because transient classes are not automatically
       recognized as modules:</div>

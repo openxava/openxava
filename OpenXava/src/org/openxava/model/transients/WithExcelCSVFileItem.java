@@ -12,7 +12,7 @@ import org.openxava.annotations.*;
 public class WithExcelCSVFileItem implements java.io.Serializable {
 
 	@LabelFormat(LabelFormatType.NO_LABEL)
-	@FileItemUpload(acceptFileTypes = "text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+	@FileItemUpload(acceptFileTypes = "text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") 
 	private FileItem file; 
 
 	public FileItem getFile() {

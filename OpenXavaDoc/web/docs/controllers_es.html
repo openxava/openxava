@@ -4819,7 +4819,7 @@ import org.openxava.annotations.*;
 
 public class MostrarFichero {
 		
-    @FileItemUpload(acceptFileTypes="text/plain") // Since v6.6
+    @FileItemUpload(acceptFileTypes="text/plain", maxFileSizeInKb=200) // Since v6.6
     private FileItem fichero;
 	
     private LocalDate fecha;
@@ -4846,9 +4846,11 @@ public class MostrarFichero {
         propiedades aparte de <i>fichero</i>, como una propiedad fecha en este
         caso. A partir de v6.6 puedes anotar tu propiedad <i>FileItem</i> con <a
           href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/FileItemUpload.html"><i>@FileItemUpload</i></a>
-        para limitar el tipo de archivo a subir, en <i>acceptFileTypes</i>
-        pones una <a href="https://docs.w3cub.com/http/basics_of_http/mime_types/complete_list_of_mime_types">lista
-          de tipos mime</a> separada por comas y puedes usar asteriscos.</div>
+        para limitar los archivo a subir, en <i>acceptFileTypes</i> pones una <a
+          href="https://docs.w3cub.com/http/basics_of_http/mime_types/complete_list_of_mime_types">lista
+          de tipos mime</a> separada por comas y puedes usar asteriscos, y con <i>maxFileSizeInKb
+          </i>indicas el tamaño máximo del archivo. En este caso sólo se pueden
+        subir archivos de texto plano de 200 Kb como mucho.</div>
       <div class="wiki" style="display: block;">Ahora has de definir un módulo
         en <i>aplicacion.xml</i> porque las clases transitorias no se reconocen
         como módulos automáticamente:</div>

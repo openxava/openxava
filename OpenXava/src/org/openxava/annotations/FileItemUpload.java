@@ -42,7 +42,20 @@ public @interface FileItemUpload {
 	 */
 	String acceptFileTypes() default "";
 	
-	// tmr doc
+	/**
+	 * Maximum size of the file to upload in Kb. <p>
+	 * 
+	 * If the uploaded file is greater than the specified size the file is rejected.<br>
+	 * For example, with this code:
+	 * <pre>
+	 * @FileItemUpload(maxFileSizeInKb=200)
+	 * @Column(length=32)
+	 * private String file;
+	 * </pre>
+	 * The user can only upload files of 200 Kb or less.<br>
+	 * 
+	 * The default value is -1L that means no limit.
+	 */
 	long maxFileSizeInKb() default -1L;
 	
 }
