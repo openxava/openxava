@@ -82,7 +82,7 @@ public class HunterTest extends ModuleTestBase {
 	
 	public void testFilterNotEmptyValuesInCollection() throws Exception {
 		execute("List.viewDetail", "row=0");
-		execute("Collection.add", "viewObject=xava_view_section0_hounds");
+		execute("Collection.add", "viewObject=xava_view_section0_hounds"); 
 		execute("AddToCollection.add", "row=1");
 		assertCollectionRowCount("hounds", 2); 
 		

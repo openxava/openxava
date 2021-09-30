@@ -3307,5 +3307,57 @@ abstract public class ModuleTestBase extends TestCase {
 		String fileId = fileIds.split(",")[index];
 		removeFile(property, fileId); 
 	}
+	
+	/**
+	 * Move an element of collection from a row to another. <p>
+	 * 
+	 * It is for @OrderColumn collection where the user can reorder the rows with the mouse.<br>
+	 * WARNING! This method does not work for all "from, to" combinations, so if it does not work
+	 * just try with other combination.
+	 * 
+	 * Example:
+	 * <pre>
+	 * moveRow("details", 2, 0);
+	 * </pre>
+	 *  
+	 * @param collection  The name of the collection
+	 * @param from  Index of the origin row
+	 * @param to  Index of the target row
+	 * @since 6.6
+	 */
+	protected void moveRow(String collection, int from, int to) throws Exception {
+		moveRow(collection, from, to, false);
+	}
+	
+	/**
+	 * Move an element of collection from a row to another. <p>
+	 * 
+	 * It is for @OrderColumn collection where the user can reorder the rows with the mouse.<br>
+	 * WARNING! This method does not work for all "from, to" combinations, so if it does not work
+	 * just try with other combination.
+	 * 
+	 * Example:
+	 * <pre>
+	 * moveRow("details", 2, 0);
+	 * </pre>
+	 *  
+	 * @param collection  The name of the collection
+	 * @param from  Index of the origin row
+	 * @param to  Index of the target row
+	 * @param classRequired  If true it verifies the CSS class of target row to assures it is sortable
+	 * @since 6.6
+	 */
+	protected void moveRow(String collection, int from, int to, boolean classRequired) throws Exception {   
+		// This method does not work for all "from, to" combinations, at least with HtmlUnit 2.15
+		HtmlTable table = getHtmlPage().getHtmlElementById(decorateId(collection));
+		HtmlElement fromRow = table.getRow(from + 1);
+		HtmlElement fromHandler = fromRow.getElementsByAttribute("i", "class", "xava_handle mdi mdi-swap-vertical ui-sortable-handle").get(0);
+		fromHandler.mouseDown();
+		HtmlElement toRow = table.getRow(to + 1);
+		if (classRequired) assertTrue(toRow.getAttribute("class").contains("xava_sortable_element_row"));
+		toRow.mouseMove();
+		toRow.mouseUp();
+		Thread.sleep(500); 		
+	}
 
 }
