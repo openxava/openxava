@@ -39,5 +39,22 @@ public class ProjectMemberTest extends ModuleTestBase {
 		execute("CRUD.delete");
 		assertNoErrors();
 	}
+	
+	public void testUpdateEntityUsedInOrderColumnList() throws Exception { 
+		execute("List.orderBy", "property=name");
+		assertValueInList(0, 0, "JOHN");
+		execute("List.viewDetail", "row=0");
+		assertValue("name", "JOHN");
+		execute("CRUD.save");
+		assertNoErrors();
 		
+		changeModule("Project");
+		execute("List.viewDetail", "row=0");
+		assertValue("name", "THE BIG PROJECT");
+		assertCollectionRowCount("members", 3);
+		assertValueInCollection("members", 0, 0, "JOHN");
+		assertValueInCollection("members", 1, 0, "JUAN");
+		assertValueInCollection("members", 2, 0, "PETER");		
+	}
+			
 }

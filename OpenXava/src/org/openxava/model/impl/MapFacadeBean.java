@@ -980,12 +980,21 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 				collection = new ArrayList();				
 				containerPM.executeSet(collectionName, collection);
 			}
-			collection.add(newAggregate);
+			if (!collectionContains(collection, newAggregate)) collection.add(newAggregate); 
 		}
 		catch (Exception ex) { 
 			log.error(ex.getMessage(), ex);
 			throw new XavaException("add_element_to_collection_error"); 
 		}	
+	}
+	
+	private boolean collectionContains(Collection collection, Object element) { 
+		try {
+			return collection.contains(element);
+		}
+		catch (Exception ex) {
+			return false;
+		}
 	}
 
 	private void updateReferencedEntities(MetaModel metaModel, Map values) throws XavaException, RemoteException, CreateException, ValidationException {		

@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-	
+- Fix: @OrderColumn collection order altered when a collection element is modified from its module.	
 - New moveRow() methods in ModuleTestBase to test moving rows in @OrdeColumn collections. 			
 - Attribute maxFileSizeInKb in @File/@Files/@FileItemUpload to restrict the size of files to upload.
 - Property maxFileSizeInKb in editors.xml definition to restrict the size of files to upload.
