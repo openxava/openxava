@@ -1,8 +1,9 @@
 package org.openxava.test.model;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
 
@@ -35,7 +36,8 @@ public class Clerk {
 
 	// We test the two: java.sql.Time and TIME stereotype
 	private java.sql.Time arrivalTime;
-	@Stereotype("TIME")
+	// tmr @Stereotype("TIME")
+	@StringTime // tmr ME QUEDÉ POR AQUÍ. DEBERÍA DE TENER UN TAMAÑO POR DEFECTO, COMO EL ESTEREOTIPO. ¿VALIDACIÓN POR DEFECTO?
 	private String endingTime;
 	
 	// For testing a String property stored in a binary field in database

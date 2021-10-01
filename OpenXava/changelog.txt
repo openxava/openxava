@@ -1,6 +1,30 @@
 Change Log for OpenXava project
 ===============================
 
+- Anotaciones para estereotipos.
+
+	- StringTime
+    - Password
+    - Money
+    - TextArea
+    - Label
+    - DateTime
+    - BoldLabel
+    - ZerosFilled
+    - HtmlText
+    - SimpleHtmlText
+    - Discussion
+    - Icon
+    - Coordinates
+    - javax.validation.constraints.Email
+    - org.hibernate.validator.constraints.URL
+	- Suite.
+	- Doc:
+		- API.
+		- Referencia. Revisar todas anotaciones, mirar otras partes donde se referencien.
+	- Limpiar código.
+	- Update OX.	
+
 - Fix: @OrderColumn collection order altered when a collection element is modified from its module.	
 - New moveRow() methods in ModuleTestBase to test moving rows in @OrderColumn collections. 			
 - Attribute maxFileSizeInKb in @File/@Files/@FileItemUpload to restrict the size of files to upload.
