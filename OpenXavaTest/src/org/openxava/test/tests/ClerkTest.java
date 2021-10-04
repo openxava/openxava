@@ -42,7 +42,7 @@ public class ClerkTest extends ModuleTestBase {
 		assertContentTypeForPopup("application/vnd.ms-excel");
 	}
 	
-	public void testTimeStereotypeAndSqlTimeAndStringAsByteArrayInDB_i18nOverXmlLabeInXmlComponents() throws Exception { 
+	public void testTimeStereotypeAndSqlTimeAndStringAsByteArrayInDB_i18nOverXmlLabeInXmlComponents() throws Exception { // tmr ¿Cambiar nombre?
 		assertListNotEmpty();
 		execute("List.viewDetail", "row=0");
 		if (!usesAnnotatedPOJO()) { // Only has sense in XML components
@@ -51,6 +51,7 @@ public class ClerkTest extends ModuleTestBase {
 		String time = getCurrentTime();
 		setValue("arrivalTime", time);
 		setValue("endingTime", time);
+		assertSize("endingTime", 5); // tmr ME QUEDÉ POR AQUÍ: FALLA
 		setValue("comments", "Created at " + time);
 		execute("CRUD.save");
 		assertNoErrors();
@@ -85,6 +86,11 @@ public class ClerkTest extends ModuleTestBase {
 		assertContentTypeForPopup("application/pdf");			
 	}
 	
+	private void assertSize(String property, int expectedSize) {
+		HtmlInput input = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Clerk__" + property);
+		assertEquals(expectedSize, input.getSize());
+	}
+
 	public void testListFormatSelectedButtonStyle() throws Exception { 
 		HtmlAnchor listLink = getHtmlPage().getAnchorByHref("javascript:openxava.executeAction('OpenXavaTest', 'Clerk', '', false, 'ListFormat.select', 'editor=List')");
 		assertTrue(listLink.getAttribute("class").contains("ox-selected-list-format"));

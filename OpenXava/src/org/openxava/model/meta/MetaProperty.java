@@ -1,5 +1,7 @@
 package org.openxava.model.meta;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.*;
 import java.math.*;
 import java.rmi.*;
 import java.sql.*;
@@ -295,9 +297,22 @@ public class MetaProperty extends MetaMember implements Cloneable {
 					return size;
 				}
 				catch (ElementNotFoundException ex) {
-					// left that get size from type
+					// left that get size from annotation or type
 				}
 			}
+			
+			// tmr ini
+			Annotation[] annotations = getAnnotations(); 
+			if (annotations != null) for (Annotation annotation: annotations) {
+				try {					
+					size = DefaultSize.forAnnotation(annotation);					
+					return size;
+				}
+				catch (ElementNotFoundException ex) {
+					// Try the next or get size from type
+				}
+			}
+			// tmr fin
 						
 			if (hasValidValues()) {				
 				size = createLengthFromValidValues();				
@@ -314,6 +329,50 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		return size;
 	}
 	
+	public Annotation[] getAnnotations() { // tmr
+		// We avoid to sum everything in a collection to save memory, 
+		//   because this method is called a lot of times, while most times
+		//   the annotation are in the field, not in the getter
+		
+		Annotation[] result = null;
+		try {
+			AnnotatedElement element = getMetaModel().getPOJOClass().getDeclaredField(getSimpleName());
+			result = element.getAnnotations();
+		} 
+		catch (NoSuchFieldException ex) {
+			// It could be a calculated property, without field
+		}
+				
+		try {
+			result = getAnnotationsFromGetter(result, "get");
+		} 
+		catch (NoSuchMethodException ex) {
+			// It's a boolean property, with "is"			
+			try {
+				result = getAnnotationsFromGetter(result, "is");
+			} 
+			catch (NoSuchMethodException ex2) {
+				log.warn(XavaResources.getString("field_getter_not_found", getName(), getMetaModel().getName()), ex2);
+			}
+		}
+
+		return result;
+	}
+
+	private Annotation[] getAnnotationsFromGetter(Annotation[] result, String prefix) throws NoSuchMethodException { // tmr 
+		AnnotatedElement element = getMetaModel().getPOJOClass().getMethod(prefix + Strings.firstUpper(getSimpleName()));
+		Annotation[] getterAnnotations = element.getAnnotations();
+		if (getterAnnotations.length > 0) {
+			Collection<Annotation> annotations = new ArrayList<>();
+			if (result != null) annotations.addAll(Arrays.asList(result));
+			annotations.addAll(Arrays.asList(getterAnnotations));
+			result = new Annotation[annotations.size()];
+			annotations.toArray(result);
+		}
+		return result;
+	}
+
+	
 	
 	/**
 	 * 
@@ -329,9 +388,23 @@ public class MetaProperty extends MetaMember implements Cloneable {
 					return scale;
 				}
 				catch (ElementNotFoundException ex) {
-					// left that get size from type
+					// left that get size from annotation or type
 				}
 			}
+			
+			// tmr ini
+			Annotation[] annotations = getAnnotations(); 
+			if (annotations != null) for (Annotation annotation: annotations) {
+				try {					
+					scale = DefaultSize.scaleForAnnotation(annotation);					
+					return scale;
+				}
+				catch (ElementNotFoundException ex) {
+					// Try the next or get scale from type
+				}
+			}
+			// tmr fin
+
 						
 			if (hasValidValues()) {
 				scale = 0;

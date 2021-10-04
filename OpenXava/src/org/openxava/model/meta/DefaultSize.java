@@ -1,8 +1,7 @@
 package org.openxava.model.meta;
 
+import java.lang.annotation.*;
 import java.util.*;
-
-
 
 import org.openxava.model.meta.xmlparse.*;
 import org.openxava.util.*;
@@ -14,11 +13,14 @@ import org.openxava.util.*;
  */
 public class DefaultSize {
 		
-	private static Map stereotypes;
-	private static Map types;
+	// tmr Todos los <String, Integer>
+	private static Map<String, Integer> stereotypes;
+	private static Map<String, Integer> types;
+	private static Map<String, Integer> annotations; // tmr
 	
-	private static Map scaleStereotypes;
-	private static Map scaleTypes;
+	private static Map<String, Integer> scaleStereotypes;
+	private static Map<String, Integer> scaleTypes;
+	private static Map<String, Integer> scaleAnnotations; // tmr
 	
 	
 	
@@ -36,19 +38,34 @@ public class DefaultSize {
 		types.put(className, new Integer(length));
 	}
 	
+	public static void _addForAnnotation(String className, int length) throws XavaException { // tmr
+		if (types == null) {
+			throw new XavaException("only_from_parse", "DefaultSize._addForAnnotation");
+		}			
+		annotations.put(className, length);
+	}
+	
 	public static void _addScaleForStereotype(String name, int length) throws XavaException {
 		if (stereotypes == null) {
-			throw new XavaException("only_from_parse", "DefaultSize._addForStereotype");
+			throw new XavaException("only_from_parse", "DefaultSize._addScaleForStereotype");
 		}		
 		scaleStereotypes.put(name, new Integer(length));
 	}
 	
 	public static void _addScaleForType(String className, int length) throws XavaException {
 		if (types == null) {
-			throw new XavaException("only_from_parse", "DefaultSize._addForType");
+			throw new XavaException("only_from_parse", "DefaultSize._addScaleForType");
 		}			
 		scaleTypes.put(className, new Integer(length));
+	}
+	
+	public static void _addScaleForAnnotation(String className, int length) throws XavaException { // tmr
+		if (types == null) {
+			throw new XavaException("only_from_parse", "DefaultSize._addScaleForAnnotation");
+		}			
+		scaleAnnotations.put(className, length);
 	}	
+
 	
 	/**
 	 * 
@@ -66,6 +83,24 @@ public class DefaultSize {
 			throw new ElementNotFoundException("default_size_for_stereotype_not_found", name);
 		}
 		return result.intValue();
+	}
+	
+	/**
+	 * tmr redoc 
+	 * @param name
+	 * @return size for stereotype
+	 * @throws ElementNotFoundException
+	 * @throws XavaException
+	 */
+	public static int forAnnotation(Annotation annotation) throws ElementNotFoundException, XavaException { // tmr
+		if (stereotypes == null) {
+			configure();
+		}
+		Integer result = annotations.get(annotation.annotationType());
+		if (result == null) {
+			throw new ElementNotFoundException("default_size_for_stereotype_not_found", annotation.annotationType()); // tmr i18n
+		}
+		return result;
 	}
 	
 	/**
@@ -89,8 +124,10 @@ public class DefaultSize {
 	private static void configure() throws XavaException {
 		stereotypes = new HashMap();
 		types = new HashMap();
+		annotations = new HashMap<>(); // tmr
 		scaleStereotypes = new HashMap();
 		scaleTypes = new HashMap();
+		scaleAnnotations = new HashMap<>(); // tmr
 		DefaultSizeParser.configureDefaultSize();
 	}
 	
@@ -130,4 +167,15 @@ public class DefaultSize {
 		return result.intValue();		
 	}
 	
+	public static int scaleForAnnotation(Annotation annotation) throws ElementNotFoundException, XavaException { // tmr
+		if (types == null) {
+			configure();
+		}
+		Integer result = scaleAnnotations.get(annotation.annotationType());
+		if (result == null) {
+			throw new ElementNotFoundException("default_size_for_type_not_found", annotation.annotationType()); // tmr i18n
+		}
+		return result;		
+	}
+		
 }

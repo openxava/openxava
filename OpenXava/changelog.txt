@@ -20,6 +20,7 @@ Change Log for OpenXava project
     - org.hibernate.validator.constraints.URL
 	- Suite.
 	- Doc:
+		- default-size.xml
 		- API.
 		- Referencia. Revisar todas anotaciones, mirar otras partes donde se referencien.
 	- Limpiar código.

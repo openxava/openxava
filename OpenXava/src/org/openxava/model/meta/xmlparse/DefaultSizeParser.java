@@ -34,7 +34,7 @@ public class DefaultSizeParser extends ParserBase {
 			DefaultSize._addForStereotype(name, size);
 		}
 		catch (NumberFormatException ex) {			
-			throw new XavaException("default_size_number", "estereotipo", name);
+			throw new XavaException("default_size_number", "stereotype", name);
 		}
 		
 		try {
@@ -45,7 +45,31 @@ public class DefaultSizeParser extends ParserBase {
 			}
 		}
 		catch (NumberFormatException ex) {			
-			throw new XavaException("default_size_number", "estereotipo", name); 
+			throw new XavaException("default_size_number", "stereotype", name); 
+		}		
+	}
+	
+	private void createForAnnotation(Node n) throws XavaException { // tmr
+		Element el = (Element) n;
+		String className = el.getAttribute(xclass[lang]);
+		try {
+			String ssize = el.getAttribute(xsize[lang]);
+			int size = Integer.parseInt(ssize);
+			DefaultSize._addForAnnotation(className, size);			
+		}
+		catch (NumberFormatException ex) {			
+			throw new XavaException("default_size_number", "annotation", className);
+		}
+
+		try {
+			String sscale = el.getAttribute(xscale[lang]);
+			if(sscale != null && sscale.length() > 0) {
+				int scale = Integer.parseInt(sscale);
+				DefaultSize._addScaleForAnnotation(className, scale);
+			}
+		}
+		catch (NumberFormatException ex) {			
+			throw new XavaException("default_size_number", "annotation", className); 
 		}		
 	}
 	
@@ -58,7 +82,7 @@ public class DefaultSizeParser extends ParserBase {
 			DefaultSize._addForType(className, size);			
 		}
 		catch (NumberFormatException ex) {			
-			throw new XavaException("default_size_number", "tipo", className);
+			throw new XavaException("default_size_number", "type", className);
 		}
 
 		try {
@@ -69,7 +93,7 @@ public class DefaultSizeParser extends ParserBase {
 			}
 		}
 		catch (NumberFormatException ex) {			
-			throw new XavaException("default_size_number", "tipo", className); 
+			throw new XavaException("default_size_number", "type", className); 
 		}
 		
 	}
@@ -90,10 +114,18 @@ public class DefaultSizeParser extends ParserBase {
 		}
 	}
 	
+	private void createForAnnotations() throws XavaException { // tmr
+		NodeList l = getRoot().getElementsByTagName(xfor_annotation[lang]);
+		int c = l.getLength();
+		for (int i = 0; i < c; i++) {
+			createForAnnotation(l.item(i));
+		}
+	}
 	
 	protected void createObjects() throws XavaException {
 		createForStereotypes();
 		createForTypes();
+		createForAnnotations(); // tmr
 	}
 			
 }

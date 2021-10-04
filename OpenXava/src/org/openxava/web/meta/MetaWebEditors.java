@@ -150,7 +150,8 @@ public class MetaWebEditors {
 		if (editorsByProperty != null && editorsByProperty.containsKey(propertyId)) {
 			return editorsByProperty.get(propertyId);
 		}		
-		Annotation[] annotations = getAnnotations(p); 
+		// tmr Annotation[] annotations = getAnnotations(p); 
+		Annotation[] annotations = p.getAnnotations(); // tmr
 		if (annotations != null) for (Annotation a: annotations) {
 			MetaEditor editor = getEditorsByAnnotation().get(a.annotationType().getName());
 			if (editor != null) {
@@ -176,6 +177,7 @@ public class MetaWebEditors {
 		return null;
 	}
 	
+	/* tmr
 	private static Annotation[] getAnnotations(MetaProperty p) { 
 		// We avoid to sum everything in a collection to save memory, 
 		//   because this method is called a lot of times, while most times
@@ -218,6 +220,7 @@ public class MetaWebEditors {
 		}
 		return result;
 	}
+	*/
 
 	/**
 	 * @return Null if no editor registered for the specified stereotype
