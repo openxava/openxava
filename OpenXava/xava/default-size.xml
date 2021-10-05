@@ -35,6 +35,7 @@
 	<for-stereotype name="ICONO" size="40"/>
 	<for-stereotype name="DISCUSSION" size="32"/> 
 	<for-stereotype name="DISCUSION" size="32"/> 
+	<for-annotation class="org.openxava.annotations.Discussion" size="32"/> <!-- tmp -->
 	<for-stereotype name="IMAGES_GALLERY" size="32"/>
 	<for-stereotype name="GALERIA_IMAGENES" size="32"/>
 	<for-stereotype name="FILES" size="32"/>

@@ -30,10 +30,13 @@ public class Incident extends Identifiable {
 	@Column(length=50) @Required
 	private String title;
 	
-	@Stereotype("SIMPLE_HTML_TEXT")
+	// tmr @Stereotype("SIMPLE_HTML_TEXT")
+	@HtmlText(simple=true) // tmr
 	private String description;
 	
-	@Stereotype("DISCUSSION") @Column(length=32) 
+	// tmpr @Stereotype("DISCUSSION")
+	@Discussion // tmr
+	@Column(length=32) 
 	private String discussion;
 	
 	@OneToMany(mappedBy="incident", cascade=CascadeType.REMOVE)

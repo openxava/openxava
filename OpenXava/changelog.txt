@@ -3,9 +3,6 @@ Change Log for OpenXava project
 
 - Anotaciones para estereotipos.
 
-    - HtmlText
-    - SimpleHtmlText
-    - Discussion
     - Icon
     - Coordinates
     - javax.validation.constraints.Email

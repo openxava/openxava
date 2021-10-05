@@ -334,6 +334,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		//   because this method is called a lot of times, while most times
 		//   the annotation are in the field, not in the getter
 		
+		if (getMetaModel() == null) return null;
 		Annotation[] result = null;
 		try {
 			AnnotatedElement element = getMetaModel().getPOJOClass().getDeclaredField(getSimpleName());

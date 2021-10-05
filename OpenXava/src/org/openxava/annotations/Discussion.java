@@ -28,8 +28,6 @@ import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.METHOD })
-public @interface HtmlText {
-	
-	boolean simple() default false;
+public @interface Discussion {
 	
 }

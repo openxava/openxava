@@ -4,10 +4,14 @@
 boolean editable="true".equals(request.getParameter("editable"));
 
 if (editable) {
-	// TMR ME QUEDÉ POR AQUÍ: EVALUAR LA POSIBILIDAD DE TENER UNA PROPIEDAD simple
 	String cssClass = "ox-ckeditor";
 	String ckeConfig = request.getParameter("config");
-	if (ckeConfig != null) cssClass = "ox-" + ckeConfig + "-ckeditor";
+	// tmr ini
+	if ("true".equals(request.getParameter("simple"))) {
+		ckeConfig = "simple";
+	} 
+	// tmr fin
+	if (ckeConfig != null) cssClass = "ox-" + ckeConfig + "-ckeditor"; 
 %>
 <jsp:include page="textAreaEditor.jsp">
 	<jsp:param name="cssClass" value="<%=cssClass%>" />
