@@ -22,7 +22,9 @@ public class Corporation extends Identifiable {
 	@Required
 	private String name;
 	
-	@Stereotype("ICON") @Column(length=40)
+	// tmr @Stereotype("ICON") 
+	@Icon
+	@Column(length=40)
 	private String icon; 
 	
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL)

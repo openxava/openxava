@@ -3,7 +3,6 @@ Change Log for OpenXava project
 
 - Anotaciones para estereotipos.
 
-    - Icon
     - Coordinates
     - javax.validation.constraints.Email
     - org.hibernate.validator.constraints.URL
