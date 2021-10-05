@@ -16,7 +16,9 @@ import org.openxava.model.*;
 @Tab(properties="time, description, amountOfPeople, type.description")
 public class Appointment extends Identifiable {
 	
-	@Stereotype("DATETIME") @Required
+	// tmr @Stereotype("DATETIME") 
+	@DateTime // tmr
+	@Required
 	private Date time;
 	
 	@Column(length=60) @Required

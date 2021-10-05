@@ -51,7 +51,7 @@ public class ClerkTest extends ModuleTestBase {
 		String time = getCurrentTime();
 		setValue("arrivalTime", time);
 		setValue("endingTime", time);
-		assertSize("endingTime", 5); // tmr ME QUEDÉ POR AQUÍ: FALLA
+		assertSize("endingTime", "5"); // tmr
 		setValue("comments", "Created at " + time);
 		execute("CRUD.save");
 		assertNoErrors();
@@ -86,7 +86,7 @@ public class ClerkTest extends ModuleTestBase {
 		assertContentTypeForPopup("application/pdf");			
 	}
 	
-	private void assertSize(String property, int expectedSize) {
+	private void assertSize(String property, String expectedSize) {
 		HtmlInput input = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Clerk__" + property);
 		assertEquals(expectedSize, input.getSize());
 	}

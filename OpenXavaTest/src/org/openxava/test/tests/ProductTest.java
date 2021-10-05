@@ -1,12 +1,12 @@
 package org.openxava.test.tests;
 
+import static org.openxava.util.Strings.multiline;
+
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
-
-import static org.openxava.util.Strings.multiline;
 
 /**
  * 
@@ -72,7 +72,7 @@ public class ProductTest extends ModuleTestBase {
 	}
 		
 	/*
-	 * There is no point here, the autonumeric,js truncate 
+	 * There is no point here, the autonumeric,js truncates 
 	 * the value to the number of decimals.
 	public void testMoneyScaleValidator() throws Exception {		
 		execute("List.viewDetail", "row=0");
@@ -81,6 +81,7 @@ public class ProductTest extends ModuleTestBase {
 		assertError("Unit price in Product has too much decimals. Only 2 are allowed");
 	}
 	*/
+	
 	
 	public void testSumInMyReport() throws Exception { 
 		execute("ExtendedPrint.myReports");

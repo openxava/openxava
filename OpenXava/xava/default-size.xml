@@ -6,16 +6,20 @@
 
 	<for-stereotype name="DINERO" size="15" scale="2"/>
 	<for-stereotype name="MONEY" size="15" scale="2"/>
+	<for-annotation class="org.openxava.annotations.Money" size="15" scale="2"/> <!-- tmp -->
 	<for-stereotype name="TEXTO_GRANDE" size="500"/>
 	<for-stereotype name="MEMO" size="500"/>
 	<for-stereotype name="TEXT_AREA" size="500"/>
+	<for-annotation class="org.openxava.annotations.TextArea" size="500"/> <!-- tmp -->
 	<for-stereotype name="HTML_TEXT" size="3000"/>
 	<for-stereotype name="TEXTO_HTML" size="3000"/>
+	<for-annotation class="org.openxava.annotations.HtmlText" size="3000"/> <!-- tmp -->
 	<for-stereotype name="HORA" size="5"/>	
 	<for-stereotype name="TIME" size="5"/>
 	<for-annotation class="org.openxava.annotations.StringTime" size="5"/> <!-- tmp -->
 	<for-stereotype name="DATETIME" size="19"/>
 	<for-stereotype name="FECHAHORA" size="19"/>  
+	<for-annotation class="org.openxava.annotations.DateTime" size="19"/> <!-- tmp -->
 	<for-stereotype name="EMAIL" size="50"/>
 	<for-stereotype name="TELEPHONE" size="15"/>
 	<for-stereotype name="TELEFONO" size="15"/>

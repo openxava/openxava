@@ -1,8 +1,8 @@
 package org.openxava.test.model;
 
-import org.openxava.annotations.*;
-
 import javax.persistence.*;
+
+import org.openxava.annotations.*;
 
 /**
  * 
@@ -14,7 +14,9 @@ public class Login {
 	@Column(length=20)
 	private String user;
 	
-	@Column(length=15) @Stereotype("PASSWORD")
+	@Column(length=15) 
+	// tmr @Stereotype("PASSWORD")
+	@Password // tmr
 	private String password;
 
 	public String getUser() {

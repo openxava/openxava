@@ -3,14 +3,6 @@ Change Log for OpenXava project
 
 - Anotaciones para estereotipos.
 
-	- StringTime
-    - Password
-    - Money
-    - TextArea
-    - Label
-    - DateTime
-    - BoldLabel
-    - ZerosFilled
     - HtmlText
     - SimpleHtmlText
     - Discussion
@@ -23,8 +15,24 @@ Change Log for OpenXava project
 		- default-size.xml
 		- API.
 		- Referencia. Revisar todas anotaciones, mirar otras partes donde se referencien.
+			- StringTime
+		    - Password
+		    - Money
+		    - TextArea
+		    - Label
+		    - DateTime
+		    - HtmlText
+		    - SimpleHtmlText
+		    - Discussion
+		    - Icon
+		    - Coordinates
+		    - javax.validation.constraints.Email
+		    - org.hibernate.validator.constraints.URL			
 	- Limpiar código.
 	- Update OX.	
+	
+	
+- Java annotations can be associated to a default size in default-size.xml.
 
 - Fix: @OrderColumn collection order altered when a collection element is modified from its module.	
 - New moveRow() methods in ModuleTestBase to test moving rows in @OrderColumn collections. 			

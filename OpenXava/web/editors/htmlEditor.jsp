@@ -4,6 +4,7 @@
 boolean editable="true".equals(request.getParameter("editable"));
 
 if (editable) {
+	// TMR ME QUEDÉ POR AQUÍ: EVALUAR LA POSIBILIDAD DE TENER UNA PROPIEDAD simple
 	String cssClass = "ox-ckeditor";
 	String ckeConfig = request.getParameter("config");
 	if (ckeConfig != null) cssClass = "ox-" + ckeConfig + "-ckeditor";

@@ -96,7 +96,7 @@ public class DefaultSize {
 		if (stereotypes == null) {
 			configure();
 		}
-		Integer result = annotations.get(annotation.annotationType());
+		Integer result = annotations.get(annotation.annotationType().getName());
 		if (result == null) {
 			throw new ElementNotFoundException("default_size_for_stereotype_not_found", annotation.annotationType()); // tmr i18n
 		}
@@ -171,7 +171,7 @@ public class DefaultSize {
 		if (types == null) {
 			configure();
 		}
-		Integer result = scaleAnnotations.get(annotation.annotationType());
+		Integer result = scaleAnnotations.get(annotation.annotationType().getName());
 		if (result == null) {
 			throw new ElementNotFoundException("default_size_for_type_not_found", annotation.annotationType()); // tmr i18n
 		}

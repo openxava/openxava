@@ -30,7 +30,8 @@ public class Book extends Identifiable {
 	private BigInteger pages;  
 	
 	@Required(message="Please, enter a synopsis for the book") 
-	@Stereotype("MEMO")
+	// tmr @Stereotype("MEMO")
+	@TextArea // tmr
 	private String synopsis;
 
 	public String getTitle() {

@@ -302,10 +302,10 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			}
 			
 			// tmr ini
-			Annotation[] annotations = getAnnotations(); 
+			Annotation[] annotations = getAnnotations();
 			if (annotations != null) for (Annotation annotation: annotations) {
-				try {					
-					size = DefaultSize.forAnnotation(annotation);					
+				try {
+					size = DefaultSize.forAnnotation(annotation);
 					return size;
 				}
 				catch (ElementNotFoundException ex) {

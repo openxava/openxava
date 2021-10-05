@@ -16,7 +16,9 @@ public class Doc extends Identifiable {
 	@Column(length=40) @Required
 	private String title;
 	
-	@Stereotype("HTML_TEXT") @Lob
+	// tmr @Stereotype("HTML_TEXT")
+	@HtmlText // tmr
+	@Lob
 	private String content;
 	
 	private int worldCount;

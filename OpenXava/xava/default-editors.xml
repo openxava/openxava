@@ -173,7 +173,6 @@
 	<editor name="BoldLabel" url="boldLabelEditor.jsp">
 		<for-stereotype stereotype="ETIQUETA_NEGRITA" />
 		<for-stereotype stereotype="BOLD_LABEL" />
-		<for-annotation annotation="org.openxava.annotations.BoldLabel"/> <!-- tmr -->
 	</editor>
 	
 	<editor name="Image" url="uploadEditor.jsp" format="false">
@@ -243,7 +242,6 @@
 		<property name="fillWithZeros" value="true" />
 		<for-stereotype stereotype="ZEROS_FILLED" />
 		<for-stereotype stereotype="RELLENADO_CON_CEROS" />
-		<for-annotation annotation="org.openxava.annotations.ZerosFilled"/> <!-- tmr -->
 	</editor>
 
 	<!-- 
