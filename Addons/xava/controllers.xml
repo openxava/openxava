@@ -124,26 +124,6 @@
 			class="com.openxava.naviox.actions.UpdateROOTFolderAction"/>		
 		<action name="saveSubfolder" hidden="true" 
 			class="com.openxava.naviox.actions.SaveSubfolderAction"/>
-		<action name="moduleUp" hidden="true" 
-			class="com.openxava.naviox.actions.CallFolderMethodAction"
-			icon="menu-up">
-			<set property="method" value="moduleUp"/>
-		</action>
-		<action name="moduleDown" hidden="true" 
-			class="com.openxava.naviox.actions.CallFolderMethodAction"
-			icon="menu-down">
-			<set property="method" value="moduleDown"/>
-		</action>
-		<action name="subfolderUp" hidden="true" 
-			class="com.openxava.naviox.actions.CallFolderMethodAction"
-			icon="menu-up">
-			<set property="method" value="subfolderUp"/>
-		</action>
-		<action name="subfolderDown" hidden="true" 
-			class="com.openxava.naviox.actions.CallFolderMethodAction"
-			icon="menu-down">
-			<set property="method" value="subfolderDown"/>
-		</action>
 	</controller>
 	
 	<controller name="ChangePassword">
