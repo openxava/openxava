@@ -255,7 +255,6 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			// tmr ini
 			Annotation[] annotations = getAnnotations();
 			if (vr == null && annotations != null) for (Annotation annotation: annotations) {
-				System.out.println("[MetaProperty.createDefaultValidator] annotation=" + annotation); // tmp
 				vr = MetaValidators.getMetaValidatorDefaultFor(annotation.annotationType().getName());
 				if (vr != null) break;
 			}
@@ -263,7 +262,6 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			if (vr == null) {
 				vr = MetaValidators.getMetaValidatorDefaultFor(getType().getName());	
 			}
-			System.out.println("[MetaProperty(" + getName() + ").createDefaultValidator] vr=" + vr); // tmp
 			if (vr == null) return null; 
 			validatorClass = vr.getValidatorClass();
 			return (IPropertyValidator) Class.forName(validatorClass).newInstance();

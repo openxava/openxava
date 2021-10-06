@@ -175,7 +175,7 @@ public class MetaValidators {
 	/**
 	 * @return Null if a validator for the clase is not found.
 	 */
-	public static MetaValidatorFor getMetaValidatorDefaultFor(String typeOrStereotype) // tmr Rename argument
+	public static MetaValidatorFor getMetaValidatorDefaultFor(String typeStereotypeOrAnnotation) 
 		throws XavaException {
 		if (metaValidatorsDefault == null) {
 			metaValidators = new HashMap();
@@ -184,11 +184,11 @@ public class MetaValidators {
 			ValidatorsParser.configureValidators();
 		}
 		MetaValidatorFor v =
-			(MetaValidatorFor) metaValidatorsDefault.get(typeOrStereotype);
+			(MetaValidatorFor) metaValidatorsDefault.get(typeStereotypeOrAnnotation);
 		if (v == null) {
-			v = findFromParent(metaValidatorsDefault, typeOrStereotype);
+			v = findFromParent(metaValidatorsDefault, typeStereotypeOrAnnotation);
 			if (v != null) {
-				metaValidatorsDefault.put(typeOrStereotype, v);
+				metaValidatorsDefault.put(typeStereotypeOrAnnotation, v);
 			}
 		}
 		return v;

@@ -2,15 +2,17 @@
 
 <!ELEMENT validadores (validador*, validador-requerido*, validador-defecto*)>
 
+<!-- tmr Mover a Addons -->
+
 <!ELEMENT validador EMPTY>
 <!ATTLIST validador
   nombre ID #REQUIRED
   clase CDATA #REQUIRED  
 >
 
-<!ELEMENT validador-requerido ((nombre-validador | clase-validador), (para-tipo | para-estereotipo)+)>
+<!ELEMENT validador-requerido ((nombre-validador | clase-validador), (para-tipo | para-estereotipo | para-anotacion)+)> <!-- tmr para-anotacion -->
 
-<!ELEMENT validador-defecto ((nombre-validador | clase-validador), (para-tipo | para-estereotipo)+)>
+<!ELEMENT validador-defecto ((nombre-validador | clase-validador), (para-tipo | para-estereotipo | para-anotacion)+)> <!-- tmr para-anotacion -->
 
 <!ELEMENT nombre-validador EMPTY>
 <!ATTLIST nombre-validador
@@ -31,3 +33,10 @@
 <!ATTLIST para-estereotipo
   estereotipo CDATA #REQUIRED
 >
+
+<!-- tmr ini -->
+<!ELEMENT para-anotacion EMPTY>
+<!ATTLIST para-anotacion
+  para-anotacion CDATA #REQUIRED
+>
+<!-- tmr fin -->

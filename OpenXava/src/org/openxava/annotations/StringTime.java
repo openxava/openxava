@@ -3,24 +3,22 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr Redoc
- * The user can upload a file in this property, so the file is attached to the entity. <p>
+ * A time stored as an String. <p>
  * 
- * If the uploaded file is an image, an image preview is shown. 
- * The user can download the file or see the image (if it is an image) just clicking.
+ * The time is in the format HH:mm, like "13:46" for example.
  * 
- * The data type is String with a length of 32.
+ * The data type is String with a length of 5.
  * 
  * Applies to properties.<p>
  * 
  * Example:
  * <pre>
- * &nbsp;@File
- * &nbsp;@Column(length=32)
- * &nbsp;private String document;
+ * &nbsp;@StringTime
+ * &nbsp;@Column(length=5)
+ * &nbsp;private String startTime;
  * </pre>
  * 
- * It's synonymous of @Stereotype("FILE").
+ * It's synonymous of @Stereotype("TIME").
  *
  * @since 6.6
  * @author Javier Paniza

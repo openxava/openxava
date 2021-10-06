@@ -1,6 +1,7 @@
 package org.openxava.test.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.model.*;
@@ -25,6 +26,7 @@ public class CorporationEmployee extends Identifiable {
 	private String lastName;
 	
 	@Required
+	@Email // tmr
 	private String email;
 
 	@DefaultValueCalculator(MinimumCorporationEmployeeSalaryCalculator.class) 

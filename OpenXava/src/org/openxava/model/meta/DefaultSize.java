@@ -122,11 +122,11 @@ public class DefaultSize {
 	}
 	
 	private static void configure() throws XavaException {
-		stereotypes = new HashMap();
-		types = new HashMap();
+		stereotypes = new HashMap<>();
+		types = new HashMap<>();
 		annotations = new HashMap<>(); // tmr
-		scaleStereotypes = new HashMap();
-		scaleTypes = new HashMap();
+		scaleStereotypes = new HashMap<>();
+		scaleTypes = new HashMap<>();
 		scaleAnnotations = new HashMap<>(); // tmr
 		DefaultSizeParser.configureDefaultSize();
 	}

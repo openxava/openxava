@@ -131,13 +131,14 @@
 	<editor name="Email" url="textEditor.jsp">
         <for-stereotype stereotype="EMAIL"/>
         <for-stereotype stereotype="EMAIL_LIST"/>
-        <for-annotation annotation="javax.validation.constraints.Email"/> <!-- tmr ¿Probar? Realmente es un textEditor -->
+        <for-annotation annotation="javax.validation.constraints.Email"/> <!-- tmr -->
+        <for-annotation annotation="org.hibernate.validator.constraints.Email"/> <!-- tmr -->
     </editor>
     
     <editor name="WebURL" url="webURLEditor.jsp">
     	<list-formatter class="org.openxava.formatters.WebURLFormatter"/>
         <for-stereotype stereotype="WEBURL"/>
-        <for-annotation annotation="org.hibernate.validator.constraints.URL"/> <!-- tmr Probar -->
+        <for-annotation annotation="org.hibernate.validator.constraints.URL"/> <!-- tmr -->
     </editor>    
     
 	<editor name="TextArea" url="textAreaEditor.jsp" frame="true">
@@ -264,7 +265,6 @@
 		<list-formatter class="org.openxava.formatters.HtmlTextListFormatter"/> 
 		<for-stereotype stereotype="SIMPLE_HTML_TEXT" />
 		<for-stereotype stereotype="TEXTO_HTML_SIMPLE" />
-		<for-annotation annotation="org.openxava.annotations.SimpleHtmlText"/> <!-- tmr -->
 	</editor>	
 
 	<!-- 

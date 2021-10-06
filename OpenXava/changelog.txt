@@ -3,13 +3,20 @@ Change Log for OpenXava project
 
 - Anotaciones para estereotipos.
 
-    - javax.validation.constraints.Email
-    - org.hibernate.validator.constraints.URL
-	- Suite.
+	- Suite. TMR ME QUEDÉ POR AQUÍ, PARA LANZAR LA SUITE. EL CÓDIGO REVISÉ TODO EL CÓDIGO
 	- Doc:
+		- API.
+		    - Money
+		    - TextArea
+		    - Label
+		    - DateTime
+		    - HtmlText
+		    - SimpleHtmlText
+		    - Discussion
+		    - Icon
+		    - Coordinates
 		- default-size.xml
 		- validators.xml
-		- API.
 		- Referencia. Revisar todas anotaciones, mirar otras partes donde se referencien.
 			- StringTime
 		    - Password
@@ -22,7 +29,7 @@ Change Log for OpenXava project
 		    - Discussion
 		    - Icon
 		    - Coordinates
-		    - javax.validation.constraints.Email
+		    - javax.validation.constraints.Email (No hemos hecho nada pero podemos aconsejarla)
 		    - org.hibernate.validator.constraints.URL			
 	- Limpiar código.
 	- Update OX.	

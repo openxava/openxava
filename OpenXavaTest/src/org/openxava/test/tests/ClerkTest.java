@@ -42,7 +42,7 @@ public class ClerkTest extends ModuleTestBase {
 		assertContentTypeForPopup("application/vnd.ms-excel");
 	}
 	
-	public void testTimeStereotypeAndSqlTimeAndStringAsByteArrayInDB_i18nOverXmlLabeInXmlComponents() throws Exception { // tmr ¿Cambiar nombre?
+	public void testStringTimeAnnotationAndSqlTimeAndStringAsByteArrayInDB_i18nOverXmlLabeInXmlComponents_defaultSizeByAnnotation() throws Exception {  
 		assertListNotEmpty();
 		execute("List.viewDetail", "row=0");
 		if (!usesAnnotatedPOJO()) { // Only has sense in XML components

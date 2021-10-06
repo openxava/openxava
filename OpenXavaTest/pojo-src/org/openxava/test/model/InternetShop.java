@@ -2,12 +2,14 @@ package org.openxava.test.model;
 
 import javax.persistence.*;
 
-import org.openxava.annotations.*;
+import org.hibernate.validator.constraints.*;
 
 @Entity
 public class InternetShop extends Shop {
 	
-	@Column(length=60) @Stereotype("WEBURL")
+	@Column(length=60) 
+	// tmr @Stereotype("WEBURL")
+	@URL // tmr
 	private String url;
 
 	public String getUrl() {
