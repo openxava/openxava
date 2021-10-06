@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
+<!-- tmr También en español -->
+<!-- tmr Mover a Addons -->
+
 <!ELEMENT validators (validator*, required-validator*, default-validator*)>
 
 <!ELEMENT validator EMPTY>
@@ -8,9 +11,9 @@
   class CDATA #REQUIRED  
 >
 
-<!ELEMENT required-validator ((validator-name | validator-class), (for-type | for-stereotype)+)>
+<!ELEMENT required-validator ((validator-name | validator-class), (for-type | for-stereotype | for-annotation)+)> <!-- tmr for-annotation -->
 
-<!ELEMENT default-validator ((validator-name | validator-class), (for-type | for-stereotype)+)>
+<!ELEMENT default-validator ((validator-name | validator-class), (for-type | for-stereotype | for-annotation)+)> <!-- tmr for-annotation -->
 
 <!ELEMENT validator-name EMPTY>
 <!ATTLIST validator-name
@@ -31,3 +34,10 @@
 <!ATTLIST for-stereotype
   stereotype CDATA #REQUIRED
 >
+
+<!-- tmr ini -->
+<!ELEMENT for-annotation EMPTY>
+<!ATTLIST for-annotation
+  annotation CDATA #REQUIRED
+>
+<!-- tmr fin -->

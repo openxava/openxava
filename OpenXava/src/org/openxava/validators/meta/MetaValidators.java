@@ -2,8 +2,6 @@ package org.openxava.validators.meta;
 
 import java.util.*;
 
-
-
 import org.apache.commons.logging.*;
 import org.openxava.util.*;
 import org.openxava.validators.meta.xmlparse.*;
@@ -32,12 +30,25 @@ public class MetaValidators {
 		if (metaValidatorsRequired == null) {
 			throw new XavaException("only_from_parse", "MetaValidators._addMetaValidatorRequired");
 		}
+		/* tmr
 		if (!Is.emptyString(newMetaValidator.getForType())) {
 			metaValidatorsRequired.put(newMetaValidator.getForType(), newMetaValidator);
 		}
 		else if (!Is.emptyString(newMetaValidator.getForStereotype())) {
 			metaValidatorsRequired.put(newMetaValidator.getForStereotype(), newMetaValidator);
 		}		
+		*/
+		// tmr ini
+		if (!Is.emptyString(newMetaValidator.getForStereotype())) {
+			metaValidatorsRequired.put(newMetaValidator.getForStereotype(), newMetaValidator);
+		}
+		else if (!Is.emptyString(newMetaValidator.getForAnnotation())) {
+			metaValidatorsRequired.put(newMetaValidator.getForAnnotation(), newMetaValidator);
+		}		
+		else if (!Is.emptyString(newMetaValidator.getForType())) {
+			metaValidatorsRequired.put(newMetaValidator.getForType(), newMetaValidator);
+		}
+		// tmr fin
 		else {
 			throw new XavaException("required_validator_type_or_stereotype_required");
 		}
@@ -47,12 +58,25 @@ public class MetaValidators {
 		if (metaValidatorsDefault == null) {
 			throw new XavaException("only_from_parse", "MetaValidators._addMetaValidatorDefault");
 		}
+		/* tmr
 		if (!Is.emptyString(newMetaValidator.getForType())) {
 			metaValidatorsDefault.put(newMetaValidator.getForType(), newMetaValidator);
 		}
 		else if (!Is.emptyString(newMetaValidator.getForStereotype())) {
 			metaValidatorsDefault.put(newMetaValidator.getForStereotype(), newMetaValidator);
 		}		
+		*/
+		// tmr ini
+		if (!Is.emptyString(newMetaValidator.getForStereotype())) {
+			metaValidatorsDefault.put(newMetaValidator.getForStereotype(), newMetaValidator);
+		}				
+		else if (!Is.emptyString(newMetaValidator.getForAnnotation())) {
+			metaValidatorsDefault.put(newMetaValidator.getForAnnotation(), newMetaValidator);
+		}
+		else if (!Is.emptyString(newMetaValidator.getForType())) {
+			metaValidatorsDefault.put(newMetaValidator.getForType(), newMetaValidator);
+		}
+		// tmr fin
 		else {
 			throw new XavaException("default_validator_type_or_stereotype_required");
 		}
@@ -151,7 +175,7 @@ public class MetaValidators {
 	/**
 	 * @return Null if a validator for the clase is not found.
 	 */
-	public static MetaValidatorFor getMetaValidatorDefaultFor(String typeOrStereotype)
+	public static MetaValidatorFor getMetaValidatorDefaultFor(String typeOrStereotype) // tmr Rename argument
 		throws XavaException {
 		if (metaValidatorsDefault == null) {
 			metaValidators = new HashMap();
@@ -169,5 +193,5 @@ public class MetaValidators {
 		}
 		return v;
 	}
-			
+				
 }

@@ -19,6 +19,7 @@ public class MetaValidatorFor {
 	
 	private java.lang.String forType;
 	private String forStereotype;
+	private String forAnnotation; // tmr 
 	private java.lang.String validatorName;
 	public java.lang.String validatorClass;
 	private IPropertyValidator propertyValidator;
@@ -91,6 +92,14 @@ public class MetaValidatorFor {
 
 	public void setForStereotype(String newForStereotype) {
 		this.forStereotype = newForStereotype;
+	}
+
+	public String getForAnnotation() {
+		return forAnnotation;
+	}
+
+	public void setForAnnotation(String forAnnotation) {
+		this.forAnnotation = forAnnotation;
 	}
 
 }

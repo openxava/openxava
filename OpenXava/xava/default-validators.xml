@@ -99,7 +99,7 @@
 		<validator-class class="org.openxava.validators.CoordinatesValidator"/>
 		<for-stereotype stereotype="COORDINATES"/>
 		<for-stereotype stereotype="COORDENADAS"/>
-		<!-- TMR ME QUEDÉ POR AQUÍ: HABRÁ QUE ASIGNAR VALIDADOR A COORDINATES -->
+		<for-annotation annotation="org.openxava.annotations.Coordinates"/> <!-- tmr -->		
 	</default-validator>	
 					
 </validators>

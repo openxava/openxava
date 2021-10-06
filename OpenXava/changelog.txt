@@ -3,12 +3,12 @@ Change Log for OpenXava project
 
 - Anotaciones para estereotipos.
 
-    - Coordinates
     - javax.validation.constraints.Email
     - org.hibernate.validator.constraints.URL
 	- Suite.
 	- Doc:
 		- default-size.xml
+		- validators.xml
 		- API.
 		- Referencia. Revisar todas anotaciones, mirar otras partes donde se referencien.
 			- StringTime
@@ -27,7 +27,8 @@ Change Log for OpenXava project
 	- Limpiar código.
 	- Update OX.	
 	
-	
+
+- Java annotations can be associated to validators in validators.xml.	
 - Java annotations can be associated to a default size in default-size.xml.
 
 - Fix: @OrderColumn collection order altered when a collection element is modified from its module.	

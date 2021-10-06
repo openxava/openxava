@@ -6,20 +6,20 @@
 
 	<for-stereotype name="DINERO" size="15" scale="2"/>
 	<for-stereotype name="MONEY" size="15" scale="2"/>
-	<for-annotation class="org.openxava.annotations.Money" size="15" scale="2"/> <!-- tmp -->
+	<for-annotation class="org.openxava.annotations.Money" size="15" scale="2"/> <!-- tmr -->
 	<for-stereotype name="TEXTO_GRANDE" size="500"/>
 	<for-stereotype name="MEMO" size="500"/>
 	<for-stereotype name="TEXT_AREA" size="500"/>
-	<for-annotation class="org.openxava.annotations.TextArea" size="500"/> <!-- tmp -->
+	<for-annotation class="org.openxava.annotations.TextArea" size="500"/> <!-- tmr -->
 	<for-stereotype name="HTML_TEXT" size="3000"/>
 	<for-stereotype name="TEXTO_HTML" size="3000"/>
-	<for-annotation class="org.openxava.annotations.HtmlText" size="3000"/> <!-- tmp -->
+	<for-annotation class="org.openxava.annotations.HtmlText" size="3000"/> <!-- tmr -->
 	<for-stereotype name="HORA" size="5"/>	
 	<for-stereotype name="TIME" size="5"/>
-	<for-annotation class="org.openxava.annotations.StringTime" size="5"/> <!-- tmp -->
+	<for-annotation class="org.openxava.annotations.StringTime" size="5"/> <!-- tmr -->
 	<for-stereotype name="DATETIME" size="19"/>
 	<for-stereotype name="FECHAHORA" size="19"/>  
-	<for-annotation class="org.openxava.annotations.DateTime" size="19"/> <!-- tmp -->
+	<for-annotation class="org.openxava.annotations.DateTime" size="19"/> <!-- tmr -->
 	<for-stereotype name="EMAIL" size="50"/>
 	<for-stereotype name="TELEPHONE" size="15"/>
 	<for-stereotype name="TELEFONO" size="15"/>
@@ -33,17 +33,17 @@
 	<for-stereotype name="MAC" size="17"/>
 	<for-stereotype name="ICON" size="40"/> 
 	<for-stereotype name="ICONO" size="40"/>
-	<for-annotation class="org.openxava.annotations.Icon" size="40"/> <!-- tmp -->
+	<for-annotation class="org.openxava.annotations.Icon" size="40"/> <!-- tmr -->
 	<for-stereotype name="DISCUSSION" size="32"/> 
 	<for-stereotype name="DISCUSION" size="32"/> 
-	<for-annotation class="org.openxava.annotations.Discussion" size="32"/> <!-- tmp -->
+	<for-annotation class="org.openxava.annotations.Discussion" size="32"/> <!-- tmr -->
 	<for-stereotype name="IMAGES_GALLERY" size="32"/>
 	<for-stereotype name="GALERIA_IMAGENES" size="32"/>
 	<for-stereotype name="FILES" size="32"/>
 	<for-stereotype name="ARCHIVOS" size="32"/>
 	<for-stereotype name="COORDINATES" size="50"/> 
 	<for-stereotype name="COORDENADAS" size="50"/>
-	<for-annotation class="org.openxava.annotations.Coordinates" size="50"/> <!-- tmp -->
+	<for-annotation class="org.openxava.annotations.Coordinates" size="50"/> <!-- tmr -->
 	<for-type class="java.sql.Time" size="5"/>
 	<for-type class="java.util.Date" size="10"/>
 	<for-type class="java.time.LocalDate" size="10"/>

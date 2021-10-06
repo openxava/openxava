@@ -65,7 +65,7 @@ public class ValidatorsParser extends ParserBase {
 			MetaValidatorFor validator = new MetaValidatorFor();
 			validator.setValidatorName(validatorName);
 			validator.setValidatorClass(validatorClass);
-			validator.setForType(elForType.getAttribute(xtype[lang]));		
+			validator.setForType(elForType.getAttribute(xtype[lang]));
 			if (requiredValidators) {
 				MetaValidators._addMetaValidatorRequired(validator);
 			}
@@ -89,6 +89,24 @@ public class ValidatorsParser extends ParserBase {
 				MetaValidators._addMetaValidatorDefault(validator);
 			}
 		}				
+		
+		// tmr ini
+		l = el.getElementsByTagName(xfor_annotation[lang]);
+		c = l.getLength();
+		for (int i = 0; i < c; i++) {
+			Element elForAnnotation = (Element) l.item(i);		
+			MetaValidatorFor validator = new MetaValidatorFor();
+			validator.setValidatorName(validatorName);
+			validator.setValidatorClass(validatorClass);
+			validator.setForAnnotation(elForAnnotation.getAttribute(xannotation[lang]));
+			if (requiredValidators) {
+				MetaValidators._addMetaValidatorRequired(validator);
+			}
+			else {
+				MetaValidators._addMetaValidatorDefault(validator);
+			}
+		}
+		// tmr fin
 		
 	}
 		
