@@ -27,6 +27,7 @@ Change Log for OpenXava project
 - @Password, @Money, @TextArea, @Label, @DateTime, @Discussion, @Icon as alternative to stereotypes.
 - @StringTime annotation as alternative to TIME stereotype with String properties. 
 - @HtmlText as alternative to HTML_TEXT, with @HtmlText(simple=true) as alternative to SIMPLE_HTML_TEXT.
+- Java annotations can be associated to defaul types in annotation-type-default.xml.
 - Java annotations can be associated to validators in validators.xml.	
 - Java annotations can be associated to a default size in default-size.xml.
 
