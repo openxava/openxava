@@ -3,24 +3,22 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr Redoc
- * The user can upload a file in this property, so the file is attached to the entity. <p>
+ * String used to represent a big area of text. <p>
  * 
- * If the uploaded file is an image, an image preview is shown. 
- * The user can download the file or see the image (if it is an image) just clicking.
+ * The user interface is an TextArea or Memo, where the user can type several lines.
  * 
- * The data type is String with a length of 32.
+ * The data type is String with 500 as length by default.
  * 
  * Applies to properties.<p>
  * 
  * Example:
  * <pre>
- * &nbsp;@File
- * &nbsp;@Column(length=32)
- * &nbsp;private String document;
+ * &nbsp;@TextArea
+ * &nbsp;@Column(length=2000)
+ * &nbsp;private String remarks;
  * </pre>
  * 
- * It's synonymous of @Stereotype("FILE").
+ * It's synonymous of @Stereotype("TEXT_AREA").
  *
  * @since 6.6
  * @author Javier Paniza

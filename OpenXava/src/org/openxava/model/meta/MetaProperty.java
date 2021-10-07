@@ -1029,27 +1029,57 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	}
 	
 	private boolean isTimestamp() { 
-		return isTypeOrStereotypeCompatibleWith(java.sql.Timestamp.class);
+		return isCompatibleWith(java.sql.Timestamp.class);
 	}
 	
-	/**
-	 * 
+	/* tmr Ponerla como deprecada
 	 * @since 5.3.1
-	 */
 	public boolean isTypeOrStereotypeCompatibleWith(Class type) { 
+		
+	}
+	*/
+	
+	
+	/**
+	 * Verify if the type, stereotype or any annotation of the property is compatible with the indicated type.
+	 * 
+	 * 
+	 * @since 6.6
+	 */
+	public boolean isCompatibleWith(Class type) { // tmr ¿Rename?
 		if (type.isAssignableFrom(getType())) return true;
-		if (Is.emptyString(getStereotype())) return false;
-		try {
-			String typeName = TypeStereotypeDefault.forStereotype(getStereotype());
-			Class stereotypeType = Class.forName(typeName);
-			return type.isAssignableFrom(stereotypeType);
+		// tmr if (Is.emptyString(getStereotype())) return false;
+		if (!Is.emptyString(getStereotype())) { // tmr
+			try {
+				String typeName = TypeStereotypeDefault.forStereotype(getStereotype());
+				Class stereotypeType = Class.forName(typeName);
+				return type.isAssignableFrom(stereotypeType);
+			}
+			catch (ClassNotFoundException ex) {
+				log.warn(XavaResources.getString("class_not_found_for_default_type_for_stereotype"), ex);
+				return false; 
+			}
+			catch (ElementNotFoundException ex) {
+				return false;
+			}
+		} // tmr 
+		// tmr ini 
+		Annotation[] annotations = getAnnotations();
+		if (annotations != null) for (Annotation annotation: annotations) {
+			try {
+				String typeName = TypeAnnotationDefault.forAnnotation(annotation);
+				Class annotationForType = Class.forName(typeName);
+				return type.isAssignableFrom(annotationForType);
+			}
+			catch (ClassNotFoundException ex) {
+				log.warn(XavaResources.getString("class_not_found_for_default_type_for_annotation"), ex);
+			}
+			catch (ElementNotFoundException ex) {
+				// Try the next annotation
+			}
 		}
-		catch (ClassNotFoundException ex) {
-			return false; 
-		}
-		catch (ElementNotFoundException ex) {
-			return false;
-		}
+		return false;
+		// tmr fin
 	}
 	
 

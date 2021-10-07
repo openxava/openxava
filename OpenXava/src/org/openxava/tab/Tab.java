@@ -950,7 +950,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 					}
 					if (YEAR_MONTH_COMPARATOR.equals(this.conditionComparators[i]) ||
 						RANGE_COMPARATOR.equals(this.conditionComparators[i]) ||
-						p.isTypeOrStereotypeCompatibleWith(Timestamp.class) && EQ_COMPARATOR.equals(this.conditionComparators[i])) { 
+						p.isCompatibleWith(Timestamp.class) && EQ_COMPARATOR.equals(this.conditionComparators[i])) { 
 						metaPropertiesKey.add(null);
 						metaPropertiesKey.add(null);
 					}
@@ -981,11 +981,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 							sb.append(')');
 						}
 						else {
-							v = p.isTypeOrStereotypeCompatibleWith(Timestamp.class)?
+							v = p.isCompatibleWith(Timestamp.class)?
 								p.parse(value, getLocale()):
 								WebEditors.parse(getRequest(), p, value, errors, null); 
 						} 
-						if ((v instanceof Timestamp || p.isTypeOrStereotypeCompatibleWith(Timestamp.class)) && EQ_COMPARATOR.equals(this.conditionComparators[i])) {  						 
+						if ((v instanceof Timestamp || p.isCompatibleWith(Timestamp.class)) && EQ_COMPARATOR.equals(this.conditionComparators[i])) {  						 
 							if (Dates.hasTime((java.util.Date) v)) { 
 								valuesToWhere.add(v);
 								valuesToWhere.add(v);
@@ -1172,7 +1172,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		if (NOT_IN_COMPARATOR.equals(comparator)) return "not in"; 
 		if (RANGE_COMPARATOR.equals(comparator)) return "between ? and ";
 		if (EQ_COMPARATOR.equals(comparator)) {
-			if (p.isTypeOrStereotypeCompatibleWith(Timestamp.class)) {  			
+			if (p.isCompatibleWith(Timestamp.class)) {  			
 				return "between ? and ";
 			}
 			else {

@@ -1,6 +1,5 @@
 <!ELEMENT default-size (for-stereotype|for-type|for-annotation)+> <!-- tmr for-annoation -->
 
-<!-- tmr También en español -->
 <!-- tmr Mover a Addons -->
 
 <!ELEMENT for-stereotype EMPTY>

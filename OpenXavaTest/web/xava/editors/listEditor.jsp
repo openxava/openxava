@@ -231,7 +231,8 @@ while (it.hasNext()) {
 		boolean isString = "java.lang.String".equals(property.getType().getName());
 		boolean isBoolean = "boolean".equals(property.getType().getName()) || "java.lang.Boolean".equals(property.getType().getName());
 		boolean isDate = java.util.Date.class.isAssignableFrom(property.getType()) && !property.getType().equals(java.sql.Time.class) || java.time.LocalDate.class.isAssignableFrom(property.getType()); 
-		boolean isTimestamp = property.isTypeOrStereotypeCompatibleWith(java.sql.Timestamp.class);  
+		// tmr boolean isTimestamp = property.isTypeOrStereotypeCompatibleWith(java.sql.Timestamp.class);  
+		boolean isTimestamp = property.isCompatibleWith(java.sql.Timestamp.class); // tmr
 		String editorURLDescriptionsList = WebEditors.getEditorURLDescriptionsList(tab.getTabName(), tab.getModelName(), Ids.decorate(request, property.getQualifiedName()), iConditionValues, prefix, property.getQualifiedName(), property.getName());
 		int maxLength = 100; 		
 		int length = Math.min(isString?property.getSize()*4/5:property.getSize(), 20);

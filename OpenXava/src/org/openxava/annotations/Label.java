@@ -3,24 +3,23 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr Redoc
- * The user can upload a file in this property, so the file is attached to the entity. <p>
+ * String field displayed as a label. <p>
  * 
- * If the uploaded file is an image, an image preview is shown. 
- * The user can download the file or see the image (if it is an image) just clicking.
+ * The field is not editable and always displayed as a label.
  * 
- * The data type is String with a length of 32.
+ * The data type is String.
  * 
  * Applies to properties.<p>
  * 
  * Example:
  * <pre>
- * &nbsp;@File
- * &nbsp;@Column(length=32)
- * &nbsp;private String document;
+ * &nbsp;@Label
+ * public String getZoneOne() {
+ * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "IN ZONE 1";
+ * &nbsp;}
  * </pre>
  * 
- * It's synonymous of @Stereotype("FILE").
+ * It's synonymous of @Stereotype("LABEL").
  *
  * @since 6.6
  * @author Javier Paniza

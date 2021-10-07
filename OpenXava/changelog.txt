@@ -3,20 +3,10 @@ Change Log for OpenXava project
 
 - Anotaciones para estereotipos.
 
-	- Suite. TMR ME QUEDÉ POR AQUÍ, PARA LANZAR LA SUITE. EL CÓDIGO REVISÉ TODO EL CÓDIGO
 	- Doc:
-		- API.
-		    - Money
-		    - TextArea
-		    - Label
-		    - DateTime
-		    - HtmlText
-		    - SimpleHtmlText
-		    - Discussion
-		    - Icon
-		    - Coordinates
 		- default-size.xml
 		- validators.xml
+		- ¿annotation-type-default.xml?
 		- Referencia. Revisar todas anotaciones, mirar otras partes donde se referencien.
 			- StringTime
 		    - Password
@@ -34,7 +24,9 @@ Change Log for OpenXava project
 	- Limpiar código.
 	- Update OX.	
 	
-
+- @Password, @Money, @TextArea, @Label, @DateTime, @Discussion, @Icon as alternative to stereotypes.
+- @StringTime annotation as alternative to TIME stereotype with String properties. 
+- @HtmlText as alternative to HTML_TEXT, with @HtmlText(simple=true) as alternative to SIMPLE_HTML_TEXT.
 - Java annotations can be associated to validators in validators.xml.	
 - Java annotations can be associated to a default size in default-size.xml.
 
@@ -71,7 +63,7 @@ Change Log for OpenXava project
 - Fixed modules (those declared with fixModulesOnTopMenu in naviox.properties) are shown on top as tabs.
 - Lessons 2, 3 and 4 of course includes video.
 - Lesson 2 and 4 of course divided in several smaller lessons.
-- New COORDINATES/COORDENADAS stereotype to store and display a point in a map.	
+- New @Coordinates annotation or COORDINATES/COORDENADAS stereotype to store and display a point in a map.	
 - Some new common use labels to be used in applications. 	
 
 OpenXava 6.5.3 (2021-7-12)

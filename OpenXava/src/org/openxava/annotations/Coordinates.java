@@ -3,24 +3,23 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr Redoc
- * The user can upload a file in this property, so the file is attached to the entity. <p>
+ * Allows to choose a point in a map and store it. <p>
  * 
- * If the uploaded file is an image, an image preview is shown. 
- * The user can download the file or see the image (if it is an image) just clicking.
+ * The user can mark in any part of the map then the coordinates change. 
+ * Also if he types or pastes the coordinates in the field the map and the mark are repositioned.<br>
  * 
- * The data type is String with a length of 32.
+ * The data type is String with a length of 50.<br>
  * 
  * Applies to properties.<p>
  * 
  * Example:
  * <pre>
- * &nbsp;@File
- * &nbsp;@Column(length=32)
- * &nbsp;private String document;
+ * &nbsp;@Coordinates
+ * &nbsp;@Column(length=50)
+ * &nbsp;private String location;
  * </pre>
  * 
- * It's synonymous of @Stereotype("FILE").
+ * It's synonymous of @Stereotype("COORDINATES").
  *
  * @since 6.6
  * @author Javier Paniza

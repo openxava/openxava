@@ -3,24 +3,24 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr Redoc
- * The user can upload a file in this property, so the file is attached to the entity. <p>
+ * A field that display an icon, the user can change the icon. <p>
  * 
- * If the uploaded file is an image, an image preview is shown. 
- * The user can download the file or see the image (if it is an image) just clicking.
+ * The icon is stored as an id from <a href="https://materialdesignicons.com/">Material Design Icons</a><br>
+ *  
+ * The user can change the icon with a dialog to choose among all available icons.<br>
  * 
- * The data type is String with a length of 32.
+ * The data type is String with a length of 40.<br>
  * 
  * Applies to properties.<p>
  * 
  * Example:
  * <pre>
- * &nbsp;@File
- * &nbsp;@Column(length=32)
- * &nbsp;private String document;
+ * &nbsp;@Icon
+ * &nbsp;@Column(length=40)
+ * &nbsp;private String icon;
  * </pre>
  * 
- * It's synonymous of @Stereotype("FILE").
+ * It's synonymous of @Stereotype("ICON").
  *
  * @since 6.6
  * @author Javier Paniza

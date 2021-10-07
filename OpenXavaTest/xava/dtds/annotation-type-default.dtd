@@ -1,0 +1,11 @@
+<!ELEMENT annotation-type-default (for*)>
+
+<!-- tmr Mover a Addons -->
+
+<!ELEMENT for EMPTY>
+<!ATTLIST for
+ annotation CDATA #REQUIRED
+ type CDATA #REQUIRED
+>
+
+

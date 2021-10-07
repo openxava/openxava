@@ -1,0 +1,11 @@
+<!ELEMENT tipo-anotacion-defecto (para*)>
+
+<!-- tmr Mover a Addons -->
+
+<!ELEMENT para EMPTY>
+<!ATTLIST para
+ anotacion CDATA #REQUIRED
+ tipo CDATA #REQUIRED
+>
+
+

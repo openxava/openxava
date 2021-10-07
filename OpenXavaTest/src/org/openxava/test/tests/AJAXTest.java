@@ -688,7 +688,7 @@ public class AJAXTest extends ModuleTestBase {
 	public void testShowingHiddingPartsReloadsFullView() throws Exception { 
 		changeModule("Product2"); 
 		execute("List.viewDetail", "row=0");
-		assertNotExists("zoneOne");
+		assertNotExists("zoneOne"); 
 		assertLoadedParts("core, ");
 		execute("Navigation.next");
 		assertExists("zoneOne");
