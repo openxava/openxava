@@ -23,6 +23,7 @@ Change Log for OpenXava project
 		    - org.hibernate.validator.constraints.URL			
 	- Limpiar código.
 	- Update OX.	
+	- Documentar IPropertyAction en @Action
 	
 - @Password, @Money, @TextArea, @Label, @DateTime, @Discussion, @Icon as alternative to stereotypes.
 - @StringTime annotation as alternative to TIME stereotype with String properties. 
