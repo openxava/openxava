@@ -1,12 +1,6 @@
 Anotaciones para estereotipos
 -----------------------------
 
-- Faltan: Poner model_en/es y en changelog
-	- ISBN
-	- CREDIT_CARD, TARJETA_CREDITO
-	- EMAIL_LIST, LISTA_EMAIL
-	- MAC
-
 - Guía de referencia:
 	- Model: Definición de estereotipo
 	- Model: Discussion.

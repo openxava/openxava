@@ -133,6 +133,7 @@
         <for-stereotype stereotype="EMAIL_LIST"/>
         <for-annotation annotation="javax.validation.constraints.Email"/> <!-- tmr -->
         <for-annotation annotation="org.hibernate.validator.constraints.Email"/> <!-- tmr -->
+        <for-annotation annotation="org.openxava.annotations.EmailList"/> <!-- tmr -->     
     </editor>
     
     <editor name="WebURL" url="webURLEditor.jsp">

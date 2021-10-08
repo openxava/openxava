@@ -30,11 +30,15 @@
 	<for-stereotype name="IP" size="15"/>
 	<for-annotation class="org.openxava.annotations.IP" size="15"/> <!-- tmr -->
 	<for-stereotype name="ISBN" size="13"/>
+	<for-annotation class="org.hibernate.validator.constraints.ISBN" size="13"/> <!-- tmr -->
 	<for-stereotype name="CREDIT_CARD" size="19"/>
 	<for-stereotype name="TARJETA_CREDITO" size="19"/>
+	<for-annotation class="org.hibernate.validator.constraints.CreditCardNumber" size="19"/> <!-- tmr -->
 	<for-stereotype name="EMAIL_LIST" size="200"/>
 	<for-stereotype name="LISTA_EMAIL" size="200"/>
+	<for-annotation class="org.openxava.annotations.EmailList" size="200"/> <!-- tmr -->
 	<for-stereotype name="MAC" size="17"/>
+	<for-annotation class="org.openxava.annotations.MAC" size="17"/> <!-- tmr -->
 	<for-stereotype name="ICON" size="40"/> 
 	<for-stereotype name="ICONO" size="40"/>
 	<for-annotation class="org.openxava.annotations.Icon" size="40"/> <!-- tmr -->
