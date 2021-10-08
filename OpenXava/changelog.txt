@@ -1,36 +1,15 @@
 Change Log for OpenXava project
 ===============================
 
-- Anotaciones para estereotipos.
-
-	- Doc:
-		- default-size.xml
-		- validators.xml
-		- ¿annotation-type-default.xml?
-		- Referencia. Revisar todas anotaciones, mirar otras partes donde se referencien.
-			- StringTime
-		    - Password
-		    - Money
-		    - TextArea
-		    - Label
-		    - DateTime
-		    - HtmlText
-		    - SimpleHtmlText
-		    - Discussion
-		    - Icon
-		    - Coordinates
-		    - javax.validation.constraints.Email (No hemos hecho nada pero podemos aconsejarla)
-		    - org.hibernate.validator.constraints.URL			
-	- Limpiar código.
-	- Update OX.	
-	- Documentar IPropertyAction en @Action
 	
-- @Password, @Money, @TextArea, @Label, @DateTime, @Discussion, @Icon as alternative to stereotypes.
+- @Password, @Money, @TextArea, @Label, @DateTime as alternative to stereotypes.
+- @Discussion, @Icon, @Telephone, @IP as alternative to stereotypes.
 - @StringTime annotation as alternative to TIME stereotype with String properties. 
 - @HtmlText as alternative to HTML_TEXT, with @HtmlText(simple=true) as alternative to SIMPLE_HTML_TEXT.
 - Java annotations can be associated to defaul types in annotation-type-default.xml.
 - Java annotations can be associated to validators in validators.xml.	
 - Java annotations can be associated to a default size in default-size.xml.
+- Fix: IP stereotype not linked to its corresponding validator, so no validation was done for IPs.
 
 - Fix: @OrderColumn collection order altered when a collection element is modified from its module.	
 - New moveRow() methods in ModuleTestBase to test moving rows in @OrderColumn collections. 			

@@ -67,6 +67,7 @@
 		<validator-class class="org.openxava.validators.MoneyScaleValidator"/>
 		<for-stereotype stereotype="MONEY"/>
 		<for-stereotype stereotype="DINERO"/>
+		<for-annotation annotation="org.openxava.annotations.Money"/> <!-- tmr -->
 	</default-validator>
 	
 	<default-validator>
@@ -83,7 +84,16 @@
 		<validator-class class="org.openxava.validators.PhoneNumberValidator"/>
 		<for-stereotype stereotype="TELEPHONE"/>
 		<for-stereotype stereotype="TELEFONO"/>
+		<for-annotation annotation="org.openxava.annotations.Telephone"/> <!-- tmr -->
 	</default-validator>
+	
+	<!-- tmr ini -->
+	<default-validator>
+		<validator-class class="org.openxava.validators.IPValidator"/>
+		<for-stereotype stereotype="IP"/>
+		<for-annotation annotation="org.openxava.annotations.IP"/> <!-- tmr -->
+	</default-validator>
+	<!-- tmr fin -->
 	
 	<default-validator>
 		<validator-class class="org.openxava.validators.URLValidator"/>

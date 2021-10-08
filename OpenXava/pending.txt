@@ -1,0 +1,22 @@
+Anotaciones para estereotipos
+-----------------------------
+
+- Faltan: Poner model_en/es y en changelog
+	- ISBN
+	- CREDIT_CARD, TARJETA_CREDITO
+	- EMAIL_LIST, LISTA_EMAIL
+	- MAC
+
+- Guía de referencia:
+	- Model: Definición de estereotipo
+	- Model: Discussion.
+	- Model: Coordinates.
+	- Model: Títulos para files, discussion y coordinates
+	- Customization
+	- default-size.xml
+	- validators.xml
+	- ¿annotation-type-default.xml?
+- Documentar IPropertyAction en @Action
+- Limpiar código.
+- Update OX.	
+- Suite.

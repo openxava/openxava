@@ -958,49 +958,74 @@ class="br0">}</span>                    <span class="co1">// 13</span></pre>
       afinar más; lo podemos hacer asignando un esterotipo a cada uno de estos
       casos. Es decir, podemos tener los estereotipos NOMBRE, TEXTO_GRANDE o
       DESCRIPCION y asignarlos a nuestras propiedades.</div>
-    <div class="wiki" style="display: block;">A partir de v6.6 hay anotaciones
-      Java específicas para algunos estereotipos (es decir puedes usar <i>@File</i>
-      en lugar de <i>@Stereotype("ARCHIVO")</i>), así el compilador asegura que
-      el código está bien escrito y además se pueden usar atributos específicos
-      para cada anotación.</div>
+    <div class="wiki" style="display: block;">A partir de v6.6 puedes usar
+      anotaciones Java específicas en lugar de estereotipos (es decir puedes
+      usar <i>@File</i> en lugar de <i>@Stereotype("ARCHIVO")</i>), así el
+      compilador asegura que el código está bien escrito y además se pueden usar
+      atributos específicos para cada anotación.</div>
     <div class="wiki" style="display: block;"> El OpenXava viene configurado con
-      los siguientes estereotipos:<br>
+      los siguientes estereotipos y a partir de v6.6 con su anotación
+      corresondiente:<br>
       <ul>
-        <li>DINERO, MONEY</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Money.html">@Money</a>
+            (</i><i><i>nuevo en </i>v6.6), </i>DINERO, MONEY</li>
         <li>FOTO, PHOTO, IMAGEN, IMAGE (a partir de v6.6 puedes usar <i>@File</i>
           como alternativa que es más flexible y con mayor rendimiento)</li>
-        <li>TEXTO_GRANDE, MEMO, TEXT_AREA</li>
-        <li>ETIQUETA, LABEL</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/TextArea.html">@TextArea</a>
+            (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>TEXTO_GRANDE,
+          MEMO, TEXT_AREA</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Label.html">@Label</a>
+            (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>ETIQUETA, LABEL</li>
         <li>ETIQUETA_NEGRITA, BOLD_LABEL</li>
-        <li>HORA, TIME</li>
-        <li>FECHAHORA, DATETIME</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/StringTime.html">@StringTime</a>
+            (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>HORA, TIME</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DateTime.html">@DateTime</a>
+            (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>FECHAHORA,
+          DATETIME</li>
         <li>GALERIA_IMAGENES, IMAGES_GALLERY (<a class="wiki_link" href="#toc6">instrucciones</a>)
           (a partir de v6.6 puedes usar <i>@File</i>s como alternativa)</li>
-        <li>RELLENADO_CON_CEROS, ZEROS_FILLED</li>
-        <li>TEXTO_HTML, HTML_TEXT (texto con formato editable)</li>
-        <li>TEXTO_HTML_SIMPLE, SIMPLE_HTML_TEXT (<em>nuevo en v5.6</em>, como
-          TEXT_HTML pero con una interfaz simplificada)</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/ZerosFilled.html">@ZerosFilled</a>
+            (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>RELLENADO_CON_CEROS,
+          ZEROS_FILLED</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/HtmlText.html">@HtmlText</a>
+            (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>TEXTO_HTML,
+          HTML_TEXT (texto con formato editable)</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/HtmlText.html">@HtmlText(simple=true)</a>
+            (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>TEXTO_HTML_SIMPLE,
+          SIMPLE_HTML_TEXT (<em>nuevo en v5.6</em>, como TEXT_HTML pero con una
+          interfaz simplificada)</li>
         <li>ETIQUETA_IMAGEN, IMAGE_LABEL (imagen que depende del contenido de la
           propiedad)</li>
-        <li>EMAIL</li>
-        <li>TELEFONO, TELEPHONE</li>
-        <li>WEBURL</li>
-        <li>IP</li>
+        <li><i>@Email</i> (de <i>javax.validation.constraints</i>) <i>(</i><i><i></i><i><i>nuevo
+                en </i></i>v6.6)</i>, EMAIL</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Telephone.html">@Telephone</a>
+            (nuevo en v6.6), </i>TELEFONO, TELEPHONE</li>
+        <li><i>@URL</i> (de <i>org.hibernate.validator.constraints</i>) <i>(</i><i><i></i><i><i>nuevo
+                en </i></i>v6.6), </i>WEBURL</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/IP.html">@IP</a>
+            (nuevo en v6.6), </i>IP</li>
         <li>ISBN</li>
         <li>TARJETA_CREDITO, CREDIT_CARD</li>
         <li>LISTA_EMAIL, EMAIL_LIST</li>
         <li>LIBRERIA_DOCUMENTOS, DOCUMENT_LIBRARY (<em>nuevo en v4m6</em>, sólo
           funciona dentro de Liferay)</li>
-        <li>CONTRASENA, PASSWORD (<em>nuevo en v4.1</em>)</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Password.html">@Password</a>
+            (new in v6.6), </i>CONTRASENA, PASSWORD (<em>nuevo en v4.1</em>)</li>
         <li>MAC <em>(nuevo en v4.8)</em></li>
-        <li>ARCHIVO, FILE (<em>nuevo en v5.0</em>), <i>@File (nuevo en v6.6)</i>
-          (<a class="wiki_link" href="#toc7">instrucciones</a>)</li>
-        <li>ARCHIVOS, FILES (<em>nuevo en v5.1</em>), <i>@Files (nuevo en v6.6)</i>
-          (<a class="wiki_link" href="#toc7">instrucciones</a>)</li>
-        <li>ICONO, ICON (<em>nuevo en v5.5</em>)</li>
-        <li>DISCUSION, DISCUSSION <em>(nuevo en v5.6)</em> (<a class="wiki_link"
-            href="model_es.html#Modelo-Propiedades-Estereotipo%20DISCUSION%20%28nuevo%20en%20v5.6%29">instrucciones</a>)</li>
-        <li>COORDENADAS, COORDINATES (<i>nuevo in v6.6</i>) (<a class="wiki_link"
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/File.html">@File</a>
+            (</i><i><i></i><i><i>nuevo en </i></i>v6.6)</i>, ARCHIVO, FILE (<em>nuevo
+            en v5.0</em>) (<a class="wiki_link" href="#toc7">instrucciones</a>)</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Files.html">@Files</a>
+            (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>ARCHIVOS, FILES (<em>nuevo
+            en v5.1</em>) (<a class="wiki_link" href="#toc7">instrucciones</a>)</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Files.html">@Icon</a>
+            (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>ICONO, ICON (<em>nuevo
+            en v5.5</em>)</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Discussion.html">@Discussion</a>
+            (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>DISCUSION,
+          DISCUSSION <em>(nuevo en v5.6)</em> (<a class="wiki_link" href="model_es.html#Modelo-Propiedades-Estereotipo%20DISCUSION%20%28nuevo%20en%20v5.6%29">instrucciones</a>)</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Coordinates.html">@Coordinates</a>,
+          </i>COORDENADAS, COORDINATES (<i>nuevo en v6.6</i>) (<a class="wiki_link"
             href="#coordenadas">instrucciones</a>)</li>
       </ul>
       Vamos a ver como definiríamos un estereotipo propio. Crearemos uno llamado

@@ -25,8 +25,10 @@
 	<for-annotation class="org.hibernate.validator.constraints.Email" size="50"/> <!-- tmr -->
 	<for-stereotype name="TELEPHONE" size="15"/>
 	<for-stereotype name="TELEFONO" size="15"/>
+	<for-annotation class="org.openxava.annotations.Telephone" size="15"/> <!-- tmr -->
 	<for-stereotype name="WEBURL" size="50"/>
 	<for-stereotype name="IP" size="15"/>
+	<for-annotation class="org.openxava.annotations.IP" size="15"/> <!-- tmr -->
 	<for-stereotype name="ISBN" size="13"/>
 	<for-stereotype name="CREDIT_CARD" size="19"/>
 	<for-stereotype name="TARJETA_CREDITO" size="19"/>
