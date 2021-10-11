@@ -2,7 +2,6 @@ Anotaciones para estereotipos
 -----------------------------
 
 - Guía de referencia:
-	- Model: Definición de estereotipo
 	- Model: Discussion.
 	- Model: Coordinates.
 	- Model: Títulos para files, discussion y coordinates

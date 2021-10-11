@@ -37,6 +37,6 @@
 <!-- tmr ini -->
 <!ELEMENT para-anotacion EMPTY>
 <!ATTLIST para-anotacion
-  para-anotacion CDATA #REQUIRED
+  anotacion CDATA #REQUIRED
 >
 <!-- tmr fin -->
