@@ -1,50 +1,56 @@
 Change Log for OpenXava project
 ===============================
 
-	
-- @Password, @Money, @TextArea, @Label, @DateTime as alternative to stereotypes.
-- @Discussion, @Icon, @Telephone, @IP, @EmailList, @MAC as alternative to stereotypes.
-- @StringTime annotation as alternative to TIME stereotype with String properties. 
-- @HtmlText as alternative to HTML_TEXT, with @HtmlText(simple=true) as alternative to SIMPLE_HTML_TEXT.
-- Java annotations can be associated to defaul types in annotation-type-default.xml.
-- Java annotations can be associated to validators in validators.xml.	
-- Java annotations can be associated to a default size in default-size.xml.
-- Fix: IP stereotype not linked to its corresponding validator, so no validation was done for IPs.
-- Fix: @OrderColumn collection order altered when a collection element is modified from its module.	
-- New moveRow() methods in ModuleTestBase to test moving rows in @OrderColumn collections. 			
-- Attribute maxFileSizeInKb in @File/@Files/@FileItemUpload to restrict the size of files to upload.
-- Property maxFileSizeInKb in editors.xml definition to restrict the size of files to upload.
-- Attribute acceptFileTypes in @File/@Files/@FileItemUpload to restrict the type of files to upload.
-- Property acceptFileTypes in editors.xml definition to restrict the type of files to upload.		
-- New @FileItemUpload annotation to configure properties of FileItem type.		
-- PHOTO/IMAGE and IMAGES_GALLERY stereotypes only allow uploading images.		
-- Import data in list mode only allows uploading CSV, XSL and XSLX files.
-- Dropped support for Internet Explorer.		
-- @File/FILE displays a small preview image in list mode if the file is of image type.
-- InvoiceDemo includes examples of COORDINATES, @Files and @File.
-- New isImage() method in org.openxava.util.Files utility class. 
-- @File and @Files annotations as alternative to FILE and FILES stereotypes.
-- FILES and FILE stereotype shows a preview if the uploaded file is an image.
-- FILES stereotype is shown inside a frame by default.
-- Automated testing content of the course moved to appendix D.
-- Java annotations can be associated to editors in editors.xml. 
-- Responsive top bar button, now when the UI is narrowed the action labels are hidden.
-- Top bar button and left menu adapted to look better in iPad. 
-- Tooltips for actions include the name of the action, useful when action label is not shown.
-- Last lesson of course, about references and collections, upgraded to latest OpenXava version.
+- Last used modules are remembered and they can be accessed using tabs at the top of the module.
+	- Property rememberVisitedModules in naviox.properties to remember the modules visited in last session.
+	- Fixed modules (those declared with fixModulesOnTopMenu in naviox.properties) are shown on top as tabs.
 - Top button bar is fixed on top of the page when the user scrolls the detail or list view. 
-- Left menu with modules is fixed when the user scrolls the main view of the module.
-- Labels and messages for Serbian upgraded.
+	- Left menu with modules is fixed when the user scrolls the main view of the module.
+	- Responsive top bar button, now when the UI is narrowed the action labels are hidden.	 
+	- Tooltips for actions include the name of the action, useful when action label is not shown.
+- Java annotations can be associated to editors in editors.xml.
+	- @Password, @Money, @TextArea, @Label, @DateTime as alternative to stereotypes.
+	- @Discussion, @Icon, @Telephone, @IP, @EmailList, @MAC as alternative to stereotypes.
+	- @StringTime annotation as alternative to TIME stereotype with String properties. 
+	- @HtmlText as alternative to HTML_TEXT, with @HtmlText(simple=true) as alternative to SIMPLE_HTML_TEXT.
+	- Java annotations can be associated to defaul types in annotation-type-default.xml.
+	- Java annotations can be associated to validators in validators.xml.	
+	- Java annotations can be associated to a default size in default-size.xml.
+- @File/FILE displays a small preview image in list mode if the file is of image type.
+	- @File and @Files annotations as alternative to FILE and FILES stereotypes.
+	- FILES and FILE stereotype shows a preview if the uploaded file is an image.
+	- FILES stereotype is shown inside a frame by default.
+	- Attribute maxFileSizeInKb in @File/@Files/@FileItemUpload to restrict the size of files to upload.
+	- Property maxFileSizeInKb in editors.xml definition to restrict the size of files to upload.
+	- Attribute acceptFileTypes in @File/@Files/@FileItemUpload to restrict the type of files to upload.
+	- Property acceptFileTypes in editors.xml definition to restrict the type of files to upload.		
+	- New @FileItemUpload annotation to configure properties of FileItem type.
+	- PHOTO/IMAGE and IMAGES_GALLERY stereotypes only allow uploading images.
+	- Import data in list mode only allows uploading CSV, XSL and XSLX files.
+- New @Coordinates annotation or COORDINATES/COORDENADAS stereotype to store and display a point in a map.
+	- InvoiceDemo includes examples of COORDINATES, @Files and @File.		
+
+- Dropped support for Internet Explorer.
 - Startup time for application in development (embedded Tomcat) improved (x2).
+	
+- New isImage() method in org.openxava.util.Files utility class.	
+- New moveRow() methods in ModuleTestBase to test moving rows in @OrderColumn collections. 			
+
+- Lesson 2 and 4 of course divided in several smaller lessons.		
+- Automated testing content of the course moved to appendix D.
+- Last lesson of course, about references and collections, upgraded to latest OpenXava version.
+- Lessons 2, 3 and 4 of course includes video.
+
+- Top bar button and left menu adapted to look better in iPad.	
+- Some new common use labels to be used in applications.
+- Labels and messages for Serbian upgraded.
+
+- Fix: IP stereotype not linked to its corresponding validator, so no validation was done for IPs.
+- Fix: @OrderColumn collection order altered when a collection element is modified from its module.
 - Fix: Broken links in Customizing chapter of Reference Guide.
 - Fix: Minor errors in Spanish course version.
-- Last used modules are remembered and they can be accessed using tabs at the top of the module.
-- Property rememberVisitedModules in naviox.properties to remember the modules visited in last session.
-- Fixed modules (those declared with fixModulesOnTopMenu in naviox.properties) are shown on top as tabs.
-- Lessons 2, 3 and 4 of course includes video.
-- Lesson 2 and 4 of course divided in several smaller lessons.
-- New @Coordinates annotation or COORDINATES/COORDENADAS stereotype to store and display a point in a map.	
-- Some new common use labels to be used in applications. 	
+	
+ 	
 
 OpenXava 6.5.3 (2021-7-12)
 --------------------------
