@@ -1,6 +1,4 @@
-<!ELEMENT longitud-defecto (para-estereotipo|para-tipo|para-anotacion)+> <!-- tmr para-anotacion -->
-
-<!-- tmr Mover a Addons --> 
+<!ELEMENT longitud-defecto (para-estereotipo|para-tipo|para-anotacion)+> 
 
 <!ELEMENT para-estereotipo EMPTY>
 <!ATTLIST para-estereotipo
@@ -16,11 +14,9 @@
  escala CDATA #IMPLIED
 >
 
-<!-- tmr ini -->
 <!ELEMENT para-anotacion EMPTY>
 <!ATTLIST para-anotacion
  clase CDATA #REQUIRED
  longitud CDATA #REQUIRED
  escala CDATA #IMPLIED
 >
-<!-- tmr fin -->

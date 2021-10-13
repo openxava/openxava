@@ -26,7 +26,7 @@ public class CorporationEmployee extends Identifiable {
 	private String lastName;
 	
 	@Required
-	@Email // tmr
+	@Email 
 	private String email;
 
 	@DefaultValueCalculator(MinimumCorporationEmployeeSalaryCalculator.class) 

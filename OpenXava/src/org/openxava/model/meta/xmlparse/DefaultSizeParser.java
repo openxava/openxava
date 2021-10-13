@@ -49,7 +49,7 @@ public class DefaultSizeParser extends ParserBase {
 		}		
 	}
 	
-	private void createForAnnotation(Node n) throws XavaException { // tmr
+	private void createForAnnotation(Node n) throws XavaException { 
 		Element el = (Element) n;
 		String className = el.getAttribute(xclass[lang]);
 		try {
@@ -114,7 +114,7 @@ public class DefaultSizeParser extends ParserBase {
 		}
 	}
 	
-	private void createForAnnotations() throws XavaException { // tmr
+	private void createForAnnotations() throws XavaException { 
 		NodeList l = getRoot().getElementsByTagName(xfor_annotation[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -125,7 +125,7 @@ public class DefaultSizeParser extends ParserBase {
 	protected void createObjects() throws XavaException {
 		createForStereotypes();
 		createForTypes();
-		createForAnnotations(); // tmr
+		createForAnnotations(); 
 	}
 			
 }

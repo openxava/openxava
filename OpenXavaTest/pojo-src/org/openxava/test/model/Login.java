@@ -15,8 +15,7 @@ public class Login {
 	private String user;
 	
 	@Column(length=15) 
-	// tmr @Stereotype("PASSWORD")
-	@Password // tmr
+	@Password 
 	private String password;
 
 	public String getUser() {

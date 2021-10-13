@@ -149,9 +149,8 @@ public class MetaWebEditors {
 		String propertyId = p.getMetaModel().getName() + "." + p.getSimpleName();
 		if (editorsByProperty != null && editorsByProperty.containsKey(propertyId)) {
 			return editorsByProperty.get(propertyId);
-		}		
-		// tmr Annotation[] annotations = getAnnotations(p); 
-		Annotation[] annotations = p.getAnnotations(); // tmr
+		}		 
+		Annotation[] annotations = p.getAnnotations(); 
 		if (annotations != null) for (Annotation a: annotations) {
 			MetaEditor editor = getEditorsByAnnotation().get(a.annotationType().getName());
 			if (editor != null) {
@@ -177,51 +176,6 @@ public class MetaWebEditors {
 		return null;
 	}
 	
-	/* tmr
-	private static Annotation[] getAnnotations(MetaProperty p) { 
-		// We avoid to sum everything in a collection to save memory, 
-		//   because this method is called a lot of times, while most times
-		//   the annotation are in the field, not in the getter
-		
-		Annotation[] result = null;
-		try {
-			AnnotatedElement element = p.getMetaModel().getPOJOClass().getDeclaredField(p.getSimpleName());
-			result = element.getAnnotations();
-		} 
-		catch (NoSuchFieldException ex) {
-			// It could be a calculated property, without field
-		}
-				
-		try {
-			result = getAnnotationsFromGetter(p, result, "get");
-		} 
-		catch (NoSuchMethodException ex) {
-			// It's a boolean property, with "is"			
-			try {
-				result = getAnnotationsFromGetter(p, result, "is");
-			} 
-			catch (NoSuchMethodException ex2) {
-				log.warn(XavaResources.getString("field_getter_not_found", p.getName(), p.getMetaModel().getName()), ex2);
-			}
-		}
-
-		return result;
-	}
-
-	private static Annotation[] getAnnotationsFromGetter(MetaProperty p, Annotation[] result, String prefix) throws NoSuchMethodException { 
-		AnnotatedElement element = p.getMetaModel().getPOJOClass().getMethod(prefix + Strings.firstUpper(p.getSimpleName()));
-		Annotation[] getterAnnotations = element.getAnnotations();
-		if (getterAnnotations.length > 0) {
-			Collection<Annotation> annotations = new ArrayList<>();
-			if (result != null) annotations.addAll(Arrays.asList(result));
-			annotations.addAll(Arrays.asList(getterAnnotations));
-			result = new Annotation[annotations.size()];
-			annotations.toArray(result);
-		}
-		return result;
-	}
-	*/
-
 	/**
 	 * @return Null if no editor registered for the specified stereotype
 	 */

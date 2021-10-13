@@ -30,12 +30,10 @@ public class Incident extends Identifiable {
 	@Column(length=50) @Required
 	private String title;
 	
-	// tmr @Stereotype("SIMPLE_HTML_TEXT")
-	@HtmlText(simple=true) // tmr
+	@HtmlText(simple=true) 
 	private String description;
 	
-	// tmpr @Stereotype("DISCUSSION")
-	@Discussion // tmr
+	@Discussion 
 	@Column(length=32) 
 	private String discussion;
 	

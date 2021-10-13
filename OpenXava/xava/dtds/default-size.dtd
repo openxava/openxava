@@ -1,6 +1,4 @@
-<!ELEMENT default-size (for-stereotype|for-type|for-annotation)+> <!-- tmr for-annoation -->
-
-<!-- tmr Mover a Addons -->
+<!ELEMENT default-size (for-stereotype|for-type|for-annotation)+> 
 
 <!ELEMENT for-stereotype EMPTY>
 <!ATTLIST for-stereotype

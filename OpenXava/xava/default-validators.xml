@@ -67,7 +67,7 @@
 		<validator-class class="org.openxava.validators.MoneyScaleValidator"/>
 		<for-stereotype stereotype="MONEY"/>
 		<for-stereotype stereotype="DINERO"/>
-		<for-annotation annotation="org.openxava.annotations.Money"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.Money"/> 
 	</default-validator>
 	
 	<default-validator>
@@ -78,23 +78,21 @@
 	<default-validator>
 		<validator-class class="org.openxava.validators.EmailListValidator"/>
 		<for-stereotype stereotype="EMAIL_LIST"/>
-		<for-annotation annotation="org.openxava.annotations.EmailList"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.EmailList"/> 
 	</default-validator>
 	
 	<default-validator>
 		<validator-class class="org.openxava.validators.PhoneNumberValidator"/>
 		<for-stereotype stereotype="TELEPHONE"/>
 		<for-stereotype stereotype="TELEFONO"/>
-		<for-annotation annotation="org.openxava.annotations.Telephone"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.Telephone"/> 
 	</default-validator>
 	
-	<!-- tmr ini -->
 	<default-validator>
 		<validator-class class="org.openxava.validators.IPValidator"/>
 		<for-stereotype stereotype="IP"/>
-		<for-annotation annotation="org.openxava.annotations.IP"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.IP"/> 
 	</default-validator>
-	<!-- tmr fin -->
 	
 	<default-validator>
 		<validator-class class="org.openxava.validators.URLValidator"/>
@@ -104,14 +102,14 @@
 	<default-validator>
 		<validator-class class="org.openxava.validators.MACValidator"/>
 		<for-stereotype stereotype="MAC"/>
-		<for-annotation annotation="org.openxava.annotations.MAC"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.MAC"/> 
 	</default-validator>	
 	
 	<default-validator>
 		<validator-class class="org.openxava.validators.CoordinatesValidator"/>
 		<for-stereotype stereotype="COORDINATES"/>
 		<for-stereotype stereotype="COORDENADAS"/>
-		<for-annotation annotation="org.openxava.annotations.Coordinates"/> <!-- tmr -->		
+		<for-annotation annotation="org.openxava.annotations.Coordinates"/> 		
 	</default-validator>	
 					
 </validators>

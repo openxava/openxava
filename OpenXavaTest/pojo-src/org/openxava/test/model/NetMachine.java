@@ -16,8 +16,7 @@ public class NetMachine extends Identifiable {
 	@Column(length=40) @Required
 	private String name;
 	
-	// tmr @Stereotype("MAC")
-	@MAC // tmr
+	@MAC 
 	private String mac;
 
 	public String getName() {

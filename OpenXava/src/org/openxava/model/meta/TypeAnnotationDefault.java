@@ -7,7 +7,6 @@ import org.openxava.model.meta.xmlparse.*;
 import org.openxava.util.*;
 
 /**
- * tmr 
  * Utility class to access to default type from an annotation. <p>
  * 
  * @since 6.6
@@ -32,7 +31,7 @@ public class TypeAnnotationDefault {
 		}		 
 		String result = (String) annotations.get(annotation.annotationType().getName());		
 		if (result == null) {
-			throw new ElementNotFoundException("default_type_for_annotation_not_found", annotation); // tmp i18n
+			throw new ElementNotFoundException("default_type_for_annotation_not_found", annotation); 
 		}
 		
 		return result;

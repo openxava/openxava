@@ -2,6 +2,8 @@ package org.openxava.annotations;
 
 import java.lang.annotation.*;
 
+import org.openxava.actions.*;
+
 /**
  * Associates an action to a property or reference in the view. <p>
  * 
@@ -15,6 +17,10 @@ import java.lang.annotation.*;
  * The actions are displayed as a link or an image beside the property.<br>
  * By default the action link is present only when the property is editable, 
  * but if the property is read only or calculated then it is always present.<br>
+ * 
+ * If the action implements <code>{@link IPropertyAction}</code> the name of
+ * the property and the container view are injected in the action before 
+ * executing it.<br>
  * 
  * @author Javier Paniza
  */

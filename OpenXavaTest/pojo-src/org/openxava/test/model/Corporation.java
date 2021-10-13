@@ -22,7 +22,6 @@ public class Corporation extends Identifiable {
 	@Required
 	private String name;
 	
-	// tmr @Stereotype("ICON") 
 	@Icon
 	@Column(length=40)
 	private String icon; 

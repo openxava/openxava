@@ -19,7 +19,7 @@ public class MetaValidatorFor {
 	
 	private java.lang.String forType;
 	private String forStereotype;
-	private String forAnnotation; // tmr 
+	private String forAnnotation; 
 	private java.lang.String validatorName;
 	public java.lang.String validatorClass;
 	private IPropertyValidator propertyValidator;

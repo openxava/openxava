@@ -10,7 +10,6 @@ Change Log for OpenXava project
 - Java annotations can be associated to validators in validators.xml.	
 - Java annotations can be associated to a default size in default-size.xml.
 - Fix: IP stereotype not linked to its corresponding validator, so no validation was done for IPs.
-
 - Fix: @OrderColumn collection order altered when a collection element is modified from its module.	
 - New moveRow() methods in ModuleTestBase to test moving rows in @OrderColumn collections. 			
 - Attribute maxFileSizeInKb in @File/@Files/@FileItemUpload to restrict the size of files to upload.

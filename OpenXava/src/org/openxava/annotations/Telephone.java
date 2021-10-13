@@ -3,7 +3,6 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr
  * Field used to store a phone number. <p>
  * 
  * The data type is String with length of 15.

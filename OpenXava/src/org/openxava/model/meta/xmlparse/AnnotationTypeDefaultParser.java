@@ -8,7 +8,7 @@ import org.openxava.util.xmlparse.*;
 import org.w3c.dom.*;
 
 /**
- * tmr
+ * 
  * @author: Javier Paniza
  */
 public class AnnotationTypeDefaultParser extends ParserBase {	

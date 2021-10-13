@@ -1,8 +1,5 @@
 package org.openxava.validators.meta.xmlparse;
 
-
-
-
 import org.openxava.util.*;
 import org.openxava.util.xmlparse.*;
 import org.openxava.validators.meta.*;
@@ -19,8 +16,6 @@ public class ValidatorsParser extends ParserBase {
 	private final String [] xvalidator_class = { "validator-class", "clase-validador" };
 	private final String [] xrequired_validator = { "required-validator", "validador-requerido" };
 	private final String [] xdefault_validator = { "default-validator", "validador-defecto" };
-
-	
 	
 	public ValidatorsParser(String urlArchivoXml, int language) {
 		super(urlArchivoXml, language);
@@ -90,7 +85,6 @@ public class ValidatorsParser extends ParserBase {
 			}
 		}				
 		
-		// tmr ini
 		l = el.getElementsByTagName(xfor_annotation[lang]);
 		c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -106,8 +100,6 @@ public class ValidatorsParser extends ParserBase {
 				MetaValidators._addMetaValidatorDefault(validator);
 			}
 		}
-		// tmr fin
-		
 	}
 		
 	private void createValidators() throws XavaException {

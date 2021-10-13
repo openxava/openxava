@@ -6,11 +6,11 @@ import org.openxava.view.*;
  * This action is associated to an property (displayed in User Interface),
  * before execute it the property name and the container view is injected. <p>
  * 
- * This interface can be implemented by property defined in this way:
+ * This interface can be implemented by actions associated to a property 
+ * using @Action annotation, this way:
  * <pre>
- * <property-view property="street" label-format="NORMAL">
- * 		<action action="Customers.prefixStreet"/> 
- * </property-view>
+ * @Action("Applicant.showButtons")
+ * private String name;
  * </pre>
  * 
  * @author Javier Paniza

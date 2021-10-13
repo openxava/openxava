@@ -8,9 +8,9 @@
   clase CDATA #REQUIRED  
 >
 
-<!ELEMENT validador-requerido ((nombre-validador | clase-validador), (para-tipo | para-estereotipo)+)>
+<!ELEMENT validador-requerido ((nombre-validador | clase-validador), (para-tipo | para-estereotipo | para-anotacion)+)> 
 
-<!ELEMENT validador-defecto ((nombre-validador | clase-validador), (para-tipo | para-estereotipo)+)>
+<!ELEMENT validador-defecto ((nombre-validador | clase-validador), (para-tipo | para-estereotipo | para-anotacion)+)> 
 
 <!ELEMENT nombre-validador EMPTY>
 <!ATTLIST nombre-validador
@@ -30,4 +30,9 @@
 <!ELEMENT para-estereotipo EMPTY>
 <!ATTLIST para-estereotipo
   estereotipo CDATA #REQUIRED
+>
+
+<!ELEMENT para-anotacion EMPTY>
+<!ATTLIST para-anotacion
+  anotacion CDATA #REQUIRED
 >

@@ -8,8 +8,7 @@ import org.hibernate.validator.constraints.*;
 public class InternetShop extends Shop {
 	
 	@Column(length=60) 
-	// tmr @Stereotype("WEBURL")
-	@URL // tmr
+	@URL 
 	private String url;
 
 	public String getUrl() {

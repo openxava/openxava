@@ -16,8 +16,7 @@ public class Doc extends Identifiable {
 	@Column(length=40) @Required
 	private String title;
 	
-	// tmr @Stereotype("HTML_TEXT")
-	@HtmlText // tmr
+	@HtmlText 
 	@Lob
 	private String content;
 	

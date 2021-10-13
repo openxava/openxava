@@ -32,7 +32,6 @@ public class City {
 	@OnChange(OnChangeStateConditionInCity.class)
 	private String stateCondition;
 	
-	// tmr @Stereotype("COORDINATES")
 	@Coordinates
 	@Column(length=50)
 	private String location;

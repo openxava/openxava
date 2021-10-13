@@ -107,7 +107,7 @@
 		<formatter class="org.openxava.formatters.StringTimeFormatter" />
 		<for-stereotype stereotype="HORA" />
 		<for-stereotype stereotype="TIME" />
-		<for-annotation annotation="org.openxava.annotations.StringTime"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.StringTime"/> 
 	</editor>
 
 	<editor name="Timestamp" url="textEditor.jsp">
@@ -118,42 +118,42 @@
 	<editor name="Password" url="passwordEditor.jsp"> 
 		<for-stereotype stereotype="PASSWORD" /> 
 		<for-stereotype stereotype="CONTRASENA" />
-		<for-annotation annotation="org.openxava.annotations.Password"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.Password"/> 
 	</editor>
 
 	<editor name="Money" url="moneyEditor.jsp"> 
 		<formatter class="org.openxava.formatters.MoneyFormatter" />
 		<for-stereotype stereotype="DINERO" />
 		<for-stereotype stereotype="MONEY" />
-		<for-annotation annotation="org.openxava.annotations.Money"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.Money"/> 
 	</editor>
 	
 	<editor name="Email" url="textEditor.jsp">
         <for-stereotype stereotype="EMAIL"/>
         <for-stereotype stereotype="EMAIL_LIST"/>
-        <for-annotation annotation="javax.validation.constraints.Email"/> <!-- tmr -->
-        <for-annotation annotation="org.hibernate.validator.constraints.Email"/> <!-- tmr -->
-        <for-annotation annotation="org.openxava.annotations.EmailList"/> <!-- tmr -->     
+        <for-annotation annotation="javax.validation.constraints.Email"/> 
+        <for-annotation annotation="org.hibernate.validator.constraints.Email"/> 
+        <for-annotation annotation="org.openxava.annotations.EmailList"/>      
     </editor>
     
     <editor name="WebURL" url="webURLEditor.jsp">
     	<list-formatter class="org.openxava.formatters.WebURLFormatter"/>
         <for-stereotype stereotype="WEBURL"/>
-        <for-annotation annotation="org.hibernate.validator.constraints.URL"/> <!-- tmr -->
+        <for-annotation annotation="org.hibernate.validator.constraints.URL"/> 
     </editor>    
     
 	<editor name="TextArea" url="textAreaEditor.jsp" frame="true">
 		<for-stereotype stereotype="TEXTO_GRANDE" />
 		<for-stereotype stereotype="MEMO" />
 		<for-stereotype stereotype="TEXT_AREA" />
-		<for-annotation annotation="org.openxava.annotations.TextArea"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.TextArea"/> 
 	</editor>
 
 	<editor name="Label" url="labelEditor.jsp">
 		<formatter from-type="true" />
 		<for-stereotype stereotype="ETIQUETA" />
 		<for-stereotype stereotype="LABEL" />
-		<for-annotation annotation="org.openxava.annotations.Label"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.Label"/> 
 	</editor>
 
 	<editor name="DateTimeCalendar" url="dateTimeCombinedCalendarEditor.jsp">
@@ -161,7 +161,7 @@
 		<for-type type="java.sql.Timestamp" />
 		<for-stereotype stereotype="DATETIME" />
 		<for-stereotype stereotype="FECHAHORA" />
-		<for-annotation annotation="org.openxava.annotations.DateTime"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.DateTime"/> 
 	</editor>
 	
 	<editor name="DateTimeSeparatedCalendar" url="dateTimeSeparatedCalendarEditor.jsp">
@@ -240,7 +240,7 @@
 		<for-annotation annotation="org.openxava.annotations.Files"/> 
 	</editor>
 	
-	<editor name="ZerosFilled" url="textEditor.jsp"> <!-- tmr Renamed, era ZeroFilled -->
+	<editor name="ZerosFilled" url="textEditor.jsp"> 
 		<property name="fillWithZeros" value="true" />
 		<for-stereotype stereotype="ZEROS_FILLED" />
 		<for-stereotype stereotype="RELLENADO_CON_CEROS" />
@@ -258,7 +258,7 @@
 		<list-formatter class="org.openxava.formatters.HtmlTextListFormatter"/> 
 		<for-stereotype stereotype="HTML_TEXT" />
 		<for-stereotype stereotype="TEXTO_HTML" />
-		<for-annotation annotation="org.openxava.annotations.HtmlText"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.HtmlText"/> 
 	</editor>
 	
 	<editor name="SimpleHtmlText" url="htmlEditor.jsp" frame="true">
@@ -334,14 +334,14 @@
 	<editor name="Discussion" url="discussionEditor.jsp" frame="true">
 		<for-stereotype stereotype="DISCUSSION" />
 		<for-stereotype stereotype="DISCUSION" />
-		<for-annotation annotation="org.openxava.annotations.Discussion"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.Discussion"/> 
 	</editor>
 	
 	<editor name="Icon" url="iconEditor.jsp">
 		<list-formatter class="org.openxava.formatters.IconListFormatter"/>
 		<for-stereotype stereotype="ICON" />
 		<for-stereotype stereotype="ICONO" />
-		<for-annotation annotation="org.openxava.annotations.Icon"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.Icon"/> 
 	</editor>
 	
 	<editor url="chartDataEditor.jsp">
@@ -368,7 +368,7 @@
 	<editor name="Coordinates" url="coordinatesEditor.jsp" frame="true"> 
 		<for-stereotype stereotype="COORDINATES" /> 
 		<for-stereotype stereotype="COORDENADAS" />
-		<for-annotation annotation="org.openxava.annotations.Coordinates"/> <!-- tmr -->
+		<for-annotation annotation="org.openxava.annotations.Coordinates"/> 
 	</editor>	
 		
 </editors>

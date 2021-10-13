@@ -36,8 +36,7 @@ public class Clerk {
 
 	// We test the two: java.sql.Time and TIME stereotype
 	private java.sql.Time arrivalTime;
-	// tmr @Stereotype("TIME")
-	@StringTime // tmr 
+	@StringTime 
 	private String endingTime;
 	
 	// For testing a String property stored in a binary field in database

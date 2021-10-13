@@ -30,15 +30,6 @@ public class MetaValidators {
 		if (metaValidatorsRequired == null) {
 			throw new XavaException("only_from_parse", "MetaValidators._addMetaValidatorRequired");
 		}
-		/* tmr
-		if (!Is.emptyString(newMetaValidator.getForType())) {
-			metaValidatorsRequired.put(newMetaValidator.getForType(), newMetaValidator);
-		}
-		else if (!Is.emptyString(newMetaValidator.getForStereotype())) {
-			metaValidatorsRequired.put(newMetaValidator.getForStereotype(), newMetaValidator);
-		}		
-		*/
-		// tmr ini
 		if (!Is.emptyString(newMetaValidator.getForStereotype())) {
 			metaValidatorsRequired.put(newMetaValidator.getForStereotype(), newMetaValidator);
 		}
@@ -48,7 +39,6 @@ public class MetaValidators {
 		else if (!Is.emptyString(newMetaValidator.getForType())) {
 			metaValidatorsRequired.put(newMetaValidator.getForType(), newMetaValidator);
 		}
-		// tmr fin
 		else {
 			throw new XavaException("required_validator_type_or_stereotype_required");
 		}
@@ -58,15 +48,6 @@ public class MetaValidators {
 		if (metaValidatorsDefault == null) {
 			throw new XavaException("only_from_parse", "MetaValidators._addMetaValidatorDefault");
 		}
-		/* tmr
-		if (!Is.emptyString(newMetaValidator.getForType())) {
-			metaValidatorsDefault.put(newMetaValidator.getForType(), newMetaValidator);
-		}
-		else if (!Is.emptyString(newMetaValidator.getForStereotype())) {
-			metaValidatorsDefault.put(newMetaValidator.getForStereotype(), newMetaValidator);
-		}		
-		*/
-		// tmr ini
 		if (!Is.emptyString(newMetaValidator.getForStereotype())) {
 			metaValidatorsDefault.put(newMetaValidator.getForStereotype(), newMetaValidator);
 		}				
@@ -76,7 +57,6 @@ public class MetaValidators {
 		else if (!Is.emptyString(newMetaValidator.getForType())) {
 			metaValidatorsDefault.put(newMetaValidator.getForType(), newMetaValidator);
 		}
-		// tmr fin
 		else {
 			throw new XavaException("default_validator_type_or_stereotype_required");
 		}

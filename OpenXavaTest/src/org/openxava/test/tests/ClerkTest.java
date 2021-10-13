@@ -51,7 +51,7 @@ public class ClerkTest extends ModuleTestBase {
 		String time = getCurrentTime();
 		setValue("arrivalTime", time);
 		setValue("endingTime", time);
-		assertSize("endingTime", "5"); // tmr
+		assertSize("endingTime", "5"); 
 		setValue("comments", "Created at " + time);
 		execute("CRUD.save");
 		assertNoErrors();

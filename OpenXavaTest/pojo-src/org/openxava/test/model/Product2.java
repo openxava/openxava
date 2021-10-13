@@ -171,8 +171,7 @@ public class Product2 {
 	@OnChange(org.openxava.test.actions.OnChangeWarehouseAction.class)
 	private Warehouse warehouse;
 
-	// tmr @Stereotype("MONEY")
-	@Money // tmr
+	@Money 
 	@Required
 	@DefaultValueCalculator(value=DefaultProductPriceCalculator.class, properties=
 		@PropertyValue(name="familyNumber")
@@ -202,8 +201,7 @@ public class Product2 {
 		return unitPrice.multiply(new BigDecimal("166.386")).setScale(0, BigDecimal.ROUND_HALF_UP);
 	}
 	
-	// tmr @Stereotype("LABEL")
-	@Label // tmr
+	@Label 
 	public String getZoneOne() {
 		return "IN ZONE 1";
 	}

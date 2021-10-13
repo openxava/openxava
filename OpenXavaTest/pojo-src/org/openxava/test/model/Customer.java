@@ -276,15 +276,13 @@ public class Customer implements IWithName {
 	@Stereotype("PHOTO")
 	private byte [] photo;
 	
-	// tmr @Stereotype("TELEPHONE")
-	@Telephone // tmr
+	@Telephone 
 	private String telephone;
 	
 	@Stereotype("EMAIL") @DisplaySize(30)
 	private String email;
 	
-	// tmr @Stereotype("EMAIL_LIST") 
-	@EmailList // tmr
+	@EmailList 
 	@DisplaySize(50)  
 	private String additionalEmails;
 	

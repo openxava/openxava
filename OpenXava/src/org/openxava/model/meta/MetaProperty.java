@@ -216,13 +216,11 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			if (!Is.emptyString(getStereotype())) {
 				vr = MetaValidators.getMetaValidatorRequiredFor(getStereotype());
 			}
-			// tmr ini
 			Annotation[] annotations = getAnnotations();
 			if (vr == null && annotations != null) for (Annotation annotation: annotations) {
 				vr = MetaValidators.getMetaValidatorRequiredFor(annotation.annotationType().getName());
 				if (vr != null) break;
 			}
-			// tmr fin
 			if (vr == null) {
 				vr = MetaValidators.getMetaValidatorRequiredFor(getType().getName());	
 			}
@@ -252,13 +250,11 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			if (!Is.emptyString(getStereotype())) {
 				vr = MetaValidators.getMetaValidatorDefaultFor(getStereotype());
 			}
-			// tmr ini
 			Annotation[] annotations = getAnnotations();
 			if (vr == null && annotations != null) for (Annotation annotation: annotations) {
 				vr = MetaValidators.getMetaValidatorDefaultFor(annotation.annotationType().getName());
 				if (vr != null) break;
 			}
-			// tmr fin
 			if (vr == null) {
 				vr = MetaValidators.getMetaValidatorDefaultFor(getType().getName());	
 			}
@@ -315,7 +311,6 @@ public class MetaProperty extends MetaMember implements Cloneable {
 				}
 			}
 			
-			// tmr ini
 			Annotation[] annotations = getAnnotations();
 			if (annotations != null) for (Annotation annotation: annotations) {
 				try {
@@ -326,7 +321,6 @@ public class MetaProperty extends MetaMember implements Cloneable {
 					// Try the next or get size from type
 				}
 			}
-			// tmr fin
 						
 			if (hasValidValues()) {				
 				size = createLengthFromValidValues();				
@@ -343,7 +337,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		return size;
 	}
 	
-	public Annotation[] getAnnotations() { // tmr
+	public Annotation[] getAnnotations() { 
 		// We avoid to sum everything in a collection to save memory, 
 		//   because this method is called a lot of times, while most times
 		//   the annotation are in the field, not in the getter
@@ -374,7 +368,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		return result;
 	}
 
-	private Annotation[] getAnnotationsFromGetter(Annotation[] result, String prefix) throws NoSuchMethodException { // tmr 
+	private Annotation[] getAnnotationsFromGetter(Annotation[] result, String prefix) throws NoSuchMethodException {  
 		AnnotatedElement element = getMetaModel().getPOJOClass().getMethod(prefix + Strings.firstUpper(getSimpleName()));
 		Annotation[] getterAnnotations = element.getAnnotations();
 		if (getterAnnotations.length > 0) {
@@ -407,7 +401,6 @@ public class MetaProperty extends MetaMember implements Cloneable {
 				}
 			}
 			
-			// tmr ini
 			Annotation[] annotations = getAnnotations(); 
 			if (annotations != null) for (Annotation annotation: annotations) {
 				try {					
@@ -418,8 +411,6 @@ public class MetaProperty extends MetaMember implements Cloneable {
 					// Try the next or get scale from type
 				}
 			}
-			// tmr fin
-
 						
 			if (hasValidValues()) {
 				scale = 0;
@@ -1032,12 +1023,15 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		return isCompatibleWith(java.sql.Timestamp.class);
 	}
 	
-	/* tmr Ponerla como deprecada
+	/* 
 	 * @since 5.3.1
+	 * @deprecated since 6.6. Use {@link #isCompatibleWith} instead. 
+	 */
+	@Deprecated
 	public boolean isTypeOrStereotypeCompatibleWith(Class type) { 
-		
+		return isCompatibleWith(type);
 	}
-	*/
+	
 	
 	
 	/**
@@ -1046,10 +1040,9 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	 * 
 	 * @since 6.6
 	 */
-	public boolean isCompatibleWith(Class type) { // tmr ¿Rename?
+	public boolean isCompatibleWith(Class type) { 
 		if (type.isAssignableFrom(getType())) return true;
-		// tmr if (Is.emptyString(getStereotype())) return false;
-		if (!Is.emptyString(getStereotype())) { // tmr
+		if (!Is.emptyString(getStereotype())) { 
 			try {
 				String typeName = TypeStereotypeDefault.forStereotype(getStereotype());
 				Class stereotypeType = Class.forName(typeName);
@@ -1062,8 +1055,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			catch (ElementNotFoundException ex) {
 				return false;
 			}
-		} // tmr 
-		// tmr ini 
+		}   
 		Annotation[] annotations = getAnnotations();
 		if (annotations != null) for (Annotation annotation: annotations) {
 			try {
@@ -1079,7 +1071,6 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			}
 		}
 		return false;
-		// tmr fin
 	}
 	
 

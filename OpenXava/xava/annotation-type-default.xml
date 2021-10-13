@@ -2,7 +2,12 @@
 
 <!DOCTYPE annotation-type-default SYSTEM "dtds/annotation-type-default.dtd">
 
-<!-- tmr Doc -->
+<!-- 
+Associates annotation with its corresondint type.
+
+Usually this is not needed because we no longer use code generation, however
+we still need it for any annotation compatible with java.sql.Timestamp.
+-->
 
 <annotation-type-default>
 
