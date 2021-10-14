@@ -1,13 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
-- Last used modules are remembered and they can be accessed using tabs at the top of the module.
-	- Property rememberVisitedModules in naviox.properties to remember the modules visited in last session.
-	- Fixed modules (those declared with fixModulesOnTopMenu in naviox.properties) are shown on top as tabs.
-- Top button bar is fixed on top of the page when the user scrolls the detail or list view. 
-	- Left menu with modules is fixed when the user scrolls the main view of the module.
-	- Responsive top bar button, now when the UI is narrowed the action labels are hidden.	 
-	- Tooltips for actions include the name of the action, useful when action label is not shown.
+* Last used modules are remembered and they can be accessed using tabs at the top of the module.
+	* Property rememberVisitedModules in naviox.properties to remember the modules visited in last session.
+	* Fixed modules (those declared with fixModulesOnTopMenu in naviox.properties) are shown on top as tabs.
+* Top button bar is fixed on top of the page when the user scrolls the detail or list view. 
+	* Left menu with modules is fixed when the user scrolls the main view of the module.
+	* Responsive top bar button, now when the UI is narrowed the action labels are hidden.	 
+	* Tooltips for actions include the name of the action, useful when action label is not shown.
 - Java annotations can be associated to editors in editors.xml.
 	- @Password, @Money, @TextArea, @Label, @DateTime as alternative to stereotypes.
 	- @Discussion, @Icon, @Telephone, @IP, @EmailList, @MAC as alternative to stereotypes.
