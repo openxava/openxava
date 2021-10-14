@@ -1045,11 +1045,12 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		if (!Is.emptyString(getStereotype())) { 
 			try {
 				String typeName = TypeStereotypeDefault.forStereotype(getStereotype());
+				if (!typeName.contains(".")) typeName = "java.lang." + typeName; // tmr
 				Class stereotypeType = Class.forName(typeName);
 				return type.isAssignableFrom(stereotypeType);
 			}
 			catch (ClassNotFoundException ex) {
-				log.warn(XavaResources.getString("class_not_found_for_default_type_for_stereotype"), ex);
+				log.warn(XavaResources.getString("class_not_found_for_default_type_for_stereotype", getStereotype()), ex); // tmr
 				return false; 
 			}
 			catch (ElementNotFoundException ex) {
@@ -1060,11 +1061,12 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		if (annotations != null) for (Annotation annotation: annotations) {
 			try {
 				String typeName = TypeAnnotationDefault.forAnnotation(annotation);
+				if (!typeName.contains(".")) typeName = "java.lang." + typeName; // tmr
 				Class annotationForType = Class.forName(typeName);
 				return type.isAssignableFrom(annotationForType);
 			}
 			catch (ClassNotFoundException ex) {
-				log.warn(XavaResources.getString("class_not_found_for_default_type_for_annotation"), ex);
+				log.warn(XavaResources.getString("class_not_found_for_default_type_for_annotation", annotation), ex);
 			}
 			catch (ElementNotFoundException ex) {
 				// Try the next annotation
