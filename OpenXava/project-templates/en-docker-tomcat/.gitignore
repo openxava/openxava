@@ -1,0 +1,4 @@
+/bin/
+dist
+web/WEB-INF/classes
+web/WEB-INF/lib

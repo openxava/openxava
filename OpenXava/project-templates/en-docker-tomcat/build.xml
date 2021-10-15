@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<project name="@project@" basedir=".">
+
+	<property name="project" value="@project@" />
+	<property name="ox3" value="true" />
+	<property name="openxava.base.dir" value=".."/> <!-- Change if you want OpenXava and Addons in another folder -->
+	<property name="name.war" value = "@project@"/>
+
+	<target name="prepareCompile">
+		<!-- We create the 'lib' and 'classes' folder for it does not fails at the first time -->
+		<mkdir dir="web/WEB-INF/lib"/>
+		<mkdir dir="web/WEB-INF/classes"/>
+	</target>
+
+	<!--
+	Compile all .java and .groovy
+	Not needed to call it if you work inside Eclipse
+	-->
+	<target name="compile" depends="prepareCompile">
+		<javac destdir="web/WEB-INF/classes">
+			<src path="src"/>
+			<!-- Only needed if you uses XDoclet generated code
+			<src path="${source.code.path}/${project}/gen-src"/>
+			-->
+			<!-- Only needed if you use XML components
+			<src path="${source.code.path}/${project}/gen-src-xava"/>
+			-->
+			<classpath>
+				<pathelement path="${openxava.base.dir}/OpenXava/bin"/>
+				<!-- <fileset dir="${openxava.base.dir}/OpenXava/lib">
+					<include name="**/*.jar"/>
+				</fileset> -->
+				<fileset dir="web/WEB-INF/lib">
+					<include name="**/*.jar"/>
+				</fileset>
+				<pathelement path="${j2ee.lib};${xava.compiler.path}"/>
+			</classpath>
+		</javac>
+		<copy todir="web/WEB-INF/classes">
+			<!-- Only needed if you use XML components
+			<fileset dir="${source.code.path}/${project}/gen-src-xava" excludes="**/*.java"/>
+			-->
+			<fileset dir="xava"/>
+			<fileset dir="persistence"/>
+			<fileset dir="i18n"/>
+			<fileset dir="properties"/>
+		</copy>
+	</target>
+
+
+	<!--
+	Build the application in war format.
+	Leaves the war in the workspace.dist/YourApplication.dist folder.
+	 -->
+	<target name="createWar" depends="compile">
+ 		<jar jarfile="dist/${name.war}.war" basedir="web"/>
+ 	</target>
+
+	<!--
+	Connects to your database and updates your schema in order to match to your current application.
+	Remember to give value to schema.path with the path of the JDBC driver jar for your database.
+	-->
+	<target name="updateSchema">
+		<ant antfile="${openxava.base.dir}/OpenXava/build.xml" target="updateSchemaJPA">
+			<property name="persistence.unit" value="junit"/>
+			<property name="schema.path" value="../OpenXava/lib/hsqldb.jar"/>
+		</ant>
+	</target>
+
+
+</project>

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<!--
+To create a new OpenXava project:
+	1. Create a new Java Project using Eclipse.
+	2. With Eclipse: Right mouse button on this file > Run As > Ant
+	3. Eclipse will ask you the project name: use the name of the Java project created in step 1.
+-->
+
+<project name="CreateNewProject" default="createNewProject" basedir=".">
+
+	<input addproperty="project" message="What is your project name?"/>
+	<input addproperty="source.code.path" message="What is the destination of the project?"/>
+	<property name="datasource" value="${project}DS"/> <!-- If you change this revise createAppLauncher of build.xml -->
+	<property name="database" value="${project}DB"/> <!-- If you change this revise createAppLauncher of build.xml -->
+
+	<target name="definePackageAndJavaClass">
+		<script language="javascript">
+			var javaclass = project.getProperty("project").replace(/ /g,'').replace(/-/g,'');
+			project.setProperty("javaclass", javaclass);
+			project.setProperty("package", javaclass.toLowerCase());
+		 </script>
+	</target>
+
+	<target name="createNewProject" depends="definePackageAndJavaClass">
+		<mkdir dir="${source.code.path}/${project}"/>
+		<copy todir="${source.code.path}/${project}" overwrite="true">
+			<fileset dir="project-templates/en-docker-tomcat" defaultexcludes="false"/>
+			<filterset>
+				<filter token="project" value="${project}"/>
+				<filter token="javaclass" value="${javaclass}"/>
+				<filter token="package" value="${package}"/>
+				<filter token="datasource" value="${datasource}"/>
+				<filter token="database" value="${database}"/>
+				<filter token="schema" value="${javaclass}"/>
+			</filterset>
+		</copy>
+		<move file="${source.code.path}/${project}/.project.template"
+			tofile="${source.code.path}/${project}/.project" />
+		<move file="${source.code.path}/${project}/xava/application.xml.template"
+			tofile="${source.code.path}/${project}/xava/application.xml" />
+		<move file="${source.code.path}/${project}/xava/controllers.xml.template"
+			tofile="${source.code.path}/${project}/xava/controllers.xml" />
+		<move file="${source.code.path}/${project}/i18n/labels_en.properties.template"
+			tofile="${source.code.path}/${project}/i18n/${project}-labels_en.properties" />
+		<move file="${source.code.path}/${project}/i18n/messages_en.properties.template"
+			tofile="${source.code.path}/${project}/i18n/${project}-messages_en.properties" />
+		<move file="${source.code.path}/${project}/src/_run/AppLauncher.java"
+			tofile="${source.code.path}/${project}/src/_run/_Run_${javaclass}.java" />
+		<move file="${source.code.path}/${project}/src/com/yourcompany/yourapp/model/YourFirstEntity.java"
+			tofile="${source.code.path}/${project}/src/com/yourcompany/${package}/model/YourFirstEntity.java" />
+		<delete dir="${source.code.path}/${project}/src/com/yourcompany/yourapp" failonerror="false"/>
+		<delete file="${source.code.path}/${project}/data/data.txt"/>
+		<delete dir="${source.code.path}/${project}/bin" failonerror="false"/>
+		<ant antfile="buildDocker.xml" target="updateOX"/>
+	</target>
+
+</project>
