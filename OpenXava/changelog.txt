@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+
+- When a row in any collection is checked the delete action of the module is hidden. 
+
 - Last used modules are remembered and they can be accessed using tabs at the top of the module.
 - Property rememberVisitedModules in naviox.properties to remember the modules visited in last session.
 - Fixed modules (those declared with fixModulesOnTopMenu in naviox.properties) are shown on top as tabs.

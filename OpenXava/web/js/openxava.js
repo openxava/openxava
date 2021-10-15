@@ -980,6 +980,14 @@ openxava.onSelectElement = function(application, module, action, argv, checkValu
 	}	
 	
 	if (!selectingAll) openxava.hasOnSelectAll(application, module);
+	
+	var nameCheck = openxava.decorateId(application, module, "xava_selected");
+	if ($('input:checked[name="' + nameCheck + '"]').length > 0) {
+		$('div[id$="__button_bar"] a[id$="__delete"]').hide(); 
+	} 
+	else {
+		$('div[id$="__button_bar"] a[id$="__delete"]').show(); 
+	}
 }
 
 openxava.onSelectListFormat = function(event) { 
@@ -1036,11 +1044,11 @@ openxava.onSelectAll = function(application, module, action, argv, checkValue, h
 				alreadyProcessed = alreadyProcessed + "_" + row;
 			}
 			else{
+				selected[i].checked=checkValue?1:0; 
 				var idRow = openxava.decorateId(application, module, prefix) + row;
 				openxava.onSelectElement(application, module, action, argv, checkValue, idRow, null, selectedRowStyle, rowStyle, null, null, true, row, tabObject);  
 				last = row;
 			}
-			selected[i].checked=checkValue?1:0;
 		}
 	}
 	openxava.deselected[index] = value;

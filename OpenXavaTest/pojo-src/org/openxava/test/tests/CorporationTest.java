@@ -14,17 +14,49 @@ public class CorporationTest extends ModuleTestBase {
 		super(testName, "Corporation");		
 	}
 	
-	public void testJDBCCalculatorInCascadeRemoveCollection_simpleHTMLReportWithCollections() throws Exception { 
+	public void testJDBCCalculatorInCascadeRemoveCollection_simpleHTMLReportWithCollections_mainDeleteHiddenWhenElementCollectionSelected() throws Exception {  
+		getWebClient().getOptions().setCssEnabled(true); 
 		execute("List.viewDetail", "row=0");
+		assertMainDeleteHiddenWhenElementCollectionSelected(); 
 		execute("Collection.new", "viewObject=xava_view_section0_employees");
 		assertNoErrors();
 		assertValue("salary", "2400");
 		closeDialog();
 		execute("Corporation.report");
 		assertNoErrors();
-		assertTrue(getPopupText().contains("<tr><td>Name:</td><td>RANONE</td></tr>"));  
+		assertTrue(getPopupText().contains("<tr><td>Name:</td><td>RANONE</td></tr>"));
 	}
 	
+	private void assertMainDeleteHiddenWhenElementCollectionSelected() throws Exception { 
+		assertDeleteDisplayed();
+		checkRowCollection("employees", 0);
+		assertDeleteHidden();
+		uncheckRowCollection("employees", 0);
+		assertDeleteDisplayed();
+		
+		checkRowCollection("employees", 0);
+		assertDeleteHidden();
+		checkRowCollection("employees", 1);
+		assertDeleteHidden();
+		uncheckRowCollection("employees", 1);
+		assertDeleteHidden();
+		uncheckRowCollection("employees", 0);
+		assertDeleteDisplayed();
+		
+		checkAllCollection("employees");
+		assertDeleteHidden();
+		uncheckAllCollection("employees");
+		assertDeleteDisplayed();
+	}
+	
+	private void assertDeleteDisplayed() { 
+		assertTrue(getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Corporation__CRUD___delete").isDisplayed());
+	}
+	
+	private void assertDeleteHidden() { 
+		assertFalse(getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Corporation__CRUD___delete").isDisplayed());
+	}
+
 	public void testIconEditor() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true);
 		execute("List.viewDetail", "row=0");
