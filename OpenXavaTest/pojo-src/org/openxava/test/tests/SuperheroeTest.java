@@ -51,7 +51,21 @@ public class SuperheroeTest extends ModuleTestBase {
 		execute("List.orderBy", "property=name");
 		execute("List.orderBy", "property=name");
 		selectListConfiguration("All");
-		assertListAllConfigurations("All", "Ordered by name descending");		
+		assertListAllConfigurations("All", "Ordered by name descending");	
+		
+		selectListConfiguration("Ordered by name descending");
+		execute("Print.generatePdf");
+		assertPopupPDFLine(1, "Superheroe report - Ordered by name descending");
+		
+		selectListConfiguration("All");
+		execute("Print.generatePdf");
+		assertPopupPDFLine(1, "Superheroe report");
+		
+		setConditionValues("es");
+		execute("List.filter");
+		assertListSelectedConfiguration("Name contains es");
+		execute("Print.generatePdf");
+		assertPopupPDFLine(1, "Superheroe report");
 	}
 	
 }

@@ -181,7 +181,8 @@ public class GenerateReportServlet extends HttpServlet {
 				Map parameters = new HashMap();
 				synchronized (tab) {
 					tab.setRequest(request);
-					parameters.put("Title", tab.getTitle());				
+					String title = tab.isSaveConfigurationAllowed()?tab.getTitle():tab.getTitle() + " - " + tab.getConfigurationName();
+					parameters.put("Title", title);
 					parameters.put("Organization", getOrganization(request)); 
 					parameters.put("Date", getCurrentDate());
 					for (String totalProperty: tab.getTotalPropertiesNames()) { 								

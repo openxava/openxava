@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-
+- PDF reports show the filter name in the header for saved filters.
 - When a row in any collection is checked the delete action of the module is hidden. 
 
 - Last used modules are remembered and they can be accessed using tabs at the top of the module.
