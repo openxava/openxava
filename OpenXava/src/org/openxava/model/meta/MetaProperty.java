@@ -1045,7 +1045,8 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		if (!Is.emptyString(getStereotype())) { 
 			try {
 				String typeName = TypeStereotypeDefault.forStereotype(getStereotype());
-				if (!typeName.contains(".")) typeName = "java.lang." + typeName; 
+				typeName = fixTypeName(typeName);
+				if (typeName == null) return false;
 				Class stereotypeType = Class.forName(typeName);
 				return type.isAssignableFrom(stereotypeType);
 			}
@@ -1061,7 +1062,8 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		if (annotations != null) for (Annotation annotation: annotations) {
 			try {
 				String typeName = TypeAnnotationDefault.forAnnotation(annotation);
-				if (!typeName.contains(".")) typeName = "java.lang." + typeName; 
+				typeName = fixTypeName(typeName);
+				if (typeName == null) continue;
 				Class annotationForType = Class.forName(typeName);
 				return type.isAssignableFrom(annotationForType);
 			}
@@ -1073,6 +1075,16 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			}
 		}
 		return false;
+	}
+	
+	private static String fixTypeName(String typeName) { 
+		if (typeName.endsWith("[]")) return null;
+		if (!typeName.contains(".")) {
+			if (typeName.equals("int")) return "java.lang.Integer";
+			if (typeName.equals("char")) return "java.lang.Character";
+			return "java.lang." + Strings.firstUpper(typeName); 
+		}
+		return typeName;
 	}
 	
 

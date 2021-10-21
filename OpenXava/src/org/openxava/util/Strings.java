@@ -619,6 +619,7 @@ public class Strings {
 	public static String firstUpper(String s) {
 		if (s==null) return null;
 		if (s.length() == 0) return "";
+		if (Character.isUpperCase(s.charAt(0))) return s; 
 		return s.substring(0, 1).toUpperCase() + s.substring(1);		
 	}
 
@@ -630,6 +631,7 @@ public class Strings {
 	public static String firstLower(String s) {
 		if (s==null) return null;
 		if (s.length() == 0) return "";
+		if (Character.isLowerCase(s.charAt(0))) return s; 
 		return s.substring(0, 1).toLowerCase() + s.substring(1);
 	}
 	
