@@ -24,7 +24,7 @@ public class ProjectTest extends ModuleTestBase {
 		setValueInCollection("notes", 0, 2, "www.openxava.org");
 		setValueInCollection("notes", 1, 2, "http://www.rae.es/"); 
 		assertLinkOnNote(0, "Open Source Low-Code Platform for Rapid Development of Enterprise Web Applications"); 
-		assertLinkOnNote(1, "Diccionario de la lengua"); 
+		assertLinkOnNote(1, "Diccionario de la lengua"); // Fails with Java 8 with a problem with Cloudfare protection in RAE
 	}
 
 	private void assertLinkOnNote(int idx, String expectedText) throws IOException {
