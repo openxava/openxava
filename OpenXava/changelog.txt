@@ -1,9 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-- PDF reports show the filter name in the header for saved filters.
-- When a row in any collection is checked the delete action of the module is hidden. 
-
+OpenXava 6.6 (2021-10-25)
+-------------------------
 - Last used modules are remembered and they can be accessed using tabs at the top of the module.
 - Property rememberVisitedModules in naviox.properties to remember the modules visited in last session.
 - Fixed modules (those declared with fixModulesOnTopMenu in naviox.properties) are shown on top as tabs.
@@ -29,15 +28,17 @@ Change Log for OpenXava project
 - Property acceptFileTypes in editors.xml definition to restrict the type of files to upload.		
 - New @FileItemUpload annotation to configure properties of FileItem type.
 - PHOTO/IMAGE and IMAGES_GALLERY stereotypes only allow uploading images.
-- Import data in list mode only allows uploading CSV, XSL and XSLX files.
+- Import data in list mode only allows uploading CSV, XLS and XLSX files.
 - New @Coordinates annotation or COORDINATES/COORDENADAS stereotype to store and display a point in a map.
 - InvoiceDemo includes examples of COORDINATES, @Files and @File.		
+- PDF reports show the filter name in the header for saved filters.
+- When a row in any collection is checked the delete action of the module is hidden.
 - Dropped support for Internet Explorer.
 - Startup time for application in development (embedded Tomcat) improved (x2).
-- Lesson 2 and 4 of course divided in several smaller lessons.		
+- Lesson 2 and 4 of course divided into several smaller lessons.		
 - Automated testing content of the course moved to appendix D.
-- Last lesson of course, about references and collections, upgraded to latest OpenXava version.
-- Lessons 2, 3 and 4 of course includes video.
+- Last lesson of course, about references and collections, upgraded to the latest OpenXava version.
+- Lessons 2, 3 and 4 of course include video.
 - New isImage() method in org.openxava.util.Files utility class.	
 - New moveRow() methods in ModuleTestBase to test moving rows in @OrderColumn collections. 			
 - Top bar button and left menu adapted to look better in iPad.	
