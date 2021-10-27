@@ -29,7 +29,9 @@ if (!Locales.getCurrent().getLanguage().equals("en") && request.getAttribute("xa
 		filepond_labelButtonRetryItemProcessing: '<xava:label key="retry"/>', 
 		filepond_labelButtonProcessItem: '<xava:label key="upload"/>',
 		labelFileTypeNotAllowed: '<xava:message key="invalid_file_type"/>',
-		fileValidateTypeLabelExpectedTypes: '<xava:message key="filepond_fileValidateTypeLabelExpectedTypes"/>'
+		fileValidateTypeLabelExpectedTypes: '<xava:message key="filepond_fileValidateTypeLabelExpectedTypes"/>',
+		labelMaxFileSizeExceeded: '<xava:message key="file_too_large"/>',	
+		labelMaxFileSize: '<xava:message key="filepond_labelMaxFileSizemaximum"/>'
 	});
 	</script>
 <%

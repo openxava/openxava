@@ -8,9 +8,9 @@
   class CDATA #REQUIRED  
 >
 
-<!ELEMENT required-validator ((validator-name | validator-class), (for-type | for-stereotype)+)>
+<!ELEMENT required-validator ((validator-name | validator-class), (for-type | for-stereotype | for-annotation)+)> 
 
-<!ELEMENT default-validator ((validator-name | validator-class), (for-type | for-stereotype)+)>
+<!ELEMENT default-validator ((validator-name | validator-class), (for-type | for-stereotype | for-annotation)+)> 
 
 <!ELEMENT validator-name EMPTY>
 <!ATTLIST validator-name
@@ -30,4 +30,9 @@
 <!ELEMENT for-stereotype EMPTY>
 <!ATTLIST for-stereotype
   stereotype CDATA #REQUIRED
+>
+
+<!ELEMENT for-annotation EMPTY>
+<!ATTLIST for-annotation
+  annotation CDATA #REQUIRED
 >

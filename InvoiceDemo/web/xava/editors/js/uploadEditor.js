@@ -3,7 +3,8 @@ if (uploadEditor == null) var uploadEditor = {};
 openxava.addEditorInitFunction(function() {
 	
     FilePond.registerPlugin(FilePondPluginImagePreview);
-    FilePond.registerPlugin(FilePondPluginFileValidateType); 
+    FilePond.registerPlugin(FilePondPluginFileValidateType);
+    FilePond.registerPlugin(FilePondPluginFileValidateSize);  
 
     $('.xava_upload').each(function() {
     	const input = this;
@@ -100,6 +101,10 @@ openxava.addEditorInitFunction(function() {
     			}
         		resolve(type);
     		})
+    		
+    		if (input.dataset.maxFileSize != null) {
+    			pond.maxFileSize = input.dataset.maxFileSize;
+    		}    		
     	}    	
     });
 	
