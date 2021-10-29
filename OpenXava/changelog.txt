@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 2 of course modified to introduce annotations as alternative to stereotypes.
 - Fix: Unneeded horizontal scrollbar when many modules on top tabs.
 
 OpenXava 6.6 (2021-10-26)

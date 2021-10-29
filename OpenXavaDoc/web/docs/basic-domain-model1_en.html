@@ -20,12 +20,10 @@
         model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
         Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
         Agile development</a> | <a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
-        Mapped superclass inheritance</a> |
-      <a class="wiki_link" href="entity-inheritance_en.html">7. Entity
-        inheritance</a> |
-      <a class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a>
-      | <a class="wiki_link" href="basic-business-logic_en.html">9. Basic
-        business logic</a> | <a class="wiki_link" href="validation_en.html">10.
+        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
+        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
+        View inheritance</a> | <a class="wiki_link" href="basic-business-logic_en.html">9.
+        Basic business logic</a> | <a class="wiki_link" href="validation_en.html">10.
         Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">11.
         Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">12.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">13.
@@ -161,9 +159,30 @@ String remarks;
       many other useful built in stereotypes such as PHOTO, LABEL, BOLD_LABEL,
       TIME, DATETIME, ZEROS_FILLED, HTML_TEXT, IMAGE_LABEL, EMAIL, TELEPHONE,
       WEBURL, IP, ISBN, CREDIT_CARD, EMAIL_LIST, PASSWORD, MAC, FILE, FILES,
-      ICON, etc.<br>
-      Now you have <em>Product</em> ready to use. Let's refine the <em>Customer</em>
-      now.<br>
+      ICON, COORDINATES, etc.</div>
+    <div class="wiki" style="display: block;">Also you can use specific
+      annotations as alternative to stereotypes, that is instead of <i>@Stereotype("MONEY")</i>
+      you can write just <i>@Money</i>, with the same effect. Using annotations
+      the above properties could be written in this way:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">// Annotations as alternative to stereotypes
+      
+@Money // Instead of @Stereotype("MONEY") 
+BigDecimal price; 
+ 
+@Files // Instead of @Stereotype("IMAGES_GALLERY") 
+@Column(length=32)
+String photos;
+ 
+@TextArea // Instead of @Stereotype("MEMO") 
+String remarks;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Some of the annotations available
+      are <i>@Password, @Money, @TextArea, @Label, @DateTime, @Discussion,
+        @Icon, @Telephone, @IP, @EmailList, @MAC , @StringTime, @HtmlText,
+        @Coordinates, @Files</i>, <i>@File</i>, etc.</div>
+    <div class="wiki" style="display: block;"> Now you have <em>Product</em>
+      ready to use. Let's refine the <em>Customer</em> now.<br>
       <h2 id="toc4"><a name="Modeling with Java-Basic domain model-Embeddable"></a>Embeddable</h2>
       We are going to add <em>Address</em> to our until now pretty naked <em>Customer</em>.
       The customer address is not shared by other customers, and when the

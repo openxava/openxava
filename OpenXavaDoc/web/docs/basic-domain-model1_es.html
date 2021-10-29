@@ -21,12 +21,10 @@
         básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
         Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
         Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
-        Herencia de superclases mapedas</a> |
-      <a class="wiki_link" href="entity-inheritance_es.html">7. Herencia de
-        entidades</a> |
-      <a class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a>
-      | <a class="wiki_link" href="basic-business-logic_es.html">9. Lógica de
-        negocio básica</a> | <a class="wiki_link" href="validation_es.html">10.
+        Herencia de superclases mapedas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="basic-business-logic_es.html">9.
+        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">10.
         Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">11.
         Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">12.
         Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">13.
@@ -165,7 +163,29 @@ String observaciones;
       FOTO, ETIQUETA, ETIQUETA_NEGRITA, HORA, FECHAHORA, RELLENADO_CON_CEROS,
       TEXTO_HTML, ETIQUETA_IMAGEN, EMAIL, TELEFONO, WEBURL, IP, ISBN,
       TARJETA_CREDITO, LISTA_EMAIL, CONTRASENA, MAC, ARCHIVO, ARCHIVOS, ICONO,
-      etc.<br>
+      COORDENADAS, etc.</div>
+    <div class="wiki" style="display: block;">También puedes usar anotaciones
+      específicas como alternativa a los estereotipos, es decir en lugar de <i>@Stereotype("DINERO")</i>
+      puedes escribir simplemente <i>@Money</i>, con el mismo efecto. Usando
+      anotaciones las propiedades de arriba se podrían escribir de esta manera:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">// Anotaciones como alternativa a estereotipos
+      
+@Money // En vez de @Stereotype("DINERO") 
+BigDecimal precio; 
+ 
+@Files // En vez de @Stereotype("GALERIA_IMAGENES") 
+@Column(length=32)
+String fotos;
+ 
+@TextArea // En vez de @Stereotype("TEXTO_GRANDE") 
+String observaciones;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Algunas de las anotaciones
+        disponibles son <i>@Password, @Money, @TextArea, @Label, @DateTime,
+          @Discussion, @Icon, @Telephone, @IP, @EmailList, @MAC , @StringTime,
+          @HtmlText, @Coordinates, @Files</i>, <i>@File</i>, etc.</div>
+      <div class="wiki" style="display: block;"> </div>
       Ya tienes <em>Producto</em> listo. Refinemos ahora <em>Cliente</em>.<br>
       <h2 id="toc4"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Embeddable"></a>Embeddable</h2>
       Vamos a añadir una dirección a nuestro, hasta ahora algo desnudo, <em>Cliente</em>.
