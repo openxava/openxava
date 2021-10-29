@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Unneeded horizontal scrollbar when many modules on top tabs.
+
 OpenXava 6.6 (2021-10-26)
 -------------------------
 - Last used modules are remembered and they can be accessed using tabs at the top of the module.

@@ -738,6 +738,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	height: 22px;
 	color: var(--module-header-color);
 	background: var(--module-header-background);
+	overflow: hidden;
 }
 
 #module_header a { 
