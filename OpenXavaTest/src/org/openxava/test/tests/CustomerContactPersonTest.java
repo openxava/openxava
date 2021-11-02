@@ -15,7 +15,7 @@ public class CustomerContactPersonTest extends ModuleTestBase {
 		super(testName, "CustomerContactPerson");		
 	}
 	
-	public void testSearchingObjectWithASingleReferenceAsKeyAndWhichRefencesHasOnlyAProperty() throws Exception {
+	public void testSearchingObjectWithASingleReferenceAsKeyAndWhichRefencesHasOnlyAProperty() throws Exception { 
 		execute("CRUD.new");
 		setValue("customer.number", "1");
 		assertValue("customer.name", "Javi");

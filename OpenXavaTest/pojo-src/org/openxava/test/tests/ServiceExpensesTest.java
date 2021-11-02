@@ -97,7 +97,7 @@ public class ServiceExpensesTest extends ModuleTestBase {
 		assertAction("ReferenceSearch.choose");
 	}
 	
-	public void testAdding3RowsWithDescriptionsListAndTextFieldInElementCollection_calculationPropertyDependsOnSummationInElementCollection() throws Exception {  
+	public void testAdding3RowsWithDescriptionsListAndTextFieldInElementCollection_calculationPropertyDependsOnSummationInElementCollection() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true);
 		execute("CRUD.new");
 		assertComboOpens(0, 1);

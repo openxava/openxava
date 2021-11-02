@@ -13,7 +13,7 @@ public class ShipmentSeparatedTimeTest extends ModuleTestBase {
 		super(testName, "ShipmentSeparatedTime");		
 	}
 	
-	public void testDateTimeSeparatedCalendarEditor() throws Exception {
+	public void testDateTimeSeparatedCalendarEditor() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		String [] emptyTime = { "", "" }; 
 		assertValues("time", emptyTime); 

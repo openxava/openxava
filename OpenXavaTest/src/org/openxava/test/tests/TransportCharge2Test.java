@@ -19,7 +19,7 @@ public class TransportCharge2Test extends ModuleTestBase {
 	public void testKeyNestedOverlappedReferences() throws Exception {
 		deleteAll();
 		
-		execute("CRUD.new");
+		execute("CRUD.new"); // TMR FALLA
 		setValue("year", "2002");
 		execute("Reference.search", "keyProperty=xava.TransportCharge2.delivery.number");
 		String year = getValueInList(0, 0);

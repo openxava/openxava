@@ -231,7 +231,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		
 		execute("Collection.edit", "row=0,viewObject=xava_view_humans"); 
 		assertNoErrors();
-		assertDialog();
+		assertDialog(); // tmr
 	}
 	 
 	public void testCustomMessageWithBeanValidationJSR303_validationExceptionFromPreUpdate() throws Exception { 

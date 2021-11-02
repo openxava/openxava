@@ -1441,7 +1441,7 @@ public class View implements java.io.Serializable {
 				View subview = getSectionView(i); 
 				subview.resetElementCollectionTotalsForProperty(name);
 			}	
-		}					 	
+		}		
 	}
 
 	/** @since 6.3 */
@@ -2709,11 +2709,22 @@ public class View implements java.io.Serializable {
 
 	public boolean isKeyEditable() {
 		if (insideAViewDisplayedAsDescriptionsListAndReferenceView()) return false;
-		if (isRepresentsEntityReference() && !isRepresentsCollection()) {
+		/* tmr
+		if (isRepresentsEntityReference() && !isRepresentsCollection()) { 
 			View parent = getParentIfSectionOrGroup().getParent();
 			MetaReference ref = parent.getMetaReference(getMemberName());
 			return parent.isEditable(ref);
 		}
+		*/
+		// tmr ini
+		// TMR ME QUEDÉ POR AQUÍ: LO DE ABAJO HACE QUE FUNCIONEN LOS DOS CASOS, PERO PRODUCE 8 ERRORES EN LA SUITE, MARCADOS CON TMR FALLA
+		View baseView = getParentIfSectionOrGroup();
+		if (baseView.isRepresentsEntityReference() && !baseView.isRepresentsCollection()) { 
+			View parent = baseView.getParent();
+			MetaReference ref = parent.getMetaReference(getMemberName());
+			return parent.isEditable(ref);
+		}		
+		// tmr fin
 		return !isReadOnly() && keyEditable;
 	}
 	
@@ -2794,7 +2805,7 @@ public class View implements java.io.Serializable {
 	/**
 	 * If at this moment is editable.
 	 */
-	public boolean isEditable(MetaReference metaReference) {
+	public boolean isEditable(MetaReference metaReference) { 
 		try {
 			MetaReferenceView metaReferenceView = getMetaView().getMetaReferenceView(metaReference);
 			if (metaReferenceView != null && isKeyEditable() &&  metaReferenceView.isReadOnly() && !metaReferenceView.isReadOnlyOnCreate()) {
@@ -4271,7 +4282,7 @@ public class View implements java.io.Serializable {
 	}
 
 	public boolean isRepresentsCollection() {		
-		if (isGroup()) return getParent().isRepresentsCollection(); 
+		// tmr if (isGroup()) return getParent().isRepresentsCollection();  // tmr ¿?
 		return representsCollection;
 	}
 	
@@ -5696,7 +5707,7 @@ public class View implements java.io.Serializable {
 		return changedPropertiesActionsAndReferencesWithNotCompositeEditor;
 	}
 	
-	private void propertiesAndReferencesWithReadOnlywithOnCreateFalse(Map result) {
+	private void propertiesAndReferencesWithReadOnlywithOnCreateFalse(Map result) { 
 		if (!hasKeyEditableChanged()) return; 
 		for (MetaMember m : getMetaMembers()) {
 			if (m instanceof MetaProperty) {
@@ -5907,7 +5918,7 @@ public class View implements java.io.Serializable {
 				!getMembersNamesInGroup().contains(name)) 
 			{				
 				result.put(getPropertyPrefix() + name, getViewForChangedProperty());
-				if (displayAsDescriptionsListAndReferenceView()) {
+				if (displayAsDescriptionsListAndReferenceView()) { 
 					result.put(propertyPrefix.substring(0, propertyPrefix.length() - 1), getViewForChangedProperty());
 				}
 			}

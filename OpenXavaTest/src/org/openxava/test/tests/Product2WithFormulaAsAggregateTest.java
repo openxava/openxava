@@ -18,7 +18,7 @@ public class Product2WithFormulaAsAggregateTest extends ModuleTestBase {
 	}
 	
 
-	public void testReferenceToEntityAutoOidAsAggregate() throws Exception {
+	public void testReferenceToEntityAutoOidAsAggregate() throws Exception { 
 		// Creating product and its formula at once
 		execute("CRUD.new");
 		setValue("number", "66");  

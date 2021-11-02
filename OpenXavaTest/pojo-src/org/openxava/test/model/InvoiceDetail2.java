@@ -3,6 +3,7 @@ package org.openxava.test.model;
 import java.math.*;
 
 import javax.persistence.*;
+
 import org.openxava.annotations.*;
 
 /**
@@ -12,6 +13,18 @@ import org.openxava.annotations.*;
 
 @Entity
 @Table(name="INVOICEDETAIL")
+// tmr ini
+@View(members=
+	"amounts [ " + 
+		"quantity; " + 
+		"unitPrice; " + 
+		"amount; " + 
+	"]; " +
+	"familyList;" +
+	"productList;" +
+	"product"
+)
+// tmr fin
 public class InvoiceDetail2 {
 	
 	@ManyToOne(fetch=FetchType.LAZY)	 

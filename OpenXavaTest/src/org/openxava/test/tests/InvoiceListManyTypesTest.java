@@ -13,7 +13,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		super(testName, "InvoiceListManyTypes");		
 	}
 	
-	public void testListConfigurations() throws Exception {
+	public void testListConfigurations() throws Exception { 
 		// Don't separate in several independent tests 
 		// because we want test the accumulation of configuration without duplication
 

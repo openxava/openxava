@@ -1,6 +1,6 @@
 package org.openxava.test.tests;
 
-import org.openxava.tests.ModuleTestBase; 
+import org.openxava.tests.*; 
 
 /**
  * 
@@ -12,7 +12,7 @@ public class CheckTest extends ModuleTestBase {
 		super(testName, "Check");		
 	}
 	
-	public void testOneToOneWithOnChange() {
+	public void testOneToOneWithOnChange() { 
 		// It fails just on starting the module
 	}
 	

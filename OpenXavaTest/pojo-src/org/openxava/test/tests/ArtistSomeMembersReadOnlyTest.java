@@ -13,7 +13,7 @@ public class ArtistSomeMembersReadOnlyTest extends ModuleTestBase {
 		super(testName, "ArtistSomeMembersReadOnly");		
 	}
 	
-	public void testReadOnlyMembersInSectionAndGroupChangingViewProgrammaticallyUsingViewInheritance() throws Exception {
+	public void testReadOnlyMembersInSectionAndGroupChangingViewProgrammaticallyUsingViewInheritance() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertNoEditable("age");
 		assertNoEditable("level");

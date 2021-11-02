@@ -14,7 +14,7 @@ public class Movie2Test extends CustomizeListTestBase {
 	public void testRequiredFilesOnModify() throws Exception { 
 		execute("List.viewDetail", "row=2"); 
 		assertValue("title", "NOVECENTO");	
-		assertFilesCount("scripts", 1); 
+		assertFilesCount("scripts", 1); // TMR FALLA
 		removeFile("scripts", 0);
 		execute("CRUD.save");
 		assertError("Value for Scripts in Movie 2 is required");
