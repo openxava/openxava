@@ -796,7 +796,7 @@ public class AJAXTest extends ModuleTestBase {
 	public void testSectionsInsideSubview() throws Exception {
 		changeModule("TransportCharge");
 		execute("CRUD.new"); 
-		execute("Sections.change", "activeSection=4,viewObject=xava_view_delivery"); // TMR FALLA
+		execute("Sections.change", "activeSection=4,viewObject=xava_view_delivery"); 
 		assertLoadedParts("errors, sections_xava_view_delivery, " +
 				"messages, ");
 	}

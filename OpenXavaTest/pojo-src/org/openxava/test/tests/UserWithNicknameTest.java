@@ -66,7 +66,7 @@ public class UserWithNicknameTest extends ModuleTestBase {
 		execute("CRUD.delete");
 		assertNoErrors();
 		removeNicknames();
-		removeFiles(); // TMR FALLA	
+		removeFiles(); 
 	}	
 
 	public void testStoreFrameStatusWithTooLongName() throws Exception {
@@ -145,8 +145,8 @@ public class UserWithNicknameTest extends ModuleTestBase {
 	
 	private void removeFiles() throws Exception {
 		Query query = XPersistence.getManager()
-								  .createQuery("delete from AttachedFile where " +
-				                               "name=:photo or name=:document");
+		  .createQuery("delete from AttachedFile where " +
+                       "name=:photo or name=:document");
 		query.setParameter("photo", "foto_javi.jpg");
 		query.setParameter("document", "Corporation.html");
 		int count = query.executeUpdate();

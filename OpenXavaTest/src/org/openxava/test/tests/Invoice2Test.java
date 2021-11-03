@@ -368,7 +368,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertValidValuesCount("productList", 7); 
 	}
 	
-	public void testTouchContainerFromCallback() throws Exception { // tmr Cambiar nombre
+	public void testTouchContainerFromCallback_calculatedPropertiesInGroupInCollectionDetail() throws Exception { 
 		if (!usesAnnotatedPOJO()) return; // This case is only implemented in JPA
 		execute("CRUD.new");
 		setValue("number", "66");

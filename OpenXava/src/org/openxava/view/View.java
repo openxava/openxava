@@ -2709,22 +2709,12 @@ public class View implements java.io.Serializable {
 
 	public boolean isKeyEditable() {
 		if (insideAViewDisplayedAsDescriptionsListAndReferenceView()) return false;
-		/* tmr
-		if (isRepresentsEntityReference() && !isRepresentsCollection()) { 
-			View parent = getParentIfSectionOrGroup().getParent();
-			MetaReference ref = parent.getMetaReference(getMemberName());
-			return parent.isEditable(ref);
-		}
-		*/
-		// tmr ini
-		// TMR ME QUEDÉ POR AQUÍ: LO DE ABAJO HACE QUE FUNCIONEN LOS DOS CASOS, PERO PRODUCE 8 ERRORES EN LA SUITE, MARCADOS CON TMR FALLA
 		View baseView = getParentIfSectionOrGroup();
 		if (baseView.isRepresentsEntityReference() && !baseView.isRepresentsCollection()) { 
 			View parent = baseView.getParent();
-			MetaReference ref = parent.getMetaReference(getMemberName());
+			MetaReference ref = parent.getMetaReference(baseView.getMemberName());
 			return parent.isEditable(ref);
 		}		
-		// tmr fin
 		return !isReadOnly() && keyEditable;
 	}
 	
@@ -4282,7 +4272,6 @@ public class View implements java.io.Serializable {
 	}
 
 	public boolean isRepresentsCollection() {		
-		// tmr if (isGroup()) return getParent().isRepresentsCollection();  // tmr ¿?
 		return representsCollection;
 	}
 	

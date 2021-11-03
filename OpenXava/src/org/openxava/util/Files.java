@@ -20,7 +20,7 @@ public class Files {
 		return 
 			fileName.endsWith(".png") || 
 			fileName.endsWith(".jpg") ||
-			fileName.endsWith(".jpg") ||
+			fileName.endsWith(".jpeg") || 
 			fileName.endsWith(".bmp") ||
 			fileName.endsWith(".gif") ||
 			fileName.endsWith(".ico") ||

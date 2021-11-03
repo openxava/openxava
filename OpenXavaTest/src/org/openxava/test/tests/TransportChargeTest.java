@@ -14,7 +14,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 	}
 	
 	public void testOrderAndFilterInCollectionOfReference() throws Exception {
-		execute("CRUD.new"); // TMR FALLA
+		execute("CRUD.new"); 
 		execute("Reference.search", "keyProperty=xava.TransportCharge.delivery.number");
 		int row = getRowOf("2004", "2", "1", "666"); 
 		assertValueInList(row, 0, "2004");
@@ -43,7 +43,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 	}
 	
 	public void testViewForReferenceWithSections() throws Exception {
-		execute("CRUD.new"); // TMR FALLA
+		execute("CRUD.new"); 
 		assertExists("delivery.distance");
 		assertNotExists("delivery.advice");
 		execute("Sections.change", "activeSection=3,viewObject=xava_view_delivery");
@@ -55,7 +55,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		deleteAll();
 		
 		execute("CRUD.new");
-		assertEditable("delivery.invoice.year"); // TMR FALLA
+		assertEditable("delivery.invoice.year"); 
 		assertNoEditable("delivery.invoice.date");
 		assertEditable("delivery.number");
 		assertNoEditable("delivery.description");
