@@ -707,7 +707,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertListRowCount(8);
 	}
 	
-	public void testSearchUsesSimpleView() throws Exception { 
+	public void testSearchUsesSimpleView_isolateModuleSessionForEachBrowserTabWithSectionAndReloadingModuleWithInitTrue() throws Exception {  
 		execute("CRUD.new");		
 		assertValue("comment", "");
 		assertNoDialog();
@@ -724,6 +724,14 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoDialog();
 		assertNoErrors();
 		assertValue("comment", "INVOICE WITH SPACES");
+		
+		assertValue("year", "2002");						
+		String moduleURL = getModuleURL() + "&init=true";
+		getHtmlPage().executeJavaScript("window.open('" + moduleURL + "', '_blank')"); 
+		waitAJAX();
+		assertValue("year", "2002");
+		execute("Sections.change", "activeSection=1");
+		assertValue("year", "2002");		
 	}
 	
 	public void testCollectionSelectionIsCleared() throws Exception {

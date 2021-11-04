@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Opening the current module in other browser tab using the left menu initializes the current one.
 - Fix: Group inside a section in a collection element fails.
 - Fix: Calculated properties inside groups editing a collection detail are not recalculated.
 - Fix: Not preview for @File properties in list mode with files with .jpeg extension.

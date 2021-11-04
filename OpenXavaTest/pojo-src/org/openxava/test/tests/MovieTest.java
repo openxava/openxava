@@ -170,7 +170,7 @@ public class MovieTest extends MovieBaseTest {
 		assertValueInList(0, 0, "FORREST GUMP");
 		assertTrue(isNotVisibleConditionValue(3));
 	}
-		
+			
 	private String getUrlToFile(String filename) { 
 		String href = getFileAnchors().get(filename).getHrefAttribute();
 		return "http://" + getHost() + ":" + getPort() + href;
