@@ -3,8 +3,10 @@ package org.openxava.test.model;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
 
 /**

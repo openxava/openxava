@@ -1,30 +1,17 @@
 package org.openxava.web;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.*;
 import org.openxava.filters.meta.*;
 import org.openxava.formatters.*;
-import org.openxava.model.meta.MetaMember;
-import org.openxava.model.meta.MetaModel;
-import org.openxava.model.meta.MetaProperty;
-import org.openxava.model.meta.MetaReference;
+import org.openxava.model.meta.*;
 import org.openxava.tab.meta.*;
-import org.openxava.util.ElementNotFoundException;
-import org.openxava.util.Is;
-import org.openxava.util.Locales;
-import org.openxava.util.Messages;
-import org.openxava.util.Strings;
-import org.openxava.util.XavaException;
-import org.openxava.util.XavaResources;
-import org.openxava.view.meta.MetaDescriptionsList;
-import org.openxava.view.meta.MetaView;
-import org.openxava.web.meta.MetaEditor;
-import org.openxava.web.meta.MetaWebEditors;
+import org.openxava.util.*;
+import org.openxava.view.meta.*;
+import org.openxava.web.meta.*;
 
 /**
  * @author Javier Paniza

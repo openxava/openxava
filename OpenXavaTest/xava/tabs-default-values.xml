@@ -31,6 +31,10 @@
 	
 	<tab editors="List">		
 		<for-model model="Formula"/>
-	</tab>	
-		
+	</tab>
+	
+	<tab editors="Cards">
+		<for-model model="Applicant"/>
+	</tab>
+			
 </tabs-default-values>

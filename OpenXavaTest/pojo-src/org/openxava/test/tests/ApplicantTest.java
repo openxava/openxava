@@ -269,7 +269,10 @@ public class ApplicantTest extends ModuleTestBase {
 		assertAction("CRUD.refresh"); // In order to test that the UI is not broken
 	}
 	
-	public void testListCustomizationWithTabDefaultOrder() throws Exception {  
+	public void testListCustomizationWithTabDefaultOrder_tabAnnotationEditorAddedToTabsDefaultValuesXML() throws Exception {   
+		assertAction("ListFormat.select", "editor=List"); 
+		assertAction("ListFormat.select", "editor=Cards"); 
+		assertNoAction("ListFormat.select", "editor=Charts"); 
 		assertListCustomizationWithTabDefaultOrder(); 
 		resetModule();
 		assertListCustomizationWithTabDefaultOrder(); // Failed the second time after reseting module
