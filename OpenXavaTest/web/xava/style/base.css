@@ -413,7 +413,7 @@ A.sign-out  {
 	height: 100vh;
 	background: var(--modules-list-background);
 	box-shadow: 0px 0px 4px var(--modules-list-shadow);
-	z-index: 10;
+	z-index: 20;
 }
 
 #module_header_menu_button, #module_extended_title {

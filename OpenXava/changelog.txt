@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Top button bar overlaps left menu.
 - Fix: Editor defined in @Tab doesn't work if exists a <tab> with for-all-models in tabs-default-values.xml.
 - Fix: Opening the current module in other browser tab using the left menu initializes the current one.
 - Fix: Group inside a section in a collection element fails.
