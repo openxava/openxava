@@ -20,12 +20,10 @@
         Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
         Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
         Desarrollo ágil</a> | <b><span class="wiki_link">6. Herencia de
-          superclases mapedas</span></b> |
-      <a class="wiki_link" href="entity-inheritance_es.html">7. Herencia de
-        entidades</a> |
-      <a class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a>
-      | <a class="wiki_link" href="basic-business-logic_es.html">9. Lógica de
-        negocio básica</a> | <a class="wiki_link" href="validation_es.html">10.
+          superclases mapedas</span></b> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="basic-business-logic_es.html">9.
+        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">10.
         Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">11.
         Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">12.
         Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">13.
@@ -55,7 +53,6 @@
       Las clases <em>Autor</em>, <em>Categoria</em> y <em>Factura</em> tienen
       algo de código en común. Este código es la definición del campo <em>oid</em>:<br>
       <pre><code class="java">@Id @GeneratedValue(generator="system-uuid") @Hidden
-@GenericGenerator(name="system-uuid", strategy="uuid")
 @Column(length=32)
 String oid;
 </code></pre> Este código es exactamente el mismo para todas estas clases. Ya
@@ -71,7 +68,6 @@ String oid;
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
-import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
 import lombok.*;
  
@@ -80,7 +76,6 @@ import lombok.*;
 public class Identificable {
  
     @Id @GeneratedValue(generator="system-uuid") @Hidden
-    @GenericGenerator(name="system-uuid", strategy="uuid")
     @Column(length=32)
     String oid; // La definición de propiedad incluye anotaciones de OpenXava y JPA
  
