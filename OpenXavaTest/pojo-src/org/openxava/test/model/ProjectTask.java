@@ -20,7 +20,7 @@ public class ProjectTask extends Identifiable {
 	
 	@Required @Column(length=60)
 	private String description;
-	
+		
 	public enum Priority implements IIconEnum {  
 		LOW("transfer-down"), MEDIUM("square-medium"), HIGH("transfer-up");
 
