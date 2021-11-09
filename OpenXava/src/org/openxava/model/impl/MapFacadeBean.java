@@ -944,7 +944,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 				addToCollection(container, collectionName, newObject);		
 			}
 			Map key = getValues(metaModel, newObject, getKeyNames(metaModel), false);
-			if (container == null) updateSortableCollections(metaModel, key, values); 
+			/* tmr if (container == null) */ updateSortableCollections(metaModel, key, values); 
 			AccessTracker.created(metaModel.getName(), key); 
 			// Collections are not managed			
 			return newObject;

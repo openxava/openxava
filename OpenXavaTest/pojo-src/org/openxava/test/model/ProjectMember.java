@@ -12,8 +12,10 @@ import org.openxava.annotations.*;
 
 @Entity
 @Tab(defaultOrder="${name}") 
+@View(name="Simple") // tmr
 public class ProjectMember extends Nameable {
 	
+	@DescriptionsList(forViews="Simple") // tmr
 	@ManyToOne
 	private Project project;
 	

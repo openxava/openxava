@@ -4,11 +4,12 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.openxava.annotations.*;
+
 import lombok.*;
 
 /**
  * tmr 
- * TMR ME QUEDÉ POR AQUÍ: FALTA CREAR LAS TABLAS Y PROBARLO
  * @author Javier Paniza
  */
 
@@ -17,6 +18,7 @@ public class ProjectTeam extends Nameable {
 	
 	@OneToMany(mappedBy="team")
 	@OrderColumn 
+	@CollectionView("Simple") // tmr
 	List<ProjectMember> members; 
 
 }
