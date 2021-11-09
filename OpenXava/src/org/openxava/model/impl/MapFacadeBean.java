@@ -1042,6 +1042,43 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			}			
 		}	
 	}
+	
+	// tmr ini
+	private void updateSortableCollectionsOnRemove(MetaModel metaModel, Map key) throws XavaException, RemoteException, CreateException, ValidationException {
+		// TMR ME QUEDÉ POR AQUÍ: HICE ESTO PERO NO FUNCIONA
+		for (Iterator it = metaModel.getMetaReferencesToEntity().iterator(); it.hasNext(); ) {
+			MetaReference ref = (MetaReference) it.next();		
+			if (!Is.emptyString(ref.getReferencedModelCorrespondingCollection())) {
+				if (ref.getMetaModelReferenced().containsMetaCollection(ref.getReferencedModelCorrespondingCollection())) {
+					MetaCollection col = ref.getMetaModelReferenced().getMetaCollection(ref.getReferencedModelCorrespondingCollection());
+					if (col.isSortable()) {
+						Map values = null;
+						try {
+							values = getValues(metaModel, key, Maps.toMap(ref.getName(), null));
+							if (values == null) continue;
+						}
+						catch (FinderException ex) {
+							continue;
+						}
+						Map referenceValues = (Map) values.get(ref.getName());
+						if (referenceValues != null) {
+							try {
+								Map referenceKey = extractKeyValues(ref.getMetaModelReferenced(), referenceValues);
+								if (!Is.empty(referenceKey)) { 
+									removeCollectionElement(ref.getMetaModelReferenced(), referenceKey, ref.getReferencedModelCorrespondingCollection(), key);
+								}
+							} 
+							catch (PropertiesManagerException | InvocationTargetException | FinderException | RemoveException ex) {
+								log.error(ex.getMessage(), ex);
+								throw new XavaException("add_element_to_collection_error"); // tmr i18n
+							}
+						}
+					}
+				}
+			}			
+		}	
+	}
+	// tmr fin
 
 
 	private int getHiddenKeyNotPressent(MetaReference ref, Map referenceValues) throws XavaException {
@@ -1511,6 +1548,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			if (!errors.isEmpty()) {
 				throw new ValidationException(errors);
 			}			
+			updateSortableCollectionsOnRemove(metaModel, keyValues); // tmr
 			// removing collections are resposibility of persistence provider						
 			getPersistenceProvider(metaModel).remove(metaModel, keyValues); 
 			AccessTracker.removed(metaModel.getName(), keyValues); 
