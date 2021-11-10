@@ -9,7 +9,7 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 /**
- * tmr 
+ * 
  * @author Javier Paniza
  */
 
@@ -18,7 +18,7 @@ public class ProjectTeam extends Nameable {
 	
 	@OneToMany(mappedBy="team")
 	@OrderColumn 
-	@CollectionView("Simple") // tmr
+	@CollectionView("Simple") 
 	List<ProjectMember> members; 
 
 }

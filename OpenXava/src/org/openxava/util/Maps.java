@@ -253,6 +253,30 @@ public class Maps {
 	}
 	
 	/**
+	 * Converts a collection with qualified keys in a tree map with null values. <p>
+	 * 
+	 * That is, convert:
+	 * <pre>
+	 * [invoice.year, invoice.number, number]
+	 * </pre>
+	 * in
+	 * <pre>
+	 * {invoice={year=null, number=null}, number=null}
+	 * </pre>
+	 *  
+	 * @since 6.6.1 
+	 * @param collection This argument is not changed. The values must be strings. Mustn't be null
+	 * @return A map with the data in tree format.
+	 */
+	public static Map qualifiedKeysCollectionToTreeMapWithNullValues(Collection collection) { 
+		Map map = new HashMap();
+		for (Object e: collection) {
+			map.put(e, null);
+		}
+		return plainToTree(map);
+	}
+	
+	/**
 	 * Converts a tree map in a plain map (without levels). <p>
 	 * 
 	 * That is, convert:

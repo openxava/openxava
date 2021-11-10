@@ -944,7 +944,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 				addToCollection(container, collectionName, newObject);		
 			}
 			Map key = getValues(metaModel, newObject, getKeyNames(metaModel), false);
-			/* tmr if (container == null) */ updateSortableCollections(metaModel, key, values); 
+			updateSortableCollections(metaModel, key, values); 
 			AccessTracker.created(metaModel.getName(), key); 
 			// Collections are not managed			
 			return newObject;
@@ -1043,9 +1043,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		}	
 	}
 	
-	// tmr ini
 	private void updateSortableCollectionsOnRemove(MetaModel metaModel, Map key) throws XavaException, RemoteException, CreateException, ValidationException {
-		// TMR ME QUEDÉ POR AQUÍ: HICE ESTO PERO NO FUNCIONA
 		for (Iterator it = metaModel.getMetaReferencesToEntity().iterator(); it.hasNext(); ) {
 			MetaReference ref = (MetaReference) it.next();		
 			if (!Is.emptyString(ref.getReferencedModelCorrespondingCollection())) {
@@ -1054,7 +1052,9 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 					if (col.isSortable()) {
 						Map values = null;
 						try {
-							values = getValues(metaModel, key, Maps.toMap(ref.getName(), null));
+							Collection keyPropertiesNames = ref.getMetaModelReferenced().getAllKeyPropertiesNames();
+							Map refKeyProperties = Maps.qualifiedKeysCollectionToTreeMapWithNullValues(keyPropertiesNames);
+							values = getValues(metaModel, key, Maps.toMap(ref.getName(), refKeyProperties));
 							if (values == null) continue;
 						}
 						catch (FinderException ex) {
@@ -1070,7 +1070,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 							} 
 							catch (PropertiesManagerException | InvocationTargetException | FinderException | RemoveException ex) {
 								log.error(ex.getMessage(), ex);
-								throw new XavaException("add_element_to_collection_error"); // tmr i18n
+								throw new XavaException("remove_element_from_collection_error"); 
 							}
 						}
 					}
@@ -1078,8 +1078,6 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			}			
 		}	
 	}
-	// tmr fin
-
 
 	private int getHiddenKeyNotPressent(MetaReference ref, Map referenceValues) throws XavaException {
 		int hiddenKeyNotPresent = 0;
@@ -1548,7 +1546,7 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 			if (!errors.isEmpty()) {
 				throw new ValidationException(errors);
 			}			
-			updateSortableCollectionsOnRemove(metaModel, keyValues); // tmr
+			updateSortableCollectionsOnRemove(metaModel, keyValues); 
 			// removing collections are resposibility of persistence provider						
 			getPersistenceProvider(metaModel).remove(metaModel, keyValues); 
 			AccessTracker.removed(metaModel.getName(), keyValues); 

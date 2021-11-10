@@ -12,15 +12,15 @@ import org.openxava.annotations.*;
 
 @Entity
 @Tab(defaultOrder="${name}") 
-@View(name="Simple") // tmr
+@View(name="Simple") 
 public class ProjectMember extends Nameable {
 	
-	@DescriptionsList(forViews="Simple") // tmr
+	@DescriptionsList(forViews="Simple") 
 	@ManyToOne
 	private Project project;
 	
 	@ManyToOne
-	private ProjectTeam team; // tmr
+	private ProjectTeam team; 
 	
 	public Project getProject() {
 		return project;

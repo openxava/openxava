@@ -1,10 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
+- Added method qualifiedKeysCollectionToTreeMapWithNullValues() to org.openxava.util.Maps utility class.
+- Fix: Blank element in @OrderColumn collection when a collection element is deleted from its main module.
+- Fix: @OrderColumn collection broken if a new element is created from other @OrderColumn collection. 
 - Course refined to avoid import conflicts.
 - Fix: Top button bar overlaps left menu.
 - Fix: Editor defined in @Tab doesn't work if exists a <tab> with for-all-models in tabs-default-values.xml.
 - Fix: Opening the current module in other browser tab using the left menu initializes the current one.
+- Fix: View with just groups in a collection element fails.
 - Fix: Group inside a section in a collection element fails.
 - Fix: Calculated properties inside groups editing a collection detail are not recalculated.
 - Fix: Not preview for @File properties in list mode with files with .jpeg extension.
