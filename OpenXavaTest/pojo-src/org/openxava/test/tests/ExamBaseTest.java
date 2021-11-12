@@ -125,9 +125,9 @@ abstract public class ExamBaseTest extends ModuleTestBase {
 		// Simulation data source
 		setDatasource(Datasource.SIMULATION);
 		assertFilename("Customer.jrxml");
-		assertMimeFile("Customer.jrxml", "application/octet-stream"); 
-		execute("List.viewDetail", "row=0");
-		assertFile("file", "application/octet-stream");  
+		assertMimeFile("Customer.jrxml", "application/xml"); 
+		execute("List.viewDetail", "row=0");  
+		assertFile("file", "application/xml"); 
 		execute("CRUD.delete");
 		execute("Mode.list");
 		assertListRowCount(0);

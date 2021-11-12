@@ -22,8 +22,8 @@ public class ProjectTest extends ModuleTestBase {
 	public void testWebURLEditor() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		setValueInCollection("notes", 0, 2, "www.openxava.org");
-		setValueInCollection("notes", 1, 2, "http://www.rae.es/"); 
-		assertLinkOnNote(0, "The fastest development for Java"); 
+		setValueInCollection("notes", 1, 2, "http://www.rae.es/");  
+		assertLinkOnNote(0, "The best time-to-market for Java"); 
 		
 		assertLinkOnNote(1, "Diccionario de la lengua"); // Fails with Java 8 with a problem with Cloudfare protection in RAE
 	}
