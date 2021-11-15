@@ -775,7 +775,15 @@ public class Tab implements java.io.Serializable, Cloneable {
 	
 	private IXTableModel createTableModel() throws Exception {
 		IXTableModel tableModel = null;
-		EntityTab tab = EntityTabFactory.create(getMetaTab());
+		// tmr EntityTab tab = EntityTabFactory.create(getMetaTab());
+		// tmr ini
+		// TMR ME QUEDÉ POR AQUÍ: ESTO FUNCIONA, TODAVÍA TENGO QUE CAVILAR COMO HACER QUE FUNCIONE Cards 
+		MetaTab metaTab = getMetaTab();
+		int chunkSize = -1; // tmr metaTab.hasCalculatedProperties()?getPageRowCount():-1;
+		System.out.println("[Tab.createTableModel] chunkSize=" + chunkSize); // tmr
+		EntityTab tab = EntityTabFactory.create(metaTab, chunkSize); // tmr
+		
+		// tmr fin
 		usesConverters = tab.usesConverters();
 		search(tab); 		
 		tableModel = tab.getTable();

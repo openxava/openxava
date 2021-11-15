@@ -48,12 +48,17 @@ public class Order extends Identifiable {
 	private String remarks;
 	
 	
+	private static int counter = 0; // tmr
 	@Stereotype("MONEY")
 	public BigDecimal getAmount() {
+		long ini = System.currentTimeMillis(); // tmr
 		BigDecimal result = BigDecimal.ZERO;
 		for (OrderDetail detail: getDetails()) {
 			result = result.add(detail.getAmount());
 		}
+		try { Thread.sleep(100); } catch (InterruptedException e) {	} // tmr 
+		long cuesta = System.currentTimeMillis() - ini; // tmr
+		//System.out.println("[Order.getAmount] " + (++counter) + ". cuesta=" + cuesta); // tmr
 		return result;
 	}
 		

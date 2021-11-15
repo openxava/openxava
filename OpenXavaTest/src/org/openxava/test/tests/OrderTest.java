@@ -22,7 +22,18 @@ public class OrderTest extends ModuleTestBase {
 		super(testName, "Order");		
 	}
 	
-	public void testActionsNotLostAfterOpenDialogTwiceFromCollectionElement() throws Exception { 
+	public void testActionsNotLostAfterOpenDialogTwiceFromCollectionElement() throws Exception { // tmr Cambiar nombre
+		// tmr ini
+		long ini = System.currentTimeMillis(); // tmr
+		execute("List.filter");
+		long takes = System.currentTimeMillis() - ini; // tmr
+		System.out.println("[OrderTest.testActionsNotLostAfterOpenDialogTwiceFromCollectionElement] cuesta=" + takes); // tmr
+		assertTrue(takes < 4000); // With the fix it takes x, without it it taken around 8000
+		
+		execute("ListFormat.select", "editor=Cards");
+		assertListRowCount(56);
+		execute("ListFormat.select", "editor=List");
+		// tmr fin
 		execute("List.viewDetail", "row=0"); 
 		execute("Collection.new", "viewObject=xava_view_details"); 	
 

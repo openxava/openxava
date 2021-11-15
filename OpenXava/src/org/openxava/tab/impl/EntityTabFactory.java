@@ -4,8 +4,6 @@ import java.rmi.*;
 
 import javax.ejb.*;
 
-
-
 import org.apache.commons.logging.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
@@ -60,7 +58,7 @@ public class EntityTabFactory {
 		return create(metaTab, Integer.MAX_VALUE);
 	}	
 	
-	private static EntityTab create(MetaTab metaTab, int chunkSize) throws CreateException, RemoteException, XavaException {
+	/* tmr private */ public static EntityTab create(MetaTab metaTab, int chunkSize) throws CreateException, RemoteException, XavaException {
 		EntityTab tab = new EntityTab();		
 		tab.setComponentName(metaTab.getMetaModel().getMetaComponent().getName());
 		tab.setMetaTab(metaTab);
