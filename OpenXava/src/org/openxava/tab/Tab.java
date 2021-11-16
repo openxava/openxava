@@ -486,6 +486,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private Messages errors;
 	private String defaultCondition;
 	private Collection<MetaProperty> metaPropertiesBeforeGrouping;
+	private boolean optimizeChunkSize = true; // tmr
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -776,11 +777,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private IXTableModel createTableModel() throws Exception {
 		IXTableModel tableModel = null;
 		// tmr EntityTab tab = EntityTabFactory.create(getMetaTab());
-		// tmr ini
-		// TMR ME QUEDÉ POR AQUÍ: ESTO FUNCIONA, TODAVÍA TENGO QUE CAVILAR COMO HACER QUE FUNCIONE Cards 
+		// tmr ini 
 		MetaTab metaTab = getMetaTab();
-		int chunkSize = -1; // tmr metaTab.hasCalculatedProperties()?getPageRowCount():-1;
-		System.out.println("[Tab.createTableModel] chunkSize=" + chunkSize); // tmr
+		int chunkSize = optimizeChunkSize && metaTab.hasCalculatedProperties()?getPageRowCount():-1;
 		EntityTab tab = EntityTabFactory.create(metaTab, chunkSize); // tmr
 		
 		// tmr fin
@@ -3105,5 +3104,17 @@ public class Tab implements java.io.Serializable, Cloneable {
 		if (configuration == null) return true;
 		return !configuration.hasCustomName();
 	}
+
+	// tmr ini
+	public boolean isOptimizeChunkSize() {
+		return optimizeChunkSize;
+	}
+
+	public void setOptimizeChunkSize(boolean optimizeChunkSize) {
+		if (this.optimizeChunkSize == optimizeChunkSize) return;
+		this.optimizeChunkSize = optimizeChunkSize;
+		if (getMetaTab().hasCalculatedProperties()) this.tableModel = null;
+	}
+	// tmr fin
 
 }

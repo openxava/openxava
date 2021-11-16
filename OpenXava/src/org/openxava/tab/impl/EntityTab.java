@@ -196,7 +196,6 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 			table.setColumnsClasses(getColumnsClasses());
 			table.setPropertiesNames(getPropertiesNames()); 
 			tabProvider.setMetaTab(metaTab); 
-			System.out.println("[EntityTab.init] getChunkSize()=" + getChunkSize()); // tmr
 			tabProvider.setChunkSize(getChunkSize());
 			table.setPKIndexes(getIndexesPK());
 			table.invariant();
@@ -481,7 +480,6 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	}
 	public void setChunkSize(int chunkSize) {
 		this.chunkSize = chunkSize;
-		System.out.println("[EntityTab.setChunkSize] this.chunkSize=" + this.chunkSize); // tmr
 	}
 	
 }

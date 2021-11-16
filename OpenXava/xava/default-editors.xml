@@ -12,7 +12,9 @@
 
 <editors>
   
-	<editor name="List" url="listEditor.jsp" icon="table-large">
+	<editor name="List" url="listEditor.jsp" icon="table-large"
+		init-action="List.init"
+		release-action="List.release"> <!-- tmr -->
 		<for-tabs/>
 	</editor>
 	
@@ -20,11 +22,13 @@
 		selectable-items="false" 
 		icon="chart-line" 
 		init-action="Chart.init" 
-		release-action="Chart.release">
+		release-action="Chart.release"> 
 		<for-tabs/>
 	</editor>	
 	
-	<editor name="Cards" url="cardsEditor.jsp" icon="view-module" selectable-items="false">
+	<editor name="Cards" url="cardsEditor.jsp" 
+		icon="view-module" 
+		selectable-items="false"> 
 		<for-tabs/>
 	</editor>	
 		

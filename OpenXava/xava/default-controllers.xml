@@ -210,7 +210,7 @@ here that you want to override.
 			class="org.openxava.actions.ShareMyReportAction"/>																																										
 	</controller>
 	
-	<controller name="Chart"> 
+	<controller name="Chart">  
 		<action name="init" hidden="true"
 			class="org.openxava.actions.InitChartAction"/>
 		<action name="release" hidden="true"
@@ -222,6 +222,16 @@ here that you want to override.
 			icon="delete"
 			image="delete.gif"/>
 	</controller>
+	
+	<!-- tmr ini 
+	<controller name="Card"> 
+		<action name="init" hidden="true"
+			class="org.openxava.actions.SetOptimizeChunkSizeAction">
+			<set property="optimizeChunkSize" value="false"/>
+		</action>
+	</controller>
+	-->
+	<!-- tmr fin -->
 	
 	<controller name="TypicalNotResetOnSave">
 		<extends controller="Typical"/>
@@ -300,6 +310,19 @@ here that you want to override.
 	
 		
 	<controller name="List">
+	
+		<!-- tmr ini --> 
+		<!-- TMR ME QUEDÉ POR AQUÍ: TENGO QUE PROBAR LO DE ABAJO, CON init Y release. PROBAR TAMBIÉN ScrollingTest.txt Y ChartsTest.txt -->
+		<action name="init" hidden="true"
+			class="org.openxava.actions.SetOptimizeChunkSizeAction">
+			<set property="optimizeChunkSize" value="true"/>
+		</action>		
+		
+		<action name="release" hidden="true"
+			class="org.openxava.actions.SetOptimizeChunkSizeAction">
+			<set property="optimizeChunkSize" value="false"/>
+		</action>		
+		<!-- tmr fin -->	
 	
 		<action name="setPageRowCount"
 			class="org.openxava.actions.SetPageRowCountAction"
