@@ -54,7 +54,7 @@ public class Order extends Identifiable {
 		for (OrderDetail detail: getDetails()) {
 			result = result.add(detail.getAmount());
 		}
-		try { Thread.sleep(100); } catch (InterruptedException e) {	} // tmr 
+		try { Thread.sleep(100); } catch (InterruptedException e) {	} // It must be 100ms to test a case 
 		return result;
 	}
 		

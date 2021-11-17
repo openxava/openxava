@@ -58,7 +58,11 @@ public class EntityTabFactory {
 		return create(metaTab, Integer.MAX_VALUE);
 	}	
 	
-	/* tmr private */ public static EntityTab create(MetaTab metaTab, int chunkSize) throws CreateException, RemoteException, XavaException {
+	/**
+	 * 
+	 * @since 6.6.1 before it was private
+	 */
+	public static EntityTab create(MetaTab metaTab, int chunkSize) throws CreateException, RemoteException, XavaException {
 		EntityTab tab = new EntityTab();		
 		tab.setComponentName(metaTab.getMetaModel().getMetaComponent().getName());
 		tab.setMetaTab(metaTab);

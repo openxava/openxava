@@ -22,24 +22,22 @@ public class OrderTest extends ModuleTestBase {
 		super(testName, "Order");		
 	}
 	
-	public void testActionsNotLostAfterOpenDialogTwiceFromCollectionElement() throws Exception { // tmr Cambiar nombre
-		// tmr ini
+	public void testGoodPerformanceWithCalculatedPropertiesInList_actionsNotLostAfterOpenDialogTwiceFromCollectionElement() throws Exception { 
 		long ini = System.currentTimeMillis(); 
 		execute("List.filter");
 		long takes = System.currentTimeMillis() - ini; 
-		System.out.println("[OrderTest.testActionsNotLostAfterOpenDialogTwiceFromCollectionElement] cuesta.1=" + takes); // tmr
-		assertTrue(takes < 4000); // With the fix it takes over 2500, without it it taken around 8000
+		assertTrue(takes < 4000); // With the fix it takes over 2500, without it it taken around 8000 (but never less 5600)
 		
 		execute("ListFormat.select", "editor=Cards");
 		assertListRowCount(56);
+		resetModule();
+		assertListRowCount(56);
 		
-		ini = System.currentTimeMillis(); // tmr
+		ini = System.currentTimeMillis(); 
 		execute("ListFormat.select", "editor=List");
-		takes = System.currentTimeMillis() - ini; // tmr
-		System.out.println("[OrderTest.testActionsNotLostAfterOpenDialogTwiceFromCollectionElement] cuesta.2=" + takes); // tmr
-		assertTrue(takes < 4000); // With the fix it takes x, without it it taken around 8000
+		takes = System.currentTimeMillis() - ini; 
+		assertTrue(takes < 4000); // With the fix it takes 2500, without it it taken around 8000 (but never less 5600)
 
-		// tmr fin
 		execute("List.viewDetail", "row=0"); 
 		execute("Collection.new", "viewObject=xava_view_details"); 	
 

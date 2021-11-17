@@ -14,7 +14,7 @@
   
 	<editor name="List" url="listEditor.jsp" icon="table-large"
 		init-action="List.init"
-		release-action="List.release"> <!-- tmr -->
+		release-action="List.release"> 
 		<for-tabs/>
 	</editor>
 	

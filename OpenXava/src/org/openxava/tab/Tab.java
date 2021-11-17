@@ -486,7 +486,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private Messages errors;
 	private String defaultCondition;
 	private Collection<MetaProperty> metaPropertiesBeforeGrouping;
-	private boolean optimizeChunkSize = true; // tmr
+	private boolean optimizeChunkSize = false; 
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -776,13 +776,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 	
 	private IXTableModel createTableModel() throws Exception {
 		IXTableModel tableModel = null;
-		// tmr EntityTab tab = EntityTabFactory.create(getMetaTab());
-		// tmr ini 
 		MetaTab metaTab = getMetaTab();
 		int chunkSize = optimizeChunkSize && metaTab.hasCalculatedProperties()?getPageRowCount():-1;
-		EntityTab tab = EntityTabFactory.create(metaTab, chunkSize); // tmr
+		EntityTab tab = EntityTabFactory.create(metaTab, chunkSize); 
 		
-		// tmr fin
 		usesConverters = tab.usesConverters();
 		search(tab); 		
 		tableModel = tab.getTable();
@@ -3105,7 +3102,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return !configuration.hasCustomName();
 	}
 
-	// tmr ini
 	public boolean isOptimizeChunkSize() {
 		return optimizeChunkSize;
 	}
@@ -3115,6 +3111,5 @@ public class Tab implements java.io.Serializable, Cloneable {
 		this.optimizeChunkSize = optimizeChunkSize;
 		if (getMetaTab().hasCalculatedProperties()) this.tableModel = null;
 	}
-	// tmr fin
 
 }
