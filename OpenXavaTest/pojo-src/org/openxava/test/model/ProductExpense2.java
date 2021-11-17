@@ -13,9 +13,18 @@ import org.openxava.test.calculators.*;
 @Embeddable
 public class ProductExpense2 { 
 	
+	// TMR ME QUEDÉ POR AQUÍ: HACIENDO PRUEBAS:
+	// TMR - ORIGINAL NO VA (AUNQUE EL TEST DA VERDE)
+	// TMR - SIN @DescriptionsList VA LA PRIMERA FILA, A PARTIR DE LA SEGUNDA NO VA
+	// TMR - CON UN CAMPO PLANO (CÓDIGO ACTUAL) NO VA
+	/* tmr 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@DescriptionsList // Must be @DescriptionsList to test a case 	
+	// tmr @DescriptionsList // Must be @DescriptionsList to test a case 	
 	private Carrier carrier;
+	*/
+	
+	@Column(name="carrier_number")
+	private int carrierNumber; // tmr
 
 
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -48,12 +57,22 @@ public class ProductExpense2 {
 		this.product = product;
 	}
 
+	/* tmr
 	public Carrier getCarrier() {
 		return carrier;
 	}
 
 	public void setCarrier(Carrier carrier) {
 		this.carrier = carrier;
+	}
+	*/
+
+	public int getCarrierNumber() {
+		return carrierNumber;
+	}
+
+	public void setCarrierNumber(int carrierNumber) {
+		this.carrierNumber = carrierNumber;
 	}
 	
 	
