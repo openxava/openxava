@@ -2,8 +2,8 @@ Change Log for OpenXava project
 ===============================
 
 - Fix: Low performance in list mode with calculated properties with heavy logic and large datasets.
-- @File/@Files do not show image preview for image files in some computers.
-- @File/@Files with acceptFileTypes="images/*" mark as error image files in some computers. 
+- Fix: @File/@Files do not show image preview for image files in some computers.
+- Fix: @File/@Files with acceptFileTypes="images/*" mark as error image files in some computers. 
 - Removed MimeUtil library from eu.medsea, we use URLConnection from Java instead.
 - Added method qualifiedKeysCollectionToTreeMapWithNullValues() to org.openxava.util.Maps utility class.
 - Fix: Blank element in @OrderColumn collection when a collection element is deleted from its main module.
