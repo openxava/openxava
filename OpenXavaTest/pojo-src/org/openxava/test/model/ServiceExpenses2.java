@@ -18,7 +18,8 @@ public class ServiceExpenses2 extends Identifiable {
 	private String description;
 	
 	@ElementCollection
-	@ListProperties("invoice.year, invoice.number, invoice.amount, status, receptionist") 
+	// tmr @ListProperties("invoice.year, invoice.number, invoice.amount, status, receptionist") 
+	@ListProperties("invoice.year, invoice.number, invoice.amount, status, receptionist, date") // tmr
 	private Collection<ServiceExpense2> expenses;
 
 	public String getDescription() {

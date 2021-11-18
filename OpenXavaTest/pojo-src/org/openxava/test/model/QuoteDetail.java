@@ -5,7 +5,7 @@ import java.math.*;
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
-import org.openxava.test.calculators.*;
+import org.openxava.calculators.*;
 
 import lombok.*;
 
@@ -21,12 +21,25 @@ public class QuoteDetail {
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	Product product;
 	
+	/* tmr 
 	@DefaultValueCalculator( 
 		value=UnitPriceCalculator.class,
 		properties=@PropertyValue(
 			name="productNumber",
 			from="product.number")
 	)
+	*/
+	// tmr ini
+	// tmr Esto reproduce el problema informado exactamente
+	/* tmr */
+	@DefaultValueCalculator( 
+		value=BigDecimalCalculator.class,
+		properties=@PropertyValue(
+			name="value",
+			value="666")
+	)	
+	
+	// tmr fin
 	@Stereotype("MONEY") 
 	BigDecimal unitPrice;
 	

@@ -1,5 +1,7 @@
 package org.openxava.test.tests;
 
+import java.text.*;
+
 import org.openxava.tests.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
@@ -21,6 +23,7 @@ public class ServiceExpenses2Test extends ModuleTestBase {
 		setValueInCollection("expenses", 0, "invoice.year", "2007");
 		setValueInCollection("expenses", 0, "invoice.number", "1");
 		assertValueInCollection("expenses", 0, "invoice.amount", "790.00");
+		assertValueInCollection("expenses", 0, "date", getCurrentDate()); // tmr
 		
 		String [][] statusValidValues = {
 			{ "", "" },
@@ -45,6 +48,17 @@ public class ServiceExpenses2Test extends ModuleTestBase {
 		assertNumberOfRowsShownInElementCollection(3);
 		execute("CRUD.delete");
 		assertNoErrors();
+		
+		// tmr ini
+		// TMR ME QUEDÉ POR AQUÍ: TEST HECHO, AHORA A RESOLVER EL BUG
+		execute("CRUD.new");
+		execute("Reference.search", "keyProperty=expenses.0.invoice.number");
+		execute("ReferenceSearch.choose", "row=1");
+		assertValueInCollection("expenses", 0, "invoice.year", "2007");
+		assertValueInCollection("expenses", 0, "invoice.number", "2");
+		assertValueInCollection("expenses", 0, "invoice.amount", "1,730.00");
+		assertValueInCollection("expenses", 0, "date", getCurrentDate());
+		// tmr fin
 	}
 	
 	private void assertNumberOfRowsShownInElementCollection(int number) {
@@ -52,4 +66,10 @@ public class ServiceExpenses2Test extends ModuleTestBase {
 		HtmlElement tr = getHtmlPage().getHtmlElementById(elementId); 
 		assertTrue(tr.getAttribute("style").contains("display: none"));		
 	}
+	
+	private String getCurrentDate() { // tmr
+		DateFormat df = new SimpleDateFormat("M/d/yyyy"); 
+		return df.format(new java.util.Date());
+	}
+
 }
