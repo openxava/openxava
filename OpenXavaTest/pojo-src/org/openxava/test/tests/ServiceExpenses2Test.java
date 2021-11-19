@@ -50,14 +50,26 @@ public class ServiceExpenses2Test extends ModuleTestBase {
 		assertNoErrors();
 		
 		// tmr ini
-		// TMR ME QUEDÉ POR AQUÍ: TEST HECHO, AHORA A RESOLVER EL BUG
 		execute("CRUD.new");
+		assertNumberOfRowsShownInElementCollection(1);
+		execute("Reference.search", "keyProperty=expenses.0.invoice.number");
+		execute("ReferenceSearch.cancel");
+		assertNumberOfRowsShownInElementCollection(1);
+		assertValueInCollection("expenses", 0, "invoice.year", "");
+		assertValueInCollection("expenses", 0, "invoice.number", "");
+		assertValueInCollection("expenses", 0, "invoice.amount", "");
+		assertValueInCollection("expenses", 0, "date", "");
+		
 		execute("Reference.search", "keyProperty=expenses.0.invoice.number");
 		execute("ReferenceSearch.choose", "row=1");
 		assertValueInCollection("expenses", 0, "invoice.year", "2007");
 		assertValueInCollection("expenses", 0, "invoice.number", "2");
 		assertValueInCollection("expenses", 0, "invoice.amount", "1,730.00");
 		assertValueInCollection("expenses", 0, "date", getCurrentDate());
+		assertNumberOfRowsShownInElementCollection(2);
+		
+		setValueInCollection("expenses", 1, "date", "1/1/2022");
+		assertValueInCollection("expenses", 1, "date", "1/1/2022"); // tmr Como otro bug en changelog
 		// tmr fin
 	}
 	

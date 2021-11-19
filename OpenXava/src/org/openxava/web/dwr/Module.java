@@ -294,8 +294,8 @@ public class Module extends DWRBase {
 			);
 		}
 	
-		fillPropertiesUsedInCalculationsFromSumCollectionProperties(propertiesUsedInCalculations, changedCollectionsTotals); 
-	
+		fillPropertiesUsedInCalculationsFromSumCollectionProperties(propertiesUsedInCalculations, changedCollectionsTotals);
+		
 		if (!propertiesUsedInCalculations.isEmpty()) {
 			result.setPropertiesUsedInCalculations(XCollections.toStringArray(propertiesUsedInCalculations));  
 		}
