@@ -1,5 +1,6 @@
 package org.openxava.test.model;
 
+import java.time.*;
 import java.util.*;
 
 import javax.persistence.*;
@@ -19,8 +20,19 @@ public class ServiceExpenses2 extends Identifiable {
 	
 	@ElementCollection
 	// tmr @ListProperties("invoice.year, invoice.number, invoice.amount, status, receptionist") 
-	@ListProperties("invoice.year, invoice.number, invoice.amount, status, receptionist, date") // tmr
+	@ListProperties("invoice.year, invoice.number, invoice.amount, status, receptionist, date[serviceExpenses2.olderDate, serviceExpenses2.newerDate]") // tmr
 	private Collection<ServiceExpense2> expenses;
+	
+	public LocalDate getOlderDate() {
+		if (expenses == null || expenses.isEmpty()) return null;
+		return expenses.stream().map(ServiceExpense2::getDate).filter(d -> d != null).min(LocalDate::compareTo).get();
+	}
+	
+	public LocalDate getNewerDate() {
+		if (expenses == null || expenses.isEmpty()) return null;
+		return expenses.stream().map(ServiceExpense2::getDate).filter(d -> d != null).max(LocalDate::compareTo).get();
+	}
+	
 
 	public String getDescription() {
 		return description;
