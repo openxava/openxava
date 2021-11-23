@@ -16,7 +16,35 @@ public class ServiceExpenses2Test extends ModuleTestBase {
 		super(testName, "ServiceExpenses2");		
 	}
 	
-	public void testEnumsWithRequiedValueInElementCollection() throws Exception {		
+	public void testEnumsWithRequiedValueInElementCollection_defaultValueCalculatorWithNoFromInElementCollectionWhenSearchingReferenceWithDialog() throws Exception {		
+		assertEnumsWithRequiedValueInElementCollection();
+		assertDefaultValueCalculatorWithNoFromInElementCollectionWhenSearchingReferenceWithDialog(); // tmr
+	}
+
+	private void assertDefaultValueCalculatorWithNoFromInElementCollectionWhenSearchingReferenceWithDialog() throws Exception { // tmr
+		execute("CRUD.new");
+		assertNumberOfRowsShownInElementCollection(1);
+		execute("Reference.search", "keyProperty=expenses.0.invoice.number");
+		execute("ReferenceSearch.cancel");
+		assertNumberOfRowsShownInElementCollection(1);
+		assertValueInCollection("expenses", 0, "invoice.year", "");
+		assertValueInCollection("expenses", 0, "invoice.number", "");
+		assertValueInCollection("expenses", 0, "invoice.amount", "");
+		assertValueInCollection("expenses", 0, "date", "");
+		
+		execute("Reference.search", "keyProperty=expenses.0.invoice.number");
+		execute("ReferenceSearch.choose", "row=1");
+		assertValueInCollection("expenses", 0, "invoice.year", "2007");
+		assertValueInCollection("expenses", 0, "invoice.number", "2");
+		assertValueInCollection("expenses", 0, "invoice.amount", "1,730.00");
+		assertValueInCollection("expenses", 0, "date", getCurrentDate());
+		assertNumberOfRowsShownInElementCollection(2);
+		
+		setValueInCollection("expenses", 1, "date", "1/1/2022");
+		assertValueInCollection("expenses", 1, "date", "1/1/2022"); // tmr Como otro bug en changelog
+	}
+
+	private void assertEnumsWithRequiedValueInElementCollection() throws Exception {
 		execute("CRUD.new");
 		assertNumberOfRowsShownInElementCollection(1);
 		setValue("description", "JUNIT EXPENSE2");
@@ -48,29 +76,6 @@ public class ServiceExpenses2Test extends ModuleTestBase {
 		assertNumberOfRowsShownInElementCollection(3);
 		execute("CRUD.delete");
 		assertNoErrors();
-		
-		// tmr ini
-		execute("CRUD.new");
-		assertNumberOfRowsShownInElementCollection(1);
-		execute("Reference.search", "keyProperty=expenses.0.invoice.number");
-		execute("ReferenceSearch.cancel");
-		assertNumberOfRowsShownInElementCollection(1);
-		assertValueInCollection("expenses", 0, "invoice.year", "");
-		assertValueInCollection("expenses", 0, "invoice.number", "");
-		assertValueInCollection("expenses", 0, "invoice.amount", "");
-		assertValueInCollection("expenses", 0, "date", "");
-		
-		execute("Reference.search", "keyProperty=expenses.0.invoice.number");
-		execute("ReferenceSearch.choose", "row=1");
-		assertValueInCollection("expenses", 0, "invoice.year", "2007");
-		assertValueInCollection("expenses", 0, "invoice.number", "2");
-		assertValueInCollection("expenses", 0, "invoice.amount", "1,730.00");
-		assertValueInCollection("expenses", 0, "date", getCurrentDate());
-		assertNumberOfRowsShownInElementCollection(2);
-		
-		setValueInCollection("expenses", 1, "date", "1/1/2022");
-		assertValueInCollection("expenses", 1, "date", "1/1/2022"); // tmr Como otro bug en changelog
-		// tmr fin
 	}
 	
 	private void assertNumberOfRowsShownInElementCollection(int number) {

@@ -1,6 +1,6 @@
 if (elementCollectionEditor == null) var elementCollectionEditor = {};
 
-openxava.addEditorInitFunction(function() {
+openxava.addEditorInitFunction(function() { 
 	$('.xava_sortable_elements').sortable({ 
 		items: '>.xava_sortable_element_row',
 		handle: ".xava_handle", 
@@ -10,23 +10,6 @@ openxava.addEditorInitFunction(function() {
 	    	elementCollectionEditor.renumber(row, 0);
 	    }	
 	});
-	// tmr ini
-	$('.ox-element-collection table').each(function() { // tmr Otra clase
-		// TMR ME QUEDÉ POR AQUÍ: NO ACTUALIZA TOTALES NI PROPIEDADES CALCULADAS DE LA FILA. PROBANDOLO CON Quote
-		var childrenCount= $(this).children().children().length;
-		console.log("[elementCollectionEditor.addEditorInitFunction] childrenCount=" + childrenCount);
-		var row = $(this).children().children().first();
-		var c = 0;
-		// TMR LO DE ABAJO FUNCIONA INCLUSO CON TOTALES. REFACTORIZARLO. ¿HACER TEST CON TOTALES?
-		while (row.css("display") !== 'none') {
-			row = row.next();
-			c++; 
-		}
-		console.log("[elementCollectionEditor.addEditorInitFunction] c=" + c);
-		elementCollectionEditor.setDefaultValues($(this), c - 3);
-		
-	});
-	// tmr fin
 });
 
 elementCollectionEditor.onChangeRow = function(element, rowIndex) {
@@ -62,7 +45,6 @@ elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
 		var inputName = headerId.replace(new RegExp("__H", "g"), "__" + rowIndex);
 		if ($("[name='" + inputName + "']").val() === "" ) { // tmr
 			$("[name='" + inputName + "']").val($( this ).attr("data-default-value"));
-			//$("[name='" + inputName + "']").change(); // tmr
 		} // tmr		
 	});
 }

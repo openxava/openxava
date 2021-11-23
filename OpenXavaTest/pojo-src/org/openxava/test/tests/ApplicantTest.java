@@ -215,7 +215,7 @@ public class ApplicantTest extends ModuleTestBase {
 	public void testPolymorphicReferenceFromBaseClass_savingTwiceWithNoRefreshAfterAndHiddenKey_showHideButtons_labelsPut() throws Exception {  
 		// Polymorphic reference from base class
 		execute("List.viewDetail", "row=0");
-		assertNoErrors();
+		assertNoErrors(); // TMR FALLA ME QUEDÉ POR AQUÍ: AL LANZAR LA SUITE FALLÓ ESTE Y OTRO
 		assertValue("name", "JUANILLO"); 
 		assertValue("skill.description", "PROGRAMMING");
 		assertValue("skill.language", "JAVA"); 

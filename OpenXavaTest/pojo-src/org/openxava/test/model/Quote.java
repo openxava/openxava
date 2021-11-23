@@ -58,7 +58,6 @@ public class Quote extends Identifiable {
 	
 	public BigDecimal getAmountsSum() {
 		BigDecimal sum = new BigDecimal(0);
-		if (details == null) return BigDecimal.ZERO; // tmr
 		for (QuoteDetail detail: getDetails()) {
 			sum = sum.add(detail.getAmount());
 		}
@@ -67,7 +66,6 @@ public class Quote extends Identifiable {
 	
 	@Depends("amountsSum, taxesRate") 
 	public BigDecimal getTaxes() {
-		if (taxesRate == null) return BigDecimal.ZERO; // tmr
 		return getAmountsSum().multiply(getTaxesRate()).divide(new BigDecimal("100")); 
 	}
 	

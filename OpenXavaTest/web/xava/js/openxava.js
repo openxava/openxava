@@ -183,7 +183,7 @@ openxava.refreshPage = function(result) {
 	openxava.lastModule=result.module;
 	openxava.hasOnSelectAll(result.application, result.module);
 	openxava.showMessages(result); 
-	// tmr openxava.resetRequesting(result);
+	openxava.resetRequesting(result);
 	openxava.propertiesUsedInCalculationsChange(result);
 	openxava.dataChanged = result.dataChanged; 
 	$('#xava_loading').hide();
@@ -848,12 +848,9 @@ openxava.onFocus = function(application, module, property) {
 }
 
 openxava.throwPropertyChanged = function(application, module, property) {
-	console.log("[openxava.throwPropertyChanged] application=" + application + ", module=" + module + ", property=" + property); // tmr
 	if (openxava.isRequesting(application, module)) return;
-	console.log("[openxava.throwPropertyChanged] Requesting passed"); // tmr
 	var f = $('#' + property);
 	if (!f.data('changedCancelled')) {
-		console.log("[openxava.throwPropertyChanged] f.data passed"); // tmr
 		document.throwPropertyChange = true;
 		var form = openxava.getForm(application, module);
 		form[openxava.decorateId(application, module, "xava_focus_forward")].value = "true";	
@@ -885,9 +882,7 @@ openxava.parseFloat = function(value) {
 }
 
 openxava.requestOnChange = function(application, module) {
-	console.log("[openxava.requestOnChange] "); // tmr
 	if (document.throwPropertyChange)  {
-		console.log("[openxava.requestOnChange] AJAXING"); // tmr
 		openxava.ajaxRequest(application, module); 
 	}			
 }
