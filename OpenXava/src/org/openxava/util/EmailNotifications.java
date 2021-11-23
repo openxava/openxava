@@ -92,9 +92,15 @@ public class EmailNotifications {
 		}
 	}
 	
+	private static Object refiner; 
+	
 	final private static ThreadLocal<ModuleInfo> currentModuleInfo = new ThreadLocal<ModuleInfo>();
 	
 	private static String fileName = null;
+	
+	public static void setRefiner(Object newRefiner) { 
+		refiner = newRefiner;
+	}
 	
 	public static void setModuleInfo(String applicationName, String moduleName, String moduleURL) {
 		ModuleInfo moduleInfo = new ModuleInfo(applicationName, moduleName, moduleURL);
@@ -287,7 +293,7 @@ public class EmailNotifications {
 		String logSuffix = ", permalink=" + permalink;
 		EntityManager manager = createManager();
 		try {
-			notifyByModule(manager, "CREATED", subject, content, logSuffix);
+			notifyByModule(manager, "CREATED", subject, content, logSuffix, permalink, null); 
 			if (currentUserHasEmail()) { 
 				subscribeCurrentUserToEntity(manager, modelName, key);
 			}
@@ -304,7 +310,9 @@ public class EmailNotifications {
 		
 		StringBuffer changes = new StringBuffer("<ul>"); 
 		for (String property: oldChangedValues.keySet()) {
-			changes.append("<li><b>");
+			changes.append("<li data-property='");
+			changes.append(property);
+			changes.append("'><b>");
 			changes.append(Labels.getQualified(property));
 			changes.append("</b>: ");
 			changes.append(Strings.toString(oldChangedValues.get(property)));
@@ -314,14 +322,22 @@ public class EmailNotifications {
 		}		
 		changes.append("</ul>");
 		String permalink = toPermalink(getCurrentModuleURL(), key);
+		
 		String subject = XavaResources.getString("email_notification_modified_subject", 
        		getCurrentApplicationLabel(), getCurrentModuleLabel());
-		String content = XavaResources.getString("email_notification_modified_content", 
+		String content = toContent(permalink, changes.toString());	
+		String logSuffix = toLogSuffix(permalink, changes.toString());
+		Set notifiedEmails = notifyByModule("MODIFIED", subject, content, logSuffix, permalink, changes.toString());
+		notifyByEntity("MODIFIED", key, subject, content, notifiedEmails, permalink, changes.toString());
+	}
+
+	private static String toLogSuffix(String permalink, String changes) {
+		return ", permalink=" + permalink + ", changes=" + changes;
+	}
+
+	private static String toContent(String permalink, String changes) {
+		return XavaResources.getString("email_notification_modified_content", 
        		Users.getCurrent(), permalink, changes.toString());
-		
-		String logSuffix = ", permalink=" + permalink + ", changes=" + changes;
-		Set notifiedEmails = notifyByModule("MODIFIED", subject, content, logSuffix);
-		notifyByEntity("MODIFIED", key, subject, content, notifiedEmails);
 	}
 
 	static void notifyRemoved(String modelName, Map key) { 
@@ -331,15 +347,15 @@ public class EmailNotifications {
 		String content = XavaResources.getString("email_notification_removed_content", 
        		Users.getCurrent(),	getCurrentModuleLabel(), getCurrentModuleURL(), key);
 		String logSuffix = ", url=" + getCurrentModuleURL() + ", key=" + key; 
-		Set notifiedEmails = notifyByModule("REMOVED", subject, content, logSuffix);
-		notifyByEntity("REMOVED", key, subject, content, notifiedEmails);
+		Set notifiedEmails = notifyByModule("REMOVED", subject, content, logSuffix, null, null); 
+		notifyByEntity("REMOVED", key, subject, content, notifiedEmails, null, null);  
 		
 	}
 	
-	private static Set notifyByModule(String type, String subject, String content, String logSuffix) {
+	private static Set notifyByModule(String type, String subject, String content, String logSuffix, String permalink, String changes) {  
 		EntityManager manager = createManager();
 		try {
-			Set result = notifyByModule(manager, type, subject, content, logSuffix);
+			Set result = notifyByModule(manager, type, subject, content, logSuffix, permalink, changes);
 			commit(manager);
 			return result;
 		}
@@ -349,12 +365,20 @@ public class EmailNotifications {
 		}
 	}
 	
-	private static Set notifyByModule(EntityManager manager, String type, String subject, String content, String logSuffix) {
+	private static Set notifyByModule(EntityManager manager, String type, String subject, String content, String logSuffix, String permalink, String changes) { 
 		String contentForModule = decorateModuleUnsubscribe(content); 
 		Set notifiedEmails = new HashSet();
 		String currentUserEmail = getCurrentUserEmail();
 		for (EmailSubscription s: EmailSubscription.findByModule(manager, getCurrentModule())) {
 			if (s.getEmail().equals(currentUserEmail)) continue;
+           	if (changes != null) {
+           		String refinedChanges = refineChanges(s.getEmail(), changes);
+           		if (!changes.equals(refinedChanges)) {
+           			content = toContent(permalink, refinedChanges);	
+           			contentForModule = decorateModuleUnsubscribe(content);
+           			logSuffix = toLogSuffix(permalink, refinedChanges);
+           		}
+           	}
            	Emails.sendInBackground(s.getEmail(), subject, contentForModule);
            	notifiedEmails.add(s.getEmail());
            	log(type + ": email=" + s.getEmail() + ", user=" + Users.getCurrent() + 
@@ -364,10 +388,25 @@ public class EmailNotifications {
 		return notifiedEmails;
 	}
 	
-	private static void notifyByEntity(String type, Map key, String subject, String content, Set notifiedEmails) {
+	private static String refineChanges(String email, String changes) {
+		if (refiner == null) return changes;
+		try {
+			MetaModule metaModule = MetaApplications.getMetaApplication(getCurrentApplication()).getMetaModule(getCurrentModule());
+			return (String) XObjects.execute(refiner, "refine", 
+				MetaModule.class, metaModule,
+				String.class, email,
+				String.class, changes); 
+		}
+		catch (Exception ex) {
+			log.error(XavaResources.getString("refining_members_error"), ex);
+			return ""; 
+		}
+   	}
+	
+	private static void notifyByEntity(String type, Map key, String subject, String content, Set notifiedEmails, String permalink, String changes) { 
 		EntityManager manager = createManager();
 		try {
-			notifyByEntity(manager, type, key, subject, content, notifiedEmails);
+			notifyByEntity(manager, type, key, subject, content, notifiedEmails, permalink, changes);
 			commit(manager);
 		}
 		catch (RuntimeException ex) {
@@ -376,7 +415,7 @@ public class EmailNotifications {
 		}
 	}
 	
-	private static void notifyByEntity(EntityManager manager, String type, Map key, String subject, String content, Set notifiedEmails) {
+	private static void notifyByEntity(EntityManager manager, String type, Map key, String subject, String content, Set notifiedEmails, String permalink, String changes) {
 		String unsuscribeURL = toBaseURL(getCurrentModuleURL()) + "/xava/unsubscribe.jsp?email=";
 		String skey = keyToString(key);
 		String currentUserEmail = getCurrentUserEmail();
@@ -385,6 +424,12 @@ public class EmailNotifications {
 			if (s.getEmail().equals(currentUserEmail)) continue;
 			String unsubscribeAllURL = unsuscribeURL + s.getEmail() + "&module=" + getCurrentModule();
 			String unsubscribeOneURL = unsubscribeAllURL + "&key=" + skey;
+           	if (changes != null) {
+           		String refinedChanges = refineChanges(s.getEmail(), changes);
+           		if (!changes.equals(refinedChanges)) {
+           			content = toContent(permalink, refinedChanges);	
+           		}
+           	}
 			String contentForRecord = decorateRecordUnsubscribe(content, key, unsubscribeOneURL, unsubscribeAllURL);
 			Emails.sendInBackground(s.getEmail(), subject, contentForRecord); 
            	log(type + ": email=" + s.getEmail() + ", user=" + Users.getCurrent() + 
@@ -392,9 +437,7 @@ public class EmailNotifications {
            		", unsubscribeAllURL=" + unsubscribeAllURL + ", unsubscribeOneURL=" + unsubscribeOneURL);
 		}
 	}
-	
-
-	
+		
 	private static String toBaseURL(String moduleURL) {
 		int startingPoint = moduleURL.contains("/" + getCurrentApplication() + "/")?4:3;
 		int idx = StringUtils.ordinalIndexOf(moduleURL, "/", startingPoint); 

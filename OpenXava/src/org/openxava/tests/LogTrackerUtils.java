@@ -9,7 +9,9 @@ import org.openxava.util.*;
 import junit.framework.Assert;
 
 /**
- * tmr Doc
+ * Utility class to read the log tracker created by access tracking, to be use in junit tests. <p>
+ * 
+ * @since 6.6.1
  * @author Javier Paniza
  */
 class LogTrackerUtils extends Assert {

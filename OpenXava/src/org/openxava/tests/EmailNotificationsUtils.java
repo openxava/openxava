@@ -11,7 +11,9 @@ import org.openxava.util.impl.*;
 import junit.framework.Assert;
 
 /**
- * tmr Doc
+ * Utility class to test email notifications from junit tests. <p>
+ * 
+ * @since 6.6.1
  * @author Javier Paniza
  */
 public class EmailNotificationsUtils extends Assert {
