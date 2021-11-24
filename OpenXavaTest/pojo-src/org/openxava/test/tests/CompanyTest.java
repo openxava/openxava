@@ -2,8 +2,6 @@ package org.openxava.test.tests;
 
 import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.html.*;
-
 /**
  * 
  * @author Javier Paniza
@@ -34,7 +32,7 @@ public class CompanyTest extends ModuleTestBase {
 		setValue("name", "SOMETHING"); 
 		execute("Collection.new", "viewObject=xava_view_buildings");
 		assertNoErrors(); // For verifying that really works
-		assertMessagesCount(1);
+		assertMessagesCount(1); 
 		setValue("function", "Factory"); // For verifying that onchange is thrown only once
 		assertMessagesCount(1);		
 	}	

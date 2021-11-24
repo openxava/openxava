@@ -172,7 +172,7 @@ public class AJAXTest extends ModuleTestBase {
 		changeModule("Route");
 		execute("CRUD.new");
 		setValueInCollection("visits", 0, "customer.number", "1");
-		assertLoadedParts( // TMR FALLA
+		assertLoadedParts( 
 			"editor_visits.0.customer.name," + 
 			"editor_visits.0.description," +
 			"errors, messages");

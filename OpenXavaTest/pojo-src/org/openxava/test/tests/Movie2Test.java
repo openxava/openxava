@@ -23,7 +23,7 @@ public class Movie2Test extends CustomizeListTestBase {
 		execute("List.viewDetail", "row=2"); 
 		assertValue("title", "NOVECENTO");	
 		assertFilesCount("scripts", 1);
-		uploadFile("scripts", "test-images/foto_javi.jpg");
+		uploadFile("scripts", "test-files/alternative-script.txt"); 
 		
 		execute("Mode.list");
 		execute("List.viewDetail", "row=2"); 

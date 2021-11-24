@@ -43,9 +43,9 @@ elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
 	header.children("[id]").each(function() { 
 		var headerId = $( this ).attr("id");
 		var inputName = headerId.replace(new RegExp("__H", "g"), "__" + rowIndex);
-		if ($("[name='" + inputName + "']").val() === "" ) { // tmr
+		if ($("[name='" + inputName + "']").val() === "" ) { 
 			$("[name='" + inputName + "']").val($( this ).attr("data-default-value"));
-		} // tmr		
+		} 		
 	});
 }
 

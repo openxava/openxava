@@ -80,6 +80,7 @@ public class RouteTest extends ModuleTestBase {
 		execute("CRUD.save");
 		execute("CRUD.new"); // It failed at the second action call
 		assertExists("description"); // In the bug the view goes away, so this detects the bug
+		assertValue("description", ""); 
 	}
 		
 }

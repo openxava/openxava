@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Error from time to time on clicking New on a module with an element collection with failed getters.
+- Fix: @DefaultValueCalculator with no 'from' in element collection fails searching a reference with dialog.
+- Fix: If in an element collection the first value typed has default value the typed value is lost. 
 - Fix: Low performance in list mode with calculated properties with heavy logic and large datasets.
 - Fix: @File/@Files do not show image preview for image files in some computers.
 - Fix: @File/@Files with acceptFileTypes="images/*" mark as error image files in some computers. 

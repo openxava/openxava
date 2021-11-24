@@ -25,7 +25,7 @@ public class ServiceExpense2 {
 	private Receptionist receptionist;
 	
 	@DefaultValueCalculator(CurrentLocalDateCalculator.class)
-	private LocalDate date; // tmr
+	private LocalDate date; 
 	
 	public ServiceInvoice getInvoice() {
 		return invoice;

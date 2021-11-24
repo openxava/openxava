@@ -17,11 +17,11 @@ public class ServiceExpenses2Test extends ModuleTestBase {
 	}
 	
 	public void testEnumsWithRequiedValueInElementCollection_defaultValueCalculatorWithNoFromInElementCollectionWhenSearchingReferenceWithDialog() throws Exception {		
-		assertEnumsWithRequiedValueInElementCollection();
-		assertDefaultValueCalculatorWithNoFromInElementCollectionWhenSearchingReferenceWithDialog(); // tmr
+		assertEnumsWithRequiredValueInElementCollection();
+		assertDefaultValueCalculatorWithNoFromInElementCollectionWhenSearchingReferenceWithDialog(); 
 	}
 
-	private void assertDefaultValueCalculatorWithNoFromInElementCollectionWhenSearchingReferenceWithDialog() throws Exception { // tmr
+	private void assertDefaultValueCalculatorWithNoFromInElementCollectionWhenSearchingReferenceWithDialog() throws Exception { 
 		execute("CRUD.new");
 		assertNumberOfRowsShownInElementCollection(1);
 		execute("Reference.search", "keyProperty=expenses.0.invoice.number");
@@ -41,17 +41,17 @@ public class ServiceExpenses2Test extends ModuleTestBase {
 		assertNumberOfRowsShownInElementCollection(2);
 		
 		setValueInCollection("expenses", 1, "date", "1/1/2022");
-		assertValueInCollection("expenses", 1, "date", "1/1/2022"); // tmr Como otro bug en changelog
+		assertValueInCollection("expenses", 1, "date", "1/1/2022"); 
 	}
 
-	private void assertEnumsWithRequiedValueInElementCollection() throws Exception {
+	private void assertEnumsWithRequiredValueInElementCollection() throws Exception {
 		execute("CRUD.new");
 		assertNumberOfRowsShownInElementCollection(1);
 		setValue("description", "JUNIT EXPENSE2");
 		setValueInCollection("expenses", 0, "invoice.year", "2007");
 		setValueInCollection("expenses", 0, "invoice.number", "1");
 		assertValueInCollection("expenses", 0, "invoice.amount", "790.00");
-		assertValueInCollection("expenses", 0, "date", getCurrentDate()); // tmr
+		assertValueInCollection("expenses", 0, "date", getCurrentDate()); 
 		
 		String [][] statusValidValues = {
 			{ "", "" },
@@ -84,7 +84,7 @@ public class ServiceExpenses2Test extends ModuleTestBase {
 		assertTrue(tr.getAttribute("style").contains("display: none"));		
 	}
 	
-	private String getCurrentDate() { // tmr
+	private String getCurrentDate() { 
 		DateFormat df = new SimpleDateFormat("M/d/yyyy"); 
 		return df.format(new java.util.Date());
 	}
