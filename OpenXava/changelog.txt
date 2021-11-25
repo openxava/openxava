@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: XPersistence and XHibernate do not close the manager on reset, it could produce some security problems. 
+- New utility classes, EmailNotificationsUtils and LogTrackerUtils, to test email notifications and log tracker.
 - Fix: Error from time to time on clicking New on a module with an element collection with failed getters.
 - Fix: @DefaultValueCalculator with no 'from' in element collection fails searching a reference with dialog.
 - Fix: If in an element collection the first value typed has default value the typed value is lost. 

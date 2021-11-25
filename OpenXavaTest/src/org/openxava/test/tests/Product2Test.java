@@ -158,25 +158,12 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertNoErrors();
 		assertFilesCount("photos", 0); 
 
-		/* tmr
-		assertEmailNotifications( 
-			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080" + getContextPath() + "modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: NEW IMAGES ADDED --> foto_javi.jpg</li></ul>",
-			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080" + getContextPath() + "modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: NEW IMAGES ADDED --> cake.gif</li></ul>", 
-			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080" + getContextPath() + "modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: IMAGE REMOVED --> One image removed</li></ul>",
-			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080" + getContextPath() + "modules/Product2?detail=1, changes=<ul><li><b>Photos</b>: IMAGE REMOVED --> One image removed</li></ul>"				
-		);	
-		*/
-		
-		// tmr ini
 		assertEmailNotifications( 
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080" + getContextPath() + "modules/Product2?detail=1, changes=<ul><li data-property='photos'><b>Photos</b>: NEW IMAGES ADDED --> foto_javi.jpg</li></ul>",
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080" + getContextPath() + "modules/Product2?detail=1, changes=<ul><li data-property='photos'><b>Photos</b>: NEW IMAGES ADDED --> cake.gif</li></ul>", 
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080" + getContextPath() + "modules/Product2?detail=1, changes=<ul><li data-property='photos'><b>Photos</b>: IMAGE REMOVED --> One image removed</li></ul>",
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Products 2, permalink=http://localhost:8080" + getContextPath() + "modules/Product2?detail=1, changes=<ul><li data-property='photos'><b>Photos</b>: IMAGE REMOVED --> One image removed</li></ul>"				
 		);			
-		// tmr fin
-		
-		 
 	}
 	
 	public void testReferencesAsDescriptionListUsesFilterOfDefaultTab() throws Exception {

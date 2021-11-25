@@ -20,22 +20,22 @@ abstract public class EmailNotificationsTestBase extends ModuleTestBase {
 		changeModule("SignIn");
 		login("openxavatest1@getnada.com", "test1");
 		changeModule(module);
-		execute(EmailNotificationsUtils.getEmailSubscriptionAction()); // tmr
+		execute(EmailNotificationsUtils.getEmailSubscriptionAction()); 
 		changeModule("SignIn");
 		login("admin", "admin");
 		changeModule(module);
 	}
 	
 	protected void assertEmailNotifications(String ... expectedNotifications) throws Exception{
-		EmailNotificationsUtils.assertEmailNotifications(expectedNotifications); // tmr
+		EmailNotificationsUtils.assertEmailNotifications(expectedNotifications); 
 	}
 	
 	protected void assertEmailSubscriptions(String ... expectedSubscriptions) {
-		EmailNotificationsUtils.assertEmailSubscriptions(expectedSubscriptions); // tmr
+		EmailNotificationsUtils.assertEmailSubscriptions(expectedSubscriptions); 
 	}
 	
 	protected void removeAllEmailSubscriptions() throws Exception {
-		EmailNotificationsUtils.removeAllEmailSubscriptions(); // tmr
+		EmailNotificationsUtils.removeAllEmailSubscriptions(); 
 	}
 		
 		

@@ -51,7 +51,7 @@ public class MovieTest extends MovieBaseTest {
 		assertTrue("Trailer has value", Is.emptyString(getValue("trailer")) || "null".equals(getValue("trailer")));
 		removeFile();
 		
-		LogTrackerUtils.assertAccessLog( // tmr 
+		LogTrackerUtils.assertAccessLog(  
 			"MODIFIED: user=admin, model=Movie, key={}, changes=Trailer: File Corporation.html uploaded --> " + fileId,
 			"CREATED: user=admin, model=Movie, key={id=" + entityId + "}",
 			"CONSULTED: user=admin, model=Movie, key={id=" + entityId + "}",
@@ -85,8 +85,8 @@ public class MovieTest extends MovieBaseTest {
 		assertFilesCount("scripts", 3); 
 
 		assertEmailNotifications( 
-			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080" + getContextPath() + "modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li><b>Scripts</b>: NEW FILES ADDED --> Corporation.html</li></ul>",
-			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080" + getContextPath() + "modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li><b>Scripts</b>: FILE REMOVED --> Corporation.html</li></ul>"
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080" + getContextPath() + "modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li data-property='scripts'><b>Scripts</b>: NEW FILES ADDED --> Corporation.html</li></ul>",
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080" + getContextPath() + "modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li data-property='scripts'><b>Scripts</b>: FILE REMOVED --> Corporation.html</li></ul>"
 		);
 	}
 	

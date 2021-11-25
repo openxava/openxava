@@ -36,7 +36,6 @@ public class JavaProgrammerTest extends ModuleTestBase {
 	}
 	
 	public void test2LevelsInheritedEntityWithBaseConditionList_noEmailSubscriptionsIfBaseCondition() throws Exception {
-		// tmr Siguiente línea
 		assertFalse(getHtml().contains("'" + EmailNotificationsUtils.getEmailSubscriptionAction() + "'")); // Because assertNoAction does not work for this action
 		
 		assertListColumnCount(6);  
