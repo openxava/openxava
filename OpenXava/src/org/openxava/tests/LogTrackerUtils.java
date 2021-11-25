@@ -14,7 +14,7 @@ import junit.framework.Assert;
  * @since 6.6.1
  * @author Javier Paniza
  */
-class LogTrackerUtils extends Assert {
+public class LogTrackerUtils extends Assert { // tmr public
 	
 	private static String fileName;
 

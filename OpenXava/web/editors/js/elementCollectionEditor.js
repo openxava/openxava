@@ -1,6 +1,6 @@
 if (elementCollectionEditor == null) var elementCollectionEditor = {};
 
-openxava.addEditorInitFunction(function() {
+openxava.addEditorInitFunction(function() { 
 	$('.xava_sortable_elements').sortable({ 
 		items: '>.xava_sortable_element_row',
 		handle: ".xava_handle", 
@@ -43,7 +43,9 @@ elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
 	header.children("[id]").each(function() { 
 		var headerId = $( this ).attr("id");
 		var inputName = headerId.replace(new RegExp("__H", "g"), "__" + rowIndex);
-		$("[name='" + inputName + "']").val($( this ).attr("data-default-value")); 		
+		if ($("[name='" + inputName + "']").val() === "" ) { 
+			$("[name='" + inputName + "']").val($( this ).attr("data-default-value"));
+		} 		
 	});
 }
 

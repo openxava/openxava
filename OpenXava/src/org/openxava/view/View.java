@@ -616,6 +616,9 @@ public class View implements java.io.Serializable {
 	}
 
 	public void setValues(Map values) throws XavaException {
+		if (isRepresentsEntityReference() && getParent().isRepresentsElementCollection()) {
+			if (Is.empty(getParent().values)) getParent().calculateDefaultValues(true);
+		}
 		setValuesChangingModel(values);
 		getRoot().dataChanged = !isFirstLevel() && !isRepresentsTransientReference();
 	}
@@ -2578,12 +2581,15 @@ public class View implements java.io.Serializable {
 				}								
 			}
 				
-			// On change events					
-			Iterator itOnChangeProperties = getMetaView().getPropertiesNamesThrowOnChange().iterator();			
-			while (itOnChangeProperties.hasNext()) {
-				String propertyName = (String) itOnChangeProperties.next();
-				propertyChanged(propertyName);
-			}			
+			
+			// On change events
+			if (!isRepresentsElementCollection()) { 
+				Iterator itOnChangeProperties = getMetaView().getPropertiesNamesThrowOnChange().iterator();			
+				while (itOnChangeProperties.hasNext()) {
+					String propertyName = (String) itOnChangeProperties.next();
+					propertyChanged(propertyName);
+				}		
+			} 
 					
 			// Subviews		
 			Iterator itSubviews = getSubviews().values().iterator();			
@@ -3597,7 +3603,7 @@ public class View implements java.io.Serializable {
 		}
 		if (collectionValues == null) return;
 		if (collectionEditingRow == collectionValues.size()) collectionValues.add(collectionEditingRow, getAllValues());
-		else collectionValues.set(collectionEditingRow, getAllValues());		
+		else if (collectionEditingRow >= 0) collectionValues.set(collectionEditingRow, getAllValues()); 
 	}
 
 	private void executeOnChangeAction(String changedPropertyQualifiedName, IOnChangePropertyAction action) 

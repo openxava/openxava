@@ -35,8 +35,9 @@ public class JavaProgrammerTest extends ModuleTestBase {
 		assertMessage("Java programmer deleted successfully");
 	}
 	
-	public void test2LevelsInheritedEntityWithBaseConditionList_noEmailSubscriptionsIfBaseCondition() throws Exception { 
-		assertFalse(getHtml().contains("'" + EmailNotificationsTestUtil.getEmailSubscriptionAction() + "'")); // Because assertNoAction does not work for this action
+	public void test2LevelsInheritedEntityWithBaseConditionList_noEmailSubscriptionsIfBaseCondition() throws Exception {
+		// tmr Siguiente línea
+		assertFalse(getHtml().contains("'" + EmailNotificationsUtils.getEmailSubscriptionAction() + "'")); // Because assertNoAction does not work for this action
 		
 		assertListColumnCount(6);  
 		assertLabelInList(0, "Name");

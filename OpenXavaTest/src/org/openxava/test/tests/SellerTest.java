@@ -1,13 +1,14 @@
 package org.openxava.test.tests;
 
-import static org.openxava.test.tests.EmailNotificationsTestUtil.assertEmailNotifications;
-import static org.openxava.test.tests.EmailNotificationsTestUtil.assertEmailSubscriptions;
-import static org.openxava.test.tests.EmailNotificationsTestUtil.removeAllEmailSubscriptions;
+import static org.openxava.tests.EmailNotificationsUtils.assertEmailNotifications;
+import static org.openxava.tests.EmailNotificationsUtils.assertEmailSubscriptions;
+import static org.openxava.tests.EmailNotificationsUtils.removeAllEmailSubscriptions;
 
 import java.rmi.*;
 
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
+import org.openxava.tests.*;
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
@@ -128,6 +129,7 @@ public class SellerTest extends CustomizeListTestBase {
 		
 		assertCreateElementInEntityCollection(); 
 		
+		/* tmr
 		assertEmailNotifications(  
 			"CREATED: email=openxavatest1@getnada.com, user=openxavatest2@getnada.com, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66",
 			"MODIFIED: email=openxavatest1@getnada.com, user=openxavatest2@getnada.com, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li><b>Name</b>: JUNIT SELLER --> JUNIT SELLER MODIFIED</li></ul>",
@@ -140,9 +142,26 @@ public class SellerTest extends CustomizeListTestBase {
 			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Customers, permalink=http://localhost:8080" + getContextPath() + "modules/Customer?detail=4, changes=<ul><li><b>Number of seller</b>:  --> 3</li></ul>",
 			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Customers, permalink=http://localhost:8080" + getContextPath() + "modules/Customer?detail=4, changes=<ul><li><b>Number of seller</b>: 3 --> </li></ul>",
 			"CREATED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Customers, permalink=http://localhost:8080" + getContextPath() + "modules/Customer?detail=66"				
+		);
+		*/
+		
+		// tmr ini
+		assertEmailNotifications(  
+			"CREATED: email=openxavatest1@getnada.com, user=openxavatest2@getnada.com, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66",
+			"MODIFIED: email=openxavatest1@getnada.com, user=openxavatest2@getnada.com, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li data-property='name'><b>Name</b>: JUNIT SELLER --> JUNIT SELLER MODIFIED</li></ul>",
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li data-property='regions'><b>Regions</b>: {} --> {1,3}</li><li data-property='level.id'><b>Id of level</b>:  --> A</li></ul>",
+			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li data-property='regions'><b>Regions</b>: {} --> {1,3}</li><li data-property='level.id'><b>Id of level</b>:  --> A</li></ul>",
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li data-property='regions'><b>Regions</b>: {1,3} --> {2}</li><li data-property='level.id'><b>Id of level</b>: A --> C</li></ul>",
+			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66, changes=<ul><li data-property='regions'><b>Regions</b>: {1,3} --> {2}</li><li data-property='level.id'><b>Id of level</b>: A --> C</li></ul>",
+			"REMOVED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, url=http://localhost:8080" + getContextPath() + "modules/Seller, key={number=66}",
+			"REMOVED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Sellers, url=http://localhost:8080" + getContextPath() + "modules/Seller, key={number=66}",
+			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Customers, permalink=http://localhost:8080" + getContextPath() + "modules/Customer?detail=4, changes=<ul><li data-property='seller.number'><b>Number of seller</b>:  --> 3</li></ul>",
+			"MODIFIED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Customers, permalink=http://localhost:8080" + getContextPath() + "modules/Customer?detail=4, changes=<ul><li data-property='seller.number'><b>Number of seller</b>: 3 --> </li></ul>",
+			"CREATED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Customers, permalink=http://localhost:8080" + getContextPath() + "modules/Customer?detail=66"				
 		);		
+		// tmr fin
 
-		LogTrackerTestUtil.assertAccessLog( 
+		LogTrackerUtils.assertAccessLog( // tmr
 			"CONSULTED: user=openxavatest2@getnada.com, model=Customer, key={number=1}",
 			"CONSULTED: user=openxavatest2@getnada.com, model=Customer, key={number=1}",
 			"CREATED: user=openxavatest2@getnada.com, model=Seller, key={number=66}",

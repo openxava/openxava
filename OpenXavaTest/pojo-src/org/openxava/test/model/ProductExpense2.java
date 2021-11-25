@@ -16,7 +16,7 @@ public class ProductExpense2 {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@DescriptionsList // Must be @DescriptionsList to test a case 	
 	private Carrier carrier;
-
+	
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@DescriptionsList(descriptionProperties="year, number")
@@ -55,7 +55,5 @@ public class ProductExpense2 {
 	public void setCarrier(Carrier carrier) {
 		this.carrier = carrier;
 	}
-	
-	
-	
+
 }

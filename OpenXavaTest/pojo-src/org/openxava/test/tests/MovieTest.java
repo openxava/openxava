@@ -2,6 +2,7 @@ package org.openxava.test.tests;
 
 import java.util.*;
 
+import org.openxava.tests.*;
 import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.*;
@@ -50,7 +51,7 @@ public class MovieTest extends MovieBaseTest {
 		assertTrue("Trailer has value", Is.emptyString(getValue("trailer")) || "null".equals(getValue("trailer")));
 		removeFile();
 		
-		LogTrackerTestUtil.assertAccessLog( 
+		LogTrackerUtils.assertAccessLog( // tmr 
 			"MODIFIED: user=admin, model=Movie, key={}, changes=Trailer: File Corporation.html uploaded --> " + fileId,
 			"CREATED: user=admin, model=Movie, key={id=" + entityId + "}",
 			"CONSULTED: user=admin, model=Movie, key={id=" + entityId + "}",

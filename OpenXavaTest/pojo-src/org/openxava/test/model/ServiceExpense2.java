@@ -1,8 +1,11 @@
 package org.openxava.test.model;
 
+import java.time.*;
+
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
+import org.openxava.calculators.*;
 
 /**
  * 
@@ -19,7 +22,10 @@ public class ServiceExpense2 {
 	private enum Status { PAID, PENDING, REJECTED }
 	
 	@ManyToOne(fetch=FetchType.LAZY) @DescriptionsList
-	private Receptionist receptionist; 
+	private Receptionist receptionist;
+	
+	@DefaultValueCalculator(CurrentLocalDateCalculator.class)
+	private LocalDate date; 
 	
 	public ServiceInvoice getInvoice() {
 		return invoice;
@@ -43,5 +49,13 @@ public class ServiceExpense2 {
 
 	public void setReceptionist(Receptionist receptionist) {
 		this.receptionist = receptionist;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 }

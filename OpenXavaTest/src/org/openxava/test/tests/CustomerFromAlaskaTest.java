@@ -12,8 +12,9 @@ public class CustomerFromAlaskaTest extends ModuleTestBase {
 		super(testName, "CustomerFromAlaska");
 	}
 				
-	public void testBaseConditionStartedByFrom_noEmailSubscriptionsIfBaseCondition() throws Exception { 
-		assertFalse(getHtml().contains("'" + EmailNotificationsTestUtil.getEmailSubscriptionAction() + "'")); // Because assertNoAction does not work for this action
+	public void testBaseConditionStartedByFrom_noEmailSubscriptionsIfBaseCondition() throws Exception {
+		// tmr siguiente línea
+		assertFalse(getHtml().contains("'" + EmailNotificationsUtils.getEmailSubscriptionAction() + "'")); // Because assertNoAction does not work for this action
 		
 		assertListRowCount(1);
 		assertValueInList(0, "number", "43"); 

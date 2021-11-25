@@ -1,9 +1,9 @@
 package org.openxava.test.calculators;  
 
-import org.openxava.calculators.*;
-import org.openxava.test.model.*;
+import static org.openxava.jpa.XPersistence.getManager;
 
-import static org.openxava.jpa.XPersistence.*; 
+import org.openxava.calculators.*;
+import org.openxava.test.model.*; 
 
 /**
  * 

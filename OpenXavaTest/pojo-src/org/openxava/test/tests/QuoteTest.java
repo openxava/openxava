@@ -371,12 +371,24 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		setValueInCollection("details", 2, "quantity", "4");
 		assertValueInCollection("details", 2, "amount", "80.00");
 		execute("CRUD.save");
-		
+
+		/* tmr
 		assertEmailNotifications( 
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Quote, permalink=http://localhost:8080" + getContextPath() + "modules/Quote?detail=ff80808248cacebc0148cad202ad0000, changes=<ul><li><b>Date</b>: 10/1/14 --> 10/2/14</li><li><b>Description of product of 3 of details</b>: XAVA --> CUATRE</li><li><b>Number of product of 3 of details</b>: 3 --> 4</li><li><b>Unit price of 3 of details</b>: 20 --> 555</li><li><b>Amount of 3 of details</b>: 80 --> 2,220</li></ul>",
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Quote, permalink=http://localhost:8080" + getContextPath() + "modules/Quote?detail=ff80808248cacebc0148cad202ad0000, changes=<ul><li><b>Date</b>: 10/2/14 --> 10/1/14</li><li><b>Description of product of 3 of details</b>: CUATRE --> </li><li><b>Number of product of 3 of details</b>: 4 --> </li><li><b>Quantity of 3 of details</b>: 4 --> </li><li><b>Unit price of 3 of details</b>: 555 --> </li><li><b>Amount of 3 of details</b>: 2,220 --> </li></ul>",
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Quote, permalink=http://localhost:8080" + getContextPath() + "modules/Quote?detail=ff80808248cacebc0148cad202ad0000, changes=<ul><li><b>Description of product of 3 of details</b>:  --> XAVA</li><li><b>Number of product of 3 of details</b>:  --> 3</li><li><b>Quantity of 3 of details</b>:  --> 4</li><li><b>Unit price of 3 of details</b>:  --> 20</li><li><b>Amount of 3 of details</b>:  --> 80</li></ul>"				
-		);				   
+		);		
+		*/
+		
+		// tmr ini
+		assertEmailNotifications( 
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Quote, permalink=http://localhost:8080" + getContextPath() + "modules/Quote?detail=ff80808248cacebc0148cad202ad0000, changes=<ul><li data-property='date'><b>Date</b>: 10/1/14 --> 10/2/14</li><li data-property='details.3.product.description'><b>Description of product of 3 of details</b>: XAVA --> CUATRE</li><li data-property='details.3.product.number'><b>Number of product of 3 of details</b>: 3 --> 4</li><li data-property='details.3.unitPrice'><b>Unit price of 3 of details</b>: 20 --> 555</li><li data-property='details.3.amount'><b>Amount of 3 of details</b>: 80 --> 2,220</li></ul>",
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Quote, permalink=http://localhost:8080" + getContextPath() + "modules/Quote?detail=ff80808248cacebc0148cad202ad0000, changes=<ul><li data-property='date'><b>Date</b>: 10/2/14 --> 10/1/14</li><li data-property='details.3.product.description'><b>Description of product of 3 of details</b>: CUATRE --> </li><li data-property='details.3.product.number'><b>Number of product of 3 of details</b>: 4 --> </li><li data-property='details.3.quantity'><b>Quantity of 3 of details</b>: 4 --> </li><li data-property='details.3.unitPrice'><b>Unit price of 3 of details</b>: 555 --> </li><li data-property='details.3.amount'><b>Amount of 3 of details</b>: 2,220 --> </li></ul>",
+			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Quote, permalink=http://localhost:8080" + getContextPath() + "modules/Quote?detail=ff80808248cacebc0148cad202ad0000, changes=<ul><li data-property='details.3.product.description'><b>Description of product of 3 of details</b>:  --> XAVA</li><li data-property='details.3.product.number'><b>Number of product of 3 of details</b>:  --> 3</li><li data-property='details.3.quantity'><b>Quantity of 3 of details</b>:  --> 4</li><li data-property='details.3.unitPrice'><b>Unit price of 3 of details</b>:  --> 20</li><li data-property='details.3.amount'><b>Amount of 3 of details</b>:  --> 80</li></ul>"
+		);		
+		
+		
+		// tmr fin	
 	}
 					
 }
