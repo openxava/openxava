@@ -2,6 +2,8 @@ package org.openxava.hibernate;
 
 import java.util.*;
 
+import javax.persistence.*;
+
 import org.apache.commons.logging.*;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
@@ -391,6 +393,9 @@ public class XHibernate {
 	 */
 	public static void reset() {
 		currentSessionFactoryProperties.set(null);
+		Session s = (Session) currentSession.get();
+		if (s != null && s.isOpen()) commit();
+		currentSession.set(null); 
 	}
 	
 }

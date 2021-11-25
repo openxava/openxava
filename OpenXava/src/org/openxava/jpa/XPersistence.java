@@ -1,7 +1,6 @@
 package org.openxava.jpa;
 
 
-import java.net.*;
 import java.util.*;
 
 import javax.persistence.*;
@@ -13,7 +12,6 @@ import org.openxava.component.*;
 import org.openxava.hibernate.*;
 import org.openxava.jpa.impl.*;
 import org.openxava.util.*;
-import org.w3c.dom.*;
 
 /**
  * Allows to work easily with EJB3 JPA inside OpenXava applications. <p>
@@ -340,6 +338,9 @@ public class XPersistence {
 	 */
 	public static void reset() {
 		currentPersistenceUnitProperties.set(null);
+		EntityManager s = (EntityManager) currentManager.get();
+		if (s != null && s.isOpen()) commit();
+		currentManager.set(null); 
 	}
 	
 	/**
