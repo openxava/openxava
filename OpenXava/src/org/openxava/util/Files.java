@@ -14,9 +14,12 @@ import java.io.*;
 public class Files {
 	
 	/**
+	 * 
 	 * @since 6.6
 	 */
-	public static boolean isImage(String fileName) { 
+	public static boolean isImage(String fileName) {
+		if (fileName == null) return false;
+		fileName = fileName.toLowerCase();
 		return 
 			fileName.endsWith(".png") || 
 			fileName.endsWith(".jpg") ||

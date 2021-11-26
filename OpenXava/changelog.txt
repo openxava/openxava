@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @File properties with file name in uppercase and image type are not shown as images in list.
 - Fix: XPersistence and XHibernate do not close the manager on reset, it could produce some security problems. 
 - New utility classes, EmailNotificationsUtils and LogTrackerUtils, to test email notifications and log tracker.
 - Fix: Error from time to time on clicking New on a module with an element collection with failed getters.
