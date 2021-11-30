@@ -397,7 +397,7 @@ A.sign-out  {
 
 #main {
 	display: flex;
-	width: calc(100% - 1px);
+	width: calc(100% - 1px); 
 }
 
 #sign_in_out {
@@ -781,7 +781,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
 #module_header_left {
-	width: 100%;
+	width: 10px;
 	float: left;	
 	white-space: nowrap;
 }
@@ -790,7 +790,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	position: relative;
 	float: right;
 	background: var(--module-header-background);
-	margin-top: -33px;
+	margin-top: -13px; 
 	height: 21px;
 	padding: 11px 11px 11px 20px;
 	background: -webkit-gradient(linear, left top, right top, from(white), to(black));
