@@ -30,5 +30,5 @@
 		password="" type="javax.sql.DataSource" url="jdbc:hsqldb:file:/Users/javi/git/openxava/OpenXavaTest/data/CompanyBDB"
 		username="sa" />
 	-->	
-	
+		
 </Context>

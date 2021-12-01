@@ -36,8 +36,8 @@ public class MovieTest extends MovieBaseTest {
 	public void testClickOnFileInListMode() throws Exception {
 		assertListRowCount(3); 
 		WebResponse response = getWebClient().getPage(
-				    getUrlToFile("Forrest Gump Trailer.webm")).getWebResponse(); 
-		assertTrue(response.getContentType().equals("video/webm") || 
+				    getUrlToFile("Forrest Gump Trailer.webm")).getWebResponse();
+		assertTrue(response.getContentType().equals("video/webm") || // Fails with Java 8 because it not recognized webm, we tolerate it by now, we'll fix it on demand. 
 				   response.getContentType().equals(MIME_UNKNOWN));
 	}
 		
