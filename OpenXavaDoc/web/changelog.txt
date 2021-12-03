@@ -1,6 +1,32 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.6.1 (2021-12-2)
+--------------------------
+- New utility classes, EmailNotificationsUtils and LogTrackerUtils, to test email notifications and log tracker.
+- Added method qualifiedKeysCollectionToTreeMapWithNullValues() to org.openxava.util.Maps utility class.
+- Lesson 2 of course modified to introduce annotations as alternative to stereotypes.
+- Course refined to avoid import conflicts.
+- Removed MimeUtil library from eu.medsea, we use URLConnection from Java instead.
+- Fix: Low performance in list mode with calculated properties with heavy logic and large datasets.
+- Fix: Opening the current module in other browser tab using the left menu initializes the current one.
+- Fix: @File/@Files do not show image preview for image files in some computers.
+- Fix: @File/@Files with acceptFileTypes="images/*" mark as error image files in some computers.
+- Fix: Unneeded horizontal scrollbar when many modules on top tabs.
+- Fix: View with just groups in a collection element fails.
+- Fix: Group inside a section in a collection element fails.
+- Fix: Calculated properties inside groups editing a collection detail are not recalculated.
+- Fix: XPersistence and XHibernate do not close the manager on reset, it could produce some security problems.
+- Fix: @File properties with file name in uppercase and image type are not shown as images in list.
+- Fix: Error from time to time on clicking New on a module with an element collection with failed getters.
+- Fix: @DefaultValueCalculator with no 'from' in element collection fails searching a reference with dialog.
+- Fix: If in an element collection the first value typed has default value the typed value is lost. 
+- Fix: Blank element in @OrderColumn collection when a collection element is deleted from its main module.
+- Fix: @OrderColumn collection broken if a new element is created from other @OrderColumn collection. 
+- Fix: Top button bar overlaps left menu.
+- Fix: Editor defined in @Tab doesn't work if exists a <tab> with for-all-models in tabs-default-values.xml.
+- Fix: Not preview for @File properties in list mode with files with .jpeg extension.
+
 OpenXava 6.6 (2021-10-26)
 -------------------------
 - Last used modules are remembered and they can be accessed using tabs at the top of the module.
