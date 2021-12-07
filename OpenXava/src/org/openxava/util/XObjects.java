@@ -21,7 +21,7 @@ public class XObjects {
   /**
    * Clone the sent object. <p>
    * 
-   * The clone is done using the method <code>clone()</tt> of the 
+   * The clone is done using the method <code>clone()</code> of the 
    * sent object if this implements <code>Cloneable</code>
    *
    * @exception CloneNotSupportedException If the object is not <tt>Cloneable</tt>.<br>
