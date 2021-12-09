@@ -165,7 +165,7 @@ public class XObjects {
    * @param argumentClass1 Not null.
    * @param arg1 Argument value. It can be null.
    * @param argumentClass2 Not null.
-   * @param arg2 Argument value. It can be null.   * 
+   * @param arg2 Argument value. It can be null.    
    * @return  Result of method execution.
    * @exception Exception  Any problem, including exceptions from target method.
    * @exception NoSuchMethodException  If the method does not exist in target class.
