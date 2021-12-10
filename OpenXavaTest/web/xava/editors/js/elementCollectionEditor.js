@@ -53,8 +53,10 @@ elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
 			console.log("[elementCollectionEditor.setDefaultValues] default-value=" + $( this ).attr("data-default-value")); // tmr 
 			$("[name='" + inputName + "']").val($( this ).attr("data-default-value"));
 			// tmr ini
-			
-			
+	
+			// TMR ME QUEDÉ POR AQUÍ: FUNCIONA SI PONGO VALOR Y ETIQUETA, PERO NO SÉ DE DONDE SACAR LA ETIQUETA
+			// TMR  QUERÍA PROBAR LA VERSIÓN 5.1, QUE ES LA PRIMERA DONDE SE TESTEA ESTO		
+				
 			// $("#ox_OpenXavaTest_ProductExpenses2__expenses___1___product___number").prev().val("4");
 			
 			$("#ox_OpenXavaTest_ProductExpenses2__expenses___1___product___number").prev().data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:'2'}});

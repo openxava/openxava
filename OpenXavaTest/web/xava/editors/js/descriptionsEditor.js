@@ -20,7 +20,7 @@ openxava.addEditorInitFunction(function() {
 			},			
 			change: function( event, ui ) {
 				console.log("[descriptionsEditor.change] "); // tmr
-				// TMR ME QUEDÉ POR AQUÍ: AL QUITAR ESTO YA PONE EL VALOR CON val(), PERO NO VEO LO console.log()
+				// TMR AL QUITAR ESTO YA PONE EL VALOR CON val(), PERO NO VEO LO console.log()
 				// TMR   QUIZÁS PODRÍA PROBAR CON alert()
 				/* tmr
 				if ($(event.target).val() === "" && $(event.target).next().val() !== "") { 
