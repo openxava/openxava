@@ -13,6 +13,7 @@ openxava.addEditorInitFunction(function() {
 });
 
 elementCollectionEditor.onChangeRow = function(element, rowIndex) {
+	console.log("[elementCollectionEditor.onChangeRow] 10 " ); // tmr
 	var currentRow = $(element).parent().parent();
 	var nextRow = currentRow.next();
 	if (nextRow.is(':visible')) return;			
@@ -36,17 +37,43 @@ elementCollectionEditor.onChangeRow = function(element, rowIndex) {
 	currentRow.children().first().find("nobr").css('visibility', 'visible');
 	currentRow.addClass("xava_sortable_element_row"); 
 	openxava.initEditors();
+	console.log("[elementCollectionEditor.onChangeRow] 999" ); // tmr
 }
 
 elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
+	console.log("[elementCollectionEditor.setDefaultValues] 10"); // tmr
 	var header = table.children().first().children().first(); 
 	header.children("[id]").each(function() { 
 		var headerId = $( this ).attr("id");
+		console.log("[elementCollectionEditor.setDefaultValues] headerId=" + headerId); // tmr
 		var inputName = headerId.replace(new RegExp("__H", "g"), "__" + rowIndex);
+		console.log("[elementCollectionEditor.setDefaultValues] inputName=" + inputName); // tmr
+		console.log("[elementCollectionEditor.setDefaultValues] val()=" + $("[name='" + inputName + "']").val()); // tmr
 		if ($("[name='" + inputName + "']").val() === "" ) { 
+			console.log("[elementCollectionEditor.setDefaultValues] default-value=" + $( this ).attr("data-default-value")); // tmr 
 			$("[name='" + inputName + "']").val($( this ).attr("data-default-value"));
+			// tmr ini
+			
+			
+			// $("#ox_OpenXavaTest_ProductExpenses2__expenses___1___product___number").prev().val("4");
+			
+			$("#ox_OpenXavaTest_ProductExpenses2__expenses___1___product___number").prev().data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:'2'}});
+			
+			/*
+			//$("[name='" + inputName + "__CONTROL__ " + "']").val($( this ).attr("data-default-value"));
+			//ox_OpenXavaTest_ProductExpenses2__expenses___0___invoice__KEY__
+			// 
+    		//$("#ox_OpenXavaTest_ProductExpenses2__expenses___1___invoice__KEY__").prev().val("2011 1");
+    		//$("#ox_OpenXavaTest_ProductExpenses2__expenses___1___invoice__KEY__").prev().val('{"label":"2011 1","value":"[.1.2011.]"}');
+    		//$("#ox_OpenXavaTest_ProductExpenses2__expenses___1___invoice__KEY__").val("[.1.2011.]");
+    		//$("#ox_OpenXavaTest_ProductExpenses2__expenses___1___invoice__KEY__").trigger('change');
+    		//$("#ox_OpenXavaTest_ProductExpenses2__expenses___0___invoice__KEY____CONTROL__").val("[.1.2011.]");
+    		//$("#ox_OpenXavaTest_ProductExpenses2__expenses___0___invoice__KEY____CONTROL__").trigger('change');
+    		*/
+			// tmr fin			
 		} 		
 	});
+	console.log("[elementCollectionEditor.setDefaultValues] 999"); // tmr
 }
 
 elementCollectionEditor.removeRow = function(application, module, element, rowIndex, hasTotals) { 

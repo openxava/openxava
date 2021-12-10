@@ -245,6 +245,7 @@ abstract public class ModuleTestBase extends TestCase {
 			HtmlInput input = getInputByName(id); 			
 			assertNotDisable(name, input);
 			if (input instanceof HtmlCheckBoxInput) {
+				System.out.println("[ModuleTestBase.setFormValue(" + name + ")] A"); // tmr
 				if ("true".equalsIgnoreCase(value) && !input.isChecked() ||
 					"false".equalsIgnoreCase(value) && input.isChecked()) 
 				{
@@ -255,9 +256,11 @@ abstract public class ModuleTestBase extends TestCase {
 				}				
 			}
 			else if (input instanceof HtmlRadioButtonInput) {
+				System.out.println("[ModuleTestBase.setFormValue(" + name + ")] B"); // tmr
 				setRadioButtonsValue(id, value);
 			}
 			else if (input instanceof HtmlHiddenInput) {
+				System.out.println("[ModuleTestBase.setFormValue(" + name + ")] C"); // tmr
 				input.setValueAttribute(value);
 				DomElement previousElement = input.getPreviousElementSibling();
 				if (previousElement instanceof HtmlInput && previousElement.hasAttribute("data-values")) { // It's an autocomplete
@@ -265,22 +268,32 @@ abstract public class ModuleTestBase extends TestCase {
 					autocomplete.setValueAttribute("Some things"); // A trick to avoid that JavaScript reset the real value
 					((HtmlInput) input.getNextElementSibling()).setValueAttribute("Some things"); // A trick to avoid that JavaScript reset the real value
 					String onchange = autocomplete.getOnChangeAttribute();
+					System.out.println("[ModuleTestBase.setFormValue(" + name + ")] C: onchange=" + onchange); // tmr
 					if (!Is.emptyString(onchange)) {
+						System.out.println("[ModuleTestBase.setFormValue(" + name + ")] C: executeJavaScript"); // tmr
 						page.executeJavaScript(onchange);
 						refreshNeeded = true;
 					}
 				}				
 			}
 			else {
+				System.out.println("[ModuleTestBase.setFormValue(" + name + ")] D"); // tmr
 				input.setValueAttribute(value);				
 			}
 			if (hasOnChange(input) || alwaysThrowChangedEvent) {
+				System.out.println("[ModuleTestBase.setFormValue(" + name + ")] Fire Event"); // tmr
 				refreshNeeded = true;
+				System.out.println("[ModuleTestBase.setFormValue(" + name + ")] input.name=" + input.getNameAttribute()); // tmr
+				System.out.println("[ModuleTestBase.setFormValue(" + name + ")] Firing..."); // tmr
+				Thread.sleep(1000); // tmr
 				input.fireEvent(Event.TYPE_CHANGE);
+				Thread.sleep(1000); // tmr
+				System.out.println("[ModuleTestBase.setFormValue(" + name + ")] Fired"); // tmr
 			}
 		}
 		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
-			try {							
+			try {				
+				System.out.println("[ModuleTestBase.setFormValue(" + name + ")] Catch"); // tmr
 				HtmlSelect select = getSelectByName(id); 
 				assertNotDisable(name, select);
 				select.setSelectedAttribute(value, true);
@@ -288,6 +301,7 @@ abstract public class ModuleTestBase extends TestCase {
 				refreshNeeded = !Is.emptyString(select.getOnChangeAttribute());
 			}
 			catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex2) {
+				System.out.println("[ModuleTestBase.setFormValue(" + name + ")] Recatch"); // tmr
 				HtmlTextArea textArea = getTextAreaByName(id); 
 				assertNotDisable(name, textArea);
 				String textAreaClass = textArea.getAttribute("class"); 
@@ -298,7 +312,8 @@ abstract public class ModuleTestBase extends TestCase {
 				refreshNeeded = !Is.emptyString(textArea.getOnChangeAttribute());
 			}
 		}		
-		if (refreshIfNeeded && refreshNeeded) {			
+		if (refreshIfNeeded && refreshNeeded) {	
+			System.out.println("[ModuleTestBase.setFormValue(" + name + ")] Refresh page"); // tmr
 			refreshPage();			
 		}
 	}

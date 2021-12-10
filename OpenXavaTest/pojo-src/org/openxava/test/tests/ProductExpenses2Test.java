@@ -21,8 +21,12 @@ public class ProductExpenses2Test extends ModuleTestBase {
 		setValue("description", "JUNIT EXPENSES");
 		
 		assertValueInCollection("expenses", 0, "invoice.KEY", "");
-		assertValueInCollection("expenses", 0, "product.number", ""); 				
+		assertValueInCollection("expenses", 0, "product.number", ""); 
+		System.out.println("[ProductExpenses2Test.testDescriptionsListWithDefaultValueInElementCollection_descriptionsListAfterRemovingRowInElementCollection] >>>"); // tmr
+		Thread.sleep(1000); // tmr
 		setValueInCollection("expenses", 0, "carrier.number", "3");  
+		printHtml(); // tmr
+		System.out.println("[ProductExpenses2Test.testDescriptionsListWithDefaultValueInElementCollection_descriptionsListAfterRemovingRowInElementCollection] <<<"); // tmr
 		assertValueInCollection("expenses", 0, "invoice.KEY", "[.1.2002.]"); 
 		assertValueInCollection("expenses", 0, "product.number", "2");	
 		
