@@ -54,12 +54,30 @@ elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
 			$("[name='" + inputName + "']").val($( this ).attr("data-default-value"));
 			// tmr ini
 	
-			// TMR ME QUEDÉ POR AQUÍ: FUNCIONA SI PONGO VALOR Y ETIQUETA, PERO NO SÉ DE DONDE SACAR LA ETIQUETA
-			// TMR  QUERÍA PROBAR LA VERSIÓN 5.1, QUE ES LA PRIMERA DONDE SE TESTEA ESTO		
-				
-			// $("#ox_OpenXavaTest_ProductExpenses2__expenses___1___product___number").prev().val("4");
+		
+			 var control = $("#ox_OpenXavaTest_ProductExpenses2__expenses___1___product___number").prev();	
+			 control.val("4");
+			 
+			 
+			 // console.log("[elementCollectionEditor.setDefaultValues] control.data('values')=" + control.data('values')); // tmr
+			 
+			 // TMR ME QUEDÉ POR AQUÍ. BUSCAR EN EL ARRAY PODRÍA SER UNA OPCIÓN, AUNQUE SEA CON UN BUCLE
+			 var stringValues = control.attr('data-values');
+			 
+			 console.log("[elementCollectionEditor.setDefaultValues] stringValues=" + stringValues); // tmr
+			 
+			 var jsonValues = JSON.parse(stringValues);
+			 console.log("[elementCollectionEditor.setDefaultValues] jsonValues=" + jsonValues); // tmr
+			 
+			 var cuatro = jsonValues['4'];
+			 console.log("[elementCollectionEditor.setDefaultValues] cuatro=" + cuatro); // tmr
+			 console.log(cuatro); // tmr 
+			 
+			 
+			 
+			 // $("#ox_OpenXavaTest_ProductExpenses2__expenses___1___product___number").prev().autocomplete( 'search' );
 			
-			$("#ox_OpenXavaTest_ProductExpenses2__expenses___1___product___number").prev().data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:'2'}});
+			//$("#ox_OpenXavaTest_ProductExpenses2__expenses___1___product___number").prev().data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:'2'}});
 			
 			/*
 			//$("[name='" + inputName + "__CONTROL__ " + "']").val($( this ).attr("data-default-value"));

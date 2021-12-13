@@ -651,6 +651,7 @@ public class View implements java.io.Serializable {
 	 * @since 5.1
 	 */
 	public Object getDefaultValueInElementCollection(String qualifiedPropertyName) { 
+		if (defaultValues == null) return null; // tmr
 		return defaultValues.get(qualifiedPropertyName);
 	}
 	
