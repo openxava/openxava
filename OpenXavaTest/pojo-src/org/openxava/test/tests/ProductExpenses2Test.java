@@ -22,13 +22,12 @@ public class ProductExpenses2Test extends ModuleTestBase {
 		
 		assertValueInCollection("expenses", 0, "invoice.KEY", "");
 		assertValueInCollection("expenses", 0, "product.number", ""); 
-		System.out.println("[ProductExpenses2Test.testDescriptionsListWithDefaultValueInElementCollection_descriptionsListAfterRemovingRowInElementCollection] >>>"); // tmr
-		Thread.sleep(1000); // tmr
 		setValueInCollection("expenses", 0, "carrier.number", "3");  
-		printHtml(); // tmr
-		System.out.println("[ProductExpenses2Test.testDescriptionsListWithDefaultValueInElementCollection_descriptionsListAfterRemovingRowInElementCollection] <<<"); // tmr
-		assertValueInCollection("expenses", 0, "invoice.KEY", "[.1.2002.]"); 
+		
+		assertValueInCollection("expenses", 0, "invoice.KEY", "[.1.2002.]");
+		assertComboDescription("invoice__KEY__", "2002 1"); // tmr
 		assertValueInCollection("expenses", 0, "product.number", "2");	
+		assertComboDescription("product___number", "IBM ESERVER ISERIES 270"); // tmr
 		
 		execute("CRUD.save");
 		execute("Mode.list");
@@ -51,6 +50,14 @@ public class ProductExpenses2Test extends ModuleTestBase {
 		
 		execute("CRUD.delete");
 		assertNoErrors();
+	}
+
+	private void assertComboDescription(String member, String expectedDescription) {
+		HtmlInput input = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_ProductExpenses2__expenses___0___" + member);
+		HtmlInput control = (HtmlInput) input.getPreviousElementSibling();
+		assertEquals(expectedDescription, control.getValueAttribute());
+		HtmlInput description = (HtmlInput) input.getNextElementSibling();
+		assertEquals(expectedDescription, description.getValueAttribute());
 	}
 	
 	private void assertOpenCombo(int row) throws Exception {

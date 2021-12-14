@@ -19,23 +19,16 @@ openxava.addEditorInitFunction(function() {
 				event.preventDefault();
 			},			
 			change: function( event, ui ) {
-				console.log("[descriptionsEditor.change] "); // tmr
-				// TMR AL QUITAR ESTO YA PONE EL VALOR CON val(), PERO NO VEO LO console.log()
-				// TMR   QUIZÁS PODRÍA PROBAR CON alert()
-				/* tmr
-				if ($(event.target).val() === "" && $(event.target).next().val() !== "") { 
-					console.log("[descriptionsEditor.change] A"); // tmr   
+				if ($(event.target).val() === "" && $(event.target).next().val() !== "") {  
 					$(event.target).next().val("");
 					$(event.target).next().next().val("");
 					descriptionsEditor.executeOnChange($(event.target));
 				}
 				else if ($(event.target).val() !== $(event.target).next().next().val()){
-					console.log("[descriptionsEditor.change] B"); // tmr
 					$(event.target).val("");
 					$(event.target).next().val("");
 					$(event.target).next().next().val("");
 				}
-				*/
 			},
 			search: function( event, ui ) {
 				$(event.target).next().next().next().hide();

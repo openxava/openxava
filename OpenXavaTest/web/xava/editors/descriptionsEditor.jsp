@@ -17,7 +17,6 @@ String viewObject = request.getParameter("viewObject");
 viewObject = (viewObject == null || viewObject.equals(""))?"xava_view":viewObject;
 org.openxava.view.View view = (org.openxava.view.View) context.get(request, viewObject);
 String propertyKey = request.getParameter("propertyKey");
-System.out.println("[descriptionsList.jsp] propertyKey=" + propertyKey); // tmr
 String script = request.getParameter("script");
 //modelForId is for have a different cache for each condition
 String modelForId = "." + view.getModelName(); 
@@ -118,13 +117,6 @@ if (calculator == null) {
 	calculator.setOrderByKey(orderByKey);
 	request.getSession().setAttribute(descriptionsCalculatorKey, calculator);
 }
-// tmr ini
-String keyProperty = request.getParameter("keyProperty");
-System.out.println("[descriptionsEditor.jsp] keyProperty=" + keyProperty); // tmr
-System.out.println("[descriptionsEditor.jsp] view.getModelName()=" + view.getModelName()); // tmr
-Object defaultValue = view.getDefaultValueInElementCollection(keyProperty);
-System.out.println("[descriptionsEditor.jsp] defaultValue=" + defaultValue); // tmr
-// tmr fin
 if (parameterValuesStereotypes != null || parameterValuesProperties != null) {	
 	java.util.Iterator it = null;
 	if (parameterValuesStereotypes != null) {
