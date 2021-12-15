@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: No dependent @DefaultValueCalculator for @DescriptionsList in @ElementCollection does not work.
+
 OpenXava 6.6.1 (2021-12-2)
 --------------------------
 - New utility classes, EmailNotificationsUtils and LogTrackerUtils, to test email notifications and log tracker.

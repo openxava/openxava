@@ -5,8 +5,8 @@ package org.openxava.test.tests;
 
 import javax.persistence.*;
 
-import org.openxava.jpa.XPersistence;
-import org.openxava.tests.ModuleTestBase;
+import org.openxava.jpa.*;
+import org.openxava.tests.*;
 
 /**
  * When keys are within groups.
@@ -22,7 +22,7 @@ public class CustomerWithGroupsTest extends ModuleTestBase {
 	public void testConsecutiveCreationWithKeyInsideGroupAndSeveralGroups() throws Exception { 
 		Integer customerNumber = getMaxCustomerNumber() + 1;
 		for (int index = 0; index < 3; index++) {
-			createCustomer(customerNumber + index);
+			createCustomer(customerNumber + index); 
 		}
 		deleteCustomers(); 
 	}

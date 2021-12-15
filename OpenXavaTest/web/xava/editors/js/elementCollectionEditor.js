@@ -43,26 +43,11 @@ elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
 	header.children("[id]").each(function() { 
 		var headerId = $( this ).attr("id");
 		var inputName = headerId.replace(new RegExp("__H", "g"), "__" + rowIndex);
-		// TMR ME QUEDÉ POR AQUÍ: YA FUNCIONA. TEST JUNIT HECHO. AHORA TENGO QUE REFACTORIZAR LO DE ABAJO
 		if ($("[name='" + inputName + "']").val() === "" ) { 
-			// tmr $("[name='" + inputName + "']").val($( this ).attr("data-default-value"));
-			// tmr ini
 			var input = $("[name='" + inputName + "']");
-			var defaultValue = $( this ).data("default-value");
-			console.log("[elementCollectionEditor.setDefaultValues] defaultValue=" + defaultValue); // tmr
-			input.val(defaultValue);
-			var control = input.prev();
-			var label = "";
-			var values = control.data('values'); 
-			for (i in values) { // find not supported by HtmlUnit
-			    if (values[i].value == defaultValue) {
-			        label = values[i].label;
-			        break;
-			    }
-			}
-			control.val(label);
-			input.next().val(label);
-			// tmr fin			
+			var defaultValue = $( this ).data("default-value");			
+			if (descriptionsEditor.is(input)) descriptionsEditor.val(input, defaultValue);
+			else input.val(defaultValue); 
 		} 		
 	});
 }

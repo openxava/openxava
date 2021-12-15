@@ -262,10 +262,8 @@ abstract public class ModuleTestBase extends TestCase {
 				DomElement previousElement = input.getPreviousElementSibling();
 				if (previousElement instanceof HtmlInput && previousElement.hasAttribute("data-values")) { // It's an autocomplete
 					HtmlInput autocomplete = (HtmlInput) previousElement;
-					/* tmr
 					autocomplete.setValueAttribute("Some things"); // A trick to avoid that JavaScript reset the real value
 					((HtmlInput) input.getNextElementSibling()).setValueAttribute("Some things"); // A trick to avoid that JavaScript reset the real value
-					*/
 					String onchange = autocomplete.getOnChangeAttribute();
 					if (!Is.emptyString(onchange)) {
 						page.executeJavaScript(onchange);

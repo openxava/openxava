@@ -95,3 +95,25 @@ descriptionsEditor.removeAccents = function(str) {
 		.replace(/[ףעפצ]/,"o")
 		.replace(/[תשûü]/,"u");	
 }
+
+descriptionsEditor.is = function(input) {
+	return input.prev().hasClass('ui-autocomplete-input');
+}
+
+descriptionsEditor.val = function(input, defaultValue) {
+	input.val(defaultValue);
+	var control = input.prev();	
+	var values = control.data('values');
+	var label = descriptionsEditor._getLabel(values, defaultValue);
+	control.val(label);
+	input.next().val(label);
+}  
+
+descriptionsEditor._getLabel = function(values, value) {
+	for (i in values) { // Arrays.find not supported by HtmlUnit
+	    if (values[i].value == value) {
+	        return values[i].label;
+	    }
+	}			
+	return "";
+}
