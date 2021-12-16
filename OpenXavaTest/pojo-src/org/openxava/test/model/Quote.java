@@ -48,7 +48,8 @@ public class Quote extends Identifiable {
 	@RemoveSelectedAction(forViews="QuoteWithRemoveElementCollection", value="Quote.removeDetail") 
 	@javax.validation.constraints.Size(min=1, max=3)  
 	@ElementCollection
-	@ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxesRate, quote.taxes, quote.total]") 
+	// tmr @ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxesRate, quote.taxes, quote.total]") 
+	@ListProperties("product.number, unitPrice, quantity, amount") // tmr
 	Collection<QuoteDetail> details;
 
 	@PrePersist

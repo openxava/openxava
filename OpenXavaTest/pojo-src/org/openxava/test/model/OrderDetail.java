@@ -1,12 +1,15 @@
 package org.openxava.test.model;
 
-import org.openxava.model.*;
 import java.math.*;
+
 import javax.persistence.*;
+
 import org.openxava.annotations.*;
+import org.openxava.model.*;
 
 @Entity
 @View(members="product; quantity, amount")  
+@View(name="ProductAsDescriptionsList", members="product; quantity, amount") // tmr
 public class OrderDetail extends Identifiable {
 	
 	@ManyToOne // Lazy fetching fails on removing a detail from parent
@@ -14,6 +17,7 @@ public class OrderDetail extends Identifiable {
 		
 	private int quantity;
 	
+	@DescriptionsList(forViews="ProductAsDescriptionsList") // tmr
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@ReferenceView("SimpleWithFamily") 
 	private Product2 product;
