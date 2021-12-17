@@ -3748,7 +3748,7 @@ public class View implements java.io.Serializable {
 			}		
 						
 			Object pojo = null; 
-			if (calculator instanceof IModelCalculator) { 				
+			if (calculator instanceof IModelCalculator) {
 				pojo = getPOJO();
 				((IModelCalculator) calculator).setModel(pojo);
 			}
@@ -3842,6 +3842,7 @@ public class View implements java.io.Serializable {
 		}
 		else {
 			Object pojo = MapFacade.findEntity(getModelName(), getParentIfSectionOrGroup().getKeyValues());
+			// tmr Mirar el comentario de abajo. ¿Podriamos quitar refreshIfManaged de getCollectionObjects()? 
 			getMetaModel().fillPOJO(pojo, getParentIfSectionOrGroup().getAllValues()); // fillPOJO does not get the references from DB, if we change that maybe we can remove the refreshIfManaged from getCollectionObjects()   			
 			return pojo;			
 		}
@@ -4399,7 +4400,14 @@ public class View implements java.io.Serializable {
 		return subview.getMetaView(subview.getMetaReference(member));
 	}
 	
-	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException {
+	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException { // tmr
+		boolean result = _throwsReferenceChanged(ref);
+		System.out.println("[View.throwsReferenceChanged] " + ref.getName()+ "=" + result); // tmr
+		return result;
+	}
+	
+	public boolean _throwsReferenceChanged(MetaReference ref) throws XavaException {
+		System.out.println("[View(" + getModelName() + ")._throwsReferenceChanged] ref.getName()=" + ref.getName()); // tmr
 		String refName = ref.getName(); 
 		int idx = refName.indexOf('.');
 		if (idx >= 0) {
@@ -4416,31 +4424,45 @@ public class View implements java.io.Serializable {
 			}
 		}
 		
+		System.out.println("[View._throwsReferenceChanged] getDepends()=" + getDepends()); // tmr
 		if (getDepends().contains(refName)) return true;
 		Iterator itKeys = ref.getMetaModelReferenced().getKeyPropertiesNames().iterator();
 		while (itKeys.hasNext()) {			
 			String propertyKey = (String) itKeys.next();
 			String propertyName = refName + "." + propertyKey;
+			System.out.println("[View._throwsReferenceChanged] Testing " + propertyName); // tmr
 			if (getMetaView().hasOnChangeAction(propertyName)) {
+				System.out.println("[View._throwsReferenceChanged] A"); // tmr
 				return true;
 			}
 			
-			Iterator itProperties = getRoot().getMetaPropertiesQualified().iterator();
+			// tmr Iterator itProperties = getRoot().getMetaPropertiesQualified().iterator();
+			Iterator itProperties = getMetaPropertiesQualified().iterator(); // tmr
 			while (itProperties.hasNext()) {
 				MetaProperty p = (MetaProperty) itProperties.next();
-				if (p.getPropertyNamesThatIDepend().contains(propertyName)) return true;
+				if (p.getPropertyNamesThatIDepend().contains(propertyName)) {
+					System.out.println("[View._throwsReferenceChanged] B"); // tmr
+					return true;
+				}
 			}
 			
 			for (MetaReference r: getRoot().getMetaModel().getMetaReferencesWithDefaultValueCalculator()) {
 				if (hasSubview(r.getName()) && r.getMetaCalculatorDefaultValue().containsMetaSetsWithoutValue()) {
-					if (r.getPropertyNamesThatIDepend().contains(propertyName)) return true;
+					if (r.getPropertyNamesThatIDepend().contains(propertyName)) {
+						System.out.println("[View._throwsReferenceChanged] C"); // tmr
+						return true;
+					}
 				}
 			}
 			
 			MetaProperty p = ref.getMetaModelReferenced().getMetaProperty(propertyKey).cloneMetaProperty();
 			p.setName(propertyName);
-			if (hasDependentsProperties(p)) return true;			
+			if (hasDependentsProperties(p)) {
+				System.out.println("[View._throwsReferenceChanged] D"); // tmr
+				return true;			
+			}
 		}
+		System.out.println("[View._throwsReferenceChanged] ZZZ"); // tmr
 		return displayAsDescriptionsListAndReferenceView(ref); 
 	}
 		

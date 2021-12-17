@@ -5,6 +5,8 @@ import java.beans.*;
 import java.rmi.*;
 import java.util.*;
 
+import javax.ejb.*;
+
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
 import org.openxava.mapping.*;
@@ -1426,7 +1428,7 @@ abstract public class MetaModel extends MetaElement {
 			PropertiesManager pm = new PropertiesManager(pojo);			
 			for (Iterator it=values.entrySet().iterator(); it.hasNext();) {
 				Map.Entry en = (Map.Entry) it.next();
-				if (containsMetaReference((String)en.getKey())) { 
+				if (containsMetaReference((String)en.getKey())) {
 					if (en.getValue() == null) {
 						pm.executeSet((String)en.getKey(), null);
 						continue;
@@ -1450,12 +1452,25 @@ abstract public class MetaModel extends MetaElement {
 						}
 						else {
 							Map newKey = referencedModel.extractKeyValues(refValues);
-							Map oldKey = referencedModel.toKeyMap(referencedObject); 
+							Map oldKey = referencedModel.toKeyMap(referencedObject);
+
 							if (newKey.equals(oldKey)) {
 								referencedModel.fillPOJO(referencedObject, refValues);
 							}
 							else {
-								pm.executeSet((String)en.getKey(), referencedModel.toPOJO(refValues));
+								// tmr ini
+								// TMR ME QUEDÉ POR AQUÍ. CON ESTO FUNCIONA TODO. PROBAR QUOTE. REVISAR CÓDIGO DE VIEW
+								Object newReferencedObject = null;
+								try {
+									newReferencedObject = MapFacade.findEntity(referencedModel.getName(), newKey); // tmr ¿Es ético?
+									referencedModel.fillPOJO(newReferencedObject, refValues);
+								}
+								catch (ObjectNotFoundException ex) {
+									newReferencedObject = referencedModel.toPOJO(refValues);
+								}
+								pm.executeSet((String)en.getKey(), newReferencedObject);
+								// tmr fin
+								// tmr pm.executeSet((String)en.getKey(), referencedModel.toPOJO(refValues));
 							}
 						}
 					}

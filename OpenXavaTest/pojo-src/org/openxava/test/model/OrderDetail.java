@@ -17,7 +17,8 @@ public class OrderDetail extends Identifiable {
 		
 	private int quantity;
 	
-	@DescriptionsList(forViews="ProductAsDescriptionsList") // tmr
+	// @DescriptionsList(forViews="ProductAsDescriptionsList") // tmr
+	@DescriptionsList // tmr
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@ReferenceView("SimpleWithFamily") 
 	private Product2 product;

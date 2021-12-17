@@ -14,7 +14,13 @@ public class OrderProductInDetailAsDescriptionsListTest extends ModuleTestBase {
 	}
 			
 	public void testCalculatedPropertyDependsOnDescriptionsListInCollection() throws Exception { // tmr
-		// TMR ME QUEDÉ POR AQUÍ. PARA HACERLO
+		execute("List.viewDetail", "row=0");
+		execute("Collection.edit", "row=0,viewObject=xava_view_details");
+		assertValue("product.number", "7");
+		assertValue("quantity", "10");
+		assertValue("amount", "200.00");
+		setValue("product.number", "1");
+		assertValue("amount", "110.00");
 	}
 					
 }
