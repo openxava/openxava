@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Calculated properties whose calculation depends on references fail recalculating after a change event. 
+- Fix: @DescriptionsList doesn't throw change event for @Depends properties in @ElementCollection collections. 
+- Fix: @DescriptionsList doesn't throw change event for @Depends properties editing in an @OneToMany collection.   
 - Fix: No dependent @DefaultValueCalculator for @DescriptionsList in @ElementCollection does not work.
 
 OpenXava 6.6.1 (2021-12-2)

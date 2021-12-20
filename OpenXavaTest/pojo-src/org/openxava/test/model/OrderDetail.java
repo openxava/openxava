@@ -9,7 +9,7 @@ import org.openxava.model.*;
 
 @Entity
 @View(members="product; quantity, amount")  
-@View(name="ProductAsDescriptionsList", members="product; quantity, amount") // tmr
+@View(name="ProductAsDescriptionsList", members="product; quantity, amount") 
 public class OrderDetail extends Identifiable {
 	
 	@ManyToOne // Lazy fetching fails on removing a detail from parent
@@ -17,8 +17,7 @@ public class OrderDetail extends Identifiable {
 		
 	private int quantity;
 	
-	// @DescriptionsList(forViews="ProductAsDescriptionsList") // tmr
-	@DescriptionsList // tmr
+	@DescriptionsList(forViews="ProductAsDescriptionsList") 
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@ReferenceView("SimpleWithFamily") 
 	private Product2 product;

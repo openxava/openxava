@@ -19,7 +19,7 @@ import org.openxava.model.*;
 	"amount;" +
 	"remarks"
 )
-@View(name="ProductInDetailAsDescriptionsList", extendsView = "DEFAULT") // tmr
+@View(name="ProductInDetailAsDescriptionsList", extendsView = "DEFAULT") 
 
 public class Order extends Identifiable {
 	
@@ -44,7 +44,7 @@ public class Order extends Identifiable {
 	@OneToMany(mappedBy="parent", cascade=CascadeType.ALL)	
 	@ListProperties("product.number, product.description, quantity, product.unitPrice, amount")
 	@RowAction("OrderDetail.reduceQuantity")
-	@CollectionView(forViews="ProductInDetailAsDescriptionsList", value="ProductAsDescriptionsList") // tmr
+	@CollectionView(forViews="ProductInDetailAsDescriptionsList", value="ProductAsDescriptionsList") 
 	private Collection<OrderDetail> details = new ArrayList<OrderDetail>();  
 	
 	@Stereotype("MEMO") 
