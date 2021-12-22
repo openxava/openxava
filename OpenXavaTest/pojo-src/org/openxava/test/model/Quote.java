@@ -9,7 +9,6 @@ import javax.validation.constraints.*;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.model.*;
-import org.openxava.test.calculators.*;
 
 import lombok.*;
 
@@ -27,17 +26,10 @@ import lombok.*;
 @Tab(defaultOrder="${year} desc") 
 public class Quote extends Identifiable {
 		
-	@DefaultValueCalculator(CurrentYearCalculator.class) // tmr
 	@Column(length=4) @Required
 	int year;
 	
 	@Column(length=6) 
-	// tmr ini
-	// TMR ME QUEDÉ POR AQUÍ: LO DE ABAJO NO REPRODUCE EL ERROR. SEGUIR PROBANDO CON EL CÓDIGO DEL USUARIO
-	@DefaultValueCalculator(value=NextQuoteNumberCalculator.class,
-	    properties=@PropertyValue(name="year") 
-	)
-	// tmr fin
 	int number;
 	
 	@Required @DefaultValueCalculator(CurrentDateCalculator.class)
