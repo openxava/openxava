@@ -1937,15 +1937,12 @@ public class View implements java.io.Serializable {
 						}
 					}				
 				}
-				System.out.println("[View.getCollectionTotals] memberNames=" + memberNames); // tmr
-				// TMR ME QUEDÉ POR AQUÍ: AQUÍ ESTÁ EL PROBLEMA, OBTIENE LAS CLAVES DE LA 
-				// TMR   ENTIDAD PRINCIPAL AUNQUE memberNames ESTÉ VACIO
-				// TMR   NO LLAMAR A MapFacade CUANDO memberNames ESTÉ VACIO MEJORA EL RENDIMIENTO
-				// TMR   Y SACARIA EL TEST VERDE, PERO PUEDE QUE FALLE SI HAY ALGUNA PROPIEDAD
-				// TMR   DE TOTAL. HAY QUE AÑADIR UNA PROPIEDAD DE TOTAL
-				if (isRepresentsElementCollection()) {
+				if (memberNames.isEmpty()) {
+					collectionTotals = Collections.EMPTY_MAP;
+				}
+				else if (isRepresentsElementCollection()) {
 					collectionTotals = MapFacade.getValues(getParent().getModelName(), getParent().getTransientPOJO(), memberNames);
-					System.out.println("[View.getCollectionTotals] collectionTotals=" + collectionTotals); // tmr
+					removeKeys(getParent().getMetaModel(), collectionTotals); 
 				}
 				else {
 					Map key = getParent().getKeyValues();
@@ -1955,6 +1952,7 @@ public class View implements java.io.Serializable {
 					else {
 						try {
 							collectionTotals = MapFacade.getValues(getParent().getModelName(), key, memberNames);
+							removeKeys(getParent().getMetaModel(), collectionTotals); 
 						}
 						catch (javax.ejb.ObjectNotFoundException ex) {
 							collectionTotals = Collections.EMPTY_MAP;
@@ -1980,6 +1978,14 @@ public class View implements java.io.Serializable {
 		return collectionTotals;
 	}	
 	
+	private void removeKeys(MetaModel metaModel, Map collectionTotals) { 
+		Iterator it = collectionTotals.keySet().iterator();
+		for (Object key = it.next(); it.hasNext(); key = it.next() ) {
+			if (metaModel.isKey((String) key)) it.remove(); 
+		}
+		
+	}
+
 	private Object calculateCollectionSum(String property) {
 		BigDecimal sum = new BigDecimal("0");  
 		List<Map<String, Object>> values = getCollectionValues(); 
@@ -2538,7 +2544,6 @@ public class View implements java.io.Serializable {
 	 * Set the default values in the empty fields.  
 	 */
 	private void calculateDefaultValues(boolean firstLevel) throws XavaException {
-		System.out.println("[View(" + getModelName() + ").calculateDefaultValues] 10"); // tmr
 		if (firstLevel) { 
 			getRoot().registeringExecutedActions = true;
 		}
@@ -2546,7 +2551,6 @@ public class View implements java.io.Serializable {
 		try {					
 			Collection properties = new ArrayList(getMetaModel().getMetaPropertiesWithDefaultValueCalculator());			
 			properties.addAll(getMetaModel().getMetaPropertiesViewWithDefaultCalculator());
-			System.out.println("[View(" + getModelName() + ").calculateDefaultValues] 20"); // tmr
 			if (!properties.isEmpty()) {
 				Map membersNames = getMembersNames(); 
 				Iterator it = properties.iterator();
@@ -2572,7 +2576,6 @@ public class View implements java.io.Serializable {
 					}
 				}			
 				
-				System.out.println("[View(" + getModelName() + ").calculateDefaultValues] 30"); // tmr
 				if (!alreadyPut.isEmpty()) {
 					Iterator itAlreadyPut = alreadyPut.iterator();					
 					boolean hasNext = itAlreadyPut.hasNext(); 
@@ -2580,9 +2583,7 @@ public class View implements java.io.Serializable {
 						String propertyName = (String) itAlreadyPut.next();
 						try {
 							hasToSearchOnChangeIfSubview = false;
-							System.out.println("[View(" + getModelName() + ").calculateDefaultValues] propertyChanged >"); // tmr
 							propertyChanged(propertyName);
-							System.out.println("[View(" + getModelName() + ").calculateDefaultValues] propertyChanged <"); // tmr
 						}
 						finally {
 							hasToSearchOnChangeIfSubview = true;						
@@ -2592,7 +2593,6 @@ public class View implements java.io.Serializable {
 				}								
 			}
 				
-			System.out.println("[View(" + getModelName() + ").calculateDefaultValues] 40"); // tmr
 			// On change events
 			if (!isRepresentsElementCollection()) { 
 				Iterator itOnChangeProperties = getMetaView().getPropertiesNamesThrowOnChange().iterator();			
@@ -2602,7 +2602,6 @@ public class View implements java.io.Serializable {
 				}		
 			} 
 					
-			System.out.println("[View(" + getModelName() + ").calculateDefaultValues] 50"); // tmr
 			// Subviews		
 			Iterator itSubviews = getSubviews().values().iterator();			
 			while (itSubviews.hasNext()) {
@@ -2616,8 +2615,7 @@ public class View implements java.io.Serializable {
 					subview.clear();
 				}
 			}			
-					
-			System.out.println("[View(" + getModelName() + ").calculateDefaultValues] 60"); // tmr			
+								
 			// Groups		
 			Iterator itGroups = getGroupsViews().values().iterator();			
 			while (itGroups.hasNext()) {
@@ -2625,7 +2623,6 @@ public class View implements java.io.Serializable {
 				group.calculateDefaultValues(false);
 			}			
 					
-			System.out.println("[View(" + getModelName() + ").calculateDefaultValues] 70"); // tmr
 			// Sections		
 			if (hasSections()) {
 				int count = getSections().size();
@@ -2634,7 +2631,6 @@ public class View implements java.io.Serializable {
 				}	
 			}
 			
-			System.out.println("[View(" + getModelName() + ").calculateDefaultValues] 80"); // tmr
 			// References			
 			Collection references = getMetaModel().getMetaReferencesWithDefaultValueCalculator();				
 			if (!references.isEmpty()) {		
@@ -2693,7 +2689,6 @@ public class View implements java.io.Serializable {
 				resetExecutedActions();
 			}			
 		}
-		System.out.println("[View(" + getModelName() + ").calculateDefaultValues] 999"); // tmr
 	}
 
 	private boolean isTotalPropertyInAnyCollection(String name) { 
@@ -3534,9 +3529,7 @@ public class View implements java.io.Serializable {
 						calculationDone = true;
 					}
 					if (pr.hasDefaultValueCalculator()) {	
-						System.out.println("[View.tryPropertyChanged] >"); // tmr
 						calculateValue(pr, pr.getMetaCalculatorDefaultValue(), pr.createDefaultValueCalculator(), errors, messages);
-						System.out.println("[View.tryPropertyChanged] <"); // tmr
 						calculationDone = true;
 					}				
 				}
@@ -3785,12 +3778,9 @@ public class View implements java.io.Serializable {
 					return;
 				}
 			}
-			System.out.println("[View.calculateValue] newValue=" + newValue); // tmr
 			Object old = getValue(metaProperty.getName()); 
 			if (!setValueNotifyingInTotals(metaProperty.getName(), newValue, old)) {
-				System.out.println("[View.calculateValue] A"); // tmr
 				if (!Is.equal(old, newValue)) {
-					System.out.println("[View.calculateValue] AA"); // tmr
 					setValueNotifying(metaProperty.getName(), newValue);
 				}
 			}  
@@ -3806,9 +3796,6 @@ public class View implements java.io.Serializable {
 		for (MetaCollection col: getMetaModel().getMetaCollections()) {
 			try {
 				View subview = getSubview(col.getName());
-				System.out.println("[View.setValueNotifyingInTotals] col.getName()=" + col.getName()); // tmr
-				System.out.println("[View.setValueNotifyingInTotals] subview.getCollectionTotals().containsKey('" + propertyName + "')=" + subview.getCollectionTotals().containsKey(propertyName)); // tmr
-				System.out.println("[View.setValueNotifyingInTotals] subview.getCollectionTotals()=" + subview.getCollectionTotals()); // tmr
 				if (!subview.getCollectionTotals().containsKey(propertyName)) continue;
 				if (subview.isRepresentsElementCollection() || subview.isCollectionFromModel()) {
 					if (subview.oldCollectionTotals == null) subview.oldCollectionTotals = new HashMap(subview.getCollectionTotals());
@@ -3822,7 +3809,6 @@ public class View implements java.io.Serializable {
 			catch (ElementNotFoundException ex) {
 			}
 		}
-		System.out.println("[View.setValueNotifyingInTotals] result=" + result); // tmr
 		return result;
 	}
 	

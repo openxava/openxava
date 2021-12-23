@@ -8,7 +8,6 @@ import org.openxava.jpa.*;
 import lombok.*;
 
 /**
- * tmr 
  * 
  * @author Javier Paniza
  */
@@ -18,7 +17,6 @@ public class NextTravelExpensesNumberCalculator implements ICalculator {
     int year; 
  
     public Object calculate() throws Exception { 
-    	System.out.println("[NextTravelExpensesNumberCalculator.calculate] "); // tmr
         Query query = XPersistence.getManager() 
             .createQuery("select max(t.number) from TravelExpenses t where t.year = :year"); 
         query.setParameter("year", year); 

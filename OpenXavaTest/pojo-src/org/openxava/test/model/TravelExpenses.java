@@ -1,5 +1,6 @@
 package org.openxava.test.model;
 
+import java.math.*;
 import java.util.*;
 
 import javax.persistence.*;
@@ -11,7 +12,6 @@ import org.openxava.test.calculators.*;
 import lombok.*;
 
 /**
- * tmr
  * 
  * @author Javier Paniza
  */
@@ -37,6 +37,14 @@ public class TravelExpenses {
 	Date date;
 	
 	@ElementCollection
+	@ListProperties("description, amount[travelExpenses.total]")  
 	Collection<TravelExpense> expenses;
-
+	
+	public BigDecimal getTotal() {
+		if (expenses == null) return BigDecimal.ZERO;
+		return expenses.stream()
+			.map(TravelExpense::getAmount)
+			.reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+	
 }

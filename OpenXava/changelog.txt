@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @Id property with @DefaultValueCalculator dependent in an entity with an @ElementCollection doesn't work.
 - Fix: Calculated properties whose calculation depends on references fail recalculating after a change event. 
 - Fix: @DescriptionsList doesn't throw change event for @Depends properties in @ElementCollection collections. 
 - Fix: @DescriptionsList doesn't throw change event for @Depends properties editing in an @OneToMany collection.   

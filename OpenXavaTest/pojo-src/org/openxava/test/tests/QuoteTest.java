@@ -265,7 +265,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValue("year", "2014"); // This one ... 
 		assertValue("number", "1");  // ... has 3 details
 		
-		assertTotalInCollection("details", 0, "amount", "162.00");
+		assertTotalInCollection("details", 0, "amount", "162.00"); 
 		assertTotalInCollection("details", 1, "amount",  "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "34.02");
 		assertTotalInCollection("details", 3, "amount", "196.02");
@@ -348,7 +348,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		setValueInCollection("details", 2, "product.number", "4");
 		assertValueInCollection("details", 2, "product.description", "CUATRE");
 		assertValueInCollection("details", 2, "unitPrice", "555.00");
-		assertValueInCollection("details", 2, "amount", "2,220.00");
+		assertValueInCollection("details", 2, "amount", "2,220.00"); 
 		execute("CRUD.save");
 		
 		execute("Mode.list");
