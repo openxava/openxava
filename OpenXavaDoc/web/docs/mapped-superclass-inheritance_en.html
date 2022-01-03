@@ -51,6 +51,7 @@
       The <em>Author</em>, <em>Category</em> and <em>Invoice</em> classes
       have some common code, the <em>oid</em> field definition:<br>
       <pre><code class="java">@Id @GeneratedValue(generator="system-uuid") @Hidden
+@GenericGenerator(name="system-uuid", strategy = "uuid")
 @Column(length=32)
 String oid;
 </code></pre> This code is just the same for all those classes. You know that
@@ -75,6 +76,7 @@ import lombok.*;
 public class Identifiable {
  
     @Id @GeneratedValue(generator="system-uuid") @Hidden
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(length=32)
     String oid; // Property definition includes OpenXava and JPA annotations
  

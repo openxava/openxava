@@ -78,7 +78,6 @@ import lombok.*;
 public class Identificable {
  
     @Id @GeneratedValue(generator="system-uuid") @Hidden
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(length=32)
     String oid; // La definición de propiedad incluye anotaciones de OpenXava y JPA
  
