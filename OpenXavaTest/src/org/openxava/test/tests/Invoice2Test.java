@@ -50,7 +50,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertListSelectedConfiguration("Year = 2002"); 
 		assertListAllConfigurations("Year = 2002", "All");
 		assertListRowCount(1);
-		assertValueInList(0, "1\r\n2002\r\nDate: 1/1/2002, VAT %: 16.0, Amounts sum: 2,500.00, Number: 1, Name: Javi");
+		assertValueInList(0, "1\r\n2002\r\nDate: 1/1/2002, VAT %: 16.0, Amounts sum: 2,500.00, Number: 1, Name: Javi"); // TMR FALLA
 		
 		selectListConfiguration("All"); 
 		assertListAllConfigurations("All", "Year = 2002");

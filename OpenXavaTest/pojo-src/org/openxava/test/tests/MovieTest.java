@@ -65,20 +65,27 @@ public class MovieTest extends MovieBaseTest {
 	}
 	
 	public void testFileset() throws Exception {
+		// TMR ME QUEDÉ POR AQUÍ DEPURANDO
+		/* tmr
 		subscribeToEmailNotifications(); 
 		
-		assertListRowCount(3); 
+		assertListRowCount(3);
+		*/ 
 		execute("List.viewDetail", "row=0");
+		/* tmr
 		assertFilesCount("scripts", 3); 
 		
 		//Adding one file
 		uploadFile("scripts", "reports/Corporation.html"); 
 		reload();
+		*/
+		
 		assertFilesCount("scripts", 4); 
 		
 		//Display file
-		assertFile("scripts", 0, "text/html"); // 0 is the last added because of oid generation  
+		assertFile("scripts", 0, "text/html"); // 0 is the last added because of oid generation // TMR FALLA 
 		
+		/* tmr
 		//Removing the file
 		removeFile("scripts", 0);
 		reload();
@@ -88,6 +95,7 @@ public class MovieTest extends MovieBaseTest {
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080" + getContextPath() + "modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li data-property='scripts'><b>Scripts</b>: NEW FILES ADDED --> Corporation.html</li></ul>",
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080" + getContextPath() + "modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li data-property='scripts'><b>Scripts</b>: FILE REMOVED --> Corporation.html</li></ul>"
 		);
+		*/
 	}
 	
 	public void testGroupName() throws Exception {

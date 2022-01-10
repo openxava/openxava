@@ -16,7 +16,7 @@ public class OrderIssueOrderAsEmbeddedTest extends ModuleTestBase {
 	public void testCreateCollectionElementInAnEmbeddedReference() throws Exception {
 		// It failed with OrderIssue, Order and OrderDetail, but not in other cases like Invoice with Customer and DeliverPlace,
 		// perhaps because OrderIssue, Order and OrderDetail are Identifiable
-		assertListRowCount(1);
+		assertListRowCount(1); // TMR FALLA
 		execute("CRUD.new");
 		setValue("date", "5/14/2021");
 		setValue("description", "JUNIT ORDER ISSUE");

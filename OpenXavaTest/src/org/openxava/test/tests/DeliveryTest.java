@@ -16,7 +16,7 @@ import com.gargoylesoftware.htmlunit.html.*;
 /**
  * 
  * @author Javier Paniza
- * @author Federico Alcántara
+ * @author Federico Alcï¿½ntara
  */
 
 public class DeliveryTest extends ModuleTestBase { 
@@ -1237,7 +1237,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNoEditable("advice"); // in section				
 	}
 	
-	public void testValidValuesInList_groupByDataYearOfReference() throws Exception {  
+	public void testValidValuesInList_groupByDataYearOfReference_groupByEnum() throws Exception { // tmr Group by enum  
 		int quantity = getListRowCount();
 		assertTrue("For this test is needed at least one created delivery", quantity > 0);
 		Collection values = new ArrayList();
@@ -1262,6 +1262,15 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValuesInList(0, "2002", "1"); 
 		assertValuesInList(1, "2004", "4");
 		assertValuesInList(2, "2006", "2");
+		
+		// tmr ini
+		selectGroupBy("Group by distance");
+		assertNoErrors();
+		assertListRowCount(3); 
+		assertValuesInList(0, "",          "4");
+		assertValuesInList(1, "Nachional", "2");
+		assertValuesInList(2, "Lokal",     "1");
+		// tmr fin
 	}
 	 
 	public void testSetValueAgainstPropertiesOfSectionsHiddenAndShowed() throws Exception {

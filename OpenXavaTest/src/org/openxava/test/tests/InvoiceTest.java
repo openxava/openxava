@@ -1336,8 +1336,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 		// The DateFormat is because Java 11 and 8 format Spanish dates in different way, 
 		// though we're not interested in testing date format here, just bigdecimals 
 		String date = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es")).format(Dates.create(1, 1, 2002));  		
-		assertExcel(
-			"Año;Número;Fecha;Suma importes;I.V.A.;Cantidad líneas;Pagada;Importancia",	
+		assertExcel( // TMR FALLA
+			"Aï¿½o;Nï¿½mero;Fecha;Suma importes;I.V.A.;Cantidad lï¿½neas;Pagada;Importancia",	
 			"2002;1;\"" + date + "\";\"2500,00\";\"400,00\";2;\"No\";\"Normal\""); // "2500,00" instead of "2.500,00"		
 	}
 	
@@ -1522,7 +1522,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setValue("number", String.valueOf(getInvoice().getNumber()));
 		execute("CRUD.refresh");
 		assertNoErrors();
-		assertValue("date", "04/01/1942");  
+		assertValue("date", "04/01/1942"); // TMR FALLA 
 		
 		setValue("date", "30/2/2008");
 		execute("CRUD.save");

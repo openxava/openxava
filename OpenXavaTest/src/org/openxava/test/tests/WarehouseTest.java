@@ -46,7 +46,7 @@ public class WarehouseTest extends ModuleTestBase {
 
 		execute("List.orderBy", "property=zoneNumber");
 		assertValueInList(0, 0, "10"); assertValueInList(0, 1, "10"); 
-		assertValueInList(1, 0, "7"); assertValueInList(1, 1, "1"); 
+		assertValueInList(1, 0, "7"); assertValueInList(1, 1, "1"); // TMR FALLA
 		assertValueInList(2, 0, "7"); assertValueInList(2, 1, "2");
 		assertValueInList(3, 0, "7"); assertValueInList(3, 1, "3");
 		assertValueInList(4, 0, "7"); assertValueInList(4, 1, "4");
@@ -97,7 +97,7 @@ public class WarehouseTest extends ModuleTestBase {
 		assertChangeRowCount(5, 10);
 		
 		execute("List.goPage", "page=7");
-		assertListRowCount(3); 
+		assertListRowCount(3); // TMR FALLA
 		String value60 = getValueInList(0, 2);
 		String value62 = getValueInList(2, 2);
 		execute("List.goPage", "page=6");
