@@ -16,7 +16,7 @@ public class TravelExpensesTest extends ModuleTestBase {
 	public void testDefaultValueCalculatorInIdPropertyDependentOnOtherPropertyInAnEntityWithElementCollection() throws Exception {
 		assertCollectionRowCount("expenses", 0); // To verify that the element collection exists, needed to reproduce de case
 		assertTotalInCollection("expenses", "amount", "0.00"); // To verify that the total of collection exists, needed to reproduce de case
-		assertValue("number", "1"); // TMR FALLA
+		assertValue("number", "1"); 
 	}
 					
 }
