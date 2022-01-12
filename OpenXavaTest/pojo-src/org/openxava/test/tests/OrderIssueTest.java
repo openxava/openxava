@@ -33,7 +33,7 @@ public class OrderIssueTest extends ModuleTestBase {
 		assertNoErrors();
 		
 		execute("Mode.list");
-		execute("List.orderBy", "property=description"); // tmr
+		execute("List.orderBy", "property=description"); 
 		assertListRowCount(2); 
 		assertValueInList(0, "description", "JUnit order issue"); 
 		execute("CRUD.deleteRow", "row=0");

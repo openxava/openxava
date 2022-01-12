@@ -125,7 +125,7 @@ public class ProductTest extends ModuleTestBase {
 	public void testCards() throws Exception { 
 		execute("ListFormat.select", "editor=Cards");
 		assertListRowCount(7);
-		assertValueInList(2, multiline("XAVA", "3", "Unit price: 0.00, Unit price in pesetas: 0"));
+		assertValueInList(2, "XAVA\r\n3\r\nUnit price: 0.00, Unit price in pesetas: 0"); 
 		
 		assertFalse(getHtml().contains("There are no records"));
 		assertTrue(getHtmlPage().getElementById("xava_loading_more_elements") == null);

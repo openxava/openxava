@@ -459,7 +459,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 	}
 	
 	public void testAutocompleteInDescriptionsList() throws Exception {
-		setFamilyDescription(1, "SOFTWARï¿½"); // To test a bug with accents 
+		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
 
 		getWebClient().getOptions().setCssEnabled(true);
@@ -497,8 +497,8 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertTrue(familyList.isDisplayed()); 
 		assertFalse(openFamilyListIcon.isDisplayed());
 		assertTrue(closeFamilyListIcon.isDisplayed());
-		assertEquals(2, familyList.getChildElementCount()); // TMR FALLA
-		assertEquals("SOFTWARï¿½", familyList.getFirstChild().asText()); 
+		assertEquals(2, familyList.getChildElementCount());
+		assertEquals("SOFTWARÉ", familyList.getFirstChild().asText()); 
 		assertEquals("HARDWARE", familyList.getLastChild().asText());
 		
 		((HtmlElement) familyList.getFirstChild()).click(); // SOFTWARE
@@ -526,15 +526,15 @@ public class Product2Test extends EmailNotificationsTestBase {
 		execute("List.orderBy", "property=number");
 		assertValueInList(0, "number", "66"); 
 		assertValueInList(0, "description", "JUNIT PRODUCT");
-		assertValueInList(0, "family.description", "SOFTWARï¿½"); 
+		assertValueInList(0, "family.description", "SOFTWARÉ"); 
 		assertValueInList(0, "subfamily.description", "DESARROLLO");
 		
 		execute("List.viewDetail", "row=0");
 		assertValue("number", "66");
 		assertValue("family.number", "1");
-		assertDescriptionValue("family.number", "SOFTWARï¿½"); 
+		assertDescriptionValue("family.number", "SOFTWARÉ"); 
 		familyTextField =  getDescriptionsListTextField("family");
-		assertEquals("SOFTWARï¿½", familyTextField.getAttribute("value")); 
+		assertEquals("SOFTWARÉ", familyTextField.getAttribute("value")); 
 		assertValue("subfamily.number", "1");
 		assertDescriptionValue("subfamily.number", "DESARROLLO");
 		subfamilyTextField = getDescriptionsListTextField("subfamily");

@@ -302,7 +302,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		int size = getPropertiesNames().size();
 		for (int i = indexesPK.length; i < size; i++) {			
 			String name = getPropertiesNames().get(i);
-			//try { // tmr
+			try { 
 				MetaProperty metaProperty = getMetaModel().getMetaProperty(name);			
 				if (metaProperty.hasValidValues()) {
 					if (row[i] instanceof Number) {					
@@ -312,14 +312,10 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 					
 					}
 				}
-			// tmr ini
-				/*
 			}
 			catch (ElementNotFoundException ex) {
 				// For non-existent property names, like __GROUP_COUNT__
 			}
-			*/
-			// tmr fin
 		}
 		return row;
 	}

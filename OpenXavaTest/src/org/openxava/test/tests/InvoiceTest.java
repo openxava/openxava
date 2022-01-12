@@ -1336,8 +1336,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 		// The DateFormat is because Java 11 and 8 format Spanish dates in different way, 
 		// though we're not interested in testing date format here, just bigdecimals 
 		String date = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es")).format(Dates.create(1, 1, 2002));  		
-		assertExcel( // TMR FALLA
-			"Aï¿½o;Nï¿½mero;Fecha;Suma importes;I.V.A.;Cantidad lï¿½neas;Pagada;Importancia",	
+		assertExcel(
+			"Año;Número;Fecha;Suma importes;I.V.A.;Cantidad líneas;Pagada;Importancia",	
 			"2002;1;\"" + date + "\";\"2500,00\";\"400,00\";2;\"No\";\"Normal\""); // "2500,00" instead of "2.500,00"		
 	}
 	
@@ -1506,23 +1506,23 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoErrors();
 		assertValue("date", "04/01/2004");
 		
-		setValue("date", "4/1/41"); // If current year is 2021 
+		setValue("date", "4/1/42"); // If current year is 2022 
 		execute("CRUD.save");
 		assertNoErrors();
 		setValue("year", String.valueOf(getInvoice().getYear()));
 		setValue("number", String.valueOf(getInvoice().getNumber()));
 		execute("CRUD.refresh");
 		assertNoErrors();
-		assertValue("date", "04/01/2041"); 
+		assertValue("date", "04/01/2042"); 
 		
-		setValue("date", "040142"); // If current year is 2021 
+		setValue("date", "040143"); // If current year is 2022 
 		execute("CRUD.save");
 		assertNoErrors();
 		setValue("year", String.valueOf(getInvoice().getYear()));
 		setValue("number", String.valueOf(getInvoice().getNumber()));
 		execute("CRUD.refresh");
 		assertNoErrors();
-		assertValue("date", "04/01/1942"); // TMR FALLA 
+		assertValue("date", "04/01/1943");  
 		
 		setValue("date", "30/2/2008");
 		execute("CRUD.save");

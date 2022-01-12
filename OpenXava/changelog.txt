@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Grouping by an enum property in list fails.
+- Fix: ModuleTestBase.get/assertValueInList() not interpret line breaks consistently between operating systems. 
+- Fix: JUnit suite does not pass at 100% on Linux.
 - Fix: @GenericGenerator annotation missing in sample code of course, so course code does not work.
 - Fix: @Id property with @DefaultValueCalculator dependent in an entity with an @ElementCollection doesn't work.
 - Fix: Calculated properties whose calculation depends on references fail recalculating after a change event. 

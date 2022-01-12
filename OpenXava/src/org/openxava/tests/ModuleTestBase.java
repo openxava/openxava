@@ -1457,8 +1457,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 5.7 
 	 */
 	protected String getValueInList(int row) throws Exception { 
-		// tmr return getElementInList(row).asText().trim();
-		return getElementInList(row).asText().trim().replaceAll("\r\n", "\n").replaceAll("\n", "\r\n"); // tmr
+		return getElementInList(row).asText().trim().replaceAll("\r\n", "\n").replaceAll("\n", "\r\n"); 
 	}
 	
 	private HtmlElement getListElement(String id, String errorId) {  

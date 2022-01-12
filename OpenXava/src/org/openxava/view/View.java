@@ -3817,8 +3817,6 @@ public class View implements java.io.Serializable {
 		for (MetaCollection col: getMetaModel().getMetaCollections()) {
 			try {
 				View subview = getSubview(col.getName());
-				System.out.println("[View.getValueInTotals] col.getName()=" + col.getName()); // tmp
-				System.out.println("[View.getValueInTotals] subview=" + subview); // tmp
 				if (!subview.getCollectionTotals().containsKey(propertyName)) continue;
 				return subview.getCollectionTotals().get(propertyName);
 			}

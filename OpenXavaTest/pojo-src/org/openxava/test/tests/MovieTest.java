@@ -80,14 +80,12 @@ public class MovieTest extends MovieBaseTest {
 		assertFilesCount("scripts", 4); 
 		
 		//Display file
-		int index = indexOfFile("scripts", "Corporation.html"); // tmr
+		int index = indexOfFile("scripts", "Corporation.html"); 
 		
-		// tmr assertFile("scripts", 0, "text/html"); // 0 is the last added because of oid generation  
 		assertFile("scripts", index, "text/html"); 
 		
 		//Removing the file
-		// tmr removeFile("scripts", 0);
-		removeFile("scripts", index); // tmr
+		removeFile("scripts", index); 
 		reload();
 		assertFilesCount("scripts", 3); 
 
@@ -97,7 +95,7 @@ public class MovieTest extends MovieBaseTest {
 		);
 	}
 	
-	private int indexOfFile(String property, String fileName) throws Exception { // tmr
+	private int indexOfFile(String property, String fileName) throws Exception { 
 		String propertyValue = getValue(property);
 		Collection<AttachedFile> files = FilePersistorFactory.getInstance().findLibrary((String) propertyValue);
 		return files.stream().map(AttachedFile::getName).collect(Collectors.toList()).indexOf(fileName);
