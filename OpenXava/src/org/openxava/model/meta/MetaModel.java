@@ -5,8 +5,6 @@ import java.beans.*;
 import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
-
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
 import org.openxava.mapping.*;
@@ -1459,6 +1457,7 @@ abstract public class MetaModel extends MetaElement {
 							}
 							else {
 								Object newReferencedObject = null;
+								/* tmr
 								try {
 									// Calling MapFacade from MetaModel is not a good idea, 
 									// because metadata should be independent on MapFacade,
@@ -1470,6 +1469,8 @@ abstract public class MetaModel extends MetaElement {
 								catch (ObjectNotFoundException ex) {
 									newReferencedObject = referencedModel.toPOJO(refValues);
 								}
+								*/
+								newReferencedObject = referencedModel.toPOJO(refValues); // tmr
 								pm.executeSet((String)en.getKey(), newReferencedObject);
 							}
 						}

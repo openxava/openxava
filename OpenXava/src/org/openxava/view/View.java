@@ -3472,6 +3472,7 @@ public class View implements java.io.Serializable {
 				}
 				return;								
 			}
+			
 			int idxDot = name.indexOf('.');			
 			if (idxDot >= 0) { // it's qualified
 				String subviewName = name.substring(0, idxDot);	
@@ -3487,7 +3488,7 @@ public class View implements java.io.Serializable {
 					getParent().propertyChanged(changedProperty, qualifiedName); 
 				}
 			}
-
+			
 			if (isRepresentsElementCollection()) {
 				Collection<String> totalProperties = getTotalProperties().get(name);
 				if (totalProperties != null) {
@@ -3519,7 +3520,8 @@ public class View implements java.io.Serializable {
 	
 	private void tryPropertyChanged(MetaProperty changedProperty, String changedPropertyQualifiedName) throws Exception {
 		if (!isOnlyThrowsOnChange()) {
-			boolean calculationDone = false; 
+			
+			boolean calculationDone = false;
 			Iterator it = getMetaPropertiesIncludingGroups().iterator();	
 			while (it.hasNext()) {
 				MetaProperty pr = (MetaProperty) it.next();				
@@ -3548,6 +3550,7 @@ public class View implements java.io.Serializable {
 				moveViewValuesToCollectionValues();
 			}
 
+			
 			if (hasToSearchOnChangeIfSubview && isSubview() && isRepresentsEntityReference() && !isGroup() && !displayAsDescriptionsList() && 
 					( 	
 					(getLastPropertyKeyName().equals(changedProperty.getName()) && getMetaPropertiesIncludingGroups().contains(changedProperty)) || // Visible keys
@@ -3577,6 +3580,8 @@ public class View implements java.io.Serializable {
 					}				
 				}			
 			}
+			
+			
 		} // of if (!isOnlyThrowsOnChange())
 		if (!isSection() && getMetaView().hasOnChangeAction(changedPropertyQualifiedName)) {
 			IOnChangePropertyAction action = getMetaView().createOnChangeAction(changedPropertyQualifiedName);

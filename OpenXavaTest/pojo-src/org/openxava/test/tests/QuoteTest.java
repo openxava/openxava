@@ -275,6 +275,16 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertTotalInCollection("details", 2, "amount",  "37.26"); 
 		assertTotalInCollection("details", 3, "amount", "199.26");
 		assertValue("estimatedProfit", "19.93");
+		
+		// tmr ini
+		// Removing row after changing reference in parent entity // tmr Poner en título del método
+		assertCollectionRowCount("details", 3);
+		setValue("customer.number", "2");
+		removeRow(1);
+		assertCollectionRowCount("details", 2);
+		execute("CRUD.refresh");
+		assertCollectionRowCount("details", 3); // Record is not altered
+		// tmr fin
 	}
 	
 	public void testElementCollectionGetEntity_removingRowUpdatesTotals_addingSeveralRowsAfterRemoving_referenceSearchCorrectIndexAfterRemoving_calculatedPropertiesDependingOnTotals() throws Exception {  

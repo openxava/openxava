@@ -2,8 +2,8 @@ package org.openxava.actions;
 
 import java.util.*;
 
-import org.openxava.model.MapFacade;
-import org.openxava.validators.ValidationException;
+import org.openxava.model.*;
+import org.openxava.validators.*;
 
 /**
  * The default action to remove an element in a @OneToMany/@ManyToMany collection.
@@ -23,7 +23,7 @@ public class RemoveSelectedInCollectionAction extends CollectionBaseAction {
 			validateMinimum(selectedOnes.length); 
 			if (selectedOnes.length > 0) {
 				for (Map values: selectedOnes) {
-					removeElement(values);
+					removeElement(values);					
 				}				
 				commit(); // If we change this, we should run all test suite using READ COMMITED (with hsqldb 2 for example)				
 				addMessage();
