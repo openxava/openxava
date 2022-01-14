@@ -25,7 +25,7 @@ abstract public class InvoiceDetailsWithVatPercentageTestBase extends CustomizeL
 		assertTotalInCollection(collection, 3, "amount", "2,900.00");
 		
 		setValue("vatPercentage", "17");
-		assertTotalInCollection(collection, 2, "amount",   "425.00");
+		assertTotalInCollection(collection, 2, "amount",   "425.00"); 
 		assertTotalInCollection(collection, 3, "amount", "2,925.00");
 
 		execute("CRUD.save");

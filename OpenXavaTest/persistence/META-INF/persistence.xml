@@ -13,7 +13,7 @@
     	<class>org.openxava.web.editors.DiscussionComment</class>
     	<class>org.openxava.util.impl.EmailSubscription</class>
         <properties>
-            <property name="hibernate.show_sql" value="false"/>  
+            <property name="hibernate.show_sql" value="false"/>   
             <property name="hibernate.default_schema" value="XAVATEST"/>
             <property name="hibernate.jdbc.factory_class" 
             		value="org.hibernate.jdbc.NonBatchingBatcherFactory"/>

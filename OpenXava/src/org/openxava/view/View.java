@@ -2282,6 +2282,7 @@ public class View implements java.io.Serializable {
 				Object model = getParent().getModel();
 				if (model == null) {
 					model = getParent().getEntity();
+					PersistenceFacade.refreshIfManaged(model); // tmr
 				}
 				PropertiesManager modelProperties = new PropertiesManager(model);
 				return new ArrayList((Collection) modelProperties.executeGet(getMemberName()));
@@ -2706,7 +2707,7 @@ public class View implements java.io.Serializable {
 		}
 		return false;		
 	}
-
+	
 	private void resetExecutedActions() {		
 		if (getRoot().executedActions != null) getRoot().executedActions.clear();		
 	}
@@ -3764,7 +3765,9 @@ public class View implements java.io.Serializable {
 						
 			Object pojo = null; 
 			if (calculator instanceof IModelCalculator) {
-				pojo = getPOJO();
+				// tmr pojo = getPOJO();
+				pojo = getTransientPOJO(); // tmr
+				loadPOJOCollections(pojo); // tmr
 				((IModelCalculator) calculator).setModel(pojo);
 			}
 			if (calculator instanceof IEntityCalculator) {
@@ -3776,7 +3779,7 @@ public class View implements java.io.Serializable {
 			}					
 			
 			Object newValue = calculator.calculate();
-			PersistenceFacade.refreshIfManaged(pojo);
+			// tmr PersistenceFacade.refreshIfManaged(pojo);
 			
 			if (calculator instanceof IOptionalCalculator) {
 				if (!((IOptionalCalculator) calculator).isCalculate()) {
@@ -3857,7 +3860,7 @@ public class View implements java.io.Serializable {
 		}
 		else {
 			Object pojo = MapFacade.findEntity(getModelName(), getParentIfSectionOrGroup().getKeyValues());
-			getMetaModel().fillPOJO(pojo, getParentIfSectionOrGroup().getAllValues());    			
+			getMetaModel().fillPOJO(pojo, getParentIfSectionOrGroup().getAllValues()); // fillPOJO does not get the references from DB, if we change that maybe we can remove the refreshIfManaged from getCollectionObjects()    			
 			return pojo;			
 		}
 	}
@@ -3890,6 +3893,20 @@ public class View implements java.io.Serializable {
 			}
 		}
 	}
+	
+	private void loadPOJOCollections(Object pojo) throws Exception	{ // tmr
+		Collection<MetaCollection> collections = getMetaModel().getMetaCollections();
+		if (collections.isEmpty()) return;
+		PropertiesManager pm = new PropertiesManager(pojo);
+		Object entity = MapFacade.findEntity(getModelName(), getParentIfSectionOrGroup().getKeyValues());
+		PropertiesManager modelProperties = new PropertiesManager(entity);
+		for (MetaCollection col: collections) {
+			if (col.hasCalculator()) continue;
+			Object value = modelProperties.executeGet(col.getName()); // Only get the proxy, no SQL is executed
+			pm.executeSet(col.getName(), value); 
+		}
+	}
+
 	
 	
 		

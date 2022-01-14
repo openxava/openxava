@@ -20,7 +20,7 @@ public class OrderProductInDetailAsDescriptionsListTest extends ModuleTestBase {
 		assertValue("quantity", "10");
 		assertValue("amount", "110.00");
 		setValue("product.number", "2");
-		assertValue("amount", "200.00"); // TMR ME QUEDÉ POR AQUÍ. ESTE ES EL QUE FALLA
+		assertValue("amount", "200.00"); // TMR COMPROBAR QUE ESTO SIGUE YENDO
 	}
 					
 }

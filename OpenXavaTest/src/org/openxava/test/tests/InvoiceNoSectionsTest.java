@@ -124,7 +124,7 @@ public class InvoiceNoSectionsTest extends ModuleTestBase {
 		
 		// If the calculated values change correctly
 		setValue("vatPercentage", "14");
-		assertValue("vat", "15.40");
+		assertValue("vat", "15.40"); 
 		assertValue("total", "125.40");
 		execute("Collection.edit", "row=0,viewObject=xava_view_details");
 		setValue("quantity", "6");

@@ -1451,13 +1451,15 @@ abstract public class MetaModel extends MetaElement {
 						else {
 							Map newKey = referencedModel.extractKeyValues(refValues);
 							Map oldKey = referencedModel.toKeyMap(referencedObject);
-
 							if (newKey.equals(oldKey)) {
 								referencedModel.fillPOJO(referencedObject, refValues);
 							}
 							else {
-								Object newReferencedObject = null;
+								// tmr ini
+								pm.executeSet((String)en.getKey(), referencedModel.toPOJO(refValues));
+								// tmr fin
 								/* tmr
+								Object newReferencedObject = null;
 								try {
 									// Calling MapFacade from MetaModel is not a good idea, 
 									// because metadata should be independent on MapFacade,
@@ -1469,9 +1471,8 @@ abstract public class MetaModel extends MetaElement {
 								catch (ObjectNotFoundException ex) {
 									newReferencedObject = referencedModel.toPOJO(refValues);
 								}
-								*/
-								newReferencedObject = referencedModel.toPOJO(refValues); // tmr
 								pm.executeSet((String)en.getKey(), newReferencedObject);
+								*/
 							}
 						}
 					}

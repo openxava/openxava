@@ -2199,7 +2199,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		nf.setMinimumFractionDigits(2);
 		nf.setMaximumFractionDigits(2);
 		String svat = nf.format(vat);
-		assertValue("vat", svat);
+		assertValue("vat", svat); 
 		
 		setValue("vatPercentage", "");
 		execute("Sections.change", "activeSection=1");

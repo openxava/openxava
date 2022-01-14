@@ -81,7 +81,7 @@ public class AJAXTest extends ModuleTestBase {
 	}
 	
 	public void testElementCollections() throws Exception { 
-		// tmr fail("Pending to fix. This test alters the Quote record"); 
+		// TMR COMPROBAR QUE ESTO NO CAMBIA Quote
 		if (!usesAnnotatedPOJO()) return;
 		// WARNING! Don't change the order of the below code, because the last case only fails with this order 
 		changeModule("Quote");
