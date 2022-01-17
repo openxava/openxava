@@ -16,10 +16,14 @@ City module:
 	for Valencia City Hall 
 	- The previous point is removed.
 	- The map is positioned and the mark is set without losing the focus in the field.
-
-		
-		
-		
-		
+	
+CityReadOnly module:	
+- Go to first city. A map with its corresponding mark is shown.
+- The field with coordinates is not editable.
+- Click in any part of the map.
+	- The mark is NOT moved. 
+	- The coordinates are NOT updated in the text field.
+- You can scroll and zoom the map.	
+	
 
 

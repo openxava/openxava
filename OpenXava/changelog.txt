@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Read only @Coordinates property can be modified clicking on the map.
 - Fix: Grouping by an enum property in list fails.
 - Fix: ModuleTestBase.get/assertValueInList() not interpret line breaks consistently between operating systems. 
 - Fix: JUnit suite does not pass at 100% on Linux.
