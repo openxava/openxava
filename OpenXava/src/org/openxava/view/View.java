@@ -2282,7 +2282,7 @@ public class View implements java.io.Serializable {
 				Object model = getParent().getModel();
 				if (model == null) {
 					model = getParent().getEntity();
-					PersistenceFacade.refreshIfManaged(model); // tmr
+					PersistenceFacade.refreshIfManaged(model); 
 				}
 				PropertiesManager modelProperties = new PropertiesManager(model);
 				return new ArrayList((Collection) modelProperties.executeGet(getMemberName()));
@@ -3765,9 +3765,8 @@ public class View implements java.io.Serializable {
 						
 			Object pojo = null; 
 			if (calculator instanceof IModelCalculator) {
-				// tmr pojo = getPOJO();
-				pojo = getTransientPOJO(); // tmr
-				loadPOJOCollections(pojo); // tmr
+				pojo = getTransientPOJO(); 
+				loadPOJOCollections(pojo); 
 				((IModelCalculator) calculator).setModel(pojo);
 			}
 			if (calculator instanceof IEntityCalculator) {
@@ -3779,7 +3778,6 @@ public class View implements java.io.Serializable {
 			}					
 			
 			Object newValue = calculator.calculate();
-			// tmr PersistenceFacade.refreshIfManaged(pojo);
 			
 			if (calculator instanceof IOptionalCalculator) {
 				if (!((IOptionalCalculator) calculator).isCalculate()) {
@@ -3894,7 +3892,8 @@ public class View implements java.io.Serializable {
 		}
 	}
 	
-	private void loadPOJOCollections(Object pojo) throws Exception	{ // tmr
+	private void loadPOJOCollections(Object pojo) throws Exception	{ 
+		if (isKeyEditable()) return;
 		Collection<MetaCollection> collections = getMetaModel().getMetaCollections();
 		if (collections.isEmpty()) return;
 		PropertiesManager pm = new PropertiesManager(pojo);
@@ -3907,9 +3906,6 @@ public class View implements java.io.Serializable {
 		}
 	}
 
-	
-	
-		
 	/** 
 	 * The model object attached to this view using {@link #setModel(Object model)}. <p>
 	 * 

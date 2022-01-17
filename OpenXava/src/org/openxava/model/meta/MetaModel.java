@@ -1455,24 +1455,7 @@ abstract public class MetaModel extends MetaElement {
 								referencedModel.fillPOJO(referencedObject, refValues);
 							}
 							else {
-								// tmr ini
 								pm.executeSet((String)en.getKey(), referencedModel.toPOJO(refValues));
-								// tmr fin
-								/* tmr
-								Object newReferencedObject = null;
-								try {
-									// Calling MapFacade from MetaModel is not a good idea, 
-									// because metadata should be independent on MapFacade,
-									// but we need to load references to cover some cases.
-									// We could move the methods toPojo/fillPojo to MapFacace.
-									newReferencedObject = MapFacade.findEntity(referencedModel.getName(), newKey); 
-									referencedModel.fillPOJO(newReferencedObject, refValues);
-								}
-								catch (ObjectNotFoundException ex) {
-									newReferencedObject = referencedModel.toPOJO(refValues);
-								}
-								pm.executeSet((String)en.getKey(), newReferencedObject);
-								*/
 							}
 						}
 					}

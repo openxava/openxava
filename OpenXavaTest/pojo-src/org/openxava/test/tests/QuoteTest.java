@@ -257,7 +257,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 1, "quantity", "7");
 	}
 	
-	public void testElementCollectionChangeTotalProperyRecaculatesDependentPropertiesOnExistingEntity_elementCollectionRemovingRowAfterChangingReferenceInParentEntity() throws Exception { // tmr titulo
+	public void testElementCollectionChangeTotalProperyRecaculatesDependentPropertiesOnExistingEntity_elementCollectionRemovingRowAfterChangingReferenceInParentEntity() throws Exception { 
 		// Only fails if we change the property before touching any collection value
 		// and only in existing entities, not creating new ones.
 		
@@ -276,7 +276,6 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertTotalInCollection("details", 3, "amount", "199.26");
 		assertValue("estimatedProfit", "19.93");
 		
-		// tmr ini
 		// Removing row after changing reference in parent entity 
 		assertCollectionRowCount("details", 3);
 		setValue("customer.number", "2");
@@ -284,7 +283,6 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertCollectionRowCount("details", 2);
 		execute("CRUD.refresh");
 		assertCollectionRowCount("details", 3); // Record is not altered
-		// tmr fin
 	}
 	
 	public void testElementCollectionGetEntity_removingRowUpdatesTotals_addingSeveralRowsAfterRemoving_referenceSearchCorrectIndexAfterRemoving_calculatedPropertiesDependingOnTotals() throws Exception {  
