@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Calculated property dependent on a @Coordinates property is not recalculated when clicking on the map.
 - Fix: Read only @Coordinates property can be modified clicking on the map.
 - Fix: Grouping by an enum property in list fails.
 - Fix: ModuleTestBase.get/assertValueInList() not interpret line breaks consistently between operating systems. 

@@ -2,6 +2,7 @@ package org.openxava.test.model;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.*;
 import org.openxava.annotations.*;
 import org.openxava.test.actions.*;
 
@@ -14,6 +15,7 @@ import org.openxava.test.actions.*;
 @Entity
 @Tab(properties="code, name, state.fullNameWithFormula")
 @View(members="state, stateCondition; code; name; location")
+@View(name="Map", members="state, code; name; location; map") 
 public class City {
 	
 	@Id 
@@ -35,6 +37,13 @@ public class City {
 	@Coordinates
 	@Column(length=50)
 	private String location;
+	
+	@Depends("location")
+	@URL
+	public String getMap() {
+		if (location == null) return null;
+		return "https://www.google.com/maps?q=" + location;
+	}
 	
 	public State getState() {
 		return state;

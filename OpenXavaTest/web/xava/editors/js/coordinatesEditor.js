@@ -36,6 +36,8 @@ openxava.addEditorInitFunction(function() {
 				markers.clearLayers();
 				L.marker(e.latlng).addTo(markers);
 				input.val(e.latlng.lat + ", " + e.latlng.lng);
+				var onchange = input.attr('onchange');
+				if (onchange != null) eval(onchange);					
 			} 
 		});
 		
