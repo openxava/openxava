@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Inaccurate @DescriptionsList documentation in reference guide (View chapter). 
+- Fix: Screenshot of lesson 7 of the course for dropping tables does not show the correct tables.
 - Fix: Calculated property dependent on a @Coordinates property is not recalculated when clicking on the map.
 - Fix: Read only @Coordinates property can be modified clicking on the map.
 - Fix: Grouping by an enum property in list fails.
