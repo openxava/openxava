@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Enum combos are displayed as disabled even when they are enabled with latest Firefox versions. 
 - Fix: Inaccurate @DescriptionsList documentation in reference guide (View chapter). 
 - Fix: Screenshot of lesson 7 of the course for dropping tables does not show the correct tables.
 - Fix: Calculated property dependent on a @Coordinates property is not recalculated when clicking on the map.

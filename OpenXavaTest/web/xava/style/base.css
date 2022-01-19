@@ -192,6 +192,7 @@
 	--input-border: lightgray;
 	--input-focus-border: var(--default-action-button-background);
 	--input-color: black;
+	--input-background: white; 
 	--error-editor-border: #DC4A38;
 	--disabled-input-background: #ebebe4;
 	--xava-placeholder-background: #F5F5F5;
@@ -652,6 +653,7 @@ input[type="datetime-local"], .ui-widget input[type="datetime-local"],
 	font-size: 14px;  
 	border-radius: 4px;
 	color: var(--input-color);
+	background: var(--input-background); 
 }
 
 input[type="text"], input[type="password"], input[type="file"], input[type="date"], input[type="datetime-local"], textarea { 
