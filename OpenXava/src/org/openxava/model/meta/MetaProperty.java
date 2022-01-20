@@ -1192,6 +1192,9 @@ public class MetaProperty extends MetaMember implements Cloneable {
 				numberFormat.setMaximumFractionDigits(0);
 				return numberFormat.format(value);				
 			}			
+			if (Boolean.class.isAssignableFrom(type) || boolean.class.isAssignableFrom(type)) {
+				return Boolean.toString((Boolean) value);				
+			}			
 			Class enumClass = getEnumClass(); 
 			if (enumClass != null && enumClass.isAssignableFrom(type)) {
 				return value.toString();

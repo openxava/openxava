@@ -30,7 +30,13 @@ public class BookTest extends ModuleTestBase {
 		super(testName, "Book");		
 	}
 	
-	public void testValidatorAnnotationMessage() throws Exception { 
+	public void testTabSetConditionValueBoolean_validatorAnnotationMessage() throws Exception { 
+		assertListRowCount(2);
+		execute("Book.showOutOfPrint");
+		assertNoErrors();
+		assertListRowCount(1);
+		assertValueInList(0, "outOfPrint", "Out of print");
+		
 		execute("CRUD.new");
 		execute("CRUD.save");
 		assertError("Sorry, but you need to enter the book title"); 

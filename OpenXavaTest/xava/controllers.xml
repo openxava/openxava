@@ -39,7 +39,8 @@
 	
 	<controller name="Book">
 		<extends controller="Typical"/>
-		<action name="fillTitle" class="org.openxava.test.actions.BookTitleFromWebServiceAction" mode="detail"/> 
+		<action name="fillTitle" class="org.openxava.test.actions.BookTitleFromWebServiceAction" mode="detail"/>
+		<action name="showOutOfPrint" class="org.openxava.test.actions.ShowOutOfPrintBooksOnlyAction" mode="list"/>
 	</controller>
 		
 	<controller name="Clerk">
