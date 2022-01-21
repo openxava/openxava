@@ -1873,7 +1873,7 @@ public class View implements java.io.Serializable {
 				}
 			}
 		}
-		return collectionSize ;
+		return collectionSize;
 	}
 	
 	/**
@@ -6087,7 +6087,7 @@ public class View implements java.io.Serializable {
 			getSectionView(getActiveSection()).fillChangedCollections(result);	
 		}						
 	}
-	
+		
 	/**
 	 * Views of sections that have collection size in the label, with the collection size. <p>
 	 * 
@@ -6112,6 +6112,7 @@ public class View implements java.io.Serializable {
 					MetaMember member = section.getMetaMembers().iterator().next();
 					if (member instanceof MetaCollection) {
 						View collectionView = getSubview(member.getName());
+						if (collectionView.mustRefreshCollection()) collectionView.collectionSize = -1;  
 						if (collectionView.collectionSize < 0) {
 							result.put(section, collectionView.getCollectionSize(activeSection == i));
 						}

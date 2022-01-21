@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Collection count in section label is not updated when collection inside section is refreshed.
+- Fix: Broken links in View chapter of reference guide.
 - Fix: Tab.setConditionValue() and MetaProperty.format() do not support boolean values.
 - Fix: Enum combos are displayed as disabled even when they are enabled with latest Firefox versions. 
 - Fix: Inaccurate @DescriptionsList documentation in reference guide (View chapter). 
