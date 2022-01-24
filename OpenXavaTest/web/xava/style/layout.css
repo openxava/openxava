@@ -3,6 +3,12 @@
 	white-space: nowrap; 
 }
 
+/* tmr ini */
+.ox-active-section > .ox-layout-detail {
+	xwidth: 100%;
+}
+/* tmr fin */
+
 .ox-layout-aligned-cell {
 	display: table-cell;
 }
