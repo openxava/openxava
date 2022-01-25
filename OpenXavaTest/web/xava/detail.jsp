@@ -113,15 +113,12 @@ if (!onlySections) {	// IF Not Only Sections
 			<%=style.getFrameContentStartDecoration(frameId + "content", view.isFrameClosed(frameId))%>
 <%	
 				} // END MetaProperty With Frame
-				// tmr ini
-				// TMR ME QUEDÉ POR AQUÍ: ESTO FUNCIONA, PUEDE QUE SEA LA SOLUCIÓN. HE DE TESTEAR TAMBIÉN LOS CAMPOS EN LA SECCIÓN DE INVOICE
 				else if (hasFrame) {
 %>
 			<%=closeDivForFrame(view)%>
-			<div>
+			<div class="ox-layout-hide-frame-in-section"> 
 <%				
 				}
-				// tmr fin 
 %> 
 			<jsp:include page="<%=urlEditor%>" />		
 <%
@@ -131,14 +128,12 @@ if (!onlySections) {	// IF Not Only Sections
 			<%=openDivForFrame(view)%> 		
 <%
 				} // END IF MetaProperty With Frame
-				// tmr ini
 				else if (hasFrame) {
 %>
 			</div>
 			<%=openDivForFrame(view)%>
 <%				
 				}
-				// tmr fin		
 				first = false;
 			} // END IF Not Properties Separator
 			else { // IF Properties Separator

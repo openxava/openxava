@@ -14,19 +14,7 @@ import org.openxava.model.*;
  */
 @Entity
 @Table(name="Movie")
-// tmr ini
-// tmr @View(name="WithSection", members="title; director; writers; scripts { scripts }") // One section with one @Files to test a case
-@View(name="WithSection", members=
-	"title;" +	
-	"director;"   +
-	"writers;"    +
-	"starring;"   +
-	"scripts {" +
-	//"   trailer;"    +
-	"   scripts" +
-	"}" 
-)
-// tmr fin
+@View(name="WithSection", members="title; director; writers; scripts { scripts }") // One section with one @Files with no ; to test a case
 @Tab(properties="title, director, writers, releaseDate, trailer", defaultOrder = "${title}")
 public class Movie3 extends Identifiable {
 

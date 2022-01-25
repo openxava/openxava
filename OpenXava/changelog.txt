@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Upload editor property (like @Files) not shown when alone in a section with flowLayout=false.
+- Fix: Upload editor property (like @Files) does not fill all width if alone in a section with flowLayout=true.
+- Fix: Annotated web elements in Addons are not recognized when executing application from OpenXava Studio.
 - Fix: Collection count in section label is not updated when collection inside section is refreshed.
 - Fix: Broken links in View chapter of reference guide.
 - Fix: Tab.setConditionValue() and MetaProperty.format() do not support boolean values.
