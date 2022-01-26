@@ -52,6 +52,7 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 	private DateFormat[] getDateTimeFormats() {
 		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats(); 
 		return new DateFormat [] { getDateTimeFormat(true) }; 
+		// tmr return new DateFormat [] { getDateTimeFormat(true), new SimpleDateFormat(Dates.getLocalizedDatePattern(Locales.getCurrent())) }; // tmr
 	}
 	
 }

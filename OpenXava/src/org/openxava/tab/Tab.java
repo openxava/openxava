@@ -987,7 +987,19 @@ public class Tab implements java.io.Serializable, Cloneable {
 						else {
 							v = p.isCompatibleWith(Timestamp.class)?
 								p.parse(value, getLocale()):
-								WebEditors.parse(getRequest(), p, value, errors, null); 
+								WebEditors.parse(getRequest(), p, value, errors, null);
+							// tmr ini
+							// TMR ME QUEDÉ POR AQUÍ: ESTO ARREGLAR EL PROBLEMA CON EL CROATA, PERO
+							// TMR   - PONE LA HORA 0:00 SI NO SE ESPECIFICA HORA
+							// TMR   - EL TEST JUNIT NO FUNCIONA PARA INGLÉS
+							// TMR   - ADEMAS, PONEMOS FECHA Y PULSAME RETURN, PONE EL AÑO 2022. ¿OTRO BUG?
+							/*
+							System.out.println("[Tab.createCondition] value=" + value); // tmr
+							v = WebEditors.parse(getRequest(), p, value, errors, null);
+							System.out.println("[Tab.createCondition] v=" + v); // tmr
+							System.out.println("[Tab.createCondition] v.getClass()=" + v.getClass()); // tmr
+							*/
+							// tmr fin
 						} 
 						if ((v instanceof Timestamp || p.isCompatibleWith(Timestamp.class)) && EQ_COMPARATOR.equals(this.conditionComparators[i])) {  						 
 							if (Dates.hasTime((java.util.Date) v)) { 
