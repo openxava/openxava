@@ -609,7 +609,7 @@ openxava.processKey = function(event) {
 	if (event.keyCode == 13 ) {
 		var textField = $(event.target);
 		var id = $(textField).attr("id");
-		if (/.*_conditionValue___\d+$/.test(id)) {
+		if (/.*_conditionValueT?o?___\d+$/.test(id)) { 
 			event.returnValue = false;
 			event.preventDefault();
 			

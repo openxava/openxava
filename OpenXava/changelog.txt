@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Pressing ENTER to filter in list by date range does not work.
 - Fix: Upload editor property (like @Files) not shown when alone in a section with flowLayout=false.
 - Fix: Upload editor property (like @Files) does not fill all width if alone in a section with flowLayout=true.
 - Fix: Annotated web elements in Addons are not recognized when executing application from OpenXava Studio.

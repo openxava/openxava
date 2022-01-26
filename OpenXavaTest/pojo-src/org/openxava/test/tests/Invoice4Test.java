@@ -2,6 +2,8 @@ package org.openxava.test.tests;
 
 import org.openxava.tests.*;
 
+import com.gargoylesoftware.htmlunit.html.*;
+
 /**
  * 
  * @author Javier Paniza
@@ -31,11 +33,19 @@ public class Invoice4Test extends ModuleTestBase {
 		assertValue("paid", "true");
 	}
 	
-	public void testTabSetConditionValueByDate() throws Exception {
+	public void testTabSetConditionValueByDate_enterToFilterByRangeInList() throws Exception {
 		execute("Invoice4.filterByDate");
 		assertListRowCount(2); 
 		assertValueInList(0, 2, "1/4/2004");
 		assertValueInList(1, 2, "1/4/2004");
+		
+		setConditionComparators("", "", "range_comparator");
+		setConditionValues("", "", "1/1/2005");
+		HtmlTextInput dateTo = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Invoice4__conditionValueTo___2");
+		dateTo.type("1/1/2010");
+		dateTo.type('\r');
+		waitAJAX();
+		assertListRowCount(4);
 	}
 	
 }
