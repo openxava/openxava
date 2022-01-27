@@ -268,12 +268,10 @@ public class Dates {
 		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
 		if (df instanceof SimpleDateFormat) {
 			String pattern = ((SimpleDateFormat) df).toPattern();
-			System.out.println("[Dates.getDateTimeFormat] pattern> " + pattern); // tmr
 			boolean java9 = XSystem.isJava9orBetter();
 			if (java9) pattern = pattern.replace(", ", " ");
 			if (fourDigitsForYear && !pattern.contains("yyyy")) pattern = pattern.replace("yy", "yyyy");
 			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-			System.out.println("[Dates.getDateTimeFormat] pattern< " + pattern); // tmr
 			if (java9) {
 				DateFormatSymbols symbols = new DateFormatSymbols(locale);
 		        symbols.setAmPmStrings(new String[] { "AM", "PM" });

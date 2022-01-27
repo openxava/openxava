@@ -23,7 +23,6 @@ public class ShipmentTest extends ModuleTestBase {
 		setLocale("hr");
 		assertDateTimeCombinedFormat(".");		
 		
-		// tmr ini
 		// Filtering in Croatian
 		execute("Mode.list");
 		assertListRowCount(3);
@@ -32,7 +31,6 @@ public class ShipmentTest extends ModuleTestBase {
 		assertListRowCount(1);
 		assertValueInList(0, "description", "CINC");	
 		assertValueInList(0, "time", "25.12.2006 11:33"); 
-		// tmr fin
 	}
 	
 	public void assertDateTimeCombinedFormat(String separator) throws Exception { 

@@ -40,7 +40,8 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 			catch (ParseException ex) {
 			}
 		}
-		throw new ParseException(XavaResources.getString("bad_date_format",string),-1);
+		java.util.Date result = (java.util.Date) new DateFormatter().parse(request, string); 
+		return new java.sql.Timestamp( result.getTime() );
 	}
 
 	private DateFormat getDateTimeFormat(boolean forParsing) { 
@@ -52,7 +53,6 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 	private DateFormat[] getDateTimeFormats() {
 		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats(); 
 		return new DateFormat [] { getDateTimeFormat(true) }; 
-		// tmr return new DateFormat [] { getDateTimeFormat(true), new SimpleDateFormat(Dates.getLocalizedDatePattern(Locales.getCurrent())) }; // tmr
 	}
 	
 }
