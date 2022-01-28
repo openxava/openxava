@@ -168,17 +168,9 @@ public class ModuleManager implements java.io.Serializable {
 	public void removeMetaAction(MetaAction action) {
 		getMetaActions().remove(action);
 		getMetaControllerElements().remove(action);
-		// tmr ini
-		// TMR ME QUEDÉ POR AQUÍ: VIENDO DE DONDE QUITARLAS.
-		// TMR   DEBERÍA VER QUE PASA SI LA VUELVO A AÑADIR ¿?
 		for (MetaSubcontroller sub: getSubcontrollers()) {
-			System.out.println("[ModuleManager.removeMetaAction] " + sub.getControllerName()); // tmp
-			Collection<MetaAction> actions = getSubcontrollerMetaActions(sub.getControllerName());
-			for (MetaAction a: actions) {
-				System.out.println("[ModuleManager.removeMetaAction] > action=" + a.getName()); // tmp
-			}
+			getSubcontrollerMetaActions(sub.getControllerName()).remove(action);
 		}
-		// tmr fin
 		defaultActionQualifiedName = null;
 		actionsChanged = true;
 		actionsAddedOrRemoved = true;		
@@ -241,8 +233,7 @@ public class ModuleManager implements java.io.Serializable {
 		return metaControllerElements;
 	}
 
-	// tmr public Collection getSubcontrollers() {
-	public Collection<MetaSubcontroller> getSubcontrollers() { // tmr
+	public Collection<MetaSubcontroller> getSubcontrollers() { 
 		if (metaSubControllers == null) {
 			metaSubControllers = new ArrayList<MetaSubcontroller>();
 			Iterator it = getMetaControllers().iterator();

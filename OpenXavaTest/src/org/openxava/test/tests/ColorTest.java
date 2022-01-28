@@ -48,10 +48,9 @@ public class ColorTest extends ModuleTestBase {
 		assertTrue(container.asText().contains("Second action"));
 		assertTrue(container.asText().contains("Third action"));
 		
-		// tmr ini
+		assertAction("ColorSub.thirdAction");
 		execute("Color.removeThirdAction");
 		assertNoAction("ColorSub.thirdAction");
-		// tmr fin
 	}
 	
 	public void testPrintPDF() throws Exception {

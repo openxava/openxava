@@ -124,7 +124,7 @@ public class MetaAction extends MetaControllerElement implements Cloneable {
 	}
 	
 	public int hashCode() {	
-		return getName().hashCode();
+		return getQualifiedName().hashCode(); 
 	}
 	
 	public String getClassName() {

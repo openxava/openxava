@@ -1229,9 +1229,9 @@
 		<subcontroller controller="ColorSub" image="options.png" icon="run"/>
 		<action name="seeMessage" class="org.openxava.test.actions.SeeMessageAction" mode="detail"/>
 		<action name="seeMessageSelected" class="org.openxava.test.actions.SeeMessageSelectedColorsAction" mode="list" icon="message-alert"/>
-		<!-- tmr ini -->
-		<action name="removeThirdAction" class="org.openxava.test.actions.RemoveThirdActionAction" mode="detail"/>
-		<!-- tmr fin -->
+		<action name="removeThirdAction" class="org.openxava.test.actions.RemoveActionsAction" mode="detail">
+			<set property="actions" value="ColorSub.thirdAction"/>
+		</action>
 	</controller>
 	
 	<controller name="ColorSub">
