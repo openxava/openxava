@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Incorrect explanation about entity collections behavior in Lesson 5 of the course.
 - Fix: Unable to remove actions dynamically, with removeActions(), from a subcontroller.
 - Fix: Parsing error in list filter for Timestamp and DATETIME for certain languages like Croatian.
 - Fix: Pressing ENTER to filter in list by date range does not work.

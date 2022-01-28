@@ -10,8 +10,7 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="desarrollo-agil"></a> <span id="breadcrumbs"> <span
-
+      <h1 id="toc0"><a name="desarrollo-agil"></a> <span id="breadcrumbs"> <span
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Lección 5: Desarrollo ágil </h1>
@@ -106,8 +105,7 @@ Autor autor;
       tiene una referencia a <em>Autor</em>.<br>
       Realmente has escrito una cantidad pequeña de código. Para ver el efecto,
       solo necesitas reiniciar tu aplicación pulsando el botón <i>Run</i>:</div>
-    <div class="wiki" style="display: block;"><img src="files/getting-started_es195.png"
-
+    <div class="wiki" style="display: block;"><img src="files/getting-started_es195.png"
         alt="getting-started_es195.png" title="getting-started_es195.png"> </div>
     <div class="wiki" style="display: block;">Después ve al navegador y recarga
       la página con el módulo <em>Producto</em>, y ahí verás, un combo para
@@ -136,8 +134,8 @@ Collection&lt;Producto&gt; productos;
       usuario completa para manejarla. En este caso el usuario puede pulsar en
       el botón <em>Añadir</em> para escoger un libro de una lista de libros
       existentes o pulsar <i>Nuevo</i> para introducir los datos para crear un
-      nuevo libro que se añadirá a la colección. Además cuando el autor se borre
-      sus libros seguirán estando en la base de datos. Puedes definir un
+      nuevo libro que se añadirá a la colección. Además, el autor no se puede
+      borrar mientras tenga libros asociados a él. Puedes definir un
       comportamiento diferente con <em>cascade</em> como REMOVE o ALL, así:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@OneToMany(mappedBy="autor", cascade=CascadeType.REMOVE) // NO LO AÑADAS A TU CÓDIGO
@@ -161,12 +159,10 @@ Collection&lt;Producto&gt; productos;
       usuarios.<br>
       Aprenderás estos temas avanzados en las siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
-
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="mapped-superclass-inheritance_es.html">Ve a
           la lección 6</a></strong> </div>
