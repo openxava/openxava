@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Warning "Unknown referenced nature: org.eclipse.jem.workbench.JavaEMFNature" in projects inside Studio. 
 - Fix: Incorrect explanation about entity collections behavior in Lesson 5 of the course.
 - Fix: Unable to remove actions dynamically, with removeActions(), from a subcontroller.
 - Fix: Parsing error in list filter for Timestamp and DATETIME for certain languages like Croatian.
@@ -528,7 +529,7 @@ OpenXava 6.1.2 (2019-6-17)
 - Fix: Value with quotation marks in @DescriptionsList is only displayed until the first quotation.
 - Fix: Warning messages are not very legible.
 - Fix: Ant target for generating portlets hangs.
-- Fix: A @DescriptionsList and a list with multiple values in the same line are not well displayed.
+- Fix: A @DescriptionsList and a list with multiple values in the same line areï¿½not well displayed.
 - Fix: Search in @DescriptionsList not work with composite description and fields with several trailing spaces.
 - Fix: @DescriptionsList with a composite description show all the existing spaces between fields. 
 - Fix: Calendar icon covers up the name of the action when user as action icon. 
@@ -1208,7 +1209,7 @@ OpenXava 5.4.1 (2015-12-15)
 - Fix: Summation bad aligned in list.
 - Fix: Incorrect row height in add columns dialog.
 - Fix: Editors of type select multiple have fixed height.
-- Fix: Spanish messages not uniform for tú/usted usage.
+- Fix: Spanish messages not uniform for tï¿½/usted usage.
 - Fix: @NoFrame references show the frame after choose a value searching in a polymorphic resultset.
 
 OpenXava 5.4 (2015-11-9)
