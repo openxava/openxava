@@ -18,7 +18,10 @@ public class ProjectTeam extends Nameable {
 	
 	@OneToMany(mappedBy="team")
 	@OrderColumn 
-	@CollectionView("Simple") 
-	List<ProjectMember> members; 
+	@CollectionView("Simple")
+	@ListProperties("name, project.name") // tmr
+	List<ProjectMember> members;
+	 
+	
 
 }
