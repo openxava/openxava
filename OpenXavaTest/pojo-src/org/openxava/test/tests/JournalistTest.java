@@ -19,7 +19,7 @@ public class JournalistTest extends ModuleTestBase {
 		assertValue("name", "MANOLO");
 		assertCollectionRowCount("articles", 0);		
 		execute("ManyToMany.new", "viewObject=xava_view_articles");
-		setValue("title", "JUNIT JOURNALIST ARTICLE");
+		setValue("title", "JUNIT JOURNALIST ARTICLE"); 
 		execute("ManyToManyNewElement.save");
 		assertCollectionRowCount("articles", 1);		
 		assertValueInCollection("articles", 0, 0, "JUNIT JOURNALIST ARTICLE");

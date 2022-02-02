@@ -38,7 +38,7 @@ public class CommunityTest extends ModuleTestBase {
 		assertCollectionRowCount("members", 3);
 		assertNoAction("Collection.new"); 
 		execute("ManyToMany.new", "viewObject=xava_view_members");
-		setValue("name", "JUNIT");
+		setValue("name", "JUNIT"); 
 		setValue("sex", String.valueOf(Human.Sex.FEMALE.ordinal()));
 		execute("ManyToManyNewElement.save");
 		assertCollectionRowCount("members", 4);

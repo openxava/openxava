@@ -25,7 +25,7 @@ public class DriverTest extends ModuleTestBase {
 		assertValueInList(1, 0, "C");
 	}
 	
-	public void testNavigationBySelected() throws Exception {
+	public void testNavigationBySelected_labelForReferenceOfModel() throws Exception {
 		changeModule("DriverWithTabName");
 		assertLabelInList(0, "Name"); 
 		assertValueInList(0, 0, "ALONSO");
@@ -44,6 +44,8 @@ public class DriverTest extends ModuleTestBase {
 		execute("ReferenceSearch.cancel");
 		execute("Navigation.next");
 		assertValue("name", "LORENZO");
+		
+		assertLabel("drivingLicence.description", "Licence"); // Defined for Driver.drivingLicence.description in i18n
 	}
 			
 }

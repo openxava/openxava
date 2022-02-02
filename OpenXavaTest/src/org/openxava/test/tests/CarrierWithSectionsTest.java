@@ -645,7 +645,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 	}
 
 		
-	public void testCarrierSelected() throws Exception{ 
+	public void testCarrierSelected_labelForReferenceOfModel() throws Exception{ 
 		assertListNotEmpty();
 		execute("List.viewDetail", "row=0");
 		execute("CarrierWithSections.fellowCarriersSelected");
@@ -660,6 +660,8 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		execute("CarrierWithSections.fellowCarriersSelected");
 		assertTrue(Is.empty(getValue("fellowCarriersSelected")));
+		
+		assertLabel("drivingLicence.description", "Description"); // Standard label because is only for Driver, Driver.drivingLicence.description
 	}
 	
 	public void testSetControllers() throws Exception { 

@@ -5447,7 +5447,7 @@ public class View implements java.io.Serializable {
 		this.readOnly = onlyRead;
 	}
 	
-	public String getLabelFor(MetaMember p) throws XavaException {
+	public String getLabelFor(MetaMember p) throws XavaException { 
 		if (getMetaView().getLabelFormatFor(p) == LabelFormatType.NO_LABEL.ordinal()) return "";
 		if (getLabels() != null) {
 			String idLabel = (String) getLabels().get(p.getName());
@@ -5462,8 +5462,14 @@ public class View implements java.io.Serializable {
 			if (Labels.existsExact(id, Locales.getCurrent())) {
 				return Labels.get(id, Locales.getCurrent());
 			}
+			View parent = getParent();
+			if (parent == null) parent = getRoot();
+			id = parent.getModelName() + "." + getMemberName() + p.getId().substring(idx);
+			if (Labels.existsExact(id, Locales.getCurrent())) {
+				return Labels.get(id, Locales.getCurrent());
+			}
 			id = getMemberName() + p.getId().substring(idx);
-			if (Labels.existsExact(id, Locales.getCurrent())) {				
+			if (Labels.existsExact(id, Locales.getCurrent())) {
 				return Labels.get(id, Locales.getCurrent());
 			}			
 		}
