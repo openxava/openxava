@@ -161,9 +161,7 @@ while (it.hasNext()) {
 	}
 %>
 <%
-	System.out.println("[listEditor.jsp] property>" + property.getName()); // tmr
 	String label = property.getQualifiedLabel(request);
-	System.out.println("[listEditor.jsp] label<" + label); // tmr
 	if (resizeColumns) label = label.replaceAll(" ", "&nbsp;");
 	if (!tab.isOrderCapable(property) || sortable) { 
 %>

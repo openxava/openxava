@@ -13,10 +13,11 @@ public class ProjectTeamTest extends ModuleTestBase {
 		super(testName, "ProjectTeam");		
 	}
 	
-	public void testAssignToAnotherOrderColumnListWhenAddingToOrderColumnList() throws Exception {
+	public void testAssignToAnotherOrderColumnListWhenAddingToOrderColumnList_labelForNameOfReferenceOnCollectionFromModel() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertCollectionRowCount("members", 0);
-		assertLabelInCollection("members", 1, "Project"); // tmr
+		assertLabelInCollection("members", 0, "Name"); 
+		assertLabelInCollection("members", 1, "Project"); 
 		execute("Collection.new", "viewObject=xava_view_members");
 		setValue("name", "THE JUNIT PROGRAMMER");
 		setValue("project.id", "ff8080824cfa5dcb014cfa634a1b0004"); // THE BIG PROJECT
