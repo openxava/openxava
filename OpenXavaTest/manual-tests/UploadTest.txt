@@ -51,6 +51,8 @@ GalleryImage: Product2 with Chrome and Firefox
 - Go to list. Select the first element.
 - Open the frame with the images. The upload editor must be here.
 
+TMR ME QUEDÉ POR AQUÍ
+
 AttachedFile and AttachedFiles: Movie with Chrome and Firefox
 - In list a row shows a link to download (a regular file) the trailer and other a little image preview (an image).
 - Click on New.
