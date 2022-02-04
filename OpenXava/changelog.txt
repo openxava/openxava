@@ -1,9 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.6.2 (2022-2-7)
+-------------------------
+- Some new common use labels to be used in applications.
 - Fix: Bad automatic label for property of reference in ManyToMany, @OrderColumn or calculated collections.
 - Fix: i18n label for member of reference for a specific model (like Project.manager.name=PM Name) not work.
-- Some new common use labels to be used in applications.
 - Fix: Warning "Unknown referenced nature: org.eclipse.jem.workbench.JavaEMFNature" in projects inside Studio. 
 - Fix: Incorrect explanation about entity collections behavior in Lesson 5 of the course.
 - Fix: Unable to remove actions dynamically, with removeActions(), from a subcontroller.
