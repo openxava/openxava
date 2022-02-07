@@ -1,0 +1,179 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 5: Desarrollo ágil: Añadir una nueva referencia (@ManyToOne)
+      y nueva colección de entidades (@OneToMany) - Curso de OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="desarrollo-agil"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 5: Desarrollo ágil </h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <strong>5. Desarrollo ágil</strong>
+      |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
+        Herencia de superclases mapedas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="basic-business-logic_es.html">9.
+        Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">10.
+        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">11.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">12.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">13.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#desarrollo-agil">Lección 5:
+            Desarrollo ágil</a></div>
+        <div style="margin-left: 2em;"><a href="#anadir-otra-referencia">Añadir
+            otra referencia</a></div>
+        <div style="margin-left: 2em;"><a href="#anadir-una-coleccion-de-entidades">Añadir
+            una colección de entidades</a></div>
+        <div style="margin-left: 2em;"><a href="#resumen">Resumen</a></div>
+      </div>
+      Hoy en día el desarrollo ágil ya no es una “una técnica nueva y
+      rompedora”, sino una forma establecida de hacer desarrollo de software, es
+      más, es la forma ideal de desarrollar software para muchos.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=wOhWbPqwBgQ&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=5&amp;t=92s"
+        target="_blank"><img src="files/desarrollo_agil_ES.PNG" title="Video para la lección 5: Desarrollo ágil con OpenXava"></a>
+    </div>
+    <div class="wiki" style="display: block;">Si no te gustan los videos sigue
+      las instrucciones a continuación. </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> Si no estás familiarizado con el
+      desarrollo ágil puedes echar un vistazo a <a href="https://agilemanifesto.org/iso/es/manifesto.html">agilemanifesto.org</a>.
+      Básicamente, el desarrollo ágil favorece el uso de retroalimentación
+      obtenida de un producto funcional sobre un diseño previo meticuloso. Esto
+      da más protagonismo a los programadores y usuarios, y minimiza la
+      importancia de los analistas y los arquitectos de software.<br>
+      Este tipo de desarrollo necesita también un nuevo tipo de herramientas.
+      Porque necesitas una aplicación funcional rápidamente. Tiene que ser tan
+      rápido desarrollar la aplicación inicial como lo sería escribir la
+      descripción funcional. Además, necesitas responder a las peticiones y
+      opiniones del usuario rápidamente. El usuario necesita ver sus propuestas
+      funcionando en corto tiempo.<br>
+      OpenXava es ideal para el desarrollo ágil no sólo porque permite un
+      desarrollo inicial muy rápido, sino porque también te permite hacer
+      cambios y ver su efecto instantáneamente. Veamos un pequeño ejemplo de
+      esto.</div>
+    <div class="wiki" style="display: block;">
+      <h2><a name="anadir-otra-referencia"></a>Añadir otra referencia</h2>
+    </div>
+    <div class="wiki" style="display: block;"> Por ejemplo, una vez que el
+      usuario ve tu aplicación y empieza a jugar con ella, se da cuenta que él
+      trabaja con libros, música, programas y así por el estilo. Todos estos
+      productos tienen autor, y sería útil almacenar el autor, así como ver los
+      productos por autor.<br>
+      Añadir esta nueva funcionalidad a tu aplicación es simple y rápido. Lo
+      primero es crear una nueva clase para <em>Autor</em> con el siguiente
+      código:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+ 
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.openxava.annotations.*;
+import lombok.*;
+ 
+@Entity @Getter @Setter
+public class Autor {
+ 
+    @Id @GeneratedValue(generator="system-uuid") @Hidden
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @Column(length=32)
+    String oid;
+ 
+    @Column(length=50) @Required
+    String nombre;
+  
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Ahora, añade este código a la ya
+      existente entidad <em>Producto</em>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY)
+@DescriptionsList
+Autor autor;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Así, tu entidad <em>Producto</em>
+      tiene una referencia a <em>Autor</em>.<br>
+      Realmente has escrito una cantidad pequeña de código. Para ver el efecto,
+      solo necesitas reiniciar tu aplicación pulsando el botón <i>Run</i>:</div>
+    <div class="wiki" style="display: block;"><img src="files/getting-started_es195.png"
+        alt="getting-started_es195.png" title="getting-started_es195.png"> </div>
+    <div class="wiki" style="display: block;">Después ve al navegador y recarga
+      la página con el módulo <em>Producto</em>, y ahí verás, un combo para
+      escoger el autor del producto, como se muestra aquí:<br>
+      <img src="files/modeling_es150.png" alt="modeling_es150.png" title="modeling_es150.png"></div>
+    <div class="wiki" style="display: block;">
+      <h2><a name="anadir-una-coleccion-de-entidades"></a>Añadir una colección
+        de entidades</h2>
+    </div>
+    <div class="wiki" style="display: block;"> ¿Qué ocurre si el usuario quiere
+      escoger un autor y ver todos sus productos? Está chupado. Solo has de
+      hacer la relación entre <em>Producto</em> y <em>Autor</em>
+      bidireccional. Ve a la clase <em>Autor</em> y añade el siguiente código:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@OneToMany(mappedBy="autor")
+@ListProperties("numero, descripcion, precio")
+Collection&lt;Producto&gt; productos;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Ahora reinicia tu aplicación y
+      refresca tu navegador con el módulo <em>Autor</em>. Escoge un autor y
+      verás sus productos. Tienes algo parecido a esto:<br>
+      <img src="files/modeling_es160.png" alt="modeling_es160.png" title="modeling_es160.png"><br>
+    </div>
+    <div class="wiki" style="display: block;">Sí, añades una nueva colección,
+      rearrancas tu aplicación, refrescas tu navegador y tienes una interfaz de
+      usuario completa para manejarla. En este caso el usuario puede pulsar en
+      el botón <em>Añadir</em> para escoger un libro de una lista de libros
+      existentes o pulsar <i>Nuevo</i> para introducir los datos para crear un
+      nuevo libro que se añadirá a la colección. Además, el autor no se puede
+      borrar mientras tenga libros asociados a él. Puedes definir un
+      comportamiento diferente con <em>cascade</em> como REMOVE o ALL, así:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@OneToMany(mappedBy="autor", cascade=CascadeType.REMOVE) // NO LO AÑADAS A TU CÓDIGO
+</code></pre> </div>
+    <div class="wiki" style="display: block;">De esta forma sólo el botón <i>Nuevo</i>
+      para crear nuevos libros está disponible, el botón <i>Añadir</i> no está
+      presente. Además, cuando el autor se borre sus libros se borrarán también.
+      Para el caso autor/libros no queremos este comportamiento, pero puede ser
+      útil en muchos casos donde una <em>@ElementCollection</em> sea
+      insuficiente.<br>
+      <h2 id="toc15"><a name="resumen"></a>Resumen</h2>
+      Esta sección ha mostrado el código completo y los pasos para hacer cambios
+      y ver el resultado de una manera muy interactiva. Tus ojos han visto como
+      OpenXava es una herramienta ágil, ideal para hacer desarrollo ágil. </div>
+    <div class="wiki" style="display: block;">Efectivamente tienes una
+      aplicación funcional con poco esfuerzo. Aunque esta aplicación “tal cual”
+      puede servir como utilidad de mantenimiento o un prototipo, todavía
+      necesitas añadir validaciones, lógica de negocio, comportamiento de la
+      interfaz de usuario, seguridad y así por el estilo para convertir estas
+      entidades que has escrito en una aplicación de gestión lista para tus
+      usuarios.<br>
+      Aprenderás estos temas avanzados en las siguientes lecciones.<br>
+      <br>
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
+          rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
+      <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+        <a class="wiki_link" href="mapped-superclass-inheritance_es.html">Ve a
+          la lección 6</a></strong> </div>
+  </body>
+</html>
