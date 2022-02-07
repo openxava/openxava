@@ -24,12 +24,12 @@
 	<!-- For WTP -->  
 	<Resource auth="Container" driverClassName="org.hsqldb.jdbcDriver"
 		maxActive="20" maxIdle="5" maxWait="10000" name="jdbc/CompanyADS"
-		password="" type="javax.sql.DataSource" url="jdbc:hsqldb:file:/Users/javi/git/openxava/OpenXavaTest/data/CompanyADB"
+		password="" type="javax.sql.DataSource" url="jdbc:hsqldb:file:/home/javi/git/openxava/OpenXavaTest/data/CompanyADB"
 		username="sa" />
 		
 	<Resource auth="Container" driverClassName="org.hsqldb.jdbcDriver"
 		maxActive="20" maxIdle="5" maxWait="10000" name="jdbc/CompanyBDS"
-		password="" type="javax.sql.DataSource" url="jdbc:hsqldb:file:/Users/javi/git/openxava/OpenXavaTest/data/CompanyBDB"
+		password="" type="javax.sql.DataSource" url="jdbc:hsqldb:file:/home/javi/git/openxava/OpenXavaTest/data/CompanyBDB"
 		username="sa" />
 		
 		
