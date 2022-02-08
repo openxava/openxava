@@ -1,6 +1,37 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.6.2 (2022-2-7)
+-------------------------
+- Some new common use labels to be used in applications.
+- Fix: Bad automatic label for property of reference in ManyToMany, @OrderColumn or calculated collections.
+- Fix: i18n label for member of reference for a specific model (like Project.manager.name=PM Name) not work.
+- Fix: Warning "Unknown referenced nature: org.eclipse.jem.workbench.JavaEMFNature" in projects inside Studio. 
+- Fix: Incorrect explanation about entity collections behavior in Lesson 5 of the course.
+- Fix: Unable to remove actions dynamically, with removeActions(), from a subcontroller.
+- Fix: Parsing error in list filter for Timestamp and DATETIME for certain languages like Croatian.
+- Fix: Pressing ENTER to filter in list by date range does not work.
+- Fix: Upload editor property (like @Files) not shown when alone in a section with flowLayout=false.
+- Fix: Upload editor property (like @Files) does not fill all width if alone in a section with flowLayout=true.
+- Fix: Annotated web elements in Addons are not recognized when executing application from OpenXava Studio.
+- Fix: Collection count in section label is not updated when collection inside section is refreshed.
+- Fix: Broken links in View chapter of reference guide and Lesson 5 of the course.
+- Fix: Tab.setConditionValue() and MetaProperty.format() do not support boolean values.
+- Fix: Enum combos are displayed as disabled even when they are enabled with latest Firefox versions. 
+- Fix: Inaccurate @DescriptionsList documentation in reference guide (View chapter). 
+- Fix: Screenshot of lesson 7 of the course for dropping tables does not show the correct tables.
+- Fix: Calculated property dependent on a @Coordinates property is not recalculated when clicking on the map.
+- Fix: Read only @Coordinates property can be modified clicking on the map.
+- Fix: Grouping by an enum property in list fails.
+- Fix: ModuleTestBase.get/assertValueInList() not interpret line breaks consistently between operating systems. 
+- Fix: JUnit suite does not pass at 100% on Linux.
+- Fix: @GenericGenerator annotation missing in sample code of course, so course code does not work.
+- Fix: @Id property with @DefaultValueCalculator dependent in an entity with an @ElementCollection doesn't work.
+- Fix: Calculated properties whose calculation depends on references fail recalculating after a change event. 
+- Fix: @DescriptionsList doesn't throw change event for @Depends properties in @ElementCollection collections. 
+- Fix: @DescriptionsList doesn't throw change event for @Depends properties editing in an @OneToMany collection.   
+- Fix: No dependent @DefaultValueCalculator for @DescriptionsList in @ElementCollection does not work.
+
 OpenXava 6.6.1 (2021-12-2)
 --------------------------
 - New utility classes, EmailNotificationsUtils and LogTrackerUtils, to test email notifications and log tracker.
@@ -503,7 +534,7 @@ OpenXava 6.1.2 (2019-6-17)
 - Fix: Value with quotation marks in @DescriptionsList is only displayed until the first quotation.
 - Fix: Warning messages are not very legible.
 - Fix: Ant target for generating portlets hangs.
-- Fix: A @DescriptionsList and a list with multiple values in the same line are not well displayed.
+- Fix: A @DescriptionsList and a list with multiple values in the same line areï¿½not well displayed.
 - Fix: Search in @DescriptionsList not work with composite description and fields with several trailing spaces.
 - Fix: @DescriptionsList with a composite description show all the existing spaces between fields. 
 - Fix: Calendar icon covers up the name of the action when user as action icon. 
@@ -1183,7 +1214,7 @@ OpenXava 5.4.1 (2015-12-15)
 - Fix: Summation bad aligned in list.
 - Fix: Incorrect row height in add columns dialog.
 - Fix: Editors of type select multiple have fixed height.
-- Fix: Spanish messages not uniform for tú/usted usage.
+- Fix: Spanish messages not uniform for tï¿½/usted usage.
 - Fix: @NoFrame references show the frame after choose a value searching in a polymorphic resultset.
 
 OpenXava 5.4 (2015-11-9)
