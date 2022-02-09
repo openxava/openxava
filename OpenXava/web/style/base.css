@@ -205,12 +205,12 @@
 	--icons-list-i-hover-background: var(--action-hover-background);	
 	--crop-free-icon-color: var(--required-editor-border);
 	--plus-icon-color: var(--crop-free-icon-color);
-	--icons-list-scrollbar-background: linear-gradient(
+	--scrollbar-background: linear-gradient(
 			to top,
 			rgba(0, 0, 0, 0.2),
 			rgba(0, 0, 0, 0.2)
 		) var(--icons-list-background);
-	--icons-list-scrollbar-color: linear-gradient(
+	--scrollbar-color: linear-gradient(
 			to top,
 			rgba(0, 0, 0, 0.4),
 			rgba(0, 0, 0, 0.4)
@@ -554,6 +554,7 @@ i.folder-icon {
 	max-height: 70vh;
 	margin-bottom: 5px;	
 	overflow-y: auto;
+	overflow-x: hidden; 
 }
 
 #modules_list_header, #modules_list_search_header { 
@@ -2170,14 +2171,15 @@ span[id*="reference_editor"] + .ox-layout-detail {
 	color: var(--icon-in-list);
 }
 
-.ox-icons-list::-webkit-scrollbar {
+::-webkit-scrollbar {
 	width: 8px;
-	background: var(--icons-list-scrollbar-background);
+	height: 8px;
+	background: var(--scrollbar-background);
 	
 }
 
-.ox-icons-list::-webkit-scrollbar-thumb {
-	background: var(--icons-list-scrollbar-color);
+::-webkit-scrollbar-thumb {
+	background: var(--scrollbar-color);
 	border-radius: 10px;
 }
 

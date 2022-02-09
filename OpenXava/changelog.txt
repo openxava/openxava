@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Scrollbars not stylized according to theme (fixed for WebKit based browsers).
+- Fix: Unneeded horizontal scrollbar adding columns to a list.
+
 OpenXava 6.6.2 (2022-2-7)
 -------------------------
 - Some new common use labels to be used in applications.
