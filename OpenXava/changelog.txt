@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: View inheritance doesn't include parent members with three levels depth if entering child module first.
 - Fix: Scrollbars not stylized according to theme (fixed for WebKit based browsers).
 - Fix: Unneeded horizontal scrollbar adding columns to a list.
 
