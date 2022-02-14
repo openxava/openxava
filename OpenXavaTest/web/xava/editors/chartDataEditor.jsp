@@ -118,9 +118,7 @@ if (!Is.emptyString(chart.getxColumn())) {
 		String id = idPrefix + "title_" + rowIndex;
 		int row = selectedRows[rowIndex];
 		Object labelColumnObject;
-		System.out.println("[charDataEditor.jsp] 10 Trying " + chart.getxColumn() + " >"); // tmr
-		MetaProperty xColumnProperty = tab.getMetaProperty(chart.getxColumn());
-		System.out.println("[charDataEditor.jsp] 10 Found " + chart.getxColumn() + " <"); // tmr		
+		MetaProperty xColumnProperty = tab.getMetaProperty(chart.getxColumn());		
 		int xColumnIndex = tab.getMetaProperties().indexOf(xColumnProperty);
 		String labelColumnValue = WebEditors.format(request, xColumnProperty, model.getValueAt(row, xColumnIndex), errors, view.getViewName(), true);
 		labelColumnValue = StringUtils.abbreviate(labelColumnValue, 40);
@@ -132,10 +130,8 @@ if (!Is.emptyString(chart.getxColumn())) {
 		for (int index = 0; index < selectedColumns.size(); index++) {
 			ChartColumn column = selectedColumns.get(index);
 			Object value = null;
-			String datasetValueIdPrefix = idPrefix + "dataset_" + (columnIndex++) + "_value_";
-			System.out.println("[charDataEditor.jsp] 20 Trying " + column.getName() + " >"); // tmr					
-			MetaProperty property= tab.getMetaProperty(column.getName()); // TMR ME QUEDÉ POR AQUÍ. ESTO FALLA AL LANZAR EL TEST
-			System.out.println("[charDataEditor.jsp] 20 Found " + column.getName() + " <"); // tmr
+			String datasetValueIdPrefix = idPrefix + "dataset_" + (columnIndex++) + "_value_";					
+			MetaProperty property= tab.getMetaProperty(column.getName());
 			int propertyIndex = tab.getMetaProperties().indexOf(property);
 			value = model.getValueAt(row, propertyIndex); 
 			if (value == null) {

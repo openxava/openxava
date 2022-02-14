@@ -23,7 +23,8 @@ here that you want to override.
 	<object name="xava_mainTab" class="org.openxava.tab.Tab"/>		
 	<object name="xava_customizingTab" class="org.openxava.tab.Tab"/>
 	<object name="xava_myReport" class="org.openxava.session.MyReport"/>
-	<object name="xava_chart" class="org.openxava.session.Chart"/>	
+	<object name="xava_chart" class="org.openxava.session.Chart"/>
+	<object name="xava_chartTab" class="org.openxava.tab.Tab"/> <!-- tmr -->	
 	<object name="xava_row" class="java.lang.Integer" value="-1"/>	
 	<object name="xava_currentCollectionLabel" class="java.lang.String"/>
 	<object name="xava_collectionViewObject" class="java.lang.String"/>	
