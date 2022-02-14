@@ -11,17 +11,16 @@
   <body>
     <div class="wiki" style="display: block;">
       <h1 id="toc0"><a name="Leccion-4-Herencia"></a> <span id="breadcrumbs"> <span
-
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
-        Lección 6: Herencia de superclases mapedas</h1>
+        Lección 6: Herencia de superclases mapeadas</h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
         Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
         Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
         Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
         Desarrollo ágil</a> | <b><span class="wiki_link">6. Herencia de
-          superclases mapedas</span></b> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+          superclases mapeadas</span></b> | <a class="wiki_link" href="entity-inheritance_es.html">7.
         Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
         Herencia de vistas</a> | <a class="wiki_link" href="basic-business-logic_es.html">9.
         Lógica de negocio básica</a> | <a class="wiki_link" href="validation_es.html">10.
@@ -50,6 +49,14 @@
       como hacerlo con puro Java. Vamos a usar la herencia para quitar el código
       repetitivo y aburrido, como la definición de los UUID, esto lo haremos
       usando superclases mapeadas de JPA.<br>
+      <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=MfMwtCwSERg&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=6"
+          target="_blank"><img src="files/Mapped-superclass-inheritance_es.png"
+            title="Video para la lección 6: Herencia de superclases mapeadas"></a>
+      </div>
+      <div class="wiki" style="display: block;">Si no te gustan los videos sigue
+        las instrucciones a continuación. </div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
       <h2 id="toc1"><a name="superclase-mapeada"></a>Superclase mapeada</h2>
       Las clases <em>Autor</em>, <em>Categoria</em> y <em>Factura</em> tienen
       algo de código en común. Este código es la definición del campo <em>oid</em>:<br>
@@ -126,7 +133,6 @@ public class Categoria extends Identificable { // Extiende de Identificable
       para simplificar tu código.<br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="entity-inheritance_es.html">Ve a la lección 7</a></strong>
     </div>
