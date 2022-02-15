@@ -49,7 +49,8 @@ public abstract class OnChangeChartColumnBaseAction extends OnChangeElementColle
 		
 	public abstract void executeOnValidValues() throws Exception;
 
-	protected Tab getTab() throws Exception { // tmr
+	/** @since 6.6.3 */
+	protected Tab getTab() throws Exception { 
 		return tab;
 	}
 	
