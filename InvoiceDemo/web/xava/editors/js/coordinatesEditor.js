@@ -32,9 +32,13 @@ openxava.addEditorInitFunction(function() {
 		});
 		
 		map.on('click', function(e) {
-			markers.clearLayers();
-			L.marker(e.latlng).addTo(markers);
-			input.val(e.latlng.lat + ", " + e.latlng.lng);
+			if (!input.is(':disabled')) { 
+				markers.clearLayers();
+				L.marker(e.latlng).addTo(markers);
+				input.val(e.latlng.lat + ", " + e.latlng.lng);
+				var onchange = input.attr('onchange');
+				if (onchange != null) eval(onchange);					
+			} 
 		});
 		
 		$(this).data("map", map); 

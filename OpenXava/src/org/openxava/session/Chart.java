@@ -157,7 +157,7 @@ public class Chart implements Serializable {
 			}
 		}		
 	}	
-
+	
 	public String getChartData() {
 		return chartData;
 	}

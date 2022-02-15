@@ -112,7 +112,13 @@ if (!onlySections) {	// IF Not Only Sections
 			<%=style.getFrameHeaderEndDecoration() %>
 			<%=style.getFrameContentStartDecoration(frameId + "content", view.isFrameClosed(frameId))%>
 <%	
-				} // END MetaProperty With Frame 
+				} // END MetaProperty With Frame
+				else if (hasFrame) {
+%>
+			<%=closeDivForFrame(view)%>
+			<div class="ox-layout-hide-frame-in-section"> 
+<%				
+				}
 %> 
 			<jsp:include page="<%=urlEditor%>" />		
 <%
@@ -121,7 +127,13 @@ if (!onlySections) {	// IF Not Only Sections
 			<%=style.getFrameContentEndDecoration() %>
 			<%=openDivForFrame(view)%> 		
 <%
-				} // END IF MetaProperty With Frame		
+				} // END IF MetaProperty With Frame
+				else if (hasFrame) {
+%>
+			</div>
+			<%=openDivForFrame(view)%>
+<%				
+				}
 				first = false;
 			} // END IF Not Properties Separator
 			else { // IF Properties Separator

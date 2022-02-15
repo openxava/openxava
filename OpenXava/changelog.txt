@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: In charts choosing a property not already shown in the chart produces a "Editor not available" error. 
+- Fix: View inheritance doesn't include parent members with three levels depth if entering child module first.
+- Fix: Scrollbars not stylized according to theme (fixed for WebKit based browsers).
+- Fix: Unneeded horizontal scrollbar adding columns to a list.
+
 OpenXava 6.6.2 (2022-2-7)
 -------------------------
 - Some new common use labels to be used in applications.

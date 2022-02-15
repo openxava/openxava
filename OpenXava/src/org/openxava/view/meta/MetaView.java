@@ -318,7 +318,7 @@ public class MetaView extends MetaElement implements Cloneable {
 		Map<String, MetaGroup> extendsGroups = cloneMetaGroups(extendsView.metaGroups);
 		metaGroups = sum(extendsGroups, metaGroups);
 		
-		_membersNames = sum(extendsView._membersNames, _membersNames);
+		_membersNames = sum(extendsView.getMembersNames(), _membersNames); 
 	
 		if (extendsSections != null) {
 			for (MetaView section: extendsSections) {

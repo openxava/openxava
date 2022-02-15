@@ -1,21 +1,18 @@
 package org.openxava.web;
 
-import java.util.Date;
-import java.util.prefs.BackingStoreException;
+import java.util.*;
+import java.util.prefs.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.*;
 import org.openxava.controller.*;
-import org.openxava.model.meta.MetaProperty;
-import org.openxava.session.Chart;
+import org.openxava.model.meta.*;
+import org.openxava.session.*;
 import org.openxava.session.Chart.*;
-import org.openxava.session.ChartColumn;
-import org.openxava.tab.Tab;
-import org.openxava.util.Is;
-import org.openxava.util.XavaException;
-import org.openxava.view.View;
+import org.openxava.tab.*;
+import org.openxava.util.*;
+import org.openxava.view.*;
 
 /**
  * Charts helper.
@@ -105,7 +102,7 @@ public class Charts {
 	 * @param order String defining the order for the columns.
 	 * @param column Column to be added.
 	 */	
-	private static void addColumn(Tab tab, ChartColumn column) {
+	private static void addColumn(Tab tab, ChartColumn column) {	
 		if (!tab.containsProperty(column.getName())) {  
 			tab.addProperty(column.getName());			
 			tab.setLabel(column.getName(), column.getLabel());

@@ -1,7 +1,7 @@
 package org.openxava.actions;
 
-import org.openxava.session.ChartColumn;
-import org.openxava.util.Labels;
+import org.openxava.session.*;
+import org.openxava.web.*;
 
 
 /**
@@ -14,7 +14,7 @@ public class OnChangeChartColumnNameAction extends OnChangeChartColumnBaseAction
 	
 	public final static String SHOW_MORE="__MORE__"; 
 	public final static String SHOW_LESS="__LESS__"; 
-
+	
 	@Override
 	public void executeOnValidValues() throws Exception {
 		String propertyName = (String)getNewValue();
@@ -36,7 +36,15 @@ public class OnChangeChartColumnNameAction extends OnChangeChartColumnBaseAction
 				getChart().getColumns().add(column);
 			}
 			column.setName(propertyName);
+			updateView(); 
 		}
 	}
+	
+	private void updateView() throws Exception { 
+		if (getView() != null && getTab() != null) {
+			Charts.updateView(getRequest(), getView(), getTab(), getChart());
+		}
+	}
+
 	
 }

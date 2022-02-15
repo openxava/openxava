@@ -44,7 +44,10 @@ elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
 		var headerId = $( this ).attr("id");
 		var inputName = headerId.replace(new RegExp("__H", "g"), "__" + rowIndex);
 		if ($("[name='" + inputName + "']").val() === "" ) { 
-			$("[name='" + inputName + "']").val($( this ).attr("data-default-value"));
+			var input = $("[name='" + inputName + "']");
+			var defaultValue = $( this ).data("default-value");			
+			if (descriptionsEditor.is(input)) descriptionsEditor.val(input, defaultValue);
+			else input.val(defaultValue); 
 		} 		
 	});
 }

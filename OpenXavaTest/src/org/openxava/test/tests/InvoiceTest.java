@@ -2241,6 +2241,13 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertAction("CRUD.deleteSelected"); 
 		execute("Invoice.testChartTab");
 		assertMessage("xava_chartTab does not exist");		
+		
+		execute("ListFormat.select", "editor=Charts");
+		execute("Chart.selectType", "chartType=PIE");
+		setValueInCollection("columns", 0, "name", "total");
+		String html = getHtml(); 
+		assertFalse(html.contains("Editor not available"));
+		assertTrue(html.contains("ox_OpenXavaTest_Invoice__xava_chart__columnCount")); // Anything from Chart editor
 	}
 	
 	private void assertChartIcons() { 

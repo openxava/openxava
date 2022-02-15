@@ -1,10 +1,9 @@
 package org.openxava.actions;
 
-import javax.inject.Inject;
+import javax.inject.*;
 
-import org.openxava.session.Chart;
-import org.openxava.session.ChartColumn;
-import org.openxava.tab.Tab;
+import org.openxava.session.*;
+import org.openxava.tab.*;
 
 
 /**
@@ -49,5 +48,10 @@ public abstract class OnChangeChartColumnBaseAction extends OnChangeElementColle
 	}
 		
 	public abstract void executeOnValidValues() throws Exception;
+
+	/** @since 6.6.3 */
+	protected Tab getTab() throws Exception { 
+		return tab;
+	}
 	
 }
