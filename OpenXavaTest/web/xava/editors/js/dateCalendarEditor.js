@@ -4,6 +4,7 @@ openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.
 
 openxava.addEditorInitFunction(function() {
 	if (openxava.browser.htmlUnit) return;
+	/* tmr
 	$('.xava_date > input').change(function() { 
 		var dateFormat = $(this).parent().data("dateFormat");
   		var date = $(this).val();
@@ -42,6 +43,7 @@ openxava.addEditorInitFunction(function() {
   		}			
   		$(this).val(date);
 	});
+	*/
 	$('.flatpickr-calendar').remove();
 	$('.xava_date').flatpickr({
 	    allowInput: true,
@@ -49,8 +51,11 @@ openxava.addEditorInitFunction(function() {
 	    wrap: true,
 	    locale: openxava.language, 
 	    onChange: function(selectedDates, dateStr, instance) {
+	    	console.log("[dateCalendarEditor.js] dateStr=" + dateStr); // tmr
+	    	console.log("[dateCalendarEditor.js] $(instance.input).attr('value')=" + $(instance.input).attr('value')); // tmr
         	if (!$(instance.input).data("datePopupJustClosed") || dateStr === $(instance.input).attr('value')) {
         		$(instance.input).data("changedCancelled", true);
+        		console.log("[dateCalendarEditor.js] changedCancelled"); // tmr
         	}
         	$(instance.input).attr('value', dateStr);
         	$(instance.input).removeData("datePopupJustClosed");

@@ -238,6 +238,8 @@ openxava.listenChanges = function() {
 		  else {
 		  	$(this).removeData('changedCancelled');
 		  }
+		  // TMR ME QUEDÉ POR AQUÍ. PASA DOS VECES Y LA SEGUNDA MAL. PUEDE QUE SEA EL PROBLEMA.
+		  console.log("[openxava.listenChanges] openxava.dataChanged=" + openxava.dataChanged); // tmr
 	});
 }
 
@@ -744,6 +746,7 @@ openxava.setPageRowCount = function(application, module, collection, select) {
 }
 
 openxava.executeActionConfirmLosesChangedData = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) { 
+	console.log("[openxava.executeActionConfirmLosesChangedData] openxava.dataChanged=" + openxava.dataChanged); // tmr
 	if (openxava.dataChanged) {
 		if (!confirm(openxava.confirmLoseChangesMessage)) return;
 		openxava.dataChanged = false;

@@ -9,6 +9,7 @@ import javax.persistence.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 
+import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 
 
@@ -18,9 +19,62 @@ import com.gargoylesoftware.htmlunit.html.*;
 
 public class OrderTest extends ModuleTestBase {
 	
+	// tmr ini
+	private class MessageConfirmHandler implements ConfirmHandler { 
+		
+		private boolean confirm = true;
+		
+		private String message;
+		
+		public MessageConfirmHandler() {			
+		}
+		
+		public MessageConfirmHandler(boolean confirm) {
+			this.confirm = confirm;
+		}
+		
+		public boolean handleConfirm(Page page, String message) {
+			this.message = message; 
+			return confirm;
+		}
+		
+		public void assertNoMessage() {
+			assertEquals(null, message);
+			message = null;
+		}
+		
+		public void assertMessage() {
+			assertEquals("You will lose all changes made since your last save. Do you want to continue?", message);
+			message = null;
+		}
+
+	}
+	// tmr fin
+	
 	public OrderTest(String testName) {
 		super(testName, "Order");		
 	}
+	
+	public void testNotChangedDataMessageAfterNavigationOverflowWithFocusOnDate() throws Exception { // tmr  
+		MessageConfirmHandler confirmHandler = new MessageConfirmHandler();
+		getWebClient().setConfirmHandler(confirmHandler);
+		confirmHandler.assertNoMessage();
+		
+		// No changes
+		execute("List.viewDetail", "row=0");
+		execute("Navigation.previous");
+		assertMessage("We already are at the beginning of the list");
+		getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Order__date").focus();
+		execute("CRUD.new");
+		confirmHandler.assertNoMessage();
+		
+		assertValue("name", "Javi");
+		
+		execute("CRUD.new");
+		assertValue("name", "");
+		confirmHandler.assertNoMessage();		
+	}
+
 	
 	public void testGoodPerformanceWithCalculatedPropertiesInList_actionsNotLostAfterOpenDialogTwiceFromCollectionElement() throws Exception { 
 		long ini = System.currentTimeMillis(); 
