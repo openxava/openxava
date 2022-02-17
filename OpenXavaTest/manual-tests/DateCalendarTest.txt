@@ -7,6 +7,8 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Lose the focus of date, without change it, then go to list. No message shown.
 	- Use the dialog to select the current date, then go to list. No message shown.
 	- Use the dialog to select any date, then go to list. A message shown.
+	- Go first record, go previous record (a message "We already are at the beginning of the list" is shown).
+	- Focus on date. Go to list mode. No message shown.
 - @OnChange: Add an @OnChange(OnChangeVoidAction.class) action to a date property. Use Order.	
 	- Lose the focus of date, without change it. @OnChange action not executed.
 	- Go to list mode. No "Data changed" message shown.

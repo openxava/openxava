@@ -231,15 +231,14 @@ openxava.setEnterAsFocusKey = function() {
 
 openxava.listenChanges = function() { 
 	// WARNING: IF YOU CHANGE THIS PASS DateCalendarTest.txt
-	$("." + openxava.editorClass).change(function() {
+	$("." + openxava.editorClass).unbind("change.changedCancelled");
+	$("." + openxava.editorClass).bind("change.changedCancelled", function() {
 		  if (!$(this).data('changedCancelled')) {
 			openxava.dataChanged = true;			
 		  }
 		  else {
 		  	$(this).removeData('changedCancelled');
 		  }
-		  // TMR ME QUEDÉ POR AQUÍ. PASA DOS VECES Y LA SEGUNDA MAL. PUEDE QUE SEA EL PROBLEMA.
-		  console.log("[openxava.listenChanges] openxava.dataChanged=" + openxava.dataChanged); // tmr
 	});
 }
 
@@ -746,7 +745,6 @@ openxava.setPageRowCount = function(application, module, collection, select) {
 }
 
 openxava.executeActionConfirmLosesChangedData = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) { 
-	console.log("[openxava.executeActionConfirmLosesChangedData] openxava.dataChanged=" + openxava.dataChanged); // tmr
 	if (openxava.dataChanged) {
 		if (!confirm(openxava.confirmLoseChangesMessage)) return;
 		openxava.dataChanged = false;
