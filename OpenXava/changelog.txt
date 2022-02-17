@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Losing focus from a date gives "Changed data" message on exit after a "No more elements in list" error.
 - Lessons 5 and 6 of course include video.
 - Fix: In charts choosing a property not already shown in the chart produces a "Editor not available" error. 
 - Fix: View inheritance doesn't include parent members with three levels depth if entering child module first.
