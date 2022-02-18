@@ -246,8 +246,19 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 	<%		 
 	for (Iterator it = metaProperties.iterator(); it.hasNext();) {
 		MetaProperty p = (MetaProperty) it.next();
+		// tmr ini
+		String type = "java.lang.String";
+		if (p.isCompatibleWith(byte[].class)) {
+			type = "java.io.InputStream";
+			detailHeight = 32;
+		}
 	%>
-	<field name="<%=Strings.change(p.getQualifiedName(), ".", "_")%>" class="java.lang.String"/> 	
+	<%-- tmr	
+	<field name="<%=Strings.change(p.getQualifiedName(), ".", "_")%>" class="java.lang.String"/>
+	--%>
+	<%-- tmr ini --%>
+	<field name="<%=Strings.change(p.getQualifiedName(), ".", "_")%>" class="<%=type%>"/>
+	<%-- tmr fin --%> 	
 	<%
 	}
 	%>	
@@ -450,7 +461,19 @@ x = 0;
 i = 0;
 for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {			
 	MetaProperty p = (MetaProperty) it.next();	
-	int width=widths[i]*letterWidth + EXTRA_WIDTH; 
+	int width=widths[i]*letterWidth + EXTRA_WIDTH;
+	// tmr ini 
+	// TMR ME QUEDÉ POR AQUÍ: CREA QUE ESTÁ TODO. FALTA PROBARLO MÁS (MÁS FORMATOS). ¿PRUEBA JUNIT? ¿AÑADIR PRUEBA MANUAL? PASAR PRUEBAS MANUALES
+	if (p.isCompatibleWith(byte[].class)) { 
+%>	
+				<image onErrorType="Blank">
+    				<reportElement x="<%=x%>" y="2" width="<%=width%>" height="30"/>
+    				<imageExpression>$F{<%=Strings.change(p.getQualifiedName(), ".", "_")%>}</imageExpression>
+				</image>	
+<%
+	}
+	else {
+	// tmr fin
 %>								
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" >
 					<reportElement
@@ -472,6 +495,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 					<textFieldExpression class="java.lang.String">$F{<%=Strings.change(p.getQualifiedName(), ".", "_")%>}</textFieldExpression>
 				</textField>
 <%
+	} // tmr
 	x+=(width+columnsSeparation);
 }
 %>				
