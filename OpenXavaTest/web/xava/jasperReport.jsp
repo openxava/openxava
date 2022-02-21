@@ -151,7 +151,7 @@ int [] widths = parseWidths(request.getParameter("widths"), columnCountLimit);
 int totalWidth = adjustWithsToLabels(metaProperties, widths, locale); 
 int letterWidth;
 int letterSize;
-int detailHeight;
+int lineHeight; 
 int pageWidth;
 int pageHeight;
 int columnWidth;
@@ -163,7 +163,7 @@ if (totalWidth > WIDE_CHARACTERS_PER_ROW) {
 	orientation="Landscape";
 	letterWidth = 4;
 	letterSize = 7;
-	detailHeight = 8; 
+	lineHeight = 8; 
 	pageWidth=842;
 	pageHeight=595;
 	columnWidth=780;	
@@ -173,7 +173,7 @@ else if (totalWidth > MEDIUM_CHARACTERS_PER_ROW) {
 	orientation="Landscape";
 	letterWidth = 5;  
 	letterSize=8;
-	detailHeight = 10;
+	lineHeight = 10;
 	pageWidth=842;
 	pageHeight=595;
 	columnWidth=780;	
@@ -183,7 +183,7 @@ else if (totalWidth > NARROW_CHARACTERS_PER_ROW) {
 	orientation="Portrait";
 	letterWidth = 5; 
 	letterSize=8;
-	detailHeight = 10;
+	lineHeight = 10;
 	pageWidth=595;
 	pageHeight=842;
 	columnWidth=535;
@@ -193,7 +193,7 @@ else {
 	orientation="Portrait";
 	letterWidth = 10;
 	letterSize = 12;
-	detailHeight = 15;
+	lineHeight = 15;
 	pageWidth=595;
 	pageHeight=842;
 	columnWidth=535;
@@ -244,21 +244,16 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 	%>	
 		
 	<%		 
+	int detailHeight = lineHeight; 
 	for (Iterator it = metaProperties.iterator(); it.hasNext();) {
 		MetaProperty p = (MetaProperty) it.next();
-		// tmr ini
 		String type = "java.lang.String";
 		if (p.isCompatibleWith(byte[].class)) {
-			type = "java.io.InputStream";
+			type = "java.io.InputStream"; 
 			detailHeight = 32;
 		}
 	%>
-	<%-- tmr	
-	<field name="<%=Strings.change(p.getQualifiedName(), ".", "_")%>" class="java.lang.String"/>
-	--%>
-	<%-- tmr ini --%>
 	<field name="<%=Strings.change(p.getQualifiedName(), ".", "_")%>" class="<%=type%>"/>
-	<%-- tmr fin --%> 	
 	<%
 	}
 	%>	
@@ -352,7 +347,7 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 			</band>
 		</pageHeader>
 		<% 
-		int headerHeight = rowsInHeader * detailHeight + 8; 
+		int headerHeight = rowsInHeader * lineHeight + 8; 
 		%>
 		<columnHeader>
 			<band height="<%=headerHeight%>" isSplitAllowed="true" >
@@ -462,8 +457,6 @@ i = 0;
 for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {			
 	MetaProperty p = (MetaProperty) it.next();	
 	int width=widths[i]*letterWidth + EXTRA_WIDTH;
-	// tmr ini 
-	// TMR ME QUEDÉ POR AQUÍ: CREA QUE ESTÁ TODO. FALTA PROBARLO MÁS (MÁS FORMATOS). ¿PRUEBA JUNIT? ¿AÑADIR PRUEBA MANUAL? PASAR PRUEBAS MANUALES
 	if (p.isCompatibleWith(byte[].class)) { 
 %>	
 				<image onErrorType="Blank">
@@ -473,7 +466,6 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 <%
 	}
 	else {
-	// tmr fin
 %>								
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" >
 					<reportElement
@@ -495,7 +487,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 					<textFieldExpression class="java.lang.String">$F{<%=Strings.change(p.getQualifiedName(), ".", "_")%>}</textFieldExpression>
 				</textField>
 <%
-	} // tmr
+	} 
 	x+=(width+columnsSeparation);
 }
 %>				
@@ -612,7 +604,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						x="<%=x%>"
 						y="2"
 						width="<%=width%>"
-						height="<%=detailHeight%>"
+						height="<%=lineHeight%>"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						positionType="FixRelativeToTop"

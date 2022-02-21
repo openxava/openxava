@@ -7,17 +7,18 @@ at least the next cases:
 		All collection properties must be shown and the most right column inside the margin.
 - Carrier: 		
 		Generate PDF: Correct height for header (1 line).
-		My reports with long label for name: The label fill all the space, only 1 line for header.
-		My reports with long label for name moving name to second position: 
+		Long label (40 characters) for name: The label fill all the space, only 1 line for header.
+		Long label (40 characters) for name moving name to second position: 
 			The label fill all the space, only 1 line for header and all the properties are shown.
 - Customer:		
 		Generate PDF: Correct height for header (1 line) and the most right column inside the margin.
 		My reports with a label long enough to produce a 3 lines header:
 			Correct height for header (3 lines) and the most right column inside the margin.
+		Add photo, Generate PDF: Photo in report. Header to fit header text, not greater. 	
 - Invoice:
 		Generate PDF in English: Most right column inside the margin.
 - Warehouse:
-		My reports with name long enough to produce a 2 lines header: Correct height for header (2 line)
+		Name long enough to produce a 2 lines header: Correct height for header (2 line)
 - Delivery: 		  			
 		Generate PDF: Correct height for header (2 lines) and the most right column inside the margin.
 		My reports shortening the labels to fit in 1 line header:	

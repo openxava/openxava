@@ -127,7 +127,7 @@ public class GenerateReportServlet extends HttpServlet {
 		private Object getValueWithWebEditorsFormat(int row, int column){
 			Object r = original.getValueAt(row, column);
 			MetaProperty metaProperty = getMetaProperty(column);
-			if (metaProperty.isCompatibleWith(byte[].class)) return r==null?null:new ByteArrayInputStream((byte [])r); // tmr
+			if (metaProperty.isCompatibleWith(byte[].class)) return r==null?null:new ByteArrayInputStream((byte [])r); 
 			String result = WebEditors.format(this.request, metaProperty, r, null, "", true);
 			if (isHtml(result)){	// this avoids that the report shows html content
 				result = WebEditors.format(this.request, metaProperty, r, null, "", false);
