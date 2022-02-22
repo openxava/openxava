@@ -805,7 +805,7 @@ public class ModuleManager implements java.io.Serializable {
 		} else if (ex instanceof javax.validation.ConstraintViolationException) {
 			manageConstraintViolationException(metaAction, errors, messages,
 					(javax.validation.ConstraintViolationException) ex);
-		} else if (ex instanceof RollbackException) {			
+		} else if (ex instanceof RollbackException) {
 			if (!errors.contains()) { 
 				if (ex.getCause() instanceof javax.validation.ConstraintViolationException) {
 					manageConstraintViolationException(metaAction, errors, messages,
@@ -861,7 +861,17 @@ public class ModuleManager implements java.io.Serializable {
 			String attrName = violation.getPropertyPath() == null ? null
 					: violation.getPropertyPath().toString();
 			String domainClass = violation.getRootBeanClass().getSimpleName();
-			String message = violation.getMessage();			
+			String message = violation.getMessage();	
+			// tmr ini
+			// TMR ME QUEDÉ POR AQUÍ: LEER DIRECTAMENTE DEL ARCHIVO DE MENSAJES FUNCIONA. REFINARLO
+			System.out.println("[ModuleManager.manageConstraintViolationException] message=" + message); // tmp
+			System.out.println("[ModuleManager.manageConstraintViolationException] violation.getMessageTemplate()=" + violation.getMessageTemplate()); // tmp
+			ResourceBundle rb = ResourceBundle.getBundle("org.hibernate.validator.ValidationMessages", Locales.getCurrent());
+			String key = violation.getMessageTemplate().replace("{", "").replace("}", "");
+			System.out.println("[ModuleManager.manageConstraintViolationException] key=" + key); // tmp
+			String translated = rb.getString(key);
+			System.out.println("[ModuleManager.manageConstraintViolationException] translated=" + translated); // tmp
+			// tmr fin
 			if (message.startsWith("{") && message.endsWith("}")) {
 				message = message.substring(1, message.length() - 1);
 			}
@@ -880,6 +890,8 @@ public class ModuleManager implements java.io.Serializable {
 			if (Is.emptyString(attrName) || domainClass == null	|| invalidValue == null) {
 				errors.add(message);
 			} else {
+				System.out.println("[ModuleManager.manageConstraintViolationException] message=" + message); // tmp
+				System.out.println("[ModuleManager.manageConstraintViolationException] XavaResources.getString(message)=" + XavaResources.getString(message)); // tmp
 				errors.add("invalid_state", attrName, domainClass, "'" +
 						   XavaResources.getString(message) + "'", invalidValue);
 			}
