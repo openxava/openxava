@@ -10,6 +10,7 @@ import javax.inject.*;
 import javax.persistence.*;
 import javax.servlet.http.*;
 import javax.validation.*;
+import javax.validation.metadata.*;
 
 import org.apache.commons.collections.*;
 import org.apache.commons.fileupload.*;
@@ -861,20 +862,8 @@ public class ModuleManager implements java.io.Serializable {
 			String attrName = violation.getPropertyPath() == null ? null
 					: violation.getPropertyPath().toString();
 			String domainClass = violation.getRootBeanClass().getSimpleName();
-			String message = violation.getMessage();	
-			// tmr ini
-			// TMR ME QUEDÉ POR AQUÍ: LEER DIRECTAMENTE DEL ARCHIVO DE MENSAJES FUNCIONA. REFINARLO
-			System.out.println("[ModuleManager.manageConstraintViolationException] message=" + message); // tmp
-			System.out.println("[ModuleManager.manageConstraintViolationException] violation.getMessageTemplate()=" + violation.getMessageTemplate()); // tmp
-			ResourceBundle rb = ResourceBundle.getBundle("org.hibernate.validator.ValidationMessages", Locales.getCurrent());
-			String key = violation.getMessageTemplate().replace("{", "").replace("}", "");
-			System.out.println("[ModuleManager.manageConstraintViolationException] key=" + key); // tmp
-			String translated = rb.getString(key);
-			System.out.println("[ModuleManager.manageConstraintViolationException] translated=" + translated); // tmp
-			// tmr fin
-			if (message.startsWith("{") && message.endsWith("}")) {
-				message = message.substring(1, message.length() - 1);
-			}
+			String message = getMessage(violation);
+			message = removeBraces(message); 
 			javax.validation.metadata.ConstraintDescriptor<?> descriptor = violation
 					.getConstraintDescriptor();
 			java.lang.annotation.Annotation annotation = descriptor
@@ -890,13 +879,38 @@ public class ModuleManager implements java.io.Serializable {
 			if (Is.emptyString(attrName) || domainClass == null	|| invalidValue == null) {
 				errors.add(message);
 			} else {
-				System.out.println("[ModuleManager.manageConstraintViolationException] message=" + message); // tmp
-				System.out.println("[ModuleManager.manageConstraintViolationException] XavaResources.getString(message)=" + XavaResources.getString(message)); // tmp
 				errors.add("invalid_state", attrName, domainClass, "'" +
 						   XavaResources.getString(message) + "'", invalidValue);
 			}
 		}
 		messages.removeAll();
+	}
+
+	private String removeBraces(String string) { 
+		if (string.startsWith("{") && string.endsWith("}")) {
+			string = string.substring(1, string.length() - 1);
+		}
+		return string;
+	}
+
+	private String getMessage(ConstraintViolation<?> violation) { 
+		String messageTemplate = violation.getMessageTemplate();
+		if (violation.getMessage().equals(messageTemplate)) return messageTemplate;
+		try {
+			ResourceBundle rb = ResourceBundle.getBundle("org.hibernate.validator.ValidationMessages", Locales.getCurrent());
+			String key = removeBraces(messageTemplate);
+			String translated = rb.getString(key);
+			ConstraintDescriptor<?> descriptor = violation.getConstraintDescriptor();
+			Map<String, Object> attributes = descriptor.getAttributes();
+			for (String attributeKey: attributes.keySet()) {
+				if (Is.anyEqual(attributeKey, "groups", "message", "payload")) continue;
+				translated = translated.replace("{" + attributeKey + "}", Strings.toString(attributes.get(attributeKey)));
+			}
+			return translated;
+		}
+		catch (MissingResourceException ex) {
+			return violation.getMessage();
+		}
 	}
 
 	private void manageRegularException(MetaAction metaAction, Messages errors,

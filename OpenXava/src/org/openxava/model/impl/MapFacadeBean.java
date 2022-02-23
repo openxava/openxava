@@ -238,29 +238,22 @@ public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
 		MetaModel metaModel = getMetaModel(modelName); 
 		try {
 			beginTransaction(metaModel); 
-			System.out.println("[MapFacadeBean.setValues] > "); // tmp
-			setValues(metaModel, keyValues, values, true, tracking, true);
-			System.out.println("[MapFacadeBean.setValues] < "); // tmp
+			setValues(metaModel, keyValues, values, true, tracking, true); 
 			commitTransaction(metaModel); 
-			System.out.println("[MapFacadeBean.setValues] Commit"); // tmp
 		}
 		catch (FinderException ex) {
-			System.out.println("[MapFacadeBean.setValues] FinderException"); // tmp
 			freeTransaction(); 
 			throw ex;
 		}
 		catch (ValidationException ex) {
-			System.out.println("[MapFacadeBean.setValues] ValidationException"); // tmp
 			freeTransaction(); 
 			throw ex;
 		}
 		catch (RuntimeException ex) { 
-			System.out.println("[MapFacadeBean.setValues] RuntimeException"); // tmp
 			rollback(metaModel); 
 			throw ex;
 		}
 		catch (Exception ex) {
-			System.out.println("[MapFacadeBean.setValues] Exception"); // tmp
 			log.error(ex.getMessage(), ex);
 			rollback(metaModel); 
 			throw new RemoteException(ex.getMessage());
