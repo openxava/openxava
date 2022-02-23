@@ -109,11 +109,11 @@ public class TrainingTest extends ModuleTestBase {
 		setValueInCollection("sessions", 2, "description", "THE LAST SESSION"); 
 		setValueInCollection("sessions", 2, "kms", "1");
 		execute("CRUD.save");
-		assertError("1 is not a valid value for Kms of Training session: tiene que ser mayor o igual que 2");  
+		assertError("1 is not a valid value for Kms of Training session: must be greater than or equal to 2");  
 
 		setValueInCollection("sessions", 2, "kms", "51");
 		execute("CRUD.save");
-		assertError("51 is not a valid value for Kms of Training session: tiene que ser menor o igual que 50"); 		
+		assertError("51 is not a valid value for Kms of Training session: must be less than or equal to 50"); 		
 		
 		setValueInCollection("sessions", 2, "kms", "3");
 		setValueInCollection("sessions", 3, "description", "THE LAST SESSION"); 
@@ -128,7 +128,7 @@ public class TrainingTest extends ModuleTestBase {
 	
 	public void testRemoveRowInElementCollection() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true); 
-		setValue("description", "JUNIT TRAINING");
+		setValue("description", "JUNIT TRAINING"); 
 		HtmlElement row = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Training__sessions___0"); 
 		HtmlElement removeLink = row.getElementsByTagName("a").get(0);
 		assertTrue(!removeLink.isDisplayed());

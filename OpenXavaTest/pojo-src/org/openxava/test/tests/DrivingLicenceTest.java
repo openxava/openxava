@@ -20,7 +20,7 @@ public class DrivingLicenceTest extends ModuleTestBase {
 		setValue("level", "3"); // This breaks @Max(2) Bean Validation
 		setValue("description", "JUNIT TEST");
 		execute("CRUD.save");
-		assertError("3 is not a valid value for Level of Driving licence: tiene que ser menor o igual que 2"); 
+		assertError("3 is not a valid value for Level of Driving licence: must be less than or equal to 2"); 
 	}
 	
 	public void testEmptyPDFReport() throws Exception {

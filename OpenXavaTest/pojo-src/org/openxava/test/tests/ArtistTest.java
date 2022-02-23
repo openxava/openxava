@@ -35,8 +35,8 @@ public class ArtistTest extends ModuleTestBase {
 		
 		// Bean Validation JSR 303
 		setValue("age", "99");		
-		execute("CRUD.save");		
-		assertError("99 is not a valid value for Age of Artist: tiene que ser menor o igual que 90"); 
+		execute("CRUD.save");		 
+		assertError("99 is not a valid value for Age of Artist: must be less than or equal to 90"); 
 
 		assertErrorStyle(); 
 		

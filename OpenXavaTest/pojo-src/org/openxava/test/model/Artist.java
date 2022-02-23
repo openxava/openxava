@@ -28,7 +28,7 @@ public class Artist extends Identifiable {
 	@Colorful(color = "green") 
 	private String name;
 	
-	@Max(90l)	
+	@Max(90l)
 	@ReadOnly(forViews="SomeMembersReadOnly")
 	private Integer age;
 	
