@@ -298,7 +298,9 @@ public class AnnotatedClassParser implements IComponentParser {
 	}
 	
 	private Class getGenericClass(Class finalClass, PropertyDescriptor pd) {
-		java.lang.reflect.Type type  = ((ParameterizedType) pd.getReadMethod().getGenericReturnType()).getActualTypeArguments()[0];
+		java.lang.reflect.Type genericType = pd.getReadMethod().getGenericReturnType();
+		java.lang.reflect.Type type  = genericType instanceof ParameterizedType?
+			((ParameterizedType) genericType).getActualTypeArguments()[0]:genericType;
 		if (type instanceof Class) return (Class) type;		
 		if (!(finalClass.getGenericSuperclass() instanceof ParameterizedType)) return null;
 		ParameterizedType superClassType = (ParameterizedType) finalClass.getGenericSuperclass();
@@ -365,7 +367,12 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 		MetaReference ref = new MetaReference();
 		ref.setName(pd.getName());
-		ref.setReferencedModelName(pd.getPropertyType().getSimpleName());
+    	if (Modifier.isAbstract(pd.getPropertyType().getModifiers())) {
+        	Class referencedModelClass = getGenericClass(model.getPOJOClass(), pd); 
+            if (referencedModelClass != null) ref.setReferencedModelName(referencedModelClass.getSimpleName());
+            else ref.setReferencedModelName(pd.getPropertyType().getSimpleName());
+        } 
+    	else ref.setReferencedModelName(pd.getPropertyType().getSimpleName());
 		ref.setAggregate(aggregate);
 		model.addMetaReference(ref);
 		processAnnotations(ref, pd.getReadMethod());
