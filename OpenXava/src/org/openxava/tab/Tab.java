@@ -1629,11 +1629,13 @@ public class Tab implements java.io.Serializable, Cloneable {
 		condition = null;
 		if (Is.emptyString(groupBy)) resetGroupByPropertiesAndCondition();		
 		else setGroupByProperties();
+		reset(); 
 	}
 
 	private void resetGroupByPropertiesAndCondition() {
 		applyConfiguration(); // Thus, we restore properties and condition 
-		metaPropertiesBeforeGrouping = null;		
+		metaPropertiesBeforeGrouping = null;
+		
 	}
 
 	private void setGroupByProperties() {

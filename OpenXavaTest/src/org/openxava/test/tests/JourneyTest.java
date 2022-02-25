@@ -19,7 +19,7 @@ public class JourneyTest extends ModuleTestBase {
 		super(testName, "Journey");		
 	}	
 	
-	public void testCardsPaging() throws Exception { 
+	public void testCardsPaging_groupByEnteringInCardsFormat() throws Exception {  
 		execute("ListFormat.select", "editor=Cards");
 		assertCardsPaging241(); 
 		deleteJorney(241);
@@ -27,6 +27,11 @@ public class JourneyTest extends ModuleTestBase {
 		assertCardsPaging240(); 
 		createJorney(241);
 		execute("ListFormat.select", "editor=List");
+		
+		execute("ListFormat.select", "editor=Cards");
+		resetModule();
+		selectGroupBy("Group by name");
+		assertListRowCount(120); // To verify that the cards are displayed
 	}
 	
 	public void testPage25InList() throws Exception {

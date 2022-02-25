@@ -332,7 +332,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertValuesInList(0, "2004",  "4,396.00", "1");
 		
 		selectGroupBy("No grouping");
-		assertListRowCount(5); // The 'Javis'
+		assertListRowCount(5); // The 'Javis' 
 		assertListColumnCount(7);
 	}
 
