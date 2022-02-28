@@ -1002,7 +1002,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 						else if (RANGE_COMPARATOR.equals(this.conditionComparators[i])){							
 							valuesToWhere.add(v);
 							String valueTo = convertStringArgument(this.conditionValuesTo[i].toString());
-							Object vTo = p.parse(valueTo.toString(), getLocale());
+							Object vTo = WebEditors.parse(getRequest(), p, valueTo, errors, null); 
 							valuesToWhere.add(vTo);
 							comparatorsToWhere.add(this.conditionComparators[i]);
 							comparatorsToWhere.add(this.conditionComparators[i]);

@@ -31,6 +31,14 @@ public class ShipmentTest extends ModuleTestBase {
 		assertListRowCount(1);
 		assertValueInList(0, "description", "CINC");	
 		assertValueInList(0, "time", "25.12.2006 11:33"); 
+		
+		setConditionComparators("=", "contains_comparator", "range_comparator");
+		setConditionValues("", "", "25.12.2006 11:31");
+		setConditionValuesTo("", "", "25.12.2006 11:35");
+		execute("List.filter");
+		assertListRowCount(1);
+		assertValueInList(0, "description", "CINC");	
+		assertValueInList(0, "time", "25.12.2006 11:33");
 	}
 	
 	public void assertDateTimeCombinedFormat(String separator) throws Exception { 
