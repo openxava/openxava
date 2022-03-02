@@ -498,11 +498,16 @@ public class Module extends DWRBase {
 		else {
 			String memberWithoutModel = Strings.noFirstTokenWithoutFirstDelim(member, ".");
 			if (view.getMetaModel().containsMetaReference(memberWithoutModel)) {
-				View subview = view.getSubview(memberWithoutModel);
-				for (MetaProperty p: subview.getMetaProperties()) {
-					if (subview.isEditable(p)) {
-						editors.add("editor_" + memberWithoutModel + "___" + p.getName());
+				try { 
+					View subview = view.getSubview(memberWithoutModel);
+					for (MetaProperty p: subview.getMetaProperties()) {
+						if (subview.isEditable(p)) {
+							editors.add("editor_" + memberWithoutModel + "___" + p.getName());
+						}
 					}
+				}
+				catch (ElementNotFoundException ex) {
+					// Could be an error over a member not displayed in this view
 				}
 			}
 		}

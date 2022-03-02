@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Subview not found error adding an element to a collection of entities in some circumstances.
 - Fix: Filtering in list mode dates and timestamps by range in Croatian does not work.
 - Fix: Grouping after entering in a module that is already in cards format breaks the module.  
 - Fix: Creating a new element in a collection fails when using inheritance with generic types. 
