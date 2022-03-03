@@ -177,6 +177,22 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertAction("Author.addSuffix");
 		execute("Author.hideAddSuffix");
 		assertNoAction("Author.addSuffix");
+		
+		
+		// tmr ini
+		// tmr Cambiar nombre método
+		// TMR ME QUEDÉ POR AQUÍ. INTENTANDO HACER LA PRUEBA UNITARIA. A MANO VA, PERO LA PRUEBA NO, NO GRABA LA BIOGRAFIA.
+		assertValue("biography", "");
+		setValue("biography", "aaaa \" bbbb > cccc");
+		execute("CRUD.save");
+		execute("MyGoListMode.list");
+		assertValueInList(0, "biography", "aaaa \" bbbb > cccc");
+		execute("List.viewDetail", "row=0");
+		setValue("biography", "");
+		execute("CRUD.save");
+		assertNoErrors();
+		// tmr fin
+
 	}
 	
 	public void testOverwritingDefaultSearch_overwritingGoListAction() throws Exception { 
