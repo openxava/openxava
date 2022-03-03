@@ -640,6 +640,11 @@
 		<action name="goCustomer" class="org.openxava.actions.ChangeModuleAction">
 			<set property="nextModule" value="CustomerInvoices"/>
 		</action>			
+	</controller>
+	
+	<controller name="GoCustomerInvoicesStartingWithDialog">
+		<action name="showDialog" on-init="true"
+			class="org.openxava.test.actions.ShowGoCustomerInvoicesDialogAction"/>
 	</controller>	
 		
 	<controller name="GoToSellerJSP">

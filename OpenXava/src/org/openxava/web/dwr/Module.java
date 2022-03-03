@@ -363,6 +363,7 @@ public class Module extends DWRBase {
 		if (firstRequest && manager.getDialogLevel() > 0) {
 			result.setShowDialog(true);			
 			restoreDialogTitle(result); 
+			if (result.getDialogTitle() == null) setDialogTitle(result);  
 		}		
 		else if (manager.isShowDialog()) {
 			result.setShowDialog(manager.isShowDialog());						

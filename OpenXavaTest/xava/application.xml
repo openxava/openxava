@@ -186,7 +186,7 @@
 		<view name="Intermediate"/>
 		<controller name="GoCustomerInvoices"/>
 		<mode-controller name="Void"/>
-	</module>		<module name="BeforeGoingToCustomer">		<model name="Customer"/>		<view name="Intermediate"/>		<controller name="ChangeModule"/>		<mode-controller name="Void"/>	</module>	
+	</module>		<module name="GoCustomerInvoicesStartingWithDialog">		<model name="Customer"/>		<view name="Intermediate"/>		<controller name="GoCustomerInvoicesStartingWithDialog"/>		<mode-controller name="Void"/>	</module>		<module name="BeforeGoingToCustomer">		<model name="Customer"/>		<view name="Intermediate"/>		<controller name="ChangeModule"/>		<mode-controller name="Void"/>	</module>	
 		<module name="BeforeGoingToFormula">		<model name="Formula"/>		<view name="Simple"/>		<controller name="ChangeModule"/>		<mode-controller name="Void"/>	</module>		<module name="GoToSellerJSP">		<model name="Seller"/>				<controller name="GoToSellerJSP"/>		<mode-controller name="DetailOnly"/>	</module>		
 	<module name="ChangeActiveYear">
 		<model name="Year"/>
