@@ -182,6 +182,8 @@ public class AuthorTest extends CustomizeListTestBase {
 		// tmr ini
 		// tmr Cambiar nombre método
 		// TMR ME QUEDÉ POR AQUÍ. INTENTANDO HACER LA PRUEBA UNITARIA. A MANO VA, PERO LA PRUEBA NO, NO GRABA LA BIOGRAFIA.
+		// TMR DADO QUE EL PROBLEMA ESTÁ EN LA LISTA (CREO), PUEDE QUE NO HAGA FALTA GRABAR, PODEMOS TENER UN VALOR FIJO.
+		// TMR PUEDO PROBAR SI CON UN VALOR EN BIOGRAFIA PASAN TODAS LAS PRUEBAS DE AUTHOR
 		assertValue("biography", "");
 		setValue("biography", "aaaa \" bbbb > cccc");
 		execute("CRUD.save");
