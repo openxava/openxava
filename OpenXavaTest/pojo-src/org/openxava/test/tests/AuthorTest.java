@@ -130,7 +130,10 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertListRowCount(2);
 	}
 	
-	public void testMoveColumn_placeholder() throws Exception { 
+	public void testHTMLCharsInList_moveColumn_placeholder() throws Exception {
+		// HTML characters in list
+		assertValueInList(0, "biography", "aaaa \" bbbb > cccc");
+
 		// To test a specific bug moving columns
 		assertLabelInList(0, "Author");
 		assertLabelInList(1, "Biography");
@@ -140,7 +143,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		resetModule();
 		assertLabelInList(0, "Biography");
 		assertLabelInList(1, "Author");
-
+		
 		// Placeholder
 		execute("CRUD.new");
 		String inputPlaceholder = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__author").getAttribute("placeholder");
@@ -177,24 +180,6 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertAction("Author.addSuffix");
 		execute("Author.hideAddSuffix");
 		assertNoAction("Author.addSuffix");
-		
-		
-		// tmr ini
-		// tmr Cambiar nombre método
-		// TMR ME QUEDÉ POR AQUÍ. INTENTANDO HACER LA PRUEBA UNITARIA. A MANO VA, PERO LA PRUEBA NO, NO GRABA LA BIOGRAFIA.
-		// TMR DADO QUE EL PROBLEMA ESTÁ EN LA LISTA (CREO), PUEDE QUE NO HAGA FALTA GRABAR, PODEMOS TENER UN VALOR FIJO.
-		// TMR PUEDO PROBAR SI CON UN VALOR EN BIOGRAFIA PASAN TODAS LAS PRUEBAS DE AUTHOR
-		assertValue("biography", "");
-		setValue("biography", "aaaa \" bbbb > cccc");
-		execute("CRUD.save");
-		execute("MyGoListMode.list");
-		assertValueInList(0, "biography", "aaaa \" bbbb > cccc");
-		execute("List.viewDetail", "row=0");
-		setValue("biography", "");
-		execute("CRUD.save");
-		assertNoErrors();
-		// tmr fin
-
 	}
 	
 	public void testOverwritingDefaultSearch_overwritingGoListAction() throws Exception { 

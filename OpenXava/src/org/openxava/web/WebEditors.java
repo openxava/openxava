@@ -125,14 +125,15 @@ public class WebEditors {
 		if (result != null && hasMarkup(result)) {
 			return p.getLabel(); 
 		}
-		return result; 		
+		return result instanceof String?
+			((String) result).replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;"):result;
 	}
 
 	private static boolean hasMarkup(Object result) { 
 		return result.toString().contains("<") && result.toString().contains(">");
 	}
 
-	public static Object formatToStringOrArrayImpl(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException {  
+	private static Object formatToStringOrArrayImpl(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException {  
 		try {
 			MetaEditor ed = getMetaEditorFor(p, viewName);
 			if (fromList && !Is.empty(ed.getListFormatterClassName())){
