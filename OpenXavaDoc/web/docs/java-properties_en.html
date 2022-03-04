@@ -1,0 +1,257 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lesson 9: Basic business logic - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 5: Basic business logic"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 9: Basic business logic </h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
+        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
+        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
+        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
+        Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
+        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
+        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
+        View inheritance</a> | <strong>9. Java Properties</strong> | <a class="wiki_link"
+        href="java-properties_en.html">10. Total properties with Calculation</a>
+      | <a class="wiki_link" href="total-properties-with-calculation_en.html">11.
+        JPA retrocalling methods</a> | <a class="wiki_link" href="jpa-retrocalling-methods_en.html">12.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">13.
+        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
+        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
+        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
+        Automated testing</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#Lesson%205:%20Basic%20business%20logic">Lesson
+            9: Java properties<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Properties%20in%20Java">Persistent
+            Properties</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties">Calculated
+            properties</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Simple%20calculated%20property">Simple
+            calculated property</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Using%20@DefaultValueCalculator">Using
+            @DefaultValueCalculator</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Summary">Summary</a></div>
+      </div>
+    </div>
+    <div class="wiki" style="display: block;">You have made your domain model to
+      run a web application. This application is already a useful one, but still
+      there are a lot of refinements that can be made to it. Let's do what's
+      necessary to convert your application into a better application and, in
+      this way you shall learn some new interesting things about OpenXava.<br>
+      We'll start adding business logic to your entities in order to convert
+      your application into something more than a simple database manager.<br>
+      <h2><a name="Lesson 5: Basic business logic-Properties in Java"></a>Persistent
+        Properties</h2>
+      In order to understand some concepts well in this lesson you have to know
+      how properties work in Java. The standard way to define a property in Java
+      is:
+      <pre><code class="java">// Property
+      
+private int quantity; // Has a field
+
+public int getQuantity() { // A getter to return the field value
+    return quantity;
+}
+
+public void setQuantity(int quantity) { // Changes the field value
+    this.quantity = quantity;
+}
+</code></pre>This is based on the idea that you never should access the state
+      (the fields) of an object directly, but always calling methods. This is
+      very useful because you can change the implementation of a property
+      without affecting the code that uses it. Moreover, all tools, frameworks
+      and libraries from the Java ecosystem rely on this convention (part of
+      JavaBeans specification). Therefore, we should use this convention always.
+      A property in Java is a getter method (<i>getQuantity()</i> for example)
+      and a setter method (<i>setQuantity(int quantity)</i>) if the property is
+      modifiable. In fact, the field (<i>private int quantity</i> in this case)
+      is not needed.</div>
+    <div class="wiki" style="display: block;">The problem of this approach is
+      that it is very verbose, a lot of the code of our classes are getters and
+      setters that really do not add value and make a lot of noise. To solve
+      this problem we use a library called Lombok. With Lombok you can define
+      the above <i>quantity</i> property in this way:
+      <pre><code class="java">@Getter @Setter // It generates a getter and a setter method
+int quantity; 
+</code></pre><i>@Getter</i> and <i>@Setter</i> generate the getter and the
+      setter in the compiled code, so when you access the property you have to
+      use them, thus:
+      <pre><code class="java">int q = theObject.getQuantity(); // Never int q = theObject.quantity 
+theObject.setQuantity(q + 10); // Never theObject.quantity = q + 10;      
+</code></pre>You can declare <i>@Getter</i> and <i>@Setter</i> at class level
+      so all the fields have getter and setter automatically. And of course, you
+      can write your own setter and getter if you want to use your own logic:
+      <pre><code class="java">// @Data // NEVER USE @Data
+@Getter @Setter
+public class Issue {
+
+    int number;
+    String description;
+	
+    public String getDescription() { // Your own getter overwrites the generated one by Lombok
+        if (description == null) return "No description yet";
+        return description;
+    }
+
+}
+</code></pre> In this case Lombok generates for you <i>getNumber(), setNumber()</i>
+      and <i>setDescription()</i> while <i>getDescription()</i> is the one
+      written by you. Note as you never should use the <i>@Data</i> annotation
+      of Lombok, given that it produces infinite recursive loops when you have
+      reciprocal references, something very usual in business applications.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1"><a name="Lesson 5: Basic business logic-Calculated properties"></a>Calculated
+        properties</h2>
+      Perhaps the most simple business logic you can add to your application is
+      a calculated property. The properties you have used until now are
+      persistent, i.e., each property is stored in a column in a table in the
+      database. A calculated property is a property that does not store its
+      value in the database but it's calculated any time the property is
+      accessed. See the difference between a persistent and a calculated
+      property.<br>
+      <pre><code class="java">// Persistent property
+@Getter @Setter // Has getter and setter
+int quantity; // Has a field, so it's persistent
+ 
+// Calculated property
+public int getAmount() { // It has no field and no setter, only a getter
+    return quantity * price; // with a calculation
+}
+</code></pre> Calculated properties are automatically recognized by OpenXava.
+      You can use them in views, tabular lists or any other part of your code.<br>
+      We are going to use calculated properties to add the money element to our
+      <i> Invoicing</i> application. Because, we have details, products,
+      quantities. But what about amounts?<br>
+      <h3 id="toc2"><a name="Lesson 5: Basic business logic-Calculated properties-Simple calculated property"></a>Simple
+        calculated property</h3>
+      The first step will be to add an <em>amount</em> property to the <em>Detail</em>.
+      We want the detail amount to be recalculated and shown to the user when
+      the user chooses a product and type in the quantity:<br>
+      <img src="files/business-logic_en010.png" alt="business-logic_en010.png" title="business-logic_en010.png"><br>
+      Adding this feature to your current code is practically adding a
+      calculated property to <em>Detail</em>. Just add the next code to the <em>Detail</em>
+      class:<br>
+      <pre><code class="java">@Stereotype("MONEY")
+@Depends("product.number, quantity")  // When the user changes product or quantity
+public BigDecimal getAmount() { // this property is recalculated and redisplayed
+    if (product == null || product.getPrice() == null) return BigDecimal.ZERO;
+    return new BigDecimal(quantity).multiply(product.getPrice()); 
+}
+</code></pre>Simply put the calculation in <em>getAmount()</em> and use <em>@Depends</em>
+      to indicate to OpenXava that the <em>amount</em> property depends on <em>product.number</em>
+      and <em>quantity</em>, thus each time the user changes any of these
+      values the property will be recalculated. Note as we in this case we use <i>product</i>
+      instead of <i>getProduct()</i> and <i>quantity</i> instead of <i>getQuantity()</i>
+      because from inside the class you can access directly to its fields.<br>
+      Now you have to add this new property to the <em>details</em> collection
+      of <em>CommercialDocument</em>:<br>
+      <pre><code class="java">@ElementCollection
+@ListProperties("product.number, product.description, quantity, amount") // amount added
+Collection&lt;Detail&gt; details;
+</code></pre> Nothing else is required. The mere addition of the getter and
+      modifying the list properties is enough. Try the <em>Invoice</em> and <em>Order</em>
+      modules to see the <em>amount</em> property in action.<br>
+      <h3 id="toc3"><a name="Lesson 5: Basic business logic-Calculated properties-Using @DefaultValueCalculator"></a>Using
+        @DefaultValueCalculator</h3>
+      The way we calculated the amount for the detail line is not the best
+      approach. There are at least two drawbacks to it. Firstly, the user may
+      want to have the option to overwrite the unit price. Secondly, if the
+      price of the product changes the amounts for all your invoices changes
+      too, this is not good.<br>
+      To avoid these drawbacks it's better to store the price of the product for
+      each detail. Let's add a <em>pricePerUnit</em> persistent property to the
+      <em>Detail</em> class and let's calculate its value from the price in <em>Product</em>
+      using a <em>@DefaultValueCalculator</em>. Just to obtain the effect you
+      can see:<br>
+      <img src="files/business-logic_en020.png" alt="business-logic_en020.png" title="business-logic_en020.png"><br>
+      The logic to calculate the initial value will be in <em>PricePerUnitCalculator</em>.
+      It simply reads the price from the product. See the next code for this
+      calculator:<br>
+      <pre><code class="java">package com.yourcompany.invoicing.calculators; // In 'calculators' package
+
+import org.openxava.calculators.*;
+import com.yourcompany.invoicing.model.*;
+import lombok.*;
+ 
+import static org.openxava.jpa.XPersistence.*; // For using getManager()
+ 
+public class PricePerUnitCalculator implements ICalculator {
+ 
+    @Getter @Setter
+    int productNumber; // Contains the product number when calculate() is called
+ 
+    public Object calculate() throws Exception {
+        Product product = getManager() // getManager() from XPersistence
+            .find(Product.class, productNumber); // Find the product
+        return product.getPrice(); // Returns its price
+    }
+ 
+}
+</code></pre>
+      <div class="wiki" style="display: block;">Then we add the property <em>pricePerUnit</em>.
+        Add the next code to your <em>Detail</em> class:<br>
+      </div>
+      <pre><code class="java">@DefaultValueCalculator(
+    value=PricePerUnitCalculator.class, // This class calculates the initial value
+    properties=@PropertyValue(
+        name="productNumber", // The productNumber property of the calculator...
+        from="product.number") // ...is filled from product.number of the detail
+)
+@Stereotype("MONEY")
+BigDecimal pricePerUnit; // A regular persistent property
+</code></pre><em></em>In this way when the user chooses a product the price per
+      unit field is filled with the price of that product but because it's a
+      persistent property, the user can change it. And if in the future the
+      price of the product changes this price per unit of the detail will not
+      change.<br>
+      This means that you have to adapt your amount calculated property:<br>
+      <pre><code class="java">@Stereotype("MONEY")
+@Depends("pricePerUnit, quantity") // pricePerUnit instead of product.number
+public BigDecimal getAmount() {
+    if (pricePerUnit == null) return BigDecimal.ZERO; // pricePerUnit instead of product and product.getPrice()
+    return new BigDecimal(quantity).multiply(pricePerUnit); // pricePerUnit instead of product.getPrice()
+}
+</code></pre> The <em>getAmount()</em> method uses <em>pricePerUnit</em> as
+      source instead of <em>product.price</em>.<br>
+      Finally, we have to edit the <em>CommercialDocument</em> entity and
+      modify the list of properties to show in the collection to show the new
+      property:<br>
+      <pre><code class="java">@ElementCollection
+@ListProperties("product.number, product.description, quantity, pricePerUnit, amount") // pricePerUnit added
+private Collection&lt;Detail&gt; details;
+</code></pre> Try the <em>Order</em> and <em>Invoice</em> modules and observe
+      the new behavior when adding details.</div>
+    <div class="wiki" style="display: block;">
+      <h3><a name="Lesson 5: Basic business logic-Calculated properties-Persistent properties with Calculation"></a></h3>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc14">Summary</h2>
+      In this lesson you have learned how to define a property in Java, how the
+      Lombrok library works to work with getters and setters and how to create
+      and work with calculated properties and the use of the
+      @DefaultValueCalculator annotation when setting dynamic changes. In the
+      next lesson, we'll talk about using the @Calculation annotation, adding
+      properties to total, and how to set default values ​​from a properties
+      file.<br>
+      <br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
+        <a class="wiki_link" href="total-properties-with-calculation_en.html">Go
+          to Lesson 10</a></strong> </div>
+  </body>
+</html>
