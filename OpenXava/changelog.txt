@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Images shown in cards format are shown at full size, so it's ugly with huge images.
 - Fix: Value in list mode broken showing HTML code when it contains " followed by >. 
 - Fix: JavaScript error "result.dialogTitle is null" when an on-init action shows a dialog.
 - Fix: Subview not found error adding an element to a collection of entities in some circumstances.

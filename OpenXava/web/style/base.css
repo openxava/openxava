@@ -2570,6 +2570,12 @@ div[id$="_Index__view"] .ox-list-title {
 	max-height: 30px;
 }
 
+.ox-cards img {
+	max-height: 100px;
+	max-width: 200px;
+	vertical-align: top;
+}
+
 .ox-read-only-html-text {
     white-space: break-spaces;
 }
