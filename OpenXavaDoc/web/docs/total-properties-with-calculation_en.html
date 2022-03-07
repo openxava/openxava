@@ -118,7 +118,6 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
         filter or order by calculated properties, but he can do so using
         persistent properties with <em>@Calculation</em>:<br>
         <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
-
           title="business-logic_en025.png"><br>
         <em>@Calculation</em> is a good option when you need filtering and
         sorting, and a simple calculation is enough. A shortcoming of <i>@Calculation</i>
@@ -143,7 +142,6 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
       are indispensable. To do so you only need to add a few properties to <em>CommercialDocument</em>
       class. The next figure shows the user interface for these properties: </div>
     <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
-
         alt="business-logic_en030.png" title="business-logic_en030.png"><br>
       Add the next code to <i>CommercialDocument</i> entity:<br>
       <pre><code class="java">@Digits(integer=2, fraction=0) // To indicate its size
@@ -366,12 +364,7 @@ SET TOTALAMOUNT = (
       synchronizing persistent and computed properties, and using the @Formula
       annotation.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_en.zip/download"
-
-          rel="nofollow">Download source code of this lesson</a></strong><br>
-      <br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="jpa-retrocalling-methods_en.html">Go to
           Lesson 11</a></strong> </div>
