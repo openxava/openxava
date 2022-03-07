@@ -25,7 +25,7 @@
         Java properties</a> | <strong>10. Total properties with Calculation</strong>
       | <a class="wiki_link" href="total-properties-with-calculation_en.html">11.
         JPA retrocalling methods</a> | <a class="wiki_link" href="validation_en.html">12.
-        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en">13.
+        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">13.
         Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">14.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">15.
         References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
@@ -40,14 +40,6 @@
 10:
             Total properties with Calculation<br>
           </a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Properties%20in%20Java">Properties
-            in Java</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties">Calculated
-            properties</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Simple%20calculated%20property">Simple
-            calculated property</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Using%20@DefaultValueCalculator">Using
-            @DefaultValueCalculator</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Persistent%20properties%20with%20Calculation">Persistent
             properties with @Calculation</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Total%20properties%20of%20a%20collection">Total
@@ -56,205 +48,13 @@
             value from a properties file</a></div>
         <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Manual%20schema%20evolution">Manual
             schema evolution</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods">JPA
-            callback methods</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Multiuser%20safe%20default%20value%20calculation">Multiuser
-            safe default value calculation</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Synchronizing%20persistent%20and%20calculated%20properties">Synchronizing
-            persistent and calculated properties</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Database%20logic%20%28@Formula%29">Database
-            logic (@Formula)</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Summary">Summary</a></div>
       </div>
     </div>
-    <div class="wiki" style="display: block;">You have made your domain model to
-      run a web application. This application is already a useful one, but still
-      there are a lot of refinements that can be made to it. Let's do what's
-      necessary to convert your application into a better application and, in
-      this way you shall learn some new interesting things about OpenXava.<br>
-      We'll start adding business logic to your entities in order to convert
-      your application into something more than a simple database manager.<br>
-      <h2><a name="Lesson 5: Basic business logic-Properties in Java"></a>Properties
-        in Java</h2>
-      In order to understand some concepts well in this lesson you have to know
-      how properties work in Java. The standard way to define a property in Java
-      is:
-      <pre><code class="java">// Property
-      
-private int quantity; // Has a field
-
-public int getQuantity() { // A getter to return the field value
-    return quantity;
-}
-
-public void setQuantity(int quantity) { // Changes the field value
-    this.quantity = quantity;
-}
-</code></pre>This is based on the idea that you never should access the state
-      (the fields) of an object directly, but always calling methods. This is
-      very useful because you can change the implementation of a property
-      without affecting the code that uses it. Moreover, all tools, frameworks
-      and libraries from the Java ecosystem rely on this convention (part of
-      JavaBeans specification). Therefore, we should use this convention always.
-      A property in Java is a getter method (<i>getQuantity()</i> for example)
-      and a setter method (<i>setQuantity(int quantity)</i>) if the property is
-      modifiable. In fact, the field (<i>private int quantity</i> in this case)
-      is not needed.</div>
-    <div class="wiki" style="display: block;">The problem of this approach is
-      that it is very verbose, a lot of the code of our classes are getters and
-      setters that really do not add value and make a lot of noise. To solve
-      this problem we use a library called Lombok. With Lombok you can define
-      the above <i>quantity</i> property in this way:
-      <pre><code class="java">@Getter @Setter // It generates a getter and a setter method
-int quantity; 
-</code></pre><i>@Getter</i> and <i>@Setter</i> generate the getter and the
-      setter in the compiled code, so when you access the property you have to
-      use them, thus:
-      <pre><code class="java">int q = theObject.getQuantity(); // Never int q = theObject.quantity 
-theObject.setQuantity(q + 10); // Never theObject.quantity = q + 10;      
-</code></pre>You can declare <i>@Getter</i> and <i>@Setter</i> at class level
-      so all the fields have getter and setter automatically. And of course, you
-      can write your own setter and getter if you want to use your own logic:
-      <pre><code class="java">// @Data // NEVER USE @Data
-@Getter @Setter
-public class Issue {
-
-    int number;
-    String description;
-	
-    public String getDescription() { // Your own getter overwrites the generated one by Lombok
-        if (description == null) return "No description yet";
-        return description;
-    }
-
-}
-</code></pre> In this case Lombok generates for you <i>getNumber(), setNumber()</i>
-      and <i>setDescription()</i> while <i>getDescription()</i> is the one
-      written by you. Note as you never should use the <i>@Data</i> annotation
-      of Lombok, given that it produces infinite recursive loops when you have
-      reciprocal references, something very usual in business applications.</div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc1"><a name="Lesson 5: Basic business logic-Calculated properties"></a>Calculated
-        properties</h2>
-      Perhaps the most simple business logic you can add to your application is
-      a calculated property. The properties you have used until now are
-      persistent, i.e., each property is stored in a column in a table in the
-      database. A calculated property is a property that does not store its
-      value in the database but it's calculated any time the property is
-      accessed. See the difference between a persistent and a calculated
-      property.<br>
-      <pre><code class="java">// Persistent property
-@Getter @Setter // Has getter and setter
-int quantity; // Has a field, so it's persistent
- 
-// Calculated property
-public int getAmount() { // It has no field and no setter, only a getter
-    return quantity * price; // with a calculation
-}
-</code></pre> Calculated properties are automatically recognized by OpenXava.
-      You can use them in views, tabular lists or any other part of your code.<br>
-      We are going to use calculated properties to add the money element to our
-      <i> Invoicing</i> application. Because, we have details, products,
-      quantities. But what about amounts?<br>
-      <h3 id="toc2"><a name="Lesson 5: Basic business logic-Calculated properties-Simple calculated property"></a>Simple
-        calculated property</h3>
-      The first step will be to add an <em>amount</em> property to the <em>Detail</em>.
-      We want the detail amount to be recalculated and shown to the user when
-      the user chooses a product and type in the quantity:<br>
-      <img src="files/business-logic_en010.png" alt="business-logic_en010.png" title="business-logic_en010.png"><br>
-      Adding this feature to your current code is practically adding a
-      calculated property to <em>Detail</em>. Just add the next code to the <em>Detail</em>
-      class:<br>
-      <pre><code class="java">@Stereotype("MONEY")
-@Depends("product.number, quantity")  // When the user changes product or quantity
-public BigDecimal getAmount() { // this property is recalculated and redisplayed
-    if (product == null || product.getPrice() == null) return BigDecimal.ZERO;
-    return new BigDecimal(quantity).multiply(product.getPrice()); 
-}
-</code></pre>Simply put the calculation in <em>getAmount()</em> and use <em>@Depends</em>
-      to indicate to OpenXava that the <em>amount</em> property depends on <em>product.number</em>
-      and <em>quantity</em>, thus each time the user changes any of these
-      values the property will be recalculated. Note as we in this case we use <i>product</i>
-      instead of <i>getProduct()</i> and <i>quantity</i> instead of <i>getQuantity()</i>
-      because from inside the class you can access directly to its fields.<br>
-      Now you have to add this new property to the <em>details</em> collection
-      of <em>CommercialDocument</em>:<br>
-      <pre><code class="java">@ElementCollection
-@ListProperties("product.number, product.description, quantity, amount") // amount added
-Collection&lt;Detail&gt; details;
-</code></pre> Nothing else is required. The mere addition of the getter and
-      modifying the list properties is enough. Try the <em>Invoice</em> and <em>Order</em>
-      modules to see the <em>amount</em> property in action.<br>
-      <h3 id="toc3"><a name="Lesson 5: Basic business logic-Calculated properties-Using @DefaultValueCalculator"></a>Using
-        @DefaultValueCalculator</h3>
-      The way we calculated the amount for the detail line is not the best
-      approach. There are at least two drawbacks to it. Firstly, the user may
-      want to have the option to overwrite the unit price. Secondly, if the
-      price of the product changes the amounts for all your invoices changes
-      too, this is not good.<br>
-      To avoid these drawbacks it's better to store the price of the product for
-      each detail. Let's add a <em>pricePerUnit</em> persistent property to the
-      <em>Detail</em> class and let's calculate its value from the price in <em>Product</em>
-      using a <em>@DefaultValueCalculator</em>. Just to obtain the effect you
-      can see:<br>
-      <img src="files/business-logic_en020.png" alt="business-logic_en020.png" title="business-logic_en020.png"><br>
-      The logic to calculate the initial value will be in <em>PricePerUnitCalculator</em>.
-      It simply reads the price from the product. See the next code for this
-      calculator:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.calculators; // In 'calculators' package
-
-import org.openxava.calculators.*;
-import com.yourcompany.invoicing.model.*;
-import lombok.*;
- 
-import static org.openxava.jpa.XPersistence.*; // For using getManager()
- 
-public class PricePerUnitCalculator implements ICalculator {
- 
-    @Getter @Setter
-    int productNumber; // Contains the product number when calculate() is called
- 
-    public Object calculate() throws Exception {
-        Product product = getManager() // getManager() from XPersistence
-            .find(Product.class, productNumber); // Find the product
-        return product.getPrice(); // Returns its price
-    }
- 
-}
-</code></pre>
-      <div class="wiki" style="display: block;">Then we add the property <em>pricePerUnit</em>.
-        Add the next code to your <em>Detail</em> class:<br>
-      </div>
-      <pre><code class="java">@DefaultValueCalculator(
-    value=PricePerUnitCalculator.class, // This class calculates the initial value
-    properties=@PropertyValue(
-        name="productNumber", // The productNumber property of the calculator...
-        from="product.number") // ...is filled from product.number of the detail
-)
-@Stereotype("MONEY")
-BigDecimal pricePerUnit; // A regular persistent property
-</code></pre><em></em>In this way when the user chooses a product the price per
-      unit field is filled with the price of that product but because it's a
-      persistent property, the user can change it. And if in the future the
-      price of the product changes this price per unit of the detail will not
-      change.<br>
-      This means that you have to adapt your amount calculated property:<br>
-      <pre><code class="java">@Stereotype("MONEY")
-@Depends("pricePerUnit, quantity") // pricePerUnit instead of product.number
-public BigDecimal getAmount() {
-    if (pricePerUnit == null) return BigDecimal.ZERO; // pricePerUnit instead of product and product.getPrice()
-    return new BigDecimal(quantity).multiply(pricePerUnit); // pricePerUnit instead of product.getPrice()
-}
-</code></pre> The <em>getAmount()</em> method uses <em>pricePerUnit</em> as
-      source instead of <em>product.price</em>.<br>
-      Finally, we have to edit the <em>CommercialDocument</em> entity and
-      modify the list of properties to show in the collection to show the new
-      property:<br>
-      <pre><code class="java">@ElementCollection
-@ListProperties("product.number, product.description, quantity, pricePerUnit, amount") // pricePerUnit added
-private Collection&lt;Detail&gt; details;
-</code></pre> Try the <em>Order</em> and <em>Invoice</em> modules and observe
-      the new behavior when adding details.</div>
+    <div class="wiki" style="display: block;">We managed to add a calculated
+      property to our application that allows us to add values to it, and we use
+      @DefaultValueCalculator to store this value for each detail line. We will
+      continue to improve our app in the following way:</div>
     <div class="wiki" style="display: block;">
       <h3><a name="Lesson 5: Basic business logic-Calculated properties-Persistent properties with Calculation"></a>Persistent
         properties with <i>@Calculation</i></h3>
@@ -317,7 +117,8 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
         This fact also has effect in the list mode, because the user cannot
         filter or order by calculated properties, but he can do so using
         persistent properties with <em>@Calculation</em>:<br>
-        <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
+        <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
+
           title="business-logic_en025.png"><br>
         <em>@Calculation</em> is a good option when you need filtering and
         sorting, and a simple calculation is enough. A shortcoming of <i>@Calculation</i>
@@ -341,7 +142,8 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
       and <em>Invoice</em> too. To calculate vat, base amount and total amount
       are indispensable. To do so you only need to add a few properties to <em>CommercialDocument</em>
       class. The next figure shows the user interface for these properties: </div>
-    <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
+    <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
+
         alt="business-logic_en030.png" title="business-logic_en030.png"><br>
       Add the next code to <i>CommercialDocument</i> entity:<br>
       <pre><code class="java">@Digits(integer=2, fraction=0) // To indicate its size
@@ -552,197 +354,26 @@ SET TOTALAMOUNT = (
       figure at the begin of the section "Total properties of a collection" even
       for already existing invoices and orders.<br>
     </div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc6"><a name="Lesson 5: Basic business logic-JPA callback methods"></a>JPA
-        callback methods</h2>
-      Another useful way to add business logic to your model is using JPA
-      callback methods. A callback method is a method in your entity that is
-      called in some specific moment of its life cycle as a persistent object.
-      That is, you can specify some logic to execute on save, read, remove or
-      modification of the entity.<br>
-      In this section we'll see some practical applications of JPA callback
-      methods.<br>
-      <h3 id="toc7"><a name="Lesson 5: Basic business logic-JPA callback methods-Multiuser safe default value calculation"></a>Multiuser
-        safe default value calculation</h3>
-      Until now we were calculating the <em>Invoice</em> and <em>Order</em>
-      number using <em>@DefaultValueCalculator</em>. This calculates the
-      default value when the user clicks to create a new <em>Invoice</em> or <em>Order</em>.
-      So, if several users click on the <i>New</i> button at the same time all
-      of them get the same number. This is not multiuser safe. The way to
-      generate a unique number is by generating it just on save.<br>
-      We are going to implement it using a JPA callback method. JPA allows you
-      to mark any method of your class to be executed in any part of its life
-      cycle. We'll indicate the calculation of the number just before the saving
-      of the <em>CommercialDocument</em>. Using this approach we'll improve the
-      number calculation for having a different numeration for <em>Order</em>
-      and <em>Invoice</em>.<br>
-      Edit the <em>CommercialDocument</em> entity and add the <em>calculateNumber()</em>
-      method:<br>
-      <pre><code class="java">@PrePersist // Executed just before saving the object for the first time
-private void calculateNumber() throws Exception {
-    Query query = XPersistence.getManager()
-        .createQuery("select max(i.number) from " +
-        getClass().getSimpleName() + // Thus it's valid for both Invoice and Order
-        " i where i.year = :year");
-    query.setParameter("year", year);
-    Integer lastNumber = (Integer) query.getSingleResult();
-    this.number = lastNumber == null ? 1 : lastNumber + 1;
-}
-</code></pre> </div>
-    <div class="wiki" style="display: block;">This code is the same as that of
-      the <em>NextNumberForYearCalculator</em> but using <em>getClass().getSimpleName()</em>
-      instead of “CommercialDocument”. The <em>getSimpleName()</em> method
-      returns the name of the class without the package, i.e., just the entity
-      name. It will be “Order” for <em>Order</em> and “Invoice” for <em>Invoice</em>.
-      Thus we can get a different numeration for <em>Order</em> and <em>Invoice</em>.<br>
-      JPA specification states that you should not use JPA API inside a JPA
-      callback method. So the above method is not legal from a strict JPA
-      viewpoint. But, Hibernate (the JPA implementation OpenXava uses by
-      default) allows you to use it in <em>@PrePersist</em>. And since JPA is
-      the easier way to do this calculation we use it in our practice.<br>
-      Now you can delete the <em>NextNumberForYearCalculator</em> class from
-      your project, and modify the number property of <em>CommercialDocument</em>
-      to avoid using it:<br>
-      <pre><code class="java">@Column(length=6)
-// @DefaultValueCalculator(value=NextNumberForYearCalculator.class, // Remove this
-//     properties=@PropertyValue(name="year")
-// )
-@ReadOnly // The user cannot modify the value
-int number;
-</code></pre> Note that in addition to removing <em>@DefaultValueCalculator</em>,
-      we have added the <em>@ReadOnly</em> annotation. This means that the user
-      cannot enter or modify the <em>number</em>. This is the right approach
-      given that the number is generated on saving the object, so the user typed
-      value would always be overridden.<br>
-    </div>
-    <div class="wiki" style="display: block;">Try now the <em>Invoice</em> or <em>Order</em>
-      module and you will see that the number is empty and not editable, and
-      when you save the document the number is calculated and a message is shown
-      with the year and the just generated number for that invoice/order.<br>
-      <h3 id="toc8"><a name="Lesson 5: Basic business logic-JPA callback methods-Synchronizing persistent and calculated properties"></a>Synchronizing
-        persistent and calculated properties</h3>
-      As we already have learned, calculated properties do not allow to filter
-      or ordering in list, so we prefer transient properties with <i>@Calculation</i>.
-      However, <i>@Calculation</i> properties are only valid for simple
-      arithmetic calculations. When you need loops, condition, read from
-      database, connect to external services, or some complex logic, <i>@Calculation</i>
-      is not enough. For these cases you need to write the logic with Java, in
-      the getter. But, how we can do this and at the same time keep the ordering
-      and filtering in list? Simple, you can use two properties, one calculated
-      and one persistent, and synchronize both using JPA callback methods.
-      You're going to learn how to do it in this section.</div>
-    <div class="wiki" style="display: block;">Let's add a new property to <i>Order</i>
-      entity called <i>estimatedDeliveryDays</i>:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">@Depends("date")
-public int getEstimatedDeliveryDays() {
-    if (getDate().getDayOfYear() &lt; 15) {
-        return 20 - getDate().getDayOfYear(); 
-    }
-    if (getDate().getDayOfWeek() == DayOfWeek.SUNDAY) return 2;
-    if (getDate().getDayOfWeek() == DayOfWeek.SATURDAY) return 3;
-    return 1;
-}
-</code></pre> </div>
-    <div class="wiki" style="display: block;"> This is a pure calculated
-      property, a getter with Java logic. It calculates the estimated delivery
-      days using <i>date</i> as source. This case cannot be solved with <i>@Calculation</i>
-      that only supports basic arithmetic calculations. </div>
-    <div class="wiki" style="display: block;">We also have to add <i>estimatedDeliveryDays</i>
-      to the default <i>@View</i> declaration in <i>Order</i> code:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">@View(extendsView="super.DEFAULT", 
-    members=
-        "estimatedDeliveryDays," + // ADD THIS LINE
-        "invoice { invoice }"
-)
-...
-public class Order extends CommercialDocument {
-</code></pre> </div>
-    <div class="wiki" style="display: block;">The result is this:</div>
-    <img src="files/business-logic_en050.png" alt="business-logic_en050.png" title="business-logic_en050.png">
-    <div class="wiki" style="display: block;">The value is recalculated each
-      time the date changes in the user interface thanks to the <i>@Depends("date")</i>
-      in <i>estimatedDeliveryDays.</i> This is all very nice, but when you go
-      to list mode you cannot order or filter by estimated delivery days. To
-      solve this problem we add a second property, this time a persistent one.
-      Add the next code to your <i>Order</i> entity:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">@Column(columnDefinition="INTEGER DEFAULT 1")
-int deliveryDays;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we have used <i>@Column(columnDefinition="INTEGER
-        DEFAULT 1")</i>, with this trick when OpenXava creates the column uses
-      "INTEGER DEFAULT 1" as column definition, thus the new column has 1 as
-      default value instead of null, and we avoid an ugly error with our int
-      property. Yes, in many cases <i>@Column(columnDefinition=)</i> is an
-      alternative to do an UPDATE over the table (as we did in "Manual schema
-      evolution" section), although has the problem that is database dependent.
-      Anyways, this <i>columnDefinition</i> dissertation is tangential to our
-      calculated/persistent synchronization issue, <i>@Column</i> is not
-      required at all, it's just convenient for this int property.</div>
-    <div class="wiki" style="display: block;">This new <i>deliveryDays</i>
-      property will contain the same value as <em>estimatedDeliveryDays</em>,
-      but <i><em>deliveryDays</em></i> will be persistent with its
-      corresponding column in the database. The tricky issue here is to have the
-      <em>deliveryDays</em> property synchronized. We will use the JPA callback
-      methods in <em>Order</em> to achieve this. It's enough to assign the
-      value of <i>estimatedDeliveryDays</i> to <i>deliveryDays</i> each time
-      that a new <i>Order</i> is created (<i>@PrePersist</i>) or updated (<i>@PreUpdate</i>).
-      </div>
-    <div class="wiki" style="display: block;">Add a new <i>recalculateDeliveryDays()</i>
-      method to <i>Order</i> entity annotated with <i>@PrePersist</i> and <i>@PreUpdate</i>,
-      thus:<br>
-      <pre><code class="java">@PrePersist @PreUpdate 
-private void recalculateDeliveryDays() {
-    setDeliveryDays(getEstimatedDeliveryDays());
-}
-</code></pre>Basically, the <i>recalculateDeliveryDays()</i> method is called
-      every time an <em>Order</em> entity is registered in the database for the
-      first time and when the order is updated.</div>
-    <div class="wiki" style="display: block;">You can try the <em>Order</em>
-      module with this code, and you will see how when a order is created or
-      modified, the column in the database for <em>deliveryDays</em> is
-      correctly updated after saving, ready to be used in massive processing and
-      available for ordering and filter in list.<br>
-      <h2 id="toc9"><a name="Lesson 5: Basic business logic-Database logic (@Formula)"></a>Database
-        logic (<em>@Formula</em>)</h2>
-      Another alternative to <i>@Calculation</i> or having
-      calculated/persistent properties synchronized is the <em>@Formula</em>
-      annotation. <em>@Formula</em> is a Hibernate extension to the JPA
-      standard, that allows you to map a property to a SQL statement. For
-      example, you can define <em>estimatedProfit</em> with <em>@Formula</em>
-      in <i>CommercialDocument</i> as shown the next code:<br>
-      <pre><code class="java">@org.hibernate.annotations.Formula("TOTALAMOUNT * 0.10") // The calculation using SQL
-@Setter(AccessLevel.NONE) // The setter is not generated, only the getter is needed
-@Stereotype("MONEY")
-BigDecimal estimatedProfit; // A field, as in the persistent property case
-</code></pre> This means that when a <em>CommercialDocument</em> is read from
-      the database, the <em>estimatedProfit</em> field will be filled with the
-      calculation for <em>@Formula</em> that is done by the database. The user
-      can filter and ordering by <i>@Formula</i> properties in list mode, but
-      they are always read only and are not recalculated in real time in detail
-      mode. Given they are read only they don't need the setter method, so we
-      use <i>@Setter(AccessLevel.NONE)</i> to prevent the setter generation by
-      Lombok. Moreover, <i>@Formula</i> properties are database dependent,
-      because you can use syntax only supported by certain database vendor.</div>
+    <br>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
-      In this lesson you have learned some common ways to add business logic to
-      your entities. There should be no doubt about the utility of calculated
-      properties, <i>@Calculation</i>, callback methods or <em>@Formula</em>.
-      Nevertheless, there are many other ways to add logic to your OpenXava
-      application, and we are going to learn them.<br>
-      In the coming lessons you'll see how to add validation, modify the
-      standard module behavior and add your own business logic, among other ways
-      to add custom logic to your application.<br>
+      In this lesson, you have learned how to use the @Calculation annotation to
+      associate a simple calculation with a persistent property, greatly
+      improving query efficiency and response speed, and allowing us to add
+      different functionality to total, such as VAT calculation. We also learned
+      how to add default values, and how to manually modify our database schema.
+      In the next lesson, we'll review different JPA callback methods,
+      synchronizing persistent and computed properties, and using the @Formula
+      annotation.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-        <a class="wiki_link" href="validation_en.html">Go to Lesson 10</a></strong>
-    </div>
+        <a class="wiki_link" href="jpa-retrocalling-methods_en.html">Go to
+          Lesson 11</a></strong> </div>
   </body>
 </html>

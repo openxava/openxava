@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lección 11: Refinar el comportamiento predefinido - OpenXava</title>
+    <title>Lección 13: Refinar el comportamiento predefinido - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -12,22 +12,22 @@
       <h1 id="toc0"><a name="Leccion-7-Refinar-el-comportamiento-predefinido"></a>
         <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span> Lección 11: Refinar el comportamiento predefinido</h1>
+          / </span> Lección 13: Refinar el comportamiento predefinido</h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
         Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
         Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
         Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
         Desarrollo ágil</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
-        Herencia de superclases mapedas</a> |
-      <a class="wiki_link" href="entity-inheritance_es.html">7. Herencia de
-        entidades</a> |
-      <a class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a>
-      | <a class="wiki_link" href="basic-business-logic_es.html">9. Lógica de
-        negocio básica</a> | <a class="wiki_link" href="validation_es.html">10.
-        Validación avanzada</a> | <strong>11. Refinar el comportamiento
-        predefinido</strong> | <a class="wiki_link" href="business-logic-behavior_es.html">12.
-        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">13.
+        Herencia de superclases mapedas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
+        Propiedades Java</a> | <a class="wiki_link" href="total-properties-with-calculation_es.html">10.
+        Propiedades de total con Calculation</a> | <a class="wiki_link" href="jpa-retrocalling-methods_es.html">11.
+        Métodos de retrollamadas JPA</a> | <a class="wiki_link" href="validation_es.html">12.
+        Validación avanzada</a> | <strong>13. Refinar el comportamiento
+        predefinido</strong> | <a class="wiki_link" href="business-logic-behavior_es.html">14.
+        Comportamiento y lógica del negocio</a> | <a class="wiki_link" href="references-collections_es.html">15.
         Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
@@ -37,7 +37,7 @@
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#Leccion-7-Refinar-el-comportamiento-predefinido">Lección
-            11: Refinar el comportamiento predefinido</a></div>
+            13: Refinar el comportamiento predefinido</a></div>
         <div style="margin-left: 2em;"><a href="#Acciones-personalizadas">Acciones
             personalizadas</a></div>
         <div style="margin-left: 3em;"><a href="#Acciones-personalizadas-Controlador-Typical">Controlador
@@ -190,7 +190,8 @@
       factura no sea borrada de la base de datos, sino que simplemente se marque
       como borrada. De esta forma, podemos recuperar las facturas borradas si
       fuese necesario.<br>
-      <img src="files/refining_behavior_es010.png" alt="refining_behavior_es010.png"
+      <img src="files/refining_behavior_es010.png" alt="refining_behavior_es010.png"
+
         title="refining_behavior_es010.png"><br>
       La figura anterior muestra las acciones de <em>Typical</em>; queremos
       todas estas acciones en nuestro módulo <em>Factura</em>, con la excepción
@@ -264,7 +265,8 @@ public class EliminarFactura
       bien añadir el mensaje a mostrar, o bien un id de una entrada en <em>i18n/MensajesFacturacion_es.properties</em>.<br>
       La siguiente imagen muestra el comportamiento del módulo <em>Factura</em>
       después de añadir la acción de borrar personalizada:<br>
-      <img src="files/refining_behavior_es020.png" alt="refining_behavior_es020.png"
+      <img src="files/refining_behavior_es020.png" alt="refining_behavior_es020.png"
+
         title="refining_behavior_es020.png"><br>
       Por supuesto, este es un comportamiento tonto. Añadamos el comportamiento
       real. Para marcar como borrada la factura actual sin borrarla realmente,
@@ -533,7 +535,8 @@ abstract public class DocumentoComercial extends Eliminable {
       funcionamiento es bueno. Aunque si tratas de borrar una entidad de
       cualquier otro módulo, recibirás un feo mensaje de error. La figura
       siguiente muestra lo que ocurre cuando intentas borrar un <em>Cliente</em>.<br>
-      <img src="files/refining_behavior_es030.png" alt="refining_behavior_es030.png"
+      <img src="files/refining_behavior_es030.png" alt="refining_behavior_es030.png"
+
         title="refining_behavior_es030.png"><br>
       Sí, si tu entidad no tiene una propiedad <em>eliminado</em>, la acción de
       borrar falla miserablemente. Es verdad que gracias a la clase <em>Eliminable</em>
@@ -629,7 +632,8 @@ public class EliminarParaFacturacion extends ViewBaseAction {
       El lugar más obvio para empezar es la acción de búsqueda. Si borras una
       factura y después tratas de buscarla, no deberías encontrarla. La
       siguiente figura muestra como funciona la búsqueda en OpenXava.<br>
-      <img src="files/refining_behavior_es040.png" alt="refining_behavior_es040.png"
+      <img src="files/refining_behavior_es040.png" alt="refining_behavior_es040.png"
+
         title="refining_behavior_es040.png"><br>
       La primera cosa que puedes observar en la figura anterior es que buscar en
       modo detalle es más flexible de lo que parece. El usuario puede introducir
@@ -965,7 +969,8 @@ public class EliminarSeleccionadoParaFacturacion
       varias y pulsar en el botón <em>Restaurar</em>, o simplemente pulsar en
       el vínculo <em>Restaurar</em> en la fila del documento que quiera
       restaurar:<br>
-      <img src="files/refining_behavior_es050.png" alt="refining_behavior_es050.png"
+      <img src="files/refining_behavior_es050.png" alt="refining_behavior_es050.png"
+
         title="refining_behavior_es050.png"><br>
       La lógica de esta acción de restaurar es simplemente poner la propiedad <em>eliminado</em>
       de las entidades seleccionadas a <em>false</em>. Es decir, es exactamente
@@ -1045,7 +1050,8 @@ public class EliminarSeleccionadoParaFacturacion
 </code></pre> Estos módulos van contra <em>Factura</em> y <em>Pedido</em>,
       pero definen una acción especial como acción de fila usando la variable de
       entorno <em>XAVA_LIST_ACTION</em>. La siguiente figura muestra <em>PapeleraFactura</em>:<br>
-      <img src="files/refining_behavior_es060.png" alt="refining_behavior_es060.png"
+      <img src="files/refining_behavior_es060.png" alt="refining_behavior_es060.png"
+
         title="refining_behavior_es060.png"><br>
       <h3 id="toc18"><a name="Reutilizar-el-codigo-de-las-acciones-Varias-definiciones-de-datos-tabulares-por-entidad"></a>Varias
         definiciones de datos tabulares por entidad</h3>
@@ -1120,12 +1126,14 @@ public class Pedido extends DocumentoComercial { ... }
       usuario necesitas añadir funcionalidad específica que le ayude a resolver
       sus problemas. Haremos esto en la próxima lección.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-7-refining-standard-behavior_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-7-refining-standard-behavior_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="business-logic-behavior_es.html">Ve a la
-          lección 12</a></strong> </div>
+          lección 14</a></strong> </div>
   </body>
 </html>
