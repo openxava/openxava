@@ -11,12 +11,12 @@ import org.openxava.web.servlets.*;
  * 
  * @author Javier Paniza
  */
-public class Modules {
+public class Modules {  
 	
 	private static Log log = LogFactory.getLog(Modules.class);
 	
 	public String displayModulesList(HttpServletRequest request, HttpServletResponse response) { 
-		try {
+		try { 
 			return Servlets.getURIAsString(request, response, "/naviox/modulesList.jsp");
 		}
 		catch (Exception ex) {
@@ -44,7 +44,10 @@ public class Modules {
 	
 	public String filter(HttpServletRequest request, HttpServletResponse response, String searchWord) { 
 		try { 
-			return Servlets.getURIAsString(request, response, "/naviox/selectModules.jsp?searchWord=" + searchWord); 
+			if (request.getSession().getAttribute("context") == null) {
+				throw new SecurityException("1928"); 
+			}
+			return Servlets.getURIAsString(request, response, "/naviox/selectModules.jsp?searchWord=" + searchWord);
 		}
 		catch (Exception ex) {
 			log.error(XavaResources.getString("display_modules_error"), ex);

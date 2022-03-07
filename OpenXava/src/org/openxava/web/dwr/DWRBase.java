@@ -3,7 +3,6 @@ package org.openxava.web.dwr;
 import javax.servlet.http.*;
 
 import org.openxava.controller.*;
-import org.openxava.util.*;
 import org.openxava.web.*;
 import org.openxava.web.servlets.*;
 import org.openxava.web.style.*;
@@ -13,7 +12,7 @@ import org.openxava.web.style.*;
  * 
  * @author Javier Paniza
  */
-class DWRBase {
+class DWRBase { 
 	
 	protected static ModuleContext getContext(HttpServletRequest request) {
 		return (ModuleContext) request.getSession().getAttribute("context");
