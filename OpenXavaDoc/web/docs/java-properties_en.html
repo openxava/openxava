@@ -21,7 +21,7 @@
         Agile development</a> | <a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
         Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
         Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
-        View inheritance</a> | <strong>9. Java Properties</strong> | <a class="wiki_link"
+        View inheritance</a> | <strong>9. Java Properties</strong> | <a class="wiki_link"
         href="total-properties-with-calculation_en.html">10. Total properties
         with @Calculation</a> | <a class="wiki_link" href="jpa-callback-methods_en.html">11.
         JPA callback methods</a> | <a class="wiki_link" href="validation_en.html">12.
@@ -43,9 +43,9 @@
             Properties</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties">Calculated
             properties</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Simple%20calculated%20property">Simple
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Simple%20calculated%20property">Simple
             calculated property</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Using%20@DefaultValueCalculator">Using
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Using%20@DefaultValueCalculator">Using
             @DefaultValueCalculator</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Summary">Summary</a></div>
       </div>
@@ -139,8 +139,8 @@ public int getAmount() { // It has no field and no setter, only a getter
       We are going to use calculated properties to add the money element to our
       <i> Invoicing</i> application. Because, we have details, products,
       quantities. But what about amounts?<br>
-      <h3 id="toc2"><a name="Lesson 5: Basic business logic-Calculated properties-Simple calculated property"></a>Simple
-        calculated property</h3>
+      <h2 id="toc2"><a name="Lesson 5: Basic business logic-Calculated properties-Simple calculated property"></a>Simple
+        calculated property</h2>
       The first step will be to add an <em>amount</em> property to the <em>Detail</em>.
       We want the detail amount to be recalculated and shown to the user when
       the user chooses a product and type in the quantity:<br>
@@ -168,8 +168,8 @@ Collection&lt;Detail&gt; details;
 </code></pre> Nothing else is required. The mere addition of the getter and
       modifying the list properties is enough. Try the <em>Invoice</em> and <em>Order</em>
       modules to see the <em>amount</em> property in action.<br>
-      <h3 id="toc3"><a name="Lesson 5: Basic business logic-Calculated properties-Using @DefaultValueCalculator"></a>Using
-        @DefaultValueCalculator</h3>
+      <h2 id="toc3"><a name="Lesson 5: Basic business logic-Calculated properties-Using @DefaultValueCalculator"></a>Using
+        @DefaultValueCalculator</h2>
       The way we calculated the amount for the detail line is not the best
       approach. There are at least two drawbacks to it. Firstly, the user may
       want to have the option to overwrite the unit price. Secondly, if the
@@ -250,7 +250,7 @@ private Collection&lt;Detail&gt; details;
       talk about using the <i>@Calculation</i> annotation, adding properties to
       total, and how to set default values ​​from a properties file.<br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="total-properties-with-calculation_en.html">Go
           to Lesson 10</a></strong> </div>

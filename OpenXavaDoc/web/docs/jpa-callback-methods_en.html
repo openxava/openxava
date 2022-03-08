@@ -41,9 +41,9 @@
           </a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods">JPA
             callback methods</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Multiuser%20safe%20default%20value%20calculation">Multiuser
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Multiuser%20safe%20default%20value%20calculation">Multiuser
             safe default value calculation</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Synchronizing%20persistent%20and%20calculated%20properties">Synchronizing
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Synchronizing%20persistent%20and%20calculated%20properties">Synchronizing
             persistent and calculated properties</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Database%20logic%20%28@Formula%29">Database
             logic (@Formula)</a></div>
@@ -66,8 +66,8 @@
       modification of the entity.<br>
       In this section we'll see some practical applications of JPA callback
       methods.<br>
-      <h3 id="toc7"><a name="Lesson 5: Basic business logic-JPA callback methods-Multiuser safe default value calculation"></a>Multiuser
-        safe default value calculation</h3>
+      <h2 id="toc7"><a name="Lesson 5: Basic business logic-JPA callback methods-Multiuser safe default value calculation"></a>Multiuser
+        safe default value calculation</h2>
       Until now we were calculating the <em>Invoice</em> and <em>Order</em>
       number using <em>@DefaultValueCalculator</em>. This calculates the
       default value when the user clicks to create a new <em>Invoice</em> or <em>Order</em>.
@@ -123,8 +123,8 @@ int number;
       module and you will see that the number is empty and not editable, and
       when you save the document the number is calculated and a message is shown
       with the year and the just generated number for that invoice/order.<br>
-      <h3 id="toc8"><a name="Lesson 5: Basic business logic-JPA callback methods-Synchronizing persistent and calculated properties"></a>Synchronizing
-        persistent and calculated properties</h3>
+      <h2 id="toc8"><a name="Lesson 5: Basic business logic-JPA callback methods-Synchronizing persistent and calculated properties"></a>Synchronizing
+        persistent and calculated properties</h2>
       As we already have learned, calculated properties do not allow to filter
       or ordering in list, so we prefer transient properties with <i>@Calculation</i>.
       However, <i>@Calculation</i> properties are only valid for simple
@@ -241,10 +241,10 @@ BigDecimal estimatedProfit; // A field, as in the persistent property case
       standard module behavior and add your own business logic, among other ways
       to add custom logic to your application.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="validation_en.html">Go to Lesson 12</a></strong>
     </div>

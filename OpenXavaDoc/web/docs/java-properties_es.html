@@ -21,9 +21,9 @@
         Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
         Herencia de superclases mapeadas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
         Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
-        Herencia de vistas</a> | <strong>9. Propiedades Java</strong> | <a class="wiki_link"
+        Herencia de vistas</a> | <strong>9. Propiedades Java</strong> | <a class="wiki_link"
         href="total-properties-with-calculation_es.html">10. Propiedades de
-        total con </a><a class="wiki_link" href="total-properties-with-calculation_en.html">@</a><a
+        total con </a><a class="wiki_link" href="total-properties-with-calculation_en.html">@</a><a
         class="wiki_link" href="total-properties-with-calculation_es.html">Calculation</a>
       | <a class="wiki_link" href="jpa-callback-methods_es.html">11. Métodos de
         retrollamadas JPA</a> | <a class="wiki_link" href="validation_es.html">12.
@@ -46,12 +46,12 @@
           </a></div>
         <div style="margin-left: 2em;"><a href="#Propiedades-calculadas">Propiedades
             calculadas</a></div>
-        <div style="margin-left: 3em;"><a href="#Propiedades-calculadas-Propiedad-calculada-simple">Propiedad
+        <div style="margin-left: 2em;"><a href="#Propiedades-calculadas-Propiedad-calculada-simple">Propiedad
             calculada simple</a></div>
-        <div style="margin-left: 3em;"><a href="#Propiedades-calculadas-Usar-DefaultValueCalculator">Usar
+        <div style="margin-left: 2em;"><a href="#Propiedades-calculadas-Usar-DefaultValueCalculator">Usar
             @DefaultValueCalculator</a><a href="#Resumen"><br>
           </a></div>
-        <div style="margin-left: 3em;"><a href="#Resumen">Resumen</a> </div>
+        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a> </div>
       </div>
       Has convertido tu modelo del dominio en una aplicación web plenamente
       funcional. Esta aplicación ya es bastante útil de por sí, aunque aún
@@ -141,8 +141,8 @@ public int getImporte() { // No tiene campo, ni setter, solo un getter
       Vamos a usar propiedades calculadas para añadir el elemento “económico” a
       nuestra aplicación <em>Facturacion</em>. Porque, tenemos líneas de
       detalle, productos, cantidades. Pero, ¿qué pasa con el dinero?<br>
-      <h3 id="toc2"><a name="Propiedades-calculadas-Propiedad-calculada-simple"></a>Propiedad
-        calculada simple</h3>
+      <h2 id="toc2"><a name="Propiedades-calculadas-Propiedad-calculada-simple"></a>Propiedad
+        calculada simple</h2>
       El primer paso será añadir una propiedad de importe a <em>Detalle</em>.
       Lo que queremos es que cuando el usuario elija un producto y teclee la
       cantidad el importe de la línea sea recalculado y mostrado al usuario:<br>
@@ -171,8 +171,8 @@ Collection&lt;Detalle&gt; detalles;
 </code></pre> Nada más. Tan solo necesitas añadir el getter y modificar la lista
       de propiedades. Ahora puedes probar los módulos <em>Factura</em> y <em>Pedido</em>
       para ver la propiedad <em>importe</em> en acción.<br>
-      <h3 id="toc3"><a name="Propiedades-calculadas-Usar-DefaultValueCalculator"></a>Usar
-        <em>@DefaultValueCalculator</em></h3>
+      <h2 id="toc3"><a name="Propiedades-calculadas-Usar-DefaultValueCalculator"></a>Usar
+        <em>@DefaultValueCalculator</em></h2>
       La forma en que calculamos el importe de la línea de detalle no es la
       mejor. Tiene, al menos, dos inconvenientes. El primero es que el usuario
       puede querer tener la posibilidad de cambiar el precio unitario. Y
@@ -254,7 +254,7 @@ private Collection&lt;Detalle&gt; detalles;
       uso de la anotación <i> @Calculation</i>, añadiremos propiedades a total,
       y como establecer valores por defecto desde un archivo de propiedades. <br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="total-properties-with-calculation_es.html">Ve
           a la lección 10</a></strong> </div>
