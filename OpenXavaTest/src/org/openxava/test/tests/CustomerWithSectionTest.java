@@ -321,6 +321,15 @@ public class CustomerWithSectionTest extends CustomerTest {
 		setValue("website", "http://www.openxava.org");
 		execute("Customer.save");
 		assertNoErrors();
+		
+		Customer customer = Customer.findByNumber(2);
+		customer.setWebsite("www.rae.es"); // With no http:// prefix
+		XPersistence.commit();
+		execute("Mode.list");
+		assertTrue("website column must have a clickable link", getHtml().contains("<a href=\"http://www.rae.es\">"));
+		customer = Customer.findByNumber(2);
+		customer.setWebsite(""); 
+		XPersistence.commit();		
 	}
 	
 	public void testOrderAndFilterInNestedCollection() throws Exception { 

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Links for WEBURL properties do not work in list mode if they have no http: or https: prefix. 
 - Fix: Looking for a module after with expired session produces no answer when it should ask for login.
 - Fix: Images shown in cards format are shown at full size, so it's ugly with huge images.
 - Fix: Value in list mode broken showing HTML code when it contains " followed by >. 
