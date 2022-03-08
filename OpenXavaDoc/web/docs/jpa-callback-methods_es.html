@@ -19,11 +19,11 @@
         Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
         Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
         Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
-        Herencia de superclases mapedas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de superclases mapeadas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
         Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
         Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
         Propiedades Java</a> | <a class="wiki_link" href="total-properties-with-calculation_es.html">10.
-        Propiedades de total con Calculation</a> | <strong>11. Métodos de
+        Propiedades de total con @Calculation</a> | <strong>11. Métodos de
         retrollamadas JPA</strong> | <a class="wiki_link" href="validation_es.html">12.
         Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">13.
         Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">14.
@@ -49,22 +49,25 @@
             desde la base de datos (@Formula)</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
-      Nuestra Aplicación ya trabaja con propiedades calculadas y persistentes
-      para manejar valores, con una estrucutura lógica básica. Veremos ahora
-      como mejorar aún más dicha lógica. <br>
+      Nuestra Aplicación ya trabaja con propiedades <i>calculadas</i> y <i>persistentes</i>
+      para manejar valores, con una estructura lógica básica. Veremos ahora como
+      mejorar aún más dicha lógica, aplicando modificaciones a objetos
+      persistentes y utilizando anotaciones de Hibernate como <i>@Formula</i>
+      para <i>mapear </i>propiedades a fragmentos <i>SQL</i>. <br>
       <div class="wiki" style="line-height: 1.5; font-family: arial, helvetica, sans-serif; font-size: medium; color: rgb(80, 80, 80); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: block;">
-        <h2 id="toc6" style="font-weight: bold; padding: 5px 0px 0px; margin: 0px; font-size: 1.3em;">Métodos
-          de retrollamadas JPA</h2>
-        Otra forma práctica de añadir lógica de negocio a tu modelo es mediante
-        los métodos de retrollamada JPA. Un método de retrollamada se llama en
-        un momento específico del ciclo de vida de la entidad como objeto
-        persistente. Es decir, puedes especificar cierta lógica a ejecutar al
-        grabar, leer, borrar o modificar una entidad.<br>
-        En esta sección veremos algunas aplicaciones prácticas de los métodos de
-        retrollamada JPA.<br>
+        <h2 id="toc6" style="font-weight: bold; padding: 5px 0px 0px; margin: 0px; font-size: 1.3em;"><a
+            name="Metodos-de-retrollamadas-JPA">Métodos de retrollamadas JPA</a></h2>
+        <a name="Metodos-de-retrollamadas-JPA"> Otra forma práctica de añadir
+          lógica de negocio a tu modelo es mediante los métodos de retrollamada
+          JPA. Un método de retrollamada se llama en un momento específico del
+          ciclo de vida de la entidad como objeto persistente. Es decir, puedes
+          especificar cierta lógica a ejecutar al grabar, leer, borrar o
+          modificar una entidad.<br>
+          En esta sección veremos algunas aplicaciones prácticas de los métodos
+          de retrollamada JPA.<br>
+        </a>
         <h3 id="toc7" style="font-weight: bold; padding: 5px 0px 0px; margin: 0px; font-size: 1.1em;"><a
-
-            name="Metodos-de-retrollamadas-JPA-Calculo-de-valor-por-defecto-multiusuario"></a>Cálculo
+            name="Metodos-de-retrollamadas-JPA"></a><a name="Metodos-de-retrollamadas-JPA-Calculo-de-valor-por-defecto-multiusuario"></a>Cálculo
           de valor por defecto multiusuario</h3>
         Hasta ahora estamos calculando el número para<span>&nbsp;</span><em>Factura</em><span>&nbsp;</span>y<span>&nbsp;</span><em>Pedido</em><span>&nbsp;</span>usando<span>&nbsp;</span><em>@DefaultValueCalculator</em>.
         Éste calcula el valor por defecto en el momento que el usuario pulsa
@@ -83,18 +86,12 @@
         añade el método<span>&nbsp;</span><em>calcularNumero()</em>. Veamos el
         código:<br>
         <pre style="background-color: rgb(248, 248, 248); border: 1px solid rgb(238, 238, 238); padding: 10px; font-size: 13px; overflow-x: auto;"><code
-
 class="java hljs" style="display: block; overflow-x: auto; padding: 0.5em; color: rgb(51, 51, 51); background: rgb(248, 248, 248); margin: -10px;"><span
-
 class="hljs-meta" style="color: rgb(153, 153, 153); font-weight: bold;">@PrePersist</span> <span
-
 class="hljs-comment" style="color: rgb(153, 153, 136); font-style: italic;">// Ejecutado justo antes de grabar el objeto por primera vez</span>
 <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">private</span> <span
-
 class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">void</span> <span
-
 class="hljs-title" style="color: rgb(153, 0, 0); font-weight: bold;">calcularNumero</span><span
-
 class="hljs-params">()</span> </span>{
     Query query = XPersistence.getManager().createQuery(
         <span class="hljs-string" style="color: rgb(221, 17, 68);">"select max(f.numero) from "</span> +
@@ -103,11 +100,8 @@ class="hljs-params">()</span> </span>{
     query.setParameter(<span class="hljs-string" style="color: rgb(221, 17, 68);">"anyo"</span>, anyo);
     Integer ultimoNumero = (Integer) query.getSingleResult();
     <span class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">this</span>.numero = ultimoNumero == <span
-
 class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">null</span> ? <span
-
 class="hljs-number" style="color: rgb(0, 128, 128);">1</span> : ultimoNumero + <span
-
 class="hljs-number" style="color: rgb(0, 128, 128);">1</span>;
 }
 </code></pre></div>
@@ -129,17 +123,13 @@ class="hljs-number" style="color: rgb(0, 128, 128);">1</span>;
         tu proyecto y modifica la propiedad<span>&nbsp;</span><em>numero</em><span>&nbsp;</span>de<span>&nbsp;</span><em>DocumentoComercial</em><span>&nbsp;</span>para
         que no la use:<br>
         <pre style="background-color: rgb(248, 248, 248); border: 1px solid rgb(238, 238, 238); padding: 10px; font-size: 13px; overflow-x: auto;"><code
-
 class="java hljs" style="display: block; overflow-x: auto; padding: 0.5em; color: rgb(51, 51, 51); background: rgb(248, 248, 248); margin: -10px;"><span
-
 class="hljs-meta" style="color: rgb(153, 153, 153); font-weight: bold;">@Column</span>(length = <span
-
 class="hljs-number" style="color: rgb(0, 128, 128);">6</span>)
 <span class="hljs-comment" style="color: rgb(153, 153, 136); font-style: italic;">//  @DefaultValueCalculator(value=CalculadorSiguienteNumeroParaAnyo.class, // Quita esto</span>
 <span class="hljs-comment" style="color: rgb(153, 153, 136); font-style: italic;">//      properties=@PropertyValue(name="anyo")</span>
 <span class="hljs-comment" style="color: rgb(153, 153, 136); font-style: italic;">//  )</span>
 <span class="hljs-meta" style="color: rgb(153, 153, 153); font-weight: bold;">@ReadOnly</span> <span
-
 class="hljs-comment" style="color: rgb(153, 153, 136); font-style: italic;">// El usuario no puede modificar el valor</span>
 <span class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">int</span> numero;
 </code></pre>Fíjate que además de quitar<span>&nbsp;</span><em>@DefaultValueCalculator</em>,
@@ -153,7 +143,6 @@ class="hljs-comment" style="color: rgb(153, 153, 136); font-style: italic;">// E
         documento, el número se calcula y se muestra un mensaje con el año y el
         número recién calculado para esa factura o pedido.<br>
         <h3 id="toc8" style="font-weight: bold; padding: 5px 0px 0px; margin: 0px; font-size: 1.1em;"><a
-
             name="Metodos-de-retrollamadas-JPA-Sincronizar-propiedades-persistentes-y-calculadas"></a>Sincronizar
           propiedades persistentes y calculadas</h3>
         Como ya hemos aprendido, las propiedades calculadas no permiten filtrar
@@ -172,38 +161,25 @@ class="hljs-comment" style="color: rgb(153, 153, 136); font-style: italic;">// E
           un nueva propiedad a la entidad<span>&nbsp;</span><i>Pedido</i><span>&nbsp;</span>llamada<span>&nbsp;</span><i>diasEntregaEstimados</i>:</div>
         <div class="wiki" style="line-height: 1.5; font-family: arial, helvetica, sans-serif; font-size: 16px; color: rgb(80, 80, 80); display: block;">
           <pre style="background-color: rgb(248, 248, 248); border: 1px solid rgb(238, 238, 238); padding: 10px; font-size: 13px; overflow-x: auto;"><code
-
 class="java hljs" style="display: block; overflow-x: auto; padding: 0.5em; color: rgb(51, 51, 51); background: rgb(248, 248, 248); margin: -10px;"><span
-
 class="hljs-meta" style="color: rgb(153, 153, 153); font-weight: bold;">@Depends</span>(<span
-
 class="hljs-string" style="color: rgb(221, 17, 68);">"fecha"</span>)
 <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">public</span> <span
-
 class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">int</span> <span
-
 class="hljs-title" style="color: rgb(153, 0, 0); font-weight: bold;">getDiasEntregaEstimados</span><span
-
 class="hljs-params">()</span> </span>{
     <span class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">if</span> (getFecha().getDayOfYear() &lt; <span
-
 class="hljs-number" style="color: rgb(0, 128, 128);">15</span>) {
         <span class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">return</span> <span
-
 class="hljs-number" style="color: rgb(0, 128, 128);">20</span> - getFecha().getDayOfYear(); 
     }
     <span class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">if</span> (getFecha().getDayOfWeek() == DayOfWeek.SUNDAY) <span
-
 class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">return</span> <span
-
 class="hljs-number" style="color: rgb(0, 128, 128);">2</span>;
     <span class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">if</span> (getFecha().getDayOfWeek() == DayOfWeek.SATURDAY) <span
-
 class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">return</span> <span
-
 class="hljs-number" style="color: rgb(0, 128, 128);">3</span>;
     <span class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">return</span> <span
-
 class="hljs-number" style="color: rgb(0, 128, 128);">1</span>;
 }
 </code></pre></div>
@@ -218,33 +194,24 @@ class="hljs-number" style="color: rgb(0, 128, 128);">1</span>;
           defecto en el código de<span>&nbsp;</span><i>Pedido</i>:</div>
         <div class="wiki" style="line-height: 1.5; font-family: arial, helvetica, sans-serif; font-size: 16px; color: rgb(80, 80, 80); display: block;">
           <pre style="background-color: rgb(248, 248, 248); border: 1px solid rgb(238, 238, 238); padding: 10px; font-size: 13px; overflow-x: auto;"><code
-
 class="java hljs" style="display: block; overflow-x: auto; padding: 0.5em; color: rgb(51, 51, 51); background: rgb(248, 248, 248); margin: -10px;"><span
-
 class="hljs-meta" style="color: rgb(153, 153, 153); font-weight: bold;">@View</span>(extendsView=<span
-
 class="hljs-string" style="color: rgb(221, 17, 68);">"super.DEFAULT"</span>, 
     members=
         <span class="hljs-string" style="color: rgb(221, 17, 68);">"diasEntregaEstimados,"</span> + <span
-
 class="hljs-comment" style="color: rgb(153, 153, 136); font-style: italic;">// AÑADE ESTA LÍNEA</span>
         <span class="hljs-string" style="color: rgb(221, 17, 68);">"factura { factura }"</span>
 )
 ...
 <span class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">public</span> <span
-
 class="hljs-class"><span class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">class</span> <span
-
 class="hljs-title" style="color: rgb(68, 85, 136); font-weight: bold;">Pedido</span> <span
-
 class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">extends</span> <span
-
 class="hljs-title" style="color: rgb(68, 85, 136); font-weight: bold;">DocumentoComercial</span> </span>{
 </code></pre></div>
         <div class="wiki" style="line-height: 1.5; font-family: arial, helvetica, sans-serif; font-size: 16px; color: rgb(80, 80, 80); display: block;">El
           resultado es este:</div>
         <img src="https://www.openxava.org/OpenXavaDoc/docs/files/business-logic_es050.png"
-
           alt="business-logic_es050.png" title="business-logic_es050.png" style="margin: 10px 0px; border: 0px; padding: 4px;">
         <div class="wiki" style="line-height: 1.5; font-family: arial, helvetica, sans-serif; font-size: 16px; color: rgb(80, 80, 80); display: block;">El
           valor se recalcula cada vez que la fecha cambia en la interfaz de
@@ -256,11 +223,8 @@ class="hljs-title" style="color: rgb(68, 85, 136); font-weight: bold;">Documento
           el siguiente código a tu entidad<span>&nbsp;</span><i>Pedido</i>:</div>
         <div class="wiki" style="line-height: 1.5; font-family: arial, helvetica, sans-serif; font-size: 16px; color: rgb(80, 80, 80); display: block;">
           <pre style="background-color: rgb(248, 248, 248); border: 1px solid rgb(238, 238, 238); padding: 10px; font-size: 13px; overflow-x: auto;"><code
-
 class="java hljs" style="display: block; overflow-x: auto; padding: 0.5em; color: rgb(51, 51, 51); background: rgb(248, 248, 248); margin: -10px;"><span
-
 class="hljs-meta" style="color: rgb(153, 153, 153); font-weight: bold;">@Column</span>(columnDefinition=<span
-
 class="hljs-string" style="color: rgb(221, 17, 68);">"INTEGER DEFAULT 1"</span>)
 <span class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">int</span> diasEntrega;
 </code></pre></div>
@@ -293,18 +257,12 @@ class="hljs-string" style="color: rgb(221, 17, 68);">"INTEGER DEFAULT 1"</span>)
           con<span>&nbsp;</span><i>@PrePersist</i><span>&nbsp;</span>y<span>&nbsp;</span><i>@PreUpdate</i>,
           así:<br>
           <pre style="background-color: rgb(248, 248, 248); border: 1px solid rgb(238, 238, 238); padding: 10px; font-size: 13px; overflow-x: auto;"><code
-
 class="java hljs" style="display: block; overflow-x: auto; padding: 0.5em; color: rgb(51, 51, 51); background: rgb(248, 248, 248); margin: -10px;"><span
-
 class="hljs-meta" style="color: rgb(153, 153, 153); font-weight: bold;">@PrePersist</span> <span
-
 class="hljs-meta" style="color: rgb(153, 153, 153); font-weight: bold;">@PreUpdate</span> 
 <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">private</span> <span
-
 class="hljs-keyword" style="color: rgb(51, 51, 51); font-weight: bold;">void</span> <span
-
 class="hljs-title" style="color: rgb(153, 0, 0); font-weight: bold;">recalcularDiasEntrega</span><span
-
 class="hljs-params">()</span> </span>{
     setDiasEntrega(getDiasEntregaEstimados());
 }
@@ -317,7 +275,6 @@ class="hljs-params">()</span> </span>{
         actualiza correctamente después de grabar, lista para usar en procesos
         masivos y disponible para filtrar y ordenar en la lista.<br>
         <h2 id="toc9" style="font-weight: bold; padding: 5px 0px 0px; margin: 0px; font-size: 1.3em;"><a
-
             name="Logica-desde-la-base-de-datos-Formula"></a>Lógica desde la
           base de datos (<em>@Formula</em>)</h2>
         Otra alternativa a<span>&nbsp;</span><i>@Calculation,</i><span>&nbsp;</span>o
@@ -327,19 +284,13 @@ class="hljs-params">()</span> </span>{
         propiedad a un fragmento de SQL. Por ejemplo, puedes definir<span>&nbsp;</span><i>beneficioEstimado</i><span>&nbsp;</span>con<span>&nbsp;</span><em>@Formula</em><span>&nbsp;</span>en<span>&nbsp;</span><i>DocumentoComercial</i><span>&nbsp;</span>como
         se muestra en el siguiente código:<br>
         <pre style="background-color: rgb(248, 248, 248); border: 1px solid rgb(238, 238, 238); padding: 10px; font-size: 13px; overflow-x: auto;"><code
-
 class="java hljs" style="display: block; overflow-x: auto; padding: 0.5em; color: rgb(51, 51, 51); background: rgb(248, 248, 248); margin: -10px;"><span
-
 class="hljs-meta" style="color: rgb(153, 153, 153); font-weight: bold;">@org</span>.hibernate.annotations.Formula(<span
-
 class="hljs-string" style="color: rgb(221, 17, 68);">"IMPORTETOTAL * 0.10"</span>) <span
-
 class="hljs-comment" style="color: rgb(153, 153, 136); font-style: italic;">// El cálculo usando SQL</span>
 <span class="hljs-meta" style="color: rgb(153, 153, 153); font-weight: bold;">@Setter</span>(AccessLevel.NONE) <span
-
 class="hljs-comment" style="color: rgb(153, 153, 136); font-style: italic;">// El setter no se genera, sólo necesitamos el getter</span>
 <span class="hljs-meta" style="color: rgb(153, 153, 153); font-weight: bold;">@Stereotype</span>(<span
-
 class="hljs-string" style="color: rgb(221, 17, 68);">"DINERO"</span>)
 BigDecimal beneficioEstimado; <span class="hljs-comment" style="color: rgb(153, 153, 136); font-style: italic;">// Un campo, como con una propiedad persistente</span>
 </code></pre>Esto significa que cuando un<span>&nbsp;</span><em>DocumentoComercial</em><span>&nbsp;</span>se
@@ -355,7 +306,6 @@ BigDecimal beneficioEstimado; <span class="hljs-comment" style="color: rgb(153, 
         cierto fabricante de base de datos.</div>
       <div class="wiki" style="line-height: 1.5; font-family: arial, helvetica, sans-serif; font-size: medium; color: rgb(80, 80, 80); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: block;">
         <h2 id="toc14" style="font-weight: bold; padding: 5px 0px 0px; margin: 0px; font-size: 1.3em;"><a
-
             name="Resumen"></a>Resumen</h2>
         En esta lección has aprendido algunas formas comunes de añadir lógica de
         negocio a tus entidades. No hay duda sobre la utilidad de las
@@ -368,14 +318,12 @@ BigDecimal beneficioEstimado; <span class="hljs-comment" style="color: rgb(153, 
         entre otras formas de añadir lógica personalizada a tu aplicación.</div>
       <br>
       <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
-
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
-        <a class="wiki_link" href="validation_es.html">Ve a la
-          lección 12</a></strong> </div>
+        <a class="wiki_link" href="validation_es.html">Ve a la lección 12</a></strong>
+    </div>
     <strong> </strong>
   </body>
 </html>

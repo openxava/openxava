@@ -12,18 +12,18 @@
       <h1 id="toc0"><a name="Leccion-5-Logica-de-negocio-basica"></a> <span id="breadcrumbs">
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
-        Lección 10: Propiedades de total con Calculation</h1>
+        Lección 10: Propiedades de total con @Calculation</h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
         Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
         Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
         Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
         Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
-        Herencia de superclases mapedas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de superclases mapeadas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
         Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
         Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
-        Propiedades Java</a> | <strong>10. Propiedades de total con Calculation</strong>
-      | <a class="wiki_link" href="jpa-retrocalling-methods_es.html">11.
+        Propiedades Java</a> | <strong>10. Propiedades de total con
+        @Calculation</strong> | <a class="wiki_link" href="jpa-callback-methods_es.html">11.
         Métodos de retrollamadas JPA</a> | <a class="wiki_link" href="validation_es.html">12.
         Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">13.
         Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">14.
@@ -37,26 +37,27 @@
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#Leccion-5-Logica-de-negocio-basica">Lección
-            10: Propiedades de total con Calculation<br>
+            10: Propiedades de total con @Calculation<br>
           </a></div>
-        <div style="margin-left: 2em;"><a href="#Propiedades-calculadas-Propiedades-persistentes-con-Calculation">Propiedades
+        <div style="margin-left: 2em;"><a href="#Propiedades-en-Java">Propiedades
             persistentes con @Calculation</a></div>
-        <span style="color: #0000ee;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </span><a
-
+        <span style="color: #0000ee;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; </span><a
           href="#Propiedades-calculadas-Propiedades-de-total-de-una-coleccion">Propiedades
           de total de una colección</a>
-        <div style="margin-left: 3em;"><a href="#Propiedades-calculadas-Valor-por-defecto-desde-un-archivo-de-propiedades">Valor
+        <div style="margin-left: 2em;"><a href="#Propiedades-calculadas-Valor-por-defecto-desde-un-archivo-de-propiedades">Valor
             por defecto desde un archivo de propiedades</a></div>
-        <div style="margin-left: 3em;"><a href="#Propiedades-calculadas-Evolucion-de-esquema-manual">Evolución
+        <div style="margin-left: 2em;"><a href="#Propiedades-calculadas-Evolucion-de-esquema-manual">Evolución
             de esquema manual</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
     </div>
-    <div class="wiki" style="display: block;">Hemos logrado añadir a nuestra
-      aplicación una propiedad calculada que nos permite añadir valores a la
-      misma, y utilizamos @DefaultValueCalculator para almacenar dicho valor de
-      cada producto en cada línea de detalle. Continuaremos mejorando nuestra
-      aplicación de la siguiente manera:<br>
+    <div class="wiki" style="display: block;">En la lección anterior agregamos
+      una propiedad calculada a nuestra aplicación que nos permite agregarle
+      valores, y usamos @DefaultValueCalculator para almacenar este valor para
+      cada línea de detalle. Continuaremos mejorando nuestra aplicación,
+      agregando condiciones, filtrando, agregando IVA con @Calculation, creando
+      una clase personalizada para almacenar propiedades y modificando nuestra
+      tabla de base de datos con algunas declaraciones SQL.<br>
       <h2><a name="Propiedades-en-Java"></a>Propiedades persistentes con <i>@Calculation</i></h2>
       A veces las propiedades calculadas no son la mejor opción. Imagínate que
       tienes una propiedad calculada en <em>Factura</em>, digamos <em>descuento</em>:<br>
@@ -121,7 +122,6 @@ for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccio
         puede filtrar ni ordenar por las propiedades calculadas, pero sí que lo
         puede hacer usando propiedades persistentes con <em>@Calculation</em>:<br>
         <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
-
           title="business-logic_es025.png"><br>
         <em>@Calculation</em> es una buena opción cuando necesitas filtrar y
         ordenar, y un cálculo simple es suficiente. Una desventaja de las
@@ -137,8 +137,8 @@ for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccio
         opción es tener ambas, la calculada y la persistente, y sincronizar sus
         valores usando los métodos de retrollamada de JPA (hablaremos sobre los
         métodos de retrollamada más abajo).</div>
-      <h3 id="toc4"><a name="Propiedades-calculadas-Propiedades-de-total-de-una-coleccion"></a>Propiedades
-        de total de una colección</h3>
+      <h2 id="toc4"><a name="Propiedades-calculadas-Propiedades-de-total-de-una-coleccion"></a>Propiedades
+        de total de una colección</h2>
       También queremos añadir importes a <em>Pedido</em> y <em>Factura</em>.
       Tener IVA, importe base e importe total es indispensable. Para hacerlo
       sólo necesitas añadir unas pocas propiedades a la clase <i>DocumentoComercial</i>.
@@ -198,8 +198,8 @@ BigDecimal importeTotal;
       Debería funcionar casi como en la figura del inicio de esta sección.
       “Casi” porque <em>porcentajeIVA</em> todavía no tiene un valor por
       defecto. Lo añadiremos en la siguiente sección.<br>
-      <h3 id="toc5"><a name="Propiedades-calculadas-Valor-por-defecto-desde-un-archivo-de-propiedades"></a>Valor
-        por defecto desde un archivo de propiedades</h3>
+      <h2 id="toc5"><a name="Propiedades-calculadas-Valor-por-defecto-desde-un-archivo-de-propiedades"></a>Valor
+        por defecto desde un archivo de propiedades</h2>
       Es conveniente para el usuario tener el campo <em>porcentajeIVA</em>
       lleno por defecto con un valor adecuado. Podrías usar un calculador (<em>@DefaultValueCalculator</em>)
       que devuelva un valor fijo, pero en ese caso cambiar el valor por defecto
@@ -286,8 +286,8 @@ BigDecimal porcentajeIVA;
       factura, el campo <em>porcentajeIVA</em> se rellenará con 21, o cualquier
       otro valor que hayas puesto en <em>facturacion.properties</em>.</div>
     <div class="wiki" style="display: block;">
-      <h3><a name="Propiedades-calculadas-Evolucion-de-esquema-manual"></a>Evolución
-        de esquema manual</h3>
+      <h2><a name="Propiedades-calculadas-Evolucion-de-esquema-manual"></a>Evolución
+        de esquema manual</h2>
       Cuando usamos cosas como <i>@Calculation</i> o <i>@DefaultValueCalculator</i>
       la evolución de esquema automática que provee OpenXava se nos queda corta,
       porque añade una nueva columna cuando tu añades una nueva propiedad, pero
@@ -364,20 +364,19 @@ SET IMPORTETOTAL = (
     <br>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
-      <p>En esta lección, has aprendido a utilizar la anotación @Calculation
+      <p>En esta lección, has aprendido a utilizar la anotación <i>@Calculation</i>
         para asociar un cálculo simple a una propiedad persistente, mejorando de
         manera notable la eficiencia y velocidad de respuesta al consultar y
         permitiéndonos agregar diferentes funcionalidades a total, como el
         cálculo de IVA. También aprendimos como agregar valores por defecto, y
         como modificar de manera manual el esquema de nuestra base de datos. En
-        la próxima lección, revisaremos diferentes métodos de retrollamadas JPA,
-        sincronizar propiedades persistentes y calculadas y utilizar la
-        anotación @Formula.</p>
+        la próxima lección, revisaremos diferentes <i>métodos de retrollamadas
+          JPA</i>, sincronizar propiedades persistentes y calculadas y utilizar
+        la anotación <i>@Formula</i>.</p>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
-        <a class="wiki_link" href="jpa-retrocalling-methods_es.html">Ve a la
-          lección 11</a></strong> </div>
+        <a class="wiki_link" href="jpa-callback-methods_es.html">Ve a la lección
+          11</a></strong> </div>
   </body>
 </html>

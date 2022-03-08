@@ -12,7 +12,7 @@
       <h1 id="toc0"><a name="Lesson 5: Basic business logic"></a> <span id="breadcrumbs">
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
-        Lesson 10: Total properties with Calculation </h1>
+        Lesson 10: Total properties with @Calculation </h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
         Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
@@ -22,9 +22,9 @@
         Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
         Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
         View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
-        Java properties</a> | <strong>10. Total properties with Calculation</strong>
-      | <a class="wiki_link" href="total-properties-with-calculation_en.html">11.
-        JPA retrocalling methods</a> | <a class="wiki_link" href="validation_en.html">12.
+        Java properties</a> | <strong>10. Total properties with @Calculation</strong>
+      | <a class="wiki_link" href="jpa-callback-methods_en.html">11. JPA
+        callback methods</a> | <a class="wiki_link" href="validation_en.html">12.
         Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">13.
         Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">14.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">15.
@@ -38,26 +38,29 @@
         <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Lesson%205:%20Basic%20business%20logic">Lesson
 10:
-            Total properties with Calculation<br>
+            Total properties with @Calculation<br>
           </a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Persistent%20properties%20with%20Calculation">Persistent
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Persistent%20properties%20with%20Calculation">Persistent
             properties with @Calculation</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Total%20properties%20of%20a%20collection">Total
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Total%20properties%20of%20a%20collection">Total
             properties of a collection</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Default%20value%20from%20a%20properties%20file">Default
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Default%20value%20from%20a%20properties%20file">Default
             value from a properties file</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Manual%20schema%20evolution">Manual
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Manual%20schema%20evolution">Manual
             schema evolution</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Summary">Summary</a></div>
       </div>
     </div>
-    <div class="wiki" style="display: block;">We managed to add a calculated
-      property to our application that allows us to add values to it, and we use
-      @DefaultValueCalculator to store this value for each detail line. We will
-      continue to improve our app in the following way:</div>
+    <div class="wiki" style="display: block;">In the previous lesson we added a
+      calculated property to our app that allows us to add values ​​to it, and
+      we used <i>@DefaultValueCalculator</i> to store this value for each
+      detail line. We will continue to improve our application, adding
+      conditions, filtering, adding VAT with <i>@Calculation</i>, creating a
+      custom class to store properties, and modifying our database table with
+      some SQL statements.</div>
     <div class="wiki" style="display: block;">
-      <h3><a name="Lesson 5: Basic business logic-Calculated properties-Persistent properties with Calculation"></a>Persistent
-        properties with <i>@Calculation</i></h3>
+      <h2><a name="Lesson 5: Basic business logic-Calculated properties-Persistent properties with Calculation"></a>Persistent
+        properties with <i>@Calculation</i></h2>
       <i> </i>Sometimes calculated properties are not the best option. Imagine
       that you have a calculated property in <em>Invoice</em>, let's say <em>discount</em>:<br>
       <div class="wiki" style="display: block;">
@@ -83,7 +86,7 @@ for (Object o: query.getResultList()) { // Iterates over all objects
         amount of invoices, and only a few of them have the <i>discount</i>
         greater than 1000, then your process will be very inefficient. What
         alternative do we have?<br>
-        Our alternative is to use the <em>@Calculation</em> annotation. <em>@Calculation</em>
+        Our alternative is to use the <i>@Calculation</i> annotation. <em>@Calculation</em>
         is an OpenXava annotation that allows to associate a simple calculation
         to a persistent property. You can define <em>discount</em> with <em>@Calculation</em>
         as shown the next code:<br>
@@ -117,7 +120,7 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
         This fact also has effect in the list mode, because the user cannot
         filter or order by calculated properties, but he can do so using
         persistent properties with <em>@Calculation</em>:<br>
-        <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
+        <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
           title="business-logic_en025.png"><br>
         <em>@Calculation</em> is a good option when you need filtering and
         sorting, and a simple calculation is enough. A shortcoming of <i>@Calculation</i>
@@ -134,14 +137,14 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
         methods (we'll talk about callback methods below). </div>
     </div>
     <div class="wiki" style="display: block;">
-      <h3 id="toc4"><a name="Lesson 5: Basic business logic-Calculated properties-Total properties of a collection"></a>Total
-        properties of a collection</h3>
+      <h2 id="toc4"><a name="Lesson 5: Basic business logic-Calculated properties-Total properties of a collection"></a>Total
+        properties of a collection</h2>
     </div>
     <div class="wiki" style="display: block;">We want to add amounts to <em>Order</em>
       and <em>Invoice</em> too. To calculate vat, base amount and total amount
       are indispensable. To do so you only need to add a few properties to <em>CommercialDocument</em>
       class. The next figure shows the user interface for these properties: </div>
-    <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
+    <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
         alt="business-logic_en030.png" title="business-logic_en030.png"><br>
       Add the next code to <i>CommercialDocument</i> entity:<br>
       <pre><code class="java">@Digits(integer=2, fraction=0) // To indicate its size
@@ -199,8 +202,8 @@ BigDecimal totalAmount;
       It would behave almost as in figure at the begin of this section. “Almost”
       because <i>vatPercentage</i> does not have a default value yet. We add it
       in the next section.<br>
-      <h3 id="toc5"><a name="Lesson 5: Basic business logic-Calculated properties-Default value from a properties file"></a>Default
-        value from a properties file</h3>
+      <h2 id="toc5"><a name="Lesson 5: Basic business logic-Calculated properties-Default value from a properties file"></a>Default
+        value from a properties file</h2>
       It's useful for the user to have the default value populated for the <em>vatPercentage</em>.
       You could use calculator (with <em>@DefaultValueCalculator</em>) that
       returns a fixed value, but in that case changing the default value means
@@ -281,8 +284,8 @@ BigDecimal vatPercentage;
 </code></pre> With this code when the user clicks to create a new invoice, the <em>vatPercentage</em>
       field will be filled with 21 or whatever other value you put in <em>invoicing.properties</em>.</div>
     <div class="wiki" style="display: block;">
-      <h3><a name="Lesson 5: Basic business logic-Calculated properties-Manual schema evolution"></a>Manual
-        schema evolution</h3>
+      <h2><a name="Lesson 5: Basic business logic-Calculated properties-Manual schema evolution"></a>Manual
+        schema evolution</h2>
       When you use things like <i>@Calculation</i> or <i>@DefaultValueCalculator</i>
       the automatic evolution schema provides by OpenXava falls short, because
       it adds a new column when you add a new property, but it does not fill the
@@ -355,18 +358,18 @@ SET TOTALAMOUNT = (
     <br>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
-      In this lesson, you have learned how to use the @Calculation annotation to
-      associate a simple calculation with a persistent property, greatly
-      improving query efficiency and response speed, and allowing us to add
-      different functionality to total, such as VAT calculation. We also learned
-      how to add default values, and how to manually modify our database schema.
-      In the next lesson, we'll review different JPA callback methods,
-      synchronizing persistent and computed properties, and using the @Formula
-      annotation.<br>
+      In this lesson, you have learned how to use the <i>@Calculation</i>
+      annotation to associate a simple calculation with a persistent property,
+      greatly improving query efficiency and response speed, and allowing us to
+      add different functionality to total, such as VAT calculation. We also
+      learned how to add default values, and how to manually modify our database
+      schema. In the next lesson, we'll review different <i>JPA callback
+        methods</i>, synchronizing persistent and computed properties, and using
+      the <i>@Formula</i> annotation.<br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-        <a class="wiki_link" href="jpa-retrocalling-methods_en.html">Go to
-          Lesson 11</a></strong> </div>
+        <a class="wiki_link" href="jpa-callback-methods_en.html">Go to Lesson 11</a></strong>
+    </div>
   </body>
 </html>
