@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lesson 10: Total properties with Calculation - OpenXava</title>
+    <title>Lesson 10: Total properties with @Calculation - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -120,7 +120,8 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
         This fact also has effect in the list mode, because the user cannot
         filter or order by calculated properties, but he can do so using
         persistent properties with <em>@Calculation</em>:<br>
-        <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
+        <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
+
           title="business-logic_en025.png"><br>
         <em>@Calculation</em> is a good option when you need filtering and
         sorting, and a simple calculation is enough. A shortcoming of <i>@Calculation</i>
@@ -144,7 +145,8 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
       and <em>Invoice</em> too. To calculate vat, base amount and total amount
       are indispensable. To do so you only need to add a few properties to <em>CommercialDocument</em>
       class. The next figure shows the user interface for these properties: </div>
-    <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
+    <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
+
         alt="business-logic_en030.png" title="business-logic_en030.png"><br>
       Add the next code to <i>CommercialDocument</i> entity:<br>
       <pre><code class="java">@Digits(integer=2, fraction=0) // To indicate its size
@@ -367,7 +369,8 @@ SET TOTALAMOUNT = (
         methods</i>, synchronizing persistent and computed properties, and using
       the <i>@Formula</i> annotation.<br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="jpa-callback-methods_en.html">Go to Lesson 11</a></strong>
     </div>
