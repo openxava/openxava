@@ -3,9 +3,11 @@ package org.openxava.test.model;
 import java.math.*;
 import java.util.*;
 
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;
+import org.openxava.jpa.*;
 import org.openxava.test.actions.*;
 
 import lombok.*;
@@ -16,7 +18,7 @@ import lombok.*;
  */
 @Getter @Setter
 @View(members="year; invoices { invoices } ") 
-public class InvoicesByYear {
+public class InvoicesByYear  { // tmr extends Identifiable
 	
 	@Max(2100) @OnChange(OnChangeVoidAction.class)
 	int year;
@@ -26,9 +28,22 @@ public class InvoicesByYear {
 	Collection<Invoice> invoices;
 	
 	public BigDecimal getTotalSum() {
-		// TMR ME QUEDÉ POR AQUÍ, INTENTANDO REPRODUCIR, ANTES DE HACER LA PRUEBA JUNIT
-		// tmr .reduce(BigDecimal.ZERO, BigDecimal::add);
-		return new BigDecimal("100");
+		System.out.println("[InvoicesByYear.getTotalSum] year=" + year); // tmp
+		Query query = XPersistence.getManager().createQuery("from Invoice i where i.year = :year");
+		query.setParameter("year", year);
+		Collection<Invoice> invoices = query.getResultList(); 
+		BigDecimal result = invoices.stream()
+			.map(Invoice::getTotal)
+			.reduce(BigDecimal.ZERO, BigDecimal::add);
+		System.out.println("[InvoicesByYear.getTotalSum] result=" + result); // tmp
+		return result;
 	}
+
+	@Override
+	public String toString() { // tmr
+		return "InvoicesByYear [year=" + year + "]";
+	}
+	
+	
 
 }

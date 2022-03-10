@@ -95,7 +95,7 @@
 		<model name="Delivery"/>
 		<view name="FullInvoice"/>		
 		<controller name="Typical"/>
-	</module>		<module name="DeliveryInvoiceAsDecriptionsList" folder="invoicing.variations">		<model name="Delivery"/>		<view name="InvoiceAsDescriptionsList"/>				<tab name="InvoiceAsDescriptionsList"/>		<controller name="Typical"/>	</module>		<module name="Invoice6WithDetails" folder="warehousing/variations"> 		<model name="Invoice6"/>		<view name="WithDetails"/>		<controller name="Typical"/>	</module>		<module name="InvoicesByYear" folder="warehousing/variations"> 		<model name="InvoicesByYear"/>	</module>			
+	</module>		<module name="DeliveryInvoiceAsDecriptionsList" folder="invoicing.variations">		<model name="Delivery"/>		<view name="InvoiceAsDescriptionsList"/>				<tab name="InvoiceAsDescriptionsList"/>		<controller name="Typical"/>	</module>		<module name="Invoice6WithDetails" folder="warehousing/variations"> 		<model name="Invoice6"/>		<view name="WithDetails"/>		<controller name="Typical"/>	</module>		<module name="InvoicesByYear" folder="warehousing/variations"> 		<model name="InvoicesByYear"/>		<!-- tmr ini -->		<controller name="InvoicesByYear"/>		<mode-controller name="DetailOnly"/>		<!-- tmr fin --> 	</module>			
 	<module name="TransportChargeWithDistance" folder="invoicing.variations">
 		<model name="TransportCharge"/>
 		<tab name="WithDistance"/>		

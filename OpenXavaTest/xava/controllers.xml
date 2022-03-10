@@ -48,6 +48,12 @@
 		<action name="createMyExcel" class="org.openxava.test.actions.CreateMyExcelAction" />
 	</controller>
 	
+	<!-- tmr ini -->
+	<controller name="InvoicesByYear"> 
+		<action name="init" class="org.openxava.test.actions.InvoicesByYearInitAction" on-init="true"/>
+	</controller>
+	<!-- tmr fin -->
+	
 	<controller name="Quote">	
 		<extends controller="Typical"/>
 		<action name="resetUnitPriceCalculator" 

@@ -1896,7 +1896,9 @@ public class View implements java.io.Serializable {
 	 * @since 4.3
 	 */
 	public Object getCollectionTotal(int row, int column) {
-		return getCollectionTotal(getMetaPropertiesList().get(column).getName(), row);
+		Object result = getCollectionTotal(getMetaPropertiesList().get(column).getName(), row);
+		System.out.println("[View.getCollectionTotal(" + row + ", " + column + ")] result=" + result); // tmp
+		return result;
 	}	
 		
 	/**
@@ -1904,6 +1906,7 @@ public class View implements java.io.Serializable {
 	 */	
 	public Object getCollectionTotal(String qualifiedPropertyName, int index) {
 		assertRepresentsCollection("getCollectionTotal()");
+		System.out.println("[View.getCollectionTotal(" + qualifiedPropertyName + ", " + index + ")] getCollectionTotals()=" + getCollectionTotals()); // tmp
 		return getCollectionTotalImpl(getCollectionTotals(), qualifiedPropertyName, index);
 	}
 	
@@ -1927,7 +1930,8 @@ public class View implements java.io.Serializable {
 	}
 
 	private Map getCollectionTotals() {
-		if (collectionTotals == null) {
+		// tmr if (collectionTotals == null) {
+		if (true) { // tmr
 			try { 
 				Map memberNames = new HashMap();
 				for (List<String> propertyList: getTotalProperties().values()) {
@@ -1945,11 +1949,26 @@ public class View implements java.io.Serializable {
 					removeKeys(getParent().getMetaModel(), collectionTotals); 
 				}
 				else {
+					// tmr ini
+					System.out.println("[View.getCollectionTotals] getParent().getModel()>" + getParent().getModel()); // tmp
+					if (getParent().getModel() != null) {
+						System.out.println("[View.getCollectionTotals] X"); // tmp
+						getParent().updateModelFromView();
+						System.out.println("[View.getCollectionTotals] getParent().getModel()<" + getParent().getModel()); // tmp
+						collectionTotals = MapFacade.getValues(getParent().getModelName(), getParent().getModel(), memberNames);
+						removeKeys(getParent().getMetaModel(), collectionTotals);
+						System.out.println("[View.getCollectionTotals] collectionTotals=" + collectionTotals); // tmp
+					}
+					else {
+					// tmr fin
 					Map key = getParent().getKeyValues();
+					
 					if (hasNull(key)) {
+						System.out.println("[View.getCollectionTotals] A"); // tmp
 						collectionTotals = Collections.EMPTY_MAP;
 					}
 					else {
+						System.out.println("[View.getCollectionTotals] B"); // tmp
 						try {
 							collectionTotals = MapFacade.getValues(getParent().getModelName(), key, memberNames);
 							removeKeys(getParent().getMetaModel(), collectionTotals); 
@@ -1958,6 +1977,7 @@ public class View implements java.io.Serializable {
 							collectionTotals = Collections.EMPTY_MAP;
 						}				
 					}
+					} // tmr
 				}
 			}
 			catch (Throwable ex) {

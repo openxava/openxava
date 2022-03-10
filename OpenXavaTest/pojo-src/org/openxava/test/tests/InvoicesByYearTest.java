@@ -21,6 +21,13 @@ public class InvoicesByYearTest extends ModuleTestBase {
 		setValue("year", "2004");
 		assertCollectionRowCount("invoices", 5);
 		assertInvoicesCountInSection(5);
+		
+		// tmr ini
+		// tmr Cambiar nombre método
+		// TMR ME QUEDÉ POR AQUÍ: YA SALE VERDE. FALTA PROBAR SIN EL setModel() EN ACCION Y REVISAR EL CÓDIGO 
+		// TMR Probar a mano cambiar de año, cuando esté el código definitivo
+		assertTotalInCollection("invoices", "total", "9,060.10");
+		// tmr fin
 	}
 	
 	private void assertInvoicesCountInSection(int expectedCount) throws Exception {
