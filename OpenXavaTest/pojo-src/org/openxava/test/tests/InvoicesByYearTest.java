@@ -24,9 +24,10 @@ public class InvoicesByYearTest extends ModuleTestBase {
 		
 		// tmr ini
 		// tmr Cambiar nombre método
-		// TMR ME QUEDÉ POR AQUÍ: YA SALE VERDE. FALTA PROBAR SIN EL setModel() EN ACCION Y REVISAR EL CÓDIGO 
-		// TMR Probar a mano cambiar de año, cuando esté el código definitivo
 		assertTotalInCollection("invoices", "total", "9,060.10");
+		execute("InvoicesByYear.setModel");
+		setValue("year", "2002");
+		assertTotalInCollection("invoices", "total", "2,900.00");
 		// tmr fin
 	}
 	

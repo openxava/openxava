@@ -50,7 +50,7 @@
 	
 	<!-- tmr ini -->
 	<controller name="InvoicesByYear"> 
-		<action name="init" class="org.openxava.test.actions.InvoicesByYearInitAction" on-init="true"/>
+		<action name="setModel" class="org.openxava.test.actions.InvoicesByYearSetModelAction"/>
 	</controller>
 	<!-- tmr fin -->
 	

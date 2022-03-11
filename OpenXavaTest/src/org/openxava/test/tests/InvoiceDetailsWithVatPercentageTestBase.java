@@ -14,7 +14,7 @@ abstract public class InvoiceDetailsWithVatPercentageTestBase extends CustomizeL
 		this.collection = collection;
 	}
 	
-	public void testEditablePropertiesInCollectionTotals() throws Exception { 
+	public void testEditablePropertiesInCollectionTotals() throws Exception { // TMR FALLA 
 		execute("List.viewDetail", "row=0");		
 		
 		assertValueInCollection(collection, 0, "amount", "2,000.00");

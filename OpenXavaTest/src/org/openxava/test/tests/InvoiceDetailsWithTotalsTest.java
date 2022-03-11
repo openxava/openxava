@@ -51,7 +51,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		execute("List.addColumns", "collection=details");
 		execute("AddColumns.restoreDefault");
 				
-		assertTotalUpdatedWhenDependsPropertyChanged(); 
+		assertTotalUpdatedWhenDependsPropertyChanged(); // TMR FALLA
 	}
 	
 	private void assertTotalUpdatedWhenDependsPropertyChanged() throws Exception {  

@@ -18,7 +18,7 @@ import lombok.*;
  */
 @Getter @Setter
 @View(members="year; invoices { invoices } ") 
-public class InvoicesByYear  { // tmr extends Identifiable
+public class InvoicesByYear { 
 	
 	@Max(2100) @OnChange(OnChangeVoidAction.class)
 	int year;

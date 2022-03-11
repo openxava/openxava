@@ -35,7 +35,7 @@ public class MapFacadeTest extends TestCase {
 		Map values = new HashMap();
 		values.put("year", new Integer(2007));
 		values.put("description", "JUNIT FROM MapFacade");
-		Map key = MapFacade.createReturningKey("Course", values); 
+		Map key = MapFacade.createReturningKey("Course", values); // TMR FALLA
 		Number number = (Number) key.get("number");		
 		assertTrue("Number must have value", number.intValue() > 0);
 	}
