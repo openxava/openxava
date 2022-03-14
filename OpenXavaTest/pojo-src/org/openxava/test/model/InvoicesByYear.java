@@ -24,26 +24,16 @@ public class InvoicesByYear {
 	int year;
 	
 	@Condition("${year} = ${this.year}")
-	@ListProperties("year, number, date, total[invoicesByYear.totalSum]") // tmr
+	@ListProperties("year, number, date, total[invoicesByYear.totalSum]") 
 	Collection<Invoice> invoices;
 	
 	public BigDecimal getTotalSum() {
-		System.out.println("[InvoicesByYear.getTotalSum] year=" + year); // tmp
 		Query query = XPersistence.getManager().createQuery("from Invoice i where i.year = :year");
 		query.setParameter("year", year);
 		Collection<Invoice> invoices = query.getResultList(); 
-		BigDecimal result = invoices.stream()
+		return invoices.stream()
 			.map(Invoice::getTotal)
 			.reduce(BigDecimal.ZERO, BigDecimal::add);
-		System.out.println("[InvoicesByYear.getTotalSum] result=" + result); // tmp
-		return result;
-	}
-
-	@Override
-	public String toString() { // tmr
-		return "InvoicesByYear [year=" + year + "]";
-	}
-	
-	
+	}	
 
 }

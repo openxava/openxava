@@ -1947,16 +1947,12 @@ public class View implements java.io.Serializable {
 				else {
 					Map key = getParent().getKeyValues();
 					
-					// tmr if (hasNull(key)) {
-					if (key.isEmpty() || hasNull(key)) { // tmr
-						// tmr ini
+					if (key.isEmpty() || hasNull(key)) { 
 						Object model = getParent().getModel();
 						if (model != null) getParent().updateModelFromView();
 						else model = getParent().getTransientPOJO();
 						collectionTotals = MapFacade.getValues(getParent().getModelName(), model, memberNames);
-						removeKeys(getParent().getMetaModel(), collectionTotals);						
-						// tmr fin
-						// tmr collectionTotals = Collections.EMPTY_MAP;
+						removeKeys(getParent().getMetaModel(), collectionTotals);
 					}
 					else {
 						try {
@@ -3049,9 +3045,10 @@ public class View implements java.io.Serializable {
 			if (firstLevel) {
 				if (!Is.emptyString(changedProperty)) {
 					getRoot().registeringExecutedActions = true;
-					try {		
-						propertyChanged(changedProperty);
-					}
+					try {	
+						if (isKeyEditable()) resetCollectionTotals(); // The isKeyEditable() is to improve performance 
+						propertyChanged(changedProperty);			  //   If you change it verify that InvoiceDetailsWithTotals does not
+					}												  //   reload totals in View.getCollectionTotals() on changing VAT. 
 					finally {
 						getRoot().registeringExecutedActions = false;		
 						resetExecutedActions();						
@@ -3456,7 +3453,6 @@ public class View implements java.io.Serializable {
 	
 	private void propertyChanged(String propertyId) {
 		try {		
-			resetCollectionTotals(); // tmr
 			String name = Ids.undecorate(propertyId);
 			if (isRepresentsElementCollection()) {
 				if (StringUtils.isNumeric(Strings.firstToken(name, "."))) {

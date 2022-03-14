@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Calculated property in totals of a collection inside a transient class is not calculated. 
 - Fix: Filtering LocalDate columns by range in list fails.
 - Fix: Links for WEBURL properties do not work in list mode if they have no http: or https: prefix. 
 - Fix: Looking for a module after with expired session produces no answer when it should ask for login.
