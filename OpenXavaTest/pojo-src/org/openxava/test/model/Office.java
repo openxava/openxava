@@ -49,6 +49,7 @@ public class Office {
 		@JoinColumn(name="WAREHOUSE_NUMBER", referencedColumnName="NUMBER", insertable=false, updatable=false) 
 	})
 	@ReferenceView(forViews="OnlyWarehouse", value="WithoutZone") 
+	@DescriptionsList // tmr
 	private Warehouse mainWarehouse;
 	@Column(name="WAREHOUSE_NUMBER")
 	private Integer mainWarehouse_number; 
@@ -59,6 +60,7 @@ public class Office {
 		@JoinColumn(name="NUMBER", referencedColumnName="OFFICE", insertable=false, updatable=false), 
 		@JoinColumn(name="MANAGER_NUMBER", referencedColumnName="NUMBER", insertable=false, updatable=false)
 	})
+	@DescriptionsList(depends = "mainWarehouse", condition="${zoneNumber} = ? ") // TMR ME QUEDÉ POR AQUÍ: ESTO FALLA, INTENTADO REPRODUCIR EL CASO DEL USUARIO
 	private Clerk officeManager;
 	@Column(name="MANAGER_NUMBER")
 	private Integer officeManager_number;
