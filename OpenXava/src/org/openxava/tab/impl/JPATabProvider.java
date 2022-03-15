@@ -244,6 +244,7 @@ public class JPATabProvider extends TabProviderBase {
 		
 		Object [] key = getKey(); 
 		for (int i = 0; i < key.length; i++) {
+			System.out.println("[JPATabProvider.nextBlock] key[" + i + "]=" + key[i]); // tmp
 			query.setParameter("p" + i, key[i]);
 			message.append(key[i]);
 			if (i < key.length - 1)

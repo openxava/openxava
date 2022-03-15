@@ -1,32 +1,16 @@
 package org.openxava.calculators;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 
-import javax.swing.table.TableModel;
+import javax.swing.table.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.openxava.component.MetaComponent;
-import org.openxava.filters.FilterException;
-import org.openxava.filters.IFilter;
+import org.apache.commons.logging.*;
+import org.openxava.component.*;
+import org.openxava.filters.*;
 import org.openxava.model.meta.*;
-import org.openxava.tab.impl.EntityTabFactory;
-import org.openxava.tab.impl.EntityTab;
-import org.openxava.tab.meta.MetaTab;
+import org.openxava.tab.impl.*;
+import org.openxava.tab.meta.*;
 import org.openxava.util.*;
-import org.openxava.web.*;
 
 /**
  * It obtain a description collection. <p>
@@ -270,6 +254,7 @@ public class DescriptionsCalculator implements ICalculator {
 		}
 		Object [] key = null;
 		if (hasParameters()) {
+			System.out.println("[DescriptionsCalculator.executeQuery] getParameters()=" + getParameters()); // tmp
 			key = new Object[getParameters().size()];
 			Iterator it = getParameters().iterator();
 			for (int i=0; i<key.length; i++) {	
@@ -324,15 +309,18 @@ public class DescriptionsCalculator implements ICalculator {
 	}
 
 	public void setParameters(Collection parameters) {
+		System.out.println("[DescriptionsCalculator.setParameters] parameters=" + parameters); // tmp
 		this.parameters = parameters;		
 	}
 	
-	public void setParameters(Collection parameters, IFilter filter) throws FilterException {		
+	public void setParameters(Collection parameters, IFilter filter) throws FilterException {
+		System.out.println("[DescriptionsCalculator.setParameters.Filter] parameters> " + parameters); // tmp
 		if (filter != null) {
 			Object [] param = parameters==null?null:parameters.toArray();			
 			param = (Object []) filter.filter(param);
 			parameters = param == null ? null : Arrays.asList(param);
 		}
+		System.out.println("[DescriptionsCalculator.setParameters.Filter] parameters< " + parameters); // tmp
 		this.parameters = parameters;				
 	}
 		

@@ -79,6 +79,7 @@ if (descriptionsFormatterClass != null) {
 }
 
 String parameterValuesProperties=request.getParameter("parameterValuesProperties");	
+System.out.println("[descriptionsEditor.jsp] parameterValuesProperties=" + parameterValuesProperties); // tmr
 if (parameterValuesProperties == null) {
 	parameterValuesProperties=request.getParameter("propiedadesValoresParametros");	
 }
@@ -127,7 +128,8 @@ if (parameterValuesStereotypes != null || parameterValuesProperties != null) {
 	}
 	java.util.Collection p = new java.util.ArrayList();
 	while (it.hasNext()) {
-		String parameterValueKey = (String) it.next();		
+		String parameterValueKey = (String) it.next();
+		System.out.println("[descriptionsEditor.jsp] parameterValueKey=" + parameterValueKey); // tmr		
 		org.openxava.view.View v = null;
 		if (parameterValueKey != null && parameterValueKey.startsWith("this.")) {
 			parameterValueKey = parameterValueKey.substring(5);
@@ -139,6 +141,7 @@ if (parameterValuesStereotypes != null || parameterValuesProperties != null) {
 		else {
 			v = view.getRoot();
 		}
+		/* tmr
 		Object parameterValue = parameterValueKey==null?null:v.getValue(parameterValueKey);
 		
 		if (parameterValueKey != null) { 
@@ -150,6 +153,11 @@ if (parameterValuesStereotypes != null || parameterValuesProperties != null) {
 				}
 			}
 		}
+		*/
+		
+		// tmr ini
+		Object parameterValue = parameterValueKey==null?null:v.getSubview(parameterValueKey).getEntity();
+		// tmr fin
 
 		p.add(parameterValue);
 	}

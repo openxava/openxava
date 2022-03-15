@@ -220,12 +220,21 @@ public class MetaReference extends MetaMember implements Cloneable {
 	public String getParameterValuesPropertiesInDescriptionsList(MetaView metaView) throws XavaException {
 		MetaDescriptionsList descriptionsList = metaView.getMetaDescriptionList(this);		
 		if (descriptionsList == null) return "";
+		System.out.println("[MetaReference.getParameterValuesPropertiesInDescriptionsList] getName()=" + getName()); // tmp
+		System.out.println("[MetaReference.getParameterValuesPropertiesInDescriptionsList] descriptionsList.getCondition()=" + descriptionsList.getCondition()); // tmp
 		String depends = descriptionsList.getDepends();		
 		if (Is.emptyString(depends)) return "";
 		StringTokenizer st = new StringTokenizer(depends, ",");
 		StringBuffer result = new StringBuffer();
 		while (st.hasMoreTokens()) {
 			String member = st.nextToken().trim();
+			// tmr ini
+			System.out.println("[MetaReference.getParameterValuesPropertiesInDescriptionsList] member=" + member); // tmp
+			boolean usesReferenceInCondition = usesReferenceInCondition(member, descriptionsList.getCondition());
+			System.out.println("[MetaReference.getParameterValuesPropertiesInDescriptionsList] "); // tmp
+			// tmr ini
+			
+			/* tmr
 			try {
 				String reference = member.startsWith("this.")?member.substring(5):member; 
 				MetaModel fromIDepends = getMetaModel().getMetaReference(reference).getMetaModelReferenced();
@@ -241,9 +250,19 @@ public class MetaReference extends MetaMember implements Cloneable {
 				// not reference, it is simple property
 				if (result.length() > 0) result.append(',');
 				result.append(member);			
-			}			
+			}		
+			*/	
+			// tmr ini
+			if (result.length() > 0) result.append(',');
+			result.append(member);			
+			// tmr fin
 		}		
 		return result.toString();
+	}
+	
+	private boolean usesReferenceInCondition(String member, String condition) { // tmr
+		// TMR ME QUEDÉ POR AQUÍ: INTENTANDO SI PUEDO AVERIGUAR SI TENGO QUE USAR UNA TECNICA U OTRA
+		return false;
 	}
 	
 	/** @since 6.4 */
