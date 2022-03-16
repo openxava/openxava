@@ -5,7 +5,7 @@ import org.openxava.test.model.*;
 import org.openxava.tests.*;
 
 /**
- * tmr
+ * 
  * @author Javier Paniza
  */
 
@@ -13,6 +13,10 @@ public class OfficeWithDescriptionsListsTest extends ModuleTestBase {
 	
 	public OfficeWithDescriptionsListsTest(String testName) {
 		super(testName, "OfficeWithDescriptionsLists");		
+	}
+	
+	public OfficeWithDescriptionsListsTest(String testName, String moduleName) {
+		super(testName, moduleName);		
 	}
 	
 	public void testDescriptionsListDependsOnCompositeKeyReference() throws Exception {

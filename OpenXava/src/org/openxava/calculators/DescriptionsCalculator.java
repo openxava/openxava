@@ -254,7 +254,6 @@ public class DescriptionsCalculator implements ICalculator {
 		}
 		Object [] key = null;
 		if (hasParameters()) {
-			System.out.println("[DescriptionsCalculator.executeQuery] getParameters()=" + getParameters()); // tmp
 			key = new Object[getParameters().size()];
 			Iterator it = getParameters().iterator();
 			for (int i=0; i<key.length; i++) {	
@@ -309,18 +308,15 @@ public class DescriptionsCalculator implements ICalculator {
 	}
 
 	public void setParameters(Collection parameters) {
-		System.out.println("[DescriptionsCalculator.setParameters] parameters=" + parameters); // tmp
 		this.parameters = parameters;		
 	}
 	
 	public void setParameters(Collection parameters, IFilter filter) throws FilterException {
-		System.out.println("[DescriptionsCalculator.setParameters.Filter] parameters> " + parameters); // tmp
 		if (filter != null) {
 			Object [] param = parameters==null?null:parameters.toArray();			
 			param = (Object []) filter.filter(param);
 			parameters = param == null ? null : Arrays.asList(param);
 		}
-		System.out.println("[DescriptionsCalculator.setParameters.Filter] parameters< " + parameters); // tmp
 		this.parameters = parameters;				
 	}
 		

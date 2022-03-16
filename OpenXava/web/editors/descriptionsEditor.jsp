@@ -127,7 +127,7 @@ if (parameterValuesStereotypes != null || parameterValuesProperties != null) {
 	}
 	java.util.Collection p = new java.util.ArrayList();
 	while (it.hasNext()) {
-		String parameterValueKey = (String) it.next();		
+		String parameterValueKey = (String) it.next();
 		org.openxava.view.View v = null;
 		if (parameterValueKey != null && parameterValueKey.startsWith("this.")) {
 			parameterValueKey = parameterValueKey.substring(5);
@@ -139,18 +139,24 @@ if (parameterValuesStereotypes != null || parameterValuesProperties != null) {
 		else {
 			v = view.getRoot();
 		}
-		Object parameterValue = parameterValueKey==null?null:v.getValue(parameterValueKey);
 		
-		if (parameterValueKey != null) { 
-			PropertyMapping mapping = v.getMetaProperty(parameterValueKey).getMapping();
-			if (mapping != null) {
-				IConverter converter = mapping.getConverter();
-				if (converter != null) {
-					parameterValue = converter.toDB(parameterValue);
+		Object parameterValue = null; 
+		if (parameterValueKey != null) {
+			if (v.getMetaModel().containsMetaReference(parameterValueKey)) {
+				parameterValue = v.getSubview(parameterValueKey).getEntity();
+			}
+			else {
+				parameterValue = v.getValue(parameterValueKey);
+				PropertyMapping mapping = v.getMetaProperty(parameterValueKey).getMapping();
+				if (mapping != null) {
+					IConverter converter = mapping.getConverter();
+					if (converter != null) {
+						parameterValue = converter.toDB(parameterValue);
+					}
 				}
 			}
 		}
-
+				
 		p.add(parameterValue);
 	}
 	calculator.setParameters(p, filter);

@@ -220,48 +220,46 @@ public class MetaReference extends MetaMember implements Cloneable {
 	public String getParameterValuesPropertiesInDescriptionsList(MetaView metaView) throws XavaException {
 		MetaDescriptionsList descriptionsList = metaView.getMetaDescriptionList(this);		
 		if (descriptionsList == null) return "";
-		System.out.println("[MetaReference.getParameterValuesPropertiesInDescriptionsList] getName()=" + getName()); // tmp
-		System.out.println("[MetaReference.getParameterValuesPropertiesInDescriptionsList] descriptionsList.getCondition()=" + descriptionsList.getCondition()); // tmp
 		String depends = descriptionsList.getDepends();		
 		if (Is.emptyString(depends)) return "";
 		StringTokenizer st = new StringTokenizer(depends, ",");
 		StringBuffer result = new StringBuffer();
 		while (st.hasMoreTokens()) {
 			String member = st.nextToken().trim();
-			// tmr ini
-			System.out.println("[MetaReference.getParameterValuesPropertiesInDescriptionsList] member=" + member); // tmp
-			boolean usesReferenceInCondition = usesReferenceInCondition(member, descriptionsList.getCondition());
-			System.out.println("[MetaReference.getParameterValuesPropertiesInDescriptionsList] "); // tmp
-			// tmr ini
-			
-			/* tmr
-			try {
-				String reference = member.startsWith("this.")?member.substring(5):member; 
-				MetaModel fromIDepends = getMetaModel().getMetaReference(reference).getMetaModelReferenced();
-				for (Iterator it=fromIDepends.getKeyPropertiesNames().iterator(); it.hasNext();) {
-					String key = (String) it.next();
-					if (result.length() > 0) result.append(',');
-					result.append(member);
-					result.append('.');
-					result.append(key);
-				}
-			}
-			catch (ElementNotFoundException ex) {
-				// not reference, it is simple property
+			if (usesReferenceInCondition(member, descriptionsList.getCondition())) {
 				if (result.length() > 0) result.append(',');
-				result.append(member);			
-			}		
-			*/	
-			// tmr ini
-			if (result.length() > 0) result.append(',');
-			result.append(member);			
-			// tmr fin
+				result.append(member);							
+			}
+			else {
+				try {
+					String reference = member.startsWith("this.")?member.substring(5):member; 
+					MetaModel fromIDepends = getMetaModel().getMetaReference(reference).getMetaModelReferenced();
+					for (Iterator it=fromIDepends.getKeyPropertiesNames().iterator(); it.hasNext();) {
+						String key = (String) it.next();
+						if (result.length() > 0) result.append(',');
+						result.append(member);
+						result.append('.');
+						result.append(key);
+					}
+				}
+				catch (ElementNotFoundException ex) {
+					// not reference, it is simple property
+					if (result.length() > 0) result.append(',');
+					result.append(member);			
+				}		
+			}
 		}		
 		return result.toString();
 	}
 	
-	private boolean usesReferenceInCondition(String member, String condition) { // tmr
-		// TMR ME QUEDÉ POR AQUÍ: INTENTANDO SI PUEDO AVERIGUAR SI TENGO QUE USAR UNA TECNICA U OTRA
+	private boolean usesReferenceInCondition(String dependsMember, String condition) {  
+		if (!getMetaModel().containsMetaReference(dependsMember)) return false;
+		MetaReference dependsReference = getMetaModel().getMetaReference(dependsMember);
+		for (MetaReference refFromReferencedModel: getMetaModelReferenced().getMetaReferences()) { 
+			if (refFromReferencedModel.getMetaModelReferenced().getName().equals(dependsReference.getMetaModelReferenced().getName())) {
+				if (condition.contains("${" + refFromReferencedModel.getName() + "}")) return true;
+			}
+		}
 		return false;
 	}
 	

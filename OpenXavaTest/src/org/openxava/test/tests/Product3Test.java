@@ -8,7 +8,7 @@ import org.openxava.util.*;
  * @author Javier Paniza
  */
 
-public class Product3Test extends ModuleTestBase {
+public class Product3Test extends ModuleTestBase { 
 	
 	public Product3Test(String testName) {
 		super(testName, "Product3");		

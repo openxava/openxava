@@ -54,8 +54,6 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 	public void search(String condition, Object key) throws FinderException, RemoteException {
 		current = 0;
 		eof = false;
-		System.out.println("[TabProviderBase.search] key=" + key); // tmp
-		if (key != null) System.out.println("[TabProviderBase.search] key.getClass()=" + key.getClass()); // tmp
 		this.key = toArray(key);		
 		condition = condition == null ? "" : condition.trim();
 		select = translateCondition(condition);

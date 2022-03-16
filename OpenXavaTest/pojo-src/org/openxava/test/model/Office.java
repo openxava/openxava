@@ -30,9 +30,8 @@ import org.openxava.annotations.*;
 		"}"
 	),
 	@View(name="OnlyWarehouse", members="number; zoneNumber; mainWarehouse"),
-	// tmr ini
-	@View(name="WithDescriptionsLists", members="number; zoneNumber; name; mainWarehouse; defaultCarrier")
-	// tmr fin
+	@View(name="WithDescriptionsLists", members="number; zoneNumber; name; mainWarehouse; defaultCarrier"),
+	@View(name="WithDescriptionsListsWithReferenceInCondition", extendsView="WithDescriptionsLists")
 })
 @Tab(properties="zoneNumber, number, name, mainWarehouse.name, officeManager.name, defaultCarrier.name")
 public class Office {
@@ -52,7 +51,7 @@ public class Office {
 		@JoinColumn(name="WAREHOUSE_NUMBER", referencedColumnName="NUMBER", insertable=false, updatable=false) 
 	})
 	@ReferenceView(forViews="OnlyWarehouse", value="WithoutZone") 
-	@DescriptionsList(forViews="WithDescriptionsLists") // tmr
+	@DescriptionsList(forViews="WithDescriptionsLists, WithDescriptionsListsWithReferenceInCondition") 
 	private Warehouse mainWarehouse;
 	@Column(name="WAREHOUSE_NUMBER")
 	private Integer mainWarehouse_number; 
@@ -69,8 +68,8 @@ public class Office {
 	
 	@ManyToOne(fetch=FetchType.LAZY) 
 	@JoinColumn(name="CARRIER_NUMBER")
-	@DescriptionsList(forViews="WithDescriptionsLists", depends = "mainWarehouse", condition="${warehouse} = ?") // TMR 
-	// tmr Debería también testear esto con JUnit @DescriptionsList(forViews="WithDescriptionsLists", depends = "mainWarehouse", condition="${warehouse.zoneNumber} = ? and ${warehouse.number} = ?") // TMR
+	@DescriptionsList(forViews="WithDescriptionsLists", depends = "mainWarehouse", condition="${warehouse.zoneNumber} = ? and ${warehouse.number} = ?") 
+	@DescriptionsList(forViews="WithDescriptionsListsWithReferenceInCondition", depends = "mainWarehouse", condition="${warehouse} = ?")  
 	private Carrier defaultCarrier;
 	
 	@Stereotype("RECEPTIONIST") @Column(name="RECEPTIONIST_OID")

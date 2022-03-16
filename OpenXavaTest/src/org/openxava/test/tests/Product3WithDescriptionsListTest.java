@@ -10,7 +10,7 @@ import org.openxava.tests.*;
  * @author Javier Paniza
  */
 
-public class Product3WithDescriptionsListTest extends ModuleTestBase {
+public class Product3WithDescriptionsListTest extends ModuleTestBase { 
 	
 	public Product3WithDescriptionsListTest(String testName) {
 		super(testName, "Product3WithDescriptionsList");		

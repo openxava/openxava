@@ -16,7 +16,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Javier Paniza
  */
 
-public class ColorTest extends ModuleTestBase {
+public class ColorTest extends ModuleTestBase { 
 	
 	public ColorTest(String testName) {
 		super(testName, "Color");		
