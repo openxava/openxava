@@ -97,7 +97,7 @@ public class ServiceExpensesTest extends ModuleTestBase {
 		assertAction("ReferenceSearch.choose");
 	}
 	
-	public void testAdding3RowsWithDescriptionsListAndTextFieldInElementCollection_calculationPropertyDependsOnSummationInElementCollection() throws Exception { 
+	public void testAdding3RowsWithDescriptionsListAndTextFieldInElementCollection_calculationPropertyDependsOnSummationInElementCollection_sumUsedInCalculationAlwaysIncluded() throws Exception { // tmr sumUsedInCalculationAlwaysIncluded 
 		getWebClient().getOptions().setCssEnabled(true);
 		execute("CRUD.new");
 		assertComboOpens(0, 1);
@@ -106,11 +106,21 @@ public class ServiceExpensesTest extends ModuleTestBase {
 		setValueInCollection("expenses", 1, 0, "2016");
 		assertComboOpens(2, 7); 
 	
+		assertCollectionTotals();		
+		
+		// tmr ini
+		execute("ServiceExpenses.removeColumnSum");
+		resetModule();
+		assertCollectionTotals();
+		// tmr fin
+	}
+
+	private void assertCollectionTotals() throws Exception {
 		setValueInCollection("expenses", 0, "invoice.year", "2007");
 		setValueInCollection("expenses", 0, "invoice.number", "1");
 		assertValueInCollection("expenses", 0, "invoice.amount", "790.00");
 		assertTotalInCollection("expenses", 0, "invoice.amount", "790.00");
-		assertTotalInCollection("expenses", 1, "invoice.amount", "118.50");		
+		assertTotalInCollection("expenses", 1, "invoice.amount", "118.50");
 	}
 	
 	private void assertComboOpens(int row, int uiId) throws Exception {
