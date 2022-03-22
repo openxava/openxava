@@ -143,7 +143,7 @@ public class SellerTest extends CustomizeListTestBase {
 			"CREATED: email=openxavatest2@getnada.com, user=admin, application=OpenXavaTest, module=Customers, permalink=http://localhost:8080" + getContextPath() + "modules/Customer?detail=66"				
 		);		
 
-		LogTrackerUtils.assertAccessLog( // TMR FALLA
+		LogTrackerUtils.assertAccessLog( 
 			"CONSULTED: user=openxavatest2@getnada.com, model=Customer, key={number=1}",
 			"CONSULTED: user=openxavatest2@getnada.com, model=Customer, key={number=1}",
 			"CREATED: user=openxavatest2@getnada.com, model=Seller, key={number=66}",
@@ -421,7 +421,7 @@ public class SellerTest extends CustomizeListTestBase {
 	public void testEditCreateAndRemoveElementInEntityCollection() throws Exception { 
 		execute("List.viewDetail", "row=2");
 		assertValue("name", "ELISEO FERNANDEZ");
-		assertCollectionRowCount("customers", 0); // TMR FALLA
+		assertCollectionRowCount("customers", 0); 
 		assertCreateElementInEntityCollection(); 		
 		assertEditElementInEntityCollection();
 		assertRemoveElementInEntityCollection();
@@ -707,7 +707,7 @@ public class SellerTest extends CustomizeListTestBase {
 	}
 
 	public void testEntityReferenceCollections() throws Exception { 		
-		createCustomers(); // TMR FALLA
+		createCustomers(); 
 		createSeller66(); 
 		createSeller67();
 		verifySeller66();

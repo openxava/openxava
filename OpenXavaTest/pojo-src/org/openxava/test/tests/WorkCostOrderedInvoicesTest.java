@@ -8,7 +8,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Javier Paniza
  */
 
-public class WorkCostOrderedInvoicesTest extends WorkCostTestBase { // TMR FALLA
+public class WorkCostOrderedInvoicesTest extends WorkCostTestBase { 
 
 	public WorkCostOrderedInvoicesTest(String testName) {
 		super(testName, "WorkCostOrderedInvoices", "invoices");

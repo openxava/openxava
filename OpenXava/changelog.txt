@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Sum in collection used by @Calculation properties not shown if removed in previous versions by user.
 - Reference documentation about @DescriptionsList improved with examples using composite keys.
 - Fix: @DescriptionsList dependent on @DescriptionsList with composite key with a single ? in condition fails.
 - Fix: Reference name with no property in condition, ${family} = ?, of @DescriptionsList fails. 

@@ -66,7 +66,6 @@
 			class="org.openxava.test.actions.SetQuantityToSevenForAllDetailsAction"/>		
 	</controller>
 	
-	<!-- tmr ini -->
 	<controller name="ServiceExpenses">	
 		<extends controller="Typical"/>
 		<action name="removeColumnSum"
@@ -75,7 +74,6 @@
 			<set property="collection" value="expenses"/>
 		</action>	
 	</controller>
-	<!-- tmr fin -->
 	
 	<controller name="Author">
 		<extends controller="TypicalWithSearch"/>

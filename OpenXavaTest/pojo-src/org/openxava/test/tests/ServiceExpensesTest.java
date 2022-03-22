@@ -97,7 +97,7 @@ public class ServiceExpensesTest extends ModuleTestBase {
 		assertAction("ReferenceSearch.choose");
 	}
 	
-	public void testAdding3RowsWithDescriptionsListAndTextFieldInElementCollection_calculationPropertyDependsOnSummationInElementCollection_sumUsedInCalculationAlwaysIncluded() throws Exception { // tmr sumUsedInCalculationAlwaysIncluded 
+	public void testAdding3RowsWithDescriptionsListAndTextFieldInElementCollection_calculationPropertyDependsOnSummationInElementCollection_sumUsedInCalculationAlwaysIncluded() throws Exception {  
 		getWebClient().getOptions().setCssEnabled(true);
 		execute("CRUD.new");
 		assertComboOpens(0, 1);
@@ -108,11 +108,9 @@ public class ServiceExpensesTest extends ModuleTestBase {
 	
 		assertCollectionTotals();		
 		
-		// tmr ini
 		execute("ServiceExpenses.removeColumnSum");
 		resetModule();
 		assertCollectionTotals();
-		// tmr fin
 	}
 
 	private void assertCollectionTotals() throws Exception {

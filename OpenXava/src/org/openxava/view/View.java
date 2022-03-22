@@ -190,7 +190,6 @@ public class View implements java.io.Serializable {
 	private Collection<String> sumProperties;  
 	private Map<String, List<String>> totalProperties; 
 	private StringBuffer defaultSumProperties;
-	private StringBuffer fixedSumProperties; // tmr
 	private int collectionSize = -1;
 	private boolean dataChanged;  
 	
@@ -1156,6 +1155,7 @@ public class View implements java.io.Serializable {
 		subviews.put(member.getName(), newView);
 	} 
 
+
 	private Collection getDefaultListActionsForCollections() {
 		try {
 			if (!isDefaultListActionsForCollectionsIncluded()) return Collections.EMPTY_LIST; 
@@ -1230,13 +1230,13 @@ public class View implements java.io.Serializable {
 		return groupsViews;
 	}
 
-	private List<MetaProperty> namesToMetaProperties(View view, Collection names) throws XavaException {
+	private List<MetaProperty> namesToMetaProperties(View view, Collection names) throws XavaException {  
 		List<MetaProperty> metas = new ArrayList();
 		Iterator it = names.iterator();
 		while (it.hasNext()) {
-			String name = (String) it.next();			
+			String name = (String) it.next();
 			if (name.endsWith("+")) {
-				name = name.substring(0, name.length() - 1); 
+				name = name.substring(0, name.length() - 1);
 				if (view.isRepresentsCollection() && view.isCollectionFromModel()) {
 					view.addCollectionDefaultSumProperty(name); 
 				}
@@ -1260,7 +1260,7 @@ public class View implements java.io.Serializable {
 		}
 		return metas;
 	}
-
+	
 	private boolean hasSubviews() {		
 		return subviews != null && !subviews.isEmpty();		
 	}
@@ -2124,25 +2124,6 @@ public class View implements java.io.Serializable {
 			defaultSumProperties.append(',');
 			defaultSumProperties.append(property);
 		}
-		// tmr ini
-		View rootView = getParent().getCollectionRootOrRoot();
-		String sumProperty = getMemberName() + "." + property + "_SUM_";
-		if (rootView.isPropertyUsedInCalculation(sumProperty)) {
-			addCollectionFixedSumProperty(property);
-		}
-		// tmr fin
-		
-	}
-	
-	private void addCollectionFixedSumProperty(String property) { // tmr
-		if (fixedSumProperties == null) {
-			fixedSumProperties = new StringBuffer();
-			fixedSumProperties.append(property);
-		}
-		else {
-			fixedSumProperties.append(',');
-			fixedSumProperties.append(property);
-		}	
 	}
 	
 	private Collection<String> getSumProperties() { 
@@ -2153,12 +2134,16 @@ public class View implements java.io.Serializable {
 	private Collection<String> loadSumProperties() { 
 		try {
 			String properties = getPreferences().get(SUM_PROPERTIES, defaultSumProperties==null?"":defaultSumProperties.toString());
-			// tmr ini
-			if (fixedSumProperties != null) {
-				if (!Is.emptyString(properties)) properties+= ",";
-				properties += fixedSumProperties; 
+			if (defaultSumProperties != null) {
+				View rootView = getParent().getCollectionRootOrRoot();
+				for (String property: defaultSumProperties.toString().split(",")) {
+					String sumProperty = getMemberName() + "." + property.trim() + "_SUM_";
+					if (rootView.isPropertyUsedInCalculation(sumProperty)) {
+						if (!Is.emptyString(properties)) properties+= ",";
+						properties += property; 						
+					}
+				}
 			}
-			// tmr fin
 			return Strings.toSet(properties);
 		}
 		catch (Exception ex) {
