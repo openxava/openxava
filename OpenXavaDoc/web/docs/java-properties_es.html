@@ -1,0 +1,129 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 9: Lógica de negocio básica - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-5-Logica-de-negocio-basica"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 9: Lógica de negocio básica</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
+        Herencia de superclases mapeadas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <strong>9. Propiedades Java</strong> | <a class="wiki_link"
+        href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
+        @DefaultValueCalcultor en colecciones</a> |<a class="wiki_link" href="calculation-and-total-collections_es.html">12.
+        @Calculation y totales de colección</a> |<a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @DefaultValueCalculator desde archivo</a> |<a class="wiki_link" href="manual-schema-evolution_es.html">14.
+        Evolución del esquema manual</a> |<a class="wiki_link" href="jpa-callbacks_es.html">15.
+        Retrollamadas JPA</a> |<a class="wiki_link" href="formula_es.html">16.
+        @Formula</a> |<a class="wiki_link" href="validation_es.html">17.
+        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">18.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">19.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">20.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Leccion-5-Logica-de-negocio-basica">Lección
+            9: Propiedades Java<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Propiedades-en-Java">Conceptos</a></div>
+        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
+      </div>
+      Has convertido tu modelo del dominio en una aplicación web plenamente
+      funcional. Esta aplicación ya es bastante útil de por sí, aunque aún
+      puedes hacerle muchas mejoras. Transformemos pues tu aplicación en algo
+      más serio, y de paso, aprendamos algunas cosas interesantes sobre
+      OpenXava.<br>
+      Empezaremos por añadir algo de lógica de negocio a tus entidades para
+      hacer de tu aplicación algo más que un simple gestor de base de datos.<br>
+      <h2><a name="Propiedades-en-Java"></a>Conceptos</h2>
+      Para entender bien algunos de los conceptos de esta lección has de saber
+      cómo funcionan las propiedades en Java. La forma estándar de definir una
+      propiedad en Java es:
+      <pre><code class="java">// Propiedad
+      
+private int cantidad; // Tiene un campo
+
+public int getCantidad() { // Un getter para devolver el valor del campo
+    return cantidad;
+}
+
+public void setCantidad(int cantidad) { // Cambia el valor del campo
+    this.cantidad = cantidad;
+}
+</code></pre>Esto se basa en la idea de que nunca deberiamos acceder al estado
+      de un objeto (sus campos) directamente, sino siempre llamando a métodos.
+      Esto es muy útil porque puedes cambiar la implementación de una propiedad
+      sin afecta al codigo que la usa. Además, todas las herramientas, marcos de
+      trabajo y librerias del ecosistema Java confían en esta norma (parte de
+      las especificaciones JavaBeans). Por lo tanto, deberiamos usar esta
+      convención siempre. Una propiedad en Java es un método getter (<i>getCantidad()</i>
+      por ejemplo) y un método setter (<i>setCantidad(int cantidad)</i>) si la
+      propiedad es modificable. De hecho, el campo (<i>private int cantidad</i>
+      en este caso) no es necesario.<br>
+      El problema de este enfoque es que es muy verboso y acabamos con nuestro
+      código lleno de getters y setters que no aportan nada y hacen mucho ruido.
+      Para resolver este problema usamos una librería llamada Lombok. Con Lombok
+      puedes definir la propiedad <i>cantidad</i> de arriba de esta manera:
+      <pre><code class="java">@Getter @Setter // Genera un método getter y uno setter
+int cantidad; 
+</code></pre><i>@Getter</i> y <i>@Setter</i> generan el getter y setter en el
+      código compilado, por lo que cuando accedas a la propiedad has de usarlos,
+      así:
+      <pre><code class="java">int c = elObjeto.getCantidad(); // Nunca int c = elObjeto.cantidad 
+elObjeto.setCantidad(c + 10); // Nunca elObjeto.cantidad = c + 10
+</code></pre>Puedes declarar <i>@Getter</i> y <i>@Setter</i> a nivel de clase
+      y así todos los campos tendrán getter y setter automáticamente. Y por
+      supuesto, puedes escribir tu propio setter y getter si quieres usar tu
+      propia lógica:
+      <pre><code class="java">// @Data // NUNCA USES @Data
+@Getter @Setter
+public class Incidencia {
+
+    int numero;
+    String descripcion;
+	
+    public String getDescripcion() { // Tu propio getter sobrescribe el generado por Lombok
+        if (descripcion == null) return "Todavía sin descripción";
+        return descripcion;
+    }
+
+}
+</code></pre>En este caso Lombok genera para ti <i>getNumero(), setNumero()</i>
+      y <i>setDescripcion()</i> mientras que <i>getDescripcion()</i> es el que
+      hemos escrito nosotros. Fíjate com nunca deberías usar la anotación <i>@Data</i>
+      de Lombok, dado que produce bucles recursivos infinitos si tienes
+      referencias recíprocas, algo bastante común en las aplicaciones de
+      negocio.</div>
+    <br>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
+      En esta lección has aprendido algunas formas comunes de añadir lógica de
+      negocio a tus entidades. Vimos el funcionamiento de la librería Lombok,
+      cómo definir getters y setters de manera manual, a fin de establecer una
+      lógica personalizada a nuestra aplicación.<br>
+      <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+        <a class="wiki_link" href="calculated-properties_es.html">Ve a la
+          lección 10</a></strong> </div>
+  </body>
+</html>
