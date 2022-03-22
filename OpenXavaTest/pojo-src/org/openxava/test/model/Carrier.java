@@ -30,7 +30,8 @@ import lombok.*;
 @View(
 	name="CollectionsTogether",
 	members=
-		"warehouse, oldSync; " +
+		// tmr "warehouse, oldSync; " +
+		"header [warehouse, oldSync;]; " + // tmr
 		"fellowCarriers, fellowCarriersCalculated")	
 @Tab(properties="calculated, number, name")
 public class Carrier {
