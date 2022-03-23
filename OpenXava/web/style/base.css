@@ -1395,6 +1395,20 @@ input[type="button"] {
 	margin-right: -3px;
 }
 
+.ox-full-frame {
+	width: calc(100% - 27px);
+}
+
+.ox-half-frame {
+	overflow: auto; 
+	display: block; 
+	width: calc(50% - 27px);
+}
+
+.ox-flow-layout .ox-half-frame {
+	width: calc(50% - 31px);
+}
+
 .ox-detail.ox-flow-layout, .ox-active-section > .ox-flow-layout { 
 	width: calc(100vw - 210px); 
 	margin-top: 5px; 
@@ -1406,7 +1420,7 @@ input[type="button"] {
 
 .ox-flow-layout .ox-frame { 
 	margin-left: 11px;
-	
+	margin-right: 0px; 
 }
 
 #sign_in_box .ox-detail { 

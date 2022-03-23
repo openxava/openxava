@@ -72,7 +72,7 @@ if (!onlySections) {	// IF Not Only Sections
 	boolean first = !"false".equals(sfirst);
 	while (it.hasNext()) {	// WHILE hasNext
 		MetaMember m = (MetaMember) it.next();
-		int frameWidth = view.isVariousMembersInSameLine(m)?0:100;
+		int frameWidth = view.isVariousMembersInSameLine(m)?50:100;  
 		if (m instanceof MetaProperty) {	// IF MetaProperty	
 			MetaProperty p = (MetaProperty) m;		
 			if (!PropertiesSeparator.INSTANCE.equals(m)) {	// IF Not Properties Separator	
