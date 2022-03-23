@@ -1,6 +1,7 @@
 package org.openxava.web.style;
 
 import javax.servlet.http.*;
+
 import org.openxava.web.*;
 
 
@@ -86,13 +87,29 @@ public class XavaStyle extends Style {
 			r.append(' ');
 			r.append(getCollection());
 		}
-		r.append("'"); 
+		// tmr ini
 		if (width == 100) { 
-			r.append(" style='width: calc(100% - 15px);'");			
+			r.append(' ');			
+			r.append(getFullFrame()); 
 		}
 		else if (width == 50) { // Two collections in a row
-			r.append(" style='overflow: auto; display: block; width: calc(50% - 38px);'"); 
+			r.append(' ');			
+			r.append(getHalfFrame()); 		
+		}		
+		// tmr fin
+		r.append("'"); 
+		// TMR ME QUEDÉ: ESTÁ HECHO Y PROBADO A FONDO EN LINUX. FALTA PROBAR EN LINUX
+		// tmr también resuelto bug de colecciones together alineadas con otros marcos
+		/* tmr
+		if (width == 100) { 
+			// tmr r.append(" style='width: calc(100% - 15px);'");			
+			r.append(" style='width: calc(100% - 26px);'"); // tmr
 		}
+		else if (width == 50) { // Two collections in a row
+			// tmr r.append(" style='overflow: auto; display: block; width: calc(50% - 38px);'"); 
+			r.append(" style='overflow: auto; display: block; width: calc(50% - 27px);'"); // tmr
+		}
+		*/
 		r.append(getFrameSpacing());
 		r.append(">");
 		r.append("<div class='");

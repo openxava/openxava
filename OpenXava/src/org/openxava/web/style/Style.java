@@ -767,6 +767,14 @@ public class Style {
 		return "ox-frame"; 
 	}
 	
+	protected String getHalfFrame() { // tmr
+		return "ox-half-frame"; 
+	}
+
+	protected String getFullFrame() { // tmr
+		return "ox-full-frame"; 
+	}
+
 	protected String getFrameTitle() {   
 		return "ox-frame-title";
 	}

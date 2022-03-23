@@ -72,8 +72,8 @@ if (!onlySections) {	// IF Not Only Sections
 	boolean first = !"false".equals(sfirst);
 	while (it.hasNext()) {	// WHILE hasNext
 		MetaMember m = (MetaMember) it.next();
-		// tmr int frameWidth = view.isVariousMembersInSameLine(m)?0:100;
-		int frameWidth = view.isVariousMembersInSameLine(m)?50:100; // tmr ME QUEDÉ POR AQUÍ,  PUEDE QUE ESTOY SEA LA CLAVE.
+		// tmr 	int frameWidth = view.isVariousMembersInSameLine(m)?0:100;
+		int frameWidth = view.isVariousMembersInSameLine(m)?50:100; // tmr 
 		if (m instanceof MetaProperty) {	// IF MetaProperty	
 			MetaProperty p = (MetaProperty) m;		
 			if (!PropertiesSeparator.INSTANCE.equals(m)) {	// IF Not Properties Separator	
