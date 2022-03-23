@@ -24,7 +24,7 @@
         Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
         Propiedades Java</a> |<a class="wiki_link" href="calculation-and-total-collections_es.html">10.
         Propiedades calculadas</a> | <strong>11. @DefaultValueCalculator en
-        colecciones</strong> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">12.
+        colecciones</strong> | <a class="wiki_link" href="calculation-and-collections-total_es.html">12.
         @Calculation y totales de colección</a> |<a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
         @DefaultValueCalculator desde archivo</a> |<a class="wiki_link" href="manual-schema-evolution_es.html">14.
         Evolución del esquema manual</a> |<a class="wiki_link" href="jpa-callbacks_es.html">15.
@@ -41,22 +41,18 @@
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Leccion-5-Logica-de-negocio-basica">Lección
+        <div style="margin-left: 1em;"><a href="#Leccion-11-DefaultValueCalculator-en-colecciones">Lección
             11: @DefaultValueCalculator en colecciones<br>
           </a></div>
-        <div style="margin-left: 3em;"><a href="#Propiedades-calculadas-Usar-DefaultValueCalculator">Usar
+        <div style="margin-left: 2em;"><a href="#Propiedades-calculadas-Usar-DefaultValueCalculator">Usar
             @DefaultValueCalculator</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
-      Has convertido tu modelo del dominio en una aplicación web plenamente
-      funcional. Esta aplicación ya es bastante útil de por sí, aunque aún
-      puedes hacerle muchas mejoras. Transformemos pues tu aplicación en algo
-      más serio, y de paso, aprendamos algunas cosas interesantes sobre
-      OpenXava.<br>
-      Empezaremos por añadir algo de lógica de negocio a tus entidades para
-      hacer de tu aplicación algo más que un simple gestor de base de datos.<br>
+      Hemos agregado lógica del negocio a nuestra aplicación utlizando
+      propiedades persistentes y propiedas calculadas, ahora utilizaremos la
+      anotación @DefaultValueCalculator para las colecciones. <br>
       <h2><a name="Propiedades-en-Java"></a></h2>
-      <h3 id="toc3">Usar <em>@DefaultValueCalculator</em></h3>
+      <h2 id="Propiedades-calculadas-Usar-DefaultValueCalculator">Usar <em>@DefaultValueCalculator</em></h2>
       La forma en que calculamos el importe de la línea de detalle no es la
       mejor. Tiene, al menos, dos inconvenientes. El primero es que el usuario
       puede querer tener la posibilidad de cambiar el precio unitario. Y
@@ -134,18 +130,12 @@ private Collection&lt;Detalle&gt; detalles;
     <br>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
-      En esta lección has aprendido algunas formas comunes de añadir lógica de
-      negocio a tus entidades. No hay duda sobre la utilidad de las propiedades
-      calculadas, <i>@Calculation</i>, los métodos de retrollamada o <em>@Formula</em>.
-      Sin embargo, todavía tenemos muchas otras formas de añadir lógica a tu
-      aplicación OpenXava, que vamos a aprender a usar.<br>
-      En futuros lecciones verás como añadir validación, modificar el
-      funcionamiento estándar del módulo y añadir tu propia lógica de negocio,
-      entre otras formas de añadir lógica personalizada a tu aplicación.<br>
+      En esta lección hemos aprendido cómo podemos utilizar la anotación <i>@DefaultValueCalculator</i>
+      para definir el valor de diferentes propiedades. <br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
-        <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">Ve
+        <a class="wiki_link" href="calculation-and-collections-total_es.html">Ve
           a la lección 12</a></strong> </div>
   </body>
 </html>

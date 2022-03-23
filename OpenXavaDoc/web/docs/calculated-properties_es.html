@@ -22,7 +22,8 @@
         Herencia de superclases mapeadas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
         Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
         Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
-        Propiedades Java</a> | <strong>10. Propiedades Calculadas</strong> | <a
+        Propiedades Java</a> | <strong>10. Propiedades Calculadas</strong> | <a
+
         class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
         @DefaultValueCalculator en colecciones</a> |<a class="wiki_link" href="calculation-and-total-collections_es.html">12.
         @Calculation y totales de colección</a> |<a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
@@ -41,22 +42,19 @@
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Leccion-5-Logica-de-negocio-basica">Lección
+        <div style="margin-left: 1em;"><a href="#Leccion-10-Propiedades-calculadas">Lección
             10: Propiedades calculadas<br>
           </a></div>
         <div style="margin-left: 2em;"><a href="#Propiedades-calculadas">Propiedades
             calculadas</a></div>
-        <div style="margin-left: 3em;"><a href="#Propiedades-calculadas-Propiedad-calculada-simple">Propiedad
+        <div style="margin-left: 2em;"><a href="#Propiedades-calculadas-Propiedad-calculada-simple">Propiedad
+
             calculada simple</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
-      Has convertido tu modelo del dominio en una aplicación web plenamente
-      funcional. Esta aplicación ya es bastante útil de por sí, aunque aún
-      puedes hacerle muchas mejoras. Transformemos pues tu aplicación en algo
-      más serio, y de paso, aprendamos algunas cosas interesantes sobre
-      OpenXava.<br>
-      Empezaremos por añadir algo de lógica de negocio a tus entidades para
-      hacer de tu aplicación algo más que un simple gestor de base de datos.<br>
+      Hemos establecido lógica de negocio a partir de crear getters y setters,
+      hemos visto el uso de la librería Lombok y su aplicabilidad, veremos ahora
+      como aplicar otro tipo de propiedades a nuestra aplicación.<br>
       <h2 id="toc1"><a name="Propiedades-calculadas"></a>Propiedades calculadas</h2>
       Quizás la lógica de negocio más simple que puedes añadir a tu aplicación
       es una propiedad calculada. Las propiedades que has usado hasta ahora son
@@ -79,8 +77,8 @@ public int getImporte() { // No tiene campo, ni setter, solo un getter
       Vamos a usar propiedades calculadas para añadir el elemento “económico” a
       nuestra aplicación <em>Facturacion</em>. Porque, tenemos líneas de
       detalle, productos, cantidades. Pero, ¿qué pasa con el dinero?<br>
-      <h3 id="toc2"><a name="Propiedades-calculadas-Propiedad-calculada-simple"></a>Propiedad
-        calculada simple</h3>
+      <h2 id="toc2"><a name="Propiedades-calculadas-Propiedad-calculada-simple"></a>Propiedad
+        calculada simple</h2>
       El primer paso será añadir una propiedad de importe a <em>Detalle</em>.
       Lo que queremos es que cuando el usuario elija un producto y teclee la
       cantidad el importe de la línea sea recalculado y mostrado al usuario:<br>
@@ -112,19 +110,17 @@ Collection&lt;Detalle&gt; detalles;
     <br>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
-      En esta lección has aprendido algunas formas comunes de añadir lógica de
-      negocio a tus entidades. No hay duda sobre la utilidad de las propiedades
-      calculadas, <i>@Calculation</i>, los métodos de retrollamada o <em>@Formula</em>.
-      Sin embargo, todavía tenemos muchas otras formas de añadir lógica a tu
-      aplicación OpenXava, que vamos a aprender a usar.<br>
-      En futuros lecciones verás como añadir validación, modificar el
-      funcionamiento estándar del módulo y añadir tu propia lógica de negocio,
-      entre otras formas de añadir lógica personalizada a tu aplicación.<br>
+      En esta lección has aprendido la aplicación de propiedades calculadas y
+      sus diferencias de las propiedades persistentes, a la hora de establecer
+      lógica de negocio. En futuros lecciones veremos como utlizar ciertas
+      librerías para trabajar con colecciones y totales.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">Ve
           a la lección 11</a></strong> </div>
