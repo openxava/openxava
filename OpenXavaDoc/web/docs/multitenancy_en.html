@@ -9,17 +9,10 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Multitenancy"></a>
-        <span id="breadcrumbs">
-          <span id="openxava">
-          	<a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava
-            </a>
-          </span>  
-          / <a href="index_en.html">documentation</a> /  
-				</span>       
-        Multitenancy
-      </h1>
+      <h1 id="toc0"><a name="Multitenancy"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Multitenancy </h1>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Multitenancy">Multitenancy</a></div>
@@ -33,7 +26,6 @@
         <div style="margin-left: 2em;"><a href="#Multitenancy-Visual-theme-by-organization">Visual
             theme by organization (new in v6.4)</a></div>
       </div>
- 
       Multitenancy allows you to deploy an application once and this single
       application can serve several companies at the same time, where each
       company has access only to its own data. This is perfect for SaaS
@@ -92,30 +84,58 @@ dropSchema=DROP SCHEMA ${schema} CASCADE
 # These are by database vendor, you can add yours using the database name
 # as suffix (actually the first token of connection.getMetaData().getDatabaseProductName())
 dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
-      If you want to make additional customization, like populating the
-      application tables, creating some initial roles and users, giving a
-      specific modules and folders structure, etc. you can define your own
-      action to create the organization. The original action is defined in <em>Addons/xava/controllers.xml</em>
-      in this way:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.text  {font-family:monospace;}
-.text .imp {font-weight: bold; color: red;}
-.text span.xtra { display:block; }
-
--->
-</style><pre class="text">&lt;controller name="Organization"&gt;
-    ...
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> If you want to make additional
+      customization, like populating the application tables, creating some
+      initial roles and users, giving a specific modules and folders structure,
+      etc. you can define your own action to create the organization. The
+      original action for creating a new organization is <i>createNewOrganization</i>
+      in the <i>Organization</i> controller defined in <em>Addons/xava/controllers.xml</em>.
+      Therefore to define your own action for create a new organization you have
+      to define a <i>Organization</i> module in your application and assign to
+      it your own controller with your own action. </div>
+    <div class="wiki" style="display: block;">First, add the <i>Organization</i>
+      module to your <i>application.xml</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;module name="Organization"&gt;
+    &lt;model name="Organization" /&gt;
+    &lt;controller name="MyOrganization" /&gt;
+&lt;/module&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Then add your <i>MyOrganization</i>
+      controller to your <i>controllers.xml</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;controller name="MyOrganization"&gt;
+    &lt;extends controller="Organization"/&gt;
     &lt;action name="createNewOrganization" mode="detail" takes-long="true"
-        class="com.openxava.naviox.actions.CreateNewOrganizationAction"/&gt;
-    ...
-&lt;/controller&gt;</pre>
-      Just define your own class for <em>Organization.createNewOrganization</em>.<br>
-      You can hide the combo with the list of organizations on sign in adding
-      the next entry to <em>naviox.properties (new in v5.6)</em>:<br>
+        class="com.yourcompany.yourapp.actions.CreateMyNewOrganizationAction"/&gt;
+&lt;/controller&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> Finally, write the code for your
+      <i>CreateMyNewOrganizationAction</i> action:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package com.yourcompany.yourapp.actions;
+
+import com.openxava.naviox.actions.*;
+
+public class CreateMyNewOrganizationAction extends CreateNewOrganizationAction {
+
+    public void execute() throws Exception {
+        super.execute(); // This creates the new organization
+        // HERE YOU OWN CODE TO REFINE THE NEW ORGANIZATION
+    }
+    
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Note as we extend <i>CreateNewOrganizationAction</i>
+      that contains the original logic to create a new organization.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">You can hide the combo with the
+      list of organizations on sign in adding the next entry to <em>naviox.properties
+        (new in v5.6)</em>:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -191,7 +211,6 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
       property called <i>theme</i> with a combo to choose from the available
       themes, thus:</div>
     <div class="wiki" style="display: block;"> <img src="files/multitenancy_en070.png"
-
         alt="multitenancy_en070.png" title="multitenancy_en070.png"> </div>
     <div class="wiki" style="display: block;">Choose one and click on <i>Modify</i>,
       afterwards that organization will use that theme with no possibility to
@@ -205,7 +224,6 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
       <pre><code class="properties">themes=terra.css, light.css, dark.css, black-and-white.css, blue.css</code></pre>
     </div>
     <div class="wiki" style="display: block;">Learn more about themes in the <a
-
         href="custom-style_en.html">visual style documentation</a>.</div>
     <div class="wiki" style="display: block;"><br>
     </div>

@@ -3,17 +3,16 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Multiempresa/multimunicipio - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Multiempresa/multimunicipio"></a>
-        <span id="breadcrumbs"> 
-        	<span id="openxava"> 
-            <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> 
-          / <a href="index_es.html">documentación</a> / 
-        </span>
-        Multiempresa/multimunicipio</h1>
+      <h1 id="toc0"><a name="Multiempresa/multimunicipio"></a> <span
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span> Multiempresa/multimunicipio</h1>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#Multiempresa/multimunicipio">Multiempresa/multimunicipio</a></div>
@@ -27,7 +26,6 @@
         <div style="margin-left: 2em;"><a href="#Multiempresa/multimunicipio-Tema-visual-por-organizacion">Tema
             visual por organización (nuevo en v6.4)</a></div>
       </div>
-      
       La multitenencia (multitenancy en inglés) te permite desplegar una
       aplicación una vez y esta única aplicación puede servir a varias empresas
       al mismo tiempo, cada una con sus propios datos. Esto es perfecto para
@@ -90,28 +88,54 @@ dropSchema=DROP SCHEMA ${schema} CASCADE
 # Estas son por base de datos, puedes añadir la tuya usando el nombre de la base de datos
 # como sufijo (realmente la primera palabra de connection.getMetaData().getDatabaseProductName())
 dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
-      Si quieres hacer personalizaciones adicionales, como llenar las tablas de
-      la aplicación, crear algunos roles y usuarios iniciales, dar una
-      estructura específica a los módulos y carpetas, etc. puedes definir tu
-      propia accion para crear la organización. La acción original se define en
-      <em>Addons/xava/controllers.xml</em> de este manera:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.text  {font-family:monospace;}
-.text .imp {font-weight: bold; color: red;}
-.text span.xtra { display:block; }
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> Si quieres hacer
+      personalizaciones adicionales, como llenar las tablas de la aplicación,
+      crear algunos roles y usuarios iniciales, dar una estructura específica a
+      los módulos y carpetas, etc. puedes definir tu propia accion para crear la
+      organización. La acción original para crear una nueva organización es <i>createNewOrganization</i>
+      en el controlador <i>Organization</i> definido en <em>Addons/xava/controllers.xml</em>.
+      Por lo tanto, para definir tu propia acción para crear una nueva
+      organización has de definir un módulo <i>Organization</i> en tu
+      aplicación y asignarle tu propio controlador con tu propia acción.
+      <div class="wiki" style="display: block;">Primero, añade el módulo <i>Organization</i>
+        a tu <i>aplicacion.xml</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;modulo nombre="Organization"&gt;
+    &lt;modelo nombre="Organization" /&gt;
+    &lt;controlador nombre="MiOrganizacion" /&gt;
+&lt;/module&gt;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Después añade tu controlador <i>MiOrganizacion</i>
+        a tu<i> controladores.xml</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;controlador nombre="MiOrganizacion"&gt;
+    &lt;hereda-de controlador="Organization"/&gt;
+    &lt;accion nombre="createNewOrganization" modo="detail" cuesta="true"
+        clase="com.tuempresa.tuaplicacion.acciones.CrearMiOrganizacionNueva"/&gt;
+&lt;/controlador&gt;
+</code></pre> </div>
+      <div class="wiki" style="display: block;"> Finalmente escribe el código
+        para tu acción <i>CrearMiOrganizacionNueva</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">package com.tuempresa.tuaplicacion.acciones;
 
--->
-</style><pre class="text">&lt;controller name="Organization"&gt;
-    ...
-    &lt;action name="createNewOrganization" mode="detail" takes-long="true"
-        class="com.openxava.naviox.actions.CreateNewOrganizationAction"/&gt;
-    ...
-&lt;/controller&gt;</pre>
-      Simplemente define tu propia clase para <em>Organization.createNewOrganization</em>.<br>
+import com.openxava.naviox.actions.*;
+
+public class CrearMiOrganizacionNueva extends CreateNewOrganizationAction {
+
+    public void execute() throws Exception {
+        super.execute(); // Esto crea la nueva organización
+        // AQUÍ TU PROPIO CÓDIGO PARA REFINAR LA NUEVA ORGANIZACIÓN
+    }
+    
+}
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Fíjate como extendemos <i>CreateNewOrganizationAction</i>
+        que contiene la lógica original para crear una nueva organización.</div>
+      <br>
       Puedes ocultar el combo con la lista de organizaciones en el momento de la
       identificación con la siguiente entrada en <em>naviox.properties (nuevo
         en v5.6)</em>:<br>
@@ -193,7 +217,6 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
       propiedad llamada <i>tema</i> con un combo para elegir entre los temas
       disponibles, así:
       <div class="wiki" style="display: block;"> <img src="files/multitenancy_es070.png"
-
           alt="multitenancy_en070.png" title="multitenancy_es070.png"> </div>
       <div class="wiki" style="display: block;">Elige uno y pulsa <i>Modificar</i>,
         luego la organización usará ese tema sin posibilidad de cambiarlo por el
