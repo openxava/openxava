@@ -1962,6 +1962,14 @@ div.ox-subcontroller table{
 	background: transparent;  
 }
 
+/* tmr ini */
+.ox-charts .ox-half-frame {
+	overflow: initial; 
+	display: initial; 
+	width: initial;
+}
+/* tmr fin */
+
 .ox-charts > .ox-layout-detail {
 	padding-top: 15px;
 	display: block;
@@ -2634,7 +2642,7 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .xava_coordinates {
-	min-width: 600px;
+	/* tmr min-width: 600px; */
 	width: 100%;
 	height: 450px;
     margin: 7px 0px 0px 2px;

@@ -231,7 +231,8 @@ openxava.setEnterAsFocusKey = function() {
 
 openxava.listenChanges = function() { 
 	// WARNING: IF YOU CHANGE THIS PASS DateCalendarTest.txt
-	$("." + openxava.editorClass).change(function() {
+	$("." + openxava.editorClass).unbind("change.changedCancelled");
+	$("." + openxava.editorClass).bind("change.changedCancelled", function() {
 		  if (!$(this).data('changedCancelled')) {
 			openxava.dataChanged = true;			
 		  }

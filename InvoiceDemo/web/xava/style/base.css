@@ -205,12 +205,12 @@
 	--icons-list-i-hover-background: var(--action-hover-background);	
 	--crop-free-icon-color: var(--required-editor-border);
 	--plus-icon-color: var(--crop-free-icon-color);
-	--icons-list-scrollbar-background: linear-gradient(
+	--scrollbar-background: linear-gradient(
 			to top,
 			rgba(0, 0, 0, 0.2),
 			rgba(0, 0, 0, 0.2)
 		) var(--icons-list-background);
-	--icons-list-scrollbar-color: linear-gradient(
+	--scrollbar-color: linear-gradient(
 			to top,
 			rgba(0, 0, 0, 0.4),
 			rgba(0, 0, 0, 0.4)
@@ -554,6 +554,7 @@ i.folder-icon {
 	max-height: 70vh;
 	margin-bottom: 5px;	
 	overflow-y: auto;
+	overflow-x: hidden; 
 }
 
 #modules_list_header, #modules_list_search_header { 
@@ -1394,6 +1395,20 @@ input[type="button"] {
 	margin-right: -3px;
 }
 
+.ox-full-frame {
+	width: calc(100% - 27px);
+}
+
+.ox-half-frame {
+	overflow: auto; 
+	display: block; 
+	width: calc(50% - 27px);
+}
+
+.ox-flow-layout .ox-half-frame {
+	width: calc(50% - 31px);
+}
+
 .ox-detail.ox-flow-layout, .ox-active-section > .ox-flow-layout { 
 	width: calc(100vw - 210px); 
 	margin-top: 5px; 
@@ -1405,7 +1420,7 @@ input[type="button"] {
 
 .ox-flow-layout .ox-frame { 
 	margin-left: 11px;
-	
+	margin-right: 0px; 
 }
 
 #sign_in_box .ox-detail { 
@@ -2170,14 +2185,15 @@ span[id*="reference_editor"] + .ox-layout-detail {
 	color: var(--icon-in-list);
 }
 
-.ox-icons-list::-webkit-scrollbar {
+::-webkit-scrollbar {
 	width: 8px;
-	background: var(--icons-list-scrollbar-background);
+	height: 8px;
+	background: var(--scrollbar-background);
 	
 }
 
-.ox-icons-list::-webkit-scrollbar-thumb {
-	background: var(--icons-list-scrollbar-color);
+::-webkit-scrollbar-thumb {
+	background: var(--scrollbar-color);
 	border-radius: 10px;
 }
 
@@ -2566,6 +2582,12 @@ div[id$="_Index__view"] .ox-list-title {
 
 .ox-list img {
 	max-height: 30px;
+}
+
+.ox-cards img {
+	max-height: 100px;
+	max-width: 200px;
+	vertical-align: top;
 }
 
 .ox-read-only-html-text {
