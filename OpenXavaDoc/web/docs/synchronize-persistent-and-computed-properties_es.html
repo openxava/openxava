@@ -1,7 +1,8 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lección 16: Fórmula - OpenXava</title>
+    <title>Lección 16: Sincronizar propiedades persistentes y calculadas -
+      OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,11 +10,10 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Leccion-16-Sincronizacion-de-propiedades-y-formula"></a> <span id="breadcrumbs"> <span
-
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+      <h1 id="toc0"><a name="Leccion-5-Logica-de-negocio-basica"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
-        Lección 16: Sincronización de propiedades y @Fórmula</h1>
+        Lección 16: Sincronizar propiedades persistentes y calculadas</h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
         Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
@@ -28,14 +28,14 @@
         @DefaultValueCalculator en colecciones</a> |<a class="wiki_link" href="calculation-and-collections-total_es.html">12.
         @Calculation y totales de colección</a> |<a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
         @DefaultValueCalculator desde archivo</a> |<a class="wiki_link" href="manual-schema-evolution_es.html">14.
-        Evolución del esquema manual</a> |<a class="wiki_link" href="jpa-callbacks_es.html">15.
-        Retrollamadas JPA</a> | <strong>16. @Formula</strong> |<a class="wiki_link"
-
-        href="validation_es.html">17. Validación avanzada</a> | <a class="wiki_link"
-
-        href="refining-standard-behavior_es.html">18. Refinar el comportamiento
-        predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">19.
-        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">20.
+        Evolución del esquema manual</a> <strong></strong> |<a class="wiki_link"
+        href="multi-user-default-value-calculation_es.html">15. Cálculo del
+        valor por defecto multiusuario</a> |<strong>16. Sincronizar propiedades
+        persistentes y calculadas </strong> |<a class="wiki_link" href="logic-from-database_es.html">17.
+        Lógica desde la base de datos</a> |<a class="wiki_link" href="validation_es.html">18.
+        Validación avanzada</a> | <a class="wiki_link" href="refining-standard-behavior_es.html">19.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">20.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">21.
         Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
@@ -44,21 +44,18 @@
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Leccion-16-Sincronizacion-de-propiedades-y-formula">Lección
-            16: Sincronización de propiedades y @Fórmula</a></div>
+        <div style="margin-left: 1em;"><a href="#Leccion-5-Logica-de-negocio-basica">Lección
+16:
+            Sincronizar propiedades persistentes y calculadas<br>
+          </a></div>
         <div style="margin-left: 2em;"><a href="#Sincronizar-propiedades-persistentes-y-calculadas">Sincronizar
-            propiedades persistentes y calculadas</a></div>
-        <div style="margin-left: 2em;"><a href="#Logica-desde-la-base-de-datos-Formula">Lógica
-            desde la base de datos (@Formula)</a></div>
+            propiedades persistentes y calculadas</a><a href="#Metodos-de-retrollamadas-JPA-Calculo-de-valor-por-defecto-multiusuario"></a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
-      Has convertido tu modelo del dominio en una aplicación web plenamente
-      funcional. Esta aplicación ya es bastante útil de por sí, aunque aún
-      puedes hacerle muchas mejoras. Transformemos pues tu aplicación en algo
-      más serio, y de paso, aprendamos algunas cosas interesantes sobre
-      OpenXava.<br>
-      Empezaremos por añadir algo de lógica de negocio a tus entidades para
-      hacer de tu aplicación algo más que un simple gestor de base de datos.<br>
+      En la lección anterior aprendimos cómo definir propiedades por defecto
+      para el desarrollo en ambientes multiusuario, utilizando <i>retrollamadas
+        JPA</i>. Veremos ahora cómo sincronizar tanto propiedades calculadas
+      como persistentes.<br>
       <h2 id="Sincronizar-propiedades-persistentes-y-calculadas">Sincronizar
         propiedades persistentes y calculadas</h2>
       Como ya hemos aprendido, las propiedades calculadas no permiten filtrar ni
@@ -105,48 +102,24 @@ public class Pedido extends DocumentoComercial {
       <div class="wiki" style="display: block;">El valor se recalcula cada vez
         que la fecha cambia en la interfaz de usuario gracias a el <i>@Depends("fecha")</i>
         en <i>diasEntregaEstimados.</i></div>
-      <h2 id="toc9"><a name="Logica-desde-la-base-de-datos-Formula"></a>Lógica
-        desde la base de datos (<em>@Formula</em>)</h2>
-      Otra alternativa a <i>@Calculation,</i> o a tener propiedades calculadas
-      y persistentes sincronizadas, es la anotación <em>@Formula</em>. <em>@Formula</em>
-      es una extensión de Hibernate al estándar JPA, que permite mapear una
-      propiedad a un fragmento de SQL. Por ejemplo, puedes definir <i>beneficioEstimado</i>
-      con <em>@Formula</em> en <i>DocumentoComercial</i> como se muestra en el
-      siguiente código:<br>
-      <pre><code class="java">@org.hibernate.annotations.Formula("IMPORTETOTAL * 0.10") // El cálculo usando SQL
-@Setter(AccessLevel.NONE) // El setter no se genera, sólo necesitamos el getter
-@Stereotype("DINERO")
-BigDecimal beneficioEstimado; // Un campo, como con una propiedad persistente
-</code></pre> Esto significa que cuando un <em>DocumentoComercial</em> se lea
-      de la base de datos, el campo <em>beneficioEstimado</em> se rellenerá con
-      el cálculo de <em>@Formula</em> que es ejecutado por la base de datos. El
-      usuario puede filtrar y ordenar por las propiedades <i>@Formula</i> en
-      modo lista, pero siempre son de solo lectura y no se recalculan en tiempo
-      real en modo detalle. Dado que son de sólo lectura no necesitan el método
-      getter, por lo que la hemos anotamos con <i>@Setter(AccessLevel.NONE)</i>
-      para que Lombok no genere el setter. Además, las propiedades <i>@Formula</i>
-      dependen de la base de datos, porque podrías usar sintaxis sólo soportada
-      por cierto fabricante de base de datos.<br>
+      <h2> </h2>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h3 id="toc8"><a name="Metodos-de-retrollamadas-JPA-Sincronizar-propiedades-persistentes-y-calculadas"></a></h3>
     </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
-      En esta lección has aprendido algunas formas comunes de añadir lógica de
-      negocio a tus entidades. No hay duda sobre la utilidad de las propiedades
-      calculadas, <i>@Calculation</i>, los métodos de retrollamada o <em>@Formula</em>.
-      Sin embargo, todavía tenemos muchas otras formas de añadir lógica a tu
-      aplicación OpenXava, que vamos a aprender a usar.<br>
-      En futuros lecciones verás como añadir validación, modificar el
-      funcionamiento estándar del módulo y añadir tu propia lógica de negocio,
-      entre otras formas de añadir lógica personalizada a tu aplicación.<br>
+      En esta lección has aprendido lo fácil que es utilizar métodos de llamadas
+      JPA para definir lógica en diferentes momentos específicos del ciclo de
+      vida de una entidad, permitiéndonos establecer y ejecutar lógica del
+      negocio al grabar por primera vez una propiedad.<br>
       <br>
       <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-5-basic-business-logic_es.zip/download"
-
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
-        <a class="wiki_link" href="validation_es.html">Ve a la lección 17</a></strong>
-    </div>
+        <a class="wiki_link" href="logic-from-database_es.html">Ve a la lección
+          17</a></strong> </div>
   </body>
 </html>
