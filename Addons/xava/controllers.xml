@@ -174,7 +174,7 @@
 			<set property="resetAfter" value="false"/>
 		</action>			
 			
-		<action name="delete" mode="detail" confirm="true"
+		<action name="delete" mode="detail" confirm="true" available-on-new="false" 
 			class="com.openxava.naviox.actions.DeleteOrganizationAction"/>
 		
 		<action name="go" in-each-row="true" mode="NONE" icon="exit-to-app"			
