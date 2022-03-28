@@ -1,11 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 6.6.3 (2022-3-29)
+--------------------------
+- Reference documentation about @DescriptionsList improved with examples using composite keys.
+- Lessons 5, 6, 7 and 8 of course include video.
 - Fix: Narrowing a view with @Coordiantes too much leaves the map outside the property frame. 
 - Fix: Two groups displayed in the same row do not fill all the space available leaving blank space on right.
 - Fix: When two collections are placed side by side they are not aligned on right with other frames in view.
 - Fix: Sum in collection used by @Calculation properties not shown if removed in previous versions by user.
-- Reference documentation about @DescriptionsList improved with examples using composite keys.
 - Fix: @DescriptionsList dependent on @DescriptionsList with composite key with a single ? in condition fails.
 - Fix: Reference name with no property in condition, ${family} = ?, of @DescriptionsList fails. 
 - Fix: Calculated property in totals of a collection inside a transient class is not calculated. 
@@ -22,7 +25,6 @@ Change Log for OpenXava project
 - Fix: Bean Validation messages use server locale instead of browser locale.
 - Fix: Images for PHOTO stereotype are not shown in PDF reports.
 - Fix: Losing focus from a date gives "Changed data" message on exit after a "No more elements in list" error.
-- Lessons 5, 6, 7 and 8 of course include video.
 - Fix: In charts choosing a property not already shown in the chart produces a "Editor not available" error. 
 - Fix: View inheritance doesn't include parent members with three levels depth if entering child module first.
 - Fix: Scrollbars not stylized according to theme (fixed for WebKit based browsers).

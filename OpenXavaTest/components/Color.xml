@@ -97,6 +97,11 @@ Number (the key) can be 0
 		</reference-view>
 	</view>
 	
+	<view name="Sub">
+        <property name="actionNumber" type="String"/>
+        <members>actionNumber</members>
+    </view>
+	
 	<tab>		
 		<properties>number, name, hexValue, sample, usedTo.name, characteristicThing.description</properties>
 	</tab>
