@@ -24,17 +24,14 @@
         View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
         Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
         Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
-        @DefaultValueCalculator in collections </a> | <strong>12. Calculation
-        and colections totals </strong> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
+        @DefaultValueCalculator in collections </a> | <strong>12. @Calculation
+        and collections totals </strong> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
         @DefaultValueCalculator from file</a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
         Manual schema evolution</a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
         Multi user default value calculation</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
-        Synchronize persistent and computed propierties</a> | <a class="wiki_link"
-
+        Synchronize persistent and computed properties</a> | <a class="wiki_link"
         href="logic-from-database_en.html">17. Logic from database </a> | <a class="wiki_link"
-
         href="validation_en.html">18. Advanced validation</a> | <a class="wiki_link"
-
         href="refining-standard-behavior_en.html">19. Refining the standard
         behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">20.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">21.
@@ -42,7 +39,7 @@
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
         Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
-        Automated testing</a><a class="wiki_link" href="testing_en.html"></a>
+        Automated testing</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
@@ -125,7 +122,6 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
         filter or order by calculated properties, but he can do so using
         persistent properties with <em>@Calculation</em>:<br>
         <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
-
           title="business-logic_en025.png"><br>
         <em>@Calculation</em> is a good option when you need filtering and
         sorting, and a simple calculation is enough. A shortcoming of <i>@Calculation</i>
@@ -150,7 +146,6 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
       are indispensable. To do so you only need to add a few properties to <em>CommercialDocument</em>
       class. The next figure shows the user interface for these properties: </div>
     <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
-
         alt="business-logic_en030.png" title="business-logic_en030.png"><br>
       Add the next code to <i>CommercialDocument</i> entity:<br>
       <pre><code class="java">@Digits(integer=2, fraction=0) // To indicate its size
@@ -213,16 +208,17 @@ BigDecimal totalAmount;
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
       In this lesson you have learned how to define persistent properties with
-      specific calculations using the <i>@Calculation </i>annotation and we
-      saw the usefulness of the <em>@Digits</em> annotation to define type and
-      length of fields.</div>
+      specific calculations using the <i>@Calculation</i> annotation and we saw
+      the usefulness of the <i>@Digits</i> annotation to define type and length
+      of fields. We also defined total properties using persistent properties
+      with the <i>@ReadOnly</i> +<i>@Calculation</i> annotations, and we saw
+      how to use sum to override a specific property.</div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;"> <strong>Any problem with this
         lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-        <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">Go to Lesson
-          13</a></strong> </div>
+        <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">Go
+          to Lesson 13</a></strong> </div>
   </body>
 </html>
