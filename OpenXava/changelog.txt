@@ -5,7 +5,7 @@ OpenXava 6.6.3 (2022-3-29)
 --------------------------
 - Reference documentation about @DescriptionsList improved with examples using composite keys.
 - Lessons 5, 6, 7 and 8 of course include video.
-- Fix: Narrowing a view with @Coordiantes too much leaves the map outside the property frame. 
+- Fix: Narrowing a view with @Coordinates too much leaves the map outside the property frame. 
 - Fix: Two groups displayed in the same row do not fill all the space available leaving blank space on right.
 - Fix: When two collections are placed side by side they are not aligned on right with other frames in view.
 - Fix: Sum in collection used by @Calculation properties not shown if removed in previous versions by user.
