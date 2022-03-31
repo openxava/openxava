@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 9 of course divided into several smaller lessons.
+
 OpenXava 6.6.3 (2022-3-29)
 --------------------------
 - Reference documentation about @DescriptionsList improved with examples using composite keys.
