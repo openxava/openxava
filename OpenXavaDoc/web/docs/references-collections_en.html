@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lesson 13: References &amp; collections - OpenXava</title>
+    <title>Lesson 21: References &amp; collections - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -12,32 +12,42 @@
       <h1 id="toc0"><a name="references-collections"></a> <span id="breadcrumbs">
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
-        Lesson 13: References &amp; collections </h1>
+        Lesson 21: References &amp; collections </h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
         Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
         Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
         Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
         Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
         Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
-        Mapped superclass inheritance</a> |
-      <a class="wiki_link" href="entity-inheritance_en.html">7. Entity
-        inheritance</a> |
-      <a class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a>
-      | <a class="wiki_link" href="basic-business-logic_en.html">9. Basic
-        business logic</a> | <a class="wiki_link" href="validation_en.html">10.
-        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">11.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">12.
-        Behavior &amp; business logic</a> | <strong>13. References &amp;
-        collections</strong> | <a class="wiki_link" href="philosophy_en.html">A.
+        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
+        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
+        View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
+        Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
+        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
+        @DefaultValueCalculator in collections </a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
+        @Calculation and collections totals </a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
+        @DefaultValueCalculator from file </a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">14.Manual
+        schema evolution </a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
+        Multi user default value calculation </a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
+        Synchronize persistent and computed propierties </a> | <a class="wiki_link"
+
+        href="logic-from-database_en.html">17. Logic from database </a> | <a class="wiki_link"
+
+        href="validation_en.html">18. Advanced validation </a> | <a class="wiki_link"
+
+        href="business-logic-behavior_en.html">19. Refining the standard
+        behavior </a> | <a class="wiki_link" href="business-logic-behavior_en.html">20.
+        Behavior &amp; business logic</a> | <strong>21. References
+        &amp; collections </strong> | <a class="wiki_link" href="philosophy_en.html">A.
         Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
         Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
-        Automated testing</a>
+        Automated testing</a><a class="wiki_link" href="testing_en.html"></a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#references-collections">Lesson
-            13: References &amp; collections</a></div>
+            21: References &amp; collections</a></div>
         <div style="margin-left: 2em;"><a href="#refining-reference-behavior">Refining
             reference behavior</a></div>
         <div style="margin-left: 3em;"><a href="#validation-is-good-but-not-enough">Validation
@@ -75,7 +85,8 @@
       your application, so the standard OpenXava behavior does not solve it. The
       next image shows as a validation error is produced when customer of
       invoice is incorrect </div>
-    <img src="files/references-collections_en010.png" alt="references-collections_en010"
+    <img src="files/references-collections_en010.png" alt="references-collections_en010"
+
       title="references-collections_en010">
     <div class="wiki" style="display: block;"> Since this is business logic we
       are going to put it in the model layer, that is, in the entities. We'll do
@@ -109,7 +120,8 @@
       when the user clicks to search an invoice, all existing invoices are
       shown. We are going to improve this for showing only the invoices from the
       customer of the current displayed order, in this way:</div>
-    <img src="files/references-collections_en020.png" alt="references-collections_en020.png"
+    <img src="files/references-collections_en020.png" alt="references-collections_en020.png"
+
       title="references-collections_en020.png"><br>
     <div class="wiki" style="display: block;"> For defining our own search
       action for the invoice reference we will use the <i>@SearchAction</i>
@@ -184,7 +196,8 @@ public class SearchInvoiceFromOrderAction
       the year, and searching an invoice only by year is not very precise. The
       following image shows the default behavior and a more convenient
       alternative:<br>
-      <img src="files/references-collections_en030.png" alt="references-collections_en030.png"
+      <img src="files/references-collections_en030.png" alt="references-collections_en030.png"
+
         title="references-collections_en030.png"><br>
       Fortunately it's easy to indicate which fields we want to use to search
       from a user perspective. This is done by means of <i>@SearchKey</i>
@@ -220,12 +233,14 @@ public class SearchInvoiceFromOrderAction
       for the order yet and he chooses an invoice, the customer of that invoice
       will be assigned to the current order automatically. The following image
       visualizes the wanted behavior:<br>
-      <img src="files/references-collections_en040.png" alt="references-collections_en040.png"
+      <img src="files/references-collections_en040.png" alt="references-collections_en040.png"
+
         title="references-collections_en040.png"><br>
       On the other hand, if the user already has selected the customer for the
       order, if he is not the same in the invoice, it will be rejected and a
       message error displayed, just in this way:</div>
-    <img src="files/references-collections_en050.png" alt="references-collections_en050.png"
+    <img src="files/references-collections_en050.png" alt="references-collections_en050.png"
+
       title="references-collections_en050.png"><br>
     <div class="wiki" style="display: block;"> For defining this special
       behavior we have to add an <i>@OnChangeSearch</i> annotation in the the <i>invoice</i>
@@ -318,7 +333,8 @@ public class OnChangeSearchInvoiceAction
       are available. We are going to improve this for showing only the orders
       from the customer of the invoice, delivered and with not invoice yet, just
       as shown: <br>
-      <img src="files/references-collections_en60.png" alt="references-collections_en60.png"
+      <img src="files/references-collections_en60.png" alt="references-collections_en60.png"
+
         title="references-collections_en60.png"><br>
       We will use the <i>@AddAction</i> annotation for defining our own action
       to show the list for adding orders. The following code shows the needed
@@ -385,7 +401,8 @@ public class GoAddOrdersToInvoiceAction
       show the list to add elements to the collection. But this is not the
       action that adds the elements. <br>
       Let's learn how to define the action that actually adds the elements: <br>
-      <img src="files/references-collections_en70.png" alt="references-collections_en70.png"
+      <img src="files/references-collections_en70.png" alt="references-collections_en70.png"
+
         title="references-collections_en70.png"><br>
       Unfortunately, there is not an annotation to directly define this 'Add'
       action. However, that is not a very difficult task, we only have to refine
@@ -482,10 +499,12 @@ public class AddOrdersToInvoiceAction
       practically any possible case in real life business applications. </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code-references-collections_en.zip/download"
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code-references-collections_en.zip/download"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong><strong></strong> </div>
   </body>
 </html>

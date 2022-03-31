@@ -1,0 +1,216 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 12: @Calculation y totales de colección - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-12-Calculation-y-totales-de-coleccion"></a>
+        <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span> Lección 12: @Calculation y totales de colección</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
+        Herencia de superclases mapeadas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
+        Propiedades Java</a> |<a class="wiki_link" href="calculated-properties_es.html">10.
+        Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
+        @DefaultValueCalculator en colecciones</a> | <strong>12. @Calculation y
+        totales de colección</strong> |<a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @DefaultValueCalculator desde archivo</a> |<a class="wiki_link" href="manual-schema-evolution_es.html">14.
+        Evolución del esquema manual</a> |<a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
+        Cálculo de valor por defecto multiusuario</a> |<a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
+        Sincronizar propiedades persistentes y calculadas</a> |<a class="wiki_link"
+        href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
+      |<a class="wiki_link" href="validation_es.html">18. Validación avanzada</a>
+      | <a class="wiki_link" href="refining-standard-behavior_es.html">19.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">20.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">21.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a><a class="wiki_link" href="testing_es.html"></a><a
+        class="wiki_link" href="testing_es.html"></a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Leccion-12-Calculation-y-totales-de-coleccion">Lección
+            12: @Calculation y totales de colección<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Propiedades-calculadas-Propiedades-persistentes-con-Calculation">Propiedades
+            persistentes con @Calculation</a></div>
+        <div style="margin-left: 2em;"><a href="#Propiedades-calculadas-Propiedades-de-total-de-una-coleccion">Propiedades
+            de total de una colección</a></div>
+        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
+      </div>
+      Hemos visto como calcular los importes utilizando la anotación <i>@DefaultValueCalculator</i>
+      en las colecciones. Veremos ahora como implementar totales usando la
+      anotación <i> @Calculation</i>. </div>
+    <div class="wiki" style="display: block;">
+      <h2><a name="Propiedades-calculadas-Propiedades-persistentes-con-Calculation"></a>Propiedades
+        persistentes con <i>@Calculation</i></h2>
+      A veces las propiedades calculadas no son la mejor opción. Imagínate que
+      tienes una propiedad calculada en <em>Factura</em>, digamos <em>descuento</em>:<br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
+public BigDecimal getDescuento() {
+    return getImporte().multiply(new BigDecimal("0.10"));
+}
+</code></pre> Si necesitas procesar todas las facturas cuyo descuento sea mayor
+        de 1000, has de escribir un código como el siguiente:<br>
+        <pre><code class="java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
+Query query = getManager().createQuery("from Factura"); // Sin condición en la consulta
+for (Object o: query.getResultList()) { // Itera por todos los objetos
+    Factura f = (Factura) o;
+    if (f.getDescuento() // Pregunta a cada objeto
+        .compareTo(new BigDecimal("1000")) &gt; 0) {
+            f.hacerAlgo();
+    }
+}
+</code></pre> No puedes usar una condición en la consulta para discriminar por <i>descuento</i>,
+        porque <i>descuento</i> no está en la base de datos, está sólo en el
+        objeto Java, por lo que has de instanciar todos y cada uno de los
+        objetos para poder preguntar por el <i>descuento</i>. En algunos casos
+        esta forma es una buena opción, pero si tienes una cantidad inmensa de
+        facturas y sólo unas pocas tiene el <i>descuento</i> mayor de 1000,
+        entonce tu proceso va a ser muy ineficiente. ¿Qué alternativas tenemos?<br>
+        Nuestra alternativa es usar la anotación <em>@Calculation</em>. <em>@Calculation</em>
+        es una anotación OpenXava que permite asociar un cálculo simple a una
+        propiedad persistente. Puedes definir <em>descuento</em> con <em>@Calculation</em>
+        como se muestra en el siguiente código:<br>
+        <pre><code class="java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
+@ReadOnly
+@Calculation("importe * 0.10")
+BigDecimal descuento;
+</code></pre> Esto es una propiedad persistente convencional, es decir con una
+        columna correspondiente en la base de datos, pero tiene un cálculo
+        definido con <i>@Calculation</i>. En este caso el cálculo es <i>importe
+          * 0.10</i>, de tal manera que cuando el usuario cambia <i>importe</i>
+        en la interfaz de usuario <i>descuento</i> se recalcula
+        instantaneamente. El valor recalculado se graba en la base de datos
+        cuando el usuario pulsa en <i>Grabar</i>, como con cualquier otra
+        propiedad persistente. También hemos anotado <i>descuento</i> con <i>@ReadOnly</i>,
+        por lo que parece y se comporta como una propiedad calculada, aunque
+        puedes omitir <i>@ReadOnly</i> y así el usuario podría modificar el
+        valor calculado.</div>
+      <div class="wiki" style="display: block;"> Lo más útil de las propiedades
+        <em>@Calculation</em> es que se pueden usar en las condiciones, por lo
+        que puedes reescribir el proceso de arriba como se muestra en el
+        siguiente código:<br>
+        <pre><code class="java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
+Query query = getManager().createQuery("from Factura f where f.descuento &gt; :descuento"); // Condición permitida
+query.setParameter("descuento", new BigDecimal(1000));
+for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccionados
+    Factura f = (Factura) o;
+    f.hacerAlgo();
+}
+</code></pre>De esta manera ponemos el peso de seleccionar los registros en el
+        servidor de la base de datos y no en el servidor Java. Además, los
+        descuentos no se recalculan cada vez, sino que ya está calculados y
+        grabados.<br>
+        Este hecho tiene también efecto en el modo lista, porque el usuario no
+        puede filtrar ni ordenar por las propiedades calculadas, pero sí que lo
+        puede hacer usando propiedades persistentes con <em>@Calculation</em>:<br>
+        <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
+          title="business-logic_es025.png"><br>
+        <em>@Calculation</em> es una buena opción cuando necesitas filtrar y
+        ordenar, y un cálculo simple es suficiente. Una desventaja de las
+        propiedades con <i>@Calculation</i> es que sus valores se recalculan
+        sólo cuando el usuario interactúa con el registro y cambia algún valor
+        de las propiedades usadas en el cálculo, por lo tanto cuando añades una
+        nueva propiedad <i>@Calculation</i> a una entidad con datos existente
+        has de actualizar los valores de la nueva columna en la tabla usando
+        SQL. Por otra parte si necesitas un cálculo complejo, con bucles o
+        consultando otras entidades, todavía sigues necesitando una propiedad
+        calculada con tu lógica Java en el getter. En este último caso si además
+        necesitas ordenar y filtrar en modo lista por la propiedad calculada un
+        opción es tener ambas, la calculada y la persistente, y sincronizar sus
+        valores usando los métodos de retrollamada de JPA (hablaremos sobre los
+        métodos de retrollamada más abajo).</div>
+      <h2 id="toc4"><a name="Propiedades-calculadas-Propiedades-de-total-de-una-coleccion"></a>Propiedades
+        de total de una colección</h2>
+      También queremos añadir importes a <em>Pedido</em> y <em>Factura</em>.
+      Tener IVA, importe base e importe total es indispensable. Para hacerlo
+      sólo necesitas añadir unas pocas propiedades a la clase <i>DocumentoComercial</i>.
+      La siguiente figura muestra la interfaz de usuario para estas propiedades:<br>
+      <img src="files/business-logic_es030.png" alt="business-logic_es030.png" title="business-logic_es030.png"><br>
+      Añade el siguiente código a la entidad <i>DocumentoComercial</i>:<br>
+      <pre><code class="java">@Digits(integer=2, fraction=0) // Para indicar su tamaño
+BigDecimal porcentajeIVA;
+   
+@ReadOnly
+@Stereotype("DINERO")
+@Calculation("sum(detalles.importe) * porcentajeIVA / 100")
+BigDecimal iva;
+
+@ReadOnly
+@Stereotype("DINERO")
+@Calculation("sum(detalles.importe) + iva")    
+BigDecimal importeTotal;    
+</code></pre> Fíjate como hemos escogido propiedades persistentes con <i>@Calculation
+        + @ReadOnly</i> en lugar de propiedades calculadas para <i>iva</i> e <i>importeTotal</i>,
+      porque los cálculos son simples, y filtrar y ordenar por ellos es muy
+      útil. También, puedes ver como en <i>@Calculation</i> puedes usar <i>sum(detalles.importe)</i>
+      para referirte a la suma de columna <i>importe</i> de la colección <i>detalles</i>,
+      de esta manera podemos prescindir de una propiedad <i>importeBase</i>.
+      Por otra parte, <em>porcentajeIVA</em> es un propiedad persistente
+      convencional. En este caso usamos <em>@Digits</em> (una anotación de Bean
+      Validation, el estándar de validación de Java) como una alternativa a <em>@Column</em>
+      para especificar su tamaño. <br>
+      Ahora que ya has escrito las propiedades para los importes de <em>DocumentoComercial</em>,
+      tienes que modificar la lista de propiedades de la colección <em>detalles</em>
+      para mostrar las <a class="wiki_link" href="view_es.html#Vista-Personalizacion+de+coleccion-Propiedades+de+total+%28nuevo+en+v4.3%29">propiedades
+        de total</a> de <em>DocumentoComercial</em>. Veámoslo:<br>
+      <pre><code class="java">abstract public class DocumentoComercial extends Identificable {
+ 
+    @ElementCollection
+    @ListProperties(
+        "producto.numero, producto.descripcion, cantidad, precioPorUnidad, " +
+        "importe+[" + 
+        	"documentoComercial.porcentajeIVA," +
+        	"documentoComercial.iva," +
+        	"documentoComercial.importeTotal" +
+        "]" 
+    )	
+    private Collection&lt;Detalle&gt; detalles;
+ 
+    ...
+}
+</code></pre>Las propiedades de total son propiedades normales de la entidad (<i>DocumentoComercial</i>
+      en este caso) que en la interfaz de usuario se localizan debajo de una
+      columna de una colección. Para eso, en <i>@ListProperties</i> se usan
+      corchetes después de la propiedad para enumerarlas, algo así como <i>importe[documentoComercial.importeTotal]</i>.
+      Además, si simplemente quieres la suma de la columna no necesitas una
+      propiedad para ello, con un + después de la propiedad en <i>@ListProperties</i>
+      es suficiente, como <i>importe+</i>. En nuestro caso combinamos ambas
+      cosas, + y propiedades de total entre [ ].</div>
+    <div class="wiki" style="display: block;">Ahora puedes probar tu aplicación.
+      Debería funcionar casi como en la figura del inicio de esta sección.
+      “Casi” porque <em>porcentajeIVA</em> todavía no tiene un valor por
+      defecto. Lo añadiremos en la siguiente sección.<br>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
+      En esta lección has aprendido cómo definir propiedades persistentes con
+      cálculos específicos utilizando la anotación <i>@Calculation</i><i> y </i>vimos
+      la utilidad de la anotación <i>@Digits </i>para definir tipo y longitud
+      de campos. También definimos propiedades de total utilizando propiedades
+      persistentes con las anotaciones <i><i>@ReadOnly +</i>@Calculation</i>, y
+      vimos como utilizar sum para prescindir de una propiedad específica.<br>
+      <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+        <a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">Ve
+          a la lección 13</a></strong> </div>
+  </body>
+</html>

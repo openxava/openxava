@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lesson 9: Java properties - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Lesson-9-Java-properties"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 9: Java properties </h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
+        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
+        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
+        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
+        Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
+        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
+        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
+        View inheritance</a> | <strong>9. Java properties</strong> | <a class="wiki_link"
+        href="calculated-properties_en.html">10. Calculated properties </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
+        @DefaultValueCalculator in collections</a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
+        </a><a class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation
+        and collections totals</a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
+        @DefaultValueCalculator from file</a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
+        Manual schema evolution</a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
+        Multi user default value calculation</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
+        Synchronize persistent and computed properties</a> | <a class="wiki_link"
+        href="logic-from-database_en.html">17. Logic from database </a> | <a class="wiki_link"
+        href="validation_en.html">18. Advanced validation</a> | <a class="wiki_link"
+        href="refining-standard-behavior_en.html">19. Refining the standard
+        behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">20.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">21.
+        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
+        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
+        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
+        Automated testing</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#Lesson-9-Java-properties">Lesson
+            9: Java properties<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Properties%20in%20Java">Concepts</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Summary">Summary</a></div>
+      </div>
+    </div>
+    <div class="wiki" style="display: block;">You have converted your domain
+      model into a fully functional web application. This application is already
+      quite useful on its own, although there are still many improvements you
+      can make. So let's transform your application into something more serious,
+      and by the way, let's learn some interesting things about OpenXava.<br>
+      Let's start by learning some basic Java concepts like properties.<br>
+      <h2><a name="Lesson 5: Basic business logic-Properties in Java"></a>Concepts</h2>
+      In order to understand some concepts well in this lesson you have to know
+      how properties work in Java. The standard way to define a property in Java
+      is:
+      <pre><code class="java">// Property
+      
+private int quantity; // Has a field
+
+public int getQuantity() { // A getter to return the field value
+    return quantity;
+}
+
+public void setQuantity(int quantity) { // Changes the field value
+    this.quantity = quantity;
+}
+</code></pre>This is based on the idea that you never should access the state
+      (the fields) of an object directly, but always calling methods. This is
+      very useful because you can change the implementation of a property
+      without affecting the code that uses it. Moreover, all tools, frameworks
+      and libraries from the Java ecosystem rely on this convention (part of
+      JavaBeans specification). Therefore, we should use this convention always.
+      A property in Java is a getter method (<i>getQuantity()</i> for example)
+      and a setter method (<i>setQuantity(int quantity)</i>) if the property is
+      modifiable. In fact, the field (<i>private int quantity</i> in this case)
+      is not needed.</div>
+    <div class="wiki" style="display: block;">The problem of this approach is
+      that it is very verbose, a lot of the code of our classes are getters and
+      setters that really do not add value and make a lot of noise. To solve
+      this problem we use a library called Lombok. With Lombok you can define
+      the above <i>quantity</i> property in this way:
+      <pre><code class="java">@Getter @Setter // It generates a getter and a setter method
+int quantity; 
+</code></pre><i>@Getter</i> and <i>@Setter</i> generate the getter and the
+      setter in the compiled code, so when you access the property you have to
+      use them, thus:
+      <pre><code class="java">int q = theObject.getQuantity(); // Never int q = theObject.quantity 
+theObject.setQuantity(q + 10); // Never theObject.quantity = q + 10;      
+</code></pre>You can declare <i>@Getter</i> and <i>@Setter</i> at class level
+      so all the fields have getter and setter automatically. And of course, you
+      can write your own setter and getter if you want to use your own logic:
+      <pre><code class="java">// @Data // NEVER USE @Data
+@Getter @Setter
+public class Issue {
+
+    int number;
+    String description;
+	
+    public String getDescription() { // Your own getter overwrites the generated one by Lombok
+        if (description == null) return "No description yet";
+        return description;
+    }
+
+}
+</code></pre> In this case Lombok generates for you <i>getNumber(), setNumber()</i>
+      and <i>setDescription()</i> while <i>getDescription()</i> is the one
+      written by you. Note as you never should use the <i>@Data</i> annotation
+      of Lombok, given that it produces infinite recursive loops when you have
+      reciprocal references, something very usual in business applications.</div>
+    <br>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
+      In this lesson you have learned some common ways to add business logic to
+      your entities. We saw how the Lombok library works, how to define getters
+      and setters manually in order to establish custom logic for our
+      application.<br>
+      <br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
+        <a class="wiki_link" href="calculated-properties_en.html">Go to Lesson
+          10</a></strong> </div>
+  </body>
+</html>

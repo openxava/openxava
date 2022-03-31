@@ -1,0 +1,142 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 15: Cálculo por defecto multiusuario - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-5-Logica-de-negocio-basica"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 15: Cálculo de valor por defecto multiusuario</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
+        Herencia de superclases mapeadas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
+        Propiedades Java</a> |<a class="wiki_link" href="calculated-properties_es.html">10.
+        Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
+        @DefaultValueCalculator en colecciones</a> |<a class="wiki_link" href="calculation-and-collections-total_es.html">12.
+        @Calculation y totales de colección</a> |<a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @DefaultValueCalculator desde archivo</a> |<a class="wiki_link" href="manual-schema-evolution_es.html">14.
+        Evolución del esquema manual</a> | <strong>15.</strong><strong> Cálculo
+        de valor por defecto multiusuario </strong>|<a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
+        Sincronizar propiedades persistentes y calculadas</a> |<a class="wiki_link"
+        href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
+      |<a class="wiki_link" href="validation_es.html">18. Validación avanzada</a>
+      | <a class="wiki_link" href="refining-standard-behavior_es.html">19.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">20.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">21.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a> <a class="wiki_link" href="testing_es.html"></a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Leccion-5-Logica-de-negocio-basica">Lección
+15:
+            Cálculo de valor por defecto multiusuario<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Metodos-de-retrollamadas-JPA">Métodos
+            de retrollamadas JPA</a></div>
+        <div style="margin-left: 2em;"><a href="#Metodos-de-retrollamadas-JPA-Calculo-de-valor-por-defecto-multiusuario">Cálculo
+            de valor por defecto multiusuario</a></div>
+        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
+      </div>
+      En la lección anterior, aprendimos a modificar el esquema de nuestra base
+      de datos de manera manual con el fin de modificar los datos sin tener que
+      borrar las tablas. Ahora veremos cómo definir cálculos por defecto para
+      aplicar en ambientes multiusuario.<br>
+      <h2 id="toc6"><a name="Metodos-de-retrollamadas-JPA"></a>Métodos de
+        retrollamadas JPA</h2>
+      Otra forma práctica de añadir lógica de negocio a tu modelo es mediante
+      los métodos de retrollamada JPA. Un método de retrollamada se llama en un
+      momento específico del ciclo de vida de la entidad como objeto
+      persistente. Es decir, puedes especificar cierta lógica a ejecutar al
+      grabar, leer, borrar o modificar una entidad.<br>
+      En esta sección veremos algunas aplicaciones prácticas de los métodos de
+      retrollamada JPA.<br>
+      <h2 id="toc7"><a name="Metodos-de-retrollamadas-JPA-Calculo-de-valor-por-defecto-multiusuario"></a>Cálculo
+        de valor por defecto multiusuario</h2>
+      Hasta ahora estamos calculando el número para <em>Factura</em> y <em>Pedido</em>
+      usando <em>@DefaultValueCalculator</em>. Éste calcula el valor por
+      defecto en el momento que el usuario pulsa para crear una nueva <em>Factura</em>
+      o <em>Pedido</em>. Por tanto, si varios usuarios pulsan en el botón <i>Nuevo</i>
+      al mismo tiempo todos ellos obtendrán el mismo número. Esto no es apto
+      para aplicaciones multiusuario. La forma correcta de generar un número
+      único es generándolo justo en el momento de grabar.<br>
+      Vamos a implementar la generación del número usando métodos de
+      retrollamada JPA. JPA permite marcar cualquier método de tu clase para ser
+      ejecutado en cualquier momento de su ciclo de vida. Indicaremos que justo
+      antes de grabar un <em>DocumentoComercial</em> calcule su número. De paso
+      mejoraremos el cálculo para tener una numeración diferente para <em>Pedido</em>
+      y <em>Factura</em>.<br>
+      Edita la entidad <em>DocumentoComercial</em> y añade el método <em>calcularNumero()</em>.
+      Veamos el código:<br>
+      <pre><code class="java">@PrePersist // Ejecutado justo antes de grabar el objeto por primera vez
+private void calcularNumero() {
+    Query query = XPersistence.getManager().createQuery(
+        "select max(f.numero) from " +
+        getClass().getSimpleName() + // De esta forma es válido para Factura y Pedido
+        " f where f.anyo = :anyo");
+    query.setParameter("anyo", anyo);
+    Integer ultimoNumero = (Integer) query.getSingleResult();
+    this.numero = ultimoNumero == null ? 1 : ultimoNumero + 1;
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Este código es el mismo que el de
+      <em>CalculadorSiguienteNumeroParaAnyo</em> pero usando <em>getClass().getSimpleName()</em>
+      en lugar de "DocumentoComercial". El método <em>getSimpleName()</em>
+      devuelve el nombre de la clase sin paquete, es decir, precisamente el
+      nombre de la entidad. Será "Pedido" para <em>Pedido</em> y "Factura" para
+      <em>Factura</em>. Así podremos obtener una numeración diferente para <em>Factura</em>
+      y <em>Pedido</em>.<br>
+      La especificación JPA establece que no puedes usar el API JPA dentro de un
+      método de retrollamada. Por tanto, el método de arriba no es legal desde
+      un punto de vista estricto. Pero, Hibernate (la implementación de JPA que
+      OpenXava usa por defecto) te permite usarla en <em>@PrePersist</em>. Y
+      dado que usar JPA es la forma más fácil de hacer este cálculo, nosotros lo
+      usamos.<br>
+      Ahora borra la clase <em>CalculadorSiguienteNumeroParaAnyo</em> de tu
+      proyecto y modifica la propiedad <em>numero</em> de <em>DocumentoComercial</em>
+      para que no la use:<br>
+      <pre><code class="java">@Column(length = 6)
+//  @DefaultValueCalculator(value=CalculadorSiguienteNumeroParaAnyo.class, // Quita esto
+//      properties=@PropertyValue(name="anyo")
+//  )
+@ReadOnly // El usuario no puede modificar el valor
+int numero;
+</code></pre> Fíjate que además de quitar <em>@DefaultValueCalculator</em>,
+      hemos añadido la anotación <em>@ReadOnly</em>. Esto significa que el
+      usuario no puede introducir ni modificar este número. Esta es la forma
+      correcta de hacerlo ahora dado que el número es generado al grabar el
+      objeto, por lo que el valor que tecleara el usuario sería sobrescrito
+      siempre.<br>
+      Prueba ahora el módulo de <em>Factura</em> o <em>Pedido</em>, verás como
+      el número está vacío y no es editable, y cuando grabes el documento, el
+      número se calcula y se muestra un mensaje con el año y el número recién
+      calculado para esa factura o pedido.<br>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
+      En esta lección vimos cómo definir propiedades y valores aplicables por
+      defecto, algo muy útil si nuestra aplicación será utilizada en ambientes
+      multiusuario o de acceso masivo. En próxima lecciones veremos otras formas
+      de añadir lógica de negocio, y cómo sincronizar propiedades.<strong></strong><br>
+      <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+        <a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">Ve
+          a la lección 16</a></strong> </div>
+  </body>
+</html>

@@ -17,20 +17,31 @@
         Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
         Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
         Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
-        Agile development</a> | <a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
-        Mapped superclass inheritance</a> |
-      <a class="wiki_link" href="entity-inheritance_en.html">7. Entity
-        inheritance</a> |
-      <a class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a>
-      | <a class="wiki_link" href="basic-business-logic_en.html">9. Basic
-        business logic</a> | <a class="wiki_link" href="validation_en.html">10.
-        Advanced validation</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">11.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">12.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">13.
-        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
-        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a> | <strong>D. Automated testing</strong>
+        Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
+        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
+        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
+        View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
+        Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
+        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
+        @DefaultValueCalculator in collections </a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
+        @Calculation and collections totals </a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
+        @DefaultValueCalculator from file </a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">14.Manual
+        schema evolution </a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
+        Multi user default value calculation </a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
+        Synchronize persistent and computed propierties </a> | <a class="wiki_link"
+
+        href="logic-from-database_en.html">17. Logic from database </a> | <a class="wiki_link"
+
+        href="validation_en.html">18. Advanced validation </a> | <a class="wiki_link"
+
+        href="business-logic-behavior_en.html">19. Refining the standard
+        behavior </a> | <a class="wiki_link" href="business-logic-behavior_en.html">20.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">21.
+        References &amp; collections </a> | <a class="wiki_link" href="philosophy_en.html">A.
+        Architecture &amp; philosophy </a> | <a class="wiki_link" href="jpa_en.html">B.
+        Java Persistence API </a> 
+      | <a class="wiki_link" href="annotations_en.html">C. Annotations </a><strong></strong>
+      | <strong>D. Automated testing </strong>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
@@ -265,7 +276,8 @@ public class CustomerTest extends ModuleTestBase { // Must extend from ModuleTes
       must be running, if not start it first. Then run the test with the mouse
       over the test class, and with the right button choose <em>Run As &gt;
         JUnit Test</em>:<br>
-      <img src="files/testing_en030.png" alt="testing_en030.png" title="testing_en030.png"
+      <img src="files/testing_en030.png" alt="testing_en030.png" title="testing_en030.png"
+
         style="height: 288px; width: 800px;"><br>
       If the test does not pass, the bar will be red. You can try it. Edit the <em>CustomerTest</em>
       and comment the line that sets the value for the <em>name</em> field:<br>
@@ -868,7 +880,8 @@ private String getNumber() { // The invoice number for a new invoice
       <p>The above test code is to be applied on top of code of lesson 5. Here
         you can download the source code of lesson 5 but including the above
         testing code:</p>
-      <p><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-testing_en.zip/download"
+      <p><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-testing_en.zip/download"
+
             rel="nofollow">Download source code until lesson 5 with testing</a></strong></p>
       <p>All the source code to download from lessons above the 5 already
         include the testing code, that you can also look with explanation in the
@@ -1139,13 +1152,15 @@ public CommercialDocumentTest(String testName, String moduleName) {
     assertValue("date", getCurrentDate());
 }
 </code></pre>We verify that <i>number</i> the has no initial value, because now
-      the number is not calculated until the document is saved (<a class="wiki_link"
+      the number is not calculated until the document is saved (<a class="wiki_link"
+
         href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Multiuser%20safe%20default%20value%20calculation">Multiuser
         safe default value calculation</a> section). When the document (invoice
       or order) will be saved we'll verify that the <em>number</em> is
       calculated.
       <div class="wiki" style="display: block;">When the detail is added we can
-        test the <em>amount</em> for <em>Detail</em> calculation (<a class="wiki_link"
+        test the <em>amount</em> for <em>Detail</em> calculation (<a class="wiki_link"
+
           href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Simple%20calculated%20property">Simple
           calculated property</a> section), the default value calculation for <em>pricePerUnit</em>
         (<a class="wiki_link" href="basic-business-logic_en.html#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Using%20@DefaultValueCalculator">Using
@@ -1432,7 +1447,8 @@ public CommercialDocumentTest(String testName, String moduleName) {
     assertNoErrors();
 }
 </code></pre> Surely the manual testing you were doing during the development of
-        the <em>@ISBN</em> validator was like the one above. Therefore, if <a
+        the <em>@ISBN</em> validator was like the one above. Therefore, if <a
+
           href="http://www.extremeprogramming.org/rules/testfirst.html" rel="nofollow">you
           write your JUnit test before the application code</a>, you can use it
         as you proceed. This is more efficient than repeating the test
@@ -1654,7 +1670,8 @@ private int getDocumentRowInList(String year, String number)
         First we'll test the <i>Order.createInvoice</i> action, the action for
         creating an invoice from the displayed order in detail mode. Then next
         image shows how this process works:<br>
-        <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
+        <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
+
           title="business-logic-behavior_en010.png"><br>
         Now we're going to write a test to verify that it really works in this
         way. Add the <i>testCreateInvoiceFromOrder()</i> method to the <i>OrderTest</i>
@@ -1781,7 +1798,8 @@ import com.yourcompany.invoicing.model.*;
         Now we'll test the <i>Order.createInvoiceFromSelectedOrders</i> action,
         the action for creating an invoice from multiple selected orders in list
         mode. Remember that this process works in this way: <br>
-        <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
+        <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
+
           title="business-logic-behavior_en030.png"><br>
         Let's write a test to verify that it works in just this way. Add the <i>
           testCreateInvoiceFromSelectedOrders()</i> method to the <i>OrderTest</i>
@@ -2316,7 +2334,8 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
       with any new feature or fix also write the test for it. In the end, you
       will have a very powerful test suite. Test little but test always.<br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong><strong></strong> </div>
   </body>
 </html>

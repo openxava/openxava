@@ -1,0 +1,150 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title> Lesson 14: Manual schema evolution - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 5: Basic business logic"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 14: Manual schema evolution</h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
+        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
+        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
+        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
+        Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
+        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
+        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
+        View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
+        Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
+        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
+        @DefaultValueCalculator in collections </a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
+        </a><a class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation
+        and collections totals</a><a class="wiki_link" href="calculation-and-collections-total_en.html">
+      </a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
+        @DefaultValueCalculator from file </a> | <strong>14. Manual schema
+        evolution </strong> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
+        Multi user default value calculation</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
+        Synchronize persistent and computed properties</a> | <a class="wiki_link"
+        href="logic-from-database_en.html">17. Logic from database </a> | <a class="wiki_link"
+        href="validation_en.html">18. Advanced validation</a> | <a class="wiki_link"
+        href="refining-standard-behavior_en.html">19. Refining the standard
+        behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">20.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">21.
+        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
+        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
+        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
+        Automated testing</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#Lesson%205:%20Basic%20business%20logic">Lesson
+            14: Manual schema evolution<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Manual%20schema%20evolution">Manual
+            schema evolution</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Summary">Summary</a></div>
+      </div>
+    </div>
+    <div class="wiki" style="display: block;">We saw how we can define totals
+      from an external file, thus managing to keep the configuration parameters
+      independent of our business logic, without the need to modify code to
+      configure them. In this lesson, we will see how to modify the tables of
+      our database using SQL statements, in order to learn how to modify the
+      schema without losing information or data contained in it.<br>
+      <h2><a name="Lesson 5: Basic business logic-Properties in Java"></a></h2>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2><a name="Lesson 5: Basic business logic-Calculated properties-Manual schema evolution"></a>Manual
+        schema evolution</h2>
+      When you use things like <i>@Calculation</i> or <i>@DefaultValueCalculator</i>
+      the automatic evolution schema provides by OpenXava falls short, because
+      it adds a new column when you add a new property, but it does not fill the
+      column with the correct values. In this case we have added several
+      persistent properties with <i>@Calculation</i> whose values are not
+      recalculated until the user interact with the record. Moreover, we have a
+      default value for <i>vatPercentage</i> that only has effect when the user
+      creates a new record but not on the existing records. We have to fill the
+      new columns with reasonable values.</div>
+    <div class="wiki" style="display: block;">Given that we're in early
+      development stage just removing all the records would be a good enough
+      solution, but for sure that is not a good idea in production, so we're
+      going to adjust our database to new code without lose data to illustrate
+      manual evolution schema.</div>
+    <div class="wiki" style="display: block;">The easier way is to use the
+      application itself to do the updates. We're going to do it for updating
+      the product prices. In order our new calculated properties work nicely all
+      the products should have price, so go to the <i>Product</i> module with
+      your browser and make sure that all products have price:</div>
+    <img src="files/business-logic_en040.png" alt="business-logic_en040.png" title="business-logic_en040.png">
+    <div class="wiki" style="display: block;">If some product has no price edit
+      it and enter a price.</div>
+    <div class="wiki" style="display: block;">The next changes are not so
+      simple, therefore we're going to execute SQL statements against our
+      database. To execute these SQL statements, first make sure your
+      application is running, then use the menu option <i>OpenXava &gt;
+        Database Manager</i> of OpenXava Studio:<br>
+      <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
+      Now you are ready to write and execute SQLs.First, we set value for <i>pricePerUnit</i>
+      column in all details: </div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT_DETAILS 
+SET PRICEPERUNIT = (
+    SELECT PRICE FROM INVOICING.PRODUCT 
+    WHERE NUMBER = PRODUCT_NUMBER
+)
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Then we update the <i>vatPercentage</i>
+      for all invoices:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT
+SET VATPERCENTAGE = 21
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Next, the updating of <i>vat</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT
+SET VAT = (
+    SELECT SUM(PRICEPERUNIT * QUANTITY) * 0.21 
+    FROM INVOICING.COMMERCIALDOCUMENT_DETAILS D 
+    WHERE D.COMMERCIALDOCUMENT_OID = COMMERCIALDOCUMENT.OID
+)
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Finally, we update the <i>totalAmount</i>
+      of all invoices:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT
+SET TOTALAMOUNT = (
+    SELECT SUM(PRICEPERUNIT * QUANTITY) * 1.21 
+    FROM INVOICING.COMMERCIALDOCUMENT_DETAILS D 
+    WHERE D.COMMERCIALDOCUMENT_OID = COMMERCIALDOCUMENT.OID
+)
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Beware, the above sentences work
+      nicely with HSQLDB, the database included with OpenXava. If you're using
+      another database probably you have to adapt the syntax. After executing
+      the above sentences you can try your application. It would behave as in
+      figure at the begin of the section "Total properties of a collection" even
+      for already existing invoices and orders.<br>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc6"><a name="Lesson 5: Basic business logic-JPA callback methods"></a></h2>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
+      In this lesson you have learned how to manually modify the database schema
+      of our application using SQL statements, so that we do not lose
+      information in a production environment.<strong></strong><br>
+      <br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
+        <a class="wiki_link" href="multi-user-default-value-calculation_en.html">Go
+          to Lesson 15</a></strong> </div>
+  </body>
+</html>

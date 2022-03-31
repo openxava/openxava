@@ -1,0 +1,125 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 10: Propiedades calculadas - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-10-Propiedades-calculadas"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 10: Propiedades calculadas</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
+        Herencia de superclases mapeadas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
+        Propiedades Java</a> | <strong>10. Propiedades Calculadas</strong>&nbsp;
+      | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
+        @DefaultValueCalculator en colecciones</a> |<a class="wiki_link" href="calculation-and-collections-total_es.html">12.
+        @Calculation y totales de colección</a> |<a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @DefaultValueCalculator desde archivo</a> |<a class="wiki_link" href="manual-schema-evolution_es.html">14.
+        Evolución del esquema manual</a> |<a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
+        Cálculo de valor por defecto multiusuario</a> |<a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
+        Sincronizar propiedades persistentes y calculadas</a> |<a class="wiki_link"
+        href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
+      |<a class="wiki_link" href="validation_es.html">18. Validación avanzada</a>
+      | <a class="wiki_link" href="refining-standard-behavior_es.html">19.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">20.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">21.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a><a class="wiki_link" href="testing_es.html"></a><a
+        class="wiki_link" href="testing_es.html"></a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Leccion-10-Propiedades-calculadas">Lección
+            10: Propiedades calculadas<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Propiedades-calculadas">Propiedades
+            calculadas</a></div>
+        <div style="margin-left: 2em;"><a href="#Propiedades-calculadas-Propiedad-calculada-simple">Propiedad
+
+            calculada simple</a></div>
+        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
+      </div>
+      Hemos establecido lógica de negocio a partir de crear getters y setters,
+      hemos visto el uso de la librería Lombok y su aplicabilidad, veremos ahora
+      como aplicar otro tipo de propiedades a nuestra aplicación.<br>
+      <h2 id="toc1"><a name="Propiedades-calculadas"></a>Propiedades calculadas</h2>
+      Quizás la lógica de negocio más simple que puedes añadir a tu aplicación
+      es una propiedad calculada. Las propiedades que has usado hasta ahora son
+      persistentes, es decir, cada propiedad se almacena en una columna de una
+      tabla de la base de datos. Una propiedad calculada es una propiedad que no
+      almacena su valor en la base de datos, sino que se calcula cada vez que se
+      accede a la propiedad. Observa la diferencia entre una propiedad
+      persistente y una calculada:<br>
+      <pre><code class="java">// Propiedad persistente
+@Getter @Setter // Tiene getter y setter
+int cantidad; // Tiene un campo, por tanto es persistente
+ 
+// Propiedad calculada
+public int getImporte() { // No tiene campo, ni setter, solo un getter
+    return cantidad * precio; // con un cálculo
+}
+</code></pre> Las propiedades calculadas son reconocidas automáticamente por
+      OpenXava. Puedes usarlas en vistas, listas tabulares o cualquier otra
+      parte de tu código.<br>
+      Vamos a usar propiedades calculadas para añadir el elemento “económico” a
+      nuestra aplicación <em>Facturacion</em>. Porque, tenemos líneas de
+      detalle, productos, cantidades. Pero, ¿qué pasa con el dinero?<br>
+      <h2 id="toc2"><a name="Propiedades-calculadas-Propiedad-calculada-simple"></a>Propiedad
+        calculada simple</h2>
+      El primer paso será añadir una propiedad de importe a <em>Detalle</em>.
+      Lo que queremos es que cuando el usuario elija un producto y teclee la
+      cantidad el importe de la línea sea recalculado y mostrado al usuario:<br>
+      <img src="files/business-logic_es010.png" alt="business-logic_es010.png" title="business-logic_es010.png"><br>
+      Añadir esta funcionalidad a tu actual código es prácticamente añadir una
+      propiedad calculada a <em>Detalle</em>. Simplemente añade el código
+      siguiente a la clase <em>Detalle</em>:<br>
+      <pre><code class="java">@Stereotype("DINERO")
+@Depends("producto.numero, cantidad") // Cuando usuario cambie producto o cantidad
+public BigDecimal getImporte() { // esta propiedad se recalculará y se redibujará
+    if (producto == null || producto.getPrecio() == null) return BigDecimal.ZERO;
+    return new BigDecimal(cantidad).multiply(producto.getPrecio());
+}
+</code></pre>Es tan solo poner el cálculo en <em>getImporte()</em> y usar <em>@Depends</em>
+      para indicar a OpenXava que la propiedad <em>importe</em> depende de <em>producto.numero</em>
+      y <em>cantidad</em>, así cada vez que el usuario cambia alguno de estos
+      valores la propiedad se recalculará. Fíjate como en este caso usamos <i>producto</i>
+      y no <i>getProducto()</i>, y <i>cantidad</i> en vez de <i>getCantidad()</i>,
+      porque desde dentro de la clase sí que se puede acceder directamente a sus
+      campos.<br>
+      Ahora has de añadir esta nueva propiedad a la lista de propiedades
+      mostradas en la colección <em>detalles</em> de <em>DocumentoComercial</em>:<br>
+      <pre><code class="java">@ElementCollection
+@ListProperties("producto.numero, producto.descripcion, cantidad, importe") // importe añadida
+Collection&lt;Detalle&gt; detalles;
+</code></pre> Nada más. Tan solo necesitas añadir el getter y modificar la lista
+      de propiedades. Ahora puedes probar los módulos <em>Factura</em> y <em>Pedido</em>
+      para ver la propiedad <em>importe</em> en acción.</div>
+    <br>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
+      En esta lección has aprendido la aplicación de propiedades calculadas y
+      sus diferencias de las propiedades persistentes, a la hora de establecer
+      lógica de negocio. En futuras lecciones veremos cómo trabajar con
+      colecciones y totales.<br>
+      <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+        <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">Ve
+          a la lección 11</a></strong> </div>
+  </body>
+</html>
