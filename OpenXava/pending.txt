@@ -1,8 +1,11 @@
 MAVEN
 * Quitar editor DocumentLibrary de Liferay.
 * Corregir errors compilación de OpenXava. Hacer un install.
-- Mavenizar Addons.
-	- Código Java y Web puesto. TMR: ME QUEDÉ POR AQUÍ: PARA COMPILAR Y HACER INSTALL 
+* Mavenizar Addons.
+- Arquetipo.
+	- OpenXavaTemplate. Que funcione.
+		- Arreglar tmr de pom.xml
+	- Crear arquetipo y probarlo.
 - Mavenizar InvoiceDemo. Hacerlo funcionar.
 - CSS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/style")
 - Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
@@ -10,4 +13,9 @@ MAVEN
 - ¿Dividir resources en subcarpetas?
 - Pasar OpenXavaTest suite completa. Con Java 8 y 11
 - Incluir licencia
+- Arquetipo en español.
+- Probar con WTP. Si no funciona poner que ya no se soporta en changelog.
+- AppServer: 
+	- Jars to skip in
+	- Comprobar crea bien i18n 
 

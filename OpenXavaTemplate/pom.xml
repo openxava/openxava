@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.openxava</groupId>
+  <artifactId>openxava-template</artifactId>
+  <version>7.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <name>Template for archetype to create a new OpenXava project</name>
+  <url>https://www.openxava.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.openxava</groupId>
+      <artifactId>openxava-core</artifactId>
+      <version>7.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.openxava</groupId>
+      <artifactId>openxava-addons</artifactId>
+      <version>7.0-SNAPSHOT</version>
+    </dependency>
+
+    <!--
+    <dependency>
+      <groupId>com.mycompany.app1</groupId>
+      <artifactId>maven-app1</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>war</type>
+      <scope>runtime</scope>
+    </dependency>
+    -->
+
+    <!-- tmr ini: Mover a openxava-core -->
+    <dependency>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-core</artifactId>
+      <version>9.0.22</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-jasper</artifactId>
+      <version>9.0.22</version>
+    </dependency>
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-dbcp</artifactId>
+      <version>9.0.22</version>
+    </dependency>
+    <!-- tmr fin: Mover a openxava-core -->
+    
+  </dependencies>
+  
+  <build>
+    <finalName>OpenXavaTemplate</finalName>
+  </build>
+
+</project>

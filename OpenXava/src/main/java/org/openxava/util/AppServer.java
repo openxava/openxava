@@ -21,7 +21,7 @@ public class AppServer {
 		System.out.println(XavaResources.getString("starting_application"));
 		System.setProperty("tomcat.util.scan.StandardJarScanFilter.jarsToSkip", "activation.jar,antlr.jar,byte-buddy.jar,classmate.jar,commons-*.jar,dom4j.jar,dsn.jar,dwr.jar,ejb.jar,groovy-all.jar,hibernate-*.jar,hk2-*.jar,imap.jar,itext.jar,jakarta.*.jar,jandex.jar,jasperreports-fonts.jar,jasperreports.jar,javassist.jar,javax.inject.jar,jaxb-*.jar,jboss-logging.jar,jersey-*.jar,jpa.jar,jsoup.jar,jta.jar,lombok.jar,mailapi.jar,mime-util.jar,ox-jdbc-adapters.jar,poi-*.jar,poi.jar,pop3.jar,slf4j-*.jar,smtp.jar,validation-api.jar,xmlbeans.jar,yasson.jar"); 
 		createDefaultI18nFiles(app); 
-        String webappDir = new File("web").getAbsolutePath();
+        String webappDir = new File("target/" + app).getAbsolutePath();
         String contextPath = Is.empty(app)?"":"/" + app;
         Tomcat tomcat = null;
         int initialPort = XavaPreferences.getInstance().getApplicationPort();
