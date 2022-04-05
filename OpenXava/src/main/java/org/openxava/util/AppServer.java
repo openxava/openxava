@@ -51,6 +51,7 @@ public class AppServer {
         tomcat.getConnector();
         tomcat.enableNaming();
         tomcat.addWebapp(contextPath, webappDir);
+        
         tomcat.start();
        	if (tomcat.getConnector().getLocalPort() < 0) {
      		tomcat.stop();

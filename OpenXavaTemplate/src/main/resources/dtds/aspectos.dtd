@@ -1,0 +1,41 @@
+<!ELEMENT aspectos (aspecto*, aplicar*)>
+
+<!ELEMENT aspecto (calculador-poscrear*, calculador-poscargar*, calculador-posmodificar*, calculador-preborrar*)>
+<!ATTLIST aspecto
+  nombre CDATA #REQUIRED
+>
+
+<!ELEMENT aplicar EMPTY>
+<!ATTLIST aplicar
+  aspecto CDATA #REQUIRED
+  para-modelos CDATA #IMPLIED
+  excepto-para-modelos CDATA #IMPLIED
+>
+
+
+<!ELEMENT calculador-poscrear (poner*)>
+<!ATTLIST calculador-poscrear
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT calculador-poscargar (poner*)>
+<!ATTLIST calculador-poscargar
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT calculador-posmodificar (poner*)>
+<!ATTLIST calculador-posmodificar
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT calculador-preborrar (poner*)>
+<!ATTLIST calculador-preborrar
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT poner EMPTY>
+<!ATTLIST poner
+ propiedad CDATA #REQUIRED
+ desde CDATA #IMPLIED
+ valor CDATA #IMPLIED 
+>
