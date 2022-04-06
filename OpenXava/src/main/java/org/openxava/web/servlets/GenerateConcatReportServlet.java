@@ -4,20 +4,22 @@ import java.io.*;
 import java.util.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.export.*;
-import net.sf.jasperreports.engine.export.oasis.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.actions.*;
 import org.openxava.util.*;
 
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.export.*;
+import net.sf.jasperreports.engine.export.oasis.*;
+
 /**
  * 
  * @author Jeromy Altuna
  */
+@WebServlet("/xava/concatReport.pdf")
 @SuppressWarnings("serial")
 public class GenerateConcatReportServlet extends HttpServlet {
 	

@@ -17,6 +17,7 @@ import com.openxava.naviox.util.*;
  * 
  * @author Javier Paniza
  */
+
 public class NaviOXFilter implements Filter {
 	
 	public void init(FilterConfig cfg) throws ServletException {

@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
@@ -16,6 +17,7 @@ import org.openxava.web.editors.*;
  * @author Javier Paniza
  * @author Jeromy Altuna
  */
+@WebServlet("/xava/xfile")
 @SuppressWarnings("serial")
 public class FilesServlet extends HttpServlet {
 	

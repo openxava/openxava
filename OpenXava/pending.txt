@@ -3,10 +3,10 @@ MAVEN
 * Corregir errors compilación de OpenXava. Hacer un install.
 * Mavenizar Addons.
 - Arquetipo.
-	- OpenXavaTemplate. Que funcione. TMR ME QUEDÉ POR AQUÍ: FALLA POR SERVLET DUPLICADO, POR EL JAR DE OPENXAVA: 
-		 									2 OPCIONES: 1. QUITAR EL JAR EN RUN, O 2. PROBAR ANOTACIONES
+	- OpenXavaTemplate: TMR ME QUEDÉ POR AQUÍ: RESUELTO EL PROBLEMA DE SERVLETS DUPLICADO. SEGUIR PROBANDO.
 		- Arreglar tmr de pom.xml
 	- Crear arquetipo y probarlo.
+- Quitar excepción: Failed to scan [file:/C:/Users/javi/.m2/repository/xalan/serializer/2.7.2/xml-apis.jar] 
 - Mavenizar InvoiceDemo. Hacerlo funcionar.
 - CSS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/style")
 - Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
@@ -15,11 +15,11 @@ MAVEN
 - Pasar OpenXavaTest suite completa. Con Java 8 y 11
 - Incluir licencia
 - Arquetipo en español.
-- Crear un web-fragment.xml para Addons.
 - Modificar doc sobre como añadir servlets, filter y listeners propios: Anotaciones y web fragments.
 - Probar con WTP. Si no funciona poner que ya no se soporta en changelog.
 - Revisar documentación de personalización y estilo, porque ahora está todo comprimido.
 - ¿Cómo actualizar los dtds? ¿Quitarlos de la plantilla?
+- Comprobar identificación (login).
 - AppServer: 
 	- Jars to skip in
 	- Comprobar crea bien i18n 

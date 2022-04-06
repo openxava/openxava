@@ -3,15 +3,16 @@ package org.openxava.web.servlets;
 import java.io.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.export.*;
-import net.sf.jasperreports.engine.export.oasis.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.actions.*;
 import org.openxava.util.*;
+
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.export.*;
+import net.sf.jasperreports.engine.export.oasis.*;
 
 /**
  * To generate custom Jasper Reports from that extends <code>JasperReportBaseAction</code>.
@@ -20,6 +21,7 @@ import org.openxava.util.*;
  * @author Daniel García Salas
  */
 
+@WebServlet("/xava/report.pdf")
 public class GenerateCustomReportServlet extends HttpServlet { 	
 
 	private static Log log = LogFactory.getLog(GenerateCustomReportServlet.class);

@@ -6,6 +6,7 @@ import java.text.*;
 import java.util.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
@@ -31,6 +32,7 @@ import net.sf.jasperreports.engine.data.*;
  * @author Javier Paniza
  */
 
+@WebServlet({ "/xava/list.pdf", "/xava/list.csv", "/xava/list.xls" })
 public class GenerateReportServlet extends HttpServlet {
 	
 	private static Log log = LogFactory.getLog(GenerateReportServlet.class);

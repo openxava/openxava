@@ -3,6 +3,7 @@ package com.openxava.naviox.web;
 import java.io.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 import org.openxava.util.*;
@@ -15,6 +16,8 @@ import com.openxava.naviox.impl.*;
  * 
  * @author Javier Paniza
  */
+
+@WebServlet(name = "naviox", urlPatterns = { "/modules/*", "/m/*" })
 public class NaviOXServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

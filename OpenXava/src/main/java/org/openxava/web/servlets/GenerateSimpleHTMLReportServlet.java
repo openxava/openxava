@@ -3,6 +3,7 @@ package org.openxava.web.servlets;
 import java.io.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
@@ -12,6 +13,8 @@ import org.openxava.util.*;
  * 
  * @author Laurent Wibaux 
  */
+
+@WebServlet("/xava/report.html")
 public class GenerateSimpleHTMLReportServlet extends HttpServlet {
 
 	public static final String SESSION_REPORT = "org.openxava.report.simpleHtml";

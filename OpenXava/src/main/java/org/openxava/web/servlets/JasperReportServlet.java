@@ -3,17 +3,19 @@ package org.openxava.web.servlets;
 import java.io.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-
-import net.sf.jasperreports.engine.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.util.*;
+
+import net.sf.jasperreports.engine.*;
 
 /**
  * @author Javier Paniza
  */
 
+@WebServlet(name="jasperReport", urlPatterns = "/xava/jasperReport")
 public class JasperReportServlet extends HttpServlet {
 
 	private static Log log = LogFactory.getLog(JasperReportServlet.class);

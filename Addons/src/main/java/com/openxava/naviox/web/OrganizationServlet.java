@@ -3,6 +3,7 @@ package com.openxava.naviox.web;
 import java.io.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 import org.openxava.util.*;
@@ -11,6 +12,8 @@ import org.openxava.util.*;
  * 
  * @author Javier Paniza
  */
+
+@WebServlet("/o/*")
 public class OrganizationServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

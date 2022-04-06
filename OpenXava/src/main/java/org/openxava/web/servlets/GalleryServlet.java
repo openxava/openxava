@@ -3,6 +3,7 @@ package org.openxava.web.servlets;
 import java.io.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
@@ -17,6 +18,7 @@ import org.openxava.web.*;
  * @author Javier Paniza
  */
 
+@WebServlet(name = "gallery", urlPatterns = "/xava/gallery")
 public class GalleryServlet extends HttpServlet {
 
 	private static Log log = LogFactory.getLog(GalleryServlet.class);
