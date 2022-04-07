@@ -26,7 +26,4 @@ public class YourFirstEntity extends Identifiable {
 	
 	BigDecimal amount;
 
-	@Column(length=500) @TextArea
-	String remarks;
-
 }

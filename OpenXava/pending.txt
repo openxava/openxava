@@ -3,22 +3,27 @@ MAVEN
 * Corregir errors compilación de OpenXava. Hacer un install.
 * Mavenizar Addons.
 - Arquetipo.
-	- OpenXavaTemplate: TMR ME QUEDÉ POR AQUÍ: RESUELTO EL PROBLEMA DE SERVLETS DUPLICADO. SEGUIR PROBANDO.
-		- Arreglar tmr de pom.xml
+	* OpenXavaTemplate.
 	- Crear arquetipo y probarlo.
-- Quitar excepción: Failed to scan [file:/C:/Users/javi/.m2/repository/xalan/serializer/2.7.2/xml-apis.jar] 
+		- TMR ME QUEDÉ POR AQUÍ. CREE EL PRIMER ARQUETIPO, PERO NO SUSTITUYE NOMBRE DE PROYECTO.
+		- Nombre. Mirar como lo hacen los demás. Pensar en ES y también en otras plantillas.
+		
 - Mavenizar InvoiceDemo. Hacerlo funcionar.
+- Pasar OpenXavaTest suite completa con Java 8.
+- Mezclar en master.
 - CSS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/style")
 - Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
 - No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
 - ¿Dividir resources en subcarpetas?
-- Pasar OpenXavaTest suite completa. Con Java 8 y 11
-- Incluir licencia
+- Pasar OpenXavaTest suite completa con Java 8 y 11
+- Pasar prueba manuales.
+- Incluir licencia.
 - Arquetipo en español.
 - Modificar doc sobre como añadir servlets, filter y listeners propios: Anotaciones y web fragments.
 - Probar con WTP. Si no funciona poner que ya no se soporta en changelog.
 - Revisar documentación de personalización y estilo, porque ahora está todo comprimido.
 - ¿Cómo actualizar los dtds? ¿Quitarlos de la plantilla?
+- Actualizar doc en context.xml de OpenXavaTemplate
 - Comprobar identificación (login).
 - AppServer: 
 	- Jars to skip in

@@ -29,40 +29,6 @@
       <artifactId>openxava-addons</artifactId>
       <version>7.0-SNAPSHOT</version>
     </dependency>
-
-    <!--
-    <dependency>
-      <groupId>com.mycompany.app1</groupId>
-      <artifactId>maven-app1</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <type>war</type>
-      <scope>runtime</scope>
-    </dependency>
-    -->
-
-    <!-- tmr ini: Mover a openxava-core -->
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-core</artifactId>
-      <version>9.0.22</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-jasper</artifactId>
-      <version>9.0.22</version>
-    </dependency>
-    <dependency>
-      <groupId>jstl</groupId>
-      <artifactId>jstl</artifactId>
-      <version>1.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-dbcp</artifactId>
-      <version>9.0.22</version>
-    </dependency>
-    <!-- tmr fin: Mover a openxava-core -->
-    
   </dependencies>
   
   <build>

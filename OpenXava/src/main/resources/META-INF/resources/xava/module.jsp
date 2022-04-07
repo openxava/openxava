@@ -134,6 +134,7 @@
 <%
 	}
 %>
+	<%-- tmr Falta arreglar
 	<%
 		File styleEditorsFolder = new File(realPath + "/xava/editors/style");		
 		String[] styleEditors = styleEditorsFolder.list();
@@ -146,6 +147,7 @@
 			}
 		}
 	%>		
+	--%>
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/dwr-engine.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/dwr/util.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Module.js?ox=<%=version%>'></script>
@@ -177,6 +179,7 @@
 	<script type="text/javascript" src="<%=contextPath%>/xava/js/jquery.sorttable.js?ox=<%=version%>"></script>	
 	<script type="text/javascript" src="<%=contextPath%>/xava/js/jquery.ui.touch-punch.js?ox=<%=version%>"></script>
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/typewatch.js?ox=<%=version%>'></script>
+	<%-- tmr Falta hacer que vaya
 	<%
 		File jsEditorsFolder = new File(realPath + "/xava/editors/js");		
 		String[] jsEditors = jsEditorsFolder.list();
@@ -199,6 +202,7 @@
 			}
 		}	
 	%>	
+	--%>
 	<script type="text/javascript">
 		$ = jQuery;
 		if (typeof portalJQuery != "undefined") {  
