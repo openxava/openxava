@@ -5,8 +5,10 @@ MAVEN
 - Arquetipo.
 	* OpenXavaTemplate.
 	- Crear arquetipo y probarlo.
-		- TMR ME QUEDÉ POR AQUÍ. CREE EL PRIMER ARQUETIPO, PERO NO SUSTITUYE NOMBRE DE PROYECTO.
+		- TMR ME QUEDÉ POR AQUÍ: YA CREA EL PROYECTO CON LOS PAQUETES E IMPORTS BIEN. TRABAJANDO PARA HACER
+									QUE SUTITUYA _Run_App Y QUE PONGA EL PAQUETE EN MINUSCULAS, A LA VEZ.
 		- Nombre. Mirar como lo hacen los demás. Pensar en ES y también en otras plantillas.
+		- ¿Cómo funciona con nombre de proyecto empezando con mayúsculas?
 		
 - Mavenizar InvoiceDemo. Hacerlo funcionar.
 - Pasar OpenXavaTest suite completa con Java 8.
@@ -24,6 +26,7 @@ MAVEN
 - Revisar documentación de personalización y estilo, porque ahora está todo comprimido.
 - ¿Cómo actualizar los dtds? ¿Quitarlos de la plantilla?
 - Actualizar doc en context.xml de OpenXavaTemplate
+- ¿Compilador por defecto para arquetipo? ¿8, 9 o 17?
 - Comprobar identificación (login).
 - AppServer: 
 	- Jars to skip in

@@ -4,13 +4,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.openxava</groupId>
-  <artifactId>openxava-template</artifactId>
-  <version>7.0-SNAPSHOT</version>
+  <groupId>com.mycompany</groupId>
+  <artifactId>MyApp</artifactId>
+  <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>Template for archetype to create a new OpenXava project</name>
-  <url>https://www.openxava.org</url>
+  <name>MyApp</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -32,7 +31,7 @@
   </dependencies>
   
   <build>
-    <finalName>OpenXavaTemplate</finalName>
+    <finalName>MyApp</finalName>
   </build>
 
 </project>

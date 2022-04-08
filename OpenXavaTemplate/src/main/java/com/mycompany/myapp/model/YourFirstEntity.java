@@ -1,4 +1,4 @@
-package com.mycompany.template.model;
+package com.mycompany.myapp.model;
 
 import java.math.*;
 import java.time.*;
@@ -11,6 +11,7 @@ import org.openxava.model.*;
 import lombok.*;
 
 /**
+ * A
  * This is an example of an entity.
  * 
  * Feel free feel to rename, modify or remove at your taste.
