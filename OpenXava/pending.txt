@@ -5,8 +5,8 @@ MAVEN
 - Arquetipo.
 	* OpenXavaTemplate.
 	- Crear arquetipo y probarlo.
-		- TMR ME QUEDÉ POR AQUÍ: YA CREA EL PROYECTO CON LOS PAQUETES E IMPORTS BIEN. TRABAJANDO PARA HACER
-									QUE SUTITUYA _Run_App Y QUE PONGA EL PAQUETE EN MINUSCULAS, A LA VEZ.
+		- TMR ME QUEDÉ POR AQUÍ: TRABAJANDO PARA HACER QUE SUTITUYA _Run_App Y QUE PONGA EL PAQUETE EN MINUSCULAS, A LA VEZ.
+			Ver https://stackoverflow.com/questions/29647938/maven-archetype-filename-pattern-with-underscore
 		- Nombre. Mirar como lo hacen los demás. Pensar en ES y también en otras plantillas.
 		- ¿Cómo funciona con nombre de proyecto empezando con mayúsculas?
 		
