@@ -1,4 +1,4 @@
-package com.mycompany.MyApp.model;
+package com.mycompany.myapp.model;
 
 import java.math.*;
 import java.time.*;

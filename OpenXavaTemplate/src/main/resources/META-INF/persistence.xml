@@ -8,13 +8,13 @@
              
     <persistence-unit name="default">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    	<non-jta-data-source>java://comp/env/jdbc/OpenXavaTemplateDS</non-jta-data-source>
+    	<non-jta-data-source>java://comp/env/jdbc/myappDS</non-jta-data-source>
     	<class>org.openxava.session.GalleryImage</class>
     	<class>org.openxava.web.editors.DiscussionComment</class>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="update"/>
             <property name="javax.persistence.create-database-schemas" value="true"/> 
-            <property name="hibernate.default_schema" value="OpenXavaTemplate"/>
+            <property name="hibernate.default_schema" value="myapp"/>
             <property name="hibernate.jdbc.use_streams_for_binary" value="true"/>
         </properties>
     </persistence-unit>
@@ -22,13 +22,13 @@
     <!-- MySQL  
     <persistence-unit name="default">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    	<non-jta-data-source>java://comp/env/jdbc/OpenXavaTemplateDS</non-jta-data-source>
+    	<non-jta-data-source>java://comp/env/jdbc/myappDS</non-jta-data-source>
     	<class>org.openxava.session.GalleryImage</class>
     	<class>org.openxava.web.editors.DiscussionComment</class>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="update"/>
             <property name="javax.persistence.create-database-schemas" value="true"/> 
-            <property name="hibernate.default_catalog" value="OpenXavaTemplate"/>
+            <property name="hibernate.default_catalog" value="myapp"/>
             <property name="hibernate.jdbc.use_streams_for_binary" value="true"/>
         </properties>
     </persistence-unit>     
@@ -40,7 +40,7 @@
     	<class>org.openxava.web.editors.DiscussionComment</class>
         <properties>
 			<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
-			<property name="hibernate.default_schema" value="OpenXavaTemplate"/>
+			<property name="hibernate.default_schema" value="myapp"/>
 			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost:1666"/>
         </properties>
     </persistence-unit>    

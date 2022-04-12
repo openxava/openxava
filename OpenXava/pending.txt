@@ -5,11 +5,11 @@ MAVEN
 - Arquetipo.
 	* OpenXavaTemplate.
 	- Crear arquetipo y probarlo.
-		- TMR ME QUEDÉ POR AQUÍ: TRABAJANDO PARA HACER QUE SUTITUYA _Run_App Y QUE PONGA EL PAQUETE EN MINUSCULAS, A LA VEZ.
-			Ver https://stackoverflow.com/questions/29647938/maven-archetype-filename-pattern-with-underscore
+		- TMR: ME QUEDÉ INTENTANDO QUE FUNCIONE EL PROYECTO CREADO. NO LO HACE PORQUE finalName NO
+				SE SUSTITUYE
 		- Nombre. Mirar como lo hacen los demás. Pensar en ES y también en otras plantillas.
 		- ¿Cómo funciona con nombre de proyecto empezando con mayúsculas?
-		
+- Igualar artifactid con nombre proyecto para OpenXava, Addons y OpenXavaTemplate (poco a poco con todos).		
 - Mavenizar InvoiceDemo. Hacerlo funcionar.
 - Pasar OpenXavaTest suite completa con Java 8.
 - Mezclar en master.
@@ -28,6 +28,9 @@ MAVEN
 - Actualizar doc en context.xml de OpenXavaTemplate
 - ¿Compilador por defecto para arquetipo? ¿8, 9 o 17?
 - Comprobar identificación (login).
+- Incluir una prueba JUnit en el arquetipo.
+- Revisar doc de application.xml para indicar que la aplicación es en minúsculas.
+- Revisar curso para poner nombre de aplicación en minúsculas.
 - AppServer: 
 	- Jars to skip in
 	- Comprobar crea bien i18n 
