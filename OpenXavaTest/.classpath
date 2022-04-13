@@ -7,7 +7,7 @@
 	<classpathentry kind="src" path="i18n"/>
 	<classpathentry kind="src" path="properties"/>
 	<classpathentry kind="src" path="reports"/>
-	<classpathentry exported="true" kind="src" path="/OpenXava"/>
+	<classpathentry exported="true" kind="src" path="/openxava-core"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>

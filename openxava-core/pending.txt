@@ -3,7 +3,10 @@ MAVEN
 * Corregir errors compilación de OpenXava. Hacer un install.
 * Mavenizar Addons.
 * Arquetipo.
-- Igualar artifactid con nombre proyecto para OpenXava, Addons y OpenXavaTemplate (poco a poco con todos).		
+* Comprobar que hibernate.cfg.xml y labels y messages se nombran bien en el arquetipo.		
+* Igualar artifactid con nombre proyecto para OpenXava, Addons y OpenXavaTemplate.
+TMR ME QUEDÉ PARA EMPEZAR EL SIGUIENTE PUNTO
+- Comprobar en un proyecto creado con arquetipo que se puede modificar la entidad y añadir una más, y reacciona.
 - Mavenizar InvoiceDemo. Hacerlo funcionar.
 - Pasar OpenXavaTest suite completa con Java 8.
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
