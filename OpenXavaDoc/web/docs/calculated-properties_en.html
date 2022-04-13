@@ -22,7 +22,8 @@
         Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
         Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
         View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
-        Java properties</a> | <strong>10. Calculated properties </strong> | <a
+        Java properties</a> | <strong>10. Calculated properties </strong> | <a
+
         class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
         @DefaultValueCalculator in collections</a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
         </a><a class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation
@@ -30,9 +31,12 @@
         @DefaultValueCalculator from file</a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
         Manual schema evolution</a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
         Multi user default value calculation</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
-        Synchronize persistent and computed properties</a> | <a class="wiki_link"
-        href="logic-from-database_en.html">17. Logic from database </a> | <a class="wiki_link"
-        href="validation_en.html">18. Advanced validation</a> | <a class="wiki_link"
+        Synchronize persistent and computed properties</a> | <a class="wiki_link"
+
+        href="logic-from-database_en.html">17. Logic from database </a> | <a class="wiki_link"
+
+        href="validation_en.html">18. Advanced validation</a> | <a class="wiki_link"
+
         href="refining-standard-behavior_en.html">19. Refining the standard
         behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">20.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">21.
@@ -58,19 +62,30 @@
       by creating getters and setters, we have seen the use of the Lombok
       library and its applicability, we will now see how to apply other types of
       properties to our application.<br>
-      <h2><a name="Lesson 5: Basic business logic-Properties in Java"></a></h2>
-    </div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc1"><a name="Lesson 5: Basic business logic-Calculated properties"></a>Calculated
-        properties</h2>
-      Perhaps the most simple business logic you can add to your application is
-      a calculated property. The properties you have used until now are
-      persistent, i.e., each property is stored in a column in a table in the
-      database. A calculated property is a property that does not store its
-      value in the database but it's calculated any time the property is
-      accessed. See the difference between a persistent and a calculated
-      property.<br>
-      <pre><code class="java">// Persistent property
+      <div class="wiki" style="display: block;">
+        <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=FgcWevDUAwY&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=11"
+
+            target="_blank"><img src="files/calculated-properties-video_en.png"
+
+              title="Video for lesson 8: View inheritance"></a><br>
+        </div>
+        <div class="wiki" style="display: block;">If you don't like videos
+          follow the instructions below.</div>
+        <div class="wiki" style="display: block;"><br>
+        </div>
+        <h2><a name="Lesson 5: Basic business logic-Properties in Java"></a></h2>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2 id="toc1"><a name="Lesson 5: Basic business logic-Calculated properties"></a>Calculated
+          properties</h2>
+        Perhaps the most simple business logic you can add to your application
+        is a calculated property. The properties you have used until now are
+        persistent, i.e., each property is stored in a column in a table in the
+        database. A calculated property is a property that does not store its
+        value in the database but it's calculated any time the property is
+        accessed. See the difference between a persistent and a calculated
+        property.<br>
+        <pre><code class="java">// Persistent property
 @Getter @Setter // Has getter and setter
 int quantity; // Has a field, so it's persistent
  
@@ -79,51 +94,56 @@ public int getAmount() { // It has no field and no setter, only a getter
     return quantity * price; // with a calculation
 }
 </code></pre> Calculated properties are automatically recognized by OpenXava.
-      You can use them in views, tabular lists or any other part of your code.<br>
-      We are going to use calculated properties to add the money element to our
-      <i> Invoicing</i> application. Because, we have details, products,
-      quantities. But what about amounts?<br>
-      <h2 id="toc2"><a name="Lesson 5: Basic business logic-Calculated properties-Simple calculated property"></a>Simple
-        calculated property</h2>
-      The first step will be to add an <em>amount</em> property to the <em>Detail</em>.
-      We want the detail amount to be recalculated and shown to the user when
-      the user chooses a product and type in the quantity:<br>
-      <img src="files/business-logic_en010.png" alt="business-logic_en010.png" title="business-logic_en010.png"><br>
-      Adding this feature to your current code is practically adding a
-      calculated property to <em>Detail</em>. Just add the next code to the <em>Detail</em>
-      class:<br>
-      <pre><code class="java">@Stereotype("MONEY")
+        You can use them in views, tabular lists or any other part of your code.<br>
+        We are going to use calculated properties to add the money element to
+        our <i> Invoicing</i> application. Because, we have details, products,
+        quantities. But what about amounts?<br>
+        <h2 id="toc2"><a name="Lesson 5: Basic business logic-Calculated properties-Simple calculated property"></a>Simple
+          calculated property</h2>
+        The first step will be to add an <em>amount</em> property to the <em>Detail</em>.
+        We want the detail amount to be recalculated and shown to the user when
+        the user chooses a product and type in the quantity:<br>
+        <img src="files/business-logic_en010.png" alt="business-logic_en010.png"
+
+          title="business-logic_en010.png"><br>
+        Adding this feature to your current code is practically adding a
+        calculated property to <em>Detail</em>. Just add the next code to the <em>Detail</em>
+        class:<br>
+        <pre><code class="java">@Stereotype("MONEY")
 @Depends("product.number, quantity")  // When the user changes product or quantity
 public BigDecimal getAmount() { // this property is recalculated and redisplayed
     if (product == null || product.getPrice() == null) return BigDecimal.ZERO;
     return new BigDecimal(quantity).multiply(product.getPrice()); 
 }
 </code></pre>Simply put the calculation in <em>getAmount()</em> and use <em>@Depends</em>
-      to indicate to OpenXava that the <em>amount</em> property depends on <em>product.number</em>
-      and <em>quantity</em>, thus each time the user changes any of these
-      values the property will be recalculated. Note as we in this case we use <i>product</i>
-      instead of <i>getProduct()</i> and <i>quantity</i> instead of <i>getQuantity()</i>
-      because from inside the class you can access directly to its fields.<br>
-      Now you have to add this new property to the <em>details</em> collection
-      of <em>CommercialDocument</em>:<br>
-      <pre><code class="java">@ElementCollection
+        to indicate to OpenXava that the <em>amount</em> property depends on <em>product.number</em>
+        and <em>quantity</em>, thus each time the user changes any of these
+        values the property will be recalculated. Note as we in this case we use
+        <i>product</i> instead of <i>getProduct()</i> and <i>quantity</i>
+        instead of <i>getQuantity()</i> because from inside the class you can
+        access directly to its fields.<br>
+        Now you have to add this new property to the <em>details</em>
+        collection of <em>CommercialDocument</em>:<br>
+        <pre><code class="java">@ElementCollection
 @ListProperties("product.number, product.description, quantity, amount") // amount added
 Collection&lt;Detail&gt; details;
 </code></pre> Nothing else is required. The mere addition of the getter and
-      modifying the list properties is enough. Try the <em>Invoice</em> and <em>Order</em>
-      modules to see the <em>amount</em> property in action.<br>
-      <h3 id="toc3"><a name="Lesson 5: Basic business logic-Calculated properties-Using @DefaultValueCalculator"></a></h3>
+        modifying the list properties is enough. Try the <em>Invoice</em> and <em>Order</em>
+        modules to see the <em>amount</em> property in action.<br>
+        <h3 id="toc3"><a name="Lesson 5: Basic business logic-Calculated properties-Using @DefaultValueCalculator"></a></h3>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
+        In this lesson you have learned the application of calculated
+        properties, and their differences from persistent properties, when
+        establishing business logic. In future lessons we will see how to work
+        with collections and totals.<br>
+        <br>
+        <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+            rel="nofollow">Ask in the forum</a></strong> <strong>Everything
+          fine? <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">Go
+            to Lesson 11</a></strong> </div>
     </div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
-      In this lesson you have learned the application of calculated properties,
-      and their differences from persistent properties, when establishing
-      business logic. In future lessons we will see how to work with collections
-      and totals.<br>
-      <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-        <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">Go
-          to Lesson 11</a></strong> </div>
   </body>
 </html>
