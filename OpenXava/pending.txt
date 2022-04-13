@@ -2,22 +2,17 @@ MAVEN
 * Quitar editor DocumentLibrary de Liferay.
 * Corregir errors compilación de OpenXava. Hacer un install.
 * Mavenizar Addons.
-- Arquetipo.
-	* OpenXavaTemplate.
-	- Crear arquetipo y probarlo.
-		- TMR: ME QUEDÉ INTENTANDO QUE FUNCIONE EL PROYECTO CREADO. NO LO HACE PORQUE finalName NO
-				SE SUSTITUYE
-		- Nombre. Mirar como lo hacen los demás. Pensar en ES y también en otras plantillas.
-		- ¿Cómo funciona con nombre de proyecto empezando con mayúsculas?
+* Arquetipo.
 - Igualar artifactid con nombre proyecto para OpenXava, Addons y OpenXavaTemplate (poco a poco con todos).		
 - Mavenizar InvoiceDemo. Hacerlo funcionar.
 - Pasar OpenXavaTest suite completa con Java 8.
+- Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Mezclar en master.
 - CSS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/style")
 - Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
 - No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
 - ¿Dividir resources en subcarpetas?
-- Pasar OpenXavaTest suite completa con Java 8 y 11
+- Pasar OpenXavaTest suite completa con Java 11
 - Pasar prueba manuales.
 - Incluir licencia.
 - Arquetipo en español.
