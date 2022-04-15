@@ -5,7 +5,7 @@
 	<property name="xava.version" value="6.6.3"/>
 	<property name="xava.workspace" value=".."/>	
 	<property name="openxava.dist.dir" value="/home/javi/openxava"/>
-	<property name="dist.dir" value="/home/javi/site"/>
+	<property name="dist.dir" value="\\wsl$\Ubuntu\home\javi"/>
 	<property file="../openxava.properties"/>
 	<property name="doc.dir" value="${openxava.dist.dir}/openxava-${xava.version}/doc"/>
 
