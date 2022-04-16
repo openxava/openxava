@@ -133,7 +133,7 @@ for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccio
         SQL. Por otra parte si necesitas un cálculo complejo, con bucles o
         consultando otras entidades, todavía sigues necesitando una propiedad
         calculada con tu lógica Java en el getter. En este último caso si además
-        necesitas ordenar y filtrar en modo lista por la propiedad calculada un
+        necesitas ordenar y filtrar en modo lista por la propiedad calculada una
         opción es tener ambas, la calculada y la persistente, y sincronizar sus
         valores usando los métodos de retrollamada de JPA (hablaremos sobre los
         métodos de retrollamada más abajo).</div>
@@ -206,7 +206,8 @@ BigDecimal importeTotal;
       la utilidad de la anotación <i>@Digits </i>para definir tipo y longitud
       de campos. También definimos propiedades de total utilizando propiedades
       persistentes con las anotaciones <i><i>@ReadOnly +</i>@Calculation</i>, y
-      vimos como utilizar sum para prescindir de una propiedad específica.<br>
+      vimos como utilizar <i>sum</i> para prescindir de una propiedad
+      específica.<br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
