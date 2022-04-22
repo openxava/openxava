@@ -59,23 +59,33 @@
       collections.<br>
     </div>
     <div class="wiki" style="display: block;">
-      <h3 id="toc3"><a name="Lesson 5: Basic business logic-Calculated properties-Using @DefaultValueCalculator"></a>Using
-        @DefaultValueCalculator</h3>
-      The way we calculated the amount for the detail line is not the best
-      approach. There are at least two drawbacks to it. Firstly, the user may
-      want to have the option to overwrite the unit price. Secondly, if the
-      price of the product changes the amounts for all your invoices changes
-      too, this is not good.<br>
-      To avoid these drawbacks it's better to store the price of the product for
-      each detail. Let's add a <em>pricePerUnit</em> persistent property to the
-      <em>Detail</em> class and let's calculate its value from the price in <em>Product</em>
-      using a <em>@DefaultValueCalculator</em>. Just to obtain the effect you
-      can see:<br>
-      <img src="files/business-logic_en020.png" alt="business-logic_en020.png" title="business-logic_en020.png"><br>
-      The logic to calculate the initial value will be in <em>PricePerUnitCalculator</em>.
-      It simply reads the price from the product. See the next code for this
-      calculator:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.calculators; // In 'calculators' package
+      <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=1c90dW0W448&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=11"
+          target="_blank"><img src="files/defaultvaluecalculator-in-collections-video_en.png"
+            title="Video for lesson 8: View inheritance"></a><br>
+      </div>
+      <div class="wiki" style="display: block;">If you don't like videos follow
+        the instructions below.</div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h3 id="toc3"><a name="Lesson 5: Basic business logic-Calculated properties-Using @DefaultValueCalculator"></a>Using
+          @DefaultValueCalculator</h3>
+        The way we calculated the amount for the detail line is not the best
+        approach. There are at least two drawbacks to it. Firstly, the user may
+        want to have the option to overwrite the unit price. Secondly, if the
+        price of the product changes the amounts for all your invoices changes
+        too, this is not good.<br>
+        To avoid these drawbacks it's better to store the price of the product
+        for each detail. Let's add a <em>pricePerUnit</em> persistent property
+        to the <em>Detail</em> class and let's calculate its value from the
+        price in <em>Product</em> using a <em>@DefaultValueCalculator</em>.
+        Just to obtain the effect you can see:<br>
+        <img src="files/business-logic_en020.png" alt="business-logic_en020.png"
+          title="business-logic_en020.png"><br>
+        The logic to calculate the initial value will be in <em>PricePerUnitCalculator</em>.
+        It simply reads the price from the product. See the next code for this
+        calculator:<br>
+        <pre><code class="java">package com.yourcompany.invoicing.calculators; // In 'calculators' package
 
 import org.openxava.calculators.*;
 import com.yourcompany.invoicing.model.*;
@@ -96,10 +106,10 @@ public class PricePerUnitCalculator implements ICalculator {
  
 }
 </code></pre>
-      <div class="wiki" style="display: block;">Then we add the property <em>pricePerUnit</em>.
-        Add the next code to your <em>Detail</em> class:<br>
-      </div>
-      <pre><code class="java">@DefaultValueCalculator(
+        <div class="wiki" style="display: block;">Then we add the property <em>pricePerUnit</em>.
+          Add the next code to your <em>Detail</em> class:<br>
+        </div>
+        <pre><code class="java">@DefaultValueCalculator(
     value=PricePerUnitCalculator.class, // This class calculates the initial value
     properties=@PropertyValue(
         name="productNumber", // The productNumber property of the calculator...
@@ -108,38 +118,39 @@ public class PricePerUnitCalculator implements ICalculator {
 @Stereotype("MONEY")
 BigDecimal pricePerUnit; // A regular persistent property
 </code></pre><em></em>In this way when the user chooses a product the price per
-      unit field is filled with the price of that product but because it's a
-      persistent property, the user can change it. And if in the future the
-      price of the product changes this price per unit of the detail will not
-      change.<br>
-      This means that you have to adapt your amount calculated property:<br>
-      <pre><code class="java">@Stereotype("MONEY")
+        unit field is filled with the price of that product but because it's a
+        persistent property, the user can change it. And if in the future the
+        price of the product changes this price per unit of the detail will not
+        change.<br>
+        This means that you have to adapt your amount calculated property:<br>
+        <pre><code class="java">@Stereotype("MONEY")
 @Depends("pricePerUnit, quantity") // pricePerUnit instead of product.number
 public BigDecimal getAmount() {
     if (pricePerUnit == null) return BigDecimal.ZERO; // pricePerUnit instead of product and product.getPrice()
     return new BigDecimal(quantity).multiply(pricePerUnit); // pricePerUnit instead of product.getPrice()
 }
 </code></pre> The <em>getAmount()</em> method uses <em>pricePerUnit</em> as
-      source instead of <em>product.price</em>.<br>
-      Finally, we have to edit the <em>CommercialDocument</em> entity and
-      modify the list of properties to show in the collection to show the new
-      property:<br>
-      <pre><code class="java">@ElementCollection
+        source instead of <em>product.price</em>.<br>
+        Finally, we have to edit the <em>CommercialDocument</em> entity and
+        modify the list of properties to show in the collection to show the new
+        property:<br>
+        <pre><code class="java">@ElementCollection
 @ListProperties("product.number, product.description, quantity, pricePerUnit, amount") // pricePerUnit added
-private Collection&lt;Detail&gt; details;
+Collection&lt;Detail&gt; details;
 </code></pre> Try the <em>Order</em> and <em>Invoice</em> modules and observe
-      the new behavior when adding details.</div>
-    <div class="wiki" style="display: block;">
-      <h3><a name="Lesson 5: Basic business logic-Calculated properties-Persistent properties with Calculation"></a></h3>
+        the new behavior when adding details.</div>
+      <div class="wiki" style="display: block;">
+        <h3><a name="Lesson 5: Basic business logic-Calculated properties-Persistent properties with Calculation"></a></h3>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
+        In this lesson we have learned how we can use the <i>@DefaultValueCalculator</i>
+        annotation to define the value of different properties.<strong></strong><br>
+        <br>
+        <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+            rel="nofollow">Ask in the forum</a></strong> <strong>Everything
+          fine? <a class="wiki_link" href="calculation-and-collections-total_en.html">Go
+            to Lesson 12</a></strong> </div>
     </div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
-      In this lesson we have learned how we can use the <i>@DefaultValueCalculator</i>
-      annotation to define the value of different properties.<strong></strong><br>
-      <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-        <a class="wiki_link" href="calculation-and-collections-total_en.html">Go
-          to Lesson 12</a></strong> </div>
   </body>
 </html>

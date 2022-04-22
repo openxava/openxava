@@ -54,6 +54,14 @@
       Hemos agregado lógica del negocio a nuestra aplicación utlizando
       propiedades persistentes y propiedas calculadas, ahora utilizaremos la
       anotación <i>@DefaultValueCalculator</i> para las colecciones. <br>
+      <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=KFAV6c9WNU0&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=12"
+          target="_blank"><img src="files/defaultvaluecalculator-in-collections-video_es.png"
+            title="Video para la lección 11: DefaultValueCalculator en colecciones con OpenXava"></a>
+      </div>
+      <div class="wiki" style="display: block;">Si no te gustan los videos sigue
+        las instrucciones a continuación. </div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
       <h2 id="Propiedades-calculadas-Usar-DefaultValueCalculator">Usar <em>@DefaultValueCalculator</em></h2>
       La forma en que calculamos el importe de la línea de detalle no es la
       mejor. Tiene, al menos, dos inconvenientes. El primero es que el usuario
@@ -123,7 +131,7 @@ public BigDecimal getImporte() {
       propiedad:<br>
       <pre><code class="java">@ElementCollection
 @ListProperties("producto.numero, producto.descripcion, cantidad, precioPorUnidad, importe") // precioPorUnidad añadida
-private Collection&lt;Detalle&gt; detalles;
+Collection&lt;Detalle&gt; detalles;
 </code></pre> Prueba los módulos <em>Pedido</em> y <em>Factura</em> y podrás
       observar el nuevo comportamiento al añadir líneas de detalle.</div>
     <div class="wiki" style="display: block;">
