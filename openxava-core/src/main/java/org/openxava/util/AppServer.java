@@ -5,7 +5,10 @@ import java.nio.file.*;
 import java.nio.file.Files;
 import java.util.*;
 
+import org.apache.catalina.*;
+import org.apache.catalina.core.*;
 import org.apache.catalina.startup.*;
+import org.apache.catalina.webresources.*;
 import org.apache.commons.logging.*;
 
 /**
@@ -22,6 +25,7 @@ public class AppServer {
 		System.setProperty("tomcat.util.scan.StandardJarScanFilter.jarsToSkip", "activation.jar,antlr.jar,byte-buddy.jar,classmate.jar,commons-*.jar,dom4j.jar,dsn.jar,dwr.jar,ejb.jar,groovy-all.jar,hibernate-*.jar,hk2-*.jar,imap.jar,itext.jar,jakarta.*.jar,jandex.jar,jasperreports-fonts.jar,jasperreports.jar,javassist.jar,javax.inject.jar,jaxb-*.jar,jboss-logging.jar,jersey-*.jar,jpa.jar,jsoup.jar,jta.jar,lombok.jar,mailapi.jar,mime-util.jar,ox-jdbc-adapters.jar,poi-*.jar,poi.jar,pop3.jar,slf4j-*.jar,smtp.jar,validation-api.jar,xmlbeans.jar,yasson.jar"); 
 		createDefaultI18nFiles(app); 
         String webappDir = new File("target/" + app).getAbsolutePath();
+        
         String contextPath = Is.empty(app)?"":"/" + app;
         Tomcat tomcat = null;
         int initialPort = XavaPreferences.getInstance().getApplicationPort();
@@ -50,7 +54,10 @@ public class AppServer {
         tomcat.setPort(port);
         tomcat.getConnector();
         tomcat.enableNaming();
-        tomcat.addWebapp(contextPath, webappDir);
+        StandardContext context = (StandardContext) tomcat.addWebapp(contextPath, webappDir);
+        WebResourceRoot resources = new StandardRoot(context);
+        resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", "target/classes", "/"));
+        context.setResources(resources);
         
         tomcat.start();
        	if (tomcat.getConnector().getLocalPort() < 0) {

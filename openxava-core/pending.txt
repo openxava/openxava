@@ -5,8 +5,7 @@ MAVEN
 * Arquetipo.
 * Comprobar que hibernate.cfg.xml y labels y messages se nombran bien en el arquetipo.		
 * Igualar artifactid con nombre proyecto para OpenXava, Addons y OpenXavaTemplate.
-TMR ME QUEDÉ PARA EMPEZAR EL SIGUIENTE PUNTO
-- Comprobar en un proyecto creado con arquetipo que se puede modificar la entidad y añadir una más, y reacciona.
+* Comprobar en un proyecto creado con arquetipo que se puede modificar la entidad y añadir una más, y reacciona.
 - Mavenizar InvoiceDemo. Hacerlo funcionar.
 - Pasar OpenXavaTest suite completa con Java 8.
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
@@ -15,12 +14,14 @@ TMR ME QUEDÉ PARA EMPEZAR EL SIGUIENTE PUNTO
 - Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
 - No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
 - ¿Dividir resources en subcarpetas?
+- Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.
 - Pasar OpenXavaTest suite completa con Java 11
 - Pasar prueba manuales.
 - Incluir licencia.
 - Arquetipo en español.
 - Modificar doc sobre como añadir servlets, filter y listeners propios: Anotaciones y web fragments.
 - Probar con WTP. Si no funciona poner que ya no se soporta en changelog.
+- Probar con Tomcat 8 y 9 externos.
 - Revisar documentación de personalización y estilo, porque ahora está todo comprimido.
 - ¿Cómo actualizar los dtds? ¿Quitarlos de la plantilla?
 - Actualizar doc en context.xml de OpenXavaTemplate
