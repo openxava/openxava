@@ -1,4 +1,4 @@
-package com.mycompany.myapp.model;
+package mycompany.__artifactId__.model;
 
 import java.math.*;
 import java.time.*;
