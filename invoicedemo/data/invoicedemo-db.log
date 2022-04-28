@@ -1,0 +1,47 @@
+/*C3*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C4*/SET SCHEMA PUBLIC
+CREATE SCHEMA INVOICEDEMO AUTHORIZATION SA
+create table invoicedemo.Customer (number integer not null, address varchar(40), city varchar(40), country varchar(40), location varchar(50), name varchar(40), photo varchar(32), primary key (number))
+create table invoicedemo.IMAGES (ID varchar(255) not null, GALLERY varchar(255), IMAGE varbinary(16777216), primary key (ID))
+create table invoicedemo.Invoice (id varchar(32) not null, date timestamp, number integer, remarks varchar(255), vatPercentage integer, year integer, customer_number integer not null, primary key (id))
+create table invoicedemo.Invoice_details (Invoice_id varchar(32) not null, product_number integer not null, quantity integer not null, unitPrice numeric(19,2), details_ORDER integer not null, primary key (Invoice_id, details_ORDER))
+create table invoicedemo.OXDISCUSSIONCOMMENTS (id varchar(32) not null, comment clob(16777216), discussionId varchar(32), time timestamp, userName varchar(30), primary key (id))
+create table invoicedemo.Product (number integer not null, description varchar(40), photos varchar(32), unitPrice numeric(19,2), primary key (number))
+create index invoicedemo.IDXbhlx4vunn24ym1tbrlgq8g30m on invoicedemo.OXDISCUSSIONCOMMENTS (discussionId)
+alter table invoicedemo.Invoice add constraint FKd9dx61qvqeikb7pkdbivebqu1 foreign key (customer_number) references invoicedemo.Customer
+alter table invoicedemo.Invoice_details add constraint FKi1r56p1hqv28yvcc29lyqnpsw foreign key (product_number) references invoicedemo.Product
+alter table invoicedemo.Invoice_details add constraint FKnygq7sokinlinu5jer51kh6nj foreign key (Invoice_id) references invoicedemo.Invoice
+/*C5*/SET SCHEMA INVOICEDEMO
+INSERT INTO CUSTOMER VALUES(1,'Wim Mertens','51.23228450720175, 5.432266518473626','Boomgaardstraat, 17','Neerpelt','Belgium','0D3C2660C0A8019800000000E732B34B')
+INSERT INTO CUSTOMER VALUES(2,'Javier Corcobado','40.41722091096916, -3.7104184180498128','Calla de la Uni\u00f3n, 3','Madrid','Spain','0D3C63CFC0A8019800000000E5AA5A94')
+INSERT INTO CUSTOMER VALUES(3,'Juanito Valderrama','37.77180027337861, -3.8965442776679997','C/. Horno Parras, 7','Torre del Campo','Spain','0D3CAD27C0A8019800000000F7C6E139')
+INSERT INTO CUSTOMER VALUES(4,'John Cage','','','','','0D3CF183C0A80198000000005DB0902A')
+INSERT INTO CUSTOMER VALUES(5,'Bill Gates','47.627049588479, -122.23740644752982','Avenue Mortheast','Medina','United States','0D3D2B86C0A8019800000000A041B51A')
+INSERT INTO CUSTOMER VALUES(6,'Marissa Mayer','','','','','0D3D5815C0A801980000000088DA93D9')
+INSERT INTO CUSTOMER VALUES(7,'Juan Antonio Cabrera L\u00f3pez',NULL,NULL,NULL,NULL,NULL)
+INSERT INTO CUSTOMER VALUES(8,'Carlos Ann','','','','','0D3DA194C0A8019800000000D5CF07A8')
+INSERT INTO CUSTOMER VALUES(9,'Luigi Nono','','','','','0D3DD6F6C0A8019800000000F6620DE1')
+COMMIT
+INSERT INTO PRODUCT VALUES(1,'Learn OpenXava by example','43B46FC6C0A80198000000005B7E1D17',19.00)
+INSERT INTO PRODUCT VALUES(2,'Aprende OpenXava con ejemplos','43B4B6BCC0A80198000000006FAC1BC4',19.00)
+INSERT INTO PRODUCT VALUES(3,'XavaPro Professional',NULL,399.00)
+INSERT INTO PRODUCT VALUES(4,'XavaPro Enterprise',NULL,599.00)
+INSERT INTO PRODUCT VALUES(5,'Chevrolet Camaro SS','43B505A4C0A80198000000008DC6DD1D',45000.00)
+INSERT INTO PRODUCT VALUES(6,'Volvo Concept Coupe','43B559FBC0A80198000000003AE8C1A7',52000.00)
+INSERT INTO PRODUCT VALUES(7,'IntellJ',NULL,490.00)
+INSERT INTO PRODUCT VALUES(8,'JRebel',NULL,300.00)
+INSERT INTO PRODUCT VALUES(9,'Ducati Monster','43B5BD9DC0A80198000000008BA41AE7',7700.00)
+INSERT INTO PRODUCT VALUES(10,'BMW 330i','43B3CA91C0A80198000000006F1CC304',47000.00)
+COMMIT
+INSERT INTO INVOICE VALUES('402880424662fac00146630684220000','2014-06-03 00:00:00.000000',1,'',21,2014,2)
+INSERT INTO INVOICE VALUES('402880424662fac0014663071c970001','2014-06-03 00:00:00.000000',2,'',21,2014,5)
+COMMIT
+INSERT INTO INVOICE_DETAILS VALUES('402880424662fac00146630684220000',3,1,399.00,0)
+INSERT INTO INVOICE_DETAILS VALUES('402880424662fac00146630684220000',6,2,52000.00,1)
+INSERT INTO INVOICE_DETAILS VALUES('402880424662fac0014663071c970001',4,4,599.00,0)
+INSERT INTO INVOICE_DETAILS VALUES('402880424662fac0014663071c970001',8,3,300.00,1)
+INSERT INTO INVOICE_DETAILS VALUES('402880424662fac0014663071c970001',2,2,19.00,2)
+COMMIT
+SET SCHEMA PUBLIC
+DISCONNECT
