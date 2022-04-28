@@ -11,7 +11,7 @@ import org.openxava.util.*;
 public class myapp {
 
 	public static void main(String[] args) throws Exception {
-		DBServer.start("myapp"); // To use your own database comment this line and configure web/META-INF/context.xml
+		DBServer.start("myapp-db"); // To use your own database comment this line and configure web/META-INF/context.xml
 		AppServer.run("myapp"); // Use AppServer.run("") to run in root context
 	}
 
