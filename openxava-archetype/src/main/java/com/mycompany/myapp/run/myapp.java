@@ -1,4 +1,4 @@
-package mycompany.myapp.run;
+package com.mycompany.myapp.run;
 
 import org.openxava.util.*;
 

@@ -6,8 +6,7 @@ MAVEN
 * Comprobar que hibernate.cfg.xml y labels y messages se nombran bien en el arquetipo.		
 * Igualar artifactid con nombre proyecto para OpenXava, Addons y OpenXavaTemplate.
 * Comprobar en un proyecto creado con arquetipo que se puede modificar la entidad y añadir una más, y reacciona.
-- Crear proyecto ha de crear bien paquete en IntelliJ, Eclipse y línea de ordenes.
-	- TMR ME QUEDÉ POR AQUI. LA COMBINACIÓN ACTUAL PARECE QUE FUNCIONA CON INTELLIJ. DEBERÍA EJECUTAR EL RESULTADO.	
+* Crear proyecto ha de crear bien paquete en IntelliJ, Eclipse y línea de ordenes.
 - Mavenizar InvoiceDemo. Hacerlo funcionar.
 - Pasar OpenXavaTest suite completa con Java 8.
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
