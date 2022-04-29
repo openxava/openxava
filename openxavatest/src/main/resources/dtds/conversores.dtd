@@ -1,0 +1,15 @@
+<!ELEMENT conversores (para-estereotipo|para-tipo)+>
+
+<!ELEMENT para-estereotipo EMPTY>
+<!ATTLIST para-estereotipo
+ estereotipo CDATA #REQUIRED
+ clase-conversor CDATA #REQUIRED
+ tipo-cmp CDATA #REQUIRED
+>
+
+<!ELEMENT para-tipo EMPTY>
+<!ATTLIST para-tipo
+ tipo CDATA #REQUIRED
+ clase-conversor CDATA #REQUIRED
+ tipo-cmp CDATA #REQUIRED
+>

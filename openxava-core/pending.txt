@@ -8,6 +8,8 @@ MAVEN
 * Comprobar en un proyecto creado con arquetipo que se puede modificar la entidad y añadir una más, y reacciona.
 * Crear proyecto ha de crear bien paquete en IntelliJ, Eclipse y línea de ordenes.
 * Mavenizar InvoiceDemo. Hacerlo funcionar.
+	- TMR ME QUEDÉ POR: CÓDIGO COPIADO, QUITANDO ERRORES DE COMPILACIÓN (AÑADIENDO DEPENDENCIAS)
+- Mavenizar OpenXavaTest. Hacerlo funcionar, al menos que arranque.
 - Pasar OpenXavaTest suite completa con Java 8.
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Mezclar en master.
