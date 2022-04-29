@@ -7,15 +7,14 @@ MAVEN
 * Igualar artifactid con nombre proyecto para OpenXava, Addons y OpenXavaTemplate.
 * Comprobar en un proyecto creado con arquetipo que se puede modificar la entidad y añadir una más, y reacciona.
 * Crear proyecto ha de crear bien paquete en IntelliJ, Eclipse y línea de ordenes.
-- Mavenizar InvoiceDemo. Hacerlo funcionar.
-	TMP ME QUEDÉ POR AQUÍ. MIGRANDO LA DB. TAMBIÉN HABRÍA QUE COMPROBAR EL I18N
+* Mavenizar InvoiceDemo. Hacerlo funcionar.
 - Pasar OpenXavaTest suite completa con Java 8.
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Mezclar en master.
 - CSS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/style")
 - Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
 - No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
-- ¿Dividir resources en subcarpetas?
+- ¿Dividir resources en subcarpetas? Adaptar invoicedemo y openxavatest
 - Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.
 - Pasar OpenXavaTest suite completa con Java 11
 - Pasar prueba manuales.
@@ -32,7 +31,6 @@ MAVEN
 - Incluir una prueba JUnit en el arquetipo.
 - Revisar doc de application.xml para indicar que la aplicación es en minúsculas.
 - Revisar curso para poner nombre de aplicación en minúsculas.
-- AppServer: 
-	- Jars to skip in
-	- Comprobar crea bien i18n 
+- AppServer: Comprobar crea bien i18n
+- Política de actualización: ¿Qué hacer con las versiones? ¿En archetype? ¿En plugin? ¿Diferentes velocidades? 
 
