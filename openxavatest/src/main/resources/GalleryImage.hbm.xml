@@ -6,6 +6,7 @@
 
 	<class 
   		name="GalleryImage"
+  		schema="XAVATEST"
   		table="IMAGES">
   
 		<id name="oid" column="ID" access="field">
@@ -13,7 +14,7 @@
 		</id>
 		
 		<property name="galleryOid" column="GALLERY"/>
-		<property name="image" column="IMAGE" length="16777216"/>
+		<property name="image" column="IMAGE"/>
 				
 	</class>
 

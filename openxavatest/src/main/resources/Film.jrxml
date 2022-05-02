@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="film" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="director" class="java.lang.String"/>
+	<parameter name="writers" class="java.lang.String"/>
+	<parameter name="starring" class="java.lang.String"/>
+	<detail>
+		<band height="114" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="52" width="450" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{director}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="72" width="450" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{writers}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="52" width="105" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Director:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="72" width="105" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Writers:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="92" width="105" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Starring:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="105" y="92" width="450" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{starring}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -8,22 +8,22 @@ MAVEN
 * Comprobar en un proyecto creado con arquetipo que se puede modificar la entidad y añadir una más, y reacciona.
 * Crear proyecto ha de crear bien paquete en IntelliJ, Eclipse y línea de ordenes.
 * Mavenizar InvoiceDemo. Hacerlo funcionar.
-	- TMR ME QUEDÉ POR: CÓDIGO COPIADO, QUITANDO ERRORES DE COMPILACIÓN (AÑADIENDO DEPENDENCIAS)
-- Mavenizar OpenXavaTest. Hacerlo funcionar, al menos que arranque.
-- Pasar OpenXavaTest suite completa con Java 8.
+* Mavenizar OpenXavaTest. Hacerlo funcionar, al menos que arranque.
+- Pasar openxavatest suite completa con Java 8.
+- Quitar OpenXavaTest6
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Mezclar en master.
 - CSS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/style")
 - Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
 - No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
-- ¿Dividir resources en subcarpetas? Adaptar invoicedemo y openxavatest
+- ¿Dividir resources en subcarpetas? Adaptar invoicedemo y openxavatest. Adaptar archetype.
 - Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.
 - Pasar OpenXavaTest suite completa con Java 11
 - Pasar prueba manuales.
 - Incluir licencia.
 - Arquetipo en español.
 - Modificar doc sobre como añadir servlets, filter y listeners propios: Anotaciones y web fragments.
-- Probar con WTP. Si no funciona poner que ya no se soporta en changelog.
+- Probar con WTP. Si no funciona poner que ya no se soporta en changelog. Si no funciona quitar parte WTP de context.xml
 - Probar con Tomcat 8 y 9 externos.
 - Revisar documentación de personalización y estilo, porque ahora está todo comprimido.
 - ¿Cómo actualizar los dtds? ¿Quitarlos de la plantilla?
@@ -34,5 +34,12 @@ MAVEN
 - Revisar doc de application.xml para indicar que la aplicación es en minúsculas.
 - Revisar curso para poner nombre de aplicación en minúsculas.
 - AppServer: Comprobar crea bien i18n
-- Política de actualización: ¿Qué hacer con las versiones? ¿En archetype? ¿En plugin? ¿Diferentes velocidades? 
+- Política de actualización: ¿Qué hacer con las versiones? ¿En archetype? ¿En plugin? ¿Diferentes velocidades?
+- Quitar soporte de XML: (Posponer)
+	- Quitar code-generators.xml
+	- Quitar converters.xml
+	- Quitar generador de código.
+	- ¿Quitar soporte de API de Hibernate? ¿Qué haríamos con ImagesGallery?
+	- Actualizar doc.
+	- Quitar parsers de components XML. 
 

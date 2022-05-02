@@ -1,0 +1,20 @@
+<h2>Corporation</h2>
+<table>
+<tr><td>Name:</td><td>${name}</td></tr>
+</table>
+<br>
+<table border="1">
+<tr><td colspan="3" style="background-color: #cccccc">Employees</td></tr>
+<tr>
+	<td style="font-weight: bold; background-color: #dddddd">Name</td>
+	<td style="font-weight: bold; background-color: #dddddd">eMail</td>
+	<td style="font-weight: bold; background-color: #dddddd">Salary</td>
+</tr>
+<!-- $$for(employees) -->
+<tr>
+	<td>${firstName} ${lastName}</td>
+	<td>${email}</td>
+	<td>${salary} EUR</td>
+</tr>
+<!-- $$endfor(employees) -->
+</table>

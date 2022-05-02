@@ -1,0 +1,25 @@
+The automated tests in this project do not include pretty layout of UI. 
+Therefore, when you touch the layout code (a.k.a. JSPs) you have to test it visually
+at least the next cases:
+- InvoiceCustomerNoFrame: The properties before frames must be well aligned and on left.
+- ProductWithGroups: Data 1 and Data 2 groups in the same row. 
+	Data 2 frame must be aligned with Remarks and Photos frames on right.
+- Product4NoDescriptionsLists: Fields inside frames must be nicely aligned by column.
+- Product5WithGroups: Features and Prices groups in different lines and filling all the width.
+- CustomerSellerAsDescriptionsListShowingReferenceViewNoFrameInSection: Members in section should have a nice layout.
+- Movie3WithSection: The @Files property is shown and fill all the section width.
+- Invoice: In Amounts section all the fields are aligned to left with labels and fields near.
+- CarrierWithCollectionsTogether: Collections frames aligned with Header frame on right. 
+
+With flowLayout=true in xava.properties:
+- Customer: The icon of 'Web site' property must be on right, inside the field.
+- Customer: Seller group must have all the properties well aligned. 
+	The number and name of customer must be placed in one line or two when resized. 
+	No matter if 'Relation with seller' is in a new line (by now). 
+- ProductWithGroups: Data 1 and Data 2 groups in the same row. 
+	When you narrow the screen they must place one by row, but aligned in all moment.
+	Data 2 frame must be aligned with Remarks and Photos frames on right.
+- Product2: All properties well aligned, including the descriptionsLists.
+- Movie3WithSection: The @Files property is shown and fill all the section width.
+- Invoice: In Amounts section the fields are in one row (when enough space), nicely aligned.	
+- CarrierWithCollectionsTogether: Collections frames aligned with Header frame on right.
