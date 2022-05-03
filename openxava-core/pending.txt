@@ -16,11 +16,17 @@ MAVEN
 - CSS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/style")
 - Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
 - No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
-- ¿Dividir resources en subcarpetas? Adaptar invoicedemo y openxavatest. Adaptar archetype.
+- ¿Dividir resources en subcarpetas? ¿Mover algunos a la parte de test? Adaptar invoicedemo y openxavatest. Adaptar archetype.
 - Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.
 - Pasar OpenXavaTest suite completa con Java 11
 - Pasar prueba manuales.
 - Incluir licencia.
+- Mejorar arquetipo:
+	- Incluir una prueba JUnit.
+	- ¿Incluir xava/editors? 
+	- ¿Incluir estilos? 
+	- ¿Incluir algo más? Revisar doc.
+	- Poner temp en .ignore
 - Arquetipo en español.
 - Modificar doc sobre como añadir servlets, filter y listeners propios: Anotaciones y web fragments.
 - Probar con WTP. Si no funciona poner que ya no se soporta en changelog. Si no funciona quitar parte WTP de context.xml
@@ -30,7 +36,7 @@ MAVEN
 - Actualizar doc en context.xml de OpenXavaTemplate
 - ¿Compilador por defecto para arquetipo? ¿8, 9 o 17?
 - Comprobar identificación (login).
-- Incluir una prueba JUnit en el arquetipo.
+
 - Revisar doc de application.xml para indicar que la aplicación es en minúsculas.
 - Revisar curso para poner nombre de aplicación en minúsculas.
 - AppServer: Comprobar crea bien i18n
