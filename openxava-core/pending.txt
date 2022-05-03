@@ -9,7 +9,9 @@ MAVEN
 * Crear proyecto ha de crear bien paquete en IntelliJ, Eclipse y línea de ordenes.
 * Mavenizar InvoiceDemo. Hacerlo funcionar.
 * Mavenizar OpenXavaTest. Hacerlo funcionar, al menos que arranque.
-- Pasar openxavatest suite completa con Java 8.
+- Pasar openxavatest suite completa con Java 8: 
+	TMP ME QUEDÉ POR AQUÍ. SUITE PASADA CON 2 TEST. 
+	TMP   COPIADOS TODOS (340). ME QUEDÉ PARA EMPEZAR A PROBAR.
 - Quitar OpenXavaTest6
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Mezclar en master.
