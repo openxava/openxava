@@ -9,16 +9,17 @@ MAVEN
 * Crear proyecto ha de crear bien paquete en IntelliJ, Eclipse y línea de ordenes.
 * Mavenizar InvoiceDemo. Hacerlo funcionar.
 * Mavenizar OpenXavaTest. Hacerlo funcionar, al menos que arranque.
-- Instalar Studio 7m1 en Windows 7.
+* Instalar Studio 7m1 en Windows 7.
+* Todas las pruebas incluidas en openxavatest. Lanzar las pruebas funciona, aunque no pasan todas.
+- Estudio usa Primary Colors, en lugar de Pastel, en Windows 7. Probar Linux, Windows 10 y 11.
 - Crear Studio 7m1 para Linux. Instalarlo.
+- CSS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/style")
+	TMR ME QUEDÉ TRABAJANDO EN TranslateAllCarrierNameAction
+- Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
 - Pasar openxavatest suite completa con Java 8: 
-	TMP ME QUEDÉ POR AQUÍ. SUITE PASADA CON 2 TEST. 
-	TMP   COPIADOS TODOS (340). ME QUEDÉ PARA EMPEZAR A PROBAR.
 - Quitar OpenXavaTest6
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Mezclar en master.
-- CSS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/style")
-- Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
 - No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
 - ¿Dividir resources en subcarpetas? ¿Mover algunos a la parte de test? Adaptar invoicedemo y openxavatest. Adaptar archetype.
 - Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.
