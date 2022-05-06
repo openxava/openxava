@@ -15,6 +15,7 @@
 <%@page import="org.openxava.web.servlets.Servlets"%>
 <%@page import="org.openxava.web.Ids"%>
 <%@page import="org.openxava.web.Requests"%>
+<%@page import="org.openxava.web.EditorsResources"%> 
 <%@page import="org.openxava.web.style.Themes"%>  
 <%@page import="org.apache.commons.logging.LogFactory" %>
 <%@page import="org.apache.commons.logging.Log" %>
@@ -136,20 +137,12 @@
 %>
 
 	<%
-		File styleEditorsFolder = new File(realPath + "/xava/editors/style");		
-		String[] styleEditors = styleEditorsFolder.list();
-		if (styleEditors != null) {
-			Arrays.sort(styleEditors);
-			for (int i = 0; i < styleEditors.length; i++) {
-				System.out.println("[module.jsp] styleEditors[" + i + "]=" + styleEditors[i]); // tmr
-				if (styleEditors[i].endsWith(".css")) {
-		%>
-		<link href="<%=contextPath%>/xava/editors/style/<%=styleEditors[i]%>?ox=<%=version%>" rel="stylesheet" type="text/css">
-		<%
-				}
-			}
-		}
-	%>		
+	for (String styleEditor: EditorsResources.listCSSFiles(realPath)) {
+	%>
+	<link href="<%=contextPath%>/xava/editors/<%=styleEditor%>?ox=<%=version%>" rel="stylesheet" type="text/css">
+	<%
+	}
+	%>	
 
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/dwr-engine.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/dwr/util.js?ox=<%=version%>'></script>
@@ -182,30 +175,25 @@
 	<script type="text/javascript" src="<%=contextPath%>/xava/js/jquery.sorttable.js?ox=<%=version%>"></script>	
 	<script type="text/javascript" src="<%=contextPath%>/xava/js/jquery.ui.touch-punch.js?ox=<%=version%>"></script>
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/typewatch.js?ox=<%=version%>'></script>
-	<%-- tmr Falta hacer que vaya
+
 	<%
-		File jsEditorsFolder = new File(realPath + "/xava/editors/js");		
-		String[] jsEditors = jsEditorsFolder.list();
-		Arrays.sort(jsEditors);
-		for (int i = 0; i < jsEditors.length; i++) {
-			if (jsEditors[i].endsWith(".js")) {
+	for (String editorJS: EditorsResources.listJSFiles(realPath)) {
 	%>
-	<script type="text/javascript" src="<%=contextPath%>/xava/editors/js/<%=jsEditors[i]%>?ox=<%=version%>"></script>
+	<script type="text/javascript" src="<%=contextPath%>/xava/editors/<%=editorJS%>?ox=<%=version%>"></script>
 	<%
-			}
-		}
-		
-		String[] jsFiles = request.getParameterValues("jsFiles");
-		if (jsFiles != null) {
-			for (int i = 0; i < jsFiles.length; i++) {
-				if (jsFiles[i].endsWith(".js")) {
+	}
+	
+	String[] jsFiles = request.getParameterValues("jsFiles");
+	if (jsFiles != null) {
+		for (int i = 0; i < jsFiles.length; i++) {
+			if (jsFiles[i].endsWith(".js")) {
 	%>
 	<script type="text/javascript" src="<%=contextPath%>/<%=jsFiles[i]%>?ox=<%=version%>"></script>				
-	<%			}
-			}
-		}	
+	<%		}
+		}
+	}	
 	%>	
-	--%>
+	
 	<script type="text/javascript">
 		$ = jQuery;
 		if (typeof portalJQuery != "undefined") {  

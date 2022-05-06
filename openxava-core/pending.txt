@@ -12,10 +12,10 @@ MAVEN
 * Instalar Studio 7m1 en Windows 7.
 * Todas las pruebas incluidas en openxavatest. Lanzar las pruebas funciona, aunque no pasan todas.
 * Crear Studio 7m1 para Linux. Instalarlo.
+* CSS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/style")
+* Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
+TMR ME QUEDÉ PARA EMPEZAR EL SIGUIENTE PUNTO
 - Estudio usa Primary Colors, en lugar de Pastel, en Windows 7. Probar Windows 10 y 11.
-- CSS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/style")
-	TMR ME QUEDÉ TRABAJANDO EN TranslateAllCarrierNameAction
-- Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
 - Pasar openxavatest suite completa con Java 8: 
 - Quitar OpenXavaTest6
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
