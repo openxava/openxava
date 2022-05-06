@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- Lessons 9 and 10 of course include video.
+- Lessons 9, 10, 11 and 12 of course include video.
 - Lesson 9 of course divided into several smaller lessons.
 
 OpenXava 6.6.3 (2022-3-29)
