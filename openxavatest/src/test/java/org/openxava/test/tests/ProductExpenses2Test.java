@@ -53,7 +53,7 @@ public class ProductExpenses2Test extends ModuleTestBase {
 	}
 
 	private void assertComboDescription(String member, String expectedDescription) {
-		HtmlInput input = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_ProductExpenses2__expenses___0___" + member);
+		HtmlInput input = getHtmlPage().getHtmlElementById("ox_openxavatest_ProductExpenses2__expenses___0___" + member);
 		HtmlInput control = (HtmlInput) input.getPreviousElementSibling();
 		assertEquals(expectedDescription, control.getValueAttribute());
 		HtmlInput description = (HtmlInput) input.getNextElementSibling();
@@ -62,7 +62,7 @@ public class ProductExpenses2Test extends ModuleTestBase {
 	
 	private void assertOpenCombo(int row) throws Exception {
 		HtmlElement comboEditor = getHtmlPage().getHtmlElementById(
-			"ox_OpenXavaTest_ProductExpenses2__reference_editor_expenses___" + row + "___product");		
+			"ox_openxavatest_ProductExpenses2__reference_editor_expenses___" + row + "___product");		
 	    HtmlElement iconDown = comboEditor.getElementsByAttribute("i", "class", "mdi mdi-menu-down").get(0);
 	    HtmlElement iconUp = comboEditor.getElementsByAttribute("i", "class", "mdi mdi-menu-up").get(0);
 	    assertTrue(iconDown.isDisplayed());
@@ -76,7 +76,7 @@ public class ProductExpenses2Test extends ModuleTestBase {
 	}
 		
 	private void removeRow(int rowIndex) throws Exception { 
-		HtmlElement row = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_ProductExpenses2__expenses___" + rowIndex); 
+		HtmlElement row = getHtmlPage().getHtmlElementById("ox_openxavatest_ProductExpenses2__expenses___" + rowIndex); 
 		HtmlElement removeIcon = row.getElementsByTagName("a").get(0).getElementsByTagName("i").get(0); 
 		removeIcon.click();		
 	}

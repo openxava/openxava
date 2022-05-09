@@ -43,7 +43,7 @@ public class ReallocationDetailsReadOnlyTest extends ModuleTestBase {
 		assertNoEditableInCollection("details", 2, "product.description");
 		assertNoEditableInCollection("details", 2, "product.unitPrice");
 		
-		HtmlTable table = (HtmlTable) getHtmlPage().getElementById("ox_OpenXavaTest_ReallocationDetailsReadOnly__details");
+		HtmlTable table = (HtmlTable) getHtmlPage().getElementById("ox_openxavatest_ReallocationDetailsReadOnly__details");
 		assertEquals(5, table.getRowCount()); 
 		assertEquals(5, table.getRow(4).getCells().size());  
 		String html = getHtml(); 

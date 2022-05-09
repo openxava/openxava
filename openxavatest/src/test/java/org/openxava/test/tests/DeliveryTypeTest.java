@@ -135,26 +135,26 @@ public class DeliveryTypeTest extends ModuleTestBase {
 	}
 	
 	private void assertIconAndImage() { 
-		String saveLinkXml = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_DeliveryType__CRUD___save").asXml();
+		String saveLinkXml = getHtmlPage().getHtmlElementById("ox_openxavatest_DeliveryType__CRUD___save").asXml();
 		assertTrue(saveLinkXml.contains("<i class="));
 		assertFalse(saveLinkXml.contains("images/save.gif"));
 		
-		String saveNotResetLinkXml = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_DeliveryType__DeliveryType___saveNotReset").asXml();
+		String saveNotResetLinkXml = getHtmlPage().getHtmlElementById("ox_openxavatest_DeliveryType__DeliveryType___saveNotReset").asXml();
 		assertTrue(saveNotResetLinkXml.contains("images/save.gif"));
 		assertFalse(saveNotResetLinkXml.contains("<i class="));
 
-		String saveNotRefreshXml = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_DeliveryType__DeliveryType___saveNotRefresh").asXml();
+		String saveNotRefreshXml = getHtmlPage().getHtmlElementById("ox_openxavatest_DeliveryType__DeliveryType___saveNotRefresh").asXml();
 		assertTrue(saveNotRefreshXml.contains("<i class=")); 
 		assertFalse(saveNotRefreshXml.contains("images/save.gif"));		
 	}
 	
 	private void actionInCorrectBar() { 
-		String topBarText = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_DeliveryType__button_bar").asText();
+		String topBarText = getHtmlPage().getHtmlElementById("ox_openxavatest_DeliveryType__button_bar").asText();
 		assertTrue(topBarText.contains("Save Refresh")); 
 		assertTrue(topBarText.contains("Save not reset Save not refresh"));
 		assertFalse(topBarText.contains("Assert combo deliveries"));
 		
-		String bottomBarText = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_DeliveryType__bottom_buttons").asText();
+		String bottomBarText = getHtmlPage().getHtmlElementById("ox_openxavatest_DeliveryType__bottom_buttons").asText();
 		assertEquals("Save Assert combo deliveries", bottomBarText);		
 	}
 

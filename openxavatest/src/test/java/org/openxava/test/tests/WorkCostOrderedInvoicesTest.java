@@ -78,7 +78,7 @@ public class WorkCostOrderedInvoicesTest extends WorkCostTestBase {
 	}
 	
 	private boolean hasCutRowStyle(int row) { 
-		HtmlElement tr = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_WorkCostOrderedInvoices__invoices___" + row);
+		HtmlElement tr = getHtmlPage().getHtmlElementById("ox_openxavatest_WorkCostOrderedInvoices__invoices___" + row);
 		return tr.getAttribute("class").contains("ox-cut-row");
 	}
 	

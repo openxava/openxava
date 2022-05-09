@@ -110,7 +110,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 				
 		assertTrue(
 				getHtml().indexOf(
-					"<input name=\"ox_OpenXavaTest_Product2__color___number\" value=\"0\" type=\"radio\"") 
+					"<input name=\"ox_openxavatest_Product2__color___number\" value=\"0\" type=\"radio\"") 
 					>= 0
 		);
 		
@@ -459,19 +459,19 @@ public class Product2Test extends EmailNotificationsTestBase {
 	}
 	
 	public void testAutocompleteInDescriptionsList() throws Exception {
-		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
+		setFamilyDescription(1, "SOFTWARï¿½"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
 
 		getWebClient().getOptions().setCssEnabled(true);
 		execute("CRUD.new");
 		
-		getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Product2__reference_editor_warehouse"); // Warehouse combo must be to test the "quotes" bug
+		getHtmlPage().getHtmlElementById("ox_openxavatest_Product2__reference_editor_warehouse"); // Warehouse combo must be to test the "quotes" bug
 		
 		HtmlElement familyList = getHtmlPage().getHtmlElementById("ui-id-1");
 		assertFalse(familyList.isDisplayed());
 		assertEquals(0, familyList.getChildElementCount());
 		
-		HtmlElement familyEditor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Product2__reference_editor_family");
+		HtmlElement familyEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_Product2__reference_editor_family");
 		HtmlElement openFamilyListIcon = familyEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-down");
 		HtmlElement closeFamilyListIcon = familyEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-up");
 		assertTrue(openFamilyListIcon.isDisplayed());
@@ -498,12 +498,12 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertFalse(openFamilyListIcon.isDisplayed());
 		assertTrue(closeFamilyListIcon.isDisplayed());
 		assertEquals(2, familyList.getChildElementCount());
-		assertEquals("SOFTWARÉ", familyList.getFirstChild().asText()); 
+		assertEquals("SOFTWARï¿½", familyList.getFirstChild().asText()); 
 		assertEquals("HARDWARE", familyList.getLastChild().asText());
 		
 		((HtmlElement) familyList.getFirstChild()).click(); // SOFTWARE
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		HtmlElement subfamilyEditor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Product2__reference_editor_subfamily");
+		HtmlElement subfamilyEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_Product2__reference_editor_subfamily");
 		HtmlElement openSubfamilyListIcon = subfamilyEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-down");
 		openSubfamilyListIcon.click();
 		HtmlElement subfamilyList = getHtmlPage().getHtmlElementById("ui-id-9");
@@ -526,15 +526,15 @@ public class Product2Test extends EmailNotificationsTestBase {
 		execute("List.orderBy", "property=number");
 		assertValueInList(0, "number", "66"); 
 		assertValueInList(0, "description", "JUNIT PRODUCT");
-		assertValueInList(0, "family.description", "SOFTWARÉ"); 
+		assertValueInList(0, "family.description", "SOFTWARï¿½"); 
 		assertValueInList(0, "subfamily.description", "DESARROLLO");
 		
 		execute("List.viewDetail", "row=0");
 		assertValue("number", "66");
 		assertValue("family.number", "1");
-		assertDescriptionValue("family.number", "SOFTWARÉ"); 
+		assertDescriptionValue("family.number", "SOFTWARï¿½"); 
 		familyTextField =  getDescriptionsListTextField("family");
-		assertEquals("SOFTWARÉ", familyTextField.getAttribute("value")); 
+		assertEquals("SOFTWARï¿½", familyTextField.getAttribute("value")); 
 		assertValue("subfamily.number", "1");
 		assertDescriptionValue("subfamily.number", "DESARROLLO");
 		subfamilyTextField = getDescriptionsListTextField("subfamily");
@@ -561,10 +561,10 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertTrue(familyList.isDisplayed()); 
 		assertEquals(3, familyList.getChildElementCount());
 				
-		familyEditor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Product2__reference_editor_family");
+		familyEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_Product2__reference_editor_family");
 		openFamilyListIcon = familyEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-down");
 		closeFamilyListIcon = familyEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-up");		
-		subfamilyEditor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Product2__reference_editor_subfamily");
+		subfamilyEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_Product2__reference_editor_subfamily");
 		openSubfamilyListIcon = subfamilyEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-down");
 		closeFamilyListIcon.click();
 		openFamilyListIcon.click();
@@ -597,7 +597,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 	}
 
 	private HtmlElement getDescriptionsListTextField(String reference) {
-		HtmlElement familyEditor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Product2__reference_editor_" + reference);
+		HtmlElement familyEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_Product2__reference_editor_" + reference);
 		return  familyEditor.getOneHtmlElementByAttribute("input", "class", "xava_select editor ui-autocomplete-input");
 	}
 	

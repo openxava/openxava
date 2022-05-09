@@ -29,7 +29,7 @@ public class ColorTest extends ModuleTestBase {
 	}
 	
 	public void testSubcontroller() throws Exception {
-		String linkXml = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Color__sc-a-ColorSub_list").asXml();
+		String linkXml = getHtmlPage().getHtmlElementById("ox_openxavatest_Color__sc-a-ColorSub_list").asXml();
 		assertTrue(linkXml.contains("<i class=\"mdi mdi-run\""));
 		assertFalse(linkXml.contains("images/"));
 
@@ -40,8 +40,8 @@ public class ColorTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		assertAction("ColorSub.fourAction");
 
-		HtmlElement container = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Color__sc-container-ColorSub_detail"); 
-		HtmlElement menu = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Color__sc-ColorSub_detail"); 
+		HtmlElement container = getHtmlPage().getHtmlElementById("ox_openxavatest_Color__sc-container-ColorSub_detail"); 
+		HtmlElement menu = getHtmlPage().getHtmlElementById("ox_openxavatest_Color__sc-ColorSub_detail"); 
 		assertTrue("display:none;".equals(menu.getAttribute("style")));
 		assertTrue(container.asText().contains("My processes"));
 		assertTrue(container.asText().contains("First action from subcontroller"));
@@ -351,7 +351,7 @@ public class ColorTest extends ModuleTestBase {
 	}
 	
 	public void testIgnoreAccentsForStringArgumentsInTheFilter() throws Exception{ 
-		// create record with name 'marrón'
+		// create record with name 'marrï¿½n'
 		execute("CRUD.new");
 		setValue("name", "marr\u00f3n");
 		execute("TypicalNotResetOnSave.save");
@@ -364,7 +364,7 @@ public class ColorTest extends ModuleTestBase {
 		assertListRowCount(1); 
 		assertValueInList(0, 1, "MARR\u00d3N");
 		
-		// filter by 'marrón'
+		// filter by 'marrï¿½n'
 		setConditionValues("", "");
 		execute("List.filter");
 		assertListRowCount(10);
@@ -448,7 +448,7 @@ public class ColorTest extends ModuleTestBase {
 			"Init", "First action from subcontroller", "Second action", "Third action",	// subcontroller actions 
 			"See message selected" // another 'normal' action
 		};
-		HtmlElement element = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Color__controllerElement");
+		HtmlElement element = getHtmlPage().getHtmlElementById("ox_openxavatest_Color__controllerElement");
 		List<HtmlElement> e = element.getElementsByTagName("span"); 
 		int x = 0;
 		for (HtmlElement h : e){

@@ -129,19 +129,19 @@ public class TrainingTest extends ModuleTestBase {
 	public void testRemoveRowInElementCollection() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true); 
 		setValue("description", "JUNIT TRAINING"); 
-		HtmlElement row = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Training__sessions___0"); 
+		HtmlElement row = getHtmlPage().getHtmlElementById("ox_openxavatest_Training__sessions___0"); 
 		HtmlElement removeLink = row.getElementsByTagName("a").get(0);
 		assertTrue(!removeLink.isDisplayed());
 		setValueInCollection("sessions", 0, "description", "ONE");
 		assertTrue(removeLink.isDisplayed()); 
 		setValueInCollection("sessions", 0, "kms", "11");
-		row = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Training__sessions___1"); 
+		row = getHtmlPage().getHtmlElementById("ox_openxavatest_Training__sessions___1"); 
 		removeLink = row.getElementsByTagName("a").get(0);
 		assertTrue(!removeLink.isDisplayed());		
 		setValueInCollection("sessions", 1, "description", "TWO");
 		assertTrue(removeLink.isDisplayed());
 		setValueInCollection("sessions", 1, "kms", "12");		
-		row = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Training__sessions___2"); 
+		row = getHtmlPage().getHtmlElementById("ox_openxavatest_Training__sessions___2"); 
 		removeLink = row.getElementsByTagName("a").get(0);
 		assertTrue(!removeLink.isDisplayed());
 		setValueInCollection("sessions", 2, "description", "THREE"); 
@@ -255,13 +255,13 @@ public class TrainingTest extends ModuleTestBase {
 	}
 	
 	private void removeSessionsRow(int rowIndex) throws Exception { 
-		HtmlElement row = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Training__sessions___" + rowIndex); 
+		HtmlElement row = getHtmlPage().getHtmlElementById("ox_openxavatest_Training__sessions___" + rowIndex); 
 		HtmlElement removeIcon = row.getElementsByTagName("a").get(0).getElementsByTagName("i").get(0); 
 		removeIcon.click();		
 	}
 
 	private void assertDateEditor() throws Exception {
-		String date = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Training__editor_sessions___0___date").asXml();
+		String date = getHtmlPage().getHtmlElementById("ox_openxavatest_Training__editor_sessions___0___date").asXml();
 		assertTrue(date.contains("xava_date"));
 		assertTrue(date.contains("mdi-calendar"));
 	}

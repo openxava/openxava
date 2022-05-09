@@ -25,7 +25,7 @@ public class CustomerSellerAsDescriptionsListShowingReferenceViewTest extends Mo
 		assertNoEditable("seller.number");
 		assertNoEditable("seller.name");
 		assertNoEditable("seller.level");
-		HtmlElement sellerEditor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_CustomerSellerAsDescriptionsListShowingReferenceView__reference_editor_seller");
+		HtmlElement sellerEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_CustomerSellerAsDescriptionsListShowingReferenceView__reference_editor_seller");
 		HtmlElement openSellerListIcon = sellerEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-down");
 		openSellerListIcon.click();
 		/* This way (using click()) does not work with HtmlUnit 2.32
@@ -34,9 +34,9 @@ public class CustomerSellerAsDescriptionsListShowingReferenceViewTest extends Mo
 		assertEquals("JUANVI LLAVADOR", menuItem.asText());
 		menuItem.click();
 		*/
-		getHtmlPage().executeJavaScript("$('input[name=ox_OpenXavaTest_CustomerSellerAsDescriptionsListShowingReferenceView__seller___number__CONTROL__]').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:2, label:'JUANVI LLAVADOR'}});"); 
+		getHtmlPage().executeJavaScript("$('input[name=ox_openxavatest_CustomerSellerAsDescriptionsListShowingReferenceView__seller___number__CONTROL__]').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:2, label:'JUANVI LLAVADOR'}});"); 
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		Collection sellerNumberEditors = getHtmlPage().getElementsByName("ox_OpenXavaTest_CustomerSellerAsDescriptionsListShowingReferenceView__seller___number");
+		Collection sellerNumberEditors = getHtmlPage().getElementsByName("ox_openxavatest_CustomerSellerAsDescriptionsListShowingReferenceView__seller___number");
 		HtmlTextInput sellerNumberTextInput = null; 
 		for (Object editor: sellerNumberEditors) {
 			if (editor instanceof HtmlTextInput) {

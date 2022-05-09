@@ -13,7 +13,7 @@ public class ProjectTaskTest extends ModuleTestBase {
 	}
 	
 	public void testGeneratePDFWithEnumIcon() throws Exception {
-		String row0 = getHtmlPage().getElementById("ox_OpenXavaTest_ProjectTask__0").asXml();
+		String row0 = getHtmlPage().getElementById("ox_openxavatest_ProjectTask__0").asXml();
 		assertTrue(row0.contains("<i class=\"mdi mdi-transfer-down\" title=\"LOW\">")); // Icon in the list 
 		execute("Print.generatePdf"); 		
 		assertContentTypeForPopup("application/pdf");

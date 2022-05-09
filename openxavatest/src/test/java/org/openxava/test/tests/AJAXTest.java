@@ -125,7 +125,7 @@ public class AJAXTest extends ModuleTestBase {
 			"editor_details.1.product.description," +
 			"errors, messages");
 		
-		HtmlElement row = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Quote__details___1"); 
+		HtmlElement row = getHtmlPage().getHtmlElementById("ox_openxavatest_Quote__details___1"); 
 		HtmlElement removeIcon = row.getElementsByTagName("a").get(0).getElementsByTagName("i").get(0); 
 		removeIcon.click();		
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
@@ -159,7 +159,7 @@ public class AJAXTest extends ModuleTestBase {
 		changeModule("Reallocation");
 		execute("List.viewDetail", "row=0");
 		assertLoadedParts("core");
-		HtmlElement row = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Reallocation__details___1"); 
+		HtmlElement row = getHtmlPage().getHtmlElementById("ox_openxavatest_Reallocation__details___1"); 
 		HtmlElement removeIcon = row.getElementsByTagName("a").get(0).getElementsByTagName("i").get(0); 
 		removeIcon.click();		
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
@@ -181,9 +181,9 @@ public class AJAXTest extends ModuleTestBase {
 	public void testNotDuplicateDivOnLoadCollection() throws Exception { 
 		changeModule("Seller");
 		execute("List.viewDetail", "row=0");
-		assertEquals(1, StringUtils.countMatches(getHtml(), "ox_OpenXavaTest_Seller__collection_customers___"));
+		assertEquals(1, StringUtils.countMatches(getHtml(), "ox_openxavatest_Seller__collection_customers___"));
 		execute("List.filter", "collection=customers");
-		assertEquals(2, StringUtils.countMatches(getHtml(), "ox_OpenXavaTest_Seller__collection_customers___")); 
+		assertEquals(2, StringUtils.countMatches(getHtml(), "ox_openxavatest_Seller__collection_customers___")); 
 	}
 	
 	public void testOnSelectElementNotReloadCollection() throws Exception { 
@@ -200,7 +200,7 @@ public class AJAXTest extends ModuleTestBase {
 	public void testDescriptionsListWithShowReferenceView() throws Exception { 
 		changeModule("CustomerSellerAsDescriptionsListShowingReferenceView");
 		execute("List.viewDetail", "row=0");
-		HtmlElement sellerEditor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_CustomerSellerAsDescriptionsListShowingReferenceView__reference_editor_seller");
+		HtmlElement sellerEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_CustomerSellerAsDescriptionsListShowingReferenceView__reference_editor_seller");
 		HtmlElement openSellerListIcon = sellerEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-down");
 		openSellerListIcon.click();
 		/* This way (using click()) does not work with HtmlUnit 2.32  
@@ -210,7 +210,7 @@ public class AJAXTest extends ModuleTestBase {
 		menuItem.click();
 		*/
 		
-		getHtmlPage().executeJavaScript("$('input[name=ox_OpenXavaTest_CustomerSellerAsDescriptionsListShowingReferenceView__seller___number__CONTROL__]').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:2, label:'JUANVI LLAVADOR'}});");
+		getHtmlPage().executeJavaScript("$('input[name=ox_openxavatest_CustomerSellerAsDescriptionsListShowingReferenceView__seller___number__CONTROL__]').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:2, label:'JUANVI LLAVADOR'}});");
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 
 		// We could optimize to exclude reference_editor_seller below. However, if we would optimize the combo of descriptions list
@@ -336,7 +336,7 @@ public class AJAXTest extends ModuleTestBase {
 	public void testAlwaysReloadEditor() throws Exception { 
 		changeModule("Warehouse");
 		execute("CRUD.new");
-		HtmlElement el = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Warehouse__editor_time"); 
+		HtmlElement el = getHtmlPage().getHtmlElementById("ox_openxavatest_Warehouse__editor_time"); 
 		String time = el.asText().trim();		
 		execute("CRUD.new");
 		String otherTime = el.asText().trim();		
@@ -759,19 +759,19 @@ public class AJAXTest extends ModuleTestBase {
 		changeModule("InvoiceDetailsWithTotals");
 		execute("List.viewDetail", "row=0");
 		setValue("vatPercentage", "17");
-		assertLoadedParts("ox_OpenXavaTest_InvoiceDetailsWithTotals__messages, "
-			+ "ox_OpenXavaTest_InvoiceDetailsWithTotals__errors, "
-			+ "ox_OpenXavaTest_InvoiceDetailsWithTotals__editor_vatPercentage, "
-			+ "ox_OpenXavaTest_InvoiceDetailsWithTotals__collection_details___, " // Regular collection are loaded completely, a thing to improve 
-			+ "ox_OpenXavaTest_InvoiceDetailsWithTotals__collection_total_2_4_calculatedDetails___, "
-			+ "ox_OpenXavaTest_InvoiceDetailsWithTotals__frame_detailsheader, "
-			+ "ox_OpenXavaTest_InvoiceDetailsWithTotals__collection_total_1_4_calculatedDetails___,");
+		assertLoadedParts("ox_openxavatest_InvoiceDetailsWithTotals__messages, "
+			+ "ox_openxavatest_InvoiceDetailsWithTotals__errors, "
+			+ "ox_openxavatest_InvoiceDetailsWithTotals__editor_vatPercentage, "
+			+ "ox_openxavatest_InvoiceDetailsWithTotals__collection_details___, " // Regular collection are loaded completely, a thing to improve 
+			+ "ox_openxavatest_InvoiceDetailsWithTotals__collection_total_2_4_calculatedDetails___, "
+			+ "ox_openxavatest_InvoiceDetailsWithTotals__frame_detailsheader, "
+			+ "ox_openxavatest_InvoiceDetailsWithTotals__collection_total_1_4_calculatedDetails___,");
 	}
 	
 	public void testCollectionCountInSectionLabel() throws Exception { 
 		changeModule("InvoiceCalculatedDetailsInSection");
 		execute("List.viewDetail", "row=0");
-		assertLoadedParts("ox_OpenXavaTest_InvoiceCalculatedDetailsInSection__core"); 
+		assertLoadedParts("ox_openxavatest_InvoiceCalculatedDetailsInSection__core"); 
 		execute("Customer.changeNameLabel");
 		assertLoadedParts("messages, errors");
 		execute("Sections.change", "activeSection=1");
@@ -843,7 +843,7 @@ public class AJAXTest extends ModuleTestBase {
 		assertErrorsCount(4);
 		assertLoadedParts("errors, messages, reference_editor_subfamily");
 		HtmlPage page = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();
-		HtmlSpan description = (HtmlSpan) page.getElementById("ox_OpenXavaTest_Product2__editor_description");
+		HtmlSpan description = (HtmlSpan) page.getElementById("ox_openxavatest_Product2__editor_description");
 		assertTrue("description has no error style", description.getAttribute("class").contains("ox-error-editor")); 
 		
 		setValue("description", "z");
@@ -854,10 +854,10 @@ public class AJAXTest extends ModuleTestBase {
 				"messages");
 		assertFalse("description has error style", description.getAttribute("class").contains("ox-error-editor")); 
 		
-		HtmlSpan number = (HtmlSpan) page.getElementById("ox_OpenXavaTest_Product2__editor_number");
+		HtmlSpan number = (HtmlSpan) page.getElementById("ox_openxavatest_Product2__editor_number");
 		assertTrue("number has no error style", number.getAttribute("class").contains("ox-error-editor"));
 		
-		HtmlSpan subfamily = (HtmlSpan) page.getElementById("ox_OpenXavaTest_Product2__reference_editor_subfamily");
+		HtmlSpan subfamily = (HtmlSpan) page.getElementById("ox_openxavatest_Product2__reference_editor_subfamily");
 		assertTrue("subfamily has no error style", subfamily.getAttribute("class").contains("ox-error-editor"));
 		
 		execute("CRUD.new");

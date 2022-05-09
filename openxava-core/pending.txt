@@ -14,14 +14,16 @@ MAVEN
 * Crear Studio 7m1 para Linux. Instalarlo.
 * CSS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/style")
 * Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
-TMR ME QUEDÉ PARA EMPEZAR EL SIGUIENTE PUNTO
-- Estudio usa Primary Colors, en lugar de Pastel, en Windows 7. Probar Windows 10 y 11.
-- Pasar openxavatest suite completa con Java 8: 
+* Colores de iconos en Windows 10.
+- Colores de iconos en Windows 7.
+- Colores de iconos en Windows 11.
+- Pasar openxavatest suite completa con Java 8:
+	TMR ME QUEDÉ PROBANDO UserWithNicknameTest 
 - Quitar OpenXavaTest6
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Mezclar en master.
 - No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
-- ¿Dividir resources en subcarpetas? ¿Mover algunos a la parte de test? Adaptar invoicedemo y openxavatest. Adaptar archetype.
+- ¿Dividir resources en subcarpetas? ¿Mover algunos a la parte de test? Adaptar invoicedemo y openxavatest. Adaptar archetype. Revisar doc de migration
 - Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.
 - Pasar OpenXavaTest suite completa con Java 11
 - Pasar prueba manuales.
@@ -33,6 +35,7 @@ TMR ME QUEDÉ PARA EMPEZAR EL SIGUIENTE PUNTO
 	- ¿Incluir algo más? Revisar doc.
 	- Poner temp en .ignore
 - Arquetipo en español.
+- Probar que en proyecto nuevo funciona IMAGES_GALLERY (para comprobar configuración de Hibernate).
 - Modificar doc sobre como añadir servlets, filter y listeners propios: Anotaciones y web fragments.
 - Probar con WTP. Si no funciona poner que ya no se soporta en changelog. Si no funciona quitar parte WTP de context.xml
 - Probar con Tomcat 8 y 9 externos.

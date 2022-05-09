@@ -41,7 +41,7 @@ public class Invoice4Test extends ModuleTestBase {
 		
 		setConditionComparators("", "", "range_comparator");
 		setConditionValues("", "", "1/1/2005");
-		HtmlTextInput dateTo = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Invoice4__conditionValueTo___2");
+		HtmlTextInput dateTo = getHtmlPage().getHtmlElementById("ox_openxavatest _Invoice4__conditionValueTo___2");
 		dateTo.type("1/1/2010");
 		dateTo.type('\r');
 		waitAJAX();

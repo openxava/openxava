@@ -55,9 +55,9 @@ public class InvoiceNoSectionsTest extends ModuleTestBase {
 		execute("Collection.save");
 		assertError("Value for Quantity in Invoice detail is required");
 		assertError("Value for product in Invoice detail is required");
-		HtmlElement quantity = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceNoSections__editor_quantity");
+		HtmlElement quantity = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceNoSections__editor_quantity");
 		assertTrue("quantity has no error style", quantity.getAttribute("class").contains("ox-error-editor"));
-		HtmlElement product = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceNoSections__editor_product___number");
+		HtmlElement product = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceNoSections__editor_product___number");
 		assertTrue("product has no error style", product.getAttribute("class").contains("ox-error-editor"));
 	}
 	

@@ -28,8 +28,8 @@ public class ColorinColoradoTest extends ModuleTestBase {
 			"Reference.modify"
 		};
 		assertActions(actions);
-		HtmlElement buttonBar = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_ColorinColorado__button_bar");
-		assertEquals(1, buttonBar.getElementsByAttribute("a", "id", "ox_OpenXavaTest_ColorinColorado__ColorinColorado___fillName").size()); 
+		HtmlElement buttonBar = getHtmlPage().getHtmlElementById("ox_openxavatest_ColorinColorado__button_bar");
+		assertEquals(1, buttonBar.getElementsByAttribute("a", "id", "ox_openxavatest_ColorinColorado__ColorinColorado___fillName").size()); 
 	}
 	
 }

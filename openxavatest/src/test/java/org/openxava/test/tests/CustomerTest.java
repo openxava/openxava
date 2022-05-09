@@ -62,7 +62,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		execute("List.filter");
 		assertListRowCount(3);
 		
-		HtmlElement c = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_" + moduleName + "__xava_clear_condition");  
+		HtmlElement c = getHtmlPage().getHtmlElementById("ox_openxavatest_" + moduleName + "__xava_clear_condition");  
 		c.click();
 		waitAJAX();
 		assertListRowCount(5);

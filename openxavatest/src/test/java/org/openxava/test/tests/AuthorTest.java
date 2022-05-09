@@ -44,35 +44,35 @@ public class AuthorTest extends CustomizeListTestBase {
 		
 		assertListRowCount(2);
 		
-		HtmlSelect comparator = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0");
+		HtmlSelect comparator = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionComparator___0");
 		assertFalse(comparator.isDisplayed());
-		HtmlInput value = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0");
+		HtmlInput value = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionValue___0");
 		value.focus();
 		assertTrue(comparator.isDisplayed());
 		
 		comparator.setSelectedAttribute("starts_comparator", true);
 		waitAJAX();
-		comparator = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0");
+		comparator = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionComparator___0");
 		assertTrue(comparator.isDisplayed()); // Still displayed because it has not run the query, given the value is blank
 		assertListRowCount(2);
 		
-		value = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0");
+		value = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionValue___0");
 		value.focus();
 		value.setValueAttribute("javi");
 		comparator.setSelectedAttribute("contains_comparator", true);
 		waitAJAX();
 		assertListRowCount(1);
 		
-		comparator = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0");
-		value = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0");
+		comparator = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionComparator___0");
+		value = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionValue___0");
 		value.focus();
 		value.setValueAttribute("");
 		comparator.setSelectedAttribute("empty_comparator", true);
 		waitAJAX();
 		assertListRowCount(0);
 		
-		comparator = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionComparator___0");
-		value = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__conditionValue___0");
+		comparator = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionComparator___0");
+		value = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionValue___0");
 		assertFalse(value.isDisplayed());
 		assertEquals("", value.getValueAttribute());
 		comparator.setSelectedAttribute("not_empty_comparator", true);
@@ -81,30 +81,30 @@ public class AuthorTest extends CustomizeListTestBase {
 		
 		execute("CRUD.new");		
 		assertCollectionFilterNotDisplayed();
-		getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__show_filter_humans").click();
+		getHtmlPage().getHtmlElementById("ox_openxavatest_Author__show_filter_humans").click();
 		assertCollectionFilterDisplayed();
 		
 		execute("MyGoListMode.list");  
 		execute("List.viewDetail", "row=1");
 		assertCollectionFilterNotDisplayed();
-		getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__show_filter_humans").click();
+		getHtmlPage().getHtmlElementById("ox_openxavatest_Author__show_filter_humans").click();
 		assertCollectionFilterDisplayed();
 		
 		execute("CRUD.new");
 		assertCollectionFilterNotDisplayed();
-		getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__show_filter_humans").click();
+		getHtmlPage().getHtmlElementById("ox_openxavatest_Author__show_filter_humans").click();
 		assertCollectionFilterDisplayed();
-		getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__hide_filter_humans").click();
+		getHtmlPage().getHtmlElementById("ox_openxavatest_Author__hide_filter_humans").click();
 		Thread.sleep(1000);
 		assertCollectionFilterNotDisplayed();
 	}
 	
 	private void assertCollectionFilterDisplayed() { 
-		assertTrue(getHtmlPage().getElementById("ox_OpenXavaTest_Author__xava_collectionTab_humans_conditionValue___0").isDisplayed());
+		assertTrue(getHtmlPage().getElementById("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0").isDisplayed());
 	}
 	
 	private void assertCollectionFilterNotDisplayed() { 
-		assertFalse(getHtmlPage().getElementById("ox_OpenXavaTest_Author__xava_collectionTab_humans_conditionValue___0").isDisplayed());
+		assertFalse(getHtmlPage().getElementById("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0").isDisplayed());
 	}
 	
 	public void testModuleFromMenuReinitModule() throws Exception { 
@@ -146,9 +146,9 @@ public class AuthorTest extends CustomizeListTestBase {
 		
 		// Placeholder
 		execute("CRUD.new");
-		String inputPlaceholder = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__author").getAttribute("placeholder");
+		String inputPlaceholder = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__author").getAttribute("placeholder");
 		assertTrue("Author full name".equals(inputPlaceholder));
-		String textareaPlaceholder = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Author__biography").getAttribute("placeholder");
+		String textareaPlaceholder = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__biography").getAttribute("placeholder");
 		assertTrue("Put here the biography of the author".equals(textareaPlaceholder));
 	}
 

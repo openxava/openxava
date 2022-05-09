@@ -434,7 +434,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	private void assertIconsInViewAction() { 
-		String actionsXml = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_CustomerWithSection__property_actions_seller___number").asXml();
+		String actionsXml = getHtmlPage().getHtmlElementById("ox_openxavatest_CustomerWithSection__property_actions_seller___number").asXml();
 		assertTrue(actionsXml.contains("<i class=\"mdi mdi-magnify"));
 		assertTrue(actionsXml.contains("<i class=\"mdi mdi-library-plus"));
 		assertFalse(actionsXml.contains("images/"));		
@@ -532,7 +532,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInList(0, "seller.name", "MANUEL CHAVARRI");
 		assertValueInList(1, "name", "Juanillo");
 		assertValueInList(1, "seller.name", "MANUEL CHAVARRI");
-		HtmlSelect comboSeller = getHtmlPage().getElementByName("ox_OpenXavaTest_CustomerWithSection__conditionValue___2");
+		HtmlSelect comboSeller = getHtmlPage().getElementByName("ox_openxavatest_CustomerWithSection__conditionValue___2");
 		String selectedValue = comboSeller.getSelectedOptions().get(0).getValueAttribute();
 		assertEquals("1:_:MANUEL CHAVARRI", selectedValue);
 
@@ -840,7 +840,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValue("name", "Javi");
 		confirmHandler.assertNoMessage();
 		setValue("email", "jose@mycompany.com");
-		getHtmlPage().executeJavaScript("$('#ox_OpenXavaTest_CustomerWithSection__name').change();");
+		getHtmlPage().executeJavaScript("$('#ox_openxavatest_CustomerWithSection__name').change();");
 		confirmHandler.assertNoMessage();
 		execute("CRUD.new");
 		confirmHandler.assertMessage();
@@ -863,7 +863,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValue("name", "Javi");
 		confirmHandler.assertNoMessage();
 		setValue("address.state.id", "CA");
-		getHtmlPage().executeJavaScript("$('#ox_OpenXavaTest_CustomerWithSection__reference_editor_address___state .ox-descriptions-list').change();");
+		getHtmlPage().executeJavaScript("$('#ox_openxavatest_CustomerWithSection__reference_editor_address___state .ox-descriptions-list').change();");
 		confirmHandler.assertNoMessage();
 		execute("CRUD.new");
 		confirmHandler.assertMessage();

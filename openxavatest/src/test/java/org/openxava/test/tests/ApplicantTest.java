@@ -83,7 +83,7 @@ public class ApplicantTest extends ModuleTestBase {
 	}
 		
 	private void assertActionsCount(String action, int expectedCount) { 
-		String inputName = "ox_OpenXavaTest_Applicant__action___" + action.replace(".", "___"); 
+		String inputName = "ox_openxavatest_Applicant__action___" + action.replace(".", "___"); 
 		assertEquals(expectedCount, getHtmlPage().getElementsByName(inputName).size());		
 	}
 

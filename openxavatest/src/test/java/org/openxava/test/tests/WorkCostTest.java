@@ -16,7 +16,7 @@ public class WorkCostTest extends WorkCostTestBase {
 	public void testCalculationInCollection() throws Exception {  
 		execute("CRUD.new"); 
 		setValue("description", "SOMETHING"); 
-		assertEquals(1, getHtmlPage().getElementsByName("ox_OpenXavaTest_WorkCost__profitPercentage").size()); 
+		assertEquals(1, getHtmlPage().getElementsByName("ox_openxavatest_WorkCost__profitPercentage").size()); 
 		execute("Collection.new", "viewObject=xava_view_invoices");
 		
 		assertValue("vatPercentage", "16");

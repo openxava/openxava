@@ -77,13 +77,13 @@ public class ToDoListTest extends ModuleTestBase {
 	public void testENTERForFilteringInListAndCollections() throws Exception { 
 		assertListRowCount(1);
 		assertValueInList(0, 0, "THE TO DO LIST");
-		HtmlTextInput filterListText = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_ToDoList__conditionValue___0");
+		HtmlTextInput filterListText = getHtmlPage().getHtmlElementById("ox_openxavatest_ToDoList__conditionValue___0");
 		filterListText.type("LISTA");
 		filterListText.type('\r');
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);	
 		assertListRowCount(0);
 		assertNoErrors(); 
-		filterListText = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_ToDoList__conditionValue___0");
+		filterListText = getHtmlPage().getHtmlElementById("ox_openxavatest_ToDoList__conditionValue___0");
 		filterListText.setText("LIST");
 		assertEquals("LIST", filterListText.getAttribute("value"));
 		filterListText.type('\r');
@@ -100,7 +100,7 @@ public class ToDoListTest extends ModuleTestBase {
 		assertValueInCollection("components", 0, 0, "COMPONENT 1");
 		assertValueInCollection("components", 1, 0, "COMPONENT 2");
 		
-		HtmlElement filterTasksText = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_ToDoList__xava_collectionTab_tasks_conditionValue___0");
+		HtmlElement filterTasksText = getHtmlPage().getHtmlElementById("ox_openxavatest_ToDoList__xava_collectionTab_tasks_conditionValue___0");
 		filterTasksText.type("2");
 		filterTasksText.type('\r');
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
@@ -111,7 +111,7 @@ public class ToDoListTest extends ModuleTestBase {
 		assertValueInCollection("components", 0, 0, "COMPONENT 1");
 		assertValueInCollection("components", 1, 0, "COMPONENT 2");
 		
-		HtmlElement filterCompomentsText = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_ToDoList__xava_collectionTab_components_conditionValue___0");
+		HtmlElement filterCompomentsText = getHtmlPage().getHtmlElementById("ox_openxavatest_ToDoList__xava_collectionTab_components_conditionValue___0");
 		filterCompomentsText.type("1");
 		filterCompomentsText.type('\r');
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);

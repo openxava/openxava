@@ -107,7 +107,7 @@ public class ProductExpensesTest extends ModuleTestBase {
 	
 	public void testChoosingInADescriptionsListComboAddsLineInAnElementCollection() throws Exception {   
 		execute("CRUD.new");
-		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_ProductExpenses__reference_editor_expenses___0___invoice");
+		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_openxavatest_ProductExpenses__reference_editor_expenses___0___invoice");
 		HtmlElement handler = editor.getElementsByTagName("i").get(0);
 		assertCollectionRowCount("expenses", 0); 
 		handler.click();

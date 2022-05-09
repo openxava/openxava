@@ -79,7 +79,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00", true); 
 		
 		// Calling to a collection action does not show the header
-		HtmlElement header = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceDetailsWithTotals__frame_detailsheader"); 
+		HtmlElement header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_detailsheader"); 
 		assertEquals("", header.asText());
 		execute("List.filter", "collection=details");
 		assertEquals("", header.asText());
@@ -92,7 +92,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		execute("CRUD.refresh"); 
 		assertTotalInCollection("details", 2, "amount", "1,403.02"); 
 		hideCollection("details");
-		HtmlElement header = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceDetailsWithTotals__frame_detailsheader"); 
+		HtmlElement header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_detailsheader"); 
 		assertTrue(header.asText().endsWith("1,403.02"));  
 		showCollection("details");
 		execute("List.orderBy", "property=quantity,collection=details"); 
@@ -101,7 +101,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		execute("Collection.save");		
 		assertTotalInCollection("details", 2, "amount", "1,390.04"); 
 		hideCollection("details");
-		header = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceDetailsWithTotals__frame_detailsheader"); 
+		header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_detailsheader"); 
 		assertTrue("Unexpected end: " + header.asText(),  header.asText().endsWith("1,390.04"));
 		showCollection("details");
 		execute("Collection.edit", "row=2,viewObject=xava_view_details"); 
@@ -109,22 +109,22 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		execute("Collection.save");
 		assertTotalInCollection("details", 2, "amount", "1,403.02");
 		hideCollection("details");
-		header = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceDetailsWithTotals__frame_detailsheader"); 
+		header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_detailsheader"); 
 		assertTrue("Unexpected end: " + header.asText(),  header.asText().endsWith("1,403.02"));
 		execute("Navigation.previous");
-		header = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceDetailsWithTotals__frame_detailsheader"); 
+		header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_detailsheader"); 
 		assertTrue("Unexpected end: " + header.asText(), !header.asText().endsWith("1,403.02"));
 		showCollection("details");
 	}	
 	
 	private void assertTotalsInFrameOfCollection(String collection, String totals, boolean addAction) throws Exception {
 		getWebClient().getOptions().setCssEnabled(true); 
-		HtmlElement header = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceDetailsWithTotals__frame_" + collection + "header"); 
+		HtmlElement header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_" + collection + "header"); 
 		assertEquals("", header.asText());
 		hideCollection(collection); 
 		assertEquals(totals, header.asText());		
 		reload(); 
-		header = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceDetailsWithTotals__frame_" + collection + "header"); 
+		header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_" + collection + "header"); 
 		assertEquals(totals, header.asText());
 		if (addAction) assertTrue(header.asXml().contains("executeAction('OpenXavaTest', 'InvoiceDetailsWithTotals', '', false, 'Collection.new', 'viewObject=xava_view_" + collection));
 		else assertTrue(!header.asXml().contains("executeAction('OpenXavaTest', 'InvoiceDetailsWithTotals', '', false, 'Collection.new', 'viewObject=xava_view_" + collection));
@@ -140,7 +140,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 	}
 	
 	private void clickOn(String collection, String button) throws Exception { 
-		HtmlElement link = (HtmlElement) getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceDetailsWithTotals__frame_" + collection + button).getChildElements().iterator().next(); 
+		HtmlElement link = (HtmlElement) getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_" + collection + button).getChildElements().iterator().next(); 
 		link.click();				
 		waitAJAX(); 
 	}

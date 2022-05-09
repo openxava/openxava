@@ -412,8 +412,8 @@ public class SellerTest extends CustomizeListTestBase {
 	
 	private boolean hasCutRowStyle(int row) { 
 		String prefix = getModuleURL().contains("/SellerCannotCreateCustomer")?
-			"ox_OpenXavaTest_SellerCannotCreateCustomer__xava_collectionTab_customers_":
-			"ox_OpenXavaTest_Seller__xava_collectionTab_customers_";
+			"ox_openxavatest_SellerCannotCreateCustomer__xava_collectionTab_customers_":
+			"ox_openxavatest_Seller__xava_collectionTab_customers_";
 		HtmlElement tr = getHtmlPage().getHtmlElementById(prefix + row);
 		return tr.getAttribute("class").contains("ox-cut-row");
 	}
@@ -719,7 +719,7 @@ public class SellerTest extends CustomizeListTestBase {
 	public void testOpenFirstDescriptionsListInADialogWithOnChangeNotThrowEvent() throws Exception { 
 		execute("ShowSellerDialog.showSellerDialog");
 		assertNoMessages();
-		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Seller__reference_editor_level"); 
+		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_openxavatest_Seller__reference_editor_level"); 
 		HtmlElement handler = editor.getElementsByTagName("i").get(0);
 		handler.click();
 		waitAJAX();

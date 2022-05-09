@@ -23,7 +23,7 @@ abstract public class MovieBaseTest extends EmailNotificationsTestBase {
 	public void testAddFilesInNewEntity() throws Exception { 
 		execute("CRUD.new");
 		setValue("title", "MATRIX");
-		uploadFile("scripts", "reports/Corporation.html");
+		uploadFile("scripts", "src/main/resources/Corporation.html"); 
 		saveAndReloadMovie("MATRIX");
 		assertFilesCount("scripts", 1);
 		assertFile("scripts", 0, "text/html");
@@ -35,7 +35,7 @@ abstract public class MovieBaseTest extends EmailNotificationsTestBase {
 	protected void addFile() throws Exception {
 		execute("CRUD.new");
 		setValue("title", "JUNIT");
-		uploadFile("trailer", "reports/Corporation.html"); 
+		uploadFile("trailer", "src/main/resources/Corporation.html"); 
 		saveAndReloadMovie("JUNIT");
 	}
 	

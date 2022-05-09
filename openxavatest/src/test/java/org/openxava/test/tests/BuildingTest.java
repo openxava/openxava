@@ -1,6 +1,7 @@
 package org.openxava.test.tests;
 
-import org.openxava.tests.ModuleTestBase;
+import org.openxava.tests.*;
+
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 
@@ -37,14 +38,14 @@ public class BuildingTest extends ModuleTestBase {
 		
 		execute("List.viewDetail", "row=0");
 		execute("Building.save");
-		HtmlElement addressStreet = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Building__editor_address___street");
+		HtmlElement addressStreet = getHtmlPage().getHtmlElementById("ox_openxavatest_Building__editor_address___street");
 		assertFalse(addressStreet.getAttribute("class").contains("ox-error-editor"));
-		HtmlElement addressState = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Building__reference_editor_address___state");
+		HtmlElement addressState = getHtmlPage().getHtmlElementById("ox_openxavatest_Building__reference_editor_address___state");
 		assertFalse(addressState.getAttribute("class").contains("ox-error-editor"));
 		
-		HtmlElement mailingAddressStreet = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Building__editor_mailingAddress___street");
+		HtmlElement mailingAddressStreet = getHtmlPage().getHtmlElementById("ox_openxavatest_Building__editor_mailingAddress___street");
 		assertTrue(mailingAddressStreet.getAttribute("class").contains("ox-error-editor"));		
-		HtmlElement mailingAddressState = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Building__reference_editor_mailingAddress___state");
+		HtmlElement mailingAddressState = getHtmlPage().getHtmlElementById("ox_openxavatest_Building__reference_editor_mailingAddress___state");
 		assertTrue(mailingAddressState.getAttribute("class").contains("ox-error-editor"));
 		
 		assertErrorsCount(4);

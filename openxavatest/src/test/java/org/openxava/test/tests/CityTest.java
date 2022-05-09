@@ -110,17 +110,17 @@ public class CityTest extends ModuleTestBase{
 	}
 
 	private void fireLocationChanged() { 
-		HtmlElement input = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_City__location");
+		HtmlElement input = getHtmlPage().getHtmlElementById("ox_openxavatest_City__location");
 		input.fireEvent(Event.TYPE_CHANGE);
 	}
 
 	private void assertLocationMarkedAsError() throws Exception { 
-		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_City__editor_location");
+		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_openxavatest_City__editor_location");
 		assertTrue("Location not marked as error", editor.getAttribute("class").contains("ox-error-editor"));	
 	}
 	
 	private void assertLocationNotMarkedAsError() throws Exception { 
-		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_City__editor_location");
+		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_openxavatest_City__editor_location");
 		assertFalse("Location marked as error", editor.getAttribute("class").contains("ox-error-editor"));	
 	}
 		

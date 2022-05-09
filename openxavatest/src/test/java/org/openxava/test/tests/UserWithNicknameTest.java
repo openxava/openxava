@@ -59,7 +59,7 @@ public class UserWithNicknameTest extends ModuleTestBase {
 		setValue("name", "ANATOLY KARPOV");
 		setValue("nickname.nickname", "POSITIONAL GAMER II");
 		execute("CRUD.save");
-		assertMessage("User with nickname created successfully");
+		assertMessage("User with nickname created successfully"); // TMR FALLA. ME QUEDÉ POR AQUÍ 
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		attachFiles(); 		
@@ -138,7 +138,7 @@ public class UserWithNicknameTest extends ModuleTestBase {
 		assertValue("name", "ANATOLY KARPOV");				
 		assertFile("attachments.photo"); 
 		
-		uploadFile("attachments.documents", "reports/Corporation.html"); 
+		uploadFile("attachments.documents", "src/main/resources/Corporation.html"); 
 		reload();
 		assertFile("attachments.documents", 0, "text/html");
 	}

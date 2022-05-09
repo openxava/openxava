@@ -50,14 +50,14 @@ public class ArtistTest extends ModuleTestBase {
 	}
 	
 	private void assertEditorForAnnotation(String property, String color) { 
-		String editorHTML = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Artist__editor_" + property).asXml();
+		String editorHTML = getHtmlPage().getHtmlElementById("ox_openxavatest_Artist__editor_" + property).asXml();
 		assertTrue(editorHTML.contains("color: " + color + ";"));
 		assertTrue(editorHTML.contains("background: yellow;"));
 		assertTrue(editorHTML.contains("class=\"ox-colorful-" + color + "\""));
 	}
 
 	private void assertErrorStyle() throws Exception {
-		HtmlSpan age = (HtmlSpan) getHtmlPage().getElementById("ox_OpenXavaTest_Artist__editor_age");
+		HtmlSpan age = (HtmlSpan) getHtmlPage().getElementById("ox_openxavatest_Artist__editor_age");
 		assertTrue("age has no error style", age.getAttribute("class").contains("ox-error-editor")); 
 
 	}

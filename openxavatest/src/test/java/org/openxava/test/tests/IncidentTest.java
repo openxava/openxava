@@ -43,7 +43,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		
 		assertValue("title", "");
 		assertValue("description", "");
-		HtmlElement discussion = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Incident__editor_discussion"); 
+		HtmlElement discussion = getHtmlPage().getHtmlElementById("ox_openxavatest_Incident__editor_discussion"); 
 		HtmlElement textarea = discussion.getElementsByTagName("textarea").get(0); 
 		assertEquals("", textarea.getTextContent());
 		
@@ -75,7 +75,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		assertEquals(1, discussion.getElementsByTagName("textarea").size());
 		assertEquals(2, discussion.getElementsByAttribute("input", "type", "button").size());	
 		execute("Incident.disableDiscussion");
-		discussion = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Incident__editor_discussion");
+		discussion = getHtmlPage().getHtmlElementById("ox_openxavatest_Incident__editor_discussion");
 		assertEquals(0, discussion.getElementsByTagName("textarea").size());
 		assertEquals(0, discussion.getElementsByAttribute("input", "type", "button").size());
 		

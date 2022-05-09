@@ -24,7 +24,7 @@ public class DeliveryFullInvoiceTest extends ModuleTestBase {
 		assertContentTypeForPopup("application/pdf");
 		
 		assertCollectionRowCount("invoice.details", 2);
-		HtmlElement filterText = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_DeliveryFullInvoice__xava_collectionTab_invoice_details_conditionValue___1");
+		HtmlElement filterText = getHtmlPage().getHtmlElementById("ox_openxavatest_DeliveryFullInvoice__xava_collectionTab_invoice_details_conditionValue___1");
 		filterText.type("IBM");
 		filterText.type('\r');
 		waitAJAX();

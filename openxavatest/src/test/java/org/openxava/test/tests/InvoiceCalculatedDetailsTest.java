@@ -58,7 +58,7 @@ public class InvoiceCalculatedDetailsTest extends CustomizeListTestBase {
 		
 		assertTotalInCollection("calculatedDetails", 1, ""); 
 		hideCollection();
-		HtmlElement header = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceCalculatedDetails__frame_calculatedDetailsheader");
+		HtmlElement header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceCalculatedDetails__frame_calculatedDetailsheader");
 		assertEquals("(2)    Sum of Unit price: 31.00    Sum of Quantity: 8", header.asText());
 	}
 
@@ -77,7 +77,7 @@ public class InvoiceCalculatedDetailsTest extends CustomizeListTestBase {
 	}		
 	
 	private void hideCollection() throws Exception {  
-		HtmlElement link = (HtmlElement) getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceCalculatedDetails__frame_calculatedDetailshide").getChildElements().iterator().next(); 
+		HtmlElement link = (HtmlElement) getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceCalculatedDetails__frame_calculatedDetailshide").getChildElements().iterator().next(); 
 		link.click();
 	}
 		

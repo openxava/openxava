@@ -29,7 +29,7 @@ public class InvoicesByYearTest extends ModuleTestBase {
 	}
 	
 	private void assertInvoicesCountInSection(int expectedCount) throws Exception {
-		HtmlElement countElement = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoicesByYear__xava_view_section0_collectionSize");
+		HtmlElement countElement = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoicesByYear__xava_view_section0_collectionSize");
 		assertEquals("(" + expectedCount + ")", countElement.asText());
 	}
 				

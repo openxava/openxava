@@ -119,7 +119,7 @@ public class Invoice2Test extends ModuleTestBase {
 	
     private void assertChartEditor() throws Exception { 
         try {
-            getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Invoice2__xava_chart__container");
+            getHtmlPage().getHtmlElementById("ox_openxavatest_Invoice2__xava_chart__container");
         }
         catch (ElementNotFoundException ex) {
             fail("Editor for charts not displayed");

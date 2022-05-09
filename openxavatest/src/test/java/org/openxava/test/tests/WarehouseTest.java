@@ -26,7 +26,7 @@ public class WarehouseTest extends ModuleTestBase {
 	}
 
 	private void assertToolTip(String property, String value) {
-		HtmlElement number = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Warehouse__" + property); 
+		HtmlElement number = getHtmlPage().getHtmlElementById("ox_openxavatest_Warehouse__" + property); 
 		assertEquals(value, number.getAttribute("title"));
 	}
 	

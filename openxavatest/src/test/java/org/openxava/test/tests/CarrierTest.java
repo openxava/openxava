@@ -57,10 +57,10 @@ public class CarrierTest extends CarrierTestBase {
 		// Confirm action with apostrophe
 		assertListRowCount(5);
 		execute("List.viewDetail", "row=0");
-	HtmlAnchor deleteLink = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Carrier__CRUD___delete");
+	HtmlAnchor deleteLink = getHtmlPage().getHtmlElementById("ox_openxavatest_Carrier__CRUD___delete");
 		// To ensure the question has an apostrophe
 		assertEquals("javascript:openxava.executeAction('OpenXavaTest', 'Carrier', 'Effacer l" 
-			+ (char) 145 +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
+			+ (char) 145 +"entitï¿½ courante: Etes-vous sï¿½r(e) ?', false, 'CRUD.delete')", 
 			deleteLink.getHrefAttribute());
 		execute("CRUD.delete");
 		execute("Mode.list");
@@ -69,9 +69,9 @@ public class CarrierTest extends CarrierTestBase {
 		// Confirm row action with apostrophe and title in actions
 		// To ensure the title and question have apostrophe
 		String deleteRowLink = "<a class=\"ox-image-link\" "
-				+ "title=\"Effacer l" + (char) 145 + "entité\" "
+				+ "title=\"Effacer l" + (char) 145 + "entitï¿½\" "
 				+ "href=\"javascript:openxava.executeAction('OpenXavaTest', 'Carrier', 'Effacer l" 
-				+ (char) 145 + "entité la ligne 1: êtes-vous sûr ?', false, 'CRUD.deleteRow', 'row=0')\">";
+				+ (char) 145 + "entitï¿½ la ligne 1: ï¿½tes-vous sï¿½r ?', false, 'CRUD.deleteRow', 'row=0')\">";
 		assertTrue(getHtml().contains(deleteRowLink));
 		execute("CRUD.deleteRow", "row=0");
 		assertListRowCount(3);
@@ -79,12 +79,12 @@ public class CarrierTest extends CarrierTestBase {
 		// Apostrophe in dialog title
 		execute("List.viewDetail", "row=0");
 		execute("Collection.new", "viewObject=xava_view_fellowCarriersCalculated");
-		assertDialogTitle("Préparation d'une nouvelle entité - Transporteur");
+		assertDialogTitle("Prï¿½paration d'une nouvelle entitï¿½ - Transporteur");
 		closeDialog();
 		
 		// Apostrophe in bottom button
-		HtmlInput showCutRowsButton = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Carrier__Carrier___showCutRows");
-		assertEquals("Montrer l" + (char) 145 + "article coupé", showCutRowsButton.getValueAttribute());
+		HtmlInput showCutRowsButton = getHtmlPage().getHtmlElementById("ox_openxavatest_Carrier__Carrier___showCutRows");
+		assertEquals("Montrer l" + (char) 145 + "article coupï¿½", showCutRowsButton.getValueAttribute());
 		
 		// Switzerland locale
 		execute("Mode.list"); 
@@ -533,7 +533,7 @@ public class CarrierTest extends CarrierTestBase {
 		assertCollectionRowCount("fellowCarriers", 1); 
 		assertValueInCollection("fellowCarriers", 0, "number", "3");	
 		
-		HtmlElement c = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Carrier__xava_collectionTab_fellowCarriers_xava_clear_condition");  
+		HtmlElement c = getHtmlPage().getHtmlElementById("ox_openxavatest_Carrier__xava_collectionTab_fellowCarriers_xava_clear_condition");  
 		c.click();
 		waitAJAX();
 		assertCollectionRowCount("fellowCarriers", 3);
@@ -604,7 +604,7 @@ public class CarrierTest extends CarrierTestBase {
 	}
 		
 	private void assertIconsImagesInViewAction() { 
-		HtmlElement frameHeader = (HtmlElement) getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Carrier__label_warehouse").getParentNode().getParentNode();
+		HtmlElement frameHeader = (HtmlElement) getHtmlPage().getHtmlElementById("ox_openxavatest_Carrier__label_warehouse").getParentNode().getParentNode();
 		assertEquals("ox-frame-title", frameHeader.getAttribute("class"));
 		String actionsXml = frameHeader.asXml();
 		assertTrue(actionsXml.contains("<i class=\"mdi mdi-magnify"));

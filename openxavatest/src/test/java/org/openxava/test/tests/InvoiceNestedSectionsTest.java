@@ -18,7 +18,7 @@ public class InvoiceNestedSectionsTest extends ModuleTestBase {
 	public void testPdfReportInNestedSections_subcontrollerImage() throws Exception { 
 		execute("List.viewDetail", "row=0");
 
-		String linkXml = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_InvoiceNestedSections__sc-a-InvoicePrint_detail").asXml();
+		String linkXml = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceNestedSections__sc-a-InvoicePrint_detail").asXml();
 		assertFalse(linkXml.contains("<i class="));
 		assertTrue(linkXml.contains("images/report.gif"));
 

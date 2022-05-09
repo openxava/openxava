@@ -87,7 +87,7 @@ public class ClerkTest extends ModuleTestBase {
 	}
 	
 	private void assertSize(String property, String expectedSize) {
-		HtmlInput input = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Clerk__" + property);
+		HtmlInput input = getHtmlPage().getHtmlElementById("ox_openxavatest_Clerk__" + property);
 		assertEquals(expectedSize, input.getSize());
 	}
 

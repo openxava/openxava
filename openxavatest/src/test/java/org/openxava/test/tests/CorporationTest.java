@@ -50,11 +50,11 @@ public class CorporationTest extends ModuleTestBase {
 	}
 	
 	private void assertDeleteDisplayed() { 
-		assertTrue(getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Corporation__CRUD___delete").isDisplayed());
+		assertTrue(getHtmlPage().getHtmlElementById("ox_openxavatest_Corporation__CRUD___delete").isDisplayed());
 	}
 	
 	private void assertDeleteHidden() { 
-		assertFalse(getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Corporation__CRUD___delete").isDisplayed());
+		assertFalse(getHtmlPage().getHtmlElementById("ox_openxavatest_Corporation__CRUD___delete").isDisplayed());
 	}
 
 	public void testIconEditor() throws Exception { 
@@ -88,14 +88,14 @@ public class CorporationTest extends ModuleTestBase {
 	}
 
 	private void executeIconChoose(String icon) throws Exception {
-		HtmlElement view = (HtmlElement) getHtmlPage().getElementById("ox_OpenXavaTest_Corporation__view");
+		HtmlElement view = (HtmlElement) getHtmlPage().getElementById("ox_openxavatest_Corporation__view");
 		HtmlElement i = (HtmlElement) view.getOneHtmlElementByAttribute("i", "class", "mdi mdi-" + icon);
 		i.click();
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 	}
 
 	private void assertIconInEditor(String icon) { 
-		HtmlElement editor = (HtmlElement) getHtmlPage().getElementById("ox_OpenXavaTest_Corporation__editor_icon");
+		HtmlElement editor = (HtmlElement) getHtmlPage().getElementById("ox_openxavatest_Corporation__editor_icon");
 		assertFalse(editor.asXml().contains("<i class=\"mdi mdi-plus\""));
 		assertTrue(editor.asXml().contains("<i class=\"mdi mdi-" + icon + "\""));		
 		HtmlElement close = (HtmlElement) editor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-close-circle");
@@ -103,7 +103,7 @@ public class CorporationTest extends ModuleTestBase {
 	}
 
 	private void assertNoIconInEditor() { 
-		HtmlElement editor = (HtmlElement) getHtmlPage().getElementById("ox_OpenXavaTest_Corporation__editor_icon");
+		HtmlElement editor = (HtmlElement) getHtmlPage().getElementById("ox_openxavatest_Corporation__editor_icon");
 		assertTrue(editor.asXml().contains("<i class=\"mdi mdi-plus\""));
 		assertFalse(editor.asXml().contains("<i class=\"mdi mdi-alarm-check\""));
 		assertFalse(editor.asXml().contains("<i class=\"mdi mdi-arrow-expand\""));

@@ -79,7 +79,7 @@ public class ServiceExpenses2Test extends ModuleTestBase {
 	}
 	
 	private void assertNumberOfRowsShownInElementCollection(int number) {
-		String elementId = "ox_OpenXavaTest_ServiceExpenses2__expenses___" + number;
+		String elementId = "ox_openxavatest_ServiceExpenses2__expenses___" + number;
 		HtmlElement tr = getHtmlPage().getHtmlElementById(elementId); 
 		assertTrue(tr.getAttribute("style").contains("display: none"));		
 	}

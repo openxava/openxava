@@ -85,13 +85,13 @@ public class InvoiceTest extends CustomizeListTestBase {
 	public void testSubcontrollerWithoutActionsInMode_subcontrollerIcon() throws Exception {
 		// subcontroller: InvoicePrint -> all actions are in mode detail
 		assertNoAction("InvoicePrint.printPdf");
-		assertFalse(getHtml().contains("<span id=\"ox_OpenXavaTest_Invoice__sc-container-InvoicePrint_detail\">"));
+		assertFalse(getHtml().contains("<span id=\"ox_openxavatest_Invoice__sc-container-InvoicePrint_detail\">"));
 		
 		execute("List.viewDetail", "row=0");
-		assertTrue(getHtml().contains("<span id=\"ox_OpenXavaTest_Invoice__sc-container-InvoicePrint_detail\">"));
+		assertTrue(getHtml().contains("<span id=\"ox_openxavatest_Invoice__sc-container-InvoicePrint_detail\">"));
 		assertAction("InvoicePrint.printPdf");
 		
-		String linkXml = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Invoice__sc-button-InvoicePrint_detail").asXml();
+		String linkXml = getHtmlPage().getHtmlElementById("ox_openxavatest_Invoice__sc-button-InvoicePrint_detail").asXml();
 		assertTrue(linkXml.contains("<i class=\"mdi mdi-printer\""));
 		assertFalse(linkXml.contains("images/"));
 	}
@@ -543,7 +543,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNotExists("booleanValue");
 		assertNotExists("validValuesValue");
 		
-		String dateValue = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Invoice__editor_dateValue").asXml();
+		String dateValue = getHtmlPage().getHtmlElementById("ox_openxavatest_Invoice__editor_dateValue").asXml();
 		assertTrue(dateValue.contains("xava_date"));
 		assertTrue(dateValue.contains("mdi-calendar"));
 		
@@ -1337,7 +1337,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		// though we're not interested in testing date format here, just bigdecimals 
 		String date = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es")).format(Dates.create(1, 1, 2002));  		
 		assertExcel(
-			"Año;Número;Fecha;Suma importes;I.V.A.;Cantidad líneas;Pagada;Importancia",	
+			"Aï¿½o;Nï¿½mero;Fecha;Suma importes;I.V.A.;Cantidad lï¿½neas;Pagada;Importancia",	
 			"2002;1;\"" + date + "\";\"2500,00\";\"400,00\";2;\"No\";\"Normal\""); // "2500,00" instead of "2.500,00"		
 	}
 	
@@ -1954,7 +1954,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	private String getEditorCSSClass(String property) { 
-		HtmlSpan field = (HtmlSpan) getHtmlPage().getElementById("ox_OpenXavaTest_Invoice__editor_" + property);
+		HtmlSpan field = (HtmlSpan) getHtmlPage().getElementById("ox_openxavatest_Invoice__editor_" + property);
 		return field.getAttribute("class");
 	}
 		
@@ -2247,11 +2247,11 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setValueInCollection("columns", 0, "name", "total");
 		String html = getHtml(); 
 		assertFalse(html.contains("Editor not available"));
-		assertTrue(html.contains("ox_OpenXavaTest_Invoice__xava_chart__columnCount")); // Anything from Chart editor
+		assertTrue(html.contains("ox_openxavatest_Invoice__xava_chart__columnCount")); // Anything from Chart editor
 	}
 	
 	private void assertChartIcons() { 
-		HtmlElement buttonBar = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Invoice__button_bar");
+		HtmlElement buttonBar = getHtmlPage().getHtmlElementById("ox_openxavatest_Invoice__button_bar");
 		HtmlElement icon = buttonBar.getOneHtmlElementByAttribute("i", "class", "mdi mdi-chart-line"); 
 		assertEquals("Charts", icon.getAttribute("title")); 
 	}
@@ -2553,14 +2553,14 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	public void testBooleanComboHiddenAfterClearCondition() throws Exception{
-		HtmlSelect select = getHtmlPage().getElementByName("ox_OpenXavaTest_Invoice__conditionComparator___3"); 
+		HtmlSelect select = getHtmlPage().getElementByName("ox_openxavatest_Invoice__conditionComparator___3"); 
 		String s = select.getAttribute("style");
 		assertFalse(s.contains("display: none") || s.contains("display:none"));
 		// clear condition
-		HtmlElement c = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Invoice__xava_clear_condition"); 
+		HtmlElement c = getHtmlPage().getHtmlElementById("ox_openxavatest_Invoice__xava_clear_condition"); 
 		c.click();
 		// 
-		select = getHtmlPage().getElementByName("ox_OpenXavaTest_Invoice__conditionComparator___3");
+		select = getHtmlPage().getElementByName("ox_openxavatest_Invoice__conditionComparator___3");
 		s = select.getAttribute("style");
 		assertFalse(s.contains("display: none") || s.contains("display:none"));
 	}

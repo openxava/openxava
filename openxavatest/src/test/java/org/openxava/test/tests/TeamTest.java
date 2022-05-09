@@ -26,8 +26,8 @@ public class TeamTest extends ModuleTestBase {
 		assertInfo("CAP, DESARROLLO");
 		assertNoErrors();
 
-		HtmlElement container = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Team__sc-container-TeamMemberSub_detail"); 
-		HtmlElement menu = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Team__sc-TeamMemberSub_detail"); 
+		HtmlElement container = getHtmlPage().getHtmlElementById("ox_openxavatest_Team__sc-container-TeamMemberSub_detail"); 
+		HtmlElement menu = getHtmlPage().getHtmlElementById("ox_openxavatest_Team__sc-TeamMemberSub_detail"); 
 		assertTrue("display:none;".equals(menu.getAttribute("style")));
 		assertTrue(container.asText().contains("View names"));
 		assertTrue(container.asText().contains("View roles"));

@@ -29,7 +29,7 @@ public class ProjectTest extends ModuleTestBase {
 	}
 
 	private void assertLinkOnNote(int idx, String expectedText) throws IOException {
-		HtmlAnchor link = (HtmlAnchor) getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Project__editor_notes___" + idx + "___docURL").getElementsByTagName("a").get(0); 
+		HtmlAnchor link = (HtmlAnchor) getHtmlPage().getHtmlElementById("ox_openxavatest_Project__editor_notes___" + idx + "___docURL").getElementsByTagName("a").get(0); 
 		HtmlPage page = link.click();
 		assertTrue(page.asText().contains(expectedText));
 	}
@@ -150,7 +150,7 @@ public class ProjectTest extends ModuleTestBase {
 		assertValueInCollection("members", 2, 0, "JUAN");
 		
 		// With HtmlUnit in order to use the actual row 1
-		HtmlTable table = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Project__members");
+		HtmlTable table = getHtmlPage().getHtmlElementById("ox_openxavatest_Project__members");
 		HtmlTableRow row = table.getRow(1);
 		HtmlTableCell cell = row.getCell(2);
 		assertEquals("PETER", cell.asText().trim());

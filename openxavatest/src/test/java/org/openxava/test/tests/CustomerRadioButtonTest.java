@@ -2,7 +2,7 @@ package org.openxava.test.tests;
 
 import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * @author Javier Paniza
@@ -16,12 +16,12 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 	
 	public void testSelectTheLabelOnRadioButton() throws Exception {
 		execute("CRUD.new");
-		HtmlElement c = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_CustomerRadioButton__type1");	// steady  
+		HtmlElement c = getHtmlPage().getHtmlElementById("ox_openxavatest_CustomerRadioButton__type1");	// steady  
 		c.click();
 		waitAJAX();
 		assertValue("type", "1");	// steady
 		
-		c = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_CustomerRadioButton__type2");	// special  
+		c = getHtmlPage().getHtmlElementById("ox_openxavatest_CustomerRadioButton__type2");	// special  
 		c.click();
 		waitAJAX();
 		assertValue("type", "2");	// special

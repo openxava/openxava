@@ -1,6 +1,6 @@
 package org.openxava.test.tests;
 
-import org.openxava.tests.ModuleTestBase;
+import org.openxava.tests.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
 
@@ -43,12 +43,12 @@ public class DeliveryNoXMLTest extends ModuleTestBase {
 		execute("Sections.change", "activeSection=0"); // To refresh, surely we should improve this, in order valid values View methods refresh automatically
 		assertValidValues("shortcut", validValuesWithNoEntries); 		
 		
-		HtmlElement shortcut = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Delivery__shortcut");
+		HtmlElement shortcut = getHtmlPage().getHtmlElementById("ox_openxavatest_Delivery__shortcut");
 		assertTrue(shortcut instanceof HtmlSelect);
 		execute("Delivery.disableShortcutOptions");
 		execute("Sections.change", "activeSection=1");
 		execute("Sections.change", "activeSection=0"); // To refresh, surely we should improve this, in order valid values View methods refresh automatically
-		shortcut = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Delivery__shortcut");
+		shortcut = getHtmlPage().getHtmlElementById("ox_openxavatest_Delivery__shortcut");
 		assertTrue(shortcut instanceof HtmlTextInput);
 	}
 	

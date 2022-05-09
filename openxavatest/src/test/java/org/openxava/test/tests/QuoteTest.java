@@ -323,15 +323,15 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValueInCollection("details", 3, "product.description", "IBM ESERVER ISERIES 270");
 		assertNoErrors();
 		
-		HtmlElement row1 = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Quote__details___1");
+		HtmlElement row1 = getHtmlPage().getHtmlElementById("ox_openxavatest_Quote__details___1");
 		HtmlElement input = row1.getElementsByTagName("input").get(1);
-		assertEquals("ox_OpenXavaTest_Quote__details___1___product___number", input.getAttribute("id"));
+		assertEquals("ox_openxavatest_Quote__details___1___product___number", input.getAttribute("id"));
 		HtmlElement searchActionLink = row1.getElementsByTagName("a").get(1);
 		assertEquals("javascript:openxava.executeAction('OpenXavaTest', 'Quote', '', false, 'Reference.search', 'keyProperty=details.1.product.number')", searchActionLink.getAttribute("href"));
 	}
 	
 	private void removeRow(int row) throws Exception { 
-		HtmlElement rowElement = getHtmlPage().getHtmlElementById("ox_OpenXavaTest_Quote__details___" + row); 
+		HtmlElement rowElement = getHtmlPage().getHtmlElementById("ox_openxavatest_Quote__details___" + row); 
 		HtmlElement removeIcon = rowElement.getElementsByTagName("a").get(0).getElementsByTagName("i").get(0);  
 		removeIcon.click();		
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
