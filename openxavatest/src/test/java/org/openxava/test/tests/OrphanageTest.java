@@ -3,8 +3,8 @@ package org.openxava.test.tests;
 import java.text.*;
 import java.util.*;
 
-import org.openxava.tests.*;
 import org.openxava.test.model.*;
+import org.openxava.tests.*;
 
 /**
  * 
@@ -22,7 +22,7 @@ public class OrphanageTest extends ModuleTestBase {
 		assertCollectionColumnCount("orphans", 1); 
 		execute("Print.generatePdf", "viewObject=xava_view_orphanage_orphans"); 
 		assertNoErrors();
-		assertContentTypeForPopup("application/pdf");
+		assertContentTypeForPopup("application/pdf"); // TMR FALLA. ME QUEDÉ POR AQUÍ
 		assertPopupPDFLinesCount(6);
 		assertPopupPDFLine(1, "Orphans of Orphanage: EL INTERNADO");
 		assertPopupPDFLine(2, "Name"); 

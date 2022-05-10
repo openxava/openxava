@@ -59,7 +59,7 @@ public class UserWithNicknameTest extends ModuleTestBase {
 		setValue("name", "ANATOLY KARPOV");
 		setValue("nickname.nickname", "POSITIONAL GAMER II");
 		execute("CRUD.save");
-		assertMessage("User with nickname created successfully"); // TMR FALLA. ME QUEDÉ POR AQUÍ 
+		assertMessage("User with nickname created successfully"); 
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		attachFiles(); 		

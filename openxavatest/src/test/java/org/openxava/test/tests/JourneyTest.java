@@ -106,7 +106,7 @@ public class JourneyTest extends ModuleTestBase {
 		// HtmlUnit (at least for 2.15) does not support scroll events, so we call directly to corresponding JS code
 		HtmlElement loadMore = getHtmlPage().getHtmlElementById("xava_loading_more_elements");
 		HtmlElement script = (HtmlElement) loadMore.getNextElementSibling();
-		String loadScript = "openxava.executeAction('OpenXavaTest', 'Journey', false, false, 'Cards.loadMoreCards')";
+		String loadScript = "openxava.executeAction('openxavatest', 'Journey', false, false, 'Cards.loadMoreCards')";
 		assertTrue(script.asXml().contains(loadScript));
 		getHtmlPage().executeJavaScript(loadScript);
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);

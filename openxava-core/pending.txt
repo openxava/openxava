@@ -15,10 +15,10 @@ MAVEN
 * CSS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/style")
 * Los JS de editores no se pueden obtener en module.jsp: new File(realPath + "/xava/editors/js")
 * Colores de iconos en Windows 10.
+* Colores de iconos en Windows 11.
 - Colores de iconos en Windows 7.
-- Colores de iconos en Windows 11.
 - Pasar openxavatest suite completa con Java 8:
-	TMR ME QUEDÉ PROBANDO UserWithNicknameTest 
+	TMR ME QUEDÉ POR OrphanageTest. EDITANDO jasperReport.jsp EL PROBLEMA ES QUE NO ENCUENTRA LAS FUENTES 
 - Quitar OpenXavaTest6
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Mezclar en master.
@@ -56,4 +56,7 @@ MAVEN
 	- ¿Quitar soporte de API de Hibernate? ¿Qué haríamos con ImagesGallery?
 	- Actualizar doc.
 	- Quitar parsers de components XML. 
+	
+Notas actualización proyecto
+- Mover los JSP propios de web/xava/editors a src/main/webapp/xava/editors (también JSs y CSSs de editores)	
 

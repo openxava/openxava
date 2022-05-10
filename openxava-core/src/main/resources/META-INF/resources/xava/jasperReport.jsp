@@ -220,6 +220,7 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 		 isSummaryNewPage="false">		 
 	<%
 	String fontPath=request.getSession().getServletContext().getRealPath("/WEB-INF/fonts/").concat(System.getProperty("file.separator"));
+	System.out.println("[jasperReport.jsp] fontPath=" + fontPath); // tmr
 	String fontName="DejaVu Sans";
 	String fontNameExt="DejaVuSans.ttf";
 	String boldFontNameExt="DejaVuSans-Bold.ttf";	
