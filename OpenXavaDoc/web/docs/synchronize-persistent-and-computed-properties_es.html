@@ -101,15 +101,60 @@ public class Pedido extends DocumentoComercial {
       <img src="files/business-logic_es050.png" alt="business-logic_es050.png" title="business-logic_es050.png">
       <div class="wiki" style="display: block;">El valor se recalcula cada vez
         que la fecha cambia en la interfaz de usuario gracias a el <i>@Depends("fecha")</i>
-        en <i>diasEntregaEstimados.</i></div>
+        en <i>diasEntregaEstimados. </i>Todo esto está muy bien, pero cuando
+        vas al modo lista no puedes ordenar ni filtrar por días estimados de
+        entrega. Para solucionar este problema añadimos una segunda propiedad,
+        esta vez persistente. Agregue el siguiente código a su entidad de
+        pedido:<i><br>
+        </i></div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@Column(columnDefinition="INTEGER DEFAULT 1")
+int diasEntrega;
+</code></pre> </div>
+      <div class="wiki" style="display: block;"> Tenga en cuenta que hemos usado
+        @Column(columnDefinition="INTEGER DEFAULT 1"), con este truco cuando
+        OpenXava crea la columna usa "INTEGER DEFAULT 1" como definición de
+        columna, por lo que la nueva columna tiene 1 como valor predeterminado
+        en lugar de nulo, y nosotros evitamos un feo error con nuestra propiedad
+        int. Sí, en muchos casos @Column(columnDefinition=) es una alternativa
+        para hacer una ACTUALIZACIÓN sobre la tabla (como hicimos en la sección
+        "Evolución manual del esquema"), aunque tiene el problema de que depende
+        de la base de datos. De todos modos, esta disertación de
+        columnDefinition es tangencial a nuestro problema de sincronización
+        calculada/persistente, @Column no es del todo necesaria, solo es
+        conveniente para nuestra propiedad int. Esta nueva propiedad diasEntrega
+        contendrá el mismo valor que diasEntregaEstimados, pero diasEntrega será
+        persistente con su columna correspondiente en la base de datos. El truco
+        está en mantener sincronizada la propiedad diasEntrega. Usaremos los
+        métodos de retrollamadas JPA en la clase de Pedido. Basta con asignar el
+        valor de los días de entrega estimados a los días de entrega cada vez
+        que se crea un nuevo pedido (@PrePersist) o se actualiza (@PreUpdate).
+        Agreguemos un nuevo método recalcularDiasEntrega() a la entidad de
+        pedido anotada con @PrePersist y @PreUpdate, por lo tanto: </div>
+      <pre><code class="java">@PrePersist @PreUpdate 
+private void recalcularDiasEntrega() {
+    setDiasEntrega(getDiasEntregaEstimados());
+}
+</code></pre>
+      <div class="wiki" style="display: block;">Básicamente, el método
+        recalcularDiasEntrega() se llama cada vez que se registra una entidad de
+        pedido en la base de datos por primera vez y cuando se actualiza el
+        pedido.
+        Puedes probar el módulo Pedido con este código, y verás como cuando se
+        crea o modifica un pedido, la columna de la base de datos para
+        diasEntrega se actualiza correctamente después de guardar, lista para
+        ser utilizada en procesamiento masivo y disponible para ordenar y
+        filtrar lista.<i><br>
+        </i></div>
       <h2> </h2>
     </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
-      En esta lección has aprendido lo fácil que es utilizar métodos de llamadas
-      JPA para definir lógica en diferentes momentos específicos del ciclo de
-      vida de una entidad, permitiéndonos establecer y ejecutar lógica del
-      negocio al grabar por primera vez una propiedad.<br>
+      En esta lección has aprendido lo fácil que es utilizar métodos de
+      retrollamadas JPA para definir lógica en diferentes momentos específicos
+      del ciclo de vida de una entidad, permitiéndonos sincronizar propiedades
+      persistentes y calculadas al modificar una entidad ya existente, o grabar
+      por primera vez una entidad.<br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
