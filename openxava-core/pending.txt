@@ -18,6 +18,8 @@ MAVEN
 * Colores de iconos en Windows 11.
 * Colores de iconos en Windows 7.
 - Pasar openxavatest suite completa con Java 8:
+	TMR ME QUEDÉ POR CustomerWithSectionTest, DEPURANDO EN GenerateReportServelt. 
+	TMR		EL PROBLEMA PARECE QUE ESTA EN LOS WIDTHS Y NO EN LAS FUENTES
 - Quitar OpenXavaTest6
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Mezclar en master.

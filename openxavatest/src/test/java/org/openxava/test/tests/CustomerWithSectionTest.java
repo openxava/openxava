@@ -173,7 +173,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInCollection("columns", 1, 2, "Steady");
 		
 		execute("MyReport.generatePdf");
-		assertPopupPDFLinesCount(5); 
+		assertPopupPDFLinesCount(5); // TMR FALLA
 		assertTrue(getPopupPDFLine(3).startsWith("Javi Steady"));
 		
 		execute("ExtendedPrint.myReports");

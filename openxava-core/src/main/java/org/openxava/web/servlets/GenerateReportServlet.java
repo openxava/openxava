@@ -334,6 +334,8 @@ public class GenerateReportServlet extends HttpServlet {
 				}
 			}
 		}
+		// TMR ME QUEDÉ POR AQUÍ, EL ÚLTIMO VALOR DEBERÍA SER 23, Y NO 0
+		System.out.println("[GenerateReportServlet.getWidths] widths=" + Arrays.toString(widths)); // tmr
 		return widths;
 	}
 
