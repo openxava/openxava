@@ -219,16 +219,12 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">		 
 	<%
-	String fontPath=request.getSession().getServletContext().getRealPath("/WEB-INF/fonts/").concat(System.getProperty("file.separator"));
-	System.out.println("[jasperReport.jsp] fontPath=" + fontPath); // tmr
 	String fontName="DejaVu Sans";
-	String fontNameExt="DejaVuSans.ttf";
-	String boldFontNameExt="DejaVuSans-Bold.ttf";	
 	String pdfEncoding="Identity-H";
 	%>	
-	<reportFont name="Arial_Normal" isDefault="true" fontName="<%=fontName%>" size="8" pdfFontName="<%=fontPath.concat(fontNameExt)%>" pdfEncoding="<%=pdfEncoding%>" isPdfEmbedded="true"/>
-	<reportFont name="Arial_Bold" isDefault="false" fontName="<%=fontName%>" size="8" isBold="true" pdfFontName="<%=fontPath.concat(boldFontNameExt)%>" pdfEncoding="<%=pdfEncoding%>" isPdfEmbedded="true"/>
-	<reportFont name="Arial_Italic" isDefault="false" fontName="<%=fontName%>" size="8" isItalic="true" pdfFontName="<%=fontPath.concat(fontNameExt)%>" pdfEncoding="<%=pdfEncoding%>" isPdfEmbedded="true"/>
+	<reportFont name="Arial_Normal" isDefault="true" fontName="<%=fontName%>" size="8" pdfFontName="<%=fontName%>" pdfEncoding="<%=pdfEncoding%>" isPdfEmbedded="true"/>
+	<reportFont name="Arial_Bold" isDefault="false" fontName="<%=fontName%>" size="8" isBold="true" pdfFontName="<%=fontName%>" pdfEncoding="<%=pdfEncoding%>" isPdfEmbedded="true"/>
+	<reportFont name="Arial_Italic" isDefault="false" fontName="<%=fontName%>" size="8" isItalic="true" pdfFontName="<%=fontName%>" pdfEncoding="<%=pdfEncoding%>" isPdfEmbedded="true"/>	
 
 	<parameter name="Title" class="java.lang.String"/>	
 	<parameter name="Organization" class="java.lang.String"/>
