@@ -5,6 +5,7 @@ import java.io.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
+import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
 
@@ -25,7 +26,9 @@ public class ProjectTest extends ModuleTestBase {
 		setValueInCollection("notes", 1, 2, "http://www.rae.es/");  
 		assertLinkOnNote(0, "The best time-to-market for Java"); 
 		
-		assertLinkOnNote(1, "Diccionario de la lengua"); // Fails with Java 8 with a problem with Cloudfare protection in RAE
+		if (XSystem.isJava9orBetter()) {
+			assertLinkOnNote(1, "Diccionario de la lengua"); // Fails with Java 8 with a problem with Cloudfare protection in RAE
+		}
 	}
 
 	private void assertLinkOnNote(int idx, String expectedText) throws IOException {

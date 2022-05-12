@@ -24,7 +24,7 @@ public class PublicJSPTest extends TestCase {
 	}	
 	
 	private static String getContextPath() { 
-		return ModuleTestBase.getXavaJUnitProperty("contextPath", "/OpenXavaTest/");
+		return ModuleTestBase.getXavaJUnitProperty("contextPath", "/openxavatest/");
 	}
 
 

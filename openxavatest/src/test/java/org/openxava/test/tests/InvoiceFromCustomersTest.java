@@ -62,7 +62,7 @@ public class InvoiceFromCustomersTest extends ModuleTestBase {
 		execute("Invoice.listOfCustomer", "row=0");
 		assertNoAction("Invoice.listOfCustomer"); 
 		assertAction("CustomerInvoices.return");				
-		assertInvoices(); // TMR FALLA
+		assertInvoices(); 
 		// The next two lines because the last action was from the initial module
 		assertMessage("Action on-each-request on list");  
 		assertMessage("Action on-each-request");	

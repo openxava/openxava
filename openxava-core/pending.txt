@@ -18,10 +18,10 @@ MAVEN
 * Colores de iconos en Windows 11.
 * Colores de iconos en Windows 7.
 - Pasar openxavatest suite completa con Java 8:
-	TMR ME QUEDÉ POR InvoiceFromCustomersTest
 - Quitar OpenXavaTest6
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Mezclar en master.
+- Quitar usesAnnotatedPOJO() de ModuleTestBase
 - No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
 - ¿Dividir resources en subcarpetas? ¿Mover algunos a la parte de test? Adaptar invoicedemo y openxavatest. Adaptar archetype. Revisar doc de migration
 - Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.

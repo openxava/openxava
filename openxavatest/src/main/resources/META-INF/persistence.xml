@@ -26,7 +26,7 @@
                             
     <persistence-unit name="companyA">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>    	
-    	<non-jta-data-source>java://comp/env/jdbc/CompanyADS</non-jta-data-source>    	
+    	<non-jta-data-source>java://comp/env/jdbc/companyaDS</non-jta-data-source>    	
     	<class>org.openxava.session.GalleryImage</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
@@ -36,7 +36,7 @@
             
     <persistence-unit name="companyB">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>    	
-    	<non-jta-data-source>java://comp/env/jdbc/CompanyBDS</non-jta-data-source>    	
+    	<non-jta-data-source>java://comp/env/jdbc/companybDS</non-jta-data-source>    	
     	<class>org.openxava.session.GalleryImage</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>

@@ -104,7 +104,7 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlDivision moduleHeader = page.getHtmlElementById("module_header_left");
 		assertEquals("OpenXavaTest : Invoices Orders Applicant", moduleHeader.asText().trim());
 				
-		HtmlElement articleLink = page.getAnchorByHref("/OpenXavaTest/m/Article?init=true");
+		HtmlElement articleLink = page.getAnchorByHref("/openxavatest/m/Article?init=true");
 		page = articleLink.click();
 		moduleHeader = page.getHtmlElementById("module_header_left");
 		assertEquals("OpenXavaTest : Invoices Orders Articles Applicant", moduleHeader.asText().trim());
@@ -112,7 +112,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertEquals(1, selectedElements.size());
 		assertEquals("Articles", selectedElements.get(0).asText());
 		
-		HtmlElement artistLink = page.getAnchorByHref("/OpenXavaTest/m/Artist?init=true");
+		HtmlElement artistLink = page.getAnchorByHref("/openxavatest/m/Artist?init=true");
 		page = artistLink.click();
 		moduleHeader = page.getHtmlElementById("module_header_left");
 		assertEquals("OpenXavaTest : Invoices Orders Artist Articles Applicant", moduleHeader.asText().trim());
@@ -120,7 +120,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertEquals(1, selectedElements.size());
 		assertEquals("Artist", selectedElements.get(0).asText());		
 		
-		articleLink = moduleHeader.getOneHtmlElementByAttribute("a", "href", "/OpenXavaTest/m/Article?retainOrder=true");
+		articleLink = moduleHeader.getOneHtmlElementByAttribute("a", "href", "/openxavatest/m/Article?retainOrder=true");
 		page = articleLink.click();
 		moduleHeader = page.getHtmlElementById("module_header_left");
 		assertEquals("OpenXavaTest : Invoices Orders Artist Articles Applicant", moduleHeader.asText().trim());		

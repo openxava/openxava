@@ -12,7 +12,7 @@ import junit.framework.*;
 public class StringsTest extends TestCase {
 	
 	public void testNaturalLabelToIdentifier() throws Exception {
-		assertEquals("LeonEspana", Strings.naturalLabelToIdentifier("León, España"));
+		assertEquals("LeonEspana", Strings.naturalLabelToIdentifier("LeÃ³n, EspaÃ±a")); 
 	}
 		
 	public void testJavaIdentifierToNaturalLabel() throws Exception {
