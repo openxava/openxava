@@ -59,7 +59,7 @@ public class CarrierTest extends CarrierTestBase {
 		execute("List.viewDetail", "row=0");
 	HtmlAnchor deleteLink = getHtmlPage().getHtmlElementById("ox_openxavatest_Carrier__CRUD___delete");
 		// To ensure the question has an apostrophe
-		assertEquals("javascript:openxava.executeAction('OpenXavaTest', 'Carrier', 'Effacer l" 
+		assertEquals("javascript:openxava.executeAction('OpenXavaTest', 'Carrier', 'Effacer l" // TMR FALLA
 			+ (char) 145 +"entit� courante: Etes-vous s�r(e) ?', false, 'CRUD.delete')", 
 			deleteLink.getHrefAttribute());
 		execute("CRUD.delete");

@@ -1,6 +1,7 @@
 package org.openxava.test.tests;
 
 import org.openxava.tests.*;
+
 import com.gargoylesoftware.htmlunit.*;
 
 import junit.framework.*;
@@ -14,7 +15,7 @@ public class TestServletTest extends TestCase {
 	
 	public void testTestServlet() throws Exception {
 		WebClient client = new WebClient();
-		Page page = client.getPage("http://" + getHost() + ":" + getPort() + getContextPath() + "test"); 
+		Page page = client.getPage("http://" + getHost() + ":" + getPort() + getContextPath() + "test"); // TMR FALLA
 		String content = page.getWebResponse().getContentAsString();		
 		assertTrue(content.indexOf("Hello, I'm a test servlet from OpenXava") >= 0);
 	}

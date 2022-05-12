@@ -670,7 +670,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setConditionValues("2000");
 		setConditionComparators("range_comparator"); 
 		assertListRowCount(9); 
-		assertTrue(isVisibleConditionValueTo(0));
+		assertTrue(isVisibleConditionValueTo(0)); // TMR FALLA
 		assertFalse(isVisibleConditionValueToCalendar(0));
 		assertFalse(isVisibleConditionValueTo(2));		
 		assertFalse(isVisibleConditionValueToCalendar(2));
@@ -768,7 +768,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("InvoicePrint.printExcel"); 
 		assertNoErrors(); 
 		assertMessage("The print was successful");
-		assertContentTypeForPopup("application/vnd.ms-excel"); 		
+		assertContentTypeForPopup("application/vnd.ms-excel"); // TMR FALLA 		
 		
 		execute("InvoicePrint.printRtf"); 
 		assertNoErrors(); 
@@ -1336,7 +1336,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		// The DateFormat is because Java 11 and 8 format Spanish dates in different way, 
 		// though we're not interested in testing date format here, just bigdecimals 
 		String date = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es")).format(Dates.create(1, 1, 2002));  		
-		assertExcel(
+		assertExcel( // TMR FALLA
 			"A�o;N�mero;Fecha;Suma importes;I.V.A.;Cantidad l�neas;Pagada;Importancia",	
 			"2002;1;\"" + date + "\";\"2500,00\";\"400,00\";2;\"No\";\"Normal\""); // "2500,00" instead of "2.500,00"		
 	}
@@ -2218,7 +2218,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("ListFormat.select", "editor=Charts");
 		assertNoAction("CRUD.deleteSelected"); 
 		assertNoDialog(); 
-		assertChartTypeLink("BAR");
+		assertChartTypeLink("BAR"); // TMR FALLA
 		assertChartTypeLink("LINE");
 		assertChartTypeLink("PIE");
 		assertValue("xColumn", "year");

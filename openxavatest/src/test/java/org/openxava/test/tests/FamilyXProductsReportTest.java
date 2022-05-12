@@ -41,7 +41,7 @@ public class FamilyXProductsReportTest extends ModuleTestBase {
 		setValue("subfamily.number", "1");
 		
 		execute("FamilyProductsReport.generatePdf"); // takes-long is tested too (only testing that no crash)
-		assertNoErrors(); // To test that the main page is refreshed
+		assertNoErrors(); // To test that the main page is refreshed // TMR FALLA
 		assertContentTypeForPopup("application/pdf");
 		
 		execute("FamilyProductsReport.generateExcel"); 		

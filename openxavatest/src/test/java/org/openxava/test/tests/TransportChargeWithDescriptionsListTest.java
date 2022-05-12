@@ -2,8 +2,6 @@ package org.openxava.test.tests;
 
 import org.openxava.model.meta.*;
 import org.openxava.test.model.*;
-
-
 import org.openxava.tests.*;
 
 /**
@@ -17,7 +15,7 @@ public class TransportChargeWithDescriptionsListTest extends ModuleTestBase {
 	}
 		
 	public void testNestedCompositeKeysInDescriptionsList() throws Exception { 
-		deleteAllTransportCharges();		
+		deleteAllTransportCharges(); // TMR FALLA		
 		assertListRowCount(0);  
 		execute("CRUD.new");
 		Delivery delivery = createDelivery();

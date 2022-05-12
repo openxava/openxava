@@ -15,7 +15,7 @@ public class DebtTest extends ModuleTestBase {
 	public void testCheckBoxEditorWithNotBooleanValue() throws Exception {
 		setValue("description", "AN IMPORTANT DEBT");
 		setValue("paid", "true");
-		setValue("important", "true"); // "true" instead of "IMPORTANT" because in tests the checkboxs only allow true/false to check and uncheck		
+		setValue("important", "true"); // "true" instead of "IMPORTANT" because in tests the checkboxs only allow true/false to check and uncheck // TMR FALLA		
 		execute("CRUD.save");				
 		setValue("description", "A NOT SO IMPORTANT DEBT");
 		setValue("paid", "false");

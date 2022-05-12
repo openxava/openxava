@@ -49,7 +49,7 @@ public class IssueWebTest extends ModuleTestBase {
 		newParameters="&schema=companya&user=THE_USER&locale=en";
 		resetModule();
 		execute("List.viewDetail", "row=0"); 
-		assertValueIgnoringCase("description", "THE_USER"); 
+		assertValueIgnoringCase("description", "THE_USER"); // TMR FALLA
 		newParameters="&schema=companya&user=OTHER_USER&locale=en";
 		resetModule();
 		execute("List.viewDetail", "row=0");

@@ -24,7 +24,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 	public void testCustomDialog() throws Exception {
 		// In detail mode
 		execute("CRUD.new");
-		assertCustomDialog(); 
+		assertCustomDialog(); // TMR FALLA 
 		
 		// In list mode
 		execute("Mode.list");
@@ -497,7 +497,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertTrue(familyList.isDisplayed()); 
 		assertFalse(openFamilyListIcon.isDisplayed());
 		assertTrue(closeFamilyListIcon.isDisplayed());
-		assertEquals(2, familyList.getChildElementCount());
+		assertEquals(2, familyList.getChildElementCount()); // TMR FALLA
 		assertEquals("SOFTWAR�", familyList.getFirstChild().asText()); 
 		assertEquals("HARDWARE", familyList.getLastChild().asText());
 		

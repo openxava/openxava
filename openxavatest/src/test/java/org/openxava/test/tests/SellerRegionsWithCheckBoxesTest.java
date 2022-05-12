@@ -1,6 +1,6 @@
 package org.openxava.test.tests;
 
-import org.openxava.tests.ModuleTestBase; 
+import org.openxava.tests.*; 
 
 /**
  * 
@@ -18,7 +18,7 @@ public class SellerRegionsWithCheckBoxesTest extends ModuleTestBase {
 		String [] oneRegion = { "2" };
 		
 		execute("CRUD.new");
-		assertValues("regions", emptyRegions);
+		assertValues("regions", emptyRegions); // TMR FALLA
 		setValue("number", "66");
 		setValue("name", "SELLER JUNIT 66");
 		setValues("regions", regions);
