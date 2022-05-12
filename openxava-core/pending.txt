@@ -18,8 +18,7 @@ MAVEN
 * Colores de iconos en Windows 11.
 * Colores de iconos en Windows 7.
 - Pasar openxavatest suite completa con Java 8:
-	TMR ME QUEDÉ POR CustomerWithSectionTest, DEPURANDO EN GenerateReportServelt. 
-	TMR		EL PROBLEMA PARECE QUE ESTA EN LOS WIDTHS Y NO EN LAS FUENTES
+	TMR ME QUEDÉ POR InvoiceFromCustomersTest
 - Quitar OpenXavaTest6
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Mezclar en master.
@@ -47,6 +46,7 @@ MAVEN
 - Comprobar identificación (login).
 
 - Revisar doc de application.xml para indicar que la aplicación es en minúsculas.
+- Revisar doc de Groovy
 - Revisar curso para poner nombre de aplicación en minúsculas.
 - AppServer: Comprobar crea bien i18n
 - Política de actualización: ¿Qué hacer con las versiones? ¿En archetype? ¿En plugin? ¿Diferentes velocidades?

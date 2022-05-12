@@ -95,7 +95,7 @@ public class SellerTest extends CustomizeListTestBase {
 		assertValue("level.id", "");
 		setValue("level.id", "A");
 		String [] emptyRegions = {};
-		assertValues("regions", emptyRegions);
+		assertValues("regions", emptyRegions); 
 		String [] regions = { "1", "3" };
 		setValues("regions", regions);
 		execute("CRUD.save");
@@ -181,7 +181,7 @@ public class SellerTest extends CustomizeListTestBase {
 		setValue("number", "66");
 		setValue("name", "JUNIT SELLER 66");
 		execute("CRUD.save");
-		assertNoErrors();
+		assertNoErrors(); 
 		
 		changeModule("SignIn");
 		login("openxavatest1@getnada.com", "test1");
