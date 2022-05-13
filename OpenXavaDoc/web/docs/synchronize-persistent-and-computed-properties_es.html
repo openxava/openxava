@@ -101,15 +101,57 @@ public class Pedido extends DocumentoComercial {
       <img src="files/business-logic_es050.png" alt="business-logic_es050.png" title="business-logic_es050.png">
       <div class="wiki" style="display: block;">El valor se recalcula cada vez
         que la fecha cambia en la interfaz de usuario gracias a el <i>@Depends("fecha")</i>
-        en <i>diasEntregaEstimados.</i></div>
+        en <i>diasEntregaEstimados. </i>Todo esto está muy bien, pero cuando
+        vas al modo lista no puedes ordenar ni filtrar por días estimados de
+        entrega. Para solucionar este problema añadimos una segunda propiedad,
+        esta vez persistente. Agrega el siguiente código a tu entidad <i>Pedido</i>:<i><br>
+        </i></div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@Column(columnDefinition="INTEGER DEFAULT 1")
+int diasEntrega;
+</code></pre> </div>
+      <div class="wiki" style="display: block;"> Ten en cuenta que hemos usado <i>@Column(columnDefinition="INTEGER
+          DEFAULT 1")</i>, con este truco cuando OpenXava crea la columna usa
+        "INTEGER DEFAULT 1" como definición de columna, por lo que la nueva
+        columna tiene 1 como valor predeterminado en lugar de nulo, y nosotros
+        evitamos un feo error con nuestra propiedad int. Sí, en muchos casos <i>@Column(columnDefinition=)</i>
+        es una alternativa para hacer una ACTUALIZACIÓN sobre la tabla (como
+        hicimos en la lección "Evolución manual del esquema"), aunque tiene el
+        problema de que depende de la base de datos. De todos modos, esta
+        disertación de <i>columnDefinition</i> es tangencial a nuestro problema
+        de sincronización calculada/persistente, <i>@Column</i> no es del todo
+        necesaria, solo es conveniente para nuestra propiedad int. Esta nueva
+        propiedad <i>diasEntrega</i> contendrá el mismo valor que <i>diasEntregaEstimados</i>,
+        pero <i>diasEntrega</i> será persistente con su columna correspondiente
+        en la base de datos. El truco está en mantener sincronizada la propiedad
+        <i>diasEntrega</i>. Usaremos los métodos de retrollamadas JPA en la
+        clase de Pedido. Basta con asignar el valor de <i>díasEntregaEstimados</i>
+        a <i>diasEntrega</i> cada vez que se crea un nuevo pedido (<i>@PrePersist</i>)
+        o se actualiza (<i>@PreUpdate</i>). Agreguemos un nuevo método <i>recalcularDiasEntrega()</i>
+        a la entidad de pedido anotada con <i>@PrePersist</i> y <i>@PreUpdate</i>,
+        por lo tanto: </div>
+      <pre><code class="java">@PrePersist @PreUpdate 
+private void recalcularDiasEntrega() {
+    setDiasEntrega(getDiasEntregaEstimados());
+}
+</code></pre>
+      <div class="wiki" style="display: block;">Básicamente, el método <i>recalcularDiasEntrega()</i>
+        se llama cada vez que se registra una entidad de <i>Pedido</i> en la
+        base de datos por primera vez y cuando se actualiza el pedido. Puedes
+        probar el módulo <i>Pedido</i> con este código, y verás como cuando se
+        crea o modifica un pedido, la columna de la base de datos para <i>diasEntrega</i>
+        se actualiza correctamente después de guardar, lista para ser utilizada
+        en procesamiento masivo y disponible para ordenar y filtrar lista.<i><br>
+        </i></div>
       <h2> </h2>
     </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
-      En esta lección has aprendido lo fácil que es utilizar métodos de llamadas
-      JPA para definir lógica en diferentes momentos específicos del ciclo de
-      vida de una entidad, permitiéndonos establecer y ejecutar lógica del
-      negocio al grabar por primera vez una propiedad.<br>
+      En esta lección has aprendido lo fácil que es utilizar métodos de
+      retrollamadas JPA para definir lógica en diferentes momentos específicos
+      del ciclo de vida de una entidad, permitiéndonos sincronizar propiedades
+      persistentes y calculadas al modificar una entidad ya existente, o grabar
+      por primera vez una entidad.<br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
