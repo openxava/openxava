@@ -15,7 +15,7 @@ public class TestServletTest extends TestCase {
 	
 	public void testTestServlet() throws Exception {
 		WebClient client = new WebClient();
-		Page page = client.getPage("http://" + getHost() + ":" + getPort() + getContextPath() + "test"); // TMR FALLA
+		Page page = client.getPage("http://" + getHost() + ":" + getPort() + getContextPath() + "test");
 		String content = page.getWebResponse().getContentAsString();		
 		assertTrue(content.indexOf("Hello, I'm a test servlet from OpenXava") >= 0);
 	}
@@ -29,7 +29,7 @@ public class TestServletTest extends TestCase {
 	}		
 	
 	private String getContextPath() {  
-		return ModuleTestBase.getXavaJUnitProperty("contextPath", "/OpenXavaTest/");
+		return ModuleTestBase.getXavaJUnitProperty("contextPath", "/openxavatest/");
 	}
 	
 

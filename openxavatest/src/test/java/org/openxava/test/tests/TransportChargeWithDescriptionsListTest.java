@@ -15,7 +15,7 @@ public class TransportChargeWithDescriptionsListTest extends ModuleTestBase {
 	}
 		
 	public void testNestedCompositeKeysInDescriptionsList() throws Exception { 
-		deleteAllTransportCharges(); // TMR FALLA		
+		deleteAllTransportCharges(); 
 		assertListRowCount(0);  
 		execute("CRUD.new");
 		Delivery delivery = createDelivery();
@@ -58,8 +58,13 @@ public class TransportChargeWithDescriptionsListTest extends ModuleTestBase {
 	}
 	
 	private void deleteAllTransportCharges() throws Exception {
-		checkAll();
-		execute("CRUD.deleteSelected");
+		if (existsAction("Mode.list")) {
+			execute("Mode.list"); 
+		}
+		else {
+			checkAll();
+			execute("CRUD.deleteSelected");			
+		}
 	}
 	
 }

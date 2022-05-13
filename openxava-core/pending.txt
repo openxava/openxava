@@ -18,10 +18,10 @@ MAVEN
 * Colores de iconos en Windows 11.
 * Colores de iconos en Windows 7.
 - Pasar openxavatest suite completa con Java 8:
-	TMR ME QUEDÉ: FALTAN 20, BUSCAR TMR FALLA EN LOS TESTS
+	TMR ME QUEDÉ: FALTAN 17, BUSCAR TMR FALLA EN LOS TESTS
 - Quitar OpenXavaTest6
-- Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Mezclar en master.
+- Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Quitar usesAnnotatedPOJO() de ModuleTestBase
 - No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
 - ¿Dividir resources en subcarpetas? ¿Mover algunos a la parte de test? Adaptar invoicedemo y openxavatest. Adaptar archetype. Revisar doc de migration
@@ -37,7 +37,7 @@ MAVEN
 	- Poner temp en .ignore
 - Arquetipo en español.
 - Probar que en proyecto nuevo funciona IMAGES_GALLERY (para comprobar configuración de Hibernate).
-- Modificar doc sobre como añadir servlets, filter y listeners propios: Anotaciones y web fragments.
+- Modificar doc sobre como añadir servlets, filter y listeners propios: Directamente en web.xml. También anotaciones y web fragments(para librerias, no para app).
 - Probar con WTP. Si no funciona poner que ya no se soporta en changelog. Si no funciona quitar parte WTP de context.xml
 - Probar con Tomcat 8 y 9 externos.
 - Revisar documentación de personalización y estilo, porque ahora está todo comprimido.
