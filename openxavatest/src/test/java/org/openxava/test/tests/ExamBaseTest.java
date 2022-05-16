@@ -89,14 +89,14 @@ abstract public class ExamBaseTest extends ModuleTestBase {
 		getLastRevisionNumber();
 	}
 	
-	public void testFileChangingDatasource() throws Exception { // TMR FALLA
+	public void testFileChangingDatasource() throws Exception { 
 		// Real data source
 		setDatasource(Datasource.REAL);
 		execute("Mode.list"); 
 		assertListRowCount(0);
 		execute("CRUD.new");
 		setValue("name", "REAL");
-		uploadFile("file", "reports/Corporation.html");   
+		uploadFile("file", "src/main/resources/Corporation.html");   
 		execute("Collection.new", "viewObject=xava_view_questioning");
 		setValue("name", "REAL QUESTION 1");
 		execute("Collection.save");
@@ -107,7 +107,7 @@ abstract public class ExamBaseTest extends ModuleTestBase {
 		assertListRowCount(0);
 		execute("CRUD.new");
 		setValue("name", "SIMULATION");
-		uploadFile("file", "reports/Customer.jrxml");  
+		uploadFile("file", "src/main/resources/Customer.jrxml");  
 		execute("Collection.new", "viewObject=xava_view_questioning");
 		setValue("name", "SIMULATION QUESTION 1");
 		execute("Collection.save");

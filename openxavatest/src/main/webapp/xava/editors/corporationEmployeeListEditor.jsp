@@ -10,7 +10,9 @@ String condition = tab.getBaseCondition()==null?"":tab.getBaseCondition();
 String all = condition.equals("")?"selected":"";
 String low = condition.contains("<=")?"selected":"";
 String high = condition.contains(">")?"selected":"";
-String action="openxava.executeAction('OpenXavaTest', 'CorporationEmployee'," + 
+String app = request.getParameter("application");
+System.out.println("[corporationEmployeeListEditor.jsp] app=" + app); // tmr
+String action="openxava.executeAction('" + app + "', 'CorporationEmployee'," + 
 	"false, false, 'CorporationEmployee.filter', 'segment='+this.value)";
 %>
 

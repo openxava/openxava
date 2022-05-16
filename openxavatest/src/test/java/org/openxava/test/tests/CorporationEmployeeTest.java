@@ -23,7 +23,7 @@ public class CorporationEmployeeTest extends ModuleTestBase {
 		assertNoErrors(); // To test a bug on init
 		assertListRowCount(2); 
 		setValue("chooseSegment", "low");
-		assertListRowCount(1); // TMR FALLA
+		assertListRowCount(1); 
 		assertValueInList(0, 1, "MIGUEL"); 
 		setValue("chooseSegment", "high");
 		assertListRowCount(1);

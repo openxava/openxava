@@ -17,8 +17,7 @@ MAVEN
 * Colores de iconos en Windows 10.
 * Colores de iconos en Windows 11.
 * Colores de iconos en Windows 7.
-- Pasar openxavatest suite completa con Java 8:
-	TMR ME QUEDÉ: FALTAN 17, BUSCAR TMR FALLA EN LOS TESTS
+* Pasar openxavatest suite completa con Java 8:
 - Quitar OpenXavaTest6
 - Mezclar en master.
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.

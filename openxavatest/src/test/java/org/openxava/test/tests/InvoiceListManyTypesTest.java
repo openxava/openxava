@@ -28,7 +28,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationsRanges();
 		assertListConfigurationsColumns(); 
 		assertListConfigurationsChangeName();
-		assertListConfigurationsI18n(); // TMR FALLA
+		assertListConfigurationsI18n(); 
 		assertListConfigurationsPersistence();
 		assertListConfigurationsRemove();
 		assertListConfigurationsNotSavedByDefault();
@@ -358,19 +358,19 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		selectListConfiguration("Customer with email"); 
 		assertListRowCount(5);
 		assertListColumnCount(8);
-		assertLabelInList(0, "Correo electr�nico de cliente");
+		assertLabelInList(0, "Correo electrónico de cliente");
 		assertLabelInList(1, "Fecha");
 		assertLabelInList(2, "Pagada");		
 		assertLabelInList(5, "Comercial de cliente"); 
-		assertLabelInList(6, "Poblaci�n de cliente");
+		assertLabelInList(6, "Población de cliente");
 		assertLabelInList(7, "Comentario"); 
 		assertValue("conditionComparator___0", "not_empty_comparator");
 		
 		selectListConfiguration("Number between 2 and 10");
 		assertListRowCount(3);
 		assertListColumnCount(9);
-		assertLabelInList(0, "A�o");
-		assertLabelInList(1, "N�mero");
+		assertLabelInList(0, "Año");
+		assertLabelInList(1, "Número");
 		assertLabelInList(2, "Fecha"); 
 		assertLabelInList(8, "Comercial de cliente"); 
 		
@@ -413,8 +413,8 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		
 		modifyColumns(); // Modifying column should not save configurations per se
 		
-		assertListSelectedConfiguration("A�o = 2004");
-		assertListAllConfigurations("A�o = 2004", "Todos", 
+		assertListSelectedConfiguration("Año = 2004");
+		assertListAllConfigurations("Año = 2004", "Todos", 
 			"Number between 2 and 10", "Customer with email", "Number between 2 and 12", 
 			"Ordered by year descending and number descending", "Year/month of date = 2006/11", 
 			"Ordered by number descending",   
@@ -433,8 +433,8 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		
 		setConditionValues("2002"); 
 		execute("List.filter");
-		assertListSelectedConfiguration("A�o = 2002");
-		assertListAllConfigurations("A�o = 2002", "Todos", 
+		assertListSelectedConfiguration("Año = 2002");
+		assertListAllConfigurations("Año = 2002", "Todos", 
 			"Number between 2 and 10", "Customer with email", "Number between 2 and 12", 
 			"Ordered by year descending and number descending", "Year/month of date = 2006/11", 
 			"Ordered by number descending",   
@@ -472,10 +472,10 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		setLocale("es");
 		assertListSelectedConfiguration("Number between 2 and 10");
 		execute("List.orderBy", "property=customer.name");
-		assertListSelectedConfiguration("N�mero entre 2 y 10 ordenado por nombre de cliente"); 
+		assertListSelectedConfiguration("Número entre 2 y 10 ordenado por nombre de cliente"); 
 		// We don't save the configuration to test the case: ordering does not save configuration automatically (old behavior)
 		// Since v6.5 all configuration names are saved as custom names so they are not translated
-		assertListAllConfigurations("N�mero entre 2 y 10 ordenado por nombre de cliente",
+		assertListAllConfigurations("Número entre 2 y 10 ordenado por nombre de cliente",
 			"Todos", "Number between 2 and 10", "Seller Manuel Chavarri", "Customer with email",  
 			"Number between 2 and 12", "Ordered by number descending",   
 			"Year > 2002 ordered by year descending and number descending", "Ordered by year descending and number descending", 

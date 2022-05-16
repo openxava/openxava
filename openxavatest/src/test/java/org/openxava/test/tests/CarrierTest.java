@@ -57,10 +57,10 @@ public class CarrierTest extends CarrierTestBase {
 		// Confirm action with apostrophe
 		assertListRowCount(5);
 		execute("List.viewDetail", "row=0");
-	HtmlAnchor deleteLink = getHtmlPage().getHtmlElementById("ox_openxavatest_Carrier__CRUD___delete");
+		HtmlAnchor deleteLink = getHtmlPage().getHtmlElementById("ox_openxavatest_Carrier__CRUD___delete");
 		// To ensure the question has an apostrophe
-		assertEquals("javascript:openxava.executeAction('OpenXavaTest', 'Carrier', 'Effacer l" // TMR FALLA
-			+ (char) 145 +"entit� courante: Etes-vous s�r(e) ?', false, 'CRUD.delete')", 
+		assertEquals("javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
+			+ (char) 145 +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
 			deleteLink.getHrefAttribute());
 		execute("CRUD.delete");
 		execute("Mode.list");
@@ -69,9 +69,9 @@ public class CarrierTest extends CarrierTestBase {
 		// Confirm row action with apostrophe and title in actions
 		// To ensure the title and question have apostrophe
 		String deleteRowLink = "<a class=\"ox-image-link\" "
-				+ "title=\"Effacer l" + (char) 145 + "entit�\" "
-				+ "href=\"javascript:openxava.executeAction('OpenXavaTest', 'Carrier', 'Effacer l" 
-				+ (char) 145 + "entit� la ligne 1: �tes-vous s�r ?', false, 'CRUD.deleteRow', 'row=0')\">";
+				+ "title=\"Effacer l" + (char) 145 + "entité\" "
+				+ "href=\"javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
+				+ (char) 145 + "entité la ligne 1: êtes-vous sûr ?', false, 'CRUD.deleteRow', 'row=0')\">";
 		assertTrue(getHtml().contains(deleteRowLink));
 		execute("CRUD.deleteRow", "row=0");
 		assertListRowCount(3);
@@ -79,12 +79,12 @@ public class CarrierTest extends CarrierTestBase {
 		// Apostrophe in dialog title
 		execute("List.viewDetail", "row=0");
 		execute("Collection.new", "viewObject=xava_view_fellowCarriersCalculated");
-		assertDialogTitle("Pr�paration d'une nouvelle entit� - Transporteur");
+		assertDialogTitle("Préparation d'une nouvelle entité - Transporteur");
 		closeDialog();
 		
 		// Apostrophe in bottom button
 		HtmlInput showCutRowsButton = getHtmlPage().getHtmlElementById("ox_openxavatest_Carrier__Carrier___showCutRows");
-		assertEquals("Montrer l" + (char) 145 + "article coup�", showCutRowsButton.getValueAttribute());
+		assertEquals("Montrer l" + (char) 145 + "article coupé", showCutRowsButton.getValueAttribute());
 		
 		// Switzerland locale
 		execute("Mode.list"); 

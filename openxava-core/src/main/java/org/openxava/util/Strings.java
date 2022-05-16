@@ -884,7 +884,7 @@ public class Strings {
 	/**
 	 * Change from a vowel with an accent, to vowel with no accent
 	 * 
-	 * If you send "CamiÃ³n" it returns "Camion"
+	 * If you send "Camión" it returns "Camion"
 	 * 
 	 * @since v4m6
 	 */

@@ -670,7 +670,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setConditionValues("2000");
 		setConditionComparators("range_comparator"); 
 		assertListRowCount(9); 
-		assertTrue(isVisibleConditionValueTo(0)); // TMR FALLA
+		assertTrue(isVisibleConditionValueTo(0)); 
 		assertFalse(isVisibleConditionValueToCalendar(0));
 		assertFalse(isVisibleConditionValueTo(2));		
 		assertFalse(isVisibleConditionValueToCalendar(2));
@@ -768,7 +768,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("InvoicePrint.printExcel"); 
 		assertNoErrors(); 
 		assertMessage("The print was successful");
-		assertContentTypeForPopup("application/vnd.ms-excel"); // TMR FALLA 		
+		assertContentTypeForPopup("application/vnd.ms-excel");  		
 		
 		execute("InvoicePrint.printRtf"); 
 		assertNoErrors(); 
@@ -1336,8 +1336,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 		// The DateFormat is because Java 11 and 8 format Spanish dates in different way, 
 		// though we're not interested in testing date format here, just bigdecimals 
 		String date = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es")).format(Dates.create(1, 1, 2002));  		
-		assertExcel( // TMR FALLA
-			"A�o;N�mero;Fecha;Suma importes;I.V.A.;Cantidad l�neas;Pagada;Importancia",	
+		assertExcel( 
+			"Año;Número;Fecha;Suma importes;I.V.A.;Cantidad líneas;Pagada;Importancia",	
 			"2002;1;\"" + date + "\";\"2500,00\";\"400,00\";2;\"No\";\"Normal\""); // "2500,00" instead of "2.500,00"		
 	}
 	
@@ -2218,7 +2218,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("ListFormat.select", "editor=Charts");
 		assertNoAction("CRUD.deleteSelected"); 
 		assertNoDialog(); 
-		assertChartTypeLink("BAR"); // TMR FALLA
+		assertChartTypeLink("BAR"); 
 		assertChartTypeLink("LINE");
 		assertChartTypeLink("PIE");
 		assertValue("xColumn", "year");
@@ -2327,7 +2327,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	private HtmlElement getChartTypeLink(String chartType) { 
-		return getHtmlPage().getAnchorByHref("javascript:openxava.executeAction('OpenXavaTest', 'Invoice', '', false, 'Chart.selectType', 'chartType=" + chartType + "')"); 
+		return getHtmlPage().getAnchorByHref("javascript:openxava.executeAction('openxavatest', 'Invoice', '', false, 'Chart.selectType', 'chartType=" + chartType + "')"); 
 	}
 	
 	private void assertChartDisplayed() throws Exception {
@@ -2539,11 +2539,11 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	private boolean isVisibleConditionValueTo(int number) {
-		return getHtmlPage().getHtmlElementById(Ids.decorate("OpenXavaTest", "Invoice", "conditionValueTo___" + number)).isDisplayed(); 
+		return getHtmlPage().getHtmlElementById(Ids.decorate("openxavatest", "Invoice", "conditionValueTo___" + number)).isDisplayed(); 
 	}
 	
 	private boolean isVisibleConditionValueToCalendar(int number) {
-		HtmlElement parent = (HtmlElement) getHtmlPage().getHtmlElementById(Ids.decorate("OpenXavaTest", "Invoice", "conditionValueTo___" + number)).getParentNode();
+		HtmlElement parent = (HtmlElement) getHtmlPage().getHtmlElementById(Ids.decorate("openxavatest", "Invoice", "conditionValueTo___" + number)).getParentNode();
 		List<HtmlElement> links = parent.getElementsByTagName("a");
 		if (links.isEmpty()) return false;
 		HtmlElement calendar = links.get(0);

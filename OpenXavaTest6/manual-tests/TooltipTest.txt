@@ -1,9 +1,0 @@
-The automated tests in this project do not include some aspects of tooltip.
-Carrier module:
-- Go to the first element.
-- Mouse over "Create new without dialog" icon on Warehouse reference: It should show a regular tooltip, not the jQuery UI one.
-- Click on the action: It should work.
-Warehouse:
-- Click on New.
-- The first field has not tooltip.
-- The second field shows a black tooltip with an arrow in the correct place.
