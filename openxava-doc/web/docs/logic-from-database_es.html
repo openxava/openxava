@@ -72,7 +72,7 @@ BigDecimal beneficioEstimado; // Un campo, como con una propiedad persistente
       usuario puede filtrar y ordenar por las propiedades <i>@Formula</i> en
       modo lista, pero siempre son de solo lectura y no se recalculan en tiempo
       real en modo detalle. Dado que son de sólo lectura no necesitan el método
-      getter, por lo que la hemos anotamos con <i>@Setter(AccessLevel.NONE)</i>
+      setter, por lo que la hemos anotamos con <i>@Setter(AccessLevel.NONE)</i>
       para que Lombok no genere el setter. Además, las propiedades <i>@Formula</i>
       dependen de la base de datos, porque podrías usar sintaxis sólo soportada
       por cierto fabricante de base de datos.<br>
