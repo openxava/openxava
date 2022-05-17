@@ -20,7 +20,7 @@ MAVEN
 * Pasar openxavatest suite completa con Java 8:
 * Quitar OpenXavaTest6
 * Mezclar en master.
-- Normalizar nombre de OpenXavaDoc, el último por normalizar.
+* Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Crear versión 7m1. ¿Hacer pública?
 	- Solo con Java 8.
 	- Donde está lanzador.
