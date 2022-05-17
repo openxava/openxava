@@ -1,0 +1,4 @@
+/*C3*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C4*/SET SCHEMA PUBLIC
+create table myapp.YourFirstEntity (id varchar(32) not null, amount numeric(19,2), date date, description varchar(50), primary key (id))

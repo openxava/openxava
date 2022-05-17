@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-fragment xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+    http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_1.xsd"
+    version="3.1">
+	
+	<filter>
+		<filter-name>naviox</filter-name>
+		<filter-class>com.openxava.naviox.web.NaviOXFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>naviox</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>		
+	<filter-mapping>
+		<filter-name>naviox</filter-name>
+		<url-pattern>/modules/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>naviox</filter-name>
+		<url-pattern>/phone/index.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>		
+	<filter-mapping>
+		<filter-name>naviox</filter-name>
+		<servlet-name>naviox</servlet-name>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>naviox</filter-name>
+		<servlet-name>module</servlet-name>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>naviox</filter-name>
+		<servlet-name>phone</servlet-name>
+	</filter-mapping>
+			
+</web-fragment>

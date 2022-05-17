@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!ELEMENT editores (editor*)>
+
+<!ELEMENT editor (propiedad*, formateador?, formateador-lista?, (para-tipo | para-estereotipo | para-propiedad-modelo | para-valores-posibles | para-referencias | para-referencia | para-colecciones | para-colecciones-elementos | para-coleccion | para-tabs | para-tab | para-anotacion)*)>
+<!ATTLIST editor
+ nombre CDATA #IMPLIED
+ clase CDATA #IMPLIED
+ url CDATA #IMPLIED
+ formatear (true|false) "true" 
+ depende-de-estereotipos CDATA #IMPLIED
+ depende-de-propiedades CDATA #IMPLIED
+ enmarcable (true|false) "false"
+ recargar-siempre (true|false) "false"
+ compuesto (true|false) "false" 
+ icono CDATA #IMPLIED
+ accion-iniciar CDATA #IMPLIED
+ accion-liberar CDATA #IMPLIED 
+ elementos-seleccionables (true|false) "true"
+>
+
+<!ELEMENT propiedad EMPTY>
+<!ATTLIST propiedad
+  nombre CDATA #REQUIRED
+  valor CDATA #REQUIRED
+>
+
+<!ELEMENT formateador (poner*)>
+<!ATTLIST formateador
+  clase CDATA #REQUIRED
+  del-tipo (true|false) "false"
+>
+
+<!ELEMENT formateador-lista (poner*)>
+<!ATTLIST formateador-lista
+  clase CDATA #REQUIRED
+  del-tipo (true|false) "false"
+>
+
+<!ELEMENT poner EMPTY>
+<!ATTLIST poner
+ propiedad CDATA #REQUIRED
+ valor CDATA #REQUIRED
+>
+
+<!ELEMENT para-tipo EMPTY>
+<!ATTLIST para-tipo
+ tipo CDATA #REQUIRED
+>
+
+<!ELEMENT para-estereotipo EMPTY>
+<!ATTLIST para-estereotipo
+ estereotipo CDATA #REQUIRED
+>
+
+<!ELEMENT para-propiedad-modelo EMPTY>
+<!ATTLIST para-propiedad-modelo
+ modelo CDATA #REQUIRED
+ propiedad CDATA #REQUIRED 
+>
+
+<!ELEMENT para-valores-posibles EMPTY>
+
+<!ELEMENT para-referencias EMPTY>
+
+<!ELEMENT para-referencia EMPTY>
+<!ATTLIST para-referencia
+ modelo CDATA #REQUIRED 
+>
+
+<!ELEMENT para-colecciones EMPTY>
+
+<!ELEMENT para-colecciones-elementos EMPTY>
+
+<!ELEMENT para-coleccion EMPTY>
+<!ATTLIST para-coleccion
+ modelo CDATA #REQUIRED 
+>
+
+<!ELEMENT para-tabs EMPTY>
+
+<!ELEMENT para-tab EMPTY>
+<!ATTLIST para-tab
+ modelo CDATA #REQUIRED 
+>
+
+<!ELEMENT para-anotacion EMPTY>
+<!ATTLIST para-anotacion
+ anotacion CDATA #REQUIRED
+>
+
