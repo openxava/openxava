@@ -19,15 +19,20 @@ MAVEN
 * Colores de iconos en Windows 7.
 * Pasar openxavatest suite completa con Java 8:
 * Quitar OpenXavaTest6
-- Mezclar en master.
+* Mezclar en master.
 - Normalizar nombre de OpenXavaDoc, el último por normalizar.
 - Crear versión 7m1. ¿Hacer pública?
+	- Solo con Java 8.
+	- Donde está lanzador.
+	- Como migrar.
+	- Crear arquetipo.
 - Quitar usesAnnotatedPOJO() de ModuleTestBase
 - No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
 - ¿Dividir resources en subcarpetas? ¿Mover algunos a la parte de test? Adaptar invoicedemo y openxavatest. Adaptar archetype. Revisar doc de migration
 - Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.
 - Pasar OpenXavaTest suite completa con Java 11
 - Pasar prueba manuales.
+- ¿Qué hacer con openxava.properties?
 - Incluir licencia.
 - Mejorar arquetipo:
 	- Incluir una prueba JUnit.
