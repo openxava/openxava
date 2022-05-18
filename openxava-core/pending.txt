@@ -21,48 +21,8 @@ MAVEN
 * Quitar OpenXavaTest6
 * Mezclar en master.
 * Normalizar nombre de OpenXavaDoc, el último por normalizar.
-- Crear versión 7m1. ¿Hacer pública? ME QUEDÉ POR AQUÍ: FALTA MARCAR VERSION, PONER INSTRUCCIONES Y QUITAR RAMA maven-support  
-	- Solo con Java 8.
-	- Donde está lanzador.
-	- Como migrar.
-	- Crear arquetipo.
->> INSTRUCCIONES
-1. Descargar código desde https://github.com/openxava/openxava
-
-2. Instalar openxava-core y openxava-addons:
-
-$ cd openxava-core
-$ mvn install
-
-$ cd ..
-$ cd openxava-addons
-$ mvn install
-
-3. Instalar arquetipo:
-
-$ cd ..
-$ cd openxava-archetypes
-$ mvn clean archetype:create-from-project -Darchetype.properties="archetype.properties" 
-
-$ cd target/generated-sources/archetype/
-$ mvn install
-
-4. Crear nuevo proyecto
-
-$ cd ..
-$ cd ..
-$ cd ..
-$ cd ..
-$ mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DgroupId=com.miempresa -DartifactId=miaplicacion -DinteractiveMode=false
-$ cd miaplicacion
-$ mvn package
-
-5 Ejecutar la aplicación
-
-Importar con Eclipse y ejecutar el paquete run con Java 8
-<< INSTRUCCIONES	
-	
-	
+* Incluir licencia.
+* Crear versión 7m1.	
 	
 - Quitar usesAnnotatedPOJO() de ModuleTestBase
 - No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
@@ -71,7 +31,7 @@ Importar con Eclipse y ejecutar el paquete run con Java 8
 - Pasar OpenXavaTest suite completa con Java 11
 - Pasar prueba manuales.
 - ¿Qué hacer con openxava.properties?
-- Incluir licencia.
+
 - Mejorar arquetipo:
 	- Incluir una prueba JUnit.
 	- ¿Incluir xava/editors? 
