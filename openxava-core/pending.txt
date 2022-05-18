@@ -24,7 +24,6 @@ MAVEN
 * Incluir licencia.
 * Crear versión 7m1.	
 	
-- Quitar usesAnnotatedPOJO() de ModuleTestBase
 - No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
 - ¿Dividir resources en subcarpetas? ¿Mover algunos a la parte de test? Adaptar invoicedemo y openxavatest. Adaptar archetype. Revisar doc de migration
 - Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.
@@ -58,6 +57,7 @@ MAVEN
 - Política de actualización: ¿Qué hacer con las versiones? ¿En archetype? ¿En plugin? ¿Diferentes velocidades?
 
 - Quitar soporte de XML: (Posponer)
+	- Quitar usesAnnotatedPOJO() de ModuleTestBase
 	- Quitar code-generators.xml
 	- Quitar converters.xml
 	- Quitar generador de código.
