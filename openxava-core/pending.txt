@@ -22,11 +22,11 @@ MAVEN
 * Mezclar en master.
 * Normalizar nombre de OpenXavaDoc, el último por normalizar.
 * Incluir licencia.
-* Crear versión 7m1.	
-	
+* Crear versión 7m1.		
 * No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
-- Dividir resources en subcarpetas: TMR ME QUEDÉ POR AQUÍ. XMLs MOVIDOS A xava. HAY QUE HACER clean + package. 
-									TMR AHORA NO VA LA APLICACIÓN
+- Dividir resources en subcarpetas: 
+	TMR ME QUEDÉ POR AQUÍ: xava HECHO. HACIENDO i18n. ETIQUETAS FUNCIONAN, MENSAJES EN CONSOLA FUNCIONAN
+	TMR		PERO MENSAJES (COMO required AL GRABAR) FALLAN
 	- ¿Mover algunos a la parte de test? 
 	- Adaptar invoicedemo y openxavatest. 
 	- Adaptar archetype. 

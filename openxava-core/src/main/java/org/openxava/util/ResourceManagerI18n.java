@@ -69,7 +69,8 @@ public class ResourceManagerI18n {
 				String name = (String) it.next();
 				if (englishPrefix != null) {
 					try {
-						ResourceBundle rb = ResourceBundle.getBundle(name + englishPrefix, locale);
+						// tmr ResourceBundle rb = ResourceBundle.getBundle(name + englishPrefix, locale);
+						ResourceBundle rb = ResourceBundle.getBundle("i18n." + name + englishPrefix, locale); // tmr
 						return rb.getString(key);
 					}
 					catch (MissingResourceException ex) {
@@ -77,7 +78,8 @@ public class ResourceManagerI18n {
 				}
 				if (spanishPrefix != null) {
 					try {
-						ResourceBundle rb = ResourceBundle.getBundle(spanishPrefix + name, locale);
+						// tmr ResourceBundle rb = ResourceBundle.getBundle(spanishPrefix + name, locale);
+						ResourceBundle rb = ResourceBundle.getBundle("i18n." + spanishPrefix + name, locale); // tmr
 						return rb.getString(key);
 					}
 					catch (MissingResourceException ex) {
@@ -89,7 +91,8 @@ public class ResourceManagerI18n {
 			log.error("Resource " + key + " cannot be translated using application specific resources. We use only " + resourcesFile,ex);
 		}
 		try {
-			ResourceBundle rb = ResourceBundle.getBundle(resourcesFile, locale);
+			// tmr ResourceBundle rb = ResourceBundle.getBundle(resourcesFile, locale);
+			ResourceBundle rb = ResourceBundle.getBundle("i18n." + resourcesFile, locale); // tmr
 			return rb.getString(key);
 		}
 		catch (MissingResourceException ex) {
@@ -122,7 +125,8 @@ public class ResourceManagerI18n {
 
 	public int getChar(String key) {
 		try {
-			String s = ResourceBundle.getBundle(resourcesFile).getString(key);
+			// tmr String s = ResourceBundle.getBundle(resourcesFile).getString(key);
+			String s = ResourceBundle.getBundle("i18n." + resourcesFile).getString(key);
 			if (s == null) return ' ';
 			if (s.length() == 0) return ' ';
 			return s.charAt(0);			

@@ -1,0 +1,40 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE converters SYSTEM "dtds/converters.dtd">
+
+<!--
+	In your project use the name 'converters.xml' or 'conversores.xml'
+	-->
+
+<converters>	<for-type type="java.lang.String" 
+		converter-class="org.openxava.converters.TrimStringConverter"
+		cmp-type="java.lang.String"/>
+			<for-type type="int" 
+		converter-class="org.openxava.converters.IntegerNumberConverter"
+		cmp-type="java.lang.Integer"/>
+		
+	<for-type type="java.lang.Integer" 
+		converter-class="org.openxava.converters.IntegerNumberConverter"
+		cmp-type="java.lang.Integer"/>
+		
+	<for-type type="long" 
+		converter-class="org.openxava.converters.LongNumberConverter"
+		cmp-type="java.lang.Long"/>
+		
+	<for-type type="java.lang.Long" 
+		converter-class="org.openxava.converters.LongNumberConverter"
+		cmp-type="java.lang.Long"/>
+		
+	<for-type type="java.math.BigDecimal" 
+		converter-class="org.openxava.converters.BigDecimalNumberConverter"
+		cmp-type="java.math.BigDecimal"/>	
+		
+	<for-type type="java.math.BigInteger" 
+		converter-class="org.openxava.converters.BigIntegerNumberConverter"
+		cmp-type="java.math.BigInteger"/>	
+				
+	<for-type type="java.util.Date"
+		converter-class="org.openxava.converters.DateUtilSQLConverter"
+		cmp-type="java.sql.Date"/>
+
+</converters>

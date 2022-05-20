@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE annotation-type-default SYSTEM "dtds/annotation-type-default.dtd">
+
+<!-- 
+Associates annotation with its corresondint type.
+
+Usually this is not needed because we no longer use code generation, however
+we still need it for any annotation compatible with java.sql.Timestamp.
+-->
+
+<annotation-type-default>
+
+	<for annotation="org.openxava.annotations.DateTime" type="java.sql.Timestamp"/>
+	
+</annotation-type-default>

@@ -2,8 +2,6 @@ package org.openxava.util;
 
 import java.util.*;
 
-
-
 import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;
 
@@ -265,19 +263,22 @@ public class Labels {
 			while (it.hasNext()) {
 				name = (String) it.next();
 				try {
-					ResourceBundle rb = ResourceBundle.getBundle(name + "-labels", locale);
+					// tmr ResourceBundle rb = ResourceBundle.getBundle(name + "-labels", locale);
+					ResourceBundle rb = ResourceBundle.getBundle("i18n." + name + "-labels", locale); // tmr
 					return rb.getString(id);
 				}
 				catch (MissingResourceException ex) {
 				}						
 				try {
-					ResourceBundle rb = ResourceBundle.getBundle("Etiquetas" + name, locale);
+					// tmr ResourceBundle rb = ResourceBundle.getBundle("Etiquetas" + name, locale);
+					ResourceBundle rb = ResourceBundle.getBundle("i18n.Etiquetas" + name, locale); // tmr
 					return rb.getString(id);
 				}
 				catch (MissingResourceException ex) {
 				}			
 			}		
-			ResourceBundle rb = ResourceBundle.getBundle("Labels", locale);
+			// tmr ResourceBundle rb = ResourceBundle.getBundle("Labels", locale);
+			ResourceBundle rb = ResourceBundle.getBundle("i18n.Labels", locale); // tmr 
 			return rb.getString(id);
 		}
 		catch (MissingResourceException ex) {
