@@ -25,8 +25,8 @@ MAVEN
 * Crear versión 7m1.		
 * No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
 - Dividir resources en subcarpetas: 
-	TMR ME QUEDÉ POR AQUÍ: xava HECHO. HACIENDO i18n. ETIQUETAS FUNCIONAN, MENSAJES EN CONSOLA FUNCIONAN
-	TMR		PERO MENSAJES (COMO required AL GRABAR) FALLAN
+	TMR ME QUEDÉ POR AQUÍ: xava E i18n HECHOS. PENSANDO COMO HACER LOS REPORTS, ¿EN reports? YO DIRÍA SÍ, 
+	TMR		PERO USAR reports/Customer.jrxml O Customer.jrxml EN LA ACCIÓN ESTÁ POR DECIDIR  
 	- ¿Mover algunos a la parte de test? 
 	- Adaptar invoicedemo y openxavatest. 
 	- Adaptar archetype. 
