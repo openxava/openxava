@@ -15,7 +15,8 @@
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
         Lesson 2: Basic domain model - Part 1</h1>
       <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <strong>2. Basic domain model (1)</strong> | <a
+        Getting started</a> | <strong>2. Basic domain model (1)</strong> | <a
+
         class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain
         model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
         Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
@@ -25,16 +26,21 @@
         View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
         Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
         Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
-        @DefaultValueCalculator in collections</a><strong> </strong> | <a class="wiki_link"
-        href="calculation-and-collections-total_en.html">12. </a><a class="wiki_link"
+        @DefaultValueCalculator in collections</a><strong> </strong> | <a class="wiki_link"
+
+        href="calculation-and-collections-total_en.html">12. </a><a class="wiki_link"
+
         href="calculation-and-collections-total_en.html">@Calculation and
         collections totals</a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
         @DefaultValueCalculator from file</a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
         Manual schema evolution</a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
         Multi user default value calculation</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
-        Synchronize persistent and computed propierties</a> | <a class="wiki_link"
-        href="logic-from-database_en.html">17. Logic from database </a> | <a class="wiki_link"
-        href="validation_en.html">18. Advanced validation</a> | <a class="wiki_link"
+        Synchronize persistent and computed propierties</a> | <a class="wiki_link"
+
+        href="logic-from-database_en.html">17. Logic from database </a> | <a class="wiki_link"
+
+        href="validation_en.html">18. Advanced validation</a> | <a class="wiki_link"
+
         href="refining-standard-behavior_en.html">19. Refining the standard
         behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">20.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">21.
@@ -58,9 +64,11 @@
       In this lesson you will start to create the entities required for your
       project in order to get your invoicing application working.<br>
       By now I assume that you know how to create a new entity with OpenXava
-      Studio and how to run the application, because you have already read <a class="wiki_link"
+      Studio and how to run the application, because you have already read <a class="wiki_link"
+
         href="getting-started_en.html">Lesson1: Getting started</a>, right?</div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=nlknjcWbpt8"
+    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=nlknjcWbpt8"
+
         target="_blank"><img src="files/basic-domain-model1-video_en.png" title="Video for lesson 2: Basic domain model - Part 1"></a><br>
     </div>
     <div class="wiki" style="display: block;">If you don't like videos follow
@@ -83,6 +91,7 @@
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 import lombok.*;
  
@@ -110,8 +119,10 @@ public class Category {
       thereby making them not so portable as UUID.<br>
       Execute the <em>Category</em> module and add some categories:<br>
       <img src="files/modeling_en035.png" alt="modeling_en035.png" title="modeling_en035.png"><br>
-      <span style="line-height: 1.5;">Now, we'll associate </span><em><span style="line-height: 1.5;">Product</span></em><span
-        style="line-height: 1.5;"> with </span><em><span style="line-height: 1.5;">Category</span></em><span
+      <span style="line-height: 1.5;">Now, we'll associate </span><em><span style="line-height: 1.5;">Product</span></em><span
+
+        style="line-height: 1.5;"> with </span><em><span style="line-height: 1.5;">Category</span></em><span
+
         style="line-height: 1.5;">: Add the next <em>category</em> reference
         declaration in your <em>Product</em> entity:</span></div>
     <div class="wiki" style="display: block;">
@@ -128,7 +139,8 @@ public class Category {
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">This is a plain JPA many-to-one
-      relationship, the one that you can learn more about in <a class="wiki_link"
+      relationship, the one that you can learn more about in <a class="wiki_link"
+
         href="jpa_en.html">appendix B</a>. In this case, thanks to the <em>@DescriptionsList</em>
       annotation it is displayed as a combo:<br>
       <img src="files/modeling_en020.png" alt="modeling_en020.png" title="modeling_en020.png"><br>
@@ -252,7 +264,8 @@ Address address;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Here's the user interface for an
       embedded reference with and without <em>@NoFrame</em>:<br>
-      <img src="files/modeling_en060.png" alt="modeling_en060.png" title="modeling_en060.png"><span
+      <img src="files/modeling_en060.png" alt="modeling_en060.png" title="modeling_en060.png"><span
+
         style="line-height: 1.5;"></span><br>
       <h2 id="toc14"><a name="Modeling with Java-Summary"></a>Summary</h2>
       In this lesson you have learned how to create references that are
@@ -261,7 +274,8 @@ Address address;
       running, it's time to face the core entity of your application, the <em>Invoice</em>
       entity. Let's do it step by step in the next lesson.<br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
         <a class="wiki_link" href="basic-domain-model2_en.html">Go to Lesson 3</a></strong>
     </div>
