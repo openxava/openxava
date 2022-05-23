@@ -2,15 +2,15 @@ package org.openxava.test.actions;
 
 import java.util.*;
 
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.*;
-
 import org.openxava.actions.*;
 import org.openxava.jpa.*;
 import org.openxava.model.*;
 import org.openxava.test.model.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
+
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.*;
 
 /**
  * Report of products of the selected subfamily. <p>
@@ -43,7 +43,8 @@ public class FamilyProductsReportAction extends JasperReportBaseAction implement
 	}
 	
 	protected String getJRXML() {
-		return "Products.jrxml";
+		// tmr return "Products.jrxml";
+		return "reports/Products.jrxml"; // With reports/ prefix to test getting from resources root // tmr
 	}
 	
 	private Subfamily2 getSubfamily() throws Exception {

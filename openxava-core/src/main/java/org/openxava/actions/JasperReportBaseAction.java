@@ -8,11 +8,10 @@ import java.util.Date;
 
 import javax.servlet.*;
 
-import net.sf.jasperreports.engine.*;
-
 import org.openxava.jpa.*;
 import org.openxava.util.*;
-import org.openxava.web.*;
+
+import net.sf.jasperreports.engine.*;
 
 /**
  * To generate your custom Jasper Report. <p>
@@ -92,9 +91,14 @@ abstract public class JasperReportBaseAction extends ViewBaseAction implements I
 			xmlDesign = new FileInputStream(jrxml);
 		}
 		else {
-			xmlDesign = JasperReportBaseAction.class.getResourceAsStream("/" + jrxml);
+			// tmr ini
+			System.out.println("[JasperReportBaseAction.execute] v1"); // tmp
+			xmlDesign = getJRXMLAsStream(jrxml);
+			// tmr fin
+			// tmr xmlDesign = JasperReportBaseAction.class.getResourceAsStream("/" + jrxml);
 		} 
-		if (xmlDesign == null) throw new XavaException("design_not_found"); 
+		// tmr if (xmlDesign == null) throw new XavaException("design_not_found"); 
+		if (xmlDesign == null) throw new XavaException("jasper_report_design_not_found", jrxml); // tmr Bug nuevo para changelog
 		JasperReport report = JasperCompileManager.compileReport(xmlDesign);
 		Map parameters = getParameters(); // getParameters() before getDatasource()
 		JRDataSource ds = getDataSource();
@@ -125,6 +129,13 @@ abstract public class JasperReportBaseAction extends ViewBaseAction implements I
 		getRequest().getSession().setAttribute("xava.report.filename", getFileName()); 
 		
 		getContext().dontGenerateNewWindowIdNextTime(); // To fix: In iPhone after generating PDF from a collection element goes to list mode of the module (reinititates the module)
+	}
+	
+	InputStream getJRXMLAsStream(String jrxml) { // tmr
+		InputStream xmlDesign = JasperReportBaseAction.class.getResourceAsStream("/reports/" + jrxml);
+		if (xmlDesign == null) xmlDesign = JasperReportBaseAction.class.getResourceAsStream("/informes/" + jrxml);
+		if (xmlDesign == null) xmlDesign = JasperReportBaseAction.class.getResourceAsStream("/" + jrxml);
+		return xmlDesign;
 	}
 	
 	private boolean isAbsolutePath(String design) { 
