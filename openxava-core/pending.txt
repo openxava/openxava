@@ -24,9 +24,7 @@ MAVEN
 * Incluir licencia.
 * Crear versión 7m1.		
 * No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
-- Dividir resources en subcarpetas: 
-	- Adaptar archetype. Incluir xava-junit.properties. TMR ME QUEDÉ POR AQUÍ: TODO HECHO, FALTA REVISAR Y PROBARLO
-	- Quitar todos los tmr
+* Dividir resources en subcarpetas: 
 - Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.
 - ¿Qué hacer con openxava.properties?
 - AppServer: Comprobar crea bien i18n

@@ -43,8 +43,7 @@ public class FamilyProductsReportAction extends JasperReportBaseAction implement
 	}
 	
 	protected String getJRXML() {
-		// tmr return "Products.jrxml";
-		return "reports/Products.jrxml"; // With reports/ prefix to test getting from resources root // tmr
+		return "reports/Products.jrxml"; // With reports/ prefix to test getting from resources root 
 	}
 	
 	private Subfamily2 getSubfamily() throws Exception {

@@ -91,13 +91,9 @@ abstract public class JasperReportBaseAction extends ViewBaseAction implements I
 			xmlDesign = new FileInputStream(jrxml);
 		}
 		else {
-			// tmr ini
 			xmlDesign = getJRXMLAsStream(jrxml);
-			// tmr fin
-			// tmr xmlDesign = JasperReportBaseAction.class.getResourceAsStream("/" + jrxml);
 		} 
-		// tmr if (xmlDesign == null) throw new XavaException("design_not_found"); 
-		if (xmlDesign == null) throw new XavaException("jasper_report_design_not_found", jrxml); // tmr 
+		if (xmlDesign == null) throw new XavaException("jasper_report_design_not_found", jrxml);  
 		JasperReport report = JasperCompileManager.compileReport(xmlDesign);
 		Map parameters = getParameters(); // getParameters() before getDatasource()
 		JRDataSource ds = getDataSource();
@@ -130,13 +126,7 @@ abstract public class JasperReportBaseAction extends ViewBaseAction implements I
 		getContext().dontGenerateNewWindowIdNextTime(); // To fix: In iPhone after generating PDF from a collection element goes to list mode of the module (reinititates the module)
 	}
 	
-	static InputStream getJRXMLAsStream(String jrxml) { // tmr
-		/*
-		InputStream xmlDesign = JasperReportBaseAction.class.getResourceAsStream("/reports/" + jrxml);
-		if (xmlDesign == null) xmlDesign = JasperReportBaseAction.class.getResourceAsStream("/informes/" + jrxml);
-		if (xmlDesign == null) xmlDesign = JasperReportBaseAction.class.getResourceAsStream("/" + jrxml);
-		return xmlDesign;
-		*/
+	static InputStream getJRXMLAsStream(String jrxml) { 
 		return Resources.getAsStreamInPrefixes(jrxml, "/reports/", "/informes/", "/");
 	}
 	

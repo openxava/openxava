@@ -11,7 +11,6 @@ String all = condition.equals("")?"selected":"";
 String low = condition.contains("<=")?"selected":"";
 String high = condition.contains(">")?"selected":"";
 String app = request.getParameter("application");
-System.out.println("[corporationEmployeeListEditor.jsp] app=" + app); // tmr
 String action="openxava.executeAction('" + app + "', 'CorporationEmployee'," + 
 	"false, false, 'CorporationEmployee.filter', 'segment='+this.value)";
 %>

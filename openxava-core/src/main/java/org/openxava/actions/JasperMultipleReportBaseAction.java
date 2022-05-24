@@ -170,15 +170,9 @@ abstract public class JasperMultipleReportBaseAction extends ViewBaseAction
 			if (isAbsolutePath(jrxml[i])) {
 				xmlDesign = new FileInputStream(jrxml[i]);
 			} else {
-				/* tmr
-				xmlDesign = JasperMultipleReportBaseAction.class
-						.getResourceAsStream("/" + jrxml[i]);
-				*/
 				xmlDesign = JasperReportBaseAction.getJRXMLAsStream(jrxml[i]);
-				System.out.println("[JasperMultipleReportBaseAction.execute] jrxml[" + i + "]=" + jrxml[i] + ", xmlDesign=" + xmlDesign); // tmp
 			}
-			if (xmlDesign == null) throw new XavaException("jasper_report_design_not_found", jrxml[i]); // tmr
-				// tmr throw new XavaException("design_not_found");				
+			if (xmlDesign == null) throw new XavaException("jasper_report_design_not_found", jrxml[i]); 
 				
 			JasperReport report = JasperCompileManager.compileReport(xmlDesign);
 			

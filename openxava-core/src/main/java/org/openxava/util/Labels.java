@@ -263,22 +263,19 @@ public class Labels {
 			while (it.hasNext()) {
 				name = (String) it.next();
 				try {
-					// tmr ResourceBundle rb = ResourceBundle.getBundle(name + "-labels", locale);
-					ResourceBundle rb = ResourceBundle.getBundle("i18n." + name + "-labels", locale); // tmr
+					ResourceBundle rb = ResourceBundle.getBundle("i18n." + name + "-labels", locale); 
 					return rb.getString(id);
 				}
 				catch (MissingResourceException ex) {
 				}						
 				try {
-					// tmr ResourceBundle rb = ResourceBundle.getBundle("Etiquetas" + name, locale);
-					ResourceBundle rb = ResourceBundle.getBundle("i18n.Etiquetas" + name, locale); // tmr
+					ResourceBundle rb = ResourceBundle.getBundle("i18n.Etiquetas" + name, locale); 
 					return rb.getString(id);
 				}
 				catch (MissingResourceException ex) {
 				}			
 			}		
-			// tmr ResourceBundle rb = ResourceBundle.getBundle("Labels", locale);
-			ResourceBundle rb = ResourceBundle.getBundle("i18n.Labels", locale); // tmr 
+			ResourceBundle rb = ResourceBundle.getBundle("i18n.Labels", locale);  
 			return rb.getString(id);
 		}
 		catch (MissingResourceException ex) {

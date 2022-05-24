@@ -114,8 +114,7 @@ public class SimpleTemplater {
 	public String buildOutputUsingResourceTemplate(String templateName, Map<String, Object> parameters) {
 		try {
 			templateIsHTML = templateNameIsHTML(templateName);
-			// tmr InputStream templateIS = SimpleTemplater.class.getResourceAsStream(templateName);
-			InputStream templateIS = Resources.getAsStreamInPrefixes(templateName, "/reports/", "/informes/", "/"); // tmr
+			InputStream templateIS = Resources.getAsStreamInPrefixes(templateName, "/reports/", "/informes/", "/"); 
 			if (templateIS == null) throw new XavaException("template_not_found", templateName); 
 			return processInputStreamTemplate(templateIS, parameters);
 		} catch (Exception e) {

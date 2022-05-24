@@ -40,7 +40,21 @@ public class Resources {
 		return sb.toString();
 	}
 	
-	public static InputStream getAsStreamInPrefixes(String resourceName, String ... prefixes) { // tmr doc
+	/**
+	 * Load the resource as a stream from classpath, looking for all path prefixes until find it in one.
+	 * 
+	 * For example, the next code:<br>
+	 * <code>Resources.getAsStreamInPrefixes("Customer.jrxml", "/reports/", "/informes/", "/")</code>
+	 * 
+	 * Look for /reports/Customer.jrxml, if not found for /informes/Customer.jrmxl, 
+	 * if not found for /Customer.jrxml.
+	 *  
+	 * @param resourceName  The name of the resource in classpath, a file name.
+	 * @param prefixes  A list of path prefixes, to look for each one. 
+	 * @return The stream to get resource content, or null if not found.
+	 * @since 7.0
+	 */
+	public static InputStream getAsStreamInPrefixes(String resourceName, String ... prefixes) { 
 		for (String prefix: prefixes) {
 			InputStream stream = Resources.class.getResourceAsStream(prefix + resourceName);
 			if (stream != null) return stream;

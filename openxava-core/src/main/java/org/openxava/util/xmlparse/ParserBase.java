@@ -72,8 +72,7 @@ abstract public class ParserBase extends XmlElementsNames {
 	public void parse() throws XavaException {
 		String xmlFileCompleteURL = null;
 		try {						
-			// tmr Enumeration resources = getClass().getClassLoader().getResources(xmlFileURL);
-			Enumeration resources = getClass().getClassLoader().getResources("xava/" + xmlFileURL); // tmr
+			Enumeration resources = getClass().getClassLoader().getResources("xava/" + xmlFileURL); 
 			while (resources.hasMoreElements()) {
 				URL resource = (URL) resources.nextElement();
 				xmlFileCompleteURL = resource.toExternalForm();		
