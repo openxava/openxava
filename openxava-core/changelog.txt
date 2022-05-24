@@ -3,6 +3,8 @@ Change Log for OpenXava project
 
 - Fix: Some code in lesson 2 and 6 of course does not compile. 
 - Fix: Some incorrect explanation sentences in text of course.
+- New getAsStreamInPrefixes() method in Resources utility class.
+- Fix: Message for template not found on generating custom PDF is not translated. 
 - Maven support.
 - Searching in a @DescriptionsList does not ignore accents in some cases.
 - Removed DocumentLibrary editor for attaching documents using Liferay document library.

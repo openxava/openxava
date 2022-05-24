@@ -3,8 +3,6 @@ package org.openxava.application.meta;
 
 import java.util.*;
 
-
-
 import org.openxava.application.meta.xmlparse.*;
 import org.openxava.util.*;
 

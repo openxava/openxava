@@ -96,7 +96,7 @@ abstract public class ExamBaseTest extends ModuleTestBase {
 		assertListRowCount(0);
 		execute("CRUD.new");
 		setValue("name", "REAL");
-		uploadFile("file", "src/main/resources/Corporation.html");   
+		uploadFile("file", "src/main/resources/reports/Corporation.html");   
 		execute("Collection.new", "viewObject=xava_view_questioning");
 		setValue("name", "REAL QUESTION 1");
 		execute("Collection.save");
@@ -107,7 +107,7 @@ abstract public class ExamBaseTest extends ModuleTestBase {
 		assertListRowCount(0);
 		execute("CRUD.new");
 		setValue("name", "SIMULATION");
-		uploadFile("file", "src/main/resources/Customer.jrxml");  
+		uploadFile("file", "src/main/resources/reports/Customer.jrxml");  
 		execute("Collection.new", "viewObject=xava_view_questioning");
 		setValue("name", "SIMULATION QUESTION 1");
 		execute("Collection.save");

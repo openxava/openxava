@@ -4,7 +4,6 @@ package org.openxava.application.meta.xmlparse;
 
 
 import org.openxava.application.meta.*;
-import org.openxava.controller.meta.*;
 import org.openxava.util.*;
 import org.openxava.util.xmlparse.*;
 import org.w3c.dom.*;

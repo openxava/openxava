@@ -8,11 +8,10 @@ import java.util.Date;
 
 import javax.servlet.*;
 
-import net.sf.jasperreports.engine.*;
-
 import org.openxava.jpa.*;
 import org.openxava.util.*;
-import org.openxava.web.*;
+
+import net.sf.jasperreports.engine.*;
 
 /**
  * To generate your custom Jasper Report. <p>
@@ -92,9 +91,9 @@ abstract public class JasperReportBaseAction extends ViewBaseAction implements I
 			xmlDesign = new FileInputStream(jrxml);
 		}
 		else {
-			xmlDesign = JasperReportBaseAction.class.getResourceAsStream("/" + jrxml);
+			xmlDesign = getJRXMLAsStream(jrxml);
 		} 
-		if (xmlDesign == null) throw new XavaException("design_not_found"); 
+		if (xmlDesign == null) throw new XavaException("jasper_report_design_not_found", jrxml);  
 		JasperReport report = JasperCompileManager.compileReport(xmlDesign);
 		Map parameters = getParameters(); // getParameters() before getDatasource()
 		JRDataSource ds = getDataSource();
@@ -125,6 +124,10 @@ abstract public class JasperReportBaseAction extends ViewBaseAction implements I
 		getRequest().getSession().setAttribute("xava.report.filename", getFileName()); 
 		
 		getContext().dontGenerateNewWindowIdNextTime(); // To fix: In iPhone after generating PDF from a collection element goes to list mode of the module (reinititates the module)
+	}
+	
+	static InputStream getJRXMLAsStream(String jrxml) { 
+		return Resources.getAsStreamInPrefixes(jrxml, "/reports/", "/informes/", "/");
 	}
 	
 	private boolean isAbsolutePath(String design) { 

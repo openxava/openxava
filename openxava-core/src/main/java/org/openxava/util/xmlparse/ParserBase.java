@@ -72,10 +72,10 @@ abstract public class ParserBase extends XmlElementsNames {
 	public void parse() throws XavaException {
 		String xmlFileCompleteURL = null;
 		try {						
-			Enumeration resources = getClass().getClassLoader().getResources(xmlFileURL);
+			Enumeration resources = getClass().getClassLoader().getResources("xava/" + xmlFileURL); 
 			while (resources.hasMoreElements()) {
 				URL resource = (URL) resources.nextElement();
-				xmlFileCompleteURL = resource.toExternalForm();				
+				xmlFileCompleteURL = resource.toExternalForm();		
 				_parse(xmlFileCompleteURL);				
 			}			
 		} 
