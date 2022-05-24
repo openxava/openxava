@@ -25,17 +25,18 @@ MAVEN
 * Crear versión 7m1.		
 * No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
 - Dividir resources en subcarpetas: 
-	TMR JRXML DESDE RAIZ Y DESDE INFORMES VA. PROBAR DESDE REPORTS Y CON INFORMES MULTIPLES
-	TMR   MIRAR TAMBIÉN LOS INFORMES HTML  
+	- Mover properties a carpeta properties.
 	- ¿Mover algunos a la parte de test? 
+	- Cambiar en tests src/main/resources por src/main/resources/reports
+	- Lanzar suite
 	- Adaptar invoicedemo y openxavatest. 
 	- Adaptar archetype. 
-	- Revisar doc de migration
 	- Quitar todos los tmr
 - Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.
 - ¿Qué hacer con openxava.properties?
 - AppServer: Comprobar crea bien i18n
 - Actualización de DTDs.
+- Quitar org.openxava.ejbx. Quitar archivos de propiedades asociados, como BeansContext.properties y los de JNDI.
 - Pasar OpenXavaTest suite completa con Java 11
 - Pasar prueba manuales.
 
@@ -47,7 +48,6 @@ MAVEN
 	- Poner temp en .ignore
 - Arquetipo en español.
 
-- Probar que en proyecto nuevo funciona IMAGES_GALLERY (para comprobar configuración de Hibernate).
 - Modificar doc sobre como añadir servlets, filter y listeners propios: Directamente en web.xml. También anotaciones y web fragments(para librerias, no para app).
 - Probar con WTP. Si no funciona poner que ya no se soporta en changelog. Si no funciona quitar parte WTP de context.xml
 - Probar con Tomcat 8 y 9 externos (anotar para hacerlo siempre antes de versión).

@@ -40,4 +40,12 @@ public class Resources {
 		return sb.toString();
 	}
 	
+	public static InputStream getAsStreamInPrefixes(String resourceName, String ... prefixes) { // tmr doc
+		for (String prefix: prefixes) {
+			InputStream stream = Resources.class.getResourceAsStream(prefix + resourceName);
+			if (stream != null) return stream;
+		}
+		return null;
+	}
+	
 }

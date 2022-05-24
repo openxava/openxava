@@ -7,7 +7,7 @@ import java.util.*;
 import javax.servlet.*;
 
 import org.apache.commons.logging.*;
-import org.openxava.jpa.XPersistence;
+import org.openxava.jpa.*;
 import org.openxava.util.*;
 
 import net.sf.jasperreports.engine.*;
@@ -156,7 +156,6 @@ abstract public class JasperMultipleReportBaseAction extends ViewBaseAction
 	}
 
 	public void execute() throws Exception {
-
 		ServletContext application = getRequest().getSession()
 				.getServletContext();
 		System.setProperty("jasper.reports.compile.class.path", application
@@ -171,11 +170,16 @@ abstract public class JasperMultipleReportBaseAction extends ViewBaseAction
 			if (isAbsolutePath(jrxml[i])) {
 				xmlDesign = new FileInputStream(jrxml[i]);
 			} else {
+				/* tmr
 				xmlDesign = JasperMultipleReportBaseAction.class
 						.getResourceAsStream("/" + jrxml[i]);
+				*/
+				xmlDesign = JasperReportBaseAction.getJRXMLAsStream(jrxml[i]);
+				System.out.println("[JasperMultipleReportBaseAction.execute] jrxml[" + i + "]=" + jrxml[i] + ", xmlDesign=" + xmlDesign); // tmp
 			}
-			if (xmlDesign == null)
-				throw new XavaException("design_not_found");
+			if (xmlDesign == null) throw new XavaException("jasper_report_design_not_found", jrxml[i]); // tmr
+				// tmr throw new XavaException("design_not_found");				
+				
 			JasperReport report = JasperCompileManager.compileReport(xmlDesign);
 			
 			// Retrieve the parameter set for the report at this index.
