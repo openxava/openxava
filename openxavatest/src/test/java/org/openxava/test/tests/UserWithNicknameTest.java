@@ -138,7 +138,7 @@ public class UserWithNicknameTest extends ModuleTestBase {
 		assertValue("name", "ANATOLY KARPOV");				
 		assertFile("attachments.photo"); 
 		
-		uploadFile("attachments.documents", "src/main/resources/Corporation.html"); 
+		uploadFile("attachments.documents", "src/main/resources/reports/Corporation.html"); 
 		reload();
 		assertFile("attachments.documents", 0, "text/html");
 	}

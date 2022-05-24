@@ -75,7 +75,7 @@ public class MovieTest extends MovieBaseTest {
 		assertFilesCount("scripts", 3); 
 		
 		//Adding one file
-		uploadFile("scripts", "src/main/resources/Corporation.html"); 
+		uploadFile("scripts", "src/main/resources/reports/Corporation.html"); 
 		reload();
 		
 		assertFilesCount("scripts", 4); 

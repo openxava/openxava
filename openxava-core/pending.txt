@@ -25,12 +25,7 @@ MAVEN
 * Crear versión 7m1.		
 * No incluir in WAR jars de OpenXava/lib como HSQLDB, JUnit y Tomcat.
 - Dividir resources en subcarpetas: 
-	- Mover properties a carpeta properties.
-	- ¿Mover algunos a la parte de test? 
-	- Cambiar en tests src/main/resources por src/main/resources/reports
-	- Lanzar suite
-	- Adaptar invoicedemo y openxavatest. 
-	- Adaptar archetype. 
+	- Adaptar archetype. Incluir xava-junit.properties. TMR ME QUEDÉ POR AQUÍ: TODO HECHO, FALTA REVISAR Y PROBARLO
 	- Quitar todos los tmr
 - Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.
 - ¿Qué hacer con openxava.properties?
