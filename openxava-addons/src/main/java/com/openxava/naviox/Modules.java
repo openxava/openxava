@@ -43,7 +43,8 @@ public class Modules implements Serializable {
 
 	public static void init(String applicationName) {
 		MetaModuleFactory.setApplication(applicationName);
-		DB.init();
+		// tmr DB.init();
+		DBInitializer.init();
 		createFirstStepsModule(applicationName);
 		ModulesHelper.init(applicationName);  
 	}	
