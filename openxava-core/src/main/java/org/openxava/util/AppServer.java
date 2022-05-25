@@ -110,8 +110,10 @@ public class AppServer {
 	
 	private static void updateDTDsFromJar(String app) { // tmr 
 		try {
-			// TMR ME QUEDÉ POR AQUÍ: NI SIQUIERA ARRANCA LA APLICACIÓN
+			// TMR ME QUEDÉ POR AQUÍ: NO FUNCIONA PORQUE LOS COGE DE LOS PROYECTOS NO DE LOS JARS
+			// TMR  PODRÍA EXPLORAR EL LIB YO MISMO Y EXTRAERLO CON ZIP
 			List<String> result = new ArrayList<>();
+			System.out.println("[AppServer.updateDTDsFromJar] v3"); // tmp
 			Enumeration<URL> e = EditorsResources.class.getClassLoader().getResources("xava/dtds");
 			while (e.hasMoreElements()) {
 				URL url = e.nextElement();

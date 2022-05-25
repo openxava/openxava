@@ -1,0 +1,75 @@
+<!ELEMENT aplicacion (modulo-defecto?, modulo*)>
+<!ATTLIST aplicacion
+ nombre ID #REQUIRED
+ etiqueta CDATA #IMPLIED
+>
+
+<!ELEMENT modulo-defecto (controlador*)>
+
+<!ELEMENT modulo (doc | (var-entorno*, modelo?, vista?, vista-swing?, vista-web?, tab?, controlador*, controlador-modo?) | listado)>
+<!ATTLIST modulo
+ nombre ID #REQUIRED
+ carpeta CDATA #IMPLIED
+ etiqueta CDATA #IMPLIED
+ descripcion CDATA #IMPLIED
+>
+
+<!ELEMENT doc EMPTY>
+<!ATTLIST doc
+ url CDATA #REQUIRED
+ idiomas CDATA #IMPLIED
+>
+
+<!ELEMENT var-entorno EMPTY>
+<!ATTLIST var-entorno
+ nombre CDATA #REQUIRED
+ valor CDATA #IMPLIED
+>
+
+
+<!ELEMENT modelo EMPTY>
+<!ATTLIST modelo
+ nombre CDATA #REQUIRED
+>
+
+<!ELEMENT vista EMPTY>
+<!ATTLIST vista
+ nombre CDATA #REQUIRED
+>
+
+<!ELEMENT tab EMPTY>
+<!ATTLIST tab
+ nombre CDATA #REQUIRED
+>
+
+
+<!ELEMENT vista-swing EMPTY>
+<!ATTLIST vista-swing
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT vista-web EMPTY>
+<!ATTLIST vista-web
+ url CDATA #REQUIRED
+>
+
+
+
+<!ELEMENT controlador EMPTY>
+<!ATTLIST controlador
+ nombre CDATA #REQUIRED
+>
+
+<!ELEMENT controlador-modo EMPTY>
+<!ATTLIST controlador-modo
+ nombre CDATA #REQUIRED
+>
+
+
+
+<!ELEMENT listado EMPTY>
+<!ATTLIST listado
+ modelo CDATA #REQUIRED
+ tab CDATA #IMPLIED
+>
+
