@@ -1,6 +1,7 @@
 package org.openxava.util; 
 
 import java.io.*;
+import java.net.*;
 import java.nio.file.*;
 import java.nio.file.Files;
 import java.util.*;
@@ -10,6 +11,7 @@ import org.apache.catalina.core.*;
 import org.apache.catalina.startup.*;
 import org.apache.catalina.webresources.*;
 import org.apache.commons.logging.*;
+import org.openxava.web.*;
 
 /**
  * 
@@ -23,7 +25,13 @@ public class AppServer {
 	public static void run(String app) throws Exception {
 		System.out.println(XavaResources.getString("starting_application"));
 		System.setProperty("tomcat.util.scan.StandardJarScanFilter.jarsToSkip", "activation.jar,antlr.jar,byte-buddy.jar,classmate.jar,commons-*.jar,dom4j.jar,dsn.jar,dwr.jar,ejb.jar,groovy-all.jar,hibernate-*.jar,hk2-*.jar,imap.jar,itext.jar,jakarta.*.jar,jandex.jar,jasperreports-fonts.jar,jasperreports.jar,javassist.jar,javax.inject.jar,jaxb-*.jar,jboss-logging.jar,jersey-*.jar,jpa.jar,jsoup.jar,jta.jar,lombok.jar,mailapi.jar,mime-util.jar,ox-jdbc-adapters.jar,poi-*.jar,poi.jar,pop3.jar,slf4j-*.jar,smtp.jar,validation-api.jar,xmlbeans.jar,yasson.jar"); 
-		createDefaultI18nFiles(app); 
+		createDefaultI18nFiles(app);
+		// tmr ini
+		long ini = System.currentTimeMillis();
+		updateDTDsFromJar(app);
+		long cuesta = System.currentTimeMillis() - ini;
+		System.out.println("[AppServer.run] cuesta=" + cuesta); // tmp
+		// tmr fin
         String webappDir = new File("target/" + app).getAbsolutePath();
         
         String contextPath = Is.empty(app)?"":"/" + app;
@@ -98,6 +106,42 @@ public class AppServer {
 		Files.copy(labelsPath, Paths.get("target/" + app + I18N_DIR + app + "-labels.properties"), StandardCopyOption.REPLACE_EXISTING);
 		Files.copy(Paths.get("target/" + app + I18N_DIR + app + "-messages_" + language + ".properties"), Paths.get("target/" + app + I18N_DIR + app + "-messages.properties"), StandardCopyOption.REPLACE_EXISTING);
 		return true;
+	}
+	
+	private static void updateDTDsFromJar(String app) { // tmr 
+		try {
+			// TMR ME QUEDÉ POR AQUÍ: NI SIQUIERA ARRANCA LA APLICACIÓN
+			List<String> result = new ArrayList<>();
+			Enumeration<URL> e = EditorsResources.class.getClassLoader().getResources("xava/dtds");
+			while (e.hasMoreElements()) {
+				URL url = e.nextElement();
+				System.out.println("[AppServer.updateDTDsFromJar] url=" + url); // tmp
+				/*
+				if (url.getProtocol().equals("jar")) {
+					String jarURL = url.getFile().replace("file:", "");
+					jarURL = Strings.noLastTokenWithoutLastDelim(jarURL, "!");
+					ZipFile zip = new ZipFile(jarURL);
+					try {
+						Enumeration<? extends ZipEntry> entries = zip.entries();
+						while (entries.hasMoreElements()) {
+							ZipEntry entry = entries.nextElement();
+							if (entry.getName().startsWith("META-INF/resources/xava/editors/" + folder + "/") && entry.getName().endsWith("." + extension)) {
+								result.add(entry.getName().replace("META-INF/resources/xava/editors/", ""));
+							}
+						}
+					}
+					finally {
+						if (zip != null) zip.close();
+					}
+				}
+				*/
+			}
+			java.util.Collections.sort(result);
+			// System.out.println("[AppServer.updateDTDsFromJar] result=" + result); // tmp
+		}
+		catch (Exception ex) {
+			// tmr log.warn(XavaResources.getString("editors_resources_not_loaded", extension.toUpperCase()), ex);
+		}
 	}
 
 }
