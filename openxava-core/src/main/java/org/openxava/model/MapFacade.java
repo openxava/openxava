@@ -1,11 +1,13 @@
 package org.openxava.model;
 
-import java.util.*;
 import java.rmi.*;
+import java.util.*;
+
 import javax.ejb.*;
+
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
-import org.openxava.ejbx.*;
+// tmr import org.openxava.ejbx.*;
 import org.openxava.model.impl.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
@@ -13,6 +15,7 @@ import org.openxava.validators.*;
 
 
 /** 
+ * tmr doc
  * Allows manage model objects in <code>Map</code> format. <p>
  * 
  * It's used in generic OpenXava action to make CRUD operations,
@@ -80,8 +83,10 @@ public class MapFacade {
 	public static final String MODEL_NAME = "__MODEL_NAME__";
 	private static Log log = LogFactory.getLog(MapFacade.class);
 	private static Map remotes;
+	/* tmr
 	private static boolean usesEJBObtained;
 	private static boolean usesEJB;
+	*/
 	private static IMapFacadeImpl localImpl;
 	
 
@@ -102,7 +107,8 @@ public class MapFacade {
 			CreateException,ValidationException,
 			XavaException, SystemException
 	{
-		Assert.arg(modelName, values);					
+		Assert.arg(modelName, values);
+		/* tmr
 		try {									
 			return getImpl(modelName).create(Users.getCurrentUserInfo(), modelName, values);
 		}
@@ -114,7 +120,16 @@ public class MapFacade {
 			catch (RemoteException rex) { 
 				throw new SystemException(rex);
 			}
-		}							
+		}		
+		*/
+		// tmr ini
+		try {
+			return getImpl(modelName).create(Users.getCurrentUserInfo(), modelName, values);
+		}
+		catch (RemoteException ex) { 
+			throw new SystemException(ex);
+		}
+		// tmr fin
 	}
 		
 		
@@ -129,18 +144,20 @@ public class MapFacade {
 	 * @throws IllegalStateException  If mapFacadeAutoCommit=true or mapFacadeAsEJB=true in xava.properties  
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
-	public static void commit() throws SystemException {						
+	public static void commit() throws SystemException {					
+		/* tmr
 		if (usesEJB()) {
 			throw new IllegalStateException(XavaResources.getString("not_commit_when_facade_as_ejb"));
 		}
+		*/
 		if (XavaPreferences.getInstance().isMapFacadeAutoCommit()) {
 			throw new IllegalStateException(XavaResources.getString("not_commit_when_facade_autocommit"));
 		}
 		try {
 			getLocalImpl().commit(Users.getCurrentUserInfo());
 		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
 		}
 	}
 	
@@ -165,7 +182,8 @@ public class MapFacade {
 			CreateException,ValidationException,
 			XavaException, SystemException
 	{
-		Assert.arg(modelName, containerKey, values);					
+		Assert.arg(modelName, containerKey, values);
+		/* tmr
 		try {		
 			return getImpl(modelName).createAggregate(Users.getCurrentUserInfo(), modelName, containerKey, counter, values);
 		}
@@ -177,7 +195,16 @@ public class MapFacade {
 			catch (RemoteException rex) {
 				throw new SystemException(ex);
 			}
-		}							
+		}		
+		*/
+		// tmr ini
+		try {
+			return getImpl(modelName).createAggregate(Users.getCurrentUserInfo(), modelName, containerKey, counter, values);
+		}
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
+		}		
+		// tmr fin
 	}
 	
 	/**
@@ -200,7 +227,8 @@ public class MapFacade {
 			CreateException,ValidationException,
 			XavaException, SystemException
 	{
-		Assert.arg(modelName, containerKey, values);					
+		Assert.arg(modelName, containerKey, values);
+		/* tmr
 		try {		
 			return getImpl(modelName).createAggregate(Users.getCurrentUserInfo(), modelName, containerKey, collectionName, values);
 		}
@@ -212,7 +240,16 @@ public class MapFacade {
 			catch (RemoteException rex) {
 				throw new SystemException(ex);
 			}
-		}							
+		}						
+		*/
+		// tmr ini
+		try {
+			return getImpl(modelName).createAggregate(Users.getCurrentUserInfo(), modelName, containerKey, collectionName, values);
+		}
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
+		}
+		// tmr fin
 	}
 
 	
@@ -238,7 +275,8 @@ public class MapFacade {
 			CreateException,ValidationException,
 			XavaException, SystemException
 	{
-		Assert.arg(modelName, container, values);					
+		Assert.arg(modelName, container, values);
+		/* tmr
 		try {									
 			return getImpl(modelName).createAggregate(Users.getCurrentUserInfo(), modelName, container, counter, values);
 		}
@@ -250,7 +288,16 @@ public class MapFacade {
 			catch (RemoteException rex) {
 				throw new SystemException(rex);
 			}
-		}							
+		}		
+		*/
+		// tmr ini
+		try {
+			return getImpl(modelName).createAggregate(Users.getCurrentUserInfo(), modelName, container, counter, values);
+		}
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
+		}
+		// tmr fin
 	}
 	
 	/**	
@@ -271,7 +318,8 @@ public class MapFacade {
 			CreateException,ValidationException,
 			XavaException, SystemException
 	{
-		Assert.arg(modelName, values);		
+		Assert.arg(modelName, values);
+		/* tmr
 		try {
 			return getImpl(modelName).createReturningValues(Users.getCurrentUserInfo(), modelName, values);
 		}
@@ -284,7 +332,15 @@ public class MapFacade {
 				throw new SystemException(rex);
 			}	
 		}
-		
+		*/
+		// tmr ini
+		try {
+			return getImpl(modelName).createReturningValues(Users.getCurrentUserInfo(), modelName, values);
+		}
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
+		}	
+		// tmr fin
 	}
 	
 	
@@ -305,7 +361,8 @@ public class MapFacade {
 			CreateException,ValidationException,
 			XavaException, SystemException
 	{
-		Assert.arg(modelName, values);		
+		Assert.arg(modelName, values);
+		/* tmr
 		try {
 			return getImpl(modelName).createReturningKey(Users.getCurrentUserInfo(), modelName, values);
 		}
@@ -318,6 +375,15 @@ public class MapFacade {
 				throw new SystemException(rex);
 			}
 		}		
+		*/
+		// tmr ini
+		try {
+			return getImpl(modelName).createReturningKey(Users.getCurrentUserInfo(), modelName, values);
+		}
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
+		}
+		// tmr fin
 	}
 	
 	/**
@@ -339,7 +405,8 @@ public class MapFacade {
 			CreateException,ValidationException,
 			XavaException, SystemException
 	{
-		Assert.arg(modelName, values);		
+		Assert.arg(modelName, values);
+		/* tmr
 		try {
 			return getImpl(modelName).createNotValidatingCollections(Users.getCurrentUserInfo(), modelName, values);
 		}
@@ -352,6 +419,15 @@ public class MapFacade {
 				throw new SystemException(rex);
 			}
 		}		
+		*/
+		// tmr ini
+		try {
+			return getImpl(modelName).createNotValidatingCollections(Users.getCurrentUserInfo(), modelName, values);
+		}
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
+		}		
+		// tmr fin
 	}
 	
 				
@@ -376,7 +452,8 @@ public class MapFacade {
 			CreateException,ValidationException, 
 			XavaException, SystemException 
 	{
-		Assert.arg(modelName, containerKey, values);					
+		Assert.arg(modelName, containerKey, values);
+		/* tmr
 		try {		
 			return getImpl(modelName).createAggregateReturningKey(Users.getCurrentUserInfo(), modelName, containerKey, counter, values);
 		}
@@ -388,7 +465,16 @@ public class MapFacade {
 			catch (RemoteException rex) {
 				throw new SystemException(rex);
 			}
-		}							
+		}		
+		*/
+		// tmr ini
+		try {
+			return getImpl(modelName).createAggregateReturningKey(Users.getCurrentUserInfo(), modelName, containerKey, counter, values);
+		}
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
+		}		
+		// tmr fin
 	}
 	
 	/**
@@ -411,7 +497,8 @@ public class MapFacade {
 			CreateException,ValidationException, 
 			XavaException, SystemException 
 	{
-		Assert.arg(modelName, containerKey, values);					
+		Assert.arg(modelName, containerKey, values);
+		/* tmr
 		try {		
 			return getImpl(modelName).createAggregateReturningKey(Users.getCurrentUserInfo(), modelName, containerKey, collectionName, values);
 		}
@@ -423,7 +510,16 @@ public class MapFacade {
 			catch (RemoteException rex) {
 				throw new SystemException(rex);
 			}
-		}							
+		}		
+		*/
+		// tmr ini
+		try {
+			return getImpl(modelName).createAggregateReturningKey(Users.getCurrentUserInfo(), modelName, containerKey, collectionName, values);
+		}
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
+		}		
+		// tmr fin
 	}
 	
 	
@@ -463,6 +559,7 @@ public class MapFacade {
 		if (keyValues.isEmpty()) {
 			throw new ObjectNotFoundException(XavaResources.getString("empty_key_object_not_found", modelName));						
 		}
+		/* tmr
 		try {			
 			return getImpl(modelName).getValues(Users.getCurrentUserInfo(), modelName, keyValues, memberNames);
 		}
@@ -474,7 +571,16 @@ public class MapFacade {
 			catch (RemoteException rex) {
 				throw new SystemException(rex);
 			}	
-		}		
+		}
+		*/
+		// tmr ini
+		try {
+			return getImpl(modelName).getValues(Users.getCurrentUserInfo(), modelName, keyValues, memberNames);
+		}
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
+		}	
+		// tmr fin
 	}
 
 	/**
@@ -533,6 +639,7 @@ public class MapFacade {
 		if (searchingValues.isEmpty()) {
 			throw new ObjectNotFoundException(XavaResources.getString("empty_key_object_not_found", modelName));						
 		}
+		/* tmr
 		try {
 			return getImpl(modelName).getValuesByAnyProperty(Users.getCurrentUserInfo(), modelName, searchingValues, memberNames);
 		}
@@ -544,7 +651,16 @@ public class MapFacade {
 			catch (RemoteException rex) {
 				throw new SystemException(rex);
 			}	
-		}					
+		}		
+		*/
+		// tmr ini
+		try {
+			return getImpl(modelName).getValuesByAnyProperty(Users.getCurrentUserInfo(), modelName, searchingValues, memberNames);
+		}
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
+		}			
+		// tmr fin
 	}
 			
 	/**
@@ -573,6 +689,7 @@ public class MapFacade {
 		throws XavaException, SystemException 
 	{		
 		Assert.arg(modelName, entity, memberNames);
+		/* tmr
 		try {
 			return getImpl(modelName).getValues(Users.getCurrentUserInfo(), modelName, entity, memberNames);
 		}
@@ -584,7 +701,16 @@ public class MapFacade {
 			catch (RemoteException rex) {
 				throw new SystemException(rex);
 			}	
-		}			
+		}		
+		*/	
+		// tmr ini
+		try {
+			return getImpl(modelName).getValues(Users.getCurrentUserInfo(), modelName, entity, memberNames);
+		}
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
+		}	
+		// tmr fin
 	}
 	
 	/** 
@@ -624,6 +750,7 @@ public class MapFacade {
 	{	
 		if (keyValues==null) return null;
 		Assert.arg(modelName, keyValues);
+		/* tmr
 		Object entity = null;
 		try {
 			entity = getImpl(modelName).findEntity(Users.getCurrentUserInfo(), modelName, keyValues);
@@ -637,8 +764,17 @@ public class MapFacade {
 				throw new SystemException(rex);
 			}	
 		}					
-		reassociate(entity);		
+		reassociate(entity);
 		return entity;
+		*/
+		// tmr ini
+		try {
+			return getImpl(modelName).findEntity(Users.getCurrentUserInfo(), modelName, keyValues);
+		}
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
+		}	
+		// tmr fin
 	}	
 
 	/**
@@ -646,6 +782,7 @@ public class MapFacade {
 	 * 
 	 * It's called when an object is receive from the an EJB server.
 	 */
+	/* tmr
 	private static void reassociate(Object entity) throws SystemException {
 		if (XavaPreferences.getInstance().isMapFacadeAsEJB()) {	
 			try {
@@ -656,6 +793,7 @@ public class MapFacade {
 			}	
 		}
 	}
+	*/
 
 	/**
 	 * Remove the entity/aggregate from a map with its key. <p> 
@@ -868,13 +1006,16 @@ public class MapFacade {
 		}
 	}
 	
+	/* tmr
 	private static Map getRemotes() {
 		if (remotes == null) {
 			remotes = new HashMap();
 		}
 		return remotes;
 	}
+	*/
 	
+	/* tmr
 	private static void annulImpl(String modelName) {
 		if (!usesEJB()) return;
 		try {
@@ -889,7 +1030,7 @@ public class MapFacade {
 			log.error(XavaResources.getString("cache_facade_remote_warning"), ex);		
 		}		
 	}
-
+	*/
 
 	/**
 	 * Removes an elemente from a collection. <p>
@@ -1043,7 +1184,7 @@ public class MapFacade {
 		}		
 	}	
 	
-
+	/* tmr
 	private static boolean usesEJB() {
 		if (!usesEJBObtained) {
 			usesEJB = XavaPreferences.getInstance().isMapFacadeAsEJB();
@@ -1051,6 +1192,7 @@ public class MapFacade {
 		}		
 		return usesEJB;
 	}
+	*/
 	
 	private static IMapFacadeImpl getLocalImpl() {
 		if (localImpl==null) {

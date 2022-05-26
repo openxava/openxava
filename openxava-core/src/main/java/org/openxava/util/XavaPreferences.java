@@ -235,10 +235,12 @@ public class XavaPreferences {
 				"org.openxava.web.style.JetSpeed2Style").trim();
 	}
 
+	/* tmr Modificar doc
 	public boolean isMapFacadeAsEJB() {
 		return "true".equalsIgnoreCase(getProperties().getProperty(
 				"mapFacadeAsEJB", "false").trim());
 	}
+	*/
 	
 	/**
 	 * @since 6.4
