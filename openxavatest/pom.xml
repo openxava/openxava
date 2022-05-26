@@ -29,33 +29,56 @@
   <build>
     <finalName>openxavatest</finalName>
     <plugins>
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.3.2</version>
-        <configuration>
-          <packagingExcludes>
-          	WEB-INF/lib/ecj-3*.jar,
-			WEB-INF/lib/fontbox-*.jar,
-			WEB-INF/lib/hsqldb-*.jar,
-			WEB-INF/lib/htmlunit-*.jar,
-			WEB-INF/lib/httpclient-*.jar,
-			WEB-INF/lib/httpcore-*.jar,
-			WEB-INF/lib/httpmime-*.jar,
-			WEB-INF/lib/jetty-*.jar,
-			WEB-INF/lib/junit-*.jar,
-			WEB-INF/lib/neko-htmlunit-*.jar,
-			WEB-INF/lib/pdfbox-*.jar,
-			WEB-INF/lib/serializer-*.jar,
-			WEB-INF/lib/tomcat-*.jar,
-			WEB-INF/lib/websocket-*.jar,
-			WEB-INF/lib/xalan-*.jar,
-			WEB-INF/lib/xercesImpl-*.jar,
-			WEB-INF/lib/xml-apis-*.jar
-          </packagingExcludes>
-        </configuration>
-      </plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-dependency-plugin</artifactId>
+			<executions>
+				<execution>
+					<id>unpack</id>
+					<phase>package</phase>
+					<goals>
+						<goal>unpack</goal>
+					</goals>
+					<configuration>
+						<artifactItems>
+							<artifactItem>
+								<groupId>org.openxava</groupId>
+								<artifactId>openxava-core</artifactId>
+								<outputDirectory>src/main/resources</outputDirectory>
+								<includes>xava/dtds/*</includes>
+							</artifactItem>
+						</artifactItems>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+    
+		<plugin>
+			<artifactId>maven-war-plugin</artifactId>
+			<version>3.3.2</version>
+			<configuration>
+				<packagingExcludes>
+		          	WEB-INF/lib/ecj-3*.jar,
+					WEB-INF/lib/fontbox-*.jar,
+					WEB-INF/lib/hsqldb-*.jar,
+					WEB-INF/lib/htmlunit-*.jar,
+					WEB-INF/lib/httpclient-*.jar,
+					WEB-INF/lib/httpcore-*.jar,
+					WEB-INF/lib/httpmime-*.jar,
+					WEB-INF/lib/jetty-*.jar,
+					WEB-INF/lib/junit-*.jar,
+					WEB-INF/lib/neko-htmlunit-*.jar,
+					WEB-INF/lib/pdfbox-*.jar,
+					WEB-INF/lib/serializer-*.jar,
+					WEB-INF/lib/tomcat-*.jar,
+					WEB-INF/lib/websocket-*.jar,
+					WEB-INF/lib/xalan-*.jar,
+					WEB-INF/lib/xercesImpl-*.jar,
+					WEB-INF/lib/xml-apis-*.jar
+          		</packagingExcludes>
+			</configuration>
+		</plugin>
     </plugins>
   </build>
-  
- 
+   
 </project>
