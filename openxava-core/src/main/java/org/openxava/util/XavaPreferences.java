@@ -72,10 +72,12 @@ public class XavaPreferences {
 				"showDefaultActionInBottom", "true").trim());
 	}
 
+	/* tmr
 	public boolean isTabAsEJB() {
 		return "true".equalsIgnoreCase(getProperties().getProperty("tabAsEJB",
 				"false").trim());
 	}
+	*/
 
 	public boolean isShowCountInList() {
 		return "true".equalsIgnoreCase(getProperties().getProperty(
@@ -256,8 +258,10 @@ public class XavaPreferences {
 	 *         value of <code>mapFacadeAutoCommit</code> property.
 	 */
 	public boolean isMapFacadeAutoCommit() {
+		/* tmr
 		if (isMapFacadeAsEJB())
 			return true;
+		*/	
 		return "true".equalsIgnoreCase(getProperties().getProperty(
 				"mapFacadeAutoCommit", "false").trim());
 	}

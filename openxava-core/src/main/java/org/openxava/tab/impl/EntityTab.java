@@ -7,7 +7,6 @@ import javax.ejb.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
-import org.openxava.ejbx.*;
 import org.openxava.mapping.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.meta.*;
@@ -420,6 +419,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 			String packageName = MetaComponent.get(componentName).getPackageNameWithSlashWithoutModel();			
 			IEntityTabDataProvider dataProvider = (IEntityTabDataProvider) getDataProviders().get(packageName);
 			if (dataProvider == null) {
+				/* tmr
 				if (XavaPreferences.getInstance().isTabAsEJB()) { 
 					Object ohome = BeansContext.get().lookup("ejb/"+packageName+"/EntityTab");
 					EntityTabHome home = (EntityTabHome) ohome; 
@@ -430,6 +430,12 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 					dp.setComponentName(componentName);
 					dataProvider = dp;
 				}
+				*/
+				// tmr ini
+				EntityTabDataProvider dp = new EntityTabDataProvider();																			
+				dp.setComponentName(componentName);
+				dataProvider = dp;
+				// tmr fin
 				getDataProviders().put(packageName, dataProvider);				
 			}		
 			return dataProvider;

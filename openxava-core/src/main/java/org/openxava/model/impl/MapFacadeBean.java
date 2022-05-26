@@ -22,11 +22,12 @@ import org.openxava.validators.meta.*;
 /**
  * Implement the logic of MapFacade. <p>
  * 
+ * The Bean suffix is because until 6.x it was a SessionBean.
  * 
  * @author Javier Paniza
  */
 
-public class MapFacadeBean implements IMapFacadeImpl, SessionBean {
+public class MapFacadeBean {
 	
 	private static Log log = LogFactory.getLog(MapFacadeBean.class);
 	private static javax.validation.ValidatorFactory validatorFactory; 

@@ -2,8 +2,6 @@ package org.openxava.calculators;
 
 import java.sql.*;
 
-
-
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
 import org.openxava.mapping.*;
@@ -36,10 +34,12 @@ public class NextIntegerCalculator implements IJDBCCalculator {
 	public int calculateNextInteger()
 		throws Exception {
 		if (provider == null) {
+			/* tmr
 			Object r = Server.calculate(this, getPackageName());			
 			if (r instanceof Number) {
 				return ((Number) r).intValue();
 			}
+			*/
 			return 0;
 		}
 		Connection con = provider.getConnection();
