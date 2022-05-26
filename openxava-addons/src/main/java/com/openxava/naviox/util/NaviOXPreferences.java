@@ -96,6 +96,11 @@ public class NaviOXPreferences {
 		return getProperties().getProperty("allModulesNamesProviderClass", AllModulesNamesProvider.class.getName()).trim();
 	}
 
+	/** @since 7.0 */
+	public String getInitializerProviderClass() { // tmr
+		return getProperties().getProperty("initializerProviderClass", InitializerProvider.class.getName()).trim();
+	}
+
 	
 	private String getCreateSchema() {
 		return getProperties().getProperty("createSchema", "CREATE SCHEMA ${schema}").trim();
