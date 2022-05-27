@@ -72,13 +72,6 @@ public class XavaPreferences {
 				"showDefaultActionInBottom", "true").trim());
 	}
 
-	/* tmr
-	public boolean isTabAsEJB() {
-		return "true".equalsIgnoreCase(getProperties().getProperty("tabAsEJB",
-				"false").trim());
-	}
-	*/
-
 	public boolean isShowCountInList() {
 		return "true".equalsIgnoreCase(getProperties().getProperty(
 				"showCountInList", "true").trim());
@@ -236,13 +229,6 @@ public class XavaPreferences {
 		return getProperties().getProperty("JetSpeed2Style",
 				"org.openxava.web.style.JetSpeed2Style").trim();
 	}
-
-	/* tmr Modificar doc
-	public boolean isMapFacadeAsEJB() {
-		return "true".equalsIgnoreCase(getProperties().getProperty(
-				"mapFacadeAsEJB", "false").trim());
-	}
-	*/
 	
 	/**
 	 * @since 6.4
@@ -258,10 +244,6 @@ public class XavaPreferences {
 	 *         value of <code>mapFacadeAutoCommit</code> property.
 	 */
 	public boolean isMapFacadeAutoCommit() {
-		/* tmr
-		if (isMapFacadeAsEJB())
-			return true;
-		*/	
 		return "true".equalsIgnoreCase(getProperties().getProperty(
 				"mapFacadeAutoCommit", "false").trim());
 	}

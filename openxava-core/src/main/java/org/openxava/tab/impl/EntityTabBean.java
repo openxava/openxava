@@ -7,7 +7,7 @@ import java.util.*;
  * 
  * @author Javier Paniza
  */
-public class EntityTabBean /* tmr extends SessionBase */ implements IEntityTabDataProvider {
+public class EntityTabBean implements IEntityTabDataProvider {
 	
 	private EntityTabDataProvider dataProvider = new EntityTabDataProvider();
 	

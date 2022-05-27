@@ -33,15 +33,7 @@ public class NextLongCalculator implements IJDBCCalculator {
 
 	public long calculateNextLong()
 		throws Exception {
-		if (provider == null) {
-			/* tmr
-			Object r = Server.calculate(this, getPackageName());			
-			if (r instanceof Number) {
-				return ((Number) r).longValue();
-			}
-			*/
-			return 0;
-		}
+		if (provider == null) return 0;
 		Connection con = provider.getConnection();
 		ResultSet rs = null;
 		PreparedStatement ps = null;

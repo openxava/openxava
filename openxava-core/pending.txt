@@ -29,9 +29,7 @@ MAVEN
 * Quitar con openxava.properties
 * AppServer: Comprobar crea bien i18n
 * Actualización de DTDs. 
-- Quitar org.openxava.ejbx. Quitar archivos de propiedades asociados, como BeansContext.properties y los de JNDI.
-	- Hemos eliminado la clase Server de util y IRemoteAction. Indicar en changelog.
-	TMR ME QUEDÉ. QUITADO EL CÓDIGO. SUITE PASSADO A 100%. FALTA QUITAR LOS .properties
+* Quitar org.openxava.ejbx. 
 - Pasar OpenXavaTest suite completa con Java 11
 - Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.
 - Pasar prueba manuales.

@@ -54,7 +54,6 @@ public class HibernatePersistenceProvider extends POJOPersistenceProviderBase {
 	}
 
 	public void begin() {
-		// tmr XHibernate.setCmt(XavaPreferences.getInstance().isMapFacadeAsEJB()); 
 	}
 		
 	public void commit() {

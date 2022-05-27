@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- All EJB related code removed.
+- MapFacade and EntityBean are no longer EJB Session beans. 
+- IRemoteAction interface and Server utility class removed.
 - Fix: Some code in lesson 2 and 6 of course does not compile. 
 - Fix: Some incorrect explanation sentences in text of course.
 - New getAsStreamInPrefixes() method in Resources utility class.
