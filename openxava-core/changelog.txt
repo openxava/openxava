@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Some links to incorrect lessons in top navigation menu of course.
 - All EJB related code removed.
 - MapFacade and EntityBean are no longer EJB Session beans. 
 - IRemoteAction interface and Server utility class removed.
@@ -11,7 +12,7 @@ Change Log for OpenXava project
 - Maven support.
 - Searching in a @DescriptionsList does not ignore accents in some cases.
 - Removed DocumentLibrary editor for attaching documents using Liferay document library.
-- Lessons 9, 10, 11, 12, 13 and 14 of course include video.
+- Lessons 9, 10, 11, 12, 13, 14 and 15 of course include video.
 - Lesson 9 of course divided into several smaller lessons.
 
 OpenXava 6.6.3 (2022-3-29)
