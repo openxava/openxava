@@ -32,8 +32,7 @@ MAVEN
 * Quitar org.openxava.ejbx. 
 * Pasar OpenXavaTest suite completa con Java 11
 * Arranque rápido. Skips jars en AppServer. Podría poner * en los nombres.
-- Pasar prueba manuales.
-	TMR ME QUEDÉ POR AQUÍ: Charts Y Coordiantes HECHOS.
+* Pasar prueba manuales.
 
 - Mejorar arquetipo:
 	- Incluir una prueba JUnit.
