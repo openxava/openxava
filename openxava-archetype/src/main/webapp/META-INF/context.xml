@@ -15,8 +15,7 @@
 	
 	Moreover, you have to copy the JDBC driver (a jar file) corresponding to
 	your database, to the lib folder of your Tomcat, or if you're in development 
-	add the jar to your project	Java Build Path using Eclipse:
-		Right button on your project > Properties > Java Build Path > Libraries
+	add the dependency to the pom.xml of your project.
 	-->
 	 
 	<!-- HSQLDB -->   	

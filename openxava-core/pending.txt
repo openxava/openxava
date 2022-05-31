@@ -35,37 +35,11 @@ MAVEN
 * Pasar prueba manuales.
 
 - Mejorar arquetipo:
-	- Incluir una prueba JUnit.
-	- ¿Incluir xava/editors? 
-	- ¿Incluir estilos? 
-	- ¿Incluir algo más? Revisar doc.
-	- Poner temp en .ignore
-- Arquetipo en español.
+	* Poner temp en .ignore
+	* ¿Compilador por defecto para arquetipo? ¿8, 11 o 17?
+	* Actualizar doc en context.xml de OpenXavaTemplate
+	- En español: TMR ME QUEDÉ POR AQUÍ, ADAPTANDO openxava-archetype-spanish
 
 - Probar con WTP. Si no funciona poner que ya no se soporta en changelog. Si no funciona quitar parte WTP de context.xml
 - Probar con Tomcat 8 y 9 externos (anotar para hacerlo siempre antes de versión).
-
-- Modificar doc sobre como añadir servlets, filter y listeners propios: Directamente en web.xml. También anotaciones y web fragments(para librerias, no para app).
-- Revisar documentación de personalización y estilo, porque ahora está todo comprimido.
-- ¿Cómo actualizar los dtds? ¿Quitarlos de la plantilla?
-- Actualizar doc en context.xml de OpenXavaTemplate
-- ¿Compilador por defecto para arquetipo? ¿8, 11 o 17?
 - Comprobar identificación (login).
-- Revisar doc de application.xml para indicar que la aplicación es en minúsculas.
-- Revisar doc de Groovy
-- Revisar curso para poner nombre de aplicación en minúsculas.
-
-- Política de actualización: ¿Qué hacer con las versiones? ¿En archetype? ¿En plugin? ¿Diferentes velocidades?
-
-- Quitar soporte de XML: (Posponer)
-	- Quitar usesAnnotatedPOJO() de ModuleTestBase
-	- Quitar code-generators.xml
-	- Quitar converters.xml
-	- Quitar generador de código.
-	- ¿Quitar soporte de API de Hibernate? ¿Qué haríamos con ImagesGallery?
-	- Actualizar doc.
-	- Quitar parsers de components XML. 
-	
-Notas actualización proyecto
-- Mover los JSP propios de web/xava/editors a src/main/webapp/xava/editors (también JSs y CSSs de editores)	
-
