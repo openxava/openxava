@@ -101,6 +101,22 @@ public class NaviOXPreferences {
 		return getProperties().getProperty("initializerProviderClass", InitializerProvider.class.getName()).trim();
 	}
 
+	/** @since 7.0 */
+	public String getModulesHelperProviderClass() { // tmr
+		return getProperties().getProperty("modulesHelperProviderClass", ModulesHelperProvider.class.getName()).trim();
+	}
+	
+	/** @since 7.0 */
+	public String getSignInHelperProviderClass() { // tmr
+		return getProperties().getProperty("signInHelperProviderClass", SignInHelperProvider.class.getName()).trim();
+	}
+
+	/** @since 7.0 */
+	public String getConfigurationFactoryClass() { // tmr
+		return getProperties().getProperty("configurationFactoryClass", ConfigurationFactory.class.getName()).trim();
+	}
+
+	
 	
 	private String getCreateSchema() {
 		return getProperties().getProperty("createSchema", "CREATE SCHEMA ${schema}").trim();

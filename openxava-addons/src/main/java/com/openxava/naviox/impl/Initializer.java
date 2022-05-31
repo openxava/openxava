@@ -15,7 +15,8 @@ import com.openxava.naviox.util.*;
 public class Initializer {
 	
 	private static Log log = LogFactory.getLog(Initializer.class);
-	// tmr private static boolean initiated = false; 
+	// tmr private static boolean initiated = false;
+	private static IInitializerProvider provider; // tmr
 	
 	public static void init(ServletRequest request) {
 		/* tmr
@@ -23,24 +24,20 @@ public class Initializer {
 		AnnotatedClassParser.getManagedClassNames().add(SignIn.class.getName());	
 		initiated = true;
 		*/
-		/*
-		try {
-			IInitializerProvider provider = (IInitializerProvider) Class.forName(NaviOXPreferences.getInstance().getInitializerProviderClass()).newInstance();
-			provider.init(request);
+		getProvider().init(request); // tmr 		
+	}
+	
+	private static IInitializerProvider getProvider() {
+		if (provider == null) {
+			try {
+				provider = (IInitializerProvider) Class.forName(NaviOXPreferences.getInstance().getInitializerProviderClass()).newInstance();
+			} 
+			catch (Exception ex) {
+				log.warn(XavaResources.getString("provider_creation_error", "Initializer"), ex);
+				throw new XavaException("provider_creation_error", "Initializer");
+			}
 		}
-		catch (Exception ex) {
-			log.warn(XavaResources.getString("access_tracker_provider_creation_error", trackerClass), ex);
-		}
-		*/
-		;
-		try {
-			IInitializerProvider provider = (IInitializerProvider) Class.forName(NaviOXPreferences.getInstance().getInitializerProviderClass()).newInstance();
-			provider.init(request);
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
-			log.warn(XavaResources.getString("initializer_provider_creation_error", ex));
-			throw new XavaException("initializer_provider_creation_error");
-		}
-		
+		return provider;
 	}
 
 }
