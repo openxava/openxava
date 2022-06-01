@@ -153,7 +153,7 @@ public class Modules implements Serializable {
 	/** @since 6.0 */
 	public String getOrganizationName(HttpServletRequest request) {  
 		try {
-			String organization = Organizations.getCurrentName(request); 	
+			String organization = OrganizationsCurrent.getName(request); 	
 			return organization == null?"":organization; 
 		}
 		catch (Exception ex) {
@@ -304,7 +304,7 @@ public class Modules implements Serializable {
 	}
 	
 	public String getModuleURI(HttpServletRequest request, MetaModule module) { 
-		String organization = Organizations.getCurrent(request); 
+		String organization = OrganizationsCurrent.get(request); 
 		String prefix = organization == null?"":"/o/" + organization;
 		return request.getContextPath() + prefix + "/m/" + module.getName();
 	}

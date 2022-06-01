@@ -115,6 +115,11 @@ public class NaviOXPreferences {
 	public String getConfigurationFactoryClass() { // tmr
 		return getProperties().getProperty("configurationFactoryClass", ConfigurationFactory.class.getName()).trim();
 	}
+	
+	/** @since 7.0 */
+	public String getOrganizationsCurrentProviderClass() { // tmr
+		return getProperties().getProperty("organizationsCurrentProviderClass", OrganizationsCurrentProvider.class.getName()).trim();
+	}
 
 	
 	

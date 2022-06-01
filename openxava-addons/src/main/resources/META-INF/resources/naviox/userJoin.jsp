@@ -5,7 +5,7 @@
 <%-- To put your own text add entries in the i18n messages files of your project --%>
 
 <%
-String organization = Organizations.getCurrent(request);
+String organization = OrganizationsCurrent.get(request);
 %>
 
 <div id="user_join">

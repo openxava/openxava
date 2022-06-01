@@ -75,7 +75,7 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 				<%
 			}
 			if (userName != null) {
-				String organization = Organizations.getCurrent(request);
+				String organization = OrganizationsCurrent.get(request);
 				if (organization == null) organization = "";
 				%>
 				<a  href="<%=request.getContextPath()%>/naviox/signOut.jsp?organization=<%=organization%>" class="sign-in"><xava:message key="signout"/> (<%=userName%>)</a>
