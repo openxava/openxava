@@ -19,34 +19,34 @@
 	-->
 	 
 	<!-- HSQLDB -->   	
-    <Resource name="jdbc/openxava-archetype-spanishDS" auth="Container" type="javax.sql.DataSource"
+    <Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="sa" password="" driverClassName="org.hsqldb.jdbcDriver"
 	      url="jdbc:hsqldb:hsql://localhost:1666"/>
 	      
 	<!-- MySQL       
-    <Resource name="jdbc/openxava-archetype-spanishDS" auth="Container" type="javax.sql.DataSource"
+    <Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="root" password="" driverClassName="com.mysql.jdbc.Driver"
 	      url="jdbc:mysql://localhost:3306/"/>	      
 	-->      
 	
 	<!-- PostgreSQL 
-	<Resource name="jdbc/openxava-archetype-spanishDS" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="postgres" password="" driverClassName="org.postgresql.Driver"
 	      url="jdbc:postgresql://localhost/"/>
 	-->
 	
 	<!-- Oracle 
-	<Resource name="jdbc/openxava-archetype-spanishDS" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" driverClassName="oracle.jdbc.driver.OracleDriver"
 	      url="jdbc:oracle:thin:@localhost:1521:XE"/>
 	-->	
 	
 	<!-- AS/400 
-	<Resource name="jdbc/openxava-archetype-spanishDS" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" driverClassName="org.hibernate.dialect.DB2400Dialect"
 	      url="jdbc:as400:localhost"/>

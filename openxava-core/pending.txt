@@ -38,7 +38,9 @@ MAVEN
 	* Poner temp en .ignore
 	* ¿Compilador por defecto para arquetipo? ¿8, 11 o 17?
 	* Actualizar doc en context.xml de OpenXavaTemplate
-	- En español: TMR ME QUEDÉ POR AQUÍ, ADAPTANDO openxava-archetype-spanish
+	- En español: TMR ME QUEDÉ POR AQUÍ, CASI TODO HECHO, PROBANDOLO. ENCONTRÉ PROBLEMAS EN CARACTERES CON ACENTO EN XML Y PROPERTIES
+	- Cambiar a yourcompany.yourapp
+	- Comprobar que no se incluye LICENSE.TXT
 
 - Probar con WTP. Si no funciona poner que ya no se soporta en changelog. Si no funciona quitar parte WTP de context.xml
 - Probar con Tomcat 8 y 9 externos (anotar para hacerlo siempre antes de versión).

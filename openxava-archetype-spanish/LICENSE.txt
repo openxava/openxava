@@ -1,4 +1,4 @@
- OpenXava Maven Archetype  -  To create a new OpenXava Maven project
+ OpenXava Maven Spanish Archetype  -  To create a new OpenXava Maven project in Spanish 
  
  Copyright 2022 Javier Paniza Lucas
 
