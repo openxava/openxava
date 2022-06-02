@@ -16,10 +16,10 @@ persistence.xml.
 
 	<session-factory>
 
-		<property name="hibernate.connection.datasource">java://comp/env/jdbc/myappDS</property>
+		<property name="hibernate.connection.datasource">java://comp/env/jdbc/yourappDS</property>
 		<property name="hibernate.jdbc.use_get_generated_keys">false</property>		
 		<property name="hibernate.show_sql">false</property>
-		<property name="hibernate.default_schema">myapp</property>
+		<property name="hibernate.default_schema">yourapp</property>
 						
 		<!-- GalleryImage is needed only if you uses IMAGES_GALLERY/GALERIA_IMAGENES stereotype -->
 		<mapping resource="GalleryImage.hbm.xml"/>
