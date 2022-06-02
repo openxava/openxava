@@ -8,6 +8,7 @@ import org.openxava.util.*;
 import org.openxava.validators.*;
 
 import com.openxava.naviox.impl.*;
+import com.openxava.phone.impl.*;
 
 /**
  * To get the preferences from naviox.properties
@@ -120,8 +121,16 @@ public class NaviOXPreferences {
 	public String getOrganizationsCurrentProviderClass() { // tmr
 		return getProperties().getProperty("organizationsCurrentProviderClass", OrganizationsCurrentProvider.class.getName()).trim();
 	}
-
 	
+	/** @since 7.0 */
+	public String getOrganizationServletProviderClass() { // tmr
+		return getProperties().getProperty("organizationServletProviderClass", OrganizationServletProvider.class.getName()).trim();
+	}
+	
+	/** @since 7.0 */
+	public String getPhoneServletProviderClass() { // tmr
+		return getProperties().getProperty("phoneServletProviderClass", PhoneServletProvider.class.getName()).trim();
+	}
 	
 	private String getCreateSchema() {
 		return getProperties().getProperty("createSchema", "CREATE SCHEMA ${schema}").trim();
