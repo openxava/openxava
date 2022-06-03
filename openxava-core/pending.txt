@@ -36,6 +36,9 @@ MAVEN
 
 * Mejorar arquetipo:
 
-- Probar con WTP. Si no funciona poner que ya no se soporta en changelog. Si no funciona quitar parte WTP de context.xml
-- Probar con Tomcat 8 y 9 externos (anotar para hacerlo siempre antes de versión).
-- Comprobar identificación (login).
+* Probar con WTP. Si no funciona poner que ya no se soporta en changelog. Si no funciona quitar parte WTP de context.xml
+* Probar con Tomcat 9.
+* Comprobar identificación (login).
+- Probar con Tomcat 8: TMR ME QUEDÉ PARA EMPEZAR ESTO 
+- Anotar probar Tomcats para hacerlo siempre antes de versión.
+
