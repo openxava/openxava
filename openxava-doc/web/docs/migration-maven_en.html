@@ -55,10 +55,38 @@
       <ul>
         <li>From src/com.yourcompany.yourapp.tests to
           src/test/java/com.yourcompany.yourapp.tests</li>
-        <li>properties/xava-junit.properties to src/test/resources/xava-junit.properties</li>
+        <li>properties/xava-junit.properties to
+          src/test/resources/xava-junit.properties</li>
       </ul>
-      <p>TMR ME QUEDÉ POR AQUÍ</p>
-      <p>Extra libraries.</p>
+      <p>The above is enough for most applications. </p>
+      <p>If you have your own custom editors you have to copy the editors code:</p>
+      <ul>
+        <li>From web/xava/editors to src/main/webapp/xava/editors</li>
+        <li>From web/xava/editors/js to src/main/webapp/xava/editors/js</li>
+        <li>From web/xava/editors/style to src/main/webapp/xava/editors/style</li>
+      </ul>
+      <p>The web code noiw is in src/main/webapp instead of web. First, create a
+        folder called xava in src/main/webapp. Then copy:</p>
+      <ul>
+        <li>custom.css from web/xava/style to src/main/webapp/xava/style</li>
+        <li>Your own JSPs from web to src/main/webapp</li>
+        <li>If you have modified some JSP from OpenXava, you can copy it from
+          web/xava to src/main/webapp/xava. Don't worry if you don't see any JSP
+          there, now JSP code is inside the OpenXava jar and not included in
+          your project, but if you put some JSP in xava folder it overrides the
+          one in OpenXava.</li>
+      </ul>
+      <p>The files servlets.xml, filters.xml and listeners.xml are no longer
+        supported. You can copy their content to the web.xml, that now is empty
+        and ready for your own things, in src/main/webapp/WEB-INF. If you use
+        @WebServlet, @WebFilter and @WebListener annotation you don't need to do
+        any change.</p>
+      <p>If your use an extra third party library in your application you have
+        to add a dependecy in the pom.xml file in the root of your project. You
+        no longer are going to copy jars in web/WEB/lib. If you're not familiar
+        with Maven read about <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html">Maven
+          dependecy mechanism</a>.</p>
+      <p>Run application</p>
       <p>About lowercase for project name.</p>
       <h3>Project resources in different place (for JUnit tests)</h3>
       Given that now your OpenXava projects have a standard Maven structure,
