@@ -12,11 +12,8 @@
 <%
 String searchWord = request.getParameter("searchWord");
 searchWord = searchWord == null?"":Strings.removeAccents(searchWord.toLowerCase()); 
-Collection modulesList = null;
-boolean bookmarkModules = false;
-%>
-<%@ include file="getModulesList.jsp" %> 
-<%
+Collection modulesList = modules.getMenuModules(request);
+boolean bookmarkModules = "true".equals(request.getParameter("bookmarkModules"));
 String smodulesLimit = request.getParameter("modulesLimit");
 int modulesLimit = smodulesLimit == null?30:Integer.parseInt(smodulesLimit); 
 int counter = 0; 

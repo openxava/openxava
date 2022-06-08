@@ -7,6 +7,8 @@ import javax.servlet.http.*;
 
 import org.openxava.application.meta.*;
 
+import com.openxava.naviox.*;
+
 /**
  * tmr
  * @version 7.0
@@ -23,6 +25,8 @@ public interface IModulesHelperProvider {
 	List<MetaModule> getAll(HttpServletRequest request);
 	
 	List<MetaModule> getNotInMenu();
+	
+	Collection<MetaModule> getInMenu(HttpServletRequest request, Modules modules);
 
 	boolean isPublic(HttpServletRequest request, String moduleName);
 	

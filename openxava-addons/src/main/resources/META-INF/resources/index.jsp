@@ -1,4 +1,4 @@
-<%@page import="com.openxava.naviox.util.Organizations"%> 
+<%@page import="com.openxava.naviox.util.OrganizationsCurrent"%> 
 <%@page import="org.openxava.web.Browsers"%>
 <%@page import="org.openxava.util.Users"%>
 

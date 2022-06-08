@@ -1,4 +1,5 @@
 <%@page import="org.openxava.util.Users"%>
+<%@page import="org.openxava.util.NaviOXPreferences"%>
 
 <%@include file="../xava/imports.jsp"%>
 
@@ -54,7 +55,7 @@ String display = isFirstSteps?"style='display:block'":"";
 		<table id="modules_list_box">
 			<tr id="modules_list_content">
 				<td>
-					<jsp:include page="modulesMenu.jsp"/>
+					<jsp:include page="<%=NaviOXPreferences.getInstance().getModulesMenuJSP()%>"/>
 				</td>						
 			</tr>
 		</table>

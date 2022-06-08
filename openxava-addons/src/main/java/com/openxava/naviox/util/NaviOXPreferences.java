@@ -132,6 +132,16 @@ public class NaviOXPreferences {
 		return getProperties().getProperty("phoneServletProviderClass", PhoneServletProvider.class.getName()).trim();
 	}
 	
+	/** @since 7.0 */
+	public String getModulesListJSP() { // tmr
+		return getProperties().getProperty("modulesListJSP", "modulesList.jsp").trim();
+	}
+	
+	/** @since 7.0 */
+	public String getModulesMenuJSP() { // tmr
+		return getProperties().getProperty("modulesMenuJSP", "modulesMenu.jsp").trim();
+	}
+	
 	private String getCreateSchema() {
 		return getProperties().getProperty("createSchema", "CREATE SCHEMA ${schema}").trim();
 	}

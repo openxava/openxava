@@ -9,6 +9,7 @@ import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;
 import org.openxava.util.*;
 
+import com.openxava.naviox.*;
 import com.openxava.naviox.util.*;
 
 /**
@@ -53,6 +54,10 @@ public class ModulesHelper {
 	public static List<MetaModule> getNotInMenu() { 
 		// tmr return Collections.EMPTY_LIST;
 		return getProvider().getNotInMenu(); // tmr
+	}
+	
+	public static Collection<MetaModule> getInMenu(HttpServletRequest request, Modules modules) { // tmr
+		return getProvider().getInMenu(request, modules); // tmr
 	}
 
 	/* tmr

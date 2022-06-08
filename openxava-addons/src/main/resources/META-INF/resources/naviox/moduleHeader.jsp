@@ -4,7 +4,7 @@
 <%@page import="org.openxava.util.Is"%>
 <%@page import="com.openxava.naviox.util.NaviOXPreferences"%>
 <%@page import="org.openxava.util.Users"%>
-<%@page import="com.openxava.naviox.util.Organizations"%>
+<%@page import="com.openxava.naviox.util.OrganizationsCurrent"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>

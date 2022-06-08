@@ -7,6 +7,8 @@ import org.openxava.controller.*;
 import org.openxava.util.*;
 import org.openxava.web.servlets.*;
 
+import com.openxava.naviox.util.*;
+
 /**
  * 
  * @author Javier Paniza
@@ -17,7 +19,8 @@ public class Modules {
 	
 	public String displayModulesList(HttpServletRequest request, HttpServletResponse response) { 
 		try { 
-			return Servlets.getURIAsString(request, response, "/naviox/modulesList.jsp");
+			return Servlets.getURIAsString(request, response, 
+				"/naviox/" + NaviOXPreferences.getInstance().getModulesListJSP());
 		}
 		catch (Exception ex) {
 			log.error(XavaResources.getString("display_modules_error"), ex); 
@@ -30,7 +33,9 @@ public class Modules {
 	
 	public String displayAllModulesList(HttpServletRequest request, HttpServletResponse response, String searchWord) {   
 		try { 
-			return Servlets.getURIAsString(request, response, "/naviox/modulesList.jsp?modulesLimit=999&searchWord=" + searchWord); 
+			return Servlets.getURIAsString(request, response, 
+				"/naviox/" + NaviOXPreferences.getInstance().getModulesListJSP() + 
+				"?modulesLimit=999&searchWord=" + searchWord); 
 		}
 		catch (Exception ex) {
 			log.error(XavaResources.getString("display_modules_error"), ex); 

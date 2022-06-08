@@ -430,8 +430,9 @@ public class Modules implements Serializable {
 		return topModules;	
 	}
 	
-	public Collection<MetaModule> getMenuModules(ServletRequest request) { // TMR
-		return null; // TMR ME QUEDÉ POR AQUÍ: PARA SUSTITUIR A getModulesList.jsp HACER UN PROVIDER, O USER EL QUE YA TENGO
+	/** @since 7.0 */
+	public Collection<MetaModule> getMenuModules(HttpServletRequest request) { // tmr
+		return ModulesHelper.getInMenu(request, this);
 	}
 	
 	private static class ModuleComparator implements Comparator<MetaModule> {

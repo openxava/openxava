@@ -63,6 +63,16 @@ public class ModulesHelperProvider implements IModulesHelperProvider {
 	public boolean showsSearchModules(HttpServletRequest request) { 
 		Modules modules = (Modules) request.getSession().getAttribute("modules");
 		return modules.getAll(request).size() > 30;   
+	}
+
+	public Collection<MetaModule> getInMenu(HttpServletRequest request, Modules modules) {
+		if ("true".equals(request.getParameter("fixedModules"))) {
+			return modules.getFixedModules(request); 
+		}
+		if ("true".equals(request.getParameter("bookmarkModules"))) {
+			return modules.getBookmarkModules(request); 
+		}
+		return modules.getRegularModules(request); 
 	}	
 
 }
