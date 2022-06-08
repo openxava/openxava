@@ -29,15 +29,15 @@
       <h2>Para migrar de OpenXava 6.6.3 a OpenXava 7.0</h2>
       <h3>Convertir tu proyecto a estructura Maven</h3>
       OpenXava 7 es compatible con Maven, por lo que la estructura clásica de un
-      proyecto OpenXava ya no se reconoce. Has de convertir you proyecto en
+      proyecto OpenXava ya no se reconoce. Has de convertir tu proyecto en un
       proyecto estándar de Maven. Por suerte, todo tu código actual es válido,
-      sólo que se tiene que colocar en carpetas diferentes. Si no estás
+      sólo que tiene que estar colocado en carpetas diferentes. Si no estás
       familiarizado con Maven, mira la <a href="https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html">disposición
         estándar de directorios en un proyecto Maven</a>.
       <p>La forma más fácil de migrar a Maven es crear un nuevo proyecto usando
         OpenXava 7.0 y después copiar el código fuente y los recursos desde tu
         proyecto actual al nuevo. Es decir, lo primero es crear un nuevo
-        proyecto OpenXava usando Openxava Studio , para ello sigue las
+        proyecto OpenXava usando Openxava Studio 7, para ello sigue las
         instrucciones de la <a href="getting-started_es.html">guía de primeros
           pasos</a>.</p>
       <p>El siguiente paso es copiar todo el código fuente y los recursos desde
@@ -51,129 +51,135 @@
         <li>De <i>persistence/META-INF</i> a <i>src/main/resources/META-INF</i></li>
         <li>De <i>persistence</i> a <i>src/main/resources</i></li>
       </ul>
-      <p>The test code is in a different folder in Maven, so you should copy:</p>
+      <p>El código de pruebas está en una carpeta diferente en Maven, por lo que
+        deberías copiar:</p>
       <ul>
-        <li>From <i>src/com.yourcompany.yourapp.tests</i> to <i>
-            src/test/java/com.yourcompany.yourapp.tests</i></li>
-        <li><i>properties/xava-junit.properties</i> to <i>
+        <li>De <i>src/com.tuempresa.tuaplicacion.pruebas</i> a <i>
+            src/test/java/com.tuempresa.tuaplicacion.pruebas</i></li>
+        <li><i>properties/xava-junit.properties</i> a <i>
             src/test/resources/xava-junit.properties</i></li>
       </ul>
-      <p>The above is enough for most applications. </p>
-      If you have your own custom editors you have to copy the editors code:
+      <p>Lo de arriba es suficiente para la mayoría de las aplicaciones. </p>
+      El código web ahora está en <i>src/main/webapp</i> en lugar de <i>web</i>.
+      Primero, crea una carpeta llamada <i>xava</i> en <i>src/main/webapp</i>
+      para poner ahí tu código web.</div>
+    <div class="wiki" style="display: block;">Si tienes tu propios editores
+      personalizados copia el código de los editores:
       <ul>
-        <li>From <i>web/xava/editors</i> to <i>src/main/webapp/xava/editors</i></li>
-        <li>From <i>web/xava/editors/js</i> to <i>src/main/webapp/xava/editors/js</i></li>
-        <li>From <i>web/xava/editors/style</i> to <i>src/main/webapp/xava/editors/style</i></li>
+        <li>De <i>web/xava/editors</i> a <i>src/main/webapp/xava/editors</i></li>
+        <li>De <i>web/xava/editors/js</i> a <i>src/main/webapp/xava/editors/js</i></li>
+        <li>De <i>web/xava/editors/style</i> a <i>src/main/webapp/xava/editors/style</i></li>
       </ul>
-      <p>The web code now is in <i>src/main/webapp</i> instead of web. First,
-        create a folder called <i>xava</i> in <i>src/main/webapp</i>. Then
-        copy:</p>
+      <p>Copia también:</p>
       <ul>
-        <li><i>custom.css</i> from <i>web/xava/style</i> to <i>src/main/webapp/xava/style</i></li>
-        <li>Your own JSPs from web to <i>src/main/webapp</i></li>
-        <li>If you have modified some JSP of OpenXava, you can copy it from <i>web/xava</i>
-          to <i>src/main/webapp/xava</i>. Don't worry if you don't see any JSP
-          there, now JSP OpenXava code is inside the OpenXava jar and not
-          included in your project, but if you put some JSP in <i>xava</i>
-          folder it overrides the one in OpenXava.</li>
+        <li><i>custom.css</i> de <i>web/xava/style</i> a <i>src/main/webapp/xava/style</i></li>
+        <li>Tus propios JSPs de <i>web</i> to <i>src/main/webapp</i></li>
+        <li>Si has modificado algún JSP de OpenXava, puedes copiarlo desde <i>web/xava</i>
+          a <i>src/main/webapp/xava</i>. No te preocupes si no vez ningún JSP
+          allí, ahora el código JSP de OpenXava está dentro del jar de OpenXava
+          y no se incluye en tu proyecto, pero si pones algún JSP en la carpeta
+          <i>xava</i> éste sobrescribe el de OpenXava.</li>
       </ul>
-      <p>The <i>servlets.xml</i>, <i>filters.xml</i> and <i>listeners.xml</i>
-        files are no longer supported. You can copy their content to the <i>web.xml</i>,
-        that now is empty and ready for your own things, in <i>src/main/webapp/WEB-INF</i>.
-        If you use <i>@WebServlet</i>, <i>@WebFilter</i> and <i>@WebListener</i>
-        annotations you don't need to do any change.</p>
-      <p>If your use an extra third party library in your application you have
-        to add a dependency in the <i>pom.xml</i> file in the root of your
-        project. You no longer are going to copy jars in <i>web/WEB/lib</i>. If
-        you're not familiar with Maven read about <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html">Maven
-          dependecy mechanism</a>.</p>
-      <p>If you use a database other than HSQLDB you have to add the dependency
-        for your JDBC driver. For example, if you use MySQL add the next entry
-        to your <i>pom.xml</i>:</p>
+      <p>Los archivos <i>servlets.xml</i>, <i>filters.xml</i> y <i>listeners.xml</i>
+        ya no se soportan. Puedes copiar su contenido a <i>web.xml</i>, que
+        ahora está vacío y listor para tus propias cosas, en <i>src/main/webapp/WEB-INF</i>.
+        Si usas las anotaciones <i>@WebServlet</i>, <i>@WebFilter</i> y <i>@WebListener</i>
+        no tienes que hacer ningún cambio.</p>
+      <p>Si usas una librería de terceros extra en tu aplicación has de añadir
+        una dependencia en el archivo <i>pom.xml</i> en la raíz de tu proyecto.
+        Ya no vas a copiar jars en <i>web/WEB/lib</i>. Si no estás
+        familiarizado con Maven lee sobre <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html">mecanismo
+          de depencia de Maven</a>.</p>
+      <p>Si usas una base de datos que no sea HSQLDB has de añadir la
+        dependencía para tu controlador JDBC. Por ejemplo, si usas MySQL añade
+        la siguiente entrada a tu <i>pom.xml</i>:</p>
       <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;mysql&lt;/groupId&gt;
     &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
     &lt;version&gt;8.0.29&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>
-      <p>For other database just ask Google, something like "maven dependency
-        oracle" for example. In order your JDBC driver will be downloaded and
-        included in your project you have to execute "mvn package" in your
-        application. You can do it from command line (if you have Maven
-        installed in your machine) or from OpenXava Studio (not needed to have
-        Maven installed), with Run As &gt; Maven Build... in your project and
-        typing "package" as goal. This step is not needed if you use HSQLDB as
-        database.</p>
-      <p>Now you can run your application. Put your mouse on <i>src/main/java</i>
-        of your project and choose <i>Run As &gt; Java Application</i>. From
-        now on, you can modify your code and relaunch your application as
-        always, even if you launch it in debug mode you can modify the code and
-        see the result without relaunch the application. That it, you can work
-        in development as you're used to do.</p>
-      <p>We no longer use Ant. Now you do everything using Maven commands. If
-        you're not familiar with Maven read some Maven introduction
-        documentation. For example, to create the war for deploying in
-        production you use "mvn package", and get the war ready to be deployed
-        in Tomcat in the <i>target</i> folder of your project.&nbsp; You can
-        run all maven commands from OpenXava Studio, with the option <i>Run As</i>
-        on your project. </p>
-      Note that when you created the project with OpenXava the project name is
-      in lowercase, this is because the nomenclature for Maven is to use
-      lowercase for the name of <i>artifactId</i>, that matches with project
-      name and deliverable (the generated war). For new projects you should user
-      lowercase for project name. However, for years we have promoted first
-      uppercase letter for project name in documentation, so probably you have
-      your old project with its name starting with uppercase. You can choose
-      migrating to lowercase and adopt the Maven standard way, but keep in mind
-      that it would change the browser URL used by your users.
-      <div class="wiki" style="display: block;">That is, if your application
-        name was "Accounting" and you change it to "accounting", now the next
-        URL:<i> https://yoursite.com/Accounting</i> does not work anymore. Now
-        you have to use <i>https://yoursite.com/accounting</i> (with <i>accounting</i>
-        in lowercase). If that is acceptable for your users, good. If not, you
-        can rename your Maven project so it uses your old project name (<i>Accounting</i>
-        in this case) and your users can continue using the original URLs. </div>
-      <div class="wiki" style="display: block;">Let's say that you want to
-        change the project name from "accounting" to "Accounting". For that edit
-        <i>pom.xml</i> and change:</div>
+      <p>Para otra base de datos simplemente pregunta a Google, algo como "maven
+        dependency oracle" por ejemplo. Para que tu controlador JDBC se
+        descargue y se incluya en tu proyecto has de ejecutar "mvn package" en
+        tu aplicación. Puedes hacerlo desde la línea de órdenes (si tienes Maven
+        instalado en tu máquina) o desde OpenXava Studio (no es necesario tener
+        Maven instalado), con <i>Run As &gt; Maven Build...</i> en tu proyecto
+        y tecleando "package" como <i>goal</i>. Este paso no es necesario si
+        usas HSQLDB como base de datos.</p>
+      <p>Ahora puede ejecutar tu aplicación. Pon tu ratón en <i>src/main/java</i>
+        de to proyecto y escoge <i>Run As &gt; Java Application</i>. A partir
+        de ahora, puedes modificar tu código y relanzar tu aplicación como
+        siempre, incluso si la lanzas en modo de depuración puedes modificar el
+        código en ver resultado sin relanzar la aplicación. Es decir, puedes
+        trabajar en desarrollo como lo has hecho siempre.</p>
+      <p>Ya no usamos Ant. Ahora lo vas a hacer todo usando comandos de Maven.
+        Si no conoces Maven muy bien lee alguna documentación de introducción a
+        Maven. Por ejemplo, para crea el war para desplegar en producción usaras
+        "mvn package", y obtendrás el war listo para ser desplegado en Tomcat en
+        la carpeta <i>target</i> de tu proyecto.&nbsp; Puedes ejecutar todos
+        los comandos Maven desde dentro de OpenXava Studio, con la opción <i>Run
+          As</i> en tu proyecto. </p>
+      Fíjate que cuando creas el proyecto con OpenXava el nombre del proyecto
+      está en minúsculas, esto es porque la nomenclatura para Maven es usar
+      minúsculas para el nombre del <i>artifactId</i>, que coincide con el
+      nombre del proyecto y el archivo a generar (el war). Para proyectos nuevo
+      deberías usar minúsculas para tu nombre de proyecto. Sin embargo, por años
+      hemos promovido el usar mayúscula para la primera letra del nombre del
+      proyecto en la documentación, por lo que probablemente tengas tu viejo
+      proyecto con el nombre empezando por mayúscula. Puedes elegir migrar a
+      minúsculas y adoptar el estándar Maven, pero ten en cuenta que esto
+      cambiaría la URL que usan tus usuarios.
+      <div class="wiki" style="display: block;">Es decir, si el nombre de tu
+        aplicación era "Almacenes" y lo cambias a "almacenes", ahora la
+        siguiente URL:<i> https://tusitio.com/Almacenes</i> ya no va a
+        funcionar. Ahora has de usar <i>https://yoursite.com/almacenes</i> (con
+        <i>almacenes</i> en minúsculas). Si esto es aceptable para tus usuarios,
+        perfecto. Si no, puedes renombrar tu proyecto Maven para que use el
+        viejo nombre (<i>Almacenes</i> en este caso) y tus usuarios pueden
+        continuar usando las URLs originales. </div>
+      <div class="wiki" style="display: block;">Digamos que quieres&nbsp;
+        cambiar el nombre de proyecto de "almacenes" a "Almacenes". Para ello
+        edita <i>pom.xml</i> y cambia:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;artifactId&gt;accounting&lt;/artifactId&gt;</code></pre>
+        <pre><code class="xml">&lt;artifactId&gt;almacenes&lt;/artifactId&gt;</code></pre>
       </div>
-      <div class="wiki" style="display: block;">By:</div>
+      <div class="wiki" style="display: block;">Por:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;artifactId&gt;Accounting&lt;/artifactId&gt;</code></pre>
+        <pre><code class="xml">&lt;artifactId&gt;Almacenes&lt;/artifactId&gt;</code></pre>
       </div>
-      <div class="wiki" style="display: block;">Also in <i>pom.xml</i> change:</div>
+      <div class="wiki" style="display: block;">También en <i>pom.xml</i>
+        cambia:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;finalName&gt;accounting&lt;/finalName&gt;</code></pre>
+        <pre><code class="xml">&lt;finalName&gt;almacenes&lt;/finalName&gt;</code></pre>
       </div>
-      <div class="wiki" style="display: block;">By:</div>
+      <div class="wiki" style="display: block;">Por:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;finalName&gt;Accounting&lt;/finalName&gt;</code></pre>
+        <pre><code class="xml">&lt;finalName&gt;Almacenes&lt;/finalName&gt;</code></pre>
       </div>
-      <div class="wiki" style="display: block;">Then edit <i>application.xml</i>
-        (in <i> src/main/resources/xava</i>) and change:</div>
+      <div class="wiki" style="display: block;">Después edita <i>aplicacion.xml</i>
+        (en <i> src/main/resources/xava</i>) y cambia:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;application name="accounting"&gt;</code></pre>
+        <pre><code class="xml">&lt;aplicacion nombre="almacenes"&gt;</code></pre>
       </div>
-      <div class="wiki" style="display: block;">By:</div>
+      <div class="wiki" style="display: block;">Por:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;application name="Accounting"&gt;</code></pre>
+        <pre><code class="xml">&lt;aplicacion nombre="Almacenes"&gt;</code></pre>
       </div>
-      <div class="wiki" style="display: block;">Also in the launcher class, that
-        is <i>accounting.java</i> in the package <i>com.yourcompany.accounting.run</i>,
-        change:</div>
+      <div class="wiki" style="display: block;">También en la clase lanzadora,
+        es decir <i>almacenes.java</i> en el paquete <i>com.tuempresa.almacenes.run</i>,
+        cambia:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">AppServer.run("accounting");</code></pre>
+        <pre><code class="java">AppServer.run("almacenes");</code></pre>
       </div>
-      <div class="wiki" style="display: block;">By:</div>
+      <div class="wiki" style="display: block;">Por:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">AppServer.run("Accounting");</code></pre>
+        <pre><code class="java">AppServer.run("Almacenes");</code></pre>
       </div>
-      <div class="wiki" style="display: block;">Finally, you should do in your
-        project <i>Run As &gt; Maven clean</i> (<i>mvn clean</i>) and <i>Run
-          As &gt; Maven Build...</i> typing <i>package</i> as goal (<i>mvn
-          package</i>).</div>
+      <div class="wiki" style="display: block;">Para finalizar, deberías hacer
+        en tu proyecto un <i>Run As &gt; Maven clean</i> (<i>mvn clean</i>) y
+        después <i>Run As &gt; Maven Build...</i> tecleando <i>package</i>
+        como <i>goal</i> (<i>mvn package</i>).</div>
       <h3>Recursos del proyecto en lugar diferente (para las pruebas JUnit)</h3>
       Dado que ahora tus proyectos OpenXava tienen un estructura Maven estándar,
       la mayoría de los recursos de tu proyecto están en un lugar diferente

@@ -60,18 +60,21 @@
           <i> src/test/resources/xava-junit.properties</i></li>
       </ul>
       <p>The above is enough for most applications. </p>
-      If you have your own custom editors you have to copy the editors code:
+    </div>
+    <div class="wiki" style="display: block;">The web code now is in <i>src/main/webapp</i>
+      instead of <i>web</i>. First, create a folder called <i>xava</i> in <i>src/main/webapp</i>
+      to put there your web code. </div>
+    <div class="wiki" style="display: block;">If you have your own custom
+      editors you have to copy the editors code:
       <ul>
         <li>From <i>web/xava/editors</i> to <i>src/main/webapp/xava/editors</i></li>
         <li>From <i>web/xava/editors/js</i> to <i>src/main/webapp/xava/editors/js</i></li>
         <li>From <i>web/xava/editors/style</i> to <i>src/main/webapp/xava/editors/style</i></li>
       </ul>
-      <p>The web code now is in <i>src/main/webapp</i> instead of web. First,
-        create a folder called <i>xava</i> in <i>src/main/webapp</i>. Then
-        copy:</p>
+      <p>Also copy:</p>
       <ul>
         <li><i>custom.css</i> from <i>web/xava/style</i> to <i>src/main/webapp/xava/style</i></li>
-        <li>Your own JSPs from web to <i>src/main/webapp</i></li>
+        <li>Your own JSPs from <i>web</i> to <i>src/main/webapp</i></li>
         <li>If you have modified some JSP of OpenXava, you can copy it from <i>web/xava</i>
           to <i>src/main/webapp/xava</i>. Don't worry if you don't see any JSP
           there, now JSP OpenXava code is inside the OpenXava jar and not
@@ -83,8 +86,8 @@
         that now is empty and ready for your own things, in <i>src/main/webapp/WEB-INF</i>.
         If you use <i>@WebServlet</i>, <i>@WebFilter</i> and <i>@WebListener</i>
         annotations you don't need to do any change.</p>
-      <p>If your use an extra third party library in your application you have
-        to add a dependency in the <i>pom.xml</i> file in the root of your
+      <p>If you use an extra third party library in your application you have to
+        add a dependency in the <i>pom.xml</i> file in the root of your
         project. You no longer are going to copy jars in <i>web/WEB/lib</i>. If
         you're not familiar with Maven read about <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html">Maven
           dependecy mechanism</a>.</p>
@@ -102,9 +105,9 @@
         included in your project you have to execute "mvn package" in your
         application. You can do it from command line (if you have Maven
         installed in your machine) or from OpenXava Studio (not needed to have
-        Maven installed), with Run As &gt; Maven Build... in your project and
-        typing "package" as goal. This step is not needed if you use HSQLDB as
-        database.</p>
+        Maven installed), with <i>Run As &gt; Maven Build...</i> in your
+        project and typing "package" as goal. This step is not needed if you use
+        HSQLDB as database.</p>
       <p>Now you can run your application. Put your mouse on <i>src/main/java</i>
         of your project and choose <i>Run As &gt; Java Application</i>. From
         now on, you can modify your code and relaunch your application as
