@@ -35,7 +35,6 @@ public class NaviOXFilter implements Filter {
 		}
 		
 		Modules.init(applicationName); 
-		// tmr ThemeProvider.init(); 
 	}
 
 

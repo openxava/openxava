@@ -13,7 +13,6 @@ import org.openxava.view.*;
 import com.openxava.naviox.*;
 
 /**
- * tmr
  * 
  * @since 7.0 
  * @author Javier Paniza
@@ -25,7 +24,11 @@ public class SignInHelperProvider implements ISignInHelperProvider {
 	private static Log log = LogFactory.getLog(SignInHelperProvider.class);
 	private Properties users;
 	
-	public void init(HttpServletRequest request, View view) {
+	public String init(HttpServletRequest request, View view) {
+		return null;
+	}
+	
+	public void initRequest(HttpServletRequest request, View view) {
 	}
 	
 	public String refineForwardURI(HttpServletRequest request, String forwardURI) {

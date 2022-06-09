@@ -19,77 +19,45 @@ import com.openxava.naviox.util.*;
 
 public class ModulesHelper { 
 	
-	// tmr ini
 	private static Log log = LogFactory.getLog(ModulesHelper.class);	
 	private static IModulesHelperProvider provider;
-	// tmr fin
-	
-	// tmr private static List<MetaModule> all;
 	
 	public static void init(String applicationName) {
-		getProvider().init(applicationName); // tmr
+		getProvider().init(applicationName); 
 	}
 	
 	public static String getCurrent(HttpServletRequest request) {
-		// tmr return null;
-		return getProvider().getCurrent(request); // tmr
+		return getProvider().getCurrent(request); 
 	}
 	
 	/** @since 5.6 */
 	public static String getUserAccessModule(ServletRequest request) { 
-		// tmr return "SignIn";
-		return getProvider().getUserAccessModule(request); // tmr
+		return getProvider().getUserAccessModule(request); 
 	}
 	
 	public static List<MetaModule> getAll(HttpServletRequest request) {
-		/* tmr
-		if (Users.getCurrent() == null) return Collections.EMPTY_LIST;
-		if (all == null) all = createAll();
-		return all;
-		*/
-		return getProvider().getAll(request); // tmr
+		return getProvider().getAll(request); 
 	}
 	
 	/** @since 6.5 */
 	public static List<MetaModule> getNotInMenu() { 
-		// tmr return Collections.EMPTY_LIST;
-		return getProvider().getNotInMenu(); // tmr
+		return getProvider().getNotInMenu(); 
 	}
 	
-	public static Collection<MetaModule> getInMenu(HttpServletRequest request, Modules modules) { // tmr
-		return getProvider().getInMenu(request, modules); // tmr
+	public static Collection<MetaModule> getInMenu(HttpServletRequest request, Modules modules) { 
+		return getProvider().getInMenu(request, modules); 
 	}
-
-	/* tmr
-	private static List<MetaModule> createAll() {
-		List<MetaModule> result = new ArrayList<MetaModule>();
-		for (MetaModule module: MetaModuleFactory.createAll()) {
-			if (module.getName().equals("SignIn")) continue;
-			if (module.getName().equals("DiscussionComment")) continue;  
-			result.add(module);
-		}
-		return result;
-	}
-	*/
 	
 	public static boolean isPublic(HttpServletRequest request, String moduleName) { 
-		// tmr return "FirstSteps".equals(moduleName); 
-		return getProvider().isPublic(request, moduleName); // tmr
+		return getProvider().isPublic(request, moduleName); 
 	}
 	
 	public static boolean showsIndexLink() { 
-		// tmr return false;
-		return getProvider().showsIndexLink(); // tmr
+		return getProvider().showsIndexLink(); 
 	}	
 
 	public static boolean showsSearchModules(HttpServletRequest request) {
-		/* tmr
-		Modules modules = (Modules) request.getSession().getAttribute("modules");
-		return modules.getAll(request).size() > 30;
-		*/
-		// tmr ini
 		return getProvider().showsSearchModules(request);
-		// tmr fin
 	}
 	
 	private static IModulesHelperProvider getProvider() {

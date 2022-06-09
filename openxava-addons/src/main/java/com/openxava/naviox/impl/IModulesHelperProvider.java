@@ -10,7 +10,6 @@ import org.openxava.application.meta.*;
 import com.openxava.naviox.*;
 
 /**
- * tmr
  * @version 7.0
  * @author Javier Paniza
  */

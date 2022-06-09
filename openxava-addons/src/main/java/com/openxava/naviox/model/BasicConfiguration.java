@@ -1,7 +1,7 @@
 package com.openxava.naviox.model;
 
 /**
- * tmr
+ * 
  * @since 7.0
  * @author Javier Paniza
  */

@@ -6,11 +6,9 @@ import javax.inject.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.model.*;
-import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
 import org.openxava.view.*;
-import org.openxava.view.meta.*;
 
 /**
  * 

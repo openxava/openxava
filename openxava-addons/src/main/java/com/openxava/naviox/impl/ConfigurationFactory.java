@@ -3,7 +3,6 @@ package com.openxava.naviox.impl;
 import com.openxava.naviox.model.*;
 
 /**
- * tmr
  * 
  * @since 7.0
  * @author Javier Paniza

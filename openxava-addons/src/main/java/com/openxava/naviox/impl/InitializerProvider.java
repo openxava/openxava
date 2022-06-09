@@ -8,7 +8,7 @@ import com.openxava.naviox.model.*;
 
 
 /**
- * tmr
+ * @since 7.0
  * @author Javier Paniza
  */
 public class InitializerProvider implements IInitializerProvider {

@@ -4,7 +4,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 /**
- * tmr
  * @since 7.0
  * @author Javier Paniza
  */

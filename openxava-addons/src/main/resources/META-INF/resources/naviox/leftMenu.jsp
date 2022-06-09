@@ -1,5 +1,5 @@
 <%@page import="org.openxava.util.Users"%>
-<%@page import="org.openxava.util.NaviOXPreferences"%>
+<%@page import="com.openxava.naviox.util.NaviOXPreferences"%>
 
 <%@include file="../xava/imports.jsp"%>
 

@@ -157,12 +157,12 @@ here that you want to override.
 			class="org.openxava.actions.CancelToDefaultControllersAction"/>			
 	</controller>
 	
-	<!-- tmr ini -->
 	<controller name="SignIn">
+		<action name="init" on-init="true" hidden="true"  			
+			class="com.openxava.naviox.actions.InitSignInAction"/>
 		<action name="signIn"  			
 			class="com.openxava.naviox.actions.SignInAction"/>			
 	</controller>
-	<!-- tmr fin -->
 	
 	<controller name="MyReport">
 		<action name="generatePdf" 

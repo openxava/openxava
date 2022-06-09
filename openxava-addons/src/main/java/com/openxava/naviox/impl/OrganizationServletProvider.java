@@ -8,7 +8,6 @@ import javax.servlet.http.*;
 import org.openxava.util.*;
 
 /**
- * tmr
  * 
  * @since 7.0
  * @author Javier Paniza

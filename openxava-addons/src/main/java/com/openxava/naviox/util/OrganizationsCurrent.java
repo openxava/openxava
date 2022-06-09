@@ -9,28 +9,24 @@ import org.openxava.util.*;
 import com.openxava.naviox.impl.*;
 
 /**
- * tmr
  * @since 7.0
  * @author Javier Paniza
  */
 
 public class OrganizationsCurrent {
 	
-	private static Log log = LogFactory.getLog(OrganizationsCurrent.class); // tmr
-	private static IOrganizationsCurrentProvider provider; // tmr
+	private static Log log = LogFactory.getLog(OrganizationsCurrent.class); 
+	private static IOrganizationsCurrentProvider provider; 
 	
 	public static String get(ServletRequest request) {
-		// tmr return null;
-		return getProvider().get(request); // tmr
+		return getProvider().get(request); 
 	}
 	
 
 	public static String getName(HttpServletRequest request) {
-		// tmr return null;
-		return getProvider().getName(request); // tmr
+		return getProvider().getName(request); 
 	}
 	
-	// tmr ini	
 	private static IOrganizationsCurrentProvider getProvider() {
 		if (provider == null) {
 			try {
@@ -43,6 +39,5 @@ public class OrganizationsCurrent {
 		}
 		return provider;
 	}
-	// tmr fin
 	
 }

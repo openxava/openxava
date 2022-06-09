@@ -37,13 +37,8 @@ public class Modules implements Serializable {
 	
 	private MetaModule current;
 
-	
-
-	 
-
 	public static void init(String applicationName) {
 		MetaModuleFactory.setApplication(applicationName);
-		// tmr DB.init();
 		DBInitializer.init();
 		createFirstStepsModule(applicationName);
 		ModulesHelper.init(applicationName);  
@@ -431,7 +426,7 @@ public class Modules implements Serializable {
 	}
 	
 	/** @since 7.0 */
-	public Collection<MetaModule> getMenuModules(HttpServletRequest request) { // tmr
+	public Collection<MetaModule> getMenuModules(HttpServletRequest request) { 
 		return ModulesHelper.getInMenu(request, this);
 	}
 	

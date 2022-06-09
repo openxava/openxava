@@ -15,16 +15,10 @@ import com.openxava.naviox.util.*;
 public class Initializer {
 	
 	private static Log log = LogFactory.getLog(Initializer.class);
-	// tmr private static boolean initiated = false;
-	private static IInitializerProvider provider; // tmr
+	private static IInitializerProvider provider; 
 	
 	public static void init(ServletRequest request) {
-		/* tmr
-		if (initiated) return;
-		AnnotatedClassParser.getManagedClassNames().add(SignIn.class.getName());	
-		initiated = true;
-		*/
-		getProvider().init(request); // tmr 		
+		getProvider().init(request);  		
 	}
 	
 	private static IInitializerProvider getProvider() {

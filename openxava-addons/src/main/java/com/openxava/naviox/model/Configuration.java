@@ -83,11 +83,6 @@ public class Configuration implements java.io.Serializable {
 	
 	public static Configuration getInstance() {
 		if (instance == null) {
-			/* tmr
-			instance = XPersistence.getManager().find(ConfigurationRecord.class, 1);
-			if (instance == null) instance = new ConfigurationRecord();
-			*/
-			// tmr ini
 			try {
 				IConfigurationFactory factory = (IConfigurationFactory) Class.forName(NaviOXPreferences.getInstance().getConfigurationFactoryClass()).newInstance();
 				instance = factory.create();
@@ -96,7 +91,6 @@ public class Configuration implements java.io.Serializable {
 				log.warn(XavaResources.getString("factory_create_error", "Configuration"), ex);
 				throw new XavaException("factory_create_error", "Configuration");
 			}
-			// tmr fin 
 		}
 		return instance;
 	}

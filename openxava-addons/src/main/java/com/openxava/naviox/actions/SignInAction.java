@@ -1,6 +1,7 @@
 package com.openxava.naviox.actions;
 
 import org.openxava.util.*;
+
 import com.openxava.naviox.impl.*;
 
 /**
@@ -10,7 +11,7 @@ import com.openxava.naviox.impl.*;
 public class SignInAction extends ForwardToOriginalURIBaseAction {
 	
 	public void execute() throws Exception {		
-		SignInHelper.init(getRequest(), getView()); 
+		SignInHelper.initRequest(getRequest(), getView()); 
 		if (getErrors().contains()) return; 
 		String userName = getView().getValueString("user");
 		String password = getView().getValueString("password");

@@ -98,47 +98,47 @@ public class NaviOXPreferences {
 	}
 
 	/** @since 7.0 */
-	public String getInitializerProviderClass() { // tmr
+	public String getInitializerProviderClass() { 
 		return getProperties().getProperty("initializerProviderClass", InitializerProvider.class.getName()).trim();
 	}
 
 	/** @since 7.0 */
-	public String getModulesHelperProviderClass() { // tmr
+	public String getModulesHelperProviderClass() { 
 		return getProperties().getProperty("modulesHelperProviderClass", ModulesHelperProvider.class.getName()).trim();
 	}
 	
 	/** @since 7.0 */
-	public String getSignInHelperProviderClass() { // tmr
+	public String getSignInHelperProviderClass() { 
 		return getProperties().getProperty("signInHelperProviderClass", SignInHelperProvider.class.getName()).trim();
 	}
 
 	/** @since 7.0 */
-	public String getConfigurationFactoryClass() { // tmr
+	public String getConfigurationFactoryClass() { 
 		return getProperties().getProperty("configurationFactoryClass", ConfigurationFactory.class.getName()).trim();
 	}
 	
 	/** @since 7.0 */
-	public String getOrganizationsCurrentProviderClass() { // tmr
+	public String getOrganizationsCurrentProviderClass() { 
 		return getProperties().getProperty("organizationsCurrentProviderClass", OrganizationsCurrentProvider.class.getName()).trim();
 	}
 	
 	/** @since 7.0 */
-	public String getOrganizationServletProviderClass() { // tmr
+	public String getOrganizationServletProviderClass() { 
 		return getProperties().getProperty("organizationServletProviderClass", OrganizationServletProvider.class.getName()).trim();
 	}
 	
 	/** @since 7.0 */
-	public String getPhoneServletProviderClass() { // tmr
+	public String getPhoneServletProviderClass() { 
 		return getProperties().getProperty("phoneServletProviderClass", PhoneServletProvider.class.getName()).trim();
 	}
 	
 	/** @since 7.0 */
-	public String getModulesListJSP() { // tmr
+	public String getModulesListJSP() { 
 		return getProperties().getProperty("modulesListJSP", "modulesList.jsp").trim();
 	}
 	
 	/** @since 7.0 */
-	public String getModulesMenuJSP() { // tmr
+	public String getModulesMenuJSP() { 
 		return getProperties().getProperty("modulesMenuJSP", "modulesMenu.jsp").trim();
 	}
 	
