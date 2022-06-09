@@ -1,0 +1,10 @@
+JDBC DOC
+- Completar db en context.xml de arquetipos
+- Poner pom para bases de datos en pom.xml de arquetipo
+- Doc para cada DB (de momento en -maven):
+	- Cambier persistence.xml y context.xml, y relanzar no tiene efecto.
+	- Hacer war:exploded hace que reconozca los cambios del context.xml
+	- Poner la depenceia en el pom.xml es suficiente, no hace falta exploded
+	- No es necesario mover driver a tomcat/lib
+	- No incluir driver classes en doc.
+- Actualizar doc en context.xml de arquetipos.	

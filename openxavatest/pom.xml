@@ -60,7 +60,6 @@
 				<packagingExcludes>
 		          	WEB-INF/lib/ecj-3*.jar,
 					WEB-INF/lib/fontbox-*.jar,
-					WEB-INF/lib/hsqldb-*.jar,
 					WEB-INF/lib/htmlunit-*.jar,
 					WEB-INF/lib/httpclient-*.jar,
 					WEB-INF/lib/httpcore-*.jar,
