@@ -16,12 +16,7 @@
   <dependencies>
     <dependency>
       <groupId>org.openxava</groupId>
-      <artifactId>openxava-core</artifactId>
-      <version>7.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>com.openxava</groupId>
-      <artifactId>openxava-addons</artifactId>
+      <artifactId>openxava</artifactId>
       <version>7.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
@@ -43,7 +38,7 @@
 						<artifactItems>
 							<artifactItem>
 								<groupId>org.openxava</groupId>
-								<artifactId>openxava-core</artifactId>
+								<artifactId>openxava</artifactId>
 								<outputDirectory>src/main/resources</outputDirectory>
 								<includes>xava/dtds/*</includes>
 							</artifactItem>
