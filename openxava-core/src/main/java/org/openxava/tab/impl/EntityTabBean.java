@@ -3,15 +3,11 @@ package org.openxava.tab.impl;
 import java.rmi.*;
 import java.util.*;
 
-
-
-import org.openxava.ejbx.*;
-
 /**
  * 
  * @author Javier Paniza
  */
-public class EntityTabBean extends SessionBase implements IEntityTabDataProvider {
+public class EntityTabBean implements IEntityTabDataProvider {
 	
 	private EntityTabDataProvider dataProvider = new EntityTabDataProvider();
 	

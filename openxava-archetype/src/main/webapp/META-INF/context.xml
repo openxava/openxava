@@ -15,41 +15,40 @@
 	
 	Moreover, you have to copy the JDBC driver (a jar file) corresponding to
 	your database, to the lib folder of your Tomcat, or if you're in development 
-	add the jar to your project	Java Build Path using Eclipse:
-		Right button on your project > Properties > Java Build Path > Libraries
+	add the dependency to the pom.xml of your project.
 	-->
 	 
 	<!-- HSQLDB -->   	
-    <Resource name="jdbc/myappDS" auth="Container" type="javax.sql.DataSource"
+    <Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
-	      username="sa" password="" driverClassName="org.hsqldb.jdbcDriver"
+	      username="sa" password="" 
 	      url="jdbc:hsqldb:hsql://localhost:1666"/>
 	      
 	<!-- MySQL       
-    <Resource name="jdbc/myappDS" auth="Container" type="javax.sql.DataSource"
+    <Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
-	      username="root" password="" driverClassName="com.mysql.jdbc.Driver"
+	      username="root" password="" 
 	      url="jdbc:mysql://localhost:3306/"/>	      
 	-->      
 	
 	<!-- PostgreSQL 
-	<Resource name="jdbc/myappDS" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
-	      username="postgres" password="" driverClassName="org.postgresql.Driver"
+	      username="postgres" password="" 
 	      url="jdbc:postgresql://localhost/"/>
 	-->
 	
 	<!-- Oracle 
-	<Resource name="jdbc/myappDS" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
-	      username="user" password="" driverClassName="oracle.jdbc.driver.OracleDriver"
+	      username="user" password="" 
 	      url="jdbc:oracle:thin:@localhost:1521:XE"/>
 	-->	
 	
 	<!-- AS/400 
-	<Resource name="jdbc/myappDS" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
-	      username="user" password="" driverClassName="org.hibernate.dialect.DB2400Dialect"
+	      username="user" password="" 
 	      url="jdbc:as400:localhost"/>
 	-->            
 	      	      

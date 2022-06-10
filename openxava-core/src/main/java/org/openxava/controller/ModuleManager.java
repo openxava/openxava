@@ -552,24 +552,8 @@ public class ModuleManager implements java.io.Serializable {
 			HttpServletRequest request) { 
 		try {
 			Object previousView = getContext().get(applicationName, moduleName,	"xava_view");
-			prepareAction(action, metaAction, errors, messages, propertyValues, request); 
-			if (action instanceof IRemoteAction) {
-				IRemoteAction remote = (IRemoteAction) action;
-				remote.executeBefore();
-				if (remote.isExecuteOnServer()) {
-					remote = Server.execute(remote, remote.getPackageName());
-					errors.removeAll();
-					messages.removeAll();
-					errors.add(remote.getErrors());
-					messages.add(remote.getMessages());
-					remote.setErrors(errors);
-					remote.setMessages(messages);
-				}
-				remote.executeAfter();
-				action = remote;
-			} else {
-				action.execute();
-			}
+			prepareAction(action, metaAction, errors, messages, propertyValues, request);
+			action.execute(); 
 			if (action instanceof IChangeModeAction) {
 				IChangeModeAction modeChange = (IChangeModeAction) action;
 				String nextMode = modeChange.getNextMode();

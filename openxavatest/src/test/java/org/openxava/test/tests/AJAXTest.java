@@ -805,7 +805,7 @@ public class AJAXTest extends ModuleTestBase {
 		changeModule("Invoice");
 		execute("List.viewDetail", "row=0"); 
 		execute("Sections.change", "activeSection=1");
-		execute("Collection.new", "viewObject=xava_view_section1_details");
+		execute("Collection.new", "viewObject=xava_view_section1_details"); 
 		
 		/* Until 4m1
 		// First time that the detail is used all collection is reloaded

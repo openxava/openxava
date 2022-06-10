@@ -29,6 +29,30 @@
   <build>
     <finalName>invoicedemo</finalName>
     <plugins>
+    	<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-dependency-plugin</artifactId>
+			<executions>
+				<execution>
+					<id>unpack</id>
+					<phase>package</phase>
+					<goals>
+						<goal>unpack</goal>
+					</goals>
+					<configuration>
+						<artifactItems>
+							<artifactItem>
+								<groupId>org.openxava</groupId>
+								<artifactId>openxava-core</artifactId>
+								<outputDirectory>src/main/resources</outputDirectory>
+								<includes>xava/dtds/*</includes>
+							</artifactItem>
+						</artifactItems>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+    
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.3.2</version>
@@ -36,7 +60,6 @@
           <packagingExcludes>
           	WEB-INF/lib/ecj-3*.jar,
 			WEB-INF/lib/fontbox-*.jar,
-			WEB-INF/lib/hsqldb-*.jar,
 			WEB-INF/lib/htmlunit-*.jar,
 			WEB-INF/lib/httpclient-*.jar,
 			WEB-INF/lib/httpcore-*.jar,

@@ -5,11 +5,11 @@
 <controllers>
     
     <!-- Environment variable:
-    <env-var name="@project@_DEFAULT_YEAR" value="2015"/> 
+    <env-var name="yourapp_DEFAULT_YEAR" value="2015"/> 
     -->
     
     <!-- Session object:
-    <object name="@project@_activeYear" class="java.lang.Integer" value="2015" 
+    <object name="yourapp_activeYear" class="java.lang.Integer" value="2015" 
     	    scope="global"/>    
     -->
     

@@ -17,13 +17,13 @@ import org.apache.commons.logging.*;
  */
 public class AppServer { 
 	
-	private static final String I18N_DIR = "web/WEB-INF/classes/"; 
+	private static final String I18N_DIR = "/WEB-INF/classes/i18n/"; 
 	private final static Log log = LogFactory.getLog(AppServer.class);
 	
 	public static void run(String app) throws Exception {
 		System.out.println(XavaResources.getString("starting_application"));
-		System.setProperty("tomcat.util.scan.StandardJarScanFilter.jarsToSkip", "activation.jar,antlr.jar,byte-buddy.jar,classmate.jar,commons-*.jar,dom4j.jar,dsn.jar,dwr.jar,ejb.jar,groovy-all.jar,hibernate-*.jar,hk2-*.jar,imap.jar,itext.jar,jakarta.*.jar,jandex.jar,jasperreports-fonts.jar,jasperreports.jar,javassist.jar,javax.inject.jar,jaxb-*.jar,jboss-logging.jar,jersey-*.jar,jpa.jar,jsoup.jar,jta.jar,lombok.jar,mailapi.jar,mime-util.jar,ox-jdbc-adapters.jar,poi-*.jar,poi.jar,pop3.jar,slf4j-*.jar,smtp.jar,validation-api.jar,xmlbeans.jar,yasson.jar"); 
-		createDefaultI18nFiles(app); 
+		System.setProperty("tomcat.util.scan.StandardJarScanFilter.jarsToSkip", "activation-*.jar,antlr-*.jar,aopalliance-repackaged-*.jar,bcprov-jdk15on-*.jar,byte-buddy-*.jar,castor-*.jar,classmate-*.jar,commons-*.jar,curvesapi-*.jar,dom4j-*.jar,dwr-*.jar,ecj-*.jar,ejb-api-*.jar,fontbox-*.jar,groovy-all-*.jar,hibernate-*.jar,hk2-*.jar,hsqldb-*.jar,htmlunit-*.jar,httpclient-*.jar,httpcore-*.jar,httpmime-*.jar,icu4j-*.jar,itext-*.jar,jackson-*.jar,jakarta.activation-*.jar,jakarta.annotation-api-*.jar,jakarta.inject-*.jar,jakarta.json-*.jar,jakarta.ws.rs-api-*.jar,jandex-*.jar,jasperreports-*.jar,javassist-*.jar,javax.activation-api-*.jar,javax.inject-*.jar,javax.mail-*.jar,javax.persistence-api-*.jar,jaxb-*.jar,jboss-logging-*.jar,jboss-transaction-*.jar,jcommon-*.jar,jersey-*.jar,jetty-*.jar,jfreechart-*.jar,jsoup-*.jar,junit-*.jar,lombok-*.jar,neko-htmlunit-*.jar,osgi-resource-locator-*.jar,pdfbox-*.jar,poi-*.jar,serializer-*.jar,stax-*.jar,tomcat-*.jar,validation-api-*.jar,websocket-*.jar,xalan-*.jar,xercesImpl-*.jar,xml-apis-*.jar,xmlbeans-*.jar,yasson-*.jar");
+		createDefaultI18nFiles(app);
         String webappDir = new File("target/" + app).getAbsolutePath();
         
         String contextPath = Is.empty(app)?"":"/" + app;
@@ -69,10 +69,10 @@ public class AppServer {
 	
 	private static void createDefaultI18nFiles(String app) {
 		try { 
-			Path labelsEsPath = Paths.get(I18N_DIR + "Etiquetas" + app + "_es.properties");
+			Path labelsEsPath = Paths.get("target/" + app + I18N_DIR + "Etiquetas" + app + "_es.properties");
 			if (Files.exists(labelsEsPath)) {
-				Files.copy(labelsEsPath, java.nio.file.Paths.get(I18N_DIR + "Etiquetas" + app + ".properties"), StandardCopyOption.REPLACE_EXISTING);
-				Files.copy(Paths.get(I18N_DIR + "Mensajes" + app + "_es.properties"), Paths.get(I18N_DIR + "Mensajes" + app + ".properties"), StandardCopyOption.REPLACE_EXISTING);
+				Files.copy(labelsEsPath, java.nio.file.Paths.get("target/" + app + I18N_DIR + "Etiquetas" + app + ".properties"), StandardCopyOption.REPLACE_EXISTING);
+				Files.copy(Paths.get("target/" + app + I18N_DIR + "Mensajes" + app + "_es.properties"), Paths.get("target/" + app + I18N_DIR + "Mensajes" + app + ".properties"), StandardCopyOption.REPLACE_EXISTING);
 			}
 			else {
 				if (copyDefaultI18nFile(app, "en")) return; 
@@ -83,7 +83,8 @@ public class AppServer {
 				}
 				for (String language: Locale.getISOLanguages()) {
 					if (copyDefaultI18nFile(app, language)) return;
-				}				
+				}
+				log.warn(XavaResources.getString("default_i18n_files_not_created"));
 			}
 		}
 		catch (Exception ex) {
@@ -92,11 +93,11 @@ public class AppServer {
 	}
 	
 	private static boolean copyDefaultI18nFile(String app, String language) throws Exception {
-		Path labelsPath = Paths.get(I18N_DIR + app + "-labels_" + language + ".properties");
+		Path labelsPath = Paths.get("target/" + app + I18N_DIR + app + "-labels_" + language + ".properties");
 		if (!Files.exists(labelsPath)) return false; 
-		Files.copy(labelsPath, Paths.get(I18N_DIR + app + "-labels.properties"), StandardCopyOption.REPLACE_EXISTING);
-		Files.copy(Paths.get(I18N_DIR + app + "-messages_" + language + ".properties"), Paths.get(I18N_DIR + app + "-messages.properties"), StandardCopyOption.REPLACE_EXISTING);		
+		Files.copy(labelsPath, Paths.get("target/" + app + I18N_DIR + app + "-labels.properties"), StandardCopyOption.REPLACE_EXISTING);
+		Files.copy(Paths.get("target/" + app + I18N_DIR + app + "-messages_" + language + ".properties"), Paths.get("target/" + app + I18N_DIR + app + "-messages.properties"), StandardCopyOption.REPLACE_EXISTING);
 		return true;
 	}
-
+	
 }
