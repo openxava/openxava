@@ -365,6 +365,10 @@
 		<for-stereotype stereotype="COORDINATES" /> 
 		<for-stereotype stereotype="COORDENADAS" />
 		<for-annotation annotation="org.openxava.annotations.Coordinates"/> 
-	</editor>	
+	</editor>
+	
+	<editor url="textEditor.jsp">
+		<for-model-property model="SignIn" property="user" />				
+	</editor>
 		
 </editors>

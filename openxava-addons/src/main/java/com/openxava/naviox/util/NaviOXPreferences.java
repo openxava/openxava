@@ -101,6 +101,16 @@ public class NaviOXPreferences {
 	public String getInitializerProviderClass() { 
 		return getProperties().getProperty("initializerProviderClass", InitializerProvider.class.getName()).trim();
 	}
+	
+	/** @since 7.0 */
+	public String getFoldersProviderClass() {  
+		return getProperties().getProperty("foldersProviderClass", FoldersProvider.class.getName()).trim();
+	}
+	
+	/** @since 7.0 */
+	public String getPhoneListProviderClass() {  
+		return getProperties().getProperty("phoneListProviderClass", PhoneListProvider.class.getName()).trim();
+	}
 
 	/** @since 7.0 */
 	public String getModulesHelperProviderClass() { 

@@ -184,7 +184,7 @@ public class SellerTest extends CustomizeListTestBase {
 		assertNoErrors(); 
 		
 		changeModule("SignIn");
-		login("openxavatest1@getnada.com", "test1");
+		login("openxavatest1@getnada.com", "test1"); 
 		changeModule("Seller");
 
 		execute("CRUD.new");

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Code for navigation and security refactored to be more plugable. 
 - Driver class not included for datasource and persistence unit definitions for new projects.
 - Fix: Some links to incorrect lessons in top navigation menu of course.
 - All EJB related code removed.

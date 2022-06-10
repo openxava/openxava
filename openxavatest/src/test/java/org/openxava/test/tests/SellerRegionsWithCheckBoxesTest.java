@@ -25,7 +25,7 @@ public class SellerRegionsWithCheckBoxesTest extends ModuleTestBase {
 		assertValues("regions", regions);
 		
 		execute("CRUD.save");
-		assertNoErrors();
+		assertNoErrors(); 
 		assertValues("regions", emptyRegions);		
 		
 		setValue("number", "66");

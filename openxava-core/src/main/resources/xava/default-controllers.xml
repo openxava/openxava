@@ -41,6 +41,8 @@ here that you want to override.
 	<object name="xava_newFilesetProperty" class="java.lang.String" />
 	<object name="xava_newIconProperty" class="java.lang.String"/> 
 	<object name="xava_cutCollectionElements" class="org.openxava.session.CutCollectionElements" scope="global"/> 
+	<object name="naviox_locked" class="java.lang.Boolean" value="false" scope="global"/>
+	<object name="naviox_locking" class="java.lang.Boolean" value="false"/>
 		
 	<controller name="Typical">
 		<!-- If you modify this controller revise the other Typical controllers below -->

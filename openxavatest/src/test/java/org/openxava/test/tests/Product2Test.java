@@ -118,7 +118,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 	}
 	
 	public void testImagesGallery() throws Exception {
-		subscribeToEmailNotifications(); 
+		subscribeToEmailNotifications();  
 		
 		// We remove oid from product 1 in order to test that images gallery works well in the first attempt
 		Product2.findByNumber(1).setPhotos("");

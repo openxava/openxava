@@ -338,7 +338,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 	}
 
 	public void testEmailNotificationsInElementCollections_numberAndDateFormatInEmailNotifications() throws Exception { 
-		subscribeToEmailNotifications();
+		subscribeToEmailNotifications(); 
 		
 		execute("List.viewDetail", "row=0");
 		assertValue("year", "2014");   
