@@ -85,20 +85,20 @@ public class ModuleManager implements java.io.Serializable {
 	private static final String XAVA_META_ACTIONS_IN_LIST = "xava_metaActionsInList";
 
 	private String user;
-	private Collection metaActionsOnInit;
-	private Collection metaActionsOnEachRequest;
-	private Collection metaActionsBeforeEachRequest;
-	private Collection metaActionsAfterEachRequest;
+	private transient Collection metaActionsOnInit;
+	private transient Collection metaActionsOnEachRequest;
+	private transient Collection metaActionsBeforeEachRequest;
+	private transient Collection metaActionsAfterEachRequest;
 	private boolean moduleInitiated;
 	private String defaultActionQualifiedName;
-	private MetaModule metaModule;
+	private transient MetaModule metaModule;
 	private String[] controllersNames;
-	private Collection metaActions;
+	private transient Collection metaActions;
 	private String applicationName;
 	private String moduleName;
 	private Set hiddenActions;
 	private String modeControllerName;
-	private Collection metaControllers;
+	private transient Collection metaControllers;
 	private MetaController metaControllerMode;
 	transient private HttpSession session;
 	private static Object refiner;
@@ -122,9 +122,9 @@ public class ModuleManager implements java.io.Serializable {
 	private String moduleDescription;
 	private boolean resetFormPostNeeded = false;
 	private boolean actionsAddedOrRemoved;
-	private Collection<MetaSubcontroller> metaSubControllers;
-	private Map<String,Collection<MetaAction>> subcontrollersMetaActions;
-	private Collection<MetaControllerElement> metaControllerElements;
+	private transient Collection<MetaSubcontroller> metaSubControllers;
+	private transient Map<String,Collection<MetaAction>> subcontrollersMetaActions;
+	private transient Collection<MetaControllerElement> metaControllerElements;
 	private Set<String> actionsForPermalink;
 	private boolean buttonsVisible = true;
 	private boolean viewKeyEditable;
@@ -261,7 +261,7 @@ public class ModuleManager implements java.io.Serializable {
 	public Collection<MetaAction> getMetaActions() {
 		if (metaActions == null) {
 			
-			if (this.controllersNames == MODIFIED_CONTROLLERS) {
+			if (Arrays.equals(this.controllersNames, MODIFIED_CONTROLLERS)) {
 				metaActions = getMetaControllerElements().stream()
 					.filter(e -> e instanceof MetaAction)
 					.map(e -> (MetaAction) e)
@@ -1037,7 +1037,7 @@ public class ModuleManager implements java.io.Serializable {
 
 	public void memorizeControllers() throws XavaException {
 		Stack previousControllers = getPreviousControllers();
-		if (this.controllersNames == MODIFIED_CONTROLLERS) {
+		if (Arrays.equals(this.controllersNames, MODIFIED_CONTROLLERS)) {
 			previousControllers.push(this.metaControllerElements); 
 		} else {
 			previousControllers.push(this.controllersNames);
