@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Added new database commented configurations in new projects: MS SQL Server, Informix, Db2 and Firebird.
 - Addons and OpenXava projects mixed in an unique project, openxava. 
 - Code for navigation and security refactored to be more plugable. 
 - Driver class not included for datasource and persistence unit definitions for new projects.

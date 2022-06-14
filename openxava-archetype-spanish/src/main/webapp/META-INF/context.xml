@@ -50,6 +50,34 @@
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
 	      url="jdbc:as400:localhost"/>
+	-->
+	
+	<!-- Microsoft SQL Server
+	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password="" 
+	      url="jdbc:sqlserver://localhost:1433;databaseName=tuaplicaciondb"/>
+	-->
+	
+	<!-- Informix
+	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password="" 
+	      url="jdbc:informix-sqli://localhost:1533/tuaplicaciondb:INFORMIXSERVER=tuservidor"/>
 	-->            
-	      	      
+	
+	<!-- Db2
+	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password="" 
+	      url="jdbc:db2://localhost:50000/tuaplicaciondb"/>
+	-->
+	
+	<!-- Firebird
+	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password="" 
+	      url="jdbc:firebirdsql://localhost:3050/c:/db/tuaplicacion.fdb"/>
+	-->
+	                  	      
 </Context>
