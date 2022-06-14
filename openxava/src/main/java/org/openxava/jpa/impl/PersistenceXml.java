@@ -67,6 +67,41 @@ public class PersistenceXml {
 			throw new ParserConfigurationException(ex.getMessage());
 		}
 	}
+	
+	/**
+	 * @since 7.0
+	 */
+	public static Collection<String> getClasses(String persistenceUnit) throws ParserConfigurationException { // tmr
+		try {
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			URL url = getResource();
+			Document doc = builder.parse(url.toExternalForm());
+			NodeList units = doc.getElementsByTagName("persistence-unit");
+			int unitsCount = units.getLength();
+			for (int i=0; i<unitsCount; i++) {			
+				Element unit = (Element) units.item(i);
+				if (persistenceUnit.equals(unit.getAttribute("name"))) {
+					Collection<String> classes = new ArrayList<>();
+					NodeList nodes = unit.getElementsByTagName("class");
+					int length = nodes.getLength(); 
+					for (int j=0; j<length; j++) {
+						Element el = (Element) nodes.item(j);
+						classes.add(el.getTextContent().trim());
+					}
+					return classes;
+				}				
+			}
+			return Collections.EMPTY_LIST;
+		}
+		catch (ParserConfigurationException ex) {
+			throw ex;
+		}
+		catch (Exception ex) {
+			log.error(ex.getMessage(), ex); 
+			throw new ParserConfigurationException(ex.getMessage());
+		}
+	}
+
 
 
 }
