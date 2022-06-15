@@ -2545,6 +2545,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			// This first in order that works fine with XML components without persistence.xml
 			String className = "org.openxava.session." + name;
 			Class.forName(className);
+			System.out.println("[AnnotatedClassParser.getClassNameIfExists(" + name + ")] A"); // tmr
 			return className;
 		}
 		catch (ClassNotFoundException ex) {				
@@ -2556,6 +2557,15 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 		catch (ClassNotFoundException ex) {				
 		}		
+		// tmr ini
+		try {
+			String className = "com.openxava.naviox.model." + name;
+			Class.forName(className);
+			return className;
+		}
+		catch (ClassNotFoundException ex) {				
+		}
+		// tmr fin
 		String suffix = "." + name;
 		// If it's a managed entity
 		for (String className: getManagedClassNames()) {
