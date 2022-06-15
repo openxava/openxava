@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Configuration for PostgreSQL - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
+          / </span> Configuration for PostgreSQL </h1>
+      <i>If you're using an OpenXava version older than 7.0 look at the <a href="postgres-ox6_en.html">old
+          instructions</a><br>
+      </i></div>
+    <div class="wiki" style="display: block;"><i></i>Configuring your OpenXava
+      application to go against PostgreSQL is very simple, basically you have to
+      add a dependency to the JDBC driver for PostgreSQL in your project and
+      define correctly the datasource. You don't need to touch any code of your
+      application.</div>
+    <div class="wiki" style="display: block;">We assume you have already
+      installed and running PostgreSQL.<br>
+      <h2 id="toc1">Add JDBC driver for PostgreSQL to your project</h2>
+      <p>Edit the <i>pom.xml</i> file in the root of your project, there add
+        the next dependency inside the <i>&lt;dependencies&gt;</i> part:</p>
+      <pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
+    &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
+    &lt;version&gt;42.4.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>Maybe the above code is already in your <i>pom.xml</i> but
+      commented, in that case just uncomment it.</div>
+    <div class="wiki" style="display: block;"> </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Adjust your datasource definition</h2>
+      Edit <i>src/main/webapp/META-INF/context.xml</i> of your project to
+      adjust the datasource to point to PostgreSQL, something like this:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
+    type="javax.sql.DataSource"
+    maxTotal="100" maxIdle="20" maxWaitMillis="10000"
+    username="root" password="ao49fmsk"
+    url="jdbc:postgresql://localhost:5432/myappdb"/&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">The differences is the <i>url</i>.
+      <span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">The
+        final part of the<span>&nbsp;</span></span><i style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">url</i><span
+        style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">,<span>&nbsp;</span></span><i
+        style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">myappdb</i><span
+        style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span>&nbsp;</span>in
+        this example, is the name of your PostgreSQL database.</span> Obviously,
+      instead of <i>localhost</i> you should put the address of the server that
+      hosts PostgreSQL. Also put the correct <i>username</i> and <i>password</i>.
+      Maybe the above code is already in your <i>context.xml</i> but commented,
+      in that case just uncomment it. Don't forget to comment or remove the
+      datasource for HSQLDB (the default one when you create a new OpenXava
+      project), only one datasource (with the same name) should be active.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Rebuild your project</h2>
+      <p>After the changes you have to rebuild your project. With OpenXava
+        Studio execute <i>Run As &gt; Maven install</i> on your project, thus:</p>
+      <p>TMR FALTA. PANTALLAZO CON WINDOWS 10</p>
+      <p>Or if you have Maven installed in your computer and you prefer to use
+        command line:</p>
+      <pre><code class="bash">$ cd myapp
+$ mvn install
+</code></pre>
+      <p>Optimization note: Instead of a <i>mvn install</i>, that do a complete
+        Maven build, you can use <i>mvn war:exploded</i>, enough to apply the
+        above changes for development. You can run <i>mvn war:exploded</i> from
+        OpenXava Studio with <i>Run As &gt; Maven build...</i> and typing <i>war:exploded</i>
+        for goal.</p>
+      <h2>Run your application</h2>
+      <p>Run your application, it should work nicely against your PostgreSQL
+        database. If it fails, verify that your database server is up, that the
+        user and password in <i>context.xml</i> are correct, that the server IP
+        is correct. Also verify that the user has rights to create databases and
+        tables (if you want to use the automatic schema generation of OpenXava,
+        not needed if the tables already exist).</p>
+      <p>If it still fails ask us in the <a href="https://sourceforge.net/p/openxava/discussion/419690/">OpenXava
+          Help forum</a>. Include the content of your <i>persistence.xml</i>, <i>context.xml</i>
+        (remove the passwords) and specially the stacktrace produced, you can
+        find the trace in the <i>Console</i> tab of OpenXava Studio.</p>
+    </div>
+  </body>
+</html>
