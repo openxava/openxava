@@ -45,25 +45,23 @@
     url="jdbc:postgresql://localhost:5432/myappdb"/&gt;
 </code></pre> </div>
     <div class="wiki" style="display: block;">The differences is the <i>url</i>.
-      <span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">The
-        final part of the<span>&nbsp;</span></span><i style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">url</i><span
-        style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">,<span>&nbsp;</span></span><i
-        style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">myappdb</i><span
-        style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span>&nbsp;</span>in
-        this example, is the name of your PostgreSQL database.</span> Obviously,
-      instead of <i>localhost</i> you should put the address of the server that
-      hosts PostgreSQL. Also put the correct <i>username</i> and <i>password</i>.
-      Maybe the above code is already in your <i>context.xml</i> but commented,
-      in that case just uncomment it. Don't forget to comment or remove the
-      datasource for HSQLDB (the default one when you create a new OpenXava
-      project), only one datasource (with the same name) should be active.</div>
+      The final part of the url, <i>myappdb</i> in this example, is the name of
+      your PostgreSQL database. Obviously, instead of <i>localhost</i> you
+      should put the address of the server that hosts PostgreSQL. Also put the
+      correct <i>username</i> and <i>password</i>. Maybe the above code is
+      already in your <i>context.xml</i> but commented, in that case just
+      uncomment it. Don't forget to comment or remove the datasource for HSQLDB
+      (the default one when you create a new OpenXava project), only one
+      datasource (with the same name) should be active.</div>
     <div class="wiki" style="display: block;">
       <h2>Rebuild your project</h2>
-      <p>After the changes you have to rebuild your project. With OpenXava
-        Studio execute <i>Run As &gt; Maven install</i> on your project, thus:</p>
-      <p>TMR FALTA. PANTALLAZO CON WINDOWS 10</p>
-      <p>Or if you have Maven installed in your computer and you prefer to use
-        command line:</p>
+      After the changes you have to rebuild your project. In OpenXava Studio
+      click with right mouse button on your project an choose <i>Run As &gt;
+        Maven install</i>, thus: </div>
+    <div class="wiki" style="display: block;"><img src="files/run-as-maven-install.png"
+        alt=""></div>
+    <div class="wiki" style="display: block;">Or if you have Maven installed in
+      your computer and you prefer to use command line:
       <pre><code class="bash">$ cd myapp
 $ mvn install
 </code></pre>
