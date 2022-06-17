@@ -36,6 +36,7 @@ public class SignInHelperProvider implements ISignInHelperProvider {
 	private Properties users;
 	
 	public String init(HttpServletRequest request, View view) {
+		System.out.println("[SignInHelperProvider.init] "); // tmr
 		return null;
 	}
 	

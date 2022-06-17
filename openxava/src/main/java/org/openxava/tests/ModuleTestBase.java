@@ -611,7 +611,17 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 4.1.2
 	 */
 	protected void reload() throws Exception {
-		page = (HtmlPage) page.refresh();
+		// tmr ini
+		if (page != null) {
+			try {
+				page = (HtmlPage) page.refresh();
+			}
+			catch (NullPointerException ex) {
+				ex.printStackTrace(); // tmr
+			}
+		}
+		// tmr fin
+		// tmr page = (HtmlPage) page.refresh();
 		if (!getMetaModule().isDoc()) {
 			resetForm();
 		}
