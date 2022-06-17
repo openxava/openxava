@@ -20,17 +20,15 @@
         have to add a dependency to the JDBC driver for MS SQL Server in your
         project and define correctly the datasource. You don't need to touch any
         code of your application.</div>
-      <div class="wiki" style="display: block;">TMR ME QUEDÉ POR AQUÍ: FALTA
-        ACTUALIZAR CÓDIGO Y REVISAR</div>
       <div class="wiki" style="display: block;">We assume you have already
         installed and running MS SQL Server.<br>
         <h2 id="toc1">Add JDBC driver for MS SQL Server to your project</h2>
         <p>Edit the <i>pom.xml</i> file in the root of your project, there add
           the next dependency inside the <i>&lt;dependencies&gt;</i> part:</p>
         <pre><code class="xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
-    &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
-    &lt;version&gt;42.4.0&lt;/version&gt;
+    &lt;groupId&gt;com.microsoft.sqlserver&lt;/groupId&gt;
+    &lt;artifactId&gt;mssql-jdbc&lt;/artifactId&gt;
+    &lt;version&gt;10.2.1.jre8&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>Maybe the above code is already in your <i>pom.xml</i> but
         commented, in that case just uncomment it.</div>
@@ -44,7 +42,7 @@
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
-    url="jdbc:postgresql://localhost:5432/myappdb"/&gt;
+    url="jdbc:sqlserver://localhost:1433;databaseName=myappdb"/&gt;
 </code></pre> </div>
       <div class="wiki" style="display: block;">The differences is the <i>url</i>.
         The final part of the url, <i>myappdb</i> in this example, is the name
@@ -61,6 +59,7 @@
         click with right mouse button on your project an choose <i>Run As &gt;
           Maven install</i>, thus: </div>
       <div class="wiki" style="display: block;"><img src="files/run-as-maven-install.png"
+
           alt=""></div>
       <div class="wiki" style="display: block;">Or if you have Maven installed
         in your computer and you prefer to use command line:
