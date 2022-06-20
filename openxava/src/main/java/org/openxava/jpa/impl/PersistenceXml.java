@@ -71,7 +71,7 @@ public class PersistenceXml {
 	/**
 	 * @since 7.0
 	 */
-	public static Collection<String> getClasses(String persistenceUnit) throws ParserConfigurationException { // tmr
+	public static Collection<String> getClasses(String persistenceUnit) throws ParserConfigurationException {
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			URL url = getResource();

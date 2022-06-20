@@ -1574,7 +1574,7 @@ public class ModuleManager implements java.io.Serializable {
 	
 	public void executeBeforeLoadPage(HttpServletRequest request, Messages errors, Messages messages) {  
 		try {			
-			if ("SignIn".equals(getModuleName())) return; // tmr
+			if ("SignIn".equals(getModuleName())) return; 
 			String detailId =  request.getParameter("detail");
 			if (!Is.emptyString(detailId)) {
 				getView().setModelName(getMetaModule().getModelName());  
@@ -1595,9 +1595,7 @@ public class ModuleManager implements java.io.Serializable {
 						executeAction(metaAction, errors, messages, request);
 					}
 					else {
-						// tmr if (!"SignIn".equals(getModuleName())) { 
-							errors.add("action_not_available", "'" + action + "'");
-						// tmr }
+						errors.add("action_not_available", "'" + action + "'");
 					}
 				}	
 			}

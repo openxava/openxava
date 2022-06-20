@@ -52,7 +52,6 @@ public class NaviOXFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		try {
-			System.out.println("[NaviOXFilter.doFilter] "); // tmr
 			XPersistence.reset();
 			Initializer.init(request);
 			HttpSession session = ((HttpServletRequest) request).getSession();
@@ -85,7 +84,6 @@ public class NaviOXFilter implements Filter {
 				String organization = OrganizationsCurrent.get(request);
 				if (organization != null) originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");
 				String userAccessModule = modules.getUserAccessModule(request);
-				System.out.println("[NaviOXFilter.doFilter] dispatcher=" + "/" + base + "/" + userAccessModule + "?originalURI=" + originalURI); // tmr
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/" + base + "/" + userAccessModule + "?originalURI=" + originalURI);
 				dispatcher.forward(secureRequest, response); 
 			}
