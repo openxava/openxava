@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Desplegar en producción con Tomcat - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span> Desplegar en producción con Tomcat</h1>
+      <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
+          href="tomcat-ox6_es.html">instrucciones antiguas</a></i></div>
+    <div class="wiki" style="display: block;"> Puedes desplegar tus aplicaciones
+      OpenXava en cualquier servidor de aplicaciones Java con soporte de Servlet
+      3.1 o superior. Para esta guía vamos a usar Apache Tomcat para desplegar
+      tu aplicación OpenXava. Tomcat es el servidor de aplicaciones Java más
+      usado y robusto, ideal para entornos de producción.<br>
+      <h2 id="toc1">Descargar e instalar Tomcat</h2>
+      <a href="https://tomcat.apache.org/download-90.cgi">Descarga Tomcat 9</a>
+      desde Apache. OpenXava también funciona bien con Tomcat 8. Descomprime el
+      Tomcat en una carpeta de tu elección. Ve a la carpeta <i>webapps</i> y
+      borra las carpetas que hay dentro: <i>docs, examples, host-manager,
+        manager</i> and <i>ROOT</i>. Son aplicaciones de ejemplo y
+      administración que no deberías tener en un sistema de producción.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Crear y desplegar el WAR<br>
+      </h2>
+      Para desplegar tu aplicación en Tomcat has de crear un archivo WAR desde
+      tu proyecto. Para ello, pulsa con el botón derecho del ratón en tu
+      proyecto y escoge <i>Run As &gt; Maven build...</i>:</div>
+    <img src="files/run-as-maven-build.png">
+    <div class="wiki" style="display: block;">Entonces quita la selección que
+      haya y selecciona la tarea Ant <i>createWar</i>: </div>
+    <img src="files/maven-build-package_es.png">
+    <div class="wiki" style="display: block;">Adicionalmente, puedes poner un
+      nombre mejor como <i>Facturacion.crearWar</i> en este caso. Pulsa en <i>Run</i>.
+      Espera a que termine la tarea Ant, después coge el archivo <i>Facturacion.war</i>
+      (o <i>TuNombreAplicacion.war</i>) y cópialo en la carpeta <i>webapps</i>
+      de tu Tomcat. Tu aplicación ya está desplegada.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Ejecutar Tomcat</h2>
+      <h2><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Para
+          arrancar tu Tomcat, con Windows pulsa el botón de </span><em style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">Inicio</em><span
+          style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span>,
+          </span>teclea<span> </span></span><em style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">cmd</em><span
+          style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span>
+          </span>y pulsa INTRO, entonces:</span><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">:</span></h2>
+    </div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="shell">set JAVA_HOME=C:\Program Files\Java\jdk-11.0.3
+cd tomcat-9.0.24\bin
+startup</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">Con Linux/Mac:
+      <div class="wiki" style="display: block;">
+        <pre><code class="shell">export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+cd tomcat-9.0.24/bin
+./startup.sh</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Por supuesto, ajusta las URLs
+        para tus propios directorios del Tomcat y Java.</div>
+      <div class="wiki" style="display: block;">¡Enhorabuena! Tu aplicación ya
+        está funcionando en producción, ya puedes usar tu navegador para
+        probarla.</div>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Configurar contra la base de datos de producción</h2>
+      Por defecto tu aplicación va contra la misma base de datos que usas en
+      desarrollo, la que tienes definida en la fuente de datos en <i>web/META-INF/context.xml</i>
+      de tu proyecto. La mayoría de las veces vas a querer una base de datos
+      diferente para producción. Para sobreescribir la base datos usada por tu
+      aplicación has de definir la fuente de datos en el <i>context.xml</i> que
+      se encuentra en la carpeta <i>conf</i> de tu Tomcat. Para nuestro
+      ejemplo, deberíamos editar <i>tomcat-9.0.24/conf/context.xml</i> y
+      dejarlos de la siguiente manera:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;!-- The contents of this file will be loaded for each web application --&gt;
+&lt;Context&gt;
+
+    &lt;!-- Default set of monitored resources. If one of these changes, the    --&gt;
+    &lt;!-- web application will be reloaded.                                   --&gt;
+    &lt;WatchedResource&gt;WEB-INF/web.xml&lt;/WatchedResource&gt;
+    &lt;WatchedResource&gt;WEB-INF/tomcat-web.xml&lt;/WatchedResource&gt;
+    &lt;WatchedResource&gt;${catalina.base}/conf/web.xml&lt;/WatchedResource&gt;
+
+    &lt;!-- Uncomment this to disable session persistence across Tomcat restarts --&gt;
+    &lt;!--
+    &lt;Manager pathname="" /&gt;
+    --&gt;
+	
+	 &lt;Resource name="jdbc/FacturacionDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="facturacion" password="afj30" driverClassName="org.hsqldb.jdbcDriver"
+	      url="jdbc:hsqldb:hsql://localhost:1999"/&gt;
+	
+&lt;/Context&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Usamos <i>FacturacionDS</i> como
+      nombre de fuente de datos, el mismo que en el <i>context.xml</i> incluido
+      en tu WAR, pero definiendo <i>url, username</i> y <i>password</i>
+      diferentes.</div>
+    <div class="wiki" style="display: block;">
+      <div class="wiki" style="display: block;">
+        <h2 id="toc1"><br>
+        </h2>
+      </div>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+  </body>
+</html>
