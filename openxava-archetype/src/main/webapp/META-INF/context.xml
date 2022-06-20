@@ -7,15 +7,13 @@
 	<!-- 
 	To define the access to your database uncomment the corresponding one
 	from the below configurations. If you don't find yours, look in internet 
-	for the JDBC URL and driver class for your database and define your 
-	own Resource entry.
+	for the URL for your database and define your own Resource entry.
 	
 	You have to adapt the URL to match your server, and maybe the port.
 	You have to define the correct user name and password for your database.
 	
-	Moreover, you have to copy the JDBC driver (a jar file) corresponding to
-	your database, to the lib folder of your Tomcat, or if you're in development 
-	add the dependency to the pom.xml of your project.
+	Moreover, you have to add the dependency for the corresponding JDBC 
+	driver to the pom.xml of your project.
 	-->
 	 
 	<!-- HSQLDB -->   	
