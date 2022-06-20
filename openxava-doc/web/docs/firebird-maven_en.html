@@ -20,17 +20,15 @@
         add a dependency to the JDBC driver for Firebird in your project and
         define correctly the datasource. You don't need to touch any code of
         your application.</div>
-      <div class="wiki" style="display: block;">TMR ME QUEDÉ POR AQUÍ: FALTA
-        CAMBIAR EL CÓDIGO Y REVISAR</div>
       <div class="wiki" style="display: block;">We assume you have already
         installed and running Firebird.<br>
         <h2 id="toc1">Add JDBC driver for Firebird to your project</h2>
         <p>Edit the <i>pom.xml</i> file in the root of your project, there add
           the next dependency inside the <i>&lt;dependencies&gt;</i> part:</p>
         <pre><code class="xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
-    &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
-    &lt;version&gt;42.4.0&lt;/version&gt;
+    &lt;groupId&gt;org.firebirdsql.jdbc&lt;/groupId&gt;
+    &lt;artifactId&gt;jaybird&lt;/artifactId&gt;
+    &lt;version&gt;4.0.6.java8&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>Maybe the above code is already in your <i>pom.xml</i> but
         commented, in that case just uncomment it.</div>
@@ -44,14 +42,14 @@
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
-    url="jdbc:postgresql://localhost:5432/myappdb"/&gt;
+    url="jdbc:firebirdsql://localhost:3050/c:/db/myapp.fdb"/&gt;
 </code></pre> </div>
       <div class="wiki" style="display: block;">The differences is the <i>url</i>.
-        The final part of the url, <i>myappdb</i> in this example, is the name
-        of your Firebird database. Obviously, instead of <i>localhost</i> you
-        should put the address of the server that hosts Firebird. Also put the
-        correct <i>username</i> and <i>password</i>. Maybe the above code is
-        already in your <i>context.xml</i> but commented, in that case just
+        The final part of the url, <i>c:/db/myapp.fdb</i> in this example, is
+        the name of your Firebird database. Obviously, instead of <i>localhost</i>
+        you should put the address of the server that hosts Firebird. Also put
+        the correct <i>username</i> and <i>password</i>. Maybe the above code
+        is already in your <i>context.xml</i> but commented, in that case just
         uncomment it. Don't forget to comment or remove the datasource for
         HSQLDB (the default one when you create a new OpenXava project), only
         one datasource (with the same name) should be active.</div>
@@ -60,7 +58,7 @@
         After the changes you have to rebuild your project. In OpenXava Studio
         click with right mouse button on your project an choose <i>Run As &gt;
           Maven install</i>, thus: </div>
-      <div class="wiki" style="display: block;"><img src="files/run-as-maven-install.png"
+      <div class="wiki" style="display: block;"><img src="files/run-as-maven-install.png"
           alt=""></div>
       <div class="wiki" style="display: block;">Or if you have Maven installed
         in your computer and you prefer to use command line:
