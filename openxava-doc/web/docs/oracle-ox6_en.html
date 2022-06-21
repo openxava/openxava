@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Configuration for Oracle - OpenXava</title>
+    <title>Configuration for Oracle in OpenXava 6 - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -11,8 +11,11 @@
     <div class="wiki" style="display: block;">
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Configuration for Oracle </h1>
-      Configuring your OpenXava application to go against Oracle is very simple,
+          / </span> Configuration for Oracle in OpenXava 6 </h1>
+      <i>If you're using OpenXava 7.0 or newer look at the <a href="oracle_en.html">new
+          instructions</a></i></div>
+    <div class="wiki" style="display: block;"> Configuring your OpenXava 6.x (or
+      older) application to go against Oracle is very simple,
       basically you have to install the JDBC driver for Oracle and define
       correctly the datasource. You don't need to touch any code of your
       application.</div>
@@ -72,8 +75,8 @@
 	url="jdbc:oracle:thin:@localhost:1521:mysid"/&gt;
 </code></pre> </div>
     <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i>
-      and the <i>url</i>. The final part of the url, <i>mysid</i> in this
-      example, is the sid of your Oracle database. Obviously, instead of <i>localhost</i>
+      and the <i>url</i>. The final part of the <i>url</i>, <i>mysid</i> in
+      this example, is the sid of your Oracle database. Obviously, instead of <i>localhost</i>
       you should put the address of the server that hosts Oracle, and also put
       the correct <i>username</i> and <i>password</i>.</div>
     <div class="wiki" style="display: block;">
@@ -93,9 +96,9 @@
 &lt;/persistence-unit&gt;
 </code></pre> </div>
     <div class="wiki" style="display: block;">You should use <i>Oracle12cDialect</i>
-      for Oracle 12 or better, that is for Oracle 19 you should use <i>Oracle12cDialect</i>
-      too, as shown above. For older versions of Oracle you can use <i>Oracle10gDialect</i>
-      or <i>Oracle8iDialect</i>. </div>
+      for Oracle 12 or better, that is for Oracle 19 you should use
+      Oracle12cDialect too, as shown above. For older versions of Oracle you can
+      use <i>Oracle10gDialect</i> or <i>Oracle8iDialect</i>. </div>
     <div class="wiki" style="display: block;">Moreover, you have to modify the <i>junit</i>
       persistence unit to point to Oracle. <br>
       <div class="wiki" style="display: block;">
