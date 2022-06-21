@@ -33,13 +33,18 @@
       tu proyecto. Para ello, pulsa con el botón derecho del ratón en tu
       proyecto y escoge <i>Run As &gt; Maven build...</i>:</div>
     <img src="files/run-as-maven-build.png">
-    <div class="wiki" style="display: block;">Entonces quita la selección que
-      haya y selecciona la tarea Ant <i>createWar</i>: </div>
+    <div class="wiki" style="display: block;">En el diálogo pon <i>package</i>
+      para el campo <i>Goals</i>:</div>
     <img src="files/maven-build-package_es.png">
     <div class="wiki" style="display: block;">Adicionalmente, puedes poner un
-      nombre mejor como <i>Facturacion.crearWar</i> en este caso. Pulsa en <i>Run</i>.
-      Espera a que termine la tarea Ant, después coge el archivo <i>Facturacion.war</i>
-      (o <i>TuNombreAplicacion.war</i>) y cópialo en la carpeta <i>webapps</i>
+      nombre mejor como <i>facturacion package</i> en este caso. Pulsa en <i>Run</i>.
+      Espera a que termine la ejecución.</div>
+    <div class="wiki" style="display: block;">O si tienes Maven instalado en tu
+      ordenador y prefieres usar la línea de órdenes:
+      <pre><code class="bash">$ cd facturacion
+$ mvn package
+</code></pre> Después coge el archivo <i>facturacion.war</i> (o <i>tunombreaplicacion.war</i>)
+      de la carpeta <i>target</i> de tu proyecto y cópialo en la carpeta <i>webapps</i>
       de tu Tomcat. Tu aplicación ya está desplegada.</div>
     <div class="wiki" style="display: block;">
       <h2>Ejecutar Tomcat</h2>
@@ -52,13 +57,13 @@
     </div>
     <div class="wiki" style="display: block;">
       <pre><code class="shell">set JAVA_HOME=C:\Program Files\Java\jdk-11.0.3
-cd tomcat-9.0.24\bin
+cd tomcat-9.0.64\bin
 startup</code></pre>
     </div>
     <div class="wiki" style="display: block;">Con Linux/Mac:
       <div class="wiki" style="display: block;">
         <pre><code class="shell">export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-cd tomcat-9.0.24/bin
+cd tomcat-9.0.64/bin
 ./startup.sh</code></pre>
       </div>
       <div class="wiki" style="display: block;">Por supuesto, ajusta las URLs
@@ -70,12 +75,12 @@ cd tomcat-9.0.24/bin
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Configurar contra la base de datos de producción</h2>
       Por defecto tu aplicación va contra la misma base de datos que usas en
-      desarrollo, la que tienes definida en la fuente de datos en <i>web/META-INF/context.xml</i>
+      desarrollo, la que tienes definida en la fuente de datos en <i>src/main/webapp/META-INF/context.xml</i>
       de tu proyecto. La mayoría de las veces vas a querer una base de datos
       diferente para producción. Para sobreescribir la base datos usada por tu
       aplicación has de definir la fuente de datos en el <i>context.xml</i> que
       se encuentra en la carpeta <i>conf</i> de tu Tomcat. Para nuestro
-      ejemplo, deberíamos editar <i>tomcat-9.0.24/conf/context.xml</i> y
+      ejemplo, deberíamos editar <i>tomcat-9.0.64/conf/context.xml</i> y
       dejarlos de la siguiente manera:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -94,14 +99,14 @@ cd tomcat-9.0.24/bin
     &lt;Manager pathname="" /&gt;
     --&gt;
 	
-	 &lt;Resource name="jdbc/FacturacionDS" auth="Container" type="javax.sql.DataSource"
+	 &lt;Resource name="jdbc/facturacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="facturacion" password="afj30" driverClassName="org.hsqldb.jdbcDriver"
 	      url="jdbc:hsqldb:hsql://localhost:1999"/&gt;
 	
 &lt;/Context&gt;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Usamos <i>FacturacionDS</i> como
+    <div class="wiki" style="display: block;">Usamos <i>facturacionDS</i> como
       nombre de fuente de datos, el mismo que en el <i>context.xml</i> incluido
       en tu WAR, pero definiendo <i>url, username</i> y <i>password</i>
       diferentes.</div>

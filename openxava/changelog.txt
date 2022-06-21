@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Doc to deploy in production with Tomcat using Maven.
 - Doc to configure MySQL, PostgreSQL, Oracle, MS SQL Server, AS/400, Informix, Db2 and Firebird with Maven. 
 - Added new database commented configurations in new projects: MS SQL Server, Informix, Db2 and Firebird.
 - Addons and OpenXava projects mixed in an unique project, openxava. 
