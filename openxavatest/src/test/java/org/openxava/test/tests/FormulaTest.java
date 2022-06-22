@@ -237,7 +237,7 @@ public class FormulaTest extends ModuleTestBase {
 		assertNoAction("ListFormat.select", "editor=List");
 
 		assertValueInList(0, 0, "HTML TEST");
-		assertValueInList(0, 1, "Esto es una prueba de HTML Dex oscuro negro y tr√°gico rojo, de muerte y dolor Y largo, verde y marr√≥n como los ojitos del mundo.");
+		assertValueInList(0, 1, "Esto es una prueba de HTML Dex oscuro negro y tr·gico rojo, de muerte y dolor Y largo, verde y marrÛn como los ojitos del mundo."); 
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "HTML TEST");
 		execute("Sections.change", "activeSection=1");
