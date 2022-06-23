@@ -34,13 +34,10 @@ import junit.framework.*;
 /**
  * Base class for creating a junit test that runs against an OpenXava module. <p>
  * 
- * Look an
- * <a href="http://openxava.wikispaces.com/my-first-ox-project_en#toc6">
- * 	introduction to OpenXava module testing
- * </a> at
- * <a href="http://openxava.wikispaces.com/">
- * wiki
- * </a>.
+ * Look at
+ * <a href="https://openxava.org/OpenXavaDoc/docs/testing_en.html">
+ * 	Automated testing
+ * </a> with OpenXava.
  * 
  * @author Javier Paniza
  */
@@ -55,10 +52,6 @@ abstract public class ModuleTestBase extends TestCase {
 	private static Properties xavaJunitProperties;
 	private static boolean isDefaultLocaleSet = false;
 	private static String defaultLocale;
-	private static String jetspeed2URL;
-	private static String jetspeed2UserName;
-	private static String jetspeed2Password;
-	private static String liferayURL;	
 	private static String host;
 	private static String port;
 	private static int loginFormIndex = -1;
@@ -140,9 +133,6 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	protected void tearDown() throws Exception {
-		if (isJetspeed2Enabled() && isJetspeed2UserPresent()) {
-			logout();			
-		}
 		XHibernate.commit();
 		XPersistence.commit();
 		client.close(); 
@@ -153,57 +143,19 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 
 	protected void login(String user, String password) throws Exception {
-		if (isLiferayEnabled()) {
-			// Liferay
-			page = (HtmlPage) client.getPage("http://" + getHost() + ":" + getPort() + "/c/portal/login");
-			resetLoginForm(); 			
-			setFormValue(getLiferayField("login"), user, true, false);					
-			setFormValue(getLiferayField("password"), password, true, false);
-			HtmlSubmitInput button = (HtmlSubmitInput) getForm().getElementsByAttribute("input", "type", "submit").get(0);
-			client.getOptions().setJavaScriptEnabled(false); // Because a bug in HtmlUnit 2.15: http://sourceforge.net/tracker/index.php?func=detail&aid=3072010&group_id=47038&atid=448266
-			page = (HtmlPage) button.click();
-			client.getOptions().setJavaScriptEnabled(true);
-			
-			try {
-				page.getFormByName("fm"); // If not liferay 4.1 then throws ElementNotFoundException
-				refreshPage();
-			}
-			catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {				
-			}
-						
-			// The next line is because Liferay 5.0/5.1 does not go to private page on login,
-			// and returns to the main guest page on logout; so going explicitly to the
-			// module page after login is a secure way to go
-			page = (HtmlPage) client.getPage(getModuleURL()); 
-			resetForm();
+		String originalModule = module;
+		selectModuleInPage("SignIn");
+		try { 
+			setValue("user", user); 
 		}
-		else if (isJetspeed2Enabled()) { 
-			// JetSpeed 2
-			page = (HtmlPage) client.getPage("http://" + getHost() + ":" + getPort() + "/" + getJetspeed2URL() + "/portal/");
-			resetLoginForm();			
-			setFormValue("org.apache.jetspeed.login.username", user);
-			setFormValue("org.apache.jetspeed.login.password", password);
-			HtmlSubmitInput button = (HtmlSubmitInput) getForm().getElementsByAttribute("input", "type", "submit").get(0); 
-			page = (HtmlPage) button.click();			
-			page = (HtmlPage) client.getPage(getModuleURL()); 
-			resetForm();
+		catch (ElementNotFoundException ex) {
+			reload(); // Under high load sometime the page ajax loading takes some time, and this is the only way we found to solve the issue
+			setValue("user", user);
 		}
-		else {
-			// NaviOX, the built-in OpenXava login mechanism
-			String originalModule = module;
-			selectModuleInPage("SignIn");
-			try { 
-				setValue("user", user); 
-			}
-			catch (ElementNotFoundException ex) {
-				reload(); // Under high load sometime the page ajax loading takes some time, and this is the only way we found to solve the issue
-				setValue("user", user);
-			}
-			setValue("password", password);
-			execute("SignIn.signIn");
-			assertNoErrors();
-			selectModuleInPage(originalModule);	
-		}
+		setValue("password", password);
+		execute("SignIn.signIn");
+		assertNoErrors();
+		selectModuleInPage(originalModule);	
 	}
 	
 	private void setFormValueNoRefresh(String name, String value) throws Exception {
@@ -507,39 +459,12 @@ abstract public class ModuleTestBase extends TestCase {
 	protected boolean usesAnnotatedPOJO() {
 		return getMetaModel().isAnnotatedEJB3();
 	}
-		
-	private String getLiferayField(String name) { 
-		Collection inputs = getForm().getElementsByTagName("input"); 
-		String passwordTextField = name;
-		for (Iterator it = inputs.iterator(); it.hasNext(); ) {
-			HtmlInput input = (HtmlInput) it.next();
-			String elementName = input.getNameAttribute();
-			if (elementName.endsWith("_" + name)) {
-				passwordTextField = elementName; 
-				break;
-			}
-		}
-		return passwordTextField;
-	}
-		
+				
 	/**
 	 * User logout. <p>
-	 * 
-	 * At the moment only works against Liferay, JetSpeed2 and NaviOX.
 	 */
 	protected void logout() throws Exception {
-		if (isLiferayEnabled()) {
-			// Liferay 
-			page = (HtmlPage) client.getPage("http://" + getHost() + ":" + getPort() + "/c/portal/logout?referer=/c");			
-		}
-		else if (isJetspeed2Enabled()) { 
-			// Jetspeed 2
-			page = (HtmlPage) client.getPage("http://" + getHost() + ":" + getPort() + "/" + getJetspeed2URL() + "/login/logout");
-		}
-		else {
-			// NaviOX, the built-in login mechanism of OpenXava
-			page = ((HtmlAnchor)getHtmlPage().getByXPath("//a[contains(@href, '" + getContextPath() + "naviox/signOut.jsp')]").get(0)).click(); 
-		}
+		page = ((HtmlAnchor)getHtmlPage().getByXPath("//a[contains(@href, '" + getContextPath() + "naviox/signOut.jsp')]").get(0)).click(); 
 	}
 	
 	/**
@@ -555,16 +480,11 @@ abstract public class ModuleTestBase extends TestCase {
 			client.addRequestHeader("Accept-Language", getLocale());			
 			Locale.setDefault(new Locale(getLocale(), ""));
 		}
-		if (isJetspeed2Enabled() && isJetspeed2UserPresent()) {		
-			login(getJetspeed2UserName(), getJetspeed2Password());
-		}		
-		else {	
-			if (this.module != null) { 		
-				page = (HtmlPage) client.getPage(getModuleURL()); 
-				if (!getMetaModule().isDoc()) {
-					resetForm();
-				}
-			}			
+		if (this.module != null) { 		
+			page = (HtmlPage) client.getPage(getModuleURL()); 
+			if (!getMetaModule().isDoc()) {
+				resetForm();
+			}
 		}			
 		if (page != null) { // Null when no module is specified to start the test, maybe afterwards changeModule will be used 
 			restorePage();
@@ -643,16 +563,7 @@ abstract public class ModuleTestBase extends TestCase {
 	
 		
 	protected String getModuleURL() throws XavaException { 
-		if (isLiferayEnabled()) {
-			return "http://" + getHost() + ":" + getPort() + "/" + getLiferayURL() + "/" + application + "/" + module;
-		}
-		else if (isJetspeed2Enabled()) {
-			String folder = Is.emptyString(getMetaModule().getFolder())?"":Strings.change(getMetaModule().getFolder(), ".", "/") + "/";
-			return "http://" + getHost() + ":" + getPort() + "/" + getJetspeed2URL() + "/portal/" + application + "/" + folder + module + ".psml";
-		}
-		else {
-			return "http://" + getHost() + ":" + getPort() + getContextPath() + "modules/" + module + "?modulesLimit=0"; 
-		}
+		return "http://" + getHost() + ":" + getPort() + getContextPath() + "modules/" + module + "?modulesLimit=0"; 
 	}
 	
 	/**
@@ -2626,57 +2537,7 @@ abstract public class ModuleTestBase extends TestCase {
 		}
 		return defaultLocale;
 	}
-	
-	
-	
-	protected static boolean isJetspeed2Enabled() {
-		return !Is.emptyString(getJetspeed2URL());
-	}
-	
-	protected static boolean isLiferayEnabled() {
-		return !Is.emptyString(getLiferayURL());
-	}
-	
-	/**
-	 * Jetspeed2 or Liferay
-	 */
-	protected static boolean isPortalEnabled() { 
-		return isLiferayEnabled() || isJetspeed2Enabled();
-	}
-		
-	private static boolean isJetspeed2UserPresent() {
-		return !Is.emptyString(getJetspeed2UserName());
-	}
-	
-	
-	private static String getJetspeed2URL() {
-		if (jetspeed2URL == null) {
-			jetspeed2URL = getXavaJunitProperties().getProperty("jetspeed2.url");
-		}
-		return jetspeed2URL;				
-	}
-	
-	protected static String getLiferayURL() { 
-		if (liferayURL == null) {
-			liferayURL = getXavaJunitProperties().getProperty("liferay.url");
-		}
-		return liferayURL;				
-	}
-		
-	private static String getJetspeed2UserName() {
-		if (jetspeed2UserName == null) {
-			jetspeed2UserName = getXavaJunitProperties().getProperty("jetspeed2.username");
-		}
-		return jetspeed2UserName;				
-	}
-	
-	private static String getJetspeed2Password() {
-		if (jetspeed2Password == null) {
-			jetspeed2Password = getXavaJunitProperties().getProperty("jetspeed2.password");
-		}
-		return jetspeed2Password;				
-	}
-		
+			
 	/**
 	 * From file xava-junit.properties
 	 * 
@@ -2749,16 +2610,6 @@ abstract public class ModuleTestBase extends TestCase {
 	}	
 		
 	private int getLoginFormIndex() throws Exception {
-		if (loginFormIndex == -1) {
-			if (isLiferayEnabled()) {
-				// Liferay
-				loginFormIndex = getFormIndexForInputElement("login");
-			}
-			else {
-				// JetSpeed 2
-				loginFormIndex = getFormIndexForInputElement("org.apache.jetspeed.login.username");
-			}
-		}
 		return loginFormIndex;
 	}
 	

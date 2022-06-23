@@ -1,0 +1,17 @@
+Drop Liferay and portal support
+-------------------------------
+* Refactor the style classes.
+- Remove all Liferay related code.
+	TMR ME QUEDÉ POR AQUÍ: BUSCANDO POR "liferay"
+- Remove dependency on javax.portlet
+- Search also by jetspeed
+- Search also by websphereportal
+- Search also by portal
+- Update doc:
+	-  ¿including migration?
+	- customization, las preferencias
+	- styles.properties ya no existe
+- To changelog:
+	- Jetspeed code removed.
+	- IPadStyle eliminado
+	- Estilos de portal Liferay fuera de Liferay quitado.
