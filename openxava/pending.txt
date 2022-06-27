@@ -1,17 +1,23 @@
 Drop Liferay and portal support
 -------------------------------
 * Refactor the style classes.
-- Remove all Liferay related code.
-	TMR ME QUEDÉ POR AQUÍ: BUSCANDO POR "liferay"
+* Remove all Liferay related code.
+- Comprobar handle vertical (en base.css)	
+- ¿Quitar de style: cupertino, smoothness, ui-lightness?
+- ¿Quitar default.css, yahoo.css, skins.css?
 - Remove dependency on javax.portlet
 - Search also by jetspeed
 - Search also by websphereportal
 - Search also by portal
+- Suite
 - Update doc:
 	-  ¿including migration?
-	- customization, las preferencias
+	- customization, las preferencias, incluido emailAsUserNameInPortal
 	- styles.properties ya no existe
+	- Buscar por "liferay" en openxava-doc
+	- openxava.org features
 - To changelog:
 	- Jetspeed code removed.
 	- IPadStyle eliminado
 	- Estilos de portal Liferay fuera de Liferay quitado.
+	- ModuleTestBase.isPortalEnabled() removed

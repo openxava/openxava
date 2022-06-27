@@ -19,7 +19,7 @@ public class InvoiceWithParameterInURLTest extends ModuleTestBase {
 	}
 	
 	protected String getModuleURL() {
-		String parameter = isPortalEnabled()?"?year=2002":"&year=2002";
+		String parameter = "&year=2002";
 		return super.getModuleURL() + parameter;
 	}
 	

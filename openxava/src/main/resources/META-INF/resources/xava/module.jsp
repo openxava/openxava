@@ -43,7 +43,7 @@
 	}%>
 
 <%
-	request.setAttribute("style", org.openxava.web.style.Style.getInstance(request));
+	request.setAttribute("style", org.openxava.web.style.Style.getInstance());
 %>
 
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
@@ -107,17 +107,6 @@
 	
 	<%=style.getMetaTags()%>
 	
-	<%
- 		String[] jsFiles = style.getNoPortalModuleJsFiles();
- 			if (jsFiles != null) {
- 				for (int i = 0; i < jsFiles.length; i++) {
- 	%>
-	<script src="<%=contextPath%>/xava/style/<%=jsFiles[i]%>?ox=<%=version%>" type="text/javascript"></script>
-	<%
-				}
-			}
-	%>
-
 <%
 	}
 
@@ -205,8 +194,6 @@
 %>
 </head> 
 <body bgcolor="#ffffff">
-<%=style.getNoPortalModuleStartDecoration(managerHome
-						.getModuleDescription())%>
 <%
 	}
 %> 
@@ -268,7 +255,6 @@ if (manager.isResetFormPostNeeded()) {
 <%
 	if (htmlHead) { 	
 %>
-<%=style.getNoPortalModuleEndDecoration()%>
 </body>
 </html>
 <%

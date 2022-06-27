@@ -1530,7 +1530,7 @@ public class ModuleManager implements java.io.Serializable {
 				setModeControllerName(XavaPreferences.getInstance().getDefaultModeController());
 			}
 			else {
-				setModeControllerName(Style.getInstance(request).getDefaultModeController());
+				setModeControllerName(Style.getInstance().getDefaultModeController());
 			}
 		}		
 	}
@@ -1763,8 +1763,7 @@ public class ModuleManager implements java.io.Serializable {
 	}
 	
 	public boolean isCoreViaAJAX(HttpServletRequest request) {
-		Style style = (Style) request.getAttribute("style");
-		return !style.isInsidePortal() || !getPreviousModules().isEmpty() || getDialogLevel() > 0 || hasInitForwardActions();
+		return true;
 	}
 	
 	/** 

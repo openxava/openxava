@@ -26,7 +26,7 @@ class DWRBase {
 		ModuleContext context = getContext(request); // Must be here, before checkSecurity()
 		if (context != null) context.setCurrentWindowId(request);
 		checkSecurity(request, application, module);
-		request.setAttribute("style", Style.getInstance(request));  
+		request.setAttribute("style", Style.getInstance());  
 		Requests.partialInit(request, application, module); 
 	}
 	

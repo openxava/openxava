@@ -105,12 +105,7 @@ public class SeveralModulesTest extends ModuleTestBase {
 	
 	
 	protected String getModuleURL() throws XavaException {
-		if (isLiferayEnabled()) {
-			return "http://" + getHost() + ":" + getPort() + "/" + getLiferayURL() + getContextPath() + "SeveralModules";
-		}
-		else {
-			return"http://" + getHost() + ":" + getPort() + getContextPath() + "xava/severalModules.jsp";
-		}		
+		return"http://" + getHost() + ":" + getPort() + getContextPath() + "xava/severalModules.jsp";
 	}
 
 }

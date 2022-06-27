@@ -1459,8 +1459,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}	
 	
 	public void testDateFormatter() throws Exception { 
-		// In order to this test works inside Liferay you have to put
-		// locale.default.request=true in portal-ext.properties
 		setLocale("es");	
 		execute("CRUD.new");
 		setValue("year", String.valueOf(getInvoice().getYear()));

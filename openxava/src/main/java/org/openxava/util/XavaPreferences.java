@@ -77,11 +77,6 @@ public class XavaPreferences {
 				"showCountInList", "true").trim());
 	}
 
-	public boolean isEMailAsUserNameInPortal() {
-		return "true".equalsIgnoreCase(getProperties().getProperty(
-				"emailAsUserNameInPortal", "false").trim());
-	}
-
 	public String getSMTPHost() {
 		return getProperties().getProperty("smtpHost");
 	}
