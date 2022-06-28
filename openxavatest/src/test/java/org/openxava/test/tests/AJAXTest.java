@@ -390,7 +390,7 @@ public class AJAXTest extends ModuleTestBase {
 	
 	public void testOnlyLoadModifiedParts() throws Exception { 
 		changeModule("Customer"); 
-		// assertLoadedParts(""); // When coreViaAJAX=false, currently only for portals
+		// assertLoadedParts(""); // When coreViaAJAX=false, currently not used
 		assertLoadedParts("core"); // When coreViaAJAX=true, the default behavior 
 		execute("List.filter");
 		assertLoadedParts("errors, view, messages"); 
@@ -659,7 +659,7 @@ public class AJAXTest extends ModuleTestBase {
 	public void testDependentDescriptionsList_resetDescriptionsCache_setEditable() throws Exception {  
 		changeModule("Product2"); 
 		// Dependent descriptions list 
-		// assertLoadedParts(""); // When coreViaAJAX=false, currently only for portals
+		// assertLoadedParts(""); // When coreViaAJAX=false, currently not used
 		assertLoadedParts("core"); // When coreViaAJAX=false, the default behavior  
 		execute("CRUD.new");
 		assertLoadedParts("core, ");

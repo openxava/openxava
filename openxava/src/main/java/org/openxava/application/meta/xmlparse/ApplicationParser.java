@@ -119,7 +119,6 @@ public class ApplicationParser extends ParserBase {
 			Element elModel = (Element) lDoc.item(0);
 			metaModule.setDocURL(elModel.getAttribute(xurl[lang]));
 			String docLanguages = elModel.getAttribute(xlanguages[lang]);
-			if (Is.empty(docLanguages)) docLanguages = XavaPreferences.getInstance().getPortletLocales();
 			metaModule.setDocLanguages(docLanguages);
 		}
 	}	

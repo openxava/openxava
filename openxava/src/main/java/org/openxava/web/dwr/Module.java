@@ -33,8 +33,6 @@ public class Module extends DWRBase {
 	final private static String MEMBERS_WITH_ERRORS_IN_LAST_REQUEST ="xava_membersWithErrorsInLastRequest";
 	final private static String PAGE_RELOADED_LAST_TIME = "xava_pageReloadedLastTime"; 
 	
-	private static boolean portlet;
-	
 	transient private HttpServletRequest request; 
 	transient private HttpServletResponse response; 
 	private String application;
@@ -700,7 +698,7 @@ public class Module extends DWRBase {
 	}
 
 	private String getURIPrefix() { 
-		return isPortlet()?"/WEB-INF/jsp" + baseFolder:baseFolder;
+		return baseFolder;
 	}
 	
 	private void put(Map result, String key, Object value) {
@@ -792,13 +790,5 @@ public class Module extends DWRBase {
 		} 
 		return URLEncoder.encode(value.toString(), charsetName);
 	}
-	
-	public static boolean isPortlet() { 
-		return portlet;
-	}
-
-	public static void setPortlet(boolean portlet) {
-		Module.portlet = portlet;
-	}
-		
+			
 }

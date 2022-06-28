@@ -139,16 +139,7 @@ public class ModuleManager implements java.io.Serializable {
 	 * @return
 	 */
 	public String getFormAction(HttpServletRequest request) {
-		if (!isFormUpload())
-			return "";
-		String module = !getPreviousModules().isEmpty() ? previousModules
-				.elementAt(0) : getModuleName();
-		Object portletActionURL = request.getSession().getAttribute(
-				Ids.decorate(getApplicationName(), module,
-						"xava.portlet.uploadActionURL"));
-		if (portletActionURL == null)
-			return "";
-		return "action='" + portletActionURL + "'";
+		return "";
 	}
 
 	private void updateXavaMetaActionsInList() {
@@ -1762,8 +1753,11 @@ public class ModuleManager implements java.io.Serializable {
 		return false;
 	}
 	
+	// tmr doc indicando xava.coreViaAJAX
 	public boolean isCoreViaAJAX(HttpServletRequest request) {
-		return true;
+		Boolean coreViaAJAX = (Boolean) request.getSession().getAttribute("xava.coreViaAJAX");
+		if (coreViaAJAX == null) return true;
+		return coreViaAJAX;
 	}
 	
 	/** 

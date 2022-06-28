@@ -97,8 +97,7 @@ public class Tab extends DWRBase {
 	public String filterColumns(HttpServletRequest request, HttpServletResponse response, String application, String module, String searchWord) {   
 		try {
 			initRequest(request, response, application, module);
-			String prefix = Module.isPortlet()?"/WEB-INF/jsp":"";
-			return Servlets.getURIAsString(request, response, prefix + "/xava/editors/selectColumns.jsp?application=" + application + "&module=" + module + "&searchWord=" + searchWord); 
+			return Servlets.getURIAsString(request, response, "/xava/editors/selectColumns.jsp?application=" + application + "&module=" + module + "&searchWord=" + searchWord); 
 		}
 		catch (Exception ex) {
 			log.error(XavaResources.getString("display_columns_error"), ex);  

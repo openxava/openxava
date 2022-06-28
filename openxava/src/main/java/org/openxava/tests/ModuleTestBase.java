@@ -1504,8 +1504,6 @@ abstract public class ModuleTestBase extends TestCase {
 	}	
 	
 	private void assertRowStyle(String tableId, int row, String expectedStyle) throws Exception {
-		// When testing again a portal styleClass in xava.properties must match with
-		// the tested portal in order that this method works fine
 		HtmlTableRow tableRow = getTableRow(tableId, row);
 		String style = tableRow.getAttribute("class");
 		int countTokens = new StringTokenizer(style).countTokens();

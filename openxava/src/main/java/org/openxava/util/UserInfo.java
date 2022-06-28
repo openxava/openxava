@@ -3,9 +3,6 @@ package org.openxava.util;
 /**
  * Data about the current logged user, obtained via {@link Users}. <p>
  * 
- * This data is obtained from the portal where the OpenXava module
- * is executing.
- * 
  * @author Javier Paniza
  * @author Yerik Alarcón
  */

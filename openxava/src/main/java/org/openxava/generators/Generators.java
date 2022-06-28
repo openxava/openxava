@@ -1,9 +1,6 @@
 package org.openxava.generators;
 
-import java.io.*;
 import java.util.*;
-
-
 
 import org.openxava.util.*;
 
@@ -164,21 +161,6 @@ public class Generators {
 	public static Collection getAvailableLocales(String resourcesFilesPath) {
 		if (availableLocales == null) { 
 			availableLocales = new HashSet();
-			if (XavaPreferences.getInstance().hasPortletLocales()) {			
-				for (String locale: XavaPreferences.getInstance().getPortletLocales().split(",")) {
-					availableLocales.add(new Locale(locale.trim()));
-				}		
-			}
-			else {
-				File dir = new File(resourcesFilesPath);
-				String [] files = dir.list();
-				for (int i = 0; i < files.length; i++) {
-					int idx = files[i].lastIndexOf('_');
-					if (idx >= 0) {
-						availableLocales.add(new Locale(files[i].substring(idx + 1, idx + 3)));
-					}
-				}
-			}
 		}
 		return availableLocales;		
 	}

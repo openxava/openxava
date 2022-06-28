@@ -38,6 +38,10 @@ public class XavaStyle extends Style {
 		}
 		return instance;
 	}
+	
+	public String getCssFile() {
+		return null; // Because CSS file is provided by the Themes class
+	}
 
 	public String getHelpImage() {
 		return null; 
