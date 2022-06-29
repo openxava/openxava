@@ -1,8 +1,6 @@
 package org.openxava.application.meta.xmlparse;
 
-
-
-
+import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;
 import org.openxava.util.*;
 import org.openxava.util.xmlparse.*;
@@ -12,8 +10,8 @@ import org.w3c.dom.*;
  * @author: Javier Paniza
  */
 public class ApplicationParser extends ParserBase {
-	
-	
+
+	private static Log log = LogFactory.getLog(ApplicationParser.class); 
 	
 	private ApplicationParser(String xmlFileURL, int language) {
 		super(xmlFileURL, language);		
@@ -120,6 +118,7 @@ public class ApplicationParser extends ParserBase {
 			metaModule.setDocURL(elModel.getAttribute(xurl[lang]));
 			String docLanguages = elModel.getAttribute(xlanguages[lang]);
 			metaModule.setDocLanguages(docLanguages);
+			log.warn(XavaResources.getString("doc_module_not_supported", metaModule.getName()));
 		}
 	}	
 			

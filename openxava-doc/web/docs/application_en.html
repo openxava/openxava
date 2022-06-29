@@ -126,7 +126,7 @@ class="sc-1">&lt;!--  9 --&gt;</span>
     <span class="sc3"><span class="re1">&lt;mode-controller</span> ... <span class="re2">/&gt;</span></span>        <span
 class="sc-1">&lt;!-- 10 --&gt;</span>
     <span class="sc3"><span class="re1">&lt;doc</span> ... <span class="re2">/&gt;</span></span>                    <span
-class="sc-1">&lt;!-- 11 --&gt;</span>
+class="sc-1">&lt;!-- 11  Until v6.6.3 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       <ol>
         <li><strong>name</strong> (required): Unique identifier of the module
@@ -159,10 +159,10 @@ class="sc-1">&lt;!-- 11 --&gt;</span>
           and <em>SplitOnly</em>. Since v6.0 <i>DetailList</i>, <i>ListOnly</i>
           and <i>SplitOnly</i> no longer exist, but are assumed as <i>Mode</i>
           to not produce backward incompatibilities.</li>
-        <li><strong>doc</strong> (one, optional): It's mutually exclusive with
-          all other elements. It allows you to define a module that contains
-          documentation only and no logic. Useful for generating informational
-          portlets for your application.</li>
+        <li><strong>doc</strong> (one, optional): <i>Until v6.6.3</i>. It's
+          mutually exclusive with all other elements. It allows you to define a
+          module that contains documentation only and no logic. Useful for
+          generating informational portlets for your application.</li>
       </ol>
       <h2 id="toc1"><a name="Application-Typical module example"></a>Typical
         module example</h2>
@@ -493,9 +493,11 @@ class="sc-1">&lt;!-- 2 --&gt;</span>
       module changes to list mode on init, so this is an only list module. This
       way though deprecated is still supported.<br>
       <h2 id="toc5"><a name="Application-Documentation module"></a>Documentation
-        module</h2>
+        module (until 6.6.3)</h2>
       <b style="color: red;"><i>Warning: Documentation modules only work with
           Liferay or WebSphere Portal</i></b></div>
+    <div class="wiki" style="display: block;"><i>Portal support was dropped in
+        v7.0, so documentation modules are ignored since v7.0</i></div>
     <div class="wiki" style="display: block;"> A documentation module can only
       display a HTML document. It's easy to define:<br>
       <style type="text/css"><!--

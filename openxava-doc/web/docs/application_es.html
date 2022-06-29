@@ -126,7 +126,7 @@ class="sc-1">&lt;!--  9 --&gt;</span>
     <span class="sc3"><span class="re1">&lt;controlador-modo</span> ... <span class="re2">/&gt;</span></span>         <span
 class="sc-1">&lt;!-- 10 --&gt;</span>
     <span class="sc3"><span class="re1">&lt;doc</span> ... <span class="re2">/&gt;</span></span>                      <span
-class="sc-1">&lt;!-- 11 --&gt;</span>
+class="sc-1">&lt;!-- 11  Hasta v6.6.3 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
       <ol>
         <li><strong>nombre</strong> (obligado): Identificador único del módulo
@@ -161,10 +161,10 @@ class="sc-1">&lt;!-- 11 --&gt;</span>
           v6.0 los modos <i>DetailList, ListOnly</i> y <i>SplitOnly</i> se han
           quitado, aunque si se usan OpenXava asume <i>Mode</i>, para no
           producir incompatibilidades hacia atrás.</li>
-        <li><strong>doc</strong> (uno, opcional): Es exclusivo con todos los
-          demás elementos. Permite definir módulos que solo contienen
-          documentación, no lógica. Útil para generar portlets informativos para
-          nuestras aplicaciones.</li>
+        <li><strong>doc</strong> (uno, opcional): <i>Hasta 6.6.3</i>. Es
+          exclusivo con todos los demás elementos. Permite definir módulos que
+          solo contienen documentación, no lógica. Útil para generar portlets
+          informativos para nuestras aplicaciones.</li>
       </ol>
       <h2 id="toc1"><a name="Aplicacion-Un+modulo+tipico"></a>Un módulo típico</h2>
       Definir un módulo sencillo puede ser como sigue:<br>
@@ -492,9 +492,12 @@ class="sc-1">&lt;!-- 2 --&gt;</span>
       un módulo de solo lista. Aunque obsoleta esta forma todavía está
       soportada.<br>
       <h2 id="toc5"><a name="Aplicacion-Modulo+de+documentacion"></a>Módulo de
-        documentación</h2>
+        documentación <i>(hasta v6.6.3)</i></h2>
       <b style="color: red;"><i>Advertencia: Los módulos de documentación sólo
           funcionan con Liferay o WebSphere Portal</i></b></div>
+    <div class="wiki" style="display: block;"><i>El soporte de portales se
+        eliminó en v7.0, por lo que los módulos de documentación se ignorán a
+        partir de v7.0</i></div>
     <div class="wiki" style="display: block;"> Un módulo de documentación solo
       visualiza un documento HTML. Es fácil de definir:<br>
       <style type="text/css"><!--
