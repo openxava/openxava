@@ -1,6 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+- Dropped support for Liferay, WebSphere Portal, JetSpeed, portals and portlets.
+- IPadStyle removed, it was not enabled by default since v5.0.
+- Method isPortalEnabled() removed from ModuleTestBase.
+- The usage of styles.properties to register styles is removed.
+- Removed emailAsUserNameInPortal and portletLocales from xava.properties.
+- New servlet session attribute xava.coreViaAJAX to disable load via AJAX on entering a module first time.
 - Doc to deploy in production with Tomcat using Maven.
 - Doc to configure MySQL, PostgreSQL, Oracle, MS SQL Server, AS/400, Informix, Db2 and Firebird with Maven. 
 - Added new database commented configurations in new projects: MS SQL Server, Informix, Db2 and Firebird.

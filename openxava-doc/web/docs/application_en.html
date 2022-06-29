@@ -6,13 +6,12 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Application"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+      <h1 id="toc0"><a name="Application"></a> <span id="breadcrumbs"> <span id="openxava">
+            <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
         Application </h1>
       <strong>Reference guide</strong>: <a class="wiki_link" href="model_en.html">Model</a>
-      | <a class="wiki_link" href="view_en.html">View</a> | <a class="wiki_link"
-
+      | <a class="wiki_link" href="view_en.html">View</a> | <a class="wiki_link"
         href="tab_en.html">Tabular data</a> | <a class="wiki_link" href="mapping_en.html">Object/relational
         mapping</a> | <a class="wiki_link" href="controllers_en.html">Controllers</a>
       | <strong>Application</strong> | <a class="wiki_link" href="customizing_en.html">Customizing</a>
@@ -33,9 +32,9 @@
         <div style="margin-left: 2em;"><a href="#Application-Read%20only%20module">Read
             only module</a></div>
       </div>
-       An application is the software that the final user can use. For now
-      you have seen how to define the pieces that make up an application (mainly
-      the components and the actions), now you will learn how to assemble these
+      An application is the software that the final user can use. For now you
+      have seen how to define the pieces that make up an application (mainly the
+      components and the actions), now you will learn how to assemble these
       pieces in order to create applications.<br>
       The definition of an OpenXava application is given in the file <em>application.xml</em>
       that can be found in the <em>xava</em> directory of your project.<br>
@@ -63,16 +62,13 @@
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span></span>
-<span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                   &lt;!-- 1 --<span
-
+<span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                   &lt;!-- 1 --<span
 class="re2">&gt;</span></span>
     label="label"                 <span class="sc-1">&lt;!-- 2 --&gt;</span>
 &gt;
-    <span class="sc3"><span class="re1">&lt;default-module</span> ... <span class="re2">/&gt;</span></span> ...    <span
-
+    <span class="sc3"><span class="re1">&lt;default-module</span> ... <span class="re2">/&gt;</span></span> ...    <span
 class="sc-1">&lt;!-- 3  New in v2.2.2 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;module</span> ... <span class="re2">/&gt;</span></span> ...            <span
-
+    <span class="sc3"><span class="re1">&lt;module</span> ... <span class="re2">/&gt;</span></span> ...            <span
 class="sc-1">&lt;!-- 4 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span></pre>
       <ol>
@@ -110,46 +106,31 @@ class="sc-1">&lt;!-- 4 --&gt;</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span></span>
-<span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                    &lt;!--  1 --<span
-
+<span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                    &lt;!--  1 --<span
 class="re2">&gt;</span></span>
-    folder="folder"                <span class="sc-1">&lt;!--  2 --&gt;</span>
-    label="label"                  <span class="sc-1">&lt;!--  3 --&gt;</span>
-    description="description"      <span class="sc-1">&lt;!--  4 --&gt;</span>
+    label="label"                  <span class="sc-1">&lt;!--  2 --&gt;</span>
+    description="description"      <span class="sc-1">&lt;!--  3 --&gt;</span>
 &gt;
-    <span class="sc3"><span class="re1">&lt;env-var</span> ... <span class="re2">/&gt;</span></span> ...            <span
-
+    <span class="sc3"><span class="re1">&lt;env-var</span> ... <span class="re2">/&gt;</span></span> ...            <span
+class="sc-1">&lt;!--  4 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;model</span> ... <span class="re2">/&gt;</span></span>                  <span
 class="sc-1">&lt;!--  5 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;model</span> ... <span class="re2">/&gt;</span></span>                  <span
-
+    <span class="sc3"><span class="re1">&lt;view</span> ... <span class="re2">/&gt;</span></span>                   <span
 class="sc-1">&lt;!--  6 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;view</span> ... <span class="re2">/&gt;</span></span>                   <span
-
+    <span class="sc3"><span class="re1">&lt;web-view</span> ... <span class="re2">/&gt;</span></span>               <span
 class="sc-1">&lt;!--  7 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;web-view</span> ... <span class="re2">/&gt;</span></span>               <span
-
+    <span class="sc3"><span class="re1">&lt;tab</span> ... <span class="re2">/&gt;</span></span>                    <span
 class="sc-1">&lt;!--  8 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;tab</span> ... <span class="re2">/&gt;</span></span>                    <span
-
+    <span class="sc3"><span class="re1">&lt;controller</span> ... <span class="re2">/&gt;</span></span> ...         <span
 class="sc-1">&lt;!--  9 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;controller</span> ... <span class="re2">/&gt;</span></span> ...         <span
-
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> ... <span class="re2">/&gt;</span></span>        <span
 class="sc-1">&lt;!-- 10 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;mode-controller</span> ... <span class="re2">/&gt;</span></span>        <span
-
+    <span class="sc3"><span class="re1">&lt;doc</span> ... <span class="re2">/&gt;</span></span>                    <span
 class="sc-1">&lt;!-- 11 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;doc</span> ... <span class="re2">/&gt;</span></span>                    <span
-
-class="sc-1">&lt;!-- 12 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       <ol>
         <li><strong>name</strong> (required): Unique identifier of the module
           within this application.</li>
-        <li><strong>folder</strong> (optional): Folder in which the module will
-          reside. It's a tip to classify the modules. For the moment it's used
-          to generate a folder structure for JetSpeed2 but its use can be
-          amplified in future. You can use / or . to indicate subfolders (for
-          example, "invoicing/reports" or "invoicing.reports").</li>
         <li><strong>label</strong> (optional): Short name to be shown to the
           user. It's much better to use i18n files.</li>
         <li><strong>description</strong> (optional): Long description to be
@@ -208,22 +189,16 @@ class="sc-1">&lt;!-- 12 --&gt;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span
 class="re0">name</span>=<span class="st0">"Management"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span
-
-class="st0">"Warehouse"</span> <span class="re0">folder</span>=<span class="st0">"warehousing"</span><span
-
+    <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span
+class="st0">"Warehouse"</span> <span class="re0">folder</span>=<span class="st0">"warehousing"</span><span
 class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
-
+        <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Warehouse"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Warehouse"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span>
     ...
@@ -236,11 +211,11 @@ class="st0">"Warehouse"</span><span class="re2">/&gt;</span></span>
       supported in the current OpenXava version) this module will be in folder
       "warehousing".<br>
       In order to execute this module you need to open your browser and go to:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/Management/modules/Warehouse"
-
+      <a class="wiki_link_ext" href="http://localhost:8080/Management/modules/Warehouse"
         rel="nofollow">http://localhost:8080/Management/modules/Warehouse</a><br>
-      Also a portlet is generated to allow you to deploy the module as a
-      JSR-168/286 portlet in a Java portal.<br>
+      Until v6.6.3 a portlet was generated to allow you to deploy the module as
+      a JSR-168/286 portlet in a Java portal. <i>Portal support was removed in
+        v7.0.</i><br>
       You can see the definition of <em>Typical</em> controller in <em>OpenXava/xava/default-controllers.xml</em>,
       where you also can find other useful controllers such as <em>TypicalNotResetOnSave,
         TypicalNewOnInit</em> or <em>TypicalRealExcel</em> with a slight
@@ -251,11 +226,11 @@ class="st0">"Warehouse"</span><span class="re2">/&gt;</span></span>
       although the module is not explicitly defined in applicaction.xml.<br>
       That is, if you define a component <em>Factura.java</em>, you can open
       your browser and go to:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/Management/modules/Invoice"
-
+      <a class="wiki_link_ext" href="http://localhost:8080/Management/modules/Invoice"
         rel="nofollow">http://localhost:8080/Management/modules/Invoice</a><br>
-      Also a portlet is generated to allow you to deploy the module as a
-      JSR-168/286 portlet in a Java portal.<br>
+      Until v6.6.3 a portlet was generated to allow you to deploy the module as
+      a JSR-168/286 portlet in a Java portal. <i>Portal support was removed in
+        v7.0.</i><br>
       And all this without defining it in <em>application.xml</em>.<br>
       The controller for these default modules will be Typical, but you can
       change this default value using the default-module element in
@@ -282,13 +257,11 @@ class="st0">"Warehouse"</span><span class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span
 class="re0">name</span>=<span class="st0">"Management"</span><span class="re2">&gt;</span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;default-module<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"ManagementCRUD"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/default-module<span class="re2">&gt;</span></span></span>
 &nbsp;
@@ -306,8 +279,8 @@ class="st0">"ManagementCRUD"</span><span class="re2">/&gt;</span></span>
             above</a>.</li>
       </ol>
       To sum up, if you define a component, named <em>Customer</em>, for
-      example, then you have a module named <em>Customer</em>, and also a
-      portlet. This module will be defined in one of this ways:<br>
+      example, then you have a module named <em>Customer</em>. This module will
+      be defined in one of this ways:<br>
       <ol>
         <li>If you define a module named <em>Customer</em> in <em>application.xml</em>
           then this module will be the valid one, else...</li>
@@ -346,19 +319,14 @@ class="st0">"ManagementCRUD"</span><span class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"InvoiceNoList"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Invoice"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
-
-class="st0">"DetailOnly"</span><span class="re2">/&gt;</span></span>        <span
-
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
+class="st0">"DetailOnly"</span><span class="re2">/&gt;</span></span>        <span
 class="sc-1">&lt;!-- 1 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       Just use <em>DetailOnly</em> (1) as <em>mode-controller</em>.<br>
@@ -386,17 +354,13 @@ class="sc-1">&lt;!-- 1 --&gt;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"InvoiceNoList"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Invoice"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
 class="st0">"Void"</span><span class="re2">/&gt;</span></span>        <span class="sc-1">&lt;!-- 1 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       <em>Void</em> (1) mode controller is for removing the "detail – list"
@@ -429,19 +393,14 @@ class="st0">"Void"</span><span class="re2">/&gt;</span></span>        <span clas
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"FamilyListOnly"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
-
-class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">""</span><span
-
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
+class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">""</span><span
 class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- 1  New in v2.0.4 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Family"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
         Setting XAVA_LIST_ACTION to empty string (1) the detail link in each row
@@ -472,24 +431,17 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"FamilyListOnly"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
-
-class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">""</span><span
-
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
+class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">""</span><span
 class="re2">/&gt;</span></span>  
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Family"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
-
-class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>           <span
-
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
+class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>           <span
 class="sc-1">&lt;!-- 1 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       <em>ListOnly</em> (1) mode controller is for removing the "detail – list –
@@ -520,29 +472,20 @@ class="sc-1">&lt;!-- 1 --&gt;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"FamilyListOnly"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
-
-class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">""</span><span
-
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
+class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">""</span><span
 class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Family"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-
-class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>                   <span
-
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>                   <span
 class="sc-1">&lt;!-- 1 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
-
-class="st0">"Void"</span><span class="re2">/&gt;</span></span>                  <span
-
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
+class="st0">"Void"</span><span class="re2">/&gt;</span></span>                  <span
 class="sc-1">&lt;!-- 2 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       <em>Void</em> (2) mode controller is for removing the "detail – list"
@@ -577,13 +520,10 @@ class="sc-1">&lt;!-- 2 --&gt;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"Description"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;doc</span> <span class="re0">url</span>=<span
-
-class="st0">"doc/description"</span> <span class="re0">languages</span>=<span class="st0">"en,es"</span><span
-
+    <span class="sc3"><span class="re1">&lt;doc</span> <span class="re0">url</span>=<span
+class="st0">"doc/description"</span> <span class="re0">languages</span>=<span class="st0">"en,es"</span><span
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       This module shows the document <em>web/doc/description_en.html</em> or <em>web/doc/description_es.html</em>
@@ -618,21 +558,15 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"CustomerReadOnly"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
-
-class="st0">"XAVA_SEARCH_ACTION"</span> <span class="re0">value</span>=<span class="st0">"CRUD.searchReadOnly"</span><span
-
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
+class="st0">"XAVA_SEARCH_ACTION"</span> <span class="re0">value</span>=<span class="st0">"CRUD.searchReadOnly"</span><span
 class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- 1 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Customer"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-
-class="st0">"Print"</span><span class="re2">/&gt;</span></span>                                        <span
-
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+class="st0">"Print"</span><span class="re2">/&gt;</span></span>                                        <span
 class="sc-1">&lt;!-- 2 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       Using <em>CRUD.searchReadOnly</em> (1) the user cannot edit the data, and

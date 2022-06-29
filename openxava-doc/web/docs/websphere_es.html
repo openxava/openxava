@@ -6,18 +6,13 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="WebSphere"></a>
-        <span id="breadcrumbs">
-          <span id="openxava"> 
-            <a href="https://www.openxava.org/"> 
-              <span>o</span>pen<span>x</span>ava
-            </a>
-          </span> 
-          / <a href="index_es.html">documentación</a> / 
-        </span>
+      <h1 id="toc0"><a name="WebSphere"></a> <span id="breadcrumbs"> <span id="openxava">
+            <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
         WebSphere</h1>
-      Las aplicaciones de OpenXava se usan en producción con WebSphere
-      Application Server 8 y WebSphere Portal 8.<br>
+      En OpenXava 7.0 se quito el soporte de WebSphere Portal.</div>
+    <div class="wiki" style="display: block;"> Las aplicaciones de OpenXava no
+      se han probado con WebSphere Application Server 8.5 o superior.<br>
     </div>
     <div class="wiki" style="display: block;"> En OpenXava 6.1 se quitó el
       soporte para WebSphere 8.0. Para usar WebSphere 8.0 o WebSphere Portal 8.0
@@ -61,23 +56,17 @@
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;target</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;target</span> <span
 class="re0">name</span>=<span class="st0">"crearWebSphere8War"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
-
-class="st0">"../OpenXava/build.xml"</span> <span class="re0">target</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
+class="st0">"../OpenXava/build.xml"</span> <span class="re0">target</span>=<span
 class="st0">"createWebSphere8War"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span>
 &nbsp;
-<span class="sc3"><span class="re1">&lt;target</span> <span class="re0">name</span>=<span
-
+<span class="sc3"><span class="re1">&lt;target</span> <span class="re0">name</span>=<span
 class="st0">"generarWebSpherePortal8Portlets"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
-
-class="st0">"../OpenXava/build.xml"</span> <span class="re0">target</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
+class="st0">"../OpenXava/build.xml"</span> <span class="re0">target</span>=<span
 class="st0">"generateWebSpherePortal8Portlets"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span></pre>
       Utiliza estas tareas ant para desplegar en WebSphere 8 y WebSphere Portal
@@ -128,17 +117,13 @@ class="st0">"generateWebSpherePortal8Portlets"</span><span class="re2">/&gt;</sp
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>testServlet<span
-
+  <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>testServlet<span
 class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;display-name<span class="re2">&gt;</span></span></span>Test servlet<span
-
+  <span class="sc3"><span class="re1">&lt;display-name<span class="re2">&gt;</span></span></span>Test servlet<span
 class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;description<span class="re2">&gt;</span></span><span
-
+  <span class="sc3"><span class="re1">&lt;description<span class="re2">&gt;</span></span><span
 class="re1">&lt;/description<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.openxava.test.servlets.TestServlet<span
-
+  <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.openxava.test.servlets.TestServlet<span
 class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span></pre>
       Por esto:<br>
@@ -165,11 +150,9 @@ class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></s
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>testServlet<span
-
+  <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>testServlet<span
 class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.openxava.test.servlets.TestServlet<span
-
+  <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.openxava.test.servlets.TestServlet<span
 class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span></pre>
     </div>
