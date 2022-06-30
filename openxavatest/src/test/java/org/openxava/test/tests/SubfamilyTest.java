@@ -1,6 +1,6 @@
 package org.openxava.test.tests;
 
-import org.openxava.tests.ModuleTestBase;
+import org.openxava.tests.*;
 
 /**
  * @author Javier Paniza
@@ -42,7 +42,7 @@ public class SubfamilyTest extends ModuleTestBase {
 	
 	public void testPropertiesTabByDefault() throws Exception {
 		assertLabelInList(0, "Number");
-		assertLabelInList(1, "Family");
+		assertLabelInList(1, "Family"); // TMR FALLA
 		assertLabelInList(2, "Description");		
 	}
 	

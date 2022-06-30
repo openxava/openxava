@@ -134,11 +134,16 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	}
 	
 	public String getQualifiedLabel(Locale locale) throws XavaException { 
+		System.out.println("[MetaProperty(" + getName() + ").getQualifiedLabel] "); // tmp
 		if (!Is.emptyString(qualifiedLabel)) return qualifiedLabel;
 		String labelId = getId();
 		boolean tabReferenceLabel = isTabReferenceLabel(labelId);
-		if (!Is.emptyString(label) && !tabReferenceLabel) return label;
+		if (!Is.emptyString(label) && !tabReferenceLabel) {
+			System.out.println("[MetaProperty(" + getName() + ").getQualifiedLabel] A"); // tmp
+			return label;
+		}
 		if (Labels.existsExact(labelId, locale)) {
+			System.out.println("[MetaProperty(" + getName() + ").getQualifiedLabel] B"); // tmp
 			return getLabel(locale);
 		}
 		String qualifiedName = getQualifiedName();
@@ -156,10 +161,14 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		if (isTabLabel(labelId)) {
 			String genericIdForTab = "*" + Strings.noFirstToken(labelId, ".");
 			if (Labels.existsExact(genericIdForTab, locale)) {
+				System.out.println("[MetaProperty(" + getName() + ").getQualifiedLabel] C"); // tmp
 				return getLabel(locale, genericIdForTab);
 			}
+			System.out.println("[MetaProperty(" + getName() + ").getQualifiedLabel] D"); // tmp
+			System.out.println("[MetaProperty.getQualifiedLabel] id=" + getMetaModel().getName() + "." + qualifiedName); // tmp
 			return Labels.getQualified(getMetaModel().getName() + "." + qualifiedName, locale);
 		}
+		System.out.println("[MetaProperty(" + getName() + ").getQualifiedLabel] Z"); // tmp
 		return Labels.getQualified(qualifiedName, locale);
 	}
 
@@ -178,7 +187,9 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	}
 
 	public String getQualifiedLabel(ServletRequest request) throws XavaException { 
-		return getQualifiedLabel(getLocale(request));
+		String label = getQualifiedLabel(getLocale(request));
+		System.out.println("[MetaProperty(" + getName() + ").getQualifiedLabel(" + getQualifiedName() + ")] label=" + label); // tmp
+		return label;
 	}	
 
 	/**

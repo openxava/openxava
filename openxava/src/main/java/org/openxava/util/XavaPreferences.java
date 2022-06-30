@@ -171,7 +171,7 @@ public class XavaPreferences {
 	 */	
 	public String getComponentParsersClasses() { 
 		return getProperties().getProperty("componentParsersClasses",
-				"org.openxava.component.parse.XMLComponentParser,org.openxava.component.parse.AnnotatedClassParser").trim();
+				"org.openxava.component.parse.AnnotatedClassParser").trim();
 	}
 	/**
 	 * @since 5.9 

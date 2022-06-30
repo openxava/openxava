@@ -866,7 +866,7 @@ public class AJAXTest extends ModuleTestBase {
 		// To test that Number:999 is not used as member name
 		setValue("number", "999");
 		execute("CRUD.refresh");
-		assertError("Object of type Product does not exists with key Number:999");
+		assertError("Object of type Product does not exists with key Number:999"); // TMR FALLA
 	}
 	
 	public void testChangingViewAndController() throws Exception {

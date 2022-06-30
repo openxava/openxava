@@ -21,7 +21,7 @@ public class MotorVehicleDriver2Test extends ModuleTestBase {
 		setValue("licensePlate", "MO-0002");
 		setValue("roadworthy", "false");
 		execute("Collection.save");
-		assertError("MOTORBIKE plate MO-0002 is not roadworthy. " + 
+		assertError("MOTORBIKE plate MO-0002 is not roadworthy. " + // TMR FALLA
 				    "It can not be assigned to the driver KAREN");
 		setValue("roadworthy", "true");
 		execute("Collection.save");
