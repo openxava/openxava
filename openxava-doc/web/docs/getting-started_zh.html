@@ -1,0 +1,324 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Tutorial OpenXava: Primeros pasos</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">文
+            档</a> / </span>OpenXava入門 </h1>
+      <h2><a name="創建新的項目"></a>创建新的项目</h2>
+    </div>
+    <div class="wiki" style="display: block;">首先您必须建立新的OpenXava项目：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh020.png"
+        alt="getting-started_es020.png" title="getting-started_es020.png"><br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">会出现一个窗口，之后在 Project name
+      输入项目名称：Invoicing，请注意 Invoicing 的 "I"
+      必须是大写，以确保之后的连结都不会有问题，此外我们在此教学将选择英文（English）。最后点击 Finish。</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh030.png"
+        alt="getting-started_es030.png" title="getting-started_es030.png"></div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">现在项目已建成，您可以开始写代码了</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><img src="files/getting-started_zh040.png"
+        alt="getting-started_es040.png" title="getting-started_es040.png">
+      <h2 id="toc9"><br>
+      </h2>
+      <h2><a name="創建第一個實體"></a>创建第一个实体</h2>
+      开发应用程序非常简单：您只需要添加实体使您的应用程序扩展。<br>
+      我们将从 Customer 简易版本开始，只有编号和描述，选择 com.yourcompany.invoicing.model 包并点下 New
+      Java Class 按键。</div>
+    <div class="wiki" style="display: block;"><br>
+      <em></em></div>
+    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh050.png"
+        alt="getting-started_es125.png" title="getting-started_es125.png"></div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    再来在 Name 写下 Customer 为类名并按下 Finish。<br>
+    注意Customer的"C"必须是大写，在Java所有类的开头都是大写。
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh060.png"
+        alt="getting-started_es130.png" title="getting-started_es130.png"></div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Eclipse提供的只是最基本的代码：</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+public class Customer {
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">现在您得把此类转换成适合OpenXava的实体。您只需要添加
+      @Entity 注解，number 和 description 属性</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import javax.persistence.*;
+
+import org.openxava.annotations.*;
+
+import lombok.*;
+ 
+@Entity  // 这会把客户类标为实体
+@Getter @Setter // 这让下面所有字段都可以被访问
+public class Customer {
+ 
+    @Id  // number属性是密钥，通常默认必须有密钥
+    @Column(length=6)  // 列的长度会用在用户界面级（UI level）和数据库级（DB level）
+    int number;
+ 
+    @Column(length=50)  // 列的长度会用在用户界面级（UI level）和数据库级（DB level）
+    @Required  // 如果 name 属性为空，將顯示錯誤
+    String name;
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">现在您已有足够的代码（一个类）来运行应用程序。<br>
+      <h2 id="toc10"><a name="Ejecutar-la-aplicacion"></a>运行应用程序</h2>
+      在 Invoicing 项目上点击滑鼠右键并选择 Run As&gt;Java Application</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh070.png"
+        alt="getting-started_es150.png" title="getting-started_es150.png"><br>
+    </div>
+    <div class="wiki" style="display: block;">现在您的应用程序已经在运行。请开启您的浏览器（Chrome,
+      Firefox, Internet Explorer 11, Edge o Safari）并输入以下连结：<span style="color: black;"><span
+          style="font-family: sans-serif;"></span></span></div>
+    <div class="wiki" style="display: block;"> <code><i>&nbsp;&nbsp;&nbsp; </i></code><code><i><a
+            href="http://localhost:8080/Invoicing" target="_blank">http://localhost:8080/Invoicing</a></i></code>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">这是您第一次运行此应用程序，请点击登络按钮并在用户/密码输入
+      admin/admin 再点击进入</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/getting-started_en160.png"
+        alt="getting-started_es160.png" title="getting-started_es160.png"></div>
+    <img src="files/getting-started_zh080.png" alt="Página de identificación">
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">在左边会有模块列表，选择 Customers</div>
+    <div class="wiki" style="display: block;"><br>
+      <img src="files/getting-started_zh090.png" alt="getting-started_es170.png"
+        title="getting-started_es170.png"><br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">我们将使用 Customers
+      模块来创建新的客户，只需要输入编号和名称并按下保存</div>
+    <div class="wiki" style="display: block;"><br>
+      <img src="files/getting-started_zh100.png" alt="getting-started_es190.png"
+        title="getting-started_es190.png"><br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">点击 列表 可以察看已创建的客户。恭喜！您已成功运行第一个
+      OpenXava 应用程序。<br>
+      <h2 id="toc11"><a name="修改應用程序"></a>修改应用程序</h2>
+      从现在开始，使用OpenXava开发应用变的非常容易。只需要编写一个类就可以马上在浏览器看到成果。<br>
+      现在我们创建另一个实体为 Product，选择 com.yourcompany.invoicing.model 包，点下 New Java
+      Class 按键并在 Name 写下 Product 为类名并按下 Finish。</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh050.png"
+        alt="getting-started_es125.png" title="getting-started_es125.png"><br>
+      <img src="files/getting-started_zh110.png" alt="getting-started_es193.png"
+        title="getting-started_es193.png"></div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">在 Product 里编写以下代码：</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import javax.persistence.*;
+import org.openxava.annotations.*;
+import lombok.*;
+ 
+@Entity @Getter @Setter
+public class Product {
+ 
+    @Id @Column(length=9)
+    int number;
+ 
+    @Column(length=50) @Required
+    String description;
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">现在按下 Run 按钮，这会重启应用程序</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <img src="files/getting-started_zh120.png" alt="getting-started_es195.png" title="getting-started_es195.png">
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">在您的浏览器输入以下网址来查看刚创建的实体：<br>
+    </div>
+    <div class="wiki" style="display: block;"><code><i>&nbsp;&nbsp;&nbsp; </i></code><code><i><a
+            href="http://localhost:8080/Invoicing/modules/Product" target="_blank">http://localhost:8080/Invoicing/modules/Product</a></i></code><br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">使用 admin/admin 登络后将会看到</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh130.png"
+        alt="getting-started_es200.png" title="getting-started_es200.png"><br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">是的！您又成功运行新的模块了，而且只需编写一个相对简单的类。现在您只
+      需要专注于扩展您的应用程序。</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">有任何问题吗？</h2>
+      恭喜！您已创建您的第一个 OpenXava 应用程序，若您在过程当中遇到任何问题，可以在论譠提问：</div>
+    <div class="wiki" style="display: block;"><br>
+      <div class="wiki" style="display: block;">&nbsp;&nbsp;&nbsp; <strong><a class="wiki_link_ext"
+            href="http://sourceforge.net/p/openxava/discussion/419690/" rel="nofollow">前
+            往论譠</a></strong> </div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;">我们会帮助您解决。<br>
+        <h2 id="toc12"><a name="Lesson 1: Getting started-Summary"></a>接下来</h2>
+      </div>
+      <div class="wiki" style="display: block;">入门教学是OpenXava课程中的第一章，该课程会教您如何使用
+        OpenXava及其它Java相关技术、工具和框架开发企业应用程序。我们将从零开始一步一步的开发一个应用程序，该应用是个包含开发票、管理客户、产
+        品等的小型应用。开发这应用程序是为了认识和学习业务程序中的典型案例，您可以将在开发票应用所学的内容应用到其它领域的其它业务应用中。</div>
+      <div class="wiki" style="display: block;"><br>
+        <br>
+        这是课程的内容：
+        <ul>
+          <li>入门：</li>
+          <ul>
+            <li>第一章：入门教学 <i>(您在这里)</i> </li>
+          </ul>
+          <li>使用 Java 建模：</li>
+          <ul>
+            <li><a class="wiki_link" href="basic-domain-model1_en.html">第二章：基本域模
+                型 - 第一部分 <i> </i></a><i> (您的下一步)</i></li>
+            <li><a class="wiki_link" href="basic-domain-model2_en.html">Lesson
+                3: Basic domain model - Part 2</a></li>
+            <li><a class="wiki_link" href="refining-user-interface_en.html">Lesson
+                4: Refining the user interface</a></li>
+            <li><a class="wiki_link" href="agile-development_en.html">Lesson 5:
+                Agile development</a></li>
+          </ul>
+          <li> Inheritance: </li>
+          <ul>
+            <li><a class="wiki_link" href="mapped-superclass-inheritance_en.html">Lesson
+                6: Mapped superclass inheritance</a></li>
+            <li><a class="wiki_link" href="entity-inheritance_en.html">Lesson 7:
+                Entity inheritance</a></li>
+            <li><a class="wiki_link" href="view-inheritance_en.html">Lesson 8:
+                View inheritance</a></li>
+          </ul>
+          <li> Basic business logic:</li>
+          <ul>
+            <li><a class="wiki_link" href="java-properties_en.html">Lesson 9:
+                Java properties</a> </li>
+            <li><a class="wiki_link" href="java-properties_en.html">Lesson </a><a
+                class="wiki_link" href="calculated-properties_en.html">10:
+                Calculated properties</a></li>
+            <li><a class="wiki_link" href="java-properties_en.html">Lesson </a><a
+                class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11:
+                @DefaultValueCalculator in collections</a></li>
+            <li><a class="wiki_link" href="java-properties_en.html">Lesson </a><a
+                class="wiki_link" href="calculation-and-collections-total_en.html">12:
+                @Calculation and collections totals</a></li>
+            <li><a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">Lesson
+                13: @DefaultValueCalculator from file</a></li>
+            <li><a class="wiki_link" href="manual-schema-evolution_en.html">Lesson
+                14: Manual schema evolution</a></li>
+            <li><a class="wiki_link" href="multi-user-default-value-calculation_en.html">Lesson
+                15: Multi user default value calculation</a></li>
+            <li><a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">Lesson
+                16: Synchronize persistent and computed propierties</a></li>
+            <li><a class="wiki_link" href="logic-from-database_en.html">Lesson
+                17: Logic from database</a></li>
+          </ul>
+          <li> Advanced validation:</li>
+          <ul>
+            <li><a class="wiki_link" href="validation_en.html">Lesson 18:
+                Advanced validation</a></li>
+          </ul>
+          <li> Refining the standard behavior: </li>
+          <ul>
+            <li><a class="wiki_link" href="refining-standard-behavior_en.html">Lesson
+                19: Refining the standard behavior</a></li>
+          </ul>
+          <li> Behavior &amp; business logic: </li>
+          <ul>
+            <li><a class="wiki_link" href="business-logic-behavior_en.html">Lesson
+                20: Behavior &amp; business logic</a></li>
+          </ul>
+          <li> References &amp; collections: </li>
+          <ul>
+            <li><a class="wiki_link" href="references-collections_en.html">Lesson
+                21: References &amp; collections</a></li>
+          </ul>
+          <li> Appendices: </li>
+          <ul>
+            <li><a class="wiki_link" href="philosophy_en.html">Appendix A:
+                Architecture &amp; philosophy</a></li>
+            <li><a class="wiki_link" href="jpa_en.html">Appendix B: Java
+                Persistence API</a></li>
+            <li><a class="wiki_link" href="annotations_en.html">Appendix C:
+                Annotations</a></li>
+            <li><a class="wiki_link" href="testing_en.html">Appendix D:
+                Automated testing</a></li>
+          </ul>
+        </ul>
+      </div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;">您已准备好进入下一章，但您也可以考虑阅读一些基础知识，例如：<br>
+        <ul>
+          <li>如果您是 Java 新手，可以阅读一本介绍 Java 的书籍或<span style="color: #0000ee;"> </span><a
+              class="wiki_link_ext" href="https://docs.oracle.com/javase/tutorial/"
+              rel="nofollow">Java教程</a>。</li>
+          <li>如果您对 OpenXava 的理念和架构感兴趣，阅读本课程的 <a class="wiki_link" href="philosophy_en.html"><span
+                style="color: #505050;"></span>附录 A</a>。</li>
+          <li>关于 <a class="wiki_link" href="jpa_en.html">Java Persistence API</a>
+            和 <a class="wiki_link" href="annotations_en.html">注解（annotations）</a>的
+            附录 B 和 C 对您会非常有用。 </li>
+        </ul>
+      </div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;">您想使用
+        IntelliJ、MySQL、PostgreSQL、Oracle、Microsoft SQL
+        Server、AS/400、Informix、Db2 或 Firebird 吗? 您想要一个详细的参考指南吗？ 在 <a href="index_en.html">OpenXava
+          文檔</a> 中都找的到并且还有更多内容。
+        <ul>
+        </ul>
+        <br>
+        <strong>您准备好了吗？ </strong><strong><a class="wiki_link" href="basic-domain-model1_en.html">到
+            第二章<br>
+          </a></strong></div>
+      <div class="wiki" style="display: block;"><strong><a class="wiki_link" href="modeling_es.html"><br>
+          </a></strong></div>
+      <strong></strong> </div>
+  </body>
+</html>
