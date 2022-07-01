@@ -35,7 +35,7 @@ public class UserWithNicknameTest extends ModuleTestBase {
 		setValue("name", "VLADIMIR KRAMNIK");
 		setValue("nickname.nickname", "POSITIONAL GAMER");
 		execute("CRUD.save");
-		assertError("The nickname is already registered"); // TMR FALLA
+		assertError("The nickname is already registered"); 
 		setValue("nickname.nickname", "POSITIONAL GAMER III");
 		execute("CRUD.save");
 		assertNoErrors();

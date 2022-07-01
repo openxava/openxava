@@ -42,7 +42,7 @@ public class SubfamilyTest extends ModuleTestBase {
 	
 	public void testPropertiesTabByDefault() throws Exception {
 		assertLabelInList(0, "Number");
-		assertLabelInList(1, "Family"); // TMR FALLA
+		assertLabelInList(1, "Family"); 
 		assertLabelInList(2, "Description");		
 	}
 	

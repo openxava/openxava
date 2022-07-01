@@ -6,17 +6,14 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Object/relational mapping"></a> <span
-
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Object/relational mapping </h1>
+      <h1 id="toc0"><a name="Object/relational mapping"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Object/relational mapping </h1>
       <strong>Reference guide</strong>: <a class="wiki_link" href="model_en.html">Model</a>
-      | <a class="wiki_link" href="view_en.html">View</a> | <a class="wiki_link"
-
+      | <a class="wiki_link" href="view_en.html">View</a> | <a class="wiki_link"
         href="tab_en.html">Tabular data</a> | <strong>Object/relational mapping</strong>
-      | <a class="wiki_link" href="controllers_en.html">Controllers</a> | <a class="wiki_link"
-
+      | <a class="wiki_link" href="controllers_en.html">Controllers</a> | <a class="wiki_link"
         href="application_en.html">Application</a> | <a class="wiki_link" href="customizing_en.html">Customizing</a>
       <hr>
       <div id="toc">
@@ -46,36 +43,31 @@
         <div style="margin-left: 3em;"><a href="#Object/relational%20mapping-Unique%20Constraints-Other%20dialects">Other
             dialects</a></div>
       </div>
-       Object relational mapping allows you to declare in which tables and
-      columns of your database the entity data will be stored.<br>
+    </div>
+    <div class="wiki" style="display: block;">Object relational mapping allows
+      you to declare in which tables and columns of your database the entity
+      data will be stored.<br>
       Object/relational tools allow you to work with objects instead of tables
       and columns, and to generate automatically the SQL code to read and update
       the database. In this way you do not need direct access to the SQL
       database. Of course you have to define precisely how to map your classes
       to your tables, and this work is done using JPA mapping annotations.<br>
       The OpenXava entities are JPA entities, therefore the object/relational
-      mapping in OpenXava is done by means of the <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Java_Persistence_API"
-
+      mapping in OpenXava is done by means of the <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Java_Persistence_API"
         rel="nofollow">Java Persistence API</a> (JPA). This chapter shows the
       more basic mapping techniques and some special cases. If you want to learn
-      more about JPA you can look at <a class="wiki_link_ext" href="http://www.hibernate.org/hib_docs/annotations/reference/en/html/entity.html"
-
+      more about JPA you can look at <a class="wiki_link_ext" href="http://www.hibernate.org/hib_docs/annotations/reference/en/html/entity.html"
         rel="nofollow">the documentation of Hibernate Annotations</a> (the JPA
       implementation used by OpenXava by default), or whatever JPA manual you
       want. OpenXava 6.1 and better uses JPA 2.2.<br>
       <h2 id="toc1"><a name="Object/relational mapping-Entity mapping"></a>Entity
         mapping</h2>
-      The <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/Table.html"
-
+      The <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/Table.html"
           rel="nofollow">@Table</a></em> annotation specifies the primary table
-      for the annotated entity. Additional tables may be specified using <em><a
-
-          class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/SecondaryTable.html"
-
-          rel="nofollow">@SecondaryTable</a></em> or <em><a class="wiki_link_ext"
-
-          href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/SecondaryTables.html"
-
+      for the annotated entity. Additional tables may be specified using <em><a
+          class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/SecondaryTable.html"
+          rel="nofollow">@SecondaryTable</a></em> or <em><a class="wiki_link_ext"
+          href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/SecondaryTables.html"
           rel="nofollow">@SecondaryTables</a></em> annotation.<br>
       If no <em>@Table</em> annotation is specified for an entity class, the
       default values apply.<br>
@@ -267,18 +259,15 @@
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
-@Table<span class="br0">(</span>name=<span class="st0">"CUST"</span>, schema=<span
-
+@Table<span class="br0">(</span>name=<span class="st0">"CUST"</span>, schema=<span
 class="st0">"XAVATEST"</span><span class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Customer <span class="br0">{</span>
 &nbsp;</pre>
       <h2 id="toc2"><a name="Object/relational mapping-Property mapping"></a>Property
         mapping</h2>
-      The <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/Column.html"
-
+      The <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/Column.html"
           rel="nofollow">@Column</a></em> annotation is used to specify a mapped
       column for a persistent property or field. If no <em>@Column</em>
       annotation is specified, the default values are applied.<br>
@@ -470,11 +459,9 @@ class="st0">"XAVATEST"</span><span class="br0">)</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Column<span class="br0">(</span>name=<span class="st0">"DESC"</span>, length=<span
-
+</style><pre class="java5">@Column<span class="br0">(</span>name=<span class="st0">"DESC"</span>, length=<span
 class="nu0">512</span><span class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> description<span class="sy0">;</span>
 &nbsp;</pre>
       An example annotating the getter:<br>
@@ -665,15 +652,11 @@ class="kw21">String</span></a> description<span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Column<span class="br0">(</span>name=<span class="st0">"DESC"</span>, nullable=<span
-
+</style><pre class="java5">@Column<span class="br0">(</span>name=<span class="st0">"DESC"</span>, nullable=<span
 class="kw4">false</span>, length=<span class="nu0">512</span><span class="br0">)</span>
-<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getDescription<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span> <span class="kw2">return</span> description<span class="sy0">;</span> <span
-
+<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> getDescription<span class="br0">(</span><span class="br0">)</span> <span
+class="br0">{</span> <span class="kw2">return</span> description<span class="sy0">;</span> <span
 class="br0">}</span>
 &nbsp;</pre>
       Other examples:<br>
@@ -868,23 +851,18 @@ class="br0">}</span>
  columnDefinition=<span class="st0">"CLOB NOT NULL"</span>,
  table=<span class="st0">"EMP_DETAIL"</span><span class="br0">)</span>
 @Lob
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> description<span class="sy0">;</span>
 &nbsp;
-@Column<span class="br0">(</span>name=<span class="st0">"ORDER_COST"</span>, updatable=<span
-
-class="kw4">false</span>, precision=<span class="nu0">12</span>, scale=<span class="nu0">2</span><span
-
+@Column<span class="br0">(</span>name=<span class="st0">"ORDER_COST"</span>, updatable=<span
+class="kw4">false</span>, precision=<span class="nu0">12</span>, scale=<span class="nu0">2</span><span
 class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
 class="kw27">BigDecimal</span></a> cost<span class="sy0">;</span>
 &nbsp;</pre>
       <h2 id="toc3"><a name="Object/relational mapping-Reference mapping"></a>Reference
         mapping</h2>
-      The <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinColumn.html"
-
+      The <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinColumn.html"
           rel="nofollow">@JoinColumn</a></em> annotation is used to specify a
       mapped column for a reference.<br>
       Example:<br>
@@ -1076,8 +1054,7 @@ class="kw27">BigDecimal</span></a> cost<span class="sy0">;</span>
 
 -->
 </style><pre class="java5">@ManyToOne
-@JoinColumn<span class="br0">(</span>name=<span class="st0">"CUST_ID"</span><span
-
+@JoinColumn<span class="br0">(</span>name=<span class="st0">"CUST_ID"</span><span
 class="br0">)</span>
 <span class="kw2">private</span> Customer customer<span class="sy0">;</span></pre>
       If you need to define a mapping for the composite foreign keys use several
@@ -1274,17 +1251,14 @@ class="br0">)</span>
 
 -->
 </style><pre class="java5">@ManyToOne
-@JoinColumn<span class="br0">(</span>name=<span class="st0">"INV_YEAR"</span>, referencedColumnName=<span
-
+@JoinColumn<span class="br0">(</span>name=<span class="st0">"INV_YEAR"</span>, referencedColumnName=<span
 class="st0">"YEAR"</span><span class="br0">)</span>
-@JoinColumn<span class="br0">(</span>name=<span class="st0">"INV_NUMBER"</span>, referencedColumnName=<span
-
+@JoinColumn<span class="br0">(</span>name=<span class="st0">"INV_NUMBER"</span>, referencedColumnName=<span
 class="st0">"NUMBER"</span><span class="br0">)</span>
 <span class="kw2">private</span> Invoice invoice<span class="sy0">;</span></pre>
       </div>
       For OpenXava versions older than 6.1 (that used the old JPA 2.1) you need
-      to use <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinColumns.html"
-
+      to use <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinColumns.html"
           rel="nofollow">@JoinColumns</a></em>. This annotation groups <em>@JoinColumn</em>
       annotations for the same reference.<br>
       Example:<br>
@@ -1477,27 +1451,21 @@ class="st0">"NUMBER"</span><span class="br0">)</span>
 -->
 </style><pre class="java5">@ManyToOne
 @JoinColumns<span class="br0">(</span><span class="br0">{</span> // Only needed until OpenXava 6.0.2/JPA 2.1
-  @JoinColumn<span class="br0">(</span>name=<span class="st0">"INV_YEAR"</span>, referencedColumnName=<span
-
+  @JoinColumn<span class="br0">(</span>name=<span class="st0">"INV_YEAR"</span>, referencedColumnName=<span
 class="st0">"YEAR"</span><span class="br0">)</span>,
-  @JoinColumn<span class="br0">(</span>name=<span class="st0">"INV_NUMBER"</span>, referencedColumnName=<span
-
+  @JoinColumn<span class="br0">(</span>name=<span class="st0">"INV_NUMBER"</span>, referencedColumnName=<span
 class="st0">"NUMBER"</span><span class="br0">)</span>
 <span class="br0">}</span><span class="br0">)</span>
 <span class="kw2">private</span> Invoice invoice<span class="sy0">;</span></pre>
       <h2 id="toc4"><a name="Object/relational mapping-Collection mapping"></a>Collection
         mapping</h2>
-      When you use <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/OneToMany.html"
-
+      When you use <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/OneToMany.html"
           rel="nofollow">@OneToMany</a></em> for a collection the mapping
       depends of the reference used in the other part of the association, that
-      is, usually it's not needed to do anything. But if you are using <em><a class="wiki_link_ext"
-
-          href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/ManyToMany.html"
-
+      is, usually it's not needed to do anything. But if you are using <em><a class="wiki_link_ext"
+          href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/ManyToMany.html"
           rel="nofollow">@ManyToMany</a></em>, maybe it's useful to declare the
-      <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinTable.html"
-
+      <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinTable.html"
           rel="nofollow">@JoinTable</a></em>, as following:<br>
       <style type="text/css"><!--
 /**
@@ -1688,29 +1656,21 @@ class="st0">"NUMBER"</span><span class="br0">)</span>
 -->
 </style><pre class="java5">@ManyToMany
 @JoinTable<span class="br0">(</span>name=<span class="st0">"CUSTOMER_STATE"</span>,
- joinColumns=@JoinColumn<span class="br0">(</span>name=<span class="st0">"CUSTOMER"</span><span
-
+ joinColumns=@JoinColumn<span class="br0">(</span>name=<span class="st0">"CUSTOMER"</span><span
 class="br0">)</span>,
- inverseJoinColumns=@JoinColumn<span class="br0">(</span>name=<span class="st0">"STATE"</span><span
-
+ inverseJoinColumns=@JoinColumn<span class="br0">(</span>name=<span class="st0">"STATE"</span><span
 class="br0">)</span>
 <span class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/PortableServer/POAManagerPackage/State.html"><span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/PortableServer/POAManagerPackage/State.html"><span
 class="kw154">State</span></a><span class="sy0">&gt;</span> states<span class="sy0">;</span></pre>
       If <em>@JoinTable</em> is missing the default values apply.<br>
       <br>
-      When you use <em><a class="wiki_link_ext" href="http://docs.oracle.com/javaee/6/api/javax/persistence/ElementCollection.html"
-
+      When you use <em><a class="wiki_link_ext" href="http://docs.oracle.com/javaee/6/api/javax/persistence/ElementCollection.html"
           rel="nofollow">@ElementCollection</a></em> <em>(new in v5.0)</em> for
-      a collection you can use <em><a class="wiki_link_ext" href="http://docs.oracle.com/javaee/6/api/javax/persistence/CollectionTable.html"
-
-          rel="nofollow">@CollectionTable</a></em> and <em><a class="wiki_link_ext"
-
-          href="http://docs.oracle.com/javaee/6/api/javax/persistence/AttributeOverride.html"
-
+      a collection you can use <em><a class="wiki_link_ext" href="http://docs.oracle.com/javaee/6/api/javax/persistence/CollectionTable.html"
+          rel="nofollow">@CollectionTable</a></em> and <em><a class="wiki_link_ext"
+          href="http://docs.oracle.com/javaee/6/api/javax/persistence/AttributeOverride.html"
           rel="nofollow">@AttributeOverride</a></em>, as following:<br>
       <style type="text/css"><!--
 /**
@@ -1900,31 +1860,23 @@ class="kw154">State</span></a><span class="sy0">&gt;</span> states<span class="s
 
 -->
 </style><pre class="java5">@ElementCollection
-@CollectionTable<span class="br0">(</span>name=<span class="st0">"HOMES"</span><span
-
+@CollectionTable<span class="br0">(</span>name=<span class="st0">"HOMES"</span><span
 class="br0">)</span> <span class="co1">// Uses default join column name</span>
 @AttributeOverride<span class="br0">(</span>name=<span class="st0">"street"</span>,
-    column=@Column<span class="br0">(</span>name=<span class="st0">"HOME_STREET"</span><span
-
+    column=@Column<span class="br0">(</span>name=<span class="st0">"HOME_STREET"</span><span
 class="br0">)</span><span class="br0">)</span>
 @AttributeOverride<span class="br0">(</span>name=<span class="st0">"city"</span>,
-    column=@Column<span class="br0">(</span>name=<span class="st0">"HOME_CITY"</span><span
-
+    column=@Column<span class="br0">(</span>name=<span class="st0">"HOME_CITY"</span><span
 class="br0">)</span><span class="br0">)</span>
 @AttributeOverride<span class="br0">(</span>name=<span class="st0">"state"</span>,
-    column=@Column<span class="br0">(</span>name=<span class="st0">"HOME_STATE"</span><span
-
+    column=@Column<span class="br0">(</span>name=<span class="st0">"HOME_STATE"</span><span
 class="br0">)</span><span class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Address<span class="sy0">&gt;</span> vacationHomes<span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Address<span class="sy0">&gt;</span> vacationHomes<span
 class="sy0">;</span></pre>
       If you're using an OpenXava older than 6.1 (so with JPA 2.1) you have to
-      wrapt the <i>@AttributeOverride</i> annotations with <em><a class="wiki_link_ext"
-
-          href="http://docs.oracle.com/javaee/6/api/javax/persistence/AttributeOverrides.html"
-
+      wrapt the <i>@AttributeOverride</i> annotations with <em><a class="wiki_link_ext"
+          href="http://docs.oracle.com/javaee/6/api/javax/persistence/AttributeOverrides.html"
           rel="nofollow">@AttributeOverrides</a></em>, thus:<br>
       <div class="wiki" id="content_view">
         <style type="text/css"><!--
@@ -2115,27 +2067,21 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">@ElementCollection
-@CollectionTable<span class="br0">(</span>name=<span class="st0">"HOMES"</span><span
-
+@CollectionTable<span class="br0">(</span>name=<span class="st0">"HOMES"</span><span
 class="br0">)</span> <span class="co1">// Uses default join column name</span>
 @AttributeOverrides<span class="br0">(</span><span class="br0">{</span> // Only needed until OpenXava 6.0.2/JPA 2.1
     @AttributeOverride<span class="br0">(</span>name=<span class="st0">"street"</span>,
-        column=@Column<span class="br0">(</span>name=<span class="st0">"HOME_STREET"</span><span
-
+        column=@Column<span class="br0">(</span>name=<span class="st0">"HOME_STREET"</span><span
 class="br0">)</span><span class="br0">)</span>,
     @AttributeOverride<span class="br0">(</span>name=<span class="st0">"city"</span>,
-        column=@Column<span class="br0">(</span>name=<span class="st0">"HOME_CITY"</span><span
-
+        column=@Column<span class="br0">(</span>name=<span class="st0">"HOME_CITY"</span><span
 class="br0">)</span><span class="br0">)</span>,
     @AttributeOverride<span class="br0">(</span>name=<span class="st0">"state"</span>,
-        column=@Column<span class="br0">(</span>name=<span class="st0">"HOME_STATE"</span><span
-
+        column=@Column<span class="br0">(</span>name=<span class="st0">"HOME_STATE"</span><span
 class="br0">)</span><span class="br0">)</span>
 <span class="br0">}</span><span class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Address<span class="sy0">&gt;</span> vacationHomes<span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Address<span class="sy0">&gt;</span> vacationHomes<span
 class="sy0">;</span></pre>
         If <em>@CollectionTable</em> and <em>@AttributeOverride</em> are
         missing the default values apply.<br>
@@ -2149,8 +2095,7 @@ class="sy0">;</span></pre>
       the main entity. For example, if you have an embeddable <em>Address</em>
       associated to a <em>Customer</em>, the address data is stored in the same
       data table as the customer data. How can you map this case with JPA?<br>
-      Just use several <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/AttributeOverride.html"
-
+      Just use several <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/AttributeOverride.html"
           rel="nofollow">@AttributeOverride</a></em> annotations, in this way:<br>
       <style type="text/css"><!--
 /**
@@ -2340,31 +2285,21 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">@Embedded
-@AttributeOverride<span class="br0">(</span>name=<span class="st0">"street"</span>, column=@Column<span
-
-class="br0">(</span><span class="st0">"ADDR_STREET"</span><span class="br0">)</span><span
-
+@AttributeOverride<span class="br0">(</span>name=<span class="st0">"street"</span>, column=@Column<span
+class="br0">(</span><span class="st0">"ADDR_STREET"</span><span class="br0">)</span><span
 class="br0">)</span>
-@AttributeOverride<span class="br0">(</span>name=<span class="st0">"zip"</span>, column=@Column<span
-
-class="br0">(</span><span class="st0">"ADDR_ZIP"</span><span class="br0">)</span><span
-
+@AttributeOverride<span class="br0">(</span>name=<span class="st0">"zip"</span>, column=@Column<span
+class="br0">(</span><span class="st0">"ADDR_ZIP"</span><span class="br0">)</span><span
 class="br0">)</span>
-@AttributeOverride<span class="br0">(</span>name=<span class="st0">"city"</span>, column=@Column<span
-
-class="br0">(</span><span class="st0">"ADDR_CITY"</span><span class="br0">)</span><span
-
+@AttributeOverride<span class="br0">(</span>name=<span class="st0">"city"</span>, column=@Column<span
+class="br0">(</span><span class="st0">"ADDR_CITY"</span><span class="br0">)</span><span
 class="br0">)</span>
-@AttributeOverride<span class="br0">(</span>name=<span class="st0">"country"</span>, column=@Column<span
-
-class="br0">(</span><span class="st0">"ADDR_COUNTRY"</span><span class="br0">)</span><span
-
+@AttributeOverride<span class="br0">(</span>name=<span class="st0">"country"</span>, column=@Column<span
+class="br0">(</span><span class="st0">"ADDR_COUNTRY"</span><span class="br0">)</span><span
 class="br0">)</span>
 <span class="kw2">private</span> Address address<span class="sy0">;</span></pre>
-      For OpenXava older than 6.1 (with JPA 2.1) use <em><a class="wiki_link_ext"
-
-          href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/AttributeOverrides.html"
-
+      For OpenXava older than 6.1 (with JPA 2.1) use <em><a class="wiki_link_ext"
+          href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/AttributeOverrides.html"
           rel="nofollow">@AttributeOverrides</a></em> annotation:<br>
       <div class="wiki">
         <style type="text/css"><!--
@@ -2556,25 +2491,17 @@ class="br0">)</span>
 -->
 </style><pre class="java5">@Embedded
 @AttributeOverrides<span class="br0">(</span><span class="br0">{ // Only until OpenXava 6.0.2/JPA 2.1</span>
-  @AttributeOverride<span class="br0">(</span>name=<span class="st0">"street"</span>, column=@Column<span
-
-class="br0">(</span><span class="st0">"ADDR_STREET"</span><span class="br0">)</span><span
-
+  @AttributeOverride<span class="br0">(</span>name=<span class="st0">"street"</span>, column=@Column<span
+class="br0">(</span><span class="st0">"ADDR_STREET"</span><span class="br0">)</span><span
 class="br0">)</span>,
-  @AttributeOverride<span class="br0">(</span>name=<span class="st0">"zip"</span>, column=@Column<span
-
-class="br0">(</span><span class="st0">"ADDR_ZIP"</span><span class="br0">)</span><span
-
+  @AttributeOverride<span class="br0">(</span>name=<span class="st0">"zip"</span>, column=@Column<span
+class="br0">(</span><span class="st0">"ADDR_ZIP"</span><span class="br0">)</span><span
 class="br0">),</span>
-  @AttributeOverride<span class="br0">(</span>name=<span class="st0">"city"</span>, column=@Column<span
-
-class="br0">(</span><span class="st0">"ADDR_CITY"</span><span class="br0">)</span><span
-
+  @AttributeOverride<span class="br0">(</span>name=<span class="st0">"city"</span>, column=@Column<span
+class="br0">(</span><span class="st0">"ADDR_CITY"</span><span class="br0">)</span><span
 class="br0">)</span>,
-  @AttributeOverride<span class="br0">(</span>name=<span class="st0">"country"</span>, column=@Column<span
-
-class="br0">(</span><span class="st0">"ADDR_COUNTRY"</span><span class="br0">)</span><span
-
+  @AttributeOverride<span class="br0">(</span>name=<span class="st0">"country"</span>, column=@Column<span
+class="br0">(</span><span class="st0">"ADDR_COUNTRY"</span><span class="br0">)</span><span
 class="br0">)</span>
 <span class="br0">}</span><span class="br0">)</span>
 <span class="kw2">private</span> Address address<span class="sy0">;</span></pre>
@@ -2588,8 +2515,7 @@ class="br0">)</span>
       default type conversion is good for most cases, but if you work with
       legacy database perhaps you need to use the tips here.<br>
       Given that OpenXava uses the type conversion facility provided by
-      Hibernate you can learn more on <a class="wiki_link_ext" href="http://www.hibernate.org/"
-
+      Hibernate you can learn more on <a class="wiki_link_ext" href="http://www.hibernate.org/"
         rel="nofollow">Hibernate</a> documentation.<br>
       <h3 id="toc7"><a name="Object/relational mapping-Type conversion-Property conversion"></a>Property
         conversion</h3>
@@ -2787,15 +2713,11 @@ class="br0">)</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
-
-class="kw26">Type</span></a><span class="br0">(</span>type=<span class="st0">"org.openxava.test.types.RegionsType"</span><span
-
+</style><pre class="java5">@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
+class="kw26">Type</span></a><span class="br0">(</span>type=<span class="st0">"org.openxava.test.types.RegionsType"</span><span
 class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> regions<span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> regions<span
 class="sy0">;</span></pre>
       The conversion logic in <em>RegionsType</em> is:<br>
       <style type="text/css"><!--
@@ -2985,289 +2907,191 @@ class="sy0">;</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.types</span><span
-
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.types</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.io.*</span><span class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">java.sql.*</span><span class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.apache.commons.logging.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.apache.commons.logging.*</span><span
 class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.hibernate.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.engine.spi.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.hibernate.engine.spi.*</span><span
 class="sy0">;</span> <span class="co1">// Since OpenXava 5.3 that uses Hibernate 4.3</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.usertype.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.hibernate.usertype.*</span><span
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="co3">/**
  *
  * @author Javier Paniza
  */</span>
-<span class="kw2">public</span> <span class="kw2">class</span> RegionsType <span
-
+<span class="kw2">public</span> <span class="kw2">class</span> RegionsType <span
 class="kw2">implements</span> UserType <span class="br0">{</span> <span class="co1">// 1</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">int</span><span class="br0">[</span><span
-
-class="br0">]</span> sqlTypes<span class="br0">(</span><span class="br0">)</span> <span
-
+    <span class="kw2">public</span> <span class="kw3">int</span><span class="br0">[</span><span
+class="br0">]</span> sqlTypes<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">{</span>
-        <span class="kw2">return</span> <span class="kw2">new</span> <span class="kw3">int</span><span
-
-class="br0">[</span><span class="br0">]</span> <span class="br0">{</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/Types.html"><span
-
-class="kw44">Types</span></a>.<span class="me1">VARCHAR</span> <span class="br0">}</span><span
-
+        <span class="kw2">return</span> <span class="kw2">new</span> <span class="kw3">int</span><span
+class="br0">[</span><span class="br0">]</span> <span class="br0">{</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/Types.html"><span
+class="kw44">Types</span></a>.<span class="me1">VARCHAR</span> <span class="br0">}</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Class.html"><span
-
-class="kw21">Class</span></a> returnedClass<span class="br0">(</span><span class="br0">)</span> <span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Class.html"><span
+class="kw21">Class</span></a> returnedClass<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">{</span>
-        <span class="kw2">return</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span>.<span
-
+        <span class="kw2">return</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span>.<span
 class="kw2">class</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> equals<span
-
-class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> obj1, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> obj2<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> equals<span
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> obj1, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> obj2<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
 class="br0">{</span>
-        <span class="kw2">return</span> Is.<span class="me1">equal</span><span class="br0">(</span>obj1, obj2<span
-
+        <span class="kw2">return</span> Is.<span class="me1">equal</span><span class="br0">(</span>obj1, obj2<span
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">int</span> hashCode<span class="br0">(</span><a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> obj<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
-
+    <span class="kw2">public</span> <span class="kw3">int</span> hashCode<span class="br0">(</span><a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> obj<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
 class="br0">{</span>
-        <span class="kw2">return</span> obj.<span class="me1">hashCode</span><span
-
+        <span class="kw2">return</span> obj.<span class="me1">hashCode</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="co1">// SessionImplementer argument since OpenXava 5.3 that uses Hibernate 4.3</span><br><span
-
-class="co1">    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3<br>   </span>&nbsp;<span
-
-class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> nullSafeGet<span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/ResultSet.html"><span
-
-class="kw44">ResultSet</span></a> resultSet, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span> names, SharedSessionContractImplementor implementor, <a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
+    <span class="co1">// SessionImplementer argument since OpenXava 5.3 that uses Hibernate 4.3</span><br><span
+class="co1">    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3<br>   </span>&nbsp;<span
+class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> nullSafeGet<span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/ResultSet.html"><span
+class="kw44">ResultSet</span></a> resultSet, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span> names, SharedSessionContractImplementor implementor, <a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
 class="kw166">Object</span></a> owner<span class="br0">)</span> <span class="co1">// 2</span>
-        <span class="kw2">throws</span> HibernateException, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
-
+        <span class="kw2">throws</span> HibernateException, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
 class="kw44">SQLException</span></a>
     <span class="br0">{</span>
-        <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> o = resultSet.<span class="me1">getObject</span><span
-
-class="br0">(</span>names<span class="br0">[</span><span class="nu0">0</span><span
-
+        <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> o = resultSet.<span class="me1">getObject</span><span
+class="br0">(</span>names<span class="br0">[</span><span class="nu0">0</span><span
 class="br0">]</span><span class="br0">)</span><span class="sy0">;</span>
-        <span class="kw1">if</span> <span class="br0">(</span>o == <span class="kw4">null</span><span
-
-class="br0">)</span> <span class="kw2">return</span> <span class="kw2">new</span> <a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a><span
-
+        <span class="kw1">if</span> <span class="br0">(</span>o == <span class="kw4">null</span><span
+class="br0">)</span> <span class="kw2">return</span> <span class="kw2">new</span> <a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a><span
 class="br0">[</span><span class="nu0">0</span><span class="br0">]</span><span class="sy0">;</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> dbValue = <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> dbValue = <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a><span class="br0">)</span> o<span class="sy0">;</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> javaValue = <span
-
-class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> <span class="br0">[</span>dbValue.<span class="me1">length</span><span
-
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> javaValue = <span
+class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> <span class="br0">[</span>dbValue.<span class="me1">length</span><span
 class="br0">(</span><span class="br0">)</span><span class="br0">]</span><span class="sy0">;</span>
-        <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i = <span
-
-class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> javaValue.<span
-
-class="me1">length</span><span class="sy0">;</span> i++<span class="br0">)</span> <span
-
+        <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i = <span
+class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> javaValue.<span
+class="me1">length</span><span class="sy0">;</span> i++<span class="br0">)</span> <span
 class="br0">{</span>
-            javaValue<span class="br0">[</span>i<span class="br0">]</span> = <a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a>.<span
-
-class="me1">valueOf</span><span class="br0">(</span>dbValue.<span class="me1">charAt</span><span
-
+            javaValue<span class="br0">[</span>i<span class="br0">]</span> = <a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a>.<span
+class="me1">valueOf</span><span class="br0">(</span>dbValue.<span class="me1">charAt</span><span
 class="br0">(</span>i<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
         <span class="br0">}</span>
         <span class="kw2">return</span> javaValue<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="co1">// SessionImplementer argument since OpenXava 5.3 that uses Hibernate 4.3</span><br><span
-
-class="co1">    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3<br></span>&nbsp;   <span
-
-class="kw2">public</span> <span class="kw3">void</span> nullSafeSet<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/PreparedStatement.html"><span
-
-class="kw44">PreparedStatement</span></a> ps, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> value, <span class="kw3">int</span> index, SharedSessionContractImplementor implementor<span
-
+    <span class="co1">// SessionImplementer argument since OpenXava 5.3 that uses Hibernate 4.3</span><br><span
+class="co1">    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3<br></span>&nbsp;   <span
+class="kw2">public</span> <span class="kw3">void</span> nullSafeSet<span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/PreparedStatement.html"><span
+class="kw44">PreparedStatement</span></a> ps, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> value, <span class="kw3">int</span> index, SharedSessionContractImplementor implementor<span
 class="br0">)</span> <span class="co1">// 3</span>
-        <span class="kw2">throws</span> HibernateException, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
-
+        <span class="kw2">throws</span> HibernateException, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
 class="kw44">SQLException</span></a>
     <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>value == <span class="kw4">null</span><span
-
+        <span class="kw1">if</span> <span class="br0">(</span>value == <span class="kw4">null</span><span
 class="br0">)</span> <span class="br0">{</span>
-            ps.<span class="me1">setString</span><span class="br0">(</span>index, <span
-
+            ps.<span class="me1">setString</span><span class="br0">(</span>index, <span
 class="st0">""</span><span class="br0">)</span><span class="sy0">;</span>
             <span class="kw2">return</span><span class="sy0">;</span>
         <span class="br0">}</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> javaValue = <span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span><span
-
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> javaValue = <span
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span><span
 class="br0">)</span> value<span class="sy0">;</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/StringBuffer.html"><span
-
-class="kw21">StringBuffer</span></a> dbValue = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/StringBuffer.html"><span
-
-class="kw21">StringBuffer</span></a><span class="br0">(</span><span class="br0">)</span><span
-
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/StringBuffer.html"><span
+class="kw21">StringBuffer</span></a> dbValue = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/StringBuffer.html"><span
+class="kw21">StringBuffer</span></a><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span>
-        <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i = <span
-
-class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> javaValue.<span
-
-class="me1">length</span><span class="sy0">;</span> i++<span class="br0">)</span> <span
-
+        <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i = <span
+class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> javaValue.<span
+class="me1">length</span><span class="sy0">;</span> i++<span class="br0">)</span> <span
 class="br0">{</span>
-            dbValue.<span class="me1">append</span><span class="br0">(</span>javaValue<span
-
+            dbValue.<span class="me1">append</span><span class="br0">(</span>javaValue<span
 class="br0">[</span>i<span class="br0">]</span><span class="br0">)</span><span class="sy0">;</span>
         <span class="br0">}</span>
-        ps.<span class="me1">setString</span><span class="br0">(</span>index, dbValue.<span
-
-class="me1">toString</span><span class="br0">(</span><span class="br0">)</span><span
-
+        ps.<span class="me1">setString</span><span class="br0">(</span>index, dbValue.<span
+class="me1">toString</span><span class="br0">(</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> deepCopy<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> obj<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
-
+    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> deepCopy<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> obj<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
 class="br0">{</span>
-        <span class="kw2">return</span> obj == <span class="kw4">null</span><span
-
-class="sy0">?</span><span class="kw4">null</span>:<span class="br0">(</span><span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span><span
-
-class="br0">)</span> obj<span class="br0">)</span>.<span class="me1">clone</span><span
-
+        <span class="kw2">return</span> obj == <span class="kw4">null</span><span
+class="sy0">?</span><span class="kw4">null</span>:<span class="br0">(</span><span
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span><span
+class="br0">)</span> obj<span class="br0">)</span>.<span class="me1">clone</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isMutable<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isMutable<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
-
-class="kw20">Serializable</span></a> disassemble<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> obj<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+class="kw20">Serializable</span></a> disassemble<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> obj<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
 class="br0">{</span>
-        <span class="kw2">return</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
-
+        <span class="kw2">return</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
 class="kw20">Serializable</span></a><span class="br0">)</span> obj<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> assemble<span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
-
-class="kw20">Serializable</span></a> cached, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> owner<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
-
+    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> assemble<span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+class="kw20">Serializable</span></a> cached, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> owner<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
 class="br0">{</span>
         <span class="kw2">return</span> cached<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> replace<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> original, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> target, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> owner<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
-
+    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> replace<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> original, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> target, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> owner<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
 class="br0">{</span>
         <span class="kw2">return</span> original<span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
 <span class="br0">}</span></pre>
-      The type converter has to implement <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/usertype/UserType.html"
-
+      The type converter has to implement <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/usertype/UserType.html"
           rel="nofollow">org.hibernate.usertype.UserType</a></em> (1). The main
       methods are <em>nullSafeGet</em> (2) for read from database and to
       convert to Java, and <em>nullSafeSet</em> (3) for writing the Java value
       into database.<br>
-      OpenXava has generic Hibernate type converters in the <em><a class="wiki_link_ext"
-
-          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/types/package-summary.html"
-
+      OpenXava has generic Hibernate type converters in the <em><a class="wiki_link_ext"
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/types/package-summary.html"
           rel="nofollow">org.openxava.types</a></em> package ready to use. One
-      of them is <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/types/EnumLetterType.html"
-
+      of them is <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/types/EnumLetterType.html"
           rel="nofollow">EnumLetterType</a></em>, that allows to map properties
       of <em>enum</em> type. For example, if you have a property like this:<br>
       <style type="text/css"><!--
@@ -3457,11 +3281,9 @@ class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">private</span> Distance distance<span
-
+</style><pre class="java5"><span class="kw2">private</span> Distance distance<span
 class="sy0">;</span>
-<span class="kw2">public</span> <span class="kw2">enum</span> Distance <span class="br0">{</span> LOCAL, NATIONAL, INTERNATIONAL <span
-
+<span class="kw2">public</span> <span class="kw2">enum</span> Distance <span class="br0">{</span> LOCAL, NATIONAL, INTERNATIONAL <span
 class="br0">}</span><span class="sy0">;</span></pre>
       In this Java property 'LOCAL' is 1, 'NATIONAL' is 2 and 'INTERNATIONAL' is
       3 when the property is stored in database. But what happens, if in the
@@ -3654,25 +3476,19 @@ class="br0">}</span><span class="sy0">;</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
-
+</style><pre class="java5">@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
 class="kw26">Type</span></a><span class="br0">(</span>type=<span class="st0">"org.openxava.types.EnumLetterType"</span>,
     parameters=<span class="br0">{</span>
-        @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/Dynamic/Parameter.html"><span
-
-class="kw142">Parameter</span></a><span class="br0">(</span>name=<span class="st0">"letters"</span>, value=<span
-
+        @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/Dynamic/Parameter.html"><span
+class="kw142">Parameter</span></a><span class="br0">(</span>name=<span class="st0">"letters"</span>, value=<span
 class="st0">"LNI"</span><span class="br0">)</span>,
-        @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/Dynamic/Parameter.html"><span
-
-class="kw142">Parameter</span></a><span class="br0">(</span>name=<span class="st0">"enumType"</span>, value=<span
-
+        @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/Dynamic/Parameter.html"><span
+class="kw142">Parameter</span></a><span class="br0">(</span>name=<span class="st0">"enumType"</span>, value=<span
 class="st0">"org.openxava.test.model.Delivery$Distance"</span><span class="br0">)</span>
     <span class="br0">}</span>
 <span class="br0">)</span>
 <span class="kw2">private</span> Distance distance<span class="sy0">;</span>
-<span class="kw2">public</span> <span class="kw2">enum</span> Distance <span class="br0">{</span> LOCAL, NATIONAL, INTERNATIONAL <span
-
+<span class="kw2">public</span> <span class="kw2">enum</span> Distance <span class="br0">{</span> LOCAL, NATIONAL, INTERNATIONAL <span
 class="br0">}</span><span class="sy0">;</span></pre>
       As you put 'LNI' as a value to <em>letters</em>, the type converter
       matches the 'L' to 1, the 'N' to 2 and the 'I' to 3. You also see how type
@@ -3680,14 +3496,12 @@ class="br0">}</span><span class="sy0">;</span></pre>
       converters more reusable.<br>
       <h3 id="toc8"><a name="Object/relational mapping-Type conversion-Multiple column conversion"></a>Multiple
         column conversion</h3>
-      With <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/usertype/CompositeUserType.html"
-
+      With <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/usertype/CompositeUserType.html"
           rel="nofollow">CompositeUserType</a></em> you can map several table
       columns to a single Java property. This is useful if you have properties
       of custom class that have itself several attributes to store. Also it is
       used when you have to deal with legacy database schemes.<br>
-      A typical example is the generic converter <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/types/Date3Type.html"
-
+      A typical example is the generic converter <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/types/Date3Type.html"
           rel="nofollow">Date3Type</a></em>, that allows to store in the
       database 3 columns and in Java a single property of type <em>java.util.Date</em>.<br>
       <style type="text/css"><!--
@@ -3877,24 +3691,18 @@ class="br0">}</span><span class="sy0">;</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
-
-class="kw26">Type</span></a><span class="br0">(</span>type=<span class="st0">"org.openxava.types.Date3Type"</span><span
-
+</style><pre class="java5">@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
+class="kw26">Type</span></a><span class="br0">(</span>type=<span class="st0">"org.openxava.types.Date3Type"</span><span
 class="br0">)</span>
 @Columns<span class="br0">(</span>columns = <span class="br0">{</span>
-    @Column<span class="br0">(</span>name=<span class="st0">"YEARDELIVERY"</span><span
-
+    @Column<span class="br0">(</span>name=<span class="st0">"YEARDELIVERY"</span><span
 class="br0">)</span>,
-    @Column<span class="br0">(</span>name=<span class="st0">"MONTHDELIVERY"</span><span
-
+    @Column<span class="br0">(</span>name=<span class="st0">"MONTHDELIVERY"</span><span
 class="br0">)</span>,
-    @Column<span class="br0">(</span>name=<span class="st0">"DAYDELIVERY"</span><span
-
+    @Column<span class="br0">(</span>name=<span class="st0">"DAYDELIVERY"</span><span
 class="br0">)</span>
 <span class="br0">}</span><span class="br0">)</span>
-<span class="kw2">private</span> java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
+<span class="kw2">private</span> java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
 class="kw166">Date</span></a> deliveryDate<span class="sy0">;</span>
 &nbsp;</pre>
       DAYDELIVERY, MONTHDELIVERY and YEARDELIVERY are 3 columns in database that
@@ -4086,28 +3894,22 @@ class="kw166">Date</span></a> deliveryDate<span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.types</span><span
-
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.types</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.io.*</span><span class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">java.sql.*</span><span class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">org.hibernate.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.engine.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.hibernate.engine.*</span><span
 class="sy0">;</span> <span class="co1">// Until OpenXava 5.2.x</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.engine.spi.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.hibernate.engine.spi.*</span><span
 class="sy0">;</span> <span class="co1">// Since OpenXava 5.3 that uses Hibernate 4.3</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.type.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.hibernate.type.*</span><span
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.usertype.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.hibernate.usertype.*</span><span
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="co3">/**
@@ -4116,202 +3918,131 @@ class="sy0">;</span>
  *
  * @author Javier Paniza
  */</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Date3Type <span class="kw2">implements</span> CompositeUserType <span
-
+<span class="kw2">public</span> <span class="kw2">class</span> Date3Type <span class="kw2">implements</span> CompositeUserType <span
 class="br0">{</span> <span class="co1">// 1</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span> getPropertyNames<span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span> getPropertyNames<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
-        <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span> <span
-
-class="br0">{</span> <span class="st0">"year"</span>, <span class="st0">"month"</span>, <span
-
+        <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span> <span
+class="br0">{</span> <span class="st0">"year"</span>, <span class="st0">"month"</span>, <span
 class="st0">"day"</span> <span class="br0">}</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
-
-class="kw26">Type</span></a><span class="br0">[</span><span class="br0">]</span> getPropertyTypes<span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
+class="kw26">Type</span></a><span class="br0">[</span><span class="br0">]</span> getPropertyTypes<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="co1">// return new Type[] { Hibernate.INTEGER, Hibernate.INTEGER, Hibernate.INTEGER }; // Before OpenXava 5.3/Hibernate 4.3</span>
-        <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
-
-class="kw26">Type</span></a><span class="br0">[</span><span class="br0">]</span> <span
-
-class="br0">{</span> IntegerType.<span class="me1">INSTANCE</span>, IntegerType.<span
-
-class="me1">INSTANCE</span>, IntegerType.<span class="me1">INSTANCE</span> <span
-
+        <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/reflect/Type.html"><span
+class="kw26">Type</span></a><span class="br0">[</span><span class="br0">]</span> <span
+class="br0">{</span> IntegerType.<span class="me1">INSTANCE</span>, IntegerType.<span
+class="me1">INSTANCE</span>, IntegerType.<span class="me1">INSTANCE</span> <span
 class="br0">}</span><span class="sy0">;</span> <span class="co1">// Since OpenXava 5.3/Hibernate 4.3</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> getPropertyValue<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> component, <span class="kw3">int</span> property<span
-
-class="br0">)</span> <span class="kw2">throws</span> HibernateException <span class="br0">{</span> <span
-
+    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> getPropertyValue<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> component, <span class="kw3">int</span> property<span
+class="br0">)</span> <span class="kw2">throws</span> HibernateException <span class="br0">{</span> <span
 class="co1">// 2</span>
-        java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a> date = <span class="br0">(</span>java.<span class="me1">util</span>.<a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
+        java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
+class="kw166">Date</span></a> date = <span class="br0">(</span>java.<span class="me1">util</span>.<a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
 class="kw166">Date</span></a><span class="br0">)</span> component<span class="sy0">;</span>
-        <span class="kw1">switch</span> <span class="br0">(</span>property<span
-
+        <span class="kw1">switch</span> <span class="br0">(</span>property<span
 class="br0">)</span> <span class="br0">{</span>
             <span class="kw1">case</span> <span class="nu0">0</span>:
-                <span class="kw2">return</span> Dates.<span class="me1">getYear</span><span
-
+                <span class="kw2">return</span> Dates.<span class="me1">getYear</span><span
 class="br0">(</span>date<span class="br0">)</span><span class="sy0">;</span>
             <span class="kw1">case</span> <span class="nu0">1</span>:
-                <span class="kw2">return</span> Dates.<span class="me1">getMonth</span><span
-
+                <span class="kw2">return</span> Dates.<span class="me1">getMonth</span><span
 class="br0">(</span>date<span class="br0">)</span><span class="sy0">;</span>
             <span class="kw1">case</span> <span class="nu0">2</span>:
-                <span class="kw2">return</span> Dates.<span class="me1">getDay</span><span
-
+                <span class="kw2">return</span> Dates.<span class="me1">getDay</span><span
 class="br0">(</span>date<span class="br0">)</span><span class="sy0">;</span>
         <span class="br0">}</span>
-        <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
-
-class="br0">(</span>XavaResources.<span class="me1">getString</span><span class="br0">(</span><span
-
-class="st0">"date3_type_only_3_properties"</span><span class="br0">)</span><span
-
+        <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
+class="br0">(</span>XavaResources.<span class="me1">getString</span><span class="br0">(</span><span
+class="st0">"date3_type_only_3_properties"</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> setPropertyValue<span
-
-class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> component, <span class="kw3">int</span> property, <a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
+    <span class="kw2">public</span> <span class="kw3">void</span> setPropertyValue<span
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> component, <span class="kw3">int</span> property, <a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
 class="kw166">Object</span></a> value<span class="br0">)</span>
         <span class="kw2">throws</span> HibernateException <span class="co1">// 3</span>
     <span class="br0">{</span>
-        java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a> date = <span class="br0">(</span>java.<span class="me1">util</span>.<a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
+        java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
+class="kw166">Date</span></a> date = <span class="br0">(</span>java.<span class="me1">util</span>.<a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
 class="kw166">Date</span></a><span class="br0">)</span> component<span class="sy0">;</span>
-        <span class="kw3">int</span> intValue = value == <span class="kw4">null</span><span
-
-class="sy0">?</span><span class="nu0">0</span>:<span class="br0">(</span><span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span class="kw21">Number</span></a><span
-
-class="br0">)</span> value<span class="br0">)</span>.<span class="me1">intValue</span><span
-
+        <span class="kw3">int</span> intValue = value == <span class="kw4">null</span><span
+class="sy0">?</span><span class="nu0">0</span>:<span class="br0">(</span><span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span class="kw21">Number</span></a><span
+class="br0">)</span> value<span class="br0">)</span>.<span class="me1">intValue</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-        <span class="kw1">switch</span> <span class="br0">(</span>property<span
-
+        <span class="kw1">switch</span> <span class="br0">(</span>property<span
 class="br0">)</span> <span class="br0">{</span>
             <span class="kw1">case</span> <span class="nu0">0</span>:
-                Dates.<span class="me1">setYear</span><span class="br0">(</span>date, intValue<span
-
+                Dates.<span class="me1">setYear</span><span class="br0">(</span>date, intValue<span
 class="br0">)</span><span class="sy0">;</span>
             <span class="kw1">case</span> <span class="nu0">1</span>:
-                Dates.<span class="me1">setMonth</span><span class="br0">(</span>date, intValue<span
-
+                Dates.<span class="me1">setMonth</span><span class="br0">(</span>date, intValue<span
 class="br0">)</span><span class="sy0">;</span>
             <span class="kw1">case</span> <span class="nu0">2</span>:
-                Dates.<span class="me1">setDay</span><span class="br0">(</span>date, intValue<span
-
+                Dates.<span class="me1">setDay</span><span class="br0">(</span>date, intValue<span
 class="br0">)</span><span class="sy0">;</span>
         <span class="br0">}</span>
-        <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
-
-class="br0">(</span>XavaResources.<span class="me1">getString</span><span class="br0">(</span><span
-
-class="st0">"date3_type_only_3_properties"</span><span class="br0">)</span><span
-
+        <span class="kw2">throw</span> <span class="kw2">new</span> HibernateException<span
+class="br0">(</span>XavaResources.<span class="me1">getString</span><span class="br0">(</span><span
+class="st0">"date3_type_only_3_properties"</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Class.html"><span
-
-class="kw21">Class</span></a> returnedClass<span class="br0">(</span><span class="br0">)</span> <span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Class.html"><span
+class="kw21">Class</span></a> returnedClass<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">{</span>
-        <span class="kw2">return</span> java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
+        <span class="kw2">return</span> java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
 class="kw166">Date</span></a>.<span class="kw2">class</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> equals<span
-
-class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> x, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> y<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> equals<span
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> x, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> y<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
 class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>x==y<span class="br0">)</span> <span
-
+        <span class="kw1">if</span> <span class="br0">(</span>x==y<span class="br0">)</span> <span
 class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
-        <span class="kw1">if</span> <span class="br0">(</span>x==<span class="kw4">null</span> || y==<span
-
-class="kw4">null</span><span class="br0">)</span> <span class="kw2">return</span> <span
-
+        <span class="kw1">if</span> <span class="br0">(</span>x==<span class="kw4">null</span> || y==<span
+class="kw4">null</span><span class="br0">)</span> <span class="kw2">return</span> <span
 class="kw4">false</span><span class="sy0">;</span>
-        <span class="kw2">return</span> <span class="sy0">!</span>Dates.<span class="me1">isDifferentDay</span><span
-
-class="br0">(</span><span class="br0">(</span>java.<span class="me1">util</span>.<a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a><span class="br0">)</span> x, <span class="br0">(</span>java.<span
-
-class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a><span class="br0">)</span> y<span class="br0">)</span><span
-
+        <span class="kw2">return</span> <span class="sy0">!</span>Dates.<span class="me1">isDifferentDay</span><span
+class="br0">(</span><span class="br0">(</span>java.<span class="me1">util</span>.<a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
+class="kw166">Date</span></a><span class="br0">)</span> x, <span class="br0">(</span>java.<span
+class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
+class="kw166">Date</span></a><span class="br0">)</span> y<span class="br0">)</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">int</span> hashCode<span class="br0">(</span><a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> x<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
-
+    <span class="kw2">public</span> <span class="kw3">int</span> hashCode<span class="br0">(</span><a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> x<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
 class="br0">{</span>
-        <span class="kw2">return</span> x.<span class="me1">hashCode</span><span
-
+        <span class="kw2">return</span> x.<span class="me1">hashCode</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-&nbsp;<br><span class="co1">    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3</span><br>  &nbsp; <span
-
-class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> nullSafeGet<span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/ResultSet.html"><span
-
-class="kw44">ResultSet</span></a> rs, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span> names, SharedSessionContractImplementor session, <a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
+&nbsp;<br><span class="co1">    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3</span><br>  &nbsp; <span
+class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> nullSafeGet<span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/ResultSet.html"><span
+class="kw44">ResultSet</span></a> rs, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span> names, SharedSessionContractImplementor session, <a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
 class="kw166">Object</span></a> owner<span class="br0">)</span>
-        <span class="kw2">throws</span> HibernateException, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
-
+        <span class="kw2">throws</span> HibernateException, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
 class="kw44">SQLException</span></a> <span class="co1">// 4</span>
     <span class="br0">{</span>
         <span class="coMULTI">/* Before OpenXava 5.3/Hibernate 4.3
@@ -4320,80 +4051,50 @@ class="kw44">SQLException</span></a> <span class="co1">// 4</span>
         Number day = (Number) Hibernate.INTEGER.nullSafeGet( rs, names[2] );
         */</span>
         <span class="co1">// Since OpenXava 5.3/Hibernate 4.3</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span
-
-class="kw21">Number</span></a> year = <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span
-
-class="kw21">Number</span></a><span class="br0">)</span> IntegerType.<span class="me1">INSTANCE</span>.<span
-
-class="me1">nullSafeGet</span><span class="br0">(</span> rs, names<span class="br0">[</span><span
-
-class="nu0">0</span><span class="br0">]</span>, session, owner<span class="br0">)</span><span
-
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span
+class="kw21">Number</span></a> year = <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span
+class="kw21">Number</span></a><span class="br0">)</span> IntegerType.<span class="me1">INSTANCE</span>.<span
+class="me1">nullSafeGet</span><span class="br0">(</span> rs, names<span class="br0">[</span><span
+class="nu0">0</span><span class="br0">]</span>, session, owner<span class="br0">)</span><span
 class="sy0">;</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span
-
-class="kw21">Number</span></a> month = <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span
-
-class="kw21">Number</span></a><span class="br0">)</span> IntegerType.<span class="me1">INSTANCE</span>.<span
-
-class="me1">nullSafeGet</span><span class="br0">(</span> rs, names<span class="br0">[</span><span
-
-class="nu0">1</span><span class="br0">]</span>, session, owner <span class="br0">)</span><span
-
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span
+class="kw21">Number</span></a> month = <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span
+class="kw21">Number</span></a><span class="br0">)</span> IntegerType.<span class="me1">INSTANCE</span>.<span
+class="me1">nullSafeGet</span><span class="br0">(</span> rs, names<span class="br0">[</span><span
+class="nu0">1</span><span class="br0">]</span>, session, owner <span class="br0">)</span><span
 class="sy0">;</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span
-
-class="kw21">Number</span></a> day = <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span
-
-class="kw21">Number</span></a><span class="br0">)</span> IntegerType.<span class="me1">INSTANCE</span>.<span
-
-class="me1">nullSafeGet</span><span class="br0">(</span> rs, names<span class="br0">[</span><span
-
-class="nu0">2</span><span class="br0">]</span>, session, owner <span class="br0">)</span><span
-
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span
+class="kw21">Number</span></a> day = <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Number.html"><span
+class="kw21">Number</span></a><span class="br0">)</span> IntegerType.<span class="me1">INSTANCE</span>.<span
+class="me1">nullSafeGet</span><span class="br0">(</span> rs, names<span class="br0">[</span><span
+class="nu0">2</span><span class="br0">]</span>, session, owner <span class="br0">)</span><span
 class="sy0">;</span>
 &nbsp;
-        <span class="kw3">int</span> iyear = year == <span class="kw4">null</span><span
-
-class="sy0">?</span><span class="nu0">0</span>:year.<span class="me1">intValue</span><span
-
+        <span class="kw3">int</span> iyear = year == <span class="kw4">null</span><span
+class="sy0">?</span><span class="nu0">0</span>:year.<span class="me1">intValue</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-        <span class="kw3">int</span> imonth = month == <span class="kw4">null</span><span
-
-class="sy0">?</span><span class="nu0">0</span>:month.<span class="me1">intValue</span><span
-
+        <span class="kw3">int</span> imonth = month == <span class="kw4">null</span><span
+class="sy0">?</span><span class="nu0">0</span>:month.<span class="me1">intValue</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-        <span class="kw3">int</span> iday = day == <span class="kw4">null</span><span
-
-class="sy0">?</span><span class="nu0">0</span>:day.<span class="me1">intValue</span><span
-
+        <span class="kw3">int</span> iday = day == <span class="kw4">null</span><span
+class="sy0">?</span><span class="nu0">0</span>:day.<span class="me1">intValue</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 &nbsp;
-        <span class="kw2">return</span> Dates.<span class="me1">create</span><span
-
+        <span class="kw2">return</span> Dates.<span class="me1">create</span><span
 class="br0">(</span>iday, imonth, iyear<span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 <br><span class="co1">    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3</span>&nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> nullSafeSet<span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/PreparedStatement.html"><span
-
-class="kw44">PreparedStatement</span></a> st, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> value, <span class="kw3">int</span> index, SharedSessionContractImplementor session<span
-
+    <span class="kw2">public</span> <span class="kw3">void</span> nullSafeSet<span
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/PreparedStatement.html"><span
+class="kw44">PreparedStatement</span></a> st, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> value, <span class="kw3">int</span> index, SharedSessionContractImplementor session<span
 class="br0">)</span>
-        <span class="kw2">throws</span> HibernateException, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
-
+        <span class="kw2">throws</span> HibernateException, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
 class="kw44">SQLException</span></a> <span class="co1">// 5</span>
     <span class="br0">{</span>
-        java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a> d = <span class="br0">(</span>java.<span class="me1">util</span>.<a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
+        java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
+class="kw166">Date</span></a> d = <span class="br0">(</span>java.<span class="me1">util</span>.<a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
 class="kw166">Date</span></a><span class="br0">)</span> value<span class="sy0">;</span>
         <span class="coMULTI">/* Before OpenXava 5.3/Hibernate 4.3
         Hibernate.INTEGER.nullSafeSet(st, Dates.getYear(d), index);
@@ -4401,115 +4102,76 @@ class="kw166">Date</span></a><span class="br0">)</span> value<span class="sy0">;
         Hibernate.INTEGER.nullSafeSet(st, Dates.getDay(d), index + 2);
         */</span>
         <span class="co1">// Since OpenXava 5.3/Hibernate 4.3</span>
-        IntegerType.<span class="me1">INSTANCE</span>.<span class="me1">nullSafeSet</span><span
-
-class="br0">(</span>st, Dates.<span class="me1">getYear</span><span class="br0">(</span>d<span
-
+        IntegerType.<span class="me1">INSTANCE</span>.<span class="me1">nullSafeSet</span><span
+class="br0">(</span>st, Dates.<span class="me1">getYear</span><span class="br0">(</span>d<span
 class="br0">)</span>, index, session<span class="br0">)</span><span class="sy0">;</span>
-        IntegerType.<span class="me1">INSTANCE</span>.<span class="me1">nullSafeSet</span><span
-
-class="br0">(</span>st, Dates.<span class="me1">getMonth</span><span class="br0">(</span>d<span
-
-class="br0">)</span>, index + <span class="nu0">1</span>, session<span class="br0">)</span><span
-
+        IntegerType.<span class="me1">INSTANCE</span>.<span class="me1">nullSafeSet</span><span
+class="br0">(</span>st, Dates.<span class="me1">getMonth</span><span class="br0">(</span>d<span
+class="br0">)</span>, index + <span class="nu0">1</span>, session<span class="br0">)</span><span
 class="sy0">;</span>
-        IntegerType.<span class="me1">INSTANCE</span>.<span class="me1">nullSafeSet</span><span
-
-class="br0">(</span>st, Dates.<span class="me1">getDay</span><span class="br0">(</span>d<span
-
-class="br0">)</span>, index + <span class="nu0">2</span>, session<span class="br0">)</span><span
-
+        IntegerType.<span class="me1">INSTANCE</span>.<span class="me1">nullSafeSet</span><span
+class="br0">(</span>st, Dates.<span class="me1">getDay</span><span class="br0">(</span>d<span
+class="br0">)</span>, index + <span class="nu0">2</span>, session<span class="br0">)</span><span
 class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> deepCopy<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> value<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
-
+    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> deepCopy<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> value<span class="br0">)</span> <span class="kw2">throws</span> HibernateException <span
 class="br0">{</span>
-        java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a> d = <span class="br0">(</span>java.<span class="me1">util</span>.<a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
+        java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
+class="kw166">Date</span></a> d = <span class="br0">(</span>java.<span class="me1">util</span>.<a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
 class="kw166">Date</span></a><span class="br0">)</span> value<span class="sy0">;</span>
-        <span class="kw1">if</span> <span class="br0">(</span>value == <span class="kw4">null</span><span
-
-class="br0">)</span> <span class="kw2">return</span> <span class="kw4">null</span><span
-
+        <span class="kw1">if</span> <span class="br0">(</span>value == <span class="kw4">null</span><span
+class="br0">)</span> <span class="kw2">return</span> <span class="kw4">null</span><span
 class="sy0">;</span>
-        <span class="kw2">return</span> <span class="br0">(</span>java.<span class="me1">util</span>.<a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a><span class="br0">)</span> d.<span class="me1">clone</span><span
-
+        <span class="kw2">return</span> <span class="br0">(</span>java.<span class="me1">util</span>.<a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
+class="kw166">Date</span></a><span class="br0">)</span> d.<span class="me1">clone</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">boolean</span> isMutable<span
-
+    <span class="kw2">public</span> <span class="kw3">boolean</span> isMutable<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> <span class="kw4">true</span><span class="sy0">;</span>
     <span class="br0">}</span>
-&nbsp;<br><span class="co1">    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3</span> <br>&nbsp;   <span
-
-class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
-
-class="kw20">Serializable</span></a> disassemble<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> value, SharedSessionContractImplementor session<span
-
+&nbsp;<br><span class="co1">    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3</span> <br>&nbsp;   <span
+class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+class="kw20">Serializable</span></a> disassemble<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> value, SharedSessionContractImplementor session<span
 class="br0">)</span>
         <span class="kw2">throws</span> HibernateException
     <span class="br0">{</span>
-        <span class="kw2">return</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
-
-class="kw20">Serializable</span></a><span class="br0">)</span> deepCopy<span class="br0">(</span>value<span
-
+        <span class="kw2">return</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+class="kw20">Serializable</span></a><span class="br0">)</span> deepCopy<span class="br0">(</span>value<span
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-&nbsp;<br><span class="co1">    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3</span> <br> &nbsp;  <span
-
-class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> assemble<span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
-
-class="kw20">Serializable</span></a> cached, SharedSessionContractImplementor session, <a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
+&nbsp;<br><span class="co1">    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3</span> <br> &nbsp;  <span
+class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> assemble<span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+class="kw20">Serializable</span></a> cached, SharedSessionContractImplementor session, <a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
 class="kw166">Object</span></a> owner<span class="br0">)</span>
         <span class="kw2">throws</span> HibernateException
     <span class="br0">{</span>
-        <span class="kw2">return</span> deepCopy<span class="br0">(</span>cached<span
-
+        <span class="kw2">return</span> deepCopy<span class="br0">(</span>cached<span
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-&nbsp;<br><span class="co1">    // SharedSessionContractImplementor instead of SharedSessionContractImplementor argument since OpenXava 6.1 that uses Hibernate 5.3</span> <br>   &nbsp;<span
-
-class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> replace<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> original, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> target, SessionImplementor session, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
+&nbsp;<br><span class="co1">    // SharedSessionContractImplementor instead of SharedSessionContractImplementor argument since OpenXava 6.1 that uses Hibernate 5.3</span> <br>   &nbsp;<span
+class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> replace<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> original, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> target, SessionImplementor session, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
 class="kw166">Object</span></a> owner<span class="br0">)</span>
         <span class="kw2">throws</span> HibernateException
     <span class="br0">{</span>
-        <span class="kw2">return</span> deepCopy<span class="br0">(</span>original<span
-
+        <span class="kw2">return</span> deepCopy<span class="br0">(</span>original<span
 class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
 &nbsp;
 <span class="br0">}</span></pre>
-      As you see the type converter implements <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/usertype/CompositeUserType.html"
-
+      As you see the type converter implements <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/usertype/CompositeUserType.html"
           rel="nofollow">CompositeUserType</a></em> (1). The key methods are <em>getPropertyValue</em>
       (2) and <em>setPropertyValue</em> (3) to get and to set values in the
       properties of the object of the composite type, and <em>nullSafeGet</em>
@@ -4721,99 +4383,70 @@ class="br0">)</span><span class="sy0">;</span>
 <span class="co1">// In order to do it, we create drivingLicence_level and drivingLicence_type</span>
 <span class="co1">// We make JoinColumns not insertable nor updatable, we modify the get/setDrivingLincence methods</span>
 <span class="co1">// and we create a drivingLicenceConversion() method.</span>
-@ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
-
+@ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
 class="br0">)</span>
 @JoinColumns<span class="br0">(</span><span class="br0">{</span> <span class="co1">// 1</span>
- @JoinColumn<span class="br0">(</span>name=<span class="st0">"DRIVINGLICENCE_LEVEL"</span>, referencedColumnName=<span
-
+ @JoinColumn<span class="br0">(</span>name=<span class="st0">"DRIVINGLICENCE_LEVEL"</span>, referencedColumnName=<span
 class="st0">"LEVEL"</span>,
- insertable=<span class="kw4">false</span>, updatable=<span class="kw4">false</span><span
-
+ insertable=<span class="kw4">false</span>, updatable=<span class="kw4">false</span><span
 class="br0">)</span>,
- @JoinColumn<span class="br0">(</span>name=<span class="st0">"DRIVINGLICENCE_TYPE"</span>, referencedColumnName=<span
-
+ @JoinColumn<span class="br0">(</span>name=<span class="st0">"DRIVINGLICENCE_TYPE"</span>, referencedColumnName=<span
 class="st0">"TYPE"</span>,
- insertable=<span class="kw4">false</span>, updatable=<span class="kw4">false</span><span
-
+ insertable=<span class="kw4">false</span>, updatable=<span class="kw4">false</span><span
 class="br0">)</span>
 <span class="br0">}</span><span class="br0">)</span>
 <span class="kw2">private</span> DrivingLicence drivingLicence<span class="sy0">;</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a> drivingLicence_level<span class="sy0">;</span> <span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a> drivingLicence_level<span class="sy0">;</span> <span
 class="co1">// 2</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> drivingLicence_type<span class="sy0">;</span> <span
-
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> drivingLicence_type<span class="sy0">;</span> <span
 class="co1">// 2</span>
 &nbsp;
-<span class="kw2">public</span> DrivingLicence getDrivingLicence<span class="br0">(</span><span
-
+<span class="kw2">public</span> DrivingLicence getDrivingLicence<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span> <span class="co1">// 3</span>
  <span class="co1">// In this way because the column for type of driving lincence does not admit null</span>
  <span class="kw2">try</span> <span class="br0">{</span>
- <span class="kw1">if</span> <span class="br0">(</span>drivingLicence <span class="sy0">!</span>= <span
-
-class="kw4">null</span><span class="br0">)</span> drivingLicence.<span class="me1">toString</span><span
-
+ <span class="kw1">if</span> <span class="br0">(</span>drivingLicence <span class="sy0">!</span>= <span
+class="kw4">null</span><span class="br0">)</span> drivingLicence.<span class="me1">toString</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// to force load</span>
  <span class="kw2">return</span> drivingLicence<span class="sy0">;</span>
  <span class="br0">}</span>
- <span class="kw2">catch</span> <span class="br0">(</span>EntityNotFoundException ex<span
-
+ <span class="kw2">catch</span> <span class="br0">(</span>EntityNotFoundException ex<span
 class="br0">)</span> <span class="br0">{</span>
  <span class="kw2">return</span> <span class="kw4">null</span><span class="sy0">;</span>
  <span class="br0">}</span>
 <span class="br0">}</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw3">void</span> setDrivingLicence<span
-
-class="br0">(</span>DrivingLicence licence<span class="br0">)</span> <span class="br0">{</span> <span
-
+<span class="kw2">public</span> <span class="kw3">void</span> setDrivingLicence<span
+class="br0">(</span>DrivingLicence licence<span class="br0">)</span> <span class="br0">{</span> <span
 class="co1">// 4</span>
  <span class="co1">// In this way because the column for type of driving lincence does not admit null</span>
- <span class="kw2">this</span>.<span class="me1">drivingLicence</span> = licence<span
-
+ <span class="kw2">this</span>.<span class="me1">drivingLicence</span> = licence<span
 class="sy0">;</span>
- <span class="kw2">this</span>.<span class="me1">drivingLicence_level</span> = licence==<span
-
-class="kw4">null</span><span class="sy0">?</span><span class="kw4">null</span>:licence.<span
-
-class="me1">getLevel</span><span class="br0">(</span><span class="br0">)</span><span
-
+ <span class="kw2">this</span>.<span class="me1">drivingLicence_level</span> = licence==<span
+class="kw4">null</span><span class="sy0">?</span><span class="kw4">null</span>:licence.<span
+class="me1">getLevel</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span>
- <span class="kw2">this</span>.<span class="me1">drivingLicence_type</span> = licence==<span
-
-class="kw4">null</span><span class="sy0">?</span><span class="kw4">null</span>:licence.<span
-
-class="me1">getType</span><span class="br0">(</span><span class="br0">)</span><span
-
+ <span class="kw2">this</span>.<span class="me1">drivingLicence_type</span> = licence==<span
+class="kw4">null</span><span class="sy0">?</span><span class="kw4">null</span>:licence.<span
+class="me1">getType</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;
 @PrePersist @PreUpdate
-<span class="kw2">private</span> <span class="kw3">void</span> drivingLicenceConversion<span
-
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
-
+<span class="kw2">private</span> <span class="kw3">void</span> drivingLicenceConversion<span
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
 class="co1">// 5</span>
- <span class="kw1">if</span> <span class="br0">(</span><span class="kw2">this</span>.<span
-
-class="me1">drivingLicence_type</span> == <span class="kw4">null</span><span class="br0">)</span> <span
-
-class="kw2">this</span>.<span class="me1">drivingLicence_type</span> = <span class="st0">""</span><span
-
+ <span class="kw1">if</span> <span class="br0">(</span><span class="kw2">this</span>.<span
+class="me1">drivingLicence_type</span> == <span class="kw4">null</span><span class="br0">)</span> <span
+class="kw2">this</span>.<span class="me1">drivingLicence_type</span> = <span class="st0">""</span><span
 class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;</pre>
-      First, you have to use <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinColumns.html"
-
+      First, you have to use <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinColumns.html"
           rel="nofollow">@JoinColumns</a></em> with <em>insertable=false</em>
-      and <em>updatable=false</em> on all <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinColumn.html"
-
+      and <em>updatable=false</em> on all <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinColumn.html"
           rel="nofollow">@JoinColumn</a></em> (1), in this way the reference is
       readed from database, but it is not write. Also define plain properties
       for storing the foreign key of the reference (2).<br>
@@ -4830,12 +4463,9 @@ class="sy0">;</span>
       <h2 id="toc10"><a name="Object/relational mapping-Unique Constraints"></a>Unique
         Constraints</h2>
       Since v4.9 openxava lets you to customize messages of declared constraints
-      in the element <em>uniqueConstraints</em> of <em><a class="wiki_link_ext"
-
-          href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/Table.html"
-
-          rel="nofollow">@Table</a></em> and <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/SecondaryTable.html"
-
+      in the element <em>uniqueConstraints</em> of <em><a class="wiki_link_ext"
+          href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/Table.html"
+          rel="nofollow">@Table</a></em> and <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/SecondaryTable.html"
           rel="nofollow">@SecondaryTable</a></em>, as well as <em>@Column(unique
         = true)</em>. To do this, keep in mind some preliminary considerations
       regarding Hibernate (The JPA implementation used by default by openxava).<br>
@@ -5027,66 +4657,51 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
-
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
 class="sy0">;</span>
 &nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
 @SecondaryTable<span class="br0">(</span>
     name=<span class="st0">"APPLICATIONUSER_INFO"</span>,
     uniqueConstraints=<span class="br0">{</span>
-        @UniqueConstraint<span class="br0">(</span>name=<span class="st0">"not_repeat_user_info"</span>, columnNames=<span
-
-class="br0">{</span><span class="st0">"name"</span>, <span class="st0">"birthdate"</span>, <span
-
+        @UniqueConstraint<span class="br0">(</span>name=<span class="st0">"not_repeat_user_info"</span>, columnNames=<span
+class="br0">{</span><span class="st0">"name"</span>, <span class="st0">"birthdate"</span>, <span
 class="st0">"sex"</span><span class="br0">}</span><span class="br0">)</span>
     <span class="br0">}</span>
 <span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> ApplicationUser <span
-
+<span class="kw2">public</span> <span class="kw2">class</span> ApplicationUser <span
 class="kw2">extends</span> Identifiable <span class="br0">{</span>
 &nbsp;
     @Required
-    @Column<span class="br0">(</span>length=<span class="nu0">8</span>, unique=<span
-
+    @Column<span class="br0">(</span>length=<span class="nu0">8</span>, unique=<span
 class="kw4">true</span><span class="br0">)</span> <span class="co1">//not_repeat_nic</span>
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> nic<span class="sy0">;</span>
 &nbsp;
-    @Column<span class="br0">(</span>length=<span class="nu0">40</span>, table=<span
-
+    @Column<span class="br0">(</span>length=<span class="nu0">40</span>, table=<span
 class="st0">"APPLICATIONUSER_INFO"</span><span class="br0">)</span>
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> name<span class="sy0">;</span>
 &nbsp;
-    @Column<span class="br0">(</span>length=<span class="nu0">40</span>, table=<span
-
+    @Column<span class="br0">(</span>length=<span class="nu0">40</span>, table=<span
 class="st0">"APPLICATIONUSER_INFO"</span><span class="br0">)</span>
-    <span class="kw2">private</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
+    <span class="kw2">private</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
 class="kw166">Date</span></a> birthdate<span class="sy0">;</span>
 &nbsp;
-    @Column<span class="br0">(</span>table=<span class="st0">"APPLICATIONUSER_INFO"</span><span
-
+    @Column<span class="br0">(</span>table=<span class="st0">"APPLICATIONUSER_INFO"</span><span
 class="br0">)</span>
-    @Enumerated<span class="br0">(</span>EnumType.<span class="me1">STRING</span><span
-
+    @Enumerated<span class="br0">(</span>EnumType.<span class="me1">STRING</span><span
 class="br0">)</span>
     <span class="kw2">private</span> Sex sex<span class="sy0">;</span>
-    <span class="kw2">public</span> <span class="kw2">enum</span> Sex <span class="br0">{</span> MALE, FEMALE <span
-
+    <span class="kw2">public</span> <span class="kw2">enum</span> Sex <span class="br0">{</span> MALE, FEMALE <span
 class="br0">}</span>
    ...
 <span class="br0">}</span></pre>
       <ul>
         <li>By building our application (running <em>build.xml</em>), Hibernate
           will use the declared dialect in the <strong><em>persistence.xml</em></strong>
-          of your project, to generate a <em><a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Data_definition_language"
-
+          of your project, to generate a <em><a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Data_definition_language"
               rel="nofollow">DDL</a></em> to map the structure of your classes
           to tables in the database. If, for example, you are working with a <strong><em>MySQL</em></strong>
           database, display:</li>
@@ -5138,50 +4753,35 @@ class="br0">}</span>
 .mysql span.xtra { display:block; }
 
 -->
-</style><pre class="mysql"><span class="kw1">create</span> <span class="kw1">table</span> APPLICATIONUSER_INFO <span
-
+</style><pre class="mysql"><span class="kw1">create</span> <span class="kw1">table</span> APPLICATIONUSER_INFO <span
 class="br0">(</span>
     birthdate <span class="kw4">datetime</span><span class="sy2">,</span>
-    name <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">40</span><span
-
+    name <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">40</span><span
 class="br0">)</span><span class="sy2">,</span>
-    sex <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">255</span><span
-
+    sex <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">255</span><span
 class="br0">)</span><span class="sy2">,</span>
-    id <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">32</span><span
-
-class="br0">)</span> <span class="kw10">not</span> <span class="kw3">null</span><span
-
+    id <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">32</span><span
+class="br0">)</span> <span class="kw10">not</span> <span class="kw3">null</span><span
 class="sy2">,</span>
-    <span class="kw1">primary key</span> <span class="br0">(</span>id<span class="br0">)</span><span
-
-class="sy2">,</span> <span class="kw6">unique</span> <span class="br0">(</span>name<span
-
+    <span class="kw1">primary key</span> <span class="br0">(</span>id<span class="br0">)</span><span
+class="sy2">,</span> <span class="kw6">unique</span> <span class="br0">(</span>name<span
 class="sy2">,</span> birthdate<span class="sy2">,</span> sex<span class="br0">)</span>
 <span class="br0">)</span>
-<span class="kw1">create</span> <span class="kw1">table</span> ApplicationUser <span
-
+<span class="kw1">create</span> <span class="kw1">table</span> ApplicationUser <span
 class="br0">(</span>
-    id <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">32</span><span
-
-class="br0">)</span> <span class="kw10">not</span> <span class="kw3">null</span><span
-
+    id <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">32</span><span
+class="br0">)</span> <span class="kw10">not</span> <span class="kw3">null</span><span
 class="sy2">,</span>
-    nic <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">8</span><span
-
+    nic <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">8</span><span
 class="br0">)</span> <span class="kw6">unique</span><span class="sy2">,</span>
     <span class="kw1">primary key</span> <span class="br0">(</span>id<span class="br0">)</span>
 <span class="br0">)</span>
 <span class="kw1">alter</span> <span class="kw1">table</span> APPLICATIONUSER_INFO
-    <span class="kw1">add</span> <span class="kw1">index</span> FK375C9572BA846971 <span
-
+    <span class="kw1">add</span> <span class="kw1">index</span> FK375C9572BA846971 <span
 class="br0">(</span>id<span class="br0">)</span><span class="sy2">,</span>
-    <span class="kw1">add</span> <span class="kw1">constraint</span> FK375C9572BA846971 <span
-
-class="kw1">foreign key</span> <span class="br0">(</span>id<span class="br0">)</span> <span
-
-class="kw1">references</span> ApplicationUser <span class="br0">(</span>id<span
-
+    <span class="kw1">add</span> <span class="kw1">constraint</span> FK375C9572BA846971 <span
+class="kw1">foreign key</span> <span class="br0">(</span>id<span class="br0">)</span> <span
+class="kw1">references</span> ApplicationUser <span class="br0">(</span>id<span
 class="br0">)</span></pre>
       As can be seen Hibernate has mapped the structure of our <strong><em>ApplicationUser</em></strong>
       class has even created the constraint <strong><em>unique(name, birthdate,
@@ -5264,30 +4864,21 @@ class="br0">)</span></pre>
 .mysql span.xtra { display:block; }
 
 -->
-</style><pre class="mysql"><span class="kw1">create</span> <span class="kw1">table</span> APPLICATIONUSER_INFO <span
-
+</style><pre class="mysql"><span class="kw1">create</span> <span class="kw1">table</span> APPLICATIONUSER_INFO <span
 class="br0">(</span>
    birthdate <span class="kw4">datetime</span><span class="sy2">,</span>
-   name <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">40</span><span
-
+   name <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">40</span><span
 class="br0">)</span><span class="sy2">,</span>
-   sex <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">255</span><span
-
+   sex <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">255</span><span
 class="br0">)</span><span class="sy2">,</span>
-   id <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">32</span><span
-
-class="br0">)</span> <span class="kw10">not</span> <span class="kw3">null</span><span
-
+   id <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">32</span><span
+class="br0">)</span> <span class="kw10">not</span> <span class="kw3">null</span><span
 class="sy2">,</span>
-   <span class="kw1">primary key</span> <span class="br0">(</span>id<span class="br0">)</span><span
-
+   <span class="kw1">primary key</span> <span class="br0">(</span>id<span class="br0">)</span><span
 class="sy2">,</span>
-   <span class="kw6">unique</span> <span class="kw1">key</span> <span class="st0">`not<span
-
-class="es1">_</span>repeat<span class="es1">_</span>user<span class="es1">_</span>info`</span> <span
-
-class="br0">(</span>name<span class="sy2">,</span> birthdate<span class="sy2">,</span> sex<span
-
+   <span class="kw6">unique</span> <span class="kw1">key</span> <span class="st0">`not<span
+class="es1">_</span>repeat<span class="es1">_</span>user<span class="es1">_</span>info`</span> <span
+class="br0">(</span>name<span class="sy2">,</span> birthdate<span class="sy2">,</span> sex<span
 class="br0">)</span>
 <span class="br0">)</span></pre>
       <ul>
@@ -5340,24 +4931,17 @@ class="br0">)</span>
 .mysql span.xtra { display:block; }
 
 -->
-</style><pre class="mysql"><span class="kw1">create</span> <span class="kw1">table</span> ApplicationUser <span
-
+</style><pre class="mysql"><span class="kw1">create</span> <span class="kw1">table</span> ApplicationUser <span
 class="br0">(</span>
-   id <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">32</span><span
-
-class="br0">)</span> <span class="kw10">not</span> <span class="kw3">null</span><span
-
+   id <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">32</span><span
+class="br0">)</span> <span class="kw10">not</span> <span class="kw3">null</span><span
 class="sy2">,</span>
-   nic <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">8</span><span
-
+   nic <span class="kw4">varchar</span><span class="br0">(</span><span class="nu0">8</span><span
 class="br0">)</span><span class="sy2">,</span>
-   <span class="kw1">primary key</span> <span class="br0">(</span>id<span class="br0">)</span><span
-
+   <span class="kw1">primary key</span> <span class="br0">(</span>id<span class="br0">)</span><span
 class="sy2">,</span>
-   <span class="kw6">unique</span> <span class="kw1">key</span> <span class="st0">`not<span
-
-class="es1">_</span>repeat<span class="es1">_</span>nic`</span> <span class="br0">(</span>nic<span
-
+   <span class="kw6">unique</span> <span class="kw1">key</span> <span class="st0">`not<span
+class="es1">_</span>repeat<span class="es1">_</span>nic`</span> <span class="br0">(</span>nic<span
 class="br0">)</span>
 <span class="br0">)</span></pre>
       <ul>
@@ -5550,81 +5134,56 @@ class="br0">)</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">dialect</span><span
-
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">dialect</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.sql.*</span><span class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.dialect.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.hibernate.dialect.*</span><span
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.exception.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.hibernate.exception.*</span><span
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> XMySQL5Dialect <span
-
+<span class="kw2">public</span> <span class="kw2">class</span> XMySQL5Dialect <span
 class="kw2">extends</span> MySQL5Dialect <span class="br0">{</span>
 &nbsp;
-    <span class="kw2">public</span> XMySQL5Dialect<span class="br0">(</span><span
-
+    <span class="kw2">public</span> XMySQL5Dialect<span class="br0">(</span><span
 class="br0">)</span><span class="br0">{</span><span class="br0">}</span>
 &nbsp;
-    <span class="kw2">private</span> <span class="kw2">static</span> ViolatedConstraintNameExtracter EXTRACTER = <span
-
-class="kw2">new</span> TemplatedViolatedConstraintNameExtracter<span class="br0">(</span><span
-
+    <span class="kw2">private</span> <span class="kw2">static</span> ViolatedConstraintNameExtracter EXTRACTER = <span
+class="kw2">new</span> TemplatedViolatedConstraintNameExtracter<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
-        <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> extractConstraintName<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
-
+        <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> extractConstraintName<span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
 class="kw44">SQLException</span></a> sqle<span class="br0">)</span> <span class="br0">{</span>
             <span class="kw2">try</span> <span class="br0">{</span>
-                <span class="kw3">int</span> sqlState = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a>.<span class="me1">valueOf</span><span class="br0">(</span> JDBCExceptionHelper.<span
-
-class="me1">extractSqlState</span><span class="br0">(</span>sqle<span class="br0">)</span><span
-
-class="br0">)</span>.<span class="me1">intValue</span><span class="br0">(</span><span
-
+                <span class="kw3">int</span> sqlState = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a>.<span class="me1">valueOf</span><span class="br0">(</span> JDBCExceptionHelper.<span
+class="me1">extractSqlState</span><span class="br0">(</span>sqle<span class="br0">)</span><span
+class="br0">)</span>.<span class="me1">intValue</span><span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>
-                <span class="kw1">switch</span> <span class="br0">(</span>sqlState<span
-
+                <span class="kw1">switch</span> <span class="br0">(</span>sqlState<span
 class="br0">)</span> <span class="br0">{</span>
-                    <span class="kw1">case</span> <span class="nu0">23000</span>: <span
-
-class="kw2">return</span> extractUsingTemplate<span class="br0">(</span><span class="st0">"for key '"</span>,<span
-
-class="st0">"'"</span>, sqle.<span class="me1">getMessage</span><span class="br0">(</span><span
-
+                    <span class="kw1">case</span> <span class="nu0">23000</span>: <span
+class="kw2">return</span> extractUsingTemplate<span class="br0">(</span><span class="st0">"for key '"</span>,<span
+class="st0">"'"</span>, sqle.<span class="me1">getMessage</span><span class="br0">(</span><span
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-                    <span class="kw1">default</span>: <span class="kw2">return</span> <span
-
+                    <span class="kw1">default</span>: <span class="kw2">return</span> <span
 class="kw4">null</span><span class="sy0">;</span>
                 <span class="br0">}</span>
-            <span class="br0">}</span> <span class="kw2">catch</span> <span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/NumberFormatException.html"><span
-
-class="kw21">NumberFormatException</span></a> nfe<span class="br0">)</span> <span
-
+            <span class="br0">}</span> <span class="kw2">catch</span> <span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/NumberFormatException.html"><span
+class="kw21">NumberFormatException</span></a> nfe<span class="br0">)</span> <span
 class="br0">{</span>
-                <span class="kw2">return</span> <span class="kw4">null</span><span
-
+                <span class="kw2">return</span> <span class="kw4">null</span><span
 class="sy0">;</span>
             <span class="br0">}</span>
         <span class="br0">}</span>
     <span class="br0">}</span><span class="sy0">;</span>
 &nbsp;
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
-
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
 class="kw21">Override</span></a>
-    <span class="kw2">public</span> ViolatedConstraintNameExtracter getViolatedConstraintNameExtracter<span
-
+    <span class="kw2">public</span> ViolatedConstraintNameExtracter getViolatedConstraintNameExtracter<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">return</span> EXTRACTER<span class="sy0">;</span>
     <span class="br0">}</span>
@@ -5656,10 +5215,8 @@ class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
 
 -->
 </style><pre class="xml">...
-<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"hibernate.dialect"</span><span class="re0">value</span>=<span class="st0">"dialect.XMySQL5Dialect"</span><span
-
+<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+class="st0">"hibernate.dialect"</span><span class="re0">value</span>=<span class="st0">"dialect.XMySQL5Dialect"</span><span
 class="re2">/&gt;</span></span>
 ...</pre>
       <ul>
@@ -5855,142 +5412,94 @@ class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">import</span> <span class="co2">java.sql.*</span><span
-
+</style><pre class="java5"><span class="kw2">import</span> <span class="co2">java.sql.*</span><span
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.hibernate.dialect.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.hibernate.dialect.*</span><span
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.exception.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.hibernate.exception.*</span><span
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> XPostgreSQLDialect <span
-
+<span class="kw2">public</span> <span class="kw2">class</span> XPostgreSQLDialect <span
 class="kw2">extends</span> PostgreSQLDialect <span class="br0">{</span>
 &nbsp;
-  <span class="kw2">public</span> XPostgreSQLDialect<span class="br0">(</span><span
-
+  <span class="kw2">public</span> XPostgreSQLDialect<span class="br0">(</span><span
 class="br0">)</span><span class="br0">{</span><span class="br0">}</span>
 &nbsp;
-  <span class="kw2">private</span> <span class="kw2">static</span> ViolatedConstraintNameExtracter EXTRACTER = <span
-
-class="kw2">new</span> TemplatedViolatedConstraintNameExtracter<span class="br0">(</span><span
-
+  <span class="kw2">private</span> <span class="kw2">static</span> ViolatedConstraintNameExtracter EXTRACTER = <span
+class="kw2">new</span> TemplatedViolatedConstraintNameExtracter<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> extractConstraintName<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> extractConstraintName<span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
 class="kw44">SQLException</span></a> sqle<span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">try</span> <span class="br0">{</span>
-            <span class="kw3">int</span> sqlState = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a>.<span class="me1">valueOf</span><span class="br0">(</span> JDBCExceptionHelper.<span
-
-class="me1">extractSqlState</span><span class="br0">(</span>sqle<span class="br0">)</span><span
-
-class="br0">)</span>.<span class="me1">intValue</span><span class="br0">(</span><span
-
+            <span class="kw3">int</span> sqlState = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a>.<span class="me1">valueOf</span><span class="br0">(</span> JDBCExceptionHelper.<span
+class="me1">extractSqlState</span><span class="br0">(</span>sqle<span class="br0">)</span><span
+class="br0">)</span>.<span class="me1">intValue</span><span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>
-            <span class="kw1">switch</span> <span class="br0">(</span>sqlState<span
-
+            <span class="kw1">switch</span> <span class="br0">(</span>sqlState<span
 class="br0">)</span> <span class="br0">{</span>
                 <span class="co1">// CHECK VIOLATION</span>
-                <span class="kw1">case</span> <span class="nu0">23514</span>: <span
-
-class="kw2">return</span> extractUsingTemplate<span class="br0">(</span><span class="st0">"violates check constraint <span
-
-class="es0">\"</span>"</span>,<span class="st0">"<span class="es0">\"</span>"</span>, sqle.<span
-
-class="me1">getMessage</span><span class="br0">(</span><span class="br0">)</span><span
-
+                <span class="kw1">case</span> <span class="nu0">23514</span>: <span
+class="kw2">return</span> extractUsingTemplate<span class="br0">(</span><span class="st0">"violates check constraint <span
+class="es0">\"</span>"</span>,<span class="st0">"<span class="es0">\"</span>"</span>, sqle.<span
+class="me1">getMessage</span><span class="br0">(</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
                 <span class="co1">// UNIQUE VIOLATION</span>
                 <span class="kw1">case</span> <span class="nu0">23505</span>:
-                    <span class="kw1">if</span> <span class="br0">(</span>sqle.<span
-
-class="me1">getMessage</span><span class="br0">(</span><span class="br0">)</span>.<span
-
-class="me1">indexOf</span><span class="br0">(</span><span class="st0">"violates unique constraint <span
-
-class="es0">\"</span>"</span><span class="br0">)</span> <span class="sy0">&gt;</span> -<span
-
+                    <span class="kw1">if</span> <span class="br0">(</span>sqle.<span
+class="me1">getMessage</span><span class="br0">(</span><span class="br0">)</span>.<span
+class="me1">indexOf</span><span class="br0">(</span><span class="st0">"violates unique constraint <span
+class="es0">\"</span>"</span><span class="br0">)</span> <span class="sy0">&gt;</span> -<span
 class="nu0">1</span><span class="br0">)</span>
-                        <span class="kw2">return</span> extractUsingTemplate<span
-
-class="br0">(</span><span class="st0">"violates unique constraint <span class="es0">\"</span>"</span>,<span
-
-class="st0">"<span class="es0">\"</span>"</span>, sqle.<span class="me1">getMessage</span><span
-
+                        <span class="kw2">return</span> extractUsingTemplate<span
+class="br0">(</span><span class="st0">"violates unique constraint <span class="es0">\"</span>"</span>,<span
+class="st0">"<span class="es0">\"</span>"</span>, sqle.<span class="me1">getMessage</span><span
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-                    <span class="kw1">else</span> <span class="kw1">if</span> <span
-
-class="br0">(</span>sqle.<span class="me1">getNextException</span><span class="br0">(</span><span
-
-class="br0">)</span> <span class="sy0">!</span>= <span class="kw4">null</span> <span
-
+                    <span class="kw1">else</span> <span class="kw1">if</span> <span
+class="br0">(</span>sqle.<span class="me1">getNextException</span><span class="br0">(</span><span
+class="br0">)</span> <span class="sy0">!</span>= <span class="kw4">null</span> <span
 class="br0">)</span>
-                        <span class="kw2">return</span> extractConstraintName<span
-
-class="br0">(</span>sqle.<span class="me1">getNextException</span><span class="br0">(</span><span
-
+                        <span class="kw2">return</span> extractConstraintName<span
+class="br0">(</span>sqle.<span class="me1">getNextException</span><span class="br0">(</span><span
 class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
                     <span class="kw1">else</span>
-                        <span class="kw2">return</span> <span class="st0">"UNIQUE_CONSTRAINT_VIOLATION_UNKNOWN"</span><span
-
+                        <span class="kw2">return</span> <span class="st0">"UNIQUE_CONSTRAINT_VIOLATION_UNKNOWN"</span><span
 class="sy0">;</span>
                 <span class="co1">// FOREIGN KEY VIOLATION</span>
-                <span class="kw1">case</span> <span class="nu0">23503</span>: <span
-
-class="kw2">return</span> extractUsingTemplate<span class="br0">(</span><span class="st0">"violates foreign key constraint <span
-
-class="es0">\"</span>"</span>,<span class="st0">"<span class="es0">\"</span>"</span>, sqle.<span
-
-class="me1">getMessage</span><span class="br0">(</span><span class="br0">)</span><span
-
+                <span class="kw1">case</span> <span class="nu0">23503</span>: <span
+class="kw2">return</span> extractUsingTemplate<span class="br0">(</span><span class="st0">"violates foreign key constraint <span
+class="es0">\"</span>"</span>,<span class="st0">"<span class="es0">\"</span>"</span>, sqle.<span
+class="me1">getMessage</span><span class="br0">(</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
                 <span class="co1">// NOT NULL VIOLATION</span>
-                <span class="kw1">case</span> <span class="nu0">23502</span>: <span
-
-class="kw2">return</span> extractUsingTemplate<span class="br0">(</span><span class="st0">"null value in column <span
-
-class="es0">\"</span>"</span>,<span class="st0">"<span class="es0">\"</span> violates not-null constraint"</span>, sqle.<span
-
-class="me1">getMessage</span><span class="br0">(</span><span class="br0">)</span><span
-
+                <span class="kw1">case</span> <span class="nu0">23502</span>: <span
+class="kw2">return</span> extractUsingTemplate<span class="br0">(</span><span class="st0">"null value in column <span
+class="es0">\"</span>"</span>,<span class="st0">"<span class="es0">\"</span> violates not-null constraint"</span>, sqle.<span
+class="me1">getMessage</span><span class="br0">(</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
                 <span class="co1">// RESTRICT VIOLATION</span>
-                <span class="kw1">case</span> <span class="nu0">23001</span>: <span
-
+                <span class="kw1">case</span> <span class="nu0">23001</span>: <span
 class="kw2">return</span> <span class="kw4">null</span><span class="sy0">;</span>
                 <span class="co1">// ALL OTHER</span>
-                <span class="kw1">default</span>: <span class="kw2">return</span> <span
-
+                <span class="kw1">default</span>: <span class="kw2">return</span> <span
 class="kw4">null</span><span class="sy0">;</span>
                 <span class="br0">}</span>
-            <span class="br0">}</span> <span class="kw2">catch</span> <span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/NumberFormatException.html"><span
-
-class="kw21">NumberFormatException</span></a> nfe<span class="br0">)</span> <span
-
+            <span class="br0">}</span> <span class="kw2">catch</span> <span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/NumberFormatException.html"><span
+class="kw21">NumberFormatException</span></a> nfe<span class="br0">)</span> <span
 class="br0">{</span>
-                <span class="kw2">return</span> <span class="kw4">null</span><span
-
+                <span class="kw2">return</span> <span class="kw4">null</span><span
 class="sy0">;</span>
             <span class="br0">}</span>
         <span class="br0">}</span>
     <span class="br0">}</span><span class="sy0">;</span>
 &nbsp;
-  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
-
+  @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
 class="kw21">Override</span></a>
-  <span class="kw2">public</span> ViolatedConstraintNameExtracter getViolatedConstraintNameExtracter<span
-
+  <span class="kw2">public</span> ViolatedConstraintNameExtracter getViolatedConstraintNameExtracter<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
             <span class="kw2">return</span> EXTRACTER<span class="sy0">;</span>
   <span class="br0">}</span>
@@ -6182,77 +5691,54 @@ class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">import</span> <span class="co2">java.sql.*</span><span
-
+</style><pre class="java5"><span class="kw2">import</span> <span class="co2">java.sql.*</span><span
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.dialect.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.hibernate.dialect.*</span><span
 class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.exception.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.hibernate.exception.*</span><span
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> XSQLServerDialect <span
-
+<span class="kw2">public</span> <span class="kw2">class</span> XSQLServerDialect <span
 class="kw2">extends</span> SQLServer2008Dialect <span class="br0">{</span>
 &nbsp;
-   <span class="kw2">public</span> XSQLServerDialect<span class="br0">(</span><span
-
+   <span class="kw2">public</span> XSQLServerDialect<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span><span class="br0">}</span>
 &nbsp;
-   <span class="kw2">private</span> <span class="kw2">static</span> ViolatedConstraintNameExtracter EXTRACTER = <span
-
-class="kw2">new</span> TemplatedViolatedConstraintNameExtracter<span class="br0">(</span><span
-
+   <span class="kw2">private</span> <span class="kw2">static</span> ViolatedConstraintNameExtracter EXTRACTER = <span
+class="kw2">new</span> TemplatedViolatedConstraintNameExtracter<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> extractConstraintName<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
-
+    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> extractConstraintName<span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
 class="kw44">SQLException</span></a> sqle<span class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">try</span> <span class="br0">{</span>
-            <span class="kw3">int</span> sqlState = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a>.<span class="me1">valueOf</span><span class="br0">(</span>JDBCExceptionHelper.<span
-
-class="me1">extractSqlState</span><span class="br0">(</span>sqle<span class="br0">)</span><span
-
-class="br0">)</span>.<span class="me1">intValue</span><span class="br0">(</span><span
-
+            <span class="kw3">int</span> sqlState = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a>.<span class="me1">valueOf</span><span class="br0">(</span>JDBCExceptionHelper.<span
+class="me1">extractSqlState</span><span class="br0">(</span>sqle<span class="br0">)</span><span
+class="br0">)</span>.<span class="me1">intValue</span><span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>
-            <span class="kw1">switch</span> <span class="br0">(</span>sqlState<span
-
+            <span class="kw1">switch</span> <span class="br0">(</span>sqlState<span
 class="br0">)</span> <span class="br0">{</span>
                 <span class="kw1">case</span> <span class="nu0">23000</span>:
-                    <span class="kw2">return</span> extractUsingTemplate<span class="br0">(</span><span
-
-class="st0">"UNIQUE KEY '"</span>, <span class="st0">"'"</span>, sqle.<span class="me1">getMessage</span><span
-
+                    <span class="kw2">return</span> extractUsingTemplate<span class="br0">(</span><span
+class="st0">"UNIQUE KEY '"</span>, <span class="st0">"'"</span>, sqle.<span class="me1">getMessage</span><span
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
                 <span class="kw1">default</span>:
-                    <span class="kw2">return</span> <span class="kw4">null</span><span
-
+                    <span class="kw2">return</span> <span class="kw4">null</span><span
 class="sy0">;</span>
             <span class="br0">}</span>
-        <span class="br0">}</span> <span class="kw2">catch</span> <span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/NumberFormatException.html"><span
-
-class="kw21">NumberFormatException</span></a> nfe<span class="br0">)</span> <span
-
+        <span class="br0">}</span> <span class="kw2">catch</span> <span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/NumberFormatException.html"><span
+class="kw21">NumberFormatException</span></a> nfe<span class="br0">)</span> <span
 class="br0">{</span>
             <span class="kw2">return</span> <span class="kw4">null</span><span class="sy0">;</span>
         <span class="br0">}</span>
     <span class="br0">}</span>
     <span class="br0">}</span><span class="sy0">;</span>
 &nbsp;
-    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
-
+    @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
 class="kw21">Override</span></a>
-     <span class="kw2">public</span> ViolatedConstraintNameExtracter getViolatedConstraintNameExtracter<span
-
+     <span class="kw2">public</span> ViolatedConstraintNameExtracter getViolatedConstraintNameExtracter<span
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
      <span class="kw2">return</span> EXTRACTER<span class="sy0">;</span>
      <span class="br0">}</span>

@@ -68,7 +68,7 @@ public class OrphanageTest extends ModuleTestBase {
 		assertValue("name", "EL INTERNADO");
 		setValue("name", "THE ORPHANAGE VII");
 		execute("ProposeName.propose");
-		assertMessage("I think that THE ORPHANAGE VII is already a good name"); // TMR FALLA
+		assertMessage("I think that THE ORPHANAGE VII is already a good name"); 
 	}
 	
 	private String getCurrentDateInEnglish() {

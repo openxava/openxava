@@ -102,7 +102,6 @@ public class Labels {
 		String key = toKey(id, locale, qualified); 
 		String label = labels.get(key);
 		if (label == null) {
-			System.out.println("[Labels.get] " + id  + " no cacheada"); // tmp
 			label = getWithoutCache(id, locale, qualified);
 			if (label == null) {
 				label = null; 
@@ -111,8 +110,6 @@ public class Labels {
 				labels.put(key, label);
 			}
 		}
-		// TMR ME QUEDÉ POR AQUÍ. DEPURANDO. FALLA Subfamily que no traducie familyNumber COMO Family
-		System.out.println("[Labels.get] id=" + id + " label=" + label); // tmp
 		return label;
 	}	
 
@@ -131,9 +128,7 @@ public class Labels {
 	private static String getImpl(String id, Locale locale, boolean qualified) throws MissingResourceException, XavaException {
 		if (id == null) return "";
 		try {			
-			String result = getResource(id, locale);
-			System.out.println("[Labels.getImpl] " + id + " --> " + result); // tmp
-			return result;
+			return getResource(id, locale);
 		}
 		catch (MissingResourceException ex) {		
 			int idxDot = id.indexOf(".");
@@ -144,10 +139,7 @@ public class Labels {
 			}
 			String parent = id.substring(0, idxDot);
 			if (!qualified || idxDot > 0 && Character.isUpperCase(id.charAt(0))) {
-				System.out.println("[Labels.getImpl] id=" + id + ", get(" + id.substring(idxDot + 1) + ")"); // tmp
-				String r2 = get(id.substring(idxDot + 1), locale, qualified);
-				System.out.println("[Labels.getImpl] id=" + id + ", r2=" + r2); // tmp
-				return r2;
+				return get(id.substring(idxDot + 1), locale, qualified);
 			}
 			else {
 				String composeLabel = get(id.substring(idxDot + 1), locale, null, qualified) + " " + 
@@ -283,7 +275,7 @@ public class Labels {
 				catch (MissingResourceException ex) {
 				}			
 			}		
-			ResourceBundle rb = ResourceBundle.getBundle("i18n.Labels", locale);  
+			ResourceBundle rb = ResourceBundle.getBundle("i18n.Labels", locale);
 			return rb.getString(id);
 		}
 		catch (MissingResourceException ex) {

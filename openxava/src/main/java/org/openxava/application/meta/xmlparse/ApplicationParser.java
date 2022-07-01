@@ -118,7 +118,8 @@ public class ApplicationParser extends ParserBase {
 			metaModule.setDocURL(elModel.getAttribute(xurl[lang]));
 			String docLanguages = elModel.getAttribute(xlanguages[lang]);
 			metaModule.setDocLanguages(docLanguages);
-			log.warn(XavaResources.getString("doc_module_not_supported", metaModule.getName()));
+			log.warn("Module " + metaModule.getName() + " ignored. Doc modules are no longer supported"); // XavaResources.cannot be use at this point, thought it works produces collateral effects
+			
 		}
 	}	
 			

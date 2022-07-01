@@ -15,24 +15,19 @@ public class TabsDefaultValuesParser extends ParserBase {
 	}
 	
 	public static void setupTabs() throws XavaException {
-		System.out.println("[TabsDefaultValuesParser.setupTabs] "); // tmp
-		/* tmr
 		TabsDefaultValuesParser enParser = new TabsDefaultValuesParser("tabs-default-values.xml", ENGLISH);
 		enParser.parse();
 		
 		TabsDefaultValuesParser esParser = new TabsDefaultValuesParser("valores-defecto-tabs.xml", ESPANOL);
 		esParser.parse();
-		*/		
 	}
 	
 	private void addTabs(Element el) throws XavaException {
-		/*
 		MetaTab tab = TabParser.parseTab(el, lang);		
 		
 		addTabsForModel(tab, el);		
 		addTabsExceptForModel(tab, el);
 		addDefaultTab(tab, el);
-		*/
 	}	
 	
 

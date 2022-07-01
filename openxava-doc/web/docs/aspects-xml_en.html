@@ -6,13 +6,12 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Chapter 6: Aspects XML (classic)"></a>
-        <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Chapter 6: Aspects XML (classic) </h1>
+      <h1 id="toc0"><a name="Chapter 6: Aspects XML (classic)"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Chapter 6: Aspects XML (classic) </h1>
       <a class="wiki_link" href="introduction-xml_en.html">1.Introduction XML</a>
-      | <a class="wiki_link" href="model-xml_en.html">2.Model XML</a> | <a class="wiki_link"
-
+      | <a class="wiki_link" href="model-xml_en.html">2.Model XML</a> | <a class="wiki_link"
         href="view-xml_en.html">3.View XML</a> | <a class="wiki_link" href="tab-xml_en.html">4.Tab
         XML</a> | <a class="wiki_link" href="mapping-xml_en.html">5.Mapping XML</a>
       | <strong><span class="wiki_link">6.Aspects XML</span></strong>
@@ -32,12 +31,13 @@
         <div style="margin-left: 3em;"><a href="#Chapter%206:%20Aspects%20XML%20%28classic%29-AccessTracking:%20A%20practical%20application%20of%20aspects-Setup%20AccessTracking">Setup
             AccessTracking</a></div>
       </div>
-      
-      <h2 id="toc1"><a name="Chapter 6: Aspects XML (classic)-Introduction to AOP"></a>Introduction
+      <i>Support for XML components was dropped in v7.0</i>
+      <h2><a name="Chapter 6: Aspects XML (classic)-Introduction to AOP"></a>Introduction
         to AOP</h2>
-      AOP (Aspect Oriented Programming) introduces a new way for reusing code.
-      In fact aspects complement some shortcomings in traditional Object
-      Oriented Programming.<br>
+    </div>
+    <div class="wiki" style="display: block;"> AOP (Aspect Oriented Programming)
+      introduces a new way for reusing code. In fact aspects complement some
+      shortcomings in traditional Object Oriented Programming.<br>
       Which problems does AOP resolve? Sometime you have a functionality that is
       common to a group of classes but using inheritance is not practical (in
       Java we only have single inheritance) or not ethical (because there isn't
@@ -50,8 +50,7 @@
       project.<br>
       OpenXava adds some support for the aspects concept since version 1.2.1.The
       support for aspects in XML component is small, but if you use POJOs +
-      annotations (since version 3.0) you can use <a class="wiki_link_ext" href="http://www.eclipse.org/aspectj/"
-
+      annotations (since version 3.0) you can use <a class="wiki_link_ext" href="http://www.eclipse.org/aspectj/"
         rel="nofollow">AspectJ</a> and enjoy the full strength of aspects.<br>
       <h2 id="toc2"><a name="Chapter 6: Aspects XML (classic)-Aspects definition"></a>Aspects
         definition</h2>
@@ -81,11 +80,9 @@
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;aspects<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;aspect</span> ... <span class="re2">/&gt;</span></span> ...  <span
-
+    <span class="sc3"><span class="re1">&lt;aspect</span> ... <span class="re2">/&gt;</span></span> ...  <span
 class="sc-1">&lt;!-- 1 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;apply</span> ... <span class="re2">/&gt;</span></span> ...   <span
-
+    <span class="sc3"><span class="re1">&lt;apply</span> ... <span class="re2">/&gt;</span></span> ...   <span
 class="sc-1">&lt;!-- 2 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/aspects<span class="re2">&gt;</span></span></span></pre>
       <ol>
@@ -120,21 +117,16 @@ class="sc-1">&lt;!-- 2 --&gt;</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;aspect</span></span>
-<span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                       &lt;!-- 1 --<span
-
+<span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                       &lt;!-- 1 --<span
 class="re2">&gt;</span></span>
 &gt;
-    <span class="sc3"><span class="re1">&lt;postcreate-calculator</span> ...<span
-
+    <span class="sc3"><span class="re1">&lt;postcreate-calculator</span> ...<span
 class="re2">/&gt;</span></span> ...  <span class="sc-1">&lt;!-- 2 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;postload-calculator</span> ...<span
-
+    <span class="sc3"><span class="re1">&lt;postload-calculator</span> ...<span
 class="re2">/&gt;</span></span> ...    <span class="sc-1">&lt;!-- 3 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;postmodify-calculator</span> ...<span
-
+    <span class="sc3"><span class="re1">&lt;postmodify-calculator</span> ...<span
 class="re2">/&gt;</span></span> ...  <span class="sc-1">&lt;!-- 4 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;preremove-calculator</span> ...<span
-
+    <span class="sc3"><span class="re1">&lt;preremove-calculator</span> ...<span
 class="re2">/&gt;</span></span> ...   <span class="sc-1">&lt;!-- 5 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/aspect<span class="re2">&gt;</span></span></span></pre>
       <ol>
@@ -178,8 +170,7 @@ class="re2">/&gt;</span></span> ...   <span class="sc-1">&lt;!-- 5 --&gt;</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;apply</span></span>
-<span class="sc3">    <span class="re0">aspect</span>=<span class="st0">"aspect"</span>             &lt;!-- 1 --<span
-
+<span class="sc3">    <span class="re0">aspect</span>=<span class="st0">"aspect"</span>             &lt;!-- 1 --<span
 class="re2">&gt;</span></span>
     for-models="models"         <span class="sc-1">&lt;!-- 2 --&gt;</span>
     except-for-models="models"  <span class="sc-1">&lt;!-- 3 --&gt;</span>
@@ -221,16 +212,13 @@ class="re2">&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aspect</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aspect</span> <span
 class="re0">name</span>=<span class="st0">"MyAspect"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;postcreate-calculator</span></span>
-<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.mycompany.myapplication.calculators.MyCalculator"</span><span
-
+<span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.mycompany.myapplication.calculators.MyCalculator"</span><span
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/aspect<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;apply</span> <span class="re0">aspect</span>=<span
-
+<span class="sc3"><span class="re1">&lt;apply</span> <span class="re0">aspect</span>=<span
 class="st0">"MyAspect"</span><span class="re2">/&gt;</span></span></pre>
       Whenever a new object is created (saved in database for the first time),
       then the logic of <em>MyCalculator</em> is executed. And this for all
@@ -272,8 +260,7 @@ class="st0">"MyAspect"</span><span class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
 class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 &nbsp;
 <span class="sc0">&lt;!DOCTYPE aspects SYSTEM "dtds/aspects.dtd"&gt;</span>
@@ -282,47 +269,34 @@ class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span c
 &nbsp;
 <span class="sc3"><span class="re1">&lt;aspects<span class="re2">&gt;</span></span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;aspect</span> <span class="re0">name</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;aspect</span> <span class="re0">name</span>=<span
 class="st0">"AccessTracking"</span><span class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;postcreate-calculator</span></span>
-<span class="sc3">            <span class="re0">class</span>=<span class="st0">"org.openxava.tracking.AccessTrackingCalculator"</span><span
-
+<span class="sc3">            <span class="re0">class</span>=<span class="st0">"org.openxava.tracking.AccessTrackingCalculator"</span><span
 class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
-
-class="st0">"accessType"</span> <span class="re0">value</span>=<span class="st0">"Create"</span><span
-
+            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+class="st0">"accessType"</span> <span class="re0">value</span>=<span class="st0">"Create"</span><span
 class="re2">/&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;/postcreate-calculator<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;postload-calculator</span></span>
-<span class="sc3">            <span class="re0">class</span>=<span class="st0">"org.openxava.tracking.AccessTrackingCalculator"</span><span
-
+<span class="sc3">            <span class="re0">class</span>=<span class="st0">"org.openxava.tracking.AccessTrackingCalculator"</span><span
 class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
-
-class="st0">"accessType"</span> <span class="re0">value</span>=<span class="st0">"Read"</span><span
-
+            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+class="st0">"accessType"</span> <span class="re0">value</span>=<span class="st0">"Read"</span><span
 class="re2">/&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;/postload-calculator<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;postmodify-calculator</span></span>
-<span class="sc3">            <span class="re0">class</span>=<span class="st0">"org.openxava.tracking.AccessTrackingCalculator"</span><span
-
+<span class="sc3">            <span class="re0">class</span>=<span class="st0">"org.openxava.tracking.AccessTrackingCalculator"</span><span
 class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
-
-class="st0">"accessType"</span> <span class="re0">value</span>=<span class="st0">"Update"</span><span
-
+            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+class="st0">"accessType"</span> <span class="re0">value</span>=<span class="st0">"Update"</span><span
 class="re2">/&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;/postmodify-calculator<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;preremove-calculator</span></span>
-<span class="sc3">            <span class="re0">class</span>=<span class="st0">"org.openxava.tracking.AccessTrackingCalculator"</span><span
-
+<span class="sc3">            <span class="re0">class</span>=<span class="st0">"org.openxava.tracking.AccessTrackingCalculator"</span><span
 class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
-
-class="st0">"accessType"</span> <span class="re0">value</span>=<span class="st0">"Delete"</span><span
-
+            <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+class="st0">"accessType"</span> <span class="re0">value</span>=<span class="st0">"Delete"</span><span
 class="re2">/&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;/preremove-calculator<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/aspect<span class="re2">&gt;</span></span></span>
@@ -355,18 +329,15 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
 class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 &nbsp;
 <span class="sc0">&lt;!DOCTYPE aspects SYSTEM "dtds/aspects.dtd"&gt;</span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;aspects<span class="re2">&gt;</span></span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;apply</span> <span class="re0">aspect</span>=<span
-
-class="st0">"AccessTracking"</span> <span class="re0">for-models</span>=<span class="st0">"Warehouse, Invoice"</span><span
-
+    <span class="sc3"><span class="re1">&lt;apply</span> <span class="re0">aspect</span>=<span
+class="st0">"AccessTracking"</span> <span class="re0">for-models</span>=<span class="st0">"Warehouse, Invoice"</span><span
 class="re2">/&gt;</span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;/aspects<span class="re2">&gt;</span></span></span></pre>
@@ -424,25 +395,18 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;target</span> <span
-
-class="re0">name</span>=<span class="st0">"createEJBJars"</span><span class="re2">&gt;</span></span>    <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;target</span> <span
+class="re0">name</span>=<span class="st0">"createEJBJars"</span><span class="re2">&gt;</span></span>    <span
 class="sc-1">&lt;!-- 'createEJBJars' only if you use EJB2 CMP --&gt;</span>
     ...
-    <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
-
-class="st0">"../AccessTracking/build.xml"</span> <span class="re0">target</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
+class="st0">"../AccessTracking/build.xml"</span> <span class="re0">target</span>=<span
 class="st0">"createEJBTracker"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;target</span> <span class="re0">name</span>=<span
-
+<span class="sc3"><span class="re1">&lt;target</span> <span class="re0">name</span>=<span
 class="st0">"deployWar"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
-
-class="st0">"../AccessTracking/build.xml"</span> <span class="re0">target</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
+class="st0">"../AccessTracking/build.xml"</span> <span class="re0">target</span>=<span
 class="st0">"createTracker"</span><span class="re2">/&gt;</span></span>
     ...
 <span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span></pre>
@@ -470,16 +434,14 @@ class="st0">"createTracker"</span><span class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
 class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 &nbsp;
 <span class="sc0">&lt;!DOCTYPE aspects SYSTEM "dtds/aspects.dtd"&gt;</span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;aspects<span class="re2">&gt;</span></span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;apply</span> <span class="re0">aspect</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;apply</span> <span class="re0">aspect</span>=<span
 class="st0">"AccessTracking"</span><span class="re2">/&gt;</span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;/aspects<span class="re2">&gt;</span></span></span></pre>

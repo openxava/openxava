@@ -5,7 +5,6 @@ package org.openxava.tab.meta.xmlparse;
 
 import org.openxava.filters.meta.*;
 import org.openxava.filters.meta.xmlparse.*;
-import org.openxava.model.meta.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
 import org.openxava.util.xmlparse.*;
@@ -38,7 +37,6 @@ public class TabParser extends XmlElementsNames {
 		e.setDefaultOrder(ParserUtil.getString(el, xdefault_order[lang]));
 		e.setEditor(el.getAttribute(xeditor[lang]));
 		e.setEditors(el.getAttribute(xeditors[lang]));
-		fillProperties(el, e, lang);
 		return e;
 	}
 		
@@ -53,57 +51,7 @@ public class TabParser extends XmlElementsNames {
 		}
 		return null;		
 	}
-		
-	private static void fillProperties(Element el, MetaTab container, int lang) // tmr Posiblemente no haga falta
-		throws XavaException {
-		NodeList l = el.getChildNodes();
-		int c = l.getLength();
-		for (int i = 0; i < c; i++) {
-			if (!(l.item(i) instanceof Element)) continue;
-			Element d = (Element) l.item(i);
-			String type = d.getTagName();
-			if (type.equals(xproperty[lang])) {
-				container.addMetaProperty(createProperty(d, lang));
-			}
-		}
-	}
-	
-	private static MetaProperty createProperty(Node n, int lang) throws XavaException { // tmr Posiblemente no haga falta
-		Element el = (Element) n;
-		MetaProperty p = new MetaProperty();
-		p.setName(el.getAttribute(xname[lang]));
-		p.setLabel(el.getAttribute(xlabel[lang]));
-		p.setStereotype(el.getAttribute(xstereotype[lang]));
-		p.setTypeName(el.getAttribute(xtype[lang]));
-		p.setSize(ParserUtil.getAttributeInt(el, xsize[lang]));
-		if (!Is.emptyString(el.getAttribute(xscale[lang]))) { 
-			p.setScale(ParserUtil.getAttributeInt(el, xscale[lang]));
-		} 
-		p.setHidden(ParserUtil.getAttributeBoolean(el, xhidden[lang]));
-		p.setVersion(ParserUtil.getAttributeBoolean(el, xversion[lang]));
-		p.setSearchKey(ParserUtil.getAttributeBoolean(el, xsearch_key[lang]));
-		boolean key = ParserUtil.getAttributeBoolean(el, xkey[lang]);
-		if (key) p.setKey(key);
-		Element elValidValues = ParserUtil.getElement(el, xvalid_values[lang]);
-		if (elValidValues != null) {
-			NodeList l = elValidValues.getElementsByTagName(xvalid_value[lang]);
-			int c = l.getLength();
-			for (int i = 0; i < c; i++) {
-				Element validValue = (Element) l.item(i);
-				p.addValidValue(validValue.getAttribute(xvalue[lang]));
-			}
-		}
-		if (Is.emptyString(el.getAttribute(xrequired[lang]))) {
-			// Calculating a valid default value for required
-			p.setRequired(p.isKey() && (!(p.hasCalculatorDefaultValueOnCreate() || p.isHidden())));
-		}
-		else {
-			p.setRequired(ParserUtil.getAttributeBoolean(el, xrequired[lang]));
-		}
-		p.setCalculation(ParserUtil.getString(el, xcalculation[lang]));
-		return p;
-	}
-	
+			
 	private static void fillRowStyles(Element el, MetaTab container, int lang)
 		throws XavaException {
 		NodeList l = el.getChildNodes();

@@ -44,7 +44,7 @@ public class ArtistTest extends ModuleTestBase {
 		assertExists("age");
 		setValue("name", "CHARLOT");				
 		assertDialog();
-		assertDialogTitle("Are you sure to change the name?"); // TMR FALLA
+		assertDialogTitle("Are you sure to change the name?");
 		assertValue("name", "CHARLOT");
 		assertNotExists("age");		
 	}

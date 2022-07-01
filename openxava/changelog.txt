@@ -1,8 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Removed XML components support including all related code.
 - IPropertyCodeGenerator interface removed.
-
 - Documentation modules are no longer supported, now they are just ignored.
 - Dropped support for Liferay, WebSphere Portal, JetSpeed, portals and portlets.
 - IPadStyle removed, it was not enabled by default since v5.0.
